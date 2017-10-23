@@ -1,5 +1,5 @@
+# -*- encoding : utf-8 -*-
 # Be sure to restart your server when you modify this file.
-
 Rails.application.configure do
 
   # Version of your assets, change this if you want to expire all your assets.
@@ -10,6 +10,9 @@ Rails.application.configure do
 
   # Change the path that assets are served from
   # config.assets.prefix = "/assets"
+
+  # Add additional assets to the asset load path
+  # Rails.application.config.assets.paths << Emoji.images_path
 
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
@@ -29,11 +32,7 @@ Rails.application.configure do
                                'select-authorities.js',
                                'new-request.js',
                                'time_series.js',
-                               'fonts.css',
-                               'print.css',
                                'admin.css',
-                               'ie6.css',
-                               'ie7.css',
                                'bootstrap-dropdown.js',
                                'widget.css',
                                'request-attachments.js',

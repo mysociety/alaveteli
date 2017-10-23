@@ -41,7 +41,8 @@ class AdminIncomingMessageController < AdminController
       redirect_to(admin_request_url(params[:request_id]))
     end
 
-    @incoming_messages = IncomingMessage.where(:id => params[:ids].split(","))
+    @incoming_messages = IncomingMessage.
+                           where(:id => params[:ids].split(",").flatten)
     if params[:commit] == "Yes"
       errors = []
       info_request = InfoRequest.find(params[:request_id])
@@ -94,7 +95,10 @@ class AdminIncomingMessageController < AdminController
 
         raw_email_data = @incoming_message.raw_email.data
         mail = MailHandler.mail_from_raw_email(raw_email_data)
-        destination_request.receive(mail, raw_email_data, true)
+        destination_request.
+          receive(mail,
+                  raw_email_data,
+                  { :override_stop_new_responses => true })
 
         @incoming_message.info_request.log_event("redeliver_incoming", {
                                                   :editor => admin_current_user,

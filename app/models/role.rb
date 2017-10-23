@@ -14,7 +14,9 @@
 class Role < ActiveRecord::Base
   extend AlaveteliFeatures::Helpers
 
-  has_and_belongs_to_many :users, :join_table => :users_roles
+  has_and_belongs_to_many :users,
+                          :join_table => :users_roles,
+                          :inverse_of => :roles
 
   belongs_to :resource,
              :polymorphic => true
@@ -26,7 +28,7 @@ class Role < ActiveRecord::Base
   scopify
 
 
-  ROLES = ['admin', 'notifications_tester'].freeze
+  ROLES = ['admin'].freeze
   PRO_ROLES = ['pro', 'pro_admin'].freeze
 
   def self.allowed_roles
@@ -53,8 +55,8 @@ class Role < ActiveRecord::Base
   # Returns an Array
   def self.grants_and_revokes(role)
     grants_and_revokes = {
-      :admin => [:admin, :notifications_tester],
-      :pro_admin => [:pro, :admin, :pro_admin, :notifications_tester]
+      :admin => [:admin],
+      :pro_admin => [:pro, :admin, :pro_admin]
     }
     grants_and_revokes[role] || []
   end

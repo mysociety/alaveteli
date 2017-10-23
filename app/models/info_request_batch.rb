@@ -17,9 +17,18 @@
 class InfoRequestBatch < ActiveRecord::Base
   include AlaveteliPro::RequestSummaries
 
-  has_many :info_requests
-  belongs_to :user, :counter_cache => true
-  has_and_belongs_to_many :public_bodies, -> { reorder('public_bodies.name asc') }
+  has_many :info_requests,
+           :inverse_of => :info_request_batch
+  belongs_to :user,
+             :inverse_of => :info_request_batches,
+             :counter_cache => true
+
+  has_and_belongs_to_many :public_bodies, -> {
+    AlaveteliLocalization.with_locale(AlaveteliLocalization.locale) do
+      includes(:translations).
+        reorder('public_body_translations.name asc')
+    end
+  }, :inverse_of => :info_request_batches
 
   validates_presence_of :user
   validates_presence_of :title
@@ -53,23 +62,28 @@ class InfoRequestBatch < ActiveRecord::Base
   def create_batch!
     unrequestable = []
     created = []
-    ActiveRecord::Base.transaction do
-      public_bodies.each do |public_body|
-        if public_body.is_requestable?
-          created << create_request!(public_body)
-        else
-          unrequestable << public_body
+    public_bodies.each do |public_body|
+      if public_body.is_requestable?
+        info_request = nil
+        ActiveRecord::Base.transaction do
+          info_request = create_request!(public_body)
+          created << info_request
+          # Set send_at in every loop so that if a request errors and any are
+          # already created, we won't automatically try to resend this batch
+          # and can deal with the failures manually
+          self.sent_at = Time.zone.now
+          self.save!
         end
+        send_request(info_request)
+        # Sleep between requests in production, in case we're sending a huge
+        # batch which may result in a torrent of auto-replies coming back to
+        # us and overloading the server.
+        if Rails.env.production?
+          sleep 60
+        end
+      else
+        unrequestable << public_body
       end
-      self.sent_at = Time.zone.now
-      self.save!
-    end
-    created.each do |info_request|
-      outgoing_message = info_request.outgoing_messages.first
-
-      outgoing_message.sendable?
-      mail_message = OutgoingMailer.initial_request(outgoing_message.info_request, outgoing_message).deliver
-      outgoing_message.record_email_delivery(mail_message.to_addrs.join(', '), mail_message.message_id)
     end
 
     return unrequestable
@@ -81,7 +95,7 @@ class InfoRequestBatch < ActiveRecord::Base
     info_request = InfoRequest.create_from_attributes({:title => self.title},
                                                       {:body => body},
                                                       self.user)
-    info_request.public_body_id = public_body.id
+    info_request.public_body = public_body
     info_request.info_request_batch = self
     unless self.embargo_duration.blank?
       info_request.embargo = AlaveteliPro::Embargo.create(
@@ -93,12 +107,27 @@ class InfoRequestBatch < ActiveRecord::Base
     info_request
   end
 
+  def send_request(info_request)
+    outgoing_message = info_request.outgoing_messages.first
+    outgoing_message.sendable?
+    mail_message = OutgoingMailer.initial_request(
+      outgoing_message.info_request,
+      outgoing_message
+    ).deliver_now
+    outgoing_message.record_email_delivery(
+      mail_message.to_addrs.join(', '),
+      mail_message.message_id)
+  end
+
   def self.send_batches
     where(:sent_at => nil).find_each do |info_request_batch|
       unrequestable = info_request_batch.create_batch!
-      mail_message = InfoRequestBatchMailer.batch_sent(info_request_batch,
-                                                       unrequestable,
-                                                       info_request_batch.user).deliver
+      mail_message = InfoRequestBatchMailer.
+                       batch_sent(
+                         info_request_batch,
+                         unrequestable,
+                         info_request_batch.user
+                       ).deliver_now
     end
   end
 
@@ -132,7 +161,7 @@ class InfoRequestBatch < ActiveRecord::Base
   #
   # Returns unique array of symbols representing phases from InfoRequest::State
   def request_phases
-    phases = info_requests.collect do |ir|
+    phases = info_requests(true).collect do |ir|
       if ir.last_event_forming_initial_request_id.nil?
         :awaiting_response
       else

@@ -60,7 +60,7 @@ class AdminPublicBodyCategoriesController < AdminController
             # remove the link objects
             deleted_links = PublicBodyCategoryLink.where(
               :public_body_category_id => @public_body_category.id,
-              :public_body_heading_id => [removed_headings]
+              :public_body_heading_id => [removed_headings].flatten
             )
             deleted_links.delete_all
 

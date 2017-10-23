@@ -4,11 +4,11 @@
   <%= link_to _('Home page of authority'), public_body.calculated_home_page %><br>
 <% end %>
 
-<% if !public_body.publication_scheme.empty? %>
+<% if !public_body.publication_scheme.blank? %>
   <%= link_to _('Publication scheme'), public_body.publication_scheme %><br>
 <% end %>
 
-<% unless public_body.disclosure_log.empty? %>
+<% unless public_body.disclosure_log.blank? %>
   <%= link_to _('Disclosure log'), public_body.disclosure_log %><br>
 <% end %>
 

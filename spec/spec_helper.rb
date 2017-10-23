@@ -83,6 +83,10 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = true
+  # https://github.com/grosser/test_after_commit allows us to test
+  # after_commit hooks properly, but we only want to use it where we know it's
+  # necessary.
+  TestAfterCommit.enabled = false
 
   # If true, the base class of anonymous controllers will be inferred
   # automatically. This will be the default behavior in future versions of
@@ -95,6 +99,14 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 
+  # Clean up raw emails directory
+  config.after(:suite) do
+    raw_email_dir = File.join(Rails.root, 'files/raw_email_test')
+    if File.directory?(raw_email_dir)
+      FileUtils.rm_rf(raw_email_dir)
+    end
+  end
+
   # This is a workaround for a strange thing where ActionMailer::Base.deliveries isn't being
   # cleared out correctly in controller specs. So, do it here for everything.
   config.before(:each) do
@@ -106,6 +118,22 @@ RSpec.configure do |config|
   config.before(:each) do |example|
     if [:request].include? example.metadata[:type]
       Rails.application.config.action_dispatch.show_exceptions = true
+    end
+  end
+
+  config.before(:suite) do
+    if ENV['ALAVETELI_USE_OINK']
+      oink_log = Rails.root + 'log/oink.log'
+      if File.exist?(oink_log)
+        File.write(oink_log, '')
+      end
+    end
+  end
+
+  config.after(:suite) do
+    if ENV['ALAVETELI_USE_OINK']
+      puts ""
+      puts `oink --threshold=0 --format verbose log/oink.log`
     end
   end
 

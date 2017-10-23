@@ -28,6 +28,10 @@ Rails.application.configure do
   # number of complex assets.
   config.assets.debug = ENV.key?('ASSETS_DEBUG') || false
 
+  # Asset digests allow you to set far-future HTTP expiration dates on all assets,
+  # yet still be able to expire them through the digest params.
+  config.assets.digest = true
+
   # Adds additional error checking when serving assets at runtime.
   # Checks for improperly declared sprockets dependencies.
   # Raises helpful error messages.
@@ -43,6 +47,9 @@ Rails.application.configure do
   else
     config.action_mailer.delivery_method = :sendmail
   end
+
+  # Allow any IP address in the range 10.10.10.x to access the web console
+  config.web_console.whitelisted_ips = '10.10.10.0/16'
 
   # Writes useful log files to debug memory leaks, of the sort where have
   # unintentionally kept references to objects, especially strings.

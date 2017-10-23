@@ -24,9 +24,6 @@ module Alaveteli
     # config.i18n.default_locale = :de
     I18n.config.enforce_available_locales = true
 
-    # Allow some extra tags to be whitelisted in the 'sanitize' helper method
-    config.action_view.sanitized_allowed_tags = 'html', 'head', 'body', 'table', 'tr', 'td', 'style'
-
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
@@ -55,6 +52,9 @@ module Alaveteli
       app.routes.append { match '*path', :to => 'general#not_found', :via => [:get, :post] }
     end
 
+    # Do not swallow errors in after_commit/after_rollback callbacks.
+    config.active_record.raise_in_transactional_callbacks = true
+
     config.autoload_paths << "#{Rails.root.to_s}/app/controllers/concerns"
     config.autoload_paths << "#{Rails.root.to_s}/app/models/concerns"
     config.autoload_paths << "#{Rails.root.to_s}/lib/mail_handler"
@@ -68,10 +68,6 @@ module Alaveteli
     # Insert a bit of middleware code to prevent uneeded cookie setting.
     require "#{Rails.root}/lib/strip_empty_sessions"
     config.middleware.insert_before ::ActionDispatch::Cookies, StripEmptySessions, :key => '_wdtk_cookie_session', :path => "/", :httponly => true
-
-    # Set the cookie serializer to :hybrid to migrate the old format Marshalled
-    # cookies to the new, more secure, JSON format
-    config.action_dispatch.cookies_serializer = :hybrid
 
     # Strip non-UTF-8 request parameters
     config.middleware.insert 0, Rack::UTF8Sanitizer

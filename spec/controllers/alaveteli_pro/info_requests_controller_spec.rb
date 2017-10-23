@@ -5,10 +5,22 @@ describe AlaveteliPro::InfoRequestsController do
   let(:pro_user) { FactoryGirl.create(:pro_user) }
 
   describe "GET #index" do
-    let!(:info_request){ FactoryGirl.create(:info_request, :user => pro_user) }
-    let!(:foo_request){ FactoryGirl.create(:info_request,
-                                           :user => pro_user,
-                                           :title => 'Foo foo') }
+    let!(:info_request) do
+      request = nil
+      TestAfterCommit.with_commits(true) do
+        request = FactoryGirl.create(:info_request, :user => pro_user)
+      end
+      request
+    end
+
+    let!(:foo_request) do
+      request = nil
+      TestAfterCommit.with_commits(true) do
+        request = FactoryGirl.create(:info_request, :user => pro_user,
+                                                    :title => 'Foo foo')
+      end
+      request
+    end
 
     before do
       session[:user_id] = info_request.user.id
@@ -57,6 +69,22 @@ describe AlaveteliPro::InfoRequestsController do
           post :preview, draft_id: draft
           expect(assigns[:info_request].errors[:outgoing_messages]).to be_empty
           expect(assigns[:outgoing_message].errors).not_to be_empty
+        end
+      end
+    end
+
+    context "when the public body is not requestable" do
+      let(:public_body) { FactoryGirl.create(:defunct_public_body) }
+      let(:draft) do
+        FactoryGirl.create(:draft_info_request, public_body: public_body,
+                                                user: pro_user)
+      end
+
+      it "renders a message to tell the user" do
+        session[:user_id] = pro_user.id
+        with_feature_enabled(:alaveteli_pro) do
+          post :preview, draft_id: draft
+          expect(response).to render_template('request/new_defunct.html.erb')
         end
       end
     end

@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20170301171406
 #
 # Table name: users
 #
@@ -14,7 +13,6 @@
 #  email_confirmed                   :boolean          default(FALSE), not null
 #  url_name                          :text             not null
 #  last_daily_track_email            :datetime         default(2000-01-01 00:00:00 UTC)
-#  admin_level                       :string(255)      default("none"), not null
 #  ban_text                          :text             default(""), not null
 #  about_me                          :text             default(""), not null
 #  locale                            :string(255)
@@ -33,11 +31,14 @@
 #  request_classifications_count     :integer          default(0), not null
 #  public_body_change_requests_count :integer          default(0), not null
 #  info_request_batches_count        :integer          default(0), not null
+#  daily_summary_hour                :integer
+#  daily_summary_minute              :integer
 #
 
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
+  include AlaveteliFeatures::Helpers
   rolify
   strip_attributes :allow_empty => true
 
@@ -46,50 +47,72 @@ class User < ActiveRecord::Base
 
   has_many :info_requests,
            -> { order('created_at desc') },
+           :inverse_of => :user,
            :dependent => :destroy
   has_many :info_request_events,
            -> { reorder('created_at desc') },
            :through => :info_requests
   has_many :embargoes,
+           :inverse_of => :user,
            :through => :info_requests
   has_many :draft_info_requests,
            -> { order('created_at desc') },
+           :inverse_of => :user,
            :dependent => :destroy
   has_many :user_info_request_sent_alerts,
+           :inverse_of => :user,
            :dependent => :destroy
   has_many :post_redirects,
            -> { order('created_at desc') },
+           :inverse_of => :user,
            :dependent => :destroy
   has_many :track_things,
            -> { order('created_at desc') },
+           :inverse_of => :tracking_user,
            :foreign_key => 'tracking_user_id',
            :dependent => :destroy
   has_many :comments,
            -> { order('created_at desc') },
+           :inverse_of => :user,
            :dependent => :destroy
   has_many :public_body_change_requests,
            -> { order('created_at desc') },
+           :inverse_of => :user,
            :dependent => :destroy
   has_one :profile_photo,
+          :inverse_of => :user,
           :dependent => :destroy
   has_many :censor_rules,
            -> { order('created_at desc') },
+           :inverse_of => :user,
            :dependent => :destroy
   has_many :info_request_batches,
            -> { order('created_at desc') },
+           :inverse_of => :user,
            :dependent => :destroy
   has_many :draft_info_request_batches,
            -> { order('created_at desc') },
+           :inverse_of => :user,
            :dependent => :destroy,
            :class_name => AlaveteliPro::DraftInfoRequestBatch
   has_many :request_classifications,
+           :inverse_of => :user,
            :dependent => :destroy
   has_one :pro_account,
+          :inverse_of => :user,
           :dependent => :destroy
   has_many :request_summaries,
+           :inverse_of => :user,
            :dependent => :destroy,
            :class_name => AlaveteliPro::RequestSummary
-
+  has_many :notifications,
+           :inverse_of => :user,
+           :dependent => :destroy
+  has_many :track_things_sent_emails,
+           :inverse_of => :user,
+           :dependent => :destroy
+  has_many :track_things_sent_emails,
+           :dependent => :destroy
 
   scope :not_banned, -> { where(ban_text: "") }
 
@@ -97,10 +120,6 @@ class User < ActiveRecord::Base
   validates_presence_of :name, :message => _("Please enter your name")
   validates_presence_of :hashed_password, :message => _("Please enter a password")
   validates_confirmation_of :password, :message => _("Please enter the same password twice")
-  validates_inclusion_of :admin_level, :in => [
-    'none',
-    'super',
-  ], :message => N_('Admin level is not included in list')
 
   validates_length_of :about_me,
     :maximum => 500,
@@ -334,11 +353,11 @@ class User < ActiveRecord::Base
   end
 
   def name
-    name = read_attribute(:name)
+    _name = read_attribute(:name)
     if banned?
-      name = _("{{user_name}} (Account suspended)", :user_name => name)
+      _name = _("{{user_name}} (Account suspended)", :user_name => _name)
     end
-    name
+    _name
   end
 
   # When name is changed, also change the url name
@@ -422,13 +441,6 @@ class User < ActiveRecord::Base
   # Does the user magically gain powers as if they owned every request?
   # e.g. Can classify it
   def owns_every_request?
-    is_admin?
-  end
-
-  # Does this user have extraordinary powers?
-  def super?
-    warn %q([DEPRECATION] User#super? will be removed in 0.30.
-          It has been replaced by User#is_admin?).squish
     is_admin?
   end
 
@@ -593,6 +605,48 @@ class User < ActiveRecord::Base
     end
   end
 
+  # Notify a user about an info_request_event, allowing the user's preferences
+  # to determine how that notification is delivered.
+  def notify(info_request_event)
+    Notification.create(
+      info_request_event: info_request_event,
+      frequency: Notification.frequencies[self.notification_frequency],
+      user: self
+    )
+  end
+
+  # Return a timestamp for the next time a user should be sent a daily summary
+  def next_daily_summary_time
+    summary_time = Time.zone.now.change(self.daily_summary_time)
+    summary_time += 1.day if summary_time < Time.zone.now
+    summary_time
+  end
+
+  def daily_summary_time
+    {
+      hour: self.daily_summary_hour,
+      min: self.daily_summary_minute
+    }
+  end
+
+  # With what frequency does the user want to be notified?
+  def notification_frequency
+    if feature_enabled? :notifications, self
+      Notification::DAILY
+    else
+      Notification::INSTANTLY
+    end
+  end
+
+  # Define an id number for use with the Flipper gem's user-by-user feature
+  # flagging. We prefix with the class because features can be enabled for
+  # other types of objects (e.g Roles) in the same way and will be stored in
+  # the same table. See:
+  # https://github.com/jnunemaker/flipper/blob/master/docs/Gates.md
+  def flipper_id
+    return "User;#{id}"
+  end
+
   private
 
   def create_new_salt
@@ -600,13 +654,17 @@ class User < ActiveRecord::Base
   end
 
   def set_defaults
-    if admin_level.nil?
-      self.admin_level = 'none'
-    end
     if new_record?
       # make alert emails go out at a random time for each new user, so
       # overall they are spread out throughout the day.
       self.last_daily_track_email = User.random_time_in_last_day
+      # Make daily summary emails go out at a random time for each new user
+      # too, if it's not already set
+      if self.daily_summary_hour.nil? && self.daily_summary_minute.nil?
+        random_time = User.random_time_in_last_day
+        self.daily_summary_hour = random_time.hour
+        self.daily_summary_minute = random_time.min
+      end
     end
   end
 

@@ -1,48 +1,20 @@
 <div id="right_column" class="sidebar right_column" role="complementary">
-  <% if @info_request.embargo %>
-  <div class="sidebar__section update-embargo">
-    <h2 class="embargo-sidebar-heading">
-      <i class="embargo-indicator embargo-indicator--small"></i>
-      <%= _("Privacy") %>
-    </h2>
-    <label class="houdini-label" for="input1"><%= _("Change privacy") %></label>
-    <input class="houdini-input" type="checkbox" id="input1">
-    <div class="houdini-target extend-embargo-sidebar">
-      <%= form_for(
-            [AlaveteliPro::EmbargoExtension.new(embargo: @info_request.embargo)],
-            html: {class: 'js-embargo-form'}) do |f| %>
-        <%= render partial: "alaveteli_pro/info_requests/embargo_info",
-                   locals: {embargo: @info_request.embargo, tense: :present} %>
-        <%= f.hidden_field :embargo_id %>
-
-        <p>
-          <label class="form_label" for="alaveteli_pro_embargo_extension_extension_duration">
-            <%= _('Keep private for a further:') %>
-          </label>
-          <%= f.select :extension_duration,
-                       options_for_select(embargo_extension_options(@info_request.embargo)),
-                       {},
-                       { class: 'js-embargo-duration' } %>
-          <input type="submit"
-                 value="<%= _("Update") %>"
-                 class="embargo__submit">
-        </p>
-      <% end %>
-      <%= button_to _("Publish request"),
-                    alaveteli_pro_embargo_path(@info_request.embargo),
-                    method: :delete,
-                    data: {
-                      confirm: _("Are you sure you want to publish this request?")
-                    } %>
-    </div>
-  </div>
+  <% if @info_request.info_request_batch_id %>
+    <%= render partial: "alaveteli_pro/info_request_batches/embargo_form",
+               locals: {
+                 info_request_batch: @info_request.info_request_batch,
+                 info_request: @info_request
+               } %>
+  <% else %>
+    <%= render partial: "alaveteli_pro/info_requests/embargo_form",
+               locals: { info_request: @info_request } %>
   <% end %>
   <% unless state_transitions_empty?(@state_transitions) %>
     <div class="sidebar__section update-status">
       <h2><%= _("Status") %></h2>
       <p class="status-picker__current-status">
-        <i class="request-status-icon request-status-icon--<%= @info_request.described_state.dasherize %>"></i>
-        <%= InfoRequest::State.short_description(@info_request.described_state) %>
+        <i class="request-status-icon request-status-icon--<%= @info_request.calculate_status(true).dasherize %>"></i>
+        <%= InfoRequest::State.short_description(@info_request.calculate_status(true)) %>
       </p>
       <label class="houdini-label" for="input2"><%= _("Change status") %></label>
       <input class="houdini-input" type="checkbox" id="input2">

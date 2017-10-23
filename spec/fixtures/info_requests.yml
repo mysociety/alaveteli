@@ -29,6 +29,7 @@
 #  date_very_overdue_after               :date
 #  last_event_forming_initial_request_id :integer
 #  use_notifications                     :boolean
+#  last_event_time                       :datetime
 #
 
 fancy_dog_request:

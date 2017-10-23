@@ -16,7 +16,7 @@
   </span>
 
   <span class="bottomline">
-    <% request_count = display_user.info_requests.size %>
+    <% request_count = display_user.info_requests.is_public.size %>
     <%= n_('{{count}} request made.',
            '{{count}} requests made.',
            request_count,

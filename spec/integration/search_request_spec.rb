@@ -51,7 +51,7 @@ describe "When searching" do
     #
     # In other words it is all requests made by Bob Smith
     # except for badger_request, which he did not sign.
-    expect(response.body).to include("FOI requests 1 to #{n} of #{n}")
+    expect(response.body).to include("FOI requests 1 to #{n} of about #{n}")
   end
   it "should correctly filter searches for users" do
     request_via_redirect("get", "/search/bob/users")
@@ -67,7 +67,7 @@ describe "When searching" do
     # in the email text. At present this is:
     # - boring_request
     # - another_boring_request
-    expect(response.body).to include("FOI requests 1 to #{n} of #{n}")
+    expect(response.body).to include("FOI requests 1 to #{n} of about #{n}")
   end
 
   it "should correctly filter searches for comments" do
@@ -111,7 +111,7 @@ describe "When searching" do
     # - boring_request
     # - external_request
     # - anonymous_external_request
-    expect(response.body).to include("FOI requests 1 to #{n} of #{n}")
+    expect(response.body).to include("FOI requests 1 to #{n} of about #{n}")
   end
 
   it 'correctly recognises feed searches' do

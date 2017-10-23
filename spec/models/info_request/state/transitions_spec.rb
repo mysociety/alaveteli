@@ -32,7 +32,7 @@ describe InfoRequest::State::Transitions do
 
       context "and is_pro_user is true" do
         it "returns the right label" do
-          expected = "Waiting for a response"
+          expected = "Awaiting response"
           actual = subject.transition_label("waiting_response", is_pro_user: true, is_owning_user: true)
           expect(actual).to eq(expected)
         end
@@ -58,7 +58,7 @@ describe InfoRequest::State::Transitions do
 
       context "and is_pro_user is true" do
         it "returns the right label" do
-          expected = "Waiting for clarification"
+          expected = "Awaiting clarification"
           actual = subject.transition_label("waiting_clarification", is_pro_user: true, is_owning_user: true)
           expect(actual).to eq(expected)
         end
@@ -84,7 +84,7 @@ describe InfoRequest::State::Transitions do
 
       context "and is_pro_user is true" do
         it "returns the right label" do
-          expected = "Replying by post"
+          expected = "Handled by post"
           actual = subject.transition_label("gone_postal", is_pro_user: true, is_owning_user: true)
           expect(actual).to eq(expected)
         end
@@ -235,7 +235,7 @@ describe InfoRequest::State::Transitions do
       context "and is_pro_user is true" do
         context "and the current_state is internal_review" do
           it "returns the right label" do
-            expected = "Waiting for an internal review"
+            expected = "Awaiting internal review"
             actual = subject.transition_label("internal_review", is_pro_user: true, is_owning_user: true, in_internal_review: true)
             expect(actual).to eq(expected)
           end
@@ -243,7 +243,7 @@ describe InfoRequest::State::Transitions do
 
         context "and the current_state is not internal_review" do
           it "returns the right label" do
-            expected = "Waiting for an internal review"
+            expected = "Awaiting internal review"
             actual = subject.transition_label("internal_review", is_pro_user: true, is_owning_user: true, in_internal_review: false)
             expect(actual).to eq(expected)
           end
@@ -270,7 +270,7 @@ describe InfoRequest::State::Transitions do
 
       context "and is_pro_user is true" do
         it "returns the right label" do
-          expected = "There's an error message"
+          expected = "Delivery error"
           actual = subject.transition_label("error_message", is_pro_user: true, is_owning_user: true)
           expect(actual).to eq(expected)
         end
@@ -296,7 +296,7 @@ describe InfoRequest::State::Transitions do
 
       context "and is_pro_user is true" do
         it "returns the right label" do
-          expected = "Requires administrator attention"
+          expected = "Requires admin attention"
           actual = subject.transition_label("requires_admin", is_pro_user: true, is_owning_user: true)
           expect(actual).to eq(expected)
         end
@@ -322,7 +322,7 @@ describe InfoRequest::State::Transitions do
 
       context "and is_pro_user is true" do
         it "returns the right label" do
-          expected = "I want to withdraw this request"
+          expected = "Withdrawn"
           actual = subject.transition_label("user_withdrawn", is_pro_user: true, is_owning_user: true)
           expect(actual).to eq(expected)
         end

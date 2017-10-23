@@ -208,7 +208,7 @@ describe PasswordChangesController do
 
       it 'redirects to new to force an email confirmation' do
         user = FactoryGirl.create(:user)
-        session[:user_id] = user
+        session[:user_id] = user.id
         get :edit
         expect(response).to redirect_to new_password_change_path
       end
@@ -255,7 +255,7 @@ describe PasswordChangesController do
 
       it 'redirects to new to force an email confirmation' do
         user = FactoryGirl.create(:user)
-        session[:user_id] = user
+        session[:user_id] = user.id
         put :update, :password_change_user => @valid_password_params
         expect(response).to redirect_to new_password_change_path
       end

@@ -4,22 +4,15 @@
 # Table name: public_bodies
 #
 #  id                                     :integer          not null, primary key
-#  name                                   :text             not null
-#  short_name                             :text             default(""), not null
-#  request_email                          :text             not null
 #  version                                :integer          not null
 #  last_edit_editor                       :string(255)      not null
-#  last_edit_comment                      :text             not null
+#  last_edit_comment                      :text
 #  created_at                             :datetime         not null
 #  updated_at                             :datetime         not null
-#  url_name                               :text             not null
-#  home_page                              :text             default(""), not null
-#  notes                                  :text             default(""), not null
-#  first_letter                           :string(255)      not null
-#  publication_scheme                     :text             default(""), not null
+#  home_page                              :text
 #  api_key                                :string(255)      not null
 #  info_requests_count                    :integer          default(0), not null
-#  disclosure_log                         :text             default(""), not null
+#  disclosure_log                         :text
 #  info_requests_successful_count         :integer
 #  info_requests_not_held_count           :integer
 #  info_requests_overdue_count            :integer
@@ -56,21 +49,57 @@ class PublicBody < ActiveRecord::Base
     ]
   end
 
-  has_many :info_requests, -> { order('created_at desc') }
-  has_many :track_things, -> { order('created_at desc') }, :dependent => :destroy
-  has_many :censor_rules, -> { order('created_at desc') }, :dependent => :destroy
+  has_many :info_requests,
+           -> { order('created_at desc') },
+           :inverse_of => :public_body
+  has_many :track_things,
+           -> { order('created_at desc') },
+           :inverse_of => :public_body,
+           :dependent => :destroy
+  has_many :censor_rules,
+           -> { order('created_at desc') },
+           :inverse_of => :public_body,
+           :dependent => :destroy
+  has_many :track_things_sent_emails,
+           -> { order('created_at DESC') },
+           :inverse_of => :public_body,
+           :dependent => :destroy
+  has_many :public_body_change_requests,
+           -> { order('created_at DESC') },
+           :inverse_of => :public_body,
+           :dependent => :destroy
+  has_many :draft_info_requests,
+           -> { order('created_at DESC') },
+           :inverse_of => :public_body
+
+  has_and_belongs_to_many :info_request_batches,
+                          :inverse_of => :public_bodies
+  has_and_belongs_to_many :draft_info_request_batches,
+                          :class_name => 'AlaveteliPro::DraftInfoRequestBatch',
+                          :inverse_of => :public_bodies
 
   validates_presence_of :name, :message => N_("Name can't be blank")
   validates_presence_of :url_name, :message => N_("URL name can't be blank")
+  validates_presence_of :last_edit_editor,
+                        :message => N_("Last edit editor can't be blank")
 
-  validates_uniqueness_of :short_name, :message => N_("Short name is already taken"), :allow_blank => true
+  validates :request_email,
+            not_nil: { message: N_("Request email can't be nil") }
+
+  validates_uniqueness_of :short_name,
+                          :message => N_("Short name is already taken"),
+                          :allow_blank => true
   validates_uniqueness_of :url_name, :message => N_("URL name is already taken")
   validates_uniqueness_of :name, :message => N_("Name is already taken")
+
+  validates :last_edit_editor,
+            length: { maximum: 255,
+                      too_long: N_("Last edit editor can't be longer than " \
+                                   "255 characters") }
 
   validate :request_email_if_requestable
 
   before_save :set_api_key!, :unless => :api_key
-  before_save :set_default_publication_scheme
   after_save :purge_in_cache
   after_update :reindex_requested_from
 
@@ -90,7 +119,10 @@ class PublicBody < ActiveRecord::Base
   ],
   :eager_load => [:translations]
   has_tag_string
-  strip_attributes :allow_empty => true
+
+  strip_attributes :allow_empty => false, :except => [:request_email]
+  strip_attributes :allow_empty => true, :only => [:request_email]
+
   translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
 
   # Cannot be grouped at top as it depends on the `translates` macro
@@ -129,6 +161,17 @@ class PublicBody < ActiveRecord::Base
   #
   # [1] http://git.io/vIetK
   class Version
+    before_save :copy_translated_attributes
+
+    def copy_translated_attributes
+      public_body.attributes.each do |name, value|
+        if public_body.translated?(name) &&
+            !public_body.non_versioned_columns.include?(name)
+          send("#{name}=", value)
+        end
+      end
+    end
+
     def last_edit_comment_for_html_display
       text = self.last_edit_comment.strip
       text = CGI.escapeHTML(text)
@@ -137,23 +180,32 @@ class PublicBody < ActiveRecord::Base
       return text
     end
 
-    def compare(previous = nil)
+    def compare(previous = nil, &block)
       if previous.nil?
-        yield([])
+        changes = []
       else
         v = self
         changes = self.class.content_columns.inject([]) {|memo, c|
-          unless %w(version last_edit_editor last_edit_comment updated_at).include?(c.name)
+          unless %w(version
+                    last_edit_editor
+                    last_edit_comment
+                    created_at
+                    updated_at).include?(c.name)
             from = previous.send(c.name)
             to = self.send(c.name)
-            memo << { :name => c.name.humanize, :from => from, :to => to } if from != to
+            memo << { :name => c.name.humanize,
+                      :from => from,
+                      :to => to } if from != to
           end
           memo
         }
+      end
+      if block_given?
         changes.each do |change|
           yield(change)
         end
       end
+      changes
     end
   end
 
@@ -189,6 +241,14 @@ class PublicBody < ActiveRecord::Base
 
   def set_api_key!
     self.api_key = SecureRandom.base64(33)
+  end
+
+  def self.find_by_name(name)
+    find_by(name: name)
+  end
+
+  def self.find_by_url_name(url_name)
+    find_by(url_name: url_name)
   end
 
   # like find_by_url_name but also search historic url_name if none found
@@ -295,23 +355,34 @@ class PublicBody < ActiveRecord::Base
 
   # The "internal admin" is a special body for internal use.
   def self.internal_admin_body
-    # Use find_by_sql to avoid the search being specific to a
-    # locale, since url_name is a translated field:
-    sql = "SELECT * FROM public_bodies WHERE url_name = 'internal_admin_authority'"
-    matching_pbs = PublicBody.find_by_sql sql
+    matching_pbs = PublicBody.where(:url_name => 'internal_admin_authority')
     case
     when matching_pbs.empty? then
-      AlaveteliLocalization.with_locale(AlaveteliLocalization.default_locale) do
-        PublicBody.
-          create!(:name => 'Internal admin authority',
-                  :short_name => "",
-                  :request_email => AlaveteliConfiguration::contact_email,
-                  :home_page => "",
-                  :notes => "",
-                  :publication_scheme => "",
-                  :last_edit_editor => "internal_admin",
-                  :last_edit_comment =>
-                    "Made by PublicBody.internal_admin_body")
+      # "internal admin" exists but has the wrong default locale - fix & return
+      if invalid_locale = PublicBody::Translation.
+                            find_by_url_name('internal_admin_authority')
+        found_pb = PublicBody.find(invalid_locale.public_body_id)
+        AlaveteliLocalization.
+          with_locale(AlaveteliLocalization.default_locale) do
+          found_pb.name = "Internal admin authority"
+          found_pb.request_email = AlaveteliConfiguration.contact_email
+          found_pb.save!
+        end
+        found_pb
+      else
+        AlaveteliLocalization.
+          with_locale(AlaveteliLocalization.default_locale) do
+          PublicBody.
+            create!(:name => 'Internal admin authority',
+                    :short_name => "",
+                    :request_email => AlaveteliConfiguration.contact_email,
+                    :home_page => nil,
+                    :notes => nil,
+                    :publication_scheme => nil,
+                    :last_edit_editor => "internal_admin",
+                    :last_edit_comment =>
+                      "Made by PublicBody.internal_admin_body")
+        end
       end
     when matching_pbs.length == 1 then
       matching_pbs[0]
@@ -534,15 +605,6 @@ class PublicBody < ActiveRecord::Base
     $1.nil? ? nil : $1.downcase
   end
 
-  # TODO: Could this be defined as `sorted_versions.reverse`?
-  def reverse_sorted_versions
-    versions.sort { |a,b| b.version <=> a.version }
-  end
-
-  def sorted_versions
-    versions.sort { |a,b| a.version <=> b.version }
-  end
-
   def has_notes?
     !notes.nil? && notes != ""
   end
@@ -573,8 +635,8 @@ class PublicBody < ActiveRecord::Base
       # information
       # :version, :last_edit_editor, :last_edit_comment
       :home_page => calculated_home_page,
-      :notes => notes,
-      :publication_scheme => publication_scheme,
+      :notes => notes.to_s,
+      :publication_scheme => publication_scheme.to_s,
       :tags => tag_array,
       :info => {
         :requests_count => info_requests_count,
@@ -694,7 +756,7 @@ class PublicBody < ActiveRecord::Base
                         joins(:translations)
       else
         bodies = where("public_body_translations.locale = ?
-                        AND public_bodies.url_name in (?)",
+                        AND public_body_translations.url_name in (?)",
                         underscore_locale, body_short_names).
                   joins(:translations)
       end
@@ -703,15 +765,6 @@ class PublicBody < ActiveRecord::Base
   end
 
   private
-
-  # TODO: This could be removed by updating the default value (to '') of the
-  # `publication_scheme` column in the `public_body_translations` table.
-  def set_default_publication_scheme
-    # Make sure publication_scheme gets the correct default value.
-    # (This would work automatically, were publication_scheme not a
-    # translated attribute)
-    self.publication_scheme = "" if publication_scheme.nil?
-  end
 
   # if the URL name has changed, then all requested_from: queries
   # will break unless we update index for every event for every

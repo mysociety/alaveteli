@@ -25,8 +25,10 @@ class AdminRawEmailController < AdminController
             []
           else
             PublicBody.
-              where("lower(request_email) like lower('%'||?||'%')", domain).
-                order('name')
+              with_translations(AlaveteliLocalization.locale).
+                where("lower(public_body_translations.request_email) " \
+                      "like lower('%'||?||'%')", domain).
+                  order('public_body_translations.name')
           end
 
           # 2. Match the email address in the message without matching the hash

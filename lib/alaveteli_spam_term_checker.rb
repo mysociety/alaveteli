@@ -47,7 +47,8 @@ class AlaveteliSpamTermChecker
     /brazzers/i,
     /brazzer/i,
     /gardenscapes\snew\sacres/i,
-    /les\ssimpson\sspringfield\shack/i
+    /les\ssimpson\sspringfield\shack/i,
+    /bitbon/i
   ].freeze
 
   def self.default_spam_terms

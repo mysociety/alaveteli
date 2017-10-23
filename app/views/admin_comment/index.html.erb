@@ -14,7 +14,8 @@
         <span class="comment-labels">
           <%= comment_labels(comment) %>
         </span>
-        <%= link_to("#{ h(truncate(comment.body)) }", edit_admin_comment_path(comment))%>
+        <%= link_to "#{ h(truncate(comment.body, :length => 100)) }",
+                    edit_admin_comment_path(comment) %>
       </span>
       <span class="item-metadata">
         created <%=I18n.l(comment.created_at, :format => "%e %B %Y %H:%M:%S")%>

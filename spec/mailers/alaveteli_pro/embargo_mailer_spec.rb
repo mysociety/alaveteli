@@ -101,61 +101,54 @@ describe AlaveteliPro::EmbargoMailer do
   describe '#expiring_alert' do
     context "when there's just one embargo" do
       before do
-        AlaveteliPro::EmbargoMailer.expiring_alert(pro_user, [expiring_1])
-        @mail = ActionMailer::Base.deliveries[0]
+        @message = AlaveteliPro::EmbargoMailer.
+                    expiring_alert(pro_user, [expiring_1]).
+                      message
       end
 
       it 'sets the subject correctly for a single embargo' do
         expected_subject = '1 request will be made public on Alaveteli this week'
-        expect(@mail.subject).to eq expected_subject
-      end
-
-      it "prints the message correctly" do
-        expected_body = "The following request will be made public on Alaveteli in the " \
-                        "next week. If you do not wish this request to go public at that " \
-                        "time, please click on the link below to keep it private for longer.\n\n" \
-                        "  #{request_url(expiring_1)}\n\n" \
-                        "-- the #{AlaveteliConfiguration.site_name} team\n"
-        expect(@mail.body).to eq expected_body
+        expect(@message.subject).to eq expected_subject
       end
 
       it "sends the email to the user" do
-        expect(@mail.to).to eq [pro_user.email]
+        expect(@message.to).to eq [pro_user.email]
       end
 
       it "sends the email from the pro contact address" do
-        expect(@mail.from).to eq [AlaveteliConfiguration.pro_contact_email]
+        expect(@message.from).to eq [AlaveteliConfiguration.pro_contact_email]
       end
     end
 
     context "when there are multiple embargoes" do
       before do
-        AlaveteliPro::EmbargoMailer.expiring_alert(pro_user, [expiring_1, expiring_2])
-        @mail = ActionMailer::Base.deliveries[0]
+        @message = AlaveteliPro::EmbargoMailer.
+                     expiring_alert(pro_user, [expiring_1, expiring_2]).
+                       message
       end
 
       it 'sets the subject correctly' do
         expected_subject = '2 requests will be made public on Alaveteli this week'
-        expect(@mail.subject).to eq expected_subject
-      end
-
-      it "prints the message correctly" do
-        expected_body = "The following requests will be made public on Alaveteli in the " \
-                        "next week. If you do not wish for any of these requests to go " \
-                        "public, please click on the links below to extend them.\n\n" \
-                        "  #{request_url(expiring_1)}\n" \
-                        "  #{request_url(expiring_2)}\n\n" \
-                        "-- the #{AlaveteliConfiguration.site_name} team\n"
-        expect(@mail.body).to eq expected_body
+        expect(@message.subject).to eq expected_subject
       end
 
       it "sends the email to the user" do
-        expect(@mail.to).to eq [pro_user.email]
+        expect(@message.to).to eq [pro_user.email]
       end
 
       it "sends the email from the pro contact address" do
-        expect(@mail.from).to eq [AlaveteliConfiguration.pro_contact_email]
+        expect(@message.from).to eq [AlaveteliConfiguration.pro_contact_email]
       end
+    end
+
+    it "Doesn't escape characters in the site name in the subject line" do
+      allow(AlaveteliConfiguration).
+        to receive(:site_name).and_return("Something & something")
+      @message = AlaveteliPro::EmbargoMailer.
+        expiring_alert(pro_user, [expiring_1])
+      escaped_subject = "1 request will be made public on Something &amp; " \
+                        "something this week"
+      expect(@message.subject).not_to eq escaped_subject
     end
   end
 end

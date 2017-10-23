@@ -236,4 +236,52 @@ module InfoRequestHelper
        user: user_link_for_request(info_request))
   end
 
+  def attachment_link(incoming_message, attachment)
+    img_filename = "icon_#{attachment.content_type.sub('/', '_')}_large.png"
+    full_filename = File.expand_path(Rails.root.join('app',
+                                                     'assets',
+                                                     'images',
+                                                     'content_type',
+                                                     img_filename))
+    image = if File.exist?(full_filename)
+      "content_type/#{ img_filename }"
+    else
+      "content_type/icon_unknown.png"
+    end
+
+    link_to image_tag(image, :class => "attachment__image",
+                             :alt => "Attachment"),
+            attachment_path(incoming_message, attachment)
+  end
+
+  def attachment_path(incoming_message, attachment, options = {})
+    attach_params = attachment_params(incoming_message, attachment, options)
+    if options[:html]
+      get_attachment_as_html_path(attach_params)
+    else
+      get_attachment_path(attach_params)
+    end
+  end
+
+  private
+
+  def attachment_params(incoming_message, attachment, options = {})
+    attach_params = {
+      :id => incoming_message.info_request_id,
+      :incoming_message_id => incoming_message.id,
+      :part => attachment.url_part_number,
+      :file_name => attachment.display_filename
+    }
+    if options[:html]
+      attach_params[:file_name] = "#{attachment.display_filename}.html"
+    else
+      attach_params[:file_name] = attachment.display_filename
+      # This could be a filetype we normally strip cookies for
+      # in varnish, so add a param to skip that
+      attach_params[:cookie_passthrough] = 1
+    end
+
+    attach_params
+  end
+
 end

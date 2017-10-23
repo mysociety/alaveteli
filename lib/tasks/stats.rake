@@ -262,6 +262,12 @@ namespace :stats do
     InfoRequest.log_very_overdue_events
   end
 
+  desc 'Add InfoRequestEvents for the points when requests embargoes began to
+        expire'
+  task :update_expiring_embargo_info_request_events => :environment do
+    AlaveteliPro::Embargo.log_expiring_events
+  end
+
   desc 'Print a list of the admin URLs of requests with hidden material'
   task :list_hidden => :environment do
     include Rails.application.routes.url_helpers

@@ -22,6 +22,42 @@ namespace :config_files do
     converted_lines
   end
 
+  def daemons(only_active = false)
+    daemons = [ 'alert-tracks', 'send-notifications' ]
+    if AlaveteliConfiguration.production_mailer_retriever_method == 'pop' ||
+      !only_active
+      daemons << 'poll-for-incoming'
+    end
+    if AlaveteliConfiguration.varnish_host.present? ||
+      !only_active
+      daemons << 'purge-varnish'
+    end
+    daemons
+  end
+
+  desc 'Return list of daemons to install based on the settings defined
+        in general.yml'
+  task :active_daemons => :environment do
+    puts daemons(true)
+  end
+
+  desc 'Return list of all daemons the application defines'
+  task :all_daemons => :environment do
+    puts daemons
+  end
+
+  desc 'Return the value of a config param'
+  task :get_config_value => :environment do
+    example = 'rake config_files:get_config_value ' \
+              'KEY=PRODUCTION_MAILER_RETRIEVER_METHOD'
+    check_for_env_vars(['KEY'], example)
+    key = ENV['KEY']
+    if AlaveteliConfiguration::DEFAULTS.key?(key.to_sym)
+      puts MySociety::Config.
+        get(key, AlaveteliConfiguration::DEFAULTS[key.to_sym])
+    end
+  end
+
   desc 'Convert wrapper example in config to a form suitable for running mail handling scripts with rbenv'
   task :convert_wrapper => :environment do
     example = 'rake config_files:convert_wrapper DEPLOY_USER=deploy SCRIPT_FILE=config/run-with-rbenv-path.example'
@@ -40,7 +76,13 @@ namespace :config_files do
 
   desc 'Convert Debian example init script in config to a form suitable for installing in /etc/init.d'
   task :convert_init_script => :environment do
-    example = 'rake config_files:convert_init_script DEPLOY_USER=deploy VHOST_DIR=/dir/above/alaveteli VCSPATH=alaveteli SITE=alaveteli SCRIPT_FILE=config/alert-tracks-debian.example'
+    example = 'rake config_files:convert_init_script ' \
+              'DEPLOY_USER=deploy ' \
+              'VHOST_DIR=/dir/above/alaveteli ' \
+              'VCSPATH=alaveteli ' \
+              'SITE=alaveteli ' \
+              'SCRIPT_FILE=config/alert-tracks-debian.example ' \
+              'RUBY_VERSION=1.9.1 '
     check_for_env_vars(['DEPLOY_USER',
                         'VHOST_DIR',
                         'SCRIPT_FILE'], example)
@@ -51,7 +93,8 @@ namespace :config_files do
       :vcspath => ENV.fetch('VCSPATH') { 'alaveteli' },
       :site => ENV.fetch('SITE') { 'foi' },
       :cpus => ENV.fetch('CPUS') { '1' },
-      :rails_env => ENV.fetch('RAILS_ENV') { 'development' }
+      :rails_env => ENV.fetch('RAILS_ENV') { 'development' },
+      :ruby_version => ENV.fetch('RUBY_VERSION') { '' }
     }
 
     # Use the filename for the $daemon_name ugly variable
@@ -77,7 +120,12 @@ namespace :config_files do
 
   desc 'Convert Debian example crontab file in config to a form suitable for installing in /etc/cron.d'
   task :convert_crontab => :environment do
-    example = 'rake config_files:convert_crontab DEPLOY_USER=deploy VHOST_DIR=/dir/above/alaveteli VCSPATH=alaveteli SITE=alaveteli CRONTAB=config/crontab-example MAILTO=cron-alaveteli@example.org'
+    example = 'rake config_files:convert_crontab ' \
+              'DEPLOY_USER=deploy ' \
+              'VHOST_DIR=/dir/above/alaveteli VCSPATH=alaveteli ' \
+              'SITE=alaveteli CRONTAB=config/crontab-example ' \
+              'MAILTO=cron-alaveteli@example.org ' \
+              'RUBY_VERSION=1.9.1 '
     check_for_env_vars(['DEPLOY_USER',
                         'VHOST_DIR',
                         'VCSPATH',
@@ -88,9 +136,22 @@ namespace :config_files do
       :vhost_dir => ENV['VHOST_DIR'],
       :vcspath => ENV['VCSPATH'],
       :site => ENV['SITE'],
-      :mailto => ENV.fetch('MAILTO') { "cron-#{ ENV['SITE'] }@mysociety.org" }
+      :mailto => ENV.fetch('MAILTO') { "#{ ENV['DEPLOY_USER'] }@localhost" },
+      :ruby_version => ENV.fetch('RUBY_VERSION') { '' }
     }
+
+    lines = []
     convert_ugly(ENV['CRONTAB'], replacements).each do |line|
+      lines << line
+    end
+
+    # Add daemon check lines
+    lines << "# Every 10 minutes, check on daemons"
+    daemons(true).each do |daemon|
+      lines << "5,15,25,35,45,55 * * * * #{ENV['DEPLOY_USER']} " \
+               "/etc/init.d/#{ENV['SITE']}-#{daemon} check"
+    end
+    lines.each do |line|
       puts line
     end
   end

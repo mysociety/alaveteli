@@ -9,6 +9,7 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
   before_filter :set_draft
   before_filter :set_public_body, only: [:new]
   before_filter :load_data_from_draft, only: [:preview, :create]
+  before_filter :check_public_body_is_requestable, only: [:preview, :create]
 
   def index
     @request_filter = AlaveteliPro::RequestFilter.new
@@ -29,6 +30,7 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
     else
       create_initial_objects
     end
+    check_public_body_is_requestable; return if performed?
   end
 
   def preview
@@ -117,7 +119,7 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
       mail_message = OutgoingMailer.initial_request(
         outgoing_message.info_request,
         outgoing_message
-      ).deliver
+      ).deliver_now
 
       outgoing_message.record_email_delivery(
         mail_message.to_addrs.join(', '),
@@ -127,10 +129,22 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
   end
 
   def request_filter_params
-    params.require(:alaveteli_pro_request_filter).permit(:filter, :order, :search)
+    params.
+      require(:alaveteli_pro_request_filter).
+        permit(:filter, :order, :search)
   end
 
   def info_request_params
     params.require(:info_request).permit(:described_state)
+  end
+
+  def check_public_body_is_requestable
+    if @info_request.public_body
+      unless @info_request.public_body.is_requestable?
+        reason = @info_request.public_body.not_requestable_reason
+        view = "request/new_#{reason}.html.erb"
+        render view
+      end
+    end
   end
 end

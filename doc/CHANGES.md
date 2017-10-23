@@ -1,3 +1,142 @@
+# 0.30.0.0
+
+## Highlighted Features
+
+* Added some extra margin space to the `#logged_in_bar` when javascript is
+  disabled to avoid the user's name from overlapping the 'Sign out' link -
+  otherwise if there is enough space to do so, the secondary menu will try to
+  float alongside the nav bar content (Liz Conlan)
+* Make it clearer to users that they must complete an action when receiving the
+  email to remind them to update the status of a request (Gareth Rees)
+* Removed non-responsive assets (Gareth Rees)
+* Upgrade to Rails 4.2 (Liz Conlan, Gareth Rees)
+* Fixed problem where the routing filter doesn't recognise default locales with
+  underscores properly (Liz Conlan)
+* Added wrapper methods to `AlaveteliLocalization` to be used in preference to
+  the underlying `I18n` and `FastGettext` methods, avoiding confusion about
+  which should be used and reducing the likelihood of getting hyphenated and
+  underscore locale formats mixed up (Liz Conlan)
+* Prevent null bytes getting saved to `IncomingMessage` attachment cache
+  columns (Gareth Rees)
+* Add `:inverse_of` option to ActiveRecord associations to improve performance
+  (Gareth Rees)
+* Make Vagrant settings configurable through `.vagrant.yml` (Gareth Rees)
+* Make sure geoip-database-contrib is installed when installing Alaveteli
+  (Gareth Rees)
+* Make sure memcached is installed when installing Alaveteli (Gareth Rees)
+* Remove front-end caching from delivery status calculation (Gareth Rees)
+* Remove unconventional PublicBody database constraints (Gareth Rees,
+  Liz Conlan)
+* Improve public body data validations (Gareth Rees)
+* Increase truncation length of comments on admin page so that its easier to
+  spot spam without expanding each comment (Gareth Rees)
+* Handle unicode in spam request subject lines (Gareth Rees)
+* Improve public body data validation test coverage (Gareth Rees)
+* Move some more flash messages to be rendered from partials (Gareth Rees)
+* Admin timeline can now show events filtered by type (Louise Crow)
+* As promised the `notifications_testers` role as been removed. Access to
+  the experimental notification features is now controlled by a feature flag.
+* Request numbers in search and list views are now more clearly displayed as
+  estimates (Liz Conlan)
+* Functionality of 'was clarification' admin button restored (Louise Crow)
+* A new method for receiving incoming mail has been introduced. Setting the experimental
+  config variable `PRODUCTION_MAILER_RETRIEVER_METHOD` to `pop` and generating
+  a daemon from the `poll-for-incoming-debian.example` template will
+  cause Alaveteli to poll a mailbox for incoming mail via POP, in addition to
+  passively accepting mail piped into the application via `script/mailin` (Louise Crow)
+* Only publicly visible requests are now counted in the text for a user search
+  result (Louise Crow)
+* Similar request IDs are now cached, rather than template partials displaying
+  similar requests, in order to make better usage of the cache space (Louise Crow)
+* You can now filter users by their role on the admin user list page (Louise Crow)
+* Remove the obsolete `admin_level` user attribute (Louise Crow)
+* Allow embargoed requests to be displayed separately in the admin interface
+  to admins with pro_admin permissions (Louise Crow)
+* Add a cookie_passthrough param to ensure that image files in responses can be
+  accessed by authorised users on embargoed requests (Louise Crow)
+* Add `oink` memory debugging setup. Use `ALAVETELI_USE_OINK=1` to produce
+  object allocation debugging output (Louise Crow)
+
+## Upgrade Notes
+
+* This release removes the `admin_level` user attribute. You will need to migrate
+  to this release via 0.29.0.0 and follow the instructions in the release notes for
+  that release to migrate admin and pro statuses to the role-based system first, in
+  order to retain admin status for your admin users.
+* Ensure memcached is installed (`sudo apt-get install memcached`) and running
+  (`sudo service memcached start`).
+* `app/views/track/_track_set.erb` has been renamed to
+  `app/views/track/_track_set.html.erb`, so if you've overriden it you will need
+  to update the override.
+* `app/views/general/_opengraph_tags.erb` has been renamed to
+  `app/views/general/_opengraph_tags.html.erb`, so if you've overriden it you
+  will need to update the override.
+* Run `bundle exec rake temp:populate_last_event_time` after deployment to populate
+  the cached `last_event_time` attribute on info_requests, used in the admin interface.
+* Run `bundle exec rake temp:remove_notifications_tester_role` to remove the
+  notification tester role from the database.
+* Use of the `PRODUCTION_MAILER_RETRIEVER_METHOD` config setting is currently
+  not recommended.
+* Upgrading to Rails 4.2 requires that themes have a new section in their
+  `alavetelitheme.rb` file as in:
+  https://github.com/mysociety/whatdotheyknow-theme/commit/f99f7fd4538e57c2429ee2301317785c76eb08b0
+  For more details, see the [preparatory changes](https://github.com/mysociety/alaveteli/pull/4124/commits)
+  and [the upgrade itself](https://github.com/mysociety/alaveteli/pull/4114/commits)
+* To start the Rails server from a Vagrant box, you will now need to tell it
+  what address to bind to as it now defaults to localhost.
+  e.g. `bundle exec rails s -b 0.0.0.0` to bind to all addresses (as before)
+  or `bundle exec rails s -b 10.10.10.30` to just use the Vagrantfile address.
+* File-type icons have been moved from `images` to `images/content_type`. Please
+  ensure any direct use of these uses the new path.
+* This release deprecates the use of purge requests to Varnish. Please make sure
+  your site works with `VARNISH_HOST` empty - it will be removed as a param in
+  the next release.
+* There are some database structure updates so remember to `rake db:migrate`
+
+### Changed Templates
+
+    app/views/admin_comment/index.html.erb
+    app/views/admin_general/index.html.erb
+    app/views/admin_general/timeline.html.erb
+    app/views/admin_public_body/show.html.erb
+    app/views/admin_user/index.html.erb
+    app/views/alaveteli_pro/account_mailer/account_request.text.erb
+    app/views/alaveteli_pro/account_request/new.html.erb
+    app/views/alaveteli_pro/draft_info_request_batches/_draft_info_request_batch.html.erb
+    app/views/alaveteli_pro/embargo_mailer/expiring_alert.text.erb
+    app/views/alaveteli_pro/info_request_batches/_authority_list.html.erb
+    app/views/alaveteli_pro/info_request_batches/_form.html.erb
+    app/views/alaveteli_pro/info_request_batches/_info_request_batch.html.erb
+    app/views/alaveteli_pro/info_requests/_after_actions.html.erb
+    app/views/alaveteli_pro/info_requests/_info_request.html.erb
+    app/views/alaveteli_pro/info_requests/_sidebar.html.erb
+    app/views/alaveteli_pro/info_requests/preview.html.erb
+    app/views/comment/preview.html.erb
+    app/views/contact_mailer/update_public_body_email.text.erb
+    app/views/followups/preview.html.erb
+    app/views/general/_footer.html.erb
+    app/views/general/_header.html.erb
+    app/views/general/_opengraph_tags.html.erb
+    app/views/general/_orglink.html.erb
+    app/views/general/_responsive_header.html.erb
+    app/views/general/_stylesheet_includes.html.erb
+    app/views/general/_topnav.html.erb
+    app/views/general/search.html.erb
+    app/views/info_request_batch/show.html.erb
+    app/views/layouts/default.html.erb
+    app/views/layouts/no_chrome.html.erb
+    app/views/public_body/_body_listing_single.html.erb
+    app/views/public_body/_more_info.html.erb
+    app/views/public_body/show.html.erb
+    app/views/request/_after_actions.html.erb
+    app/views/request/_bubble.html.erb
+    app/views/request/_list_results.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
+    app/views/request/_sidebar.html.erb
+    app/views/request/_view_html_stylesheet.html.erb
+    app/views/request_mailer/new_response.text.erb
+    app/views/track/_track_set.erb
+    app/views/user/_user_listing_single.html.erb
 
 # 0.29.0.2
 
@@ -132,6 +271,10 @@
   [notes](https://git.io/vLNg0) on migrating away from 1.8.7; migrating to
   Ruby 2+ should be a similar process. Debian Jessie and Ubuntu 14.04+ include
   packaged versions of Ruby 2+.
+* Run `bundle exec rake temp:set_daily_summary_times` to set some default
+  times for users to receive daily summaries of notifications. This won't have
+  any effect on emails for most users until the new notifications system is
+  rolled out.
 
 ### Changed Templates
 

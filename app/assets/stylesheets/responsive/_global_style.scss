@@ -357,15 +357,17 @@ div.pagination {
   }
 }
 
-.action-menu__menu--right {
-  @include respond-min( $main_menu-mobile_menu_cutoff ){
-    &:before {
-      right: 9px;
-      left: auto;
-    }
-    &::after {
-      right: 8px;
-      left: auto;
+.request-header__action-bar__actions {
+  .action-menu__menu {
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      &:before {
+        right: 9px;
+        left: auto;
+      }
+      &::after {
+        right: 8px;
+        left: auto;
+      }
     }
   }
 }

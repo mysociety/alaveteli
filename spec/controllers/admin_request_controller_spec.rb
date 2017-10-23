@@ -185,7 +185,7 @@ describe AdminRequestController, "when administering requests" do
     it 'expires the request cache when saving edits to it' do
       allow(InfoRequest).to receive(:find).with(info_request.id.to_s).and_return(info_request)
       expect(info_request).to receive(:expire)
-      post :update, { :id => info_request,
+      post :update, { :id => info_request.id,
                       :info_request => { :title => "Renamed",
                                          :prominence => "normal",
                                          :described_state => "waiting_response",

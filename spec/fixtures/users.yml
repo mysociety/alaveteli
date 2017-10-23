@@ -12,7 +12,6 @@
 #  email_confirmed                   :boolean          default(FALSE), not null
 #  url_name                          :text             not null
 #  last_daily_track_email            :datetime         default(2000-01-01 00:00:00 UTC)
-#  admin_level                       :string(255)      default("none"), not null
 #  ban_text                          :text             default(""), not null
 #  about_me                          :text             default(""), not null
 #  locale                            :string(255)
@@ -31,6 +30,8 @@
 #  request_classifications_count     :integer          default(0), not null
 #  public_body_change_requests_count :integer          default(0), not null
 #  info_request_batches_count        :integer          default(0), not null
+#  daily_summary_hour                :integer
+#  daily_summary_minute              :integer
 #
 
 bob_smith_user:
@@ -113,4 +114,46 @@ another_user:
   email_confirmed: true
   ban_text: ''
   about_me: 'Just another user'
+  receive_email_alerts: true
+paul_pro_user:
+  id: 7
+  name: Paul Pro
+  url_name: paul_pro
+  email: paul@localhost
+  salt: "-6116981980.392287733335677"
+  hashed_password: 6b7cd45a5f35fd83febc0452a799530398bfb6e8 # jonespassword
+  updated_at: 2007-10-31 10:39:15.491593
+  created_at: 2007-10-31 10:39:15.491593
+  email_confirmed: true
+  ban_text: ''
+  locale: 'en'
+  about_me: 'Totes profesh'
+  receive_email_alerts: true
+annie_all_roles_user:
+  id: 8
+  name: Annie All Roles
+  url_name: annie_admin
+  email: annie@localhost
+  salt: "-6116981980.392287733335677"
+  hashed_password: 6b7cd45a5f35fd83febc0452a799530398bfb6e8 # jonespassword
+  updated_at: 2007-10-31 10:39:15.491593
+  created_at: 2007-10-31 10:39:15.491593
+  email_confirmed: true
+  ban_text: ''
+  locale: 'en'
+  about_me: 'All the roles'
+  receive_email_alerts: true
+peter_pro_admin_user:
+  id: 9
+  name: Peter Pro Admin
+  url_name: peter_pro_admin
+  email: peter@localhost
+  salt: "-6116981980.392287733335677"
+  hashed_password: 6b7cd45a5f35fd83febc0452a799530398bfb6e8 # jonespassword
+  updated_at: 2007-10-31 10:39:15.491593
+  created_at: 2007-10-31 10:39:15.491593
+  email_confirmed: true
+  ban_text: ''
+  locale: 'en'
+  about_me: ''
   receive_email_alerts: true

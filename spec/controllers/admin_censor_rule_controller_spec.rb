@@ -1052,6 +1052,8 @@ describe AdminCensorRuleController, "when making censor rules from the admin int
   before { basic_auth_login @request }
 
   it "should create a censor rule and purge the corresponding request from varnish" do
+    allow(AlaveteliConfiguration).to receive(:varnish_host).
+      and_return('varnish.localdomain')
     ir = info_requests(:fancy_dog_request)
     post :create, :request_id => ir.id,
                   :censor_rule => {

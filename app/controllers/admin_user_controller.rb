@@ -22,16 +22,24 @@ class AdminUserController < AdminController
   def index
     @query = params[:query]
 
+    @roles = params[:roles] || []
     @sort_options = index_sort_options
 
     @sort_order =
       @sort_options.key?(params[:sort_order]) ? params[:sort_order] : 'name_asc'
 
-    users = if @query
-      User.where(["lower(name) LIKE lower('%'||?||'%') OR " \
-                  "lower(email) LIKE lower('%'||?||'%')", @query, @query])
+    users = if @query.present?
+      User.where(["lower(users.name) LIKE lower('%'||?||'%') OR " \
+                  "lower(users.email) LIKE lower('%'||?||'%')", @query, @query])
     else
       User
+    end
+
+    # with_all_roles returns an array as it takes multiple queries
+    # so we need to requery in order to paginate
+    if !@roles.empty?
+      users = users.with_any_role(*@roles)
+      users = User.where(:id => users.map{ |user| user.id })
     end
 
     @admin_users =
@@ -51,6 +59,11 @@ class AdminUserController < AdminController
   end
 
   def edit
+    # HACK: Override the name param to get the database value.
+    # Rails 4.2 calls User#name instead of the `#name_before_type_cast`, so
+    # results in the banned user suffix being rendered in to the form field.
+    # This value with the suffix then gets persisted on save, breaking URLs.
+    @admin_user.name = @admin_user.read_attribute(:name)
   end
 
   def update

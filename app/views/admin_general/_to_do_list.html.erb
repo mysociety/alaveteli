@@ -1,0 +1,55 @@
+<% if items.size > 0 %>
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" href="#<%= id %>" data-toggle="collapse" data-parent="<%= parent %>">
+        <span class="label label-important">
+          <%= items.size %>
+        </span>
+        <%= chevron_right %> <%= label %>
+      </a>
+    </div>
+
+    <div id="<%= id %>" class="accordion-body collapse">
+      <table class="table table-striped table-condensed">
+        <tbody>
+          <% items.each do |item| %>
+            <tr>
+              <td class="link">
+                <% if item.is_a? IncomingMessage %>
+                  <% if item.get_body_for_quoting.gsub(/[[:space:]]/, "").size == 0 %>
+                    <%= link_to "(no body)", admin_raw_email_path(item.raw_email_id) %>
+                  <% else %>
+                    <%= link_to admin_raw_email_path(item.raw_email_id) do %>
+                      <%= excerpt(item.get_body_for_quoting, "", :radius => 60) %>
+                    <% end %>
+                  <% end %>
+                <% elsif item.is_a? InfoRequest %>
+                  <%= request_both_links(item) %>
+                <% elsif item.is_a? Comment %>
+                  <%= comment_both_links(item) %>
+                <% elsif item.is_a? PublicBody %>
+                  <%= public_body_both_links(item) %>
+                <% end %>
+              </td>
+              <td class="span2">
+                <% if item.is_a? IncomingMessage %>
+                  <%= simple_date(item.sent_at) %>
+                <% elsif item.is_a? InfoRequest %>
+                  <% if item.is_old_unclassified? %>
+                    <%= simple_date(item.last_public_response_at) %>
+                  <% else %>
+                    <%= simple_date(item.last_event_time) %>
+                  <% end %>
+                <% elsif item.is_a? Comment %>
+                  <%= simple_date(item.last_reported_at) %>
+                <% elsif item.is_a? PublicBody %>
+                  <%= simple_date(item.updated_at) %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% end %>

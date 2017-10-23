@@ -106,6 +106,23 @@ describe AdminUserController do
       expect(assigns[:admin_users]).to eq([u2, u1])
     end
 
+    it 'filters the records by role' do
+      User.destroy_all
+      admin_user = FactoryGirl.create(:admin_user)
+      user = FactoryGirl.create(:user)
+      get :index, :roles => [ 'admin' ]
+      expect(assigns[:admin_users]).to eq([admin_user])
+    end
+
+    it 'filters the records by multiple roles' do
+      User.destroy_all
+      admin_user = FactoryGirl.create(:admin_user)
+      pro_user = FactoryGirl.create(:pro_user)
+      user = FactoryGirl.create(:user)
+      get :index, :roles => [ 'admin', 'pro' ]
+      expect(assigns[:admin_users]).to eq([admin_user, pro_user])
+    end
+
   end
 
   describe 'GET #show' do
@@ -384,8 +401,8 @@ describe AdminUserController do
                                          :comment_ids => affected_comment.id,
                                          :unhide_selected => 'visible' }
 
-      expect(Comment.find(unaffected_comment)).not_to be_visible
-      expect(Comment.find(affected_comment)).to be_visible
+      expect(Comment.find(unaffected_comment.id)).not_to be_visible
+      expect(Comment.find(affected_comment.id)).to be_visible
     end
 
     it 'preserves the visibility if a comment is already of the requested visibility' do

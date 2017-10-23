@@ -5,7 +5,7 @@
        'next week. If you do not wish for any of these requests to go ' \
        'public, please click on the links below to extend them.',
        @info_requests.count,
-       :site_name => site_name) %>
+       :site_name => site_name.html_safe) %>
 
 <% @info_requests.each do |info_request| %>
   <%= request_url(info_request) %>

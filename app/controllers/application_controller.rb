@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   end
   class RouteNotFound < StandardError
   end
-  protect_from_forgery :if => :user?
+  protect_from_forgery :if => :user?, :with => :exception
   skip_before_filter :verify_authenticity_token, :unless => :user?
 
   # Deal with access denied errors from CanCan
@@ -165,17 +165,8 @@ class ApplicationController < ActionController::Base
     session[:ttl] = nil
   end
 
-  def send_exception_notifications?
-    !AlaveteliConfiguration.exception_notifications_from.blank? &&
-      !AlaveteliConfiguration.exception_notifications_to.blank?
-  end
-
   def show_rails_exceptions?
     false
-  end
-
-  def show_detailed_exceptions?
-    true
   end
 
   def render_exception(exception)
@@ -341,11 +332,17 @@ class ApplicationController < ActionController::Base
   # load them in.
   def do_post_redirect(post_redirect, user=nil)
     uri = URI.parse(post_redirect.uri).path
-    if feature_enabled?(:alaveteli_pro) && user && user.is_pro?
-      uri = override_post_redirect_for_pro(uri, post_redirect, user)
+    if feature_enabled?(:alaveteli_pro) &&
+      user &&
+      user.is_pro? &&
+      session[:admin_confirmation] != 1
+      uri = override_post_redirect_for_pro(uri,
+                                           post_redirect,
+                                           user)
     end
     session[:post_redirect_token] = post_redirect.token
     uri = add_post_redirect_param_to_uri(uri)
+    session.delete(:admin_confirmation)
     redirect_to uri
   end
 
@@ -372,11 +369,19 @@ class ApplicationController < ActionController::Base
 
   # If we are in a faked redirect to POST request, then set post params.
   def check_in_post_redirect
-    if params[:post_redirect] and session[:post_redirect_token]
-      post_redirect = PostRedirect.find_by_token(session[:post_redirect_token])
-      if post_redirect
-        params.update(post_redirect.post_params)
-        params[:post_redirect_user] = post_redirect.user
+    if params[:post_redirect]
+      if session[:post_redirect_token]
+        post_redirect =
+          PostRedirect.find_by_token(session[:post_redirect_token])
+        if post_redirect
+          params.update(post_redirect.post_params)
+          params[:post_redirect_user] = post_redirect.user
+        end
+      else
+        logger.warn "Missing post redirect token. " \
+                    "Session: #{session.to_hash} " \
+                    "IP: #{user_ip} " \
+                    "Params: #{params}"
       end
     end
   end
@@ -456,15 +461,6 @@ class ApplicationController < ActionController::Base
     page = (params[:page] || "1").to_i
     page = 1 if page < 1
     return page
-  end
-
-  def perform_search_typeahead(query, model, per_page=25)
-    warn %q([DEPRECATION] ApplicationController#perform_search_typeahead
-            will be removed in 0.30. It has been replaced by
-            ApplicationController#typeahead_search).squish
-    options = { :per_page => per_page,
-                :model => model }
-    typeahead_search(query, options)
   end
 
   def typeahead_search(query, options)

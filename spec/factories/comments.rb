@@ -29,6 +29,18 @@ FactoryGirl.define do
     factory :hidden_comment do
       visible false
     end
+
+    factory :attention_requested do
+      after(:create) do |comment, evaluator|
+        reporting_user = create(:user)
+        reason = comment.report_reasons.sample
+        comment.report!(reason, 'Bad Comment', reporting_user)
+      end
+    end
+
+    factory :embargoed_comment do
+      association :info_request, factory: :embargoed_request
+    end
   end
 
 end

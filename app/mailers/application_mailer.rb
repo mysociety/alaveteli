@@ -20,12 +20,14 @@ class ApplicationMailer < ActionMailer::Base
     AlaveteliConfiguration::blackhole_prefix+"@"+AlaveteliConfiguration::incoming_email_domain
   end
 
-  def mail_user(user, subject)
-    mail({
+  def mail_user(user, subject, opts = {})
+    default_opts = {
       :from => contact_for_user(user),
       :to => user.name_and_email,
       :subject => subject,
-    })
+    }
+    default_opts.merge!(opts)
+    mail(default_opts)
   end
 
   def contact_for_user(user = nil)

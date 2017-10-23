@@ -48,21 +48,35 @@ class InfoRequestEvent < ActiveRecord::Base
     'status_update', # someone updates the status of the request
     'overdue', # the request becomes overdue
     'very_overdue', # the request becomes very overdue
+    'embargo_expiring', # an embargo is about to expire
     'expire_embargo', # an embargo on the request expires
     'set_embargo' # an embargo is added or extended
   ].freeze
 
-  belongs_to :info_request
+  belongs_to :info_request,
+             :inverse_of => :info_request_events
+
   validates_presence_of :info_request
 
-  belongs_to :outgoing_message
-  belongs_to :incoming_message
-  belongs_to :comment
+  belongs_to :outgoing_message,
+             :inverse_of => :info_request_events
+  belongs_to :incoming_message,
+             :inverse_of => :info_request_events
+  belongs_to :comment,
+             :inverse_of => :info_request_events
 
-  has_one :request_classification
+  has_one :request_classification,
+          :inverse_of => :info_request_event
 
-  has_many :user_info_request_sent_alerts, :dependent => :destroy
-  has_many :track_things_sent_emails, :dependent => :destroy
+  has_many :user_info_request_sent_alerts,
+           :inverse_of => :info_request_event,
+           :dependent => :destroy
+  has_many :track_things_sent_emails,
+           :inverse_of => :info_request_event,
+           :dependent => :destroy
+  has_many :notifications,
+           :inverse_of => :info_request_event,
+           :dependent => :destroy
 
   validates_presence_of :event_type
 
@@ -70,6 +84,9 @@ class InfoRequestEvent < ActiveRecord::Base
     self.event_type = "hide"
   end
   after_create :update_request, :if => :response?
+
+  after_commit -> { self.info_request.create_or_update_request_summary },
+                  :on => [:create]
 
   validates_inclusion_of :event_type, :in => EVENT_TYPES
 
@@ -378,6 +395,16 @@ class InfoRequestEvent < ActiveRecord::Base
     waiting_clarification && event_type == 'followup_sent'
   end
 
+  # Public: Checks to see if any subsequent event now resets due dates
+  # on the request and resets them if so
+  def recheck_due_dates
+    subsequent_events.each do |event|
+      if event.resets_due_dates?
+        info_request.set_due_dates(event)
+      end
+    end
+  end
+
   # Display version of status
   def display_status
     if is_incoming_message?
@@ -494,12 +521,21 @@ class InfoRequestEvent < ActiveRecord::Base
 
   def previous_events(opts = {})
     order = opts[:reverse] ? 'created_at DESC' : 'created_at'
-    events = self
-              .class
-                .where(:info_request_id => info_request_id)
-                  .where('created_at < ?', self.created_at)
-                    .order(order)
+    events = self.
+               class.
+                 where(:info_request_id => info_request_id).
+                   where('created_at < ?', self.created_at).
+                     order(order)
 
+  end
+
+  def subsequent_events(opts = {})
+    order = opts[:reverse] ? 'created_at DESC' : 'created_at'
+    events = self.
+               class.
+                 where(:info_request_id => info_request_id).
+                   where('created_at > ?', self.created_at).
+                     order(order)
   end
 
   def sibling_events(opts = {})

@@ -79,18 +79,6 @@ class RequestMailer < ApplicationMailer
 
   # Tell the requester that a new response has arrived
   def new_response(info_request, incoming_message)
-    if info_request.user.is_pro?
-      # Pro users will always need to log in, so we have to give them a link
-      # which forces that
-      message_url = incoming_message_url(incoming_message, :cachebust => true)
-      @url = signin_url(:r => message_url)
-    else
-      # For normal users, we try not to use a login link here, just the
-      # actual URL. This is because people tend to forward these emails
-      # amongst themselves.
-      @url = incoming_message_url(incoming_message, :cachebust => true)
-    end
-
     @incoming_message, @info_request = incoming_message, info_request
 
     set_reply_to_headers(info_request.user)
@@ -163,8 +151,7 @@ class RequestMailer < ApplicationMailer
 
     set_reply_to_headers(info_request.user)
     set_auto_generated_headers
-    mail_user(info_request.user, _("Was the response you got to your FOI " \
-                                      "request any good?"))
+    mail_user(info_request.user, _("Please update the status of your request"))
   end
 
   # Tell the requester that someone updated their old unclassified request
@@ -241,10 +228,12 @@ class RequestMailer < ApplicationMailer
   # actual original mail sent by the authority in the admin interface (so
   # can check that attachment decoding failures are problems in the message,
   # not in our code). ]
-  def self.receive(raw_email)
-    logger.info "Received mail:\n #{raw_email}" unless logger.nil?
+  def self.receive(raw_email, source = :mailin)
+    unless logger.nil?
+      logger.debug "Received mail from #{source}:\n #{raw_email}"
+    end
     mail = MailHandler.mail_from_raw_email(raw_email)
-    new.receive(mail, raw_email)
+    new.receive(mail, raw_email, source)
   end
 
   # Find which info requests the email is for
@@ -261,14 +250,18 @@ class RequestMailer < ApplicationMailer
   end
 
   # Member function, called on the new class made in self.receive above
-  def receive(email, raw_email)
+  def receive(email, raw_email, source = :mailin)
+    opts = { :source => source }
     # Find which info requests the email is for
     reply_info_requests = self.requests_matching_email(email)
     # Nothing found, so save in holding pen
     if reply_info_requests.size == 0
-      reason = _("Could not identify the request from the email address")
+      opts[:rejected_reason] =
+        _("Could not identify the request from the email address")
       request = InfoRequest.holding_pen_request
-      request.receive(email, raw_email, false, reason) unless SpamAddress.spam?(email.to)
+      unless SpamAddress.spam?(email.to)
+        request.receive(email, raw_email, opts)
+      end
       return
     end
 
@@ -280,7 +273,7 @@ class RequestMailer < ApplicationMailer
           raise "message " + email.message_id + " already received by request"
         end
       end
-      reply_info_request.receive(email, raw_email)
+      reply_info_request.receive(email, raw_email, opts)
     end
   end
 
@@ -339,9 +332,17 @@ class RequestMailer < ApplicationMailer
           # (otherwise they are banned, and there is no point sending it)
           if info_request.user.can_make_followup?
             if calculated_status == 'waiting_response_overdue'
-              RequestMailer.overdue_alert(info_request, info_request.user).deliver
+              RequestMailer.
+                overdue_alert(
+                  info_request,
+                  info_request.user
+                ).deliver_now
             elsif calculated_status == 'waiting_response_very_overdue'
-              RequestMailer.very_overdue_alert(info_request, info_request.user).deliver
+              RequestMailer.
+                very_overdue_alert(
+                  info_request,
+                  info_request.user
+                ).deliver_now
             else
               raise "unknown request status"
             end
@@ -392,7 +393,11 @@ class RequestMailer < ApplicationMailer
         store_sent.alert_type = type_code
         store_sent.info_request_event_id = alert_event_id
         # TODO: uses same template for reminder 1 and reminder 2 right now.
-        RequestMailer.new_response_reminder_alert(info_request, last_response_message).deliver
+        RequestMailer.
+          new_response_reminder_alert(
+            info_request,
+            last_response_message
+          ).deliver_now
         store_sent.save!
       end
     end
@@ -441,7 +446,7 @@ class RequestMailer < ApplicationMailer
           RequestMailer.not_clarified_alert(
             info_request,
             last_response_message
-          ).deliver
+          ).deliver_now
         end
         store_sent.save!
       end
@@ -516,12 +521,12 @@ class RequestMailer < ApplicationMailer
             info_request,
             count,
             earliest_unalerted_comment_event.comment
-          ).deliver
+          ).deliver_now
         elsif count == 1
           RequestMailer.comment_on_alert(
             info_request,
             last_comment_event.comment
-          ).deliver
+          ).deliver_now
         else
           raise "internal error"
         end

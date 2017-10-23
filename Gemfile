@@ -79,7 +79,7 @@
 # the new version. It is always preferable to upgrade our code.
 source 'https://rubygems.org'
 
-gem 'rails', '4.1.16'
+gem 'rails', '4.2.9'
 
 gem 'pg', '~> 0.18.0', '< 0.19.0'
 
@@ -90,7 +90,7 @@ gem 'cancancan', '~> 1.12.0', '< 1.13.0'
 gem 'charlock_holmes', '~> 0.7.0'
 gem 'dalli', '~> 2.7.0'
 gem 'dynamic_form', '~> 1.1.0'
-gem 'exception_notification', '~> 4.0.0', '< 4.1.0'
+gem 'exception_notification', '~> 4.1.0', '< 4.1.2'
 gem 'fancybox-rails', '~> 0.3.0'
 gem 'foundation-rails', '~> 5.5.3.2'
 gem 'geoip', '~> 1.6.0'
@@ -108,7 +108,7 @@ gem 'net-http-local', '~> 0.1.0', :platforms => [:ruby_19]
 gem 'net-purge', '~> 0.1.0'
 gem 'nokogiri', '~> 1.6.0', '< 1.7'
 gem 'open4', '~> 1.3.0'
-gem 'rack', '~> 1.5.0', '< 1.6.0'
+gem 'rack', '~> 1.6.0'
 gem 'rack-ssl', '~> 1.4.0'
 gem 'rack-utf8_sanitizer', '~> 1.3.0'
 gem 'rails-i18n', '~> 4.0.0', '< 5.0.0'
@@ -135,14 +135,14 @@ gem 'gender_detector', '~> 1.0.0'
 gem 'gettext_i18n_rails', '~> 0.9.0', '< 1.0.0'
   gem 'fast_gettext', '< 1.2.0'
 gem 'gettext', '~> 2.3.0'
-gem 'globalize', '~> 4.0.0', '< 5.0.0'
+gem 'globalize', '~> 5.0.0', '< 5.1.0'
 gem 'locale', '~> 2.0.0', '< 2.1.0'
-gem 'routing-filter', '~> 0.4.0', '< 0.5.0'
+gem 'routing-filter', '~> 0.5.0', '< 0.6.0'
 gem 'unicode', '~> 0.4.0'
 gem 'unidecoder', '~> 1.1.0'
 
 # mime-types 3.0.0 requires Ruby 2.0.0, and _something_ is trying to update it
-gem 'mime-types', '< 3.0.0'
+gem 'mime-types', '< 3.0.0', require: false
 
 # Assets
 gem 'bootstrap-sass', '~> 2.3.2.2'
@@ -160,13 +160,15 @@ group :test do
   gem 'coveralls', '~> 0.8.0', :require => false
     gem 'tins', '~> 1.3.0', '< 1.3.1'
     gem 'term-ansicolor', '~> 1.3.0', '< 1.4'
-  gem 'capybara', '~> 2.13.0'
+  gem 'capybara', '~> 2.15.0'
   gem 'delorean', '~> 2.1.0'
+  gem 'test_after_commit', '~> 0.4.2'
 end
 
 group :test, :development do
   gem 'bullet', '~> 5.5.0'
   gem 'factory_girl_rails', '~> 4.8.0'
+  gem 'oink', '~> 0.10.1'
   gem 'rspec-activemodel-mocks', '~> 1.0.0'
   gem 'rspec-rails', '~> 3.5.0'
   gem 'pry', '~> 0.10.0'
@@ -181,6 +183,7 @@ group :development do
   gem 'mailcatcher', '~> 0.6.0'
   gem 'quiet_assets', '~> 1.1.0'
   gem 'launchy', '~> 2.4.0'
-  gem 'spring', '~> 1.7.0', '< 2.0.0'
+  gem 'spring', '~> 2.0.0'
   gem 'spring-commands-rspec', '~> 1.0.0'
+  gem 'web-console', '~> 2.3.0', '< 3.0.0'
 end

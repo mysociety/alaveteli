@@ -13,7 +13,6 @@
 #  email_confirmed                   :boolean          default(FALSE), not null
 #  url_name                          :text             not null
 #  last_daily_track_email            :datetime         default(2000-01-01 00:00:00 UTC)
-#  admin_level                       :string(255)      default("none"), not null
 #  ban_text                          :text             default(""), not null
 #  about_me                          :text             default(""), not null
 #  locale                            :string(255)
@@ -32,6 +31,8 @@
 #  request_classifications_count     :integer          default(0), not null
 #  public_body_change_requests_count :integer          default(0), not null
 #  info_request_batches_count        :integer          default(0), not null
+#  daily_summary_hour                :integer
+#  daily_summary_minute              :integer
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
@@ -58,6 +59,12 @@ describe User, "banning the user" do
     user = FactoryGirl.create(:user, :name => 'nasty user 123')
     user.update_attributes(:ban_text => 'You are banned')
     expect(user.url_name).to eq('nasty_user_123')
+  end
+
+  it 'does not change the stored name' do
+    user = FactoryGirl.create(:user, :name => 'nasty user 123')
+    user.update_attributes(:ban_text => 'You are banned')
+    expect(user.read_attribute(:name)).to eq('nasty user 123')
   end
 
   it 'appends a message to the name' do
@@ -1027,10 +1034,9 @@ describe User do
 
   describe '#can_admin_roles' do
 
-    it 'returns an array including the admin and notifications tester roles
-        for an admin user' do
+    it 'returns an array including the admin and roles for an admin user' do
       admin_user = FactoryGirl.create(:admin_user)
-      expect(admin_user.can_admin_roles).to eq([:admin, :notifications_tester])
+      expect(admin_user.can_admin_roles).to eq([:admin])
     end
 
     it 'returns an empty array for a pro user' do
@@ -1175,6 +1181,130 @@ describe User do
     it "returns all of the user's events" do
       # Note: there is a fourth "sent" event created automatically
       expect(user.info_request_events.count).to eq 4
+    end
+  end
+
+  describe 'notifications' do
+    it 'deletes associated notifications when destroyed' do
+      notification = FactoryGirl.create(:notification)
+      user = notification.user.reload
+      expect(Notification.where(id: notification.id)).to exist
+      user.destroy
+      expect(Notification.where(id: notification.id)).not_to exist
+    end
+  end
+
+  describe '#next_daily_summary_time' do
+    let(:user) do
+      FactoryGirl.create(:user, daily_summary_hour: 7,
+                                daily_summary_minute: 56)
+    end
+
+    context "when the time is in the future" do
+      let(:expected_time) { Time.zone.now.change(hour: 7, min: 56) }
+
+      it "returns today's date with the daily summary time set" do
+        time_travel_to(expected_time - 1.minute) do
+          expect(user.next_daily_summary_time).
+            to be_within(1.second).of(expected_time)
+        end
+      end
+    end
+
+    context "when the time is in the past" do
+      let(:expected_time) { Time.zone.now.change(hour: 7, min: 56) + 1.day }
+
+      it "returns tomorrow's date with the daily summary time set" do
+        time_travel_to(Time.zone.now.change(hour: 7, min: 57)) do
+          expect(user.next_daily_summary_time).
+            to be_within(1.second).of(expected_time)
+        end
+      end
+    end
+  end
+
+  describe '#daily_summary_time' do
+    let(:user) do
+      FactoryGirl.create(:user, daily_summary_hour: 7,
+                                daily_summary_minute: 56)
+    end
+
+    it "returns the hour and minute of the user's daily summary time" do
+      expected_hash = { hour: 7, min: 56 }
+      expect(user.daily_summary_time).to eq(expected_hash)
+    end
+  end
+
+  describe "setting daily_summary_time on new users" do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:expected_time) { Time.zone.now.change(hour: 7, min: 57) }
+
+    before do
+      allow(User).
+        to receive(:random_time_in_last_day).and_return(expected_time)
+    end
+
+    it "sets a random hour and minute on initialization" do
+      expect(user.daily_summary_hour).to eq(7)
+      expect(user.daily_summary_minute).to eq(57)
+    end
+
+    it "doesn't override the hour and minute if they're already set" do
+      user = FactoryGirl.create(:user, daily_summary_hour: 9,
+                                       daily_summary_minute: 15)
+      expect(user.daily_summary_hour).to eq(9)
+      expect(user.daily_summary_minute).to eq(15)
+    end
+
+    it "doesn't change the the hour and minute once they're set" do
+      user.save!
+      expect(user.daily_summary_hour).to eq(7)
+      expect(user.daily_summary_minute).to eq(57)
+    end
+  end
+
+  describe '#notification_frequency' do
+    context 'when the user has :notifications' do
+      let(:user) { FactoryGirl.create(:user) }
+
+      before do
+        AlaveteliFeatures.backend[:notifications].enable_actor user
+      end
+
+      it 'returns Notification::DAILY' do
+        expect(user.notification_frequency).to eq (Notification::DAILY)
+      end
+    end
+
+    context 'when the user doesnt have :notifications' do
+      let(:user) { FactoryGirl.create(:user) }
+
+      it 'returns Notification::INSTANTLY' do
+        expect(user.notification_frequency).to eq (Notification::INSTANTLY)
+      end
+    end
+  end
+
+  describe "#notify" do
+    let(:info_request_event) { FactoryGirl.create(:response_event) }
+    let(:user) { info_request_event.info_request.user }
+
+    it "creates a notification" do
+      expect { user.notify(info_request_event) }.
+        to change { Notification.count }.by 1
+    end
+
+    it "calls notification_frequency" do
+      expect(user).to receive(:notification_frequency)
+      user.notify(info_request_event)
+    end
+  end
+
+  describe "#flipper_id" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    it "returns the user's id, prefixed with the class name" do
+      expect(user.flipper_id).to eq("User;#{user.id}")
     end
   end
 

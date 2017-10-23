@@ -10,8 +10,8 @@ module AlaveteliPro::InfoRequestsHelper
     options = AlaveteliPro::Embargo::TranslatedConstants.
         duration_labels.map do |value, label|
       duration = AlaveteliPro::Embargo::DURATIONS[value].call
-      expiry_date = embargo.publish_at + duration
-      [label, value, "data-expiry-date" => I18n.l(embargo.publish_at, format: '%d %B %Y')]
+      expiry_date = I18n.l(embargo.publish_at + duration, format: '%d %B %Y')
+      [label, value, "data-expiry-date" => expiry_date]
     end
     options.unshift([_("Choose a duration"), ''])
   end

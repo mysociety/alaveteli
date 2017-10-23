@@ -30,6 +30,7 @@
 #  date_very_overdue_after               :date
 #  last_event_forming_initial_request_id :integer
 #  use_notifications                     :boolean
+#  last_event_time                       :datetime
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
@@ -303,39 +304,149 @@ describe InfoRequest do
     it 'logs a rejected reason' do
       info_request = FactoryGirl.create(:info_request)
       email, raw_email = email_and_raw_email
-      info_request.receive(email, raw_email, false, 'rejected for testing')
+      info_request.
+        receive(email,
+                raw_email,
+                :rejected_reason => 'rejected for testing')
       expect(info_request.info_request_events.last.params[:rejected_reason]).
         to eq('rejected for testing')
     end
 
-    context 'emailing the request owner' do
+    describe 'notifying the request owner' do
 
-      it 'emails the user that a response has been received' do
-        info_request = FactoryGirl.create(:info_request)
-        email, raw_email = email_and_raw_email
-        info_request.receive(email, raw_email)
-        notification = ActionMailer::Base.deliveries.last
-        expect(notification.to).to include(info_request.user.email)
-        expect(ActionMailer::Base.deliveries.size).to eq(1)
-        ActionMailer::Base.deliveries.clear
+      context 'when the request has use_notifications: true' do
+        let(:info_request) do
+          FactoryGirl.create(:info_request, use_notifications: true)
+        end
+
+        it 'notifies the user that a response has been received' do
+          email, raw_email = email_and_raw_email
+
+          # Without this, the user retrieved in the model is not the same one
+          # in memory as this one, so we can't put expectations on it
+          allow(info_request).to receive(:user).and_return(info_request.user)
+          expect(info_request.user).
+            to receive(:notify).with(a_new_response_event_for(info_request))
+
+          info_request.receive(email, raw_email)
+        end
       end
 
-      it 'does not email when the request is external' do
-        info_request = FactoryGirl.create(:external_request)
-        email, raw_email = email_and_raw_email
-        info_request.receive(email, raw_email)
-        expect(ActionMailer::Base.deliveries).to be_empty
-        ActionMailer::Base.deliveries.clear
+      context 'when the request has use_notifications: false' do
+        let(:info_request) do
+          FactoryGirl.create(:info_request, use_notifications: false)
+        end
+
+        it 'emails the user that a response has been received' do
+          email, raw_email = email_and_raw_email
+
+          info_request.receive(email, raw_email)
+          notification = ActionMailer::Base.deliveries.last
+          expect(notification.to).to include(info_request.user.email)
+          expect(ActionMailer::Base.deliveries.size).to eq(1)
+          ActionMailer::Base.deliveries.clear
+        end
       end
 
-      it 'does not email when the request has use_notifications turned on' do
-        info_request = FactoryGirl.create(:use_notifications_request)
-        email, raw_email = email_and_raw_email
-        info_request.receive(email, raw_email)
-        expect(ActionMailer::Base.deliveries).to be_empty
-        ActionMailer::Base.deliveries.clear
+      context 'when the request is external' do
+        it 'does not email or notify anyone' do
+          info_request = FactoryGirl.create(:external_request)
+          email, raw_email = email_and_raw_email
+
+          expect { info_request.receive(email, raw_email) }.
+            not_to change { ActionMailer::Base.deliveries.size }
+          expect { info_request.receive(email, raw_email) }.
+            not_to change { Notification.count }
+        end
       end
 
+    end
+
+    describe 'receiving mail from different sources' do
+      let(:info_request){ FactoryGirl.create(:info_request) }
+
+      it 'processes mail where no source is specified' do
+        email, raw_email = email_and_raw_email
+        info_request.receive(email, raw_email)
+        expect(info_request.incoming_messages.size).to eq(1)
+        expect(info_request.incoming_messages.last).to be_persisted
+      end
+
+      context 'when accepting mail from any source is enabled' do
+
+        it 'processes mail where no source is specified' do
+          with_feature_enabled(:accept_mail_from_anywhere) do
+            email, raw_email = email_and_raw_email
+            info_request.receive(email, raw_email)
+            expect(info_request.incoming_messages.size).to eq(1)
+            expect(info_request.incoming_messages.last).to be_persisted
+          end
+        end
+
+        it 'processes mail from the poller' do
+          with_feature_enabled(:accept_mail_from_anywhere) do
+            email, raw_email = email_and_raw_email
+            info_request.receive(email, raw_email, :source => :poller)
+            expect(info_request.incoming_messages.size).to eq(1)
+            expect(info_request.incoming_messages.last).to be_persisted
+          end
+        end
+
+        it 'processes mail from mailin' do
+          with_feature_enabled(:accept_mail_from_anywhere) do
+            email, raw_email = email_and_raw_email
+            info_request.receive(email, raw_email, :source => :poller)
+            expect(info_request.incoming_messages.size).to eq(1)
+            expect(info_request.incoming_messages.last).to be_persisted
+          end
+        end
+
+      end
+
+      context 'when accepting mail from any source is not enabled' do
+
+        context 'when accepting mail from the poller is enabled for the
+                 request user' do
+
+          before do
+            AlaveteliFeatures.
+              backend[:accept_mail_from_poller].
+                enable_actor info_request.user
+          end
+
+          it 'processes mail from the poller' do
+            email, raw_email = email_and_raw_email
+            info_request.receive(email, raw_email, :source => :poller)
+            expect(info_request.incoming_messages.size).to eq(1)
+            expect(info_request.incoming_messages.last).to be_persisted
+          end
+
+          it 'ignores mail from mailin' do
+            email, raw_email = email_and_raw_email
+            info_request.receive(email, raw_email, :source => :mailin)
+            expect(info_request.incoming_messages.size).to eq(0)
+          end
+
+        end
+
+        context 'when accepting mail from the poller is not enabled
+                 for the request user' do
+
+          it 'ignores mail from the poller' do
+            email, raw_email = email_and_raw_email
+            info_request.receive(email, raw_email, :source => :poller)
+            expect(info_request.incoming_messages.size).to eq(0)
+          end
+
+          it 'processes mail from mailin' do
+            email, raw_email = email_and_raw_email
+            info_request.receive(email, raw_email, :source => :mailin)
+            expect(info_request.incoming_messages.size).to eq(1)
+            expect(info_request.incoming_messages.last).to be_persisted
+          end
+
+        end
+      end
     end
 
     context 'allowing new responses' do
@@ -445,7 +556,9 @@ describe InfoRequest do
                   :handle_rejected_responses => 'holding_pen' }
         info_request = FactoryGirl.create(:info_request, attrs)
         email, raw_email = email_and_raw_email
-        info_request.receive(email, raw_email, true)
+        info_request.receive(email,
+                             raw_email,
+                             :override_stop_new_responses => true)
         expect(info_request.incoming_messages.size).to eq(1)
       end
 
@@ -474,7 +587,9 @@ describe InfoRequest do
                   :handle_rejected_responses => 'holding_pen' }
         info_request = FactoryGirl.create(:info_request, attrs)
         email, raw_email = email_and_raw_email(:raw_email => spam_email)
-        info_request.receive(email, raw_email, true)
+        info_request.receive(email,
+                             raw_email,
+                             :override_stop_new_responses => true)
         expect(info_request.incoming_messages.size).to eq(1)
       end
 
@@ -541,7 +656,8 @@ describe InfoRequest do
         info_request.update_attribute(:handle_rejected_responses, 'unknown_value')
         email, raw_email = email_and_raw_email
         err = InfoRequest::ResponseRejection::UnknownResponseRejectionError
-        expect { info_request.receive(email, raw_email) }.to raise_error(err)
+        expect { info_request.receive(email, raw_email) }.
+          to raise_error(err)
       end
 
     end
@@ -2749,6 +2865,10 @@ describe InfoRequest do
 
   end
 
+  describe "#log_event" do
+    let(:info_request) { FactoryGirl.create(:info_request) }
+  end
+
   describe 'after_save callbacks' do
     let(:info_request) { FactoryGirl.create(:info_request) }
 
@@ -2860,7 +2980,7 @@ describe InfoRequest do
 
     it 'returns similar requests' do
       similar, more = info_requests(:spam_1_request).similar_requests(1)
-      expect(similar.results.first[:model].info_request).to eq(info_requests(:spam_2_request))
+      expect(similar.first).to eq(info_requests(:spam_2_request))
     end
 
     it 'returns a flag set to true' do
@@ -3236,10 +3356,14 @@ describe InfoRequest do
 
   describe "Updating request summaries when in a batch request" do
     let(:batch) do
-      FactoryGirl.create(
-        :info_request_batch,
-        public_bodies: FactoryGirl.create_list(:public_body, 3)
-      )
+      batch = nil
+      TestAfterCommit.with_commits(true) do
+        batch = FactoryGirl.create(
+          :info_request_batch,
+          public_bodies: FactoryGirl.create_list(:public_body, 3)
+        )
+      end
+      batch
     end
 
     before do
@@ -3247,9 +3371,90 @@ describe InfoRequest do
     end
 
     it "calls the batch request's create_or_update_request_summary on update" do
-      info_request = batch.info_requests.first
-      expect(info_request.info_request_batch).to receive(:create_or_update_request_summary)
-      info_request.save!
+      TestAfterCommit.with_commits(true) do
+        info_request = batch.info_requests.first
+        expect(info_request.info_request_batch).
+          to receive(:create_or_update_request_summary)
+        info_request.save!
+      end
+    end
+  end
+
+  describe "updating request summaries when logging events" do
+    let(:awaiting) { AlaveteliPro::RequestSummaryCategory.awaiting_response }
+    let(:overdue) { AlaveteliPro::RequestSummaryCategory.overdue }
+    let(:very_overdue) { AlaveteliPro::RequestSummaryCategory.very_overdue }
+    let(:info_request) { FactoryGirl.create(:info_request) }
+
+    context "when logging overdue events" do
+      it "updates the request summary's status" do
+        TestAfterCommit.with_commits(true) do
+          # We want to make the info_request in the past, then effectively
+          # jump forward to a point where it's delayed and we would be calling
+          # log_overdue_events to mark it as overdue
+          time_travel_to(Date.parse('2014-12-31')){ info_request }
+          time_travel_to(Date.parse('2015-01-30')) do
+            request_summary = info_request.request_summary
+            expect(request_summary.request_summary_categories).
+              to match_array([awaiting])
+
+            info_request.log_event(
+              'overdue',
+              { :event_created_at => Time.zone.now },
+              { :created_at => Time.zone.now - 1.day }
+            )
+
+            expect(request_summary.reload.request_summary_categories).
+              to match_array([overdue])
+          end
+        end
+      end
+    end
+
+    context "when logging very overdue events" do
+      it "updates the request summary's status" do
+        TestAfterCommit.with_commits(true) do
+          # We want to make the info_request in the past, then effectively
+          # jump forward to a point where it's delayed and we would be calling
+          # log_overdue_events to mark it as overdue
+          time_travel_to(Date.parse('2014-12-31')){ info_request }
+          time_travel_to(Date.parse('2015-02-28')) do
+            request_summary = info_request.request_summary
+            expect(request_summary.request_summary_categories).
+              to match_array([awaiting])
+
+            info_request.log_event(
+              'overdue',
+              { :event_created_at => Time.zone.now },
+              { :created_at => Time.zone.now - 1.day }
+            )
+
+            expect(request_summary.reload.request_summary_categories).
+              to match_array([very_overdue])
+          end
+        end
+      end
+    end
+  end
+
+  describe "updating request summaries when changing status" do
+    let(:info_request) { FactoryGirl.create(:awaiting_description) }
+    let(:received) { AlaveteliPro::RequestSummaryCategory.response_received }
+    let(:complete) { AlaveteliPro::RequestSummaryCategory.complete }
+    let(:summary) { info_request.request_summary.reload }
+
+    it "updates the request summary when the status is updated" do
+      TestAfterCommit.with_commits(true) do
+        expect(summary.request_summary_categories).to match_array([received])
+        info_request.log_event(
+          "status_update",
+          { :user_id => info_request.user.id,
+            :old_described_state => info_request.described_state,
+            :described_state => 'successful' })
+        info_request.set_described_state('successful')
+        expect(summary.reload.request_summary_categories).
+          to match_array([complete])
+      end
     end
   end
 
@@ -3536,7 +3741,38 @@ describe InfoRequest do
             .to eq Date.parse('2015-02-26')
         end
       end
+    end
 
+    context 'if the event was created after the last_event_time on the
+            info request' do
+      it 'sets the last_event_time on the info request to the event
+          creation time' do
+        event = info_request.log_event("resent", :param => 'value')
+        expect(info_request.last_event_time).to eq(event.created_at)
+      end
+    end
+
+    context 'if there is no last_event_time on the info request' do
+
+      it 'sets the last_event_time on the info request to the event
+          creation time' do
+        info_request.last_event_time = nil
+        info_request.save!
+        event = info_request.log_event("resent", :param => 'value')
+        expect(info_request.last_event_time).to eq(event.created_at)
+      end
+    end
+
+    context 'if the event was created before the last_event_time on
+             the info request' do
+      it 'does not set the last event time to the event creation
+          time' do
+        event = info_request.log_event("resent",
+                                       { :param => 'value' },
+                                       { :created_at => Time.now - 1.day })
+        expect(info_request.last_event_time).
+          not_to eq(event.reload.created_at)
+      end
     end
   end
 
@@ -3577,7 +3813,10 @@ describe InfoRequest do
 
   describe '.log_overdue_events' do
 
-    let(:info_request){ FactoryGirl.create(:info_request) }
+    let(:info_request) { FactoryGirl.create(:info_request) }
+    let(:use_notifications_request) do
+      FactoryGirl.create(:use_notifications_request)
+    end
 
     context 'when an InfoRequest is not overdue' do
 
@@ -3608,6 +3847,30 @@ describe InfoRequest do
           expect(overdue_events.size).to eq 1
           overdue_event = overdue_events.first
           expect(overdue_event.created_at).to eq Time.zone.parse('2015-01-29').beginning_of_day
+        end
+      end
+
+      context "when the request has use_notifications: false" do
+        it "does not notify the user of the event" do
+          time_travel_to(Date.parse('2014-12-31')) { info_request }
+
+          time_travel_to(Date.parse('2015-01-30')) do
+            expect { InfoRequest.log_overdue_events }.
+              not_to change { Notification.count }
+          end
+        end
+      end
+
+      context "when the request has use_notifications: true" do
+        it "notifies the user of the event" do
+          time_travel_to(Date.parse('2014-12-31')) do
+            use_notifications_request
+          end
+
+          time_travel_to(Date.parse('2015-01-30')) do
+            expect { InfoRequest.log_overdue_events }.
+              to change { Notification.count }.by(1)
+          end
         end
       end
     end
@@ -3641,7 +3904,6 @@ describe InfoRequest do
             .to eq Time.zone.parse('2015-02-28').beginning_of_day
         end
 
-
       end
 
     end
@@ -3651,6 +3913,9 @@ describe InfoRequest do
   describe '.log_very_overdue_events' do
 
     let(:info_request){ FactoryGirl.create(:info_request) }
+    let(:use_notifications_request) do
+      FactoryGirl.create(:use_notifications_request)
+    end
 
     context 'when a request is not very overdue' do
 
@@ -3683,6 +3948,30 @@ describe InfoRequest do
           very_overdue_event = very_overdue_events.first
           expect(very_overdue_event.created_at).
             to eq Time.zone.parse('2015-02-26').beginning_of_day
+        end
+      end
+
+      context "when the request has use_notifications: false" do
+        it "does not notify the user of the event" do
+          time_travel_to(Date.parse('2014-12-31')) { info_request }
+
+          time_travel_to(Date.parse('2015-02-28')) do
+            expect { InfoRequest.log_overdue_events }.
+              not_to change { Notification.count }
+          end
+        end
+      end
+
+      context "when the request has use_notifications: true" do
+        it "notifies the user of the event" do
+          time_travel_to(Date.parse('2014-12-31')) do
+            use_notifications_request
+          end
+
+          time_travel_to(Date.parse('2015-02-28')) do
+            expect { InfoRequest.log_overdue_events }.
+              to change { Notification.count }.by(1)
+          end
         end
       end
     end
@@ -3826,26 +4115,31 @@ describe InfoRequest do
   end
 
   describe "setting use_notifications" do
-    context "when user is a notifications tester and it's in a batch" do
+    context "when user has :notifications and it's in a batch" do
       it "sets use_notifications to true" do
-        user = FactoryGirl.create(:notifications_tester_user)
+        user = FactoryGirl.create(:user)
+        AlaveteliFeatures.backend[:notifications].enable_actor user
         public_bodies = FactoryGirl.create_list(:public_body, 3)
-        batch = FactoryGirl.create(:info_request_batch, user: user, public_bodies: public_bodies)
+        batch = FactoryGirl.create(
+          :info_request_batch,
+          user: user,
+          public_bodies: public_bodies)
         batch.create_batch!
         info_request = batch.info_requests.first
         expect(info_request.use_notifications).to be true
       end
     end
 
-    context "when user is a notifications tester and it's not in a batch" do
+    context "when user has :notifications and it's not in a batch" do
       it "sets use_notifications to false" do
-        user = FactoryGirl.create(:notifications_tester_user)
+        user = FactoryGirl.create(:user)
+        AlaveteliFeatures.backend[:notifications].enable_actor user
         info_request = FactoryGirl.create(:info_request, user: user)
         expect(info_request.use_notifications).to be false
       end
     end
 
-    context "when user is not a notification tester and it's in a batch" do
+    context "when user doesn't have :notifications and it's in a batch" do
       it "sets use_notifications to false" do
         public_bodies = FactoryGirl.create_list(:public_body, 3)
         batch = FactoryGirl.create(:info_request_batch, public_bodies: public_bodies)
@@ -3855,7 +4149,7 @@ describe InfoRequest do
       end
     end
 
-    context "when user is not a notification tester and it's not in a batch" do
+    context "when user doesn't have :notifications and it's not in a batch" do
       it "sets use_notifications to false" do
         info_request = FactoryGirl.create(:info_request)
         expect(info_request.use_notifications).to be false

@@ -24,10 +24,12 @@
 
 class CensorRule < ActiveRecord::Base
   include AdminColumn
-  belongs_to :info_request
-  belongs_to :user
-  belongs_to :public_body
-
+  belongs_to :info_request,
+             :inverse_of => :censor_rules
+  belongs_to :user,
+             :inverse_of => :censor_rules
+  belongs_to :public_body,
+             :inverse_of => :censor_rules
 
   validate :require_valid_regexp, :if => proc { |rule| rule.regexp? == true }
 

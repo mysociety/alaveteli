@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20170301171406
 #
 # Table name: users
 #
@@ -14,7 +13,6 @@
 #  email_confirmed                   :boolean          default(FALSE), not null
 #  url_name                          :text             not null
 #  last_daily_track_email            :datetime         default(2000-01-01 00:00:00 UTC)
-#  admin_level                       :string(255)      default("none"), not null
 #  ban_text                          :text             default(""), not null
 #  about_me                          :text             default(""), not null
 #  locale                            :string(255)
@@ -33,6 +31,8 @@
 #  request_classifications_count     :integer          default(0), not null
 #  public_body_change_requests_count :integer          default(0), not null
 #  info_request_batches_count        :integer          default(0), not null
+#  daily_summary_hour                :integer
+#  daily_summary_minute              :integer
 #
 
 FactoryGirl.define do
@@ -65,13 +65,6 @@ FactoryGirl.define do
       after(:create) do |user, evaluator|
         user.add_role :admin
         user.add_role :pro_admin
-      end
-    end
-
-    factory :notifications_tester_user do
-      name 'Notification Tester User'
-      after(:create) do |user, evaluator|
-        user.add_role :notifications_tester
       end
     end
   end

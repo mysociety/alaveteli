@@ -4,22 +4,15 @@
 # Table name: public_bodies
 #
 #  id                                     :integer          not null, primary key
-#  name                                   :text             not null
-#  short_name                             :text             default(""), not null
-#  request_email                          :text             not null
 #  version                                :integer          not null
 #  last_edit_editor                       :string(255)      not null
-#  last_edit_comment                      :text             not null
+#  last_edit_comment                      :text
 #  created_at                             :datetime         not null
 #  updated_at                             :datetime         not null
-#  url_name                               :text             not null
-#  home_page                              :text             default(""), not null
-#  notes                                  :text             default(""), not null
-#  first_letter                           :string(255)      not null
-#  publication_scheme                     :text             default(""), not null
+#  home_page                              :text
 #  api_key                                :string(255)      not null
 #  info_requests_count                    :integer          default(0), not null
-#  disclosure_log                         :text             default(""), not null
+#  disclosure_log                         :text
 #  info_requests_successful_count         :integer
 #  info_requests_not_held_count           :integer
 #  info_requests_overdue_count            :integer
@@ -30,6 +23,426 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe PublicBody do
+
+  describe <<-EOF.squish do
+    temporary tests for Globalize::ActiveRecord::InstanceMethods#read_attribute
+    override
+  EOF
+
+    it 'create without translated name' do
+      body = FactoryGirl.build(:public_body)
+      expect(body.update_attributes('name' => nil)).to eq(false)
+      expect(body).not_to be_valid
+    end
+
+    it 'create with translated name' do
+      body = FactoryGirl.build(:public_body)
+      AlaveteliLocalization.with_locale(:es) { body.name = 'hola' }
+
+      expect(body.update_attributes('name' => nil)).to eq(false)
+      expect(body).not_to be_valid
+    end
+    it 'update without translated name' do
+      body = FactoryGirl.create(:public_body)
+      body.reload
+
+      expect(body.update_attributes('name' => nil)).to eq(false)
+      expect(body).not_to be_valid
+    end
+
+    it 'update with translated name' do
+      body = FactoryGirl.create(:public_body)
+      AlaveteliLocalization.with_locale(:es) { body.name = 'hola' ; body.save }
+      body.reload
+
+      expect(body.update_attributes('name' => nil)).to eq(false)
+      expect(body).not_to be_valid
+    end
+
+    it 'blank string create without translated name' do
+      body = FactoryGirl.build(:public_body)
+      expect(body.update_attributes('name' => '')).to eq(false)
+      expect(body).not_to be_valid
+    end
+
+    it 'blank string create with translated name' do
+      body = FactoryGirl.build(:public_body)
+      AlaveteliLocalization.with_locale(:es) { body.name = 'hola' }
+
+      expect(body.update_attributes('name' => '')).to eq(false)
+      expect(body).not_to be_valid
+    end
+    it 'blank string update without translated name' do
+      body = FactoryGirl.create(:public_body)
+      body.reload
+
+      expect(body.update_attributes('name' => '')).to eq(false)
+      expect(body).not_to be_valid
+    end
+
+    it 'blank string update with translated name' do
+      body = FactoryGirl.create(:public_body)
+      AlaveteliLocalization.with_locale(:es) { body.name = 'hola' ; body.save }
+      body.reload
+
+      expect(body.update_attributes('name' => '')).to eq(false)
+      expect(body).not_to be_valid
+    end
+  end
+
+  describe '#name' do
+
+    it 'is invalid when nil' do
+      subject = described_class.new(:name => nil)
+      subject.valid?
+      expect(subject.errors[:name]).to eq(["Name can't be blank"])
+    end
+
+    it 'is invalid when blank' do
+      subject = described_class.new(:name => '')
+      subject.valid?
+      expect(subject.errors[:name]).to eq(["Name can't be blank"])
+    end
+
+    it 'is invalid when not unique' do
+      existing = FactoryGirl.create(:public_body)
+      subject = described_class.new(:name => existing.name)
+      subject.valid?
+      expect(subject.errors[:name]).to eq(["Name is already taken"])
+    end
+
+  end
+
+  describe '#short_name' do
+
+    it 'is invalid when not unique' do
+      existing = FactoryGirl.create(:public_body, :short_name => 'xyz')
+      subject = described_class.new(:short_name => existing.short_name)
+      subject.valid?
+      expect(subject.errors[:short_name]).to eq(["Short name is already taken"])
+    end
+
+    it 'is valid when blank' do
+      subject = described_class.new(:short_name => '')
+      subject.valid?
+      expect(subject.errors[:short_name]).to be_empty
+    end
+
+  end
+
+  describe '#request_email' do
+
+    it 'is invalid when nil' do
+      subject = described_class.new(:request_email => nil)
+      subject.valid?
+      expect(subject.errors[:request_email]).
+        to eq(["Request email can't be nil"])
+    end
+
+    context "when the email is set" do
+
+      subject(:public_body) do
+        FactoryGirl.build(:public_body,
+                           :request_email => "request@example.com")
+      end
+
+      it "should return the set email address" do
+        expect(public_body.request_email).to eq("request@example.com")
+      end
+
+      it "should return a different email address when overridden in configuration" do
+        allow(AlaveteliConfiguration).
+          to receive(:override_all_public_body_request_emails).
+            and_return("tester@example.com")
+        expect(public_body.request_email).to eq("tester@example.com")
+      end
+
+    end
+
+    context "when no email is set" do
+
+      subject(:public_body) do
+        FactoryGirl.build(:public_body, :request_email => "")
+      end
+
+      it "should return a blank email address" do
+        expect(public_body.request_email).to be_blank
+      end
+
+      it "should still return a blank email address when overridden in configuration" do
+        allow(AlaveteliConfiguration).
+          to receive(:override_all_public_body_request_emails).
+            and_return("tester@example.com")
+        expect(public_body.request_email).to be_blank
+      end
+
+    end
+
+    it 'is invalid with an unrequestable email' do
+      subject = PublicBody.new(:request_email => 'invalid@')
+      subject.valid?
+      expect(subject.errors[:request_email]).
+        to eq(["Request email doesn't look like a valid email address"])
+    end
+
+    it 'is valid with a requestable email' do
+      subject = PublicBody.new(:request_email => 'valid@example.com')
+      subject.valid?
+      expect(subject.errors[:request_email]).to be_empty
+    end
+
+  end
+
+  describe '#version' do
+
+    it 'ignores manually set attributes' do
+      subject = FactoryGirl.build(:public_body, :version => 21)
+      subject.save
+      expect(subject.version).to eq(1)
+    end
+
+  end
+
+  describe '#url_name' do
+
+    it 'is invalid when nil' do
+      subject = PublicBody.new(:url_name => nil)
+      subject.valid?
+      expect(subject.errors[:url_name]).to eq(["URL name can't be blank"])
+    end
+
+    it 'is invalid when blank' do
+      subject = PublicBody.new(:url_name => '')
+      subject.valid?
+      expect(subject.errors[:url_name]).to eq(["URL name can't be blank"])
+    end
+
+    it 'is invalid when not unique' do
+      existing = FactoryGirl.create(:public_body, :url_name => 'xyz')
+      subject = described_class.new(:url_name => existing.url_name)
+      subject.valid?
+      expect(subject.errors[:url_name]).to eq(["URL name is already taken"])
+    end
+
+    it 'replaces spaces and makes lower case' do
+      subject = PublicBody.new(:name => 'Some Authority')
+      expect(subject.url_name).to eq('some_authority')
+    end
+
+    it 'does not allow a numeric name' do
+      subject = PublicBody.new(:name => '1234')
+      expect(subject.url_name).to eq('body')
+    end
+
+    context 'short_name has not been set' do
+
+      it 'updates the url_name when name is changed' do
+        subject = PublicBody.new
+        subject.name = 'Some Authority'
+        expect(subject.url_name).to eq('some_authority')
+      end
+
+      it 'does not update the url_name if the new body name is invalid' do
+        subject = PublicBody.new
+        subject.name = '1234'
+        expect(subject.url_name).to eq('body')
+      end
+
+    end
+
+    context 'short_name has been set' do
+
+      it 'does not update the url_name when name is changed' do
+        subject = PublicBody.new(:short_name => 'Test Name')
+        subject.name = 'Some Authority'
+        expect(subject.url_name).to eq('test_name')
+      end
+
+      it 'updates the url_name when short_name is changed' do
+        subject = PublicBody.new(:short_name => 'Test Name')
+        subject.short_name = 'Short Name'
+        expect(subject.url_name).to eq('short_name')
+      end
+
+    end
+
+  end
+
+  describe '#first_letter' do
+
+    it 'is empty on initialization' do
+      subject = FactoryGirl.build(:public_body)
+      expect(subject.first_letter).to be_nil
+    end
+
+    it 'gets set on save' do
+      subject = FactoryGirl.build(:public_body, :name => 'Body')
+      subject.save!
+      expect(subject.first_letter).to eq('B')
+    end
+
+    it 'gets updated on save' do
+      subject = FactoryGirl.create(:public_body, :name => 'Body')
+      subject.name = 'Authority'
+      expect(subject.first_letter).to eq('B')
+      subject.save!
+      expect(subject.first_letter).to eq('A')
+    end
+
+    it 'sets the first letter to a multibyte character' do
+      subject = FactoryGirl.build(:public_body, :name => 'åccents')
+      subject.save!
+      expect(subject.first_letter).to eq('Å')
+    end
+
+    it 'should save the first letter of a translation' do
+      subject = FactoryGirl.build(:public_body, :name => 'Body')
+      AlaveteliLocalization.with_locale(:es) do
+        subject.name = 'Prueba body'
+        subject.save!
+        expect(subject.first_letter).to eq('P')
+      end
+    end
+
+    it 'saves the first letter of a translation, even when it is the same as the
+          first letter in the default locale' do
+      subject = FactoryGirl.build(:public_body, :name => 'Body')
+      AlaveteliLocalization.with_locale(:es) do
+        subject.name = 'Body ES'
+        subject.save!
+        expect(subject.first_letter).to eq('B')
+      end
+    end
+
+  end
+
+  describe '#api_key' do
+
+    it 'is empty on initialization' do
+      subject = FactoryGirl.build(:public_body)
+      expect(subject.api_key).to be_nil
+    end
+
+    it 'gets set on save' do
+      subject = FactoryGirl.build(:public_body)
+      subject.save
+      expect(subject.api_key).not_to be_blank
+    end
+
+    it 'does not get changed on update' do
+      subject = FactoryGirl.create(:public_body)
+      existing = subject.api_key
+      subject.save!
+      expect(subject.api_key).to eq(existing)
+    end
+
+  end
+
+  describe '#last_edit_editor' do
+
+    it 'is invalid when nil' do
+      subject = PublicBody.new(:last_edit_editor => nil)
+      subject.valid?
+      expect(subject.errors[:last_edit_editor]).
+        to eq(["Last edit editor can't be blank"])
+    end
+
+    it 'is invalid when blank' do
+      subject = PublicBody.new(:last_edit_editor => '')
+      subject.valid?
+      expect(subject.errors[:last_edit_editor]).
+        to eq(["Last edit editor can't be blank"])
+    end
+
+    it 'is invalid when over 255 characters' do
+      subject = PublicBody.new(:last_edit_editor => 'x' * 256)
+      subject.valid?
+      expect(subject.errors[:last_edit_editor]).
+        to eq(["Last edit editor can't be longer than 255 characters"])
+    end
+
+    it 'is valid up to 255 characters' do
+      subject = PublicBody.new(:last_edit_editor => 'x' * 255)
+      subject.valid?
+      expect(subject.errors[:last_edit_editor]).to be_empty
+    end
+
+  end
+
+  describe '#last_edit_comment' do
+
+    it 'is valid when nil' do
+      subject = PublicBody.new(:last_edit_comment => nil)
+      subject.valid?
+      expect(subject.errors[:last_edit_comment]).to be_empty
+    end
+
+    it 'strips blank attributes' do
+      subject = FactoryGirl.create(:public_body, :last_edit_comment => '')
+      expect(subject.last_edit_comment).to be_nil
+    end
+
+  end
+
+  describe '#home_page' do
+
+    it 'is valid when nil' do
+      subject = PublicBody.new(:home_page => nil)
+      subject.valid?
+      expect(subject.errors[:home_page]).to be_empty
+    end
+
+    it 'strips blank attributes' do
+      subject = FactoryGirl.create(:public_body, :home_page => '')
+      expect(subject.home_page).to be_nil
+    end
+
+  end
+
+  describe '#notes' do
+
+    it 'is valid when nil' do
+      subject = PublicBody.new(:notes => nil)
+      subject.valid?
+      expect(subject.errors[:notes]).to be_empty
+    end
+
+    it 'strips blank attributes' do
+      subject = FactoryGirl.create(:public_body, :notes => '')
+      expect(subject.notes).to be_nil
+    end
+
+  end
+
+  describe '#publication_scheme' do
+
+    it 'is valid when nil' do
+      subject = PublicBody.new(:publication_scheme => nil)
+      subject.valid?
+      expect(subject.errors[:publication_scheme]).to be_empty
+    end
+
+    it 'strips blank attributes' do
+      subject = FactoryGirl.create(:public_body, :publication_scheme => '')
+      expect(subject.publication_scheme).to be_nil
+    end
+
+  end
+
+  describe '#disclosure_log' do
+
+    it 'is valid when nil' do
+      subject = PublicBody.new(:disclosure_log => nil)
+      subject.valid?
+      expect(subject.errors[:disclosure_log]).to be_empty
+    end
+
+    it 'strips blank attributes' do
+      subject = FactoryGirl.create(:public_body, :disclosure_log => '')
+      expect(subject.disclosure_log).to be_nil
+    end
+
+  end
 
   describe '#translations_attributes=' do
 
@@ -160,6 +573,94 @@ describe PublicBody do
 
   end
 
+  describe '#short_or_long_name' do
+
+    it 'returns the short_name if it has been set' do
+      public_body = PublicBody.new(:name => 'Test Name', :short_name => "Test")
+      expect(public_body.short_or_long_name).to eq('Test')
+    end
+
+    it 'returns the name if short_name has not been set' do
+      public_body = PublicBody.new(:name => 'Test Name')
+      expect(public_body.short_or_long_name).to eq('Test Name')
+    end
+
+  end
+
+  describe '#set_first_letter' do
+
+    it 'sets first_letter to the first letter of the name if the name is set' do
+      public_body = PublicBody.new(:name => 'Test Name')
+      public_body.set_first_letter
+      expect(public_body.first_letter).to eq('T')
+    end
+
+    it 'does not set first_letter if the name has not been set' do
+      public_body = PublicBody.new
+      public_body.set_first_letter
+      expect(public_body.first_letter).to be_nil
+    end
+
+    it 'handles mutlibyte characters correctly' do
+      public_body = PublicBody.new(:name => 'Åccented')
+      public_body.set_first_letter
+      expect(public_body.first_letter).to eq('Å')
+    end
+
+    it 'upcases the first character' do
+      public_body = PublicBody.new(:name => 'åccented')
+      public_body.set_first_letter
+      expect(public_body.first_letter).to eq('Å')
+    end
+
+  end
+
+  describe ".internal_admin_body" do
+
+    before(:each) do
+      InfoRequest.destroy_all
+      PublicBody.destroy_all
+    end
+
+    it "creates the internal_admin_body if it didn't exist" do
+      iab = PublicBody.internal_admin_body
+      expect(iab).to be_persisted
+    end
+
+    it 'creates the internal_admin_body with the default_locale' do
+      iab = PublicBody.internal_admin_body
+      expect(iab.translations.first.locale).to eq(:en)
+    end
+
+    it 'handles underscore locales correctly' do
+      AlaveteliLocalization.set_locales('es en_GB', 'en_GB')
+      iab = PublicBody.internal_admin_body
+      expect(iab.translations.first.locale).to eq(:en_GB)
+    end
+
+    it "repairs the internal_admin_body if the default locale has changed" do
+      iab = PublicBody.internal_admin_body
+
+      with_default_locale(:es) do
+        AlaveteliLocalization.with_locale(:es) do
+          found_iab = PublicBody.internal_admin_body
+          expect(found_iab).to eq(iab)
+          expect(found_iab.translations.pluck(:locale)).to include('es')
+        end
+      end
+    end
+
+    it "finds the internal_admin_body if current locale is not the default" do
+      iab = PublicBody.internal_admin_body
+
+      AlaveteliLocalization.with_locale(:es) do
+        found_iab = PublicBody.internal_admin_body
+        expect(found_iab).to eq(iab)
+      end
+    end
+
+  end
+
   describe '.localized_csv_field_name' do
 
     it 'returns the field name if passed the default_locale' do
@@ -185,39 +686,45 @@ describe PublicBody do
   end
 
   describe  'when generating json for the api' do
-    before do
-      @public_body = PublicBody.new(:name => 'Marmot Appreciation Society',
-                                    :short_name => 'MAS',
-                                    :request_email => 'marmots@flourish.org',
-                                    :last_edit_editor => 'test',
-                                    :last_edit_comment => '',
-                                    :info_requests_count => 10,
-                                    :info_requests_successful_count => 2,
-                                    :info_requests_not_held_count   => 2,
-                                    :info_requests_overdue_count    => 3,
-                                    :info_requests_visible_classified_count => 3)
+
+    let(:public_body) do
+      FactoryGirl.create(:public_body,
+                         :name => 'Marmot Appreciation Society',
+                         :short_name => 'MAS',
+                         :request_email => 'marmots@flourish.org',
+                         :last_edit_editor => 'test',
+                         :last_edit_comment => '',
+                         :info_requests_count => 10,
+                         :info_requests_successful_count => 2,
+                         :info_requests_not_held_count   => 2,
+                         :info_requests_overdue_count    => 3,
+                         :info_requests_visible_classified_count => 3)
     end
 
     it 'should return info about request counts' do
-      expect(@public_body.json_for_api).to eq({ :name => 'Marmot Appreciation Society',
-                                            :notes => "",
-                                            :publication_scheme => "",
-                                            :short_name => "MAS",
-                                            :tags => [],
-                                            :updated_at => nil,
-                                            :url_name => "mas",
-                                            :created_at => nil,
-                                            :home_page => "http://www.flourish.org",
-                                            :id => nil,
-                                            :info => {
-                                              :requests_count => 10,
-                                              :requests_successful_count => 2,
-                                              :requests_not_held_count   => 2,
-                                              :requests_overdue_count    => 3,
-                                              :requests_visible_classified_count => 3,
-                                            }
-                                            })
+      expect(public_body.json_for_api).
+        to eq(
+            {
+              :name => 'Marmot Appreciation Society',
+              :notes => "",
+              :publication_scheme => "",
+              :short_name => "MAS",
+              :tags => [],
+              :updated_at => public_body.updated_at,
+              :url_name => "mas",
+              :created_at => public_body.created_at,
+              :home_page => "http://www.flourish.org",
+              :id => public_body.id,
+              :info => {
+                :requests_count => 10,
+                :requests_successful_count => 2,
+                :requests_not_held_count   => 2,
+                :requests_overdue_count    => 3,
+                :requests_visible_classified_count => 3,
+              }
+            })
     end
+
   end
 
 end
@@ -336,22 +843,6 @@ describe PublicBody, "when finding_by_tags" do
   end
 end
 
-describe PublicBody, " when making up the URL name" do
-  before do
-    @public_body = PublicBody.new
-  end
-
-  it 'should remove spaces, and make lower case' do
-    @public_body.name = 'Some Authority'
-    expect(@public_body.url_name).to eq('some_authority')
-  end
-
-  it 'should not allow a numeric name' do
-    @public_body.name = '1234'
-    expect(@public_body.url_name).to eq('body')
-  end
-end
-
 describe PublicBody, " when saving" do
   before do
     @public_body = PublicBody.new
@@ -381,54 +872,12 @@ describe PublicBody, " when saving" do
     @public_body.save!
   end
 
-  it "should update first_letter" do
-    set_default_attributes(@public_body)
-    expect(@public_body.first_letter).to be_nil
-    @public_body.save!
-    expect(@public_body.first_letter).to eq('T')
-  end
-
-  it "should update first letter, even if it's a multibyte character" do
-    pb = PublicBody.new(:name => 'åccents, lower-case',
-                        :short_name => 'ALC',
-                        :request_email => 'foo@localhost',
-                        :last_edit_editor => 'test',
-                        :last_edit_comment => '')
-    expect(pb.first_letter).to be_nil
-    pb.save!
-    expect(pb.first_letter).to eq('Å')
-  end
-
-  it 'should save the first letter of a translation' do
-    existing = FactoryGirl.create(:public_body, :first_letter => 'T', :name => 'Test body')
-    I18n.with_locale(:es) { existing.update_attributes :name => 'Prueba body' }
-    expect(PublicBody::Translation.
-      where(:public_body_id => existing.id, :locale => :es).
-      pluck('first_letter').first).to eq('P')
-  end
-
-  it 'should save the first letter of a translation, even when it is the same as the
-        first letter in the default locale' do
-    existing = FactoryGirl.create(:public_body, :first_letter => 'T', :name => 'Test body')
-    I18n.with_locale(:es) { existing.update_attributes :name => existing.name }
-    expect(PublicBody::Translation.
-      where(:public_body_id => existing.id, :locale => :es).
-      pluck('first_letter').first).to eq('T')
-  end
-
   it 'should create a url_name for a translation' do
     existing = FactoryGirl.create(:public_body, :first_letter => 'T', :short_name => 'Test body')
     AlaveteliLocalization.with_locale(:es) do
       existing.update_attributes :short_name => 'Prueba', :name => 'Prueba body'
       expect(existing.url_name).to eq('prueba')
     end
-  end
-
-  it "should not save if the url_name is already taken" do
-    existing = FactoryGirl.create(:public_body)
-    pb = PublicBody.new(existing.attributes)
-    pb.valid?
-    expect(pb.errors[:url_name].size).to eq(1)
   end
 
   it "should save the name when renaming an existing public body" do
@@ -465,6 +914,7 @@ describe PublicBody, " when saving" do
     @public_body.name = 'Test'
     @public_body.save!
     expect(@public_body.versions.size).to eq(2)
+    expect(@public_body.versions.last.name).to eq('Test')
   end
 
 end
@@ -549,54 +999,24 @@ describe PublicBody, "when destroying" do
     expect(CensorRule.where(:public_body_id => public_body.id)).to be_empty
   end
 
+  it 'destroys associated translations' do
+    AlaveteliLocalization.with_locale(:es) do
+      public_body.name = 'El Translation'
+      public_body.save
+    end
+    expect(PublicBody::Translation.where(:public_body_id => public_body.id)).
+      to_not be_empty
+    public_body.destroy
+    expect(PublicBody::Translation.where(:public_body_id => public_body.id)).
+      to be_empty
+  end
+
   it 'should raise an error if there are associated info_requests' do
     FactoryGirl.create(:info_request, :public_body => public_body)
     public_body.reload
     expect{ public_body.destroy }.to raise_error(ActiveRecord::InvalidForeignKey)
   end
-end
 
-describe PublicBody, "when asked for the internal_admin_body" do
-  before(:each) do
-    # Make sure that there's no internal_admin_body before each of
-    # these tests:
-    PublicBody.connection.delete("DELETE FROM public_bodies WHERE url_name = 'internal_admin_body'")
-    PublicBody.connection.delete("DELETE FROM public_body_translations WHERE url_name = 'internal_admin_body'")
-  end
-
-  it "should create the internal_admin_body if it didn't exist" do
-    iab = PublicBody.internal_admin_body
-    expect(iab).not_to be_nil
-  end
-
-  it "should find the internal_admin_body even if the default locale has changed since it was created" do
-    with_default_locale("en") do
-      I18n.with_locale(:en) do
-        iab = PublicBody.internal_admin_body
-        expect(iab).not_to be_nil
-      end
-    end
-    with_default_locale("es") do
-      I18n.with_locale(:es) do
-        iab = PublicBody.internal_admin_body
-        expect(iab).not_to be_nil
-      end
-    end
-  end
-
-end
-
-
-describe PublicBody, " when dealing public body locales" do
-  it "shouldn't fail if it internal_admin_body was created in a locale other than the default" do
-    # first time, do it with the non-default locale
-    I18n.with_locale(:es) do
-      PublicBody.internal_admin_body
-    end
-
-    # second time
-    expect {PublicBody.internal_admin_body }.not_to raise_error
-  end
 end
 
 describe PublicBody, " when loading CSV files" do
@@ -1447,36 +1867,7 @@ describe PublicBody do
 
   end
 
-  describe '#request_email' do
-    context "when the email is set" do
-      subject(:public_body) { FactoryGirl.create(:public_body, :request_email => "request@example.com") }
-
-      it "should return the set email address" do
-        expect(public_body.request_email).to eq("request@example.com")
-      end
-
-      it "should return a different email address when overridden in configuration" do
-        allow(AlaveteliConfiguration).to receive(:override_all_public_body_request_emails).and_return("tester@example.com")
-        expect(public_body.request_email).to eq("tester@example.com")
-      end
-    end
-
-    context "when no email is set" do
-      subject(:public_body) { FactoryGirl.create(:public_body, :request_email => "") }
-
-      it "should return a blank email address" do
-        expect(public_body.request_email).to be_blank
-      end
-
-      it "should still return a blank email address when overridden in configuration" do
-        allow(AlaveteliConfiguration).to receive(:override_all_public_body_request_emails).and_return("tester@example.com")
-        expect(public_body.request_email).to be_blank
-      end
-    end
-  end
 end
-
-
 
 describe PublicBody::Translation do
 
@@ -1487,8 +1878,100 @@ describe PublicBody::Translation do
   end
 
   it 'is valid if all required attributes are assigned' do
-    translation = PublicBody::Translation.new(:locale => I18n.default_locale)
+    translation = PublicBody::Translation.new(
+      :locale => AlaveteliLocalization.default_locale
+    )
     expect(translation).to be_valid
+  end
+
+end
+
+describe PublicBody::Version do
+  let(:public_body){ FactoryGirl.create(:public_body) }
+
+  describe '#compare' do
+
+    describe 'when no block is given' do
+
+      describe 'when there is no other version' do
+
+        it 'returns an empty list' do
+          current = public_body.versions.latest
+          expect(current.compare(current.previous)).to eq([])
+        end
+
+      end
+
+      describe 'when there are no significant changes' do
+
+        it 'returns an empty list' do
+          public_body.last_edit_comment = 'Just tinkering'
+          public_body.save
+          current = public_body.versions.latest
+          expect(current.compare(current.previous)).to eq([])
+        end
+
+      end
+
+      describe 'when there are significant changes' do
+
+        it 'returns a list of changes as hashes with keys :name, :from and
+           :to' do
+          public_body.request_email = 'new@example.com'
+          public_body.save
+          current = public_body.versions.latest
+          expected = { :name => "Request email",
+                       :from => "request@example.com",
+                       :to => "new@example.com" }
+          expect(current.compare(current.previous)).to eq([ expected ])
+        end
+
+      end
+
+    end
+
+    describe 'when no block is given' do
+
+      describe 'when there is no other version' do
+
+        it 'does not yield' do
+          current = public_body.versions.latest
+          expect { |b| current.compare(current.previous, &b) }.
+            not_to yield_control
+        end
+
+      end
+
+      describe 'when there are no significant changes' do
+
+        it 'returns an empty list' do
+          public_body.last_edit_comment = 'Just tinkering'
+          public_body.save
+          current = public_body.versions.latest
+          expect { |b| current.compare(current.previous, &b) }.
+            not_to yield_control
+        end
+
+      end
+
+      describe 'when there are significant changes' do
+
+        it 'returns a list of changes as hashes with keys :name, :from and
+           :to' do
+          public_body.request_email = 'new@example.com'
+          public_body.save
+          current = public_body.versions.latest
+          expected = { :name => "Request email",
+                       :from => "request@example.com",
+                       :to => "new@example.com" }
+          expect { |b| current.compare(current.previous, &b) }.
+            to yield_with_args(expected)
+        end
+
+      end
+
+    end
+
   end
 
 end

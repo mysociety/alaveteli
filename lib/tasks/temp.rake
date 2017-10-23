@@ -1,17 +1,14 @@
 # -*- coding: utf-8 -*-
 namespace :temp do
 
-  desc 'Migrate admins and pro users to role-based backend'
-  task :migrate_admins_and_pros_to_roles => :environment do
-    User.where(:admin_level => 'super').each do |admin|
-      admin.add_role :admin
-    end
-    pro_users = User.
-      includes(:pro_account).
-        where("pro_accounts.id IS NOT NULL").
-          references(:pro_accounts)
-    pro_users.each do |pro_user|
-      pro_user.add_role :pro
+  desc 'Populate last_event_time column of InfoRequest'
+  task :populate_last_event_time => :environment do
+    InfoRequest.
+      where('last_event_time IS NULL').
+          includes(:info_request_events).
+            find_each do |info_request|
+      info_request.update_column(:last_event_time,
+        info_request.info_request_events.last.created_at)
     end
   end
 
@@ -79,7 +76,9 @@ namespace :temp do
   task :populate_request_due_dates => :environment do
     ActiveRecord::Base.record_timestamps = false
     begin
-      InfoRequest.find_each(:conditions => 'last_event_forming_initial_request_id is NULL') do |info_request|
+      InfoRequest.
+        where('last_event_forming_initial_request_id is NULL').
+          find_each do |info_request|
         sent_event = info_request.last_event_forming_initial_request
         info_request.last_event_forming_initial_request_id = sent_event.id
         info_request.date_initial_request_last_sent_at = sent_event.created_at.to_date
@@ -112,9 +111,21 @@ namespace :temp do
                                        days_to_count,
                                        AlaveteliConfiguration.working_or_calendar_days)
       created_at = due_date.beginning_of_day + 1.day
-      overdue_alert.info_request.log_event(event_type, {}, { :created_at => created_at })
-      if verbose
-        puts "Logging #{event_type} for #{overdue_alert.info_request.id}"
+
+      existing_event = InfoRequestEvent.where("info_request_id = ?
+                                              AND event_type = ?
+                                              AND created_at > ?",
+                                              overdue_alert.info_request,
+                                              event_type,
+                                              event_forming_request.created_at)
+      if existing_event.empty?
+        overdue_alert.info_request.log_event(event_type,
+          { :event_created_at => Time.zone.now },
+          { :created_at => created_at })
+
+        if verbose
+          puts "Logging #{event_type} for #{overdue_alert.info_request.id}"
+        end
       end
     end
   end
@@ -322,5 +333,20 @@ namespace :temp do
   desc 'Set use_notifications to false on all existing requests'
   task :set_use_notifications => :environment do
     InfoRequest.update_all use_notifications: false
+  end
+
+  desc 'Set a default time for users daily summary notifications'
+  task :set_daily_summary_times => :environment do
+    query = "UPDATE users " \
+            "SET daily_summary_hour = floor(random() * 24), " \
+            "daily_summary_minute = floor(random() * 60)"
+    ActiveRecord::Base.connection.execute(query)
+  end
+
+  desc 'Remove notifications_tester role'
+  task :remove_notifications_tester_role => :environment do
+    if Role.where(name: 'notifications_tester').exists?
+      Role.where(name: 'notifications_tester').destroy_all
+    end
   end
 end

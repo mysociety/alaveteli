@@ -1,150 +1,176 @@
 # -*- encoding : utf-8 -*-
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
 describe LinkToHelper do
-
   include LinkToHelper
 
   describe 'when creating a url for a request' do
-
-    before do
-      @mock_request = mock_model(InfoRequest, :url_title => 'test_title')
-    end
+    let(:info_request) { FactoryGirl.create(:info_request) }
 
     it 'should return a path like /request/test_title' do
-      expect(request_path(@mock_request)).to eq('/request/test_title')
+      expected = "/request/#{info_request.url_title}"
+      expect(request_path(info_request)).to eq(expected)
     end
 
     it 'should return a path including any extra parameters passed' do
-      expect(request_path(@mock_request, {:update_status => 1})).to eq('/request/test_title?update_status=1')
+      expected = "/request/#{info_request.url_title}?update_status=1"
+      actual = request_path(info_request, {:update_status => 1})
+      expect(actual).to eq(expected)
     end
-
   end
 
   describe 'when linking to new incoming messages' do
-
-    before do
-      @info_request = mock_model(InfoRequest, :id => 123, :url_title => 'test_title')
-      @incoming_message = mock_model(IncomingMessage, :id => 32, :info_request => @info_request)
-    end
+    let(:incoming_message) { FactoryGirl.create(:incoming_message) }
+    let(:info_request) { incoming_message.info_request }
 
     context 'for external links' do
+      subject(:url) { incoming_message_url(incoming_message) }
 
       it 'generates the url to the info request of the message' do
-        expect(incoming_message_url(@incoming_message)).to include('http://test.host/request/test_title')
+        expect(url).
+          to include("http://test.host/request/#{info_request.url_title}")
       end
 
       it 'includes an anchor to the new message' do
-        expect(incoming_message_url(@incoming_message)).to include('#incoming-32')
+        expect(url).to include("#incoming-#{incoming_message.id}")
       end
 
       it 'does not cache by default' do
-        expect(incoming_message_url(@incoming_message)).not_to include('nocache=incoming-32')
+        expect(url).not_to include("nocache=incoming-#{incoming_message.id}")
       end
 
       it 'includes a cache busting parameter if set' do
-        expect(incoming_message_url(@incoming_message, :cachebust => true)).to include('nocache=incoming-32')
+        url = incoming_message_url(incoming_message, :cachebust => true)
+        expect(url).to include("nocache=incoming-#{incoming_message.id}")
       end
 
     end
 
     context 'for internal links' do
+      subject(:path) { incoming_message_path(incoming_message) }
 
       it 'generates the incoming_message_url with the path only' do
-        expected = '/request/test_title#incoming-32'
-        expect(incoming_message_path(@incoming_message)).to eq(expected)
+        expected = "/request/#{info_request.url_title}" \
+                   "#incoming-#{incoming_message.id}"
+        expect(path).to eq(expected)
+      end
+    end
+  end
+
+  describe 'when linking to new responses' do
+    context 'when the user is a pro' do
+      let(:user) { FactoryGirl.create(:pro_user) }
+      let(:info_request) { FactoryGirl.create(:info_request, user: user) }
+      let(:incoming_message) do
+        FactoryGirl.create(:incoming_message, info_request: info_request)
       end
 
+      it 'creates a sign in url to the cachebusted incoming message url' do
+        msg_url = incoming_message_url(incoming_message, :cachebust => true)
+        expected = signin_url(:r => msg_url)
+        actual = new_response_url(info_request, incoming_message)
+        expect(actual).to eq(expected)
+      end
     end
 
+    context 'when the user is a normal user' do
+      let(:incoming_message) { FactoryGirl.create(:incoming_message) }
+      let(:info_request) { incoming_message.info_request }
+
+      it 'creates a cachbusted incoming message url' do
+        expected = incoming_message_url(incoming_message, :cachebust => true)
+        actual = new_response_url(info_request, incoming_message)
+        expect(actual).to eq(expected)
+      end
+    end
   end
 
   describe 'when linking to new outgoing messages' do
+    let(:outgoing_message) { FactoryGirl.create(:new_information_followup) }
+    let(:info_request) { outgoing_message.info_request }
 
-    before do
-      @info_request = mock_model(InfoRequest, :id => 123, :url_title => 'test_title')
-      @outgoing_message = mock_model(OutgoingMessage, :id => 32, :info_request => @info_request)
-    end
+    subject(:url) { outgoing_message_url(outgoing_message) }
 
     context 'for external links' do
-
       it 'generates the url to the info request of the message' do
-        expect(outgoing_message_url(@outgoing_message)).to include('http://test.host/request/test_title')
+        expect(url).
+          to include("http://test.host/request/#{info_request.url_title}")
       end
 
       it 'includes an anchor to the new message' do
-        expect(outgoing_message_url(@outgoing_message)).to include('#outgoing-32')
+        expect(url).to include("#outgoing-#{outgoing_message.id}")
       end
 
       it 'does not cache by default' do
-        expect(outgoing_message_url(@outgoing_message)).not_to include('nocache=outgoing-32')
+        expect(url).not_to include("nocache=outgoing-#{outgoing_message.id}")
       end
 
       it 'includes a cache busting parameter if set' do
-        expect(outgoing_message_url(@outgoing_message, :cachebust => true)).to include('nocache=outgoing-32')
+        url = outgoing_message_url(outgoing_message, :cachebust => true)
+        expect(url).to include("nocache=outgoing-#{outgoing_message.id}")
       end
-
     end
 
     context 'for internal links' do
-
       it 'generates the outgoing_message_url with the path only' do
-        expected = '/request/test_title#outgoing-32'
-        expect(outgoing_message_path(@outgoing_message)).to eq(expected)
+        expected = "/request/#{info_request.url_title}" \
+                   "#outgoing-#{outgoing_message.id}"
+        expect(outgoing_message_path(outgoing_message)).to eq(expected)
       end
-
     end
-
   end
 
   describe 'when displaying a user link for a request' do
-
     context "for external requests" do
-      before do
-        @info_request = mock_model(InfoRequest, :external_user_name => nil,
-                                   :is_external? => true)
+      let(:info_request) do
+        FactoryGirl.create(:external_request, :external_user_name => nil)
       end
 
-      it 'should return the text "Anonymous user" with a link to the privacy help pages when there is no external username' do
-        expect(request_user_link(@info_request)).to eq('<a href="/help/privacy#anonymous">Anonymous user</a>')
+      it 'should return the text "Anonymous user" with a link to the privacy
+          help pages when there is no external username' do
+        expected = '<a href="/help/privacy#anonymous">Anonymous user</a>'
+        expect(request_user_link(info_request)).to eq(expected)
       end
 
       it 'should return a link with an alternative text if requested' do
-        expect(request_user_link(@info_request, 'other text')).to eq('<a href="/help/privacy#anonymous">other text</a>')
+        expected = '<a href="/help/privacy#anonymous">other text</a>'
+        actual = request_user_link(info_request, 'other text')
+        expect(actual).to eq(expected)
       end
 
       it 'should display an absolute link if requested' do
-        expect(request_user_link_absolute(@info_request)).to eq('<a href="http://test.host/help/privacy#anonymous">Anonymous user</a>')
+        expected = '<a href="http://test.host/help/privacy#anonymous">' \
+                   'Anonymous user</a>'
+        expect(request_user_link_absolute(info_request)).to eq(expected)
       end
     end
 
     context "for normal requests" do
-
-      before do
-        user = FactoryGirl.build(:user, :name => 'Example User')
-        @info_request = FactoryGirl.build(:info_request, :user => user)
-      end
+      let(:info_request) { FactoryGirl.create(:info_request) }
+      let(:user) { info_request.user }
 
       it 'should display a relative link by default' do
-        expect(request_user_link(@info_request)).to eq('<a href="/user/example_user">Example User</a>')
+        expected = "<a href=\"/user/#{user.url_name}\">#{user.name}</a>"
+        expect(request_user_link(info_request)).to eq(expected)
       end
 
       it 'should display an absolute link if requested' do
-        expect(request_user_link_absolute(@info_request)).to eq('<a href="http://test.host/user/example_user">Example User</a>')
+        expected = "<a href=\"http://test.host/user/#{user.url_name}\">" \
+                   "#{user.name}</a>"
+        expect(request_user_link_absolute(info_request)).to eq(expected)
       end
-
     end
-
   end
 
   describe 'when displaying a user admin link for a request' do
-
-    it 'should return the text "An anonymous user (external)" in the case where there is no external username' do
-      info_request = mock_model(InfoRequest, :external_user_name => nil,
-                                :is_external? => true)
-      expect(user_admin_link_for_request(info_request)).to eq('Anonymous user (external)')
+    let(:info_request) do
+      FactoryGirl.create(:external_request, :external_user_name => nil)
     end
 
+    it 'should return the text "An anonymous user (external)" in the case
+        where there is no external username' do
+      expected = 'Anonymous user (external)'
+      expect(user_admin_link_for_request(info_request)).to eq(expected)
+    end
   end
-
 end

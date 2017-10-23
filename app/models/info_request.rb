@@ -30,6 +30,7 @@
 #  date_very_overdue_after               :date
 #  last_event_forming_initial_request_id :integer
 #  use_notifications                     :boolean
+#  last_event_time                       :datetime
 #
 
 require 'digest/sha1'
@@ -39,6 +40,7 @@ class InfoRequest < ActiveRecord::Base
   include AdminColumn
   include Rails.application.routes.url_helpers
   include AlaveteliPro::RequestSummaries
+  include AlaveteliFeatures::Helpers
 
   @non_admin_columns = %w(title url_title)
 
@@ -63,24 +65,58 @@ class InfoRequest < ActiveRecord::Base
     :on => :create
   }
 
-  belongs_to :user, :counter_cache => true
+  belongs_to :user,
+             :inverse_of => :info_requests,
+             :counter_cache => true
+
   validate :must_be_internal_or_external
 
-  belongs_to :public_body, :counter_cache => true
-  belongs_to :info_request_batch
+  belongs_to :public_body,
+             :inverse_of => :info_requests,
+             :counter_cache => true
+  belongs_to :info_request_batch,
+             :inverse_of => :info_requests
+
   validates_presence_of :public_body_id, :message => N_("Please select an authority"),
                                          :unless => Proc.new { |info_request| info_request.is_batch_request_template? }
 
-  has_many :info_request_events, -> { order('created_at, id') }, :dependent => :destroy
-  has_many :outgoing_messages, -> { order('created_at') }, :dependent => :destroy
-  has_many :incoming_messages, -> { order('created_at') }, :dependent => :destroy
-  has_many :user_info_request_sent_alerts, :dependent => :destroy
-  has_many :track_things, -> { order('created_at desc') }, :dependent => :destroy
-  has_many :widget_votes, :dependent => :destroy
-  has_many :comments, -> { order('created_at') }, :dependent => :destroy
-  has_many :censor_rules, -> { order('created_at desc') }, :dependent => :destroy
-  has_many :mail_server_logs, -> { order('mail_server_log_done_id, "order"') }, :dependent => :destroy
-  has_one :embargo, :class_name => "AlaveteliPro::Embargo"
+  has_many :info_request_events,
+           -> { order('created_at, id') },
+           :inverse_of => :info_request,
+           :dependent => :destroy
+  has_many :outgoing_messages,
+           -> { order('created_at') },
+           :inverse_of => :info_request,
+           :dependent => :destroy
+  has_many :incoming_messages,
+           -> { order('created_at') },
+           :inverse_of => :info_request,
+           :dependent => :destroy
+  has_many :user_info_request_sent_alerts,
+           :inverse_of => :info_request,
+           :dependent => :destroy
+  has_many :track_things,
+           -> { order('created_at desc') },
+           :inverse_of => :info_request,
+           :dependent => :destroy
+  has_many :widget_votes,
+           :inverse_of => :info_request,
+           :dependent => :destroy
+  has_many :comments,
+           -> { order('created_at') },
+           :inverse_of => :info_request,
+           :dependent => :destroy
+  has_many :censor_rules,
+           -> { order('created_at desc') },
+           :inverse_of => :info_request,
+           :dependent => :destroy
+  has_many :mail_server_logs,
+           -> { order('mail_server_log_done_id, "order"') },
+           :inverse_of => :info_request,
+           :dependent => :destroy
+  has_one :embargo,
+          :inverse_of => :info_request,
+          :class_name => "AlaveteliPro::Embargo"
 
   attr_accessor :is_batch_request_template
   attr_reader :followup_bad_reason
@@ -330,13 +366,15 @@ class InfoRequest < ActiveRecord::Base
     unique_url_title = url_title
     suffix_num = 2 # as there's already one without numeric suffix
     conditions = id ? ["id <> ?", id] : []
+
     while InfoRequest.
       where(:url_title => unique_url_title).
         where(conditions).
-          first do
+          any? do
       unique_url_title = "#{url_title}_#{suffix_num}"
       suffix_num = suffix_num + 1
     end
+
     write_attribute(:url_title, unique_url_title)
   end
 
@@ -353,11 +391,11 @@ class InfoRequest < ActiveRecord::Base
   # Remove spaces from ends (for when used in emails etc.)
   # Needed for legacy reasons, even though we call strip_attributes now
   def title
-    title = read_attribute(:title)
-    if title
-      title.strip!
+    _title = read_attribute(:title)
+    if _title
+      _title.strip!
     end
-    title
+    _title
   end
 
   # Email which public body should use to respond to request. This is in
@@ -496,24 +534,53 @@ class InfoRequest < ActiveRecord::Base
     false
   end
 
-  # A new incoming email to this request
-  def receive(email, raw_email_data, override_stop_new_responses = false, rejected_reason = nil)
-    # Is this request allowing responses?
-    accepted =
-      if override_stop_new_responses
-        true
-      else
-        accept_incoming?(email, raw_email_data)
-      end
+  def receive(email, raw_email_data, *args)
+    defaults = { :override_stop_new_responses => false,
+                 :rejected_reason => nil,
+                 :source => :internal }
 
-    if accepted
-      incoming_message =
-        create_response!(email, raw_email_data, rejected_reason)
+    opts = if args.first.is_a?(Hash)
+      defaults.merge(args.shift)
+    elsif args.empty?
+      defaults
+    else
+      warn %q([DEPRECATION] InfoRequest#receive with these params will be
+          removed in 0.31. It has been replaced a method which accepts
+          an options hash as its third argument. :override_stop_new_responses
+          and :rejected_reason are valid keys to that hash).squish
+      arg_opts = {}
+      arg_opts[:override_stop_new_responses] = args[0] unless args[0].nil?
+      arg_opts[:rejected_reason] = args[1] unless args[1].nil?
 
-      # Notify the user that a new response has been received, unless the
-      # request is external
-      unless is_external? or use_notifications?
-        RequestMailer.new_response(self, incoming_message).deliver
+      defaults.merge(arg_opts)
+    end
+
+    if receive_mail_from_source? opts[:source]
+      # Is this request allowing responses?
+      accepted =
+        if opts[:override_stop_new_responses]
+          true
+        else
+          accept_incoming?(email, raw_email_data)
+        end
+
+      if accepted
+        incoming_message =
+          create_response!(email, raw_email_data, opts[:rejected_reason])
+
+        # Notify the user that a new response has been received, unless the
+        # request is external
+        unless is_external?
+          if use_notifications?
+            info_request_event = info_request_events.find_by(
+              event_type: 'response',
+              incoming_message_id: incoming_message.id
+            )
+            user.notify(info_request_event)
+          else
+            RequestMailer.new_response(self, incoming_message).deliver_now
+          end
+        end
       end
     end
   end
@@ -601,12 +668,13 @@ class InfoRequest < ActiveRecord::Base
     if requires_admin?
       # Check there is someone to send the message "from"
       if set_by && user
-        RequestMailer.requires_admin(self, set_by, message).deliver
+        RequestMailer.requires_admin(self, set_by, message).deliver_now
       end
     end
 
     unless set_by.nil? || is_actual_owning_user?(set_by) || described_state == 'attention_requested'
-      RequestMailer.old_unclassified_updated(self).deliver unless is_external?
+      RequestMailer.
+        old_unclassified_updated(self).deliver_now unless is_external?
     end
   end
 
@@ -749,6 +817,9 @@ class InfoRequest < ActiveRecord::Base
     set_due_dates(event) if event.resets_due_dates?
     if options[:created_at]
       event.update_column(:created_at, options[:created_at])
+    end
+    if !self.last_event_time || (event.created_at > self.last_event_time)
+      self.update_column(:last_event_time, event.created_at)
     end
     event
   end
@@ -1348,24 +1419,40 @@ class InfoRequest < ActiveRecord::Base
      end
      body.without_revision do
        body.no_xapian_reindex = true
-       body.save
+       body.save(validate: false)
      end
      PublicBody.set_callback(:save, :after, :purge_in_cache)
   end
 
+  def similar_cache_key
+    "request/similar/#{id}"
+  end
+
   # Get requests that have similar important terms
   def similar_requests(limit=10)
-    xapian_similar = nil
-    xapian_similar_more = false
-    begin
-      xapian_similar = ActsAsXapian::Similar.new([InfoRequestEvent],
-                                                 info_request_events,
-                                                 :limit => limit,
-                                                 :collapse_by_prefix => 'request_collapse')
-      xapian_similar_more = (xapian_similar.matches_estimated > limit)
-    rescue
+    ids, more = similar_ids(limit)
+    [InfoRequest.includes(:public_body => :translations).find(ids), more]
+  end
+
+  # Get the ids of similar requests, and whether there are more
+  def similar_ids(limit=10)
+    Rails.cache.fetch(similar_cache_key, expires_in: 3.days) do
+      ids = []
+      xapian_similar_more = false
+      begin
+        xapian_similar =
+          ActsAsXapian::Similar.new([InfoRequestEvent],
+                                    info_request_events,
+                                    :limit => limit,
+                                    :collapse_by_prefix => 'request_collapse')
+        xapian_similar_more = (xapian_similar.matches_estimated > limit)
+        ids = xapian_similar.results.map do |result|
+          result[:model].info_request_id
+        end
+      rescue
+      end
+      [ids, xapian_similar_more]
     end
-    [xapian_similar, xapian_similar_more]
   end
 
   def self.request_list(filters, page, per_page, max_results)
@@ -1421,7 +1508,6 @@ class InfoRequest < ActiveRecord::Base
   end
 
   def self.find_in_state(state)
-    select("*, #{ last_event_time_clause } as last_event_time").
     where(:described_state => state).
       order('last_event_time')
   end
@@ -1480,15 +1566,6 @@ class InfoRequest < ActiveRecord::Base
     old_user.class.reset_counters(old_user.id, :info_requests)
     user.class.reset_counters(user.id, :info_requests)
     return_val
-  end
-
-  # The DateTime of the last InfoRequestEvent belonging to the InfoRequest
-  # Only available if the last_event_time attribute has been set. This is
-  # currentlt only set through .find_in_state
-  #
-  # Returns a DateTime
-  def last_event_time
-    attributes['last_event_time'].try(:to_datetime)
   end
 
   def self.log_overdue_events
@@ -1562,6 +1639,20 @@ class InfoRequest < ActiveRecord::Base
 
   private
 
+  def receive_mail_from_source?(source)
+    if source == :internal
+      true
+    elsif feature_enabled?(:accept_mail_from_anywhere)
+      true
+    else
+      if feature_enabled?(:accept_mail_from_poller, user)
+        source == :poller
+      else
+        source == :mailin
+      end
+    end
+  end
+
   def self.log_overdue_event_type(event_type)
     date_field = case event_type
     when 'overdue'
@@ -1590,8 +1681,12 @@ class InfoRequest < ActiveRecord::Base
     query.find_each(:batch_size => 100) do |info_request|
       # Date to DateTime representing beginning of day
       created_at = info_request.send(date_field).beginning_of_day + 1.day
-      info_request.log_event(event_type, { :event_created_at => Time.zone.now },
-                                         { :created_at => created_at })
+      event = info_request.log_event(event_type,
+                                     { :event_created_at => Time.zone.now },
+                                     { :created_at => created_at })
+      if info_request.use_notifications?
+        info_request.user.notify(event)
+      end
     end
 
   end
@@ -1681,7 +1776,7 @@ class InfoRequest < ActiveRecord::Base
 
   def set_use_notifications
     if use_notifications.nil?
-      self.use_notifications = !!user.try(:is_notifications_tester?) && \
+      self.use_notifications = feature_enabled?(:notifications, user) && \
                                info_request_batch_id.present?
     end
     return true

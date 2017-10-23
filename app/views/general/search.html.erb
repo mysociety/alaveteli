@@ -203,7 +203,7 @@
       <% if @xapian_requests_hits == 1 && @page == 1 %>
         <h2 class="foi_results"><%= _("One FOI request found") %></h2>
       <% else %>
-        <h2 class="foi_results"><%= _("FOI requests {{start_count}} to {{end_count}} of {{total_count}}", :start_count => ((@page-1)*@requests_per_page+1).to_s, :end_count => [@page*@requests_per_page, @xapian_requests.matches_estimated].min.to_s, :total_count =>  @xapian_requests.matches_estimated.to_s) %></h2>
+        <h2 class="foi_results"><%= _("FOI requests {{start_count}} to {{end_count}} of about {{total_count}}", :start_count => ((@page-1)*@requests_per_page+1).to_s, :end_count => [@page*@requests_per_page, @xapian_requests.matches_estimated].min.to_s, :total_count =>  @xapian_requests.matches_estimated.to_s) %></h2>
       <% end %>
 
       <div class="results_block">

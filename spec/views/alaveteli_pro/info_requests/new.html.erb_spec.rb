@@ -39,9 +39,11 @@ describe "alaveteli_pro/info_requests/new.html.erb" do
     assign_variables
     render
     expected_input = "<input class=\"js-public-body-id\" " \
-                     "id=\"info_request_public_body_id\" " \
+                     "type=\"hidden\" " \
+                     "value=\"#{info_request.public_body.id}\" " \
                      "name=\"info_request\\[public_body_id\\]\" " \
-                     "type=\"hidden\" value=\"#{info_request.public_body.id}\" \\/>"
+                     "id=\"info_request_public_body_id\" \\/>"
+
     # Capybara doesn't like matching hidden inputs because users don't see
     # them, hence why we're using a more fragile regex
     expect(rendered).to match(/#{expected_input}/)

@@ -53,13 +53,13 @@ class AdminOutgoingMessageController < AdminController
       OutgoingMailer.initial_request(
         @outgoing_message.info_request,
         @outgoing_message
-      ).deliver
+      ).deliver_now
     when 'followup'
       OutgoingMailer.followup(
         @outgoing_message.info_request,
         @outgoing_message,
         @outgoing_message.incoming_message_followup
-      ).deliver
+      ).deliver_now
     else
       raise "Message id #{id} has type '#{message_type}' which cannot be resent"
     end

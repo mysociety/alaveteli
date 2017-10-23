@@ -11,8 +11,11 @@
 #
 
 admin:
-  id: "1"
-  name: 'admin'
+  id: 1
+  name: admin
 pro:
-  id: "2"
-  name: 'pro'
+  id: 2
+  name: pro
+pro_admin:
+  id: 3
+  name: pro_admin

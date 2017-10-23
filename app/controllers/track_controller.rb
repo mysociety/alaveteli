@@ -125,7 +125,9 @@ class TrackController < ApplicationController
     if @user
       @existing_track = TrackThing.find_existing(@user, @track_thing)
       if @existing_track
-        flash[:notice] = view_context.already_subscribed_notice(@track_thing)
+        flash[:notice] =
+          { :partial => 'track/already_tracking',
+            :locals => { :track_thing_id => @existing_track.id } }
         return true
       end
     end
@@ -137,7 +139,12 @@ class TrackController < ApplicationController
     @track_thing.track_medium = 'email_daily'
     @track_thing.tracking_user_id = @user.id
     if @track_thing.save
-      flash[:notice] = render_to_string(:partial => 'track_set').html_safe
+      flash[:notice] =
+        { :partial => 'track/track_set',
+          :locals => {
+            :user_receive_email_alerts => @user.receive_email_alerts,
+            :user_url_name => @user.url_name,
+            :track_thing_id => @track_thing.id } }
       return true
     else
       # this will most likely be tripped by a single error - probably track_query length

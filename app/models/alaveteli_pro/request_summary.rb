@@ -12,17 +12,22 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  user_id            :integer
-#  request_created_at :datetime         default(2017-06-05 09:19:11 UTC), not null
-#  request_updated_at :datetime         default(2017-06-05 09:19:11 UTC), not null
+#  request_created_at :datetime         not null
+#  request_updated_at :datetime         not null
 #
 
 class AlaveteliPro::RequestSummary < ActiveRecord::Base
   belongs_to :summarisable, polymorphic: true
-  belongs_to :user
+  belongs_to :user,
+             :inverse_of => :request_summaries
   has_and_belongs_to_many :request_summary_categories,
-                          :class_name => "AlaveteliPro::RequestSummaryCategory"
+                          :class_name => "AlaveteliPro::RequestSummaryCategory",
+                          :inverse_of => :request_summaries
 
-  validates_presence_of :summarisable
+  validates_presence_of :summarisable,
+                        :request_created_at,
+                        :request_updated_at
+  validates_uniqueness_of :summarisable_id, scope: :summarisable_type
 
   ALLOWED_REQUEST_CLASSES = ["InfoRequest",
                              "DraftInfoRequest",
@@ -51,16 +56,17 @@ class AlaveteliPro::RequestSummary < ActiveRecord::Base
                               "#{request.class.name} instances. Only " \
                               "#{ALLOWED_REQUEST_CLASSES} are allowed.")
     end
+    request.reload
     if request.request_summary
-      request.request_summary.update_from_request
+      request.request_summary.update_from(request)
       request.request_summary
     else
       self.create_from(request)
     end
   end
 
-  def update_from_request
-    update_attributes(self.class.attributes_from_request(self.summarisable))
+  def update_from(request)
+    update_attributes(self.class.attributes_from_request(request))
   end
 
   private

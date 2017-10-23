@@ -23,7 +23,7 @@ module AlaveteliPro
             info_request_event_id: alert_event_id).exists?
         end
         next if info_requests.empty?
-        expiring_alert(user, info_requests)
+        expiring_alert(user, info_requests).deliver_now
         info_requests.each do |info_request|
           alert_event_id = info_request.last_embargo_set_event.id
           UserInfoRequestSentAlert.create(
@@ -42,10 +42,10 @@ module AlaveteliPro
         "{{count}} request will be made public on {{site_name}} this week",
         "{{count}} requests will be made public on {{site_name}} this week",
         info_requests.count,
-        :site_name => AlaveteliConfiguration.site_name,
+        :site_name => AlaveteliConfiguration.site_name.html_safe,
         :count => info_requests.count)
       auto_generated_headers
-      mail_user(@user, subject).deliver
+      mail_user(@user, subject)
     end
 
     private

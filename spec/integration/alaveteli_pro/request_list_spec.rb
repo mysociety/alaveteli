@@ -4,26 +4,39 @@ require File.expand_path(File.dirname(__FILE__) + '/../alaveteli_dsl')
 
 describe "pro request list" do
   let(:pro_user) { FactoryGirl.create(:pro_user) }
+  let(:public_body){ FactoryGirl.create(:public_body) }
   let!(:pro_user_session) { login(pro_user) }
   let!(:info_requests) do
-    FactoryGirl.create_list(:info_request, 25, user: pro_user)
+    requests = []
+    TestAfterCommit.with_commits(true) do
+      requests = FactoryGirl.create_list(:info_request, 3, user: pro_user,
+                                         :public_body => public_body)
+    end
+    requests
   end
+
   let(:public_bodies) do
-    FactoryGirl.create_list(:public_body, 10)
+    FactoryGirl.create_list(:public_body, 2)
   end
+
   let!(:batch_requests) do
-    FactoryGirl.create_list(
-      :info_request_batch,
-      5,
-      user: pro_user,
-      public_bodies: public_bodies)
+    requests = []
+    TestAfterCommit.with_commits(true) do
+      requests = FactoryGirl.create_list(
+        :info_request_batch,
+        5,
+        user: pro_user,
+        public_bodies: public_bodies)
+    end
   end
 
   before do
     # Send 4 out of 5 of the batch requests
-    batch_requests[0..3].each do |batch|
-      batch.create_batch!
-      batch.reload
+    TestAfterCommit.with_commits(true) do
+      batch_requests[0..3].each do |batch|
+        batch.create_batch!
+        batch.reload
+      end
     end
   end
 
@@ -49,7 +62,8 @@ describe "pro request list" do
       batch = batch_requests.first
 
       expect(batch.info_requests.first.state.phase).to eq(:awaiting_response)
-      expect(batch.request_summary.request_summary_categories).to eq([AlaveteliPro::RequestSummaryCategory.awaiting_response])
+      expect(batch.request_summary.request_summary_categories).
+        to eq([AlaveteliPro::RequestSummaryCategory.awaiting_response])
       expect(page).to have_css("#info-request-batch-#{batch.id}")
 
       within("#info-request-batch-#{batch.id}") do
@@ -57,7 +71,8 @@ describe "pro request list" do
 
         expected_public_bodies = "#{batch.public_bodies.first.name} " \
                                  "and #{batch.public_bodies.second.name}"
-        expected_description = "10 recipients, including #{expected_public_bodies}"
+        expected_description = "2 recipients, including " \
+                               "#{expected_public_bodies}"
         expect(page).to have_content(expected_description)
 
         expect(page).to have_content(batch.created_at.strftime('%d-%m-%Y'))
@@ -66,7 +81,7 @@ describe "pro request list" do
         expected_sent_at = I18n.l(batch.sent_at, format: '%d-%m-%Y - %H:%M %p')
         expect(page).to have_content(expected_sent_at)
 
-        expect(page).to have_content("10 In progress")
+        expect(page).to have_content("2 In progress")
 
         # Should not show individual requests until we click the link to
         # expand them
@@ -101,13 +116,14 @@ describe "pro request list" do
 
         expected_public_bodies = "#{batch.public_bodies.first.name} " \
                                  "and #{batch.public_bodies.second.name}"
-        expected_description = "10 recipients, including #{expected_public_bodies}"
+        expected_description = "2 recipients, " \
+                               "including #{expected_public_bodies}"
         expect(page).to have_content(expected_description)
 
         expect(page).to have_content(batch.created_at.strftime('%d-%m-%Y'))
         expect(page).to have_content(batch.updated_at.strftime('%d-%m-%Y'))
         expect(page).to have_content("Pending")
-        expect(page).to have_content("10 Pending")
+        expect(page).to have_content("2 Pending")
 
         # Should not show bodies until we click the link
         batch.info_requests.each do |request|
@@ -132,14 +148,22 @@ describe "pro request list" do
 
   describe "showing draft requests" do
     let!(:draft_request) do
-      FactoryGirl.create(:draft_info_request, user: pro_user)
+      draft = nil
+      TestAfterCommit.with_commits(true) do
+        draft = FactoryGirl.create(:draft_info_request, user: pro_user)
+      end
+      draft
     end
     let!(:draft_batch_request) do
-      FactoryGirl.create(
-        :draft_info_request_batch,
-        user: pro_user,
-        public_bodies: public_bodies
-      )
+      draft = nil
+      TestAfterCommit.with_commits(true) do
+        draft = FactoryGirl.create(
+          :draft_info_request_batch,
+          user: pro_user,
+          public_bodies: public_bodies
+        )
+      end
+      draft
     end
 
     it "shows draft requests" do

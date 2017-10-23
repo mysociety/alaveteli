@@ -99,7 +99,7 @@ class TrackMailer < ApplicationMailer
         # Send the email
 
         AlaveteliLocalization.with_locale(user.get_locale) do
-          TrackMailer.event_digest(user, email_about_things).deliver
+          TrackMailer.event_digest(user, email_about_things).deliver_now
         end
       end
 

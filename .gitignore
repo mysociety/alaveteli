@@ -1,5 +1,6 @@
 /tmp
-/log
+/log/*
+!/log/.keep
 /coverage
 /sqlitedbs
 /cache
@@ -12,6 +13,7 @@
 .ruby-version
 .rbenv-version
 .rvmrc
+.vagrant.yml
 *#*#
 TAGS
 /lib/themes
@@ -34,3 +36,4 @@ webrat.log
 /db/structure.sql
 /public/assets
 .vagrant
+.overcommit.yml

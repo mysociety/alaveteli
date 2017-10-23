@@ -123,7 +123,6 @@ class RequestController < ApplicationController
 
       # Sidebar stuff
       @sidebar = true
-      @similar_cache_key = cache_key_for_similar_requests(@info_request, @locale)
       @sidebar_template = @in_pro_area ? "alaveteli_pro/info_requests/sidebar" : "sidebar"
 
       # Track corresponding to this page
@@ -378,13 +377,7 @@ class RequestController < ApplicationController
       return
     end
 
-    if params[:post_redirect_user]
-      # If an admin has clicked the confirmation link on a users behalf,
-      # we don’t want to reassign the request to the administrator.
-      @info_request.user = params[:post_redirect_user]
-    else
-      @info_request.user = authenticated_user
-    end
+    @info_request.user = request_user
 
     if spam_subject?(@outgoing_message.subject, @user)
       handle_spam_subject(@info_request.user) && return
@@ -418,7 +411,7 @@ class RequestController < ApplicationController
       mail_message = OutgoingMailer.initial_request(
         @outgoing_message.info_request,
         @outgoing_message
-      ).deliver
+      ).deliver_now
 
       @outgoing_message.record_email_delivery(
         mail_message.to_addrs.join(', '),
@@ -654,7 +647,10 @@ class RequestController < ApplicationController
             apply_masks(@attachment.default_body, @attachment.content_type)
 
     if content_type == 'text/html'
-      body = ActionController::Base.helpers.sanitize(body)
+      body =
+        Loofah.scrub_document(body, :prune).
+        to_html(encoding: 'UTF-8').
+        try(:html_safe)
     end
 
     render :body => body, :content_type => content_type
@@ -781,7 +777,10 @@ class RequestController < ApplicationController
 
       mail = RequestMailer.fake_response(@info_request, @user, body, file_name, file_content)
 
-      @info_request.receive(mail, mail.encoded, true)
+      @info_request.
+        receive(mail,
+                mail.encoded,
+                :override_stop_new_responses => true)
       flash[:notice] = _("Thank you for responding to this FOI request! " \
                            "Your response has been published below, and a " \
                            "link to your response has been emailed to {{user_name}}.",
@@ -994,6 +993,10 @@ class RequestController < ApplicationController
   end
 
   def cache_key_for_similar_requests(info_request, locale)
+    warn %q([DEPRECATION] RequestController#cache_key_for_similar_requests
+        will be removed in 0.31. It has been replaced by
+        InfoRequest#similar_cache_key, which will not take a locale
+        param).squish
     "request/similar/#{info_request.id}/#{locale}"
   end
 
@@ -1160,7 +1163,10 @@ class RequestController < ApplicationController
 
   def redirect_new_form_to_pro_version
     # Pros should use the pro version of the form
-    if feature_enabled?(:alaveteli_pro) && current_user && current_user.is_pro? && params[:pro] != "1"
+    if feature_enabled?(:alaveteli_pro) &&
+      request_user &&
+      request_user.is_pro? &&
+      params[:pro] != "1"
       if params[:url_name]
         redirect_to(
           new_alaveteli_pro_info_request_url(public_body: params[:url_name]))
@@ -1170,9 +1176,19 @@ class RequestController < ApplicationController
     end
   end
 
+  # If an admin has clicked the confirmation link on a users behalf,
+  # we don’t want to reassign the request to the administrator.
+  def request_user
+    if params[:post_redirect_user]
+      params[:post_redirect_user]
+    else
+      current_user
+    end
+  end
+
   def spam_subject?(message_subject, user)
     !user.confirmed_not_spam? &&
-      AlaveteliSpamTermChecker.new.spam?(message_subject)
+      AlaveteliSpamTermChecker.new.spam?(message_subject.to_ascii)
   end
 
   def block_spam_subject?

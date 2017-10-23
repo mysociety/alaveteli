@@ -61,7 +61,7 @@ describe "viewing requests in alaveteli_pro" do
       expect(page).to have_content "Add an annotation to “#{info_request.title}”"
       fill_in("comment_body", with: "Testing annotations")
       click_button("Preview your annotation")
-      click_button("Post annotation")
+      click_button("Add annotation")
       expect(page).to have_content("#{pro_user.name} left an annotation")
       expect(page).to have_content("Testing annotations")
     end
@@ -77,7 +77,7 @@ describe "viewing requests in alaveteli_pro" do
       fill_in("outgoing_message_body", with: "Testing follow ups")
       choose("Anything else, such as clarifying, prompting, thanking")
       click_button("Preview your message")
-      click_button("Send and publish message")
+      click_button("Send message")
       expect(page).to have_content("Testing follow ups")
     end
   end
@@ -93,7 +93,7 @@ describe "viewing requests in alaveteli_pro" do
       fill_in("outgoing_message_body", with: "Testing replies")
       choose("Anything else, such as clarifying, prompting, thanking")
       click_button("Preview your message")
-      click_button("Send and publish message")
+      click_button("Send message")
       expect(page).to have_content("Testing replies")
     end
   end
@@ -116,7 +116,7 @@ describe "viewing requests in alaveteli_pro" do
                                    "#{info_request.public_body.name}"
       fill_in("outgoing_message_body", with: "Testing internal reviews")
       click_button("Preview your message")
-      click_button("Send and publish message")
+      click_button("Send message")
       expect(page).to have_content("Testing internal reviews")
     end
   end
@@ -128,7 +128,7 @@ describe "viewing requests in alaveteli_pro" do
       check 'Change status'
       # The current status shouldn't be checked, so that you can set it again
       # if you need too, e.g. to reset the awaiting response status
-      expect(find_field("Waiting for a response")).not_to be_checked
+      expect(find_field("Awaiting response")).not_to be_checked
       choose("Partially successful")
       within ".update-status" do
         click_button("Update")

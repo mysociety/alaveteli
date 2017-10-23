@@ -43,6 +43,8 @@ describe RequestController, "when changing things that appear on the request pag
 
   before do
     PurgeRequest.destroy_all
+    allow(AlaveteliConfiguration).to receive(:varnish_host).
+      and_return('varnish.localdomain')
   end
 
   it "should purge the downstream cache when mail is received" do
@@ -174,7 +176,7 @@ describe RequestController, "when showing one request" do
 
         it "should always redirect to the pro version of the page" do
           with_feature_enabled(:alaveteli_pro) do
-            session[:user_id] = pro_user
+            session[:user_id] = pro_user.id
             get :show, url_title: info_request.url_title
             expect(response).to redirect_to show_alaveteli_pro_request_path(
               url_title: info_request.url_title)
@@ -189,7 +191,7 @@ describe RequestController, "when showing one request" do
 
         it "should not redirect to the pro version of the page" do
           with_feature_enabled(:alaveteli_pro) do
-            session[:user_id] = pro_user
+            session[:user_id] = pro_user.id
             get :show, url_title: info_request.url_title
             expect(response).to be_success
           end
@@ -200,7 +202,7 @@ describe RequestController, "when showing one request" do
     context "when showing pros a someone else's request" do
       it "should not redirect to the pro version of the page" do
         with_feature_enabled(:alaveteli_pro) do
-          session[:user_id] = pro_user
+          session[:user_id] = pro_user.id
           get :show, url_title: 'why_do_you_have_such_a_fancy_dog'
           expect(response).to be_success
         end
@@ -602,9 +604,21 @@ describe RequestController do
                            :part => 2,
                            :file_name => 'interesting.html',
                            :skip_cache => 1
-      expect(response.body).not_to match("script")
-      expect(response.body).not_to match("interesting")
-      expect(response.body).to match('dull')
+
+      # Nokogiri adds the meta tag; see
+      # https://github.com/sparklemotion/nokogiri/issues/1008
+      expected = <<-EOF.squish
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        </head>
+        <body>dull
+        </body>
+      </html>
+      EOF
+
+      expect(response.body.squish).to eq(expected)
     end
 
     it "censors attachments downloaded directly" do
@@ -724,7 +738,7 @@ describe RequestController, "when handling prominence" do
     end
 
     it "should show request if logged in as super user" do
-      session[:user_id] = FactoryGirl.create(:admin_user)
+      session[:user_id] = FactoryGirl.create(:admin_user).id
       get :show, :url_title => @info_request.url_title
       expect(response).to render_template('show')
     end
@@ -741,7 +755,7 @@ describe RequestController, "when handling prominence" do
 
     it 'should not generate an HTML version of an attachment for a request whose prominence
             is hidden even for an admin but should return a 404' do
-      session[:user_id] = FactoryGirl.create(:admin_user)
+      session[:user_id] = FactoryGirl.create(:admin_user).id
       incoming_message = @info_request.incoming_messages.first
       expect do
         get :get_attachment_as_html, :incoming_message_id => incoming_message.id,
@@ -906,7 +920,7 @@ describe RequestController, "when handling prominence" do
 
     it 'should not generate an HTML version of an attachment for a request whose prominence
             is hidden even for an admin but should return a 404' do
-      session[:user_id] = FactoryGirl.create(:admin_user)
+      session[:user_id] = FactoryGirl.create(:admin_user).id
       expect do
         get :get_attachment_as_html, :incoming_message_id => @incoming_message.id,
           :id => @info_request.id,
@@ -1280,7 +1294,7 @@ describe RequestController, "when creating a new request" do
   it 'should respect the rate limit' do
     # Try to create three requests in succession.
     # (The limit set in config/test.yml is two.)
-    session[:user_id] = users(:robin_user)
+    session[:user_id] = users(:robin_user).id
 
     post :new, :info_request => { :public_body_id => @body.id,
     :title => "What is the answer to the ultimate question?", :tag_string => "" },
@@ -1305,7 +1319,7 @@ describe RequestController, "when creating a new request" do
   it 'should ignore the rate limit for specified users' do
     # Try to create three requests in succession.
     # (The limit set in config/test.yml is two.)
-    session[:user_id] = users(:robin_user)
+    session[:user_id] = users(:robin_user).id
     users(:robin_user).no_limit = true
     users(:robin_user).save!
 
@@ -1438,6 +1452,24 @@ describe RequestController, "when creating a new request" do
     let(:body) { FactoryGirl.create(:public_body) }
 
 
+    context 'when given a string containing unicode characters' do
+
+      it 'converts the string to ASCII' do
+        allow(AlaveteliConfiguration).to receive(:block_spam_requests).
+          and_return(true)
+        session[:user_id] = user.id
+        title = "▩█ -Free Ɓrazzers Password Hăck Premium Account List 2017 ᒬᒬ"
+        post :new, :info_request => { :public_body_id => body.id,
+          :title => title,
+          :tag_string => "" },
+          :outgoing_message => { :body => "Please supply the answer." },
+          :submitted_new_request => 1, :preview => 0
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).to match(/Spam request from user #{ user.id }/)
+      end
+
+    end
+
     context 'when enable_anti_spam is false and block_spam_requests is true' do
       # double check that block_spam_subject? is behaving as expected
       before do
@@ -1457,6 +1489,7 @@ describe RequestController, "when creating a new request" do
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to match(/Spam request from user #{ user.id }/)
       end
+
     end
 
     context 'when block_spam_subject? is true' do
@@ -1737,7 +1770,7 @@ describe RequestController do
           let(:other_user){ FactoryGirl.create(:user) }
 
           before do
-            session[:user_id] = other_user
+            session[:user_id] = other_user.id
           end
 
           it 'should classify the request' do
@@ -1873,7 +1906,7 @@ describe RequestController do
         it 'should send an email to the requester letting them know someone has
             updated the status of their request' do
           mail_mock = double("mail")
-          allow(mail_mock).to receive :deliver
+          allow(mail_mock).to receive :deliver_now
           expect(RequestMailer).to receive(:old_unclassified_updated).and_return(mail_mock)
           post_status('rejected', info_request)
         end

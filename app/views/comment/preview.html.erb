@@ -11,7 +11,11 @@
   <%= render :partial => 'comment/single_comment', :locals => { :comment => @comment } %>
 
   <p>
-    <%= _('Your name and annotation will appear in <strong>search engines</strong>.')%>
+    <% if @info_request.embargo %>
+      <%= render :partial => 'alaveteli_pro/comment/note' %>
+    <% else %>
+      <%= render :partial => 'comment/note' %>
+      <% end %>
   </p>
 
   <p>
@@ -22,7 +26,12 @@
     <%= hidden_field_tag(:submitted_comment, 1) %>
     <%= hidden_field_tag(:preview, 0 ) %>
     <%= submit_tag _("Re-edit this annotation"), :name => 'reedit' %>
-    <%= submit_tag _("Post annotation"), :name => 'submit' %>
+    <% if @info_request.embargo %>
+      <%= render :partial => 'alaveteli_pro/comment/submit' %>
+    <% else %>
+       <%= render :partial => 'comment/submit' %>
+    <% end %>
+
   </p>
 
 <% end %>
