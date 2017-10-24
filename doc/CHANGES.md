@@ -1,3 +1,10 @@
+# 0.30.0.1
+
+## Highlighted Features
+
+* Moved `rake temp:set_daily_summary_times` from upgrade notes
+  for release 0.29.0.0 to release 0.30.0.0 (Louise Crow)
+
 # 0.30.0.0
 
 ## Highlighted Features
