@@ -64,6 +64,15 @@
   background-position: 0 0;
 }
 
+
+.request-status-icon--waiting-response-overdue {
+  background-position: 0 -401px;
+}
+
+.request-status-icon--waiting-response-very-overdue {
+  background-position: 0 -401px;
+}
+
 .request-status-icon--rejected {
   background-position: 0 -435px;
 }
