@@ -35,6 +35,14 @@ module Alaveteli
     # Make Active Record use UTC-base instead of local time
     config.active_record.default_timezone = :utc
 
+    # Disable the IP spoofing warning. This is triggered by a conflict between
+    # the CLIENT_IP and X_FORWARDED_FOR headers. If you're using the example
+    # nginx config, that should be setting X_FORWARDED_FOR which is used in
+    # preference to CLIENT_IP when the spoofing check is disabled. So this
+    # setting should just prevent false positive errors when requests have
+    # a CLIENT_IP header set.
+    config.action_dispatch.ip_spoofing_check = false
+
     # This is the timezone that times and dates are displayed in
     # Note that having set a zone, the Active Record
     # time_zone_aware_attributes flag is on, so times from models
