@@ -13,12 +13,7 @@
            data-search-url="/alaveteli_pro/public_bodies"
            <% if info_request.public_body %>
              value="<%= @info_request.public_body.name %>"
-             data-initial-authority="<%= {
-                 :id => info_request.public_body.id,
-                 :name => info_request.public_body.name,
-                 :notes => info_request.public_body.notes,
-                 :info_requests_visible_count => info_request.public_body.info_requests_visible_count
-               }.to_json %>"
+             data-initial-authority="<%= public_body_search_attributes(info_request.public_body).to_json %>"
            <% end %>>
     <input type="submit"
            value="<%= _('Search') %>"
