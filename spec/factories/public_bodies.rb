@@ -40,6 +40,10 @@ FactoryGirl.define do
         public_body.tag_string = "not_apply"
       end
     end
+
+    factory :blank_email_public_body do
+      request_email ''
+    end
   end
 
 
