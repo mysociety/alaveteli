@@ -32,11 +32,8 @@ class AdminGeneralController < AdminController
                               @old_unclassified ].
       any?{ |to_do_list| ! to_do_list.empty? }
 
-    @blank_contacts = PublicBody.
-      includes(:tags, :translations).
-        where(:request_email => "").
-          order(:updated_at).
-            select { |pb| !pb.defunct? }
+    @blank_contact_count = PublicBody.blank_contact_count
+    @blank_contacts = PublicBody.blank_contacts
 
     @new_body_requests = PublicBodyChangeRequest.
       includes(:public_body, :user).
