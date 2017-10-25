@@ -14,6 +14,7 @@
 # Aladdin El-Haraty <aelharaty@gmail.com>, 2012
 # Aladdin El-Haraty <aelharaty@gmail.com>, 2012
 # Aladdin El-Haraty <aelharaty@gmail.com>, 2012
+# kimoensi <kamel.mellah@gmail.com>, 2017
 # louisecrow <louise@mysociety.org>, 2014
 # louisecrow <louise@mysociety.org>, 2014
 # radhouane fazai <radhouanef@gmail.com>, 2013-2014
@@ -26,8 +27,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-09-27 18:47+0100\n"
-"PO-Revision-Date: 2017-09-27 17:52+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2017-10-05 17:30+0000\n"
+"Last-Translator: kimoensi <kamel.mellah@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/mysociety/alaveteli/language/ar/)\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -345,7 +346,7 @@ msgid "Add a widget"
 msgstr ""
 
 msgid "Add an annotation"
-msgstr ""
+msgstr "أترك ملاحظة "
 
 msgid "Add an annotation to &ldquo;{{request_title}}&rdquo;"
 msgstr ""
