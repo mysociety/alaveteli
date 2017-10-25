@@ -21,8 +21,6 @@
   <% end %>
 </div>
 
-
-
 <div class="cancel-subscription__message <%= css_class %> js-cancel-subscription__message" id="cancel-subscription">
   <p>
     <%= _('Subscription cancellations are applied at the end of the ' \
@@ -46,14 +44,14 @@
       </li>
       <li>
         <%= _("You won't be able to access {{pro_site_name}} tools, " \
-              "including the dashboard and embargoes.",
+              "including the dashboard and pro request management.",
               pro_site_name: AlaveteliConfiguration.pro_site_name) %>
       </li>
       <li>
         <%= _("You will still be able to see any requests which are " \
-              "currently under an embargo, but you won't be able to add or " \
-              "extend embargoes. These requests will be published when the " \
-              "embargo ends.") %>
+              "currently private, but you won't be able to make new private " \
+              "requests or extend privacy durations. These requests will be " \
+              "published when the current privacy period ends.") %>
       </li>
       <li>
         <%= _("You can re-subscribe at any time and full access to these " \
