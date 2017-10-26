@@ -130,6 +130,7 @@ class InfoRequest < ActiveRecord::Base
   scope :not_embargoed, Prominence::NotEmbargoedQuery.new
   scope :embargo_expiring, Prominence::EmbargoExpiringQuery.new
   scope :visible_to_requester, Prominence::VisibleToRequesterQuery.new
+  scope :been_published, Prominence::BeenPublishedQuery.new
 
   scope :awaiting_response, State::AwaitingResponseQuery.new
   scope :response_received, State::ResponseReceivedQuery.new
@@ -1337,6 +1338,7 @@ class InfoRequest < ActiveRecord::Base
     # 'old' months since last change to request, only allow new incoming
     # messages from authority domains
     InfoRequest
+      .been_published
       .where(allow_new_responses_from: 'anybody')
       .where.not(url_title: 'holding_pen')
       .updated_before(old.months.ago.to_date)
@@ -1345,6 +1347,7 @@ class InfoRequest < ActiveRecord::Base
     # 'very_old' months since last change to request, don't allow any new
     # incoming messages
     InfoRequest
+      .been_published
       .where(allow_new_responses_from: %w[anybody authority_only])
       .where.not(url_title: 'holding_pen')
       .updated_before(very_old.months.ago.to_date)
