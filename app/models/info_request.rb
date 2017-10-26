@@ -143,6 +143,7 @@ class InfoRequest < ActiveRecord::Base
     alias_method :in_progress, :awaiting_response
   end
   scope :action_needed, State::ActionNeededQuery.new
+  scope :updated_before, ->(ts) { where('"info_requests"."updated_at" < ?', ts) }
 
   # user described state (also update in info_request_event, admin_request/edit.rhtml)
   validate :must_be_valid_state
@@ -1332,23 +1333,22 @@ class InfoRequest < ActiveRecord::Base
   def self.stop_new_responses_on_old_requests
     old = AlaveteliConfiguration.restrict_new_responses_on_old_requests_after_months
     very_old = old * 2
+
     # 'old' months since last change to request, only allow new incoming
     # messages from authority domains
-    InfoRequest.update_all <<-EOF.strip_heredoc.delete("\n")
-    allow_new_responses_from = 'authority_only'
-    WHERE updated_at < (now() - interval '#{ old } months')
-    AND allow_new_responses_from = 'anybody'
-    AND url_title <> 'holding_pen'
-    EOF
+    InfoRequest
+      .where(allow_new_responses_from: 'anybody')
+      .where.not(url_title: 'holding_pen')
+      .updated_before(old.months.ago.to_date)
+      .update_all(allow_new_responses_from: 'authority_only')
 
     # 'very_old' months since last change to request, don't allow any new
     # incoming messages
-    InfoRequest.update_all <<-EOF.strip_heredoc.delete("\n")
-    allow_new_responses_from = 'nobody'
-    WHERE updated_at < (now() - interval '#{ very_old } months')
-    AND allow_new_responses_from IN ('anybody', 'authority_only')
-    AND url_title <> 'holding_pen'
-    EOF
+    InfoRequest
+      .where(allow_new_responses_from: %w[anybody authority_only])
+      .where.not(url_title: 'holding_pen')
+      .updated_before(very_old.months.ago.to_date)
+      .update_all(allow_new_responses_from: 'nobody')
   end
 
   def json_for_api(deep)
