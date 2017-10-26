@@ -314,6 +314,17 @@ describe IncomingMessage do
 
   end
 
+  describe '#get_body_for_quoting' do
+
+    it 'does not incorrectly cache without the FOLDED_QUOTED_SECTION marker' do
+      message = FactoryGirl.create(:plain_incoming_message)
+      message.get_body_for_quoting
+      expect(message.get_main_body_text_folded).
+        to include('FOLDED_QUOTED_SECTION')
+    end
+
+  end
+
   describe '#get_attachment_text_full' do
 
     it 'strips null bytes from the extracted clipped text' do
