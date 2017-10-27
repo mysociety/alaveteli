@@ -12,6 +12,14 @@ class UserController < ApplicationController
   # NOTE: Rails 4 syntax: change before_filter to before_action
   before_filter :normalize_url_name, :only => :show
 
+  # Normally we wouldn't be verifying the authenticity token on these actions
+  # anyway as there shouldn't be a user_id in the session when the before
+  # filter run. This skip handles cases where an already logged in user
+  # tries to sign in or sign up. There's little CSRF potential here as
+  # these actions only sign in or up users with valid credentials. The
+  # user_id in the session is not expected, and gives no extra privilege
+  skip_before_filter :verify_authenticity_token, :only => [:signin, :signup]
+
   # Show page about a user
   def show
     long_cache
@@ -123,6 +131,7 @@ class UserController < ApplicationController
 
     if @post_redirect.nil? || @user_signin.errors.size > 0
       # Failed to authenticate
+      clear_session_credentials
       render :action => 'sign'
     else
       # Successful login
