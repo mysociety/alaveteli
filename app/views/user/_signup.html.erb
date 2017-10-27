@@ -1,5 +1,5 @@
 <div id="signup" class="signup">
-  <%= form_tag({:action => "signup"}, {:id => "signup_form"}) do %>
+  <%= form_tag(signup_path, {:id => "signup_form"}) do %>
     <%= foi_error_messages_for :user_signup %>
 
     <p>
