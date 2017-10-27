@@ -37,6 +37,10 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+describe User do
+  it_behaves_like 'PhaseCounts'
+end
+
 describe User, "making up the URL name" do
   before do
     @user = User.new

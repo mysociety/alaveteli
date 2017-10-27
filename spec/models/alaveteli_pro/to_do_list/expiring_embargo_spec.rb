@@ -4,10 +4,12 @@ require 'spec_helper'
 describe AlaveteliPro::ToDoList::ExpiringEmbargo do
   include Rails.application.routes.url_helpers
 
-  let(:embargo){ FactoryGirl.create(:expiring_embargo) }
+  let(:embargo) { FactoryGirl.create(:expiring_embargo) }
+  let(:user) { embargo.user }
 
   before do
-    @expiring_embargo = described_class.new(embargo.user)
+    AlaveteliPro::RequestSummary.create_or_update_from(embargo.info_request)
+    @expiring_embargo = described_class.new(user)
   end
 
   describe '#description' do
@@ -17,7 +19,8 @@ describe AlaveteliPro::ToDoList::ExpiringEmbargo do
     end
 
     it 'gives a description for multiple expiring embargoes' do
-      FactoryGirl.create(:expiring_embargo, :user => embargo.user)
+      embargo2 = FactoryGirl.create(:expiring_embargo, :user => user)
+      AlaveteliPro::RequestSummary.create_or_update_from(embargo2.info_request)
       expect(@expiring_embargo.description).to eq "2 requests will be made public this week."
     end
 
@@ -44,7 +47,9 @@ describe AlaveteliPro::ToDoList::ExpiringEmbargo do
     context 'when there is more than one item' do
 
       it 'returns a link to the info request list with a "embargoed" filter' do
-        FactoryGirl.create(:expiring_embargo, :user => embargo.user)
+        embargo2 = FactoryGirl.create(:expiring_embargo, :user => user)
+        AlaveteliPro::RequestSummary.
+          create_or_update_from(embargo2.info_request)
         expect(@expiring_embargo.url)
           .to eq alaveteli_pro_info_requests_path('alaveteli_pro_request_filter[filter]' =>
                                                     'embargoes_expiring')
@@ -67,8 +72,11 @@ describe AlaveteliPro::ToDoList::ExpiringEmbargo do
     context 'when there is more than one item' do
 
       it 'returns an appropriate text' do
-        FactoryGirl.create(:expiring_embargo, :user => embargo.user)
-        expect(@expiring_embargo.call_to_action).to eq 'Publish these requests or keep them private for longer.'
+        embargo2 = FactoryGirl.create(:expiring_embargo, :user => user)
+        AlaveteliPro::RequestSummary.
+          create_or_update_from(embargo2.info_request)
+        expect(@expiring_embargo.call_to_action).
+          to eq 'Publish these requests or keep them private for longer.'
       end
 
     end
