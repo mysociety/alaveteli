@@ -21,6 +21,7 @@ class AlaveteliPro::PublicBodiesController < AlaveteliPro::BaseController
         notes: body.notes,
         info_requests_visible_count: body.info_requests_visible_count,
         weight: result[:weight],
+        about: _('About {{public_body_name}}', public_body_name: body.name)
       }
       # Render the result for the JS, so that we can use Rail's pluralisation,
       # translation, etc

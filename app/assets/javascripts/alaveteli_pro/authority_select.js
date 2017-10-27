@@ -2,6 +2,7 @@
   $(function(){
     var $select = $('.js-authority-select');
     var $publicBodyId = $('.js-public-body-id');
+    var $publicBodyNotes = $('.js-public-body-notes');
     var $message = $('.js-outgoing-message-body');
     var searchUrl = $select.data('search-url');
     var initialOptions = [];
@@ -45,7 +46,22 @@
       $publicBodyId.val(id);
     };
 
-    $select.selectize({
+    var updatePublicBodyNotes = function updatePublicBodyNotes(value) {
+      var option = $selectizeInstance[0].selectize.options[value];
+      if (option.notes && option.notes !== '') {
+        $publicBodyNotes.html(
+          '<h3>' + option.about + '</h3>' +
+          '<p>' + option.notes + '</p>'
+        );
+        $publicBodyNotes.show();
+      }
+    };
+
+    var hidePublicBodyNotes = function hidePublicBodyNotes() {
+      $publicBodyNotes.hide();
+    }
+
+    var $selectizeInstance = $select.selectize({
       valueField: 'id',
       labelField: 'name',
       searchField: ['name', 'notes', 'short_name'],
@@ -59,6 +75,11 @@
       onItemAdd: function(value, $item) {
         updateSalutation($item);
         updatePublicBodyIdField(value);
+        updatePublicBodyNotes(value);
+      },
+      onChange: function(value) {
+        if (value !== '') { return }
+        hidePublicBodyNotes()
       },
       load: function(query, callback) {
         if (!query.length) return callback();
