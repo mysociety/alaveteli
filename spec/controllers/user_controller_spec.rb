@@ -926,6 +926,35 @@ describe UserController, "when signing in" do
 
   end
 
+  context 'if the user is already signed in' do
+    let(:user){ FactoryGirl.create(:user) }
+
+    before do
+      ActionController::Base.allow_forgery_protection = true
+    end
+
+    after do
+      ActionController::Base.allow_forgery_protection = false
+    end
+
+    it "signs them in if the credentials are valid" do
+      post :signin,
+           { :user_signin => { :email => user.email,
+                               :password => 'jonespassword' } },
+           { :user_id => user.id }
+      expect(session[:user_id]).to eq(user.id)
+    end
+
+    it 'signs them out if the credentials are not valid' do
+      post :signin,
+           { :user_signin => { :email => user.email,
+                               :password => 'wrongpassword' } },
+           { :user_id => user.id }
+      expect(session[:user_id]).to be_nil
+    end
+
+  end
+
   it "should ask you to confirm your email if it isn't confirmed, after log in" do
     get :signin, :r => "/list"
     expect(response).to render_template('sign')
@@ -1114,6 +1143,31 @@ describe UserController, "when signing up" do
                         :password_confirmation => 'sillypassword',
                         :role_ids => Role.admin_role.id } }
     }.to raise_error(ActionController::UnpermittedParameters)
+  end
+
+  context 'when the user is already signed in' do
+    let(:user){ FactoryGirl.create(:user) }
+
+    before do
+      ActionController::Base.allow_forgery_protection = true
+    end
+
+    after do
+      ActionController::Base.allow_forgery_protection = false
+    end
+
+    it "shows the confirmation page for valid credentials" do
+      post :signup,
+           { :user_signup => {
+             :email => user.email,
+             :name => user.name,
+             :password => 'jonespassword',
+             :password_confirmation => 'jonespassword' }
+           },
+           { :user_id => user.id }
+      expect(response).to render_template('confirm')
+    end
+
   end
 
   context 'when the IP is rate limited' do
