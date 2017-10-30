@@ -659,7 +659,7 @@ class IncomingMessage < ActiveRecord::Base
   # Returns text of email for using in quoted section when replying
   def get_body_for_quoting
     # Get the body text with emails and quoted sections removed
-    text = get_main_body_text_folded
+    text = get_main_body_text_folded.dup
     text.gsub!("FOLDED_QUOTED_SECTION", " ")
     text.strip!
     raise "internal error" if text.nil?
