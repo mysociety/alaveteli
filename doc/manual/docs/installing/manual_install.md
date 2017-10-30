@@ -29,7 +29,7 @@ Note that there are [other ways to install Alaveteli]({{ page.baseurl }}/docs/in
 ### Target operating system
 
 These instructions assume a 64-bit version of Debian 7 (Wheezy)
-or Ubuntu 12.04 LTS (Precise) or 14.04 LTS (Trusty). Debian is the best supported deployment platform. We also
+or 14.04 LTS (Trusty). Debian is the best supported deployment platform. We also
 have instructions for [installing on MacOS]({{ page.baseurl }}/docs/installing/macos/).
 
 ### Set the locale
@@ -44,7 +44,7 @@ Generate the locales you wish to make available. When the interactive screen ask
 
 Start a new SSH session to use your SSH locale.
 
-**Ubuntu Precise/Trusty**
+**Ubuntu Trusty**
 
 Unset the default locale, as the SSH session should provide the locale required.
 
@@ -91,37 +91,13 @@ Add the following repositories to `/etc/apt/sources.list`:
     deb-src http://security.debian.org/ wheezy/updates main non-free
     EOF
 
-**Ubuntu Precise**
-
-    cat > /etc/apt/sources.list.d/ubuntu-extra.list <<EOF
-    deb http://de.archive.ubuntu.com/ubuntu/ precise multiverse
-    deb-src http://de.archive.ubuntu.com/ubuntu/ precise multiverse
-    deb http://de.archive.ubuntu.com/ubuntu/ precise-updates multiverse
-    deb-src http://de.archive.ubuntu.com/ubuntu/ precise-updates multiverse
-    deb http://de.archive.ubuntu.com/ubuntu/ trusty universe
-    deb-src http://de.archive.ubuntu.com/ubuntu/ trusty universe
-    EOF
-
-The trusty repo is used here to get a more recent version of bundler. You should configure package-pinning to reduce the priority of the trusty repository so other packages aren't pulled from it.
-
-    cat >> /etc/apt/preferences <<EOF
-
-    Package: ruby-bundler
-    Pin: release n=trusty
-    Pin-Priority: 990
-
-    Package: *
-    Pin: release n=trusty
-    Pin-Priority: 50
-    EOF
-
 
 #### Packages customised by mySociety
 
 If you're using Debian or Ubuntu, you should add the mySociety Debian archive to your
 apt sources. Note that mySociety packages are currently only built for 64-bit Debian.
 
-**Debian Wheezy or Ubuntu Precise**
+**Debian Wheezy**
 
     cat > /etc/apt/sources.list.d/mysociety-debian.list <<EOF
     deb http://debian.mysociety.org squeeze main
@@ -133,23 +109,6 @@ Add the GPG key from the
 [mySociety Debian Package Repository](http://debian.mysociety.org/).
 
     wget -O - https://debian.mysociety.org/debian.mysociety.org.gpg.key | apt-key add -
-
-**Ubuntu Precise only**
-
-    cat > /etc/apt/sources.list.d/mysociety-launchpad.list <<EOF
-    deb http://ppa.launchpad.net/mysociety/alaveteli/ubuntu precise main
-    deb-src http://ppa.launchpad.net/mysociety/alaveteli/ubuntu precise main
-    EOF
-
-The repository above lets you install a recent version of `pdftk` using `apt`.
-
-Add the GPG key from the
-[mySociety Alaveteli Ubuntu Package Repository](https://launchpad.net/~mysociety/+archive/ubuntu/alaveteli).
-
-    apt-get install -y python-software-properties
-    add-apt-repository -y ppa:mysociety/alaveteli
-
-**Debian Wheezy or Ubuntu Precise**
 
 You should also configure package-pinning to reduce the priority of the
 mysociety Debian repository - we only want to pull wkhtmltopdf-static
@@ -229,9 +188,6 @@ Now install the packages relevant to your system:
 
     # Debian Wheezy
     apt-get -y install $(cat /var/www/alaveteli/config/packages.debian-wheezy)
-
-    # Ubuntu Precise
-    apt-get -y install $(cat /var/www/alaveteli/config/packages.ubuntu-precise)
 
 Some of the files also have a version number listed in config/packages - check
 that you have appropriate versions installed. Some also list "`|`" and offer a
@@ -706,7 +662,7 @@ Create a directory for optional Alaveteli configuration
 Copy the example VirtualHost configuration file. You will need to change all
 occurrences of `www.example.com` to your URL
 
-**Debian Wheezy and Ubuntu Precise**
+**Debian Wheezy**
 
     cp /var/www/alaveteli/config/httpd.conf-example \
       /etc/apache2/sites-available/alaveteli
@@ -718,7 +674,7 @@ occurrences of `www.example.com` to your URL
 
 Disable the default site and enable the `alaveteli` VirtualHost
 
-**Debian Wheezy and Ubuntu Precise**
+**Debian Wheezy**
 
     a2dissite default
     a2ensite alaveteli
@@ -746,7 +702,7 @@ Enable the SSL apache mod
 Copy the SSL configuration – again changing `www.example.com` to your domain –
 and enable the VirtualHost
 
-**Debian Wheezy and Ubuntu Precise**
+**Debian Wheezy**
 
     cp /var/www/alaveteli/config/httpd-ssl.conf.example \
       /etc/apache2/sites-available/alaveteli_https
