@@ -1,4 +1,9 @@
 <p>
+  <%= _("<strong>Can I request information about myself?</strong> " \
+        "<a href=\"{{url}}\">No!</a>",
+        :url => help_requesting_path(:anchor => "data_protection").html_safe) %>
+</p>
+<p>
   <strong>
     <%= _("Are you sure the information you’re after isn’t available " \
        "elsewhere?") %>
@@ -21,4 +26,11 @@
             ) %>
   <% end %>
   </strong>
+</p>
+<p>
+  <%= _('Once the privacy period ends, everything that you enter on ' \
+        'this page, including <strong>your name</strong>, will be ' \
+        '<strong><a href="{{url}}">displayed publicly</a></strong> on this ' \
+        'website.',
+        :url => help_privacy_path(:anchor => "public_request").html_safe) %>
 </p>
