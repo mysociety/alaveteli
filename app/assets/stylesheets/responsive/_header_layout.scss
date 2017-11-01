@@ -395,25 +395,13 @@
   }
 }
 
-.dashboard-profile__name {
-  font-size: 1.3125em;
-  display: inline-block;
-  width: 100%;
+.dashboard-profile {
   position: relative;
-  .pro-pill {
-    right: 0;
-    position: absolute;
-  }
-}
-
-.dashboard-profile__email {
-  color: #777;
 }
 
 .dashboard-profile__image {
   height: 50px;
   width: 50px;
-  float:left;
+  float: left;
   margin-right: 1em;
-  border-radius: 5px;
 }
