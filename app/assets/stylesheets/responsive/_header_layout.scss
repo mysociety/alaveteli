@@ -378,6 +378,7 @@
   display: none;
   @include respond-min( $main_menu-mobile_menu_cutoff ) {
     display: inherit;
+    padding-bottom: 1em;
   }
 }
 
@@ -387,19 +388,14 @@
 
 .js-loaded {
   .logged-in-menu {
-
-
     @include respond-min( $main_menu-mobile_menu_cutoff ) {
       display: none;
     }
   }
 }
 
-.dashboard-profile {
-  position: relative;
-}
 
-.dashboard-profile__image {
+.profile-summary__image {
   height: 50px;
   width: 50px;
   float: left;
