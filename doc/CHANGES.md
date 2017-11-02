@@ -7,8 +7,11 @@
 * Fix bug that prevented private requests from being published across the whole
   site once the embargo period had expired (Liz Conlan)
 * Update format of `robots.txt` for Baidu compatibility (Gareth Rees)
+* Remove the use of purge requests to Varnish (Louise Crow)
 
 ## Upgrade Notes
+* This release removes the use of purge requests to Varnish. Please make sure
+  your site works with `VARNISH_HOST` empty before upgrading.
 
 ### Changed Templates
 
