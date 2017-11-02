@@ -10,5 +10,15 @@ describe AdminTrackController do
       expect(response).to render_template("index")
     end
 
+    describe 'POST destroy' do
+      let(:track){ FactoryGirl.create(:track_thing) }
+
+      it 'destroys the track' do
+        post :destroy, id: track.id
+        expect(TrackThing.where(id: track.id)).to be_empty
+      end
+
+    end
+
   end
 end
