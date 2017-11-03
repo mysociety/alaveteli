@@ -117,6 +117,13 @@ describe AlaveteliPro::EmbargoesController do
           expect(info_request_batch.reload.embargo_duration).to be_nil
         end
 
+        it "logs an 'expire_embargo' event for each request in the batch" do
+          info_request_batch.info_requests.each do |info_request|
+            expect(info_request.info_request_events.last.event_type).
+              to eq 'expire_embargo'
+          end
+        end
+
         it "shows a flash message" do
           expected_message = "Your requests are now public!"
           expect(flash[:notice]).to eq expected_message
@@ -145,6 +152,13 @@ describe AlaveteliPro::EmbargoesController do
 
         it "sets embargo_duration to nil on the batch" do
           expect(info_request_batch.reload.embargo_duration).to be_nil
+        end
+
+        it "logs an 'expire_embargo' event for each request in the batch" do
+          info_request_batch.info_requests.each do |info_request|
+            expect(info_request.info_request_events.last.event_type).
+              to eq 'expire_embargo'
+          end
         end
 
         it "shows a flash message" do
