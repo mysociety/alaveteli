@@ -117,6 +117,12 @@ class UserController < ApplicationController
 
   # Login form
   def signin
+    if @user && !params[:user_signin]
+      redirect_path = params.fetch(:r) { frontpage_path }
+      redirect_to URI.parse(redirect_path).path
+      return
+    end
+
     work_out_post_redirect
     @in_pro_area = true if @post_redirect && @post_redirect.reason_params[:pro]
     @request_from_foreign_country = country_from_ip != AlaveteliConfiguration::iso_country_code
