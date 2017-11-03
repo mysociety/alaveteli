@@ -1,3 +1,9 @@
+# 0.29.0.4
+
+## Highlighted Features
+
+* Fix broken `fr_BE` translation (Gareth Rees)
+
 # 0.29.0.3
 
 ## Highlighted Features
