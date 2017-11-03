@@ -1,3 +1,14 @@
+# 0.29.0.3
+
+## Highlighted Features
+
+* Backport fixes for HTML getting rendered in to flash messages (Gareth Rees)
+
+## Upgrade Notes
+
+* `app/views/track/_track_set.erb` has been renamed to
+  `app/views/track/_track_set.html.erb`, so if you've overriden it you will need
+  to update the override.
 
 # 0.29.0.2
 
