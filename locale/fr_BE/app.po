@@ -4611,8 +4611,8 @@ msgstr "{{site_name}} envoie les nouvelles demandes à <strong>{{request_email}}
 
 msgid "{{site_name}} users have made {{number_of_requests}} request, including:"
 msgid_plural "{{site_name}} users have made {{number_of_requests}} requests, including:"
-msgstr[0] " {{site_name}} gère les demandes adressées à {{number_of_authorities}} autorité publique, dont :"
-msgstr[1] " {{site_name}} gère les demandes adressées à {{number_of_authorities}} autorités publiques, dont :"
+msgstr[0] " {{site_name}} gère les demandes adressées à {{number_of_requests}} autorité publique, dont :"
+msgstr[1] " {{site_name}} gère les demandes adressées à {{number_of_requests}} autorités publiques, dont :"
 
 msgid "{{thing_changed}} was changed from <code>{{from_value}}</code> to <code>{{to_value}}</code>"
 msgstr "{{thing_changed}} a été changé de <code>{{from_value}}</code> vers <code>{{to_value}}</code>"
