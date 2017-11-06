@@ -7,7 +7,10 @@ describe AlaveteliPro::SubscriptionWithDiscount do
   let(:trial) { nil }
   let(:subscription) do
     discount = OpenStruct.new(coupon: coupon) if coupon
-    OpenStruct.new(plan: plan, discount: discount)
+    trial_start = Time.now.to_i if trial
+    trial_end = trial_start + 1 if trial
+    OpenStruct.new(plan: plan, discount: discount,
+                   trial_start: trial_start, trial_end: trial_end)
   end
 
   subject { described_class.new(subscription) }
@@ -40,6 +43,14 @@ describe AlaveteliPro::SubscriptionWithDiscount do
       end
     end
 
+    context 'on a trial' do
+      let(:trial) { true }
+
+      it 'returns 0' do
+        expect(subject.amount).to eq(0)
+      end
+    end
+
   end
 
   describe '#discounted?' do
@@ -64,6 +75,14 @@ describe AlaveteliPro::SubscriptionWithDiscount do
       let(:coupon) do
         OpenStruct.new(id: '50_off', percent_off: 50, valid: true)
       end
+
+      it 'returns true' do
+        expect(subject.discounted?).to be true
+      end
+    end
+
+    context 'on a trial' do
+      let(:trial) { true }
 
       it 'returns true' do
         expect(subject.discounted?).to be true
@@ -98,6 +117,14 @@ describe AlaveteliPro::SubscriptionWithDiscount do
       let(:coupon) do
         OpenStruct.new(id: '833_off', amount_off: 833, valid: true)
       end
+
+      it 'returns true' do
+        expect(subject.free?).to be true
+      end
+    end
+
+    context 'on a trial' do
+      let(:trial) { true }
 
       it 'returns true' do
         expect(subject.free?).to be true

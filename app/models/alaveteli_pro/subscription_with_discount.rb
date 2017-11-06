@@ -46,6 +46,10 @@ class AlaveteliPro::SubscriptionWithDiscount < SimpleDelegator
     !!coupon
   end
 
+  def trial?
+    trial_start && trial_end
+  end
+
   def fetch_coupon
     discount.coupon if discount && discount.coupon.valid
   end
@@ -53,6 +57,8 @@ class AlaveteliPro::SubscriptionWithDiscount < SimpleDelegator
   def reduction(net)
     if coupon?
       coupon_reduction(net)
+    elsif trial?
+      net
     else
       0
     end
