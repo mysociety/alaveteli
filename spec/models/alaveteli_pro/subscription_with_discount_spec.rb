@@ -91,6 +91,32 @@ describe AlaveteliPro::SubscriptionWithDiscount do
 
   end
 
+  describe '#discount_name' do
+
+    context 'no discount is set' do
+      it { expect(subject.discount_name).to be_nil }
+    end
+
+    context 'with a coupon' do
+      let(:coupon) do
+        OpenStruct.new(id: 'COUPON_ID', valid: true)
+      end
+
+      it 'returns ID of coupon' do
+        expect(subject.discount_name).to eq('COUPON_ID')
+      end
+    end
+
+    context 'on a trial' do
+      let(:trial) { true }
+
+      it 'returns PROBETA' do
+        expect(subject.discount_name).to eq('PROBETA')
+      end
+    end
+
+  end
+
   describe '#free?' do
 
     context 'the price is > 0' do

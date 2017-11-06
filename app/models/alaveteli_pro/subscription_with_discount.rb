@@ -36,6 +36,14 @@ class AlaveteliPro::SubscriptionWithDiscount < SimpleDelegator
     amount < original_amount
   end
 
+  def discount_name
+    if coupon?
+      coupon.id
+    elsif trial?
+      'PROBETA'
+    end
+  end
+
   def free?
     amount == 0
   end

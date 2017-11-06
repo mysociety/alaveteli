@@ -17,7 +17,7 @@
 
         <% if subscription.discounted? %>
           <%= _('(with <b>{{discount_name}}</b> discount applied)',
-                :discount_name => subscription.discount.coupon.id) %>
+                :discount_name => subscription.discount_name) %>
         <% end %>
       </span>
     </span>
