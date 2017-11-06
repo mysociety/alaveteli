@@ -16,25 +16,25 @@
 #   @subscription.free?
 #   # => false
 class AlaveteliPro::SubscriptionWithDiscount < SimpleDelegator
-  attr_reader :original_amount, :discount_coupon
+  attr_reader :original_amount, :coupon
 
   def initialize(subscription)
     super
     @plan = subscription.plan
     @original_amount = subscription.plan.amount
     @discount = subscription.discount
-    @discount_coupon = fetch_discount_coupon
+    @coupon = fetch_coupon
   end
 
   def amount
     net = BigDecimal.new((original_amount * 0.01), 0).round(2)
-    if discount_coupon
-      if discount_coupon.amount_off
+    if coupon
+      if coupon.amount_off
         net =
-          net - BigDecimal.new((discount_coupon.amount_off * 0.01), 0).round(2)
+          net - BigDecimal.new((coupon.amount_off * 0.01), 0).round(2)
       else
-        reduction = discount_coupon.percent_off
-        net = net - (net * discount_coupon.percent_off / 100)
+        reduction = coupon.percent_off
+        net = net - (net * coupon.percent_off / 100)
       end
     end
     (net * 100).floor
@@ -50,7 +50,7 @@ class AlaveteliPro::SubscriptionWithDiscount < SimpleDelegator
 
   private
 
-  def fetch_discount_coupon
+  def fetch_coupon
     discount.coupon if discount && discount.coupon.valid
   end
 end
