@@ -97,6 +97,17 @@ input.cplink__field {
  * Status lines
  */
 
+ .request-status-message {
+   padding: 1.25em 1.25em;
+   .icon-standalone {
+     float: left;
+     margin-right: 11px;
+   }
+   :last-child {
+     margin-bottom: 0;
+   }
+ }
+
  $status-success: #62b356;
  $status-failure: #e04b4b;
  $status-pending: #f4a140;
