@@ -49,7 +49,7 @@
       </div>
     </div>
     <div class="request-status">
-      <p id="request_status" class="request-status-message request_icon_line icon_<%= @info_request.calculate_status %>">
+      <p id="request_status" class="request-status-message request-status-message--<%= @info_request.calculate_status %> request_icon_line icon_<%= @info_request.calculate_status %> ">
         <%= status_text(@info_request,
                         :new_responses_count => @new_responses_count,
                         :is_owning_user => @is_owning_user,
