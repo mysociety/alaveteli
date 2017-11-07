@@ -24,6 +24,11 @@
   .desc {
     font-style: italic;
   }
+
+  .icon-standalone {
+    position: relative;
+    top: 5px;
+  }
 }
 
 .request_icon_line {
@@ -66,6 +71,11 @@
 
 
 /* Status icons */
+.icon-standalone {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+}
 
 .icon_waiting_classification {
   background-image:image-url('status/classification.png');
