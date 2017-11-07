@@ -36,22 +36,31 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
       @subscription =
         Stripe::Subscription.create(customer: @customer,
                                     plan: params[:plan_id],
+                                    coupon: params[:coupon_code],
                                     tax_percent: 20.0)
     rescue Stripe::CardError => e
       flash[:error] = e.message
       redirect_to plan_path(params[:plan_id])
       return
+
     rescue Stripe::RateLimitError,
            Stripe::InvalidRequestError,
            Stripe::AuthenticationError,
            Stripe::APIConnectionError,
            Stripe::StripeError => e
-      if send_exception_notifications?
-        ExceptionNotifier.notify_exception(e, :env => request.env)
-      end
 
-      flash[:error] = _('There was a problem submitting your payment. You ' \
-                        'have not been charged. Please try again later.')
+      if e.message =~ /No such coupon/
+        flash[:notice] = _('Coupon code is invalid.')
+      elsif e.message =~ /Coupon expired/
+        flash[:notice] = _('Coupon code has expired.')
+      else
+        if send_exception_notifications?
+          ExceptionNotifier.notify_exception(e, :env => request.env)
+        end
+
+        flash[:error] = _('There was a problem submitting your payment. You ' \
+                          'have not been charged. Please try again later.')
+      end
 
       path = params[:plan_id] ? plan_path(params[:plan_id]) : plans_path
       redirect_to path

@@ -53,6 +53,10 @@
               </span>
             </label>
           </div>
+          <div class="plan-coupon">
+            <label class="form_label" for="coupon_code"><%= _('Do you have a coupon code?') %></label>
+            <%= text_field_tag 'coupon_code', params[:coupon_code] %>
+          </div>
         </div>
 
         <div class="settings__section">

@@ -8,6 +8,11 @@ describe AlaveteliPro::SubscriptionsController do
   before do
     StripeMock.start
     stripe_helper.create_plan(id: 'pro', amount: 1000)
+    stripe_helper.create_coupon(
+      id: 'COUPON_CODE',
+      amount_off: 1000,
+      currency: 'gbp'
+    )
   end
 
   after do
@@ -43,7 +48,8 @@ describe AlaveteliPro::SubscriptionsController do
           post :create, 'stripeToken' => token,
                         'stripeTokenType' => 'card',
                         'stripeEmail' => user.email,
-                        'plan_id' => 'pro'
+                        'plan_id' => 'pro',
+                        'coupon_code' => 'COUPON_CODE'
         end
 
         it 'finds the token' do
@@ -255,6 +261,62 @@ describe AlaveteliPro::SubscriptionsController do
 
         it 'renders an error message' do
           expect(flash[:error]).to match(/There was a problem/)
+        end
+
+        it 'redirects to the plan page' do
+          expect(response).to redirect_to(plan_path('pro'))
+        end
+
+      end
+
+      context 'when uses invalid coupon' do
+        let(:token) { stripe_helper.generate_card_token }
+
+        before do
+          error = Stripe::InvalidRequestError.new('No such coupon', 'param')
+          StripeMock.prepare_error(error, :create_subscription)
+          post :create, 'stripeToken' => token,
+                        'stripeTokenType' => 'card',
+                        'stripeEmail' => user.email,
+                        'plan_id' => 'pro',
+                        'coupon_code' => 'INVALID'
+        end
+
+        it 'does not sends an exception email' do
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail).to be_nil
+        end
+
+        it 'renders an notice message' do
+          expect(flash[:notice]).to eq('Coupon code is invalid.')
+        end
+
+        it 'redirects to the plan page' do
+          expect(response).to redirect_to(plan_path('pro'))
+        end
+
+      end
+
+      context 'when uses expired coupon' do
+        let(:token) { stripe_helper.generate_card_token }
+
+        before do
+          error = Stripe::InvalidRequestError.new('Coupon expired', 'param')
+          StripeMock.prepare_error(error, :create_subscription)
+          post :create, 'stripeToken' => token,
+                        'stripeTokenType' => 'card',
+                        'stripeEmail' => user.email,
+                        'plan_id' => 'pro',
+                        'coupon_code' => 'EXPIRED'
+        end
+
+        it 'does not sends an exception email' do
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail).to be_nil
+        end
+
+        it 'renders an notice message' do
+          expect(flash[:notice]).to eq('Coupon code has expired.')
         end
 
         it 'redirects to the plan page' do
