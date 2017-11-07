@@ -120,6 +120,7 @@ gem 'sass', '3.4.21'
 gem 'secure_headers', '~> 3.6.0'
 gem 'statistics2', '~> 0.54'
 gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :ref => 'c1c14da'
+gem 'stripe', '~> 3.4.1'
 gem 'syslog_protocol', '~> 0.9.0'
 gem 'thin', '~> 1.5.0', '< 1.6.0'
 gem 'vpim', '~> 13.11.11'
@@ -162,6 +163,7 @@ group :test do
     gem 'term-ansicolor', '~> 1.3.0', '< 1.4'
   gem 'capybara', '~> 2.15.0'
   gem 'delorean', '~> 2.1.0'
+  gem 'stripe-ruby-mock', '~> 2.5.0'
   gem 'test_after_commit', '~> 0.4.2'
 end
 

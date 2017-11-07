@@ -1,0 +1,111 @@
+.pricing__title {
+  font-weight: bold;
+  font-size: 4em;
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+.pricing__tier {
+  margin-bottom: 2em;
+  max-width: 53.125em;
+  margin-left: auto;
+  margin-right: auto;
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    @include flexbox();
+    flex-wrap: nowrap;
+  }
+
+  h2 {
+    margin-top: 0;
+  }
+}
+
+.pricing__tier__heading {
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    width: 50%;
+  }
+}
+
+.pricing__tier__content {
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    width: 50%;
+  }
+}
+
+.pricing__tier__features {
+  padding: 0;
+  margin: 0.5em 0;
+  li {
+    margin-bottom: 1em;
+  }
+}
+
+.pricing__feature-message {
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    padding: 1.8em;
+  }
+  h3 {
+    margin-bottom: 0;
+  }
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.pricing__free-message {
+  text-align: center;
+  margin-bottom: 2em;
+}
+
+.pricing__testimonials {
+  margin: 3em 0 5em;
+}
+
+
+.testimonials__list {
+  @include grid-row($behavior: nest);
+}
+
+.testimonials__list__item {
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    @include grid-column(4);
+  }
+}
+
+.testimonial {
+  margin: 1em 0.5em;
+}
+
+.testimonial__source__thumbnail {
+  width: 36px;
+  height: 36px;
+  margin-right: 18px;
+}
+
+.pricing__faqs__list {
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    -webkit-column-count: 2;
+       -moz-column-count: 2;
+            column-count: 2;
+    -webkit-column-gap: 2em;
+       -moz-column-gap: 2em;
+            column-gap: 2em;
+  }
+}
+
+.faqs__term {
+  -webkit-column-break-inside: avoid;
+            page-break-inside: avoid;
+                 break-inside: avoid;
+  // Browsers with support for column get a line length limit instead
+  max-width: 34em;
+}
+
+.faqs__def {
+  -webkit-column-break-inside: avoid;
+            page-break-inside: avoid;
+                 break-inside: avoid;
+  // Browsers with support for column get a line length limit instead
+  max-width: 34em;
+  margin-bottom: 2em;
+}

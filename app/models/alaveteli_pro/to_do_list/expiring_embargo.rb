@@ -14,6 +14,10 @@ module AlaveteliPro
         @items ||= user.embargoes.expiring
       end
 
+      def count
+        user.phase_counts['embargo_expiring']
+      end
+
       def url
         if count > 1
           alaveteli_pro_info_requests_path('alaveteli_pro_request_filter[filter]' =>

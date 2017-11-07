@@ -1,0 +1,115 @@
+.settings {
+  h3 {
+    font-size: 1.4375em; //26px
+    font-weight: bold;
+  }
+  h4 {
+    font-size: 1.1875em; //21px
+    margin-bottom: 0.75em;
+  }
+}
+
+.plan-overview {
+  background-color: #F3F1EB;
+  border-radius: 3px;
+  padding: 0.75em 1.25em;
+  border: 1px solid #E6E4DF;
+}
+
+.plan-overview__desc {
+  font-weight: bold;
+}
+
+.plan-overview__details{
+  font-size: 0.875em;
+  color: #787774;
+}
+
+.plan-overview__amount {
+  font-size: 1em;
+  text-align: right;
+}
+
+.settings__terms {
+  padding: 1em;
+  border: 1px solid #E6E4DF;
+  max-height: 20em;
+  overflow-y: scroll;
+  border-radius: 3px;
+}
+
+.settings__terms-content {
+  font-size: 0.875em;
+  line-height: 1.5em;
+}
+
+.settings__terms__accept {
+  margin-top: 1.25em;
+  input {
+    margin-right: 0.5em;
+  }
+  label {
+    font-size: 1em;
+  }
+}
+
+.settings__cancel-button {
+  color: #333;
+  font-size: 0.875em;
+}
+
+.pricing__faqs {
+  h2 {
+    font-size: 1.3125em;
+  }
+}
+
+.faqs__term {
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.faqs__def {
+  color: #787774;
+}
+
+.settings__item {
+border-top: 1px solid #E6E4DF;
+}
+
+.card-desc {
+  font-size: 0.875em;
+  color: #787774;
+  strong {
+    font-size: 1.142857143em; //16px
+    color: #333;
+  }
+}
+
+.settings__table {
+  width: 100%;
+  border-bottom: 1px solid #E6E4DF;
+  tr {
+    border-top: 1px solid #E6E4DF;
+    width: 100%;
+    padding: 0.5em 0;
+  }
+  th {
+    text-align: left;
+    font-weight: normal;
+  }
+  td {
+    text-align: right;
+  }
+}
+
+.cancel-sub-section {
+  a {
+    margin-top: 1em;
+  }
+}
+
+.card__expiring {
+  color: #F33D3D;
+  font-weight: bold;
+}

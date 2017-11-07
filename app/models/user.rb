@@ -39,6 +39,7 @@ require 'digest/sha1'
 
 class User < ActiveRecord::Base
   include AlaveteliFeatures::Helpers
+  include AlaveteliPro::PhaseCounts
   rolify
   strip_attributes :allow_empty => true
 
@@ -46,7 +47,7 @@ class User < ActiveRecord::Base
   attr_accessor :entered_otp_code
 
   has_many :info_requests,
-           -> { order('created_at desc') },
+           -> { order('info_requests.created_at desc') },
            :inverse_of => :user,
            :dependent => :destroy
   has_many :info_request_events,

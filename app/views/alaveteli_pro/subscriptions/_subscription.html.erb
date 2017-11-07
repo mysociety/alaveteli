@@ -1,0 +1,73 @@
+
+<div class="plan-overview">
+  <div class="plan-overview__desc">
+    <%= subscription.plan.name %>
+  </div>
+
+  <div class="plan-overview__details">
+  </div>
+
+  <label class="plan-overview__amount amount">
+    <span>
+      <%= _('{{plan_price}}',
+            plan_price: number_to_currency(subscription_amount(subscription) / 100.0,
+                                           unit: '£')) %>
+      <span class="amount__freq">
+        <%= billing_frequency(subscription.plan.interval) %>
+
+        <% if subscription.discounted? %>
+          <%= _('(with <b>{{discount_name}}</b> discount applied)',
+                :discount_name => subscription.discount.coupon.id) %>
+        <% end %>
+      </span>
+    </span>
+  </label>
+</div>
+
+<div>
+  <h4><%= _('Billing') %></h4>
+
+  <table class="settings__table">
+    <tr>
+      <th scope="row">
+        <%= _('Subscription began') %>
+      </th>
+      <td>
+        <%= _('{{date}}',
+              date: simple_date(Time.zone.at(subscription.created),
+                                :format => :text)) %>
+      </td>
+    </tr>
+
+    <% if subscription.cancel_at_period_end %>
+      <tr>
+        <th scope="row">
+          <%= _('Subscription ends') %>
+        </th>
+        <td>
+          <%= _('{{date}}',
+                date: simple_date(Time.zone.at(subscription.current_period_end),
+                                  :format => :text)) %>
+        </td>
+      </tr>
+    <% else %>
+      <tr>
+        <th scope="row">
+          <%= _('Next payment') %>
+        </th>
+        <td>
+          <%= _('{{date}}',
+                date: simple_date(Time.zone.at(subscription.current_period_end),
+                                  :format => :text)) %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<div class="cancel-sub-section">
+  <h4><%= _('Cancel subscription') %></h4>
+  <div class="settings__item">
+    <%= render 'cancel_subscription', subscription: subscription %>
+  </div>
+</div>

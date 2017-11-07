@@ -1,0 +1,114 @@
+<h1 class="pricing__title centered">Pricing</h1>
+
+<div class="pricing__tiers">
+  <div class="pricing__tier pricing__tier--primary">
+
+    <div class="pricing__tier__heading">
+      <h2>Professional</h2>
+      <p class="pricing__tier__subhead">For journalists, academics and power users</p>
+      <p class="price-label"><span class="price-label__amount">£25</span> per month</p>
+    </div>
+
+    <div class="pricing__tier__content">
+      <h3>Featuring</h3>
+      <ul class="pricing__tier__features">
+        <li>Public requests for information</li>
+        <li>Private requests for information</li>
+        <li>Friendly support</li>
+        <li>Dashboard and workflow features</li>
+      </ul>
+      <%= link_to "Sign up", plan_path('pro'), :class => "button button-pop" %>
+    </div>
+
+  </div>
+</div>
+
+<p class="pricing__free-message">
+  Don't worry – <%= link_to 'our free accounts', signup_path %> are still available and always will be
+</p>
+
+<div class="pricing__feature-message">
+  <h2>Coming soon – Bulk requesting</h2>
+  <p>We’re currently beta-testing our these feature. To be part of this closed test, please <a href="mailto:alaveteli-pro@mysociety.org">get in touch</a>.</p>
+</div>
+
+<% if feature_enabled?(:pro_pricing_testimonials) %>
+  <div class="pricing__testimonials">
+    <h2 class="pricing__testimonials__title">What people say about WhatDoTheyKnow<sup>pro</sup></h2>
+    <ul class="testimonials__list">
+
+      <li class="testimonials__list__item">
+        <div class="testimonial">
+          <blockquote class="testimonial__content">
+            <p>WhatDoTheyKnowPro has transformed my workflow. Managing big stories is so much easier now</p>
+            <cite class="testimonial__source"><img src="http://placehold.it/100x100" alt="" class="testimonial__source__thumbnail"/>Jenny Realuser</cite>
+          </blockquote>
+        </div>
+      </li>
+
+      <li class="testimonials__list__item">
+        <div class="testimonial">
+          <blockquote class="testimonial__content">
+            <p>WhatDoTheyKnowPro has transformed my workflow. Managing big stories is so much easier now</p>
+            <cite class="testimonial__source"><img src="http://placehold.it/100x100" alt="" class="testimonial__source__thumbnail"/>Jenny Realuser</cite>
+          </blockquote>
+        </div>
+      </li>
+
+      <li class="testimonials__list__item">
+        <div class="testimonial">
+          <blockquote class="testimonial__content">
+            <p>WhatDoTheyKnowPro has transformed my workflow. Managing big stories is so much easier now</p>
+            <cite class="testimonial__source"><img src="http://placehold.it/100x100" alt="" class="testimonial__source__thumbnail"/>Jenny Realuser</cite>
+          </blockquote>
+        </div>
+      </li>
+
+      <li class="testimonials__list__item">
+        <div class="testimonial">
+          <blockquote class="testimonial__content">
+            <p>WhatDoTheyKnowPro has transformed my workflow. Managing big stories is so much easier now</p>
+            <cite class="testimonial__source"><img src="http://placehold.it/100x100" alt="" class="testimonial__source__thumbnail"/>Jenny Realuser</cite>
+          </blockquote>
+        </div>
+      </li>
+
+      <li class="testimonials__list__item">
+        <div class="testimonial">
+          <blockquote class="testimonial__content">
+            <p>WhatDoTheyKnowPro has transformed my workflow. Managing big stories is so much easier now</p>
+            <cite class="testimonial__source"><img src="http://placehold.it/100x100" alt="" class="testimonial__source__thumbnail"/>Jenny Realuser</cite>
+          </blockquote>
+        </div>
+      </li>
+
+      <li class="testimonials__list__item">
+        <div class="testimonial">
+          <blockquote class="testimonial__content">
+            <p>WhatDoTheyKnowPro has transformed my workflow. Managing big stories is so much easier now</p>
+            <cite class="testimonial__source"><img src="http://placehold.it/100x100" alt="" class="testimonial__source__thumbnail"/>Jenny Realuser</cite>
+          </blockquote>
+        </div>
+      </li>
+    </ul>
+  </div>
+<% end %>
+
+<% if feature_enabled?(:pro_pricing_faqs) %>
+  <div class="pricing__faqs">
+    <h2 class="pricing__faqs__title">Frequently Asked Questions</h2>
+    <dl class="pricing__faqs__list">
+      <dt class="faqs__term">How do I cancel my account?</dt>
+      <dd class="faqs__def">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at porttitor orci, nec sollicitudin turpis. Donec vel nisl justo. Praesent blandit ex ut massa faucibus, cursus tincidunt dui consectetur. In suscipit lorem felis. Sed elementum, augue euismod dignissim vulputate, ligula elit blandit sem, non vehicula nisl turpis ultricies nisi. Integer accumsan luctus hendrerit.</dd>
+
+      <dt class="faqs__term">What does my subscription fee go towards?</dt>
+      <dd class="faqs__def">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at porttitor orci, nec sollicitudin turpis. Donec vel nisl justo. Praesent blandit ex ut massa faucibus, cursus tincidunt dui consectetur. In suscipit lorem felis. Sed elementum, augue euismod dignissim vulputate, ligula elit blandit sem, non vehicula nisl turpis ultricies nisi. Integer accumsan luctus hendrerit.</dd>
+
+      <dt class="faqs__term">How do I change my payment details?</dt>
+      <dd class="faqs__def">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at porttitor orci, nec sollicitudin turpis. Donec vel nisl justo. Praesent blandit ex ut massa faucibus, cursus tincidunt dui consectetur. In suscipit lorem felis. Sed elementum, augue euismod dignissim vulputate, ligula elit blandit sem, non vehicula nisl turpis ultricies nisi. Integer accumsan luctus hendrerit.</dd>
+
+      <dt class="faqs__term">I’ve got a vouncher code</dt>
+      <dd class="faqs__def">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at porttitor orci, nec sollicitudin turpis. Donec vel nisl justo. Praesent blandit ex ut massa faucibus, cursus tincidunt dui consectetur. In suscipit lorem felis. Sed elementum, augue euismod dignissim vulputate, ligula elit blandit sem, non vehicula nisl turpis ultricies nisi. Integer accumsan luctus hendrerit.</dd>
+    </dl>
+  </div>
+<% end %>

@@ -604,6 +604,28 @@ Rails.application.routes.draw do
         :via => :get
   ####
 
+  #### Pro Pricing
+  constraints FeatureConstraint.new(:pro_pricing) do
+    namespace :alaveteli_pro, path: 'pro', as: 'pro' do
+      resources :plans, only: [:index], path: 'pricing'
+    end
+
+    scope module: 'alaveteli_pro' do
+      resources :plans, only: [:show]
+      resources :subscriptions, only: [:create, :destroy]
+
+      # TODO: Move to subscriptions#index
+      # TODO: Use resourceful routing
+      match '/profile/subscriptions' => 'subscriptions#show',
+            :as => :profile_subscription,
+            :via => :get
+
+      match '/profile/subscriptions/update_card' => 'payment_methods#update',
+            :as => :update_subscription_payment,
+            :via => :post
+    end
+  end
+
   #### Alaveteli Pro
   constraints FeatureConstraint.new(:alaveteli_pro) do
 

@@ -30,7 +30,28 @@ class UserController < ApplicationController
 
     set_show_requests if @show_requests
 
+    @private_requests = []
+
     if @is_you
+      private_requests =
+        @display_user.
+          info_requests.
+          visible_to_requester.
+          embargoed
+
+      if params[:user_query]
+        private_requests = private_requests.
+          where("info_requests.title ILIKE :q", q: "%#{ params[:user_query] }%")
+      end
+
+      unless params[:request_latest_status].blank?
+        private_requests = private_requests.
+          where(described_state: params[:request_latest_status])
+      end
+
+      @private_requests =
+        private_requests.page(params[:page]).per_page(@per_page)
+
       # All tracks for the user
       @track_things = TrackThing.
         where(:tracking_user_id => @display_user, :track_medium => 'email_daily').
@@ -97,6 +118,7 @@ class UserController < ApplicationController
   # Login form
   def signin
     work_out_post_redirect
+    @in_pro_area = true if @post_redirect && @post_redirect.reason_params[:pro]
     @request_from_foreign_country = country_from_ip != AlaveteliConfiguration::iso_country_code
     # First time page is shown
     return render :action => 'sign' unless params[:user_signin]
@@ -133,6 +155,7 @@ class UserController < ApplicationController
   # Create new account form
   def signup
     work_out_post_redirect
+    @in_pro_area = true if @post_redirect.reason_params[:pro]
     # Make the user and try to save it
     @user_signup = User.new(user_params(:user_signup))
     error = false

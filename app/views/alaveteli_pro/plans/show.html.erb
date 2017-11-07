@@ -1,0 +1,126 @@
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#pro-signup button').attr('disabled', 'disabled');
+    });
+
+    $(function() {
+      $('#accept-terms').click(function() {
+        if ($(this).is(':checked')) {
+          $('#pro-signup button').removeAttr('disabled');
+        } else {
+          $('#pro-signup button').attr('disabled', 'disabled');
+        }
+      });
+    });
+
+    $(function() {
+      $('#pro-signup button span').click(function() {
+        if ($('#pro-signup button').is(':disabled')) {
+          alert('<%=_('You must accept the terms and conditions') %>');
+        }
+      });
+    });
+  </script>
+<% end %>
+
+<div class="inner-canvas settings">
+
+  <div class="inner-canvas-header">
+    <div class="row">
+      <h1><%= _("Upgrade account") %></h1>
+    </div>
+  </div>
+
+  <div class="inner-canvas-body">
+    <div class="row">
+      <div class="settings-left-column">
+      </div>
+      <div class="settings-right-column">
+        <%= form_tag(subscriptions_path, id: 'pro-signup') do %>
+        <div class="settings__section">
+          <h3>Selected plan</h3>
+          <div class="plan-overview">
+            <div class="plan-overview__desc">
+              <%= @plan.name %>
+            </div>
+            <div class="plan-overview__details">
+              1 month auto-renew
+            </div>
+            <label class="plan-overview__amount amount">
+              <span>
+              <%= number_to_currency(@plan.amount_with_tax / 100, unit: '£') %>
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <div class="settings__section">
+          <h3>Terms and conditions</h3>
+          <div class="settings__terms">
+            <div class="settings__terms-content">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas consequat malesuada tellus non tempor. Sed pharetra dolor pharetra ipsum molestie, at mattis augue cursus. Etiam ac aliquam felis. Sed nec tincidunt eros, ac consectetur quam. Ut non nisl non velit viverra tempor. Pellentesque non sem sit amet massa accumsan rutrum. In efficitur malesuada erat, vitae congue dui hendrerit non. Ut fermentum ante diam. Praesent dictum tellus sed aliquam dignissim. Proin mollis mi auctor nibh efficitur condimentum. Vivamus non risus et turpis eleifend euismod eget eu est. Phasellus rutrum in metus vitae consequat.
+              </p>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas consequat malesuada tellus non tempor. Sed pharetra dolor pharetra ipsum molestie, at mattis augue cursus. Etiam ac aliquam felis. Sed nec tincidunt eros, ac consectetur quam. Ut non nisl non velit viverra tempor. Pellentesque non sem sit amet massa accumsan rutrum. In efficitur malesuada erat, vitae congue dui hendrerit non. Ut fermentum ante diam. Praesent dictum tellus sed aliquam dignissim. Proin mollis mi auctor nibh efficitur condimentum. Vivamus non risus et turpis eleifend euismod eget eu est. Phasellus rutrum in metus vitae consequat.</p>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas consequat malesuada tellus non tempor. Sed pharetra dolor pharetra ipsum molestie, at mattis augue cursus. Etiam ac aliquam felis. Sed nec tincidunt eros, ac consectetur quam. Ut non nisl non velit viverra tempor. Pellentesque non sem sit amet massa accumsan rutrum. In efficitur malesuada erat, vitae congue dui hendrerit non. Ut fermentum ante diam. Praesent dictum tellus sed aliquam dignissim. Proin mollis mi auctor nibh efficitur condimentum. Vivamus non risus et turpis eleifend euismod eget eu est. Phasellus rutrum in metus vitae consequat.</p>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas consequat malesuada tellus non tempor. Sed pharetra dolor pharetra ipsum molestie, at mattis augue cursus. Etiam ac aliquam felis. Sed nec tincidunt eros, ac consectetur quam. Ut non nisl non velit viverra tempor. Pellentesque non sem sit amet massa accumsan rutrum. In efficitur malesuada erat, vitae congue dui hendrerit non. Ut fermentum ante diam. Praesent dictum tellus sed aliquam dignissim. Proin mollis mi auctor nibh efficitur condimentum. Vivamus non risus et turpis eleifend euismod eget eu est. Phasellus rutrum in metus vitae consequat.</p>
+            </div>
+          </div>
+          <div class="settings__terms__accept">
+            <label for="accept-terms">
+              <input type="checkbox" id="accept-terms" required />
+               <%= _('I have read and accepted these terms and conditions') %>
+             </label>
+           </div>
+        </div>
+          <%= hidden_field_tag 'plan_id', @plan.id %>
+
+          <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                  data-key="<%= AlaveteliConfiguration.stripe_publishable_key %>"
+                  data-name="<%= AlaveteliConfiguration.pro_site_name %>"
+                  data-description="A monthly subscription"
+                  data-amount="<%= @plan.amount_with_tax %>"
+                  data-email="<%= current_user.email %>"
+                  data-locale="auto"
+                  data-allow-remember-me="false"
+                  data-image="https://s3.amazonaws.com/stripe-uploads/acct_19EbqNIbP0iBLddtmerchant-icon-1479145884111-mysociety-wheel-logo.png"
+                  data-zip-code="true"
+                  data-currency="gbp">
+          </script>
+
+          <%= link_to _('Cancel'), pro_plans_path, class: 'settings__cancel-button' %>
+
+          <noscript>
+            <div id="error">
+              <p>
+                <%= _('Continuing with checkout requires your browser to have ' \
+                      'JavaScript enabled.') %>
+              </p>
+            </div>
+          </noscript>
+        <% end %>
+
+        <div class="settings__section">
+          <div class="pricing__faqs settings__faqs">
+            <h3>Frequently Asked Questions</h3>
+            <dl class="pricing__faqs__list">
+              <dt class="faqs__term">How do I cancel my account?</dt>
+              <dd class="faqs__def">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at porttitor orci, nec sollicitudin turpis. Donec vel nisl justo. Praesent blandit ex ut massa faucibus, cursus tincidunt dui consectetur. In suscipit lorem felis. Sed elementum, augue euismod dignissim vulputate, ligula elit blandit sem, non vehicula nisl turpis ultricies nisi. Integer accumsan luctus hendrerit.</dd>
+
+               <dt class="faqs__term">What does my subscription fee go towards?</dt>
+               <dd class="faqs__def">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at porttitor orci, nec sollicitudin turpis. Donec vel nisl justo. Praesent blandit ex ut massa faucibus, cursus tincidunt dui consectetur. In suscipit lorem felis. Sed elementum, augue euismod dignissim vulputate, ligula elit blandit sem, non vehicula nisl turpis ultricies nisi. Integer accumsan luctus hendrerit.</dd>
+
+              <dt class="faqs__term">How do I change my payment details?</dt>
+              <dd class="faqs__def">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at porttitor orci, nec sollicitudin turpis. Donec vel nisl justo. Praesent blandit ex ut massa faucibus, cursus tincidunt dui consectetur. In suscipit lorem felis. Sed elementum, augue euismod dignissim vulputate, ligula elit blandit sem, non vehicula nisl turpis ultricies nisi. Integer accumsan luctus hendrerit.</dd>
+
+              <dt class="faqs__term">I’ve got a vouncher code</dt>
+              <dd class="faqs__def">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at porttitor orci, nec sollicitudin turpis. Donec vel nisl justo. Praesent blandit ex ut massa faucibus, cursus tincidunt dui consectetur. In suscipit lorem felis. Sed elementum, augue euismod dignissim vulputate, ligula elit blandit sem, non vehicula nisl turpis ultricies nisi. Integer accumsan luctus hendrerit.</dd>
+            </dl>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

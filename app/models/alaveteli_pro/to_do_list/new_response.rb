@@ -14,6 +14,10 @@ module AlaveteliPro
         @items ||= user.info_requests.response_received
       end
 
+      def count
+        user.phase_counts['response_received']
+      end
+
       def url
         if count > 1
           alaveteli_pro_info_requests_path('alaveteli_pro_request_filter[filter]' =>

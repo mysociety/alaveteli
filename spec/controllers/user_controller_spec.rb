@@ -3,6 +3,543 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe UserController do
 
+  describe 'GET show' do
+
+    let(:user) { FactoryGirl.create(:user) }
+
+    it 'renders the show template' do
+      get :show, :url_name => user.url_name
+      expect(response).to render_template(:show)
+    end
+
+    it 'assigns the user' do
+      get :show, url_name: user.url_name
+      expect(assigns[:display_user]).to eq(user)
+    end
+
+    it 'should be successful' do
+      get :show, url_name: user.url_name
+      expect(response).to be_success
+    end
+
+    it 'raises a RecordNotFound for non-existent users' do
+      user.destroy!
+      expect { get :show, url_name: user.url_name }.
+        to raise_error(ActiveRecord::RecordNotFound)
+    end
+
+    it 'raises a RecordNotFound for unconfirmed users' do
+      user = FactoryGirl.create(:user, email_confirmed: false)
+      expect { get :show, url_name: user.url_name }.
+        to raise_error(ActiveRecord::RecordNotFound)
+    end
+
+    # TODO: Use route_for or params_from to check /c/ links better
+    # http://rspec.rubyforge.org/rspec-rails/1.1.12/classes/Spec/Rails/Example/
+    # ControllerExampleGroup.html
+    context 'when redirecting a show request to a canonical url' do
+
+      it 'redirects to lower case name if given one with capital letters' do
+        get :show, url_name: 'Bob_Smith'
+        expect(response).to redirect_to(show_user_path(url_name: 'bob_smith'))
+      end
+
+      it 'redirects a long non-canonical name that has a numerical suffix, retaining the suffix' do
+        get :show, url_name: 'Bob_SmithBob_SmithBob_SmithBob_S_2'
+        expect(response).
+          to redirect_to(show_user_path('bob_smithbob_smithbob_smithbob_s_2'))
+      end
+
+      it 'does not redirect a long canonical name that has a numerical suffix' do
+        FactoryGirl.create(:user,
+                           name: 'Bob Smith Bob Smith Bob Smith Bob Smith')
+        FactoryGirl.create(:user,
+                           name: 'Bob Smith Bob Smith Bob Smith Bob Smith')
+        get :show, url_name: 'bob_smith_bob_smith_bob_smith_bo_2'
+        expect(response).to be_success
+      end
+
+    end
+
+    # Also doubles for when not logged in viewing another user's profile
+    context 'when viewing a profile' do
+
+      def make_request
+        get :show, url_name: user.url_name, view: 'profile'
+      end
+
+      render_views
+
+      it 'does not show requests or batch requests, but does show account options' do
+        make_request
+
+        expect(assigns[:show_profile]).to be true
+        expect(assigns[:show_requests]).to be false
+        expect(assigns[:show_batches]).to be false
+
+        expect(response.body).
+          not_to match(/Freedom of Information requests made by this person/)
+
+        expect(response.body).
+          to match(/change password, subscriptions and more/)
+      end
+
+    end
+
+    # Also doubles for when not logged in viewing another user's requests
+    context 'when viewing requests' do
+
+      def make_request
+        get :show, url_name: user.url_name, view: 'requests'
+      end
+
+      render_views
+
+      it 'shows requests and batch requests, but does not show account options' do
+        make_request
+
+        expect(assigns[:show_profile]).to be false
+        expect(assigns[:show_requests]).to be true
+        expect(assigns[:show_batches]).to be true
+
+        expect(response.body).
+          to match(/Freedom of Information requests made by this person/)
+
+        expect(response.body).
+          not_to match(/change password, subscriptions and more/)
+      end
+
+      it 'does not show private requests' do
+        user = FactoryGirl.create(:pro_user)
+        FactoryGirl.create(:embargoed_request, user: user)
+        update_xapian_index
+        get :show, url_name: user.url_name, view: 'requests'
+        expect(assigns[:private_requests]).to be_empty
+      end
+
+    end
+
+    context 'when filtering requests' do
+
+      before do
+        load_raw_emails_data
+        get_fixtures_xapian_index
+      end
+
+      it "searches the user's contributions" do
+        user = users(:bob_smith_user)
+
+        get :show, url_name: 'bob_smith'
+
+        actual =
+          assigns[:xapian_requests].results.map { |x| x[:model].info_request }
+
+        expect(actual).to match_array(user.info_requests)
+      end
+
+      it 'filters by the given query' do
+        user = users(:bob_smith_user)
+
+        get :show, url_name: 'bob_smith', user_query: 'money'
+
+        actual =
+          assigns[:xapian_requests].results.map { |x| x[:model].info_request }
+
+        expect(actual).to match_array([info_requests(:naughty_chicken_request),
+                                       info_requests(:another_boring_request)])
+      end
+
+      it 'filters by the given query and request status' do
+        user = users(:bob_smith_user)
+
+        get :show, url_name: 'bob_smith',
+                   user_query: 'money',
+                   request_latest_status: 'waiting_response'
+
+        actual =
+          assigns[:xapian_requests].results.map{ |x| x[:model].info_request }
+
+        expect(actual).to match_array([info_requests(:naughty_chicken_request)])
+      end
+
+    end
+
+    context 'when logged in viewing your own profile' do
+
+      def make_request
+        get :show, url_name: user.url_name, view: 'profile'
+      end
+
+      render_views
+
+      before do
+        session[:user_id] = user.id
+      end
+
+      it 'does not show requests or batch requests, but does show account options' do
+        make_request
+        expect(response.body).
+          not_to match(/Freedom of Information requests made by you/)
+        expect(assigns[:show_batches]).to be false
+        expect(response.body).to include('Change your password')
+      end
+
+    end
+
+    context 'when logged in viewing your own requests' do
+
+      def make_request
+        get :show, url_name: user.url_name, view: 'requests'
+      end
+
+      render_views
+
+      before do
+        session[:user_id] = user.id
+      end
+
+      it "assigns the user's undescribed requests" do
+        info_request = FactoryGirl.create(:info_request, user: user)
+
+        allow_any_instance_of(User).
+          to receive(:get_undescribed_requests).
+            and_return([info_request])
+
+        make_request
+
+        expect(assigns[:undescribed_requests]).to eq([info_request])
+      end
+
+      it "assigns the user's track things" do
+        search_track = FactoryGirl.create(:search_track, tracking_user: user)
+
+        make_request
+
+        expect(assigns[:track_things]).to eq([search_track])
+      end
+
+      it "assigns the user's grouped track things" do
+        search_track = FactoryGirl.create(:search_track, tracking_user: user)
+
+        make_request
+
+        expect(assigns[:track_things_grouped]).
+          to eq('search_query' => [search_track])
+      end
+
+      it 'shows requests, batch requests, but not account options' do
+        make_request
+        expect(response.body).
+          to match(/Freedom of Information requests made by you/)
+        expect(assigns[:show_batches]).to be true
+        expect(response.body).not_to include('Change your password')
+      end
+
+      it 'does not include annotations of hidden requests in the count' do
+        hidden_request =
+          FactoryGirl.create(:info_request, prominence: 'hidden')
+        comment1 = FactoryGirl.create(:visible_comment,
+                                      info_request: hidden_request,
+                                      user: user)
+        FactoryGirl.create(:info_request_event,
+                           event_type: 'comment',
+                           comment: comment1,
+                           info_request: hidden_request)
+
+        shown_request = FactoryGirl.create(:info_request)
+        comment2 = FactoryGirl.create(:visible_comment,
+                                      info_request: shown_request,
+                                      user: user)
+        FactoryGirl.create(:info_request_event,
+                           event_type: 'comment',
+                           comment: comment2,
+                           info_request: shown_request)
+
+        expect(user.reload.comments.size).to eq(2)
+        expect(user.reload.comments.visible.size).to eq(1)
+
+        update_xapian_index
+        make_request
+
+        expect(response.body).to match(/Your 1 annotation/)
+      end
+
+      it 'shows private requests' do
+        user = FactoryGirl.create(:pro_user)
+        info_request = FactoryGirl.create(:embargoed_request, user: user)
+        update_xapian_index
+        session[:user_id] = user.id
+        get :show, url_name: user.url_name, view: 'requests'
+        expect(assigns[:private_requests]).to match_array([info_request])
+      end
+
+      it 'does not show hidden private requests' do
+        user = FactoryGirl.create(:pro_user)
+        info_request = FactoryGirl.create(:embargoed_request, user: user)
+        FactoryGirl.create(:embargoed_request, user: user, prominence: 'hidden')
+        update_xapian_index
+        session[:user_id] = user.id
+        get :show, url_name: user.url_name, view: 'requests'
+        expect(assigns[:private_requests]).to match_array([info_request])
+      end
+
+    end
+
+    context 'when logged in filtering your own requests' do
+
+      before do
+        session[:user_id] = user.id
+      end
+
+      it 'filters by the given query' do
+        request_1 =
+          FactoryGirl.create(:info_request, user: user, title: 'Some money?')
+        FactoryGirl.create(:info_request, user: user, title: 'How many books?')
+        update_xapian_index
+
+        get :show, url_name: user.url_name,
+                   view: 'requests',
+                   user_query: 'money'
+
+        actual =
+          assigns[:xapian_requests].results.map { |x| x[:model].info_request }
+
+        expect(actual).to match_array([request_1])
+      end
+
+      it 'filters private requests by the given query' do
+        user = FactoryGirl.create(:pro_user)
+        request_1 =
+          FactoryGirl.
+          create(:embargoed_request, user: user, title: 'Some money?')
+        FactoryGirl.
+          create(:embargoed_request, user: user, title: 'How many books?')
+        update_xapian_index
+
+        session[:user_id] = user.id
+
+        get :show, url_name: user.url_name,
+                   view: 'requests',
+                   user_query: 'money'
+
+        expect(assigns[:private_requests]).to match_array([request_1])
+      end
+
+      it 'filters by the given query and request status' do
+        request_1 =
+          FactoryGirl.create(:info_request, user: user, title: 'Some money?')
+        FactoryGirl.create(:successful_request, user: user, title: 'More money')
+        FactoryGirl.create(:info_request, user: user, title: 'How many books?')
+        update_xapian_index
+
+        get :show, url_name: user.url_name,
+                   view: 'requests',
+                   user_query: 'money',
+                   request_latest_status: 'waiting_response'
+
+        actual =
+          assigns[:xapian_requests].results.map{ |x| x[:model].info_request }
+
+        expect(actual).to match_array([request_1])
+      end
+
+      it 'filters private requests by the given query and request status' do
+        request_1 =
+          FactoryGirl.
+          create(:embargoed_request, user: user, title: 'Some money?')
+        FactoryGirl.
+          create(:embargoed_request, user: user, title: 'How many books?')
+        FactoryGirl.
+          create(:embargoed_request, user: user, title: 'More money').
+          set_described_state('successful')
+        update_xapian_index
+
+        get :show, url_name: user.url_name,
+                   view: 'requests',
+                   user_query: 'money',
+                   request_latest_status: 'waiting_response'
+
+        expect(assigns[:private_requests]).to match_array([request_1])
+      end
+
+    end
+
+    context 'when logged in viewing other requests' do
+
+      def make_request
+        get :show, url_name: user.url_name, view: 'requests'
+      end
+
+      render_views
+
+      before do
+        session[:user_id] = FactoryGirl.create(:user).id
+      end
+
+      it "does not assign undescribed requests" do
+        info_request = FactoryGirl.create(:info_request, user: user)
+
+        allow_any_instance_of(User).
+          to receive(:get_undescribed_requests).
+            and_return([info_request])
+
+        make_request
+
+        expect(assigns[:undescribed_requests]).to be_nil
+      end
+
+      it "does not assign the user's track things" do
+        search_track = FactoryGirl.create(:search_track, tracking_user: user)
+
+        make_request
+
+        expect(assigns[:track_things]).to be_nil
+      end
+
+      it "does not assign grouped track things" do
+        search_track = FactoryGirl.create(:search_track, tracking_user: user)
+
+        make_request
+
+        expect(assigns[:track_things_grouped]).to be_nil
+      end
+
+      it 'shows requests, batch requests, but not account options' do
+        make_request
+        expect(response.body).
+          to match(/Freedom of Information requests made by this person/)
+        expect(assigns[:show_batches]).to be true
+        expect(response.body).not_to include('Change your password')
+      end
+
+      it 'does not include annotations of hidden requests in the count' do
+        hidden_request =
+          FactoryGirl.create(:info_request, prominence: 'hidden')
+        comment1 = FactoryGirl.create(:visible_comment,
+                                      info_request: hidden_request,
+                                      user: user)
+        FactoryGirl.create(:info_request_event,
+                           event_type: 'comment',
+                           comment: comment1,
+                           info_request: hidden_request)
+
+        shown_request = FactoryGirl.create(:info_request)
+        comment2 = FactoryGirl.create(:visible_comment,
+                                      info_request: shown_request,
+                                      user: user)
+        FactoryGirl.create(:info_request_event,
+                           event_type: 'comment',
+                           comment: comment2,
+                           info_request: shown_request)
+
+        expect(user.reload.comments.size).to eq(2)
+        expect(user.reload.comments.visible.size).to eq(1)
+
+        update_xapian_index
+        make_request
+
+        expect(response.body).to match(/This person's 1 annotation/)
+      end
+
+      it 'does not show private requests' do
+        pro_user = FactoryGirl.create(:pro_user)
+        info_request = FactoryGirl.create(:embargoed_request, user: pro_user)
+        update_xapian_index
+        get :show, url_name: pro_user.url_name, view: 'requests'
+        expect(assigns[:private_requests]).to be_empty
+      end
+
+      it 'does not show hidden private requests' do
+        pro_user = FactoryGirl.create(:pro_user)
+        info_request = FactoryGirl.create(:embargoed_request, user: pro_user)
+        FactoryGirl.
+          create(:embargoed_request, user: pro_user, prominence: 'hidden')
+        update_xapian_index
+        get :show, url_name: pro_user.url_name, view: 'requests'
+        expect(assigns[:private_requests]).to be_empty
+      end
+    end
+
+    context 'when logged in filtering other requests' do
+
+      before do
+        session[:user_id] = FactoryGirl.create(:user).id
+      end
+
+      it 'filters by the given query' do
+        request_1 =
+          FactoryGirl.create(:info_request, user: user, title: 'Some money?')
+        FactoryGirl.create(:info_request, user: user, title: 'How many books?')
+        update_xapian_index
+
+        get :show, url_name: user.url_name,
+                   view: 'requests',
+                   user_query: 'money'
+
+        actual =
+          assigns[:xapian_requests].results.map { |x| x[:model].info_request }
+
+        expect(actual).to match_array([request_1])
+      end
+
+      it 'does not show private requests when filtering by query' do
+        pro_user = FactoryGirl.create(:pro_user)
+        request_1 =
+          FactoryGirl.
+          create(:embargoed_request, user: pro_user, title: 'Some money?')
+        FactoryGirl.
+          create(:embargoed_request, user: pro_user, title: 'How many books?')
+        update_xapian_index
+
+        get :show, url_name: pro_user.url_name,
+                   view: 'requests',
+                   user_query: 'money'
+
+        expect(assigns[:private_requests]).to be_empty
+      end
+
+      it 'filters by the given query and request status' do
+        request_1 =
+          FactoryGirl.create(:info_request, user: user, title: 'Some money?')
+        FactoryGirl.create(:successful_request, user: user, title: 'More money')
+        FactoryGirl.create(:info_request, user: user, title: 'How many books?')
+        update_xapian_index
+
+        get :show, url_name: user.url_name,
+                   view: 'requests',
+                   user_query: 'money',
+                   request_latest_status: 'waiting_response'
+
+        actual =
+          assigns[:xapian_requests].results.map{ |x| x[:model].info_request }
+
+        expect(actual).to match_array([request_1])
+      end
+
+      it 'does not show private requests when filtering by request status' do
+        pro_user = FactoryGirl.create(:pro_user)
+        request_1 =
+          FactoryGirl.
+          create(:embargoed_request, user: pro_user, title: 'Some money?')
+        FactoryGirl.
+          create(:embargoed_request, user: pro_user, title: 'How many books?')
+        FactoryGirl.
+          create(:embargoed_request, user: pro_user, title: 'More money').
+          set_described_state('successful')
+        update_xapian_index
+
+        get :show, url_name: pro_user.url_name,
+                   view: 'requests',
+                   user_query: 'money',
+                   request_latest_status: 'waiting_response'
+
+        expect(assigns[:private_requests]).to be_empty
+      end
+
+    end
+
+  end
+
   describe 'POST set_profile_photo' do
 
     context 'user is banned' do
@@ -257,188 +794,6 @@ describe UserController do
 
     end
 
-  end
-
-end
-
-# TODO: Use route_for or params_from to check /c/ links better
-# http://rspec.rubyforge.org/rspec-rails/1.1.12/classes/Spec/Rails/Example/ControllerExampleGroup.html
-describe UserController, "when redirecting a show request to a canonical url" do
-
-  it "should redirect to lower case name if given one with capital letters" do
-    get :show, :url_name => "Bob_Smith"
-    expect(response).to redirect_to(:controller => 'user', :action => 'show', :url_name => "bob_smith")
-  end
-
-  it 'should redirect a long non-canonical name that has a numerical suffix,
-    retaining the suffix' do
-    get :show, :url_name => 'Bob_SmithBob_SmithBob_SmithBob_S_2'
-    expect(response).to redirect_to(:controller => 'user',
-                                :action => 'show',
-                                :url_name => 'bob_smithbob_smithbob_smithbob_s_2')
-  end
-
-  it 'should not redirect a long canonical name that has a numerical suffix' do
-    user = FactoryGirl.create(:user, :name => 'Bob Smith Bob Smith Bob Smith Bob Smith')
-    second_user = FactoryGirl.create(:user, :name => 'Bob Smith Bob Smith Bob Smith Bob Smith')
-    get :show, :url_name => 'bob_smith_bob_smith_bob_smith_bo_2'
-    expect(response).to be_success
-  end
-
-end
-
-describe UserController, "when showing a user" do
-
-  before(:each) do
-    @user = FactoryGirl.create(:user)
-  end
-
-  it "should be successful" do
-    get :show, :url_name => @user.url_name
-    expect(response).to be_success
-  end
-
-  it "should render with 'show' template" do
-    get :show, :url_name => @user.url_name
-    expect(response).to render_template('show')
-  end
-
-  it "should assign the user" do
-    get :show, :url_name => @user.url_name
-    expect(assigns[:display_user]).to eq(@user)
-  end
-
-  context "when viewing the user's own profile" do
-
-    render_views
-
-    def make_request
-      get :show, {:url_name => @user.url_name, :view => 'profile'}, {:user_id => @user.id}
-    end
-
-    it 'should not show requests, or batch requests, but should show account options' do
-      make_request
-      expect(response.body).not_to match(/Freedom of Information requests made by you/)
-      expect(assigns[:show_batches]).to be false
-      expect(response.body).to include("Change your password")
-    end
-
-  end
-
-  context 'when the user being shown is logged in' do
-
-    it "assigns the user's undescribed requests" do
-      info_request = FactoryGirl.create(:info_request, :user => @user)
-      allow_any_instance_of(User).
-        to receive(:get_undescribed_requests).
-          and_return([info_request])
-      get :show, {:url_name => @user.url_name, :view => 'requests'}, {:user_id => @user.id}
-      expect(assigns[:undescribed_requests]).to eq([info_request])
-    end
-
-    it "assigns the user's track things" do
-      search_track = FactoryGirl.create(:search_track, :tracking_user => @user)
-      get :show, {:url_name => @user.url_name, :view => 'requests'}, {:user_id => @user.id}
-      expect(assigns[:track_things]).to eq([search_track])
-    end
-
-    it "assigns the user's grouped track things" do
-      search_track = FactoryGirl.create(:search_track, :tracking_user => @user)
-      get :show, {:url_name => @user.url_name, :view => 'requests'}, {:user_id => @user.id}
-      expect(assigns[:track_things_grouped]).to eq({'search_query' => [search_track]})
-    end
-
-  end
-
-  context "when viewing a user's own requests" do
-
-    render_views
-
-    def make_request
-      get :show, {:url_name => @user.url_name, :view => 'requests'}, {:user_id => @user.id}
-    end
-
-    it 'should show requests, batch requests, but no account options' do
-      make_request
-      expect(response.body).to match(/Freedom of Information requests made by you/)
-      expect(assigns[:show_batches]).to be true
-      expect(response.body).not_to include("Change your password")
-    end
-
-    it 'should not include annotations of hidden requests in the count' do
-      hidden_request = FactoryGirl.create(:info_request, :prominence => "hidden")
-      shown_request = FactoryGirl.create(:info_request)
-      comment1 = FactoryGirl.create(:visible_comment,
-                                    :info_request => hidden_request,
-                                    :user => @user)
-      comment2 = FactoryGirl.create(:visible_comment,
-                                    :info_request => shown_request,
-                                    :user => @user)
-      FactoryGirl.create(:info_request_event,
-                         :event_type => 'comment',
-                         :comment => comment1,
-                         :info_request => hidden_request)
-      FactoryGirl.create(:info_request_event,
-                         :event_type => 'comment',
-                         :comment => comment2,
-                         :info_request => shown_request)
-      expect(@user.reload.comments.size).to eq(2)
-      expect(@user.reload.comments.visible.size).to eq(1)
-      update_xapian_index
-
-      make_request
-      expect(response.body).to match(/Your 1 annotation/)
-    end
-  end
-
-end
-
-describe UserController, "when showing a user" do
-
-  context 'when using fixture data' do
-
-    before do
-      load_raw_emails_data
-      get_fixtures_xapian_index
-    end
-
-    it "should search the user's contributions" do
-      user = users(:bob_smith_user)
-
-      get :show, :url_name => "bob_smith"
-      actual =
-        assigns[:xapian_requests].results.map { |x| x[:model].info_request }
-
-      expect(actual).to match_array(user.info_requests)
-    end
-
-    it 'filters by the given query' do
-      user = users(:bob_smith_user)
-
-      get :show, :url_name => user.url_name, :user_query => "money"
-      actual =
-        assigns[:xapian_requests].results.map { |x| x[:model].info_request }
-
-      expect(actual).to match_array([info_requests(:naughty_chicken_request),
-                                     info_requests(:another_boring_request)])
-    end
-
-    it 'filters by the given query and request status' do
-      user = users(:bob_smith_user)
-
-      get :show, :url_name => user.url_name,
-                 :user_query => 'money',
-                 :request_latest_status => 'waiting_response'
-      actual =
-        assigns[:xapian_requests].results.map{ |x| x[:model].info_request }
-
-      expect(actual).to match_array([info_requests(:naughty_chicken_request)])
-    end
-
-    it 'should not show unconfirmed users' do
-      expect { get :show, :url_name => 'unconfirmed_user' }.
-        to raise_error(ActiveRecord::RecordNotFound)
-    end
   end
 
 end
