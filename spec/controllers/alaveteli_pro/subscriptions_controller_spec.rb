@@ -35,6 +35,7 @@ describe AlaveteliPro::SubscriptionsController do
     end
 
     context 'with a signed-in user' do
+      let(:token) { stripe_helper.generate_card_token }
       let(:user) { FactoryGirl.create(:user) }
 
       before do
@@ -42,7 +43,6 @@ describe AlaveteliPro::SubscriptionsController do
       end
 
       context 'with a successful transaction' do
-        let(:token) { stripe_helper.generate_card_token }
 
         before do
           post :create, 'stripeToken' => token,
@@ -88,7 +88,6 @@ describe AlaveteliPro::SubscriptionsController do
       end
 
       context 'with an existing customer but no active subscriptions' do
-        let(:token) { stripe_helper.generate_card_token }
 
         before do
           customer =
@@ -114,7 +113,6 @@ describe AlaveteliPro::SubscriptionsController do
       end
 
       context 'when the card is declined' do
-        let(:token) { stripe_helper.generate_card_token }
 
         before do
           StripeMock.prepare_card_error(:card_declined, :create_subscription)
@@ -135,7 +133,6 @@ describe AlaveteliPro::SubscriptionsController do
       end
 
       context 'when we are rate limited' do
-        let(:token) { stripe_helper.generate_card_token }
 
         before do
           error = Stripe::RateLimitError.new
@@ -162,7 +159,6 @@ describe AlaveteliPro::SubscriptionsController do
       end
 
       context 'when Stripe receives an invalid request' do
-        let(:token) { stripe_helper.generate_card_token }
 
         before do
           error = Stripe::InvalidRequestError.new('message', 'param')
@@ -189,7 +185,6 @@ describe AlaveteliPro::SubscriptionsController do
       end
 
       context 'when we cannot authenticate with Stripe' do
-        let(:token) { stripe_helper.generate_card_token }
 
         before do
           error = Stripe::AuthenticationError.new
@@ -216,7 +211,6 @@ describe AlaveteliPro::SubscriptionsController do
       end
 
       context 'when we cannot connect to Stripe' do
-        let(:token) { stripe_helper.generate_card_token }
 
         before do
           error = Stripe::APIConnectionError.new
@@ -243,7 +237,6 @@ describe AlaveteliPro::SubscriptionsController do
       end
 
       context 'when Stripe returns a generic error' do
-        let(:token) { stripe_helper.generate_card_token }
 
         before do
           error = Stripe::StripeError.new
@@ -270,7 +263,6 @@ describe AlaveteliPro::SubscriptionsController do
       end
 
       context 'when uses invalid coupon' do
-        let(:token) { stripe_helper.generate_card_token }
 
         before do
           error = Stripe::InvalidRequestError.new('No such coupon', 'param')
@@ -298,7 +290,6 @@ describe AlaveteliPro::SubscriptionsController do
       end
 
       context 'when uses expired coupon' do
-        let(:token) { stripe_helper.generate_card_token }
 
         before do
           error = Stripe::InvalidRequestError.new('Coupon expired', 'param')
@@ -377,7 +368,7 @@ describe AlaveteliPro::SubscriptionsController do
       let(:user) { FactoryGirl.create(:pro_user) }
 
       let!(:customer) do
-        plan = stripe_helper.create_plan(id: 'test')
+        stripe_helper.create_plan(id: 'test')
         customer = Stripe::Customer.create({
           email: user.email,
           source: stripe_helper.generate_card_token,
