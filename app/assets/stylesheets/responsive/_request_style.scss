@@ -93,6 +93,39 @@ input.cplink__field {
   }
 }
 
+/*
+ * Status lines
+ */
+
+ $status-success: #62b356;
+ $status-failure: #e04b4b;
+ $status-pending: #f4a140;
+
+.request-status-message--waiting_response,
+.request-status-message--waiting_clarification,
+.request-status-message--requires_admin,
+.request-status-message--waiting_response_overdue,
+.request-status-message--gone_postal,
+.request-status-message--error_message,
+.request-status-message--internal_review,
+.request-status-message--user_withdrawn {
+  background-color: mix(#fff, $status-pending, 70%);
+}
+
+.request-status-message--not_held,
+.request-status-message--attention_requested,
+.request-status-message--waiting_response_very_overdue,
+.request-status-message--failed,
+.request-status-message--rejected {
+  background-color: mix(#fff, $status-failure, 70%);
+}
+
+
+.request-status-message--successful,
+.request-status-message--partially_successful {
+  background-color: mix(#fff, $status-success, 70%);
+}
+
 .preview_subject,
 .preview_to {
   font-weight: bold;
