@@ -62,7 +62,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
                           'have not been charged. Please try again later.')
       end
 
-      path = params[:plan_id] ? plan_path(params[:plan_id]) : plans_path
+      path = params[:plan_id] ? plan_path(params[:plan_id]) : pro_plans_path
       redirect_to path
       return
     end

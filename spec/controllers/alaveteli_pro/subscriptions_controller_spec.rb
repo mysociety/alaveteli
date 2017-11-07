@@ -332,9 +332,9 @@ describe AlaveteliPro::SubscriptionsController do
           expect(response).to redirect_to(plan_path('pro'))
         end
 
-        pending 'redirects to the pricing page if there is no plan' do
+        it 'redirects to the pricing page if there is no plan' do
           post :create
-          expect(response).to redirect_to(plans_path)
+          expect(response).to redirect_to(pro_plans_path)
         end
 
       end
