@@ -59,39 +59,6 @@ install_daemon() {
 
 update_mysociety_apt_sources
 
-# Ubuntu Precise Fixes
-if [ x"$DISTRIBUTION" = x"ubuntu" ] && [ x"$DISTVERSION" = x"precise" ]
-then
-  cat > /etc/apt/sources.list.d/ubuntu-trusty.list <<EOF
-deb http://archive.ubuntu.com/ubuntu/ trusty universe
-deb-src http://archive.ubuntu.com/ubuntu/ trusty universe
-EOF
-
-  cat > /etc/apt/sources.list.d/mysociety-launchpad.list <<EOF
-deb http://ppa.launchpad.net/mysociety/alaveteli/ubuntu precise main
-deb-src http://ppa.launchpad.net/mysociety/alaveteli/ubuntu precise main
-EOF
-
-  # Get bundler from trusty and de-prioritise all other
-  # trusty packages
-  cat >> /etc/apt/preferences <<EOF
-
-Package: ruby-bundler
-Pin: release n=trusty
-Pin-Priority: 990
-
-Package: *
-Pin: release n=trusty
-Pin-Priority: 50
-EOF
-
-# Get the key for the mysociety ubuntu alaveteli repo
-apt-get install -y python-software-properties
-add-apt-repository -y ppa:mysociety/alaveteli
-
-apt-get -qq update
-fi
-
 apt-get -y update
 
 if [ ! "$DEVELOPMENT_INSTALL" = true ]; then
