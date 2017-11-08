@@ -141,17 +141,6 @@ describe "When errors occur" do
       expect(response.code).to eq('406')
     end
 
-    context "in the admin interface" do
-
-      it 'should show a full trace for general errors' do
-        allow(InfoRequest).to receive(:find).and_raise("An example error")
-        get("/admin/requests/333")
-        expect(response.body).to match('<div id="traces"')
-        expect(response.body).to match('An example error')
-      end
-
-    end
-
   end
 
 end
