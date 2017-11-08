@@ -56,7 +56,7 @@ create your own <a href="{{ page.baseurl }}/docs/glossary/#theme" class="glossar
 The basic process is to create a base virtual machine (VM), and then
 provision it with the software packages and setup needed. The supplied
 scripts will create you a Vagrant VM based on the server edition of
-Ubuntu 12.04 LTS that contains everything you need to work on Alaveteli.
+Debian Wheezy that contains everything you need to work on Alaveteli.
 
 1.  Get a copy of Alaveteli from
     <a href="{{ page.baseurl }}/docs/glossary/#git" class="glossary__link">GitHub</a>:
