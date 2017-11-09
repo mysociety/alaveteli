@@ -3493,21 +3493,19 @@ describe InfoRequest do
 
   end
 
-  describe "#embargo_expiring?" do
+  describe '#embargo_expiring?' do
     let(:info_request) { FactoryGirl.create(:info_request) }
 
-    context "when the embargo is expiring" do
-      let!(:embargo) do
+    context 'when the embargo is expiring' do
+
+      before do
         FactoryGirl.create(:expiring_embargo, info_request: info_request)
       end
 
-      before do
-        info_request.reload
+      it 'returns true' do
+        expect(info_request.reload.embargo_expiring?).to be true
       end
 
-      it "returns true" do
-        expect(info_request.embargo_expiring?).to be true
-      end
     end
 
     context 'the embargo has already expired' do
@@ -3530,25 +3528,26 @@ describe InfoRequest do
 
     end
 
-    context "when the embargo is not expiring soon" do
-      let!(:embargo) do
+    context 'when the embargo is not expiring soon' do
+
+      before do
         FactoryGirl.create(:embargo, info_request: info_request)
       end
 
-      before do
-        info_request.reload
+      it 'returns false' do
+        expect(info_request.reload.embargo_expiring?).to be false
       end
 
-      it "returns false" do
-        expect(info_request.embargo_expiring?).to be false
-      end
     end
 
-    context "when there is no embargo" do
-      it "returns false" do
+    context 'when there is no embargo' do
+
+      it 'returns false' do
         expect(info_request.embargo_expiring?).to be false
       end
+
     end
+
   end
 
 end
