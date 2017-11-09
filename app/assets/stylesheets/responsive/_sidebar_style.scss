@@ -30,41 +30,53 @@
   }
 }
 
-.act_link a {
+.act_link {
   line-height: 1.5em;
-  padding-left: 20px;
-  background-size: 16px;
-  background-position: 0 3px;
-  background-repeat: no-repeat;
-  display: inline-block;
+  .act-link-icon {
+    float: left;
+    position: relative;
+    top: 4px;
+  }
+  a {
+    padding-left: 25px;
+    display: block;
+  }
 }
 
-.act_link--facebook a {
+.act-link-icon {
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  background-size: 16px;
+  background-repeat: no-repeat;
+}
+
+.act-link-icon--facebook {
   background-image: image-url('facebook.png');
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image: image-url('facebook@2.png');
   }
 }
 
-.act_link--medium a {
+.act-link-icon--medium {
   background-image: image-url('medium.png');
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image: image-url('medium@2.png');
   }
 }
 
-.act_link--twitter a {
+.act-link-icon--twitter{
   background-image: image-url('twitter.png');
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image: image-url('twitter@2.png');
   }
 }
 
-.act_link--wordpress a {
+.act-link-icon--wordpress {
   background-image: image-url('wordpress.png');
 }
 
-.act_link--widget a {
+.act-link-icon--widget {
   background-image: image-url('widget.png');
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image: image-url('widget@2.png');
