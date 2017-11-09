@@ -47,38 +47,30 @@
   display: inline-block;
   height: 16px;
   width: 16px;
-  background-size: 16px;
+  background-size: 80px 16px;
   background-repeat: no-repeat;
+  background-image: image-url('act-links-sprite.png');
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    background-image: image-url('act-links-sprite@2.png');
+  }
 }
 
 .act-link-icon--facebook {
-  background-image: image-url('facebook.png');
-  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
-    background-image: image-url('facebook@2.png');
-  }
+  background-position: 0 0;
 }
 
 .act-link-icon--medium {
-  background-image: image-url('medium.png');
-  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
-    background-image: image-url('medium@2.png');
-  }
+  background-position: -32px 0;
 }
 
 .act-link-icon--twitter{
-  background-image: image-url('twitter.png');
-  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
-    background-image: image-url('twitter@2.png');
-  }
+  background-position: -16px 0;
 }
 
 .act-link-icon--wordpress {
-  background-image: image-url('wordpress.png');
+  background-position: -64px 0;
 }
 
 .act-link-icon--widget {
-  background-image: image-url('widget.png');
-  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
-    background-image: image-url('widget@2.png');
-  }
+  background-position: -48px 0;
 }
