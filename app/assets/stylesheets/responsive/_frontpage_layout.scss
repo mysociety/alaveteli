@@ -1,7 +1,7 @@
 /* Frontpage layout */
 
 .homepage-flash {
-  @extend .content;
+  @include content();
 }
 
 .homepage-hero {

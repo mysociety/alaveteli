@@ -1,26 +1,30 @@
 /* Layout across the site */
-.wrapper {
+@mixin wrapper($max-width: $row-width) {
   @include grid-row();
   @include ie8{
     width: $main_menu-mobile_menu_cutoff;
   }
+  max-width: $max-width;
+}
+
+.wrapper {
+  @include wrapper();
 }
 
 .wrapper--wide {
   // used in alaveteli-pro for wide outside gutters of the layout container
   // the rest of the grid remains the same
-  @extend .wrapper;
-  max-width: 72em;
+  @include wrapper($max-width: 72em);
 }
 
 /* Legacy ID-based wrapper */
 #wrapper {
-  @extend .wrapper;
+  @include wrapper();
 }
 
 .alaveteli-pro {
   #wrapper {
-    @extend .wrapper--wide;
+    @include wrapper($max-width: 72em);
   }
   #request_show {
     /* The pro dashboard uses /wrapper--wide but we don't want all pro pages to
@@ -32,7 +36,7 @@
 }
 
 /* A global 12 column element provides padding for all pages */
-.content {
+@mixin content() {
   @include grid-column(12);
   @include ie8{
     padding-left: 0.9375em;
@@ -43,9 +47,13 @@
   }
 }
 
+.content {
+  @include content();
+}
+
 /* Legacy ID-based content */
 #content {
-  @extend .content;
+  @include content();
 }
 
 textarea{
