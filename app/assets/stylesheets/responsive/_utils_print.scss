@@ -1,0 +1,16 @@
+// We want to see where links are pointing, but not everywhere
+// so expand links in some places
+
+@mixin expand-links {
+  a {
+    font-weight: 700;
+    text-decoration: none;
+    color: black;
+  }
+  a[href^=http]:after {
+    content:" (" attr(href) ")";
+    font-weight: normal;
+    color: lighten(black, 50%);
+    font-size: 0.875em;
+  }
+}

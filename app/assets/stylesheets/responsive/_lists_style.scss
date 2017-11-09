@@ -71,15 +71,6 @@
 
 
 /* Status icons */
-
-@mixin status-icon() {
-    background-image: image-url('status/status-sprite.png');
-    background-size: 330px 22px;
-    @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
-      background-image: image-url('status/status-sprite@2.png');
-    }
-}
-
 .icon-standalone {
   display: inline-block;
   width: 22px;

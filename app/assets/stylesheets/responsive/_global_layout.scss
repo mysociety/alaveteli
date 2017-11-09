@@ -1,12 +1,4 @@
 /* Layout across the site */
-@mixin wrapper($max-width: $row-width) {
-  @include grid-row();
-  @include ie8{
-    width: $main_menu-mobile_menu_cutoff;
-  }
-  max-width: $max-width;
-}
-
 .wrapper {
   @include wrapper();
 }
@@ -32,18 +24,6 @@
      */
      max-width: 64em;
      margin: 0 auto;
-  }
-}
-
-/* A global 12 column element provides padding for all pages */
-@mixin content() {
-  @include grid-column(12);
-  @include ie8{
-    padding-left: 0.9375em;
-    padding-right: 0.9375em;
-  }
-  @include lte-ie7 {
-    width: 56.125em;
   }
 }
 
