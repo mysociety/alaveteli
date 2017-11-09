@@ -16,9 +16,9 @@ class AlaveteliPro::BaseController < ApplicationController
     if reason_params.nil?
       reason_params = {
         web: _("To access {{pro_site_name}}",
-                pro_site_name: AlaveteliConfiguration.pro_site_name),
+               pro_site_name: AlaveteliConfiguration.pro_site_name),
         email: _("Then you can access {{pro_site_name}}",
-                pro_site_name: AlaveteliConfiguration.pro_site_name)
+               pro_site_name: AlaveteliConfiguration.pro_site_name)
       }
     end
     if authenticated?(reason_params)
@@ -48,7 +48,7 @@ class AlaveteliPro::BaseController < ApplicationController
   # Note that this is called as a before_filter in this class, so that
   # every descendant sets it.
   def set_in_pro_area
-   @in_pro_area = true
+    @in_pro_area = true
   end
 
 end
