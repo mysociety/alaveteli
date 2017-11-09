@@ -174,7 +174,6 @@ class InfoRequest < ActiveRecord::Base
   after_destroy :update_counter_cache
   after_update :reindex_some_request_events
   before_destroy :expire
-  before_save :purge_in_cache
   # make sure the url_title is unique but don't update
   # existing requests unless the title is being changed
   before_save :update_url_title,
@@ -330,8 +329,6 @@ class InfoRequest < ActiveRecord::Base
 
     # also force a search reindexing (so changed text reflected in search)
     reindex_request_events
-    # and remove from varnish
-    purge_in_cache
   end
 
   # Removes anything cached about the object in the database, and saves
@@ -1385,26 +1382,11 @@ class InfoRequest < ActiveRecord::Base
     ret
   end
 
-  def purge_in_cache
-    if AlaveteliConfiguration::varnish_host.present? && id
-      # we only do this for existing info_requests (new ones have a nil id)
-      path = url_for(:controller => 'request', :action => 'show', :url_title => url_title, :only_path => true, :locale => :none)
-      req = PurgeRequest.find_by_url(path)
-      if req.nil?
-        req = PurgeRequest.new(:url => path,
-                               :model => self.class.base_class.to_s,
-                               :model_id => id)
-      end
-      req.save
-    end
-  end
-
   # This method updates the count columns of the PublicBody that
   # store the number of "not held", "to some extent successful" and
   # "both visible and classified" requests when saving or destroying
   # an InfoRequest associated with the body:
   def update_counter_cache(body = public_body)
-    PublicBody.skip_callback(:save, :after, :purge_in_cache)
     success_states = ['successful', 'partially_successful']
     basic_params = {
       :public_body_id => body.id,
@@ -1422,7 +1404,6 @@ class InfoRequest < ActiveRecord::Base
        body.no_xapian_reindex = true
        body.save(validate: false)
      end
-     PublicBody.set_callback(:save, :after, :purge_in_cache)
   end
 
   def similar_cache_key

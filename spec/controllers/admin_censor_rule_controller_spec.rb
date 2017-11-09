@@ -1046,22 +1046,3 @@ describe AdminCensorRuleController do
   end
 
 end
-
-describe AdminCensorRuleController, "when making censor rules from the admin interface" do
-  render_views
-  before { basic_auth_login @request }
-
-  it "should create a censor rule and purge the corresponding request from varnish" do
-    allow(AlaveteliConfiguration).to receive(:varnish_host).
-      and_return('varnish.localdomain')
-    ir = info_requests(:fancy_dog_request)
-    post :create, :request_id => ir.id,
-                  :censor_rule => {
-                    :text => "meat",
-                    :replacement => "tofu",
-                    :last_edit_comment => "none"
-                  }
-    expect(PurgeRequest.all.first.model_id).to eq(ir.id)
-  end
-
-end

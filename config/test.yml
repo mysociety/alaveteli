@@ -96,13 +96,6 @@ RECAPTCHA_PRIVATE_KEY: 'xxx'
 # show any consumption for the later request.
 DEBUG_RECORD_MEMORY: false
 
-# If you have Alaveteli set up behind an HTTP caching proxy
-# (accelerator) like Varnish or Squid, you can cause the application
-# to purge selected URLs by setting these two variables (see
-# `../doc/CACHING.md` for details)
-ACCELERATOR_HOST: 'localhost'
-ACCELERATOR_PORT: '6081'
-
 # mySociety's gazeteer service.  Shouldn't change.
 GAZE_URL: http://gaze.mysociety.org
 

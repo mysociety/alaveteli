@@ -1191,11 +1191,6 @@ describe InfoRequest do
       info_request.expire
     end
 
-    it 'removes itself from the varnish cache' do
-      expect(info_request).to receive(:purge_in_cache)
-      info_request.expire
-    end
-
     it 'removes any zip files' do
       # expire deletes foi_fragment_cache_directories as well as the zip files
       # so stubbing out the call lets us just see the effect we care about here
@@ -2872,11 +2867,6 @@ describe InfoRequest do
   describe 'after_save callbacks' do
     let(:info_request) { FactoryGirl.create(:info_request) }
 
-    it "calls purge_in_cache" do
-      expect(info_request).to receive(:purge_in_cache)
-      info_request.save!
-    end
-
     it "calls update_counter_cache" do
       expect(info_request).to receive(:update_counter_cache)
       info_request.save!
@@ -2885,11 +2875,6 @@ describe InfoRequest do
 
   describe 'after_destroy callbacks' do
     let(:info_request) { FactoryGirl.create(:info_request) }
-
-    it "calls purge_in_cache" do
-      expect(info_request).to receive(:purge_in_cache)
-      info_request.destroy
-    end
 
     it "calls update_counter_cache" do
       expect(info_request).to receive(:update_counter_cache)

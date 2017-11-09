@@ -114,7 +114,6 @@ then
         -e "s,^( *HTML_TO_PDF_COMMAND:).*,\\1 '/usr/bin/wkhtmltopdf-static'," \
         -e "s,^( *EXCEPTION_NOTIFICATIONS_FROM:).*,\\1 'do-not-reply-to-this-address@$HOST'," \
         -e "/EXCEPTION_NOTIFICATIONS_TO:/,/^$/c EXCEPTION_NOTIFICATIONS_TO:\n - team@$HOST\n" \
-        -e "s,^( *VARNISH_HOST:).*,\\1 null," \
         -e "s,^( *MTA_LOG_PATH:).*,\\1 '/var/log/mail/mail.log-*'," \
         -e "s,^( *MTA_LOG_TYPE:).*,\\1 'postfix'," \
         -e "s,^( *DONATION_URL:).*,\\1 null," \

@@ -237,7 +237,6 @@ GEM
     multi_json (1.12.1)
     multipart-post (2.0.0)
     net-http-local (0.1.2)
-    net-purge (0.1.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
@@ -465,7 +464,6 @@ DEPENDENCIES
   mailcatcher (~> 0.6.0)
   mime-types (< 3.0.0)
   net-http-local (~> 0.1.0)
-  net-purge (~> 0.1.0)
   net-ssh (~> 2.9.0, < 3.0.0)
   newrelic_rpm
   nokogiri (~> 1.6.0, < 1.7)

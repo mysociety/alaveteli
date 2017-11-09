@@ -628,18 +628,6 @@ EXCEPTION_NOTIFICATIONS_TO:
 # ---
 MAX_REQUESTS_PER_USER_PER_DAY: 6
 
-# If you're running behind Varnish set this to work out where to send purge
-# requests. Otherwise, don't set it.
-#
-# VARNISH_HOST - String (default: nil)
-#
-# Examples:
-#
-#   VARNISH_HOST: localhost
-#
-# ---
-VARNISH_HOST: null
-
 # Adding a value here will enable Google Analytics on all non-admin pages for
 # non-admin users.
 #

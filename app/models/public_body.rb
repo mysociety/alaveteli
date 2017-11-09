@@ -100,7 +100,6 @@ class PublicBody < ActiveRecord::Base
   validate :request_email_if_requestable
 
   before_save :set_api_key!, :unless => :api_key
-  after_save :purge_in_cache
   after_update :reindex_requested_from
 
 
@@ -647,10 +646,6 @@ class PublicBody < ActiveRecord::Base
           info_requests_visible_classified_count
       },
     }
-  end
-
-  def purge_in_cache
-    info_requests.each { |x| x.purge_in_cache }
   end
 
   def expire_requests

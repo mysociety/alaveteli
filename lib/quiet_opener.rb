@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 require 'open-uri'
-require 'net-purge'
 if RUBY_VERSION.to_f < 2.0
   require 'net/http/local'
 end
@@ -48,25 +47,4 @@ def http_from_localhost(host)
       end
     end
   end
-end
-
-def quietly_try_to_purge(host, url)
-  begin
-    result = ""
-    result_body = ""
-    http_from_localhost(host) do |http|
-      request = Net::HTTP::Purge.new(url)
-      response = http.request(request)
-      result = response.code
-      result_body = response.body
-    end
-  rescue OpenURI::HTTPError, SocketError, Errno::ETIMEDOUT, Errno::ECONNREFUSED, Errno::EHOSTUNREACH, Errno::ECONNRESET, Errno::ENETUNREACH, Errno::EINVAL
-    Rails.logger.warn("PURGE: Unable to reach host #{host}")
-  end
-  if result == "200"
-    Rails.logger.debug("PURGE: Purged URL #{url} at #{host}: #{result}")
-  else
-    Rails.logger.warn("PURGE: Unable to purge URL #{url} at #{host}: status #{result}")
-  end
-  return result
 end

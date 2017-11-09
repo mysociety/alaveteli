@@ -135,7 +135,6 @@ class User < ActiveRecord::Base
            :if => Proc.new { |u| u.otp_enabled? && u.require_otp? }
 
   after_initialize :set_defaults
-  after_save :purge_in_cache
   after_update :reindex_referencing_models
 
   acts_as_xapian :texts => [ :name, :about_me ],
@@ -685,10 +684,6 @@ class User < ActiveRecord::Base
       errors.add(:otp_code, msg)
     end
     self.entered_otp_code = nil
-  end
-
-  def purge_in_cache
-    info_requests.each { |x| x.purge_in_cache } if name_changed?
   end
 
 end

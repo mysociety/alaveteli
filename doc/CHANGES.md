@@ -8,8 +8,11 @@
   site once the embargo period had expired (Liz Conlan)
 * Update format of `robots.txt` for Baidu compatibility (Gareth Rees)
 * Removed support for Ubuntu Precise (Louise Crow)
+* Remove the use of purge requests to Varnish (Louise Crow)
 
 ## Upgrade Notes
+* This release removes the use of purge requests to Varnish. Please make sure
+  your site works with `VARNISH_HOST` empty before upgrading.
 
 * Please note that this release removes support for Ubuntu Precise. If you are
   running Alaveteli on Ubuntu Precise, you should upgrade your OS to
