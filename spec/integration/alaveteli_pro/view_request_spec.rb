@@ -58,7 +58,7 @@ describe "viewing requests in alaveteli_pro" do
         expect(page).not_to have_content('Keep private for a further:')
         expect(page).
           to have_content("This request is private on Alaveteli until " \
-                          "#{embargo.publish_at.strftime('%d %B %Y')}")
+                          "#{embargo.publish_at.strftime('%-d %B %Y')}")
       end
     end
 
@@ -81,7 +81,7 @@ describe "viewing requests in alaveteli_pro" do
       old_publish_at = embargo.publish_at
       expect(page).to have_content("This request is private on " \
                                    "Alaveteli until " \
-                                   "#{old_publish_at.strftime('%d %B %Y')}")
+                                   "#{old_publish_at.strftime('%-d %B %Y')}")
       click_button("Publish request")
       expect(info_request.reload.embargo).to be nil
       expect(page).to have_content("Your request is now public!")
