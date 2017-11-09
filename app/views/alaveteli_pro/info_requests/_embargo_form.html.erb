@@ -16,6 +16,7 @@
           html: {class: 'js-embargo-form'}) do |f| %>
       <%= render partial: "alaveteli_pro/info_requests/embargo_info",
                  locals: {embargo: info_request.embargo, tense: :present} %>
+      <%= render partial: "alaveteli_pro/info_requests/embargo_note" %>
       <%= f.hidden_field :embargo_id %>
 
       <p>

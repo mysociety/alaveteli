@@ -19,6 +19,7 @@
           class: 'js-embargo-form' ) do |f| %>
       <%= render partial: "alaveteli_pro/info_request_batches/embargo_info",
                  locals: { embargo: example_embargo, tense: :present } %>
+      <%= render partial: "alaveteli_pro/info_requests/embargo_note" %>
       <%= hidden_field_tag :info_request_batch_id, info_request_batch.id %>
       <% if local_assigns[:info_request] %>
         <%= hidden_field_tag :info_request_id, info_request.id %>
