@@ -25,10 +25,11 @@ describe "creating requests in alaveteli_pro" do
         expect(draft.body).to eq "A very short letter."
         expect(draft.embargo_duration).to eq "3_months"
 
+        embargoed_until = AlaveteliPro::Embargo.three_months_from_now
         expect(page).to have_content("Your draft has been saved!")
         expect(page).to have_content("This request will be private on " \
                                      "Alaveteli until " \
-                                     "#{AlaveteliPro::Embargo.three_months_from_now.strftime('%d %B %Y')}")
+                                     "#{embargoed_until.strftime('%-d %B %Y')}")
 
         # The page should pre-fill the form with data from the draft
         expect(page).to have_field("To", with: public_body.name)
@@ -58,9 +59,10 @@ describe "creating requests in alaveteli_pro" do
         expect(page).to have_content("Subject Does the pro request form " \
                                      "work?")
         expect(page).to have_content("A very short letter.")
+        embargoed_until = AlaveteliPro::Embargo.three_months_from_now
         expect(page).to have_content("This request will be private on " \
                                      "Alaveteli until " \
-                                     "#{AlaveteliPro::Embargo.three_months_from_now.strftime('%d %B %Y')}")
+                                     "#{embargoed_until.strftime('%-d %B %Y')}")
       end
     end
 
@@ -141,9 +143,10 @@ describe "creating requests in alaveteli_pro" do
         expect(page).to have_content("Subject Does the pro request form " \
                                      "work?")
         expect(page).to have_content("A very short letter, edited.")
+        embargoed_until = AlaveteliPro::Embargo.three_months_from_now
         expect(page).to have_content("This request will be private on " \
                                      "Alaveteli until " \
-                                     "#{AlaveteliPro::Embargo.three_months_from_now.strftime('%d %B %Y')}")
+                                     "#{embargoed_until.strftime('%-d %B %Y')}")
       end
     end
 
