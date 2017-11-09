@@ -1573,11 +1573,7 @@ class InfoRequest < ActiveRecord::Base
   #
   # Returns boolean
   def embargo_expiring?
-    if self.embargo
-      self.embargo.publish_at <= AlaveteliPro::Embargo.expiring_soon_time
-    else
-      false
-    end
+    embargo ? embargo.expiring_soon? : false
   end
 
   # Has a previously attached embargo expired?

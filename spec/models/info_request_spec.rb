@@ -3510,6 +3510,26 @@ describe InfoRequest do
       end
     end
 
+    context 'the embargo has already expired' do
+
+      let(:embargo) do
+        FactoryGirl.create(:expiring_embargo, info_request: info_request)
+      end
+
+      it 'returns false on publication day' do
+        time_travel_to(embargo.publish_at) do
+          expect(info_request.reload.embargo_expiring?).to be false
+        end
+      end
+
+      it 'returns false after publication day' do
+        time_travel_to(embargo.publish_at + 1.day) do
+          expect(info_request.reload.embargo_expiring?).to be false
+        end
+      end
+
+    end
+
     context "when the embargo is not expiring soon" do
       let!(:embargo) do
         FactoryGirl.create(:embargo, info_request: info_request)
