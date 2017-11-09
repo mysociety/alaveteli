@@ -47,7 +47,7 @@
   display: inline-block;
   height: 16px;
   width: 16px;
-  background-size: 80px 16px;
+  background-size: 96px 16px;
   background-repeat: no-repeat;
   background-image: image-url('act-links-sprite.png');
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
@@ -73,4 +73,8 @@
 
 .act-link-icon--widget {
   background-position: -48px 0;
+}
+
+.act-link-icon--write {
+  background-position: -80px 0;
 }
