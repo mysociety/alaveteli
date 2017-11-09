@@ -4,10 +4,10 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 describe AttachmentToHTML::View do
 
   let(:adapter) do
-    OpenStruct.new(
-      :body => '<p>hello</p>',
-      :title => 'An attachment.txt',
-    :success? => true)
+    double(:adapter,
+           :body => '<p>hello</p>',
+           :title => 'An attachment.txt',
+           :success? => true)
   end
 
   let(:view) { AttachmentToHTML::View.new(adapter) }
