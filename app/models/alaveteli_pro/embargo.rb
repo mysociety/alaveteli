@@ -79,6 +79,12 @@ module AlaveteliPro
        Time.zone.now < publish_at)
     end
 
+    # embargoes should be deleted once they've expired so this is for edge
+    # cases where the deletion task has not yet completed
+    def expired?
+      Time.zone.now >= publish_at
+    end
+
     def calculate_expiring_notification_at
       self.publish_at - 1.week
     end
