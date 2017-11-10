@@ -95,7 +95,7 @@ describe AlaveteliPro::SubscriptionsController do
                         'stripeTokenType' => 'card',
                         'stripeEmail' => user.email,
                         'plan_id' => 'pro',
-                        'coupon_code' => 'COUPON_CODE'
+                        'coupon_code' => 'coupon_code'
         end
 
         include_examples 'successful example'

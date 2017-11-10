@@ -40,7 +40,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
       }
 
       coupon = params[:coupon_code]
-      subscription_attributes[:coupon] = coupon if coupon.present?
+      subscription_attributes[:coupon] = coupon.upcase if coupon.present?
 
       @subscription = Stripe::Subscription.create(subscription_attributes)
 
