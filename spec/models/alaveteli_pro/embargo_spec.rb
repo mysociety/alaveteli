@@ -180,6 +180,27 @@ describe AlaveteliPro::Embargo, :type => :model do
 
   end
 
+  describe '#expired?' do
+
+    it 'returns false if the publication date is in the future' do
+      embargo = FactoryGirl.build(:embargo,
+                                  :publish_at => Time.zone.now + 1.day)
+      expect(embargo.expired?).to be false
+    end
+
+    it 'returns true if the publication date is in the past' do
+      embargo = FactoryGirl.build(:embargo,
+                                  :publish_at => Time.zone.now - 1.day)
+      expect(embargo.expired?).to be true
+    end
+
+    it 'returns true on the publication date' do
+      embargo = FactoryGirl.build(:embargo, :publish_at => Time.zone.now)
+      expect(embargo.expired?).to be true
+    end
+
+  end
+
   describe '.expire_publishable' do
 
     context 'for an embargo whose publish_at date has passed' do
