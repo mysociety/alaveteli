@@ -1568,6 +1568,13 @@ class InfoRequest < ActiveRecord::Base
     embargo ? embargo.expiring_soon? : false
   end
 
+  # Is the attached embargo still present but has reached its publication date
+  #
+  # Returns boolean
+  def embargo_pending_expiry?
+    embargo ? embargo.expired? : false
+  end
+
   # @see RequestSummaries#should_summarise?
   def should_summarise?
     self.info_request_batch_id.blank?
