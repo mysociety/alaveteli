@@ -614,7 +614,7 @@ Style/MultilineTernaryOperator:
                  Avoid multi-line ?: (the ternary operator);
                  use if/unless instead.
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-multiline-ternary'
-  Enabled: false
+  Enabled: true
 
 Style/MutableConstant:
   Description: 'Do not assign mutable objects to constants.'
