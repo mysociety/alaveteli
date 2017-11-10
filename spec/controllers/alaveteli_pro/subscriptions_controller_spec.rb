@@ -42,16 +42,7 @@ describe AlaveteliPro::SubscriptionsController do
         session[:user_id] = user.id
       end
 
-      context 'with a successful transaction' do
-
-        before do
-          post :create, 'stripeToken' => token,
-                        'stripeTokenType' => 'card',
-                        'stripeEmail' => user.email,
-                        'plan_id' => 'pro',
-                        'coupon_code' => 'COUPON_CODE'
-        end
-
+      RSpec.shared_examples 'successful example' do
         it 'finds the token' do
           expect(assigns(:token).id).to eq(token)
         end
@@ -84,7 +75,18 @@ describe AlaveteliPro::SubscriptionsController do
         it 'redirects to the pro dashboard' do
           expect(response).to redirect_to(alaveteli_pro_dashboard_path)
         end
+      end
 
+      context 'with a successful transaction' do
+        before do
+          post :create, 'stripeToken' => token,
+                        'stripeTokenType' => 'card',
+                        'stripeEmail' => user.email,
+                        'plan_id' => 'pro',
+                        'coupon_code' => 'COUPON_CODE'
+        end
+
+        include_examples 'successful example'
       end
 
       context 'with an existing customer but no active subscriptions' do
@@ -100,6 +102,8 @@ describe AlaveteliPro::SubscriptionsController do
                         'stripeEmail' => user.email,
                         'plan_id' => 'pro'
         end
+
+        include_examples 'successful example'
 
         it 'uses the existing stripe customer record' do
           customers = Stripe::Customer.list.map(&:id)
