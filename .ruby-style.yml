@@ -240,7 +240,7 @@ Layout/SpaceBeforeBlockBraces:
 
 Layout/SpaceBeforeComma:
   Description: 'No spaces before commas.'
-  Enabled: false
+  Enabled: true
 
 Layout/SpaceBeforeComment:
   Description: >-
