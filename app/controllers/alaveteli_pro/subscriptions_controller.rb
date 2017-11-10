@@ -33,11 +33,17 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
           customer
         end
 
-      @subscription =
-        Stripe::Subscription.create(customer: @customer,
-                                    plan: params[:plan_id],
-                                    coupon: params[:coupon_code],
-                                    tax_percent: 20.0)
+      subscription_attributes = {
+        customer: @customer,
+        plan: params[:plan_id],
+        tax_percent: 20.0
+      }
+
+      coupon = params[:coupon_code]
+      subscription_attributes[:coupon] = coupon if coupon.present?
+
+      @subscription = Stripe::Subscription.create(subscription_attributes)
+
     rescue Stripe::CardError => e
       flash[:error] = e.message
       redirect_to plan_path(params[:plan_id])

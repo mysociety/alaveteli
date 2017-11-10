@@ -83,10 +83,26 @@ describe AlaveteliPro::SubscriptionsController do
                         'stripeTokenType' => 'card',
                         'stripeEmail' => user.email,
                         'plan_id' => 'pro',
+                        'coupon_code' => ''
+        end
+
+        include_examples 'successful example'
+      end
+
+      context 'with coupon code' do
+        before do
+          post :create, 'stripeToken' => token,
+                        'stripeTokenType' => 'card',
+                        'stripeEmail' => user.email,
+                        'plan_id' => 'pro',
                         'coupon_code' => 'COUPON_CODE'
         end
 
         include_examples 'successful example'
+
+        it 'uses coupon code' do
+          expect(assigns(:subscription).discount.coupon.id).to eq('COUPON_CODE')
+        end
       end
 
       context 'with an existing customer but no active subscriptions' do
@@ -100,7 +116,8 @@ describe AlaveteliPro::SubscriptionsController do
           post :create, 'stripeToken' => token,
                         'stripeTokenType' => 'card',
                         'stripeEmail' => user.email,
-                        'plan_id' => 'pro'
+                        'plan_id' => 'pro',
+                        'coupon_code' => ''
         end
 
         include_examples 'successful example'
@@ -123,7 +140,8 @@ describe AlaveteliPro::SubscriptionsController do
           post :create, 'stripeToken' => token,
                         'stripeTokenType' => 'card',
                         'stripeEmail' => user.email,
-                        'plan_id' => 'pro'
+                        'plan_id' => 'pro',
+                        'coupon_code' => ''
         end
 
         it 'renders the card error message' do
@@ -144,7 +162,8 @@ describe AlaveteliPro::SubscriptionsController do
           post :create, 'stripeToken' => token,
                         'stripeTokenType' => 'card',
                         'stripeEmail' => user.email,
-                        'plan_id' => 'pro'
+                        'plan_id' => 'pro',
+                        'coupon_code' => ''
         end
 
         it 'sends an exception email' do
@@ -170,7 +189,8 @@ describe AlaveteliPro::SubscriptionsController do
           post :create, 'stripeToken' => token,
                         'stripeTokenType' => 'card',
                         'stripeEmail' => user.email,
-                        'plan_id' => 'pro'
+                        'plan_id' => 'pro',
+                        'coupon_code' => ''
         end
 
         it 'sends an exception email' do
@@ -196,7 +216,8 @@ describe AlaveteliPro::SubscriptionsController do
           post :create, 'stripeToken' => token,
                         'stripeTokenType' => 'card',
                         'stripeEmail' => user.email,
-                        'plan_id' => 'pro'
+                        'plan_id' => 'pro',
+                        'coupon_code' => ''
         end
 
         it 'sends an exception email' do
@@ -222,7 +243,8 @@ describe AlaveteliPro::SubscriptionsController do
           post :create, 'stripeToken' => token,
                         'stripeTokenType' => 'card',
                         'stripeEmail' => user.email,
-                        'plan_id' => 'pro'
+                        'plan_id' => 'pro',
+                        'coupon_code' => ''
         end
 
         it 'sends an exception email' do
@@ -248,7 +270,8 @@ describe AlaveteliPro::SubscriptionsController do
           post :create, 'stripeToken' => token,
                         'stripeTokenType' => 'card',
                         'stripeEmail' => user.email,
-                        'plan_id' => 'pro'
+                        'plan_id' => 'pro',
+                        'coupon_code' => ''
         end
 
         it 'sends an exception email' do
