@@ -12,6 +12,7 @@ class UserController < ApplicationController
   # NOTE: Rails 4 syntax: change before_filter to before_action
   before_filter :normalize_url_name, :only => :show
   before_filter :work_out_post_redirect, :only => [ :signin, :signup ]
+  before_filter :set_in_pro_area, :only => [ :signin, :signup ]
   before_filter :set_request_from_foreign_country, :only => [ :signin, :signup ]
 
   # Normally we wouldn't be verifying the authenticity token on these actions
@@ -119,7 +120,6 @@ class UserController < ApplicationController
 
   # Login form
   def signin
-    @in_pro_area = true if @post_redirect && @post_redirect.reason_params[:pro]
     # First time page is shown
     return render :action => 'sign' unless params[:user_signin]
 
@@ -154,7 +154,6 @@ class UserController < ApplicationController
 
   # Create new account form
   def signup
-    @in_pro_area = true if @post_redirect.reason_params[:pro]
     # Make the user and try to save it
     @user_signup = User.new(user_params(:user_signup))
     error = false
@@ -503,6 +502,10 @@ class UserController < ApplicationController
   def set_request_from_foreign_country
     @request_from_foreign_country =
       country_from_ip != AlaveteliConfiguration.iso_country_code
+  end
+
+  def set_in_pro_area
+    @in_pro_area = true if @post_redirect && @post_redirect.reason_params[:pro]
   end
 
   def normalize_url_name
