@@ -114,6 +114,14 @@ textarea{
   }
 }
 
+.columns_header {
+@include grid-column(12);
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    @include grid-column($columns:12);
+    padding-left: 40px;
+  }
+}
+
 #right_column_flip, #right_column {
   @include grid-column(12);
   @include respond-min( $main_menu-mobile_menu_cutoff ){
