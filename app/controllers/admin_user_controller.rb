@@ -102,7 +102,8 @@ class AdminUserController < AdminController
 
   def login_as
     if cannot? :login_as, @admin_user
-      flash[:error] = "You don't have permission to log in as #{@admin_user.name}"
+      flash[:error] =
+        "You don't have permission to log in as #{ @admin_user.name }"
       return redirect_to admin_user_path(@admin_user)
     end
 
