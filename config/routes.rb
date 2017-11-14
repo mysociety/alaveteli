@@ -666,26 +666,28 @@ Rails.application.routes.draw do
       resources :public_bodies, :only => [:index]
     end
 
-    # So that we can show a request using the existing controller from the
-    # pro context
-    match '/alaveteli_pro/info_requests/:url_title' => 'request#show',
-      :as => :show_alaveteli_pro_request,
-      :via => :get,
-      :defaults => { :pro => "1" }
+    scope path: :alaveteli_pro do
+      # So that we can show a request using the existing controller from the
+      # pro context
+      match '/info_requests/:url_title' => 'request#show',
+            :as => :show_alaveteli_pro_request,
+            :via => :get,
+            :defaults => { :pro => '1' }
 
-    # So that we can show a batch request using the existing controller from
-    # the pro context
-    match '/alaveteli_pro/info_request_batches/:id' => 'info_request_batch#show',
-      :as => :show_alaveteli_pro_batch_request,
-      :via => :get,
-      :defaults => { :pro => "1" }
+      # So that we can show a batch request using the existing controller from
+      # the pro context
+      match '/info_request_batches/:id' => 'info_request_batch#show',
+            :as => :show_alaveteli_pro_batch_request,
+            :via => :get,
+            :defaults => { :pro => '1' }
 
-    # So that we can show the authority selection screen using the existing
-    # controller but in a pro context
-    match '/alaveteli_pro/select_authority' => 'request#select_authority',
-        :as => :alaveteli_pro_select_authority,
-        :via => :get,
-        :defaults => { :pro => "1" }
+      # So that we can show the authority selection screen using the existing
+      # controller but in a pro context
+      match '/select_authority' => 'request#select_authority',
+            :as => :alaveteli_pro_select_authority,
+            :via => :get,
+            :defaults => { :pro => '1' }
+    end
   end
   ####
 
