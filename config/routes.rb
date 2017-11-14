@@ -663,9 +663,7 @@ Rails.application.routes.draw do
       resources :info_request_batches, :only => [:new, :create] do
         get :preview, on: :new # /info_request_batch/new/preview
       end
-      match '/public_bodies/:query' => 'public_bodies#search',
-            :via => :get,
-            :as => :public_bodies_search
+      resources :public_bodies, :only => [:index]
     end
 
     # So that we can show a request using the existing controller from the

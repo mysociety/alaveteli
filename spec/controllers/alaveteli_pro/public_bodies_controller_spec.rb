@@ -3,7 +3,7 @@ require 'spec_helper'
 
 RSpec.describe AlaveteliPro::PublicBodiesController do
 
-  describe "#search" do
+  describe "#index" do
     let!(:pro_user) { FactoryGirl.create(:pro_user) }
     let!(:body) { FactoryGirl.create(:public_body, :name => 'example') }
     let!(:defunct_body) do
@@ -24,14 +24,14 @@ RSpec.describe AlaveteliPro::PublicBodiesController do
 
     it "returns json" do
       with_feature_enabled :alaveteli_pro do
-        get :search, query: body.name
+        get :index, query: body.name
         expect(response.content_type).to eq("application/json")
       end
     end
 
     it "returns bodies which match the search query" do
       with_feature_enabled :alaveteli_pro do
-        get :search, query: body.name
+        get :index, query: body.name
         results = JSON.parse(response.body)
         expect(results[0]['name']).to eq(body.name)
       end
@@ -39,7 +39,7 @@ RSpec.describe AlaveteliPro::PublicBodiesController do
 
     it "returns a whitelisted set of properties for each body" do
       with_feature_enabled :alaveteli_pro do
-        get :search, query: body.name
+        get :index, query: body.name
         results = JSON.parse(response.body)
         expected_keys = %w{id name notes info_requests_visible_count short_name
                            weight about html}
@@ -49,7 +49,7 @@ RSpec.describe AlaveteliPro::PublicBodiesController do
 
     it "excludes defunct bodies" do
       with_feature_enabled :alaveteli_pro do
-        get :search, query: defunct_body.name
+        get :index, query: defunct_body.name
         results = JSON.parse(response.body)
         expect(results).to be_empty
       end
@@ -57,7 +57,7 @@ RSpec.describe AlaveteliPro::PublicBodiesController do
 
     it "excludes not_apply bodies" do
       with_feature_enabled :alaveteli_pro do
-        get :search, query: not_apply_body.name
+        get :index, query: not_apply_body.name
         results = JSON.parse(response.body)
         expect(results).to be_empty
       end
@@ -65,7 +65,7 @@ RSpec.describe AlaveteliPro::PublicBodiesController do
 
     it "excludes bodies that aren't requestable" do
       with_feature_enabled :alaveteli_pro do
-        get :search, query: not_requestable_body.name
+        get :index, query: not_requestable_body.name
         results = JSON.parse(response.body)
         expect(results).to be_empty
       end
