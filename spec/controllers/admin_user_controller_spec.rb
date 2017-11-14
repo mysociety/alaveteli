@@ -323,9 +323,12 @@ describe AdminUserController do
     let(:admin_user) { FactoryGirl.create(:admin_user) }
     let(:target_user) { FactoryGirl.create(:user) }
 
+    before do
+      session[:user_id] = admin_user.id
+    end
+
     it "logs in as another user" do
-      post :login_as, { :id => target_user.id },
-                      { :user_id => admin_user.id }
+      post :login_as, id: target_user.id
       expect(response).
         to redirect_to(confirm_path(:email_token =>
                                       get_last_post_redirect.email_token))
@@ -336,16 +339,14 @@ describe AdminUserController do
 
       it 'redirects to the admin user page for that user' do
         with_feature_enabled(:alaveteli_pro) do
-          post :login_as, { :id => target_user.id },
-                          { :user_id => admin_user.id }
+          post :login_as, id: target_user.id
           expect(response).to redirect_to(admin_user_path(target_user))
         end
       end
 
       it 'shows an error message' do
         with_feature_enabled(:alaveteli_pro) do
-          post :login_as, { :id => target_user.id },
-                          { :user_id => admin_user.id }
+          post :login_as, id: target_user.id
           expect(flash[:error]).to eq "You don't have permission to log in " \
                                       "as #{target_user.name}"
         end
