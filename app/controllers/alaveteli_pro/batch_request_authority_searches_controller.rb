@@ -6,7 +6,7 @@ class AlaveteliPro::BatchRequestAuthoritySearchesController < AlaveteliPro::Base
     @draft_batch_request = find_or_initialise_draft
   end
 
-  def create
+  def index
     @draft_batch_request = find_or_initialise_draft
     @body_ids_added = @draft_batch_request.public_body_ids
     # perform_seach sets @query but typeahead_search doesn't
@@ -17,6 +17,7 @@ class AlaveteliPro::BatchRequestAuthoritySearchesController < AlaveteliPro::Base
       @result_limit = calculate_result_limit(@search)
       check_page_limit!(@page, @per_page)
     end
+
     if request.xhr?
       render :partial => 'search_results',
              :layout => false,

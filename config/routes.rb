@@ -658,11 +658,7 @@ Rails.application.routes.draw do
           post :create_batch
         end
       end
-      resources :batch_request_authority_searches, :only => [:new]
-      # So that we can return searches via GET not POST
-      match '/batch_request_authority_searches' => 'batch_request_authority_searches#create',
-            :as => :batch_request_authority_searches,
-            :via => :get
+      resources :batch_request_authority_searches, :only => [:index, :new]
       resources :draft_info_request_batches, :only => [:create, :update] do
         member do
           put 'update_bodies'
