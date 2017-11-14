@@ -49,7 +49,7 @@
             </div>
             <label class="plan-overview__amount amount">
               <span>
-              <%= number_to_currency(@plan.amount_with_tax / 100, unit: '£') %>
+              <%= format_currency(@plan.amount_with_tax) %>
               </span>
             </label>
           </div>
