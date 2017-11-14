@@ -2,10 +2,6 @@
 class AlaveteliPro::BatchRequestAuthoritySearchesController < AlaveteliPro::BaseController
   MAX_RESULTS = 500
 
-  def new
-    @draft_batch_request = find_or_initialise_draft
-  end
-
   def index
     @draft_batch_request = find_or_initialise_draft
     @body_ids_added = @draft_batch_request.public_body_ids
@@ -30,9 +26,11 @@ class AlaveteliPro::BatchRequestAuthoritySearchesController < AlaveteliPro::Base
                :per_page => @per_page,
                :result_limit => @result_limit
              }
-    else
-      render :template => 'alaveteli_pro/batch_request_authority_searches/new'
     end
+  end
+
+  def new
+    redirect_to alaveteli_pro_batch_request_authority_searches_path
   end
 
   private

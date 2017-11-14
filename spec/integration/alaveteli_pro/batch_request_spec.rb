@@ -3,7 +3,7 @@ require 'spec_helper'
 require File.expand_path(File.dirname(__FILE__) + '/../alaveteli_dsl')
 
 def start_batch_request
-  visit(new_alaveteli_pro_batch_request_authority_search_path)
+  visit(alaveteli_pro_batch_request_authority_searches_path)
 
   # Add some bodies to the batch
   fill_in "Search for an authority by name", with: "Example"
@@ -64,7 +64,7 @@ describe "creating batch requests in alaveteli_pro" do
 
   it "allows the user to build a list of authorities" do
     using_pro_session(pro_user_session) do
-      visit(new_alaveteli_pro_batch_request_authority_search_path)
+      visit(alaveteli_pro_batch_request_authority_searches_path)
 
       # Searching
       fill_in "Search for an authority by name", with: "Example"

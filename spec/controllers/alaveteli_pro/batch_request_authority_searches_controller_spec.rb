@@ -30,19 +30,6 @@ end
 describe AlaveteliPro::BatchRequestAuthoritySearchesController do
   let(:pro_user) { FactoryGirl.create(:pro_user) }
 
-  describe "#new" do
-    before do
-      session[:user_id] = pro_user.id
-    end
-
-    it "renders new.html.erb" do
-      with_feature_enabled :alaveteli_pro do
-        get :new
-        expect(response).to render_template('new')
-      end
-    end
-  end
-
   describe "#index" do
     let!(:authority_1) { FactoryGirl.create(:public_body) }
     let!(:authority_2) { FactoryGirl.create(:public_body) }
@@ -81,8 +68,8 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
         end
       end
 
-      it "renders new.html.erb" do
-        expect(response).to render_template('new')
+      it "renders index.html.erb" do
+        expect(response).to render_template('index')
       end
 
       it "raises WillPaginate::InvalidPage error for pages beyond the limit" do
@@ -118,5 +105,20 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
           to raise_error(ActiveRecord::RecordNotFound)
       end
     end
+  end
+
+  describe '#new' do
+
+    before do
+      session[:user_id] = pro_user.id
+    end
+
+    it 'redirects to index action' do
+      get :new
+      expect(response).to redirect_to(
+        '/alaveteli_pro/batch_request_authority_searches'
+      )
+    end
+
   end
 end
