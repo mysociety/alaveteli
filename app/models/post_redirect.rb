@@ -29,7 +29,7 @@
 require 'openssl' # for random bytes function
 
 class PostRedirect < ActiveRecord::Base
-  CIRCUMSTANCES = %w(login_as change_password change_email normal)
+  CIRCUMSTANCES = %w(change_password change_email normal)
 
   # Optional, does a login confirm before redirect for use in email links.
   belongs_to :user,
