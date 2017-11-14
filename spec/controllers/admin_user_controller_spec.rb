@@ -365,8 +365,8 @@ describe AdminUserController do
       it 'shows an error message' do
         with_feature_enabled(:alaveteli_pro) do
           post :login_as, id: target_user.id
-          expect(flash[:error]).to eq "You don't have permission to log in " \
-                                      "as #{target_user.name}"
+          expect(flash[:error]).
+            to eq "You don't have permission to log in as #{ target_user.name }"
         end
       end
 
