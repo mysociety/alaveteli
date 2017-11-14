@@ -36,7 +36,7 @@ class Users::ConfirmationsController < UserController
     end
 
     session[:user_circumstance] = post_redirect.circumstance
-    do_post_redirect post_redirect, @user, :confirm
+    do_post_redirect post_redirect, @user
   end
 
   private
