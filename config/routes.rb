@@ -618,7 +618,7 @@ Rails.application.routes.draw do
       resources :pages, only: [:show]
     end
 
-    scope module: 'alaveteli_pro' do
+    scope module: :alaveteli_pro do
       resources :plans, only: [:show]
 
       scope path: :profile do
@@ -634,13 +634,9 @@ Rails.application.routes.draw do
   #### Alaveteli Pro
   constraints FeatureConstraint.new(:alaveteli_pro) do
 
-    match '/pro' => 'alaveteli_pro/account_request#new',
-          :as => :new_pro_account_request,
-          :via => :get
-
-    match '/pro' => 'alaveteli_pro/account_request#create',
-      :as => :create_pro_account_request,
-      :via => :post
+    scope module: :alaveteli_pro do
+      resources :account_request, :only => [:index, :create], path: :pro
+    end
 
     namespace :alaveteli_pro do
       match '/' => 'dashboard#index', :as => 'dashboard', :via => :get
