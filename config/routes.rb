@@ -613,8 +613,9 @@ Rails.application.routes.draw do
 
   #### Pro Pricing
   constraints FeatureConstraint.new(:pro_pricing) do
-    namespace :alaveteli_pro, path: 'pro', as: 'pro' do
-      resources :plans, only: [:index], path: 'pricing'
+
+    namespace :alaveteli_pro, path: :pro, as: :pro do
+      resources :plans, only: [:index], path: :pricing
       resources :pages, only: [:show]
     end
 
@@ -628,7 +629,9 @@ Rails.application.routes.draw do
           end
         end
       end
+
     end
+
   end
 
   #### Alaveteli Pro
@@ -657,7 +660,7 @@ Rails.application.routes.draw do
       resources :batch_request_authority_searches, :only => [:index, :new]
       resources :draft_info_request_batches, :only => [:create, :update] do
         member do
-          put 'update_bodies'
+          put :update_bodies
         end
       end
       resources :info_request_batches, :only => [:new, :create] do
@@ -688,6 +691,7 @@ Rails.application.routes.draw do
             :via => :get,
             :defaults => { :pro => '1' }
     end
+
   end
   ####
 
