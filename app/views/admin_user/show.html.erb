@@ -63,7 +63,7 @@
   <%= link_to 'Public page', user_path(@admin_user), :class => "btn" %>
 </div>
 <% if can? :login_as, @admin_user %>
-  <%= form_tag login_as_admin_user_path(@admin_user), :class => "form form-horizontal" do %>
+  <%= form_tag admin_users_sessions_path(id: @admin_user), :class => "form form-horizontal" do %>
     <%= submit_tag "Log in as #{@admin_user.name} (also confirms their email)", :class => "btn btn-info" %>
   <% end %>
 <% end %>

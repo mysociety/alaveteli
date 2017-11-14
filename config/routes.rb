@@ -551,13 +551,20 @@ Rails.application.routes.draw do
       get 'banned', :on => :collection
       get 'show_bounce_message', :on => :member
       post 'clear_bounce', :on => :member
-      post 'login_as', :on => :member
       post 'clear_profile_photo', :on => :member
       post 'modify_comment_visibility', :on => :collection
       resources :censor_rules,
         :controller => 'admin_censor_rule',
         :only => [:new, :create]
       end
+  end
+  ####
+
+  #### AdminUsersSessions controller
+  scope '/admin', :as => 'admin' do
+    resources :users_sessions,
+      :controller => 'admin_users_sessions',
+      :only => [:create]
   end
   ####
 
