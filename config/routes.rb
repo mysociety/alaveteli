@@ -16,9 +16,9 @@ Rails.application.routes.draw do
   root to: 'general#frontpage'
 
   #### General contoller
-  match '/' => 'general#frontpage',
-        :as => :frontpage,
-        :via => :get
+  root :to => 'general#frontpage',
+       :as => :frontpage,
+       :via => :get
   match '/blog' => 'general#blog',
         :as => :blog,
         :via => :get
@@ -639,7 +639,7 @@ Rails.application.routes.draw do
     end
 
     namespace :alaveteli_pro do
-      match '/' => 'dashboard#index', :as => 'dashboard', :via => :get
+      root to: 'dashboard#index', :as => :dashboard, :via => :get
       resources :draft_info_requests, :only => [:create, :update]
       resources :info_requests, :only => [:new, :create, :update, :index] do
         get :preview, on: :new # /info_request/new/preview
