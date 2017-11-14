@@ -10,9 +10,6 @@ class Users::ConfirmationsController < UserController
     end
 
     case post_redirect.circumstance
-    when 'login_as'
-      @user = confirm_user!(post_redirect.user)
-      session[:user_id] = @user.id
     when 'change_password'
       unless session[:user_id] == post_redirect.user_id
         clear_session_credentials
