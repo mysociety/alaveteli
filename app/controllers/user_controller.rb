@@ -11,6 +11,9 @@ class UserController < ApplicationController
   layout :select_layout
   # NOTE: Rails 4 syntax: change before_filter to before_action
   before_filter :normalize_url_name, :only => :show
+  before_filter :work_out_post_redirect, :only => [ :signup ]
+  before_filter :set_request_from_foreign_country, :only => [ :signup ]
+  before_filter :set_in_pro_area, :only => [ :signup ]
 
   # Normally we wouldn't be verifying the authenticity token on these actions
   # anyway as there shouldn't be a user_id in the session when the before
@@ -115,51 +118,11 @@ class UserController < ApplicationController
 
   end
 
-  # Login form
-  def signin
-    work_out_post_redirect
-    @in_pro_area = true if @post_redirect && @post_redirect.reason_params[:pro]
-    @request_from_foreign_country = country_from_ip != AlaveteliConfiguration::iso_country_code
-    # First time page is shown
-    return render :action => 'sign' unless params[:user_signin]
-
-    if @post_redirect.present?
-      @user_signin =
-        User.authenticate_from_form(user_signin_params,
-                                    @post_redirect.reason_params[:user_name])
-    end
-
-    if @post_redirect.nil? || @user_signin.errors.size > 0
-      # Failed to authenticate
-      clear_session_credentials
-      render :action => 'sign'
-    else
-      # Successful login
-      if @user_signin.email_confirmed
-        session[:user_id] = @user_signin.id
-        session[:ttl] = nil
-        session[:user_circumstance] = nil
-        session[:remember_me] = params[:remember_me] ? true : false
-
-        if is_modal_dialog
-          render :action => 'signin_successful'
-        else
-          do_post_redirect @post_redirect, @user_signin
-        end
-      else
-        send_confirmation_mail @user_signin
-      end
-    end
-  end
-
   # Create new account form
   def signup
-    work_out_post_redirect
-    @in_pro_area = true if @post_redirect.reason_params[:pro]
     # Make the user and try to save it
     @user_signup = User.new(user_params(:user_signup))
     error = false
-    @request_from_foreign_country = country_from_ip != AlaveteliConfiguration::iso_country_code
     if @request_from_foreign_country && !verify_recaptcha
       flash.now[:error] = _('There was an error with the reCAPTCHA. ' \
                               'Please try again.')
@@ -204,54 +167,6 @@ class UserController < ApplicationController
 
   def ip_rate_limiter
     @ip_rate_limiter ||= AlaveteliRateLimiter::IPRateLimiter.new(:signup)
-  end
-
-  def confirm
-    post_redirect = PostRedirect.find_by_email_token(params[:email_token])
-
-    if post_redirect.nil?
-      render :template => 'user/bad_token'
-      return
-    end
-
-    case post_redirect.circumstance
-    when 'login_as'
-      @user = confirm_user!(post_redirect.user)
-      session[:user_id] = @user.id
-    when 'change_password'
-      unless session[:user_id] == post_redirect.user_id
-        clear_session_credentials
-      end
-
-      session[:change_password_post_redirect_id] = post_redirect.id
-    when 'normal', 'change_email'
-      # !User.stay_logged_in_on_redirect?(nil)
-      # # => true
-      # !User.stay_logged_in_on_redirect?(user)
-      # # => true
-      # !User.stay_logged_in_on_redirect?(admin)
-      # # => false
-      if User.stay_logged_in_on_redirect?(@user)
-        session[:admin_confirmation] = 1
-      else
-        @user = confirm_user!(post_redirect.user)
-      end
-
-      session[:user_id] = @user.id
-    end
-
-    session[:user_circumstance] = post_redirect.circumstance
-
-    do_post_redirect post_redirect, @user
-  end
-
-  def signout
-    clear_session_credentials
-    if params[:r]
-      redirect_to URI.parse(params[:r]).path
-    else
-      redirect_to :controller => "general", :action => "frontpage"
-    end
   end
 
   # Change your email
@@ -502,6 +417,15 @@ class UserController < ApplicationController
 
   private
 
+  def set_request_from_foreign_country
+    @request_from_foreign_country =
+      country_from_ip != AlaveteliConfiguration.iso_country_code
+  end
+
+  def set_in_pro_area
+    @in_pro_area = true if @post_redirect && @post_redirect.reason_params[:pro]
+  end
+
   def normalize_url_name
     unless MySociety::Format.simplify_url_part(params[:url_name], 'user') == params[:url_name]
       redirect_to :url_name =>  MySociety::Format.simplify_url_part(params[:url_name], 'user'), :status => :moved_permanently
@@ -528,10 +452,6 @@ class UserController < ApplicationController
     params.require(key).permit(:name, :email, :password, :password_confirmation)
   end
 
-  def user_signin_params
-    params.require(:user_signin).permit(:email, :password)
-  end
-
   def is_modal_dialog
     params[:modal].to_i != 0
   end
@@ -541,7 +461,8 @@ class UserController < ApplicationController
     is_modal_dialog ? 'no_chrome' : 'default'
   end
 
-  # Decide where we are going to redirect back to after signin/signup, and record that
+  # Decide where we are going to redirect back to after signin/signup,
+  # and record that
   def work_out_post_redirect
     # Redirect to front page later if nothing else specified
     params[:r] = "/" if params[:r].nil? && params[:token].nil?
@@ -638,11 +559,6 @@ class UserController < ApplicationController
     @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
   end
 
-  def confirm_user!(user)
-    user.confirm!
-    user
-  end
-
   def current_user_is_display_user
     @user.try(:id) == @display_user.id
   end
@@ -714,4 +630,5 @@ class UserController < ApplicationController
       false
     end
   end
+
 end

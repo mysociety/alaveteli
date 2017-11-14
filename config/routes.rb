@@ -183,18 +183,18 @@ Rails.application.routes.draw do
            :only => [:show, :create, :update, :destroy],
            :path => '/profile/two_factor'
 
-  match '/profile/sign_in' => 'user#signin',
+  match '/profile/sign_in' => 'users/sessions#new',
         :as => :signin,
-        :via => [:get, :post]
-  match '/profile/sign_up' => 'user#signup',
-        :as => :signup, :via => :post
-  match '/profile/sign_up' => 'user#signin',
         :via => :get
-  match '/profile/sign_out' => 'user#signout',
+  match '/profile/sign_in' => 'users/sessions#create',
+        :as => :create_session,
+        :via => :post
+  match '/profile/sign_out' => 'users/sessions#destroy',
         :as => :signout,
         :via => :get
-
-  match '/c/:email_token' => 'user#confirm',
+  match '/profile/sign_up' => 'user#signup',
+        :as => :signup, :via => :post
+  match '/c/:email_token' => 'users/confirmations#confirm',
         :as => :confirm,
         :via => :get
   match '/user/:url_name' => 'user#show',
@@ -551,13 +551,20 @@ Rails.application.routes.draw do
       get 'banned', :on => :collection
       get 'show_bounce_message', :on => :member
       post 'clear_bounce', :on => :member
-      post 'login_as', :on => :member
       post 'clear_profile_photo', :on => :member
       post 'modify_comment_visibility', :on => :collection
       resources :censor_rules,
         :controller => 'admin_censor_rule',
         :only => [:new, :create]
       end
+  end
+  ####
+
+  #### AdminUsersSessions controller
+  scope '/admin', :as => 'admin' do
+    resources :users_sessions,
+      :controller => 'admin_users_sessions',
+      :only => [:create]
   end
   ####
 
