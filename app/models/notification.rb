@@ -73,7 +73,12 @@ class Notification < ActiveRecord::Base
   def embargo_expiring_expired
     # If someone has changed the embargo date on the request, or published it,
     # they might not need this notification any more.
-    !self.info_request_event.info_request.embargo_expiring?
+    if (info_request_event.info_request.embargo_expiring? ||
+        info_request_event.info_request.embargo_pending_expiry?)
+      false
+    else
+      true
+    end
   end
 
   def overdue_expired

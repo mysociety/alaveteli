@@ -15,6 +15,9 @@ class AlaveteliPro::EmbargoExtensionsController < AlaveteliPro::BaseController
     if @info_request.info_request_batch_id
       raise PermissionDenied
     end
+    unless @embargo.expiring_soon?
+      raise PermissionDenied
+    end
     @embargo_extension = AlaveteliPro::EmbargoExtension.new(
       embargo_extension_params)
     if @embargo_extension.save

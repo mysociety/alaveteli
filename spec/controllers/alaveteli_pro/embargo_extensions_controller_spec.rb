@@ -8,11 +8,30 @@ describe AlaveteliPro::EmbargoExtensionsController do
     user.roles << Role.find_by(name: 'pro')
     user
   end
-  let(:info_request) { FactoryGirl.create(:info_request, user: pro_user) }
-  let(:embargo) { FactoryGirl.create(:embargo, info_request: info_request) }
+
+  let(:info_request) do
+    # so that embargoes are near expiry
+    time_travel_to(88.days.ago) do
+      FactoryGirl.create(:info_request, user: pro_user)
+    end
+  end
+
+  let(:embargo) do
+    # so that embargoes are near expiry
+    time_travel_to(88.days.ago) do
+      embargo = FactoryGirl.create(:embargo, info_request: info_request)
+      embargo.
+        update_attribute(:publish_at, embargo.expiring_notification_at + 7.days)
+      embargo
+    end
+  end
+
+  let(:embargo_expiry) { embargo.publish_at }
 
   describe "#create" do
+
     context "when the user is allowed to update the embargo" do
+
       context "because they are the owner" do
         before do
           with_feature_enabled(:alaveteli_pro) do
@@ -25,14 +44,15 @@ describe AlaveteliPro::EmbargoExtensionsController do
         end
 
         it "updates the embargo" do
-          expect(embargo.reload.publish_at).
-            to eq AlaveteliPro::Embargo.six_months_from_now
+          expected_date = embargo_expiry + AlaveteliPro::Embargo::THREE_MONTHS
+          expect(embargo.reload.publish_at).to eq expected_date
         end
 
         it "sets a flash message" do
+          expected_date = embargo_expiry + AlaveteliPro::Embargo::THREE_MONTHS
           expect(flash[:notice]).
             to eq "Your request will now be private on Alaveteli until " \
-                  "#{AlaveteliPro::Embargo.six_months_from_now.strftime('%d %B %Y')}."
+                  "#{expected_date.strftime('%d %B %Y')}."
         end
 
         it "redirects to the request show page" do
@@ -40,9 +60,10 @@ describe AlaveteliPro::EmbargoExtensionsController do
             to redirect_to show_alaveteli_pro_request_path(
               url_title: info_request.url_title)
         end
+
       end
 
-      context "because they are an admin" do
+      context "because they are a pro admin" do
         before do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = admin.id
@@ -54,14 +75,15 @@ describe AlaveteliPro::EmbargoExtensionsController do
         end
 
         it "updates the embargo" do
-          expect(embargo.reload.publish_at).
-            to eq AlaveteliPro::Embargo.six_months_from_now
+          expected_date = embargo_expiry + AlaveteliPro::Embargo::THREE_MONTHS
+          expect(embargo.reload.publish_at).to eq expected_date
         end
 
         it "sets a flash message" do
+          expected_date = embargo_expiry + AlaveteliPro::Embargo::THREE_MONTHS
           expect(flash[:notice]).
             to eq "Your request will now be private on Alaveteli until " \
-                  "#{AlaveteliPro::Embargo.six_months_from_now.strftime('%d %B %Y')}."
+                  "#{expected_date.strftime('%d %B %Y')}."
         end
 
         it "redirects to the request show page" do
@@ -69,7 +91,9 @@ describe AlaveteliPro::EmbargoExtensionsController do
             to redirect_to show_alaveteli_pro_request_path(
               url_title: info_request.url_title)
         end
+
       end
+
     end
 
     context "when the user is not allowed to update the embargo" do
@@ -86,6 +110,39 @@ describe AlaveteliPro::EmbargoExtensionsController do
           end
         end.to raise_error(CanCan::AccessDenied)
       end
+    end
+
+    context 'when the embargo is not near expiry' do
+
+      let(:info_request) { FactoryGirl.create(:info_request, user: pro_user) }
+      let(:embargo) do
+        FactoryGirl.create(:embargo, info_request: info_request)
+      end
+
+      it "raises a PermissionDenied error if the owner requests extension" do
+        expect do
+          with_feature_enabled(:alaveteli_pro) do
+            session[:user_id] = pro_user.id
+            post :create,
+                 alaveteli_pro_embargo_extension:
+                   { embargo_id: embargo.id,
+                     extension_duration: "3_months" }
+          end
+        end.to raise_error(ApplicationController::PermissionDenied)
+      end
+
+      it "raises a PermissionDenied error if an admin requests extension" do
+        expect do
+          with_feature_enabled(:alaveteli_pro) do
+            session[:user_id] = admin.id
+            post :create,
+                 alaveteli_pro_embargo_extension:
+                   { embargo_id: embargo.id,
+                     extension_duration: "3_months" }
+          end
+        end.to raise_error(ApplicationController::PermissionDenied)
+      end
+
     end
 
     context "when the info_request is part of a batch request" do
@@ -124,6 +181,7 @@ describe AlaveteliPro::EmbargoExtensionsController do
                                     "please try again."
       end
     end
+
   end
 
   describe "#create_batch" do

@@ -3450,42 +3450,103 @@ describe InfoRequest do
     end
   end
 
-  describe "#embargo_expiring?" do
+  describe '#embargo_expiring?' do
     let(:info_request) { FactoryGirl.create(:info_request) }
 
-    context "when the embargo is expiring" do
-      let!(:embargo) do
+    context 'when the embargo is expiring' do
+
+      before do
         FactoryGirl.create(:expiring_embargo, info_request: info_request)
       end
 
-      before do
-        info_request.reload
+      it 'returns true' do
+        expect(info_request.reload.embargo_expiring?).to be true
       end
 
-      it "returns true" do
-        expect(info_request.embargo_expiring?).to be true
-      end
     end
 
-    context "when the embargo is not expiring soon" do
-      let!(:embargo) do
+    context 'the embargo has already expired' do
+
+      let(:embargo) do
+        FactoryGirl.create(:expiring_embargo, info_request: info_request)
+      end
+
+      it 'returns false on publication day' do
+        time_travel_to(embargo.publish_at) do
+          expect(info_request.reload.embargo_expiring?).to be false
+        end
+      end
+
+      it 'returns false after publication day' do
+        time_travel_to(embargo.publish_at + 1.day) do
+          expect(info_request.reload.embargo_expiring?).to be false
+        end
+      end
+
+    end
+
+    context 'when the embargo is not expiring soon' do
+
+      before do
         FactoryGirl.create(:embargo, info_request: info_request)
       end
 
-      before do
-        info_request.reload
+      it 'returns false' do
+        expect(info_request.reload.embargo_expiring?).to be false
       end
 
-      it "returns false" do
-        expect(info_request.embargo_expiring?).to be false
-      end
     end
 
-    context "when there is no embargo" do
-      it "returns false" do
+    context 'when there is no embargo' do
+
+      it 'returns false' do
         expect(info_request.embargo_expiring?).to be false
       end
+
     end
+
+  end
+
+  describe '#embargo_pending_expiry?' do
+    let(:info_request) { FactoryGirl.create(:info_request) }
+
+    context 'when the embargo is in force' do
+
+      it 'returns false' do
+        FactoryGirl.create(:expiring_embargo, info_request: info_request)
+        expect(info_request.reload.embargo_pending_expiry?).to be false
+      end
+
+    end
+
+    context 'the embargo publication date has passed' do
+
+      let(:embargo) do
+        FactoryGirl.create(:expiring_embargo, info_request: info_request)
+      end
+
+      it 'returns true on publication day' do
+        time_travel_to(embargo.publish_at) do
+          expect(info_request.reload.embargo_pending_expiry?).to be true
+        end
+      end
+
+      it 'returns true after publication day' do
+        time_travel_to(embargo.publish_at + 1.day) do
+          expect(info_request.reload.embargo_pending_expiry?).to be true
+        end
+      end
+
+    end
+
+    context 'when there is no embargo' do
+
+      it 'returns false' do
+        expect(info_request.embargo_pending_expiry?).to be false
+      end
+
+    end
+
   end
 
 end
