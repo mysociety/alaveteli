@@ -361,11 +361,6 @@ describe NotificationMailer do
       notifications + batch_notifications
     end
 
-    before do
-      allow(PostRedirect).
-        to receive(:generate_random_token).and_return('TOKEN')
-    end
-
     it "send the message to the right user" do
       mail = NotificationMailer.daily_summary(user, all_notifications)
       expect(mail.to).to eq [user.email]
@@ -389,7 +384,7 @@ describe NotificationMailer do
       # HACK: We can't control the request IDs of requests created through a
       # batch factory, so just gsub keys from the fixture template.
       batch_requests_id_mappings.each do |key, request_id|
-        expected_message.gsub!(key, request_id)
+        expected_message.gsub!(/#{ key }/, request_id)
       end
       expect(mail.body.encoded).to eq(expected_message)
     end
@@ -722,12 +717,11 @@ describe NotificationMailer do
     end
 
     it 'should send the expected message' do
-      allow(PostRedirect).
-        to receive(:generate_random_token).and_return('TOKEN')
       mail = NotificationMailer.overdue_notification(notification)
       file_name = file_fixture_name(
         "notification_mailer/overdue.txt")
       expected_message = File.open(file_name, 'r:utf-8') { |f| f.read }
+      expected_message.gsub!(/INFO_REQUEST_ID/, info_request.id.to_s)
       expect(mail.body.encoded).to eq(expected_message)
     end
   end
@@ -795,12 +789,11 @@ describe NotificationMailer do
     end
 
     it 'should send the expected message' do
-      allow(PostRedirect).
-        to receive(:generate_random_token).and_return('TOKEN')
       mail = NotificationMailer.very_overdue_notification(notification)
       file_name = file_fixture_name(
         "notification_mailer/very_overdue.txt")
       expected_message = File.open(file_name, 'r:utf-8') { |f| f.read }
+      expected_message.gsub!(/INFO_REQUEST_ID/, info_request.id.to_s)
       expect(mail.body.encoded).to eq(expected_message)
     end
   end

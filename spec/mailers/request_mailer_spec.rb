@@ -462,23 +462,25 @@ describe RequestMailer do
 
     it "sends an alert" do
       RequestMailer.alert_new_response_reminders
+      info_request = info_requests(:fancy_dog_request)
 
       deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(3) # sufficiently late it sends reminders too
       mail = deliveries[0]
       expect(mail.body).to match(/To let everyone know/)
-      expect(mail.to_addrs.first.to_s).to eq(info_requests(:fancy_dog_request).user.email)
-      mail.body.to_s =~ /(http:\/\/.*\/c\/(.*))/
+      expect(mail.to_addrs.first.to_s).to eq(info_request.user.email)
+
+      mail.body.to_s =~ /(http:\/\/.*)/
       mail_url = $1
-      mail_token = $2
 
-      post_redirect = PostRedirect.find_by_email_token(mail_token)
-      expect(post_redirect.uri).
-        to match(show_request_path(info_requests(:fancy_dog_request).url_title))
+      redirect_target =
+        show_request_path(info_request, anchor: 'describe_state_form_1')
 
-      # check anchor tag goes to last new response
-      expect(post_redirect.uri.split("#").last).
-        to eq("describe_state_form_1")
+      expect(mail_url).to eq(signin_url(r: redirect_target))
+
+      # Check anchor tag goes to last new response
+      # Split on %23 as the redirect is URL encoded
+      expect(mail_url.split('%23').last).to eq('describe_state_form_1')
     end
 
   end
@@ -578,12 +580,10 @@ describe RequestMailer do
         expect(mail.body).to match(/promptly, as normally/)
         expect(mail.to_addrs.first.to_s).to eq(@kitten_request.user.email)
 
-        mail.body.to_s =~ /(http:\/\/.*\/c\/(.*))/
+        mail.body.to_s =~ /(http:\/\/.*)/
         mail_url = $1
-        mail_token = $2
 
-        post_redirect = PostRedirect.find_by_email_token(mail_token)
-        expect(post_redirect.uri).
+        expect(mail_url).
           to match(new_request_followup_path(@kitten_request.id))
       end
     end
@@ -692,12 +692,10 @@ describe RequestMailer do
           expect(mail.body).to match(/required by law/)
           expect(mail.to_addrs.first.to_s).to eq(@kitten_request.user.email)
 
-          mail.body.to_s =~ /(http:\/\/.*\/c\/(.*))/
+          mail.body.to_s =~ /(http:\/\/.*)/
           mail_url = $1
-          mail_token = $2
 
-          post_redirect = PostRedirect.find_by_email_token(mail_token)
-          expect(post_redirect.uri).
+          expect(mail_url).
             to match(new_request_followup_path(@kitten_request.id))
         end
       end
@@ -783,12 +781,10 @@ describe RequestMailer do
       mail = deliveries[0]
       expect(mail.body).to match(/asked you to explain/)
       expect(mail.to_addrs.first.to_s).to eq(info_requests(:fancy_dog_request).user.email)
-      mail.body.to_s =~ /(http:\/\/.*\/c\/(.*))/
+      mail.body.to_s =~ /(http:\/\/.*)/
       mail_url = $1
-      mail_token = $2
 
-      post_redirect = PostRedirect.find_by_email_token(mail_token)
-      expect(post_redirect.uri).
+      expect(mail_url).
         to match(new_request_incoming_followup_path(:request_id => ir.id,
                                     :incoming_message_id => ir.incoming_messages.last.id))
     end

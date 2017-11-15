@@ -5,7 +5,5 @@
       :law_used_short => info_request.law_used_human(:short).html_safe,
       :title => info_request.title.html_safe) %>
 
-<% post_redirect = PostRedirect.create!(
-       :uri => respond_to_last_url(info_request, :anchor => "followup"),
-       :user_id => info_request.user.id) %>
-<%= confirm_url(:email_token => post_redirect.email_token) %>
+<% target = respond_to_last_path(info_request, anchor: 'followup') %>
+<%= signin_url(r: target) %>
