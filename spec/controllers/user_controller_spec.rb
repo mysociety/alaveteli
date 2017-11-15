@@ -937,6 +937,18 @@ describe UserController, "when signing in" do
       ActionController::Base.allow_forgery_protection = false
     end
 
+    it 'redirects to the homepage' do
+      session[:user_id] = user.id
+      get :signin
+      expect(response).to redirect_to(frontpage_path)
+    end
+
+    it 'redirects to the redirect parameter' do
+      session[:user_id] = user.id
+      get :signin, r: '/select_authority'
+      expect(response).to redirect_to(select_authority_path)
+    end
+
     it "signs them in if the credentials are valid" do
       post :signin,
            { :user_signin => { :email => user.email,
