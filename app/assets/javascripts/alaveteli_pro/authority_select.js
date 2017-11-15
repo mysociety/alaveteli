@@ -1,6 +1,7 @@
 (function($){
   $(function(){
     var $select = $('.js-authority-select');
+    var $form = $select.parents('form');
     var $publicBodyId = $('.js-public-body-id');
     var $publicBodyNotes = $('.js-public-body-notes');
     var $message = $('.js-outgoing-message-body');
@@ -90,5 +91,7 @@
       },
       plugins: ['remove_button']
     });
+
+    $form.on('submit', function(e) { e.preventDefault(); });
   });
 })(window.jQuery);
