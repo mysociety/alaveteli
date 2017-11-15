@@ -202,6 +202,13 @@ describe InfoRequest do
       expect(request.reload.allow_new_responses_from).to eq('anybody')
     end
 
+    it 'does not affect requests that have never been published' do
+      request = FactoryGirl.create(:embargoed_request)
+      request.update_attributes(:updated_at => 1.year.ago)
+      described_class.stop_new_responses_on_old_requests
+      expect(request.reload.allow_new_responses_from).to eq('anybody')
+    end
+
     it 'allows new responses from authority_only after 6 months' do
       request = FactoryGirl.create(:info_request)
       request.update_attributes(:updated_at => 6.months.ago - 1.day)

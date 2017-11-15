@@ -33,6 +33,7 @@ class AlaveteliPro::EmbargoesController < AlaveteliPro::BaseController
     if embargoes.destroy_all
       @info_request_batch.embargo_duration = nil
       @info_request_batch.save!
+      @info_request_batch.log_event('expire_embargo', {})
       flash[:notice] = _("Your requests are now public!")
     else
       flash[:error] = _("Sorry, something went wrong publishing your " \
