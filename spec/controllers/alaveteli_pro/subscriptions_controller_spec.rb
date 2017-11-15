@@ -384,8 +384,9 @@ describe AlaveteliPro::SubscriptionsController do
         session[:user_id] = user.id
       end
 
-      it 'raise an error' do
-        expect { get :show }.to raise_error ActiveRecord::RecordNotFound
+      it 'redirects to the pricing page' do
+        get :show
+        expect(response).to redirect_to(pro_plans_path)
       end
 
     end

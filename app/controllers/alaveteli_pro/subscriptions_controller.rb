@@ -2,6 +2,7 @@
 class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
   skip_before_action :pro_user_authenticated?, only: [:create]
   before_filter :authenticate, only: [:create]
+  before_filter :check_existing_subscriptions, only: [:show]
 
   # TODO: remove reminder of Stripe params once shipped
   #
@@ -82,8 +83,6 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
 
   def show
     @customer = current_user.pro_account.try(:stripe_customer)
-    raise ActiveRecord::RecordNotFound unless @customer
-
     @subscriptions = @customer.subscriptions.map do |subscription|
       AlaveteliPro::SubscriptionWithDiscount.new(subscription)
     end
@@ -139,4 +138,11 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
     authenticated?(post_redirect_params)
   end
 
+  def check_existing_subscriptions
+    # TODO: This doesn't take the plan in to account
+    unless @user.pro_account.try(:active?)
+      flash[:notice] = _('You aren\'t currently subscribed to any plans')
+      redirect_to pro_plans_path
+    end
+  end
 end
