@@ -72,6 +72,13 @@ class Ability
         can :access, :alaveteli_pro
       end
 
+      # Creating embargoes
+      can :create_embargo, InfoRequest do |info_request|
+        user && info_request.user.is_pro? && !info_request.embargo &&
+          (user == info_request.user || user.is_pro_admin?) &&
+          info_request.info_request_batch_id.nil?
+      end
+
       # Extending embargoes
       can :update, AlaveteliPro::Embargo do |embargo|
         user && (user == embargo.info_request.user || user.is_pro_admin?)

@@ -11,6 +11,96 @@ describe AlaveteliPro::EmbargoesController do
   let(:info_request) { FactoryGirl.create(:info_request, user: pro_user) }
   let(:embargo) { FactoryGirl.create(:embargo, info_request: info_request) }
 
+  describe '#create' do
+    let(:info_request) { FactoryGirl.create(:info_request, user: pro_user) }
+
+    context 'when the user is allowed to add an embargo' do
+
+      context 'because they are the owner' do
+        before do
+          with_feature_enabled(:alaveteli_pro) do
+            session[:user_id] = pro_user.id
+            post :create, { alaveteli_pro_embargo: {
+                            info_request_id: info_request,
+                            embargo_duration: '3_months' }
+                          }
+          end
+        end
+
+        it 'creates the embargo' do
+          expect(info_request.reload.embargo).to be_a(AlaveteliPro::Embargo)
+        end
+
+        it 'sets the expected duration' do
+          expect(info_request.reload.embargo.embargo_duration).to eq('3_months')
+        end
+
+      end
+
+      context 'because they are a pro admin' do
+        before do
+          with_feature_enabled(:alaveteli_pro) do
+            session[:user_id] = admin.id
+            post :create, { alaveteli_pro_embargo: {
+                            info_request_id: info_request,
+                            embargo_duration: '3_months' }
+                          }
+          end
+        end
+
+        it 'creates the embargo' do
+          expect(info_request.reload.embargo).to be_a(AlaveteliPro::Embargo)
+        end
+
+        it 'sets the expected duration' do
+          expect(info_request.reload.embargo.embargo_duration).to eq('3_months')
+        end
+
+      end
+
+    end
+
+    context "when the user is not allowed to update the embargo" do
+      let(:other_user) { FactoryGirl.create(:pro_user) }
+
+      it "raises a CanCan::AccessDenied error" do
+        expect do
+          with_feature_enabled(:alaveteli_pro) do
+            session[:user_id] = other_user.id
+            post :create, { alaveteli_pro_embargo: {
+                            info_request_id: info_request,
+                            embargo_duration: '3_months' }
+                          }
+          end
+        end.to raise_error(CanCan::AccessDenied)
+      end
+
+    end
+
+    context "when the info_request is part of a batch request" do
+      let(:info_request_batch) { FactoryGirl.create(:info_request_batch) }
+
+      before do
+        info_request.info_request_batch = info_request_batch
+        info_request.save!
+      end
+
+      it "raises a CanCan::AccessDenied error" do
+        expect do
+          with_feature_enabled(:alaveteli_pro) do
+            session[:user_id] = pro_user.id
+            post :create, { alaveteli_pro_embargo: {
+                            info_request_id: info_request,
+                            embargo_duration: '3_months' }
+                          }
+          end
+        end.to raise_error(CanCan::AccessDenied)
+      end
+
+    end
+
+  end
+
   describe "#destroy" do
     context "when the user is allowed to update the embargo" do
       context "because they are the owner" do
