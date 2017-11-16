@@ -99,8 +99,8 @@ class PasswordChangesController < ApplicationController
                         "need next time you want to change your password")
                 redirect_to one_time_password_path, :notice => msg
           else
-            msg = _('Your password has been changed.')
-            redirect_to URI.parse(@pretoken_redirect.uri).path, :notice => msg
+            redirect_to SafeRedirect.new(@pretoken_redirect.uri).path,
+                        notice: _('Your password has been changed.')
           end
         else
           if AlaveteliConfiguration.enable_two_factor_auth &&

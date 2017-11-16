@@ -21,7 +21,9 @@
       <% unless AlaveteliConfiguration::disable_emergency_user %>
         <p id="superuser_message" class="superuser_message">
           <%= _("Don't have a superuser account yet?") %>
-          <%= link_to _("Sign in as the emergency user"), URI.parse(@post_redirect.uri).path + "?emergency=1" %></p>
+          <%= link_to _("Sign in as the emergency user"),
+                      SafeRedirect.new(@post_redirect.uri).path(query: 'emergency=1') %>
+        </p>
       <% end %>
     <% end %>
 
