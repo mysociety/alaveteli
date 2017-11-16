@@ -94,6 +94,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
 
     flash[:notice] =
       { :partial => "alaveteli_pro/subscriptions/signup_message.html.erb" }
+    flash[:new_pro_user] = true
     redirect_to alaveteli_pro_dashboard_path
   end
 

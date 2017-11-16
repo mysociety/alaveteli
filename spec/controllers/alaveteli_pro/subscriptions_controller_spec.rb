@@ -81,6 +81,10 @@ describe AlaveteliPro::SubscriptionsController do
         it 'redirects to the pro dashboard' do
           expect(response).to redirect_to(alaveteli_pro_dashboard_path)
         end
+
+        it 'sets new_pro_user in flash' do
+          expect(flash[:new_pro_user]).to be true
+        end
       end
 
       context 'with a successful transaction' do
@@ -176,6 +180,10 @@ describe AlaveteliPro::SubscriptionsController do
 
         it 'redirects to the plan page' do
           expect(response).to redirect_to(plan_path('pro'))
+        end
+
+        it 'does not set new_pro_user in flash' do
+          expect(flash[:new_pro_user]).to be_nil
         end
 
       end
