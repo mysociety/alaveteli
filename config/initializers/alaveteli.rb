@@ -64,6 +64,7 @@ require 'alaveteli_pro/post_redirect_handler'
 require 'user_stats'
 require 'typeahead_search'
 require 'alaveteli_mail_poller'
+require 'safe_redirect'
 
 AlaveteliLocalization.set_locales(AlaveteliConfiguration::available_locales,
                                   AlaveteliConfiguration::default_locale)
