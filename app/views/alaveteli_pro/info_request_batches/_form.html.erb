@@ -45,6 +45,13 @@
       <div class="form_item_note">
         <%= render partial: "alaveteli_pro/info_request_batches/embargo_info",
                    locals: { embargo: @embargo, tense: :future } %>
+        <%= render partial: "alaveteli_pro/info_requests/embargo_note" %>
+        <p>
+          <%= _("All requests within this batch will remain private for the " \
+                "same duration. When an individual request is made public all " \
+                "other requests in this batch will also be published on " \
+                "{{site_name}}.", site_name: AlaveteliConfiguration.site_name) %>
+        </p>
       </div>
     </div> <!-- .request_embargo -->
 

@@ -19,13 +19,6 @@
           class: 'js-embargo-form' ) do |f| %>
       <%= render partial: "alaveteli_pro/info_request_batches/embargo_info",
                  locals: { embargo: example_embargo, tense: :present } %>
-      <%= render partial: "alaveteli_pro/info_requests/embargo_note" %>
-      <p>
-        <%= _("All requests within this batch will remain private for the " \
-              "same duration. When an individual request is made public all " \
-              "other requests in this batch will also be published on " \
-              "{{site_name}}.", site_name: AlaveteliConfiguration.site_name) %>
-      </p>
 
       <%= hidden_field_tag :info_request_batch_id, info_request_batch.id %>
       <% if local_assigns[:info_request] %>
