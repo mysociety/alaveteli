@@ -8,7 +8,7 @@ describe AlaveteliPro::ToDoList::VeryOverdueRequest do
   let(:user) { info_request.user }
 
   before do
-    time_travel_to(Date.parse('2015-11-01')){ info_request }
+    time_travel_to(Time.zone.parse('2015-11-01')){ info_request }
     AlaveteliPro::RequestSummary.create_or_update_from(info_request)
     @very_overdue_request = described_class.new(user)
   end
@@ -16,16 +16,16 @@ describe AlaveteliPro::ToDoList::VeryOverdueRequest do
   describe '#description' do
 
     it 'gives a description for one response' do
-      time_travel_to(Date.parse('2016-01-01')) do
+      time_travel_to(Time.zone.parse('2016-01-01')) do
         expect(@very_overdue_request.description).to eq "1 request is long overdue."
       end
     end
 
     it 'gives a description for multiple responses' do
-      request = time_travel_to(Date.parse('2015-11-01')) do
+      request = time_travel_to(Time.zone.parse('2015-11-01')) do
         FactoryGirl.create(:info_request, :user => user)
       end
-      time_travel_to(Date.parse('2016-01-01')) do
+      time_travel_to(Time.zone.parse('2016-01-01')) do
         AlaveteliPro::RequestSummary.create_or_update_from(request)
         expect(@very_overdue_request.description).to eq "2 requests are long overdue."
       end
@@ -36,7 +36,7 @@ describe AlaveteliPro::ToDoList::VeryOverdueRequest do
   describe '#items' do
 
     it 'returns the requests that are very overdue' do
-      time_travel_to(Date.parse('2016-01-01')) do
+      time_travel_to(Time.zone.parse('2016-01-01')) do
         expect(@very_overdue_request.items).to eq [info_request]
       end
     end
@@ -48,7 +48,7 @@ describe AlaveteliPro::ToDoList::VeryOverdueRequest do
     context 'when there is one item' do
 
       it 'returns a link to the request' do
-        time_travel_to(Date.parse('2016-01-01')) do
+        time_travel_to(Time.zone.parse('2016-01-01')) do
           expect(@very_overdue_request.url).to eq show_request_path(info_request.url_title)
         end
       end
@@ -58,10 +58,10 @@ describe AlaveteliPro::ToDoList::VeryOverdueRequest do
     context 'when there is more than one item' do
 
       it 'returns a link to the info request list with a "very_overdue" filter' do
-        request = time_travel_to(Date.parse('2015-11-01')) do
+        request = time_travel_to(Time.zone.parse('2015-11-01')) do
           FactoryGirl.create(:info_request, :user => user)
         end
-        time_travel_to(Date.parse('2016-01-01')) do
+        time_travel_to(Time.zone.parse('2016-01-01')) do
           AlaveteliPro::RequestSummary.create_or_update_from(info_request)
           AlaveteliPro::RequestSummary.create_or_update_from(request)
           expect(@very_overdue_request.url)
@@ -79,7 +79,7 @@ describe AlaveteliPro::ToDoList::VeryOverdueRequest do
     context 'when there is one item' do
 
       it 'returns an appropriate text' do
-        time_travel_to(Date.parse('2016-01-01')) do
+        time_travel_to(Time.zone.parse('2016-01-01')) do
           expect(@very_overdue_request.call_to_action)
             .to eq 'Request an internal review (or send another followup).'
         end
@@ -91,10 +91,10 @@ describe AlaveteliPro::ToDoList::VeryOverdueRequest do
 
       it 'returns an appropriate text' do
 
-        request = time_travel_to(Date.parse('2015-11-01')) do
+        request = time_travel_to(Time.zone.parse('2015-11-01')) do
           FactoryGirl.create(:info_request, :user => user)
         end
-        time_travel_to(Date.parse('2016-01-01')) do
+        time_travel_to(Time.zone.parse('2016-01-01')) do
           AlaveteliPro::RequestSummary.create_or_update_from(request)
           expect(@very_overdue_request.call_to_action)
             .to eq 'Request internal reviews (or send other followups).'

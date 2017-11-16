@@ -110,23 +110,23 @@ describe User::TransactionCalculator do
       end
 
       it ':last_quarter sums the total transactions made by the user in the last quarter' do
-        time_travel_to(Date.parse('2014-12-31')) do
+        time_travel_to(Time.zone.parse('2014-12-31')) do
           FactoryGirl.create(:comment, :user => user)
         end
 
-        time_travel_to(Date.parse('2015-01-01')) do
+        time_travel_to(Time.zone.parse('2015-01-01')) do
           FactoryGirl.create(:comment, :user => user)
         end
 
-        time_travel_to(Date.parse('2015-03-31')) do
+        time_travel_to(Time.zone.parse('2015-03-31')) do
           FactoryGirl.create(:comment, :user => user)
         end
 
-        time_travel_to(Date.parse('2015-04-01')) do
+        time_travel_to(Time.zone.parse('2015-04-01')) do
           FactoryGirl.create(:comment, :user => user)
         end
 
-        time_travel_to(Date.parse('2015-04-01')) do
+        time_travel_to(Time.zone.parse('2015-04-01')) do
           expect(subject.total(:last_quarter)).to eq(2)
         end
       end
@@ -147,19 +147,19 @@ describe User::TransactionCalculator do
   describe '#total_per_month' do
 
     it 'returns a hash containing the total transactions grouped by month' do
-      time_travel_to(Date.parse('2016-01-05')) do
+      time_travel_to(Time.zone.parse('2016-01-05')) do
         FactoryGirl.create(:comment, :user => user)
       end
 
-      time_travel_to(Date.parse('2016-01-05')) do
+      time_travel_to(Time.zone.parse('2016-01-05')) do
         FactoryGirl.create(:info_request, :user => user)
       end
 
-      time_travel_to(Date.parse('2016-01-05') + 1.hour) do
+      time_travel_to(Time.zone.parse('2016-01-05') + 1.hour) do
         FactoryGirl.create(:info_request, :user => user)
       end
 
-      time_travel_to(Date.parse('2016-03-06')) do
+      time_travel_to(Time.zone.parse('2016-03-06')) do
         FactoryGirl.create(:comment, :user => user)
       end
 
@@ -172,21 +172,21 @@ describe User::TransactionCalculator do
   describe '#average_per_month' do
 
     it 'returns the average transactions per month' do
-      time_travel_to(Date.parse('2016-01-01'))
+      time_travel_to(Time.zone.parse('2016-01-01'))
       user = FactoryGirl.create(:user)
       back_to_the_present
 
-      time_travel_to(Date.parse('2016-02-01')) do
+      time_travel_to(Time.zone.parse('2016-02-01')) do
         3.times { FactoryGirl.create(:comment, :user => user) }
       end
 
-      time_travel_to(Date.parse('2016-04-01')) do
+      time_travel_to(Time.zone.parse('2016-04-01')) do
         3.times { FactoryGirl.create(:comment, :user => user) }
       end
 
       subject = described_class.new(user)
 
-      time_travel_to(Date.parse('2016-04-30')) do
+      time_travel_to(Time.zone.parse('2016-04-30')) do
         expect(subject.average_per_month).to eq(1.5)
       end
     end
