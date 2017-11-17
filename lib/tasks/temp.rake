@@ -1,6 +1,22 @@
 # -*- coding: utf-8 -*-
 namespace :temp do
 
+  desc 'Populate any missing FoiAttachment files'
+  task :populate_missing_attachment_files => :environment do
+    verbose = ENV['VERBOSE'] == '1'
+    offset = (ENV['OFFSET'] || 0).to_i
+    IncomingMessage.find_each(:start => offset) do |incoming_message|
+      begin
+        puts incoming_message.id if verbose
+        incoming_message.get_attachment_text_full
+        incoming_message.get_text_for_indexing_full
+      rescue Errno::ENOENT
+        puts "Reparsing" if verbose
+        incoming_message.parse_raw_email!(true)
+      end
+    end
+  end
+
   desc 'Populate last_event_time column of InfoRequest'
   task :populate_last_event_time => :environment do
     InfoRequest.
