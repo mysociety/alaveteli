@@ -18,7 +18,7 @@ class AlaveteliPro::BaseController < ApplicationController
         web: _("To access {{pro_site_name}}",
                pro_site_name: AlaveteliConfiguration.pro_site_name),
         email: _("Then you can access {{pro_site_name}}",
-               pro_site_name: AlaveteliConfiguration.pro_site_name)
+                 pro_site_name: AlaveteliConfiguration.pro_site_name)
       }
     end
     if authenticated?(reason_params)
