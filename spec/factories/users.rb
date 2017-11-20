@@ -46,6 +46,11 @@ FactoryGirl.define do
     ban_text ""
     confirmed_not_spam true
 
+    factory :unconfirmed_user do
+      email_confirmed false
+      confirmed_not_spam false
+    end
+
     factory :admin_user do
       sequence(:name) { |n| "Admin User #{n}" }
       after(:create) do |user, evaluator|

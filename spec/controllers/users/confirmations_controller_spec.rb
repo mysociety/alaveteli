@@ -14,35 +14,6 @@ describe Users::ConfirmationsController do
 
     end
 
-    context 'the post redirect circumstance is login_as' do
-
-      before :each do
-        @user = FactoryGirl.create(:user, :email_confirmed => false)
-        @post_redirect =
-          PostRedirect.
-            create(:uri => '/', :user => @user, :circumstance => 'login_as')
-
-        get :confirm, { :email_token => @post_redirect.email_token }
-      end
-
-      it 'confirms the post redirect user' do
-        expect(@user.reload.email_confirmed).to eq(true)
-      end
-
-      it 'logs in as the post redirect user' do
-        expect(session[:user_id]).to eq(@user.id)
-      end
-
-      it 'sets the user_circumstance to login_as' do
-        expect(session[:user_circumstance]).to eq('login_as')
-      end
-
-      it 'redirects to the post redirect uri' do
-        expect(response).to redirect_to('/?post_redirect=1')
-      end
-
-    end
-
     context 'the post redirect circumstance is change_password' do
 
       before :each do
