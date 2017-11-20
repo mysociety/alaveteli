@@ -412,7 +412,7 @@ class UserController < ApplicationController
     end
     @user.receive_email_alerts = params[:receive_email_alerts]
     @user.save!
-    redirect_to URI.parse(params[:came_from]).path
+    redirect_to SafeRedirect.new(params[:came_from]).path
   end
 
   private

@@ -16,7 +16,7 @@ class Users::SessionsController < UserController
   def new
     if @user
       redirect_path = params.fetch(:r) { frontpage_path }
-      redirect_to URI.parse(redirect_path).path
+      redirect_to SafeRedirect.new(redirect_path).path
       return
     end
 
@@ -54,11 +54,8 @@ class Users::SessionsController < UserController
 
   def destroy
     clear_session_credentials
-    if params[:r]
-      redirect_to URI.parse(params[:r]).path
-    else
-      redirect_to frontpage_path
-    end
+    redirect_path = params.fetch(:r) { frontpage_path }
+    redirect_to SafeRedirect.new(redirect_path).path
   end
 
   private
