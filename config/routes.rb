@@ -234,6 +234,10 @@ Rails.application.routes.draw do
     resource :about_me, :only => [:edit, :update], :controller => 'about_me'
   end
 
+  namespace :users, path: 'profile' do
+    resource :account, only: [:show, :edit, :update]
+  end
+
   # Legacy route for setting about_me
   match '/profile/set_about_me' => redirect('/profile/about_me/edit'),
         :as => :set_profile_about_me,
@@ -638,6 +642,16 @@ Rails.application.routes.draw do
       :as => :create_pro_account_request,
       :via => :post
 
+    namespace :alaveteli_pro, path: 'pro', as: 'pro' do
+      resources :pricing, only: [:index]
+
+      namespace :users, path: '' do
+        resources :sessions, only: [:new],
+                             path: '',
+                             path_names: { new: 'sign_in' }
+      end
+    end
+
     namespace :alaveteli_pro do
       match '/' => 'dashboard#index', :as => 'dashboard', :via => :get
       resources :draft_info_requests, :only => [:create, :update]
@@ -670,6 +684,8 @@ Rails.application.routes.draw do
       match '/public_bodies/:query' => 'public_bodies#search',
             :via => :get,
             :as => :public_bodies_search
+
+      resources :users, only: [:create]
     end
 
     # So that we can show a request using the existing controller from the
