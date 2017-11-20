@@ -20,22 +20,23 @@
       <li class="request-listing">
         <div class="request-listing__request-status-icon bottomline icon_<%= event.info_request.calculate_status %> icon-standalone"></div>
         <div class="request-listing__request-body">
-        <p>
-          <% if @request_events_all_successful %>
-            <%= _("{{public_body_link}} answered a request about",
-                  :public_body_link => public_body_link(event.info_request.public_body)) %>
-          <% else %>
-            <%= _("{{public_body_link}} was sent a request about",
-                  :public_body_link => public_body_link(event.info_request.public_body)) %>
-          <% end %>
+          <p>
+            <% if @request_events_all_successful %>
+              <%= _("{{public_body_link}} answered a request about",
+                    :public_body_link => public_body_link(event.info_request.public_body)) %>
+            <% else %>
+              <%= _("{{public_body_link}} was sent a request about",
+                    :public_body_link => public_body_link(event.info_request.public_body)) %>
+            <% end %>
 
-          <%= link_to h(event.info_request.title), request_path(event.info_request) %>
-        </p>
+            <%= link_to h(event.info_request.title), request_path(event.info_request) %>
+          </p>
 
-        <p class="request-body__time-ago">
-          <%= _('{{length_of_time}} ago',
-                :length_of_time => time_ago_in_words(event.described_at)) %>
-        </p>
+          <p class="request-body__time-ago">
+            <%= _('{{length_of_time}} ago',
+                  :length_of_time => time_ago_in_words(event.described_at)) %>
+          </p>
+        </div>
       </li>
     <% end %>
   </ul>
