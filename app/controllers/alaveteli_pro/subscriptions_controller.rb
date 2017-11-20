@@ -141,7 +141,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
   def check_existing_subscriptions
     # TODO: This doesn't take the plan in to account
     unless @user.pro_account.try(:active?)
-      flash[:notice] = _('You aren\'t currently subscribed to any plans')
+      flash[:notice] = _('You don\'t currently have an active Pro subscription')
       redirect_to pro_plans_path
     end
   end
