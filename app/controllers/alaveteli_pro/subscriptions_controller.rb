@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
+  include AlaveteliPro::StripeNamespace
+
   skip_before_action :pro_user_authenticated?, only: [:create]
   before_filter :authenticate, only: [:create]
   before_filter :check_existing_subscriptions, only: [:show]
@@ -47,7 +49,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
 
     rescue Stripe::CardError => e
       flash[:error] = e.message
-      redirect_to plan_path(params[:plan_id])
+      redirect_to plan_path(non_namespaced_plan_id)
       return
 
     rescue Stripe::RateLimitError,
@@ -69,8 +71,11 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
                           'have not been charged. Please try again later.')
       end
 
-      path = params[:plan_id] ? plan_path(params[:plan_id]) : pro_plans_path
-      redirect_to path
+      if params[:plan_id]
+        redirect_to plan_path(non_namespaced_plan_id)
+      else
+        redirect_to pro_plans_path
+      end
       return
     end
 
@@ -145,4 +150,9 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
       redirect_to pro_plans_path
     end
   end
+
+  def non_namespaced_plan_id
+    remove_stripe_namespace(params[:plan_id])
+  end
+
 end

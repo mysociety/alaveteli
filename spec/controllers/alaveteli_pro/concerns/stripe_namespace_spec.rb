@@ -16,6 +16,12 @@ describe AlaveteliPro::StripeNamespace do
       end
     end
 
+    describe '#remove_stripe_namespace' do
+      it 'removes namespace from string' do
+        expect(remove_stripe_namespace('namespace-string')).to eq('string')
+      end
+    end
+
   end
 
   context 'without namespace' do
@@ -28,6 +34,12 @@ describe AlaveteliPro::StripeNamespace do
     describe '#add_stripe_namespace' do
       it 'return string' do
         expect(add_stripe_namespace('string')).to eq('string')
+      end
+    end
+
+    describe '#remove_stripe_namespace' do
+      it 'return string' do
+        expect(remove_stripe_namespace('string')).to eq('string')
       end
     end
 

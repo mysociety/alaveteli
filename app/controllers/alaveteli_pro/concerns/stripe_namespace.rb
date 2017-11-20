@@ -5,6 +5,10 @@ module AlaveteliPro::StripeNamespace
     namespace.blank? ? string : [namespace, string].join('-')
   end
 
+  def remove_stripe_namespace(string)
+    namespace.blank? ? string : string.sub(/^#{namespace}-/, '')
+  end
+
   private
 
   def namespace
