@@ -136,6 +136,13 @@ FactoryGirl.define do
       end
     end
 
+    factory :embargo_expired_request do
+      after(:create) do |info_request, evaluator|
+        info_request.log_event("expire_embargo", info_request: info_request)
+        info_request.reload
+      end
+    end
+
     factory :external_request do
       user nil
       external_user_name 'External User'

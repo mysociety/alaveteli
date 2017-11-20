@@ -3450,6 +3450,49 @@ describe InfoRequest do
     end
   end
 
+  describe '#embargo_expired?' do
+
+    context 'when the embargo has expired' do
+      let!(:info_request) do
+        request = FactoryGirl.create(:info_request)
+        FactoryGirl.create(:embargo,
+                           info_request: request,
+                           publish_at: Time.now - 4.months)
+        AlaveteliPro::Embargo.expire_publishable
+        request.reload
+      end
+
+      it 'returns true' do
+        expect(info_request.embargo_expired?).to be true
+      end
+
+    end
+
+    context 'when the embargo has not expired' do
+      let!(:info_request) do
+        request = FactoryGirl.create(:info_request)
+        FactoryGirl.create(:embargo,
+                           info_request: request)
+        request.reload
+      end
+
+      it 'returns false' do
+        expect(info_request.embargo_expired?).to be false
+      end
+
+    end
+
+    context 'when there is no embargo' do
+
+      it 'returns false' do
+        info_request = FactoryGirl.build(:info_request)
+        expect(info_request.embargo_expired?).to be false
+      end
+
+    end
+
+  end
+
   describe "#embargo_expiring?" do
     let(:info_request) { FactoryGirl.create(:info_request) }
 
@@ -4030,6 +4073,41 @@ describe InfoRequest do
         expect(last_embargo_set_event.event_type).to eq 'set_embargo'
         expect(last_embargo_set_event.params[:embargo_extension_id]).
           to eq embargo_extension.id
+      end
+
+    end
+
+  end
+
+  describe '#last_embargo_expire_event' do
+    let(:info_request) { FactoryGirl.create(:info_request) }
+
+    context 'if no embargo has been set' do
+
+      it 'returns nil' do
+        expect(info_request.last_embargo_expire_event).to be_nil
+      end
+
+    end
+
+    context 'if an embargo has been set' do
+      let(:embargo) { FactoryGirl.create(:embargo, info_request: info_request) }
+
+      context 'the embargo has not yet expired' do
+
+        it 'returns nil' do
+          expect(info_request.last_embargo_expire_event).to be_nil
+        end
+
+      end
+
+      it 'returns the last "expire_embargo" event' do
+        time_travel_to embargo.publish_at + 1.day do
+          AlaveteliPro::Embargo.expire_publishable
+        end
+        last_embargo_set_event = info_request.reload.last_embargo_expire_event
+
+        expect(last_embargo_set_event.event_type).to eq 'expire_embargo'
       end
 
     end

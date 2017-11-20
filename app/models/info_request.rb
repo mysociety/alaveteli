@@ -129,6 +129,7 @@ class InfoRequest < ActiveRecord::Base
   scope :embargoed, Prominence::EmbargoedQuery.new
   scope :not_embargoed, Prominence::NotEmbargoedQuery.new
   scope :embargo_expiring, Prominence::EmbargoExpiringQuery.new
+  scope :embargo_expired_today, Prominence::EmbargoExpiredTodayQuery.new
   scope :visible_to_requester, Prominence::VisibleToRequesterQuery.new
   scope :been_published, Prominence::BeenPublishedQuery.new
 
@@ -887,6 +888,13 @@ class InfoRequest < ActiveRecord::Base
           first
   end
 
+  def last_embargo_expire_event
+    info_request_events.
+      where(:event_type => 'expire_embargo').
+        reorder('created_at DESC').
+          first
+  end
+
   # Where the initial request is sent to
   def recipient_email
     public_body.request_email
@@ -1567,6 +1575,17 @@ class InfoRequest < ActiveRecord::Base
   def embargo_expiring?
     if self.embargo
       self.embargo.publish_at <= AlaveteliPro::Embargo.expiring_soon_time
+    else
+      false
+    end
+  end
+
+  # Has a previously attached embargo expired?
+  #
+  # Returns boolean
+  def embargo_expired?
+    if !embargo && last_embargo_expire_event
+      true
     else
       false
     end
