@@ -42,8 +42,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
         tax_percent: 20.0
       }
 
-      coupon = params[:coupon_code]
-      subscription_attributes[:coupon] = coupon.upcase if coupon.present?
+      subscription_attributes[:coupon] = coupon_code if coupon_code?
 
       @subscription = Stripe::Subscription.create(subscription_attributes)
 
@@ -153,6 +152,14 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
 
   def non_namespaced_plan_id
     remove_stripe_namespace(params[:plan_id])
+  end
+
+  def coupon_code?
+    params[:coupon_code].present?
+  end
+
+  def coupon_code
+    add_stripe_namespace(params.require(:coupon_code)).upcase
   end
 
 end
