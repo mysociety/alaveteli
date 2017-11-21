@@ -69,7 +69,8 @@ describe AlaveteliPro::SubscriptionsController do
         end
 
         it 'welcomes the new user' do
-          expect(flash[:notice]).to eq('Welcome to Alaveteli Professional!')
+          partial_file = "alaveteli_pro/subscriptions/signup_message.html.erb"
+          expect(flash[:notice]).to eq({ :partial => partial_file })
         end
 
         it 'redirects to the pro dashboard' do

@@ -76,8 +76,8 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
 
     current_user.add_role(:pro)
 
-    flash[:notice] = _('Welcome to {{pro_site_name}}!',
-                       pro_site_name: AlaveteliConfiguration.pro_site_name)
+    flash[:notice] =
+      { :partial => "alaveteli_pro/subscriptions/signup_message.html.erb" }
     redirect_to alaveteli_pro_dashboard_path
   end
 
