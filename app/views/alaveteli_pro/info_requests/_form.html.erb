@@ -50,24 +50,7 @@
       <div class="form_item_note">
         <%= render partial: "embargo_info",
                  locals: { embargo: @embargo, tense: :future } %>
-        <p>
-          <%= _("When a request is private we guarantee that it will only be " \
-                "visible on {{site_name}} for the period you select. " \
-                "{{pro_site_name}} administrators will also be able " \
-                "to view your request, but will only do so in the event " \
-                "that they need to fix a problem with it (e.g. failed " \
-                "delivery to the authority). They will not reveal the " \
-                "contents of your request or any response you get to anyone else. " \
-                "The authority may still publish it in a disclosure log as usual.",
-                site_name: AlaveteliConfiguration.site_name,
-                pro_site_name: AlaveteliConfiguration.pro_site_name) %>
-        </p>
-        <p>
-          <%= _("We will remind you by email and on the site when the request " \
-                "is going be made public, and you'll have the option to keep " \
-                "it private for longer if you want to. You can extend this " \
-                "time indefinitely, or make the request public at any time.") %>
-        </p>
+        <%= render partial: "alaveteli_pro/info_requests/embargo_note" %>
       </div>
     </div> <!-- .request_embargo -->
 

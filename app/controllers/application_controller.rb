@@ -331,7 +331,7 @@ class ApplicationController < ActionController::Base
   # the session, and when the GET redirect with "?post_redirect=1" happens,
   # load them in.
   def do_post_redirect(post_redirect, user=nil)
-    uri = URI.parse(post_redirect.uri).path
+    uri = SafeRedirect.new(post_redirect.uri).path
     if feature_enabled?(:alaveteli_pro) &&
       user &&
       user.is_pro? &&

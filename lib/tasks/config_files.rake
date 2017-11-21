@@ -28,10 +28,6 @@ namespace :config_files do
       !only_active
       daemons << 'poll-for-incoming'
     end
-    if AlaveteliConfiguration.varnish_host.present? ||
-      !only_active
-      daemons << 'purge-varnish'
-    end
     daemons
   end
 

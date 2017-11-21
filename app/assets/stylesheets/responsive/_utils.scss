@@ -132,6 +132,7 @@ body:hover .visually-hidden a, body:hover .visually-hidden input, body:hover .vi
 .show-with-keyboard-focus-only {
   position: absolute;
   left: -9999999px;
+  top: 0;
   &:focus {
     left: 0;
     z-index: 100;

@@ -3,12 +3,33 @@
 
 ## Highlighted Features
 
+* Pass through sign-in form if a user is already signed in (Gareth Rees)
 * Make the event history table responsive (Miroslav Schlossberg)
 * Fix bug that prevented private requests from being published across the whole
   site once the embargo period had expired (Liz Conlan)
 * Update format of `robots.txt` for Baidu compatibility (Gareth Rees)
+* Removed support for Ubuntu Precise (Louise Crow)
+* Remove the use of purge requests to Varnish (Louise Crow)
+* Add a temp task to recache any attachments whose content has changed
+  (Louise Crow)
 
 ## Upgrade Notes
+* This release removes the use of purge requests to Varnish. Please make sure
+  your site works with `VARNISH_HOST` empty before upgrading.
+
+* Please note that this release removes support for Ubuntu Precise. If you are
+  running Alaveteli on Ubuntu Precise, you should upgrade your OS to
+  Ubuntu Trusty before upgrading to this release. This
+  [Ubuntu upgrade guide](https://wiki.ubuntu.com/TrustyTahr/ReleaseNotes#Upgrading_from_Ubuntu_12.04_LTS_or_Ubuntu_13.10)
+  can guide you through the process. If you have
+  questions about upgrading OS, please don't hesitate to ask on the
+  [alaveteli-dev](https://groups.google.com/forum/#!forum/alaveteli-dev) group.
+
+* There's a new temp task that can be used to recache any attachments whose
+  content has slightly changed (e.g. due to an upgrade in the `mail` gem that
+  alters e.g the trailing space on attachment bodies). You can run it with
+  `bundle exec rake temp:populate_missing_attachment_files` if you're seeing
+  `No such file or directory @ rb_sysopen` errors from `foi_attachment.rb`.
 
 ### Changed Templates
 

@@ -74,9 +74,8 @@ describe CommentController, "when commenting on a request" do
                :type => 'request', :submitted_comment => 1, :preview => 0
                }
     post :new, params
-    expect(response).to redirect_to(:controller => 'user',
-                                    :action => 'signin',
-                                    :token => get_last_post_redirect.token)
+    expect(response).
+      to redirect_to(signin_path(:token => get_last_post_redirect.token))
     # post_redirect.post_params.should == params # TODO: get this working. there's a : vs '' problem amongst others
   end
 

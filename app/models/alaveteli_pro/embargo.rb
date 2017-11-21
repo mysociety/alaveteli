@@ -32,6 +32,7 @@ module AlaveteliPro
                      :set_expiring_notification_at
     after_create :reindex_request
     before_destroy :reindex_request
+    before_destroy :notify_expiration
     around_save :add_set_embargo_event
     attr_accessor :extension
 
@@ -71,6 +72,17 @@ module AlaveteliPro
       self.publish_at += duration_as_duration(extension.extension_duration)
       self.expiring_notification_at = calculate_expiring_notification_at
       save
+    end
+
+    def expiring_soon?
+      (Time.zone.now >= calculate_expiring_notification_at &&
+       Time.zone.now < publish_at)
+    end
+
+    # embargoes should be deleted once they've expired so this is for edge
+    # cases where the deletion task has not yet completed
+    def expired?
+      Time.zone.now >= publish_at
     end
 
     def calculate_expiring_notification_at
@@ -142,6 +154,14 @@ module AlaveteliPro
     def set_expiring_notification_at
       unless self.expiring_notification_at.present?
         self.expiring_notification_at = calculate_expiring_notification_at
+      end
+    end
+
+    def notify_expiration
+      if info_request.use_notifications?
+        if event = info_request.last_embargo_expire_event
+          info_request.user.notify(event)
+        end
       end
     end
 

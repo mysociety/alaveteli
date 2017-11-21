@@ -11,6 +11,96 @@ describe AlaveteliPro::EmbargoesController do
   let(:info_request) { FactoryGirl.create(:info_request, user: pro_user) }
   let(:embargo) { FactoryGirl.create(:embargo, info_request: info_request) }
 
+  describe '#create' do
+    let(:info_request) { FactoryGirl.create(:info_request, user: pro_user) }
+
+    context 'when the user is allowed to add an embargo' do
+
+      context 'because they are the owner' do
+        before do
+          with_feature_enabled(:alaveteli_pro) do
+            session[:user_id] = pro_user.id
+            post :create, { alaveteli_pro_embargo: {
+                            info_request_id: info_request,
+                            embargo_duration: '3_months' }
+                          }
+          end
+        end
+
+        it 'creates the embargo' do
+          expect(info_request.reload.embargo).to be_a(AlaveteliPro::Embargo)
+        end
+
+        it 'sets the expected duration' do
+          expect(info_request.reload.embargo.embargo_duration).to eq('3_months')
+        end
+
+      end
+
+      context 'because they are a pro admin' do
+        before do
+          with_feature_enabled(:alaveteli_pro) do
+            session[:user_id] = admin.id
+            post :create, { alaveteli_pro_embargo: {
+                            info_request_id: info_request,
+                            embargo_duration: '3_months' }
+                          }
+          end
+        end
+
+        it 'creates the embargo' do
+          expect(info_request.reload.embargo).to be_a(AlaveteliPro::Embargo)
+        end
+
+        it 'sets the expected duration' do
+          expect(info_request.reload.embargo.embargo_duration).to eq('3_months')
+        end
+
+      end
+
+    end
+
+    context "when the user is not allowed to update the embargo" do
+      let(:other_user) { FactoryGirl.create(:pro_user) }
+
+      it "raises a CanCan::AccessDenied error" do
+        expect do
+          with_feature_enabled(:alaveteli_pro) do
+            session[:user_id] = other_user.id
+            post :create, { alaveteli_pro_embargo: {
+                            info_request_id: info_request,
+                            embargo_duration: '3_months' }
+                          }
+          end
+        end.to raise_error(CanCan::AccessDenied)
+      end
+
+    end
+
+    context "when the info_request is part of a batch request" do
+      let(:info_request_batch) { FactoryGirl.create(:info_request_batch) }
+
+      before do
+        info_request.info_request_batch = info_request_batch
+        info_request.save!
+      end
+
+      it "raises a CanCan::AccessDenied error" do
+        expect do
+          with_feature_enabled(:alaveteli_pro) do
+            session[:user_id] = pro_user.id
+            post :create, { alaveteli_pro_embargo: {
+                            info_request_id: info_request,
+                            embargo_duration: '3_months' }
+                          }
+          end
+        end.to raise_error(CanCan::AccessDenied)
+      end
+
+    end
+
+  end
+
   describe "#destroy" do
     context "when the user is allowed to update the embargo" do
       context "because they are the owner" do
@@ -117,6 +207,13 @@ describe AlaveteliPro::EmbargoesController do
           expect(info_request_batch.reload.embargo_duration).to be_nil
         end
 
+        it "logs an 'expire_embargo' event for each request in the batch" do
+          info_request_batch.info_requests.each do |info_request|
+            expect(info_request.info_request_events.last.event_type).
+              to eq 'expire_embargo'
+          end
+        end
+
         it "shows a flash message" do
           expected_message = "Your requests are now public!"
           expect(flash[:notice]).to eq expected_message
@@ -145,6 +242,13 @@ describe AlaveteliPro::EmbargoesController do
 
         it "sets embargo_duration to nil on the batch" do
           expect(info_request_batch.reload.embargo_duration).to be_nil
+        end
+
+        it "logs an 'expire_embargo' event for each request in the batch" do
+          info_request_batch.info_requests.each do |info_request|
+            expect(info_request.info_request_events.last.event_type).
+              to eq 'expire_embargo'
+          end
         end
 
         it "shows a flash message" do

@@ -105,7 +105,6 @@ gem 'iso_country_codes', '~> 0.7.0'
 gem 'mahoro', '~> 0.4'
 gem 'newrelic_rpm'
 gem 'net-http-local', '~> 0.1.0', :platforms => [:ruby_19]
-gem 'net-purge', '~> 0.1.0'
 gem 'nokogiri', '~> 1.6.0', '< 1.7'
 gem 'open4', '~> 1.3.0'
 gem 'rack', '~> 1.6.0'
@@ -141,6 +140,7 @@ gem 'locale', '~> 2.0.0', '< 2.1.0'
 gem 'routing-filter', '~> 0.5.0', '< 0.6.0'
 gem 'unicode', '~> 0.4.0'
 gem 'unidecoder', '~> 1.1.0'
+gem 'money', '~> 6.10.0'
 
 # mime-types 3.0.0 requires Ruby 2.0.0, and _something_ is trying to update it
 gem 'mime-types', '< 3.0.0', require: false
@@ -174,7 +174,7 @@ group :test, :development do
   gem 'rspec-activemodel-mocks', '~> 1.0.0'
   gem 'rspec-rails', '~> 3.5.0'
   gem 'pry', '~> 0.10.0'
-  gem 'pry-debugger', '~> 0.2.0', :platforms => :ruby_19
+  gem 'pry-byebug', '~> 3.4.0'
     gem 'public_suffix', '~> 1.4.0', '< 1.5.0'
 end
 

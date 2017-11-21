@@ -22,6 +22,15 @@ FORCE_SSL: false
 # (http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
 ISO_COUNTRY_CODE: DE
 
+# ISO currency code of the currency Alaveteli Professional cost should be
+# displayed in.
+# (https://en.wikipedia.org/wiki/ISO_4217#Active_codes)
+#
+# Doesn't effect what currency the plans are setup in so this should match what
+# is configured at Stripe.com
+# (https://stripe.com/docs/currencies)
+ISO_CURRENCY_CODE: EUR
+
 # These feeds are displayed accordingly on the Alaveteli "blog" page:
 BLOG_FEED: 'http://www.mysociety.org/category/projects/whatdotheyknow/feed/'
 TWITTER_USERNAME: 'alaveteli_foi'
@@ -95,13 +104,6 @@ RECAPTCHA_PRIVATE_KEY: 'xxx'
 # existing process previously served a larger request, this won't
 # show any consumption for the later request.
 DEBUG_RECORD_MEMORY: false
-
-# If you have Alaveteli set up behind an HTTP caching proxy
-# (accelerator) like Varnish or Squid, you can cause the application
-# to purge selected URLs by setting these two variables (see
-# `../doc/CACHING.md` for details)
-ACCELERATOR_HOST: 'localhost'
-ACCELERATOR_PORT: '6081'
 
 # mySociety's gazeteer service.  Shouldn't change.
 GAZE_URL: http://gaze.mysociety.org

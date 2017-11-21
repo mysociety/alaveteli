@@ -59,6 +59,23 @@ FORCE_SSL: true
 # ---
 ISO_COUNTRY_CODE: GB
 
+# ISO currency code of the currency Alaveteli Professional cost should be
+# displayed in.
+# (https://en.wikipedia.org/wiki/ISO_4217#Active_codes)
+#
+# Doesn't affect what currency the plans are setup in so this should match what
+# is configured at Stripe.com
+# (https://stripe.com/docs/currencies)
+#
+# ISO_CURRENCY_CODE - String currency code (default: GBP)
+#
+# Examples:
+#
+#   ISO_CURRENCY_CODE: GBP
+#
+# ---
+ISO_CURRENCY_CODE: GBP
+
 # This is the timezone that times and dates are displayed in
 # If not set defaults to UTC.
 #
@@ -627,18 +644,6 @@ EXCEPTION_NOTIFICATIONS_TO:
 #
 # ---
 MAX_REQUESTS_PER_USER_PER_DAY: 6
-
-# If you're running behind Varnish set this to work out where to send purge
-# requests. Otherwise, don't set it.
-#
-# VARNISH_HOST - String (default: nil)
-#
-# Examples:
-#
-#   VARNISH_HOST: localhost
-#
-# ---
-VARNISH_HOST: null
 
 # Adding a value here will enable Google Analytics on all non-admin pages for
 # non-admin users.

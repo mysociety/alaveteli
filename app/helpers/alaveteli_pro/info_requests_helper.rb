@@ -2,7 +2,12 @@
 module AlaveteliPro::InfoRequestsHelper
   def embargo_publish_at(embargo)
     return unless embargo && embargo.publish_at
-    I18n.l(embargo.publish_at, format: '%d %B %Y')
+    I18n.l(embargo.publish_at, format: '%-d %B %Y')
+  end
+
+  def embargo_extend_from(embargo)
+    return unless embargo && embargo.publish_at
+    I18n.l(embargo.calculate_expiring_notification_at, format: '%-d %B %Y')
   end
 
   def publish_at_options

@@ -67,7 +67,8 @@ Layout/CommentIndentation:
 Layout/DotPosition:
   Description: 'Checks the position of the dot in multi-line method calls.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#consistent-multi-line-chains'
-  Enabled: false
+  Enabled: true
+  EnforcedStyle: 'trailing'
 
 Layout/ElseAlignment:
   Description: 'Align elses and elsifs correctly.'
@@ -239,13 +240,13 @@ Layout/SpaceBeforeBlockBraces:
 
 Layout/SpaceBeforeComma:
   Description: 'No spaces before commas.'
-  Enabled: false
+  Enabled: true
 
 Layout/SpaceBeforeComment:
   Description: >-
                  Checks for missing space between code and a comment on the
                  same line.
-  Enabled: false
+  Enabled: true
 
 Layout/SpaceBeforeSemicolon:
   Description: 'No spaces before semicolons.'
@@ -453,7 +454,7 @@ Style/Documentation:
 Style/DoubleNegation:
   Description: 'Checks for uses of double negation (!!).'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-bang-bang'
-  Enabled: false
+  Enabled: true
 
 Style/EachForSimpleLoop:
   Description: >-
@@ -613,7 +614,7 @@ Style/MultilineTernaryOperator:
                  Avoid multi-line ?: (the ternary operator);
                  use if/unless instead.
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-multiline-ternary'
-  Enabled: false
+  Enabled: true
 
 Style/MutableConstant:
   Description: 'Do not assign mutable objects to constants.'

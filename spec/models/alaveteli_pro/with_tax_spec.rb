@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe AlaveteliPro::WithTax do
-  let(:plan) { OpenStruct.new(amount: 833) }
+  let(:plan) { double(:plan, amount: 833) }
   subject { described_class.new(plan) }
 
   describe '#amount_with_tax' do

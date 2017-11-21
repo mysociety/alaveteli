@@ -129,7 +129,9 @@ class InfoRequest < ActiveRecord::Base
   scope :embargoed, Prominence::EmbargoedQuery.new
   scope :not_embargoed, Prominence::NotEmbargoedQuery.new
   scope :embargo_expiring, Prominence::EmbargoExpiringQuery.new
+  scope :embargo_expired_today, Prominence::EmbargoExpiredTodayQuery.new
   scope :visible_to_requester, Prominence::VisibleToRequesterQuery.new
+  scope :been_published, Prominence::BeenPublishedQuery.new
 
   scope :awaiting_response, State::AwaitingResponseQuery.new
   scope :response_received, State::ResponseReceivedQuery.new
@@ -143,6 +145,7 @@ class InfoRequest < ActiveRecord::Base
     alias_method :in_progress, :awaiting_response
   end
   scope :action_needed, State::ActionNeededQuery.new
+  scope :updated_before, ->(ts) { where('"info_requests"."updated_at" < ?', ts) }
 
   # user described state (also update in info_request_event, admin_request/edit.rhtml)
   validate :must_be_valid_state
@@ -174,7 +177,6 @@ class InfoRequest < ActiveRecord::Base
   after_destroy :update_counter_cache
   after_update :reindex_some_request_events
   before_destroy :expire
-  before_save :purge_in_cache
   # make sure the url_title is unique but don't update
   # existing requests unless the title is being changed
   before_save :update_url_title,
@@ -330,8 +332,6 @@ class InfoRequest < ActiveRecord::Base
 
     # also force a search reindexing (so changed text reflected in search)
     reindex_request_events
-    # and remove from varnish
-    purge_in_cache
   end
 
   # Removes anything cached about the object in the database, and saves
@@ -888,6 +888,13 @@ class InfoRequest < ActiveRecord::Base
           first
   end
 
+  def last_embargo_expire_event
+    info_request_events.
+      where(:event_type => 'expire_embargo').
+        reorder('created_at DESC').
+          first
+  end
+
   # Where the initial request is sent to
   def recipient_email
     public_body.request_email
@@ -1335,23 +1342,24 @@ class InfoRequest < ActiveRecord::Base
   def self.stop_new_responses_on_old_requests
     old = AlaveteliConfiguration.restrict_new_responses_on_old_requests_after_months
     very_old = old * 2
+
     # 'old' months since last change to request, only allow new incoming
     # messages from authority domains
-    InfoRequest.update_all <<-EOF.strip_heredoc.delete("\n")
-    allow_new_responses_from = 'authority_only'
-    WHERE updated_at < (now() - interval '#{ old } months')
-    AND allow_new_responses_from = 'anybody'
-    AND url_title <> 'holding_pen'
-    EOF
+    InfoRequest
+      .been_published
+      .where(allow_new_responses_from: 'anybody')
+      .where.not(url_title: 'holding_pen')
+      .updated_before(old.months.ago.to_date)
+      .update_all(allow_new_responses_from: 'authority_only')
 
     # 'very_old' months since last change to request, don't allow any new
     # incoming messages
-    InfoRequest.update_all <<-EOF.strip_heredoc.delete("\n")
-    allow_new_responses_from = 'nobody'
-    WHERE updated_at < (now() - interval '#{ very_old } months')
-    AND allow_new_responses_from IN ('anybody', 'authority_only')
-    AND url_title <> 'holding_pen'
-    EOF
+    InfoRequest
+      .been_published
+      .where(allow_new_responses_from: %w[anybody authority_only])
+      .where.not(url_title: 'holding_pen')
+      .updated_before(very_old.months.ago.to_date)
+      .update_all(allow_new_responses_from: 'nobody')
   end
 
   def json_for_api(deep)
@@ -1385,26 +1393,11 @@ class InfoRequest < ActiveRecord::Base
     ret
   end
 
-  def purge_in_cache
-    if AlaveteliConfiguration::varnish_host.present? && id
-      # we only do this for existing info_requests (new ones have a nil id)
-      path = url_for(:controller => 'request', :action => 'show', :url_title => url_title, :only_path => true, :locale => :none)
-      req = PurgeRequest.find_by_url(path)
-      if req.nil?
-        req = PurgeRequest.new(:url => path,
-                               :model => self.class.base_class.to_s,
-                               :model_id => id)
-      end
-      req.save
-    end
-  end
-
   # This method updates the count columns of the PublicBody that
   # store the number of "not held", "to some extent successful" and
   # "both visible and classified" requests when saving or destroying
   # an InfoRequest associated with the body:
   def update_counter_cache(body = public_body)
-    PublicBody.skip_callback(:save, :after, :purge_in_cache)
     success_states = ['successful', 'partially_successful']
     basic_params = {
       :public_body_id => body.id,
@@ -1422,7 +1415,6 @@ class InfoRequest < ActiveRecord::Base
        body.no_xapian_reindex = true
        body.save(validate: false)
      end
-     PublicBody.set_callback(:save, :after, :purge_in_cache)
   end
 
   def similar_cache_key
@@ -1581,11 +1573,25 @@ class InfoRequest < ActiveRecord::Base
   #
   # Returns boolean
   def embargo_expiring?
-    if self.embargo
-      self.embargo.publish_at <= AlaveteliPro::Embargo.expiring_soon_time
+    embargo ? embargo.expiring_soon? : false
+  end
+
+  # Has a previously attached embargo expired?
+  #
+  # Returns boolean
+  def embargo_expired?
+    if !embargo && last_embargo_expire_event
+      true
     else
       false
     end
+  end
+
+  # Is the attached embargo still present but has reached its publication date
+  #
+  # Returns boolean
+  def embargo_pending_expiry?
+    embargo ? embargo.expired? : false
   end
 
   # @see RequestSummaries#should_summarise?

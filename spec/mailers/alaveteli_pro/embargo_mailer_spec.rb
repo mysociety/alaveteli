@@ -15,6 +15,17 @@ describe AlaveteliPro::EmbargoMailer do
   let!(:expiring_3) do
     FactoryGirl.create(:embargo_expiring_request, user: pro_user_2)
   end
+
+  let!(:expired_1) do
+    FactoryGirl.create(:embargo_expired_request, user: pro_user)
+  end
+  let!(:expired_2) do
+    FactoryGirl.create(:embargo_expired_request, user: pro_user)
+  end
+  let!(:expired_3) do
+    FactoryGirl.create(:embargo_expired_request, user: pro_user_2)
+  end
+
   let!(:embargoed) { FactoryGirl.create(:embargoed_request) }
   let!(:not_embargoed) { FactoryGirl.create(:info_request) }
 
@@ -151,4 +162,125 @@ describe AlaveteliPro::EmbargoMailer do
       expect(@message.subject).not_to eq escaped_subject
     end
   end
+
+  describe '.alert_expired' do
+
+    it 'only sends one email per user' do
+      AlaveteliPro::EmbargoMailer.alert_expired
+      mails = ActionMailer::Base.deliveries
+      expect(mails.size).to eq 2
+      first_mail = mails.detect{ |mail| mail.to == [pro_user.email] }
+      second_mail = mails.detect{ |mail| mail.to == [pro_user_2.email] }
+      expect(first_mail).not_to be nil
+      expect(second_mail).not_to be nil
+    end
+
+    it 'only sends an alert about an expired embargo once' do
+      AlaveteliPro::EmbargoMailer.alert_expired
+      expect(ActionMailer::Base.deliveries.size).to eq 2
+
+      ActionMailer::Base.deliveries.clear
+      AlaveteliPro::EmbargoMailer.alert_expired
+      expect(ActionMailer::Base.deliveries.size).to eq 0
+    end
+
+    it 'creates UserInfoRequestSentAlert records for each expired request' do
+      expect(UserInfoRequestSentAlert.where(
+        info_request_id: expired_1.id,
+        user_id: pro_user.id)
+      ).not_to exist
+
+      expect(UserInfoRequestSentAlert.where(
+        info_request_id: expired_2.id,
+        user_id: pro_user.id)
+      ).not_to exist
+
+      expect(UserInfoRequestSentAlert.where(
+        info_request_id: expired_3.id,
+        user_id: pro_user_2.id)
+      ).not_to exist
+
+      AlaveteliPro::EmbargoMailer.alert_expired
+
+      expect(UserInfoRequestSentAlert.where(
+        info_request_id: expired_1.id,
+        user_id: pro_user.id)
+      ).to exist
+
+      expect(UserInfoRequestSentAlert.where(
+        info_request_id: expired_2.id,
+        user_id: pro_user.id)
+      ).to exist
+
+      expect(UserInfoRequestSentAlert.where(
+        info_request_id: expired_3.id,
+        user_id: pro_user_2.id)
+      ).to exist
+    end
+
+    it "doesn't include requests with use_notifications: true" do
+      pro_user_3 = FactoryGirl.create(:pro_user)
+      info_request = FactoryGirl.create(
+        :embargo_expired_request,
+        use_notifications: true,
+        user: pro_user_3
+      )
+
+      AlaveteliPro::EmbargoMailer.alert_expired
+
+      mails = ActionMailer::Base.deliveries
+      mail = mails.detect{ |mail| mail.to == [pro_user_3.email] }
+      expect(mail).to be nil
+    end
+  end
+
+  describe '#expired_alert' do
+
+    context "when there's just one embargo" do
+      before do
+        @message = AlaveteliPro::EmbargoMailer.
+                    expired_alert(pro_user, [expired_1]).
+                      message
+      end
+
+      it 'sets the subject correctly for a single embargo' do
+        expected = '1 request has been made public on Alaveteli'
+        expect(@message.subject).to eq expected
+      end
+
+      it "sends the email to the user" do
+        expect(@message.to).to eq [pro_user.email]
+      end
+
+      it "sends the email from the pro contact address" do
+        expect(@message.from).to eq [AlaveteliConfiguration.pro_contact_email]
+      end
+
+    end
+
+    context "when there are multiple embargoes" do
+
+      before do
+        @message = AlaveteliPro::EmbargoMailer.
+                     expired_alert(pro_user, [expired_1, expired_2]).
+                       message
+      end
+
+      it 'sets the subject correctly' do
+        expected = '2 requests have been made public on Alaveteli'
+        expect(@message.subject).to eq expected
+      end
+
+      it "sends the email to the user" do
+        expect(@message.to).to eq [pro_user.email]
+      end
+
+      it "sends the email from the pro contact address" do
+        expect(@message.from).to eq [AlaveteliConfiguration.pro_contact_email]
+      end
+
+    end
+
+  end
+
 end

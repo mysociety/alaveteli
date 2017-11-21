@@ -31,7 +31,7 @@ class AdminTrackController < AdminController
   private
 
   def set_track_thing
-    track_thing = TrackThing.find(params[:id])
+    @track_thing = TrackThing.find(params[:id])
   end
 
 end

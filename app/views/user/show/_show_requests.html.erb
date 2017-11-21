@@ -51,13 +51,15 @@
     <% else %>
       <h2 class="foi_results foi_requests" id="foi_requests">
         <% if @is_you %>
-          <%= n_('Your {{count}} Freedom of Information request',
-                 'Your {{count}} Freedom of Information requests',
+          <%= n_('Your Freedom of Information request',
+                 'Your Freedom of Information requests ' \
+                 '(approximately {{count}})',
                  @xapian_requests.matches_estimated,
                  :count => @xapian_requests.matches_estimated) %>
         <% else %>
-          <%= n_("This person's {{count}} Freedom of Information request",
-                 "This person's {{count}} Freedom of Information requests",
+          <%= n_("This person's Freedom of Information request",
+                 "This person's Freedom of Information requests " \
+                 "(approximately {{count}})",
                  @xapian_requests.matches_estimated,
                  :count => @xapian_requests.matches_estimated) %>
         <% end %>
@@ -75,7 +77,7 @@
       <% requests_collection =
            WillPaginate::Collection.new(@page,
                                         @per_page,
-                                        @display_user.info_requests.size) %>
+                                        @xapian_requests.matches_estimated) %>
       <%= will_paginate requests_collection %>
     <% end %>
   <% else %>

@@ -66,6 +66,7 @@ module AlaveteliConfiguration
       :INCOMING_EMAIL_SPAM_HEADER => 'X-Spam-Score',
       :INCOMING_EMAIL_SPAM_THRESHOLD => false,
       :ISO_COUNTRY_CODE => 'GB',
+      :ISO_CURRENCY_CODE => 'GBP',
       :MINIMUM_REQUESTS_FOR_STATISTICS => 100,
       :MAX_REQUESTS_PER_USER_PER_DAY => 6,
       :MTA_LOG_PATH => '/var/log/exim4/exim-mainlog-*',
@@ -117,7 +118,6 @@ module AlaveteliConfiguration
       :USE_GHOSTSCRIPT_COMPRESSION => false,
       :USE_MAILCATCHER_IN_DEVELOPMENT => true,
       :UTILITY_SEARCH_PATH => ["/usr/bin", "/usr/local/bin"],
-      :VARNISH_HOST => '',
       :WORKING_OR_CALENDAR_DAYS => 'working',
       :USE_BULLET_IN_DEVELOPMENT => false,
       :EXTERNAL_REVIEWERS => ''

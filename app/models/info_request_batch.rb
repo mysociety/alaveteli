@@ -225,4 +225,11 @@ class InfoRequestBatch < ActiveRecord::Base
     end
     categories
   end
+
+  # Log an event for all information requests within the batch
+  #
+  # Returns an array of InfoRequestEvent objects
+  def log_event(*args)
+    info_requests.map { |request| request.log_event(*args) }
+  end
 end
