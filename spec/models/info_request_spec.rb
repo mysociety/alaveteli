@@ -3384,8 +3384,8 @@ describe InfoRequest do
           # We want to make the info_request in the past, then effectively
           # jump forward to a point where it's delayed and we would be calling
           # log_overdue_events to mark it as overdue
-          time_travel_to(Date.parse('2014-12-31')){ info_request }
-          time_travel_to(Date.parse('2015-01-30')) do
+          time_travel_to(Time.zone.parse('2014-12-31')){ info_request }
+          time_travel_to(Time.zone.parse('2015-01-30')) do
             request_summary = info_request.request_summary
             expect(request_summary.request_summary_categories).
               to match_array([awaiting])
@@ -3409,8 +3409,8 @@ describe InfoRequest do
           # We want to make the info_request in the past, then effectively
           # jump forward to a point where it's delayed and we would be calling
           # log_overdue_events to mark it as overdue
-          time_travel_to(Date.parse('2014-12-31')){ info_request }
-          time_travel_to(Date.parse('2015-02-28')) do
+          time_travel_to(Time.zone.parse('2014-12-31')){ info_request }
+          time_travel_to(Time.zone.parse('2015-02-28')) do
             request_summary = info_request.request_summary
             expect(request_summary.request_summary_categories).
               to match_array([awaiting])
@@ -3615,9 +3615,9 @@ describe InfoRequest do
     context 'when there is a value stored in the database' do
 
       it 'returns the date a response is required by' do
-        time_travel_to(Date.parse('2014-12-31')) do
+        time_travel_to(Time.zone.parse('2014-12-31')) do
           expect(info_request.date_response_required_by)
-            .to eq Date.parse('2015-01-28')
+            .to eq Time.zone.parse('2015-01-28')
         end
       end
 
@@ -3626,13 +3626,13 @@ describe InfoRequest do
     context 'when there is no value stored in the database' do
 
       it 'returns the date a response is required by' do
-        time_travel_to(Date.parse('2014-12-31')) do
+        time_travel_to(Time.zone.parse('2014-12-31')) do
           info_request.send(:write_attribute, :date_response_required_by, nil)
           expect(info_request)
             .to receive(:calculate_date_response_required_by)
               .and_call_original
           expect(info_request.date_response_required_by)
-            .to eq Date.parse('2015-01-28')
+            .to eq Time.zone.parse('2015-01-28')
         end
       end
 
@@ -3644,9 +3644,9 @@ describe InfoRequest do
     let(:info_request){ FactoryGirl.create(:info_request) }
 
     it 'returns the date a response is required by' do
-      time_travel_to(Date.parse('2014-12-31')) do
+      time_travel_to(Time.zone.parse('2014-12-31')) do
         expect(info_request.calculate_date_response_required_by)
-          .to eq Date.parse('2015-01-28')
+          .to eq Time.zone.parse('2015-01-28')
       end
     end
 
@@ -3658,9 +3658,9 @@ describe InfoRequest do
     context 'when there is a value stored in the database' do
 
       it 'returns the date a response is very overdue after' do
-        time_travel_to(Date.parse('2014-12-31')) do
+        time_travel_to(Time.zone.parse('2014-12-31')) do
           expect(info_request.date_very_overdue_after)
-            .to eq Date.parse('2015-02-25')
+            .to eq Time.zone.parse('2015-02-25')
         end
       end
 
@@ -3669,13 +3669,13 @@ describe InfoRequest do
     context 'when there is no value stored in the database' do
 
       it 'returns the date a response is very overdue after' do
-        time_travel_to(Date.parse('2014-12-31')) do
+        time_travel_to(Time.zone.parse('2014-12-31')) do
           info_request.send(:write_attribute, :date_very_overdue_after, nil)
           expect(info_request)
             .to receive(:calculate_date_very_overdue_after)
               .and_call_original
           expect(info_request.date_very_overdue_after)
-            .to eq Date.parse('2015-02-25')
+            .to eq Time.zone.parse('2015-02-25')
         end
       end
 
@@ -3687,9 +3687,9 @@ describe InfoRequest do
     let(:info_request){ FactoryGirl.create(:info_request) }
 
     it 'returns the date a response is required by' do
-      time_travel_to(Date.parse('2014-12-31')) do
+      time_travel_to(Time.zone.parse('2014-12-31')) do
         expect(info_request.calculate_date_very_overdue_after)
-          .to eq Date.parse('2015-02-25')
+          .to eq Time.zone.parse('2015-02-25')
       end
     end
 
@@ -3719,18 +3719,18 @@ describe InfoRequest do
 
       it 'sets the due dates for the request' do
         # initial request sent
-        time_travel_to(Date.parse('2014-12-31')){ info_request }
+        time_travel_to(Time.zone.parse('2014-12-31')){ info_request }
 
-        time_travel_to(Date.parse('2015-01-01')) do
+        time_travel_to(Time.zone.parse('2015-01-01')) do
           event = info_request.log_event("resent", :param => 'value')
           expect(info_request.last_event_forming_initial_request_id)
             .to eq event.id
           expect(info_request.date_initial_request_last_sent_at)
-            .to eq Date.parse('2015-01-01')
+            .to eq Time.zone.parse('2015-01-01')
           expect(info_request.date_response_required_by)
-            .to eq Date.parse('2015-01-29')
+            .to eq Time.zone.parse('2015-01-29')
           expect(info_request.date_very_overdue_after)
-            .to eq Date.parse('2015-02-26')
+            .to eq Time.zone.parse('2015-02-26')
         end
       end
     end
@@ -3773,9 +3773,9 @@ describe InfoRequest do
 
     before do
       # initial request sent
-      time_travel_to(Date.parse('2014-12-31')){ info_request }
+      time_travel_to(Time.zone.parse('2014-12-31')){ info_request }
       # due dates updated based on new event
-      time_travel_to(Date.parse('2015-01-01')) do
+      time_travel_to(Time.zone.parse('2015-01-01')) do
         @event = FactoryGirl.create(:sent_event)
         info_request.set_due_dates(@event)
       end
@@ -3788,17 +3788,17 @@ describe InfoRequest do
 
     it 'sets the initial_request_last_sent_at value' do
       expect(info_request.date_initial_request_last_sent_at)
-        .to eq Date.parse('2015-01-01')
+        .to eq Time.zone.parse('2015-01-01')
     end
 
     it 'sets the date_response_required_by value' do
       expect(info_request.date_response_required_by)
-        .to eq Date.parse('2015-01-29')
+        .to eq Time.zone.parse('2015-01-29')
     end
 
     it 'sets the date_very_overdue_after value' do
       expect(info_request.date_very_overdue_after)
-        .to eq Date.parse('2015-02-26')
+        .to eq Time.zone.parse('2015-02-26')
     end
 
   end
@@ -3813,8 +3813,8 @@ describe InfoRequest do
     context 'when an InfoRequest is not overdue' do
 
       it 'does not create an event' do
-        time_travel_to(Date.parse('2014-12-31')){ info_request }
-        time_travel_to(Date.parse('2015-01-15')) do
+        time_travel_to(Time.zone.parse('2014-12-31')){ info_request }
+        time_travel_to(Time.zone.parse('2015-01-15')) do
           InfoRequest.log_overdue_events
           overdue_events = info_request.
                              info_request_events(true).
@@ -3829,9 +3829,9 @@ describe InfoRequest do
 
       it "creates an overdue event at the beginning of the first day
           after the request's due date" do
-        time_travel_to(Date.parse('2014-12-31')){ info_request }
+        time_travel_to(Time.zone.parse('2014-12-31')){ info_request }
 
-        time_travel_to(Date.parse('2015-01-30')) do
+        time_travel_to(Time.zone.parse('2015-01-30')) do
           InfoRequest.log_overdue_events
           overdue_events = info_request.
                              info_request_events(true).
@@ -3844,9 +3844,9 @@ describe InfoRequest do
 
       context "when the request has use_notifications: false" do
         it "does not notify the user of the event" do
-          time_travel_to(Date.parse('2014-12-31')) { info_request }
+          time_travel_to(Time.zone.parse('2014-12-31')) { info_request }
 
-          time_travel_to(Date.parse('2015-01-30')) do
+          time_travel_to(Time.zone.parse('2015-01-30')) do
             expect { InfoRequest.log_overdue_events }.
               not_to change { Notification.count }
           end
@@ -3855,11 +3855,11 @@ describe InfoRequest do
 
       context "when the request has use_notifications: true" do
         it "notifies the user of the event" do
-          time_travel_to(Date.parse('2014-12-31')) do
+          time_travel_to(Time.zone.parse('2014-12-31')) do
             use_notifications_request
           end
 
-          time_travel_to(Date.parse('2015-01-30')) do
+          time_travel_to(Time.zone.parse('2015-01-30')) do
             expect { InfoRequest.log_overdue_events }.
               to change { Notification.count }.by(1)
           end
@@ -3872,17 +3872,17 @@ describe InfoRequest do
 
       it "creates an overdue event at the beginning of the first day
           after the request's due date" do
-        time_travel_to(Date.parse('2014-12-31')){ info_request }
+        time_travel_to(Time.zone.parse('2014-12-31')){ info_request }
 
-        time_travel_to(Date.parse('2015-01-30')) do
+        time_travel_to(Time.zone.parse('2015-01-30')) do
           InfoRequest.log_overdue_events
         end
 
-        time_travel_to(Date.parse('2015-02-01')) do
+        time_travel_to(Time.zone.parse('2015-02-01')) do
           info_request.log_event('resent', {})
         end
 
-        time_travel_to(Date.parse('2015-03-01')) do
+        time_travel_to(Time.zone.parse('2015-03-01')) do
           InfoRequest.log_overdue_events
           overdue_events = info_request.
                              info_request_events(true).
@@ -3913,9 +3913,9 @@ describe InfoRequest do
 
       it 'should not create an event' do
 
-        time_travel_to(Date.parse('2014-12-31')){ info_request }
+        time_travel_to(Time.zone.parse('2014-12-31')){ info_request }
 
-        time_travel_to(Date.parse('2015-01-30')) do
+        time_travel_to(Time.zone.parse('2015-01-30')) do
           InfoRequest.log_very_overdue_events
           very_overdue_events = info_request.
                                   info_request_events(true).
@@ -3929,9 +3929,9 @@ describe InfoRequest do
 
       it "creates an overdue event at the beginning of the first day
           after the request's date_very_overdue_after" do
-        time_travel_to(Date.parse('2014-12-31')){ info_request }
+        time_travel_to(Time.zone.parse('2014-12-31')){ info_request }
 
-        time_travel_to(Date.parse('2015-02-28')) do
+        time_travel_to(Time.zone.parse('2015-02-28')) do
           InfoRequest.log_very_overdue_events
           very_overdue_events = info_request.
                                   info_request_events(true).
@@ -3945,9 +3945,9 @@ describe InfoRequest do
 
       context "when the request has use_notifications: false" do
         it "does not notify the user of the event" do
-          time_travel_to(Date.parse('2014-12-31')) { info_request }
+          time_travel_to(Time.zone.parse('2014-12-31')) { info_request }
 
-          time_travel_to(Date.parse('2015-02-28')) do
+          time_travel_to(Time.zone.parse('2015-02-28')) do
             expect { InfoRequest.log_overdue_events }.
               not_to change { Notification.count }
           end
@@ -3956,11 +3956,11 @@ describe InfoRequest do
 
       context "when the request has use_notifications: true" do
         it "notifies the user of the event" do
-          time_travel_to(Date.parse('2014-12-31')) do
+          time_travel_to(Time.zone.parse('2014-12-31')) do
             use_notifications_request
           end
 
-          time_travel_to(Date.parse('2015-02-28')) do
+          time_travel_to(Time.zone.parse('2015-02-28')) do
             expect { InfoRequest.log_overdue_events }.
               to change { Notification.count }.by(1)
           end
@@ -3973,17 +3973,17 @@ describe InfoRequest do
 
       it "creates a very_overdue event at the beginning of the first day
           after the request's date_very_overdue_after" do
-        time_travel_to(Date.parse('2014-12-31')){ info_request }
+        time_travel_to(Time.zone.parse('2014-12-31')){ info_request }
 
-        time_travel_to(Date.parse('2015-02-28')) do
+        time_travel_to(Time.zone.parse('2015-02-28')) do
           InfoRequest.log_very_overdue_events
         end
 
-        time_travel_to(Date.parse('2015-03-01')) do
+        time_travel_to(Time.zone.parse('2015-03-01')) do
           info_request.log_event('resent', {})
         end
 
-        time_travel_to(Date.parse('2015-04-30')) do
+        time_travel_to(Time.zone.parse('2015-04-30')) do
           InfoRequest.log_very_overdue_events
           very_overdue_events = info_request.
                                   info_request_events(true).
