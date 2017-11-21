@@ -9,9 +9,7 @@
 
   <label class="plan-overview__amount amount">
     <span>
-      <%= _('{{plan_price}}',
-            plan_price: number_to_currency(subscription_amount(subscription) / 100.0,
-                                           unit: '£')) %>
+      <%= format_currency(subscription_amount(subscription)) %>
       <span class="amount__freq">
         <%= billing_frequency(subscription.plan.interval) %>
 
