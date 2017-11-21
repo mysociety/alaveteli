@@ -412,6 +412,11 @@ div.pagination {
   }
 }
 
+.button:visited {
+  //Foundation doesn't define a :visited selector style
+  color: #ffffff;
+}
+
 .button-unstyled {
   //completely remove all of Foundation's styles
   background-color: transparent;

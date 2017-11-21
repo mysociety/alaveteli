@@ -2,15 +2,15 @@
 require 'spec_helper'
 
 describe AlaveteliPro::SubscriptionWithDiscount do
-  let(:plan) { OpenStruct.new(amount: 833) }
+  let(:plan) { double(:plan, amount: 833) }
   let(:coupon) { nil }
   let(:trial) { nil }
   let(:subscription) do
-    discount = OpenStruct.new(coupon: coupon) if coupon
+    discount = double(:coupon, coupon: coupon) if coupon
     trial_start = Time.now.to_i if trial
     trial_end = trial_start + 1 if trial
-    OpenStruct.new(plan: plan, discount: discount,
-                   trial_start: trial_start, trial_end: trial_end)
+    double(:subscription, plan: plan, discount: discount,
+                          trial_start: trial_start, trial_end: trial_end)
   end
 
   subject { described_class.new(subscription) }
@@ -25,7 +25,8 @@ describe AlaveteliPro::SubscriptionWithDiscount do
 
     context 'with percentage coupon' do
       let(:coupon) do
-        OpenStruct.new(id: '50_off', percent_off: 50, valid: true)
+        double(:coupon, id: '50_off', amount_off: nil,
+                        percent_off: 50, valid: true)
       end
 
       it 'applies a percentage discount correctly' do
@@ -35,7 +36,7 @@ describe AlaveteliPro::SubscriptionWithDiscount do
 
     context 'with fixed amount coupon' do
       let(:coupon) do
-        OpenStruct.new(id: '2_off', amount_off: 200, valid: true)
+        double(:coupon, id: '2_off', amount_off: 200, valid: true)
       end
 
       it 'applies an amount_off discount correctly' do
@@ -63,7 +64,7 @@ describe AlaveteliPro::SubscriptionWithDiscount do
 
     context 'the discount is invalid' do
       let(:coupon) do
-        OpenStruct.new(id: '50_off', percent_off: 50, valid: false)
+        double(:coupon, id: '50_off', valid: false)
       end
 
       it 'returns false' do
@@ -73,7 +74,8 @@ describe AlaveteliPro::SubscriptionWithDiscount do
 
     context 'a valid discount applies' do
       let(:coupon) do
-        OpenStruct.new(id: '50_off', percent_off: 50, valid: true)
+        double(:coupon, id: '50_off', amount_off: nil,
+                        percent_off: 50, valid: true)
       end
 
       it 'returns true' do
@@ -99,7 +101,7 @@ describe AlaveteliPro::SubscriptionWithDiscount do
 
     context 'with a coupon' do
       let(:coupon) do
-        OpenStruct.new(id: 'COUPON_ID', valid: true)
+        double(:coupon, id: 'COUPON_ID', valid: true)
       end
 
       it 'returns ID of coupon' do
@@ -121,7 +123,8 @@ describe AlaveteliPro::SubscriptionWithDiscount do
 
     context 'the price is > 0' do
       let(:coupon) do
-        OpenStruct.new(id: '50_off', percent_off: 50, valid: true)
+        double(:coupon, id: '50_off', amount_off: nil,
+                        percent_off: 50, valid: true)
       end
 
       it 'returns false' do
@@ -131,7 +134,8 @@ describe AlaveteliPro::SubscriptionWithDiscount do
 
     context 'there is a 100% discount' do
       let(:coupon) do
-        OpenStruct.new(id: '100_off', percent_off: 100, valid: true)
+        double(:coupon, id: '100_off', amount_off: nil,
+                        percent_off: 100, valid: true)
       end
 
       it 'returns true' do
@@ -141,7 +145,7 @@ describe AlaveteliPro::SubscriptionWithDiscount do
 
     context 'there is a discount that zeros the price' do
       let(:coupon) do
-        OpenStruct.new(id: '833_off', amount_off: 833, valid: true)
+        double(:coupon, id: '833_off', amount_off: 833, valid: true)
       end
 
       it 'returns true' do
