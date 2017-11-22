@@ -101,6 +101,26 @@ describe "viewing requests in alaveteli_pro" do
         end
       end
 
+      context 'the user does not have pro status' do
+
+        before do
+          pro_user.remove_role(:pro)
+        end
+
+        it 'allows the user to publish a request' do
+          using_pro_session(pro_user_session) do
+            browse_pro_request(info_request.url_title)
+            old_publish_at = embargo.publish_at.strftime('%-d %B %Y')
+            expect(page).to have_content("This request is private on " \
+                                         "Alaveteli until #{old_publish_at}")
+            click_button("Publish request")
+            expect(info_request.reload.embargo).to be nil
+            expect(page).to have_content("Your request is now public!")
+          end
+        end
+
+      end
+
       it 'allows the user to send a follow up' do
         using_pro_session(pro_user_session) do
           browse_pro_request(info_request.url_title)
@@ -144,6 +164,24 @@ describe "viewing requests in alaveteli_pro" do
 
         end
 
+        context 'the user does not have pro status' do
+
+          before do
+            pro_user.remove_role(:pro)
+          end
+
+          it 'does not show the option to extend the embargo' do
+            using_pro_session(pro_user_session) do
+              browse_pro_request(info_request.url_title)
+              expect(page).
+                to have_content("This request is private on Alaveteli until " \
+                                "#{embargo.publish_at.strftime('%-d %B %Y')}")
+              expect(page).not_to have_content('Keep private for a further:')
+            end
+          end
+
+        end
+
       end
 
       context 'the embargo is not expiring soon' do
@@ -170,24 +208,26 @@ describe "viewing requests in alaveteli_pro" do
           end
         end
 
-      end
+        context 'the user does not have pro status' do
 
-      context 'the user does not have pro status' do
-
-        before do
-          pro_user.remove_role(:pro)
-        end
-
-        it 'allows the user to publish a request' do
-          using_pro_session(pro_user_session) do
-            browse_pro_request(info_request.url_title)
-            old_publish_at = embargo.publish_at.strftime('%-d %B %Y')
-            expect(page).to have_content("This request is private on " \
-                                         "Alaveteli until #{old_publish_at}")
-            click_button("Publish request")
-            expect(info_request.reload.embargo).to be nil
-            expect(page).to have_content("Your request is now public!")
+          before do
+            pro_user.remove_role(:pro)
           end
+
+          it 'does not display a message to say when the embargo can be extended' do
+            using_pro_session(pro_user_session) do
+              expiring_notification = info_request.
+                                        embargo.
+                                          calculate_expiring_notification_at.
+                                            strftime('%-d %B %Y')
+              browse_pro_request(info_request.url_title)
+              expect(page).
+                to_not have_content("You will be able to extend this privacy " \
+                                    "period from #{expiring_notification}")
+            end
+
+          end
+
         end
 
       end
