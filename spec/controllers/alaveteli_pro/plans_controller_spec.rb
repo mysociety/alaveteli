@@ -7,6 +7,9 @@ describe AlaveteliPro::PlansController do
   after { StripeMock.stop }
   let(:stripe_helper) { StripeMock.create_test_helper }
   let!(:pro_plan) { stripe_helper.create_plan(id: 'pro', amount: 1000) }
+  let!(:alaveteli_pro_plan) do
+    stripe_helper.create_plan(id: 'alaveteli-pro', amount: 1000)
+  end
 
   describe 'GET #index' do
 
@@ -62,6 +65,28 @@ describe AlaveteliPro::PlansController do
 
         it 'finds the specified plan' do
           expect(assigns(:plan)).to eq(pro_plan)
+        end
+
+        it 'renders the plan page' do
+          expect(response).to render_template(:show)
+        end
+
+        it 'returns http success' do
+          expect(response).to have_http_status(:success)
+        end
+
+      end
+
+      context 'with a Stripe namespaced' do
+
+        before do
+          allow(AlaveteliConfiguration).to receive(:stripe_namespace).
+            and_return('alaveteli')
+          get :show, id: 'pro'
+        end
+
+        it 'finds the specified plan' do
+          expect(assigns(:plan)).to eq(alaveteli_pro_plan)
         end
 
         it 'renders the plan page' do

@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 class AlaveteliPro::PlansController < AlaveteliPro::BaseController
+  include AlaveteliPro::StripeNamespace
+
   skip_before_action :pro_user_authenticated?
   before_filter :authenticate, :check_existing_subscription, only: [:show]
 
@@ -7,13 +9,17 @@ class AlaveteliPro::PlansController < AlaveteliPro::BaseController
   end
 
   def show
-    stripe_plan = Stripe::Plan.retrieve(params[:id])
+    stripe_plan = Stripe::Plan.retrieve(plan_name)
     @plan = AlaveteliPro::WithTax.new(stripe_plan)
   rescue Stripe::InvalidRequestError
     raise ActiveRecord::RecordNotFound
   end
 
   private
+
+  def plan_name
+    add_stripe_namespace(params.require(:id))
+  end
 
   def authenticate
     post_redirect_params = {

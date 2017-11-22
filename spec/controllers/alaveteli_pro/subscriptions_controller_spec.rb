@@ -13,6 +13,11 @@ describe AlaveteliPro::SubscriptionsController do
       amount_off: 1000,
       currency: 'gbp'
     )
+    stripe_helper.create_coupon(
+      id: 'ALAVETELI-COUPON_CODE',
+      amount_off: 1000,
+      currency: 'gbp'
+    )
   end
 
   after do
@@ -102,6 +107,26 @@ describe AlaveteliPro::SubscriptionsController do
 
         it 'uses coupon code' do
           expect(assigns(:subscription).discount.coupon.id).to eq('COUPON_CODE')
+        end
+      end
+
+      context 'with Stripe namespace and coupon code' do
+        before do
+          allow(AlaveteliConfiguration).to receive(:stripe_namespace).
+            and_return('alaveteli')
+
+          post :create, 'stripeToken' => token,
+                        'stripeTokenType' => 'card',
+                        'stripeEmail' => user.email,
+                        'plan_id' => 'pro',
+                        'coupon_code' => 'coupon_code'
+        end
+
+        include_examples 'successful example'
+
+        it 'uses namespaced coupon code' do
+          expect(assigns(:subscription).discount.coupon.id).to eq(
+            'ALAVETELI-COUPON_CODE')
         end
       end
 
