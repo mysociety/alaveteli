@@ -54,10 +54,56 @@ describe "viewing requests in alaveteli_pro" do
       end
     end
 
+    context 'the request is not embargoed' do
+
+      it 'shows the privacy sidebar' do
+        using_pro_session(pro_user_session) do
+          browse_pro_request(info_request.url_title)
+          expect(page).to have_css("h2", text: "Privacy")
+        end
+      end
+
+      it 'does not show an embargo end date' do
+        using_pro_session(pro_user_session) do
+          browse_pro_request(info_request.url_title)
+          expect(page).not_to have_content "Private until"
+        end
+      end
+
+      it 'does not prompt the user to publish their request' do
+        using_pro_session(pro_user_session) do
+          browse_pro_request(info_request.url_title)
+          expect(page).not_to have_content "Publish request"
+        end
+      end
+
+      it 'shows the option to add an embargo' do
+        using_pro_session(pro_user_session) do
+          browse_pro_request(info_request.url_title)
+          expect(page).to have_content "Keep private for"
+        end
+      end
+
+    end
+
     context 'the request is embargoed' do
 
       let!(:embargo) do
         FactoryGirl.create(:embargo, info_request: info_request)
+      end
+
+      it 'shows the privacy sidebar' do
+        using_pro_session(pro_user_session) do
+          browse_pro_request(info_request.url_title)
+          expect(page).to have_css("h2", text: "Privacy")
+        end
+      end
+
+      it 'does not show the option to add an embargo' do
+        using_pro_session(pro_user_session) do
+          browse_pro_request(info_request.url_title)
+          expect(page).not_to have_content "Keep private for"
+        end
       end
 
       it 'does not allow the user to link to individual messages' do
