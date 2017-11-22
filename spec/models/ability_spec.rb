@@ -511,6 +511,33 @@ describe Ability do
         end
       end
 
+      context 'the request owner does not have an active pro subscription' do
+
+        before do
+          AlaveteliFeatures.backend.enable(:pro_pricing)
+          info_request.user.pro_account.update!(stripe_customer_id: nil)
+        end
+
+        after do
+          AlaveteliFeatures.backend.disable(:pro_pricing)
+        end
+
+        it 'does not allow the request owner to add an embargo' do
+          with_feature_enabled(:alaveteli_pro) do
+            ability = Ability.new(info_request.user)
+            expect(ability).not_to be_able_to(:create_embargo, info_request)
+          end
+        end
+
+        it 'allows pro admins to add an embargo' do
+          with_feature_enabled(:alaveteli_pro) do
+            ability = Ability.new(pro_admin_user)
+            expect(ability).to be_able_to(:create_embargo, info_request)
+          end
+        end
+
+      end
+
       context 'the info request is part of a batch' do
         let(:batch_request) do
           batch = FactoryGirl.create(:batch_request, user: user)

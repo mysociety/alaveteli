@@ -74,9 +74,21 @@ class Ability
 
       # Creating embargoes
       can :create_embargo, InfoRequest do |info_request|
-        user && info_request.user.is_pro? && !info_request.embargo &&
-          (user == info_request.user || user.is_pro_admin?) &&
-          info_request.info_request_batch_id.nil?
+        if feature_enabled? :pro_pricing
+          user && (info_request.user.is_pro? &&
+                   !info_request.embargo &&
+                   info_request.info_request_batch_id.nil? &&
+                   ((info_request.is_actual_owning_user?(user) &&
+                     self.class.active_pro_subscription?(info_request.user)) ||
+                    user.is_pro_admin?)
+                  )
+        else
+          user && (info_request.user.is_pro? &&
+                   !info_request.embargo &&
+                   info_request.info_request_batch_id.nil? &&
+                   (info_request.is_actual_owning_user?(user) ||
+                    user.is_pro_admin?))
+        end
       end
 
       # Extending embargoes
