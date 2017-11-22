@@ -1,3 +1,5 @@
+@import "responsive/_utils_print";
+
 $fix-mqs: false !default;
 
 @mixin respond-min($width) {
@@ -117,11 +119,15 @@ $lte-ie7: false !default;
 }
 body:hover .visually-hidden a, body:hover .visually-hidden input, body:hover .visually-hidden button { display: none !important; }
 
-/* Hide text when it's replaced by an image */
-.image-replacement {
+
+@mixin image-replacement() {
   overflow: hidden;
   text-indent: 150%;
   white-space: nowrap;
+}
+/* Hide text when it's replaced by an image */
+.image-replacement {
+  @include image-replacement();
 }
 
 .only-show-for-print {
@@ -137,4 +143,36 @@ body:hover .visually-hidden a, body:hover .visually-hidden input, body:hover .vi
     left: 0;
     z-index: 100;
   }
+}
+
+
+//Build our site wrapper, width optional max-width
+@mixin wrapper($max-width: $row-width) {
+  @include grid-row();
+  @include ie8{
+    width: $main_menu-mobile_menu_cutoff;
+  }
+  max-width: $max-width;
+}
+
+
+/* A global 12 column element provides padding for all pages */
+@mixin content() {
+  @include grid-column(12);
+  @include ie8{
+    padding-left: 0.9375em;
+    padding-right: 0.9375em;
+  }
+  @include lte-ie7 {
+    width: 56.125em;
+  }
+}
+
+//
+@mixin status-icon() {
+    background-image: image-url('status/status-sprite.png');
+    background-size: 330px 22px;
+    @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+      background-image: image-url('status/status-sprite@2.png');
+    }
 }
