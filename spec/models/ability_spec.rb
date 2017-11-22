@@ -532,12 +532,16 @@ describe Ability do
     end
 
     context 'the info request owner is not a pro user' do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryGirl.create(:pro_user) }
       let(:info_request) { FactoryGirl.create(:info_request, user: user) }
+
+      before do
+        user.remove_role(:pro)
+      end
 
       it 'prevents the request owner from adding an embargo' do
         with_feature_enabled(:alaveteli_pro) do
-          ability = Ability.new(info_request.user)
+          ability = Ability.new(user)
           expect(ability).not_to be_able_to(:create_embargo, info_request)
         end
 
