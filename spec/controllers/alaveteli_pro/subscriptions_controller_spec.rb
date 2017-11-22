@@ -391,7 +391,7 @@ describe AlaveteliPro::SubscriptionsController do
     context 'without a signed-in user' do
 
       before do
-        get :show
+        get :index
       end
 
       it 'redirects to the login form' do
@@ -410,7 +410,7 @@ describe AlaveteliPro::SubscriptionsController do
       end
 
       it 'redirects to the pricing page' do
-        get :show
+        get :index
         expect(response).to redirect_to(pro_plans_path)
       end
 
@@ -433,11 +433,11 @@ describe AlaveteliPro::SubscriptionsController do
 
       before do
         session[:user_id] = user.id
-        get :show
+        get :index
       end
 
       it 'successfully loads the page' do
-        get :show
+        get :index
         expect(response).to be_success
       end
 
@@ -529,7 +529,7 @@ describe AlaveteliPro::SubscriptionsController do
       end
 
       it 'redirects to the subscriptions page' do
-        expect(response).to redirect_to(profile_subscription_path)
+        expect(response).to redirect_to(subscriptions_path)
       end
 
       context 'when destroying a subscription belonging to another user' do
@@ -567,7 +567,7 @@ describe AlaveteliPro::SubscriptionsController do
         end
 
         it 'redirects to the subscriptions page' do
-          expect(response).to redirect_to(profile_subscription_path)
+          expect(response).to redirect_to(subscriptions_path)
         end
 
       end
@@ -590,7 +590,7 @@ describe AlaveteliPro::SubscriptionsController do
         end
 
         it 'redirects to the subscriptions page' do
-          expect(response).to redirect_to(profile_subscription_path)
+          expect(response).to redirect_to(subscriptions_path)
         end
 
       end
@@ -613,7 +613,7 @@ describe AlaveteliPro::SubscriptionsController do
         end
 
         it 'redirects to the subscriptions page' do
-          expect(response).to redirect_to(profile_subscription_path)
+          expect(response).to redirect_to(subscriptions_path)
         end
 
       end
@@ -636,7 +636,7 @@ describe AlaveteliPro::SubscriptionsController do
         end
 
         it 'redirects to the subscriptions page' do
-          expect(response).to redirect_to(profile_subscription_path)
+          expect(response).to redirect_to(subscriptions_path)
         end
 
       end
@@ -659,7 +659,7 @@ describe AlaveteliPro::SubscriptionsController do
         end
 
         it 'redirects to the subscriptions page' do
-          expect(response).to redirect_to(profile_subscription_path)
+          expect(response).to redirect_to(subscriptions_path)
         end
 
       end
@@ -668,7 +668,7 @@ describe AlaveteliPro::SubscriptionsController do
 
         it 'redirects to the plan page if there is a plan' do
           delete :destroy, :id => 'unknown'
-          expect(response).to redirect_to(profile_subscription_path)
+          expect(response).to redirect_to(subscriptions_path)
         end
 
       end

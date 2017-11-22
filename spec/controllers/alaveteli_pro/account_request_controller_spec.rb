@@ -3,11 +3,11 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe AlaveteliPro::AccountRequestController do
 
-  describe "#new" do
-    it "renders new.html.erb" do
+  describe "#index" do
+    it "renders index.html.erb" do
       with_feature_enabled :alaveteli_pro do
-        get :new
-        expect(response).to render_template('new')
+        get :index
+        expect(response).to render_template('index')
       end
     end
   end
@@ -46,9 +46,9 @@ describe AlaveteliPro::AccountRequestController do
 
     context 'if the account request is not valid' do
 
-      it 'renders the new template' do
+      it 'renders the index template' do
         post :create, account_request: {}
-        expect(response).to render_template('new')
+        expect(response).to render_template('index')
       end
 
     end

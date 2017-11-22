@@ -85,7 +85,8 @@
       load: function(query, callback) {
         if (!query.length) return callback();
         $.getJSON(
-            searchUrl + '/' + encodeURIComponent(query),
+            searchUrl,
+            { query: encodeURIComponent(query) },
             callback
           ).fail(callback);
       },

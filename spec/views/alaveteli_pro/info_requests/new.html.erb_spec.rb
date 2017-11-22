@@ -36,7 +36,7 @@ describe "alaveteli_pro/info_requests/new.html.erb" do
   it "sets a data-search-url attribute on the public body search" do
     assign_variables
     render
-    expect(rendered).to match(/data-search-url="\/alaveteli_pro\/public_bodies"/)
+    expect(rendered).to match(/data-search-url="\/en\/alaveteli_pro\/public_bodies"/)
   end
 
   it "includes a hidden field for the body id" do

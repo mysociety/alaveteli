@@ -4,7 +4,19 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
 
   skip_before_action :pro_user_authenticated?, only: [:create]
   before_filter :authenticate, only: [:create]
-  before_filter :check_existing_subscriptions, only: [:show]
+  before_filter :check_existing_subscriptions, only: [:index]
+
+  def index
+    @customer = current_user.pro_account.try(:stripe_customer)
+    @subscriptions = @customer.subscriptions.map do |subscription|
+      AlaveteliPro::SubscriptionWithDiscount.new(subscription)
+    end
+    if @customer.default_source
+      @card =
+        @customer.
+          sources.select { |card| card.id == @customer.default_source }.first
+    end
+  end
 
   # TODO: remove reminder of Stripe params once shipped
   #
@@ -85,18 +97,6 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
     redirect_to alaveteli_pro_dashboard_path
   end
 
-  def show
-    @customer = current_user.pro_account.try(:stripe_customer)
-    @subscriptions = @customer.subscriptions.map do |subscription|
-      AlaveteliPro::SubscriptionWithDiscount.new(subscription)
-    end
-    if @customer.default_source
-      @card =
-        @customer.
-          sources.select { |card| card.id == @customer.default_source }.first
-    end
-  end
-
   def destroy
     begin
       @customer = current_user.pro_account.try(:stripe_customer)
@@ -109,6 +109,11 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
       end
 
       @subscription.delete(at_period_end: true)
+
+      flash[:notice] = _('You have successfully cancelled your subscription ' \
+                         'to {{pro_site_name}}',
+                         pro_site_name: AlaveteliConfiguration.pro_site_name)
+
     rescue Stripe::RateLimitError,
            Stripe::InvalidRequestError,
            Stripe::AuthenticationError,
@@ -120,16 +125,9 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
 
       flash[:error] = _('There was a problem cancelling your account. Please ' \
                         'try again later.')
-
-      redirect_to profile_subscription_path
-      return
     end
 
-    flash[:notice] = _('You have successfully cancelled your subscription ' \
-                       'to {{pro_site_name}}',
-                       pro_site_name: AlaveteliConfiguration.pro_site_name)
-
-    redirect_to profile_subscription_path
+    redirect_to subscriptions_path
   end
 
   private

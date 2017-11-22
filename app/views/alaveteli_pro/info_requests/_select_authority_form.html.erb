@@ -10,7 +10,7 @@
            id="public_body_query"
            placeholder="<%= _('Search for an authority') %>"
            class="js-authority-select public-body-query"
-           data-search-url="/alaveteli_pro/public_bodies"
+           data-search-url="<%= alaveteli_pro_public_bodies_path %>"
            <% if info_request.public_body %>
              value="<%= @info_request.public_body.name %>"
              data-initial-authority="<%= public_body_search_attributes(info_request.public_body).to_json %>"

@@ -2,7 +2,7 @@
 # Does not inherit from AlaveteliPro::BaseController as is pre-login
 class AlaveteliPro::AccountRequestController < ApplicationController
 
-  def new
+  def index
   end
 
   def create
@@ -13,7 +13,7 @@ class AlaveteliPro::AccountRequestController < ApplicationController
                          pro_site_name: AlaveteliConfiguration.pro_site_name)
       redirect_to frontpage_url
     else
-      render 'new'
+      render 'index'
     end
   end
 

@@ -37,7 +37,7 @@ class AlaveteliPro::PlansController < AlaveteliPro::BaseController
     # TODO: This doesn't take the plan in to account
     if @user.pro_account.try(:active?)
       flash[:error] = _('You are already subscribed to this plan')
-      redirect_to profile_subscription_path
+      redirect_to subscriptions_path
     end
   end
 end
