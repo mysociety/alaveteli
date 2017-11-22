@@ -4,7 +4,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
 
   skip_before_action :pro_user_authenticated?, only: [:create]
   before_filter :authenticate, only: [:create]
-  before_filter :check_existing_subscriptions, only: [:index]
+  before_filter :check_active_subscription, only: [:index]
 
   def index
     @customer = current_user.pro_account.try(:stripe_customer)
@@ -141,7 +141,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
     authenticated?(post_redirect_params)
   end
 
-  def check_existing_subscriptions
+  def check_active_subscription
     # TODO: This doesn't take the plan in to account
     unless @user.pro_account.try(:active?)
       flash[:notice] = _('You don\'t currently have an active Pro subscription')
