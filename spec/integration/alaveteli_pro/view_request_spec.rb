@@ -60,6 +60,28 @@ describe "viewing requests in alaveteli_pro" do
         end
       end
 
+      context 'the user does not have a pro account' do
+
+        before do
+          pro_user.remove_role(:pro)
+        end
+
+        it 'does not show the privacy sidebar' do
+          using_pro_session(pro_user_session) do
+            browse_pro_request(info_request.url_title)
+            expect(page).not_to have_css("h2", text: "Privacy")
+          end
+        end
+
+        it 'does not show the option to add an embargo' do
+          using_pro_session(pro_user_session) do
+            browse_pro_request(info_request.url_title)
+            expect(page).not_to have_content "Keep private for"
+          end
+        end
+
+      end
+
     end
 
     context 'the request is embargoed' do
