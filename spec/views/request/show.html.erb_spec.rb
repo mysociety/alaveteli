@@ -122,7 +122,7 @@ describe "request/show" do
 
       it "should give a link to requesting an internal review" do
         expect(response.body).to have_css(
-          "p#request_status",
+          "div#request_status",
           :text => "requesting an internal review")
       end
     end
@@ -136,7 +136,7 @@ describe "request/show" do
 
       it "should give a link to make a followup" do
         expect(response.body).to have_css(
-          "p#request_status a",
+          "div#request_status a",
           :text => "send a follow up message")
       end
     end
