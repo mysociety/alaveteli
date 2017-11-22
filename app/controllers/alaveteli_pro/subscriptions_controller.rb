@@ -3,7 +3,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
   include AlaveteliPro::StripeNamespace
 
   skip_before_action :pro_user_authenticated?, only: [:create]
-  before_filter :authenticate, only: [:create]
+  before_filter :authenticate, :prevent_duplicate_submission, only: [:create]
   before_filter :check_active_subscription, only: [:index]
 
   def index
@@ -161,4 +161,10 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
     add_stripe_namespace(params.require(:coupon_code)).upcase
   end
 
+  def prevent_duplicate_submission
+    # TODO: This doesn't take the plan in to account
+    if @user.pro_account.try(:active?)
+      redirect_to alaveteli_pro_dashboard_path
+    end
+  end
 end

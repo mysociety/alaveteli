@@ -85,6 +85,40 @@ describe AlaveteliPro::SubscriptionsController do
         it 'sets new_pro_user in flash' do
           expect(flash[:new_pro_user]).to be true
         end
+
+      end
+
+      # technically possible but have only managed to do so locally (and with
+      # Safari) but just in case...
+      context 'the form is resubmitted' do
+
+        let(:token) { stripe_helper.generate_card_token }
+        let(:user) { FactoryGirl.create(:user) }
+
+        before do
+          session[:user_id] = user.id
+          post :create, 'stripeToken' => token,
+                        'stripeTokenType' => 'card',
+                        'stripeEmail' => user.email,
+                        'plan_id' => 'pro',
+                        'coupon_code' => ''
+          post :create, 'stripeToken' => token,
+                        'stripeTokenType' => 'card',
+                        'stripeEmail' => user.email,
+                        'plan_id' => 'pro',
+                        'coupon_code' => ''
+        end
+
+        it 'does not create a duplicate subscription' do
+          user.reload
+          expect(user.pro_account.stripe_customer.subscriptions.count).
+            to eq 1
+        end
+
+        it 'redirects to the dashboard' do
+          expect(response).to redirect_to(alaveteli_pro_dashboard_path)
+        end
+
       end
 
       context 'with a successful transaction' do
