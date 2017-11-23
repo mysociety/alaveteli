@@ -121,7 +121,7 @@ describe NotificationMailer do
       batch
     end
     let!(:very_overdue_batch_requests) do
-      overdue_batch_request.info_requests.order(:created_at)
+      very_overdue_batch_request.info_requests.order(:created_at)
     end
 
     # Incoming messages for new_response events
