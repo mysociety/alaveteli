@@ -1,32 +1,4 @@
 /* Style for the dashboard */
-
-.dashboard-nav {
-  list-style-type: none;
-  list-style: none;
-  border-bottom: 1px solid #ddd;
-}
-
-.dashboard-nav__item {
-  border-bottom: 1px solid #ddd;
-  // To overlap the bottom border with that of the containing list, making it
-  // appear continuous
-  margin-bottom: -2px;
-  a,
-  a:hover,
-  a:active,
-  a:focus {
-    font-weight: normal;
-    color: white;
-    text-decoration: none;
-  }
-}
-
-.dashboard-nav__item:hover,
-.dashboard-nav__item--highlighted {
-  border-bottom: 2px solid orange;
-  cursor: pointer;
-}
-
 .dashboard-folders,
 .dashboard-sub-folders {
   list-style: none;
