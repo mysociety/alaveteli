@@ -149,12 +149,8 @@ class NotificationMailer < ApplicationMailer
 
   def overdue_notification(notification)
     @info_request = notification.info_request_event.info_request
-
-    post_redirect = PostRedirect.new(
-      :uri => respond_to_last_url(@info_request, :anchor => "followup"),
-      :user_id => @info_request.user.id)
-    post_redirect.save!
-    @url = confirm_url(:email_token => post_redirect.email_token)
+    @url =
+      signin_url(r: respond_to_last_path(@info_request, anchor: 'followup'))
 
     set_reply_to_headers(@info_request.user)
     set_auto_generated_headers
@@ -169,12 +165,8 @@ class NotificationMailer < ApplicationMailer
 
   def very_overdue_notification(notification)
     @info_request = notification.info_request_event.info_request
-
-    post_redirect = PostRedirect.new(
-      :uri => respond_to_last_url(@info_request, :anchor => "followup"),
-      :user_id => @info_request.user.id)
-    post_redirect.save!
-    @url = confirm_url(:email_token => post_redirect.email_token)
+    @url =
+      signin_url(r: respond_to_last_path(@info_request, anchor: 'followup'))
 
     set_reply_to_headers(@info_request.user)
     set_auto_generated_headers

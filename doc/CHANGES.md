@@ -3,6 +3,7 @@
 
 ## Highlighted Features
 
+* Reduce usage of auto-login links in emails (Gareth Rees)
 * Remove rendering of exceptions in admin interface (Gareth Rees)
 * Pass through sign-in form if a user is already signed in (Gareth Rees)
 * Make the event history table responsive (Miroslav Schlossberg)
