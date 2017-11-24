@@ -9,6 +9,17 @@
   <div class="inner-canvas-body">
     <div class="row">
       <div class="settings-left-column">
+      <ul class="dashboard-folders">
+        <li class="dashboard-folder dashboard-folder--current-item">
+          <%= link_to _("Account"), subscriptions_path, :class => "dashboard-folder__name" %>
+        </li>
+        <li class="dashboard-folder">
+          <%= link_to _("Profile"), show_user_path(:url_name => @user.url_name), :class => "dashboard-folder__name" %>
+        </li>
+        <li class="dashboard-folder">
+          <%= link_to _("Wall"), show_user_wall_path(:url_name => @user.url_name), :class => "dashboard-folder__name" %>
+        </li>
+      </ul>
       </div>
       <div class="settings-right-column">
         <h2><%= _('Account') %></h2>

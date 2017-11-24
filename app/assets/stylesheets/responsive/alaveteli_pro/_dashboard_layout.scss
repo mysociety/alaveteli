@@ -53,6 +53,9 @@ $dashboard-collapse: 50em; //where the dashboard layout needs to change
 
 .dashboard-sub-folders {
   margin: 0 0 2em 0;
+  .dashboard-folder {
+    font-size: 0.875em; //14px
+  }
   .dashboard-folder__name {
     padding-left: 0.5em;
   }
@@ -60,7 +63,6 @@ $dashboard-collapse: 50em; //where the dashboard layout needs to change
 
 .dashboard-folder {
   margin-bottom: 0;
-  font-size: 0.875em; //14px
 }
 
 .dashboard-folder__name {
