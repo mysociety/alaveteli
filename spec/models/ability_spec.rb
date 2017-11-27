@@ -511,6 +511,33 @@ describe Ability do
         end
       end
 
+      context 'the request owner does not have an active pro subscription' do
+
+        before do
+          AlaveteliFeatures.backend.enable(:pro_pricing)
+          info_request.user.pro_account.update!(stripe_customer_id: nil)
+        end
+
+        after do
+          AlaveteliFeatures.backend.disable(:pro_pricing)
+        end
+
+        it 'does not allow the request owner to add an embargo' do
+          with_feature_enabled(:alaveteli_pro) do
+            ability = Ability.new(info_request.user)
+            expect(ability).not_to be_able_to(:create_embargo, info_request)
+          end
+        end
+
+        it 'allows pro admins to add an embargo' do
+          with_feature_enabled(:alaveteli_pro) do
+            ability = Ability.new(pro_admin_user)
+            expect(ability).to be_able_to(:create_embargo, info_request)
+          end
+        end
+
+      end
+
       context 'the info request is part of a batch' do
         let(:batch_request) do
           batch = FactoryGirl.create(:batch_request, user: user)
@@ -555,15 +582,83 @@ describe Ability do
   end
 
   describe "Updating Embargoes" do
-    let(:embargo) { FactoryGirl.create(:embargo) }
+    let(:embargo) do
+      FactoryGirl.create(:embargo, user: FactoryGirl.create(:pro_user))
+    end
     let(:admin_user) { FactoryGirl.create(:admin_user) }
     let(:pro_admin_user) { FactoryGirl.create(:pro_admin_user) }
 
-    it "allows the info request owner to update it" do
+    it 'allows the info request owner to remove it' do
       with_feature_enabled(:alaveteli_pro) do
         ability = Ability.new(embargo.info_request.user)
-        expect(ability).to be_able_to(:update, embargo)
+        expect(ability).to be_able_to(:destroy, embargo)
       end
+    end
+
+    it 'allows a non-pro info request owner to remove it' do
+      with_feature_enabled(:alaveteli_pro) do
+        allow(embargo.info_request.user).to receive(:is_pro?).and_return(false)
+        ability = Ability.new(embargo.info_request.user)
+        expect(ability).to be_able_to(:destroy, embargo)
+      end
+    end
+
+    context 'with pro_pricing enabled' do
+
+      before do
+        AlaveteliFeatures.backend.enable(:pro_pricing)
+      end
+
+      after do
+        AlaveteliFeatures.backend.disable(:pro_pricing)
+      end
+
+      context "with an active subscription" do
+
+        before do
+          allow(embargo.info_request.user.pro_account).
+              to receive(:active?).and_return(true)
+        end
+
+        it "allows the info request owner to update it" do
+          with_feature_enabled(:alaveteli_pro) do
+            ability = Ability.new(embargo.info_request.user)
+            expect(ability).to be_able_to(:update, embargo)
+          end
+        end
+
+        it "allows pro admins to update it" do
+          with_feature_enabled(:alaveteli_pro) do
+            ability = Ability.new(pro_admin_user)
+            expect(ability).to be_able_to(:update, embargo)
+          end
+        end
+
+      end
+
+      context "without an active subscription" do
+
+        before do
+          allow(embargo.info_request.user.pro_account).
+              to receive(:active?).and_return(false)
+        end
+
+        it "does not allow the info request owner to update it" do
+          with_feature_enabled(:alaveteli_pro) do
+            ability = Ability.new(embargo.info_request.user)
+            expect(ability).not_to be_able_to(:update, embargo)
+          end
+        end
+
+        it "allows pro admins to update it" do
+          with_feature_enabled(:alaveteli_pro) do
+            ability = Ability.new(pro_admin_user)
+            expect(ability).to be_able_to(:update, embargo)
+          end
+        end
+
+      end
+
     end
 
     it "allows pro admins to update it" do

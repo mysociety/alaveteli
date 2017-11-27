@@ -13,20 +13,30 @@
   <label class="houdini-label" for="input1"><%= _("Change privacy") %></label>
   <input class="houdini-input" type="checkbox" id="input1">
   <div class="houdini-target extend-embargo-sidebar">
-    <% if info_request.embargo %>
-      <%= render partial: "alaveteli_pro/info_requests/embargo_extension_form",
-                 locals: {info_request: info_request} %>
+  <% if info_request.embargo && can?(:update, info_request.embargo) %>
+    <%= render partial: "alaveteli_pro/info_requests/embargo_extension_form",
+               locals: {info_request: info_request} %>
+    <%= button_to _("Publish request"),
+                  alaveteli_pro_embargo_path(info_request.embargo),
+                  method: :delete,
+                  data: {
+                    confirm: _("Are you sure you want to publish " \
+                               "this request?") } %>
+  <% elsif can?(:create_embargo, info_request) %>
+    <%= render partial: "alaveteli_pro/info_requests/embargo_create_form",
+               locals: {info_request: info_request} %>
+  <% else %>
+    <% if info_request.embargo && can?(:destroy, info_request.embargo) %>
       <%= button_to _("Publish request"),
                     alaveteli_pro_embargo_path(info_request.embargo),
                     method: :delete,
                     data: {
                       confirm: _("Are you sure you want to publish " \
-                                 "this request?")
-                    } %>
-    <% else %>
-      <%= render partial: "alaveteli_pro/info_requests/embargo_create_form",
-                 locals: {info_request: info_request} %>
+                                 "this request?") } %>
     <% end %>
+    <%= render partial: "alaveteli_pro/info_requests/embargo_info",
+               locals: {embargo: info_request.embargo, tense: :present} %>
+  <% end %>
   </div>
 </div>
 <% end %>

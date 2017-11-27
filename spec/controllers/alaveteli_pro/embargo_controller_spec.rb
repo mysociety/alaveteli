@@ -1,8 +1,30 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
+require 'stripe_mock'
 
 describe AlaveteliPro::EmbargoesController do
-  let(:pro_user) { FactoryGirl.create(:pro_user) }
+  let(:stripe_helper) { StripeMock.create_test_helper }
+
+  before do
+    StripeMock.start
+    stripe_helper.create_plan(id: 'pro', amount: 1000)
+  end
+
+  after do
+    StripeMock.stop
+  end
+
+  let(:pro_user) do
+    user = FactoryGirl.create(:pro_user)
+    customer = Stripe::Customer.create({
+      email: user.email,
+      source: stripe_helper.generate_card_token,
+    })
+    user.pro_account.update!(stripe_customer_id: customer.id)
+    Stripe::Subscription.create(customer: customer, plan: 'pro')
+    user
+  end
+
   let(:admin) do
     user = FactoryGirl.create(:pro_admin_user)
     user.roles << Role.find_by(name: 'pro')
@@ -102,7 +124,7 @@ describe AlaveteliPro::EmbargoesController do
   end
 
   describe "#destroy" do
-    context "when the user is allowed to update the embargo" do
+    context "when the user is allowed to remove the embargo" do
       context "because they are the owner" do
         before do
           with_feature_enabled(:alaveteli_pro) do
@@ -119,6 +141,33 @@ describe AlaveteliPro::EmbargoesController do
         it "logs an 'expire_embargo' event" do
           expect(info_request.reload.info_request_events.last.event_type).
             to eq 'expire_embargo'
+        end
+
+        context 'they are no longer have an active subscription' do
+
+          before do
+            pro_user.pro_account.update!(stripe_customer_id: nil)
+          end
+
+          it 'destroys the embargo' do
+            expect { AlaveteliPro::Embargo.find(embargo.id) }.
+              to raise_error(ActiveRecord::RecordNotFound)
+          end
+
+        end
+
+        context 'they no longer have pro status' do
+
+          before do
+            pro_user.remove_role(:pro)
+            pro_user.save!
+          end
+
+          it 'destroys the embargo' do
+            expect { AlaveteliPro::Embargo.find(embargo.id) }.
+              to raise_error(ActiveRecord::RecordNotFound)
+          end
+
         end
 
       end

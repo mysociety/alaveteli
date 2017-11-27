@@ -1,8 +1,32 @@
 # -*- encoding : utf-8 -*-
 require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
+require 'stripe_mock'
 
 describe AlaveteliPro::EmbargoExtensionsController do
-  let(:pro_user) { FactoryGirl.create(:pro_user) }
+  let(:stripe_helper) { StripeMock.create_test_helper }
+
+  before do
+    StripeMock.start
+    stripe_helper.create_plan(id: 'pro', amount: 1000)
+    AlaveteliFeatures.backend.enable(:pro_pricing)
+  end
+
+  after do
+    StripeMock.stop
+    AlaveteliFeatures.backend.disable(:pro_pricing)
+  end
+
+  let(:pro_user) do
+    user = FactoryGirl.create(:pro_user)
+    customer = Stripe::Customer.create({
+      email: user.email,
+      source: stripe_helper.generate_card_token,
+    })
+    user.pro_account.update!(stripe_customer_id: customer.id)
+    Stripe::Subscription.create(customer: customer, plan: 'pro')
+    user
+  end
+
   let(:admin) do
     user = FactoryGirl.create(:pro_admin_user)
     user.roles << Role.find_by(name: 'pro')
@@ -99,7 +123,7 @@ describe AlaveteliPro::EmbargoExtensionsController do
     context "when the user is not allowed to update the embargo" do
       let(:other_user) {  FactoryGirl.create(:pro_user) }
 
-      it "raises a CanCan::AccessDenied error" do
+      it 'raises a CanCan::AccessDenied error' do
         expect do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = other_user.id
@@ -110,6 +134,27 @@ describe AlaveteliPro::EmbargoExtensionsController do
           end
         end.to raise_error(CanCan::AccessDenied)
       end
+
+      context 'because they do not have an active subscription' do
+
+        before do
+          pro_user.pro_account.update!(stripe_customer_id: nil)
+        end
+
+        it "raises a CanCan::AccessDenied error" do
+          expect do
+            with_feature_enabled(:alaveteli_pro) do
+              session[:user_id] = pro_user.id
+              post :create,
+                   alaveteli_pro_embargo_extension:
+                     { embargo_id: embargo.id,
+                       extension_duration: "3_months" }
+            end
+          end.to raise_error(CanCan::AccessDenied)
+        end
+
+      end
+
     end
 
     context 'when the embargo is not near expiry' do

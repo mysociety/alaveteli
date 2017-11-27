@@ -74,16 +74,41 @@ class Ability
 
       # Creating embargoes
       can :create_embargo, InfoRequest do |info_request|
-        user && info_request.user.is_pro? && !info_request.embargo &&
-          (user == info_request.user || user.is_pro_admin?) &&
-          info_request.info_request_batch_id.nil?
+        if feature_enabled? :pro_pricing
+          user && (info_request.user.is_pro? &&
+                   !info_request.embargo &&
+                   info_request.info_request_batch_id.nil? &&
+                   ((info_request.is_actual_owning_user?(user) &&
+                     self.class.active_pro_subscription?(info_request.user)) ||
+                    user.is_pro_admin?)
+                  )
+        else
+          user && (info_request.user.is_pro? &&
+                   !info_request.embargo &&
+                   info_request.info_request_batch_id.nil? &&
+                   (info_request.is_actual_owning_user?(user) ||
+                    user.is_pro_admin?))
+        end
       end
 
       # Extending embargoes
       can :update, AlaveteliPro::Embargo do |embargo|
-        user && (user == embargo.info_request.user || user.is_pro_admin?)
+        if feature_enabled? :pro_pricing
+          user && (user.is_pro_admin? ||
+                   user == embargo.info_request.user &&
+                   (user.is_pro? &&
+                    self.class.active_pro_subscription?(user)))
+        else
+          user && (user.is_pro_admin? ||
+                   user == embargo.info_request.user &&
+                   user.is_pro?)
+        end
       end
 
+      # Removing embargoes
+      can :destroy, AlaveteliPro::Embargo do |embargo|
+        user && (user == embargo.info_request.user || user.is_pro_admin?)
+      end
     end
 
     can :admin, AlaveteliPro::Embargo if user && user.is_pro_admin?
@@ -127,6 +152,10 @@ class Ability
   end
 
   private
+
+  def self.active_pro_subscription?(user)
+    user.pro_account && user.pro_account.active?
+  end
 
   def self.can_update_request_state?(user, request)
     (user && request.is_old_unclassified?) || request.is_owning_user?(user)
