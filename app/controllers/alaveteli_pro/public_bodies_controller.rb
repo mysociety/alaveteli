@@ -2,7 +2,7 @@
 class AlaveteliPro::PublicBodiesController < AlaveteliPro::BaseController
   include AlaveteliPro::PublicBodiesHelper
 
-  def search
+  def index
     query = params[:query] || ""
     xapian_results = typeahead_search(query, :model => PublicBody,
                                              :exclude_tags => [ 'defunct',

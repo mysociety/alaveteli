@@ -13,6 +13,11 @@ describe AlaveteliPro::SubscriptionsController do
       amount_off: 1000,
       currency: 'gbp'
     )
+    stripe_helper.create_coupon(
+      id: 'ALAVETELI-COUPON_CODE',
+      amount_off: 1000,
+      currency: 'gbp'
+    )
   end
 
   after do
@@ -69,12 +74,51 @@ describe AlaveteliPro::SubscriptionsController do
         end
 
         it 'welcomes the new user' do
-          expect(flash[:notice]).to eq('Welcome to Alaveteli Professional!')
+          partial_file = "alaveteli_pro/subscriptions/signup_message.html.erb"
+          expect(flash[:notice]).to eq({ :partial => partial_file })
         end
 
         it 'redirects to the pro dashboard' do
           expect(response).to redirect_to(alaveteli_pro_dashboard_path)
         end
+
+        it 'sets new_pro_user in flash' do
+          expect(flash[:new_pro_user]).to be true
+        end
+
+      end
+
+      # technically possible but have only managed to do so locally (and with
+      # Safari) but just in case...
+      context 'the form is resubmitted' do
+
+        let(:token) { stripe_helper.generate_card_token }
+        let(:user) { FactoryGirl.create(:user) }
+
+        before do
+          session[:user_id] = user.id
+          post :create, 'stripeToken' => token,
+                        'stripeTokenType' => 'card',
+                        'stripeEmail' => user.email,
+                        'plan_id' => 'pro',
+                        'coupon_code' => ''
+          post :create, 'stripeToken' => token,
+                        'stripeTokenType' => 'card',
+                        'stripeEmail' => user.email,
+                        'plan_id' => 'pro',
+                        'coupon_code' => ''
+        end
+
+        it 'does not create a duplicate subscription' do
+          user.reload
+          expect(user.pro_account.stripe_customer.subscriptions.count).
+            to eq 1
+        end
+
+        it 'redirects to the dashboard' do
+          expect(response).to redirect_to(alaveteli_pro_dashboard_path)
+        end
+
       end
 
       context 'with a successful transaction' do
@@ -102,6 +146,26 @@ describe AlaveteliPro::SubscriptionsController do
 
         it 'uses coupon code' do
           expect(assigns(:subscription).discount.coupon.id).to eq('COUPON_CODE')
+        end
+      end
+
+      context 'with Stripe namespace and coupon code' do
+        before do
+          allow(AlaveteliConfiguration).to receive(:stripe_namespace).
+            and_return('alaveteli')
+
+          post :create, 'stripeToken' => token,
+                        'stripeTokenType' => 'card',
+                        'stripeEmail' => user.email,
+                        'plan_id' => 'pro',
+                        'coupon_code' => 'coupon_code'
+        end
+
+        include_examples 'successful example'
+
+        it 'uses namespaced coupon code' do
+          expect(assigns(:subscription).discount.coupon.id).to eq(
+            'ALAVETELI-COUPON_CODE')
         end
       end
 
@@ -150,6 +214,10 @@ describe AlaveteliPro::SubscriptionsController do
 
         it 'redirects to the plan page' do
           expect(response).to redirect_to(plan_path('pro'))
+        end
+
+        it 'does not set new_pro_user in flash' do
+          expect(flash[:new_pro_user]).to be_nil
         end
 
       end
@@ -366,7 +434,7 @@ describe AlaveteliPro::SubscriptionsController do
     context 'without a signed-in user' do
 
       before do
-        get :show
+        get :index
       end
 
       it 'redirects to the login form' do
@@ -385,7 +453,7 @@ describe AlaveteliPro::SubscriptionsController do
       end
 
       it 'redirects to the pricing page' do
-        get :show
+        get :index
         expect(response).to redirect_to(pro_plans_path)
       end
 
@@ -408,11 +476,11 @@ describe AlaveteliPro::SubscriptionsController do
 
       before do
         session[:user_id] = user.id
-        get :show
+        get :index
       end
 
       it 'successfully loads the page' do
-        get :show
+        get :index
         expect(response).to be_success
       end
 
@@ -504,7 +572,7 @@ describe AlaveteliPro::SubscriptionsController do
       end
 
       it 'redirects to the subscriptions page' do
-        expect(response).to redirect_to(profile_subscription_path)
+        expect(response).to redirect_to(subscriptions_path)
       end
 
       context 'when destroying a subscription belonging to another user' do
@@ -542,7 +610,7 @@ describe AlaveteliPro::SubscriptionsController do
         end
 
         it 'redirects to the subscriptions page' do
-          expect(response).to redirect_to(profile_subscription_path)
+          expect(response).to redirect_to(subscriptions_path)
         end
 
       end
@@ -565,7 +633,7 @@ describe AlaveteliPro::SubscriptionsController do
         end
 
         it 'redirects to the subscriptions page' do
-          expect(response).to redirect_to(profile_subscription_path)
+          expect(response).to redirect_to(subscriptions_path)
         end
 
       end
@@ -588,7 +656,7 @@ describe AlaveteliPro::SubscriptionsController do
         end
 
         it 'redirects to the subscriptions page' do
-          expect(response).to redirect_to(profile_subscription_path)
+          expect(response).to redirect_to(subscriptions_path)
         end
 
       end
@@ -611,7 +679,7 @@ describe AlaveteliPro::SubscriptionsController do
         end
 
         it 'redirects to the subscriptions page' do
-          expect(response).to redirect_to(profile_subscription_path)
+          expect(response).to redirect_to(subscriptions_path)
         end
 
       end
@@ -634,7 +702,7 @@ describe AlaveteliPro::SubscriptionsController do
         end
 
         it 'redirects to the subscriptions page' do
-          expect(response).to redirect_to(profile_subscription_path)
+          expect(response).to redirect_to(subscriptions_path)
         end
 
       end
@@ -643,7 +711,7 @@ describe AlaveteliPro::SubscriptionsController do
 
         it 'redirects to the plan page if there is a plan' do
           delete :destroy, :id => 'unknown'
-          expect(response).to redirect_to(profile_subscription_path)
+          expect(response).to redirect_to(subscriptions_path)
         end
 
       end

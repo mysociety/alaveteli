@@ -16,9 +16,9 @@ Rails.application.routes.draw do
   root to: 'general#frontpage'
 
   #### General contoller
-  match '/' => 'general#frontpage',
-        :as => :frontpage,
-        :via => :get
+  root :to => 'general#frontpage',
+       :as => :frontpage,
+       :via => :get
   match '/blog' => 'general#blog',
         :as => :blog,
         :via => :get
@@ -613,40 +613,36 @@ Rails.application.routes.draw do
 
   #### Pro Pricing
   constraints FeatureConstraint.new(:pro_pricing) do
-    namespace :alaveteli_pro, path: 'pro', as: 'pro' do
-      resources :plans, only: [:index], path: 'pricing'
+
+    namespace :alaveteli_pro, path: :pro, as: :pro do
+      resources :plans, only: [:index], path: :pricing
       resources :pages, only: [:show]
     end
 
-    scope module: 'alaveteli_pro' do
+    scope module: :alaveteli_pro do
       resources :plans, only: [:show]
-      resources :subscriptions, only: [:create, :destroy]
 
-      # TODO: Move to subscriptions#index
-      # TODO: Use resourceful routing
-      match '/profile/subscriptions' => 'subscriptions#show',
-            :as => :profile_subscription,
-            :via => :get
+      scope path: :profile do
+        resources :subscriptions, only: [:index, :create, :destroy] do
+          collection do
+            resource :payment_method, only: [:update]
+          end
+        end
+      end
 
-      match '/profile/subscriptions/update_card' => 'payment_methods#update',
-            :as => :update_subscription_payment,
-            :via => :post
     end
+
   end
 
   #### Alaveteli Pro
   constraints FeatureConstraint.new(:alaveteli_pro) do
 
-    match '/pro' => 'alaveteli_pro/account_request#new',
-          :as => :new_pro_account_request,
-          :via => :get
-
-    match '/pro' => 'alaveteli_pro/account_request#create',
-      :as => :create_pro_account_request,
-      :via => :post
+    scope module: :alaveteli_pro do
+      resources :account_request, :only => [:index, :create], path: :pro
+    end
 
     namespace :alaveteli_pro do
-      match '/' => 'dashboard#index', :as => 'dashboard', :via => :get
+      root to: 'dashboard#index', :as => :dashboard, :via => :get
       resources :draft_info_requests, :only => [:create, :update]
       resources :info_requests, :only => [:new, :create, :update, :index] do
         get :preview, on: :new # /info_request/new/preview
@@ -661,44 +657,41 @@ Rails.application.routes.draw do
           post :create_batch
         end
       end
-      resources :batch_request_authority_searches, :only => [:new]
-      # So that we can return searches via GET not POST
-      match '/batch_request_authority_searches' => 'batch_request_authority_searches#create',
-            :as => :batch_request_authority_searches,
-            :via => :get
+      resources :batch_request_authority_searches, :only => [:index, :new]
       resources :draft_info_request_batches, :only => [:create, :update] do
         member do
-          put 'update_bodies'
+          put :update_bodies
         end
       end
       resources :info_request_batches, :only => [:new, :create] do
         get :preview, on: :new # /info_request_batch/new/preview
       end
-      match '/public_bodies/:query' => 'public_bodies#search',
-            :via => :get,
-            :as => :public_bodies_search
+      resources :public_bodies, :only => [:index]
     end
 
-    # So that we can show a request using the existing controller from the
-    # pro context
-    match '/alaveteli_pro/info_requests/:url_title' => 'request#show',
-      :as => :show_alaveteli_pro_request,
-      :via => :get,
-      :defaults => { :pro => "1" }
+    scope path: :alaveteli_pro do
+      # So that we can show a request using the existing controller from the
+      # pro context
+      match '/info_requests/:url_title' => 'request#show',
+            :as => :show_alaveteli_pro_request,
+            :via => :get,
+            :defaults => { :pro => '1' }
 
-    # So that we can show a batch request using the existing controller from
-    # the pro context
-    match '/alaveteli_pro/info_request_batches/:id' => 'info_request_batch#show',
-      :as => :show_alaveteli_pro_batch_request,
-      :via => :get,
-      :defaults => { :pro => "1" }
+      # So that we can show a batch request using the existing controller from
+      # the pro context
+      match '/info_request_batches/:id' => 'info_request_batch#show',
+            :as => :show_alaveteli_pro_batch_request,
+            :via => :get,
+            :defaults => { :pro => '1' }
 
-    # So that we can show the authority selection screen using the existing
-    # controller but in a pro context
-    match '/alaveteli_pro/select_authority' => 'request#select_authority',
-        :as => :alaveteli_pro_select_authority,
-        :via => :get,
-        :defaults => { :pro => "1" }
+      # So that we can show the authority selection screen using the existing
+      # controller but in a pro context
+      match '/select_authority' => 'request#select_authority',
+            :as => :alaveteli_pro_select_authority,
+            :via => :get,
+            :defaults => { :pro => '1' }
+    end
+
   end
   ####
 

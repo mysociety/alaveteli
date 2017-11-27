@@ -1172,3 +1172,16 @@ STRIPE_PUBLISHABLE_KEY: ''
 #
 # ---
 STRIPE_SECRET_KEY: ''
+
+# An optional Stripe.com namespace which allows plans & coupons to be separated
+# from other resources within Stripe. If used the Stripe resources will need IDs
+# like: '<namespace>-<id>'
+#
+# STRIPE_NAMESPACE - String (default: '')
+#
+# Examples:
+#
+# STRIPE_NAMESPACE: 'alaveteli'
+#
+# ---
+STRIPE_NAMESPACE: ''

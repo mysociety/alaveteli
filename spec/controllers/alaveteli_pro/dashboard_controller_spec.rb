@@ -24,6 +24,10 @@ describe AlaveteliPro::DashboardController do
       expect(assigns[:page]).to eq 1
     end
 
+    it 'does not set new_pro_user in flash' do
+      expect(flash[:new_pro_user]).to be_nil
+    end
+
     context 'if a page param is passed' do
 
       it 'assigns @page a numerical page param' do

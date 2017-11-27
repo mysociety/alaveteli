@@ -23,12 +23,12 @@ end %>
             :date => simple_date(info_request.created_at)) %>
     </div>
 
-    <span class="bottomline icon_<%= info_request.calculate_status %>">
+    <p>
+      <i class="icon-standalone icon_<%= info_request.calculate_status %>"></i>
       <strong>
         <%= info_request.display_status(cached_value_ok=true) %>
       </strong>
-      <br>
-    </span>
+    </p>
   </div>
 
   <div class="request_right">

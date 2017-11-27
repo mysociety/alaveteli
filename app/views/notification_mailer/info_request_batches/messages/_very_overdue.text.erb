@@ -15,11 +15,9 @@
 
 <% notifications.each do |notification| %>
   <% info_request = notification.info_request_event.info_request %>
-  <% post_redirect = PostRedirect.create!(
-       :uri => respond_to_last_url(info_request, :anchor => "followup"),
-       :user_id => info_request.user.id) %>
-  <% confirm_url = confirm_url(:email_token => post_redirect.email_token) %>
+  <% target = respond_to_last_path(info_request, anchor: 'followup') %>
+  <% url = signin_url(r: target) %>
   <%= _('{{public_body_name}}: {{confirm_url}}',
         public_body_name: info_request.public_body.name.html_safe,
-        confirm_url: confirm_url) %>
+        confirm_url: url) %>
 <% end %>

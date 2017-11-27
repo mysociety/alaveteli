@@ -14,11 +14,6 @@ class AdminController < ApplicationController
     raise(ActionController::InvalidAuthenticityToken)
   end
 
-  # Always give full stack trace for admin interface
-  def show_rails_exceptions?
-    true
-  end
-
   # For administration interface, return display name of authenticated user
   def admin_current_user
     if AlaveteliConfiguration::skip_admin_auth

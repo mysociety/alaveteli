@@ -129,7 +129,7 @@
 }
 
 .site-title__logo {
-  @extend .image-replacement;
+  @include image-replacement;
   width: $logo-width;
   height: $logo-height;
   background-size: $logo-width $logo-height;

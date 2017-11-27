@@ -30,20 +30,7 @@ end
 describe AlaveteliPro::BatchRequestAuthoritySearchesController do
   let(:pro_user) { FactoryGirl.create(:pro_user) }
 
-  describe "#new" do
-    before do
-      session[:user_id] = pro_user.id
-    end
-
-    it "renders new.html.erb" do
-      with_feature_enabled :alaveteli_pro do
-        get :new
-        expect(response).to render_template('new')
-      end
-    end
-  end
-
-  describe "#create" do
+  describe "#index" do
     let!(:authority_1) { FactoryGirl.create(:public_body) }
     let!(:authority_2) { FactoryGirl.create(:public_body) }
     let!(:authority_3) { FactoryGirl.create(:public_body) }
@@ -67,7 +54,7 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
     context "when responding to a normal request" do
       before do
         with_feature_enabled(:alaveteli_pro) do
-          get :create, authority_query: 'Example'
+          get :index, authority_query: 'Example'
         end
       end
 
@@ -75,18 +62,18 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
 
       it "handles an empty query string" do
         with_feature_enabled(:alaveteli_pro) do
-          get :create
+          get :index
           # No need for _search_result because no results
           expect(response).not_to render_template partial: '_search_result'
         end
       end
 
-      it "renders new.html.erb" do
-        expect(response).to render_template('new')
+      it "renders index.html.erb" do
+        expect(response).to render_template('index')
       end
 
       it "raises WillPaginate::InvalidPage error for pages beyond the limit" do
-        expect { get :create, authority_query: 'Example Public Body', page: 21 }.
+        expect { get :index, authority_query: 'Example Public Body', page: 21 }.
           to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -94,7 +81,7 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
     context "when responding to an ajax request" do
       before do
         with_feature_enabled :alaveteli_pro do
-          xhr :get, :create, authority_query: 'Example'
+          xhr :get, :index, authority_query: 'Example'
         end
       end
 
@@ -102,7 +89,7 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
 
       it "handles an empty query string" do
         with_feature_enabled(:alaveteli_pro) do
-          xhr :get, :create, authority_query: ''
+          xhr :get, :index, authority_query: ''
           # No need for _search_result because no results
           expect(response).not_to render_template partial: '_search_result'
         end
@@ -114,9 +101,24 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
       end
 
       it "raises WillPaginate::InvalidPage error for pages beyond the limit" do
-        expect { xhr :get, :create, authority_query: 'Example Public Body', page: 21 }.
+        expect { xhr :get, :index, authority_query: 'Example Public Body', page: 21 }.
           to raise_error(ActiveRecord::RecordNotFound)
       end
     end
+  end
+
+  describe '#new' do
+
+    before do
+      session[:user_id] = pro_user.id
+    end
+
+    it 'redirects to index action' do
+      get :new
+      expect(response).to redirect_to(
+        '/alaveteli_pro/batch_request_authority_searches'
+      )
+    end
+
   end
 end

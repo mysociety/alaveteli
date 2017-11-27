@@ -10,25 +10,27 @@ class AlaveteliPro::PaymentMethodsController < AlaveteliPro::BaseController
                     retrieve(current_user.pro_account.stripe_customer_id)
       @customer.source = @token.id
       @customer.save
+
       flash[:notice] = _('Your payment details have been updated')
+
     rescue Stripe::CardError => e
       flash[:error] = e.message
-      redirect_to profile_subscription_path
-      return
+
     rescue Stripe::RateLimitError,
            Stripe::InvalidRequestError,
            Stripe::AuthenticationError,
            Stripe::APIConnectionError,
            Stripe::StripeError => e
+
       if send_exception_notifications?
         ExceptionNotifier.notify_exception(e, :env => request.env)
       end
+
       flash[:error] = _('There was a problem updating your payment details. ' \
                         'Please try again later.')
-      redirect_to profile_subscription_path
-      return
     end
-    redirect_to profile_subscription_path
+
+    redirect_to subscriptions_path
   end
 
   private

@@ -165,14 +165,10 @@ class ApplicationController < ActionController::Base
     session[:ttl] = nil
   end
 
-  def show_rails_exceptions?
-    false
-  end
-
   def render_exception(exception)
-    # In development or the admin interface let Rails handle the exception
-    # with its stack trace templates
-    if Rails.application.config.consider_all_requests_local || show_rails_exceptions?
+    # In development let Rails handle the exception with its stack trace
+    # templates.
+    if Rails.application.config.consider_all_requests_local
       raise exception
     end
 

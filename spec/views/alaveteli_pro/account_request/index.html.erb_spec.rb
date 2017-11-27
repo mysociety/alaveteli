@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe 'alaveteli_pro/account_request/new.html.erb' do
+describe 'alaveteli_pro/account_request/index.html.erb' do
 
   context 'when pro_pricing is disabled' do
 

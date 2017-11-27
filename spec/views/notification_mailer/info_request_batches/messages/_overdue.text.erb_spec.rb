@@ -35,7 +35,6 @@ describe(
   end
 
   before do
-    allow(PostRedirect).to receive(:generate_random_token).and_return('TOKEN')
     render partial: template,
            locals: { notifications: batch_notifications }
   end
@@ -49,7 +48,8 @@ describe(
     batch_notifications.each do |notification|
       info_request = notification.info_request_event.info_request
       public_body_name = info_request.public_body.name
-      expected_url = confirm_url(:email_token => 'TOKEN')
+      target = respond_to_last_path(info_request, anchor: 'followup')
+      expected_url = signin_url(r: target)
       expected_text = "#{public_body_name}: #{expected_url}"
       expect(response).to have_text(expected_text)
     end

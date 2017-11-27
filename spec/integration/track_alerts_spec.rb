@@ -51,10 +51,11 @@ describe "When sending track alerts" do
 
     expect(mail.body).to match(/test comment/) # comment text included
 
-    post_redirect = PostRedirect.find_by_email_token(mail_token)
-    expected_path = show_user_path(:url_name => user.url_name,
-                                   :anchor => "email_subscriptions")
-    expect(post_redirect.uri).to match(expected_path)
+    # Check that there's a way to unsubscribe
+    target =
+      show_user_path(url_name: user.url_name, anchor: 'email_subscriptions')
+    subscription_preferences_link = signin_path(r: target)
+    expect(mail.body).to include(subscription_preferences_link)
 
     # Check nothing more is delivered if we try again
     deliveries.clear

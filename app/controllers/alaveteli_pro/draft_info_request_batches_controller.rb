@@ -46,7 +46,7 @@ class AlaveteliPro::DraftInfoRequestBatchesController < ApplicationController
         page: page
       )
     else
-      path = new_alaveteli_pro_batch_request_authority_search_path(
+      path = alaveteli_pro_batch_request_authority_searches_path(
         draft_id: draft.id
       )
     end

@@ -69,7 +69,7 @@ describe AlaveteliPro::PaymentMethodsController do
       it 'redirects to the account page' do
         post :update, 'stripeToken' => new_token,
                       'old_card_id' => old_card_id
-        expect(response).to redirect_to(profile_subscription_path)
+        expect(response).to redirect_to(subscriptions_path)
       end
 
       context 'with a successful transaction' do

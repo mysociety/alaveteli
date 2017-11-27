@@ -1,8 +1,22 @@
 # -*- encoding : utf-8 -*-
 class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
+  include AlaveteliPro::StripeNamespace
+
   skip_before_action :pro_user_authenticated?, only: [:create]
-  before_filter :authenticate, only: [:create]
-  before_filter :check_existing_subscriptions, only: [:show]
+  before_filter :authenticate, :prevent_duplicate_submission, only: [:create]
+  before_filter :check_active_subscription, only: [:index]
+
+  def index
+    @customer = current_user.pro_account.try(:stripe_customer)
+    @subscriptions = @customer.subscriptions.map do |subscription|
+      AlaveteliPro::SubscriptionWithDiscount.new(subscription)
+    end
+    if @customer.default_source
+      @card =
+        @customer.
+          sources.select { |card| card.id == @customer.default_source }.first
+    end
+  end
 
   # TODO: remove reminder of Stripe params once shipped
   #
@@ -40,14 +54,13 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
         tax_percent: 20.0
       }
 
-      coupon = params[:coupon_code]
-      subscription_attributes[:coupon] = coupon.upcase if coupon.present?
+      subscription_attributes[:coupon] = coupon_code if coupon_code?
 
       @subscription = Stripe::Subscription.create(subscription_attributes)
 
     rescue Stripe::CardError => e
       flash[:error] = e.message
-      redirect_to plan_path(params[:plan_id])
+      redirect_to plan_path(non_namespaced_plan_id)
       return
 
     rescue Stripe::RateLimitError,
@@ -69,28 +82,20 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
                           'have not been charged. Please try again later.')
       end
 
-      path = params[:plan_id] ? plan_path(params[:plan_id]) : pro_plans_path
-      redirect_to path
+      if params[:plan_id]
+        redirect_to plan_path(non_namespaced_plan_id)
+      else
+        redirect_to pro_plans_path
+      end
       return
     end
 
     current_user.add_role(:pro)
 
-    flash[:notice] = _('Welcome to {{pro_site_name}}!',
-                       pro_site_name: AlaveteliConfiguration.pro_site_name)
+    flash[:notice] =
+      { :partial => "alaveteli_pro/subscriptions/signup_message.html.erb" }
+    flash[:new_pro_user] = true
     redirect_to alaveteli_pro_dashboard_path
-  end
-
-  def show
-    @customer = current_user.pro_account.try(:stripe_customer)
-    @subscriptions = @customer.subscriptions.map do |subscription|
-      AlaveteliPro::SubscriptionWithDiscount.new(subscription)
-    end
-    if @customer.default_source
-      @card =
-        @customer.
-          sources.select { |card| card.id == @customer.default_source }.first
-    end
   end
 
   def destroy
@@ -105,6 +110,11 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
       end
 
       @subscription.delete(at_period_end: true)
+
+      flash[:notice] = _('You have successfully cancelled your subscription ' \
+                         'to {{pro_site_name}}',
+                         pro_site_name: AlaveteliConfiguration.pro_site_name)
+
     rescue Stripe::RateLimitError,
            Stripe::InvalidRequestError,
            Stripe::AuthenticationError,
@@ -116,16 +126,9 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
 
       flash[:error] = _('There was a problem cancelling your account. Please ' \
                         'try again later.')
-
-      redirect_to profile_subscription_path
-      return
     end
 
-    flash[:notice] = _('You have successfully cancelled your subscription ' \
-                       'to {{pro_site_name}}',
-                       pro_site_name: AlaveteliConfiguration.pro_site_name)
-
-    redirect_to profile_subscription_path
+    redirect_to subscriptions_path
   end
 
   private
@@ -138,11 +141,30 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
     authenticated?(post_redirect_params)
   end
 
-  def check_existing_subscriptions
+  def check_active_subscription
     # TODO: This doesn't take the plan in to account
     unless @user.pro_account.try(:active?)
       flash[:notice] = _('You don\'t currently have an active Pro subscription')
       redirect_to pro_plans_path
+    end
+  end
+
+  def non_namespaced_plan_id
+    remove_stripe_namespace(params[:plan_id])
+  end
+
+  def coupon_code?
+    params[:coupon_code].present?
+  end
+
+  def coupon_code
+    add_stripe_namespace(params.require(:coupon_code)).upcase
+  end
+
+  def prevent_duplicate_submission
+    # TODO: This doesn't take the plan in to account
+    if @user.pro_account.try(:active?)
+      redirect_to alaveteli_pro_dashboard_path
     end
   end
 end

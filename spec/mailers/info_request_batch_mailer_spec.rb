@@ -37,7 +37,9 @@ describe InfoRequestBatchMailer do
     end
 
     it 'assigns @url' do
-      expect(@mail.body.encoded).to match("http://test.host/en/c/")
+      @mail.body.to_s =~ /(http:\/\/.*)/
+      mail_url = $1
+      expect(mail_url).to eq(info_request_batch_url(@info_request_batch))
     end
   end
 end

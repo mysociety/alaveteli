@@ -1,7 +1,7 @@
 <label class="houdini-label input-beta-button button" for="input-beta">Get access to the beta</label>
 <input class="houdini-input" type="checkbox" id="input-beta" <% if params[:account_request].present? %>checked="true"<% end %>>
 <%= form_for :account_request,
-       :url => "#{create_pro_account_request_path}#input-beta",
+       :url => "#{account_request_index_path}#input-beta",
        :html => {:class => 'houdini-target form beta-signup-form'} do |f| %>
 <h3>Request access to WhatDoTheyKnow<sup>Pro</sup> beta</h3>
 Successful applicants will receive free early access to WhatDoTheyKnow<sup>Pro</sup> for 6 months.
