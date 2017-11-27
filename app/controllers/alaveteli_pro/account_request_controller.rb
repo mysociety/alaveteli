@@ -3,6 +3,11 @@
 class AlaveteliPro::AccountRequestController < ApplicationController
 
   def index
+    @public_beta = true
+  end
+
+  def new
+    render :index
   end
 
   def create
