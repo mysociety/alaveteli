@@ -34,7 +34,7 @@ describe "viewing requests in alaveteli_pro" do
         old_publish_at = embargo.publish_at
         expect(page).to have_content("This request is private on " \
                                      "Alaveteli until " \
-                                     "#{old_publish_at.strftime('%d %B %Y')}")
+                                     "#{old_publish_at.strftime('%-d %B %Y')}")
         select "3 Months", from: "Keep private for a further:"
         within ".update-embargo" do
           click_button("Update")
@@ -43,7 +43,7 @@ describe "viewing requests in alaveteli_pro" do
         expect(embargo.reload.publish_at).to eq(expected)
         expect(page).
           to have_content("This request is private on Alaveteli until " \
-                          "#{expected.strftime('%d %B %Y')}")
+                          "#{expected.strftime('%-d %B %Y')}")
       end
 
     end
