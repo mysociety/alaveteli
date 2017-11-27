@@ -81,3 +81,18 @@ $settings-collapse: 50em; //where the dashboard layout needs to change
 .cancel-sub-section {
   margin-top: 2em;
 }
+
+.vertical-navigation-menu {
+  margin: 0 0 2em 0;
+  padding: 0;
+}
+
+.vertical-navigation-menu__item {
+  margin-bottom: 0;
+}
+
+.vertical-navigation-menu__link {
+  display: block;
+  padding: 0.666em 1em 0.666em 1em;
+  width: 100%;
+}

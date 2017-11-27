@@ -1,35 +1,4 @@
 /* Style for the dashboard */
-.dashboard-folders,
-.dashboard-sub-folders {
-  list-style: none;
-  list-style-type: none;
-}
-
-.dashboard-folder__name {
-  color: #999;
-  border-bottom: 1px solid #ddd;
-  text-decoration: none;
-}
-
-.alaveteli-pro a.dashboard-folder__name:link,
-.alaveteli-pro a.dashboard-folder__name:visited {
-  color: #333;
-  &:hover,
-  &:active,
-  &:focus {
-
-  }
-}
-
-.dashboard-folder {
-  a {
-    &:hover,
-    &:active,
-    &:focus {
-      background-color: #e6e4df;
-    }
-  }
-}
 
 .dashboard-folder--disabled {
   color: #999;
@@ -37,20 +6,13 @@
 
 .dashboard-folder--top-level {
   background-color: #f3f1eb;
-  border-bottom: transparent;
 }
 
 .dashboard-folder--selected {
   font-weight: bold;
   font-size: 1em;
   background-color: transparent;
-  a {
-    border-color: #333;
-  }
-}
-
-.dashboard-folder--current-item {
-  font-weight: bold;
+  border-color: #333;
 }
 
 .dashboard-todo__list {
