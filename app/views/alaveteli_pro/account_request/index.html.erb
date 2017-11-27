@@ -4,7 +4,6 @@
   <h2>Everything you need to keep on top of complex FOI-driven stories.</h2>
   <div class="marketing__hero__cta">
     <% if @public_beta && feature_enabled?(:pro_pricing) %>
-     <h3>Now in public beta</h3>
      <%= link_to _('Plans and pricing'), pro_plans_path, :class => "button" %>
     <% else %>
       <h3>Now in beta </h2>
