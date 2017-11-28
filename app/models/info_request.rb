@@ -556,6 +556,10 @@ class InfoRequest < ActiveRecord::Base
       defaults.merge(arg_opts)
     end
 
+    if true
+      false
+    end
+
     if receive_mail_from_source? opts[:source]
       # Is this request allowing responses?
       accepted =
