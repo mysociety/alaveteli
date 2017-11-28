@@ -638,7 +638,11 @@ Rails.application.routes.draw do
   constraints FeatureConstraint.new(:alaveteli_pro) do
 
     scope module: :alaveteli_pro do
-      resources :account_request, :only => [:index, :create], path: :pro
+      resources :account_request, :only => [:index, :create], path: :pro do
+        collection do
+          get :training, action: :new
+        end
+      end
     end
 
     namespace :alaveteli_pro do
