@@ -3,11 +3,7 @@ require 'spec_helper'
 
 describe 'alaveteli_pro/account_request/index.html.erb' do
 
-  context 'when pro_pricing is disabled' do
-
-    before do
-      render
-    end
+  shared_examples_for 'rendering account request form' do
 
     it 'renders an in page link to the account request form' do
       expect(rendered).to have_css('a#launch-access')
@@ -23,9 +19,33 @@ describe 'alaveteli_pro/account_request/index.html.erb' do
 
   end
 
-  context 'when pro_pricing is enabled' do
+  context 'when pro_pricing is disabled' do
 
     before do
+      assign(:public_beta, true)
+      render
+    end
+
+    it_behaves_like 'rendering account request form'
+
+  end
+
+  context 'when not public beta' do
+
+    before do
+      with_feature_enabled(:pro_pricing) do
+        render
+      end
+    end
+
+    it_behaves_like 'rendering account request form'
+
+  end
+
+  context 'when both public beta and pro_pricing is enabled' do
+
+    before do
+      assign(:public_beta, true)
       with_feature_enabled(:pro_pricing) do
         render
       end

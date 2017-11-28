@@ -5,10 +5,25 @@ describe AlaveteliPro::AccountRequestController do
 
   describe "#index" do
     it "renders index.html.erb" do
-      with_feature_enabled :alaveteli_pro do
-        get :index
-        expect(response).to render_template('index')
-      end
+      get :index
+      expect(response).to render_template('index')
+    end
+
+    it 'assigns pubic beta variable' do
+      get :index
+      expect(assigns[:public_beta]).to eq true
+    end
+  end
+
+  describe "#new" do
+    it "renders index.html.erb" do
+      get :new
+      expect(response).to render_template('index')
+    end
+
+    it 'does not assigns pubic beta variable' do
+      get :new
+      expect(assigns[:public_beta]).to_not eq true
     end
   end
 
