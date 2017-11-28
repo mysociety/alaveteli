@@ -50,7 +50,13 @@
 
     <div id="right_half" class="right_half">
       <div class="sign-in-wrapper">
-        <p class="pretitle"><%= _('Got an account?') %></p>
+        <p class="pretitle">
+        <% if !@post_redirect.nil? && @post_redirect.reason_params[:pro] %>
+          <%= _('Got a {{site_name}} account?', :site_name => site_name) %>
+        <% else %>
+          <%= _('Got an account?') %>
+        <% end %>
+        </p>
         <h2><%= _('Sign in') %></h2>
         <%= render :partial => 'signin', :locals => { :sign_in_as_existing_user => false } %>
       </div>

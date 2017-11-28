@@ -23,7 +23,7 @@ class AlaveteliPro::PlansController < AlaveteliPro::BaseController
 
   def authenticate
     post_redirect_params = {
-      web: _('Confirm your account on {{site_name}}',
+      web: _('To signup to {{site_name}}',
              site_name: AlaveteliConfiguration.pro_site_name),
       email: _('Then you can activate your {{site_name}} account',
                site_name: AlaveteliConfiguration.pro_site_name),
