@@ -154,6 +154,7 @@ gem 'therubyracer', '~> 0.12.0'
 
 # Feature flags
 gem 'alaveteli_features', :path => 'gems/alaveteli_features'
+gem 'flipper-ui', '~> 0.10.2'
 
 group :test do
   gem 'fakeweb', '~> 1.3.0'
