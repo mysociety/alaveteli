@@ -47,18 +47,72 @@ describe AlaveteliPro::StripeWebhooksController do
         end
       end
 
+      it 'sends an exception email' do
+        expected = '(Stripe::SignatureVerificationError) "Unable to extract ' \
+                   'timestamp and signatures from header'
+        with_feature_enabled(:alaveteli_pro) do
+          post :receive, payload
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail.subject).
+            to include(expected)
+        end
+      end
+
+      it 'includes the error message in the message body' do
+        with_feature_enabled(:alaveteli_pro) do
+          post :receive, payload
+          expect(response.body).
+            to eq('{"error":"Unable to extract timestamp and signatures ' \
+                  'from header"}')
+        end
+      end
+
     end
 
     context 'the secret_key does not match' do
 
       let(:signing_secret) { 'whsec_fake' }
 
+      before do
+        request.headers.merge! signed_headers
+        post :receive, payload
+      end
+
       it 'returns 401 Unauthorized response' do
         with_feature_enabled(:alaveteli_pro) do
-          request.headers.merge! signed_headers
-          post :receive, payload
           expect(response.status).to eq(401)
         end
+      end
+
+      it 'sends an exception email' do
+        expected = '(Stripe::SignatureVerificationError) "No signatures ' \
+                   'found matching the expected signature for payload'
+        with_feature_enabled(:alaveteli_pro) do
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail.subject).
+            to include(expected)
+        end
+      end
+
+      it 'includes the error message in the message body' do
+        with_feature_enabled(:alaveteli_pro) do
+          expect(response.body).
+            to eq('{"error":"No signatures found matching the expected ' \
+                  'signature for payload"}')
+        end
+      end
+
+    end
+
+    context 'receiving an unhandled notification type' do
+
+      let(:payload) { '{"type": "custom.random_event"}' }
+
+      it 'sends an exception email' do
+        request.headers.merge! signed_headers
+        post :receive, payload
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).to match(/UnhandledStripeWebhookError/)
       end
 
     end
