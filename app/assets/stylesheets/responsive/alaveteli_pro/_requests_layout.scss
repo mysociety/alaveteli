@@ -308,7 +308,12 @@
 }
 
 .batch-request__requests__request__phase {
-  @include flex(1 0 50%);
+  @include flex(1 0 35%);
+  margin: 0;
+}
+
+.batch-request__requests__request__responses {
+  @include flex(1 0 15%);
   margin: 0;
 }
 

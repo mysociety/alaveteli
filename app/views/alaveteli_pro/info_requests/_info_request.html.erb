@@ -40,6 +40,11 @@
       <p><%= info_request.date_response_required_by.strftime('%d-%m-%Y') %></p>
     </div>
 
+    <div class="request__status">
+      <span class="request__meta__label"><%= _('Replies') %></span>
+      <p><%= info_request.incoming_messages.count %></p>
+    </div>
+
   </div> <!-- .request__meta -->
 
 </div> <!-- .request -->
