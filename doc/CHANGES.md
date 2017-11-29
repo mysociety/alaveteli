@@ -1,3 +1,10 @@
+# 0.28.0.14
+
+## Highlighted Features
+
+* Backported a way of efficiently finding and counting authorities with blank
+  contacts (Louise Crow)
+
 # 0.28.0.13
 
 ## Highlighted Features

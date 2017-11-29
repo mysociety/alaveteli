@@ -35,6 +35,10 @@ FactoryGirl.define do
     request_email 'request@example.com'
     last_edit_editor "admin user"
     last_edit_comment "Making an edit"
+
+    factory :blank_email_public_body do
+      request_email ''
+    end
   end
 
 
