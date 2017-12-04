@@ -7,17 +7,18 @@
   </a>
   <div class="logged-in-menu js-account-menu">
     <div class="profile-summary">
-      <p class="dashboard-profile">
+
         <% if @user.profile_photo %>
-          <img src="<%= get_profile_photo_url(:url_name => @user.url_name) %>" class="dashboard-profile__image">
+          <img src="<%= get_profile_photo_url(:url_name => @user.url_name) %>" class="profile-summary__image">
         <% end %>
-        <span class="dashboard-profile__name"><%= @user.name %>
-          <% if @user.is_pro? %>
-            <span class="pro-pill">pro</span></span>
-          <% end %>
+        <span class="profile-summary__name"><%= @user.name %>
+        </span>
+        <% if @user.is_pro? %>
+          <span class="pro-pill">pro</span>
+        <% end %>
         <br/>
-        <span class="dashboard-profile__email"><%= @user.email %></span>
-      </p>
+        <span class="profile-summary__email"><%= @user.email %></span>
+
     </div>
     <ul class="logged-in-menu__links">
       <% if @user.is_pro? %>
