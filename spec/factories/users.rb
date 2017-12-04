@@ -73,6 +73,10 @@ FactoryGirl.define do
         user.add_role :pro_admin
       end
     end
+
+    trait :enable_otp do
+      after(:build) { |object| object.enable_otp }
+    end
   end
 
 end

@@ -404,14 +404,14 @@ describe PasswordChangesController do
 
     context 'when the user has two factor authentication enabled' do
 
-      it 'changes the password with a correct otp_code' do
+      let(:user) { FactoryGirl.create(:user, :enable_otp) }
+
+      before(:each) do
         allow(AlaveteliConfiguration).
           to receive(:enable_two_factor_auth).and_return(true)
+      end
 
-        user = FactoryGirl.build(:user)
-        user.enable_otp
-        user.save!
-
+      it 'changes the password with a correct otp_code' do
         post_redirect =
           PostRedirect.create(:user => user, :uri => frontpage_url)
         session[:change_password_post_redirect_id] = post_redirect.id
@@ -425,13 +425,6 @@ describe PasswordChangesController do
       end
 
       it 'redirects to the two factor page to show the new OTP' do
-        allow(AlaveteliConfiguration).
-          to receive(:enable_two_factor_auth).and_return(true)
-
-        user = FactoryGirl.build(:user)
-        user.enable_otp
-        user.save!
-
         post_redirect =
           PostRedirect.create(:user => user, :uri => frontpage_url)
         session[:change_password_post_redirect_id] = post_redirect.id
@@ -445,13 +438,6 @@ describe PasswordChangesController do
       end
 
       it 'redirects to the two factor page even if there is a pretoken redirect' do
-        allow(AlaveteliConfiguration).
-          to receive(:enable_two_factor_auth).and_return(true)
-
-        user = FactoryGirl.build(:user)
-        user.enable_otp
-        user.save!
-
         post_redirect =
           PostRedirect.create(:user => user, :uri => frontpage_url)
         pretoken = PostRedirect.create(:user => user, :uri => '/')
@@ -465,13 +451,6 @@ describe PasswordChangesController do
       end
 
       it 'reminds the user that they have a new OTP' do
-        allow(AlaveteliConfiguration).
-          to receive(:enable_two_factor_auth).and_return(true)
-
-        user = FactoryGirl.build(:user)
-        user.enable_otp
-        user.save!
-
         post_redirect =
           PostRedirect.create(:user => user, :uri => frontpage_url)
         session[:change_password_post_redirect_id] = post_redirect.id
@@ -488,13 +467,6 @@ describe PasswordChangesController do
       end
 
       it 'does not change the password with an incorrect otp_code' do
-        allow(AlaveteliConfiguration).
-          to receive(:enable_two_factor_auth).and_return(true)
-
-        user = FactoryGirl.build(:user)
-        user.enable_otp
-        user.save!
-
         post_redirect =
           PostRedirect.create(:user => user, :uri => frontpage_url)
         session[:change_password_post_redirect_id] = post_redirect.id
@@ -508,13 +480,6 @@ describe PasswordChangesController do
       end
 
       it 'does not change the password without an otp_code' do
-        allow(AlaveteliConfiguration).
-          to receive(:enable_two_factor_auth).and_return(true)
-
-        user = FactoryGirl.build(:user)
-        user.enable_otp
-        user.save!
-
         post_redirect =
           PostRedirect.create(:user => user, :uri => frontpage_url)
         session[:change_password_post_redirect_id] = post_redirect.id
