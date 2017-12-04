@@ -174,10 +174,10 @@ Rails.application.routes.draw do
   # Use /profile for things to do with the currently signed in user.
   # Use /user/XXXX for things that anyone can see about that user.
   # Note that /profile isn't indexed by search (see robots.txt)
-  resource :password_change,
-           :only => [:new, :create, :edit, :update],
-           :path => '/profile/change_password',
-           :path_names => { :edit => '' }
+  resources :password_changes,
+            :only => [:new, :create, :edit, :update],
+            :path => '/profile/change_password',
+            :path_names => { :edit => '' }
 
   resource :one_time_password,
            :only => [:show, :create, :update, :destroy],

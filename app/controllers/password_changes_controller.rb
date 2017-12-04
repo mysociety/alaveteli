@@ -36,11 +36,8 @@ class PasswordChangesController < ApplicationController
     @password_change_user = User.where(:email => email).first
 
     if @password_change_user
-      uri = edit_password_change_url(@pretoken_hash)
-
       post_redirect_attrs =
-        { :uri => uri,
-          :post_params => {},
+        { :post_params => {},
           :reason_params =>
             { :web => '',
               :email => _('Then you can change your password on {{site_name}}',
@@ -50,6 +47,8 @@ class PasswordChangesController < ApplicationController
           :circumstance => 'change_password',
           :user => @password_change_user }
       post_redirect = PostRedirect.new(post_redirect_attrs)
+      post_redirect.uri = edit_password_change_url(post_redirect.token,
+                                                   @pretoken_hash)
       post_redirect.save!
 
       url = confirm_url(:email_token => post_redirect.email_token)
@@ -71,7 +70,7 @@ class PasswordChangesController < ApplicationController
 
   def update
     if @pretoken
-      @pretoken_redirect = PostRedirect.where(:token => @pretoken).first
+      @pretoken_redirect = PostRedirect.find_by(:token => @pretoken)
     end
 
     if @password_change_user
