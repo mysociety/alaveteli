@@ -195,6 +195,12 @@ describe PasswordChangesController do
       expect(assigns[:pretoken]).to eq(nil)
     end
 
+    it 'assigns the user' do
+      session[:change_password_post_redirect_id] = post_redirect.id
+      get :edit
+      expect(assigns[:password_change_user]).to eq(user)
+    end
+
     context 'no user is specified' do
 
       it 'redirects to new for the user to enter their email' do
@@ -219,16 +225,6 @@ describe PasswordChangesController do
 
     end
 
-    context 'a user has been redirected from a post redirect' do
-
-      it 'assigns the user from a post redirect' do
-        session[:change_password_post_redirect_id] = post_redirect.id
-        get :edit
-        expect(assigns[:password_change_user]).to eq(user)
-      end
-
-    end
-
   end
 
   describe 'PUT update' do
@@ -245,6 +241,66 @@ describe PasswordChangesController do
       @invalid_password_params =
         { :password => 'secret',
           :password_confirmation => 'password' }
+    end
+
+    it 'changes the password on success' do
+      old_hash = user.hashed_password
+      session[:change_password_post_redirect_id] = post_redirect.id
+      put :update, :password_change_user => @valid_password_params
+      expect(user.reload.hashed_password).not_to eq(old_hash)
+    end
+
+    it 'notifies the user the password change has been successful' do
+      session[:change_password_post_redirect_id] = post_redirect.id
+      put :update, :password_change_user => @valid_password_params
+      expect(flash[:notice]).to eq('Your password has been changed.')
+    end
+
+    it 'assigns the user from a post redirect' do
+      session[:change_password_post_redirect_id] = post_redirect.id
+
+      put :update, :password_change_user => @valid_password_params
+
+      expect(assigns[:password_change_user]).to eq(user)
+    end
+
+    it 'clears the session key and value on success' do
+      session[:change_password_post_redirect_id] = post_redirect.id
+      put :update, :password_change_user => @valid_password_params
+      expect(session.key?(:change_password_post_redirect_id)).to eq(false)
+    end
+
+    it 'retains the session key and value on failure' do
+      session[:change_password_post_redirect_id] = post_redirect.id
+      put :update, :password_change_user => @invalid_password_params
+      expect(session[:change_password_post_redirect_id]).
+        to eq(post_redirect.id)
+    end
+
+    it 'logs in the user on success' do
+      session[:change_password_post_redirect_id] = post_redirect.id
+      put :update, :password_change_user => @valid_password_params
+      expect(session[:user_id]).to eq(user.id)
+    end
+
+    it 'clears the user_circumstance session on success' do
+      session[:change_password_post_redirect_id] = post_redirect.id
+      session[:user_circumstance] = 'change_password'
+      put :update, :password_change_user => @valid_password_params
+      expect(session[:user_circumstance]).to be_nil
+    end
+
+    it 'retains the old password on failure' do
+      old_hash = user.hashed_password
+      session[:change_password_post_redirect_id] = post_redirect.id
+      put :update, :password_change_user => @invalid_password_params
+      expect(user.reload.hashed_password).to eq(old_hash)
+    end
+
+    it 're-renders the form on failure' do
+      session[:change_password_post_redirect_id] = post_redirect.id
+      put :update, :password_change_user => @invalid_password_params
+      expect(response).to render_template(:edit)
     end
 
     context 'no user is specified' do
@@ -264,64 +320,6 @@ describe PasswordChangesController do
         expect(response).to redirect_to new_password_change_path
       end
 
-    end
-
-    context 'a user has been redirected from a post redirect' do
-
-      it 'assigns the user from a post redirect' do
-        session[:change_password_post_redirect_id] = post_redirect.id
-
-        put :update, :password_change_user => @valid_password_params
-
-        expect(assigns[:password_change_user]).to eq(user)
-      end
-
-      it 'clears the session key and value on success' do
-        session[:change_password_post_redirect_id] = post_redirect.id
-        put :update, :password_change_user => @valid_password_params
-        expect(session.key?(:change_password_post_redirect_id)).to eq(false)
-      end
-
-      it 'retains the session key and value on failure' do
-        session[:change_password_post_redirect_id] = post_redirect.id
-        put :update, :password_change_user => @invalid_password_params
-        expect(session[:change_password_post_redirect_id]).
-          to eq(post_redirect.id)
-      end
-
-      it 'logs in the user on success' do
-        session[:change_password_post_redirect_id] = post_redirect.id
-        put :update, :password_change_user => @valid_password_params
-        expect(session[:user_id]).to eq(user.id)
-      end
-
-      it 'clears the user_circumstance session on success' do
-        session[:change_password_post_redirect_id] = post_redirect.id
-        session[:user_circumstance] = 'change_password'
-        put :update, :password_change_user => @valid_password_params
-        expect(session[:user_circumstance]).to be_nil
-      end
-
-    end
-
-    it 'changes the password on success' do
-      old_hash = user.hashed_password
-      session[:change_password_post_redirect_id] = post_redirect.id
-      put :update, :password_change_user => @valid_password_params
-      expect(user.reload.hashed_password).not_to eq(old_hash)
-    end
-
-    it 'retains the old password on failure' do
-      old_hash = user.hashed_password
-      session[:change_password_post_redirect_id] = post_redirect.id
-      put :update, :password_change_user => @invalid_password_params
-      expect(user.reload.hashed_password).to eq(old_hash)
-    end
-
-    it 'notifies the user the password change has been successful' do
-      session[:change_password_post_redirect_id] = post_redirect.id
-      put :update, :password_change_user => @valid_password_params
-      expect(flash[:notice]).to eq('Your password has been changed.')
     end
 
     context 'when a pretoken is supplied' do
@@ -359,12 +357,6 @@ describe PasswordChangesController do
         expect(response).to redirect_to(show_user_profile_path(user.url_name))
       end
 
-    end
-
-    it 're-renders the form on failure' do
-      session[:change_password_post_redirect_id] = post_redirect.id
-      put :update, :password_change_user => @invalid_password_params
-      expect(response).to render_template(:edit)
     end
 
     context 'when the user has two factor authentication enabled' do
