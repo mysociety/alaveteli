@@ -28,11 +28,6 @@ describe Users::ConfirmationsController do
         get :confirm, { :email_token => @post_redirect.email_token }
       end
 
-      it 'sets the change_password_post_redirect_id session key' do
-        expect(session[:change_password_post_redirect_id]).
-          to eq(@post_redirect.id)
-      end
-
       it 'does not log the user in' do
         expect(session[:user_id]).to eq(nil)
       end
@@ -58,10 +53,6 @@ describe Users::ConfirmationsController do
         get :confirm, { :email_token => @post_redirect.email_token }
 
         expect(@user.reload.email_confirmed).to eq(false)
-      end
-
-      it 'sets the user_circumstance to change_password' do
-        expect(session[:user_circumstance]).to eq('change_password')
       end
 
       it 'redirects to the post redirect uri' do

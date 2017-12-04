@@ -8,7 +8,7 @@
 class PasswordChangesController < ApplicationController
   before_filter :set_pretoken
   before_filter :set_pretoken_hash
-  before_filter :set_user_from_session, :only => [:edit, :update]
+  before_filter :set_user_from_token, :only => [:edit, :update]
 
   def new
     @email_field_options =
@@ -86,8 +86,6 @@ class PasswordChangesController < ApplicationController
       end
 
       if @password_change_user.save
-        session.delete(:change_password_post_redirect_id)
-        session.delete(:user_circumstance)
         session[:user_id] ||= @password_change_user.id
 
         if @pretoken_redirect
@@ -132,12 +130,11 @@ class PasswordChangesController < ApplicationController
     @pretoken_hash = @pretoken ? { :pretoken => @pretoken } : {}
   end
 
-  def set_user_from_session
+  def set_user_from_token
     @password_change_user ||=
-      if session[:change_password_post_redirect_id]
-        PostRedirect.find(session[:change_password_post_redirect_id]).user
-      else
-        nil
+      if params[:id]
+        post_redirect = PostRedirect.find_by(token: params[:id])
+        post_redirect.user if post_redirect
       end
   end
 

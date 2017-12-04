@@ -200,7 +200,6 @@ describe PasswordChangesController do
     end
 
     it 'assigns the user' do
-      session[:change_password_post_redirect_id] = post_redirect.id
       get :edit, :id => post_redirect.token
       expect(assigns[:password_change_user]).to eq(user)
     end
@@ -251,67 +250,37 @@ describe PasswordChangesController do
 
     it 'changes the password on success' do
       old_hash = user.hashed_password
-      session[:change_password_post_redirect_id] = post_redirect.id
       put :update, :id => post_redirect.token,
                    :password_change_user => @valid_password_params
       expect(user.reload.hashed_password).not_to eq(old_hash)
     end
 
     it 'notifies the user the password change has been successful' do
-      session[:change_password_post_redirect_id] = post_redirect.id
       put :update, :id => post_redirect.token,
                    :password_change_user => @valid_password_params
       expect(flash[:notice]).to eq('Your password has been changed.')
     end
 
     it 'assigns the user from a post redirect' do
-      session[:change_password_post_redirect_id] = post_redirect.id
-
       put :update, :id => post_redirect.token,
                    :password_change_user => @valid_password_params
       expect(assigns[:password_change_user]).to eq(user)
     end
 
-    it 'clears the session key and value on success' do
-      session[:change_password_post_redirect_id] = post_redirect.id
-      put :update, :id => post_redirect.token,
-                   :password_change_user => @valid_password_params
-      expect(session.key?(:change_password_post_redirect_id)).to eq(false)
-    end
-
-    it 'retains the session key and value on failure' do
-      session[:change_password_post_redirect_id] = post_redirect.id
-      put :update, :id => post_redirect.token,
-                   :password_change_user => @invalid_password_params
-      expect(session[:change_password_post_redirect_id]).
-        to eq(post_redirect.id)
-    end
-
     it 'logs in the user on success' do
-      session[:change_password_post_redirect_id] = post_redirect.id
       put :update, :id => post_redirect.token,
                    :password_change_user => @valid_password_params
       expect(session[:user_id]).to eq(user.id)
     end
 
-    it 'clears the user_circumstance session on success' do
-      session[:change_password_post_redirect_id] = post_redirect.id
-      session[:user_circumstance] = 'change_password'
-      put :update, :id => post_redirect.token,
-                   :password_change_user => @valid_password_params
-      expect(session[:user_circumstance]).to be_nil
-    end
-
     it 'retains the old password on failure' do
       old_hash = user.hashed_password
-      session[:change_password_post_redirect_id] = post_redirect.id
       put :update, :id => post_redirect.token,
                    :password_change_user => @invalid_password_params
       expect(user.reload.hashed_password).to eq(old_hash)
     end
 
     it 're-renders the form on failure' do
-      session[:change_password_post_redirect_id] = post_redirect.id
       put :update, :id => post_redirect.token,
                    :password_change_user => @invalid_password_params
       expect(response).to render_template(:edit)
@@ -343,7 +312,6 @@ describe PasswordChangesController do
 
       it 'redirects to the post redirect uri' do
         pretoken = PostRedirect.create(:user => user, :uri => '/')
-        session[:change_password_post_redirect_id] = post_redirect.id
         put :update, :id => post_redirect.token,
                      :password_change_user => @valid_password_params,
                      :pretoken => pretoken.token
@@ -352,7 +320,6 @@ describe PasswordChangesController do
 
       it 'does not redirect to another domain' do
         pretoken = PostRedirect.create(:user => user, :uri => 'http://bad.place.com/')
-        session[:change_password_post_redirect_id] = post_redirect.id
         put :update, :id => post_redirect.token,
                      :password_change_user => @valid_password_params,
                      :pretoken => pretoken.token
@@ -360,7 +327,6 @@ describe PasswordChangesController do
       end
 
       it 'redirects to the user profile with a blank pretoken' do
-        session[:change_password_post_redirect_id] = post_redirect.id
         put :update, :id => post_redirect.token,
                      :password_change_user => @valid_password_params,
                      :pretoken => ''
@@ -372,7 +338,6 @@ describe PasswordChangesController do
     context 'when there is no pretoken' do
 
       it 'redirects to the user profile on success' do
-        session[:change_password_post_redirect_id] = post_redirect.id
         put :update, :id => post_redirect.token,
                      :password_change_user => @valid_password_params
         expect(response).to redirect_to(show_user_profile_path(user.url_name))
@@ -390,8 +355,6 @@ describe PasswordChangesController do
       end
 
       it 'changes the password with a correct otp_code' do
-        session[:change_password_post_redirect_id] = post_redirect.id
-
         old_hash = user.hashed_password
         params = @valid_password_params.merge(:otp_code => user.otp_code)
         put :update, :id => post_redirect.token, :password_change_user => params
@@ -400,8 +363,6 @@ describe PasswordChangesController do
       end
 
       it 'redirects to the two factor page to show the new OTP' do
-        session[:change_password_post_redirect_id] = post_redirect.id
-
         old_hash = user.hashed_password
         params = @valid_password_params.merge(:otp_code => user.otp_code)
         put :update, :id => post_redirect.token, :password_change_user => params
@@ -411,8 +372,6 @@ describe PasswordChangesController do
 
       it 'redirects to the two factor page even if there is a pretoken redirect' do
         pretoken = PostRedirect.create(:user => user, :uri => '/')
-        session[:change_password_post_redirect_id] = post_redirect.id
-
         params = @valid_password_params.merge(:otp_code => user.otp_code)
         put :update, :id => post_redirect.token,
                      :password_change_user => params,
@@ -422,8 +381,6 @@ describe PasswordChangesController do
       end
 
       it 'reminds the user that they have a new OTP' do
-        session[:change_password_post_redirect_id] = post_redirect.id
-
         old_hash = user.hashed_password
         params = @valid_password_params.merge(:otp_code => user.otp_code)
         put :update, :id => post_redirect.token, :password_change_user => params
@@ -435,8 +392,6 @@ describe PasswordChangesController do
       end
 
       it 'does not change the password with an incorrect otp_code' do
-        session[:change_password_post_redirect_id] = post_redirect.id
-
         old_hash = user.hashed_password
         params = @valid_password_params.merge(:otp_code => 'invalid')
         put :update, :id => post_redirect.token, :password_change_user => params
@@ -445,8 +400,6 @@ describe PasswordChangesController do
       end
 
       it 'does not change the password without an otp_code' do
-        session[:change_password_post_redirect_id] = post_redirect.id
-
         old_hash = user.hashed_password
         put :update, :id => post_redirect.token,
                      :password_change_user => @valid_password_params
