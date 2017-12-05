@@ -36,6 +36,38 @@ describe AdminHolidayImportsController do
       expect(assigns[:holiday_import]).to be_instance_of(HolidayImport)
     end
 
+    describe 'when handling an iCal feed' do
+
+      let(:params) do
+        {
+          "holiday_import" => {
+            "holidays_attributes" => {
+              "0" => {
+                "description" => "M L King Day",
+                "day(1i)" => "2017",
+                "day(2i)" => "1",
+                "day(3i)" => "16"
+              },
+              "1" => {
+                "description" => "Thanksgiving Day",
+                "day(1i)" => "2017",
+                "day(2i)" => "11",
+                "day(3i)" => "23"
+              }
+            }
+          },
+          "commit" => "Import"
+        }
+      end
+
+      it 'should create the expected holidays' do
+        Holiday.delete_all
+        post :create, params
+        expect(Holiday.count).to eq(2)
+      end
+
+    end
+
     describe 'if the import can be saved' do
 
       before do
