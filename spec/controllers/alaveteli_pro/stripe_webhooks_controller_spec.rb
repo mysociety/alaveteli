@@ -144,6 +144,31 @@ describe AlaveteliPro::StripeWebhooksController do
 
     end
 
+    context 'the notification type is missing' do
+
+      let(:payload) { '{"id": "1234"}' }
+
+      before do
+        request.headers.merge! signed_headers
+        post :receive, payload
+      end
+
+      it 'returns a 400 Bad Request response' do
+        with_feature_enabled(:alaveteli_pro) do
+          expect(response.status).to eq(400)
+        end
+      end
+
+      it 'sends an exception email' do
+        expected = '(NoMethodError) "undefined method `type\''
+        with_feature_enabled(:alaveteli_pro) do
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail.subject).to include(expected)
+        end
+      end
+
+    end
+
   end
 
 end
