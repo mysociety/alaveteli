@@ -83,6 +83,12 @@ describe AlaveteliPro::SubscriptionsController do
           expect(result).to eq(true)
         end
 
+        it 'enables daily summary notifications for the user' do
+          result =
+            AlaveteliFeatures.backend[:notifications].enabled?(user)
+          expect(result).to eq(true)
+        end
+
         it 'welcomes the new user' do
           partial_file = "alaveteli_pro/subscriptions/signup_message.html.erb"
           expect(flash[:notice]).to eq({ :partial => partial_file })
