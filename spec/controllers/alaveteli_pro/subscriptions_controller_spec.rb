@@ -77,6 +77,12 @@ describe AlaveteliPro::SubscriptionsController do
           expect(user.is_pro?).to eq(true)
         end
 
+        it 'enables pop polling for the user' do
+          result =
+            AlaveteliFeatures.backend[:accept_mail_from_poller].enabled?(user)
+          expect(result).to eq(true)
+        end
+
         it 'welcomes the new user' do
           partial_file = "alaveteli_pro/subscriptions/signup_message.html.erb"
           expect(flash[:notice]).to eq({ :partial => partial_file })
