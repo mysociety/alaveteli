@@ -116,7 +116,9 @@
 .request__status,
 .request__recipient,
 .request__created,
-.request__updated {
+.request__updated,
+.request__due,
+.request__responses {
   @include respond-min( $dashboard-collapse ){
     margin-right: 1em;
   }
@@ -151,7 +153,7 @@
 .request__recipient {
   @include flex(1 0 100%);
   @include respond-min( 24em ){
-    @include flex(1 0 75%);
+    @include flex(1 0 100%);
   }
   @include respond-min( $dashboard-collapse ){
     @include flex(8 0 0);
@@ -159,7 +161,9 @@
 }
 
 .request__created,
-.request__updated {
+.request__updated,
+.request__due,
+.request__responses {
   @include flex(1 0 50%);
   @include respond-min( 24em ){
     @include flex(1 0 25%);

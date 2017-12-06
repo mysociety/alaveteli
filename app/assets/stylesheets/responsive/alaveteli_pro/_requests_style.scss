@@ -52,7 +52,9 @@ $complete: rgb(112, 203, 99);
 .request__status,
 .request__recipient,
 .request__created,
-.request__updated {
+.request__updated,
+.request__due,
+.request__responses {
   font-size: 0.875em; // 14px
   line-height: 1.5em;
 }
