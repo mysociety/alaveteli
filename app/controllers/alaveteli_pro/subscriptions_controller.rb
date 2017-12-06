@@ -91,6 +91,9 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
     end
 
     current_user.add_role(:pro)
+    AlaveteliFeatures.
+      backend.
+        enable_actor(:accept_mail_from_poller, current_user)
 
     flash[:notice] =
       { :partial => "alaveteli_pro/subscriptions/signup_message.html.erb" }
