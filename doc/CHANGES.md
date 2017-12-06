@@ -1,3 +1,9 @@
+# 0.30.0.2
+
+## Highlighted Features
+
+* Added a fix for the holiday imports admin tool (Liz Conlan)
+
 # 0.30.0.1
 
 ## Highlighted Features
