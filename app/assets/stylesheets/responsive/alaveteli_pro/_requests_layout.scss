@@ -113,10 +113,10 @@
   }
 }
 
+.request__status,
 .request__recipient,
 .request__created,
-.request__updated,
-.request__status {
+.request__updated {
   @include respond-min( $dashboard-collapse ){
     margin-right: 1em;
   }
@@ -128,6 +128,26 @@
 // TODO - the flex() rules for these add up to way less than 100%, yet the
 // elements still overflow their container. Not sure why. I've hacked it by
 // reducing the width of the select in the last element and floating it right
+.request__status {
+  position: relative;
+  padding-left: 25px;
+  @include flex(1 0 60%);
+  @include respond-min( 24em ){
+    @include flex(1 0 40%);
+  }
+  @include respond-min( $dashboard-collapse ){
+    @include flex(5 0 0);
+  }
+  .phase-icon {
+    position: absolute;
+    top: 1.45em;
+    left: 0;
+    @include respond-min( $dashboard-collapse ){
+      top: 0.7em;
+    }
+  }
+}
+
 .request__recipient {
   @include flex(1 0 100%);
   @include respond-min( 24em ){
@@ -146,30 +166,6 @@
   }
   @include respond-min( $dashboard-collapse ){
     @include flex(3 0 0);
-  }
-}
-
-
-.request__status {
-  position: relative;
-  padding-left: 25px;
-  @include flex(1 0 60%);
-  @include respond-min( 24em ){
-    @include flex(1 0 40%);
-  }
-  @include respond-min( $dashboard-collapse ){
-    @include flex(5 0 0);
-  }
-  p {
-
-  }
-  .phase-icon {
-    position: absolute;
-    top: 1.45em;
-    left: 0;
-    @include respond-min( $dashboard-collapse ){
-      top: 0.7em;
-    }
   }
 }
 
