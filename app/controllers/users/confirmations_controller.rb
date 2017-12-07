@@ -15,7 +15,9 @@ class Users::ConfirmationsController < UserController
         clear_session_credentials
       end
 
-      session[:change_password_post_redirect_id] = post_redirect.id
+      redirect_to post_redirect.uri
+      return
+
     when 'normal', 'change_email'
       # !User.stay_logged_in_on_redirect?(nil)
       # # => true
