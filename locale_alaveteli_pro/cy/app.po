@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 16:14+0000\n"
+"POT-Creation-Date: 2017-12-07 14:22+0000\n"
 "PO-Revision-Date: 2017-01-20 17:40+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>, 2017\n"
 "Language-Team: Welsh (https://www.transifex.com/mysociety/teams/33529/cy/)\n"
@@ -22,6 +21,12 @@ msgid " <strong>Summarising</strong> the content of any information returned. "
 msgstr ""
 
 msgid " Say how you've <strong>used the information</strong>, with links if possible."
+msgstr ""
+
+msgid "'Crime statistics by ward level for Wales'"
+msgstr ""
+
+msgid "(no title)"
 msgstr ""
 
 msgid "+ Add"
@@ -38,9 +43,6 @@ msgstr "3 Mis"
 
 msgid "6 Months"
 msgstr "6 Mis"
-
-msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
-msgstr ""
 
 msgid "<strong>Thank</strong> the public authority."
 msgstr ""
@@ -60,6 +62,9 @@ msgstr "Gweithred"
 msgid "Add an annotation"
 msgstr "Ychwanegu anodiad"
 
+msgid "Add annotation"
+msgstr ""
+
 msgid "Add authorities to your batch"
 msgstr ""
 
@@ -69,6 +74,9 @@ msgstr "Ychwanegwyd"
 msgid "All requests"
 msgstr "Eich ceisiadau"
 
+msgid "Also called {{other_name}}."
+msgstr ""
+
 msgid "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
 msgstr ""
 
@@ -76,6 +84,9 @@ msgid "Are you sure the information you’re after isn’t available elsewhere?"
 msgstr ""
 
 msgid "Are you sure you want to publish this request?"
+msgstr ""
+
+msgid "Batch request"
 msgstr ""
 
 msgid "Browse public requests"
@@ -114,6 +125,9 @@ msgstr "Drafftiau"
 msgid "Edit your request"
 msgstr "Golygu'ch cais"
 
+msgid "Email doesn't look like a valid address"
+msgstr ""
+
 msgid "First created"
 msgstr "Creuwyd yn gyntaf"
 
@@ -135,6 +149,9 @@ msgstr "Cadw'n breifat yn hirach am:"
 msgid "Last updated"
 msgstr "Diweddarwyd diwethaf"
 
+msgid "Make a batch request"
+msgstr ""
+
 msgid "Make a request"
 msgstr "Gwneud cais"
 
@@ -147,10 +164,34 @@ msgstr "Fy mhroffil"
 msgid "My wall"
 msgstr "Fy wal"
 
+msgid "No bodies selected"
+msgstr ""
+
+msgid "No title"
+msgstr ""
+
 msgid "Note: When this request is made public on {{site_name}}, this message will also be made public."
 msgstr ""
 
+msgid "Note: When this request is made public on {{site_name}}, your name and annotation will appear in <strong>search engines</strong>."
+msgstr ""
+
 msgid "Once you’re happy with your request, click preview and send."
+msgstr ""
+
+msgid "Pending"
+msgstr ""
+
+msgid "Please enter the reason why you want access"
+msgstr ""
+
+msgid "Please enter your email address"
+msgstr ""
+
+msgid "Please tell us if you want to get updates"
+msgstr ""
+
+msgid "Please tell us if you're interested in training and seminars"
 msgstr ""
 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
@@ -159,14 +200,20 @@ msgstr ""
 msgid "Preview and send request"
 msgstr "Rhagolwg ac anfon cais"
 
-msgid "Preview new {{law_used_short}} request to '{{public_body_name}}"
+msgid "Preview new batch request"
 msgstr ""
 
-msgid "Preview your request"
-msgstr "Rhagolwg o'ch cais"
+msgid "Preview new {{law_used_short}} request to '{{public_body_name}}'"
+msgstr ""
 
 msgid "Privacy"
 msgstr "Preifatrwydd"
+
+msgid "Private"
+msgstr ""
+
+msgid "Private until {{date}}"
+msgstr ""
 
 msgid "Provide extra context on the request and your reasons for making it."
 msgstr ""
@@ -176,6 +223,9 @@ msgstr "Cyhoeddi'n syth"
 
 msgid "Publish request"
 msgstr "Cyhoeddi'r cais"
+
+msgid "Publish requests"
+msgstr ""
 
 msgid "Publish this request or keep it private for longer."
 msgid_plural "Publish these requests or keep them private for longer."
@@ -212,8 +262,20 @@ msgstr "Cais i"
 msgid "Requests"
 msgstr "Ceisiadau"
 
+msgid "Requests in this batch are private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
+msgstr ""
+
+msgid "Requests in this batch are public"
+msgstr ""
+
+msgid "Requests in this batch will be private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
+msgstr ""
+
 msgid "Requests that will be made public soon"
 msgstr "Ceisiadau a chaiff eu gwneud yn gyhoeddus yn fuan"
+
+msgid "Response due"
+msgstr ""
 
 msgid "Save draft"
 msgstr "Cadw drafft"
@@ -249,11 +311,31 @@ msgstr ""
 msgid "Send a reply to {{person_or_body}}"
 msgstr "Anfon ymateb at {{person_or_body}}"
 
+msgid "Send message"
+msgstr ""
+
 msgid "Send request"
 msgstr "Anfon ymateb"
 
+msgid "Send {{count}} requests"
+msgid_plural "Send {{count}} requests"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
 msgid "Sending..."
 msgstr "Yn anfon..."
+
+msgid "Sent"
+msgstr ""
+
+msgid "Show {{count}} request in detail</span>"
+msgid_plural "Show {{count}} requests in detail</span>"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
 
 msgid "Sorry, no authorities matched that search"
 msgstr ""
@@ -264,10 +346,16 @@ msgstr ""
 msgid "Sorry, something went wrong publishing your request, please try again."
 msgstr ""
 
+msgid "Sorry, something went wrong publishing your requests, please try again."
+msgstr ""
+
 msgid "Sorry, something went wrong updating your batch request, please try again."
 msgstr ""
 
 msgid "Sorry, something went wrong updating your request's privacy settings, please try again."
+msgstr ""
+
+msgid "Sorry, something went wrong updating your requests' privacy settings, please try again."
 msgstr ""
 
 msgid "Sort by"
@@ -289,6 +377,9 @@ msgid "Submit Search"
 msgstr "Cyflwyno Chwiliad"
 
 msgid "Thanks for logging in. We've saved your request as a draft, in case you wanted to add an embargo before sending it. You can set that (or just send it straight away) using the form below."
+msgstr ""
+
+msgid "Thanks for your interest in {{pro_site_name}}, we'll get back to you soon!"
 msgstr ""
 
 msgid "The following request will be made public on {{site_name}} in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer."
@@ -319,6 +410,12 @@ msgstr "Mae'r cais hwn yn gyhoeddus"
 msgid "This request will be private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
 msgstr ""
 
+msgid "This will publish all of the requests in this batch. Are you sure?"
+msgstr ""
+
+msgid "This will update the privacy for all of the requests in this batch. Are you sure?"
+msgstr ""
+
 msgid "Title (A-Z)"
 msgstr "Teitl (A-Y)"
 
@@ -326,6 +423,9 @@ msgid "To"
 msgstr "At"
 
 msgid "To access {{pro_site_name}}"
+msgstr ""
+
+msgid "Unless you choose a privacy option, requests in this batch will be public on {{site_name}} immediately."
 msgstr ""
 
 msgid "Unless you choose a privacy option, your request will be public on {{site_name}} immediately."
@@ -428,6 +528,12 @@ msgstr ""
 msgid "Your request will now be private on {{site_name}} until {{expiry_date}}."
 msgstr ""
 
+msgid "Your requests are now public!"
+msgstr ""
+
+msgid "Your requests will now be private on {{site_name}} until {{expiry_date}}."
+msgstr ""
+
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr ""
 
@@ -457,6 +563,23 @@ msgstr "teitl (A-Y)"
 
 msgid "{{commenter_name}} added a new annotation on your request to {{public_body_name}} \"{{info_request_title}}.\""
 msgstr ""
+
+msgid "{{count}} Pending"
+msgstr ""
+
+msgid "{{count}} recipient, <a href=\"{{url}}\">show</a>"
+msgid_plural "{{count}} recipients, <a href=\"{{url}}\">show all</a>"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+msgid "{{count}} recipient, {{first_public_body}}"
+msgid_plural "{{count}} recipients, including {{first_public_body}} and {{second_public_body}}"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
 
 msgid "{{count}} request has received a response."
 msgid_plural "{{count}} requests have received a response."
@@ -493,6 +616,9 @@ msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
+msgid "{{count}} {{phase}}"
+msgstr ""
+
 msgid "{{length_of_time}} ago"
 msgstr ""
 
@@ -501,3 +627,6 @@ msgstr ""
 
 msgid "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."
 msgstr ""
+
+#~ msgid "Preview your request"
+#~ msgstr "Rhagolwg o'ch cais"
