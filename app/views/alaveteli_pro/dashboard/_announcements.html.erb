@@ -1,0 +1,20 @@
+<div class="dashboard__announcements carousel" aria-live="polite">
+  <ul class="dashboard__announcements__list carousel-content">
+    <% @announcements.each do |announcement| %>
+      <li class="dashboard__announcements__list-item carousel-item" aria-hidden="false">
+        <div class="dashboard__announcement">
+          <h2 class="dashboard__announcement__title"><%= announcement.title %></h2>
+          <div class="dashboard__announcement__content">
+            <p><%= announcement.content.html_safe %></p>
+          </div>
+          <a href="#" class="dashboard__announcement_dismiss">Dismiss</a>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+  <fieldset aria-label="carousel buttons" class="dashboard__announcements__controls carousel-buttons" aria-controls="carousel">
+    <button value="prev" aria-label="previous" id="prev" class="carousel-button">&laquo;</button>
+    <span class="dashboard__announcements__controls__status">1 of 2</span>
+    <button value="next" id="next" aria-label="next" class="carousel-button">&raquo;</button>
+  </fieldset>
+</div>
