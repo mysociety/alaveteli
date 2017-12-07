@@ -1,0 +1,15 @@
+<%= error_messages_for 'announcement' %>
+
+<div class="control-group">
+  <label for="announcement_title" class="control-label">Title</label>
+  <div class="controls">
+    <%= text_field 'announcement', 'title', class: 'span3' %>
+  </div>
+</div>
+
+<div class="control-group">
+  <label for="announcement_content" class="control-label">Content</label>
+  <div class="controls">
+    <%= text_area 'announcement', 'content', rows: 2, class: 'span6' %>
+  </div>
+</div>

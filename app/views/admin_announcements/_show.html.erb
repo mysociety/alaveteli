@@ -1,0 +1,31 @@
+<div class="row">
+  <p class="span12">
+    <%= link_to 'New announcement', new_admin_announcement_path, class: 'btn btn-warning' %>
+  </p>
+</div>
+
+<div class="row">
+  <% if announcements.size > 0 %>
+    <table class="table table-condensed table-hover span12 announcement-list">
+      <tr>
+        <th>ID</th>
+        <th>Announcement</th>
+        <th>Created at</th>
+        <th>Actions</th>
+      </tr>
+
+      <% announcements.each do |announcement| %>
+        <tr class="<%= cycle('odd', 'even') %>">
+          <td class="id"><%=h announcement.id %></td>
+          <td class="announcement"><%=h announcement.title %></td>
+          <td class="created_at"><%=h announcement.created_at %></td>
+          <td>
+            <%= link_to 'Edit', edit_admin_announcement_path(announcement) %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    <p class="span12">None yet.</p>
+  <% end %>
+</div>

@@ -4,7 +4,7 @@ class Announcement < ActiveRecord::Base
            inverse_of: :announcement,
            dependent: :destroy
 
-  default_scope -> { order(created_at: :asc) }
+  default_scope -> { order(created_at: :desc) }
   scope :for_user, -> (user) {
     return unless user
 

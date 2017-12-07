@@ -590,6 +590,12 @@ Rails.application.routes.draw do
   end
   ####
 
+  #### AdminAnnouncement controller
+  scope '/admin', :as => 'admin' do
+    resources :announcements, :controller => 'admin_announcements'
+  end
+  ####
+
   #### Api controller
   match '/api/v2/request.json' => 'api#create_request',
         :as => :api_create_request,
