@@ -1,9 +1,10 @@
-<% if items.size > 0 %>
+<% count ||= items.size %>
+<% if count > 0 %>
   <div class="accordion-group">
     <div class="accordion-heading">
       <a class="accordion-toggle" href="#<%= id %>" data-toggle="collapse" data-parent="<%= parent %>">
         <span class="label label-important">
-          <%= items.size %>
+          <%= count %>
         </span>
         <%= chevron_right %> <%= label %>
       </a>

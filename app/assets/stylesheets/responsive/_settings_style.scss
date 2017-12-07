@@ -114,3 +114,33 @@ border-top: 1px solid #E6E4DF;
   color: #F33D3D;
   font-weight: bold;
 }
+
+.vertical-navigation-menu {
+  list-style: none outside none;
+}
+
+.vertical-navigation-menu__item {
+  color: #999;
+  border-bottom: 1px solid #ddd;
+}
+
+.vertical-navigation-menu__item--current-item {
+  font-weight: bold;
+}
+
+.vertical-navigation-menu__link {
+  text-decoration: none;
+}
+
+a.vertical-navigation-menu__link {
+  &:link,
+  &:visited {
+    color: #333;
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: #e6e4df;
+    }
+  }
+  
+}

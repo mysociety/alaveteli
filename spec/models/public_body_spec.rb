@@ -685,6 +685,78 @@ describe PublicBody do
 
   end
 
+  describe '.blank_contact_count' do
+    let(:public_body){ FactoryGirl.create(:public_body) }
+    let(:blank_contact){ FactoryGirl.create(:blank_email_public_body) }
+    let(:defunct_body) do
+      FactoryGirl.create(:defunct_public_body,
+                         :request_email => '')
+    end
+
+    before do
+      InfoRequest.destroy_all
+      PublicBody.destroy_all
+    end
+
+    it 'does not include bodies with a request email' do
+      public_body
+      expect(PublicBody.blank_contact_count).to eq 0
+    end
+
+    it 'includes bodies with an empty request email' do
+      blank_contact
+      expect(PublicBody.blank_contact_count).to eq 1
+    end
+
+    it 'does not include defunct bodies' do
+      defunct_body
+      expect(PublicBody.blank_contact_count).to eq 0
+    end
+
+    it 'includes bodies with a translation that has an empty request email' do
+      AlaveteliLocalization.with_locale(:es) do
+        public_body.request_email = ''
+        public_body.save
+      end
+      expect(PublicBody.blank_contact_count).to eq 1
+    end
+
+  end
+
+  describe '.blank_contacts' do
+    let!(:public_body){ FactoryGirl.create(:public_body) }
+    let!(:blank_contact){ FactoryGirl.create(:blank_email_public_body) }
+    let!(:defunct_body) do
+      FactoryGirl.create(:defunct_public_body,
+                         :request_email => '')
+    end
+
+    it 'does not include bodies with a request email' do
+      expect(PublicBody.blank_contacts.include?(public_body))
+        .to be false
+    end
+
+    it 'includes bodies with an empty request email' do
+      expect(PublicBody.blank_contacts.include?(blank_contact))
+        .to be true
+    end
+
+    it 'does not include defunct bodies' do
+      expect(PublicBody.blank_contacts.include?(defunct_body))
+        .to be false
+    end
+
+    it 'includes bodies with a translation that has an empty request email' do
+      AlaveteliLocalization.with_locale(:es) do
+        public_body.request_email = ''
+        public_body.save
+      end
+      expect(PublicBody.blank_contacts.include?(public_body))
+        .to be true
+    end
+
+  end
+
   describe  'when generating json for the api' do
 
     let(:public_body) do

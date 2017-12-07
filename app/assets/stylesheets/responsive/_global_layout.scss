@@ -311,6 +311,9 @@ textarea{
     margin-bottom: 0.5em;
     display: block;
     width: 100%;
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      padding: 0 0.9375rem;
+    }
   }
 }
 

@@ -261,5 +261,22 @@ describe AlaveteliMailPoller do
         end
       end
     end
+
+    context 'if there is a timeout connecting to the POP server' do
+
+      before do
+        allow(mockpop3).to receive(:start).
+          and_raise(Timeout::Error, 'execution expired')
+      end
+
+      it 'sends an exception notification' do
+        expect { poller.poll_for_incoming }.to_not raise_error
+        notification =  ActionMailer::Base.deliveries.first
+        expect(notification.subject).
+          to eq('[ERROR] (Timeout::Error) "execution expired"')
+      end
+
+    end
+
   end
 end
