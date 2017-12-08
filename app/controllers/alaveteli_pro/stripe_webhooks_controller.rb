@@ -12,12 +12,12 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
       when 'invoice.payment_failed'
         # ToDo: add specific handler code here, but for now just raise an
         # UnhandledStripeWebhookError
-        raise UnhandledStripeWebhookError.new(@stripe_event.type)
+        raise UnhandledStripeWebhookError.new(@stripe_event)
       else
-        raise UnhandledStripeWebhookError.new(@stripe_event.type)
+        raise UnhandledStripeWebhookError.new(@stripe_event)
       end
     rescue UnhandledStripeWebhookError => e
-      notify_exception(e)
+      notify_exception(e, @stripe_event)
     end
 
     # send a 200 ok to acknowlege receipt of the webhook
@@ -39,12 +39,12 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
       )
     rescue JSON::ParserError => e
       # Invalid payload, reject the webhook
-      notify_exception(e)
+      notify_exception(e, payload)
       render json: { error: e.message }, status: 400
       return
     rescue Stripe::SignatureVerificationError => e
       # Invalid signature, reject the webhook
-      notify_exception(e)
+      notify_exception(e, payload)
       render json: { error: e.message }, status: 401
       return
     end
@@ -55,15 +55,22 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
       e = NoMethodError.new("undefined method `type' for " \
                             "#{@stripe_event.inspect}")
       # reject the webhook
-      notify_exception(e)
+      notify_exception(e, { webhook_data: @stripe_event} )
       render json: { error: e.message }, status: 400
       return
     end
   end
 
-  def notify_exception(error)
+  def notify_exception(error, data = nil)
     if send_exception_notifications?
-      ExceptionNotifier.notify_exception(error, :env => request.env)
+      if data
+        ExceptionNotifier.notify_exception(
+          error,
+          data: { webhook_data:  data }
+        )
+      else
+        ExceptionNotifier.notify_exception(error, :env => request.env)
+      end
     end
   end
 

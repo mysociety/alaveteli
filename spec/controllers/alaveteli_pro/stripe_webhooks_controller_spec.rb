@@ -106,13 +106,14 @@ describe AlaveteliPro::StripeWebhooksController do
 
     context 'receiving an unhandled notification type' do
 
-      let(:payload) { '{"type": "custom.random_event"}' }
+      let(:payload) { '{"type": "custom.random_event", "id": "test"}' }
 
       it 'sends an exception email' do
         request.headers.merge! signed_headers
         post :receive, payload
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to match(/UnhandledStripeWebhookError/)
+        expect(mail.body).to include('"id": "test"')
       end
 
     end
