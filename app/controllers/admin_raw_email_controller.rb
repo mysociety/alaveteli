@@ -39,7 +39,8 @@ class AdminRawEmailController < AdminController
           @rejected_reason = last_event.params[:rejected_reason] || "unknown reason"
         end
       end
-      format.text do
+
+      format.eml do
         render :body => @raw_email.data, :content_type => 'message/rfc822'
       end
     end

@@ -71,7 +71,7 @@ describe AdminRawEmailController do
     describe 'text version' do
 
       it 'sends the email as an RFC-822 attachment' do
-        get :show, :id => @raw_email.id, :format => 'txt'
+        get :show, :id => @raw_email.id, :format => 'eml'
         expect(response.content_type).to eq('message/rfc822')
         expect(response.body).to eq(@raw_email.data)
       end
