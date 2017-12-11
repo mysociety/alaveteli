@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 16:14+0000\n"
+"POT-Creation-Date: 2017-12-07 14:22+0000\n"
 "PO-Revision-Date: 2017-01-20 17:40+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>, 2017\n"
 "Language-Team: Czech (https://www.transifex.com/mysociety/teams/33529/cs/)\n"
@@ -24,6 +23,12 @@ msgstr " <strong>Shrňte</strong> obsah jakékoliv informace, kterou jste získa
 msgid " Say how you've <strong>used the information</strong>, with links if possible."
 msgstr "Napište <strong>jak jste využili získané informace</strong> a pokud je to možné, přidejte odkazy."
 
+msgid "'Crime statistics by ward level for Wales'"
+msgstr ""
+
+msgid "(no title)"
+msgstr ""
+
 msgid "+ Add"
 msgstr "+ Přidat"
 
@@ -38,9 +43,6 @@ msgstr "3 měsíce"
 
 msgid "6 Months"
 msgstr "6 měsíců"
-
-msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
-msgstr "<strong>Note:</strong> Protože právě testujeme, jsou dotazy posílány na {{email}} a ne příslušné instituci."
 
 msgid "<strong>Thank</strong> the public authority."
 msgstr "<strong>Poděkujte</strong> veřejné instituci. "
@@ -60,6 +62,9 @@ msgstr "Aktivita"
 msgid "Add an annotation"
 msgstr "Přidat poznámku"
 
+msgid "Add annotation"
+msgstr ""
+
 msgid "Add authorities to your batch"
 msgstr "Přidejte instituce do svého hromadného dotazu"
 
@@ -69,6 +74,9 @@ msgstr "Přidáno"
 msgid "All requests"
 msgstr "Všechny žádosti"
 
+msgid "Also called {{other_name}}."
+msgstr ""
+
 msgid "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
 msgstr "Poznámky vám umožní přidat další komentář k žádosti a budou časem zveřejněny. Například:"
 
@@ -77,6 +85,9 @@ msgstr "Ujistěte se, že informace, o kterou žádáte, není již uveřejněna
 
 msgid "Are you sure you want to publish this request?"
 msgstr "Jste si jisti, že tuto žádost chcete publikovat?"
+
+msgid "Batch request"
+msgstr ""
 
 msgid "Browse public requests"
 msgstr "Zobrazit veřejné dotazy"
@@ -114,6 +125,9 @@ msgstr "Koncepty"
 msgid "Edit your request"
 msgstr "Upravit tento dotaz"
 
+msgid "Email doesn't look like a valid address"
+msgstr ""
+
 msgid "First created"
 msgstr "Datum vytvoření"
 
@@ -135,6 +149,9 @@ msgstr "Zachovejte zatím stále skryté."
 msgid "Last updated"
 msgstr "Naposledy aktualizováno"
 
+msgid "Make a batch request"
+msgstr ""
+
 msgid "Make a request"
 msgstr "Vzneste dotaz"
 
@@ -147,11 +164,35 @@ msgstr "Můj profil"
 msgid "My wall"
 msgstr "Moje nástěnka"
 
+msgid "No bodies selected"
+msgstr ""
+
+msgid "No title"
+msgstr ""
+
 msgid "Note: When this request is made public on {{site_name}}, this message will also be made public."
 msgstr "Upozornění: Když tento dotaz uveřejníte na stránkách {{site_name}}, bude tato zpráva také uveřejněna. "
 
+msgid "Note: When this request is made public on {{site_name}}, your name and annotation will appear in <strong>search engines</strong>."
+msgstr ""
+
 msgid "Once you’re happy with your request, click preview and send."
 msgstr "Až budete s textem svého dotazu spokojeni, přejděte na náhled a pak jej odešlete."
+
+msgid "Pending"
+msgstr ""
+
+msgid "Please enter the reason why you want access"
+msgstr ""
+
+msgid "Please enter your email address"
+msgstr ""
+
+msgid "Please tell us if you want to get updates"
+msgstr ""
+
+msgid "Please tell us if you're interested in training and seminars"
+msgstr ""
 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
 msgstr "Odkažte na <strong>podobné informace</strong>, kampaně či fóra, které by mohly být užitečné."
@@ -159,14 +200,20 @@ msgstr "Odkažte na <strong>podobné informace</strong>, kampaně či fóra, kte
 msgid "Preview and send request"
 msgstr "Zobrazte si náhled a odešlete dotaz"
 
-msgid "Preview new {{law_used_short}} request to '{{public_body_name}}"
-msgstr "Náhled nové {{law_used_short}} žádosti na '{{public_body_name}}"
+msgid "Preview new batch request"
+msgstr ""
 
-msgid "Preview your request"
-msgstr "Náhled vašeho dotazu"
+msgid "Preview new {{law_used_short}} request to '{{public_body_name}}'"
+msgstr ""
 
 msgid "Privacy"
 msgstr "Soukromí"
+
+msgid "Private"
+msgstr ""
+
+msgid "Private until {{date}}"
+msgstr ""
 
 msgid "Provide extra context on the request and your reasons for making it."
 msgstr "Doplňte více informací o tomto dotazu a vysvětlete důvody, které vás vedly k jeho vznesení. "
@@ -176,6 +223,9 @@ msgstr "Uveřejnit okamžitě"
 
 msgid "Publish request"
 msgstr "Uveřejněte dotaz"
+
+msgid "Publish requests"
+msgstr ""
 
 msgid "Publish this request or keep it private for longer."
 msgid_plural "Publish these requests or keep them private for longer."
@@ -210,8 +260,20 @@ msgstr "Dotaz pro "
 msgid "Requests"
 msgstr "Žádosti"
 
+msgid "Requests in this batch are private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
+msgstr ""
+
+msgid "Requests in this batch are public"
+msgstr ""
+
+msgid "Requests in this batch will be private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
+msgstr ""
+
 msgid "Requests that will be made public soon"
 msgstr "Žádosti, které budou brzy zveřejněny"
+
+msgid "Response due"
+msgstr ""
 
 msgid "Save draft"
 msgstr "Uložit koncept"
@@ -246,11 +308,29 @@ msgstr "Odpovědět"
 msgid "Send a reply to {{person_or_body}}"
 msgstr "Odpovězte {{person_or_body}}"
 
+msgid "Send message"
+msgstr ""
+
 msgid "Send request"
 msgstr "Vznést dotaz"
 
+msgid "Send {{count}} requests"
+msgid_plural "Send {{count}} requests"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
 msgid "Sending..."
 msgstr "Odesílá se..."
+
+msgid "Sent"
+msgstr ""
+
+msgid "Show {{count}} request in detail</span>"
+msgid_plural "Show {{count}} requests in detail</span>"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "Sorry, no authorities matched that search"
 msgstr "Je nám líto, žádné instituce neodpovídají těmto parametrům,"
@@ -261,11 +341,17 @@ msgstr "Je nám líto, něco se stalo při vyhledávání výsledků, prosím zk
 msgid "Sorry, something went wrong publishing your request, please try again."
 msgstr "Je nám líto, něco se stalo při uveřejňování vaší žádosti, prosím zkuste to znovu."
 
+msgid "Sorry, something went wrong publishing your requests, please try again."
+msgstr ""
+
 msgid "Sorry, something went wrong updating your batch request, please try again."
 msgstr "Je nám líto, něco se stalo při úpravě vašeho hromadného dotazu, prosím zkuste to znovu."
 
 msgid "Sorry, something went wrong updating your request's privacy settings, please try again."
 msgstr "Je nám líto, něco se stalo při úpravě přístupu k vašim žádostem, prosím zkuste to znovu."
+
+msgid "Sorry, something went wrong updating your requests' privacy settings, please try again."
+msgstr ""
 
 msgid "Sort by"
 msgstr "Uspořádejte podle"
@@ -287,6 +373,9 @@ msgstr "Hledat"
 
 msgid "Thanks for logging in. We've saved your request as a draft, in case you wanted to add an embargo before sending it. You can set that (or just send it straight away) using the form below."
 msgstr "Děkujeme, že jste se přihlásili. Uložili jsme váš dotaz jako koncept pro případ, že jej budete chtít skrýt před ostatními do té doby, než bude odeslán. Úpravu možností uveřejnění či skrytí dotazu můžete provést ve formuláři pod tímto textem. "
+
+msgid "Thanks for your interest in {{pro_site_name}}, we'll get back to you soon!"
+msgstr ""
 
 msgid "The following request will be made public on {{site_name}} in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer."
 msgid_plural "The following requests will be made public on {{site_name}} in the next week. If you do not wish for any of these requests to go public, please click on the links below to extend them."
@@ -315,6 +404,12 @@ msgstr "Tato žádost je zveřejněna"
 msgid "This request will be private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
 msgstr "Tento dotaz je na stránkách {{site_name}} skrytý do <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
 
+msgid "This will publish all of the requests in this batch. Are you sure?"
+msgstr ""
+
+msgid "This will update the privacy for all of the requests in this batch. Are you sure?"
+msgstr ""
+
 msgid "Title (A-Z)"
 msgstr "Název (A-Z)"
 
@@ -323,6 +418,9 @@ msgstr "Pro"
 
 msgid "To access {{pro_site_name}}"
 msgstr "Přístup k {{pro_site_name}}"
+
+msgid "Unless you choose a privacy option, requests in this batch will be public on {{site_name}} immediately."
+msgstr ""
 
 msgid "Unless you choose a privacy option, your request will be public on {{site_name}} immediately."
 msgstr "Pokud nevyužijete možnosti svůj dotaz skrýt, bude nyní publikován na stránkách {{site_name}}."
@@ -423,6 +521,12 @@ msgstr "Přišla nová reakce na váš dotaz vznesený na {{public_body_name}} \
 msgid "Your request will now be private on {{site_name}} until {{expiry_date}}."
 msgstr "Váš dotaz je na stránkách {{site_name}} skrytý do {{expiry_date}}."
 
+msgid "Your requests are now public!"
+msgstr ""
+
+msgid "Your requests will now be private on {{site_name}} until {{expiry_date}}."
+msgstr ""
+
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr "Vaše doporučení co by <strong>administrátoři</strong> stránek {{site_name}} měli udělat s tímto dotazem."
 
@@ -452,6 +556,21 @@ msgstr "název (A-Z)"
 
 msgid "{{commenter_name}} added a new annotation on your request to {{public_body_name}} \"{{info_request_title}}.\""
 msgstr "{{commenter_name}} přidal/a k vašemu dotazu pro {{public_body_name}} \"{{info_request_title}}\" novou poznámku."
+
+msgid "{{count}} Pending"
+msgstr ""
+
+msgid "{{count}} recipient, <a href=\"{{url}}\">show</a>"
+msgid_plural "{{count}} recipients, <a href=\"{{url}}\">show all</a>"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+msgid "{{count}} recipient, {{first_public_body}}"
+msgid_plural "{{count}} recipients, including {{first_public_body}} and {{second_public_body}}"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "{{count}} request has received a response."
 msgid_plural "{{count}} requests have received a response."
@@ -483,6 +602,9 @@ msgstr[0] "{{count}} žádost bude tento týden zveřejněna. "
 msgstr[1] "{{count}} žádosti budou tento týden zveřejněny. "
 msgstr[2] "{{count}} žádostí bude tento týden zveřejněno. "
 
+msgid "{{count}} {{phase}}"
+msgstr ""
+
 msgid "{{length_of_time}} ago"
 msgstr "před {{length_of_time}} "
 
@@ -491,3 +613,9 @@ msgstr "{{public_body_name}} má zpoždění s odpovědí na váš dotaz \"{{inf
 
 msgid "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."
 msgstr "{{public_body_name}} má velké zpoždění s odpovědí na váš dotaz \"{{info_request_title}}\"."
+
+#~ msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
+#~ msgstr "<strong>Note:</strong> Protože právě testujeme, jsou dotazy posílány na {{email}} a ne příslušné instituci."
+
+#~ msgid "Preview your request"
+#~ msgstr "Náhled vašeho dotazu"

@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 16:14+0000\n"
+"POT-Creation-Date: 2017-12-07 14:22+0000\n"
 "PO-Revision-Date: 2017-01-20 17:40+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>, 2017\n"
 "Language-Team: Icelandic (Iceland) (https://www.transifex.com/mysociety/teams/33529/is_IS/)\n"
@@ -24,6 +23,12 @@ msgstr ""
 msgid " Say how you've <strong>used the information</strong>, with links if possible."
 msgstr ""
 
+msgid "'Crime statistics by ward level for Wales'"
+msgstr ""
+
+msgid "(no title)"
+msgstr ""
+
 msgid "+ Add"
 msgstr "+ Bæta við"
 
@@ -37,9 +42,6 @@ msgid "3 Months"
 msgstr "3 mánuðir"
 
 msgid "6 Months"
-msgstr ""
-
-msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
 msgstr ""
 
 msgid "<strong>Thank</strong> the public authority."
@@ -60,6 +62,9 @@ msgstr "Breytingasaga"
 msgid "Add an annotation"
 msgstr ""
 
+msgid "Add annotation"
+msgstr ""
+
 msgid "Add authorities to your batch"
 msgstr ""
 
@@ -69,6 +74,9 @@ msgstr "Bætt við"
 msgid "All requests"
 msgstr "Allar beiðnir"
 
+msgid "Also called {{other_name}}."
+msgstr ""
+
 msgid "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
 msgstr ""
 
@@ -76,6 +84,9 @@ msgid "Are you sure the information you’re after isn’t available elsewhere?"
 msgstr ""
 
 msgid "Are you sure you want to publish this request?"
+msgstr ""
+
+msgid "Batch request"
 msgstr ""
 
 msgid "Browse public requests"
@@ -114,6 +125,9 @@ msgstr ""
 msgid "Edit your request"
 msgstr ""
 
+msgid "Email doesn't look like a valid address"
+msgstr ""
+
 msgid "First created"
 msgstr ""
 
@@ -135,6 +149,9 @@ msgstr ""
 msgid "Last updated"
 msgstr "Seinast uppfært"
 
+msgid "Make a batch request"
+msgstr ""
+
 msgid "Make a request"
 msgstr "Útbúa beiðni"
 
@@ -147,10 +164,34 @@ msgstr ""
 msgid "My wall"
 msgstr ""
 
+msgid "No bodies selected"
+msgstr ""
+
+msgid "No title"
+msgstr ""
+
 msgid "Note: When this request is made public on {{site_name}}, this message will also be made public."
 msgstr ""
 
+msgid "Note: When this request is made public on {{site_name}}, your name and annotation will appear in <strong>search engines</strong>."
+msgstr ""
+
 msgid "Once you’re happy with your request, click preview and send."
+msgstr ""
+
+msgid "Pending"
+msgstr ""
+
+msgid "Please enter the reason why you want access"
+msgstr ""
+
+msgid "Please enter your email address"
+msgstr ""
+
+msgid "Please tell us if you want to get updates"
+msgstr ""
+
+msgid "Please tell us if you're interested in training and seminars"
 msgstr ""
 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
@@ -159,13 +200,19 @@ msgstr ""
 msgid "Preview and send request"
 msgstr "Forskoða og senda beiðni"
 
-msgid "Preview new {{law_used_short}} request to '{{public_body_name}}"
+msgid "Preview new batch request"
 msgstr ""
 
-msgid "Preview your request"
-msgstr "Forskoða beiðni"
+msgid "Preview new {{law_used_short}} request to '{{public_body_name}}'"
+msgstr ""
 
 msgid "Privacy"
+msgstr ""
+
+msgid "Private"
+msgstr ""
+
+msgid "Private until {{date}}"
 msgstr ""
 
 msgid "Provide extra context on the request and your reasons for making it."
@@ -176,6 +223,9 @@ msgstr "Birta strax"
 
 msgid "Publish request"
 msgstr "Birta beiðni"
+
+msgid "Publish requests"
+msgstr ""
 
 msgid "Publish this request or keep it private for longer."
 msgid_plural "Publish these requests or keep them private for longer."
@@ -208,7 +258,19 @@ msgstr ""
 msgid "Requests"
 msgstr "Beiðnir"
 
+msgid "Requests in this batch are private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
+msgstr ""
+
+msgid "Requests in this batch are public"
+msgstr ""
+
+msgid "Requests in this batch will be private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
+msgstr ""
+
 msgid "Requests that will be made public soon"
+msgstr ""
+
+msgid "Response due"
 msgstr ""
 
 msgid "Save draft"
@@ -243,11 +305,27 @@ msgstr ""
 msgid "Send a reply to {{person_or_body}}"
 msgstr ""
 
+msgid "Send message"
+msgstr ""
+
 msgid "Send request"
 msgstr ""
 
+msgid "Send {{count}} requests"
+msgid_plural "Send {{count}} requests"
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "Sending..."
 msgstr ""
+
+msgid "Sent"
+msgstr ""
+
+msgid "Show {{count}} request in detail</span>"
+msgid_plural "Show {{count}} requests in detail</span>"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Sorry, no authorities matched that search"
 msgstr ""
@@ -258,10 +336,16 @@ msgstr ""
 msgid "Sorry, something went wrong publishing your request, please try again."
 msgstr ""
 
+msgid "Sorry, something went wrong publishing your requests, please try again."
+msgstr ""
+
 msgid "Sorry, something went wrong updating your batch request, please try again."
 msgstr ""
 
 msgid "Sorry, something went wrong updating your request's privacy settings, please try again."
+msgstr ""
+
+msgid "Sorry, something went wrong updating your requests' privacy settings, please try again."
 msgstr ""
 
 msgid "Sort by"
@@ -283,6 +367,9 @@ msgid "Submit Search"
 msgstr "Efnisleit"
 
 msgid "Thanks for logging in. We've saved your request as a draft, in case you wanted to add an embargo before sending it. You can set that (or just send it straight away) using the form below."
+msgstr ""
+
+msgid "Thanks for your interest in {{pro_site_name}}, we'll get back to you soon!"
 msgstr ""
 
 msgid "The following request will be made public on {{site_name}} in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer."
@@ -311,6 +398,12 @@ msgstr "Þessi beiðni er opinber"
 msgid "This request will be private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
 msgstr ""
 
+msgid "This will publish all of the requests in this batch. Are you sure?"
+msgstr ""
+
+msgid "This will update the privacy for all of the requests in this batch. Are you sure?"
+msgstr ""
+
 msgid "Title (A-Z)"
 msgstr ""
 
@@ -318,6 +411,9 @@ msgid "To"
 msgstr "Til"
 
 msgid "To access {{pro_site_name}}"
+msgstr ""
+
+msgid "Unless you choose a privacy option, requests in this batch will be public on {{site_name}} immediately."
 msgstr ""
 
 msgid "Unless you choose a privacy option, your request will be public on {{site_name}} immediately."
@@ -418,6 +514,12 @@ msgstr ""
 msgid "Your request will now be private on {{site_name}} until {{expiry_date}}."
 msgstr ""
 
+msgid "Your requests are now public!"
+msgstr ""
+
+msgid "Your requests will now be private on {{site_name}} until {{expiry_date}}."
+msgstr ""
+
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr ""
 
@@ -448,6 +550,19 @@ msgstr ""
 msgid "{{commenter_name}} added a new annotation on your request to {{public_body_name}} \"{{info_request_title}}.\""
 msgstr ""
 
+msgid "{{count}} Pending"
+msgstr ""
+
+msgid "{{count}} recipient, <a href=\"{{url}}\">show</a>"
+msgid_plural "{{count}} recipients, <a href=\"{{url}}\">show all</a>"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "{{count}} recipient, {{first_public_body}}"
+msgid_plural "{{count}} recipients, including {{first_public_body}} and {{second_public_body}}"
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "{{count}} request has received a response."
 msgid_plural "{{count}} requests have received a response."
 msgstr[0] ""
@@ -473,6 +588,9 @@ msgid_plural "{{count}} requests will be made public this week."
 msgstr[0] ""
 msgstr[1] ""
 
+msgid "{{count}} {{phase}}"
+msgstr ""
+
 msgid "{{length_of_time}} ago"
 msgstr ""
 
@@ -481,3 +599,6 @@ msgstr ""
 
 msgid "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."
 msgstr ""
+
+#~ msgid "Preview your request"
+#~ msgstr "Forskoða beiðni"

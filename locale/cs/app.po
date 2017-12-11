@@ -11,6 +11,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Jiří Vírava <appukonrad@gmail.com>, 2012
 # Hana Hunt <hana@hana-hunt.cz>, 2016-2017
 # Hana Huntova <>, 2012-2015
@@ -18,7 +19,7 @@
 # janakneschke <jana.kneschke@gmail.com>, 2013
 # janakneschke <jana.kneschke@gmail.com>, 2012-2013
 # janakneschke <jana.kneschke@gmail.com>, 2013
-# Jiří Vírava <appukonrad@gmail.com>, 2012,2015-2016
+# Jiří Vírava <appukonrad@gmail.com>, 2012,2015-2017
 # josefpospisil <josef.pospisil@laststar.eu>, 2012
 # josefpospisil <josef.pospisil@laststar.eu>, 2012
 # Jiří Vírava <appukonrad@gmail.com>, 2012
@@ -32,8 +33,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-09-27 18:47+0100\n"
-"PO-Revision-Date: 2017-09-27 17:54+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2017-11-16 07:39+0000\n"
+"Last-Translator: Jiří Vírava <appukonrad@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.com/mysociety/alaveteli/language/cs/)\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -4820,13 +4821,13 @@ msgstr ""
 "    Ze stránky pro vznesení dotazu, pokuste se odpovědět na vybranou zprávu místo podávání obecné odpovědi. Pokud potřebujete poslat obecnou zprávu a znáte správný e-mail, na který to poslat, prosíme <a href=\"{{url}}\">pošlete nám jej</a>."
 
 msgid "{{public_body_name}}: {{confirm_url}}"
-msgstr ""
+msgstr "{{public_body_name}}: {{confirm_url}}"
 
 msgid "{{public_body_name}}: {{request_url}}"
-msgstr ""
+msgstr "{{public_body_name}}: {{request_url}}"
 
 msgid "{{public_body_name}}: {{response_url}}"
-msgstr ""
+msgstr "{{public_body_name}}: {{response_url}}"
 
 msgid "{{public_body}} has asked you to explain part of your {{law_used}} request."
 msgstr "Instituce {{public_body}} vás žádá o doplnění vzneseného dotazu."
