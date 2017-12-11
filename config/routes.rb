@@ -409,6 +409,10 @@ Rails.application.routes.draw do
         :via => :post
   ####
 
+  #### Announcement controller
+  resources :announcements, :only => [:destroy]
+  ####
+
   #### AdminPublicBody controller
   scope '/admin', :as => 'admin' do
     resources :bodies,
