@@ -113,11 +113,12 @@
   }
 }
 
+.request__status,
 .request__recipient,
 .request__created,
 .request__updated,
-.request__status,
-.request__actions {
+.request__due,
+.request__responses {
   @include respond-min( $dashboard-collapse ){
     margin-right: 1em;
   }
@@ -129,28 +130,6 @@
 // TODO - the flex() rules for these add up to way less than 100%, yet the
 // elements still overflow their container. Not sure why. I've hacked it by
 // reducing the width of the select in the last element and floating it right
-.request__recipient {
-  @include flex(1 0 100%);
-  @include respond-min( 24em ){
-    @include flex(1 0 75%);
-  }
-  @include respond-min( $dashboard-collapse ){
-    @include flex(8 0 0);
-  }
-}
-
-.request__created,
-.request__updated {
-  @include flex(1 0 50%);
-  @include respond-min( 24em ){
-    @include flex(1 0 25%);
-  }
-  @include respond-min( $dashboard-collapse ){
-    @include flex(3 0 0);
-  }
-}
-
-
 .request__status {
   position: relative;
   padding-left: 25px;
@@ -160,9 +139,6 @@
   }
   @include respond-min( $dashboard-collapse ){
     @include flex(5 0 0);
-  }
-  p {
-
   }
   .phase-icon {
     position: absolute;
@@ -174,27 +150,27 @@
   }
 }
 
-.request__actions {
-  align-self: flex-end;
-  @include flex(1 0 40%);
+.request__recipient {
+  @include flex(1 0 100%);
   @include respond-min( 24em ){
-    @include flex(1 0 35%);
+    @include flex(1 0 100%);
+  }
+  @include respond-min( $dashboard-collapse ){
+    @include flex(8 0 0);
+  }
+}
+
+.request__created,
+.request__updated,
+.request__due,
+.request__responses {
+  @include flex(1 0 50%);
+  @include respond-min( 24em ){
+    @include flex(1 0 25%);
   }
   @include respond-min( $dashboard-collapse ){
     @include flex(3 0 0);
-    align-self: auto;
   }
-  @include clearfix;
-  margin-right: 0;
-  .actions {
-    max-width: 90%;
-    float: right;
-  }
-
-  select {
-    margin-bottom: 0;
-  }
-
 }
 
 .request__meta__label {
@@ -308,7 +284,12 @@
 }
 
 .batch-request__requests__request__phase {
-  @include flex(1 0 50%);
+  @include flex(1 0 35%);
+  margin: 0;
+}
+
+.batch-request__requests__request__responses {
+  @include flex(1 0 15%);
   margin: 0;
 }
 

@@ -35,9 +35,14 @@
       <p><%= info_request.updated_at.strftime('%d-%m-%Y') %></p>
     </div>
 
-    <div class="request__status">
+    <div class="request__due">
       <span class="request__meta__label"><%= _('Response due') %></span>
       <p><%= info_request.date_response_required_by.strftime('%d-%m-%Y') %></p>
+    </div>
+
+    <div class="request__responses">
+      <span class="request__meta__label"><%= _('Replies') %></span>
+      <p><%= info_request.incoming_messages.count %></p>
     </div>
 
   </div> <!-- .request__meta -->
