@@ -1,3 +1,10 @@
+# 0.30.0.3
+
+## Highlighted Features
+
+* Updated translations from Transifex (Liz Conlan)
+* New pro strings for translation (Liz Conlan)
+
 # 0.30.0.2
 
 ## Highlighted Features
