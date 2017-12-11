@@ -17,6 +17,42 @@
       </div> <!-- .dashboard-left-column -->
 
       <div class="dashboard-right-column">
+        <div class="dashboard__announcements carousel" aria-live="polite">
+          <ul class="dashboard__announcements__list carousel-content">
+            <li class="dashboard__announcements__list-item carousel-item" aria-hidden="false">
+              <div class="dashboard__announcement">
+                  <h2 class="dashboard__announcement__title">Introducing projects</h2>
+                  <div class="dashboard__announcement__content">
+                    <p>We’re delighted to announce we’ve rolled out the new projects feature to all Pro users. You can now group your requests into projects and keep on top of your workflow with a birds’ eye view. <a href="#">Read more on our blog</a>.</p>
+                  </div>
+                  <a href="#" class="dashboard__announcement_dismiss">Dismiss</a>
+              </div>
+            </li>
+            <li class="dashboard__announcements__list-item carousel-item" aria-hidden="true">
+              <div class="dashboard__announcement">
+                  <h2 class="dashboard__announcement__title">Introducing projects</h2>
+                  <div class="dashboard__announcement__content">
+                    <p>We’re delighted to announce we’ve rolled out the new projects feature to all Pro users. You can now group your requests into projects and keep on top of your workflow with a birds’ eye view. <a href="#">Read more on our blog</a>.</p>
+                  </div>
+                  <a href="#" class="dashboard__announcement_dismiss">Dismiss</a>
+              </div>
+            </li>
+            <li class="dashboard__announcements__list-item carousel-item" aria-hidden="true">
+              <div class="dashboard__announcement">
+                  <h2 class="dashboard__announcement__title">Introducing projects</h2>
+                  <div class="dashboard__announcement__content">
+                    <p>We’re delighted to announce we’ve rolled out the new projects feature to all Pro users. You can now group your requests into projects and keep on top of your workflow with a birds’ eye view. <a href="#">Read more on our blog</a>.</p>
+                  </div>
+                  <a href="#" class="dashboard__announcement_dismiss">Dismiss</a>
+              </div>
+            </li>
+          </ul>
+          <fieldset aria-label="carousel buttons" class="dashboard__announcements__controls carousel-buttons" aria-controls="carousel">
+            <button value="prev" aria-label="previous" id="prev" class="carousel-button">&laquo;</button>
+            <span class="dashboard__announcements__controls__status">1 of 3</span>
+            <button value="next" id="next" aria-label="next" class="carousel-button">&raquo;</button>
+          </fieldset>
+        </div>
         <% if @to_do_list.active_items.empty? && @user.info_requests.empty? && @user.draft_info_requests.empty? %>
           <%= render partial: 'no_to_dos' %>
         <% elsif @to_do_list.active_items.empty? %>
