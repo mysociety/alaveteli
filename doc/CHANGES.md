@@ -1,4 +1,3 @@
-
 # develop
 
 ## Highlighted Features
@@ -34,6 +33,19 @@
   `No such file or directory @ rb_sysopen` errors from `foi_attachment.rb`.
 
 ### Changed Templates
+
+# 0.30.0.3
+
+## Highlighted Features
+
+* Updated translations from Transifex (Liz Conlan)
+* New pro strings for translation (Liz Conlan)
+
+# 0.30.0.2
+
+## Highlighted Features
+
+* Added a fix for the holiday imports admin tool (Liz Conlan)
 
 # 0.30.0.1
 

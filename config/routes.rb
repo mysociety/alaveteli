@@ -630,6 +630,8 @@ Rails.application.routes.draw do
         end
       end
 
+      match '/pro/subscriptions/stripe-webhook' => 'stripe_webhooks#receive',
+            :via => :post
     end
 
   end
