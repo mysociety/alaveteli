@@ -187,6 +187,72 @@ describe AlaveteliPro::StripeWebhooksController do
 
     end
 
+    context 'when using namespaced plans' do
+
+      before do
+        config = MySociety::Config.load_default
+        config['STRIPE_NAMESPACE'] = 'WDTK'
+        config['STRIPE_WEBHOOK_SECRET'] = config_secret
+      end
+
+      context 'the webhook does not reference our plan namespace' do
+
+        it 'returns a custom 200 response' do
+          with_feature_enabled(:alaveteli_pro) do
+            request.headers.merge! signed_headers
+            post :receive, payload
+            expect(response.status).to eq(200)
+            expect(response.body).
+              to match('Does not appear to be one of our plans')
+          end
+        end
+
+        it 'does not send an exception email' do
+          with_feature_enabled(:alaveteli_pro) do
+            request.headers.merge! signed_headers
+            post :receive, payload
+            expect(ActionMailer::Base.deliveries.count).to eq(0)
+          end
+        end
+
+      end
+
+      context 'the webhook is for a matching namespaced plan' do
+
+        let(:payload) do
+          event = StripeMock.mock_webhook_event('invoice.payment_succeeded')
+          plan_id = event.data.object.lines.data.last.plan.id
+          event.to_s.gsub(plan_id, "WDTK-#{plan_id}")
+        end
+
+        it 'returns a 200 OK response' do
+          with_feature_enabled(:alaveteli_pro) do
+            request.headers.merge! signed_headers
+            post :receive, payload
+            expect(response.status).to eq(200)
+            expect(response.body).to match('OK')
+          end
+        end
+
+      end
+
+      context 'the webhook data does not have namespaced plans' do
+
+        let(:payload) do
+          StripeMock.mock_webhook_event('invoice.payment_succeeded').to_s
+        end
+
+        it 'does not raise an error when trying to filter on plan name' do
+          with_feature_enabled(:alaveteli_pro) do
+            request.headers.merge! signed_headers
+            expect{ post :receive, payload }.not_to raise_error
+          end
+        end
+
+      end
+
+    end
+
   end
 
 end
