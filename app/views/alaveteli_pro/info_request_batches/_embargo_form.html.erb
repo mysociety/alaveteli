@@ -26,22 +26,28 @@
       <% end %>
 
       <% if can?(:update, info_request_batch) %>
-      <p>
-        <label class="form_label" for="extension_duration">
-          <%= _('Keep private for a further:') %>
-        </label>
-        <%= select_tag :extension_duration,
-                       options_for_select(
-                         embargo_extension_options(example_embargo)),
-                       class: 'js-embargo-duration' %>
-        <%= submit_tag _("Update"),
-                     class: "embargo__submit js-embargo-submit",
-                     data: {
-                       confirm: _("This will update the privacy for all " \
-                                  "of the requests in this batch. " \
-                                  "Are you sure?")
-                     } %>
-      </p>
+        <p>
+        <% if example_embargo.expiring_soon? %>
+          <label class="form_label" for="extension_duration">
+            <%= _('Keep private for a further:') %>
+          </label>
+          <%= select_tag :extension_duration,
+                         options_for_select(
+                           embargo_extension_options(example_embargo)),
+                         class: 'js-embargo-duration' %>
+          <%= submit_tag _("Update"),
+                         class: "embargo__submit js-embargo-submit",
+                         data: {
+                         confirm: _("This will update the privacy for all " \
+                                    "of the requests in this batch. " \
+                                    "Are you sure?")
+                         } %>
+        <% else %>
+          <%= _("You will be able to extend this privacy period from " \
+                "{{embargo_extend_from}}.",
+                embargo_extend_from: embargo_extend_from(example_embargo)) %>
+        <% end %>
+        </p>
       <% end %>
     <% end %>
     <%= button_to _("Publish requests"),

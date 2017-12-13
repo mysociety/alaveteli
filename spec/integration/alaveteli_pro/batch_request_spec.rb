@@ -330,7 +330,15 @@ describe "managing embargoed batch requests" do
 
   describe "managing embargoes on a batch request's page" do
 
-    it "allows the user to extend all the embargoes" do
+    it "allows the user to extend all the embargoes that are near expiry" do
+      batch.info_requests.each do |info_request|
+        info_request.
+          embargo.
+            update_attribute(:publish_at,
+                             info_request.embargo.publish_at - 88.days)
+      end
+      batch.reload
+
       using_pro_session(pro_user_session) do
         visit show_alaveteli_pro_batch_request_path(batch)
         old_publish_at = batch.info_requests.first.embargo.publish_at
@@ -379,7 +387,15 @@ describe "managing embargoed batch requests" do
   describe "managing embargoes on a specific request in a batch" do
     let(:info_request) { batch.info_requests.first }
 
-    it "allows the user to extend all the embargoes from a specific request" do
+    it "allows the user to extend all expiring embargoes from a specific request" do
+      batch.info_requests.each do |info_request|
+        info_request.
+          embargo.
+            update_attribute(:publish_at,
+                             info_request.embargo.publish_at - 88.days)
+      end
+      batch.reload
+
       using_pro_session(pro_user_session) do
         browse_pro_request(info_request.url_title)
         old_publish_at = info_request.embargo.publish_at

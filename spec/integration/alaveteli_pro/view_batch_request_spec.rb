@@ -90,6 +90,21 @@ describe 'viewing requests that are part of a batch in alaveteli_pro' do
         end
       end
 
+      it 'shows an embargo end date' do
+        using_pro_session(pro_user_session) do
+          browse_pro_request(info_request.url_title)
+          expect(page).to have_content 'Requests in this batch are private ' \
+                                       'on Alaveteli until'
+        end
+      end
+
+      it 'does not show the option to add an embargo' do
+        using_pro_session(pro_user_session) do
+          browse_pro_request(info_request.url_title)
+          expect(page).not_to have_content "Keep private for"
+        end
+      end
+
       it 'does not allow the user to link to individual messages' do
         using_pro_session(pro_user_session) do
           browse_pro_request(info_request.url_title)
@@ -122,6 +137,46 @@ describe 'viewing requests that are part of a batch in alaveteli_pro' do
           click_button("Send message")
           expect(page).to have_content("Testing follow ups")
         end
+      end
+
+      context 'the embargo is expiring soon' do
+
+        before do
+          embargo.update_attribute(:publish_at, embargo.publish_at - 88.days)
+          info_request.reload
+        end
+
+        it 'shows the option to extend the embargo' do
+          using_pro_session(pro_user_session) do
+            browse_pro_request(info_request.url_title)
+            expect(page).to have_content "Keep private for"
+          end
+        end
+
+      end
+
+      context 'the embargo is not expiring soon' do
+
+        it 'does not show the option to extend the embargo' do
+          using_pro_session(pro_user_session) do
+            browse_pro_request(info_request.url_title)
+            expect(page).not_to have_content('Keep private for')
+          end
+        end
+
+        it 'displays a message to say when the embargo can be extended' do
+          using_pro_session(pro_user_session) do
+            expiring_notification = info_request.
+                                      embargo.
+                                        calculate_expiring_notification_at.
+                                          strftime('%-d %B %Y')
+            browse_pro_request(info_request.url_title)
+            expect(page).
+              to have_content("You will be able to extend this privacy " \
+                              "period from #{expiring_notification}")
+          end
+        end
+
       end
 
       context 'the user does not have pro status' do
