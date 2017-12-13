@@ -668,6 +668,62 @@ describe Ability do
 
   end
 
+  describe "Destroying Batch Embargoes" do
+
+    let(:batch) do
+      FactoryGirl.create(:embargoed_batch_request,
+                         user: FactoryGirl.create(:pro_user))
+    end
+
+    let(:admin_user) { FactoryGirl.create(:admin_user) }
+    let(:pro_admin_user) { FactoryGirl.create(:pro_admin_user) }
+
+    it 'allows a pro info batch owner to destroy it' do
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(batch.user)
+        expect(ability).to be_able_to(:destroy_embargo, batch)
+      end
+    end
+
+    it 'allows a non-pro info request owner to destroy it' do
+      with_feature_enabled(:alaveteli_pro) do
+        batch.user.remove_role(:pro)
+        ability = Ability.new(batch.user)
+        expect(ability).to be_able_to(:destroy_embargo, batch)
+      end
+    end
+
+    it "allows pro admins to destroy it" do
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(pro_admin_user)
+        expect(ability).to be_able_to(:destroy_embargo, batch)
+      end
+    end
+
+    it "doesn't allow admins to destroy it" do
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(admin_user)
+        expect(ability).not_to be_able_to(:destroy_embargo, batch)
+      end
+    end
+
+    it "doesnt allow anonymous users to destroy it" do
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(nil)
+        expect(ability).not_to be_able_to(:destroy_embargo, batch)
+      end
+    end
+
+    it "doesnt allow other users to destroy it" do
+      other_user = FactoryGirl.create(:user)
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(other_user)
+        expect(ability).not_to be_able_to(:destroy_embargo, batch)
+      end
+    end
+
+  end
+
   describe "Logging in as a user" do
     let(:user) { FactoryGirl.create(:user) }
     let(:pro_user) { FactoryGirl.create(:pro_user) }
