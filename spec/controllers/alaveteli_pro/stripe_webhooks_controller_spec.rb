@@ -253,6 +253,26 @@ describe AlaveteliPro::StripeWebhooksController do
 
     end
 
+    describe 'a cancelled subscription is deleted at the end of the billing period' do
+
+      let!(:user) do
+        _user = FactoryGirl.create(:pro_user)
+        _user.pro_account.stripe_customer_id = stripe_event.data.object.customer
+        _user.pro_account.save!
+        _user
+      end
+
+      it 'removes the pro role from the associated user' do
+        with_feature_enabled(:alaveteli_pro) do
+          expect(user.is_pro?).to be true
+          request.headers.merge! signed_headers
+          post :receive, payload
+          expect(user.reload.is_pro?).to be false
+        end
+      end
+
+    end
+
   end
 
 end

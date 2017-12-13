@@ -10,9 +10,10 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
     begin
       case @stripe_event.type
       when 'customer.subscription.deleted'
-        # ToDo: add specific handler code here, but for now just raise an
-        # UnhandledStripeWebhookError
-        raise UnhandledStripeWebhookError.new(@stripe_event.type)
+        customer_id = @stripe_event.data.object.customer
+        if account = ProAccount.find_by(stripe_customer_id: customer_id)
+          account.user.remove_role(:pro)
+        end
       else
         raise UnhandledStripeWebhookError.new(@stripe_event.type)
       end
