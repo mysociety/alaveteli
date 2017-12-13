@@ -3,6 +3,7 @@
 
 ## Highlighted Features
 
+* Add Debian Stretch support (Louise Crow, Gareth Rees)
 * Replace out of support zip gem with rubyzip to address an issue where some
   zip files created by the site may not be openable on Windows PCs (Liz Conlan,
   Graeme Porteous)
