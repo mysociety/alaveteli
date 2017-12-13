@@ -25,6 +25,7 @@
         <%= hidden_field_tag :info_request_id, info_request.id %>
       <% end %>
 
+      <% if can?(:update, info_request_batch) %>
       <p>
         <label class="form_label" for="extension_duration">
           <%= _('Keep private for a further:') %>
@@ -41,6 +42,7 @@
                                   "Are you sure?")
                      } %>
       </p>
+      <% end %>
     <% end %>
     <%= button_to _("Publish requests"),
                   destroy_batch_alaveteli_pro_embargoes_path(

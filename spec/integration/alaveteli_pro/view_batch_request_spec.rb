@@ -124,6 +124,21 @@ describe 'viewing requests that are part of a batch in alaveteli_pro' do
         end
       end
 
+      context 'the user does not have pro status' do
+
+        before do
+          pro_user.remove_role(:pro)
+        end
+
+        it 'does not show the option to extend the embargo' do
+          using_pro_session(pro_user_session) do
+            browse_pro_request(info_request.url_title)
+            expect(page).not_to have_content "Keep private for"
+          end
+        end
+
+      end
+
       context 'the request has received a response' do
 
         before do
