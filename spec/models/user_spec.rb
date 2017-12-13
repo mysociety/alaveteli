@@ -1319,4 +1319,14 @@ describe User do
     end
   end
 
+  describe 'role callbacks' do
+
+    it 'creates pro account when pro role added' do
+      user = FactoryGirl.build(:user)
+      expect { user.add_role :pro }.to change(user, :pro_account).
+        from(nil).to(ProAccount)
+    end
+
+  end
+
 end

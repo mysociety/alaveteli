@@ -40,7 +40,7 @@ require 'digest/sha1'
 class User < ActiveRecord::Base
   include AlaveteliFeatures::Helpers
   include AlaveteliPro::PhaseCounts
-  rolify
+  rolify before_add: :setup_pro_account
   strip_attributes :allow_empty => true
 
   attr_accessor :password_confirmation, :no_xapian_reindex
@@ -684,6 +684,11 @@ class User < ActiveRecord::Base
       errors.add(:otp_code, msg)
     end
     self.entered_otp_code = nil
+  end
+
+  def setup_pro_account(role)
+    return if role != Role.pro_role
+    pro_account || build_pro_account
   end
 
 end
