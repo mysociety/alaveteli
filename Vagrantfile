@@ -140,6 +140,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box_url = box_url
   config.vm.network :private_network, ip: SETTINGS['ip']
 
+  config.vm.synced_folder '.', '/vagrant', disabled: true
+
   if SETTINGS['use_nfs']
     config.vm.synced_folder '.', '/home/vagrant/alaveteli', nfs: true
   else
