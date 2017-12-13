@@ -14,6 +14,10 @@ class ProAccount < ActiveRecord::Base
   belongs_to :user,
              :inverse_of => :pro_account
 
+  validates :user, presence: true
+
+  before_create :set_stripe_customer_id
+
   def active?
     stripe_customer.present? && stripe_customer.subscriptions.any?
   end
@@ -24,5 +28,14 @@ class ProAccount < ActiveRecord::Base
 
   def stripe_customer!
     Stripe::Customer.retrieve(stripe_customer_id) if stripe_customer_id
+  end
+
+  private
+
+  def set_stripe_customer_id
+    self.stripe_customer_id ||= begin
+      @stripe_customer = Stripe::Customer.create(email: user.email)
+      stripe_customer.id
+    end
   end
 end
