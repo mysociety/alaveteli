@@ -26,10 +26,6 @@ class ProAccount < ActiveRecord::Base
     @stripe_customer ||= stripe_customer!
   end
 
-  def stripe_customer!
-    Stripe::Customer.retrieve(stripe_customer_id) if stripe_customer_id
-  end
-
   private
 
   def set_stripe_customer_id
@@ -37,5 +33,9 @@ class ProAccount < ActiveRecord::Base
       @stripe_customer = Stripe::Customer.create(email: user.email)
       stripe_customer.id
     end
+  end
+
+  def stripe_customer!
+    Stripe::Customer.retrieve(stripe_customer_id) if stripe_customer_id
   end
 end

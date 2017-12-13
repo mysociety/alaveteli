@@ -10,7 +10,7 @@
 #  updated_at               :datetime         not null
 #
 
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 require 'stripe_mock'
 
 describe ProAccount do
@@ -24,6 +24,18 @@ describe ProAccount do
   end
 
   let(:stripe_helper) { StripeMock.create_test_helper }
+  let(:plan) { stripe_helper.create_plan(id: 'pro', amount: 1000) }
+
+  let(:customer) do
+    Stripe::Customer.create(
+      email: FactoryGirl.build(:user).email,
+      source: stripe_helper.generate_card_token
+    )
+  end
+
+  let(:subscription) do
+    Stripe::Subscription.create(customer: customer, plan: plan.id)
+  end
 
   describe 'validations' do
 
@@ -45,111 +57,64 @@ describe ProAccount do
 
   end
 
-  pending '#stripe_customer' do
+  describe '#stripe_customer' do
 
-    subject { FactoryGirl.create(:pro_account) }
+    subject { pro_account.stripe_customer }
 
-    let(:customer) do
-      Stripe::Customer.create(email: subject.user.email,
-                              source: stripe_helper.generate_card_token)
+    context 'with invalid Stripe customer ID' do
+      let(:pro_account) do
+        FactoryGirl.create(:pro_account, stripe_customer_id: 'invalid_id')
+      end
+
+      it 'raises an error' do
+        expect{ pro_account.stripe_customer }.
+          to raise_error Stripe::InvalidRequestError
+      end
+
     end
 
-    it 'returns nil if there is no stripe_customer_id set' do
-      expect(subject.stripe_customer).to be_nil
-    end
+    context 'with valid Stripe customer ID' do
+      let(:pro_account) do
+        FactoryGirl.create(:pro_account, stripe_customer_id: customer.id)
+      end
 
-    it 'raises an error if the Stripe::Customer is not found' do
-      subject.update!(stripe_customer_id: 'invalid_id')
-      expect{ subject.stripe_customer }.
-        to raise_error Stripe::InvalidRequestError
-    end
+      it 'finds the Stripe::Customer linked to the ProAccount' do
+        expect(pro_account.stripe_customer).to eq(customer)
+      end
 
-    it 'finds the Stripe::Customer linked to the ProAccount' do
-      subject.update!(stripe_customer_id: customer.id)
-      expect(subject.stripe_customer).to eq(customer)
-    end
-
-    it 'memoizes the result' do
-      subject.update!(stripe_customer_id: customer.id)
-      subject.stripe_customer
-      subject.update!(stripe_customer_id: nil)
-      expect(subject.stripe_customer).to eq(customer)
     end
 
   end
 
-  pending '#stripe_customer!' do
-
-    subject { FactoryGirl.create(:pro_account) }
-
-    let(:customer) do
-      Stripe::Customer.create(email: subject.user.email,
-                              source: stripe_helper.generate_card_token)
+  describe '#active?' do
+    let(:pro_account) do
+      FactoryGirl.create(:pro_account, stripe_customer_id: customer.id)
     end
 
-    it 'returns a Stripe::Customer if there is a valid stripe_customer_id' do
-      subject.update!(stripe_customer_id: customer.id)
-      expect(subject.stripe_customer!).to eq(customer)
+    subject { pro_account.active? }
+
+    context 'when there is an active subscription' do
+      before { subscription.save }
+      it { is_expected.to eq true }
     end
 
-    it 'raises an error if the Stripe::Customer is not found' do
-      subject.update!(stripe_customer_id: 'invalid_id')
-      expect{ subject.stripe_customer! }.
-        to raise_error Stripe::InvalidRequestError
+    context 'when there is an expiring subscription' do
+      before { subscription.delete(at_period_end: true) }
+      it { is_expected.to eq true }
     end
 
-    it 'returns nil if there is no stripe_customer_id set' do
-      expect(subject.stripe_customer!).to be_nil
+    context 'when an existing subscription is cancelled' do
+      before { subscription.delete }
+      it { is_expected.to eq false }
     end
 
-  end
-
-  pending '#active?' do
-
-    subject { FactoryGirl.create(:pro_account) }
-
-    let(:customer) do
-      Stripe::Customer.create(email: subject.user.email,
-                              source: stripe_helper.generate_card_token)
+    context 'when there are no active subscriptions' do
+      it { is_expected.to eq false }
     end
 
-    let(:plan) do
-      stripe_helper.create_plan(id: 'pro', amount: 1000)
-    end
-
-    before do
-      subject.update!(stripe_customer_id: customer.id)
-    end
-
-    it 'returns true if there is an active subscription' do
-      Stripe::Subscription.create(customer: customer,
-                                  plan: plan.id)
-      expect(subject.active?).to eq(true)
-    end
-
-    it 'returns true if there is an expiring subscription' do
-      subscription =
-        Stripe::Subscription.create(customer: customer,
-                                    plan: plan.id)
-      subscription.delete(at_period_end: true)
-      expect(subject.active?).to eq(true)
-    end
-
-    it 'returns false if an existing subscription is cancelled' do
-      subscription =
-        Stripe::Subscription.create(customer: customer,
-                                    plan: plan.id)
-      subscription.delete
-      expect(subject.active?).to eq(false)
-    end
-
-    it 'returns false if there are no active subscriptions' do
-      expect(subject.active?).to eq(false)
-    end
-
-    it 'returns false if there is no customer id' do
-      subject.stripe_customer_id = nil
-      expect(subject.active?).to eq(false)
+    context 'when there is no customer id' do
+      before { pro_account.stripe_customer_id = nil }
+      it { is_expected.to eq false }
     end
 
   end
