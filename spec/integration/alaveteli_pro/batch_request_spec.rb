@@ -329,6 +329,7 @@ describe "managing embargoed batch requests" do
   end
 
   describe "managing embargoes on a batch request's page" do
+
     it "allows the user to extend all the embargoes" do
       using_pro_session(pro_user_session) do
         visit show_alaveteli_pro_batch_request_path(batch)
