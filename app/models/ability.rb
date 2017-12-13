@@ -60,9 +60,10 @@ class Ability
     # Updating batch requests
     can :update, InfoRequestBatch do |batch_request|
       if batch_request.embargo_duration
-        user && (user == batch_request.user || user.is_pro_admin?)
+        user && (user.is_pro_admin? ||
+                 (user == batch_request.user && user.is_pro?))
       else
-        user && (user == batch_request.user || user.is_admin?)
+        user && self.class.requester_or_admin?(user, batch_request)
       end
     end
 
@@ -71,7 +72,7 @@ class Ability
       if batch_request.embargo_duration
         user && (user == batch_request.user || user.is_pro_admin?)
       else
-        user && (user == batch_request.user || user.is_admin?)
+        user && self.class.requester_or_admin?(user, batch_request)
       end
     end
 
@@ -145,6 +146,10 @@ class Ability
 
   def self.can_update_request_state?(user, request)
     (user && request.is_old_unclassified?) || request.is_owning_user?(user)
+  end
+
+  def self.requester_or_admin?(user, request)
+    user == request.user || user.is_admin?
   end
 
   def self.can_view_with_prominence?(prominence, info_request, user)

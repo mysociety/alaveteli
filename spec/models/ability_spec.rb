@@ -344,16 +344,28 @@ describe Ability do
     let(:other_user_ability) { Ability.new(FactoryGirl.create(:user)) }
 
     context "when the batch is embargoed" do
-      let(:resource) { FactoryGirl.create(:embargoed_batch_request) }
+      let(:resource) do
+        FactoryGirl.create(:embargoed_batch_request,
+                           user: FactoryGirl.create(:pro_user))
+      end
 
       context "when the user owns the batch" do
-        let(:ability) { Ability.new(resource.user) }
 
-        it "should return true" do
+        it 'allows pro users to update the batch' do
+          ability = Ability.new(resource.user)
           with_feature_enabled(:alaveteli_pro) do
             expect(ability).to be_able_to(:update, resource)
           end
         end
+
+        it 'does not allow non-pro users to update the batch' do
+          resource.user.remove_role(:pro)
+          ability = Ability.new(resource.user)
+          with_feature_enabled(:alaveteli_pro) do
+            expect(ability).not_to be_able_to(:update, resource)
+          end
+        end
+
       end
 
       context "when the user is a pro_admin" do
