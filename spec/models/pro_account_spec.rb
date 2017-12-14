@@ -119,4 +119,19 @@ describe ProAccount do
 
   end
 
+  describe '#update_email_address' do
+    let(:user) { FactoryGirl.build(:user, email: 'bilbo@example.com') }
+    let(:pro_account) { FactoryGirl.create(:pro_account, user: user) }
+
+    before { allow(pro_account).to receive(:stripe_customer) { customer } }
+
+    it 'update Stripe customer email address' do
+      expect(customer.email).to_not eq user.email
+      expect(customer).to receive(:save)
+      pro_account.update_email_address
+      expect(customer.email).to eq user.email
+    end
+
+  end
+
 end

@@ -135,7 +135,7 @@ class User < ActiveRecord::Base
            :if => Proc.new { |u| u.otp_enabled? && u.require_otp? }
 
   after_initialize :set_defaults
-  after_update :reindex_referencing_models
+  after_update :reindex_referencing_models, :update_pro_account
 
   acts_as_xapian :texts => [ :name, :about_me ],
     :values => [
@@ -689,6 +689,11 @@ class User < ActiveRecord::Base
   def setup_pro_account(role)
     return if role != Role.pro_role
     pro_account || build_pro_account
+  end
+
+  def update_pro_account
+    return unless is_pro? && pro_account
+    pro_account.update_email_address if email_changed?
   end
 
 end

@@ -1329,4 +1329,25 @@ describe User do
 
   end
 
+  describe 'update callbacks' do
+    let(:user) { FactoryGirl.build(:user) }
+
+    context 'changing email address of a pro user' do
+      let(:pro_account) { double(:pro_account) }
+
+      before do
+        allow(user).to receive(:pro_account).and_return(pro_account)
+        allow(user).to receive(:is_pro?).and_return(true)
+        allow(user).to receive(:email_changed?).and_return(true)
+      end
+
+      it 'calls update_email_address on Pro Account' do
+        expect(pro_account).to receive(:update_email_address)
+        user.run_callbacks :update
+      end
+
+    end
+
+  end
+
 end

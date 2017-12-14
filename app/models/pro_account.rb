@@ -26,6 +26,12 @@ class ProAccount < ActiveRecord::Base
     @stripe_customer ||= stripe_customer!
   end
 
+  def update_email_address
+    return unless stripe_customer
+    stripe_customer.email = user.email
+    stripe_customer.save
+  end
+
   private
 
   def set_stripe_customer_id
