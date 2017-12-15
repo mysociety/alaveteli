@@ -687,7 +687,7 @@ class User < ActiveRecord::Base
   end
 
   def setup_pro_account(role)
-    return if role != Role.pro_role
+    return unless role == Role.pro_role && feature_enabled?(:pro_pricing)
     pro_account || build_pro_account
   end
 
