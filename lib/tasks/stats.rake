@@ -61,8 +61,9 @@ namespace :stats do
       comment_on_own_request_count =
         Comment.
           includes(:info_request).
-            where(comment_on_own_request_conditions).
-              count
+            references(:info_request).
+              where(comment_on_own_request_conditions).
+                count
 
       followup_conditions = ['message_type = ?
                                AND prominence = ?

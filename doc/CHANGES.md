@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Fix bug in `stats:show` task (Liz Conlan, Gareth Rees)
 * Use `.eml` file extension when downloading raw emails through the admin
   interface (Gareth Rees)
 * Reduce usage of auto-login links in emails (Gareth Rees)
