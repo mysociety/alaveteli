@@ -2,7 +2,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 require 'stripe_mock'
 
-describe AlaveteliPro::SubscriptionsController do
+describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
   let(:stripe_helper) { StripeMock.create_test_helper }
 
   before do
