@@ -26,11 +26,6 @@ describe Announcement do
     end
   end
 
-  it 'requires a title' do
-    announcement = FactoryGirl.build(:announcement, title: nil)
-    expect(announcement).not_to be_valid
-  end
-
   it 'requires content' do
     announcement = FactoryGirl.build(:announcement, content: nil)
     expect(announcement).not_to be_valid

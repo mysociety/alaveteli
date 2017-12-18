@@ -3,7 +3,7 @@
     <% @announcements.each_with_index do |announcement, idx| %>
       <li class="dashboard__announcements__list-item carousel-item" aria-hidden="<% if idx.zero? %>false<% else %>true<% end %>">
         <div class="dashboard__announcement">
-          <h2 class="dashboard__announcement__title"><%= announcement.title %></h2>
+          <% if announcement.title.present? %><h2 class="dashboard__announcement__title"><%= announcement.title %></h2><% end %>
           <div class="dashboard__announcement__content">
             <p><%= announcement.content.html_safe %></p>
           </div>

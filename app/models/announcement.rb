@@ -16,5 +16,5 @@ class Announcement < ActiveRecord::Base
     )
   }
 
-  validates :title, :content, presence: true
+  validates :content, presence: true
 end
