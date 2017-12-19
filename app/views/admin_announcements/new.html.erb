@@ -6,8 +6,8 @@
   </div>
 </div>
 
-<%= form_tag [:admin, @announcement], class: 'form form-horizontal' do %>
-  <%= render partial: 'form' %>
+<%= form_for [:admin, @announcement], class: 'form form-horizontal' do |f| %>
+  <%= render partial: 'form', locals: { f: f } %>
   <div class="form-actions">
     <%= submit_tag 'Create', class: 'btn btn-success' %>
   </div>
