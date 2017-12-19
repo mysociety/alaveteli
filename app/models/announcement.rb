@@ -1,4 +1,6 @@
 class Announcement < ActiveRecord::Base
+  belongs_to :user,
+             inverse_of: :announcements
   has_many :dismissals,
            class_name: 'AnnouncementDismissal',
            inverse_of: :announcement,
@@ -19,5 +21,5 @@ class Announcement < ActiveRecord::Base
     )
   }
 
-  validates :content, presence: true
+  validates :content, :user, presence: true
 end

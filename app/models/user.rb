@@ -114,6 +114,8 @@ class User < ActiveRecord::Base
            :dependent => :destroy
   has_many :track_things_sent_emails,
            :dependent => :destroy
+  has_many :announcements,
+           :inverse_of => :user
   has_many :announcement_dismissals,
            :inverse_of => :user,
            :dependent => :destroy

@@ -26,8 +26,20 @@ describe Announcement do
     end
   end
 
-  it 'requires content' do
-    announcement = FactoryGirl.build(:announcement, content: nil)
-    expect(announcement).not_to be_valid
+  describe 'vaidations' do
+    it 'has valid factory' do
+      announcement = FactoryGirl.build(:announcement)
+      expect(announcement).to be_valid
+    end
+
+    it 'requires content' do
+      announcement = FactoryGirl.build(:announcement, content: nil)
+      expect(announcement).not_to be_valid
+    end
+
+    it 'requires user' do
+      announcement = FactoryGirl.build(:announcement, user: nil)
+      expect(announcement).not_to be_valid
+    end
   end
 end
