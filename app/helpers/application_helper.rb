@@ -180,4 +180,10 @@ module ApplicationHelper
   def action?(*actions)
     actions.include?(params[:action])
   end
+
+  def site_wide_announcement
+    @site_wide_announcement ||= begin
+      Announcement.site_wide.for_user(current_user).first
+    end
+  end
 end

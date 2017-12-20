@@ -17,6 +17,22 @@ describe Announcement do
       announcements.values_at(*keys)
     end
 
+    describe '.site_wide' do
+      it 'returns announcements visible to everybody' do
+        expect(Announcement.site_wide).
+          to match_array(announcements_for(:generic, :user, :nobody))
+      end
+    end
+
+    describe '.visible_to' do
+      it 'returns announcements visible for the role' do
+        expect(Announcement.visible_to('everyone')).
+          to match_array(announcements_for(:generic, :user, :nobody))
+        expect(Announcement.visible_to('admin')).
+          to match_array(announcements_for(:admin))
+      end
+    end
+
     describe '.for_user' do
       it 'returns undismissed announcements' do
         expect(Announcement.for_user(admin)).

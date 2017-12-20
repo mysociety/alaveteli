@@ -38,8 +38,6 @@ if(window.location.search.substring(1).search("country_name") == -1) {
  // popups
 $('#standard-popup .js-popup__close').click(function() {
   $('#standard-popup').hide('slow');
-  $.cookie('seen_foi2', 1, { expires: 7, path: '/' });
-  return false;
 });
 
 
