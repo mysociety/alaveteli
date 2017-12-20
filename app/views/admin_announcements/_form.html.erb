@@ -38,18 +38,22 @@
         <%= f.radio_button :visibility, 'everyone' %>
         <strong>everyone</strong> all users see the announcement as a site-wide popup
       </label>
-      <label for="announcement_visibility_pro" class="inline-element">
-        <%= f.radio_button :visibility, 'pro' %>
-        <strong>pro</strong> users see the announcement on the pro dashboard
-      </label>
+      <% if feature_enabled?(:alaveteli_pro) %>
+        <label for="announcement_visibility_pro" class="inline-element">
+          <%= f.radio_button :visibility, 'pro' %>
+          <strong>pro</strong> users see the announcement on the pro dashboard
+        </label>
+      <% end %>
       <label for="announcement_visibility_admin" class="inline-element">
         <%= f.radio_button :visibility, 'admin' %>
         <strong>admin</strong> users see the announcement on the admin summary
       </label>
-      <label for="announcement_visibility_pro_admin" class="inline-element">
-        <%= f.radio_button :visibility, 'pro_admin' %>
-        <strong>pro_admin</strong> users see the announcement on the admin summary
-      </label>
+      <% if feature_enabled?(:alaveteli_pro) %>
+        <label for="announcement_visibility_pro_admin" class="inline-element">
+          <%= f.radio_button :visibility, 'pro_admin' %>
+          <strong>pro_admin</strong> users see the announcement on the admin summary
+        </label>
+      <% end %>
     </div>
   </div>
 </div>
