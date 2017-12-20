@@ -9,7 +9,7 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
   def receive
     begin
       case @stripe_event.type
-      when 'invoice.payment_failed'
+      when 'customer.subscription.deleted'
         # ToDo: add specific handler code here, but for now just raise an
         # UnhandledStripeWebhookError
         raise UnhandledStripeWebhookError.new(@stripe_event.type)

@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
+require 'stripe_mock'
 
 describe AlaveteliPro::StripeWebhooksController do
 
@@ -8,9 +9,21 @@ describe AlaveteliPro::StripeWebhooksController do
     let(:config_secret) { 'whsec_secret' }
     let(:signing_secret) { config_secret }
 
+    let(:stripe_event) do
+      StripeMock.mock_webhook_event('customer.subscription.deleted')
+    end
+
     before do
+      AlaveteliFeatures.backend.enable(:pro_pricing)
       config = MySociety::Config.load_default
       config['STRIPE_WEBHOOK_SECRET'] = config_secret
+      config['STRIPE_NAMESPACE'] = ''
+      StripeMock.start
+    end
+
+    after do
+      AlaveteliFeatures.backend.disable(:pro_pricing)
+      StripeMock.stop
     end
 
     def encode_hmac(key, value)
@@ -19,7 +32,7 @@ describe AlaveteliPro::StripeWebhooksController do
       OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha256"), key, value)
     end
 
-    let(:payload) { '{"type": "invoice.payment_failed"}' }
+    let(:payload) { stripe_event.to_s }
 
     def signed_headers
       timestamp = Time.zone.now.to_i
@@ -106,13 +119,18 @@ describe AlaveteliPro::StripeWebhooksController do
 
     context 'receiving an unhandled notification type' do
 
-      let(:payload) { '{"type": "custom.random_event"}' }
+      let(:payload) do
+        stripe_event.
+          to_s.gsub!('customer.subscription.deleted', 'custom.random_event')
+      end
 
       it 'sends an exception email' do
-        request.headers.merge! signed_headers
-        post :receive, payload
-        mail = ActionMailer::Base.deliveries.first
-        expect(mail.subject).to match(/UnhandledStripeWebhookError/)
+        with_feature_enabled(:alaveteli_pro) do
+          request.headers.merge! signed_headers
+          post :receive, payload
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail.subject).to match(/UnhandledStripeWebhookError/)
+        end
       end
 
     end
