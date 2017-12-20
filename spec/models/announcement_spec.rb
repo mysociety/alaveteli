@@ -41,6 +41,19 @@ describe Announcement do
           to match_array(announcements_for(:generic, :user))
       end
     end
+
+    describe '.for_user_with_roles' do
+      it 'returns undismissed announcements, with correct role visibility' do
+        expect(Announcement.for_user_with_roles(admin, 'admin')).
+          to match_array(announcements_for(:admin))
+        expect(Announcement.for_user_with_roles(user, 'admin')).
+          to be_empty
+        expect(Announcement.for_user_with_roles(admin, 'everyone')).
+          to match_array(announcements_for(:generic))
+        expect(Announcement.for_user_with_roles(user, 'everyone')).
+          to match_array(announcements_for(:generic, :user))
+      end
+    end
   end
 
   describe 'vaidations' do
