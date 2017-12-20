@@ -81,11 +81,15 @@ describe ApplicationHelper do
     it 'calls scopes on Announcement' do
       announcement = double(:announcement)
       relation = double(:announcement_relation)
+      dismissal = double(:dismissal)
+      session[:announcement_dismissals] = dismissal
 
       allow(Announcement).to receive(:site_wide).
         and_return(relation)
       allow(relation).to receive(:for_user).with(current_user).
         and_return(relation)
+      allow(relation).to receive_message_chain(:where, :not).
+        with(id: dismissal).and_return(relation)
       allow(relation).to receive(:first).
         and_return(announcement)
 
