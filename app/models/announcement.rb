@@ -40,7 +40,10 @@ class Announcement < ActiveRecord::Base
   }
 
   scope :for_user_with_roles, -> (user, *roles) {
-    for_user(user).visible_to(roles)
+    for_user(user).visible_to(roles).
+
+    # hide old announcements, created before user signed up
+    where('announcements.created_at >= ?', user.created_at)
   }
 
   validates :content, :user,
