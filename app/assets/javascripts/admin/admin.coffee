@@ -36,4 +36,8 @@ jQuery ->
       if $('#ids').val() == ""
         $('input[value="Delete selected messages"]').attr("disabled", true)
   )
+  $('[data-dismiss]').on 'click', ->
+    console.log 'click'
+    parent = $(this).parents(".#{$(this).data('dismiss')}")
+    parent.hide('slow')
 
