@@ -80,10 +80,6 @@ body.admin {
     }
   }
 
-  .fieldWithErrors input{
-    border: 1px solid #ff0c11;
-  }
-
   body.admin blockquote p {
     font-size: 13px;
     display: inline;
@@ -126,9 +122,14 @@ body.admin {
   .fieldWithErrors {
     display:block;
     padding:0.2em;
+
     textarea, input {
-      border:solid 1px Red !important;
+      border: 1px solid #ff0c11 !important;
     }
+  }
+
+  .inline-element .fieldWithErrors {
+    display: inline-block;
   }
 
   /* Users */

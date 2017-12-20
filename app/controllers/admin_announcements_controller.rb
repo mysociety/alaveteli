@@ -51,7 +51,8 @@ class AdminAnnouncementsController < AdminController
 
   def announcement_params
     if announcement_params = params[:announcement]
-      keys = { translated_keys: [:locale, :title, :content] }
+      keys = { translated_keys: [:locale, :title, :content],
+               general_keys: [:visibility] }
       translatable_params(keys, announcement_params).merge(
         user: current_user
       )

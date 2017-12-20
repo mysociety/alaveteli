@@ -2,13 +2,14 @@ require 'spec_helper'
 
 describe Announcement do
   describe 'scopes' do
-    let!(:user1) { FactoryGirl.create(:user) }
-    let!(:user2) { FactoryGirl.create(:user) }
+    let!(:admin) { FactoryGirl.create(:admin_user) }
+    let!(:user) { FactoryGirl.create(:user) }
     let!(:announcements) do
       {
         generic: FactoryGirl.create(:announcement),
-        user1: FactoryGirl.create(:announcement, dismissed_by: user2),
-        nobody: FactoryGirl.create(:announcement, dismissed_by: [user1, user2])
+        admin: FactoryGirl.create(:announcement, visibility: 'admin'),
+        user: FactoryGirl.create(:announcement, dismissed_by: admin),
+        nobody: FactoryGirl.create(:announcement, dismissed_by: [admin, user])
       }
     end
 
@@ -18,10 +19,10 @@ describe Announcement do
 
     describe '.for_user' do
       it 'returns undismissed announcements' do
-        expect(Announcement.for_user(user1)).
-          to match_array(announcements_for(:generic, :user1))
-        expect(Announcement.for_user(user2)).
-          to match_array(announcements_for(:generic))
+        expect(Announcement.for_user(admin)).
+          to match_array(announcements_for(:generic, :admin))
+        expect(Announcement.for_user(user)).
+          to match_array(announcements_for(:generic, :user))
       end
     end
   end
@@ -39,6 +40,16 @@ describe Announcement do
 
     it 'requires user' do
       announcement = FactoryGirl.build(:announcement, user: nil)
+      expect(announcement).not_to be_valid
+    end
+
+    it 'requires visibility' do
+      announcement = FactoryGirl.build(:announcement, visibility: nil)
+      expect(announcement).not_to be_valid
+    end
+
+    it 'requires visibility ' do
+      announcement = FactoryGirl.build(:announcement, visibility: 'foobar')
       expect(announcement).not_to be_valid
     end
   end

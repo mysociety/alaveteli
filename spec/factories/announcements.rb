@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :announcement do
     user
+    visibility 'everyone'
     title 'Introducing projects'
     content 'We’re delighted to announce we’ve rolled out the new projects'
 
