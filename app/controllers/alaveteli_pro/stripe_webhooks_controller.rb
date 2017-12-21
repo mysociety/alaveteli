@@ -14,6 +14,11 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
         if account = ProAccount.find_by(stripe_customer_id: customer_id)
           account.user.remove_role(:pro)
         end
+      when 'invoice.payment_succeeded'
+        charge_id = @stripe_event.data.object.charge
+        charge = Stripe::Charge.retrieve(charge_id)
+        charge.description = AlaveteliConfiguration.pro_site_name
+        charge.save
       else
         raise UnhandledStripeWebhookError.new(@stripe_event.type)
       end

@@ -8,6 +8,43 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
     let(:config_secret) { 'whsec_secret' }
     let(:signing_secret) { config_secret }
+    let(:stripe_helper) { StripeMock.create_test_helper }
+
+    let(:stripe_subscription) do
+      customer = Stripe::Customer.
+                   create(source: stripe_helper.generate_card_token)
+      plan = Stripe::Plan.create(
+               id: 'test',
+               name: 'Test',
+               amount: 10,
+               currency: 'gpp',
+               interval: 'monthly')
+      Stripe::Subscription.create(
+        customer: customer,
+        plan: 'test'
+      )
+    end
+
+    let(:paid_invoice) do
+      invoice = Stripe::Invoice.create(
+        lines: [
+          {
+            data: {
+              id: stripe_subscription.id,
+              subscription_item: stripe_subscription.items.data.first.id,
+              amount: 100,
+              currency: 'gbp',
+              type: 'subscription'
+            },
+            plan: { id: 'test', name: 'Test'}
+          }
+        ],
+        subscription: stripe_subscription.id
+      )
+      invoice.pay
+    end
+
+    let(:charge) { Stripe::Charge.retrieve(paid_invoice.charge) }
 
     let(:stripe_event) do
       StripeMock.mock_webhook_event('customer.subscription.deleted')
@@ -188,9 +225,19 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       context 'the webhook is for a matching namespaced plan' do
 
         let(:payload) do
-          event = StripeMock.mock_webhook_event('invoice.payment_succeeded')
-          plan_id = event.data.object.lines.data.last.plan.id
-          event.to_s.gsub(plan_id, "WDTK-#{plan_id}")
+          event = StripeMock.mock_webhook_event(
+                    'invoice.payment_succeeded',
+                    {
+                      lines: paid_invoice.lines,
+                      currency: 'gbp',
+                      charge: paid_invoice.charge,
+                      subscription: paid_invoice.subscription
+                    }
+                  )
+          plan_id = event.data.object.lines.last.plan.id
+          event.to_s.
+            gsub(/"plan": {\s*"id": "#{plan_id}"/,
+                 "\"plan\": {\"id\": \"WDTK-#{plan_id}\"")
         end
 
         it 'returns a 200 OK response' do
@@ -231,6 +278,32 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
         request.headers.merge! signed_headers
         post :receive, payload
         expect(user.reload.is_pro?).to be false
+      end
+
+    end
+
+    describe 'updating the Stripe charge description when a payment succeeds' do
+
+      let(:stripe_event) do
+        StripeMock.mock_webhook_event(
+          'invoice.payment_succeeded',
+          {
+            lines: paid_invoice.lines,
+            currency: 'gbp',
+            charge: paid_invoice.charge,
+            subscription: paid_invoice.subscription
+          }
+        )
+      end
+
+      it 'removes the pro role from the associated user' do
+        with_feature_enabled(:alaveteli_pro) do
+          expect(charge.description).to be nil
+          request.headers.merge! signed_headers
+          post :receive, payload
+          expect(Stripe::Charge.retrieve(charge.id).description).
+            to eq('Alaveteli Professional')
+        end
       end
 
     end
