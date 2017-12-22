@@ -83,6 +83,7 @@ GEM
       activerecord (>= 3.2, < 6.0)
       rake (>= 10.4, < 13.0)
     arel (6.0.4)
+    bcrypt (3.1.11)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     bootstrap-sass (2.3.2.2)
@@ -427,6 +428,7 @@ DEPENDENCIES
   acts_as_versioned!
   alaveteli_features!
   annotate (~> 2.7.0)
+  bcrypt (~> 3.1.0)
   bootstrap-sass (~> 2.3.2.2)
   bullet (~> 5.5.0)
   cancancan (~> 1.12.0, < 1.13.0)

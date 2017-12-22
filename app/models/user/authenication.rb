@@ -1,3 +1,4 @@
+require 'bcrypt'
 require 'digest/sha1'
 
 module User::Authenication
