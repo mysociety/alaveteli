@@ -16,7 +16,7 @@ module User::Authenication
 
   module ClassMethods
     def encrypted_password(password, salt)
-      string_to_hash = password + salt # TODO: need to add a secret here too?
+      string_to_hash = password + salt.to_s # TODO: need to add a secret here too?
       Digest::SHA1.hexdigest(string_to_hash)
     end
   end
