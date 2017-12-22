@@ -4,6 +4,7 @@ module User::Authenication
   extend ActiveSupport::Concern
 
   included do
+    attr_reader :password
     attr_accessor :password_confirmation
 
     validates_presence_of :hashed_password,
@@ -17,12 +18,6 @@ module User::Authenication
       string_to_hash = password + salt # TODO: need to add a secret here too?
       Digest::SHA1.hexdigest(string_to_hash)
     end
-  end
-
-  # Virtual password attribute, which stores the hashed password, rather than
-  # plain text.
-  def password
-    @password
   end
 
   def password=(pwd)
