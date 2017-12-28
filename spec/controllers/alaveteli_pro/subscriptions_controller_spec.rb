@@ -77,10 +77,10 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
           expect(user.is_pro?).to eq(true)
         end
 
-        it 'enables pop polling for the user' do
+        it 'does not enable pop polling by default' do
           result =
             AlaveteliFeatures.backend[:accept_mail_from_poller].enabled?(user)
-          expect(result).to eq(true)
+          expect(result).to eq(false)
         end
 
         it 'enables daily summary notifications for the user' do
@@ -169,6 +169,28 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         end
 
         include_examples 'successful example'
+      end
+
+      context 'when pop polling is enabled' do
+
+        before do
+          allow(AlaveteliConfiguration).
+            to receive(:production_mailer_retriever_method).
+            and_return('pop')
+
+          post :create, 'stripeToken' => token,
+                        'stripeTokenType' => 'card',
+                        'stripeEmail' => user.email,
+                        'plan_id' => 'pro',
+                        'coupon_code' => ''
+        end
+
+        it 'enables pop polling for the user' do
+          result =
+            AlaveteliFeatures.backend[:accept_mail_from_poller].enabled?(user)
+          expect(result).to eq(true)
+        end
+
       end
 
       context 'with coupon code' do
