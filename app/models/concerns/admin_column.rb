@@ -11,7 +11,9 @@ module AdminColumn
   end
 
   def for_admin_column
-    reject_non_admin_columns(self.class.content_columns).each do |column|
+    columns = translated_columns + self.class.content_columns
+
+    reject_non_admin_columns(columns).each do |column|
       yield(column.name.humanize,
             send(column.name),
             column.type.to_s,
@@ -23,5 +25,15 @@ module AdminColumn
 
   def reject_non_admin_columns(columns)
     columns.reject { |c| self.class.non_admin_columns.include?(c.name) }
+  end
+
+  def translated_columns
+    if self.class.translates?
+      translated_attrs = self.class.translated_attribute_names.map(&:to_s)
+      self.class::Translation.content_columns.
+        select { |c| translated_attrs.include?(c.name) }
+    else
+      []
+    end
   end
 end
