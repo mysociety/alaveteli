@@ -11,8 +11,17 @@ module AdminColumn
   end
 
   def for_admin_column
-    self.class.content_columns.reject { |c| self.class.non_admin_columns.include?(c.name) }.each do |column|
-      yield(column.name.humanize, send(column.name), column.type.to_s, column.name)
+    reject_non_admin_columns(self.class.content_columns).each do |column|
+      yield(column.name.humanize,
+            send(column.name),
+            column.type.to_s,
+            column.name)
     end
+  end
+
+  private
+
+  def reject_non_admin_columns(columns)
+    columns.reject { |c| self.class.non_admin_columns.include?(c.name) }
   end
 end
