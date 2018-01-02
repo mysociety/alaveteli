@@ -14,12 +14,31 @@ class ProAccount < ActiveRecord::Base
   belongs_to :user,
              :inverse_of => :pro_account
 
+  validates :user, presence: true
+
+  before_create :set_stripe_customer_id
+
   def active?
     stripe_customer.present? && stripe_customer.subscriptions.any?
   end
 
   def stripe_customer
     @stripe_customer ||= stripe_customer!
+  end
+
+  def update_email_address
+    return unless stripe_customer
+    stripe_customer.email = user.email
+    stripe_customer.save
+  end
+
+  private
+
+  def set_stripe_customer_id
+    self.stripe_customer_id ||= begin
+      @stripe_customer = Stripe::Customer.create(email: user.email)
+      stripe_customer.id
+    end
   end
 
   def stripe_customer!

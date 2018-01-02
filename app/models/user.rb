@@ -40,7 +40,7 @@ require 'digest/sha1'
 class User < ActiveRecord::Base
   include AlaveteliFeatures::Helpers
   include AlaveteliPro::PhaseCounts
-  rolify
+  rolify before_add: :setup_pro_account
   strip_attributes :allow_empty => true
 
   attr_accessor :password_confirmation, :no_xapian_reindex
@@ -135,7 +135,7 @@ class User < ActiveRecord::Base
            :if => Proc.new { |u| u.otp_enabled? && u.require_otp? }
 
   after_initialize :set_defaults
-  after_update :reindex_referencing_models
+  after_update :reindex_referencing_models, :update_pro_account
 
   acts_as_xapian :texts => [ :name, :about_me ],
     :values => [
@@ -684,6 +684,16 @@ class User < ActiveRecord::Base
       errors.add(:otp_code, msg)
     end
     self.entered_otp_code = nil
+  end
+
+  def setup_pro_account(role)
+    return unless role == Role.pro_role && feature_enabled?(:pro_pricing)
+    pro_account || build_pro_account
+  end
+
+  def update_pro_account
+    return unless is_pro? && pro_account
+    pro_account.update_email_address if email_changed?
   end
 
 end

@@ -29,6 +29,22 @@ describe Role do
     end
   end
 
+  describe '.admin_role' do
+
+    it 'returns role with name admin' do
+      expect(Role.admin_role.name).to eq 'admin'
+    end
+
+  end
+
+  describe '.pro_role' do
+
+    it 'returns role with name pro' do
+      expect(Role.pro_role.name).to eq 'pro'
+    end
+
+  end
+
   describe '.grants_and_revokes' do
 
     it 'returns an array [:admin] when passed :admin' do
