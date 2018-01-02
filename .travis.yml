@@ -14,6 +14,7 @@ rvm:
   - 2.3.5 # Latest Official 2.3.x
   - 2.4.3 # Latest Official 2.4.x
   - 2.5.0 # Latest Official 2.5.x
+  - ruby-head
 matrix:
   fast_finish: true
   allow_failures:
@@ -22,6 +23,7 @@ matrix:
   - rvm: 2.3.5 # Latest Official 2.3.x
   - rvm: 2.4.3 # Latest Official 2.4.x
   - rvm: 2.5.0 # Latest Official 2.5.x
+  - rvm: ruby-head
 env:
   global:
     - S3_REGION=us-east-1
