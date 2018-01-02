@@ -12,12 +12,18 @@ rvm:
   - 2.3.0 # Ubuntu Xenial
   - 2.3.1 # Ubuntu Xenial
   - 2.3.5 # Latest Official 2.3.x
+  - 2.4.3 # Latest Official 2.4.x
+  - 2.5.0 # Latest Official 2.5.x
+  - ruby-head
 matrix:
   fast_finish: true
   allow_failures:
   - rvm: 2.3.0 # Ubuntu Xenial
   - rvm: 2.3.1 # Ubuntu Xenial
   - rvm: 2.3.5 # Latest Official 2.3.x
+  - rvm: 2.4.3 # Latest Official 2.4.x
+  - rvm: 2.5.0 # Latest Official 2.5.x
+  - rvm: ruby-head
 env:
   global:
     - S3_REGION=us-east-1
@@ -45,6 +51,8 @@ before_install:
   - export DEBIAN_FRONTEND=noninteractive
   - sudo apt-get -y install exim4-daemon-light
   - sudo apt-get -y install `cut -d " " -f 1 config/packages | egrep -v "(^#|wkhtml|bundler|^ruby$|^ruby1.9.1$|^rubygems$|^rake)"`
+  - gem update --system
+  - gem update bundler
   - RAILS_ENV=test ./script/rails-post-deploy
   - psql -c 'CREATE COLLATION "en_GB" (LOCALE = "en_GB.utf8");' -U postgres foi_test
   - psql -c 'CREATE COLLATION "en_GB.utf8" (LOCALE = "en_GB.utf8");' -U postgres foi_test

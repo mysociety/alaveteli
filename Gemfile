@@ -105,7 +105,7 @@ gem 'iso_country_codes', '~> 0.7.0'
 gem 'mahoro', '~> 0.4'
 gem 'newrelic_rpm'
 gem 'net-http-local', '~> 0.1.0', :platforms => [:ruby_19]
-gem 'nokogiri', '~> 1.6.0', '< 1.7'
+gem 'nokogiri', '~> 1.8.0'
 gem 'open4', '~> 1.3.0'
 gem 'rack', '~> 1.6.0'
 gem 'rack-ssl', '~> 1.4.0'
@@ -157,9 +157,8 @@ gem 'therubyracer', '~> 0.12.0'
 gem 'alaveteli_features', :path => 'gems/alaveteli_features'
 
 group :test do
-  gem 'fakeweb', '~> 1.3.0'
+  gem 'fakeweb', :git => 'https://github.com/chrisk/fakeweb.git', :ref => '2b08c1f'
   gem 'coveralls', '~> 0.8.0', :require => false
-    gem 'tins', '~> 1.3.0', '< 1.3.1'
     gem 'term-ansicolor', '~> 1.3.0', '< 1.4'
   gem 'capybara', '~> 2.15.0'
   gem 'delorean', '~> 2.1.0'
