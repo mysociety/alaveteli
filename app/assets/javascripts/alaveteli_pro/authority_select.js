@@ -1,3 +1,6 @@
+//= require alaveteli_pro/selectize
+//= require alaveteli_pro/selectize.no_results
+
 (function($){
   $(function(){
     var $select = $('.js-authority-select');
@@ -48,7 +51,7 @@
     };
 
     var updatePublicBodyNotes = function updatePublicBodyNotes(value) {
-      var option = $selectizeInstance[0].selectize.options[value];
+      var option = $selectizeInstance.options[value];
       if (option.notes && option.notes !== '') {
         $publicBodyNotes.html(
           '<h3>' + option.about + '</h3>' +
@@ -70,6 +73,7 @@
       options: initialOptions,
       create: false,
       maxItems: 1,
+      openOnFocus: false,
       render: {
         option: function(body, escape) { return body.html; }
       },
@@ -85,13 +89,19 @@
       load: function(query, callback) {
         if (!query.length) return callback();
         $.getJSON(
-            searchUrl,
-            { query: encodeURIComponent(query) },
-            callback
-          ).fail(callback);
+          searchUrl,
+          { query: encodeURIComponent(query) },
+          function (data) {
+            callback(data)
+            $selectizeInstance.trigger('type')
+          }
+        ).fail(callback)
       },
-      plugins: ['remove_button']
-    });
+      plugins: {
+        remove_button: {},
+        no_results: { message: $select.data('no-results') }
+      }
+    })[0].selectize;
 
     $form.on('submit', function(e) { e.preventDefault(); });
   });
