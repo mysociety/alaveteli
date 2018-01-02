@@ -51,6 +51,8 @@ before_install:
   - export DEBIAN_FRONTEND=noninteractive
   - sudo apt-get -y install exim4-daemon-light
   - sudo apt-get -y install `cut -d " " -f 1 config/packages | egrep -v "(^#|wkhtml|bundler|^ruby$|^ruby1.9.1$|^rubygems$|^rake)"`
+  - gem update --system
+  - gem update bundler
   - RAILS_ENV=test ./script/rails-post-deploy
   - psql -c 'CREATE COLLATION "en_GB" (LOCALE = "en_GB.utf8");' -U postgres foi_test
   - psql -c 'CREATE COLLATION "en_GB.utf8" (LOCALE = "en_GB.utf8");' -U postgres foi_test
