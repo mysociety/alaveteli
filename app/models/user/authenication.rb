@@ -8,10 +8,26 @@ module User::Authenication
     attr_reader :password
     attr_accessor :password_confirmation
 
-    validates_presence_of :hashed_password,
-                          message: _('Please enter a password')
-    validates_confirmation_of :password,
-                              message: _('Please enter the same password twice')
+    validate do |user|
+      if user.hashed_password.blank?
+        user.errors.add(:password, _('Please enter a password'))
+      end
+    end
+
+    validates :password, length: {
+      minimum: 12,
+      allow_blank: true,
+      message: _('Password is too short (minimum is 12 characters)')
+    }
+    validates :password, length: {
+      maximum: 72,
+      allow_blank: true,
+      message: _('Password is too long (maximum is 72 characters)')
+    }
+    validates :password, confirmation: {
+      allow_blank: true,
+      message: _('Please enter the same password twice')
+    }
   end
 
   module ClassMethods

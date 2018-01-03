@@ -265,7 +265,26 @@ describe User, 'when saving' do
   it 'should not save with no password' do
     @user.password = ''
     expect(@user).to_not be_valid
-    expect(@user.errors[:hashed_password].size).to eq(1)
+    expect(@user.errors[:password].size).to eq(1)
+  end
+
+  it 'should not save with too short password' do
+    @user.password = 'a' * 11
+    expect(@user).to_not be_valid
+    expect(@user.errors[:password].size).to eq(1)
+  end
+
+  it 'should not save with too long password' do
+    @user.password = 'a' * 73
+    expect(@user).to_not be_valid
+    expect(@user.errors[:password].size).to eq(1)
+  end
+
+  it 'should not save with wrong password confirmation' do
+    @user.password = 'a' * 12
+    @user.password_confirmation = 'b' * 12
+    expect(@user).to_not be_valid
+    expect(@user.errors[:password_confirmation].size).to eq(1)
   end
 
   it 'does not allow a long about_me' do
@@ -318,6 +337,19 @@ describe User, 'when saving' do
     expect(@user2).to_not be_valid
     expect(@user2.errors[:email].size).to eq(1)
     expect(@user2.errors[:email][0]).to eq('This email is already in use')
+  end
+
+  it 'should allow updated attributes even if old password is invalid' do
+    @user.name = 'Mr. Elderly'
+    @user.password = 'invalid'
+    @user.email = 'elderly@localhost'
+    @user.save(validate: false)
+
+    @user = User.find_by(email: 'elderly@localhost')
+    @user.name = 'Mr. Young'
+    @user.email = 'young@localhost'
+    @user.save
+    expect(@user).to be_valid
   end
 
   it 'should mark the model for reindexing in xapian if the no_xapian_reindex flag is set to false' do
