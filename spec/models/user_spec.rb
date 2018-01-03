@@ -240,108 +240,108 @@ describe User, 'password hashing algorithms' do
 
 end
 
-describe User, " when saving" do
+describe User, 'when saving' do
   before do
     @user = User.new
   end
 
-  it "should not save without setting some parameters" do
+  it 'should not save without setting some parameters' do
     expect { @user.save! }.to raise_error(ActiveRecord::RecordInvalid)
   end
 
-  it "should not save with misformatted email" do
-    @user.name = "Mr. Silly"
-    @user.password = "insecurepassword"
-    @user.email = "mousefooble"
-    @user.valid?
+  it 'should not save with misformatted email' do
+    @user.email = 'mousefooble'
+    expect(@user).to_not be_valid
     expect(@user.errors[:email].size).to eq(1)
   end
 
-  it "should not allow an email address as a name" do
-    @user.name = "silly@example.com"
-    @user.email = "silly@example.com"
-    @user.password = "insecurepassword"
-    @user.valid?
+  it 'should not allow an email address as a name' do
+    @user.name = 'silly@example.com'
+    @user.email = 'silly@example.com'
+    expect(@user).to_not be_valid
     expect(@user.errors[:name].size).to eq(1)
   end
 
-  it "should not save with no password" do
-    @user.name = "Mr. Silly"
-    @user.password = ""
-    @user.email = "silly@localhost"
-    @user.valid?
+  it 'should not save with no password' do
+    @user.password = ''
+    expect(@user).to_not be_valid
     expect(@user.errors[:hashed_password].size).to eq(1)
   end
 
-  it "does not allow a long about_me" do
+  it 'does not allow a long about_me' do
     @user.about_me = 'a' * 501
-    @user.valid?
+    expect(@user).to_not be_valid
     expect(@user.errors[:about_me].size).to eq(1)
   end
 
-  it "should save with reasonable name, password and email" do
-    @user.name = "Mr. Reasonable"
-    @user.password = "insecurepassword"
-    @user.email = "reasonable@localhost"
-    @user.save!
+  it 'should save with reasonable name, password and email' do
+    @user.name = 'Mr. Reasonable'
+    @user.password = 'insecurepassword'
+    @user.password_confirmation = 'insecurepassword'
+    @user.email = 'reasonable@localhost'
+    @user.save
+    expect(@user).to be_valid
   end
 
-  it "should let you make two users with same name" do
-    @user.name = "Mr. Flobble"
-    @user.password = "insecurepassword"
-    @user.email = "flobble@localhost"
-    @user.save!
+  it 'should let you make two users with same name' do
+    @user.name = 'Mr. Flobble'
+    @user.password = 'insecurepassword'
+    @user.email = 'flobble@localhost'
+    @user.save
+    expect(@user).to be_valid
 
     @user2 = User.new
-    @user2.name = "Mr. Flobble"
-    @user2.password = "insecurepassword"
-    @user2.email = "flobble2@localhost"
-    @user2.save!
+    @user2.name = 'Mr. Flobble'
+    @user2.password = 'insecurepassword'
+    @user2.email = 'flobble2@localhost'
+    @user2.save
+    expect(@user2).to be_valid
   end
 
-  it "should not let you make two users with same email" do
-    @user.name = "Mr. Flobble"
-    @user.password = "insecurepassword"
-    @user.email = "flobble@localhost"
-    @user.save!
+  it 'should not let you make two users with same email' do
+    @user.name = 'Mr. Flobble'
+    @user.password = 'insecurepassword'
+    @user.email = 'flobble@localhost'
+    @user.save
+    expect(@user).to be_valid
 
     @user2 = User.new
-    @user2.name = "Flobble Jr."
-    @user2.password = "insecurepassword"
-    @user2.email = "flobble@localhost"
-    @user2.valid?
+    @user2.name = 'Flobble Jr.'
+    @user2.password = 'insecurepassword'
+    @user2.email = 'flobble@localhost'
+    expect(@user2).to_not be_valid
     expect(@user2.errors[:email].size).to eq(1)
     expect(@user2.errors[:email][0]).to eq('This email is already in use')
 
     # should ignore case differences
-    @user2.email = "FloBBle@localhost"
-    @user2.valid?
+    @user2.email = 'FloBBle@localhost'
+    expect(@user2).to_not be_valid
     expect(@user2.errors[:email].size).to eq(1)
     expect(@user2.errors[:email][0]).to eq('This email is already in use')
   end
 
   it 'should mark the model for reindexing in xapian if the no_xapian_reindex flag is set to false' do
-    @user.name = "Mr. First"
-    @user.password = "insecurepassword"
-    @user.email = "reasonable@localhost"
+    @user.name = 'Mr. First'
+    @user.password = 'insecurepassword'
+    @user.email = 'reasonable@localhost'
     @user.no_xapian_reindex = false
     expect(@user).to receive(:xapian_mark_needs_index)
     @user.save!
   end
 
   it 'should mark the model for reindexing in xapian if the no_xapian_reindex flag is not set'  do
-    @user.name = "Mr. Second"
-    @user.password = "insecurepassword"
-    @user.email = "reasonable@localhost"
+    @user.name = 'Mr. Second'
+    @user.password = 'insecurepassword'
+    @user.email = 'reasonable@localhost'
     @user.no_xapian_reindex = nil
     expect(@user).to receive(:xapian_mark_needs_index)
     @user.save!
   end
 
   it 'should not mark the model for reindexing in xapian if the no_xapian_reindex flag is set' do
-    @user.name = "Mr. Third"
-    @user.password = "insecurepassword"
-    @user.email = "reasonable@localhost"
+    @user.name = 'Mr. Third'
+    @user.password = 'insecurepassword'
+    @user.email = 'reasonable@localhost'
     @user.no_xapian_reindex = true
     expect(@user).not_to receive(:xapian_mark_needs_index)
     @user.save!
