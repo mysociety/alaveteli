@@ -167,6 +167,35 @@ describe User, 'password hashing algorithms' do
       expect(found_user).to eq(user)
     end
 
+    it 'updates hashed password with bcrypt version' do
+      expect(found_user.hashed_password).to match(/^\$2[ayb]\$.{56}$/)
+    end
+
+  end
+
+  context 'short password hashed with SHA1' do
+    let!(:user) do
+      create_user(
+        # object_id.to_s + rand.to_s
+        salt: '702047220705400.701827131831902',
+        # Digest::SHA1.hexdigest('tooshort' + self.salt)
+        hashed_password: '4eb8c1a455e2e04c9fe70cc07c8830a9d18dde97'
+      )
+    end
+
+    it 'does not validate password length and updates password' do
+      user.has_this_password?('tooshort')
+      expect(user.errors).to be_empty
+      expect(user.hashed_password).to match(/^\$2[ayb]\$.{56}$/)
+    end
+
+    it 'does not upgrade password if other attribute changes have been made' do
+      user.name = 'Changed User'
+      user.has_this_password?('tooshort')
+      expect(user.errors).to be_empty
+      expect(user.hashed_password).to_not match(/^\$2[ayb]\$.{56}$/)
+    end
+
   end
 
   context 'password hashed with SHA1 and then bcrypt' do
@@ -186,6 +215,11 @@ describe User, 'password hashing algorithms' do
       expect(found_user.errors.size).to eq(0)
       expect(found_user).to eq(user)
     end
+
+    it 'updates hashed password with bcrypt version' do
+      expect(found_user.hashed_password).to match(/^\$2[ayb]\$.{56}$/)
+    end
+
   end
 
   context 'password hashed with bcrypt' do

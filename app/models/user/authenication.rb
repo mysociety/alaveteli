@@ -40,13 +40,28 @@ module User::Authenication
 
     sha1_password = User.sha1_password(password, salt)
     if bcrypt_password == sha1_password # password been rehashed
+      attempt_password_upgrade(password)
       true
 
     elsif hashed_password == sha1_password # password not rehashed
+      attempt_password_upgrade(password)
       true
 
     else # password invalid
       false
     end
+  end
+
+  private
+
+  def attempt_password_upgrade(password)
+    # don't upgrade if record has been modified as we're skipping validation
+    # below
+    return if changed?
+
+    self.password = password
+    self.salt = nil
+
+    save(validate: false)
   end
 end
