@@ -137,6 +137,28 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
       end
 
+      context 'the user previously had some pro features enabled' do
+
+        def successful_signup
+          post :create, 'stripeToken' => token,
+                        'stripeTokenType' => 'card',
+                        'stripeEmail' => user.email,
+                        'plan_id' => 'pro',
+                        'coupon_code' => 'coupon_code'
+        end
+
+        it 'does not raise an error if the user already uses the poller' do
+          AlaveteliFeatures.backend.enable_actor(:accept_mail_from_poller, user)
+          expect { successful_signup }.not_to raise_error
+        end
+
+        it 'does not raise an error if the user already has notifications' do
+          AlaveteliFeatures.backend.enable_actor(:notifications, user)
+          expect { successful_signup }.not_to raise_error
+        end
+
+      end
+
       context 'with a successful transaction' do
         before do
           post :create, 'stripeToken' => token,
