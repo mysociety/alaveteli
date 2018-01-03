@@ -15,30 +15,38 @@ module User::Authenication
   end
 
   module ClassMethods
-    def encrypted_password(password, salt)
-      string_to_hash = password + salt.to_s # TODO: need to add a secret here too?
+    def sha1_password(password, salt)
+      string_to_hash = password + salt.to_s
       Digest::SHA1.hexdigest(string_to_hash)
     end
   end
 
   def password=(pwd)
-    @password = pwd
     if pwd.blank?
       self.hashed_password = nil
-      return
+    else
+      @password = pwd
+      self.hashed_password = BCrypt::Password.create(password)
     end
-    create_new_salt
-    self.hashed_password = User.encrypted_password(password, salt)
   end
 
   def has_this_password?(password)
-    expected_password = User.encrypted_password(password, salt)
-    hashed_password == expected_password
-  end
+    begin
+      # check if bcrypt hashed_password matches password
+      bcrypt_password = BCrypt::Password.new(hashed_password)
+      return true if bcrypt_password == password
+    rescue BCrypt::Errors::InvalidHash
+    end
 
-  private
+    sha1_password = User.sha1_password(password, salt)
+    if bcrypt_password == sha1_password # password been rehashed
+      true
 
-  def create_new_salt
-    self.salt = object_id.to_s + rand.to_s
+    elsif hashed_password == sha1_password # password not rehashed
+      true
+
+    else # password invalid
+      false
+    end
   end
 end
