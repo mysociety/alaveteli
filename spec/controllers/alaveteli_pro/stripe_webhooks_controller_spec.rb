@@ -2,7 +2,7 @@
 require 'spec_helper'
 require 'stripe_mock'
 
-describe AlaveteliPro::StripeWebhooksController do
+describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_pricing] do
 
   describe '#receive' do
 
@@ -14,7 +14,6 @@ describe AlaveteliPro::StripeWebhooksController do
     end
 
     before do
-      AlaveteliFeatures.backend.enable(:pro_pricing)
       config = MySociety::Config.load_default
       config['STRIPE_WEBHOOK_SECRET'] = config_secret
       config['STRIPE_NAMESPACE'] = ''
@@ -22,7 +21,6 @@ describe AlaveteliPro::StripeWebhooksController do
     end
 
     after do
-      AlaveteliFeatures.backend.disable(:pro_pricing)
       StripeMock.stop
     end
 
@@ -44,40 +42,31 @@ describe AlaveteliPro::StripeWebhooksController do
     end
 
     it 'returns a successful response for correctly signed headers' do
-      with_feature_enabled(:alaveteli_pro) do
-        request.headers.merge! signed_headers
-        post :receive, payload
-        expect(response).to be_success
-      end
+      request.headers.merge! signed_headers
+      post :receive, payload
+      expect(response).to be_success
     end
 
     context 'the secret is not in the request' do
 
       it 'returns a 401 Unauthorized response' do
-        with_feature_enabled(:alaveteli_pro) do
-          post :receive, payload
-          expect(response.status).to eq(401)
-        end
+        post :receive, payload
+        expect(response.status).to eq(401)
       end
 
       it 'sends an exception email' do
         expected = '(Stripe::SignatureVerificationError) "Unable to extract ' \
                    'timestamp and signatures from header'
-        with_feature_enabled(:alaveteli_pro) do
-          post :receive, payload
-          mail = ActionMailer::Base.deliveries.first
-          expect(mail.subject).
-            to include(expected)
-        end
+        post :receive, payload
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).to include(expected)
       end
 
       it 'includes the error message in the message body' do
-        with_feature_enabled(:alaveteli_pro) do
-          post :receive, payload
-          expect(response.body).
-            to eq('{"error":"Unable to extract timestamp and signatures ' \
-                  'from header"}')
-        end
+        post :receive, payload
+        expect(response.body).
+          to eq('{"error":"Unable to extract timestamp and signatures ' \
+                'from header"}')
       end
 
     end
@@ -92,27 +81,20 @@ describe AlaveteliPro::StripeWebhooksController do
       end
 
       it 'returns 401 Unauthorized response' do
-        with_feature_enabled(:alaveteli_pro) do
-          expect(response.status).to eq(401)
-        end
+        expect(response.status).to eq(401)
       end
 
       it 'sends an exception email' do
         expected = '(Stripe::SignatureVerificationError) "No signatures ' \
                    'found matching the expected signature for payload'
-        with_feature_enabled(:alaveteli_pro) do
-          mail = ActionMailer::Base.deliveries.first
-          expect(mail.subject).
-            to include(expected)
-        end
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).to include(expected)
       end
 
       it 'includes the error message in the message body' do
-        with_feature_enabled(:alaveteli_pro) do
-          expect(response.body).
-            to eq('{"error":"No signatures found matching the expected ' \
-                  'signature for payload"}')
-        end
+        expect(response.body).
+          to eq('{"error":"No signatures found matching the expected ' \
+                'signature for payload"}')
       end
 
     end
@@ -125,12 +107,10 @@ describe AlaveteliPro::StripeWebhooksController do
       end
 
       it 'sends an exception email' do
-        with_feature_enabled(:alaveteli_pro) do
-          request.headers.merge! signed_headers
-          post :receive, payload
-          mail = ActionMailer::Base.deliveries.first
-          expect(mail.subject).to match(/UnhandledStripeWebhookError/)
-        end
+        request.headers.merge! signed_headers
+        post :receive, payload
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).to match(/UnhandledStripeWebhookError/)
       end
 
     end
@@ -147,17 +127,13 @@ describe AlaveteliPro::StripeWebhooksController do
       end
 
       it 'returns a 401 Unauthorized response' do
-        with_feature_enabled(:alaveteli_pro) do
-          expect(response.status).to eq(401)
-        end
+        expect(response.status).to eq(401)
       end
 
       it 'sends an exception email' do
         expected = 'Timestamp outside the tolerance zone'
-        with_feature_enabled(:alaveteli_pro) do
-          mail = ActionMailer::Base.deliveries.first
-          expect(mail.subject).to include(expected)
-        end
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).to include(expected)
       end
 
     end
@@ -172,17 +148,13 @@ describe AlaveteliPro::StripeWebhooksController do
       end
 
       it 'returns a 400 Bad Request response' do
-        with_feature_enabled(:alaveteli_pro) do
-          expect(response.status).to eq(400)
-        end
+        expect(response.status).to eq(400)
       end
 
       it 'sends an exception email' do
         expected = '(NoMethodError) "undefined method `type\''
-        with_feature_enabled(:alaveteli_pro) do
-          mail = ActionMailer::Base.deliveries.first
-          expect(mail.subject).to include(expected)
-        end
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).to include(expected)
       end
 
     end
@@ -198,21 +170,17 @@ describe AlaveteliPro::StripeWebhooksController do
       context 'the webhook does not reference our plan namespace' do
 
         it 'returns a custom 200 response' do
-          with_feature_enabled(:alaveteli_pro) do
-            request.headers.merge! signed_headers
-            post :receive, payload
-            expect(response.status).to eq(200)
-            expect(response.body).
-              to match('Does not appear to be one of our plans')
-          end
+          request.headers.merge! signed_headers
+          post :receive, payload
+          expect(response.status).to eq(200)
+          expect(response.body).
+            to match('Does not appear to be one of our plans')
         end
 
         it 'does not send an exception email' do
-          with_feature_enabled(:alaveteli_pro) do
-            request.headers.merge! signed_headers
-            post :receive, payload
-            expect(ActionMailer::Base.deliveries.count).to eq(0)
-          end
+          request.headers.merge! signed_headers
+          post :receive, payload
+          expect(ActionMailer::Base.deliveries.count).to eq(0)
         end
 
       end
@@ -226,12 +194,10 @@ describe AlaveteliPro::StripeWebhooksController do
         end
 
         it 'returns a 200 OK response' do
-          with_feature_enabled(:alaveteli_pro) do
-            request.headers.merge! signed_headers
-            post :receive, payload
-            expect(response.status).to eq(200)
-            expect(response.body).to match('OK')
-          end
+          request.headers.merge! signed_headers
+          post :receive, payload
+          expect(response.status).to eq(200)
+          expect(response.body).to match('OK')
         end
 
       end
@@ -243,10 +209,8 @@ describe AlaveteliPro::StripeWebhooksController do
         end
 
         it 'does not raise an error when trying to filter on plan name' do
-          with_feature_enabled(:alaveteli_pro) do
-            request.headers.merge! signed_headers
-            expect{ post :receive, payload }.not_to raise_error
-          end
+          request.headers.merge! signed_headers
+          expect{ post :receive, payload }.not_to raise_error
         end
 
       end
@@ -263,12 +227,10 @@ describe AlaveteliPro::StripeWebhooksController do
       end
 
       it 'removes the pro role from the associated user' do
-        with_feature_enabled(:alaveteli_pro) do
-          expect(user.is_pro?).to be true
-          request.headers.merge! signed_headers
-          post :receive, payload
-          expect(user.reload.is_pro?).to be false
-        end
+        expect(user.is_pro?).to be true
+        request.headers.merge! signed_headers
+        post :receive, payload
+        expect(user.reload.is_pro?).to be false
       end
 
     end
