@@ -25,6 +25,7 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
   end
 
   def new
+    @user = current_user
     if @draft_info_request
       load_data_from_draft
     else
