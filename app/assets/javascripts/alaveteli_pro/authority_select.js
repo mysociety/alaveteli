@@ -65,7 +65,7 @@
       $publicBodyNotes.hide();
     }
 
-    var $selectizeInstance = $select.selectize({
+    var $selectize = $select.selectize({
       valueField: 'id',
       labelField: 'name',
       searchField: ['name', 'notes', 'short_name'],
@@ -101,7 +101,8 @@
         remove_button: {},
         no_results: { message: $select.data('no-results') }
       }
-    })[0].selectize;
+    });
+    if ($selectize[0]) var $selectizeInstance = $selectize[0].selectize;
 
     $form.on('submit', function(e) { e.preventDefault(); });
   });
