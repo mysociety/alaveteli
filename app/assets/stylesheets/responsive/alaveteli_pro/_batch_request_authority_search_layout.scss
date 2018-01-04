@@ -1,3 +1,16 @@
+.batch-builder-mode {
+    margin-bottom: 1em;
+
+    .tabs {
+        @include grid-row();
+        padding-left: 0;
+    }
+
+    .tab-title {
+        margin-left: 1em;
+    }
+}
+
 .batch-builder {
     @include grid-row();
 
