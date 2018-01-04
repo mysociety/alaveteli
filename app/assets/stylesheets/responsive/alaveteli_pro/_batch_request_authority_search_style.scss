@@ -5,6 +5,28 @@
   }
 }
 
+.batch-builder-mode {
+    border-bottom: 1px solid #ddd;
+
+    .tab-title > a {
+        background-color: #F3F1EB;
+
+        &:hover {
+            background-color: scale-color(#F3F1EB, $lightness: -6%);
+        }
+    }
+
+    .tab-title.active > a {
+        border: 1px solid #ddd;
+        border-bottom: none;
+        margin-bottom: -1px;
+
+        &:hover {
+            background-color: #fff;
+        }
+    }
+}
+
 // Toggle whether we're showing the "Add authority to batch" form or whatever
 // we use to signify that it's already added. We print both in the HTML so
 // that it's easier to toggle which is displayed later via JS.
