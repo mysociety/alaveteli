@@ -90,7 +90,7 @@ Debian Wheezy that contains everything you need to work on Alaveteli.
 4. To start Alaveteli, run the rails server:
 
             # in the virtual machine terminal
-            bundle exec rails server
+            bundle exec rails server -b 0.0.0.0
 
 You can now visit the application in your browser (on the same machine that is
 running Vagrant) at `http://10.10.10.30:3000`.
