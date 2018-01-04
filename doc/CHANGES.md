@@ -22,6 +22,7 @@
   `YOUR_THEME_ROOT/assets/images`, to be shown next to pages from your site when
   shared on Facebook. You can just duplicate `logo-opengraph.png` if you don't
   have specific Pro branding.
+* We've removed the spring preloader as it didn't seem to provide much benefit.
 
 ### Changed Templates
 
