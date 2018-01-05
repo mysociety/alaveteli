@@ -141,12 +141,6 @@ namespace :config_files do
       lines << line
     end
 
-    # Add daemon check lines
-    lines << "# Every 10 minutes, check on daemons"
-    daemons(true).each do |daemon|
-      lines << "5,15,25,35,45,55 * * * * #{ENV['DEPLOY_USER']} " \
-               "/etc/init.d/#{ENV['SITE']}-#{daemon} check"
-    end
     lines.each do |line|
       puts line
     end
