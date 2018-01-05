@@ -32,20 +32,28 @@
 }
 
 @media #{$large-up} {
-    .batch-builder__search-form {
-        @include flex-order(1);
+    .batch-builder--search {
+        .batch-builder__search-form {
+            @include flex-order(1);
+        }
+
+        .batch-builder__actions {
+            @include flex-order(2);
+        }
+
+        .batch-builder__search-results {
+            @include flex-order(3);
+        }
+
+        .batch-builder__chosen-authorities {
+            @include flex-order(4);
+        }
     }
 
-    .batch-builder__actions {
-        @include flex-order(2);
-    }
-
-    .batch-builder__search-results {
-        @include flex-order(3);
-    }
-
-    .batch-builder__chosen-authorities {
-        @include flex-order(4);
+    .batch-builder--browse {
+        .batch-builder__actions {
+            width: 100%;
+        }
     }
 }
 
@@ -64,6 +72,10 @@
     @include flexbox();
     @include justify-content(flex-end);
     @include flex-align(flex-end);
+
+    form {
+        margin-bottom: 0;
+    }
 }
 
 .batch-builder__authority-list {
@@ -76,7 +88,7 @@
 }
 
 .batch-builder__authority-list__authority {
-    padding: 1.5em 1em;
+    padding: 1em;
     @include flexbox();
     @include flex-align('flex-start');
 }
@@ -98,9 +110,20 @@
 
     input[type="submit"] { // need to be more specific than `form input[type="submit"]`
         margin: -0.5em 0;
+        font-size: 0.8em;
     }
 }
 
 .batch-builder__authority-list__page-info {
     text-align: center;
+}
+
+.batch-builder__authority-list__group {
+    ul {
+        padding-left: 0; // reset default list padding
+
+        .batch-builder__authority-list__authority {
+            padding-left: 3em; // group children are indented
+        }
+    }
 }
