@@ -331,11 +331,11 @@ end
 
 describe "when getting the attachment text" do
   it "should not raise an error if the expansion of a zip file raises an error" do
-    mock_entry = double('ZipFile entry', :file? => true)
+    mock_entry = double('Zip::File entry', :file? => true)
     mock_entries = [mock_entry]
     allow(mock_entries).to receive(:close)
     allow(mock_entry).to receive(:get_input_stream).and_raise("invalid distance too far back")
-    allow(Zip::ZipFile).to receive(:open).and_return(mock_entries)
+    allow(Zip::File).to receive(:open).and_return(mock_entries)
     MailHandler.get_attachment_text_one_file('application/zip', "some string")
   end
 

@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
-require 'zip/zip'
+require 'zip'
 require 'open-uri'
 
 class RequestController < ApplicationController
@@ -940,9 +940,9 @@ class RequestController < ApplicationController
   end
 
   def make_request_zip(info_request, file_path)
-    Zip::ZipFile.open(file_path, Zip::ZipFile::CREATE) do |zipfile|
+    Zip::File.open(file_path, Zip::File::CREATE) do |zipfile|
       file_info = make_request_summary_file(info_request)
-      zipfile.get_output_stream(file_info[:filename]) { |f| f.puts(file_info[:data]) }
+      zipfile.get_output_stream(file_info[:filename]) { |f| f.write(file_info[:data]) }
       message_index = 0
       info_request.incoming_messages.each do |message|
         next unless can?(:read, message)
@@ -951,7 +951,7 @@ class RequestController < ApplicationController
           filename = "#{message_index}_#{attachment.url_part_number}_#{attachment.display_filename}"
           zipfile.get_output_stream(filename) do |f|
             body = message.apply_masks(attachment.default_body, attachment.content_type)
-            f.puts(body)
+            f.write(body)
           end
         end
       end

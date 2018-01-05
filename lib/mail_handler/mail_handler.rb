@@ -132,7 +132,7 @@ module MailHandler
       elsif content_type == 'application/zip'
         # recurse into zip files
         begin
-          zip_file = Zip::ZipFile.open(tempfile.path)
+          zip_file = Zip::File.open(tempfile.path)
           text += get_attachment_text_from_zip_file(zip_file)
           zip_file.close
         rescue

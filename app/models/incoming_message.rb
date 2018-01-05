@@ -33,7 +33,7 @@
 # general not specific to IncomingMessage.
 
 require 'rexml/document'
-require 'zip/zip'
+require 'zip'
 require 'iconv' unless String.method_defined?(:encode)
 
 class IncomingMessage < ActiveRecord::Base
