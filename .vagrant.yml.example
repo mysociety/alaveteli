@@ -5,4 +5,5 @@ themes_dir: ../alaveteli-themes
 os: jessie64
 use_nfs: false
 show_settings: false
-cpus: 2 # By default this is calculated dynamically
+# By default CPU count is calculated dynamically
+cpus: 2
