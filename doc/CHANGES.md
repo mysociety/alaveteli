@@ -2,6 +2,9 @@
 
 ## Highlighted Features
 
+* Replace out of support zip gem with rubyzip to address an issue where some
+  zip files created by the site may not be openable on Windows PCs (Liz Conlan,
+  Graeme Porteous)
 * Fix bug in `stats:show` task (Liz Conlan, Gareth Rees)
 * Use `.eml` file extension when downloading raw emails through the admin
   interface (Gareth Rees)
