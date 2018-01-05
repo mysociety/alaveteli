@@ -70,7 +70,7 @@
 
 .batch-builder__authority-list__authority {
     &:nth-child(odd) {
-        background-color: #eee;
+        background-color: #F3F1EB;
     }
 }
 
@@ -79,6 +79,22 @@
     font-weight: 600;
     width: 5em; // Assumes that `.add-authority-to-batch__form__submit` is roughly 5em wide
     text-align: center;
+}
+
+.batch-builder__authority-list__group {
+    & > .batch-builder__authority-list__authority {
+        .batch-builder__authority-list__authority__name {
+            font-weight: bold;
+            background-color: #F3F1EB;
+        }
+    }
+
+    ul {
+        .batch-builder__authority-list__authority {
+            background-color: transparent; // group children are always white (even :nth-child(odd) ones)
+            border-bottom: 1px solid #F3F1EB;
+        }
+    }
 }
 
 .batch-builder__search-results {
