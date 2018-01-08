@@ -24,7 +24,7 @@
 
   $(function(){
     $search = BatchAuthoritySearch.$el;
-    $results = $('.js-batch-authority-search-results');
+    $results = $('.js-batch-authority-search-results', $search);
     loadingError = $results.data('ajax-error-message');
     BatchAuthoritySearch.Results.$el = $results;
 

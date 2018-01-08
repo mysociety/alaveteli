@@ -31,8 +31,8 @@
   $(function(){
     $search = BatchAuthoritySearch.$el;
     $draft = DraftBatchSummary.$el;
-    $form = $('.js-batch-authority-search-form');
-    $query = $('.js-batch-authority-search-form-query');
+    $form = $('.js-batch-authority-search-form', $search);
+    $query = $('.js-batch-authority-search-form-query', $search);
     newDraft = typeof DraftBatchSummary.draftId === 'undefined';
     BatchAuthoritySearch.SearchForm.$el = $form;
 
