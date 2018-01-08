@@ -39,11 +39,11 @@
     });
   };
 
-  var addLoadingClass = function startLoading() {
+  var addLoadingClass = function addLoadingClass() {
     $el.addClass('loading');
   };
 
-  var removeLoadingClass = function finishLoading() {
+  var removeLoadingClass = function removeLoadingClass() {
     $el.removeClass('loading');
   };
 
@@ -54,6 +54,7 @@
   $(function() {
     $el = $('.js-draft-batch-request');
     DraftBatchSummary.$el = $el;
+
     $el.on(Events.loading, addLoadingClass);
     // The draft id might change on the very first body adding, so we have to
     // get in there first to make sure we update the id we share.

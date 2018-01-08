@@ -3,28 +3,29 @@
   DraftBatchSummary.BodyList = {};
   var DraftEvents = DraftBatchSummary.Events;
 
-  var $draftSummary,
+  var $draft,
       loadingError;
 
   // Update the displayed results
   var updateResults = function updateResults(e, data) {
-    $draftSummary.html(data.html);
+    $draft.html(data.html);
   };
 
   // Show an error message when AJAX loading failed
   var showLoadingError = function showLoadingError(e, data) {
     // Don't show the error if we aborted the request
-    if(data.textStatus !== 'abort') {
-      $draftSummary.html(
+    if (data.textStatus !== 'abort') {
+      $draft.html(
         $('<div>').addClass('ajax-error').html(loadingError)
       );
     }
   };
 
   $(function(){
-    $draftSummary = DraftBatchSummary.$el;
-    loadingError = $draftSummary.data('ajax-error-message');
-    $draftSummary.on(DraftEvents.loadingSuccess, updateResults);
-    $draftSummary.on(DraftEvents.loadingError, showLoadingError);
+    $draft = DraftBatchSummary.$el;
+    loadingError = $draft.data('ajax-error-message');
+
+    $draft.on(DraftEvents.loadingSuccess, updateResults);
+    $draft.on(DraftEvents.loadingError, showLoadingError);
   });
 })(window.jQuery, window.AlaveteliPro.DraftBatchSummary);

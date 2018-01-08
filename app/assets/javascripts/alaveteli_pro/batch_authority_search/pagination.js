@@ -22,25 +22,25 @@
 
   // Lock the pagination links so that people can't use them whilst a search
   // is going on.
-  var lock = function lockPagination() {
+  var lock = function lock() {
     $(paginationSelector).addClass('disabled')
                          .attr('aria-disabled', true);
   };
 
   // Unlock the pagination links so that people can use them again
-  var unlock = function lockPagination() {
+  var unlock = function unlock() {
     $(paginationSelector).removeClass('disabled')
                          .removeAttr('aria-disabled');
   };
 
   // Bind click events on the pagination links, which get reloaded with new
   // search results, hence this being in a function.
-  var bindClicks = function bindPagination() {
+  var bindClicks = function bindClicks() {
     $(paginationSelector).on('click', function(e) {
       var $this = $(this);
       e.preventDefault();
       // Clicks on disabled links just get ignored
-      if(!$this.hasClass('disabled')) {
+      if (!$this.hasClass('disabled')) {
         // Parse the data we'll submit with the form from the link url
         var urlParts = $this.attr('href').split('?');
         var path = urlParts[0];
@@ -54,9 +54,11 @@
 
   $(function(){
     $search = BatchAuthoritySearch.$el;
+
     $search.on(SearchEvents.loading, lock);
     $search.on(SearchEvents.loadingSuccess, bindClicks);
     $search.on(SearchEvents.loadingComplete, unlock);
+
     bindClicks();
   });
 })(window.jQuery, window.AlaveteliPro.BatchAuthoritySearch);
