@@ -15,6 +15,6 @@
     Page <%= page %> of <%= collection.total_pages %>
   </p>
 
-<% elsif query && search.blank? %>
+<% elsif query && search.present? %>
   <div class="blank-slate"><%= _('Sorry, no authorities matched that search') %></div>
 <% end %>

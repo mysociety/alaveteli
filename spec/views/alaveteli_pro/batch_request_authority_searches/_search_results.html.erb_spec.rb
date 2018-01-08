@@ -35,11 +35,18 @@ describe '_search_results.html.erb' do
       end
     end
 
-    describe "and there are no results" do
-      it "renders a no results message" do
-        # @search is nil when there are no results
-        render_view(:search => nil, :query => "")
-        expect(rendered).to have_text("Sorry, no authorities matched that search")
+    describe 'and there are no results' do
+      let(:query) { 'serach term' }
+      let(:search) { ActsAsXapian::Search.new([PublicBody], query, limit: 3) }
+
+      it 'renders a no results message' do
+        render_view(
+          search: search,
+          query: query,
+        )
+        expect(rendered).to have_text(
+          'Sorry, no authorities matched that search'
+        )
       end
     end
   end
