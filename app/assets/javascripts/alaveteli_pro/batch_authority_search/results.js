@@ -15,7 +15,7 @@
   // Show an error message when AJAX loading failed
   var showLoadingError = function showLoadingError(e, data) {
     // Don't show the error if we aborted the request
-    if(data.textStatus !== 'abort') {
+    if (data.textStatus !== 'abort') {
       $results.html(
           $('<div>').addClass('ajax-error').html(loadingError)
       );
@@ -26,7 +26,6 @@
     $search = BatchAuthoritySearch.$el;
     $results = $('.js-batch-authority-search-results');
     loadingError = $results.data('ajax-error-message');
-
     BatchAuthoritySearch.Results.$el = $results;
 
     $search.on(SearchEvents.loadingSuccess, updateResults);

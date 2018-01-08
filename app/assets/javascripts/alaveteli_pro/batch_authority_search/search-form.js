@@ -10,7 +10,7 @@
 
   // Submit the search form via AJAX.
   var submitForm = function submitForm(e) {
-    if(typeof e !== 'undefined') {
+    if (typeof e !== 'undefined') {
       e.preventDefault();
     }
     BatchAuthoritySearch.startNewXHR();
@@ -34,10 +34,10 @@
     $form = $('.js-batch-authority-search-form');
     $query = $('.js-batch-authority-search-form-query');
     newDraft = typeof DraftBatchSummary.draftId === 'undefined';
-
     BatchAuthoritySearch.SearchForm.$el = $form;
 
     $form.on('submit', submitForm);
+
     // We debounce this because otherwise it'll send (and then abort) a new
     // request for every keystroke, which would hammer the server
     $query.on('keypress', $.debounce(500, submitForm));
@@ -47,7 +47,7 @@
     // with new pagination that contains the draft id, and new results that
     // have forms to add bodies rather than create a new draft.
     $draft.on(DraftEvents.bodyAdded, function() {
-      if(newDraft) {
+      if (newDraft) {
         newDraft = false;
         submitForm();
       }

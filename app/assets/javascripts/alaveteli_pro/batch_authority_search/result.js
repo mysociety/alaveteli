@@ -61,7 +61,7 @@
   // NOTE: what 'adding/removing' actually means is TBD, for now just swaps
   // the form for a piece of text to say it's already added by toggling a
   // class.
-  var toggleResultDisplay = function removeResult(e, data) {
+  var toggleResultDisplay = function toggleResultDisplay(e, data) {
     var bodyId = data.bodyId;
     var specificResultSelector = resultSelector + '[data-body-id="' + bodyId + '"]';
     $results.find(specificResultSelector).toggleClass(addedClass);
