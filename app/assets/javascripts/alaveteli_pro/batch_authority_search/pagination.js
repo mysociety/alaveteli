@@ -4,7 +4,7 @@
   var SearchEvents = BatchAuthoritySearch.Events;
 
   var $search;
-  var paginationSelector = '.js-batch-authority-search-results .pagination a';
+  var paginationSelector = '.pagination a';
 
   // Load a new page of search results via AJAX
   var loadNewPage = function loadNewPage(e, path, data) {
@@ -23,20 +23,20 @@
   // Lock the pagination links so that people can't use them whilst a search
   // is going on.
   var lock = function lock() {
-    $(paginationSelector).addClass('disabled')
-                         .attr('aria-disabled', true);
+    $(paginationSelector, $search).addClass('disabled')
+                                  .attr('aria-disabled', true);
   };
 
   // Unlock the pagination links so that people can use them again
   var unlock = function unlock() {
-    $(paginationSelector).removeClass('disabled')
-                         .removeAttr('aria-disabled');
+    $(paginationSelector, $search).removeClass('disabled')
+                                  .removeAttr('aria-disabled');
   };
 
   // Bind click events on the pagination links, which get reloaded with new
   // search results, hence this being in a function.
   var bindClicks = function bindClicks() {
-    $(paginationSelector).on('click', function(e) {
+    $(paginationSelector, $search).on('click', function(e) {
       var $this = $(this);
       e.preventDefault();
       // Clicks on disabled links just get ignored

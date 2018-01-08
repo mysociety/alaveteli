@@ -48,7 +48,7 @@
   };
 
   var updateDraftId = function updateDraftId() {
-    DraftBatchSummary.draftId = $(summarySelector).data('draft-id');
+    DraftBatchSummary.draftId = $(summarySelector, $el).data('draft-id');
   };
 
   $(function() {

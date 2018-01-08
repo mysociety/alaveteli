@@ -53,7 +53,7 @@
   // Bind clicks on "add body to draft" buttons, in a function because these
   // get reloaded with new search results.
   var bindAddButtons = function bindAddButtons() {
-    $(formSelector).on('submit', submitAddForm);
+    $(formSelector, $results).on('submit', submitAddForm);
   };
 
   // Add/Remove a result from the list after a successful AJAX submission of
