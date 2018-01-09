@@ -35,6 +35,7 @@
     }
 
     $results.html(content);
+    $search.trigger(SearchEvents.rendered);
   };
 
   $(function(){

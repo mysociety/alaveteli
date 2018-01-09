@@ -73,7 +73,7 @@
     $draft = DraftBatchSummary.$el;
 
     $search.on(SearchEvents.loading, lock);
-    $search.on(SearchEvents.loadingSuccess, bindAddButtons);
+    $search.on(SearchEvents.rendered, bindAddButtons);
     $search.on(SearchEvents.loadingComplete, unlock);
 
     $draft.on(DraftEvents.loading, lock);

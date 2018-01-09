@@ -9,7 +9,8 @@
     loading: namespace + ':loading',
     loadingSuccess: namespace + ':loadingSuccess',
     loadingError: namespace + ':loadingError',
-    loadingComplete: namespace + ':loadingComplete'
+    loadingComplete: namespace + ':loadingComplete',
+    rendered: namespace + ':rendered'
   };
 
   BatchAuthoritySearch.currentXHR = null;
