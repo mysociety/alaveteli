@@ -40,7 +40,10 @@
 
     DraftBatchSummary.hasReachedLimit = (numberOfBodies >= limit)
 
-    if (DraftBatchSummary.hasReachedLimit != hadReachedLimit) {
+    stateChanged = (DraftBatchSummary.hasReachedLimit != hadReachedLimit);
+    if (stateChanged && hadReachedLimit) {
+      $draft.trigger(DraftEvents.hadReachedLimit);
+    } else if (stateChanged) {
       $draft.trigger(DraftEvents.reachedLimit);
     }
   };
