@@ -1,3 +1,4 @@
+
 # develop
 
 ## Highlighted Features
@@ -39,6 +40,12 @@
   `No such file or directory @ rb_sysopen` errors from `foi_attachment.rb`.
 
 ### Changed Templates
+
+# 0.30.0.4
+
+## Highlighted Features
+
+* Updated translations from Transifex (Liz Conlan)
 
 # 0.30.0.3
 
