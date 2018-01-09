@@ -11,8 +11,9 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Christophe Van Gheluwe <info@vg-webdesign.be>, 2017
-# claude transparencia <audit.citoyen.quartier@gmail.com>, 2017
+# claude transparencia <audit.citoyen.quartier@gmail.com>, 2017-2018
 # Edwin Bosveld <edwin@inwy.nl>, 2013,2016
 # Gareth Rees <gareth@mysociety.org>, 2017
 # Infwolf <infwolf@gmail.com>, 2014
@@ -23,8 +24,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-09-27 18:47+0100\n"
-"PO-Revision-Date: 2017-09-27 17:52+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2018-01-09 04:41+0000\n"
+"Last-Translator: claude transparencia <audit.citoyen.quartier@gmail.com>\n"
 "Language-Team: Dutch (Belgium) (http://www.transifex.com/mysociety/alaveteli/language/nl_BE/)\n"
 "Language: nl_BE\n"
 "MIME-Version: 1.0\n"
@@ -99,7 +100,7 @@ msgid "'Pollution levels over time for the River Tyne'"
 msgstr "'Evolutie van de vervuiling van de rivier Tyne'"
 
 msgid "'{{authority_name}}' is defunct"
-msgstr ""
+msgstr "'{{authority_name}}' bestaat niet meer."
 
 msgid "'{{link_to_authority}}', a public authority"
 msgstr "{{link_to_authority}}', een overheidsinstelling"
@@ -314,7 +315,7 @@ msgid "About you:"
 msgstr "Over u:"
 
 msgid "About {{count}} FOI requests found"
-msgstr ""
+msgstr "{{count}} informatieaanvragen gevonden"
 
 msgid "Act on what you've learnt"
 msgstr "Delen"
@@ -695,7 +696,7 @@ msgid "Click on the link below to send a message to {{public_body_name}} telling
 msgstr "Klik op de link hieronder om een boodschap naar {{public_body_name}} te sturen en te vragen om op uw aanvraag te reageren. U wil hen misschien een vraag om een heroverweging toesturen om uit te zoeken waarom de reactie op de aanvraag zo lang uitblijft."
 
 msgid "Click on the link below to send a message to {{public_body_name}} telling them to reply to your request. You might like to ask for an internal review, asking them to find out why their response to the request has been so slow."
-msgstr ""
+msgstr "Klik op de link hieronder om een boodschap naar {{public_body_name}} te sturen en te vragen om op uw aanvraag te reageren. U wil hen misschien een vraag om een heroverweging toesturen om uit te zoeken waarom de reactie op de aanvraag zo lang uitblijft."
 
 msgid "Click on the link below to send a message to {{public_body}} reminding them to reply to your request."
 msgstr "Klik op de link hieronder om een boodschap naar {{public_body_name}} te sturen en hen eraan te herinneren om op uw aanvraag te reageren."
@@ -983,7 +984,7 @@ msgid "FOI requests by '{{user_name}}'"
 msgstr "Informatieaanvragen van '{{user_name}}'"
 
 msgid "FOI requests {{start_count}} to {{end_count}} of about {{total_count}}"
-msgstr ""
+msgstr "Informatieaanvragen van {{start_count}} tot {{end_count}} van {{total_count}}"
 
 msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
 msgstr "Voor antwoord op een informatieaanvraag is de admin nodig ({{reason}}) - {{request_title}}"
@@ -1525,7 +1526,7 @@ msgid "InfoRequestEvent|Params yaml"
 msgstr ""
 
 msgid "InfoRequest|Allow new responses from"
-msgstr ""
+msgstr "InfoRequest|Allow nieuwe antwoorden van"
 
 msgid "InfoRequest|Attention requested"
 msgstr ""
