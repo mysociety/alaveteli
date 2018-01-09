@@ -62,9 +62,9 @@
   // the form for a piece of text to say it's already added by toggling a
   // class.
   var toggleResultDisplay = function toggleResultDisplay(e, data) {
-    var bodyId = data.bodyId;
-    var specificResultSelector = resultSelector + '[data-body-id="' + bodyId + '"]';
-    $results.find(specificResultSelector).toggleClass(addedClass);
+    $results.find(resultSelector).removeClass(addedClass).filter(function() {
+      return DraftBatchSummary.bodiesIds.indexOf($(this).data('body-id')) >= 0;
+    }).addClass(addedClass);
   };
 
   $(function(){
