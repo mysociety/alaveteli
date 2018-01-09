@@ -6,7 +6,8 @@
       $draft,
       $form,
       $query,
-      newDraft;
+      newDraft,
+      currentValue;
 
   // Submit the search form via AJAX.
   var submitForm = function submitForm(e) {
@@ -23,10 +24,20 @@
       type: $form.attr('method'),
       dataType: 'html',
       data: formData
+    }).done(function () {
+      currentValue = formData.authority_query;
     });
     BatchAuthoritySearch.bindXHR();
     return false;
   };
+
+  var submitFormIfNeeded = function submitFormIfNeeded() {
+    if ($form.is(':visible') &&
+        !DraftBatchSummary.hasReachedLimit &&
+        $query.val() !== currentValue) {
+      submitForm();
+    }
+  }
 
   $(function(){
     $search = BatchAuthoritySearch.$el;
@@ -52,6 +63,9 @@
         submitForm();
       }
     });
+
+    $draft.on(DraftEvents.hadReachedLimit, submitFormIfNeeded);
+    submitFormIfNeeded();
   });
 })(window.jQuery,
    window.AlaveteliPro.BatchAuthoritySearch,
