@@ -5,21 +5,36 @@
 
   var $search,
       $results,
-      loadingError;
+      html,
+      loadingError,
+      hasLoadingError;
 
   // Update the displayed results
   var updateResults = function updateResults(e, data) {
-    $results.html(data.html);
+    hasLoadingError = false;
+    if (data) {
+      html = data.html;
+    }
+    render();
   };
 
   // Show an error message when AJAX loading failed
   var showLoadingError = function showLoadingError(e, data) {
     // Don't show the error if we aborted the request
     if (data.textStatus !== 'abort') {
-      $results.html(
-          $('<div>').addClass('ajax-error').html(loadingError)
-      );
+      hasLoadingError = true;
+      render();
     }
+  };
+
+  var render = function render() {
+    var content = html;
+
+    if (hasLoadingError) {
+      content = $('<div>').addClass('ajax-error').html(loadingError);
+    }
+
+    $results.html(content);
   };
 
   $(function(){
