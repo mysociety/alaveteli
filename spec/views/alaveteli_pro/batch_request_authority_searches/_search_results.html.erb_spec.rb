@@ -2,6 +2,8 @@
 require 'spec_helper'
 
 describe '_search_results.html.erb' do
+  let(:draft_batch_request) { AlaveteliPro::DraftInfoRequestBatch.new() }
+
   def render_view(locals)
     render(:partial => "alaveteli_pro/batch_request_authority_searches/search_results",
            :locals => locals)
@@ -26,7 +28,7 @@ describe '_search_results.html.erb' do
         expect(search.results).to be_present
         render_view(:search => search,
                     :query => authority_1.name,
-                    :draft_batch_request => AlaveteliPro::DraftInfoRequestBatch.new,
+                    :draft_batch_request => draft_batch_request,
                     :body_ids_added => [],
                     :page => 1,
                     :per_page => 25,
@@ -43,6 +45,7 @@ describe '_search_results.html.erb' do
         render_view(
           search: search,
           query: query,
+          draft_batch_request: draft_batch_request
         )
         expect(rendered).to have_text(
           'Sorry, no authorities matched that search'
@@ -53,7 +56,11 @@ describe '_search_results.html.erb' do
 
   describe "when no search has been performed" do
     it "renders nothing" do
-      render_view(:search => nil, :query => nil)
+      render_view(
+        search: nil,
+        query: nil,
+        draft_batch_request: draft_batch_request
+      )
       expect(rendered).to eq ""
     end
   end

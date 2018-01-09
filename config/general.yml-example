@@ -1068,6 +1068,14 @@ PRO_CONTACT_NAME: 'Alaveteli Professional'
 # ---
 PRO_SITE_NAME: 'Alaveteli Professional'
 
+# The total number of authorities that can be added to a Alaveteli Professional
+# batch request.
+#
+# PRO_BATCH_LIMIT - Integer (default: 500)
+#
+# ---
+PRO_BATCH_LIMIT:
+
 # Define the mailer retriever method to be used only in the production environment.
 # By default, mail is accepted passively via script/mailin. You can set this param
 # to 'pop' to poll for mail via pop.
