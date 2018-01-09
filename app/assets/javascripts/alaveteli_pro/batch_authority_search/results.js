@@ -1,13 +1,16 @@
 // Handles updating the batch authority search results list
-(function($, BatchAuthoritySearch) {
+(function($, BatchAuthoritySearch, DraftBatchSummary) {
   BatchAuthoritySearch.Results = {};
   var SearchEvents = BatchAuthoritySearch.Events;
+  var DraftEvents = DraftBatchSummary.Events;
 
   var $search,
+      $draft,
       $results,
       html,
       loadingError,
-      hasLoadingError;
+      hasLoadingError,
+      limitReached;
 
   // Update the displayed results
   var updateResults = function updateResults(e, data) {
@@ -30,7 +33,9 @@
   var render = function render() {
     var content = html;
 
-    if (hasLoadingError) {
+    if (DraftBatchSummary.hasReachedLimit) {
+      content = $('<div>').addClass('blank-slate').html(limitReached);
+    } else if (hasLoadingError) {
       content = $('<div>').addClass('ajax-error').html(loadingError);
     }
 
@@ -40,11 +45,17 @@
 
   $(function(){
     $search = BatchAuthoritySearch.$el;
+    $draft = DraftBatchSummary.$el;
     $results = $('.js-batch-authority-search-results', $search);
     loadingError = $results.data('ajax-error-message');
+    limitReached = $results.data('limit-reached-message');
     BatchAuthoritySearch.Results.$el = $results;
 
     $search.on(SearchEvents.loadingSuccess, updateResults);
     $search.on(SearchEvents.loadingError, showLoadingError);
+
+    $draft.on(DraftEvents.reachedLimit, render);
   });
-})(window.jQuery, window.AlaveteliPro.BatchAuthoritySearch);
+})(window.jQuery,
+   window.AlaveteliPro.BatchAuthoritySearch,
+   window.AlaveteliPro.DraftBatchSummary);

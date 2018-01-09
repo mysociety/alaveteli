@@ -47,9 +47,8 @@
       <div class="batch-builder__search-results">
 
         <div class="js-batch-authority-search-results"
-             data-ajax-error-message="<%= _('Sorry, something went wrong ' \
-                                            'getting your results, please ' \
-                                            'try searching again.') %>"
+             data-ajax-error-message="<%= _('Sorry, something went wrong getting your results, please try searching again.') %>"
+             data-limit-reached-message="<%= _('No more authorities can be added to this batch request.') %>"
              data-new-draft="<%= @draft_batch_request.persisted? %>">
           <% case mode %>
           <% when 'search' %>
@@ -72,8 +71,8 @@
       <div class="batch-builder__chosen-authorities">
 
         <div class="js-draft-batch-request"
-             data-ajax-error-message="<%= _('Sorry, something went wrong updating ' \
-                                            'your batch request, please try again.') %>">
+             data-limit="<%= AlaveteliConfiguration.pro_batch_authority_limit %>"
+             data-ajax-error-message="<%= _('Sorry, something went wrong updating your batch request, please try again.') %>">
           <%= render partial: 'alaveteli_pro/draft_info_request_batches/summary',
                      locals: { draft: @draft_batch_request,
                                query: @query,

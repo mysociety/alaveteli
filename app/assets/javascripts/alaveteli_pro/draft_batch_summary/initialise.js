@@ -13,7 +13,8 @@
     loadingError: namespace + ':loadingError',
     loadingComplete: namespace + ':loadingComplete',
     bodyAdded: namespace + ':bodyAdded',
-    bodyRemoved: namespace + ':bodyRemoved'
+    bodyRemoved: namespace + ':bodyRemoved',
+    reachedLimit: namespace + ':reachedLimit'
   };
 
   // Start a new XHR request, aborts any existing one and triggers a loading

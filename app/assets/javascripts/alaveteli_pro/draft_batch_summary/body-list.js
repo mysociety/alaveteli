@@ -4,10 +4,12 @@
   var DraftEvents = DraftBatchSummary.Events;
 
   var $draft,
+      limit,
       loadingError;
   var removeFormSelector = '.js-remove-authority-from-batch-form';
 
   DraftBatchSummary.bodiesIds = new Array;
+  DraftBatchSummary.hasReachedLimit = false;
 
   // Update the displayed results
   var updateResults = function updateResults(e, data) {
@@ -32,15 +34,29 @@
     );
   };
 
+  var checkLimit = function checkLimit() {
+    var hadReachedLimit = DraftBatchSummary.hasReachedLimit
+    var numberOfBodies = DraftBatchSummary.bodiesIds.length
+
+    DraftBatchSummary.hasReachedLimit = (numberOfBodies >= limit)
+
+    if (DraftBatchSummary.hasReachedLimit != hadReachedLimit) {
+      $draft.trigger(DraftEvents.reachedLimit);
+    }
+  };
+
   $(function(){
     $draft = DraftBatchSummary.$el;
+    limit = parseInt($draft.data('limit'));
     loadingError = $draft.data('ajax-error-message');
 
     $draft.on(DraftEvents.loadingSuccess, updateResults);
     $draft.on(DraftEvents.loadingSuccess, cacheBodiesIds);
+    $draft.on(DraftEvents.loadingSuccess, checkLimit);
     $draft.on(DraftEvents.loadingError, showLoadingError);
 
     // Set the initial cache bodiesIds
     cacheBodiesIds();
+    checkLimit();
   });
 })(window.jQuery, window.AlaveteliPro.DraftBatchSummary);

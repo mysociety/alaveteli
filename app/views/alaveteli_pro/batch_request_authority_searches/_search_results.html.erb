@@ -1,4 +1,6 @@
-<% if search.present? && search.results.present? %>
+<% if !request.xhr? && draft_batch_request.public_bodies.count >= AlaveteliConfiguration.pro_batch_authority_limit %>
+  <div class="blank-slate"><%= _('No more authorities can be added to this batch request.') %></div>
+<% elsif search.present? && search.results.present? %>
   <ul class="batch-builder__list js-batch-authority-search-results-list">
     <%= render partial: 'alaveteli_pro/batch_request_authority_searches/search_result',
                collection: search.results,
