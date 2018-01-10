@@ -542,18 +542,8 @@ class InfoRequest < ActiveRecord::Base
 
     opts = if args.first.is_a?(Hash)
       defaults.merge(args.shift)
-    elsif args.empty?
-      defaults
     else
-      warn %q([DEPRECATION] InfoRequest#receive with these params will be
-          removed in 0.31. It has been replaced a method which accepts
-          an options hash as its third argument. :override_stop_new_responses
-          and :rejected_reason are valid keys to that hash).squish
-      arg_opts = {}
-      arg_opts[:override_stop_new_responses] = args[0] unless args[0].nil?
-      arg_opts[:rejected_reason] = args[1] unless args[1].nil?
-
-      defaults.merge(arg_opts)
+      defaults
     end
 
     if receive_mail_from_source? opts[:source]

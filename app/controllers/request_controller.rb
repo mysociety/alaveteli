@@ -992,14 +992,6 @@ class RequestController < ApplicationController
     file_info
   end
 
-  def cache_key_for_similar_requests(info_request, locale)
-    warn %q([DEPRECATION] RequestController#cache_key_for_similar_requests
-        will be removed in 0.31. It has been replaced by
-        InfoRequest#similar_cache_key, which will not take a locale
-        param).squish
-    "request/similar/#{info_request.id}/#{locale}"
-  end
-
   def check_batch_requests_and_user_allowed
     if !AlaveteliConfiguration::allow_batch_requests
       raise RouteNotFound.new("Page not enabled")
