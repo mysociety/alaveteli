@@ -121,43 +121,17 @@ class PublicBodyController < ApplicationController
     like_query = "" if like_query.nil?
     like_query = "%#{like_query}%"
 
-    @tag = params[:tag]
+    @tag = params[:tag] || 'all'
+    @tag = Unicode.upcase(@tag) if @tag.scan(/./mu).size == 1
 
     @country_code = AlaveteliConfiguration.iso_country_code
     @locale = AlaveteliLocalization.locale
     underscore_locale = AlaveteliLocalization.locale
     underscore_default_locale = AlaveteliLocalization.default_locale
 
-    scope = PublicBody.visible
     where_condition = ''
-    where_parameters = []
-
-    first_letter = false
-
-    base_tag_condition = " (SELECT count(*) FROM has_tag_string_tags" \
-      " WHERE has_tag_string_tags.model_id = public_bodies.id" \
-      " AND has_tag_string_tags.model = 'PublicBody'"
-
-    # Restrict the public bodies shown according to the tag
-    # parameter supplied in the URL:
-    if @tag.nil? || @tag == 'all'
-      @tag = 'all'
-    elsif @tag == 'other'
-      category_list = PublicBodyCategory.get.tags.map{ |c| %Q('#{ c }') }.join(",")
-      where_condition += base_tag_condition + " AND has_tag_string_tags.name in (#{category_list})) = 0"
-    elsif @tag.scan(/./mu).size == 1
-      @tag = Unicode.upcase(@tag)
-      # The first letter queries have to be done on
-      # translations, so just indicate to add that later:
-      first_letter = true
-    elsif @tag.include?(':')
-      name, value = HasTagString::HasTagStringTag.split_tag_into_name_value(@tag)
-      where_condition += base_tag_condition + " AND has_tag_string_tags.name = ? AND has_tag_string_tags.value = ?) > 0"
-      where_parameters.concat [name, value]
-    else
-      where_condition += base_tag_condition + " AND has_tag_string_tags.name = ?) > 0"
-      where_parameters.concat [@tag]
-    end
+    scope = PublicBody.visible.with_tag(@tag)
+    first_letter = (@tag.scan(/./mu).size == 1)
 
     AlaveteliLocalization.with_locale(@locale) do
 
@@ -194,7 +168,6 @@ class PublicBodyController < ApplicationController
         @sql.push @tag if first_letter
         @sql += [underscore_default_locale, like_query, like_query, like_query]
         @sql.push @tag if first_letter
-        @sql += where_parameters
         @public_bodies = PublicBody.paginate_by_sql(
           @sql,
           :page => params[:page],
@@ -215,7 +188,7 @@ class PublicBodyController < ApplicationController
 
         where_sql = [where_condition, like_query, like_query, like_query]
         where_sql.push @tag if first_letter
-        where_sql += [underscore_locale] + where_parameters
+        where_sql += [underscore_locale]
 
         if DatabaseCollation.supports?(underscore_locale)
           @public_bodies = scope.where(where_sql).

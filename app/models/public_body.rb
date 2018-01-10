@@ -772,6 +772,38 @@ class PublicBody < ActiveRecord::Base
     return bodies
   end
 
+  def self.with_tag(tag)
+    where_condition = ''
+    where_parameters = []
+
+    base_tag_condition = "(SELECT count(*) FROM has_tag_string_tags" \
+      " WHERE has_tag_string_tags.model_id = public_bodies.id" \
+      " AND has_tag_string_tags.model = 'PublicBody'"
+
+    # Restrict the public bodies shown according to the tag
+    # parameter supplied in the URL:
+    if tag.nil? || tag == 'all'
+      tag = 'all'
+    elsif tag == 'other'
+      category_list = PublicBodyCategory.get.tags.map{ |c| %Q('#{ c }') }.join(",")
+      where_condition += base_tag_condition + " AND has_tag_string_tags.name in (#{category_list})) = 0"
+    elsif tag.scan(/./mu).size == 1
+      tag = Unicode.upcase(tag)
+      # The first letter queries have to be done on
+      # translations, so just indicate to add that later:
+      first_letter = true
+    elsif tag.include?(':')
+      name, value = HasTagString::HasTagStringTag.split_tag_into_name_value(tag)
+      where_condition += base_tag_condition + " AND has_tag_string_tags.name = ? AND has_tag_string_tags.value = ?) > 0"
+      where_parameters.concat [name, value]
+    else
+      where_condition += base_tag_condition + " AND has_tag_string_tags.name = ?) > 0"
+      where_parameters.concat [tag]
+    end
+
+    where(where_condition, *where_parameters)
+  end
+
   private
 
   # if the URL name has changed, then all requested_from: queries
