@@ -90,6 +90,56 @@ describe PublicBody do
     end
   end
 
+  describe '.with_tag' do
+
+    it 'should returns all authorities' do
+      pbs = PublicBody.with_tag('all')
+      expect(pbs).to eq([
+        public_bodies(:geraldine_public_body),
+        public_bodies(:humpadink_public_body),
+        public_bodies(:forlorn_public_body),
+        public_bodies(:silly_walks_public_body),
+        public_bodies(:sensible_walks_public_body),
+        public_bodies(:other_public_body)
+      ])
+    end
+
+    it 'should returns authorities without categories' do
+      pbs = PublicBody.with_tag('other')
+      expect(pbs).to eq([
+        public_bodies(:geraldine_public_body),
+        public_bodies(:humpadink_public_body),
+        public_bodies(:silly_walks_public_body),
+        public_bodies(:sensible_walks_public_body),
+        public_bodies(:other_public_body)
+      ])
+    end
+
+    it 'should return authorities with key/value categories' do
+      public_bodies(:humpadink_public_body).tag_string = 'eats_cheese:stilton'
+
+      pbs = PublicBody.with_tag('eats_cheese')
+      expect(pbs).to match([public_bodies(:humpadink_public_body)])
+
+      pbs = PublicBody.with_tag('eats_cheese:jarlsberg')
+      expect(pbs).to be_empty
+
+      pbs = PublicBody.with_tag('eats_cheese:stilton')
+      expect(pbs).to match([public_bodies(:humpadink_public_body)])
+    end
+
+    it 'should return authorities with categories' do
+      public_bodies(:humpadink_public_body).tag_string = 'mycategory'
+
+      pbs = PublicBody.with_tag('mycategory')
+      expect(pbs).to match([public_bodies(:humpadink_public_body)])
+
+      pbs = PublicBody.with_tag('myothercategory')
+      expect(pbs).to be_empty
+    end
+
+  end
+
   describe '#name' do
 
     it 'is invalid when nil' do
