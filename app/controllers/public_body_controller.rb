@@ -115,93 +115,18 @@ class PublicBodyController < ApplicationController
 
   def list
     long_cache
-    # TODO: move some of these tag SQL queries into has_tag_string.rb
-
-    like_query = params[:public_body_query]
-    like_query = "" if like_query.nil?
-    like_query = "%#{like_query}%"
 
     @tag = params[:tag] || 'all'
     @tag = Unicode.upcase(@tag) if @tag.scan(/./mu).size == 1
 
     @country_code = AlaveteliConfiguration.iso_country_code
     @locale = AlaveteliLocalization.locale
-    underscore_locale = AlaveteliLocalization.locale
-    underscore_default_locale = AlaveteliLocalization.default_locale
-
-    where_condition = ''
-    scope = PublicBody.visible.with_tag(@tag)
-    first_letter = (@tag.scan(/./mu).size == 1)
 
     AlaveteliLocalization.with_locale(@locale) do
-
-      if AlaveteliConfiguration::public_body_list_fallback_to_default_locale
-        # Unfortunately, when we might fall back to the
-        # default locale, this is a rather complex query:
-        if DatabaseCollation.supports?(underscore_locale)
-          select_sql = %Q(SELECT public_bodies.*, COALESCE(current_locale.name, default_locale.name) COLLATE "#{ underscore_locale }" AS display_name)
-        else
-          select_sql = %Q(SELECT public_bodies.*, COALESCE(current_locale.name, default_locale.name) AS display_name)
-        end
-
-        query =  %Q{
-          #{ select_sql }
-          FROM public_bodies
-          LEFT OUTER JOIN public_body_translations as current_locale
-            ON (public_bodies.id = current_locale.public_body_id
-              AND current_locale.locale = ? AND #{ get_public_body_list_translated_condition('current_locale', first_letter) })
-          LEFT OUTER JOIN public_body_translations as default_locale
-            ON (public_bodies.id = default_locale.public_body_id
-              AND default_locale.locale = ? AND #{ get_public_body_list_translated_condition('default_locale', first_letter) })
-        }
-
-        query +=
-          if where_condition.present?
-            %Q( WHERE #{ where_condition } AND COALESCE(current_locale.name, default_locale.name) IS NOT NULL)
-          else
-            ''
-          end
-
-        query += %q( ORDER BY display_name)
-
-        @sql = [query, underscore_locale, like_query, like_query, like_query]
-        @sql.push @tag if first_letter
-        @sql += [underscore_default_locale, like_query, like_query, like_query]
-        @sql.push @tag if first_letter
-        @public_bodies = PublicBody.paginate_by_sql(
-          @sql,
-          :page => params[:page],
-          :per_page => 100)
-      else
-        # The simpler case where we're just searching in the current locale:
-        list_condition =
-          get_public_body_list_translated_condition('public_body_translations',
-                                                    first_letter,
-                                                    true)
-
-        where_condition =
-          if where_condition.present?
-            "#{ list_condition } AND #{ where_condition }"
-          else
-            list_condition
-          end
-
-        where_sql = [where_condition, like_query, like_query, like_query]
-        where_sql.push @tag if first_letter
-        where_sql += [underscore_locale]
-
-        if DatabaseCollation.supports?(underscore_locale)
-          @public_bodies = scope.where(where_sql).
-            joins(:translations).
-              order(%Q(public_body_translations.name COLLATE "#{ underscore_locale }")).
-                paginate(:page => params[:page], :per_page => 100)
-        else
-            @public_bodies = scope.where(where_sql).
-              joins(:translations).
-                order('public_body_translations.name').
-                  paginate(:page => params[:page], :per_page => 100)
-        end
-      end
+      @public_bodies = PublicBody.visible.
+                                  with_tag(@tag).
+                                  with_query(params[:public_body_query], @tag).
+                                  paginate(page: params[:page], per_page: 100)
 
     @description =
       if @tag == 'all'
@@ -296,21 +221,6 @@ class PublicBodyController < ApplicationController
     flash[:search_params] = params.slice(:query, :bodies, :page)
     @xapian_requests = typeahead_search(query, :model => PublicBody)
     render :partial => "public_body/search_ahead"
-  end
-
-  private
-
-  def get_public_body_list_translated_condition(table, first_letter=false, locale=nil)
-    result = "(upper(#{table}.name) LIKE upper(?)" \
-      " OR upper(#{table}.notes) LIKE upper(?)" \
-        " OR upper(#{table}.short_name) LIKE upper(?))"
-        if first_letter
-          result += " AND #{table}.first_letter = ?"
-        end
-        if locale
-          result += " AND #{table}.locale = ?"
-        end
-        result
   end
 
 end

@@ -140,6 +140,32 @@ describe PublicBody do
 
   end
 
+  describe '.with_query' do
+
+    it 'should return authorities starting with a multibyte first letter' do
+      authority = FactoryGirl.create(:public_body, name: 'Åčçèñtéd Authority')
+      department = FactoryGirl.create(:public_body, name: 'Åčçèñtéd Department')
+
+      pbs = PublicBody.with_query('', 'Å')
+      expect(pbs).to match([authority, department])
+
+      pbs = PublicBody.with_query('Authority', 'Å')
+      expect(pbs).to match([authority])
+
+      pbs = PublicBody.with_query('Department', 'Å')
+      expect(pbs).to match([department])
+    end
+
+    it 'should ignore tag if greater than one character' do
+      pbs = PublicBody.with_query('Department', 'Åč')
+      expect(pbs).to match([
+        public_bodies(:humpadink_public_body),
+        public_bodies(:forlorn_public_body)
+      ])
+    end
+
+  end
+
   describe '#name' do
 
     it 'is invalid when nil' do
