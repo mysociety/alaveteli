@@ -773,6 +773,8 @@ class PublicBody < ActiveRecord::Base
   end
 
   def self.with_tag(tag)
+    return all if tag.size == 1
+
     where_condition = ''
     where_parameters = []
 
@@ -787,11 +789,6 @@ class PublicBody < ActiveRecord::Base
     elsif tag == 'other'
       category_list = PublicBodyCategory.get.tags.map{ |c| %Q('#{ c }') }.join(",")
       where_condition += base_tag_condition + " AND has_tag_string_tags.name in (#{category_list})) = 0"
-    elsif tag.scan(/./mu).size == 1
-      tag = Unicode.upcase(tag)
-      # The first letter queries have to be done on
-      # translations, so just indicate to add that later:
-      first_letter = true
     elsif tag.include?(':')
       name, value = HasTagString::HasTagStringTag.split_tag_into_name_value(tag)
       where_condition += base_tag_condition + " AND has_tag_string_tags.name = ? AND has_tag_string_tags.value = ?) > 0"
@@ -802,6 +799,50 @@ class PublicBody < ActiveRecord::Base
     end
 
     where(where_condition, *where_parameters)
+  end
+
+  def self.with_query(query, tag)
+    like_query = "%#{query}%"
+    has_first_letter = tag.size == 1
+
+    underscore_locale = AlaveteliLocalization.locale
+    underscore_default_locale = AlaveteliLocalization.default_locale
+    where_parameters = {
+      locale: underscore_locale,
+      query: like_query,
+      first_letter: tag
+    }
+
+    if AlaveteliConfiguration::public_body_list_fallback_to_default_locale
+      # Unfortunately, when we might fall back to the
+      # default locale, this is a rather complex query:
+      if DatabaseCollation.supports?(underscore_locale)
+        select_sql = %Q(public_bodies.*, COALESCE(current_locale.name, default_locale.name) COLLATE "#{underscore_locale}" AS display_name)
+      else
+        select_sql = %Q(public_bodies.*, COALESCE(current_locale.name, default_locale.name) AS display_name)
+      end
+
+      select(select_sql).
+        joins(%Q(LEFT OUTER JOIN public_body_translations as current_locale ON (public_bodies.id = current_locale.public_body_id AND current_locale.locale = #{sanitize(underscore_locale)}))).
+        joins(%Q(LEFT OUTER JOIN public_body_translations as default_locale ON (public_bodies.id = default_locale.public_body_id AND default_locale.locale = #{sanitize(underscore_default_locale)}))).
+        where("(#{get_public_body_list_translated_condition('current_locale', has_first_letter)}) OR " \
+              "(#{get_public_body_list_translated_condition('default_locale', has_first_letter)}) ", where_parameters).
+        where('COALESCE(current_locale.name, default_locale.name) IS NOT NULL').
+        order('display_name')
+    else
+      # The simpler case where we're just searching in the current locale:
+      where_condition = get_public_body_list_translated_condition('public_body_translations', has_first_letter, true)
+
+      if DatabaseCollation.supports?(underscore_locale)
+        where(where_condition, where_parameters).
+          joins(:translations).
+          order(%Q(public_body_translations.name COLLATE "#{underscore_locale}"))
+      else
+        where(where_condition, where_parameters).
+          joins(:translations).
+          order('public_body_translations.name')
+      end
+    end
   end
 
   private
@@ -858,5 +899,18 @@ class PublicBody < ActiveRecord::Base
         AND model_id = public_bodies.id
       )
       EOF
+  end
+
+  def self.get_public_body_list_translated_condition(table, has_first_letter=false, locale=nil)
+    result = "(upper(#{table}.name) LIKE upper(:query)" \
+      " OR upper(#{table}.notes) LIKE upper(:query)" \
+        " OR upper(#{table}.short_name) LIKE upper(:query))"
+        if has_first_letter
+          result += " AND #{table}.first_letter = :first_letter"
+        end
+        if locale
+          result += " AND #{table}.locale = :locale"
+        end
+        result
   end
 end
