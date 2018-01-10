@@ -128,12 +128,13 @@ class PublicBodyController < ApplicationController
     underscore_locale = AlaveteliLocalization.locale
     underscore_default_locale = AlaveteliLocalization.default_locale
 
-    where_condition = "public_bodies.id <> #{PublicBody.internal_admin_body.id}"
+    scope = PublicBody.visible
+    where_condition = ''
     where_parameters = []
 
     first_letter = false
 
-    base_tag_condition = " AND (SELECT count(*) FROM has_tag_string_tags" \
+    base_tag_condition = "(SELECT count(*) FROM has_tag_string_tags" \
       " WHERE has_tag_string_tags.model_id = public_bodies.id" \
       " AND has_tag_string_tags.model = 'PublicBody'"
 
@@ -199,12 +200,12 @@ class PublicBodyController < ApplicationController
         where_sql += [underscore_locale] + where_parameters
 
         if DatabaseCollation.supports?(underscore_locale)
-          @public_bodies = PublicBody.where(where_sql).
+          @public_bodies = scope.where(where_sql).
             joins(:translations).
               order(%Q(public_body_translations.name COLLATE "#{ underscore_locale }")).
                 paginate(:page => params[:page], :per_page => 100)
         else
-            @public_bodies = PublicBody.where(where_sql).
+            @public_bodies = scope.where(where_sql).
               joins(:translations).
                 order('public_body_translations.name').
                   paginate(:page => params[:page], :per_page => 100)
