@@ -357,7 +357,7 @@ describe PublicBodyController, "when listing bodies" do
     fake_pb.reload
     expect(fake_pb.info_requests.size).to eq(2)
     expect(fake_pb.info_requests.is_searchable.size).to eq(1)
-    fake_list = [fake_pb]
+    fake_list = PublicBody.where(id: fake_pb.id)
     allow(fake_list).to receive(:joins).and_return(fake_list)
     allow(fake_list).to receive(:paginate).and_return(fake_list)
     allow(fake_list).to receive(:order).and_return(fake_list)
