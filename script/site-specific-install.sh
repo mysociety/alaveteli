@@ -156,8 +156,8 @@ postfix reload
 
 install_website_packages
 
-# use ruby 2.3.3, 2.1.5 or 1.9.3 if it's already the default
-# (i.e. 'stretch', 'jessie', 'trusty')
+# use ruby 2.3.3, 2.1.5 if it's already the default
+# (i.e. 'stretch', 'jessie')
 if ruby --version | grep -q 'ruby 2.3.3' > /dev/null
 then
   echo 'using ruby 2.3.3'
@@ -168,13 +168,11 @@ then
   RUBY_VERSION='2.1.5'
 elif ruby --version | grep -q 'ruby 1.9.3' > /dev/null
 then
-  echo 'using ruby 1.9.3'
-  RUBY_VERSION='1.9.1'
-else
-  # Set ruby version to 1.9.1
-  update-alternatives --set ruby /usr/bin/ruby1.9.1
-  update-alternatives --set gem /usr/bin/gem1.9.1
-  RUBY_VERSION='1.9.1'
+  # Set ruby version to 2.1.5
+  update-alternatives --set ruby /usr/bin/ruby2.1
+  update-alternatives --set gem /usr/bin/gem2.1
+  echo 'using ruby 2.1.5'
+  RUBY_VERSION='2.1.5'
 fi
 
 # Give the unix user membership of the adm group so that they can read the mail log files
