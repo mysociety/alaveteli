@@ -21,14 +21,15 @@
     <div class="batch-builder batch-builder--browse js-batch-authority-browse">
       <div class="batch-builder__search-results">
         <div class="js-batch-authority-search-results">
-          <ul class="batch-builder__authority-list">
-            <li class="batch-builder__authority-list__group">
-              <div class="batch-builder__authority-list__authority">
-                <span class="batch-builder__authority-list__authority__name">
-                  Government departments
+          <ul class="batch-builder__list">
+
+            <li class="batch-builder__list__group">
+              <div class="batch-builder__list__item">
+                <span class="batch-builder__list__item__name">
+                  Central government
                 </span>
-                <div class="batch-builder__authority-list__authority__action">
-                  <div class="batch-builder__authority-list__authority__action__add">
+                <div class="batch-builder__list__item__action">
+                  <div class="batch-builder__list__item__action__add">
                     <form>
                       <input type="submit" value="<%= _('+ Add all') %>" class="add-authority-to-batch__form__submit js-add-authority-to-batch-submit">
                     </form>
@@ -36,51 +37,74 @@
                 </div>
               </div>
               <ul>
-                <li class="batch-builder__authority-list__authority">
-                  <span class="batch-builder__authority-list__authority__name">
-                    Department for Humpadinking
-                  </span>
-                  <div class="batch-builder__authority-list__authority__action">
-                    <div class="batch-builder__authority-list__authority__action__add">
-                      <form>
-                        <input type="submit" value="<%= _('+ Add') %>" class="add-authority-to-batch__form__submit js-add-authority-to-batch-submit">
-                      </form>
+
+                <li class="batch-builder__list__group">
+                  <div class="batch-builder__list__item">
+                    <span class="batch-builder__list__item__name">
+                      Ministerial departments
+                    </span>
+                    <div class="batch-builder__list__item__action">
+                      <div class="batch-builder__list__item__action__add">
+                        <form>
+                          <input type="submit" value="<%= _('+ Add all') %>" class="add-authority-to-batch__form__submit js-add-authority-to-batch-submit">
+                        </form>
+                      </div>
                     </div>
                   </div>
+                  <ul>
+
+                    <li class="batch-builder__list__item">
+                      <span class="batch-builder__list__item__name">
+                        Department for Humpadinking
+                      </span>
+                      <div class="batch-builder__list__item__action">
+                        <div class="batch-builder__list__item__action__add">
+                          <form>
+                            <input type="submit" value="<%= _('+ Add') %>" class="add-authority-to-batch__form__submit js-add-authority-to-batch-submit">
+                          </form>
+                        </div>
+                      </div>
+                    </li>
+
+                    <li class="batch-builder__list__item">
+                      <span class="batch-builder__list__item__name">
+                        Department of Loneliness
+                      </span>
+                      <div class="batch-builder__list__item__action">
+                        <div class="batch-builder__list__item__action__add">
+                          <form>
+                            <input type="submit" value="<%= _('+ Add') %>" class="add-authority-to-batch__form__submit js-add-authority-to-batch-submit">
+                          </form>
+                        </div>
+                      </div>
+                    </li>
+
+                    <li class="batch-builder__list__item">
+                      <span class="batch-builder__list__item__name">
+                        Ministry of Sensible Walks
+                      </span>
+                      <div class="batch-builder__list__item__action">
+                        <div class="batch-builder__list__item__action__add">
+                          <form>
+                            <input type="submit" value="<%= _('+ Add') %>" class="add-authority-to-batch__form__submit js-add-authority-to-batch-submit">
+                          </form>
+                        </div>
+                      </div>
+                    </li>
+
+                  </ul>
                 </li>
-                <li class="batch-builder__authority-list__authority">
-                  <span class="batch-builder__authority-list__authority__name">
-                    Department of Loneliness
-                  </span>
-                  <div class="batch-builder__authority-list__authority__action">
-                    <div class="batch-builder__authority-list__authority__action__add">
-                      <form>
-                        <input type="submit" value="<%= _('+ Add') %>" class="add-authority-to-batch__form__submit js-add-authority-to-batch-submit">
-                      </form>
-                    </div>
-                  </div>
-                </li>
-                <li class="batch-builder__authority-list__authority">
-                  <span class="batch-builder__authority-list__authority__name">
-                    Ministry of Sensible Walks
-                  </span>
-                  <div class="batch-builder__authority-list__authority__action">
-                    <div class="batch-builder__authority-list__authority__action__add">
-                      <form>
-                        <input type="submit" value="<%= _('+ Add') %>" class="add-authority-to-batch__form__submit js-add-authority-to-batch-submit">
-                      </form>
-                    </div>
-                  </div>
-                </li>
+
               </ul>
             </li>
-            <li class="batch-builder__authority-list__group">
-              <div class="batch-builder__authority-list__authority">
-                <span class="batch-builder__authority-list__authority__name">
+
+            <li class="batch-builder__list__group">
+              <div class="batch-builder__list__item">
+                <span class="batch-builder__list__item__name">
                   Non-governmental organisations
                 </span>
-                <div class="batch-builder__authority-list__authority__action">
-                  <div class="batch-builder__authority-list__authority__action__add">
+                <div class="batch-builder__list__item__action">
+                  <div class="batch-builder__list__item__action__add">
                     <form>
                       <input type="submit" value="<%= _('+ Add all') %>" class="add-authority-to-batch__form__submit js-add-authority-to-batch-submit">
                     </form>
@@ -88,20 +112,23 @@
                 </div>
               </div>
               <ul>
-                <li class="batch-builder__authority-list__authority">
-                  <span class="batch-builder__authority-list__authority__name">
+
+                <li class="batch-builder__list__item">
+                  <span class="batch-builder__list__item__name">
                     Geraldine Quango
                   </span>
-                  <div class="batch-builder__authority-list__authority__action">
-                    <div class="batch-builder__authority-list__authority__action__add">
+                  <div class="batch-builder__list__item__action">
+                    <div class="batch-builder__list__item__action__add">
                       <form>
                         <input type="submit" value="<%= _('+ Add') %>" class="add-authority-to-batch__form__submit js-add-authority-to-batch-submit">
                       </form>
                     </div>
                   </div>
                 </li>
+
               </ul>
             </li>
+
           </ul>
         </div>
       </div>

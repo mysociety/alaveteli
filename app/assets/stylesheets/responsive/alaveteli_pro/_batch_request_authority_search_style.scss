@@ -31,23 +31,23 @@
 // we use to signify that it's already added. We print both in the HTML so
 // that it's easier to toggle which is displayed later via JS.
 
-.batch-builder__authority-list__authority__action__added {
+.batch-builder__list__item__action__added {
   display: none;
   visibility: hidden;
 }
 
-.batch-builder__authority-list__authority__action__add {
+.batch-builder__list__item__action__add {
   display: block;
   visibility: visible;
 }
 
 .js-batch-authority-search-results-list-item--added {
-  .batch-builder__authority-list__authority__action__added {
+  .batch-builder__list__item__action__added {
     display: block;
     visibility: visible;
   }
 
-  .batch-builder__authority-list__authority__action__add {
+  .batch-builder__list__item__action__add {
     display: none;
     visibility: hidden;
   }
@@ -68,32 +68,33 @@
     }
 }
 
-.batch-builder__authority-list__authority {
+.batch-builder__list__item {
     &:nth-child(odd) {
         background-color: #F3F1EB;
     }
 }
 
-.batch-builder__authority-list__authority__action__added {
+.batch-builder__list__item__action__added {
     color: green;
     font-weight: 600;
     width: 5em; // Assumes that `.add-authority-to-batch__form__submit` is roughly 5em wide
     text-align: center;
 }
 
-.batch-builder__authority-list__group {
-    & > .batch-builder__authority-list__authority {
-        .batch-builder__authority-list__authority__name {
+.batch-builder__list__group {
+    // `div` matches the group "header" item
+    div.batch-builder__list__item {
+        background-color: #F3F1EB;
+
+        .batch-builder__list__item__name {
             font-weight: bold;
-            background-color: #F3F1EB;
         }
     }
 
-    ul {
-        .batch-builder__authority-list__authority {
-            background-color: transparent; // group children are always white (even :nth-child(odd) ones)
-            border-bottom: 1px solid #F3F1EB;
-        }
+    // `li` matches the group "content" items
+    li.batch-builder__list__item {
+        background-color: transparent;
+        border-bottom: 1px solid #F3F1EB;
     }
 }
 
