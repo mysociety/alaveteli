@@ -24,6 +24,14 @@
   (Louise Crow)
 
 ## Upgrade Notes
+* This release requires Ruby 2.0 or higher. If you are using Ubuntu Trusty you
+  will need to install a newer ruby version either using a ruby environment
+  manager like [rbenv](https://github.com/rbenv/rbenv#basic-github-checkout) or
+  by installing the ruby2.1 (and ruby2.1-dev) or ruby2.3 (and ruby2.3-dev)
+  [Ubuntu packages from Brightbox](https://www.brightbox.com/docs/ruby/ubuntu/).
+  (If you are setting up a fresh Trusty box using our script, the 2.1 Brightbox
+  package is supplied.)
+
 * This release removes the use of purge requests to Varnish. Please make sure
   your site works with `VARNISH_HOST` empty before upgrading.
 

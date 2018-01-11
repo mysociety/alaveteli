@@ -63,6 +63,17 @@ install_daemon() {
 [ -z "$DEVELOPMENT_INSTALL" ] && misuse DEVELOPMENT_INSTALL
 [ -z "$BIN_DIRECTORY" ] && misuse BIN_DIRECTORY
 
+# Ubuntu Trusty Fixes
+if [ x"$DISTRIBUTION" = x"ubuntu" ] && [ x"$DISTVERSION" = x"trusty" ]
+then
+  # add brightbox as a source
+  apt-add-repository ppa:brightbox/ruby-ng
+  apt-get -qq update
+
+  # install brightbox's ruby 2.1 packages
+  apt-get install -y ruby2.1 ruby2.1-dev
+fi
+
 update_mysociety_apt_sources
 
 apt-get -y update
@@ -168,7 +179,7 @@ then
   RUBY_VERSION='2.1.5'
 elif ruby --version | grep -q 'ruby 1.9.3' > /dev/null
 then
-  # Set ruby version to 2.1.5
+  # Set ruby version to 2.1.x
   update-alternatives --set ruby /usr/bin/ruby2.1
   update-alternatives --set gem /usr/bin/gem2.1
   echo 'using ruby 2.1.5'
