@@ -7,7 +7,7 @@
       $writeButton,
       $draftId;
 
-  var authorityInListSelector = '.batch-builder__authority-list__authority';
+  var authorityInListSelector = '.batch-builder__list__item';
 
   // Enable the 'write request' button, if there are any selected authorities
   var enableButton = function enableButton() {

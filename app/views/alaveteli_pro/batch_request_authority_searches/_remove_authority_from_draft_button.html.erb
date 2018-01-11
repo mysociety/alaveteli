@@ -1,6 +1,6 @@
 <%= form_tag(update_bodies_alaveteli_pro_draft_info_request_batch_path(draft.id),
              :method => :put,
-             :class => 'batch-builder__authority-list__authority__action js-remove-authority-from-batch-form',
+             :class => 'batch-builder__list__item__action js-remove-authority-from-batch-form',
              'data-body-id' => authority_id) do |f| %>
   <% unless query.blank? %>
     <%= hidden_field_tag(:authority_query, query) %>

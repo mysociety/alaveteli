@@ -3,10 +3,10 @@
      data-draft-id="<%= draft.id %>"
   <%end %>>
   <% if draft && draft.public_bodies.present? %>
-    <ul class="batch-builder__authority-list">
+    <ul class="batch-builder__list">
     <% draft.public_bodies.each do |authority| %>
-      <li class="batch-builder__authority-list__authority">
-        <span class="batch-builder__authority-list__authority__name">
+      <li class="batch-builder__list__item">
+        <span class="batch-builder__list__item__name">
           <%= authority.name %>
         </span>
         <%= render partial: 'alaveteli_pro/batch_request_authority_searches/remove_authority_from_draft_button',
