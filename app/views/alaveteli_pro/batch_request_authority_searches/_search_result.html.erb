@@ -1,17 +1,17 @@
 <% authority_id = result[:model][:id] %>
 <% added = body_ids_added.include? authority_id %>
-<li class="batch-builder__authority-list__authority
+<li class="batch-builder__list__item
            js-batch-authority-search-results-list-item
           <%= ' js-batch-authority-search-results-list-item--added' if added %>"
     data-body-id="<%= authority_id %>">
 
-  <div class="batch-builder__authority-list__authority__details">
-    <span class="batch-builder__authority-list__authority__name">
+  <div class="batch-builder__list__item__details">
+    <span class="batch-builder__list__item__name">
       <%= result[:model][:name] %>
     </span>
 
     <% if result[:model].has_notes?(tag: 'important_notes') %>
-      <details class="batch-builder__authority-list__authority__notes">
+      <details class="batch-builder__list__item__notes">
         <summary>
           <%= _('Important info about requests to this authority') %>
         </summary>
@@ -21,11 +21,11 @@
     <% end %>
   </div>
 
-  <div class="batch-builder__authority-list__authority__action">
-    <span class="batch-builder__authority-list__authority__action__added">
+  <div class="batch-builder__list__item__action">
+    <span class="batch-builder__list__item__action__added">
       <%= _('Added') %>
     </span>
-    <div class="batch-builder__authority-list__authority__action__add">
+    <div class="batch-builder__list__item__action__add">
       <%= render partial: 'alaveteli_pro/batch_request_authority_searches/add_authority_to_draft_button',
                  locals: { draft: draft,
                            query: query,

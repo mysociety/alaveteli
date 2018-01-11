@@ -78,7 +78,7 @@
     }
 }
 
-.batch-builder__authority-list {
+.batch-builder__list {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -87,20 +87,23 @@
     overflow: auto;
 }
 
-.batch-builder__authority-list__authority {
+.batch-builder__list__item {
     padding: 1em;
     @include flexbox();
     @include flex-align('flex-start');
 }
 
-.batch-builder__authority-list__authority__details {
+.batch-builder__list__item__details {
     @include flex(1 0 0%);
 }
 
-.batch-builder__authority-list__authority__notes {
+.batch-builder__list__item__name {
 }
 
-.batch-builder__authority-list__authority__action {
+.batch-builder__list__item__notes {
+}
+
+.batch-builder__list__item__action {
     @include flex(0 0 auto);
     margin-bottom: 0;
 
@@ -114,16 +117,20 @@
     }
 }
 
-.batch-builder__authority-list__page-info {
+.batch-builder__list__page-info {
     text-align: center;
 }
 
-.batch-builder__authority-list__group {
+.batch-builder__list__group {
     ul {
         padding-left: 0; // reset default list padding
 
-        .batch-builder__authority-list__authority {
-            padding-left: 3em; // group children are indented
+        .batch-builder__list__item {
+            padding-left: 2em; // group children are indented
+        }
+
+        ul .batch-builder__list__item {
+            padding-left: 4em; // grandchildren are indented even more
         }
     }
 }

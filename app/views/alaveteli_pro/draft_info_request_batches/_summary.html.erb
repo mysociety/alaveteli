@@ -3,16 +3,16 @@
      data-draft-id="<%= draft.id %>"
   <%end %>>
   <% if draft && draft.public_bodies.present? %>
-    <ul class="batch-builder__authority-list">
+    <ul class="batch-builder__list">
     <% draft.public_bodies.each do |authority| %>
-      <li class="batch-builder__authority-list__authority">
-        <div class="batch-builder__authority-list__authority__details">
-          <span class="batch-builder__authority-list__authority__name">
+      <li class="batch-builder__list__item">
+        <div class="batch-builder__list__item__details">
+          <span class="batch-builder__list__item__name">
             <%= authority.name %>
           </span>
 
           <% if authority.has_notes?(tag: 'important_notes') %>
-            <details class="batch-builder__authority-list__authority__notes">
+            <details class="batch-builder__list__item__notes">
               <summary>
                 <%= _('Important info about requests to this authority') %>
               </summary>
