@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20170328100359
 #
 # Table name: info_request_batches
 #
@@ -11,7 +10,7 @@
 #  updated_at       :datetime         not null
 #  body             :text
 #  sent_at          :datetime
-#  embargo_duration :string(255)
+#  embargo_duration :string
 #
 
 FactoryGirl.define do

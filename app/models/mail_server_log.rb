@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20161128095350
 #
 # Table name: mail_server_logs
 #
@@ -11,7 +10,7 @@
 #  line                    :text             not null
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
-#  delivery_status         :string(255)
+#  delivery_status         :string
 #
 
 # We load log file lines for requests in here, for display in the admin interface.

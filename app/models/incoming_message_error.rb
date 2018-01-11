@@ -6,7 +6,7 @@
 #  id         :integer          not null, primary key
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  unique_id  :string(255)      not null
+#  unique_id  :string           not null
 #  retry_at   :datetime
 #  backtrace  :text
 #

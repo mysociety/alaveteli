@@ -4,7 +4,7 @@
 # Table name: spam_addresses
 #
 #  id         :integer          not null, primary key
-#  email      :string(255)      not null
+#  email      :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #

@@ -8,7 +8,7 @@
 #  publish_at               :datetime         not null
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
-#  embargo_duration         :string(255)
+#  embargo_duration         :string
 #  expiring_notification_at :datetime
 #
 
