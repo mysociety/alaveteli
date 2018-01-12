@@ -2,7 +2,7 @@ fqdn: alaveteli.10.10.10.30.xip.io
 ip: 10.10.10.30
 memory: 1536
 themes_dir: ../alaveteli-themes
-os: wheezy64
+os: jessie64
 use_nfs: false
 show_settings: false
 cpus: 2 # By default this is calculated dynamically
