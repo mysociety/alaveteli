@@ -10,9 +10,10 @@
       <%= hidden_field_tag(:page, page) %>
     <% end %>
     <%= hidden_field_tag(:add_body_id, authority_id) %>
-    <input type="submit"
-           value="<%= _('+ Add') %>"
-           class="add-authority-to-batch__form__submit js-add-authority-to-batch-submit">
+    <button type="submit"
+            class="add-authority-to-batch__form__submit js-add-authority-to-batch-submit button--add">
+        <%= _('Add') %>
+    </button>
   <% end %>
 <% else %>
   <%= form_for(draft,
@@ -25,8 +26,9 @@
       <%= hidden_field_tag(:page, page) %>
     <% end %>
     <%= f.hidden_field(:public_body_ids, value: authority_id) %>
-    <input type="submit"
-           value="<%= _('+ Add') %>"
-           class="add-authority-to-batch__form__submit js-add-authority-to-batch-submit">
+    <button type="submit"
+            class="add-authority-to-batch__form__submit js-add-authority-to-batch-submit button--add">
+        <%= _('Add') %>
+    </button>
   <% end %>
 <% end %>
