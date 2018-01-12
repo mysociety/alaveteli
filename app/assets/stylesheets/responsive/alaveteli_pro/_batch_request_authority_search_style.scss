@@ -113,3 +113,45 @@
         color: #999;
     }
 }
+
+@-webkit-keyframes spin {
+    from {-webkit-transform: rotate(0deg);}
+    to   {-webkit-transform: rotate(359deg);}
+}
+
+@keyframes spin {
+    from {transform: rotate(0deg);}
+    to   {transform: rotate(359deg);}
+}
+
+.batch-builder__list__item__caret {
+    padding-right: 0.5em;
+
+    &:before {
+        content: "";
+        display: block;
+        width: 12px;
+        height: 12px;
+        background: transparent image-url('alaveteli-pro/batch-control-sprite.png') no-repeat 0 0;
+        background-image: image-url('alaveteli-pro/batch-control-sprite.svg'), none;
+        -ms-transform: rotate(180deg);
+        transform: rotate(180deg);
+    }
+
+    // We use direct descendant selectors here because we only want the
+    // *closest* descendant caret to get the styling, not *all* carets.
+    .batch-builder__list__group--closed > .batch-builder__list__item > & {
+        &:before {
+            -ms-transform: rotate(90deg);
+            transform: rotate(90deg);
+        }
+    }
+
+    .batch-builder__list__group--loading > .batch-builder__list__item > & {
+        &:before {
+            background-position: -12px 0;
+            -webkit-animation: spin 1s infinite linear;
+            animation: spin 1s infinite linear;
+        }
+    }
+}
