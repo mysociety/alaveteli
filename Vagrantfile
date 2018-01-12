@@ -117,7 +117,6 @@ end
 
 SUPPORTED_OPERATING_SYSTEMS = {
   'trusty64' => 'https://atlas.hashicorp.com/ubuntu/boxes/trusty64/versions/20160714.0.0/providers/virtualbox.box',
-  'wheezy64' => 'http://puppet-vagrant-boxes.puppetlabs.com/debian-73-x64-virtualbox-nocm.box',
   'jessie64' => 'https://atlas.hashicorp.com/puppetlabs/boxes/debian-8.2-64-nocm',
   'stretch64' => 'https://app.vagrantup.com/debian/boxes/stretch64'
 }

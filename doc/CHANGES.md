@@ -3,6 +3,7 @@
 
 ## Highlighted Features
 
+* Removed support for Debian Wheezy (Liz Conlan)
 * Add Debian Stretch support (Louise Crow, Gareth Rees)
 * Replace out of support zip gem with rubyzip to address an issue where some
   zip files created by the site may not be openable on Windows PCs (Liz Conlan,
@@ -30,6 +31,14 @@
   running Alaveteli on Ubuntu Precise, you should upgrade your OS to
   Ubuntu Trusty before upgrading to this release. This
   [Ubuntu upgrade guide](https://wiki.ubuntu.com/TrustyTahr/ReleaseNotes#Upgrading_from_Ubuntu_12.04_LTS_or_Ubuntu_13.10)
+  can guide you through the process. If you have
+  questions about upgrading OS, please don't hesitate to ask on the
+  [alaveteli-dev](https://groups.google.com/forum/#!forum/alaveteli-dev) group.
+
+* Please note that this release removes support for Debian Wheezy. If you are
+  running Alaveteli on Debian Wheezy, you should upgrade your OS to
+  Debian Jessie before upgrading to this release. This
+  [Debian upgrade guide](https://www.debian.org/releases/jessie/powerpc/release-notes/ch-upgrading.en.html)
   can guide you through the process. If you have
   questions about upgrading OS, please don't hesitate to ask on the
   [alaveteli-dev](https://groups.google.com/forum/#!forum/alaveteli-dev) group.
