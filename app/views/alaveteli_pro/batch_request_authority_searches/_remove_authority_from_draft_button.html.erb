@@ -9,7 +9,8 @@
       <%= hidden_field_tag(:page, page) %>
     <% end %>
   <%= hidden_field_tag(:remove_body_id, authority_id) %>
-  <input type="submit"
-         value="<%= _('- Remove') %>"
-         class="js-remove_authority-from-batch-submit">
+  <button type="submit"
+          class="js-remove_authority-from-batch-submit button--remove">
+      <%= _('Remove') %>
+  </button>
 <% end %>

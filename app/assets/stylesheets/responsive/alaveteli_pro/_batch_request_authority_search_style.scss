@@ -167,3 +167,31 @@
         }
     }
 }
+
+.button--add,
+.button--remove,
+.button--loading {
+    &:before {
+        content: "";
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        background: transparent image-url('alaveteli-pro/batch-control-sprite.png') no-repeat -24px -12px;
+        background-image: image-url('alaveteli-pro/batch-control-sprite.svg'), none;
+        margin-right: 0.3em;
+    }
+}
+
+.button--remove {
+    &:before {
+        background-position: -36px -12px;
+    }
+}
+
+.button--loading {
+    &:before {
+        background-position: -12px -12px;
+        -webkit-animation: spin 1s infinite linear;
+        animation: spin 1s infinite linear;
+    }
+}

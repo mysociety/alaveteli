@@ -67,7 +67,7 @@ module AlaveteliDsl
 
   def add_body_to_pro_batch(public_body)
     within ".batch-builder__search-results li[data-body-id=\"#{public_body.id}\"]" do
-      click_button "+ Add"
+      click_button "Add"
     end
   end
 end
