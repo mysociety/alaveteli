@@ -116,7 +116,7 @@ describe "creating batch requests in alaveteli_pro" do
 
       # Removing from list
       within ".batch-builder__chosen-authorities form[data-body-id=\"#{first_search_result_body.id}\"]" do
-        click_button "- Remove"
+        click_button "Remove"
       end
 
       within ".batch-builder__chosen-authorities" do
