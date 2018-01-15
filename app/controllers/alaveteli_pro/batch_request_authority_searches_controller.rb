@@ -4,9 +4,15 @@ class AlaveteliPro::BatchRequestAuthoritySearchesController < AlaveteliPro::Base
 
   before_action :check_user_has_batch_access
 
+  helper_method :mode
+
   def index
     @draft_batch_request = find_or_initialise_draft
     @body_ids_added = @draft_batch_request.public_body_ids
+    public_send(mode)
+  end
+
+  def search
     # perform_seach sets @query but typeahead_search doesn't
     @query = params[:authority_query] || ""
     @search = typeahead_search(@query, { :model => PublicBody,
@@ -17,17 +23,32 @@ class AlaveteliPro::BatchRequestAuthoritySearchesController < AlaveteliPro::Base
     end
 
     if request.xhr?
-      render :partial => 'search_results',
-             :layout => false,
-             :locals => {
-               :search => @search,
-               :draft_batch_request => @draft_batch_request,
-               :body_ids_added => @body_ids_added,
-               :query => @query,
-               :page => @page,
-               :per_page => @per_page,
-               :result_limit => @result_limit
+      render partial: 'search_results',
+             layout: false,
+             locals: {
+               search: @search,
+               draft_batch_request: @draft_batch_request,
+               body_ids_added: @body_ids_added,
+               query: @query,
+               page: @page,
+               per_page: @per_page,
+               result_limit: @result_limit
              }
+    else
+      render :index
+    end
+  end
+
+  def browse
+    if request.xhr?
+      render partial: 'browse',
+             layout: false,
+             locals: {
+               draft_batch_request: @draft_batch_request,
+               body_ids_added: @body_ids_added
+             }
+    else
+      render :index
     end
   end
 
@@ -62,5 +83,14 @@ class AlaveteliPro::BatchRequestAuthoritySearchesController < AlaveteliPro::Base
     else
       AlaveteliPro::DraftInfoRequestBatch.new
     end
+  end
+
+  def mode
+    valid_modes = %w(search browse)
+    @mode ||= if valid_modes.include?(params[:mode])
+        params[:mode]
+      else
+        valid_modes.first
+      end
   end
 end

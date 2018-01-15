@@ -51,6 +51,10 @@
     }
 
     .batch-builder--browse {
+        .batch-builder__search-form {
+            display: none;
+        }
+
         .batch-builder__actions {
             width: 100%;
         }
