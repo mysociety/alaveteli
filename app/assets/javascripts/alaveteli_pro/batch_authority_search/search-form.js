@@ -6,7 +6,6 @@
       $draft,
       $form,
       $query,
-      newDraft,
       currentValue;
 
   // Submit the search form via AJAX.
@@ -44,7 +43,6 @@
     $draft = DraftBatchSummary.$el;
     $form = $('.js-batch-authority-search-form', $search);
     $query = $('.js-batch-authority-search-form-query', $search);
-    newDraft = typeof DraftBatchSummary.draftId === 'undefined';
     BatchAuthoritySearch.SearchForm.$el = $form;
 
     $form.on('submit', submitForm);
@@ -52,17 +50,6 @@
     // We debounce this because otherwise it'll send (and then abort) a new
     // request for every keystroke, which would hammer the server
     $query.on('keypress', $.debounce(500, submitForm));
-
-    // The very first time a body is added, a new draft object is saved, and
-    // we need to resubmit the form in order to reload all the search results
-    // with new pagination that contains the draft id, and new results that
-    // have forms to add bodies rather than create a new draft.
-    $draft.on(DraftEvents.bodyAdded, function() {
-      if (newDraft) {
-        newDraft = false;
-        submitForm();
-      }
-    });
 
     $draft.on(DraftEvents.hadReachedLimit, submitFormIfNeeded);
     submitFormIfNeeded();

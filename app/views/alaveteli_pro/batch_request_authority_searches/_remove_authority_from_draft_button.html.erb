@@ -1,16 +1,17 @@
-<%= form_tag(update_bodies_alaveteli_pro_draft_info_request_batch_path(draft.id),
-             :method => :put,
-             :class => 'batch-builder__list__item__action js-remove-authority-from-batch-form',
-             'data-body-id' => authority_id) do |f| %>
-  <% unless query.blank? %>
-    <%= hidden_field_tag(:authority_query, query) %>
-  <% end %>
-  <% unless page.blank? %>
-      <%= hidden_field_tag(:page, page) %>
-    <% end %>
-  <%= hidden_field_tag(:remove_body_id, authority_id) %>
+<%= form_for(:alaveteli_pro_draft_info_request_batch,
+             url: update_bodies_alaveteli_pro_draft_info_request_batches_path,
+             method: :put,
+             html: { class: 'batch-builder__list__list__action
+                             js-remove-authority-from-batch-form',
+                     data: { body_id: authority_id } }) do |f| %>
+  <%= hidden_field_tag(:authority_query, query) unless query.blank? %>
+  <%= hidden_field_tag(:page, page) unless page.blank? %>
+  <%= f.hidden_field(:draft_id, value: draft.id, class: 'js-draft-id') %>
+  <%= f.hidden_field(:public_body_id, value: authority_id) %>
+  <%= f.hidden_field(:action, value: 'remove') %>
   <button type="submit"
-          class="js-remove_authority-from-batch-submit button button--remove">
+          class="button button--remove
+                 js-remove_authority-from-batch-submit">
       <%= _('Remove') %>
   </button>
 <% end %>
