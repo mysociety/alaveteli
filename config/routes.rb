@@ -681,7 +681,7 @@ Rails.application.routes.draw do
       end
       resources :batch_request_authority_searches, :only => [:index, :new]
       resources :draft_info_request_batches, :only => [:create, :update] do
-        member do
+        collection do
           put :update_bodies
         end
       end

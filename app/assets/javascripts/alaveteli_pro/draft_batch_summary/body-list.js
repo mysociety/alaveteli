@@ -1,11 +1,14 @@
 // Handles updating the draft batch request body list
-(function($, DraftBatchSummary) {
+(function($, BatchAuthoritySearch, DraftBatchSummary) {
   DraftBatchSummary.BodyList = {};
+  var SearchEvents = BatchAuthoritySearch.Events;
   var DraftEvents = DraftBatchSummary.Events;
 
-  var $draft,
+  var $search,
+      $draft,
       limit,
       loadingError;
+  var summarySelector = '.js-draft-batch-request-summary';
   var removeFormSelector = '.js-remove-authority-from-batch-form';
 
   DraftBatchSummary.bodiesIds = new Array;
@@ -24,6 +27,11 @@
         $('<div>').addClass('ajax-error').html(loadingError)
       );
     }
+  };
+
+  var updateDraftId = function updateDraftId() {
+    DraftBatchSummary.draftId = $(summarySelector, $draft).data('draft-id');
+    $('.js-draft-id').val(DraftBatchSummary.draftId);
   };
 
   var cacheBodiesIds = function cacheBodiesIds() {
@@ -49,6 +57,7 @@
   };
 
   $(function(){
+    $search = BatchAuthoritySearch.$el;
     $draft = DraftBatchSummary.$el;
     limit = parseInt($draft.data('limit'));
     loadingError = $draft.data('ajax-error-message');
@@ -58,8 +67,18 @@
     $draft.on(DraftEvents.loadingSuccess, checkLimit);
     $draft.on(DraftEvents.loadingError, showLoadingError);
 
+    // Set the initial draftId, if there is one
+    updateDraftId();
+
+    // The draft id might change on the very first body adding, so we have to
+    // get in there first to make sure we update the id we share.
+    $draft.on(DraftEvents.bodyAdded, updateDraftId);
+    $search.on(SearchEvents.rendered, updateDraftId);
+
     // Set the initial cache bodiesIds
     cacheBodiesIds();
     checkLimit();
   });
-})(window.jQuery, window.AlaveteliPro.DraftBatchSummary);
+})(window.jQuery,
+   window.AlaveteliPro.BatchAuthoritySearch,
+   window.AlaveteliPro.DraftBatchSummary);

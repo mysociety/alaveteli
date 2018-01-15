@@ -22,8 +22,10 @@ shared_examples_for "adding a body to a request" do
       session[:user_id] = other_pro_user.id
     end
 
-    it "raises an ActiveRecord::RecordNotFound error" do
-      expect { subject }.to raise_error(ActiveRecord::RecordNotFound)
+    it "creates new draft object" do
+      subject
+      expect(assigns[:draft]).to_not eq(draft)
+      expect(assigns[:draft]).to be_a(AlaveteliPro::DraftInfoRequestBatch)
     end
   end
 end
@@ -142,8 +144,11 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
     describe "when adding a body" do
       let(:params) do
         {
-          id: draft.id,
-          add_body_id: authority_1.id
+          alaveteli_pro_draft_info_request_batch: {
+            draft_id: draft.id,
+            public_body_id: authority_1.id,
+            action: 'add'
+          }
         }
       end
 
@@ -209,8 +214,11 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
     describe "when removing a body" do
       let(:params) do
         {
-          id: draft.id,
-          remove_body_id: authority_2.id
+          alaveteli_pro_draft_info_request_batch: {
+            draft_id: draft.id,
+            public_body_id: authority_2.id,
+            action: 'remove'
+          }
         }
       end
 

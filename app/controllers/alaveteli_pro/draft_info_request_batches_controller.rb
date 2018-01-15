@@ -17,11 +17,17 @@ class AlaveteliPro::DraftInfoRequestBatchesController < ApplicationController
   end
 
   def update_bodies
-    @draft = current_user.draft_info_request_batches.find(params[:id])
-    if params[:add_body_id]
-      @draft.public_bodies << PublicBody.find(params[:add_body_id])
-    elsif params[:remove_body_id]
-      @draft.public_bodies.delete(PublicBody.find(params[:remove_body_id]))
+    @draft = current_user.draft_info_request_batches.
+      find_by(id: update_bodies_params[:draft_id])
+    case update_bodies_params[:action]
+    when 'add'
+      public_body = PublicBody.find(update_bodies_params[:public_body_id])
+      @draft ||= current_user.draft_info_request_batches.create
+      @draft.public_bodies << public_body
+    when 'remove'
+      public_body = PublicBody.find(update_bodies_params[:public_body_id])
+      raise ActiveRecord::RecordNotFound unless @draft
+      @draft.public_bodies.delete(public_body)
     end
     respond_or_redirect(@draft)
   end
@@ -72,5 +78,10 @@ class AlaveteliPro::DraftInfoRequestBatchesController < ApplicationController
   def draft_params_multiple_bodies
     params.require(:alaveteli_pro_draft_info_request_batch).
       permit(:title, :body, :embargo_duration, :public_body_ids => [])
+  end
+
+  def update_bodies_params
+    params.require(:alaveteli_pro_draft_info_request_batch).
+      permit(:draft_id, :public_body_id, :action)
   end
 end
