@@ -1,15 +1,30 @@
-<% if @title %>
-  <meta property="og:title" content="<%= @title %>" />
-  <meta property="og:type" content="article" />
+<% if @in_pro_area %>
+  <% if @title %>
+    <meta property="og:title" content="<%= @title %>" />
+    <meta property="og:type" content="article" />
+  <% else %>
+    <meta property="og:title" content="<%= _('A powerful, fully-featured FOI toolkit for journalists') %>" />
+  <% end %>
+
+  <%= content_for :open_graph_tags %>
+
+  <meta property="og:site_name" content="<%= pro_site_name %>" />
+  <meta property="og:image" content="<%= "#{request.protocol}#{request.host_with_port}#{asset_path('logo-opengraph-pro.png')}" %>" />
 <% else %>
-  <meta property="og:title" content="<%= _('Make and browse Freedom of Information (FOI) requests') %>" />
-  <meta property="og:type" content="website" />
+  <% if @title %>
+    <meta property="og:title" content="<%= @title %>" />
+    <meta property="og:type" content="article" />
+  <% else %>
+    <meta property="og:title" content="<%= _('Make and browse Freedom of Information (FOI) requests') %>" />
+  <% end %>
+
+  <%= content_for :open_graph_tags %>
+
+  <meta property="og:site_name" content="<%= site_name %>" />
+  <meta property="og:image" content="<%= "#{request.protocol}#{request.host_with_port}#{asset_path('logo-opengraph.png')}" %>" />
 <% end %>
 
-<%= content_for :open_graph_tags %>
-
-<meta property="og:site_name" content="<%= site_name %>" />
+<meta property="og:type" content="website" />
 <meta property="og:url" content="<%= request.original_url.force_encoding('utf-8') %>" />
-<meta property="og:image" content="<%= "#{request.protocol}#{request.host_with_port}#{asset_path('logo-opengraph.png')}" %>" />
 <meta property="og:image:width" content="256" />
 <meta property="og:image:height" content="256" />

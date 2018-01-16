@@ -3,9 +3,19 @@
 
 ## Highlighted Features
 
+* Add Pro opengraph logo (Martin Wright)
 * Create site-wide and user role announecements from within the
   administrative interface (Graeme Porteous)
 * Restore translated attributes to Public Body admin view (Gareth Rees)
+
+## Upgrade Notes
+
+* Add a 256x256 image named `logo-opengraph-pro.png` to
+  `YOUR_THEME_ROOT/assets/images`, to be shown next to pages from your site when
+  shared on Facebook. You can just duplicate `logo-opengraph.png` if you don't
+  have specific Pro branding.
+
+### Changed Templates
 
 # 0.31.0.0
 
