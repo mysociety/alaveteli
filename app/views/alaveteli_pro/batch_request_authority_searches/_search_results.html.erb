@@ -2,13 +2,15 @@
   <div class="blank-slate"><%= _('No more authorities can be added to this batch request.') %></div>
 <% elsif search.present? && search.results.present? %>
   <ul class="batch-builder__list js-batch-authority-search-results-list">
-    <%= render partial: 'alaveteli_pro/batch_request_authority_searches/search_result',
-               collection: search.results,
-               as: :result,
-               locals: { draft: draft_batch_request,
-                         query: query,
-                         page: page,
-                         body_ids_added: body_ids_added } %>
+    <% search.results.each do |result| %>
+      <%= render partial: 'alaveteli_pro/batch_request_authority_searches/search_result',
+                 locals: { name: result[:model][:name] ,
+                           authority_id: result[:model][:id],
+                           draft: draft_batch_request,
+                           query: query,
+                           page: page,
+                           body_ids_added: body_ids_added } %>
+    <% end %>
   </ul>
 
   <% collection = WillPaginate::Collection.new(page, per_page, result_limit) %>
