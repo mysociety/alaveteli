@@ -101,6 +101,14 @@
     @include flex(1 0 0%);
 }
 
+.batch-builder__list__item__anchor {
+    @include flex(1 0 0%);
+}
+
+.batch-builder__list__item__name {
+    @include flex(1 0 0%);
+}
+
 .batch-builder__list__item__name {
 }
 

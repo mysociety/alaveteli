@@ -27,6 +27,11 @@
     }
 }
 
+.batch-builder__list__item__anchor {
+    color: rgb(51, 51, 51) !important;
+    text-decoration: none;
+}
+
 // Toggle whether we're showing the "Add authority to batch" form or whatever
 // we use to signify that it's already added. We print both in the HTML so
 // that it's easier to toggle which is displayed later via JS.
