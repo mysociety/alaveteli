@@ -1,22 +1,21 @@
-<% authority_id = result[:model][:id] %>
-<% added = body_ids_added.include? authority_id %>
+<% added = body_ids_added.include? public_body.id %>
 <li class="batch-builder__list__item
            js-batch-authority-search-results-list-item
-          <%= ' js-batch-authority-search-results-list-item--added' if added %>"
-    data-body-id="<%= authority_id %>">
+           <%= 'js-batch-authority-search-results-list-item--added' if added %>"
+    data-body-id="<%= public_body.id %>">
 
   <div class="batch-builder__list__item__details">
     <span class="batch-builder__list__item__name">
-      <%= result[:model][:name] %>
+      <%= public_body.name %>
     </span>
 
-    <% if result[:model].has_notes?(tag: 'important_notes') %>
+    <% if public_body.has_notes?(tag: 'important_notes') %>
       <details class="batch-builder__list__item__notes">
         <summary>
           <%= _('Important info about requests to this authority') %>
         </summary>
 
-        <p><%= result[:model].notes.html_safe %></p>
+        <p><%= public_body.notes.html_safe %></p>
       </details>
     <% end %>
   </div>
@@ -30,7 +29,7 @@
                  locals: { draft: draft,
                            query: query,
                            page: page,
-                           authority_id: authority_id } %>
+                           authority_id: public_body.id } %>
     </div>
   </div>
 </li>
