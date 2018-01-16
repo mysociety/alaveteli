@@ -1,0 +1,2 @@
+#!/bin/sh
+ALAVETELI_VAGRANT_NAME=trusty ALAVETELI_VAGRANT_OS=trusty64 exec vagrant "$@"
