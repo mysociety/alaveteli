@@ -2,7 +2,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 require 'stripe_mock'
 
-describe AlaveteliPro::SubscriptionsController do
+describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
   let(:stripe_helper) { StripeMock.create_test_helper }
 
   before do
@@ -73,6 +73,22 @@ describe AlaveteliPro::SubscriptionsController do
             to eq(assigns(:customer).id)
         end
 
+        it 'adds the pro role' do
+          expect(user.is_pro?).to eq(true)
+        end
+
+        it 'enables pop polling for the user' do
+          result =
+            AlaveteliFeatures.backend[:accept_mail_from_poller].enabled?(user)
+          expect(result).to eq(true)
+        end
+
+        it 'enables daily summary notifications for the user' do
+          result =
+            AlaveteliFeatures.backend[:notifications].enabled?(user)
+          expect(result).to eq(true)
+        end
+
         it 'welcomes the new user' do
           partial_file = "alaveteli_pro/subscriptions/signup_message.html.erb"
           expect(flash[:notice]).to eq({ :partial => partial_file })
@@ -117,6 +133,28 @@ describe AlaveteliPro::SubscriptionsController do
 
         it 'redirects to the dashboard' do
           expect(response).to redirect_to(alaveteli_pro_dashboard_path)
+        end
+
+      end
+
+      context 'the user previously had some pro features enabled' do
+
+        def successful_signup
+          post :create, 'stripeToken' => token,
+                        'stripeTokenType' => 'card',
+                        'stripeEmail' => user.email,
+                        'plan_id' => 'pro',
+                        'coupon_code' => 'coupon_code'
+        end
+
+        it 'does not raise an error if the user already uses the poller' do
+          AlaveteliFeatures.backend.enable_actor(:accept_mail_from_poller, user)
+          expect { successful_signup }.not_to raise_error
+        end
+
+        it 'does not raise an error if the user already has notifications' do
+          AlaveteliFeatures.backend.enable_actor(:notifications, user)
+          expect { successful_signup }.not_to raise_error
         end
 
       end

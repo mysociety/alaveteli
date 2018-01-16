@@ -1,7 +1,15 @@
+
 # develop
 
 ## Highlighted Features
 
+* Add Debian Stretch support (Louise Crow, Gareth Rees)
+* Replace out of support zip gem with rubyzip to address an issue where some
+  zip files created by the site may not be openable on Windows PCs (Liz Conlan,
+  Graeme Porteous)
+* Fix bug in `stats:show` task (Liz Conlan, Gareth Rees)
+* Use `.eml` file extension when downloading raw emails through the admin
+  interface (Gareth Rees)
 * Reduce usage of auto-login links in emails (Gareth Rees)
 * Remove rendering of exceptions in admin interface (Gareth Rees)
 * Pass through sign-in form if a user is already signed in (Gareth Rees)
@@ -33,6 +41,12 @@
   `No such file or directory @ rb_sysopen` errors from `foi_attachment.rb`.
 
 ### Changed Templates
+
+# 0.30.0.4
+
+## Highlighted Features
+
+* Updated translations from Transifex (Liz Conlan)
 
 # 0.30.0.3
 

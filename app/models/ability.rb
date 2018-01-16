@@ -60,9 +60,19 @@ class Ability
     # Updating batch requests
     can :update, InfoRequestBatch do |batch_request|
       if batch_request.embargo_duration
+        user && (user.is_pro_admin? ||
+                 (user == batch_request.user && user.is_pro?))
+      else
+        user && self.class.requester_or_admin?(user, batch_request)
+      end
+    end
+
+    # Removing batch request embargoes
+    can :destroy_embargo, InfoRequestBatch do |batch_request|
+      if batch_request.embargo_duration
         user && (user == batch_request.user || user.is_pro_admin?)
       else
-        user && (user == batch_request.user || user.is_admin?)
+        user && self.class.requester_or_admin?(user, batch_request)
       end
     end
 
@@ -74,16 +84,22 @@ class Ability
 
       # Creating embargoes
       can :create_embargo, InfoRequest do |info_request|
-        user && info_request.user.is_pro? && !info_request.embargo &&
-          (user == info_request.user || user.is_pro_admin?) &&
-          info_request.info_request_batch_id.nil?
+        user && info_request.user.is_pro? &&
+                (user.is_pro_admin? || user == info_request.user) &&
+                !info_request.embargo &&
+                info_request.info_request_batch_id.nil?
       end
 
       # Extending embargoes
       can :update, AlaveteliPro::Embargo do |embargo|
-        user && (user == embargo.info_request.user || user.is_pro_admin?)
+        user && (user.is_pro_admin? ||
+                 user == embargo.info_request.user && user.is_pro?)
       end
 
+      # Removing embargoes
+      can :destroy, AlaveteliPro::Embargo do |embargo|
+        user && (user == embargo.info_request.user || user.is_pro_admin?)
+      end
     end
 
     can :admin, AlaveteliPro::Embargo if user && user.is_pro_admin?
@@ -130,6 +146,10 @@ class Ability
 
   def self.can_update_request_state?(user, request)
     (user && request.is_old_unclassified?) || request.is_owning_user?(user)
+  end
+
+  def self.requester_or_admin?(user, request)
+    user == request.user || user.is_admin?
   end
 
   def self.can_view_with_prominence?(prominence, info_request, user)

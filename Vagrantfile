@@ -118,7 +118,8 @@ end
 SUPPORTED_OPERATING_SYSTEMS = {
   'trusty64' => 'https://atlas.hashicorp.com/ubuntu/boxes/trusty64/versions/20160714.0.0/providers/virtualbox.box',
   'wheezy64' => 'http://puppet-vagrant-boxes.puppetlabs.com/debian-73-x64-virtualbox-nocm.box',
-  'jessie64' => 'https://atlas.hashicorp.com/puppetlabs/boxes/debian-8.2-64-nocm'
+  'jessie64' => 'https://atlas.hashicorp.com/puppetlabs/boxes/debian-8.2-64-nocm',
+  'stretch64' => 'https://app.vagrantup.com/debian/boxes/stretch64'
 }
 
 def box
@@ -134,11 +135,15 @@ VAGRANTFILE_API_VERSION = '2'
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = if box == 'jessie64'
     'puppetlabs/debian-8.2-64-nocm'
+  elsif box == 'stretch64'
+    'debian/stretch64'
   else
     box
   end
   config.vm.box_url = box_url
   config.vm.network :private_network, ip: SETTINGS['ip']
+
+  config.vm.synced_folder '.', '/vagrant', disabled: true
 
   if SETTINGS['use_nfs']
     config.vm.synced_folder '.', '/home/vagrant/alaveteli', nfs: true

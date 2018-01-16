@@ -1,0 +1,20 @@
+<div class="settings__item">
+  <div class="settings__item__primary">
+    <%= form_tag(payment_method_path, method: :put) do %>
+
+      <%= stripe_button(
+        label: _('Add Payment Card'),
+        panel_label: _('Add Payment Card')
+      ) %>
+
+      <noscript>
+        <div id="error">
+          <p>
+            <%= _('Updating your payment card requires your browser to have ' \
+                  'JavaScript enabled.') %>
+          </p>
+        </div>
+      </noscript>
+    <% end %>
+  </div>
+</div>

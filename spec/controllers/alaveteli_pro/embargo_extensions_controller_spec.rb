@@ -3,6 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe AlaveteliPro::EmbargoExtensionsController do
   let(:pro_user) { FactoryGirl.create(:pro_user) }
+
   let(:admin) do
     user = FactoryGirl.create(:pro_admin_user)
     user.roles << Role.find_by(name: 'pro')
@@ -96,10 +97,10 @@ describe AlaveteliPro::EmbargoExtensionsController do
 
     end
 
-    context "when the user is not allowed to update the embargo" do
+    context "when the user does not own the embargo" do
       let(:other_user) {  FactoryGirl.create(:pro_user) }
 
-      it "raises a CanCan::AccessDenied error" do
+      it 'raises a CanCan::AccessDenied error' do
         expect do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = other_user.id
@@ -110,6 +111,26 @@ describe AlaveteliPro::EmbargoExtensionsController do
           end
         end.to raise_error(CanCan::AccessDenied)
       end
+
+      context 'when the user does not have a pro account' do
+
+        before do
+          pro_user.remove_role(:pro)
+        end
+
+        it "does not allow access to the controller action" do
+          with_feature_enabled(:alaveteli_pro) do
+            session[:user_id] = pro_user.id
+            post :create,
+                 alaveteli_pro_embargo_extension:
+                   { embargo_id: embargo.id,
+                     extension_duration: "3_months" }
+            expect(response).to redirect_to frontpage_path
+          end
+        end
+
+      end
+
     end
 
     context 'when the embargo is not near expiry' do
@@ -261,10 +282,10 @@ describe AlaveteliPro::EmbargoExtensionsController do
       end
     end
 
-    context "when the user is not allowed to update the embargo" do
+    context 'when the user is not allowed to update the embargo' do
       let(:other_user) { FactoryGirl.create(:pro_user) }
 
-      it "raises a CanCan::AccessDenied error" do
+      it 'raises a CanCan::AccessDenied error' do
         expect do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = other_user.id

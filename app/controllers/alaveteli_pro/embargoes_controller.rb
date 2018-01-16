@@ -6,6 +6,8 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AlaveteliPro::EmbargoesController < AlaveteliPro::BaseController
+  skip_before_action :pro_user_authenticated?, only: [:destroy, :destroy_batch]
+
   def create
     @info_request = InfoRequest.find(embargo_params[:info_request_id])
     authorize! :create_embargo, @info_request
@@ -32,7 +34,7 @@ class AlaveteliPro::EmbargoesController < AlaveteliPro::BaseController
 
   def destroy
     @embargo = AlaveteliPro::Embargo.find(params[:id])
-    authorize! :update, @embargo
+    authorize! :destroy, @embargo
     @info_request = @embargo.info_request
     # Embargoes cannot be updated individually on batch requests
     if @info_request.info_request_batch_id
@@ -51,7 +53,7 @@ class AlaveteliPro::EmbargoesController < AlaveteliPro::BaseController
   def destroy_batch
     @info_request_batch = InfoRequestBatch.find(
       params[:info_request_batch_id])
-    authorize! :update, @info_request_batch
+    authorize! :destroy_embargo, @info_request_batch
     info_request_ids = @info_request_batch.info_requests.pluck(:id)
     embargoes = AlaveteliPro::Embargo.where(info_request_id: info_request_ids)
     if embargoes.destroy_all

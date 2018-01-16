@@ -10,6 +10,7 @@
            id="public_body_query"
            placeholder="<%= _('Search for an authority') %>"
            class="js-authority-select public-body-query"
+           data-no-results="<%= _('No results found') %>"
            data-search-url="<%= alaveteli_pro_public_bodies_path %>"
            <% if info_request.public_body %>
              value="<%= @info_request.public_body.name %>"
@@ -18,6 +19,12 @@
     <input type="submit"
            value="<%= _('Search') %>"
            class="js-authority-select-submit public-body-query__submit">
+
+    <% if feature_enabled? :pro_batch_access, @user %>
+      <%= link_to _("or start a batch request"),
+                  alaveteli_pro_batch_request_authority_searches_path,
+                  class: 'pro_batch_link' %>
+    <% end %>
   </p>
 </form>
 

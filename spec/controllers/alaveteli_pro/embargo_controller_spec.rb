@@ -3,6 +3,7 @@ require 'spec_helper'
 
 describe AlaveteliPro::EmbargoesController do
   let(:pro_user) { FactoryGirl.create(:pro_user) }
+
   let(:admin) do
     user = FactoryGirl.create(:pro_admin_user)
     user.roles << Role.find_by(name: 'pro')
@@ -102,7 +103,7 @@ describe AlaveteliPro::EmbargoesController do
   end
 
   describe "#destroy" do
-    context "when the user is allowed to update the embargo" do
+    context "when the user is allowed to remove the embargo" do
       context "because they are the owner" do
         before do
           with_feature_enabled(:alaveteli_pro) do
@@ -119,6 +120,19 @@ describe AlaveteliPro::EmbargoesController do
         it "logs an 'expire_embargo' event" do
           expect(info_request.reload.info_request_events.last.event_type).
             to eq 'expire_embargo'
+        end
+
+        context 'they no longer have pro status' do
+
+          before do
+            pro_user.remove_role(:pro)
+          end
+
+          it 'destroys the embargo' do
+            expect { AlaveteliPro::Embargo.find(embargo.id) }.
+              to raise_error(ActiveRecord::RecordNotFound)
+          end
+
         end
 
       end

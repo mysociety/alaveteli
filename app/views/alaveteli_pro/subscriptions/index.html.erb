@@ -34,8 +34,8 @@
           <h3><%= _('Your payment details') %></h3>
           <% if @customer.default_source %>
             <%= render partial: 'card', locals: { card: @card } %>
-          <% elsif @subscriptions.first.free? %>
-            <%= _("Your subscription level is free so you don't need a card") %>
+          <% else %>
+            <%= render partial: 'add_card' %>
           <% end %>
         </div>
 

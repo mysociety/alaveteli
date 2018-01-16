@@ -10,7 +10,7 @@
 #  updated_at               :datetime         not null
 #
 
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 require 'stripe_mock'
 
 describe ProAccount do
@@ -24,112 +24,112 @@ describe ProAccount do
   end
 
   let(:stripe_helper) { StripeMock.create_test_helper }
+  let(:plan) { stripe_helper.create_plan(id: 'pro', amount: 1000) }
 
-  describe '#stripe_customer' do
+  let(:customer) do
+    Stripe::Customer.create(
+      email: FactoryGirl.build(:user).email,
+      source: stripe_helper.generate_card_token
+    )
+  end
 
-    subject { FactoryGirl.create(:pro_account) }
+  let(:subscription) do
+    Stripe::Subscription.create(customer: customer, plan: plan.id)
+  end
 
-    let(:customer) do
-      Stripe::Customer.create(email: subject.user.email,
-                              source: stripe_helper.generate_card_token)
-    end
+  describe 'validations' do
 
-    it 'returns nil if there is no stripe_customer_id set' do
-      expect(subject.stripe_customer).to be_nil
-    end
-
-    it 'raises an error if the Stripe::Customer is not found' do
-      subject.update!(stripe_customer_id: 'invalid_id')
-      expect{ subject.stripe_customer }.
-        to raise_error Stripe::InvalidRequestError
-    end
-
-    it 'finds the Stripe::Customer linked to the ProAccount' do
-      subject.update!(stripe_customer_id: customer.id)
-      expect(subject.stripe_customer).to eq(customer)
-    end
-
-    it 'memoizes the result' do
-      subject.update!(stripe_customer_id: customer.id)
-      subject.stripe_customer
-      subject.update!(stripe_customer_id: nil)
-      expect(subject.stripe_customer).to eq(customer)
+    it 'requires a user' do
+      pro_account = FactoryGirl.build(:pro_account, user: nil)
+      expect(pro_account).not_to be_valid
     end
 
   end
 
-  describe '#stripe_customer!' do
+  describe 'create callbacks' do
 
-    subject { FactoryGirl.create(:pro_account) }
-
-    let(:customer) do
-      Stripe::Customer.create(email: subject.user.email,
-                              source: stripe_helper.generate_card_token)
+    it 'creates Stripe customer and stores Stripe customer ID' do
+      pro_account = FactoryGirl.build(:pro_account, stripe_customer_id: nil)
+      expect(Stripe::Customer).to receive(:create).and_call_original
+      pro_account.run_callbacks :create
+      expect(pro_account.stripe_customer_id).to_not be_nil
     end
 
-    it 'returns a Stripe::Customer if there is a valid stripe_customer_id' do
-      subject.update!(stripe_customer_id: customer.id)
-      expect(subject.stripe_customer!).to eq(customer)
+  end
+
+  describe '#stripe_customer' do
+
+    subject { pro_account.stripe_customer }
+
+    context 'with invalid Stripe customer ID' do
+      let(:pro_account) do
+        FactoryGirl.create(:pro_account, stripe_customer_id: 'invalid_id')
+      end
+
+      it 'raises an error' do
+        expect{ pro_account.stripe_customer }.
+          to raise_error Stripe::InvalidRequestError
+      end
+
     end
 
-    it 'raises an error if the Stripe::Customer is not found' do
-      subject.update!(stripe_customer_id: 'invalid_id')
-      expect{ subject.stripe_customer! }.
-        to raise_error Stripe::InvalidRequestError
-    end
+    context 'with valid Stripe customer ID' do
+      let(:pro_account) do
+        FactoryGirl.create(:pro_account, stripe_customer_id: customer.id)
+      end
 
-    it 'returns nil if there is no stripe_customer_id set' do
-      expect(subject.stripe_customer!).to be_nil
+      it 'finds the Stripe::Customer linked to the ProAccount' do
+        expect(pro_account.stripe_customer).to eq(customer)
+      end
+
     end
 
   end
 
   describe '#active?' do
-
-    subject { FactoryGirl.create(:pro_account) }
-
-    let(:customer) do
-      Stripe::Customer.create(email: subject.user.email,
-                              source: stripe_helper.generate_card_token)
+    let(:pro_account) do
+      FactoryGirl.create(:pro_account, stripe_customer_id: customer.id)
     end
 
-    let(:plan) do
-      stripe_helper.create_plan(id: 'pro', amount: 1000)
+    subject { pro_account.active? }
+
+    context 'when there is an active subscription' do
+      before { subscription.save }
+      it { is_expected.to eq true }
     end
 
-    before do
-      subject.update!(stripe_customer_id: customer.id)
+    context 'when there is an expiring subscription' do
+      before { subscription.delete(at_period_end: true) }
+      it { is_expected.to eq true }
     end
 
-    it 'returns true if there is an active subscription' do
-      Stripe::Subscription.create(customer: customer,
-                                  plan: plan.id)
-      expect(subject.active?).to eq(true)
+    context 'when an existing subscription is cancelled' do
+      before { subscription.delete }
+      it { is_expected.to eq false }
     end
 
-    it 'returns true if there is an expiring subscription' do
-      subscription =
-        Stripe::Subscription.create(customer: customer,
-                                    plan: plan.id)
-      subscription.delete(at_period_end: true)
-      expect(subject.active?).to eq(true)
+    context 'when there are no active subscriptions' do
+      it { is_expected.to eq false }
     end
 
-    it 'returns false if an existing subscription is cancelled' do
-      subscription =
-        Stripe::Subscription.create(customer: customer,
-                                    plan: plan.id)
-      subscription.delete
-      expect(subject.active?).to eq(false)
+    context 'when there is no customer id' do
+      before { pro_account.stripe_customer_id = nil }
+      it { is_expected.to eq false }
     end
 
-    it 'returns false if there are no active subscriptions' do
-      expect(subject.active?).to eq(false)
-    end
+  end
 
-    it 'returns false if there is no customer id' do
-      subject.stripe_customer_id = nil
-      expect(subject.active?).to eq(false)
+  describe '#update_email_address' do
+    let(:user) { FactoryGirl.build(:user, email: 'bilbo@example.com') }
+    let(:pro_account) { FactoryGirl.create(:pro_account, user: user) }
+
+    before { allow(pro_account).to receive(:stripe_customer) { customer } }
+
+    it 'update Stripe customer email address' do
+      expect(customer.email).to_not eq user.email
+      expect(customer).to receive(:save)
+      pro_account.update_email_address
+      expect(customer.email).to eq user.email
     end
 
   end
