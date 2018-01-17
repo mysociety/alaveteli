@@ -3,13 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# Translators:
+# louisecrow <louise@mysociety.org>, 2017
+# Liz Conlan <liz@mysociety.org>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-12-07 14:22+0000\n"
 "PO-Revision-Date: 2017-01-20 17:40+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>, 2017\n"
+"Last-Translator: Liz Conlan <liz@mysociety.org>, 2017\n"
 "Language-Team: Nepali (https://www.transifex.com/mysociety/teams/33529/ne/)\n"
 "Language: ne\n"
 "MIME-Version: 1.0\n"

@@ -11,16 +11,17 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Finnur Magnusson <gommit@gmail.com>, 2015
 # Ölvir Gíslason <olvirg@gmail.com>, 2016
-# Páll Hilmarsson <pallih@kaninka.net>, 2015-2017
+# Páll Hilmarsson <pallih@kaninka.net>, 2015-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-09-27 18:47+0100\n"
-"PO-Revision-Date: 2017-09-27 17:53+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2018-01-13 09:32+0000\n"
+"Last-Translator: Páll Hilmarsson <pallih@kaninka.net>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/mysociety/alaveteli/language/is_IS/)\n"
 "Language: is_IS\n"
 "MIME-Version: 1.0\n"
@@ -1425,7 +1426,7 @@ msgid "Improve your account security"
 msgstr "Gerðu reikninginn þinn öruggari"
 
 msgid "In progress"
-msgstr ""
+msgstr "Í vinnslu"
 
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr "Látið fylgja með hlekki á vefsíður, blogg eða Twitter sem tengjast beiðninni. Þeir verða tengdir svo fólk geti fræðst um beiðnina. \\ Til dæmis:"
@@ -3831,7 +3832,7 @@ msgid "What next?"
 msgstr "Hvað næst?"
 
 msgid "What's happened:"
-msgstr ""
+msgstr "Það sem hefur gerst:"
 
 msgid "When you get there, please update the status to say if the response contains any useful information."
 msgstr "Þegar þangað er komið biðjum við þig um að uppfæra stöðuna til að láta vita hvort einhverjar gagnlegar upplýsingar séu í svarinu."

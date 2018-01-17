@@ -3,13 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# Translators:
+# louisecrow <louise@mysociety.org>, 2017
+# Liz Conlan <liz@mysociety.org>, 2017
+# Mattias Axell <mattias@okfn.se>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-12-07 14:22+0000\n"
 "PO-Revision-Date: 2017-01-20 17:40+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>, 2017\n"
+"Last-Translator: Mattias Axell <mattias@okfn.se>, 2018\n"
 "Language-Team: Swedish (https://www.transifex.com/mysociety/teams/33529/sv/)\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -24,10 +28,10 @@ msgid " Say how you've <strong>used the information</strong>, with links if poss
 msgstr "Berätta hur du har <strong>använt informationen</strong>, om möjligt med länkar."
 
 msgid "'Crime statistics by ward level for Wales'"
-msgstr ""
+msgstr "'Brottsstatistik på kommunnivå för Wales'"
 
 msgid "(no title)"
-msgstr ""
+msgstr "(ingen titel)"
 
 msgid "+ Add"
 msgstr "+ Lägg till"
@@ -63,7 +67,7 @@ msgid "Add an annotation"
 msgstr "Lägg till en anteckning"
 
 msgid "Add annotation"
-msgstr ""
+msgstr "Lägg till anteckning"
 
 msgid "Add authorities to your batch"
 msgstr "Lägg till myndigheter till din massbegäran"
@@ -75,7 +79,7 @@ msgid "All requests"
 msgstr "Alla förfrågningar"
 
 msgid "Also called {{other_name}}."
-msgstr ""
+msgstr "Även kallad {{other_name}}"
 
 msgid "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
 msgstr "Anteckningar tillåter dig att lägga till extra anteckningar på en begäran, vilka eventuellt kommer offentliggöras. Till exempel:"
@@ -87,7 +91,7 @@ msgid "Are you sure you want to publish this request?"
 msgstr "Är du säker på att du vill publicera denna begäran?"
 
 msgid "Batch request"
-msgstr ""
+msgstr "Massförfrågan"
 
 msgid "Browse public requests"
 msgstr "Bläddra bland offentliga förfrågningar"
@@ -126,7 +130,7 @@ msgid "Edit your request"
 msgstr "Redigera din begäran"
 
 msgid "Email doesn't look like a valid address"
-msgstr ""
+msgstr "E-postadressen ser inte ut att vara en giltig adress"
 
 msgid "First created"
 msgstr "Först skapad"
@@ -150,7 +154,7 @@ msgid "Last updated"
 msgstr "Senast uppdaterad"
 
 msgid "Make a batch request"
-msgstr ""
+msgstr "Gör en massförfrågan"
 
 msgid "Make a request"
 msgstr "Gör en begäran"
@@ -165,34 +169,34 @@ msgid "My wall"
 msgstr "Mitt flöde"
 
 msgid "No bodies selected"
-msgstr ""
+msgstr "Inga valda myndigheter"
 
 msgid "No title"
-msgstr ""
+msgstr "Ingen titel"
 
 msgid "Note: When this request is made public on {{site_name}}, this message will also be made public."
 msgstr "Obs! När den här förfrågan publiceras på {{site_name}}, kommer även detta meddelande att publiceras."
 
 msgid "Note: When this request is made public on {{site_name}}, your name and annotation will appear in <strong>search engines</strong>."
-msgstr ""
+msgstr "Observera: När denna begäran är gjord offentlig på {{site_name}} kommer ditt namn och anteckningar att dyka upp i <strong>sökmotorer</strong>."
 
 msgid "Once you’re happy with your request, click preview and send."
 msgstr "När du är nöjd med din förfrågan, klicka på förhandsgranska och sänd."
 
 msgid "Pending"
-msgstr ""
+msgstr "Pågående..."
 
 msgid "Please enter the reason why you want access"
-msgstr ""
+msgstr "Vänligen ange anledningen till varför du vill ha tillgång"
 
 msgid "Please enter your email address"
-msgstr ""
+msgstr "Vänligen ange din e-postadress"
 
 msgid "Please tell us if you want to get updates"
-msgstr ""
+msgstr "Vänligen berätta om du vill ha uppdateringar"
 
 msgid "Please tell us if you're interested in training and seminars"
-msgstr ""
+msgstr "Vänligen berätta om du är intresserad av utbildning och föreläsningar"
 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
 msgstr "Referera till <strong>sammanhörande information</strong>, kampanjer eller forum kan vara lämpligt."
@@ -201,19 +205,19 @@ msgid "Preview and send request"
 msgstr "Förhandsgranska och skicka förfrågan"
 
 msgid "Preview new batch request"
-msgstr ""
+msgstr "Förhandsvisa ny massförfrågan"
 
 msgid "Preview new {{law_used_short}} request to '{{public_body_name}}'"
-msgstr ""
+msgstr "Förhandsgranska ny begäran enligt {{law_used_short}} till '{{public_body_name}}'"
 
 msgid "Privacy"
 msgstr "Privatliv och integritet"
 
 msgid "Private"
-msgstr ""
+msgstr "Privat"
 
 msgid "Private until {{date}}"
-msgstr ""
+msgstr "Privat till och med {{date}}"
 
 msgid "Provide extra context on the request and your reasons for making it."
 msgstr "Motivera din förfrågan med extra bakgrund och skäl varför du gör den."
@@ -225,7 +229,7 @@ msgid "Publish request"
 msgstr "Offentliggör begäran"
 
 msgid "Publish requests"
-msgstr ""
+msgstr "Publicera förfrågningar"
 
 msgid "Publish this request or keep it private for longer."
 msgid_plural "Publish these requests or keep them private for longer."
@@ -259,19 +263,19 @@ msgid "Requests"
 msgstr "Förfrågningar"
 
 msgid "Requests in this batch are private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
-msgstr ""
+msgstr "Förfrågningar i denna serie är privata på {{site_name}} fram till<span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
 
 msgid "Requests in this batch are public"
-msgstr ""
+msgstr "Förfrågningar i denna serieförfrågan är offentliga"
 
 msgid "Requests in this batch will be private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
-msgstr ""
+msgstr "Förfrågningar i denna serie kommer vara privata på {{site_name}} fram till<span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
 
 msgid "Requests that will be made public soon"
 msgstr "Förfrågningar som kommer offentliggöras snart"
 
 msgid "Response due"
-msgstr ""
+msgstr "Inväntar svar"
 
 msgid "Save draft"
 msgstr "Spara utkast"
@@ -306,26 +310,26 @@ msgid "Send a reply to {{person_or_body}}"
 msgstr "Skicka ett svar till {{person_or_body}}"
 
 msgid "Send message"
-msgstr ""
+msgstr "Skicka meddelande"
 
 msgid "Send request"
 msgstr "Skicka begäran"
 
 msgid "Send {{count}} requests"
 msgid_plural "Send {{count}} requests"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Skicka {{count}} begäran"
+msgstr[1] "Skicka {{count}} förfrågningar"
 
 msgid "Sending..."
 msgstr "Skickar..."
 
 msgid "Sent"
-msgstr ""
+msgstr "Skickat"
 
 msgid "Show {{count}} request in detail</span>"
 msgid_plural "Show {{count}} requests in detail</span>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Visa {{count}} begäran i detalj</span>"
+msgstr[1] "Visa {{count}} förfrågningar i detalj</span>"
 
 msgid "Sorry, no authorities matched that search"
 msgstr "Tyvärr, ingen myndighet matchade den sökningen"
@@ -337,7 +341,7 @@ msgid "Sorry, something went wrong publishing your request, please try again."
 msgstr "Tyvärr, något gick snett när ditt resultat skulle visas, var vänlig gör ett nytt försök."
 
 msgid "Sorry, something went wrong publishing your requests, please try again."
-msgstr ""
+msgstr "Tyvärr, något gick fel med att offentliggöra dina förfrågningar. Vänligen försök igen."
 
 msgid "Sorry, something went wrong updating your batch request, please try again."
 msgstr "Tyvärr, något gick snett vid uppdateringen av ditt svar, var vänlig gör ett nytt försök."
@@ -346,7 +350,7 @@ msgid "Sorry, something went wrong updating your request's privacy settings, ple
 msgstr "Tyvärr, något gick snett vid uppdatering av din förfrågans parametrar, var vänlig gör ett nytt försök."
 
 msgid "Sorry, something went wrong updating your requests' privacy settings, please try again."
-msgstr ""
+msgstr "Tyvärr så gick något fel med att uppdatera dina förfrågningars sekretessinställningar, vänligen försök igen."
 
 msgid "Sort by"
 msgstr "Sortera efter"
@@ -370,7 +374,7 @@ msgid "Thanks for logging in. We've saved your request as a draft, in case you w
 msgstr "Tack för att du loggar in. Vi har sparat din begäran som ett utkast ifall du skulle vilja lägga till ett embargo innan du skickar den. Du kan sätta det (eller bara skicka iväg det direkt) genom att använda formuläret nedanför."
 
 msgid "Thanks for your interest in {{pro_site_name}}, we'll get back to you soon!"
-msgstr ""
+msgstr "Tack för ditt intresse i {{pro_site_name}}. Vi återkommer till dig snart!"
 
 msgid "The following request will be made public on {{site_name}} in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer."
 msgid_plural "The following requests will be made public on {{site_name}} in the next week. If you do not wish for any of these requests to go public, please click on the links below to extend them."
@@ -399,10 +403,10 @@ msgid "This request will be private on {{site_name}} until <span class=\"js-emba
 msgstr "Denna förfrågan kommer att vara privat på {{site_name}} tills  <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span> "
 
 msgid "This will publish all of the requests in this batch. Are you sure?"
-msgstr ""
+msgstr "Detta kommer publicera alla förfrågningar i denna serie. Är du säker?"
 
 msgid "This will update the privacy for all of the requests in this batch. Are you sure?"
-msgstr ""
+msgstr "Detta kommer att uppdatera sekretessen för alla förfrågningar i denna serie. Är du säker?"
 
 msgid "Title (A-Z)"
 msgstr "Titel (A-Ö)"
@@ -414,7 +418,7 @@ msgid "To access {{pro_site_name}}"
 msgstr "För att få tillgång till {{pro_site_name}}"
 
 msgid "Unless you choose a privacy option, requests in this batch will be public on {{site_name}} immediately."
-msgstr ""
+msgstr "Såvida du inte väljer ett sekretessalternativ kommer förfrågningar i denna serie att omedelbart bli offentliga på {{site_name}}."
 
 msgid "Unless you choose a privacy option, your request will be public on {{site_name}} immediately."
 msgstr "Såvida du inte väljer ett eget alternativ, kommer din förfrågan att bli tillgänglig på {{site_name}} omgående."
@@ -515,10 +519,10 @@ msgid "Your request will now be private on {{site_name}} until {{expiry_date}}."
 msgstr "Din förfrågan kommer nu att var privat på {{site_name}} fram till {{expiry_date}}."
 
 msgid "Your requests are now public!"
-msgstr ""
+msgstr "Dina förfrågningar är nu offentliga!"
 
 msgid "Your requests will now be private on {{site_name}} until {{expiry_date}}."
-msgstr ""
+msgstr "Dina förfrågningar kommer nu vara hemliga på {{site_name}} fram tills {{expiry_date}}."
 
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr "Dina synpunkter vad {{site_name}} <strong>administratörerna</strong>  skall göra med förfrågan."
@@ -551,17 +555,17 @@ msgid "{{commenter_name}} added a new annotation on your request to {{public_bod
 msgstr "{{commenter_name}} lade till en ny kommentar till {{public_body_name}} \"{{info_request_title}}.\""
 
 msgid "{{count}} Pending"
-msgstr ""
+msgstr "{{count}} Pågående"
 
 msgid "{{count}} recipient, <a href=\"{{url}}\">show</a>"
 msgid_plural "{{count}} recipients, <a href=\"{{url}}\">show all</a>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}} mottagare, <a href=\"{{url}}\">visa</a>"
+msgstr[1] "{{count}} mottagare, <a href=\"{{url}}\">visa alla</a>"
 
 msgid "{{count}} recipient, {{first_public_body}}"
 msgid_plural "{{count}} recipients, including {{first_public_body}} and {{second_public_body}}"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}} mottagare, {{first_public_body}}"
+msgstr[1] "{{count}} mottagare, inklusive {{first_public_body}} och {{second_public_body}}"
 
 msgid "{{count}} request has received a response."
 msgid_plural "{{count}} requests have received a response."
@@ -589,7 +593,7 @@ msgstr[0] "{{count}} begäran kommer att offentliggöras denna vecka."
 msgstr[1] "{{count}} förfrågningar kommer att offentliggöras denna vecka."
 
 msgid "{{count}} {{phase}}"
-msgstr ""
+msgstr "{{count}} {{phase}}"
 
 msgid "{{length_of_time}} ago"
 msgstr "{{length_of_time}} sen"

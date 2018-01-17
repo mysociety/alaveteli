@@ -11,6 +11,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Aleksandar Krstić <krsta1987@gmail.com>, 2015
 # Goran Rakic <grakic@devbase.net>, 2013
 # Goran Vučković <vucko@acm.org>, 2013

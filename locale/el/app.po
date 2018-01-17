@@ -11,6 +11,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Andreas Nedelkos <vandreas2004@yahoo.gr>, 2017
 msgid ""
 msgstr ""
