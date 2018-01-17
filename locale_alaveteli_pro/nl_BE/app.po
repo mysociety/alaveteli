@@ -439,13 +439,13 @@ msgid "View authorities"
 msgstr ""
 
 msgid "We will remind you by email and on the site when the request is going be made public, and you'll have the option to keep it private for longer if you want to. You can extend this time indefinitely, or make the request public at any time."
-msgstr ""
+msgstr "We zullen je per mail en op de site eraan herinneren wanneer de aanvraag openbaar zal gemaakt worden en je zal de mogelijkheid hebben om ze langer privé te houden zo je dat wil. Je kan die termijn onbeperkt instellen of de aanvraag op eender welk moment openbaar maken."
 
 msgid "When a request is private we guarantee that it will only be visible on {{site_name}} for the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
-msgstr ""
+msgstr "Wanneer een aanvraag/verzoek privé is waarborgen we dat het enkel zichtbaar is op {{site_name}} voor de periode die u selecteert. De {{pro_site_name}} site-beheerders kunnen je aanvraag/verzoek zien, doch zullen dit enkel bekijken in het geval ze een technisch probleem moeten oplossen (bv. een niet gelukte aflevering van verzoek bij de betrokken overheid). Ze zullen nooit de inhoud van je verzoek of antwoorden erop vrijmaken voor derden. De betrokken overheid kan het wel zoals gebruikelijk op een geanonimiseerd wijze in een log vrijgeven."
 
 msgid "When your request is made public on {{site_name}}, any annotations you add will also be public. However, they are <strong>not</strong> sent to {{public_body_name}}."
-msgstr ""
+msgstr "Wanneer je aanvraag openbaar gemaak is op {{site_name}}, zullen alle wijzigingen die je aanbrengt ook openbaar zijn. Zij worden echter <strong>niet</strong> verstuurd aan {{public_body_name}}."
 
 msgid "Write a reply"
 msgstr ""
@@ -555,7 +555,7 @@ msgid "{{commenter_name}} added a new annotation on your request to {{public_bod
 msgstr ""
 
 msgid "{{count}} Pending"
-msgstr ""
+msgstr "{{count}} in afwachting"
 
 msgid "{{count}} recipient, <a href=\"{{url}}\">show</a>"
 msgid_plural "{{count}} recipients, <a href=\"{{url}}\">show all</a>"
