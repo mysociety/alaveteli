@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-07 14:22+0000\n"
+"POT-Creation-Date: 2018-01-18 02:19-0800\n"
 "PO-Revision-Date: 2017-01-20 17:40+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,6 +29,9 @@ msgstr "'Crime statistics by ward level for Wales'"
 msgid "(no title)"
 msgstr "(no title)"
 
+msgid "(with <b>{{discount_name}}</b> discount applied)"
+msgstr "(with <b>{{discount_name}}</b> discount applied)"
+
 msgid "+ Add"
 msgstr "+ Add"
 
@@ -44,8 +47,14 @@ msgstr "3 Months"
 msgid "6 Months"
 msgstr "6 Months"
 
+msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
+msgstr "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
+
 msgid "<strong>Thank</strong> the public authority."
 msgstr "<strong>Thank</strong> the public authority."
+
+msgid "<strong>{{brand}}</strong> ending in {{last4}}, expiry {{exp_month}}/{{exp_year}}"
+msgstr "<strong>{{brand}}</strong> ending in {{last4}}, expiry {{exp_month}}/{{exp_year}}"
 
 msgid "<strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 msgstr "<strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
@@ -53,11 +62,38 @@ msgstr "<strong>{{filter_description}}</strong> sorted by <strong>{{order_descri
 msgid "A <strong>summary</strong> of the response if you have received it by post. "
 msgstr "A <strong>summary</strong> of the response if you have received it by post. "
 
+msgid "A monthly subscription"
+msgstr "A monthly subscription"
+
 msgid "A one line summary of the information you are requesting, e.g."
 msgstr "A one line summary of the information you are requesting, e.g."
 
+msgid "A permanent, searchable, public record of your request and the responses"
+msgstr "A permanent, searchable, public record of your request and the responses"
+
+msgid "A powerful private dashboard: track and manage your FOI projects"
+msgstr "A powerful private dashboard: track and manage your FOI projects"
+
+msgid "A searchable archive of Freedom of Information requests"
+msgstr "A powerful private dashboard: track and manage your FOI projects"
+
+msgid "A super-smart to-do list: follow the progress of your requests"
+msgstr "A super-smart to-do list: follow the progress of your requests"
+
+msgid "About {{public_body_name}}"
+msgstr "About {{public_body_name}}"
+
+msgid "Account"
+msgstr "Account"
+
+msgid "Action alerts: know when it’s time to take the next step"
+msgstr "Action alerts: know when it’s time to take the next step"
+
 msgid "Activity"
 msgstr "Activity"
+
+msgid "Add Payment Card"
+msgstr "Add Payment Card"
 
 msgid "Add an annotation"
 msgstr "Add an annotation"
@@ -74,11 +110,20 @@ msgstr "Added"
 msgid "All requests"
 msgstr "All requests"
 
+msgid "All requests within this batch will remain private for the same duration. When an individual request is made public all other requests in this batch will also be published on {{site_name}}."
+msgstr "All requests within this batch will remain private for the same duration. When an individual request is made public all other requests in this batch will also be published on {{site_name}}."
+
 msgid "Also called {{other_name}}."
 msgstr "Also called {{other_name}}"
 
+msgid "An all-in-one FOI toolkit for journalists, activists and campaigners"
+msgstr "An all-in-one FOI toolkit for journalists, activists and campaigners"
+
 msgid "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
 msgstr "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
+
+msgid "Are you interested in free training, seminars and workshops about {{site_name}}?"
+msgstr "Are you interested in free training, seminars and workshops about {{site_name}}?"
 
 msgid "Are you sure the information you’re after isn’t available elsewhere?"
 msgstr "Are you sure the information you’re after isn’t available elsewhere?"
@@ -86,11 +131,44 @@ msgstr "Are you sure the information you’re after isn’t available elsewhere?
 msgid "Are you sure you want to publish this request?"
 msgstr "Are you sure you want to publish this request?"
 
+msgid "Are you sure?"
+msgstr "Are you sure?"
+
 msgid "Batch request"
 msgstr "Batch request"
 
+msgid "Batch requests allow multiple recipients of a single request"
+msgstr "Batch requests allow multiple recipients of a single request"
+
+msgid "Batch requests are part of a new workflow"
+msgstr "Batch requests are part of a new workflow"
+
+msgid "Billed: Annually"
+msgstr "Billed: Annually"
+
+msgid "Billed: Daily"
+msgstr "Billed: Daily"
+
+msgid "Billed: Monthly"
+msgstr "Billed: Monthly"
+
+msgid "Billed: Weekly"
+msgstr "Billed: Weekly"
+
+msgid "Billing"
+msgstr "Billing"
+
 msgid "Browse public requests"
 msgstr "Browse public requests"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Cancel subscription"
+msgstr "Cancel subscription"
+
+msgid "Cancel your subscription"
+msgstr "Cancel your subscription"
 
 msgid "Change privacy"
 msgstr "Change privacy"
@@ -107,11 +185,35 @@ msgstr "Check you haven't included any <strong>personal information</strong>."
 msgid "Choose a duration"
 msgstr "Choose a duration"
 
+msgid "Contact us"
+msgstr "Contact us"
+
+msgid "Continuing with checkout requires your browser to have JavaScript enabled."
+msgstr "Continuing with checkout requires your browser to have JavaScript enabled."
+
+msgid "Coupon code has expired."
+msgstr "Coupon code has expired."
+
+msgid "Coupon code is invalid."
+msgstr "Coupon code is invalid."
+
 msgid "Created"
 msgstr "Created"
 
+msgid "Daily summary emails to keep your inbox clean"
+msgstr "Daily summary emails to keep your inbox clean"
+
 msgid "Dashboard"
 msgstr "Dashboard"
+
+msgid "Delivery verification for proof of receipt"
+msgstr "Delivery verification for proof of receipt"
+
+msgid "Details"
+msgstr "Details"
+
+msgid "Do you have a coupon code?"
+msgstr "Do you have a coupon code?"
 
 msgid "Download a zip file of all correspondence"
 msgstr "Download a zip file of all correspondence"
@@ -125,8 +227,17 @@ msgstr "Drafts"
 msgid "Edit your request"
 msgstr "Edit your request"
 
+msgid "Email address"
+msgstr "Email address"
+
 msgid "Email doesn't look like a valid address"
 msgstr "Email doesn't look like a valid address"
+
+msgid "Everything you need to keep on top of complex FOI-driven stories."
+msgstr "Everything you need to keep on top of complex FOI-driven stories"
+
+msgid "Expires soon"
+msgstr "Expires soon"
 
 msgid "First created"
 msgstr "First created"
@@ -137,14 +248,38 @@ msgstr "From this screen you can get a helpful overview of your requests, and us
 msgid "From this screen you can see what you need to do next to keep your requests moving forward. Why not start a new request now?"
 msgstr "From this screen you can see what you need to do next to keep your requests moving forward. Why not start a new request now?"
 
+msgid "Get access to the beta"
+msgstr "Get access to the beta"
+
+msgid "Get email updates about {{site_name}}?"
+msgstr "Get email updates about {{site_name}}?"
+
+msgid "Get pre-launch access"
+msgstr "Get pre-launch access"
+
+msgid "Get regular updates as the responses come in — without overwhelming your inbox"
+msgstr "Get regular updates as the responses come in — without overwhelming your inbox"
+
 msgid "Get started with your first request"
 msgstr "Get started with your first request"
 
 msgid "Help"
 msgstr "Help"
 
+msgid "I have read and accepted these terms and conditions"
+msgstr "I have read and accepted these terms and conditions"
+
+msgid "I understand and still want to cancel"
+msgstr "I understand and still want to cancel"
+
+msgid "If you have an <strong>offer code</strong>, please enter it here:"
+msgstr "If you have an <strong>offer code</strong>, please enter it here:"
+
 msgid "Keep private for a further:"
 msgstr "Keep private for a further:"
+
+msgid "Keep requests and responses private while you work on your story"
+msgstr "Keep requests and responses private while you work on your story"
 
 msgid "Last updated"
 msgstr "Last updated"
@@ -155,17 +290,38 @@ msgstr "Make a batch request"
 msgid "Make a request"
 msgstr "Make a request"
 
+msgid "Make a request to multiple authorities: select authorities at the click of a button"
+msgstr "Make a request to multiple authorities: select authorities at the click of a button"
+
 msgid "Make an {{law_used_short}} request"
 msgstr "Make an {{law_used_short}} request"
+
+msgid "Manage large volumes of responses:  easily keep track of the status of each request"
+msgstr "Manage large volumes of responses:  easily keep track of the status of each request"
+
+msgid "More information"
+msgstr "More information"
 
 msgid "My profile"
 msgstr "My profile"
 
+msgid "My subscription"
+msgstr "My subscription"
+
 msgid "My wall"
 msgstr "My wall"
 
+msgid "Next payment"
+msgstr "Next payment"
+
+msgid "No"
+msgstr "No"
+
 msgid "No bodies selected"
 msgstr "No bodies selected"
+
+msgid "No results found"
+msgstr "No results found"
 
 msgid "No title"
 msgstr "No title"
@@ -176,17 +332,32 @@ msgstr "Note: When this request is made public on {{site_name}}, this message wi
 msgid "Note: When this request is made public on {{site_name}}, your name and annotation will appear in <strong>search engines</strong>."
 msgstr "Note: When this request is made public on {{site_name}}, your name and annotation will appear in <strong>search engines</strong>."
 
+msgid "Now in beta"
+msgstr "Now in beta"
+
+msgid "Once the privacy period ends, everything that you enter on this page, including <strong>your name</strong>, will be <strong><a href=\"{{url}}\">displayed publicly</a></strong> on this website."
+msgstr "Once the privacy period ends, everything that you enter on this page, including <strong>your name</strong>, will be <strong><a href=\"{{url}}\">displayed publicly</a></strong> on this website."
+
 msgid "Once you’re happy with your request, click preview and send."
 msgstr "Once you’re happy with your request, click preview and send."
 
+msgid "Pay with card"
+msgstr "Pay with card"
+
 msgid "Pending"
 msgstr "Pending..."
+
+msgid "Plans and pricing"
+msgstr "Plans and pricing"
 
 msgid "Please enter the reason why you want access"
 msgstr "Please enter the reason why you want access"
 
 msgid "Please enter your email address"
 msgstr "Please enter your email address"
+
+msgid "Please include links to some examples of your journalism or blogging if you can."
+msgstr "Please include links to some examples of your journalism or blogging if you can."
 
 msgid "Please tell us if you want to get updates"
 msgstr "Please tell us if you want to get updates"
@@ -215,6 +386,12 @@ msgstr "Private"
 msgid "Private until {{date}}"
 msgstr "Private until {{date}}"
 
+msgid "Pro brings a new dashboard view"
+msgstr "Pro brings a new dashboard view"
+
+msgid "Pro features a new request list view"
+msgstr "Pro features a new request list view"
+
 msgid "Provide extra context on the request and your reasons for making it."
 msgstr "Provide extra context on the request and your reasons for making it."
 
@@ -240,6 +417,9 @@ msgstr "Remember, public authorities have {{late_number_of_days}} calendar days 
 
 msgid "Remember, public authorities have {{late_number_of_days}} working days to respond to FOI requests."
 msgstr "Remember, public authorities have {{late_number_of_days}} working days to respond to FOI requests."
+
+msgid "Replies"
+msgstr "Replies"
 
 msgid "Request an internal review"
 msgstr "Request an internal review"
@@ -272,6 +452,9 @@ msgstr "Requests that will be made public soon"
 
 msgid "Response due"
 msgstr "Response due"
+
+msgid "Save as draft to get back to it later"
+msgstr "Save as draft to get back to it later"
 
 msgid "Save draft"
 msgstr "Save draft"
@@ -322,10 +505,16 @@ msgstr "Sending..."
 msgid "Sent"
 msgstr "Sent"
 
+msgid "Settings"
+msgstr "Settings"
+
 msgid "Show {{count}} request in detail</span>"
 msgid_plural "Show {{count}} requests in detail</span>"
 msgstr[0] "Show {{count}} request in detail</span>"
 msgstr[1] "Show {{count}} requests in detail</span>"
+
+msgid "Sign up"
+msgstr "Sign up"
 
 msgid "Sorry, no authorities matched that search"
 msgstr "Sorry, no authorities matched that search"
@@ -366,6 +555,18 @@ msgstr "Subject"
 msgid "Submit Search"
 msgstr "Submit Search"
 
+msgid "Subscription began"
+msgstr "Subscription began"
+
+msgid "Subscription cancellations are applied at the end of the current billing period (<strong>{{date}}</strong>)."
+msgstr "Subscription cancellations are applied at the end of the current billing period (<strong>{{date}}</strong>)."
+
+msgid "Subscription ends"
+msgstr "Subscription ends"
+
+msgid "Successful applicants will receive free early access to {{site_name}} for 6 months."
+msgstr "Successful applicants will receive free early access to {{site_name}} for 6 months."
+
 msgid "Thanks for logging in. We've saved your request as a draft, in case you wanted to add an embargo before sending it. You can set that (or just send it straight away) using the form below."
 msgstr "Thanks for logging in. We've saved your request as a draft, in case you wanted to add an embargo before sending it. You can set that (or just send it straight away) using the form below."
 
@@ -379,6 +580,21 @@ msgstr[1] "The following requests will be made public on {{site_name}} in the ne
 
 msgid "Then you can access {{pro_site_name}}"
 msgstr "Then you can access {{pro_site_name}}"
+
+msgid "Then you can update your payment details"
+msgstr "Then you can update your payment details"
+
+msgid "Then you can upgrade your account"
+msgstr "Then you can upgrade your account"
+
+msgid "There was a problem cancelling your account. Please try again later."
+msgstr "There was a problem cancelling your account. Please try again later."
+
+msgid "There was a problem submitting your payment. You have not been charged. Please try again later."
+msgstr "There was a problem submitting your payment. You have not been charged. Please try again later."
+
+msgid "There was a problem updating your payment details. Please try again later."
+msgstr "There was a problem updating your payment details. Please try again later."
 
 msgid "There's nothing to do right now. Great job!"
 msgstr "There's nothing to do right now. Great job!"
@@ -413,14 +629,26 @@ msgstr "To"
 msgid "To access {{pro_site_name}}"
 msgstr "To access {{pro_site_name}}"
 
+msgid "To update your payment details"
+msgstr "To update your payment details"
+
+msgid "To upgrade your account"
+msgstr "To upgrade your account"
+
 msgid "Unless you choose a privacy option, requests in this batch will be public on {{site_name}} immediately."
 msgstr "Unless you choose a privacy option, requests in this batch will be public on {{site_name}} immediately."
 
 msgid "Unless you choose a privacy option, your request will be public on {{site_name}} immediately."
 msgstr "Unless you choose a privacy option, your request will be public on {{site_name}} immediately."
 
+msgid "Up-to-date database of contact details for 20,000 authorities"
+msgstr "Up-to-date database of contact details for 20,000 authorities"
+
 msgid "Update"
 msgstr "Update"
+
+msgid "Update Card Details"
+msgstr "Update Card Details"
 
 msgid "Update its status."
 msgid_plural "Update statuses."
@@ -430,11 +658,23 @@ msgstr[1] "Update statuses."
 msgid "Updated"
 msgstr "Updated"
 
+msgid "Updating your payment card requires your browser to have JavaScript enabled."
+msgstr "Updating your payment card requires your browser to have JavaScript enabled."
+
+msgid "Upgrade account"
+msgstr "Upgrade account"
+
 msgid "View"
 msgstr "View"
 
 msgid "View authorities"
 msgstr "View authorities"
+
+msgid "Wall"
+msgstr "Wall"
+
+msgid "We are processing your payment. You can access your subscription settings and account information from the \"My subscription\" link in your user menu (accessed from the dropdown next to your name, above)."
+msgstr "We are processing your payment. You can access your subscription settings and account information from the \"My subscription\" link in your user menu (accessed from the dropdown next to your name, above)."
 
 msgid "We will remind you by email and on the site when the request is going be made public, and you'll have the option to keep it private for longer if you want to. You can extend this time indefinitely, or make the request public at any time."
 msgstr "We will remind you by email and on the site when the request is going be made public, and you'll have the option to keep it private for longer if you want to. You can extend this time indefinitely, or make the request public at any time."
@@ -442,8 +682,17 @@ msgstr "We will remind you by email and on the site when the request is going be
 msgid "When a request is private we guarantee that it will only be visible on {{site_name}} for the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
 msgstr "When a request is private we guarantee that it will only be visible on {{site_name}} for the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
 
+msgid "When the current billing period ends:"
+msgstr "When the current billing period ends:"
+
+msgid "When you cancel your account:"
+msgstr "When you cancel your account:"
+
 msgid "When your request is made public on {{site_name}}, any annotations you add will also be public. However, they are <strong>not</strong> sent to {{public_body_name}}."
 msgstr "When your request is made public on {{site_name}}, any annotations you add will also be public. However, they are <strong>not</strong> sent to {{public_body_name}}."
+
+msgid "Why do you want access?"
+msgstr "Why do you want access?"
 
 msgid "Write a reply"
 msgstr "Write a reply"
@@ -451,14 +700,32 @@ msgstr "Write a reply"
 msgid "Write request"
 msgstr "Write request"
 
+msgid "Yes"
+msgstr "Yes"
+
 msgid "You added a new annotation on your request to {{public_body_name}} \"{{info_request_title}}.\""
 msgstr "You added a new annotation on your request to {{public_body_name}} \"{{info_request_title}}.\""
+
+msgid "You are already subscribed to this plan"
+msgstr "You are already subscribed to this plan"
+
+msgid "You can re-subscribe at any time and full access to these features will be restored."
+msgstr "You can re-subscribe at any time and full access to these features will be restored."
+
+msgid "You don't currently have an active Pro subscription"
+msgstr "You don't currently have an active Pro subscription"
+
+msgid "You have successfully cancelled your subscription to {{pro_site_name}}"
+msgstr "You have successfully cancelled your subscription to {{pro_site_name}}"
 
 msgid "You haven't added any authorities to your batch yet"
 msgstr "You haven't added any authorities to your batch yet"
 
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
+
+msgid "You must accept the terms and conditions"
+msgstr "You must accept the terms and conditions"
 
 msgid "You sent a clarification to {{public_body_name}} for \"{{info_request_title}}\"."
 msgstr "You sent a clarification to {{public_body_name}} for \"{{info_request_title}}\"."
@@ -472,11 +739,26 @@ msgstr "You sent a request \"{{info_request_title}}\" to {{public_body_name}}."
 msgid "You sent an internal review request to {{public_body_name}} for \"{{info_request_title}}\"."
 msgstr "You sent an internal review request to {{public_body_name}} for \"{{info_request_title}}\"."
 
+msgid "You will be able to extend this privacy period from {{embargo_extend_from}}."
+msgstr "You will be able to extend this privacy period from {{embargo_extend_from}}."
+
+msgid "You will still be able to see any requests which are currently private, but you won't be able to make new private requests or extend privacy durations. These requests will be published when the current privacy period ends."
+msgstr "You will still be able to see any requests which are currently private, but you won't be able to make new private requests or extend privacy durations. These requests will be published when the current privacy period ends."
+
+msgid "You won't be able to access {{pro_site_name}} tools, including the dashboard and pro request management."
+msgstr "You won't be able to access {{pro_site_name}} tools, including the dashboard and pro request management."
+
+msgid "You'll lose access to any requests you still have in draft."
+msgstr "You'll lose access to any requests you still have in draft."
+
 msgid "Your Batch Request has been saved!"
 msgstr "Your Batch Request has been saved!"
 
 msgid "Your clarification to {{public_body_name}} for \"{{info_request_title}}\" was resent."
 msgstr "Your clarification to {{public_body_name}} for \"{{info_request_title}}\" was resent."
+
+msgid "Your current subscription"
+msgstr "Your current subscription"
 
 msgid "Your dashboard"
 msgstr "Your dashboard"
@@ -492,6 +774,9 @@ msgstr "Your internal review request to {{public_body_name}} for \"{{info_reques
 
 msgid "Your message will be displayed publicly on this website once you publish your request."
 msgstr "Your message will be displayed publicly on this website once you publish your request."
+
+msgid "Your payment details"
+msgstr "Your payment details"
 
 msgid "Your request"
 msgstr "Your request"
@@ -519,6 +804,9 @@ msgstr "Your requests are now public!"
 
 msgid "Your requests will now be private on {{site_name}} until {{expiry_date}}."
 msgstr "Your requests will now be private on {{site_name}} until {{expiry_date}}."
+
+msgid "Your subscription has been cancelled, your access to {{pro_site_name}} will end on <strong>{{date}}</strong>."
+msgstr "Your subscription has been cancelled, your access to {{pro_site_name}} will end on <strong>{{date}}</strong>."
 
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
@@ -591,17 +879,17 @@ msgstr[1] "{{count}} requests will be made public this week."
 msgid "{{count}} {{phase}}"
 msgstr "{{count}} {{phase}}"
 
+msgid "{{date}}"
+msgstr "{{date}}"
+
 msgid "{{length_of_time}} ago"
 msgstr "{{length_of_time}} ago"
+
+msgid "{{pro_site_name}} is a powerful, fully-featured FOI toolkit for journalists"
+msgstr "{{pro_site_name}} is a powerful, fully-featured FOI toolkit for journalists"
 
 msgid "{{public_body_name}} are delayed in responding to your request \"{{info_request_title}}\"."
 msgstr "{{public_body_name}} are delayed in responding to your request \"{{info_request_title}}\"."
 
 msgid "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."
 msgstr "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."
-
-#~ msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
-#~ msgstr "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
-
-#~ msgid "Preview your request"
-#~ msgstr "Preview your request"
