@@ -21,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-27 18:47+0100\n"
-"PO-Revision-Date: 2017-09-27 17:56+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2018-01-18 01:28-0800\n"
+"PO-Revision-Date: 2018-01-18 09:32+0000\n"
+"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/mysociety/alaveteli/language/bg/)\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
@@ -576,8 +576,8 @@ msgstr "Разгледайте <a href='{{url}}'>други запитвания
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
 msgstr "Разгледайте <a href='{{url}}'>други запитвания</a> до '{{public_body_name}}'  като примери за това как да опишете заявлението си."
 
-msgid "Browse all authorities..."
-msgstr "Списък на всички органи..."
+msgid "Browse all authorities &rarr;"
+msgstr ""
 
 msgid "Browse all requests &rarr;"
 msgstr ""
@@ -1186,6 +1186,9 @@ msgstr "От:"
 
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "ТУК НАПИШЕТЕ ПОДРОБНОСТИ ЗА ВАШЕТО ОПЛАКВАНЕ"
+
+msgid "Got a {{site_name}} account?"
+msgstr ""
 
 msgid "Got an account?"
 msgstr ""
@@ -2150,6 +2153,9 @@ msgstr "Моля, постарайте се да е по-кратко от 500 �
 msgid "Please keep the summary short, like in the subject of an email. You can use a phrase, rather than a full sentence."
 msgstr "Моля, напишете кратко описание, като в темата на имейл. По-добре ползвайте фраза, а не цяло изречение."
 
+msgid "Please note that in some cases publication of requests and responses will be delayed."
+msgstr ""
+
 msgid "Please only request information that comes under those categories, <strong>do not waste your time</strong> or the time of the public authority by requesting unrelated information."
 msgstr "Молим, искайте само информация, която попада в тези категории, <strong>не си губете\\n времето</strong> или времето на публичния орган с искане на несвързана информация."
 
@@ -2435,15 +2441,6 @@ msgid "PublicBody|Version"
 msgstr "PublicBody|Версия"
 
 msgid "Publication scheme"
-msgstr ""
-
-msgid "Purge request"
-msgstr "Прочистване на заявлението"
-
-msgid "PurgeRequest|Model"
-msgstr ""
-
-msgid "PurgeRequest|Url"
 msgstr ""
 
 msgid "Query can't be blank"
@@ -2994,6 +2991,9 @@ msgstr ""
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr ""
 
+msgid "The following request has been made public on {{site_name}}."
+msgstr ""
+
 msgid "The following request will be made public on {{site_name}} in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer."
 msgstr ""
 
@@ -3273,13 +3273,13 @@ msgstr "Това заявление е завършено:"
 msgid "This person has made no Freedom of Information requests using this site."
 msgstr "Този потребител не е отправял Заявления за Достъп до информация чрез този сайт."
 
+msgid "This person's Freedom of Information request"
+msgid_plural "This person's Freedom of Information requests (approximately {{count}})"
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "This person's annotations"
 msgstr "Коментарите на този потребител"
-
-msgid "This person's {{count}} Freedom of Information request"
-msgid_plural "This person's {{count}} Freedom of Information requests"
-msgstr[0] "{{count}} Заявление за Достъп до Информация на този потребител"
-msgstr[1] "{{count}} Заявления за Достъп до Информация на този потребител"
 
 msgid "This person's {{count}} annotation"
 msgid_plural "This person's {{count}} annotations"
@@ -3306,6 +3306,9 @@ msgstr "Това заявление беше <strong>докладвано</stron
 
 msgid "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
 msgstr "Това Заявление беше <strong>оттеглено</strong> от потребителя, който го е създал.\\n Вероятно има обяснение в кореспонденцията по-долу."
+
+msgid "This request has been made public on {{site_name}}."
+msgstr ""
 
 msgid "This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Това заявление беше отбелязано за преглед от админите на сайта, които не са го скрили засега. Ако смятате, че трябва да се скрие, молим <a href=\"{{url}}\">свържете се с нас</a>."
@@ -4118,8 +4121,16 @@ msgstr "Профилната Ви снимка беше премахната"
 msgid "Your <strong>name will appear publicly</strong> (<a href=\"{{why_url}}\">why?</a>) on this website and in search engines. <a href=\"{{help_url}}\">Thinking of using a pseudonym?</a>"
 msgstr "Вашето <strong>име ще се показва публично</strong>\\n        (<a href=\"{{why_url}}\">защо?</a>)\\n        на този уеб сайт и в машините за търсене. Ако Вие\\n        възнамерявате да ползвате псевдоним, молим\\n        <a href=\"{{help_url}}\">прочетете първо това</a>."
 
+msgid "Your FOI request - {{request_title}} has been made public on {{site_name}}"
+msgstr ""
+
 msgid "Your FOI request - {{request_title}} will be made public on {{site_name}} this week"
 msgstr ""
+
+msgid "Your Freedom of Information request"
+msgid_plural "Your Freedom of Information requests (approximately {{count}})"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Your annotations"
 msgstr "Вашите коментари"
@@ -4229,11 +4240,6 @@ msgstr "Вашите избрани органи"
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr "Вашите мисли за това, какво {{site_name}} <strong>администраторите</strong> би трябвало да направят за Заявлението."
 
-msgid "Your {{count}} Freedom of Information request"
-msgid_plural "Your {{count}} Freedom of Information requests"
-msgstr[0] "{{count}} Ваше Заявление за Достъп до Информация"
-msgstr[1] "{{count}} Ваши Заявления за Достъп до Информация"
-
 msgid "Your {{count}} annotation"
 msgid_plural "Your {{count}} annotations"
 msgstr[0] "{{count}} Ваш коментар"
@@ -4243,6 +4249,11 @@ msgid "Your {{count}} batch request"
 msgid_plural "Your {{count}} batch requests"
 msgstr[0] "Вашето {{count}} размножено заявление"
 msgstr[1] "Вашите {{count}} размножени заявления"
+
+msgid "Your {{count}} private Freedom of Information request"
+msgid_plural "Your {{count}} private Freedom of Information requests"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Your {{law_used_full}} request has been sent"
 msgstr ""
@@ -4555,6 +4566,11 @@ msgid_plural "{{count}} requests had new responses:"
 msgstr[0] ""
 msgstr[1] ""
 
+msgid "{{count}} request has been made public on {{site_name}}."
+msgid_plural "{{count}} requests have been made public on {{site_name}}."
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "{{count}} request has not had a prompt response:"
 msgid_plural "{{count}} requests have not had prompt responses:"
 msgstr[0] ""
@@ -4614,6 +4630,9 @@ msgid "{{number_of_requests}} request left to categorise / {{total_number_of_req
 msgid_plural "{{number_of_requests}} requests left to categorise / {{total_number_of_requests}} total"
 msgstr[0] ""
 msgstr[1] ""
+
+msgid "{{pro_site_name}} Terms"
+msgstr ""
 
 msgid "{{public_body_link_absolute}}"
 msgstr ""
