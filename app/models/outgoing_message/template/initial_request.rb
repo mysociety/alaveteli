@@ -20,7 +20,9 @@ class OutgoingMessage
 
       def salutation(replacements = {})
         if replacements[:public_body_name]
-          _("Dear {{public_body_name}},", replacements)
+          replacements[:public_body_name] =
+            replacements[:public_body_name].html_safe
+          _("Dear {{public_body_name}},", replacements).html_safe
         else
           self.class.placeholder_salutation
         end
