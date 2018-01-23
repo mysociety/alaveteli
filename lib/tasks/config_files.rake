@@ -78,7 +78,7 @@ namespace :config_files do
               'VCSPATH=alaveteli ' \
               'SITE=alaveteli ' \
               'SCRIPT_FILE=config/alert-tracks-debian.example ' \
-              'RUBY_VERSION=1.9.1 '
+              'RUBY_VERSION=2.1.5 '
     check_for_env_vars(['DEPLOY_USER',
                         'VHOST_DIR',
                         'SCRIPT_FILE'], example)
@@ -121,7 +121,7 @@ namespace :config_files do
               'VHOST_DIR=/dir/above/alaveteli VCSPATH=alaveteli ' \
               'SITE=alaveteli CRONTAB=config/crontab-example ' \
               'MAILTO=cron-alaveteli@example.org ' \
-              'RUBY_VERSION=1.9.1 '
+              'RUBY_VERSION=2.1.5 '
     check_for_env_vars(['DEPLOY_USER',
                         'VHOST_DIR',
                         'VCSPATH',
