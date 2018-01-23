@@ -787,8 +787,9 @@ class PublicBody < ActiveRecord::Base
     if tag.nil? || tag == 'all'
       tag = 'all'
     elsif tag == 'other'
-      category_list = PublicBodyCategory.get.tags.map{ |c| %Q('#{ c }') }.join(",")
-      where_condition += base_tag_condition + " AND has_tag_string_tags.name in (#{category_list})) = 0"
+      tags = PublicBodyCategory.get.tags - ['other']
+      where_condition += base_tag_condition + " AND has_tag_string_tags.name IN (?)) = 0"
+      where_parameters.concat [tags]
     elsif tag.include?(':')
       name, value = HasTagString::HasTagStringTag.split_tag_into_name_value(tag)
       where_condition += base_tag_condition + " AND has_tag_string_tags.name = ? AND has_tag_string_tags.value = ?) > 0"
