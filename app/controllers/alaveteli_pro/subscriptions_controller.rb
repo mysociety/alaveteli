@@ -69,18 +69,20 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
            Stripe::APIConnectionError,
            Stripe::StripeError => e
 
-      if e.message =~ /No such coupon/
-        flash[:error] = _('Coupon code is invalid.')
-      elsif e.message =~ /Coupon expired/
-        flash[:error] = _('Coupon code has expired.')
-      else
-        if send_exception_notifications?
-          ExceptionNotifier.notify_exception(e, :env => request.env)
-        end
+      flash[:error] =
+        case e.message
+        when /No such coupon/
+          _('Coupon code is invalid.')
+        when /Coupon expired/
+          _('Coupon code has expired.')
+        else
+          if send_exception_notifications?
+            ExceptionNotifier.notify_exception(e, :env => request.env)
+          end
 
-        flash[:error] = _('There was a problem submitting your payment. You ' \
-                          'have not been charged. Please try again later.')
-      end
+          _('There was a problem submitting your payment. You ' \
+            'have not been charged. Please try again later.')
+        end
 
       if params[:plan_id]
         redirect_to plan_path(non_namespaced_plan_id)
