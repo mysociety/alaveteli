@@ -70,9 +70,9 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
            Stripe::StripeError => e
 
       if e.message =~ /No such coupon/
-        flash[:notice] = _('Coupon code is invalid.')
+        flash[:error] = _('Coupon code is invalid.')
       elsif e.message =~ /Coupon expired/
-        flash[:notice] = _('Coupon code has expired.')
+        flash[:error] = _('Coupon code has expired.')
       else
         if send_exception_notifications?
           ExceptionNotifier.notify_exception(e, :env => request.env)

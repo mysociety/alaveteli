@@ -435,7 +435,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         end
 
         it 'renders an notice message' do
-          expect(flash[:notice]).to eq('Coupon code is invalid.')
+          expect(flash[:error]).to eq('Coupon code is invalid.')
         end
 
         it 'redirects to the plan page' do
@@ -462,7 +462,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         end
 
         it 'renders an notice message' do
-          expect(flash[:notice]).to eq('Coupon code has expired.')
+          expect(flash[:error]).to eq('Coupon code has expired.')
         end
 
         it 'redirects to the plan page' do
