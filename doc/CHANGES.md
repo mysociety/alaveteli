@@ -63,6 +63,11 @@
   `bundle exec rake temp:populate_missing_attachment_files` if you're seeing
   `No such file or directory @ rb_sysopen` errors from `foi_attachment.rb`.
 
+* If your theme overrides the `user/_signup` template, you will need to update
+  the `form_tag` line in your theme code to match the core view to avoid seeing
+  an `ActionController::UrlGenerationError (No route matches {:action=>"signup", :controller=>"users/sessions"})`
+  error while trying to access the signup/signin page
+
 ### Changed Templates
 
     app/views/admin_general/_to_do_list.html.erb
