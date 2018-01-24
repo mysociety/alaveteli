@@ -284,6 +284,11 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
     describe 'updating the Stripe charge description when a payment succeeds' do
 
+      before do
+        request.headers.merge!(signed_headers)
+        post :receive, payload
+      end
+
       context 'when there is a charge for an invoice' do
         let(:stripe_event) do
           StripeMock.mock_webhook_event('invoice.payment_succeeded',
@@ -291,13 +296,8 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
         end
 
         it 'updates the charge description with the site name' do
-          with_feature_enabled(:alaveteli_pro) do
-            expect(charge.description).to be nil
-            request.headers.merge! signed_headers
-            post :receive, payload
-            expect(Stripe::Charge.retrieve(charge.id).description).
-              to eq('Alaveteli Professional')
-          end
+          expect(Stripe::Charge.retrieve(charge.id).description).
+            to eq('Alaveteli Professional')
         end
 
       end
@@ -309,11 +309,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
         end
 
         it 'does not attempt to update the nil charge' do
-          with_feature_enabled(:alaveteli_pro) do
-            request.headers.merge! signed_headers
-            post :receive, payload
-            expect(response.status).to eq(200)
-          end
+          expect(response.status).to eq(200)
         end
 
       end
