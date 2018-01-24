@@ -1,10 +1,10 @@
 # -*- encoding : utf-8 -*-
 class AlaveteliPro::BatchRequestAuthoritySearchesController < AlaveteliPro::BaseController
+  include AlaveteliPro::BatchRequest
+
   MAX_RESULTS = 500
 
   before_action :check_user_has_batch_access
-
-  helper_method :mode
 
   def index
     @draft_batch_request = find_or_initialise_draft
@@ -83,14 +83,5 @@ class AlaveteliPro::BatchRequestAuthoritySearchesController < AlaveteliPro::Base
     else
       AlaveteliPro::DraftInfoRequestBatch.new
     end
-  end
-
-  def mode
-    valid_modes = %w(search browse)
-    @mode ||= if valid_modes.include?(params[:mode])
-        params[:mode]
-      else
-        valid_modes.first
-      end
   end
 end
