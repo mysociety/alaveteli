@@ -1,11 +1,16 @@
 <ul>
-  <% PublicBody.with_tag(category_tag).each do |public_body| %>
-    <%= render partial: 'alaveteli_pro/batch_request_authority_searches/search_result',
-               locals: { name: public_body.name,
-                         authority_id: public_body.id,
-                         draft: draft_batch_request,
-                         query: nil,
-                         page: nil,
-                         body_ids_added: body_ids_added } %>
+  <% public_bodies = PublicBody.with_tag(category_tag) %>
+  <% cache [:batch_builder, locale, category_tag, public_bodies] do %>
+    <% public_bodies.each do |public_body| %>
+      <% cache [:batch_builder, locale, category_tag, public_body] do %>
+        <%= render partial: 'alaveteli_pro/batch_request_authority_searches/search_result',
+                   locals: { name: public_body.name,
+                             authority_id: public_body.id,
+                             draft: draft_batch_request,
+                             query: nil,
+                             page: nil,
+                             body_ids_added: body_ids_added } %>
+      <% end %>
+    <% end %>
   <% end %>
 </ul>
