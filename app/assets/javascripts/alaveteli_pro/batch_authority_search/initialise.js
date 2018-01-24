@@ -10,6 +10,7 @@
     loadingSuccess: namespace + ':loadingSuccess',
     loadingError: namespace + ':loadingError',
     loadingComplete: namespace + ':loadingComplete',
+    domUpdated: namespace + ':domUpdated',
     rendered: namespace + ':rendered'
   };
 
