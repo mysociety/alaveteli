@@ -284,26 +284,52 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
     describe 'updating the Stripe charge description when a payment succeeds' do
 
-      let(:stripe_event) do
-        StripeMock.mock_webhook_event(
-          'invoice.payment_succeeded',
-          {
-            lines: paid_invoice.lines,
-            currency: 'gbp',
-            charge: paid_invoice.charge,
-            subscription: paid_invoice.subscription
-          }
-        )
+      context 'when there is a charge for an invoice' do
+        let(:stripe_event) do
+          StripeMock.mock_webhook_event(
+            'invoice.payment_succeeded',
+            {
+              lines: paid_invoice.lines,
+              currency: 'gbp',
+              charge: paid_invoice.charge,
+              subscription: paid_invoice.subscription
+            }
+          )
+        end
+
+        it 'updates the charge description with the site name' do
+          with_feature_enabled(:alaveteli_pro) do
+            expect(charge.description).to be nil
+            request.headers.merge! signed_headers
+            post :receive, payload
+            expect(Stripe::Charge.retrieve(charge.id).description).
+              to eq('Alaveteli Professional')
+          end
+        end
+
       end
 
-      it 'updates the charge description with the site name' do
-        with_feature_enabled(:alaveteli_pro) do
-          expect(charge.description).to be nil
-          request.headers.merge! signed_headers
-          post :receive, payload
-          expect(Stripe::Charge.retrieve(charge.id).description).
-            to eq('Alaveteli Professional')
+      context 'when there is no charge for an invoice' do
+        let(:stripe_event) do
+          StripeMock.mock_webhook_event(
+            'invoice.payment_succeeded',
+            {
+              lines: paid_invoice.lines,
+              currency: 'gbp',
+              charge: nil,
+              subscription: paid_invoice.subscription
+            }
+          )
         end
+
+        it 'does not attempt to update the nil charge' do
+          with_feature_enabled(:alaveteli_pro) do
+            request.headers.merge! signed_headers
+            post :receive, payload
+            expect(response.status).to eq(200)
+          end
+        end
+
       end
 
     end
