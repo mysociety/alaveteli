@@ -87,7 +87,6 @@ DEFAULTS = {
   'memory' => 1536,
   'themes_dir' => '../alaveteli-themes',
   'os' => 'jessie64',
-  'name' => 'default',
   'use_nfs' => false,
   'show_settings' => false,
   'cpus' => cpu_count
@@ -140,9 +139,15 @@ end
 VAGRANTFILE_API_VERSION = '2'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.define SETTINGS['name']
+  config.vm.define 'default', primary: true
   config.vm.box = box_name(SETTINGS['os'])
   config.vm.box_url = box_url(SETTINGS['os'])
+
+  SUPPORTED_OPERATING_SYSTEMS.keys.each do |os|
+    config.vm.define os, autostart: false
+    config.vm.box = box_name(os)
+    config.vm.box_url = box_url(os)
+  end
 
   config.vm.network :private_network, ip: SETTINGS['ip']
 
