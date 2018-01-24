@@ -296,7 +296,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
         )
       end
 
-      it 'removes the pro role from the associated user' do
+      it 'updates the charge description with the site name' do
         with_feature_enabled(:alaveteli_pro) do
           expect(charge.description).to be nil
           request.headers.merge! signed_headers
