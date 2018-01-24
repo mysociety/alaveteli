@@ -286,15 +286,8 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
       context 'when there is a charge for an invoice' do
         let(:stripe_event) do
-          StripeMock.mock_webhook_event(
-            'invoice.payment_succeeded',
-            {
-              lines: paid_invoice.lines,
-              currency: 'gbp',
-              charge: paid_invoice.charge,
-              subscription: paid_invoice.subscription
-            }
-          )
+          StripeMock.mock_webhook_event('invoice.payment_succeeded',
+                                        charge: paid_invoice.charge)
         end
 
         it 'updates the charge description with the site name' do
@@ -311,15 +304,8 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
       context 'when there is no charge for an invoice' do
         let(:stripe_event) do
-          StripeMock.mock_webhook_event(
-            'invoice.payment_succeeded',
-            {
-              lines: paid_invoice.lines,
-              currency: 'gbp',
-              charge: nil,
-              subscription: paid_invoice.subscription
-            }
-          )
+          StripeMock.mock_webhook_event('invoice.payment_succeeded',
+                                        charge: nil)
         end
 
         it 'does not attempt to update the nil charge' do
