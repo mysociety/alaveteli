@@ -1,5 +1,6 @@
 // Handles submission of the search form via ajax
 (function($, BatchAuthoritySearch, DraftBatchSummary){
+  var SearchEvents = BatchAuthoritySearch.Events;
   var DraftEvents = DraftBatchSummary.Events;
   BatchAuthoritySearch.SearchForm = {};
   var $search,
@@ -35,6 +36,8 @@
         !DraftBatchSummary.hasReachedLimit &&
         $query.val() !== currentValue) {
       submitForm();
+    } else {
+      $search.trigger(SearchEvents.loadingSuccess);
     }
   }
 
