@@ -284,26 +284,34 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
     describe 'updating the Stripe charge description when a payment succeeds' do
 
-      let(:stripe_event) do
-        StripeMock.mock_webhook_event(
-          'invoice.payment_succeeded',
-          {
-            lines: paid_invoice.lines,
-            currency: 'gbp',
-            charge: paid_invoice.charge,
-            subscription: paid_invoice.subscription
-          }
-        )
+      before do
+        request.headers.merge!(signed_headers)
+        post :receive, payload
       end
 
-      it 'removes the pro role from the associated user' do
-        with_feature_enabled(:alaveteli_pro) do
-          expect(charge.description).to be nil
-          request.headers.merge! signed_headers
-          post :receive, payload
+      context 'when there is a charge for an invoice' do
+        let(:stripe_event) do
+          StripeMock.mock_webhook_event('invoice.payment_succeeded',
+                                        charge: paid_invoice.charge)
+        end
+
+        it 'updates the charge description with the site name' do
           expect(Stripe::Charge.retrieve(charge.id).description).
             to eq('Alaveteli Professional')
         end
+
+      end
+
+      context 'when there is no charge for an invoice' do
+        let(:stripe_event) do
+          StripeMock.mock_webhook_event('invoice.payment_succeeded',
+                                        charge: nil)
+        end
+
+        it 'does not attempt to update the nil charge' do
+          expect(response.status).to eq(200)
+        end
+
       end
 
     end
