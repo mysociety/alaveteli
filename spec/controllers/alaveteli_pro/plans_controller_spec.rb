@@ -77,7 +77,7 @@ describe AlaveteliPro::PlansController do
 
       end
 
-      context 'with a Stripe namespaced' do
+      context 'with a Stripe namespace' do
 
         before do
           allow(AlaveteliConfiguration).to receive(:stripe_namespace).
