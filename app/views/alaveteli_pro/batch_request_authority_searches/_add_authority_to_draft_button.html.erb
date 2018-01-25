@@ -5,6 +5,8 @@
                      data: { body_id: authority_id } }) do |f| %>
   <%= hidden_field_tag(:authority_query, query) unless query.blank? %>
   <%= hidden_field_tag(:page, page) unless page.blank? %>
+  <%= hidden_field_tag(:mode, mode) %>
+  <%= hidden_field_tag(:category_tag, category_tag) %>
   <%= f.hidden_field(:draft_id, value: draft.id, class: 'js-draft-id') %>
   <%= f.hidden_field(:public_body_id, value: authority_id) %>
   <%= f.hidden_field(:action, value: 'add') %>

@@ -86,7 +86,8 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
         subject
         new_draft = pro_user.draft_info_request_batches.first
         expected_path = alaveteli_pro_batch_request_authority_searches_path(
-          draft_id: new_draft.id
+          draft_id: new_draft.id,
+          mode: 'search'
         )
         expect(response).to redirect_to(expected_path)
       end
@@ -96,7 +97,8 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
         new_draft = pro_user.draft_info_request_batches.first
         expected_path = alaveteli_pro_batch_request_authority_searches_path(
           draft_id: new_draft.id,
-          authority_query: "Department"
+          authority_query: "Department",
+          mode: 'search'
         )
         expect(response).to redirect_to(expected_path)
       end
@@ -109,7 +111,8 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
         expected_path = alaveteli_pro_batch_request_authority_searches_path(
           draft_id: new_draft.id,
           authority_query: "Department",
-          page: 2
+          page: 2,
+          mode: 'search'
         )
         expect(response).to redirect_to(expected_path)
       end
@@ -164,7 +167,9 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
         it "redirects to a new search if no query was provided" do
           subject
           expected_path = alaveteli_pro_batch_request_authority_searches_path(
-            draft_id: draft.id)
+            draft_id: draft.id,
+            mode: 'search'
+          )
           expect(response).to redirect_to(expected_path)
         end
 
@@ -173,7 +178,9 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
           subject
           expected_path = alaveteli_pro_batch_request_authority_searches_path(
             draft_id: draft.id,
-            authority_query: "Department")
+            authority_query: "Department",
+            mode: 'search'
+          )
           expect(response).to redirect_to(expected_path)
         end
 
@@ -184,7 +191,8 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
           expected_path = alaveteli_pro_batch_request_authority_searches_path(
             draft_id: draft.id,
             authority_query: "Department",
-            page: 2
+            page: 2,
+            mode: 'search'
           )
           expect(response).to redirect_to(expected_path)
         end
@@ -238,7 +246,9 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
         it "redirects to a new search if no query was provided" do
           subject
           expected_path = alaveteli_pro_batch_request_authority_searches_path(
-            draft_id: draft.id)
+            draft_id: draft.id,
+            mode: 'search'
+          )
           expect(response).to redirect_to(expected_path)
         end
 
@@ -247,7 +257,9 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
           subject
           expected_path = alaveteli_pro_batch_request_authority_searches_path(
             draft_id: draft.id,
-            authority_query: "Department")
+            authority_query: "Department",
+            mode: 'search'
+          )
           expect(response).to redirect_to(expected_path)
         end
 
@@ -258,7 +270,8 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
           expected_path = alaveteli_pro_batch_request_authority_searches_path(
             draft_id: draft.id,
             authority_query: "Department",
-            page: 2
+            page: 2,
+            mode: 'search'
           )
           expect(response).to redirect_to(expected_path)
         end
@@ -319,7 +332,8 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
       it "redirects to the batch preview page" do
         put :update, params
         expected_path = preview_new_alaveteli_pro_info_request_batch_path(
-          draft_id: draft.id)
+          draft_id: draft.id
+        )
         expect(response).to redirect_to(expected_path)
       end
     end
@@ -328,7 +342,8 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
       it "redirects to the new batch page" do
         put :update, params
         expected_path = new_alaveteli_pro_info_request_batch_path(
-          draft_id: draft.id)
+          draft_id: draft.id
+        )
         expect(response).to redirect_to(expected_path)
       end
     end

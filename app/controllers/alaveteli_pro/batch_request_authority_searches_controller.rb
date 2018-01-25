@@ -41,7 +41,7 @@ class AlaveteliPro::BatchRequestAuthoritySearchesController < AlaveteliPro::Base
 
   def browse
     if request.xhr?
-      render partial: 'browse',
+      render partial: 'public_bodies',
              layout: false,
              locals: {
                draft_batch_request: @draft_batch_request,

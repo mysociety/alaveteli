@@ -16,6 +16,8 @@ describe '_search_results.html.erb' do
 
     before do
       update_xapian_index
+      allow(view).to receive(:mode)
+      allow(view).to receive(:category_tag)
     end
 
     describe "and there are some results" do
