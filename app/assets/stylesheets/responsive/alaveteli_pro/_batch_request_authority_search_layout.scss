@@ -145,4 +145,8 @@
             padding-left: 4em; // grandchildren are indented even more
         }
     }
+
+    &.batch-builder__list__group--closed ul {
+        display: none;
+    }
 }

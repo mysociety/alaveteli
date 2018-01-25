@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 class AlaveteliPro::DraftInfoRequestBatchesController < ApplicationController
+  include AlaveteliPro::BatchRequest
+
   def create
     @draft = current_user.draft_info_request_batches.create(draft_params)
     respond_or_redirect(@draft)
@@ -20,6 +22,9 @@ class AlaveteliPro::DraftInfoRequestBatchesController < ApplicationController
     @draft = current_user.draft_info_request_batches.
       find_by(id: update_bodies_params[:draft_id])
     case update_bodies_params[:action]
+    when 'add-all'
+      @draft ||= current_user.draft_info_request_batches.create
+      @draft.public_bodies << PublicBody.with_tag(category_tag)
     when 'add'
       public_body = PublicBody.find(update_bodies_params[:public_body_id])
       @draft ||= current_user.draft_info_request_batches.create
@@ -49,22 +54,28 @@ class AlaveteliPro::DraftInfoRequestBatchesController < ApplicationController
       path = alaveteli_pro_batch_request_authority_searches_path(
         draft_id: draft.id,
         authority_query: query,
-        page: page
+        page: page,
+        mode: mode,
+        category_tag: category_tag
       )
     else
       path = alaveteli_pro_batch_request_authority_searches_path(
-        draft_id: draft.id
+        draft_id: draft.id,
+        mode: mode,
+        category_tag: category_tag
       )
     end
     redirect_to path, notice: _('Your Batch Request has been saved!')
   end
 
   def respond_with_partial(draft, query, page)
-    render :partial => 'summary',
-           :layout => false,
-           :locals => { :draft => draft,
-                        :query => query,
-                        :page => page }
+    render partial: 'summary',
+           layout: false,
+           locals: { draft: draft,
+                     query: query,
+                     page: page,
+                     mode: mode,
+                     category_tag: category_tag }
   end
 
   # #create and #update accept an array of public_body_ids, whereas

@@ -15,4 +15,8 @@ module AlaveteliPro::BatchRequest
         valid_modes.first
       end
   end
+
+  def category_tag
+    params[:category_tag]
+  end
 end
