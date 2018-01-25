@@ -3,6 +3,8 @@
 
 ## Highlighted Features
 
+* Create site-wide and user role announecements from within the
+  administrative interface (Graeme Porteous)
 * Restore translated attributes to Public Body admin view (Gareth Rees)
 
 # 0.31.0.0
