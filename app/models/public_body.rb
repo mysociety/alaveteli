@@ -778,9 +778,11 @@ class PublicBody < ActiveRecord::Base
     where_condition = ''
     where_parameters = []
 
-    base_tag_condition = "(SELECT count(*) FROM has_tag_string_tags" \
-      " WHERE has_tag_string_tags.model_id = public_bodies.id" \
-      " AND has_tag_string_tags.model = 'PublicBody'"
+    base_tag_condition = <<-EOF.strip_heredoc
+    (SELECT count(*) FROM has_tag_string_tags
+     WHERE has_tag_string_tags.model_id = public_bodies.id
+     AND has_tag_string_tags.model = 'PublicBody'
+    EOF
 
     # Restrict the public bodies shown according to the tag
     # parameter supplied in the URL:
