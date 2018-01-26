@@ -283,12 +283,13 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       context 'when there is a charge for an invoice' do
         let(:stripe_event) do
           StripeMock.mock_webhook_event('invoice.payment_succeeded',
-                                        charge: paid_invoice.charge)
+                                        charge: paid_invoice.charge,
+                                        subscription: stripe_subscription.id)
         end
 
-        it 'updates the charge description with the site name' do
+        it 'updates the charge description with the site and plan name' do
           expect(Stripe::Charge.retrieve(charge.id).description).
-            to eq('Alaveteli Professional')
+            to eq('Alaveteli Professional: Test')
         end
 
       end
