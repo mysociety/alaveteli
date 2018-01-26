@@ -12,6 +12,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Kristoffer Grundström <kristoffer.grundstrom1983@gmail.com>, 2015
 # Lord Cobol, 2016
 # Lord Cobol, 2016
@@ -19,7 +20,7 @@
 # louisecrow <louise@mysociety.org>, 2016
 # Mattias A, 2015
 # Mattias Axell <mattias@okfn.se>, 2015-2017
-# Mattias Axell <mattias@okfn.se>, 2015,2017
+# Mattias Axell <mattias@okfn.se>, 2015,2017-2018
 # Mattias OKFSE, 2015
 # Mattias Axell <mattias@okfn.se>, 2015
 msgid ""
@@ -27,8 +28,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-18 01:28-0800\n"
-"PO-Revision-Date: 2018-01-18 09:34+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
+"PO-Revision-Date: 2018-01-19 13:05+0000\n"
+"Last-Translator: Mattias Axell <mattias@okfn.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/mysociety/alaveteli/language/sv/)\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -375,16 +376,16 @@ msgid "Alaveteli pro/draft info request batch"
 msgstr ""
 
 msgid "Alaveteli pro/embargo"
-msgstr ""
+msgstr "Alaveteli pro/embargo"
 
 msgid "Alaveteli pro/embargo extension"
-msgstr ""
+msgstr "Alaveteli pro/embargo tillägg"
 
 msgid "Alaveteli pro/request summary"
-msgstr ""
+msgstr "Alaveteli pro/request sammanfattning"
 
 msgid "Alaveteli pro/request summary category"
-msgstr ""
+msgstr "Alaveteli pro/request sammanfattningskategori"
 
 msgid "AlaveteliPro::DraftInfoRequestBatch|Body"
 msgstr ""
