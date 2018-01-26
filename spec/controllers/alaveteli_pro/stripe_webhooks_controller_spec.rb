@@ -10,19 +10,21 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
     let(:signing_secret) { config_secret }
     let(:stripe_helper) { StripeMock.create_test_helper }
 
+    let(:stripe_customer) do
+      Stripe::Customer.create(source: stripe_helper.generate_card_token)
+    end
+
+    let(:stripe_plan) do
+      Stripe::Plan.create(id: 'test',
+                          name: 'Test',
+                          amount: 10,
+                          currency: 'gpp',
+                          interval: 'monthly')
+    end
+
     let(:stripe_subscription) do
-      customer = Stripe::Customer.
-                   create(source: stripe_helper.generate_card_token)
-      plan = Stripe::Plan.create(
-               id: 'test',
-               name: 'Test',
-               amount: 10,
-               currency: 'gpp',
-               interval: 'monthly')
-      Stripe::Subscription.create(
-        customer: customer,
-        plan: 'test'
-      )
+      Stripe::Subscription.create(customer: stripe_customer,
+                                  plan: stripe_plan.id)
     end
 
     let(:paid_invoice) do
@@ -32,11 +34,11 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
             data: {
               id: stripe_subscription.id,
               subscription_item: stripe_subscription.items.data.first.id,
-              amount: 100,
-              currency: 'gbp',
+              amount: stripe_plan.amount,
+              currency: stripe_plan.currency,
               type: 'subscription'
             },
-            plan: { id: 'test', name: 'Test'}
+            plan: { id: stripe_plan.id, name: stripe_plan.name }
           }
         ],
         subscription: stripe_subscription.id
