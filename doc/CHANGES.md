@@ -3,6 +3,7 @@
 
 ## Highlighted Features
 
+* Restore translated attributes to Public Body admin view (Gareth Rees)
 * Removed support for Debian Wheezy (Liz Conlan)
 * Add Debian Stretch support (Louise Crow, Gareth Rees)
 * Replace out of support zip gem with rubyzip to address an issue where some
