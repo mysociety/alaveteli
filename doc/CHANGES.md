@@ -1,8 +1,16 @@
 
-# develop
+# 0.31.0.0
 
 ## Highlighted Features
 
+* Rescue from POP poller timeouts (Graeme Porteous)
+* Fixed issue where an attempted password reset with cookies disabled caused a
+  redirect loop (Graeme Porteous)
+* Improved user drop down positioning (Martin Wright)
+* Fixed an issue where selectize was blocking other scripts from running
+  (Graeme Porteous)
+* Dropped support for Ruby 1.9 (Liz Conlan)
+* Default to Ruby 2.x for all install scripts (Liz Conlan)
 * Removed support for Debian Wheezy (Liz Conlan)
 * Add Debian Stretch support (Louise Crow, Gareth Rees)
 * Replace out of support zip gem with rubyzip to address an issue where some
@@ -24,7 +32,7 @@
   (Louise Crow)
 
 ## Upgrade Notes
-* This release requires Ruby 2.0 or higher. If you are using Ubuntu Trusty you
+* This release drops support for Ruby 1.9.x. If you are using Ubuntu Trusty you
   will need to install a newer ruby version either using a ruby environment
   manager like [rbenv](https://github.com/rbenv/rbenv#basic-github-checkout) or
   by installing the ruby2.1 (and ruby2.1-dev) or ruby2.3 (and ruby2.3-dev)
@@ -32,10 +40,8 @@
   (If you are setting up a fresh Trusty box using our script, the 2.1 Brightbox
   package is supplied.)
 
-* This release removes the use of purge requests to Varnish. Please make sure
-  your site works with `VARNISH_HOST` empty before upgrading.
-
-* Please note that this release removes support for Ubuntu Precise. If you are
+* Please note that this release removes support for Ubuntu Precise as it has
+  reached End of Life and will no longer receive security patches. If you are
   running Alaveteli on Ubuntu Precise, you should upgrade your OS to
   Ubuntu Trusty before upgrading to this release. This
   [Ubuntu upgrade guide](https://wiki.ubuntu.com/TrustyTahr/ReleaseNotes#Upgrading_from_Ubuntu_12.04_LTS_or_Ubuntu_13.10)
@@ -43,13 +49,15 @@
   questions about upgrading OS, please don't hesitate to ask on the
   [alaveteli-dev](https://groups.google.com/forum/#!forum/alaveteli-dev) group.
 
-* Please note that this release removes support for Debian Wheezy. If you are
-  running Alaveteli on Debian Wheezy, you should upgrade your OS to
-  Debian Jessie before upgrading to this release. This
-  [Debian upgrade guide](https://www.debian.org/releases/jessie/powerpc/release-notes/ch-upgrading.en.html)
-  can guide you through the process. If you have
-  questions about upgrading OS, please don't hesitate to ask on the
-  [alaveteli-dev](https://groups.google.com/forum/#!forum/alaveteli-dev) group.
+* Please note that this release also removes support for Debian Wheezy as it
+  only packages Ruby 1.9.3. If you are running Alaveteli on Debian Wheezy, you
+  should upgrade your OS to Debian Jessie before upgrading to this release. This
+  [Debian upgrade guide](https://www.debian.org/releases/jessie/amd64/release-notes/ch-upgrading.en.html)
+  can guide you through the process. If you have questions about upgrading OS,
+  please don't hesitate to ask on the [alaveteli-dev](https://groups.google.com/forum/#!forum/alaveteli-dev) group.
+
+* This release removes the use of purge requests to Varnish. Please make sure
+  your site works with `VARNISH_HOST` empty before upgrading.
 
 * There's a new temp task that can be used to recache any attachments whose
   content has slightly changed (e.g. due to an upgrade in the `mail` gem that
@@ -57,7 +65,58 @@
   `bundle exec rake temp:populate_missing_attachment_files` if you're seeing
   `No such file or directory @ rb_sysopen` errors from `foi_attachment.rb`.
 
+* There are some database structure updates so remember to `rake db:migrate`
+
 ### Changed Templates
+
+    app/views/admin_general/_to_do_list.html.erb
+    app/views/admin_general/index.html.erb
+    app/views/admin_raw_email/show.html.erb
+    app/views/admin_request/show.html.erb
+    app/views/admin_user/show.html.erb
+    app/views/alaveteli_pro/account_request/new.html.erb
+    app/views/alaveteli_pro/batch_request_authority_searches/index.html.erb
+    app/views/alaveteli_pro/dashboard/_projects.html.erb
+    app/views/alaveteli_pro/dashboard/index.html.erb
+    app/views/alaveteli_pro/general/_log_in_bar_links.html.erb
+    app/views/alaveteli_pro/info_request_batches/_embargo_form.html.erb
+    app/views/alaveteli_pro/info_request_batches/_embargo_info.html.erb
+    app/views/alaveteli_pro/info_request_batches/_form.html.erb
+    app/views/alaveteli_pro/info_request_batches/_info_request.html.erb
+    app/views/alaveteli_pro/info_requests/_embargo_form.html.erb
+    app/views/alaveteli_pro/info_requests/_embargo_info.html.erb
+    app/views/alaveteli_pro/info_requests/_form.html.erb
+    app/views/alaveteli_pro/info_requests/_info_request.html.erb
+    app/views/alaveteli_pro/info_requests/_new_request_advice.html.erb
+    app/views/alaveteli_pro/info_requests/_select_authority_form.html.erb
+    app/views/alaveteli_pro/info_requests/_sidebar.html.erb
+    app/views/alaveteli_pro/info_requests/index.html.erb
+    app/views/alaveteli_pro/info_requests/new.html.erb
+    app/views/alaveteli_pro/info_requests/preview.html.erb
+    app/views/general/_frontpage_bodies_list.html.erb
+    app/views/general/_frontpage_requests_list.html.erb
+    app/views/general/_log_in_bar.html.erb
+    app/views/general/_responsive_footer.html.erb
+    app/views/general/exception_caught.html.erb
+    app/views/notification_mailer/info_request_batches/messages/_overdue.text.erb
+    app/views/notification_mailer/info_request_batches/messages/_very_overdue.text.erb
+    app/views/notification_mailer/info_requests/messages/_overdue.text.erb
+    app/views/notification_mailer/info_requests/messages/_very_overdue.text.erb
+    app/views/outgoing_mailer/_followup_footer.text.erb
+    app/views/password_changes/new.html.erb
+    app/views/request/_act.html.erb
+    app/views/request/_request_listing_single.html.erb
+    app/views/request/_request_listing_via_event.html.erb
+    app/views/request/_request_sent.html.erb
+    app/views/request/_sidebar.html.erb
+    app/views/request/details.html.erb
+    app/views/request/show.html.erb
+    app/views/track/_rss_feed.html.erb
+    app/views/user/_signin.html.erb
+    app/views/user/_signup.html.erb
+    app/views/user/show.html.erb
+    app/views/user/sign.html.erb
+    app/views/users/sessions/show.html.erb
 
 # 0.30.0.5
 
