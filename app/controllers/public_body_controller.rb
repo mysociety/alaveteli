@@ -134,7 +134,7 @@ class PublicBodyController < ApplicationController
 
     first_letter = false
 
-    base_tag_condition = "(SELECT count(*) FROM has_tag_string_tags" \
+    base_tag_condition = " (SELECT count(*) FROM has_tag_string_tags" \
       " WHERE has_tag_string_tags.model_id = public_bodies.id" \
       " AND has_tag_string_tags.model = 'PublicBody'"
 
@@ -179,9 +179,17 @@ class PublicBodyController < ApplicationController
           LEFT OUTER JOIN public_body_translations as default_locale
             ON (public_bodies.id = default_locale.public_body_id
               AND default_locale.locale = ? AND #{ get_public_body_list_translated_condition('default_locale', first_letter) })
-          WHERE #{ where_condition } AND COALESCE(current_locale.name, default_locale.name) IS NOT NULL
-          ORDER BY display_name
         }
+
+        query +=
+          if where_condition.present?
+            %Q( WHERE #{ where_condition } AND COALESCE(current_locale.name, default_locale.name) IS NOT NULL)
+          else
+            ''
+          end
+
+        query += %q( ORDER BY display_name)
+
         @sql = [query, underscore_locale, like_query, like_query, like_query]
         @sql.push @tag if first_letter
         @sql += [underscore_default_locale, like_query, like_query, like_query]
@@ -193,8 +201,18 @@ class PublicBodyController < ApplicationController
           :per_page => 100)
       else
         # The simpler case where we're just searching in the current locale:
-        where_condition = get_public_body_list_translated_condition('public_body_translations', first_letter, true) +
-          ' AND ' + where_condition
+        list_condition =
+          get_public_body_list_translated_condition('public_body_translations',
+                                                    first_letter,
+                                                    true)
+
+        where_condition =
+          if where_condition.present?
+            "#{ list_condition } AND #{ where_condition }"
+          else
+            list_condition
+          end
+
         where_sql = [where_condition, like_query, like_query, like_query]
         where_sql.push @tag if first_letter
         where_sql += [underscore_locale] + where_parameters
