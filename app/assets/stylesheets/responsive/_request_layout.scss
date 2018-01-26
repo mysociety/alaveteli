@@ -283,6 +283,43 @@ a.track-request-action {
   table {
     margin-bottom:1em;
   }
+  @media( max-width: $main_menu-mobile_menu_cutoff ){
+    table {
+      width: 100%;
+
+      thead {
+        display: none;
+      }
+
+      th {
+        font-size: .85em;
+        padding: .625em;
+      }
+
+      tr {
+        display: block;
+        margin-bottom: .625em;
+      }
+
+      td {
+        display: block;
+        font-size: .8em;
+        text-align: right;
+        border-bottom-width: 0;
+      }
+
+      td:before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        padding-left: 0.5em;
+      }
+
+      td:last-child {
+        border-bottom-width: 1px;
+      }
+    }
+  }
 }
 
 .correspondence__footer__cplink {

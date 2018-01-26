@@ -17,7 +17,7 @@
 #  last_parsed                    :datetime
 #  mail_from                      :text
 #  sent_at                        :datetime
-#  prominence                     :string(255)      default("normal"), not null
+#  prominence                     :string           default("normal"), not null
 #  prominence_reason              :text
 #
 
@@ -310,6 +310,17 @@ describe IncomingMessage do
       expected = 'His email address was xxxxxxx@xxxxxxx.xxx'
       result = @im.apply_masks(data, 'application/vnd.ms-word')
       expect(result).to eq(expected)
+    end
+
+  end
+
+  describe '#get_body_for_quoting' do
+
+    it 'does not incorrectly cache without the FOLDED_QUOTED_SECTION marker' do
+      message = FactoryGirl.create(:plain_incoming_message)
+      message.get_body_for_quoting
+      expect(message.get_main_body_text_folded).
+        to include('FOLDED_QUOTED_SECTION')
     end
 
   end

@@ -16,9 +16,9 @@ Rails.application.routes.draw do
   root to: 'general#frontpage'
 
   #### General contoller
-  match '/' => 'general#frontpage',
-        :as => :frontpage,
-        :via => :get
+  root :to => 'general#frontpage',
+       :as => :frontpage,
+       :via => :get
   match '/blog' => 'general#blog',
         :as => :blog,
         :via => :get
@@ -174,27 +174,27 @@ Rails.application.routes.draw do
   # Use /profile for things to do with the currently signed in user.
   # Use /user/XXXX for things that anyone can see about that user.
   # Note that /profile isn't indexed by search (see robots.txt)
-  resource :password_change,
-           :only => [:new, :create, :edit, :update],
-           :path => '/profile/change_password',
-           :path_names => { :edit => '' }
+  resources :password_changes,
+            :only => [:new, :create, :edit, :update],
+            :path => '/profile/change_password',
+            :path_names => { :edit => '' }
 
   resource :one_time_password,
            :only => [:show, :create, :update, :destroy],
            :path => '/profile/two_factor'
 
-  match '/profile/sign_in' => 'user#signin',
+  match '/profile/sign_in' => 'users/sessions#new',
         :as => :signin,
-        :via => [:get, :post]
-  match '/profile/sign_up' => 'user#signup',
-        :as => :signup, :via => :post
-  match '/profile/sign_up' => 'user#signin',
         :via => :get
-  match '/profile/sign_out' => 'user#signout',
+  match '/profile/sign_in' => 'users/sessions#create',
+        :as => :create_session,
+        :via => :post
+  match '/profile/sign_out' => 'users/sessions#destroy',
         :as => :signout,
         :via => :get
-
-  match '/c/:email_token' => 'user#confirm',
+  match '/profile/sign_up' => 'user#signup',
+        :as => :signup, :via => :post
+  match '/c/:email_token' => 'users/confirmations#confirm',
         :as => :confirm,
         :via => :get
   match '/user/:url_name' => 'user#show',
@@ -551,13 +551,20 @@ Rails.application.routes.draw do
       get 'banned', :on => :collection
       get 'show_bounce_message', :on => :member
       post 'clear_bounce', :on => :member
-      post 'login_as', :on => :member
       post 'clear_profile_photo', :on => :member
       post 'modify_comment_visibility', :on => :collection
       resources :censor_rules,
         :controller => 'admin_censor_rule',
         :only => [:new, :create]
       end
+  end
+  ####
+
+  #### AdminUsersSessions controller
+  scope '/admin', :as => 'admin' do
+    resources :users_sessions,
+      :controller => 'admin_users_sessions',
+      :only => [:create]
   end
   ####
 
@@ -604,26 +611,51 @@ Rails.application.routes.draw do
         :via => :get
   ####
 
+  #### Pro Pricing
+  constraints FeatureConstraint.new(:pro_pricing) do
+
+    namespace :alaveteli_pro, path: :pro, as: :pro do
+      resources :plans, only: [:index], path: :pricing
+      resources :pages, only: [:show]
+    end
+
+    scope module: :alaveteli_pro do
+      resources :plans, only: [:show]
+
+      scope path: :profile do
+        resources :subscriptions, only: [:index, :create, :destroy] do
+          collection do
+            resource :payment_method, only: [:update]
+          end
+        end
+      end
+
+      match '/pro/subscriptions/stripe-webhook' => 'stripe_webhooks#receive',
+            :via => :post
+    end
+
+  end
+
   #### Alaveteli Pro
   constraints FeatureConstraint.new(:alaveteli_pro) do
 
-    match '/pro' => 'alaveteli_pro/account_request#new',
-          :as => :new_pro_account_request,
-          :via => :get
-
-    match '/pro' => 'alaveteli_pro/account_request#create',
-      :as => :create_pro_account_request,
-      :via => :post
+    scope module: :alaveteli_pro do
+      resources :account_request, :only => [:index, :create], path: :pro do
+        collection do
+          get :training, action: :new
+        end
+      end
+    end
 
     namespace :alaveteli_pro do
-      match '/' => 'dashboard#index', :as => 'dashboard', :via => :get
+      root to: 'dashboard#index', :as => :dashboard, :via => :get
       resources :draft_info_requests, :only => [:create, :update]
       resources :info_requests, :only => [:new, :create, :update, :index] do
         get :preview, on: :new # /info_request/new/preview
       end
-      resources :embargoes, :only => [:destroy] do
+      resources :embargoes, :only => [:destroy, :create] do
         collection do
-          post :destroy_batch
+          post :destroy_batch, :only => [:destroy]
         end
       end
       resources :embargo_extensions, :only => [:create] do
@@ -631,44 +663,41 @@ Rails.application.routes.draw do
           post :create_batch
         end
       end
-      resources :batch_request_authority_searches, :only => [:new]
-      # So that we can return searches via GET not POST
-      match '/batch_request_authority_searches' => 'batch_request_authority_searches#create',
-            :as => :batch_request_authority_searches,
-            :via => :get
+      resources :batch_request_authority_searches, :only => [:index, :new]
       resources :draft_info_request_batches, :only => [:create, :update] do
         member do
-          put 'update_bodies'
+          put :update_bodies
         end
       end
       resources :info_request_batches, :only => [:new, :create] do
         get :preview, on: :new # /info_request_batch/new/preview
       end
-      match '/public_bodies/:query' => 'public_bodies#search',
-            :via => :get,
-            :as => :public_bodies_search
+      resources :public_bodies, :only => [:index]
     end
 
-    # So that we can show a request using the existing controller from the
-    # pro context
-    match '/alaveteli_pro/info_requests/:url_title' => 'request#show',
-      :as => :show_alaveteli_pro_request,
-      :via => :get,
-      :defaults => { :pro => "1" }
+    scope path: :alaveteli_pro do
+      # So that we can show a request using the existing controller from the
+      # pro context
+      match '/info_requests/:url_title' => 'request#show',
+            :as => :show_alaveteli_pro_request,
+            :via => :get,
+            :defaults => { :pro => '1' }
 
-    # So that we can show a batch request using the existing controller from
-    # the pro context
-    match '/alaveteli_pro/info_request_batches/:id' => 'info_request_batch#show',
-      :as => :show_alaveteli_pro_batch_request,
-      :via => :get,
-      :defaults => { :pro => "1" }
+      # So that we can show a batch request using the existing controller from
+      # the pro context
+      match '/info_request_batches/:id' => 'info_request_batch#show',
+            :as => :show_alaveteli_pro_batch_request,
+            :via => :get,
+            :defaults => { :pro => '1' }
 
-    # So that we can show the authority selection screen using the existing
-    # controller but in a pro context
-    match '/alaveteli_pro/select_authority' => 'request#select_authority',
-        :as => :alaveteli_pro_select_authority,
-        :via => :get,
-        :defaults => { :pro => "1" }
+      # So that we can show the authority selection screen using the existing
+      # controller but in a pro context
+      match '/select_authority' => 'request#select_authority',
+            :as => :alaveteli_pro_select_authority,
+            :via => :get,
+            :defaults => { :pro => '1' }
+    end
+
   end
   ####
 

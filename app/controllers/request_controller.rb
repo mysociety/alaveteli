@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
-require 'zip/zip'
+require 'zip'
 require 'open-uri'
 
 class RequestController < ApplicationController
@@ -78,13 +78,7 @@ class RequestController < ApplicationController
   end
 
   def show
-    if !AlaveteliConfiguration::varnish_host.blank?
-      # If varnish is set up to accept PURGEs, then cache for a
-      # long time
-      long_cache
-    else
-      medium_cache
-    end
+    medium_cache
     @locale = AlaveteliLocalization.locale
     AlaveteliLocalization.with_locale(@locale) do
       # Look up by new style text names
@@ -94,6 +88,12 @@ class RequestController < ApplicationController
       if cannot?(:read, @info_request)
         return render_hidden
       end
+
+      # Always show the pro livery if a request is embargoed. This makes it
+      # clear to admins and ex-pro users that the `InfoRequest` is still
+      # private. Users who are not permitted to view the request are redirected
+      # so we don't need to consider the `current_user` here.
+      @in_pro_area = true if @info_request.embargo
 
       set_last_request(@info_request)
 
@@ -940,9 +940,9 @@ class RequestController < ApplicationController
   end
 
   def make_request_zip(info_request, file_path)
-    Zip::ZipFile.open(file_path, Zip::ZipFile::CREATE) do |zipfile|
+    Zip::File.open(file_path, Zip::File::CREATE) do |zipfile|
       file_info = make_request_summary_file(info_request)
-      zipfile.get_output_stream(file_info[:filename]) { |f| f.puts(file_info[:data]) }
+      zipfile.get_output_stream(file_info[:filename]) { |f| f.write(file_info[:data]) }
       message_index = 0
       info_request.incoming_messages.each do |message|
         next unless can?(:read, message)
@@ -951,7 +951,7 @@ class RequestController < ApplicationController
           filename = "#{message_index}_#{attachment.url_part_number}_#{attachment.display_filename}"
           zipfile.get_output_stream(filename) do |f|
             body = message.apply_masks(attachment.default_body, attachment.content_type)
-            f.puts(body)
+            f.write(body)
           end
         end
       end
@@ -990,14 +990,6 @@ class RequestController < ApplicationController
                                               :formats => [:text]) }
     end
     file_info
-  end
-
-  def cache_key_for_similar_requests(info_request, locale)
-    warn %q([DEPRECATION] RequestController#cache_key_for_similar_requests
-        will be removed in 0.31. It has been replaced by
-        InfoRequest#similar_cache_key, which will not take a locale
-        param).squish
-    "request/similar/#{info_request.id}/#{locale}"
   end
 
   def check_batch_requests_and_user_allowed
@@ -1140,8 +1132,7 @@ class RequestController < ApplicationController
     # Pro users should see their embargoed requests in the pro page, so that
     # if other site functions send them to a request page, they end up back in
     # the pro area
-    if feature_enabled?(:alaveteli_pro) && params[:pro] != "1" && \
-       current_user && current_user.is_pro?
+    if feature_enabled?(:alaveteli_pro) && params[:pro] != "1" && current_user
       @info_request = InfoRequest.find_by_url_title!(params[:url_title])
       if @info_request.is_actual_owning_user?(current_user) && @info_request.embargo
         redirect_to show_alaveteli_pro_request_url(

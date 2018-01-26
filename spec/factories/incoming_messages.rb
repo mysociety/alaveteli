@@ -17,7 +17,7 @@
 #  last_parsed                    :datetime
 #  mail_from                      :text
 #  sent_at                        :datetime
-#  prominence                     :string(255)      default("normal"), not null
+#  prominence                     :string           default("normal"), not null
 #  prominence_reason              :text
 #
 

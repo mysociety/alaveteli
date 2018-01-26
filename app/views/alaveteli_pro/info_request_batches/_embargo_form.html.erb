@@ -19,27 +19,36 @@
           class: 'js-embargo-form' ) do |f| %>
       <%= render partial: "alaveteli_pro/info_request_batches/embargo_info",
                  locals: { embargo: example_embargo, tense: :present } %>
+
       <%= hidden_field_tag :info_request_batch_id, info_request_batch.id %>
       <% if local_assigns[:info_request] %>
         <%= hidden_field_tag :info_request_id, info_request.id %>
       <% end %>
 
-      <p>
-        <label class="form_label" for="extension_duration">
-          <%= _('Keep private for a further:') %>
-        </label>
-        <%= select_tag :extension_duration,
-                       options_for_select(
-                         embargo_extension_options(example_embargo)),
-                       class: 'js-embargo-duration' %>
-        <%= submit_tag _("Update"),
-                     class: "embargo__submit js-embargo-submit",
-                     data: {
-                       confirm: _("This will update the privacy for all " \
-                                  "of the requests in this batch. " \
-                                  "Are you sure?")
-                     } %>
-      </p>
+      <% if can?(:update, info_request_batch) %>
+        <p>
+        <% if example_embargo.expiring_soon? %>
+          <label class="form_label" for="extension_duration">
+            <%= _('Keep private for a further:') %>
+          </label>
+          <%= select_tag :extension_duration,
+                         options_for_select(
+                           embargo_extension_options(example_embargo)),
+                         class: 'js-embargo-duration' %>
+          <%= submit_tag _("Update"),
+                         class: "embargo__submit js-embargo-submit",
+                         data: {
+                         confirm: _("This will update the privacy for all " \
+                                    "of the requests in this batch. " \
+                                    "Are you sure?")
+                         } %>
+        <% else %>
+          <%= _("You will be able to extend this privacy period from " \
+                "{{embargo_extend_from}}.",
+                embargo_extend_from: embargo_extend_from(example_embargo)) %>
+        <% end %>
+        </p>
+      <% end %>
     <% end %>
     <%= button_to _("Publish requests"),
                   destroy_batch_alaveteli_pro_embargoes_path(

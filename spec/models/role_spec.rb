@@ -4,9 +4,9 @@
 # Table name: roles
 #
 #  id            :integer          not null, primary key
-#  name          :string(255)
+#  name          :string
 #  resource_id   :integer
-#  resource_type :string(255)
+#  resource_type :string
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #
@@ -27,6 +27,22 @@ describe Role do
       role.valid?
       expect(role.errors[:name]).to eq(["has already been taken"])
     end
+  end
+
+  describe '.admin_role' do
+
+    it 'returns role with name admin' do
+      expect(Role.admin_role.name).to eq 'admin'
+    end
+
+  end
+
+  describe '.pro_role' do
+
+    it 'returns role with name pro' do
+      expect(Role.pro_role.name).to eq 'pro'
+    end
+
   end
 
   describe '.grants_and_revokes' do

@@ -139,12 +139,7 @@ class ApplicationController < ActionController::Base
   # is not replayable forever
   SESSION_TTL = 3.hours
   def validate_session_timestamp
-    session_ttl = if session[:ttl].is_a?(String)
-      Time.zone.parse(session[:ttl]) # for Ruby 1.9
-    else
-      session[:ttl]
-    end
-    if session[:user_id] && session[:ttl] && session_ttl < SESSION_TTL.ago
+    if session[:user_id] && session[:ttl] && session[:ttl] < SESSION_TTL.ago
       clear_session_credentials
     end
   end
@@ -165,14 +160,10 @@ class ApplicationController < ActionController::Base
     session[:ttl] = nil
   end
 
-  def show_rails_exceptions?
-    false
-  end
-
   def render_exception(exception)
-    # In development or the admin interface let Rails handle the exception
-    # with its stack trace templates
-    if Rails.application.config.consider_all_requests_local || show_rails_exceptions?
+    # In development let Rails handle the exception with its stack trace
+    # templates.
+    if Rails.application.config.consider_all_requests_local
       raise exception
     end
 
@@ -331,7 +322,7 @@ class ApplicationController < ActionController::Base
   # the session, and when the GET redirect with "?post_redirect=1" happens,
   # load them in.
   def do_post_redirect(post_redirect, user=nil)
-    uri = URI.parse(post_redirect.uri).path
+    uri = SafeRedirect.new(post_redirect.uri).path
     if feature_enabled?(:alaveteli_pro) &&
       user &&
       user.is_pro? &&

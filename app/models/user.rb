@@ -4,25 +4,25 @@
 # Table name: users
 #
 #  id                                :integer          not null, primary key
-#  email                             :string(255)      not null
-#  name                              :string(255)      not null
-#  hashed_password                   :string(255)      not null
-#  salt                              :string(255)      not null
+#  email                             :string           not null
+#  name                              :string           not null
+#  hashed_password                   :string           not null
+#  salt                              :string           not null
 #  created_at                        :datetime         not null
 #  updated_at                        :datetime         not null
 #  email_confirmed                   :boolean          default(FALSE), not null
 #  url_name                          :text             not null
-#  last_daily_track_email            :datetime         default(2000-01-01 00:00:00 UTC)
+#  last_daily_track_email            :datetime         default(Sat, 01 Jan 2000 00:00:00 GMT +00:00)
 #  ban_text                          :text             default(""), not null
 #  about_me                          :text             default(""), not null
-#  locale                            :string(255)
+#  locale                            :string
 #  email_bounced_at                  :datetime
 #  email_bounce_message              :text             default(""), not null
 #  no_limit                          :boolean          default(FALSE), not null
 #  receive_email_alerts              :boolean          default(TRUE), not null
 #  can_make_batch_requests           :boolean          default(FALSE), not null
 #  otp_enabled                       :boolean          default(FALSE), not null
-#  otp_secret_key                    :string(255)
+#  otp_secret_key                    :string
 #  otp_counter                       :integer          default(1)
 #  confirmed_not_spam                :boolean          default(FALSE), not null
 #  comments_count                    :integer          default(0), not null
@@ -39,14 +39,15 @@ require 'digest/sha1'
 
 class User < ActiveRecord::Base
   include AlaveteliFeatures::Helpers
-  rolify
+  include AlaveteliPro::PhaseCounts
+  rolify before_add: :setup_pro_account
   strip_attributes :allow_empty => true
 
   attr_accessor :password_confirmation, :no_xapian_reindex
   attr_accessor :entered_otp_code
 
   has_many :info_requests,
-           -> { order('created_at desc') },
+           -> { order('info_requests.created_at desc') },
            :inverse_of => :user,
            :dependent => :destroy
   has_many :info_request_events,
@@ -134,8 +135,7 @@ class User < ActiveRecord::Base
            :if => Proc.new { |u| u.otp_enabled? && u.require_otp? }
 
   after_initialize :set_defaults
-  after_save :purge_in_cache
-  after_update :reindex_referencing_models
+  after_update :reindex_referencing_models, :update_pro_account
 
   acts_as_xapian :texts => [ :name, :about_me ],
     :values => [
@@ -570,7 +570,7 @@ class User < ActiveRecord::Base
 
   def record_bounce(message)
     self.email_bounced_at = Time.zone.now
-    self.email_bounce_message = message
+    self.email_bounce_message = convert_string_to_utf8(message).string
     save!
   end
 
@@ -686,8 +686,14 @@ class User < ActiveRecord::Base
     self.entered_otp_code = nil
   end
 
-  def purge_in_cache
-    info_requests.each { |x| x.purge_in_cache } if name_changed?
+  def setup_pro_account(role)
+    return unless role == Role.pro_role && feature_enabled?(:pro_pricing)
+    pro_account || build_pro_account
+  end
+
+  def update_pro_account
+    return unless is_pro? && pro_account
+    pro_account.update_email_address if email_changed?
   end
 
 end

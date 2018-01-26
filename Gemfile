@@ -79,7 +79,7 @@
 # the new version. It is always preferable to upgrade our code.
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.9'
+gem 'rails', '4.2.10'
 
 gem 'pg', '~> 0.18.0', '< 0.19.0'
 
@@ -104,8 +104,6 @@ gem 'holidays', '~> 2.2.0', '< 3.0.0'
 gem 'iso_country_codes', '~> 0.7.0'
 gem 'mahoro', '~> 0.4'
 gem 'newrelic_rpm'
-gem 'net-http-local', '~> 0.1.0', :platforms => [:ruby_19]
-gem 'net-purge', '~> 0.1.0'
 gem 'nokogiri', '~> 1.6.0', '< 1.7'
 gem 'open4', '~> 1.3.0'
 gem 'rack', '~> 1.6.0'
@@ -116,17 +114,18 @@ gem 'recaptcha', '~> 0.4.0', '< 0.5.0', :require => 'recaptcha/rails'
 gem 'rmagick', '~> 2.16.0'
 gem 'rolify', '~> 5.1.0'
 gem 'ruby-msg', '~> 1.5.0', :git => 'https://github.com/mysociety/ruby-msg.git', :branch => 'ascii-encoding'
+gem 'rubyzip', '~> 1.2.0'
 gem 'sass', '3.4.21'
 gem 'secure_headers', '~> 3.6.0'
 gem 'statistics2', '~> 0.54'
 gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :ref => 'c1c14da'
+gem 'stripe', '~> 3.4.1'
 gem 'syslog_protocol', '~> 0.9.0'
 gem 'thin', '~> 1.5.0', '< 1.6.0'
 gem 'vpim', '~> 13.11.11'
 gem 'will_paginate', '~> 3.1.0'
 gem 'xapian-full-alaveteli', '~> 1.2.21.1'
 gem 'xml-simple', '~> 1.1.0', :require => 'xmlsimple'
-gem 'zip', '~> 2.0.0'
 
 # Gems only used by the research export task
 gem 'gender_detector', '~> 1.0.0'
@@ -140,6 +139,7 @@ gem 'locale', '~> 2.0.0', '< 2.1.0'
 gem 'routing-filter', '~> 0.5.0', '< 0.6.0'
 gem 'unicode', '~> 0.4.0'
 gem 'unidecoder', '~> 1.1.0'
+gem 'money', '~> 6.10.0'
 
 # mime-types 3.0.0 requires Ruby 2.0.0, and _something_ is trying to update it
 gem 'mime-types', '< 3.0.0', require: false
@@ -162,6 +162,7 @@ group :test do
     gem 'term-ansicolor', '~> 1.3.0', '< 1.4'
   gem 'capybara', '~> 2.15.0'
   gem 'delorean', '~> 2.1.0'
+  gem 'stripe-ruby-mock', '~> 2.5.0'
   gem 'test_after_commit', '~> 0.4.2'
 end
 
@@ -172,7 +173,7 @@ group :test, :development do
   gem 'rspec-activemodel-mocks', '~> 1.0.0'
   gem 'rspec-rails', '~> 3.5.0'
   gem 'pry', '~> 0.10.0'
-  gem 'pry-debugger', '~> 0.2.0', :platforms => :ruby_19
+  gem 'pry-byebug', '~> 3.4.0'
     gem 'public_suffix', '~> 1.4.0', '< 1.5.0'
 end
 

@@ -5,12 +5,12 @@
 #
 #  id                                     :integer          not null, primary key
 #  version                                :integer          not null
-#  last_edit_editor                       :string(255)      not null
+#  last_edit_editor                       :string           not null
 #  last_edit_comment                      :text
 #  created_at                             :datetime         not null
 #  updated_at                             :datetime         not null
 #  home_page                              :text
-#  api_key                                :string(255)      not null
+#  api_key                                :string           not null
 #  info_requests_count                    :integer          default(0), not null
 #  disclosure_log                         :text
 #  info_requests_successful_count         :integer
@@ -100,7 +100,6 @@ class PublicBody < ActiveRecord::Base
   validate :request_email_if_requestable
 
   before_save :set_api_key!, :unless => :api_key
-  after_save :purge_in_cache
   after_update :reindex_requested_from
 
 
@@ -274,6 +273,19 @@ class PublicBody < ActiveRecord::Base
     return unless old.size == 1
     # does acts_as_versioned provide a method that returns the current version?
     PublicBody.find(old.first)
+  end
+
+  def self.blank_contact_count
+    count_by_sql("SELECT COUNT(*)
+                  #{blank_contact_sql_clause}")
+  end
+
+  def self.blank_contacts(limit = 20)
+    ids = find_by_sql("SELECT public_bodies.id
+                       #{blank_contact_sql_clause}
+                       LIMIT #{limit}")
+    where(:id => ids).
+      includes(:tags, :translations)
   end
 
   # If tagged "not_apply", then FOI/EIR no longer applies to authority at all
@@ -649,10 +661,6 @@ class PublicBody < ActiveRecord::Base
     }
   end
 
-  def purge_in_cache
-    info_requests.each { |x| x.purge_in_cache }
-  end
-
   def expire_requests
     info_requests.each { |request| request.expire }
   end
@@ -801,5 +809,22 @@ class PublicBody < ActiveRecord::Base
                    "Request email doesn't look like a valid email address")
       end
     end
+
+  end
+
+  def self.blank_contact_sql_clause
+    clause = <<-EOF.strip_heredoc
+      FROM public_bodies
+      INNER JOIN public_body_translations
+      ON public_body_translations.public_body_id = public_bodies.id
+      WHERE public_body_translations.request_email = ''
+      AND NOT EXISTS (
+        SELECT *
+        FROM has_tag_string_tags
+        WHERE name = 'defunct'
+        AND model = 'PublicBody'
+        AND model_id = public_bodies.id
+      )
+      EOF
   end
 end

@@ -37,6 +37,12 @@ install_daemon() {
   (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' RUBY_VERSION='$RUBY_VERSION' SCRIPT_FILE=config/$1-debian.example" "$UNIX_USER") > /etc/init.d/"$SITE-$1"
   chgrp "$UNIX_USER" /etc/init.d/"$SITE-$1"
   chmod 754 /etc/init.d/"$SITE-$1"
+
+  if which systemctl > /dev/null
+  then
+    systemctl enable "$SITE-$1"
+  fi
+
   echo $DONE_MSG
 }
 
@@ -57,40 +63,18 @@ install_daemon() {
 [ -z "$DEVELOPMENT_INSTALL" ] && misuse DEVELOPMENT_INSTALL
 [ -z "$BIN_DIRECTORY" ] && misuse BIN_DIRECTORY
 
-update_mysociety_apt_sources
-
-# Ubuntu Precise Fixes
-if [ x"$DISTRIBUTION" = x"ubuntu" ] && [ x"$DISTVERSION" = x"precise" ]
+# Ubuntu Trusty Fixes
+if [ x"$DISTRIBUTION" = x"ubuntu" ] && [ x"$DISTVERSION" = x"trusty" ]
 then
-  cat > /etc/apt/sources.list.d/ubuntu-trusty.list <<EOF
-deb http://archive.ubuntu.com/ubuntu/ trusty universe
-deb-src http://archive.ubuntu.com/ubuntu/ trusty universe
-EOF
+  # add brightbox as a source
+  apt-add-repository ppa:brightbox/ruby-ng
+  apt-get -qq update
 
-  cat > /etc/apt/sources.list.d/mysociety-launchpad.list <<EOF
-deb http://ppa.launchpad.net/mysociety/alaveteli/ubuntu precise main
-deb-src http://ppa.launchpad.net/mysociety/alaveteli/ubuntu precise main
-EOF
-
-  # Get bundler from trusty and de-prioritise all other
-  # trusty packages
-  cat >> /etc/apt/preferences <<EOF
-
-Package: ruby-bundler
-Pin: release n=trusty
-Pin-Priority: 990
-
-Package: *
-Pin: release n=trusty
-Pin-Priority: 50
-EOF
-
-# Get the key for the mysociety ubuntu alaveteli repo
-apt-get install -y python-software-properties
-add-apt-repository -y ppa:mysociety/alaveteli
-
-apt-get -qq update
+  # install brightbox's ruby 2.1 packages
+  apt-get install -y ruby2.1 ruby2.1-dev
 fi
+
+update_mysociety_apt_sources
 
 apt-get -y update
 
@@ -183,20 +167,23 @@ postfix reload
 
 install_website_packages
 
-# use ruby 2.1.5 or 1.9.3 if it's already the default (i.e. 'jessie', 'trusty')
-if ruby --version | grep -q 'ruby 2.1.5' > /dev/null
+# use ruby 2.3.3, 2.1.5 if it's already the default
+# (i.e. 'stretch', 'jessie')
+if ruby --version | grep -q 'ruby 2.3.3' > /dev/null
+then
+  echo 'using ruby 2.3.3'
+  RUBY_VERSION='2.3.3'
+elif ruby --version | grep -q 'ruby 2.1.5' > /dev/null
 then
   echo 'using ruby 2.1.5'
   RUBY_VERSION='2.1.5'
 elif ruby --version | grep -q 'ruby 1.9.3' > /dev/null
 then
-  echo 'using ruby 1.9.3'
-  RUBY_VERSION='1.9.1'
-else
-  # Set ruby version to 1.9.1
-  update-alternatives --set ruby /usr/bin/ruby1.9.1
-  update-alternatives --set gem /usr/bin/gem1.9.1
-  RUBY_VERSION='1.9.1'
+  # Set ruby version to 2.1.x
+  update-alternatives --set ruby /usr/bin/ruby2.1
+  update-alternatives --set gem /usr/bin/gem2.1
+  echo 'using ruby 2.1.5'
+  RUBY_VERSION='2.1.5'
 fi
 
 # Give the unix user membership of the adm group so that they can read the mail log files
@@ -300,6 +287,10 @@ do
   install_daemon $daemon
 done
 
+if which systemctl > /dev/null
+then
+  systemctl daemon-reload
+fi
 
 if [ $DEFAULT_SERVER = true ] && [ x != x$EC2_HOSTNAME ]
 then

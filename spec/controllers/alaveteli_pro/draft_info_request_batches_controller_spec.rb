@@ -83,7 +83,7 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
         params.delete(:authority_query)
         subject
         new_draft = pro_user.draft_info_request_batches.first
-        expected_path = new_alaveteli_pro_batch_request_authority_search_path(
+        expected_path = alaveteli_pro_batch_request_authority_searches_path(
           draft_id: new_draft.id
         )
         expect(response).to redirect_to(expected_path)
@@ -158,7 +158,7 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
 
         it "redirects to a new search if no query was provided" do
           subject
-          expected_path = new_alaveteli_pro_batch_request_authority_search_path(
+          expected_path = alaveteli_pro_batch_request_authority_searches_path(
             draft_id: draft.id)
           expect(response).to redirect_to(expected_path)
         end
@@ -229,7 +229,7 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
 
         it "redirects to a new search if no query was provided" do
           subject
-          expected_path = new_alaveteli_pro_batch_request_authority_search_path(
+          expected_path = alaveteli_pro_batch_request_authority_searches_path(
             draft_id: draft.id)
           expect(response).to redirect_to(expected_path)
         end

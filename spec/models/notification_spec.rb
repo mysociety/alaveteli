@@ -164,7 +164,23 @@ RSpec.describe Notification do
         end
       end
 
-      context "and the embargo is no longer expiring" do
+      context 'and the expiry of the embargo is pending' do
+
+        it 'returns false when the publication date has been reached' do
+          time_travel_to(embargo_expiring_request.embargo.publish_at) do
+            expect(notification.expired).to be false
+          end
+        end
+
+        it 'returns false when the publication date has passed' do
+          time_travel_to(embargo_expiring_request.embargo.publish_at + 1.day) do
+            expect(notification.expired).to be false
+          end
+        end
+
+      end
+
+      context "and the embargo has been removed" do
         before do
           embargo_expiring_request.embargo.destroy!
           notification.reload
@@ -174,6 +190,44 @@ RSpec.describe Notification do
           expect(notification.expired).to be true
         end
       end
+    end
+
+    context 'when the notification is for an expired embargo' do
+      let(:embargo_expired_request) do
+        FactoryGirl.create(:embargo_expired_request)
+      end
+
+      let(:embargo_expired_event) do
+        FactoryGirl.create(:expire_embargo_event,
+                           info_request: embargo_expired_request)
+      end
+
+      let(:notification) do
+        FactoryGirl.create(:notification,
+                           info_request_event: embargo_expired_event)
+      end
+
+      context 'and a new embargo has not been created' do
+
+        it 'returns false' do
+          expect(notification.expired).to be false
+        end
+
+      end
+
+      context 'and a new embargo has been created' do
+
+        before do
+          FactoryGirl.create(:embargo, info_request: embargo_expired_request)
+          notification.reload
+        end
+
+        it 'returns true' do
+          expect(notification.expired).to be true
+        end
+
+      end
+
     end
 
     context "when the notification is for an overdue request" do

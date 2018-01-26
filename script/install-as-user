@@ -75,14 +75,6 @@ source "$BASHRC"
 # Speed up the installation of gems:
 echo 'gem: --no-ri --no-rdoc' > "$HOME/.gemrc"
 
-# Update bundler on Debian Wheezy
-if bundle --version | grep -q 'Bundler version 1.1.4' > /dev/null
-then
-  echo "Rails 4 does not support bundler 1.1.4."
-  echo "Installing bundler through gem for $UNIX_USER"
-  gem install --user-install bundler
-fi
-
 # Write sensible values into the config file:
 
 function random_alphanumerics() {
@@ -114,7 +106,6 @@ then
         -e "s,^( *HTML_TO_PDF_COMMAND:).*,\\1 '/usr/bin/wkhtmltopdf-static'," \
         -e "s,^( *EXCEPTION_NOTIFICATIONS_FROM:).*,\\1 'do-not-reply-to-this-address@$HOST'," \
         -e "/EXCEPTION_NOTIFICATIONS_TO:/,/^$/c EXCEPTION_NOTIFICATIONS_TO:\n - team@$HOST\n" \
-        -e "s,^( *VARNISH_HOST:).*,\\1 null," \
         -e "s,^( *MTA_LOG_PATH:).*,\\1 '/var/log/mail/mail.log-*'," \
         -e "s,^( *MTA_LOG_TYPE:).*,\\1 'postfix'," \
         -e "s,^( *DONATION_URL:).*,\\1 null," \

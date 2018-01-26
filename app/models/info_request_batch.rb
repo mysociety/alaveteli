@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20170328100359
 #
 # Table name: info_request_batches
 #
@@ -11,7 +10,7 @@
 #  updated_at       :datetime         not null
 #  body             :text
 #  sent_at          :datetime
-#  embargo_duration :string(255)
+#  embargo_duration :string
 #
 
 class InfoRequestBatch < ActiveRecord::Base
@@ -224,5 +223,12 @@ class InfoRequestBatch < ActiveRecord::Base
       categories << AlaveteliPro::RequestSummaryCategory.awaiting_response
     end
     categories
+  end
+
+  # Log an event for all information requests within the batch
+  #
+  # Returns an array of InfoRequestEvent objects
+  def log_event(*args)
+    info_requests.map { |request| request.log_event(*args) }
   end
 end

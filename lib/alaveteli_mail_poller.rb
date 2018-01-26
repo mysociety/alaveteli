@@ -113,6 +113,10 @@ class AlaveteliMailPoller
     pop3.start(settings[:user_name], settings[:password])
 
     yield pop3
+  rescue Timeout::Error => error
+    if send_exception_notifications?
+      ExceptionNotifier.notify_exception(error)
+    end
   ensure
     if defined?(pop3) && pop3 && pop3.started?
       pop3.finish

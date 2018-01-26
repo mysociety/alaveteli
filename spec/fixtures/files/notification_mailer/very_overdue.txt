@@ -4,6 +4,6 @@ They have still not replied to your FOI request Here is a character that needs q
 
 Click on the link below to send a message to Test public body telling them to reply to your request. You might like to ask for an internal review, asking them to find out why their response to the request has been so slow.
 
-http://test.host/en/c/TOKEN
+http://test.host/en/profile/sign_in?r=%2Fen%2Frequest%2FINFO_REQUEST_ID%2Ffollowups%2Fnew%23followup
 
 -- the Alaveteli team

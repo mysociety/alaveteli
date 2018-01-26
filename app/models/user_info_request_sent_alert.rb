@@ -6,7 +6,7 @@
 #  id                    :integer          not null, primary key
 #  user_id               :integer          not null
 #  info_request_id       :integer          not null
-#  alert_type            :string(255)      not null
+#  alert_type            :string           not null
 #  info_request_event_id :integer
 #
 
@@ -30,7 +30,8 @@ class UserInfoRequestSentAlert < ActiveRecord::Base
     'not_clarified_1', # reminder that user has to explain part of the
     # request
     'comment_1', # tell user that info request has a new comment
-    'embargo_expiring_1' # tell user that their embargo is expiring
+    'embargo_expiring_1', # tell user that their embargo is expiring
+    'embargo_expired_1', # tell user that their embargo has expired
   ]
 
   belongs_to :user,

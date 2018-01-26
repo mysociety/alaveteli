@@ -30,13 +30,17 @@
   display: inline-block;
   // vertically center it with normal text
   position: relative;
-  top: -0.15em;
+  top: -0.35em;
   line-height: 1em;
   right: -4px;
 }
 
-.dashboard-profile__image {
-   float: left;
-   margin-right: 1em;
+.profile-summary__image {
    border-radius: 5px;
+}
+
+.profile-summary__email {
+  color: #777;
+  font-size: 0.875em;
+  overflow-wrap: break-word;
 }

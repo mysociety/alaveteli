@@ -38,28 +38,19 @@
                      options_for_select(
                        publish_at_options,
                        :selected => @embargo ? @embargo.embargo_duration : ''
-                     ) %>
+                     ),
+                     {},
+                     { class: 'js-embargo-duration' } %>
       </p>
       <div class="form_item_note">
         <%= render partial: "alaveteli_pro/info_request_batches/embargo_info",
                    locals: { embargo: @embargo, tense: :future } %>
+        <%= render partial: "alaveteli_pro/info_requests/embargo_note" %>
         <p>
-          <%= _("When a request is private we guarantee that it will only be " \
-                "visible on {{site_name}} for the period you select. " \
-                "{{pro_site_name}} administrators will also be able " \
-                "to view your request, but will only do so in the event " \
-                "that they need to fix a problem with it (e.g. failed " \
-                "delivery to the authority). They will not reveal the " \
-                "contents of your request or any response you get to anyone else. " \
-                "The authority may still publish it in a disclosure log as usual.",
-                site_name: AlaveteliConfiguration.site_name,
-                pro_site_name: AlaveteliConfiguration.pro_site_name) %>
-        </p>
-        <p>
-          <%= _("We will remind you by email and on the site when the request " \
-                "is going be made public, and you'll have the option to keep " \
-                "it private for longer if you want to. You can extend this " \
-                "time indefinitely, or make the request public at any time.") %>
+          <%= _("All requests within this batch will remain private for the " \
+                "same duration. When an individual request is made public all " \
+                "other requests in this batch will also be published on " \
+                "{{site_name}}.", site_name: AlaveteliConfiguration.site_name) %>
         </p>
       </div>
     </div> <!-- .request_embargo -->

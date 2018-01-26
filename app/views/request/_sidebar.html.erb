@@ -3,6 +3,12 @@
     <%= render :partial => "general/new_request" %>
   </div>
 
+  <% if (feature_enabled?(:alaveteli_pro) &&
+         can?(:create_embargo, @info_request)) %>
+    <%= render partial: "alaveteli_pro/info_requests/embargo_form",
+               locals: { info_request: @info_request } %>
+  <% end %>
+
   <div class="request__special-status">
   <% if @info_request.attention_requested %>
     <% if @info_request.prominence(:decorate => true).is_hidden? %>

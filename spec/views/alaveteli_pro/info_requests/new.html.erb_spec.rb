@@ -17,22 +17,26 @@ describe "alaveteli_pro/info_requests/new.html.erb" do
 
   it "sets a data-initial-authority attribute on the public body search" do
     expected_data = {
-        :id => info_request.public_body.id,
-        :name => info_request.public_body.name,
-        :notes => info_request.public_body.notes,
-        :info_requests_visible_count => info_request.public_body.info_requests_visible_count
-      }.to_json
-    expected_data = html_escape(expected_data)
+      id: public_body.id,
+      name: public_body.name,
+      short_name: public_body.short_name,
+      notes: public_body.notes,
+      info_requests_visible_count: public_body.info_requests_visible_count
+    }
+    expect(view).to receive(:public_body_search_attributes)
+      .and_return(expected_data)
 
     assign_variables
     render
-    expect(rendered).to match(/data-initial-authority="#{expected_data}"/)
+
+    expected_html = html_escape(expected_data.to_json)
+    expect(rendered).to match(/data-initial-authority="#{expected_html}"/)
   end
 
   it "sets a data-search-url attribute on the public body search" do
     assign_variables
     render
-    expect(rendered).to match(/data-search-url="\/alaveteli_pro\/public_bodies"/)
+    expect(rendered).to match(/data-search-url="\/en\/alaveteli_pro\/public_bodies"/)
   end
 
   it "includes a hidden field for the body id" do

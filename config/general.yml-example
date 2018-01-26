@@ -59,6 +59,23 @@ FORCE_SSL: true
 # ---
 ISO_COUNTRY_CODE: GB
 
+# ISO currency code of the currency Alaveteli Professional cost should be
+# displayed in.
+# (https://en.wikipedia.org/wiki/ISO_4217#Active_codes)
+#
+# Doesn't affect what currency the plans are setup in so this should match what
+# is configured at Stripe.com
+# (https://stripe.com/docs/currencies)
+#
+# ISO_CURRENCY_CODE - String currency code (default: GBP)
+#
+# Examples:
+#
+#   ISO_CURRENCY_CODE: GBP
+#
+# ---
+ISO_CURRENCY_CODE: GBP
+
 # This is the timezone that times and dates are displayed in
 # If not set defaults to UTC.
 #
@@ -628,18 +645,6 @@ EXCEPTION_NOTIFICATIONS_TO:
 # ---
 MAX_REQUESTS_PER_USER_PER_DAY: 6
 
-# If you're running behind Varnish set this to work out where to send purge
-# requests. Otherwise, don't set it.
-#
-# VARNISH_HOST - String (default: nil)
-#
-# Examples:
-#
-#   VARNISH_HOST: localhost
-#
-# ---
-VARNISH_HOST: null
-
 # Adding a value here will enable Google Analytics on all non-admin pages for
 # non-admin users.
 #
@@ -1136,3 +1141,48 @@ POP_MAILER_PASSWORD: ''
 #
 # ---
 POP_MAILER_ENABLE_SSL: true
+
+# Stripe.com publishable key. Only required for Alaveteli Pro.
+#
+# STRIPE_PUBLISHABLE_KEY - String (default: '')
+#
+# Examples:
+#
+# STRIPE_PUBLISHABLE_KEY: sk_test_UD6BDsARFZIYb8273dbdl
+#
+# ---
+STRIPE_PUBLISHABLE_KEY: ''
+
+# Stripe.com secret key. Only required for Alaveteli Pro.
+#
+# STRIPE_SECRET_KEY - String (default: '')
+#
+# Examples:
+#
+# STRIPE_SECRET_KEY: sk_test_UD6BDsARFZIYb8273dbdl
+#
+# ---
+STRIPE_SECRET_KEY: ''
+
+# An optional Stripe.com namespace which allows plans & coupons to be separated
+# from other resources within Stripe. If used the Stripe resources will need IDs
+# like: '<namespace>-<id>'
+#
+# STRIPE_NAMESPACE - String (default: '')
+#
+# Examples:
+#
+# STRIPE_NAMESPACE: 'alaveteli'
+#
+# ---
+STRIPE_NAMESPACE: ''
+
+# Stripe.com webhook secret. Only required for Alaveteli Pro.
+#
+# STRIPE_WEBHOOK_SECRET: - String (default: '')
+#
+# Examples:
+#
+# STRIPE_WEBHOOK_SECRET: wh_test_UD6BDsARFZIYb8273dbdl
+# ---
+STRIPE_WEBHOOK_SECRET: ''

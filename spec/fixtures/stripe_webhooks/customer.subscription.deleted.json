@@ -1,0 +1,35 @@
+{
+  "id": "evt_00000000000000",
+  "object": "event",
+  "type": "customer.subscription.deleted",
+  "created": 1512658329,
+  "data": {
+    "object": {
+      "id": "su_00000000000000",
+      "object": "subscription",
+      "status": "canceled",
+      "customer": "cus_007",
+      "items": {
+        "object": "list",
+        "data": [{
+          "id": "si_00000000000000",
+          "object": "subscription_item",
+          "created": 1497881783,
+          "plan": {
+            "interval": "month",
+            "name": "Test",
+            "amount": 10,
+            "currency": "gbp",
+            "id": "fkx0AFo_00000000000000",
+            "object": "plan",
+            "livemode": false,
+            "interval_count": 1,
+            "trial_period_days": null,
+            "metadata": {}
+          },
+          "quantity": 1
+        }]
+      }
+    }
+  }
+}

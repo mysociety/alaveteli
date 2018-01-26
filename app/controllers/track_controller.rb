@@ -207,7 +207,7 @@ class TrackController < ApplicationController
     if new_medium == 'delete'
       track_thing.destroy
       flash[:notice] = view_context.unsubscribe_notice(track_thing)
-      redirect_to URI.parse(params[:r]).path
+      redirect_to SafeRedirect.new(params[:r]).path
     else
       raise "new medium not handled " + new_medium
     end
@@ -232,7 +232,7 @@ class TrackController < ApplicationController
     TrackThing.
       where(:track_type => track_type, :tracking_user_id => user_id).
         destroy_all
-    redirect_to URI.parse(params[:r]).path
+    redirect_to SafeRedirect.new(params[:r]).path
   end
 
 end

@@ -129,7 +129,7 @@
 }
 
 .site-title__logo {
-  @extend .image-replacement;
+  @include image-replacement;
   width: $logo-width;
   height: $logo-height;
   background-size: $logo-width $logo-height;
@@ -350,15 +350,14 @@
 .js-loaded {
   .account-link {
     @include respond-min( $main_menu-mobile_menu_cutoff ) {
-      position: inherit;
+      position: relative;
       right: inherit;
       top: inherit;
     }
     &:after {
         position: absolute;
         top: 1em;
-        right: 0.5em;
-        margin-left: 1em;
+        right: 10px;
         font-size: 0.5em;
         @include respond-min( $main_menu-mobile_menu_cutoff ){
           content: "▼";
@@ -378,6 +377,7 @@
   display: none;
   @include respond-min( $main_menu-mobile_menu_cutoff ) {
     display: inherit;
+    padding-bottom: 1em;
   }
 }
 
@@ -387,30 +387,16 @@
 
 .js-loaded {
   .logged-in-menu {
-
-
     @include respond-min( $main_menu-mobile_menu_cutoff ) {
       display: none;
     }
   }
 }
 
-.dashboard-profile__name {
-  font-size: 1.3125em;
-  display: inline-block;
-  width: 100%;
-  position: relative;
-  .pro-pill {
-    right: 0;
-    position: absolute;
-  }
-}
 
-.dashboard-profile__email {
-  color: #777;
-}
-
-.dashboard-profile__image {
+.profile-summary__image {
   height: 50px;
   width: 50px;
+  float: left;
+  margin-right: 1em;
 }

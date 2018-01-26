@@ -18,6 +18,16 @@
   color: #333;
 }
 
+.to_public_body_notes {
+  background-color: #F0F5FB;
+  padding: 24px 24px 12px;
+  margin-bottom: 24px;
+
+  h3 {
+    margin-top: 0;
+  }
+}
+
 
 // Overrides for selectize plugin
 .selectize-dropdown,
@@ -40,6 +50,7 @@
 }
 
 .selectize-dropdown [data-selectable],
+.selectize-dropdown .selectize-no-results,
 .selectize-dropdown .optgroup-header {
   padding: 1em 0.5em;
 }

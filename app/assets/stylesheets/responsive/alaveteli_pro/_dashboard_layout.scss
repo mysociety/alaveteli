@@ -25,12 +25,6 @@ $dashboard-collapse: 50em; //where the dashboard layout needs to change
   }
 }
 
-.dashboard-profile__image {
-  float:left;
-  margin-right: 1em;
-  border-radius: 5px;
-}
-
 .dashboard-nav {
   padding: 0;
   margin: 0;
@@ -53,26 +47,13 @@ $dashboard-collapse: 50em; //where the dashboard layout needs to change
   padding: 0;
 }
 
-.dashboard-folders {
-  margin-bottom: 2em;
-}
-
 .dashboard-sub-folders {
-  margin: 0 0 2em 0;
+  .dashboard-folder {
+    font-size: 0.875em; //14px
+  }
   .dashboard-folder__name {
     padding-left: 0.5em;
   }
-}
-
-.dashboard-folder {
-  margin-bottom: 0;
-  font-size: 0.875em; //14px
-}
-
-.dashboard-folder__name {
-  display: block;
-  padding: 0.666em 1em 0.666em 1em;
-  width: 100%;
 }
 
 .dashboard-folder--selected {

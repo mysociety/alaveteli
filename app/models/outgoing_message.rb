@@ -1,20 +1,19 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20131024114346
 #
 # Table name: outgoing_messages
 #
 #  id                           :integer          not null, primary key
 #  info_request_id              :integer          not null
 #  body                         :text             not null
-#  status                       :string(255)      not null
-#  message_type                 :string(255)      not null
+#  status                       :string           not null
+#  message_type                 :string           not null
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
 #  last_sent_at                 :datetime
 #  incoming_message_followup_id :integer
-#  what_doing                   :string(255)      not null
-#  prominence                   :string(255)      default("normal"), not null
+#  what_doing                   :string           not null
+#  prominence                   :string           default("normal"), not null
 #  prominence_reason            :text
 #
 
@@ -63,7 +62,6 @@ class OutgoingMessage < ActiveRecord::Base
            :dependent => :destroy
 
   after_initialize :set_default_letter
-  after_save :purge_in_cache
   # reindex if body text is edited (e.g. by admin interface)
   after_update :xapian_reindex_after_update
 
@@ -320,10 +318,6 @@ class OutgoingMessage < ActiveRecord::Base
     get_text_for_indexing(strip_salutation=false)
   end
 
-  def purge_in_cache
-    info_request.purge_in_cache
-  end
-
   def xapian_reindex_after_update
     if changes.include?('body')
       info_request_events.each do |event|
@@ -376,6 +370,7 @@ class OutgoingMessage < ActiveRecord::Base
     if info_request
       opts[:url] = request_url(info_request) if info_request.url_title
       opts[:info_request_title] = info_request.title if info_request.title
+      opts[:embargo] = true if info_request.embargo
     end
 
     opts[:public_body_name] =

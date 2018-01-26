@@ -10,7 +10,7 @@
 #  line                    :text             not null
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
-#  delivery_status         :string(255)
+#  delivery_status         :string
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')

@@ -21,7 +21,9 @@
       <% unless AlaveteliConfiguration::disable_emergency_user %>
         <p id="superuser_message" class="superuser_message">
           <%= _("Don't have a superuser account yet?") %>
-          <%= link_to _("Sign in as the emergency user"), URI.parse(@post_redirect.uri).path + "?emergency=1" %></p>
+          <%= link_to _("Sign in as the emergency user"),
+                      SafeRedirect.new(@post_redirect.uri).path(query: 'emergency=1') %>
+        </p>
       <% end %>
     <% end %>
 
@@ -48,7 +50,13 @@
 
     <div id="right_half" class="right_half">
       <div class="sign-in-wrapper">
-        <p class="pretitle"><%= _('Got an account?') %></p>
+        <p class="pretitle">
+        <% if !@post_redirect.nil? && @post_redirect.reason_params[:pro] %>
+          <%= _('Got a {{site_name}} account?', :site_name => site_name) %>
+        <% else %>
+          <%= _('Got an account?') %>
+        <% end %>
+        </p>
         <h2><%= _('Sign in') %></h2>
         <%= render :partial => 'signin', :locals => { :sign_in_as_existing_user => false } %>
       </div>

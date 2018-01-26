@@ -17,7 +17,7 @@
 #  last_parsed                    :datetime
 #  mail_from                      :text
 #  sent_at                        :datetime
-#  prominence                     :string(255)      default("normal"), not null
+#  prominence                     :string           default("normal"), not null
 #  prominence_reason              :text
 #
 
@@ -33,7 +33,7 @@
 # general not specific to IncomingMessage.
 
 require 'rexml/document'
-require 'zip/zip'
+require 'zip'
 require 'iconv' unless String.method_defined?(:encode)
 
 class IncomingMessage < ActiveRecord::Base
@@ -138,7 +138,7 @@ class IncomingMessage < ActiveRecord::Base
       ActiveRecord::Base.transaction do
         self.extract_attachments!
         write_attribute(:sent_at, self.mail.date || self.created_at)
-        write_attribute(:subject, self.mail.subject)
+        write_attribute(:subject, MailHandler.get_subject(self.mail))
         write_attribute(:mail_from, MailHandler.get_from_name(self.mail))
         if self.from_email
           self.mail_from_domain = PublicBody.extract_domain_from_email(self.from_email)
@@ -659,7 +659,7 @@ class IncomingMessage < ActiveRecord::Base
   # Returns text of email for using in quoted section when replying
   def get_body_for_quoting
     # Get the body text with emails and quoted sections removed
-    text = get_main_body_text_folded
+    text = get_main_body_text_folded.dup
     text.gsub!("FOLDED_QUOTED_SECTION", " ")
     text.strip!
     raise "internal error" if text.nil?

@@ -26,6 +26,12 @@ module ApplicationHelper
   # Extra highlight helpers
   include HighlightHelper
 
+  # Currency helpers
+  include CurrencyHelper
+
+  # Stripe helpers
+  include StripeHelper
+
   # Copied from error_messages_for in active_record_helper.rb
   def foi_error_messages_for(*params)
     options = params.last.is_a?(Hash) ? params.pop.symbolize_keys : {}

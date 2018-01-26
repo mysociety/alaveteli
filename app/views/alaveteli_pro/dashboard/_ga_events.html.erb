@@ -1,0 +1,5 @@
+<% if flash[:new_pro_user] %>
+  <% content_for :ga_pageview do %>
+    ga('send', 'pageview', '/alaveteli_pro/welcome');
+  <% end %>
+<% end %>

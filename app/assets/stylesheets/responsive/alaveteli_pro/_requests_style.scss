@@ -49,11 +49,12 @@ $complete: rgb(112, 203, 99);
   color: #999;
 }
 
+.request__status,
 .request__recipient,
 .request__created,
 .request__updated,
-.request__status,
-.request__actions {
+.request__due,
+.request__responses {
   font-size: 0.875em; // 14px
   line-height: 1.5em;
 }
@@ -135,7 +136,7 @@ $complete: rgb(112, 203, 99);
   background-position: top left;
   background-repeat: no-repeat;
   display: inline-block;
-  @extend .image-replacement;
+  @include image-replacement();
 }
 
 .embargo-indicator--small {
@@ -168,7 +169,7 @@ $complete: rgb(112, 203, 99);
   margin-left: 0.3em;
   position: relative;
   top: 3px;
-  @extend .image-replacement;
+  @include image-replacement();
   opacity: 0.5;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image: image-url('alaveteli-pro/clear-icon@2.png');

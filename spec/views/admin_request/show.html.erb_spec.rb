@@ -15,6 +15,11 @@ describe "admin_request/show.html.erb" do
       expect(rendered).to match(request_url(info_request))
     end
 
+    it 'does not include embargoed label' do
+      render
+      expect(rendered).to_not have_css('h1 span.label', text: 'embargoed')
+    end
+
   end
 
   context 'for an embargoed request' do
@@ -28,6 +33,11 @@ describe "admin_request/show.html.erb" do
     it 'includes embargo information' do
       render
       expect(rendered).to match('Private until')
+    end
+
+    it 'includes embargoed label' do
+      render
+      expect(rendered).to have_css('h1 span.label', text: 'embargoed')
     end
 
   end

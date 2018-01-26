@@ -16,9 +16,9 @@ class AlaveteliPro::BaseController < ApplicationController
     if reason_params.nil?
       reason_params = {
         web: _("To access {{pro_site_name}}",
-                pro_site_name: AlaveteliConfiguration.pro_site_name),
+               pro_site_name: AlaveteliConfiguration.pro_site_name),
         email: _("Then you can access {{pro_site_name}}",
-                pro_site_name: AlaveteliConfiguration.pro_site_name)
+                 pro_site_name: AlaveteliConfiguration.pro_site_name)
       }
     end
     if authenticated?(reason_params)
@@ -37,12 +37,18 @@ class AlaveteliPro::BaseController < ApplicationController
     return false
   end
 
+  # A pro-specific version of authenticated? that sets the `pro: true` param
+  # so that compatible controllers will know to use the pro livery post redirect
+  def pro_authenticated?(reason_params)
+    authenticated?(reason_params.merge(pro: true))
+  end
+
   # An override of set_in_pro_area from ApplicationController, because we are
   # always in the pro area if we're using a descendant of this controller.
   # Note that this is called as a before_filter in this class, so that
   # every descendant sets it.
   def set_in_pro_area
-   @in_pro_area = true
+    @in_pro_area = true
   end
 
 end

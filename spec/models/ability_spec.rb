@@ -344,16 +344,28 @@ describe Ability do
     let(:other_user_ability) { Ability.new(FactoryGirl.create(:user)) }
 
     context "when the batch is embargoed" do
-      let(:resource) { FactoryGirl.create(:embargoed_batch_request) }
+      let(:resource) do
+        FactoryGirl.create(:embargoed_batch_request,
+                           user: FactoryGirl.create(:pro_user))
+      end
 
       context "when the user owns the batch" do
-        let(:ability) { Ability.new(resource.user) }
 
-        it "should return true" do
+        it 'allows pro users to update the batch' do
+          ability = Ability.new(resource.user)
           with_feature_enabled(:alaveteli_pro) do
             expect(ability).to be_able_to(:update, resource)
           end
         end
+
+        it 'does not allow non-pro users to update the batch' do
+          resource.user.remove_role(:pro)
+          ability = Ability.new(resource.user)
+          with_feature_enabled(:alaveteli_pro) do
+            expect(ability).not_to be_able_to(:update, resource)
+          end
+        end
+
       end
 
       context "when the user is a pro_admin" do
@@ -489,15 +501,97 @@ describe Ability do
     end
   end
 
+  describe "Creating Embargoes" do
+    let(:pro_admin_user) { FactoryGirl.create(:pro_admin_user) }
+
+    context 'the info request owner is a pro user' do
+      let(:user) { FactoryGirl.create(:pro_user) }
+      let(:info_request) { FactoryGirl.create(:info_request, user: user) }
+
+      it 'allows the request owner to add an embargo' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(info_request.user)
+          expect(ability).to be_able_to(:create_embargo, info_request)
+        end
+
+      end
+
+      it "allows pro admins to add an embargo" do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_admin_user)
+          expect(ability).to be_able_to(:create_embargo, info_request)
+        end
+      end
+
+      context 'the info request is part of a batch' do
+        let(:batch_request) do
+          batch = FactoryGirl.create(:batch_request, user: user)
+          request = FactoryGirl.create(:info_request, title: batch.title,
+                                                      user: batch.user)
+          batch.info_requests << request
+          batch.info_requests.first
+        end
+
+        it 'does not allow the request owner to add an embargo' do
+          with_feature_enabled(:alaveteli_pro) do
+            ability = Ability.new(batch_request.user)
+            expect(ability).to_not be_able_to(:create_embargo, batch_request)
+          end
+        end
+
+      end
+
+    end
+
+    context 'the info request owner is not a pro user' do
+      let(:user) { FactoryGirl.create(:pro_user) }
+      let(:info_request) { FactoryGirl.create(:info_request, user: user) }
+
+      before do
+        user.remove_role(:pro)
+      end
+
+      it 'prevents the request owner from adding an embargo' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(user)
+          expect(ability).not_to be_able_to(:create_embargo, info_request)
+        end
+
+      end
+
+      it "prevents pro admins adding an embargo" do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_admin_user)
+          expect(ability).not_to be_able_to(:create_embargo, info_request)
+        end
+      end
+
+    end
+
+  end
+
   describe "Updating Embargoes" do
-    let(:embargo) { FactoryGirl.create(:embargo) }
+
+    let(:embargo) do
+      FactoryGirl.create(:embargo, user: FactoryGirl.create(:pro_user))
+    end
+
     let(:admin_user) { FactoryGirl.create(:admin_user) }
     let(:pro_admin_user) { FactoryGirl.create(:pro_admin_user) }
 
-    it "allows the info request owner to update it" do
+    it "allows pro info request owners to update it" do
       with_feature_enabled(:alaveteli_pro) do
         ability = Ability.new(embargo.info_request.user)
         expect(ability).to be_able_to(:update, embargo)
+      end
+    end
+
+    it "doesn't allow non-pro info request owners to update it" do
+      embargo.info_request.user.remove_role(:pro)
+
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(embargo.info_request.user)
+        expect(ability).not_to be_able_to(:update, embargo)
       end
     end
 
@@ -529,6 +623,117 @@ describe Ability do
         expect(ability).not_to be_able_to(:update, embargo)
       end
     end
+  end
+
+  describe "Destroying Embargoes" do
+
+    let(:embargo) do
+      FactoryGirl.create(:embargo, user: FactoryGirl.create(:pro_user))
+    end
+
+    let(:admin_user) { FactoryGirl.create(:admin_user) }
+    let(:pro_admin_user) { FactoryGirl.create(:pro_admin_user) }
+
+    it 'allows a pro info request owner to destroy it' do
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(embargo.info_request.user)
+        expect(ability).to be_able_to(:destroy, embargo)
+      end
+    end
+
+    it 'allows a non-pro info request owner to destroy it' do
+      with_feature_enabled(:alaveteli_pro) do
+        embargo.info_request.user.remove_role(:pro)
+        ability = Ability.new(embargo.info_request.user)
+        expect(ability).to be_able_to(:destroy, embargo)
+      end
+    end
+
+    it "allows pro admins to destroy it" do
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(pro_admin_user)
+        expect(ability).to be_able_to(:destroy, embargo)
+      end
+    end
+
+    it "doesn't allow admins to destroy it" do
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(admin_user)
+        expect(ability).not_to be_able_to(:destroy, embargo)
+      end
+    end
+
+    it "doesnt allow anonymous users to destroy it" do
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(nil)
+        expect(ability).not_to be_able_to(:destroy, embargo)
+      end
+    end
+
+    it "doesnt allow other users to destroy it" do
+      other_user = FactoryGirl.create(:user)
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(other_user)
+        expect(ability).not_to be_able_to(:destroy, embargo)
+      end
+    end
+
+  end
+
+  describe "Destroying Batch Embargoes" do
+
+    let(:batch) do
+      FactoryGirl.create(:embargoed_batch_request,
+                         user: FactoryGirl.create(:pro_user))
+    end
+
+    let(:admin_user) { FactoryGirl.create(:admin_user) }
+    let(:pro_admin_user) { FactoryGirl.create(:pro_admin_user) }
+
+    it 'allows a pro info batch owner to destroy it' do
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(batch.user)
+        expect(ability).to be_able_to(:destroy_embargo, batch)
+      end
+    end
+
+    it 'allows a non-pro info request owner to destroy it' do
+      with_feature_enabled(:alaveteli_pro) do
+        batch.user.remove_role(:pro)
+        ability = Ability.new(batch.user)
+        expect(ability).to be_able_to(:destroy_embargo, batch)
+      end
+    end
+
+    it "allows pro admins to destroy it" do
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(pro_admin_user)
+        expect(ability).to be_able_to(:destroy_embargo, batch)
+      end
+    end
+
+    it "doesn't allow admins to destroy it" do
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(admin_user)
+        expect(ability).not_to be_able_to(:destroy_embargo, batch)
+      end
+    end
+
+    it "doesnt allow anonymous users to destroy it" do
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(nil)
+        expect(ability).not_to be_able_to(:destroy_embargo, batch)
+      end
+    end
+
+    it "doesnt allow other users to destroy it" do
+      other_user = FactoryGirl.create(:user)
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(other_user)
+        expect(ability).not_to be_able_to(:destroy_embargo, batch)
+      end
+    end
+
   end
 
   describe "Logging in as a user" do

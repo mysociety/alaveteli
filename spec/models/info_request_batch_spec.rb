@@ -10,7 +10,7 @@
 #  updated_at       :datetime         not null
 #  body             :text
 #  sent_at          :datetime
-#  embargo_duration :string(255)
+#  embargo_duration :string
 #
 
 require 'spec_helper'
@@ -386,6 +386,26 @@ describe InfoRequestBatch do
         }
       }
       expect(info_request_batch.request_phases_summary).to eq expected
+    end
+  end
+
+  describe "#log_event" do
+    let(:public_bodies) { FactoryGirl.create_list(:public_body, 3) }
+    let(:info_request_batch) do
+      FactoryGirl.create(:info_request_batch, :public_bodies => public_bodies)
+    end
+
+    before do
+      # We need the batch to have requests to test them out
+      info_request_batch.create_batch!
+    end
+
+    it 'calls `log_event` on all information requests in a batch' do
+      arguments = double(:args)
+      info_request_batch.info_requests.each do |request|
+        expect(request).to receive(:log_event).with(arguments)
+      end
+      info_request_batch.log_event(arguments)
     end
   end
 end

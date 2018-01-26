@@ -39,99 +39,6 @@ describe RequestController, "when listing recent requests" do
 
 end
 
-describe RequestController, "when changing things that appear on the request page" do
-
-  before do
-    PurgeRequest.destroy_all
-    allow(AlaveteliConfiguration).to receive(:varnish_host).
-      and_return('varnish.localdomain')
-  end
-
-  it "should purge the downstream cache when mail is received" do
-    # HACK: The holding pen is now being called (and created, if
-    # this is the first time the holding pen has been initialised) in
-    # InfoRequest#receive. This seemed to create a PurgeRequest for the
-    # holding pen instead of the request under test. The solution was to
-    # ensure the holding pen already exists before this spec.
-    InfoRequest.holding_pen_request
-    PurgeRequest.delete_all
-    ir = info_requests(:fancy_dog_request)
-
-    receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
-    expect(PurgeRequest.all.first.model_id).to eq(ir.id)
-  end
-
-  it "should purge the downstream cache when a comment is added" do
-    ir = info_requests(:fancy_dog_request)
-    new_comment = info_requests(:fancy_dog_request).add_comment('I also love making annotations.', users(:bob_smith_user))
-    expect(PurgeRequest.all.first.model_id).to eq(ir.id)
-  end
-
-  it "should purge the downstream cache when a followup is made" do
-    session[:user_id] = users(:bob_smith_user).id
-    ir = info_requests(:fancy_dog_request)
-    outgoing = FactoryGirl.create(:outgoing_message, :info_request_id => ir.id,
-                                                     :status => 'ready',
-                                                     :message_type => 'followup',
-                                                     :body => "What a useless response! You suck.",
-                                                     :what_doing => 'normal_sort')
-    expect(PurgeRequest.all.first.model_id).to eq(ir.id)
-  end
-
-  it "should purge the downstream cache when the request is categorised" do
-    ir = info_requests(:fancy_dog_request)
-    ir.set_described_state('waiting_clarification')
-    expect(PurgeRequest.all.first.model_id).to eq(ir.id)
-  end
-
-  it "should purge the downstream cache when the authority data is changed" do
-    ir = info_requests(:fancy_dog_request)
-    ir.public_body.name = "Something new"
-    ir.public_body.save!
-    expect(PurgeRequest.all.map{|x| x.model_id}).to match_array(ir.public_body.info_requests.map{|x| x.id})
-  end
-
-  it "should purge the downstream cache when the user name is changed" do
-    ir = info_requests(:fancy_dog_request)
-    ir.user.name = "Something new"
-    ir.user.save!
-    expect(PurgeRequest.all.map{|x| x.model_id}).to match_array(ir.user.info_requests.map{|x| x.id})
-  end
-
-  it "should not purge the downstream cache when non-visible user details are changed" do
-    ir = info_requests(:fancy_dog_request)
-    ir.user.hashed_password = "some old hash"
-    ir.user.save!
-    expect(PurgeRequest.all.count).to eq(0)
-  end
-
-  it "should purge the downstream cache when censor rules have changed" do
-    # TODO: really, CensorRules should execute expiry logic as part
-    # of the after_save of the model. Currently this is part of
-    # the AdminCensorRuleController logic, so must be tested from
-    # there. Leaving this stub test in place as a reminder
-  end
-
-  it "should purge the downstream cache when something is hidden by an admin" do
-    ir = info_requests(:fancy_dog_request)
-    ir.prominence = 'hidden'
-    ir.save!
-    expect(PurgeRequest.all.first.model_id).to eq(ir.id)
-  end
-
-  it "should not create more than one entry for any given resource" do
-    ir = info_requests(:fancy_dog_request)
-    ir.prominence = 'hidden'
-    ir.save!
-    expect(PurgeRequest.all.count).to eq(1)
-    ir = info_requests(:fancy_dog_request)
-    ir.prominence = 'hidden'
-    ir.save!
-    expect(PurgeRequest.all.count).to eq(1)
-  end
-
-end
-
 describe RequestController, "when showing one request" do
   render_views
 
@@ -195,6 +102,34 @@ describe RequestController, "when showing one request" do
             get :show, url_title: info_request.url_title
             expect(response).to be_success
           end
+        end
+      end
+    end
+
+    context 'when a cancelled pro views their embargoed request' do
+
+      before do
+        pro_user.remove_role(:pro)
+      end
+
+      let(:info_request) do
+        FactoryGirl.create(:embargoed_request, user: pro_user)
+      end
+
+      it 'redirects to the pro version of the page' do
+        with_feature_enabled(:alaveteli_pro) do
+          session[:user_id] = pro_user.id
+          get :show, url_title: info_request.url_title
+          expect(response).to redirect_to show_alaveteli_pro_request_path(
+            url_title: info_request.url_title)
+        end
+      end
+
+      it 'uses the pro livery' do
+        with_feature_enabled(:alaveteli_pro) do
+          session[:user_id] = pro_user.id
+          get :show, url_title: info_request.url_title, pro: '1'
+          expect(assigns[:in_pro_area]).to be true
         end
       end
     end
@@ -273,9 +208,8 @@ describe RequestController, "when showing one request" do
     it 'should require login' do
       session[:user_id] = nil
       get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', :update_status => 1
-      expect(response).to redirect_to(:controller => 'user',
-                                      :action => 'signin',
-                                      :token => get_last_post_redirect.token)
+      expect(response).
+        to redirect_to(signin_path(:token => get_last_post_redirect.token))
     end
 
     it 'should work if logged in as the requester' do
@@ -1177,9 +1111,8 @@ describe RequestController, "when creating a new request" do
                :submitted_new_request => 1, :preview => 0
                }
     post :new, params
-    expect(response).to redirect_to(:controller => 'user',
-                                    :action => 'signin',
-                                    :token => get_last_post_redirect.token)
+    expect(response).
+      to redirect_to(signin_path(:token => get_last_post_redirect.token))
     # post_redirect.post_params.should == params # TODO: get this working. there's a : vs '' problem amongst others
   end
 
@@ -1739,9 +1672,8 @@ describe RequestController do
 
       it "should require login" do
         post_status('rejected', info_request)
-        expect(response).to redirect_to(:controller => 'user',
-                                        :action => 'signin',
-                                        :token => get_last_post_redirect.token)
+        expect(response).
+          to redirect_to(signin_path(:token => get_last_post_redirect.token))
       end
 
       it "should not classify the request if logged in as the wrong user" do
@@ -2688,9 +2620,8 @@ describe RequestController, "#new_batch" do
 
       it 'should return a redirect to the login page' do
         get :new_batch
-        expect(response).to redirect_to(:controller => 'user',
-                                        :action => 'signin',
-                                        :token => get_last_post_redirect.token)
+        expect(response).
+          to redirect_to(signin_path(:token => get_last_post_redirect.token))
       end
     end
 
@@ -2822,9 +2753,8 @@ describe RequestController, "#select_authorities" do
 
       it 'should return a redirect to the login page' do
         get :select_authorities
-        expect(response).to redirect_to(:controller => 'user',
-                                        :action => 'signin',
-                                        :token => get_last_post_redirect.token)
+        expect(response).
+          to redirect_to(signin_path(:token => get_last_post_redirect.token))
       end
     end
 

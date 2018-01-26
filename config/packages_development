@@ -6,4 +6,4 @@
 #
 # To install, paste this list after `sudo apt-get install` and run.
 
-postgresql pdftk elinks php5-cli tnef python-yaml
+postgresql pdftk elinks tnef python-yaml

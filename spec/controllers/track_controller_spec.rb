@@ -374,9 +374,8 @@ describe TrackController do
       it 'redirects to the signin page' do
         post :delete_all_type, :user => track_thing.tracking_user.id,
                                :track_type => 'search_query'
-        expect(response).to redirect_to(:controller => 'user',
-                                        :action => 'signin',
-                                        :token => get_last_post_redirect.token)
+        expect(response).
+          to redirect_to(signin_path(:token => get_last_post_redirect.token))
       end
 
     end

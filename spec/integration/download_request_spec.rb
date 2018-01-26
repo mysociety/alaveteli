@@ -19,7 +19,7 @@ describe 'when making a zipfile available' do
         f.binmode
         f.write(page.body)
         f.flush
-        Zip::ZipFile::open(f.path) do |zip|
+        Zip::File.open(f.path) do |zip|
           yield zip
         end
       end

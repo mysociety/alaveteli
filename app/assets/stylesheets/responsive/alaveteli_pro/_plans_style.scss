@@ -1,0 +1,158 @@
+.pricing__tier {
+  border-radius: 5px;
+}
+
+.pricing__tier__heading {
+  background-image: linear-gradient(46deg, #4C888F 0%, #4C888F 9%, #365B74 63%);
+  color: #fff;
+  padding: 1.5em;
+  text-align: center;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    padding-top: 4em;
+    padding-bottom: 4em;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 5px;
+  }
+  h2 {
+    color: #fff;
+    margin-bottom: 0.25em;
+  }
+}
+
+.pricing__tier__subhead {
+  color: #A3C1C5;
+  font-size: 0.875em;
+  line-height: 1.5em;
+}
+
+.pricing__tier__subhead--intro_pricing {
+  margin-bottom: 0;
+  line-height: 0;
+}
+
+.price-label {
+  font-size: 1.25em;
+}
+
+.price-label__amount {
+  font-size: 4.8em;
+  font-weight: bold;
+  line-height: 1em;
+  display: block;
+}
+
+.pricing__tier__content {
+  background-color: #fff;
+  padding: 1.5em;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    padding-top: 3em;
+    padding-bottom: 4em;
+    padding-left: 4em;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 0;
+  }
+  h3 {
+     font-size: 1.125em;
+     margin-top: 0;
+  }
+}
+
+.pricing__tier__features {
+  list-style: none outside none;
+  margin-bottom: 1.5em;
+  li {
+    background-image: image-url('alaveteli-pro/feature-tick.png');
+    @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+      background-image: image-url('alaveteli-pro/feature-tick@2.png');
+    }
+    background-position: 0 5px;
+    background-repeat:  no-repeat;
+    background-size: 14px 13px;
+    padding-left: 26px;
+  }
+}
+
+.pricing__feature-message {
+  text-align: center;
+  h2 {
+    font-weight: bold;
+    font-size: 1.5em;
+    margin-top: 0;
+  }
+  h3 {
+    font-size: 1em;
+  }
+  p {
+    color: #83827F;
+  }
+}
+
+.button-pop {
+  background-image: none !important;;
+  background-color: #FDB145 !important;
+  color: #333 !important;
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: darken(#FDB145, 10%) !important;
+    color: #333 !important;
+  }
+}
+
+.pricing__testimonials {
+  border-top: 1px solid #E6E4DF;
+  padding-top: 3em;
+}
+
+.pricing__testimonials__title {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 1.8em;
+}
+
+.testimonials__list {
+  list-style: none outside none;
+  padding: 0;
+}
+
+.testimonial {
+
+}
+
+.testimonial__content {
+  margin: 0;
+}
+
+.testimonial__source {
+  color: #787774;
+}
+
+.pricing__faqs {
+  background-color: #fff;
+  padding: 1.35em;
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    padding: 2.777777778em;
+  }
+}
+
+.pricing__faqs__title.pricing__faqs__title {
+  // css specificity hack, instead of a nasty !important or generic element
+  // https://csswizardry.com/2014/07/hacks-for-dealing-with-specificity/
+  text-align: center;
+  font-weight: bold;
+  font-size: 2em;
+  margin-bottom: 1.5em;
+}
+
+.faqs__term {
+  font-weight: 600;
+  font-size: 1em;
+}
+
+.faqs__def {
+  color: #787774;
+}

@@ -20,7 +20,7 @@
 # Gareth Rees <gareth@mysociety.org>, 2016
 # gorm <gormer@gmail.com>, 2015,2017
 # gorm eriksen <team@mimesbronn.no>, 2015
-# gorm <gormer@gmail.com>, 2013,2015
+# gorm <gormer@gmail.com>, 2013,2015,2017
 # Hans-Petter Fjeld <atluxity@1kb.no>, 2014
 # Kjetil Torgrim Homme <kjetilho@ifi.uio.no>, 2015
 # Knut Arne Bjørndal <inactive+bobkare@transifex.com>, 2015
@@ -34,9 +34,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-27 18:47+0100\n"
-"PO-Revision-Date: 2017-12-30 15:13+0000\n"
-"Last-Translator: pere <pere-transifex@hungry.com>\n"
+"POT-Creation-Date: 2018-01-18 01:28-0800\n"
+"PO-Revision-Date: 2018-01-18 09:31+0000\n"
+"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/mysociety/alaveteli/language/nb/)\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
@@ -589,8 +589,8 @@ msgstr "Se på <a href='{{url}}'>andre henvendelser</a> for eksempler på hvorda
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
 msgstr "Se på <a href='{{url}}'>andre henvendelser</a> til '{{public_body_name}}' for eksempler på hvordan du kan ordlegge deg."
 
-msgid "Browse all authorities..."
-msgstr "Vis alle myndighetene..."
+msgid "Browse all authorities &rarr;"
+msgstr ""
 
 msgid "Browse all requests &rarr;"
 msgstr "Vis henvendelser &rarr;"
@@ -1199,6 +1199,9 @@ msgstr "Fra:"
 
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "SKRIV GRUNNENE FOR HVORFOR DU KLAGER HER"
+
+msgid "Got a {{site_name}} account?"
+msgstr ""
 
 msgid "Got an account?"
 msgstr "Har du en konto?"
@@ -2163,6 +2166,9 @@ msgstr "Hold det kortere enn 500 tegn"
 msgid "Please keep the summary short, like in the subject of an email. You can use a phrase, rather than a full sentence."
 msgstr "Vennligst hold oppsummeringen kort, som temafeltet i en e-post. Du kan bruke en noen få ord i stedet for en hel setning."
 
+msgid "Please note that in some cases publication of requests and responses will be delayed."
+msgstr ""
+
 msgid "Please only request information that comes under those categories, <strong>do not waste your time</strong> or the time of the public authority by requesting unrelated information."
 msgstr "Vær så snill og kun spør om informasjon som hører under disse kategoriene, <strong>kast ikke\\nbort tiden din</strong> eller tiden til den offentlige myndigheten ved å spørre om urelatert informasjon."
 
@@ -2449,15 +2455,6 @@ msgstr "PublicBody|Version"
 
 msgid "Publication scheme"
 msgstr "Arkivplan"
-
-msgid "Purge request"
-msgstr "Slett henvendelse"
-
-msgid "PurgeRequest|Model"
-msgstr "PurgeRequest|Model"
-
-msgid "PurgeRequest|Url"
-msgstr "PurgeRequest|Url"
 
 msgid "Query can't be blank"
 msgstr "Spørringen kan ikke være tom"
@@ -3007,6 +3004,9 @@ msgstr ""
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr "Stolpene i diagramet viser 95% konfidensintervall for den hypotetiske underliggende størrelsen (med andre ord, den du får hvis du lager et uendelig antall henvendelser via dette nettstedet til den myndigheten).  Med andre ord, populasjonen som samples er alle de nåværende og fremtidige henvendelsene til myndigheten gjennom dette nettstedet, i stedet for eksempel alle henvendelser som har blitt gjort til det offentlige myndigheten uavhengig av måte."
 
+msgid "The following request has been made public on {{site_name}}."
+msgstr ""
+
 msgid "The following request will be made public on {{site_name}} in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer."
 msgstr ""
 
@@ -3288,13 +3288,13 @@ msgstr "Denne henvendelsen er ferdigbehandlet:"
 msgid "This person has made no Freedom of Information requests using this site."
 msgstr "Denne personen har ikke opprettet noen innsynshenvendelse på dette nettstedet."
 
+msgid "This person's Freedom of Information request"
+msgid_plural "This person's Freedom of Information requests (approximately {{count}})"
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "This person's annotations"
 msgstr "Denne personens merknader"
-
-msgid "This person's {{count}} Freedom of Information request"
-msgid_plural "This person's {{count}} Freedom of Information requests"
-msgstr[0] "Denne personens {{count}} innsynsbegjæring"
-msgstr[1] "Denne personens {{count}} innsynshenvendelser"
 
 msgid "This person's {{count}} annotation"
 msgid_plural "This person's {{count}} annotations"
@@ -3321,6 +3321,9 @@ msgstr "Denne henvendelsen er blitt <strong>rapportert</strong> da den trenger o
 
 msgid "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
 msgstr "Denne henvendelsen har blitt <strong>trukket tilbake</strong> av personen som laget den.\\n Det kan være forklaring i korrespondansen under."
+
+msgid "This request has been made public on {{site_name}}."
+msgstr ""
 
 msgid "This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Denne henvendelsen har blitt markert for gjennomgang av nettstedet administrator, som ikke har skjult den akkurat nå.  Hvis du tror den bør bli skjult, <a href=\"{{url}}\">ta kontakt</a>."
@@ -4138,8 +4141,16 @@ msgstr "Du har nå slettet profilbildet ditt"
 msgid "Your <strong>name will appear publicly</strong> (<a href=\"{{why_url}}\">why?</a>) on this website and in search engines. <a href=\"{{help_url}}\">Thinking of using a pseudonym?</a>"
 msgstr "<strong>Navnet ditt vil vises offentlig</strong>\\n        (<a href=\"{{why_url}}\">hvorfor?</a>)\\n        på denne nettsiden og i søkemotorer. Om du\\n vurderer å bruke et pseudonym,\\n er det fint om du <a href=\"{{help_url}}\">leser dette først</a>."
 
+msgid "Your FOI request - {{request_title}} has been made public on {{site_name}}"
+msgstr ""
+
 msgid "Your FOI request - {{request_title}} will be made public on {{site_name}} this week"
 msgstr ""
+
+msgid "Your Freedom of Information request"
+msgid_plural "Your Freedom of Information requests (approximately {{count}})"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Your annotations"
 msgstr "Dine merknader"
@@ -4249,11 +4260,6 @@ msgstr "Dine valgte myndigheter"
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr "Dine tanker rundt hva {{site_name}} <strong>administratorene</strong> burde gjøre med henvendelsen."
 
-msgid "Your {{count}} Freedom of Information request"
-msgid_plural "Your {{count}} Freedom of Information requests"
-msgstr[0] "Din {{count}} innsynshenvendelse"
-msgstr[1] "Dine {{count}} innsynshenvendelser"
-
 msgid "Your {{count}} annotation"
 msgid_plural "Your {{count}} annotations"
 msgstr[0] "Din {{count}} merknad"
@@ -4263,6 +4269,11 @@ msgid "Your {{count}} batch request"
 msgid_plural "Your {{count}} batch requests"
 msgstr[0] "Din {{count}} bunthenvendelse"
 msgstr[1] "Dine {{count}} bunthenvendelser"
+
+msgid "Your {{count}} private Freedom of Information request"
+msgid_plural "Your {{count}} private Freedom of Information requests"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Your {{law_used_full}} request has been sent"
 msgstr "Din {{law_used_full}} henvendelse er sendt"
@@ -4575,6 +4586,11 @@ msgid_plural "{{count}} requests had new responses:"
 msgstr[0] ""
 msgstr[1] ""
 
+msgid "{{count}} request has been made public on {{site_name}}."
+msgid_plural "{{count}} requests have been made public on {{site_name}}."
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "{{count}} request has not had a prompt response:"
 msgid_plural "{{count}} requests have not had prompt responses:"
 msgstr[0] ""
@@ -4634,6 +4650,9 @@ msgid "{{number_of_requests}} request left to categorise / {{total_number_of_req
 msgid_plural "{{number_of_requests}} requests left to categorise / {{total_number_of_requests}} total"
 msgstr[0] "{{number_of_requests}} henvendelse igjen å kategorisere / {{total_number_of_requests}} total"
 msgstr[1] "{{number_of_requests}} henvendelser igjen å kategorisere / {{total_number_of_requests}} total"
+
+msgid "{{pro_site_name}} Terms"
+msgstr ""
 
 msgid "{{public_body_link_absolute}}"
 msgstr "{{public_body_link_absolute}}"

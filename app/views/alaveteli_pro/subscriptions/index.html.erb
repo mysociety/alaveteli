@@ -1,0 +1,48 @@
+<div class="inner-canvas settings">
+
+  <div class="inner-canvas-header">
+    <div class="row">
+      <h1><%= _("Settings") %></h1>
+    </div>
+  </div>
+
+  <div class="inner-canvas-body">
+    <div class="row">
+      <div class="settings-left-column">
+      <ul class="vertical-navigation-menu">
+        <li class="vertical-navigation-menu__item vertical-navigation-menu__item--current-item">
+          <%= link_to _("Account"), subscriptions_path, :class => "vertical-navigation-menu__link" %>
+        </li>
+        <li class="vertical-navigation-menu__item">
+          <%= link_to _("Profile"), show_user_path(:url_name => @user.url_name), :class => "vertical-navigation-menu__link" %>
+        </li>
+        <li class="vertical-navigation-menu__item">
+          <%= link_to _("Wall"), show_user_wall_path(:url_name => @user.url_name), :class => "vertical-navigation-menu__link" %>
+        </li>
+      </ul>
+      </div>
+      <div class="settings-right-column">
+        <h2><%= _('Account') %></h2>
+        <div class="settings-section">
+          <h3><%= _('Your current subscription') %></h3>
+
+          <%= render partial: 'subscription',
+                     locals: { subscription: @subscriptions.first } %>
+        </div>
+
+        <div class="settings-section">
+          <h3><%= _('Your payment details') %></h3>
+          <% if @customer.default_source %>
+            <%= render partial: 'card', locals: { card: @card } %>
+          <% else %>
+            <%= render partial: 'add_card' %>
+          <% end %>
+        </div>
+
+      </div>  <!-- .settings-right-column -->
+
+    </div>  <!-- .row -->
+
+  </div>  <!-- .inner-canvas-body -->
+
+  </div>  <!-- .inner-canvas -->

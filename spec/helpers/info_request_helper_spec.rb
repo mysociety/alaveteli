@@ -35,7 +35,7 @@ describe InfoRequestHelper do
     context 'waiting_response' do
 
       it 'returns a description' do
-        time_travel_to(Date.parse('2014-12-31'))
+        time_travel_to(Time.zone.parse('2014-12-31'))
 
         body = info_request.public_body
         body_link = %Q(<a href="/body/#{ body.url_name }">#{ body.name }</a>)
@@ -63,7 +63,7 @@ describe InfoRequestHelper do
     context 'waiting_response_overdue' do
 
       it 'returns a description' do
-        time_travel_to(Date.parse('2014-12-31'))
+        time_travel_to(Time.zone.parse('2014-12-31'))
 
         body = info_request.public_body
         body_link = %Q(<a href="/body/#{ body.url_name }">#{ body.name }</a>)
@@ -92,7 +92,7 @@ describe InfoRequestHelper do
     context 'waiting_response_very_overdue' do
 
       it 'returns a description for an internal request' do
-        time_travel_to(Date.parse('2014-12-31'))
+        time_travel_to(Time.zone.parse('2014-12-31'))
 
         body = info_request.public_body
         body_link = %Q(<a href="/body/#{ body.url_name }">#{ body.name }</a>)
@@ -119,7 +119,7 @@ describe InfoRequestHelper do
       end
 
       it 'does not add a followup link for external requests' do
-        time_travel_to(Date.parse('2014-12-31'))
+        time_travel_to(Time.zone.parse('2014-12-31'))
 
         body = info_request.public_body
         body_link = %Q(<a href="/body/#{ body.url_name }">#{ body.name }</a>)

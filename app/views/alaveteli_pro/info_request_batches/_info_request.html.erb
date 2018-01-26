@@ -10,4 +10,10 @@
     </span>
     <%= InfoRequest::State.short_description(info_request.calculate_status) %>
   </p>
+  <p class="batch-request__requests__request__responses">
+    <%= n_('{{count}} reply',
+           '{{count}} replies',
+           info_request.incoming_messages.count,
+           :count => info_request.incoming_messages.count) %>
+  </p>
 </div>

@@ -70,23 +70,6 @@ ul, img {
    page-break-inside: avoid;
 }
 
-// We want to see where links are pointing, but not everywhere
-// so expand links in some places
-
-%expand-links {
-  a {
-    font-weight: 700;
-    text-decoration: none;
-    color: black;
-  }
-  a[href^=http]:after {
-    content:" (" attr(href) ")";
-    font-weight: normal;
-    color: lighten(black, 50%);
-    font-size: 0.875em;
-  }
-}
-
 // We want the site title to be on the printed design,
 // so we won't just hide all the banner contents
 #banner {
@@ -130,7 +113,7 @@ ul, img {
 .controller_help {
     position: static;
     margin-left: 0;
-    @extend %expand-links;
+    @include expand-links();
     h1 a,
     dt a {
         display: none; // hide the hash links for linking to a title
@@ -169,7 +152,7 @@ p.subtitle {
     border-top-width: 5px !important;
     color: black !important;
     margin-bottom: 2em !important;
-    @extend %expand-links;
+    @include expand-links();
 }
 
 .incoming.correspondence {

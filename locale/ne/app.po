@@ -46,9 +46,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-27 18:47+0100\n"
-"PO-Revision-Date: 2017-09-27 17:56+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2018-01-18 01:28-0800\n"
+"PO-Revision-Date: 2018-01-18 09:31+0000\n"
+"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Nepali (http://www.transifex.com/mysociety/alaveteli/language/ne/)\n"
 "Language: ne\n"
 "MIME-Version: 1.0\n"
@@ -601,8 +601,8 @@ msgstr "शब्द चयन कसरी गर्ने भन्ने ज�
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
 msgstr "'{{public_body_name}}' को लागि आफ्नो अनुरोध कस्तो बनाउने भन्ने जान्न  <a href='{{url}}'>अन्य अनुरोधहरू</a> हेर्नुहोस्।"
 
-msgid "Browse all authorities..."
-msgstr "सबै निकायहरू हेर्नुहोस्..."
+msgid "Browse all authorities &rarr;"
+msgstr ""
 
 msgid "Browse all requests &rarr;"
 msgstr "सबै अनुरोधहरू हेर्नुहोस् &rarr;"
@@ -1213,6 +1213,9 @@ msgstr "बाट:"
 
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "तपाईँको सिकायतलाई यहाँ व्याख्या गर्नु होस्"
+
+msgid "Got a {{site_name}} account?"
+msgstr ""
 
 msgid "Got an account?"
 msgstr "तपाईंको खाता छ?"
@@ -2177,6 +2180,9 @@ msgstr "कृपया 500 अक्षर भन्दा छोटो रा�
 msgid "Please keep the summary short, like in the subject of an email. You can use a phrase, rather than a full sentence."
 msgstr "कृपया सारांश छोटो, इमेलको विषयमा जस्तै राख्नुहोस्। तपाईं बरु पूर्ण वाक्य भन्दा, एक वाक्यांश प्रयोग गर्न सक्नुहुन्छ।"
 
+msgid "Please note that in some cases publication of requests and responses will be delayed."
+msgstr ""
+
 msgid "Please only request information that comes under those categories, <strong>do not waste your time</strong> or the time of the public authority by requesting unrelated information."
 msgstr "कृपया ती विभाग अन्तर्गत आउने जानकारीहरू मात्र अनुरोध गर्नुहोला <strong> तपाईंको समय बर्वाद \\n </strong> वा सार्वजनिक अख्तियारको समय असम्बन्धित जानकारी अनुरोध गरेर  बर्बाद नगर्नुहोस ।"
 
@@ -2463,15 +2469,6 @@ msgstr "PublicBody|Version"
 
 msgid "Publication scheme"
 msgstr "प्रकाशन योजना"
-
-msgid "Purge request"
-msgstr "अनुरोध सफा गर्नुहोस"
-
-msgid "PurgeRequest|Model"
-msgstr "PurgeRequest|Model"
-
-msgid "PurgeRequest|Url"
-msgstr "PurgeRequest|Url"
 
 msgid "Query can't be blank"
 msgstr "क्वेरी खाली हुन नसक्ने"
@@ -3021,6 +3018,9 @@ msgstr ""
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr "देखाइएको त्रुटी सन्देश 95% कन्फिडेन्स अन्तरालमा छन् कुनै पनि भित्री भागको परिकल्पना अनुसार (जस्तै. तपाईँले कुनै पनि साइटको माध्यमबाट कयौँपटक अनुरोध गरेर पाउन सकिन्छ )। अर्को शब्दमा भन्नुपर्दा कुनै पनि अनुरोध अन्तर्गत हालका र भविष्यका कुनै पनि अनुरोधहरू र यस साइटबाट निकायहरूमा गरिएका अनुरोधहरू जुन पनि कुनै तरिकाबाट यस सर्वेक्षण अन्तर्गत रहनेछन् ।   "
 
+msgid "The following request has been made public on {{site_name}}."
+msgstr ""
+
 msgid "The following request will be made public on {{site_name}} in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer."
 msgstr ""
 
@@ -3302,13 +3302,13 @@ msgstr "यो विशेष अनुरोध समाप्त भएक�
 msgid "This person has made no Freedom of Information requests using this site."
 msgstr "यो व्यक्तिले सूचना स्वोतान्त्रताको कुनै पनि अनुरोध गरेको छैन |"
 
+msgid "This person's Freedom of Information request"
+msgid_plural "This person's Freedom of Information requests (approximately {{count}})"
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "This person's annotations"
 msgstr "यो व्यक्तिको टिप्पणी"
-
-msgid "This person's {{count}} Freedom of Information request"
-msgid_plural "This person's {{count}} Freedom of Information requests"
-msgstr[0] "यो व्यक्तिको {{count}} सूचना अनुरोधको स्वोतन्त्रता"
-msgstr[1] "यो व्यक्तिको {{count}} सूचना अनुरोधको स्वोतान्त्रता "
 
 msgid "This person's {{count}} annotation"
 msgid_plural "This person's {{count}} annotations"
@@ -3335,6 +3335,9 @@ msgstr "प्रशासक को ध्यान चाहिएको स�
 
 msgid "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
 msgstr "तपाइको अनुरोध बनाउने कर्ताले <strong> फिर्ता लिएको</strong> छ |\\n यसको व्याख्याको पत्राचार तल गरिएको छ | "
+
+msgid "This request has been made public on {{site_name}}."
+msgstr ""
 
 msgid "This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href=\"{{url}}\">contact us</a>."
 msgstr "यो अनुरोध साइट प्रशासकद्वारा समीक्षाको लागि चिन्ह लगाइएको छ , जुन  यो समयमा लुकेको छैन ।यदी  तपाईंलाई यो  लुकेको हुनुपर्छ भन्ने विश्वास लाग्छ भने, कृपया यसमा<a href=\"{{url}}\"> हामीलाई सम्पर्क गर्नुहोस् । </a>"
@@ -4147,8 +4150,16 @@ msgstr "तपाइले आफ्नो प्रोफाइल पोटो
 msgid "Your <strong>name will appear publicly</strong> (<a href=\"{{why_url}}\">why?</a>) on this website and in search engines. <a href=\"{{help_url}}\">Thinking of using a pseudonym?</a>"
 msgstr "तपाइको <strong>नाम सार्वजनिक हुनेछ </strong>\\n (<a href=\"{{why_url}}\">किन?</a>)\\n यो वेबसाइट र अन्य सर्च इन्जिनमा  \\n <a href=\"{{help_url}}\">पर्यायवाची सब्द प्रयोग गर्ने सोच्दै हुनुहुन्छ?</a>"
 
+msgid "Your FOI request - {{request_title}} has been made public on {{site_name}}"
+msgstr ""
+
 msgid "Your FOI request - {{request_title}} will be made public on {{site_name}} this week"
 msgstr ""
+
+msgid "Your Freedom of Information request"
+msgid_plural "Your Freedom of Information requests (approximately {{count}})"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Your annotations"
 msgstr "तपाइको टिप्पणीहरु"
@@ -4258,11 +4269,6 @@ msgstr "तपाइले छान्नुभएको  आधिकारि
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr " {{site_name}}को <strong>प्रशासकहरूले</strong> अनुरोध प्रति गर्न सक्ने कार्य बारेमा तपाइको विचारहरु।"
 
-msgid "Your {{count}} Freedom of Information request"
-msgid_plural "Your {{count}} Freedom of Information requests"
-msgstr[0] "तपाइको {{count}} सुचनाको अधिकार अन्तर्गतको अनुरोध"
-msgstr[1] "तपाइको {{count}} सुचनाको अधिकार अन्तर्गतको अनुरोध"
-
 msgid "Your {{count}} annotation"
 msgid_plural "Your {{count}} annotations"
 msgstr[0] "तपाइको {{count}} एन्नोटेसनहरु"
@@ -4272,6 +4278,11 @@ msgid "Your {{count}} batch request"
 msgid_plural "Your {{count}} batch requests"
 msgstr[0] "तपाइको {{count}} ब्याच अनुरोधहरु"
 msgstr[1] "तपाइको {{count}} ब्याच अनुरोधहरु"
+
+msgid "Your {{count}} private Freedom of Information request"
+msgid_plural "Your {{count}} private Freedom of Information requests"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Your {{law_used_full}} request has been sent"
 msgstr "तपाइको {{law_used_full}} अनुरोध पठाइएको छ"
@@ -4584,6 +4595,11 @@ msgid_plural "{{count}} requests had new responses:"
 msgstr[0] ""
 msgstr[1] ""
 
+msgid "{{count}} request has been made public on {{site_name}}."
+msgid_plural "{{count}} requests have been made public on {{site_name}}."
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "{{count}} request has not had a prompt response:"
 msgid_plural "{{count}} requests have not had prompt responses:"
 msgstr[0] ""
@@ -4643,6 +4659,9 @@ msgid "{{number_of_requests}} request left to categorise / {{total_number_of_req
 msgid_plural "{{number_of_requests}} requests left to categorise / {{total_number_of_requests}} total"
 msgstr[0] "{{number_of_requests}} अनुरोधहरू वर्गिकरण गर्न  बाँकी / {{total_number_of_requests}}कुल अनुरोधहरू"
 msgstr[1] "{{number_of_requests}} अनुरोधहरू वर्गिकरण गर्न बाँकी / {{total_number_of_requests}}कुल अनुरोधहरू"
+
+msgid "{{pro_site_name}} Terms"
+msgstr ""
 
 msgid "{{public_body_link_absolute}}"
 msgstr "{{public_body_link_absolute}}"

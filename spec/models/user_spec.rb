@@ -4,25 +4,25 @@
 # Table name: users
 #
 #  id                                :integer          not null, primary key
-#  email                             :string(255)      not null
-#  name                              :string(255)      not null
-#  hashed_password                   :string(255)      not null
-#  salt                              :string(255)      not null
+#  email                             :string           not null
+#  name                              :string           not null
+#  hashed_password                   :string           not null
+#  salt                              :string           not null
 #  created_at                        :datetime         not null
 #  updated_at                        :datetime         not null
 #  email_confirmed                   :boolean          default(FALSE), not null
 #  url_name                          :text             not null
-#  last_daily_track_email            :datetime         default(2000-01-01 00:00:00 UTC)
+#  last_daily_track_email            :datetime         default(Sat, 01 Jan 2000 00:00:00 GMT +00:00)
 #  ban_text                          :text             default(""), not null
 #  about_me                          :text             default(""), not null
-#  locale                            :string(255)
+#  locale                            :string
 #  email_bounced_at                  :datetime
 #  email_bounce_message              :text             default(""), not null
 #  no_limit                          :boolean          default(FALSE), not null
 #  receive_email_alerts              :boolean          default(TRUE), not null
 #  can_make_batch_requests           :boolean          default(FALSE), not null
 #  otp_enabled                       :boolean          default(FALSE), not null
-#  otp_secret_key                    :string(255)
+#  otp_secret_key                    :string
 #  otp_counter                       :integer          default(1)
 #  confirmed_not_spam                :boolean          default(FALSE), not null
 #  comments_count                    :integer          default(0), not null
@@ -36,6 +36,10 @@
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+
+describe User do
+  it_behaves_like 'PhaseCounts'
+end
 
 describe User, "making up the URL name" do
   before do
@@ -390,12 +394,19 @@ end
 describe User, "when emails have bounced" do
 
   it "should record bounces" do
-    User.record_bounce_for_email("bob@localhost", "The reason we think the email bounced (e.g. a bounce message)")
+    User.record_bounce_for_email("bob@localhost", "A bounce message")
 
     user = User.find_user_by_email("bob@localhost")
     expect(user.email_bounced_at).not_to be_nil
-    expect(user.email_bounce_message).to eq("The reason we think the email bounced (e.g. a bounce message)")
+    expect(user.email_bounce_message).to eq("A bounce message")
   end
+
+  it 'records valid UTF-8 for a bounce message with invalid UTF-8' do
+    User.record_bounce_for_email("bob@localhost", "Invalid utf-8 \x96")
+    user = User.find_user_by_email("bob@localhost")
+    expect(user.email_bounce_message).to eq("Invalid utf-8 –")
+  end
+
 end
 
 describe User, "when calculating if a user has exceeded the request limit" do
@@ -1306,6 +1317,47 @@ describe User do
     it "returns the user's id, prefixed with the class name" do
       expect(user.flipper_id).to eq("User;#{user.id}")
     end
+  end
+
+  describe 'role callbacks' do
+
+    context 'with pro pricing enabled', feature: :pro_pricing do
+      it 'creates pro account when pro role added' do
+        user = FactoryGirl.build(:user)
+        expect { user.add_role :pro }.to change(user, :pro_account).
+          from(nil).to(ProAccount)
+      end
+    end
+
+    context 'without pro pricing enabled' do
+      it 'does not create pro account when pro role is added' do
+        user = FactoryGirl.build(:user)
+        expect { user.add_role :pro }.to_not change(user, :pro_account).
+          from(nil)
+      end
+    end
+
+  end
+
+  describe 'update callbacks' do
+    let(:user) { FactoryGirl.build(:user) }
+
+    context 'changing email address of a pro user' do
+      let(:pro_account) { double(:pro_account) }
+
+      before do
+        allow(user).to receive(:pro_account).and_return(pro_account)
+        allow(user).to receive(:is_pro?).and_return(true)
+        allow(user).to receive(:email_changed?).and_return(true)
+      end
+
+      it 'calls update_email_address on Pro Account' do
+        expect(pro_account).to receive(:update_email_address)
+        user.run_callbacks :update
+      end
+
+    end
+
   end
 
 end

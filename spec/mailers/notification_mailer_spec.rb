@@ -7,16 +7,19 @@ describe NotificationMailer do
 
     # Bodies
     let!(:public_body_1) do
-      FactoryGirl.create(:public_body, name: "Ministry of fact keeping")
+      FactoryGirl.create(:public_body, name: "Ministry of fact keeping",
+                                       short_name: "MOF")
     end
     let!(:public_body_2) do
-      FactoryGirl.create(:public_body, name: "Minor infractions quango")
+      FactoryGirl.create(:public_body, name: "Minor infractions quango",
+                                       short_name: "MIQ")
     end
 
     # Requests
     let!(:new_response_request_1) do
       FactoryGirl.create(
         :info_request,
+        id: 1001,
         title: "The cost of paperclips",
         public_body: public_body_1
       )
@@ -24,13 +27,23 @@ describe NotificationMailer do
     let(:embargo_expiring_request_1) do
       FactoryGirl.create(
         :embargo_expiring_request,
+        id: 1002,
         title: "Missing staplers",
+        public_body: public_body_1
+      )
+    end
+    let(:embargo_expired_request_1) do
+      FactoryGirl.create(
+        :embargo_expired_request,
+        id: 1003,
+        title: "Misdelivered letters",
         public_body: public_body_1
       )
     end
     let(:overdue_request_1) do
       FactoryGirl.create(
         :overdue_request,
+        id: 1004,
         title: "Late expenses claims",
         public_body: public_body_1
       )
@@ -38,6 +51,7 @@ describe NotificationMailer do
     let(:very_overdue_request_1) do
       FactoryGirl.create(
         :very_overdue_request,
+        id: 1005,
         title: "Extremely late expenses claims",
         public_body: public_body_1
       )
@@ -45,6 +59,7 @@ describe NotificationMailer do
     let!(:new_response_and_embargo_expiring_request) do
       FactoryGirl.create(
         :info_request,
+        id: 1006,
         title: "Thefts of stationary",
         public_body: public_body_2
       )
@@ -54,6 +69,7 @@ describe NotificationMailer do
     let!(:new_responses_batch_request) do
       batch = FactoryGirl.create(
         :info_request_batch,
+        id: 2001,
         title: "Zero hours employees",
         user: user,
         public_bodies: [public_body_1, public_body_2]
@@ -67,6 +83,7 @@ describe NotificationMailer do
     let!(:embargo_expiring_batch_request) do
       batch = FactoryGirl.create(
         :info_request_batch,
+        id: 2002,
         title: "Employees caught stealing stationary",
         user: user,
         public_bodies: [public_body_1, public_body_2]
@@ -77,9 +94,24 @@ describe NotificationMailer do
     let!(:embargo_expiring_batch_requests) do
       embargo_expiring_batch_request.info_requests.order(:created_at)
     end
+    let!(:embargo_expired_batch_request) do
+      batch = FactoryGirl.create(
+        :info_request_batch,
+        id: 2003,
+        title: "Employee of the month awards",
+        user: user,
+        public_bodies: [public_body_1, public_body_2]
+      )
+      batch.create_batch!
+      batch
+    end
+    let!(:embargo_expired_batch_requests) do
+      embargo_expired_batch_request.info_requests.order(:created_at)
+    end
     let!(:overdue_batch_request) do
       batch = FactoryGirl.create(
         :info_request_batch,
+        id: 2004,
         title: "Late FOI requests",
         user: user,
         public_bodies: [public_body_1, public_body_2]
@@ -93,6 +125,7 @@ describe NotificationMailer do
     let!(:very_overdue_batch_request) do
       batch = FactoryGirl.create(
         :info_request_batch,
+        id: 2005,
         title: "Ignored FOI requests",
         user: user,
         public_bodies: [public_body_1, public_body_2]
@@ -101,7 +134,28 @@ describe NotificationMailer do
       batch
     end
     let!(:very_overdue_batch_requests) do
-      overdue_batch_request.info_requests.order(:created_at)
+      very_overdue_batch_request.info_requests.order(:created_at)
+    end
+
+    # HACK: We can't control the IDs of the requests associated with batches, so
+    # create a data structure of mappings here so that we can replace keys in
+    # fixture files with the ID that will end up in the URL.
+    let(:batch_requests_id_mappings) do
+      requests = [new_responses_batch_requests,
+                  embargo_expiring_batch_requests,
+                  embargo_expired_batch_requests,
+                  overdue_batch_requests,
+                  very_overdue_batch_requests].flatten
+
+      data = {}
+
+      requests.each do |request|
+        key =
+          "#{ request.url_title }_#{ request.public_body.url_name }_ID".upcase
+        data[key] = request.id.to_s
+      end
+
+      data
     end
 
     # Incoming messages for new_response events
@@ -167,6 +221,12 @@ describe NotificationMailer do
       FactoryGirl.create(:daily_notification, info_request_event: event,
                                               user: user)
     end
+    let!(:notification_7) do
+      event = FactoryGirl.create(:expire_embargo_event,
+                                 info_request: embargo_expired_request_1)
+      FactoryGirl.create(:daily_notification, info_request_event: event,
+                                              user: user)
+    end
     let!(:new_response_batch_notifications) do
       notifications = []
 
@@ -204,6 +264,30 @@ describe NotificationMailer do
       event_2 = FactoryGirl.create(
         :embargo_expiring_event,
         info_request: embargo_expiring_batch_requests.second)
+      notifications << FactoryGirl.create(
+        :daily_notification,
+        info_request_event: event_2,
+        user: user
+      )
+
+      notifications
+    end
+
+    let!(:embargo_expired_batch_notifications) do
+      notifications = []
+
+      event_1 = FactoryGirl.create(
+        :expire_embargo_event,
+        info_request: embargo_expired_batch_requests.first)
+      notifications << FactoryGirl.create(
+        :daily_notification,
+        info_request_event: event_1,
+        user: user
+      )
+
+      event_2 = FactoryGirl.create(
+        :expire_embargo_event,
+        info_request: embargo_expired_batch_requests.second)
       notifications << FactoryGirl.create(
         :daily_notification,
         info_request_event: event_2,
@@ -261,6 +345,7 @@ describe NotificationMailer do
       notifications = []
       notifications += new_response_batch_notifications
       notifications += embargo_expiring_batch_notifications
+      notifications += embargo_expired_batch_notifications
       notifications += overdue_batch_notifications
       notifications += very_overdue_batch_notifications
     end
@@ -271,13 +356,9 @@ describe NotificationMailer do
                        notification_3,
                        notification_4,
                        notification_5,
-                       notification_6]
+                       notification_6,
+                       notification_7]
       notifications + batch_notifications
-    end
-
-    before do
-      allow(PostRedirect).
-        to receive(:generate_random_token).and_return('TOKEN')
     end
 
     it "send the message to the right user" do
@@ -300,6 +381,11 @@ describe NotificationMailer do
       mail = NotificationMailer.daily_summary(user, all_notifications)
       file_name = file_fixture_name("notification_mailer/daily-summary.txt")
       expected_message = File.open(file_name, 'r:utf-8') { |f| f.read }
+      # HACK: We can't control the request IDs of requests created through a
+      # batch factory, so just gsub keys from the fixture template.
+      batch_requests_id_mappings.each do |key, request_id|
+        expected_message.gsub!(/#{ key }/, request_id)
+      end
       expect(mail.body.encoded).to eq(expected_message)
     end
 
@@ -493,6 +579,82 @@ describe NotificationMailer do
     end
   end
 
+  describe 'embargo_expired_notification' do
+    let(:public_body) do
+      FactoryGirl.create(:public_body, name: 'Test public body')
+    end
+
+    let(:info_request) do
+      FactoryGirl.create(:embargo_expired_request,
+                         public_body: public_body,
+                         title: 'Here is a character that needs quoting …')
+    end
+
+    let(:info_request_event) { info_request.last_embargo_expire_event }
+
+    let(:notification) do
+      FactoryGirl.create(:notification,
+                         info_request_event: info_request_event)
+    end
+
+    context 'when the subject has characters which need quoting' do
+
+      it 'should not error' do
+        NotificationMailer.embargo_expired_notification(notification)
+      end
+
+    end
+
+    context 'when the subject has characters which could be HTML escaped' do
+      before do
+        info_request.title = "Here's a request"
+        info_request.save!
+        allow(AlaveteliConfiguration).
+          to receive(:site_name).and_return('Something & something')
+      end
+
+      it 'should not create HTML entities' do
+        mail = NotificationMailer.embargo_expired_notification(notification)
+        expected = "Your FOI request - Here's a request has been made " \
+                   "public on Something & something"
+        expect(mail.subject).to eq expected
+      end
+    end
+
+    it 'sends the message to the right user' do
+      mail = NotificationMailer.embargo_expired_notification(notification)
+      expect(mail.to).to eq [info_request.user.email]
+    end
+
+    it 'sends the message from the right address' do
+      mail = NotificationMailer.embargo_expired_notification(notification)
+      expect(mail.from).to eq ['postmaster@localhost']
+    end
+
+    it 'sets reply_to headers' do
+      mail = NotificationMailer.embargo_expired_notification(notification)
+      expected_reply_to = "#{AlaveteliConfiguration.contact_name} " \
+                          "<#{AlaveteliConfiguration.contact_email}>"
+      expect(mail.header['Reply-To'].value).to eq expected_reply_to
+      expect(mail.header['Return-Path'].value).
+        to eq 'do-not-reply-to-this-address@localhost'
+    end
+
+    it 'sets auto-generated headers' do
+      mail = NotificationMailer.embargo_expired_notification(notification)
+      expect(mail.header['Auto-Submitted'].value).to eq 'auto-generated'
+      expect(mail.header['X-Auto-Response-Suppress'].value).to eq 'OOF'
+    end
+
+    it 'should send the expected message' do
+      mail = NotificationMailer.embargo_expired_notification(notification)
+      file_name = file_fixture_name('notification_mailer/embargo_expired.txt')
+      expected_message = File.open(file_name, 'r:utf-8') { |f| f.read }
+      expect(mail.body.encoded).to eq(expected_message)
+    end
+
+  end
+
   describe 'overdue_notification' do
     let(:public_body) do
       FactoryGirl.create(:public_body, name: 'Test public body')
@@ -555,12 +717,11 @@ describe NotificationMailer do
     end
 
     it 'should send the expected message' do
-      allow(PostRedirect).
-        to receive(:generate_random_token).and_return('TOKEN')
       mail = NotificationMailer.overdue_notification(notification)
       file_name = file_fixture_name(
         "notification_mailer/overdue.txt")
       expected_message = File.open(file_name, 'r:utf-8') { |f| f.read }
+      expected_message.gsub!(/INFO_REQUEST_ID/, info_request.id.to_s)
       expect(mail.body.encoded).to eq(expected_message)
     end
   end
@@ -628,12 +789,11 @@ describe NotificationMailer do
     end
 
     it 'should send the expected message' do
-      allow(PostRedirect).
-        to receive(:generate_random_token).and_return('TOKEN')
       mail = NotificationMailer.very_overdue_notification(notification)
       file_name = file_fixture_name(
         "notification_mailer/very_overdue.txt")
       expected_message = File.open(file_name, 'r:utf-8') { |f| f.read }
+      expected_message.gsub!(/INFO_REQUEST_ID/, info_request.id.to_s)
       expect(mail.body.encoded).to eq(expected_message)
     end
   end

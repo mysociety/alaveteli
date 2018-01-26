@@ -384,12 +384,55 @@ div.pagination {
   }
 }
 
-.feed_link_action-menu {
-  a {
-    background-image: image-url('rss-grey.png');
-    background-repeat: no-repeat;
-    background-position: right 50%;
+.inner-canvas {
+  background-color: white;
+}
+
+.inner-canvas-header {
+  background-color: #e6e4df;
+}
+
+.inner-canvas-header {
+  h1 {
+    font-size: 2.2em;
+    font-weight: bold;
+    @include respond-min( 50em ){
+      font-size: 3em;
+    }
+  }
+}
+
+.button:visited {
+  //Foundation doesn't define a :visited selector style
+  color: #ffffff;
+}
+
+.button-unstyled {
+  //completely remove all of Foundation's styles
+  background-color: transparent;
+  padding: 0;
+  color: inherit;
+  font-family: inherit;
+  text-align: inherit;
+  cursor: pointer;
+  position: inherit;
+  text-decoration: inherit;
+  margin: inherit;
+  display: inline;
+  transition: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  border-radius: inherit;
+  border: inherit;
+
+  //make it have the appearance of a link
+  color: #1567ae;
+  text-decoration: underline;
+  &:hover,
+  &:active,
+  &:focus {
+    color: #333;
     background-color: transparent;
-    padding-right: 1em !important;
   }
 }

@@ -9,16 +9,16 @@
 #  public_body_id                        :integer          not null
 #  created_at                            :datetime         not null
 #  updated_at                            :datetime         not null
-#  described_state                       :string(255)      not null
+#  described_state                       :string           not null
 #  awaiting_description                  :boolean          default(FALSE), not null
-#  prominence                            :string(255)      default("normal"), not null
+#  prominence                            :string           default("normal"), not null
 #  url_title                             :text             not null
-#  law_used                              :string(255)      default("foi"), not null
-#  allow_new_responses_from              :string(255)      default("anybody"), not null
-#  handle_rejected_responses             :string(255)      default("bounce"), not null
-#  idhash                                :string(255)      not null
-#  external_user_name                    :string(255)
-#  external_url                          :string(255)
+#  law_used                              :string           default("foi"), not null
+#  allow_new_responses_from              :string           default("anybody"), not null
+#  handle_rejected_responses             :string           default("bounce"), not null
+#  idhash                                :string           not null
+#  external_user_name                    :string
+#  external_url                          :string
 #  attention_requested                   :boolean          default(FALSE)
 #  comments_allowed                      :boolean          default(TRUE), not null
 #  info_request_batch_id                 :integer
@@ -124,6 +124,21 @@ FactoryGirl.define do
     factory :embargo_expiring_request do
       after(:create) do |info_request, evaluator|
         create(:expiring_embargo, :info_request => info_request)
+        info_request.reload
+      end
+    end
+
+    factory :re_embargoed_request do
+      after(:create) do |info_request, evaluator|
+        info_request.log_event('expire_embargo', {})
+        create(:embargo, :info_request => info_request)
+        info_request
+      end
+    end
+
+    factory :embargo_expired_request do
+      after(:create) do |info_request, evaluator|
+        info_request.log_event("expire_embargo", info_request: info_request)
         info_request.reload
       end
     end

@@ -1,26 +1,22 @@
 /* Layout across the site */
 .wrapper {
-  @include grid-row();
-  @include ie8{
-    width: $main_menu-mobile_menu_cutoff;
-  }
+  @include wrapper();
 }
 
 .wrapper--wide {
   // used in alaveteli-pro for wide outside gutters of the layout container
   // the rest of the grid remains the same
-  @extend .wrapper;
-  max-width: 72em;
+  @include wrapper($max-width: 72em);
 }
 
 /* Legacy ID-based wrapper */
 #wrapper {
-  @extend .wrapper;
+  @include wrapper();
 }
 
 .alaveteli-pro {
   #wrapper {
-    @extend .wrapper--wide;
+    @include wrapper($max-width: 72em);
   }
   #request_show {
     /* The pro dashboard uses /wrapper--wide but we don't want all pro pages to
@@ -31,21 +27,13 @@
   }
 }
 
-/* A global 12 column element provides padding for all pages */
 .content {
-  @include grid-column(12);
-  @include ie8{
-    padding-left: 0.9375em;
-    padding-right: 0.9375em;
-  }
-  @include lte-ie7 {
-    width: 56.125em;
-  }
+  @include content();
 }
 
 /* Legacy ID-based content */
 #content {
-  @extend .content;
+  @include content();
 }
 
 textarea{
@@ -111,6 +99,14 @@ textarea{
   // When we refactor the Sass to no longer use IDs this can be refactored too
   @include respond-min( $main_menu-mobile_menu_cutoff ){
     float: right;
+  }
+}
+
+.columns_header {
+@include grid-column(12);
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    @include grid-column($columns:12);
+    padding-left: 40px;
   }
 }
 
@@ -299,4 +295,28 @@ textarea{
   .js-hide {
     display: none;
   }
+}
+
+
+.inner-canvas {
+  padding-bottom: 3em;
+}
+
+.inner-canvas-header {
+  margin-top: 2em;
+  padding-left: 0.9375em;
+  padding-right: 0.9375em;
+  h1 {
+    margin-top: 0.4em;
+    margin-bottom: 0.5em;
+    display: block;
+    width: 100%;
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      padding: 0 0.9375rem;
+    }
+  }
+}
+
+.inner-canvas-body {
+  padding-top: 2em;
 }

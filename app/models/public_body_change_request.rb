@@ -4,12 +4,12 @@
 # Table name: public_body_change_requests
 #
 #  id                :integer          not null, primary key
-#  user_email        :string(255)
-#  user_name         :string(255)
+#  user_email        :string
+#  user_name         :string
 #  user_id           :integer
 #  public_body_name  :text
 #  public_body_id    :integer
-#  public_body_email :string(255)
+#  public_body_email :string
 #  source_url        :text
 #  notes             :text
 #  is_open           :boolean          default(TRUE), not null

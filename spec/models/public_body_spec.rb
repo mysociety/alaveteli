@@ -5,12 +5,12 @@
 #
 #  id                                     :integer          not null, primary key
 #  version                                :integer          not null
-#  last_edit_editor                       :string(255)      not null
+#  last_edit_editor                       :string           not null
 #  last_edit_comment                      :text
 #  created_at                             :datetime         not null
 #  updated_at                             :datetime         not null
 #  home_page                              :text
-#  api_key                                :string(255)      not null
+#  api_key                                :string           not null
 #  info_requests_count                    :integer          default(0), not null
 #  disclosure_log                         :text
 #  info_requests_successful_count         :integer
@@ -681,6 +681,78 @@ describe PublicBody do
     it 'returns appends the locale name if passed a non default locale' do
       expect(PublicBody.localized_csv_field_name(:es, "first_letter")).
         to eq("first_letter.es")
+    end
+
+  end
+
+  describe '.blank_contact_count' do
+    let(:public_body){ FactoryGirl.create(:public_body) }
+    let(:blank_contact){ FactoryGirl.create(:blank_email_public_body) }
+    let(:defunct_body) do
+      FactoryGirl.create(:defunct_public_body,
+                         :request_email => '')
+    end
+
+    before do
+      InfoRequest.destroy_all
+      PublicBody.destroy_all
+    end
+
+    it 'does not include bodies with a request email' do
+      public_body
+      expect(PublicBody.blank_contact_count).to eq 0
+    end
+
+    it 'includes bodies with an empty request email' do
+      blank_contact
+      expect(PublicBody.blank_contact_count).to eq 1
+    end
+
+    it 'does not include defunct bodies' do
+      defunct_body
+      expect(PublicBody.blank_contact_count).to eq 0
+    end
+
+    it 'includes bodies with a translation that has an empty request email' do
+      AlaveteliLocalization.with_locale(:es) do
+        public_body.request_email = ''
+        public_body.save
+      end
+      expect(PublicBody.blank_contact_count).to eq 1
+    end
+
+  end
+
+  describe '.blank_contacts' do
+    let!(:public_body){ FactoryGirl.create(:public_body) }
+    let!(:blank_contact){ FactoryGirl.create(:blank_email_public_body) }
+    let!(:defunct_body) do
+      FactoryGirl.create(:defunct_public_body,
+                         :request_email => '')
+    end
+
+    it 'does not include bodies with a request email' do
+      expect(PublicBody.blank_contacts.include?(public_body))
+        .to be false
+    end
+
+    it 'includes bodies with an empty request email' do
+      expect(PublicBody.blank_contacts.include?(blank_contact))
+        .to be true
+    end
+
+    it 'does not include defunct bodies' do
+      expect(PublicBody.blank_contacts.include?(defunct_body))
+        .to be false
+    end
+
+    it 'includes bodies with a translation that has an empty request email' do
+      AlaveteliLocalization.with_locale(:es) do
+        public_body.request_email = ''
+        public_body.save
+      end
+      expect(PublicBody.blank_contacts.include?(public_body))
+        .to be true
     end
 
   end

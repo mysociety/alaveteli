@@ -1,6 +1,11 @@
 <% @title = _("FOI request – {{title}}", :title => h(@info_request.title)) %>
 
-<h1><%=@title%></h1>
+<h1>
+  <%= @title %>
+  <% if @info_request.embargo %>
+    <%= content_tag(:span, 'embargoed', :class => 'label') %>
+  <% end %>
+</h1>
 
 <%= form_tag move_admin_request_path(@info_request), { :class => "form form-horizontal" } do %>
   <div class="accordion" id="info_request">

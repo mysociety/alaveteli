@@ -5,12 +5,12 @@
 #
 #  id                                     :integer          not null, primary key
 #  version                                :integer          not null
-#  last_edit_editor                       :string(255)      not null
+#  last_edit_editor                       :string           not null
 #  last_edit_comment                      :text
 #  created_at                             :datetime         not null
 #  updated_at                             :datetime         not null
 #  home_page                              :text
-#  api_key                                :string(255)      not null
+#  api_key                                :string           not null
 #  info_requests_count                    :integer          default(0), not null
 #  disclosure_log                         :text
 #  info_requests_successful_count         :integer
@@ -39,6 +39,10 @@ FactoryGirl.define do
       after(:create) do |public_body, evaluator|
         public_body.tag_string = "not_apply"
       end
+    end
+
+    factory :blank_email_public_body do
+      request_email ''
     end
   end
 

@@ -1,7 +1,7 @@
 // Request status picker
 .status-picker__current-status {
   // Align the icon with with current status text
-  .request-status-icon {
+  .icon-standalone {
     position: relative;
     left: 0;
     top: 0.4em;
@@ -16,16 +16,14 @@
   margin-left: 0;
   padding-left: 0;
   label {
-    position: relative;
-    padding: 0.25em 0.25em 0.25em 28px;
+    padding: 0.25em;
     line-height: 2em;
     font-size: 0.85em;
   }
 
   // Align the icon with with the label text
-  .request-status-icon {
-    position: absolute;
-    left: 0;
+  .icon-standalone {
+    position: relative;
     top: 0.4em;
   }
 }
@@ -43,7 +41,7 @@
   .status-picker__option {
     label {
       &:hover {
-        background-color: #ddd;
+        background-color: #f3f1eb;
       }
     }
     input {

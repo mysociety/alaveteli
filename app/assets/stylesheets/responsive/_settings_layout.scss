@@ -1,0 +1,98 @@
+$settings-collapse: 50em; //where the dashboard layout needs to change
+
+
+.settings-left-column {
+  @include grid-column(12);
+  @include ie8{
+    padding-left: 0.9375em;
+    padding-right: 0.9375em;
+  }
+  @include respond-min( $settings-collapse ){
+    @include grid-column(3);
+  }
+}
+
+.settings-right-column {
+  @include grid-column(12);
+  @include ie8{
+    padding-left: 0.9375em;
+    padding-right: 0.9375em;
+  }
+  @include respond-min( $settings-collapse ){
+    @include grid-column(9);
+    padding-left: 1.875em; // double margin, ease up on the information density
+  }
+  > :first-child {
+    margin-top: 0;
+  }
+}
+
+.settings-section {
+  margin-bottom: 3em;
+}
+
+.plan-overview {
+  @include flexbox;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  @include respond-min( $settings-collapse ){
+    flex-wrap: nowrap;
+  }
+}
+
+.plan-overview__desc {
+  flex: 0 0 100%;
+  @include respond-min( $settings-collapse ){
+    flex: 0 0 30%;
+  }
+}
+
+.plan-overview__details{
+  flex: 0 0 70%;
+  @include respond-min( $settings-collapse ){
+    flex: 0 0 30%;
+  }
+}
+
+.plan-overview__amount {
+  flex: 0 0 30%;
+  @include respond-min( $settings-collapse ){
+    flex: 0 0 30%;
+  }
+}
+
+.settings__item {
+  position: relative;
+  padding-top: 1em;
+}
+
+.settings__item__primary {
+
+}
+
+.settings__item__secondary {
+  @include respond-min( $settings-collapse ){
+    position: absolute;
+    top: 1em;
+    right: 0
+  }
+}
+
+.cancel-sub-section {
+  margin-top: 2em;
+}
+
+.vertical-navigation-menu {
+  margin: 0 0 2em 0;
+  padding: 0;
+}
+
+.vertical-navigation-menu__item {
+  margin-bottom: 0;
+}
+
+.vertical-navigation-menu__link {
+  display: block;
+  padding: 0.666em 1em 0.666em 1em;
+  width: 100%;
+}

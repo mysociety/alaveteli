@@ -14,12 +14,8 @@ class TrackMailer < ApplicationMailer
 
   def event_digest(user, email_about_things)
     @user, @email_about_things = user, email_about_things
-
-    post_redirect = PostRedirect.new(
-      :uri => user_url(user, :anchor => "email_subscriptions"),
-      :user_id => user.id)
-    post_redirect.save!
-    @unsubscribe_url = confirm_url(:email_token => post_redirect.email_token)
+    @unsubscribe_url =
+      signin_url(r: user_path(user, anchor: 'email_subscriptions'))
 
     headers('Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
             'Precedence' => 'bulk')# http://www.vbulletin.com/forum/project.php?issueid=27687 (Exchange hack)

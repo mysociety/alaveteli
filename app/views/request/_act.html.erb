@@ -1,6 +1,7 @@
 <h2><%= _("Act on what you've learnt") %></h2>
 
-<div class="act_link act_link--twitter">
+<div class="act_link">
+  <i class="act-link-icon act-link-icon--twitter"></i>
   <% tweet_link = "https://twitter.com/share?" << {
     :url => request.url,
     :via => AlaveteliConfiguration.twitter_username,
@@ -17,11 +18,11 @@
                 :label => "Request sidebar") %>
 </div>
 
-<div class="act_link act_link--facebook">
+<div class="act_link">
   <% share_link = "https://www.facebook.com/sharer/sharer.php?" << {
         :u => request.url
       }.to_query %>
-
+  <i class="act-link-icon act-link-icon--facebook"></i>
   <%= link_to _("Share on Facebook"),
               share_link,
               :onclick => track_analytics_event(
@@ -30,7 +31,8 @@
                 :label => "Request sidebar") %>
 </div>
 
-<div class="act_link act_link--medium">
+<div class="act_link">
+  <i class="act-link-icon act-link-icon--medium"></i>
   <%= link_to _("Write about this on Medium"),
               "http://medium.com/",
               :onclick => track_analytics_event(
@@ -40,7 +42,8 @@
 </div>
 
 <% if AlaveteliConfiguration::enable_widgets %>
-  <div class="act_link act_link--widget">
+  <div class="act_link">
+    <i class="act-link-icon act-link-icon--widget"></i>
     <%= link_to _("Create a widget for this request"), new_request_widget_path(@info_request) %>
   </div>
 <% end %>

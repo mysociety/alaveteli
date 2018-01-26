@@ -1,22 +1,10 @@
-<% @title = "Summary" %>
+<% @title = 'Things to do' %>
 
 <div class="row">
   <div class="span12">
     <h1><%= @title %></h1>
-    <p>
-      <%= link_to 'Summary stats have moved →', admin_stats_path %>
-    </p>
   </div>
 </div>
-
-<hr>
-
-<div class="row">
-  <div class="span12">
-    <h1>Things to do</h1>
-  </div>
-</div>
-
 
 <% if @public_request_tasks %>
   <div class="row">
@@ -85,6 +73,7 @@
                locals: { id: 'blank-contacts',
                          parent: 'authority-things-to-do',
                          items: @blank_contacts,
+                         count: @blank_contact_count,
                          label: 'Find missing FOI email for these
                                  public authorities (try phoning!)' } %>
 

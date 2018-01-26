@@ -1,7 +1,7 @@
 /* Frontpage layout */
 
 .homepage-flash {
-  @extend .content;
+  @include content();
 }
 
 .homepage-hero {
@@ -59,12 +59,6 @@
       }
     }
   }
-}
-
-.icon-standalone {
-  display: block;
-  width: 22px;
-  height: 22px;
 }
 
 .bodies-list,

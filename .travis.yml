@@ -5,12 +5,19 @@ branches:
   only:
     - master
     - develop
-    - alaveteli-pro-develop
 rvm:
-  - 1.9.3
-  - 2.0.0
-  - 2.1.5
-  - 2.3.0
+  - 2.0.0 # Ubuntu Trusty
+  - 2.1.5 # Debian Jessie
+  - 2.3.3 # Debian Stretch
+  - 2.3.0 # Ubuntu Xenial
+  - 2.3.1 # Ubuntu Xenial
+  - 2.3.5 # Latest Official 2.3.x
+matrix:
+  fast_finish: true
+  allow_failures:
+  - rvm: 2.3.0 # Ubuntu Xenial
+  - rvm: 2.3.1 # Ubuntu Xenial
+  - rvm: 2.3.5 # Latest Official 2.3.x
 env:
   global:
     - S3_REGION=us-east-1
@@ -27,8 +34,6 @@ before_install:
   - sudo locale-gen --no-archive en_GB
   - sudo locale-gen --no-archive en_GB.UTF-8
   - sudo update-locale
-  - gem install bundler
-  - gem install rake --version=0.9.2.2
   - git submodule update --init --recursive
   - psql -c "create database template_utf8 template template0 encoding 'UTF-8';" -U postgres
   - psql -c "update pg_database set datistemplate=true where datname='template_utf8';" -U postgres
