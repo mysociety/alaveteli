@@ -52,6 +52,8 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       StripeMock.mock_webhook_event('customer.subscription.deleted')
     end
 
+    let(:payload) { stripe_event.to_s }
+
     before do
       config = MySociety::Config.load_default
       config['STRIPE_WEBHOOK_SECRET'] = config_secret
@@ -68,8 +70,6 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       # https://github.com/stripe/stripe-ruby/blob/v3.4.1/lib/stripe/webhook.rb#L24-L26
       OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha256"), key, value)
     end
-
-    let(:payload) { stripe_event.to_s }
 
     def signed_headers
       timestamp = Time.zone.now.to_i
