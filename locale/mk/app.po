@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-27 18:47+0100\n"
-"PO-Revision-Date: 2017-09-27 17:52+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2018-01-18 01:28-0800\n"
+"PO-Revision-Date: 2018-01-18 09:29+0000\n"
+"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Macedonian (http://www.transifex.com/mysociety/alaveteli/language/mk/)\n"
 "Language: mk\n"
 "MIME-Version: 1.0\n"
@@ -571,7 +571,7 @@ msgstr ""
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
 msgstr ""
 
-msgid "Browse all authorities..."
+msgid "Browse all authorities &rarr;"
 msgstr ""
 
 msgid "Browse all requests &rarr;"
@@ -1180,6 +1180,9 @@ msgid "From:"
 msgstr ""
 
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
+msgstr ""
+
+msgid "Got a {{site_name}} account?"
 msgstr ""
 
 msgid "Got an account?"
@@ -2145,6 +2148,9 @@ msgstr ""
 msgid "Please keep the summary short, like in the subject of an email. You can use a phrase, rather than a full sentence."
 msgstr ""
 
+msgid "Please note that in some cases publication of requests and responses will be delayed."
+msgstr ""
+
 msgid "Please only request information that comes under those categories, <strong>do not waste your time</strong> or the time of the public authority by requesting unrelated information."
 msgstr ""
 
@@ -2430,15 +2436,6 @@ msgid "PublicBody|Version"
 msgstr ""
 
 msgid "Publication scheme"
-msgstr ""
-
-msgid "Purge request"
-msgstr ""
-
-msgid "PurgeRequest|Model"
-msgstr ""
-
-msgid "PurgeRequest|Url"
 msgstr ""
 
 msgid "Query can't be blank"
@@ -2989,6 +2986,9 @@ msgstr ""
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr ""
 
+msgid "The following request has been made public on {{site_name}}."
+msgstr ""
+
 msgid "The following request will be made public on {{site_name}} in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer."
 msgstr ""
 
@@ -3268,13 +3268,13 @@ msgstr ""
 msgid "This person has made no Freedom of Information requests using this site."
 msgstr ""
 
-msgid "This person's annotations"
-msgstr ""
-
-msgid "This person's {{count}} Freedom of Information request"
-msgid_plural "This person's {{count}} Freedom of Information requests"
+msgid "This person's Freedom of Information request"
+msgid_plural "This person's Freedom of Information requests (approximately {{count}})"
 msgstr[0] ""
 msgstr[1] ""
+
+msgid "This person's annotations"
+msgstr ""
 
 msgid "This person's {{count}} annotation"
 msgid_plural "This person's {{count}} annotations"
@@ -3300,6 +3300,9 @@ msgid "This request has been <strong>reported</strong> as needing administrator 
 msgstr ""
 
 msgid "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
+msgstr ""
+
+msgid "This request has been made public on {{site_name}}."
 msgstr ""
 
 msgid "This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href=\"{{url}}\">contact us</a>."
@@ -4113,8 +4116,16 @@ msgstr ""
 msgid "Your <strong>name will appear publicly</strong> (<a href=\"{{why_url}}\">why?</a>) on this website and in search engines. <a href=\"{{help_url}}\">Thinking of using a pseudonym?</a>"
 msgstr ""
 
+msgid "Your FOI request - {{request_title}} has been made public on {{site_name}}"
+msgstr ""
+
 msgid "Your FOI request - {{request_title}} will be made public on {{site_name}} this week"
 msgstr ""
+
+msgid "Your Freedom of Information request"
+msgid_plural "Your Freedom of Information requests (approximately {{count}})"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Your annotations"
 msgstr ""
@@ -4224,11 +4235,6 @@ msgstr ""
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr ""
 
-msgid "Your {{count}} Freedom of Information request"
-msgid_plural "Your {{count}} Freedom of Information requests"
-msgstr[0] ""
-msgstr[1] ""
-
 msgid "Your {{count}} annotation"
 msgid_plural "Your {{count}} annotations"
 msgstr[0] ""
@@ -4236,6 +4242,11 @@ msgstr[1] ""
 
 msgid "Your {{count}} batch request"
 msgid_plural "Your {{count}} batch requests"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Your {{count}} private Freedom of Information request"
+msgid_plural "Your {{count}} private Freedom of Information requests"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -4550,6 +4561,11 @@ msgid_plural "{{count}} requests had new responses:"
 msgstr[0] ""
 msgstr[1] ""
 
+msgid "{{count}} request has been made public on {{site_name}}."
+msgid_plural "{{count}} requests have been made public on {{site_name}}."
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "{{count}} request has not had a prompt response:"
 msgid_plural "{{count}} requests have not had prompt responses:"
 msgstr[0] ""
@@ -4609,6 +4625,9 @@ msgid "{{number_of_requests}} request left to categorise / {{total_number_of_req
 msgid_plural "{{number_of_requests}} requests left to categorise / {{total_number_of_requests}} total"
 msgstr[0] ""
 msgstr[1] ""
+
+msgid "{{pro_site_name}} Terms"
+msgstr ""
 
 msgid "{{public_body_link_absolute}}"
 msgstr ""
