@@ -10,7 +10,7 @@
 #  updated_at       :datetime         not null
 #  body             :text
 #  sent_at          :datetime
-#  embargo_duration :string(255)
+#  embargo_duration :string
 #
 
 require 'spec_helper'

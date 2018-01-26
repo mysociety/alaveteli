@@ -11,6 +11,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Andra Ciuraru <andra.ciuraru@gmail.com>, 2016
 # Andrei Cristian Petcu <andreip@posteo.net>, 2012-2013
 # Andrei Cristian Petcu <andreip@posteo.net>, 2012-2013
@@ -39,9 +40,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-27 18:47+0100\n"
-"PO-Revision-Date: 2017-09-27 17:55+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2018-01-18 01:28-0800\n"
+"PO-Revision-Date: 2018-01-18 09:31+0000\n"
+"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/mysociety/alaveteli/language/ro_RO/)\n"
 "Language: ro_RO\n"
 "MIME-Version: 1.0\n"
@@ -595,8 +596,8 @@ msgstr "Consultaţi  <a href='{{url}}'> şi alte solicitări </a> pentru exemple
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
 msgstr "Consultaţi  <a href='{{url}}'> şi alte solicitări </a> catre '{{public_body_name}}' pentru exemple asupra modului în care să formulaţi solicitarea."
 
-msgid "Browse all authorities..."
-msgstr "Consultaţi toate autoritaţile ..."
+msgid "Browse all authorities &rarr;"
+msgstr ""
 
 msgid "Browse all requests &rarr;"
 msgstr "Consultați toate solicitările &rarr;"
@@ -1209,6 +1210,9 @@ msgstr "De la:"
 
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "DĂ DETALII DESPRE PLÂNGEREA TA AICI"
+
+msgid "Got a {{site_name}} account?"
+msgstr ""
 
 msgid "Got an account?"
 msgstr "Aveți un utilizator?"
@@ -2175,6 +2179,9 @@ msgstr "Vă rugăm să îl menţineţi mai scurt de 500 de caractere"
 msgid "Please keep the summary short, like in the subject of an email. You can use a phrase, rather than a full sentence."
 msgstr "Vă rugăm păstraţi rezumatul cât mai scurt, ca în subiectul unui email. "
 
+msgid "Please note that in some cases publication of requests and responses will be delayed."
+msgstr ""
+
 msgid "Please only request information that comes under those categories, <strong>do not waste your time</strong> or the time of the public authority by requesting unrelated information."
 msgstr "Te rugăm să soliciți numai informațiile ce se regăsesc în una din aceste categorii,  <strong>nu pierde timpul\\n tău</strong> sau pe cel al instituțiilor solicitând informații irelevante."
 
@@ -2462,15 +2469,6 @@ msgstr "Instituţie publică| Versiune"
 
 msgid "Publication scheme"
 msgstr "Schema publicaţiilor"
-
-msgid "Purge request"
-msgstr "Eliminare cerere"
-
-msgid "PurgeRequest|Model"
-msgstr "EliminareSolicitare|Model"
-
-msgid "PurgeRequest|Url"
-msgstr "EliminareSolicitare|Url"
 
 msgid "Query can't be blank"
 msgstr "Căutarea nu poate fi necompletată"
@@ -3021,6 +3019,9 @@ msgstr ""
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr "Barele de eroare afișate reprezintă 95% din intervalul estimat (de exemplu dacă ați face un număr de solicitări infinit acestei instituții publice). Cu alte cuvinte, reprezintă toate solicitările curente și viitoare trimise acestei instituții prin site nu toate solicitările trimise prin orice mijloace."
 
+msgid "The following request has been made public on {{site_name}}."
+msgstr ""
+
 msgid "The following request will be made public on {{site_name}} in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer."
 msgstr ""
 
@@ -3300,14 +3301,14 @@ msgstr "Acesată cerere anume este finalizată:"
 msgid "This person has made no Freedom of Information requests using this site."
 msgstr "Acestă persoană nu a făcut nici o solicitare de acces la informații utilizând acest site"
 
+msgid "This person's Freedom of Information request"
+msgid_plural "This person's Freedom of Information requests (approximately {{count}})"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
 msgid "This person's annotations"
 msgstr "Adnotările acestei persoane"
-
-msgid "This person's {{count}} Freedom of Information request"
-msgid_plural "This person's {{count}} Freedom of Information requests"
-msgstr[0] "A {{count}} -a cerere FOI a acestei persoane"
-msgstr[1] "A {{count}} -a cerere FOI a acestei persoane"
-msgstr[2] "{{count}} solicitări de acces la informații ale acestei persoane"
 
 msgid "This person's {{count}} annotation"
 msgid_plural "This person's {{count}} annotations"
@@ -3335,6 +3336,9 @@ msgstr "Această cerere a fost <strong>raportată  </strong> ca având nevoie de
 
 msgid "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
 msgstr "Această solicitare a fost <strong>retrasă</strong> de către persoana care a făcut-o. \\n S-ar putea să fie o explicaţie în corespondenţa de mai jos."
+
+msgid "This request has been made public on {{site_name}}."
+msgstr ""
 
 msgid "This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Această solicitare a fost marcată pentru analizare de către administratorii siteului, nefiind ascunsă în acest moment. Dacă crezi că ar trebui ascunsă, te rugăm  <a href=\"{{url}}\">contactează-ne</a>."
@@ -4152,8 +4156,17 @@ msgstr "Acum ai şters poza ta de profil"
 msgid "Your <strong>name will appear publicly</strong> (<a href=\"{{why_url}}\">why?</a>) on this website and in search engines. <a href=\"{{help_url}}\">Thinking of using a pseudonym?</a>"
 msgstr "Numele tău <strong>va apărea public</strong> \\n (<a href=\"{{why_url}}\">de ce?</a>)\\n pe acest website și în motoarele de căutare. Dacă te\\n gândești să utilizezi un pseudonim, te rugăm \\n <a href=\"{{help_url}}\">să citești aceasta înainte</a>."
 
+msgid "Your FOI request - {{request_title}} has been made public on {{site_name}}"
+msgstr ""
+
 msgid "Your FOI request - {{request_title}} will be made public on {{site_name}} this week"
 msgstr ""
+
+msgid "Your Freedom of Information request"
+msgid_plural "Your Freedom of Information requests (approximately {{count}})"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "Your annotations"
 msgstr "Adnotările tale"
@@ -4263,12 +4276,6 @@ msgstr "Instituțiile selecționate de tine"
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr "Consideraţiile tale cu privire la ceea ce <strong>administratorii</strong>   {{site_name}} ar trebui să facă în legătură cu solicitarea."
 
-msgid "Your {{count}} Freedom of Information request"
-msgid_plural "Your {{count}} Freedom of Information requests"
-msgstr[0] "A {{count}}  -a cerere FOI a dvs."
-msgstr[1] "A {{count}}  -a cerere FOI a dvs."
-msgstr[2] "Cele {{count}} solicitări de acces la informații ale tale"
-
 msgid "Your {{count}} annotation"
 msgid_plural "Your {{count}} annotations"
 msgstr[0] "A {{count}}  -a adnotare a dvs."
@@ -4280,6 +4287,12 @@ msgid_plural "Your {{count}} batch requests"
 msgstr[0] "Grupul tău de {{count}} solicitare"
 msgstr[1] "Grupul tău de {{count}} solicitări"
 msgstr[2] "Grupul tău de {{count}} solicitări"
+
+msgid "Your {{count}} private Freedom of Information request"
+msgid_plural "Your {{count}} private Freedom of Information requests"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "Your {{law_used_full}} request has been sent"
 msgstr "Solicitarea ta {{law_used_full}} a fost trimisă"
@@ -4598,6 +4611,12 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
+msgid "{{count}} request has been made public on {{site_name}}."
+msgid_plural "{{count}} requests have been made public on {{site_name}}."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
 msgid "{{count}} request has not had a prompt response:"
 msgid_plural "{{count}} requests have not had prompt responses:"
 msgstr[0] ""
@@ -4665,6 +4684,9 @@ msgid_plural "{{number_of_requests}} requests left to categorise / {{total_numbe
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+
+msgid "{{pro_site_name}} Terms"
+msgstr ""
 
 msgid "{{public_body_link_absolute}}"
 msgstr ""

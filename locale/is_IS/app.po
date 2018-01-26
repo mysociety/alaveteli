@@ -11,16 +11,17 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Finnur Magnusson <gommit@gmail.com>, 2015
 # Ölvir Gíslason <olvirg@gmail.com>, 2016
-# Páll Hilmarsson <pallih@kaninka.net>, 2015-2017
+# Páll Hilmarsson <pallih@kaninka.net>, 2015-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-27 18:47+0100\n"
-"PO-Revision-Date: 2017-09-27 17:53+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2018-01-18 01:28-0800\n"
+"PO-Revision-Date: 2018-01-18 09:29+0000\n"
+"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/mysociety/alaveteli/language/is_IS/)\n"
 "Language: is_IS\n"
 "MIME-Version: 1.0\n"
@@ -573,8 +574,8 @@ msgstr "Skoðaðu <a href='{{url}}'>aðrar beiðnir</a> til að sjá dæmi um hv
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
 msgstr "Skoðaðu <a href='{{url}}'>aðrar beiðnir</a> til '{{public_body_name}}' til þess að sjá dæmi um hvernig þú getur orðað þína beiðni."
 
-msgid "Browse all authorities..."
-msgstr "Skoða öll stjórnvöld"
+msgid "Browse all authorities &rarr;"
+msgstr ""
 
 msgid "Browse all requests &rarr;"
 msgstr "Skoða allar upplýsingabeiðnir &rarr;"
@@ -1184,6 +1185,9 @@ msgstr "Frá:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "ÚTSKÝRING Á KVÖRTUN ÞINNI HÉR"
 
+msgid "Got a {{site_name}} account?"
+msgstr ""
+
 msgid "Got an account?"
 msgstr "Þegar með reikning?"
 
@@ -1425,7 +1429,7 @@ msgid "Improve your account security"
 msgstr "Gerðu reikninginn þinn öruggari"
 
 msgid "In progress"
-msgstr ""
+msgstr "Í vinnslu"
 
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr "Látið fylgja með hlekki á vefsíður, blogg eða Twitter sem tengjast beiðninni. Þeir verða tengdir svo fólk geti fræðst um beiðnina. \\ Til dæmis:"
@@ -2147,6 +2151,9 @@ msgstr "Haltu lengdinni innan við 500 slög"
 msgid "Please keep the summary short, like in the subject of an email. You can use a phrase, rather than a full sentence."
 msgstr "Vinsamlegast hafðu útdráttinn stuttan, eins og fyrirsögn í tölvupósti. Þú getur notað stikkorð í stað heillar setningar."
 
+msgid "Please note that in some cases publication of requests and responses will be delayed."
+msgstr ""
+
 msgid "Please only request information that comes under those categories, <strong>do not waste your time</strong> or the time of the public authority by requesting unrelated information."
 msgstr "Aðeins biðja um upplýsingar sem falla undir þessa flokka. <strong>Ekki sóa tíma þínum</strong> eða tíma stjórnvaldsins með því að biðja um óviðkomandi upplýsingar."
 
@@ -2433,15 +2440,6 @@ msgstr "PublicBody|Version"
 
 msgid "Publication scheme"
 msgstr "Útgáfuáætlun"
-
-msgid "Purge request"
-msgstr "Hreinsa beiðni"
-
-msgid "PurgeRequest|Model"
-msgstr "PurgeRequest|Model"
-
-msgid "PurgeRequest|Url"
-msgstr "PurgeRequest|Url"
 
 msgid "Query can't be blank"
 msgstr "Fyrirspurnin má ekki vera tóm"
@@ -2991,6 +2989,9 @@ msgstr ""
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr "Villulínurnar sýna 95% öryggisbil fyrir undirliggjandi hlutfall (þ.e. það sem fengist með takmarkalausum beiðnum í gegnum þennan vef til viðkomandi stjórnvalds). Með öðrum orðum er þýðið allar fyrirliggjandi og verðandi beiðnir til stjórnvaldsins í gegnum þennan vef, en ekki til dæmis allar beiðnir sem hafa borist stjórnvaldinu með einhverjum hætti."
 
+msgid "The following request has been made public on {{site_name}}."
+msgstr ""
+
 msgid "The following request will be made public on {{site_name}} in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer."
 msgstr ""
 
@@ -3270,13 +3271,13 @@ msgstr "Þessari upplýsingabeiðni er lokið:"
 msgid "This person has made no Freedom of Information requests using this site."
 msgstr "Þessi notandi hefur ekki sent neina upplýsingabeiðni í gegnum þennan vef."
 
+msgid "This person's Freedom of Information request"
+msgid_plural "This person's Freedom of Information requests (approximately {{count}})"
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "This person's annotations"
 msgstr "Athugasemdir þessa einstaklings"
-
-msgid "This person's {{count}} Freedom of Information request"
-msgid_plural "This person's {{count}} Freedom of Information requests"
-msgstr[0] "{{count}} upplýsingabeiðni frá þessum notanda"
-msgstr[1] "{{count}} upplýsingabeiðnir frá þessum einstaklingi"
 
 msgid "This person's {{count}} annotation"
 msgid_plural "This person's {{count}} annotations"
@@ -3303,6 +3304,9 @@ msgstr "Þessi beiðni var <strong>tilkynnt</strong> til stjórnenda (ef til vil
 
 msgid "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
 msgstr "Þessi beiðni var <strong>dregin til baka</strong> af þeim sem lagði hana fram. Ef til vill eru skýringar á því í samskiptunum hér fyrir neðan."
+
+msgid "This request has been made public on {{site_name}}."
+msgstr ""
 
 msgid "This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Stjórnendur vefsins ætla að taka þessa beiðni til athugunar, en hafa ekki enn falið hana. <a href=\"{{url}}\">Hafðu samband</a> við okkur ef þú telur að hún ætti að vera falin."
@@ -3831,7 +3835,7 @@ msgid "What next?"
 msgstr "Hvað næst?"
 
 msgid "What's happened:"
-msgstr ""
+msgstr "Það sem hefur gerst:"
 
 msgid "When you get there, please update the status to say if the response contains any useful information."
 msgstr "Þegar þangað er komið biðjum við þig um að uppfæra stöðuna til að láta vita hvort einhverjar gagnlegar upplýsingar séu í svarinu."
@@ -4115,8 +4119,16 @@ msgstr "Þú hefur hreinsað prófílmyndina þína"
 msgid "Your <strong>name will appear publicly</strong> (<a href=\"{{why_url}}\">why?</a>) on this website and in search engines. <a href=\"{{help_url}}\">Thinking of using a pseudonym?</a>"
 msgstr "<strong>Nafnið þitt verður birt opinberlega</strong>\\n (<a href=\"{{why_url}}\">af hverju?</a>)\\n á þessum vef og hjá leitarvélum.\\n <a href=\"{{help_url}}\">Ertu að hugsa um að nota dulnefni?</a>"
 
+msgid "Your FOI request - {{request_title}} has been made public on {{site_name}}"
+msgstr ""
+
 msgid "Your FOI request - {{request_title}} will be made public on {{site_name}} this week"
 msgstr ""
+
+msgid "Your Freedom of Information request"
+msgid_plural "Your Freedom of Information requests (approximately {{count}})"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Your annotations"
 msgstr "Athugasemdirnar þínar"
@@ -4226,11 +4238,6 @@ msgstr "Yfirvöldin sem þú valdir"
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr "Hugleiðingar þínar um hvað <strong>stjórnendur</strong> á {{site_name}} ættu að gera við beiðnina."
 
-msgid "Your {{count}} Freedom of Information request"
-msgid_plural "Your {{count}} Freedom of Information requests"
-msgstr[0] "{{count}} upplýsingabeiðni þín"
-msgstr[1] "{{count}} upplýsingabeiðnir þínar"
-
 msgid "Your {{count}} annotation"
 msgid_plural "Your {{count}} annotations"
 msgstr[0] "{{count}} athugasemd þín"
@@ -4240,6 +4247,11 @@ msgid "Your {{count}} batch request"
 msgid_plural "Your {{count}} batch requests"
 msgstr[0] "{{count}} hópbeiðni þín"
 msgstr[1] "{{count}} hópbeiðnir þínar"
+
+msgid "Your {{count}} private Freedom of Information request"
+msgid_plural "Your {{count}} private Freedom of Information requests"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Your {{law_used_full}} request has been sent"
 msgstr "Upplýsingabeiðnin var send"
@@ -4552,6 +4564,11 @@ msgid_plural "{{count}} requests had new responses:"
 msgstr[0] ""
 msgstr[1] ""
 
+msgid "{{count}} request has been made public on {{site_name}}."
+msgid_plural "{{count}} requests have been made public on {{site_name}}."
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "{{count}} request has not had a prompt response:"
 msgid_plural "{{count}} requests have not had prompt responses:"
 msgstr[0] ""
@@ -4611,6 +4628,9 @@ msgid "{{number_of_requests}} request left to categorise / {{total_number_of_req
 msgid_plural "{{number_of_requests}} requests left to categorise / {{total_number_of_requests}} total"
 msgstr[0] "{{number_of_requests}} óflokkuð beiðni / {{total_number_of_requests}} alls"
 msgstr[1] "{{number_of_requests}} óflokkaðar beiðnir / {{total_number_of_requests}} alls"
+
+msgid "{{pro_site_name}} Terms"
+msgstr ""
 
 msgid "{{public_body_link_absolute}}"
 msgstr "{{public_body_link_absolute}}"

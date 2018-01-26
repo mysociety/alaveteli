@@ -11,6 +11,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Clarisse Umutesi Mwitegereze <clarisse@mediae.org>, 2014-2015
 # Gareth Rees <gareth@mysociety.org>, 2015
 # Jean Pierre <afadhalipierre@gmail.com>, 2017
@@ -21,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-27 18:47+0100\n"
-"PO-Revision-Date: 2017-09-27 17:55+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2018-01-18 01:28-0800\n"
+"PO-Revision-Date: 2018-01-18 09:31+0000\n"
+"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Kinyarwanda (http://www.transifex.com/mysociety/alaveteli/language/rw/)\n"
 "Language: rw\n"
 "MIME-Version: 1.0\n"
@@ -576,8 +577,8 @@ msgstr "Shaka <a href='{{url}}'>ibindi bibazo</a> ku ngero z'amagambo wakoresha 
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
 msgstr "Shaka <a href='{{url}}'>ibindi bibazo</a> byabajijwe '{{public_body_name}}' kugirango ubone ingero z'amagambo wakoresha mu kibazo cyawe."
 
-msgid "Browse all authorities..."
-msgstr "Shaka abayobozi bose..."
+msgid "Browse all authorities &rarr;"
+msgstr ""
 
 msgid "Browse all requests &rarr;"
 msgstr "Reba amakuru yose yasabwe&rarr;"
@@ -1186,6 +1187,9 @@ msgstr "Iva:"
 
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "TANGA IBISOBANURO KU KIREGO CYAWE HANO"
+
+msgid "Got a {{site_name}} account?"
+msgstr ""
 
 msgid "Got an account?"
 msgstr "Ufite konti?"
@@ -2150,6 +2154,9 @@ msgstr "Gerageza kuyandika ukoresheje inyuguti ziri munsi ya 500"
 msgid "Please keep the summary short, like in the subject of an email. You can use a phrase, rather than a full sentence."
 msgstr "Incamake yigire ngufi, nk'umutwe wa imeli.Ushobora gukoresha amagambo make, aho gukoresha interuro ndende."
 
+msgid "Please note that in some cases publication of requests and responses will be delayed."
+msgstr ""
+
 msgid "Please only request information that comes under those categories, <strong>do not waste your time</strong> or the time of the public authority by requesting unrelated information."
 msgstr "Saba amakuru ari muri iki cyiciro gusa, <strong>reka gutakaza\\n            umwanya wawe</strong> cyangwa umwanya w'abayobozi usaba amakuru atajyanye."
 
@@ -2436,15 +2443,6 @@ msgstr "PublicBody|Version"
 
 msgid "Publication scheme"
 msgstr "Gahunda yo gutangaza"
-
-msgid "Purge request"
-msgstr "Ikibazo kidafite umuziro"
-
-msgid "PurgeRequest|Model"
-msgstr "PurgeRequest|Model"
-
-msgid "PurgeRequest|Url"
-msgstr "PurgeRequest|Url"
 
 msgid "Query can't be blank"
 msgstr "Anadikwa ibisabwa hagomba kuzuzwa"
@@ -2994,6 +2992,9 @@ msgstr ""
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr "Imirongo yo kwibeshya ni 95% y'intera hagati y'icyizere y'imibare mwibwira y'ibanze (ni ukuvuga iyo wabona utanze umubare w'ibibazo bitarangira kuri uwo muyobozi ukoresheje uru rubuga). Mu yandi magambo, abakoreweho ibarura ni ibibazo byabajijwe n'ibizabazwa umuyobozi hakoreshejwe uru rubuga, aho kuba, ibibazo byose byabajijwe umuyobozi binyuze mu nzira iyo ariyo yose."
 
+msgid "The following request has been made public on {{site_name}}."
+msgstr ""
+
 msgid "The following request will be made public on {{site_name}} in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer."
 msgstr ""
 
@@ -3273,13 +3274,13 @@ msgstr "Iki kibazo cyararangiye:"
 msgid "This person has made no Freedom of Information requests using this site."
 msgstr "Uyu muntu nta bibazo by'ubwisanzure bwo kumenya amakuru yabajije akoresheje uru rubuga."
 
+msgid "This person's Freedom of Information request"
+msgid_plural "This person's Freedom of Information requests (approximately {{count}})"
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "This person's annotations"
 msgstr "Insobanuro z'uyu muntu"
-
-msgid "This person's {{count}} Freedom of Information request"
-msgid_plural "This person's {{count}} Freedom of Information requests"
-msgstr[0] "Ikibazo {{count}} cy'uyu muntu cy'ubwisanzure bwo kumenya amakuru"
-msgstr[1] "Ibibazo {{count}} by'uyu muntu by'ubwisanzure bwo kumenya amakuru"
 
 msgid "This person's {{count}} annotation"
 msgid_plural "This person's {{count}} annotations"
@@ -3306,6 +3307,9 @@ msgstr "Iki kibazo <strong>cyagaragajwe</strong> nk'igikenewe kurebwaho n'abayob
 
 msgid "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
 msgstr "Iki kibazo <strong>cyakuweho</strong> n'uwakibajije.\\n               Hashobora kuba hari impamvu mu butumwa buri hasi."
+
+msgid "This request has been made public on {{site_name}}."
+msgstr ""
 
 msgid "This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Iki kibazo cyashyizweho ikimenyetso ko gikeneye gukorerwa isuzuma n'abayobozi b'urubuga, ariko ntibarafata icyemezo cyo kugikuraho. Niba utekereza ko kigomba gukurwaho, turagusaba  <a href=\"{{url}}\">kutwandikira</a>."
@@ -4118,8 +4122,16 @@ msgstr "Ubu wakuyeho ifoto ikuranga"
 msgid "Your <strong>name will appear publicly</strong> (<a href=\"{{why_url}}\">why?</a>) on this website and in search engines. <a href=\"{{help_url}}\">Thinking of using a pseudonym?</a>"
 msgstr "Izina <strong>ryawe rizajya ku mugaragaro</strong>\\n        (<a href=\"{{why_url}}\">why?</a>)\\n        kuri uru rubuga n'amashakiro. Niba \\n        utekereza gukoresha izina ry'irihimbano, turagusaba\\n        <a href=\"{{help_url}}\">kubanza gusoma ibi</a>."
 
+msgid "Your FOI request - {{request_title}} has been made public on {{site_name}}"
+msgstr ""
+
 msgid "Your FOI request - {{request_title}} will be made public on {{site_name}} this week"
 msgstr ""
+
+msgid "Your Freedom of Information request"
+msgid_plural "Your Freedom of Information requests (approximately {{count}})"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Your annotations"
 msgstr "insobanuro zawe"
@@ -4229,11 +4241,6 @@ msgstr "Abayobozi wahisemo"
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr "Ibitekerezo byawe ku bintu abayobozi ba {{site_name}} <strong></strong> bagomba gukora kuri iki kibazo."
 
-msgid "Your {{count}} Freedom of Information request"
-msgid_plural "Your {{count}} Freedom of Information requests"
-msgstr[0] "Ikibazo cyawe {{count}} cy'ubwosanzure bwo kumenya amakuru"
-msgstr[1] "Ibibazo byawe {{count}} by'ubwisanzure bwo kumenya amakuru"
-
 msgid "Your {{count}} annotation"
 msgid_plural "Your {{count}} annotations"
 msgstr[0] "Insobanuro yawe {{count}} "
@@ -4243,6 +4250,11 @@ msgid "Your {{count}} batch request"
 msgid_plural "Your {{count}} batch requests"
 msgstr[0] "Ibibazo byawe wabajije abayobozi benshi {{count}} "
 msgstr[1] "Ibibazo byawe wabajije abayobozi benshi {{count}} "
+
+msgid "Your {{count}} private Freedom of Information request"
+msgid_plural "Your {{count}} private Freedom of Information requests"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Your {{law_used_full}} request has been sent"
 msgstr "Ikibazo cyawe {{law_used_full}} cyoherejwe"
@@ -4555,6 +4567,11 @@ msgid_plural "{{count}} requests had new responses:"
 msgstr[0] ""
 msgstr[1] ""
 
+msgid "{{count}} request has been made public on {{site_name}}."
+msgid_plural "{{count}} requests have been made public on {{site_name}}."
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "{{count}} request has not had a prompt response:"
 msgid_plural "{{count}} requests have not had prompt responses:"
 msgstr[0] ""
@@ -4614,6 +4631,9 @@ msgid "{{number_of_requests}} request left to categorise / {{total_number_of_req
 msgid_plural "{{number_of_requests}} requests left to categorise / {{total_number_of_requests}} total"
 msgstr[0] "{{number_of_requests}}ibyaasabwe bisigaye gushyirwa mu byiciro / {{total_number_of_requests}} zose"
 msgstr[1] "{{number_of_requests}}ibyaasabwe bisigaye gushyirwa mu byiciro / {{total_number_of_requests}} zose"
+
+msgid "{{pro_site_name}} Terms"
+msgstr ""
 
 msgid "{{public_body_link_absolute}}"
 msgstr "{{public_body_link_absolute}}"

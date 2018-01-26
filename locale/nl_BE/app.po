@@ -19,13 +19,14 @@
 # Infwolf <infwolf@gmail.com>, 2014
 # Liz Conlan <liz@mysociety.org>, 2017
 # louisecrow <louise@mysociety.org>, 2017
+# louisecrow <louise@mysociety.org>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-27 18:47+0100\n"
-"PO-Revision-Date: 2018-01-09 04:41+0000\n"
-"Last-Translator: claude transparencia <audit.citoyen.quartier@gmail.com>\n"
+"POT-Creation-Date: 2018-01-18 01:28-0800\n"
+"PO-Revision-Date: 2018-01-18 09:37+0000\n"
+"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Dutch (Belgium) (http://www.transifex.com/mysociety/alaveteli/language/nl_BE/)\n"
 "Language: nl_BE\n"
 "MIME-Version: 1.0\n"
@@ -578,8 +579,8 @@ msgstr "Doorzoek de <a href='{{url}}'>andere aanvragen</a> naar voorbeelden om u
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
 msgstr "Doorzoek de <a href='{{url}}'>andere aanvragen</a> van '{{public_body_name}}' naar voorbeelden om uw informatieaanvraag te kunnen formuleren."
 
-msgid "Browse all authorities..."
-msgstr "Bekijk alle overheidsinstellingen..."
+msgid "Browse all authorities &rarr;"
+msgstr ""
 
 msgid "Browse all requests &rarr;"
 msgstr "Bekijk alle informatieaanvragen &rarr;"
@@ -1188,6 +1189,9 @@ msgstr "Van:"
 
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "GEEF HIER VERDERE INFORMATIE OVER UW KLACHT"
+
+msgid "Got a {{site_name}} account?"
+msgstr ""
 
 msgid "Got an account?"
 msgstr "Beschikt u over een account ?"
@@ -2152,6 +2156,9 @@ msgstr "Gelieve u te beperken tot 500 tekens"
 msgid "Please keep the summary short, like in the subject of an email. You can use a phrase, rather than a full sentence."
 msgstr "Gelieve beknopt te blijven, zowel wat de korte inhoud als de titel van uw e-mail betreft. Gebruik liever één zin dan een hele paragraaf."
 
+msgid "Please note that in some cases publication of requests and responses will be delayed."
+msgstr ""
+
 msgid "Please only request information that comes under those categories, <strong>do not waste your time</strong> or the time of the public authority by requesting unrelated information."
 msgstr "Vraag uitsluitend om informatie die binnen deze categorieën valt. Verlies geen tijd, niet de uwe maar ook niet die van de overheidsinstelling, door andere informatie te vragen."
 
@@ -2438,15 +2445,6 @@ msgstr ""
 
 msgid "Publication scheme"
 msgstr "Publicatieschema"
-
-msgid "Purge request"
-msgstr "Het verzoek verwijderen"
-
-msgid "PurgeRequest|Model"
-msgstr ""
-
-msgid "PurgeRequest|Url"
-msgstr ""
 
 msgid "Query can't be blank"
 msgstr "Het hokje met het verzoek mag niet leegstaan"
@@ -2996,6 +2994,9 @@ msgstr "De e-mail die u namens {{public_body}} heeft verzonden naar {{user}} <{{
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr "De foutenbalken tonen 95% vertrouwensintervallen voor de vermoede onderliggende verhoudingen (dit is wat je zou verkrijgen door een oneindig aantal vragen via deze site aan die overheidsinstelling). Maw. de staal bestaat uit alle huidige en toekomstige vragen aan de overheid via deze site en niet aall vragen die aan die overheidsinstelling gesteld werden op eerder welke wijze."
 
+msgid "The following request has been made public on {{site_name}}."
+msgstr ""
+
 msgid "The following request will be made public on {{site_name}} in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer."
 msgstr ""
 
@@ -3275,13 +3276,13 @@ msgstr "Deze specifieke aanvraag is beëindigd:"
 msgid "This person has made no Freedom of Information requests using this site."
 msgstr "Deze persoon heeft geen informatieaanvraag gedaan door middel van deze site."
 
+msgid "This person's Freedom of Information request"
+msgid_plural "This person's Freedom of Information requests (approximately {{count}})"
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "This person's annotations"
 msgstr "De commentaar van deze persoon"
-
-msgid "This person's {{count}} Freedom of Information request"
-msgid_plural "This person's {{count}} Freedom of Information requests"
-msgstr[0] "Deze persoon heeft {{count}} aanvraag ingediend"
-msgstr[1] "Deze persoon heeft {{count}} informatieaanvraag ingediend"
 
 msgid "This person's {{count}} annotation"
 msgid_plural "This person's {{count}} annotations"
@@ -3308,6 +3309,9 @@ msgstr "Deze aanvraag is <strong>doorgegeven </strong> aan de beheerders ( missc
 
 msgid "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
 msgstr "Deze vraag is <strong>ingetrokken</strong> door de persoon die ze gemaakt heeft. Er staat mogelijk een uitleg in de onderstaande correspondentie."
+
+msgid "This request has been made public on {{site_name}}."
+msgstr ""
 
 msgid "This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Deze vraag is door de beheerders gemarkeerd geweest voor onderzoek, die het, in dit stadium, niet verborgen hebben. Als u denkt dat de aanvraag verborgen zou moeten worden, gelieve <a href=\"{{url}}\">ons te contacteren</a>."
@@ -4120,8 +4124,16 @@ msgstr "U heeft uw profielfoto verwijderd."
 msgid "Your <strong>name will appear publicly</strong> (<a href=\"{{why_url}}\">why?</a>) on this website and in search engines. <a href=\"{{help_url}}\">Thinking of using a pseudonym?</a>"
 msgstr "Uw <strong>naam zal publiek te zien zijn</strong> op deze site en in de zoekmachines (<a href=\"{{why_url}}\">waarom ?</a>). Als u een schuilnaam wil gebruiken, moet u eerst <a href=\"{{help_url}}\">dit raadplegen</a>."
 
+msgid "Your FOI request - {{request_title}} has been made public on {{site_name}}"
+msgstr ""
+
 msgid "Your FOI request - {{request_title}} will be made public on {{site_name}} this week"
 msgstr ""
+
+msgid "Your Freedom of Information request"
+msgid_plural "Your Freedom of Information requests (approximately {{count}})"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Your annotations"
 msgstr "Uw commentaren"
@@ -4231,11 +4243,6 @@ msgstr "De overheidsinstellingen die u selecteerde"
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr "Wat vindt u dat de <strong>de beheerders</strong> van {{site_name}} moeten doen met uw vraag."
 
-msgid "Your {{count}} Freedom of Information request"
-msgid_plural "Your {{count}} Freedom of Information requests"
-msgstr[0] "Uw {{count}} Wob-verzoek"
-msgstr[1] "Uw {{count}} Wob-verzoeken"
-
 msgid "Your {{count}} annotation"
 msgid_plural "Your {{count}} annotations"
 msgstr[0] "Uw {{count}} opmerking"
@@ -4245,6 +4252,11 @@ msgid "Your {{count}} batch request"
 msgid_plural "Your {{count}} batch requests"
 msgstr[0] "Uw {{count}} groep aanvragen"
 msgstr[1] "Uw {{count}} groepen aanvragen"
+
+msgid "Your {{count}} private Freedom of Information request"
+msgid_plural "Your {{count}} private Freedom of Information requests"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Your {{law_used_full}} request has been sent"
 msgstr "Uw vraag van {{law_used_full}} is verstuurd"
@@ -4280,9 +4292,7 @@ msgid "[{{site_name}} contact email]"
 msgstr " [{{site_name}} contact-e-mailadres]"
 
 msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
-msgstr ""
-"\n"
-"\\n\\n[{{site_name}} Opmerking : De tekst hieronder is slecht geencodeerd en vreemde tekens zijn verwijderd.]"
+msgstr "\\n\\n[{{site_name}} Opmerking : De tekst hieronder is slecht geencodeerd en vreemde tekens zijn verwijderd.]"
 
 msgid "admin"
 msgstr "admin"
@@ -4559,6 +4569,11 @@ msgid_plural "{{count}} requests had new responses:"
 msgstr[0] ""
 msgstr[1] ""
 
+msgid "{{count}} request has been made public on {{site_name}}."
+msgid_plural "{{count}} requests have been made public on {{site_name}}."
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "{{count}} request has not had a prompt response:"
 msgid_plural "{{count}} requests have not had prompt responses:"
 msgstr[0] ""
@@ -4618,6 +4633,9 @@ msgid "{{number_of_requests}} request left to categorise / {{total_number_of_req
 msgid_plural "{{number_of_requests}} requests left to categorise / {{total_number_of_requests}} total"
 msgstr[0] "{{number_of_requests}} vraag nog te klasseren / {{total_number_of_requests}} vragen"
 msgstr[1] "{{number_of_requests}} vragen nog te klasseren / {{total_number_of_requests}} vragen"
+
+msgid "{{pro_site_name}} Terms"
+msgstr ""
 
 msgid "{{public_body_link_absolute}}"
 msgstr ""

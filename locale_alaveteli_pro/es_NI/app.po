@@ -3,13 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# Translators:
+# louisecrow <louise@mysociety.org>, 2017
+# Liz Conlan <liz@mysociety.org>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-07 14:22+0000\n"
+"POT-Creation-Date: 2018-01-18 02:19-0800\n"
 "PO-Revision-Date: 2017-01-20 17:40+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>, 2017\n"
+"Last-Translator: Liz Conlan <liz@mysociety.org>, 2017\n"
 "Language-Team: Spanish (Nicaragua) (https://www.transifex.com/mysociety/teams/33529/es_NI/)\n"
 "Language: es_NI\n"
 "MIME-Version: 1.0\n"
@@ -29,6 +32,9 @@ msgstr ""
 msgid "(no title)"
 msgstr ""
 
+msgid "(with <b>{{discount_name}}</b> discount applied)"
+msgstr ""
+
 msgid "+ Add"
 msgstr "+ Añadir"
 
@@ -44,8 +50,14 @@ msgstr "3 Meses"
 msgid "6 Months"
 msgstr "6 Meses"
 
+msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
+msgstr ""
+
 msgid "<strong>Thank</strong> the public authority."
 msgstr "<Strong> Agradecer </ strong> a la entidad pública."
+
+msgid "<strong>{{brand}}</strong> ending in {{last4}}, expiry {{exp_month}}/{{exp_year}}"
+msgstr ""
 
 msgid "<strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 msgstr "<Strong> {{filter_description}} </ strong> ordenado por <strong> {{order_description}} </ strong> <a href=\"{{reset_url}}\" class=\"clear-icon\"> borrar </a>"
@@ -53,10 +65,37 @@ msgstr "<Strong> {{filter_description}} </ strong> ordenado por <strong> {{order
 msgid "A <strong>summary</strong> of the response if you have received it by post. "
 msgstr "Un <strong> resumen </ strong> de la respuesta si lo ha recibido por correo."
 
+msgid "A monthly subscription"
+msgstr ""
+
 msgid "A one line summary of the information you are requesting, e.g."
 msgstr "Un resumen de una línea de la información que está solicitando, Ejemplo"
 
+msgid "A permanent, searchable, public record of your request and the responses"
+msgstr ""
+
+msgid "A powerful private dashboard: track and manage your FOI projects"
+msgstr ""
+
+msgid "A searchable archive of Freedom of Information requests"
+msgstr ""
+
+msgid "A super-smart to-do list: follow the progress of your requests"
+msgstr ""
+
+msgid "About {{public_body_name}}"
+msgstr ""
+
+msgid "Account"
+msgstr ""
+
+msgid "Action alerts: know when it’s time to take the next step"
+msgstr ""
+
 msgid "Activity"
+msgstr ""
+
+msgid "Add Payment Card"
 msgstr ""
 
 msgid "Add an annotation"
@@ -74,11 +113,20 @@ msgstr "Adicional"
 msgid "All requests"
 msgstr "Todas las solicitudes"
 
+msgid "All requests within this batch will remain private for the same duration. When an individual request is made public all other requests in this batch will also be published on {{site_name}}."
+msgstr ""
+
 msgid "Also called {{other_name}}."
+msgstr ""
+
+msgid "An all-in-one FOI toolkit for journalists, activists and campaigners"
 msgstr ""
 
 msgid "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
 msgstr "Las anotaciones le permiten añadir notas adicionales en una solicitud, que finalmente se harán públicas. Por ejemplo:"
+
+msgid "Are you interested in free training, seminars and workshops about {{site_name}}?"
+msgstr ""
 
 msgid "Are you sure the information you’re after isn’t available elsewhere?"
 msgstr "¿Estás seguro de que la información que buscas no está disponible en otra parte?"
@@ -86,11 +134,44 @@ msgstr "¿Estás seguro de que la información que buscas no está disponible en
 msgid "Are you sure you want to publish this request?"
 msgstr "¿Estás seguro de que quieres publicar esta solicitud?"
 
+msgid "Are you sure?"
+msgstr ""
+
 msgid "Batch request"
+msgstr ""
+
+msgid "Batch requests allow multiple recipients of a single request"
+msgstr ""
+
+msgid "Batch requests are part of a new workflow"
+msgstr ""
+
+msgid "Billed: Annually"
+msgstr ""
+
+msgid "Billed: Daily"
+msgstr ""
+
+msgid "Billed: Monthly"
+msgstr ""
+
+msgid "Billed: Weekly"
+msgstr ""
+
+msgid "Billing"
 msgstr ""
 
 msgid "Browse public requests"
 msgstr "Buscar solicitudes públicas"
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Cancel subscription"
+msgstr ""
+
+msgid "Cancel your subscription"
+msgstr ""
 
 msgid "Change privacy"
 msgstr "Cambiar la privacidad"
@@ -107,11 +188,35 @@ msgstr "Compruebe que no ha incluido ninguna <strong> información personal </ s
 msgid "Choose a duration"
 msgstr "Elige una duración"
 
+msgid "Contact us"
+msgstr ""
+
+msgid "Continuing with checkout requires your browser to have JavaScript enabled."
+msgstr ""
+
+msgid "Coupon code has expired."
+msgstr ""
+
+msgid "Coupon code is invalid."
+msgstr ""
+
 msgid "Created"
 msgstr "Creado"
 
+msgid "Daily summary emails to keep your inbox clean"
+msgstr ""
+
 msgid "Dashboard"
 msgstr "Tablero"
+
+msgid "Delivery verification for proof of receipt"
+msgstr ""
+
+msgid "Details"
+msgstr ""
+
+msgid "Do you have a coupon code?"
+msgstr ""
 
 msgid "Download a zip file of all correspondence"
 msgstr "Descargar un archivo zip de toda la correspondencia"
@@ -125,7 +230,16 @@ msgstr "Borradores"
 msgid "Edit your request"
 msgstr "Modifica tu solicitud"
 
+msgid "Email address"
+msgstr ""
+
 msgid "Email doesn't look like a valid address"
+msgstr ""
+
+msgid "Everything you need to keep on top of complex FOI-driven stories."
+msgstr ""
+
+msgid "Expires soon"
 msgstr ""
 
 msgid "First created"
@@ -137,14 +251,38 @@ msgstr "Desde esta pantalla puede obtener una visión general útil de sus solic
 msgid "From this screen you can see what you need to do next to keep your requests moving forward. Why not start a new request now?"
 msgstr "Desde esta pantalla puede ver lo que necesita hacer para mantener sus peticiones avanzadas. ¿Por qué no iniciar una nueva solicitud ahora?"
 
+msgid "Get access to the beta"
+msgstr ""
+
+msgid "Get email updates about {{site_name}}?"
+msgstr ""
+
+msgid "Get pre-launch access"
+msgstr ""
+
+msgid "Get regular updates as the responses come in — without overwhelming your inbox"
+msgstr ""
+
 msgid "Get started with your first request"
 msgstr "Comience con su primera solicitud"
 
 msgid "Help"
 msgstr "Ayuda"
 
+msgid "I have read and accepted these terms and conditions"
+msgstr ""
+
+msgid "I understand and still want to cancel"
+msgstr ""
+
+msgid "If you have an <strong>offer code</strong>, please enter it here:"
+msgstr ""
+
 msgid "Keep private for a further:"
 msgstr "Manténgase privado para más:"
+
+msgid "Keep requests and responses private while you work on your story"
+msgstr ""
 
 msgid "Last updated"
 msgstr "Última actualización"
@@ -155,16 +293,37 @@ msgstr ""
 msgid "Make a request"
 msgstr "Hacer una solicitud"
 
+msgid "Make a request to multiple authorities: select authorities at the click of a button"
+msgstr ""
+
 msgid "Make an {{law_used_short}} request"
 msgstr "Hacer una solicitud de {{law_used_short}}"
+
+msgid "Manage large volumes of responses:  easily keep track of the status of each request"
+msgstr ""
+
+msgid "More information"
+msgstr ""
 
 msgid "My profile"
 msgstr "Mi perfil"
 
+msgid "My subscription"
+msgstr ""
+
 msgid "My wall"
 msgstr "Mi muro"
 
+msgid "Next payment"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
 msgid "No bodies selected"
+msgstr ""
+
+msgid "No results found"
 msgstr ""
 
 msgid "No title"
@@ -176,16 +335,31 @@ msgstr "Nota: Cuando esta solicitud se publique en {{site_name}}, este mensaje t
 msgid "Note: When this request is made public on {{site_name}}, your name and annotation will appear in <strong>search engines</strong>."
 msgstr ""
 
+msgid "Now in beta"
+msgstr ""
+
+msgid "Once the privacy period ends, everything that you enter on this page, including <strong>your name</strong>, will be <strong><a href=\"{{url}}\">displayed publicly</a></strong> on this website."
+msgstr ""
+
 msgid "Once you’re happy with your request, click preview and send."
 msgstr "Una vez que esté satisfecho con su solicitud, haga clic en pre-visualizar y enviar."
 
+msgid "Pay with card"
+msgstr ""
+
 msgid "Pending"
+msgstr ""
+
+msgid "Plans and pricing"
 msgstr ""
 
 msgid "Please enter the reason why you want access"
 msgstr ""
 
 msgid "Please enter your email address"
+msgstr ""
+
+msgid "Please include links to some examples of your journalism or blogging if you can."
 msgstr ""
 
 msgid "Please tell us if you want to get updates"
@@ -215,6 +389,12 @@ msgstr ""
 msgid "Private until {{date}}"
 msgstr ""
 
+msgid "Pro brings a new dashboard view"
+msgstr ""
+
+msgid "Pro features a new request list view"
+msgstr ""
+
 msgid "Provide extra context on the request and your reasons for making it."
 msgstr "Proporcione un contexto adicional en la solicitud y sus razones para hacerlo."
 
@@ -240,6 +420,9 @@ msgstr "Recuerde que las entidades públicas tienen {{late_number_of_days}} día
 
 msgid "Remember, public authorities have {{late_number_of_days}} working days to respond to FOI requests."
 msgstr "Recuerde, las entidades públicas tienen {{late_number_of_days}} días laborables para responder a las solicitudes de OAIP"
+
+msgid "Replies"
+msgstr ""
 
 msgid "Request an internal review"
 msgstr "Solicitar una revisión interna"
@@ -271,6 +454,9 @@ msgid "Requests that will be made public soon"
 msgstr "Solicitudes que se harán públicas pronto"
 
 msgid "Response due"
+msgstr ""
+
+msgid "Save as draft to get back to it later"
 msgstr ""
 
 msgid "Save draft"
@@ -322,10 +508,16 @@ msgstr "Enviando..."
 msgid "Sent"
 msgstr ""
 
+msgid "Settings"
+msgstr ""
+
 msgid "Show {{count}} request in detail</span>"
 msgid_plural "Show {{count}} requests in detail</span>"
 msgstr[0] ""
 msgstr[1] ""
+
+msgid "Sign up"
+msgstr ""
 
 msgid "Sorry, no authorities matched that search"
 msgstr "Lo sentimos, ninguna entidad coincide con esa búsqueda."
@@ -366,6 +558,18 @@ msgstr "Tema"
 msgid "Submit Search"
 msgstr "Enviar Buscar"
 
+msgid "Subscription began"
+msgstr ""
+
+msgid "Subscription cancellations are applied at the end of the current billing period (<strong>{{date}}</strong>)."
+msgstr ""
+
+msgid "Subscription ends"
+msgstr ""
+
+msgid "Successful applicants will receive free early access to {{site_name}} for 6 months."
+msgstr ""
+
 msgid "Thanks for logging in. We've saved your request as a draft, in case you wanted to add an embargo before sending it. You can set that (or just send it straight away) using the form below."
 msgstr "Gracias por ingresar. Hemos guardado su solicitud como borrador, en caso de que desee agregar una condición antes de enviarlo. Usted puede fijar eso (o apenas enviarlo enseguida) usando el formulario abajo."
 
@@ -379,6 +583,21 @@ msgstr[1] "Las siguientes solicitudes se harán públicas en {{site_name}} en la
 
 msgid "Then you can access {{pro_site_name}}"
 msgstr "A continuación, puede acceder a {{pro_site_name}}"
+
+msgid "Then you can update your payment details"
+msgstr ""
+
+msgid "Then you can upgrade your account"
+msgstr ""
+
+msgid "There was a problem cancelling your account. Please try again later."
+msgstr ""
+
+msgid "There was a problem submitting your payment. You have not been charged. Please try again later."
+msgstr ""
+
+msgid "There was a problem updating your payment details. Please try again later."
+msgstr ""
 
 msgid "There's nothing to do right now. Great job!"
 msgstr "No hay nada que hacer ahora mismo. ¡Buen trabajo!"
@@ -413,14 +632,26 @@ msgstr "A"
 msgid "To access {{pro_site_name}}"
 msgstr "Para acceder a {{pro_site_name}}"
 
+msgid "To update your payment details"
+msgstr ""
+
+msgid "To upgrade your account"
+msgstr ""
+
 msgid "Unless you choose a privacy option, requests in this batch will be public on {{site_name}} immediately."
 msgstr ""
 
 msgid "Unless you choose a privacy option, your request will be public on {{site_name}} immediately."
 msgstr "A menos que elija una opción de privacidad, su solicitud será pública en {{site_name}} inmediatamente."
 
+msgid "Up-to-date database of contact details for 20,000 authorities"
+msgstr ""
+
 msgid "Update"
 msgstr "Actualizar"
+
+msgid "Update Card Details"
+msgstr ""
 
 msgid "Update its status."
 msgid_plural "Update statuses."
@@ -430,11 +661,23 @@ msgstr[1] "Actualizar Status"
 msgid "Updated"
 msgstr "Actualizar"
 
+msgid "Updating your payment card requires your browser to have JavaScript enabled."
+msgstr ""
+
+msgid "Upgrade account"
+msgstr ""
+
 msgid "View"
 msgstr "Ver"
 
 msgid "View authorities"
 msgstr "Ver las entidades"
+
+msgid "Wall"
+msgstr ""
+
+msgid "We are processing your payment. You can access your subscription settings and account information from the \"My subscription\" link in your user menu (accessed from the dropdown next to your name, above)."
+msgstr ""
 
 msgid "We will remind you by email and on the site when the request is going be made public, and you'll have the option to keep it private for longer if you want to. You can extend this time indefinitely, or make the request public at any time."
 msgstr "Le recordamos por correo electrónico y en el sitio cuando la solicitud se va a hacer pública, y tendrá la opción de mantenerlo privado por más tiempo si lo desea. Puede extender este tiempo indefinidamente o hacer pública la solicitud en cualquier momento."
@@ -442,8 +685,17 @@ msgstr "Le recordamos por correo electrónico y en el sitio cuando la solicitud 
 msgid "When a request is private we guarantee that it will only be visible on {{site_name}} for the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
 msgstr "Cuando una solicitud es privada, garantizamos que sólo será visible en {{site_name}} durante el período que seleccione. Los administradores de {{pro_site_name}} también podrán ver tu solicitud, pero solo lo harán en caso de que necesiten solucionar un problema con ella (por ejemplo, entrega fallida a la entidad). Ellos no revelarán el contenido de su solicitud o cualquier respuesta que obtenga a otra persona. La autoridad todavía puede publicarlo en un registro de divulgación como de costumbre."
 
+msgid "When the current billing period ends:"
+msgstr ""
+
+msgid "When you cancel your account:"
+msgstr ""
+
 msgid "When your request is made public on {{site_name}}, any annotations you add will also be public. However, they are <strong>not</strong> sent to {{public_body_name}}."
 msgstr "Cuando su solicitud se publique en {{site_name}}, las anotaciones que agregue también serán públicas. Sin embargo, no se envían <strong> no </ strong> a {{public_body_name}}."
+
+msgid "Why do you want access?"
+msgstr ""
 
 msgid "Write a reply"
 msgstr "Escribe una respuesta"
@@ -451,14 +703,32 @@ msgstr "Escribe una respuesta"
 msgid "Write request"
 msgstr "Solicitud escrita"
 
+msgid "Yes"
+msgstr ""
+
 msgid "You added a new annotation on your request to {{public_body_name}} \"{{info_request_title}}.\""
 msgstr "Has añadido una nueva anotación en tu solicitud a {{public_body_name}} \"{{info_request_title}}.\""
+
+msgid "You are already subscribed to this plan"
+msgstr ""
+
+msgid "You can re-subscribe at any time and full access to these features will be restored."
+msgstr ""
+
+msgid "You don't currently have an active Pro subscription"
+msgstr ""
+
+msgid "You have successfully cancelled your subscription to {{pro_site_name}}"
+msgstr ""
 
 msgid "You haven't added any authorities to your batch yet"
 msgstr "Todavía no has añadido ninguna entidad a tu grupo"
 
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "Sabes lo que causó el error, y puedes <strong> sugerir una solución </ strong>, como una dirección de correo electrónico que funcione."
+
+msgid "You must accept the terms and conditions"
+msgstr ""
 
 msgid "You sent a clarification to {{public_body_name}} for \"{{info_request_title}}\"."
 msgstr "Enviaste una aclaración a {{public_body_name}} para \"{{info_request_title}}\"."
@@ -472,11 +742,26 @@ msgstr "Enviaste una solicitud \"{{info_request_title}}\" a {{public_body_name}}
 msgid "You sent an internal review request to {{public_body_name}} for \"{{info_request_title}}\"."
 msgstr "Enviaste una solicitud de revisión interna a {{public_body_name}} para \"{{info_request_title}}\"."
 
+msgid "You will be able to extend this privacy period from {{embargo_extend_from}}."
+msgstr ""
+
+msgid "You will still be able to see any requests which are currently private, but you won't be able to make new private requests or extend privacy durations. These requests will be published when the current privacy period ends."
+msgstr ""
+
+msgid "You won't be able to access {{pro_site_name}} tools, including the dashboard and pro request management."
+msgstr ""
+
+msgid "You'll lose access to any requests you still have in draft."
+msgstr ""
+
 msgid "Your Batch Request has been saved!"
 msgstr "Se ha guardado su solicitud por grupos."
 
 msgid "Your clarification to {{public_body_name}} for \"{{info_request_title}}\" was resent."
 msgstr "Su aclaración a {{public_body_name}} para \"{{info_request_title}}\" fue enviada de nuevo."
+
+msgid "Your current subscription"
+msgstr ""
 
 msgid "Your dashboard"
 msgstr "Su panel de control."
@@ -492,6 +777,9 @@ msgstr "Su solicitud de revisión interna a {{public_body_name}} para \"{{info_r
 
 msgid "Your message will be displayed publicly on this website once you publish your request."
 msgstr "Su mensaje se mostrará públicamente en este sitio web una vez que publique su solicitud."
+
+msgid "Your payment details"
+msgstr ""
 
 msgid "Your request"
 msgstr "Tu petición"
@@ -518,6 +806,9 @@ msgid "Your requests are now public!"
 msgstr ""
 
 msgid "Your requests will now be private on {{site_name}} until {{expiry_date}}."
+msgstr ""
+
+msgid "Your subscription has been cancelled, your access to {{pro_site_name}} will end on <strong>{{date}}</strong>."
 msgstr ""
 
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
@@ -591,17 +882,17 @@ msgstr[1] "Las solicitudes {{count}} se harán públicas esta semana."
 msgid "{{count}} {{phase}}"
 msgstr ""
 
+msgid "{{date}}"
+msgstr ""
+
 msgid "{{length_of_time}} ago"
 msgstr "Hace {{length_of_time}}"
+
+msgid "{{pro_site_name}} is a powerful, fully-featured FOI toolkit for journalists"
+msgstr ""
 
 msgid "{{public_body_name}} are delayed in responding to your request \"{{info_request_title}}\"."
 msgstr "{{Public_body_name}} se demoran en responder a su solicitud \"{{info_request_title}}\"."
 
 msgid "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."
 msgstr "{{Public_body_name}} tardó mucho tiempo en responder a su solicitud \"{{info_request_title}}\"."
-
-#~ msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
-#~ msgstr "<Strong> Nota: </ strong> Debido a que estamos probando, las solicitudes se envían a {{email}} en lugar de la Entidad actual."
-
-#~ msgid "Preview your request"
-#~ msgstr "Pre-visualizar su solicitud"

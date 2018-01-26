@@ -350,15 +350,14 @@
 .js-loaded {
   .account-link {
     @include respond-min( $main_menu-mobile_menu_cutoff ) {
-      position: inherit;
+      position: relative;
       right: inherit;
       top: inherit;
     }
     &:after {
         position: absolute;
         top: 1em;
-        right: 0.5em;
-        margin-left: 1em;
+        right: 10px;
         font-size: 0.5em;
         @include respond-min( $main_menu-mobile_menu_cutoff ){
           content: "▼";

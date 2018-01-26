@@ -8,8 +8,8 @@
 #  event_type          :text             not null
 #  params_yaml         :text             not null
 #  created_at          :datetime         not null
-#  described_state     :string(255)
-#  calculated_state    :string(255)
+#  described_state     :string
+#  calculated_state    :string
 #  last_described_at   :datetime
 #  incoming_message_id :integer
 #  outgoing_message_id :integer

@@ -11,6 +11,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Aled Powell <aled@aledpowell.cymru>, 2014,2017
 # Aled Powell <aled@aledpowell.cymru>, 2014
 # skenaja <alex@alexskene.com>, 2011-2012
@@ -31,9 +32,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-27 18:47+0100\n"
-"PO-Revision-Date: 2017-09-27 17:54+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2018-01-18 01:28-0800\n"
+"PO-Revision-Date: 2018-01-18 09:30+0000\n"
+"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Welsh (http://www.transifex.com/mysociety/alaveteli/language/cy/)\n"
 "Language: cy\n"
 "MIME-Version: 1.0\n"
@@ -588,8 +589,8 @@ msgstr "Porwch<a href='{{url}}'>geisiadau eraill</a> am enghreifftiau o sut i ei
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
 msgstr "Porwch <a href='{{url}}'>geisiadau eraill</a> i '{{public_body_name}}' am enghreifftiau o sut i eirio'ch cais."
 
-msgid "Browse all authorities..."
-msgstr "Mwy o awdurdodau..."
+msgid "Browse all authorities &rarr;"
+msgstr ""
 
 msgid "Browse all requests &rarr;"
 msgstr "Pori pob cais &rarr;"
@@ -1206,6 +1207,9 @@ msgstr "Oddi wrth:"
 
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "RHOWCH FANYLION AM EICH CWYN YMA"
+
+msgid "Got a {{site_name}} account?"
+msgstr ""
 
 msgid "Got an account?"
 msgstr "Gyda chyfrif?"
@@ -2170,6 +2174,9 @@ msgstr "Cadwch hi'n fyrrach na 500 o nodau"
 msgid "Please keep the summary short, like in the subject of an email. You can use a phrase, rather than a full sentence."
 msgstr "Cadwch y crynodeb yn fyr, fel pe bai'n testun e-bost. Gallwch ddefnyddio ymadrodd, yn hytrach na brawddeg lawn."
 
+msgid "Please note that in some cases publication of requests and responses will be delayed."
+msgstr ""
+
 msgid "Please only request information that comes under those categories, <strong>do not waste your time</strong> or the time of the public authority by requesting unrelated information."
 msgstr "Dim ond gwybodaeth sy'n dod o dan y categorïau hynny ddylech chi ofyn amdano, <strong>peidiwch â gwastraffu eich amser</strong> nac amser yr awdurdod cyhoeddus drwy ofyn am wybodaeth amherthnasol."
 
@@ -2458,15 +2465,6 @@ msgstr "PublicBody|Fersiwn"
 
 msgid "Publication scheme"
 msgstr "Cynllun cyhoeddi"
-
-msgid "Purge request"
-msgstr "Cliriwch gais"
-
-msgid "PurgeRequest|Model"
-msgstr "PurgeRequest|Model"
-
-msgid "PurgeRequest|Url"
-msgstr "PurgeRequest|Url"
 
 msgid "Query can't be blank"
 msgstr ""
@@ -3018,6 +3016,9 @@ msgstr ""
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr "Mae'r bariau gwall a ddangosir yn gyfyngau hyder 95% ar gyfer y gyfran sylfaenol damcaniaethol (h.y. un y byddech chi'n cael drwy wneud nifer anfeidrol o geisiadau drwy'r safle hwn i'r awdurdod hwnnw). Mewn geiriau eraill, holl geisiadau presennol ac yn y dyfodol i'r awdurdod drwy'r safle hwn yw'r boblogaeth sy'n cael ei samplo, yn hytrach na, dyweder, yr holl geisiadau sydd wedi cael eu gwneud i'r corff cyhoeddus mewn unrhyw fodd."
 
+msgid "The following request has been made public on {{site_name}}."
+msgstr ""
+
 msgid "The following request will be made public on {{site_name}} in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer."
 msgstr ""
 
@@ -3297,15 +3298,15 @@ msgstr "Mae'r cais penodol hwn wedi gorffen:"
 msgid "This person has made no Freedom of Information requests using this site."
 msgstr "Nid yw'r person hwn wedi gwneud unrhyw geisiadau Rhyddid Gwybodaeth drwy ddefnyddio'r wefan hon."
 
+msgid "This person's Freedom of Information request"
+msgid_plural "This person's Freedom of Information requests (approximately {{count}})"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
 msgid "This person's annotations"
 msgstr "Anodiadau'r person hwn"
-
-msgid "This person's {{count}} Freedom of Information request"
-msgid_plural "This person's {{count}} Freedom of Information requests"
-msgstr[0] "{{count}} cais Rhyddid Gwybodaeth y person hwn "
-msgstr[1] "{{count}} cais Rhyddid Gwybodaeth y person hwn"
-msgstr[2] "{{count}} cais Rhyddid Gwybodaeth y person hwn"
-msgstr[3] "{{count}} cais Rhyddid Gwybodaeth y person hwn"
 
 msgid "This person's {{count}} annotation"
 msgid_plural "This person's {{count}} annotations"
@@ -3334,6 +3335,9 @@ msgstr "Mae adroddiad am y cais hwn <strong<wedi cael ei anfon<strong> gan ddweu
 
 msgid "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
 msgstr "Mae'r cais hwn <strong>wedi cael ei dynnu'n ôl</strong> gan y sawl a'i wnaeth. Efallai y bydd esboniad yn yr ohebiaeth isod."
+
+msgid "This request has been made public on {{site_name}}."
+msgstr ""
 
 msgid "This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Mae'r cais wedi cael ei farcio i'w adolygu gan weinyddwyr y wefan, nad ydynt wedi ei guddio ar hyn o bryd. Os ydych yn credu y dylid ei guddio, <a href=\"{{url}}\">cysylltwch â ni</a>."
@@ -4156,8 +4160,18 @@ msgstr "Rydych chi wedi clirio eich llun proffil"
 msgid "Your <strong>name will appear publicly</strong> (<a href=\"{{why_url}}\">why?</a>) on this website and in search engines. <a href=\"{{help_url}}\">Thinking of using a pseudonym?</a>"
 msgstr "Bydd eich <strong>enw yn ymddangos yn gyhoeddus</strong> (<a href=\"{{why_url}}\">pam?</a>) ar y wefan hon ac mewn peiriannau chwilio. Os ydych yn ystyried defnyddio ffugenw, <a href=\"{{help_url}}\">darllenwch hwn yn gyntaf</a>."
 
+msgid "Your FOI request - {{request_title}} has been made public on {{site_name}}"
+msgstr ""
+
 msgid "Your FOI request - {{request_title}} will be made public on {{site_name}} this week"
 msgstr ""
+
+msgid "Your Freedom of Information request"
+msgid_plural "Your Freedom of Information requests (approximately {{count}})"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
 
 msgid "Your annotations"
 msgstr "Eich anodiadau"
@@ -4267,13 +4281,6 @@ msgstr "Eich awdurdodau dewisedig"
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr "Eich barn ar beth ddylai <strong>gweinyddwyr</strong> {{site_name}} ei wneud am y cais."
 
-msgid "Your {{count}} Freedom of Information request"
-msgid_plural "Your {{count}} Freedom of Information requests"
-msgstr[0] "Eich {{count}} cais Rhyddid Gwybodaeth"
-msgstr[1] "Eich {{count}} cais Rhyddid Gwybodaeth"
-msgstr[2] "Eich {{count}} cais Rhyddid Gwybodaeth"
-msgstr[3] "Eich {{count}} cais Rhyddid Gwybodaeth"
-
 msgid "Your {{count}} annotation"
 msgid_plural "Your {{count}} annotations"
 msgstr[0] "Eich {{count}} anodiad"
@@ -4287,6 +4294,13 @@ msgstr[0] "Eich {{count}} swp o geisiadau"
 msgstr[1] "Eich {{count}} swp o geisiadau"
 msgstr[2] "Eich {{count}} swp o geisiadau"
 msgstr[3] "Eich {{count}} swp o geisiadau"
+
+msgid "Your {{count}} private Freedom of Information request"
+msgid_plural "Your {{count}} private Freedom of Information requests"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
 
 msgid "Your {{law_used_full}} request has been sent"
 msgstr ""
@@ -4611,6 +4625,13 @@ msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
+msgid "{{count}} request has been made public on {{site_name}}."
+msgid_plural "{{count}} requests have been made public on {{site_name}}."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
 msgid "{{count}} request has not had a prompt response:"
 msgid_plural "{{count}} requests have not had prompt responses:"
 msgstr[0] ""
@@ -4686,6 +4707,9 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
+
+msgid "{{pro_site_name}} Terms"
+msgstr ""
 
 msgid "{{public_body_link_absolute}}"
 msgstr "{{public_body_link_absolute}}"

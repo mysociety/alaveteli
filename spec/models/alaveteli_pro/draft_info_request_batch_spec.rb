@@ -4,12 +4,12 @@
 # Table name: draft_info_request_batches
 #
 #  id               :integer          not null, primary key
-#  title            :string(255)
+#  title            :string
 #  body             :text
 #  user_id          :integer
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
-#  embargo_duration :string(255)
+#  embargo_duration :string
 #
 
 require 'spec_helper'

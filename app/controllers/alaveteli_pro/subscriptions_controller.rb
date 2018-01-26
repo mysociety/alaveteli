@@ -69,18 +69,20 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
            Stripe::APIConnectionError,
            Stripe::StripeError => e
 
-      if e.message =~ /No such coupon/
-        flash[:notice] = _('Coupon code is invalid.')
-      elsif e.message =~ /Coupon expired/
-        flash[:notice] = _('Coupon code has expired.')
-      else
-        if send_exception_notifications?
-          ExceptionNotifier.notify_exception(e, :env => request.env)
-        end
+      flash[:error] =
+        case e.message
+        when /No such coupon/
+          _('Coupon code is invalid.')
+        when /Coupon expired/
+          _('Coupon code has expired.')
+        else
+          if send_exception_notifications?
+            ExceptionNotifier.notify_exception(e, :env => request.env)
+          end
 
-        flash[:error] = _('There was a problem submitting your payment. You ' \
-                          'have not been charged. Please try again later.')
-      end
+          _('There was a problem submitting your payment. You ' \
+            'have not been charged. Please try again later.')
+        end
 
       if params[:plan_id]
         redirect_to plan_path(non_namespaced_plan_id)
@@ -91,11 +93,16 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
     end
 
     current_user.add_role(:pro)
-    unless feature_enabled? :accept_mail_from_poller, current_user
+
+    # enable the mail poller only if the POP polling is configured AND it
+    # has not already been enabled for this user (raises an error)
+    if (AlaveteliConfiguration.production_mailer_retriever_method == 'pop' &&
+        !feature_enabled?(:accept_mail_from_poller, current_user))
       AlaveteliFeatures.
         backend.
           enable_actor(:accept_mail_from_poller, current_user)
     end
+
     unless feature_enabled? :notifications, current_user
       AlaveteliFeatures.backend.enable_actor(:notifications, current_user)
     end

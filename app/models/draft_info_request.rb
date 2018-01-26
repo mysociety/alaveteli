@@ -1,15 +1,14 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20161128095350
 #
 # Table name: draft_info_requests
 #
 #  id               :integer          not null, primary key
-#  title            :string(255)
+#  title            :string
 #  user_id          :integer
 #  public_body_id   :integer
 #  body             :text
-#  embargo_duration :string(255)
+#  embargo_duration :string
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #
