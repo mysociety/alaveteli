@@ -210,6 +210,13 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       end
 
       context 'the webhook is for a matching namespaced plan' do
+        let(:stripe_plan) do
+          Stripe::Plan.create(id: 'WDTK-test',
+                              name: 'Test',
+                              amount: 10,
+                              currency: 'gpp',
+                              interval: 'monthly')
+        end
 
         let(:payload) do
           event = StripeMock.mock_webhook_event(
@@ -221,10 +228,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
                       subscription: paid_invoice.subscription
                     }
                   )
-          plan_id = event.data.object.lines.last.plan.id
-          event.to_s.
-            gsub(/"plan": {\s*"id": "#{plan_id}"/,
-                 "\"plan\": {\"id\": \"WDTK-#{plan_id}\"")
+          event.to_s
         end
 
         it 'returns a 200 OK response' do
