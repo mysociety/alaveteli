@@ -116,7 +116,7 @@ describe Users::SessionsController do
     context "checking 'remember_me'" do
       let(:user) do
         FactoryGirl.create(:user,
-                           :password => 'password',
+                           :password => 'password1234',
                            :email_confirmed => true)
       end
 
@@ -133,22 +133,22 @@ describe Users::SessionsController do
       end
 
       it "logs the user in" do
-        do_signin(user.email, 'password')
+        do_signin(user.email, 'password1234')
         expect(session[:user_id]).to eq(user.id)
       end
 
       it "sets session[:remember_me] to true" do
-        do_signin(user.email, 'password')
+        do_signin(user.email, 'password1234')
         expect(session[:remember_me]).to eq(true)
       end
 
       it "clears the session[:ttl] value" do
-        do_signin(user.email, 'password')
+        do_signin(user.email, 'password1234')
         expect(session[:ttl]).to be_nil
       end
 
       it "sets a long lived cookie on next page load" do
-        do_signin(user.email, 'password')
+        do_signin(user.email, 'password1234')
         get :new
         expect(request.env['rack.session.options'][:expire_after]).
           to eq(1.month)

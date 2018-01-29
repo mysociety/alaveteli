@@ -40,8 +40,7 @@ FactoryGirl.define do
   factory :user do
     sequence(:name) { |n| "Example User #{n}" }
     sequence(:email) { |n| "person#{n}@example.com" }
-    salt "-6116981980.392287733335677"
-    hashed_password '6b7cd45a5f35fd83febc0452a799530398bfb6e8' # jonespassword
+    password 'jonespassword'
     email_confirmed true
     ban_text ""
     confirmed_not_spam true

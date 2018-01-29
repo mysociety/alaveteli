@@ -241,8 +241,8 @@ describe PasswordChangesController do
 
     before(:each) do
       @valid_password_params =
-        { :password => 'secret',
-          :password_confirmation => 'secret' }
+        { :password => 'secret123456',
+          :password_confirmation => 'secret123456' }
       @invalid_password_params =
         { :password => 'secret',
           :password_confirmation => 'password' }
