@@ -84,12 +84,9 @@ describe ApplicationHelper do
       dismissal = double(:dismissal)
       session[:announcement_dismissals] = dismissal
 
-      allow(Announcement).to receive(:site_wide).
+      allow(Announcement).to receive(:site_wide_for_user).
+        with(current_user, dismissal).
         and_return(relation)
-      allow(relation).to receive(:for_user).with(current_user).
-        and_return(relation)
-      allow(relation).to receive_message_chain(:where, :not).
-        with(id: dismissal).and_return(relation)
       allow(relation).to receive(:first).
         and_return(announcement)
 

@@ -182,9 +182,9 @@ module ApplicationHelper
   end
 
   def site_wide_announcement
-    @site_wide_announcement ||= begin
-      Announcement.site_wide.for_user(current_user).
-        where.not(id: session[:announcement_dismissals]).first
-    end
+    @site_wide_announcement ||= Announcement.site_wide_for_user(
+      current_user,
+      session[:announcement_dismissals]
+    ).first
   end
 end
