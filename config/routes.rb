@@ -13,6 +13,8 @@ $alaveteli_route_extensions.each do |f|
 end
 
 Rails.application.routes.draw do
+  admin_constraint = lambda { |request| request.session[:using_admin] }
+
   root to: 'general#frontpage'
 
   #### General contoller
@@ -411,6 +413,10 @@ Rails.application.routes.draw do
 
   #### AdminPublicBody controller
   scope '/admin', :as => 'admin' do
+    constraints admin_constraint do
+      mount Flipper::UI.app(AlaveteliFeatures.backend) => '/flipper'
+    end
+
     resources :bodies,
     :controller => 'admin_public_body' do
       get 'missing_scheme', :on => :collection
