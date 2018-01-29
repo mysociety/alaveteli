@@ -411,6 +411,10 @@ Rails.application.routes.draw do
         :via => :post
   ####
 
+  #### Announcement controller
+  resources :announcements, :only => [:destroy]
+  ####
+
   #### AdminPublicBody controller
   scope '/admin', :as => 'admin' do
     constraints admin_constraint do
@@ -593,6 +597,12 @@ Rails.application.routes.draw do
     resources :spam_addresses,
       :controller => 'admin_spam_addresses',
       :only => [:index, :create, :destroy]
+  end
+  ####
+
+  #### AdminAnnouncement controller
+  scope '/admin', :as => 'admin' do
+    resources :announcements, :controller => 'admin_announcements'
   end
   ####
 

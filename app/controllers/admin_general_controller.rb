@@ -60,6 +60,10 @@ class AdminGeneralController < AdminController
                      !@authority_tasks &&
                      !@comment_tasks
 
+    @announcements = Announcement.
+      for_user_with_roles(current_user, :admin, :pro_admin).
+      limit(3)
+
     if can? :admin, AlaveteliPro::Embargo
       @embargoed_requires_admin_requests = InfoRequest.
                                              find_in_state('requires_admin').

@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="span12">
+    <div class="page-header">
+      <h1><%= @title %></h1>
+    </div>
+  </div>
+</div>
+
+<%= form_for [:admin, @announcement], method: 'put', class: 'form form-horizontal' do |f| %>
+  <%= render partial: 'form', locals: { f: f } %>
+  <div class="form-actions">
+    <%= submit_tag 'Save', accesskey: 's', class: 'btn btn-success' %>
+  </div>
+<% end %>
+
+<hr />
+
+<div class="row">
+  <div class="span12">
+    <div class="well">
+      <%= form_tag [:admin, @announcement], method: 'delete', class: 'form form-inline' do |f| %>
+        <%= submit_tag 'Destroy announcement', class: 'btn btn-danger', data: { confirm: 'Are you sure?' } %>
+      <% end %>
+    </div>
+  </div>
+</div>
