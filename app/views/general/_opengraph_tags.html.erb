@@ -1,30 +1,28 @@
-<% if @in_pro_area %>
-  <% if @title %>
-    <meta property="og:title" content="<%= @title %>" />
-    <meta property="og:type" content="article" />
-  <% else %>
-    <meta property="og:title" content="<%= _('A powerful, fully-featured FOI toolkit for journalists') %>" />
-  <% end %>
+<%
+  if @in_pro_area
+    _site_name = pro_site_name
+    opengraph_logo = 'logo-opengraph-pro.png'
+    default_title = _('A powerful, fully-featured FOI toolkit for journalists')
+  else
+    _site_name = site_name
+    opengraph_logo = 'logo-opengraph.png'
+    default_title = _('Make and browse Freedom of Information (FOI) requests')
+  end
+%>
 
-  <%= content_for :open_graph_tags %>
+<meta property="og:site_name" content="<%= _site_name %>" />
 
-  <meta property="og:site_name" content="<%= pro_site_name %>" />
-  <meta property="og:image" content="<%= "#{request.protocol}#{request.host_with_port}#{asset_path('logo-opengraph-pro.png')}" %>" />
+<% if @title %>
+  <meta property="og:title" content="<%= @title %>" />
+  <meta property="og:type" content="article" />
 <% else %>
-  <% if @title %>
-    <meta property="og:title" content="<%= @title %>" />
-    <meta property="og:type" content="article" />
-  <% else %>
-    <meta property="og:title" content="<%= _('Make and browse Freedom of Information (FOI) requests') %>" />
-  <% end %>
-
-  <%= content_for :open_graph_tags %>
-
-  <meta property="og:site_name" content="<%= site_name %>" />
-  <meta property="og:image" content="<%= "#{request.protocol}#{request.host_with_port}#{asset_path('logo-opengraph.png')}" %>" />
+  <meta property="og:title" content="<%= default_title %>" />
+  <meta property="og:type" content="website" />
 <% end %>
 
-<meta property="og:type" content="website" />
+<%= content_for :open_graph_tags %>
+
+<meta property="og:image" content="<%= "#{request.protocol}#{request.host_with_port}#{asset_path(opengraph_logo)}" %>" />
 <meta property="og:url" content="<%= request.original_url.force_encoding('utf-8') %>" />
 <meta property="og:image:width" content="256" />
 <meta property="og:image:height" content="256" />
