@@ -331,7 +331,7 @@ Layout/TrailingWhitespace:
 Style/Alias:
   Description: 'Use alias instead of alias_method.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#alias-method'
-  Enabled: false
+  Enabled: true
 
 Style/AndOr:
   Description: 'Use &&/|| instead of and/or.'
@@ -446,7 +446,7 @@ Style/PreferredHashMethods:
 
 Style/Documentation:
   Description: 'Document classes and non-namespace modules.'
-  Enabled: false
+  Enabled: true
   Exclude:
     - 'spec/**/*'
     - 'test/**/*'
@@ -460,7 +460,7 @@ Style/EachForSimpleLoop:
   Description: >-
                  Use `Integer#times` for a simple loop which iterates a fixed
                  number of times.
-  Enabled: false
+  Enabled: true
 
 Style/EachWithObject:
   Description: 'Prefer `each_with_object` over `inject` or `reduce`.'
@@ -468,11 +468,11 @@ Style/EachWithObject:
 
 Style/EmptyElse:
   Description: 'Avoid empty else-clauses.'
-  Enabled: false
+  Enabled: true
 
 Style/EmptyCaseCondition:
   Description: 'Avoid empty condition in case statements.'
-  Enabled: false
+  Enabled: true
 
 Style/EmptyLiteral:
   Description: 'Prefer literals to Array.new/Hash.new/String.new.'
@@ -552,7 +552,7 @@ Style/IfUnlessModifierOfIfUnless:
 Style/IfWithSemicolon:
   Description: 'Do not use if x; .... Use the ternary operator instead.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-semicolon-ifs'
-  Enabled: false
+  Enabled: true
 
 Style/IdenticalConditionalBranches:
   Description: >-
@@ -580,12 +580,12 @@ Style/LineEndConcatenation:
   Description: >-
                  Use \ instead of + or << to concatenate two string literals at
                  line end.
-  Enabled: false
+  Enabled: true
 
 Style/MethodCallWithoutArgsParentheses:
   Description: 'Do not use parentheses for method calls with no arguments.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-args-no-parens'
-  Enabled: false
+  Enabled: true
 
 Style/MethodDefParentheses:
   Description: >-
@@ -607,7 +607,7 @@ Style/MultilineBlockChain:
 Style/MultilineIfThen:
   Description: 'Do not use then for multi-line if/unless.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-then'
-  Enabled: false
+  Enabled: true
 
 Style/MultilineTernaryOperator:
   Description: >-
@@ -625,7 +625,7 @@ Style/NegatedIf:
                  Favor unless over if for negative conditions
                  (or control flow or).
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#unless-for-negatives'
-  Enabled: false
+  Enabled: true
 
 Style/NegatedWhile:
   Description: 'Favor until over while for negative conditions.'
@@ -666,7 +666,7 @@ Style/NonNilCheck:
 Style/Not:
   Description: 'Use ! instead of not.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#bang-not-not'
-  Enabled: false
+  Enabled: true
 
 Style/NumericLiterals:
   Description: >-
