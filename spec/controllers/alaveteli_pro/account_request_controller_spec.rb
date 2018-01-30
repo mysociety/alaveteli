@@ -9,6 +9,11 @@ describe AlaveteliPro::AccountRequestController do
       expect(response).to render_template('index')
     end
 
+    it 'sets the pro livery' do
+      get :index
+      expect(assigns[:in_pro_area]).to eq true
+    end
+
     it 'assigns pubic beta variable' do
       get :index
       expect(assigns[:public_beta]).to eq true
@@ -19,6 +24,11 @@ describe AlaveteliPro::AccountRequestController do
     it "renders index.html.erb" do
       get :new
       expect(response).to render_template('index')
+    end
+
+    it 'sets the pro livery' do
+      get :new
+      expect(assigns[:in_pro_area]).to eq true
     end
 
     it 'does not assigns pubic beta variable' do
@@ -32,6 +42,11 @@ describe AlaveteliPro::AccountRequestController do
                                     reason: 'Have a look around',
                                     marketing_emails: 'yes',
                                     training_emails: 'no' } }
+
+    it 'sets the pro livery' do
+      post :create, account_request: account_request_params
+      expect(assigns[:in_pro_area]).to eq true
+    end
 
     it 'assigns the account request' do
       post :create, account_request: account_request_params
