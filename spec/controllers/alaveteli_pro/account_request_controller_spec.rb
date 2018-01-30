@@ -14,7 +14,7 @@ describe AlaveteliPro::AccountRequestController do
       expect(assigns[:in_pro_area]).to eq true
     end
 
-    it 'assigns pubic beta variable' do
+    it 'assigns public beta variable' do
       get :index
       expect(assigns[:public_beta]).to eq true
     end
@@ -31,7 +31,7 @@ describe AlaveteliPro::AccountRequestController do
       expect(assigns[:in_pro_area]).to eq true
     end
 
-    it 'does not assigns pubic beta variable' do
+    it 'does not assign public beta variable' do
       get :new
       expect(assigns[:public_beta]).to_not eq true
     end
