@@ -75,4 +75,23 @@ describe ApplicationHelper do
 
   end
 
+  describe 'site_wide_announcement' do
+    let(:current_user) { FactoryGirl.create(:user) }
+
+    it 'calls scopes on Announcement' do
+      announcement = double(:announcement)
+      relation = double(:announcement_relation)
+      dismissal = double(:dismissal)
+      session[:announcement_dismissals] = dismissal
+
+      allow(Announcement).to receive(:site_wide_for_user).
+        with(current_user, dismissal).
+        and_return(relation)
+      allow(relation).to receive(:first).
+        and_return(announcement)
+
+      expect(site_wide_announcement).to eq announcement
+    end
+  end
+
 end

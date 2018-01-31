@@ -1,0 +1,31 @@
+<div class="tab-pane" id="div-locale-<%= locale %>">
+<div class="control-group">
+  <%= t.hidden_field :locale, value: locale %>
+  <%= t.label :title, 'Title (optional)', class: 'control-label' %>
+  <div class="controls">
+    <% if AlaveteliLocalization.default_locale?(locale) &&
+                      t.object.errors[:title].any? %>
+      <span class="fieldWithErrors">
+      <% end %>
+      <%= t.text_field :title, class: 'span4' %>
+      <% if AlaveteliLocalization.default_locale?(locale) &&
+            t.object.errors[:title].any? %>
+        </span>
+      <%end %>
+  </div>
+</div>
+<div class="control-group">
+  <%= t.label :content, class: 'control-label' %>
+  <div class="controls">
+    <% if AlaveteliLocalization.default_locale?(locale) &&
+          t.object.errors[:content].any? %>
+      <span class="fieldWithErrors">
+    <% end %>
+    <%= t.text_area :content, class: 'span6', rows: 2 %>
+    <% if AlaveteliLocalization.default_locale?(locale) &&
+          t.object.errors[:content].any? %>
+      </span>
+    <%end %>
+  </div>
+</div>
+</div>

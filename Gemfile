@@ -86,6 +86,7 @@ gem 'pg', '~> 0.18.0', '< 0.19.0'
 # New gem releases aren't being done. master is newer and supports Rails > 3.0
 gem 'acts_as_versioned', :git => 'https://github.com/technoweenie/acts_as_versioned.git', :ref => '63b1fc8529d028'
 gem 'active_model_otp', :git => 'https://github.com/heapsource/active_model_otp.git', :ref => '55d93a3979'
+gem 'bcrypt', '~> 3.1.0'
 gem 'cancancan', '~> 1.12.0', '< 1.13.0'
 gem 'charlock_holmes', '~> 0.7.0'
 gem 'dalli', '~> 2.7.0'
@@ -154,6 +155,7 @@ gem 'therubyracer', '~> 0.12.0'
 
 # Feature flags
 gem 'alaveteli_features', :path => 'gems/alaveteli_features'
+gem 'flipper-ui', '~> 0.10.2'
 
 group :test do
   gem 'fakeweb', '~> 1.3.0'

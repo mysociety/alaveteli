@@ -9,3 +9,4 @@
 //= require ba-throttle-debounce
 //= require jquery.deparam
 //= require alaveteli_pro/alaveteli_pro
+//= require carousel
