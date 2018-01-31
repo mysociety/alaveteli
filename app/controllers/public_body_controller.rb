@@ -122,12 +122,14 @@ class PublicBodyController < ApplicationController
     like_query = "%#{like_query}%"
 
     @tag = params[:tag] || 'all'
+    @tag = Unicode.upcase(@tag) if @tag.scan(/./mu).size == 1
 
     @country_code = AlaveteliConfiguration.iso_country_code
     @locale = AlaveteliLocalization.locale
     underscore_locale = AlaveteliLocalization.locale
     underscore_default_locale = AlaveteliLocalization.default_locale
 
+    where_condition = ''
     scope = PublicBody.visible.with_tag(@tag)
     first_letter = (@tag.scan(/./mu).size == 1)
 
