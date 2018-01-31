@@ -1,8 +1,11 @@
 //@include grid-column($columns: 12, $collapse: true);
 .marketing__section {
   @include grid-row;
-  margin-bottom: 5em;
   margin-top: 2em;
+  margin-bottom: 0;
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    margin-bottom: 5em;
+  }
 }
 
 .marketing__hero {
