@@ -53,6 +53,13 @@ class AlaveteliPro::InfoRequestBatchesController < AlaveteliPro::BaseController
     # lines and body content.
     @example_info_request = @info_request_batch.example_request
     @embargo = @example_info_request.embargo
+    # if no title or embargo has been set, assume this is an initial draft
+    # rather than an edit in progress and apply a default embargo
+    if @info_request_batch.title.blank? && !@embargo
+      # TODO: set duration based on current user's account settings
+      @embargo = AlaveteliPro::Embargo.new(info_request: @example_info_request)
+    end
+
     @outgoing_message = @example_info_request.outgoing_messages.first
   end
 
