@@ -1186,3 +1186,14 @@ STRIPE_NAMESPACE: ''
 # STRIPE_WEBHOOK_SECRET: wh_test_UD6BDsARFZIYb8273dbdl
 # ---
 STRIPE_WEBHOOK_SECRET: ''
+
+# The number of batches a Pro user with batch access can make per month.
+# (Can be overridden on a per-user basis.) Only required for Alaveteli Pro.
+#
+# PRO_MONTHLY_BATCH_LIMIT: - Integer (default: 1)
+#
+# Examples:
+#
+# PRO_MONTHLY_BATCH_LIMIT: 1
+# ---
+PRO_MONTHLY_BATCH_LIMIT: 1
