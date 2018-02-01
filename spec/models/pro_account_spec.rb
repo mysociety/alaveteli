@@ -136,8 +136,17 @@ describe ProAccount, feature: :pro_pricing do
     let(:pro_account) { FactoryGirl.create(:pro_account) }
     subject { pro_account.monthly_batches }
 
-    context 'monthly_batch_limit has not been set' do
+    context 'the monthly_batch_limit has not been set' do
+
       it { is_expected.to eq 1 }
+
+      it 'takes the default value from AlaveteliConfiguration' do
+        allow(AlaveteliConfiguration).
+          to receive(:pro_monthly_batch_limit).and_return(42)
+
+        expect(subject).to eq 42
+      end
+
     end
 
     context 'monthly_batch_limit has been set' do
