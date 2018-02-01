@@ -35,6 +35,16 @@ class ProAccount < ActiveRecord::Base
     stripe_customer.save
   end
 
+  def monthly_batches
+    monthly_batch_limit || 1
+  end
+
+  def batches_remaining
+    remaining = monthly_batches - user.info_request_batches.
+                                    where('created_at > ?', 1.month.ago).count
+    ( remaining > -1 ) ? remaining : 0
+  end
+
   private
 
   def set_stripe_customer_id

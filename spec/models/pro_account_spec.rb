@@ -132,6 +132,43 @@ describe ProAccount, feature: :pro_pricing do
 
   end
 
+  describe '#monthly_batches' do
+    let(:pro_account) { FactoryGirl.create(:pro_account) }
+    subject { pro_account.monthly_batches }
+
+    context 'monthly_batch_limit has not been set' do
+      it { is_expected.to eq 1 }
+    end
+
+    context 'monthly_batch_limit has been set' do
+      before { pro_account.monthly_batch_limit = 42 }
+      it { is_expected.to eq 42 }
+    end
+
+  end
+
+  describe '#batches_remaining' do
+    let(:pro_account) { FactoryGirl.create(:pro_account) }
+
+    before { allow(pro_account).to receive(:monthly_batches).and_return(1) }
+
+    it 'returns the monthly batch limit if no batches have been made' do
+      expect(pro_account.batches_remaining).to eq 1
+    end
+
+    it 'returns 0 if all the available batches have been used' do
+      FactoryGirl.create(:info_request_batch, user: pro_account.user)
+      expect(pro_account.batches_remaining).to eq 0
+    end
+
+    it 'returns 0 if more than the available batches have been used' do
+      FactoryGirl.create(:info_request_batch, user: pro_account.user)
+      FactoryGirl.create(:info_request_batch, user: pro_account.user)
+      expect(pro_account.batches_remaining).to eq 0
+    end
+
+  end
+
   describe '#update_email_address' do
     let(:user) { FactoryGirl.build(:user, email: 'bilbo@example.com') }
     let(:pro_account) { FactoryGirl.create(:pro_account, user: user) }
