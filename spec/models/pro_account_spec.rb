@@ -157,7 +157,12 @@ describe ProAccount, feature: :pro_pricing do
   end
 
   describe '#batches_remaining' do
-    let(:pro_account) { FactoryGirl.create(:pro_account) }
+
+    let(:pro_account) do
+      account = FactoryGirl.create(:pro_account)
+      AlaveteliFeatures.backend.enable(:pro_batch_access, account.user)
+      account
+    end
 
     before { allow(pro_account).to receive(:monthly_batches).and_return(1) }
 
@@ -173,6 +178,11 @@ describe ProAccount, feature: :pro_pricing do
     it 'returns 0 if more than the available batches have been used' do
       FactoryGirl.create(:info_request_batch, user: pro_account.user)
       FactoryGirl.create(:info_request_batch, user: pro_account.user)
+      expect(pro_account.batches_remaining).to eq 0
+    end
+
+    it 'returns 0 if the user does not have the pro_batch_access feature flag' do
+      AlaveteliFeatures.backend.disable(:pro_batch_access, pro_account.user)
       expect(pro_account.batches_remaining).to eq 0
     end
 
