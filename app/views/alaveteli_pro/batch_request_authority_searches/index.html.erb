@@ -9,7 +9,147 @@
   </div>
 
   <div class="inner-canvas-body">
-    <div class="batch-builder js-batch-authority-search">
+
+    <div class="batch-builder-mode">
+      <ul class="tabs" data-tab="">
+        <li class="tab-title active"><a href="#"><%= _('Search by name') %></a></li>
+        <li class="tab-title"><a href="#"><%= _('Browse by category') %></a></li>
+      </ul>
+    </div>
+
+    <!-- TODO: Show *either* this builder *or* the next one, based on selected mode, above -->
+    <div class="batch-builder batch-builder--browse js-batch-authority-browse">
+      <div class="batch-builder__search-results">
+        <div class="js-batch-authority-search-results">
+          <ul class="batch-builder__list">
+
+            <li class="batch-builder__list__group">
+              <div class="batch-builder__list__item">
+                <span class="batch-builder__list__item__caret"></span>
+                <span class="batch-builder__list__item__name">
+                  Central government
+                </span>
+                <div class="batch-builder__list__item__action">
+                  <div class="batch-builder__list__item__action__add">
+                    <form>
+                      <button type="submit" class="add-authority-to-batch__form__submit js-add-authority-to-batch-submit button--add"><%= _('Add all') %></button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <ul>
+
+                <li class="batch-builder__list__group">
+                  <div class="batch-builder__list__item">
+                    <span class="batch-builder__list__item__caret"></span>
+                    <span class="batch-builder__list__item__name">
+                      Ministerial departments
+                    </span>
+                    <div class="batch-builder__list__item__action">
+                      <div class="batch-builder__list__item__action__add">
+                        <form>
+                          <button type="submit" class="add-authority-to-batch__form__submit js-add-authority-to-batch-submit button--add"><%= _('Add all') %></button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <ul>
+
+                    <li class="batch-builder__list__item">
+                      <span class="batch-builder__list__item__name">
+                        Department for Humpadinking
+                      </span>
+                      <div class="batch-builder__list__item__action">
+                        <div class="batch-builder__list__item__action__add">
+                          <form>
+                            <button type="submit" class="add-authority-to-batch__form__submit js-add-authority-to-batch-submit button--add"><%= _('Add') %></button>
+                          </form>
+                        </div>
+                      </div>
+                    </li>
+
+                    <li class="batch-builder__list__item">
+                      <span class="batch-builder__list__item__name">
+                        Department of Loneliness
+                      </span>
+                      <div class="batch-builder__list__item__action">
+                        <div class="batch-builder__list__item__action__add">
+                          <form>
+                            <button type="submit" class="add-authority-to-batch__form__submit js-add-authority-to-batch-submit button--add"><%= _('Add') %></button>
+                          </form>
+                        </div>
+                      </div>
+                    </li>
+
+                    <li class="batch-builder__list__item">
+                      <span class="batch-builder__list__item__name">
+                        Ministry of Sensible Walks
+                      </span>
+                      <div class="batch-builder__list__item__action">
+                        <div class="batch-builder__list__item__action__add">
+                          <form>
+                            <button type="submit" class="add-authority-to-batch__form__submit js-add-authority-to-batch-submit button--add"><%= _('Add') %></button>
+                          </form>
+                        </div>
+                      </div>
+                    </li>
+
+                  </ul>
+                </li>
+
+              </ul>
+            </li>
+
+            <li class="batch-builder__list__group">
+              <div class="batch-builder__list__item">
+                <span class="batch-builder__list__item__caret"></span>
+                <span class="batch-builder__list__item__name">
+                  Non-governmental organisations
+                </span>
+                <div class="batch-builder__list__item__action">
+                  <div class="batch-builder__list__item__action__add">
+                    <form>
+                      <button type="submit" class="add-authority-to-batch__form__submit js-add-authority-to-batch-submit button--add"><%= _('Add all') %></button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <ul>
+
+                <li class="batch-builder__list__item">
+                  <span class="batch-builder__list__item__name">
+                    Geraldine Quango
+                  </span>
+                  <div class="batch-builder__list__item__action">
+                    <div class="batch-builder__list__item__action__add">
+                      <form>
+                        <button type="submit" class="add-authority-to-batch__form__submit js-add-authority-to-batch-submit button--add"><%= _('Add') %></button>
+                      </form>
+                    </div>
+                  </div>
+                </li>
+
+              </ul>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+      <div class="batch-builder__chosen-authorities">
+        <div class="js-draft-batch-request">
+          <div class="js-draft-batch-request-summary">
+            <div class="blank-slate"><%= _("You haven't added any authorities to your batch yet") %></div>
+          </div>
+        </div>
+      </div>
+      <div class="batch-builder__actions">
+        <form>
+          <input type="submit" class="js-write-request-button" value="<%= _('Write request') %>">
+        </form>
+      </div>
+    </div>
+
+    <div class="batch-builder batch-builder--search js-batch-authority-search">
       <div class="batch-builder__search-form">
 
         <%= form_tag alaveteli_pro_batch_request_authority_searches_path,

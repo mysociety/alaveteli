@@ -1,5 +1,5 @@
 <% if search.present? && search.results.present? %>
-  <ul class="batch-builder__authority-list js-batch-authority-search-results-list">
+  <ul class="batch-builder__list js-batch-authority-search-results-list">
     <%= render partial: 'alaveteli_pro/batch_request_authority_searches/search_result',
                collection: search.results,
                as: :result,
@@ -11,10 +11,10 @@
 
   <% collection = WillPaginate::Collection.new(page, per_page, result_limit) %>
   <%= will_paginate collection, page_links: false %>
-  <p class="batch-builder__authority-list__page-info">
+  <p class="batch-builder__list__page-info">
     Page <%= page %> of <%= collection.total_pages %>
   </p>
 
 <% elsif query && search.blank? %>
-  <p><%= _('Sorry, no authorities matched that search') %></p>
+  <div class="blank-slate"><%= _('Sorry, no authorities matched that search') %></div>
 <% end %>
