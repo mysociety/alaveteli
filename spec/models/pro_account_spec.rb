@@ -14,7 +14,7 @@
 require 'spec_helper'
 require 'stripe_mock'
 
-describe ProAccount do
+describe ProAccount, feature: :pro_pricing do
 
   before do
     StripeMock.start
@@ -54,6 +54,18 @@ describe ProAccount do
       expect(Stripe::Customer).to receive(:create).and_call_original
       pro_account.run_callbacks :create
       expect(pro_account.stripe_customer_id).to_not be_nil
+    end
+
+    context 'with pro_pricing disabled' do
+
+      it 'does not create a Stripe customer' do
+        with_feature_disabled(:alaveteli_pro) do
+          pro_account = FactoryGirl.build(:pro_account, stripe_customer_id: nil)
+          pro_account.run_callbacks :create
+          expect(pro_account.stripe_customer_id).to be_nil
+        end
+      end
+
     end
 
   end
