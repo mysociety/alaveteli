@@ -450,6 +450,7 @@ Style/Documentation:
   Exclude:
     - 'spec/**/*'
     - 'test/**/*'
+    - 'db/migrate/*'
 
 Style/DoubleNegation:
   Description: 'Checks for uses of double negation (!!).'
