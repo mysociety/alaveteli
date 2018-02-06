@@ -10,19 +10,21 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
     let(:signing_secret) { config_secret }
     let(:stripe_helper) { StripeMock.create_test_helper }
 
+    let(:stripe_customer) do
+      Stripe::Customer.create(source: stripe_helper.generate_card_token)
+    end
+
+    let(:stripe_plan) do
+      Stripe::Plan.create(id: 'test',
+                          name: 'Test',
+                          amount: 10,
+                          currency: 'gpp',
+                          interval: 'monthly')
+    end
+
     let(:stripe_subscription) do
-      customer = Stripe::Customer.
-                   create(source: stripe_helper.generate_card_token)
-      plan = Stripe::Plan.create(
-               id: 'test',
-               name: 'Test',
-               amount: 10,
-               currency: 'gpp',
-               interval: 'monthly')
-      Stripe::Subscription.create(
-        customer: customer,
-        plan: 'test'
-      )
+      Stripe::Subscription.create(customer: stripe_customer,
+                                  plan: stripe_plan.id)
     end
 
     let(:paid_invoice) do
@@ -32,11 +34,11 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
             data: {
               id: stripe_subscription.id,
               subscription_item: stripe_subscription.items.data.first.id,
-              amount: 100,
-              currency: 'gbp',
+              amount: stripe_plan.amount,
+              currency: stripe_plan.currency,
               type: 'subscription'
             },
-            plan: { id: 'test', name: 'Test'}
+            plan: { id: stripe_plan.id, name: stripe_plan.name }
           }
         ],
         subscription: stripe_subscription.id
@@ -50,6 +52,8 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       StripeMock.mock_webhook_event('customer.subscription.deleted')
     end
 
+    let(:payload) { stripe_event.to_s }
+
     before do
       config = MySociety::Config.load_default
       config['STRIPE_WEBHOOK_SECRET'] = config_secret
@@ -59,23 +63,6 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
     after do
       StripeMock.stop
-    end
-
-    def encode_hmac(key, value)
-      # this is how Stripe signed headers work, method borrowed from:
-      # https://github.com/stripe/stripe-ruby/blob/v3.4.1/lib/stripe/webhook.rb#L24-L26
-      OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha256"), key, value)
-    end
-
-    let(:payload) { stripe_event.to_s }
-
-    def signed_headers
-      timestamp = Time.zone.now.to_i
-      secret = encode_hmac(signing_secret, "#{timestamp}.#{payload}")
-      {
-        'HTTP_STRIPE_SIGNATURE' => "t=#{timestamp},v1=#{secret}",
-        'CONTENT_TYPE' => 'application/json'
-      }
     end
 
     it 'returns a successful response for correctly signed headers' do
@@ -223,6 +210,13 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       end
 
       context 'the webhook is for a matching namespaced plan' do
+        let(:stripe_plan) do
+          Stripe::Plan.create(id: 'WDTK-test',
+                              name: 'Test',
+                              amount: 10,
+                              currency: 'gpp',
+                              interval: 'monthly')
+        end
 
         let(:payload) do
           event = StripeMock.mock_webhook_event(
@@ -234,10 +228,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
                       subscription: paid_invoice.subscription
                     }
                   )
-          plan_id = event.data.object.lines.last.plan.id
-          event.to_s.
-            gsub(/"plan": {\s*"id": "#{plan_id}"/,
-                 "\"plan\": {\"id\": \"WDTK-#{plan_id}\"")
+          event.to_s
         end
 
         it 'returns a 200 OK response' do
@@ -292,12 +283,13 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       context 'when there is a charge for an invoice' do
         let(:stripe_event) do
           StripeMock.mock_webhook_event('invoice.payment_succeeded',
-                                        charge: paid_invoice.charge)
+                                        charge: paid_invoice.charge,
+                                        subscription: stripe_subscription.id)
         end
 
-        it 'updates the charge description with the site name' do
+        it 'updates the charge description with the site and plan name' do
           expect(Stripe::Charge.retrieve(charge.id).description).
-            to eq('Alaveteli Professional')
+            to eq('Alaveteli Professional: Test')
         end
 
       end
@@ -318,4 +310,19 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
   end
 
+end
+
+def encode_hmac(key, value)
+  # this is how Stripe signed headers work, method borrowed from:
+  # https://github.com/stripe/stripe-ruby/blob/v3.4.1/lib/stripe/webhook.rb#L24-L26
+  OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha256"), key, value)
+end
+
+def signed_headers
+  timestamp = Time.zone.now.to_i
+  secret = encode_hmac(signing_secret, "#{timestamp}.#{payload}")
+  {
+    'HTTP_STRIPE_SIGNATURE' => "t=#{timestamp},v1=#{secret}",
+    'CONTENT_TYPE' => 'application/json'
+  }
 end
