@@ -17,13 +17,28 @@
             if ( $('#request_search_ahead_results').text().trim().length > 0) {
               $('#typeahead_response').hide().slideDown('fast');
 
-              // When following links in typeahead results, open new
-              // tab/window
-              $("#typeahead_response a").attr("target","_blank");
+              $("#typeahead_response .request_short_listing a").on('click', function(){
+                <%= raw(track_analytics_event(
+                  AnalyticsEvent::Category::VIEW_REQUEST,
+                  AnalyticsEvent::Action::POSSIBLE_RELATED,
+                  :label => "$.trim($(this).text())",
+                  :label_is_script => true
+                )) %>
+              }).attr({
+                "target": "_blank"
+              });
 
-              // Update the public body site search link
-              $("#body-site-search-link").attr("href", "http://www.google.com/#q="+encodeURI($("#typeahead_search").val())+
-                "+site:<%= @info_request.public_body.calculated_home_page %>");
+              $("#body-site-search-link").on('click', function(){
+                <%= raw(track_analytics_event(
+                  AnalyticsEvent::Category::SEARCH_OFFICIAL_WEBSITE,
+                  AnalyticsEvent::Action::POSSIBLE_RELATED,
+                  :label => @info_request.public_body.calculated_home_page
+                )) %>
+              }).attr({
+                "target": "_blank",
+                "href": "http://www.google.com/#q="+encodeURI($("#typeahead_search").val())+
+                        "+site:<%= @info_request.public_body.calculated_home_page %>"
+              });
 
               $('.close-button').click(function() { $(this).parent().hide() });
             }

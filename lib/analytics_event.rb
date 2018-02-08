@@ -7,6 +7,8 @@ module AnalyticsEvent
     WIDGET_CLICK = "Widget Clicked"
     OUTBOUND = "Outbound Link"
     PRO_NAV_CLICK = "Pro Navigation Clicked"
+    VIEW_REQUEST = "View Request"
+    SEARCH_OFFICIAL_WEBSITE = "Search Official Website"
   end
 
   module Action
@@ -26,6 +28,7 @@ module AnalyticsEvent
     PRO_NAV_HELP = "Help"
     PRO_NAV_PROFILE = "Profile"
     PRO_NAV_WALL = "Wall"
+    POSSIBLE_RELATED = "Possible related requests"
   end
 
 end
