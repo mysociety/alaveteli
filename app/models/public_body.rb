@@ -618,7 +618,7 @@ class PublicBody < ActiveRecord::Base
   end
 
   def has_notes?
-    !notes.nil? && notes != ""
+    notes.present?
   end
 
   # TODO: Deprecate this method. Its only used in a couple of views so easy to
