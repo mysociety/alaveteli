@@ -52,6 +52,18 @@
     }
 }
 
+.batch-builder__authority-list__authority__notes {
+  font-size: 0.85em;
+
+  summary {
+    color: #2688dc;
+  }
+
+  p {
+    color: grey;
+  }
+}
+
 .batch-builder__authority-list__authority__action__added {
     color: green;
     font-weight: 600;

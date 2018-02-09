@@ -6,9 +6,22 @@
     <ul class="batch-builder__authority-list">
     <% draft.public_bodies.each do |authority| %>
       <li class="batch-builder__authority-list__authority">
-        <span class="batch-builder__authority-list__authority__name">
-          <%= authority.name %>
-        </span>
+        <div class="batch-builder__authority-list__authority__details">
+          <span class="batch-builder__authority-list__authority__name">
+            <%= authority.name %>
+          </span>
+
+          <% if authority.has_notes? %>
+            <details class="batch-builder__authority-list__authority__notes">
+              <summary>
+                <%= _('Important info about requests to this authority') %>
+              </summary>
+
+              <p><%= authority.notes.html_safe %></p>
+            </details>
+          <% end %>
+        </div>
+
         <%= render partial: 'alaveteli_pro/batch_request_authority_searches/remove_authority_from_draft_button',
                    locals: { draft: draft,
                              query: query,
