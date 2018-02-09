@@ -10,7 +10,7 @@
       <%= result[:model][:name] %>
     </span>
 
-    <% if result[:model].has_notes? %>
+    <% if result[:model].has_notes?(tag: 'important_notes') %>
       <details class="batch-builder__authority-list__authority__notes">
         <summary>
           <%= _('Important info about requests to this authority') %>

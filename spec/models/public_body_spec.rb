@@ -507,6 +507,29 @@ describe PublicBody do
       expect(subject.has_notes?).to eq(true)
     end
 
+    context 'when the authority is tagged with the tag option' do
+
+      it 'returns true if the authority has notes' do
+        subject = PublicBody.new(:notes => 'x', :tag_string => 'popular')
+        expect(subject.has_notes?(tag: 'popular')).to eq(true)
+      end
+
+      it 'returns false if the authority does not have notes' do
+        subject = PublicBody.new(:notes => nil, :tag_string => 'popular')
+        expect(subject.has_notes?(tag: 'popular')).to eq(false)
+      end
+
+    end
+
+    context 'when the authority is not tagged with the tag option' do
+
+      it 'returns false' do
+        subject = PublicBody.new(:notes => 'x', :tag_string => 'useless')
+        expect(subject.has_notes?(tag: 'popular')).to eq(false)
+      end
+
+    end
+
   end
 
   describe '#publication_scheme' do
