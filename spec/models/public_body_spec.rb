@@ -490,6 +490,25 @@ describe PublicBody do
 
   end
 
+  describe '#has_notes?' do
+
+    it 'returns false if notes is nil' do
+      subject = PublicBody.new(:notes => nil)
+      expect(subject.has_notes?).to eq(false)
+    end
+
+    it 'returns false if notes is blank' do
+      subject = PublicBody.new(:notes => '')
+      expect(subject.has_notes?).to eq(false)
+    end
+
+    it 'returns true if notes are present' do
+      subject = PublicBody.new(:notes => 'x')
+      expect(subject.has_notes?).to eq(true)
+    end
+
+  end
+
   describe '#publication_scheme' do
 
     it 'is valid when nil' do
