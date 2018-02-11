@@ -41,13 +41,37 @@ class ProAccount < ActiveRecord::Base
 
   def batches_remaining
     return 0 unless feature_enabled? :pro_batch_access, user
-    remaining = monthly_batches - user.info_request_batches.
-                                    where('created_at > ?', 1.month.ago).count
+    used_batches = user.info_request_batches.
+                     where('created_at > ?', batch_period_start).count
+    remaining = monthly_batches - used_batches
     ( remaining > -1 ) ? remaining : 0
   end
 
   def became_pro
     user.roles(:pro).last.created_at
+  end
+
+  def batch_period_start
+    this_day_current_month = this_day_and_month(became_pro.day)
+    if Time.zone.now.beginning_of_day < this_day_current_month
+      if became_pro.day > Time.zone.now.end_of_month.day
+        this_day_and_month(became_pro.day, Time.zone.now.last_month.month)
+      else
+        this_day_current_month - 1.month
+      end
+    else
+      this_day_current_month
+    end
+  end
+
+  def batch_period_renews
+    this_day_next_month =
+      this_day_and_month(became_pro.day, Time.zone.now.next_month.month)
+    if Time.zone.now.next_month.beginning_of_day < this_day_next_month
+      this_day_next_month - 1.month
+    else
+      this_day_next_month
+    end
   end
 
   private
@@ -63,4 +87,17 @@ class ProAccount < ActiveRecord::Base
   def stripe_customer!
     Stripe::Customer.retrieve(stripe_customer_id) if stripe_customer_id
   end
+
+  def this_day_and_month(day, month = Time.zone.now.month)
+    @day || if parse_day_and_month(day, month).day < day
+      Time.zone.now.end_of_month.beginning_of_day
+    else
+      parse_day_and_month(day, month)
+    end
+  end
+
+  def parse_day_and_month(day, month)
+    Time.zone.parse("#{Time.zone.now.year}-#{month}-#{day}")
+  end
+
 end

@@ -208,6 +208,81 @@ describe ProAccount, feature: :pro_pricing do
 
   end
 
+  describe '#batch_period_start' do
+
+    subject { backdated_pro_account.batch_period_start }
+
+    it 'returns the previous month if the account anniversary has passed' do
+      time_travel_to('2018-02-14') do
+        expect(subject).to eq Time.zone.parse('2018-01-15')
+      end
+    end
+
+    it 'returns the current month if the anniversary has not yet hit' do
+      time_travel_to('2018-02-16') do
+        expect(subject).to eq Time.zone.parse('2018-02-15')
+      end
+    end
+
+    it 'returns the current month if the current day and the anniversary match' do
+      time_travel_to('2018-02-15') do
+        expect(subject).to eq Time.zone.parse('2018-02-15')
+      end
+    end
+
+    it 'returns the end of the current month rather than 31 Feb or 3 March' do
+      allow(backdated_pro_account).
+        to receive(:became_pro) { Time.zone.parse('2017-12-31') }
+
+      time_travel_to('2018-03-02') do
+        expect(subject).to eq Time.zone.parse('2018-02-28')
+      end
+    end
+
+    it 'returns the correct day in the previous month if current month is short' do
+      allow(backdated_pro_account).
+        to receive(:became_pro) { Time.zone.parse('2017-12-31') }
+
+      time_travel_to('2018-02-15') do
+        expect(subject).to eq Time.zone.parse('2018-01-31')
+      end
+    end
+
+  end
+
+  describe '#batch_period_renews' do
+
+    subject { backdated_pro_account.batch_period_renews }
+
+    it 'returns the current month if the account anniversary has passed' do
+      time_travel_to('2018-02-14') do
+        expect(subject).to eq Time.zone.parse('2018-02-15')
+      end
+    end
+
+    it 'returns the next month if the anniversary has not yet hit' do
+      time_travel_to('2018-02-16') do
+        expect(subject).to eq Time.zone.parse('2018-03-15')
+      end
+    end
+
+    it 'returns the next month if the current day and the anniversary match' do
+      time_travel_to('2018-02-15') do
+        expect(subject).to eq Time.zone.parse('2018-03-15')
+      end
+    end
+
+    it 'returns the end of the current month rather than 31 Feb or 3 March' do
+      allow(backdated_pro_account).
+        to receive(:became_pro) { Time.zone.parse('2017-12-31') }
+
+      time_travel_to('2018-02-15') do
+        expect(subject).to eq Time.zone.parse('2018-02-28')
+      end
+    end
+
+  end
+
   describe '#update_email_address' do
     let(:user) { FactoryGirl.build(:user, email: 'bilbo@example.com') }
     let(:pro_account) { FactoryGirl.create(:pro_account, user: user) }
