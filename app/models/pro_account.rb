@@ -46,6 +46,10 @@ class ProAccount < ActiveRecord::Base
     ( remaining > -1 ) ? remaining : 0
   end
 
+  def became_pro
+    user.roles(:pro).last.created_at
+  end
+
   private
 
   def set_stripe_customer_id

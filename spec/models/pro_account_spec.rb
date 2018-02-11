@@ -38,6 +38,16 @@ describe ProAccount, feature: :pro_pricing do
     Stripe::Subscription.create(customer: customer, plan: plan.id)
   end
 
+  let(:backdated_pro_account) do
+    time_travel_to('2017-02-15') do
+      account = FactoryGirl.create(:pro_account)
+      AlaveteliFeatures.backend.enable(:pro_batch_access, account.user)
+      # rolify doesn't work with time_travel for some reason so cheating...
+      account.user.roles(:pro).last.update_column(:created_at, Time.zone.now)
+      account
+    end
+  end
+
   describe 'validations' do
 
     it 'requires a user' do
@@ -184,6 +194,16 @@ describe ProAccount, feature: :pro_pricing do
     it 'returns 0 if the user does not have the pro_batch_access feature flag' do
       AlaveteliFeatures.backend.disable(:pro_batch_access, pro_account.user)
       expect(pro_account.batches_remaining).to eq 0
+    end
+
+  end
+
+  describe '#became_pro' do
+
+    subject { backdated_pro_account.became_pro }
+
+    it 'returns the expected date' do
+      expect(subject.to_date).to eq Date.parse('2017-02-15')
     end
 
   end
