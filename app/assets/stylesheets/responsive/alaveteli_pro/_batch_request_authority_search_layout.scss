@@ -134,6 +134,8 @@
 }
 
 .batch-builder__list__group {
+    display: block; // avoids a Chrome bug where display:list-item introduced extra margin-top
+
     ul {
         padding-left: 0; // reset default list padding
 
