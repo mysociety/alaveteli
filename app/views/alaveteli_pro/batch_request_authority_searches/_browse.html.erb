@@ -6,7 +6,6 @@
     <% opened = heading.public_body_categories.map(&:category_tag).include?(category_tag) %>
     <li class="batch-builder__list__group">
       <div class="batch-builder__list__item">
-        <span class="batch-builder__list__item__caret"></span>
         <span class="batch-builder__list__item__name">
           <%= heading.name %>
         </span>
@@ -16,7 +15,6 @@
         <% selected = category.category_tag == category_tag %>
         <li class="batch-builder__list__group <%= 'batch-builder__list__group--closed' unless selected %>">
           <div class="batch-builder__list__item">
-            <span class="batch-builder__list__item__caret"></span>
             <%= link_to alaveteli_pro_batch_request_authority_searches_path(mode: mode, category_tag: category.category_tag, draft_id: draft_batch_request.id), class: 'batch-builder__list__item__anchor' do %>
               <span class="batch-builder__list__item__name">
                 <%= category.title %>

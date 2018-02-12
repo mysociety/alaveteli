@@ -87,15 +87,6 @@
 }
 
 .batch-builder__list__group {
-    // `div` matches the group "header" item
-    div.batch-builder__list__item {
-        background-color: #F3F1EB;
-
-        .batch-builder__list__item__name {
-            font-weight: bold;
-        }
-    }
-
     // `li` matches the group "content" items
     li.batch-builder__list__item {
         background-color: transparent;
@@ -129,35 +120,45 @@
     to   {transform: rotate(359deg);}
 }
 
-.batch-builder__list__item__caret {
-    padding-right: 0.5em;
+// Direct descendant operator (>) means we're only matching the top-level
+// list__item that controls the visibility of the contents of the list__group.
+.batch-builder__list__group > .batch-builder__list__item {
+    background-color: #F3F1EB;
 
-    &:before {
-        content: "";
-        display: block;
-        width: 12px;
-        height: 12px;
-        background: transparent image-url('alaveteli-pro/batch-control-sprite.png') no-repeat 0 0;
-        background-image: image-url('alaveteli-pro/batch-control-sprite.svg'), none;
-        -ms-transform: rotate(180deg);
-        transform: rotate(180deg);
-    }
+    .batch-builder__list__item__name {
+        font-weight: bold;
+        padding-left: 20px; // make space for the :before icon
+        position: relative;
 
-    // We use direct descendant selectors here because we only want the
-    // *closest* descendant caret to get the styling, not *all* carets.
-    .batch-builder__list__group--closed > .batch-builder__list__item > & {
         &:before {
-            -ms-transform: rotate(90deg);
-            transform: rotate(90deg);
+            content: "";
+            display: block;
+            width: 12px;
+            height: 12px;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            margin-top: -6px;
+            background: transparent image-url('alaveteli-pro/batch-control-sprite.png') no-repeat 0 0;
+            background-image: image-url('alaveteli-pro/batch-control-sprite.svg'), none;
+            -ms-transform: rotate(180deg);
+            transform: rotate(180deg);
         }
     }
+}
 
-    .batch-builder__list__group--loading > .batch-builder__list__item > & {
-        &:before {
-            background-position: -12px 0;
-            -webkit-animation: spin 1s infinite linear;
-            animation: spin 1s infinite linear;
-        }
+.batch-builder__list__group--closed > .batch-builder__list__item {
+    .batch-builder__list__item__name:before {
+        -ms-transform: rotate(90deg);
+        transform: rotate(90deg);
+    }
+}
+
+.batch-builder__list__group--loading > .batch-builder__list__item {
+    .batch-builder__list__item__name:before {
+        background-position: -12px 0;
+        -webkit-animation: spin 1s infinite linear;
+        animation: spin 1s infinite linear;
     }
 }
 
