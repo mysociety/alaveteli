@@ -128,6 +128,8 @@ RSpec.configure do |config|
         File.write(oink_log, '')
       end
     end
+
+    BCrypt::Engine.cost = 1
   end
 
   config.after(:suite) do
