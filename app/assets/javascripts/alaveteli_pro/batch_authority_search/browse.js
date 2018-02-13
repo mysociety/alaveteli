@@ -9,18 +9,25 @@
   var listItemSelector = '.batch-builder__list__item';
   var groupSelector = '.batch-builder__list__group';
   var closedClass = 'batch-builder__list__group--closed';
+  var loadingClass = 'batch-builder__list__group--loading';
 
   var toggleCaret = function toogleCaret(group) {
     group.toggleClass(closedClass);
   };
 
+  var toggleSpinner = function toggleSpinner(group) {
+    group.toggleClass(loadingClass);
+  };
+
   var fetchBodies = function fetchBodies(url, group) {
+    toggleSpinner(group);
     $.ajax({
       url: url,
       dataType: 'html',
       success: function (data) {
         group.append(data);
         toggleCaret(group);
+        toggleSpinner(group);
         $draft.trigger(DraftEvents.bodyAdded);
         $search.trigger(SearchEvents.domUpdated);
       }
