@@ -177,11 +177,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.customize ['modifyvm', :id, '--cpus', SETTINGS['cpus']]
   end
 
-  # Fetch and run the install script:
-  config.vm.provision :shell, inline: "apt-get -y install curl"
-  config.vm.provision :shell, inline: "curl -O https://raw.githubusercontent.com/mysociety/commonlib/master/bin/install-site.sh"
-  config.vm.provision :shell, inline: "chmod a+rx install-site.sh"
-  config.vm.provision :shell, inline: "./install-site.sh " \
+  config.vm.provision :shell, inline: "/home/vagrant/alaveteli/commonlib/bin/install-site.sh " \
                                       "--dev " \
                                       "alaveteli " \
                                       "vagrant " \
