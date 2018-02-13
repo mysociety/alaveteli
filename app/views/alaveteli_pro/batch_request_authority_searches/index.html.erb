@@ -10,16 +10,18 @@
 
   <div class="inner-canvas-body">
 
-    <div class="batch-builder-mode">
-      <ul class="tabs" data-tab="">
-        <li class="tab-title <%= 'active' if mode == 'search' %> js-batch-builder-mode" data-mode="search">
-          <%= link_to _('Search by name'), url_for(draft_id: @draft_batch_request.id, mode: 'search') %>
-        </li>
-        <li class="tab-title <%= 'active' if mode == 'browse' %> js-batch-builder-mode" data-mode="browse">
-          <%= link_to _('Browse by category'), url_for(draft_id: @draft_batch_request.id, mode: 'browse') %>
-        </li>
-      </ul>
-    </div>
+    <% if feature_enabled? :pro_batch_category_ui, current_user %>
+      <div class="batch-builder-mode">
+        <ul class="tabs" data-tab="">
+          <li class="tab-title <%= 'active' if mode == 'search' %> js-batch-builder-mode" data-mode="search">
+            <%= link_to _('Search by name'), url_for(draft_id: @draft_batch_request.id, mode: 'search') %>
+          </li>
+          <li class="tab-title <%= 'active' if mode == 'browse' %> js-batch-builder-mode" data-mode="browse">
+            <%= link_to _('Browse by category'), url_for(draft_id: @draft_batch_request.id, mode: 'browse') %>
+          </li>
+        </ul>
+      </div>
+    <% end %>
 
     <div class="batch-builder batch-builder--<%= mode %> js-batch-authority-search">
       <div class="batch-builder__search-form">
