@@ -111,6 +111,18 @@
                 </div>
               </td>
             </tr>
+
+            <% if @info_request.info_request_batch %>
+              <tr>
+                <td>
+                  <b>Info Request Batch:</b>
+                </td>
+                <td>
+                  <%= @info_request.info_request_batch_id %>
+                </td>
+              </tr>
+            <% end %>
+
             <tr>
               <td>
                 <b><%=_("Incoming email address")%></b>
