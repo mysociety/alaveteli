@@ -1,3 +1,9 @@
+# 0.31.0.3
+
+## Highlighted Features
+
+* Fix broken translation string (Gareth Rees)
+
 # 0.31.0.2
 
 ## Highlighted Features
