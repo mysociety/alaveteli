@@ -897,9 +897,3 @@ msgstr "{{public_body_name}} is te laat met antwoord op uw aanvraag \"{{info_req
 
 msgid "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."
 msgstr "{{public_body_name}} is veel te laat om uw aanvraag \"{{info_request_title}}\" te beantwoorden."
-
-#~ msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
-#~ msgstr "<strong>NB:</strong> Omdat we testen, worden aanvragen verzonden naar {{email}}  ipv de betrokken overheid."
-
-#~ msgid "Preview your request"
-#~ msgstr "Preview uw aanvraag"

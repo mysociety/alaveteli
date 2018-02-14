@@ -910,9 +910,3 @@ msgstr "{{public_body_name}} má zpoždění s odpovědí na váš dotaz \"{{inf
 
 msgid "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."
 msgstr "{{public_body_name}} má velké zpoždění s odpovědí na váš dotaz \"{{info_request_title}}\"."
-
-#~ msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
-#~ msgstr "<strong>Note:</strong> Protože právě testujeme, jsou dotazy posílány na {{email}} a ne příslušné instituci."
-
-#~ msgid "Preview your request"
-#~ msgstr "Náhled vašeho dotazu"
