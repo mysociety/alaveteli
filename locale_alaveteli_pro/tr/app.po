@@ -3,12 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# Translators:
+# Senol Kaya <kayasenolk@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-18 02:19-0800\n"
 "PO-Revision-Date: 2017-01-20 17:40+0000\n"
+"Last-Translator: Senol Kaya <kayasenolk@gmail.com>, 2018\n"
 "Language-Team: Turkish (https://www.transifex.com/mysociety/teams/33529/tr/)\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -17,40 +20,40 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid " <strong>Summarising</strong> the content of any information returned. "
-msgstr ""
+msgstr "<strong>Özetle</strong>geri dönen bazı bilgilerin içeriği"
 
 msgid " Say how you've <strong>used the information</strong>, with links if possible."
-msgstr ""
+msgstr "Linklerle birlikte bilgileri<strong>nasıl kullanacağını</strong>söyle, eğer mümkünse "
 
 msgid "'Crime statistics by ward level for Wales'"
-msgstr ""
+msgstr "'Wales için koğuş seviyelerine göre suç istatistiklri'"
 
 msgid "(no title)"
-msgstr ""
+msgstr "(başlık yok)"
 
 msgid "(with <b>{{discount_name}}</b> discount applied)"
-msgstr ""
+msgstr "(<b>{{hesap_adı}}</b>ile hesap uygulandı)"
 
 msgid "+ Add"
-msgstr ""
+msgstr "+Ekle"
 
 msgid "- Remove"
-msgstr ""
+msgstr "-Çıkart"
 
 msgid "12 Months"
-msgstr ""
+msgstr "12 Ay"
 
 msgid "3 Months"
-msgstr ""
+msgstr "3 Ay"
 
 msgid "6 Months"
-msgstr ""
+msgstr "6 Ay"
 
 msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
-msgstr ""
+msgstr "<strong>Kendim hakkında bilgi alabilir miyim?</strong><a href=\"{{url}}\">Hayır!</a>"
 
 msgid "<strong>Thank</strong> the public authority."
-msgstr ""
+msgstr "<strong>teşekkürler</strong>yerel yöneticiye"
 
 msgid "<strong>{{brand}}</strong> ending in {{last4}}, expiry {{exp_month}}/{{exp_year}}"
 msgstr ""
@@ -62,52 +65,52 @@ msgid "A <strong>summary</strong> of the response if you have received it by pos
 msgstr ""
 
 msgid "A monthly subscription"
-msgstr ""
+msgstr "Aylık abonelik"
 
 msgid "A one line summary of the information you are requesting, e.g."
-msgstr ""
+msgstr "Talen ettiğiniz bilginin tek satır özeti, örn."
 
 msgid "A permanent, searchable, public record of your request and the responses"
-msgstr ""
+msgstr "Başvurularınız ve cevaplarının kalıcı, araştırılabilir ve kamu kaydı"
 
 msgid "A powerful private dashboard: track and manage your FOI projects"
-msgstr ""
+msgstr "Güçlü özel gösterge tablosu: FOI projelerini takip et ve yönet"
 
 msgid "A searchable archive of Freedom of Information requests"
-msgstr ""
+msgstr "Güçlü özel gösterge tablosu: FOI projelerini izle ve yönet"
 
 msgid "A super-smart to-do list: follow the progress of your requests"
-msgstr ""
+msgstr "süper-akıllı-yapılacaklar-listesi:başvurularının ilerlemesini takip et."
 
 msgid "About {{public_body_name}}"
 msgstr ""
 
 msgid "Account"
-msgstr ""
+msgstr "Hesap"
 
 msgid "Action alerts: know when it’s time to take the next step"
 msgstr ""
 
 msgid "Activity"
-msgstr ""
+msgstr "Faaliyet"
 
 msgid "Add Payment Card"
-msgstr ""
+msgstr "Kartlı ödeme ekle"
 
 msgid "Add an annotation"
-msgstr ""
+msgstr "Bir bilgi notu ekle"
 
 msgid "Add annotation"
-msgstr ""
+msgstr "Bilgi notu ekle"
 
 msgid "Add authorities to your batch"
-msgstr ""
+msgstr "Listenden yetkilileri ekle"
 
 msgid "Added"
-msgstr ""
+msgstr "Eklendi"
 
 msgid "All requests"
-msgstr ""
+msgstr "Bütün başvurular"
 
 msgid "All requests within this batch will remain private for the same duration. When an individual request is made public all other requests in this batch will also be published on {{site_name}}."
 msgstr ""
