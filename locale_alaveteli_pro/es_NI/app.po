@@ -896,3 +896,9 @@ msgstr "{{Public_body_name}} se demoran en responder a su solicitud \"{{info_req
 
 msgid "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."
 msgstr "{{Public_body_name}} tardó mucho tiempo en responder a su solicitud \"{{info_request_title}}\"."
+
+#~ msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
+#~ msgstr "<Strong> Nota: </ strong> Debido a que estamos probando, las solicitudes se envían a {{email}} en lugar de la Entidad actual."
+
+#~ msgid "Preview your request"
+#~ msgstr "Pre-visualizar su solicitud"

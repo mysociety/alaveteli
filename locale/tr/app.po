@@ -12,6 +12,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Baran Ozgul <baran@ozgul.net>, 2012
 # Baran Ozgul <baran@ozgul.net>, 2012
 # Baran Ozgul <baran@ozgul.net>, 2012
@@ -19,13 +20,14 @@
 # louisecrow <louise@mysociety.org>, 2016
 # louisecrow <louise@mysociety.org>, 2016
 # Pinar Dag <pinar.dag@dagmedya.com>, 2014
+# Senol Kaya <kayasenolk@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-18 01:28-0800\n"
-"PO-Revision-Date: 2018-01-18 09:31+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
+"PO-Revision-Date: 2018-02-14 06:57+0000\n"
+"Last-Translator: Senol Kaya <kayasenolk@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/mysociety/alaveteli/language/tr/)\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -100,7 +102,7 @@ msgid "'Pollution levels over time for the River Tyne'"
 msgstr "'Ergene'de zaman içinde kirlilik oranları'"
 
 msgid "'{{authority_name}}' is defunct"
-msgstr ""
+msgstr "'{{authority_name}}' geçersiz kullanıcı"
 
 msgid "'{{link_to_authority}}', a public authority"
 msgstr "'{{link_to_authority}}', bir kamu kuruluşu"
@@ -112,7 +114,7 @@ msgid "'{{link_to_user}}', a person"
 msgstr "'{{link_to_user}}', bir kişi"
 
 msgid "(You will be asked to sign in as {{user_name}})"
-msgstr ""
+msgstr "( {{user_name}} olarak giriş yapman istenecek)"
 
 msgid "(hide)"
 msgstr "(gizle)"
@@ -133,10 +135,10 @@ msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask 
 msgstr "<a href=\"{{browse_url}}\">Tüm kurumlara bakın</a> veya herhangi bir kurumu <a href=\"{{add_url}}\">eklememizi isteyin</a>."
 
 msgid "<a href=\"{{new_request_link}}\">Make a new EIR request</a> to {{public_body_name}}"
-msgstr ""
+msgstr "<a href=\"{{new_request_link}}\">Yeni EIR talebi oluştur</a>{{public_body_name}}"
 
 msgid "<a href=\"{{new_request_link}}\">Make a new FOI request</a> to {{public_body_name}}"
-msgstr ""
+msgstr "<a href=\"{{new_request_link}}\">Yeni FOI talebi oluştur</a>{{public_body_name}}nın"
 
 msgid "<a href=\"{{url}}\">Do you want to request private information about yourself?</a>"
 msgstr "<a href=\"{{url}}\">Kendinizle ilgili özel kişisel bilgi mi istiyorsunuz?</a>"
@@ -180,7 +182,7 @@ msgid "<p>{{site_name}} is currently in maintenance. You can only view existing 
 msgstr "<p>{{site_name}}, şu anda bakım altındadır. Sadece var olan bilgi edinme başvurularını görebilirsiniz. Bu süre içinde yeni bir başvuru yapamaz, takip iletileri gönderemez veya veritabanını değiştiremezsiniz. </p> <p>{{read_only}}</p>"
 
 msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or otherwise change the database.</p> <p>{{read_only}}</p>"
-msgstr ""
+msgstr "<p>{site_name}}, şu anda bakım altındadır. Sadece var olan bilgi edinme başvurularını görebilirsiniz. Bu süre içinde yeni bir başvuru yapamaz, takip iletileri gönderemez veya veritabanını değiştiremezsiniz. </p><p>{{read_only}</p>"
 
 msgid "<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL."
 msgstr "<strong><code>commented_by:ayse_ozturk</code></strong>Ayşe Öztürk tarafından yapılmış açıklamaları aramak için, ismi URL'de gördüğünüz şekilde yazın. "
@@ -192,7 +194,7 @@ msgid "<strong><code>request:</code></strong> to restrict to a specific request,
 msgstr "<strong><code>başvuru:</code></strong> aramanızı belirli bir başvuruyla sınırlandırmak için, başlığı URL'de göründüğü şekliyle yazarak"
 
 msgid "<strong><code>request_public_body_tag:charity</code></strong> to find requests to public authorities with a given tag."
-msgstr ""
+msgstr "<strong><code>request_public_body_tag:charity</code></strong>Yerel yetkililerden gelen talepleri etiketleriyle görmek için."
 
 msgid "<strong><code>requested_by:julian_todd</code></strong> to search requests made by Julian Todd, typing the name as in the URL."
 msgstr "<strong><code>requested_by:julian_todd</code></strong> Julian Todd tarafından gerçekleştirilmiş başvuruları aramak için, ismi URL'de gördüğünüz şekliyle yazın. "
@@ -261,7 +263,7 @@ msgid "<strong>Thank</strong> the public authority or {{user_name}}."
 msgstr "Kamu kuruluşuna <strong>teşekkür edin</strong> ya da {{user_name}}."
 
 msgid "<strong>Warning:</strong> This message has <strong>not yet been sent</strong> for an unknown reason."
-msgstr ""
+msgstr "<strong>Uyarı:</strong>Bu mesaj<strong>göndrilemedi</strong>bilinmeyen bir nedenden dolayı."
 
 msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
 msgstr "Bir cevap geldiğinde veya {{late_number_of_days}} işgünü sonrası hala cevap gelmemişse, bu durumu</strong>size e-mail aracılığıyla bildireceğiz <strong>"
