@@ -12,6 +12,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # andreli <andre@lindhjem.net>, 2013
 # Hans-Petter Fjeld <atluxity@1kb.no>, 2014
 # Ben W <bwng@openmailbox.org>, 2016
@@ -35,7 +36,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-18 01:28-0800\n"
-"PO-Revision-Date: 2018-01-18 09:31+0000\n"
+"PO-Revision-Date: 2018-01-18 10:23+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/mysociety/alaveteli/language/nb/)\n"
 "Language: nb\n"

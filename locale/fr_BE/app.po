@@ -12,6 +12,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Adrien Chauvet, 2013
 # Adrien Chauvet, 2013
 # andreas.pavlou <andreas@access-info.org>, 2013
@@ -39,8 +40,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-18 01:28-0800\n"
-"PO-Revision-Date: 2018-01-18 09:30+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
+"PO-Revision-Date: 2018-02-08 16:36+0000\n"
+"Last-Translator: claude transparencia <audit.citoyen.quartier@gmail.com>\n"
 "Language-Team: French (Belgium) (http://www.transifex.com/mysociety/alaveteli/language/fr_BE/)\n"
 "Language: fr_BE\n"
 "MIME-Version: 1.0\n"
@@ -330,7 +331,7 @@ msgid "About you:"
 msgstr "A propos de vous :"
 
 msgid "About {{count}} FOI requests found"
-msgstr ""
+msgstr "{{count}} demandes d'accès à l'information trouvées"
 
 msgid "Act on what you've learnt"
 msgstr "Agissez en fonction de ce que vous avez appris."
@@ -594,7 +595,7 @@ msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for
 msgstr "Parcourir les <a href='{{url}}'>autres demandes</a> de '{{public_body_name}}' pour voir des exemples de formulation de votre demande."
 
 msgid "Browse all authorities &rarr;"
-msgstr ""
+msgstr "Parcourir toutes les autorités publiques &rarr;"
 
 msgid "Browse all requests &rarr;"
 msgstr "Voir toutes les demandes &rarr;"
@@ -999,7 +1000,7 @@ msgid "FOI requests by '{{user_name}}'"
 msgstr "Demandes d'accès à l'information de '{{user_name}}'"
 
 msgid "FOI requests {{start_count}} to {{end_count}} of about {{total_count}}"
-msgstr ""
+msgstr "Demandes d'accès à l'information de {{start_count}} à {{end_count}} sur {{total_count}}"
 
 msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
 msgstr "Réponse à une demande d'accès à l'information nécessitant une administration ({{reason}}) - {{request_title}}"
@@ -1205,7 +1206,7 @@ msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "DONNEZ DES DÉTAILS SUR VOTRE PLAINTE ICI"
 
 msgid "Got a {{site_name}} account?"
-msgstr ""
+msgstr "Vous avez un compte  {{site_name}} ?"
 
 msgid "Got an account?"
 msgstr "Vous avez un compte ?"
@@ -1460,7 +1461,7 @@ msgid "Incoming message"
 msgstr "Message entrant"
 
 msgid "Incoming message error"
-msgstr ""
+msgstr "Message d'erreur entrant"
 
 msgid "Incoming message has a spam score above the configured threshold ({{spam_threshold}})."
 msgstr "Le message entrant a un score de spam supérieur au seuil défini ({{spam_threshold}})."
@@ -2171,7 +2172,7 @@ msgid "Please keep the summary short, like in the subject of an email. You can u
 msgstr "Merci d'être bref dans le résumé, comme dans le titre de l'email. Utilisez une phrase plutôt qu'un paragraphe entier."
 
 msgid "Please note that in some cases publication of requests and responses will be delayed."
-msgstr ""
+msgstr "Notez bien que dans certains cas, la publication des demandes et des réponses sera retardée."
 
 msgid "Please only request information that comes under those categories, <strong>do not waste your time</strong> or the time of the public authority by requesting unrelated information."
 msgstr "Veuillez uniquement demander des informations qui appartiennent à ces catégories, <strong>ne perdez pas votre temps</strong> ou celui des autorités publiques à demander des informations sans rapport avec  ces catégories."
@@ -2359,7 +2360,7 @@ msgid "Public body category link"
 msgstr "Lien vers la catégorie des Autorités publiques"
 
 msgid "Public body category translation"
-msgstr ""
+msgstr "Traduction de la catégorie de l'autorité publique"
 
 msgid "Public body change request"
 msgstr "Demande de changement d'Autorité publique"
@@ -2368,7 +2369,7 @@ msgid "Public body heading"
 msgstr "Rubrique de l'Autorité publique"
 
 msgid "Public body heading translation"
-msgstr ""
+msgstr "Traduction du titre de l'autorité publique"
 
 msgid "Public page"
 msgstr "Page publique"
@@ -2542,7 +2543,7 @@ msgid "Request an internal review from {{person_or_body}}"
 msgstr "Demander une reconsidération au {{person_or_body}}"
 
 msgid "Request email can't be nil"
-msgstr ""
+msgstr "L'email de la requête ne peut pas être nul"
 
 msgid "Request for personal information"
 msgstr "Demande d'informations personnelles"
@@ -3009,7 +3010,7 @@ msgid "The error bars shown are 95% confidence intervals for the hypothesized un
 msgstr "Les barres d'erreurs affichées sont précises à 95% pour les proportions sous-jacentes supposées (i.e. celles que vous obtiendriez en effectuant un nombre infini de requêtes via ce site aux autorités). En d'autres mots, la population échantillonnée concerne toutes les requêtes futures et actuelles aux autorités via ce site plutôt que, par exemple, toutes les requêtes effectuées aux autorités publiques par tous les moyens."
 
 msgid "The following request has been made public on {{site_name}}."
-msgstr ""
+msgstr "Cette demande a été publiée sur {{site_name}}."
 
 msgid "The following request will be made public on {{site_name}} in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer."
 msgstr "Cette demanda sera rendue publique sur {{site_name}} la semaine prochaine. Si vous ne souhaitez pas encore que cette demande soit  rendue publique, merci de cliquer sur le lien ci-dessous pour la garder confidentielle plus longtemps."
@@ -3292,8 +3293,8 @@ msgstr "Cette personne n'a pas fait de demandes d'accès à l'information via ce
 
 msgid "This person's Freedom of Information request"
 msgid_plural "This person's Freedom of Information requests (approximately {{count}})"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "La {{count}} demande d'accès à l'information de cette personne (approximation)"
+msgstr[1] "Les {{count}} demandes d'accès à l'information de cette personne (approximation)"
 
 msgid "This person's annotations"
 msgstr "Les commentaires de cette personne"
@@ -3325,7 +3326,7 @@ msgid "This request has been <strong>withdrawn</strong> by the person who made i
 msgstr "Cette demande a été <strong>retirée</strong> par la personne qui l'a introduite. Il y a peut-être une explication renseignée ci-dessous."
 
 msgid "This request has been made public on {{site_name}}."
-msgstr ""
+msgstr "Cette demande a été publiée sur {{site_name}}."
 
 msgid "This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Cette demande a été marquée pour analyse par les administrateurs qui, à ce stade, ne l'ont pas cachée. Si vous pensez qu'elle doit être cachée, veuillez <a href=\"{{url}}\">nous contacter</a>."
@@ -4139,15 +4140,15 @@ msgid "Your <strong>name will appear publicly</strong> (<a href=\"{{why_url}}\">
 msgstr "Votre <strong>nom apparaîtra publiquement</strong> sur ce site et dans les moteurs de recherches (<a href=\"{{why_url}}\">pourquoi ?</a>). Si vous pensez utiliser un pseudonyme veuillez d'abord <a href=\"{{help_url}}\">consulter ceci</a>."
 
 msgid "Your FOI request - {{request_title}} has been made public on {{site_name}}"
-msgstr ""
+msgstr "Votre demande d'accès à l'information publique - {{request_title}} a été publiée sur {{site_name}} "
 
 msgid "Your FOI request - {{request_title}} will be made public on {{site_name}} this week"
 msgstr "Votre demande d'accès à l'information publique - {{request_title}}  sera publiée sur {{site_name}} cette semaine."
 
 msgid "Your Freedom of Information request"
 msgid_plural "Your Freedom of Information requests (approximately {{count}})"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Votre demande d'accès à l'information {{count}}"
+msgstr[1] "Vos demandes d'accès à l'information (approximativement {{count}})"
 
 msgid "Your annotations"
 msgstr "Vos commentaires "
@@ -4269,8 +4270,8 @@ msgstr[1] "Vos {{count}} paquets de demandes"
 
 msgid "Your {{count}} private Freedom of Information request"
 msgid_plural "Your {{count}} private Freedom of Information requests"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Votre {{count}} propre demande d'accès à l'information"
+msgstr[1] "Vos {{count}} propres demandes d'accès à l'information"
 
 msgid "Your {{law_used_full}} request has been sent"
 msgstr "Votre demande de {{law_used_full}} a été envoyée"
@@ -4585,8 +4586,8 @@ msgstr[1] "{{count}} demandes ont reçu une nouvelle réponse."
 
 msgid "{{count}} request has been made public on {{site_name}}."
 msgid_plural "{{count}} requests have been made public on {{site_name}}."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}} demande a été rendue publique sur {{site_name}}."
+msgstr[1] "{{count}} demandes on été rendues publiques sur {{site_name}}."
 
 msgid "{{count}} request has not had a prompt response:"
 msgid_plural "{{count}} requests have not had prompt responses:"
@@ -4649,7 +4650,7 @@ msgstr[0] "{{number_of_requests}} demande restant à catégoriser / {{total_numb
 msgstr[1] "{{number_of_requests}} demandes restant à catégoriser / {{total_number_of_requests}} demandes"
 
 msgid "{{pro_site_name}} Terms"
-msgstr ""
+msgstr "Conditions de {{pro_site_name}}"
 
 msgid "{{public_body_link_absolute}}"
 msgstr ""
