@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Add "Rejected incoming count" do the request page in the admin interface
+  (Gareth Rees)
 * Highlight non-default states of "Allow new responses from" in the admin
   interface (Gareth Rees)
 * Add collapse/expand to request correspondence (Zarino Zappia)
