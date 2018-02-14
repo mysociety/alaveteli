@@ -1,3 +1,9 @@
+# 0.31.0.2
+
+## Highlighted Features
+
+* Remove obsolete pro msgids (Gareth Rees)
+
 # 0.31.0.1
 
 ## Highlighted Features
