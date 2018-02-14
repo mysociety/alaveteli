@@ -897,9 +897,3 @@ msgstr "{{public_body_name}} är försenad med att svara till din begäran \"{{i
 
 msgid "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."
 msgstr "{{public_body_name}} blev mycket försenad med att svara till din begäran \"{{info_request_title}}\"."
-
-#~ msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
-#~ msgstr "<strong>Notera:</strong> Eftersom att vi testar blir förfrågningar skickade till {{email}} snarare än till den riktiga myndigheten."
-
-#~ msgid "Preview your request"
-#~ msgstr "Förhandsgranska din förfrågan"
