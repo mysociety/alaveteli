@@ -1,21 +1,3 @@
-# 0.31.0.3
-
-## Highlighted Features
-
-* Fix broken translation string (Gareth Rees)
-
-# 0.31.0.2
-
-## Highlighted Features
-
-* Remove obsolete pro msgids (Gareth Rees)
-
-# 0.31.0.1
-
-## Highlighted Features
-
-* Updated translations from Transifex (Gareth Rees)
-
 # develop
 
 ## Highlighted Features
@@ -35,6 +17,24 @@
   have specific Pro branding.
 
 ### Changed Templates
+
+# 0.31.0.3
+
+## Highlighted Features
+
+* Fix broken translation string (Gareth Rees)
+
+# 0.31.0.2
+
+## Highlighted Features
+
+* Remove obsolete pro msgids (Gareth Rees)
+
+# 0.31.0.1
+
+## Highlighted Features
+
+* Updated translations from Transifex (Gareth Rees)
 
 # 0.31.0.0
 
@@ -69,6 +69,7 @@
   (Louise Crow)
 
 ## Upgrade Notes
+
 * This release drops support for Ruby 1.9.x. If you are using Ubuntu Trusty you
   will need to install a newer ruby version either using a ruby environment
   manager like [rbenv](https://github.com/rbenv/rbenv#basic-github-checkout) or
