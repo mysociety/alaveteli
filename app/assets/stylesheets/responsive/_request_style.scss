@@ -196,8 +196,12 @@ div.comment_in_request {
   }
 }
 
-.attachment {
-  border-bottom: 1px solid #e9e9e9;
+.attachments__show-more {
+  border-top: 1px solid #e9e9e9;
+}
+
+.attachment + .attachment {
+  border-top: 1px solid #e9e9e9;
 }
 
 .attachment__name {
