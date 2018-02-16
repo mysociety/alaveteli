@@ -20,6 +20,8 @@
 
 ## Highlighted Features
 
+* Fix downloading a Zip of entire request when the request contains a resent
+  message (Gareth Rees)
 * Add Pro opengraph logo (Martin Wright)
 * Create site-wide and user role announecements from within the
   administrative interface (Graeme Porteous)
