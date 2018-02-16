@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add collapse/expand to request correspondence (Zarino Zappia)
 * Fix downloading a Zip of entire request when the request contains a resent
   message (Gareth Rees)
 * Add Pro opengraph logo (Martin Wright)
