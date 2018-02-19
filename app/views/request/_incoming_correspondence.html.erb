@@ -1,18 +1,17 @@
-<div class="incoming correspondence <%= incoming_message.prominence %>" id="incoming-<%= incoming_message.id %>">
+<div class="incoming correspondence <%= incoming_message.prominence %> js-collapsable" id="incoming-<%= incoming_message.id %>">
   <div class="correspondence__header">
-    <div class="correspondence__header__from">
+    <span class="correspondence__header__author js-collapsable-trigger">
       <% if incoming_message.specific_from_name? %>
         <%= incoming_message.safe_mail_from %>,
       <% end %>
-
       <% if incoming_message.from_public_body? %>
         <%= @info_request.public_body.name %>
       <% end %>
+    </span>
 
-      <%= link_to incoming_message_path(incoming_message), :class => 'correspondence__header__date' do %>
-        <%= simple_date(incoming_message.sent_at) %>
-      <% end %>
-    </div>
+    <%= link_to incoming_message_path(incoming_message), :class => 'correspondence__header__date' do %>
+      <%= simple_date(incoming_message.sent_at) %>
+    <% end %>
   </div>
 
   <%- if cannot?(:read, incoming_message) %>

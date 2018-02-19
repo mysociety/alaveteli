@@ -40,6 +40,36 @@ a.track-request-action {
   background-color: #f4f4f4;
   border-bottom: 1px solid #ddd;
   position: relative;
+
+  padding-left: 3em;
+  background-position: 1.2em 50%;
+  background-repeat: no-repeat;
+  background-size: 16px;
+  background-image: image-url('correspondence-collapse/collapse.png');
+
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    background-image: image-url('correspondence-collapse/collapse@2x.png');
+  }
+
+  .collapsed & {
+    background-color: #fff;
+    background-image: image-url('correspondence-collapse/uncollapse.png');
+
+    @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+      background-image: image-url('correspondence-collapse/uncollapse@2x.png');
+    }
+  }
+}
+
+// Interactive styling for header if JavaScript has loaded.
+.js-loaded .js-collapsable {
+  .correspondence__header {
+    cursor: pointer;
+
+    &.hovered {
+      background-color: #eee;
+    }
+  }
 }
 
 .correspondence__header__date,
@@ -196,8 +226,12 @@ div.comment_in_request {
   }
 }
 
-.attachment {
-  border-bottom: 1px solid #e9e9e9;
+.attachments__show-more {
+  border-top: 1px solid #e9e9e9;
+}
+
+.attachment + .attachment {
+  border-top: 1px solid #e9e9e9;
 }
 
 .attachment__name {

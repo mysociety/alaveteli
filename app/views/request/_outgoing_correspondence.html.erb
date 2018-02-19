@@ -1,25 +1,24 @@
-<div class="outgoing correspondence" id="outgoing-<%= outgoing_message.id %>">
+<div class="outgoing correspondence js-collapsable" id="outgoing-<%= outgoing_message.id %>">
   <%- if cannot?(:read, outgoing_message) %>
     <%= render :partial => 'request/hidden_correspondence', :locals => { :message => outgoing_message } %>
   <%- else %>
     <%= render :partial => 'request/restricted_correspondence', :locals => {:message => outgoing_message } %>
 
-    <div class="correspondence__header">
-      <div class="correspondence__header__from--with-delivery-status">
+    <% delivery_status = outgoing_message.delivery_status %>
+
+    <div class="correspondence__header <% if delivery_status %>correspondence__header--with-delivery-status<% end %>">
+      <span class="correspondence__header__author js-collapsable-trigger">
         <%= @info_request.user_name %>
+      </span>
 
-        <%= link_to outgoing_message_path(outgoing_message), :class => 'correspondence__header__date' do %>
+      <%= link_to outgoing_message_path(outgoing_message), :class => 'correspondence__header__date' do %>
           <%= simple_date(info_request_event.created_at) %>
-        <% end %>
-      </div>
+      <% end %>
 
-      <% delivery_status = outgoing_message.delivery_status %>
       <% if delivery_status %>
         <div class="correspondence__header__delivery-status">
-          <%= link_to outgoing_message_delivery_status_path(outgoing_message),
-                      :class => "toggle-delivery-log toggle-delivery-log--#{delivery_status} js-toggle-delivery-log",
-                      :'data-delivery-status' => delivery_status.to_s do -%>
-            <%= delivery_status.capitalize -%>
+          <%= link_to outgoing_message_delivery_status_path(outgoing_message), :class => "toggle-delivery-log toggle-delivery-log--#{outgoing_message.delivery_status.simple} js-toggle-delivery-log", :'data-delivery-status' => outgoing_message.delivery_status.simple do -%>
+            <%= outgoing_message.delivery_status.simple.to_s.humanize -%>
           <% end -%>
         </div>
       <% end %>

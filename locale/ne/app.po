@@ -12,6 +12,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Amit Shrestha <amitshrestha37@gmail.com>, 2017
 # Anjesh Ojha <anjeshojha67@gmail.com>, 2017
 # arjun gautam <arjun.gautam.1694@gmail.com>, 2016
@@ -37,7 +38,7 @@
 # sakar ghimire <sacar.ghimire@gmail.com>, 2017
 # sandip dulal <sandipdulal@gmail.com>, 2017
 # Saroj Dhakal <lotusnagarkot@gmail.com>, 2016
-# Saroj Dhakal <lotusnagarkot@gmail.com>, 2016-2017
+# Saroj Dhakal <lotusnagarkot@gmail.com>, 2016-2018
 # Saugat Adhikari <saugatadh91@gmail.com>, 2017
 # Shubham Joshi <ycleptshubham@gmail.com>, 2017
 # subash aryal <subasharyal54@gmail.com>, 2017
@@ -47,8 +48,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-18 01:28-0800\n"
-"PO-Revision-Date: 2018-01-18 09:31+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
+"PO-Revision-Date: 2018-02-13 18:54+0000\n"
+"Last-Translator: Saroj Dhakal <lotusnagarkot@gmail.com>\n"
 "Language-Team: Nepali (http://www.transifex.com/mysociety/alaveteli/language/ne/)\n"
 "Language: ne\n"
 "MIME-Version: 1.0\n"
@@ -123,7 +124,7 @@ msgid "'Pollution levels over time for the River Tyne'"
 msgstr "'समय अन्तरालमा टाइन नदीको प्रदूषण स्तर' "
 
 msgid "'{{authority_name}}' is defunct"
-msgstr ""
+msgstr "'{{authority_name}}' निष्कृय छ"
 
 msgid "'{{link_to_authority}}', a public authority"
 msgstr "'{{link_to_authority}}', सार्वजनिक निकाय"
@@ -344,10 +345,10 @@ msgid "Act on what you've learnt"
 msgstr "आफूले सिकेका कुरामा सक्रिय हुनुहोस्"
 
 msgid "Action needed"
-msgstr ""
+msgstr "कृयाकलाप आवश्यक"
 
 msgid "Actions"
-msgstr ""
+msgstr "कृयाकलापहरू"
 
 msgid "Acts as xapian/acts as xapian job"
 msgstr "जापीयन जस्तै /जापीयन जस्तै काम "
@@ -1917,10 +1918,10 @@ msgid "Notes:"
 msgstr "टिपोटहरू:"
 
 msgid "Notification"
-msgstr ""
+msgstr "जानकारी"
 
 msgid "Notification|Expired"
-msgstr ""
+msgstr "जानकारीको|सकियो"
 
 msgid "Notification|Frequency"
 msgstr ""
@@ -2657,10 +2658,10 @@ msgid "Results page {{page_number}}"
 msgstr "नतिजा पाना {{page_number}}"
 
 msgid "Role"
-msgstr ""
+msgstr "भूमिका"
 
 msgid "Role|Name"
-msgstr ""
+msgstr "भूमिका|नाम"
 
 msgid "Role|Resource type"
 msgstr ""
@@ -4369,7 +4370,7 @@ msgid "by {{user_link_absolute}}"
 msgstr "{{user_link_absolute}} द्वारा"
 
 msgid "can't be nil"
-msgstr ""
+msgstr "खाली हुनसक्दैन"
 
 msgid "clarification needed"
 msgstr "स्पष्टिकरण आवश्यक"
@@ -4381,7 +4382,7 @@ msgid "complete"
 msgstr "पूर्ण"
 
 msgid "delivered"
-msgstr ""
+msgstr "उपलब्ध गराइयो"
 
 msgid "details"
 msgstr "पुरा जानकारी"
@@ -4405,7 +4406,7 @@ msgid "external"
 msgstr "वाह्य"
 
 msgid "failed"
-msgstr ""
+msgstr "असफल"
 
 msgid "have delayed."
 msgstr "ढिलाइ भएको।"
@@ -4480,7 +4481,7 @@ msgid "send a follow up message"
 msgstr "ताकेता सन्देश पठाउनुहोस्"
 
 msgid "sent"
-msgstr ""
+msgstr "पठाइयो"
 
 msgid "set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA"
 msgstr "यदि ठेगाना फेला पार्न सक्नुहुन्न भने <strong> खाली </strong> (खाली स्ट्रिङ) राख्नसक्नुहुन्छ; यी इमेलहरु <strong> सार्वजनिक </strong> हुन र CAPTCHA को सहायताले जसले पनि हेर्न सक्छ"
@@ -4524,7 +4525,7 @@ msgid "type your search term here"
 msgstr "तपाईँको खोज पदावली यहाँ राख्नुहोस्"
 
 msgid "unknown"
-msgstr ""
+msgstr "अज्ञात"
 
 msgid "unknown reason"
 msgstr "अज्ञात कारण"

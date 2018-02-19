@@ -12,6 +12,8 @@
 #
 
 class ProAccount < ActiveRecord::Base
+  include AlaveteliFeatures::Helpers
+
   belongs_to :user,
              :inverse_of => :pro_account
 
@@ -36,6 +38,7 @@ class ProAccount < ActiveRecord::Base
   private
 
   def set_stripe_customer_id
+    return unless feature_enabled? :pro_pricing
     self.stripe_customer_id ||= begin
       @stripe_customer = Stripe::Customer.create(email: user.email)
       stripe_customer.id

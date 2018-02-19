@@ -12,6 +12,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Anatoli F. Peña Castillo <djanatoli@gmail.com>, 2017
 # Anatoli F. Peña Castillo <djanatoli@gmail.com>, 2017
 # andreas.pavlou <andreas@access-info.org>, 2015,2017
@@ -38,7 +39,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-18 01:28-0800\n"
-"PO-Revision-Date: 2018-01-18 09:30+0000\n"
+"PO-Revision-Date: 2018-01-18 10:22+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Spanish (http://www.transifex.com/mysociety/alaveteli/language/es/)\n"
 "Language: es\n"

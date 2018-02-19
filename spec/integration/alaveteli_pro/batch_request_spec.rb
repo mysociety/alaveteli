@@ -35,7 +35,6 @@ end
 def fill_in_batch_message
   fill_in "Subject", with: "Does the pro batch request form work?"
   fill_in "Your request", with: "Dear [Authority name], this is a batch request."
-  select "3 Months", from: "Privacy"
 end
 
 def search_results
@@ -265,21 +264,15 @@ describe "creating batch requests in alaveteli_pro" do
       start_batch_request
       fill_in "Subject", with: ""
       fill_in "Your request", with: ""
-      select "Publish immediately", from: "Privacy"
       click_button "Save draft"
 
       expect(page).to have_content("Your draft has been saved!")
-      expect(page).to have_content("Unless you choose a privacy option, " \
-                                   "requests in this batch will be public " \
-                                   "on Alaveteli immediately.")
 
       # The page should pre-fill the form with data from the draft
       expect(page).to have_field("Subject",
                                  with: "")
       expect(page).to have_field("Your request",
                                  with: "Dear [Authority name],\n\n\n\nYours faithfully,\n\n#{pro_user.name}")
-      expect(page).to have_select("Privacy", selected: "Publish immediately")
-
     end
   end
 
@@ -288,6 +281,13 @@ describe "creating batch requests in alaveteli_pro" do
       start_batch_request
       expect(page).to have_field("Your request",
                                  with: "Dear [Authority name],\n\n\n\nYours faithfully,\n\n#{pro_user.name}")
+    end
+  end
+
+  it "supplies a default embargo when creating a new batch request" do
+    using_pro_session(pro_user_session) do
+      start_batch_request
+       expect(page).to have_select("Privacy", selected: "3 Months")
     end
   end
 

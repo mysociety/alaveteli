@@ -12,13 +12,15 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Senol Kaya <kayasenolk@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-18 01:28-0800\n"
-"PO-Revision-Date: 2018-01-18 09:29+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
+"PO-Revision-Date: 2018-02-13 22:19+0000\n"
+"Last-Translator: Senol Kaya <kayasenolk@gmail.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/mysociety/alaveteli/language/tr_TR/)\n"
 "Language: tr_TR\n"
 "MIME-Version: 1.0\n"
@@ -27,236 +29,236 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid " (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation policy</a>)"
-msgstr ""
+msgstr "(<strong>gürültü yok</strong>çıkarcılar, okuyun<a href=\"{{url}}\">uzlaşrıtma sözleşmesi</a>)"
 
 msgid " (<strong>patience</strong>, especially for large files, it may take a while!)"
-msgstr ""
+msgstr "(<strong>sabır</strong>, özellikle uzun dosyalarda, biraz süre alabilir!)"
 
 msgid " (you)"
 msgstr ""
 
 msgid " - view and make Freedom of Information requests"
-msgstr ""
+msgstr "-incele ve bilgi taleplerinde seçme hakkını kullan"
 
 msgid " < "
-msgstr ""
+msgstr " < "
 
 msgid " << "
-msgstr ""
+msgstr "<< "
 
 msgid " <strong>Privacy note:</strong> Your email address will be given to"
-msgstr ""
+msgstr "<strong>Özel not:</strong> senin mail adresin.......'e verilecek"
 
 msgid " <strong>Summarise</strong> the content of any information returned. "
-msgstr ""
+msgstr "<strong>özetle</strong>  iade edilen herhangi bir bilginin içeriği"
 
 msgid " > "
-msgstr ""
+msgstr ">"
 
 msgid " >> "
-msgstr ""
+msgstr ">> "
 
 msgid " Advise on how to <strong>best clarify</strong> the request."
-msgstr ""
+msgstr "nasıl yapılacağı üzerine <strong>en iyi açıklama</strong>taleptir."
 
 msgid " Ideas on what <strong>other documents to request</strong> which the authority may hold. "
-msgstr ""
+msgstr "fikirler <strong>diğer dökümanlardaki talepler</strong>yetkili bekleyebilir."
 
 msgid " Link to the information requested, if it is <strong>already available</strong> on the Internet. "
-msgstr ""
+msgstr "talep edilen bilgi linkleri, eğer o <strong> halihazırda müsaitse </strong> internette."
 
 msgid " Offer better ways of <strong>wording the request</strong> to get the information. "
-msgstr ""
+msgstr "daha iyi bir yol öner<strong> talep uslubu</strong> bilgiyi almak."
 
 msgid " Say how you've <strong>used the information</strong>, with links if possible."
-msgstr ""
+msgstr "söyle nasıl sahipsin<strong> kullanılmış bilgi</strong>, linkleriyle eğer mümkünse"
 
 msgid " Suggest <strong>where else</strong> the requester might find the information. "
-msgstr ""
+msgstr "öneri <strong> başka nerede</strong> başvurucu bilgiyi nerede bulabilir."
 
 msgid " You are already being emailed updates about the request."
-msgstr ""
+msgstr "talebinizle ilgili e-postanız gönderildi."
 
 msgid " You will also be emailed updates about the request."
-msgstr ""
+msgstr "talebinizle ilgili e-posta ile bilgilendirileceksiniz."
 
 msgid " filtered by status: '{{status}}'"
-msgstr ""
+msgstr "duruma göre filtrele.'{{status}}'"
 
 msgid " when you send this message."
-msgstr ""
+msgstr "bu mesajı gönderdiğinde."
 
 msgid "'Crime statistics by ward level for Wales'"
-msgstr ""
+msgstr "'Wales için koğuş oranlarına göre suç istatistikleri'"
 
 msgid "'Pollution levels over time for the River Tyne'"
-msgstr ""
+msgstr "'River Tyne için zamanla kirlenme oranları'"
 
 msgid "'{{authority_name}}' is defunct"
-msgstr ""
+msgstr "'{{authority_name}}'  geçersiz"
 
 msgid "'{{link_to_authority}}', a public authority"
-msgstr ""
+msgstr "'{{link_to_authority}}', bir umumi yönetici"
 
 msgid "'{{link_to_request}}', a request"
-msgstr ""
+msgstr "'{{link_to_request}}', talep"
 
 msgid "'{{link_to_user}}', a person"
-msgstr ""
+msgstr "'{{link_to_user}}', bir şahıs"
 
 msgid "(You will be asked to sign in as {{user_name}})"
-msgstr ""
+msgstr "( {{user_name}} gibi giriş yapmak için soracaksın)"
 
 msgid "(hide)"
-msgstr ""
+msgstr "(gizle)"
 
 msgid "(or <a href=\"{{url}}\">sign in</a>)"
-msgstr ""
+msgstr "(veya<a href=\"{{url}}\">giriş yap</a>)"
 
 msgid "(show)"
-msgstr ""
+msgstr "(göster)"
 
 msgid "*unknown*"
-msgstr ""
+msgstr "*bilinmeyen*"
 
 msgid ",\\n\\n\\n\\nYours,\\n\\n{{user_name}}"
-msgstr ""
+msgstr ",\\n\\n\\n\\nSenin,\\n\\n{{user_name}}"
 
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
-msgstr ""
+msgstr "<a href=\"{{browse_url}}\">Hepsine gözat</a>veya<a href=\"{{add_url}}\">bir tane eklenmesini iste</a>"
 
 msgid "<a href=\"{{new_request_link}}\">Make a new EIR request</a> to {{public_body_name}}"
-msgstr ""
+msgstr "<a href=\"{{new_request_link}}\"> Yeni bir EIR talebinde bulun</a> {{public_body_name}}'nın"
 
 msgid "<a href=\"{{new_request_link}}\">Make a new FOI request</a> to {{public_body_name}}"
-msgstr ""
+msgstr "<a href=\"{{new_request_link}}\">Yeni bir FOI talebinde bulun</a>{{public_body_name}}'nın"
 
 msgid "<a href=\"{{url}}\">Do you want to request private information about yourself?</a>"
-msgstr ""
+msgstr "<a href=\"{{url}}\"> Kendin hakkında gizli bilgilerle ilgili bir talebin var mı?</a>"
 
 msgid "<a href=\"{{url}}\">Keep it <strong>focused</strong></a>, you'll be more likely to get what you want."
-msgstr ""
+msgstr "<a href=\"{{url}}\">Sakla<strong>odaklanmış</strong></a>, ne istiyorsan büyük ihtimalle elde edeceksin."
 
 msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
-msgstr ""
+msgstr "<a href=\"{{url}}\">Giriş yap</a>şifreni değiştirmek için,  abonelikler ve fazlası ({{user_name}}  sadece)"
 
 msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>"
-msgstr ""
+msgstr "<a href=\"{{url}}\">Rumuz kullanmayı düşünüyor musun?</a>"
 
 msgid "<div class=\"alaveteli-widget__count\">{{count}}</div> person wants to know"
 msgid_plural "<div class=\"alaveteli-widget__count\">{{count}}</div> people want to know"
-msgstr[0] ""
+msgstr[0] "<div class=\"alaveteli-widget__count\">{{count}}1</div>insanlar bilmek istiyorsa"
 
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
-msgstr ""
+msgstr "<p>Herşey tamam! yardımların için teşekkür ederim.</p><p>Orada<a href=\"{{helpus_url}}\">yapabileceğin daha çok şey</a>yardımının {{site_name}}.</p>"
 
 msgid "<p>Thanks for changing the text about you on your profile.</p><p><strong>Next...</strong> You can upload a profile photograph too.</p>"
-msgstr ""
+msgstr "<p>Profilinde hakkındaki  yazıda yaptığın değişiklikler için teşekkürler.</p>\\n <p><strong>ileri...</strong>Profiline fotoğraf ta yükleyebilirsin.</p>"
 
 msgid "<p>Thanks for updating your profile photo.</p><p><strong>Next...</strong> You can put some text about you and your research on your profile.</p>"
-msgstr ""
+msgstr "<p>Profil fotoğrafı yüklediğin için teşekkürler.</p>\\n <p><strong>ileri....</strong>Hakkında veya profilindeki araştırmalarla ilgili metinler koyabilirsin.</p>"
 
 msgid "<p>We recommend that you edit your request and remove the email address. If you leave it, the email address will be sent to the authority, but will not be displayed on the site.</p>"
-msgstr ""
+msgstr "<p>Tavsiyemiz talebinizi düzenleyin ve e-posta adresinizi kaldırın.\\n Eğer ondan vazgeçersen, e-posta adresin yöneticiye gönderilecek, fakat sitede gösterilmeyecek.</p>"
 
 msgid "<p>You do not need to include your email in the request in order to get a reply (<a href=\"{{url}}\">details</a>).</p>"
-msgstr ""
+msgstr "<p>cevap almak için e-posta adresini  talebine eklemene gerek yok(<a href=\"{{url}}\">detaylay</a>).</p>"
 
 msgid "<p>You do not need to include your email in the request in order to get a reply, as we will ask for it on the next screen (<a href=\"{{url}}\">details</a>).</p>"
-msgstr ""
+msgstr "<p>cevap almak için e-posta adresini talebine eklemene gerek yok, Gelecek ekranda sana soracağız.(<a href=\"{{url}}\">detaylar</a>).</p>"
 
 msgid "<p>Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.</p>"
-msgstr ""
+msgstr "<p>Talebinin içeriği bir <strong>posta kodu</strong>. Talebindeki subjeye doğrudan bağlı değilse, lütfen adresini kaldır.<strong> internette kamuya açık görünecektir.</strong>.</p>"
 
 msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>"
-msgstr ""
+msgstr "<p>{{site_name}} şu anda bakımda. Sadece var olan taleplere bakabilirsin.Yenisini yapamazsın, eklenen takipler veya bilgi notları, aksi takdirde veri tabanını değiştir.</p><p>{{read_only}}</p>"
 
 msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or otherwise change the database.</p> <p>{{read_only}}</p>"
-msgstr ""
+msgstr "<p>{site_name}} şu anda bakımda. Sadece var olan taleplere bakabilirsin.Yenisini yapamazsın, eklenen takipler veya bilgi notları, aksi takdirde veri tabanını değiştir</p><p>{{read_only}}</p>"
 
 msgid "<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL."
-msgstr ""
+msgstr "</strong></code>commented_by:tony_bowde</code></strong>Tony Bowden tarafından yapılan şerhleri aaramak için, ismi URL olarak yazın."
 
 msgid "<strong><code>filetype:pdf</code></strong> to find all responses with PDF attachments. Or try these: <code>{{list_of_file_extensions}}</code>"
-msgstr ""
+msgstr "<strong><code>filetype:pdf</code></strong>PDF eki olarak bütün cevapları bulmak için. Veya bunu deneyin:<code>{{list_of_file_extensions}}</code>"
 
 msgid "<strong><code>request:</code></strong> to restrict to a specific request, typing the title as in the URL."
-msgstr ""
+msgstr "<strong><code>talepler:</code></strong>belirli bir isteği kısıtlamak, başlığa URL olarak yazın."
 
 msgid "<strong><code>request_public_body_tag:charity</code></strong> to find requests to public authorities with a given tag."
-msgstr ""
+msgstr "<strong><code>talep_kamu_vucut_etiket:hayır</code></strong>verilen etiketle kamu yöneticilerinin taleplerini bulmak için"
 
 msgid "<strong><code>requested_by:julian_todd</code></strong> to search requests made by Julian Todd, typing the name as in the URL."
-msgstr ""
+msgstr "<strong><code>talep edildi:julian_todd</code></strong>Julian Todd tarafından yapılan talepleri aramak için, ismi URL olarak yazın"
 
 msgid "<strong><code>requested_from:home_office</code></strong> to search requests from the Home Office, typing the name as in the URL."
-msgstr ""
+msgstr "<strong><code>Ev_ofisi_tarafından_talep_edildi</code></strong>Ev ofisi tarafından yapılan talepleri aramak için, ismi URL olarak yazın"
 
 msgid "<strong><code>status:</code></strong> to select based on the status or historical status of the request, see the <a href=\"{{statuses_url}}\">table of statuses</a> below."
-msgstr ""
+msgstr "<strong><code>durum:</code></strong>seçilmiş durumların veya geçmiş durumların talepleri, bak <a href=\"{{statuses_url}}\">durumların masası</a>aşağıda."
 
 msgid "<strong><code>tag:charity</code></strong> to find all public authorities or requests with a given tag. You can include multiple tags, and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags can be present, you have to put <code>AND</code> explicitly if you only want results them all present."
-msgstr ""
+msgstr "</strong></code>etiket:yardım</code></strong>Bütün kamu yöneticilerini bulmak veya verilmiş etiketlerle ilgili talepler. çoklu başlık içerebilirsin, \\n   ve etiket değeri,e.g.<code>etiket:lokalaçık VE Etiket:finansal_geçiş:335633</code>geçerli etiketlerden biri tarafından not alın\\n  sunulabilir, açıkça koymak zorundasın <code>VE</code> eğer sadece istediğin tüm sunumlardan sonuç almak istersen."
 
 msgid "<strong><code>variety:</code></strong> to select type of thing to search for, see the <a href=\"{{varieties_url}}\">table of varieties</a> below."
-msgstr ""
+msgstr "<code><strong>çeşit:</code></strong>araştırmak için tipini seçin, gör<a href=\"{{varieties_url}}\">çeşitli masaları</a>aşağıda."
 
 msgid "<strong>Advice</strong> on how to get a response that will satisfy the requester. </li>"
-msgstr ""
+msgstr "<strong>tavsiye</strong>tepkinin nasıl alındığını bilmek talepkarları tatmin edecektir.</li>"
 
 msgid "<strong>All the information</strong> has been sent"
-msgstr ""
+msgstr "<strong>bütün bilgiler</strong>gönderildi"
 
 msgid "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
-msgstr ""
+msgstr "<strong>herhangibirşey</strong>, açıklama, telkin, teşekkür gibi"
 
 msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</a>)."
-msgstr ""
+msgstr "<strong>yasal olarak, cevap vermek zorundalar</strong>(<a href=\"{{url}}\">neden?</a>)."
 
 msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
-msgstr ""
+msgstr "<strong>kendim hakkında bilgi talep edebilir miyim?</strong>\\n              <a href=\"{{url}}\">Hayır!</a>"
 
 msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, you will need a good internal knowledge of user behaviour on {{site_name}}. How, why and by whom requests are categorised is not straightforward, and there will be user error and ambiguity. You will also need to understand FOI law, and the way authorities use it. Plus you'll need to be an elite statistician.  Please <a href=\"{{contact_path}}\">contact us</a> with questions."
-msgstr ""
+msgstr "<strong>Alıcı dikkatli olsun!</strong>Bu datayı onurlu bir şekilde kullananın, {{site_name}} da yer alan kullanıcı tavırlarının iyi içsel bilgisine ihtiyacı olacak  \\na. Ne kadar,  \\nniçin ve ne yoluyla talepler kategorize edildi açık değildi, ve orada  \\n iki anlamlılık he hata olabilir. ayrıca FOI kurallarını anlamaya ihtiyacın olacak, ve  \\nbu yolla yetkililer kullanacak. Artı elit bir istatistikçiye ihtiyacın olacak. Lütfen <a href=\"{{contact_path}}\">iletişim kur</a>sorularınla."
 
 msgid "<strong>Clarification</strong> has been requested"
-msgstr ""
+msgstr "<strong>Aydınlatma</strong>talep edildi."
 
 msgid "<strong>No response</strong> has been received <small>(maybe there's just an acknowledgement)</small>"
-msgstr ""
+msgstr "<strong>cevap yok</strong> alındı \\n                                   <small>(belki oradaki sadece bilgilendirmedir.</small>"
 
 msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
-msgstr ""
+msgstr "<strong>Not:</strong>Çünkü , talepler gönderiliyor mu {email}} diye gerçek yetkililerden daha fazla test ediyoruz."
 
 msgid "<strong>Note:</strong> We will send an email to your new email address. Follow the instructions in it to confirm changing your email."
-msgstr ""
+msgstr "<strong>Not:</strong>\\n Yeni e-posta adresine e-posta göndereceğiz. E-posta adresinin değiştiğini teyit etmek için talimatları takip et\\n."
 
 msgid "<strong>Note:</strong> We will send you an email to confirm you are the owner of this account. Follow the instructions in it to change your password."
-msgstr ""
+msgstr "<strong>Not:</strong> Bu hesabın sahibi olduğu teyit etmek için sana e-posta gönderdik. Parolanı değiştirmek için talimatları takip et."
 
 msgid "<strong>Note:</strong> You're sending a message to yourself, presumably to try out how it works."
-msgstr ""
+msgstr "<strong>Not: </strong> Kendi kendine mesaj yolluyorsun, büyük ihtimalle\\n nasıl çalıştığını öğrenmek için."
 
 msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet, wherever you do something on {{site_name}}."
-msgstr ""
+msgstr "<strong>Özel not:</strong>  {{site_name}}nın her yerinde paylaştığın fotoğraflar, internette görünebilecektir."
 
 msgid "<strong>Privacy warning:</strong> Your message, and any response to it, will be displayed publicly on this website."
-msgstr ""
+msgstr "<strong>Özel uyarı:</strong>senin mesajın, ve herhangi bir tepki\\n   , website de kamuya açık olacaktır."
 
 msgid "<strong>Some of the information</strong> has been sent "
-msgstr ""
+msgstr "<strong>Bazı bilgiler</strong>gönderildi."
 
 msgid "<strong>Thank</strong> the public authority or the requester."
-msgstr ""
+msgstr "<strong>Teşekkürler</strong>yerel yetkiliye veya talepte bulunana."
 
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
-msgstr ""
+msgstr "<strong>Teşekkürler</strong>yerel yetkili veya {{user_name}}."
 
 msgid "<strong>Warning:</strong> This message has <strong>not yet been sent</strong> for an unknown reason."
-msgstr ""
+msgstr "<strong>Uyarı:</strong>Bu mesaj<strong>henüz gönderilmedi</strong>bilinmeyen bir sebepten dolayı."
 
 msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
-msgstr ""
+msgstr "<strong>Size e-posta atacağız.</strong>Bir cevap geldiğinde veya {{late_number_of_days}}  işi günü sonunda hala cevap gelmediyse."
 
 msgid "<strong>We will email you</strong> when they have been sent. We will also email you when there is a response to any of them, or after {{late_number_of_days}} working days if the authorities still haven't replied by then."
 msgstr ""
