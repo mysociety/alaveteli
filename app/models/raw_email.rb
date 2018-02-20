@@ -41,6 +41,15 @@ class RawEmail < ActiveRecord::Base
     File.join(directory, incoming_message_id)
   end
 
+  def mail
+    @mail ||= mail!
+  end
+
+  def mail!
+    #MailHandler.mail_from_raw_email(data)
+    Mail.new(data)
+  end
+
   def data=(d)
     FileUtils.mkdir_p(directory) unless File.exists?(directory)
     File.atomic_write(filepath) do |file|
