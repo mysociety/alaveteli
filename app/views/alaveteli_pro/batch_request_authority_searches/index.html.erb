@@ -73,7 +73,7 @@
       <div class="batch-builder__chosen-authorities">
 
         <div class="js-draft-batch-request"
-             data-limit="<%= AlaveteliConfiguration::pro_batch_limit %>"
+             data-limit="<%= AlaveteliConfiguration::pro_batch_authority_limit %>"
              data-ajax-error-message="<%= _('Sorry, something went wrong updating your batch request, please try again.') %>">
           <%= render partial: 'alaveteli_pro/draft_info_request_batches/summary',
                      locals: { draft: @draft_batch_request,

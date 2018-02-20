@@ -1,4 +1,4 @@
-<% if !request.xhr? && draft_batch_request.public_bodies.count >= AlaveteliConfiguration::pro_batch_limit %>
+<% if !request.xhr? && draft_batch_request.public_bodies.count >= AlaveteliConfiguration::pro_batch_authority_limit %>
   <div class="blank-slate"><%= _('No more authorities can be added to this batch request.') %></div>
 <% else %>
   <ul class="batch-builder__list">
