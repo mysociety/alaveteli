@@ -74,7 +74,48 @@
 
 <h2>Preview</h2>
 
-For an exact rendering of this email, use the "Download" link.
+<p>For an exact rendering of this email, use the "Download" link.</p>
+
+<table class="table table-striped table-condensed table-hover">
+  <thead>
+    <tr>
+      <th colspan=2>
+        Parsed Headers:
+      </th>
+    </tr>
+  </thead>
+  <tr>
+    <td><strong>From:</strong></td>
+    <td><%= address_list(@raw_email.mail.from) %></td>
+  </tr>
+  <tr>
+    <td><strong>SMTP Envelope-From:</strong></td>
+    <td><%= address_list(@raw_email.mail.smtp_envelope_from) %></td>
+  </tr>
+  <tr>
+    <td><strong>Envelope-From:</strong></td>
+    <td><%= address_list(@raw_email.mail.envelope_from) %></td>
+  </tr>
+  <tr>
+    <td><strong>To:</strong></td>
+    <td><%= address_list(@raw_email.mail.to) %></td>
+  </tr>
+  <tr>
+    <td><strong>Envelope-To:</strong></td>
+    <td><%= address_list(@raw_email.mail.smtp_envelope_to) %></td>
+  </tr>
+  <tr>
+    <td><strong>Cc:</strong></td>
+    <td><%= address_list(@raw_email.mail.cc) %></td>
+  </tr>
+  <tr>
+    <td><strong>Bcc:</strong></td>
+    <td><%= address_list(@raw_email.mail.bcc) %></td>
+  </tr>
+  <tr>
+    <td><strong>Subject:</strong></td>
+    <td><%= @raw_email.mail.subject %></td>
+  </tr>
+</table>
 
 <pre><%= h(@raw_email.data_as_text).gsub(/\n/, '<br>').html_safe %></pre>
-
