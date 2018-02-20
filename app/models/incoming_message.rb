@@ -79,10 +79,15 @@ class IncomingMessage < ActiveRecord::Base
 
   # Return a cached structured mail object
   def mail(force = nil)
-    if (!force.nil? || @mail.nil?) && !self.raw_email.nil?
-      @mail = MailHandler.mail_from_raw_email(self.raw_email.data)
-    end
-    @mail
+    return nil if raw_email.nil?
+    return mail! if force
+
+    @mail ||= raw_email.mail
+  end
+
+  def mail!
+    return nil if raw_email.nil?
+    raw_email.mail!
   end
 
   def empty_from_field?
