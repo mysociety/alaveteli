@@ -2,6 +2,12 @@
 
 ## Highlighted Features
 
+* Show that a request is part of a batch on the request page in the admin
+  interface (Gareth Rees)
+* Add "Rejected incoming count" do the request page in the admin interface
+  (Gareth Rees)
+* Highlight non-default states of "Allow new responses from" in the admin
+  interface (Gareth Rees)
 * Add collapse/expand to request correspondence (Zarino Zappia)
 * Fix downloading a Zip of entire request when the request contains a resent
   message (Gareth Rees)

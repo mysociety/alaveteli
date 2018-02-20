@@ -43,6 +43,7 @@ class InfoRequest < ActiveRecord::Base
   include AlaveteliFeatures::Helpers
 
   @non_admin_columns = %w(title url_title)
+  @additional_admin_columns = %w(rejected_incoming_count)
 
   strip_attributes :allow_empty => true
   strip_attributes :only => [:title],
