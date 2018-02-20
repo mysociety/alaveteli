@@ -47,6 +47,21 @@ describe RequestMailer do
       expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
     end
 
+    it "puts messages with the request address in Bcc: in the holding pen" do
+      request = FactoryGirl.create(:info_request)
+      receive_incoming_mail('bcc-contact-reply.email', request.incoming_email)
+      expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
+    end
+
+    it "puts messages with multiple request addresses in Bcc: in the holding pen" do
+      request1 = FactoryGirl.create(:info_request)
+      request2 = FactoryGirl.create(:info_request)
+      request3 = FactoryGirl.create(:info_request)
+      bcc_addrs = [request1, request2, request3].map(&:incoming_email)
+      receive_incoming_mail('bcc-contact-reply.email', bcc_addrs.join(', '))
+      expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
+    end
+
     it "should parse attachments from mails sent with apple mail" do
       ir = info_requests(:fancy_dog_request)
       expect(ir.incoming_messages.size).to eq(1)
