@@ -4,8 +4,7 @@
   <ul class="batch-builder__list js-batch-authority-search-results-list">
     <% search.results.each do |result| %>
       <%= render partial: 'alaveteli_pro/batch_request_authority_searches/search_result',
-                 locals: { name: result[:model][:name] ,
-                           authority_id: result[:model][:id],
+                 locals: { authority: result[:model],
                            draft: draft_batch_request,
                            query: query,
                            page: page,

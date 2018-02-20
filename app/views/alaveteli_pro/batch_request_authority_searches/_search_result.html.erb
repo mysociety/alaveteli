@@ -1,10 +1,10 @@
-<% added = body_ids_added.include? authority_id %>
+<% added = body_ids_added.include? authority.id %>
 <li class="batch-builder__list__item
            js-batch-authority-search-results-list-item
            <%= 'js-batch-authority-search-results-list-item--added' if added %>"
-    data-body-id="<%= authority_id %>">
+    data-body-id="<%= authority.id %>">
   <span class="batch-builder__list__item__name">
-    <%= name %>
+    <%= authority.name %>
   </span>
   <div class="batch-builder__list__item__action">
     <span class="batch-builder__list__item__action__added">
@@ -15,7 +15,7 @@
                  locals: { draft: draft,
                            query: query,
                            page: page,
-                           authority_id: authority_id } %>
+                           authority_id: authority.id } %>
     </div>
   </div>
 </li>
