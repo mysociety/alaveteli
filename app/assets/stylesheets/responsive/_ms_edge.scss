@@ -1,0 +1,8 @@
+@supports (-ms-ime-align: auto) {
+  details.batch-builder__authority-list__authority__notes {
+    summary {
+      color: grey !important;
+      font-weight: bold;
+    }
+  }
+}

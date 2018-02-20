@@ -52,7 +52,17 @@
   <label for="public_body_tag_string" class="control-label"><%=_("Tags")%></label>
   <div class="controls">
     <%= f.text_field :tag_string, :class => "span4" %>
-    <p class="help-block">space separated; see list of tags on the right; also <strong>not_apply</strong> if FOI and EIR no longer apply to authority, <strong>eir_only</strong> if EIR but not FOI applies to authority, <strong>defunct</strong> if the authority no longer exists; charity:NUMBER if a registered charity</p>
+    <div class="help-block">
+      <p>Space separated – see list of tags on the right.</p>
+      <p>Special tags:</p>
+      <ul>
+        <li><code>not_apply</code>: if FOI and EIR no longer apply to authority</li>
+        <li><code>eir_only</code> if EIR but not FOI applies to authority</li>
+        <li><code>defunct</code> if the authority no longer exists</li>
+        <li><code>charity:NUMBER</code> if a registered charity</li>
+        <li><code>important_notes</code> if the notes have major implications on making a request to this authority</li>
+      </ul>
+    </div>
   </div>
 </div>
 <div class="control-group">

@@ -94,14 +94,11 @@
 .batch-builder__list__item {
     padding: 1em;
     @include flexbox();
-    @include flex-align(center);
+    @include flex-align('flex-start');
 }
 
-.batch-builder__list__item__anchor {
-    @include flex(1 0 0%);
-}
-
-.batch-builder__list__item__name {
+.batch-builder__list__item__anchor,
+.batch-builder__list__item__details {
     @include flex(1 0 0%);
 }
 

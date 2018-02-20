@@ -3,9 +3,23 @@
            js-batch-authority-search-results-list-item
            <%= 'js-batch-authority-search-results-list-item--added' if added %>"
     data-body-id="<%= authority.id %>">
-  <span class="batch-builder__list__item__name">
-    <%= authority.name %>
-  </span>
+
+  <div class="batch-builder__list__item__details">
+    <span class="batch-builder__list__item__name">
+      <%= authority.name %>
+    </span>
+
+    <% if authority.has_notes?(tag: 'important_notes') %>
+      <details class="batch-builder__list__item__notes">
+        <summary>
+          <%= _('Important info about requests to this authority') %>
+        </summary>
+
+        <p><%= authority.notes.html_safe %></p>
+      </details>
+    <% end %>
+  </div>
+
   <div class="batch-builder__list__item__action">
     <span class="batch-builder__list__item__action__added">
       <%= _('Added') %>
