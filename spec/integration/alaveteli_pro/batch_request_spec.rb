@@ -42,13 +42,6 @@ def search_results
 end
 
 describe "creating batch requests in alaveteli_pro" do
-  let(:pro_user) do
-    user = FactoryGirl.create(:pro_user)
-    AlaveteliFeatures.backend.enable_actor(:pro_batch_access, user)
-    user
-  end
-
-  let!(:pro_user_session) { login(pro_user) }
   let!(:authorities) { FactoryGirl.create_list(:public_body, 26) }
 
   before :all do
@@ -65,6 +58,18 @@ describe "creating batch requests in alaveteli_pro" do
     end
     update_xapian_index
   end
+
+  let(:pro_user) do
+    user = FactoryGirl.create(:pro_user)
+    AlaveteliFeatures.backend.enable_actor(:pro_batch_access, user)
+    FactoryGirl.create(:pro_account,
+                       user: user,
+                       stripe_customer_id: 'test_customer',
+                       monthly_batch_limit: 25)
+    user
+  end
+
+  let!(:pro_user_session) { login(pro_user) }
 
   it "allows the user to build a list of authorities" do
     using_pro_session(pro_user_session) do
