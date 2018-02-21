@@ -990,12 +990,7 @@ class InfoRequest < ActiveRecord::Base
 
   # Returns last event
   def get_last_event
-    events = info_request_events
-    if events.size == 0
-      return nil
-    else
-      return events[-1]
-    end
+    info_request_events.last
   end
 
   def last_update_hash
