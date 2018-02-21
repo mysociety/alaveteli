@@ -106,7 +106,7 @@ describe InfoRequest do
 
   describe '.find_by_incoming_email' do
 
-    let(:info_request) { info_requests(:fancy_dog_request) }
+    let(:info_request) { FactoryGirl.create(:info_request) }
 
     it "recognises its own incoming email" do
       incoming_email = info_request.incoming_email
