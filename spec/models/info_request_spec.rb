@@ -1731,7 +1731,7 @@ describe InfoRequest do
 
   end
 
-  describe '#get_last_event' do
+  describe '#last_event' do
     let(:info_request) { FactoryGirl.create(:info_request) }
     let(:last_event) do
       InfoRequestEvent.
@@ -1749,7 +1749,7 @@ describe InfoRequest do
       end
 
       it 'returns the most recent event' do
-        expect(info_request.reload.get_last_event).to eq(last_event)
+        expect(info_request.reload.last_event).to eq(last_event)
       end
 
     end
@@ -1761,7 +1761,7 @@ describe InfoRequest do
       end
 
       it 'returns nil' do
-        expect(info_request.reload.get_last_event).to be_nil
+        expect(info_request.reload.last_event).to be_nil
       end
 
     end
