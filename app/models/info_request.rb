@@ -1368,7 +1368,8 @@ class InfoRequest < ActiveRecord::Base
 
           params =
             { old_allow_new_responses_from: old_allow_new_responses_from,
-              allow_new_responses_from: info_request.allow_new_responses_from }
+              allow_new_responses_from: info_request.allow_new_responses_from,
+              editor: 'InfoRequest.stop_new_responses_on_old_requests' }
 
           info_request.log_event('edit', params)
         end
@@ -1390,7 +1391,8 @@ class InfoRequest < ActiveRecord::Base
 
           params =
             { old_allow_new_responses_from: old_allow_new_responses_from,
-              allow_new_responses_from: info_request.allow_new_responses_from }
+              allow_new_responses_from: info_request.allow_new_responses_from,
+              editor: 'InfoRequest.stop_new_responses_on_old_requests' }
 
           info_request.log_event('edit', params)
         end

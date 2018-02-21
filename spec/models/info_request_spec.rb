@@ -319,7 +319,8 @@ describe InfoRequest do
       expect(last_event.event_type).to eq('edit')
       expect(last_event.params).
         to match(old_allow_new_responses_from: 'anybody',
-                 allow_new_responses_from: 'authority_only')
+                 allow_new_responses_from: 'authority_only',
+                 editor: 'InfoRequest.stop_new_responses_on_old_requests')
     end
 
     it 'stops new responses after 1 year' do
@@ -337,7 +338,8 @@ describe InfoRequest do
       expect(last_event.event_type).to eq('edit')
       expect(last_event.params).
         to match(old_allow_new_responses_from: 'authority_only',
-                 allow_new_responses_from: 'nobody')
+                 allow_new_responses_from: 'nobody',
+                 editor: 'InfoRequest.stop_new_responses_on_old_requests')
     end
 
     context 'when using custom configuration' do
