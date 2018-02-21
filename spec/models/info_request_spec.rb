@@ -311,11 +311,33 @@ describe InfoRequest do
       expect(request.reload.allow_new_responses_from).to eq('authority_only')
     end
 
+    it 'logs an event after changing new responses to authority_only' do
+      request = FactoryGirl.create(:info_request)
+      request.update_attributes(:updated_at => 6.months.ago - 1.day)
+      described_class.stop_new_responses_on_old_requests
+      last_event = request.reload.get_last_event
+      expect(last_event.event_type).to eq('edit')
+      expect(last_event.params).
+        to match(old_allow_new_responses_from: 'anybody',
+                 allow_new_responses_from: 'authority_only')
+    end
+
     it 'stops new responses after 1 year' do
       request = FactoryGirl.create(:info_request)
       request.update_attributes(:updated_at => 1.year.ago - 1.day)
       described_class.stop_new_responses_on_old_requests
       expect(request.reload.allow_new_responses_from).to eq('nobody')
+    end
+
+    it 'logs an event after changing new responses to nobody' do
+      request = FactoryGirl.create(:info_request)
+      request.update_attributes(:updated_at => 1.year.ago - 1.day)
+      described_class.stop_new_responses_on_old_requests
+      last_event = request.reload.get_last_event
+      expect(last_event.event_type).to eq('edit')
+      expect(last_event.params).
+        to match(old_allow_new_responses_from: 'authority_only',
+                 allow_new_responses_from: 'nobody')
     end
 
     context 'when using custom configuration' do

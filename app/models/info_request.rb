@@ -1359,7 +1359,20 @@ class InfoRequest < ActiveRecord::Base
       .where(allow_new_responses_from: 'anybody')
       .where.not(url_title: 'holding_pen')
       .updated_before(old.months.ago.to_date)
-      .update_all(allow_new_responses_from: 'authority_only')
+      .find_in_batches do |batch|
+        batch.each do |info_request|
+          old_allow_new_responses_from = info_request.allow_new_responses_from
+
+          info_request.
+            update_column(:allow_new_responses_from, 'authority_only')
+
+          params =
+            { old_allow_new_responses_from: old_allow_new_responses_from,
+              allow_new_responses_from: info_request.allow_new_responses_from }
+
+          info_request.log_event('edit', params)
+        end
+      end
 
     # 'very_old' months since last change to request, don't allow any new
     # incoming messages
@@ -1368,7 +1381,20 @@ class InfoRequest < ActiveRecord::Base
       .where(allow_new_responses_from: %w[anybody authority_only])
       .where.not(url_title: 'holding_pen')
       .updated_before(very_old.months.ago.to_date)
-      .update_all(allow_new_responses_from: 'nobody')
+      .find_in_batches do |batch|
+        batch.each do |info_request|
+          old_allow_new_responses_from = info_request.allow_new_responses_from
+
+          info_request.
+            update_column(:allow_new_responses_from, 'nobody')
+
+          params =
+            { old_allow_new_responses_from: old_allow_new_responses_from,
+              allow_new_responses_from: info_request.allow_new_responses_from }
+
+          info_request.log_event('edit', params)
+        end
+      end
   end
 
   def json_for_api(deep)
