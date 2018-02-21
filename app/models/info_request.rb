@@ -185,6 +185,19 @@ class InfoRequest < ActiveRecord::Base
   before_validation :compute_idhash
   before_create :set_use_notifications
 
+  # Return info request corresponding to an incoming email address, or nil if
+  # none found. Checks the hash to ensure the email came from the public body -
+  # only they are sent the email address with the has in it. (We don't check
+  # the prefix and domain, as sometimes those change, or might be elided by
+  # copying an email, and that doesn't matter)
+  def self.find_by_incoming_email(incoming_email)
+    id, hash = InfoRequest._extract_id_hash_from_email(incoming_email)
+    if hash_from_id(id) == hash
+      # Not using find(id) because we don't exception raised if nothing found
+      find_by_id(id)
+    end
+  end
+
   # Subset of states accepted via the API
   def self.allowed_incoming_states
     [
@@ -438,19 +451,6 @@ class InfoRequest < ActiveRecord::Base
       applicable_law.fetch(key)
     rescue KeyError
       raise "Unknown key '#{key}' for '#{law_used}'"
-    end
-  end
-
-  # Return info request corresponding to an incoming email address, or nil if
-  # none found. Checks the hash to ensure the email came from the public body -
-  # only they are sent the email address with the has in it. (We don't check
-  # the prefix and domain, as sometimes those change, or might be elided by
-  # copying an email, and that doesn't matter)
-  def self.find_by_incoming_email(incoming_email)
-    id, hash = InfoRequest._extract_id_hash_from_email(incoming_email)
-    if hash_from_id(id) == hash
-      # Not using find(id) because we don't exception raised if nothing found
-      find_by_id(id)
     end
   end
 
