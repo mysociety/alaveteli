@@ -127,23 +127,17 @@ describe InfoRequest do
     end
 
     it "recognises l and 1 as the same in incoming emails" do
-      # Make info request with a 1 in it
-      while true
-        ir = InfoRequest.new(:title => "Testing", :public_body => public_bodies(:geraldine_public_body),
-                             :user => users(:bob_smith_user))
-        ir.save!
-        hash_part = ir.incoming_email.match(/-[0-9a-f]+@/)[0]
-        break if hash_part.match(/1/)
-      end
+      # Make an InfoRequest that has a 1 in the idhash
+      info_request.update_column(:idhash, 'b8b19ff5')
+      hash_part = info_request.idhash
 
-      # Make email with a 1 in the hash part changed to l
-      test_email = ir.incoming_email
-      new_hash_part = hash_part.gsub(/1/, "l")
-      test_email.gsub!(hash_part, new_hash_part)
+      # Simulate a typo (l instead of 1) in the incoming email
+      typo_email = info_request.incoming_email
+      new_hash_part = info_request.idhash.gsub(/1/, "l")
+      typo_email.gsub!(info_request.idhash, new_hash_part)
 
-      # Try and find with an l
-      found_info_request = InfoRequest.find_by_incoming_email(test_email)
-      expect(found_info_request).to eq(ir)
+      found_info_request = InfoRequest.find_by_incoming_email(typo_email)
+      expect(found_info_request).to eq(info_request)
     end
 
     it "recognises old style request-bounce- addresses" do
