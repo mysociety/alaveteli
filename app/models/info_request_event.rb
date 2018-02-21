@@ -30,7 +30,6 @@ class InfoRequestEvent < ActiveRecord::Base
     'resent',
     'followup_sent',
     'followup_resent',
-
     'edit', # title etc. edited (in admin interface)
     'edit_outgoing', # outgoing message edited (in admin interface)
     'edit_comment', # comment edited (in admin interface)
