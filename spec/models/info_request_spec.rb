@@ -106,26 +106,24 @@ describe InfoRequest do
 
   describe '.find_by_incoming_email' do
 
-    before do
-      @info_request = info_requests(:fancy_dog_request)
-    end
+    let(:info_request) { info_requests(:fancy_dog_request) }
 
     it "recognises its own incoming email" do
-      incoming_email = @info_request.incoming_email
+      incoming_email = info_request.incoming_email
       found_info_request = InfoRequest.find_by_incoming_email(incoming_email)
-      expect(found_info_request).to eq(@info_request)
+      expect(found_info_request).to eq(info_request)
     end
 
     it "recognises its own incoming email with some capitalisation" do
-      incoming_email = @info_request.incoming_email.gsub(/request/, "Request")
+      incoming_email = info_request.incoming_email.gsub(/request/, "Request")
       found_info_request = InfoRequest.find_by_incoming_email(incoming_email)
-      expect(found_info_request).to eq(@info_request)
+      expect(found_info_request).to eq(info_request)
     end
 
     it "recognises its own incoming email with quotes" do
-      incoming_email = "'" + @info_request.incoming_email + "'"
+      incoming_email = "'" + info_request.incoming_email + "'"
       found_info_request = InfoRequest.find_by_incoming_email(incoming_email)
-      expect(found_info_request).to eq(@info_request)
+      expect(found_info_request).to eq(info_request)
     end
 
     it "recognises l and 1 as the same in incoming emails" do
@@ -149,9 +147,9 @@ describe InfoRequest do
     end
 
     it "recognises old style request-bounce- addresses" do
-      incoming_email = @info_request.magic_email("request-bounce-")
+      incoming_email = info_request.magic_email("request-bounce-")
       found_info_request = InfoRequest.find_by_incoming_email(incoming_email)
-      expect(found_info_request).to eq(@info_request)
+      expect(found_info_request).to eq(info_request)
     end
 
     it "returns nil when receiving email for a deleted request" do
