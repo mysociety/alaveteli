@@ -346,6 +346,14 @@ describe "creating batch requests in alaveteli_pro" do
       end
     end
 
+    it 'does not show the "Preview and send" button' do
+      using_pro_session(pro_user_session) do
+        visit new_alaveteli_pro_info_request_batch_path(draft_id: batch.id)
+
+        expect(page).not_to have_content("Preview and send request")
+      end
+    end
+
   end
 
 end
