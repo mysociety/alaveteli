@@ -1731,6 +1731,43 @@ describe InfoRequest do
 
   end
 
+  describe '#get_last_event' do
+    let(:info_request) { FactoryGirl.create(:info_request) }
+    let(:last_event) do
+      InfoRequestEvent.
+        where(info_request_id: info_request.id).
+        order('created_at DESC').
+        first
+    end
+
+    context 'when the request has events' do
+
+      before do
+        3.times do
+          FactoryGirl.create(:info_request_event, info_request: info_request)
+        end
+      end
+
+      it 'returns the most recent event' do
+        expect(info_request.reload.get_last_event).to eq(last_event)
+      end
+
+    end
+
+    context 'when the request has no events' do
+
+      before do
+        info_request.info_request_events.destroy_all
+      end
+
+      it 'returns nil' do
+        expect(info_request.reload.get_last_event).to be_nil
+      end
+
+    end
+
+  end
+
   describe 'when managing the cache directories' do
 
     before do
