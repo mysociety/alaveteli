@@ -324,6 +324,30 @@ describe "creating batch requests in alaveteli_pro" do
       expect(batch.public_bodies).to match_array @selected_bodies
     end
   end
+
+  context 'the user has exceeded their batch limit' do
+
+    before { pro_user.pro_account.update_attributes(monthly_batch_limit: 0) }
+
+    let(:batch) do
+      FactoryGirl.create(:draft_info_request_batch,
+                         user: pro_user,
+                         public_bodies: [FactoryGirl.create(:public_body)],
+                         title: 'Test Batch')
+    end
+
+    it 'allows the user to edit an existing draft batch request' do
+      using_pro_session(pro_user_session) do
+        visit new_alaveteli_pro_info_request_batch_path(draft_id: batch.id)
+        fill_in 'Subject', with: 'Edited title'
+        click_button 'Save draft'
+
+        expect(batch.reload.title).to eq('Edited title')
+      end
+    end
+
+  end
+
 end
 
 describe "managing embargoed batch requests" do

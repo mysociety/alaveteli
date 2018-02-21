@@ -103,12 +103,47 @@ shared_examples_for "an info_request_batch action" do
   end
 end
 
+shared_examples_for "the user has exceeded their batch allowance" do
+
+  it 'redirects to the new batch page with a flash message' do
+    user.pro_account.update_attributes(monthly_batch_limit: 0)
+    with_feature_enabled(:alaveteli_pro) do
+      action
+      expect(response).
+        to redirect_to(new_alaveteli_pro_info_request_batch_path(
+                         draft_id: draft.id)
+        )
+      expect(flash[:error]).
+        to include('you have exceeded your current batch allowance')
+    end
+  end
+
+end
+
 describe AlaveteliPro::InfoRequestBatchesController do
   let(:body_1) { FactoryGirl.create(:public_body) }
   let(:body_2) { FactoryGirl.create(:public_body) }
   let(:bodies) { [body_1, body_2] }
-  let(:user) { FactoryGirl.create(:pro_user) }
-  let(:other_user) { FactoryGirl.create(:pro_user) }
+  let(:user) do
+    _user = FactoryGirl.create(:pro_user)
+    AlaveteliFeatures.backend.enable_actor(:pro_batch_access, _user)
+    FactoryGirl.create(:pro_account,
+                       user: _user,
+                       stripe_customer_id: 'test_customer',
+                       monthly_batch_limit: 25)
+    _user
+  end
+
+  let(:other_user) do
+    _user = FactoryGirl.create(:pro_user)
+    AlaveteliFeatures.backend.enable_actor(:pro_batch_access, _user)
+    FactoryGirl.create(:pro_account,
+                       user: _user,
+                       stripe_customer_id: 'test_customer',
+                       monthly_batch_limit: 25)
+    _user
+  end
+
   let!(:draft) do
     FactoryGirl.create(:draft_info_request_batch,
                        public_bodies: bodies,
@@ -145,6 +180,12 @@ describe AlaveteliPro::InfoRequestBatchesController do
           expect(response).to render_template("alaveteli_pro/info_requests/preview")
         end
       end
+    end
+
+    context 'when the user has exceeded their batch limit' do
+
+      it_behaves_like 'the user has exceeded their batch allowance'
+
     end
 
     context "when the draft is not valid" do
@@ -207,6 +248,13 @@ describe AlaveteliPro::InfoRequestBatchesController do
           expect(response).to redirect_to(show_alaveteli_pro_batch_request_path(new_batch.id))
         end
       end
+
+      context 'when the user has exceeded their batch limit' do
+
+        it_behaves_like 'the user has exceeded their batch allowance'
+
+      end
+
     end
 
     context "when the draft is not valid" do
