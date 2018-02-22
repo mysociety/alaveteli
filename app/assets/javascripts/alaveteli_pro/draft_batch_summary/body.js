@@ -49,7 +49,7 @@
   // Bind clicks on "remove body from draft" buttons, in a function because
   // these get reloaded with new search results.
   var bindRemoveButtons = function bindRemoveButtons() {
-    $(formSelector).on('submit', submitRemoveForm);
+    $(formSelector, $draft).on('submit', submitRemoveForm);
   };
 
   $(function(){

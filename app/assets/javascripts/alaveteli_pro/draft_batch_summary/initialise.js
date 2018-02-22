@@ -4,7 +4,6 @@
 (function($, AlaveteliPro) {
   var DraftBatchSummary = AlaveteliPro.DraftBatchSummary = {};
   var $el;
-  var summarySelector = '.js-draft-batch-request-summary';
   var namespace = AlaveteliPro.Events.namespace + ':DraftBatchSummary';
   var Events = DraftBatchSummary.Events = {
     namespace: namespace,
@@ -13,7 +12,9 @@
     loadingError: namespace + ':loadingError',
     loadingComplete: namespace + ':loadingComplete',
     bodyAdded: namespace + ':bodyAdded',
-    bodyRemoved: namespace + ':bodyRemoved'
+    bodyRemoved: namespace + ':bodyRemoved',
+    reachedLimit: namespace + ':reachedLimit',
+    hadReachedLimit: namespace + ':hadReachedLimit'
   };
 
   // Start a new XHR request, aborts any existing one and triggers a loading
@@ -39,28 +40,19 @@
     });
   };
 
-  var addLoadingClass = function startLoading() {
+  var addLoadingClass = function addLoadingClass() {
     $el.addClass('loading');
   };
 
-  var removeLoadingClass = function finishLoading() {
+  var removeLoadingClass = function removeLoadingClass() {
     $el.removeClass('loading');
-  };
-
-  var updateDraftId = function updateDraftId() {
-    DraftBatchSummary.draftId = $(summarySelector).data('draft-id');
   };
 
   $(function() {
     $el = $('.js-draft-batch-request');
     DraftBatchSummary.$el = $el;
-    $el.on(Events.loading, addLoadingClass);
-    // The draft id might change on the very first body adding, so we have to
-    // get in there first to make sure we update the id we share.
-    $el.on(Events.bodyAdded, updateDraftId);
-    $el.on(Events.loadingComplete, removeLoadingClass);
 
-    // Set the initial draftId, if there is one
-    updateDraftId();
+    $el.on(Events.loading, addLoadingClass);
+    $el.on(Events.loadingComplete, removeLoadingClass);
   });
 })(window.jQuery, window.AlaveteliPro);
