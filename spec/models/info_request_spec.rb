@@ -146,7 +146,7 @@ describe InfoRequest do
       expect(found_info_request).to eq(info_request)
     end
 
-    it "returns nil when receiving email for a deleted request" do
+    it "returns nil when searching for a deleted request" do
       deleted_request_address = info_request.incoming_email
       info_request.destroy!
       found_info_request =
