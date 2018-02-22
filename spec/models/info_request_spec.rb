@@ -156,6 +156,49 @@ describe InfoRequest do
 
   end
 
+  describe '.matching_incoming_email' do
+
+    it 'only finds the supplied requests' do
+      2.times { FactoryGirl.create(:info_request) }
+
+      requests = [].tap do |array|
+        array << FactoryGirl.create(:info_request)
+        array << FactoryGirl.create(:info_request)
+      end
+
+      emails = requests.map { |request| request.incoming_email }
+
+      expect(described_class.matching_incoming_email(emails)).to match(requests)
+    end
+
+    it 'finds a single request from an Array' do
+      info_request = FactoryGirl.create(:info_request)
+      emails = [info_request.incoming_email]
+      expect(described_class.matching_incoming_email(emails)).
+        to match([info_request])
+    end
+
+    it 'finds a single request from a String' do
+      info_request = FactoryGirl.create(:info_request)
+      email = info_request.incoming_email
+      expect(described_class.matching_incoming_email(email)).
+        to match([info_request])
+    end
+
+    it 'is empty when passed an invalid email' do
+      expect(described_class.matching_incoming_email('invalid')).to be_empty
+    end
+
+    it 'is empty when passed no emails' do
+      expect(described_class.matching_incoming_email([])).to be_empty
+    end
+
+    it 'is empty when passed nil' do
+      expect(described_class.matching_incoming_email(nil)).to be_empty
+    end
+
+  end
+
   describe '.holding_pen_request' do
 
     context 'when the holding pen exists' do

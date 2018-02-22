@@ -198,6 +198,20 @@ class InfoRequest < ActiveRecord::Base
     end
   end
 
+  # Public: Find by a list of incoming email addresses.
+  # TODO: It would be better to make this return a chainable
+  # ActiveRecord::Relation
+  #
+  # Examples:
+  #
+  #   InfoRequest.matching_incoming_email('request-1-ae63fb73@localhost')
+  #   InfoRequest.matching_incoming_email(@array_of_email_addresses)
+  #
+  # Returns an Array
+  def self.matching_incoming_email(emails)
+    Array(emails).map { |email| find_by_incoming_email(email) }.compact
+  end
+
   # Subset of states accepted via the API
   def self.allowed_incoming_states
     [

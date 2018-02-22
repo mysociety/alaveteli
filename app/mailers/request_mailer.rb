@@ -219,12 +219,7 @@ class RequestMailer < ApplicationMailer
     # We deliberately don't use Envelope-to here, so ones that are BCC
     # drop into the holding pen for checking.
     addresses = ((email.to || []) + (email.cc || [])).compact
-    reply_info_requests = [] # TODO: should be set?
-    addresses.each do |address|
-      reply_info_request = InfoRequest.find_by_incoming_email(address)
-      reply_info_requests.push(reply_info_request) if reply_info_request
-    end
-    return reply_info_requests
+    InfoRequest.matching_incoming_email(addresses)
   end
 
   # Member function, called on the new class made in self.receive above
