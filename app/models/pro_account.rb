@@ -74,6 +74,10 @@ class ProAccount < ActiveRecord::Base
     end
   end
 
+  def days_to_batch_refresh
+    (batch_period_renews.to_date - Time.zone.now.to_date).to_i
+  end
+
   private
 
   def set_stripe_customer_id
