@@ -65,11 +65,14 @@
 .batch-builder__authority-list__authority {
     padding: 1.5em 1em;
     @include flexbox();
-    @include flex-align(center);
+    @include flex-align('flex-start');
 }
 
-.batch-builder__authority-list__authority__name {
+.batch-builder__authority-list__authority__details {
     @include flex(1 0 0%);
+}
+
+.batch-builder__authority-list__authority__notes {
 }
 
 .batch-builder__authority-list__authority__action {
