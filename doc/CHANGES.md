@@ -23,6 +23,8 @@
   shared on Facebook. You can just duplicate `logo-opengraph.png` if you don't
   have specific Pro branding.
 * We've removed the spring preloader as it didn't seem to provide much benefit.
+* `InfoRequest.get_last_event` is deprecated and will be removed in 0.33. Please
+  use `InfoRequest.last_event`.
 
 ### Changed Templates
 

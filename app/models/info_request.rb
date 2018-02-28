@@ -988,14 +988,18 @@ class InfoRequest < ActiveRecord::Base
     end
   end
 
-  # Returns last event
+  # Public: The most recent InfoRequestEvent.
+  #
+  # Returns an InfoRequestEvent or nil
+  def last_event
+    info_request_events.last
+  end
+
+  # Deprecated: Returns last event
   def get_last_event
-    events = info_request_events
-    if events.size == 0
-      return nil
-    else
-      return events[-1]
-    end
+    warn %q([DEPRECATION] InfoRequest#get_last_event will be removed in 0.33.
+            It has been replaced by InfoRequest#last_event).squish
+    last_event
   end
 
   def last_update_hash
