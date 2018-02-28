@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Log an `InfoRequestEvent` when updating response handling attributes in
+  `InfoRequest.stop_new_responses_on_old_requests` (Gareth Rees)
 * Show that a request is part of a batch on the request page in the admin
   interface (Gareth Rees)
 * Add "Rejected incoming count" do the request page in the admin interface
