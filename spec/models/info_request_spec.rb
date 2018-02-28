@@ -104,6 +104,101 @@ describe InfoRequest do
 
   end
 
+  describe '.find_by_incoming_email' do
+
+    let(:info_request) { FactoryGirl.create(:info_request) }
+
+    it "recognises its own incoming email" do
+      incoming_email = info_request.incoming_email
+      found_info_request = InfoRequest.find_by_incoming_email(incoming_email)
+      expect(found_info_request).to eq(info_request)
+    end
+
+    it "recognises its own incoming email with some capitalisation" do
+      incoming_email = info_request.incoming_email.gsub(/request/, "Request")
+      found_info_request = InfoRequest.find_by_incoming_email(incoming_email)
+      expect(found_info_request).to eq(info_request)
+    end
+
+    it "recognises its own incoming email with quotes" do
+      incoming_email = "'" + info_request.incoming_email + "'"
+      found_info_request = InfoRequest.find_by_incoming_email(incoming_email)
+      expect(found_info_request).to eq(info_request)
+    end
+
+    it "recognises l and 1 as the same in incoming emails" do
+      # Make an InfoRequest that has a 1 in the idhash
+      info_request.update_column(:idhash, 'b8b19ff5')
+      hash_part = info_request.idhash
+
+      # Simulate a typo (l instead of 1) in the incoming email
+      typo_email = info_request.incoming_email
+      new_hash_part = info_request.idhash.gsub(/1/, "l")
+      typo_email.gsub!(info_request.idhash, new_hash_part)
+
+      found_info_request = InfoRequest.find_by_incoming_email(typo_email)
+      expect(found_info_request).to eq(info_request)
+    end
+
+    it "recognises old style request-bounce- addresses" do
+      incoming_email = info_request.magic_email("request-bounce-")
+      found_info_request = InfoRequest.find_by_incoming_email(incoming_email)
+      expect(found_info_request).to eq(info_request)
+    end
+
+    it "returns nil when searching for a deleted request" do
+      deleted_request_address = info_request.incoming_email
+      info_request.destroy!
+      found_info_request =
+        InfoRequest.find_by_incoming_email(deleted_request_address)
+      expect(found_info_request).to be_nil
+    end
+
+  end
+
+  describe '.matching_incoming_email' do
+
+    it 'only finds the supplied requests' do
+      2.times { FactoryGirl.create(:info_request) }
+
+      requests = [].tap do |array|
+        array << FactoryGirl.create(:info_request)
+        array << FactoryGirl.create(:info_request)
+      end
+
+      emails = requests.map { |request| request.incoming_email }
+
+      expect(described_class.matching_incoming_email(emails)).to match(requests)
+    end
+
+    it 'finds a single request from an Array' do
+      info_request = FactoryGirl.create(:info_request)
+      emails = [info_request.incoming_email]
+      expect(described_class.matching_incoming_email(emails)).
+        to match([info_request])
+    end
+
+    it 'finds a single request from a String' do
+      info_request = FactoryGirl.create(:info_request)
+      email = info_request.incoming_email
+      expect(described_class.matching_incoming_email(email)).
+        to match([info_request])
+    end
+
+    it 'is empty when passed an invalid email' do
+      expect(described_class.matching_incoming_email('invalid')).to be_empty
+    end
+
+    it 'is empty when passed no emails' do
+      expect(described_class.matching_incoming_email([])).to be_empty
+    end
+
+    it 'is empty when passed nil' do
+      expect(described_class.matching_incoming_email(nil)).to be_empty
+    end
+
+  end
+
   describe '.holding_pen_request' do
 
     context 'when the holding pen exists' do
@@ -1670,56 +1765,6 @@ describe InfoRequest do
 
     it "has a sensible recipient name and email" do
       expect(@info_request.recipient_name_and_email).to eq("FOI requests at TGQ <geraldine-requests@localhost>")
-    end
-
-    it "recognises its own incoming email" do
-      incoming_email = @info_request.incoming_email
-      found_info_request = InfoRequest.find_by_incoming_email(incoming_email)
-      expect(found_info_request).to eq(@info_request)
-    end
-
-    it "recognises its own incoming email with some capitalisation" do
-      incoming_email = @info_request.incoming_email.gsub(/request/, "Request")
-      found_info_request = InfoRequest.find_by_incoming_email(incoming_email)
-      expect(found_info_request).to eq(@info_request)
-    end
-
-    it "recognises its own incoming email with quotes" do
-      incoming_email = "'" + @info_request.incoming_email + "'"
-      found_info_request = InfoRequest.find_by_incoming_email(incoming_email)
-      expect(found_info_request).to eq(@info_request)
-    end
-
-    it "recognises l and 1 as the same in incoming emails" do
-      # Make info request with a 1 in it
-      while true
-        ir = InfoRequest.new(:title => "Testing", :public_body => public_bodies(:geraldine_public_body),
-                             :user => users(:bob_smith_user))
-        ir.save!
-        hash_part = ir.incoming_email.match(/-[0-9a-f]+@/)[0]
-        break if hash_part.match(/1/)
-      end
-
-      # Make email with a 1 in the hash part changed to l
-      test_email = ir.incoming_email
-      new_hash_part = hash_part.gsub(/1/, "l")
-      test_email.gsub!(hash_part, new_hash_part)
-
-      # Try and find with an l
-      found_info_request = InfoRequest.find_by_incoming_email(test_email)
-      expect(found_info_request).to eq(ir)
-    end
-
-    it "recognises old style request-bounce- addresses" do
-      incoming_email = @info_request.magic_email("request-bounce-")
-      found_info_request = InfoRequest.find_by_incoming_email(incoming_email)
-      expect(found_info_request).to eq(@info_request)
-    end
-
-    it "returns nil when receiving email for a deleted request" do
-      deleted_request_address = InfoRequest.magic_email_for_id("request-", 98765)
-      found_info_request = InfoRequest.find_by_incoming_email(deleted_request_address)
-      expect(found_info_request).to be_nil
     end
 
     it "copes with indexing after item is deleted" do
