@@ -617,8 +617,14 @@ class PublicBody < ActiveRecord::Base
     $1.nil? ? nil : $1.downcase
   end
 
-  def has_notes?
-    !notes.nil? && notes != ""
+  def has_notes?(opts = {})
+    tag = opts[:tag]
+
+    if tag
+      notes.present? && has_tag?(tag)
+    else
+      notes.present?
+    end
   end
 
   # TODO: Deprecate this method. Its only used in a couple of views so easy to

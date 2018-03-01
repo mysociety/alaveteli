@@ -51,4 +51,46 @@ describe AdminHelper do
 
   end
 
+  describe '#highlight_allow_new_responses_from' do
+
+    context 'anybody' do
+      subject { highlight_allow_new_responses_from('anybody') }
+
+      it 'does not highlight the default case' do
+        expect(subject).to eq('anybody')
+      end
+
+    end
+
+    context 'authority_only' do
+      subject { highlight_allow_new_responses_from('authority_only') }
+
+      it 'adds a warning highlight' do
+        expect(subject).
+          to eq(%q(<span class="text-warning">authority_only</span>))
+      end
+
+    end
+
+    context 'nobody' do
+      subject { highlight_allow_new_responses_from('nobody') }
+
+      it 'adds a stronger warning highlight' do
+        expect(subject).
+          to eq(%q(<span class="text-error">nobody</span>))
+      end
+
+    end
+
+    context 'an unhandled string' do
+      subject { highlight_allow_new_responses_from('unhandled') }
+
+      it 'does not highlight an unhandled string' do
+        expect(subject).to eq('unhandled')
+      end
+
+    end
+
+  end
+
 end

@@ -43,6 +43,7 @@ class InfoRequest < ActiveRecord::Base
   include AlaveteliFeatures::Helpers
 
   @non_admin_columns = %w(title url_title)
+  @additional_admin_columns = %w(rejected_incoming_count)
 
   strip_attributes :allow_empty => true
   strip_attributes :only => [:title],
@@ -183,6 +184,33 @@ class InfoRequest < ActiveRecord::Base
     :if => Proc.new { |request| request.title_changed? }
   before_validation :compute_idhash
   before_create :set_use_notifications
+
+  # Return info request corresponding to an incoming email address, or nil if
+  # none found. Checks the hash to ensure the email came from the public body -
+  # only they are sent the email address with the has in it. (We don't check
+  # the prefix and domain, as sometimes those change, or might be elided by
+  # copying an email, and that doesn't matter)
+  def self.find_by_incoming_email(incoming_email)
+    id, hash = InfoRequest._extract_id_hash_from_email(incoming_email)
+    if hash_from_id(id) == hash
+      # Not using find(id) because we don't exception raised if nothing found
+      find_by_id(id)
+    end
+  end
+
+  # Public: Find by a list of incoming email addresses.
+  # TODO: It would be better to make this return a chainable
+  # ActiveRecord::Relation
+  #
+  # Examples:
+  #
+  #   InfoRequest.matching_incoming_email('request-1-ae63fb73@localhost')
+  #   InfoRequest.matching_incoming_email(@array_of_email_addresses)
+  #
+  # Returns an Array
+  def self.matching_incoming_email(emails)
+    Array(emails).map { |email| find_by_incoming_email(email) }.compact
+  end
 
   # Subset of states accepted via the API
   def self.allowed_incoming_states
@@ -437,19 +465,6 @@ class InfoRequest < ActiveRecord::Base
       applicable_law.fetch(key)
     rescue KeyError
       raise "Unknown key '#{key}' for '#{law_used}'"
-    end
-  end
-
-  # Return info request corresponding to an incoming email address, or nil if
-  # none found. Checks the hash to ensure the email came from the public body -
-  # only they are sent the email address with the has in it. (We don't check
-  # the prefix and domain, as sometimes those change, or might be elided by
-  # copying an email, and that doesn't matter)
-  def self.find_by_incoming_email(incoming_email)
-    id, hash = InfoRequest._extract_id_hash_from_email(incoming_email)
-    if hash_from_id(id) == hash
-      # Not using find(id) because we don't exception raised if nothing found
-      find_by_id(id)
     end
   end
 
@@ -973,14 +988,18 @@ class InfoRequest < ActiveRecord::Base
     end
   end
 
-  # Returns last event
+  # Public: The most recent InfoRequestEvent.
+  #
+  # Returns an InfoRequestEvent or nil
+  def last_event
+    info_request_events.last
+  end
+
+  # Deprecated: Returns last event
   def get_last_event
-    events = info_request_events
-    if events.size == 0
-      return nil
-    else
-      return events[-1]
-    end
+    warn %q([DEPRECATION] InfoRequest#get_last_event will be removed in 0.33.
+            It has been replaced by InfoRequest#last_event).squish
+    last_event
   end
 
   def last_update_hash
@@ -1340,7 +1359,21 @@ class InfoRequest < ActiveRecord::Base
       .where(allow_new_responses_from: 'anybody')
       .where.not(url_title: 'holding_pen')
       .updated_before(old.months.ago.to_date)
-      .update_all(allow_new_responses_from: 'authority_only')
+      .find_in_batches do |batch|
+        batch.each do |info_request|
+          old_allow_new_responses_from = info_request.allow_new_responses_from
+
+          info_request.
+            update_column(:allow_new_responses_from, 'authority_only')
+
+          params =
+            { old_allow_new_responses_from: old_allow_new_responses_from,
+              allow_new_responses_from: info_request.allow_new_responses_from,
+              editor: 'InfoRequest.stop_new_responses_on_old_requests' }
+
+          info_request.log_event('edit', params)
+        end
+      end
 
     # 'very_old' months since last change to request, don't allow any new
     # incoming messages
@@ -1349,7 +1382,21 @@ class InfoRequest < ActiveRecord::Base
       .where(allow_new_responses_from: %w[anybody authority_only])
       .where.not(url_title: 'holding_pen')
       .updated_before(very_old.months.ago.to_date)
-      .update_all(allow_new_responses_from: 'nobody')
+      .find_in_batches do |batch|
+        batch.each do |info_request|
+          old_allow_new_responses_from = info_request.allow_new_responses_from
+
+          info_request.
+            update_column(:allow_new_responses_from, 'nobody')
+
+          params =
+            { old_allow_new_responses_from: old_allow_new_responses_from,
+              allow_new_responses_from: info_request.allow_new_responses_from,
+              editor: 'InfoRequest.stop_new_responses_on_old_requests' }
+
+          info_request.log_event('edit', params)
+        end
+      end
   end
 
   def json_for_api(deep)

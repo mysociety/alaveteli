@@ -53,7 +53,7 @@ describe ApplicationHelper do
 
     it 'should generate a description for a request' do
       @info_request = FactoryGirl.create(:info_request)
-      @sent_event = @info_request.get_last_event
+      @sent_event = @info_request.last_event
       expected = "Request sent to #{public_body_link_absolute(@info_request.public_body)} by #{request_user_link_absolute(@info_request)}"
       expect(event_description(@sent_event)).to match(expected)
 
@@ -61,14 +61,14 @@ describe ApplicationHelper do
 
     it 'should generate a description for a response' do
       @info_request_with_incoming = FactoryGirl.create(:info_request_with_incoming)
-      @response_event = @info_request_with_incoming.get_last_event
+      @response_event = @info_request_with_incoming.last_event
       expected = "Response by #{public_body_link_absolute(@info_request_with_incoming.public_body)} to #{request_user_link_absolute(@info_request_with_incoming)}"
       expect(event_description(@response_event)).to match(expected)
     end
 
     it 'should generate a description for a request where an internal review has been requested' do
       @info_request_with_internal_review_request = FactoryGirl.create(:info_request_with_internal_review_request)
-      @response_event = @info_request_with_internal_review_request.get_last_event
+      @response_event = @info_request_with_internal_review_request.last_event
       expected = "Internal review request sent to #{public_body_link_absolute(@info_request_with_internal_review_request.public_body)} by #{request_user_link_absolute(@info_request_with_internal_review_request)}"
       expect(event_description(@response_event)).to match(expected)
     end

@@ -50,7 +50,8 @@
                 </td>
               </tr>
             <% end %>
-            <% @info_request.for_admin_column do |name, value, type, column_name|%>
+
+            <% @info_request.for_admin_column do |name, value, type, column_name| %>
               <tr>
                 <td>
                   <b><%= name %>:</b>
@@ -59,9 +60,12 @@
                   <% if type == 'datetime' && value %>
                     <%= I18n.l(value, :format => "%e %B %Y %H:%M:%S") %>
                     (<%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(value)) %>)
+                  <% elsif column_name == 'allow_new_responses_from' %>
+                    <%= h highlight_allow_new_responses_from(value) %>
                   <% else %>
                     <%= h value %>
                   <% end %>
+
                   <% if column_name == 'described_state' %>
                     <ul>
                       <li><strong>Request status:</strong> <%= @info_request.calculate_status %></li>
@@ -73,6 +77,7 @@
                 </td>
               </tr>
             <% end %>
+
             <tr>
               <td>
                 <b>Created by</b>
@@ -106,6 +111,18 @@
                 </div>
               </td>
             </tr>
+
+            <% if @info_request.info_request_batch %>
+              <tr>
+                <td>
+                  <b>Info Request Batch:</b>
+                </td>
+                <td>
+                  <%= @info_request.info_request_batch_id %>
+                </td>
+              </tr>
+            <% end %>
+
             <tr>
               <td>
                 <b><%=_("Incoming email address")%></b>

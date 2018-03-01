@@ -62,7 +62,7 @@ describe AdminOutgoingMessageController do
 
       it 'logs an event on the info request' do
         delete :destroy, :id => outgoing.id
-        expect(info_request.reload.get_last_event.event_type).
+        expect(info_request.reload.last_event.event_type).
           to eq('destroy_outgoing')
       end
 
