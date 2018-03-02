@@ -113,6 +113,7 @@ class PublicBody < ActiveRecord::Base
                    [:created_at_numeric, 1, "created_at", :number]
                  ],
                  :terms => [
+                   [:name_for_search, 'N', 'name'],
                    [:variety, 'V', "variety"],
                    [:tag_array_for_search, 'U', "tag"]
                  ],
@@ -892,6 +893,10 @@ class PublicBody < ActiveRecord::Base
       end
     end
 
+  end
+
+  def name_for_search
+    name.downcase
   end
 
   def self.blank_contact_sql_clause
