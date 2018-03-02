@@ -177,11 +177,20 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.customize ['modifyvm', :id, '--cpus', SETTINGS['cpus']]
   end
 
-  config.vm.provision :shell, inline: "/home/vagrant/alaveteli/commonlib/bin/install-site.sh " \
-                                      "--dev " \
-                                      "alaveteli " \
-                                      "vagrant " \
-                                      "#{ SETTINGS['fqdn'] }"
+  config.vm.provision :shell, inline: <<-EOF
+  if [[ -f "/home/vagrant/alaveteli/commonlib/bin/install-site.sh" ]]
+    then
+      /home/vagrant/alaveteli/commonlib/bin/install-site.sh \
+        --dev \
+        alaveteli \
+        vagrant \
+        #{ SETTINGS['fqdn'] }
+  else
+    echo "Couldn't find provisioning script." >&2
+    echo "Did you forget to run git submodule --init update?" >&2
+    exit 1
+  fi
+EOF
 
   # Append basic usage instructions to the MOTD
   motd = <<-EOF
