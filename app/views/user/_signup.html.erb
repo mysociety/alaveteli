@@ -32,6 +32,10 @@
       <%= password_field 'user_signup', 'password', { :size => 15, :tabindex => 30, :autocomplete => "off" } %>
     </p>
 
+    <div class="form_item_note">
+      <%= _('12 characters minimum. 72 characters maximum.') %>
+    </div>
+
     <p>
       <label class="form_label" for="user_signup_password_confirmation"> <%= _('Confirm password:') %></label>
       <%= password_field 'user_signup', 'password_confirmation', { :size => 15, :tabindex => 40, :autocomplete => "off" } %>
