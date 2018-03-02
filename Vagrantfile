@@ -187,7 +187,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         #{ SETTINGS['fqdn'] }
   else
     echo "Couldn't find provisioning script." >&2
-    echo "Did you forget to run git submodule --init update?" >&2
+    echo "Did you forget to run git submodule update --init?" >&2
     exit 1
   fi
 EOF
