@@ -17,7 +17,7 @@ shared_examples_for "PhaseCounts" do
       AlaveteliPro::RequestSummary.
         create_or_update_from(FactoryGirl.create(:info_request))
     resource.request_summaries << summary
-    overdue = Delorean.time_travel_to(1.month.ago) do
+    overdue = Delorean.time_travel_to(2.months.ago) do
       FactoryGirl.create(:info_request)
     end
     summary = AlaveteliPro::RequestSummary.create_or_update_from(overdue)
