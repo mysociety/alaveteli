@@ -50,7 +50,8 @@ class AlaveteliPro::BatchRequestAuthoritySearchesController < AlaveteliPro::Base
   end
 
   def check_user_has_batch_access
-    unless feature_enabled? :pro_batch_access, current_user
+    unless (current_user.pro_account &&
+            current_user.pro_account.batches_remaining > 0)
       redirect_to new_alaveteli_pro_info_request_path
     end
     return true

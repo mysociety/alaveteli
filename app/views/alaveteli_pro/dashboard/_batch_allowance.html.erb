@@ -1,0 +1,19 @@
+<div class="dashboard-batches">
+  <h2 class="dashboard-batches__title"><%= _("Batch requests") %></h2>
+
+  <div class="dashboard-batches__item">
+    <%= n_('You have {{batch_count}} batch remaining this month.',
+           'You have {{batch_count}} batches remaining this month.',
+           @user.pro_account.batches_remaining,
+           batch_count: @user.pro_account.batches_remaining) %>
+    <% if @user.pro_account.batches_remaining > 0 %>
+      <%= link_to(_('Start a batch request'),
+                  alaveteli_pro_batch_request_authority_searches_url) %>
+    <% else %>
+      <%= n_('Your batch allowance refreshes in {{days_to_wait}} day.',
+             'Your batch allowance refreshes in {{days_to_wait}} days.',
+             @user.pro_account.days_to_batch_refresh,
+             days_to_wait: @user.pro_account.days_to_batch_refresh) %>
+    <% end %>
+  </div>
+</div>

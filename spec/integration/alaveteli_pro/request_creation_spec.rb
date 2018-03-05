@@ -20,14 +20,36 @@ describe "creating requests in alaveteli_pro" do
       end
     end
 
-    it "shows the link to the batch request form to pro batch users" do
-      AlaveteliFeatures.backend.enable_actor(:pro_batch_access, pro_user)
+    context 'the user has no remaining batch requests available' do
 
-      using_pro_session(pro_user_session) do
-        # New request form
-        create_pro_request(public_body)
-        expect(page).to have_content("start a batch request")
+      it 'does not show the link to the batch request form' do
+        AlaveteliFeatures.backend.enable_actor(:pro_batch_access, pro_user)
+
+        using_pro_session(pro_user_session) do
+          # New request form
+          create_pro_request(public_body)
+          expect(page).to_not have_content("start a batch request")
+        end
       end
+
+    end
+
+    context 'the user has remaining batch requests available' do
+
+      it 'shows the link to the batch request form to pro batch users' do
+        AlaveteliFeatures.backend.enable_actor(:pro_batch_access, pro_user)
+        FactoryGirl.create(:pro_account,
+                           user: pro_user,
+                           stripe_customer_id: 'test_customer',
+                           monthly_batch_limit: 25)
+
+        using_pro_session(pro_user_session) do
+          # New request form
+          create_pro_request(public_body)
+          expect(page).to have_content("start a batch request")
+        end
+      end
+
     end
 
     it "allows us to save a draft" do

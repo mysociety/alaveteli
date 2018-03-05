@@ -66,6 +66,7 @@ $dashboard-collapse: 50em; //where the dashboard layout needs to change
   top: 3px;
 }
 
+.dashboard-batches,
 .dashboard-todo {
   margin-bottom: 3em;
 }
@@ -76,6 +77,7 @@ $dashboard-collapse: 50em; //where the dashboard layout needs to change
 }
 
 .dashboard-todo__title,
+.dashboard-batches__title,
 .dashboard-activity__title {
   padding-bottom: 1em;
   margin-bottom: 0;
@@ -83,6 +85,7 @@ $dashboard-collapse: 50em; //where the dashboard layout needs to change
 }
 
 .dashboard-todo__list__item,
+.dashboard-batches__item,
 .dashboard-activity__item {
   padding: 1em 0 1em 0;
 }

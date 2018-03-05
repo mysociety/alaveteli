@@ -26,12 +26,15 @@
 }
 
 .dashboard-activity__title,
+.dashboard-batches__title,
 .dashboard-todo__title{
   @extend .dashboard-title;
 }
 
 .dashboard-todo__title,
 .dashboard-todo__list__item,
+.dashboard-batches__title,
+.dashboard-batches__item,
 .dashboard-activity__title,
 .dashboard-activity__item {
   border-bottom: 1px solid #ddd;

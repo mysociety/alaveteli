@@ -38,6 +38,16 @@ describe ProAccount, feature: :pro_pricing do
     Stripe::Subscription.create(customer: customer, plan: plan.id)
   end
 
+  let(:backdated_pro_account) do
+    time_travel_to('2017-02-15') do
+      account = FactoryGirl.create(:pro_account)
+      AlaveteliFeatures.backend.enable(:pro_batch_access, account.user)
+      # rolify doesn't work with time_travel for some reason so cheating...
+      account.user.roles(:pro).last.update_column(:created_at, Time.zone.now)
+      account
+    end
+  end
+
   describe 'validations' do
 
     it 'requires a user' do
@@ -128,6 +138,147 @@ describe ProAccount, feature: :pro_pricing do
     context 'when there is no customer id' do
       before { pro_account.stripe_customer_id = nil }
       it { is_expected.to eq false }
+    end
+
+  end
+
+  describe '#monthly_batches' do
+    let(:pro_account) { FactoryGirl.create(:pro_account) }
+    subject { pro_account.monthly_batches }
+
+    context 'the monthly_batch_limit has not been set' do
+
+      it { is_expected.to eq 1 }
+
+      it 'takes the default value from AlaveteliConfiguration' do
+        allow(AlaveteliConfiguration).
+          to receive(:pro_monthly_batch_limit).and_return(42)
+
+        expect(subject).to eq 42
+      end
+
+    end
+
+    context 'monthly_batch_limit has been set' do
+      before { pro_account.monthly_batch_limit = 42 }
+      it { is_expected.to eq 42 }
+    end
+
+  end
+
+  describe '#batches_remaining' do
+
+    let(:pro_account) do
+      account = FactoryGirl.create(:pro_account)
+      AlaveteliFeatures.backend.enable(:pro_batch_access, account.user)
+      account
+    end
+
+    before { allow(pro_account).to receive(:monthly_batches).and_return(1) }
+
+    it 'returns the monthly batch limit if no batches have been made' do
+      expect(pro_account.batches_remaining).to eq 1
+    end
+
+    it 'returns 0 if all the available batches have been used' do
+      FactoryGirl.create(:info_request_batch, user: pro_account.user)
+      expect(pro_account.batches_remaining).to eq 0
+    end
+
+    it 'returns 0 if more than the available batches have been used' do
+      FactoryGirl.create(:info_request_batch, user: pro_account.user)
+      FactoryGirl.create(:info_request_batch, user: pro_account.user)
+      expect(pro_account.batches_remaining).to eq 0
+    end
+
+    it 'returns 0 if the user does not have the pro_batch_access feature flag' do
+      AlaveteliFeatures.backend.disable(:pro_batch_access, pro_account.user)
+      expect(pro_account.batches_remaining).to eq 0
+    end
+
+  end
+
+  describe '#became_pro' do
+
+    subject { backdated_pro_account.became_pro }
+
+    it 'returns the expected date' do
+      expect(subject.to_date).to eq Date.parse('2017-02-15')
+    end
+
+  end
+
+  describe '#batch_period_start' do
+
+    subject { backdated_pro_account.batch_period_start }
+
+    it 'returns the previous month if the account anniversary has passed' do
+      time_travel_to('2018-02-14') do
+        expect(subject).to eq Time.zone.parse('2018-01-15')
+      end
+    end
+
+    it 'returns the current month if the anniversary has not yet hit' do
+      time_travel_to('2018-02-16') do
+        expect(subject).to eq Time.zone.parse('2018-02-15')
+      end
+    end
+
+    it 'returns the current month if the current day and the anniversary match' do
+      time_travel_to('2018-02-15') do
+        expect(subject).to eq Time.zone.parse('2018-02-15')
+      end
+    end
+
+    it 'returns the end of the current month rather than 31 Feb or 3 March' do
+      allow(backdated_pro_account).
+        to receive(:became_pro) { Time.zone.parse('2017-12-31') }
+
+      time_travel_to('2018-03-02') do
+        expect(subject).to eq Time.zone.parse('2018-02-28')
+      end
+    end
+
+    it 'returns the correct day in the previous month if current month is short' do
+      allow(backdated_pro_account).
+        to receive(:became_pro) { Time.zone.parse('2017-12-31') }
+
+      time_travel_to('2018-02-15') do
+        expect(subject).to eq Time.zone.parse('2018-01-31')
+      end
+    end
+
+  end
+
+  describe '#batch_period_renews' do
+
+    subject { backdated_pro_account.batch_period_renews }
+
+    it 'returns the current month if the account anniversary has passed' do
+      time_travel_to('2018-02-14') do
+        expect(subject).to eq Time.zone.parse('2018-02-15')
+      end
+    end
+
+    it 'returns the next month if the anniversary has not yet hit' do
+      time_travel_to('2018-02-16') do
+        expect(subject).to eq Time.zone.parse('2018-03-15')
+      end
+    end
+
+    it 'returns the next month if the current day and the anniversary match' do
+      time_travel_to('2018-02-15') do
+        expect(subject).to eq Time.zone.parse('2018-03-15')
+      end
+    end
+
+    it 'returns the end of the current month rather than 31 Feb or 3 March' do
+      allow(backdated_pro_account).
+        to receive(:became_pro) { Time.zone.parse('2017-12-31') }
+
+      time_travel_to('2018-02-15') do
+        expect(subject).to eq Time.zone.parse('2018-02-28')
+      end
     end
 
   end

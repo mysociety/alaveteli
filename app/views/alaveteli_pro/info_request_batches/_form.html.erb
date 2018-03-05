@@ -56,9 +56,11 @@
     </div> <!-- .request_embargo -->
 
     <div class="form_button">
-      <button name="preview" value="true" class="button">
-        <%= _("Preview and send request") %>
-      </button>
+      <% if @user.pro_account && @user.pro_account.batches_remaining > 0 %>
+        <button name="preview" value="true" class="button">
+          <%= _("Preview and send request") %>
+        </button>
+      <% end %>
       <button class="button-tertiary"><%= _("Save draft") %></button>
     </div>
 

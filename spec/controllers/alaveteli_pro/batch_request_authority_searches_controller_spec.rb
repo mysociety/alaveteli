@@ -28,9 +28,14 @@ shared_examples_for "creating a search" do
 end
 
 describe AlaveteliPro::BatchRequestAuthoritySearchesController do
+
   let(:pro_user) do
     user = FactoryGirl.create(:pro_user)
     AlaveteliFeatures.backend.enable_actor(:pro_batch_access, user)
+    FactoryGirl.create(:pro_account,
+                       user: user,
+                       stripe_customer_id: 'test_customer',
+                       monthly_batch_limit: 99)
     user
   end
 
@@ -113,6 +118,27 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
     context "the user does not have pro batch access" do
 
       let(:pro_user) { FactoryGirl.create(:pro_user) }
+
+      it 'redirects them to the standard request form' do
+        with_feature_enabled(:alaveteli_pro) do
+          get :index
+          expect(response).to redirect_to(new_alaveteli_pro_info_request_path)
+        end
+      end
+
+    end
+
+    context "the user has pro batch access but no remaining batch allowance" do
+
+      let(:pro_user) do
+        user = FactoryGirl.create(:pro_user)
+        AlaveteliFeatures.backend.enable_actor(:pro_batch_access, user)
+        FactoryGirl.create(:pro_account,
+                           user: user,
+                           stripe_customer_id: 'test_customer',
+                           monthly_batch_limit: 0)
+        user
+      end
 
       it 'redirects them to the standard request form' do
         with_feature_enabled(:alaveteli_pro) do

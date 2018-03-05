@@ -6,6 +6,8 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AlaveteliPro::InfoRequestBatchesController < AlaveteliPro::BaseController
+  before_filter :check_users_batch_allowance, only: [:preview, :create]
+
   def new
     @draft_info_request_batch = load_draft
     load_data_from_draft(@draft_info_request_batch)
@@ -37,6 +39,16 @@ class AlaveteliPro::InfoRequestBatchesController < AlaveteliPro::BaseController
   end
 
   private
+
+  def check_users_batch_allowance
+    unless (current_user.pro_account &&
+            current_user.pro_account.batches_remaining > 0)
+      flash[:error] = _('Sorry you have exceeded your current batch allowance')
+      redirect_to \
+        new_alaveteli_pro_info_request_batch_path(draft_id: params[:draft_id])
+      return false
+    end
+  end
 
   def load_draft
     current_user.draft_info_request_batches.find(params[:draft_id])

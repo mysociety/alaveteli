@@ -42,13 +42,6 @@ def search_results
 end
 
 describe "creating batch requests in alaveteli_pro" do
-  let(:pro_user) do
-    user = FactoryGirl.create(:pro_user)
-    AlaveteliFeatures.backend.enable_actor(:pro_batch_access, user)
-    user
-  end
-
-  let!(:pro_user_session) { login(pro_user) }
   let!(:authorities) { FactoryGirl.create_list(:public_body, 26) }
 
   before :all do
@@ -65,6 +58,18 @@ describe "creating batch requests in alaveteli_pro" do
     end
     update_xapian_index
   end
+
+  let(:pro_user) do
+    user = FactoryGirl.create(:pro_user)
+    AlaveteliFeatures.backend.enable_actor(:pro_batch_access, user)
+    FactoryGirl.create(:pro_account,
+                       user: user,
+                       stripe_customer_id: 'test_customer',
+                       monthly_batch_limit: 25)
+    user
+  end
+
+  let!(:pro_user_session) { login(pro_user) }
 
   it "allows the user to build a list of authorities" do
     using_pro_session(pro_user_session) do
@@ -319,6 +324,38 @@ describe "creating batch requests in alaveteli_pro" do
       expect(batch.public_bodies).to match_array @selected_bodies
     end
   end
+
+  context 'the user has exceeded their batch limit' do
+
+    before { pro_user.pro_account.update_attributes(monthly_batch_limit: 0) }
+
+    let(:batch) do
+      FactoryGirl.create(:draft_info_request_batch,
+                         user: pro_user,
+                         public_bodies: [FactoryGirl.create(:public_body)],
+                         title: 'Test Batch')
+    end
+
+    it 'allows the user to edit an existing draft batch request' do
+      using_pro_session(pro_user_session) do
+        visit new_alaveteli_pro_info_request_batch_path(draft_id: batch.id)
+        fill_in 'Subject', with: 'Edited title'
+        click_button 'Save draft'
+
+        expect(batch.reload.title).to eq('Edited title')
+      end
+    end
+
+    it 'does not show the "Preview and send" button' do
+      using_pro_session(pro_user_session) do
+        visit new_alaveteli_pro_info_request_batch_path(draft_id: batch.id)
+
+        expect(page).not_to have_content("Preview and send request")
+      end
+    end
+
+  end
+
 end
 
 describe "managing embargoed batch requests" do

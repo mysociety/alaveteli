@@ -29,6 +29,9 @@
           <%= render partial: 'to_do_list' %>
         <% end %>
 
+        <% if feature_enabled?(:pro_batch_access, @user) %>
+          <%= render partial: 'batch_allowance' %>
+        <% end %>
 
         <div class="dashboard-activity">
           <h2 class="dashboard-activity__title"><%= _("Activity") %></h2>
