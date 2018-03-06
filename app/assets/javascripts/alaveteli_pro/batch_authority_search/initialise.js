@@ -1,6 +1,6 @@
 // Top level object to hold all of the Batch Authority Search things and
 // handle things which happen at the very top level
-(function(AlaveteliPro){
+(function($, AlaveteliPro){
   var BatchAuthoritySearch = AlaveteliPro.BatchAuthoritySearch = {};
   var $el;
   var namespace = AlaveteliPro.Events.namespace + ':BatchAuthoritySearch';
@@ -9,7 +9,9 @@
     loading: namespace + ':loading',
     loadingSuccess: namespace + ':loadingSuccess',
     loadingError: namespace + ':loadingError',
-    loadingComplete: namespace + ':loadingComplete'
+    loadingComplete: namespace + ':loadingComplete',
+    domUpdated: namespace + ':domUpdated',
+    rendered: namespace + ':rendered'
   };
 
   BatchAuthoritySearch.currentXHR = null;
@@ -37,18 +39,19 @@
     });
   };
 
-  var addLoadingClass = function startLoading() {
+  var addLoadingClass = function addLoadingClass() {
     $el.addClass('loading');
   };
 
-  var removeLoadingClass = function finishLoading() {
+  var removeLoadingClass = function removeLoadingClass() {
     $el.removeClass('loading');
   };
 
   $(function() {
     $el = $('.js-batch-authority-search');
     BatchAuthoritySearch.$el = $el;
+
     $el.on(Events.loading, addLoadingClass);
     $el.on(Events.loadingComplete, removeLoadingClass);
   });
-})(window.AlaveteliPro);
+})(window.jQuery, window.AlaveteliPro);

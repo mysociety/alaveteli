@@ -1,32 +1,19 @@
-<% if draft.id %>
-  <%= form_tag(update_bodies_alaveteli_pro_draft_info_request_batch_path(draft.id),
-               :method => :put,
-               :class => 'js-add-authority-to-batch-form',
-               'data-body-id' => authority_id) do %>
-    <% unless query.blank? %>
-      <%= hidden_field_tag(:authority_query, query) %>
-    <% end %>
-    <% unless page.blank? %>
-      <%= hidden_field_tag(:page, page) %>
-    <% end %>
-    <%= hidden_field_tag(:add_body_id, authority_id) %>
-    <input type="submit"
-           value="<%= _('+ Add') %>"
-           class="add-authority-to-batch__form__submit js-add-authority-to-batch-submit">
-  <% end %>
-<% else %>
-  <%= form_for(draft,
-               :html => {:class => 'add-authority-to-batch__form js-add-authority-to-batch-form',
-                         'data-body-id' => authority_id}) do |f| %>
-    <% unless query.blank? %>
-      <%= hidden_field_tag(:authority_query, query) %>
-    <% end %>
-    <% unless page.blank? %>
-      <%= hidden_field_tag(:page, page) %>
-    <% end %>
-    <%= f.hidden_field(:public_body_ids, value: authority_id) %>
-    <input type="submit"
-           value="<%= _('+ Add') %>"
-           class="add-authority-to-batch__form__submit js-add-authority-to-batch-submit">
-  <% end %>
+<%= form_for(:alaveteli_pro_draft_info_request_batch,
+             url: update_bodies_alaveteli_pro_draft_info_request_batches_path,
+             method: :put,
+             html: { class: 'js-add-authority-to-batch-form',
+                     data: { body_id: authority_id } }) do |f| %>
+  <%= hidden_field_tag(:authority_query, query) unless query.blank? %>
+  <%= hidden_field_tag(:page, page) unless page.blank? %>
+  <%= hidden_field_tag(:mode, mode) %>
+  <%= hidden_field_tag(:category_tag, category_tag) %>
+  <%= f.hidden_field(:draft_id, value: draft.id, class: 'js-draft-id') %>
+  <%= f.hidden_field(:public_body_id, value: authority_id) %>
+  <%= f.hidden_field(:action, value: 'add') %>
+  <button type="submit"
+          class="button button--add
+                 add-authority-to-batch__form__submit
+                 js-add-authority-to-batch-submit">
+      <%= _('Add') %>
+  </button>
 <% end %>
