@@ -185,7 +185,20 @@ class GeneralController < ApplicationController
       @max_requests = (@xapian_requests.matches_estimated > MAX_RESULTS) ? MAX_RESULTS : @xapian_requests.matches_estimated
     end
     if @bodies
-      @xapian_bodies = perform_search([PublicBody], @query, @sortby, nil, 5)
+      flags = Xapian::QueryParser::FLAG_LOVEHATE | \
+              Xapian::QueryParser::FLAG_SPELLING_CORRECTION
+      # also look in the N term prefix applying a 20% weighting to any result(s)
+      user_n_query = Xapian::Query.new("N#{ @query.downcase }")
+      query = ActsAsXapian.query_parser.parse_query(@query, flags)
+      weighted = Xapian::Query.new(Xapian::Query::OP_SCALE_WEIGHT,
+                                   user_n_query,
+                                   1.2)
+
+      # join it with our original as an OR search
+      query = Xapian::Query.new(Xapian::Query::OP_OR, weighted, query)
+      @xapian_bodies = perform_search(
+                         [PublicBody], @query, @sortby, nil, 5, nil, query
+                       )
       @bodies_per_page = @per_page
       @xapian_bodies_hits = @xapian_bodies.results.size
       @xapian_bodies_total_hits = @xapian_bodies.matches_estimated

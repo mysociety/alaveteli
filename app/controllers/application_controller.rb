@@ -425,7 +425,7 @@ class ApplicationController < ActionController::Base
   end
 
   # Function for search
-  def perform_search(models, query, sortby, collapse, per_page = 25, this_page = nil)
+  def perform_search(models, query, sortby, collapse, per_page = 25, this_page = nil, user_query = nil)
     @query = query
     @sortby = sortby
 
@@ -437,11 +437,13 @@ class ApplicationController < ActionController::Base
     @page = this_page || get_search_page_from_params
 
     result = ActsAsXapian::Search.new(models, @query,
-                                      :offset => (@page - 1) * @per_page,
-                                      :limit => @per_page,
-                                      :sort_by_prefix => order,
-                                      :sort_by_ascending => ascending,
-                                      :collapse_by_prefix => collapse
+                                      {
+                                        :offset => (@page - 1) * @per_page,
+                                        :limit => @per_page,
+                                        :sort_by_prefix => order,
+                                        :sort_by_ascending => ascending,
+                                        :collapse_by_prefix => collapse },
+                                      user_query
                                       )
     result.results # Touch the results to load them, otherwise accessing them from the view
     # might fail later if the database has subsequently been reopened.
