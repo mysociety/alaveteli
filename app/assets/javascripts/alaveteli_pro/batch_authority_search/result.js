@@ -53,7 +53,7 @@
   // Bind clicks on "add body to draft" buttons, in a function because these
   // get reloaded with new search results.
   var bindAddButtons = function bindAddButtons() {
-    $(formSelector).on('submit', submitAddForm);
+    $(formSelector, $results).on('submit', submitAddForm);
   };
 
   // Add/Remove a result from the list after a successful AJAX submission of
@@ -61,10 +61,10 @@
   // NOTE: what 'adding/removing' actually means is TBD, for now just swaps
   // the form for a piece of text to say it's already added by toggling a
   // class.
-  var toggleResultDisplay = function removeResult(e, data) {
-    var bodyId = data.bodyId;
-    var specificResultSelector = resultSelector + '[data-body-id="' + bodyId + '"]';
-    $results.find(specificResultSelector).toggleClass(addedClass);
+  var toggleResultDisplay = function toggleResultDisplay(e, data) {
+    $results.find(resultSelector).removeClass(addedClass).filter(function() {
+      return DraftBatchSummary.bodiesIds.indexOf($(this).data('body-id')) >= 0;
+    }).addClass(addedClass);
   };
 
   $(function(){
@@ -73,7 +73,7 @@
     $draft = DraftBatchSummary.$el;
 
     $search.on(SearchEvents.loading, lock);
-    $search.on(SearchEvents.loadingSuccess, bindAddButtons);
+    $search.on(SearchEvents.rendered, bindAddButtons);
     $search.on(SearchEvents.loadingComplete, unlock);
 
     $draft.on(DraftEvents.loading, lock);

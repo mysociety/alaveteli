@@ -38,7 +38,7 @@ def fill_in_batch_message
 end
 
 def search_results
-  page.find_all(".batch-builder__authority-list__authority__name").map(&:text)
+  page.find_all(".batch-builder__list__item__name").map(&:text)
 end
 
 describe "creating batch requests in alaveteli_pro" do
@@ -74,13 +74,13 @@ describe "creating batch requests in alaveteli_pro" do
       fill_in "Search for an authority by name", with: "Example"
       click_button "Search"
 
-      expect(page).to have_css(".batch-builder__authority-list__authority", count: 25)
+      expect(page).to have_css(".batch-builder__list__item", count: 25)
       first_page_results = search_results
 
       # Paginating
       click_link "Next →"
 
-      expect(page).to have_css(".batch-builder__authority-list__authority", count: 1)
+      expect(page).to have_css(".batch-builder__list__item", count: 1)
       second_page_result = search_results.first
 
       # We can't rely on Xapian to give us a deterministic search result
@@ -89,7 +89,7 @@ describe "creating batch requests in alaveteli_pro" do
       expect(first_page_results.include?(second_page_result)).to be false
 
       click_link "← Previous"
-      expect(page).to have_css(".batch-builder__authority-list__authority", count: 25)
+      expect(page).to have_css(".batch-builder__list__item", count: 25)
       first_page_results = search_results
 
       expect(first_page_results.include?(second_page_result)).to be false
@@ -120,7 +120,7 @@ describe "creating batch requests in alaveteli_pro" do
 
       # Removing from list
       within ".batch-builder__chosen-authorities form[data-body-id=\"#{first_search_result_body.id}\"]" do
-        click_button "- Remove"
+        click_button "Remove"
       end
 
       within ".batch-builder__chosen-authorities" do
