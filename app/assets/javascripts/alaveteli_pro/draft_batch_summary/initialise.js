@@ -1,4 +1,5 @@
 // Handles the summary pane for the draft batch request
+// (the selected authorities; pane on the right)
 // TODO: Shares an awful lot with BatchAuthoritySearch - refactor into a base
 // class?
 (function($, AlaveteliPro) {
