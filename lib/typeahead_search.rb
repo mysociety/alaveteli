@@ -65,6 +65,17 @@ class TypeaheadSearch
 
   def run_query
     user_query = ActsAsXapian.query_parser.parse_query(prepared_query, flags)
+    if @model == PublicBody
+      # also look in the N term prefix applying a 20% weighting to any result(s)
+      user_n_query = Xapian::Query.new(
+                       "N#{ prepared_query.downcase.gsub('*', '').strip }")
+      weighted = Xapian::Query.new(Xapian::Query::OP_SCALE_WEIGHT,
+                                   user_n_query,
+                                   1.2)
+
+      # join it with our original as an OR search
+      user_query = Xapian::Query.new(Xapian::Query::OP_OR, weighted, user_query)
+    end
     ActsAsXapian::Search.new([@model], @query, options, user_query)
   end
 
