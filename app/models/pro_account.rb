@@ -36,7 +36,7 @@ class ProAccount < ActiveRecord::Base
   end
 
   def monthly_batch_limit
-    super || 1
+    super || AlaveteliConfiguration.pro_monthly_batch_limit
   end
 
   def batches_remaining
