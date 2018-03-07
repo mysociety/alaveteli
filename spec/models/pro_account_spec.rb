@@ -198,6 +198,26 @@ describe ProAccount, feature: :pro_pricing do
 
   end
 
+  describe '#batches_remaining?' do
+
+    let(:pro_account) do
+      account = FactoryGirl.create(:pro_account)
+      AlaveteliFeatures.backend.enable(:pro_batch_access, account.user)
+      account
+    end
+
+    subject { pro_account.batches_remaining? }
+
+    it 'returns true if the user has remaining natches' do
+      expect(subject).to be true
+    end
+
+    it 'returns false if all the available batches have been used' do
+      FactoryGirl.create(:info_request_batch, user: pro_account.user)
+      expect(subject).to be false
+    end
+  end
+
   describe '#became_pro' do
 
     subject { backdated_pro_account.became_pro }
