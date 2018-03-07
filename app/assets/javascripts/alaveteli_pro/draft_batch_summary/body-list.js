@@ -38,7 +38,6 @@
     if (DraftBatchSummary.draftId) {
       if ($draftId.val() === '') {
         $('.js-draft-id').val(DraftBatchSummary.draftId);
-        $tabs.find('a').attr('href', function() { return $(this).attr('href') + "&draft_id=" + DraftBatchSummary.draftId });
       };
     };
   };
