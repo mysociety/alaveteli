@@ -30,8 +30,12 @@
   };
 
   var updateDraftId = function updateDraftId() {
+    var previousDraftId = DraftBatchSummary.draftId;
     DraftBatchSummary.draftId = $(summarySelector, $draft).data('draft-id');
-    $('.js-draft-id').val(DraftBatchSummary.draftId);
+    if (previousDraftId != DraftBatchSummary.draftId) {
+      $('.js-draft-id').val(DraftBatchSummary.draftId);
+      $draft.trigger(DraftEvents.updatedDraftID);
+    }
   };
 
   var cacheBodiesIds = function cacheBodiesIds() {

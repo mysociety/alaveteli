@@ -15,7 +15,8 @@
     bodyAdded: namespace + ':bodyAdded',
     bodyRemoved: namespace + ':bodyRemoved',
     reachedLimit: namespace + ':reachedLimit',
-    hadReachedLimit: namespace + ':hadReachedLimit'
+    hadReachedLimit: namespace + ':hadReachedLimit',
+    updatedDraftID: namespace + ':updatedDraftID'
   };
 
   // Start a new XHR request, aborts any existing one and triggers a loading
