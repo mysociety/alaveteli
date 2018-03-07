@@ -31,7 +31,16 @@
 
   var updateDraftId = function updateDraftId() {
     DraftBatchSummary.draftId = $(summarySelector, $draft).data('draft-id');
-    $('.js-draft-id').val(DraftBatchSummary.draftId);
+
+    var $draftId = $('.js-draft-id');
+    var $tabs = $('.batch-builder-mode').find('.tab-title');
+
+    if (DraftBatchSummary.draftId) {
+      if ($draftId.val() === '') {
+        $('.js-draft-id').val(DraftBatchSummary.draftId);
+        $tabs.find('a').attr('href', function() { return $(this).attr('href') + "&draft_id=" + DraftBatchSummary.draftId });
+      };
+    };
   };
 
   var cacheBodiesIds = function cacheBodiesIds() {
