@@ -35,15 +35,15 @@ class ProAccount < ActiveRecord::Base
     stripe_customer.save
   end
 
-  def monthly_batches
-    monthly_batch_limit || AlaveteliConfiguration.pro_monthly_batch_limit
+  def monthly_batch_limit
+    super || 1
   end
 
   def batches_remaining
     return 0 unless feature_enabled? :pro_batch_access, user
     used_batches = user.info_request_batches.
                      where('created_at > ?', batch_period_start).count
-    remaining = monthly_batches - used_batches
+    remaining = monthly_batch_limit - used_batches
     ( remaining > -1 ) ? remaining : 0
   end
 

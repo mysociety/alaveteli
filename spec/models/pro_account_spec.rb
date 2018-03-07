@@ -142,11 +142,11 @@ describe ProAccount, feature: :pro_pricing do
 
   end
 
-  describe '#monthly_batches' do
-    let(:pro_account) { FactoryGirl.create(:pro_account) }
-    subject { pro_account.monthly_batches }
+  describe '#monthly_batch_limit' do
+    let(:pro_account) { FactoryGirl.build(:pro_account) }
+    subject { pro_account.monthly_batch_limit }
 
-    context 'the monthly_batch_limit has not been set' do
+    context 'the monthly_batch_limit has not been set in the database' do
 
       it { is_expected.to eq 1 }
 
