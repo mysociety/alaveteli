@@ -948,12 +948,17 @@ module ActsAsXapian
           doc.add_value(value[1], xapian_value(value[0], value[3]))
         end
       end
+
       if texts
         ActsAsXapian.term_generator.document = doc
         for text in texts_to_index
           ActsAsXapian.term_generator.increase_termpos # stop phrases spanning different text fields
-          # TODO: the "1" here is a weight that could be varied for a boost function
-          ActsAsXapian.term_generator.index_text(xapian_value(text, nil, true), 1)
+          # The "100" here is a weight that could be varied for a boost
+          # function. A lower number represents a higher weight, so we set the
+          # default to a relatively low weight to give us flexibility either
+          # side.
+          xapian_value = xapian_value(text, nil, true)
+          ActsAsXapian.term_generator.index_text(xapian_value, 100)
         end
       end
 
