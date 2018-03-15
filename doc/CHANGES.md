@@ -29,6 +29,9 @@
 * We've removed the spring preloader as it didn't seem to provide much benefit.
 * `InfoRequest.get_last_event` is deprecated and will be removed in 0.33. Please
   use `InfoRequest.last_event`.
+* You'll need to reindex your public bodies to benefit from the improved direct
+  match results:
+  `bundle exec xapian:rebuild_index models="PublicBody" verbose="true"`
 
 ### Changed Templates
 
