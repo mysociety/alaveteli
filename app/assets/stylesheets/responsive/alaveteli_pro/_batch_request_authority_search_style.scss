@@ -136,6 +136,7 @@
 // list__item that controls the visibility of the contents of the list__group.
 .batch-builder__list__group > .batch-builder__list__item {
     background-color: #F3F1EB;
+    border-bottom: 1px solid #dcdbd7;
 
     .batch-builder__list__item__name {
         font-weight: bold;
