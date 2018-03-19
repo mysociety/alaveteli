@@ -3,22 +3,22 @@ require 'spec_helper'
 
 describe NotificationMailer do
   describe '#daily_summary' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryGirl.build(:user) }
 
     # Bodies
     let(:public_body_1) do
-      FactoryGirl.create(:public_body, name: "Ministry of fact keeping",
-                                       short_name: "MOF")
+      FactoryGirl.build(:public_body, name: "Ministry of fact keeping",
+                                      short_name: "MOF")
     end
 
     let(:public_body_2) do
-      FactoryGirl.create(:public_body, name: "Minor infractions quango",
-                                       short_name: "MIQ")
+      FactoryGirl.build(:public_body, name: "Minor infractions quango",
+                                      short_name: "MIQ")
     end
 
     # Requests
     let(:new_response_request_1) do
-      FactoryGirl.create(
+      FactoryGirl.build(
         :info_request,
         title: "The cost of paperclips",
         public_body: public_body_1
@@ -26,7 +26,7 @@ describe NotificationMailer do
     end
 
     let(:embargo_expiring_request_1) do
-      FactoryGirl.create(
+      FactoryGirl.build(
         :embargo_expiring_request,
         title: "Missing staplers",
         public_body: public_body_1
@@ -34,7 +34,7 @@ describe NotificationMailer do
     end
 
     let(:embargo_expired_request_1) do
-      FactoryGirl.create(
+      FactoryGirl.build(
         :embargo_expired_request,
         title: "Misdelivered letters",
         public_body: public_body_1
@@ -42,7 +42,7 @@ describe NotificationMailer do
     end
 
     let(:overdue_request_1) do
-      FactoryGirl.create(
+      FactoryGirl.build(
         :overdue_request,
         title: "Late expenses claims",
         public_body: public_body_1
@@ -50,7 +50,7 @@ describe NotificationMailer do
     end
 
     let(:very_overdue_request_1) do
-      FactoryGirl.create(
+      FactoryGirl.build(
         :very_overdue_request,
         title: "Extremely late expenses claims",
         public_body: public_body_1
@@ -58,7 +58,7 @@ describe NotificationMailer do
     end
 
     let(:new_response_and_embargo_expiring_request) do
-      FactoryGirl.create(
+      FactoryGirl.build(
         :info_request,
         title: "Thefts of stationary",
         public_body: public_body_2
@@ -67,7 +67,7 @@ describe NotificationMailer do
 
     # Batch requests
     let(:new_responses_batch_request) do
-      batch = FactoryGirl.create(
+      batch = FactoryGirl.build(
         :info_request_batch,
         title: "Zero hours employees",
         user: user,
@@ -82,7 +82,7 @@ describe NotificationMailer do
     end
 
     let(:embargo_expiring_batch_request) do
-      batch = FactoryGirl.create(
+      batch = FactoryGirl.build(
         :info_request_batch,
         title: "Employees caught stealing stationary",
         user: user,
@@ -97,7 +97,7 @@ describe NotificationMailer do
     end
 
     let(:embargo_expired_batch_request) do
-      batch = FactoryGirl.create(
+      batch = FactoryGirl.build(
         :info_request_batch,
         title: "Employee of the month awards",
         user: user,
@@ -112,7 +112,7 @@ describe NotificationMailer do
     end
 
     let(:overdue_batch_request) do
-      batch = FactoryGirl.create(
+      batch = FactoryGirl.build(
         :info_request_batch,
         title: "Late FOI requests",
         user: user,
@@ -127,7 +127,7 @@ describe NotificationMailer do
     end
 
     let(:very_overdue_batch_request) do
-      batch = FactoryGirl.create(
+      batch = FactoryGirl.build(
         :info_request_batch,
         title: "Ignored FOI requests",
         user: user,
@@ -143,50 +143,50 @@ describe NotificationMailer do
 
     # Incoming messages for new_response events
     let(:incoming_1) do
-      FactoryGirl.create(:incoming_message,
-                         info_request: new_response_request_1)
+      FactoryGirl.build(:incoming_message,
+                        info_request: new_response_request_1)
     end
 
     let(:incoming_2) do
-      FactoryGirl.create(
+      FactoryGirl.build(
         :incoming_message,
         info_request: new_response_and_embargo_expiring_request)
     end
 
     let(:incoming_3) do
-      FactoryGirl.create(:incoming_message,
-                         info_request: new_responses_batch_requests.first)
+      FactoryGirl.build(:incoming_message,
+                        info_request: new_responses_batch_requests.first)
     end
 
     let(:incoming_4) do
-      FactoryGirl.create(:incoming_message,
-                         info_request: new_responses_batch_requests.second)
+      FactoryGirl.build(:incoming_message,
+                        info_request: new_responses_batch_requests.second)
     end
 
     # Notifications
     let(:notification_1) do
-      event = FactoryGirl.create(:response_event,
-                                 incoming_message: incoming_1)
+      event = FactoryGirl.build(:response_event,
+                                incoming_message: incoming_1)
       FactoryGirl.create(:daily_notification, info_request_event: event,
                                               user: user)
     end
 
     let(:notification_2) do
-      event = FactoryGirl.create(:response_event,
-                                 incoming_message: incoming_2)
+      event = FactoryGirl.build(:response_event,
+                                incoming_message: incoming_2)
       FactoryGirl.create(:daily_notification, info_request_event: event,
                                               user: user)
     end
 
     let(:notification_3) do
-      event = FactoryGirl.create(:embargo_expiring_event,
-                                 info_request: embargo_expiring_request_1)
+      event = FactoryGirl.build(:embargo_expiring_event,
+                                info_request: embargo_expiring_request_1)
       FactoryGirl.create(:daily_notification, info_request_event: event,
                                               user: user)
     end
 
     let(:notification_4) do
-      event = FactoryGirl.create(
+      event = FactoryGirl.build(
         :embargo_expiring_event,
         info_request: new_response_and_embargo_expiring_request)
       FactoryGirl.create(:daily_notification, info_request_event: event,
@@ -194,22 +194,22 @@ describe NotificationMailer do
     end
 
     let(:notification_5) do
-      event = FactoryGirl.create(:overdue_event,
-                                 info_request: overdue_request_1)
+      event = FactoryGirl.build(:overdue_event,
+                                info_request: overdue_request_1)
       FactoryGirl.create(:daily_notification, info_request_event: event,
                                               user: user)
     end
 
     let(:notification_6) do
-      event = FactoryGirl.create(:very_overdue_event,
-                                 info_request: very_overdue_request_1)
+      event = FactoryGirl.build(:very_overdue_event,
+                                info_request: very_overdue_request_1)
       FactoryGirl.create(:daily_notification, info_request_event: event,
                                               user: user)
     end
 
     let(:notification_7) do
-      event = FactoryGirl.create(:expire_embargo_event,
-                                 info_request: embargo_expired_request_1)
+      event = FactoryGirl.build(:expire_embargo_event,
+                                info_request: embargo_expired_request_1)
       FactoryGirl.create(:daily_notification, info_request_event: event,
                                               user: user)
     end
@@ -218,16 +218,16 @@ describe NotificationMailer do
     let(:new_response_batch_notifications) do
       notifications = []
 
-      event_1 = FactoryGirl.create(:response_event,
-                                   incoming_message: incoming_3)
+      event_1 = FactoryGirl.build(:response_event,
+                                  incoming_message: incoming_3)
       notifications << FactoryGirl.create(
         :daily_notification,
         info_request_event: event_1,
         user: user
       )
 
-      event_2 = FactoryGirl.create(:response_event,
-                                   incoming_message: incoming_4)
+      event_2 = FactoryGirl.build(:response_event,
+                                  incoming_message: incoming_4)
       notifications << FactoryGirl.create(
         :daily_notification,
         info_request_event: event_2,
@@ -240,7 +240,7 @@ describe NotificationMailer do
     let(:embargo_expiring_batch_notifications) do
       notifications = []
 
-      event_1 = FactoryGirl.create(
+      event_1 = FactoryGirl.build(
         :embargo_expiring_event,
         info_request: embargo_expiring_batch_requests.first)
       notifications << FactoryGirl.create(
@@ -249,7 +249,7 @@ describe NotificationMailer do
         user: user
       )
 
-      event_2 = FactoryGirl.create(
+      event_2 = FactoryGirl.build(
         :embargo_expiring_event,
         info_request: embargo_expiring_batch_requests.second)
       notifications << FactoryGirl.create(
@@ -264,7 +264,7 @@ describe NotificationMailer do
     let(:embargo_expired_batch_notifications) do
       notifications = []
 
-      event_1 = FactoryGirl.create(
+      event_1 = FactoryGirl.build(
         :expire_embargo_event,
         info_request: embargo_expired_batch_requests.first)
       notifications << FactoryGirl.create(
@@ -273,7 +273,7 @@ describe NotificationMailer do
         user: user
       )
 
-      event_2 = FactoryGirl.create(
+      event_2 = FactoryGirl.build(
         :expire_embargo_event,
         info_request: embargo_expired_batch_requests.second)
       notifications << FactoryGirl.create(
@@ -288,7 +288,7 @@ describe NotificationMailer do
     let(:overdue_batch_notifications) do
       notifications = []
 
-      event_1 = FactoryGirl.create(
+      event_1 = FactoryGirl.build(
         :overdue_event,
         info_request: overdue_batch_requests.first
       )
@@ -296,7 +296,7 @@ describe NotificationMailer do
                                           info_request_event: event_1,
                                           user: user)
 
-      event_2 = FactoryGirl.create(
+      event_2 = FactoryGirl.build(
         :overdue_event,
         info_request: overdue_batch_requests.second
       )
@@ -310,7 +310,7 @@ describe NotificationMailer do
     let(:very_overdue_batch_notifications) do
       notifications = []
 
-      event_1 = FactoryGirl.create(
+      event_1 = FactoryGirl.build(
         :very_overdue_event,
         info_request: very_overdue_batch_requests.first
       )
@@ -318,7 +318,7 @@ describe NotificationMailer do
                                           info_request_event: event_1,
                                           user: user)
 
-      event_2 = FactoryGirl.create(
+      event_2 = FactoryGirl.build(
         :very_overdue_event,
         info_request: very_overdue_batch_requests.second
       )
@@ -421,19 +421,19 @@ describe NotificationMailer do
 
   describe '#response_notification' do
     let(:public_body) do
-      FactoryGirl.create(:public_body, name: 'Test public body')
+      FactoryGirl.build(:public_body, name: 'Test public body')
     end
     let(:info_request) do
-      FactoryGirl.create(:info_request,
-                         public_body: public_body,
-                         title: "Here is a character that needs quoting …")
+      FactoryGirl.build(:info_request,
+                        public_body: public_body,
+                        title: "Here is a character that needs quoting …")
     end
     let(:incoming_message) do
-      FactoryGirl.create(:incoming_message, info_request: info_request)
+      FactoryGirl.build(:incoming_message, info_request: info_request)
     end
     let(:info_request_event) do
-      FactoryGirl.create(:response_event, info_request: info_request,
-                                          incoming_message: incoming_message)
+      FactoryGirl.build(:response_event, info_request: info_request,
+                                         incoming_message: incoming_message)
     end
     let(:notification) do
       FactoryGirl.create(:notification,
@@ -512,15 +512,15 @@ describe NotificationMailer do
 
   describe '#embargo_expiring_notification' do
     let(:public_body) do
-      FactoryGirl.create(:public_body, name: 'Test public body')
+      FactoryGirl.build(:public_body, name: 'Test public body')
     end
     let(:info_request) do
-      FactoryGirl.create(:embargo_expiring_request,
-                         public_body: public_body,
-                         title: "Here is a character that needs quoting …")
+      FactoryGirl.build(:embargo_expiring_request,
+                        public_body: public_body,
+                        title: "Here is a character that needs quoting …")
     end
     let(:info_request_event) do
-      FactoryGirl.create(:embargo_expiring_event, info_request: info_request)
+      FactoryGirl.build(:embargo_expiring_event, info_request: info_request)
     end
     let(:notification) do
       FactoryGirl.create(:notification,
@@ -584,7 +584,7 @@ describe NotificationMailer do
 
   describe '#embargo_expired_notification' do
     let(:public_body) do
-      FactoryGirl.create(:public_body, name: 'Test public body')
+      FactoryGirl.build(:public_body, name: 'Test public body')
     end
 
     let(:info_request) do
@@ -660,15 +660,15 @@ describe NotificationMailer do
 
   describe '#overdue_notification' do
     let(:public_body) do
-      FactoryGirl.create(:public_body, name: 'Test public body')
+      FactoryGirl.build(:public_body, name: 'Test public body')
     end
     let(:info_request) do
-      FactoryGirl.create(:overdue_request,
-                         public_body: public_body,
-                         title: "Here is a character that needs quoting …")
+      FactoryGirl.build(:overdue_request,
+                        public_body: public_body,
+                        title: "Here is a character that needs quoting …")
     end
     let(:info_request_event) do
-      FactoryGirl.create(:overdue_event, info_request: info_request)
+      FactoryGirl.build(:overdue_event, info_request: info_request)
     end
     let(:notification) do
       FactoryGirl.create(:notification,
@@ -730,15 +730,15 @@ describe NotificationMailer do
 
   describe '#very_overdue_notification' do
     let(:public_body) do
-      FactoryGirl.create(:public_body, name: 'Test public body')
+      FactoryGirl.build(:public_body, name: 'Test public body')
     end
     let(:info_request) do
-      FactoryGirl.create(:very_overdue_request,
-                         public_body: public_body,
-                         title: "Here is a character that needs quoting …")
+      FactoryGirl.build(:very_overdue_request,
+                        public_body: public_body,
+                        title: "Here is a character that needs quoting …")
     end
     let(:info_request_event) do
-      FactoryGirl.create(:very_overdue_event, info_request: info_request)
+      FactoryGirl.build(:very_overdue_event, info_request: info_request)
     end
     let(:notification) do
       FactoryGirl.create(:notification,
@@ -851,15 +851,15 @@ describe NotificationMailer do
 
     context "when a user has instant notifications as well as daily ones" do
       let(:info_request) do
-        FactoryGirl.create(:info_request, user: notification_1.user)
+        FactoryGirl.build(:info_request, user: notification_1.user)
       end
       let(:incoming_message) do
-        FactoryGirl.create(:incoming_message, info_request: info_request)
+        FactoryGirl.build(:incoming_message, info_request: info_request)
       end
       let(:info_request_event) do
-        FactoryGirl.create(:response_event,
-                           incoming_message: incoming_message,
-                           info_request: info_request
+        FactoryGirl.build(:response_event,
+                          incoming_message: incoming_message,
+                          info_request: info_request
         )
       end
       let(:instant_notification) do
@@ -883,15 +883,15 @@ describe NotificationMailer do
 
     context "when a user has seen notifications as well as unseen ones" do
       let(:info_request) do
-        FactoryGirl.create(:info_request, user: notification_1.user)
+        FactoryGirl.build(:info_request, user: notification_1.user)
       end
       let(:incoming_message) do
-        FactoryGirl.create(:incoming_message, info_request: info_request)
+        FactoryGirl.build(:incoming_message, info_request: info_request)
       end
       let(:info_request_event) do
-        FactoryGirl.create(:response_event,
-                           incoming_message: incoming_message,
-                           info_request: info_request
+        FactoryGirl.build(:response_event,
+                          incoming_message: incoming_message,
+                          info_request: info_request
         )
       end
       let(:seen_notification) do
@@ -936,29 +936,29 @@ describe NotificationMailer do
 
     context "when some notifications have expired before being sent" do
       let(:embargo_expiring_request) do
-        FactoryGirl.create(:embargo_expiring_request,
-                           user: notification_1.user)
+        FactoryGirl.build(:embargo_expiring_request,
+                          user: notification_1.user)
       end
       let(:embargo_expiring_event) do
-        FactoryGirl.create(:embargo_expiring_event,
-                           info_request: embargo_expiring_request)
+        FactoryGirl.build(:embargo_expiring_event,
+                          info_request: embargo_expiring_request)
       end
       let(:expired_notification_1) do
         FactoryGirl.create(:notification,
                            info_request_event: embargo_expiring_event)
       end
 
-      let(:overdue_request) { FactoryGirl.create(:overdue_request) }
+      let(:overdue_request) { FactoryGirl.build(:overdue_request) }
       let(:overdue_event) do
-        FactoryGirl.create(:overdue_event, info_request: overdue_request)
+        FactoryGirl.build(:overdue_event, info_request: overdue_request)
       end
       let(:expired_notification_2) do
         FactoryGirl.create(:notification, info_request_event: overdue_event)
       end
 
-      let(:very_overdue_request) { FactoryGirl.create(:very_overdue_request) }
+      let(:very_overdue_request) { FactoryGirl.build(:very_overdue_request) }
       let(:very_overdue_event) do
-        FactoryGirl.create(:very_overdue_event,
+        FactoryGirl.build(:very_overdue_event,
                            info_request: very_overdue_request)
       end
       let(:expired_notification_3) do
@@ -1042,12 +1042,12 @@ describe NotificationMailer do
 
     context "when some notifications have expired before being sent" do
       let(:embargo_expiring_request) do
-        FactoryGirl.create(:embargo_expiring_request,
-                           user: notification_1.user)
+        FactoryGirl.build(:embargo_expiring_request,
+                          user: notification_1.user)
       end
       let(:embargo_expiring_event) do
-        FactoryGirl.create(:embargo_expiring_event,
-                           info_request: embargo_expiring_request)
+        FactoryGirl.build(:embargo_expiring_event,
+                          info_request: embargo_expiring_request)
       end
       let(:expired_notification) do
         FactoryGirl.create(:instant_notification,
