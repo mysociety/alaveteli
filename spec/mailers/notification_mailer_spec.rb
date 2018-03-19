@@ -506,7 +506,7 @@ describe NotificationMailer do
     end
   end
 
-  describe 'embargo_expiring_notification' do
+  describe '#embargo_expiring_notification' do
     let(:public_body) do
       FactoryGirl.create(:public_body, name: 'Test public body')
     end
@@ -579,7 +579,7 @@ describe NotificationMailer do
     end
   end
 
-  describe 'embargo_expired_notification' do
+  describe '#embargo_expired_notification' do
     let(:public_body) do
       FactoryGirl.create(:public_body, name: 'Test public body')
     end
@@ -655,7 +655,7 @@ describe NotificationMailer do
 
   end
 
-  describe 'overdue_notification' do
+  describe '#overdue_notification' do
     let(:public_body) do
       FactoryGirl.create(:public_body, name: 'Test public body')
     end
@@ -726,7 +726,7 @@ describe NotificationMailer do
     end
   end
 
-  describe 'very_overdue_notification' do
+  describe '#very_overdue_notification' do
     let(:public_body) do
       FactoryGirl.create(:public_body, name: 'Test public body')
     end
