@@ -405,8 +405,8 @@ describe NotificationMailer do
 
     it "matches the expected message" do
       mail = NotificationMailer.daily_summary(user, all_notifications)
-      file_name = file_fixture_name("notification_mailer/daily-summary.txt")
-      expected_message = File.open(file_name, 'r:utf-8') { |f| f.read }
+      expected_message = load_file_fixture(
+        "notification_mailer/daily-summary.txt", 'r:utf-8')
       # HACK: We can't control the request IDs of requests created through a
       # batch factory, so just gsub keys from the fixture template.
       batch_requests_id_mappings.each do |key, request_id|
@@ -508,8 +508,8 @@ describe NotificationMailer do
 
     it 'should send the expected message' do
       mail = NotificationMailer.response_notification(notification)
-      file_name = file_fixture_name("notification_mailer/new_response.txt")
-      expected_message = File.open(file_name, 'r:utf-8') { |f| f.read }
+      expected_message = load_file_fixture(
+        "notification_mailer/new_response.txt", 'r:utf-8')
       expect(mail.body.encoded).to eq(expected_message)
     end
 
@@ -523,10 +523,8 @@ describe NotificationMailer do
 
       it 'should send the expected message' do
         mail = NotificationMailer.response_notification(notification)
-        file_name = file_fixture_name(
-          "notification_mailer/new_response_pro.txt"
-        )
-        expected_message = File.open(file_name, 'r:utf-8') { |f| f.read }
+        expected_message = load_file_fixture(
+          "notification_mailer/new_response_pro.txt", 'r:utf-8')
         expect(mail.body.encoded).to eq(expected_message)
       end
     end
@@ -598,9 +596,8 @@ describe NotificationMailer do
 
     it 'should send the expected message' do
       mail = NotificationMailer.embargo_expiring_notification(notification)
-      file_name = file_fixture_name(
-        "notification_mailer/embargo_expiring.txt")
-      expected_message = File.open(file_name, 'r:utf-8') { |f| f.read }
+      expected_message = load_file_fixture(
+        "notification_mailer/embargo_expiring.txt", 'r:utf-8')
       expect(mail.body.encoded).to eq(expected_message)
     end
   end
@@ -674,8 +671,8 @@ describe NotificationMailer do
 
     it 'should send the expected message' do
       mail = NotificationMailer.embargo_expired_notification(notification)
-      file_name = file_fixture_name('notification_mailer/embargo_expired.txt')
-      expected_message = File.open(file_name, 'r:utf-8') { |f| f.read }
+      expected_message = load_file_fixture(
+        'notification_mailer/embargo_expired.txt', 'r:utf-8')
       expect(mail.body.encoded).to eq(expected_message)
     end
 
@@ -744,9 +741,8 @@ describe NotificationMailer do
 
     it 'should send the expected message' do
       mail = NotificationMailer.overdue_notification(notification)
-      file_name = file_fixture_name(
-        "notification_mailer/overdue.txt")
-      expected_message = File.open(file_name, 'r:utf-8') { |f| f.read }
+      expected_message = load_file_fixture(
+        "notification_mailer/overdue.txt", 'r:utf-8')
       expected_message.gsub!(/INFO_REQUEST_ID/, info_request.id.to_s)
       expect(mail.body.encoded).to eq(expected_message)
     end
@@ -816,9 +812,8 @@ describe NotificationMailer do
 
     it 'should send the expected message' do
       mail = NotificationMailer.very_overdue_notification(notification)
-      file_name = file_fixture_name(
-        "notification_mailer/very_overdue.txt")
-      expected_message = File.open(file_name, 'r:utf-8') { |f| f.read }
+      expected_message = load_file_fixture(
+        "notification_mailer/very_overdue.txt", 'r:utf-8')
       expected_message.gsub!(/INFO_REQUEST_ID/, info_request.id.to_s)
       expect(mail.body.encoded).to eq(expected_message)
     end
