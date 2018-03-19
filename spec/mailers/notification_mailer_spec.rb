@@ -3,21 +3,21 @@ require 'spec_helper'
 
 describe NotificationMailer do
   describe '#daily_summary' do
-    let!(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryGirl.create(:user) }
 
     # Bodies
-    let!(:public_body_1) do
+    let(:public_body_1) do
       FactoryGirl.create(:public_body, name: "Ministry of fact keeping",
                                        short_name: "MOF")
     end
 
-    let!(:public_body_2) do
+    let(:public_body_2) do
       FactoryGirl.create(:public_body, name: "Minor infractions quango",
                                        short_name: "MIQ")
     end
 
     # Requests
-    let!(:new_response_request_1) do
+    let(:new_response_request_1) do
       FactoryGirl.create(
         :info_request,
         id: 1001,
@@ -62,7 +62,7 @@ describe NotificationMailer do
       )
     end
 
-    let!(:new_response_and_embargo_expiring_request) do
+    let(:new_response_and_embargo_expiring_request) do
       FactoryGirl.create(
         :info_request,
         id: 1006,
@@ -72,7 +72,7 @@ describe NotificationMailer do
     end
 
     # Batch requests
-    let!(:new_responses_batch_request) do
+    let(:new_responses_batch_request) do
       batch = FactoryGirl.create(
         :info_request_batch,
         id: 2001,
@@ -84,11 +84,11 @@ describe NotificationMailer do
       batch
     end
 
-    let!(:new_responses_batch_requests) do
+    let(:new_responses_batch_requests) do
       new_responses_batch_request.info_requests.order(:created_at)
     end
 
-    let!(:embargo_expiring_batch_request) do
+    let(:embargo_expiring_batch_request) do
       batch = FactoryGirl.create(
         :info_request_batch,
         id: 2002,
@@ -100,11 +100,11 @@ describe NotificationMailer do
       batch
     end
 
-    let!(:embargo_expiring_batch_requests) do
+    let(:embargo_expiring_batch_requests) do
       embargo_expiring_batch_request.info_requests.order(:created_at)
     end
 
-    let!(:embargo_expired_batch_request) do
+    let(:embargo_expired_batch_request) do
       batch = FactoryGirl.create(
         :info_request_batch,
         id: 2003,
@@ -116,11 +116,11 @@ describe NotificationMailer do
       batch
     end
 
-    let!(:embargo_expired_batch_requests) do
+    let(:embargo_expired_batch_requests) do
       embargo_expired_batch_request.info_requests.order(:created_at)
     end
 
-    let!(:overdue_batch_request) do
+    let(:overdue_batch_request) do
       batch = FactoryGirl.create(
         :info_request_batch,
         id: 2004,
@@ -132,11 +132,11 @@ describe NotificationMailer do
       batch
     end
 
-    let!(:overdue_batch_requests) do
+    let(:overdue_batch_requests) do
       overdue_batch_request.info_requests.order(:created_at)
     end
 
-    let!(:very_overdue_batch_request) do
+    let(:very_overdue_batch_request) do
       batch = FactoryGirl.create(
         :info_request_batch,
         id: 2005,
@@ -148,7 +148,7 @@ describe NotificationMailer do
       batch
     end
 
-    let!(:very_overdue_batch_requests) do
+    let(:very_overdue_batch_requests) do
       very_overdue_batch_request.info_requests.order(:created_at)
     end
 
@@ -176,54 +176,54 @@ describe NotificationMailer do
     # Incoming messages for new_response events
     # We need to force the ID numbers of these messages to be something known
     # so that we can predict the urls that will be included in the email
-    let!(:incoming_1) do
+    let(:incoming_1) do
       FactoryGirl.create(:incoming_message,
                          info_request: new_response_request_1,
                          id: 995)
     end
 
-    let!(:incoming_2) do
+    let(:incoming_2) do
       FactoryGirl.create(
         :incoming_message,
         info_request: new_response_and_embargo_expiring_request,
         id: 996)
     end
 
-    let!(:incoming_3) do
+    let(:incoming_3) do
       FactoryGirl.create(:incoming_message,
                          info_request: new_responses_batch_requests.first,
                          id: 997)
     end
 
-    let!(:incoming_4) do
+    let(:incoming_4) do
       FactoryGirl.create(:incoming_message,
                          info_request: new_responses_batch_requests.second,
                          id: 998)
     end
 
     # Notifications
-    let!(:notification_1) do
+    let(:notification_1) do
       event = FactoryGirl.create(:response_event,
                                  incoming_message: incoming_1)
       FactoryGirl.create(:daily_notification, info_request_event: event,
                                               user: user)
     end
 
-    let!(:notification_2) do
+    let(:notification_2) do
       event = FactoryGirl.create(:response_event,
                                  incoming_message: incoming_2)
       FactoryGirl.create(:daily_notification, info_request_event: event,
                                               user: user)
     end
 
-    let!(:notification_3) do
+    let(:notification_3) do
       event = FactoryGirl.create(:embargo_expiring_event,
                                  info_request: embargo_expiring_request_1)
       FactoryGirl.create(:daily_notification, info_request_event: event,
                                               user: user)
     end
 
-    let!(:notification_4) do
+    let(:notification_4) do
       event = FactoryGirl.create(
         :embargo_expiring_event,
         info_request: new_response_and_embargo_expiring_request)
@@ -231,21 +231,21 @@ describe NotificationMailer do
                                               user: user)
     end
 
-    let!(:notification_5) do
+    let(:notification_5) do
       event = FactoryGirl.create(:overdue_event,
                                  info_request: overdue_request_1)
       FactoryGirl.create(:daily_notification, info_request_event: event,
                                               user: user)
     end
 
-    let!(:notification_6) do
+    let(:notification_6) do
       event = FactoryGirl.create(:very_overdue_event,
                                  info_request: very_overdue_request_1)
       FactoryGirl.create(:daily_notification, info_request_event: event,
                                               user: user)
     end
 
-    let!(:notification_7) do
+    let(:notification_7) do
       event = FactoryGirl.create(:expire_embargo_event,
                                  info_request: embargo_expired_request_1)
       FactoryGirl.create(:daily_notification, info_request_event: event,
@@ -253,7 +253,7 @@ describe NotificationMailer do
     end
 
     # Batch Notifications
-    let!(:new_response_batch_notifications) do
+    let(:new_response_batch_notifications) do
       notifications = []
 
       event_1 = FactoryGirl.create(:response_event,
@@ -275,7 +275,7 @@ describe NotificationMailer do
       notifications
     end
 
-    let!(:embargo_expiring_batch_notifications) do
+    let(:embargo_expiring_batch_notifications) do
       notifications = []
 
       event_1 = FactoryGirl.create(
@@ -299,7 +299,7 @@ describe NotificationMailer do
       notifications
     end
 
-    let!(:embargo_expired_batch_notifications) do
+    let(:embargo_expired_batch_notifications) do
       notifications = []
 
       event_1 = FactoryGirl.create(
@@ -323,7 +323,7 @@ describe NotificationMailer do
       notifications
     end
 
-    let!(:overdue_batch_notifications) do
+    let(:overdue_batch_notifications) do
       notifications = []
 
       event_1 = FactoryGirl.create(
@@ -345,7 +345,7 @@ describe NotificationMailer do
       notifications
     end
 
-    let!(:very_overdue_batch_notifications) do
+    let(:very_overdue_batch_notifications) do
       notifications = []
 
       event_1 = FactoryGirl.create(
