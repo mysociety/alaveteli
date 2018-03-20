@@ -14,7 +14,7 @@
 
       </div> <!-- .dashboard-left-column -->
 
-        <% if @user.info_requests.empty? && @user.draft_info_requests.empty? %>
+        <% if @user.info_requests.empty? && @user.draft_info_requests.empty? && @user.draft_info_request_batches.empty? %>
           <%= render partial: 'no_requests' %>
         <% else %>
           <%= render partial: 'request_list' %>
