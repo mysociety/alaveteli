@@ -936,17 +936,9 @@ module ActsAsXapian
         if value.kind_of?(Array)
           for v in value
             doc.add_term(term[1] + v)
-
-            if term[1] == 'N'
-              doc.add_posting(term[1] + v, 1, 50)
-            end
           end
         else
           doc.add_term(term[1] + value)
-
-          if term[1] == 'N'
-            doc.add_posting(term[1] + value, 1, 50)
-          end
         end
       end
 
