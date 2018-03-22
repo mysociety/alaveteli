@@ -359,6 +359,27 @@ describe GeneralController, 'when using xapian search' do
     expect(assigns[:xapian_bodies].results.map{|x|x[:model]}).to eq([public_bodies(:geraldine_public_body)])
   end
 
+  it 'should prioritise direct matches of public body names' do
+    FactoryGirl.
+      create(:public_body,
+             name: 'Cardiff Business Technology Centre Limited',
+             notes: 'Something something cardiff council something else.')
+
+    FactoryGirl.
+      create(:public_body,
+             name: 'Cardiff and Vale of Glamorgan Community Health Council',
+             notes: 'Another notes mentioning Cardiff Council.')
+
+    FactoryGirl.create(:public_body, name: 'Cardiff Council')
+
+    update_xapian_index
+
+    get :search, query: 'cardiff council', combined: 'cardiff council/bodies'
+    results = assigns[:xapian_bodies].results.map { |x| x[:model] }
+
+    expect(results.first.name).to eq('Cardiff Council')
+  end
+
   it 'should show "Browse all" link if there are no results for a search restricted to bodies' do
     get :search, :combined => "noresultsshouldbefound/bodies"
     expect(response.body).to include('Browse all')

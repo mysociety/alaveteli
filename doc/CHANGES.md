@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Prioritise direct matches on `PublicBody#name` in search results (Liz Conlan,
+  Gareth Rees)
 * Log an `InfoRequestEvent` when updating response handling attributes in
   `InfoRequest.stop_new_responses_on_old_requests` (Gareth Rees)
 * Show that a request is part of a batch on the request page in the admin
@@ -27,6 +29,9 @@
 * We've removed the spring preloader as it didn't seem to provide much benefit.
 * `InfoRequest.get_last_event` is deprecated and will be removed in 0.33. Please
   use `InfoRequest.last_event`.
+* You'll need to reindex your public bodies to benefit from the improved direct
+  match results:
+  `bundle exec rake xapian:rebuild_index models="PublicBody" verbose="true"`
 
 ### Changed Templates
 
