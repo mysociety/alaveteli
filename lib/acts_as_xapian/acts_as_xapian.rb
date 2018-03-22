@@ -727,7 +727,12 @@ module ActsAsXapian
         STDOUT.puts("ActsAsXapian.rebuild_index: Rebuilding #{model_class.to_s}") if verbose
         model_class.find_each do |model|
           STDOUT.puts("ActsAsXapian.rebuild_index      #{model_class} #{model.id}") if verbose
-          model.xapian_index(terms, values, texts)
+          begin
+            model.xapian_index(terms, values, texts)
+          rescue Exception => e
+            STDERR.puts("ERROR: ActsAsXapian.rebuild_index      #{model_class} #{model.id}")
+            STDERR.puts(e)
+          end
         end
       end
       ActsAsXapian.writable_db.flush
