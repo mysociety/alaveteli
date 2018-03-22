@@ -725,13 +725,42 @@ module ActsAsXapian
       # Save time by running the indexing in one go and in-process
       for model_class in model_classes
         STDOUT.puts("ActsAsXapian.rebuild_index: Rebuilding #{model_class.to_s}") if verbose
-        model_class.find_each do |model|
-          STDOUT.puts("ActsAsXapian.rebuild_index      #{model_class} #{model.id}") if verbose
-          begin
-            model.xapian_index(terms, values, texts)
-          rescue Exception => e
-            STDERR.puts("ERROR: ActsAsXapian.rebuild_index      #{model_class} #{model.id}")
-            STDERR.puts(e)
+
+        # Convert start/finish to Integer unless they're nil
+        _start_at = ENV['START_AT_ID']
+        _finish_at = ENV['FINISH_AT_ID']
+        start_at = Integer(_start_at) if _start_at
+        finish_at = Integer(_finish_at) if _finish_at
+
+        if start_at && finish_at
+          model_class.where(id: start_at..finish_at).find_each do |model|
+            STDOUT.puts("ActsAsXapian.rebuild_index      #{model_class} #{model.id}") if verbose
+            begin
+              model.xapian_index(terms, values, texts)
+            rescue Exception => e
+              STDERR.puts("ERROR: ActsAsXapian.rebuild_index      #{model_class} #{model.id}")
+              STDERR.puts(e)
+            end
+          end
+        elsif start_at
+          model_class.where('id >= ?', start_at).find_each do |model|
+            STDOUT.puts("ActsAsXapian.rebuild_index      #{model_class} #{model.id}") if verbose
+            begin
+              model.xapian_index(terms, values, texts)
+            rescue Exception => e
+              STDERR.puts("ERROR: ActsAsXapian.rebuild_index      #{model_class} #{model.id}")
+              STDERR.puts(e)
+            end
+          end
+        else
+          model_class.find_each do |model|
+            STDOUT.puts("ActsAsXapian.rebuild_index      #{model_class} #{model.id}") if verbose
+            begin
+              model.xapian_index(terms, values, texts)
+            rescue Exception => e
+              STDERR.puts("ERROR: ActsAsXapian.rebuild_index      #{model_class} #{model.id}")
+              STDERR.puts(e)
+            end
           end
         end
       end
