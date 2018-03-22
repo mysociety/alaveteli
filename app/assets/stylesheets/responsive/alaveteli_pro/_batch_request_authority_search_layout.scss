@@ -12,7 +12,14 @@
 }
 
 .batch-builder {
-    @include grid-row();
+    // This "container" code is nabbed from grid-row():
+    // https://github.com/zurb/foundation-sites/blob/v5.5.3/scss/foundation/components/_grid.scss#L70
+    // We don't want to use grid-row() itself because, when we enable flexbox,
+    // desktop Safari seems to treat the pseudo-elements introduced by
+    // clearfix() as flex children, messing up the layout.
+    margin: 0 auto;
+    max-width: $row-width;
+    width: 100%;
 
     @media #{$large-up} {
         @include flexbox();
@@ -26,6 +33,10 @@
 .batch-builder__actions {
     padding: ($column-gutter / 2); // Same padding as grid-columns
 
+    // On desktop browsers that don't support flexbox (IE9 and below)
+    // this will cause all the batch UI elements to line up in a vertical
+    // column half the width of the container. It's not ideal, but it's
+    // still useable.
     @media #{$large-up} {
         width: 50%;
     }

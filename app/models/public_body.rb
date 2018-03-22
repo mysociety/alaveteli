@@ -108,15 +108,16 @@ class PublicBody < ActiveRecord::Base
 
   acts_as_versioned
   acts_as_xapian :texts => [:name, :short_name, :notes],
-  :values => [
-    # for sorting
-    [:created_at_numeric, 1, "created_at", :number]
-  ],
-  :terms => [
-    [:variety, 'V', "variety"],
-    [:tag_array_for_search, 'U', "tag"]
-  ],
-  :eager_load => [:translations]
+                 :values => [
+                   # for sorting
+                   [:created_at_numeric, 1, "created_at", :number]
+                 ],
+                 :terms => [
+                   [:name_for_search, 'N', 'name'],
+                   [:variety, 'V', "variety"],
+                   [:tag_array_for_search, 'U', "tag"]
+                 ],
+                 :eager_load => [:translations]
   has_tag_string
 
   strip_attributes :allow_empty => false, :except => [:request_email]
@@ -892,6 +893,10 @@ class PublicBody < ActiveRecord::Base
       end
     end
 
+  end
+
+  def name_for_search
+    name.downcase
   end
 
   def self.blank_contact_sql_clause
