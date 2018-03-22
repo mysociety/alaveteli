@@ -936,9 +936,11 @@ module ActsAsXapian
         if value.kind_of?(Array)
           for v in value
             doc.add_term(term[1] + v)
+            doc.add_posting(term[1] + v, 1, Integer(term[3])) if term[3]
           end
         else
           doc.add_term(term[1] + value)
+          doc.add_posting(term[1] + value, 1, Integer(term[3])) if term[3]
         end
       end
 
