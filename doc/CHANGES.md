@@ -31,7 +31,7 @@
   use `InfoRequest.last_event`.
 * You'll need to reindex your public bodies to benefit from the improved direct
   match results:
-  `bundle exec xapian:rebuild_index models="PublicBody" verbose="true"`
+  `bundle exec rake xapian:rebuild_index models="PublicBody" verbose="true"`
 
 ### Changed Templates
 
