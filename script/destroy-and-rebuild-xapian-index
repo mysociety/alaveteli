@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd `dirname $0`
+bundle exec rake --silent "$@" xapian:destroy_and_rebuild_index models="PublicBody User InfoRequestEvent"

@@ -168,7 +168,7 @@ object isn't indexed
     script/generate acts_as_xapian
     rake db:migrate
 
-3. Call 'rake xapian:rebuild_index models="ModelName1 ModelName2"' to build the index
+3. Call 'rake xapian:destroy_and_rebuild_index models="ModelName1 ModelName2"' to build the index
 the first time (you must specify all your indexed models). It's put in a
 development/test/production dir in acts_as_xapian/xapiandbs. See f. Configuration
 below if you want to change this.

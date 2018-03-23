@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Rename dangerous Xapian commands (Gareth Rees)
 * Prioritise direct matches on `PublicBody#name` in search results (Liz Conlan,
   Gareth Rees)
 * Log an `InfoRequestEvent` when updating response handling attributes in
@@ -32,6 +33,7 @@
 * You'll need to reindex your public bodies to benefit from the improved direct
   match results:
   `bundle exec rake xapian:rebuild_index models="PublicBody" verbose="true"`
+* Xapian's `rebuild_index` is now called `destroy_and_rebuild_index`.
 
 ### Changed Templates
 
