@@ -3,7 +3,7 @@
 namespace :reindex do
   desc "Reindex events in batches"
   task :events => :environment do
-    reindex_log = Logger.new("#{Rails.root}/log/reindex.log")
+    reindex_log = Logger.new("#{Rails.root}/log/reindex_events.log")
     last_id = ENV["LAST_EVENT_ID"] || 0
     batch_size = (ENV["BATCH_SIZE"] || 300).to_i # default to 300
     sleep_time = (ENV["SLEEP_TIME"] || 300).to_i # default to 5 minutes
