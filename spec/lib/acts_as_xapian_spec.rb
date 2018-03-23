@@ -1,6 +1,35 @@
 # -*- encoding : utf-8 -*-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+describe ActsAsXapian do
+
+  describe '.mark_all_needs_index' do
+
+    it 'marks all records of a single model for reindexing' do
+      ActsAsXapian.mark_all_needs_index([PublicBody])
+
+      target_jobs =
+        ActsAsXapian::ActsAsXapianJob.
+        where(model: 'PublicBody', action: 'update')
+
+      expect(target_jobs.count).to eq(PublicBody.count)
+    end
+
+    it 'marks all records of several models for reindexing' do
+      ActsAsXapian.mark_all_needs_index([PublicBody, User])
+
+      total_expected = PublicBody.count + User.count
+      target_jobs =
+        ActsAsXapian::ActsAsXapianJob.
+        where(model: %w(PublicBody User), action: 'update')
+
+      expect(target_jobs.count).to eq(total_expected)
+    end
+
+  end
+
+end
+
 describe ActsAsXapian::Search do
 
   describe "#words_to_highlight" do

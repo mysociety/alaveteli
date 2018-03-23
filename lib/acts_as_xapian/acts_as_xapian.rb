@@ -692,6 +692,23 @@ module ActsAsXapian
     return is_db
   end
 
+  # Mark every record of each model for indexing.
+  #
+  # Note that you'll need to run the update_index or a script that calls it
+  # before records are reindex – this simply adds them to the queue.
+  def self.mark_all_needs_index(model_classes, verbose = false)
+    method_name = 'ActsAsXapian.mark_all_needs_index'
+
+    model_classes.each do |model_class|
+      puts "#{method_name}: Reindexing #{model_class}" if verbose
+
+      model_class.find_each do |model|
+        puts "#{method_name}: #{model_class} #{model.id}" if verbose
+        model.xapian_mark_needs_index
+      end
+    end
+  end
+
   # You must specify *all* the models here, this totally rebuilds the Xapian
   # database.  You'll want any readers to reopen the database after this.
   #
