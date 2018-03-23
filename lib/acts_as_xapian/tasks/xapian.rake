@@ -12,13 +12,14 @@ namespace :xapian do
     ActsAsXapian.update_index(ENV['flush'], ENV['verbose'])
   end
 
+  # WARNING: THIS TOTALLY REBUILDS THE DATABASE, so you will want to restart
+  # any web server afterwards to make sure it gets the changes,
+  # rather than still pointing to the old deleted database.
+  #
   # Parameters - specify 'models="PublicBody User"' to say which models
   # you index with Xapian.
-
-  # This totally rebuilds the database, so you will want to restart
-  # any web server afterwards to make sure it gets the changes,
-  # rather than still pointing to the old deleted database. Specify
-  # "verbose=true" to print model name as it is run.  By default,
+  #
+  # Specify "verbose=true" to print model name as it is run.  By default,
   # all of the terms, values and texts are reindexed.  You can
   # suppress any of these by specifying, for example, "texts=false".
   # You can specify that only certain terms should be updated by

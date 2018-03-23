@@ -1,4 +1,7 @@
 #!/bin/bash
 
+# WARNING: THIS TOTALLY REBUILDS THE DATABASE, so you will want to restart
+# any web server afterwards to make sure it gets the changes,
+# rather than still pointing to the old deleted database.
 cd `dirname $0`
 bundle exec rake --silent "$@" xapian:destroy_and_rebuild_index models="PublicBody User InfoRequestEvent"
