@@ -1,3 +1,9 @@
+//houdini basics
+.houdini-label {
+  color: #2688dc;
+  text-decoration: underline;
+}
+
 // Request status picker
 .status-picker__current-status {
   // Align the icon with with current status text
@@ -40,8 +46,11 @@
 
   .status-picker__option {
     label {
-      &:hover {
-        background-color: #f3f1eb;
+      &:hover,
+      &:focus {
+        .status-picker__option__label-text {
+          text-decoration: underline;
+        }
       }
     }
     input {
@@ -54,6 +63,23 @@
   }
 }
 
+.status-picker__option__label-text {
+  margin-left: 0.3em;
+}
+
+.update-embargo {
+  h2 {
+    margin-top: 0;
+  }
+}
+
 .extend-embargo-sidebar {
-  border-top: 1px solid #ccc;
+
+  .form_item_note--important {
+    font-size: 1em;
+  }
+  p {
+    font-size: 0.875em;
+    line-height: 1.4em;
+  }
 }

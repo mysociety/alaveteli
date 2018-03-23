@@ -15,7 +15,9 @@
       <div class="status-picker__current-status">
         <p>
           <i class="icon-standalone icon_<%= @info_request.calculate_status(true) %>"></i>
-          <%= InfoRequest::State.short_description(@info_request.calculate_status(true)) %>
+          <span class="status-picker__option__label-text">
+            <%= InfoRequest::State.short_description(@info_request.calculate_status(true)) %>
+          </span>
         </p>
       </div>
       <label class="houdini-label" for="input2"><%= _("Change status") %></label>
@@ -32,7 +34,7 @@
                         same status again to reset it to "awaiting response"
                         after receiving an auto-response for example %>
                     <%= f.radio_button :described_state, state, checked: false %>
-                    <%= label %>
+                    <span class="status-picker__option__label-text"><%= label %></span>
                   <% end %>
                 </li>
               <% end %>
