@@ -8,7 +8,7 @@ namespace :reindex do
     batch_size = (ENV["BATCH_SIZE"] || 300).to_i # default to 300
     sleep_time = (ENV["SLEEP_TIME"] || 300).to_i # default to 5 minutes
 
-    reindex_log.info("\nrun started... #{Time.now}")
+    reindex_log.info("run started... #{Time.now}")
 
     current_id = 0 # keep track of the current event
     begin
@@ -39,7 +39,7 @@ namespace :reindex do
     batch_size = (ENV["BATCH_SIZE"] || 300).to_i # default to 300
     sleep_time = (ENV["SLEEP_TIME"] || 300).to_i # default to 5 minutes
 
-    reindex_log.info("\nrun started... #{Time.now}")
+    reindex_log.info("run started... #{Time.now}")
 
     current_id = 0 # keep track of the current public body
     begin
@@ -70,7 +70,7 @@ namespace :reindex do
     batch_size = (ENV["BATCH_SIZE"] || 300).to_i # default to 300
     sleep_time = (ENV["SLEEP_TIME"] || 300).to_i # default to 5 minutes
 
-    reindex_log.info("\nrun started... #{Time.now}")
+    reindex_log.info("run started... #{Time.now}")
 
     current_id = 0 # keep track of the current user
     begin
