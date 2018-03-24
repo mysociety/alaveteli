@@ -12,6 +12,19 @@ namespace :xapian do
     ActsAsXapian.update_index(ENV['flush'], ENV['verbose'])
   end
 
+  # Adds all records of the specified models on to the queue for reindexing.
+  # You'll need to run `update_index` to actually reindex them, or wait for the
+  # cron job to work through them.
+  desc 'Add all records of the specified models to the queue for reindexing'
+  task :mark_all_needs_index => :environment do
+    if ENV['models'].nil?
+      raise 'specify models="ModelName1 ModelName2" as parameter'
+    end
+
+    models = ENV['models'].split(' ').map(&:constantize)
+    ActsAsXapian.mark_all_needs_index(models, ENV['verbose'])
+  end
+
   # Parameters - specify 'models="PublicBody User"' to say which models
   # you index with Xapian.
 
