@@ -7,8 +7,11 @@
 
 // These modules must be initialised first, because later sub components may
 // need access to things defined in either one of them.
+//= require alaveteli_pro/batch_mode/initialise
 //= require alaveteli_pro/draft_batch_summary/initialise
 //= require alaveteli_pro/batch_authority_search/initialise
+
+//= require alaveteli_pro/batch_mode/mode-switcher
 
 //= require alaveteli_pro/draft_batch_summary/body-list
 //= require alaveteli_pro/draft_batch_summary/body
