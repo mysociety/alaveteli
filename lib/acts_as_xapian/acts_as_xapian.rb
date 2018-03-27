@@ -651,7 +651,15 @@ module ActsAsXapian
         end
       rescue StandardError => error
         # print any error, and carry on so other things are indexed
-        STDERR.puts(error.backtrace.join("\n") + "\nFAILED ActsAsXapian.update_index job #{id} #{$!} " + (job.nil? ? "" : "model " + job.model + " id " + job.model_id.to_s))
+        backtrace = error.backtrace.join("\n")
+        msg = "FAILED ActsAsXapian.update_index job #{id} #{$!}"
+        job_info =
+          if job
+            "model #{job.model} id #{job.model_id}"
+          else
+            ''
+          end
+        STDERR.puts("#{backtrace}\n#{msg} #{job_info}")
       end
     end
     # We close the database when we're finished to remove the lock file. Since writable_init
