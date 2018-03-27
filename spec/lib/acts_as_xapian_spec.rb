@@ -1,6 +1,45 @@
 # -*- encoding : utf-8 -*-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+describe ActsAsXapian do
+
+  describe '.update_index' do
+
+    it 'processes jobs that were queued after a job that errors' do
+      job1, job2 = Array.new(2) do |i|
+        body = FactoryGirl.create(:public_body)
+        body.xapian_mark_needs_index
+        ActsAsXapian::ActsAsXapianJob.
+          find_by(model: 'PublicBody', model_id: body.id)
+      end
+
+      # and_raise(StandardError) here to simulate a problem when extracting the
+      # data to index
+      allow(ActsAsXapian).
+        to receive(:run_job).with(job1, any_args).and_raise(StandardError)
+
+      # and_call_original here so that the run_job finishes and destroys the job
+      allow(ActsAsXapian).
+        to receive(:run_job).with(job2, any_args).and_call_original
+
+      # Mute STDERR while we call update_index as we know we're going to get
+      # output on STDERR when job1 fails
+      RSpec::Mocks.with_temporary_scope do
+        allow(STDERR).to receive(:puts)
+        ActsAsXapian.update_index
+      end
+
+      # job1 should be persisted because we couldn't index it
+      expect(job1.reload).to be_persisted
+      # job2 should not exist because it will have been indexed and removed from
+      # the queue
+      expect { job2.reload }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+
+  end
+
+end
+
 describe ActsAsXapian::Search do
 
   describe "#words_to_highlight" do
