@@ -660,6 +660,13 @@ module ActsAsXapian
             ''
           end
         STDERR.puts("#{backtrace}\n#{msg} #{job_info}")
+      ensure
+        # We never want to reprocess existing jobs.
+        # If it succeeded the first time, it should already be destroyed.
+        # If it failed, then we don't want to keep trying to process it every
+        # cron run – we should create an issue and investigate it, and requeue
+        # the record once there's a fix in place.
+        job.try(:destroy)
       end
     end
     # We close the database when we're finished to remove the lock file. Since writable_init

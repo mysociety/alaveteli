@@ -29,10 +29,10 @@ describe ActsAsXapian do
         ActsAsXapian.update_index
       end
 
-      # job1 should be persisted because we couldn't index it
-      expect(job1.reload).to be_persisted
-      # job2 should not exist because it will have been indexed and removed from
-      # the queue
+      # Both jobs should be destroyed after the run – we've either indexed it
+      # successfully and destroyed the job, or we've failed to index, sent an
+      # error message and removed the job to prevent multiple failed retries.
+      expect { job1.reload }.to raise_error(ActiveRecord::RecordNotFound)
       expect { job2.reload }.to raise_error(ActiveRecord::RecordNotFound)
     end
 
