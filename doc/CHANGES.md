@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Destroy embargoes when the attached info request is destroyed (Gareth Rees)
 * Fix case sensitivity bug in password reset form (Gareth Rees)
 * Rename dangerous Xapian commands (Gareth Rees)
 * Prioritise direct matches on `PublicBody#name` in search results (Liz Conlan,
