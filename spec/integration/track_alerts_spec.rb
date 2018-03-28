@@ -30,7 +30,7 @@ describe "When sending track alerts" do
       click_button 'Post annotation'
     end
 
-    rebuild_xapian_index
+    destroy_and_rebuild_xapian_index
 
     TrackMailer.alert_tracks
 
@@ -82,7 +82,7 @@ describe "When sending track alerts" do
       click_button 'Post annotation'
     end
 
-    rebuild_xapian_index
+    destroy_and_rebuild_xapian_index
 
     TrackMailer.alert_tracks
     deliveries = ActionMailer::Base.deliveries

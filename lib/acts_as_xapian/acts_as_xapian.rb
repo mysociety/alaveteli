@@ -698,8 +698,7 @@ module ActsAsXapian
   # Incremental update_index calls above are suspended while this rebuild
   # happens (i.e. while the .new database is there) - any index update jobs
   # are left in the database, and will run after the rebuild has finished.
-
-  def self.rebuild_index(model_classes, verbose = false, terms = true, values = true, texts = true, safe_rebuild = true)
+  def self.destroy_and_rebuild_index(model_classes, verbose = false, terms = true, values = true, texts = true, safe_rebuild = true)
     #raise "when rebuilding all, please call as first and only thing done in process / task" if not ActsAsXapian.writable_db.nil?
     prepare_environment
 
@@ -718,15 +717,15 @@ module ActsAsXapian
     ActsAsXapian.writable_db.close # just to make an empty one to read
     # Index everything
     if safe_rebuild
-      _rebuild_index_safely(model_classes, verbose, terms, values, texts)
+      _destroy_and_rebuild_index(model_classes, verbose, terms, values, texts)
     else
       @@db_path = ActsAsXapian.db_path + ".new"
       ActsAsXapian.writable_init
       # Save time by running the indexing in one go and in-process
       for model_class in model_classes
-        STDOUT.puts("ActsAsXapian.rebuild_index: Rebuilding #{model_class.to_s}") if verbose
+        STDOUT.puts("ActsAsXapian.destroy_and_rebuild_index: Rebuilding #{model_class.to_s}") if verbose
         model_class.find_each do |model|
-          STDOUT.puts("ActsAsXapian.rebuild_index      #{model_class} #{model.id}") if verbose
+          STDOUT.puts("ActsAsXapian.destroy_and_rebuild_index      #{model_class} #{model.id}") if verbose
           model.xapian_index(terms, values, texts)
         end
       end
@@ -760,7 +759,7 @@ module ActsAsXapian
     @@db_path = old_path
   end
 
-  def self._rebuild_index_safely(model_classes, verbose, terms, values, texts)
+  def self._destroy_and_rebuild_index_safely(model_classes, verbose, terms, values, texts)
     batch_size = 1000
     for model_class in model_classes
       model_class_count = model_class.count
@@ -784,9 +783,9 @@ module ActsAsXapian
           ActiveRecord::Base.establish_connection
           @@db_path = ActsAsXapian.db_path + ".new"
           ActsAsXapian.writable_init
-          STDOUT.puts("ActsAsXapian.rebuild_index: New batch. #{model_class.to_s} from #{i} to #{i + batch_size} of #{model_class_count} pid #{Process.pid.to_s}") if verbose
+          STDOUT.puts("ActsAsXapian.destroy_and_rebuild_index: New batch. #{model_class.to_s} from #{i} to #{i + batch_size} of #{model_class_count} pid #{Process.pid.to_s}") if verbose
           model_class.limit(batch_size).offset(i).order('id').each do |model|
-            STDOUT.puts("ActsAsXapian.rebuild_index      #{model_class} #{model.id}") if verbose
+            STDOUT.puts("ActsAsXapian.destroy_and_rebuild_index      #{model_class} #{model.id}") if verbose
             model.xapian_index(terms, values, texts)
           end
           ActsAsXapian.writable_db.flush

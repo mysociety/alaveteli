@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 # Rebuild the current xapian index
-def rebuild_xapian_index(terms = true, values = true, texts = true, dropfirst = true)
+def destroy_and_rebuild_xapian_index(terms = true, values = true, texts = true, dropfirst = true)
   if dropfirst
     begin
       ActsAsXapian.readable_init
@@ -14,7 +14,7 @@ def rebuild_xapian_index(terms = true, values = true, texts = true, dropfirst = 
   # safe_rebuild=true, which involves forking to avoid memory leaks, doesn't work well with rspec.
   # unsafe is significantly faster, and we can afford possible memory leaks while testing.
   models = [PublicBody, User, InfoRequestEvent]
-  ActsAsXapian.rebuild_index(models, verbose=false, terms, values, texts, safe_rebuild=false)
+  ActsAsXapian.destroy_and_rebuild_index(models, verbose=false, terms, values, texts, safe_rebuild=false)
 end
 
 def update_xapian_index
@@ -39,5 +39,5 @@ end
 # Create a clean xapian index based on the fixture files and the raw_email data.
 def create_fixtures_xapian_index
   load_raw_emails_data
-  rebuild_xapian_index
+  destroy_and_rebuild_xapian_index
 end

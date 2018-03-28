@@ -381,7 +381,7 @@ describe PublicBody, " when only indexing selected things on a rebuild" do
     terms = "V"
     values = false
     texts = false
-    rebuild_xapian_index(terms, values, texts, dropfirst)
+    destroy_and_rebuild_xapian_index(terms, values, texts, dropfirst)
     xapian_object = ActsAsXapian::Search.new([PublicBody], "tag:mice", :limit => 100)
     expect(xapian_object.results.size).to eq(0)
     xapian_object = ActsAsXapian::Search.new([PublicBody], "frobzn", :limit => 100)
@@ -393,7 +393,7 @@ describe PublicBody, " when only indexing selected things on a rebuild" do
     terms = "U"
     values = false
     texts = true
-    rebuild_xapian_index(terms, values, texts, dropfirst)
+    destroy_and_rebuild_xapian_index(terms, values, texts, dropfirst)
     xapian_object = ActsAsXapian::Search.new([PublicBody], "tag:mice", :limit => 100)
     expect(xapian_object.results.size).to eq(1)
     xapian_object = ActsAsXapian::Search.new([PublicBody], "frobzn", :limit => 100)
@@ -404,7 +404,7 @@ describe PublicBody, " when only indexing selected things on a rebuild" do
     dropfirst = false
     terms = "V"
     texts = false
-    rebuild_xapian_index(terms, values, texts, dropfirst)
+    destroy_and_rebuild_xapian_index(terms, values, texts, dropfirst)
     xapian_object = ActsAsXapian::Search.new([PublicBody], "tag:mice", :limit => 100)
     expect(xapian_object.results.size).to eq(1)
     xapian_object = ActsAsXapian::Search.new([PublicBody], "frobzn", :limit => 100)
@@ -413,7 +413,7 @@ describe PublicBody, " when only indexing selected things on a rebuild" do
     expect(xapian_object.results.map{|x|x[:model]}).to match_array(PublicBody.all)
     # only reindex 'variety' term, blowing away existing data
     dropfirst = true
-    rebuild_xapian_index(terms, values, texts, dropfirst)
+    destroy_and_rebuild_xapian_index(terms, values, texts, dropfirst)
     xapian_object = ActsAsXapian::Search.new([PublicBody], "tag:mice", :limit => 100)
     expect(xapian_object.results.size).to eq(0)
     xapian_object = ActsAsXapian::Search.new([PublicBody], "frobzn", :limit => 100)
