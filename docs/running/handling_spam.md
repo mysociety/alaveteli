@@ -82,7 +82,7 @@ For requests that are finished but are receiving lots of incoming spam, there is
 
 You can generate a list of requests for which you may want to reject incoming mail at the MTA by executing:
 
-`bundle exec config_files:set_reject_incoming_at_mta REJECTED_THRESHOLD=5 AGE_IN_MONTHS=12`
+`bundle exec rake config_files:set_reject_incoming_at_mta REJECTED_THRESHOLD=5 AGE_IN_MONTHS=12`
 
 This will print out a list of requests that have **allow new responses from...**  set to  `nobody`, haven't been updated for at least a year and have received at least 5 incoming messages that were rejected. You can adjust the `REJECTED_THRESHOLD` and `AGE_IN_MONTHS` params until you get a suitable set of requests.
 
