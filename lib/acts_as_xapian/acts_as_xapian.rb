@@ -717,7 +717,7 @@ module ActsAsXapian
     ActsAsXapian.writable_db.close # just to make an empty one to read
     # Index everything
     if safe_rebuild
-      _destroy_and_rebuild_index(model_classes, verbose, terms, values, texts)
+      _destroy_and_rebuild_index_safely(model_classes, verbose, terms, values, texts)
     else
       @@db_path = ActsAsXapian.db_path + ".new"
       ActsAsXapian.writable_init
