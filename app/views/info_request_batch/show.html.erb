@@ -18,7 +18,7 @@
         <%= render :partial => 'request/request_listing_via_event', :locals => { :event => info_request.last_event_forming_initial_request } %>
       <% end %>
     </div>
-    <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @info_request_batch.info_requests.is_searchable.count) %>
+    <%= will_paginate @info_requests %>
   </div>
 
   <% else %>
@@ -30,8 +30,7 @@
         <%= render :partial => 'public_body/body_listing',
                    :locals => { :public_bodies => @public_bodies } %>
       </div>
-      <%= will_paginate WillPaginate::Collection.new(
-            @page, @per_page, @info_request_batch.public_bodies.count) %>
+      <%= will_paginate @public_bodies %>
     </div>
 
   <% end %>
