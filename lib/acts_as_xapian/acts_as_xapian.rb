@@ -680,9 +680,6 @@ module ActsAsXapian
       # this can happen if the record was hand deleted in the database
       job.action = 'destroy'
       retry
-    rescue Exception => e
-      STDERR.puts("ERROR: ActsAsXapian.run_job      #{job.model} #{model.id}")
-      STDERR.puts(e)
     end
     if flush
       ActsAsXapian.writable_db.flush
@@ -730,12 +727,7 @@ module ActsAsXapian
         STDOUT.puts("ActsAsXapian.rebuild_index: Rebuilding #{model_class.to_s}") if verbose
         model_class.find_each do |model|
           STDOUT.puts("ActsAsXapian.rebuild_index      #{model_class} #{model.id}") if verbose
-          begin
-            model.xapian_index(terms, values, texts)
-          rescue Exception => e
-            STDERR.puts("ERROR: ActsAsXapian.rebuild_index      #{model_class} #{model.id}")
-            STDERR.puts(e)
-          end
+          model.xapian_index(terms, values, texts)
         end
       end
       ActsAsXapian.writable_db.flush
@@ -795,12 +787,7 @@ module ActsAsXapian
           STDOUT.puts("ActsAsXapian.rebuild_index: New batch. #{model_class.to_s} from #{i} to #{i + batch_size} of #{model_class_count} pid #{Process.pid.to_s}") if verbose
           model_class.limit(batch_size).offset(i).order('id').each do |model|
             STDOUT.puts("ActsAsXapian.rebuild_index      #{model_class} #{model.id}") if verbose
-            begin
-              model.xapian_index(terms, values, texts)
-            rescue Exception => e
-              STDERR.puts("ERROR: ActsAsXapian.rebuild_index      #{model_class} #{model.id}")
-              STDERR.puts(e)
-            end
+            model.xapian_index(terms, values, texts)
           end
           ActsAsXapian.writable_db.flush
           ActsAsXapian.writable_db.close
