@@ -90,7 +90,7 @@
         if (!query.length) return callback();
         $.getJSON(
           searchUrl,
-          { query: encodeURIComponent(query) },
+          { query: query },
           function (data) {
             callback(data)
             $selectizeInstance.trigger('type')

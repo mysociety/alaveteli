@@ -33,7 +33,7 @@ class PasswordChangesController < ApplicationController
       return
     end
 
-    @password_change_user = User.where(:email => email).first
+    @password_change_user = User.find_user_by_email(email)
 
     if @password_change_user
       post_redirect_attrs =

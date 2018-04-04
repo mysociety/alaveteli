@@ -49,8 +49,10 @@
       content = $('<div>').addClass('ajax-error').html(loadingError);
     }
 
-    $results.html(content);
-    $search.trigger(SearchEvents.rendered);
+    if ($results.html() !== content) {
+      $results.html(content);
+      $search.trigger(SearchEvents.rendered);
+    }
   };
 
   $(function(){

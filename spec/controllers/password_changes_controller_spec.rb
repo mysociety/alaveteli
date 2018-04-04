@@ -82,6 +82,12 @@ describe PasswordChangesController do
         expect(assigns[:password_change_user]).to eq(user)
       end
 
+      it 'finds the user if the email case is different' do
+        user = FactoryGirl.create(:user)
+        post :create, :password_change_user => { :email => user.email.upcase }
+        expect(assigns[:password_change_user]).to eq(user)
+      end
+
       it 'creates a post redirect' do
         user = FactoryGirl.create(:user)
         expected_attrs =

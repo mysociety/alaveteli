@@ -42,9 +42,9 @@ end
 
 # Not in the rake namespace because we're also specifying app-specific arguments here
 namespace :xapian do
-  desc 'Rebuilds the Xapian index as per the ./scripts/rebuild-xapian-index script'
-  task :rebuild_index do
-    run "cd #{current_path} && bundle exec rake xapian:rebuild_index models='PublicBody User InfoRequestEvent' RAILS_ENV=#{rails_env}"
+  desc 'Rebuilds the Xapian index as per the ./scripts/destroy-and-rebuild-xapian-index script'
+  task :destroy_and_rebuild_index do
+    run "cd #{current_path} && bundle exec rake xapian:destroy_and_rebuild_index models='PublicBody User InfoRequestEvent' RAILS_ENV=#{rails_env}"
   end
 end
 

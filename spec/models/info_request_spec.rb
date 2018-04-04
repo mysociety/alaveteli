@@ -1831,7 +1831,7 @@ describe InfoRequest do
     it "copes with indexing after item is deleted" do
       load_raw_emails_data
       IncomingMessage.find_each{ |message| message.parse_raw_email! }
-      rebuild_xapian_index
+      destroy_and_rebuild_xapian_index
       # delete event from underneath indexing; shouldn't cause error
       info_request_events(:useless_incoming_message_event).save!
       info_request_events(:useless_incoming_message_event).destroy
@@ -3237,7 +3237,7 @@ describe InfoRequest do
       event = info_request_events(:useless_incoming_message_event)
       event.described_state = event.calculated_state = "internal_review"
       event.save!
-      rebuild_xapian_index
+      destroy_and_rebuild_xapian_index
       results = apply_filters(:latest_status => 'awaiting')
       expect(results.include?(info_requests(:fancy_dog_request))).to eq(true)
     end
