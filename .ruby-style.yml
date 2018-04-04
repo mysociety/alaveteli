@@ -328,6 +328,25 @@ Layout/TrailingWhitespace:
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-trailing-whitespace'
   Enabled: true
 
+Layout/BlockAlignment:
+  Description: 'Align block ends correctly.'
+  Enabled: false
+
+Layout/ConditionPosition:
+  Description: >-
+                 Checks for condition placed in a confusing position relative to
+                 the keyword.
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#same-line-condition'
+  Enabled: false
+
+Layout/DefEndAlignment:
+  Description: 'Align ends corresponding to defs correctly.'
+  Enabled: false
+
+Layout/EndAlignment:
+  Description: 'Align ends correctly.'
+  Enabled: false
+
 Style/Alias:
   Description: 'Use alias instead of alias_method.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#alias-method'
@@ -1042,27 +1061,12 @@ Lint/AssignmentInCondition:
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#safe-assignment-in-condition'
   Enabled: false
 
-Layout/BlockAlignment:
-  Description: 'Align block ends correctly.'
-  Enabled: false
-
 Lint/CircularArgumentReference:
   Description: "Default values in optional keyword arguments and optional ordinal arguments should not refer back to the name of the argument."
   Enabled: false
 
-Layout/ConditionPosition:
-  Description: >-
-                 Checks for condition placed in a confusing position relative to
-                 the keyword.
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#same-line-condition'
-  Enabled: false
-
 Lint/Debugger:
   Description: 'Check for debugger calls.'
-  Enabled: false
-
-Layout/DefEndAlignment:
-  Description: 'Align ends corresponding to defs correctly.'
   Enabled: false
 
 Lint/DeprecatedClassMethods:
@@ -1091,10 +1095,6 @@ Lint/EmptyEnsure:
 
 Lint/EmptyInterpolation:
   Description: 'Checks for empty string interpolation.'
-  Enabled: false
-
-Layout/EndAlignment:
-  Description: 'Align ends correctly.'
   Enabled: false
 
 Lint/EndInMethod:
