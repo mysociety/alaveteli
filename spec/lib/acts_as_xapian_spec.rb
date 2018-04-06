@@ -40,6 +40,136 @@ describe ActsAsXapian do
 
 end
 
+describe ActsAsXapian::FailedJob do
+  let(:error) { StandardError.new('Failure') }
+  let(:model_data) { { model: 'PublicBody', model_id: 7 } }
+  let(:failed_job) { described_class.new(1, error, model_data) }
+
+  describe '.new' do
+
+    it 'requires a job_id' do
+      expect { described_class.new }.to raise_error(ArgumentError)
+    end
+
+    it 'requires an error' do
+      expect { described_class.new(1) }.to raise_error(ArgumentError)
+    end
+
+    it 'sets model_data to an empty hash by default' do
+      expect(described_class.new(1, error).model_data).to eq({})
+    end
+
+  end
+
+  describe '#job_id' do
+
+    it 'returns the job_id' do
+      expect(failed_job.job_id).to eq(1)
+    end
+
+  end
+
+  describe '#error' do
+
+    it 'returns the error' do
+      expect(failed_job.error).to eq(error)
+    end
+
+  end
+
+  describe '#model_data' do
+
+    it 'returns the model_data' do
+      expect(failed_job.model_data).to eq(model_data)
+    end
+
+  end
+
+  describe '#full_message' do
+
+    it 'returns a message suitable for the exception notification' do
+      allow(error).to receive(:backtrace).
+        and_return(%w(BACKTRACE_L1 BACKTRACE_L2))
+
+      msg = <<-EOF.strip_heredoc.chomp
+      FAILED ActsAsXapian.update_index job 1 StandardError model PublicBody id 7.
+
+      This job will be removed from the queue. Once the underlying problem is fixed, manually re-index the model record.
+
+      You can do this in a rails console with `PublicBody.find(7).xapian_mark_needs_index`.
+
+      ---------
+      Backtrace
+      ---------
+
+      BACKTRACE_L1
+      BACKTRACE_L2
+      EOF
+
+      expect(failed_job.full_message).to eq(msg)
+    end
+
+  end
+
+  describe '#error_backtrace' do
+
+    it 'returns the error backtrace' do
+      allow(error).to receive(:backtrace).
+        and_return(%w(BACKTRACE_L1 BACKTRACE_L2))
+
+      expect(failed_job.error_backtrace).to eq("BACKTRACE_L1\nBACKTRACE_L2")
+    end
+
+  end
+
+  describe '#job_info' do
+
+    context 'with full job info' do
+      let(:failed_job) { described_class.new(1, error, model_data) }
+
+      it 'includes information about the model being processed' do
+        msg = <<-EOF.squish
+        FAILED ActsAsXapian.update_index job 1 StandardError model PublicBody
+        id 7.
+        EOF
+        expect(failed_job.job_info).to eq(msg)
+      end
+    end
+
+    context 'without the model name' do
+      let(:model_data) { { model_id: 7, model: nil } }
+      let(:failed_job) { described_class.new(1, error, model_data) }
+
+      it 'includes information about the model being processed' do
+        msg = 'FAILED ActsAsXapian.update_index job 1 StandardError id 7.'
+        expect(failed_job.job_info).to eq(msg)
+      end
+    end
+
+    context 'without the model id' do
+      let(:model_data) { { model_id: nil, model: 'PublicBody' } }
+      let(:failed_job) { described_class.new(1, error, model_data) }
+
+      it 'includes information about the model being processed' do
+        msg = <<-EOF.squish
+        FAILED ActsAsXapian.update_index job 1 StandardError model PublicBody.
+        EOF
+        expect(failed_job.job_info).to eq(msg)
+      end
+    end
+
+    context 'without any model data' do
+      let(:failed_job) { described_class.new(1, error) }
+
+      it 'just includes information about the job' do
+        msg = 'FAILED ActsAsXapian.update_index job 1 StandardError.'
+        expect(failed_job.job_info).to eq(msg)
+      end
+    end
+  end
+
+end
+
 describe ActsAsXapian::Search do
 
   describe "#words_to_highlight" do

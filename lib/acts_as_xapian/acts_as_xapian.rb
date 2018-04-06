@@ -611,6 +611,75 @@ module ActsAsXapian
   class ActsAsXapianJob < ActiveRecord::Base
   end
 
+  # Encapsulates an ActsAsXapianJob ID that failed, the error that occured and
+  # information about the model that was being indexed in order to print
+  # diagnostic information.
+  class FailedJob
+    attr_reader :job_id, :error, :model_data
+
+    def initialize(job_id, error, model_data = {})
+      @job_id = job_id
+      @error = error
+      @model_data = model_data
+    end
+
+    def job_info
+      msg = "FAILED ActsAsXapian.update_index job #{ job_id } #{ error.class }"
+      msg += " model #{ job_model }" if job_model
+      msg += " id #{ job_model_id }" if job_model_id
+      msg += '.'
+      msg
+    end
+
+    # TODO: This tries to call join on nil in Ruby 2.5.0.
+    # We think its a Rails 4.2.x + Ruby 2.5.x incompatibility.
+    # https://github.com/mysociety/alaveteli/pull/4592#discussion_r180816027
+    def error_backtrace
+      error.backtrace.join("\n")
+    end
+
+    def full_message
+      msg = job_info
+      msg += "\n\n"
+      msg += retry_message
+      msg += "\n\n"
+      msg += backtrace_header
+      msg += "\n"
+      msg += error_backtrace
+    end
+
+    private
+
+    def job_model
+      model_data[:model]
+    end
+
+    def job_model_id
+      model_data[:model_id]
+    end
+
+    def retry_message
+      msg = 'This job will be removed from the queue. Once the underlying ' \
+            'problem is fixed, manually re-index the model record.'
+
+      if job_model && job_model_id
+        msg += "\n\n"
+        msg += "You can do this in a rails console with " \
+               "`#{job_model}.find(#{job_model_id}).xapian_mark_needs_index`."
+      end
+
+      msg
+    end
+
+    def backtrace_header
+      <<-EOF.strip_heredoc
+      ---------
+      Backtrace
+      ---------
+      EOF
+    end
+  end
+
   # Update index with any changes needed, call this offline. Usually call it
   # from a script that exits - otherwise Xapian's writable database won't
   # flush your changes. Specifying flush will reduce performance, but make
@@ -651,29 +720,9 @@ module ActsAsXapian
         end
       rescue StandardError => error
         # print any error, and carry on so other things are indexed
-        backtrace = error.backtrace.join("\n")
-        msg = "FAILED ActsAsXapian.update_index job #{id} #{$!}"
-        job_info =
-          if job
-            "model #{job.model} id #{job.model_id}"
-          else
-            ''
-          end
-
-        retry_msg = <<-EOF.squish
-        This job will be removed from the queue. Once the underlying problem is
-        fixed, manually re-index the model record.
-        EOF
-
-        if job
-          retry_msg += "\n"
-          retry_msg += <<-EOF.squish
-          You can do this in a rails console with
-          `#{job.model}.find(#{job.model_id}).xapian_mark_needs_index`.
-          EOF
-        end
-
-        STDERR.puts("#{backtrace}\n#{msg} #{job_info}\n#{retry_msg}")
+        model_data = { model: job.try(:model), model_id: job.try(:model_id) }
+        failed_job = FailedJob.new(id, error, model_data)
+        STDERR.puts(failed_job.full_message)
       ensure
         # We never want to reprocess existing jobs.
         # If it succeeded the first time, it should already be destroyed.
