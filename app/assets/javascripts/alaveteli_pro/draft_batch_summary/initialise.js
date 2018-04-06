@@ -1,4 +1,5 @@
 // Handles the summary pane for the draft batch request
+// (the selected authorities; pane on the right)
 // TODO: Shares an awful lot with BatchAuthoritySearch - refactor into a base
 // class?
 (function($, AlaveteliPro) {
@@ -14,7 +15,8 @@
     bodyAdded: namespace + ':bodyAdded',
     bodyRemoved: namespace + ':bodyRemoved',
     reachedLimit: namespace + ':reachedLimit',
-    hadReachedLimit: namespace + ':hadReachedLimit'
+    hadReachedLimit: namespace + ':hadReachedLimit',
+    updatedDraftID: namespace + ':updatedDraftID'
   };
 
   // Start a new XHR request, aborts any existing one and triggers a loading
