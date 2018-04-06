@@ -659,7 +659,21 @@ module ActsAsXapian
           else
             ''
           end
-        STDERR.puts("#{backtrace}\n#{msg} #{job_info}")
+
+        retry_msg = <<-EOF.squish
+        This job will be removed from the queue. Once the underlying problem is
+        fixed, manually re-index the model record.
+        EOF
+
+        if job
+          retry_msg += "\n"
+          retry_msg += <<-EOF.squish
+          You can do this in a rails console with
+          `#{job.model}.find(#{job.model_id}).xapian_mark_needs_index`.
+          EOF
+        end
+
+        STDERR.puts("#{backtrace}\n#{msg} #{job_info}\n#{retry_msg}")
       ensure
         # We never want to reprocess existing jobs.
         # If it succeeded the first time, it should already be destroyed.
