@@ -38,7 +38,7 @@
 class User < ActiveRecord::Base
   include AlaveteliFeatures::Helpers
   include AlaveteliPro::PhaseCounts
-  include User::Authenication
+  include User::Authentication
 
   rolify before_add: :setup_pro_account
   strip_attributes :allow_empty => true
