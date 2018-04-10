@@ -16,7 +16,7 @@ namespace :temp do
         incoming_message.parse_raw_email!(true)
       rescue ArgumentError, Encoding::InvalidByteSequenceError => e
         if verbose
-          puts "ERROR: #{id} #{e.class}: #{e.message}"
+          STDERR.puts "ERROR: #{id} #{e.class}: #{e.message}"
         end
       end
     end
