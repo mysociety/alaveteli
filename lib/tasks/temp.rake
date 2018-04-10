@@ -18,6 +18,10 @@ namespace :temp do
         if verbose
           STDERR.puts "ERROR: #{id} #{e.class}: #{e.message}"
         end
+      rescue StandardError => e
+        if verbose
+          STDERR.puts "UNKNOWN ERROR: #{id} #{e.class}: #{e.message}"
+        end
       end
     end
   end
