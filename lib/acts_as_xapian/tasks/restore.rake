@@ -127,12 +127,14 @@ namespace :xapian do
       xapian_backup_date = Time.zone.parse(ENV.fetch('XAPIAN_BACKUP_DATE'))
 
       # Reindex anything that's embargoed to make sure its not in the index
+      puts 'Checking AlaveteliPro::Embargo'
       AlaveteliPro::Embargo.find_each do |embargo|
         embargo.info_request.try(:reindex_request_events)
       end
 
       # Reindex anything affected by a censor rule
       # Note that we're not expiring the database/filesystem caches
+      puts 'Checking CensorRule'
       CensorRule.find_each do |censor_rule|
         if censor_rule.info_request
           censor_rule.info_request.reindex_request_events
@@ -148,12 +150,14 @@ namespace :xapian do
       end
 
       # Reindex public bodies created after the backup
+      puts 'Checking PublicBody'
       PublicBody.
         where('created_at >= ?', xapian_backup_date).find_each do |public_body|
           public_body.xapian_mark_needs_index
       end
 
       # Reindex users created after the backup
+      puts 'Checking User'
       User.where('created_at >= ?', xapian_backup_date).find_each do |user|
         user.xapian_mark_needs_index
       end
@@ -161,6 +165,7 @@ namespace :xapian do
       # Reindex anything that did have an embargo to make sure its in the
       # correct state now
       # See https://github.com/mysociety/alaveteli-professional/issues/384#issuecomment-338209002
+      puts 'Checking embargoed info requests'
       embargoed = InfoRequest.
         joins(:info_request_events).
         includes(:embargo).
@@ -173,6 +178,7 @@ namespace :xapian do
 
       # Reindex whole requests where messages have been edited or removed since
       # the xapian backup date
+      puts 'Checking edit and destroy info request events'
       event_types = ['edit_outgoing', 'edit_incoming', 'destroy_incoming']
       InfoRequestEvent.
         where(event_type: event_types).
@@ -182,6 +188,7 @@ namespace :xapian do
 
       # Update all events belonging to public bodies where the URL name has
       # changed since the restored backup.
+      puts 'Checking updated PublicBody#url_name'
       PublicBody::Version.
         where('updated_at >= ?', xapian_backup_date).each do |version|
           if version.url_name != version.public_body.url_name
