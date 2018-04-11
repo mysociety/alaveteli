@@ -113,5 +113,85 @@ namespace :xapian do
         end
       end
     end
+
+    desc <<-EOF
+    Search through various models to queue records that might need reindexing.
+
+    This task is a bit of a "belt-and-braces" task to catch things that need
+    reindexing that wouldn't have been indexed in :queue_events_to_reindex.
+    The most obvious of these are PublicBody and User records, but also extends
+    to records that may changed the indexed state of another record – applying
+    an Embargo to an InfoRequest for example.
+    EOF
+    task :second_pass => :environment do
+      xapian_backup_date = Time.zone.parse(ENV.fetch('XAPIAN_BACKUP_DATE'))
+
+      # Reindex anything that's embargoed to make sure its not in the index
+      AlaveteliPro::Embargo.find_each do |embargo|
+        embargo.info_request.try(:reindex_request_events)
+      end
+
+      # Reindex anything affected by a censor rule
+      # Note that we're not expiring the database/filesystem caches
+      CensorRule.find_each do |censor_rule|
+        if censor_rule.info_request
+          censor_rule.info_request.reindex_request_events
+        elsif censor_rule.user
+          censor_rule.user.info_requests.each(&:reindex_request_events)
+        elsif censor_rule.public_body
+          censor_rule.public_body.info_requests.each(&:reindex_request_events)
+        else # global rule
+          InfoRequest.find_in_batches do |group|
+            group.each { |request| request.reindex_request_events }
+          end
+        end
+      end
+
+      # Reindex public bodies created after the backup
+      PublicBody.
+        where('created_at >= ?', xapian_backup_date).find_each do |public_body|
+          public_body.xapian_mark_needs_index
+      end
+
+      # Reindex users created after the backup
+      User.where('created_at >= ?', xapian_backup_date).find_each do |user|
+        user.xapian_mark_needs_index
+      end
+
+      # Reindex anything that did have an embargo to make sure its in the
+      # correct state now
+      # See https://github.com/mysociety/alaveteli-professional/issues/384#issuecomment-338209002
+      embargoed = InfoRequest.
+        joins(:info_request_events).
+        includes(:embargo).
+        references('embargo').
+        references(:info_request_events).
+        where(info_request_events: { event_type: 'set_embargo' },
+              embargoes: { info_request_id: nil })
+
+      embargoed.each { |req| req.reindex_request_events }
+
+      # Reindex whole requests where messages have been edited or removed since
+      # the xapian backup date
+      event_types = ['edit_outgoing', 'edit_incoming', 'destroy_incoming']
+      InfoRequestEvent.
+        where(event_type: event_types).
+        where('created_at >= ?', xapian_backup_date).each do |event|
+          event.info_request.reindex_request_events
+      end
+
+      # Update all events belonging to public bodies where the URL name has
+      # changed since the restored backup.
+      PublicBody::Version.
+        where('updated_at >= ?', xapian_backup_date).each do |version|
+          if version.url_name != version.public_body.url_name
+            version.public_body.info_requests.each do |info_request|
+              info_request.info_request_events.each do |info_request_event|
+                info_request_event.xapian_mark_needs_index
+              end
+            end
+          end
+      end
+    end
   end
 end
