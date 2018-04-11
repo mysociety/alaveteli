@@ -71,5 +71,47 @@ namespace :xapian do
         end
       end
     end
+
+    desc <<-EOF
+    Remove indexed records that no longer exist in the relational database.
+
+    As we're restoring from a backup, some indexed records will exist in the
+    Xapian database that have been removed from the relational database. These
+    would have been removed by regular housekeeping tasks, so we'll need to
+    remove them manually.
+    EOF
+    task :queue_obsolete_indexes_for_removal => :environment do
+      [InfoRequestEvent, PublicBody, User].each do |model_class|
+        max_id = model_class.maximum(:id)
+        instance = model_class.new
+
+        missing_ids = model_class.connection.execute(<<-SQL.strip_heredoc)
+        SELECT all_ids
+        AS id
+        FROM generate_series(
+          (SELECT MIN(id)
+           FROM #{ model_class.table_name }),
+          (SELECT MAX(id)
+           FROM #{ model_class.table_name })
+        ) all_ids
+        EXCEPT
+          SELECT id
+          FROM #{ model_class.table_name }
+        SQL
+
+        missing_ids = missing_ids.map { |element| element['id'] }
+
+        missing_ids.each do |missing_id|
+          model_base_class = model_class.base_class.to_s
+
+          msg = <<-EOF.strip_heredoc
+          Scheduling #{model_class} missing_id #{missing_id} for index removal
+          EOF
+
+          puts msg
+          instance.xapian_create_job('destroy', model_base_class, missing_id)
+        end
+      end
+    end
   end
 end
