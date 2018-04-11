@@ -11,7 +11,7 @@
 #  backtrace  :text
 #
 # models/incoming_message_error.rb:
-#
+
 # Store details of errors that have been generated when trying to import
 # emails from a POP mailbox into the application. Used by AlaveteliMailPoller
 # to record errors and to determine whether to retry importing a given mail.
