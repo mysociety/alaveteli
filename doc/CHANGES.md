@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Fix broken migrations introduced in 0.30 (Gareth Rees)
 * Destroy embargoes when the attached info request is destroyed (Gareth Rees)
 * Fix case sensitivity bug in password reset form (Gareth Rees)
 * Rename dangerous Xapian commands (Gareth Rees)
@@ -40,6 +41,7 @@
   match results:
   `bundle exec rake xapian:rebuild_index models="PublicBody" verbose="true"`
 * Xapian's `rebuild_index` is now called `destroy_and_rebuild_index`.
+* There are some database structure updates so remember to `rake db:migrate`
 
 ### Changed Templates
 
