@@ -6,13 +6,22 @@ namespace :temp do
     verbose = ENV['VERBOSE'] == '1'
     offset = (ENV['OFFSET'] || 0).to_i
     IncomingMessage.find_each(:start => offset) do |incoming_message|
+      id = incoming_message.id
       begin
-        puts incoming_message.id if verbose
+        puts id if verbose
         incoming_message.get_attachment_text_full
         incoming_message.get_text_for_indexing_full
       rescue Errno::ENOENT
         puts "Reparsing" if verbose
         incoming_message.parse_raw_email!(true)
+      rescue ArgumentError, Encoding::InvalidByteSequenceError => e
+        if verbose
+          STDERR.puts "ERROR: #{id} #{e.class}: #{e.message}"
+        end
+      rescue StandardError => e
+        if verbose
+          STDERR.puts "UNKNOWN ERROR: #{id} #{e.class}: #{e.message}"
+        end
       end
     end
   end
