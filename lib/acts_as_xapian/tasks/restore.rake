@@ -1,6 +1,22 @@
 # -*- encoding : utf-8 -*-
 namespace :xapian do
   namespace :restore do
+    desc 'Print information about restoring from a Xapian backup'
+    task :info do
+      puts <<-EOF.strip_heredoc
+      ALL RESTORE TASKS SHOULD BE CONSIDERED ALPHA SOFTWARE.
+
+      After restoring the backup Xapian database in to the production directory:
+
+      * rake xapian:restore:queue_events_to_reindex
+      * script/update-xapian-index
+      * rake xapian:restore:queue_obsolete_indexes_for_removal
+      * script/update-xapian-index
+      * rake xapian:restore:second_pass
+      * script/update-xapian-index
+      EOF
+    end
+
     desc <<-EOF.strip_heredoc
     Search through all events and add ones that need reindexing to the queue.
 
