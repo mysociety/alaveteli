@@ -179,7 +179,7 @@ namespace :xapian do
       # Reindex whole requests where messages have been edited or removed since
       # the xapian backup date
       puts 'Checking edit and destroy info request events'
-      event_types = ['edit_outgoing', 'edit_incoming', 'destroy_incoming']
+      event_types = %w(edit_outgoing edit_incoming destroy_incoming)
       InfoRequestEvent.
         where(event_type: event_types).
         where('created_at >= ?', xapian_backup_date).each do |event|
