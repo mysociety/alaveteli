@@ -51,11 +51,18 @@
     });
   };
 
+  var collapseTopLevelGroups = function collapseTopLevelGroups() {
+    var groups = $('.batch-builder__list > .batch-builder__list__group');
+    toggleCaret(groups);
+  };
+
   $(function(){
     $search = BatchAuthoritySearch.$el;
     $draft = DraftBatchSummary.$el;
 
     $search.on(SearchEvents.rendered, bindListItemAnchors);
+
+    collapseTopLevelGroups();
     bindListItemAnchors();
   });
 })(window.jQuery,
