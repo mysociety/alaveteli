@@ -568,6 +568,26 @@ describe Ability do
 
     end
 
+    context 'the info request was made anonymously', feature: :alaveteli_pro do
+      let(:info_request) { FactoryGirl.build(:external_request) }
+
+      it 'prevents user from adding an embargo' do
+        ability = Ability.new(FactoryGirl.build(:user))
+        expect(ability).not_to be_able_to(:create_embargo, info_request)
+      end
+
+      it 'prevents admin from adding an embargo' do
+        ability = Ability.new(FactoryGirl.build(:admin_user))
+        expect(ability).not_to be_able_to(:create_embargo, info_request)
+      end
+
+      it 'prevents pro admin from adding an embargo' do
+        ability = Ability.new(FactoryGirl.build(:pro_admin_user))
+        expect(ability).not_to be_able_to(:create_embargo, info_request)
+      end
+
+    end
+
   end
 
   describe "Updating Embargoes" do
