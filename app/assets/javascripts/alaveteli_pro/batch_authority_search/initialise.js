@@ -1,5 +1,6 @@
 // Top level object to hold all of the Batch Authority Search things and
 // handle things which happen at the very top level
+// (the search/browse results; pane on the left)
 (function($, AlaveteliPro){
   var BatchAuthoritySearch = AlaveteliPro.BatchAuthoritySearch = {};
   var $el;

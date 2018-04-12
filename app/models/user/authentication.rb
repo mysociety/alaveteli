@@ -1,7 +1,7 @@
 require 'bcrypt'
 require 'digest/sha1'
 
-module User::Authenication
+module User::Authentication
   extend ActiveSupport::Concern
 
   included do

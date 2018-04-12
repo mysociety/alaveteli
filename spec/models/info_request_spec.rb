@@ -1296,6 +1296,13 @@ describe InfoRequest do
       info_request.destroy
       expect(UserInfoRequestSentAlert.where(:info_request_id => info_request.id)).to be_empty
     end
+
+    it 'destroys associated embargoes' do
+      AlaveteliPro::Embargo.destroy_all
+      FactoryGirl.create(:embargo, info_request: info_request)
+      expect { info_request.destroy }.
+        to change(AlaveteliPro::Embargo, :count).by(-1)
+    end
   end
 
   describe '#expire' do
