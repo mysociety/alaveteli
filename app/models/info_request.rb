@@ -117,7 +117,8 @@ class InfoRequest < ActiveRecord::Base
            :dependent => :destroy
   has_one :embargo,
           :inverse_of => :info_request,
-          :class_name => "AlaveteliPro::Embargo"
+          :class_name => 'AlaveteliPro::Embargo',
+          :dependent => :destroy
 
   attr_accessor :is_batch_request_template
   attr_reader :followup_bad_reason
