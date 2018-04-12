@@ -514,11 +514,22 @@ class InfoRequest < ActiveRecord::Base
                    :public_body_id => public_body_id,
                    :outgoing_messages => { :body => body } }
 
-    InfoRequest.
+    if result = InfoRequest.
       includes(:outgoing_messages).
         where(conditions).
           references(:outgoing_messages).
             first
+      return result
+    else
+      # replace unescaped newline and tabbed chars with escaped ones
+      body = body.gsub(/\r/, '\\r').gsub(/\n/, '\\n').gsub(/\t/, '\\t')
+      conditions[:outgoing_messages][:body] = body
+      InfoRequest.
+        includes(:outgoing_messages).
+          where(conditions).
+            references(:outgoing_messages).
+              first
+    end
   end
 
   def find_existing_outgoing_message(body)
