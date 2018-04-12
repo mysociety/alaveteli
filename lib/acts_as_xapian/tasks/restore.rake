@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 namespace :xapian do
+  task :restore => 'restore:info'
+
   namespace :restore do
     desc 'Print information about restoring from a Xapian backup'
     task :info do
