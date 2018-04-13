@@ -5,6 +5,8 @@
 #
 #  id            :integer          not null, primary key
 #  display_order :integer
+#  created_at    :datetime
+#  updated_at    :datetime
 #
 
 require 'spec_helper'

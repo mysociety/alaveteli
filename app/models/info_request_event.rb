@@ -14,6 +14,7 @@
 #  incoming_message_id :integer
 #  outgoing_message_id :integer
 #  comment_id          :integer
+#  updated_at          :datetime
 #
 
 # models/info_request_event.rb:

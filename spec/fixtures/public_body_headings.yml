@@ -4,6 +4,8 @@
 #
 #  id            :integer          not null, primary key
 #  display_order :integer
+#  created_at    :datetime
+#  updated_at    :datetime
 #
 
 useless_lonely_heading:

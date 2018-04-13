@@ -7,6 +7,8 @@
 #  public_body_heading_id  :integer          not null
 #  category_display_order  :integer
 #  id                      :integer          not null, primary key
+#  created_at              :datetime
+#  updated_at              :datetime
 #
 
 FactoryGirl.define do
