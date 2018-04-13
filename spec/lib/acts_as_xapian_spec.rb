@@ -88,8 +88,7 @@ describe ActsAsXapian::FailedJob do
   describe '#full_message' do
 
     it 'returns a message suitable for the exception notification' do
-      allow(error).to receive(:backtrace).
-        and_return(%w(BACKTRACE_L1 BACKTRACE_L2))
+      error.set_backtrace(%w(BACKTRACE_L1 BACKTRACE_L2))
 
       msg = <<-EOF.strip_heredoc.chomp
       FAILED ActsAsXapian.update_index job 1 StandardError model PublicBody id 7.
@@ -114,9 +113,7 @@ describe ActsAsXapian::FailedJob do
   describe '#error_backtrace' do
 
     it 'returns the error backtrace' do
-      allow(error).to receive(:backtrace).
-        and_return(%w(BACKTRACE_L1 BACKTRACE_L2))
-
+      error.set_backtrace(%w(BACKTRACE_L1 BACKTRACE_L2))
       expect(failed_job.error_backtrace).to eq("BACKTRACE_L1\nBACKTRACE_L2")
     end
 
