@@ -641,6 +641,8 @@ module ActsAsXapian
     def full_message
       msg = job_info
       msg += "\n\n"
+      msg += error_message
+      msg += "\n\n"
       msg += retry_message
       msg += "\n\n"
       msg += backtrace_header
@@ -656,6 +658,10 @@ module ActsAsXapian
 
     def job_model_id
       model_data[:model_id]
+    end
+
+    def error_message
+      "#{ error.class }: #{ error.message }."
     end
 
     def retry_message
