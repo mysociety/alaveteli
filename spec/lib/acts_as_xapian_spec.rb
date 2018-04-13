@@ -3,6 +3,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe ActsAsXapian do
 
+  before { update_xapian_index }
+
   describe '.update_index' do
 
     it 'processes jobs that were queued after a job that errors' do
