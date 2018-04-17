@@ -6,8 +6,10 @@
     <% opened = heading.public_body_categories.map(&:category_tag).include?(category_tag) %>
     <li class="batch-builder__list__group">
       <div class="batch-builder__list__item">
-        <span class="batch-builder__list__item__name">
-          <%= heading.name %>
+        <span class="batch-builder__list__item__anchor">
+          <span class="batch-builder__list__item__name">
+            <%= heading.name %>
+          </span>
         </span>
       </div>
       <ul>

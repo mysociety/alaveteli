@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Destroy embargoes when the attached info request is destroyed (Gareth Rees)
 * Fix case sensitivity bug in password reset form (Gareth Rees)
 * Rename dangerous Xapian commands (Gareth Rees)
 * Prioritise direct matches on `PublicBody#name` in search results (Liz Conlan,
@@ -20,6 +21,10 @@
 * Add Pro opengraph logo (Martin Wright)
 * Create site-wide and user role announecements from within the
   administrative interface (Graeme Porteous)
+* Increase minimum password length for new users or updated passwords
+  (Graeme Porteous)
+* Improve password encryption by switching to bcrypt algorithm, existing
+  password hashes will be upgraded when a user signs in (Graeme Porteous)
 * Restore translated attributes to Public Body admin view (Gareth Rees)
 
 ## Upgrade Notes

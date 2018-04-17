@@ -30,6 +30,7 @@
 .batch-builder__list__item__anchor {
     color: rgb(51, 51, 51) !important;
     text-decoration: none;
+    cursor: pointer;
 }
 
 // Toggle whether we're showing the "Add authority to batch" form or whatever
@@ -139,8 +140,10 @@
     border-bottom: 1px solid #dcdbd7;
 
     .batch-builder__list__item__name {
+        display: block;
         font-weight: bold;
         padding-left: 20px; // make space for the :before icon
+        padding-right: 1em; // space between list item name and action button
         position: relative;
 
         &:before {
