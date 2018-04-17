@@ -105,7 +105,7 @@
 .batch-builder__list__item {
     padding: 1em;
     @include flexbox();
-    @include flex-align('flex-start');
+    @include flex-align(center);
 }
 
 .batch-builder__list__item__details {
@@ -120,12 +120,6 @@
     @include flex(1 0 0%);
 }
 
-.batch-builder__list__item__name {
-}
-
-.batch-builder__list__item__notes {
-}
-
 .batch-builder__list__item__action {
     @include flex(0 0 auto);
     margin-bottom: 0;
@@ -134,7 +128,7 @@
         margin-bottom: 0;
     }
 
-    input[type="submit"] { // need to be more specific than `form input[type="submit"]`
+    .button { // need to be more specific than `form input[type="submit"]`
         margin: -0.5em 0;
         font-size: 0.8em;
     }
