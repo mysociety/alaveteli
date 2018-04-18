@@ -37,6 +37,17 @@ shared_examples_for "removing a body from a request" do
     expect(draft.public_bodies).to eq [authority_1]
   end
 
+  context 'if the draft is left with no authorities' do
+    before do
+      draft.public_bodies.delete(authority_1)
+    end
+
+    it 'deletes the draft' do
+      subject
+      expect(assigns[:draft]).to_not be_persisted
+    end
+  end
+
   context "if the user doesn't own the given draft" do
     let(:other_pro_user) { FactoryGirl.create(:pro_user) }
 
@@ -276,9 +287,24 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
           expect(response).to redirect_to(expected_path)
         end
 
-        it "sets a :notice flash message" do
+        it "sets a :notice flash message if the draft is persisted" do
           subject
           expect(flash[:notice]).to eq 'Your Batch Request has been saved!'
+        end
+
+        it 'redirects without the draft_id param if the draft is not persisted' do
+          draft.public_bodies.delete(authority_1)
+          subject
+          expected_path = alaveteli_pro_batch_request_authority_searches_path(
+            mode: 'search'
+          )
+          expect(response).to redirect_to(expected_path)
+        end
+
+        it "does not set a :notice flash message if the draft is not persisted" do
+          draft.public_bodies.delete(authority_1)
+          subject
+          expect(flash[:notice]).to be_nil
         end
       end
 
