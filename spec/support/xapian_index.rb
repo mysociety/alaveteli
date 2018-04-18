@@ -19,6 +19,14 @@ def drop_xapian_index
   ActsAsXapian.writable_db.close
 end
 
+def backup_xapian_index
+  FileUtils.copy_entry(ActsAsXapian.db_path, ActsAsXapian.db_path + '.bak')
+end
+
+def restore_xapian_index
+  FileUtils.copy_entry(ActsAsXapian.db_path + '.bak', ActsAsXapian.db_path)
+end
+
 def update_xapian_index
   ActsAsXapian.update_index(flush_to_disk=false, verbose=false)
 end
