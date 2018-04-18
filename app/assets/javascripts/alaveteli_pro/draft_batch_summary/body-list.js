@@ -77,6 +77,7 @@
     // The draft id might change on the very first body adding, so we have to
     // get in there first to make sure we update the id we share.
     $draft.on(DraftEvents.bodyAdded, updateDraftId);
+    $draft.on(DraftEvents.bodyRemoved, updateDraftId);
     $search.on(SearchEvents.rendered, updateDraftId);
 
     // Set the initial cache bodiesIds
