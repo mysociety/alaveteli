@@ -41,7 +41,7 @@ describe ActsAsXapian do
 end
 
 describe ActsAsXapian::FailedJob do
-  let(:error) { StandardError.new('Failure') }
+  let(:error) { StandardError.new('Testing the error handling') }
   let(:model_data) { { model: 'PublicBody', model_id: 7 } }
   let(:failed_job) { described_class.new(1, error, model_data) }
 
@@ -88,11 +88,12 @@ describe ActsAsXapian::FailedJob do
   describe '#full_message' do
 
     it 'returns a message suitable for the exception notification' do
-      allow(error).to receive(:backtrace).
-        and_return(%w(BACKTRACE_L1 BACKTRACE_L2))
+      error.set_backtrace(%w(BACKTRACE_L1 BACKTRACE_L2))
 
       msg = <<-EOF.strip_heredoc.chomp
       FAILED ActsAsXapian.update_index job 1 StandardError model PublicBody id 7.
+
+      StandardError: Testing the error handling.
 
       This job will be removed from the queue. Once the underlying problem is fixed, manually re-index the model record.
 
@@ -114,9 +115,7 @@ describe ActsAsXapian::FailedJob do
   describe '#error_backtrace' do
 
     it 'returns the error backtrace' do
-      allow(error).to receive(:backtrace).
-        and_return(%w(BACKTRACE_L1 BACKTRACE_L2))
-
+      error.set_backtrace(%w(BACKTRACE_L1 BACKTRACE_L2))
       expect(failed_job.error_backtrace).to eq("BACKTRACE_L1\nBACKTRACE_L2")
     end
 
