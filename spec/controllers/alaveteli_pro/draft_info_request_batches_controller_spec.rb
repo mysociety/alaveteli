@@ -61,6 +61,21 @@ shared_examples_for "removing a body from a request" do
   end
 end
 
+shared_examples_for 'respecting the selected page' do
+  it "respects the selected page if one is provided" do
+    params[:authority_query] = "Department"
+    params[:page] = 2
+    subject
+    expected_path = alaveteli_pro_batch_request_authority_searches_path(
+      draft_id: draft.id,
+      authority_query: "Department",
+      page: 2,
+      mode: 'search'
+    )
+    expect(response).to redirect_to(expected_path)
+  end
+end
+
 describe AlaveteliPro::DraftInfoRequestBatchesController do
   let(:pro_user) { FactoryGirl.create(:pro_user) }
   let(:authority_1) { FactoryGirl.create(:public_body) }
@@ -83,7 +98,7 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
       }
     end
 
-    let(:new_draft) { pro_user.draft_info_request_batches.first }
+    let(:draft) { pro_user.draft_info_request_batches.first }
 
     describe "when responding to a normal request" do
       subject do
@@ -93,12 +108,13 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
       end
 
       it_behaves_like "creating a request"
+      it_behaves_like "respecting the selected page"
 
       it "redirects to a new search if no query was provided" do
         params.delete(:authority_query)
         subject
         expected_path = alaveteli_pro_batch_request_authority_searches_path(
-          draft_id: new_draft.id,
+          draft_id: draft.id,
           mode: 'search'
         )
         expect(response).to redirect_to(expected_path)
@@ -107,21 +123,8 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
       it "redirects to an existing search if a query is provided" do
         subject
         expected_path = alaveteli_pro_batch_request_authority_searches_path(
-          draft_id: new_draft.id,
+          draft_id: draft.id,
           authority_query: "Department",
-          mode: 'search'
-        )
-        expect(response).to redirect_to(expected_path)
-      end
-
-      it "respects the selected page if one is provided" do
-        params[:authority_query] = "Department"
-        params[:page] = 2
-        subject
-        expected_path = alaveteli_pro_batch_request_authority_searches_path(
-          draft_id: new_draft.id,
-          authority_query: "Department",
-          page: 2,
           mode: 'search'
         )
         expect(response).to redirect_to(expected_path)
@@ -194,18 +197,7 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
           expect(response).to redirect_to(expected_path)
         end
 
-        it "respects the selected page if one is provided" do
-          params[:authority_query] = "Department"
-          params[:page] = 2
-          subject
-          expected_path = alaveteli_pro_batch_request_authority_searches_path(
-            draft_id: draft.id,
-            authority_query: "Department",
-            page: 2,
-            mode: 'search'
-          )
-          expect(response).to redirect_to(expected_path)
-        end
+        it_behaves_like "respecting the selected page"
 
         it "sets a :notice flash message" do
           subject
@@ -273,18 +265,7 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
           expect(response).to redirect_to(expected_path)
         end
 
-        it "respects the selected page if one is provided" do
-          params[:authority_query] = "Department"
-          params[:page] = 2
-          subject
-          expected_path = alaveteli_pro_batch_request_authority_searches_path(
-            draft_id: draft.id,
-            authority_query: "Department",
-            page: 2,
-            mode: 'search'
-          )
-          expect(response).to redirect_to(expected_path)
-        end
+        it_behaves_like "respecting the selected page"
 
         it "sets a :notice flash message if the draft is persisted" do
           subject
