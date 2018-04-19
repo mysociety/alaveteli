@@ -1,6 +1,75 @@
 # -*- coding: utf-8 -*-
 namespace :temp do
 
+  desc 'Populate missing timestamp columns'
+  task :populate_missing_timestamps => :environment do
+    puts 'Populating FoiAttachment created_at, updated_at'
+    FoiAttachment.where(created_at: nil, updated_at: nil).find_each do |foi_attachment|
+      value = foi_attachment.incoming_message.last_parsed
+      foi_attachment.update_columns(created_at: value, updated_at: value)
+    end
+
+    puts 'Populating Holiday created_at, updated_at'
+    Holiday.where(created_at: nil, updated_at: nil).find_each do |holiday|
+      value = Time.zone.now
+      holiday.update_columns(created_at: value, updated_at: value)
+    end
+
+    puts 'Populating InfoRequestEvent updated_at'
+    InfoRequestEvent.where(updated_at: nil).find_each do |event|
+      value = event.created_at
+      event.update_columns(updated_at: value)
+    end
+
+    puts 'Populating ProfilePhoto created_at, updated_at'
+    ProfilePhoto.where(created_at: nil, updated_at: nil).find_each do |photo|
+      value = photo.user.created_at
+      photo.update_columns(created_at: value, updated_at: value)
+    end
+
+    puts 'Populating PublicBodyCategoryLink created_at, updated_at'
+    PublicBodyCategoryLink.where(created_at: nil, updated_at: nil).find_each do |pbcl|
+      value = Time.zone.now
+      pbcl.update_columns(created_at: value, updated_at: value)
+    end
+
+    puts 'Populating PublicBodyCategory created_at, updated_at'
+    PublicBodyCategory.where(created_at: nil, updated_at: nil).find_each do |pbc|
+      value = Time.zone.now
+      pbc.update_columns(created_at: value, updated_at: value)
+    end
+
+    puts 'Populating PublicBodyHeading created_at, updated_at'
+    PublicBodyHeading.where(created_at: nil, updated_at: nil).find_each do |pbh|
+      value = Time.zone.now
+      pbh.update_columns(created_at: value, updated_at: value)
+    end
+
+    puts 'Populating RawEmail created_at, updated_at'
+    RawEmail.where(created_at: nil, updated_at: nil).find_each do |raw_email|
+      value = raw_email.incoming_message.created_at
+      raw_email.update_columns(created_at: value, updated_at: value)
+    end
+
+    puts 'Populating UserInfoRequestSentAlert created_at, updated_at'
+    UserInfoRequestSentAlert.where(created_at: nil, updated_at: nil).find_each do |alert|
+      value = alert.info_request_event.created_at
+      alert.update_columns(created_at: value, updated_at: value)
+    end
+
+    puts 'Populating HasTagStringTag updated_at'
+    HasTagString::HasTagStringTag.where(updated_at: nil).find_each do |tag|
+      value = tag.created_at
+      tag.update_columns(updated_at: value)
+    end
+
+    puts 'Populating ActsAsXapianJob created_at, updated_at'
+    ActsAsXapian::ActsAsXapianJob.where(created_at: nil, updated_at: nil).find_each do |job|
+      value = Time.zone.now
+      job.update_columns(created_at: value, updated_at: value)
+    end
+  end
+
   desc 'Populate any missing FoiAttachment files'
   task :populate_missing_attachment_files => :environment do
     verbose = ENV['VERBOSE'] == '1'

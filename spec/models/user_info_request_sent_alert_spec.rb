@@ -8,6 +8,8 @@
 #  info_request_id       :integer          not null
 #  alert_type            :string           not null
 #  info_request_event_id :integer
+#  created_at            :datetime
+#  updated_at            :datetime
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')

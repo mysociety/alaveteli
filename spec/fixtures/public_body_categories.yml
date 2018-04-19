@@ -4,6 +4,8 @@
 #
 #  id           :integer          not null, primary key
 #  category_tag :text             not null
+#  created_at   :datetime
+#  updated_at   :datetime
 #
 
 useless_category:

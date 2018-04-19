@@ -12,6 +12,8 @@
 #  within_rfc822_subject :text
 #  incoming_message_id   :integer
 #  hexdigest             :string(32)
+#  created_at            :datetime
+#  updated_at            :datetime
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
