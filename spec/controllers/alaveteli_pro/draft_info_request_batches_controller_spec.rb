@@ -83,6 +83,8 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
       }
     end
 
+    let(:new_draft) { pro_user.draft_info_request_batches.first }
+
     describe "when responding to a normal request" do
       subject do
         with_feature_enabled(:alaveteli_pro) do
@@ -95,7 +97,6 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
       it "redirects to a new search if no query was provided" do
         params.delete(:authority_query)
         subject
-        new_draft = pro_user.draft_info_request_batches.first
         expected_path = alaveteli_pro_batch_request_authority_searches_path(
           draft_id: new_draft.id,
           mode: 'search'
@@ -105,7 +106,6 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
 
       it "redirects to an existing search if a query is provided" do
         subject
-        new_draft = pro_user.draft_info_request_batches.first
         expected_path = alaveteli_pro_batch_request_authority_searches_path(
           draft_id: new_draft.id,
           authority_query: "Department",
@@ -118,7 +118,6 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
         params[:authority_query] = "Department"
         params[:page] = 2
         subject
-        new_draft = pro_user.draft_info_request_batches.first
         expected_path = alaveteli_pro_batch_request_authority_searches_path(
           draft_id: new_draft.id,
           authority_query: "Department",
