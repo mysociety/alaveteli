@@ -37,6 +37,8 @@ require 'digest/sha1'
 require 'fileutils'
 
 class InfoRequest < ActiveRecord::Base
+  OLD_AGE_IN_DAYS = 21.days
+
   include AdminColumn
   include Rails.application.routes.url_helpers
   include AlaveteliPro::RequestSummaries
@@ -322,8 +324,6 @@ class InfoRequest < ActiveRecord::Base
   def self.custom_states_loaded
     @@custom_states_loaded
   end
-
-  OLD_AGE_IN_DAYS = 21.days
 
   # If the URL name has changed, then all request: queries will break unless
   # we update index for every event. Also reindex if prominence changes.
