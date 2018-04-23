@@ -60,6 +60,17 @@ class UserSpamScorer
        wowmailing.com).freeze
   DEFAULT_SPAM_NAME_FORMATS = [
     /\A.*support.*\z/i,
+    /\A.*customer.*service.*\z/i,
+    /\A.*customer.*care.*\z/i,
+    /\A.*buy.*online.*\z/i,
+    /\A.*real.*estate.*\z/i,
+    /\A.*web.*design.*\z/i,
+    /\A.*Mac\sDesktop.*\z/i,
+    /\A.*Inc\z/,
+    /\A.*LLC\z/,
+    /\A.*spyware.*\z/i,
+    /\A.*malware.*\z/i,
+    /\A.*CRM.*\z/
   ].freeze
   DEFAULT_SPAM_ABOUT_ME_FORMATS = [
     /\A.+\n{2,}https?:\/\/[^\s]+\z/,

@@ -442,6 +442,61 @@ describe UserSpamScorer do
         expect(subject.name_is_spam_format?(user)).to eq(true)
       end
 
+      it 'is true if it matches customer service' do
+        user = mock_model(User, name: 'Apple Customer Service Number')
+        expect(subject.name_is_spam_format?(user)).to eq(true)
+      end
+
+      it 'is true if it matches customer care' do
+        user = mock_model(User, name: 'Dell Customer Care')
+        expect(subject.name_is_spam_format?(user)).to eq(true)
+      end
+
+      it 'is true if it matches buy online' do
+        user = mock_model(User, name: 'Buy Spam Online')
+        expect(subject.name_is_spam_format?(user)).to eq(true)
+      end
+
+      it 'is true if it matches real estate' do
+        user = mock_model(User, name: 'Buy Real Estate')
+        expect(subject.name_is_spam_format?(user)).to eq(true)
+      end
+
+      it 'is true if it matches web design' do
+        user = mock_model(User, name: 'Web Design')
+        expect(subject.name_is_spam_format?(user)).to eq(true)
+      end
+
+      it 'is true if it matches mac desktop' do
+        user = mock_model(User, name: 'Mac Desktop')
+        expect(subject.name_is_spam_format?(user)).to eq(true)
+      end
+
+      it 'is true if it matches Inc' do
+        user = mock_model(User, name: 'Spam Co, Inc')
+        expect(subject.name_is_spam_format?(user)).to eq(true)
+      end
+
+      it 'is true if it matches LLC' do
+        user = mock_model(User, name: 'Spam Co, LLC')
+        expect(subject.name_is_spam_format?(user)).to eq(true)
+      end
+
+      it 'is true if it matches spyware' do
+        user = mock_model(User, name: 'spywareremoval')
+        expect(subject.name_is_spam_format?(user)).to eq(true)
+      end
+
+      it 'is true if it matches malware' do
+        user = mock_model(User, name: 'malwareremoval')
+        expect(subject.name_is_spam_format?(user)).to eq(true)
+      end
+
+      it 'is true if it matches CRM' do
+        user = mock_model(User, name: 'Unify CRM')
+        expect(subject.name_is_spam_format?(user)).to eq(true)
+      end
+
     end
 
   end
