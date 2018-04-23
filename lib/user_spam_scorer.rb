@@ -8,6 +8,7 @@ class UserSpamScorer
     :email_from_suspicious_domain? => 5,
     :email_from_spam_domain? => 8,
     :email_from_spam_tld? => 3,
+    :name_is_spam_format? => 5,
     :about_me_includes_currency_symbol? => 2,
     :about_me_is_link_only? => 3,
     :about_me_is_spam_format? => 1,
@@ -57,6 +58,9 @@ class UserSpamScorer
        webgarden.cz
        wgz.cz
        wowmailing.com).freeze
+  DEFAULT_SPAM_NAME_FORMATS = [
+    /\A.*support.*\z/i,
+  ].freeze
   DEFAULT_SPAM_ABOUT_ME_FORMATS = [
     /\A.+\n{2,}https?:\/\/[^\s]+\z/,
     /\Ahttps?:\/\/[^\s]+\n{2,}.+$/,
@@ -69,6 +73,7 @@ class UserSpamScorer
                       :score_mappings,
                       :suspicious_domains,
                       :spam_domains,
+                      :spam_name_formats,
                       :spam_about_me_formats,
                       :spam_score_threshold,
                       :spam_tlds].freeze
@@ -144,6 +149,10 @@ class UserSpamScorer
 
   def email_from_spam_tld?(user)
     spam_tlds.any? { |tld| user.email_domain.split('.').last == tld }
+  end
+
+  def name_is_spam_format?(user)
+    spam_name_formats.any? { |regexp| user.name.strip =~ regexp }
   end
 
   def about_me_includes_currency_symbol?(user)

@@ -61,6 +61,20 @@ describe UserSpamScorer do
 
   end
 
+  describe '.spam_name_formats' do
+
+    it 'sets a default spam_name_formats value' do
+      expect(described_class.spam_name_formats).
+        to eq(described_class::DEFAULT_SPAM_NAME_FORMATS)
+    end
+
+    it 'sets a custom spam_name_formats value' do
+      described_class.spam_name_formats = [/\A.*$/]
+      expect(described_class.spam_name_formats).to eq([/\A.*$/])
+    end
+
+  end
+
   describe '.spam_about_me_formats' do
 
     it 'sets a default spam_about_me_formats value' do
@@ -158,6 +172,16 @@ describe UserSpamScorer do
     it 'sets a custom suspicious_domains value' do
       scorer = described_class.new(:suspicious_domains => %w(example.com))
       expect(scorer.suspicious_domains).to eq(%w(example.com))
+    end
+
+    it 'sets a default spam_name_formats value' do
+      expect(subject.spam_name_formats).
+        to eq(described_class.spam_name_formats)
+    end
+
+    it 'sets a custom spam_name_formats value' do
+      scorer = described_class.new(:spam_name_formats => [/spam/])
+      expect(scorer.spam_name_formats).to eq([/spam/])
     end
 
     it 'sets a default spam_about_me_formats value' do
@@ -391,6 +415,33 @@ describe UserSpamScorer do
       user = mock_model(User, :email_domain => 'example.net')
       scorer = described_class.new(:spam_tlds => mock_spam_tlds)
       expect(scorer.email_from_spam_tld?(user)).to eq(false)
+    end
+
+  end
+
+  describe '#name_is_spam_format?' do
+
+    it 'is true if the name matches a spammy format' do
+      mock_spam_formats = [/\A.*support.*\z/]
+      user = mock_model(User, name: 'support')
+      scorer = described_class.new(spam_name_formats: mock_spam_formats)
+      expect(scorer.name_is_spam_format?(user)).to eq(true)
+    end
+
+    it 'is false if the name is not a spammy format' do
+      mock_spam_formats = [/\A.*support.*\z/]
+      user = mock_model(User, name: 'Bob Smith')
+      scorer = described_class.new(spam_name_formats: mock_spam_formats)
+      expect(scorer.name_is_spam_format?(user)).to eq(false)
+    end
+
+    context 'the default spam formats' do
+
+      it 'is true if it matches support' do
+        user = mock_model(User, name: 'Apple Technical Support')
+        expect(subject.name_is_spam_format?(user)).to eq(true)
+      end
+
     end
 
   end
