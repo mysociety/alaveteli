@@ -10,7 +10,7 @@
 
 useless_category:
   id: 1
-  category_tag: useless_agency useless
+  category_tag: useless_agency
 
 lonely_category:
   id: 2
