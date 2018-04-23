@@ -637,12 +637,6 @@ class InfoRequest < ActiveRecord::Base
     State::Calculator.new(self)
   end
 
-  def must_be_valid_state
-    unless State.all.include?(described_state)
-      errors.add(:described_state, "is not a valid state")
-    end
-  end
-
   def is_batch_request_template?
     is_batch_request_template == true
   end
@@ -1871,5 +1865,11 @@ class InfoRequest < ActiveRecord::Base
 
   def title_starts_with_number
     title.include?(" ") && title.split(" ").first =~ /^\d+$/
+  end
+
+  def must_be_valid_state
+    unless State.all.include?(described_state)
+      errors.add(:described_state, "is not a valid state")
+    end
   end
 end
