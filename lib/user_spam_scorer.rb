@@ -28,6 +28,7 @@ class UserSpamScorer
     %w(7x.cz
        allemaling.com
        brmailing.com
+       businessmailsystem.com
        checknowmail.com
        colde-mail.com
        consimail.com
