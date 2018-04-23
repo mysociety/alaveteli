@@ -1113,8 +1113,8 @@ class InfoRequest < ActiveRecord::Base
     if options[:created_at]
       event.update_column(:created_at, options[:created_at])
     end
-    if !self.last_event_time || (event.created_at > self.last_event_time)
-      self.update_column(:last_event_time, event.created_at)
+    if !last_event_time || (event.created_at > last_event_time)
+      update_column(:last_event_time, event.created_at)
     end
     event
   end
@@ -1671,7 +1671,7 @@ class InfoRequest < ActiveRecord::Base
 
   # @see RequestSummaries#should_summarise?
   def should_summarise?
-    self.info_request_batch_id.blank?
+    info_request_batch_id.blank?
   end
 
   # Requests in a batch should update their parent batch request when they
@@ -1679,40 +1679,40 @@ class InfoRequest < ActiveRecord::Base
   #
   # @see RequestSummaries#should_update_parent_summary?
   def should_update_parent_summary?
-    self.info_request_batch_id.present?
+    info_request_batch_id.present?
   end
 
   # @see RequestSummaries#request_summary_parent
   def request_summary_parent
-    if self.info_request_batch_id.blank?
+    if info_request_batch_id.blank?
       nil
     else
-      self.info_request_batch
+      info_request_batch
     end
   end
 
   # @see RequestSummaries#request_summary_body
   def request_summary_body
-    self.outgoing_messages.any? ? self.outgoing_messages.first.body : ""
+    outgoing_messages.any? ? outgoing_messages.first.body : ""
   end
 
   # @see RequestSummaries#request_summary_public_body_names
   def request_summary_public_body_names
-    self.public_body.name unless self.public_body.blank?
+    public_body.name unless public_body.blank?
   end
 
   # @see RequestSummaries#request_summary_categories
   def request_summary_categories
     categories = []
-    if self.embargo_expiring?
+    if embargo_expiring?
       categories << AlaveteliPro::RequestSummaryCategory.embargo_expiring
     end
     # A request with no events is in the process of being sent (probably
     # having been created within our tests rather than in real code) and will
     # error if we try to get the phase, skip it for now because it'll be saved
     # when it's sent and trigger this code again anyway.
-    if self.last_event_forming_initial_request_id.present?
-      phase_slug = self.state.phase.to_s
+    if last_event_forming_initial_request_id.present?
+      phase_slug = state.phase.to_s
       phase = AlaveteliPro::RequestSummaryCategory.find_by(slug: phase_slug)
       categories << phase unless phase.blank?
     end
@@ -1783,7 +1783,7 @@ class InfoRequest < ActiveRecord::Base
     will_be_rejected = (response_rejector && response_rejection) ? true : false
     if will_be_rejected && response_rejection.reject(response_rejector.reason)
       # update without changing the updated_at field
-      self.update_column(:rejected_incoming_count, self.rejected_incoming_count.next)
+      update_column(:rejected_incoming_count, rejected_incoming_count.next)
       logger.info "Rejected incoming mail: #{ response_rejector.reason } request: #{ id }"
       false
     else
