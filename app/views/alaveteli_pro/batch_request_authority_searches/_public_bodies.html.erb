@@ -1,5 +1,5 @@
 <ul>
-  <% public_bodies = PublicBody.with_tag(category_tag) %>
+  <% public_bodies = PublicBody.requestable.with_tag(category_tag) %>
   <% cache [:batch_builder, locale, category_tag, public_bodies] do %>
     <% public_bodies.select(&:is_requestable?).each do |public_body| %>
       <% cache [:batch_builder, locale, category_tag, public_body] do %>

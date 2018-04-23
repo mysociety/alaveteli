@@ -106,6 +106,30 @@ class PublicBody < ActiveRecord::Base
   # Every public body except for the internal admin one is visible
   scope :visible, -> { where("public_bodies.id <> #{ PublicBody.internal_admin_body.id }") }
 
+  scope :joins_tags, -> {
+    # provides an PG array of tag names which can be queried in SQL where clause
+    joins(
+      'LEFT JOIN LATERAL (' \
+        'SELECT ARRAY_AGG(t."name") AS names ' \
+        'FROM public_bodies AS pb ' \
+        'LEFT OUTER JOIN "has_tag_string_tags" t ON t."model_id" = pb."id" ' \
+          'AND t."model" = \'PublicBody\' ' \
+        'WHERE pb.id = public_bodies.id' \
+      ') tags ON TRUE'
+    )
+  }
+
+  scope :without_tag, ->(tag_name) {
+    joins_tags.
+      where.not('"tags"."names" @> ARRAY[?]', tag_name)
+  }
+
+  scope :requestable, -> {
+    where.not(request_email: [nil, 'blank']).
+      without_tag('defunct').
+      without_tag('not_apply')
+  }
+
   acts_as_versioned
   acts_as_xapian :texts => [:name, :short_name, :notes],
                  :values => [
