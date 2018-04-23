@@ -61,16 +61,16 @@ describe UserSpamScorer do
 
   end
 
-  describe '.spam_formats' do
+  describe '.spam_about_me_formats' do
 
-    it 'sets a default spam_formats value' do
-      expect(described_class.spam_formats).
-        to eq(described_class::DEFAULT_SPAM_FORMATS)
+    it 'sets a default spam_about_me_formats value' do
+      expect(described_class.spam_about_me_formats).
+        to eq(described_class::DEFAULT_SPAM_ABOUT_ME_FORMATS)
     end
 
-    it 'sets a custom spam_formats value' do
-      described_class.spam_formats = [/\A.*$/]
-      expect(described_class.spam_formats).to eq([/\A.*$/])
+    it 'sets a custom spam_about_me_formats value' do
+      described_class.spam_about_me_formats = [/\A.*$/]
+      expect(described_class.spam_about_me_formats).to eq([/\A.*$/])
     end
 
   end
@@ -160,13 +160,14 @@ describe UserSpamScorer do
       expect(scorer.suspicious_domains).to eq(%w(example.com))
     end
 
-    it 'sets a default spam_formats value' do
-      expect(subject.spam_formats).to eq(described_class.spam_formats)
+    it 'sets a default spam_about_me_formats value' do
+      expect(subject.spam_about_me_formats).
+        to eq(described_class.spam_about_me_formats)
     end
 
-    it 'sets a custom spam_formats value' do
-      scorer = described_class.new(:spam_formats => [/spam/])
-      expect(scorer.spam_formats).to eq([/spam/])
+    it 'sets a custom spam_about_me_formats value' do
+      scorer = described_class.new(:spam_about_me_formats => [/spam/])
+      expect(scorer.spam_about_me_formats).to eq([/spam/])
     end
 
     it 'sets a default spam_score_threshold value' do
@@ -455,14 +456,14 @@ describe UserSpamScorer do
 
       http://www.example.org/
       EOF
-      scorer = described_class.new(:spam_formats => mock_spam_formats)
+      scorer = described_class.new(:spam_about_me_formats => mock_spam_formats)
       expect(scorer.about_me_is_spam_format?(user)).to eq(true)
     end
 
     it 'is false if the about me is not a spammy format' do
       mock_spam_formats = [/\A.*+\n{2,}https?:\/\/[^\s]+\z/]
       user = mock_model(User, :about_me => 'No spam here')
-      scorer = described_class.new(:spam_formats => mock_spam_formats)
+      scorer = described_class.new(:spam_about_me_formats => mock_spam_formats)
       expect(scorer.about_me_is_spam_format?(user)).to eq(false)
     end
 
@@ -471,7 +472,7 @@ describe UserSpamScorer do
       user = mock_model(User, :about_me => <<-EOF.strip_heredoc)
       spam\r\nspam
       EOF
-      scorer = described_class.new(:spam_formats => mock_spam_formats)
+      scorer = described_class.new(:spam_about_me_formats => mock_spam_formats)
       expect(scorer.about_me_is_spam_format?(user)).to eq(true)
     end
 

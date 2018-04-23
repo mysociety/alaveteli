@@ -57,7 +57,7 @@ class UserSpamScorer
        webgarden.cz
        wgz.cz
        wowmailing.com).freeze
-  DEFAULT_SPAM_FORMATS = [
+  DEFAULT_SPAM_ABOUT_ME_FORMATS = [
     /\A.+\n{2,}https?:\/\/[^\s]+\z/,
     /\Ahttps?:\/\/[^\s]+\n{2,}.+$/,
     /\A.*\n{2,}.*\n{2,}https?:\/\/[^\s]+$/
@@ -69,7 +69,7 @@ class UserSpamScorer
                       :score_mappings,
                       :suspicious_domains,
                       :spam_domains,
-                      :spam_formats,
+                      :spam_about_me_formats,
                       :spam_score_threshold,
                       :spam_tlds].freeze
 
@@ -155,7 +155,7 @@ class UserSpamScorer
   end
 
   def about_me_is_spam_format?(user)
-    spam_formats.any? do |regexp|
+    spam_about_me_formats.any? do |regexp|
       user.about_me.gsub("\r\n", "\n").strip =~ regexp
     end
   end
