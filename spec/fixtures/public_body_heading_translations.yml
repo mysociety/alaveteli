@@ -5,3 +5,11 @@ useless_lonely_heading_public_body_heading_translation:
   name: Useless and Lonely
   created_at: 2007-10-24 10:51:01.161639
   updated_at: 2007-10-24 10:51:01.161639
+
+popular_heading_public_body_heading_translation:
+  id: 2
+  public_body_heading_id: 2
+  locale: en
+  name: Popular
+  created_at: 2007-10-24 10:51:01.161639
+  updated_at: 2007-10-24 10:51:01.161639

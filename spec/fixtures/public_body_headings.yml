@@ -11,3 +11,7 @@
 useless_lonely_heading:
   id: 1
   display_order: 0
+
+popular_heading:
+  id: 2
+  display_order: 1
