@@ -94,7 +94,7 @@ describe PublicBody do
 
     it 'should returns all authorities' do
       pbs = PublicBody.with_tag('all')
-      expect(pbs).to eq([
+      expect(pbs).to match([
         public_bodies(:geraldine_public_body),
         public_bodies(:humpadink_public_body),
         public_bodies(:forlorn_public_body),
@@ -106,7 +106,7 @@ describe PublicBody do
 
     it 'should returns authorities without categories' do
       pbs = PublicBody.with_tag('other')
-      expect(pbs).to eq([
+      expect(pbs).to match([
         public_bodies(:geraldine_public_body),
         public_bodies(:humpadink_public_body),
         public_bodies(:silly_walks_public_body),
