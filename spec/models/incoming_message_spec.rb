@@ -737,6 +737,12 @@ describe IncomingMessage, " checking validity to reply to" do
     test_email(false, "DoNotReply@tube.tfl.gov.uk", false)
   end
 
+  it "says no reply email is bad" do
+    test_email(false, "noreply@tube.tfl.gov.uk", false)
+    test_email(false, "no.reply@tube.tfl.gov.uk", false)
+    test_email(false, "no-reply@tube.tfl.gov.uk", false)
+  end
+
   it "says a filled-out return-path is fine" do
     test_email(true, "team@mysociety.org", false)
   end
