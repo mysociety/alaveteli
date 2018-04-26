@@ -861,7 +861,6 @@ class PublicBody < ActiveRecord::Base
   # an InfoRequest associated with the body:
   def update_counter_cache
     success_states = %w(successful partially_successful)
-    basic_params = { public_body_id: id }
 
     mappings = [
       ['info_requests_not_held_count', { awaiting_description: false,
@@ -872,10 +871,13 @@ class PublicBody < ActiveRecord::Base
       ['info_requests_visible_count', {}]
     ]
 
-    mappings.each do |column, extra_params|
-      params = basic_params.clone.update extra_params
-      update_column(column, InfoRequest.where(params).is_searchable.count)
+    info_request_scope = InfoRequest.where(public_body_id: id).is_searchable
+
+    updated_counts = mappings.each_with_object({}) do |(column, params), memo|
+      memo[column] = info_request_scope.where(params).count
     end
+
+    update_columns(updated_counts)
   end
 
   private
