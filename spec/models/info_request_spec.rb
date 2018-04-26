@@ -2985,7 +2985,7 @@ describe InfoRequest do
   end
 
   describe '#save' do
-    let(:info_request) { FactoryGirl.create(:info_request) }
+    let(:info_request) { FactoryGirl.build(:info_request) }
 
     it 'calls update_counter_cache' do
       expect(info_request).to receive(:update_counter_cache)
