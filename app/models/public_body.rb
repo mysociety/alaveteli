@@ -857,8 +857,7 @@ class PublicBody < ActiveRecord::Base
 
   # This method updates the count columns of the PublicBody that
   # store the number of "not held", "to some extent successful" and
-  # "both visible and classified" requests when saving or destroying
-  # an InfoRequest associated with the body:
+  # "both visible and classified" requests.
   def update_counter_cache
     success_states = %w(successful partially_successful)
 
