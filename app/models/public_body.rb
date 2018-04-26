@@ -874,12 +874,7 @@ class PublicBody < ActiveRecord::Base
 
     mappings.each do |column, extra_params|
       params = basic_params.clone.update extra_params
-      send "#{column}=", InfoRequest.where(params).is_searchable.count
-    end
-
-    without_revision do
-      self.no_xapian_reindex = true
-      save(validate: false)
+      update_column(column, InfoRequest.where(params).is_searchable.count)
     end
   end
 

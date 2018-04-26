@@ -2071,6 +2071,11 @@ describe PublicBody do
       expect { public_body.update_counter_cache }.not_to change { jobs.count }
     end
 
+    it 'does not touch updated_at' do
+      expect { public_body.update_counter_cache }.
+        not_to change { public_body.updated_at }
+    end
+
     it 'increments info_requests_not_held_count' do
       request = FactoryGirl.create(:not_held_request)
       request.update_column(:public_body_id, public_body.id)
