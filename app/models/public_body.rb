@@ -862,14 +862,14 @@ class PublicBody < ActiveRecord::Base
   def update_counter_cache
     success_states = %w(successful partially_successful)
 
-    mappings = [
-      ['info_requests_not_held_count', { awaiting_description: false,
-                                         described_state: 'not_held' }],
-      ['info_requests_successful_count', { awaiting_description: false,
-                                           described_state: success_states }],
-      ['info_requests_visible_classified_count', { awaiting_description: false }],
-      ['info_requests_visible_count', {}]
-    ]
+    mappings = {
+      info_requests_not_held_count: { awaiting_description: false,
+                                      described_state: 'not_held' },
+      info_requests_successful_count: { awaiting_description: false,
+                                        described_state: success_states },
+      info_requests_visible_classified_count: { awaiting_description: false},
+      info_requests_visible_count: {}
+    }
 
     info_request_scope = InfoRequest.where(public_body_id: id).is_searchable
 
