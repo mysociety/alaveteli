@@ -2980,10 +2980,6 @@ describe InfoRequest do
 
   end
 
-  describe "#log_event" do
-    let(:info_request) { FactoryGirl.create(:info_request) }
-  end
-
   describe '#save' do
     let(:info_request) { FactoryGirl.build(:info_request) }
 
