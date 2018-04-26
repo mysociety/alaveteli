@@ -2066,7 +2066,9 @@ describe PublicBody do
     end
 
     it 'does not mark the authority for reindexing' do
-      pending "This should pass, but no_xapian_reindex is not preventing reindexing"
+      # Call public_body so that any unrelated indexing events are created
+      # before we call update_counter_cache
+      public_body.save!
       jobs = ActsAsXapian::ActsAsXapianJob.where(model: 'PublicBody')
       expect { public_body.update_counter_cache }.not_to change { jobs.count }
     end
