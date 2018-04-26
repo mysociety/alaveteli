@@ -2984,10 +2984,10 @@ describe InfoRequest do
     let(:info_request) { FactoryGirl.create(:info_request) }
   end
 
-  describe 'after_save callbacks' do
+  describe '#save' do
     let(:info_request) { FactoryGirl.create(:info_request) }
 
-    it "calls update_counter_cache" do
+    it 'calls update_counter_cache' do
       expect(info_request).to receive(:update_counter_cache)
       info_request.save!
     end
