@@ -1532,23 +1532,7 @@ class InfoRequest < ActiveRecord::Base
   # "both visible and classified" requests when saving or destroying
   # an InfoRequest associated with the body:
   def update_counter_cache(body = public_body)
-    success_states = ['successful', 'partially_successful']
-    basic_params = {
-      :public_body_id => body.id,
-    }
-    [['info_requests_not_held_count', { :awaiting_description => false,
-                                        :described_state => 'not_held' }],
-     ['info_requests_successful_count', { :awaiting_description => false,
-                                          :described_state => success_states }],
-     ['info_requests_visible_classified_count', { :awaiting_description => false }],
-     ['info_requests_visible_count', {}]].each do |column, extra_params|
-       params = basic_params.clone.update extra_params
-       body.send "#{column}=", InfoRequest.where(params).is_searchable.count
-     end
-     body.without_revision do
-       body.no_xapian_reindex = true
-       body.save(validate: false)
-     end
+    body.update_counter_cache
   end
 
   def similar_cache_key
