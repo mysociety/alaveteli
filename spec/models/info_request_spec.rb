@@ -2993,15 +2993,6 @@ describe InfoRequest do
     end
   end
 
-  describe 'after_destroy callbacks' do
-    let(:info_request) { FactoryGirl.create(:info_request) }
-
-    it "calls update_counter_cache" do
-      expect(info_request).to receive(:update_counter_cache)
-      info_request.destroy
-    end
-  end
-
   describe 'when changing a described_state' do
 
     it "changes the counts on its PublicBody without saving a new version" do
