@@ -78,8 +78,8 @@ class InfoRequest < ActiveRecord::Base
   belongs_to :info_request_batch,
              :inverse_of => :info_requests
 
-  validates_presence_of :public_body_id, :message => N_("Please select an authority"),
-                                         :unless => Proc.new { |info_request| info_request.is_batch_request_template? }
+  validates_presence_of :public_body, :message => N_("Please select an authority"),
+                                      :unless => Proc.new { |info_request| info_request.is_batch_request_template? }
 
   has_many :info_request_events,
            -> { order('created_at, id') },
