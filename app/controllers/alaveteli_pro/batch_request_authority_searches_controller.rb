@@ -15,8 +15,10 @@ class AlaveteliPro::BatchRequestAuthoritySearchesController < AlaveteliPro::Base
   def search
     # perform_seach sets @query but typeahead_search doesn't
     @query = params[:authority_query] || ""
-    @search = typeahead_search(@query, { :model => PublicBody,
-                                         :exclude_tags => [ 'defunct' ] })
+    excluded_tags = %w(defunct not_apply)
+    @search = typeahead_search(@query, model: PublicBody,
+                                       exclude_tags: excluded_tags)
+
     unless @search.blank?
       @result_limit = calculate_result_limit(@search)
       check_page_limit!(@page, @per_page)
