@@ -78,10 +78,7 @@ class AlaveteliPro::BatchRequestAuthoritySearchesController < AlaveteliPro::Base
   end
 
   def find_or_initialise_draft
-    if params[:draft_id]
-      current_user.draft_info_request_batches.find(params[:draft_id])
-    else
-      AlaveteliPro::DraftInfoRequestBatch.new
-    end
+    current_user.draft_info_request_batches.find_by(id: params[:draft_id]) ||
+      current_user.draft_info_request_batches.new
   end
 end

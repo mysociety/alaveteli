@@ -55,6 +55,29 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
       update_xapian_index
     end
 
+    context 'without a draft_id param' do
+      it 'initializes a draft if a draft_id was not provided' do
+        get :index
+        expect(assigns[:draft_batch_request]).to be_new_record
+      end
+    end
+
+    context 'with a draft_id param' do
+      it 'finds a draft by draft_id' do
+        draft = FactoryGirl.create(:draft_info_request_batch, user: pro_user)
+        get :index, draft_id: draft.id
+        expect(assigns[:draft_batch_request]).to eq(draft)
+      end
+
+      it 'initializes a draft if one cannot be found with the given draft_id' do
+        max_id =
+          AlaveteliPro::DraftInfoRequestBatch.maximum(:id).try(:next) || 99
+        get :index, draft_id: max_id
+        expect(assigns[:draft_batch_request]).to be_new_record
+        expect(assigns[:draft_batch_request].user).to eq(pro_user)
+      end
+    end
+
     context "when responding to a normal request" do
       before do
         with_feature_enabled(:alaveteli_pro) do

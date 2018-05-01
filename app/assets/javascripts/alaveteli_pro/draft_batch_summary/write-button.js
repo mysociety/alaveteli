@@ -38,5 +38,6 @@
     $draft.on(DraftEvents.bodyAdded, updateDraftId);
     $draft.on(DraftEvents.bodyAdded, enableButton);
     $draft.on(DraftEvents.bodyRemoved, disableButton);
+    $draft.on(DraftEvents.bodyRemoved, updateDraftId);
   });
 })(window.jQuery, window.AlaveteliPro.DraftBatchSummary);

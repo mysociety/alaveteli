@@ -33,6 +33,7 @@ class AlaveteliPro::DraftInfoRequestBatchesController < ApplicationController
       public_body = PublicBody.find(update_bodies_params[:public_body_id])
       raise ActiveRecord::RecordNotFound unless @draft
       @draft.public_bodies.delete(public_body)
+      @draft.destroy! if @draft.public_bodies.empty?
     end
     respond_or_redirect(@draft)
   end
@@ -50,22 +51,23 @@ class AlaveteliPro::DraftInfoRequestBatchesController < ApplicationController
   end
 
   def redirect_after_create_or_update_bodies(draft, query, page)
+    redirect_params = { mode: mode,
+                        category_tag: category_tag }
+
     if query
-      path = alaveteli_pro_batch_request_authority_searches_path(
-        draft_id: draft.id,
-        authority_query: query,
-        page: page,
-        mode: mode,
-        category_tag: category_tag
-      )
-    else
-      path = alaveteli_pro_batch_request_authority_searches_path(
-        draft_id: draft.id,
-        mode: mode,
-        category_tag: category_tag
-      )
+      redirect_params[:authority_query] = query
+      redirect_params[:page] = page
     end
-    redirect_to path, notice: _('Your Batch Request has been saved!')
+
+    if draft.persisted?
+      redirect_params[:draft_id] = draft.id
+      flash[:notice] = _('Your Batch Request has been saved!')
+    end
+
+    path =
+      alaveteli_pro_batch_request_authority_searches_path(redirect_params)
+
+    redirect_to path
   end
 
   def respond_with_partial(draft, query, page)
