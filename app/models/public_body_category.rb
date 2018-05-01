@@ -5,6 +5,8 @@
 #
 #  id           :integer          not null, primary key
 #  category_tag :text             not null
+#  created_at   :datetime
+#  updated_at   :datetime
 #
 
 class PublicBodyCategory < ActiveRecord::Base

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateAnnouncementDismissals < ActiveRecord::Migration
   def change
     create_table :announcement_dismissals, force: true do |t|

@@ -3,7 +3,9 @@
 #
 # Table name: raw_emails
 #
-#  id :integer          not null, primary key
+#  id         :integer          not null, primary key
+#  created_at :datetime
+#  updated_at :datetime
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')

@@ -1669,7 +1669,6 @@ describe PublicBody, " when loading CSV files" do
       # of the confusing change in behaviour of CSV.parse between
       # Ruby 1.8 and 1.9.)
       original_count = PublicBody.count
-      filename = file_fixture_name('fake-authority-type-with-field-names.csv')
       PublicBody.
         import_csv_from_file(filename, '', 'replace', false, 'someadmin')
       expect(PublicBody.count).to eq(original_count + 3)

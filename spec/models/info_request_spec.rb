@@ -1653,18 +1653,18 @@ describe InfoRequest do
                    "lower case letters. This makes it easier for others to read.")
     end
 
-    it 'requires a public body id by default' do
+    it 'requires a public body by default' do
       info_request = InfoRequest.new
       info_request.valid?
-      expect(info_request.errors[:public_body_id]).to include("Please select an authority")
+      expect(info_request.errors[:public_body]).to include("Please select an authority")
     end
 
-    it 'does not require a public body id if it is a batch request template' do
+    it 'does not require a public body if it is a batch request template' do
       info_request = InfoRequest.new
       info_request.is_batch_request_template = true
 
       info_request.valid?
-      expect(info_request.errors[:public_body_id]).to be_empty
+      expect(info_request.errors[:public_body]).to be_empty
     end
 
     it 'rejects an invalid prominence' do

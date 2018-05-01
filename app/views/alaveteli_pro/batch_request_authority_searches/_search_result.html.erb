@@ -15,7 +15,9 @@
           <%= _('Important info about requests to this authority') %>
         </summary>
 
-        <p><%= public_body.notes.html_safe %></p>
+        <p>
+          <%= sanitize(public_body.notes, tags: batch_notes_allowed_tags) %>
+        </p>
       </details>
     <% end %>
   </div>

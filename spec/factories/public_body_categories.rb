@@ -5,8 +5,9 @@
 #
 #  id           :integer          not null, primary key
 #  category_tag :text             not null
+#  created_at   :datetime
+#  updated_at   :datetime
 #
-
 
 FactoryGirl.define do
   factory :public_body_category do
