@@ -227,6 +227,13 @@ class InfoRequestBatch < ActiveRecord::Base
     categories
   end
 
+  # Public: Have we persisted an InfoRequest for each PublicBody in this batch?
+  #
+  # Returns a Boolean
+  def all_requests_created?
+    info_requests.count == public_bodies.count
+  end
+
   # Log an event for all information requests within the batch
   #
   # Returns an array of InfoRequestEvent objects
