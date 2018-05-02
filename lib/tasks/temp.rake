@@ -5,7 +5,8 @@ namespace :temp do
   task :populate_missing_timestamps => :environment do
     puts 'Populating FoiAttachment created_at, updated_at'
     FoiAttachment.where(created_at: nil, updated_at: nil).find_each do |foi_attachment|
-      value = foi_attachment.incoming_message.last_parsed
+      value = foi_attachment.try(:incoming_message).try(:last_parsed)
+      value ||= foi_attachment.try(:incoming_message).try(:created_at)
       foi_attachment.update_columns(created_at: value, updated_at: value)
     end
 
@@ -23,7 +24,7 @@ namespace :temp do
 
     puts 'Populating ProfilePhoto created_at, updated_at'
     ProfilePhoto.where(created_at: nil, updated_at: nil).find_each do |photo|
-      value = photo.user.created_at
+      value = photo.try(:user).try(:created_at)
       photo.update_columns(created_at: value, updated_at: value)
     end
 
@@ -47,13 +48,13 @@ namespace :temp do
 
     puts 'Populating RawEmail created_at, updated_at'
     RawEmail.where(created_at: nil, updated_at: nil).find_each do |raw_email|
-      value = raw_email.incoming_message.created_at
+      value = raw_email.try(:incoming_message).try(:created_at)
       raw_email.update_columns(created_at: value, updated_at: value)
     end
 
     puts 'Populating UserInfoRequestSentAlert created_at, updated_at'
     UserInfoRequestSentAlert.where(created_at: nil, updated_at: nil).find_each do |alert|
-      value = alert.info_request_event.created_at
+      value = alert.try(:info_request_event).try(:created_at)
       alert.update_columns(created_at: value, updated_at: value)
     end
 
