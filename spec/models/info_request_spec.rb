@@ -2980,25 +2980,12 @@ describe InfoRequest do
 
   end
 
-  describe "#log_event" do
-    let(:info_request) { FactoryGirl.create(:info_request) }
-  end
+  describe '#save' do
+    let(:info_request) { FactoryGirl.build(:info_request) }
 
-  describe 'after_save callbacks' do
-    let(:info_request) { FactoryGirl.create(:info_request) }
-
-    it "calls update_counter_cache" do
+    it 'calls update_counter_cache' do
       expect(info_request).to receive(:update_counter_cache)
       info_request.save!
-    end
-  end
-
-  describe 'after_destroy callbacks' do
-    let(:info_request) { FactoryGirl.create(:info_request) }
-
-    it "calls update_counter_cache" do
-      expect(info_request).to receive(:update_counter_cache)
-      info_request.destroy
     end
   end
 

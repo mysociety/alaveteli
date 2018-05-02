@@ -2056,6 +2056,96 @@ describe PublicBody do
 
   end
 
+  describe '#update_counter_cache' do
+    let(:public_body) { FactoryGirl.create(:public_body) }
+    let(:tmp_body) { FactoryGirl.create(:public_body) }
+
+    it 'does not create a new version of the authority' do
+      expect { public_body.update_counter_cache }.
+        not_to change { public_body.versions.count }
+    end
+
+    it 'does not mark the authority for reindexing' do
+      # Call public_body so that any unrelated indexing events are created
+      # before we call update_counter_cache
+      public_body.save!
+      jobs = ActsAsXapian::ActsAsXapianJob.where(model: 'PublicBody')
+      expect { public_body.update_counter_cache }.not_to change { jobs.count }
+    end
+
+    it 'does not touch updated_at' do
+      expect { public_body.update_counter_cache }.
+        not_to change { public_body.updated_at }
+    end
+
+    it 'increments info_requests_not_held_count' do
+      request = FactoryGirl.create(:not_held_request)
+      request.update_column(:public_body_id, public_body.id)
+      expect { public_body.update_counter_cache }.
+        to change { public_body.info_requests_not_held_count }.from(nil).to(1)
+    end
+
+    it 'decrements info_requests_not_held_count' do
+      request = FactoryGirl.create(:not_held_request, public_body: public_body)
+      public_body.update_counter_cache
+      request.update_column(:public_body_id, tmp_body.id)
+
+      expect { public_body.update_counter_cache }.
+        to change { public_body.info_requests_not_held_count }.from(1).to(0)
+    end
+
+    it 'increments info_requests_successful_count' do
+      request = FactoryGirl.create(:successful_request)
+      request.update_column(:public_body_id, public_body.id)
+      expect { public_body.update_counter_cache }.
+        to change { public_body.info_requests_successful_count }.from(nil).to(1)
+    end
+
+    it 'decrements info_requests_successful_count' do
+      request =
+        FactoryGirl.create(:successful_request, public_body: public_body)
+      public_body.update_counter_cache
+      request.update_column(:public_body_id, tmp_body.id)
+
+      expect { public_body.update_counter_cache }.
+        to change { public_body.info_requests_successful_count }.from(1).to(0)
+    end
+
+    it 'increments info_requests_visible_classified_count' do
+      request = FactoryGirl.create(:info_request)
+      request.update_column(:public_body_id, public_body.id)
+      expect { public_body.update_counter_cache }.
+        to change { public_body.info_requests_visible_classified_count }.
+        from(nil).to(1)
+    end
+
+    it 'decrements info_requests_visible_classified_count' do
+      request = FactoryGirl.create(:info_request, public_body: public_body)
+      public_body.update_counter_cache
+      request.update_column(:public_body_id, tmp_body.id)
+
+      expect { public_body.update_counter_cache }.
+        to change { public_body.info_requests_visible_classified_count }.
+        from(1).to(0)
+    end
+
+    it 'increments info_requests_visible_count' do
+      request = FactoryGirl.create(:info_request, awaiting_description: true)
+      request.update_column(:public_body_id, public_body.id)
+      expect { public_body.update_counter_cache }.
+        to change { public_body.info_requests_visible_count }.from(0).to(1)
+    end
+
+    it 'decrements info_requests_visible_count' do
+      request = FactoryGirl.create(:info_request, public_body: public_body,
+                                                  awaiting_description: true)
+      public_body.update_counter_cache
+      request.update_column(:public_body_id, tmp_body.id)
+
+      expect { public_body.update_counter_cache }.
+        to change { public_body.info_requests_visible_count }.from(1).to(0)
+    end
+  end
 end
 
 describe PublicBody::Translation do
