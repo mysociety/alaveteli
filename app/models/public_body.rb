@@ -855,6 +855,30 @@ class PublicBody < ActiveRecord::Base
     end
   end
 
+  # This method updates the count columns of the PublicBody that
+  # store the number of "not held", "to some extent successful" and
+  # "both visible and classified" requests.
+  def update_counter_cache
+    success_states = %w(successful partially_successful)
+
+    mappings = {
+      info_requests_not_held_count: { awaiting_description: false,
+                                      described_state: 'not_held' },
+      info_requests_successful_count: { awaiting_description: false,
+                                        described_state: success_states },
+      info_requests_visible_classified_count: { awaiting_description: false},
+      info_requests_visible_count: {}
+    }
+
+    info_request_scope = InfoRequest.where(public_body_id: id).is_searchable
+
+    updated_counts = mappings.each_with_object({}) do |(column, params), memo|
+      memo[column] = info_request_scope.where(params).count
+    end
+
+    update_columns(updated_counts)
+  end
+
   private
 
   # if the URL name has changed, then all requested_from: queries

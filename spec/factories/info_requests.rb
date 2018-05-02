@@ -83,6 +83,12 @@ FactoryGirl.define do
         end
       end
 
+      factory :not_held_request do
+        after(:create) do |info_request, evaluator|
+          info_request.set_described_state('not_held')
+        end
+      end
+
     end
 
     factory :info_request_with_plain_incoming do

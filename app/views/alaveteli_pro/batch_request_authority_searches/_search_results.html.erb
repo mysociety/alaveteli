@@ -3,6 +3,7 @@
 <% elsif search.present? && search.results.present? %>
   <ul class="batch-builder__list js-batch-authority-search-results-list">
     <% search.results.each do |result| %>
+      <% next unless result[:model].is_requestable? %>
       <%= render partial: 'alaveteli_pro/batch_request_authority_searches/search_result',
                  locals: { public_body: result[:model],
                            draft: draft_batch_request,
