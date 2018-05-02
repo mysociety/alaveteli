@@ -7,11 +7,14 @@ describe 'viewing requests that are part of a batch in alaveteli_pro' do
   let(:pro_user) { FactoryGirl.create(:pro_user) }
   let!(:pro_user_session) { login(pro_user) }
 
+  let(:batch) { FactoryGirl.create(:embargoed_batch_request, user: pro_user) }
+
   let(:info_request) do
     info_request = FactoryGirl.create(:info_request, user: pro_user)
-    info_request.info_request_batch =
-      FactoryGirl.create(:embargoed_batch_request, user: pro_user)
+    info_request.info_request_batch = batch
+    batch.public_bodies << info_request.public_body
     info_request.save!
+    batch.save!
     info_request
   end
 
