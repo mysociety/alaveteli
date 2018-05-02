@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Limit the frequency that `PublicBody#updated_at` gets updated by unrelated
+  changes to an associated `InfoRequest` (Gareth Rees)
 * Add standard Rails timestamp columns to all tables (Gareth Rees)
 * Fix broken migrations introduced in 0.30 (Gareth Rees)
 * Destroy embargoes when the attached info request is destroyed (Gareth Rees)
