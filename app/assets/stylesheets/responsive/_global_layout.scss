@@ -179,7 +179,7 @@ textarea{
 .action-bar__follow,
 .action-bar__follow-button,
 .action-bar__follower-count {
- vertical-align: top;
+ vertical-align: middle;
  font-size: 16px;
  margin: 1em 0;
  @include respond-min( 30em ){
