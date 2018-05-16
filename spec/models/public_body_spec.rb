@@ -94,7 +94,7 @@ describe PublicBody do
 
     it 'should returns all authorities' do
       pbs = PublicBody.with_tag('all')
-      expect(pbs).to match([
+      expect(pbs).to match_array([
         public_bodies(:geraldine_public_body),
         public_bodies(:humpadink_public_body),
         public_bodies(:forlorn_public_body),
@@ -106,7 +106,7 @@ describe PublicBody do
 
     it 'should returns authorities without categories' do
       pbs = PublicBody.with_tag('other')
-      expect(pbs).to match([
+      expect(pbs).to match_array([
         public_bodies(:geraldine_public_body),
         public_bodies(:humpadink_public_body),
         public_bodies(:silly_walks_public_body),
@@ -119,20 +119,20 @@ describe PublicBody do
       public_bodies(:humpadink_public_body).tag_string = 'eats_cheese:stilton'
 
       pbs = PublicBody.with_tag('eats_cheese')
-      expect(pbs).to match([public_bodies(:humpadink_public_body)])
+      expect(pbs).to match_array([public_bodies(:humpadink_public_body)])
 
       pbs = PublicBody.with_tag('eats_cheese:jarlsberg')
       expect(pbs).to be_empty
 
       pbs = PublicBody.with_tag('eats_cheese:stilton')
-      expect(pbs).to match([public_bodies(:humpadink_public_body)])
+      expect(pbs).to match_array([public_bodies(:humpadink_public_body)])
     end
 
     it 'should return authorities with categories' do
       public_bodies(:humpadink_public_body).tag_string = 'mycategory'
 
       pbs = PublicBody.with_tag('mycategory')
-      expect(pbs).to match([public_bodies(:humpadink_public_body)])
+      expect(pbs).to match_array([public_bodies(:humpadink_public_body)])
 
       pbs = PublicBody.with_tag('myothercategory')
       expect(pbs).to be_empty
@@ -147,18 +147,18 @@ describe PublicBody do
       department = FactoryGirl.create(:public_body, name: 'Åčçèñtéd Department')
 
       pbs = PublicBody.with_query('', 'Å')
-      expect(pbs).to match([authority, department])
+      expect(pbs).to match_array([authority, department])
 
       pbs = PublicBody.with_query('Authority', 'Å')
-      expect(pbs).to match([authority])
+      expect(pbs).to match_array([authority])
 
       pbs = PublicBody.with_query('Department', 'Å')
-      expect(pbs).to match([department])
+      expect(pbs).to match_array([department])
     end
 
     it 'should ignore tag if greater than one character' do
       pbs = PublicBody.with_query('Department', 'Åč')
-      expect(pbs).to match([
+      expect(pbs).to match_array([
         public_bodies(:humpadink_public_body),
         public_bodies(:forlorn_public_body)
       ])
