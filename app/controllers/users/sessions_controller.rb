@@ -2,9 +2,9 @@
 class Users::SessionsController < UserController
   include UserSpamCheck
 
-  before_filter :work_out_post_redirect, :only => [ :new, :create ]
-  before_filter :set_request_from_foreign_country, :only => [ :new, :create ]
-  before_filter :set_in_pro_area, :only => [ :new, :create ]
+  before_action :work_out_post_redirect, :only => [ :new, :create ]
+  before_action :set_request_from_foreign_country, :only => [ :new, :create ]
+  before_action :set_in_pro_area, :only => [ :new, :create ]
 
   # Normally we wouldn't be verifying the authenticity token on these actions
   # anyway as there shouldn't be a user_id in the session when the before

@@ -9,14 +9,14 @@ require 'zip'
 require 'open-uri'
 
 class RequestController < ApplicationController
-  before_filter :check_read_only, :only => [ :new, :describe_state, :upload_response ]
-  before_filter :check_batch_requests_and_user_allowed, :only => [ :select_authorities, :new_batch ]
-  before_filter :set_render_recaptcha, :only => [ :new ]
-  before_filter :redirect_numeric_id_to_url_title, :only => [:show]
-  before_filter :redirect_embargoed_requests_for_pro_users, :only => [:show]
-  before_filter :redirect_public_requests_from_pro_context, :only => [:show]
-  before_filter :redirect_new_form_to_pro_version, :only => [:select_authority, :new]
-  before_filter :set_in_pro_area, :only => [:select_authority, :show]
+  before_action :check_read_only, :only => [ :new, :describe_state, :upload_response ]
+  before_action :check_batch_requests_and_user_allowed, :only => [ :select_authorities, :new_batch ]
+  before_action :set_render_recaptcha, :only => [ :new ]
+  before_action :redirect_numeric_id_to_url_title, :only => [:show]
+  before_action :redirect_embargoed_requests_for_pro_users, :only => [:show]
+  before_action :redirect_public_requests_from_pro_context, :only => [:show]
+  before_action :redirect_new_form_to_pro_version, :only => [:select_authority, :new]
+  before_action :set_in_pro_area, :only => [:select_authority, :show]
   helper_method :state_transitions_empty?
 
   MAX_RESULTS = 500
@@ -571,7 +571,7 @@ class RequestController < ApplicationController
     end
   end
 
-  before_filter :authenticate_attachment, :only => [ :get_attachment, :get_attachment_as_html ]
+  before_action :authenticate_attachment, :only => [ :get_attachment, :get_attachment_as_html ]
   def authenticate_attachment
     # Test for hidden
     incoming_message = IncomingMessage.find(params[:incoming_message_id])

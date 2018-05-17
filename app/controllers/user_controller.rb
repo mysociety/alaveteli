@@ -11,11 +11,10 @@ class UserController < ApplicationController
   include UserSpamCheck
 
   layout :select_layout
-  # NOTE: Rails 4 syntax: change before_filter to before_action
-  before_filter :normalize_url_name, :only => :show
-  before_filter :work_out_post_redirect, :only => [ :signup ]
-  before_filter :set_request_from_foreign_country, :only => [ :signup ]
-  before_filter :set_in_pro_area, :only => [ :signup ]
+  before_action :normalize_url_name, :only => :show
+  before_action :work_out_post_redirect, :only => [ :signup ]
+  before_action :set_request_from_foreign_country, :only => [ :signup ]
+  before_action :set_in_pro_area, :only => [ :signup ]
 
   # Normally we wouldn't be verifying the authenticity token on these actions
   # anyway as there shouldn't be a user_id in the session when the before

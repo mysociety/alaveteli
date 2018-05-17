@@ -7,14 +7,14 @@
 
 class AdminUserController < AdminController
 
-  before_filter :set_admin_user, :only => [ :show,
+  before_action :set_admin_user, :only => [ :show,
                                             :edit,
                                             :update,
                                             :show_bounce_message,
                                             :clear_bounce,
                                             :clear_profile_photo ]
 
-  before_filter :clear_roles,
+  before_action :clear_roles,
                 :check_role_authorisation,
                 :check_role_requirements, :only => [ :update ]
 

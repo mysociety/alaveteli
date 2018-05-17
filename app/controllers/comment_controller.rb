@@ -6,12 +6,12 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class CommentController < ApplicationController
-  before_filter :check_read_only, :only => [ :new ]
-  before_filter :find_info_request, :only => [ :new ]
-  before_filter :create_track_thing, :only => [ :new ]
-  before_filter :reject_unless_comments_allowed, :only => [ :new ]
-  before_filter :reject_if_user_banned, :only => [ :new ]
-  before_filter :set_in_pro_area, :only => [ :new ]
+  before_action :check_read_only, :only => [ :new ]
+  before_action :find_info_request, :only => [ :new ]
+  before_action :create_track_thing, :only => [ :new ]
+  before_action :reject_unless_comments_allowed, :only => [ :new ]
+  before_action :reject_if_user_banned, :only => [ :new ]
+  before_action :set_in_pro_area, :only => [ :new ]
 
   def new
     if params[:comment]

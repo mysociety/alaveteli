@@ -7,7 +7,7 @@
 
 class AdminInfoRequestEventController < AdminController
 
-  before_filter :set_info_request_event, :only => [:update]
+  before_action :set_info_request_event, :only => [:update]
 
   # used so due dates get fixed
   def update

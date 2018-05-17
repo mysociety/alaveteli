@@ -31,13 +31,13 @@ class ApplicationController < ActionController::Base
   include AlaveteliPro::PostRedirectHandler
 
   # Note: a filter stops the chain if it redirects or renders something
-  before_filter :authentication_check
-  before_filter :set_gettext_locale
-  before_filter :check_in_post_redirect
-  before_filter :session_remember_me
-  before_filter :set_vary_header
-  before_filter :validate_session_timestamp
-  before_filter :collect_locales
+  before_action :authentication_check
+  before_action :set_gettext_locale
+  before_action :check_in_post_redirect
+  before_action :session_remember_me
+  before_action :set_vary_header
+  before_action :validate_session_timestamp
+  before_action :collect_locales
   after_filter  :persist_session_timestamp
 
   def set_vary_header
@@ -244,7 +244,7 @@ class ApplicationController < ActionController::Base
   # A helper method to set @in_pro_area, for controller actions which are
   # used in both a pro and non-pro context and depend on the :pro parameter
   # to know which one they're displaying.
-  # Intended to be used as a before_filter, see RequestController for example
+  # Intended to be used as a before_action, see RequestController for example
   # usage.
   def set_in_pro_area
     @in_pro_area = params[:pro] == "1" && current_user.present? && current_user.is_pro?

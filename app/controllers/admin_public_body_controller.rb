@@ -9,7 +9,7 @@ class AdminPublicBodyController < AdminController
 
   include TranslatableParams
 
-  before_filter :set_public_body, :only => [:edit, :update, :destroy]
+  before_action :set_public_body, :only => [:edit, :update, :destroy]
 
   def index
     lookup_query

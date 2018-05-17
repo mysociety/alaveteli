@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class FollowupsController < ApplicationController
-  before_filter :check_read_only,
+  before_action :check_read_only,
                 :set_incoming_message,
                 :set_info_request,
                 :set_last_request_data,
@@ -12,9 +12,9 @@ class FollowupsController < ApplicationController
                 :set_outgoing_message,
                 :set_in_pro_area
 
-  before_filter :check_reedit, :only => [:preview, :create]
+  before_action :check_reedit, :only => [:preview, :create]
 
-  before_filter :check_responses_allowed, :only => [:create]
+  before_action :check_responses_allowed, :only => [:create]
 
   def new
   end

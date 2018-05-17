@@ -3,8 +3,8 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
   include AlaveteliPro::StripeNamespace
 
   skip_before_action :pro_user_authenticated?, only: [:create]
-  before_filter :authenticate, :prevent_duplicate_submission, only: [:create]
-  before_filter :check_active_subscription, only: [:index]
+  before_action :authenticate, :prevent_duplicate_submission, only: [:create]
+  before_action :check_active_subscription, only: [:index]
 
   def index
     @customer = current_user.pro_account.try(:stripe_customer)

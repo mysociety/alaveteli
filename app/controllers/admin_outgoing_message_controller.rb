@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 class AdminOutgoingMessageController < AdminController
 
-  before_filter :set_outgoing_message, :only => [:edit, :destroy, :update, :resend]
-  before_filter :set_is_initial_message, :only => [:edit, :destroy]
+  before_action :set_outgoing_message, :only => [:edit, :destroy, :update, :resend]
+  before_action :set_is_initial_message, :only => [:edit, :destroy]
 
   def edit
   end
