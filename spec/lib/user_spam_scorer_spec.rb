@@ -437,6 +437,16 @@ describe UserSpamScorer do
 
     context 'the default spam formats' do
 
+      it 'is true if it matches bitcoin' do
+        user = mock_model(User, name: 'bitcointocash')
+        expect(subject.name_is_spam_format?(user)).to eq(true)
+      end
+
+      it 'is true if it matches currency' do
+        user = mock_model(User, name: 'Currency Transfers')
+        expect(subject.name_is_spam_format?(user)).to eq(true)
+      end
+
       it 'is true if it matches support' do
         user = mock_model(User, name: 'Apple Technical Support')
         expect(subject.name_is_spam_format?(user)).to eq(true)

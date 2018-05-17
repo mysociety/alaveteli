@@ -60,6 +60,8 @@ class UserSpamScorer
        wgz.cz
        wowmailing.com).freeze
   DEFAULT_SPAM_NAME_FORMATS = [
+    /\A.*bitcoin.*\z/i,
+    /\A.*currency.*\z/i,
     /\A.*support.*\z/i,
     /\A.*customer.*service.*\z/i,
     /\A.*customer.*care.*\z/i,
