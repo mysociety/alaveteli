@@ -7,6 +7,7 @@ module AlaveteliRateLimiter
       minute
       hour
       day
+      week
       month
       year
     ).map(&:to_sym).freeze

@@ -29,7 +29,7 @@ module AlaveteliRateLimiter
       record(id)
     end
 
-    def limit?(id)
+    def limit?(id, rule = self.rule)
       rule.limit?(records(id.to_s))
     end
   end

@@ -29,7 +29,7 @@ class AlaveteliPro::InfoRequestBatchesController < AlaveteliPro::BaseController
     if all_models_valid?
       rate_monitor.record(current_user.id)
 
-      if rate_monitor.limit?(current_user.id)
+      if rate_monitor_limit?(current_user.id)
         handle_rate_monitor_limit_hit(current_user.id)
       end
 
@@ -53,9 +53,25 @@ class AlaveteliPro::InfoRequestBatchesController < AlaveteliPro::BaseController
           AlaveteliRateLimiter::Window.new(1, :day)))
   end
 
+  def rate_monitor_limit?(user_id)
+    hour_window = AlaveteliRateLimiter::Window.new(1, :hour)
+    hour_rule =
+      AlaveteliRateLimiter::Rule.new(:pro_batch_creation, 5, hour_window)
+
+    week_window = AlaveteliRateLimiter::Window.new(1, :week)
+    week_rule =
+      AlaveteliRateLimiter::Rule.new(:pro_batch_creation, 5, week_window)
+
+    rate_monitor.limit?(user_id, hour_rule) ||
+      rate_monitor.limit?(user_id) ||
+        rate_monitor.limit?(user_id, week_rule)
+  end
+
   def handle_rate_monitor_limit_hit(user_id)
+    msg = "Batch rate limit hit by User: #{ user_id }"
+    logger.warn(msg)
+
     if send_exception_notifications?
-      msg = "Batch rate limit hit by User: #{ user_id }"
       e = Exception.new(msg)
       ExceptionNotifier.notify_exception(e, env: request.env)
     end

@@ -126,16 +126,36 @@ describe AlaveteliRateLimiter::RateLimiter do
   describe '#limit?' do
     let(:rule) { AlaveteliRateLimiter::Rule.new(:test, 1, double) }
 
-    it 'returns true if the records break the rule limit' do
-      allow(rule).to receive(:limit?).and_return(true)
-      subject = described_class.new(rule)
-      expect(subject.limit?('1')).to eq(true)
+    context 'with the rule initialized with the instance' do
+      it 'returns true if the records break the rule limit' do
+        allow(rule).to receive(:limit?).and_return(true)
+        subject = described_class.new(rule)
+        expect(subject.limit?('1')).to eq(true)
+      end
+
+      it 'returns false if the records are within the rule limit' do
+        allow(rule).to receive(:limit?).and_return(false)
+        subject = described_class.new(rule)
+        expect(subject.limit?('1')).to eq(false)
+      end
     end
 
-    it 'returns false if the records are within the rule limit' do
-      allow(rule).to receive(:limit?).and_return(false)
-      subject = described_class.new(rule)
-      expect(subject.limit?('1')).to eq(false)
+    context 'with the rule passed as an argument' do
+      let(:custom_rule) { AlaveteliRateLimiter::Rule.new(:test, 1, double) }
+
+      it 'returns true if the records break the rule limit' do
+        allow(rule).to receive(:limit?).and_return(false)
+        allow(custom_rule).to receive(:limit?).and_return(true)
+        subject = described_class.new(rule)
+        expect(subject.limit?('1', custom_rule)).to eq(true)
+      end
+
+      it 'returns false if the records are within the rule limit' do
+        allow(rule).to receive(:limit?).and_return(true)
+        allow(custom_rule).to receive(:limit?).and_return(false)
+        subject = described_class.new(rule)
+        expect(subject.limit?('1', custom_rule)).to eq(false)
+      end
     end
 
   end
