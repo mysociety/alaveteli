@@ -172,32 +172,36 @@ describe InfoRequestBatchController do
       it "raises an ActiveRecord::RecordNotFound error for admins" do
         with_feature_enabled(:alaveteli_pro) do
           session[:user_id] = admin.id
-          expect { get :show, id: batch.id }.
-            to raise_error(ActiveRecord::RecordNotFound)
+          expect {
+            get :show, id: batch.id
+          }.to raise_error(ActiveRecord::RecordNotFound)
         end
       end
 
       it "raises an ActiveRecord::RecordNotFound error for other pro users" do
         with_feature_enabled(:alaveteli_pro) do
           session[:user_id] = other_pro_user.id
-          expect { get :show, id: batch.id }.
-            to raise_error(ActiveRecord::RecordNotFound)
+          expect {
+            get :show, id: batch.id
+          }.to raise_error(ActiveRecord::RecordNotFound)
         end
       end
 
       it "raises an ActiveRecord::RecordNotFound error for normal users" do
         with_feature_enabled(:alaveteli_pro) do
           session[:user_id] = other_user.id
-          expect { get :show, id: batch.id }.
-            to raise_error(ActiveRecord::RecordNotFound)
+          expect {
+            get :show, id: batch.id
+          }.to raise_error(ActiveRecord::RecordNotFound)
         end
       end
 
       it "raises an ActiveRecord::RecordNotFound error for anon users" do
         with_feature_enabled(:alaveteli_pro) do
           session[:user_id] = nil
-          expect { get :show, id: batch.id }.
-            to raise_error(ActiveRecord::RecordNotFound)
+          expect {
+            get :show, id: batch.id
+          }.to raise_error(ActiveRecord::RecordNotFound)
         end
       end
     end

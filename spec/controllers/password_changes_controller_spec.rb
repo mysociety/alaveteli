@@ -150,8 +150,7 @@ describe PasswordChangesController do
       end
 
       it 'does not send a confirmation email for an unknown email' do
-        post :create, :password_change_user =>
-                        { :email => 'unknown-email@example.org' }
+        post :create, :password_change_user => { :email => 'unknown-email@example.org' }
         expect(ActionMailer::Base.deliveries.size).to eq(0)
       end
 
@@ -162,8 +161,7 @@ describe PasswordChangesController do
       end
 
       it 'renders the confirmation message for an unknown email' do
-        post :create, :password_change_user =>
-                        { :email => 'unknown-email@example.org' }
+        post :create, :password_change_user => { :email => 'unknown-email@example.org' }
         expect(response).to render_template(:check_email)
       end
 

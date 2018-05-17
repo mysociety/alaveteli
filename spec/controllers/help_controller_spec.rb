@@ -35,15 +35,17 @@ describe HelpController do
 
       it 'raises an ActiveRecord::RecordNotFound error if the InfoRequest
           is not found' do
-        expect{ get :unhappy, :url_title => 'something_not_existing' }
-          .to raise_error ActiveRecord::RecordNotFound
+        expect {
+          get :unhappy, :url_title => 'something_not_existing'
+        }.to raise_error ActiveRecord::RecordNotFound
       end
 
       it 'raises an ActiveRecord::RecordNotFound error if the InfoRequest
           is embargoed' do
         info_request = FactoryBot.create(:embargoed_request)
-        expect{ get :unhappy, :url_title => info_request.url_title }
-          .to raise_error ActiveRecord::RecordNotFound
+        expect {
+          get :unhappy, :url_title => info_request.url_title
+        }.to raise_error ActiveRecord::RecordNotFound
       end
     end
 

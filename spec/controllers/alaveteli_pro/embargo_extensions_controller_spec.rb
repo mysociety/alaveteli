@@ -37,8 +37,7 @@ describe AlaveteliPro::EmbargoExtensionsController do
         before do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = pro_user.id
-            post :create,
-                 alaveteli_pro_embargo_extension:
+            post :create, alaveteli_pro_embargo_extension:
                    { embargo_id: embargo.id,
                      extension_duration: "3_months" }
           end
@@ -68,8 +67,7 @@ describe AlaveteliPro::EmbargoExtensionsController do
         before do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = admin.id
-            post :create,
-                 alaveteli_pro_embargo_extension:
+            post :create, alaveteli_pro_embargo_extension:
                    { embargo_id: embargo.id,
                      extension_duration: "3_months" }
           end
@@ -104,8 +102,7 @@ describe AlaveteliPro::EmbargoExtensionsController do
         expect do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = other_user.id
-            post :create,
-                 alaveteli_pro_embargo_extension:
+            post :create, alaveteli_pro_embargo_extension:
                    { embargo_id: embargo.id,
                      extension_duration: "3_months" }
           end
@@ -121,8 +118,7 @@ describe AlaveteliPro::EmbargoExtensionsController do
         it "does not allow access to the controller action" do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = pro_user.id
-            post :create,
-                 alaveteli_pro_embargo_extension:
+            post :create, alaveteli_pro_embargo_extension:
                    { embargo_id: embargo.id,
                      extension_duration: "3_months" }
             expect(response).to redirect_to frontpage_path
@@ -144,8 +140,7 @@ describe AlaveteliPro::EmbargoExtensionsController do
         expect do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = pro_user.id
-            post :create,
-                 alaveteli_pro_embargo_extension:
+            post :create, alaveteli_pro_embargo_extension:
                    { embargo_id: embargo.id,
                      extension_duration: "3_months" }
           end
@@ -156,8 +151,7 @@ describe AlaveteliPro::EmbargoExtensionsController do
         expect do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = admin.id
-            post :create,
-                 alaveteli_pro_embargo_extension:
+            post :create, alaveteli_pro_embargo_extension:
                    { embargo_id: embargo.id,
                      extension_duration: "3_months" }
           end
@@ -178,8 +172,7 @@ describe AlaveteliPro::EmbargoExtensionsController do
         expect do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = pro_user.id
-            post :create,
-                 alaveteli_pro_embargo_extension:
+            post :create, alaveteli_pro_embargo_extension:
                    { embargo_id: embargo.id,
                      extension_duration: "3_months" }
           end
@@ -191,8 +184,7 @@ describe AlaveteliPro::EmbargoExtensionsController do
       before do
         with_feature_enabled(:alaveteli_pro) do
           session[:user_id] = pro_user.id
-          post :create,
-               alaveteli_pro_embargo_extension: { embargo_id: embargo.id }
+          post :create, alaveteli_pro_embargo_extension: { embargo_id: embargo.id }
         end
       end
 
@@ -221,9 +213,7 @@ describe AlaveteliPro::EmbargoExtensionsController do
         before do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = pro_user.id
-            post :create_batch,
-                 info_request_batch_id: info_request_batch.id,
-                 extension_duration: "3_months"
+            post :create_batch, info_request_batch_id: info_request_batch.id, extension_duration: "3_months"
           end
         end
 
@@ -253,9 +243,7 @@ describe AlaveteliPro::EmbargoExtensionsController do
         before do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = admin.id
-            post :create_batch,
-                 info_request_batch_id: info_request_batch.id,
-                 extension_duration: "3_months"
+            post :create_batch, info_request_batch_id: info_request_batch.id, extension_duration: "3_months"
           end
         end
 
@@ -289,9 +277,7 @@ describe AlaveteliPro::EmbargoExtensionsController do
         expect do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = other_user.id
-            post :create_batch,
-                 info_request_batch_id: info_request_batch.id,
-                 extension_duration: "3_months"
+            post :create_batch, info_request_batch_id: info_request_batch.id, extension_duration: "3_months"
           end
         end.to raise_error(CanCan::AccessDenied)
       end
@@ -301,8 +287,7 @@ describe AlaveteliPro::EmbargoExtensionsController do
       before do
         with_feature_enabled(:alaveteli_pro) do
           session[:user_id] = pro_user.id
-          post :create_batch,
-               info_request_batch_id: info_request_batch.id
+          post :create_batch, info_request_batch_id: info_request_batch.id
         end
       end
 
@@ -317,9 +302,7 @@ describe AlaveteliPro::EmbargoExtensionsController do
       before do
         with_feature_enabled(:alaveteli_pro) do
           session[:user_id] = admin.id
-          post :create_batch,
-               info_request_batch_id: info_request_batch.id,
-               info_request_id: info_request_batch.info_requests.first.id
+          post :create_batch, info_request_batch_id: info_request_batch.id, info_request_id: info_request_batch.info_requests.first.id
         end
       end
 

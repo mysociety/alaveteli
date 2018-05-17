@@ -52,7 +52,7 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
       allow(IncomingMessage).to receive(:find).and_return(incoming_message)
       expect(previous_info_request).to receive(:expire)
       post :redeliver, :id => incoming_message.id,
-        :url_title => destination_info_request.url_title
+                       :url_title => destination_info_request.url_title
     end
 
     it 'should succeed, even if a duplicate xapian indexing job is created' do
@@ -62,7 +62,7 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
         destination_info_request = info_requests(:naughty_chicken_request)
         incoming_message = incoming_messages(:useless_incoming_message)
         post :redeliver, :id => incoming_message.id,
-          :url_title => destination_info_request.url_title
+                         :url_title => destination_info_request.url_title
       end
 
     end
@@ -70,7 +70,7 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
     it 'shouldn\'t do anything if no message_id is supplied' do
       incoming_message = FactoryBot.create(:incoming_message)
       post :redeliver, :id => incoming_message.id,
-        :url_title => ''
+                       :url_title => ''
       # It shouldn't delete this message
       assert_equal IncomingMessage.exists?(incoming_message.id), true
       # Should show an error to the user

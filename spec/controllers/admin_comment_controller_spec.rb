@@ -102,9 +102,10 @@ describe AdminCommentController do
         it 'raises ActiveRecord::RecordNotFound' do
           with_feature_enabled(:alaveteli_pro) do
             comment.info_request.create_embargo
-            expect{ get :edit, { :id => comment.id },
-                               { :user_id => admin_user.id } }.
-              to raise_error ActiveRecord::RecordNotFound
+            expect {
+              get :edit, { :id => comment.id },
+                         { :user_id => admin_user.id }
+            }.to raise_error ActiveRecord::RecordNotFound
           end
         end
       end
@@ -242,8 +243,7 @@ describe AdminCommentController do
 
       it 'renders the edit template' do
         with_feature_enabled(:alaveteli_pro) do
-          put :update, { :id => comment.id,
-                         :comment => { :body => '' } },
+          put :update, { :id => comment.id, :comment => { :body => '' } },
                        { :user_id => admin_user.id }
           expect(response).to render_template('edit')
         end
@@ -259,9 +259,10 @@ describe AdminCommentController do
         it 'raises ActiveRecord::RecordNotFound' do
           with_feature_enabled(:alaveteli_pro) do
             comment.info_request.create_embargo
-            expect{ put :update, { :id => comment.id },
-                                 { :user_id => admin_user.id } }.
-              to raise_error ActiveRecord::RecordNotFound
+            expect {
+              put :update, { :id => comment.id },
+                           { :user_id => admin_user.id }
+            }.to raise_error ActiveRecord::RecordNotFound
           end
         end
       end

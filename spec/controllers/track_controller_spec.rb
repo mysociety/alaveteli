@@ -59,17 +59,19 @@ describe TrackController do
 
     it "should 404 for non-existent requests" do
       session[:user_id] = user.id
-      expect { get :track_request, :url_title => "hjksfdh_louytu_qqxxx",
-                                   :feed => 'track' }
-        .to raise_error(ActiveRecord::RecordNotFound)
+      expect {
+        get :track_request, :url_title => "hjksfdh_louytu_qqxxx",
+                            :feed => 'track'
+      }.to raise_error(ActiveRecord::RecordNotFound)
     end
 
     it "should 404 for embargoed requests" do
       session[:user_id] = user.id
       embargoed_request = FactoryBot.create(:embargoed_request)
-      expect { get :track_request, :url_title => embargoed_request.url_title,
-                                   :feed => 'track' }
-        .to raise_error(ActiveRecord::RecordNotFound)
+      expect {
+        get :track_request, :url_title => embargoed_request.url_title,
+                            :feed => 'track'
+      }.to raise_error(ActiveRecord::RecordNotFound)
     end
 
     context 'when getting feeds' do
@@ -162,7 +164,8 @@ describe TrackController do
       session[:user_id] = user.id
       allow(TrackThing).to receive(:create_track_for_search_query).and_return(track_thing)
       expect(track_thing).to receive(:save).and_call_original
-      get :track_search_query, :query_array => "bob variety:sent", :feed => 'track'
+      get :track_search_query, :query_array => "bob variety:sent",
+                               :feed => 'track'
       expect(response).to redirect_to(:controller => 'general', :action => 'search',
                                       :combined => ["bob", "requests"])
     end
@@ -235,7 +238,8 @@ describe TrackController do
       allow(TrackThing).to receive(:create_track_for_public_body).and_return(track_thing)
       expect(track_thing).to receive(:save).and_call_original
       get :track_public_body, :url_name => public_body.url_name,
-                              :feed => 'track', :event_type => 'sent'
+                              :feed => 'track',
+                              :event_type => 'sent'
       expect(response).to redirect_to("/body/#{public_body.url_name}")
     end
 
@@ -288,7 +292,8 @@ describe TrackController do
                                    :track_query => "requested_by:#{target_user.url_name}")
       allow(TrackThing).to receive(:create_track_for_user).and_return(track_thing)
       expect(track_thing).to receive(:save).and_call_original
-      get :track_user, :url_name => target_user.url_name, :feed => 'track'
+      get :track_user, :url_name => target_user.url_name,
+                       :feed => 'track'
       expect(response).to redirect_to("/user/#{target_user.url_name}")
     end
 
@@ -298,14 +303,17 @@ describe TrackController do
                                   :tracked_user => target_user,
                                   :track_query => "lorem ipsum " * 42)
       allow(TrackThing).to receive(:create_track_for_user).and_return(long_track)
-      get :track_user, :url_name => target_user.url_name, :feed => 'track'
+      get :track_user, :url_name => target_user.url_name,
+                       :feed => 'track'
       expect(flash[:error]).to match('too long')
       expect(response).to redirect_to("/user/#{target_user.url_name}")
     end
 
     it "should return NotFound for a non-existent user" do
-      expect { get :track_user, :feed => 'feed', :url_name => "there_is_no_such_user" }.
-        to raise_error(ActiveRecord::RecordNotFound)
+      expect {
+        get :track_user, :feed => 'feed',
+                         :url_name => "there_is_no_such_user"
+      }.to raise_error(ActiveRecord::RecordNotFound)
     end
 
   end
@@ -320,7 +328,8 @@ describe TrackController do
       allow(TrackThing).to receive(:create_track_for_all_new_requests).
         and_return(track_thing)
       expect(track_thing).to receive(:save).and_call_original
-      get :track_list, :view => 'recent', :feed => 'track'
+      get :track_list, :view => 'recent',
+                       :feed => 'track'
       expect(response).to redirect_to("/list?view=recent")
     end
 
@@ -330,7 +339,8 @@ describe TrackController do
                                   :track_query => "lorem ipsum " * 42)
       allow(TrackThing).to receive(:create_track_for_all_new_requests).
         and_return(long_track)
-      get :track_list, :view => 'recent', :feed => 'track'
+      get :track_list, :view => 'recent',
+                       :feed => 'track'
       expect(flash[:error]).to match('too long')
       expect(response).to redirect_to("/list?view=recent")
     end

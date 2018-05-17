@@ -124,7 +124,9 @@ describe GeneralController, 'when getting the blog feed' do
     end
 
     it 'should raise an ActiveRecord::RecordNotFound error' do
-      expect{ get :blog }.to raise_error(ActiveRecord::RecordNotFound)
+      expect {
+        get :blog
+      }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 

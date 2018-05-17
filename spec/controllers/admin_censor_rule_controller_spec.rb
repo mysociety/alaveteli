@@ -630,7 +630,7 @@ describe AdminCensorRuleController do
 
       it 'sets the last_edit_editor to the current admin' do
         put :update, :id => censor_rule.id,
-          :censor_rule => { :text => 'different text' }
+            :censor_rule => { :text => 'different text' }
 
         expect(assigns[:censor_rule].last_edit_editor).to eq('*unknown*')
       end
@@ -639,14 +639,14 @@ describe AdminCensorRuleController do
 
         it 'updates the censor rule' do
           put :update, :id => censor_rule.id,
-            :censor_rule => { :text => 'different text' }
+              :censor_rule => { :text => 'different text' }
           censor_rule.reload
           expect(censor_rule.text).to eq('different text')
         end
 
         it 'confirms the censor rule is updated' do
           put :update, :id => censor_rule.id,
-            :censor_rule => { :text => 'different text' }
+              :censor_rule => { :text => 'different text' }
           msg = 'Censor rule was successfully updated.'
           expect(flash[:notice]).to eq(msg)
         end
@@ -655,14 +655,14 @@ describe AdminCensorRuleController do
           allow(CensorRule).to receive(:find) { censor_rule }
           allow(censor_rule).to receive(:expire_requests)
           put :update, :id => censor_rule.id,
-            :censor_rule => { :text => 'different text' }
+              :censor_rule => { :text => 'different text' }
 
           expect(censor_rule).to have_received(:expire_requests)
         end
 
         it 'redirects to the censor rule index' do
           put :update, :id => censor_rule.id,
-            :censor_rule => { :text => 'different text' }
+              :censor_rule => { :text => 'different text' }
 
           expect(response).to redirect_to(admin_censor_rules_path)
         end
@@ -731,7 +731,7 @@ describe AdminCensorRuleController do
           allow(CensorRule).to receive(:find) { censor_rule }
           allow(censor_rule).to receive(:expire_requests)
           put :update, :id => censor_rule.id,
-            :censor_rule => { :text => 'different text' }
+              :censor_rule => { :text => 'different text' }
 
           expect(censor_rule).to have_received(:expire_requests)
         end

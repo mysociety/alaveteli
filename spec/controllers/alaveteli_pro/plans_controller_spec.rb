@@ -151,8 +151,9 @@ describe AlaveteliPro::PlansController do
       context 'with an invalid plan' do
 
         it 'returns ActiveRecord::RecordNotFound' do
-          expect { get :show, id: 'invalid-123' }.
-            to raise_error(ActiveRecord::RecordNotFound)
+          expect {
+            get :show, id: 'invalid-123'
+          }.to raise_error(ActiveRecord::RecordNotFound)
         end
 
       end

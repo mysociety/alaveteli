@@ -129,7 +129,7 @@ describe AdminPublicBodyCategoriesController do
         params = FactoryBot.attributes_for(:public_body_category)
 
         post :create, :public_body_category => @params,
-          :headings => { "heading_#{ heading.id }" => heading.id }
+                      :headings => { "heading_#{ heading.id }" => heading.id }
 
         category = PublicBodyCategory.where(:title => @params[:translations_attributes]['en'][:title]).first
         expect(category.public_body_headings).to eq([heading])
@@ -314,7 +314,7 @@ describe AdminPublicBodyCategoriesController do
 
     it 'finds the category to update' do
       post :update, :id => @category.id,
-        :public_body_category => @params
+                    :public_body_category => @params
       expect(assigns(:public_body_category)).to eq(@category)
     end
 
@@ -329,7 +329,8 @@ describe AdminPublicBodyCategoriesController do
                          FactoryBot.create(:public_body, :tag_string => 'spec')]
 
       post :update, :id => category.id,
-        :public_body_category => category.serializable_hash.except(:title, :description)
+                    :public_body_category =>
+                      category.serializable_hash.except(:title, :description)
 
       expect(assigns(:tagged_public_bodies)).to match_array(expected_bodies)
     end
@@ -340,13 +341,13 @@ describe AdminPublicBodyCategoriesController do
       heading = FactoryBot.create(:public_body_heading)
 
       post :update, :id => @category.id,
-        :public_body_category => {
-        :translations_attributes => {
-          'en' => { :id => @category.translation_for(:en).id,
-                    :title => 'Renamed' }
-        }
-      },
-      :headings => { "heading_#{ heading.id }" => heading.id }
+                    :public_body_category => {
+                      :translations_attributes => {
+                        'en' => { :id => @category.translation_for(:en).id,
+                        :title => 'Renamed' }
+                      }
+                    },
+                    :headings => { "heading_#{ heading.id }" => heading.id }
 
       category = PublicBodyCategory.find(@category.id)
       expect(category.public_body_headings).to eq([heading])
@@ -358,7 +359,7 @@ describe AdminPublicBodyCategoriesController do
         body = FactoryBot.create(:public_body, :tag_string => @tag)
 
         post :update, :id => @category.id,
-          :public_body_category => { :category_tag => 'Renamed' }
+                      :public_body_category => { :category_tag => 'Renamed' }
 
 
         category = PublicBodyCategory.find(@category.id)
@@ -370,17 +371,17 @@ describe AdminPublicBodyCategoriesController do
         msg = %Q(There are authorities associated with this category,
                          so the tag can't be renamed).squish
 
-                         post :update, :id => @category.id,
-                           :public_body_category => { :category_tag => 'Renamed' }
+        post :update, :id => @category.id,
+                      :public_body_category => { :category_tag => 'Renamed' }
 
-                         expect(flash[:error]).to eq(msg)
+        expect(flash[:error]).to eq(msg)
       end
 
       it 'renders the edit action' do
         body = FactoryBot.create(:public_body, :tag_string => @tag)
 
         post :update, :id => @category.id,
-          :public_body_category => { :category_tag => 'Renamed' }
+                      :public_body_category => { :category_tag => 'Renamed' }
 
         expect(response).to render_template('edit')
       end
@@ -392,12 +393,14 @@ describe AdminPublicBodyCategoriesController do
       before(:each) do
         @params = { :id => @category.id,
                     :public_body_category => {
-          :translations_attributes => {
-            'en' => { :id => @category.translation_for(:en).id,
-                      :title => 'Renamed' }
-          }
-        }
-        }
+                      :translations_attributes => {
+                        'en' => {
+                          :id => @category.translation_for(:en).id,
+                          :title => 'Renamed'
+                        }
+                      }
+                    }
+                  }
       end
 
       it 'saves edits to a public body category' do
@@ -420,7 +423,7 @@ describe AdminPublicBodyCategoriesController do
         category = FactoryBot.create(:public_body_category, :category_tag => 'empty')
 
         post :update, :id => category.id,
-          :public_body_category => { :category_tag => 'Renamed' }
+                      :public_body_category => { :category_tag => 'Renamed' }
 
         category = PublicBodyCategory.find(category.id)
         expect(category.category_tag).to eq('Renamed')
@@ -620,13 +623,13 @@ describe AdminPublicBodyCategoriesController do
 
       it 'is rebuilt with the default locale translation' do
         post :update, :id => @category.id,
-          :public_body_category => @params
+                      :public_body_category => @params
         expect(assigns(:public_body_category).title(:en)).to eq('Need a description')
       end
 
       it 'is rebuilt with the alternative locale translation' do
         post :update, :id => @category.id,
-          :public_body_category => @params
+                      :public_body_category => @params
 
         AlaveteliLocalization.with_locale(:es) do
           expect(assigns(:public_body_category).title).to eq('Mi Nuevo Category')
@@ -644,7 +647,7 @@ describe AdminPublicBodyCategoriesController do
 
       category = FactoryBot.create(:public_body_category)
 
-      expect{
+      expect {
         post :destroy, :id => category.id
       }.to change{ PublicBodyCategory.count }.from(1).to(0)
     end
@@ -656,7 +659,7 @@ describe AdminPublicBodyCategoriesController do
       authority = FactoryBot.create(:public_body, :tag_string => tag)
       category = FactoryBot.create(:public_body_category, :category_tag => tag)
 
-      expect{
+      expect {
         post :destroy, :id => category.id
       }.to change{ PublicBodyCategory.count }.from(1).to(0)
     end

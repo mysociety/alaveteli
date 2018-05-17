@@ -137,19 +137,22 @@ describe AdminUserController do
     let(:pro_admin_user){ FactoryBot.create(:pro_admin_user) }
 
     it "is successful" do
-      get :show, { :id => FactoryBot.create(:user) }, { :user_id => admin_user.id }
+      get :show, { :id => FactoryBot.create(:user) },
+                 { :user_id => admin_user.id }
       expect(response).to be_success
     end
 
     it "assigns the user's info requests to the view" do
-      get :show, { :id => info_request.user }, { :user_id => admin_user.id }
+      get :show, { :id => info_request.user },
+                 { :user_id => admin_user.id }
       expect(assigns[:info_requests]).to eq([info_request])
     end
 
     it 'does not include embargoed requests if the current user is
         not a pro admin user' do
       info_request.create_embargo
-      get :show, { :id => info_request.user }, { :user_id => admin_user.id }
+      get :show, { :id => info_request.user },
+                 { :user_id => admin_user.id }
       expect(assigns[:info_requests]).to eq([])
     end
 
@@ -159,7 +162,8 @@ describe AdminUserController do
           not a pro admin user' do
         with_feature_enabled(:alaveteli_pro) do
           info_request.create_embargo
-          get :show, { :id => info_request.user }, { :user_id => admin_user.id }
+          get :show, { :id => info_request.user },
+                     { :user_id => admin_user.id }
           expect(assigns[:info_requests]).to eq([])
         end
       end
@@ -168,7 +172,8 @@ describe AdminUserController do
           and pro is enabled' do
         with_feature_enabled(:alaveteli_pro) do
           info_request.create_embargo
-          get :show, { :id => info_request.user }, { :user_id => pro_admin_user.id }
+          get :show, { :id => info_request.user }
+                     { :user_id => pro_admin_user.id }
           expect(assigns[:info_requests].include?(info_request)).to be true
         end
       end
@@ -178,7 +183,8 @@ describe AdminUserController do
     it "assigns the user's comments to the view" do
       comment = FactoryBot.create(:comment, :info_request => info_request,
                                             :user => info_request.user)
-      get :show, { :id => info_request.user }, { :user_id => admin_user.id }
+      get :show, { :id => info_request.user },
+                 { :user_id => admin_user.id }
       expect(assigns[:comments]).to eq([comment])
     end
 
@@ -187,7 +193,8 @@ describe AdminUserController do
       comment = FactoryBot.create(:comment, :info_request => info_request,
                                             :user => info_request.user)
       info_request.create_embargo
-      get :show, { :id => info_request.user }, { :user_id => admin_user.id }
+      get :show, { :id => info_request.user },
+                 { :user_id => admin_user.id }
       expect(assigns[:comments]).to eq([])
     end
 
@@ -199,7 +206,8 @@ describe AdminUserController do
           comment = FactoryBot.create(:comment, :info_request => info_request,
                                                 :user => info_request.user)
           info_request.create_embargo
-          get :show, { :id => info_request.user }, { :user_id => admin_user.id }
+          get :show, { :id => info_request.user },
+                     { :user_id => admin_user.id }
           expect(assigns[:comments]).to eq([])
         end
       end
@@ -210,7 +218,8 @@ describe AdminUserController do
           comment = FactoryBot.create(:comment, :info_request => info_request,
                                                 :user => info_request.user)
           info_request.create_embargo
-          get :show, { :id => info_request.user }, { :user_id => pro_admin_user.id }
+          get :show, { :id => info_request.user },
+                     { :user_id => pro_admin_user.id }
           expect(assigns[:comments]).to eq([comment])
         end
       end
@@ -231,13 +240,16 @@ describe AdminUserController do
       user = FactoryBot.create(:user)
       expect(user.can_make_batch_requests?).to be false
       post :update, { :id => user.id,
-                      :admin_user => { :can_make_batch_requests => '1',
-                                       :name => user.name,
-                                       :email => user.email,
-                                       :ban_text => user.ban_text,
-                                       :about_me => user.about_me,
-                                       :no_limit => user.no_limit,
-                                       :confirmed_not_spam => user.confirmed_not_spam } },
+                      :admin_user => {
+                        :can_make_batch_requests => '1',
+                        :name => user.name,
+                        :email => user.email,
+                        :ban_text => user.ban_text,
+                        :about_me => user.about_me,
+                        :no_limit => user.no_limit,
+                        :confirmed_not_spam => user.confirmed_not_spam
+                      }
+                    },
                     { :user_id => admin_user.id }
       expect(flash[:notice]).to eq('User successfully updated.')
       expect(response).to be_redirect
@@ -250,12 +262,15 @@ describe AdminUserController do
       FactoryBot.create(:user, :email => existing_email)
       user = FactoryBot.create(:user, :email => 'user1@localhost')
       post :update, { :id => user.id,
-                      :admin_user => { :name => user.name,
-                                       :email => existing_email,
-                                       :ban_text => user.ban_text,
-                                       :about_me => user.about_me,
-                                       :no_limit => user.no_limit,
-                                       :confirmed_not_spam => user.confirmed_not_spam } },
+                      :admin_user => {
+                        :name => user.name,
+                        :email => existing_email,
+                        :ban_text => user.ban_text,
+                        :about_me => user.about_me,
+                        :no_limit => user.no_limit,
+                        :confirmed_not_spam => user.confirmed_not_spam
+                      }
+                    },
                     { :user_id => admin_user.id }
       user = User.find(user.id)
       expect(user.email).to eq('user1@localhost')
@@ -266,12 +281,15 @@ describe AdminUserController do
       admin_role = Role.where(:name => 'admin').first
       expect(user.is_admin?).to be false
       post :update, { :id => user.id,
-                      :admin_user => { :name => user.name,
-                                       :ban_text => user.ban_text,
-                                       :about_me => user.about_me,
-                                       :role_ids => [ admin_role.id ],
-                                       :no_limit => user.no_limit,
-                                       :confirmed_not_spam => user.confirmed_not_spam } },
+                      :admin_user => {
+                        :name => user.name,
+                        :ban_text => user.ban_text,
+                        :about_me => user.about_me,
+                        :role_ids => [ admin_role.id ],
+                        :no_limit => user.no_limit,
+                        :confirmed_not_spam => user.confirmed_not_spam
+                      }
+                    },
                     { :user_id => admin_user.id }
       user = User.find(user.id)
       expect(user.is_admin?).to be true
@@ -280,11 +298,14 @@ describe AdminUserController do
     it "unsets the user's roles if no role ids are supplied" do
       expect(admin_user.is_admin?).to be true
       post :update, { :id => admin_user.id,
-                      :admin_user => { :name => admin_user.name,
-                                       :ban_text => admin_user.ban_text,
-                                       :about_me => admin_user.about_me,
-                                       :no_limit => admin_user.no_limit,
-                                       :confirmed_not_spam => admin_user.confirmed_not_spam} },
+                      :admin_user => {
+                        :name => admin_user.name,
+                        :ban_text => admin_user.ban_text,
+                        :about_me => admin_user.about_me,
+                        :no_limit => admin_user.no_limit,
+                        :confirmed_not_spam => admin_user.confirmed_not_spam
+                      }
+                    },
                     { :user_id => admin_user.id }
       user = User.find(admin_user.id)
       expect(user.is_admin?).to be false
@@ -295,12 +316,15 @@ describe AdminUserController do
       pro_role = Role.where(:name => 'pro').first
       expect(user.is_pro?).to be false
       post :update, { :id => user.id,
-                      :admin_user => { :name => user.name,
-                                       :ban_text => user.ban_text,
-                                       :about_me => user.about_me,
-                                        :role_ids => [pro_role.id],
-                                        :no_limit => user.no_limit,
-                                        :confirmed_not_spam => user.confirmed_not_spam} },
+                      :admin_user => {
+                        :name => user.name,
+                        :ban_text => user.ban_text,
+                        :about_me => user.about_me,
+                        :role_ids => [pro_role.id],
+                        :no_limit => user.no_limit,
+                        :confirmed_not_spam => user.confirmed_not_spam
+                      }
+                    },
                     { :user_id => admin_user.id }
       expect(flash[:error]).to eq("Not permitted to change roles")
       user = User.find(user.id)
@@ -312,12 +336,15 @@ describe AdminUserController do
       role_id = Role.maximum(:id) + 1
       expect(user.is_pro?).to be false
       post :update, { :id => user.id,
-                      :admin_user => { :name => user.name,
-                                       :ban_text => user.ban_text,
-                                       :about_me => user.about_me,
-                                        :role_ids => [role_id],
-                                        :no_limit => user.no_limit,
-                                        :confirmed_not_spam => user.confirmed_not_spam} },
+                      :admin_user => {
+                        :name => user.name,
+                        :ban_text => user.ban_text,
+                        :about_me => user.about_me,
+                        :role_ids => [role_id],
+                        :no_limit => user.no_limit,
+                        :confirmed_not_spam => user.confirmed_not_spam
+                      }
+                    },
                     { :user_id => admin_user.id }
       user = User.find(user.id)
       expect(user.is_pro?).to be false

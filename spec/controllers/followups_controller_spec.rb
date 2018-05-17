@@ -14,8 +14,9 @@ describe FollowupsController do
     context "when not logged in" do
       it 'raises an ActiveRecord::RecordNotFound error for an embargoed request' do
         embargoed_request = FactoryBot.create(:embargoed_request)
-        expect{ get :new, :request_id => embargoed_request.id }
-          .to raise_error(ActiveRecord::RecordNotFound)
+        expect {
+          get :new, :request_id => embargoed_request.id
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
@@ -41,7 +42,7 @@ describe FollowupsController do
     it "displays 'wrong user' message when not logged in as the request owner" do
       session[:user_id] = FactoryBot.create(:user).id
       get :new, :request_id => request.id,
-                         :incoming_message_id => message_id
+                :incoming_message_id => message_id
       expect(response).to render_template('user/wrong_user')
     end
 
@@ -100,7 +101,7 @@ describe FollowupsController do
         receive_incoming_mail('incoming-request-plain.email',
                               open_request.incoming_email, "Frob <frob@bonce.com>")
         get :new, :request_id => open_request.id,
-                           :incoming_message_id => open_request.incoming_messages[0].id
+                  :incoming_message_id => open_request.incoming_messages[0].id
         expect(response.body).to have_css("div#other_recipients ul li", :text => "Frob")
       end
 

@@ -249,7 +249,9 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
         it 'does not raise an error when trying to filter on plan name' do
           request.headers.merge! signed_headers
-          expect{ post :receive, payload }.not_to raise_error
+          expect {
+            post :receive, payload
+          }.not_to raise_error
         end
 
       end

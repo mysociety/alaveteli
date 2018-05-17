@@ -33,7 +33,9 @@ describe RequestController, "when listing recent requests" do
 
   it 'should not raise an error for a page param of less than zero, but should treat it as
         a param of 1' do
-    expect{ get :list, :view => 'all', :page => "-1" }.not_to raise_error
+    expect {
+      get :list, :view => 'all', :page => "-1"
+    }.not_to raise_error
     expect(assigns[:page]).to eq(1)
   end
 
@@ -148,14 +150,16 @@ describe RequestController, "when showing one request" do
   context 'when the request is embargoed' do
     it 'raises ActiveRecord::RecordNotFound' do
       embargoed_request = FactoryBot.create(:embargoed_request)
-      expect{ get :show, :url_title => embargoed_request.url_title }
-        .to raise_error(ActiveRecord::RecordNotFound)
+      expect {
+        get :show, :url_title => embargoed_request.url_title
+      }.to raise_error(ActiveRecord::RecordNotFound)
     end
 
     it "doesn't even redirect from a numeric id" do
       embargoed_request = FactoryBot.create(:embargoed_request)
-      expect{ get :show, :url_title => embargoed_request.id }
-        .to raise_error(ActiveRecord::RecordNotFound)
+      expect {
+        get :show, :url_title => embargoed_request.id
+      }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 
@@ -2289,8 +2293,9 @@ describe RequestController, "authority uploads a response from the web interface
     let(:embargoed_request){ FactoryBot.create(:embargoed_request)}
 
     it 'raises an ActiveRecord::RecordNotFound error' do
-      expect{get :upload_response, :url_title => embargoed_request.url_title }
-        .to raise_error(ActiveRecord::RecordNotFound)
+      expect {
+        get :upload_response, :url_title => embargoed_request.url_title
+      }.to raise_error(ActiveRecord::RecordNotFound)
     end
 
   end
@@ -2336,7 +2341,9 @@ describe RequestController, "authority uploads a response from the web interface
   end
 
   it 'should 404 for non existent requests' do
-    expect{ post :upload_response, :url_title => 'i_dont_exist'}.to raise_error(ActiveRecord::RecordNotFound)
+    expect {
+      post :upload_response, :url_title => 'i_dont_exist'
+    }.to raise_error(ActiveRecord::RecordNotFound)
   end
 
   # How do I test a file upload in rails?
@@ -2659,7 +2666,9 @@ describe RequestController, "#select_authorities" do
       context 'when asked for HTML' do
 
         it 'should be successful' do
-          get :select_authorities, {}, {:user_id => @user.id}
+          get :select_authorities,
+              {},
+              {:user_id => @user.id}
           expect(response).to be_success
         end
 
@@ -2674,29 +2683,38 @@ describe RequestController, "#select_authorities" do
         end
 
         it 'should render the "select_authorities" template' do
-          get :select_authorities, {}, {:user_id => @user.id}
+          get :select_authorities,
+              {},
+              { :user_id => @user.id }
           expect(response).to render_template('request/select_authorities')
         end
 
         it 'should assign a list of search results to the view if passed a query' do
-          get :select_authorities, {:public_body_query => "Quango"}, {:user_id => @user.id}
+          get :select_authorities,
+              { :public_body_query => "Quango" },
+              { :user_id => @user.id }
           expect(assigns[:search_bodies].results.size).to eq(1)
           expect(assigns[:search_bodies].results[0][:model].name).to eq(public_bodies(:geraldine_public_body).name)
         end
 
         it 'should assign a list of public bodies to the view if passed a list of ids' do
-          get :select_authorities, {:public_body_ids => [public_bodies(:humpadink_public_body).id]},
-            {:user_id => @user.id}
+          get :select_authorities,
+              { :public_body_ids => [public_bodies(:humpadink_public_body).id] },
+              { :user_id => @user.id }
           expect(assigns[:public_bodies].size).to eq(1)
           expect(assigns[:public_bodies][0].name).to eq(public_bodies(:humpadink_public_body).name)
         end
 
         it 'should subtract a list of public bodies to remove from the list of bodies assigned to
                     the view' do
-          get :select_authorities, {:public_body_ids => [public_bodies(:humpadink_public_body).id,
-                                                         public_bodies(:geraldine_public_body).id],
-          :remove_public_body_ids => [public_bodies(:geraldine_public_body).id]},
-            {:user_id => @user.id}
+          get :select_authorities,
+              { :public_body_ids =>
+                  [public_bodies(:humpadink_public_body).id,
+                   public_bodies(:geraldine_public_body).id],
+                :remove_public_body_ids =>
+                  [public_bodies(:geraldine_public_body).id]
+             },
+             { :user_id => @user.id }
           expect(assigns[:public_bodies].size).to eq(1)
           expect(assigns[:public_bodies][0].name).to eq(public_bodies(:humpadink_public_body).name)
         end
@@ -2706,26 +2724,33 @@ describe RequestController, "#select_authorities" do
       context 'when asked for JSON' do
 
         it 'should be successful' do
-          get :select_authorities, {:public_body_query => "Quan", :format => 'json'}, {:user_id => @user.id}
+          get :select_authorities,
+              { :public_body_query => "Quan",
+                :format => 'json' },
+              { :user_id => @user.id }
           expect(response).to be_success
         end
 
         it 'should return a list of public body names and ids' do
-          get :select_authorities, {:public_body_query => "Quan", :format => 'json'},
-            {:user_id => @user.id}
+          get :select_authorities,
+              { :public_body_query => "Quan",
+                :format => 'json' },
+              { :user_id => @user.id }
 
           expect(JSON(response.body)).to eq([{ 'id' => public_bodies(:geraldine_public_body).id,
                                            'name' => public_bodies(:geraldine_public_body).name }])
         end
 
         it 'should return an empty list if no search is passed' do
-          get :select_authorities, {:format => 'json' },{:user_id => @user.id}
+          get :select_authorities, { :format => 'json' },
+                                   { :user_id => @user.id }
           expect(JSON(response.body)).to eq([])
         end
 
         it 'should return an empty list if there are no bodies' do
-          get :select_authorities, {:public_body_query => 'fknkskalnr', :format => 'json' },
-            {:user_id => @user.id}
+          get :select_authorities, { :public_body_query => 'fknkskalnr',
+                                     :format => 'json' },
+                                   {:user_id => @user.id}
           expect(JSON(response.body)).to eq([])
         end
 
@@ -2742,7 +2767,9 @@ describe RequestController, "#select_authorities" do
       end
 
       it 'should return a 403 with an appropriate message' do
-        get :select_authorities, {}, {:user_id => @user.id}
+        get :select_authorities,
+            {},
+            { :user_id => @user.id }
         expect(response.code).to eq('403')
         expect(response.body).to match("Users cannot usually make batch requests to multiple authorities at once")
       end
@@ -2854,8 +2881,9 @@ describe RequestController do
       end
 
       it 'raises an ActiveRecord::RecordNotFound error' do
-        expect{ get :details, :url_title => info_request.url_title }
-          .to raise_error(ActiveRecord::RecordNotFound)
+        expect {
+          get :details, :url_title => info_request.url_title
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
@@ -2882,7 +2910,7 @@ describe RequestController do
 
     it 'assigns the last info request event id to the view' do
        get :describe_state_message, :url_title => info_request.url_title,
-                                   :described_state => 'error_message'
+                                    :described_state => 'error_message'
       expect(assigns[:last_info_request_event_id])
         .to eq info_request.last_event_id_needing_description
     end
@@ -2897,11 +2925,11 @@ describe RequestController do
       let(:info_request){ FactoryBot.create(:embargoed_request) }
 
       it 'raises ActiveRecord::RecordNotFound' do
-        expect{ get :describe_state_message,
-                      :url_title => info_request.url_title,
-                      :described_state => 'error_message' }
-          .to raise_error(ActiveRecord::RecordNotFound)
-
+        expect {
+          get :describe_state_message,
+              :url_title => info_request.url_title,
+              :described_state => 'error_message'
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
 
     end
@@ -2920,9 +2948,9 @@ describe RequestController do
 
       context 'and the user is not logged in' do
         it 'raises ActiveRecord::RecordNotFound' do
-          expect{ get :download_entire_request,
-                      :url_title => info_request.url_title }
-            .to raise_error(ActiveRecord::RecordNotFound)
+          expect {
+            get :download_entire_request, :url_title => info_request.url_title
+          }.to raise_error(ActiveRecord::RecordNotFound)
         end
       end
 
@@ -2932,9 +2960,9 @@ describe RequestController do
         end
 
         it 'raises ActiveRecord::RecordNotFound' do
-          expect{ get :download_entire_request,
-                      :url_title => info_request.url_title }
-            .to raise_error(ActiveRecord::RecordNotFound)
+          expect {
+            get :download_entire_request, :url_title => info_request.url_title
+          }.to raise_error(ActiveRecord::RecordNotFound)
         end
       end
 
@@ -2990,8 +3018,9 @@ describe RequestController do
 
       it 'raises ActiveRecord::RecordNotFound when the request is embargoed' do
         event.info_request.create_embargo(:publish_at => Time.zone.now + 1.day)
-        expect{ get :show_request_event, :info_request_event_id => event.id }
-          .to raise_error ActiveRecord::RecordNotFound
+        expect {
+          get :show_request_event, :info_request_event_id => event.id
+        }.to raise_error ActiveRecord::RecordNotFound
       end
     end
 
@@ -3011,8 +3040,9 @@ describe RequestController do
 
       it 'raises ActiveRecord::RecordNotFound when the request is embargoed' do
         event.info_request.create_embargo(:publish_at => Time.zone.now + 1.day)
-        expect{ get :show_request_event, :info_request_event_id => event.id }
-          .to raise_error ActiveRecord::RecordNotFound
+        expect {
+          get :show_request_event, :info_request_event_id => event.id
+        }.to raise_error ActiveRecord::RecordNotFound
       end
     end
 
@@ -3032,8 +3062,9 @@ describe RequestController do
 
       it 'raises ActiveRecord::RecordNotFound when the request is embargoed' do
         event.info_request.create_embargo(:publish_at => Time.zone.now + 1.day)
-        expect{ get :show_request_event, :info_request_event_id => event.id }
-          .to raise_error ActiveRecord::RecordNotFound
+        expect {
+          get :show_request_event, :info_request_event_id => event.id
+        }.to raise_error ActiveRecord::RecordNotFound
       end
     end
   end
@@ -3041,7 +3072,9 @@ describe RequestController do
   describe 'GET #search_typeahead' do
 
     it "does not raise an error if there are no params" do
-      expect{ get :search_typeahead }.not_to raise_error
+      expect {
+        get :search_typeahead
+      }.not_to raise_error
     end
 
   end

@@ -24,14 +24,16 @@ describe UserController do
 
     it 'raises a RecordNotFound for non-existent users' do
       user.destroy!
-      expect { get :show, url_name: user.url_name }.
-        to raise_error(ActiveRecord::RecordNotFound)
+      expect {
+        get :show, url_name: user.url_name
+      }.to raise_error(ActiveRecord::RecordNotFound)
     end
 
     it 'raises a RecordNotFound for unconfirmed users' do
       user = FactoryBot.create(:user, email_confirmed: false)
-      expect { get :show, url_name: user.url_name }.
-        to raise_error(ActiveRecord::RecordNotFound)
+      expect {
+        get :show, url_name: user.url_name
+      }.to raise_error(ActiveRecord::RecordNotFound)
     end
 
     # TODO: Use route_for or params_from to check /c/ links better
@@ -696,14 +698,14 @@ describe UserController, "when signing up" do
     end
 
     it "shows the confirmation page for valid credentials" do
-      post :signup,
-           { :user_signup => {
-             :email => user.email,
-             :name => user.name,
-             :password => 'jonespassword',
-             :password_confirmation => 'jonespassword' }
-           },
-           { :user_id => user.id }
+      post :signup, { :user_signup => {
+                        :email => user.email,
+                        :name => user.name,
+                        :password => 'jonespassword',
+                        :password_confirmation => 'jonespassword'
+                      }
+                    },
+                    { :user_id => user.id }
       expect(response).to render_template('confirm')
     end
 

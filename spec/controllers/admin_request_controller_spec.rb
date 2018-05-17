@@ -55,7 +55,8 @@ describe AdminRequestController, "when administering requests" do
 
       it 'assigns info requests with titles matching the query to the view
           case insensitively' do
-        get :index, { :query => 'Cat' }, { :user_id => admin_user.id }
+        get :index, { :query => 'Cat' },
+                    { :user_id => admin_user.id }
         expect(assigns[:info_requests].include?(dog_request)).to be false
         expect(assigns[:info_requests].include?(cat_request)).to be true
       end
@@ -63,7 +64,8 @@ describe AdminRequestController, "when administering requests" do
       it 'does not include embargoed requests if the current user is an
           admin user' do
         cat_request.create_embargo
-        get :index, { :query => 'cat' }, { :user_id => admin_user.id }
+        get :index, { :query => 'cat' },
+                    { :user_id => admin_user.id }
         expect(assigns[:info_requests].include?(cat_request)).to be false
       end
 
@@ -72,7 +74,8 @@ describe AdminRequestController, "when administering requests" do
             admin user' do
           with_feature_enabled(:alaveteli_pro) do
             cat_request.create_embargo
-            get :index, { :query => 'cat' }, { :user_id => admin_user.id }
+            get :index, { :query => 'cat' },
+                        { :user_id => admin_user.id }
             expect(assigns[:info_requests].include?(cat_request)).to be false
           end
         end
@@ -81,7 +84,8 @@ describe AdminRequestController, "when administering requests" do
             is a pro admin user' do
           with_feature_enabled(:alaveteli_pro) do
             cat_request.create_embargo
-            get :index, { :query => 'cat' }, { :user_id => pro_admin_user.id }
+            get :index, { :query => 'cat' },
+                        { :user_id => pro_admin_user.id }
             expect(assigns[:info_requests].include?(cat_request)).to be true
           end
         end
@@ -105,7 +109,8 @@ describe AdminRequestController, "when administering requests" do
     end
 
     it 'shows an external info request with no username' do
-      get :show, { :id => external_request }, { :user_id => admin_user.id }
+      get :show, { :id => external_request },
+                 { :user_id => admin_user.id }
       expect(response).to be_success
     end
 
@@ -116,24 +121,27 @@ describe AdminRequestController, "when administering requests" do
       end
 
       it 'raises ActiveRecord::RecordNotFound for an admin user' do
-        expect{ get :show, { :id => info_request.id },
-                           { :user_id => admin_user.id } }.
-          to raise_error ActiveRecord::RecordNotFound
+        expect {
+          get :show, { :id => info_request.id },
+                     { :user_id => admin_user.id }
+        }.to raise_error ActiveRecord::RecordNotFound
       end
 
       context 'with pro enabled' do
 
         it 'raises ActiveRecord::RecordNotFound for an admin user' do
           with_feature_enabled(:alaveteli_pro) do
-            expect{ get :show, { :id => info_request.id },
-                               { :user_id => admin_user.id } }.
-              to raise_error ActiveRecord::RecordNotFound
+            expect {
+              get :show, { :id => info_request.id },
+                         { :user_id => admin_user.id }
+            }.to raise_error ActiveRecord::RecordNotFound
           end
         end
 
         it 'is successful for a pro admin user' do
           with_feature_enabled(:alaveteli_pro) do
-            get :show, { :id => info_request.id }, { :user_id => pro_admin_user.id }
+            get :show, { :id => info_request.id },
+                       { :user_id => pro_admin_user.id }
             expect(response).to be_success
           end
         end
@@ -212,7 +220,9 @@ describe AdminRequestController, "when administering requests" do
     let(:info_request){ FactoryBot.create(:info_request) }
 
     it "hides requests and sends a notification email that it has done so" do
-      post :hide, :id => info_request.id, :explanation => "Foo", :reason => "vexatious"
+      post :hide, :id => info_request.id,
+                  :explanation => "Foo",
+                  :reason => "vexatious"
       info_request.reload
       expect(info_request.prominence).to eq("requester_only")
       expect(info_request.described_state).to eq("vexatious")
@@ -225,7 +235,9 @@ describe AdminRequestController, "when administering requests" do
     it 'expires the file cache for the request' do
       allow(InfoRequest).to receive(:find).with(info_request.id.to_s).and_return(info_request)
       expect(info_request).to receive(:expire)
-      post :hide, :id => info_request.id, :explanation => "Foo", :reason => "vexatious"
+      post :hide, :id => info_request.id,
+                  :explanation => "Foo",
+                  :reason => "vexatious"
     end
 
     context 'when hiding an external request' do
@@ -253,8 +265,8 @@ describe AdminRequestController, "when administering requests" do
       it 'should redirect the the admin page for the request' do
         make_request
         expect(response).to redirect_to(:controller => 'admin_request',
-                                    :action => 'show',
-                                    :id => @info_request.id)
+                                        :action => 'show',
+                                        :id => @info_request.id)
       end
 
       it 'should set the request prominence to "requester_only"' do

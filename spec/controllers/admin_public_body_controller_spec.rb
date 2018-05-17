@@ -30,12 +30,14 @@ describe AdminPublicBodyController do
     let(:pro_admin_user){ FactoryBot.create(:pro_admin_user) }
 
     it "returns successfully" do
-      get :show, { :id => public_body.id }, { :user_id => admin_user.id }
+      get :show, { :id => public_body.id },
+                 { :user_id => admin_user.id }
       expect(response).to be_success
     end
 
     it "sets a using_admin flag" do
-      get :show, { :id => public_body.id}, { :user_id => admin_user.id }
+      get :show, { :id => public_body.id},
+                 { :user_id => admin_user.id }
       expect(session[:using_admin]).to eq(1)
     end
 
@@ -52,7 +54,8 @@ describe AdminPublicBodyController do
     it 'does not include embargoed requests if the current user is
         not a pro admin user' do
       info_request.create_embargo
-      get :show, { :id => public_body.id }, { :user_id => admin_user.id }
+      get :show, { :id => public_body.id },
+                 { :user_id => admin_user.id }
       expect(assigns[:info_requests].include?(info_request)).to be false
     end
 
@@ -62,7 +65,8 @@ describe AdminPublicBodyController do
           not a pro admin user' do
         with_feature_enabled(:alaveteli_pro) do
           info_request.create_embargo
-          get :show, { :id => public_body.id }, { :user_id => admin_user.id }
+          get :show, { :id => public_body.id },
+                     { :user_id => admin_user.id }
           expect(assigns[:info_requests].include?(info_request)).to be false
         end
       end
@@ -72,7 +76,8 @@ describe AdminPublicBodyController do
           user' do
         with_feature_enabled(:alaveteli_pro) do
           info_request.create_embargo
-          get :show, { :id => public_body.id }, { :user_id => pro_admin_user.id }
+          get :show, { :id => public_body.id },
+                     { :user_id => pro_admin_user.id }
           expect(assigns[:info_requests].include?(info_request)).to be true
         end
       end
@@ -431,14 +436,16 @@ describe AdminPublicBodyController do
       it 'saves edits to a public body heading in another locale' do
         expect(@body.name(:es)).to eq('Los Quango')
         post :update, :id => @body.id,
-        :public_body => {
-          :name => @body.name(:en),
-          :translations_attributes => {
-            'es' => { :id => @body.translation_for(:es).id,
-                      :locale => 'es',
-                      :name => 'Renamed' }
-          }
-        }
+                      :public_body => {
+                        :name => @body.name(:en),
+                        :translations_attributes => {
+                          'es' => {
+                            :id => @body.translation_for(:es).id,
+                            :locale => 'es',
+                            :name => 'Renamed'
+                          }
+                        }
+                      }
 
         body = PublicBody.find(@body.id)
         expect(body.name(:es)).to eq('Renamed')
@@ -709,7 +716,9 @@ describe AdminPublicBodyController do
                      :original_csv_file => 'original_contents.txt',
                      :commit => 'Dry run'}
           expected_error = "Invalid filename in upload_csv: bad_name"
-          expect{ post :import_csv, params }.to raise_error(expected_error)
+          expect {
+            post :import_csv, params
+          }.to raise_error(expected_error)
         end
 
         it 'should raise an error if the temp file does not exist' do

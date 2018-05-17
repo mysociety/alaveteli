@@ -20,9 +20,7 @@ describe "When searching" do
   end
 
   it "should correctly execute simple search" do
-    request_via_redirect("get", "/search",
-                         :query => 'bob'
-                         )
+    request_via_redirect("get", "/search", :query => 'bob')
     expect(response.body).to include("FOI requests")
   end
 
@@ -78,7 +76,7 @@ describe "When searching" do
 
     request_via_redirect("get", "/search/requests",
                          :query => "daftest",
-                         :request_variety => ['response','sent'])
+                         :request_variety => ['response', 'sent'])
     expect(response.body).to include("no results matching your query")
   end
 

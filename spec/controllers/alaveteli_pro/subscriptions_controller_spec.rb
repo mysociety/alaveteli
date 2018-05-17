@@ -652,8 +652,9 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
       end
 
       it 'raise an error' do
-        expect { delete :destroy, id: '123' }.
-          to raise_error ActiveRecord::RecordNotFound
+        expect {
+          delete :destroy, id: '123'
+        }.to raise_error ActiveRecord::RecordNotFound
       end
 
     end
@@ -712,8 +713,9 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
         it 'raises an error' do
           session[:user_id] = user.id
-          expect { delete :destroy, id: other_subscription.id }.
-            to raise_error ActiveRecord::RecordNotFound
+          expect {
+            delete :destroy, id: other_subscription.id
+          }.to raise_error ActiveRecord::RecordNotFound
         end
       end
 
