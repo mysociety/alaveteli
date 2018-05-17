@@ -12,9 +12,9 @@ describe AnnouncementsController do
         before { session[:user_id] = user.id }
 
         it 'creates dismissal' do
-          expect { delete :destroy, id: announcement.id }.to change(
-            AnnouncementDismissal, :count).by(1)
-
+          expect {
+            delete :destroy, id: announcement.id
+          }.to change(AnnouncementDismissal, :count).by(1)
         end
 
         it 'returns 200 status' do

@@ -78,9 +78,7 @@ describe PublicBodyController, "when showing a body" do
     # Make two get requests to simulate the flash getting swept after the
     # first response.
     search_params = { 'query' => 'Quango' }
-    get :show, { :url_name => 'dfh', :view => 'all' },
-      nil,
-      { :search_params => search_params }
+    get :show, { :url_name => 'dfh', :view => 'all' }, nil, { :search_params => search_params }
     get :show, :url_name => 'dfh', :view => 'all'
     expect(flash[:search_params]).to eq(search_params)
   end
@@ -372,8 +370,9 @@ describe PublicBodyController, "when listing bodies" do
   end
 
   it 'raises an UnknownFormat error if asked for a json version of a list' do
-    expect { get :list, :format => 'json' }.
-      to raise_error(ActionController::UnknownFormat)
+    expect {
+      get :list, :format => 'json'
+    }.to raise_error(ActionController::UnknownFormat)
   end
 
   it "should list authorities starting with a multibyte first letter" do

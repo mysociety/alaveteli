@@ -14,8 +14,9 @@ describe FollowupsController do
     context "when not logged in" do
       it 'raises an ActiveRecord::RecordNotFound error for an embargoed request' do
         embargoed_request = FactoryBot.create(:embargoed_request)
-        expect{ get :new, :request_id => embargoed_request.id }
-          .to raise_error(ActiveRecord::RecordNotFound)
+        expect {
+          get :new, :request_id => embargoed_request.id
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
@@ -33,15 +34,15 @@ describe FollowupsController do
 
       it 'raises an ActiveRecord::RecordNotFound error for other embargoed requests' do
         embargoed_request = FactoryBot.create(:embargoed_request)
-        expect{ get :new, :request_id => embargoed_request.id }
-          .to raise_error(ActiveRecord::RecordNotFound)
+        expect {
+          get :new, :request_id => embargoed_request.id
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
     it "displays 'wrong user' message when not logged in as the request owner" do
       session[:user_id] = FactoryBot.create(:user).id
-      get :new, :request_id => request.id,
-                         :incoming_message_id => message_id
+      get :new, :request_id => request.id, :incoming_message_id => message_id
       expect(response).to render_template('user/wrong_user')
     end
 
@@ -99,8 +100,7 @@ describe FollowupsController do
                                          :allow_new_responses_from => "anybody")
         receive_incoming_mail('incoming-request-plain.email',
                               open_request.incoming_email, "Frob <frob@bonce.com>")
-        get :new, :request_id => open_request.id,
-                           :incoming_message_id => open_request.incoming_messages[0].id
+        get :new, :request_id => open_request.id, :incoming_message_id => open_request.incoming_messages[0].id
         expect(response.body).to have_css("div#other_recipients ul li", :text => "Frob")
       end
 
@@ -118,9 +118,7 @@ describe FollowupsController do
 
         it 'responds to a json request with a 403' do
           incoming_message_id = hidden_request.incoming_messages[0].id
-          get :new, :request_id => hidden_request.id,
-                    :incoming_message_id => incoming_message_id,
-                    :format => 'json'
+          get :new, :request_id => hidden_request.id, :incoming_message_id => incoming_message_id, :format => 'json'
           expect(response.code).to eq('403')
         end
 
@@ -173,15 +171,13 @@ describe FollowupsController do
     context "when not logged in" do
       it 'raises an ActiveRecord::RecordNotFound error for an embargoed request' do
         embargoed_request = FactoryBot.create(:embargoed_request)
-        expect{ post :preview, :outgoing_message => dummy_message,
-                               :request_id => embargoed_request.id }
-          .to raise_error(ActiveRecord::RecordNotFound)
+        expect {
+          post :preview, :outgoing_message => dummy_message, :request_id => embargoed_request.id
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
 
       it "redirects to the signin page" do
-        post :preview, :outgoing_message => dummy_message,
-                       :request_id => request.id,
-                       :incoming_message_id => message_id
+        post :preview, :outgoing_message => dummy_message, :request_id => request.id, :incoming_message_id => message_id
         expect(response).
           to redirect_to(signin_url(:token => get_last_post_redirect.token))
       end
@@ -195,24 +191,21 @@ describe FollowupsController do
       it 'finds their own embargoed requests' do
         embargoed_request = FactoryBot.create(:embargoed_request,
                                               user: pro_user)
-        post :preview, :outgoing_message => dummy_message,
-                       :request_id => embargoed_request.id
+        post :preview, :outgoing_message => dummy_message, :request_id => embargoed_request.id
         expect(response).to be_success
       end
 
       it 'raises an ActiveRecord::RecordNotFound error for other embargoed requests' do
         embargoed_request = FactoryBot.create(:embargoed_request)
-        expect{ post :preview, :outgoing_message => dummy_message,
-                               :request_id => embargoed_request.id }
-          .to raise_error(ActiveRecord::RecordNotFound)
+        expect {
+          post :preview, :outgoing_message => dummy_message, :request_id => embargoed_request.id
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
     it "displays a wrong user message when not logged in as the request owner" do
       session[:user_id] = FactoryBot.create(:user).id
-      post :preview, :outgoing_message => dummy_message,
-                     :request_id => request.id,
-                     :incoming_message_id => message_id
+      post :preview, :outgoing_message => dummy_message, :request_id => request.id, :incoming_message_id => message_id
       expect(response).to render_template('user/wrong_user')
     end
 
@@ -223,29 +216,19 @@ describe FollowupsController do
       end
 
       it "displays the edit form with an error when the message body is blank" do
-        post :preview, :request_id => request.id,
-                       :outgoing_message => {
-                         :body => "",
-                         :what_doing => "normal_sort" },
-                       :incoming_message_id => message_id
+        post :preview, :request_id => request.id, :outgoing_message => { :body => "", :what_doing => "normal_sort" }, :incoming_message_id => message_id
 
         expect(response).to render_template("new")
         expect(response.body).to include("Please enter your follow up message")
       end
 
       it "shows a preview when input is good" do
-        post :preview, :outgoing_message => dummy_message,
-                       :request_id => request.id,
-                       :incoming_message_id => message_id,
-                       :preview => 1
+        post :preview, :outgoing_message => dummy_message, :request_id => request.id, :incoming_message_id => message_id, :preview => 1
         expect(response).to render_template('preview')
       end
 
       it "allows re-editing of a preview" do
-        post :preview, :outgoing_message => dummy_message,
-                       :request_id => request.id,
-                       :incoming_message_id => message_id,
-                       :reedit => "Re-edit this request"
+        post :preview, :outgoing_message => dummy_message, :request_id => request.id, :incoming_message_id => message_id, :reedit => "Re-edit this request"
         expect(response).to render_template('new')
       end
 
@@ -286,15 +269,13 @@ describe FollowupsController do
 
       it 'raises an ActiveRecord::RecordNotFound error for an embargoed request' do
         embargoed_request = FactoryBot.create(:embargoed_request)
-        expect{ post :create, :outgoing_message => dummy_message,
-                              :request_id => embargoed_request.id }
-          .to raise_error(ActiveRecord::RecordNotFound)
+        expect {
+          post :create, :outgoing_message => dummy_message, :request_id => embargoed_request.id
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
 
       it "redirects to the signin page" do
-        post :create, :outgoing_message => dummy_message,
-                      :request_id => request.id,
-                      :incoming_message_id => message_id
+        post :create, :outgoing_message => dummy_message, :request_id => request.id, :incoming_message_id => message_id
         expect(response).
           to redirect_to(signin_url(:token => get_last_post_redirect.token))
       end
@@ -309,31 +290,26 @@ describe FollowupsController do
         embargoed_request = FactoryBot.create(:embargoed_request,
                                               user: pro_user)
         expected_url = show_request_url(:url_title => embargoed_request.url_title)
-        post :create, :outgoing_message => dummy_message,
-                      :request_id => embargoed_request.id
+        post :create, :outgoing_message => dummy_message, :request_id => embargoed_request.id
         expect(response).to redirect_to(expected_url)
       end
 
       it 'raises an ActiveRecord::RecordNotFound error for other embargoed requests' do
         embargoed_request = FactoryBot.create(:embargoed_request)
-        expect{ post :create, :outgoing_message => dummy_message,
-                              :request_id => embargoed_request.id }
-          .to raise_error(ActiveRecord::RecordNotFound)
+        expect {
+          post :create, :outgoing_message => dummy_message, :request_id => embargoed_request.id
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
     it "only allows the request owner to make a followup" do
       session[:user_id] = FactoryBot.create(:user).id
-      post :create, :outgoing_message => dummy_message,
-                    :request_id => request.id,
-                    :incoming_message_id => message_id
+      post :create, :outgoing_message => dummy_message, :request_id => request.id, :incoming_message_id => message_id
       expect(response).to render_template('user/wrong_user')
     end
 
     it "gives an error and renders 'show_response' when a body isn't given" do
-      post :create, :outgoing_message => dummy_message.merge(:body => ''),
-                    :request_id => request.id,
-                    :incoming_message_id => message_id
+      post :create, :outgoing_message => dummy_message.merge(:body => ''), :request_id => request.id, :incoming_message_id => message_id
 
       expect(assigns[:outgoing_message].errors[:body]).
         to eq(["Please enter your follow up message"])
@@ -341,9 +317,7 @@ describe FollowupsController do
     end
 
     it "sends the follow up message" do
-      post :create, :outgoing_message => dummy_message,
-                    :request_id => request.id,
-                    :incoming_message_id => message_id
+      post :create, :outgoing_message => dummy_message, :request_id => request.id, :incoming_message_id => message_id
 
       # check it worked
       deliveries = ActionMailer::Base.deliveries
@@ -354,9 +328,7 @@ describe FollowupsController do
     end
 
     it "updates the status for successful followup sends" do
-      post :create, :outgoing_message => dummy_message,
-                    :request_id => request.id,
-                    :incoming_message_id => message_id
+      post :create, :outgoing_message => dummy_message, :request_id => request.id, :incoming_message_id => message_id
 
       expect(request.reload.described_state).to eq('waiting_response')
     end
@@ -364,27 +336,21 @@ describe FollowupsController do
     it "updates the event status for successful followup sends if the request is waiting clarification" do
       request.set_described_state('waiting_clarification')
 
-      post :create, :outgoing_message => dummy_message,
-                    :request_id => request.id,
-                    :incoming_message_id => message_id
+      post :create, :outgoing_message => dummy_message, :request_id => request.id, :incoming_message_id => message_id
 
       expect(request.reload.get_last_public_response_event.calculated_state).
         to eq('waiting_clarification')
     end
 
     it "redirects to the request page" do
-      post :create, :outgoing_message => dummy_message,
-                    :request_id => request.id,
-                    :incoming_message_id => message_id
+      post :create, :outgoing_message => dummy_message, :request_id => request.id, :incoming_message_id => message_id
 
       expect(response).
         to redirect_to(show_request_url(:url_title => request.url_title))
     end
 
     it "displays the a confirmation once the message has been sent" do
-      post :create, :outgoing_message => dummy_message,
-                    :request_id => request.id,
-                    :incoming_message_id => message_id
+      post :create, :outgoing_message => dummy_message, :request_id => request.id, :incoming_message_id => message_id
       expect(flash[:notice]).to eq('Your follow up message has been sent on its way.')
     end
 
@@ -393,9 +359,7 @@ describe FollowupsController do
                                          :user => request_user,
                                          :allow_new_responses_from => "nobody")
 
-      post :create, :outgoing_message => dummy_message,
-                    :request_id => closed_request.id,
-                    :incoming_message_id => closed_request.incoming_messages[0].id
+      post :create, :outgoing_message => dummy_message, :request_id => closed_request.id, :incoming_message_id => closed_request.incoming_messages[0].id
       deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(0)
 
@@ -411,13 +375,9 @@ describe FollowupsController do
     context "the same followup is submitted twice" do
 
       before(:each) do
-        post :create, :outgoing_message => dummy_message,
-                      :request_id => request.id,
-                      :incoming_message_id => message_id
+        post :create, :outgoing_message => dummy_message, :request_id => request.id, :incoming_message_id => message_id
 
-        post :create, :outgoing_message => dummy_message,
-                      :request_id => request.id,
-                      :incoming_message_id => message_id
+        post :create, :outgoing_message => dummy_message, :request_id => request.id, :incoming_message_id => message_id
       end
 
       it "displays the form with an error message" do

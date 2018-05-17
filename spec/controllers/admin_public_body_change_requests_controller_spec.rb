@@ -25,9 +25,7 @@ describe AdminPublicBodyChangeRequestsController, 'updating a change request' do
   context 'when a response and subject are passed' do
 
     it 'should send a response email to the user who requested the change' do
-      post :update, { :id => @change_request.id,
-                      :response => 'Thanks but no',
-                      :subject => 'Your request' }
+      post :update, { :id => @change_request.id, :response => 'Thanks but no', :subject => 'Your request' }
       deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
       mail = deliveries[0]

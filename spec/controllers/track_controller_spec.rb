@@ -25,21 +25,18 @@ describe TrackController do
       session[:user_id] = user.id
       request.cookies['widget_vote'] = mock_cookie
 
-      get :track_request, :url_title => info_request.url_title,
-                          :feed => 'track'
+      get :track_request, :url_title => info_request.url_title, :feed => 'track'
       expect(info_request.reload.widget_votes).to be_empty
     end
 
     it "should require login when making new track" do
-      get :track_request, :url_title => info_request.url_title,
-                          :feed => 'track'
+      get :track_request, :url_title => info_request.url_title, :feed => 'track'
       expect(response)
         .to redirect_to(signin_path(:token => get_last_post_redirect.token))
     end
 
     it "should set no-cache headers on the login redirect" do
-      get :track_request, :url_title => info_request.url_title,
-                          :feed => 'track'
+      get :track_request, :url_title => info_request.url_title, :feed => 'track'
       expect(response.headers["Cache-Control"]).
         to eq('no-cache, no-store, max-age=0, must-revalidate')
       expect(response.headers['Pragma']).to eq('no-cache')
@@ -50,8 +47,7 @@ describe TrackController do
       session[:user_id] = user.id
       allow(TrackThing).to receive(:create_track_for_request).and_return(track_thing)
       expect(track_thing).to receive(:save).and_call_original
-      get :track_request, :url_title => info_request.url_title,
-                          :feed => 'track'
+      get :track_request, :url_title => info_request.url_title, :feed => 'track'
       expect(response).to redirect_to(:controller => 'request',
                                       :action => 'show',
                                       :url_title => info_request.url_title)
@@ -59,17 +55,17 @@ describe TrackController do
 
     it "should 404 for non-existent requests" do
       session[:user_id] = user.id
-      expect { get :track_request, :url_title => "hjksfdh_louytu_qqxxx",
-                                   :feed => 'track' }
-        .to raise_error(ActiveRecord::RecordNotFound)
+      expect {
+        get :track_request, :url_title => "hjksfdh_louytu_qqxxx", :feed => 'track'
+      }.to raise_error(ActiveRecord::RecordNotFound)
     end
 
     it "should 404 for embargoed requests" do
       session[:user_id] = user.id
       embargoed_request = FactoryBot.create(:embargoed_request)
-      expect { get :track_request, :url_title => embargoed_request.url_title,
-                                   :feed => 'track' }
-        .to raise_error(ActiveRecord::RecordNotFound)
+      expect {
+        get :track_request, :url_title => embargoed_request.url_title, :feed => 'track'
+      }.to raise_error(ActiveRecord::RecordNotFound)
     end
 
     context 'when getting feeds' do
@@ -83,8 +79,7 @@ describe TrackController do
 
         track_thing = track_things(:track_fancy_dog_request)
 
-        get :track_request, :feed => 'feed',
-                            :url_title => track_thing.info_request.url_title
+        get :track_request, :feed => 'feed', :url_title => track_thing.info_request.url_title
         expect(response).to render_template('track/atom_feed')
         expect(response.content_type).to eq('application/atom+xml')
         # TODO: should check it is an atom.builder type being rendered,
@@ -101,9 +96,7 @@ describe TrackController do
           it "should get JSON version of the feed" do
         track_thing = track_things(:track_fancy_dog_request)
 
-        get :track_request, :feed => 'feed',
-                            :url_title => track_thing.info_request.url_title,
-                            :format => "json"
+        get :track_request, :feed => 'feed', :url_title => track_thing.info_request.url_title, :format => "json"
 
         a = JSON.parse(response.body)
         expect(a.class.to_s).to eq('Array')
@@ -140,8 +133,7 @@ describe TrackController do
             requester prefers json' do
         request.env['HTTP_ACCEPT'] = 'application/json,text/xml'
         track_thing = FactoryBot.create(:request_update_track)
-        get :track_request, :feed => 'feed',
-                            :url_title => track_thing.info_request.url_title
+        get :track_request, :feed => 'feed', :url_title => track_thing.info_request.url_title
         expect(response).to render_template('track/atom_feed')
         expect(response.content_type).to eq('application/atom+xml')
       end
@@ -170,9 +162,7 @@ describe TrackController do
     it 'sets the flash message partial for a successful track' do
       session[:user_id] = user.id
 
-      get :track_search_query,
-          :query_array => 'bob variety:sent',
-          :feed => 'track'
+      get :track_search_query, :query_array => 'bob variety:sent', :feed => 'track'
 
       expected = {
         :partial => 'track/track_set',
@@ -193,9 +183,7 @@ describe TrackController do
                           :track_medium => 'email_daily',
                           :track_query => 'bob variety:sent')
 
-      get :track_search_query,
-          :query_array => 'bob variety:sent',
-          :feed => 'track'
+      get :track_search_query, :query_array => 'bob variety:sent', :feed => 'track'
 
       expected = {
         :partial => 'track/already_tracking',
@@ -234,8 +222,7 @@ describe TrackController do
                                    :public_body => public_body)
       allow(TrackThing).to receive(:create_track_for_public_body).and_return(track_thing)
       expect(track_thing).to receive(:save).and_call_original
-      get :track_public_body, :url_name => public_body.url_name,
-                              :feed => 'track', :event_type => 'sent'
+      get :track_public_body, :url_name => public_body.url_name, :feed => 'track', :event_type => 'sent'
       expect(response).to redirect_to("/body/#{public_body.url_name}")
     end
 
@@ -245,15 +232,13 @@ describe TrackController do
                                   :public_body => public_body,
                                   :track_query => "lorem ipsum " * 42)
       allow(TrackThing).to receive(:create_track_for_public_body).and_return(long_track)
-      get :track_public_body, :url_name => public_body.url_name,
-                              :feed => 'track', :event_type => 'sent'
+      get :track_public_body, :url_name => public_body.url_name, :feed => 'track', :event_type => 'sent'
       expect(flash[:error]).to match('too long')
       expect(response).to redirect_to("/body/#{public_body.url_name}")
     end
 
     it "should work" do
-      get :track_public_body, :feed => 'feed',
-                              :url_name => public_body.url_name
+      get :track_public_body, :feed => 'feed', :url_name => public_body.url_name
       expect(response).to be_success
       expect(response).to render_template('track/atom_feed')
       tt = assigns[:track_thing]
@@ -263,9 +248,7 @@ describe TrackController do
     end
 
     it "should filter by event type" do
-      get :track_public_body, :feed => 'feed',
-                              :url_name => public_body.url_name,
-                              :event_type => 'sent'
+      get :track_public_body, :feed => 'feed', :url_name => public_body.url_name, :event_type => 'sent'
       expect(response).to be_success
       expect(response).to render_template('track/atom_feed')
       tt = assigns[:track_thing]
@@ -304,8 +287,9 @@ describe TrackController do
     end
 
     it "should return NotFound for a non-existent user" do
-      expect { get :track_user, :feed => 'feed', :url_name => "there_is_no_such_user" }.
-        to raise_error(ActiveRecord::RecordNotFound)
+      expect {
+        get :track_user, :feed => 'feed', :url_name => "there_is_no_such_user"
+      }.to raise_error(ActiveRecord::RecordNotFound)
     end
 
   end
@@ -397,8 +381,7 @@ describe TrackController do
     context 'when the user passed in the params is not logged in' do
 
       it 'redirects to the signin page' do
-        post :delete_all_type, :user => track_thing.tracking_user.id,
-                               :track_type => 'search_query'
+        post :delete_all_type, :user => track_thing.tracking_user.id, :track_type => 'search_query'
         expect(response).
           to redirect_to(signin_path(:token => get_last_post_redirect.token))
       end
@@ -408,26 +391,17 @@ describe TrackController do
     context 'when the user passed in the params is logged in' do
 
       it 'deletes all tracks for the user of the type passed in the params' do
-        post :delete_all_type, {:user => track_thing.tracking_user.id,
-                                :track_type => 'search_query',
-                                :r => '/'},
-                               {:user_id => track_thing.tracking_user.id}
+        post :delete_all_type, {:user => track_thing.tracking_user.id, :track_type => 'search_query', :r => '/'}, {:user_id => track_thing.tracking_user.id}
         expect(TrackThing.where(:id => track_thing.id)).to be_empty
       end
 
       it 'redirects to the redirect path in the param passed' do
-        post :delete_all_type, {:user => track_thing.tracking_user.id,
-                        :track_type => 'search_query',
-                        :r => '/'},
-                       {:user_id => track_thing.tracking_user.id}
+        post :delete_all_type, {:user => track_thing.tracking_user.id, :track_type => 'search_query', :r => '/'}, {:user_id => track_thing.tracking_user.id}
         expect(response).to redirect_to('/')
       end
 
       it 'shows a message telling the user what has happened' do
-        post :delete_all_type, {:user => track_thing.tracking_user.id,
-                        :track_type => 'search_query',
-                        :r => '/'},
-                       {:user_id => track_thing.tracking_user.id}
+        post :delete_all_type, {:user => track_thing.tracking_user.id, :track_type => 'search_query', :r => '/'}, {:user_id => track_thing.tracking_user.id}
         expect(flash[:notice]).to eq("You will no longer be emailed updates for those alerts")
       end
 

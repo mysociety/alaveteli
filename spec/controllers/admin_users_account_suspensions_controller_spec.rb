@@ -60,7 +60,9 @@ describe AdminUsersAccountSuspensionsController do
 
     context 'with invalid params' do
       it 'renders a 404' do
-        expect { post :create, {} }.to raise_error(ActiveRecord::RecordNotFound)
+        expect {
+          post :create, {}
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 

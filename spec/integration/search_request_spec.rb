@@ -20,9 +20,7 @@ describe "When searching" do
   end
 
   it "should correctly execute simple search" do
-    request_via_redirect("get", "/search",
-                         :query => 'bob'
-                         )
+    request_via_redirect("get", "/search", :query => 'bob')
     expect(response.body).to include("FOI requests")
   end
 
@@ -60,9 +58,7 @@ describe "When searching" do
   end
 
   it "should correctly filter searches for successful requests" do
-    request_via_redirect("get", "/search/requests",
-                         :query => "bob",
-                         :latest_status => ['successful'])
+    request_via_redirect("get", "/search/requests", :query => "bob", :latest_status => ['successful'])
     n = 2 # The number of *successful* requests that contain the word "bob" somewhere
     # in the email text. At present this is:
     # - boring_request
@@ -71,14 +67,9 @@ describe "When searching" do
   end
 
   it "should correctly filter searches for comments" do
-    request_via_redirect("get", "/search/requests",
-                         :query => "daftest",
-                         :request_variety => ['comments'])
+    request_via_redirect("get", "/search/requests", :query => "daftest", :request_variety => ['comments'])
     expect(response.body).to include("One FOI request found")
-
-    request_via_redirect("get", "/search/requests",
-                         :query => "daftest",
-                         :request_variety => ['response','sent'])
+    request_via_redirect("get", "/search/requests", :query => "daftest", :request_variety => ['response','sent'])
     expect(response.body).to include("no results matching your query")
   end
 
@@ -97,8 +88,7 @@ describe "When searching" do
   end
 
   it "should search for requests made to a tagged set of public authorities" do
-    request_via_redirect("get", "/search/requests",
-                         :query => "request_public_body_tag:popular_agency")
+    request_via_redirect("get", "/search/requests", :query => "request_public_body_tag:popular_agency")
     # In the fixtures there are 2 public bodies with the popular_agency tag:
     # - geraldine_public_body
     # - humpadink_public_body

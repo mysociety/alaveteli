@@ -48,35 +48,30 @@ describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
       end
 
       it 'finds the card token' do
-        post :update, 'stripeToken' => new_token,
-                      'old_card_id' => old_card_id
+        post :update, 'stripeToken' => new_token, 'old_card_id' => old_card_id
         expect(assigns(:token).id).to eq(new_token)
       end
 
       it 'finds the id of the card being updated' do
-        post :update, 'stripeToken' => new_token,
-                      'old_card_id' => old_card_id
+        post :update, 'stripeToken' => new_token, 'old_card_id' => old_card_id
         expect(assigns(:old_card_id)).to eq(old_card_id)
       end
 
       it 'retrieves the correct Stripe customer' do
-        post :update, 'stripeToken' => new_token,
-                      'old_card_id' => old_card_id
+        post :update, 'stripeToken' => new_token, 'old_card_id' => old_card_id
         expect(assigns(:customer).id).
           to eq(user.pro_account.stripe_customer_id)
       end
 
       it 'redirects to the account page' do
-        post :update, 'stripeToken' => new_token,
-                      'old_card_id' => old_card_id
+        post :update, 'stripeToken' => new_token, 'old_card_id' => old_card_id
         expect(response).to redirect_to(subscriptions_path)
       end
 
       context 'with a successful transaction' do
 
         before do
-          post :update, 'stripeToken' => new_token,
-                        'old_card_id' => old_card_id
+          post :update, 'stripeToken' => new_token, 'old_card_id' => old_card_id
         end
 
         it 'adds the new card to the Stripe customer' do
@@ -110,8 +105,7 @@ describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         before do
           StripeMock.prepare_card_error(:card_declined, :update_customer)
 
-          post :update, 'stripeToken' => new_token,
-                        'old_card_id' => old_card_id
+          post :update, 'stripeToken' => new_token, 'old_card_id' => old_card_id
         end
 
         it 'renders the card error message' do
@@ -132,8 +126,7 @@ describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         before do
           error = Stripe::RateLimitError.new
           StripeMock.prepare_error(error, :update_customer)
-          post :update, 'stripeToken' => new_token,
-                        'old_card_id' => old_card_id
+          post :update, 'stripeToken' => new_token, 'old_card_id' => old_card_id
         end
 
         it 'sends an exception email' do
@@ -152,8 +145,7 @@ describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         before do
           error = Stripe::InvalidRequestError.new('message', 'param')
           StripeMock.prepare_error(error, :update_customer)
-          post :update, 'stripeToken' => new_token,
-                        'old_card_id' => old_card_id
+          post :update, 'stripeToken' => new_token, 'old_card_id' => old_card_id
         end
 
         it 'sends an exception email' do
@@ -172,8 +164,7 @@ describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         before do
           error = Stripe::AuthenticationError.new
           StripeMock.prepare_error(error, :update_customer)
-          post :update, 'stripeToken' => new_token,
-                        'old_card_id' => old_card_id
+          post :update, 'stripeToken' => new_token, 'old_card_id' => old_card_id
         end
 
         it 'sends an exception email' do
@@ -192,8 +183,7 @@ describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         before do
           error = Stripe::APIConnectionError.new
           StripeMock.prepare_error(error, :update_customer)
-          post :update, 'stripeToken' => new_token,
-                        'old_card_id' => old_card_id
+          post :update, 'stripeToken' => new_token, 'old_card_id' => old_card_id
         end
 
         it 'sends an exception email' do
@@ -212,8 +202,7 @@ describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         before do
           error = Stripe::StripeError.new
           StripeMock.prepare_error(error, :update_customer)
-          post :update, 'stripeToken' => new_token,
-                        'old_card_id' => old_card_id
+          post :update, 'stripeToken' => new_token, 'old_card_id' => old_card_id
         end
 
         it 'sends an exception email' do

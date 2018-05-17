@@ -51,8 +51,7 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
       allow(incoming_message).to receive(:info_request).and_return(previous_info_request)
       allow(IncomingMessage).to receive(:find).and_return(incoming_message)
       expect(previous_info_request).to receive(:expire)
-      post :redeliver, :id => incoming_message.id,
-        :url_title => destination_info_request.url_title
+      post :redeliver, :id => incoming_message.id, :url_title => destination_info_request.url_title
     end
 
     it 'should succeed, even if a duplicate xapian indexing job is created' do
@@ -61,16 +60,14 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
         current_info_request = info_requests(:fancy_dog_request)
         destination_info_request = info_requests(:naughty_chicken_request)
         incoming_message = incoming_messages(:useless_incoming_message)
-        post :redeliver, :id => incoming_message.id,
-          :url_title => destination_info_request.url_title
+        post :redeliver, :id => incoming_message.id, :url_title => destination_info_request.url_title
       end
 
     end
 
     it 'shouldn\'t do anything if no message_id is supplied' do
       incoming_message = FactoryBot.create(:incoming_message)
-      post :redeliver, :id => incoming_message.id,
-        :url_title => ''
+      post :redeliver, :id => incoming_message.id, :url_title => ''
       # It shouldn't delete this message
       assert_equal IncomingMessage.exists?(incoming_message.id), true
       # Should show an error to the user
@@ -187,8 +184,7 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
     context "the user confirms deletion" do
 
       it "destroys the selected messages" do
-        post :bulk_destroy, :request_id => request.id,
-                            :ids => spam_ids.join(","),
+        post :bulk_destroy, :request_id => request.id, :ids => spam_ids.join(","),
                             :commit => "Yes"
 
         expect(IncomingMessage.where(:id => spam_ids)).to be_empty
@@ -197,22 +193,19 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
       it 'expires the file cache for the associated info_request' do
         allow(InfoRequest).to receive(:find).and_return(request)
         expect(request).to receive(:expire).with(:preserve_database_cache => true)
-        post :bulk_destroy, :request_id => request.id,
-                            :ids => spam_ids.join(","),
+        post :bulk_destroy, :request_id => request.id, :ids => spam_ids.join(","),
                             :commit => "Yes"
       end
 
       it "redirects back to the admin page for the request" do
-        post :bulk_destroy, :request_id => request.id,
-                            :ids => spam_ids.join(","),
+        post :bulk_destroy, :request_id => request.id, :ids => spam_ids.join(","),
                             :commit => "Yes"
 
         expect(response).to redirect_to(admin_request_url(request))
       end
 
       it "sets a success message in flash" do
-        post :bulk_destroy, :request_id => request.id,
-                            :ids => spam_ids.join(","),
+        post :bulk_destroy, :request_id => request.id, :ids => spam_ids.join(","),
                             :commit => "Yes"
 
         expect(response).to redirect_to(admin_request_url(request))
@@ -220,8 +213,7 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
       end
 
       it "only destroys selected messages" do
-        post :bulk_destroy, :request_id => request.id,
-                            :ids => spam2.id,
+        post :bulk_destroy, :request_id => request.id, :ids => spam2.id,
                             :commit => "Yes"
 
         expect(IncomingMessage.where(:id => spam_ids)).to eq([spam1])
@@ -233,8 +225,7 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
           allow(spam2).to receive(:destroy).and_raise("random DB error")
           allow(IncomingMessage).to receive(:where).and_return([spam1, spam2])
           msg = "Incoming Messages #{spam2.id} could not be destroyed"
-          post :bulk_destroy, :request_id => request.id,
-                              :ids => spam_ids.join(","),
+          post :bulk_destroy, :request_id => request.id, :ids => spam_ids.join(","),
                               :commit => "Yes"
 
           expect(flash[:error]).to match(msg)
@@ -247,16 +238,14 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
     context "the user does not confirm deletion" do
 
       it "does not destroy the messages" do
-        post :bulk_destroy, :request_id => request.id,
-                            :ids => spam_ids.split(","),
+        post :bulk_destroy, :request_id => request.id, :ids => spam_ids.split(","),
                             :commit => "No"
 
         expect(IncomingMessage.where(:id => spam_ids)).to match_array([spam1, spam2])
       end
 
       it "redirects back to the admin page for the request" do
-        post :bulk_destroy, :request_id => request.id,
-                            :ids => spam_ids.join(","),
+        post :bulk_destroy, :request_id => request.id, :ids => spam_ids.join(","),
                             :commit => "No"
 
         expect(response).to redirect_to(admin_request_url(request))

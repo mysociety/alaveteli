@@ -33,7 +33,9 @@ describe RequestController, "when listing recent requests" do
 
   it 'should not raise an error for a page param of less than zero, but should treat it as
         a param of 1' do
-    expect{ get :list, :view => 'all', :page => "-1" }.not_to raise_error
+    expect {
+      get :list, :view => 'all', :page => "-1"
+    }.not_to raise_error
     expect(assigns[:page]).to eq(1)
   end
 
@@ -148,14 +150,16 @@ describe RequestController, "when showing one request" do
   context 'when the request is embargoed' do
     it 'raises ActiveRecord::RecordNotFound' do
       embargoed_request = FactoryBot.create(:embargoed_request)
-      expect{ get :show, :url_title => embargoed_request.url_title }
-        .to raise_error(ActiveRecord::RecordNotFound)
+      expect {
+        get :show, :url_title => embargoed_request.url_title
+      }.to raise_error(ActiveRecord::RecordNotFound)
     end
 
     it "doesn't even redirect from a numeric id" do
       embargoed_request = FactoryBot.create(:embargoed_request)
-      expect{ get :show, :url_title => embargoed_request.id }
-        .to raise_error(ActiveRecord::RecordNotFound)
+      expect {
+        get :show, :url_title => embargoed_request.id
+      }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 
@@ -271,9 +275,7 @@ describe RequestController, "when showing one request" do
       it "is false" do
         with_feature_enabled(:alaveteli_pro) do
           session[:user_id] = pro_user.id
-          get :show, :url_title => pro_request.url_title,
-                     :pro => "1",
-                     :update_status => "1"
+          get :show, :url_title => pro_request.url_title, :pro => "1", :update_status => "1"
           expect(assigns[:show_top_describe_state_form]).to be false
         end
       end
@@ -301,15 +303,13 @@ describe RequestController, "when showing one request" do
           session[:user_id] = users(:bob_smith_user).id
           info_request = info_requests(:naughty_chicken_request)
           expect(info_request.awaiting_description).to be false
-          get :show, :url_title => info_request.url_title,
-                     :update_status => "1"
+          get :show, :url_title => info_request.url_title, :update_status => "1"
           expect(assigns[:show_top_describe_state_form]).to be true
         end
 
         context "and the request is awaiting_description" do
           it "is true" do
-            get :show, :url_title => 'why_do_you_have_such_a_fancy_dog',
-                       :update_status => "1"
+            get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', :update_status => "1"
             expect(assigns[:show_top_describe_state_form]).to be true
           end
         end
@@ -334,8 +334,7 @@ describe RequestController, "when showing one request" do
       it "is false" do
         with_feature_enabled(:alaveteli_pro) do
           session[:user_id] = pro_user.id
-          get :show, :url_title => pro_request.url_title,
-                     :pro => "1"
+          get :show, :url_title => pro_request.url_title, :pro => "1"
           expect(assigns[:show_bottom_describe_state_form]).to be false
         end
       end
@@ -510,34 +509,19 @@ describe RequestController do
 
     it "should find a uniquely named filename even if the URL part number was wrong" do
       info_request = FactoryBot.create(:info_request_with_html_attachment)
-      get :get_attachment, :incoming_message_id =>
-                             info_request.incoming_messages.first.id,
-                           :id => info_request.id,
-                           :part => 5,
-                           :file_name => 'interesting.html',
-                           :skip_cache => 1
+      get :get_attachment, :incoming_message_id => info_request.incoming_messages.first.id, :id => info_request.id, :part => 5, :file_name => 'interesting.html', :skip_cache => 1
       expect(response.body).to match('dull')
     end
 
     it "should not download attachments with wrong file name" do
       info_request = FactoryBot.create(:info_request_with_html_attachment)
-      get :get_attachment, :incoming_message_id =>
-                             info_request.incoming_messages.first.id,
-                           :id => info_request.id,
-                           :part => 2,
-                           :file_name => 'http://trying.to.hack',
-                           :skip_cache => 1
+      get :get_attachment, :incoming_message_id => info_request.incoming_messages.first.id, :id => info_request.id, :part => 2, :file_name => 'http://trying.to.hack', :skip_cache => 1
       expect(response.status).to eq(303)
     end
 
     it "should sanitise HTML attachments" do
       info_request = FactoryBot.create(:info_request_with_html_attachment)
-      get :get_attachment, :incoming_message_id =>
-                              info_request.incoming_messages.first.id,
-                           :id => info_request.id,
-                           :part => 2,
-                           :file_name => 'interesting.html',
-                           :skip_cache => 1
+      get :get_attachment, :incoming_message_id => info_request.incoming_messages.first.id, :id => info_request.id, :part => 2, :file_name => 'interesting.html', :skip_cache => 1
 
       # Nokogiri adds the meta tag; see
       # https://github.com/sparklemotion/nokogiri/issues/1008
@@ -561,12 +545,7 @@ describe RequestController do
                                        :replacement => "Mouse",
                                        :last_edit_editor => 'unknown',
                                        :last_edit_comment => 'none')
-      get :get_attachment, :incoming_message_id =>
-                        info_request.incoming_messages.first.id,
-                     :id => info_request.id,
-                     :part => 2,
-                     :file_name => 'interesting.html',
-                     :skip_cache => 1
+      get :get_attachment, :incoming_message_id => info_request.incoming_messages.first.id, :id => info_request.id, :part => 2, :file_name => 'interesting.html', :skip_cache => 1
       expect(response.content_type).to eq("text/html")
       expect(response.body).to have_content "Mouse"
     end
@@ -577,25 +556,16 @@ describe RequestController do
                                        :replacement => "Mouse",
                                        :last_edit_editor => 'unknown',
                                        :last_edit_comment => 'none')
-      get :get_attachment, :incoming_message_id =>
-                        info_request.incoming_messages.first.id,
-                     :id => info_request.id,
-                     :part => 2,
-                     :file_name => 'interesting.html',
-                     :skip_cache => 1
+      get :get_attachment, :incoming_message_id => info_request.incoming_messages.first.id, :id => info_request.id, :part => 2, :file_name => 'interesting.html', :skip_cache => 1
       expect(response.content_type).to eq("text/html")
       expect(response.body).to have_content "Mouse"
     end
 
     it 'returns an ActiveRecord::RecordNotFound error for an embargoed request' do
       info_request = FactoryBot.create(:embargoed_request)
-      expect{ get :get_attachment, :incoming_message_id =>
-                                    info_request.incoming_messages.first.id,
-                                   :id => info_request.id,
-                                   :part => 2,
-                                   :file_name => 'interesting.pdf',
-                                   :skip_cache => 1 }
-        .to raise_error ActiveRecord::RecordNotFound
+      expect {
+        get :get_attachment, :incoming_message_id => info_request.incoming_messages.first.id, :id => info_request.id, :part => 2, :file_name => 'interesting.pdf', :skip_cache => 1
+      }.to raise_error ActiveRecord::RecordNotFound
     end
   end
 end
@@ -628,12 +598,9 @@ describe RequestController do
 
     it 'returns an ActiveRecord::RecordNotFound error for an embargoed request' do
       info_request = FactoryBot.create(:embargoed_request)
-      expect{ get :get_attachment_as_html, :incoming_message_id =>
-                                          info_request.incoming_messages.first.id,
-                                        :id => info_request.id,
-                                        :part => 2,
-                                        :file_name => 'interesting.pdf.html' }
-        .to raise_error ActiveRecord::RecordNotFound
+      expect {
+        get :get_attachment_as_html, :incoming_message_id => info_request.incoming_messages.first.id, :id => info_request.id, :part => 2, :file_name => 'interesting.pdf.html'
+      }.to raise_error ActiveRecord::RecordNotFound
     end
 
   end
@@ -679,11 +646,7 @@ describe RequestController, "when handling prominence" do
 
     it "should not download attachments" do
       incoming_message = @info_request.incoming_messages.first
-      get :get_attachment, :incoming_message_id => incoming_message.id,
-        :id => @info_request.id,
-        :part => 2,
-        :file_name => 'interesting.pdf',
-        :skip_cache => 1
+      get :get_attachment, :incoming_message_id => incoming_message.id, :id => @info_request.id, :part => 2, :file_name => 'interesting.pdf', :skip_cache => 1
       expect_hidden('request/hidden')
     end
 
@@ -692,10 +655,7 @@ describe RequestController, "when handling prominence" do
       session[:user_id] = FactoryBot.create(:admin_user).id
       incoming_message = @info_request.incoming_messages.first
       expect do
-        get :get_attachment_as_html, :incoming_message_id => incoming_message.id,
-          :id => @info_request.id,
-          :part => 2,
-          :file_name => 'interesting.pdf'
+        get :get_attachment_as_html, :incoming_message_id => incoming_message.id, :id => @info_request.id, :part => 2, :file_name => 'interesting.pdf'
       end.to raise_error(ActiveRecord::RecordNotFound)
     end
 
@@ -735,20 +695,14 @@ describe RequestController, "when handling prominence" do
       session[:user_id] = @info_request.user.id
       incoming_message = @info_request.incoming_messages.first
       expect(@controller).not_to receive(:foi_fragment_cache_write)
-      get :get_attachment, :incoming_message_id => incoming_message.id,
-        :id => @info_request.id,
-        :part => 2,
-        :file_name => 'interesting.pdf'
+      get :get_attachment, :incoming_message_id => incoming_message.id, :id => @info_request.id, :part => 2, :file_name => 'interesting.pdf'
     end
 
     it 'should not cache an attachment when showing an attachment to the admin' do
       session[:user_id] = FactoryBot.create(:admin_user).id
       incoming_message = @info_request.incoming_messages.first
       expect(@controller).not_to receive(:foi_fragment_cache_write)
-      get :get_attachment, :incoming_message_id => incoming_message.id,
-        :id => @info_request.id,
-        :part => 2,
-        :file_name => 'interesting.pdf'
+      get :get_attachment, :incoming_message_id => incoming_message.id, :id => @info_request.id, :part => 2, :file_name => 'interesting.pdf'
     end
   end
 
@@ -761,31 +715,19 @@ describe RequestController, "when handling prominence" do
     end
 
     it "should not download attachments for a non-logged in user" do
-      get :get_attachment, :incoming_message_id => @incoming_message.id,
-        :id => @info_request.id,
-        :part => 2,
-        :file_name => 'interesting.pdf',
-        :skip_cache => 1
+      get :get_attachment, :incoming_message_id => @incoming_message.id, :id => @info_request.id, :part => 2, :file_name => 'interesting.pdf', :skip_cache => 1
       expect_hidden('request/hidden_correspondence')
     end
 
     it 'should not download attachments for the request owner' do
       session[:user_id] = @info_request.user.id
-      get :get_attachment, :incoming_message_id => @incoming_message.id,
-        :id => @info_request.id,
-        :part => 2,
-        :file_name => 'interesting.pdf',
-        :skip_cache => 1
+      get :get_attachment, :incoming_message_id => @incoming_message.id, :id => @info_request.id, :part => 2, :file_name => 'interesting.pdf', :skip_cache => 1
       expect_hidden('request/hidden_correspondence')
     end
 
     it 'should download attachments for an admin user' do
       session[:user_id] = FactoryBot.create(:admin_user).id
-      get :get_attachment, :incoming_message_id => @incoming_message.id,
-        :id => @info_request.id,
-        :part => 2,
-        :file_name => 'interesting.pdf',
-        :skip_cache => 1
+      get :get_attachment, :incoming_message_id => @incoming_message.id, :id => @info_request.id, :part => 2, :file_name => 'interesting.pdf', :skip_cache => 1
       expect(response.content_type).to eq('application/pdf')
       expect(response).to be_success
     end
@@ -794,21 +736,14 @@ describe RequestController, "when handling prominence" do
             is hidden even for an admin but should return a 404' do
       session[:user_id] = FactoryBot.create(:admin_user).id
       expect do
-        get :get_attachment_as_html, :incoming_message_id => @incoming_message.id,
-          :id => @info_request.id,
-          :part => 2,
-          :file_name => 'interesting.pdf',
-          :skip_cache => 1
+        get :get_attachment_as_html, :incoming_message_id => @incoming_message.id, :id => @info_request.id, :part => 2, :file_name => 'interesting.pdf', :skip_cache => 1
       end.to raise_error(ActiveRecord::RecordNotFound)
     end
 
     it 'should not cache an attachment when showing an attachment to the requester or admin' do
       session[:user_id] = @info_request.user.id
       expect(@controller).not_to receive(:foi_fragment_cache_write)
-      get :get_attachment, :incoming_message_id => @incoming_message.id,
-        :id => @info_request.id,
-        :part => 2,
-        :file_name => 'interesting.pdf'
+      get :get_attachment, :incoming_message_id => @incoming_message.id, :id => @info_request.id, :part => 2, :file_name => 'interesting.pdf'
     end
 
   end
@@ -822,32 +757,20 @@ describe RequestController, "when handling prominence" do
     end
 
     it "should not download attachments for a non-logged in user" do
-      get :get_attachment, :incoming_message_id => @incoming_message.id,
-        :id => @info_request.id,
-        :part => 2,
-        :file_name => 'interesting.pdf',
-        :skip_cache => 1
+      get :get_attachment, :incoming_message_id => @incoming_message.id, :id => @info_request.id, :part => 2, :file_name => 'interesting.pdf', :skip_cache => 1
       expect_hidden('request/hidden_correspondence')
     end
 
     it 'should download attachments for the request owner' do
       session[:user_id] = @info_request.user.id
-      get :get_attachment, :incoming_message_id => @incoming_message.id,
-        :id => @info_request.id,
-        :part => 2,
-        :file_name => 'interesting.pdf',
-        :skip_cache => 1
+      get :get_attachment, :incoming_message_id => @incoming_message.id, :id => @info_request.id, :part => 2, :file_name => 'interesting.pdf', :skip_cache => 1
       expect(response.content_type).to eq('application/pdf')
       expect(response).to be_success
     end
 
     it 'should download attachments for an admin user' do
       session[:user_id] = FactoryBot.create(:admin_user).id
-      get :get_attachment, :incoming_message_id => @incoming_message.id,
-        :id => @info_request.id,
-        :part => 2,
-        :file_name => 'interesting.pdf',
-        :skip_cache => 1
+      get :get_attachment, params: { :incoming_message_id => @incoming_message.id, :id => @info_request.id, :part => 2, :file_name => 'interesting.pdf', :skip_cache => 1 }
       expect(response.content_type).to eq('application/pdf')
       expect(response).to be_success
     end
@@ -856,11 +779,7 @@ describe RequestController, "when handling prominence" do
             is hidden even for an admin but should return a 404' do
       session[:user_id] = FactoryBot.create(:admin_user).id
       expect do
-        get :get_attachment_as_html, :incoming_message_id => @incoming_message.id,
-          :id => @info_request.id,
-          :part => 2,
-          :file_name => 'interesting.pdf',
-          :skip_cache => 1
+        get :get_attachment_as_html, :incoming_message_id => @incoming_message.id, :id => @info_request.id, :part => 2, :file_name => 'interesting.pdf', :skip_cache => 1
       end.to raise_error(ActiveRecord::RecordNotFound)
     end
 
@@ -995,12 +914,7 @@ describe RequestController, "when creating a new request" do
     context "there is no logged in user" do
 
       it "displays a flash error message without escaping the HTML" do
-        post :new, :info_request => {
-                     :public_body_id => @body.id,
-                     :title => "Test Request" },
-                   :outgoing_message => { :body => "me@here.com" },
-                   :submitted_new_request => 1,
-                   :preview => 1
+        post :new, :info_request => { :public_body_id => @body.id, :title => "Test Request" }, :outgoing_message => { :body => "me@here.com" }, :submitted_new_request => 1, :preview => 1
 
         expect(response.body).to have_css('div#error p')
         expect(response.body).to_not have_content('<p>')
@@ -1014,12 +928,7 @@ describe RequestController, "when creating a new request" do
 
       it "displays a flash error message without escaping the HTML" do
         session[:user_id] = @user.id
-        post :new, :info_request => {
-                     :public_body_id => @body.id,
-                     :title => "Test Request" },
-                   :outgoing_message => { :body => "me@here.com" },
-                   :submitted_new_request => 1,
-                   :preview => 1
+        post :new, :info_request => { :public_body_id => @body.id, :title => "Test Request" }, :outgoing_message => { :body => "me@here.com" }, :submitted_new_request => 1, :preview => 1
 
         expect(response.body).to have_css('div#error p')
         expect(response.body).to_not have_content('<p>')
@@ -1034,12 +943,7 @@ describe RequestController, "when creating a new request" do
   context "the outgoing message includes a postcode" do
 
     it 'displays an error message warning about the postcode' do
-      post :new, :info_request => {
-                   :public_body_id => @body.id,
-                   :title => "Test Request" },
-                 :outgoing_message => { :body => "SW1A 1AA" },
-                 :submitted_new_request => 1,
-                 :preview => 1
+      post :new, :info_request => { :public_body_id => @body.id, :title => "Test Request" }, :outgoing_message => { :body => "SW1A 1AA" }, :submitted_new_request => 1, :preview => 1
 
       expect(response.body).to have_content('Your request contains a postcode')
     end
@@ -1089,17 +993,13 @@ describe RequestController, "when creating a new request" do
   end
 
   it 'should display one meaningful error message when no message body is added' do
-    post :new, :info_request => { :public_body_id => @body.id },
-      :outgoing_message => { :body => "" },
-      :submitted_new_request => 1, :preview => 1
+    post :new, :info_request => { :public_body_id => @body.id }, :outgoing_message => { :body => "" }, :submitted_new_request => 1, :preview => 1
     expect(assigns[:info_request].errors.full_messages).not_to include('Outgoing messages is invalid')
     expect(assigns[:outgoing_message].errors.full_messages).to include('Body Please enter your letter requesting information')
   end
 
   it "should give an error and render 'new' template when a summary isn't given" do
-    post :new, :info_request => { :public_body_id => @body.id },
-      :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
-      :submitted_new_request => 1, :preview => 1
+    post :new, :info_request => { :public_body_id => @body.id }, :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." }, :submitted_new_request => 1, :preview => 1
     expect(assigns[:info_request].errors[:title]).not_to be_nil
     expect(response).to render_template('new')
   end
@@ -1118,50 +1018,30 @@ describe RequestController, "when creating a new request" do
 
   it 'redirects to the frontpage if the action is sent the invalid
         public_body param' do
-    post :new, :info_request => { :public_body => @body.id,
-                                  :title => 'Why Geraldine?',
-    :tag_string => '' },
-      :outgoing_message => { :body => 'This is a silly letter.' },
-      :submitted_new_request => 1,
-      :preview => 1
+    post :new, :info_request => { :public_body => @body.id, :title => 'Why Geraldine?', :tag_string => '' }, :outgoing_message => { :body => 'This is a silly letter.' }, :submitted_new_request => 1, :preview => 1
     expect(response).to redirect_to frontpage_url
   end
 
   it "should show preview when input is good" do
     session[:user_id] = @user.id
-    post :new, { :info_request => { :public_body_id => @body.id,
-                                    :title => "Why is your quango called Geraldine?", :tag_string => "" },
-                 :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
-                 :submitted_new_request => 1, :preview => 1
-                 }
+    post :new, { :info_request => { :public_body_id => @body.id, :title => "Why is your quango called Geraldine?", :tag_string => "" }, :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." }, :submitted_new_request => 1, :preview => 1 }
     expect(response).to render_template('preview')
   end
 
   it "should allow re-editing of a request" do
-    post :new, :info_request => { :public_body_id => @body.id,
-    :title => "Why is your quango called Geraldine?", :tag_string => "" },
-      :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
-      :submitted_new_request => 1, :preview => 0,
-      :reedit => "Re-edit this request"
+    post :new, :info_request => { :public_body_id => @body.id, :title => "Why is your quango called Geraldine?", :tag_string => "" }, :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." }, :submitted_new_request => 1, :preview => 0, :reedit => "Re-edit this request"
     expect(response).to render_template('new')
   end
 
   it "re-editing preserves the message body" do
-    post :new, :info_request => { :public_body_id => @body.id,
-    :title => "Why is your quango called Geraldine?", :tag_string => "" },
-      :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
-      :submitted_new_request => 1, :preview => 0,
-      :reedit => "Re-edit this request"
+    post :new, :info_request => { :public_body_id => @body.id, :title => "Why is your quango called Geraldine?", :tag_string => "" }, :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." }, :submitted_new_request => 1, :preview => 0, :reedit => "Re-edit this request"
     expect(assigns[:outgoing_message].body).
       to include('This is a silly letter. It is too short to be interesting.')
   end
 
   it "should create the request and outgoing message, and send the outgoing message by email, and redirect to request page when input is good and somebody is logged in" do
     session[:user_id] = @user.id
-    post :new, :info_request => { :public_body_id => @body.id,
-    :title => "Why is your quango called Geraldine?", :tag_string => "" },
-      :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
-      :submitted_new_request => 1, :preview => 0
+    post :new, :info_request => { :public_body_id => @body.id, :title => "Why is your quango called Geraldine?", :tag_string => "" }, :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." }, :submitted_new_request => 1, :preview => 0
 
     ir_array = InfoRequest.where(:title => "Why is your quango called Geraldine?")
     expect(ir_array.size).to eq(1)
@@ -1180,10 +1060,7 @@ describe RequestController, "when creating a new request" do
 
   it "sets the request_sent flash to true if successful" do
     session[:user_id] = @user.id
-    post :new, :info_request => { :public_body_id => @body.id,
-    :title => "Why is your quango called Geraldine?", :tag_string => "" },
-      :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
-      :submitted_new_request => 1, :preview => 0
+    post :new, :info_request => { :public_body_id => @body.id, :title => "Why is your quango called Geraldine?", :tag_string => "" }, :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." }, :submitted_new_request => 1, :preview => 0
 
     expect(flash[:request_sent]).to be true
   end
@@ -1192,25 +1069,16 @@ describe RequestController, "when creating a new request" do
     session[:user_id] = @user.id
 
     # We use raw_body here, so white space is the same
-    post :new, :info_request => { :public_body_id => info_requests(:fancy_dog_request).public_body_id,
-    :title => info_requests(:fancy_dog_request).title },
-      :outgoing_message => { :body => info_requests(:fancy_dog_request).outgoing_messages[0].raw_body},
-      :submitted_new_request => 1, :preview => 0, :mouse_house => 1
+    post :new, :info_request => { :public_body_id => info_requests(:fancy_dog_request).public_body_id, :title => info_requests(:fancy_dog_request).title }, :outgoing_message => { :body => info_requests(:fancy_dog_request).outgoing_messages[0].raw_body}, :submitted_new_request => 1, :preview => 0, :mouse_house => 1
     expect(response).to render_template('new')
   end
 
   it "should let you submit another request with the same title" do
     session[:user_id] = @user.id
 
-    post :new, :info_request => { :public_body_id => @body.id,
-    :title => "Why is your quango called Geraldine?", :tag_string => "" },
-      :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
-      :submitted_new_request => 1, :preview => 0
+    post :new, :info_request => { :public_body_id => @body.id, :title => "Why is your quango called Geraldine?", :tag_string => "" }, :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." }, :submitted_new_request => 1, :preview => 0
 
-    post :new, :info_request => { :public_body_id => @body.id,
-    :title => "Why is your quango called Geraldine?", :tag_string => "" },
-      :outgoing_message => { :body => "This is a sensible letter. It is too long to be boring." },
-      :submitted_new_request => 1, :preview => 0
+    post :new, :info_request => { :public_body_id => @body.id, :title => "Why is your quango called Geraldine?", :tag_string => "" }, :outgoing_message => { :body => "This is a sensible letter. It is too long to be boring." }, :submitted_new_request => 1, :preview => 0
 
     ir_array = InfoRequest.where(:title => "Why is your quango called Geraldine?").
                             order("id")
@@ -1229,23 +1097,14 @@ describe RequestController, "when creating a new request" do
     # (The limit set in config/test.yml is two.)
     session[:user_id] = users(:robin_user).id
 
-    post :new, :info_request => { :public_body_id => @body.id,
-    :title => "What is the answer to the ultimate question?", :tag_string => "" },
-      :outgoing_message => { :body => "Please supply the answer from your files." },
-      :submitted_new_request => 1, :preview => 0
+    post :new, :info_request => { :public_body_id => @body.id, :title => "What is the answer to the ultimate question?", :tag_string => "" }, :outgoing_message => { :body => "Please supply the answer from your files." }, :submitted_new_request => 1, :preview => 0
     expect(response).to redirect_to show_request_url(:url_title => 'what_is_the_answer_to_the_ultima')
 
 
-    post :new, :info_request => { :public_body_id => @body.id,
-    :title => "Why did the chicken cross the road?", :tag_string => "" },
-      :outgoing_message => { :body => "Please send me all the relevant documents you hold." },
-      :submitted_new_request => 1, :preview => 0
+    post :new, :info_request => { :public_body_id => @body.id, :title => "Why did the chicken cross the road?", :tag_string => "" }, :outgoing_message => { :body => "Please send me all the relevant documents you hold." }, :submitted_new_request => 1, :preview => 0
     expect(response).to redirect_to show_request_url(:url_title => 'why_did_the_chicken_cross_the_ro')
 
-    post :new, :info_request => { :public_body_id => @body.id,
-    :title => "What's black and white and red all over?", :tag_string => "" },
-      :outgoing_message => { :body => "Please send all minutes of meetings and email records that address this question." },
-      :submitted_new_request => 1, :preview => 0
+    post :new, :info_request => { :public_body_id => @body.id, :title => "What's black and white and red all over?", :tag_string => "" }, :outgoing_message => { :body => "Please send all minutes of meetings and email records that address this question." }, :submitted_new_request => 1, :preview => 0
     expect(response).to render_template('user/rate_limited')
   end
 
@@ -1256,23 +1115,14 @@ describe RequestController, "when creating a new request" do
     users(:robin_user).no_limit = true
     users(:robin_user).save!
 
-    post :new, :info_request => { :public_body_id => @body.id,
-    :title => "What is the answer to the ultimate question?", :tag_string => "" },
-      :outgoing_message => { :body => "Please supply the answer from your files." },
-      :submitted_new_request => 1, :preview => 0
+    post :new, :info_request => { :public_body_id => @body.id, :title => "What is the answer to the ultimate question?", :tag_string => "" }, :outgoing_message => { :body => "Please supply the answer from your files." }, :submitted_new_request => 1, :preview => 0
     expect(response).to redirect_to show_request_url(:url_title => 'what_is_the_answer_to_the_ultima')
 
 
-    post :new, :info_request => { :public_body_id => @body.id,
-    :title => "Why did the chicken cross the road?", :tag_string => "" },
-      :outgoing_message => { :body => "Please send me all the relevant documents you hold." },
-      :submitted_new_request => 1, :preview => 0
+    post :new, :info_request => { :public_body_id => @body.id, :title => "Why did the chicken cross the road?", :tag_string => "" }, :outgoing_message => { :body => "Please send me all the relevant documents you hold." }, :submitted_new_request => 1, :preview => 0
     expect(response).to redirect_to show_request_url(:url_title => 'why_did_the_chicken_cross_the_ro')
 
-    post :new, :info_request => { :public_body_id => @body.id,
-    :title => "What's black and white and red all over?", :tag_string => "" },
-      :outgoing_message => { :body => "Please send all minutes of meetings and email records that address this question." },
-      :submitted_new_request => 1, :preview => 0
+    post :new, :info_request => { :public_body_id => @body.id, :title => "What's black and white and red all over?", :tag_string => "" }, :outgoing_message => { :body => "Please send all minutes of meetings and email records that address this question." }, :submitted_new_request => 1, :preview => 0
     expect(response).to redirect_to show_request_url(:url_title => 'whats_black_and_white_and_red_al')
   end
 
@@ -1286,10 +1136,7 @@ describe RequestController, "when creating a new request" do
       end
 
       it 'sets render_recaptcha to false' do
-        post :new, :info_request => { :public_body_id => @body.id,
-          :title => "What's black and white and red all over?", :tag_string => "" },
-          :outgoing_message => { :body => "Please send info" },
-          :submitted_new_request => 1, :preview => 0
+        post :new, :info_request => { :public_body_id => @body.id, :title => "What's black and white and red all over?", :tag_string => "" }, :outgoing_message => { :body => "Please send info" }, :submitted_new_request => 1, :preview => 0
         expect(assigns[:render_recaptcha]).to eq(false)
       end
     end
@@ -1302,10 +1149,7 @@ describe RequestController, "when creating a new request" do
       end
 
       it 'sets render_recaptcha to true if there is no logged in user' do
-        post :new, :info_request => { :public_body_id => @body.id,
-          :title => "What's black and white and red all over?", :tag_string => "" },
-          :outgoing_message => { :body => "Please send info" },
-          :submitted_new_request => 1, :preview => 0
+        post :new, :info_request => { :public_body_id => @body.id, :title => "What's black and white and red all over?", :tag_string => "" }, :outgoing_message => { :body => "Please send info" }, :submitted_new_request => 1, :preview => 0
         expect(assigns[:render_recaptcha]).to eq(true)
       end
 
@@ -1313,10 +1157,7 @@ describe RequestController, "when creating a new request" do
             confirmed as not spam' do
         session[:user_id] =
           FactoryBot.create(:user, :confirmed_not_spam => false).id
-        post :new, :info_request => { :public_body_id => @body.id,
-          :title => "What's black and white and red all over?", :tag_string => "" },
-          :outgoing_message => { :body => "Please send info" },
-          :submitted_new_request => 1, :preview => 0
+        post :new, :info_request => { :public_body_id => @body.id, :title => "What's black and white and red all over?", :tag_string => "" }, :outgoing_message => { :body => "Please send info" }, :submitted_new_request => 1, :preview => 0
         expect(assigns[:render_recaptcha]).to eq(true)
       end
 
@@ -1324,10 +1165,7 @@ describe RequestController, "when creating a new request" do
             confirmed as not spam' do
         session[:user_id] = FactoryBot.create(:user,
                                               :confirmed_not_spam => true).id
-        post :new, :info_request => { :public_body_id => @body.id,
-          :title => "What's black and white and red all over?", :tag_string => "" },
-          :outgoing_message => { :body => "Please send info" },
-          :submitted_new_request => 1, :preview => 0
+        post :new, :info_request => { :public_body_id => @body.id, :title => "What's black and white and red all over?", :tag_string => "" }, :outgoing_message => { :body => "Please send info" }, :submitted_new_request => 1, :preview => 0
         expect(assigns[:render_recaptcha]).to eq(false)
       end
 
@@ -1343,20 +1181,14 @@ describe RequestController, "when creating a new request" do
 
         it 'shows an error message' do
           session[:user_id] = user.id
-          post :new, :info_request => { :public_body_id => body.id,
-          :title => "Some request text", :tag_string => "" },
-            :outgoing_message => { :body => "Please supply the answer from your files." },
-            :submitted_new_request => 1, :preview => 0
+          post :new, :info_request => { :public_body_id => body.id, :title => "Some request text", :tag_string => "" }, :outgoing_message => { :body => "Please supply the answer from your files." }, :submitted_new_request => 1, :preview => 0
           expect(flash[:error])
             .to eq('There was an error with the reCAPTCHA. Please try again.')
         end
 
         it 'renders the compose interface' do
           session[:user_id] = user.id
-          post :new, :info_request => { :public_body_id => body.id,
-          :title => "Some request text", :tag_string => "" },
-            :outgoing_message => { :body => "Please supply the answer from your files." },
-            :submitted_new_request => 1, :preview => 0
+          post :new, :info_request => { :public_body_id => body.id, :title => "Some request text", :tag_string => "" }, :outgoing_message => { :body => "Please supply the answer from your files." }, :submitted_new_request => 1, :preview => 0
           expect(response).to render_template("new")
         end
 
@@ -1364,10 +1196,7 @@ describe RequestController, "when creating a new request" do
           user.confirmed_not_spam = true
           user.save!
           session[:user_id] = user.id
-          post :new, :info_request => { :public_body_id => body.id,
-          :title => "Some request text", :tag_string => "" },
-            :outgoing_message => { :body => "Please supply the answer from your files." },
-            :submitted_new_request => 1, :preview => 0
+          post :new, :info_request => { :public_body_id => body.id, :title => "Some request text", :tag_string => "" }, :outgoing_message => { :body => "Please supply the answer from your files." }, :submitted_new_request => 1, :preview => 0
           expect(response)
             .to redirect_to show_request_path(:url_title => 'some_request_text')
         end
@@ -1392,11 +1221,7 @@ describe RequestController, "when creating a new request" do
           and_return(true)
         session[:user_id] = user.id
         title = "▩█ -Free Ɓrazzers Password Hăck Premium Account List 2017 ᒬᒬ"
-        post :new, :info_request => { :public_body_id => body.id,
-          :title => title,
-          :tag_string => "" },
-          :outgoing_message => { :body => "Please supply the answer." },
-          :submitted_new_request => 1, :preview => 0
+        post :new, :info_request => { :public_body_id => body.id, :title => title, :tag_string => "" }, :outgoing_message => { :body => "Please supply the answer." }, :submitted_new_request => 1, :preview => 0
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to match(/Spam request from user #{ user.id }/)
       end
@@ -1414,11 +1239,7 @@ describe RequestController, "when creating a new request" do
 
       it 'sends an exception notification' do
         session[:user_id] = user.id
-        post :new, :info_request => { :public_body_id => body.id,
-        :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD",
-          :tag_string => "" },
-          :outgoing_message => { :body => "Please supply the answer." },
-          :submitted_new_request => 1, :preview => 0
+        post :new, :info_request => { :public_body_id => body.id, :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD", :tag_string => "" }, :outgoing_message => { :body => "Please supply the answer." }, :submitted_new_request => 1, :preview => 0
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to match(/Spam request from user #{ user.id }/)
       end
@@ -1433,30 +1254,21 @@ describe RequestController, "when creating a new request" do
 
       it 'sends an exception notification' do
         session[:user_id] = user.id
-        post :new, :info_request => { :public_body_id => body.id,
-        :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD", :tag_string => "" },
-          :outgoing_message => { :body => "Please supply the answer from your files." },
-          :submitted_new_request => 1, :preview => 0
+        post :new, :info_request => { :public_body_id => body.id, :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD", :tag_string => "" }, :outgoing_message => { :body => "Please supply the answer from your files." }, :submitted_new_request => 1, :preview => 0
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to match(/Spam request from user #{ user.id }/)
       end
 
       it 'shows an error message' do
         session[:user_id] = user.id
-        post :new, :info_request => { :public_body_id => body.id,
-        :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD", :tag_string => "" },
-          :outgoing_message => { :body => "Please supply the answer from your files." },
-          :submitted_new_request => 1, :preview => 0
+        post :new, :info_request => { :public_body_id => body.id, :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD", :tag_string => "" }, :outgoing_message => { :body => "Please supply the answer from your files." }, :submitted_new_request => 1, :preview => 0
         expect(flash[:error])
           .to eq("Sorry, we're currently unable to send your request. Please try again later.")
       end
 
       it 'renders the compose interface' do
         session[:user_id] = user.id
-        post :new, :info_request => { :public_body_id => body.id,
-        :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD", :tag_string => "" },
-          :outgoing_message => { :body => "Please supply the answer from your files." },
-          :submitted_new_request => 1, :preview => 0
+        post :new, :info_request => { :public_body_id => body.id, :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD", :tag_string => "" }, :outgoing_message => { :body => "Please supply the answer from your files." }, :submitted_new_request => 1, :preview => 0
         expect(response).to render_template("new")
       end
 
@@ -1464,10 +1276,7 @@ describe RequestController, "when creating a new request" do
         user.confirmed_not_spam = true
         user.save!
         session[:user_id] = user.id
-        post :new, :info_request => { :public_body_id => body.id,
-        :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD", :tag_string => "" },
-          :outgoing_message => { :body => "Please supply the answer from your files." },
-          :submitted_new_request => 1, :preview => 0
+        post :new, :info_request => { :public_body_id => body.id, :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD", :tag_string => "" }, :outgoing_message => { :body => "Please supply the answer from your files." }, :submitted_new_request => 1, :preview => 0
         expect(response)
           .to redirect_to show_request_path(:url_title => 'hd_watch_jason_bourne_online_fre')
       end
@@ -1482,20 +1291,14 @@ describe RequestController, "when creating a new request" do
 
       it 'sends an exception notification' do
         session[:user_id] = user.id
-        post :new, :info_request => { :public_body_id => body.id,
-        :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD", :tag_string => "" },
-          :outgoing_message => { :body => "Please supply the answer from your files." },
-          :submitted_new_request => 1, :preview => 0
+        post :new, :info_request => { :public_body_id => body.id, :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD", :tag_string => "" }, :outgoing_message => { :body => "Please supply the answer from your files." }, :submitted_new_request => 1, :preview => 0
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to match(/Spam request from user #{ user.id }/)
       end
 
       it 'allows the request' do
         session[:user_id] = user.id
-        post :new, :info_request => { :public_body_id => body.id,
-        :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD", :tag_string => "" },
-          :outgoing_message => { :body => "Please supply the answer from your files." },
-          :submitted_new_request => 1, :preview => 0
+        post :new, :info_request => { :public_body_id => body.id, :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD", :tag_string => "" }, :outgoing_message => { :body => "Please supply the answer from your files." }, :submitted_new_request => 1, :preview => 0
         expect(response)
           .to redirect_to show_request_path(:url_title => 'hd_watch_jason_bourne_online_fre')
       end
@@ -1524,30 +1327,21 @@ describe RequestController, "when creating a new request" do
 
       it 'sends an exception notification' do
         session[:user_id] = user.id
-        post :new, :info_request => { :public_body_id => body.id,
-        :title => "Some request content", :tag_string => "" },
-          :outgoing_message => { :body => "Please supply the answer from your files." },
-          :submitted_new_request => 1, :preview => 0
+        post :new, :info_request => { :public_body_id => body.id, :title => "Some request content", :tag_string => "" }, :outgoing_message => { :body => "Please supply the answer from your files." }, :submitted_new_request => 1, :preview => 0
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to match(/\(ip_in_blocklist\) from #{ user.id }/)
       end
 
       it 'shows an error message' do
         session[:user_id] = user.id
-        post :new, :info_request => { :public_body_id => body.id,
-        :title => "Some request content", :tag_string => "" },
-          :outgoing_message => { :body => "Please supply the answer from your files." },
-          :submitted_new_request => 1, :preview => 0
+        post :new, :info_request => { :public_body_id => body.id, :title => "Some request content", :tag_string => "" }, :outgoing_message => { :body => "Please supply the answer from your files." }, :submitted_new_request => 1, :preview => 0
         expect(flash[:error])
           .to eq("Sorry, we're currently unable to send your request. Please try again later.")
       end
 
       it 'renders the compose interface' do
         session[:user_id] = user.id
-        post :new, :info_request => { :public_body_id => body.id,
-        :title => "Some request content", :tag_string => "" },
-          :outgoing_message => { :body => "Please supply the answer from your files." },
-          :submitted_new_request => 1, :preview => 0
+        post :new, :info_request => { :public_body_id => body.id, :title => "Some request content", :tag_string => "" }, :outgoing_message => { :body => "Please supply the answer from your files." }, :submitted_new_request => 1, :preview => 0
         expect(response).to render_template("new")
       end
 
@@ -1555,10 +1349,7 @@ describe RequestController, "when creating a new request" do
         user.confirmed_not_spam = true
         user.save!
         session[:user_id] = user.id
-        post :new, :info_request => { :public_body_id => body.id,
-        :title => "Some request content", :tag_string => "" },
-          :outgoing_message => { :body => "Please supply the answer from your files." },
-          :submitted_new_request => 1, :preview => 0
+        post :new, :info_request => { :public_body_id => body.id, :title => "Some request content", :tag_string => "" }, :outgoing_message => { :body => "Please supply the answer from your files." }, :submitted_new_request => 1, :preview => 0
         expect(response)
           .to redirect_to show_request_path(:url_title => 'some_request_content')
       end
@@ -1574,20 +1365,14 @@ describe RequestController, "when creating a new request" do
 
       it 'sends an exception notification' do
         session[:user_id] = user.id
-        post :new, :info_request => { :public_body_id => body.id,
-        :title => "Some request content", :tag_string => "" },
-          :outgoing_message => { :body => "Please supply the answer from your files." },
-          :submitted_new_request => 1, :preview => 0
+        post :new, :info_request => { :public_body_id => body.id, :title => "Some request content", :tag_string => "" }, :outgoing_message => { :body => "Please supply the answer from your files." }, :submitted_new_request => 1, :preview => 0
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to match(/\(ip_in_blocklist\) from #{ user.id }/)
       end
 
       it 'allows the request' do
         session[:user_id] = user.id
-        post :new, :info_request => { :public_body_id => body.id,
-        :title => "Some request content", :tag_string => "" },
-          :outgoing_message => { :body => "Please supply the answer from your files." },
-          :submitted_new_request => 1, :preview => 0
+        post :new, :info_request => { :public_body_id => body.id, :title => "Some request content", :tag_string => "" }, :outgoing_message => { :body => "Please supply the answer from your files." }, :submitted_new_request => 1, :preview => 0
         expect(response)
           .to redirect_to show_request_path(:url_title => 'some_request_content')
       end
@@ -1655,9 +1440,7 @@ describe RequestController do
       let(:info_request){ FactoryBot.create(:info_request) }
 
       def post_status(status, info_request)
-        patch :describe_state, :incoming_message => { :described_state => status },
-          :id => info_request.id,
-          :last_info_request_event_id => info_request.last_event_id_needing_description
+        patch :describe_state, :incoming_message => { :described_state => status }, :id => info_request.id, :last_info_request_event_id => info_request.last_event_id_needing_description
       end
 
       context 'when the request is embargoed' do
@@ -1760,14 +1543,7 @@ describe RequestController do
           context 'when the new status is "requires_admin"' do
             it "should send a mail to admins saying that the response requires admin
                and one to the requester noting the status change" do
-              patch :describe_state, :incoming_message =>
-                                      { :described_state => "requires_admin",
-                                        :message => "a message" },
-                                    :id => info_request.id,
-                                    :incoming_message_id =>
-                                      info_request.incoming_messages.last,
-                                    :last_info_request_event_id =>
-                                      info_request.last_event_id_needing_description
+              patch :describe_state, :incoming_message => { :described_state => "requires_admin", :message => "a message" }, :id => info_request.id, :incoming_message_id => info_request.incoming_messages.last, :last_info_request_event_id => info_request.last_event_id_needing_description
 
               deliveries = ActionMailer::Base.deliveries
               expect(deliveries.size).to eq(2)
@@ -1786,13 +1562,7 @@ describe RequestController do
             context "if the params don't include a message" do
 
               it 'redirects to the message url' do
-                patch :describe_state, :incoming_message =>
-                                        { :described_state => "requires_admin" },
-                                      :id => info_request.id,
-                                      :incoming_message_id =>
-                                        info_request.incoming_messages.last,
-                                      :last_info_request_event_id =>
-                                        info_request.last_event_id_needing_description
+                patch :describe_state, :incoming_message => { :described_state => "requires_admin" }, :id => info_request.id, :incoming_message_id => info_request.incoming_messages.last, :last_info_request_event_id => info_request.last_event_id_needing_description
                 expected_url = describe_state_message_url(
                                  :url_title => info_request.url_title,
                                  :described_state => 'requires_admin')
@@ -1909,18 +1679,14 @@ describe RequestController do
         end
 
         it "should let you know when you forget to select a status" do
-          patch :describe_state, :id => info_request.id,
-                                :last_info_request_event_id =>
-                                  info_request.last_event_id_needing_description
+          patch :describe_state, :id => info_request.id, :last_info_request_event_id => info_request.last_event_id_needing_description
           expect(response).to redirect_to show_request_url(:url_title => info_request.url_title)
           expect(flash[:error])
             .to eq("Please choose whether or not you got some of the information that you wanted.")
         end
 
         it "should not change the status if the request has changed while viewing it" do
-          patch :describe_state, :incoming_message => { :described_state => "rejected" },
-                                :id => info_request.id,
-                                :last_info_request_event_id => 1
+          patch :describe_state, :incoming_message => { :described_state => "rejected" }, :id => info_request.id, :last_info_request_event_id => 1
           expect(response)
             .to redirect_to show_request_url(:url_title => info_request.url_title)
           expect(flash[:error])
@@ -1955,11 +1721,7 @@ describe RequestController do
 
         it "should go to the page asking for more information when classified
             as requires_admin" do
-          patch :describe_state,
-            :incoming_message => { :described_state => "requires_admin" },
-            :id => info_request.id,
-            :incoming_message_id => info_request.incoming_messages.last,
-            :last_info_request_event_id => info_request.last_event_id_needing_description
+          patch :describe_state, :incoming_message => { :described_state => "requires_admin" }, :id => info_request.id, :incoming_message_id => info_request.incoming_messages.last, :last_info_request_event_id => info_request.last_event_id_needing_description
           expect(response)
             .to redirect_to describe_state_message_url(:url_title => info_request.url_title,
                                                        :described_state => "requires_admin")
@@ -1971,12 +1733,7 @@ describe RequestController do
 
         context "message is included when classifying as requires_admin" do
           it "should send an email including the message" do
-            patch :describe_state,
-            :incoming_message => {
-              :described_state => "requires_admin",
-            :message => "Something weird happened" },
-              :id => info_request.id,
-              :last_info_request_event_id => info_request.last_event_id_needing_description
+            patch :describe_state, :incoming_message => { :described_state => "requires_admin", :message => "Something weird happened" }, :id => info_request.id, :last_info_request_event_id => info_request.last_event_id_needing_description
 
             deliveries = ActionMailer::Base.deliveries
             expect(deliveries.size).to eq(1)
@@ -2169,13 +1926,7 @@ describe RequestController do
         context 'when status is updated to "requires admin"' do
 
           it 'should redirect to the "request url"' do
-            patch :describe_state, :incoming_message => {
-                :described_state => 'requires_admin',
-                :message => "A message"
-              },
-              :id => info_request.id,
-              :last_info_request_event_id =>
-                info_request.last_event_id_needing_description
+            patch :describe_state, :incoming_message => { :described_state => 'requires_admin', :message => "A message" }, :id => info_request.id, :last_info_request_event_id => info_request.last_event_id_needing_description
             expect(response)
               .to redirect_to show_request_url(:url_title => info_request.url_title)
             expect(flash[:notice][:partial]).
@@ -2187,13 +1938,7 @@ describe RequestController do
         context 'when status is updated to "error message"' do
 
           it 'should redirect to the "request url"' do
-            patch :describe_state, :incoming_message => {
-                :described_state => 'error_message',
-                :message => "A message"
-              },
-              :id => info_request.id,
-              :last_info_request_event_id =>
-                info_request.last_event_id_needing_description
+            patch :describe_state, :incoming_message => { :described_state => 'error_message', :message => "A message" }, :id => info_request.id, :last_info_request_event_id => info_request.last_event_id_needing_description
             expect(response)
               .to redirect_to(
                     show_request_url(:url_title => info_request.url_title)
@@ -2205,13 +1950,7 @@ describe RequestController do
           context "if the params don't include a message" do
 
             it 'redirects to the message url' do
-              patch :describe_state, :incoming_message =>
-                                      { :described_state => "error_message" },
-                                    :id => info_request.id,
-                                    :incoming_message_id =>
-                                      info_request.incoming_messages.last,
-                                    :last_info_request_event_id =>
-                                      info_request.last_event_id_needing_description
+              patch :describe_state, :incoming_message => { :described_state => "error_message" }, :id => info_request.id, :incoming_message_id => info_request.incoming_messages.last, :last_info_request_event_id => info_request.last_event_id_needing_description
               expected_url = describe_state_message_url(
                                :url_title => info_request.url_title,
                                :described_state => 'error_message')
@@ -2289,8 +2028,9 @@ describe RequestController, "authority uploads a response from the web interface
     let(:embargoed_request){ FactoryBot.create(:embargoed_request)}
 
     it 'raises an ActiveRecord::RecordNotFound error' do
-      expect{get :upload_response, :url_title => embargoed_request.url_title }
-        .to raise_error(ActiveRecord::RecordNotFound)
+      expect {
+        get :upload_response, :url_title => embargoed_request.url_title
+      }.to raise_error(ActiveRecord::RecordNotFound)
     end
 
   end
@@ -2320,10 +2060,7 @@ describe RequestController, "authority uploads a response from the web interface
 
     # post up a photo of the parrot
     parrot_upload = fixture_file_upload('/files/parrot.png','image/png')
-    post :upload_response, :url_title => 'why_do_you_have_such_a_fancy_dog',
-      :body => "Find attached a picture of a parrot",
-      :file_1 => parrot_upload,
-      :submitted_upload_response => 1
+    post :upload_response, :url_title => 'why_do_you_have_such_a_fancy_dog', :body => "Find attached a picture of a parrot", :file_1 => parrot_upload, :submitted_upload_response => 1
     expect(response).to render_template('user/wrong_user')
   end
 
@@ -2336,7 +2073,9 @@ describe RequestController, "authority uploads a response from the web interface
   end
 
   it 'should 404 for non existent requests' do
-    expect{ post :upload_response, :url_title => 'i_dont_exist'}.to raise_error(ActiveRecord::RecordNotFound)
+    expect {
+      post :upload_response, :url_title => 'i_dont_exist'
+    }.to raise_error(ActiveRecord::RecordNotFound)
   end
 
   # How do I test a file upload in rails?
@@ -2348,10 +2087,7 @@ describe RequestController, "authority uploads a response from the web interface
 
     # post up a photo of the parrot
     parrot_upload = fixture_file_upload('/files/parrot.png','image/png')
-    post :upload_response, :url_title => 'why_do_you_have_such_a_fancy_dog',
-      :body => "Find attached a picture of a parrot",
-      :file_1 => parrot_upload,
-      :submitted_upload_response => 1
+    post :upload_response, :url_title => 'why_do_you_have_such_a_fancy_dog', :body => "Find attached a picture of a parrot", :file_1 => parrot_upload, :submitted_upload_response => 1
 
     expect(response).to redirect_to(:action => 'show', :url_title => 'why_do_you_have_such_a_fancy_dog')
     expect(flash[:notice]).to match(/Thank you for responding to this FOI request/)
@@ -2685,18 +2421,14 @@ describe RequestController, "#select_authorities" do
         end
 
         it 'should assign a list of public bodies to the view if passed a list of ids' do
-          get :select_authorities, {:public_body_ids => [public_bodies(:humpadink_public_body).id]},
-            {:user_id => @user.id}
+          get :select_authorities, {:public_body_ids => [public_bodies(:humpadink_public_body).id]}, {:user_id => @user.id}
           expect(assigns[:public_bodies].size).to eq(1)
           expect(assigns[:public_bodies][0].name).to eq(public_bodies(:humpadink_public_body).name)
         end
 
         it 'should subtract a list of public bodies to remove from the list of bodies assigned to
                     the view' do
-          get :select_authorities, {:public_body_ids => [public_bodies(:humpadink_public_body).id,
-                                                         public_bodies(:geraldine_public_body).id],
-          :remove_public_body_ids => [public_bodies(:geraldine_public_body).id]},
-            {:user_id => @user.id}
+          get :select_authorities, {:public_body_ids => [public_bodies(:humpadink_public_body).id, public_bodies(:geraldine_public_body).id], :remove_public_body_ids => [public_bodies(:geraldine_public_body).id]}, {:user_id => @user.id}
           expect(assigns[:public_bodies].size).to eq(1)
           expect(assigns[:public_bodies][0].name).to eq(public_bodies(:humpadink_public_body).name)
         end
@@ -2711,8 +2443,7 @@ describe RequestController, "#select_authorities" do
         end
 
         it 'should return a list of public body names and ids' do
-          get :select_authorities, {:public_body_query => "Quan", :format => 'json'},
-            {:user_id => @user.id}
+          get :select_authorities, {:public_body_query => "Quan", :format => 'json'}, {:user_id => @user.id}
 
           expect(JSON(response.body)).to eq([{ 'id' => public_bodies(:geraldine_public_body).id,
                                            'name' => public_bodies(:geraldine_public_body).name }])
@@ -2724,8 +2455,7 @@ describe RequestController, "#select_authorities" do
         end
 
         it 'should return an empty list if there are no bodies' do
-          get :select_authorities, {:public_body_query => 'fknkskalnr', :format => 'json' },
-            {:user_id => @user.id}
+          get :select_authorities, {:public_body_query => 'fknkskalnr', :format => 'json' }, {:user_id => @user.id}
           expect(JSON(response.body)).to eq([])
         end
 
@@ -2854,8 +2584,9 @@ describe RequestController do
       end
 
       it 'raises an ActiveRecord::RecordNotFound error' do
-        expect{ get :details, :url_title => info_request.url_title }
-          .to raise_error(ActiveRecord::RecordNotFound)
+        expect {
+          get :details, :url_title => info_request.url_title
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
@@ -2869,27 +2600,23 @@ describe RequestController do
     let(:info_request){ FactoryBot.create(:info_request_with_incoming) }
 
     it 'assigns the info_request to the view' do
-      get :describe_state_message, :url_title => info_request.url_title,
-                                   :described_state => 'error_message'
+      get :describe_state_message, :url_title => info_request.url_title, :described_state => 'error_message'
       expect(assigns[:info_request]).to eq info_request
     end
 
     it 'assigns the described state to the view' do
-      get :describe_state_message, :url_title => info_request.url_title,
-                                   :described_state => 'error_message'
+      get :describe_state_message, :url_title => info_request.url_title, :described_state => 'error_message'
       expect(assigns[:described_state]).to eq 'error_message'
     end
 
     it 'assigns the last info request event id to the view' do
-       get :describe_state_message, :url_title => info_request.url_title,
-                                   :described_state => 'error_message'
+       get :describe_state_message, :url_title => info_request.url_title, :described_state => 'error_message'
       expect(assigns[:last_info_request_event_id])
         .to eq info_request.last_event_id_needing_description
     end
 
     it 'assigns the title to the view' do
-      get :describe_state_message, :url_title => info_request.url_title,
-                                   :described_state => 'error_message'
+      get :describe_state_message, :url_title => info_request.url_title, :described_state => 'error_message'
       expect(assigns[:title]).to eq "I've received an error message"
     end
 
@@ -2897,11 +2624,9 @@ describe RequestController do
       let(:info_request){ FactoryBot.create(:embargoed_request) }
 
       it 'raises ActiveRecord::RecordNotFound' do
-        expect{ get :describe_state_message,
-                      :url_title => info_request.url_title,
-                      :described_state => 'error_message' }
-          .to raise_error(ActiveRecord::RecordNotFound)
-
+        expect {
+          get :describe_state_message, :url_title => info_request.url_title, :described_state => 'error_message'
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
 
     end
@@ -2920,9 +2645,9 @@ describe RequestController do
 
       context 'and the user is not logged in' do
         it 'raises ActiveRecord::RecordNotFound' do
-          expect{ get :download_entire_request,
-                      :url_title => info_request.url_title }
-            .to raise_error(ActiveRecord::RecordNotFound)
+          expect {
+            get :download_entire_request, :url_title => info_request.url_title
+          }.to raise_error(ActiveRecord::RecordNotFound)
         end
       end
 
@@ -2932,9 +2657,9 @@ describe RequestController do
         end
 
         it 'raises ActiveRecord::RecordNotFound' do
-          expect{ get :download_entire_request,
-                      :url_title => info_request.url_title }
-            .to raise_error(ActiveRecord::RecordNotFound)
+          expect {
+            get :download_entire_request, :url_title => info_request.url_title
+          }.to raise_error(ActiveRecord::RecordNotFound)
         end
       end
 
@@ -2990,8 +2715,9 @@ describe RequestController do
 
       it 'raises ActiveRecord::RecordNotFound when the request is embargoed' do
         event.info_request.create_embargo(:publish_at => Time.zone.now + 1.day)
-        expect{ get :show_request_event, :info_request_event_id => event.id }
-          .to raise_error ActiveRecord::RecordNotFound
+        expect {
+          get :show_request_event, :info_request_event_id => event.id
+        }.to raise_error ActiveRecord::RecordNotFound
       end
     end
 
@@ -3011,8 +2737,9 @@ describe RequestController do
 
       it 'raises ActiveRecord::RecordNotFound when the request is embargoed' do
         event.info_request.create_embargo(:publish_at => Time.zone.now + 1.day)
-        expect{ get :show_request_event, :info_request_event_id => event.id }
-          .to raise_error ActiveRecord::RecordNotFound
+        expect {
+          get :show_request_event, :info_request_event_id => event.id
+        }.to raise_error ActiveRecord::RecordNotFound
       end
     end
 
@@ -3032,8 +2759,9 @@ describe RequestController do
 
       it 'raises ActiveRecord::RecordNotFound when the request is embargoed' do
         event.info_request.create_embargo(:publish_at => Time.zone.now + 1.day)
-        expect{ get :show_request_event, :info_request_event_id => event.id }
-          .to raise_error ActiveRecord::RecordNotFound
+        expect {
+          get :show_request_event, :info_request_event_id => event.id
+        }.to raise_error ActiveRecord::RecordNotFound
       end
     end
   end
@@ -3041,7 +2769,9 @@ describe RequestController do
   describe 'GET #search_typeahead' do
 
     it "does not raise an error if there are no params" do
-      expect{ get :search_typeahead }.not_to raise_error
+      expect {
+        get :search_typeahead
+      }.not_to raise_error
     end
 
   end

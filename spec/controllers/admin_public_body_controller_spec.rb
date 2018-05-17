@@ -44,8 +44,7 @@ describe AdminPublicBodyController do
         public_body.name = 'El Public Body'
         public_body.save
       end
-      get :show, { :id => public_body.id, :locale => "es" },
-                 { :user_id => admin_user.id }
+      get :show, { :id => public_body.id, :locale => "es" }, { :user_id => admin_user.id }
       expect(assigns[:public_body].name).to eq 'El Public Body'
     end
 
@@ -222,15 +221,12 @@ describe AdminPublicBodyController do
     context 'on failure' do
 
       it 'renders the form if creating the record was unsuccessful' do
-        post :create, :public_body => { :name => '',
-                                        :translations_attributes => {} }
+        post :create, :public_body => { :name => '', :translations_attributes => {} }
         expect(response).to render_template('new')
       end
 
       it 'is rebuilt with the given params' do
-        post :create, :public_body => { :name => '',
-                                        :request_email => 'newquango@localhost',
-                                        :translations_attributes => {} }
+        post :create, :public_body => { :name => '', :request_email => 'newquango@localhost', :translations_attributes => {} }
         expect(assigns(:public_body).request_email).to eq('newquango@localhost')
       end
 
@@ -268,14 +264,7 @@ describe AdminPublicBodyController do
 
       before do
         @change_request = FactoryBot.create(:add_body_request)
-        post :create, { :public_body => { :name => "New Quango",
-                                          :short_name => "",
-                                          :tag_string => "blah",
-                                          :request_email => 'newquango@localhost',
-                                          :last_edit_comment => 'From test code' },
-                        :change_request_id => @change_request.id,
-                        :subject => 'Adding a new body',
-                        :response => 'The URL will be [Authority URL will be inserted here]'}
+        post :create, { :public_body => { :name => "New Quango", :short_name => "", :tag_string => "blah", :request_email => 'newquango@localhost', :last_edit_comment => 'From test code' }, :change_request_id => @change_request.id, :subject => 'Adding a new body', :response => 'The URL will be [Authority URL will be inserted here]'}
       end
 
       it 'should send a response to the requesting user' do
@@ -430,15 +419,7 @@ describe AdminPublicBodyController do
 
       it 'saves edits to a public body heading in another locale' do
         expect(@body.name(:es)).to eq('Los Quango')
-        post :update, :id => @body.id,
-        :public_body => {
-          :name => @body.name(:en),
-          :translations_attributes => {
-            'es' => { :id => @body.translation_for(:es).id,
-                      :locale => 'es',
-                      :name => 'Renamed' }
-          }
-        }
+        post :update, :id => @body.id, :public_body => { :name => @body.name(:en), :translations_attributes => { 'es' => { :id => @body.translation_for(:es).id, :locale => 'es', :name => 'Renamed' } } }
 
         body = PublicBody.find(@body.id)
         expect(body.name(:es)).to eq('Renamed')
@@ -449,16 +430,7 @@ describe AdminPublicBodyController do
         @body.translation_for(:es).destroy
         @body.reload
 
-        put :update, {
-          :id => @body.id,
-          :public_body => {
-            :name => @body.name(:en),
-            :translations_attributes => {
-              'es' => { :locale => "es",
-                        :name => "Example Public Body ES" }
-            }
-          }
-        }
+        put :update, { :id => @body.id, :public_body => { :name => @body.name(:en), :translations_attributes => { 'es' => { :locale => "es", :name => "Example Public Body ES" } } } }
 
         expect(request.flash[:notice]).to include('successful')
 
@@ -471,12 +443,7 @@ describe AdminPublicBodyController do
 
       it 'creates a new translation for the default locale' do
         AlaveteliLocalization.set_locales('es en_GB', 'en_GB')
-        put :update, {
-          :id => @body.id,
-          :public_body => {
-            :name => "Example Public Body en_GB",
-          }
-        }
+        put :update, { :id => @body.id, :public_body => { :name => "Example Public Body en_GB", } }
 
         body = PublicBody.find(@body.id)
         expect(body.translations.map(&:locale)).to include(:en_GB)
@@ -486,18 +453,7 @@ describe AdminPublicBodyController do
         @body.translation_for(:es).destroy
         @body.reload
 
-        post :update, {
-          :id => @body.id,
-          :public_body => {
-            :name => @body.name(:en),
-            :translations_attributes => {
-              'es' => { :locale => "es",
-                        :name => "Example Public Body ES" },
-              'fr' => { :locale => "fr",
-                        :name => "Example Public Body FR" }
-            }
-          }
-        }
+        post :update, { :id => @body.id, :public_body => { :name => @body.name(:en), :translations_attributes => { 'es' => { :locale => "es", :name => "Example Public Body ES" }, 'fr' => { :locale => "fr", :name => "Example Public Body FR" } } } }
 
         expect(request.flash[:notice]).to include('successful')
 
@@ -545,21 +501,12 @@ describe AdminPublicBodyController do
     context 'on failure' do
 
       it 'renders the form if creating the record was unsuccessful' do
-        post :update, :id => @body.id,
-        :public_body => {
-          :name => '',
-          :translations_attributes => {}
-        }
+        post :update, :id => @body.id, :public_body => { :name => '', :translations_attributes => {} }
         expect(response).to render_template('edit')
       end
 
       it 'is rebuilt with the given params' do
-        post :update, :id => @body.id,
-        :public_body => {
-          :name => '',
-          :request_email => 'updated@localhost',
-          :translations_attributes => {}
-        }
+        post :update, :id => @body.id, :public_body => { :name => '', :request_email => 'updated@localhost', :translations_attributes => {} }
         expect(assigns(:public_body).request_email).to eq('updated@localhost')
       end
 
@@ -596,14 +543,7 @@ describe AdminPublicBodyController do
 
       before do
         @change_request = FactoryBot.create(:update_body_request)
-        post :update, { :id => @change_request.public_body_id,
-                        :public_body => { :name => "New Quango",
-                                          :short_name => "",
-                                          :request_email => 'newquango@localhost',
-                                          :last_edit_comment => 'From test code' },
-                        :change_request_id => @change_request.id,
-                        :subject => 'Body update',
-                        :response => 'Done.'}
+        post :update, { :id => @change_request.public_body_id, :public_body => { :name => "New Quango", :short_name => "", :request_email => 'newquango@localhost', :last_edit_comment => 'From test code' }, :change_request_id => @change_request.id, :subject => 'Body update', :response => 'Done.'}
       end
 
       it 'should send a response to the requesting user' do
@@ -681,13 +621,11 @@ describe AdminPublicBodyController do
 
         it 'should try to get the contents and original name of a csv file param' do
           expect(@file_object).to receive(:read).and_return('some contents')
-          post :import_csv, { :csv_file => @file_object,
-                              :commit => 'Dry run'}
+          post :import_csv, { :csv_file => @file_object, :commit => 'Dry run'}
         end
 
         it 'should assign the original filename to the view' do
-          post :import_csv, { :csv_file => @file_object,
-                              :commit => 'Dry run'}
+          post :import_csv, { :csv_file => @file_object, :commit => 'Dry run'}
           expect(assigns[:original_csv_file]).to eq('fake-authority-type.csv')
         end
 
@@ -699,9 +637,7 @@ describe AdminPublicBodyController do
         it 'should try and get the file contents from a temporary file whose name
                   is passed as a param' do
           expect(@controller).to receive(:retrieve_csv_data).with('csv_upload-2046-12-31-394')
-          post :import_csv, { :temporary_csv_file => 'csv_upload-2046-12-31-394',
-                              :original_csv_file => 'original_contents.txt',
-                              :commit => 'Dry run'}
+          post :import_csv, { :temporary_csv_file => 'csv_upload-2046-12-31-394', :original_csv_file => 'original_contents.txt', :commit => 'Dry run'}
         end
 
         it 'should raise an error on an invalid temp file name' do
@@ -709,7 +645,9 @@ describe AdminPublicBodyController do
                      :original_csv_file => 'original_contents.txt',
                      :commit => 'Dry run'}
           expected_error = "Invalid filename in upload_csv: bad_name"
-          expect{ post :import_csv, params }.to raise_error(expected_error)
+          expect {
+            post :import_csv, params
+          }.to raise_error(expected_error)
         end
 
         it 'should raise an error if the temp file does not exist' do
@@ -718,12 +656,13 @@ describe AdminPublicBodyController do
                      :original_csv_file => 'original_contents.txt',
                      :commit => 'Dry run'}
           expected_error = "Missing file in upload_csv: csv_upload-20461231-394"
-          expect{ post :import_csv, params }.to raise_error(expected_error)
+          expect {
+            post :import_csv, params
+          }.to raise_error(expected_error)
         end
 
         it 'should assign the temporary filename to the view' do
-          post :import_csv, { :csv_file => @file_object,
-                              :commit => 'Dry run'}
+          post :import_csv, { :csv_file => @file_object, :commit => 'Dry run'}
           temporary_filename = assigns[:temporary_csv_file]
           expect(temporary_filename).to match(/csv_upload-#{Time.zone.now.strftime("%Y%m%d")}-\d{1,5}/)
         end

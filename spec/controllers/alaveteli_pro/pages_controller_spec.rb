@@ -27,8 +27,9 @@ describe AlaveteliPro::PagesController do
     context 'when asked for a template that does not exist' do
 
       it 'raises ActiveRecord::RecordNotFound' do
-        expect{ get :show, id: 'nope' }
-          .to raise_error ActiveRecord::RecordNotFound
+        expect {
+          get :show, id: 'nope'
+        }.to raise_error ActiveRecord::RecordNotFound
       end
     end
   end

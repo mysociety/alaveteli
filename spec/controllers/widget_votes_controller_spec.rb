@@ -69,8 +69,9 @@ describe WidgetVotesController do
 
       it 'raises ActiveRecord::RecordNotFound' do
         allow(AlaveteliConfiguration).to receive(:enable_widgets).and_return(false)
-        expect{ post :create, :request_id => info_request.id }.
-          to raise_error(ActiveRecord::RecordNotFound)
+        expect {
+          post :create, :request_id => info_request.id
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
 
     end
@@ -90,7 +91,7 @@ describe WidgetVotesController do
 
       it 'should raise an ActiveRecord::RecordNotFound error' do
         embargoed_request = FactoryBot.create(:embargoed_request)
-        expect{
+        expect {
           post :create, :request_id => embargoed_request.id
         }.to raise_error ActiveRecord::RecordNotFound
       end

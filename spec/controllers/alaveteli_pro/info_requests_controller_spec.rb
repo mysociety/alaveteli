@@ -116,8 +116,7 @@ describe AlaveteliPro::InfoRequestsController do
       it "raises a CanCan::AccessDenied error" do
         session[:user_id] = other_pro_user.id
         expect do
-          put :update, id: info_request.id,
-                       info_request: { described_state: "successful" }
+          put :update, id: info_request.id, info_request: { described_state: "successful" }
         end.to raise_error(CanCan::AccessDenied)
       end
     end

@@ -200,16 +200,14 @@ describe UserProfile::AboutMeController do
       end
 
       it 'ignores non-whitelisted attributes' do
-        put :update, :user => { :about_me => 'My bio',
-                                :role_ids => [ Role.admin_role.id ] }
+        put :update, :user => { :about_me => 'My bio', :role_ids => [ Role.admin_role.id ] }
         expect(user.reload.roles).to eq([])
       end
 
       it 'sets whitelisted attributes' do
         user = FactoryBot.create(:user, :name => '1234567')
         session[:user_id] = user.id
-        put :update, :user => { :about_me => 'My bio',
-                                :role_ids => [ Role.admin_role.id ] }
+        put :update, :user => { :about_me => 'My bio', :role_ids => [ Role.admin_role.id ] }
         expect(user.reload.about_me).to eq('My bio')
       end
 

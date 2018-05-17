@@ -172,8 +172,9 @@ describe WidgetsController do
 
       it 'raises ActiveRecord::RecordNotFound' do
         allow(AlaveteliConfiguration).to receive(:enable_widgets).and_return(false)
-        expect{ get :show, :request_id => @info_request.id }.
-          to raise_error(ActiveRecord::RecordNotFound)
+        expect {
+          get :show, :request_id => @info_request.id
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
 
     end
@@ -223,8 +224,9 @@ describe WidgetsController do
 
       it 'raises ActiveRecord::RecordNotFound' do
         allow(AlaveteliConfiguration).to receive(:enable_widgets).and_return(false)
-        expect{ get :new, :request_id => @info_request.id }.
-          to raise_error(ActiveRecord::RecordNotFound)
+        expect {
+          get :new, :request_id => @info_request.id
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
 
     end
