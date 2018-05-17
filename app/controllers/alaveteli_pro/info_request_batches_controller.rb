@@ -27,6 +27,12 @@ class AlaveteliPro::InfoRequestBatchesController < AlaveteliPro::BaseController
     @draft_info_request_batch = load_draft
     load_data_from_draft(@draft_info_request_batch)
     if all_models_valid?
+      rate_monitor.record(current_user.id)
+
+      if rate_monitor.limit?(current_user.id)
+        handle_rate_monitor_limit_hit(current_user.id)
+      end
+
       @info_request_batch.save
       @draft_info_request_batch.destroy
       redirect_to show_alaveteli_pro_batch_request_path(id: @info_request_batch.id)
@@ -37,6 +43,23 @@ class AlaveteliPro::InfoRequestBatchesController < AlaveteliPro::BaseController
   end
 
   private
+
+  def rate_monitor
+    @rate_monitor ||=
+      AlaveteliRateLimiter::RateLimiter.new(
+        AlaveteliRateLimiter::Rule.new(
+          :pro_batch_creation,
+          5,
+          AlaveteliRateLimiter::Window.new(1, :day)))
+  end
+
+  def handle_rate_monitor_limit_hit(user_id)
+    if send_exception_notifications?
+      msg = "Batch rate limit hit by User: #{ user_id }"
+      e = Exception.new(msg)
+      ExceptionNotifier.notify_exception(e, env: request.env)
+    end
+  end
 
   def load_draft
     current_user.draft_info_request_batches.find(params[:draft_id])
