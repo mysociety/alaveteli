@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
   before_action :set_vary_header
   before_action :validate_session_timestamp
   before_action :collect_locales
-  after_filter  :persist_session_timestamp
+  after_action  :persist_session_timestamp
 
   def set_vary_header
     response.headers['Vary'] = 'Cookie'
