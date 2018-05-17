@@ -12,7 +12,7 @@ class Users::SessionsController < UserController
   # tries to sign in or sign up. There's little CSRF potential here as
   # these actions only sign in or up users with valid credentials. The
   # user_id in the session is not expected, and gives no extra privilege
-  skip_before_filter :verify_authenticity_token, :only => [:new, :create]
+  skip_before_action :verify_authenticity_token, :only => [:new, :create]
 
   def new
     if @user
