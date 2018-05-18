@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Add user name spam checking (Gareth Rees)
+* Make it quicker to ban users for spamming in admin interface (Gareth Rees)
 * Limit the frequency that `PublicBody#updated_at` gets updated by unrelated
   changes to an associated `InfoRequest` (Gareth Rees)
 * Add standard Rails timestamp columns to all tables (Gareth Rees)

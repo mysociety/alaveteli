@@ -55,9 +55,10 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
     let(:payload) { stripe_event.to_s }
 
     before do
-      config = MySociety::Config.load_default
-      config['STRIPE_WEBHOOK_SECRET'] = config_secret
-      config['STRIPE_NAMESPACE'] = ''
+      allow(AlaveteliConfiguration).to receive(:stripe_namespace).
+        and_return('')
+      allow(AlaveteliConfiguration).to receive(:stripe_webhook_secret).
+        and_return(config_secret)
       StripeMock.start
     end
 
@@ -186,9 +187,8 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
     context 'when using namespaced plans' do
 
       before do
-        config = MySociety::Config.load_default
-        config['STRIPE_NAMESPACE'] = 'WDTK'
-        config['STRIPE_WEBHOOK_SECRET'] = config_secret
+        allow(AlaveteliConfiguration).to receive(:stripe_namespace).
+          and_return('WDTK')
       end
 
       context 'the webhook does not reference our plan namespace' do

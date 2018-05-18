@@ -39,6 +39,15 @@
           <% end %>
         </tbody>
       </table>
+      <div class="row">
+        <div class="span2 offset10">
+          <%= form_tag admin_users_account_suspensions_path(user_id: user.id, suspension_reason: 'Banned for spamming'), class: 'form form-horizontal' do %>
+            <% submit_class = %w(btn btn-danger) %>
+            <% submit_class << 'disabled' if user.banned? %>
+            <%= submit_tag 'Ban for spamming', class: submit_class %>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
 <% end %>

@@ -8,6 +8,7 @@ class UserSpamScorer
     :email_from_suspicious_domain? => 5,
     :email_from_spam_domain? => 8,
     :email_from_spam_tld? => 3,
+    :name_is_spam_format? => 5,
     :about_me_includes_currency_symbol? => 2,
     :about_me_is_link_only? => 3,
     :about_me_is_spam_format? => 1,
@@ -27,6 +28,7 @@ class UserSpamScorer
     %w(7x.cz
        allemaling.com
        brmailing.com
+       businessmailsystem.com
        checknowmail.com
        colde-mail.com
        consimail.com
@@ -57,7 +59,23 @@ class UserSpamScorer
        webgarden.cz
        wgz.cz
        wowmailing.com).freeze
-  DEFAULT_SPAM_FORMATS = [
+  DEFAULT_SPAM_NAME_FORMATS = [
+    /\A.*bitcoin.*\z/i,
+    /\A.*currency.*\z/i,
+    /\A.*support.*\z/i,
+    /\A.*customer.*service.*\z/i,
+    /\A.*customer.*care.*\z/i,
+    /\A.*buy.*online.*\z/i,
+    /\A.*real.*estate.*\z/i,
+    /\A.*web.*design.*\z/i,
+    /\A.*Mac\sDesktop.*\z/i,
+    /\A.*Inc\z/,
+    /\A.*LLC\z/,
+    /\A.*spyware.*\z/i,
+    /\A.*malware.*\z/i,
+    /\A.*CRM.*\z/
+  ].freeze
+  DEFAULT_SPAM_ABOUT_ME_FORMATS = [
     /\A.+\n{2,}https?:\/\/[^\s]+\z/,
     /\Ahttps?:\/\/[^\s]+\n{2,}.+$/,
     /\A.*\n{2,}.*\n{2,}https?:\/\/[^\s]+$/
@@ -69,7 +87,8 @@ class UserSpamScorer
                       :score_mappings,
                       :suspicious_domains,
                       :spam_domains,
-                      :spam_formats,
+                      :spam_name_formats,
+                      :spam_about_me_formats,
                       :spam_score_threshold,
                       :spam_tlds].freeze
 
@@ -146,6 +165,10 @@ class UserSpamScorer
     spam_tlds.any? { |tld| user.email_domain.split('.').last == tld }
   end
 
+  def name_is_spam_format?(user)
+    spam_name_formats.any? { |regexp| user.name.strip =~ regexp }
+  end
+
   def about_me_includes_currency_symbol?(user)
     currency_symbols.any? { |symbol| user.about_me.include?(symbol) }
   end
@@ -155,7 +178,7 @@ class UserSpamScorer
   end
 
   def about_me_is_spam_format?(user)
-    spam_formats.any? do |regexp|
+    spam_about_me_formats.any? do |regexp|
       user.about_me.gsub("\r\n", "\n").strip =~ regexp
     end
   end
