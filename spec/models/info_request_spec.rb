@@ -343,38 +343,32 @@ describe InfoRequest do
     end
 
     context 'when using custom configuration' do
+      subject { described_class.stop_new_responses_on_old_requests }
+      let(:request) { FactoryGirl.create(:info_request) }
 
-      it 'does not affect requests that have been updated in the last custom number of months' do
+      before do
         allow(AlaveteliConfiguration).
           to receive(:restrict_new_responses_on_old_requests_after_months).
             and_return(3)
+      end
 
-        request = FactoryGirl.create(:info_request)
+      it 'does not affect requests that have been updated in the last custom number of months' do
         request.update(updated_at: 3.months.ago)
-        described_class.stop_new_responses_on_old_requests
-        expect(request.reload.allow_new_responses_from).to eq('anybody')
+        expect { subject }.
+          not_to change { request.reload.allow_new_responses_from }
       end
 
       it 'allows new responses from authority_only after custom number of months' do
-        allow(AlaveteliConfiguration).
-          to receive(:restrict_new_responses_on_old_requests_after_months).
-            and_return(3)
-
-        request = FactoryGirl.create(:info_request)
         request.update(updated_at: 3.months.ago - 1.day)
-        described_class.stop_new_responses_on_old_requests
-        expect(request.reload.allow_new_responses_from).to eq('authority_only')
+        expect { subject }.
+          to change { request.reload.allow_new_responses_from }.
+          to('authority_only')
       end
 
       it 'stops all new responses after quadruple the custom number of months' do
-        allow(AlaveteliConfiguration).
-          to receive(:restrict_new_responses_on_old_requests_after_months).
-            and_return(3)
-
-        request = FactoryGirl.create(:info_request)
         request.update(updated_at: 12.months.ago - 1.day)
-        described_class.stop_new_responses_on_old_requests
-        expect(request.reload.allow_new_responses_from).to eq('nobody')
+        expect { subject }.
+          to change { request.reload.allow_new_responses_from }.to('nobody')
       end
 
     end
