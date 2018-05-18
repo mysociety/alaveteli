@@ -292,28 +292,28 @@ describe InfoRequest do
 
     it 'does not affect requests that have been updated in the last 6 months' do
       request = FactoryGirl.create(:info_request)
-      request.update_attributes(:updated_at => 6.months.ago)
+      request.update(updated_at: 6.months.ago)
       described_class.stop_new_responses_on_old_requests
       expect(request.reload.allow_new_responses_from).to eq('anybody')
     end
 
     it 'does not affect requests that have never been published' do
       request = FactoryGirl.create(:embargoed_request)
-      request.update_attributes(:updated_at => 1.year.ago)
+      request.update(updated_at: 1.year.ago)
       described_class.stop_new_responses_on_old_requests
       expect(request.reload.allow_new_responses_from).to eq('anybody')
     end
 
     it 'allows new responses from authority_only after 6 months' do
       request = FactoryGirl.create(:info_request)
-      request.update_attributes(:updated_at => 6.months.ago - 1.day)
+      request.update(updated_at: 6.months.ago - 1.day)
       described_class.stop_new_responses_on_old_requests
       expect(request.reload.allow_new_responses_from).to eq('authority_only')
     end
 
     it 'logs an event after changing new responses to authority_only' do
       request = FactoryGirl.create(:info_request)
-      request.update_attributes(:updated_at => 6.months.ago - 1.day)
+      request.update(updated_at: 6.months.ago - 1.day)
       described_class.stop_new_responses_on_old_requests
       last_event = request.reload.get_last_event
       expect(last_event.event_type).to eq('edit')
@@ -325,14 +325,14 @@ describe InfoRequest do
 
     it 'stops new responses after 2 years' do
       request = FactoryGirl.create(:info_request)
-      request.update_attributes(:updated_at => 2.years.ago - 1.day)
+      request.update(updated_at: 2.years.ago - 1.day)
       described_class.stop_new_responses_on_old_requests
       expect(request.reload.allow_new_responses_from).to eq('nobody')
     end
 
     it 'logs an event after changing new responses to nobody' do
       request = FactoryGirl.create(:info_request)
-      request.update_attributes(:updated_at => 2.years.ago - 1.day)
+      request.update(updated_at: 2.years.ago - 1.day)
       described_class.stop_new_responses_on_old_requests
       last_event = request.reload.get_last_event
       expect(last_event.event_type).to eq('edit')
@@ -350,7 +350,7 @@ describe InfoRequest do
             and_return(3)
 
         request = FactoryGirl.create(:info_request)
-        request.update_attributes(:updated_at => 3.months.ago)
+        request.update(updated_at: 3.months.ago)
         described_class.stop_new_responses_on_old_requests
         expect(request.reload.allow_new_responses_from).to eq('anybody')
       end
@@ -361,7 +361,7 @@ describe InfoRequest do
             and_return(3)
 
         request = FactoryGirl.create(:info_request)
-        request.update_attributes(:updated_at => 3.months.ago - 1.day)
+        request.update(updated_at: 3.months.ago - 1.day)
         described_class.stop_new_responses_on_old_requests
         expect(request.reload.allow_new_responses_from).to eq('authority_only')
       end
@@ -372,7 +372,7 @@ describe InfoRequest do
             and_return(3)
 
         request = FactoryGirl.create(:info_request)
-        request.update_attributes(:updated_at => 12.months.ago - 1.day)
+        request.update(updated_at: 12.months.ago - 1.day)
         described_class.stop_new_responses_on_old_requests
         expect(request.reload.allow_new_responses_from).to eq('nobody')
       end
