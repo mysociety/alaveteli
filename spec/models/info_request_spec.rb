@@ -315,7 +315,7 @@ describe InfoRequest do
       request = FactoryGirl.create(:info_request)
       request.update(updated_at: 6.months.ago - 1.day)
       described_class.stop_new_responses_on_old_requests
-      last_event = request.reload.get_last_event
+      last_event = request.reload.last_event
       expect(last_event.event_type).to eq('edit')
       expect(last_event.params).
         to match(old_allow_new_responses_from: 'anybody',
@@ -334,7 +334,7 @@ describe InfoRequest do
       request = FactoryGirl.create(:info_request)
       request.update(updated_at: 2.years.ago - 1.day)
       described_class.stop_new_responses_on_old_requests
-      last_event = request.reload.get_last_event
+      last_event = request.reload.last_event
       expect(last_event.event_type).to eq('edit')
       expect(last_event.params).
         to match(old_allow_new_responses_from: 'authority_only',
