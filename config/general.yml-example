@@ -229,7 +229,7 @@ WORKING_OR_CALENDAR_DAYS: working
 # a request has not been updated after
 # RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS, allow_new_responses_from is
 # set to 'authority_only'. After RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS
-# * 2, allow_new_responses_from is set to 'nobody'.
+# * 4, allow_new_responses_from is set to 'nobody'.
 #
 # WORKING_OR_CALENDAR_DAYS - Integer (default: 6)
 #

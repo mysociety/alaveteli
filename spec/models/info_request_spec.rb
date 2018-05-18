@@ -323,16 +323,16 @@ describe InfoRequest do
                  editor: 'InfoRequest.stop_new_responses_on_old_requests')
     end
 
-    it 'stops new responses after 1 year' do
+    it 'stops new responses after 2 years' do
       request = FactoryGirl.create(:info_request)
-      request.update_attributes(:updated_at => 1.year.ago - 1.day)
+      request.update_attributes(:updated_at => 2.years.ago - 1.day)
       described_class.stop_new_responses_on_old_requests
       expect(request.reload.allow_new_responses_from).to eq('nobody')
     end
 
     it 'logs an event after changing new responses to nobody' do
       request = FactoryGirl.create(:info_request)
-      request.update_attributes(:updated_at => 1.year.ago - 1.day)
+      request.update_attributes(:updated_at => 2.years.ago - 1.day)
       described_class.stop_new_responses_on_old_requests
       last_event = request.reload.get_last_event
       expect(last_event.event_type).to eq('edit')
@@ -366,13 +366,13 @@ describe InfoRequest do
         expect(request.reload.allow_new_responses_from).to eq('authority_only')
       end
 
-      it 'stops all new responses after double the custom number of months' do
+      it 'stops all new responses after quadruple the custom number of months' do
         allow(AlaveteliConfiguration).
           to receive(:restrict_new_responses_on_old_requests_after_months).
             and_return(3)
 
         request = FactoryGirl.create(:info_request)
-        request.update_attributes(:updated_at => 6.months.ago - 1.day)
+        request.update_attributes(:updated_at => 12.months.ago - 1.day)
         described_class.stop_new_responses_on_old_requests
         expect(request.reload.allow_new_responses_from).to eq('nobody')
       end
