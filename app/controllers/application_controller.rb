@@ -105,7 +105,7 @@ class ApplicationController < ActionController::Base
   #
   # To find things that are using causing LOTS of peak memory, then do something like:
   # egrep "CONSUME MEMORY: [0-9]{7} KB" production.log
-  around_filter :record_memory
+  around_action :record_memory
   def record_memory
     record_memory = AlaveteliConfiguration::debug_record_memory
     if record_memory

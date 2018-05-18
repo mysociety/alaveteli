@@ -593,7 +593,7 @@ class RequestController < ApplicationController
   end
 
   # special caching code so mime types are handled right
-  around_filter :cache_attachments, :only => [ :get_attachment, :get_attachment_as_html ]
+  around_action :cache_attachments, :only => [ :get_attachment, :get_attachment_as_html ]
   def cache_attachments
     if !params[:skip_cache].nil?
       yield
