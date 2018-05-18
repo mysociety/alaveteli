@@ -366,7 +366,7 @@ describe InfoRequest do
         expect(request.reload.allow_new_responses_from).to eq('authority_only')
       end
 
-      it 'stops new responses after double the custom number of months' do
+      it 'stops all new responses after double the custom number of months' do
         allow(AlaveteliConfiguration).
           to receive(:restrict_new_responses_on_old_requests_after_months).
             and_return(3)
