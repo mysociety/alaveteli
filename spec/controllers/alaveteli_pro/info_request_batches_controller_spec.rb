@@ -209,6 +209,35 @@ describe AlaveteliPro::InfoRequestBatchesController do
       end
     end
 
+    context 'when a user is below the rate limit' do
+      before(:each) do
+        limiter = double
+        allow(limiter).to receive(:record)
+        allow(limiter).to receive(:limit?).and_return(false)
+        allow(controller).to receive(:rate_monitor).and_return(limiter)
+      end
+
+      it 'does not send a notification' do
+        action
+        expect(ActionMailer::Base.deliveries).to be_empty
+      end
+    end
+
+    context 'when a user hits the rate limit' do
+      before(:each) do
+        limiter = double
+        allow(limiter).to receive(:record)
+        allow(limiter).to receive(:limit?).and_return(true)
+        allow(controller).to receive(:rate_monitor).and_return(limiter)
+      end
+
+      it 'sends a notification' do
+        action
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).to match(/Batch rate limit hit/)
+      end
+    end
+
     context "when the draft is not valid" do
       before do
         draft.body = ""
