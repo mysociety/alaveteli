@@ -77,7 +77,8 @@ class InfoRequestBatch < ActiveRecord::Base
         # Sleep between requests in production, in case we're sending a huge
         # batch which may result in a torrent of auto-replies coming back to
         # us and overloading the server.
-        if Rails.env.production?
+        uses_poller = feature_enabled?(:accept_mail_from_poller, user)
+        if Rails.env.production? && !uses_poller
           sleep 60
         end
       else
