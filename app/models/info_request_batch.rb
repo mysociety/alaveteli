@@ -15,6 +15,7 @@
 
 class InfoRequestBatch < ActiveRecord::Base
   include AlaveteliPro::RequestSummaries
+  include AlaveteliFeatures::Helpers
 
   has_many :info_requests,
            :inverse_of => :info_request_batch
