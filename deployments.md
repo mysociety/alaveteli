@@ -262,6 +262,14 @@ in any language, and within any legislation</p>
                         <p class="deployment__country">New Jersey, USA</p>
                         <p class="deployment__link"><a href="https://opramachine.com/">https://opramachine.com/</a></p>
                     </div>
+                </div><!--
+                --><div class="deployments__unit--minor">
+                    <div class="deployment--minor">
+                        <img src="/assets/img/bilmehakki.jpg" class="deployment__screenshot" alt=""/>
+                        <h3 class="deployment__title">Bilmehakki</h3>
+                        <p class="deployment__country">Turkey</p>
+                        <p class="deployment__link"><a href="http://bilmehakki.org/">http://bilmehakki.org/</a></p>
+                    </div>
                 </div>
             </div>
         </div>
