@@ -552,4 +552,42 @@ describe ApiController, "when using the API" do
       end
     end
   end
+
+  # GET /api/v2/body/:id/request_events.:feed_type
+  describe 'showing public body info - with rendered views' do
+    render_views
+
+    context 'with info request events' do
+      before do
+        get :body_request_events,
+            :id => public_bodies(:humpadink_public_body).id,
+            :k => public_bodies(:humpadink_public_body).api_key,
+            :feed_type => 'atom'
+      end
+
+      it 'returns last event created_at as feed updated timestamp' do
+        expect(assigns[:events].size).to be > 0
+        expect(response.body).to have_xml '/xmlns:feed/xmlns:updated',
+                                          '2011-10-12T01:56:58Z'
+      end
+    end
+
+    context 'without info request events' do
+      before do
+        # since_date params is greater than any InfoRequestEvent#created_at
+        # from the fixtures
+        get :body_request_events,
+            :id => public_bodies(:humpadink_public_body).id,
+            :k => public_bodies(:humpadink_public_body).api_key,
+            :since_date => '2018-01-01',
+            :feed_type => 'atom'
+      end
+
+      it 'returns public body created_at as feed updated timestamp' do
+        expect(assigns[:events].size).to eq 0
+        expect(response.body).to have_xml '/xmlns:feed/xmlns:updated',
+                                          '2007-10-25T10:51:01Z'
+      end
+    end
+  end
 end
