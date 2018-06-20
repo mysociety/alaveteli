@@ -1,6 +1,6 @@
 atom_feed("xmlns:alaveteli" => "http://www.alaveteli.org/API/v2/RequestEvents/Atom") do |feed|
   feed.title("Events relating to #{@public_body.name}")
-  feed.updated(@events.first.created_at)
+  feed.updated((@events.first || @public_body).created_at)
 
   for event in @events
     feed.entry(event) do |entry|
