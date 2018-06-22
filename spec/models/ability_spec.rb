@@ -317,7 +317,7 @@ describe Ability do
     end
 
     context "when the batch is not embargoed" do
-      let(:resource) { FactoryBot.create(:batch_request) }
+      let(:resource) { FactoryBot.create(:info_request_batch) }
       let(:all_the_abilities) do
         [
           admin_ability,
@@ -402,7 +402,7 @@ describe Ability do
     end
 
     context "when the batch is not embargoed" do
-      let(:resource) { FactoryBot.create(:batch_request) }
+      let(:resource) { FactoryBot.create(:info_request_batch) }
 
       context "when the user owns the batch" do
         let(:ability) { Ability.new(resource.user) }
@@ -525,7 +525,7 @@ describe Ability do
 
       context 'the info request is part of a batch' do
         let(:batch_request) do
-          batch = FactoryBot.create(:batch_request, user: user)
+          batch = FactoryBot.create(:info_request_batch, user: user)
           request = FactoryBot.create(:info_request, title: batch.title,
                                                      user: batch.user)
           batch.info_requests << request

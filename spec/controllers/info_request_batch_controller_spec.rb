@@ -115,8 +115,8 @@ describe InfoRequestBatchController do
 
         context "when the request is not embargoed" do
           let(:batch) do
-            FactoryBot.create(:batch_request, user: pro_user,
-                                              public_bodies: bodies)
+            FactoryBot.create(:info_request_batch, user: pro_user,
+                                                   public_bodies: bodies)
           end
 
           it "should not redirect to the pro version of the page" do
