@@ -99,8 +99,8 @@ describe InfoRequestBatchController do
       context "when showing pros their own requests" do
         context "when the request is embargoed" do
           let(:batch) do
-            FactoryGirl.create(:embargoed_batch_request, public_bodies: bodies,
-                                                         user: pro_user)
+            FactoryGirl.create(:info_request_batch, :embargoed,
+                               public_bodies: bodies, user: pro_user)
           end
 
           it "should redirect to the pro version of the page" do
@@ -145,8 +145,8 @@ describe InfoRequestBatchController do
 
     describe "accessing embargoed batches" do
       let(:batch) do
-        FactoryGirl.create(:embargoed_batch_request, public_bodies: bodies,
-                                                     user: pro_user)
+        FactoryGirl.create(:info_request_batch, :embargoed,
+                           public_bodies: bodies, user: pro_user)
       end
       let(:admin) { FactoryGirl.create(:admin_user) }
       let(:pro_admin) { FactoryGirl.create(:pro_admin_user) }

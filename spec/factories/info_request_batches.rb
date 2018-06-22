@@ -20,8 +20,8 @@ FactoryGirl.define do
     user
     body "Some text"
 
-    factory :embargoed_batch_request do
-      embargo_duration "3_months"
+    trait :embargoed do
+      embargo_duration '3_months'
     end
   end
 end
