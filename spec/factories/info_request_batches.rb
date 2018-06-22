@@ -15,7 +15,7 @@
 
 FactoryGirl.define do
 
-  factory :info_request_batch, aliases: [:batch_request]  do
+  factory :info_request_batch do
     title "Example title"
     user
     body "Some text"
