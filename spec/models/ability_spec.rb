@@ -271,7 +271,7 @@ describe Ability do
     let(:other_user_ability) { Ability.new(FactoryBot.create(:user)) }
 
     context "when the batch is embargoed" do
-      let(:resource) { FactoryBot.create(:embargoed_batch_request) }
+      let(:resource) { FactoryBot.create(:info_request_batch, :embargoed) }
 
       context "when the user owns the batch" do
         let(:ability) { Ability.new(resource.user) }
@@ -345,7 +345,7 @@ describe Ability do
 
     context "when the batch is embargoed" do
       let(:resource) do
-        FactoryBot.create(:embargoed_batch_request,
+        FactoryBot.create(:info_request_batch, :embargoed,
                           user: FactoryBot.create(:pro_user))
       end
 
@@ -703,7 +703,7 @@ describe Ability do
   describe "Destroying Batch Embargoes" do
 
     let(:batch) do
-      FactoryBot.create(:embargoed_batch_request,
+      FactoryBot.create(:info_request_batch, :embargoed,
                         user: FactoryBot.create(:pro_user))
     end
 

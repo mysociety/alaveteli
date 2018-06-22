@@ -326,7 +326,7 @@ describe "managing embargoed batch requests" do
   let!(:pro_user_session) { login(pro_user) }
   let!(:batch) do
     batch = FactoryBot.create(
-      :embargoed_batch_request,
+      :info_request_batch, :embargoed,
       user: pro_user,
       public_bodies: FactoryBot.create_list(:public_body, 2))
     batch.create_batch!
