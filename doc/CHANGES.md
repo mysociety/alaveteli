@@ -56,6 +56,9 @@
   `RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS` has been increased from
   `2 *` to `4 *`. Please check that this config value is acceptable for your
   site's usage profile.
+* Run `bundle exec rake users:update_hashed_password` to improve password
+  encryption for existing users. As we don't know the original passwords this
+  double encrypts the old SHA1 hash using the bcrypt algorithm.
 
 ### Changed Templates
 
