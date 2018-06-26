@@ -28,8 +28,8 @@
 * Fix downloading a Zip of entire request when the request contains a resent
   message (Gareth Rees)
 * Add Pro opengraph logo (Martin Wright)
-* Create site-wide and user role announecements from within the
-  administrative interface (Graeme Porteous)
+* Create site-wide and user role announcements from within the administrative
+  interface (Graeme Porteous)
 * Increase minimum password length for new users or updated passwords
   (Graeme Porteous)
 * Improve password encryption by switching to bcrypt algorithm, existing
