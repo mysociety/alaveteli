@@ -171,6 +171,10 @@ describe User, 'password hashing algorithms' do
       expect(found_user.hashed_password).to match(/^\$2[ayb]\$.{56}$/)
     end
 
+    it 'returns user in sha1 scope' do
+      expect(User.sha1).to include user
+    end
+
   end
 
   context 'short password hashed with SHA1' do
@@ -194,6 +198,10 @@ describe User, 'password hashing algorithms' do
       user.has_this_password?('tooshort')
       expect(user.errors).to be_empty
       expect(user.hashed_password).to_not match(/^\$2[ayb]\$.{56}$/)
+    end
+
+    it 'returns user in sha1 scope' do
+      expect(User.sha1).to include user
     end
 
   end
@@ -220,6 +228,10 @@ describe User, 'password hashing algorithms' do
       expect(found_user.hashed_password).to match(/^\$2[ayb]\$.{56}$/)
     end
 
+    it 'does not return user in sha1 scope' do
+      expect(User.sha1).to_not include user
+    end
+
   end
 
   context 'password hashed with bcrypt' do
@@ -234,6 +246,10 @@ describe User, 'password hashing algorithms' do
     it 'should find the user when given the right email and password' do
       expect(found_user.errors.size).to eq(0)
       expect(found_user).to eq(user)
+    end
+
+    it 'does not return user in sha1 scope' do
+      expect(User.sha1).to_not include user
     end
 
   end
