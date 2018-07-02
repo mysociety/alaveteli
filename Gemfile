@@ -138,7 +138,7 @@ gem 'gettext', '~> 2.3.0'
 gem 'globalize', '~> 5.0.0', '< 5.1.0'
 gem 'locale', '~> 2.0.0', '< 2.1.0'
 gem 'routing-filter', '~> 0.5.0', '< 0.6.0'
-gem 'unicode', '~> 0.4.0'
+gem 'unicode', '~> 0.4.4'
 gem 'unidecoder', '~> 1.1.0'
 gem 'money', '~> 6.10.0'
 
