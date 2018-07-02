@@ -174,7 +174,7 @@ group :test, :development do
   gem 'oink', '~> 0.10.1'
   gem 'rspec-activemodel-mocks', '~> 1.0.0'
   gem 'rspec-rails', '~> 3.5.0'
-  gem 'pry', '~> 0.10.0'
+  gem 'pry', '~> 0.11.3'
   gem 'pry-byebug', '~> 3.4.0'
     gem 'public_suffix', '~> 1.4.0', '< 1.5.0'
 end
