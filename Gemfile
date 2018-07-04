@@ -146,7 +146,7 @@ gem 'money', '~> 6.10.0'
 gem 'mime-types', '< 3.0.0', require: false
 
 # Assets
-gem 'bootstrap-sass', '~> 2.3.2.2'
+gem 'bootstrap-sass', '~> 3.3.7'
 gem 'sass-rails', '~> 5.0.0'
 gem 'compass-rails', '~> 3.0.0'
 gem 'coffee-rails', '~> 4.2.0'
