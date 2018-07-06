@@ -89,6 +89,12 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
           expect(result).to eq(true)
         end
 
+        it 'enables batch for the user' do
+          result =
+            AlaveteliFeatures.backend[:pro_batch_access].enabled?(user)
+          expect(result).to eq(true)
+        end
+
         it 'welcomes the new user' do
           partial_file = "alaveteli_pro/subscriptions/signup_message.html.erb"
           expect(flash[:notice]).to eq({ :partial => partial_file })
@@ -154,6 +160,11 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
         it 'does not raise an error if the user already has notifications' do
           AlaveteliFeatures.backend.enable_actor(:notifications, user)
+          expect { successful_signup }.not_to raise_error
+        end
+
+        it 'does not raise an error if the user already has batch' do
+          AlaveteliFeatures.backend.enable_actor(:pro_batch_access, user)
           expect { successful_signup }.not_to raise_error
         end
 

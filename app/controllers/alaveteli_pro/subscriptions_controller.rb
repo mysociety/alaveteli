@@ -107,6 +107,10 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
       AlaveteliFeatures.backend.enable_actor(:notifications, current_user)
     end
 
+    unless feature_enabled?(:pro_batch_access, current_user)
+      AlaveteliFeatures.backend.enable_actor(:pro_batch_access, current_user)
+    end
+
     flash[:notice] =
       { :partial => "alaveteli_pro/subscriptions/signup_message.html.erb" }
     flash[:new_pro_user] = true
