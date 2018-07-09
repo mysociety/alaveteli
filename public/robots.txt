@@ -31,6 +31,7 @@ Disallow: */request/*/response/*
 Disallow: */body/*/view_email$
 Disallow: */change_request/*
 Disallow: */outgoing_messages/*/mail_server_logs*
+Disallow: */outgoing_messages/*/delivery_status*
 
 # The following adding Jan 2012 to stop robots crawling pages
 # generated in error (see
