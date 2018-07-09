@@ -28,6 +28,7 @@ Disallow: */profile/*
 Disallow: */signin*
 Allow: */request/*/response/*/attach/*
 Disallow: */request/*/response/*
+Disallow: */request/*/download*
 Disallow: */body/*/view_email$
 Disallow: */change_request/*
 Disallow: */outgoing_messages/*/mail_server_logs*
