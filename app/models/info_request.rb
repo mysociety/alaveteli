@@ -453,7 +453,7 @@ class InfoRequest < ActiveRecord::Base
   # This is called from cron regularly.
   def self.stop_new_responses_on_old_requests
     old = AlaveteliConfiguration.restrict_new_responses_on_old_requests_after_months
-    very_old = old * 2
+    very_old = old * 4
 
     # 'old' months since last change to request, only allow new incoming
     # messages from authority domains
