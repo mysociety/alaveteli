@@ -34,6 +34,18 @@ class InfoRequestBatch < ActiveRecord::Base
   validates_presence_of :title
   validates_presence_of :body
 
+  def self.send_batches
+    where(:sent_at => nil).find_each do |info_request_batch|
+      unrequestable = info_request_batch.create_batch!
+      mail_message = InfoRequestBatchMailer.
+                       batch_sent(
+                         info_request_batch,
+                         unrequestable,
+                         info_request_batch.user
+                       ).deliver_now
+    end
+  end
+
   #  When constructing a new batch, use this to check user hasn't double submitted.
   def self.find_existing(user, title, body, public_body_ids)
     conditions = {
@@ -118,18 +130,6 @@ class InfoRequestBatch < ActiveRecord::Base
     outgoing_message.record_email_delivery(
       mail_message.to_addrs.join(', '),
       mail_message.message_id)
-  end
-
-  def self.send_batches
-    where(:sent_at => nil).find_each do |info_request_batch|
-      unrequestable = info_request_batch.create_batch!
-      mail_message = InfoRequestBatchMailer.
-                       batch_sent(
-                         info_request_batch,
-                         unrequestable,
-                         info_request_batch.user
-                       ).deliver_now
-    end
   end
 
   # Build an InfoRequest object which is an example of this batch.
@@ -225,6 +225,13 @@ class InfoRequestBatch < ActiveRecord::Base
       categories << AlaveteliPro::RequestSummaryCategory.awaiting_response
     end
     categories
+  end
+
+  # Public: Have we persisted an InfoRequest for each PublicBody in this batch?
+  #
+  # Returns a Boolean
+  def all_requests_created?
+    info_requests.count == public_bodies.count
   end
 
   # Log an event for all information requests within the batch

@@ -389,6 +389,23 @@ describe InfoRequestBatch do
     end
   end
 
+  describe '#all_requests_created?' do
+    let(:batch) do
+      body = FactoryGirl.build(:public_body)
+      batch = FactoryGirl.create(:info_request_batch, public_bodies: [body])
+    end
+
+    it 'returns true if there are equal requests to authorities' do
+      batch.create_batch!
+      expect(batch.all_requests_created?).to eq(true)
+    end
+
+    it 'returns false if there are less requests than authorities' do
+      expect(batch.all_requests_created?).to eq(false)
+    end
+
+  end
+
   describe "#log_event" do
     let(:public_bodies) { FactoryGirl.create_list(:public_body, 3) }
     let(:info_request_batch) do

@@ -50,14 +50,25 @@
         </p>
       <% end %>
     <% end %>
-    <%= button_to _("Publish requests"),
-                  destroy_batch_alaveteli_pro_embargoes_path(
-                    info_request_batch_id: info_request_batch.id),
-                  method: :post,
-                  data: {
-                    confirm: _("This will publish all of the requests in " \
-                               "this batch. Are you sure?")
-                  } %>
+
+    <% if info_request_batch.all_requests_created? %>
+      <%= button_to _("Publish requests"),
+                    destroy_batch_alaveteli_pro_embargoes_path(
+                      info_request_batch_id: info_request_batch.id),
+                    method: :post,
+                    data: {
+                      confirm: _("This will publish all of the requests in " \
+                                 "this batch. Are you sure?")
+                    } %>
+    <% else %>
+      <%= button_to _("Publish requests"),
+                    destroy_batch_alaveteli_pro_embargoes_path(
+                      info_request_batch_id: info_request_batch.id),
+                    method: :post,
+                    disabled: true,
+                    title: _('Disabled while sending remaining requests.')
+                    %>
+    <% end %>
   </div>
 </div>
 <% end %>
