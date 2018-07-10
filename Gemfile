@@ -173,7 +173,7 @@ group :test, :development do
   gem 'factory_girl_rails', '~> 4.8.0'
   gem 'oink', '~> 0.10.1'
   gem 'rspec-activemodel-mocks', '~> 1.0.0'
-  gem 'rspec-rails', '~> 3.5.0'
+  gem 'rspec-rails', '~> 3.7.2'
   gem 'pry', '~> 0.11.3'
   gem 'pry-byebug', '~> 3.4.0'
     gem 'public_suffix', '~> 1.4.0', '< 1.5.0'
