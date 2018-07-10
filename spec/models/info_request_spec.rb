@@ -289,33 +289,45 @@ describe InfoRequest do
 
 
   describe '.stop_new_responses_on_old_requests' do
+    subject { described_class.stop_new_responses_on_old_requests }
+    let(:request) { FactoryGirl.create(:info_request) }
 
-    it 'does not affect requests that have been updated in the last 6 months' do
-      request = FactoryGirl.create(:info_request)
-      request.update_attributes(:updated_at => 6.months.ago)
-      described_class.stop_new_responses_on_old_requests
-      expect(request.reload.allow_new_responses_from).to eq('anybody')
+    before do
+      allow(AlaveteliConfiguration).
+        to receive(:restrict_new_responses_on_old_requests_after_months).
+          and_return(3)
+    end
+
+    it 'does not affect requests that have been updated before the configured number of months' do
+      request.update(updated_at: 3.months.ago)
+      expect { subject }.
+        not_to change { request.reload.allow_new_responses_from }
+    end
+
+    it 'allows new responses from authority_only after the old number of months' do
+      request.update(updated_at: 3.months.ago - 1.day)
+      expect { subject }.
+        to change { request.reload.allow_new_responses_from }.
+        to('authority_only')
+    end
+
+    it 'stops all new responses after quadruple the old number of months' do
+      request.update(updated_at: 12.months.ago - 1.day)
+      expect { subject }.
+        to change { request.reload.allow_new_responses_from }.to('nobody')
     end
 
     it 'does not affect requests that have never been published' do
       request = FactoryGirl.create(:embargoed_request)
-      request.update_attributes(:updated_at => 1.year.ago)
-      described_class.stop_new_responses_on_old_requests
-      expect(request.reload.allow_new_responses_from).to eq('anybody')
-    end
-
-    it 'allows new responses from authority_only after 6 months' do
-      request = FactoryGirl.create(:info_request)
-      request.update_attributes(:updated_at => 6.months.ago - 1.day)
-      described_class.stop_new_responses_on_old_requests
-      expect(request.reload.allow_new_responses_from).to eq('authority_only')
+      request.update(updated_at: 5.years.ago)
+      expect { subject }.
+        not_to change { request.reload.allow_new_responses_from }
     end
 
     it 'logs an event after changing new responses to authority_only' do
-      request = FactoryGirl.create(:info_request)
-      request.update_attributes(:updated_at => 6.months.ago - 1.day)
-      described_class.stop_new_responses_on_old_requests
-      last_event = request.reload.get_last_event
+      request.update(updated_at: 6.months.ago - 1.day)
+      subject
+      last_event = request.reload.last_event
       expect(last_event.event_type).to eq('edit')
       expect(last_event.params).
         to match(old_allow_new_responses_from: 'anybody',
@@ -323,60 +335,15 @@ describe InfoRequest do
                  editor: 'InfoRequest.stop_new_responses_on_old_requests')
     end
 
-    it 'stops new responses after 1 year' do
-      request = FactoryGirl.create(:info_request)
-      request.update_attributes(:updated_at => 1.year.ago - 1.day)
-      described_class.stop_new_responses_on_old_requests
-      expect(request.reload.allow_new_responses_from).to eq('nobody')
-    end
-
     it 'logs an event after changing new responses to nobody' do
-      request = FactoryGirl.create(:info_request)
-      request.update_attributes(:updated_at => 1.year.ago - 1.day)
-      described_class.stop_new_responses_on_old_requests
-      last_event = request.reload.get_last_event
+      request.update(updated_at: 2.years.ago - 1.day)
+      subject
+      last_event = request.reload.last_event
       expect(last_event.event_type).to eq('edit')
       expect(last_event.params).
         to match(old_allow_new_responses_from: 'authority_only',
                  allow_new_responses_from: 'nobody',
                  editor: 'InfoRequest.stop_new_responses_on_old_requests')
-    end
-
-    context 'when using custom configuration' do
-
-      it 'does not affect requests that have been updated in the last custom number of months' do
-        allow(AlaveteliConfiguration).
-          to receive(:restrict_new_responses_on_old_requests_after_months).
-            and_return(3)
-
-        request = FactoryGirl.create(:info_request)
-        request.update_attributes(:updated_at => 3.months.ago)
-        described_class.stop_new_responses_on_old_requests
-        expect(request.reload.allow_new_responses_from).to eq('anybody')
-      end
-
-      it 'allows new responses from authority_only after custom number of months' do
-        allow(AlaveteliConfiguration).
-          to receive(:restrict_new_responses_on_old_requests_after_months).
-            and_return(3)
-
-        request = FactoryGirl.create(:info_request)
-        request.update_attributes(:updated_at => 3.months.ago - 1.day)
-        described_class.stop_new_responses_on_old_requests
-        expect(request.reload.allow_new_responses_from).to eq('authority_only')
-      end
-
-      it 'stops new responses after double the custom number of months' do
-        allow(AlaveteliConfiguration).
-          to receive(:restrict_new_responses_on_old_requests_after_months).
-            and_return(3)
-
-        request = FactoryGirl.create(:info_request)
-        request.update_attributes(:updated_at => 6.months.ago - 1.day)
-        described_class.stop_new_responses_on_old_requests
-        expect(request.reload.allow_new_responses_from).to eq('nobody')
-      end
-
     end
 
   end

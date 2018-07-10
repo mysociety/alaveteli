@@ -103,8 +103,12 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
           enable_actor(:accept_mail_from_poller, current_user)
     end
 
-    unless feature_enabled? :notifications, current_user
+    unless feature_enabled?(:notifications, current_user)
       AlaveteliFeatures.backend.enable_actor(:notifications, current_user)
+    end
+
+    unless feature_enabled?(:pro_batch_access, current_user)
+      AlaveteliFeatures.backend.enable_actor(:pro_batch_access, current_user)
     end
 
     flash[:notice] =

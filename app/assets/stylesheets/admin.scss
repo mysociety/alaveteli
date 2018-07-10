@@ -26,6 +26,16 @@ body.admin {
   padding-top: 42px;
 }
 
+.admin-footer {
+  background-color: #f9f9f9;
+  border-top: 1px solid #dddddd;
+  padding: 1em 0;
+
+  .nav.nav-pills {
+    margin-bottom: 0;
+  }
+}
+
 .admin {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
