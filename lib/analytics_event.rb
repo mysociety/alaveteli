@@ -16,6 +16,7 @@ module AnalyticsEvent
     MEDIUM_EXIT = 'Medium Exit'
     TWITTER_EXIT = 'Twitter Exit'
     WORDPRESS_EXIT = 'WordPress Exit'
+    YOUTUBE_EXIT = 'YouTube Exit'
     WIDGET_VOTE = 'Vote'
     WIDGET_SIGNIN = 'Sign in to track'
     WIDGET_UNSUB = 'Unsubscribe'
