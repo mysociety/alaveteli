@@ -101,7 +101,8 @@ class IncomingMessage < ActiveRecord::Base
     self.mail.message_id
   end
 
-  # Return false if for some reason this is a message that we shouldn't let them reply to
+  # Return false if for some reason this is a message that we shouldn't let them
+  # reply to
   def _calculate_valid_to_reply_to
     # check validity of email
     email = self.from_email
@@ -115,7 +116,11 @@ class IncomingMessage < ActiveRecord::Base
     prefix = email
     prefix =~ /^(.*)@/
     prefix = $1
-    if !prefix.nil? && prefix.downcase.match(/^(postmaster|mailer-daemon|auto_reply|do.?not.?reply|no.?reply)$/)
+
+    no_reply_regexp =
+      /^(postmaster|mailer-daemon|auto_reply|do.?not.?reply|no.?reply)$/
+
+    if !prefix.nil? && prefix.downcase.match(no_reply_regexp)
       return false
     end
     if MailHandler.empty_return_path?(self.mail)
