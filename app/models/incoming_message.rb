@@ -104,7 +104,7 @@ class IncomingMessage < ActiveRecord::Base
   # Return false if for some reason this is a message that we shouldn't let them
   # reply to
   def _calculate_valid_to_reply_to
-    email = self.from_email
+    email = from_email
 
     # check validity of email
     return false if email.nil? || !MySociety::Validate.is_valid_email(email)
@@ -122,8 +122,8 @@ class IncomingMessage < ActiveRecord::Base
     # email to postmaster, and it tends to only happen after delivery failure.
     # likewise Mailer-Daemon, Auto_Reply...
     return false if prefix.downcase.match(no_reply_regexp)
-    return false if MailHandler.empty_return_path?(self.mail)
-    return false if !MailHandler.get_auto_submitted(self.mail).nil?
+    return false if MailHandler.empty_return_path?(mail)
+    return false if !MailHandler.get_auto_submitted(mail).nil?
     true
   end
 
