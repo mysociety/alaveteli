@@ -106,9 +106,7 @@ class IncomingMessage < ActiveRecord::Base
   def _calculate_valid_to_reply_to
     # check validity of email
     email = self.from_email
-    if email.nil? || !MySociety::Validate.is_valid_email(email)
-      return false
-    end
+    return false if email.nil? || !MySociety::Validate.is_valid_email(email)
 
     # reject postmaster - authorities seem to nearly always not respond to
     # email to postmaster, and it tends to only happen after delivery failure.
@@ -120,15 +118,9 @@ class IncomingMessage < ActiveRecord::Base
     no_reply_regexp =
       /^(postmaster|mailer-daemon|auto_reply|do.?not.?reply|no.?reply)$/
 
-    if !prefix.nil? && prefix.downcase.match(no_reply_regexp)
-      return false
-    end
-    if MailHandler.empty_return_path?(self.mail)
-      return false
-    end
-    if !MailHandler.get_auto_submitted(self.mail).nil?
-      return false
-    end
+    return false if !prefix.nil? && prefix.downcase.match(no_reply_regexp)
+    return false if MailHandler.empty_return_path?(self.mail)
+    return false if !MailHandler.get_auto_submitted(self.mail).nil?
     return true
   end
 
