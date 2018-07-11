@@ -103,6 +103,8 @@ class IncomingMessage < ActiveRecord::Base
 
   # Return false if for some reason this is a message that we shouldn't let them
   # reply to
+  #
+  # TODO: Extract this validation out in to ReplyToAddressValidator#valid?
   def _calculate_valid_to_reply_to
     email = from_email.try(:downcase)
 
