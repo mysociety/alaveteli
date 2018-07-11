@@ -124,7 +124,7 @@ class IncomingMessage < ActiveRecord::Base
     return false if prefix.downcase.match(no_reply_regexp)
     return false if MailHandler.empty_return_path?(self.mail)
     return false if !MailHandler.get_auto_submitted(self.mail).nil?
-    return true
+    true
   end
 
   def parse_raw_email!(force = nil)
