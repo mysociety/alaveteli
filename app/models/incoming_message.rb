@@ -113,7 +113,7 @@ class IncomingMessage < ActiveRecord::Base
     prefix =~ /^(.*)@/
     prefix = $1
 
-    return false if prefix.nil?
+    return false unless prefix
 
     no_reply_regexp =
       /^(postmaster|mailer-daemon|auto_reply|do.?not.?reply|no.?reply)$/
@@ -123,7 +123,7 @@ class IncomingMessage < ActiveRecord::Base
     # likewise Mailer-Daemon, Auto_Reply...
     return false if prefix.downcase.match(no_reply_regexp)
     return false if MailHandler.empty_return_path?(mail)
-    return false if !MailHandler.get_auto_submitted(mail).nil?
+    return false if MailHandler.get_auto_submitted(mail)
     true
   end
 
