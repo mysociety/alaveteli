@@ -115,8 +115,7 @@ class IncomingMessage < ActiveRecord::Base
 
     return false unless prefix
 
-    no_reply_regexp =
-      /^(postmaster|mailer-daemon|auto_reply|do.?not.?reply|no.?reply)$/
+    no_reply_regexp = ReplyToAddressValidator.no_reply_regexp
 
     # reject postmaster - authorities seem to nearly always not respond to
     # email to postmaster, and it tends to only happen after delivery failure.
