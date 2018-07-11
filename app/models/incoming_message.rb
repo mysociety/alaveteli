@@ -104,13 +104,11 @@ class IncomingMessage < ActiveRecord::Base
   # Return false if for some reason this is a message that we shouldn't let them
   # reply to
   def _calculate_valid_to_reply_to
-    # check validity of email
     email = self.from_email
+
+    # check validity of email
     return false if email.nil? || !MySociety::Validate.is_valid_email(email)
 
-    # reject postmaster - authorities seem to nearly always not respond to
-    # email to postmaster, and it tends to only happen after delivery failure.
-    # likewise Mailer-Daemon, Auto_Reply...
     prefix = email
     prefix =~ /^(.*)@/
     prefix = $1
@@ -118,6 +116,9 @@ class IncomingMessage < ActiveRecord::Base
     no_reply_regexp =
       /^(postmaster|mailer-daemon|auto_reply|do.?not.?reply|no.?reply)$/
 
+    # reject postmaster - authorities seem to nearly always not respond to
+    # email to postmaster, and it tends to only happen after delivery failure.
+    # likewise Mailer-Daemon, Auto_Reply...
     return false if !prefix.nil? && prefix.downcase.match(no_reply_regexp)
     return false if MailHandler.empty_return_path?(self.mail)
     return false if !MailHandler.get_auto_submitted(self.mail).nil?
