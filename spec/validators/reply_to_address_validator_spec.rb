@@ -23,4 +23,24 @@ describe ReplyToAddressValidator do
 
   end
 
+  describe '.invalid_reply_addresses' do
+    subject { described_class.invalid_reply_addresses }
+
+    context 'when a custom value has not been set' do
+      it { is_expected.to eq(described_class::DEFAULT_INVALID_REPLY_ADDRESSES) }
+    end
+
+    context 'when a custom value has been set' do
+      before { described_class.invalid_reply_addresses = %w(A@example.com) }
+
+      after do
+        described_class.invalid_reply_addresses =
+          described_class::DEFAULT_INVALID_REPLY_ADDRESSES
+      end
+
+      it { is_expected.to eq(%W(a@example.com)) }
+    end
+
+  end
+
 end

@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Ability to blacklist known addresses that cannot be replied to (Gareth Rees)
 * Ability to customise no-reply address Regexp (Gareth Rees)
 * Extend time before closing requests to all responses (Gareth Rees)
 * Add a footer to the Admin layout with useful links to alaveteli.org (Gareth
@@ -66,6 +67,10 @@
   `ReplyToAddressValidator.no_reply_regexp = /hello/`. Note that this only acts
   on the local part of an email address (before the `@`) rather than the full
   address.
+* A list of addresses that are known to cause problems when replying to them can
+  be set by assigning an Array of addresses to
+  `ReplyToAddressValidator.invalid_reply_addresses` in `lib/model_patches.rb`.
+  e.g: `ReplyToAddressValidator.invalid_reply_addresses = %w(a@example.com)`.
 
 ### Changed Templates
 
