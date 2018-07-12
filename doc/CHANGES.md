@@ -28,8 +28,8 @@
 * Fix downloading a Zip of entire request when the request contains a resent
   message (Gareth Rees)
 * Add Pro opengraph logo (Martin Wright)
-* Create site-wide and user role announecements from within the
-  administrative interface (Graeme Porteous)
+* Create site-wide and user role announcements from within the administrative
+  interface (Graeme Porteous)
 * Increase minimum password length for new users or updated passwords
   (Graeme Porteous)
 * Improve password encryption by switching to bcrypt algorithm, existing
@@ -56,6 +56,9 @@
   `RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS` has been increased from
   `2 *` to `4 *`. Please check that this config value is acceptable for your
   site's usage profile.
+* Run `bundle exec rake users:update_hashed_password` to improve password
+  encryption for existing users. As we don't know the original passwords this
+  double encrypts the old SHA1 hash using the bcrypt algorithm.
 
 ### Changed Templates
 

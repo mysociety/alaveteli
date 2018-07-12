@@ -8,6 +8,10 @@ module User::Authentication
     attr_reader :password
     attr_accessor :password_confirmation
 
+    scope :sha1, lambda {
+      where("users.salt IS NOT NULL AND users.hashed_password NOT LIKE '$2a$%'")
+    }
+
     validate do |user|
       if user.hashed_password.blank?
         user.errors.add(:password, _('Please enter a password'))

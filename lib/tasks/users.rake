@@ -153,4 +153,9 @@ namespace :users do
 
     puts csv_string
   end
+
+  desc 'Update hashed password to the latest algorithm (bcrypt)'
+  task update_hashed_password: :environment do
+    User.sha1.find_each { |user| user.update(password: user.hashed_password) }
+  end
 end
