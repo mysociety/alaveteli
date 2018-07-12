@@ -17,6 +17,16 @@
 	        "please <a href='{{help_contact_path}}'>get in touch</a>.",
 	     :help_contact_path => help_contact_path) %></p>
 
+<% if feature_enabled?(:alaveteli_pro) %>
+  <p>
+    <%= _('<strong>Journalist, Academic or Power User?</strong> ' \
+          '{{pro_site_link}} is an all-in-one FOI toolkit including ' \
+          'everything you need to keep on top of complex FOI-driven ' \
+          'investigations.',
+          pro_site_link: link_to(pro_site_name, account_request_index_path)) %>
+  </p>
+<% end %>
+
 <% if @info_request %>
   <p><%= _("Here is the message you wrote, in case you would like to copy " \
   	          "the text and save it for later.") %></p>
