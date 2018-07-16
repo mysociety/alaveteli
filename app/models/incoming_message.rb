@@ -101,30 +101,36 @@ class IncomingMessage < ActiveRecord::Base
     self.mail.message_id
   end
 
-  # Return false if for some reason this is a message that we shouldn't let them reply to
+  # Return false if for some reason this is a message that we shouldn't let them
+  # reply to
+  #
+  # TODO: Extract this validation out in to ReplyToAddressValidator#valid?
   def _calculate_valid_to_reply_to
+    email = from_email.try(:downcase)
+
     # check validity of email
-    email = self.from_email
-    if email.nil? || !MySociety::Validate.is_valid_email(email)
+    return false if email.nil? || !MySociety::Validate.is_valid_email(email)
+
+    # Check whether the email is a known invalid reply address
+    if ReplyToAddressValidator.invalid_reply_addresses.include?(email)
       return false
     end
+
+    prefix = email
+    prefix =~ /^(.*)@/
+    prefix = $1
+
+    return false unless prefix
+
+    no_reply_regexp = ReplyToAddressValidator.no_reply_regexp
 
     # reject postmaster - authorities seem to nearly always not respond to
     # email to postmaster, and it tends to only happen after delivery failure.
     # likewise Mailer-Daemon, Auto_Reply...
-    prefix = email
-    prefix =~ /^(.*)@/
-    prefix = $1
-    if !prefix.nil? && prefix.downcase.match(/^(postmaster|mailer-daemon|auto_reply|do.?not.?reply|no.?reply)$/)
-      return false
-    end
-    if MailHandler.empty_return_path?(self.mail)
-      return false
-    end
-    if !MailHandler.get_auto_submitted(self.mail).nil?
-      return false
-    end
-    return true
+    return false if prefix.match(no_reply_regexp)
+    return false if MailHandler.empty_return_path?(mail)
+    return false if MailHandler.get_auto_submitted(mail)
+    true
   end
 
   def parse_raw_email!(force = nil)

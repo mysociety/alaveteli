@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Ability to blacklist known addresses that cannot be replied to (Gareth Rees)
+* Ability to customise no-reply address Regexp (Gareth Rees)
 * Extend time before closing requests to all responses (Gareth Rees)
 * Add a footer to the Admin layout with useful links to alaveteli.org (Gareth
   Rees)
@@ -59,6 +61,16 @@
 * Run `bundle exec rake users:update_hashed_password` to improve password
   encryption for existing users. As we don't know the original passwords this
   double encrypts the old SHA1 hash using the bcrypt algorithm.
+* The no-reply address handling can be customised in your theme. You can do this
+  in `lib/model_patches.rb` by assigning a `Regexp` of your choice to
+  `ReplyToAddressValidator.no_reply_regexp`. e.g.
+  `ReplyToAddressValidator.no_reply_regexp = /hello/`. Note that this only acts
+  on the local part of an email address (before the `@`) rather than the full
+  address.
+* A list of addresses that are known to cause problems when replying to them can
+  be set by assigning an Array of addresses to
+  `ReplyToAddressValidator.invalid_reply_addresses` in `lib/model_patches.rb`.
+  e.g: `ReplyToAddressValidator.invalid_reply_addresses = %w(a@example.com)`.
 
 ### Changed Templates
 
