@@ -755,6 +755,23 @@ describe IncomingMessage, " checking validity to reply to" do
     test_email(false, "team@mysociety.org", false, "auto-replied")
   end
 
+  it 'returns true if the full email is not included in the invalid reply addresses' do
+    ReplyToAddressValidator.invalid_reply_addresses = %w(a@example.com)
+
+    test_email(true, 'b@example.com', false)
+
+    ReplyToAddressValidator.invalid_reply_addresses =
+      ReplyToAddressValidator::DEFAULT_INVALID_REPLY_ADDRESSES
+  end
+
+  it 'returns false if the full email is included in the invalid reply addresses' do
+    ReplyToAddressValidator.invalid_reply_addresses = %w(a@example.com)
+
+    test_email(false, 'a@example.com', false)
+
+    ReplyToAddressValidator.invalid_reply_addresses =
+      ReplyToAddressValidator::DEFAULT_INVALID_REPLY_ADDRESSES
+  end
 end
 
 describe IncomingMessage, " checking validity to reply to with real emails" do
