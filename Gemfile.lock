@@ -169,7 +169,7 @@ GEM
       railties (>= 3.1.0)
     faraday (0.13.1)
       multipart-post (>= 1.2, < 3)
-    fast_gettext (1.1.0)
+    fast_gettext (1.1.2)
     ffi (1.9.18)
     flipper (0.10.2)
     flipper-active_record (0.10.2)
