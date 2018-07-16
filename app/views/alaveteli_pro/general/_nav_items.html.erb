@@ -14,7 +14,7 @@
         AnalyticsEvent::Action::PRO_NAV_REQUESTS) %>
 </li>
 
-<li class="<%= 'selected' if controller?('alaveteli_pro/info_requests') && action?('new', 'preview') %>">
+<li class="<%= 'selected' if (controller?('alaveteli_pro/info_requests') && action?('new', 'preview') || controller?('alaveteli_pro/batch_request_authority_searches') && action?('index') || controller?('alaveteli_pro/info_request_batches') && action?('new', 'preview')) %>">
   <%= link_to _("Make a request"),
               select_authority_path,
               :id => 'make-request-link',
