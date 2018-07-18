@@ -262,6 +262,14 @@ in any language, and within any legislation</p>
                         <p class="deployment__country">Turkey</p>
                         <p class="deployment__link"><a href="http://bilmehakki.org/">http://bilmehakki.org/</a></p>
                     </div>
+                </div><!--
+                --><div class="deployments__unit--minor">
+                    <div class="deployment--minor">
+                        <img src="/assets/img/informini.jpg" class="deployment__screenshot" alt=""/>
+                        <h3 class="deployment__title">Informini</h3>
+                        <p class="deployment__country">Tunisia</p>
+                        <p class="deployment__link"><a href="http://informini.org/ar">http://informini.org/ar</a></p>
+                    </div>
                 </div>
             </div>
         </div>
