@@ -44,43 +44,43 @@ describe InfoRequest do
     end
 
     it 'sets the default law used if a body is eir-only' do
-      body = FactoryGirl.create(:public_body, :tag_string => 'eir_only')
+      body = FactoryBot.create(:public_body, :tag_string => 'eir_only')
       expect(body.info_requests.build.law_used).to eq('eir')
     end
 
     it 'does not try to set the law used for existing requests' do
-      info_request = FactoryGirl.create(:info_request)
-      body = FactoryGirl.create(:public_body, :tag_string => 'eir_only')
+      info_request = FactoryBot.create(:info_request)
+      body = FactoryBot.create(:public_body, :tag_string => 'eir_only')
       info_request.update_attributes(:public_body_id => body.id)
       expect_any_instance_of(InfoRequest).not_to receive(:law_used=).and_call_original
       InfoRequest.find(info_request.id)
     end
 
     it "sets the url_title from the supplied title" do
-      info_request = FactoryGirl.create(:info_request, :title => "Test title")
+      info_request = FactoryBot.create(:info_request, :title => "Test title")
       expect(info_request.url_title).to eq("test_title")
     end
 
     it "ignores any supplied url_title and sets it from the title instead" do
-      info_request = FactoryGirl.create(:info_request, :title => "Real title",
-                                                       :url_title => "ignore_me")
+      info_request = FactoryBot.create(:info_request, :title => "Real title",
+                                                      :url_title => "ignore_me")
       expect(info_request.url_title).to eq("real_title")
     end
 
     it "adds the next sequential number to the url_title to make it unique" do
-      2.times { FactoryGirl.create(:info_request, :title => 'Test title') }
+      2.times { FactoryBot.create(:info_request, :title => 'Test title') }
       info_request = InfoRequest.new(:title => "Test title")
       expect(info_request.url_title).to eq("test_title_3")
     end
 
     it "strips line breaks from the title" do
-      info_request = FactoryGirl.create(:info_request,
+      info_request = FactoryBot.create(:info_request,
                                        :title => "Title\rwith\nline\r\nbreaks")
       expect(info_request.title).to eq("Title with line breaks")
     end
 
     it "strips extra spaces from the title" do
-      info_request = FactoryGirl.create(:info_request,
+      info_request = FactoryBot.create(:info_request,
                                        :title => "Title\rwith\nline\r\n breaks")
       expect(info_request.title).to eq("Title with line breaks")
     end
@@ -90,12 +90,12 @@ describe InfoRequest do
       # we suspect (hope?) it's an accidental double press of 'Save'
 
       it "picks the next available url_title instead of failing" do
-        public_body = FactoryGirl.create(:public_body)
-        user = FactoryGirl.create(:user)
+        public_body = FactoryBot.create(:public_body)
+        user = FactoryBot.create(:user)
         first_request = InfoRequest.new(:title => "Test title",
                                         :user => user,
                                         :public_body => public_body)
-        second_request = FactoryGirl.create(:info_request, :title => "Test title")
+        second_request = FactoryBot.create(:info_request, :title => "Test title")
         first_request.save!
         expect(first_request.url_title).to eq("test_title_2")
       end
@@ -106,7 +106,7 @@ describe InfoRequest do
 
   describe '.find_by_incoming_email' do
 
-    let(:info_request) { FactoryGirl.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
 
     it "recognises its own incoming email" do
       incoming_email = info_request.incoming_email
@@ -159,11 +159,11 @@ describe InfoRequest do
   describe '.matching_incoming_email' do
 
     it 'only finds the supplied requests' do
-      2.times { FactoryGirl.create(:info_request) }
+      2.times { FactoryBot.create(:info_request) }
 
       requests = [].tap do |array|
-        array << FactoryGirl.create(:info_request)
-        array << FactoryGirl.create(:info_request)
+        array << FactoryBot.create(:info_request)
+        array << FactoryBot.create(:info_request)
       end
 
       emails = requests.map { |request| request.incoming_email }
@@ -172,14 +172,14 @@ describe InfoRequest do
     end
 
     it 'finds a single request from an Array' do
-      info_request = FactoryGirl.create(:info_request)
+      info_request = FactoryBot.create(:info_request)
       emails = [info_request.incoming_email]
       expect(described_class.matching_incoming_email(emails)).
         to match([info_request])
     end
 
     it 'finds a single request from a String' do
-      info_request = FactoryGirl.create(:info_request)
+      info_request = FactoryBot.create(:info_request)
       email = info_request.incoming_email
       expect(described_class.matching_incoming_email(email)).
         to match([info_request])
@@ -204,7 +204,7 @@ describe InfoRequest do
     context 'when the holding pen exists' do
 
       it 'finds a request with title "Holding pen"' do
-        holding_pen = FactoryGirl.create(:info_request, :title => 'Holding pen')
+        holding_pen = FactoryBot.create(:info_request, :title => 'Holding pen')
         expect(InfoRequest.holding_pen_request).to eq(holding_pen)
       end
 
@@ -249,7 +249,7 @@ describe InfoRequest do
   describe '.reject_incoming_at_mta' do
 
     before do
-      @request = FactoryGirl.create(:info_request)
+      @request = FactoryBot.create(:info_request)
       @request.update_attributes(:updated_at => 6.months.ago,
                                 :rejected_incoming_count => 3,
                                 :allow_new_responses_from => 'nobody')
@@ -290,7 +290,7 @@ describe InfoRequest do
 
   describe '.stop_new_responses_on_old_requests' do
     subject { described_class.stop_new_responses_on_old_requests }
-    let(:request) { FactoryGirl.create(:info_request) }
+    let(:request) { FactoryBot.create(:info_request) }
 
     before do
       allow(AlaveteliConfiguration).
@@ -318,7 +318,7 @@ describe InfoRequest do
     end
 
     it 'does not affect requests that have never been published' do
-      request = FactoryGirl.create(:embargoed_request)
+      request = FactoryBot.create(:embargoed_request)
       request.update(updated_at: 5.years.ago)
       expect { subject }.
         not_to change { request.reload.allow_new_responses_from }
@@ -351,7 +351,7 @@ describe InfoRequest do
   describe '#receive' do
 
     it 'creates a new incoming message' do
-      info_request = FactoryGirl.create(:info_request)
+      info_request = FactoryBot.create(:info_request)
       email, raw_email = email_and_raw_email
       info_request.receive(email, raw_email)
       expect(info_request.incoming_messages.size).to eq(1)
@@ -359,7 +359,7 @@ describe InfoRequest do
     end
 
     it 'creates a new raw_email with the incoming email data' do
-      info_request = FactoryGirl.create(:info_request)
+      info_request = FactoryBot.create(:info_request)
       email, raw_email = email_and_raw_email
       info_request.receive(email, raw_email)
       expect(info_request.incoming_messages.first.raw_email.data).
@@ -368,15 +368,15 @@ describe InfoRequest do
     end
 
     it 'marks the request as awaiting description' do
-      info_request = FactoryGirl.create(:info_request)
+      info_request = FactoryBot.create(:info_request)
       email, raw_email = email_and_raw_email
       info_request.receive(email, raw_email)
       expect(info_request.awaiting_description).to be true
     end
 
     it 'does not mark requests marked as withdrawn as awaiting description' do
-      info_request = FactoryGirl.create(:info_request,
-                                        :awaiting_description => false)
+      info_request = FactoryBot.create(:info_request,
+                                       :awaiting_description => false)
       info_request.described_state = "user_withdrawn"
       info_request.save
       email, raw_email = email_and_raw_email
@@ -386,7 +386,7 @@ describe InfoRequest do
     end
 
     it 'logs an event' do
-      info_request = FactoryGirl.create(:info_request)
+      info_request = FactoryBot.create(:info_request)
       email, raw_email = email_and_raw_email
       info_request.receive(email, raw_email)
       expect(info_request.info_request_events.last.incoming_message.id).
@@ -395,7 +395,7 @@ describe InfoRequest do
     end
 
     it 'logs a rejected reason' do
-      info_request = FactoryGirl.create(:info_request)
+      info_request = FactoryBot.create(:info_request)
       email, raw_email = email_and_raw_email
       info_request.
         receive(email,
@@ -409,7 +409,7 @@ describe InfoRequest do
 
       context 'when the request has use_notifications: true' do
         let(:info_request) do
-          FactoryGirl.create(:info_request, use_notifications: true)
+          FactoryBot.create(:info_request, use_notifications: true)
         end
 
         it 'notifies the user that a response has been received' do
@@ -427,7 +427,7 @@ describe InfoRequest do
 
       context 'when the request has use_notifications: false' do
         let(:info_request) do
-          FactoryGirl.create(:info_request, use_notifications: false)
+          FactoryBot.create(:info_request, use_notifications: false)
         end
 
         it 'emails the user that a response has been received' do
@@ -443,7 +443,7 @@ describe InfoRequest do
 
       context 'when the request is external' do
         it 'does not email or notify anyone' do
-          info_request = FactoryGirl.create(:external_request)
+          info_request = FactoryBot.create(:external_request)
           email, raw_email = email_and_raw_email
 
           expect { info_request.receive(email, raw_email) }.
@@ -456,7 +456,7 @@ describe InfoRequest do
     end
 
     describe 'receiving mail from different sources' do
-      let(:info_request){ FactoryGirl.create(:info_request) }
+      let(:info_request){ FactoryBot.create(:info_request) }
 
       it 'processes mail where no source is specified' do
         email, raw_email = email_and_raw_email
@@ -549,7 +549,7 @@ describe InfoRequest do
 
         attrs = { :allow_new_responses_from => 'nobody',
                   :handle_rejected_responses => 'holding_pen' }
-        info_request = FactoryGirl.create(:info_request, attrs)
+        info_request = FactoryBot.create(:info_request, attrs)
 
         back_to_the_present
 
@@ -572,7 +572,7 @@ describe InfoRequest do
       it 'from anybody' do
         attrs = { :allow_new_responses_from => 'anybody',
                   :handle_rejected_responses => 'holding_pen' }
-        info_request = FactoryGirl.create(:info_request, attrs)
+        info_request = FactoryBot.create(:info_request, attrs)
         email, raw_email = email_and_raw_email
         info_request.receive(email, raw_email)
         expect(info_request.incoming_messages.size).to eq(1)
@@ -581,7 +581,7 @@ describe InfoRequest do
       it 'from authority_only receives if the mail is from the authority' do
         attrs = { :allow_new_responses_from => 'authority_only',
                   :handle_rejected_responses => 'holding_pen' }
-        info_request = FactoryGirl.create(:info_request_with_incoming, attrs)
+        info_request = FactoryBot.create(:info_request_with_incoming, attrs)
         email, raw_email = email_and_raw_email(:from => 'bob@example.com')
         info_request.receive(email, raw_email)
         expect(info_request.reload.incoming_messages.size).to eq(2)
@@ -592,7 +592,7 @@ describe InfoRequest do
 
         attrs = { :allow_new_responses_from => 'authority_only',
                   :handle_rejected_responses => 'holding_pen' }
-        info_request = FactoryGirl.create(:info_request, attrs)
+        info_request = FactoryBot.create(:info_request, attrs)
 
         back_to_the_present
 
@@ -616,7 +616,7 @@ describe InfoRequest do
 
         attrs = { :allow_new_responses_from => 'authority_only',
                   :handle_rejected_responses => 'holding_pen' }
-        info_request = FactoryGirl.create(:info_request, attrs)
+        info_request = FactoryBot.create(:info_request, attrs)
 
         back_to_the_present
 
@@ -636,7 +636,7 @@ describe InfoRequest do
       end
 
       it 'raises an error if there is an unknown allow_new_responses_from' do
-        info_request = FactoryGirl.create(:info_request)
+        info_request = FactoryBot.create(:info_request)
         info_request.allow_new_responses_from = 'unknown_value'
         email, raw_email = email_and_raw_email
         err = InfoRequest::ResponseGatekeeper::UnknownResponseGatekeeperError
@@ -647,7 +647,7 @@ describe InfoRequest do
       it 'can override the stop new responses status of a request' do
         attrs = { :allow_new_responses_from => 'nobody',
                   :handle_rejected_responses => 'holding_pen' }
-        info_request = FactoryGirl.create(:info_request, attrs)
+        info_request = FactoryBot.create(:info_request, attrs)
         email, raw_email = email_and_raw_email
         info_request.receive(email,
                              raw_email,
@@ -678,7 +678,7 @@ describe InfoRequest do
 
         attrs = { :allow_new_responses_from => 'nobody',
                   :handle_rejected_responses => 'holding_pen' }
-        info_request = FactoryGirl.create(:info_request, attrs)
+        info_request = FactoryBot.create(:info_request, attrs)
         email, raw_email = email_and_raw_email(:raw_email => spam_email)
         info_request.receive(email,
                              raw_email,
@@ -693,7 +693,7 @@ describe InfoRequest do
       it 'bounces rejected responses if the mail has a from address' do
         attrs = { :allow_new_responses_from => 'nobody',
                   :handle_rejected_responses => 'bounce' }
-        info_request = FactoryGirl.create(:info_request, attrs)
+        info_request = FactoryBot.create(:info_request, attrs)
         email, raw_email = email_and_raw_email(:from => 'bounce@example.com')
         info_request.receive(email, raw_email)
         bounce = ActionMailer::Base.deliveries.first
@@ -702,7 +702,7 @@ describe InfoRequest do
       end
 
       it 'does not bounce responses to external requests' do
-        info_request = FactoryGirl.create(:external_request)
+        info_request = FactoryBot.create(:external_request)
         email, raw_email = email_and_raw_email(:from => 'bounce@example.com')
         info_request.receive(email, raw_email)
         expect(ActionMailer::Base.deliveries).to be_empty
@@ -712,7 +712,7 @@ describe InfoRequest do
       it 'discards rejected responses if the mail has no from address' do
         attrs = { :allow_new_responses_from => 'nobody',
                   :handle_rejected_responses => 'bounce' }
-        info_request = FactoryGirl.create(:info_request, attrs)
+        info_request = FactoryBot.create(:info_request, attrs)
         email, raw_email = email_and_raw_email(:from => '')
         info_request.receive(email, raw_email)
         expect(ActionMailer::Base.deliveries).to be_empty
@@ -722,7 +722,7 @@ describe InfoRequest do
       it 'sends rejected responses to the holding pen' do
         attrs = { :allow_new_responses_from => 'nobody',
                   :handle_rejected_responses => 'holding_pen' }
-        info_request = FactoryGirl.create(:info_request, attrs)
+        info_request = FactoryBot.create(:info_request, attrs)
         email, raw_email = email_and_raw_email
         info_request.receive(email, raw_email)
         expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
@@ -735,7 +735,7 @@ describe InfoRequest do
       it 'discards rejected responses' do
         attrs = { :allow_new_responses_from => 'nobody',
                   :handle_rejected_responses => 'blackhole' }
-        info_request = FactoryGirl.create(:info_request, attrs)
+        info_request = FactoryBot.create(:info_request, attrs)
         email, raw_email = email_and_raw_email
         info_request.receive(email, raw_email)
         expect(ActionMailer::Base.deliveries).to be_empty
@@ -745,7 +745,7 @@ describe InfoRequest do
 
       it 'raises an error if there is an unknown handle_rejected_responses' do
         attrs = { :allow_new_responses_from => 'nobody' }
-        info_request = FactoryGirl.create(:info_request, attrs)
+        info_request = FactoryBot.create(:info_request, attrs)
         info_request.update_attribute(:handle_rejected_responses, 'unknown_value')
         email, raw_email = email_and_raw_email
         err = InfoRequest::ResponseRejection::UnknownResponseRejectionError
@@ -756,7 +756,7 @@ describe InfoRequest do
     end
 
     it "uses instance-specific spam handling first" do
-      info_request = FactoryGirl.create(:info_request)
+      info_request = FactoryBot.create(:info_request)
       info_request.update_attributes!(:handle_rejected_responses => 'bounce',
                                       :allow_new_responses_from => 'nobody')
       allow(AlaveteliConfiguration).
@@ -780,7 +780,7 @@ describe InfoRequest do
     end
 
     it "redirects spam to the holding_pen" do
-      info_request = FactoryGirl.create(:info_request)
+      info_request = FactoryBot.create(:info_request)
 
       mocked_default_config = {
         :spam_action => 'holding_pen',
@@ -809,7 +809,7 @@ describe InfoRequest do
     end
 
     it "discards mail over the configured spam threshold" do
-      info_request = FactoryGirl.create(:info_request)
+      info_request = FactoryBot.create(:info_request)
 
       mocked_default_config = {
         :spam_action => 'discard',
@@ -839,7 +839,7 @@ describe InfoRequest do
     end
 
     it "delivers mail under the configured spam threshold" do
-      info_request = FactoryGirl.create(:info_request)
+      info_request = FactoryBot.create(:info_request)
       allow(AlaveteliConfiguration).
         to receive(:incoming_email_spam_action).and_return('discard')
       allow(AlaveteliConfiguration).
@@ -863,7 +863,7 @@ describe InfoRequest do
     end
 
     it "delivers mail without a spam header" do
-      info_request = FactoryGirl.create(:info_request)
+      info_request = FactoryBot.create(:info_request)
       allow(AlaveteliConfiguration).
         to receive(:incoming_email_spam_action).and_return('discard')
       allow(AlaveteliConfiguration).
@@ -888,7 +888,7 @@ describe InfoRequest do
   end
 
   describe "#url_title" do
-    let(:request) { FactoryGirl.create(:info_request, :title => "Test 101") }
+    let(:request) { FactoryBot.create(:info_request, :title => "Test 101") }
 
     it "returns the url_title" do
       expect(request.url_title).to eq('test_101')
@@ -904,8 +904,8 @@ describe InfoRequest do
     context 'with no options' do
 
       it 'requires an :editor option' do
-        request = FactoryGirl.create(:info_request)
-        new_body = FactoryGirl.create(:public_body)
+        request = FactoryBot.create(:info_request)
+        new_body = FactoryBot.create(:public_body)
         expect {
           request.move_to_public_body(new_body)
         }.to raise_error IndexError
@@ -916,19 +916,19 @@ describe InfoRequest do
     context 'with the :editor option' do
 
       it 'moves the info request to the new public body' do
-        request = FactoryGirl.create(:info_request)
-        new_body = FactoryGirl.create(:public_body)
-        editor = FactoryGirl.create(:user)
+        request = FactoryBot.create(:info_request)
+        new_body = FactoryBot.create(:public_body)
+        editor = FactoryBot.create(:user)
         request.move_to_public_body(new_body, :editor => editor)
         request.reload
         expect(request.public_body).to eq(new_body)
       end
 
       it 'logs the move' do
-        request = FactoryGirl.create(:info_request)
+        request = FactoryBot.create(:info_request)
         old_body = request.public_body
-        new_body = FactoryGirl.create(:public_body)
-        editor = FactoryGirl.create(:user)
+        new_body = FactoryBot.create(:public_body)
+        editor = FactoryBot.create(:user)
         request.move_to_public_body(new_body, :editor => editor)
         request.reload
         event = request.info_request_events.last
@@ -940,24 +940,24 @@ describe InfoRequest do
       end
 
       it 'updates the law_used to the new body law' do
-        request = FactoryGirl.create(:info_request)
-        new_body = FactoryGirl.create(:public_body, :tag_string => 'eir_only')
-        editor = FactoryGirl.create(:user)
+        request = FactoryBot.create(:info_request)
+        new_body = FactoryBot.create(:public_body, :tag_string => 'eir_only')
+        editor = FactoryBot.create(:user)
         request.move_to_public_body(new_body, :editor => editor)
         request.reload
         expect(request.law_used).to eq('eir')
       end
 
       it 'returns the new public body' do
-        request = FactoryGirl.create(:info_request)
-        new_body = FactoryGirl.create(:public_body)
-        editor = FactoryGirl.create(:user)
+        request = FactoryBot.create(:info_request)
+        new_body = FactoryBot.create(:public_body)
+        editor = FactoryBot.create(:user)
         expect(request.move_to_public_body(new_body, :editor => editor)).to eq(new_body)
       end
 
       it 'retains the existing body if the new body does not exist' do
-        request = FactoryGirl.create(:info_request)
-        editor = FactoryGirl.create(:user)
+        request = FactoryBot.create(:info_request)
+        editor = FactoryBot.create(:user)
         existing_body = request.public_body
         request.move_to_public_body(nil, :editor => editor)
         request.reload
@@ -965,9 +965,9 @@ describe InfoRequest do
       end
 
       it 'retains the existing body if the new body is not persisted' do
-        request = FactoryGirl.create(:info_request)
-        new_body = FactoryGirl.build(:public_body)
-        editor = FactoryGirl.create(:user)
+        request = FactoryBot.create(:info_request)
+        new_body = FactoryBot.build(:public_body)
+        editor = FactoryBot.create(:user)
         existing_body = request.public_body
         request.move_to_public_body(new_body, :editor => editor)
         request.reload
@@ -975,15 +975,15 @@ describe InfoRequest do
       end
 
       it 'returns nil if the body cannot be updated' do
-        request = FactoryGirl.create(:info_request)
-        editor = FactoryGirl.create(:user)
+        request = FactoryBot.create(:info_request)
+        editor = FactoryBot.create(:user)
         expect(request.move_to_public_body(nil, :editor => editor)).to eq(nil)
       end
 
       it 'reindexes the info request' do
-        request = FactoryGirl.create(:info_request)
-        new_body = FactoryGirl.create(:public_body)
-        editor = FactoryGirl.create(:user)
+        request = FactoryBot.create(:info_request)
+        new_body = FactoryBot.create(:public_body)
+        editor = FactoryBot.create(:user)
         reindex_job = ActsAsXapian::ActsAsXapianJob.
           where(:model => 'InfoRequestEvent').
           delete_all
@@ -999,10 +999,10 @@ describe InfoRequest do
 
       context 'updating counter caches' do
 
-        let(:request) { FactoryGirl.create(:info_request) }
+        let(:request) { FactoryBot.create(:info_request) }
         let(:old_body) { request.public_body }
-        let(:new_body) { FactoryGirl.create(:public_body) }
-        let(:editor) { FactoryGirl.create(:user) }
+        let(:new_body) { FactoryBot.create(:public_body) }
+        let(:editor) { FactoryBot.create(:user) }
 
         it "increments the new authority's info_requests_count " do
           expect { request.move_to_public_body(new_body, :editor => editor) }.
@@ -1079,8 +1079,8 @@ describe InfoRequest do
     context 'with no options' do
 
       it 'requires an :editor option' do
-        request = FactoryGirl.create(:info_request)
-        new_user = FactoryGirl.create(:user)
+        request = FactoryBot.create(:info_request)
+        new_user = FactoryBot.create(:user)
         expect {
           request.move_to_user(new_user)
         }.to raise_error IndexError
@@ -1091,19 +1091,19 @@ describe InfoRequest do
     context 'with the :editor option' do
 
       it 'moves the info request to the new user' do
-        request = FactoryGirl.create(:info_request)
-        new_user = FactoryGirl.create(:user)
-        editor = FactoryGirl.create(:user)
+        request = FactoryBot.create(:info_request)
+        new_user = FactoryBot.create(:user)
+        editor = FactoryBot.create(:user)
         request.move_to_user(new_user, :editor => editor)
         request.reload
         expect(request.user).to eq(new_user)
       end
 
       it 'logs the move' do
-        request = FactoryGirl.create(:info_request)
+        request = FactoryBot.create(:info_request)
         old_user = request.user
-        new_user = FactoryGirl.create(:user)
-        editor = FactoryGirl.create(:user)
+        new_user = FactoryBot.create(:user)
+        editor = FactoryBot.create(:user)
         request.move_to_user(new_user, :editor => editor)
         request.reload
         event = request.info_request_events.last
@@ -1115,16 +1115,16 @@ describe InfoRequest do
       end
 
       it 'returns the new user' do
-        request = FactoryGirl.create(:info_request)
-        new_user = FactoryGirl.create(:user)
-        editor = FactoryGirl.create(:user)
+        request = FactoryBot.create(:info_request)
+        new_user = FactoryBot.create(:user)
+        editor = FactoryBot.create(:user)
         expect(request.move_to_user(new_user, :editor => editor)).
           to eq(new_user)
       end
 
       it 'retains the existing user if the new user does not exist' do
-        request = FactoryGirl.create(:info_request)
-        editor = FactoryGirl.create(:user)
+        request = FactoryBot.create(:info_request)
+        editor = FactoryBot.create(:user)
         existing_user = request.user
         request.move_to_user(nil, :editor => editor)
         request.reload
@@ -1132,9 +1132,9 @@ describe InfoRequest do
       end
 
       it 'retains the existing user if the new user is not persisted' do
-        request = FactoryGirl.create(:info_request)
-        new_user = FactoryGirl.build(:user)
-        editor = FactoryGirl.create(:user)
+        request = FactoryBot.create(:info_request)
+        new_user = FactoryBot.build(:user)
+        editor = FactoryBot.create(:user)
         existing_user = request.user
         request.move_to_user(new_user, :editor => editor)
         request.reload
@@ -1142,15 +1142,15 @@ describe InfoRequest do
       end
 
       it 'returns nil if the user cannot be updated' do
-        request = FactoryGirl.create(:info_request)
-        editor = FactoryGirl.create(:user)
+        request = FactoryBot.create(:info_request)
+        editor = FactoryBot.create(:user)
         expect(request.move_to_user(nil, :editor => editor)).to eq(nil)
       end
 
       it 'reindexes the info request' do
-        request = FactoryGirl.create(:info_request)
-        new_user = FactoryGirl.create(:user)
-        editor = FactoryGirl.create(:user)
+        request = FactoryBot.create(:info_request)
+        new_user = FactoryBot.create(:user)
+        editor = FactoryBot.create(:user)
         reindex_job = ActsAsXapian::ActsAsXapianJob.
           where(:model => 'InfoRequestEvent').
           delete_all
@@ -1167,19 +1167,19 @@ describe InfoRequest do
       context 'updating counter caches' do
 
         it "increments the new user's info_requests_count " do
-          request = FactoryGirl.create(:info_request)
-          new_user = FactoryGirl.create(:user)
-          editor = FactoryGirl.create(:user)
+          request = FactoryBot.create(:info_request)
+          new_user = FactoryBot.create(:user)
+          editor = FactoryBot.create(:user)
 
           expect { request.move_to_user(new_user, :editor => editor) }.
             to change { new_user.reload.info_requests_count }.from(0).to(1)
         end
 
         it "decrements the old user's info_requests_count " do
-          request = FactoryGirl.create(:info_request)
+          request = FactoryBot.create(:info_request)
           old_user = request.user
-          new_user = FactoryGirl.create(:user)
-          editor = FactoryGirl.create(:user)
+          new_user = FactoryBot.create(:user)
+          editor = FactoryBot.create(:user)
 
           expect { request.move_to_user(new_user, :editor => editor) }.
             to change { old_user.reload.info_requests_count }.from(1).to(0)
@@ -1193,7 +1193,7 @@ describe InfoRequest do
 
   describe '#destroy' do
 
-    let(:info_request) { FactoryGirl.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
 
     it "calls update_counter_cache" do
       expect(info_request).to receive(:update_counter_cache)
@@ -1212,14 +1212,14 @@ describe InfoRequest do
     end
 
     it 'destroys associated censor_rules' do
-      censor_rule = FactoryGirl.create(:censor_rule, :info_request => info_request)
+      censor_rule = FactoryBot.create(:censor_rule, :info_request => info_request)
       info_request.reload
       info_request.destroy
       expect(CensorRule.where(:info_request_id => info_request.id)).to be_empty
     end
 
     it 'destroys associated comments' do
-      comment = FactoryGirl.create(:comment, :info_request => info_request)
+      comment = FactoryBot.create(:comment, :info_request => info_request)
       info_request.reload
       info_request.destroy
       expect(Comment.where(:info_request_id => info_request.id)).to be_empty
@@ -1236,7 +1236,7 @@ describe InfoRequest do
     end
 
     it 'destroys associated incoming_messages' do
-      ir_with_incoming = FactoryGirl.create(:info_request_with_incoming)
+      ir_with_incoming = FactoryBot.create(:info_request_with_incoming)
       ir_with_incoming.destroy
       expect(IncomingMessage.where(:info_request_id => ir_with_incoming.id)).to be_empty
     end
@@ -1248,10 +1248,10 @@ describe InfoRequest do
     end
 
     it 'destroys associated track_things' do
-      FactoryGirl.create(:request_update_track,
-                         :track_medium => 'email_daily',
-                         :info_request => info_request,
-                         :track_query => 'Example Query')
+      FactoryBot.create(:request_update_track,
+                        :track_medium => 'email_daily',
+                        :info_request => info_request,
+                        :track_query => 'Example Query')
       info_request.destroy
       expect(TrackThing.where(:info_request_id => info_request.id)).to be_empty
     end
@@ -1266,7 +1266,7 @@ describe InfoRequest do
 
     it 'destroys associated embargoes' do
       AlaveteliPro::Embargo.destroy_all
-      FactoryGirl.create(:embargo, info_request: info_request)
+      FactoryBot.create(:embargo, info_request: info_request)
       expect { info_request.destroy }.
         to change(AlaveteliPro::Embargo, :count).by(-1)
     end
@@ -1274,7 +1274,7 @@ describe InfoRequest do
 
   describe '#expire' do
 
-    let(:info_request) { FactoryGirl.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
 
     it "clears the database caches" do
       expect(info_request).to receive(:clear_in_database_caches!)
@@ -1312,7 +1312,7 @@ describe InfoRequest do
   describe '#initial_request_text' do
 
     it 'returns an empty string if the first outgoing message is hidden' do
-      info_request = FactoryGirl.create(:info_request)
+      info_request = FactoryBot.create(:info_request)
       first_message = info_request.outgoing_messages.first
       first_message.prominence = 'hidden'
       first_message.save!
@@ -1320,7 +1320,7 @@ describe InfoRequest do
     end
 
     it 'returns the text of the first outgoing message if it is visible' do
-      info_request = FactoryGirl.create(:info_request)
+      info_request = FactoryBot.create(:info_request)
       expect(info_request.initial_request_text).to eq('Some information please')
     end
 
@@ -1329,7 +1329,7 @@ describe InfoRequest do
   describe '.find_existing' do
 
     it 'returns a request with the params given' do
-      info_request = FactoryGirl.create(:info_request)
+      info_request = FactoryBot.create(:info_request)
       expect(InfoRequest.find_existing(info_request.title,
                                        info_request.public_body_id,
                                        'Some information please')).
@@ -1341,7 +1341,7 @@ describe InfoRequest do
   describe '#find_existing_outgoing_message' do
 
     it 'returns an outgoing message with the body text given' do
-      info_request = FactoryGirl.create(:info_request)
+      info_request = FactoryBot.create(:info_request)
       expect(info_request.find_existing_outgoing_message('Some information please')).
         to eq(info_request.outgoing_messages.first)
     end
@@ -1377,9 +1377,9 @@ describe InfoRequest do
 
   describe "#is_followupable?" do
 
-    let(:message_without_reply_to) { FactoryGirl.create(:incoming_message) }
-    let(:valid_request) { FactoryGirl.create(:info_request) }
-    let(:unfollowupable_body) { FactoryGirl.create(:public_body, :request_email => "") }
+    let(:message_without_reply_to) { FactoryBot.create(:incoming_message) }
+    let(:valid_request) { FactoryBot.create(:info_request) }
+    let(:unfollowupable_body) { FactoryBot.create(:public_body, :request_email => "") }
 
     context "it is possible to reply to the public body" do
 
@@ -1399,7 +1399,7 @@ describe InfoRequest do
     context "the message has a valid reply address" do
 
       let(:request) do
-        FactoryGirl.create(:info_request, :public_body => unfollowupable_body)
+        FactoryBot.create(:info_request, :public_body => unfollowupable_body)
       end
       let(:dummy_message) { double(IncomingMessage) }
 
@@ -1437,7 +1437,7 @@ describe InfoRequest do
     context "belongs to an unfollowupable PublicBody" do
 
       let(:request) do
-        FactoryGirl.create(:info_request, :public_body => unfollowupable_body)
+        FactoryBot.create(:info_request, :public_body => unfollowupable_body)
       end
 
       it "returns false" do
@@ -1730,7 +1730,7 @@ describe InfoRequest do
   end
 
   describe '#last_event' do
-    let(:info_request) { FactoryGirl.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
     let(:last_event) do
       InfoRequestEvent.
         where(info_request_id: info_request.id).
@@ -1742,7 +1742,7 @@ describe InfoRequest do
 
       before do
         3.times do
-          FactoryGirl.create(:info_request_event, info_request: info_request)
+          FactoryBot.create(:info_request_event, info_request: info_request)
         end
       end
 
@@ -1817,13 +1817,13 @@ describe InfoRequest do
   describe "#postal_email" do
 
     let(:public_body) do
-      FactoryGirl.create(:public_body, :request_email => "test@localhost")
+      FactoryBot.create(:public_body, :request_email => "test@localhost")
     end
 
     context "there is no list of incoming messages to followup" do
 
       it "returns the public body's request_email" do
-        request = FactoryGirl.create(:info_request, :public_body => public_body)
+        request = FactoryBot.create(:info_request, :public_body => public_body)
         expect(request.postal_email).to eq("test@localhost")
       end
 
@@ -1832,9 +1832,9 @@ describe InfoRequest do
     context "there is a list of incoming messages to followup" do
 
       it "returns the email address from the last message in the chain" do
-        request = FactoryGirl.create(:info_request, :public_body => public_body)
-        incoming_message = FactoryGirl.create(:plain_incoming_message,
-                                              :info_request => request)
+        request = FactoryBot.create(:info_request, :public_body => public_body)
+        incoming_message = FactoryBot.create(:plain_incoming_message,
+                                             :info_request => request)
         request.log_event("response", {:incoming_message_id => incoming_message.id})
         expect(request.postal_email).to eq("bob@example.com")
       end
@@ -1845,12 +1845,12 @@ describe InfoRequest do
 
   describe "#postal_email_name" do
 
-    let(:public_body) { FactoryGirl.create(:public_body, :name => "Ministry of Test") }
+    let(:public_body) { FactoryBot.create(:public_body, :name => "Ministry of Test") }
 
     context "there is no list of incoming messages to followup" do
 
       it "returns the public body name" do
-        request = FactoryGirl.create(:info_request, :public_body => public_body)
+        request = FactoryBot.create(:info_request, :public_body => public_body)
         expect(request.postal_email_name).to eq("Ministry of Test")
       end
 
@@ -1859,9 +1859,9 @@ describe InfoRequest do
     context "there is a list of incoming messages to followup" do
 
       it "returns the email name from the last message in the chain" do
-        request = FactoryGirl.create(:info_request, :public_body => public_body)
-        incoming_message = FactoryGirl.create(:plain_incoming_message,
-                                              :info_request => request)
+        request = FactoryBot.create(:info_request, :public_body => public_body)
+        incoming_message = FactoryBot.create(:plain_incoming_message,
+                                             :info_request => request)
         request.log_event("response", {:incoming_message_id => incoming_message.id})
         expect(request.postal_email_name).to eq("Bob Responder")
       end
@@ -1874,7 +1874,7 @@ describe InfoRequest do
 
     before do
       time_travel_to Time.utc(2007, 10, 14, 23, 59) do
-        @info_request = FactoryGirl.create(:info_request)
+        @info_request = FactoryBot.create(:info_request)
       end
     end
 
@@ -1929,7 +1929,7 @@ describe InfoRequest do
         zone = ActiveSupport::TimeZone["Australia/Sydney"]
         Time.zone = zone
         time_travel_to zone.parse("2007-10-14 23:59") do
-          @info_request = FactoryGirl.create(:info_request)
+          @info_request = FactoryBot.create(:info_request)
         end
       end
 
@@ -2073,74 +2073,74 @@ describe InfoRequest do
     context "returning records" do
       let(:recent_date) { Time.zone.now - 20.days }
       let(:old_date) { Time.zone.now - 22.days }
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
 
       def create_recent_unclassified_request
-        request = FactoryGirl.create(:info_request, :user => user,
-                                                    :created_at => recent_date)
-        message = FactoryGirl.create(:incoming_message, :created_at => recent_date,
-                                                        :info_request => request)
-        FactoryGirl.create(:info_request_event, :incoming_message => message,
-                                                :event_type => "response",
-                                                :info_request => request,
-                                                :created_at => recent_date)
+        request = FactoryBot.create(:info_request, :user => user,
+                                                   :created_at => recent_date)
+        message = FactoryBot.create(:incoming_message, :created_at => recent_date,
+                                                       :info_request => request)
+        FactoryBot.create(:info_request_event, :incoming_message => message,
+                                               :event_type => "response",
+                                               :info_request => request,
+                                               :created_at => recent_date)
         request.awaiting_description = true
         request.save
         request
       end
 
       def create_old_unclassified_request
-        request = FactoryGirl.create(:info_request, :user => user,
-                                                    :created_at => old_date)
-        message = FactoryGirl.create(:incoming_message, :created_at => old_date,
-                                                        :info_request => request)
-        FactoryGirl.create(:info_request_event, :incoming_message => message,
-                                                :event_type => "response",
-                                                :info_request => request,
-                                                :created_at => old_date)
+        request = FactoryBot.create(:info_request, :user => user,
+                                                   :created_at => old_date)
+        message = FactoryBot.create(:incoming_message, :created_at => old_date,
+                                                       :info_request => request)
+        FactoryBot.create(:info_request_event, :incoming_message => message,
+                                               :event_type => "response",
+                                               :info_request => request,
+                                               :created_at => old_date)
         request.awaiting_description = true
         request.save
         request
       end
 
       def create_old_unclassified_described
-        request = FactoryGirl.create(:info_request, :user => user,
-                                                    :created_at => old_date)
-        message = FactoryGirl.create(:incoming_message, :created_at => old_date,
-                                                        :info_request => request)
-        FactoryGirl.create(:info_request_event, :incoming_message => message,
-                                                :event_type => "response",
-                                                :info_request => request,
-                                                :created_at => old_date)
+        request = FactoryBot.create(:info_request, :user => user,
+                                                   :created_at => old_date)
+        message = FactoryBot.create(:incoming_message, :created_at => old_date,
+                                                       :info_request => request)
+        FactoryBot.create(:info_request_event, :incoming_message => message,
+                                               :event_type => "response",
+                                               :info_request => request,
+                                               :created_at => old_date)
         request
       end
 
       def create_old_unclassified_no_user
-        request = FactoryGirl.create(:info_request, :user => nil,
-                                                    :external_user_name => 'test_user',
-                                                    :external_url => 'test',
-                                                    :created_at => old_date)
-        message = FactoryGirl.create(:incoming_message, :created_at => old_date,
-                                                        :info_request => request)
-        FactoryGirl.create(:info_request_event, :incoming_message => message,
-                                                :event_type => "response",
-                                                :info_request => request,
-                                                :created_at => old_date)
+        request = FactoryBot.create(:info_request, :user => nil,
+                                                   :external_user_name => 'test_user',
+                                                   :external_url => 'test',
+                                                   :created_at => old_date)
+        message = FactoryBot.create(:incoming_message, :created_at => old_date,
+                                                       :info_request => request)
+        FactoryBot.create(:info_request_event, :incoming_message => message,
+                                               :event_type => "response",
+                                               :info_request => request,
+                                               :created_at => old_date)
         request.awaiting_description = true
         request.save
         request
       end
 
       def create_old_unclassified_holding_pen
-        request = FactoryGirl.create(:info_request, :user => user,
-                                                    :title => 'Holding pen',
-                                                    :created_at => old_date)
-        message = FactoryGirl.create(:incoming_message, :created_at => old_date,
-                                                        :info_request => request)
-        FactoryGirl.create(:info_request_event, :incoming_message => message,
-                                                :event_type => "response",
-                                                :info_request => request,
-                                                :created_at => old_date)
+        request = FactoryBot.create(:info_request, :user => user,
+                                                   :title => 'Holding pen',
+                                                   :created_at => old_date)
+        message = FactoryBot.create(:incoming_message, :created_at => old_date,
+                                                       :info_request => request)
+        FactoryBot.create(:info_request_event, :incoming_message => message,
+                                               :event_type => "response",
+                                               :info_request => request,
+                                               :created_at => old_date)
         request.awaiting_description = true
         request.save
         request
@@ -2230,21 +2230,21 @@ describe InfoRequest do
 
     before do
       allow(Time).to receive(:now).and_return(Time.utc(2007, 11, 9, 23, 59))
-      @info_request = FactoryGirl.create(:info_request,
-                                         :prominence => 'normal',
-                                         :awaiting_description => true)
-      @comment_event = FactoryGirl.create(:info_request_event,
-                                          :created_at => Time.zone.now - 23.days,
-                                          :event_type => 'comment',
-                                          :info_request => @info_request)
-      @incoming_message = FactoryGirl.create(:incoming_message,
-                                             :prominence => 'normal',
-                                             :info_request => @info_request)
-      @response_event = FactoryGirl.create(:info_request_event,
-                                           :info_request => @info_request,
-                                           :created_at => Time.zone.now - 22.days,
-                                           :event_type => 'response',
-                                           :incoming_message => @incoming_message)
+      @info_request = FactoryBot.create(:info_request,
+                                        :prominence => 'normal',
+                                        :awaiting_description => true)
+      @comment_event = FactoryBot.create(:info_request_event,
+                                         :created_at => Time.zone.now - 23.days,
+                                         :event_type => 'comment',
+                                         :info_request => @info_request)
+      @incoming_message = FactoryBot.create(:incoming_message,
+                                            :prominence => 'normal',
+                                            :info_request => @info_request)
+      @response_event = FactoryBot.create(:info_request_event,
+                                          :info_request => @info_request,
+                                          :created_at => Time.zone.now - 22.days,
+                                          :event_type => 'response',
+                                          :incoming_message => @incoming_message)
       @info_request.update_attribute(:awaiting_description, true)
     end
 
@@ -2272,9 +2272,9 @@ describe InfoRequest do
   describe '#apply_censor_rules_to_text' do
 
     it 'applies each censor rule to the text' do
-      rule_1 = FactoryGirl.build(:censor_rule, :text => '1')
-      rule_2 = FactoryGirl.build(:censor_rule, :text => '2')
-      info_request = FactoryGirl.build(:info_request)
+      rule_1 = FactoryBot.build(:censor_rule, :text => '1')
+      rule_2 = FactoryBot.build(:censor_rule, :text => '2')
+      info_request = FactoryBot.build(:info_request)
       allow(info_request).
         to receive(:applicable_censor_rules).and_return([rule_1, rule_2])
 
@@ -2288,9 +2288,9 @@ describe InfoRequest do
   describe '#apply_censor_rules_to_binary' do
 
     it 'applies each censor rule to the text' do
-      rule_1 = FactoryGirl.build(:censor_rule, :text => '1')
-      rule_2 = FactoryGirl.build(:censor_rule, :text => '2')
-      info_request = FactoryGirl.build(:info_request)
+      rule_1 = FactoryBot.build(:censor_rule, :text => '1')
+      rule_2 = FactoryBot.build(:censor_rule, :text => '2')
+      info_request = FactoryBot.build(:info_request)
       allow(info_request).
         to receive(:applicable_censor_rules).and_return([rule_1, rule_2])
 
@@ -2305,7 +2305,7 @@ describe InfoRequest do
   describe '#apply_masks' do
 
     before(:each) do
-      @request = FactoryGirl.create(:info_request)
+      @request = FactoryBot.create(:info_request)
 
       @default_opts = { :last_edit_editor => 'unknown',
                         :last_edit_comment => 'none' }
@@ -2383,7 +2383,7 @@ describe InfoRequest do
 
   describe '#prominence' do
 
-    let(:info_request){ FactoryGirl.build(:info_request) }
+    let(:info_request){ FactoryBot.build(:info_request) }
 
     it 'returns the prominence of the request' do
       expect(info_request.prominence).to eq("normal")
@@ -2403,7 +2403,7 @@ describe InfoRequest do
   describe 'when asked for the last public response event' do
 
     before do
-      @info_request = FactoryGirl.create(:info_request_with_incoming)
+      @info_request = FactoryBot.create(:info_request_with_incoming)
       @incoming_message = @info_request.incoming_messages.first
     end
 
@@ -2429,43 +2429,43 @@ describe InfoRequest do
 
   describe 'keeping track of the last public response date' do
 
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     it 'does not set last_public_response_at date if there is no response' do
-      request = FactoryGirl.create(:info_request)
+      request = FactoryBot.create(:info_request)
       expect(request.last_public_response_at).to be_nil
     end
 
     it 'sets last_public_response_at when a public response is added' do
-      request = FactoryGirl.create(:info_request, :user => user)
-      message = FactoryGirl.create(:incoming_message, :info_request => request)
+      request = FactoryBot.create(:info_request, :user => user)
+      message = FactoryBot.create(:incoming_message, :info_request => request)
       event =
-        FactoryGirl.create(:info_request_event, :info_request => request,
-                                                :incoming_message => message,
-                                                :event_type => 'response')
+        FactoryBot.create(:info_request_event, :info_request => request,
+                                               :incoming_message => message,
+                                               :event_type => 'response')
 
       expect(request.last_public_response_at).
         to be_within(1.second).of(event.created_at)
     end
 
     it 'does not set last_public_response_at when a hidden response is added' do
-      request = FactoryGirl.create(:info_request, :user => user)
-      message = FactoryGirl.create(:incoming_message, :info_request => request,
-                                                      :prominence => 'hidden')
+      request = FactoryBot.create(:info_request, :user => user)
+      message = FactoryBot.create(:incoming_message, :info_request => request,
+                                                     :prominence => 'hidden')
       event =
-        FactoryGirl.create(:info_request_event, :info_request => request,
-                                                :incoming_message => message,
-                                                :event_type => 'response')
+        FactoryBot.create(:info_request_event, :info_request => request,
+                                               :incoming_message => message,
+                                               :event_type => 'response')
 
       expect(request.last_public_response_at).to be_nil
     end
 
     it 'sets last_public_response_at to nil when the only response is hidden' do
-      request = FactoryGirl.create(:info_request, :user => user)
-      message = FactoryGirl.create(:incoming_message, :info_request => request)
-      FactoryGirl.create(:info_request_event, :info_request => request,
-                                              :incoming_message => message,
-                                              :event_type => 'response')
+      request = FactoryBot.create(:info_request, :user => user)
+      message = FactoryBot.create(:incoming_message, :info_request => request)
+      FactoryBot.create(:info_request_event, :info_request => request,
+                                             :incoming_message => message,
+                                             :event_type => 'response')
 
       message.update_attributes(:prominence => 'hidden')
 
@@ -2475,21 +2475,21 @@ describe InfoRequest do
     it 'reverts last_public_response_at when the latest response is hidden' do
       time_travel_to(21.days.ago)
 
-      request = FactoryGirl.create(:info_request, :user => user)
-      message1 = FactoryGirl.create(:incoming_message, :info_request => request)
+      request = FactoryBot.create(:info_request, :user => user)
+      message1 = FactoryBot.create(:incoming_message, :info_request => request)
       event1 =
-        FactoryGirl.create(:info_request_event, :info_request => request,
-                                                :incoming_message => message1,
-                                                :event_type => 'response')
+        FactoryBot.create(:info_request_event, :info_request => request,
+                                               :incoming_message => message1,
+                                               :event_type => 'response')
 
       back_to_the_present
       time_travel_to(2.days.ago)
 
-      message2 = FactoryGirl.create(:incoming_message, :info_request => request)
+      message2 = FactoryBot.create(:incoming_message, :info_request => request)
       event2 =
-        FactoryGirl.create(:info_request_event, :info_request => request,
-                                                :incoming_message => message2,
-                                                :event_type => 'response')
+        FactoryBot.create(:info_request_event, :info_request => request,
+                                               :incoming_message => message2,
+                                               :event_type => 'response')
 
       back_to_the_present
 
@@ -2503,11 +2503,11 @@ describe InfoRequest do
     end
 
     it 'sets last_public_response_at to nil when the only response is destroyed' do
-      request = FactoryGirl.create(:info_request, :user => user)
-      message = FactoryGirl.create(:incoming_message, :info_request => request)
-      FactoryGirl.create(:info_request_event, :info_request => request,
-                                              :incoming_message => message,
-                                              :event_type => 'response')
+      request = FactoryBot.create(:info_request, :user => user)
+      message = FactoryBot.create(:incoming_message, :info_request => request)
+      FactoryBot.create(:info_request_event, :info_request => request,
+                                             :incoming_message => message,
+                                             :event_type => 'response')
       message.destroy
       expect(request.last_public_response_at).to be_nil
     end
@@ -2515,21 +2515,21 @@ describe InfoRequest do
     it 'reverts last_public_response_at when the latest response is destroyed' do
       time_travel_to(21.days.ago)
 
-      request = FactoryGirl.create(:info_request, :user => user)
-      message1 = FactoryGirl.create(:incoming_message, :info_request => request)
+      request = FactoryBot.create(:info_request, :user => user)
+      message1 = FactoryBot.create(:incoming_message, :info_request => request)
       event1 =
-        FactoryGirl.create(:info_request_event, :info_request => request,
-                                                :incoming_message => message1,
-                                                :event_type => 'response')
+        FactoryBot.create(:info_request_event, :info_request => request,
+                                               :incoming_message => message1,
+                                               :event_type => 'response')
 
       back_to_the_present
       time_travel_to(2.days.ago)
 
-      message2 = FactoryGirl.create(:incoming_message, :info_request => request)
+      message2 = FactoryBot.create(:incoming_message, :info_request => request)
       event2 =
-        FactoryGirl.create(:info_request_event, :info_request => request,
-                                                :incoming_message => message2,
-                                                :event_type => 'response')
+        FactoryBot.create(:info_request_event, :info_request => request,
+                                               :incoming_message => message2,
+                                               :event_type => 'response')
 
       back_to_the_present
 
@@ -2545,13 +2545,13 @@ describe InfoRequest do
     it 'sets last_public_response_at when a hidden response is unhidden' do
       time_travel_to(21.days.ago)
 
-      request = FactoryGirl.create(:info_request, :user => user)
-      message = FactoryGirl.create(:incoming_message, :info_request => request,
-                                                      :prominence => 'hidden')
+      request = FactoryBot.create(:info_request, :user => user)
+      message = FactoryBot.create(:incoming_message, :info_request => request,
+                                                     :prominence => 'hidden')
       event =
-        FactoryGirl.create(:info_request_event, :info_request => request,
-                                                :incoming_message => message,
-                                                :event_type => 'response')
+        FactoryBot.create(:info_request_event, :info_request => request,
+                                               :incoming_message => message,
+                                               :event_type => 'response')
       back_to_the_present
 
       message.update_attributes(:prominence => 'normal')
@@ -2565,7 +2565,7 @@ describe InfoRequest do
   describe 'when asked for the last public outgoing event' do
 
     before do
-      @info_request = FactoryGirl.create(:info_request)
+      @info_request = FactoryBot.create(:info_request)
       @outgoing_message = @info_request.outgoing_messages.first
     end
 
@@ -2592,7 +2592,7 @@ describe InfoRequest do
   describe 'when asked who can be sent a followup' do
 
     before do
-      @info_request = FactoryGirl.create(:info_request_with_plain_incoming)
+      @info_request = FactoryBot.create(:info_request_with_plain_incoming)
       @incoming_message = @info_request.incoming_messages.first
       @public_body = @info_request.public_body
     end
@@ -2650,7 +2650,7 @@ describe InfoRequest do
   describe 'when working out a subject for request emails' do
 
     it 'creates a standard request subject' do
-      info_request = FactoryGirl.build(:info_request)
+      info_request = FactoryBot.build(:info_request)
       expected_text = "Freedom of Information request - #{info_request.title}"
       expect(info_request.email_subject_request).to eq(expected_text)
     end
@@ -2948,7 +2948,7 @@ describe InfoRequest do
   end
 
   describe '#save' do
-    let(:info_request) { FactoryGirl.build(:info_request) }
+    let(:info_request) { FactoryBot.build(:info_request) }
 
     it 'calls update_counter_cache' do
       expect(info_request).to receive(:update_counter_cache)
@@ -3206,9 +3206,9 @@ describe InfoRequest do
   end
 
   describe "making a zip cache path for a user" do
-    let(:non_owner) { FactoryGirl.create(:user) }
+    let(:non_owner) { FactoryBot.create(:user) }
     let(:owner) { request.user }
-    let(:admin) { FactoryGirl.create(:admin_user) }
+    let(:admin) { FactoryBot.create(:admin_user) }
 
     let(:base_path) do
       File.join(Rails.root, "cache", "zips", "test", "download", "123",
@@ -3307,8 +3307,8 @@ describe InfoRequest do
 
     context "when the request is public" do
       let(:request) do
-        FactoryGirl.create(:info_request_with_incoming, id: 123456,
-                                                        title: "Test")
+        FactoryBot.create(:info_request_with_incoming, id: 123456,
+                                                       title: "Test")
       end
 
       context "when all correspondence is public" do
@@ -3320,9 +3320,9 @@ describe InfoRequest do
 
     context "when the request is hidden" do
       let(:request) do
-        FactoryGirl.create(:info_request_with_incoming, id: 123456,
-                                                        title: "Test",
-                                                        prominence: "hidden")
+        FactoryBot.create(:info_request_with_incoming, id: 123456,
+                                                       title: "Test",
+                                                       prominence: "hidden")
       end
 
       it_behaves_like "a request when anything is not public"
@@ -3330,7 +3330,7 @@ describe InfoRequest do
 
     context "when the request is requester_only" do
       let(:request) do
-        FactoryGirl.create(
+        FactoryBot.create(
           :info_request_with_incoming,
           id: 123456,
           title: "Test",
@@ -3343,7 +3343,7 @@ describe InfoRequest do
   end
 
   describe ".from_draft" do
-    let(:draft) { FactoryGirl.create(:draft_info_request) }
+    let(:draft) { FactoryBot.create(:draft_info_request) }
     let(:info_request) { InfoRequest.from_draft(draft) }
 
     it "builds an info_request from the draft" do
@@ -3373,7 +3373,7 @@ describe InfoRequest do
 
     context "when the draft doesnt have a duration" do
       let(:draft_with_no_duration) do
-        FactoryGirl.create(:draft_with_no_duration)
+        FactoryBot.create(:draft_with_no_duration)
       end
 
       let(:request_with_no_embargo) do
@@ -3417,9 +3417,9 @@ describe InfoRequest do
     let(:batch) do
       batch = nil
       TestAfterCommit.with_commits(true) do
-        batch = FactoryGirl.create(
+        batch = FactoryBot.create(
           :info_request_batch,
-          public_bodies: FactoryGirl.create_list(:public_body, 3)
+          public_bodies: FactoryBot.create_list(:public_body, 3)
         )
       end
       batch
@@ -3443,7 +3443,7 @@ describe InfoRequest do
     let(:awaiting) { AlaveteliPro::RequestSummaryCategory.awaiting_response }
     let(:overdue) { AlaveteliPro::RequestSummaryCategory.overdue }
     let(:very_overdue) { AlaveteliPro::RequestSummaryCategory.very_overdue }
-    let(:info_request) { FactoryGirl.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
 
     context "when logging overdue events" do
       it "updates the request summary's status" do
@@ -3497,7 +3497,7 @@ describe InfoRequest do
   end
 
   describe "updating request summaries when changing status" do
-    let(:info_request) { FactoryGirl.create(:awaiting_description) }
+    let(:info_request) { FactoryBot.create(:awaiting_description) }
     let(:received) { AlaveteliPro::RequestSummaryCategory.response_received }
     let(:complete) { AlaveteliPro::RequestSummaryCategory.complete }
     let(:summary) { info_request.request_summary.reload }
@@ -3521,10 +3521,10 @@ describe InfoRequest do
 
     context 'when the embargo has expired' do
       let!(:info_request) do
-        request = FactoryGirl.create(:info_request)
-        FactoryGirl.create(:embargo,
-                           info_request: request,
-                           publish_at: Time.now - 4.months)
+        request = FactoryBot.create(:info_request)
+        FactoryBot.create(:embargo,
+                          info_request: request,
+                          publish_at: Time.now - 4.months)
         AlaveteliPro::Embargo.expire_publishable
         request.reload
       end
@@ -3537,9 +3537,9 @@ describe InfoRequest do
 
     context 'when the embargo has not expired' do
       let!(:info_request) do
-        request = FactoryGirl.create(:info_request)
-        FactoryGirl.create(:embargo,
-                           info_request: request)
+        request = FactoryBot.create(:info_request)
+        FactoryBot.create(:embargo,
+                          info_request: request)
         request.reload
       end
 
@@ -3552,7 +3552,7 @@ describe InfoRequest do
     context 'when there is no embargo' do
 
       it 'returns false' do
-        info_request = FactoryGirl.build(:info_request)
+        info_request = FactoryBot.build(:info_request)
         expect(info_request.embargo_expired?).to be false
       end
 
@@ -3561,12 +3561,12 @@ describe InfoRequest do
   end
 
   describe '#embargo_expiring?' do
-    let(:info_request) { FactoryGirl.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
 
     context 'when the embargo is expiring' do
 
       before do
-        FactoryGirl.create(:expiring_embargo, info_request: info_request)
+        FactoryBot.create(:expiring_embargo, info_request: info_request)
       end
 
       it 'returns true' do
@@ -3578,7 +3578,7 @@ describe InfoRequest do
     context 'the embargo has already expired' do
 
       let(:embargo) do
-        FactoryGirl.create(:expiring_embargo, info_request: info_request)
+        FactoryBot.create(:expiring_embargo, info_request: info_request)
       end
 
       it 'returns false on publication day' do
@@ -3598,7 +3598,7 @@ describe InfoRequest do
     context 'when the embargo is not expiring soon' do
 
       before do
-        FactoryGirl.create(:embargo, info_request: info_request)
+        FactoryBot.create(:embargo, info_request: info_request)
       end
 
       it 'returns false' do
@@ -3618,12 +3618,12 @@ describe InfoRequest do
   end
 
   describe '#embargo_pending_expiry?' do
-    let(:info_request) { FactoryGirl.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
 
     context 'when the embargo is in force' do
 
       it 'returns false' do
-        FactoryGirl.create(:expiring_embargo, info_request: info_request)
+        FactoryBot.create(:expiring_embargo, info_request: info_request)
         expect(info_request.reload.embargo_pending_expiry?).to be false
       end
 
@@ -3632,7 +3632,7 @@ describe InfoRequest do
     context 'the embargo publication date has passed' do
 
       let(:embargo) do
-        FactoryGirl.create(:expiring_embargo, info_request: info_request)
+        FactoryBot.create(:expiring_embargo, info_request: info_request)
       end
 
       it 'returns true on publication day' do
@@ -3664,7 +3664,7 @@ end
 describe InfoRequest do
 
   describe '#date_initial_request_last_sent_at' do
-    let(:info_request){ FactoryGirl.create(:info_request) }
+    let(:info_request){ FactoryBot.create(:info_request) }
 
     context 'when there is a value stored in the database' do
 
@@ -3690,7 +3690,7 @@ describe InfoRequest do
   end
 
   describe '#calculate_date_initial_request_last_sent_at' do
-    let(:info_request){ FactoryGirl.create(:info_request) }
+    let(:info_request){ FactoryBot.create(:info_request) }
 
     it 'returns a date' do
       expect(info_request.calculate_date_initial_request_last_sent_at)
@@ -3705,7 +3705,7 @@ describe InfoRequest do
   end
 
   describe '#last_event_forming_initial_request' do
-    let(:info_request){ FactoryGirl.create(:info_request) }
+    let(:info_request){ FactoryBot.create(:info_request) }
 
     context 'when there is a value in the database' do
 
@@ -3781,7 +3781,7 @@ describe InfoRequest do
   end
 
   describe '#date_response_required_by' do
-    let(:info_request){ FactoryGirl.create(:info_request) }
+    let(:info_request){ FactoryBot.create(:info_request) }
 
     context 'when there is a value stored in the database' do
 
@@ -3812,7 +3812,7 @@ describe InfoRequest do
   end
 
   describe '#calculate_date_response_required_by' do
-    let(:info_request){ FactoryGirl.create(:info_request) }
+    let(:info_request){ FactoryBot.create(:info_request) }
 
     it 'returns the date a response is required by' do
       time_travel_to(Time.zone.parse('2014-12-31')) do
@@ -3824,7 +3824,7 @@ describe InfoRequest do
   end
 
   describe '#date_very_overdue_after' do
-    let(:info_request){ FactoryGirl.create(:info_request) }
+    let(:info_request){ FactoryBot.create(:info_request) }
 
     context 'when there is a value stored in the database' do
 
@@ -3855,7 +3855,7 @@ describe InfoRequest do
   end
 
   describe '#calculate_date_very_overdue_after' do
-    let(:info_request){ FactoryGirl.create(:info_request) }
+    let(:info_request){ FactoryBot.create(:info_request) }
 
     it 'returns the date a response is required by' do
       time_travel_to(Time.zone.parse('2014-12-31')) do
@@ -3867,7 +3867,7 @@ describe InfoRequest do
   end
 
   describe '#log_event' do
-    let(:info_request){ FactoryGirl.create(:info_request) }
+    let(:info_request){ FactoryBot.create(:info_request) }
 
     it 'creates an event with the type and params passed' do
       info_request.log_event("resent", :param => 'value')
@@ -3940,14 +3940,14 @@ describe InfoRequest do
   end
 
   describe '#set_due_dates' do
-    let(:info_request){ FactoryGirl.create(:info_request) }
+    let(:info_request){ FactoryBot.create(:info_request) }
 
     before do
       # initial request sent
       time_travel_to(Time.zone.parse('2014-12-31')){ info_request }
       # due dates updated based on new event
       time_travel_to(Time.zone.parse('2015-01-01')) do
-        @event = FactoryGirl.create(:sent_event)
+        @event = FactoryBot.create(:sent_event)
         info_request.set_due_dates(@event)
       end
     end
@@ -3976,9 +3976,9 @@ describe InfoRequest do
 
   describe '.log_overdue_events' do
 
-    let(:info_request) { FactoryGirl.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
     let(:use_notifications_request) do
-      FactoryGirl.create(:use_notifications_request)
+      FactoryBot.create(:use_notifications_request)
     end
 
     context 'when an InfoRequest is not overdue' do
@@ -4075,9 +4075,9 @@ describe InfoRequest do
 
   describe '.log_very_overdue_events' do
 
-    let(:info_request){ FactoryGirl.create(:info_request) }
+    let(:info_request){ FactoryBot.create(:info_request) }
     let(:use_notifications_request) do
-      FactoryGirl.create(:use_notifications_request)
+      FactoryBot.create(:use_notifications_request)
     end
 
     context 'when a request is not very overdue' do
@@ -4177,7 +4177,7 @@ describe InfoRequest do
   describe '#last_embargo_set_event' do
 
     context 'if no embargo has been set' do
-      let(:info_request){ FactoryGirl.create(:info_request) }
+      let(:info_request){ FactoryBot.create(:info_request) }
 
       it 'returns nil' do
         expect(info_request.last_embargo_set_event).to be_nil
@@ -4186,8 +4186,8 @@ describe InfoRequest do
     end
 
     context 'if embargos have been set' do
-      let(:embargo){ FactoryGirl.create(:embargo) }
-      let(:embargo_extension){ FactoryGirl.create(:embargo_extension) }
+      let(:embargo){ FactoryBot.create(:embargo) }
+      let(:embargo_extension){ FactoryBot.create(:embargo_extension) }
 
       it 'returns the last "set_embargo" event' do
         last_embargo_set_event = embargo.info_request.last_embargo_set_event
@@ -4208,7 +4208,7 @@ describe InfoRequest do
   end
 
   describe '#last_embargo_expire_event' do
-    let(:info_request) { FactoryGirl.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
 
     context 'if no embargo has been set' do
 
@@ -4219,7 +4219,7 @@ describe InfoRequest do
     end
 
     context 'if an embargo has been set' do
-      let(:embargo) { FactoryGirl.create(:embargo, info_request: info_request) }
+      let(:embargo) { FactoryBot.create(:embargo, info_request: info_request) }
 
       context 'the embargo has not yet expired' do
 
@@ -4244,14 +4244,14 @@ describe InfoRequest do
 
   describe '#should_summarise?' do
     it "returns true if the request is not in a batch" do
-      request = FactoryGirl.create(:info_request)
+      request = FactoryBot.create(:info_request)
       expect(request.should_summarise?).to be true
     end
 
     it "returns false if the request is in a batch" do
-      batch_request = FactoryGirl.create(
+      batch_request = FactoryBot.create(
         :info_request_batch,
-        public_bodies: FactoryGirl.create_list(:public_body, 5))
+        public_bodies: FactoryBot.create_list(:public_body, 5))
       batch_request.create_batch!
       request_in_batch = batch_request.info_requests.first
       expect(request_in_batch.should_summarise?).to be false
@@ -4261,9 +4261,9 @@ describe InfoRequest do
   describe '#should_update_parent_summary?' do
     context "when the request is in a batch" do
       let(:batch) do
-        FactoryGirl.create(
+        FactoryBot.create(
           :info_request_batch,
-          public_bodies: FactoryGirl.create_list(:public_body, 3)
+          public_bodies: FactoryBot.create_list(:public_body, 3)
         )
       end
 
@@ -4277,7 +4277,7 @@ describe InfoRequest do
     end
 
     context "when the request is not in a batch" do
-      let(:info_request) { FactoryGirl.create(:info_request) }
+      let(:info_request) { FactoryBot.create(:info_request) }
 
       it "returns false" do
         expect(info_request.should_update_parent_summary?).to be false
@@ -4288,9 +4288,9 @@ describe InfoRequest do
   describe '#request_summary_parent' do
     context "when the request is in a batch" do
       let(:batch) do
-        FactoryGirl.create(
+        FactoryBot.create(
           :info_request_batch,
-          public_bodies: FactoryGirl.create_list(:public_body, 3)
+          public_bodies: FactoryBot.create_list(:public_body, 3)
         )
       end
 
@@ -4304,7 +4304,7 @@ describe InfoRequest do
     end
 
     context "when the request is not in a batch" do
-      let(:info_request) { FactoryGirl.create(:info_request) }
+      let(:info_request) { FactoryBot.create(:info_request) }
 
       it "returns nil" do
         expect(info_request.request_summary_parent).to be_nil
@@ -4315,10 +4315,10 @@ describe InfoRequest do
   describe "setting use_notifications" do
     context "when user has :notifications and it's in a batch" do
       it "sets use_notifications to true" do
-        user = FactoryGirl.create(:user)
+        user = FactoryBot.create(:user)
         AlaveteliFeatures.backend[:notifications].enable_actor user
-        public_bodies = FactoryGirl.create_list(:public_body, 3)
-        batch = FactoryGirl.create(
+        public_bodies = FactoryBot.create_list(:public_body, 3)
+        batch = FactoryBot.create(
           :info_request_batch,
           user: user,
           public_bodies: public_bodies)
@@ -4330,17 +4330,17 @@ describe InfoRequest do
 
     context "when user has :notifications and it's not in a batch" do
       it "sets use_notifications to false" do
-        user = FactoryGirl.create(:user)
+        user = FactoryBot.create(:user)
         AlaveteliFeatures.backend[:notifications].enable_actor user
-        info_request = FactoryGirl.create(:info_request, user: user)
+        info_request = FactoryBot.create(:info_request, user: user)
         expect(info_request.use_notifications).to be false
       end
     end
 
     context "when user doesn't have :notifications and it's in a batch" do
       it "sets use_notifications to false" do
-        public_bodies = FactoryGirl.create_list(:public_body, 3)
-        batch = FactoryGirl.create(:info_request_batch, public_bodies: public_bodies)
+        public_bodies = FactoryBot.create_list(:public_body, 3)
+        batch = FactoryBot.create(:info_request_batch, public_bodies: public_bodies)
         batch.create_batch!
         info_request = batch.info_requests.first
         expect(info_request.use_notifications).to be false
@@ -4349,14 +4349,14 @@ describe InfoRequest do
 
     context "when user doesn't have :notifications and it's not in a batch" do
       it "sets use_notifications to false" do
-        info_request = FactoryGirl.create(:info_request)
+        info_request = FactoryBot.create(:info_request)
         expect(info_request.use_notifications).to be false
       end
     end
 
     context "when the request has a value set manually" do
       it "doesn't override it" do
-        info_request = FactoryGirl.create(:use_notifications_request)
+        info_request = FactoryBot.create(:use_notifications_request)
         expect(info_request.use_notifications).to be true
       end
     end

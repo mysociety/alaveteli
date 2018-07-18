@@ -15,7 +15,7 @@
 #  updated_at       :datetime
 #
 
-FactoryGirl.define do
+FactoryBot.define do
 
   factory :track_thing do
     track_medium 'email_daily'

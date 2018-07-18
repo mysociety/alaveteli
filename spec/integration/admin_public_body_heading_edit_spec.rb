@@ -8,7 +8,7 @@ describe 'Editing a Public Body Heading' do
 
     confirm(:admin_user)
     @admin = login(:admin_user)
-    @heading = FactoryGirl.create(:public_body_heading)
+    @heading = FactoryBot.create(:public_body_heading)
   end
 
   it 'can edit the default locale' do

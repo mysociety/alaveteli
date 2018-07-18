@@ -10,7 +10,7 @@ describe "administering requests" do
 
   context 'when the admin user is a pro' do
     let!(:pro_admin_user) do
-      pro_user = FactoryGirl.create(:pro_user)
+      pro_user = FactoryBot.create(:pro_user)
       pro_user.add_role :admin
       pro_user
     end
@@ -18,8 +18,8 @@ describe "administering requests" do
 
     context 'when the user being administered is not a pro' do
       let!(:public_body) do
-        FactoryGirl.create(:public_body,
-                           :name => 'example')
+        FactoryBot.create(:public_body,
+                          :name => 'example')
       end
 
       before do

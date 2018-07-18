@@ -2,9 +2,9 @@
 require File.expand_path(File.join('..', '..', '..', '..', 'spec_helper'), __FILE__)
 
 describe 'when displaying actions that can be taken with regard to a pro request' do
-  let(:info_request) { FactoryGirl.create(:info_request) }
+  let(:info_request) { FactoryBot.create(:info_request) }
   let(:pro_user) { info_request.pro_user }
-  let(:admin_user) { FactoryGirl.create("admin_user") }
+  let(:admin_user) { FactoryBot.create("admin_user") }
 
   before do
     assign :info_request, info_request
@@ -57,7 +57,7 @@ describe 'when displaying actions that can be taken with regard to a pro request
   end
 
   context "when there is a response" do
-    let(:info_request) { FactoryGirl.create(:info_request_with_incoming) }
+    let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
 
     before do
       assign :info_request, info_request

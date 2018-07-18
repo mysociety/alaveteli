@@ -28,7 +28,7 @@ describe Users::SessionsController do
     end
 
     context 'if the user is already signed in' do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
 
       before do
         ActionController::Base.allow_forgery_protection = true
@@ -54,10 +54,10 @@ describe Users::SessionsController do
   end
 
   describe 'POST create' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     it "should show you the sign in page again if you get the password wrong" do
-      post_redirect = FactoryGirl.create(:post_redirect, uri: '/list')
+      post_redirect = FactoryBot.create(:post_redirect, uri: '/list')
       post :create, { :user_signin => { :email => 'bob@localhost', :password => 'NOTRIGHTPASSWORD' },
                       :token => post_redirect.token
                       }
@@ -65,7 +65,7 @@ describe Users::SessionsController do
     end
 
     it "should show you the sign in page again if you get the email wrong" do
-      post_redirect = FactoryGirl.create(:post_redirect, uri: '/list')
+      post_redirect = FactoryBot.create(:post_redirect, uri: '/list')
       post :create, :user_signin => { :email => 'unknown@localhost',
                                       :password => 'NOTRIGHTPASSWORD' },
                     :token => post_redirect.token
@@ -73,7 +73,7 @@ describe Users::SessionsController do
     end
 
     it "should log in when you give right email/password, and redirect to where you were" do
-      post_redirect = FactoryGirl.create(:post_redirect, uri: '/list')
+      post_redirect = FactoryBot.create(:post_redirect, uri: '/list')
 
       post :create, { :user_signin => { :email => 'bob@localhost', :password => 'jonespassword' },
                       :token => post_redirect.token
@@ -115,9 +115,9 @@ describe Users::SessionsController do
 
     context "checking 'remember_me'" do
       let(:user) do
-        FactoryGirl.create(:user,
-                           :password => 'password1234',
-                           :email_confirmed => true)
+        FactoryBot.create(:user,
+                          :password => 'password1234',
+                          :email_confirmed => true)
       end
 
       def do_signin(email, password)
@@ -156,7 +156,7 @@ describe Users::SessionsController do
     end
 
     context 'if the user is already signed in' do
-      let(:user){ FactoryGirl.create(:user) }
+      let(:user){ FactoryBot.create(:user) }
 
       before do
         ActionController::Base.allow_forgery_protection = true
@@ -185,7 +185,7 @@ describe Users::SessionsController do
     end
 
     it "should ask you to confirm your email if it isn't confirmed, after log in" do
-      post_redirect = FactoryGirl.create(:post_redirect, uri: '/list')
+      post_redirect = FactoryBot.create(:post_redirect, uri: '/list')
 
       post :create, { :user_signin => { :email => 'unconfirmed@localhost', :password => 'jonespassword' },
                       :token => post_redirect.token
@@ -199,7 +199,7 @@ describe Users::SessionsController do
       pending('Extract to an integration spec')
 
       post_redirect =
-        FactoryGirl.create(:post_redirect, uri: 'http://bad.place.com/list')
+        FactoryBot.create(:post_redirect, uri: 'http://bad.place.com/list')
 
       post :create, { :user_signin => { :email => 'unconfirmed@localhost',
                                         :password => 'jonespassword' },
@@ -213,7 +213,7 @@ describe Users::SessionsController do
     it "should confirm your email, log you in and redirect you to where you were after you click an email link" do
       pending('Extract to an integration spec')
 
-      post_redirect = FactoryGirl.create(:post_redirect, uri: '/list')
+      post_redirect = FactoryBot.create(:post_redirect, uri: '/list')
 
       post :create, { :user_signin => { :email => 'unconfirmed@localhost', :password => 'jonespassword' },
                       :token => post_redirect.token
@@ -243,7 +243,7 @@ describe Users::SessionsController do
     it "should keep you logged in if you click a confirmation link and are already logged in as an admin" do
       pending('Extract to an integration spec')
 
-      post_redirect = FactoryGirl.create(:post_redirect, uri: '/list')
+      post_redirect = FactoryBot.create(:post_redirect, uri: '/list')
 
       post :create, { :user_signin => { :email => 'unconfirmed@localhost', :password => 'jonespassword' },
                       :token => post_redirect.token
@@ -276,7 +276,7 @@ describe Users::SessionsController do
   end
 
   describe 'GET destroy' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     it "logs you out and redirect to the home page" do
       get :destroy, {}, { :user_id => user.id }

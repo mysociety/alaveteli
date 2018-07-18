@@ -5,10 +5,10 @@ describe AnnouncementsController do
   describe '#destroy' do
 
     context 'valid announcement' do
-      let(:announcement) { FactoryGirl.create(:announcement) }
+      let(:announcement) { FactoryBot.create(:announcement) }
 
       context 'logged in' do
-        let(:user) { FactoryGirl.create(:user) }
+        let(:user) { FactoryBot.create(:user) }
         before { session[:user_id] = user.id }
 
         it 'creates dismissal' do

@@ -8,9 +8,9 @@ describe "When creating requests" do
     get_fixtures_xapian_index
   end
 
-  let!(:admin_user) { FactoryGirl.create(:admin_user) }
+  let!(:admin_user) { FactoryBot.create(:admin_user) }
   let!(:public_body) do
-    FactoryGirl.create(:public_body,
+    FactoryBot.create(:public_body,
                        :name => 'example')
   end
   let!(:admin_user_session) { login(admin_user) }

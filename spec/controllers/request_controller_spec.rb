@@ -73,12 +73,12 @@ describe RequestController, "when showing one request" do
   end
 
   describe "redirecting pro users to the pro context" do
-    let(:pro_user) { FactoryGirl.create(:pro_user) }
+    let(:pro_user) { FactoryBot.create(:pro_user) }
 
     context "when showing pros their own requests" do
       context "when the request is embargoed" do
         let(:info_request) do
-          FactoryGirl.create(:embargoed_request, user: pro_user)
+          FactoryBot.create(:embargoed_request, user: pro_user)
         end
 
         it "should always redirect to the pro version of the page" do
@@ -93,7 +93,7 @@ describe RequestController, "when showing one request" do
 
       context "when the request is not embargoed" do
         let(:info_request) do
-          FactoryGirl.create(:info_request, user: pro_user)
+          FactoryBot.create(:info_request, user: pro_user)
         end
 
         it "should not redirect to the pro version of the page" do
@@ -113,7 +113,7 @@ describe RequestController, "when showing one request" do
       end
 
       let(:info_request) do
-        FactoryGirl.create(:embargoed_request, user: pro_user)
+        FactoryBot.create(:embargoed_request, user: pro_user)
       end
 
       it 'redirects to the pro version of the page' do
@@ -147,13 +147,13 @@ describe RequestController, "when showing one request" do
 
   context 'when the request is embargoed' do
     it 'raises ActiveRecord::RecordNotFound' do
-      embargoed_request = FactoryGirl.create(:embargoed_request)
+      embargoed_request = FactoryBot.create(:embargoed_request)
       expect{ get :show, :url_title => embargoed_request.url_title }
         .to raise_error(ActiveRecord::RecordNotFound)
     end
 
     it "doesn't even redirect from a numeric id" do
-      embargoed_request = FactoryGirl.create(:embargoed_request)
+      embargoed_request = FactoryBot.create(:embargoed_request)
       expect{ get :show, :url_title => embargoed_request.id }
         .to raise_error(ActiveRecord::RecordNotFound)
     end
@@ -232,7 +232,7 @@ describe RequestController, "when showing one request" do
   end
 
   describe 'when params[:pro] is true and a pro user is logged in' do
-    let(:pro_user) { FactoryGirl.create(:pro_user) }
+    let(:pro_user) { FactoryBot.create(:pro_user) }
 
     before :each do
       session[:user_id] = pro_user.id
@@ -264,8 +264,8 @@ describe RequestController, "when showing one request" do
   end
 
   describe "@show_top_describe_state_form" do
-    let(:pro_user) { FactoryGirl.create(:pro_user) }
-    let(:pro_request) { FactoryGirl.create(:embargoed_request, user: pro_user) }
+    let(:pro_user) { FactoryBot.create(:pro_user) }
+    let(:pro_request) { FactoryBot.create(:embargoed_request, user: pro_user) }
 
     context "when @in_pro_area is true" do
       it "is false" do
@@ -318,7 +318,7 @@ describe RequestController, "when showing one request" do
 
     context "when there are no valid state transitions" do
       it "is false" do
-        info_request = FactoryGirl.create(:info_request)
+        info_request = FactoryBot.create(:info_request)
         info_request.set_described_state('not_foi')
         get :show, :url_title => info_request.url_title
         expect(assigns[:show_top_describe_state_form]).to be false
@@ -327,8 +327,8 @@ describe RequestController, "when showing one request" do
   end
 
   describe "@show_bottom_describe_state_form" do
-    let(:pro_user) { FactoryGirl.create(:pro_user) }
-    let(:pro_request) { FactoryGirl.create(:embargoed_request, user: pro_user) }
+    let(:pro_user) { FactoryBot.create(:pro_user) }
+    let(:pro_request) { FactoryBot.create(:embargoed_request, user: pro_user) }
 
     context "when @in_pro_area is true" do
       it "is false" do
@@ -361,7 +361,7 @@ describe RequestController, "when showing one request" do
 
     context "when there are no valid state transitions" do
       it "is false" do
-        info_request = FactoryGirl.create(:info_request)
+        info_request = FactoryBot.create(:info_request)
         info_request.set_described_state('not_foi')
         get :show, :url_title => info_request.url_title
         expect(assigns[:show_bottom_describe_state_form]).to be false
@@ -370,7 +370,7 @@ describe RequestController, "when showing one request" do
   end
 
   it "should set @state_transitions for the request" do
-    info_request = FactoryGirl.create(:info_request)
+    info_request = FactoryBot.create(:info_request)
     expected_transitions = {
       :pending => {
         "waiting_response"      => "<strong>No response</strong> has been received <small>(maybe there's just an acknowledgement)</small>",
@@ -392,14 +392,14 @@ describe RequestController, "when showing one request" do
   end
 
   describe "showing update status actions" do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     before do
       session[:user_id] = user.id
     end
 
     context "when the request is old and unclassified" do
-      let(:info_request) { FactoryGirl.create(:old_unclassified_request) }
+      let(:info_request) { FactoryBot.create(:old_unclassified_request) }
 
       it "@show_owner_update_status_action should be false" do
         expect(info_request.is_old_unclassified?).to be true
@@ -415,7 +415,7 @@ describe RequestController, "when showing one request" do
     end
 
     context "when the request is not old and unclassified" do
-      let(:info_request) { FactoryGirl.create(:info_request) }
+      let(:info_request) { FactoryBot.create(:info_request) }
 
       it "@show_owner_update_status_action should be true" do
         get :show, :url_title => info_request.url_title
@@ -429,7 +429,7 @@ describe RequestController, "when showing one request" do
     end
 
     context "when there are no state_transitions" do
-      let(:info_request) { FactoryGirl.create(:info_request) }
+      let(:info_request) { FactoryBot.create(:info_request) }
 
       before do
         info_request.set_described_state('not_foi')
@@ -447,7 +447,7 @@ end
 describe RequestController do
   describe 'GET get_attachment' do
 
-    let(:info_request){ FactoryGirl.create(:info_request_with_incoming_attachments) }
+    let(:info_request){ FactoryBot.create(:info_request_with_incoming_attachments) }
 
     def get_attachment(params = {})
       default_params = { :incoming_message_id =>
@@ -487,7 +487,7 @@ describe RequestController do
 
     it "should return 404 for ugly URLs contain a request id that isn't an
         integer, even if the integer prefix refers to an actual request" do
-      ugly_id = "#{FactoryGirl.create(:info_request).id}95"
+      ugly_id = "#{FactoryBot.create(:info_request).id}95"
       expect { get_attachment(:id => ugly_id) }
         .to raise_error(ActiveRecord::RecordNotFound)
     end
@@ -509,7 +509,7 @@ describe RequestController do
     end
 
     it "should find a uniquely named filename even if the URL part number was wrong" do
-      info_request = FactoryGirl.create(:info_request_with_html_attachment)
+      info_request = FactoryBot.create(:info_request_with_html_attachment)
       get :get_attachment, :incoming_message_id =>
                              info_request.incoming_messages.first.id,
                            :id => info_request.id,
@@ -520,7 +520,7 @@ describe RequestController do
     end
 
     it "should not download attachments with wrong file name" do
-      info_request = FactoryGirl.create(:info_request_with_html_attachment)
+      info_request = FactoryBot.create(:info_request_with_html_attachment)
       get :get_attachment, :incoming_message_id =>
                              info_request.incoming_messages.first.id,
                            :id => info_request.id,
@@ -531,7 +531,7 @@ describe RequestController do
     end
 
     it "should sanitise HTML attachments" do
-      info_request = FactoryGirl.create(:info_request_with_html_attachment)
+      info_request = FactoryBot.create(:info_request_with_html_attachment)
       get :get_attachment, :incoming_message_id =>
                               info_request.incoming_messages.first.id,
                            :id => info_request.id,
@@ -556,7 +556,7 @@ describe RequestController do
     end
 
     it "censors attachments downloaded directly" do
-      info_request = FactoryGirl.create(:info_request_with_html_attachment)
+      info_request = FactoryBot.create(:info_request_with_html_attachment)
       info_request.censor_rules.create!(:text => 'dull',
                                        :replacement => "Mouse",
                                        :last_edit_editor => 'unknown',
@@ -572,7 +572,7 @@ describe RequestController do
     end
 
     it "should censor with rules on the user (rather than the request)" do
-      info_request = FactoryGirl.create(:info_request_with_html_attachment)
+      info_request = FactoryBot.create(:info_request_with_html_attachment)
       info_request.user.censor_rules.create!(:text => 'dull',
                                        :replacement => "Mouse",
                                        :last_edit_editor => 'unknown',
@@ -588,7 +588,7 @@ describe RequestController do
     end
 
     it 'returns an ActiveRecord::RecordNotFound error for an embargoed request' do
-      info_request = FactoryGirl.create(:embargoed_request)
+      info_request = FactoryBot.create(:embargoed_request)
       expect{ get :get_attachment, :incoming_message_id =>
                                     info_request.incoming_messages.first.id,
                                    :id => info_request.id,
@@ -602,7 +602,7 @@ end
 
 describe RequestController do
   describe 'GET get_attachment_as_html' do
-    let(:info_request){ FactoryGirl.create(:info_request_with_incoming_attachments) }
+    let(:info_request){ FactoryBot.create(:info_request_with_incoming_attachments) }
 
     def get_html_attachment(params = {})
       default_params = { :incoming_message_id =>
@@ -621,13 +621,13 @@ describe RequestController do
 
     it "should return 404 for ugly URLs contain a request id that isn't an
         integer, even if the integer prefix refers to an actual request" do
-      ugly_id = "#{FactoryGirl.create(:info_request).id}95"
+      ugly_id = "#{FactoryBot.create(:info_request).id}95"
       expect { get_html_attachment(:id => ugly_id) }
         .to raise_error(ActiveRecord::RecordNotFound)
     end
 
     it 'returns an ActiveRecord::RecordNotFound error for an embargoed request' do
-      info_request = FactoryGirl.create(:embargoed_request)
+      info_request = FactoryBot.create(:embargoed_request)
       expect{ get :get_attachment_as_html, :incoming_message_id =>
                                           info_request.incoming_messages.first.id,
                                         :id => info_request.id,
@@ -650,8 +650,8 @@ describe RequestController, "when handling prominence" do
   context 'when the request is hidden' do
 
     before(:each) do
-      @info_request = FactoryGirl.create(:info_request_with_incoming_attachments,
-                                         :prominence => 'hidden')
+      @info_request = FactoryBot.create(:info_request_with_incoming_attachments,
+                                        :prominence => 'hidden')
     end
 
     it "should not show request if you're not logged in" do
@@ -672,7 +672,7 @@ describe RequestController, "when handling prominence" do
     end
 
     it "should show request if logged in as super user" do
-      session[:user_id] = FactoryGirl.create(:admin_user).id
+      session[:user_id] = FactoryBot.create(:admin_user).id
       get :show, :url_title => @info_request.url_title
       expect(response).to render_template('show')
     end
@@ -689,7 +689,7 @@ describe RequestController, "when handling prominence" do
 
     it 'should not generate an HTML version of an attachment for a request whose prominence
             is hidden even for an admin but should return a 404' do
-      session[:user_id] = FactoryGirl.create(:admin_user).id
+      session[:user_id] = FactoryBot.create(:admin_user).id
       incoming_message = @info_request.incoming_messages.first
       expect do
         get :get_attachment_as_html, :incoming_message_id => incoming_message.id,
@@ -704,8 +704,8 @@ describe RequestController, "when handling prominence" do
   context 'when the request is requester_only' do
 
     before(:each) do
-      @info_request = FactoryGirl.create(:info_request_with_incoming_attachments,
-                                         :prominence => 'requester_only')
+      @info_request = FactoryBot.create(:info_request_with_incoming_attachments,
+                                        :prominence => 'requester_only')
     end
 
     it "should not show request if you're not logged in" do
@@ -714,7 +714,7 @@ describe RequestController, "when handling prominence" do
     end
 
     it "should not show request if logged in but not the requester" do
-      session[:user_id] = FactoryGirl.create(:user).id
+      session[:user_id] = FactoryBot.create(:user).id
       get :show, :url_title => @info_request.url_title
       expect_hidden('hidden')
     end
@@ -726,7 +726,7 @@ describe RequestController, "when handling prominence" do
     end
 
     it "shouild show request to admin" do
-      session[:user_id] = FactoryGirl.create(:admin_user).id
+      session[:user_id] = FactoryBot.create(:admin_user).id
       get :show, :url_title => @info_request.url_title
       expect(response).to render_template('show')
     end
@@ -742,7 +742,7 @@ describe RequestController, "when handling prominence" do
     end
 
     it 'should not cache an attachment when showing an attachment to the admin' do
-      session[:user_id] = FactoryGirl.create(:admin_user).id
+      session[:user_id] = FactoryBot.create(:admin_user).id
       incoming_message = @info_request.incoming_messages.first
       expect(@controller).not_to receive(:foi_fragment_cache_write)
       get :get_attachment, :incoming_message_id => incoming_message.id,
@@ -755,8 +755,8 @@ describe RequestController, "when handling prominence" do
   context 'when the incoming message has prominence hidden' do
 
     before(:each) do
-      @incoming_message = FactoryGirl.create(:incoming_message_with_attachments,
-                                             :prominence => 'hidden')
+      @incoming_message = FactoryBot.create(:incoming_message_with_attachments,
+                                            :prominence => 'hidden')
       @info_request = @incoming_message.info_request
     end
 
@@ -780,7 +780,7 @@ describe RequestController, "when handling prominence" do
     end
 
     it 'should download attachments for an admin user' do
-      session[:user_id] = FactoryGirl.create(:admin_user).id
+      session[:user_id] = FactoryBot.create(:admin_user).id
       get :get_attachment, :incoming_message_id => @incoming_message.id,
         :id => @info_request.id,
         :part => 2,
@@ -792,7 +792,7 @@ describe RequestController, "when handling prominence" do
 
     it 'should not generate an HTML version of an attachment for a request whose prominence
             is hidden even for an admin but should return a 404' do
-      session[:user_id] = FactoryGirl.create(:admin_user).id
+      session[:user_id] = FactoryBot.create(:admin_user).id
       expect do
         get :get_attachment_as_html, :incoming_message_id => @incoming_message.id,
           :id => @info_request.id,
@@ -816,8 +816,8 @@ describe RequestController, "when handling prominence" do
   context 'when the incoming message has prominence requester_only' do
 
     before(:each) do
-      @incoming_message = FactoryGirl.create(:incoming_message_with_attachments,
-                                             :prominence => 'requester_only')
+      @incoming_message = FactoryBot.create(:incoming_message_with_attachments,
+                                            :prominence => 'requester_only')
       @info_request = @incoming_message.info_request
     end
 
@@ -842,7 +842,7 @@ describe RequestController, "when handling prominence" do
     end
 
     it 'should download attachments for an admin user' do
-      session[:user_id] = FactoryGirl.create(:admin_user).id
+      session[:user_id] = FactoryBot.create(:admin_user).id
       get :get_attachment, :incoming_message_id => @incoming_message.id,
         :id => @info_request.id,
         :part => 2,
@@ -854,7 +854,7 @@ describe RequestController, "when handling prominence" do
 
     it 'should not generate an HTML version of an attachment for a request whose prominence
             is hidden even for an admin but should return a 404' do
-      session[:user_id] = FactoryGirl.create(:admin_user).id
+      session[:user_id] = FactoryBot.create(:admin_user).id
       expect do
         get :get_attachment_as_html, :incoming_message_id => @incoming_message.id,
           :id => @info_request.id,
@@ -906,7 +906,7 @@ describe RequestController, "when searching for an authority" do
 
   describe 'when params[:pro] is true' do
     context "and a pro user is logged in " do
-      let(:pro_user) { FactoryGirl.create(:pro_user) }
+      let(:pro_user) { FactoryBot.create(:pro_user) }
 
       before do
         session[:user_id] = pro_user.id
@@ -919,7 +919,7 @@ describe RequestController, "when searching for an authority" do
 
       it "should not redirect pros to the info request form for pros" do
         with_feature_enabled(:alaveteli_pro) do
-          public_body = FactoryGirl.create(:public_body)
+          public_body = FactoryBot.create(:public_body)
           get :select_authority, pro: "1"
           expect(response).to be_success
         end
@@ -938,7 +938,7 @@ describe RequestController, "when searching for an authority" do
 
       it "should not redirect users to the info request form for pros" do
         with_feature_enabled(:alaveteli_pro) do
-          public_body = FactoryGirl.create(:public_body)
+          public_body = FactoryBot.create(:public_body)
           get :select_authority, pro: "1"
           expect(response).to be_success
         end
@@ -954,8 +954,8 @@ describe RequestController, "when searching for an authority" do
 
     it "should redirect pros to the info request form for pros" do
       with_feature_enabled(:alaveteli_pro) do
-        pro_user = FactoryGirl.create(:pro_user)
-        public_body = FactoryGirl.create(:public_body)
+        pro_user = FactoryBot.create(:pro_user)
+        public_body = FactoryBot.create(:public_body)
         session[:user_id] = pro_user.id
         get :select_authority
         expect(response).to redirect_to(new_alaveteli_pro_info_request_url)
@@ -1048,8 +1048,8 @@ describe RequestController, "when creating a new request" do
 
   it "should redirect pros to the pro version" do
     with_feature_enabled(:alaveteli_pro) do
-      pro_user = FactoryGirl.create(:pro_user)
-      public_body = FactoryGirl.create(:public_body)
+      pro_user = FactoryBot.create(:pro_user)
+      public_body = FactoryBot.create(:public_body)
       session[:user_id] = pro_user.id
       get :new, :url_name => public_body.url_name
       expected_url = new_alaveteli_pro_info_request_url(
@@ -1312,7 +1312,7 @@ describe RequestController, "when creating a new request" do
       it 'sets render_recaptcha to true if there is a logged in user who is not
             confirmed as not spam' do
         session[:user_id] =
-          FactoryGirl.create(:user, :confirmed_not_spam => false).id
+          FactoryBot.create(:user, :confirmed_not_spam => false).id
         post :new, :info_request => { :public_body_id => @body.id,
           :title => "What's black and white and red all over?", :tag_string => "" },
           :outgoing_message => { :body => "Please send info" },
@@ -1322,8 +1322,8 @@ describe RequestController, "when creating a new request" do
 
       it 'sets render_recaptcha to false if there is a logged in user who is
             confirmed as not spam' do
-        session[:user_id] = FactoryGirl.create(:user,
-                                               :confirmed_not_spam => true).id
+        session[:user_id] = FactoryBot.create(:user,
+                                              :confirmed_not_spam => true).id
         post :new, :info_request => { :public_body_id => @body.id,
           :title => "What's black and white and red all over?", :tag_string => "" },
           :outgoing_message => { :body => "Please send info" },
@@ -1337,9 +1337,9 @@ describe RequestController, "when creating a new request" do
           allow(controller).to receive(:verify_recaptcha).and_return(false)
         end
 
-        let(:user) { FactoryGirl.create(:user,
-                                        :confirmed_not_spam => false) }
-        let(:body) { FactoryGirl.create(:public_body) }
+        let(:user) { FactoryBot.create(:user,
+                                      :confirmed_not_spam => false) }
+        let(:body) { FactoryBot.create(:public_body) }
 
         it 'shows an error message' do
           session[:user_id] = user.id
@@ -1380,9 +1380,9 @@ describe RequestController, "when creating a new request" do
 
   context 'when the request subject line looks like spam' do
 
-    let(:user) { FactoryGirl.create(:user,
-                                    :confirmed_not_spam => false) }
-    let(:body) { FactoryGirl.create(:public_body) }
+    let(:user) { FactoryBot.create(:user,
+                                   :confirmed_not_spam => false) }
+    let(:body) { FactoryBot.create(:public_body) }
 
 
     context 'when given a string containing unicode characters' do
@@ -1506,9 +1506,9 @@ describe RequestController, "when creating a new request" do
 
   describe 'when the request is from an IP address in a blocked country' do
 
-    let(:user) { FactoryGirl.create(:user,
-                                    :confirmed_not_spam => false) }
-    let(:body) { FactoryGirl.create(:public_body) }
+    let(:user) { FactoryBot.create(:user,
+                                   :confirmed_not_spam => false) }
+    let(:body) { FactoryBot.create(:public_body) }
 
     before do
       allow(AlaveteliConfiguration).to receive(:restricted_countries).and_return('PH')
@@ -1608,7 +1608,7 @@ describe RequestController, "when making a new request" do
     allow(@user).to receive(:can_file_requests?).and_return(true)
     allow(@user).to receive(:locale).and_return("en")
     allow(User).to receive(:find).and_return(@user)
-    @body = FactoryGirl.create(:public_body, :name => 'Test Quango')
+    @body = FactoryBot.create(:public_body, :name => 'Test Quango')
   end
 
   it "should allow you to have one undescribed request" do
@@ -1640,7 +1640,7 @@ describe RequestController do
   describe "POST describe_state" do
     describe 'if the request is external' do
 
-      let(:external_request){ FactoryGirl.create(:external_request) }
+      let(:external_request){ FactoryBot.create(:external_request) }
 
       it 'should redirect to the request page' do
         patch :describe_state, :id => external_request.id
@@ -1652,7 +1652,7 @@ describe RequestController do
 
     describe 'when the request is internal' do
 
-      let(:info_request){ FactoryGirl.create(:info_request) }
+      let(:info_request){ FactoryBot.create(:info_request) }
 
       def post_status(status, info_request)
         patch :describe_state, :incoming_message => { :described_state => status },
@@ -1662,7 +1662,7 @@ describe RequestController do
 
       context 'when the request is embargoed' do
 
-        let(:info_request){ FactoryGirl.create(:embargoed_request) }
+        let(:info_request){ FactoryBot.create(:embargoed_request) }
 
         it 'should raise ActiveRecord::NotFound' do
           expect{ post_status('rejected', info_request) }
@@ -1677,14 +1677,14 @@ describe RequestController do
       end
 
       it "should not classify the request if logged in as the wrong user" do
-        session[:user_id] = FactoryGirl.create(:user).id
+        session[:user_id] = FactoryBot.create(:user).id
         post_status('rejected', info_request)
         expect(response).to render_template('user/wrong_user')
       end
 
       describe 'when the request is old and unclassified' do
 
-        let(:info_request){ FactoryGirl.create(:old_unclassified_request)}
+        let(:info_request){ FactoryBot.create(:old_unclassified_request)}
 
         describe 'when the user is not logged in' do
 
@@ -1699,7 +1699,7 @@ describe RequestController do
 
         describe 'when the user is logged in as a different user' do
 
-          let(:other_user){ FactoryGirl.create(:user) }
+          let(:other_user){ FactoryBot.create(:user) }
 
           before do
             session[:user_id] = other_user.id
@@ -1806,8 +1806,8 @@ describe RequestController do
 
       describe 'when logged in as an admin user who is not the actual requester' do
 
-        let(:admin_user){ FactoryGirl.create(:admin_user) }
-        let(:info_request){ FactoryGirl.create(:info_request) }
+        let(:admin_user){ FactoryBot.create(:admin_user) }
+        let(:info_request){ FactoryBot.create(:info_request) }
 
         before do
           session[:user_id] = admin_user.id
@@ -1857,8 +1857,8 @@ describe RequestController do
 
       describe 'when logged in as an admin user who is also the actual requester' do
 
-        let(:admin_user){ FactoryGirl.create(:admin_user) }
-        let(:info_request){ FactoryGirl.create(:info_request, :user => admin_user) }
+        let(:admin_user){ FactoryBot.create(:admin_user) }
+        let(:info_request){ FactoryBot.create(:info_request, :user => admin_user) }
 
         before do
           session[:user_id] = admin_user.id
@@ -1901,7 +1901,7 @@ describe RequestController do
       describe 'when logged in as the requestor' do
 
         let(:info_request) do
-          FactoryGirl.create(:info_request, :awaiting_description => true)
+          FactoryBot.create(:info_request, :awaiting_description => true)
         end
 
         before do
@@ -2014,7 +2014,7 @@ describe RequestController do
 
         render_views
 
-        let(:info_request){ FactoryGirl.create(:info_request) }
+        let(:info_request){ FactoryBot.create(:info_request) }
 
         before do
           session[:user_id] = info_request.user_id
@@ -2091,7 +2091,7 @@ describe RequestController do
 
           context 'when there is a last response' do
 
-            let(:info_request){ FactoryGirl.create(:info_request_with_incoming) }
+            let(:info_request){ FactoryBot.create(:info_request_with_incoming) }
 
             it 'should redirect to the "response url"' do
               session[:user_id] = info_request.user_id
@@ -2141,7 +2141,7 @@ describe RequestController do
 
         context 'when status is updated to "gone postal"' do
 
-          let(:info_request){ FactoryGirl.create(:info_request_with_incoming) }
+          let(:info_request){ FactoryBot.create(:info_request_with_incoming) }
 
           it 'should redirect to the "respond to last" url' do
             session[:user_id] = info_request.user_id
@@ -2224,7 +2224,7 @@ describe RequestController do
 
         context 'when status is updated to "user_withdrawn"' do
 
-          let(:info_request){ FactoryGirl.create(:info_request_with_incoming) }
+          let(:info_request){ FactoryBot.create(:info_request_with_incoming) }
 
           it 'should redirect to the "respond to last" url' do
             session[:user_id] = info_request.user_id
@@ -2286,7 +2286,7 @@ describe RequestController, "authority uploads a response from the web interface
   end
 
   context 'when the request is embargoed' do
-    let(:embargoed_request){ FactoryGirl.create(:embargoed_request)}
+    let(:embargoed_request){ FactoryBot.create(:embargoed_request)}
 
     it 'raises an ActiveRecord::RecordNotFound error' do
       expect{get :upload_response, :url_title => embargoed_request.url_title }
@@ -2477,7 +2477,7 @@ describe RequestController, "when caching fragments" do
                             :apply_masks => nil,
                             :prominence => 'normal',
                             :is_public? => true)
-    attachment = FactoryGirl.build(:body_text, :filename => long_name)
+    attachment = FactoryBot.build(:body_text, :filename => long_name)
     allow(IncomingMessage).to receive(:find).with("44").and_return(incoming_message)
     allow(IncomingMessage).to receive(:get_attachment_by_url_part_number_and_filename).and_return(attachment)
     allow(InfoRequest).to receive(:find).with("132").and_return(info_request)
@@ -2503,9 +2503,9 @@ describe RequestController, "#new_batch" do
     context "when the current user can make batch requests" do
 
       before do
-        @user = FactoryGirl.create(:user, :can_make_batch_requests => true)
-        @public_body = FactoryGirl.create(:public_body)
-        @other_public_body = FactoryGirl.create(:public_body)
+        @user = FactoryBot.create(:user, :can_make_batch_requests => true)
+        @public_body = FactoryBot.create(:public_body)
+        @other_public_body = FactoryBot.create(:public_body)
         @public_body_ids = [@public_body.id, @other_public_body.id]
         @default_post_params = { :info_request => { :title => "What does it all mean?",
                                                     :tag_string => "" },
@@ -2605,7 +2605,7 @@ describe RequestController, "#new_batch" do
       render_views
 
       before do
-        @user = FactoryGirl.create(:user)
+        @user = FactoryBot.create(:user)
       end
 
       it 'should return a 403 with an appropriate message' do
@@ -2653,7 +2653,7 @@ describe RequestController, "#select_authorities" do
     context "when the current user can make batch requests" do
 
       before do
-        @user = FactoryGirl.create(:user, :can_make_batch_requests => true)
+        @user = FactoryBot.create(:user, :can_make_batch_requests => true)
       end
 
       context 'when asked for HTML' do
@@ -2738,7 +2738,7 @@ describe RequestController, "#select_authorities" do
       render_views
 
       before do
-        @user = FactoryGirl.create(:user)
+        @user = FactoryBot.create(:user)
       end
 
       it 'should return a 403 with an appropriate message' do
@@ -2805,7 +2805,7 @@ describe RequestController do
 
   describe 'GET #details' do
 
-    let(:info_request){ FactoryGirl.create(:info_request)}
+    let(:info_request){ FactoryBot.create(:info_request)}
 
     it 'renders the details template' do
       get :details, :url_title => info_request.url_title
@@ -2866,7 +2866,7 @@ end
 
 describe RequestController do
   describe 'GET #describe_state_message' do
-    let(:info_request){ FactoryGirl.create(:info_request_with_incoming) }
+    let(:info_request){ FactoryBot.create(:info_request_with_incoming) }
 
     it 'assigns the info_request to the view' do
       get :describe_state_message, :url_title => info_request.url_title,
@@ -2894,7 +2894,7 @@ describe RequestController do
     end
 
     context 'when the request is embargoed' do
-      let(:info_request){ FactoryGirl.create(:embargoed_request) }
+      let(:info_request){ FactoryBot.create(:embargoed_request) }
 
       it 'raises ActiveRecord::RecordNotFound' do
         expect{ get :describe_state_message,
@@ -2912,10 +2912,10 @@ describe RequestController do
 
   describe 'GET #download_entire_request' do
     context 'when the request is embargoed' do
-      let(:user) { FactoryGirl.create(:user) }
-      let(:pro_user) { FactoryGirl.create(:pro_user) }
+      let(:user) { FactoryBot.create(:user) }
+      let(:pro_user) { FactoryBot.create(:pro_user) }
       let(:info_request) do
-        FactoryGirl.create(:embargoed_request, user: pro_user)
+        FactoryBot.create(:embargoed_request, user: pro_user)
       end
 
       context 'and the user is not logged in' do
@@ -2953,7 +2953,7 @@ describe RequestController do
     context 'when the request is unclassified' do
 
       it 'does not render the describe state form' do
-        info_request = FactoryGirl.create(:info_request)
+        info_request = FactoryBot.create(:info_request)
         info_request.update_attributes(:awaiting_description => true)
         info_request.expire
         session[:user_id] = info_request.user_id
@@ -2975,7 +2975,7 @@ describe RequestController do
   describe 'GET #show_request_event' do
 
     context 'when the event is an incoming message' do
-      let(:event){ FactoryGirl.create(:response_event) }
+      let(:event){ FactoryBot.create(:response_event) }
 
       it 'returns a 301 status' do
         get :show_request_event, :info_request_event_id => event.id
@@ -2996,7 +2996,7 @@ describe RequestController do
     end
 
     context 'when the event is an outgoing message' do
-      let(:event){ FactoryGirl.create(:sent_event) }
+      let(:event){ FactoryBot.create(:sent_event) }
 
       it 'returns a 301 status' do
         get :show_request_event, :info_request_event_id => event.id
@@ -3017,7 +3017,7 @@ describe RequestController do
     end
 
     context 'for any other kind of event' do
-      let(:event){ FactoryGirl.create(:info_request_event) }
+      let(:event){ FactoryBot.create(:info_request_event) }
 
       it 'returns a 301 status' do
         get :show_request_event, :info_request_event_id => event.id

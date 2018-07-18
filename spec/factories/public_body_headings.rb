@@ -9,7 +9,7 @@
 #  updated_at    :datetime
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :public_body_heading do
     sequence(:name) { |n| "Example Public Body Heading #{n}" }
   end

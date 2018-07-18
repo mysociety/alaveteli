@@ -4,8 +4,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe AdminCommentController do
 
   describe 'GET index' do
-    let(:admin_user){ FactoryGirl.create(:admin_user) }
-    let(:pro_admin_user){ FactoryGirl.create(:pro_admin_user) }
+    let(:admin_user){ FactoryBot.create(:admin_user) }
+    let(:pro_admin_user){ FactoryBot.create(:pro_admin_user) }
 
     it 'sets the title' do
       get :index, {}, { :user_id => admin_user.id }
@@ -15,9 +15,9 @@ describe AdminCommentController do
     it 'collects comments by creation date' do
       Comment.destroy_all
       time_travel_to(1.month.ago)
-      comment_1 = FactoryGirl.create(:comment)
+      comment_1 = FactoryBot.create(:comment)
       back_to_the_present
-      comment_2 = FactoryGirl.create(:comment)
+      comment_2 = FactoryBot.create(:comment)
       get :index, {}, { :user_id => admin_user.id }
       expect(assigns[:comments]).to eq([comment_2, comment_1])
     end
@@ -29,9 +29,9 @@ describe AdminCommentController do
 
     it 'filters comments by the search query' do
       Comment.destroy_all
-      comment_1 = FactoryGirl.create(:comment, :body => 'Hello world')
-      comment_2 = FactoryGirl.create(:comment, :body => 'Hi! hello world')
-      comment_3 = FactoryGirl.create(:comment, :body => 'xyz')
+      comment_1 = FactoryBot.create(:comment, :body => 'Hello world')
+      comment_2 = FactoryBot.create(:comment, :body => 'Hi! hello world')
+      comment_3 = FactoryBot.create(:comment, :body => 'xyz')
       get :index, { :query => 'hello' }, { :user_id => admin_user.id }
       expect(assigns[:comments]).to eq([comment_2, comment_1])
     end
@@ -48,7 +48,7 @@ describe AdminCommentController do
 
     it 'does not include comments on embargoed requests if the current user is
         not a pro admin user' do
-      comment = FactoryGirl.create(:comment)
+      comment = FactoryBot.create(:comment)
       comment.info_request.create_embargo
       get :index, {}, { :user_id => admin_user.id }
       expect(assigns[:comments].include?(comment)).to be false
@@ -59,7 +59,7 @@ describe AdminCommentController do
       it 'does not include comments on embargoed requests if the
           current user is a pro admin user' do
         with_feature_enabled(:alaveteli_pro) do
-          comment = FactoryGirl.create(:comment)
+          comment = FactoryBot.create(:comment)
           comment.info_request.create_embargo
           get :index, {}, { :user_id => admin_user.id }
           expect(assigns[:comments].include?(comment)).to be false
@@ -69,7 +69,7 @@ describe AdminCommentController do
       it 'includes comments on embargoed requests if the current user is a
           pro admin user' do
         with_feature_enabled(:alaveteli_pro) do
-          comment = FactoryGirl.create(:comment)
+          comment = FactoryBot.create(:comment)
           comment.info_request.create_embargo
           get :index, {}, { :user_id => pro_admin_user.id }
           expect(assigns[:comments].include?(comment)).to be true
@@ -80,9 +80,9 @@ describe AdminCommentController do
   end
 
   describe 'GET edit' do
-    let(:pro_admin_user){ FactoryGirl.create(:pro_admin_user) }
-    let(:admin_user){ FactoryGirl.create(:admin_user) }
-    let(:comment){ FactoryGirl.create(:comment) }
+    let(:pro_admin_user){ FactoryBot.create(:pro_admin_user) }
+    let(:admin_user){ FactoryBot.create(:admin_user) }
+    let(:comment){ FactoryBot.create(:comment) }
 
     it 'renders the edit template' do
       get :edit, { :id => comment.id }, { :user_id => admin_user.id }
@@ -124,10 +124,10 @@ describe AdminCommentController do
   end
 
   describe 'PUT update' do
-      let(:pro_admin_user){ FactoryGirl.create(:pro_admin_user) }
-      let(:admin_user){ FactoryGirl.create(:admin_user) }
-      let(:comment){ FactoryGirl.create(:comment) }
-      let(:atts){ FactoryGirl.attributes_for(:comment, :body => 'I am new') }
+      let(:pro_admin_user){ FactoryBot.create(:pro_admin_user) }
+      let(:admin_user){ FactoryBot.create(:admin_user) }
+      let(:comment){ FactoryBot.create(:comment) }
+      let(:atts){ FactoryBot.attributes_for(:comment, :body => 'I am new') }
 
     context 'on valid data submission' do
 
@@ -153,9 +153,9 @@ describe AdminCommentController do
 
       context 'the attention_requested flag is the only change' do
         let(:atts) do
-          FactoryGirl.attributes_for(:comment,
-                                     :body => comment.body,
-                                     :attention_requested => true)
+          FactoryBot.attributes_for(:comment,
+                                    :body => comment.body,
+                                    :attention_requested => true)
         end
 
         before do
@@ -187,9 +187,9 @@ describe AdminCommentController do
         context 'without changing the text' do
 
           it 'logs a "hide_comment" event' do
-            atts = FactoryGirl.attributes_for(:comment,
-                                              :attention_requested => true,
-                                              :visible => false)
+            atts = FactoryBot.attributes_for(:comment,
+                                             :attention_requested => true,
+                                             :visible => false)
             put :update, { :id => comment.id, :comment => atts },
                          { :user_id => admin_user.id }
 
@@ -202,10 +202,10 @@ describe AdminCommentController do
         context 'the text is changed as well' do
 
           it 'logs an "edit_comment" event' do
-            atts = FactoryGirl.attributes_for(:comment,
-                                              :attention_requested => true,
-                                              :visible => false,
-                                              :body => 'updated text')
+            atts = FactoryBot.attributes_for(:comment,
+                                             :attention_requested => true,
+                                             :visible => false,
+                                             :body => 'updated text')
             put :update, { :id => comment.id, :comment => atts },
                          { :user_id => admin_user.id }
 
@@ -218,20 +218,20 @@ describe AdminCommentController do
       end
 
       it 'shows a success notice' do
-        atts = FactoryGirl.attributes_for(:comment,
-                                          :attention_requested => true,
-                                          :visible => false,
-                                          :body => 'updated text')
+        atts = FactoryBot.attributes_for(:comment,
+                                         :attention_requested => true,
+                                         :visible => false,
+                                         :body => 'updated text')
         put :update, { :id => comment.id, :comment => atts },
                      { :user_id => admin_user.id }
         expect(flash[:notice]).to eq("Comment successfully updated.")
       end
 
       it 'redirects to the request page' do
-        atts = FactoryGirl.attributes_for(:comment,
-                                          :attention_requested => true,
-                                          :visible => false,
-                                          :body => 'updated text')
+        atts = FactoryBot.attributes_for(:comment,
+                                         :attention_requested => true,
+                                         :visible => false,
+                                         :body => 'updated text')
         put :update, { :id => comment.id, :comment => atts },
                      { :user_id => admin_user.id }
         expect(response).to redirect_to(admin_request_path(comment.info_request))

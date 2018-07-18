@@ -3,8 +3,8 @@ require 'spec_helper'
 
 describe 'alaveteli_pro/public_bodies/_search_result.html.erb' do
   let(:public_body) do
-    FactoryGirl.create(:public_body, notes: "Some notes about the body",
-                                     info_requests_visible_count: 1)
+    FactoryBot.create(:public_body, notes: "Some notes about the body",
+                                    info_requests_visible_count: 1)
   end
 
   let(:result) do

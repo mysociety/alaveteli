@@ -217,11 +217,11 @@ describe TrackMailer do
     end
 
     it "does not alert about embargoed requests" do
-      info_request = FactoryGirl.create(:embargoed_request)
-      user = FactoryGirl.create(
+      info_request = FactoryBot.create(:embargoed_request)
+      user = FactoryBot.create(
         :user,
         last_daily_track_email: Time.zone.now - 2.days)
-      track_thing = FactoryGirl.create(
+      track_thing = FactoryBot.create(
         :public_body_track,
         public_body: info_request.public_body,
         tracking_user: user)

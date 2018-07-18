@@ -11,7 +11,7 @@
 #  updated_at              :datetime
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :public_body_category_link do
     association :public_body_category
     association :public_body_heading

@@ -6,7 +6,7 @@ describe WidgetVotesController do
   include LinkToHelper
 
   describe 'POST #create' do
-    let(:info_request){ FactoryGirl.create(:info_request) }
+    let(:info_request){ FactoryBot.create(:info_request) }
 
     before do
       allow(AlaveteliConfiguration).to receive(:enable_widgets).and_return(true)
@@ -89,7 +89,7 @@ describe WidgetVotesController do
     context 'when the request is embargoed' do
 
       it 'should raise an ActiveRecord::RecordNotFound error' do
-        embargoed_request = FactoryGirl.create(:embargoed_request)
+        embargoed_request = FactoryBot.create(:embargoed_request)
         expect{
           post :create, :request_id => embargoed_request.id
         }.to raise_error ActiveRecord::RecordNotFound

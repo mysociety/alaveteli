@@ -5,7 +5,7 @@ describe LinkToHelper do
   include LinkToHelper
 
   describe 'when creating a url for a request' do
-    let(:info_request) { FactoryGirl.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
 
     it 'should return a path like /request/test_title' do
       expected = "/request/#{info_request.url_title}"
@@ -20,7 +20,7 @@ describe LinkToHelper do
   end
 
   describe 'when linking to new incoming messages' do
-    let(:incoming_message) { FactoryGirl.create(:incoming_message) }
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
     let(:info_request) { incoming_message.info_request }
 
     context 'for external links' do
@@ -59,10 +59,10 @@ describe LinkToHelper do
 
   describe 'when linking to new responses' do
     context 'when the user is a pro' do
-      let(:user) { FactoryGirl.create(:pro_user) }
-      let(:info_request) { FactoryGirl.create(:info_request, user: user) }
+      let(:user) { FactoryBot.create(:pro_user) }
+      let(:info_request) { FactoryBot.create(:info_request, user: user) }
       let(:incoming_message) do
-        FactoryGirl.create(:incoming_message, info_request: info_request)
+        FactoryBot.create(:incoming_message, info_request: info_request)
       end
 
       it 'creates a sign in url to the cachebusted incoming message url' do
@@ -74,7 +74,7 @@ describe LinkToHelper do
     end
 
     context 'when the user is a normal user' do
-      let(:incoming_message) { FactoryGirl.create(:incoming_message) }
+      let(:incoming_message) { FactoryBot.create(:incoming_message) }
       let(:info_request) { incoming_message.info_request }
 
       it 'creates a cachbusted incoming message url' do
@@ -86,7 +86,7 @@ describe LinkToHelper do
   end
 
   describe 'when linking to new outgoing messages' do
-    let(:outgoing_message) { FactoryGirl.create(:new_information_followup) }
+    let(:outgoing_message) { FactoryBot.create(:new_information_followup) }
     let(:info_request) { outgoing_message.info_request }
 
     subject(:url) { outgoing_message_url(outgoing_message) }
@@ -123,7 +123,7 @@ describe LinkToHelper do
   describe 'when displaying a user link for a request' do
     context "for external requests" do
       let(:info_request) do
-        FactoryGirl.create(:external_request, :external_user_name => nil)
+        FactoryBot.create(:external_request, :external_user_name => nil)
       end
 
       it 'should return the text "Anonymous user" with a link to the privacy
@@ -146,7 +146,7 @@ describe LinkToHelper do
     end
 
     context "for normal requests" do
-      let(:info_request) { FactoryGirl.create(:info_request) }
+      let(:info_request) { FactoryBot.create(:info_request) }
       let(:user) { info_request.user }
 
       it 'should display a relative link by default' do
@@ -164,7 +164,7 @@ describe LinkToHelper do
 
   describe 'when displaying a user admin link for a request' do
     let(:info_request) do
-      FactoryGirl.create(:external_request, :external_user_name => nil)
+      FactoryBot.create(:external_request, :external_user_name => nil)
     end
 
     it 'should return the text "An anonymous user (external)" in the case

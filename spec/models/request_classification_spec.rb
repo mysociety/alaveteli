@@ -17,11 +17,11 @@ describe RequestClassification do
   describe '.league_table' do
 
     before do
-      @user_one = FactoryGirl.create(:user)
-      @user_two = FactoryGirl.create(:user)
-      FactoryGirl.create(:request_classification, :user => @user_one)
-      FactoryGirl.create(:request_classification, :user => @user_one)
-      FactoryGirl.create(:request_classification, :user => @user_two)
+      @user_one = FactoryBot.create(:user)
+      @user_two = FactoryBot.create(:user)
+      FactoryBot.create(:request_classification, :user => @user_one)
+      FactoryBot.create(:request_classification, :user => @user_one)
+      FactoryBot.create(:request_classification, :user => @user_two)
     end
 
     it "returns a list of users' classifications with counts in descending order" do

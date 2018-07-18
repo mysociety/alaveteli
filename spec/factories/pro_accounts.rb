@@ -13,7 +13,7 @@
 
 require 'stripe_mock'
 
-FactoryGirl.define do
+FactoryBot.define do
 
   factory :pro_account do
     association :user, factory: :pro_user

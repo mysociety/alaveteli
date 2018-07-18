@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe AdminPublicBodyChangeRequestsController, "editing a change request" do
 
   it "should render the edit template" do
-    change_request = FactoryGirl.create(:add_body_request)
+    change_request = FactoryBot.create(:add_body_request)
     get :edit, :id => change_request.id
     expect(response).to render_template("edit")
   end
@@ -14,7 +14,7 @@ end
 describe AdminPublicBodyChangeRequestsController, 'updating a change request' do
 
   before do
-    @change_request = FactoryGirl.create(:add_body_request)
+    @change_request = FactoryBot.create(:add_body_request)
   end
 
   it 'should close the change request' do

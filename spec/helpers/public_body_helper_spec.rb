@@ -7,7 +7,7 @@ describe PublicBodyHelper do
   describe '#public_body_not_requestable_reasons' do
 
     before do
-      @body = FactoryGirl.build(:public_body)
+      @body = FactoryBot.build(:public_body)
     end
 
     it 'returns an empty array if there are no reasons' do
@@ -52,29 +52,29 @@ describe PublicBodyHelper do
   describe '#type_of_authority' do
 
     it 'falls back to "A public authority"' do
-      public_body = FactoryGirl.build(:public_body)
+      public_body = FactoryBot.build(:public_body)
       expect(type_of_authority(public_body)).to eq('A public authority')
     end
 
     it 'handles Unicode' do
-      category = FactoryGirl.create(:public_body_category, :category_tag => 'spec',
-                                    :description => 'ünicode category')
-      heading = FactoryGirl.create(:public_body_heading)
+      category = FactoryBot.create(:public_body_category, :category_tag => 'spec',
+                                   :description => 'ünicode category')
+      heading = FactoryBot.create(:public_body_heading)
       heading.add_category(category)
-      public_body = FactoryGirl.create(:public_body, :tag_string => 'spec')
+      public_body = FactoryBot.create(:public_body, :tag_string => 'spec')
 
 
       expect(type_of_authority(public_body)).to eq('<a href="/body/list/spec">Ünicode category</a>')
     end
 
     it 'constructs the correct string if there are tags which are not categories' do
-      heading = FactoryGirl.create(:public_body_heading)
+      heading = FactoryBot.create(:public_body_heading)
       3.times do |i|
-        category = FactoryGirl.create(:public_body_category, :category_tag => "spec_#{i}",
-                                      :description => "spec category #{i}")
+        category = FactoryBot.create(:public_body_category, :category_tag => "spec_#{i}",
+                                     :description => "spec category #{i}")
         heading.add_category(category)
       end
-      public_body = FactoryGirl.create(:public_body, :tag_string => 'unknown spec_0 spec_2')
+      public_body = FactoryBot.create(:public_body, :tag_string => 'unknown spec_0 spec_2')
       expected = '<a href="/body/list/spec_0">Spec category 0</a> and <a href="/body/list/spec_2">spec category 2</a>'
       expect(type_of_authority(public_body)).to eq(expected)
     end
@@ -83,11 +83,11 @@ describe PublicBodyHelper do
     context 'when associated with one category' do
 
       it 'returns the description wrapped in an anchor tag' do
-        category = FactoryGirl.create(:public_body_category, :category_tag => 'spec',
-                                      :description => 'spec category')
-        heading = FactoryGirl.create(:public_body_heading)
+        category = FactoryBot.create(:public_body_category, :category_tag => 'spec',
+                                     :description => 'spec category')
+        heading = FactoryBot.create(:public_body_heading)
         heading.add_category(category)
-        public_body = FactoryGirl.create(:public_body, :tag_string => 'spec')
+        public_body = FactoryBot.create(:public_body, :tag_string => 'spec')
 
         anchor = %Q(<a href="/body/list/spec">Spec category</a>)
         expect(type_of_authority(public_body)).to eq(anchor)
@@ -97,13 +97,13 @@ describe PublicBodyHelper do
     context 'when associated with several categories' do
 
       it 'joins the category descriptions and capitalizes the first letter' do
-        heading = FactoryGirl.create(:public_body_heading)
+        heading = FactoryBot.create(:public_body_heading)
         3.times do |i|
-          category = FactoryGirl.create(:public_body_category, :category_tag => "spec_#{i}",
-                                        :description => "spec category #{i}")
+          category = FactoryBot.create(:public_body_category, :category_tag => "spec_#{i}",
+                                       :description => "spec category #{i}")
           heading.add_category(category)
         end
-        public_body = FactoryGirl.create(:public_body, :tag_string => 'spec_0 spec_1 spec_2')
+        public_body = FactoryBot.create(:public_body, :tag_string => 'spec_0 spec_1 spec_2')
 
         description = [
           %Q(<a href="/body/list/spec_0">Spec category 0</a>),
@@ -123,11 +123,11 @@ describe PublicBodyHelper do
       it 'creates the anchor href in the correct locale' do
         # Activate the routing filter, normally turned off for helper tests
         RoutingFilter.active = true
-        category = FactoryGirl.create(:public_body_category, :category_tag => 'spec',
-                                      :description => 'spec category')
-        heading = FactoryGirl.create(:public_body_heading)
+        category = FactoryBot.create(:public_body_category, :category_tag => 'spec',
+                                     :description => 'spec category')
+        heading = FactoryBot.create(:public_body_heading)
         heading.add_category(category)
-        public_body = FactoryGirl.create(:public_body, :tag_string => 'spec')
+        public_body = FactoryBot.create(:public_body, :tag_string => 'spec')
 
         anchor = %Q(<a href="/es/body/list/spec">Spec category</a>)
         AlaveteliLocalization.with_locale(:es) do

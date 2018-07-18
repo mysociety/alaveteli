@@ -4,16 +4,16 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe FollowupsController do
   render_views
 
-  let(:request_user) { FactoryGirl.create(:user) }
-  let(:request) { FactoryGirl.create(:info_request_with_incoming, :user => request_user) }
+  let(:request_user) { FactoryBot.create(:user) }
+  let(:request) { FactoryBot.create(:info_request_with_incoming, :user => request_user) }
   let(:message_id) { request.incoming_messages[0].id }
-  let(:pro_user) { FactoryGirl.create(:pro_user) }
+  let(:pro_user) { FactoryBot.create(:pro_user) }
 
   describe "GET #new" do
 
     context "when not logged in" do
       it 'raises an ActiveRecord::RecordNotFound error for an embargoed request' do
-        embargoed_request = FactoryGirl.create(:embargoed_request)
+        embargoed_request = FactoryBot.create(:embargoed_request)
         expect{ get :new, :request_id => embargoed_request.id }
           .to raise_error(ActiveRecord::RecordNotFound)
       end
@@ -25,29 +25,29 @@ describe FollowupsController do
       end
 
       it 'finds their own embargoed requests' do
-        embargoed_request = FactoryGirl.create(:embargoed_request,
-                                               user: pro_user)
+        embargoed_request = FactoryBot.create(:embargoed_request,
+                                              user: pro_user)
         get :new, :request_id => embargoed_request.id
         expect(response).to be_success
       end
 
       it 'raises an ActiveRecord::RecordNotFound error for other embargoed requests' do
-        embargoed_request = FactoryGirl.create(:embargoed_request)
+        embargoed_request = FactoryBot.create(:embargoed_request)
         expect{ get :new, :request_id => embargoed_request.id }
           .to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
     it "displays 'wrong user' message when not logged in as the request owner" do
-      session[:user_id] = FactoryGirl.create(:user).id
+      session[:user_id] = FactoryBot.create(:user).id
       get :new, :request_id => request.id,
                          :incoming_message_id => message_id
       expect(response).to render_template('user/wrong_user')
     end
 
     it "does not allow follow ups to external requests" do
-      session[:user_id] = FactoryGirl.create(:user).id
-      external_request = FactoryGirl.create(:external_request)
+      session[:user_id] = FactoryBot.create(:user).id
+      external_request = FactoryBot.create(:external_request)
       get :new, :request_id => external_request.id
       expect(response).to render_template('followup_bad')
       expect(assigns[:reason]).to eq('external')
@@ -94,9 +94,9 @@ describe FollowupsController do
       end
 
       it "offers an opportunity to reply to another address" do
-        open_request = FactoryGirl.create(:info_request_with_incoming,
-                                          :user => request_user,
-                                          :allow_new_responses_from => "anybody")
+        open_request = FactoryBot.create(:info_request_with_incoming,
+                                         :user => request_user,
+                                         :allow_new_responses_from => "anybody")
         receive_incoming_mail('incoming-request-plain.email',
                               open_request.incoming_email, "Frob <frob@bonce.com>")
         get :new, :request_id => open_request.id,
@@ -107,8 +107,8 @@ describe FollowupsController do
       context "the request is hidden" do
 
         let(:hidden_request) do
-          FactoryGirl.create(:info_request_with_incoming, :user => request_user,
-                                                          :prominence => "hidden")
+          FactoryBot.create(:info_request_with_incoming, :user => request_user,
+                                                         :prominence => "hidden")
         end
 
         it "does not show the form, even to the request owner" do
@@ -131,25 +131,25 @@ describe FollowupsController do
     context 'when viewing a response for an external request' do
 
       it "does not allow follow ups to external requests" do
-        session[:user_id] = FactoryGirl.create(:user).id
-        external_request = FactoryGirl.create(:external_request)
+        session[:user_id] = FactoryBot.create(:user).id
+        external_request = FactoryBot.create(:external_request)
         get :new, :request_id => external_request.id
         expect(response).to render_template('followup_bad')
         expect(assigns[:reason]).to eq('external')
       end
 
       it 'the response code should be successful' do
-        session[:user_id] = FactoryGirl.create(:user).id
-        get :new, :request_id => FactoryGirl.create(:external_request).id
+        session[:user_id] = FactoryBot.create(:user).id
+        get :new, :request_id => FactoryBot.create(:external_request).id
         expect(response).to be_success
       end
 
     end
 
     context 'when viewing a response for an embargoed request' do
-      let(:pro_user) { FactoryGirl.create(:pro_user) }
+      let(:pro_user) { FactoryBot.create(:pro_user) }
       let(:embargoed_request) do
-        FactoryGirl.create(:embargoed_request, user: pro_user)
+        FactoryBot.create(:embargoed_request, user: pro_user)
       end
 
       it "sets @in_pro_area" do
@@ -172,7 +172,7 @@ describe FollowupsController do
 
     context "when not logged in" do
       it 'raises an ActiveRecord::RecordNotFound error for an embargoed request' do
-        embargoed_request = FactoryGirl.create(:embargoed_request)
+        embargoed_request = FactoryBot.create(:embargoed_request)
         expect{ post :preview, :outgoing_message => dummy_message,
                                :request_id => embargoed_request.id }
           .to raise_error(ActiveRecord::RecordNotFound)
@@ -193,15 +193,15 @@ describe FollowupsController do
       end
 
       it 'finds their own embargoed requests' do
-        embargoed_request = FactoryGirl.create(:embargoed_request,
-                                               user: pro_user)
+        embargoed_request = FactoryBot.create(:embargoed_request,
+                                              user: pro_user)
         post :preview, :outgoing_message => dummy_message,
                        :request_id => embargoed_request.id
         expect(response).to be_success
       end
 
       it 'raises an ActiveRecord::RecordNotFound error for other embargoed requests' do
-        embargoed_request = FactoryGirl.create(:embargoed_request)
+        embargoed_request = FactoryBot.create(:embargoed_request)
         expect{ post :preview, :outgoing_message => dummy_message,
                                :request_id => embargoed_request.id }
           .to raise_error(ActiveRecord::RecordNotFound)
@@ -209,7 +209,7 @@ describe FollowupsController do
     end
 
     it "displays a wrong user message when not logged in as the request owner" do
-      session[:user_id] = FactoryGirl.create(:user).id
+      session[:user_id] = FactoryBot.create(:user).id
       post :preview, :outgoing_message => dummy_message,
                      :request_id => request.id,
                      :incoming_message_id => message_id
@@ -252,9 +252,9 @@ describe FollowupsController do
     end
 
     context 'when viewing a response for an embargoed request' do
-      let(:pro_user) { FactoryGirl.create(:pro_user) }
+      let(:pro_user) { FactoryBot.create(:pro_user) }
       let(:embargoed_request) do
-        FactoryGirl.create(:embargoed_request, user: pro_user)
+        FactoryBot.create(:embargoed_request, user: pro_user)
       end
 
       it "sets @in_pro_area" do
@@ -285,7 +285,7 @@ describe FollowupsController do
       end
 
       it 'raises an ActiveRecord::RecordNotFound error for an embargoed request' do
-        embargoed_request = FactoryGirl.create(:embargoed_request)
+        embargoed_request = FactoryBot.create(:embargoed_request)
         expect{ post :create, :outgoing_message => dummy_message,
                               :request_id => embargoed_request.id }
           .to raise_error(ActiveRecord::RecordNotFound)
@@ -306,8 +306,8 @@ describe FollowupsController do
       end
 
       it 'finds their own embargoed requests' do
-        embargoed_request = FactoryGirl.create(:embargoed_request,
-                                               user: pro_user)
+        embargoed_request = FactoryBot.create(:embargoed_request,
+                                              user: pro_user)
         expected_url = show_request_url(:url_title => embargoed_request.url_title)
         post :create, :outgoing_message => dummy_message,
                       :request_id => embargoed_request.id
@@ -315,7 +315,7 @@ describe FollowupsController do
       end
 
       it 'raises an ActiveRecord::RecordNotFound error for other embargoed requests' do
-        embargoed_request = FactoryGirl.create(:embargoed_request)
+        embargoed_request = FactoryBot.create(:embargoed_request)
         expect{ post :create, :outgoing_message => dummy_message,
                               :request_id => embargoed_request.id }
           .to raise_error(ActiveRecord::RecordNotFound)
@@ -323,7 +323,7 @@ describe FollowupsController do
     end
 
     it "only allows the request owner to make a followup" do
-      session[:user_id] = FactoryGirl.create(:user).id
+      session[:user_id] = FactoryBot.create(:user).id
       post :create, :outgoing_message => dummy_message,
                     :request_id => request.id,
                     :incoming_message_id => message_id
@@ -389,9 +389,9 @@ describe FollowupsController do
     end
 
     it "displays an error if the request has been closed to new responses" do
-      closed_request = FactoryGirl.create(:info_request_with_incoming,
-                                          :user => request_user,
-                                          :allow_new_responses_from => "nobody")
+      closed_request = FactoryBot.create(:info_request_with_incoming,
+                                         :user => request_user,
+                                         :allow_new_responses_from => "nobody")
 
       post :create, :outgoing_message => dummy_message,
                     :request_id => closed_request.id,

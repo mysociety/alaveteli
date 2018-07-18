@@ -160,7 +160,7 @@ describe AdminPublicBodyHeadingsController do
   describe 'GET edit' do
 
     before do
-      @heading = FactoryGirl.create(:public_body_heading)
+      @heading = FactoryBot.create(:public_body_heading)
       AlaveteliLocalization.with_locale('es') do
         @heading.name = 'Los heading'
         @heading.save!
@@ -192,7 +192,7 @@ describe AdminPublicBodyHeadingsController do
   describe 'PUT update' do
 
     before do
-      @heading = FactoryGirl.create(:public_body_heading)
+      @heading = FactoryBot.create(:public_body_heading)
       AlaveteliLocalization.with_locale('es') do
         @heading.name = 'Los heading'
         @heading.save!
@@ -441,7 +441,7 @@ describe AdminPublicBodyHeadingsController do
     it 'destroys the public body heading' do
       PublicBodyHeading.destroy_all
 
-      heading = FactoryGirl.create(:public_body_heading)
+      heading = FactoryBot.create(:public_body_heading)
 
       expect{
         post :destroy, :id => heading.id
@@ -452,12 +452,12 @@ describe AdminPublicBodyHeadingsController do
       PublicBodyHeading.destroy_all
       PublicBodyCategory.destroy_all
 
-      heading = FactoryGirl.create(:public_body_heading)
-      category = FactoryGirl.create(:public_body_category)
-      link = FactoryGirl.create(:public_body_category_link,
-                                :public_body_category => category,
-                                :public_body_heading => heading,
-                                :category_display_order => 0)
+      heading = FactoryBot.create(:public_body_heading)
+      category = FactoryBot.create(:public_body_category)
+      link = FactoryBot.create(:public_body_category_link,
+                               :public_body_category => category,
+                               :public_body_heading => heading,
+                               :category_display_order => 0)
 
       expect{
         post :destroy, :id => heading.id
@@ -465,13 +465,13 @@ describe AdminPublicBodyHeadingsController do
     end
 
     it 'notifies the admin that the heading was destroyed' do
-      heading = FactoryGirl.create(:public_body_heading)
+      heading = FactoryBot.create(:public_body_heading)
       post :destroy, :id => heading.id
       expect(flash[:notice]).to eq('Heading was successfully destroyed.')
     end
 
     it 'redirects to the categories index' do
-      heading = FactoryGirl.create(:public_body_heading)
+      heading = FactoryBot.create(:public_body_heading)
       post :destroy, :id => heading.id
       expect(response).to redirect_to(admin_categories_path)
     end
@@ -483,8 +483,8 @@ describe AdminPublicBodyHeadingsController do
     render_views
 
     before do
-      @first = FactoryGirl.create(:public_body_heading, :display_order => 0)
-      @second = FactoryGirl.create(:public_body_heading, :display_order => 1)
+      @first = FactoryBot.create(:public_body_heading, :display_order => 0)
+      @second = FactoryBot.create(:public_body_heading, :display_order => 1)
       @default_params = { :headings => [@second.id, @first.id] }
     end
 
@@ -532,17 +532,17 @@ describe AdminPublicBodyHeadingsController do
     render_views
 
     before do
-      @heading = FactoryGirl.create(:public_body_heading)
-      @first_category = FactoryGirl.create(:public_body_category)
-      @first_link = FactoryGirl.create(:public_body_category_link,
-                                       :public_body_category => @first_category,
+      @heading = FactoryBot.create(:public_body_heading)
+      @first_category = FactoryBot.create(:public_body_category)
+      @first_link = FactoryBot.create(:public_body_category_link,
+                                      :public_body_category => @first_category,
+                                      :public_body_heading => @heading,
+                                      :category_display_order => 0)
+      @second_category = FactoryBot.create(:public_body_category)
+      @second_link = FactoryBot.create(:public_body_category_link,
+                                       :public_body_category => @second_category,
                                        :public_body_heading => @heading,
-                                       :category_display_order => 0)
-      @second_category = FactoryGirl.create(:public_body_category)
-      @second_link = FactoryGirl.create(:public_body_category_link,
-                                        :public_body_category => @second_category,
-                                        :public_body_heading => @heading,
-                                        :category_display_order => 1)
+                                       :category_display_order => 1)
       @default_params = { :categories => [@second_category.id, @first_category.id],
                           :id => @heading }
       @old_order = [@first_category, @second_category]
@@ -572,7 +572,7 @@ describe AdminPublicBodyHeadingsController do
     context 'when handling invalid input' do
 
       before do
-        @new_category = FactoryGirl.create(:public_body_category)
+        @new_category = FactoryBot.create(:public_body_category)
         @params = @default_params.merge(:categories => [@second_category.id,
                                                         @first_category.id,
                                                         @new_category.id])

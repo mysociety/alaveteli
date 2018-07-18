@@ -23,20 +23,20 @@ describe CensorRule do
   describe '#apply_to_text' do
 
     it 'applies the rule to the text' do
-      rule = FactoryGirl.build(:censor_rule, :text => 'secret')
+      rule = FactoryBot.build(:censor_rule, :text => 'secret')
       text = 'Some secret text'
       expect(rule.apply_to_text(text)).to eq('Some [REDACTED] text')
     end
 
     it 'does not mutate the input' do
-      rule = FactoryGirl.build(:censor_rule, :text => 'secret')
+      rule = FactoryBot.build(:censor_rule, :text => 'secret')
       text = 'Some secret text'
       rule.apply_to_text(text)
       expect(text).to eq('Some secret text')
     end
 
     it 'returns the text if the rule is unmatched' do
-      rule = FactoryGirl.build(:censor_rule, :text => 'secret')
+      rule = FactoryBot.build(:censor_rule, :text => 'secret')
       text = 'Some text'
       expect(rule.apply_to_text(text)).to eq('Some text')
     end
@@ -45,7 +45,7 @@ describe CensorRule do
       attrs = { :text => '--PRIVATE.*--PRIVATE',
                 :replacement => "--REMOVED\nHidden private info\n--REMOVED",
                 :regexp => true }
-      rule = FactoryGirl.build(:censor_rule, attrs)
+      rule = FactoryBot.build(:censor_rule, attrs)
       text = <<-EOF.strip_heredoc
       Some public information
       --PRIVATE
@@ -66,13 +66,13 @@ describe CensorRule do
   describe '#apply_to_binary' do
 
     it 'applies the rule to the text' do
-      rule = FactoryGirl.build(:censor_rule, :text => 'secret')
+      rule = FactoryBot.build(:censor_rule, :text => 'secret')
       text = 'Some secret text'
       expect(rule.apply_to_binary(text)).to eq('Some xxxxxx text')
     end
 
     it 'does not modify the size of the string' do
-      rule = FactoryGirl.build(:censor_rule, :text => 'secret')
+      rule = FactoryBot.build(:censor_rule, :text => 'secret')
       text = 'Some secret text'
       original_text = text.dup
       redacted = rule.apply_to_binary(text)
@@ -80,20 +80,20 @@ describe CensorRule do
     end
 
     it 'does not mutate the input' do
-      rule = FactoryGirl.build(:censor_rule, :text => 'secret')
+      rule = FactoryBot.build(:censor_rule, :text => 'secret')
       text = 'Some secret text'
       rule.apply_to_binary(text)
       expect(text).to eq('Some secret text')
     end
 
     it 'returns the text if the rule is unmatched' do
-      rule = FactoryGirl.build(:censor_rule, :text => 'secret')
+      rule = FactoryBot.build(:censor_rule, :text => 'secret')
       text = 'Some text'
       expect(rule.apply_to_binary(text)).to eq('Some text')
     end
 
     it 'handles a UTF-8 rule and ASCII-8BIT text' do
-      rule = FactoryGirl.build(:censor_rule, :text => 'sécret')
+      rule = FactoryBot.build(:censor_rule, :text => 'sécret')
       text = 'Some sécret text'
       text.force_encoding('ASCII-8BIT') if String.method_defined?(:encode)
       expect(rule.apply_to_binary(text)).to eq("Some xxxxxxx text")
@@ -104,7 +104,7 @@ describe CensorRule do
       attrs = { :text => '--PRIVATE.*--PRIVATE',
                 :replacement => "--REMOVED\nHidden private info\n--REMOVED",
                 :regexp => true }
-      rule = FactoryGirl.build(:censor_rule, attrs)
+      rule = FactoryBot.build(:censor_rule, attrs)
       text = <<-EOF.strip_heredoc
       Some public information
       --PRIVATE
@@ -124,7 +124,7 @@ describe CensorRule do
       attrs = { :text => '--PRIVATE.*--P‘RIVATE',
                 :replacement => "--REMOVED\nHidden private info\n--REMOVED",
                 :regexp => true }
-      rule = FactoryGirl.build(:censor_rule, attrs)
+      rule = FactoryBot.build(:censor_rule, attrs)
       text = <<-EOF.strip_heredoc
       Some public information
       --PRIVATE
@@ -146,29 +146,29 @@ describe CensorRule do
   describe '#expire_requests' do
 
     it 'calls expire on the request if it is a request rule' do
-      request = FactoryGirl.create(:info_request)
-      rule = FactoryGirl.create(:info_request_censor_rule,
-                                :info_request => request)
+      request = FactoryBot.create(:info_request)
+      rule = FactoryBot.create(:info_request_censor_rule,
+                               :info_request => request)
       expect(request).to receive(:expire)
       rule.expire_requests
     end
 
     it 'calls expire_requests on the user if it is a user rule' do
-      user = FactoryGirl.create(:user)
-      rule = FactoryGirl.create(:user_censor_rule, :user => user)
+      user = FactoryBot.create(:user)
+      rule = FactoryBot.create(:user_censor_rule, :user => user)
       expect(user).to receive(:expire_requests)
       rule.expire_requests
     end
 
     it 'calls expire_requests on the public body if it is a public body rule' do
-      body = FactoryGirl.create(:public_body)
-      rule = FactoryGirl.create(:public_body_censor_rule, :public_body => body)
+      body = FactoryBot.create(:public_body)
+      rule = FactoryBot.create(:public_body_censor_rule, :public_body => body)
       expect(body).to receive(:expire_requests)
       rule.expire_requests
     end
 
     it 'calls expire on all public requests if it is a global rule' do
-      rule = FactoryGirl.build(:global_censor_rule)
+      rule = FactoryBot.build(:global_censor_rule)
       requests = [double, double]
       expect(InfoRequest).to receive(:find_in_batches).and_yield(requests)
 

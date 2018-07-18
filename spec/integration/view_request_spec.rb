@@ -5,7 +5,7 @@ require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 describe "When viewing requests" do
 
   before do
-    @info_request = FactoryGirl.create(:info_request)
+    @info_request = FactoryBot.create(:info_request)
     @unregistered = without_login
   end
 
@@ -37,9 +37,9 @@ describe "When viewing requests" do
   context "when a request is hidden by an admin" do
 
     it 'should not retain any cached attachments to be served up by the webserver' do
-      admin = login(FactoryGirl.create(:admin_user))
-      non_owner = login(FactoryGirl.create(:user))
-      info_request = FactoryGirl.create(:info_request_with_incoming_attachments)
+      admin = login(FactoryBot.create(:admin_user))
+      non_owner = login(FactoryBot.create(:user))
+      info_request = FactoryBot.create(:info_request_with_incoming_attachments)
       incoming_message = info_request.incoming_messages.first
       attachment_url = "/es/request/#{info_request.id}/response/#{incoming_message.id}/attach/2/interesting.pdf"
       using_session(non_owner){ visit(attachment_url) }
@@ -58,7 +58,7 @@ describe "When viewing requests" do
   context 'when a response has prominence "normal"' do
 
     before do
-      @info_request = FactoryGirl.create(:info_request_with_incoming)
+      @info_request = FactoryBot.create(:info_request_with_incoming)
     end
 
     it 'should show the message itself to any user' do
@@ -81,7 +81,7 @@ describe "When viewing requests" do
       end
 
       # admin
-      admin_user = login(FactoryGirl.create(:admin_user))
+      admin_user = login(FactoryBot.create(:admin_user))
       using_session(admin_user) do
         browse_request(@info_request.url_title)
         expect(page).to have_content("hereisthetext")
@@ -94,7 +94,7 @@ describe "When viewing requests" do
   context 'when a response has prominence "hidden"' do
 
     before do
-      @info_request = FactoryGirl.create(:info_request_with_incoming)
+      @info_request = FactoryBot.create(:info_request_with_incoming)
       message = @info_request.incoming_messages.first
       message.prominence = 'hidden'
       message.prominence_reason = 'It is too irritating.'
@@ -123,7 +123,7 @@ describe "When viewing requests" do
       end
 
       # admin
-      admin_user = login(FactoryGirl.create(:admin_user))
+      admin_user = login(FactoryBot.create(:admin_user))
       using_session(admin_user) do
         browse_request(@info_request.url_title)
         expect(page).to have_content('hereisthetext')
@@ -138,7 +138,7 @@ describe "When viewing requests" do
   context 'when a response has prominence "requester_only"' do
 
     before do
-      @info_request = FactoryGirl.create(:info_request_with_incoming)
+      @info_request = FactoryBot.create(:info_request_with_incoming)
       message = @info_request.incoming_messages.first
       message.prominence = 'requester_only'
       message.prominence_reason = 'It is too irritating.'
@@ -167,7 +167,7 @@ describe "When viewing requests" do
       end
 
       # admin
-      admin_user = login(FactoryGirl.create(:admin_user))
+      admin_user = login(FactoryBot.create(:admin_user))
       using_session(admin_user) do
         browse_request(@info_request.url_title)
         expect(page).to have_content('hereisthetext')
@@ -181,7 +181,7 @@ describe "When viewing requests" do
   context 'when an outgoing message has prominence "requester_only"' do
 
     before do
-      @info_request = FactoryGirl.create(:info_request)
+      @info_request = FactoryBot.create(:info_request)
       message = @info_request.outgoing_messages.first
       message.prominence = 'requester_only'
       message.prominence_reason = 'It is too irritating.'
@@ -210,7 +210,7 @@ describe "When viewing requests" do
       end
 
       # admin
-      admin_user = login(FactoryGirl.create(:admin_user))
+      admin_user = login(FactoryBot.create(:admin_user))
       using_session(admin_user) do
         browse_request(@info_request.url_title)
         expect(page).to have_content('Some information please')

@@ -16,12 +16,12 @@
 #  regexp            :boolean
 #
 
-FactoryGirl.define do
+FactoryBot.define do
 
   factory :censor_rule do
     text 'some text to redact'
     replacement '[REDACTED]'
-    last_edit_editor 'FactoryGirl'
+    last_edit_editor 'FactoryBot'
     last_edit_comment 'Modified by rspec'
 
     factory :regexp_censor_rule do

@@ -3,7 +3,7 @@ require 'spec_helper'
 require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
 describe "Signing in" do
-  let(:user){ FactoryGirl.create(:user) }
+  let(:user){ FactoryBot.create(:user) }
 
   def try_login(user, options = {})
     default_options = { :email => user.email,
@@ -52,7 +52,7 @@ describe "Signing in" do
     end
 
     context 'if an account is not confirmed' do
-      let(:user) { FactoryGirl.create(:user, :email_confirmed => false) }
+      let(:user) { FactoryBot.create(:user, :email_confirmed => false) }
 
       it "sends a confirmation email_token, logs you in and redirects you" do
         try_login(user, { :redirect => '/list' })
@@ -65,7 +65,7 @@ describe "Signing in" do
       end
 
       context 'if an admin clicks the confirmation link' do
-        let(:admin_user) { FactoryGirl.create(:admin_user) }
+        let(:admin_user) { FactoryBot.create(:admin_user) }
 
         it "should keep you logged in if you click a confirmation link" do
           try_login(user, { :redirect => '/list' })

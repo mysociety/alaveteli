@@ -17,7 +17,7 @@
 #  updated_at          :datetime
 #
 
-FactoryGirl.define do
+FactoryBot.define do
 
   factory :info_request_event do
     info_request

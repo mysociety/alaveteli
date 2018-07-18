@@ -13,7 +13,7 @@
 require 'spec_helper'
 
 RSpec.describe AlaveteliPro::EmbargoExtension do
-  let(:embargo_extension) { FactoryGirl.create(:embargo_extension) }
+  let(:embargo_extension) { FactoryBot.create(:embargo_extension) }
 
   it "has an embargo" do
     expect(embargo_extension.embargo).to be_a AlaveteliPro::Embargo

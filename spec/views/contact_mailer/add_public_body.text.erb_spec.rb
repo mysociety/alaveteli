@@ -2,9 +2,9 @@
 require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
 
 describe "contact_mailer/add_public_body" do
-  let(:user) { FactoryGirl.create(:user, :name => "Test Us'r") }
+  let(:user) { FactoryBot.create(:user, :name => "Test Us'r") }
   let(:change_request) do
-    FactoryGirl.create(
+    FactoryBot.create(
       :add_body_request,
       :public_body_name => "Apostrophe's",
       :user => user,

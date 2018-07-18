@@ -28,7 +28,7 @@ describe PublicBodyCategory do
     end
 
     it 'should require a unique tag' do
-      existing = FactoryGirl.create(:public_body_category)
+      existing = FactoryBot.create(:public_body_category)
       expect(PublicBodyCategory.new(:category_tag => existing.category_tag)).
         not_to be_valid
     end
@@ -40,7 +40,7 @@ describe PublicBodyCategory do
     end
 
     it 'validates the translations' do
-      category = FactoryGirl.build(:public_body_category)
+      category = FactoryBot.build(:public_body_category)
       translation = category.translations.build
       expect(category).to_not be_valid
     end
@@ -60,7 +60,7 @@ describe PublicBodyCategory do
   describe '#save' do
 
     it 'saves translations' do
-      category = FactoryGirl.build(:public_body_category)
+      category = FactoryBot.build(:public_body_category)
       category.translations_attributes = { :es => { :locale => 'es',
                                                     :title => 'El Category',
                                                     :description => 'Spanish description' } }
@@ -76,7 +76,7 @@ describe PublicBodyCategory do
     context 'translation_attrs is a Hash' do
 
       it 'does not persist translations' do
-        category = FactoryGirl.create(:public_body_category)
+        category = FactoryBot.create(:public_body_category)
         category.translations_attributes = { :es => { :locale => 'es',
                                                       :title => 'El Category',
                                                       :description => 'Spanish description' } }
@@ -85,7 +85,7 @@ describe PublicBodyCategory do
       end
 
       it 'creates a new translation' do
-        category = FactoryGirl.create(:public_body_category)
+        category = FactoryBot.create(:public_body_category)
         category.translations_attributes = { :es => { :locale => 'es',
                                                       :title => 'El Category',
                                                       :description => 'Spanish description' } }
@@ -95,7 +95,7 @@ describe PublicBodyCategory do
       end
 
       it 'updates an existing translation' do
-        category = FactoryGirl.create(:public_body_category)
+        category = FactoryBot.create(:public_body_category)
         category.translations_attributes = { 'es' => { :locale => 'es',
                                                        :title => 'Name',
                                                        :description => 'Desc' } }
@@ -110,7 +110,7 @@ describe PublicBodyCategory do
       end
 
       it 'updates an existing translation and creates a new translation' do
-        category = FactoryGirl.create(:public_body_category)
+        category = FactoryBot.create(:public_body_category)
         category.translations.create(:locale => 'es',
                                      :title => 'Los Category',
                                      :description => 'ES Description')
@@ -135,7 +135,7 @@ describe PublicBodyCategory do
       end
 
       it 'skips empty translations' do
-        category = FactoryGirl.create(:public_body_category)
+        category = FactoryBot.create(:public_body_category)
         category.translations.create(:locale => 'es',
                                      :title => 'Los Category',
                                      :description => 'ES Description')

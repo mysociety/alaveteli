@@ -2,18 +2,18 @@
 require 'spec_helper'
 
 describe AlaveteliPro::EmbargoesController do
-  let(:pro_user) { FactoryGirl.create(:pro_user) }
+  let(:pro_user) { FactoryBot.create(:pro_user) }
 
   let(:admin) do
-    user = FactoryGirl.create(:pro_admin_user)
+    user = FactoryBot.create(:pro_admin_user)
     user.roles << Role.find_by(name: 'pro')
     user
   end
-  let(:info_request) { FactoryGirl.create(:info_request, user: pro_user) }
-  let(:embargo) { FactoryGirl.create(:embargo, info_request: info_request) }
+  let(:info_request) { FactoryBot.create(:info_request, user: pro_user) }
+  let(:embargo) { FactoryBot.create(:embargo, info_request: info_request) }
 
   describe '#create' do
-    let(:info_request) { FactoryGirl.create(:info_request, user: pro_user) }
+    let(:info_request) { FactoryBot.create(:info_request, user: pro_user) }
 
     context 'when the user is allowed to add an embargo' do
 
@@ -62,7 +62,7 @@ describe AlaveteliPro::EmbargoesController do
     end
 
     context "when the user is not allowed to update the embargo" do
-      let(:other_user) { FactoryGirl.create(:pro_user) }
+      let(:other_user) { FactoryBot.create(:pro_user) }
 
       it "raises a CanCan::AccessDenied error" do
         expect do
@@ -79,7 +79,7 @@ describe AlaveteliPro::EmbargoesController do
     end
 
     context "when the info_request is part of a batch request" do
-      let(:info_request_batch) { FactoryGirl.create(:info_request_batch) }
+      let(:info_request_batch) { FactoryBot.create(:info_request_batch) }
 
       before do
         info_request.info_request_batch = info_request_batch
@@ -160,7 +160,7 @@ describe AlaveteliPro::EmbargoesController do
     end
 
     context "when the user is not allowed to update the embargo" do
-      let(:other_user) { FactoryGirl.create(:pro_user) }
+      let(:other_user) { FactoryBot.create(:pro_user) }
 
       it "raises a CanCan::AccessDenied error" do
         expect do
@@ -173,7 +173,7 @@ describe AlaveteliPro::EmbargoesController do
     end
 
     context "when the info_request is part of a batch request" do
-      let(:info_request_batch) { FactoryGirl.create(:info_request_batch) }
+      let(:info_request_batch) { FactoryBot.create(:info_request_batch) }
 
       before do
         info_request.info_request_batch = info_request_batch
@@ -193,11 +193,11 @@ describe AlaveteliPro::EmbargoesController do
 
   describe "#destroy_batch" do
     let(:info_request_batch) do
-      batch = FactoryGirl.create(
+      batch = FactoryBot.create(
         :info_request_batch,
         embargo_duration: "3_months",
         user: pro_user,
-        public_bodies: FactoryGirl.create_list(:public_body, 2))
+        public_bodies: FactoryBot.create_list(:public_body, 2))
       batch.create_batch!
       batch
     end
@@ -279,7 +279,7 @@ describe AlaveteliPro::EmbargoesController do
     end
 
     context "when the user is not allowed to update the batch" do
-      let(:other_user) { FactoryGirl.create(:pro_user) }
+      let(:other_user) { FactoryBot.create(:pro_user) }
 
       it "raises a CanCan::AccessDenied error" do
         expect do

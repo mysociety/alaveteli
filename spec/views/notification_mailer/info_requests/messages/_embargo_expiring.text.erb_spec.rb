@@ -2,13 +2,13 @@
 require 'spec_helper'
 
 describe("notification_mailer/info_requests/messages/_embargo_expiring.text.erb") do
-  let!(:info_request) { FactoryGirl.create(:embargo_expiring_request) }
+  let!(:info_request) { FactoryBot.create(:embargo_expiring_request) }
   let!(:info_request_event) do
-    FactoryGirl.create(:embargo_expiring_event, info_request: info_request)
+    FactoryBot.create(:embargo_expiring_event, info_request: info_request)
   end
   let!(:notification) do
-    FactoryGirl.create(:daily_notification,
-                       info_request_event: info_request_event)
+    FactoryBot.create(:daily_notification,
+                      info_request_event: info_request_event)
   end
   let(:template) do
     "notification_mailer/info_requests/messages/embargo_expiring"

@@ -33,7 +33,7 @@
 #  last_event_time                       :datetime
 #
 
-FactoryGirl.define do
+FactoryBot.define do
 
   factory :info_request do
     sequence(:title) { |n| "Example Title #{n}" }
@@ -157,13 +157,13 @@ FactoryGirl.define do
 
     factory :old_unclassified_request do
       after(:create) do |info_request, evaluator|
-        incoming_message = FactoryGirl.create(
+        incoming_message = FactoryBot.create(
           :incoming_message,
           :info_request => info_request,
           :created_at => Time.zone.now - 31.days
         )
         info_request.info_request_events = [
-          FactoryGirl.create(
+          FactoryBot.create(
             :info_request_event,
             :info_request => info_request,
             :event_type => "response",

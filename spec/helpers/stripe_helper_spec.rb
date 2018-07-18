@@ -3,7 +3,7 @@ require 'spec_helper'
 describe StripeHelper do
   include StripeHelper
 
-  let(:current_user) { FactoryGirl.create(:user) }
+  let(:current_user) { FactoryBot.create(:user) }
 
   before(:each) do
     allow(AlaveteliConfiguration).to receive(:stripe_publishable_key).

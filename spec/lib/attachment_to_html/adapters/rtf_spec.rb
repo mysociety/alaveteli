@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../../../spec_helper')
 
 describe AttachmentToHTML::Adapters::RTF do
 
-  let(:attachment) { FactoryGirl.build(:rtf_attachment) }
+  let(:attachment) { FactoryBot.build(:rtf_attachment) }
   let(:adapter) { AttachmentToHTML::Adapters::RTF.new(attachment) }
 
   describe :tmpdir do
@@ -62,7 +62,7 @@ describe AttachmentToHTML::Adapters::RTF do
     end
 
     it 'converts empty files' do
-      attachment = FactoryGirl.build(:rtf_attachment, :body => load_file_fixture('empty.rtf'))
+      attachment = FactoryBot.build(:rtf_attachment, :body => load_file_fixture('empty.rtf'))
       adapter = AttachmentToHTML::Adapters::RTF.new(attachment)
       expect(adapter.body).to eq('')
     end

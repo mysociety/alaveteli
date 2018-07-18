@@ -21,7 +21,7 @@ describe SpamAddress do
     end
 
     it 'must have a unique email address' do
-      existing = FactoryGirl.create(:spam_address)
+      existing = FactoryBot.create(:spam_address)
       expect(SpamAddress.new(:email => existing.email)).not_to be_valid
     end
 
@@ -30,7 +30,7 @@ describe SpamAddress do
   describe '.spam?' do
 
     before(:each) do
-      @spam_address = FactoryGirl.create(:spam_address)
+      @spam_address = FactoryBot.create(:spam_address)
     end
 
     it 'is a spam address if the address is stored' do

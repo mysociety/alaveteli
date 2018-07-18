@@ -32,7 +32,7 @@ describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
     end
 
     context 'with a signed-in user' do
-      let(:user) { FactoryGirl.create(:pro_user) }
+      let(:user) { FactoryBot.create(:pro_user) }
 
       let(:customer) do
         customer = Stripe::Customer.

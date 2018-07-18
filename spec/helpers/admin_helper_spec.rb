@@ -9,12 +9,12 @@ describe AdminHelper do
   describe '#comment_visibility' do
 
     it 'shows the status of a visible comment' do
-      comment = FactoryGirl.build(:visible_comment)
+      comment = FactoryBot.build(:visible_comment)
       expect(comment_visibility(comment)).to eq('Visible')
     end
 
     it 'shows the status of a hidden comment' do
-      comment = FactoryGirl.build(:hidden_comment)
+      comment = FactoryBot.build(:hidden_comment)
       expect(comment_visibility(comment)).to eq('Hidden')
     end
 
@@ -38,7 +38,7 @@ describe AdminHelper do
 
   describe '#comment_both_links' do
 
-    let(:comment) { FactoryGirl.create(:comment) }
+    let(:comment) { FactoryBot.create(:comment) }
 
     it 'includes a link to the comment on the site' do
       expect(comment_both_links(comment)).to include(comment_path(comment))

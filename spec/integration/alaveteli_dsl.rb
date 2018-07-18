@@ -27,7 +27,7 @@ module AlaveteliDsl
   end
 
   def create_request_and_user(public_body)
-    user = FactoryGirl.build(:user)
+    user = FactoryBot.build(:user)
     # Make a request in the normal way
     using_session(without_login) do
       create_request(public_body)

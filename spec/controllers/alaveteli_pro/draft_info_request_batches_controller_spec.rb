@@ -16,7 +16,7 @@ shared_examples_for "adding a body to a request" do
   end
 
   context "if the user doesn't own the given draft" do
-    let(:other_pro_user) { FactoryGirl.create(:pro_user) }
+    let(:other_pro_user) { FactoryBot.create(:pro_user) }
 
     before do
       session[:user_id] = other_pro_user.id
@@ -49,7 +49,7 @@ shared_examples_for "removing a body from a request" do
   end
 
   context "if the user doesn't own the given draft" do
-    let(:other_pro_user) { FactoryGirl.create(:pro_user) }
+    let(:other_pro_user) { FactoryBot.create(:pro_user) }
 
     before do
       session[:user_id] = other_pro_user.id
@@ -77,10 +77,10 @@ shared_examples_for 'respecting the selected page' do
 end
 
 describe AlaveteliPro::DraftInfoRequestBatchesController do
-  let(:pro_user) { FactoryGirl.create(:pro_user) }
-  let(:authority_1) { FactoryGirl.create(:public_body) }
-  let(:authority_2) { FactoryGirl.create(:public_body) }
-  let(:authority_3) { FactoryGirl.create(:public_body) }
+  let(:pro_user) { FactoryBot.create(:pro_user) }
+  let(:authority_1) { FactoryBot.create(:public_body) }
+  let(:authority_2) { FactoryBot.create(:public_body) }
+  let(:authority_3) { FactoryBot.create(:public_body) }
 
   before do
     session[:user_id] = pro_user.id
@@ -154,7 +154,7 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
 
   describe "#update_bodies" do
     let(:draft) do
-      FactoryGirl.create(:draft_info_request_batch, user: pro_user)
+      FactoryBot.create(:draft_info_request_batch, user: pro_user)
     end
 
     describe "when adding a body" do
@@ -307,7 +307,7 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
 
   describe "#update" do
     let(:draft) do
-      FactoryGirl.create(:draft_info_request_batch, user: pro_user)
+      FactoryBot.create(:draft_info_request_batch, user: pro_user)
     end
     let(:params) do
       {

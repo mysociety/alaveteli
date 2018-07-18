@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe InfoRequest::State::Calculator do
-  let(:info_request) { FactoryGirl.create(:info_request) }
+  let(:info_request) { FactoryBot.create(:info_request) }
   let(:calculator) { described_class.new(info_request) }
 
   describe '#phase' do

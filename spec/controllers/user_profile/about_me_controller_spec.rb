@@ -24,7 +24,7 @@ describe UserProfile::AboutMeController do
 
     context 'with a logged in user' do
 
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
 
       it 'assigns the currently logged in user' do
         session[:user_id] = user.id
@@ -69,7 +69,7 @@ describe UserProfile::AboutMeController do
 
     context 'with a banned user' do
 
-      let(:banned_user) { FactoryGirl.create(:user, :ban_text => 'banned') }
+      let(:banned_user) { FactoryBot.create(:user, :ban_text => 'banned') }
 
       before :each do
         session[:user_id] = banned_user.id
@@ -89,7 +89,7 @@ describe UserProfile::AboutMeController do
 
     context 'with valid attributes' do
 
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
 
       before :each do
         session[:user_id] = user.id
@@ -141,7 +141,7 @@ describe UserProfile::AboutMeController do
 
     context 'with invalid attributes' do
 
-      let(:user) { FactoryGirl.create(:user, :about_me => 'My bio') }
+      let(:user) { FactoryBot.create(:user, :about_me => 'My bio') }
       let(:invalid_text) { 'x' * 1000 }
 
       before :each do
@@ -167,7 +167,7 @@ describe UserProfile::AboutMeController do
 
     context 'with invalid parameters' do
 
-      let(:user) { FactoryGirl.create(:user, :about_me => 'My bio') }
+      let(:user) { FactoryBot.create(:user, :about_me => 'My bio') }
 
       before :each do
         session[:user_id] = user.id
@@ -193,7 +193,7 @@ describe UserProfile::AboutMeController do
 
     context 'with extra attributes' do
 
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
 
       before :each do
         session[:user_id] = user.id
@@ -206,7 +206,7 @@ describe UserProfile::AboutMeController do
       end
 
       it 'sets whitelisted attributes' do
-        user = FactoryGirl.create(:user, :name => '1234567')
+        user = FactoryBot.create(:user, :name => '1234567')
         session[:user_id] = user.id
         put :update, :user => { :about_me => 'My bio',
                                 :role_ids => [ Role.admin_role.id ] }
@@ -218,8 +218,8 @@ describe UserProfile::AboutMeController do
     context 'with spam attributes and a non-whitelisted user' do
 
       let(:user) do
-        FactoryGirl.create(:user, :name => 'JWahewKjWhebCd',
-                                  :confirmed_not_spam => false)
+        FactoryBot.create(:user, :name => 'JWahewKjWhebCd',
+                                 :confirmed_not_spam => false)
       end
 
       before :each do
@@ -253,8 +253,8 @@ describe UserProfile::AboutMeController do
     context 'with spam attributes and a whitelisted user' do
 
       let(:user) do
-        FactoryGirl.create(:user, :name => 'JWahewKjWhebCd',
-                                  :confirmed_not_spam => true)
+        FactoryBot.create(:user, :name => 'JWahewKjWhebCd',
+                                 :confirmed_not_spam => true)
       end
 
       before :each do
@@ -276,7 +276,7 @@ describe UserProfile::AboutMeController do
 
     context 'with block_spam_about_me_text? returning true, spam content and a non-whitelisted user' do
 
-      let(:user) { FactoryGirl.create(:user, :confirmed_not_spam => false) }
+      let(:user) { FactoryBot.create(:user, :confirmed_not_spam => false) }
 
       before :each do
         UserSpamScorer.score_mappings = {}
@@ -314,7 +314,7 @@ describe UserProfile::AboutMeController do
     context 'with block_spam_about_me_text? returning false, spam content and a whitelisted user' do
 
       let(:user) do
-        FactoryGirl.create(:user, :name => '12345', :confirmed_not_spam => true)
+        FactoryBot.create(:user, :name => '12345', :confirmed_not_spam => true)
       end
 
       before :each do
@@ -332,7 +332,7 @@ describe UserProfile::AboutMeController do
 
     context 'with block_spam_about_me_text? returning true, spam content and a whitelisted user' do
 
-      let(:user) { FactoryGirl.create(:user, :confirmed_not_spam => true) }
+      let(:user) { FactoryBot.create(:user, :confirmed_not_spam => true) }
 
       before :each do
         session[:user_id] = user.id

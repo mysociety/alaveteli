@@ -28,7 +28,7 @@ describe "When searching" do
 
   it "should not log a logged-in user out" do
     with_forgery_protection do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       user_session = login(user)
       using_session(user_session) do
         visit frontpage_path

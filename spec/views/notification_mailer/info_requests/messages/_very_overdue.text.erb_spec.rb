@@ -2,15 +2,15 @@
 require 'spec_helper'
 
 describe("notification_mailer/info_requests/messages/_very_overdue.text.erb") do
-  let!(:public_body) { FactoryGirl.create(:public_body, name: "One & Two") }
+  let!(:public_body) { FactoryBot.create(:public_body, name: "One & Two") }
   let!(:info_request) do
-    FactoryGirl.create(:overdue_request, public_body: public_body)
+    FactoryBot.create(:overdue_request, public_body: public_body)
   end
   let!(:info_request_event) do
-    FactoryGirl.create(:overdue_event, info_request: info_request)
+    FactoryBot.create(:overdue_event, info_request: info_request)
   end
   let!(:notification) do
-    FactoryGirl.create(:daily_notification,
+    FactoryBot.create(:daily_notification,
                        info_request_event: info_request_event)
   end
   let(:template) do

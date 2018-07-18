@@ -15,13 +15,13 @@ describe InfoRequest::ResponseGatekeeper::Nobody do
     end
 
     it 'assigns the info_request' do
-      info_request = FactoryGirl.build(:info_request)
+      info_request = FactoryBot.build(:info_request)
       gatekeeper = described_class.new(info_request)
       expect(gatekeeper.info_request).to eq(info_request)
     end
 
     it 'does not allow responses' do
-      info_request = FactoryGirl.build(:info_request)
+      info_request = FactoryBot.build(:info_request)
       gatekeeper = described_class.new(info_request)
       expect(gatekeeper.allow).to eq(false)
     end
@@ -29,7 +29,7 @@ describe InfoRequest::ResponseGatekeeper::Nobody do
     it 'sets a default reason' do
       reason = _('This request has been set by an administrator to ' \
                  '"allow new responses from nobody"')
-      info_request = FactoryGirl.build(:info_request)
+      info_request = FactoryBot.build(:info_request)
       gatekeeper = described_class.new(info_request)
       expect(gatekeeper.reason).to eq(reason)
     end

@@ -2,10 +2,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe AlaveteliPro::EmbargoExtensionsController do
-  let(:pro_user) { FactoryGirl.create(:pro_user) }
+  let(:pro_user) { FactoryBot.create(:pro_user) }
 
   let(:admin) do
-    user = FactoryGirl.create(:pro_admin_user)
+    user = FactoryBot.create(:pro_admin_user)
     user.roles << Role.find_by(name: 'pro')
     user
   end
@@ -13,14 +13,14 @@ describe AlaveteliPro::EmbargoExtensionsController do
   let(:info_request) do
     # so that embargoes are near expiry
     time_travel_to(88.days.ago) do
-      FactoryGirl.create(:info_request, user: pro_user)
+      FactoryBot.create(:info_request, user: pro_user)
     end
   end
 
   let(:embargo) do
     # so that embargoes are near expiry
     time_travel_to(88.days.ago) do
-      embargo = FactoryGirl.create(:embargo, info_request: info_request)
+      embargo = FactoryBot.create(:embargo, info_request: info_request)
       embargo.
         update_attribute(:publish_at, embargo.expiring_notification_at + 7.days)
       embargo
@@ -98,7 +98,7 @@ describe AlaveteliPro::EmbargoExtensionsController do
     end
 
     context "when the user does not own the embargo" do
-      let(:other_user) {  FactoryGirl.create(:pro_user) }
+      let(:other_user) {  FactoryBot.create(:pro_user) }
 
       it 'raises a CanCan::AccessDenied error' do
         expect do
@@ -135,9 +135,9 @@ describe AlaveteliPro::EmbargoExtensionsController do
 
     context 'when the embargo is not near expiry' do
 
-      let(:info_request) { FactoryGirl.create(:info_request, user: pro_user) }
+      let(:info_request) { FactoryBot.create(:info_request, user: pro_user) }
       let(:embargo) do
-        FactoryGirl.create(:embargo, info_request: info_request)
+        FactoryBot.create(:embargo, info_request: info_request)
       end
 
       it "raises a PermissionDenied error if the owner requests extension" do
@@ -167,7 +167,7 @@ describe AlaveteliPro::EmbargoExtensionsController do
     end
 
     context "when the info_request is part of a batch request" do
-      let(:info_request_batch) { FactoryGirl.create(:info_request_batch) }
+      let(:info_request_batch) { FactoryBot.create(:info_request_batch) }
 
       before do
         info_request.info_request_batch = info_request_batch
@@ -207,11 +207,11 @@ describe AlaveteliPro::EmbargoExtensionsController do
 
   describe "#create_batch" do
     let(:info_request_batch) do
-      batch = FactoryGirl.create(
+      batch = FactoryBot.create(
         :info_request_batch,
         embargo_duration: "3_months",
         user: pro_user,
-        public_bodies: FactoryGirl.create_list(:public_body, 2))
+        public_bodies: FactoryBot.create_list(:public_body, 2))
       batch.create_batch!
       batch
     end
@@ -283,7 +283,7 @@ describe AlaveteliPro::EmbargoExtensionsController do
     end
 
     context 'when the user is not allowed to update the embargo' do
-      let(:other_user) { FactoryGirl.create(:pro_user) }
+      let(:other_user) { FactoryBot.create(:pro_user) }
 
       it 'raises a CanCan::AccessDenied error' do
         expect do

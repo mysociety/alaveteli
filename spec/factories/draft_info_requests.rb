@@ -12,7 +12,7 @@
 #  updated_at       :datetime         not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :draft_info_request do
     sequence(:title) { |n| "Draft: Example Title #{n}" }
     public_body

@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../../../spec_helper')
 
 describe AttachmentToHTML::Adapters::GoogleDocsViewer do
 
-  let(:attachment) { FactoryGirl.build(:pdf_attachment) }
+  let(:attachment) { FactoryBot.build(:pdf_attachment) }
   let(:adapter) do
     AttachmentToHTML::Adapters::GoogleDocsViewer.new(attachment, :attachment_url => 'http://example.com/test.pdf')
   end

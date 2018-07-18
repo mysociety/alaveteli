@@ -8,6 +8,6 @@
 #  updated_at :datetime
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :raw_email
 end

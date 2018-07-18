@@ -9,12 +9,12 @@ describe "Site statistics" do
 
   describe "for public bodies" do
     it "should include all requests except hidden requests in the total count" do
-      public_body = FactoryGirl.create(:public_body)
-      FactoryGirl.create(:info_request, public_body: public_body)
-      FactoryGirl.create(:info_request,
+      public_body = FactoryBot.create(:public_body)
+      FactoryBot.create(:info_request, public_body: public_body)
+      FactoryBot.create(:info_request,
                          public_body: public_body,
                          prominence: "requester_only")
-      FactoryGirl.create(:info_request,
+      FactoryBot.create(:info_request,
                          public_body: public_body,
                          described_state: "successful")
 

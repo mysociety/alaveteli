@@ -60,19 +60,19 @@ end
 describe User, "banning the user" do
 
   it 'does not change the URL name' do
-    user = FactoryGirl.create(:user, :name => 'nasty user 123')
+    user = FactoryBot.create(:user, :name => 'nasty user 123')
     user.update_attributes(:ban_text => 'You are banned')
     expect(user.url_name).to eq('nasty_user_123')
   end
 
   it 'does not change the stored name' do
-    user = FactoryGirl.create(:user, :name => 'nasty user 123')
+    user = FactoryBot.create(:user, :name => 'nasty user 123')
     user.update_attributes(:ban_text => 'You are banned')
     expect(user.read_attribute(:name)).to eq('nasty user 123')
   end
 
   it 'appends a message to the name' do
-    user = FactoryGirl.build(:user, :name => 'nasty user', :ban_text => 'banned')
+    user = FactoryBot.build(:user, :name => 'nasty user', :ban_text => 'banned')
     expect(user.name).to eq('nasty user (Account suspended)')
   end
 
@@ -562,7 +562,7 @@ end
 describe User, "when calculating if a user has exceeded the request limit" do
 
   before do
-    @info_request = FactoryGirl.create(:info_request)
+    @info_request = FactoryBot.create(:info_request)
     @user = @info_request.user
   end
 
@@ -615,14 +615,14 @@ describe User do
     it 'gets most frequent requesters' do
       User.destroy_all
 
-      user1 = FactoryGirl.create(:user)
-      user2 = FactoryGirl.create(:user)
-      user3 = FactoryGirl.create(:user)
+      user1 = FactoryBot.create(:user)
+      user2 = FactoryBot.create(:user)
+      user3 = FactoryBot.create(:user)
 
       time_travel_to(6.months.ago) do
-        5.times { FactoryGirl.create(:info_request, user: user1) }
-        2.times { FactoryGirl.create(:info_request, user: user2) }
-        FactoryGirl.create(:info_request, user: user3)
+        5.times { FactoryBot.create(:info_request, user: user1) }
+        2.times { FactoryBot.create(:info_request, user: user2) }
+        FactoryBot.create(:info_request, user: user3)
       end
 
       expect(User.all_time_requesters).
@@ -635,14 +635,14 @@ describe User do
 
   describe '.last_28_day_requesters' do
     it 'gets recent frequent requesters' do
-      user_with_3_requests = FactoryGirl.create(:user)
-      3.times { FactoryGirl.create(:info_request, user: user_with_3_requests) }
-      user_with_2_requests = FactoryGirl.create(:user)
-      2.times { FactoryGirl.create(:info_request, user: user_with_2_requests) }
-      user_with_1_request = FactoryGirl.create(:user)
-      FactoryGirl.create(:info_request, user: user_with_1_request)
-      user_with_an_old_request = FactoryGirl.create(:user)
-      FactoryGirl.create(:info_request, user: user_with_an_old_request, created_at: 2.months.ago)
+      user_with_3_requests = FactoryBot.create(:user)
+      3.times { FactoryBot.create(:info_request, user: user_with_3_requests) }
+      user_with_2_requests = FactoryBot.create(:user)
+      2.times { FactoryBot.create(:info_request, user: user_with_2_requests) }
+      user_with_1_request = FactoryBot.create(:user)
+      FactoryBot.create(:info_request, user: user_with_1_request)
+      user_with_an_old_request = FactoryBot.create(:user)
+      FactoryBot.create(:info_request, user: user_with_an_old_request, created_at: 2.months.ago)
 
       expect(User.last_28_day_requesters).to eql(
         {
@@ -668,14 +668,14 @@ describe User do
 
   describe '.last_28_day_commenters' do
     it 'gets recent frequent commenters' do
-      user_with_3_comments = FactoryGirl.create(:user)
-      3.times { FactoryGirl.create(:comment, user: user_with_3_comments) }
-      user_with_2_comments = FactoryGirl.create(:user)
-      2.times { FactoryGirl.create(:comment, user: user_with_2_comments) }
-      user_with_1_comment = FactoryGirl.create(:user)
-      FactoryGirl.create(:comment, user: user_with_1_comment)
-      user_with_an_old_comment = FactoryGirl.create(:user)
-      FactoryGirl.create(:comment, user: user_with_an_old_comment, created_at: 2.months.ago)
+      user_with_3_comments = FactoryBot.create(:user)
+      3.times { FactoryBot.create(:comment, user: user_with_3_comments) }
+      user_with_2_comments = FactoryBot.create(:user)
+      2.times { FactoryBot.create(:comment, user: user_with_2_comments) }
+      user_with_1_comment = FactoryBot.create(:user)
+      FactoryBot.create(:comment, user: user_with_1_comment)
+      user_with_an_old_comment = FactoryBot.create(:user)
+      FactoryBot.create(:comment, user: user_with_an_old_comment, created_at: 2.months.ago)
 
       expect(User.last_28_day_commenters).to eql(
         {
@@ -706,16 +706,16 @@ describe User do
 
   describe '#destroy' do
 
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     it 'destroys any associated info_requests' do
-      info_request = FactoryGirl.create(:info_request)
+      info_request = FactoryBot.create(:info_request)
       info_request.user.reload.destroy
       expect(InfoRequest.where(:id => info_request.id)).to be_empty
     end
 
     it 'destroys any associated user_info_request_sent_alerts' do
-      info_request = FactoryGirl.create(:info_request)
+      info_request = FactoryBot.create(:info_request)
       alert = user.user_info_request_sent_alerts.build(:info_request => info_request,
                                                        :alert_type => 'overdue_1')
       user.destroy
@@ -730,19 +730,19 @@ describe User do
     end
 
     it 'destroys any associated track_things' do
-      track_thing = FactoryGirl.create(:search_track)
+      track_thing = FactoryBot.create(:search_track)
       track_thing.tracking_user.destroy
       expect(TrackThing.where(:id => track_thing.id)).to be_empty
     end
 
     it 'destroys any associated comments' do
-      comment = FactoryGirl.create(:comment)
+      comment = FactoryBot.create(:comment)
       comment.user.destroy
       expect(Comment.where(:id => comment.id)).to be_empty
     end
 
     it 'destroys any associated public_body_change_requests' do
-      change_request = FactoryGirl.create(:add_body_request)
+      change_request = FactoryBot.create(:add_body_request)
       change_request.user.destroy
       expect(PublicBodyChangeRequest.where(:id => change_request.id))
         .to be_empty
@@ -755,19 +755,19 @@ describe User do
     end
 
     it 'destroys any associated censor_rules' do
-      censor_rule = FactoryGirl.create(:user_censor_rule)
+      censor_rule = FactoryBot.create(:user_censor_rule)
       censor_rule.user.destroy
       expect(CensorRule.where(:id => censor_rule.id)).to be_empty
     end
 
     it 'destroys any associated info_request_batches' do
-      info_request_batch = FactoryGirl.create(:info_request_batch)
+      info_request_batch = FactoryBot.create(:info_request_batch)
       info_request_batch.user.destroy
       expect(InfoRequestBatch.where(:id => info_request_batch.id)).to be_empty
     end
 
     it 'destroys any associated request_classifications' do
-      request_classification = FactoryGirl.create(:request_classification)
+      request_classification = FactoryBot.create(:request_classification)
       request_classification.user.destroy
       expect(RequestClassification.where(:id => request_classification.id))
         .to be_empty
@@ -778,7 +778,7 @@ describe User do
   describe '#expire_requests' do
 
     it 'calls expire on all associated requests' do
-      user = FactoryGirl.build(:user)
+      user = FactoryBot.build(:user)
       requests = [double, double]
       expect(user).to receive(:info_requests).and_return(requests)
 
@@ -796,7 +796,7 @@ describe User do
     context 'with require_otp' do
 
       it 'has no effect when otp is disabled' do
-        user = FactoryGirl.build(:user)
+        user = FactoryBot.build(:user)
         user.enable_otp
         user.disable_otp
         user.require_otp = true
@@ -805,7 +805,7 @@ describe User do
       end
 
       it 'it has no effect when require_otp is false' do
-        user = FactoryGirl.build(:user)
+        user = FactoryBot.build(:user)
         user.enable_otp
         user.require_otp = false
         user.entered_otp_code = 'invalid'
@@ -813,7 +813,7 @@ describe User do
       end
 
       it 'is invalid with an incorrect otp' do
-        user = FactoryGirl.build(:user)
+        user = FactoryBot.build(:user)
         user.enable_otp
         user.require_otp = true
         user.entered_otp_code = 'invalid'
@@ -821,7 +821,7 @@ describe User do
       end
 
       it 'is invalid with a nil otp' do
-        user = FactoryGirl.build(:user)
+        user = FactoryBot.build(:user)
         user.enable_otp
         user.require_otp = true
         user.entered_otp_code = nil
@@ -830,7 +830,7 @@ describe User do
 
       it 'adds an error for an invalid otp' do
         msg = 'Invalid one time password'
-        user = FactoryGirl.build(:user)
+        user = FactoryBot.build(:user)
         user.enable_otp
         user.require_otp = true
         user.entered_otp_code = 'invalid'
@@ -839,7 +839,7 @@ describe User do
       end
 
       it 'increments the otp_counter if a correct otp_code is used' do
-        user = FactoryGirl.build(:user)
+        user = FactoryBot.build(:user)
         user.enable_otp
         user.require_otp = true
         user.entered_otp_code = user.otp_code
@@ -853,7 +853,7 @@ describe User do
     context 'with otp disabled' do
 
       it 'is valid with any otp' do
-        user = FactoryGirl.build(:user)
+        user = FactoryBot.build(:user)
         user.disable_otp
         user.entered_otp_code = 'invalid'
         expect(user.valid?).to eq(true)
@@ -1057,19 +1057,19 @@ describe User do
   describe '#banned?' do
 
     it 'is banned if the user has ban_text' do
-      user = FactoryGirl.build(:user, :ban_text => 'banned')
+      user = FactoryBot.build(:user, :ban_text => 'banned')
       expect(user).to be_banned
     end
 
     it 'is not banned if the user has no ban_text' do
-      user = FactoryGirl.build(:user, :ban_text => '')
+      user = FactoryBot.build(:user, :ban_text => '')
       expect(user).to_not be_banned
     end
 
   end
 
   describe '#active?' do
-    let(:user) { FactoryGirl.build(:user) }
+    let(:user) { FactoryBot.build(:user) }
 
     it 'should be active if not banned' do
       allow(user).to receive(:banned?).and_return(false)
@@ -1084,7 +1084,7 @@ describe User do
   end
 
   describe '#suspended?' do
-    let(:user) { FactoryGirl.build(:user) }
+    let(:user) { FactoryBot.build(:user) }
 
     it 'should not be suspended if not banned' do
       allow(user).to receive(:banned?).and_return(false)
@@ -1101,7 +1101,7 @@ describe User do
   describe '.active' do
 
     it 'should not return banned users' do
-      user = FactoryGirl.create(:user, :ban_text => 'banned')
+      user = FactoryBot.create(:user, :ban_text => 'banned')
       expect(User.active).to_not include(user)
     end
 
@@ -1110,7 +1110,7 @@ describe User do
   describe '.banned' do
 
     it 'should return banned users' do
-      user = FactoryGirl.create(:user, :ban_text => 'banned')
+      user = FactoryBot.create(:user, :ban_text => 'banned')
       expect(User.banned).to include(user)
     end
 
@@ -1119,7 +1119,7 @@ describe User do
   describe '.not_banned' do
 
     it 'should not return banned users' do
-      user = FactoryGirl.create(:user, :ban_text => 'banned')
+      user = FactoryBot.create(:user, :ban_text => 'banned')
       expect(User.not_banned).not_to include(user)
     end
 
@@ -1128,25 +1128,25 @@ describe User do
   describe '#confirm' do
 
     it 'confirms an unconfirmed user' do
-       user = FactoryGirl.build(:user, :email_confirmed => false)
+       user = FactoryBot.build(:user, :email_confirmed => false)
        user.confirm
        expect(user.email_confirmed).to be(true)
     end
 
     it 'no-ops a confirmed user' do
-       user = FactoryGirl.build(:user, :email_confirmed => true)
-       user.confirm
-       expect(user.email_confirmed).to be(true)
+      user = FactoryBot.build(:user, :email_confirmed => true)
+      user.confirm
+      expect(user.email_confirmed).to be(true)
     end
 
     it 'does not save by default' do
-      user = FactoryGirl.build(:user, :email_confirmed => false)
+      user = FactoryBot.build(:user, :email_confirmed => false)
       user.confirm
       expect(user).to be_new_record
     end
 
     it 'saves the record if passed an argument' do
-      user = FactoryGirl.build(:user, :email_confirmed => false)
+      user = FactoryBot.build(:user, :email_confirmed => false)
       user.confirm(true)
       expect(user).to be_persisted
     end
@@ -1156,25 +1156,25 @@ describe User do
   describe '#confirm!' do
 
     it 'confirms an unconfirmed user' do
-       user = FactoryGirl.build(:user, :email_confirmed => false)
+       user = FactoryBot.build(:user, :email_confirmed => false)
        user.confirm!
        expect(user.reload.email_confirmed).to be(true)
     end
 
     it 'no-ops a confirmed user' do
-       user = FactoryGirl.build(:user, :email_confirmed => true)
-       user.confirm!
-       expect(user.reload.email_confirmed).to be(true)
+      user = FactoryBot.build(:user, :email_confirmed => true)
+      user.confirm!
+      expect(user.reload.email_confirmed).to be(true)
     end
 
     it 'saves the record' do
-      user = FactoryGirl.build(:user, :email_confirmed => false)
+      user = FactoryBot.build(:user, :email_confirmed => false)
       user.confirm!
       expect(user).to be_persisted
     end
 
     it 'it raises an error on save if the record is invalid' do
-      user = FactoryGirl.build(:user, :email => nil, :email_confirmed => false)
+      user = FactoryBot.build(:user, :email => nil, :email_confirmed => false)
       expect { user.confirm! }.to raise_error(ActiveRecord::RecordInvalid)
     end
 
@@ -1183,7 +1183,7 @@ describe User do
   describe '.find_user_by_email' do
 
     it 'finds a user by email case-insensitively' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       expect(User.find_user_by_email(user.email.upcase)).to eq(user)
     end
 
@@ -1200,7 +1200,7 @@ describe User do
     end
 
     it 'matches a padded email' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       expect(User.find_user_by_email(" #{user.email} ")).to eq(user)
     end
 
@@ -1209,14 +1209,14 @@ describe User do
   describe '#about_me_already_exists?' do
 
     it 'is true if the about_me text already exists for another user' do
-      FactoryGirl.create(:user, :about_me => '123')
-      user = FactoryGirl.build(:user, :about_me => '123')
+      FactoryBot.create(:user, :about_me => '123')
+      user = FactoryBot.build(:user, :about_me => '123')
       expect(user.about_me_already_exists?).to eq(true)
     end
 
     it 'is false if the about_me text is unique to the user' do
       User.update_all(:about_me => '')
-      user = FactoryGirl.build(:user, :about_me => '123')
+      user = FactoryBot.build(:user, :about_me => '123')
       expect(user.about_me_already_exists?).to eq(false)
     end
 
@@ -1244,25 +1244,25 @@ describe User do
   describe '#can_admin_roles' do
 
     it 'returns an array including the admin and roles for an admin user' do
-      admin_user = FactoryGirl.create(:admin_user)
+      admin_user = FactoryBot.create(:admin_user)
       expect(admin_user.can_admin_roles).to eq([:admin])
     end
 
     it 'returns an empty array for a pro user' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       expect(user.can_admin_roles).to eq([])
     end
 
     it 'returns an empty array for a user with no roles' do
-      pro_user = FactoryGirl.create(:pro_user)
+      pro_user = FactoryBot.create(:pro_user)
       expect(pro_user.can_admin_roles).to eq([])
     end
 
   end
 
   describe '#can_admin_role?' do
-    let(:admin_user){ FactoryGirl.create(:admin_user) }
-    let(:pro_user){ FactoryGirl.create(:pro_user) }
+    let(:admin_user){ FactoryBot.create(:admin_user) }
+    let(:pro_user){ FactoryBot.create(:pro_user) }
 
     it 'returns true for an admin user and the admin role' do
       expect(admin_user.can_admin_role?(:admin))
@@ -1287,8 +1287,8 @@ describe User do
 
   describe 'pro scope' do
     it "only includes pro user" do
-      pro_user = FactoryGirl.create(:pro_user)
-      user = FactoryGirl.create(:user)
+      pro_user = FactoryBot.create(:pro_user)
+      user = FactoryBot.create(:user)
       expect(User.pro.include?(pro_user)).to be true
       expect(User.pro.include?(user)).to be false
     end
@@ -1300,11 +1300,11 @@ describe User do
     end
 
     it 'returns false if the user is not a superuser' do
-      expect(User.view_hidden?(FactoryGirl.create(:user))).to be false
+      expect(User.view_hidden?(FactoryBot.create(:user))).to be false
     end
 
     it 'returns true if the user is an admin user' do
-      expect(User.view_hidden?(FactoryGirl.create(:admin_user))).to be true
+      expect(User.view_hidden?(FactoryBot.create(:admin_user))).to be true
     end
   end
 
@@ -1314,24 +1314,24 @@ describe User do
     end
 
     it 'returns false if the user has no roles' do
-      expect(User.view_embargoed?(FactoryGirl.create(:user))).to be false
+      expect(User.view_embargoed?(FactoryBot.create(:user))).to be false
     end
 
     it 'returns false if the user is an admin user' do
-      expect(User.view_embargoed?(FactoryGirl.create(:admin_user))).to be false
+      expect(User.view_embargoed?(FactoryBot.create(:admin_user))).to be false
     end
 
     context 'with pro enabled' do
 
       it 'returns false if the user is an admin user' do
         with_feature_enabled(:alaveteli_pro) do
-          expect(User.view_embargoed?(FactoryGirl.create(:admin_user))).to be false
+          expect(User.view_embargoed?(FactoryBot.create(:admin_user))).to be false
         end
       end
 
       it 'returns true if the user is a pro_admin user' do
         with_feature_enabled(:alaveteli_pro) do
-          expect(User.view_embargoed?(FactoryGirl.create(:pro_admin_user))).to be true
+          expect(User.view_embargoed?(FactoryBot.create(:pro_admin_user))).to be true
         end
       end
 
@@ -1344,24 +1344,24 @@ describe User do
     end
 
     it 'returns false if the user has no role' do
-      expect(User.view_hidden_and_embargoed?(FactoryGirl.create(:user))).to be false
+      expect(User.view_hidden_and_embargoed?(FactoryBot.create(:user))).to be false
     end
 
     it 'returns false if the user is an admin user' do
-      expect(User.view_hidden_and_embargoed?(FactoryGirl.create(:admin_user))).to be false
+      expect(User.view_hidden_and_embargoed?(FactoryBot.create(:admin_user))).to be false
     end
 
     context 'with pro enabled' do
 
       it 'returns false if the user is an admin user' do
         with_feature_enabled(:alaveteli_pro) do
-          expect(User.view_hidden_and_embargoed?(FactoryGirl.create(:admin_user))).to be false
+          expect(User.view_hidden_and_embargoed?(FactoryBot.create(:admin_user))).to be false
         end
       end
 
       it 'returns true if pro is enabled and the user is a pro_admin user' do
         with_feature_enabled(:alaveteli_pro) do
-          expect(User.view_hidden_and_embargoed?(FactoryGirl.create(:pro_admin_user)))
+          expect(User.view_hidden_and_embargoed?(FactoryBot.create(:pro_admin_user)))
             .to be true
         end
       end
@@ -1369,16 +1369,16 @@ describe User do
   end
 
   describe '.info_request_events' do
-    let(:user) { FactoryGirl.create(:user) }
-    let(:info_request) { FactoryGirl.create(:info_request, :user => user) }
+    let(:user) { FactoryBot.create(:user) }
+    let(:info_request) { FactoryBot.create(:info_request, :user => user) }
     let!(:response_event) do
-      FactoryGirl.create(:response_event, :info_request => info_request)
+      FactoryBot.create(:response_event, :info_request => info_request)
     end
     let!(:comment_event) do
-      FactoryGirl.create(:comment_event, :info_request => info_request)
+      FactoryBot.create(:comment_event, :info_request => info_request)
     end
     let!(:resent_event) do
-      FactoryGirl.create(:resent_event, :info_request => info_request)
+      FactoryBot.create(:resent_event, :info_request => info_request)
     end
 
     it "returns events in descending created_at order" do
@@ -1395,7 +1395,7 @@ describe User do
 
   describe 'notifications' do
     it 'deletes associated notifications when destroyed' do
-      notification = FactoryGirl.create(:notification)
+      notification = FactoryBot.create(:notification)
       user = notification.user.reload
       expect(Notification.where(id: notification.id)).to exist
       user.destroy
@@ -1405,8 +1405,8 @@ describe User do
 
   describe '#next_daily_summary_time' do
     let(:user) do
-      FactoryGirl.create(:user, daily_summary_hour: 7,
-                                daily_summary_minute: 56)
+      FactoryBot.create(:user, daily_summary_hour: 7,
+                               daily_summary_minute: 56)
     end
 
     context "when the time is in the future" do
@@ -1434,8 +1434,8 @@ describe User do
 
   describe '#daily_summary_time' do
     let(:user) do
-      FactoryGirl.create(:user, daily_summary_hour: 7,
-                                daily_summary_minute: 56)
+      FactoryBot.create(:user, daily_summary_hour: 7,
+                               daily_summary_minute: 56)
     end
 
     it "returns the hour and minute of the user's daily summary time" do
@@ -1445,7 +1445,7 @@ describe User do
   end
 
   describe "setting daily_summary_time on new users" do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
     let(:expected_time) { Time.zone.now.change(hour: 7, min: 57) }
 
     before do
@@ -1459,8 +1459,8 @@ describe User do
     end
 
     it "doesn't override the hour and minute if they're already set" do
-      user = FactoryGirl.create(:user, daily_summary_hour: 9,
-                                       daily_summary_minute: 15)
+      user = FactoryBot.create(:user, daily_summary_hour: 9,
+                                      daily_summary_minute: 15)
       expect(user.daily_summary_hour).to eq(9)
       expect(user.daily_summary_minute).to eq(15)
     end
@@ -1474,7 +1474,7 @@ describe User do
 
   describe '#notification_frequency' do
     context 'when the user has :notifications' do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
 
       before do
         AlaveteliFeatures.backend[:notifications].enable_actor user
@@ -1486,7 +1486,7 @@ describe User do
     end
 
     context 'when the user doesnt have :notifications' do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
 
       it 'returns Notification::INSTANTLY' do
         expect(user.notification_frequency).to eq (Notification::INSTANTLY)
@@ -1495,7 +1495,7 @@ describe User do
   end
 
   describe "#notify" do
-    let(:info_request_event) { FactoryGirl.create(:response_event) }
+    let(:info_request_event) { FactoryBot.create(:response_event) }
     let(:user) { info_request_event.info_request.user }
 
     it "creates a notification" do
@@ -1510,7 +1510,7 @@ describe User do
   end
 
   describe "#flipper_id" do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     it "returns the user's id, prefixed with the class name" do
       expect(user.flipper_id).to eq("User;#{user.id}")
@@ -1521,7 +1521,7 @@ describe User do
 
     context 'with pro pricing enabled', feature: :pro_pricing do
       it 'creates pro account when pro role added' do
-        user = FactoryGirl.build(:user)
+        user = FactoryBot.build(:user)
         expect { user.add_role :pro }.to change(user, :pro_account).
           from(nil).to(ProAccount)
       end
@@ -1529,7 +1529,7 @@ describe User do
 
     context 'without pro pricing enabled' do
       it 'does not create pro account when pro role is added' do
-        user = FactoryGirl.build(:user)
+        user = FactoryBot.build(:user)
         expect { user.add_role :pro }.to_not change(user, :pro_account).
           from(nil)
       end
@@ -1538,7 +1538,7 @@ describe User do
   end
 
   describe 'update callbacks' do
-    let(:user) { FactoryGirl.build(:user) }
+    let(:user) { FactoryBot.build(:user) }
 
     context 'changing email address of a pro user' do
       let(:pro_account) { double(:pro_account) }

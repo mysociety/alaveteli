@@ -3,17 +3,17 @@ require 'spec_helper'
 
 describe InfoRequestBatchController do
   describe "#show" do
-    let(:first_public_body) { FactoryGirl.create(:public_body) }
-    let(:second_public_body) { FactoryGirl.create(:public_body) }
+    let(:first_public_body) { FactoryBot.create(:public_body) }
+    let(:second_public_body) { FactoryBot.create(:public_body) }
     let(:bodies) { [first_public_body, second_public_body] }
     let!(:info_request_batch) do
-      FactoryGirl.create(:info_request_batch, :title => 'Matched title',
-                                              :body => 'Matched body',
-                                              :public_bodies => bodies)
+      FactoryBot.create(:info_request_batch, :title => 'Matched title',
+                                             :body => 'Matched body',
+                                             :public_bodies => bodies)
     end
     let(:params) { {:id => info_request_batch.id} }
     let(:action) { get :show, params }
-    let(:pro_user) { FactoryGirl.create(:pro_user) }
+    let(:pro_user) { FactoryBot.create(:pro_user) }
 
     it 'should be successful' do
       action
@@ -35,18 +35,18 @@ describe InfoRequestBatchController do
     describe 'assigning @info_requests' do
       context 'when the batch has been sent' do
         let!(:first_request) do
-          FactoryGirl.create(:info_request, :info_request_batch => info_request_batch,
-                                            :public_body => first_public_body)
+          FactoryBot.create(:info_request, :info_request_batch => info_request_batch,
+                                           :public_body => first_public_body)
         end
         let!(:second_request) do
-          FactoryGirl.create(:info_request, :info_request_batch => info_request_batch,
-                                            :public_body => second_public_body)
+          FactoryBot.create(:info_request, :info_request_batch => info_request_batch,
+                                           :public_body => second_public_body)
         end
         let!(:hidden_request) do
-          FactoryGirl.create(:hidden_request, :info_request_batch => info_request_batch)
+          FactoryBot.create(:hidden_request, :info_request_batch => info_request_batch)
         end
         let!(:backpage_request) do
-          FactoryGirl.create(:backpage_request, :info_request_batch => info_request_batch)
+          FactoryBot.create(:backpage_request, :info_request_batch => info_request_batch)
         end
 
         before do
@@ -99,8 +99,8 @@ describe InfoRequestBatchController do
       context "when showing pros their own requests" do
         context "when the request is embargoed" do
           let(:batch) do
-            FactoryGirl.create(:embargoed_batch_request, public_bodies: bodies,
-                                                         user: pro_user)
+            FactoryBot.create(:embargoed_batch_request, public_bodies: bodies,
+                                                        user: pro_user)
           end
 
           it "should redirect to the pro version of the page" do
@@ -115,8 +115,8 @@ describe InfoRequestBatchController do
 
         context "when the request is not embargoed" do
           let(:batch) do
-            FactoryGirl.create(:batch_request, user: pro_user,
-                                               public_bodies: bodies)
+            FactoryBot.create(:batch_request, user: pro_user,
+                                              public_bodies: bodies)
           end
 
           it "should not redirect to the pro version of the page" do
@@ -145,13 +145,13 @@ describe InfoRequestBatchController do
 
     describe "accessing embargoed batches" do
       let(:batch) do
-        FactoryGirl.create(:embargoed_batch_request, public_bodies: bodies,
-                                                     user: pro_user)
+        FactoryBot.create(:embargoed_batch_request, public_bodies: bodies,
+                                                    user: pro_user)
       end
-      let(:admin) { FactoryGirl.create(:admin_user) }
-      let(:pro_admin) { FactoryGirl.create(:pro_admin_user) }
-      let(:other_pro_user) { FactoryGirl.create(:pro_user) }
-      let(:other_user) { FactoryGirl.create(:user) }
+      let(:admin) { FactoryBot.create(:admin_user) }
+      let(:pro_admin) { FactoryBot.create(:pro_admin_user) }
+      let(:other_pro_user) { FactoryBot.create(:pro_user) }
+      let(:other_user) { FactoryBot.create(:user) }
 
       it "allows the owner to access it" do
         with_feature_enabled(:alaveteli_pro) do

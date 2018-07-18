@@ -4,7 +4,7 @@ require 'spec_helper'
 describe AlaveteliPro::ActivityList::VeryOverdue do
   include Rails.application.routes.url_helpers
 
-  let(:event){ FactoryGirl.create(:very_overdue_event) }
+  let(:event){ FactoryBot.create(:very_overdue_event) }
   let(:activity){ described_class.new(event) }
 
   describe '#description' do

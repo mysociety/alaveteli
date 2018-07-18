@@ -4,17 +4,17 @@ require 'spec_helper'
 RSpec.describe AlaveteliPro::PublicBodiesController do
 
   describe "#index" do
-    let!(:pro_user) { FactoryGirl.create(:pro_user) }
-    let!(:body) { FactoryGirl.create(:public_body, :name => 'example') }
+    let!(:pro_user) { FactoryBot.create(:pro_user) }
+    let!(:body) { FactoryBot.create(:public_body, :name => 'example') }
     let!(:defunct_body) do
-      FactoryGirl.create(:defunct_public_body, :name => 'defunct')
+      FactoryBot.create(:defunct_public_body, :name => 'defunct')
     end
     let!(:not_apply_body) do
-      FactoryGirl.create(:not_apply_public_body, :name => 'not_apply')
+      FactoryBot.create(:not_apply_public_body, :name => 'not_apply')
     end
     let!(:not_requestable_body) do
-      FactoryGirl.create(:public_body, :name => 'not_requestable',
-                                       :request_email => 'blank')
+      FactoryBot.create(:public_body, :name => 'not_requestable',
+                                      :request_email => 'blank')
     end
 
     before do

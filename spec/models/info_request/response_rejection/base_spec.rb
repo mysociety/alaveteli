@@ -20,14 +20,14 @@ describe InfoRequest::ResponseRejection::Base do
     end
 
     it 'assigns the info_request' do
-      info_request = FactoryGirl.build(:info_request)
+      info_request = FactoryBot.build(:info_request)
       args = [info_request, double('email'), double('raw_email_data')]
       rejection = described_class.new(*args)
       expect(rejection.info_request).to eq(info_request)
     end
 
     it 'assigns the email' do
-      info_request = FactoryGirl.build(:info_request)
+      info_request = FactoryBot.build(:info_request)
       email = double('email')
       args = [info_request, email, double('raw_email_data')]
       rejection = described_class.new(*args)
@@ -35,7 +35,7 @@ describe InfoRequest::ResponseRejection::Base do
     end
 
     it 'assigns the raw_email_data' do
-      info_request = FactoryGirl.build(:info_request)
+      info_request = FactoryBot.build(:info_request)
       raw_email_data = double('raw_email_data')
       args = [info_request, double('email'), raw_email_data]
       rejection = described_class.new(*args)

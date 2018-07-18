@@ -8,9 +8,9 @@ describe AlaveteliPro::DashboardHelper do
   describe '#activity_item_description' do
 
     it 'renders the activity_item description with links' do
-      user = FactoryGirl.create(:user)
-      comment = FactoryGirl.create(:comment, :user => user)
-      event = FactoryGirl.create(:comment_event, :comment => comment)
+      user = FactoryBot.create(:user)
+      comment = FactoryBot.create(:comment, :user => user)
+      event = FactoryBot.create(:comment_event, :comment => comment)
       activity = AlaveteliPro::ActivityList::Comment.new(event)
 
       expected = "#{user_link user} added a new annotation on your request " \

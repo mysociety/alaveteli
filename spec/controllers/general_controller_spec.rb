@@ -15,37 +15,37 @@ describe GeneralController do
       User.find_each(&:destroy)
 
       # Create some constant God models for other factories
-      user = FactoryGirl.create(:user)
-      body = FactoryGirl.create(:public_body)
-      banned_user = FactoryGirl.create(:user, :ban_text => 'banned')
-      info_request = FactoryGirl.create(:info_request,
-                                        :user => user, :public_body => body)
+      user = FactoryBot.create(:user)
+      body = FactoryBot.create(:public_body)
+      banned_user = FactoryBot.create(:user, :ban_text => 'banned')
+      info_request = FactoryBot.create(:info_request,
+                                       :user => user, :public_body => body)
       default_args = { :info_request => info_request,
                        :public_body => body,
                        :user => user }
 
       # Create the other data we're checking
-      FactoryGirl.create(:info_request, :user => user,
-                                        :public_body => body,
-                                        :prominence => 'hidden')
-      FactoryGirl.create(:user, :email_confirmed => false)
-      FactoryGirl.create(:visible_comment,
-                         default_args.dup.slice!(:public_body))
-      FactoryGirl.create(:hidden_comment,
-                         default_args.dup.slice!(:public_body))
-      FactoryGirl.create(:search_track, :tracking_user => user)
-      FactoryGirl.create(:widget_vote,
-                         default_args.dup.slice!(:user, :public_body))
-      FactoryGirl.create(:internal_review_request,
-                         default_args.dup.slice!(:user, :public_body))
-      FactoryGirl.create(:internal_review_request,
-                         :info_request => info_request, :prominence => 'hidden')
-      FactoryGirl.create(:add_body_request,
-                         default_args.dup.slice!(:info_request))
-      event = FactoryGirl.create(:info_request_event,
-                                 default_args.dup.slice!(:user, :public_body))
-      FactoryGirl.create(:request_classification, :user => user,
-                                                  :info_request_event => event)
+      FactoryBot.create(:info_request, :user => user,
+                                       :public_body => body,
+                                       :prominence => 'hidden')
+      FactoryBot.create(:user, :email_confirmed => false)
+      FactoryBot.create(:visible_comment,
+                        default_args.dup.slice!(:public_body))
+      FactoryBot.create(:hidden_comment,
+                        default_args.dup.slice!(:public_body))
+      FactoryBot.create(:search_track, :tracking_user => user)
+      FactoryBot.create(:widget_vote,
+                        default_args.dup.slice!(:user, :public_body))
+      FactoryBot.create(:internal_review_request,
+                        default_args.dup.slice!(:user, :public_body))
+      FactoryBot.create(:internal_review_request,
+                        :info_request => info_request, :prominence => 'hidden')
+      FactoryBot.create(:add_body_request,
+                        default_args.dup.slice!(:info_request))
+      event = FactoryBot.create(:info_request_event,
+                                default_args.dup.slice!(:user, :public_body))
+      FactoryBot.create(:request_classification, :user => user,
+                                                 :info_request_event => event)
 
       mock_git_commit = Digest::SHA1.hexdigest(Time.now.to_s)
 
@@ -224,7 +224,7 @@ describe GeneralController, "when showing the frontpage" do
   describe 'when handling logged-in users' do
 
     before do
-      @user = FactoryGirl.create(:user)
+      @user = FactoryBot.create(:user)
       session[:user_id] = @user.id
     end
 
@@ -258,7 +258,7 @@ describe GeneralController, "when showing the frontpage" do
 
   describe 'when handling pro users' do
     before do
-      @user = FactoryGirl.create(:pro_user)
+      @user = FactoryBot.create(:pro_user)
       session[:user_id] = @user.id
       allow(controller).to receive(:feature_enabled?).with(:alaveteli_pro).and_return(true)
     end
@@ -360,17 +360,17 @@ describe GeneralController, 'when using xapian search' do
   end
 
   it 'should prioritise direct matches of public body names' do
-    FactoryGirl.
+    FactoryBot.
       create(:public_body,
              name: 'Cardiff Business Technology Centre Limited',
              notes: 'Something something cardiff council something else.')
 
-    FactoryGirl.
+    FactoryBot.
       create(:public_body,
              name: 'Cardiff and Vale of Glamorgan Community Health Council',
              notes: 'Another notes mentioning Cardiff Council.')
 
-    FactoryGirl.create(:public_body, name: 'Cardiff Council')
+    FactoryBot.create(:public_body, name: 'Cardiff Council')
 
     update_xapian_index
 

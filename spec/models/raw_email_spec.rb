@@ -20,7 +20,7 @@ describe RawEmail do
   end
 
   describe '#mail' do
-    let(:raw_email) { FactoryGirl.create(:incoming_message).raw_email }
+    let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
     let(:mock_mail) { double }
 
     before do
@@ -50,7 +50,7 @@ describe RawEmail do
       EOF
     end
 
-    let(:raw_email) { FactoryGirl.create(:incoming_message).raw_email }
+    let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
     let(:mock_mail) { Mail.new(data) }
 
     before do
@@ -73,13 +73,13 @@ describe RawEmail do
   describe '#data' do
 
     it 'roundtrips data unchanged' do
-      raw_email = FactoryGirl.create(:incoming_message).raw_email
+      raw_email = FactoryBot.create(:incoming_message).raw_email
       data = roundtrip_data(raw_email, "Hello, world!")
       expect(data).to eq("Hello, world!")
     end
 
     it 'returns an unchanged binary string with a valid encoding if the data is non-ascii and non-utf-8' do
-      raw_email = FactoryGirl.create(:incoming_message).raw_email
+      raw_email = FactoryBot.create(:incoming_message).raw_email
       data = roundtrip_data(raw_email, "\xA0")
 
       if data.respond_to?(:encoding)
@@ -95,7 +95,7 @@ describe RawEmail do
   describe '#data_as_text' do
 
     it 'returns a utf-8 string with a valid encoding if the data is non-ascii and non-utf8' do
-      raw_email = FactoryGirl.create(:incoming_message).raw_email
+      raw_email = FactoryBot.create(:incoming_message).raw_email
       roundtrip_data(raw_email, "\xA0ccc")
       data_as_text = raw_email.data_as_text
       expect(data_as_text).to eq("ccc")
@@ -109,7 +109,7 @@ describe RawEmail do
 
   describe '#destroy_file_representation!' do
 
-    let(:raw_email) { FactoryGirl.create(:incoming_message).raw_email }
+    let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
 
     it 'should delete the directory' do
       raw_email.destroy_file_representation!

@@ -80,7 +80,7 @@ describe TrackThing, "when tracking changes" do
 end
 
 describe TrackThing, "destroy" do
-  let(:track_thing) { FactoryGirl.create(:search_track) }
+  let(:track_thing) { FactoryBot.create(:search_track) }
 
   it "should destroy the track_thing" do
     track_thing.destroy

@@ -7,7 +7,7 @@ describe AdminCensorRuleController do
   describe 'GET index' do
 
     let!(:global_rules) do
-      3.times.map { FactoryGirl.create(:global_censor_rule) }
+      3.times.map { FactoryBot.create(:global_censor_rule) }
     end
 
     before do
@@ -19,9 +19,9 @@ describe AdminCensorRuleController do
     end
 
     it 'collects admin censor rules' do
-      FactoryGirl.create(:info_request_censor_rule)
-      FactoryGirl.create(:public_body_censor_rule)
-      FactoryGirl.create(:user_censor_rule)
+      FactoryBot.create(:info_request_censor_rule)
+      FactoryBot.create(:public_body_censor_rule)
+      FactoryBot.create(:user_censor_rule)
       expect(assigns[:censor_rules]).to match_array(global_rules)
     end
 
@@ -71,7 +71,7 @@ describe AdminCensorRuleController do
 
     context 'request_id param' do
 
-      let(:info_request) { FactoryGirl.create(:info_request) }
+      let(:info_request) { FactoryBot.create(:info_request) }
 
       before do
         get :new, :request_id => info_request.id
@@ -106,7 +106,7 @@ describe AdminCensorRuleController do
 
     context 'user_id param' do
 
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
 
       before do
         get :new, :user_id => user.id
@@ -141,7 +141,7 @@ describe AdminCensorRuleController do
     # NOTE: This should be public_body_id but the resource is mapped as :bodies
     context 'body_id param' do
 
-      let(:public_body) { FactoryGirl.create(:public_body) }
+      let(:public_body) { FactoryBot.create(:public_body) }
 
       before do
         get :new, :body_id => public_body.id
@@ -181,7 +181,7 @@ describe AdminCensorRuleController do
     context 'a global censor rule' do
 
       let(:censor_rule_params) do
-        params = FactoryGirl.attributes_for(:global_censor_rule)
+        params = FactoryBot.attributes_for(:global_censor_rule)
         # last_edit_editor gets set in the controller
         params.delete(:last_edit_editor)
         params
@@ -219,7 +219,7 @@ describe AdminCensorRuleController do
       context 'successfully saving the censor rule' do
 
         it 'calls expire_requests on the new censor_rule' do
-          censor_rule = FactoryGirl.build(:global_censor_rule)
+          censor_rule = FactoryBot.build(:global_censor_rule)
           allow(CensorRule).to receive(:new) { censor_rule }
           allow(censor_rule).to receive(:expire_requests)
 
@@ -260,13 +260,13 @@ describe AdminCensorRuleController do
     context 'request_id param' do
 
       let(:censor_rule_params) do
-        params = FactoryGirl.attributes_for(:info_request_censor_rule)
+        params = FactoryBot.attributes_for(:info_request_censor_rule)
         # last_edit_editor gets set in the controller
         params.delete(:last_edit_editor)
         params
       end
 
-      let(:info_request) { FactoryGirl.create(:info_request) }
+      let(:info_request) { FactoryBot.create(:info_request) }
 
       it 'sets the last_edit_editor to the current admin' do
         post :create, :request_id => info_request.id,
@@ -310,8 +310,8 @@ describe AdminCensorRuleController do
 
         it 'calls expire_requests on the new censor_rule' do
           allow(InfoRequest).to receive(:find).and_return(info_request)
-          censor_rule_spy = FactoryGirl.build(:info_request_censor_rule,
-                                              :info_request => info_request)
+          censor_rule_spy = FactoryBot.build(:info_request_censor_rule,
+                                             :info_request => info_request)
           allow(info_request.censor_rules).to receive(:build).
             and_return(censor_rule_spy)
 
@@ -355,10 +355,10 @@ describe AdminCensorRuleController do
 
     context 'user_id param' do
 
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
 
       let(:censor_rule_params) do
-        params = FactoryGirl.attributes_for(:user_censor_rule, :user => user)
+        params = FactoryBot.attributes_for(:user_censor_rule, :user => user)
         # last_edit_editor gets set in the controller
         params.delete(:last_edit_editor)
         params
@@ -393,8 +393,8 @@ describe AdminCensorRuleController do
 
         it 'calls expire_requests on the new censor_rule' do
           allow(User).to receive(:find) { user }
-          censor_rule = FactoryGirl.build(:user_censor_rule,
-                                          :user => user)
+          censor_rule = FactoryBot.build(:user_censor_rule,
+                                         :user => user)
           allow(user.censor_rules).to receive(:build) { censor_rule }
           allow(censor_rule).to receive(:expire_requests)
 
@@ -437,13 +437,13 @@ describe AdminCensorRuleController do
     context 'body_id param' do
 
       let(:censor_rule_params) do
-        params = FactoryGirl.attributes_for(:public_body_censor_rule)
+        params = FactoryBot.attributes_for(:public_body_censor_rule)
         # last_edit_editor gets set in the controller
         params.delete(:last_edit_editor)
         params
       end
 
-      let(:public_body) { FactoryGirl.create(:public_body) }
+      let(:public_body) { FactoryBot.create(:public_body) }
 
       before(:each) do
         post :create, :body_id => public_body.id,
@@ -484,8 +484,8 @@ describe AdminCensorRuleController do
 
         it 'calls expire_requests on the new censor_rule' do
           allow(PublicBody).to receive(:find) { public_body }
-          censor_rule = FactoryGirl.build(:public_body_censor_rule,
-                                          :public_body => public_body)
+          censor_rule = FactoryBot.build(:public_body_censor_rule,
+                                         :public_body => public_body)
           allow(public_body.censor_rules).to receive(:build) { censor_rule }
           allow(censor_rule).to receive(:expire_requests)
 
@@ -531,7 +531,7 @@ describe AdminCensorRuleController do
 
     context 'a CensorRule with an associated InfoRequest' do
 
-      let(:censor_rule) { FactoryGirl.create(:info_request_censor_rule) }
+      let(:censor_rule) { FactoryBot.create(:info_request_censor_rule) }
 
       it 'returns a successful response' do
         get :edit, :id => censor_rule.id
@@ -552,7 +552,7 @@ describe AdminCensorRuleController do
 
     context 'a CensorRule with an associated User' do
 
-      let(:censor_rule) { FactoryGirl.create(:user_censor_rule) }
+      let(:censor_rule) { FactoryBot.create(:user_censor_rule) }
 
       it 'returns a successful response' do
         get :edit, :id => censor_rule.id
@@ -573,7 +573,7 @@ describe AdminCensorRuleController do
 
     context 'a CensorRule with an associated PublicBody' do
 
-      let(:censor_rule) { FactoryGirl.create(:public_body_censor_rule) }
+      let(:censor_rule) { FactoryBot.create(:public_body_censor_rule) }
 
       it 'returns a successful response' do
         get :edit, :id => censor_rule.id
@@ -594,7 +594,7 @@ describe AdminCensorRuleController do
 
     context 'a global rule' do
 
-      let(:censor_rule) { FactoryGirl.create(:global_censor_rule) }
+      let(:censor_rule) { FactoryBot.create(:global_censor_rule) }
 
       it 'returns a successful response' do
         get :edit, :id => censor_rule.id
@@ -619,7 +619,7 @@ describe AdminCensorRuleController do
 
     context 'a global censor rule' do
 
-      let(:censor_rule) { FactoryGirl.create(:global_censor_rule) }
+      let(:censor_rule) { FactoryBot.create(:global_censor_rule) }
 
       it 'finds the correct censor rule to edit' do
         put :update, :id => censor_rule.id,
@@ -695,7 +695,7 @@ describe AdminCensorRuleController do
 
     context 'a CensorRule with an associated InfoRequest' do
 
-      let(:censor_rule) { FactoryGirl.create(:info_request_censor_rule) }
+      let(:censor_rule) { FactoryBot.create(:info_request_censor_rule) }
 
       it 'finds the correct censor rule to edit' do
         put :update, :id => censor_rule.id,
@@ -773,7 +773,7 @@ describe AdminCensorRuleController do
 
     context 'a CensorRule with an associated User' do
 
-      let(:censor_rule) { FactoryGirl.create(:user_censor_rule) }
+      let(:censor_rule) { FactoryBot.create(:user_censor_rule) }
 
       it 'finds the correct censor rule to edit' do
         put :update, :id => censor_rule.id,
@@ -849,7 +849,7 @@ describe AdminCensorRuleController do
 
     context 'a CensorRule with an associated PublicBody' do
 
-      let(:censor_rule) { FactoryGirl.create(:public_body_censor_rule) }
+      let(:censor_rule) { FactoryBot.create(:public_body_censor_rule) }
 
       it 'finds the correct censor rule to edit' do
         put :update, :id => censor_rule.id,
@@ -931,7 +931,7 @@ describe AdminCensorRuleController do
 
     context 'a global CensorRule' do
 
-      let(:censor_rule) { FactoryGirl.create(:global_censor_rule) }
+      let(:censor_rule) { FactoryBot.create(:global_censor_rule) }
 
       it 'finds the correct censor rule to destroy' do
         delete :destroy, :id => censor_rule.id
@@ -953,7 +953,7 @@ describe AdminCensorRuleController do
 
     context 'a CensorRule with an associated InfoRequest' do
 
-      let(:censor_rule) { FactoryGirl.create(:info_request_censor_rule) }
+      let(:censor_rule) { FactoryBot.create(:info_request_censor_rule) }
 
       it 'finds the correct censor rule to destroy' do
         delete :destroy, :id => censor_rule.id
@@ -984,7 +984,7 @@ describe AdminCensorRuleController do
 
     context 'a CensorRule with an associated User' do
 
-      let(:censor_rule) { FactoryGirl.create(:user_censor_rule) }
+      let(:censor_rule) { FactoryBot.create(:user_censor_rule) }
 
       it 'finds the correct censor rule to destroy' do
         delete :destroy, :id => censor_rule.id
@@ -1014,7 +1014,7 @@ describe AdminCensorRuleController do
 
     context 'a CensorRule with an associated PublicBody' do
 
-      let(:censor_rule) { FactoryGirl.create(:public_body_censor_rule) }
+      let(:censor_rule) { FactoryBot.create(:public_body_censor_rule) }
 
       it 'finds the correct censor rule to destroy' do
         delete :destroy, :id => censor_rule.id
