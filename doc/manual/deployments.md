@@ -145,14 +145,6 @@ in any language, and within any legislation</p>
                 </div><!--
                 --><div class="deployments__unit--minor">
                     <div class="deployment--minor">
-                        <img src="/assets/img/pravo-da-znam.jpg" class="deployment__screenshot" alt=""/>
-                        <h3 class="deployment__title">Pravo Da Znam</h3>
-                        <p class="deployment__country">Bosnia</p>
-                        <p class="deployment__link"><a href="http://www.pravodaznam.ba/">http://www.pravodaznam.ba/</a></p>
-                    </div>
-                </div><!--
-                --><div class="deployments__unit--minor">
-                    <div class="deployment--minor">
                         <img src="/assets/img/ask-data.jpg" class="deployment__screenshot" alt=""/>
                         <h3 class="deployment__title">Ask Data</h3>
                         <p class="deployment__country">Israel</p>
