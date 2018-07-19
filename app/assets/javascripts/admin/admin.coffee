@@ -37,6 +37,7 @@ jQuery ->
         $('input[value="Delete selected messages"]').attr("disabled", true)
   )
   $('#info_request_described_state').on('change', ->
+    submit_button = $(this).closest('form').find(':submit')
     if (this.value is 'vexatious' or
         this.value is 'not_foi') and
        $('#info_request_prominence').val() is 'normal'
@@ -44,9 +45,15 @@ jQuery ->
         attr('title',
              'The request will not be hidden unless you change the prominence.')
       $('#info_request_prominence').tooltip('show')
+      submit_button.
+        attr('title',
+             'Warning! You are about to save this request without hiding it!')
+      submit_button.tooltip()
     else
       $('#info_request_prominence').removeAttr('title')
       $('#info_request_prominence').tooltip('destroy')
+      submit_button.removeAttr('title')
+      submit_button.tooltip('destroy')
   )
   $('#info_request_prominence').on('change', ->
     if this.value isnt 'normal' and
@@ -54,6 +61,9 @@ jQuery ->
         $('#info_request_described_state').val() is 'vexatious')
       $(this).removeAttr('title')
       $(this).tooltip('destroy')
+      submit_button = $(this).closest('form').find(':submit')
+      submit_button.removeAttr('title')
+      submit_button.tooltip('destroy')
   )
   $('[data-dismiss]').on 'click', ->
     console.log 'click'
