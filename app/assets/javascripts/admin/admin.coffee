@@ -36,6 +36,25 @@ jQuery ->
       if $('#ids').val() == ""
         $('input[value="Delete selected messages"]').attr("disabled", true)
   )
+  $('#info_request_described_state').on('change', ->
+    if (this.value is 'vexatious' or
+        this.value is 'not_foi') and
+       $('#info_request_prominence').val() is 'normal'
+      $('#info_request_prominence').
+        attr('title',
+             'The request will not be hidden unless you change the prominence.')
+      $('#info_request_prominence').tooltip('show')
+    else
+      $('#info_request_prominence').removeAttr('title')
+      $('#info_request_prominence').tooltip('destroy')
+  )
+  $('#info_request_prominence').on('change', ->
+    if this.value isnt 'normal' and
+       ($('#info_request_described_state').val() is 'not_foi' or
+        $('#info_request_described_state').val() is 'vexatious')
+      $(this).removeAttr('title')
+      $(this).tooltip('destroy')
+  )
   $('[data-dismiss]').on 'click', ->
     console.log 'click'
     parent = $(this).parents(".#{$(this).data('dismiss')}")

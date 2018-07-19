@@ -39,7 +39,11 @@
   </p>
 
   <p><label for="info_request_prominence"><strong>Prominence</strong></label>
-    <%= select( 'info_request', "prominence", InfoRequest::Prominence::VALUES) %>
+    <%= select('info_request', "prominence",
+               InfoRequest::Prominence::VALUES, {},
+               { data:
+                 { toggle: "tooltip", placement: "right", trigger: "manual" }
+               } ) %>
     (backpage means hidden from lists/search; hidden means completely hidden; super users can see anything)
   </p>
 
