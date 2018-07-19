@@ -7,11 +7,6 @@
   <p><label for="info_request_title"><strong>Title</strong></label> (warning: editing this will break URLs right now)<br/>
     <%= text_field 'info_request', 'title', :size => 50  %></p>
 
-  <p><label for="info_request_prominence"><strong>Prominence</strong></label>
-    <%= select( 'info_request', "prominence", InfoRequest::Prominence::VALUES) %>
-    (backpage means hidden from lists/search; hidden means completely hidden; super users can see anything)
-  </p>
-
   <p>
     <% if @info_request.reject_incoming_at_mta? %>
       <% new_response_options_disabled = true %>
@@ -41,6 +36,11 @@
     <br>
     ('authority_only' means email From: domain of authority request email or any domain that has previously sent a response; 'nobody' also stops requester making followups; take care when using 'blackhole' which just drops mail)
 
+  </p>
+
+  <p><label for="info_request_prominence"><strong>Prominence</strong></label>
+    <%= select( 'info_request', "prominence", InfoRequest::Prominence::VALUES) %>
+    (backpage means hidden from lists/search; hidden means completely hidden; super users can see anything)
   </p>
 
   <p><label for="info_request_described_state"><strong>Described state</strong></label>
