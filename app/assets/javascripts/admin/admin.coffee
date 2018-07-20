@@ -49,9 +49,14 @@ jQuery ->
         attr('title',
              'Warning! You are about to save this request without hiding it!')
       submit_button.tooltip()
+      submit_button.
+        data('confirm',
+             'You have set this request to "' + this.value + '" but not' +
+             ' hidden it using prominence. Are you sure you want to continue?')
     else
       $('#info_request_prominence').removeAttr('title')
       $('#info_request_prominence').tooltip('destroy')
+      submit_button.removeData('confirm')
       submit_button.removeAttr('title')
       submit_button.tooltip('destroy')
   )
@@ -64,6 +69,7 @@ jQuery ->
       submit_button = $(this).closest('form').find(':submit')
       submit_button.removeAttr('title')
       submit_button.tooltip('destroy')
+      submit_button.removeData('confirm')
   )
   $('[data-dismiss]').on 'click', ->
     console.log 'click'
