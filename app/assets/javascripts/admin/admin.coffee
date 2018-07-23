@@ -61,12 +61,25 @@ jQuery ->
       submit_button.tooltip('destroy')
   )
   $('#info_request_prominence').on('change', ->
-    if this.value isnt 'normal' and
+    submit_button = $(this).closest('form').find(':submit')
+    if this.value is 'normal' and
        ($('#info_request_described_state').val() is 'not_foi' or
         $('#info_request_described_state').val() is 'vexatious')
+      $(this).
+        attr('title',
+             'The request will not be hidden unless you change the prominence.')
+      $(this).tooltip('show')
+      submit_button.
+        attr('title',
+             'Warning! You are about to save this request without hiding it!')
+      submit_button.tooltip()
+      submit_button.
+        data('confirm',
+             'You have set this request to "' + this.value + '" but not' +
+             ' hidden it using prominence. Are you sure you want to continue?')
+    else
       $(this).removeAttr('title')
       $(this).tooltip('destroy')
-      submit_button = $(this).closest('form').find(':submit')
       submit_button.removeAttr('title')
       submit_button.tooltip('destroy')
       submit_button.removeData('confirm')
