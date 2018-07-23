@@ -39,6 +39,11 @@
     }
   };
 
+  // Update the draft ID of each result
+  var updateDraftId = function updateDraftId() {
+    $('.js-draft-id', $results).val(DraftBatchSummary.draftId);
+  };
+
   // Main render method
   var render = function render() {
     var content = html;
@@ -51,6 +56,7 @@
 
     if ($results.html() !== content) {
       $results.html(content);
+      updateDraftId();
       $search.trigger(SearchEvents.rendered);
     }
   };
