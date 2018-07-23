@@ -185,5 +185,5 @@ group :development do
   gem 'mailcatcher', '~> 0.6.0'
   gem 'quiet_assets', '~> 1.1.0'
   gem 'launchy', '~> 2.4.0'
-  gem 'web-console', '~> 2.3.0', '< 3.0.0'
+  gem 'web-console', '~> 3.3.0'
 end
