@@ -40,7 +40,8 @@ jQuery ->
     submit_button = $(this).closest('form').find(':submit')
     if (this.value is 'vexatious' or
         this.value is 'not_foi') and
-       $('#info_request_prominence').val() is 'normal'
+       ($('#info_request_prominence').val() is 'normal' or
+        $('#info_request_prominence').val() is 'backpage')
       $('#info_request_prominence').
         attr('title',
              'The request will not be hidden unless you change the prominence.')
@@ -62,7 +63,7 @@ jQuery ->
   )
   $('#info_request_prominence').on('change', ->
     submit_button = $(this).closest('form').find(':submit')
-    if this.value is 'normal' and
+    if (this.value is 'normal' or this.value is 'backpage') and
        ($('#info_request_described_state').val() is 'not_foi' or
         $('#info_request_described_state').val() is 'vexatious')
       $(this).
