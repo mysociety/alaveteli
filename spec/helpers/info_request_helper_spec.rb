@@ -329,8 +329,8 @@ describe InfoRequestHelper do
 
       it 'returns a description' do
         allow(info_request).to receive(:calculate_status).and_return("vexatious")
-        expected = 'This request has been <strong>hidden</strong> from the ' \
-                   'site, because an administrator considers it vexatious'
+        expected = 'This request has been reviewed by an administrator ' \
+                   'and is considered to be vexatious'
         expect(status_text(info_request)).to eq(expected)
       end
 
@@ -340,9 +340,8 @@ describe InfoRequestHelper do
 
       it 'returns a description' do
         allow(info_request).to receive(:calculate_status).and_return("not_foi")
-        expected = 'This request has been <strong>hidden</strong> from the ' \
-                   'site, because an administrator considers it not to be an ' \
-                   'FOI request'
+        expected = 'This request has been reviewed by an administrator ' \
+                   'and is considered not to be an FOI request'
         expect(status_text(info_request)).to eq(expected)
       end
 

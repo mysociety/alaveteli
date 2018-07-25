@@ -7,11 +7,6 @@
   <p><label for="info_request_title"><strong>Title</strong></label> (warning: editing this will break URLs right now)<br/>
     <%= text_field 'info_request', 'title', :size => 50  %></p>
 
-  <p><label for="info_request_prominence"><strong>Prominence</strong></label>
-    <%= select( 'info_request', "prominence", InfoRequest::Prominence::VALUES) %>
-    (backpage means hidden from lists/search; hidden means completely hidden; super users can see anything)
-  </p>
-
   <p>
     <% if @info_request.reject_incoming_at_mta? %>
       <% new_response_options_disabled = true %>
@@ -43,6 +38,15 @@
 
   </p>
 
+  <p><label for="info_request_prominence"><strong>Prominence</strong></label>
+    <%= select('info_request', "prominence",
+               InfoRequest::Prominence::VALUES, {},
+               { data:
+                 { toggle: "tooltip", placement: "right", trigger: "manual" }
+               } ) %>
+    (backpage means hidden from lists/search; hidden means completely hidden; super users can see anything)
+  </p>
+
   <p><label for="info_request_described_state"><strong>Described state</strong></label>
     <%= select( 'info_request', "described_state", InfoRequest::State.all) %>
     <label for="info_request_awaiting_description"><strong>Awaiting description</strong></label>
@@ -55,8 +59,10 @@
   <p><label for="info_request_tag_string"><strong>Tags</strong> <small>(space separated, can use key:value)</small></label><br/>
     <%= text_field 'info_request', 'tag_string', :size => 60  %></p>
 
-  <p><%= submit_tag 'Save changes', :accesskey => 's', :class => 'btn btn-primary' %>
-</p>
+  <p><%= submit_tag 'Save changes', :accesskey => 's',
+                                    :class => 'btn btn-primary',
+                                    :data => { toggle: 'tooltip' } %>
+  </p>
 
 <p><strong>Note:</strong> To edit the actual request body text, click edit
   next to the specific outgoing message.

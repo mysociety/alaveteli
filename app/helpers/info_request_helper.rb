@@ -188,13 +188,13 @@ module InfoRequestHelper
   end
 
   def status_text_vexatious(info_request, opts = {})
-    _('This request has been <strong>hidden</strong> from the site, ' \
-      'because an administrator considers it vexatious')
+    _('This request has been reviewed by an administrator and is ' \
+       'considered to be vexatious')
   end
 
   def status_text_not_foi(info_request, opts = {})
-    _('This request has been <strong>hidden</strong> from the site, ' \
-      'because an administrator considers it not to be an FOI request')
+    _('This request has been reviewed by an administrator and is ' \
+      'considered not to be an FOI request')
   end
 
   def custom_state_description(info_request, opts = {})
