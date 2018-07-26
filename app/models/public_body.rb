@@ -295,6 +295,13 @@ class PublicBody < ActiveRecord::Base
     has_tag?('not_apply')
   end
 
+  # If tagged "foi_no", then the authority is not subject to FOI law but
+  # requests may still be made through the site (e.g. they may have agreed to
+  # respond to requests on a voluntary basis)
+  def not_subject_to_law?
+    has_tag?('foi_no')
+  end
+
   # If tagged "defunct", then the authority no longer exists at all
   def defunct?
     has_tag?('defunct')
