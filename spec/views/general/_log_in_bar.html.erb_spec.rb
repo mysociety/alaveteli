@@ -9,7 +9,7 @@ describe 'general/_log_in_bar.html.erb' do
     render :partial => 'general/log_in_bar'
   end
 
-  describe 'sign out link' do
+  describe 'user menu links', feature: :alaveteli_pro do
     before do
       # The view uses request.fullpath to set return links
       allow(view.request).to receive(:fullpath).and_return('/test/fullpath')
@@ -18,6 +18,35 @@ describe 'general/_log_in_bar.html.erb' do
     context 'when a pro user is logged in' do
       before do
         assign :user, pro_user
+        allow(controller).to receive(:current_user).and_return(pro_user)
+      end
+
+      context 'and pro features are not enabled' do
+
+        it 'does not show "pro" next to the user name' do
+          with_feature_disabled(:alaveteli_pro) do
+            render_view
+            expect(rendered).to_not have_css('.pro-pill')
+          end
+        end
+
+        it 'shows a "My requests" link' do
+          with_feature_disabled(:alaveteli_pro) do
+            render_view
+            expect(rendered).to have_link("My requests")
+          end
+        end
+
+      end
+
+      it 'shows "pro" next to the user name' do
+        render_view
+        expect(rendered).to have_css('.pro-pill')
+      end
+
+      it 'does not show a "My requests" link' do
+        render_view
+        expect(rendered).to_not have_link("My requests")
       end
 
       context 'and the page is in the pro area' do
@@ -46,6 +75,17 @@ describe 'general/_log_in_bar.html.erb' do
     context 'when a normal user is logged in' do
       before do
         assign :user, user
+        allow(controller).to receive(:current_user).and_return(user)
+      end
+
+      it 'does not show "pro" next to the user name' do
+        render_view
+        expect(rendered).to_not have_css('.pro-pill')
+      end
+
+      it 'shows a "My requests" link' do
+        render_view
+        expect(rendered).to have_link("My requests")
       end
 
       it 'sets the return path to the current page' do

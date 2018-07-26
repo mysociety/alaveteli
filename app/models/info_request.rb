@@ -334,8 +334,10 @@ class InfoRequest < ActiveRecord::Base
       'requires_admin'                => _("Unusual response."),
       'attention_requested'           => _("Reported for administrator attention."),
       'user_withdrawn'                => _("Withdrawn by the requester."),
-      'vexatious'                     => _("Considered by administrators as vexatious and hidden from site."),
-      'not_foi'                       => _("Considered by administrators as not an FOI request and hidden from site."),
+      'vexatious'                     => _("Considered by administrators as " \
+                                           "vexatious."),
+      'not_foi'                       => _("Considered by administrators as " \
+                                           "not an FOI request."),
     }
     if descriptions[status]
       descriptions[status]
