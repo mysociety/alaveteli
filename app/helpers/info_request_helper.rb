@@ -60,12 +60,18 @@ module InfoRequestHelper
   def status_text_waiting_response_overdue(info_request, opts = {})
     str = _('Response to this request is <strong>delayed</strong>.')
     str += ' '
-    str += _('By law, {{public_body_link}} should normally have responded ' \
-             '<strong>promptly</strong> and',
-             :public_body_link => public_body_link(info_request.public_body))
-    str += ' '
-    str += _('by')
-    str += ' '
+    if info_request.public_body.not_subject_to_law?
+      str += _('Although not legally required to do so, we would have ' \
+               'expected {{public_body_link}} to have responded by ',
+               :public_body_link => public_body_link(info_request.public_body))
+    else
+      str += _('By law, {{public_body_link}} should normally have responded ' \
+               '<strong>promptly</strong> and',
+               :public_body_link => public_body_link(info_request.public_body))
+      str += ' '
+      str += _('by')
+      str += ' '
+    end
     str += content_tag(:strong,
                        simple_date(info_request.date_response_required_by))
     str += ' '
@@ -78,9 +84,15 @@ module InfoRequestHelper
   def status_text_waiting_response_very_overdue(info_request, opts = {})
     str = _('Response to this request is <strong>long overdue</strong>.')
     str += ' '
-    str += _('By law, under all circumstances, {{public_body_link}} should ' \
-            'have responded by now',
-            :public_body_link => public_body_link(info_request.public_body))
+    if info_request.public_body.not_subject_to_law?
+      str += _('Although not legally required to do so, we would have ' \
+               'expected {{public_body_link}} to have responded by now',
+               :public_body_link => public_body_link(info_request.public_body))
+    else
+      str += _('By law, under all circumstances, {{public_body_link}} should ' \
+               'have responded by now',
+               :public_body_link => public_body_link(info_request.public_body))
+    end
     str += ' '
     str += "("
     str += link_to _('details'),

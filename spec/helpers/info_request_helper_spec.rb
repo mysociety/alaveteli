@@ -62,11 +62,13 @@ describe InfoRequestHelper do
 
     context 'waiting_response_overdue' do
 
+      let(:body) { info_request.public_body }
+      let(:body_link) do
+        %Q(<a href="/body/#{ body.url_name }">#{ body.name }</a>)
+      end
+
       it 'returns a description' do
         time_travel_to(Time.zone.parse('2014-12-31'))
-
-        body = info_request.public_body
-        body_link = %Q(<a href="/body/#{ body.url_name }">#{ body.name }</a>)
 
         allow(info_request).to receive(:calculate_status).and_return("waiting_response_overdue")
         allow(info_request).to receive(:date_response_required_by).and_return(Time.zone.now)
@@ -86,16 +88,48 @@ describe InfoRequestHelper do
         back_to_the_present
       end
 
+      context 'the body is not subject to foi' do
+
+        it 'the description does not describe a legal obligation to reply' do
+          body.add_tag_if_not_already_present('foi_no')
+
+          time_travel_to(Time.zone.parse('2014-12-31'))
+
+          allow(info_request).
+            to receive(:calculate_status).and_return("waiting_response_overdue")
+          allow(info_request).
+            to receive(:date_response_required_by).and_return(Time.zone.now)
+
+          response_date = '<time datetime="2014-12-31T00:00:00Z" ' \
+                          'title="2014-12-31 00:00:00 UTC">' \
+                          'December 31, 2014</time>'
+
+          expected = "Response to this request is <strong>delayed</strong>. " \
+                     "Although not legally required to do so, we would have " \
+                     "expected #{ body_link } to have responded by " \
+                     "<strong>#{ response_date }</strong> " \
+                     "(<a href=\"/help/requesting#quickly_response\">" \
+                     "details</a>)"
+
+          expect(status_text(info_request)).to eq(expected)
+
+          back_to_the_present
+        end
+
+      end
+
     end
 
 
     context 'waiting_response_very_overdue' do
 
+      let(:body) { info_request.public_body }
+      let(:body_link) do
+        %Q(<a href="/body/#{ body.url_name }">#{ body.name }</a>)
+      end
+
       it 'returns a description for an internal request' do
         time_travel_to(Time.zone.parse('2014-12-31'))
-
-        body = info_request.public_body
-        body_link = %Q(<a href="/body/#{ body.url_name }">#{ body.name }</a>)
 
         allow(info_request).to receive(:calculate_status).and_return("waiting_response_very_overdue")
         allow(info_request).to receive(:date_response_required_by).and_return(Time.zone.now)
@@ -116,6 +150,41 @@ describe InfoRequestHelper do
         expect(status_text(info_request)).to eq(expected)
 
         back_to_the_present
+      end
+
+      context 'the body is not subject to foi' do
+
+        it 'the description does not describe a legal obligation to reply' do
+          body.add_tag_if_not_already_present('foi_no')
+
+          time_travel_to(Time.zone.parse('2014-12-31'))
+
+          allow(info_request).
+            to receive(:calculate_status).
+              and_return("waiting_response_very_overdue")
+
+          allow(info_request).
+            to receive(:date_response_required_by).and_return(Time.zone.now)
+
+          response_date = '<time datetime="2014-12-31T00:00:00Z" ' \
+                          'title="2014-12-31 00:00:00 UTC">' \
+                          'December 31, 2014</time>'
+
+          expected = "Response to this request is <strong>long overdue" \
+                     "</strong>. " \
+                     "Although not legally required to do so, we would have " \
+                     "expected #{ body_link } to have responded by now " \
+                     "(<a href=\"/help/requesting#quickly_response\">details" \
+                     "</a>). You can <strong>complain</strong> by " \
+                     "<a href=\"/request/#{info_request.id}/followups/new?" \
+                     "internal_review=1#followup\">requesting an internal " \
+                     "review</a>."
+
+          expect(status_text(info_request)).to eq(expected)
+
+          back_to_the_present
+        end
+
       end
 
       it 'does not add a followup link for external requests' do
