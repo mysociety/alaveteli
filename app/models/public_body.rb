@@ -290,6 +290,7 @@ class PublicBody < ActiveRecord::Base
   end
 
   # If tagged "not_apply", then FOI/EIR no longer applies to authority at all
+  # and the site will not accept further requests for them
   def not_apply?
     has_tag?('not_apply')
   end
