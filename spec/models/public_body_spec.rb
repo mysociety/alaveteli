@@ -746,6 +746,13 @@ describe PublicBody do
       expect(public_body.not_subject_to_law?).to eq false
     end
 
+    it 'returns true if authority_must_respond has been set to false in config' do
+      allow(AlaveteliConfiguration).to receive(:authority_must_respond).
+        and_return(false)
+      public_body = FactoryGirl.build(:public_body)
+      expect(public_body.not_subject_to_law?).to eq true
+    end
+
   end
 
   describe ".internal_admin_body" do
