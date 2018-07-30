@@ -42,7 +42,7 @@ module InfoRequestHelper
 
   def status_text_waiting_response(info_request, opts = {})
     str = _('Currently <strong>waiting for a response</strong> from ' \
-            '{{public_body_link}}, they must respond promptly and',
+            '{{public_body_link}}, they should respond promptly and',
             :public_body_link => public_body_link(info_request.public_body))
     str += ' '
     str += _('normally')

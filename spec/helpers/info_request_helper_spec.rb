@@ -48,7 +48,7 @@ describe InfoRequestHelper do
                         'December 31, 2014</time>'
 
         expected = "Currently <strong>waiting for a response</strong> from " \
-                   "#{ body_link }, they must respond promptly and " \
+                   "#{ body_link }, they should respond promptly and " \
                    "normally no later than <strong>#{ response_date }" \
                    "</strong> (<a href=\"/help/requesting#" \
                    "quickly_response\">details</a>)."
