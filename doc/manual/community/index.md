@@ -53,27 +53,6 @@ to begin. <img src="/assets/img/icon_smile.gif" alt=":-)">
 
 mySociety has very limited capacity to run a handful of Alaveteli sites for willing volunteers. Contact our <a href="mailto:international@mysociety.org">international team</a> for more information.
 
-## Slack
-
-### alaveteli.slack.com
-
-mySociety developers and re-users can be found on the Alaveteli Slack, and
-unlike on IRC there's a handy history feature built in so that conversations can
-more easily take place across time zones (hello again Australia, we missed you!).
-<a href="mailto:clientsupport@alaveteli.org">Contact us for an invite</a>.
-
-Once you've got an account you can [still use your IRC client](https://alaveteli.slack.com/account/gateways)
-if you wish.
-
-## IRC
-
-### irc.freenode.net #mysociety
-
-**`#mysociety`** &mdash;
-If you prefer not to use Slack, you can join the `#mysociety` channel on
-[Freenode](http://freenode.net) (`irc.freenode.net`) ...although that channel can be rather quiet.
-<img src="/assets/img/icon_smile.gif" alt=":)">
-
 ## Code and issues on github
 
 The [Alaveteli software is on github](https://github.com/mysociety/alaveteli) and we actively use
