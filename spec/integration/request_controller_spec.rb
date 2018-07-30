@@ -111,6 +111,29 @@ describe RequestController, "when classifying an information request" do
     let(:info_request) { FactoryGirl.create(:info_request) }
     let(:user) { info_request.user }
 
+    shared_examples_for 'authority is not subject to FOI law' do
+
+      it 'does not include "By law"' do
+        info_request.public_body.add_tag_if_not_already_present('foi_no')
+        using_session(login(user)) do
+          classify_request(info_request, classification)
+          expect(page).not_to have_content('By law')
+        end
+      end
+
+    end
+
+    shared_examples_for 'authority is subject to FOI law' do
+
+      it 'does includes the text "By law"' do
+        using_session(login(user)) do
+          classify_request(info_request, classification)
+          expect(page).to have_content('By law')
+        end
+      end
+
+    end
+
     context 'marking request as error_message' do
 
       let(:classification) { 'error_message1' }
@@ -348,6 +371,10 @@ describe RequestController, "when classifying an information request" do
         end
       end
 
+      include_examples 'authority is not subject to FOI law'
+
+      include_examples 'authority is subject to FOI law'
+
     end
 
     context 'marking overdue request as waiting_response' do
@@ -370,6 +397,10 @@ describe RequestController, "when classifying an information request" do
           expect(page).to have_content(message)
         end
       end
+
+      include_examples 'authority is not subject to FOI law'
+
+      include_examples 'authority is subject to FOI law'
 
     end
 
