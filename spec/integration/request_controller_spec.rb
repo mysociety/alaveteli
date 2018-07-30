@@ -354,14 +354,20 @@ describe RequestController, "when classifying an information request" do
 
       let(:classification) { 'waiting_response1' }
 
+      before do
+        time_travel_to(info_request.date_response_required_by + 2.days)
+      end
+
+      after do
+        back_to_the_present
+      end
+
       it 'displays a thank you message post redirect' do
-        time_travel_to(info_request.date_response_required_by + 2.days) do
-          using_session(login(user)) do
-            classify_request(info_request, classification)
-            message = "Thank you! Hope you don't have to wait much longer."
-            # redirect and receive thank you message
-            expect(page).to have_content(message)
-          end
+        using_session(login(user)) do
+          classify_request(info_request, classification)
+          message = "Thank you! Hope you don't have to wait much longer."
+          # redirect and receive thank you message
+          expect(page).to have_content(message)
         end
       end
 
@@ -371,14 +377,20 @@ describe RequestController, "when classifying an information request" do
 
       let(:classification) { 'waiting_response1' }
 
+      before do
+        time_travel_to(info_request.date_very_overdue_after + 2.days)
+      end
+
+      after do
+        back_to_the_present
+      end
+
       it 'displays a thank you message post redirect' do
-        time_travel_to(info_request.date_very_overdue_after + 2.days) do
-          using_session(login(user)) do
-            classify_request(info_request, classification)
-            message = "Thank you! Your request is long overdue"
-            # redirect and receive thank you message
-            expect(page).to have_content(message)
-          end
+        using_session(login(user)) do
+          classify_request(info_request, classification)
+          message = "Thank you! Your request is long overdue"
+          # redirect and receive thank you message
+          expect(page).to have_content(message)
         end
       end
 
