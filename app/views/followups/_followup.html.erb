@@ -84,14 +84,16 @@
               '<strong>{{date}}</strong>',
               :date=>simple_date(@info_request.date_response_required_by)) %>
 
-        (<%= link_to _('details'), "#{help_requesting_path}#quickly_response" %>).
+        (<%= link_to _('details'),
+                     help_requesting_path(anchor: 'quickly_response') %>).
       </p>
     <% elsif status == 'waiting_response_very_overdue' %>
       <p>
         <%= _('The response to your request is <strong>long overdue</strong>. ' \
               'You can say that, by law, under all circumstances, the ' \
               'authority should have responded by now') %>
-        (<%= link_to _('details'), "#{help_requesting_path}#quickly_response" %>).
+        (<%= link_to _('details'),
+                     help_requesting_path(anchor: 'quickly_response') %>).
       </p>
     <% end %>
 
