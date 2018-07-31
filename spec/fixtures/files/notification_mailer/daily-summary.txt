@@ -48,7 +48,7 @@ Extremely late expenses claims
 ------------------------------
 
 What's happened:
-Ministry of fact keeping have still not replied to your FOI request Extremely late expenses claims, as required by law. Click on the link below to tell them to reply. You might like to ask for an internal review, asking them to find out why their response to the request has been so slow.
+Ministry of fact keeping have still not replied to your FOI request Extremely late expenses claims, as normally required by law. Click on the link below to tell them to reply. You might like to ask for an internal review, asking them to find out why their response to the request has been so slow.
 
 http://test.host/en/profile/sign_in?r=%2Fen%2Frequest%2F$EXTREMELY_LATE_EXPENSES_CLAIMS_MOF_ID$%2Ffollowups%2Fnew%23followup
 
