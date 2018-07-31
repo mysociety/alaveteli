@@ -134,6 +134,23 @@ describe RequestController, "when classifying an information request" do
 
     end
 
+    shared_examples_for 'the donation link is configured' do
+
+      it 'shows the donation link' do
+        allow(AlaveteliConfiguration).to receive(:donation_url).
+          and_return('http://donations.example.com')
+
+        using_session(login(user)) do
+          classify_request(info_request, classification)
+
+          expect(page).
+            to have_link('make a donation',
+                         :href => 'http://donations.example.com')
+        end
+      end
+
+    end
+
     context 'marking request as error_message' do
 
       let(:classification) { 'error_message1' }
@@ -205,21 +222,7 @@ describe RequestController, "when classifying an information request" do
         end
       end
 
-      context 'there is a donation link' do
-
-        it 'displays the donation link' do
-          allow(AlaveteliConfiguration).to receive(:donation_url).
-            and_return('http://donations.example.com')
-
-          using_session(login(user)) do
-            classify_request(info_request, classification)
-            message = "We're glad you got some of the information that you wanted"
-            # redirect and receive thank you message
-            expect(page).to have_link('make a donation',
-                                      :href => 'http://donations.example.com')
-          end
-        end
-      end
+      include_examples 'the donation link is configured'
 
     end
 
@@ -277,23 +280,7 @@ describe RequestController, "when classifying an information request" do
         end
       end
 
-      context 'there is a donation link' do
-
-        it 'displays the donation link' do
-          allow(AlaveteliConfiguration).to receive(:donation_url).
-            and_return('http://donations.example.com')
-
-          using_session(login(user)) do
-            classify_request(info_request, classification)
-            message = "We're glad you got some of the information " \
-                      "that you wanted"
-            # redirect and receive thank you message
-            expect(page).to have_link('make a donation',
-                                      :href => 'http://donations.example.com')
-          end
-        end
-
-      end
+      include_examples 'the donation link is configured'
 
       context 'when annotations are disabled' do
 
