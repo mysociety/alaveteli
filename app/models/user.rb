@@ -120,6 +120,7 @@ class User < ActiveRecord::Base
            :inverse_of => :user,
            :dependent => :destroy
 
+  scope :active, -> { not_banned }
   scope :banned, -> { where.not(ban_text: "") }
   scope :not_banned, -> { where(ban_text: "") }
 
