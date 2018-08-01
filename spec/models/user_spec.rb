@@ -33,6 +33,7 @@
 #  info_request_batches_count        :integer          default(0), not null
 #  daily_summary_hour                :integer
 #  daily_summary_minute              :integer
+#  closed_at                         :datetime
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
