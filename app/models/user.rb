@@ -120,6 +120,7 @@ class User < ActiveRecord::Base
            :inverse_of => :user,
            :dependent => :destroy
 
+  scope :banned, -> { where.not(ban_text: "") }
   scope :not_banned, -> { where(ban_text: "") }
 
   validates_presence_of :email, :message => _("Please enter your email address")

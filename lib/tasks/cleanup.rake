@@ -59,7 +59,7 @@ namespace :cleanup do
 
   desc 'Reindex banned users'
   task :reindex_banned_users => :environment do
-    User.where("ban_text <> ''").find_each do |user|
+    User.banned.find_each do |user|
       user.xapian_mark_needs_index
     end
   end

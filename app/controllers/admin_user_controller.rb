@@ -84,7 +84,7 @@ class AdminUserController < AdminController
 
   def banned
     @banned_users =
-      User.where("ban_text <> ''").
+      User.banned
         order('name ASC').
           paginate(:page => params[:page], :per_page => 100)
   end

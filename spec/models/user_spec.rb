@@ -1068,6 +1068,15 @@ describe User do
 
   end
 
+  describe '.banned' do
+
+    it 'should return banned users' do
+      user = FactoryGirl.create(:user, :ban_text => 'banned')
+      expect(User.banned).to include(user)
+    end
+
+  end
+
   describe '.not_banned' do
 
     it 'should not return banned users' do
