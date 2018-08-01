@@ -164,7 +164,7 @@ group :test do
   gem 'capybara', '~> 2.18.0'
   gem 'delorean', '~> 2.1.0'
   gem 'stripe-ruby-mock', '~> 2.5.0'
-  gem 'test_after_commit', '~> 0.4.2'
+  gem 'test_after_commit', '~> 1.1.0'
 end
 
 group :test, :development do
