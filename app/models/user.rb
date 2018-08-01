@@ -442,7 +442,7 @@ class User < ActiveRecord::Base
 
   # Various ways the user can be banned, and text to describe it if failed
   def can_file_requests?
-    ban_text.empty? && !exceeded_limit?
+    !banned? && !exceeded_limit?
   end
 
   def exceeded_limit?
@@ -483,19 +483,19 @@ class User < ActiveRecord::Base
   end
 
   def can_make_followup?
-    ban_text.empty?
+    !banned?
   end
 
   def can_make_comments?
-    ban_text.empty?
+    !banned?
   end
 
   def can_contact_other_users?
-    ban_text.empty?
+    !banned?
   end
 
   def can_fail_html
-    if ban_text
+    if banned?
       text = ban_text.strip
     else
       raise "Unknown reason for ban"
