@@ -6,7 +6,7 @@ class UserProfile::AboutMeController < ApplicationController
   def edit ; end
 
   def update
-    if @user.banned?
+    if @user.suspended?
       flash[:error] = _('Suspended users cannot edit their profile')
       redirect_to edit_profile_about_me_path
       return

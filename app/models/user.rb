@@ -353,7 +353,7 @@ class User < ActiveRecord::Base
 
   def name
     _name = read_attribute(:name)
-    if banned?
+    if suspended?
       _name = _("{{user_name}} (Account suspended)", :user_name => _name)
     end
     _name
@@ -441,9 +441,17 @@ class User < ActiveRecord::Base
     !ban_text.empty?
   end
 
+  def active?
+    !banned?
+  end
+
+  def suspended?
+    !active?
+  end
+
   # Various ways the user can be banned, and text to describe it if failed
   def can_file_requests?
-    !banned? && !exceeded_limit?
+    active? && !exceeded_limit?
   end
 
   def exceeded_limit?
@@ -484,15 +492,15 @@ class User < ActiveRecord::Base
   end
 
   def can_make_followup?
-    !banned?
+    active?
   end
 
   def can_make_comments?
-    !banned?
+    active?
   end
 
   def can_contact_other_users?
-    !banned?
+    active?
   end
 
   def can_fail_html
@@ -568,7 +576,7 @@ class User < ActiveRecord::Base
   end
 
   def indexed_by_search?
-    email_confirmed && !banned?
+    email_confirmed && active?
   end
 
   def for_admin_column(complete = false)
