@@ -312,7 +312,7 @@ class UserController < ApplicationController
     end
     if params[:submitted_draft_profile_photo].present?
       if @user.banned?
-        flash[:error]= _('Banned users cannot edit their profile')
+        flash[:error]= _('Suspended users cannot edit their profile')
         redirect_to set_profile_photo_path
         return
       end

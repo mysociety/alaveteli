@@ -63,10 +63,10 @@
     </p>
 
     <% if @display_user.banned? %>
-      <div id="user_public_banned" class="user_public_banned">
+      <div id="user_public_suspended">
         <p>
           <strong>
-            <%= _('This user has been banned from {{site_name}} ',
+            <%= _('This user has been suspended from {{site_name}} ',
                   :site_name=>site_name) %>
           </strong>
         </p>
