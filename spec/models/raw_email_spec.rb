@@ -19,6 +19,57 @@ describe RawEmail do
     raw_email.data
   end
 
+  describe '#mail' do
+    let(:raw_email) { FactoryGirl.create(:incoming_message).raw_email }
+    let(:mock_mail) { double }
+
+    before do
+      allow(raw_email).to receive(:mail!).and_return(mock_mail)
+    end
+
+    it 'parses the raw email data in to a structured mail object' do
+      expect(raw_email.mail).to eq(mock_mail)
+    end
+
+    it 'caches the Mail object' do
+      initial = raw_email.mail
+      allow(raw_email).to receive(:mail!).and_return(double('updated'))
+      expect(raw_email.mail).to eq(initial)
+    end
+
+  end
+
+  describe '#mail!' do
+    let(:data) do
+      <<-EOF.strip_heredoc
+      From: mikel@test.lindsaar.net
+      To: you@test.lindsaar.net
+      Subject: This is a test email
+
+      This is the body
+      EOF
+    end
+
+    let(:raw_email) { FactoryGirl.create(:incoming_message).raw_email }
+    let(:mock_mail) { Mail.new(data) }
+
+    before do
+      allow(MailHandler).to receive(:mail_from_raw_email).and_return(mock_mail)
+    end
+
+    it 'parses the raw email data in to a structured mail object' do
+      expect(raw_email.mail!).to eq(mock_mail)
+    end
+
+    it 'does not cache the Mail object' do
+      initial = raw_email.mail!
+      updated = double('updated')
+      allow(MailHandler).to receive(:mail_from_raw_email).and_return(updated)
+      expect(raw_email.mail!).to eq(updated)
+    end
+
+  end
+
   describe '#data' do
 
     it 'roundtrips data unchanged' do
@@ -56,18 +107,21 @@ describe RawEmail do
 
   end
 
-end
+  describe '#destroy_file_representation!' do
 
-describe '#destroy_file_representation!' do
-  let(:raw_email) { FactoryGirl.create(:incoming_message).raw_email }
-  it 'should delete the directory' do
-    raw_email.destroy_file_representation!
-    expect(File.exists?(raw_email.filepath)).to eq(false)
+    let(:raw_email) { FactoryGirl.create(:incoming_message).raw_email }
+
+    it 'should delete the directory' do
+      raw_email.destroy_file_representation!
+      expect(File.exists?(raw_email.filepath)).to eq(false)
+    end
+
+    it 'should only delete the directory if it exists' do
+      expect(File).to receive(:delete).once.and_call_original
+      raw_email.destroy_file_representation!
+      expect{ raw_email.destroy_file_representation! }.not_to raise_error
+    end
+
   end
 
-  it 'should only delete the directory if it exists' do
-    expect(File).to receive(:delete).once.and_call_original
-    raw_email.destroy_file_representation!
-    expect{ raw_email.destroy_file_representation! }.not_to raise_error
-  end
 end

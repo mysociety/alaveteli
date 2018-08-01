@@ -225,27 +225,32 @@ class RequestMailer < ApplicationMailer
   # Member function, called on the new class made in self.receive above
   def receive(email, raw_email, source = :mailin)
     opts = { :source => source }
+
     # Find which info requests the email is for
     reply_info_requests = self.requests_matching_email(email)
+
     # Nothing found, so save in holding pen
     if reply_info_requests.size == 0
       opts[:rejected_reason] =
         _("Could not identify the request from the email address")
       request = InfoRequest.holding_pen_request
+
       unless SpamAddress.spam?(email.to)
         request.receive(email, raw_email, opts)
       end
+
       return
     end
 
     # Send the message to each request, to be archived with it
-    for reply_info_request in reply_info_requests
+    reply_info_requests.each do |reply_info_request|
       # If environment variable STOP_DUPLICATES is set, don't send message with same id again
       if ENV['STOP_DUPLICATES']
         if reply_info_request.already_received?(email, raw_email)
-          raise "message " + email.message_id + " already received by request"
+          raise "message #{ email.message_id } already received by request"
         end
       end
+
       reply_info_request.receive(email, raw_email, opts)
     end
   end
