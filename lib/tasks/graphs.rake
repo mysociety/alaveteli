@@ -19,12 +19,14 @@ namespace :graphs do
                    "FROM info_requests ir " \
                    "JOIN users on ir.user_id = users.id " \
                    "WHERE users.ban_text = '' " \
+                   "AND users.closed_at IS NULL " \
                    "GROUP BY DATE(ir.created_at) " \
                    "ORDER BY DATE(ir.created_at)"
 
     confirmed_users = "SELECT DATE(created_at), COUNT(*) FROM users " \
                       "WHERE email_confirmed = 't' " \
                       "AND ban_text = '' " \
+                      "AND closed_at IS NULL " \
                       "GROUP BY DATE(created_at) " \
                       "ORDER BY DATE(created_at)"
 
@@ -35,6 +37,7 @@ namespace :graphs do
                         "OVER (ORDER BY DATE(created_at)) " \
                         "FROM users " \
                         "WHERE ban_text = '' " \
+                        "AND closed_at IS NULL " \
                         "GROUP BY DATE(created_at)"
 
     Gnuplot.open(false) do |gp|
