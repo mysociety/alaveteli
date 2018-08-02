@@ -1139,7 +1139,9 @@ describe User do
   describe '.active' do
 
     it 'should not return banned users' do
-      user = FactoryBot.create(:user, :ban_text => 'banned')
+      active_user = FactoryBot.create(:user)
+      user = FactoryBot.create(:user, ban_text: 'banned')
+      expect(User.active).to include(active_user)
       expect(User.active).to_not include(user)
     end
 
@@ -1148,7 +1150,9 @@ describe User do
   describe '.banned' do
 
     it 'should return banned users' do
-      user = FactoryBot.create(:user, :ban_text => 'banned')
+      active_user = FactoryBot.create(:user)
+      user = FactoryBot.create(:user, ban_text: 'banned')
+      expect(User.banned).to_not include(active_user)
       expect(User.banned).to include(user)
     end
 
@@ -1157,7 +1161,9 @@ describe User do
   describe '.not_banned' do
 
     it 'should not return banned users' do
-      user = FactoryBot.create(:user, :ban_text => 'banned')
+      active_user = FactoryBot.create(:user)
+      user = FactoryBot.create(:user, ban_text: 'banned')
+      expect(User.not_banned).to include(active_user)
       expect(User.not_banned).not_to include(user)
     end
 
