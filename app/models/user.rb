@@ -121,7 +121,7 @@ class User < ActiveRecord::Base
            :inverse_of => :user,
            :dependent => :destroy
 
-  scope :active, -> { not_banned }
+  scope :active, -> { not_banned.not_closed }
   scope :banned, -> { where.not(ban_text: "") }
   scope :not_banned, -> { where(ban_text: "") }
   scope :closed, -> { where.not(closed_at: nil) }
@@ -450,7 +450,7 @@ class User < ActiveRecord::Base
   end
 
   def active?
-    !banned?
+    !banned? && !closed?
   end
 
   def suspended?
