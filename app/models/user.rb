@@ -514,6 +514,8 @@ class User < ActiveRecord::Base
   def can_fail_html
     if banned?
       text = ban_text.strip
+    elsif closed?
+      text = _('Account closed at user request')
     else
       raise "Unknown reason for ban"
     end
