@@ -1109,8 +1109,9 @@ describe User do
   describe '#active?' do
     let(:user) { FactoryBot.build(:user) }
 
-    it 'should be active if not banned' do
+    it 'should be active if not banned and not closed' do
       allow(user).to receive(:banned?).and_return(false)
+      allow(user).to receive(:closed?).and_return(false)
       expect(user).to be_active
     end
 
@@ -1119,18 +1120,29 @@ describe User do
       expect(user).to_not be_active
     end
 
+    it 'should not be active if closed' do
+      allow(user).to receive(:closed?).and_return(true)
+      expect(user).to_not be_active
+    end
+
   end
 
   describe '#suspended?' do
     let(:user) { FactoryBot.build(:user) }
 
-    it 'should not be suspended if not banned' do
+    it 'should not be suspended if not banned and not closed' do
       allow(user).to receive(:banned?).and_return(false)
+      allow(user).to receive(:closed?).and_return(false)
       expect(user).to_not be_suspended
     end
 
     it 'should be suspended if banned' do
       allow(user).to receive(:banned?).and_return(true)
+      expect(user).to be_suspended
+    end
+
+    it 'should be suspended if closed' do
+      allow(user).to receive(:closed?).and_return(true)
       expect(user).to be_suspended
     end
 
@@ -1141,6 +1153,13 @@ describe User do
     it 'should not return banned users' do
       active_user = FactoryBot.create(:user)
       user = FactoryBot.create(:user, ban_text: 'banned')
+      expect(User.active).to include(active_user)
+      expect(User.active).to_not include(user)
+    end
+
+    it 'should not return closed users' do
+      active_user = FactoryBot.create(:user)
+      user = FactoryBot.create(:user, closed_at: Time.zone.now)
       expect(User.active).to include(active_user)
       expect(User.active).to_not include(user)
     end
