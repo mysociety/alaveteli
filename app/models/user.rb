@@ -124,6 +124,8 @@ class User < ActiveRecord::Base
   scope :active, -> { not_banned }
   scope :banned, -> { where.not(ban_text: "") }
   scope :not_banned, -> { where(ban_text: "") }
+  scope :closed, -> { where.not(closed_at: nil) }
+  scope :not_closed, -> { where(closed_at: nil) }
 
   validates_presence_of :email, :message => _("Please enter your email address")
   validates_presence_of :name, :message => _("Please enter your name")
@@ -441,6 +443,10 @@ class User < ActiveRecord::Base
   # Is it public that they are banned?
   def banned?
     !ban_text.empty?
+  end
+
+  def closed?
+    closed_at.present?
   end
 
   def active?

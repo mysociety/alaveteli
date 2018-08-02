@@ -1069,6 +1069,43 @@ describe User do
 
   end
 
+  describe '#closed?' do
+    let(:user) { FactoryBot.build(:user) }
+
+    it 'should be closed if closed_at present' do
+      user.closed_at = Time.zone.now
+      expect(user).to be_closed
+    end
+
+    it 'should not be closed if closed_at not present' do
+      user.closed_at = nil
+      expect(user).to_not be_closed
+    end
+
+  end
+
+  describe '.closed' do
+
+    it 'should not return users with closed_at timestamp' do
+      active_user = FactoryBot.create(:user)
+      user = FactoryBot.create(:user, closed_at: Time.zone.now)
+      expect(User.closed).to_not include(active_user)
+      expect(User.closed).to include(user)
+    end
+
+  end
+
+  describe '.not_closed' do
+
+    it 'should return users with closed_at timestamp' do
+      active_user = FactoryBot.create(:user)
+      user = FactoryBot.create(:user, closed_at: Time.zone.now)
+      expect(User.not_closed).to include(active_user)
+      expect(User.not_closed).to_not include(user)
+    end
+
+  end
+
   describe '#active?' do
     let(:user) { FactoryBot.build(:user) }
 
