@@ -582,7 +582,7 @@ class User < ActiveRecord::Base
   end
 
   def should_be_emailed?
-    email_confirmed && email_bounced_at.nil?
+    email_confirmed && email_bounced_at.nil? && active?
   end
 
   def indexed_by_search?

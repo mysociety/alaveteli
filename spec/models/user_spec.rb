@@ -531,15 +531,44 @@ describe User, "when setting a profile photo" do
   #    end
 end
 
-describe User, "when unconfirmed" do
+describe User, '#should_be_emailed?' do
 
-  before do
-    @user = users(:unconfirmed_user)
+  context 'when confirmed and active' do
+    let(:user) { FactoryBot.build(:user) }
+    before { allow(user).to receive(:active?).and_return(true) }
+
+    it 'should be emailed' do
+      expect(user).to be_should_be_emailed
+    end
   end
 
-  it "should not be emailed" do
-    expect(@user.should_be_emailed?).to be false
+  context 'when confirmed and inactive' do
+    let(:user) { FactoryBot.build(:user) }
+    before { allow(user).to receive(:active?).and_return(false) }
+
+    it 'should not be emailed' do
+      expect(user).to_not be_should_be_emailed
+    end
   end
+
+  context 'when unconfirmed and active' do
+    let(:user) { FactoryBot.build(:unconfirmed_user) }
+    before { allow(user).to receive(:active?).and_return(true) }
+
+    it 'should not be emailed' do
+      expect(user).to_not be_should_be_emailed
+    end
+  end
+
+  context 'when unconfirmed and inactive' do
+    let(:user) { FactoryBot.build(:unconfirmed_user) }
+    before { allow(user).to receive(:active?).and_return(false) }
+
+    it 'should not be emailed' do
+      expect(user).to_not be_should_be_emailed
+    end
+  end
+
 end
 
 describe User, "when emails have bounced" do
