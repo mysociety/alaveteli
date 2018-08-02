@@ -20,6 +20,18 @@ $color-delivery-unknown: darken(#F3BD2A, 20%) !default; // yellow
   }
 }
 
+.request-header__foi_no {
+  font-size: 0.85em;
+  color: #666;
+
+  a {
+    color: #666;
+    &:visited {
+      color: #666;
+    }
+  }
+}
+
 a.track-request-action {
   white-space: nowrap;
   text-align: left;
