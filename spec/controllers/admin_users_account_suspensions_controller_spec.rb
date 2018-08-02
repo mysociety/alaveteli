@@ -6,15 +6,15 @@ describe AdminUsersAccountSuspensionsController do
   describe 'POST #create' do
     let(:user) { FactoryBot.create(:user) }
 
-    let(:valid_params) do
-      { user_id: user.id, suspension_reason: 'Banned for spamming' }
-    end
+    context 'with valid params for banning' do
+      let(:valid_params) do
+        { user_id: user.id, suspension_reason: 'Banned for spamming' }
+      end
 
-    context 'with valid params' do
       before { post :create, valid_params }
 
       it 'finds the user to suspend' do
-        expect(assigns[:banned_user]).to eq(user)
+        expect(assigns[:user]).to eq(user)
       end
 
       it 'sets the suspension reason' do
