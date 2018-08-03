@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add support for the `foi_no` tag for authorities so that new requests can still be made while making it clearer that the are not obliged by law to respond (Liz Conlan)
 * Add tooltip prompts and an "Are you sure?" dialogue on save to the admin interface when marking a request as "vexatious" or "not_foi" without hiding it using the prominence dropdown (Liz Conlan)
 * Ability to blacklist known addresses that cannot be replied to (Gareth Rees)
 * Ability to customise no-reply address Regexp (Gareth Rees)
