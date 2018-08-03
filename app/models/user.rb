@@ -532,7 +532,7 @@ class User < ActiveRecord::Base
 
   def about_me_already_exists?
     return false if about_me.blank?
-    self.class.where(:about_me => about_me).any?
+    self.class.where(:about_me => about_me).where.not(id: id).any?
   end
 
   # Return about me text for display as HTML
