@@ -152,9 +152,9 @@ class UserController < ApplicationController
           handle_rate_limited_signup(user_ip, @user_signup.email) && return
         end
 
-        # Prevent signups from spam domains
-        if spam_domain?(@user_signup)
-          handle_spam_domain_signup(@user_signup.email) && return
+        # Prevent signups from potential spammers
+        if spam_user?(@user_signup)
+          handle_spam_signup(@user_signup) && return
         end
 
         @user_signup.email_confirmed = false
@@ -598,19 +598,21 @@ class UserController < ApplicationController
     end
   end
 
-  def spam_domain?(user_signup)
-    UserSpamScorer.new.email_from_spam_domain?(@user_signup)
+  def spam_user?(user_signup)
+    UserSpamScorer.new.spam?(user_signup)
   end
 
-  def block_spam_email_domains?
+  def block_spam_signups?
     AlaveteliConfiguration.block_spam_email_domains ||
       AlaveteliConfiguration.enable_anti_spam
   end
 
-  def handle_spam_domain_signup(user_email)
-    msg = "Attempted signup from spam domain email: #{ user_email }"
+  def handle_spam_signup(user_signup)
+    msg = "Attempted signup from suspected spammer, " \
+          "email: #{ user_signup.email }, " \
+          "name: '#{ user_signup.name }'"
 
-    if block_spam_email_domains?
+    if block_spam_signups?
       logger.info(msg)
 
       flash.now[:error] =
