@@ -164,7 +164,7 @@ group :test do
   gem 'capybara', '~> 2.18.0'
   gem 'delorean', '~> 2.1.0'
   gem 'stripe-ruby-mock', '~> 2.5.0'
-  gem 'test_after_commit', '~> 0.4.2'
+  gem 'test_after_commit', '~> 1.1.0'
 end
 
 group :test, :development do
@@ -175,7 +175,7 @@ group :test, :development do
   gem 'rspec-rails', '~> 3.7.2'
   gem 'pry', '~> 0.11.3'
   gem 'pry-byebug', '~> 3.4.0'
-    gem 'public_suffix', '~> 1.4.0', '< 1.5.0'
+    gem 'public_suffix', '~> 2.0.0', '< 3.0.0'
 end
 
 group :development do

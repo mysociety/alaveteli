@@ -110,6 +110,16 @@ describe InfoRequestBatch do
       expect(request.outgoing_messages.first.status).to eq('sent')
     end
 
+    it 'should not only send requests to public bodies if already sent' do
+      allow(second_public_body).to receive(:is_requestable?).and_return(false)
+      request = info_request_batch.info_requests = [
+        FactoryGirl.create(:info_request, public_body: first_public_body)
+      ]
+      unrequestable = info_request_batch.create_batch!
+      expect(unrequestable).to eq([second_public_body])
+      expect(info_request_batch.info_requests.size).to eq(1)
+    end
+
     it 'should set the sent_at value of the info request batch' do
       info_request_batch.create_batch!
       expect(info_request_batch.sent_at).not_to be_nil

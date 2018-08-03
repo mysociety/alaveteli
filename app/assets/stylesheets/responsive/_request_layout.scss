@@ -376,4 +376,8 @@ input.cplink__field {
 
 .hidden_message {
   padding: 1.2em 1.2em 0;
+
+  &:last-child {
+    padding-bottom: 1.2em;
+  }
 }
