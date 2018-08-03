@@ -531,6 +531,7 @@ class User < ActiveRecord::Base
   end
 
   def about_me_already_exists?
+    return false if about_me.blank?
     self.class.where(:about_me => about_me).any?
   end
 
