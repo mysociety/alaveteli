@@ -10,6 +10,10 @@
     <% end %>
     <%= _("Privacy") %>
   </h2>
+
+  <%= render partial: "alaveteli_pro/info_requests/embargo_info",
+             locals: {embargo: info_request.embargo, tense: :present} %>
+
   <label class="houdini-label" for="input1"><%= _("Change privacy") %></label>
   <input class="houdini-input" type="checkbox" id="input1">
   <div class="houdini-target extend-embargo-sidebar">
@@ -26,8 +30,6 @@
     <%= render partial: "alaveteli_pro/info_requests/embargo_create_form",
                locals: {info_request: info_request} %>
   <% else %>
-    <%= render partial: "alaveteli_pro/info_requests/embargo_info",
-               locals: {embargo: info_request.embargo, tense: :present} %>
     <% if info_request.embargo && can?(:destroy, info_request.embargo) %>
       <%= button_to _("Publish request"),
                     alaveteli_pro_embargo_path(info_request.embargo),

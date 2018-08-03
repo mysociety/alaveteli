@@ -10,16 +10,17 @@
                    ) %>"></i>
     <%= _("Privacy") %>
   </h2>
+
+  <% example_embargo = info_request_batch.info_requests.first.embargo %>
+  <%= render partial: "alaveteli_pro/info_request_batches/embargo_info",
+             locals: { embargo: example_embargo, tense: :present } %>
+
   <label class="houdini-label" for="input1"><%= _("Change privacy") %></label>
   <input class="houdini-input" type="checkbox" id="input1">
   <div class="houdini-target extend-embargo-sidebar">
-    <% example_embargo = info_request_batch.info_requests.first.embargo %>
     <%= form_tag(
           create_batch_alaveteli_pro_embargo_extensions_path,
           class: 'js-embargo-form' ) do |f| %>
-      <%= render partial: "alaveteli_pro/info_request_batches/embargo_info",
-                 locals: { embargo: example_embargo, tense: :present } %>
-
       <%= hidden_field_tag :info_request_batch_id, info_request_batch.id %>
       <% if local_assigns[:info_request] %>
         <%= hidden_field_tag :info_request_id, info_request.id %>
