@@ -605,7 +605,7 @@ describe AdminPublicBodyHeadingsController do
 
         expect(@heading.public_body_categories).to eq(@old_order)
         make_request
-        expect(@heading.public_body_categories(reload=true)).to eq(@new_order)
+        expect(@heading.public_body_categories.reload).to eq(@new_order)
       end
 
       it 'should return a success status' do
@@ -631,7 +631,7 @@ describe AdminPublicBodyHeadingsController do
 
       it 'should not reorder the categories for the heading' do
         make_request(@params)
-        expect(@heading.public_body_categories(reload=true)).to eq(@old_order)
+        expect(@heading.public_body_categories.reload).to eq(@old_order)
       end
     end
 

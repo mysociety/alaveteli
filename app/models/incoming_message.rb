@@ -161,7 +161,7 @@ class IncomingMessage < ActiveRecord::Base
         end
         write_attribute(:valid_to_reply_to, self._calculate_valid_to_reply_to)
         self.last_parsed = Time.zone.now
-        self.foi_attachments reload=true
+        self.foi_attachments.reload
         self.save!
       end
     end
