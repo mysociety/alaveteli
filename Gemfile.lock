@@ -336,7 +336,7 @@ GEM
     rspec-support (3.7.1)
     ruby-ole (1.2.12)
     rubyzip (1.2.1)
-    sass (3.4.21)
+    sass (3.4.25)
     sass-rails (5.0.7)
       railties (>= 4.0.0, < 6)
       sass (~> 3.1)
@@ -481,7 +481,7 @@ DEPENDENCIES
   rspec-rails (~> 3.7.2)
   ruby-msg (~> 1.5.0)!
   rubyzip (~> 1.2.0)
-  sass (= 3.4.21)
+  sass (= 3.4.25)
   sass-rails (~> 5.0.7)
   secure_headers (~> 3.6.0)
   statistics2 (~> 0.54)
