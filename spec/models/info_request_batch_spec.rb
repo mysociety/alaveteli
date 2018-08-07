@@ -399,6 +399,50 @@ describe InfoRequestBatch do
     end
   end
 
+  describe '#sent_public_bodies' do
+    subject { batch.sent_public_bodies }
+
+    let(:sent_body) { FactoryBot.build(:public_body) }
+    let(:unsent_body) { FactoryBot.build(:public_body) }
+
+    let(:info_request) do
+      FactoryBot.build(:info_request, public_body: sent_body)
+    end
+
+    let(:batch) do
+      FactoryBot.create(
+        :info_request_batch,
+        info_requests: [info_request],
+        public_bodies: [sent_body, unsent_body]
+      )
+    end
+
+    it { is_expected.to include(sent_body) }
+    it { is_expected.to_not include(unsent_body) }
+  end
+
+  describe '#requestable_public_bodies' do
+    subject { batch.requestable_public_bodies }
+
+    let(:sent_body) { FactoryBot.build(:public_body) }
+    let(:requestable_body) { FactoryBot.build(:public_body) }
+
+    let(:info_request) do
+      FactoryBot.build(:info_request, public_body: sent_body)
+    end
+
+    let(:batch) do
+      FactoryBot.create(
+        :info_request_batch,
+        info_requests: [info_request],
+        public_bodies: [sent_body, requestable_body]
+      )
+    end
+
+    it { is_expected.to_not include(sent_body) }
+    it { is_expected.to include(requestable_body) }
+  end
+
   describe '#all_requests_created?' do
     subject { batch.all_requests_created? }
 

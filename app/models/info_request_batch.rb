@@ -228,6 +228,20 @@ class InfoRequestBatch < ActiveRecord::Base
     categories
   end
 
+  # Return a list of public bodies we've already sent the request to
+  #
+  # Returns an array of PublicBody objects
+  def sent_public_bodies
+    info_requests.map(&:public_body)
+  end
+
+  # Return a list of public bodies which we can send the request to
+  #
+  # Returns an array of PublicBody objects
+  def requestable_public_bodies
+    public_bodies - sent_public_bodies
+  end
+
   # Have we persisted an InfoRequest for each PublicBody in this batch?
   #
   # Returns a Boolean
@@ -244,14 +258,5 @@ class InfoRequestBatch < ActiveRecord::Base
   # Returns an array of InfoRequestEvent objects
   def log_event(*args)
     info_requests.map { |request| request.log_event(*args) }
-  end
-
-  private
-
-  # Return a list of public bodies which we can send the request to
-  #
-  # Returns an array of PublicBody objects
-  def requestable_public_bodies
-    public_bodies - info_requests.map(&:public_body)
   end
 end
