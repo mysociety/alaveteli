@@ -35,6 +35,7 @@ describe "pro request list" do
     TestAfterCommit.with_commits(true) do
       batch_requests[0..3].each do |batch|
         batch.create_batch!
+        batch.update(sent_at: Time.zone.now)
         batch.reload
       end
     end

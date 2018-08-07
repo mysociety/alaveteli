@@ -91,7 +91,7 @@ describe InfoRequestBatch do
     end
 
     it 'should substitute authority name for the placeholder in each request' do
-      unrequestable = info_request_batch.create_batch!
+      info_request_batch.create_batch!
       [first_public_body, second_public_body].each do |public_body|
         request = info_request_batch.info_requests.detect do |info_request|
           info_request.public_body == public_body
@@ -112,17 +112,12 @@ describe InfoRequestBatch do
     end
 
     it 'should not only send requests to public bodies if already sent' do
-      request = info_request_batch.info_requests = [
+      info_request_batch.info_requests = [
         FactoryBot.create(:info_request, public_body: first_public_body)
       ]
       expect { info_request_batch.create_batch! }.to(
         change(info_request_batch.info_requests, :count).by(1)
       )
-    end
-
-    it 'should set the sent_at value of the info request batch' do
-      info_request_batch.create_batch!
-      expect(info_request_batch.sent_at).not_to be_nil
     end
 
     it "it imposes an alphabetical sort order on associated public bodies" do
@@ -182,6 +177,13 @@ describe InfoRequestBatch do
       third_email = ActionMailer::Base.deliveries.third
       expect(third_email.to).to eq([info_request_batch.user.email])
       expect(third_email.subject).to eq('Your batch request "Example title" has been sent')
+    end
+
+    it 'should set the sent_at value of the info request batch' do
+      InfoRequestBatch.send_batches
+      expect { info_request_batch.reload }.to(
+        change(info_request_batch, :sent_at).from(nil).to(Time)
+      )
     end
 
   end

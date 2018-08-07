@@ -43,6 +43,9 @@ class InfoRequestBatch < ActiveRecord::Base
         info_request_batch.unrequestable_public_bodies,
         info_request_batch.user
       ).deliver_now
+
+      info_request_batch.sent_at = Time.zone.now
+      info_request_batch.save!
     end
   end
 
@@ -72,35 +75,20 @@ class InfoRequestBatch < ActiveRecord::Base
   # Create a batch of information requests, returning a list of public bodies
   # that are unrequestable from the initial list of public body ids passed.
   def create_batch!
-    unrequestable = []
-    created = []
     requestable_public_bodies.each do |public_body|
-      if public_body.is_requestable?
-        info_request = nil
-        ActiveRecord::Base.transaction do
-          info_request = create_request!(public_body)
-          created << info_request
-          # Set send_at in every loop so that if a request errors and any are
-          # already created, we won't automatically try to resend this batch
-          # and can deal with the failures manually
-          self.sent_at = Time.zone.now
-          self.save!
-        end
-        send_request(info_request)
-        # Sleep between requests in production, in case we're sending a huge
-        # batch which may result in a torrent of auto-replies coming back to
-        # us and overloading the server.
-        uses_poller = feature_enabled?(:accept_mail_from_poller, user)
-        if Rails.env.production? && !uses_poller
-          sleep 60
-        end
-      else
-        unrequestable << public_body
+      info_request = transaction do
+        create_request!(public_body)
       end
+
+      send_request(info_request)
+
+      # Sleep between requests in production, in case we're sending a huge
+      # batch which may result in a torrent of auto-replies coming back to
+      # us and overloading the server.
+      uses_poller = feature_enabled?(:accept_mail_from_poller, user)
+      sleep 60 if Rails.env.production? && !uses_poller
     end
     reload
-
-    return unrequestable
   end
 
   # Create and send an FOI request to a public body
