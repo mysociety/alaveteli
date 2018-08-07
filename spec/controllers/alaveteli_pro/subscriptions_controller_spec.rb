@@ -500,7 +500,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
   end
 
-  describe 'GET #show' do
+  describe 'GET #index' do
 
     context 'without a signed-in user' do
 
