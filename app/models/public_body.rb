@@ -790,35 +790,23 @@ class PublicBody < ActiveRecord::Base
   end
 
   def self.with_tag(tag)
-    return all if tag.size == 1
+    return all if tag.size == 1 || tag.nil? || tag == 'all'
 
-    where_condition = ''
-    where_parameters = []
-
-    base_tag_condition = <<-EOF.strip_heredoc
-    (SELECT count(*) FROM has_tag_string_tags
-     WHERE has_tag_string_tags.model_id = public_bodies.id
-     AND has_tag_string_tags.model = 'PublicBody'
-    EOF
+    base_scope = HasTagString::HasTagStringTag.select('COUNT(*)').
+      where("has_tag_string_tags.model_id = #{table_name}.id").
+      where("has_tag_string_tags.model = '#{to_s}'")
 
     # Restrict the public bodies shown according to the tag
     # parameter supplied in the URL:
-    if tag.nil? || tag == 'all'
-      tag = 'all'
-    elsif tag == 'other'
+    if tag == 'other'
       tags = PublicBodyCategory.get.tags - ['other']
-      where_condition += base_tag_condition + " AND has_tag_string_tags.name IN (?)) = 0"
-      where_parameters.concat [tags]
+      where('(' + base_scope.where(name: tags).to_sql + ') = 0')
     elsif tag.include?(':')
-      name, value = HasTagString::HasTagStringTag.split_tag_into_name_value(tag)
-      where_condition += base_tag_condition + " AND has_tag_string_tags.name = ? AND has_tag_string_tags.value = ?) > 0"
-      where_parameters.concat [name, value]
+      tag, value = HasTagString::HasTagStringTag.split_tag_into_name_value(tag)
+      where('(' + base_scope.where(name: tag, value: value).to_sql + ') > 0')
     else
-      where_condition += base_tag_condition + " AND has_tag_string_tags.name = ?) > 0"
-      where_parameters.concat [tag]
+      where('(' + base_scope.where(name: tag).to_sql + ') > 0')
     end
-
-    where(where_condition, *where_parameters)
   end
 
   def self.with_query(query, tag)
