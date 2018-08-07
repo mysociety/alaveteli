@@ -326,6 +326,8 @@ class PublicBody < ActiveRecord::Base
     has_request_email? && !defunct? && !not_apply?
   end
 
+  scope :is_requestable, -> { with_request_email.not_defunct.foi_applies }
+
   # Strict superset of is_requestable?
   def is_followupable?
     has_request_email?

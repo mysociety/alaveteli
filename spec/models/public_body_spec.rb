@@ -2082,6 +2082,32 @@ describe PublicBody do
 
   end
 
+  describe '.is_requestable' do
+    subject { PublicBody.is_requestable }
+
+    let!(:public_body) { FactoryBot.create(:public_body) }
+    let!(:blank_body) { FactoryBot.create(:blank_email_public_body) }
+    let!(:defunct_body) { FactoryBot.create(:defunct_public_body) }
+    let!(:not_apply_body) { FactoryBot.create(:not_apply_public_body) }
+
+    it 'includes return requestable body' do
+      is_expected.to include(public_body)
+    end
+
+    it 'does not include bodies without request email' do
+      is_expected.to_not include(blank_body)
+    end
+
+    it 'does not include defunct bodies' do
+      is_expected.to_not include(defunct_body)
+    end
+
+    it 'does not include bodies where FOI/EIR is not applicable' do
+      is_expected.to_not include(not_apply_body)
+    end
+
+  end
+
   describe '#is_followupable?' do
 
     before do
