@@ -547,7 +547,6 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
       before do
         session[:user_id] = user.id
-        get :index
       end
 
       it 'successfully loads the page' do
@@ -556,18 +555,73 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
       end
 
       it 'finds the Stripe subscription for the user' do
+        get :index
         expect(assigns[:customer].id).
           to eq(user.pro_account.stripe_customer_id)
       end
 
       it 'assigns subscriptions' do
+        get :index
         expect(assigns[:subscriptions].length).to eq(1)
         expect(assigns[:subscriptions].first.id).
           to eq(customer.subscriptions.first.id)
       end
 
       it 'assigns the default source as card' do
+        get :index
         expect(assigns[:card].id).to eq(customer.default_source)
+      end
+
+      context 'if a PRO_REFERRAL_COUPON is blank' do
+
+        it 'does not assign the discount code' do
+          get :index
+          expect(assigns[:discount_code]).to be_nil
+        end
+
+        it 'does not assign the discount terms' do
+          get :index
+          expect(assigns[:discount_terms]).to be_nil
+        end
+
+      end
+
+      context 'if a PRO_REFERRAL_COUPON is set' do
+
+        before do
+          allow(AlaveteliConfiguration).
+            to receive(:pro_referral_coupon).and_return('PROREFERRAL')
+          allow(AlaveteliConfiguration).
+            to receive(:stripe_namespace).and_return('ALAVETELI')
+        end
+
+        let!(:coupon) do
+          stripe_helper.create_coupon(
+            percent_off: 50,
+            duration: 'repeating',
+            duration_in_months: 1,
+            id: 'ALAVETELI-PROREFERRAL',
+            metadata: { humanized_terms: '50% off for 1 month' }
+          )
+        end
+
+        it 'assigns the discount code, stripping the stripe namespace' do
+          get :index
+          expect(assigns[:discount_code]).to eq('PROREFERRAL')
+        end
+
+        it 'assigns the discount terms' do
+          get :index
+          expect(assigns[:discount_terms]).to eq('50% off for 1 month')
+        end
+
+        it 'rescues from any stripe error' do
+          error = Stripe::InvalidRequestError.new('Coupon expired', 'param')
+          StripeMock.prepare_error(error, :get_coupon)
+          get :index
+          expect(assigns[:discount_code]).to be_nil
+        end
+
       end
 
     end
