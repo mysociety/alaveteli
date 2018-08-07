@@ -88,6 +88,7 @@ module AlaveteliConfiguration
       :PRO_CONTACT_NAME => 'Alaveteli Professional',
       :PRO_SITE_NAME => 'Alaveteli Professional',
       :PRO_BATCH_AUTHORITY_LIMIT => 500,
+      :PRO_REFERRAL_COUPON => '',
       :PRODUCTION_MAILER_DELIVERY_METHOD => 'sendmail',
       :PRODUCTION_MAILER_RETRIEVER_METHOD => 'passive',
       :RAW_EMAILS_LOCATION => 'files/raw_emails',
