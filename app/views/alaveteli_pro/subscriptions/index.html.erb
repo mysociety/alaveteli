@@ -39,6 +39,18 @@
           <% end %>
         </div>
 
+        <% if @discount_code && @discount_terms %>
+          <div class="settings-section">
+            <h3><%= _('Refer a friend') %></h3>
+            <p class="settings__item">
+              <%= _('Share the code {{discount_code}} with a friend to give ' \
+                    'them {{discount_terms}} on signup.',
+                    discount_code: content_tag(:strong, @discount_code),
+                    discount_terms: @discount_terms) %>
+            </p>
+          </div>
+        <% end %>
+
       </div>  <!-- .settings-right-column -->
 
     </div>  <!-- .row -->
