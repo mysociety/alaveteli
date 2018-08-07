@@ -276,6 +276,22 @@ class PublicBody < ActiveRecord::Base
     PublicBody.find(old.first)
   end
 
+  def self.blank_contact_sql_clause
+    clause = <<-EOF.strip_heredoc
+      FROM public_bodies
+      INNER JOIN public_body_translations
+      ON public_body_translations.public_body_id = public_bodies.id
+      WHERE public_body_translations.request_email = ''
+      AND NOT EXISTS (
+        SELECT *
+        FROM has_tag_string_tags
+        WHERE name = 'defunct'
+        AND model = 'PublicBody'
+        AND model_id = public_bodies.id
+      )
+      EOF
+  end
+
   def self.blank_contact_count
     count_by_sql("SELECT COUNT(*)
                   #{blank_contact_sql_clause}")
@@ -944,22 +960,6 @@ class PublicBody < ActiveRecord::Base
 
   def name_for_search
     name.downcase
-  end
-
-  def self.blank_contact_sql_clause
-    clause = <<-EOF.strip_heredoc
-      FROM public_bodies
-      INNER JOIN public_body_translations
-      ON public_body_translations.public_body_id = public_bodies.id
-      WHERE public_body_translations.request_email = ''
-      AND NOT EXISTS (
-        SELECT *
-        FROM has_tag_string_tags
-        WHERE name = 'defunct'
-        AND model = 'PublicBody'
-        AND model_id = public_bodies.id
-      )
-      EOF
   end
 
   def self.get_public_body_list_translated_condition(table, has_first_letter=false, locale=nil)
