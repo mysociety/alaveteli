@@ -733,6 +733,28 @@ describe PublicBody do
 
   end
 
+  describe '#not_subject_to_law?' do
+
+    it 'returns true if tagged with "foi_no"' do
+      public_body = FactoryGirl.build(:public_body,
+                                      tag_string: 'foi_no')
+      expect(public_body.not_subject_to_law?).to eq true
+    end
+
+    it 'returns false if not tagged with "foi_no"' do
+      public_body = FactoryGirl.build(:public_body)
+      expect(public_body.not_subject_to_law?).to eq false
+    end
+
+    it 'returns true if authority_must_respond has been set to false in config' do
+      allow(AlaveteliConfiguration).to receive(:authority_must_respond).
+        and_return(false)
+      public_body = FactoryGirl.build(:public_body)
+      expect(public_body.not_subject_to_law?).to eq true
+    end
+
+  end
+
   describe ".internal_admin_body" do
 
     before(:each) do
@@ -2002,6 +2024,11 @@ describe PublicBody do
     it 'should return false there is no request_email' do
       allow(@body).to receive(:has_request_email?).and_return false
       expect(@body.is_requestable?).to eq(false)
+    end
+
+    it 'returns true if not subject to FOI law' do
+      allow(@body).to receive(:not_subject_to_law?).and_return true
+      expect(@body.is_requestable?).to eq(true)
     end
 
     it 'should return true if the request email is an email address' do

@@ -198,6 +198,20 @@ describe "request/show" do
     end
   end
 
+  describe 'when the authority is not subject to FOI law' do
+    before do
+      mock_body.add_tag_if_not_already_present('foi_no')
+    end
+
+    it 'displays a message that that authority is not obliged to respond' do
+      request_page
+      expect(rendered).
+        to have_content('This authority is not subject to FOI law, so is not ' \
+                        'legally obliged to respond')
+    end
+
+  end
+
   describe "censoring attachment names" do
     let(:request_with_attachment) do
       FactoryGirl.create(:info_request_with_html_attachment)
