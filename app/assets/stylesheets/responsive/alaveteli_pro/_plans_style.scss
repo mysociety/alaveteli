@@ -3,9 +3,21 @@
 }
 
 .pricing__tier__heading {
+  color: #365A74;
+  font-weight: bold;
+  sup {
+    font-size: 1rem;
+    top: -1em;
+    @include respond-min($main_menu-mobile_menu_cutoff) {
+      top: -1.5em;
+    }
+  }
+}
+
+.pricing__tier__price {
   background-image: linear-gradient(46deg, #4C888F 0%, #4C888F 9%, #365B74 63%);
   color: #fff;
-  padding: 1.5em;
+  padding: 1.5em 1.5em 3em;
   text-align: center;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
@@ -22,14 +34,14 @@
 }
 
 .pricing__tier__subhead {
-  color: #A3C1C5;
-  font-size: 0.875em;
+  color: lighten(#A3C1C5, 10%);
   line-height: 1.5em;
 }
 
 .pricing__tier__subhead--intro_pricing {
   margin-bottom: 0;
   line-height: 0;
+  font-size: 0.875em;
 }
 
 .price-label {
@@ -58,6 +70,12 @@
   h3 {
      font-size: 1.125em;
      margin-top: 0;
+  }
+  .button {
+    i {
+      font-style: normal;
+      font-weight: normal;
+    }
   }
 }
 

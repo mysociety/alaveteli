@@ -2,7 +2,9 @@
   font-weight: bold;
   font-size: 4em;
   text-align: center;
-  margin-bottom: 1em;
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    margin-bottom: 1em;
+  }
 }
 
 .pricing__tier {
@@ -21,6 +23,27 @@
 }
 
 .pricing__tier__heading {
+  text-align: center;
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    font-size: 2.666666667em;
+  }
+  margin-bottom: 0;
+}
+
+.pricing__tier__description {
+  text-align: center;
+  font-size: 1.125em;
+  margin-bottom: 3.5em;
+}
+
+.pricing__tier__subhead {
+  max-width: 11em;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.25em;
+}
+
+.pricing__tier__price {
   @include respond-min($main_menu-mobile_menu_cutoff) {
     width: 50%;
   }

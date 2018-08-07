@@ -11,7 +11,9 @@
     </h2>
     <div class="marketing__hero__cta">
       <% if @public_beta && feature_enabled?(:pro_pricing) %>
-       <%= link_to _('Plans and pricing'), pro_plans_path, :class => "button" %>
+        <h3><%= _("Start your <strong>three month’s free trial</strong> today") %></h3>
+        <p><%= _("No credit card required")%></p>
+        <%= link_to _('Get started'), pro_plans_path, :class => "button" %>
       <% else %>
         <h3><%= _("Now in beta") %></h2>
         <a href="#input-beta" class="button" id="launch-access">
