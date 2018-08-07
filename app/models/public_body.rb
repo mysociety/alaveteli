@@ -295,6 +295,8 @@ class PublicBody < ActiveRecord::Base
     has_tag?('not_apply')
   end
 
+  scope :foi_applies, -> { without_tag('not_apply') }
+
   # If tagged "foi_no", then the authority is not subject to FOI law but
   # requests may still be made through the site (e.g. they may have agreed to
   # respond to requests on a voluntary basis)

@@ -2043,6 +2043,22 @@ end
 
 describe PublicBody do
 
+  describe '.foi_applies' do
+    subject { PublicBody.foi_applies }
+
+    let!(:public_body) { FactoryBot.create(:public_body) }
+    let!(:not_apply_body) { FactoryBot.create(:not_apply_public_body) }
+
+    it 'include active bodies' do
+      is_expected.to include(public_body)
+    end
+
+    it 'does not include bodies where FOI/EIR is not applicable' do
+      is_expected.to_not include(not_apply_body)
+    end
+
+  end
+
   describe '.not_defunct' do
     subject { PublicBody.not_defunct }
 
