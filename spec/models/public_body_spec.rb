@@ -864,26 +864,24 @@ describe PublicBody do
   end
 
   describe '.blank_contacts' do
-    let!(:public_body){ FactoryBot.create(:public_body) }
-    let!(:blank_contact){ FactoryBot.create(:blank_email_public_body) }
+    subject { PublicBody.blank_contacts }
+
+    let!(:public_body) { FactoryBot.create(:public_body) }
+    let!(:blank_body) { FactoryBot.create(:blank_email_public_body) }
     let!(:defunct_body) do
-      FactoryBot.create(:defunct_public_body,
-                        :request_email => '')
+      FactoryBot.create(:defunct_public_body, request_email: '')
     end
 
     it 'does not include bodies with a request email' do
-      expect(PublicBody.blank_contacts.include?(public_body))
-        .to be false
+      is_expected.to_not include(public_body)
     end
 
     it 'includes bodies with an empty request email' do
-      expect(PublicBody.blank_contacts.include?(blank_contact))
-        .to be true
+      is_expected.to include(blank_body)
     end
 
     it 'does not include defunct bodies' do
-      expect(PublicBody.blank_contacts.include?(defunct_body))
-        .to be false
+      is_expected.to_not include(defunct_body)
     end
 
     it 'includes bodies with a translation that has an empty request email' do
@@ -891,8 +889,7 @@ describe PublicBody do
         public_body.request_email = ''
         public_body.save
       end
-      expect(PublicBody.blank_contacts.include?(public_body))
-        .to be true
+      is_expected.to include(blank_body)
     end
 
   end
