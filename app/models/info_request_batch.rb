@@ -74,7 +74,7 @@ class InfoRequestBatch < ActiveRecord::Base
   def create_batch!
     unrequestable = []
     created = []
-    unsent_public_bodies.each do |public_body|
+    requestable_public_bodies.each do |public_body|
       if public_body.is_requestable?
         info_request = nil
         ActiveRecord::Base.transaction do
@@ -248,8 +248,10 @@ class InfoRequestBatch < ActiveRecord::Base
 
   private
 
-  # Return a list of public bodies which haven't been sent the info request yet.
-  def unsent_public_bodies
+  # Return a list of public bodies which we can send the request to
+  #
+  # Returns an array of PublicBody objects
+  def requestable_public_bodies
     public_bodies - info_requests.map(&:public_body)
   end
 end
