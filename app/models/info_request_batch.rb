@@ -36,13 +36,13 @@ class InfoRequestBatch < ActiveRecord::Base
 
   def self.send_batches
     where(:sent_at => nil).find_each do |info_request_batch|
-      unrequestable = info_request_batch.create_batch!
-      mail_message = InfoRequestBatchMailer.
-                       batch_sent(
-                         info_request_batch,
-                         unrequestable,
-                         info_request_batch.user
-                       ).deliver_now
+      info_request_batch.create_batch!
+
+      InfoRequestBatchMailer.batch_sent(
+        info_request_batch,
+        info_request_batch.unrequestable_public_bodies,
+        info_request_batch.user
+      ).deliver_now
     end
   end
 
@@ -240,6 +240,13 @@ class InfoRequestBatch < ActiveRecord::Base
   # Returns an array of PublicBody objects
   def requestable_public_bodies
     public_bodies.is_requestable - sent_public_bodies
+  end
+
+  # Return a list of public bodies which we can't sent the request to
+  #
+  # Returns an array of PublicBody objects
+  def unrequestable_public_bodies
+    public_bodies - public_bodies.is_requestable - sent_public_bodies
   end
 
   # Have we persisted an InfoRequest for each PublicBody in this batch?
