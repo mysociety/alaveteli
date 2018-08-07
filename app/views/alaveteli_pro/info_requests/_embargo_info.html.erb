@@ -2,12 +2,12 @@
 <p class="js-embargo-active">
   <% if tense == :future %>
     <%= _('This request will be private on {{site_name}} until ' \
-          '<span class="js-embargo-expiry">{{embargo_publish_at}}</span>',
+          '<strong class="js-embargo-expiry">{{embargo_publish_at}}</strong>',
           site_name: AlaveteliConfiguration.site_name,
           embargo_publish_at: embargo_publish_at(embargo)) %>
   <% else %>
     <%= _('This request is private on {{site_name}} until ' \
-          '<span class="js-embargo-expiry">{{embargo_publish_at}}</span>',
+          '<strong class="js-embargo-expiry">{{embargo_publish_at}}</strong>',
           site_name: AlaveteliConfiguration.site_name,
           embargo_publish_at: embargo_publish_at(embargo)) %>
   <% end %>
