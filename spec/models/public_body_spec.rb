@@ -894,6 +894,22 @@ describe PublicBody do
 
   end
 
+  describe '.with_request_email' do
+    subject { PublicBody.with_request_email }
+
+    let!(:public_body) { FactoryBot.create(:public_body) }
+    let!(:blank_body) { FactoryBot.create(:blank_email_public_body) }
+
+    it 'include bodies with a request email' do
+      is_expected.to include(public_body)
+    end
+
+    it 'does not include bodies with an empty request email' do
+      is_expected.to_not include(blank_body)
+    end
+
+  end
+
   describe  'when generating json for the api' do
 
     let(:public_body) do

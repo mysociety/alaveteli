@@ -282,6 +282,11 @@ class PublicBody < ActiveRecord::Base
       not_defunct
   end
 
+  def self.with_request_email
+    joins(:translations).
+      where.not(public_body_translations: { request_email: '' })
+  end
+
   # If tagged "not_apply", then FOI/EIR no longer applies to authority at all
   # and the site will not accept further requests for them
   def not_apply?
