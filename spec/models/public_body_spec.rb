@@ -2043,6 +2043,22 @@ end
 
 describe PublicBody do
 
+  describe '.not_defunct' do
+    subject { PublicBody.not_defunct }
+
+    let!(:public_body) { FactoryBot.create(:public_body) }
+    let!(:defunct_body) { FactoryBot.create(:defunct_public_body) }
+
+    it 'include active bodies' do
+      is_expected.to include(public_body)
+    end
+
+    it 'does not include defunct bodies' do
+      is_expected.to_not include(defunct_body)
+    end
+
+  end
+
   describe '#is_requestable?' do
 
     before do

@@ -309,6 +309,8 @@ class PublicBody < ActiveRecord::Base
     has_tag?('defunct')
   end
 
+  scope :not_defunct, -> { without_tag('defunct') }
+
   # Are all requests to this body under the Environmental Information
   # Regulations?
   def eir_only?
