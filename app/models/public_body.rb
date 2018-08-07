@@ -276,7 +276,7 @@ class PublicBody < ActiveRecord::Base
     PublicBody.find(old.first)
   end
 
-  def self.blank_contacts
+  def self.without_request_email
     joins(:translations).
       where(public_body_translations: { request_email: '' }).
       not_defunct

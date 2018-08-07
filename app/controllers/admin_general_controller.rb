@@ -32,8 +32,8 @@ class AdminGeneralController < AdminController
                               @old_unclassified ].
       any?{ |to_do_list| ! to_do_list.empty? }
 
-    @blank_contact_count = PublicBody.blank_contacts.count
-    @blank_contacts = PublicBody.blank_contacts.
+    @blank_contact_count = PublicBody.without_request_email.count
+    @blank_contacts = PublicBody.without_request_email.
                                    limit(20).
                                      includes(:tags, :translations)
 

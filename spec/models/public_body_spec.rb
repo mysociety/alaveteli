@@ -863,8 +863,8 @@ describe PublicBody do
 
   end
 
-  describe '.blank_contacts' do
-    subject { PublicBody.blank_contacts }
+  describe '.without_request_email' do
+    subject { PublicBody.without_request_email }
 
     let!(:public_body) { FactoryBot.create(:public_body) }
     let!(:blank_body) { FactoryBot.create(:blank_email_public_body) }
