@@ -72,8 +72,7 @@ class InfoRequestBatch < ActiveRecord::Base
              :embargo_duration => draft.embargo_duration)
   end
 
-  # Create a batch of information requests, returning a list of public bodies
-  # that are unrequestable from the initial list of public body ids passed.
+  # Create a batch of information requests and sends them to public bodies
   def create_batch!
     requestable_public_bodies.each do |public_body|
       info_request = transaction do
@@ -91,7 +90,7 @@ class InfoRequestBatch < ActiveRecord::Base
     reload
   end
 
-  # Create and send an FOI request to a public body
+  # Create a FOI request for a public body
   def create_request!(public_body)
     body = OutgoingMessage.fill_in_salutation(self.body, public_body)
     info_request = InfoRequest.create_from_attributes({:title => self.title},
@@ -109,6 +108,7 @@ class InfoRequestBatch < ActiveRecord::Base
     info_request
   end
 
+  # Send a FOI request to a public body
   def send_request(info_request)
     outgoing_message = info_request.outgoing_messages.first
     outgoing_message.sendable?
@@ -244,6 +244,9 @@ class InfoRequestBatch < ActiveRecord::Base
     requestable_public_bodies.empty?
   end
 
+  # Should we summarise the batch request?
+  #
+  # Returns a Boolean
   def should_summarise?
     request_summary.nil? || all_requests_created?
   end
