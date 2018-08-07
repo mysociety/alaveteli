@@ -809,6 +809,27 @@ class PublicBody < ActiveRecord::Base
     end
   end
 
+  def self.without_tag(tag)
+    # Generate a unique table alias for the has_tag_string_tags join so this
+    # scope can be chained to be used more than once
+    join_alias = aliased_table_for('tags')
+
+    if tag.include?(':')
+      tag, value = HasTagString::HasTagStringTag.split_tag_into_name_value(tag)
+      condition = "#{join_alias}.name = #{sanitize(tag)} AND " \
+        "#{join_alias}.value = #{sanitize(value)}"
+    else
+      condition = "#{join_alias}.name = #{sanitize(tag)}"
+    end
+
+    joins(
+      "LEFT JOIN has_tag_string_tags AS #{join_alias} ON " \
+      "#{join_alias}.model = '#{to_s}' AND " \
+      "#{join_alias}.model_id = #{table_name}.id AND " +
+      condition
+    ).where(join_alias => { id: nil })
+  end
+
   def self.with_query(query, tag)
     like_query = "%#{query}%"
     has_first_letter = tag.size == 1
@@ -948,5 +969,12 @@ class PublicBody < ActiveRecord::Base
           result += " AND #{table}.locale = :locale"
         end
         result
+  end
+
+  def self.aliased_table_for(table)
+    # AliasTracker tracks SQL join table aliases so multiple joins can happen
+    # against the same table, see: https://github.com/rails/rails/blob/4-2-stable/activerecord/lib/active_record/associations/alias_tracker.rb
+    @alias_tracker ||= AliasTracker.empty connection
+    @alias_tracker.aliased_table_for(table, table).name
   end
 end

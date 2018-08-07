@@ -140,6 +140,44 @@ describe PublicBody do
 
   end
 
+  describe '.without_tag' do
+
+    it 'should not return authorities with key/value categories' do
+      public_bodies(:humpadink_public_body).tag_string = 'eats_cheese:stilton'
+
+      pbs = PublicBody.without_tag('eats_cheese')
+      expect(pbs).to_not include(public_bodies(:humpadink_public_body))
+
+      pbs = PublicBody.without_tag('eats_cheese:stilton')
+      expect(pbs).to_not include(public_bodies(:humpadink_public_body))
+
+      pbs = PublicBody.without_tag('eats_cheese:jarlsberg')
+      expect(pbs).to include(public_bodies(:humpadink_public_body))
+    end
+
+    it 'should not return authorities with categories' do
+      public_bodies(:humpadink_public_body).tag_string = 'mycategory'
+
+      pbs = PublicBody.without_tag('mycategory')
+      expect(pbs).to_not include(public_bodies(:humpadink_public_body))
+
+      pbs = PublicBody.without_tag('myothercategory')
+      expect(pbs).to include(public_bodies(:humpadink_public_body))
+    end
+
+    it 'should be chainable to exclude more than one tag' do
+      public_bodies(:geraldine_public_body).tag_string = 'council'
+      public_bodies(:humpadink_public_body).tag_string = 'defunct'
+      public_bodies(:forlorn_public_body).tag_string = 'not_apply'
+
+      pbs = PublicBody.without_tag('defunct').without_tag('not_apply')
+      expect(pbs).to include(public_bodies(:geraldine_public_body))
+      expect(pbs).to_not include(public_bodies(:humpadink_public_body))
+      expect(pbs).to_not include(public_bodies(:forlorn_public_body))
+    end
+
+  end
+
   describe '.with_query' do
 
     it 'should return authorities starting with a multibyte first letter' do
