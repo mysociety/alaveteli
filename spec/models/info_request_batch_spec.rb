@@ -400,18 +400,19 @@ describe InfoRequestBatch do
   end
 
   describe '#all_requests_created?' do
-    let(:batch) do
-      body = FactoryBot.build(:public_body)
-      batch = FactoryBot.create(:info_request_batch, public_bodies: [body])
+    subject { batch.all_requests_created? }
+
+    let(:batch) { FactoryBot.build(:info_request_batch) }
+    let(:body) { FactoryBot.build(:public_body) }
+
+    context 'there no requestable public bodies' do
+      before { allow(batch).to receive(:requestable_public_bodies) { [] } }
+      it { is_expected.to eq true }
     end
 
-    it 'returns true if there are equal requests to authorities' do
-      batch.create_batch!
-      expect(batch.all_requests_created?).to eq(true)
-    end
-
-    it 'returns false if there are less requests than authorities' do
-      expect(batch.all_requests_created?).to eq(false)
+    context 'there are requestable public bodies' do
+      before { allow(batch).to receive(:requestable_public_bodies) { [body] } }
+      it { is_expected.to eq false }
     end
 
   end
