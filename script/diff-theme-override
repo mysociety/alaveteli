@@ -49,7 +49,18 @@ function alaveteli_dir {
 
 function main {
   relative_path=`echo "$THEME_FILE" | sed "s|.*\/lib\/||"`
-  $DIFF_TOOL "$(alaveteli_dir)/app/$relative_path" $THEME_FILE
+  SOURCE_FILE="$(alaveteli_dir)/app/$relative_path"
+  # check matching source file:
+  #   1. Exists
+  #   2. Isn't empty
+  #   3. Doesn't contain placeholder
+  if [ -f $SOURCE_FILE ] && [ -s $SOURCE_FILE ]; then
+    if ! grep -q 'Placeholder to be overriden by theme' $SOURCE_FILE; then
+      if ! grep -q 'This file may be overwritten by a local theme' $SOURCE_FILE; then
+        $DIFF_TOOL $SOURCE_FILE $THEME_FILE
+      fi
+    fi
+  fi
 }
 
 DIFF_TOOL="/usr/bin/git diff"
