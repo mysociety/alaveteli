@@ -140,6 +140,26 @@ textarea{
   }
 }
 
+.sidebar--sticky {  
+  @supports (position: sticky) or (position: -webkit-sticky){
+    $sidebar-vertical-margin: 20px;
+    $adminbar-height: 41px;
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      position: -webkit-sticky;
+      position: sticky;
+      top: $sidebar-vertical-margin;
+      //If the sticky sidebar is taller than the screen height, make the contents scrollable
+      max-height: calc(100vh - #{$sidebar-vertical-margin});
+      overflow: auto;
+      .admin + * & {
+        // If you're an admin your sticky sidebar needs more space to account for the sticky admin bar
+        top: $adminbar-height + $sidebar-vertical-margin;
+        max-height: calc(100vh - #{$adminbar-height} - (#{$sidebar-vertical-margin} * 2));
+      }
+    }
+  }
+}
+
 /*
  * Action menus
  */
