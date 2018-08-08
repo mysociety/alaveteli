@@ -76,13 +76,13 @@ namespace :stats do
       follow_up_count = OutgoingMessage.where(followup_conditions).count
 
       confirmed_users_count =
-        User.not_banned.
+        User.active.
           where(:email_confirmed => true).
             where(date_conditions).
               count
 
       pro_confirmed_users_count =
-        User.pro.not_banned.
+        User.pro.active.
           where(:email_confirmed => true).
             where('users.created_at >= ?
                    AND users.created_at < ?',

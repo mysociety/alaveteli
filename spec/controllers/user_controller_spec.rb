@@ -560,7 +560,7 @@ describe UserController do
       end
 
       it 'renders an error message' do
-        msg = 'Banned users cannot edit their profile'
+        msg = 'Suspended users cannot edit their profile'
         expect(flash[:error]).to eq(msg)
       end
 

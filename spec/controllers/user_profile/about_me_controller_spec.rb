@@ -77,7 +77,7 @@ describe UserProfile::AboutMeController do
 
       it 'displays an error' do
         put :update, :user => { :about_me => 'My bio' }
-        expect(flash[:error]).to eq('Banned users cannot edit their profile')
+        expect(flash[:error]).to eq('Suspended users cannot edit their profile')
       end
 
       it 'redirects to edit' do

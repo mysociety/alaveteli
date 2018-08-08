@@ -71,7 +71,7 @@ namespace :export do
     #export non-personal user fields
     DataExport.csv_export( User,
                 to_run,
-                User.where(ban_text: '').
+                User.active.
                   where("updated_at < ?", cut_off_date),
                 ["id",
                 "name",
