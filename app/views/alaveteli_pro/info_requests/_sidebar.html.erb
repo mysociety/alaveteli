@@ -1,4 +1,6 @@
 <div id="right_column" class="sidebar sidebar--sticky right_column" role="complementary">
+  <div class="js-request-navigation" data-next-text="<%= _("Next") %>" data-prev-text="<%= _("Previous") %>">
+  </div>
   <% if @info_request.info_request_batch_id %>
     <%= render partial: "alaveteli_pro/info_request_batches/embargo_form",
                locals: {
