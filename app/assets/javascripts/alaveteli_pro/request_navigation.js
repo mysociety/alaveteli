@@ -82,6 +82,16 @@
             }
         });
 
+        $(document).on('keydown', function(event) {
+            if(event.which === 37) {
+                event.preventDefault();
+                prevCorrespondence();
+            } else if(event.which === 39) {
+                event.preventDefault();
+                nextCorrespondence();
+            } 
+        })
+
     });
 
 
