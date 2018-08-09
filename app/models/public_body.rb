@@ -290,8 +290,18 @@ class PublicBody < ActiveRecord::Base
   end
 
   # If tagged "not_apply", then FOI/EIR no longer applies to authority at all
+  # and the site will not accept further requests for them
   def not_apply?
     has_tag?('not_apply')
+  end
+
+  # If tagged "foi_no", then the authority is not subject to FOI law but
+  # requests may still be made through the site (e.g. they may have agreed to
+  # respond to requests on a voluntary basis)
+  # This will apply in all cases if the site has been configured not to state
+  # that authorities have a legal obligation
+  def not_subject_to_law?
+    has_tag?('foi_no') || !AlaveteliConfiguration.authority_must_respond
   end
 
   # If tagged "defunct", then the authority no longer exists at all

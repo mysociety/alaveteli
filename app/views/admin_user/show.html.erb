@@ -59,16 +59,16 @@
 </table>
 
 <div class="row">
-  <div class="span10">
+  <div class="span6">
     <div class="btn-toolbar">
       <%= link_to 'Edit', edit_admin_user_path(@admin_user), :class => "btn btn-primary" %>
       <%= link_to 'Public page', user_path(@admin_user), :class => "btn" %>
     </div>
   </div>
-  <div class="span2">
-    <%= form_tag admin_users_account_suspensions_path(user_id: @admin_user.id, suspension_reason: 'Banned for spamming'), class: 'form form-horizontal' do %>
+  <div class="span6 text-right">
+    <%= form_tag admin_users_account_suspensions_path(user_id: @admin_user.id, suspension_reason: 'Banned for spamming'), class: 'form form-inline' do %>
       <% submit_class = %w(btn btn-danger) %>
-      <% submit_class << 'disabled' if @admin_user.banned? %>
+      <% submit_class << 'disabled' if @admin_user.suspended? %>
       <%= submit_tag 'Ban for spamming', class: submit_class %>
     <% end %>
   </div>

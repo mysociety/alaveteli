@@ -9,6 +9,7 @@
     <%= render partial: "alaveteli_pro/info_requests/embargo_form",
                locals: { info_request: @info_request } %>
   <% end %>
+
   <% unless state_transitions_empty?(@state_transitions) %>
     <div class="sidebar__section update-status">
       <h2><%= _("Status") %></h2>

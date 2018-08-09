@@ -235,6 +235,10 @@ class InfoRequestBatch < ActiveRecord::Base
     info_requests.count == public_bodies.count
   end
 
+  def should_summarise?
+    request_summary.nil? || all_requests_created?
+  end
+
   # Log an event for all information requests within the batch
   #
   # Returns an array of InfoRequestEvent objects

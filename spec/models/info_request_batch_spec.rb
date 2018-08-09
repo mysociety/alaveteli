@@ -416,6 +416,31 @@ describe InfoRequestBatch do
 
   end
 
+  describe '#should_summarise?' do
+    subject { batch.should_summarise? }
+
+    let!(:batch) do
+      FactoryGirl.create(
+        :info_request_batch,
+        public_bodies: [FactoryGirl.build(:public_body)],
+        request_summary: FactoryGirl.build(:request_summary)
+      )
+    end
+
+    it { is_expected.to eq false }
+
+    context 'without summary' do
+      before { batch.request_summary = nil }
+      it { is_expected.to eq true }
+    end
+
+    context 'all requests have been created' do
+      before { allow(batch).to receive(:all_requests_created?) { true } }
+      it { is_expected.to eq true }
+    end
+
+  end
+
   describe "#log_event" do
     let(:public_bodies) { FactoryGirl.create_list(:public_body, 3) }
     let(:info_request_batch) do

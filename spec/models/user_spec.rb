@@ -1068,6 +1068,54 @@ describe User do
 
   end
 
+  describe '#active?' do
+    let(:user) { FactoryGirl.build(:user) }
+
+    it 'should be active if not banned' do
+      allow(user).to receive(:banned?).and_return(false)
+      expect(user).to be_active
+    end
+
+    it 'should not be active if banned' do
+      allow(user).to receive(:banned?).and_return(true)
+      expect(user).to_not be_active
+    end
+
+  end
+
+  describe '#suspended?' do
+    let(:user) { FactoryGirl.build(:user) }
+
+    it 'should not be suspended if not banned' do
+      allow(user).to receive(:banned?).and_return(false)
+      expect(user).to_not be_suspended
+    end
+
+    it 'should be suspended if banned' do
+      allow(user).to receive(:banned?).and_return(true)
+      expect(user).to be_suspended
+    end
+
+  end
+
+  describe '.active' do
+
+    it 'should not return banned users' do
+      user = FactoryGirl.create(:user, :ban_text => 'banned')
+      expect(User.active).to_not include(user)
+    end
+
+  end
+
+  describe '.banned' do
+
+    it 'should return banned users' do
+      user = FactoryGirl.create(:user, :ban_text => 'banned')
+      expect(User.banned).to include(user)
+    end
+
+  end
+
   describe '.not_banned' do
 
     it 'should not return banned users' do
