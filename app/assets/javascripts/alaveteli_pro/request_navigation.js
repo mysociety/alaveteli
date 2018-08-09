@@ -13,6 +13,7 @@
         var correspondenceIds = [];
 
         var adminBarHeight = $('.admin .navbar-fixed-top').outerHeight() || 0;
+        var tolerance = 30; //the amount of space between the top of the window and the current correspondence element
         
         $allCorrespondence.each(function() {
             correspondenceIds.push($(this).attr('id'));
@@ -39,39 +40,37 @@
             );
         }
 
+        var updateUI = function updateUI() {
+            updateCurrentCorrespondenceIndex();
+            updateStatusText();
+            if(correspondenceIds.indexOf(window.location.hash.substr(1)) > -1) {
+                scrollToCurrentCorrespondence();
+                highlightCurrentCorrespondence();
+            }
+        }
+
         var scrollToCurrentCorrespondence = function scrollToCurrentCorrespondence() {
             var $el = $('#' + correspondenceIds[currentCorrespondenceIndex]);
             $('html, body').stop().animate({
-                scrollTop: $el.offset().top - adminBarHeight
+                scrollTop: $el.offset().top - adminBarHeight - tolerance
             }, 150);
         }
 
         var nextCorrespondence = function nextCorrespondence() {
             history.pushState({}, null, '#' + correspondenceIds[Math.min(currentCorrespondenceIndex + 1, correspondenceIds.length - 1)]);
-            updateCurrentCorrespondenceIndex();
-            updateStatusText();
-            scrollToCurrentCorrespondence();
-            highlightCurrentCorrespondence();
+            updateUI();
         }
 
         var prevCorrespondence = function prevCorrespondence() {
             history.pushState({}, null, '#' + correspondenceIds[Math.max(currentCorrespondenceIndex - 1, 0)]);
-            updateCurrentCorrespondenceIndex();
-            updateStatusText();
-            scrollToCurrentCorrespondence();
-            highlightCurrentCorrespondence();
+            updateUI();
         }
 
         var $prevButton = $('<button>').text(prevText).on('click', prevCorrespondence);
         var $nextButton = $('<button>').text(nextText).on('click', nextCorrespondence);
 
         var $navStatus = $('<button>').on('click', scrollToCurrentCorrespondence);
-        updateCurrentCorrespondenceIndex();
-        updateStatusText();
-        if(correspondenceIds.indexOf(window.location.hash.substr(1)) > -1) {
-            scrollToCurrentCorrespondence();
-            highlightCurrentCorrespondence();
-        }
+        updateUI();
 
 
         $requestNav.append($prevButton, $nextButton, $navStatus);
@@ -79,10 +78,7 @@
         window.addEventListener('hashchange', function(event) {
             if(correspondenceIds.indexOf(window.location.hash.substr(1)) > -1) {
                 event.preventDefault();
-                updateCurrentCorrespondenceIndex();
-                updateStatusText();
-                scrollToCurrentCorrespondence();
-                highlightCurrentCorrespondence();
+                updateUI();
             }
         });
 
