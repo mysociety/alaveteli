@@ -1,4 +1,9 @@
 <div id="right_column" class="sidebar sidebar--sticky right_column" role="complementary">
+  <div class="js-request-navigation request-navigation"
+       data-status-text="<%= _("Message {{current_message}} of {{total_messages}}",
+                               current_message: '[[x]]',
+                               total_messages: '[[y]]') %>">
+  </div>
   <% if @info_request.info_request_batch_id %>
     <%= render partial: "alaveteli_pro/info_request_batches/embargo_form",
                locals: {
