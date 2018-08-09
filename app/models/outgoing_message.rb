@@ -30,7 +30,7 @@ class OutgoingMessage < ActiveRecord::Base
   include Rails.application.routes.url_helpers
   include LinkToHelper
 
-  STATUS_TYPES = %w(ready sent failed).freeze
+  STATUS_TYPES = %w(ready sent failed held).freeze
   MESSAGE_TYPES = %w(initial_request followup).freeze
   WHAT_DOING_VALUES = %w(normal_sort
                          internal_review
@@ -196,8 +196,14 @@ class OutgoingMessage < ActiveRecord::Base
     set_info_request_described_state
   end
 
+  def held?
+    status == 'held'
+  end
+
   def sendable?
-    if status == 'ready'
+    if held?
+      return false
+    elsif status == 'ready'
       if message_type == 'initial_request'
         return true
       elsif message_type == 'followup'
@@ -266,6 +272,16 @@ class OutgoingMessage < ActiveRecord::Base
     else
       raise "Message id #{id} has type '#{message_type}' status " \
         "'#{status}' which prepare_message_for_resend can't handle"
+    end
+  end
+
+  # An admin function
+  def prepare_message_for_approval
+    if MESSAGE_TYPES.include?(message_type) and status == 'held'
+      self.status = 'ready'
+    else
+      raise "Message id #{id} has type '#{message_type}' status " \
+        "'#{status}' which prepare_message_for_approval can't handle"
     end
   end
 

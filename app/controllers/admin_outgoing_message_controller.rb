@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class AdminOutgoingMessageController < AdminController
 
-  before_filter :set_outgoing_message, :only => [:edit, :destroy, :update, :resend]
+  before_filter :set_outgoing_message, :only => [:edit, :destroy, :update, :resend, :approve]
   before_filter :set_is_initial_message, :only => [:edit, :destroy]
 
   def edit
@@ -71,6 +71,29 @@ class AdminOutgoingMessageController < AdminController
     )
 
     flash[:notice] = "Outgoing message resent"
+    redirect_to admin_request_url(@outgoing_message.info_request)
+  end
+
+  def approve
+    @outgoing_message.prepare_message_for_approval
+
+    mail_message = case @outgoing_message.message_type
+    when 'initial_request'
+      OutgoingMailer.initial_request(
+        @outgoing_message.info_request,
+        @outgoing_message
+      ).deliver_now
+    else
+      raise "Message id #{id} has type '#{message_type}' which cannot be sent"
+    end
+
+    @outgoing_message.record_email_delivery(
+      mail_message.to_addrs.join(', '),
+      mail_message.message_id,
+      'sent'
+    )
+
+    flash[:notice] = "Outgoing message approved and sent"
     redirect_to admin_request_url(@outgoing_message.info_request)
   end
 

@@ -11,7 +11,9 @@ module InfoRequestHelper
       status = info_request.calculate_status
     end
     method = "status_text_#{ status }"
-    if respond_to?(method, true)
+    if info_request.held?
+      status_text_held_for_review(info_request)
+    elsif respond_to?(method, true)
       send(method, info_request, opts)
     else
       custom_state_description(info_request, opts)
@@ -38,6 +40,12 @@ module InfoRequestHelper
                                                       new_responses_count)
       end
     end
+  end
+
+  def status_text_held_for_review(info_request)
+    str = _('Currently <strong>waiting for a response</strong> from ' \
+            '{{public_body_link}}',
+            :public_body_link => public_body_link(info_request.public_body))
   end
 
   def status_text_waiting_response(info_request, opts = {})
