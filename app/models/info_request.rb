@@ -356,10 +356,18 @@ class InfoRequest < ActiveRecord::Base
     magic_email
   end
 
+  def held?
+    outgoing_messages.first.held?
+  end
+
+  def initial_status
+    public_body.review_requests? ? 'held' : 'ready'
+  end
+
   def self.create_from_attributes(info_request_atts, outgoing_message_atts, user=nil)
     info_request = new(info_request_atts)
     default_message_params = {
-      :status => 'ready',
+      :status => info_request.initial_status,
       :message_type => 'initial_request',
       :what_doing => 'normal_sort'
     }
@@ -382,7 +390,7 @@ class InfoRequest < ActiveRecord::Base
                        :user => draft.user,
                        :public_body => draft.public_body)
     info_request.outgoing_messages.new(:body => draft.body,
-                                       :status => 'ready',
+                                       :status => info_request.initial_status,
                                        :message_type => 'initial_request',
                                        :what_doing => 'normal_sort',
                                        :info_request => info_request)
@@ -985,6 +993,7 @@ class InfoRequest < ActiveRecord::Base
   end
 
   def base_calculate_status
+    return 'waiting_response' if held?
     return 'waiting_classification' if awaiting_description
     return described_state unless described_state == "waiting_response"
     # Compare by date, so only overdue on next day, not if 1 second late
@@ -1064,7 +1073,7 @@ class InfoRequest < ActiveRecord::Base
       calculate_last_event_forming_initial_request
     end
 
-    if last_sent.nil?
+    if last_sent.nil? && !held?
       raise "internal error, last_event_forming_initial_request gets nil for " \
             "request #{ id } outgoing messages count " \
             "#{ outgoing_messages.size } all events: " \
@@ -1135,6 +1144,7 @@ class InfoRequest < ActiveRecord::Base
   # TODO: once date_initial_request_sent_at is populated for all
   # requests, this can be removed
   def calculate_date_initial_request_last_sent_at
+    return if held?
     last_sent = last_event_forming_initial_request
     last_sent.outgoing_message.last_sent_at.to_date
   end
@@ -1146,6 +1156,7 @@ class InfoRequest < ActiveRecord::Base
   # TODO: once date_response_required_by is populated for all
   # requests, this can be removed
   def date_response_required_by
+    return if held?
     date = read_attribute(:date_response_required_by)
     return date if date
     calculate_date_response_required_by
@@ -1160,6 +1171,7 @@ class InfoRequest < ActiveRecord::Base
   # TODO: once date_very_overdue_after is populated for all
   # requests, this can be removed
   def date_very_overdue_after
+    return if held?
     date = read_attribute(:date_very_overdue_after)
     return date if date
     calculate_date_very_overdue_after

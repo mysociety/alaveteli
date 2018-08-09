@@ -289,6 +289,10 @@ class PublicBody < ActiveRecord::Base
       includes(:tags, :translations)
   end
 
+  def review_requests?
+    has_tag?('review_requests')
+  end
+
   # If tagged "not_apply", then FOI/EIR no longer applies to authority at all
   # and the site will not accept further requests for them
   def not_apply?

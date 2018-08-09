@@ -40,6 +40,13 @@
                                          "authority?" } do %>
         Resend
       <% end %>
+      <% if @outgoing_message.held? %>
+        <%= link_to approve_admin_outgoing_message_path(@outgoing_message),
+                    :class => 'btn btn-secondary',
+                    :method => :post do %>
+          Approve and send
+        <% end %>
+      <% end %>
     </div>
   </div>
 <% end %>

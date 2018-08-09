@@ -2,6 +2,9 @@
 
 <h1>
   <%= @title %>
+  <% if @info_request.held? %>
+    <%= content_tag(:span, 'held', :class => 'label') %>
+  <% end %>
   <% if @info_request.embargo %>
     <%= content_tag(:span, 'embargoed', :class => 'label') %>
   <% end %>
@@ -293,6 +296,13 @@
                            "to the authority?" %>
                   <%= submit_tag "Resend", :class => "btn btn-warning",
                                            :data => { :confirm => msg } %>
+                <% end %>
+                <% if outgoing_message.held? %>
+                  <%= link_to approve_admin_outgoing_message_path(outgoing_message),
+                              :class => 'btn btn-secondary',
+                              :method => :post do %>
+                    Approve and send
+                  <% end %>
                 <% end %>
               </td>
             </tr>

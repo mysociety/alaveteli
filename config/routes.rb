@@ -549,6 +549,7 @@ Rails.application.routes.draw do
       :controller => 'admin_outgoing_message',
     :only => [:edit, :update, :destroy] do
       post 'resend', :on => :member
+      post 'approve', :on => :member
     end
   end
   ####
