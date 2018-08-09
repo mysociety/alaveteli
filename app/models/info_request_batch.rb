@@ -239,7 +239,7 @@ class InfoRequestBatch < ActiveRecord::Base
   #
   # Returns an array of PublicBody objects
   def requestable_public_bodies
-    public_bodies - sent_public_bodies
+    public_bodies.is_requestable - sent_public_bodies
   end
 
   # Have we persisted an InfoRequest for each PublicBody in this batch?

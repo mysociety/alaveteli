@@ -101,23 +101,23 @@ describe InfoRequestBatch do
       end
     end
 
-    it 'should send requests to requestable public bodies, and return a list of unrequestable ones' do
-      allow(first_public_body).to receive(:is_requestable?).and_return(false)
-      unrequestable = info_request_batch.create_batch!
-      expect(unrequestable).to eq([first_public_body])
-      expect(info_request_batch.info_requests.size).to eq(1)
+    it 'does not resend requests to public bodies that have already received the request' do
+      expect(info_request_batch).to receive(:requestable_public_bodies).
+        and_return([first_public_body])
+      expect { info_request_batch.create_batch! }.to(
+        change(info_request_batch.info_requests, :count).by(1)
+      )
       request = info_request_batch.info_requests.first
       expect(request.outgoing_messages.first.status).to eq('sent')
     end
 
     it 'should not only send requests to public bodies if already sent' do
-      allow(second_public_body).to receive(:is_requestable?).and_return(false)
       request = info_request_batch.info_requests = [
         FactoryBot.create(:info_request, public_body: first_public_body)
       ]
-      unrequestable = info_request_batch.create_batch!
-      expect(unrequestable).to eq([second_public_body])
-      expect(info_request_batch.info_requests.size).to eq(1)
+      expect { info_request_batch.create_batch! }.to(
+        change(info_request_batch.info_requests, :count).by(1)
+      )
     end
 
     it 'should set the sent_at value of the info request batch' do
@@ -426,6 +426,7 @@ describe InfoRequestBatch do
 
     let(:sent_body) { FactoryBot.build(:public_body) }
     let(:requestable_body) { FactoryBot.build(:public_body) }
+    let(:unrequestable_body) { FactoryBot.build(:blank_email_public_body) }
 
     let(:info_request) do
       FactoryBot.build(:info_request, public_body: sent_body)
@@ -435,12 +436,13 @@ describe InfoRequestBatch do
       FactoryBot.create(
         :info_request_batch,
         info_requests: [info_request],
-        public_bodies: [sent_body, requestable_body]
+        public_bodies: [sent_body, requestable_body, unrequestable_body]
       )
     end
 
     it { is_expected.to_not include(sent_body) }
     it { is_expected.to include(requestable_body) }
+    it { is_expected.to_not include(unrequestable_body) }
   end
 
   describe '#all_requests_created?' do

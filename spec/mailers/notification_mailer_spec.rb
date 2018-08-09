@@ -67,7 +67,7 @@ describe NotificationMailer do
 
     # Batch requests
     let(:new_responses_batch_request) do
-      batch = FactoryBot.build(
+      batch = FactoryBot.create(
         :info_request_batch,
         title: "Zero hours employees",
         user: user,
@@ -82,7 +82,7 @@ describe NotificationMailer do
     end
 
     let(:embargo_expiring_batch_request) do
-      batch = FactoryBot.build(
+      batch = FactoryBot.create(
         :info_request_batch,
         title: "Employees caught stealing stationary",
         user: user,
@@ -97,7 +97,7 @@ describe NotificationMailer do
     end
 
     let(:embargo_expired_batch_request) do
-      batch = FactoryBot.build(
+      batch = FactoryBot.create(
         :info_request_batch,
         title: "Employee of the month awards",
         user: user,
@@ -112,7 +112,7 @@ describe NotificationMailer do
     end
 
     let(:overdue_batch_request) do
-      batch = FactoryBot.build(
+      batch = FactoryBot.create(
         :info_request_batch,
         title: "Late FOI requests",
         user: user,
@@ -127,7 +127,7 @@ describe NotificationMailer do
     end
 
     let(:very_overdue_batch_request) do
-      batch = FactoryBot.build(
+      batch = FactoryBot.create(
         :info_request_batch,
         title: "Ignored FOI requests",
         user: user,
