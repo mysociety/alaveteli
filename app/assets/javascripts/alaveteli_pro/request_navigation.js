@@ -40,9 +40,23 @@
             );
         }
 
+        var disableButtons = function disableButtons() {
+            if(currentCorrespondenceIndex + 1 >= correspondenceIds.length) {
+                //disable next
+                $nextButton.attr('disabled', 'disabled');
+            } else if (currentCorrespondenceIndex <= 0) {
+                //disable prev
+                $prevButton.attr('disabled', 'disabled');
+            } else {
+                $nextButton.removeAttr('disabled');
+                $prevButton.removeAttr('disabled');
+            }
+        }
+
         var updateUI = function updateUI() {
             updateCurrentCorrespondenceIndex();
             updateStatusText();
+            disableButtons();
             if(correspondenceIds.indexOf(window.location.hash.substr(1)) > -1) {
                 scrollToCurrentCorrespondence();
                 highlightCurrentCorrespondence();
