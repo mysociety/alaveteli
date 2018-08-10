@@ -66,10 +66,10 @@
             updateUI();
         }
 
-        var $prevButton = $('<button>').text(prevText).on('click', prevCorrespondence);
-        var $nextButton = $('<button>').text(nextText).on('click', nextCorrespondence);
+        var $prevButton = $('<button>').text(prevText).addClass("request-navigation__button request-navigation__button--prev").on('click', prevCorrespondence);
+        var $nextButton = $('<button>').text(nextText).addClass("request-navigation__button request-navigation__button--next").on('click', nextCorrespondence);
 
-        var $navStatus = $('<button>').on('click', scrollToCurrentCorrespondence);
+        var $navStatus = $('<button>').addClass("request-navigation__button request-navigation__button--current").on('click', scrollToCurrentCorrespondence);
         updateUI();
 
 
