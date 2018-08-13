@@ -9,20 +9,14 @@ describe "When creating requests" do
   end
 
   let!(:admin_user) { FactoryBot.create(:admin_user) }
-  let!(:public_body) do
-    FactoryBot.create(:public_body,
-                       :name => 'example')
-  end
+  let!(:public_body) { FactoryBot.create(:public_body, name: 'example') }
   let!(:admin_user_session) { login(admin_user) }
 
   before do
     update_xapian_index
   end
 
-  it <<-EOF do
-      should associate the request with the requestor, even if it is approved
-      by an admin
-    EOF
+  it 'associates the request with the requestor, even if it is approved by an admin' do
     post_redirect = create_request_and_user(public_body)
     # Now log in as an admin user, then follow the confirmation link in the
     # email that was sent to the unconfirmed user
