@@ -211,6 +211,11 @@ $complete: rgb(112, 203, 99);
     color: #000;
     outline: 0;
   }
+  &:disabled {
+    &:after {
+      opacity: 0.7;
+    }
+  }
 }
 
 .request-navigation__button--next {
@@ -238,6 +243,7 @@ $complete: rgb(112, 203, 99);
   text-indent: -1000px;
   white-space: nowrap;
   width: 2.5em;
+  margin-right: 1px;
   &:after {
     content: "";
     display: block;
@@ -255,4 +261,5 @@ $complete: rgb(112, 203, 99);
 
 .request-navigation__button--current {
   white-space: nowrap;
+  margin-left: 1px;
 }
