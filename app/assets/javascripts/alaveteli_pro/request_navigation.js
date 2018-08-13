@@ -41,7 +41,11 @@
         }
 
         var disableButtons = function disableButtons() {
-            if(currentCorrespondenceIndex + 1 >= correspondenceIds.length) {
+            if((currentCorrespondenceIndex + 1 >= correspondenceIds.length) && (currentCorrespondenceIndex <= 0) ) {
+                //disable both buttons
+                $prevButton.attr('disabled', 'disabled');
+                $nextButton.attr('disabled', 'disabled');
+            } else if(currentCorrespondenceIndex + 1 >= correspondenceIds.length) {
                 //disable next
                 $nextButton.attr('disabled', 'disabled');
             } else if (currentCorrespondenceIndex <= 0) {
