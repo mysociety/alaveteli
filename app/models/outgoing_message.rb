@@ -92,9 +92,10 @@ class OutgoingMessage < ActiveRecord::Base
   end
 
   def set_signature_name(name)
-    # TODO: We use raw_body here to get unstripped one
+    # We compare against raw_body as body strips linebreaks and applies
+    # censor rules
     if raw_body == get_default_message
-      self.body = raw_body + name
+      self.body = get_default_message + name
     end
   end
 
