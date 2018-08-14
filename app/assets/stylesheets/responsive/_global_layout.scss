@@ -112,9 +112,10 @@ textarea{
 
 #right_column_flip, #right_column {
   @include grid-column(12);
+  margin-top: 20px;
   @include respond-min( $main_menu-mobile_menu_cutoff ){
+    margin-top: 0;
     @include grid-column($columns:3);
-    margin-top:20px;
     @include lte-ie7 {
       width: 12.625em;
     }

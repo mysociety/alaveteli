@@ -3,7 +3,7 @@
 
 .request-status {
   @include grid-column(12);
-  margin-bottom: 1em;
+  margin-bottom: 1.5em;
 }
 
 .request-header {
@@ -21,7 +21,7 @@
 }
 
 .request-header__action-bar {
-  margin-bottom: 2em;
+  margin-bottom: 1.5em;
   position: relative;
 }
 
