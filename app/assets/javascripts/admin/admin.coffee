@@ -89,4 +89,6 @@ jQuery ->
     console.log 'click'
     parent = $(this).parents(".#{$(this).data('dismiss')}")
     parent.hide('slow')
-
+  $('.btn.disabled').on 'click', (e) ->
+    console.log 'disabled click'
+    false
