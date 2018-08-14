@@ -9,7 +9,7 @@ class AdminUsersAccountSuspensionsController < AdminController
   before_filter :set_suspension_reason
 
   def create
-    if @user.update(ban_text: @suspension_reason)
+    if suspend
       flash[:notice] = 'The user was suspended.'
     else
       flash[:error] = 'Something went wrong. The user could not be suspended.'
@@ -22,6 +22,14 @@ class AdminUsersAccountSuspensionsController < AdminController
 
   def set_user
     @user = User.find(params[:user_id])
+  end
+
+  def suspend
+    if params[:close_and_anonymise]
+      @user.close_and_anonymise
+    else
+      @user.update(ban_text: @suspension_reason)
+    end
   end
 
   def set_suspension_reason

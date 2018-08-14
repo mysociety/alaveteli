@@ -41,6 +41,11 @@
       </table>
       <div class="row">
         <div class="span12 text-right">
+          <%= form_tag admin_users_account_suspensions_path(user_id: user.id, close_and_anonymise: true), class: 'form form-inline' do %>
+            <% submit_class = %w(btn btn-danger) %>
+            <% submit_class << 'disabled' if user.suspended? || user.is_pro? %>
+            <%= submit_tag 'Close and anonymise', class: submit_class %>
+          <% end %>
           <%= form_tag admin_users_account_suspensions_path(user_id: user.id, suspension_reason: 'Banned for spamming'), class: 'form form-inline' do %>
             <% submit_class = %w(btn btn-danger) %>
             <% submit_class << 'disabled' if user.suspended? %>
