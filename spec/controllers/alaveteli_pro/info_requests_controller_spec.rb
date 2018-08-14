@@ -2,13 +2,13 @@
 require 'spec_helper'
 
 describe AlaveteliPro::InfoRequestsController do
-  let(:pro_user) { FactoryGirl.create(:pro_user) }
+  let(:pro_user) { FactoryBot.create(:pro_user) }
 
   describe "GET #index" do
     let!(:info_request) do
       request = nil
       TestAfterCommit.with_commits(true) do
-        request = FactoryGirl.create(:info_request, :user => pro_user)
+        request = FactoryBot.create(:info_request, :user => pro_user)
       end
       request
     end
@@ -16,8 +16,8 @@ describe AlaveteliPro::InfoRequestsController do
     let!(:foo_request) do
       request = nil
       TestAfterCommit.with_commits(true) do
-        request = FactoryGirl.create(:info_request, :user => pro_user,
-                                                    :title => 'Foo foo')
+        request = FactoryBot.create(:info_request, :user => pro_user,
+                                                   :title => 'Foo foo')
       end
       request
     end
@@ -59,7 +59,7 @@ describe AlaveteliPro::InfoRequestsController do
 
   describe "#preview" do
     let(:draft) do
-      FactoryGirl.create(:draft_info_request, body: nil, user: pro_user)
+      FactoryBot.create(:draft_info_request, body: nil, user: pro_user)
     end
 
     context "when there are errors on the outgoing message" do
@@ -74,10 +74,10 @@ describe AlaveteliPro::InfoRequestsController do
     end
 
     context "when the public body is not requestable" do
-      let(:public_body) { FactoryGirl.create(:defunct_public_body) }
+      let(:public_body) { FactoryBot.create(:defunct_public_body) }
       let(:draft) do
-        FactoryGirl.create(:draft_info_request, public_body: public_body,
-                                                user: pro_user)
+        FactoryBot.create(:draft_info_request, public_body: public_body,
+                                               user: pro_user)
       end
 
       it "renders a message to tell the user" do
@@ -92,7 +92,7 @@ describe AlaveteliPro::InfoRequestsController do
 
   describe "#create" do
     let(:draft) do
-      FactoryGirl.create(:draft_info_request, body: nil, user: pro_user)
+      FactoryBot.create(:draft_info_request, body: nil, user: pro_user)
     end
 
     context "when there are errors on the outgoing message" do
@@ -108,9 +108,9 @@ describe AlaveteliPro::InfoRequestsController do
   end
 
   describe "#update" do
-    let(:pro_user) { FactoryGirl.create(:pro_user) }
-    let(:other_pro_user) { FactoryGirl.create(:pro_user) }
-    let(:info_request) { FactoryGirl.create(:info_request, user: pro_user) }
+    let(:pro_user) { FactoryBot.create(:pro_user) }
+    let(:other_pro_user) { FactoryBot.create(:pro_user) }
+    let(:info_request) { FactoryBot.create(:info_request, user: pro_user) }
 
     context "when the user is not allowed to update the request" do
       it "raises a CanCan::AccessDenied error" do

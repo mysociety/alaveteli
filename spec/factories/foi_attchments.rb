@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-FactoryGirl.define do
+FactoryBot.define do
 
   factory :foi_attachment do
     factory :body_text do

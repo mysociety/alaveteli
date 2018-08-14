@@ -2,32 +2,32 @@
 require 'spec_helper'
 
 describe AlaveteliPro::EmbargoMailer do
-  let(:pro_user) { FactoryGirl.create(:pro_user) }
-  let(:pro_user_2) { FactoryGirl.create(:pro_user) }
-  let(:embargo_extension) { FactoryGirl.create(:embargo_extension) }
+  let(:pro_user) { FactoryBot.create(:pro_user) }
+  let(:pro_user_2) { FactoryBot.create(:pro_user) }
+  let(:embargo_extension) { FactoryBot.create(:embargo_extension) }
 
   let!(:expiring_1) do
-    FactoryGirl.create(:embargo_expiring_request, user: pro_user)
+    FactoryBot.create(:embargo_expiring_request, user: pro_user)
   end
   let!(:expiring_2) do
-    FactoryGirl.create(:embargo_expiring_request, user: pro_user)
+    FactoryBot.create(:embargo_expiring_request, user: pro_user)
   end
   let!(:expiring_3) do
-    FactoryGirl.create(:embargo_expiring_request, user: pro_user_2)
+    FactoryBot.create(:embargo_expiring_request, user: pro_user_2)
   end
 
   let!(:expired_1) do
-    FactoryGirl.create(:embargo_expired_request, user: pro_user)
+    FactoryBot.create(:embargo_expired_request, user: pro_user)
   end
   let!(:expired_2) do
-    FactoryGirl.create(:embargo_expired_request, user: pro_user)
+    FactoryBot.create(:embargo_expired_request, user: pro_user)
   end
   let!(:expired_3) do
-    FactoryGirl.create(:embargo_expired_request, user: pro_user_2)
+    FactoryBot.create(:embargo_expired_request, user: pro_user_2)
   end
 
-  let!(:embargoed) { FactoryGirl.create(:embargoed_request) }
-  let!(:not_embargoed) { FactoryGirl.create(:info_request) }
+  let!(:embargoed) { FactoryBot.create(:embargoed_request) }
+  let!(:not_embargoed) { FactoryBot.create(:info_request) }
 
   describe '.alert_expiring' do
     it 'only sends one email per user' do
@@ -94,8 +94,8 @@ describe AlaveteliPro::EmbargoMailer do
     end
 
     it "doesn't include requests with use_notifications: true" do
-      pro_user_3 = FactoryGirl.create(:pro_user)
-      info_request = FactoryGirl.create(
+      pro_user_3 = FactoryBot.create(:pro_user)
+      info_request = FactoryBot.create(
         :embargo_expiring_request,
         use_notifications: true,
         user: pro_user_3
@@ -219,8 +219,8 @@ describe AlaveteliPro::EmbargoMailer do
     end
 
     it "doesn't include requests with use_notifications: true" do
-      pro_user_3 = FactoryGirl.create(:pro_user)
-      info_request = FactoryGirl.create(
+      pro_user_3 = FactoryBot.create(:pro_user)
+      info_request = FactoryBot.create(
         :embargo_expired_request,
         use_notifications: true,
         user: pro_user_3

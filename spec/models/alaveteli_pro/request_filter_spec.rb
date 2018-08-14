@@ -134,14 +134,14 @@ describe AlaveteliPro::RequestFilter do
   end
 
   describe '#results' do
-    let(:user){ FactoryGirl.create(:user) }
+    let(:user){ FactoryBot.create(:user) }
 
     context 'when no attributes are supplied' do
 
       it 'sorts the requests by most recently updated' do
         TestAfterCommit.with_commits(true) do
-          first_request = FactoryGirl.create(:info_request, :user => user)
-          second_request = FactoryGirl.create(:info_request, :user => user)
+          first_request = FactoryBot.create(:info_request, :user => user)
+          second_request = FactoryBot.create(:info_request, :user => user)
 
           request_filter = described_class.new
           expected = [second_request.request_summary,
@@ -153,8 +153,8 @@ describe AlaveteliPro::RequestFilter do
 
     it 'applies a sort order' do
       TestAfterCommit.with_commits(true) do
-        first_request = FactoryGirl.create(:info_request, :user => user)
-        second_request = FactoryGirl.create(:info_request, :user => user)
+        first_request = FactoryBot.create(:info_request, :user => user)
+        second_request = FactoryBot.create(:info_request, :user => user)
 
         request_filter = described_class.new
         request_filter.update_attributes(:order => 'created_at_asc')
@@ -166,10 +166,10 @@ describe AlaveteliPro::RequestFilter do
 
     it 'applies a filter' do
       TestAfterCommit.with_commits(true) do
-        complete_request = FactoryGirl.create(:successful_request,
-                                              :user => user)
-        incomplete_request = FactoryGirl.create(:info_request,
-                                                :user => user)
+        complete_request = FactoryBot.create(:successful_request,
+                                             :user => user)
+        incomplete_request = FactoryBot.create(:info_request,
+                                               :user => user)
         request_filter = described_class.new
         request_filter.update_attributes(:filter => 'complete')
         expect(request_filter.results(user))
@@ -179,12 +179,12 @@ describe AlaveteliPro::RequestFilter do
 
     it 'applies a search to the request titles' do
       TestAfterCommit.with_commits(true) do
-        dog_request = FactoryGirl.create(:info_request,
-                                         :title => 'Where is my dog?',
-                                         :user => user)
-        cat_request = FactoryGirl.create(:info_request,
-                                         :title => 'Where is my cat?',
-                                         :user => user)
+        dog_request = FactoryBot.create(:info_request,
+                                        :title => 'Where is my dog?',
+                                        :user => user)
+        cat_request = FactoryBot.create(:info_request,
+                                        :title => 'Where is my cat?',
+                                        :user => user)
         request_filter = described_class.new
         request_filter.update_attributes(:search => 'CAT')
         expect(request_filter.results(user))
@@ -196,8 +196,8 @@ describe AlaveteliPro::RequestFilter do
 
       it 'returns draft requests' do
         TestAfterCommit.with_commits(true) do
-          draft_request = FactoryGirl.create(:draft_info_request,
-                                             :user => user)
+          draft_request = FactoryBot.create(:draft_info_request,
+                                            :user => user)
           request_filter = described_class.new
           request_filter.update_attributes(:filter => 'draft')
           expect(request_filter.results(user))
@@ -207,12 +207,12 @@ describe AlaveteliPro::RequestFilter do
 
       it 'applies a search to the request titles' do
         TestAfterCommit.with_commits(true) do
-          dog_request = FactoryGirl.create(:draft_info_request,
-                                           :title => 'Where is my dog?',
-                                           :user => user)
-          cat_request = FactoryGirl.create(:draft_info_request,
-                                           :title => 'Where is my cat?',
-                                           :user => user)
+          dog_request = FactoryBot.create(:draft_info_request,
+                                          :title => 'Where is my dog?',
+                                          :user => user)
+          cat_request = FactoryBot.create(:draft_info_request,
+                                          :title => 'Where is my cat?',
+                                          :user => user)
           request_filter = described_class.new
           request_filter.update_attributes(:search => 'CAT',
                                            :filter => 'draft')
@@ -223,10 +223,10 @@ describe AlaveteliPro::RequestFilter do
 
       it 'applies a sort order' do
         TestAfterCommit.with_commits(true) do
-          first_request = FactoryGirl.create(:draft_info_request,
+          first_request = FactoryBot.create(:draft_info_request,
+                                            :user => user)
+          second_request = FactoryBot.create(:draft_info_request,
                                              :user => user)
-          second_request = FactoryGirl.create(:draft_info_request,
-                                              :user => user)
 
           request_filter = described_class.new
           request_filter.update_attributes(:order => 'created_at_asc',

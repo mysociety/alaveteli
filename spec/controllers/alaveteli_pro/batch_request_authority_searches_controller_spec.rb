@@ -29,15 +29,15 @@ end
 
 describe AlaveteliPro::BatchRequestAuthoritySearchesController do
   let(:pro_user) do
-    user = FactoryGirl.create(:pro_user)
+    user = FactoryBot.create(:pro_user)
     AlaveteliFeatures.backend.enable_actor(:pro_batch_access, user)
     user
   end
 
   describe "#index" do
-    let!(:authority_1) { FactoryGirl.create(:public_body) }
-    let!(:authority_2) { FactoryGirl.create(:public_body) }
-    let!(:authority_3) { FactoryGirl.create(:public_body) }
+    let!(:authority_1) { FactoryBot.create(:public_body) }
+    let!(:authority_2) { FactoryBot.create(:public_body) }
+    let!(:authority_3) { FactoryBot.create(:public_body) }
 
     before :all do
       get_fixtures_xapian_index
@@ -64,7 +64,7 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
 
     context 'with a draft_id param' do
       it 'finds a draft by draft_id' do
-        draft = FactoryGirl.create(:draft_info_request_batch, user: pro_user)
+        draft = FactoryBot.create(:draft_info_request_batch, user: pro_user)
         get :index, draft_id: draft.id
         expect(assigns[:draft_batch_request]).to eq(draft)
       end
@@ -135,7 +135,7 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
 
     context "the user does not have pro batch access" do
 
-      let(:pro_user) { FactoryGirl.create(:pro_user) }
+      let(:pro_user) { FactoryBot.create(:pro_user) }
 
       it 'redirects them to the standard request form' do
         with_feature_enabled(:alaveteli_pro) do
@@ -163,7 +163,7 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
 
     context "the user does not have pro batch access" do
 
-      let(:pro_user) { FactoryGirl.create(:pro_user) }
+      let(:pro_user) { FactoryBot.create(:pro_user) }
 
       it 'redirects them to the standard request form' do
         with_feature_enabled(:alaveteli_pro) do

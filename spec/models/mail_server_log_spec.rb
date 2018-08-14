@@ -176,7 +176,7 @@ describe MailServerLog do
                "T=\"Freedom of Information request - example request\" " \
                "from <foi+request-331612-13811a2b@example.com> for " \
                "foi@example.org foi@example.org"
-        info_request = FactoryGirl.create(:info_request)
+        info_request = FactoryBot.create(:info_request)
         allow(info_request).to receive(:incoming_email).
           and_return('foi+request-331612-13811a2b@example.com')
         info_request.mail_server_logs.create!(:line => line, :order => 1)
@@ -192,7 +192,7 @@ describe MailServerLog do
                "T=\"Freedom of Information request - example request\" " \
                "from <alaveteli@example.com> for " \
                "foi@example.org foi@example.org"
-        info_request = FactoryGirl.create(:info_request)
+        info_request = FactoryBot.create(:info_request)
         allow(info_request).to receive(:incoming_email).
           and_return('foi+request-331612-13811a2b@example.com')
         info_request.mail_server_logs.create!(:line => line, :order => 1)
@@ -200,7 +200,7 @@ describe MailServerLog do
       end
 
       it "returns false when no log lines say the message has been sent" do
-        info_request = FactoryGirl.create(:info_request)
+        info_request = FactoryBot.create(:info_request)
         expect(MailServerLog.request_exim_sent?(info_request)).to be false
       end
     end
@@ -319,7 +319,7 @@ describe MailServerLog do
     context ':redact option is truthy' do
 
       it 'redacts the info request id hash' do
-        log = FactoryGirl.create(:mail_server_log)
+        log = FactoryBot.create(:mail_server_log)
         line = log.line += " #{ log.info_request.incoming_email }"
         idhash = log.info_request.idhash
         log.update_attributes!(:line => line)
@@ -327,7 +327,7 @@ describe MailServerLog do
       end
 
       it 'redacts the info request id when decorated' do
-        log = FactoryGirl.create(:mail_server_log)
+        log = FactoryBot.create(:mail_server_log)
         line = log.line += " #{ log.info_request.incoming_email }"
         idhash = log.info_request.idhash
         log.update_attributes!(:line => line)
@@ -341,7 +341,7 @@ describe MailServerLog do
       end
 
       it 'handles the info request not having an idhash' do
-        request = FactoryGirl.build(:info_request)
+        request = FactoryBot.build(:info_request)
         log = MailServerLog.new(:line => 'log line', :info_request => request)
         expect(log.line(:redact => true)).to eq('log line')
       end
@@ -396,7 +396,7 @@ describe MailServerLog do
 
     context 'if there is a stored value' do
       let(:log) do
-        FactoryGirl.create(:mail_server_log, :line => "log text **")
+        FactoryBot.create(:mail_server_log, :line => "log text **")
       end
 
       it 'returns the stored value' do
@@ -425,7 +425,7 @@ describe MailServerLog do
     # statuses
     context 'if there is a stored value from an MTA-specific status' do
       let(:log) do
-        FactoryGirl.create(:mail_server_log, :line => "log text <=")
+        FactoryBot.create(:mail_server_log, :line => "log text <=")
       end
 
       it 'recalculates the value' do
@@ -512,14 +512,14 @@ describe MailServerLog do
   describe '#is_owning_user?' do
 
     it 'returns true if the user is the owning user of the info request' do
-      log = FactoryGirl.build(:mail_server_log)
+      log = FactoryBot.build(:mail_server_log)
       request = mock_model(InfoRequest, :is_owning_user? => true)
       allow(log).to receive(:info_request).and_return(request)
       expect(log.is_owning_user?(double(:user))).to eq(true)
     end
 
     it 'returns false if the user is not the owning user of the info request' do
-      log = FactoryGirl.build(:mail_server_log)
+      log = FactoryBot.build(:mail_server_log)
       request = mock_model(InfoRequest, :is_owning_user? => false)
       allow(log).to receive(:info_request).and_return(request)
       expect(log.is_owning_user?(double(:user))).to eq(false)
@@ -532,8 +532,8 @@ describe MailServerLog do
     context 'if all recent requests have been sent' do
 
       it 'returns true' do
-        info_request = FactoryGirl.create(:info_request,
-                                          :created_at => Time.zone.now - 5.days)
+        info_request = FactoryBot.create(:info_request,
+                                         :created_at => Time.zone.now - 5.days)
         allow(MailServerLog).to receive(:request_sent?).with(info_request).
           and_return(true)
         expect(MailServerLog.check_recent_requests_have_been_sent).to eq(true)
@@ -544,8 +544,8 @@ describe MailServerLog do
     context 'if a recent request has not been sent' do
 
       it 'returns false' do
-        info_request = FactoryGirl.create(:info_request,
-                                          :created_at => Time.zone.now - 5.days)
+        info_request = FactoryBot.create(:info_request,
+                                         :created_at => Time.zone.now - 5.days)
         allow(MailServerLog).to receive(:request_sent?).with(info_request).
           and_return(false)
         allow($stderr).to receive(:puts)
@@ -553,8 +553,8 @@ describe MailServerLog do
       end
 
       it 'outputs a message to stderr' do
-        info_request = FactoryGirl.create(:info_request,
-                                          :created_at => Time.zone.now - 5.days)
+        info_request = FactoryBot.create(:info_request,
+                                         :created_at => Time.zone.now - 5.days)
         allow(MailServerLog).to receive(:request_sent?).with(info_request).
           and_return(false)
         expected_message = "failed to find request sending in MTA logs for request " \

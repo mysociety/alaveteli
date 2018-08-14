@@ -17,7 +17,7 @@
 #  prominence_reason            :text
 #
 
-FactoryGirl.define do
+FactoryBot.define do
 
   factory :outgoing_message do
     info_request
@@ -64,7 +64,7 @@ FactoryGirl.define do
     end
 
     # FIXME: This here because OutgoingMessage has an after_initialize,
-    # which seems to call everything in the app! FactoryGirl calls new with
+    # which seems to call everything in the app! FactoryBot calls new with
     # no parameters and then uses the assignment operator of each attribute
     # to update it. Because after_initialize executes before assigning the
     # attributes, loads of stuff fails because whatever after_initialize is

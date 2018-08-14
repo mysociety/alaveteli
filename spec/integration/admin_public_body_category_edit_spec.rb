@@ -8,7 +8,7 @@ describe 'Editing a Public Body Category' do
 
     confirm(:admin_user)
     @admin = login(:admin_user)
-    @category = FactoryGirl.create(:public_body_category)
+    @category = FactoryBot.create(:public_body_category)
   end
 
   it 'can edit the default locale' do

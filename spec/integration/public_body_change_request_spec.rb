@@ -6,8 +6,8 @@ describe 'Requesting changes to a public body' do
 
   describe 'reporting an out of date email address' do
 
-    let(:public_body) { FactoryGirl.create(:public_body) }
-    let(:user) { FactoryGirl.create(:user) }
+    let(:public_body) { FactoryBot.create(:public_body) }
+    let(:user) { FactoryBot.create(:user) }
 
     describe 'when not logged in' do
 

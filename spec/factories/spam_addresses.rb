@@ -9,7 +9,7 @@
 #  updated_at :datetime         not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :spam_address do
     sequence(:email) { |n| "spam-#{ n }@example.org" }
   end

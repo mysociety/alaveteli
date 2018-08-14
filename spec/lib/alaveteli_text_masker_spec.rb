@@ -10,16 +10,16 @@ describe AlaveteliTextMasker do
     context 'applying censor rules' do
 
       before do
-        @cheese_censor_rule = FactoryGirl.build(:censor_rule,
-                                                :text => 'Stilton',
-                                                :replacement => 'Jarlsberg')
-        @colour_censor_rule = FactoryGirl.build(:censor_rule,
-                                                :text => 'blue',
-                                                :replacement => 'yellow')
-        @regex_censor_rule = FactoryGirl.build(:censor_rule,
-                                               :text => 'm[a-z][a-z][a-z]e',
-                                               :replacement => 'cat',
-                                               :regexp => true)
+        @cheese_censor_rule = FactoryBot.build(:censor_rule,
+                                               :text => 'Stilton',
+                                               :replacement => 'Jarlsberg')
+        @colour_censor_rule = FactoryBot.build(:censor_rule,
+                                               :text => 'blue',
+                                               :replacement => 'yellow')
+        @regex_censor_rule = FactoryBot.build(:censor_rule,
+                                              :text => 'm[a-z][a-z][a-z]e',
+                                              :replacement => 'cat',
+                                              :regexp => true)
         @censor_rules = [@cheese_censor_rule,
                          @colour_censor_rule,
                          @regex_censor_rule]
@@ -197,9 +197,9 @@ describe AlaveteliTextMasker do
         data = "here is a mouse"
         expected = "here is a cat"
 
-        censor_rule = FactoryGirl.build(:censor_rule,
-                                        :text => 'mouse',
-                                        :replacement => 'cat')
+        censor_rule = FactoryBot.build(:censor_rule,
+                                       :text => 'mouse',
+                                       :replacement => 'cat')
 
         result = class_instance.apply_masks(data,
                                             'text/html',

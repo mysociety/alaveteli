@@ -43,13 +43,13 @@ end
 
 describe "creating batch requests in alaveteli_pro" do
   let(:pro_user) do
-    user = FactoryGirl.create(:pro_user)
+    user = FactoryBot.create(:pro_user)
     AlaveteliFeatures.backend.enable_actor(:pro_batch_access, user)
     user
   end
 
   let!(:pro_user_session) { login(pro_user) }
-  let!(:authorities) { FactoryGirl.create_list(:public_body, 26) }
+  let!(:authorities) { FactoryBot.create_list(:public_body, 26) }
 
   before :all do
     get_fixtures_xapian_index
@@ -322,13 +322,13 @@ describe "creating batch requests in alaveteli_pro" do
 end
 
 describe "managing embargoed batch requests" do
-  let(:pro_user) { FactoryGirl.create(:pro_user) }
+  let(:pro_user) { FactoryBot.create(:pro_user) }
   let!(:pro_user_session) { login(pro_user) }
   let!(:batch) do
-    batch = FactoryGirl.create(
+    batch = FactoryBot.create(
       :embargoed_batch_request,
       user: pro_user,
-      public_bodies: FactoryGirl.create_list(:public_body, 2))
+      public_bodies: FactoryBot.create_list(:public_body, 2))
     batch.create_batch!
     batch
   end

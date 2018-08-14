@@ -8,12 +8,12 @@ describe 'Updating censor rules' do
     login(:admin_user)
   end
 
-  let(:user) { FactoryGirl.create(:user) }
-  let(:authority) { FactoryGirl.create(:public_body) }
+  let(:user) { FactoryBot.create(:user) }
+  let(:authority) { FactoryBot.create(:public_body) }
   let(:request) do
-    FactoryGirl.create(:info_request,
-                       :public_body => authority,
-                       :user => user)
+    FactoryBot.create(:info_request,
+                      :public_body => authority,
+                      :user => user)
   end
 
   let!(:incoming_message) do
@@ -25,8 +25,8 @@ describe 'Updating censor rules' do
     I have a rubbish answer for you
     EOF
 
-    incoming_message = FactoryGirl.create(:incoming_message,
-                                          :info_request => request)
+    incoming_message = FactoryBot.create(:incoming_message,
+                                         :info_request => request)
     incoming_message.raw_email.data = raw_email_data
     incoming_message.parse_raw_email!(true)
     InfoRequestEvent.create(:event_type => "response",
@@ -65,10 +65,10 @@ describe 'Updating censor rules' do
 
     it 'clears the cache for existing requests when a rule is updated' do
       url_title = request.url_title
-      rule = FactoryGirl.create(:public_body_censor_rule,
-                                :public_body => authority,
-                                :text => "rubbish",
-                                :replacement => "[REDACTED]")
+      rule = FactoryBot.create(:public_body_censor_rule,
+                               :public_body => authority,
+                               :text => "rubbish",
+                               :replacement => "[REDACTED]")
 
       visit show_request_path :url_title => url_title
 
@@ -89,10 +89,10 @@ describe 'Updating censor rules' do
 
     it 'clears the cache for existing requests when a rule is deleted' do
       url_title = request.url_title
-      rule = FactoryGirl.create(:public_body_censor_rule,
-                                :public_body => authority,
-                                :text => "rubbish",
-                                :replacement => "[REDACTED]")
+      rule = FactoryBot.create(:public_body_censor_rule,
+                               :public_body => authority,
+                               :text => "rubbish",
+                               :replacement => "[REDACTED]")
 
       visit show_request_path :url_title => url_title
 
@@ -133,10 +133,10 @@ describe 'Updating censor rules' do
 
     it 'clears the cache for existing requests when a rule is updated' do
       url_title = request.url_title
-      rule = FactoryGirl.create(:user_censor_rule,
-                                :user => user,
-                                :text => "rubbish",
-                                :replacement => "[REDACTED]")
+      rule = FactoryBot.create(:user_censor_rule,
+                               :user => user,
+                               :text => "rubbish",
+                               :replacement => "[REDACTED]")
 
       visit show_request_path :url_title => url_title
 
@@ -157,10 +157,10 @@ describe 'Updating censor rules' do
 
     it 'clears the cache for existing requests when a rule is deleted' do
       url_title = request.url_title
-      rule = FactoryGirl.create(:user_censor_rule,
-                                :user => user,
-                                :text => "rubbish",
-                                :replacement => "[REDACTED]")
+      rule = FactoryBot.create(:user_censor_rule,
+                               :user => user,
+                               :text => "rubbish",
+                               :replacement => "[REDACTED]")
 
       visit show_request_path :url_title => url_title
 
@@ -203,10 +203,10 @@ describe 'Updating censor rules' do
     it 'clears the cache for existing requests when a rule is updated' do
       request_id = request.id
       url_title = request.url_title
-      rule = FactoryGirl.create(:info_request_censor_rule,
-                                :info_request => request,
-                                :text => "rubbish",
-                                :replacement => "[REDACTED]")
+      rule = FactoryBot.create(:info_request_censor_rule,
+                               :info_request => request,
+                               :text => "rubbish",
+                               :replacement => "[REDACTED]")
 
       visit show_request_path :url_title => url_title
 
@@ -228,10 +228,10 @@ describe 'Updating censor rules' do
     it 'clears the cache for existing requests when a rule is deleted' do
       request_id = request.id
       url_title = request.url_title
-      rule = FactoryGirl.create(:info_request_censor_rule,
-                                :info_request => request,
-                                :text => "rubbish",
-                                :replacement => "[REDACTED]")
+      rule = FactoryBot.create(:info_request_censor_rule,
+                               :info_request => request,
+                               :text => "rubbish",
+                               :replacement => "[REDACTED]")
 
       visit show_request_path :url_title => url_title
 
@@ -272,9 +272,9 @@ describe 'Updating censor rules' do
 
     it 'clears the cache for existing requests when a rule is updated' do
       url_title = request.url_title
-      rule = FactoryGirl.create(:global_censor_rule,
-                                :text => "rubbish",
-                                :replacement => "[REDACTED]")
+      rule = FactoryBot.create(:global_censor_rule,
+                               :text => "rubbish",
+                               :replacement => "[REDACTED]")
 
       visit show_request_path :url_title => url_title
 
@@ -295,9 +295,9 @@ describe 'Updating censor rules' do
 
     it 'clears the cache for existing requests when a rule is deleted' do
       url_title = request.url_title
-      rule = FactoryGirl.create(:global_censor_rule,
-                                :text => "rubbish",
-                                :replacement => "[REDACTED]")
+      rule = FactoryBot.create(:global_censor_rule,
+                               :text => "rubbish",
+                               :replacement => "[REDACTED]")
 
       visit show_request_path :url_title => url_title
 

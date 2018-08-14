@@ -17,7 +17,7 @@ describe Users::ConfirmationsController do
     context 'the post redirect circumstance is change_password' do
 
       before :each do
-        @user = FactoryGirl.create(:user, :email_confirmed => false)
+        @user = FactoryBot.create(:user, :email_confirmed => false)
         @post_redirect = PostRedirect.new(
           :user => @user,
           :circumstance => 'change_password'
@@ -33,7 +33,7 @@ describe Users::ConfirmationsController do
       end
 
       it 'logs out a user who does not own the post redirect' do
-        logged_in_user = FactoryGirl.create(:user)
+        logged_in_user = FactoryBot.create(:user)
 
         session[:user_id] = logged_in_user.id
         get :confirm, { :email_token => @post_redirect.email_token }
@@ -65,8 +65,8 @@ describe Users::ConfirmationsController do
     context 'if the currently logged in user is an admin' do
 
       before :each do
-        @admin = FactoryGirl.create(:admin_user)
-        @user = FactoryGirl.create(:user, :email_confirmed => false)
+        @admin = FactoryBot.create(:admin_user)
+        @user = FactoryBot.create(:user, :email_confirmed => false)
         @post_redirect = PostRedirect.create(:uri => '/', :user => @user)
 
         session[:user_id] = @admin.id
@@ -97,7 +97,7 @@ describe Users::ConfirmationsController do
     EOF
 
       before :each do
-        @user = FactoryGirl.create(:user, :email_confirmed => false)
+        @user = FactoryBot.create(:user, :email_confirmed => false)
         @post_redirect = PostRedirect.create(:uri => '/', :user => @user)
 
         session[:user_id] = @user.id
@@ -127,8 +127,8 @@ describe Users::ConfirmationsController do
        redirect
     EOF
       before :each do
-        @current_user = FactoryGirl.create(:user)
-        @user = FactoryGirl.create(:user, :email_confirmed => false)
+        @current_user = FactoryBot.create(:user)
+        @user = FactoryBot.create(:user, :email_confirmed => false)
         @post_redirect = PostRedirect.create(:uri => '/', :user => @user)
 
         session[:user_id] = @current_user.id
@@ -157,7 +157,7 @@ describe Users::ConfirmationsController do
     context 'if there is no logged in user' do
 
       before :each do
-        @user = FactoryGirl.create(:user, :email_confirmed => false)
+        @user = FactoryBot.create(:user, :email_confirmed => false)
         @post_redirect = PostRedirect.create(:uri => '/', :user => @user)
 
         get :confirm, { :email_token => @post_redirect.email_token }

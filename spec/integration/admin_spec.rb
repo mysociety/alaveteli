@@ -3,9 +3,9 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
 describe "When administering the site" do
-  let(:admin_user) { FactoryGirl.create(:admin_user) }
-  let(:bob_smith_user) { FactoryGirl.create(:user, :name => 'Bob Smith') }
-  let(:robin_user) { FactoryGirl.create(:user, :name => 'Robin') }
+  let(:admin_user) { FactoryBot.create(:admin_user) }
+  let(:bob_smith_user) { FactoryBot.create(:user, :name => 'Bob Smith') }
+  let(:robin_user) { FactoryBot.create(:user, :name => 'Robin') }
 
   before do
     allow(AlaveteliConfiguration).to receive(:skip_admin_auth).and_return(false)
@@ -33,7 +33,7 @@ describe "When administering the site" do
   it "allows redelivery of an incoming message to a closed request" do
 
     # close request
-    info_request = FactoryGirl.create(:info_request_with_incoming)
+    info_request = FactoryBot.create(:info_request_with_incoming)
     close_request(info_request)
 
     # check number of messages in holding pen and request
@@ -65,14 +65,14 @@ describe "When administering the site" do
 
   it "allows redelivery of an incoming message to more than one request" do
     # close request
-    info_request = FactoryGirl.create(:info_request_with_incoming)
+    info_request = FactoryBot.create(:info_request_with_incoming)
     close_request(info_request)
 
     # check number of messages in holding pen and requests
     expect(holding_pen_messages.length).to eq(0)
     expect(info_request.incoming_messages.length).to eq(1)
 
-    second_request = FactoryGirl.create(:info_request_with_incoming)
+    second_request = FactoryBot.create(:info_request_with_incoming)
     expect(second_request.incoming_messages.length).to eq(1)
 
     # deliver an incoming message to the closed request -
@@ -117,9 +117,9 @@ describe "When administering the site" do
   describe 'when administering the holding pen' do
 
     it "shows a rejection reason for an incoming message from an invalid address" do
-      info_request = FactoryGirl.create(:info_request,
-                                        :allow_new_responses_from => 'authority_only',
-                                        :handle_rejected_responses => 'holding_pen')
+      info_request = FactoryBot.create(:info_request,
+                                       :allow_new_responses_from => 'authority_only',
+                                       :handle_rejected_responses => 'holding_pen')
       receive_incoming_mail('incoming-request-plain.email',
                             info_request.incoming_email,
                             "frob@nowhere.com")
@@ -130,9 +130,9 @@ describe "When administering the site" do
     end
 
     it "guesses a misdirected request" do
-      info_request = FactoryGirl.create(:info_request,
-                                        :allow_new_responses_from => 'authority_only',
-                                        :handle_rejected_responses => 'holding_pen')
+      info_request = FactoryBot.create(:info_request,
+                                       :allow_new_responses_from => 'authority_only',
+                                       :handle_rejected_responses => 'holding_pen')
       mail_to = "request-#{info_request.id}-asdfg@example.com"
       receive_incoming_mail('incoming-request-plain.email', mail_to)
       interesting_email = last_holding_pen_mail
@@ -151,7 +151,7 @@ describe "When administering the site" do
   describe 'generating an upload url' do
 
     it 'shows a flash message with instructions on forwarding the url' do
-      request = FactoryGirl.create(:info_request)
+      request = FactoryBot.create(:info_request)
       authority_name = request.public_body.name
       authority_email = request.public_body.request_email
 
@@ -177,8 +177,8 @@ describe "When administering the site" do
 
   describe 'hide and notify' do
 
-    let(:user) { FactoryGirl.create(:user, :name => "Awkward > Name") }
-    let(:request) { FactoryGirl.create(:info_request, :user => user) }
+    let(:user) { FactoryBot.create(:user, :name => "Awkward > Name") }
+    let(:request) { FactoryBot.create(:info_request, :user => user) }
 
     it 'sets the prominence of the request to requester_only' do
       using_session(@admin) do

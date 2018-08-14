@@ -23,22 +23,22 @@ describe Comment do
 
   describe '.visible' do
     before(:each) do
-      @visible_request = FactoryGirl.create(:info_request, :prominence => "normal")
-      @hidden_request = FactoryGirl.create(:info_request, :prominence => "hidden")
+      @visible_request = FactoryBot.create(:info_request, :prominence => "normal")
+      @hidden_request = FactoryBot.create(:info_request, :prominence => "hidden")
     end
 
     it 'should treat new comments to be visible by default' do
-      comment = FactoryGirl.create(:comment, :info_request => @visible_request)
+      comment = FactoryBot.create(:comment, :info_request => @visible_request)
       expect(@visible_request.comments.visible).to eq([comment])
     end
 
     it 'should treat comments which have be hidden as not visible' do
-      comment = FactoryGirl.create(:hidden_comment, :info_request => @visible_request)
+      comment = FactoryBot.create(:hidden_comment, :info_request => @visible_request)
       expect(@visible_request.comments.visible).to eq([])
     end
 
     it 'should treat visible comments attached to a hidden request as not visible' do
-      comment = FactoryGirl.create(:comment, :info_request => @hidden_request)
+      comment = FactoryBot.create(:comment, :info_request => @hidden_request)
       expect(comment.visible).to eq(true)
       expect(@hidden_request.comments.visible).to eq([])
     end
@@ -48,12 +48,12 @@ describe Comment do
   describe '.embargoed' do
 
     before(:each) do
-      @info_request = FactoryGirl.create(:info_request)
-      @request_comment = FactoryGirl.create(:comment,
-                                            :info_request => @info_request)
-      @embargoed_request = FactoryGirl.create(:embargoed_request)
-      @embargoed_comment = FactoryGirl.create(:comment,
-                                              :info_request => @embargoed_request)
+      @info_request = FactoryBot.create(:info_request)
+      @request_comment = FactoryBot.create(:comment,
+                                           :info_request => @info_request)
+      @embargoed_request = FactoryBot.create(:embargoed_request)
+      @embargoed_comment = FactoryBot.create(:comment,
+                                             :info_request => @embargoed_request)
     end
 
     it 'includes comments on embargoed requests' do
@@ -69,12 +69,12 @@ describe Comment do
   describe '.not_embargoed' do
 
     before(:each) do
-      @info_request = FactoryGirl.create(:info_request)
-      @request_comment = FactoryGirl.create(:comment,
-                                            :info_request => @info_request)
-      @embargoed_request = FactoryGirl.create(:embargoed_request)
-      @embargoed_comment = FactoryGirl.create(:comment,
-                                              :info_request => @embargoed_request)
+      @info_request = FactoryBot.create(:info_request)
+      @request_comment = FactoryBot.create(:comment,
+                                           :info_request => @info_request)
+      @embargoed_request = FactoryBot.create(:embargoed_request)
+      @embargoed_comment = FactoryBot.create(:comment,
+                                             :info_request => @embargoed_request)
     end
 
     it 'does not include comments on embargoed requests' do
@@ -104,7 +104,7 @@ describe Comment do
   describe '#destroy' do
 
     it 'destroys the associated info_request_events' do
-      comment = FactoryGirl.create(:comment)
+      comment = FactoryBot.create(:comment)
       events = comment.info_request_events
       comment.destroy
       events.select { |event| event.reload && event.persisted? }
@@ -115,7 +115,7 @@ describe Comment do
 
   describe '#report_reasons' do
 
-    let(:comment) { FactoryGirl.build(:comment) }
+    let(:comment) { FactoryBot.build(:comment) }
 
     it 'returns an array of strings' do
       expect(comment.report_reasons).to all(be_a(String))
@@ -125,8 +125,8 @@ describe Comment do
 
   describe '#report!' do
 
-    let(:comment) { FactoryGirl.create(:comment) }
-    let(:user) { FactoryGirl.create(:user) }
+    let(:comment) { FactoryBot.create(:comment) }
+    let(:user) { FactoryBot.create(:user) }
 
     it 'sets attention_requested to true' do
       comment.report!("Vexatious comment", "Comment is bad, please hide", user)
@@ -175,8 +175,8 @@ describe Comment do
 
   describe '#last_report' do
 
-    let(:comment) { FactoryGirl.create(:comment) }
-    let(:user) { FactoryGirl.create(:user) }
+    let(:comment) { FactoryBot.create(:comment) }
+    let(:user) { FactoryBot.create(:user) }
 
     it 'returns nil if there is no report' do
       expect(comment.last_report).to be_nil
@@ -200,8 +200,8 @@ describe Comment do
 
   describe '#last_reported_at' do
 
-    let(:comment) { FactoryGirl.create(:comment) }
-    let(:user) { FactoryGirl.create(:user) }
+    let(:comment) { FactoryBot.create(:comment) }
+    let(:user) { FactoryBot.create(:user) }
 
     it 'returns nil if there is no report' do
       expect(comment.last_reported_at).to be_nil
@@ -218,8 +218,8 @@ describe Comment do
 
   describe 'for_admin_event_column' do
 
-    let(:comment) { FactoryGirl.create(:comment) }
-    let(:user) { FactoryGirl.create(:user) }
+    let(:comment) { FactoryBot.create(:comment) }
+    let(:user) { FactoryBot.create(:user) }
 
     it "returns nil unless passed an event" do
       # shouldn't happen but just in case

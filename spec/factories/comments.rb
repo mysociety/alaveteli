@@ -14,7 +14,7 @@
 #  attention_requested :boolean          default(FALSE), not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
 
   factory :comment do
     user

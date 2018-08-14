@@ -259,8 +259,8 @@ def basic_auth_login(request, username = nil, password = nil)
   request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("#{username}:#{password}")
 end
 
-FactoryGirl.definition_file_paths = [ Rails.root.join('spec', 'factories') ]
-FactoryGirl.reload
+FactoryBot.definition_file_paths = [ Rails.root.join('spec', 'factories') ]
+FactoryBot.reload
 
 def normalise_whitespace(s)
   s = s.gsub(/\A\s+|\s+\Z/, "")

@@ -4,8 +4,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../alaveteli_dsl')
 
 describe "creating requests in alaveteli_pro" do
   context "when writing a new request from scratch" do
-    let!(:public_body) { FactoryGirl.create(:public_body, :name => 'example') }
-    let!(:pro_user) { FactoryGirl.create(:pro_user) }
+    let!(:public_body) { FactoryBot.create(:public_body, :name => 'example') }
+    let!(:pro_user) { FactoryBot.create(:pro_user) }
     let!(:pro_user_session) { login(pro_user) }
 
     before do

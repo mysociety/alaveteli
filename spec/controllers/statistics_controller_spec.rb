@@ -14,10 +14,10 @@ describe StatisticsController do
       InfoRequest.destroy_all
 
       time_travel_to(1.week.ago) do
-        FactoryGirl.create(:embargoed_request)
-        FactoryGirl.create(:hidden_request)
+        FactoryBot.create(:embargoed_request)
+        FactoryBot.create(:hidden_request)
       end
-      expected_request = FactoryGirl.create(:info_request)
+      expected_request = FactoryBot.create(:info_request)
       expected_request.reload
 
       expect(Statistics).

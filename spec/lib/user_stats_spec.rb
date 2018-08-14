@@ -9,9 +9,9 @@ describe UserStats do
 
       before do
         User.destroy_all
-        FactoryGirl.create(:user, :email => "test1@localhost")
-        FactoryGirl.create(:user, :email => "test2@localhost")
-        FactoryGirl.create(:user, :email => "test@example.com")
+        FactoryBot.create(:user, :email => "test1@localhost")
+        FactoryBot.create(:user, :email => "test2@localhost")
+        FactoryBot.create(:user, :email => "test@example.com")
       end
 
       let(:user_stats) { UserStats.list_user_domains }
@@ -34,7 +34,7 @@ describe UserStats do
 
       before do
         Delorean.time_travel_to "1 week ago"
-        FactoryGirl.create(:user, :email => "test@example.com")
+        FactoryBot.create(:user, :email => "test@example.com")
         Delorean.back_to_the_present
       end
 
@@ -51,10 +51,10 @@ describe UserStats do
     context "when passed a limit" do
 
       before do
-        FactoryGirl.create(:user, :email => "test@example.com")
-        FactoryGirl.create(:user, :email => "test@yandex.com")
-        FactoryGirl.create(:user, :email => "test@mail.ru")
-        FactoryGirl.create(:user, :email => "test@hotmail.com")
+        FactoryBot.create(:user, :email => "test@example.com")
+        FactoryBot.create(:user, :email => "test@yandex.com")
+        FactoryBot.create(:user, :email => "test@mail.ru")
+        FactoryBot.create(:user, :email => "test@hotmail.com")
       end
 
       it "limits the length of the results" do
@@ -69,20 +69,20 @@ describe UserStats do
   describe ".count_dormant_users" do
     before do
       Delorean.time_travel_to(2.weeks.ago) do
-        requester = FactoryGirl.create(:user, :email => "active@example.com")
-        commenter = FactoryGirl.create(:user, :email => "commenter@example.com")
-        tracker = FactoryGirl.create(:user, :email => "tracker@example.com")
-        dormant = FactoryGirl.create(:user, :email => "dormant1@example.com")
+        requester = FactoryBot.create(:user, :email => "active@example.com")
+        commenter = FactoryBot.create(:user, :email => "commenter@example.com")
+        tracker = FactoryBot.create(:user, :email => "tracker@example.com")
+        dormant = FactoryBot.create(:user, :email => "dormant1@example.com")
 
-        request = FactoryGirl.create(:info_request, :user => requester)
-        comment = FactoryGirl.create(:comment, :body => "hi!",
-                                               :user => commenter,
-                                               :info_request => request)
-        track = FactoryGirl.create(:search_track,
-                                   :tracking_user => tracker)
+        request = FactoryBot.create(:info_request, :user => requester)
+        comment = FactoryBot.create(:comment, :body => "hi!",
+                                              :user => commenter,
+                                              :info_request => request)
+        track = FactoryBot.create(:search_track,
+                                  :tracking_user => tracker)
       end
 
-      FactoryGirl.create(:user, :email => "dormant2@example.com")
+      FactoryBot.create(:user, :email => "dormant2@example.com")
     end
 
     it "returns the dormant user count for the domain" do
@@ -103,13 +103,13 @@ describe UserStats do
   describe ".unbanned_by_domain" do
     before do
       Delorean.time_travel_to(1.month.ago) do
-        @user1 = FactoryGirl.create(:user, :email => "test@example.com")
-        @banned = FactoryGirl.create(:user,
-                                     :email => "banned@example.com",
-                                     :ban_text => "Banned")
+        @user1 = FactoryBot.create(:user, :email => "test@example.com")
+        @banned = FactoryBot.create(:user,
+                                    :email => "banned@example.com",
+                                    :ban_text => "Banned")
       end
-      @user2 = FactoryGirl.create(:user, :email => "newbie@example.com")
-      @admin = FactoryGirl.create(:admin_user, :email => "admin@example.com")
+      @user2 = FactoryBot.create(:user, :email => "newbie@example.com")
+      @admin = FactoryBot.create(:admin_user, :email => "admin@example.com")
     end
 
     it "returns a list of eligible users" do

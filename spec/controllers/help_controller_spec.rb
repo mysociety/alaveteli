@@ -14,7 +14,7 @@ describe HelpController do
   end
 
   describe 'GET #unhappy' do
-    let(:info_request){ FactoryGirl.create(:info_request) }
+    let(:info_request){ FactoryBot.create(:info_request) }
 
     it 'shows the unhappy template' do
       get :unhappy
@@ -41,7 +41,7 @@ describe HelpController do
 
       it 'raises an ActiveRecord::RecordNotFound error if the InfoRequest
           is embargoed' do
-        info_request = FactoryGirl.create(:embargoed_request)
+        info_request = FactoryBot.create(:embargoed_request)
         expect{ get :unhappy, :url_title => info_request.url_title }
           .to raise_error ActiveRecord::RecordNotFound
       end
@@ -68,7 +68,7 @@ describe HelpController do
     end
 
     context 'when the user is a pro' do
-      let(:pro_user) { FactoryGirl.create(:pro_user) }
+      let(:pro_user) { FactoryBot.create(:pro_user) }
 
       before do
         session[:user_id] = pro_user.id
@@ -84,7 +84,7 @@ describe HelpController do
     end
 
     context 'when the user is a normal user' do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
 
       before do
         session[:user_id] = user.id
@@ -125,7 +125,7 @@ describe HelpController do
     end
 
     context 'when a last_request_id cookie is set' do
-      let(:info_request){ FactoryGirl.create(:info_request) }
+      let(:info_request){ FactoryBot.create(:info_request) }
 
       context "when the user can access the specified request" do
         it 'assigns @last_request' do
@@ -137,7 +137,7 @@ describe HelpController do
 
       context "when the user can't access the specified request" do
         it 'sets @last_request to nil' do
-          info_request = FactoryGirl.create(:embargoed_request)
+          info_request = FactoryBot.create(:embargoed_request)
           request.cookies["last_request_id"] = info_request.id
           get :contact
           expect(assigns[:last_request]).to be nil
@@ -154,7 +154,7 @@ describe HelpController do
     end
 
     context 'when a last_body_id cookie is set' do
-      let(:body){ FactoryGirl.create(:public_body) }
+      let(:body){ FactoryBot.create(:public_body) }
 
       it 'assigns @last_body' do
         request.cookies["last_body_id"] = body.id

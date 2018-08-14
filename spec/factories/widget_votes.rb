@@ -11,7 +11,7 @@
 #
 
 require 'securerandom'
-FactoryGirl.define do
+FactoryBot.define do
   factory :widget_vote do
     info_request
     cookie { SecureRandom.hex(10) }

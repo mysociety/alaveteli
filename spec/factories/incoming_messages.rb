@@ -21,7 +21,7 @@
 #  prominence_reason              :text
 #
 
-FactoryGirl.define do
+FactoryBot.define do
 
   factory :incoming_message do
     info_request
@@ -55,9 +55,9 @@ FactoryGirl.define do
 
     factory :incoming_message_with_html_attachment do
       after(:create) do |incoming_message, evaluator|
-        FactoryGirl.create(:html_attachment,
-                           :incoming_message => incoming_message,
-                           :url_part_number => 2)
+        FactoryBot.create(:html_attachment,
+                          :incoming_message => incoming_message,
+                          :url_part_number => 2)
       end
     end
 

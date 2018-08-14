@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
 describe 'when handling incoming mail' do
-  let(:info_request){ FactoryGirl.create(:info_request) }
+  let(:info_request){ FactoryBot.create(:info_request) }
 
   it "receives incoming messages, sends email to requester, and shows them" do
     receive_incoming_mail('incoming-request-plain.email',

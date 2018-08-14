@@ -5,7 +5,7 @@ describe AdminInfoRequestEventController do
 
   describe 'PUT update' do
     let(:info_request_event) do
-      info_request_event = FactoryGirl.create(:response_event)
+      info_request_event = FactoryBot.create(:response_event)
     end
 
     describe 'when handling valid data' do
@@ -59,7 +59,7 @@ describe AdminInfoRequestEventController do
 
     it 'raises an exception if the event is not a response' do
       put :update, :id => info_request_event
-      info_request_event = FactoryGirl.create(:sent_event)
+      info_request_event = FactoryBot.create(:sent_event)
       expect{ put :update, :id => info_request_event }.
         to raise_error(RuntimeError,
                        "can only mark responses as requires clarification")

@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
 describe 'Updating your user profile' do
 
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryBot.create(:user) }
 
   describe 'updating about_me text' do
 

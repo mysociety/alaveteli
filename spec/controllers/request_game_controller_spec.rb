@@ -14,7 +14,7 @@ describe RequestGameController do
       InfoRequest.destroy_all
       requests = []
       3.times do
-        requests << FactoryGirl.create(:old_unclassified_request)
+        requests << FactoryBot.create(:old_unclassified_request)
       end
       get :play
       expect(assigns[:requests]).to match_array(requests)
@@ -22,7 +22,7 @@ describe RequestGameController do
 
     it 'assigns the number of unclassified requests' do
       InfoRequest.destroy_all
-      FactoryGirl.create(:old_unclassified_request)
+      FactoryBot.create(:old_unclassified_request)
       get :play
       expect(assigns[:missing]).to eq(1)
     end
@@ -44,7 +44,7 @@ describe RequestGameController do
 
       before do
         InfoRequest.destroy_all
-        FactoryGirl.create(:info_request)
+        FactoryBot.create(:info_request)
       end
 
       render_views

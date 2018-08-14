@@ -6,7 +6,7 @@ describe AdminRawEmailController do
   describe 'GET show' do
 
     before do
-      @raw_email = FactoryGirl.create(:incoming_message).raw_email
+      @raw_email = FactoryBot.create(:incoming_message).raw_email
     end
 
     describe 'html version' do
@@ -18,22 +18,22 @@ describe AdminRawEmailController do
       context 'when showing a message with a "From" address in the holding pen' do
 
         before do
-          @public_body = FactoryGirl.create(:public_body,
-                                            :request_email => 'body@example.uk')
-          @info_request = FactoryGirl.create(:info_request)
+          @public_body = FactoryBot.create(:public_body,
+                                           :request_email => 'body@example.uk')
+          @info_request = FactoryBot.create(:info_request)
           raw_email_data = <<-EOF.strip_heredoc
           From: bob@example.uk
           To: #{@info_request.incoming_email}
           Subject: Basic Email
           Hello, World
           EOF
-          @incoming_message = FactoryGirl.create(
+          @incoming_message = FactoryBot.create(
             :plain_incoming_message,
             :info_request => InfoRequest.holding_pen_request,
           )
           @incoming_message.raw_email.data = raw_email_data
           @incoming_message.raw_email.save!
-          @info_request_event = FactoryGirl.create(
+          @info_request_event = FactoryBot.create(
             :info_request_event,
             :event_type => 'response',
             :info_request => InfoRequest.holding_pen_request,

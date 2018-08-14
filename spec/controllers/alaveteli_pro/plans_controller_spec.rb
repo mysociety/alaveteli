@@ -51,7 +51,7 @@ describe AlaveteliPro::PlansController do
     end
 
     context 'with a signed-in user' do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
 
       before do
         session[:user_id] = user.id

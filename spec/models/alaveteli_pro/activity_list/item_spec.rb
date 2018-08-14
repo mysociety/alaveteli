@@ -9,7 +9,7 @@ describe AlaveteliPro::ActivityList::Item do
     end
 
     it 'assigns the event argument' do
-      event = FactoryGirl.create(:info_request_event)
+      event = FactoryBot.create(:info_request_event)
       list = described_class.new(event)
       expect(list.event).to eq event
     end

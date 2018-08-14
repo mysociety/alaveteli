@@ -2,7 +2,7 @@
 require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
 
 describe 'reports/new.html.erb' do
-  let(:info_request) { FactoryGirl.build(:info_request) }
+  let(:info_request) { FactoryBot.build(:info_request) }
   before :each do
     assign(:info_request, info_request)
     assign(:report_reasons, info_request.report_reasons)
@@ -25,7 +25,7 @@ describe 'reports/new.html.erb' do
   context "reporting a comment" do
 
     let(:comment) do
-      FactoryGirl.build(:comment, :info_request => info_request)
+      FactoryBot.build(:comment, :info_request => info_request)
     end
 
     before :each do

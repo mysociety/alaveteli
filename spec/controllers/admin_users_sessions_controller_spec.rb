@@ -4,8 +4,8 @@ require 'spec_helper'
 describe AdminUsersSessionsController do
 
   describe 'POST #create' do
-    let(:admin_user) { FactoryGirl.create(:admin_user) }
-    let(:target_user) { FactoryGirl.create(:user) }
+    let(:admin_user) { FactoryBot.create(:admin_user) }
+    let(:target_user) { FactoryBot.create(:user) }
 
     before do
       session[:user_id] = admin_user.id
@@ -27,7 +27,7 @@ describe AdminUsersSessionsController do
     end
 
     context 'with an unconfirmed user' do
-      let(:target_user) { FactoryGirl.create(:unconfirmed_user) }
+      let(:target_user) { FactoryBot.create(:unconfirmed_user) }
 
       it 'confirms their account' do
         post :create, id: target_user.id
@@ -37,7 +37,7 @@ describe AdminUsersSessionsController do
     end
 
     context 'if the user cannot log in as the user' do
-      let(:target_user) { FactoryGirl.create(:pro_user) }
+      let(:target_user) { FactoryBot.create(:pro_user) }
 
       it 'redirects to the admin user page for that user' do
         with_feature_enabled(:alaveteli_pro) do

@@ -4,7 +4,7 @@ require 'spec_helper'
 describe AdminUsersAccountSuspensionsController do
 
   describe 'POST #create' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     let(:valid_params) do
       { user_id: user.id, suspension_reason: 'Banned for spamming' }

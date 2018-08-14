@@ -6,11 +6,11 @@ describe RequestGameController do
 
   describe "classifying a request" do
 
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     it 'displays a thank you message on completion' do
-      request = FactoryGirl.create(:old_unclassified_request,
-                                   :title => "Awkward > Title")
+      request = FactoryBot.create(:old_unclassified_request,
+                                  :title => "Awkward > Title")
       using_session(login(user)) do
         visit categorise_play_path
         click_link(request.title)

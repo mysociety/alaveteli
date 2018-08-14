@@ -5,10 +5,10 @@ describe NotificationMailerHelper do
   include NotificationMailerHelper
 
   describe "#notifications_by_event_type" do
-    let(:response_notifications) { FactoryGirl.create_list(:notification, 5) }
+    let(:response_notifications) { FactoryBot.create_list(:notification, 5) }
     let(:comment_notification) do
-      event = FactoryGirl.create(:comment_event)
-      FactoryGirl.create(:notification, info_request_event: event)
+      event = FactoryBot.create(:comment_event)
+      FactoryBot.create(:notification, info_request_event: event)
     end
     let(:notifications) do
       notifications = []

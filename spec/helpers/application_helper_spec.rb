@@ -52,7 +52,7 @@ describe ApplicationHelper do
   describe 'when creating an event description' do
 
     it 'should generate a description for a request' do
-      @info_request = FactoryGirl.create(:info_request)
+      @info_request = FactoryBot.create(:info_request)
       @sent_event = @info_request.last_event
       expected = "Request sent to #{public_body_link_absolute(@info_request.public_body)} by #{request_user_link_absolute(@info_request)}"
       expect(event_description(@sent_event)).to match(expected)
@@ -60,14 +60,14 @@ describe ApplicationHelper do
     end
 
     it 'should generate a description for a response' do
-      @info_request_with_incoming = FactoryGirl.create(:info_request_with_incoming)
+      @info_request_with_incoming = FactoryBot.create(:info_request_with_incoming)
       @response_event = @info_request_with_incoming.last_event
       expected = "Response by #{public_body_link_absolute(@info_request_with_incoming.public_body)} to #{request_user_link_absolute(@info_request_with_incoming)}"
       expect(event_description(@response_event)).to match(expected)
     end
 
     it 'should generate a description for a request where an internal review has been requested' do
-      @info_request_with_internal_review_request = FactoryGirl.create(:info_request_with_internal_review_request)
+      @info_request_with_internal_review_request = FactoryBot.create(:info_request_with_internal_review_request)
       @response_event = @info_request_with_internal_review_request.last_event
       expected = "Internal review request sent to #{public_body_link_absolute(@info_request_with_internal_review_request.public_body)} by #{request_user_link_absolute(@info_request_with_internal_review_request)}"
       expect(event_description(@response_event)).to match(expected)
@@ -76,7 +76,7 @@ describe ApplicationHelper do
   end
 
   describe 'site_wide_announcement' do
-    let(:current_user) { FactoryGirl.create(:user) }
+    let(:current_user) { FactoryBot.create(:user) }
 
     it 'calls scopes on Announcement' do
       announcement = double(:announcement)

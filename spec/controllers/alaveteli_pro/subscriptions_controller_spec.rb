@@ -41,7 +41,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
     context 'with a signed-in user' do
       let(:token) { stripe_helper.generate_card_token }
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
 
       before do
         session[:user_id] = user.id
@@ -115,7 +115,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
       context 'the form is resubmitted' do
 
         let(:token) { stripe_helper.generate_card_token }
-        let(:user) { FactoryGirl.create(:user) }
+        let(:user) { FactoryBot.create(:user) }
 
         before do
           session[:user_id] = user.id
@@ -517,7 +517,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
     context 'user has no Stripe id' do
 
-      let(:user) { FactoryGirl.create(:pro_user) }
+      let(:user) { FactoryBot.create(:pro_user) }
 
       before do
         session[:user_id] = user.id
@@ -532,7 +532,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
     context 'with a signed-in user' do
 
-      let(:user) { FactoryGirl.create(:pro_user) }
+      let(:user) { FactoryBot.create(:pro_user) }
 
       let!(:customer) do
         stripe_helper.create_plan(id: 'test')
@@ -591,7 +591,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
     context 'user has no Stripe id' do
 
-      let(:user) { FactoryGirl.create(:pro_user) }
+      let(:user) { FactoryBot.create(:pro_user) }
 
       before do
         session[:user_id] = user.id
@@ -606,7 +606,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
     context 'with a signed-in user' do
 
-      let(:user) { FactoryGirl.create(:pro_user) }
+      let(:user) { FactoryBot.create(:pro_user) }
 
       let(:plan) { stripe_helper.create_plan(id: 'test') }
 

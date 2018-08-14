@@ -2,12 +2,12 @@
 require 'spec_helper'
 
 describe "alaveteli_pro/embargo_mailer/expiring_alert.text.erb" do
-  let(:pro_user) { FactoryGirl.create(:pro_user) }
+  let(:pro_user) { FactoryBot.create(:pro_user) }
   let!(:expiring_1) do
-    FactoryGirl.create(:embargo_expiring_request, user: pro_user)
+    FactoryBot.create(:embargo_expiring_request, user: pro_user)
   end
   let!(:expiring_2) do
-    FactoryGirl.create(:embargo_expiring_request, user: pro_user)
+    FactoryBot.create(:embargo_expiring_request, user: pro_user)
   end
 
   before do

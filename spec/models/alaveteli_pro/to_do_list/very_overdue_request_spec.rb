@@ -4,7 +4,7 @@ require 'spec_helper'
 describe AlaveteliPro::ToDoList::VeryOverdueRequest do
   include Rails.application.routes.url_helpers
 
-  let(:info_request) { FactoryGirl.create(:info_request) }
+  let(:info_request) { FactoryBot.create(:info_request) }
   let(:user) { info_request.user }
 
   before do
@@ -23,7 +23,7 @@ describe AlaveteliPro::ToDoList::VeryOverdueRequest do
 
     it 'gives a description for multiple responses' do
       request = time_travel_to(Time.zone.parse('2015-11-01')) do
-        FactoryGirl.create(:info_request, :user => user)
+        FactoryBot.create(:info_request, :user => user)
       end
       time_travel_to(Time.zone.parse('2016-01-01')) do
         AlaveteliPro::RequestSummary.create_or_update_from(request)
@@ -59,7 +59,7 @@ describe AlaveteliPro::ToDoList::VeryOverdueRequest do
 
       it 'returns a link to the info request list with a "very_overdue" filter' do
         request = time_travel_to(Time.zone.parse('2015-11-01')) do
-          FactoryGirl.create(:info_request, :user => user)
+          FactoryBot.create(:info_request, :user => user)
         end
         time_travel_to(Time.zone.parse('2016-01-01')) do
           AlaveteliPro::RequestSummary.create_or_update_from(info_request)
@@ -92,7 +92,7 @@ describe AlaveteliPro::ToDoList::VeryOverdueRequest do
       it 'returns an appropriate text' do
 
         request = time_travel_to(Time.zone.parse('2015-11-01')) do
-          FactoryGirl.create(:info_request, :user => user)
+          FactoryBot.create(:info_request, :user => user)
         end
         time_travel_to(Time.zone.parse('2016-01-01')) do
           AlaveteliPro::RequestSummary.create_or_update_from(request)

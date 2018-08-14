@@ -40,7 +40,7 @@ describe PublicBodyChangeRequest, 'when validating' do
   end
 
   it 'should be valid with a user and no name or email address' do
-    user = FactoryGirl.build(:user)
+    user = FactoryBot.build(:user)
     change_request = PublicBodyChangeRequest.new(:user => user,
                                                  :public_body_name => 'New Body')
     expect(change_request.valid?).to be true
@@ -70,7 +70,7 @@ describe PublicBodyChangeRequest, 'get_user_name' do
   end
 
   it 'should return the name of the associated user if there is one' do
-    user = FactoryGirl.build(:user)
+    user = FactoryBot.build(:user)
     change_request = PublicBodyChangeRequest.new(:user => user)
     expect(change_request.get_user_name).to eq(user.name)
   end
@@ -86,7 +86,7 @@ describe PublicBodyChangeRequest, 'get_user_email' do
   end
 
   it 'should return the email of the associated user if there is one' do
-    user = FactoryGirl.build(:user)
+    user = FactoryBot.build(:user)
     change_request = PublicBodyChangeRequest.new(:user => user)
     expect(change_request.get_user_email).to eq(user.email)
   end
@@ -94,8 +94,8 @@ describe PublicBodyChangeRequest, 'get_user_email' do
 end
 
 describe PublicBodyChangeRequest, '.new_body_requests' do
-  let(:new_request) { FactoryGirl.create(:add_body_request) }
-  let(:update_request) { FactoryGirl.create(:update_body_request) }
+  let(:new_request) { FactoryBot.create(:add_body_request) }
+  let(:update_request) { FactoryBot.create(:update_body_request) }
 
   it "returns requests where the public_body_id is nil" do
     expect(PublicBodyChangeRequest.new_body_requests).
@@ -104,8 +104,8 @@ describe PublicBodyChangeRequest, '.new_body_requests' do
 end
 
 describe PublicBodyChangeRequest, '.body_update_requests' do
-  let(:new_request) { FactoryGirl.create(:add_body_request) }
-  let(:update_request) { FactoryGirl.create(:update_body_request) }
+  let(:new_request) { FactoryBot.create(:add_body_request) }
+  let(:update_request) { FactoryBot.create(:update_body_request) }
 
   it "returns requests where the public_body_id is not nil" do
     expect(PublicBodyChangeRequest.body_update_requests).to eq([update_request])
@@ -114,11 +114,11 @@ end
 
 describe PublicBodyChangeRequest, '.open' do
   let(:open_request) do
-    FactoryGirl.create(:update_body_request, :is_open => true)
+    FactoryBot.create(:update_body_request, :is_open => true)
   end
 
   let(:closed_request) do
-    FactoryGirl.create(:update_body_request, :is_open => false)
+    FactoryBot.create(:update_body_request, :is_open => false)
   end
 
   it "returns requests where the is_open is true" do
@@ -134,7 +134,7 @@ describe PublicBodyChangeRequest, 'get_public_body_name' do
   end
 
   it 'should return the name of the associated public body if there is one' do
-    public_body = FactoryGirl.build(:public_body)
+    public_body = FactoryBot.build(:public_body)
     change_request = PublicBodyChangeRequest.new(:public_body => public_body)
     expect(change_request.get_public_body_name).to eq(public_body.name)
   end
@@ -162,7 +162,7 @@ describe PublicBodyChangeRequest, 'when creating a default subject for a respons
   end
 
   it 'should create an appropriate subject for a request to update an email address' do
-    public_body = FactoryGirl.build(:public_body)
+    public_body = FactoryBot.build(:public_body)
     change_request = PublicBodyChangeRequest.new(:public_body => public_body)
     expect(change_request.default_response_subject).to eq("Your request to update #{public_body.name} on Alaveteli")
 

@@ -13,7 +13,7 @@
 #  delivery_status         :string
 #
 
-FactoryGirl.define do
+FactoryBot.define do
 
   factory :mail_server_log do
     info_request

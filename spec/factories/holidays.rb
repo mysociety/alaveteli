@@ -10,7 +10,7 @@
 #  updated_at  :datetime
 #
 
-FactoryGirl.define do
+FactoryBot.define do
 
   factory :holiday do
     day Date.new(2010, 1, 1)

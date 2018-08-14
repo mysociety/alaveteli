@@ -2,12 +2,12 @@
 require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
 
 describe 'when displaying actions that can be taken with regard to a request' do
-  let(:info_request) { FactoryGirl.create(:info_request) }
+  let(:info_request) { FactoryBot.create(:info_request) }
   let(:track_thing) do
-    FactoryGirl.create(:request_update_track, info_request: info_request)
+    FactoryBot.create(:request_update_track, info_request: info_request)
   end
   let(:user) { info_request.user }
-  let(:admin_user) { FactoryGirl.create("admin_user") }
+  let(:admin_user) { FactoryBot.create("admin_user") }
 
   before do
     assign :info_request, info_request

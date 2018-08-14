@@ -13,7 +13,7 @@
 #  embargo_duration :string
 #
 
-FactoryGirl.define do
+FactoryBot.define do
 
   factory :info_request_batch, aliases: [:batch_request]  do
     title "Example title"

@@ -2,8 +2,8 @@
 require 'spec_helper'
 
 describe 'general/_responsive_topnav.html.erb' do
-  let(:user) { FactoryGirl.create(:user) }
-  let(:pro_user) { FactoryGirl.create(:pro_user) }
+  let(:user) { FactoryBot.create(:user) }
+  let(:pro_user) { FactoryBot.create(:pro_user) }
 
   def render_view
     render :partial => 'general/responsive_topnav'

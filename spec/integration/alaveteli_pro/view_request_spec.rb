@@ -4,8 +4,8 @@ require 'integration/alaveteli_dsl'
 require 'support/shared_examples_for_viewing_requests'
 
 describe "viewing requests in alaveteli_pro" do
-  let(:pro_user) { FactoryGirl.create(:pro_user) }
-  let(:info_request) { FactoryGirl.create(:info_request, user: pro_user) }
+  let(:pro_user) { FactoryBot.create(:pro_user) }
+  let(:info_request) { FactoryBot.create(:info_request, user: pro_user) }
   let!(:pro_user_session) { login(pro_user) }
 
   context 'a pro user viewing one of their own requests' do
@@ -76,7 +76,7 @@ describe "viewing requests in alaveteli_pro" do
     context 'the request is embargoed' do
 
       let!(:embargo) do
-        FactoryGirl.create(:embargo, info_request: info_request)
+        FactoryBot.create(:embargo, info_request: info_request)
       end
 
       it 'shows the privacy sidebar' do

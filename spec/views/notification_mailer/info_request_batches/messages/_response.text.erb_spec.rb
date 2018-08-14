@@ -3,35 +3,35 @@ require 'spec_helper'
 
 describe(
   "notification_mailer/info_request_batches/messages/_response.text.erb") do
-  let!(:public_body_1) { FactoryGirl.create(:public_body, name: "One & Two") }
-  let!(:public_body_2) { FactoryGirl.create(:public_body) }
+  let!(:public_body_1) { FactoryBot.create(:public_body, name: "One & Two") }
+  let!(:public_body_2) { FactoryBot.create(:public_body) }
   let!(:batch_request) do
-    batch = FactoryGirl.create(:info_request_batch,
-                               title: "Something & something else",
-                               public_bodies: [public_body_1, public_body_2])
+    batch = FactoryBot.create(:info_request_batch,
+                              title: "Something & something else",
+                              public_bodies: [public_body_1, public_body_2])
     batch.create_batch!
     batch
   end
   let!(:batch_requests) { batch_request.info_requests.order(:created_at) }
   let!(:incoming_1) do
-    FactoryGirl.create(:incoming_message, info_request: batch_requests.first)
+    FactoryBot.create(:incoming_message, info_request: batch_requests.first)
   end
   let!(:incoming_2) do
-    FactoryGirl.create(:incoming_message, info_request: batch_requests.second)
+    FactoryBot.create(:incoming_message, info_request: batch_requests.second)
   end
   let!(:batch_notifications) do
     notifications = []
 
-    event_1 = FactoryGirl.create(:response_event,
-                                 incoming_message: incoming_1)
-    notification_1 = FactoryGirl.create(:daily_notification,
-                                        info_request_event: event_1)
+    event_1 = FactoryBot.create(:response_event,
+                                incoming_message: incoming_1)
+    notification_1 = FactoryBot.create(:daily_notification,
+                                       info_request_event: event_1)
     notifications << notification_1
 
-    event_2 = FactoryGirl.create(:response_event,
-                                 incoming_message: incoming_2)
-    notification_2 = FactoryGirl.create(:daily_notification,
-                                        info_request_event: event_2)
+    event_2 = FactoryBot.create(:response_event,
+                                incoming_message: incoming_2)
+    notification_2 = FactoryBot.create(:daily_notification,
+                                       info_request_event: event_2)
     notifications << notification_2
 
     notifications

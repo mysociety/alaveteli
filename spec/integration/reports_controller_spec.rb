@@ -6,9 +6,9 @@ describe ReportsController do
 
   describe 'reporting a comment' do
 
-    let(:request) { FactoryGirl.create(:info_request) }
-    let(:comment) { FactoryGirl.create(:comment, :info_request => request) }
-    let(:user) { FactoryGirl.create(:user) }
+    let(:request) { FactoryBot.create(:info_request) }
+    let(:comment) { FactoryBot.create(:comment, :info_request => request) }
+    let(:user) { FactoryBot.create(:user) }
 
     describe 'when not logged in' do
 

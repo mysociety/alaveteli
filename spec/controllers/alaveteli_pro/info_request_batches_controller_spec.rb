@@ -104,15 +104,15 @@ shared_examples_for "an info_request_batch action" do
 end
 
 describe AlaveteliPro::InfoRequestBatchesController do
-  let(:body_1) { FactoryGirl.create(:public_body) }
-  let(:body_2) { FactoryGirl.create(:public_body) }
+  let(:body_1) { FactoryBot.create(:public_body) }
+  let(:body_2) { FactoryBot.create(:public_body) }
   let(:bodies) { [body_1, body_2] }
-  let(:user) { FactoryGirl.create(:pro_user) }
-  let(:other_user) { FactoryGirl.create(:pro_user) }
+  let(:user) { FactoryBot.create(:pro_user) }
+  let(:other_user) { FactoryBot.create(:pro_user) }
   let!(:draft) do
-    FactoryGirl.create(:draft_info_request_batch,
-                       public_bodies: bodies,
-                       user: user)
+    FactoryBot.create(:draft_info_request_batch,
+                      public_bodies: bodies,
+                      user: user)
   end
   let(:params) { {draft_id: draft.id} }
 

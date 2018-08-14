@@ -15,8 +15,8 @@
 require 'spec_helper'
 
 describe AlaveteliPro::DraftInfoRequestBatch do
-  let(:draft_batch) { FactoryGirl.create(:draft_info_request_batch) }
-  let(:pro_user) { FactoryGirl.create(:pro_user) }
+  let(:draft_batch) { FactoryBot.create(:draft_info_request_batch) }
+  let(:pro_user) { FactoryBot.create(:pro_user) }
 
   it "requires a user" do
     draft_batch.user = nil
@@ -29,11 +29,11 @@ describe AlaveteliPro::DraftInfoRequestBatch do
   end
 
   it "it imposes an alphabetical sort order on associated public bodies" do
-    public_body1 = FactoryGirl.create(:public_body, :name => "Body 1")
-    public_body2 = FactoryGirl.create(:public_body, :name => "A Public Body")
-    draft = FactoryGirl.create(:draft_info_request_batch,
-                               :public_bodies => [public_body1, public_body2],
-                               :user => pro_user)
+    public_body1 = FactoryBot.create(:public_body, :name => "Body 1")
+    public_body2 = FactoryBot.create(:public_body, :name => "A Public Body")
+    draft = FactoryBot.create(:draft_info_request_batch,
+                              :public_bodies => [public_body1, public_body2],
+                              :user => pro_user)
     draft.reload
     expect(draft.public_bodies).to eq ([public_body2, public_body1])
   end

@@ -68,68 +68,68 @@ describe InfoRequestEvent do
   describe 'when deciding if it is indexed by search' do
 
     it 'returns a falsey value for a comment that is not visible' do
-      comment = FactoryGirl.create(:hidden_comment)
-      comment_event = FactoryGirl.build(:comment_event, :comment => comment)
+      comment = FactoryBot.create(:hidden_comment)
+      comment_event = FactoryBot.build(:comment_event, :comment => comment)
       expect(comment_event.indexed_by_search?).to be_falsey
     end
 
     it 'returns a truthy value for a comment that is visible' do
-      comment = FactoryGirl.create(:comment)
-      comment_event = FactoryGirl.build(:comment_event, :comment => comment)
+      comment = FactoryBot.create(:comment)
+      comment_event = FactoryBot.build(:comment_event, :comment => comment)
       expect(comment_event.indexed_by_search?).to be_truthy
     end
 
     it 'returns a falsey value for an incoming message that is not indexed by search' do
-      incoming_message = FactoryGirl.create(:hidden_incoming_message)
-      response_event = FactoryGirl.build(:response_event,
-                                         :incoming_message => incoming_message)
+      incoming_message = FactoryBot.create(:hidden_incoming_message)
+      response_event = FactoryBot.build(:response_event,
+                                        :incoming_message => incoming_message)
       expect(response_event.indexed_by_search?).to be_falsey
     end
 
     it 'returns a truthy value for an incoming message that is indexed by search' do
-      incoming_message = FactoryGirl.create(:incoming_message)
-      response_event = FactoryGirl.build(:response_event,
-                                         :incoming_message => incoming_message)
+      incoming_message = FactoryBot.create(:incoming_message)
+      response_event = FactoryBot.build(:response_event,
+                                        :incoming_message => incoming_message)
       expect(response_event.indexed_by_search?).to be_truthy
     end
 
     it 'returns a falsey value for an outgoing message that is not indexed by search' do
-      outgoing_message = FactoryGirl.create(:hidden_followup)
-      followup_event = FactoryGirl.build(:followup_sent_event,
-                                         :outgoing_message => outgoing_message)
+      outgoing_message = FactoryBot.create(:hidden_followup)
+      followup_event = FactoryBot.build(:followup_sent_event,
+                                        :outgoing_message => outgoing_message)
       expect(followup_event.indexed_by_search?).to be_falsey
     end
 
     it 'returns a truthy value for an outgoing message that is indexed by search' do
-      outgoing_message = FactoryGirl.create(:new_information_followup)
-      followup_event = FactoryGirl.build(:followup_sent_event,
-                                         :outgoing_message => outgoing_message)
+      outgoing_message = FactoryBot.create(:new_information_followup)
+      followup_event = FactoryBot.build(:followup_sent_event,
+                                        :outgoing_message => outgoing_message)
       expect(followup_event.indexed_by_search?).to be_truthy
     end
 
     it 'returns a falsey value for an overdue event' do
-      overdue_event = FactoryGirl.build(:overdue_event)
+      overdue_event = FactoryBot.build(:overdue_event)
       expect(overdue_event.indexed_by_search?).to be_falsey
     end
 
     it 'returns a falsey value for a very overdue event' do
-      very_overdue_event = FactoryGirl.build(:very_overdue_event)
+      very_overdue_event = FactoryBot.build(:very_overdue_event)
       expect(very_overdue_event.indexed_by_search?).to be_falsey
     end
 
     it 'returns a falsey value for an embargo expiry event' do
-      expire_embargo_event = FactoryGirl.build(:expire_embargo_event)
+      expire_embargo_event = FactoryBot.build(:expire_embargo_event)
       expect(expire_embargo_event.indexed_by_search?).to be_falsey
     end
   end
 
   describe '.count_of_hides_by_week' do
     it 'counts hide events by week' do
-      FactoryGirl.create(:hide_event, created_at: Time.utc(2016, 1, 24))
-      FactoryGirl.create(:edit_event, created_at: Time.utc(2016, 1, 18))
-      FactoryGirl.create(:edit_event, created_at: Time.utc(2016, 1, 11))
-      FactoryGirl.create(:hide_event, created_at: Time.utc(2016, 1, 7))
-      FactoryGirl.create(:hide_event, created_at: Time.utc(2016, 1, 4))
+      FactoryBot.create(:hide_event, created_at: Time.utc(2016, 1, 24))
+      FactoryBot.create(:edit_event, created_at: Time.utc(2016, 1, 18))
+      FactoryBot.create(:edit_event, created_at: Time.utc(2016, 1, 11))
+      FactoryBot.create(:hide_event, created_at: Time.utc(2016, 1, 7))
+      FactoryBot.create(:hide_event, created_at: Time.utc(2016, 1, 4))
 
       expect(InfoRequestEvent.count_of_hides_by_week).to eql(
         [
@@ -141,7 +141,7 @@ describe InfoRequestEvent do
   end
 
   describe '#described_at' do
-    let(:ire) { FactoryGirl.create(:info_request_event) }
+    let(:ire) { FactoryBot.create(:info_request_event) }
 
     it 'should return the created_at date if no description has been added' do
       expect(ire.described_at).to eq(ire.created_at)
@@ -155,14 +155,14 @@ describe InfoRequestEvent do
 
   describe '#requested_by' do
     it "should return the slug of the associated request's user" do
-      ire = FactoryGirl.create(:info_request_event)
+      ire = FactoryBot.create(:info_request_event)
       expect(ire.requested_by).to eq(ire.info_request.user_name_slug)
     end
   end
 
   describe '#requested_from' do
     it "should return an array of translated public body url_name values" do
-      ire = FactoryGirl.create(:info_request_event)
+      ire = FactoryBot.create(:info_request_event)
       public_body = ire.info_request.public_body
       expect(ire.requested_from).to eq([public_body.url_name])
     end
@@ -171,18 +171,18 @@ describe InfoRequestEvent do
   describe '#commented_by' do
     context 'if it is a comment event' do
       it "should return the commenter's url_name" do
-        user = FactoryGirl.create(:user)
-        comment = FactoryGirl.create(:comment, :user => user)
-        ire = FactoryGirl.create(:info_request_event,
-                                 :event_type => 'comment',
-                                 :comment => comment)
+        user = FactoryBot.create(:user)
+        comment = FactoryBot.create(:comment, :user => user)
+        ire = FactoryBot.create(:info_request_event,
+                                :event_type => 'comment',
+                                :comment => comment)
         expect(ire.commented_by).to eq(user.url_name)
       end
     end
 
     context 'if it is not a comment event' do
       it 'should return a blank string' do
-        ire = FactoryGirl.create(:info_request_event)
+        ire = FactoryBot.create(:info_request_event)
         expect(ire.commented_by).to eq('')
       end
     end
@@ -190,18 +190,18 @@ describe InfoRequestEvent do
 
   describe '#variety' do
     it 'should be an alias for event_type' do
-      ire = FactoryGirl.create(:info_request_event)
+      ire = FactoryBot.create(:info_request_event)
       expect(ire.variety).to eq(ire.event_type)
     end
   end
 
   describe '#latest_variety' do
     it 'should return the variety for the most recent event of the related request' do
-      ire = FactoryGirl.create(:info_request_event)
+      ire = FactoryBot.create(:info_request_event)
       request = ire.info_request
-      new_event = FactoryGirl.create(:info_request_event,
-                                     :event_type => 'comment',
-                                     :info_request => request)
+      new_event = FactoryBot.create(:info_request_event,
+                                    :event_type => 'comment',
+                                    :info_request => request)
       request.reload
       expect(ire.latest_variety).to eq('comment')
     end
@@ -209,11 +209,11 @@ describe InfoRequestEvent do
 
   describe '#latest_status' do
     it 'should return the calculated_state of the most recent event of the related request' do
-      ire = FactoryGirl.create(:info_request_event)
+      ire = FactoryBot.create(:info_request_event)
       request = ire.info_request
-      new_event = FactoryGirl.create(:info_request_event,
-                                     :event_type => 'comment',
-                                     :info_request => request)
+      new_event = FactoryBot.create(:info_request_event,
+                                    :event_type => 'comment',
+                                    :info_request => request)
       new_event.set_calculated_state!('internal_review')
       request.reload
       expect(ire.latest_status).to eq('internal_review')
@@ -223,10 +223,10 @@ describe InfoRequestEvent do
   describe '#title' do
     context 'a sent event' do
       it 'should return the related info_request title' do
-        info_request = FactoryGirl.create(:info_request, :title => "Hi!")
-        ire = FactoryGirl.create(:info_request_event,
-                                 :info_request => info_request,
-                                 :event_type => 'sent')
+        info_request = FactoryBot.create(:info_request, :title => "Hi!")
+        ire = FactoryBot.create(:info_request_event,
+                                :info_request => info_request,
+                                :event_type => 'sent')
 
         expect(ire.title).to eq("Hi!")
       end
@@ -234,7 +234,7 @@ describe InfoRequestEvent do
 
     context 'not a sent event' do
       it 'should return a blank string' do
-        ire = FactoryGirl.create(:info_request_event)
+        ire = FactoryBot.create(:info_request_event)
         expect(ire.title).to eq('')
       end
     end
@@ -242,7 +242,7 @@ describe InfoRequestEvent do
 
   describe '#filetype' do
     context 'a response event' do
-      let(:ire) { ire = FactoryGirl.create(:response_event) }
+      let(:ire) { ire = FactoryBot.create(:response_event) }
 
       it 'should raise an error if there is not incoming_message' do
         ire.incoming_message = nil
@@ -257,8 +257,8 @@ describe InfoRequestEvent do
 
       it 'should return a space separated list of the attachment file types' do
         info_request = ire.info_request
-        incoming = FactoryGirl.create(:incoming_message_with_attachments,
-                                      :info_request => info_request)
+        incoming = FactoryBot.create(:incoming_message_with_attachments,
+                                     :info_request => info_request)
         ire.incoming_message = incoming
         expect(ire.filetype).to eq('pdf')
       end
@@ -266,7 +266,7 @@ describe InfoRequestEvent do
 
     context 'not a response event' do
       it 'should return a blank string' do
-        ire = FactoryGirl.create(:info_request_event, :event_type => 'comment')
+        ire = FactoryBot.create(:info_request_event, :event_type => 'comment')
         expect(ire.filetype).to eq('')
       end
     end
@@ -275,17 +275,17 @@ describe InfoRequestEvent do
   describe '#visible' do
     context 'is a comment' do
       it 'should return the visibility of the comment' do
-        comment = FactoryGirl.create(:comment, :visible => false)
-        ire = FactoryGirl.create(:info_request_event,
-                                 :event_type => 'comment',
-                                 :comment => comment)
+        comment = FactoryBot.create(:comment, :visible => false)
+        ire = FactoryBot.create(:info_request_event,
+                                :event_type => 'comment',
+                                :comment => comment)
         expect(ire.visible).to eq(false)
       end
     end
 
     context 'is not a comment' do
       it 'should return true' do
-        ire = FactoryGirl.create(:info_request_event)
+        ire = FactoryBot.create(:info_request_event)
         expect(ire.visible).to eq(true)
       end
     end
@@ -310,7 +310,7 @@ describe InfoRequestEvent do
     end
 
     it 'returns a url_name if passed a User' do
-      user = FactoryGirl.build(:user)
+      user = FactoryBot.build(:user)
       ire.params = {:old_foo => "", :foo => user}
       expected_hash = {
         :new => {:foo => user.url_name},
@@ -321,7 +321,7 @@ describe InfoRequestEvent do
   end
 
   describe 'after saving' do
-    let(:request) { FactoryGirl.create(:info_request) }
+    let(:request) { FactoryBot.create(:info_request) }
 
     it 'should mark the model for reindexing in xapian if there is no no_xapian_reindex flag on the object' do
       event = InfoRequestEvent.new(:info_request => request,
@@ -334,8 +334,8 @@ describe InfoRequestEvent do
     context "the incoming_message is not hidden" do
 
       it "updates the parent info_request's last_public_response_at value" do
-        im = FactoryGirl.create(:incoming_message)
-        response_event = FactoryGirl.
+        im = FactoryBot.create(:incoming_message)
+        response_event = FactoryBot.
                           create(:info_request_event, :event_type => 'response',
                                                       :info_request => request,
                                                       :incoming_message => im)
@@ -349,8 +349,8 @@ describe InfoRequestEvent do
 
       it "does not update the info_request's last_public_response_at value" do
         expect_any_instance_of(InfoRequestEvent).not_to receive(:update_request)
-        event = FactoryGirl.create(:info_request_event, :event_type => 'comment',
-                                                        :info_request => request)
+        event = FactoryBot.create(:info_request_event, :event_type => 'comment',
+                                                       :info_request => request)
         expect(request.last_public_response_at).to be_nil
       end
 
@@ -359,11 +359,11 @@ describe InfoRequestEvent do
     context "the incoming_message is hidden" do
 
       it "sets the parent info_request's last_public_response_at to nil" do
-        im = FactoryGirl.create(:incoming_message, :prominence => 'hidden')
-        response_event = FactoryGirl.
-                          create(:info_request_event, :event_type => 'response',
-                                                      :info_request => request,
-                                                      :incoming_message => im)
+        im = FactoryBot.create(:incoming_message, :prominence => 'hidden')
+        response_event = FactoryBot.
+                           create(:info_request_event, :event_type => 'response',
+                                                       :info_request => request,
+                                                       :incoming_message => im)
         expect(request.last_public_response_at).to be_nil
       end
 
@@ -371,7 +371,7 @@ describe InfoRequestEvent do
 
     it "calls the request's create_or_update_request_summary on create" do
       TestAfterCommit.with_commits(true) do
-        event = FactoryGirl.build(:info_request_event)
+        event = FactoryBot.build(:info_request_event)
         expect(event.info_request).to receive(:create_or_update_request_summary)
         event.save
       end
@@ -472,7 +472,7 @@ describe InfoRequestEvent do
   end
 
   describe '#set_calculated_state!' do
-    let(:info_request_event) { FactoryGirl.build(:sent_event) }
+    let(:info_request_event) { FactoryBot.build(:sent_event) }
 
     before do
       info_request_event.set_calculated_state!('sent')
@@ -500,7 +500,7 @@ describe InfoRequestEvent do
   end
 
   describe '#destroy' do
-    let (:info_request) { FactoryGirl.create(:info_request)}
+    let (:info_request) { FactoryBot.create(:info_request)}
     let (:event) { InfoRequestEvent.create(:info_request => info_request,
                                            :event_type => 'sent',
                                            :params => {})
@@ -512,7 +512,7 @@ describe InfoRequestEvent do
     end
 
     it 'should destroy associated user_info_request_sent_alerts' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       UserInfoRequestSentAlert.create(:info_request_event_id => event.id,
                                       :alert_type => 'overdue_1',
                                       :user => user,
@@ -523,8 +523,8 @@ describe InfoRequestEvent do
     end
 
     it 'should destroy associated track_things_sent_emails' do
-      track_thing = FactoryGirl.create(:search_track,
-                                       :info_request => info_request)
+      track_thing = FactoryBot.create(:search_track,
+                                      :info_request => info_request)
       TrackThingsSentEmail.create(:track_thing => track_thing,
                                   :info_request_event => event)
       event.reload
@@ -557,7 +557,7 @@ describe InfoRequestEvent do
     it "should change type to hidden when only editing prominence to hidden" do
       params = unchanged_params.merge({:old_prominence => "normal", :prominence => "hidden"})
 
-      ire = InfoRequestEvent.create!(:info_request => FactoryGirl.create(:info_request),
+      ire = InfoRequestEvent.create!(:info_request => FactoryBot.create(:info_request),
                                      :event_type => "edit",
                                      :params => params)
 
@@ -567,7 +567,7 @@ describe InfoRequestEvent do
     it "should change type to hidden when only editing prominence to requester_only" do
       params = unchanged_params.merge({:old_prominence => "normal", :prominence => "requester_only"})
 
-      ire = InfoRequestEvent.create!(:info_request => FactoryGirl.create(:info_request),
+      ire = InfoRequestEvent.create!(:info_request => FactoryBot.create(:info_request),
                                      :event_type => "edit",
                                      :params => params)
 
@@ -577,7 +577,7 @@ describe InfoRequestEvent do
     it "should change type to hidden when only editing prominence to backpage" do
       params = unchanged_params.merge({:old_prominence => "normal", :prominence => "backpage"})
 
-      ire = InfoRequestEvent.create!(:info_request => FactoryGirl.create(:info_request),
+      ire = InfoRequestEvent.create!(:info_request => FactoryBot.create(:info_request),
                                      :event_type => "edit",
                                      :params => params)
 
@@ -691,12 +691,12 @@ describe InfoRequestEvent do
   describe '#resets_due_dates?' do
 
     it 'returns true if the event is a sending of the request' do
-      info_request_event = FactoryGirl.create(:sent_event)
+      info_request_event = FactoryBot.create(:sent_event)
       expect(info_request_event.resets_due_dates?).to be true
     end
 
     it 'returns true if the event is a clarification' do
-      info_request = FactoryGirl.create(:info_request)
+      info_request = FactoryBot.create(:info_request)
       info_request.set_described_state('waiting_clarification')
       event = info_request.log_event('followup_sent', {})
       expect(event.resets_due_dates?).to be true
@@ -704,7 +704,7 @@ describe InfoRequestEvent do
 
     it 'returns false if the event is neither a sending of the request or a
         clarification' do
-      info_request_event = FactoryGirl.create(:response_event)
+      info_request_event = FactoryBot.create(:response_event)
       expect(info_request_event.resets_due_dates?).to be false
     end
   end
@@ -713,17 +713,17 @@ describe InfoRequestEvent do
   describe '#is_request_sending?' do
 
     it 'returns true if the event type is "sent"' do
-      info_request_event = FactoryGirl.create(:sent_event)
+      info_request_event = FactoryBot.create(:sent_event)
       expect(info_request_event.is_request_sending?).to be true
     end
 
     it 'returns true if the event type is "resent"' do
-      info_request_event = FactoryGirl.create(:resent_event)
+      info_request_event = FactoryBot.create(:resent_event)
       expect(info_request_event.is_request_sending?).to be true
     end
 
     it 'returns false if the event type is not "sent" or "resent"' do
-      info_request_event = FactoryGirl.create(:response_event)
+      info_request_event = FactoryBot.create(:response_event)
       expect(info_request_event.is_request_sending?).to be false
     end
   end
@@ -732,14 +732,14 @@ describe InfoRequestEvent do
   describe '#is_clarification?' do
 
     it 'should return false if there has been no request for clarification' do
-      info_request = FactoryGirl.create(:info_request_with_incoming)
+      info_request = FactoryBot.create(:info_request_with_incoming)
       event = info_request.log_event('followup_sent', {})
       expect(event.is_clarification?).to be false
     end
 
     it 'should return true if the event is the first followup after a request
         for clarification' do
-      info_request = FactoryGirl.create(:info_request_with_incoming)
+      info_request = FactoryBot.create(:info_request_with_incoming)
       info_request.set_described_state('waiting_clarification')
       event = info_request.log_event('followup_sent', {})
       expect(event.is_clarification?).to be true
@@ -747,7 +747,7 @@ describe InfoRequestEvent do
 
     it 'should return false if there was a request for clarification but there
         has since been a followup' do
-      info_request = FactoryGirl.create(:info_request_with_incoming)
+      info_request = FactoryBot.create(:info_request_with_incoming)
       info_request.set_described_state('waiting_clarification')
       info_request.log_event('followup_sent', {})
       event = info_request.log_event('followup_sent', {})
@@ -756,7 +756,7 @@ describe InfoRequestEvent do
 
     it 'should return false if there was a request for clarification after
         this event' do
-      info_request = FactoryGirl.create(:info_request_with_incoming)
+      info_request = FactoryBot.create(:info_request_with_incoming)
       event = info_request.log_event('followup_sent', {})
       info_request.set_described_state('waiting_clarification')
       expect(event.is_clarification?).to be false
@@ -765,7 +765,7 @@ describe InfoRequestEvent do
 
   describe 'notifications' do
     it 'deletes associated notifications when destroyed' do
-      notification = FactoryGirl.create(:notification)
+      notification = FactoryBot.create(:notification)
       info_request_event = notification.info_request_event
       expect(Notification.where(id: notification.id)).to exist
       info_request_event.destroy
@@ -780,7 +780,7 @@ describe InfoRequestEvent do
       let(:response_event) do
         response = nil
         time_travel_to(1.month.ago) do
-          response = FactoryGirl.create(:response_event)
+          response = FactoryBot.create(:response_event)
         end
         response.described_state = 'waiting_clarification'
         response.calculated_state = 'waiting_clarification'
@@ -790,8 +790,8 @@ describe InfoRequestEvent do
 
       context 'if there is a subsequent followup' do
         let!(:followup) do
-          FactoryGirl.create(:followup_sent_event,
-                             :info_request => response_event.info_request)
+          FactoryBot.create(:followup_sent_event,
+                            :info_request => response_event.info_request)
         end
 
         it 'resets the due dates on the request' do

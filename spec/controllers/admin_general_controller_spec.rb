@@ -4,8 +4,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe AdminGeneralController do
 
   describe "GET #index" do
-    let(:admin_user){ FactoryGirl.create(:admin_user) }
-    let(:pro_admin_user){ FactoryGirl.create(:pro_admin_user) }
+    let(:admin_user){ FactoryBot.create(:admin_user) }
+    let(:pro_admin_user){ FactoryBot.create(:pro_admin_user) }
 
     before do
       InfoRequest.destroy_all
@@ -17,31 +17,31 @@ describe AdminGeneralController do
     end
 
     it 'assigns old unclassified requests' do
-      @old_request = FactoryGirl.create(:old_unclassified_request)
+      @old_request = FactoryBot.create(:old_unclassified_request)
       get :index, {}, { :user_id => admin_user.id }
       expect(assigns[:old_unclassified]).to eq([@old_request])
     end
 
     it 'assigns requests that require admin to the view' do
-      requires_admin_request = FactoryGirl.create(:requires_admin_request)
+      requires_admin_request = FactoryBot.create(:requires_admin_request)
       get :index, {}, { :user_id => admin_user.id }
       expect(assigns[:requires_admin_requests]).to eq([requires_admin_request])
     end
 
     it 'assigns requests that have error messages to the view' do
-      error_message_request = FactoryGirl.create(:error_message_request)
+      error_message_request = FactoryBot.create(:error_message_request)
       get :index, {}, { :user_id => admin_user.id }
       expect(assigns[:error_message_requests]).to eq([error_message_request])
     end
 
     it 'assigns requests flagged for admin attention to the view' do
-      attention_requested_request = FactoryGirl.create(:attention_requested_request)
+      attention_requested_request = FactoryBot.create(:attention_requested_request)
       get :index, {}, { :user_id => admin_user.id }
       expect(assigns[:attention_requests]).to eq([attention_requested_request])
     end
 
     it 'assigns messages sent to the holding pen to the view' do
-      undeliverable = FactoryGirl.
+      undeliverable = FactoryBot.
                         create(:incoming_message,
                                :info_request => InfoRequest.holding_pen_request)
       get :index, {}, { :user_id => admin_user.id }
@@ -51,7 +51,7 @@ describe AdminGeneralController do
     context 'when there are request tasks' do
 
       it 'assigns public_request_tasks to true' do
-        undeliverable = FactoryGirl.
+        undeliverable = FactoryBot.
                           create(:incoming_message,
                                  :info_request =>
                                    InfoRequest.holding_pen_request)
@@ -70,19 +70,19 @@ describe AdminGeneralController do
     end
 
     it 'assigns blank contacts to the view' do
-      blank_contact = FactoryGirl.create(:public_body, :request_email => '')
+      blank_contact = FactoryBot.create(:public_body, :request_email => '')
       get :index, {}, { :user_id => admin_user.id }
       expect(assigns[:blank_contacts]).to eq([blank_contact])
     end
 
     it 'assigns new body request to the view' do
-      add_body_request = FactoryGirl.create(:add_body_request)
+      add_body_request = FactoryBot.create(:add_body_request)
       get :index, {}, { :user_id => admin_user.id }
       expect(assigns[:new_body_requests]).to eq([add_body_request])
     end
 
     it 'assigns body update requests to the view' do
-      update_body_request = FactoryGirl.create(:update_body_request)
+      update_body_request = FactoryBot.create(:update_body_request)
       get :index, {}, { :user_id => admin_user.id }
       expect(assigns[:body_update_requests]).to eq([update_body_request])
     end
@@ -90,7 +90,7 @@ describe AdminGeneralController do
     context 'when there are authority tasks' do
 
       it 'assigns authority tasks to true' do
-        update_body_request = FactoryGirl.create(:update_body_request)
+        update_body_request = FactoryBot.create(:update_body_request)
         get :index, {}, { :user_id => admin_user.id }
         expect(assigns[:authority_tasks]).to be true
       end
@@ -107,7 +107,7 @@ describe AdminGeneralController do
     end
 
     it 'assigns comments requiring attention to the view' do
-      comment = FactoryGirl.create(:attention_requested)
+      comment = FactoryBot.create(:attention_requested)
       get :index, {}, { :user_id => admin_user.id }
       expect(assigns[:attention_comments]).to eq([comment])
     end
@@ -115,7 +115,7 @@ describe AdminGeneralController do
     context 'when there are comment tasks' do
 
       it 'assigns comment tasks to true' do
-        comment = FactoryGirl.create(:attention_requested)
+        comment = FactoryBot.create(:attention_requested)
         get :index, {}, { :user_id => admin_user.id }
         expect(assigns[:comment_tasks]).to be true
       end
@@ -143,7 +143,7 @@ describe AdminGeneralController do
     context 'when there is something to do' do
 
       it 'assigns nothing to do to false' do
-        comment = FactoryGirl.create(:attention_requested)
+        comment = FactoryBot.create(:attention_requested)
         get :index, {}, { :user_id => admin_user.id }
         expect(assigns[:nothing_to_do]).to be false
       end
@@ -156,7 +156,7 @@ describe AdminGeneralController do
 
         it 'does not assign embargoed requests that require admin to the view' do
           with_feature_enabled(:alaveteli_pro) do
-            requires_admin_request = FactoryGirl.create(:requires_admin_request)
+            requires_admin_request = FactoryBot.create(:requires_admin_request)
             requires_admin_request.create_embargo
             get :index, {}, { :user_id => admin_user.id }
             expect(assigns[:requires_admin_requests]).to eq([])
@@ -166,7 +166,7 @@ describe AdminGeneralController do
 
         it 'does not assign embargoed requests that have error messages to the view' do
           with_feature_enabled(:alaveteli_pro) do
-            error_message_request = FactoryGirl.create(:error_message_request)
+            error_message_request = FactoryBot.create(:error_message_request)
             error_message_request.create_embargo
             get :index, {}, { :user_id => admin_user.id }
             expect(assigns[:error_message_requests]).to eq([])
@@ -176,7 +176,7 @@ describe AdminGeneralController do
 
         it 'does not assign embargoed requests flagged for admin attention to the view' do
           with_feature_enabled(:alaveteli_pro) do
-            attention_requested_request = FactoryGirl.create(:attention_requested_request)
+            attention_requested_request = FactoryBot.create(:attention_requested_request)
             attention_requested_request.create_embargo
             get :index, {}, { :user_id => admin_user.id }
             expect(assigns[:attention_requests]).to eq([])
@@ -187,7 +187,7 @@ describe AdminGeneralController do
       end
 
       it 'does not assign embargoed requests that require admin to the view' do
-        requires_admin_request = FactoryGirl.create(:requires_admin_request)
+        requires_admin_request = FactoryBot.create(:requires_admin_request)
         requires_admin_request.create_embargo
         get :index, {}, { :user_id => admin_user.id }
         expect(assigns[:requires_admin_requests]).to eq([])
@@ -195,7 +195,7 @@ describe AdminGeneralController do
       end
 
       it 'does not assign embargoed requests that have error messages to the view' do
-        error_message_request = FactoryGirl.create(:error_message_request)
+        error_message_request = FactoryBot.create(:error_message_request)
         error_message_request.create_embargo
         get :index, {}, { :user_id => admin_user.id }
         expect(assigns[:error_message_requests]).to eq([])
@@ -205,7 +205,7 @@ describe AdminGeneralController do
       it 'does not assign embargoed requests flagged for admin attention to
           the view' do
         attention_requested_request =
-          FactoryGirl.create(:attention_requested_request)
+          FactoryBot.create(:attention_requested_request)
         attention_requested_request.create_embargo
         get :index, {}, { :user_id => admin_user.id }
         expect(assigns[:attention_requests]).to eq([])
@@ -218,7 +218,7 @@ describe AdminGeneralController do
 
       it 'assigns embargoed requests that require admin to the view' do
         with_feature_enabled(:alaveteli_pro) do
-          requires_admin_request = FactoryGirl.create(:requires_admin_request)
+          requires_admin_request = FactoryBot.create(:requires_admin_request)
           requires_admin_request.create_embargo
           get :index, {}, { :user_id => pro_admin_user.id }
           expect(assigns[:embargoed_requires_admin_requests]).
@@ -228,7 +228,7 @@ describe AdminGeneralController do
 
       it 'assigns embargoed requests that have error messages to the view' do
         with_feature_enabled(:alaveteli_pro) do
-          error_message_request = FactoryGirl.create(:error_message_request)
+          error_message_request = FactoryBot.create(:error_message_request)
           error_message_request.create_embargo
           get :index, {}, { :user_id => pro_admin_user.id }
           expect(assigns[:embargoed_error_message_requests]).
@@ -239,7 +239,7 @@ describe AdminGeneralController do
       it 'assigns embargoed requests flagged for admin attention to the view' do
         with_feature_enabled(:alaveteli_pro) do
           attention_requested_request =
-            FactoryGirl.create(:attention_requested_request)
+            FactoryBot.create(:attention_requested_request)
           attention_requested_request.create_embargo
           get :index, {}, { :user_id => pro_admin_user.id }
           expect(assigns[:embargoed_attention_requests]).
@@ -261,7 +261,7 @@ describe AdminGeneralController do
         it 'assigns nothing to do to false' do
           with_feature_enabled(:alaveteli_pro) do
             attention_requested_request =
-              FactoryGirl.create(:attention_requested_request)
+              FactoryBot.create(:attention_requested_request)
             attention_requested_request.create_embargo
             get :index, {}, { :user_id => pro_admin_user.id }
             expect(assigns[:nothing_to_do]).to be false
@@ -276,8 +276,8 @@ describe AdminGeneralController do
   describe 'GET #timeline' do
 
     before do
-      info_request = FactoryGirl.create(:info_request)
-      public_body = FactoryGirl.create(:public_body)
+      info_request = FactoryBot.create(:info_request)
+      public_body = FactoryBot.create(:public_body)
       @first_request_event = info_request.log_event('edit', {})
       public_body.name = 'Changed name'
       public_body.save!
@@ -368,9 +368,9 @@ describe AdminGeneralController do
     it 'assigns a Hash with grouped counts of requests by state to the view' do
       InfoRequest.destroy_all
 
-      8.times { FactoryGirl.create(:successful_request) }
-      2.times { FactoryGirl.create(:info_request) }
-      FactoryGirl.create(:attention_requested_request)
+      8.times { FactoryBot.create(:successful_request) }
+      2.times { FactoryBot.create(:info_request) }
+      FactoryBot.create(:attention_requested_request)
 
       get :stats
       expect(assigns[:request_by_state]).
@@ -382,11 +382,11 @@ describe AdminGeneralController do
     it 'assigns a Hash with grouped counts of tracks by type to the view' do
       TrackThing.destroy_all
 
-      FactoryGirl.create(:search_track)
-      2.times { FactoryGirl.create(:public_body_track) }
-      4.times { FactoryGirl.create(:request_update_track) }
-      6.times { FactoryGirl.create(:successful_request_track) }
-      7.times { FactoryGirl.create(:new_request_track) }
+      FactoryBot.create(:search_track)
+      2.times { FactoryBot.create(:public_body_track) }
+      4.times { FactoryBot.create(:request_update_track) }
+      6.times { FactoryBot.create(:successful_request_track) }
+      7.times { FactoryBot.create(:new_request_track) }
 
       get :stats
       expect(assigns[:tracks_by_type]).

@@ -6,11 +6,11 @@ describe 'user/sign' do
     before do
       html_title = "test's \"title\" of many HTML tags &c"
       @rendered_title = 'test&#39;s &quot;title&quot; of many HTML tags &amp;c'
-      request = FactoryGirl.create(:info_request, :title => html_title)
-      tracker = FactoryGirl.create(:request_update_track,
-                                   :info_request => request,
-                                   :track_medium => 'email_daily',
-                                   :track_query => 'test')
+      request = FactoryBot.create(:info_request, :title => html_title)
+      tracker = FactoryBot.create(:request_update_track,
+                                  :info_request => request,
+                                  :track_medium => 'email_daily',
+                                  :track_query => 'test')
       redirect = PostRedirect.create(:uri => '/request/test',
                                      :post_params => {},
                                      :reason_params => tracker.params)

@@ -9,9 +9,9 @@ describe AlaveteliPro::PostRedirectHandler, type: :controller do
   describe "#override_post_redirect_for_pro" do
     context "when the uri matches /<locale>/new" do
       let(:uri) { '/en/new' }
-      let(:user) { FactoryGirl.create(:pro_user) }
+      let(:user) { FactoryBot.create(:pro_user) }
       let(:post_redirect) do
-        FactoryGirl.create(:new_request_post_redirect, user: user, uri: uri)
+        FactoryBot.create(:new_request_post_redirect, user: user, uri: uri)
       end
 
       it "creates a draft info request" do
@@ -35,9 +35,9 @@ describe AlaveteliPro::PostRedirectHandler, type: :controller do
 
     context "when the uri does not match /<locale>/new" do
       let(:uri) { '/en/new/public_body' }
-      let(:user) { FactoryGirl.create(:pro_user) }
+      let(:user) { FactoryBot.create(:pro_user) }
       let(:post_redirect) do
-        FactoryGirl.create(:post_redirect, user: user, uri: uri)
+        FactoryBot.create(:post_redirect, user: user, uri: uri)
       end
 
       it "does not override the uri" do

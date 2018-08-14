@@ -18,7 +18,7 @@ describe OneTimePasswordsController do
     end
 
     it 'assigns the signed in user' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
 
       session[:user_id] = user.id
       get :show
@@ -27,7 +27,7 @@ describe OneTimePasswordsController do
     end
 
     it 'renders the show template' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
 
       session[:user_id] = user.id
       get :show
@@ -56,21 +56,21 @@ describe OneTimePasswordsController do
     end
 
     it 'assigns the signed in user' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       session[:user_id] = user.id
       post :create
       expect(assigns[:user]).to eq(user)
     end
 
     it 'enables OTP for the user' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       session[:user_id] = user.id
       post :create
       expect(user.reload.otp_enabled?).to eq(true)
     end
 
     it 'does not disable OTP for the user' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       user.enable_otp
       user.save!
       session[:user_id] = user.id
@@ -79,14 +79,14 @@ describe OneTimePasswordsController do
     end
 
     it 'sets a successful notification message' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       session[:user_id] = user.id
       post :create
       expect(flash[:notice]).to eq('Two factor authentication enabled')
     end
 
     it 'redirects back to #show on success' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       session[:user_id] = user.id
       post :create
       expect(response).to redirect_to(one_time_password_path)
@@ -94,7 +94,7 @@ describe OneTimePasswordsController do
 
     it 'renders #show on failure' do
       allow_any_instance_of(User).to receive(:save).and_return(false)
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       session[:user_id] = user.id
       post :create
       expect(response).to render_template(:show)
@@ -102,7 +102,7 @@ describe OneTimePasswordsController do
 
     it 'sets a failure notification message' do
       allow_any_instance_of(User).to receive(:save).and_return(false)
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       session[:user_id] = user.id
       post :create
       expect(flash[:error]).
@@ -130,14 +130,14 @@ describe OneTimePasswordsController do
     end
 
     it 'assigns the signed in user' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       session[:user_id] = user.id
       put :update
       expect(assigns[:user]).to eq(user)
     end
 
     it 'regenerates the otp_code' do
-      user = FactoryGirl.create(:user, :otp_enabled => true)
+      user = FactoryBot.create(:user, :otp_enabled => true)
       expected = ROTP::HOTP.new(user.otp_secret_key).at(2)
       session[:user_id] = user.id
       put :update
@@ -145,21 +145,21 @@ describe OneTimePasswordsController do
     end
 
     it 'sets a successful notification message' do
-      user = FactoryGirl.create(:user, :otp_enabled => true)
+      user = FactoryBot.create(:user, :otp_enabled => true)
       session[:user_id] = user.id
       put :update
       expect(flash[:notice]).to eq('Two factor one time passcode updated')
     end
 
     it 'redirects back to #show on success' do
-      user = FactoryGirl.create(:user, :otp_enabled => true)
+      user = FactoryBot.create(:user, :otp_enabled => true)
       session[:user_id] = user.id
       put :update
       expect(response).to redirect_to(one_time_password_path)
     end
 
     it 'renders #show on failure' do
-      user = FactoryGirl.create(:user, :otp_enabled => true)
+      user = FactoryBot.create(:user, :otp_enabled => true)
       allow_any_instance_of(User).to receive(:save).and_return(false)
       session[:user_id] = user.id
       put :update
@@ -167,7 +167,7 @@ describe OneTimePasswordsController do
     end
 
     it 'warns the user on failure' do
-      user = FactoryGirl.create(:user, :otp_enabled => true)
+      user = FactoryBot.create(:user, :otp_enabled => true)
       allow_any_instance_of(User).to receive(:save).and_return(false)
       session[:user_id] = user.id
       put :update
@@ -190,21 +190,21 @@ describe OneTimePasswordsController do
   describe 'DELETE #destroy' do
 
     it 'redirects to the sign-in page without a signed in user' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       delete :destroy
       expect(response).
         to redirect_to(signin_path(:token => PostRedirect.last.token))
     end
 
     it 'assigns the signed in user' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       session[:user_id] = user.id
       delete :destroy
       expect(assigns[:user]).to eq(user)
     end
 
     it 'disables OTP for the user' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       user.enable_otp
       user.save!
       session[:user_id] = user.id
@@ -213,14 +213,14 @@ describe OneTimePasswordsController do
     end
 
     it 'sets a successful notification message' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       session[:user_id] = user.id
       delete :destroy
       expect(flash[:notice]).to eq('Two factor authentication disabled')
     end
 
     it 'redirects back to #show on success' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       session[:user_id] = user.id
       delete :destroy
       expect(response).to redirect_to(one_time_password_path)
@@ -228,7 +228,7 @@ describe OneTimePasswordsController do
 
     it 'sets a failure notification message' do
       allow_any_instance_of(User).to receive(:save).and_return(false)
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       session[:user_id] = user.id
       delete :destroy
       expect(flash[:error]).
@@ -237,7 +237,7 @@ describe OneTimePasswordsController do
 
     it 'renders #show on failure' do
       allow_any_instance_of(User).to receive(:save).and_return(false)
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       session[:user_id] = user.id
       delete :destroy
       expect(response).to render_template(:show)

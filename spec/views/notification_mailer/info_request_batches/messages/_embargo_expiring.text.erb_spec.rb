@@ -2,13 +2,13 @@
 require 'spec_helper'
 
 describe("notification_mailer/info_request_batches/messages/_embargo_expiring.text.erb") do
-  let!(:public_body_1) { FactoryGirl.create(:public_body, name: "One & Two") }
-  let!(:public_body_2) { FactoryGirl.create(:public_body) }
+  let!(:public_body_1) { FactoryBot.create(:public_body, name: "One & Two") }
+  let!(:public_body_2) { FactoryBot.create(:public_body) }
   let(:public_bodies) { [public_body_1, public_body_2] }
   let!(:batch_request) do
     time_travel_to(3.months.ago - 1.week) do
-      batch = FactoryGirl.create(:embargoed_batch_request,
-                                 public_bodies: public_bodies)
+      batch = FactoryBot.create(:embargoed_batch_request,
+                                public_bodies: public_bodies)
       batch.create_batch!
       batch
     end
@@ -17,16 +17,16 @@ describe("notification_mailer/info_request_batches/messages/_embargo_expiring.te
   let!(:batch_notifications) do
     notifications = []
 
-    event_1 = FactoryGirl.create(:embargo_expiring_event,
-                                 info_request: batch_requests.first)
-    notification_1 = FactoryGirl.create(:daily_notification,
-                                        info_request_event: event_1)
+    event_1 = FactoryBot.create(:embargo_expiring_event,
+                                info_request: batch_requests.first)
+    notification_1 = FactoryBot.create(:daily_notification,
+                                       info_request_event: event_1)
     notifications << notification_1
 
-    event_2 = FactoryGirl.create(:embargo_expiring_event,
-                                 info_request: batch_requests.second)
-    notification_2 = FactoryGirl.create(:daily_notification,
-                                        info_request_event: event_2)
+    event_2 = FactoryBot.create(:embargo_expiring_event,
+                                info_request: batch_requests.second)
+    notification_2 = FactoryBot.create(:daily_notification,
+                                       info_request_event: event_2)
     notifications << notification_2
 
     notifications

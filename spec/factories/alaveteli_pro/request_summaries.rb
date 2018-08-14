@@ -14,7 +14,7 @@
 #  updated_at        :datetime         not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :request_summary, :class => AlaveteliPro::RequestSummary do
     sequence(:title) { |n| "Example Title #{n}" }
     sequence(:body) { |n| "Example request #{n}" }

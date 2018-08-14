@@ -12,7 +12,7 @@ describe InfoRequest::ResponseGatekeeper::AuthorityOnly do
   describe '#allow?' do
 
     it 'requires an email' do
-      gatekeeper = described_class.new(FactoryGirl.build(:info_request))
+      gatekeeper = described_class.new(FactoryBot.build(:info_request))
       expect{ gatekeeper.allow? }.to raise_error(ArgumentError)
     end
 
@@ -25,7 +25,7 @@ describe InfoRequest::ResponseGatekeeper::AuthorityOnly do
         Hello, World
         EOF
         email = MailHandler.mail_from_raw_email(raw)
-        gatekeeper = described_class.new(FactoryGirl.build(:info_request))
+        gatekeeper = described_class.new(FactoryBot.build(:info_request))
 
         expect(gatekeeper.allow?(email)).to eq(false)
       end
@@ -39,7 +39,7 @@ describe InfoRequest::ResponseGatekeeper::AuthorityOnly do
         email = MailHandler.mail_from_raw_email(raw)
         reason = 'Only the authority can reply to this request, but there is ' \
                  'no "From" address to check against'
-        gatekeeper = described_class.new(FactoryGirl.build(:info_request))
+        gatekeeper = described_class.new(FactoryBot.build(:info_request))
         gatekeeper.allow?(email)
         expect(gatekeeper.reason).to eq(reason)
       end
@@ -56,7 +56,7 @@ describe InfoRequest::ResponseGatekeeper::AuthorityOnly do
         Hello, World
         EOF
         email = MailHandler.mail_from_raw_email(raw)
-        gatekeeper = described_class.new(FactoryGirl.build(:info_request))
+        gatekeeper = described_class.new(FactoryBot.build(:info_request))
 
         expect(gatekeeper.allow?(email)).to eq(false)
       end
@@ -71,7 +71,7 @@ describe InfoRequest::ResponseGatekeeper::AuthorityOnly do
         email = MailHandler.mail_from_raw_email(raw)
         reason = "Only the authority can reply to this request, and I don't " \
                  "recognise the address this reply was sent from"
-        gatekeeper = described_class.new(FactoryGirl.build(:info_request))
+        gatekeeper = described_class.new(FactoryBot.build(:info_request))
         gatekeeper.allow?(email)
         expect(gatekeeper.reason).to eq(reason)
       end
@@ -88,7 +88,7 @@ describe InfoRequest::ResponseGatekeeper::AuthorityOnly do
         Hello, World
         EOF
         email = MailHandler.mail_from_raw_email(raw)
-        gatekeeper = described_class.new(FactoryGirl.build(:info_request))
+        gatekeeper = described_class.new(FactoryBot.build(:info_request))
 
         expect(gatekeeper.allow?(email)).to eq(true)
       end
@@ -101,7 +101,7 @@ describe InfoRequest::ResponseGatekeeper::AuthorityOnly do
         Hello, World
         EOF
         email = MailHandler.mail_from_raw_email(raw)
-        gatekeeper = described_class.new(FactoryGirl.build(:info_request))
+        gatekeeper = described_class.new(FactoryBot.build(:info_request))
         gatekeeper.allow?(email)
 
         expect(gatekeeper.reason).to be_nil
@@ -119,7 +119,7 @@ describe InfoRequest::ResponseGatekeeper::AuthorityOnly do
         Hello, World
         EOF
         email = MailHandler.mail_from_raw_email(raw)
-        info_request = FactoryGirl.create(:info_request)
+        info_request = FactoryBot.create(:info_request)
         info_request.receive(email, raw)
 
         gatekeeper = described_class.new(info_request)
@@ -136,7 +136,7 @@ describe InfoRequest::ResponseGatekeeper::AuthorityOnly do
         Hello, World
         EOF
         email = MailHandler.mail_from_raw_email(raw)
-        info_request = FactoryGirl.create(:info_request)
+        info_request = FactoryBot.create(:info_request)
         info_request.receive(email, raw)
 
         gatekeeper = described_class.new(info_request)

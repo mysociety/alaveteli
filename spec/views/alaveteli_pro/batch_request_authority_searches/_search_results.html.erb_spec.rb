@@ -10,9 +10,9 @@ describe '_search_results.html.erb' do
   end
 
   describe "when a search has been performed" do
-    let!(:authority_1) { FactoryGirl.create(:public_body) }
-    let!(:authority_2) { FactoryGirl.create(:public_body) }
-    let!(:authority_3) { FactoryGirl.create(:public_body) }
+    let!(:authority_1) { FactoryBot.create(:public_body) }
+    let!(:authority_2) { FactoryBot.create(:public_body) }
+    let!(:authority_3) { FactoryBot.create(:public_body) }
 
     before do
       update_xapian_index

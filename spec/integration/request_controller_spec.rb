@@ -86,11 +86,11 @@ describe RequestController, "when classifying an information request" do
   describe 'FOI officer uploading a reponse' do
 
     let(:public_body) do
-      FactoryGirl.create(:public_body, :request_email => "foi@example.com")
+      FactoryBot.create(:public_body, :request_email => "foi@example.com")
     end
-    let(:officer) { FactoryGirl.create(:user, :email => "officer@example.com") }
-    let(:user) { FactoryGirl.create(:user, :name => "Awkward > Name") }
-    let(:request) { FactoryGirl.create(:info_request, :user => user) }
+    let(:officer) { FactoryBot.create(:user, :email => "officer@example.com") }
+    let(:user) { FactoryBot.create(:user, :name => "Awkward > Name") }
+    let(:request) { FactoryBot.create(:info_request, :user => user) }
 
     it 'should render a message confirming the response has been published' do
       message = "Thank you for responding to this FOI request! " \
@@ -108,7 +108,7 @@ describe RequestController, "when classifying an information request" do
 
   describe 'request owner classifying a request' do
 
-    let(:info_request) { FactoryGirl.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
     let(:user) { info_request.user }
 
     shared_examples_for 'authority is not subject to FOI law' do

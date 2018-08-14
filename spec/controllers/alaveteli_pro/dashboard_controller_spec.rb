@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe AlaveteliPro::DashboardController do
   describe "#index" do
-    let(:user) { FactoryGirl.create(:pro_user) }
+    let(:user) { FactoryBot.create(:pro_user) }
 
     before do
       session[:user_id] = user.id

@@ -13,26 +13,26 @@ require 'spec_helper'
 
 describe Announcement do
   describe 'scopes' do
-    let!(:admin) { FactoryGirl.create(:admin_user) }
-    let!(:user) { FactoryGirl.create(:user) }
+    let!(:admin) { FactoryBot.create(:admin_user) }
+    let!(:user) { FactoryBot.create(:user) }
 
     let!(:site_wide_announcement_1) do
-      FactoryGirl.create(:announcement, dismissed_by: admin,
-                                        created_at: Date.yesterday)
+      FactoryBot.create(:announcement, dismissed_by: admin,
+                                       created_at: Date.yesterday)
     end
     let!(:site_wide_announcement_2) do
-      FactoryGirl.create(:announcement, dismissed_by: user)
+      FactoryBot.create(:announcement, dismissed_by: user)
     end
     let!(:admin_announcement) do
-      FactoryGirl.create(:announcement, visibility: 'admin')
+      FactoryBot.create(:announcement, visibility: 'admin')
     end
     let!(:past_admin_announcement) do
-      FactoryGirl.create(:announcement, visibility: 'admin',
-                                        created_at: Date.yesterday)
+      FactoryBot.create(:announcement, visibility: 'admin',
+                                       created_at: Date.yesterday)
     end
     let!(:dismissed_admin_announcement) do
-      FactoryGirl.create(:announcement, visibility: 'admin',
-                                        dismissed_by: admin)
+      FactoryBot.create(:announcement, visibility: 'admin',
+                                       dismissed_by: admin)
     end
 
     describe '.visible_to' do
@@ -79,27 +79,27 @@ describe Announcement do
 
   describe 'vaidations' do
     it 'has valid factory' do
-      announcement = FactoryGirl.build(:announcement)
+      announcement = FactoryBot.build(:announcement)
       expect(announcement).to be_valid
     end
 
     it 'requires content' do
-      announcement = FactoryGirl.build(:announcement, content: nil)
+      announcement = FactoryBot.build(:announcement, content: nil)
       expect(announcement).not_to be_valid
     end
 
     it 'requires user' do
-      announcement = FactoryGirl.build(:announcement, user: nil)
+      announcement = FactoryBot.build(:announcement, user: nil)
       expect(announcement).not_to be_valid
     end
 
     it 'requires visibility' do
-      announcement = FactoryGirl.build(:announcement, visibility: nil)
+      announcement = FactoryBot.build(:announcement, visibility: nil)
       expect(announcement).not_to be_valid
     end
 
     it 'requires visibility ' do
-      announcement = FactoryGirl.build(:announcement, visibility: 'foobar')
+      announcement = FactoryBot.build(:announcement, visibility: 'foobar')
       expect(announcement).not_to be_valid
     end
   end

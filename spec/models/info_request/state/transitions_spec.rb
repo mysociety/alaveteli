@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe InfoRequest::State::Transitions do
-  let(:info_request) { FactoryGirl.create(:info_request) }
+  let(:info_request) { FactoryBot.create(:info_request) }
 
   describe ".transition_label" do
     it "requires a to_state parameter" do

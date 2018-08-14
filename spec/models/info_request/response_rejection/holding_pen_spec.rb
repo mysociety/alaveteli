@@ -26,7 +26,7 @@ describe InfoRequest::ResponseRejection::HoldingPen do
     end
 
     it 'redirects the mail to the holding pen' do
-      info_request = FactoryGirl.create(:info_request)
+      info_request = FactoryBot.create(:info_request)
       raw_email = <<-EOF.strip_heredoc
       From: sender@example.com
       To: FOI Person <authority@example.com>

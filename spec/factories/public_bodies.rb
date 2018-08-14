@@ -20,7 +20,7 @@
 #  info_requests_visible_count            :integer          default(0), not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
 
   factory :public_body do
     sequence(:name) { |n| "Example Public Body #{n}" }

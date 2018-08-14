@@ -12,8 +12,8 @@ describe "admin_user/show.html.erb" do
   end
 
   context 'when the current user cannot login as the user being viewed' do
-    let(:current_user){ FactoryGirl.create(:admin_user) }
-    let(:user_being_viewed){ FactoryGirl.create(:pro_user) }
+    let(:current_user){ FactoryBot.create(:admin_user) }
+    let(:user_being_viewed){ FactoryBot.create(:pro_user) }
 
     it 'should not show the list of post redirects' do
       with_feature_enabled(:alaveteli_pro) do
@@ -26,8 +26,8 @@ describe "admin_user/show.html.erb" do
   end
 
   context 'when the current user can login as the user being viewed' do
-    let(:current_user){ FactoryGirl.create(:pro_admin_user) }
-    let(:user_being_viewed){ FactoryGirl.create(:pro_user) }
+    let(:current_user){ FactoryBot.create(:pro_admin_user) }
+    let(:user_being_viewed){ FactoryBot.create(:pro_user) }
 
     it 'should show the list of post redirects' do
       with_feature_enabled(:alaveteli_pro) do

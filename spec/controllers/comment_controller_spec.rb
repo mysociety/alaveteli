@@ -5,10 +5,10 @@ describe CommentController, "when commenting on a request" do
   render_views
 
   describe 'dealing with embargoed requests' do
-    let(:user) { FactoryGirl.create(:user) }
-    let(:pro_user) { FactoryGirl.create(:pro_user) }
+    let(:user) { FactoryBot.create(:user) }
+    let(:pro_user) { FactoryBot.create(:pro_user) }
     let(:embargoed_request) do
-      FactoryGirl.create(:embargoed_request, user: pro_user)
+      FactoryBot.create(:embargoed_request, user: pro_user)
     end
 
     context "when the user is not logged in" do
@@ -155,12 +155,12 @@ describe CommentController, "when commenting on a request" do
 
   describe 'when handling a comment that looks like spam' do
 
-    let(:user) { FactoryGirl.create(:user,
+    let(:user) { FactoryBot.create(:user,
                                 :locale => 'en',
                                 :name => 'bob',
                                 :confirmed_not_spam => false) }
-    let(:body) { FactoryGirl.create(:public_body) }
-    let(:request) { FactoryGirl.create(:info_request) }
+    let(:body) { FactoryBot.create(:public_body) }
+    let(:request) { FactoryBot.create(:info_request) }
 
     context 'when block_spam_comments? is true' do
 
@@ -254,9 +254,9 @@ describe CommentController, "when commenting on a request" do
   end
 
   context 'when commenting on an embargoed request' do
-    let(:pro_user) { FactoryGirl.create(:pro_user) }
+    let(:pro_user) { FactoryBot.create(:pro_user) }
     let(:embargoed_request) do
-      FactoryGirl.create(:embargoed_request, user: pro_user)
+      FactoryBot.create(:embargoed_request, user: pro_user)
     end
 
     it "sets @in_pro_area" do

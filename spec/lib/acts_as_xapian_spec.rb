@@ -9,7 +9,7 @@ describe ActsAsXapian do
 
     it 'processes jobs that were queued after a job that errors' do
       job1, job2 = Array.new(2) do |i|
-        body = FactoryGirl.create(:public_body)
+        body = FactoryBot.create(:public_body)
         body.xapian_mark_needs_index
         ActsAsXapian::ActsAsXapianJob.
           find_by(model: 'PublicBody', model_id: body.id)
@@ -178,7 +178,7 @@ describe ActsAsXapian::Search do
     before :all do
       get_fixtures_xapian_index
       # make sure an index exists
-      @alice = FactoryGirl.create(:public_body, :name => 'alice')
+      @alice = FactoryBot.create(:public_body, :name => 'alice')
       update_xapian_index
     end
 
@@ -254,8 +254,8 @@ describe ActsAsXapian::Search do
     before :all do
       load_raw_emails_data
       get_fixtures_xapian_index
-      @alice = FactoryGirl.create(:public_body, :name => 'alice')
-      @bob = FactoryGirl.create(:public_body, :name => 'bôbby')
+      @alice = FactoryBot.create(:public_body, :name => 'alice')
+      @bob = FactoryBot.create(:public_body, :name => 'bôbby')
       update_xapian_index
     end
 
