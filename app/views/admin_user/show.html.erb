@@ -67,9 +67,10 @@
   </div>
   <div class="span6 text-right">
     <%= form_tag admin_users_account_suspensions_path(user_id: @admin_user.id, suspension_reason: 'Banned for spamming'), class: 'form form-inline' do %>
+      <% disabled = @admin_user.suspended? %>
       <% submit_class = %w(btn btn-danger) %>
-      <% submit_class << 'disabled' if @admin_user.suspended? %>
-      <%= submit_tag 'Ban for spamming', class: submit_class %>
+      <% submit_class << 'disabled' if disabled %>
+      <%= submit_tag 'Ban for spamming', class: submit_class, disabled: disabled %>
     <% end %>
   </div>
 </div>

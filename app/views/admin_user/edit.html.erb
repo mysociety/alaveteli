@@ -1,11 +1,70 @@
-<h1><%=@title%></h1>
+<div class="row">
+  <h1 class="span12"><%= @title %></h1>
+</div>
 
-<%= form_tag admin_user_path(@admin_user), :method => 'put', :class => "form form-horizontal" do %>
-  <%= render :partial => 'form' %>
-  <div class="form-actions">
-    <%= submit_tag 'Save', :accesskey => 's', :class => "btn btn-primary" %>
+<div class="row">
+  <%= form_tag admin_user_path(@admin_user), :method => 'put', :class => "span12 form form-horizontal" do %>
+    <%= render :partial => 'form' %>
+    <div class="form-actions">
+      <%= submit_tag 'Save', :accesskey => 's', :class => "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
+
+<div class="row">
+  <div class="span12">
+    <%= link_to 'Show', admin_user_path(@admin_user), :class => "btn" %>
+    <%= link_to 'List all', admin_users_path, :class => "btn" %>
   </div>
-<% end %>
+</div>
 
-<%= link_to 'Show', admin_user_path(@admin_user), :class => "btn" %>
-<%= link_to 'List all', admin_users_path, :class => "btn" %>
+<hr />
+
+<div class="row">
+  <div class="span12 danger-zone">
+    <h1 class="span12 danger-zone__header">Danger Zone</h1>
+
+    <div class="danger-zone__item">
+      <div class="span8">
+        <p>
+          <strong>Anonymise a user account and close it</strong>
+          <br />
+          <small>By design, this is extremely difficult to reverse.</small>
+        </p>
+
+        <p>
+          <ul>
+            <li>Sets <tt>name</tt> to <code>[Name Removed]</code></li>
+            <li>Sets <tt>url_name</tt> to a random string</li>
+            <li>Sets <tt>email</tt> to a random string</li>
+            <li>Sets <tt>password</tt> to a random string</li>
+            <li>Disables email alerts</li>
+            <li>Removes user from search index</li>
+            <li>Hides requests on the profile page</li>
+            <li><strong>Does not</strong> delete or set prominence of the user's requests</li>
+            <li>Makes a naive attempt to redact <tt>name</tt> from requests<sup>1</sup></li>
+          </ul>
+        </p>
+
+        <p>
+          <sup>1</sup> If the user has any requests, this will create a Censor
+          Rule that applies to the User. The Censor Rule will take the User’s
+          current <tt>name</tt> attribute and replace it with <code>[Name
+          Removed]</code>. Note that this <em>may not cover all variations of
+          the name</em>, so its worth checking that this has done what you
+          expect. More Censor Rules may need to be added to the user if this
+          has not been sufficient.
+        </p>
+      </div>
+      <%= form_tag admin_users_account_suspensions_path(user_id: @admin_user.id, close_and_anonymise: true), class: 'span3 form form-inline' do %>
+        <% disabled = @admin_user.suspended? || @admin_user.is_pro? %>
+        <% submit_class = %w(btn btn-danger) %>
+        <% submit_class << 'disabled' if disabled %>
+        <%= submit_tag 'Close and anonymise',
+          class: submit_class,
+          disabled: disabled,
+          data: { confirm: 'Are you sure? This is irreversible.' } %>
+      <% end %>
+    </div>
+  </div>
+</div>
