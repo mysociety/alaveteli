@@ -1098,6 +1098,65 @@ describe User do
 
   end
 
+  describe '#close_and_anonymise' do
+    let(:user) { FactoryBot.create(:user, about_me: 'Hi') }
+
+    before do
+      allow(Digest::SHA1).to receive(:hexdigest).and_return('1234')
+      allow(MySociety::Util).to receive(:generate_token).and_return('ABCD')
+    end
+
+    it 'creates a censor rule for user name if the user has info requests' do
+      FactoryBot.create(:info_request, user: user)
+      user_name = user.name
+      user.close_and_anonymise
+      censor_rule = user.censor_rules.last
+      expect(censor_rule.text).to eq(user_name)
+      expect(censor_rule.replacement).to eq ('[Name Removed]')
+    end
+
+    it 'does not create a censor rule for user name if the user does not have info requests' do
+      user.close_and_anonymise
+      expect(user.censor_rules).to be_empty
+    end
+
+    it 'should anonymise user name' do
+      expect{ user.close_and_anonymise }.
+        to change(user, :name).to('[Name Removed] (Account suspended)')
+    end
+
+    it 'should anonymise user email' do
+      expect{ user.close_and_anonymise }.
+        to change(user, :email).to('1234@invalid')
+    end
+
+    it 'should anonymise user url_name' do
+      expect{ user.close_and_anonymise }.
+        to change(user, :url_name).to('1234')
+    end
+
+    it 'should anonymise user about_me' do
+      expect{ user.close_and_anonymise }.
+        to change(user, :about_me).to('')
+    end
+
+    it 'should anonymise user password' do
+      expect{ user.close_and_anonymise }.
+        to change(user, :password).to('ABCD')
+    end
+
+    it 'should set user to not receive email alerts' do
+      expect{ user.close_and_anonymise }.
+        to change(user, :receive_email_alerts?).to(false)
+    end
+
+    it 'should set user to be closed' do
+      expect{ user.close_and_anonymise }.
+        to change(user, :closed?).to(true)
+    end
+
+  end
+
   describe '#closed?' do
     let(:user) { FactoryBot.build(:user) }
 

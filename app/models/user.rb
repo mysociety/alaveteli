@@ -449,6 +449,22 @@ class User < ActiveRecord::Base
     closed_at.present?
   end
 
+  def close_and_anonymise
+    sha = Digest::SHA1.hexdigest(rand.to_s)
+
+    redact_name! if info_requests.any?
+
+    update(
+      name: _('[Name Removed]'),
+      email: "#{sha}@invalid",
+      url_name: sha,
+      about_me: '',
+      password: MySociety::Util.generate_token,
+      receive_email_alerts: false,
+      closed_at: Time.zone.now
+    )
+  end
+
   def active?
     !banned? && !closed?
   end
@@ -646,6 +662,13 @@ class User < ActiveRecord::Base
   end
 
   private
+
+  def redact_name!
+    censor_rules.create!(text: name,
+                         replacement: _('[Name Removed]'),
+                         last_edit_editor: 'User#close_and_anonymise',
+                         last_edit_comment: 'User#close_and_anonymise')
+  end
 
   def set_defaults
     if new_record?
