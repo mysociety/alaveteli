@@ -449,6 +449,19 @@ class User < ActiveRecord::Base
     closed_at.present?
   end
 
+  def close_and_anonymise
+    sha = Digest::SHA1.hexdigest(rand.to_s)
+    update(
+      name: '[Account Removed]',
+      email: "#{sha}@invalid",
+      url_name: "removed_#{sha}",
+      about_me: '',
+      password: MySociety::Util.generate_token,
+      receive_email_alerts: false,
+      closed_at: Time.zone.now
+    )
+  end
+
   def active?
     !banned? && !closed?
   end
