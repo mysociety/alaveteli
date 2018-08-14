@@ -82,6 +82,18 @@ describe "creating requests in alaveteli_pro" do
       end
     end
 
+    it 'does not render HTML on the preview page' do
+      public_body.update_attribute(:name, "Test's <sup>html</sup> authority")
+      using_pro_session(pro_user_session) do
+        visit show_public_body_path(:url_name => public_body.url_name)
+        click_link("Make a request to this authority")
+        fill_in 'Subject', :with => "HTML test"
+        click_button "Preview and send"
+
+        expect(page).to have_content("Dear Test's <sup>html</sup> authority")
+      end
+    end
+
     it "allows us to send the request" do
       using_pro_session(pro_user_session) do
         # New request form

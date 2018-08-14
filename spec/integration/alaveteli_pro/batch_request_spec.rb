@@ -212,10 +212,13 @@ describe "creating batch requests in alaveteli_pro" do
     using_pro_session(pro_user_session) do
       start_batch_request
       fill_in_batch_message
+      fill_in "Your request",
+              with: "Dear [Authority name], this is a <b>batch</b> request."
       click_button "Preview and send request"
 
       # Preview page
-      drafts = AlaveteliPro::DraftInfoRequestBatch.where(title: "Does the pro batch request form work?")
+      drafts = AlaveteliPro::DraftInfoRequestBatch.
+        where(title: "Does the pro batch request form work?")
       expect(drafts).to exist
       draft = drafts.first
 
@@ -228,7 +231,9 @@ describe "creating batch requests in alaveteli_pro" do
                                    "form work?")
       # It should substitue an authority name in when previewing
       first_authority = draft.public_bodies.first
-      expect(page).to have_content("Dear #{first_authority.name}, this is a batch request.")
+      expect(page).
+        to have_content("Dear #{first_authority.name}, this is a " \
+                        "<b>batch</b> request.")
       expect(page).to have_content(
         "Requests in this batch will be private until " \
         "#{AlaveteliPro::Embargo.three_months_from_now.strftime('%-d %B %Y')}")
