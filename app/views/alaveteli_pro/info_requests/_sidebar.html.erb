@@ -26,7 +26,7 @@
           <ul class="status-picker__options">
             <% @state_transitions.each do |group, transitions| %>
               <% transitions.each do |state, label| %>
-                <li class="status-picker__option">
+                <li class="status-picker__option" tabindex="0">
                   <%= f.label :described_state, value: state do %>
                     <i class="icon-standalone icon_<%= state %>"></i>
                     <%# Note we force this to be unchecked, you can select the

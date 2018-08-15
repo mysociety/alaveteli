@@ -464,6 +464,11 @@ button,
 .houdini-label {
   color: #2688dc;
   text-decoration: underline;
+    &:hover,
+    &:active,
+    &:focus {
+      color: #000;
+    }
 }
 
 .houdini-target {
