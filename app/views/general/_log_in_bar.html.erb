@@ -1,6 +1,7 @@
 <li id="logged_in_bar" class="logged_in_bar account-link-menu-item">
 <% if @user %>
-  <a href="<%= show_user_profile_path(:url_name => @user.url_name) %>" class="account-link js-account-link"><%= @user.name.split.first %>
+  <a href="<%= show_user_profile_path(:url_name => @user.url_name) %>" class="account-link js-account-link <% if can?(:access, :alaveteli_pro) %>account-link--with-pro-pill<% end %>">
+    <%= @user.name.split.first %>
     <% if can?(:access, :alaveteli_pro) %>
       <span class="pro-pill">pro</span>
     <% end %>

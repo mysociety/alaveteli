@@ -363,8 +363,12 @@
     right: 0;
     top: 0;
     border: 0;
-    max-width: 14em;
+    max-width: 11em;
   }
+}
+
+.navigation .account-link--with-pro-pill {
+  padding-right: 3em;
 }
 
 .js-loaded {
