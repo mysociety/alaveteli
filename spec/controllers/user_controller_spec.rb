@@ -784,29 +784,30 @@ describe UserController, "when signing up" do
 
   end
 
-  context 'using a known spam domain' do
+  context 'using a spammy name or email from a known spam domain' do
 
     before do
       spam_scorer = double
-      allow(spam_scorer).
-        to receive(:email_from_spam_domain?).and_return(true)
+      allow(spam_scorer).to receive(:spam?).and_return(true)
       allow(UserSpamScorer).to receive(:new).and_return(spam_scorer)
     end
 
-    context 'when block_spam_email_domains? is true' do
+    context 'when block_spam_signups? is true' do
 
       before do
         allow(@controller).
-          to receive(:block_spam_email_domains?).and_return(true)
+          to receive(:block_spam_signups?).and_return(true)
       end
 
       it 'logs the signup attempt' do
-        msg = "Attempted signup from spam domain email: spammer@example.com"
+        msg = "Attempted signup from suspected spammer, " \
+              "email: spammer@example.com, " \
+              "name: 'Download New Person 1080p!'"
         expect(Rails.logger).to receive(:info).with(msg)
 
         post :signup,
              :user_signup => { :email => 'spammer@example.com',
-                               :name => 'New Person',
+                               :name => 'Download New Person 1080p!',
                                :password => 'sillypassword',
                                :password_confirmation => 'sillypassword' }
       end
@@ -814,7 +815,7 @@ describe UserController, "when signing up" do
       it 'blocks the signup' do
         post :signup,
              :user_signup => { :email => 'spammer@example.com',
-                               :name => 'New Person',
+                               :name => 'Download New Person 1080p!',
                                :password => 'sillypassword',
                                :password_confirmation => 'sillypassword' }
         expect(User.where(:email => 'spammer@example.com').count).to eq(0)
@@ -823,7 +824,7 @@ describe UserController, "when signing up" do
       it 're-renders the form' do
         post :signup,
              :user_signup => { :email => 'spammer@example.com',
-                               :name => 'New Person',
+                               :name => 'Download New Person 1080p!',
                                :password => 'sillypassword',
                                :password_confirmation => 'sillypassword' }
         expect(response).to render_template('sign')
@@ -832,7 +833,7 @@ describe UserController, "when signing up" do
       it 'sets a flash error' do
         post :signup,
              :user_signup => { :email => 'spammer@example.com',
-                               :name => 'New Person',
+                               :name => 'Download New Person 1080p!',
                                :password => 'sillypassword',
                                :password_confirmation => 'sillypassword' }
         expect(flash[:error]).to match(/unable to sign up new users/)
@@ -840,28 +841,27 @@ describe UserController, "when signing up" do
 
     end
 
-    context 'when block_spam_email_domains? is false' do
+    context 'when block_spam_signups? is false' do
 
       before do
         allow(@controller).
-          to receive(:block_spam_email_domains?).and_return(false)
+          to receive(:block_spam_signups?).and_return(false)
       end
 
       it 'sends an exception notification' do
         post :signup,
              :user_signup => { :email => 'spammer@example.com',
-                               :name => 'New Person',
+                               :name => 'Download New Person 1080p!',
                                :password => 'sillypassword',
                                :password_confirmation => 'sillypassword' }
         mail = ActionMailer::Base.deliveries.first
-        expect(mail.subject).
-          to match(/signup from spam domain email: spammer@example\.com/)
+        expect(mail.subject).to match(/signup from suspected spammer/)
       end
 
       it 'allows the signup' do
         post :signup,
              :user_signup => { :email => 'spammer@example.com',
-                               :name => 'New Person',
+                               :name => 'Download New Person 1080p!',
                                :password => 'sillypassword',
                                :password_confirmation => 'sillypassword' }
         expect(User.where(:email => 'spammer@example.com').count).to eq(1)

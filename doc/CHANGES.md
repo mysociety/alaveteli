@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Run the full user spam check during signup rather than just checking the email domain (Liz Conlan)
 * Add support for the `foi_no` tag for authorities so that new requests can
   still be made while making it clearer that the are not obliged by law to
   respond (Liz Conlan)
@@ -46,6 +47,7 @@
 
 ## Upgrade Notes
 
+* The `BLOCK_SPAM_EMAIL_DOMAINS` config setting has been renamed to `BLOCK_SPAM_SIGNUPS` to reflect the change in functionality (it will now also run the full spam checker against the new user data rather than just looking at the email domain)
 * Add a 256x256 image named `logo-opengraph-pro.png` to
   `YOUR_THEME_ROOT/assets/images`, to be shown next to pages from your site when
   shared on Facebook. You can just duplicate `logo-opengraph.png` if you don't

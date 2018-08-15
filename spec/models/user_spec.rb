@@ -1220,6 +1220,18 @@ describe User do
       expect(user.about_me_already_exists?).to eq(false)
     end
 
+    it 'is false if the about text is blank' do
+      FactoryBot.create(:user, about_me: '')
+      user = FactoryBot.build(:user, about_me: '')
+      expect(user.about_me_already_exists?).to eq(false)
+    end
+
+    it 'does not include the current user in the results' do
+      User.update_all(about_me: '')
+      user = FactoryBot.create(:user, about_me: '123')
+      expect(user.about_me_already_exists?).to eq(false)
+    end
+
   end
 
   describe '#indexed_by_search?' do

@@ -975,12 +975,12 @@ BLOCK_SPAM_ABOUT_ME_TEXT: false
 # ---
 BLOCK_SPAM_COMMENTS: false
 
-# Prevent user signups from spam email domains.
+# Prevent user signups from spam email domains or names which appear to be spam.
 #
-# BLOCK_SPAM_EMAIL_DOMAINS - Boolean (default: false)
+# BLOCK_SPAM_SIGNUPS - Boolean (default: false)
 #
 # ---
-BLOCK_SPAM_EMAIL_DOMAINS: false
+BLOCK_SPAM_SIGNUPS: false
 
 # Prevent users submitting requests that appear to be spam.
 #
