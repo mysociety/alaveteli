@@ -156,7 +156,12 @@ class UserController < ApplicationController
 
         # Prevent signups from potential spammers
         if spam_user?(@user_signup)
-          handle_spam_signup(@user_signup) && return
+          handle_spam_user(@user_signup) do
+            flash.now[:error] =
+              _("Sorry, we're currently unable to sign up new users, " \
+                "please try again later")
+            render action: 'sign'
+          end && return
         end
 
         @user_signup.email_confirmed = false
@@ -603,32 +608,6 @@ class UserController < ApplicationController
   def block_spam_signups?
     AlaveteliConfiguration.block_spam_signups ||
       AlaveteliConfiguration.enable_anti_spam
-  end
-
-  def handle_spam_signup(user_signup)
-    msg = "Attempted signup from suspected spammer, " \
-          "email: #{ user_signup.email }, " \
-          "name: '#{ user_signup.name }'"
-
-    if block_spam_signups?
-      logger.info(msg)
-
-      flash.now[:error] =
-        _("Sorry, we're currently unable to sign up new users, " \
-          "please try again later")
-
-      error = true
-      render :action => 'sign'
-
-      true
-    else
-      if send_exception_notifications?
-        e = Exception.new(msg)
-        ExceptionNotifier.notify_exception(e, :env => request.env)
-      end
-
-      false
-    end
   end
 
 end

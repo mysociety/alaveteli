@@ -8,6 +8,27 @@ module UserSpamCheck
     UserSpamScorer.new(spam_scorer_config).spam?(user_with_request)
   end
 
+  def handle_spam_user(user, &block)
+    msg = "Attempted signup from suspected spammer, " \
+          "email: #{user.email}, " \
+          "name: '#{user.name}'"
+
+    if block_spam_signups?
+      logger.info(msg)
+      error = true
+      block.call if block_given?
+
+      true
+    else
+      if send_exception_notifications?
+        e = Exception.new(msg)
+        ExceptionNotifier.notify_exception(e, :env => request.env)
+      end
+
+      false
+    end
+  end
+
   def spam_scorer_config
     {
       spam_score_threshold: 13,
