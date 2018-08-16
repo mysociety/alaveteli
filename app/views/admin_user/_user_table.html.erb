@@ -7,7 +7,7 @@
         <span class="user-labels">
           <%= user_labels(user) %>
         </span>
-        <%= link_to("#{ h(user.name) }", admin_user_path(user)) %>
+        <%= link_to(user.name, admin_user_path(user)) %>
         <%= link_to("(#{ h(user.email) })", "mailto:#{ h(user.email) }") %>
       </span>
       <span class="item-metadata">
