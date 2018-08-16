@@ -53,3 +53,5 @@ user_spam_scorer:
     - webgarden.cz
     - wgz.cz
     - wowmailing.com
+  suspicious_user_agents:
+    - curl

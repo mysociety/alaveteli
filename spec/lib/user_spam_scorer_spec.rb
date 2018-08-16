@@ -654,4 +654,26 @@ describe UserSpamScorer do
 
   end
 
+  describe '#user_agent_is_suspicious?' do
+
+    before { UserSpamScorer.suspicious_user_agents = ['cURL'] }
+    after { UserSpamScorer.reset }
+
+    it 'is true if the user agent matches' do
+      user = mock_model(User, :user_agent => 'cURL')
+      expect(subject.user_agent_is_suspicious?(user)).to eq(true)
+    end
+
+    it 'is false if the user agent does not match' do
+      user = mock_model(User, :user_agent => 'Firefox')
+      expect(subject.user_agent_is_suspicious?(user)).to eq(false)
+    end
+
+    it 'is false if the user does not have a user agent' do
+      user = mock_model(User)
+      expect(subject.user_agent_is_suspicious?(user)).to eq(false)
+    end
+
+  end
+
 end

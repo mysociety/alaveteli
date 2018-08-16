@@ -599,7 +599,8 @@ class UserController < ApplicationController
   end
 
   def spam_user?(user_signup)
-    UserSpamScorer.new(spam_scorer_signup_config).spam?(user_signup)
+    user_with_request = User::WithRequest.new(user_signup, request)
+    UserSpamScorer.new(spam_scorer_signup_config).spam?(user_with_request)
   end
 
   def block_spam_signups?
