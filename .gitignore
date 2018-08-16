@@ -29,6 +29,7 @@ config/aliases
 config/httpd.conf
 config/general*.yml
 config/deploy.yml.*
+config/user_spam_scorer.yml
 .sass-cache
 alaveteli*.sublime*
 webrat.log
