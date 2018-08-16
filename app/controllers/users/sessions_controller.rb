@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Users::SessionsController < UserController
+  include UserSpamCheck
 
   before_filter :work_out_post_redirect, :only => [ :new, :create ]
   before_filter :set_request_from_foreign_country, :only => [ :new, :create ]
@@ -36,6 +37,14 @@ class Users::SessionsController < UserController
     else
       # Successful login
       if @user_signin.email_confirmed
+
+        # Prevent signins from potential spammers
+        if spam_user?(@user_signin)
+          handle_spam_user(@user_signin) do
+            render template: 'user/sign'
+          end && return
+        end
+
         session[:user_id] = @user_signin.id
         session[:ttl] = nil
         session[:user_circumstance] = nil
