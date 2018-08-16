@@ -8,6 +8,8 @@
 require 'set'
 
 class UserController < ApplicationController
+  include UserSpamCheck
+
   layout :select_layout
   # NOTE: Rails 4 syntax: change before_filter to before_action
   before_filter :normalize_url_name, :only => :show
@@ -598,11 +600,6 @@ class UserController < ApplicationController
     end
   end
 
-  def spam_user?(user_signup)
-    user_with_request = User::WithRequest.new(user_signup, request)
-    UserSpamScorer.new(spam_scorer_signup_config).spam?(user_with_request)
-  end
-
   def block_spam_signups?
     AlaveteliConfiguration.block_spam_signups ||
       AlaveteliConfiguration.enable_anti_spam
@@ -632,29 +629,6 @@ class UserController < ApplicationController
 
       false
     end
-  end
-
-  def spam_scorer_signup_config
-    {
-      spam_score_threshold: 13,
-      score_mappings: {
-        name_is_all_lowercase?: 1,
-        name_is_one_word?: 1,
-        name_includes_non_alpha_characters?: 1,
-        name_is_garbled?: 1,
-        email_from_suspicious_domain?: 10,
-        email_from_spam_domain?: 13,
-        email_from_spam_tld?: 1,
-        name_is_spam_format?: 10,
-        about_me_includes_currency_symbol?: 0,
-        about_me_is_link_only?: 0,
-        about_me_is_spam_format?: 0,
-        about_me_includes_anchor_tag?: 0,
-        about_me_already_exists?: 0,
-        user_agent_is_suspicious?: 3,
-        ip_range_is_suspicious?: 10
-      }
-    }
   end
 
 end
