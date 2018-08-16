@@ -73,6 +73,10 @@ a.track-request-action {
   }
 }
 
+.correspondence--current {
+  box-shadow: 0 0 20px rgba(0,0,0,0.3) !important;
+}
+
 // Interactive styling for header if JavaScript has loaded.
 .js-loaded .js-collapsable {
   .correspondence__header {
