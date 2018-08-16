@@ -676,4 +676,26 @@ describe UserSpamScorer do
 
   end
 
+  describe '#ip_range_is_suspicious?' do
+
+    before { UserSpamScorer.suspicious_ip_ranges = [IPAddr.new('127.0.0.0/8')] }
+    after { UserSpamScorer.reset }
+
+    it 'is true if the IP address is within a suspicious range' do
+      user = mock_model(User, :ip => '127.0.0.1')
+      expect(subject.ip_range_is_suspicious?(user)).to eq(true)
+    end
+
+    it 'is false if the IP address is not within a suspicious range' do
+      user = mock_model(User, :ip => '10.0.0.1')
+      expect(subject.ip_range_is_suspicious?(user)).to eq(false)
+    end
+
+    it 'is false if the user does not have a IP address' do
+      user = mock_model(User)
+      expect(subject.ip_range_is_suspicious?(user)).to eq(false)
+    end
+
+  end
+
 end
