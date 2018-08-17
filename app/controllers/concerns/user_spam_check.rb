@@ -15,7 +15,6 @@ module UserSpamCheck
 
     if block_spam_signups?
       logger.info(msg)
-      error = true
       block.call if block_given?
 
       true
