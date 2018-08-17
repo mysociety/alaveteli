@@ -18,11 +18,9 @@ module UserSpamCheck
       block.call if block_given?
 
       true
-    else
-      if send_exception_notifications?
-        e = Exception.new(msg)
-        ExceptionNotifier.notify_exception(e, :env => request.env)
-      end
+    elsif send_exception_notifications?
+      e = Exception.new(msg)
+      ExceptionNotifier.notify_exception(e, :env => request.env)
 
       false
     end
