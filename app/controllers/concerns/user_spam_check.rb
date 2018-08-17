@@ -3,6 +3,10 @@ module UserSpamCheck
 
   private
 
+  def spam_should_be_blocked?
+    raise NotImplementedError
+  end
+
   def spam_user?(user)
     user_with_request = User::WithRequest.new(user, request)
     UserSpamScorer.new(spam_scorer_config).spam?(user_with_request)
@@ -13,7 +17,7 @@ module UserSpamCheck
           "email: #{user.email}, " \
           "name: '#{user.name}'"
 
-    if block_spam_signups?
+    if spam_should_be_blocked?
       logger.info(msg)
       block.call if block_given?
 

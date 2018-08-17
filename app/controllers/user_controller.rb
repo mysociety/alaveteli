@@ -602,7 +602,7 @@ class UserController < ApplicationController
     end
   end
 
-  def block_spam_signups?
+  def spam_should_be_blocked?
     AlaveteliConfiguration.block_spam_signups ||
       AlaveteliConfiguration.enable_anti_spam
   end

@@ -73,4 +73,9 @@ class Users::SessionsController < UserController
     params.require(:user_signin).permit(:email, :password)
   end
 
+  def spam_should_be_blocked?
+    AlaveteliConfiguration.block_spam_signins ||
+      AlaveteliConfiguration.enable_anti_spam
+  end
+
 end

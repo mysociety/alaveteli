@@ -28,6 +28,7 @@ module AlaveteliConfiguration
       :BLOCK_SPAM_ABOUT_ME_TEXT => false,
       :BLOCK_SPAM_COMMENTS => false,
       :BLOCK_SPAM_SIGNUPS => false,
+      :BLOCK_SPAM_SIGNINS => false,
       :BLOCK_SPAM_REQUESTS => false,
       :BLOG_FEED => '',
       :BLOG_TIMEOUT => 60,

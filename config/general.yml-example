@@ -982,6 +982,13 @@ BLOCK_SPAM_COMMENTS: false
 # ---
 BLOCK_SPAM_SIGNUPS: false
 
+# Prevent user signins from spam email domains or names which appear to be spam.
+#
+# BLOCK_SPAM_SIGNINS - Boolean (default: false)
+#
+# ---
+BLOCK_SPAM_SIGNINS: false
+
 # Prevent users submitting requests that appear to be spam.
 #
 # BLOCK_SPAM_REQUESTS - Boolean (default: false)
