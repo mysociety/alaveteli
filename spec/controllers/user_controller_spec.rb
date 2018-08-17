@@ -830,15 +830,6 @@ describe UserController, "when signing up" do
         expect(response).to render_template('sign')
       end
 
-      it 'sets a flash error' do
-        post :signup,
-             :user_signup => { :email => 'spammer@example.com',
-                               :name => 'Download New Person 1080p!',
-                               :password => 'sillypassword',
-                               :password_confirmation => 'sillypassword' }
-        expect(flash[:error]).to match(/unable to sign up new users/)
-      end
-
     end
 
     context 'when block_spam_signups? is false' do

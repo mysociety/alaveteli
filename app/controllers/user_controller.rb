@@ -157,9 +157,6 @@ class UserController < ApplicationController
         # Prevent signups from potential spammers
         if spam_user?(@user_signup)
           handle_spam_user(@user_signup) do
-            flash.now[:error] =
-              _("Sorry, we're currently unable to sign up new users, " \
-                "please try again later")
             render action: 'sign'
           end && return
         end
