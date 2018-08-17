@@ -310,3 +310,22 @@
     font-size: 0.875em;
   }
 }
+
+//Request navigation controls 
+
+.request-navigation {
+  display: none;
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    @include flexbox();
+    vertical-align: middle;
+    @include flex-wrap(nowrap);
+  }
+}
+
+.request-navigation__button {
+  @include flex(0 1 auto);
+}
+
+.request-navigation__button--current {
+  @include flex(2 1 auto);
+}

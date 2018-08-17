@@ -8,6 +8,8 @@
 require 'set'
 
 class UserController < ApplicationController
+  include UserSpamCheck
+
   layout :select_layout
   # NOTE: Rails 4 syntax: change before_filter to before_action
   before_filter :normalize_url_name, :only => :show
@@ -152,9 +154,11 @@ class UserController < ApplicationController
           handle_rate_limited_signup(user_ip, @user_signup.email) && return
         end
 
-        # Prevent signups from spam domains
-        if spam_domain?(@user_signup)
-          handle_spam_domain_signup(@user_signup.email) && return
+        # Prevent signups from potential spammers
+        if spam_user?(@user_signup)
+          handle_spam_user(@user_signup) do
+            render action: 'sign'
+          end && return
         end
 
         @user_signup.email_confirmed = false
@@ -598,37 +602,9 @@ class UserController < ApplicationController
     end
   end
 
-  def spam_domain?(user_signup)
-    UserSpamScorer.new.email_from_spam_domain?(@user_signup)
-  end
-
-  def block_spam_email_domains?
-    AlaveteliConfiguration.block_spam_email_domains ||
+  def spam_should_be_blocked?
+    AlaveteliConfiguration.block_spam_signups ||
       AlaveteliConfiguration.enable_anti_spam
-  end
-
-  def handle_spam_domain_signup(user_email)
-    msg = "Attempted signup from spam domain email: #{ user_email }"
-
-    if block_spam_email_domains?
-      logger.info(msg)
-
-      flash.now[:error] =
-        _("Sorry, we're currently unable to sign up new users, " \
-          "please try again later")
-
-      error = true
-      render :action => 'sign'
-
-      true
-    else
-      if send_exception_notifications?
-        e = Exception.new(msg)
-        ExceptionNotifier.notify_exception(e, :env => request.env)
-      end
-
-      false
-    end
   end
 
 end
