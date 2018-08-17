@@ -13,7 +13,9 @@ class UserSpamScorer
     :about_me_is_link_only? => 3,
     :about_me_is_spam_format? => 1,
     :about_me_includes_anchor_tag? => 1,
-    :about_me_already_exists? => 4
+    :about_me_already_exists? => 4,
+    :user_agent_is_suspicious? => 5,
+    :ip_range_is_suspicious? => 5
   }.freeze
 
   DEFAULT_CURRENCY_SYMBOLS = %w(£ $ € ¥ ¢).freeze
@@ -82,6 +84,8 @@ class UserSpamScorer
   ].freeze
   DEFAULT_SPAM_SCORE_THRESHOLD = 4
   DEFAULT_SPAM_TLDS = %w(ru pl).freeze
+  DEFAULT_SUSPICIOUS_USER_AGENTS = [].freeze
+  DEFAULT_SUSPICIOUS_IP_RANGES = [].freeze
 
   CLASS_ATTRIBUTES = [:currency_symbols,
                       :score_mappings,
@@ -90,7 +94,9 @@ class UserSpamScorer
                       :spam_name_formats,
                       :spam_about_me_formats,
                       :spam_score_threshold,
-                      :spam_tlds].freeze
+                      :spam_tlds,
+                      :suspicious_user_agents,
+                      :suspicious_ip_ranges].freeze
 
   # Class attribute accessors
   CLASS_ATTRIBUTES.each do |key|
@@ -189,6 +195,16 @@ class UserSpamScorer
 
   def about_me_already_exists?(user)
     user.about_me_already_exists?
+  end
+
+  def user_agent_is_suspicious?(user)
+    return false unless user.respond_to?(:user_agent)
+    suspicious_user_agents.include?(user.user_agent)
+  end
+
+  def ip_range_is_suspicious?(user)
+    return false unless user.respond_to?(:ip)
+    suspicious_ip_ranges.any? { |range| range.include?(user.ip) }
   end
 
   # TODO: Akismet thinks user is spam

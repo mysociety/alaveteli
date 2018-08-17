@@ -792,11 +792,11 @@ describe UserController, "when signing up" do
       allow(UserSpamScorer).to receive(:new).and_return(spam_scorer)
     end
 
-    context 'when block_spam_signups? is true' do
+    context 'when spam_should_be_blocked? is true' do
 
       before do
         allow(@controller).
-          to receive(:block_spam_signups?).and_return(true)
+          to receive(:spam_should_be_blocked?).and_return(true)
       end
 
       it 'logs the signup attempt' do
@@ -830,22 +830,13 @@ describe UserController, "when signing up" do
         expect(response).to render_template('sign')
       end
 
-      it 'sets a flash error' do
-        post :signup,
-             :user_signup => { :email => 'spammer@example.com',
-                               :name => 'Download New Person 1080p!',
-                               :password => 'sillypassword',
-                               :password_confirmation => 'sillypassword' }
-        expect(flash[:error]).to match(/unable to sign up new users/)
-      end
-
     end
 
-    context 'when block_spam_signups? is false' do
+    context 'when spam_should_be_blocked? is false' do
 
       before do
         allow(@controller).
-          to receive(:block_spam_signups?).and_return(false)
+          to receive(:spam_should_be_blocked?).and_return(false)
       end
 
       it 'sends an exception notification' do
