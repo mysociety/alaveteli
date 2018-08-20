@@ -162,7 +162,7 @@ group :test do
     gem 'term-ansicolor', '~> 1.3.0', '< 1.4'
   gem 'capybara', '~> 2.18.0'
   gem 'delorean', '~> 2.1.0'
-  gem 'stripe-ruby-mock', '~> 2.5.0'
+  gem 'stripe-ruby-mock', '~> 2.5.4'
   gem 'test_after_commit', '~> 1.1.0'
 end
 
