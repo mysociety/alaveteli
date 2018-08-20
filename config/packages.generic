@@ -6,6 +6,7 @@ geoip-database-contrib
 gettext
 ghostscript
 gnuplot-nox
+imagemagick
 libicu-dev
 libmagic-dev
 libmagickwand-dev

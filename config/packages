@@ -9,6 +9,7 @@ geoip-database-contrib
 gettext
 ghostscript
 gnuplot-nox
+imagemagick
 irb
 libapache2-mod-passenger
 libicu-dev
