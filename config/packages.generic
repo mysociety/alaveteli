@@ -23,8 +23,8 @@ postgresql
 postgresql-client
 python-yaml
 rake
-ruby-dev
 ruby
+ruby-dev
 sqlite3
 tnef
 ttf-bitstream-vera

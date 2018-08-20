@@ -5,5 +5,8 @@
 # run `bundle install`.
 #
 # To install, paste this list after `sudo apt-get install` and run.
-
-postgresql pdftk elinks tnef python-yaml
+elinks
+pdftk
+postgresql
+python-yaml
+tnef
