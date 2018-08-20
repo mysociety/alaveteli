@@ -18,7 +18,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       Stripe::Plan.create(id: 'test',
                           name: 'Test',
                           amount: 10,
-                          currency: 'gpp',
+                          currency: 'gbp',
                           interval: 'monthly')
     end
 
@@ -214,7 +214,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
           Stripe::Plan.create(id: 'WDTK-test',
                               name: 'Test',
                               amount: 10,
-                              currency: 'gpp',
+                              currency: 'gbp',
                               interval: 'monthly')
         end
 
