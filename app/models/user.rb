@@ -508,7 +508,7 @@ class User < ActiveRecord::Base
 
   def record_bounce(message)
     self.email_bounced_at = Time.now
-    self.email_bounce_message = message
+    self.email_bounce_message = convert_string_to_utf8(message).string
     save!
   end
 

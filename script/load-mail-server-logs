@@ -13,13 +13,11 @@ then
       /*) f=$1 ;;
        *) f=$(pwd)/$1 ;;
     esac
-    cd "$LOC"
     bundle exec rails runner 'MailServerLog.load_file("'$f'")'
     exit
 fi
 
 # Load in last three days worth of logs (if they've been modified)
-cd "$LOC"
 LATEST=$( ls $OPTION_MTA_LOG_PATH 2>/dev/null | sort | tail -3 )
 for X in $LATEST
 do
