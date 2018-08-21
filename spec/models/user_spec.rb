@@ -376,6 +376,13 @@ describe User, "when emails have bounced" do
     expect(user.email_bounced_at).not_to be_nil
     expect(user.email_bounce_message).to eq("The reason we think the email bounced (e.g. a bounce message)")
   end
+
+  it 'records valid UTF-8 for a bounce message with invalid UTF-8' do
+    User.record_bounce_for_email("bob@localhost", "Invalid utf-8 \x96")
+    user = User.find_user_by_email("bob@localhost")
+    expect(user.email_bounce_message).to eq("Invalid utf-8 –")
+  end
+
 end
 
 describe User, "when calculating if a user has exceeded the request limit" do
