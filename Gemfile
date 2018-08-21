@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.22.2'
+gem 'test-unit', '~> 3.0' # Hack for Rails 3.2 on Ruby 2.3.5
 
 gem 'pg', '~> 0.17.1'
 
@@ -78,7 +79,6 @@ group :test, :development do
   gem 'pry', '~> 0.10.3'
   gem 'rspec-activemodel-mocks', '~> 1.0.1'
   gem 'rspec-rails', '3.2.0'
-  gem 'test-unit', '~> 3.0'
   gem 'spork-rails', '~> 3.2.1'
   gem 'pry-nav', '~> 0.2.4'
 end
