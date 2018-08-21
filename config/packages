@@ -9,6 +9,7 @@ geoip-database-contrib
 gettext
 ghostscript
 gnuplot-nox
+imagemagick
 irb
 libapache2-mod-passenger
 libicu-dev
@@ -27,8 +28,8 @@ poppler-utils
 python-yaml
 rake (>= 0.9.2.2)
 rdoc
-ruby-dev
 ruby
+ruby-dev
 sqlite3
 tnef (>= 1.4.5)
 ttf-bitstream-vera
