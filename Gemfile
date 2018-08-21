@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.22.4'
+gem 'test-unit', '~> 3.1.0' # Hack for Rails 3.2 on Ruby 2.3.5
 
 gem 'pg', '~> 0.18.4'
 
@@ -82,7 +83,6 @@ group :test, :development do
   gem 'factory_girl_rails', '~> 4.7.0'
   gem 'rspec-activemodel-mocks', '~> 1.0.1'
   gem 'rspec-rails', '~> 3.4.0'
-  gem 'test-unit', '~> 3.1.0'
   gem 'pry-debugger', '~> 0.2.3', :platforms => :ruby_19
 end
 
