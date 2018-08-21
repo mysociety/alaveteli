@@ -62,6 +62,13 @@ module MailHandler
         mail
       end
 
+      def get_subject(mail)
+        subject = mail.subject
+        if subject
+          convert_string_to_utf8(subject).string
+        end
+      end
+
       # Return a copy of the file name for the mail part
       def get_part_file_name(part)
         part_file_name = part.filename
