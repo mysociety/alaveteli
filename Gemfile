@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.21'
+gem 'rails', '3.2.22'
+gem 'test-unit', '~> 3.0.0' # Hack for Rails 3.2 on Ruby 2.3.5
 
 gem 'pg', '~> 0.17.1'
 
@@ -37,7 +38,7 @@ gem 'thin', '~> 1.5.1'
 gem 'vpim', '~> 13.11.11'
 gem 'will_paginate', '~> 3.0.5'
 # when 1.2.9 is released by the maintainer, we can stop using this fork:
-gem 'xapian-full-alaveteli', '~> 1.2.9.7'
+gem 'xapian-full-alaveteli', '~> 1.2.21.1'
 gem 'xml-simple', '~> 1.1.2', :require => 'xmlsimple'
 gem 'zip', '~> 2.0.2'
 
@@ -73,7 +74,7 @@ end
 group :test, :development do
   gem 'bullet', '~> 4.14.6'
   gem 'factory_girl_rails', '~> 1.7'
-  gem 'rspec-rails', '~> 2.13.2'
+  gem 'rspec-rails', '2.14.0'
   gem 'spork-rails', '~> 3.2.1'
 end
 
