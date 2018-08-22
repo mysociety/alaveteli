@@ -1201,3 +1201,21 @@ STRIPE_NAMESPACE: ''
 # STRIPE_WEBHOOK_SECRET: wh_test_UD6BDsARFZIYb8273dbdl
 # ---
 STRIPE_WEBHOOK_SECRET: ''
+
+# A Stripe coupon code – displayed to existing Pro users on their subscriptions
+# page – that they can share with friends for their friends to receive a signup
+# discount.
+#
+# This should *not* include the `STRIPE_NAMESPACE`.
+#
+# You *must* set a `humanized_terms` key in the Coupon Metadata to display the
+# discount that will be applied when using the coupon (e.g. "50% off for 1
+# month").
+#
+# PRO_REFERRAL_COUPON: - String (default: '')
+#
+# Examples:
+#
+# PRO_REFERRAL_COUPON: 'PROREFERRAL'
+# ---
+PRO_REFERRAL_COUPON: ''
