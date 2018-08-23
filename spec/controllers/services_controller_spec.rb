@@ -101,6 +101,14 @@ describe ServicesController do
       expect(response.content_type).to eq 'text/plain'
     end
 
+    it 'does not HTML escape the user or site name' do
+      allow(AlaveteliConfiguration).
+        to receive(:site_name).and_return('A&B Test')
+      get :hidden_user_explanation, info_request_id: info_request.id
+      expect(response.body).to match(/Dear P O'Toole/)
+      expect(response.body).to match(/Yours,\n\nThe A&B Test team/)
+    end
+
   end
 
 end
