@@ -91,4 +91,16 @@ describe ServicesController do
 
   end
 
+  describe '#hidden_user_explanation' do
+
+    let(:user) { FactoryBot.create(:user, name: "P O'Toole") }
+    let(:info_request) { FactoryBot.create(:info_request, user: user) }
+
+    it 'generates plaintext output' do
+      get :hidden_user_explanation, info_request_id: info_request.id
+      expect(response.content_type).to eq 'text/plain'
+    end
+
+  end
+
 end

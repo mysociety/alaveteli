@@ -55,14 +55,16 @@ class ServicesController < ApplicationController
 
   def hidden_user_explanation
     info_request = InfoRequest.find(params[:info_request_id])
-    render :template => "admin_request/hidden_user_explanation",
-      :content_type => "text/plain",
-      :layout => false,
-      :locals => {:name_to => info_request.user_name,
-                  :name_from => AlaveteliConfiguration.contact_name,
-                  :info_request => info_request, :reason => params[:reason],
-                  :info_request_url => 'http://' + AlaveteliConfiguration.domain + request_path(info_request),
-                  :site_name => site_name}
+    render template: "admin_request/hidden_user_explanation",
+           formats: [:text],
+           layout: false,
+           locals: {
+             name_to: info_request.user_name,
+             name_from: AlaveteliConfiguration.contact_name,
+             info_request: info_request,
+             reason: params[:reason],
+             info_request_url: 'http://' + AlaveteliConfiguration.domain + request_path(info_request),
+             site_name: site_name }
   end
 
   private
