@@ -1134,4 +1134,12 @@ describe UserController, "when viewing the wall" do
     expect(assigns[:feed_results].uniq).to eq(assigns[:feed_results])
   end
 
+  it 'does not return feed results for closed users' do
+    user = FactoryBot.create(:user)
+    comment = FactoryBot.create(:visible_comment, :with_event, user: user)
+    user.close_and_anonymise
+    update_xapian_index
+    get :wall, url_name: user.url_name
+    expect(assigns[:feed_results]).to be_empty
+  end
 end
