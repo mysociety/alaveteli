@@ -1118,7 +1118,7 @@ describe User do
 
     it 'should anonymise user url_name' do
       expect{ user.close_and_anonymise }.
-        to change(user, :url_name).to('removed_1234')
+        to change(user, :url_name).to('1234')
     end
 
     it 'should anonymise user about_me' do
