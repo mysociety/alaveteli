@@ -111,6 +111,8 @@ class UserController < ApplicationController
 
     @feed_results = feed_results.to_a.sort { |x, y| y.created_at <=> x.created_at }.first(20)
 
+    @feed_results = [] if @display_user.closed?
+
     respond_to do |format|
       format.html { @has_json = true }
       format.json { render :json => @display_user.json_for_api }
