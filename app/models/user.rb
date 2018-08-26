@@ -452,6 +452,12 @@ class User < ActiveRecord::Base
   def close_and_anonymise
     replacement = _('[Account Removed]')
     sha = Digest::SHA1.hexdigest(rand.to_s)
+
+    censor_rules.create!(text: name,
+                         replacement: replacement,
+                         last_edit_editor: 'User#close_and_anonymise',
+                         last_edit_comment: 'User#close_and_anonymise')
+
     update(
       name: replacement,
       email: "#{sha}@invalid",
