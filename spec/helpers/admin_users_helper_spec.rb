@@ -30,7 +30,8 @@ describe AdminUsersHelper do
     end
 
     it 'adds labels for all noteworthy attributes' do
-      user = FactoryBot.create(:admin_user, ban_text: 'Banned',
+      user = FactoryBot.create(:admin_user,
+                               ban_text: 'Banned',
                                closed_at: Time.zone.now)
       html = %q(<span class="label label-warning">banned</span>)
       html += %q(<span class="label label-warning">closed</span>)

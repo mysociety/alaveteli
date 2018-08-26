@@ -26,8 +26,8 @@ class UserController < ApplicationController
   # Show page about a user
   def show
     long_cache
-    set_view_instance_variables
     @display_user = set_display_user
+    set_view_instance_variables
     @same_name_users = User.find_similar_named_users(@display_user)
     @is_you = current_user_is_display_user
 
@@ -110,6 +110,8 @@ class UserController < ApplicationController
     end
 
     @feed_results = feed_results.to_a.sort { |x, y| y.created_at <=> x.created_at }.first(20)
+
+    @feed_results = [] if @display_user.closed?
 
     respond_to do |format|
       format.html { @has_json = true }
@@ -446,6 +448,11 @@ class UserController < ApplicationController
       @show_requests = true
       @show_batches = true
     end
+
+    if @display_user.closed?
+      @show_requests = false
+      @show_batches = false
+    end
   end
 
   def user_params(key = :user)
@@ -520,7 +527,7 @@ class UserController < ApplicationController
   end
 
   def set_display_user
-    User.find_by!(:url_name => params[:url_name], :email_confirmed => true)
+    User.find_by!(url_name: params[:url_name], email_confirmed: true)
   end
 
   def set_show_requests

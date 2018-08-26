@@ -1106,6 +1106,14 @@ describe User do
       allow(MySociety::Util).to receive(:generate_token).and_return('ABCD')
     end
 
+    it 'creates a censor rule for user name' do
+      user_name = user.name
+      user.close_and_anonymise
+      censor_rule = user.censor_rules.last
+      expect(censor_rule.text).to eq(user_name)
+      expect(censor_rule.replacement).to eq ('[Account Removed]')
+    end
+
     it 'should anonymise user name' do
       expect{ user.close_and_anonymise }.
         to change(user, :name).to('[Account Removed] (Account suspended)')
@@ -1118,7 +1126,7 @@ describe User do
 
     it 'should anonymise user url_name' do
       expect{ user.close_and_anonymise }.
-        to change(user, :url_name).to('removed_1234')
+        to change(user, :url_name).to('1234')
     end
 
     it 'should anonymise user about_me' do
