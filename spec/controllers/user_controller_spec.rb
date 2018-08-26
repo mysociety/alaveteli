@@ -109,6 +109,15 @@ describe UserController do
           not_to match(/change password, subscriptions and more/)
       end
 
+      it 'does not show requests and batch requests for a closed user' do
+        user.close_and_anonymise
+        make_request
+
+        expect(assigns[:show_profile]).to be false
+        expect(assigns[:show_requests]).to be false
+        expect(assigns[:show_batches]).to be false
+      end
+
       it 'does not show private requests' do
         user = FactoryBot.create(:pro_user)
         FactoryBot.create(:embargoed_request, user: user)
