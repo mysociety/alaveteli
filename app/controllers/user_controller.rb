@@ -28,8 +28,8 @@ class UserController < ApplicationController
   # Show page about a user
   def show
     long_cache
-    set_view_instance_variables
     @display_user = set_display_user
+    set_view_instance_variables
     @same_name_users = User.find_similar_named_users(@display_user)
     @is_you = current_user_is_display_user
 
@@ -449,6 +449,11 @@ class UserController < ApplicationController
       @show_profile = false
       @show_requests = true
       @show_batches = true
+    end
+
+    if @display_user.closed?
+      @show_requests = false
+      @show_batches = false
     end
   end
 
