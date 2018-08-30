@@ -252,11 +252,6 @@
   }
 }
 
-// The houdini label to hide/show requests
-.batch-request__show-requests {
-  margin-top: 1em;
- }
-
 // The collapsable list of requests inside a batch request
 // We need the houdini-target class to override houdini's margin-top
 .batch-request__requests.houdini-target {
