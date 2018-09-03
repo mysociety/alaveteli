@@ -16,6 +16,11 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
         @customer.
           sources.select { |card| card.id == @customer.default_source }.first
     end
+
+    if referral_coupon
+      @discount_code = remove_stripe_namespace(referral_coupon.id)
+      @discount_terms = referral_coupon.metadata.humanized_terms
+    end
   end
 
   # TODO: remove reminder of Stripe params once shipped
@@ -178,6 +183,19 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
 
   def coupon_code
     add_stripe_namespace(params.require(:coupon_code)).upcase
+  end
+
+  def referral_coupon
+    coupon_code =
+      add_stripe_namespace(AlaveteliConfiguration.pro_referral_coupon)
+
+    @referral_coupon ||=
+      unless coupon_code.blank?
+        begin
+          Stripe::Coupon.retrieve(coupon_code)
+        rescue Stripe::StripeError
+        end
+      end
   end
 
   def prevent_duplicate_submission

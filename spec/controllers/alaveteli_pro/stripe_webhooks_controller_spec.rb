@@ -11,14 +11,15 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
     let(:stripe_helper) { StripeMock.create_test_helper }
 
     let(:stripe_customer) do
-      Stripe::Customer.create(source: stripe_helper.generate_card_token)
+      Stripe::Customer.create(source: stripe_helper.generate_card_token,
+                              currency: 'gbp')
     end
 
     let(:stripe_plan) do
       Stripe::Plan.create(id: 'test',
                           name: 'Test',
                           amount: 10,
-                          currency: 'gpp',
+                          currency: 'gbp',
                           interval: 'monthly')
     end
 
@@ -214,7 +215,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
           Stripe::Plan.create(id: 'WDTK-test',
                               name: 'Test',
                               amount: 10,
-                              currency: 'gpp',
+                              currency: 'gbp',
                               interval: 'monthly')
         end
 
