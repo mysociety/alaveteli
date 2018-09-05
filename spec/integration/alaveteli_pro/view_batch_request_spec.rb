@@ -81,7 +81,7 @@ describe 'viewing requests that are part of a batch in alaveteli_pro' do
         using_pro_session(pro_user_session) do
           browse_pro_request(info_request.url_title)
           expect(page).to have_content 'Requests in this batch are private ' \
-                                       'on Alaveteli until'
+                                       'until'
         end
       end
 

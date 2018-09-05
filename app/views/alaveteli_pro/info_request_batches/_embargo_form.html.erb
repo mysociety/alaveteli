@@ -1,13 +1,6 @@
 <% if info_request_batch.embargo_duration.present? %>
 <div class="sidebar__section update-embargo">
   <h2 class="embargo-sidebar-heading">
-    <i class="embargo-indicator embargo-indicator--small"
-       title="<%= _('Private until {{date}}',
-                    :date => simple_date(
-                               info_request_batch.
-                                 info_requests.first.embargo.publish_at,
-                               :format => :text)
-                   ) %>"></i>
     <%= _("Privacy") %>
   </h2>
 
