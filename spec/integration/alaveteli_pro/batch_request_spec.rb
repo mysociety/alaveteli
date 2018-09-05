@@ -146,7 +146,7 @@ describe "creating batch requests in alaveteli_pro" do
 
       expect(page).to have_content("Your draft has been saved!")
       expect(page).to have_content(
-        "Requests in this batch will be private on Alaveteli until " \
+        "Requests in this batch will be private until " \
         "#{AlaveteliPro::Embargo.three_months_from_now.strftime('%-d %B %Y')}")
 
       # The page should pre-fill the form with data from the draft

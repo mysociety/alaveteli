@@ -52,7 +52,7 @@ describe AlaveteliPro::EmbargoExtensionsController do
         it "sets a flash message" do
           expected_date = embargo_expiry + AlaveteliPro::Embargo::THREE_MONTHS
           expect(flash[:notice]).
-            to eq "Your request will now be private on Alaveteli until " \
+            to eq "Your request will now be private until " \
                   "#{expected_date.strftime('%d %B %Y')}."
         end
 
@@ -83,7 +83,7 @@ describe AlaveteliPro::EmbargoExtensionsController do
         it "sets a flash message" do
           expected_date = embargo_expiry + AlaveteliPro::Embargo::THREE_MONTHS
           expect(flash[:notice]).
-            to eq "Your request will now be private on Alaveteli until " \
+            to eq "Your request will now be private until " \
                   "#{expected_date.strftime('%d %B %Y')}."
         end
 
@@ -243,7 +243,7 @@ describe AlaveteliPro::EmbargoExtensionsController do
         it "sets a flash message" do
           six_months_from_now = AlaveteliPro::Embargo.six_months_from_now
           expiry_date = "#{six_months_from_now.strftime('%d %B %Y')}"
-          expected_message = "Your requests will now be private on Alaveteli " \
+          expected_message = "Your requests will now be private " \
                              "until #{expiry_date}."
           expect(flash[:notice]).to eq expected_message
         end
@@ -275,7 +275,7 @@ describe AlaveteliPro::EmbargoExtensionsController do
         it "sets a flash message" do
           six_months_from_now = AlaveteliPro::Embargo.six_months_from_now
           expiry_date = "#{six_months_from_now.strftime('%d %B %Y')}"
-          expected_message = "Your requests will now be private on Alaveteli " \
+          expected_message = "Your requests will now be private " \
                              "until #{expiry_date}."
           expect(flash[:notice]).to eq expected_message
         end
