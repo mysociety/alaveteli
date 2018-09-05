@@ -165,7 +165,8 @@ input.cplink__field {
 .request-status-message--gone_postal,
 .request-status-message--error_message,
 .request-status-message--internal_review,
-.request-status-message--user_withdrawn {
+.request-status-message--user_withdrawn,
+.request-status-message--waiting_classification {
   background-color: mix(#fff, $status-pending, 70%);
 }
 
