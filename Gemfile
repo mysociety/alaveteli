@@ -179,7 +179,7 @@ end
 
 group :development do
   gem 'annotate', '~> 2.7.0'
-  gem 'capistrano', '~> 2.15.0', '< 3.0.0'
+  gem 'capistrano', '~> 3.11.0'
     gem 'net-ssh', '~> 2.9.0', '< 3.0.0'
   gem 'mailcatcher', '~> 0.6.0'
   gem 'quiet_assets', '~> 1.1.0'
