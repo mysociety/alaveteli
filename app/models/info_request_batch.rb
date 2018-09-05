@@ -83,7 +83,6 @@ class InfoRequestBatch < ActiveRecord::Base
           # Set send_at in every loop so that if a request errors and any are
           # already created, we won't automatically try to resend this batch
           # and can deal with the failures manually
-          self.sent_at = Time.zone.now
           self.save!
         end
         send_request(info_request)
@@ -98,6 +97,8 @@ class InfoRequestBatch < ActiveRecord::Base
         unrequestable << public_body
       end
     end
+
+    update!(sent_at: Time.zone.now)
     reload
 
     return unrequestable
