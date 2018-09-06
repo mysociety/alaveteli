@@ -357,7 +357,7 @@ GEM
       sprockets (>= 3.0.0)
     sqlite3 (1.3.13)
     statistics2 (0.54)
-    stripe (3.4.1)
+    stripe (3.23.0)
       faraday (~> 0.10)
     stripe-ruby-mock (2.5.4)
       dante (>= 0.2.0)
@@ -473,7 +473,7 @@ DEPENDENCIES
   secure_headers (~> 3.6.0)
   statistics2 (~> 0.54)
   strip_attributes!
-  stripe (~> 3.4.1)
+  stripe (~> 3.23.0)
   stripe-ruby-mock (~> 2.5.4)
   syslog_protocol (~> 0.9.0)
   test_after_commit (~> 1.1.0)
