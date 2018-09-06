@@ -158,8 +158,6 @@ gem 'flipper-ui', '~> 0.10.2'
 group :test do
   gem 'fakeweb', '~> 1.3.0'
   gem 'coveralls', '~> 0.8.0', :require => false
-    gem 'tins', '~> 1.3.0', '< 1.3.1'
-    gem 'term-ansicolor', '~> 1.3.0', '< 1.4'
   gem 'capybara', '~> 2.18.0'
   gem 'delorean', '~> 2.1.0'
   gem 'stripe-ruby-mock', '~> 2.5.4'
