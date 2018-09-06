@@ -134,6 +134,57 @@ describe 'when making a zipfile available' do
 
     end
 
+    context 'when a message contains redacted material' do
+
+      it 'should use associated censor rules on outgoing messages' do
+        non_owner = login(FactoryGirl.create(:user))
+        info_request = FactoryGirl.create(:info_request)
+        FactoryGirl.create(:censor_rule,
+                           :replacement => 'REDACTED',
+                           :text => 'information',
+                           :allow_global => true)
+
+        inspect_zip_download(non_owner, info_request) do |zip|
+          expect(zip.count).to eq(1)
+          expect(zip.read('correspondence.pdf')).
+            to match('Some REDACTED please')
+        end
+      end
+
+      it 'should use associated censor rules on the incoming messages' do
+        non_owner = login(FactoryGirl.create(:user))
+        info_request = FactoryGirl.create(:info_request_with_incoming)
+        FactoryGirl.create(:censor_rule,
+                           :replacement => 'REDACTED',
+                           :text => 'hereisthe',
+                           :allow_global => true)
+
+        inspect_zip_download(non_owner, info_request) do |zip|
+          expect(zip.count).to eq(1)
+          expect(zip.read('correspondence.pdf')).to match('REDACTEDtext')
+        end
+      end
+
+      it 'uses associated censor rules on attachments' do
+        non_owner = login(FactoryGirl.create(:user))
+        info_request = FactoryGirl.create(:info_request_with_plain_incoming)
+        FactoryGirl.create(:censor_rule,
+                           :text => 'First',
+                           :replacement => 'REDACTED',
+                           :info_request => info_request,
+                           :allow_global => true)
+
+        sleep_and_receive_mail('incoming-request-two-same-name.email', info_request)
+
+        inspect_zip_download(non_owner, info_request) do |zip|
+          expect(zip.read('2_2_hello world.txt')).to match('Second hello')
+          expect(zip.read('2_3_hello world.txt')).to match('REDACTED hello')
+        end
+
+      end
+
+    end
+
   end
 
   context 'when no html to pdf converter is supplied' do
@@ -310,6 +361,55 @@ describe 'when making a zipfile available' do
         inspect_zip_download(owner, info_request) do |zip|
           zip.count.should == 1
           zip.read('correspondence.txt').should match('Some information please')
+        end
+
+      end
+
+    end
+
+    context 'when a message contains redacted material' do
+
+      it 'should use associated censor rules on outgoing messages' do
+        non_owner = login(FactoryGirl.create(:user))
+        info_request = FactoryGirl.create(:info_request)
+        FactoryGirl.create(:censor_rule,
+                           :text => 'information',
+                           :replacement => 'REDACTED',
+                           :allow_global => true)
+
+        inspect_zip_download(non_owner, info_request) do |zip|
+          expect(zip.count).to eq(1)
+          expect(zip.read('correspondence.txt')).to match('Some REDACTED please')
+        end
+      end
+
+      it 'should use associated censor rules on the incoming messages' do
+        non_owner = login(FactoryGirl.create(:user))
+        info_request = FactoryGirl.create(:info_request_with_incoming)
+        FactoryGirl.create(:censor_rule,
+                           :text => 'hereisthe',
+                           :replacement => 'REDACTED',
+                           :allow_global => true)
+
+        inspect_zip_download(non_owner, info_request) do |zip|
+          expect(zip.count).to eq(1)
+          expect(zip.read('correspondence.txt')).to match('REDACTEDtext')
+        end
+      end
+
+      it 'uses associated censor rules on attachments' do
+        non_owner = login(FactoryGirl.create(:user))
+        info_request = FactoryGirl.create(:info_request_with_plain_incoming)
+        FactoryGirl.create(:censor_rule,
+                           :text => 'First',
+                           :replacement => 'REDACTED',
+                           :info_request => info_request)
+
+        sleep_and_receive_mail('incoming-request-two-same-name.email', info_request)
+
+        inspect_zip_download(non_owner, info_request) do |zip|
+          expect(zip.read('2_2_hello world.txt')).to match('Second hello')
+          expect(zip.read('2_3_hello world.txt')).to match("REDACTED hello")
         end
 
       end
