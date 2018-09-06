@@ -47,6 +47,8 @@
 
 ## Upgrade Notes
 
+* The reCAPTCHA config settings have changed, `RECAPTCHA_PUBLIC_KEY` is now
+`RECAPTCHA_SITE_KEY` and `RECAPTCHA_PRIVATE_KEY` has changed to `RECAPTCHA_SECRET_KEY`
 * The `BLOCK_SPAM_EMAIL_DOMAINS` config setting has been renamed to `BLOCK_SPAM_SIGNUPS` to reflect the change in functionality (it will now also run the full spam checker against the new user data rather than just looking at the email domain)
 * Add a 256x256 image named `logo-opengraph-pro.png` to
   `YOUR_THEME_ROOT/assets/images`, to be shown next to pages from your site when
