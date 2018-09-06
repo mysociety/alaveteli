@@ -7,8 +7,7 @@ shared_examples_for 'allows the embargo to be lifted' do
     using_pro_session(pro_user_session) do
       browse_pro_request(info_request.url_title)
       old_publish_at = embargo.publish_at.strftime('%-d %B %Y')
-      expect(page).to have_content("private on Alaveteli " \
-                                   "until #{old_publish_at}")
+      expect(page).to have_content("private until #{old_publish_at}")
       click_button("Publish request")
       expect(info_request.reload.embargo).to be nil
       expect(page).to have_content(/Your requests? (is|are) now public!/)
