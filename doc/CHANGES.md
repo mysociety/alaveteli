@@ -2,6 +2,17 @@
 
 ## Highlighted Features
 
+# Version 0.22.4.11
+
+## Highlighted Features
+
+* Upgrade the recaptcha gem to 0.4.0 to move away from reCAPTCHA v1 (Liz Conlan)
+
+## Upgrade Notes
+
+* Will need to regenerate reCAPTCHA keys for v2 and update the
+`RECAPTCHA_PUBLIC_KEY` and `RECAPTCHA_PRIVATE_KEY` config variables
+
 # Version 0.22.4.0
 
 ## Highlighted Features
