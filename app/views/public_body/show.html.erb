@@ -23,6 +23,15 @@
     <% end %>
   </p>
 
+  <% if @public_body.not_subject_to_law? %>
+    <p class="authority__header__foi_no">
+      <%= _('This authority is not subject to FOI law, so is not ' \
+            'legally obliged to respond') %>
+      (<%= link_to _('details'),
+                   help_requesting_path(anchor: 'authorities') %>).
+    </p>
+  <% end %>
+
   <% if @public_body.has_notes? || @public_body.eir_only? || @public_body.special_not_requestable_reason? %>
     <div id="stepwise_make_request" class="stepwise_make_request">
       <% if @public_body.has_notes? %>

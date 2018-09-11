@@ -14,6 +14,7 @@ describe "public_body/show" do
                          :publication_scheme => '',
                          :disclosure_log => '',
                          :calculated_home_page => '')
+        allow(@pb).to receive(:not_subject_to_law?).and_return(false)
         allow(@pb).to receive(:is_requestable?).and_return(true)
         allow(@pb).to receive(:special_not_requestable_reason?).and_return(false)
         allow(@pb).to receive(:has_notes?).and_return(false)
@@ -59,6 +60,20 @@ describe "public_body/show" do
         assign(:xapian_requests, nil)
         render
         expect(response).to match "The search index is currently offline"
+    end
+
+    context 'the public body is tagged as "foi_no"' do
+
+      let(:public_body) { FactoryBot.build(:public_body, tag_string: 'foi_no') }
+
+      it 'displays a message that that authority is not obliged to respond' do
+        assign(:public_body, public_body)
+        render
+        expect(rendered).
+          to have_content('This authority is not subject to FOI law, so is ' \
+                          'not legally obliged to respond')
+      end
+
     end
 
 end
