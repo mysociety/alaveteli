@@ -48,6 +48,18 @@ end
 # run everything as a single transaction - all the deletes then all the inserts
 ActiveRecord::FixtureSet.create_fixtures(fixtures_dir, fixture_files)
 
+# set the data to the correct default locale for the sample data if it's
+# the site's default is not English, otherwise the data is not going to be
+# available
+if AlaveteliLocalization.default_locale != "en"
+  PublicBody::Translation.where(locale: 'en').
+    update_all(locale: AlaveteliLocalization.default_locale)
+  PublicBodyHeading::Translation.where(locale: 'en').
+    update_all(locale: AlaveteliLocalization.default_locale)
+  PublicBodyCategory::Translation.where(locale: 'en').
+    update_all(locale: AlaveteliLocalization.default_locale)
+end
+
 load_raw_emails_data
 EOF
 
