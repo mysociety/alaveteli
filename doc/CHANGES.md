@@ -47,12 +47,12 @@
 
 ## Upgrade Notes
 
-* There are some database structure updates so remember to `rake db:migrate`
+* There are some database structure updates so remember to run `bundle exec rake db:migrate`
 * Run `bundle exec rake temp:populate_missing_timestamps` to populate the new
   timestamp columns.
 * You'll need to reindex your public bodies to benefit from the improved direct
   match results:
-  `bundle exec rake xapian:rebuild_index models="PublicBody" verbose="true"`
+  `bundle exec rake reindex:public_bodies verbose="true"`
 * Run `bundle exec rake users:update_hashed_password` to improve password
   encryption for existing users. As we don't know the original passwords this
   double encrypts the old SHA1 hash using the bcrypt algorithm.
