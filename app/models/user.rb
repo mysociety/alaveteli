@@ -450,16 +450,12 @@ class User < ActiveRecord::Base
   end
 
   def close_and_anonymise
-    replacement = _('[Account Removed]')
     sha = Digest::SHA1.hexdigest(rand.to_s)
 
-    censor_rules.create!(text: name,
-                         replacement: replacement,
-                         last_edit_editor: 'User#close_and_anonymise',
-                         last_edit_comment: 'User#close_and_anonymise')
+    redact_name! if info_requests.any?
 
     update(
-      name: replacement,
+      name: _('[Account Removed]'),
       email: "#{sha}@invalid",
       url_name: sha,
       about_me: '',
@@ -666,6 +662,13 @@ class User < ActiveRecord::Base
   end
 
   private
+
+  def redact_name!
+    censor_rules.create!(text: name,
+                         replacement: _('[Account Removed]'),
+                         last_edit_editor: 'User#close_and_anonymise',
+                         last_edit_comment: 'User#close_and_anonymise')
+  end
 
   def set_defaults
     if new_record?

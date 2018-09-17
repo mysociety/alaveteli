@@ -1106,12 +1106,18 @@ describe User do
       allow(MySociety::Util).to receive(:generate_token).and_return('ABCD')
     end
 
-    it 'creates a censor rule for user name' do
+    it 'creates a censor rule for user name if the user has info requests' do
+      FactoryBot.create(:info_request, user: user)
       user_name = user.name
       user.close_and_anonymise
       censor_rule = user.censor_rules.last
       expect(censor_rule.text).to eq(user_name)
       expect(censor_rule.replacement).to eq ('[Account Removed]')
+    end
+
+    it 'does not create a censor rule for user name if the user does not have info requests' do
+      user.close_and_anonymise
+      expect(user.censor_rules).to be_empty
     end
 
     it 'should anonymise user name' do
