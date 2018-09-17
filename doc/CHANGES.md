@@ -47,9 +47,22 @@
 
 ## Upgrade Notes
 
+* There are some database structure updates so remember to run `bundle exec rake db:migrate`
+* Run `bundle exec rake temp:populate_missing_timestamps` to populate the new
+  timestamp columns.
+* You'll need to reindex your public bodies to benefit from the improved direct
+  match results:
+  `bundle exec rake reindex:public_bodies verbose="true"`
+* Run `bundle exec rake users:update_hashed_password` to improve password
+  encryption for existing users. As we don't know the original passwords this
+  double encrypts the old SHA1 hash using the bcrypt algorithm.
 * The reCAPTCHA config settings have changed, `RECAPTCHA_PUBLIC_KEY` is now
 `RECAPTCHA_SITE_KEY` and `RECAPTCHA_PRIVATE_KEY` has changed to `RECAPTCHA_SECRET_KEY`
 * The `BLOCK_SPAM_EMAIL_DOMAINS` config setting has been renamed to `BLOCK_SPAM_SIGNUPS` to reflect the change in functionality (it will now also run the full spam checker against the new user data rather than just looking at the email domain)
+* The "very old" calculation driven by
+  `RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS` has been increased from
+  `2 *` to `4 *`. Please check that this config value is acceptable for your
+  site's usage profile.
 * Add a 256x256 image named `logo-opengraph-pro.png` to
   `YOUR_THEME_ROOT/assets/images`, to be shown next to pages from your site when
   shared on Facebook. You can just duplicate `logo-opengraph.png` if you don't
@@ -57,20 +70,7 @@
 * We've removed the spring preloader as it didn't seem to provide much benefit.
 * `InfoRequest.get_last_event` is deprecated and will be removed in 0.33. Please
   use `InfoRequest.last_event`.
-* You'll need to reindex your public bodies to benefit from the improved direct
-  match results:
-  `bundle exec rake xapian:rebuild_index models="PublicBody" verbose="true"`
 * Xapian's `rebuild_index` is now called `destroy_and_rebuild_index`.
-* There are some database structure updates so remember to `rake db:migrate`
-* Run `bundle exec rake temp:populate_missing_timestamps` to populate the new
-  timestamp columns.
-* The "very old" calculation driven by
-  `RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS` has been increased from
-  `2 *` to `4 *`. Please check that this config value is acceptable for your
-  site's usage profile.
-* Run `bundle exec rake users:update_hashed_password` to improve password
-  encryption for existing users. As we don't know the original passwords this
-  double encrypts the old SHA1 hash using the bcrypt algorithm.
 * The no-reply address handling can be customised in your theme. You can do this
   in `lib/model_patches.rb` by assigning a `Regexp` of your choice to
   `ReplyToAddressValidator.no_reply_regexp`. e.g.
