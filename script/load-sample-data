@@ -60,6 +60,20 @@ if AlaveteliLocalization.default_locale != "en"
     update_all(locale: AlaveteliLocalization.default_locale)
 end
 
+non_default_locales = AlaveteliLocalization.available_locales - [AlaveteliLocalization.default_locale]
+non_default_locales.each do |locale|
+  PublicBody.find_each do |pb|
+    default_email = pb.request_email
+    default_name = pb.name
+    # set the required PublicBody attributes to match the default locale
+    # if they are currently nil
+    AlaveteliLocalization.with_locale(locale) do
+      pb.update_attribute(:request_email, default_email) unless pb.request_email
+      pb.update_attribute(:name, default_name) unless pb.name
+    end
+  end
+end
+
 load_raw_emails_data
 EOF
 
