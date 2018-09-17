@@ -66,12 +66,6 @@
     </div>
   </div>
   <div class="span6 text-right">
-    <%= form_tag admin_users_account_suspensions_path(user_id: @admin_user.id, close_and_anonymise: true), class: 'form form-inline' do %>
-      <% disabled = @admin_user.suspended? || @admin_user.is_pro? %>
-      <% submit_class = %w(btn btn-danger) %>
-      <% submit_class << 'disabled' if disabled %>
-      <%= submit_tag 'Close and anonymise', class: submit_class, disabled: disabled %>
-    <% end %>
     <%= form_tag admin_users_account_suspensions_path(user_id: @admin_user.id, suspension_reason: 'Banned for spamming'), class: 'form form-inline' do %>
       <% disabled = @admin_user.suspended? %>
       <% submit_class = %w(btn btn-danger) %>
