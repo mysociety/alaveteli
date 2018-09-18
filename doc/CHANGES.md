@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Improve the `load-sample-data` script where multiple locales or a non-English
+  default are configured (Liz Conlan)
 * Run the full user spam check during signup rather than just checking the email domain (Liz Conlan)
 * Add support for the `foi_no` tag for authorities so that new requests can
   still be made while making it clearer that the are not obliged by law to
