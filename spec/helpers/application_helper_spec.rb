@@ -71,6 +71,61 @@ describe ApplicationHelper do
 
   end
 
+  describe '#theme_asset_exists?' do
+
+    let(:theme_view_path) do
+      File.dirname(__FILE__) + "/../../lib/themes/alavetelitheme/lib/views"
+    end
+
+    let(:app_view_path) { File.dirname(__FILE__) + "/../../app/views" }
+
+    let(:paths) do
+      [
+        theme_view_path,
+        app_view_path
+      ]
+    end
+
+    let(:view_paths) { double(ActionView::PathSet, paths: paths) }
+
+    it 'looks in the theme file path' do
+      expected_path = theme_view_path.gsub('/lib/views', '/app/assets')
+      allow(File).to receive(:exists?).and_call_original
+
+      theme_asset_exists?('images/logo.png')
+      expect(File).to have_received(:exists?).
+        with(expected_path + "/images/logo.png")
+    end
+
+    it 'returns false if the file does not exist' do
+      expect(theme_asset_exists?('images/imaginary.png')).to eq false
+    end
+
+    it 'returns true if the file exists' do
+      expect(theme_asset_exists?('images/logo-opengraph.png')).to eq true
+    end
+
+    context 'without a theme installed' do
+
+      let(:paths) { [ app_view_path ] }
+
+      it 'looks in the core app file path' do
+        expected_path = app_view_path.gsub('/app/views', '/app/assets')
+        allow(File).to receive(:exists?).and_call_original
+
+        theme_asset_exists?('images/logo.png')
+        expect(File).to have_received(:exists?).
+          with(expected_path + "/images/logo.png")
+      end
+
+      it 'returns true if the file exists' do
+        expect(theme_asset_exists?('images/social-facebook.png')).to eq true
+      end
+
+    end
+
+  end
+
   describe 'when creating an event description' do
 
     it 'should generate a description for a request' do
