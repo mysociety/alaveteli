@@ -2,6 +2,9 @@
 
 ## Highlighted Features
 
+* Fall back to the theme's standard opengraph logo rather than the example pro
+  logo from core if there's no opengraph-pro logo available in the theme
+  (Liz Conlan)
 * Run the full user spam check during signup rather than just checking the email domain (Liz Conlan)
 * Add support for the `foi_no` tag for authorities so that new requests can
   still be made while making it clearer that the are not obliged by law to
