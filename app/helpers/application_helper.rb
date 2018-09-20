@@ -94,6 +94,15 @@ module ApplicationHelper
     end
   end
 
+  # Public: Checks whether there is an active theme
+  # Relies on the convention that themes prepend their view path to the
+  # standard Rails view path in the view_paths array
+  #
+  # Returns a Boolean
+  def theme_installed?
+    view_paths.paths.count > 1
+  end
+
   # Note that if the admin interface is proxied via another server, we can't
   # rely on a sesssion being shared between the front end and admin interface,
   # so need to check the status of the user.

@@ -49,6 +49,28 @@ describe ApplicationHelper do
 
   end
 
+  describe '#theme_installed?' do
+
+    let(:paths) { ['theme_path', 'app_path'] }
+
+    let(:view_paths) { double(ActionView::PathSet, paths: paths) }
+
+    it 'returns true if there is an installed theme' do
+      expect(theme_installed?).to eq true
+    end
+
+    context 'no theme is installed' do
+
+      let(:paths) { ['app_path'] }
+
+      it 'returns false' do
+        expect(theme_installed?).to eq false
+      end
+
+    end
+
+  end
+
   describe 'when creating an event description' do
 
     it 'should generate a description for a request' do
