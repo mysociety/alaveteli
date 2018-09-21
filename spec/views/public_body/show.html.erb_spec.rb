@@ -72,12 +72,58 @@ describe "public_body/show" do
 
     let(:public_body) { FactoryBot.build(:public_body, tag_string: 'foi_no') }
 
-    it 'displays a message that that authority is not obliged to respond' do
+    it 'displays a message that the authority is not obliged to respond' do
       assign(:public_body, public_body)
       render
       expect(rendered).
         to have_content('This authority is not subject to FOI law, so is ' \
                         'not legally obliged to respond')
+    end
+
+  end
+
+  context 'the public body is tagged as "eir_only"' do
+
+    let(:public_body) { FactoryBot.build(:public_body, tag_string: 'eir_only') }
+
+    it 'displays a message that the authority is only open to environmental requests' do
+      assign(:public_body, public_body)
+      render
+      expect(rendered).
+        to have_content('You can only request information about the ' \
+                        'environment from this authority.')
+    end
+
+  end
+
+  context 'the public body is tagged as "eir_only" and "foi_no"' do
+
+    let(:public_body) do
+      FactoryBot.build(:public_body, tag_string: 'eir_only foi_no')
+    end
+
+    it 'displays a message that the authority is only open to environmental requests' do
+      assign(:public_body, public_body)
+      render
+      expect(rendered).
+        to have_content('You can only request information about the ' \
+                        'environment from this authority.')
+    end
+
+  end
+
+  context 'the public body is tagged as "defunct"' do
+
+    let(:public_body) do
+      FactoryBot.build(:public_body, tag_string: 'defunct')
+    end
+
+    it 'displays a message that the authority is defunct' do
+      assign(:public_body, public_body)
+      render
+      expect(rendered).
+        to have_content('This authority no longer exists, so you cannot make ' \
+                        'a request to it.')
     end
 
   end

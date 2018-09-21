@@ -23,7 +23,12 @@
     <% end %>
   </p>
 
-  <% if @public_body.not_subject_to_law? %>
+  <% if @public_body.eir_only? %>
+    <p class="authority__header__foi_no">
+      <%= _('You can only request information about the environment ' \
+            'from this authority.')%>
+    </p>
+  <% elsif @public_body.not_subject_to_law? %>
     <p class="authority__header__foi_no">
       <%= _('This authority is not subject to FOI law, so is not ' \
             'legally obliged to respond') %>
@@ -32,7 +37,8 @@
     </p>
   <% end %>
 
-  <% if @public_body.has_notes? || @public_body.eir_only? || @public_body.special_not_requestable_reason? %>
+  <% if @public_body.has_notes? ||
+        @public_body.special_not_requestable_reason? %>
     <div id="stepwise_make_request" class="stepwise_make_request">
       <% if @public_body.has_notes? %>
         <p class="authority__header__notes">
@@ -40,14 +46,8 @@
         </p>
       <% end %>
 
-      <% if @public_body.is_requestable? %>
-        <% if @public_body.eir_only? %>
-          <p class="authority__header__notes">
-            <%= _('You can only request information about the environment ' \
-                     'from this authority.')%>
-          </p>
-        <% end %>
-      <% elsif @public_body.special_not_requestable_reason? %>
+      <% if !@public_body.is_requestable? &&
+            @public_body.special_not_requestable_reason? %>
         <p class="authority__header__notes">
           <%= public_body_not_requestable_reasons(@public_body).first %>
         </p>
