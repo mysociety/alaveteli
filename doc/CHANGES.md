@@ -92,6 +92,71 @@
 
 ### Changed Templates
 
+    app/views/admin_general/_admin_navbar.html.erb
+    app/views/admin_general/index.html.erb
+    app/views/admin_incoming_message/_actions.html.erb
+    app/views/admin_public_body/_form.html.erb
+    app/views/admin_raw_email/show.html.erb
+    app/views/admin_request/edit.html.erb
+    app/views/admin_request/hidden_user_explanation.text.erb
+    app/views/admin_request/show.html.erb
+    app/views/admin_user/_user_table.html.erb
+    app/views/admin_user/show.html.erb
+    app/views/alaveteli_pro/account_request/index.html.erb
+    app/views/alaveteli_pro/batch_request_authority_searches/_add_authority_to_draft_button.html.erb
+    app/views/alaveteli_pro/batch_request_authority_searches/_remove_authority_from_draft_button.html.erb
+    app/views/alaveteli_pro/batch_request_authority_searches/_search_result.html.erb
+    app/views/alaveteli_pro/batch_request_authority_searches/_search_results.html.erb
+    app/views/alaveteli_pro/batch_request_authority_searches/index.html.erb
+    app/views/alaveteli_pro/dashboard/_no_to_dos.html.erb
+    app/views/alaveteli_pro/dashboard/index.html.erb
+    app/views/alaveteli_pro/draft_info_request_batches/_summary.html.erb
+    app/views/alaveteli_pro/general/_nav_items.html.erb
+    app/views/alaveteli_pro/info_request_batches/_embargo_form.html.erb
+    app/views/alaveteli_pro/info_request_batches/_embargo_info.html.erb
+    app/views/alaveteli_pro/info_request_batches/_message_preview.html.erb
+    app/views/alaveteli_pro/info_requests/_after_actions.html.erb
+    app/views/alaveteli_pro/info_requests/_embargo_extension_form.html.erb
+    app/views/alaveteli_pro/info_requests/_embargo_form.html.erb
+    app/views/alaveteli_pro/info_requests/_embargo_info.html.erb
+    app/views/alaveteli_pro/info_requests/_message_preview.html.erb
+    app/views/alaveteli_pro/info_requests/_no_requests.html.erb
+    app/views/alaveteli_pro/info_requests/_sidebar.html.erb
+    app/views/alaveteli_pro/info_requests/index.html.erb
+    app/views/alaveteli_pro/plans/index.html.erb
+    app/views/alaveteli_pro/plans/show.html.erb
+    app/views/alaveteli_pro/subscriptions/index.html.erb
+    app/views/api/request_events.atom.builder
+    app/views/followups/_followup.html.erb
+    app/views/general/_log_in_bar.html.erb
+    app/views/general/_opengraph_tags.html.erb
+    app/views/general/_popup_banner.html.erb
+    app/views/general/_responsive_stylesheets.html.erb
+    app/views/general/_responsive_topnav.html.erb
+    app/views/info_request_batch/show.html.erb
+    app/views/layouts/admin.html.erb
+    app/views/layouts/default.html.erb
+    app/views/notification_mailer/info_requests/messages/_very_overdue.text.erb
+    app/views/notification_mailer/very_overdue_notification.text.erb
+    app/views/reports/new.html.erb
+    app/views/request/_after_actions.html.erb
+    app/views/request/_incoming_correspondence.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
+    app/views/request/_request_subtitle.html.erb
+    app/views/request/describe_notices/_waiting_response.html.erb
+    app/views/request/describe_notices/_waiting_response_overdue.html.erb
+    app/views/request/details.html.erb
+    app/views/request/new.html.erb
+    app/views/request/show.text.erb
+    app/views/request_mailer/very_overdue_alert.text.erb
+    app/views/user/_show_user_info.html.erb
+    app/views/user/_signup.html.erb
+    app/views/user/rate_limited.html.erb
+    app/views/user/set_draft_profile_photo.html.erb
+    app/views/user/set_profile_about_me.html.erb
+    app/views/user/show/_show_profile.html.erb
+    app/views/user_profile/about_me/edit.html.erb
+
 # 0.31.0.3
 
 ## Highlighted Features
