@@ -210,6 +210,21 @@ describe "request/show" do
                         'legally obliged to respond')
     end
 
+    context 'when the authority is only accepting EIR requests' do
+
+      before do
+        mock_body.add_tag_if_not_already_present('eir_only')
+      end
+
+      it 'displays a message that that authority is not obliged to respond' do
+        request_page
+        expect(rendered).
+          to have_content('You can only request information about the ' \
+                          'environment from this authority.')
+      end
+
+    end
+
   end
 
   describe "censoring attachment names" do
