@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Strip leading and trailing whitespace when searching for users in the admin
+  interface (Gareth Rees)
 * Run the full user spam check during signup rather than just checking the email domain (Liz Conlan)
 * Add support for the `foi_no` tag for authorities so that new requests can
   still be made while making it clearer that the are not obliged by law to

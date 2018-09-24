@@ -19,7 +19,7 @@ class AdminUserController < AdminController
                 :check_role_requirements, :only => [ :update ]
 
   def index
-    @query = params[:query]
+    @query = params[:query].try(:strip)
 
     @roles = params[:roles] || []
     @sort_options = index_sort_options
