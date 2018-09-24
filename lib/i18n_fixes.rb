@@ -57,6 +57,29 @@ module GettextI18nRails
   end
 end
 
+module I18n
+  module Backend
+    class Simple
+      def store_translations(locale, data, options = {})
+        fallback_locales =
+          I18n.fallbacks.values.flatten.uniq - I18n.fallbacks.keys
+        if I18n.enforce_available_locales &&
+          I18n.available_locales_initialized? &&
+          (!I18n.available_locales.include?(locale.to_sym) &&
+           !I18n.available_locales.include?(locale.to_s)) &&
+           (!fallback_locales.include?(locale.to_sym) &&
+            !fallback_locales.include?(locale.to_s))
+          return data
+        end
+        locale = locale.to_sym
+        translations[locale] ||= {}
+        data = data.deep_symbolize_keys
+        translations[locale].deep_merge!(data)
+      end
+    end
+  end
+end
+
 # Monkeypatch Globalize to compensate for the way gettext_i18n_rails patches
 # I18n.locale= so that it changes underscores in locale names (as used in the gettext world)
 # to the dashes that I18n prefers
