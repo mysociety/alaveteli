@@ -1,8 +1,9 @@
 # -*- encoding : utf-8 -*-
 class AlaveteliLocalization
   class << self
+    I18n::Backend::Simple.include(I18n::Backend::Fallbacks)
+
     def set_locales(available_locales, default_locale)
-      # fallback locale and available locales
       available_locales = available_locales.to_s.
                             split(/ /).map { |locale| canonicalize(locale) }
       FastGettext.
@@ -11,6 +12,10 @@ class AlaveteliLocalization
         to_hyphen(locale_name)
       end
       I18n.locale = I18n.default_locale = to_hyphen(default_locale)
+      # initialize I18n fallbacks
+      I18n.available_locales.each do |locale|
+        I18n.fallbacks[locale]
+      end
       FastGettext.default_locale = canonicalize(default_locale)
       RoutingFilter::Conditionallyprependlocale.locales = available_locales
     end
