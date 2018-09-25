@@ -53,6 +53,10 @@
 
 ## Upgrade Notes
 
+* We've removed the spring preloader so run `bundle exec spring stop` before
+  switching away from your current git branch otherwise you might see some odd
+  code caching effects (if you're happy managing processes manually, you can
+  find and kill the spring processes yourself instead)
 * There are some database structure updates so remember to run `bundle exec rake db:migrate`
 * Run `bundle exec rake temp:populate_missing_timestamps` to populate the new
   timestamp columns.
@@ -73,7 +77,6 @@
   `YOUR_THEME_ROOT/assets/images`, to be shown next to pages from your site when
   shared on Facebook. You can just duplicate `logo-opengraph.png` if you don't
   have specific Pro branding.
-* We've removed the spring preloader as it didn't seem to provide much benefit.
 * `InfoRequest.get_last_event` is deprecated and will be removed in 0.33. Please
   use `InfoRequest.last_event`.
 * Xapian's `rebuild_index` is now called `destroy_and_rebuild_index`.
@@ -87,6 +90,10 @@
   be set by assigning an Array of addresses to
   `ReplyToAddressValidator.invalid_reply_addresses` in `lib/model_patches.rb`.
   e.g: `ReplyToAddressValidator.invalid_reply_addresses = %w(a@example.com)`.
+* FactoryGirl is now called FactoryBot so you may need to update your test code
+  accordingly.
+* We've removed the Foundation gem as we're no longer using it so you will need
+  to edit your theme code if you've relied on Foundation for any customisation.
 * This release includes an update to the commonlib submodule - you
   should be warned about this when running `rails-post-deploy`.
 
