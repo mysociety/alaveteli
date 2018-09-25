@@ -7,7 +7,32 @@
 * Fall back to the theme's standard opengraph logo rather than the example pro
   logo from core if there's no opengraph-pro logo available in the theme
   (Liz Conlan)
-* Run the full user spam check during signup rather than just checking the email domain (Liz Conlan)
+* Don't show the pro blank slate message when the user has a saved draft (Graeme
+  Porteous)
+* Improve the pro blank slate/"Getting started" message (Martin Wright)
+* Add message navigation buttons to pro request pages to make it easier to move
+  through long request threads (Martin Wright)
+* Make the pro sidebar sticky (Martin Wright)
+* Improvements to the pro sidebar to make it easier for a pro user to see when
+  a private request will be published from the request page (Martin Wright)
+* Destroy embargoes when the related info request is destroyed (Gareth Rees)
+* Parse and display incoming email headers in the admin interface (Gareth Rees)
+* Don't update the Atom feed timestamp if there are no events (Graeme Porteous)
+* Fix padding around delivery status and hidden message containers (Martin
+  Wright, Zarino Zappia)
+* Fix vertical alignment of follower count for easier theme overrides (Martin
+  Wright)
+* Avoid drawing border under final attachment in list (Zarino Zappia)
+* Better user menu behaviour with long names (Martin Wright)
+* Add the ability to collapse the correspondence on the request page (Martin
+  Wright)
+* Fix clash between the action menu and the sidebar in the mobile view (Martin
+  Wright)
+* Add missing background colour for "awaiting classification" status message
+  (Martin Wright)
+* Better HTML encoding on new request and admin email forms (Liz Conlan)
+* Add Google Analytics events for clicks for "Related requests" links (Zarino
+  Zappia)
 * Add support for the `foi_no` tag for authorities so that new requests can
   still be made while making it clearer that the are not obliged by law to
   respond (Liz Conlan)
@@ -20,6 +45,10 @@
 * Add a footer to the Admin layout with useful links to alaveteli.org (Gareth
   Rees)
 * Add user name spam checking (Gareth Rees)
+* Run the full user spam check during signup rather than just checking the
+  email domain (Liz Conlan)
+* Improve the spam checker code, make it easier to reuse and enable it on the
+  sign in page (Graeme Porteous)
 * Make it quicker to ban users for spamming in admin interface (Gareth Rees)
 * Limit the frequency that `PublicBody#updated_at` gets updated by unrelated
   changes to an associated `InfoRequest` (Gareth Rees)
@@ -28,8 +57,10 @@
 * Destroy embargoes when the attached info request is destroyed (Gareth Rees)
 * Fix case sensitivity bug in password reset form (Gareth Rees)
 * Rename dangerous Xapian commands (Gareth Rees)
+* Improved handling of Xapian indexing failures (Gareth Rees)
 * Prioritise direct matches on `PublicBody#name` in search results (Liz Conlan,
   Gareth Rees)
+* Fix double encoding of URL params for search (Gareth Rees)
 * Log an `InfoRequestEvent` when updating response handling attributes in
   `InfoRequest.stop_new_responses_on_old_requests` (Gareth Rees)
 * Show that a request is part of a batch on the request page in the admin
@@ -50,6 +81,7 @@
   password hashes will be upgraded when a user signs in (Graeme Porteous)
 * Restore translated attributes to Public Body admin view (Gareth Rees)
 * Updates the addresses of the OS base boxes in the Vagrantfile
+* Various improvements to the test suite (Gareth Rees, Graeme Porteous, Liz Conlan)
 
 ## Upgrade Notes
 
