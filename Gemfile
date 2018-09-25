@@ -169,7 +169,7 @@ group :test, :development do
   gem 'bullet', '~> 5.7.6'
   gem 'factory_bot_rails', '~> 4.10.0'
   gem 'oink', '~> 0.10.1'
-  gem 'rspec-activemodel-mocks', '~> 1.0.0'
+  gem 'rspec-activemodel-mocks', '~> 1.1.0'
   gem 'rspec-rails', '~> 3.7.2'
   gem 'pry', '~> 0.11.3'
   gem 'pry-byebug', '~> 3.4.0'
