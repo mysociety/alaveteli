@@ -271,7 +271,7 @@ describe Ability do
     let(:other_user_ability) { Ability.new(FactoryBot.create(:user)) }
 
     context "when the batch is embargoed" do
-      let(:resource) { FactoryBot.create(:embargoed_batch_request) }
+      let(:resource) { FactoryBot.create(:info_request_batch, :embargoed) }
 
       context "when the user owns the batch" do
         let(:ability) { Ability.new(resource.user) }
@@ -317,7 +317,7 @@ describe Ability do
     end
 
     context "when the batch is not embargoed" do
-      let(:resource) { FactoryBot.create(:batch_request) }
+      let(:resource) { FactoryBot.create(:info_request_batch) }
       let(:all_the_abilities) do
         [
           admin_ability,
@@ -345,7 +345,7 @@ describe Ability do
 
     context "when the batch is embargoed" do
       let(:resource) do
-        FactoryBot.create(:embargoed_batch_request,
+        FactoryBot.create(:info_request_batch, :embargoed,
                           user: FactoryBot.create(:pro_user))
       end
 
@@ -402,7 +402,7 @@ describe Ability do
     end
 
     context "when the batch is not embargoed" do
-      let(:resource) { FactoryBot.create(:batch_request) }
+      let(:resource) { FactoryBot.create(:info_request_batch) }
 
       context "when the user owns the batch" do
         let(:ability) { Ability.new(resource.user) }
@@ -525,7 +525,7 @@ describe Ability do
 
       context 'the info request is part of a batch' do
         let(:batch_request) do
-          batch = FactoryBot.create(:batch_request, user: user)
+          batch = FactoryBot.create(:info_request_batch, user: user)
           request = FactoryBot.create(:info_request, title: batch.title,
                                                      user: batch.user)
           batch.info_requests << request
@@ -703,7 +703,7 @@ describe Ability do
   describe "Destroying Batch Embargoes" do
 
     let(:batch) do
-      FactoryBot.create(:embargoed_batch_request,
+      FactoryBot.create(:info_request_batch, :embargoed,
                         user: FactoryBot.create(:pro_user))
     end
 

@@ -7,16 +7,12 @@ describe 'viewing requests that are part of a batch in alaveteli_pro' do
   let(:pro_user) { FactoryBot.create(:pro_user) }
   let!(:pro_user_session) { login(pro_user) }
 
-  let(:batch) { FactoryBot.create(:embargoed_batch_request, user: pro_user) }
-
-  let(:info_request) do
-    info_request = FactoryBot.create(:info_request, user: pro_user)
-    info_request.info_request_batch = batch
-    batch.public_bodies << info_request.public_body
-    info_request.save!
-    batch.save!
-    info_request
+  let(:batch) do
+    FactoryBot.create(:info_request_batch, :sent, user: pro_user)
   end
+
+  let(:info_request) { batch.info_requests.first }
+  let(:embargo) { info_request.embargo }
 
   context 'a pro user viewing one of their own requests' do
 
@@ -66,8 +62,9 @@ describe 'viewing requests that are part of a batch in alaveteli_pro' do
 
     context 'the request is embargoed' do
 
-      let!(:embargo) do
-        FactoryBot.create(:embargo, info_request: info_request)
+      let(:batch) do
+        FactoryBot.create(:info_request_batch, :sent, :embargoed,
+                          user: pro_user)
       end
 
       it 'shows the privacy sidebar' do
