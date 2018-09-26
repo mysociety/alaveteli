@@ -270,15 +270,14 @@ class InfoRequest < ActiveRecord::Base
   # TODO: this *should* also check outgoing message joined to is an initial
   # request (rather than follow up)
   def self.find_existing(title, public_body_id, body)
-    conditions = { :title => title,
-                   :public_body_id => public_body_id,
-                   :outgoing_messages => { :body => body } }
+    conditions = { title: title, public_body_id: public_body_id }
 
     InfoRequest.
       includes(:outgoing_messages).
         where(conditions).
-          references(:outgoing_messages).
-            first
+          merge(OutgoingMessage.with_body(body)).
+            references(:outgoing_messages).
+              first
   end
 
   # The "holding pen" is a special request which stores incoming emails whose
