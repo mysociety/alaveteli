@@ -118,7 +118,7 @@ end
 
 SUPPORTED_OPERATING_SYSTEMS = {
   'trusty64' => 'https://app.vagrantup.com/ubuntu/boxes/trusty64',
-  'jessie64' => 'https://atlas.hashicorp.com/puppetlabs/boxes/debian-8.2-64-nocm',
+  'jessie64' => 'https://app.vagrantup.com/puppetlabs/debian-8.2-64-nocm',
   'stretch64' => 'https://app.vagrantup.com/debian/boxes/stretch64'
 }
 
