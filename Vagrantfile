@@ -117,7 +117,7 @@ if SETTINGS['show_settings']
 end
 
 SUPPORTED_OPERATING_SYSTEMS = {
-  'trusty64' => 'https://atlas.hashicorp.com/ubuntu/boxes/trusty64/versions/20160714.0.0/providers/virtualbox.box',
+  'trusty64' => 'https://app.vagrantup.com/ubuntu/boxes/trusty64',
   'jessie64' => 'https://atlas.hashicorp.com/puppetlabs/boxes/debian-8.2-64-nocm',
   'stretch64' => 'https://app.vagrantup.com/debian/boxes/stretch64'
 }
@@ -137,6 +137,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     'puppetlabs/debian-8.2-64-nocm'
   elsif box == 'stretch64'
     'debian/stretch64'
+  elsif box == 'trusty64'
+    'ubuntu/trusty64'
   else
     box
   end
