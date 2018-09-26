@@ -841,17 +841,7 @@ class InfoRequest < ActiveRecord::Base
   end
 
   def find_existing_outgoing_message(body)
-    # TODO: can add other databases here which have regexp_replace
-    if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
-      # Exclude spaces from the body comparison using regexp_replace
-      outgoing_messages.where("regexp_replace(outgoing_messages.body,
-                                              '[[:space:]]', '', 'g') =
-                               regexp_replace(?, '[[:space:]]', '', 'g')",
-                               body).first
-    else
-      # For other databases (e.g. SQLite) not the end of the world being space-sensitive for this check
-      outgoing_messages.where("outgoing_messages.body = ?", body).first
-    end
+    outgoing_messages.with_body(body).first
   end
 
   # Has this email already been received here? Based just on message id.
