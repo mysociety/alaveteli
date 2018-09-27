@@ -333,7 +333,9 @@ describe "managing embargoed batch requests" do
     batch = FactoryBot.create(
       :info_request_batch, :embargoed,
       user: pro_user,
-      public_bodies: FactoryBot.create_list(:public_body, 2))
+      public_bodies: FactoryBot.create_list(:public_body, 2),
+      sent_at: Time.zone.now
+    )
     batch.create_batch!
     batch
   end

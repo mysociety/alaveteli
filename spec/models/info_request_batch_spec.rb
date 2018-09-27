@@ -91,7 +91,7 @@ describe InfoRequestBatch do
     end
 
     it 'should substitute authority name for the placeholder in each request' do
-      unrequestable = info_request_batch.create_batch!
+      info_request_batch.create_batch!
       [first_public_body, second_public_body].each do |public_body|
         request = info_request_batch.info_requests.detect do |info_request|
           info_request.public_body == public_body
@@ -101,28 +101,23 @@ describe InfoRequestBatch do
       end
     end
 
-    it 'should send requests to requestable public bodies, and return a list of unrequestable ones' do
-      allow(first_public_body).to receive(:is_requestable?).and_return(false)
-      unrequestable = info_request_batch.create_batch!
-      expect(unrequestable).to eq([first_public_body])
-      expect(info_request_batch.info_requests.size).to eq(1)
+    it 'does not resend requests to public bodies that have already received the request' do
+      expect(info_request_batch).to receive(:requestable_public_bodies).
+        and_return([first_public_body])
+      expect { info_request_batch.create_batch! }.to(
+        change(info_request_batch.info_requests, :count).by(1)
+      )
       request = info_request_batch.info_requests.first
       expect(request.outgoing_messages.first.status).to eq('sent')
     end
 
     it 'should not only send requests to public bodies if already sent' do
-      allow(second_public_body).to receive(:is_requestable?).and_return(false)
-      request = info_request_batch.info_requests = [
+      info_request_batch.info_requests = [
         FactoryBot.create(:info_request, public_body: first_public_body)
       ]
-      unrequestable = info_request_batch.create_batch!
-      expect(unrequestable).to eq([second_public_body])
-      expect(info_request_batch.info_requests.size).to eq(1)
-    end
-
-    it 'should set the sent_at value of the info request batch' do
-      info_request_batch.create_batch!
-      expect(info_request_batch.sent_at).not_to be_nil
+      expect { info_request_batch.create_batch! }.to(
+        change(info_request_batch.info_requests, :count).by(1)
+      )
     end
 
     it "it imposes an alphabetical sort order on associated public bodies" do
@@ -182,6 +177,13 @@ describe InfoRequestBatch do
       third_email = ActionMailer::Base.deliveries.third
       expect(third_email.to).to eq([info_request_batch.user.email])
       expect(third_email.subject).to eq('Your batch request "Example title" has been sent')
+    end
+
+    it 'should set the sent_at value of the info request batch' do
+      InfoRequestBatch.send_batches
+      expect { info_request_batch.reload }.to(
+        change(info_request_batch, :sent_at).from(nil).to(Time)
+      )
     end
 
   end
@@ -399,19 +401,90 @@ describe InfoRequestBatch do
     end
   end
 
-  describe '#all_requests_created?' do
+  describe '#sent_public_bodies' do
+    subject { batch.sent_public_bodies }
+
+    let(:sent_body) { FactoryBot.build(:public_body) }
+    let(:unsent_body) { FactoryBot.build(:public_body) }
+
+    let(:info_request) do
+      FactoryBot.build(:info_request, public_body: sent_body)
+    end
+
     let(:batch) do
-      body = FactoryBot.build(:public_body)
-      batch = FactoryBot.create(:info_request_batch, public_bodies: [body])
+      FactoryBot.create(
+        :info_request_batch,
+        info_requests: [info_request],
+        public_bodies: [sent_body, unsent_body]
+      )
     end
 
-    it 'returns true if there are equal requests to authorities' do
-      batch.create_batch!
-      expect(batch.all_requests_created?).to eq(true)
+    it { is_expected.to include(sent_body) }
+    it { is_expected.to_not include(unsent_body) }
+  end
+
+  describe '#requestable_public_bodies' do
+    subject { batch.requestable_public_bodies }
+
+    let(:sent_body) { FactoryBot.build(:public_body) }
+    let(:requestable_body) { FactoryBot.build(:public_body) }
+    let(:unrequestable_body) { FactoryBot.build(:blank_email_public_body) }
+
+    let(:info_request) do
+      FactoryBot.build(:info_request, public_body: sent_body)
     end
 
-    it 'returns false if there are less requests than authorities' do
-      expect(batch.all_requests_created?).to eq(false)
+    let(:batch) do
+      FactoryBot.create(
+        :info_request_batch,
+        info_requests: [info_request],
+        public_bodies: [sent_body, requestable_body, unrequestable_body]
+      )
+    end
+
+    it { is_expected.to_not include(sent_body) }
+    it { is_expected.to include(requestable_body) }
+    it { is_expected.to_not include(unrequestable_body) }
+  end
+
+  describe '#unrequestable_public_bodies' do
+    subject { batch.unrequestable_public_bodies }
+
+    let(:sent_body) { FactoryBot.build(:public_body) }
+    let(:requestable_body) { FactoryBot.build(:public_body) }
+    let(:unrequestable_body) { FactoryBot.build(:blank_email_public_body) }
+
+    let(:info_request) do
+      FactoryBot.build(:info_request, public_body: sent_body)
+    end
+
+    let(:batch) do
+      FactoryBot.create(
+        :info_request_batch,
+        info_requests: [info_request],
+        public_bodies: [sent_body, requestable_body, unrequestable_body]
+      )
+    end
+
+    it { is_expected.to_not include(sent_body) }
+    it { is_expected.to_not include(requestable_body) }
+    it { is_expected.to include(unrequestable_body) }
+  end
+
+  describe '#all_requests_created?' do
+    subject { batch.all_requests_created? }
+
+    let(:batch) { FactoryBot.build(:info_request_batch) }
+    let(:body) { FactoryBot.build(:public_body) }
+
+    context 'there no requestable public bodies' do
+      before { allow(batch).to receive(:requestable_public_bodies) { [] } }
+      it { is_expected.to eq true }
+    end
+
+    context 'there are requestable public bodies' do
+      before { allow(batch).to receive(:requestable_public_bodies) { [body] } }
+      it { is_expected.to eq false }
     end
 
   end
