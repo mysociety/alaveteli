@@ -49,6 +49,7 @@
 * Improve password encryption by switching to bcrypt algorithm, existing
   password hashes will be upgraded when a user signs in (Graeme Porteous)
 * Restore translated attributes to Public Body admin view (Gareth Rees)
+* Updates the addresses of the OS base boxes in the Vagrantfile
 
 ## Upgrade Notes
 
