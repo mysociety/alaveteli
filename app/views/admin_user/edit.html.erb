@@ -18,6 +18,7 @@
   </div>
 </div>
 
+<% if feature_enabled? :close_and_anonymise, current_user %>
 <hr />
 
 <div class="row">
@@ -68,3 +69,4 @@
     </div>
   </div>
 </div>
+<% end %>
