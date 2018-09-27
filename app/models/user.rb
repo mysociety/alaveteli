@@ -455,7 +455,7 @@ class User < ActiveRecord::Base
     redact_name! if info_requests.any?
 
     update(
-      name: _('[Account Removed]'),
+      name: _('[Name Removed]'),
       email: "#{sha}@invalid",
       url_name: sha,
       about_me: '',
@@ -665,7 +665,7 @@ class User < ActiveRecord::Base
 
   def redact_name!
     censor_rules.create!(text: name,
-                         replacement: _('[Account Removed]'),
+                         replacement: _('[Name Removed]'),
                          last_edit_editor: 'User#close_and_anonymise',
                          last_edit_comment: 'User#close_and_anonymise')
   end

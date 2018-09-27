@@ -1112,7 +1112,7 @@ describe User do
       user.close_and_anonymise
       censor_rule = user.censor_rules.last
       expect(censor_rule.text).to eq(user_name)
-      expect(censor_rule.replacement).to eq ('[Account Removed]')
+      expect(censor_rule.replacement).to eq ('[Name Removed]')
     end
 
     it 'does not create a censor rule for user name if the user does not have info requests' do
@@ -1122,7 +1122,7 @@ describe User do
 
     it 'should anonymise user name' do
       expect{ user.close_and_anonymise }.
-        to change(user, :name).to('[Account Removed] (Account suspended)')
+        to change(user, :name).to('[Name Removed] (Account suspended)')
     end
 
     it 'should anonymise user email' do
