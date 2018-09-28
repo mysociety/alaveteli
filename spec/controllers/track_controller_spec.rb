@@ -339,28 +339,28 @@ describe TrackController do
   describe "PUT #update" do
     let(:track_thing) { FactoryBot.create(:search_track) }
 
-    it 'should destroy the track thing' do
-      get :update, {:track_id => track_thing.id,
-                    :track_medium => 'delete',
-                    :r => 'http://example.com'},
-                   {:user_id => track_thing.tracking_user.id}
-      expect(TrackThing.where(:id => track_thing.id).first).to eq(nil)
+    it 'destroys the track thing' do
+      get :update, { track_id: track_thing.id,
+                     track_medium: 'delete',
+                     r: 'http://example.com' },
+                   { user_id: track_thing.tracking_user.id }
+      expect(TrackThing.where(id: track_thing.id).first).to eq(nil)
     end
 
-    it 'should redirect to a URL on the site' do
-      get :update, {:track_id => track_thing.id,
-                    :track_medium => 'delete',
-                    :r => '/'},
-                   {:user_id => track_thing.tracking_user.id}
+    it 'redirects to a URL on the site' do
+      get :update, { track_id: track_thing.id,
+                     track_medium: 'delete',
+                     r: '/'},
+                   { user_id: track_thing.tracking_user.id }
       expect(response).to redirect_to('/')
     end
 
-    it 'should not redirect to a url on another site' do
+    it 'does not redirect to a URL on another site' do
       track_thing = FactoryBot.create(:search_track)
-      get :update, {:track_id => track_thing.id,
-                    :track_medium => 'delete',
-                    :r => 'http://example.com/'},
-                   {:user_id => track_thing.tracking_user.id}
+      get :update, { track_id: track_thing.id,
+                     track_medium: 'delete',
+                     r: 'http://example.com/' },
+                   { user_id: track_thing.tracking_user.id }
       expect(response).to redirect_to('/')
     end
   end
