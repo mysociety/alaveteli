@@ -347,7 +347,7 @@ describe TrackController do
       get :update, track_id: track_thing.id,
                    track_medium: 'delete',
                    r: 'http://example.com'
-      expect(TrackThing.where(id: track_thing.id).first).to eq(nil)
+      expect(TrackThing.find_by(id: track_thing.id)).to eq(nil)
     end
 
     it 'redirects to a URL on the site' do
