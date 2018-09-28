@@ -356,7 +356,6 @@ describe TrackController do
     end
 
     it 'does not redirect to a URL on another site' do
-      track_thing = FactoryBot.create(:search_track)
       get :update, { track_id: track_thing.id,
                      track_medium: 'delete',
                      r: 'http://example.com/' },
