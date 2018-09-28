@@ -5,8 +5,8 @@
 #
 # Translators:
 # louisecrow <louise@mysociety.org>, 2017
-# Liz Conlan <liz@mysociety.org>, 2017
 # Christophe Van Gheluwe <info@vg-webdesign.be>, 2017
+# Liz Conlan <liz@mysociety.org>, 2017
 # claude transparencia <audit.citoyen.quartier@gmail.com>, 2018
 msgid ""
 msgstr ""
@@ -53,7 +53,7 @@ msgid "6 Months"
 msgstr "6 mois"
 
 msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
-msgstr "<strong>Puis je efectuer une requête sur moi-même ?</strong><a href=\"{{url}}\">Non !</a>"
+msgstr "<strong>Puis-je effectuer une demande d'informations me concernant ?</strong><a href=\"{{url}}\">Non !</a>"
 
 msgid "<strong>Thank</strong> the public authority."
 msgstr "<strong>Remercier</strong> l'autorité publique."
@@ -308,7 +308,7 @@ msgid "More information"
 msgstr "Plus d'information"
 
 msgid "My profile"
-msgstr "Mon profile"
+msgstr "Mon profil"
 
 msgid "My subscription"
 msgstr "Mon abonnement"

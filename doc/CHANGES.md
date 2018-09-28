@@ -196,6 +196,12 @@
     app/views/user/show/_show_profile.html.erb
     app/views/user_profile/about_me/edit.html.erb
 
+# 0.31.0.4
+
+## Highlighted Features
+
+* Updated translations from Transifex (Liz Conlan)
+
 # 0.31.0.3
 
 ## Highlighted Features

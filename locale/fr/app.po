@@ -18,9 +18,9 @@
 # skenaja <alex@alexskene.com>, 2011
 # andreas.pavlou <andreas@access-info.org>, 2013
 # andreas.pavlou <andreas@access-info.org>, 2013
-# Bbear <borisjf@post.harvard.edu>, 2011
+# 0c5d54599df8b711a7a254a114ba48aa, 2011
 # Benoît Simard <contact@bsimard.com>, 2013
-# Bbear <borisjf@post.harvard.edu>, 2011
+# 0c5d54599df8b711a7a254a114ba48aa, 2011
 # cegall, 2013
 # Christophe Van Gheluwe <info@vg-webdesign.be>, 2016-2017
 # Claire, 2013

@@ -17,7 +17,7 @@
 # Anton Stoychev <antitoxic@gmail.com>, 2013
 # louisecrow <louise@mysociety.org>, 2014
 # louisecrow <louise@mysociety.org>, 2014
-# Valentin Laskov <laskov@festa.bg>, 2013-2014
+# Valentin Laskov <v_laskov@mail.bg>, 2013-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
