@@ -13,6 +13,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # David Cabo <david.cabo@gmail.com>, 2012
 # sroberto <ertoba@yahoo.es>, 2012
 # louisecrow <louise@mysociety.org>, 2014
@@ -22,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-18 01:28-0800\n"
-"PO-Revision-Date: 2018-01-18 10:22+0000\n"
+"POT-Creation-Date: 2018-09-28 15:37+0000\n"
+"PO-Revision-Date: 2018-09-29 11:24+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Basque (http://www.transifex.com/mysociety/alaveteli/language/eu/)\n"
 "Language: eu\n"
@@ -135,6 +136,9 @@ msgstr ""
 "\n"
 "{{user_name}}"
 
+msgid "12 characters minimum. 72 characters maximum."
+msgstr ""
+
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
 msgstr "<a href=\"{{browse_url}}\">Guztiak ikusi</a> o <a href=\"{{add_url}}\">eskatu beste bat gehitzeko</a>."
 
@@ -244,6 +248,9 @@ msgstr "<strong>Kontuz!</strong> Datu hauek modu fidagarrian erabiltzeko, {{site
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong>Azalpen</strong> bat eskatu da."
 
+msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
+msgstr ""
+
 msgid "<strong>No response</strong> has been received <small>(maybe there's just an acknowledgement)</small>"
 msgstr ""
 "Ez da <strong>inolako erantzunik</strong> jaso\n"
@@ -311,6 +318,9 @@ msgstr ""
 msgid "A one line summary of the information you are requesting, e.g."
 msgstr "Eskatzen duzun informazioaren laburpena, lerro batean, adibidez"
 
+msgid "A powerful, fully-featured FOI toolkit for journalists"
+msgstr ""
+
 msgid "A public authority"
 msgstr "Erakunde publikoa"
 
@@ -333,6 +343,9 @@ msgid "About you:"
 msgstr "Zeure buruaz:"
 
 msgid "About {{count}} FOI requests found"
+msgstr ""
+
+msgid "Account suspended – Please contact us"
 msgstr ""
 
 msgid "Act on what you've learnt"
@@ -470,6 +483,18 @@ msgstr "Alda ezazu zure harpidetza"
 msgid "Although all responses are automatically published, we depend on you, the original requester, to evaluate them."
 msgstr "Erantzun guztiak automatikoki argitaratzen diren arren, zure esku dago, eskabidearen egile hori, haien ebaluazioa."
 
+msgid "Although not legally required to do so, we would have expected {{public_body_link}} to have responded by "
+msgstr ""
+
+msgid "Although not legally required to do so, we would have expected {{public_body_link}} to have responded by now"
+msgstr ""
+
+msgid "Although the authority is not legally obliged to reply, you should get a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>."
+msgstr ""
+
+msgid "Although the authority is not legally obliged to reply, you should have got a response, normally before the end of <strong>{{date_response_required_by}}</strong>."
+msgstr ""
+
 msgid "An <a href=\"{{request_url}}\">annotation</a> to <em>{{request_title}}</em> was made by {{event_comment_user}} on {{date}}"
 msgstr ""
 
@@ -501,6 +526,12 @@ msgid "Annotations will be posted publicly here, and are <strong>not</strong> se
 msgstr ""
 "Iruzkinak publikoki erakusten dira hemen, eta\n"
 "        <strong>ez</strong> dira {{public_body_name}}-ra bidaltzen."
+
+msgid "Announcement"
+msgstr ""
+
+msgid "Announcement|Visibility"
+msgstr ""
 
 msgid "Anonymous user"
 msgstr ""
@@ -578,9 +609,6 @@ msgid "Back to content"
 msgstr ""
 
 msgid "Banned from this site"
-msgstr ""
-
-msgid "Banned users cannot edit their profile"
 msgstr ""
 
 msgid "Batch created by {{info_request_user}} on {{date}}."
@@ -727,6 +755,9 @@ msgstr ""
 msgid "Close the request and respond:"
 msgstr ""
 
+msgid "Collapse all correspondence"
+msgstr ""
+
 msgid "Comment"
 msgstr ""
 
@@ -781,10 +812,10 @@ msgstr "Berretsi zure helbide elektronikoa"
 msgid "Confirm your new email address on {{site_name}}"
 msgstr "Berretsi {{site_name}}-ean daukazun helbide elektroniko berria"
 
-msgid "Considered by administrators as not an FOI request and hidden from site."
+msgid "Considered by administrators as not an FOI request."
 msgstr ""
 
-msgid "Considered by administrators as vexatious and hidden from site."
+msgid "Considered by administrators as vexatious."
 msgstr ""
 
 msgid "Contact us"
@@ -829,8 +860,8 @@ msgstr "Moztu zure profilaren argazkia"
 msgid "Cultural sites and built structures (as they may be affected by the environmental factors listed above)"
 msgstr "(Aldez aurretik aipatu diren eragile ingurunekoek jada kutsatuta egon daitezkeen) kultura guneak eta eraikinak"
 
-msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they must respond promptly and"
-msgstr "Orain {{public_body_link}}-eko <strong>erantzunaren zain</strong> gaude, laster erantzun behar du eta"
+msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they should respond promptly and"
+msgstr ""
 
 msgid "Date:"
 msgstr "Data:"
@@ -987,6 +1018,9 @@ msgstr ""
 "Orrialde honetan idatziko duzun guztia, <strong>zure izena</strong> barne, \n"
 "                <strong>irakurleen eskuragarri</strong> egongo da betiko\n"
 "                (<a href=\"{{url}}\">¿por qué?</a>)."
+
+msgid "Expand all correspondence"
+msgstr ""
 
 msgid "FOI"
 msgstr "FOI"
@@ -2047,6 +2081,12 @@ msgstr "Arrakasta partziala."
 msgid "Password is not correct"
 msgstr "Pasahitza ez da zuzena"
 
+msgid "Password is too long (maximum is 72 characters)"
+msgstr ""
+
+msgid "Password is too short (minimum is 12 characters)"
+msgstr ""
+
 msgid "Password:"
 msgstr "Pasahitza:"
 
@@ -2498,6 +2538,9 @@ msgstr " <a href=\"{{advanced_search_url}}\">bilatzeko eragile aurreratuei</a> b
 msgid "Read blog"
 msgstr "Bloga irakurri"
 
+msgid "Reason:"
+msgstr ""
+
 msgid "Received an error message, such as delivery failure."
 msgstr "Errore mezua jaso da, adibidez akats bat mezua ematean."
 
@@ -2925,6 +2968,9 @@ msgstr ""
 msgid "Summary is too short. Please be a little more descriptive about the information you are asking for."
 msgstr ""
 
+msgid "Suspended users cannot edit their profile"
+msgstr ""
+
 msgid "Table of statuses"
 msgstr "Egoeren taula"
 
@@ -3100,10 +3146,16 @@ msgstr "Ikusi nahi izan duzun eskabidea ezabatuta dago. Honetarako hainbat arraz
 msgid "The requester has abandoned this request for some reason"
 msgstr "Eskabide honetako sortzaileak zerbait dela eta ezabatu du"
 
+msgid "The response to your request has been <strong>delayed</strong>. Although the authority has no legal obligation to reply, they should normally have responded by <strong>{{date}}</strong>"
+msgstr ""
+
 msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and by <strong>{{date}}</strong>"
 msgstr ""
 "Zure eskabidearen erantzuna <strong>atzeratu da</strong>.\n"
 "            Legearen arabera, erakundeak normalean <strong>azkar</strong> erantzun behar du eta"
+
+msgid "The response to your request is <strong>long overdue</strong>. Although the authority has no legal obligation to reply, they should have responded by now"
+msgstr ""
 
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr ""
@@ -3242,18 +3294,19 @@ msgstr "Ondoko azalpena jaso dute:"
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
 msgstr "Ez diote erantzun zure {{law_used_short}} {{title}} eskabideari legeak agintzen duen bezain azkar."
 
-msgid "They have not replied to your {{law_used_short}} request {{title}}, as required by law"
+msgid "They have not replied to your {{law_used_short}} request {{title}}, as normally required by law"
 msgstr ""
-"Ez diote erantzun zure {{law_used_short}} {{title}} eskabideari, \n"
-" legeak agintzen duen bezala."
 
-msgid "They have still not replied to your {{law_used_short}} request {{title}}, as required by law"
+msgid "They have still not replied to your {{law_used_short}} request {{title}}, as normally required by law"
 msgstr ""
 
 msgid "Things you're following"
 msgstr ""
 
 msgid "This annotation has been reported for administrator attention"
+msgstr ""
+
+msgid "This authority is not subject to FOI law, so is not legally obliged to respond"
 msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
@@ -3344,12 +3397,6 @@ msgstr ""
 msgid "This request has an <strong>unknown status</strong>."
 msgstr "Eskabide honen egoera <strong>ezezaguna</strong> da."
 
-msgid "This request has been <strong>hidden</strong> from the site, because an administrator considers it not to be an FOI request"
-msgstr ""
-
-msgid "This request has been <strong>hidden</strong> from the site, because an administrator considers it vexatious"
-msgstr ""
-
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
 msgstr ""
 
@@ -3365,6 +3412,12 @@ msgid "This request has been marked for review by the site administrators, who h
 msgstr ""
 
 msgid "This request has been reported for administrator attention"
+msgstr ""
+
+msgid "This request has been reviewed by an administrator and is considered not to be an FOI request"
+msgstr ""
+
+msgid "This request has been reviewed by an administrator and is considered to be vexatious"
 msgstr ""
 
 msgid "This request has been set by an administrator to \"allow new responses from nobody\""
@@ -3397,8 +3450,8 @@ msgstr ""
 msgid "This table shows the technical details of the internal events that happened to this request on {{site_name}}. This could be used to generate information about the speed with which authorities respond to requests, the number of requests which require a postal response and much more."
 msgstr "Ondoko taulak {{site_name}} eskabidearekin zerikusia duten barne gertaeren datu teknikoak erakusten ditu. Datu hauek erabil daitezke estatistikak sortzeko, esaterako erakundeen erantzun abiadura edo posta arrunta erabiltzeko eskatzen duten eskabide kopurua."
 
-msgid "This user has been banned from {{site_name}} "
-msgstr "Erabiltzaile hau {{site_name}}-tik kanporatuta dago. "
+msgid "This user has been suspended from {{site_name}} "
+msgstr ""
 
 msgid "This was not possible because there is already an account using the email address {{email}}."
 msgstr "Ezinezkoa da, {{email}} helbidea erabiltzen ari den beste kontu bat dagoelako."
@@ -4027,8 +4080,8 @@ msgstr "<strong>Apelatu</strong> ahal duzu."
 msgid "You can change the requests and users you are following on <a href=\"{{profile_url}}\">your profile page</a>."
 msgstr ""
 
-msgid "You can get this page in computer-readable format as part of the main JSON page for the request.  See the <a href=\"{{api_path}}\">API documentation</a>."
-msgstr "Orrialde hau lortu ahal duzu formatu prozesagarri batean, eskabidearen JSON orrialdeko zati bat bezala. Kontsulta ezazu <a href=\"{{api_path}}\">gure API-ren dokumentazioa</a>."
+msgid "You can get this page in computer-readable format as part of the <a href=\"{{json_path}}\">main JSON page</a> for the request. See the <a href=\"{{api_path}}\">API documentation</a>."
+msgstr ""
 
 msgid "You can only request information about the environment from this authority."
 msgstr "Erakunde honi inguruneari buruzko informazioa soilik eska diezaiokezu."
@@ -4715,7 +4768,7 @@ msgstr ""
 msgid "{{public_body_name}} have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law. Click on the link below to remind them to reply."
 msgstr ""
 
-msgid "{{public_body_name}} have still not replied to your {{law_used_short}} request {{title}}, as required by law. Click on the link below to tell them to reply. You might like to ask for an internal review, asking them to find out why their response to the request has been so slow."
+msgid "{{public_body_name}} have still not replied to your {{law_used_short}} request {{title}}, as normally required by law. Click on the link below to tell them to reply. You might like to ask for an internal review, asking them to find out why their response to the request has been so slow."
 msgstr ""
 
 msgid "{{public_body_name}} no longer exists. From the request page, try replying to a particular message, rather than sending a general followup. If you need to make a general followup, and know an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
