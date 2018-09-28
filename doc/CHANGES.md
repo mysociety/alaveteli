@@ -49,6 +49,7 @@
 * Improve password encryption by switching to bcrypt algorithm, existing
   password hashes will be upgraded when a user signs in (Graeme Porteous)
 * Restore translated attributes to Public Body admin view (Gareth Rees)
+* Updates the addresses of the OS base boxes in the Vagrantfile
 
 ## Upgrade Notes
 
@@ -86,6 +87,8 @@
   be set by assigning an Array of addresses to
   `ReplyToAddressValidator.invalid_reply_addresses` in `lib/model_patches.rb`.
   e.g: `ReplyToAddressValidator.invalid_reply_addresses = %w(a@example.com)`.
+* This release includes an update to the commonlib submodule - you
+  should be warned about this when running `rails-post-deploy`.
 
 ### Changed Templates
 
