@@ -344,6 +344,13 @@ describe TrackController do
     end
 
     it 'destroys the track thing' do
+      put :update, track_id: track_thing.id,
+                   track_medium: 'delete',
+                   r: 'http://example.com'
+      expect(TrackThing.find_by(id: track_thing.id)).to eq(nil)
+    end
+
+    it 'also responds to GET for backwards compatability' do
       get :update, track_id: track_thing.id,
                    track_medium: 'delete',
                    r: 'http://example.com'
@@ -351,14 +358,14 @@ describe TrackController do
     end
 
     it 'redirects to a URL on the site' do
-      get :update, track_id: track_thing.id,
+      put :update, track_id: track_thing.id,
                    track_medium: 'delete',
                    r: '/'
       expect(response).to redirect_to('/')
     end
 
     it 'does not redirect to a URL on another site' do
-      get :update, track_id: track_thing.id,
+      put :update, track_id: track_thing.id,
                    track_medium: 'delete',
                    r: 'http://example.com/'
       expect(response).to redirect_to('/')
