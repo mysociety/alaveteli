@@ -83,6 +83,18 @@ class OutgoingMessage < ActiveRecord::Base
               default_salutation(public_body))
   end
 
+  def self.with_body(body)
+    # TODO: can add other databases here which have regexp_replace
+    if ActiveRecord::Base.connection.adapter_name == 'PostgreSQL'
+      # Exclude whitespace from the body comparison using regexp_replace
+      where("regexp_replace(outgoing_messages.body, '[[:space:]]', '', 'g') =
+             regexp_replace(?, '[[:space:]]', '', 'g')", body)
+    else
+      # For other databases (e.g. SQLite) not the end of the world being space-sensitive for this check
+      where(body: body)
+    end
+  end
+
   def get_internal_review_insert_here_note
     _("GIVE DETAILS ABOUT YOUR COMPLAINT HERE")
   end
