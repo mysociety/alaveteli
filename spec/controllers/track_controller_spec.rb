@@ -370,6 +370,24 @@ describe TrackController do
                    r: 'http://example.com/'
       expect(response).to redirect_to('/')
     end
+
+    it 'raises an error with an invalid track_medium param' do
+      msg = 'new medium not handled invalid123'
+      expect {
+        put :update, track_id: track_thing.id,
+                     track_medium: 'invalid123',
+                     r: 'http://example.com/'
+      }.to raise_error(RuntimeError, msg)
+    end
+
+    it 'raises an error with no track_medium param' do
+      msg = 'No track_medium supplied'
+      expect {
+        put :update, track_id: track_thing.id,
+                     r: 'http://example.com/'
+      }.to raise_error(RuntimeError, msg)
+    end
+
   end
 
   describe 'POST #delete_all_type' do
