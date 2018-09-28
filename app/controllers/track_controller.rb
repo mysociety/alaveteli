@@ -211,7 +211,7 @@ class TrackController < ApplicationController
     else
       msg =
         if new_medium
-          "new medium not handled #{ new_medium }"
+          "Given track_medium not handled: #{ new_medium }"
         else
           'No track_medium supplied'
         end

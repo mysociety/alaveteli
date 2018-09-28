@@ -372,7 +372,7 @@ describe TrackController do
     end
 
     it 'raises an error with an invalid track_medium param' do
-      msg = 'new medium not handled invalid123'
+      msg = 'Given track_medium not handled: invalid123'
       expect {
         put :update, track_id: track_thing.id,
                      track_medium: 'invalid123',
