@@ -7,13 +7,14 @@
 # louisecrow <louise@mysociety.org>, 2017
 # Liz Conlan <liz@mysociety.org>, 2017
 # Mattias Axell <mattias@okfn.se>, 2018
+# Elle Lingh <elenor.lingh@hyperisland.se>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-18 02:19-0800\n"
 "PO-Revision-Date: 2017-01-20 17:40+0000\n"
-"Last-Translator: Mattias Axell <mattias@okfn.se>, 2018\n"
+"Last-Translator: Elle Lingh <elenor.lingh@hyperisland.se>, 2018\n"
 "Language-Team: Swedish (https://www.transifex.com/mysociety/teams/33529/sv/)\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -34,7 +35,7 @@ msgid "(no title)"
 msgstr "(ingen titel)"
 
 msgid "(with <b>{{discount_name}}</b> discount applied)"
-msgstr ""
+msgstr "(med<b>{{discount_name}}</b>har rabatt tillämpas)"
 
 msgid "+ Add"
 msgstr "+ Lägg till"
@@ -52,13 +53,13 @@ msgid "6 Months"
 msgstr "6 månader"
 
 msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
-msgstr ""
+msgstr "<strong> Kan jag begära information om mig själv?</strong> <a href=\"{{url}}\">Nej!</a>"
 
 msgid "<strong>Thank</strong> the public authority."
 msgstr "<strong>Tacka</strong> den offentliga myndigheten."
 
 msgid "<strong>{{brand}}</strong> ending in {{last4}}, expiry {{exp_month}}/{{exp_year}}"
-msgstr ""
+msgstr "<strong>{{brand}}</strong> slutar om {{last4}}, upphörande {{exp_month}} / {{exp_year}}"
 
 msgid "<strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 msgstr "<strong>{{filter_description}}</strong> sorterat efter <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">rensa</a>"
@@ -67,37 +68,37 @@ msgid "A <strong>summary</strong> of the response if you have received it by pos
 msgstr "En <strong>summering</strong> av svaret om du fått det med post."
 
 msgid "A monthly subscription"
-msgstr ""
+msgstr "En månatlig prenumeration"
 
 msgid "A one line summary of the information you are requesting, e.g."
 msgstr "Summering på en rad av den information du frågat efter, t ex."
 
 msgid "A permanent, searchable, public record of your request and the responses"
-msgstr ""
+msgstr "Ett permanent, sökbart och offentligt register över din förfrågan och svaren"
 
 msgid "A powerful private dashboard: track and manage your FOI projects"
-msgstr ""
+msgstr "En kraftfull privat panel: spåra och hantera dina FOI-projekt"
 
 msgid "A searchable archive of Freedom of Information requests"
-msgstr ""
+msgstr "En kraftfull privat panel: spåra och hantera dina FOI-projekt"
 
 msgid "A super-smart to-do list: follow the progress of your requests"
-msgstr ""
+msgstr "En smart to-do list: Följ utvecklingen av dina förfrågningar"
 
 msgid "About {{public_body_name}}"
-msgstr ""
+msgstr "Om {{public_body_name}}"
 
 msgid "Account"
-msgstr ""
+msgstr "Konto"
 
 msgid "Action alerts: know when it’s time to take the next step"
-msgstr ""
+msgstr "Åtgärdsvarningar: vet när det är dags att ta nästa steg"
 
 msgid "Activity"
 msgstr "Aktivitet"
 
 msgid "Add Payment Card"
-msgstr ""
+msgstr "Lägg till betalkort"
 
 msgid "Add an annotation"
 msgstr "Lägg till en anteckning"
@@ -115,19 +116,19 @@ msgid "All requests"
 msgstr "Alla förfrågningar"
 
 msgid "All requests within this batch will remain private for the same duration. When an individual request is made public all other requests in this batch will also be published on {{site_name}}."
-msgstr ""
+msgstr "Alla förfrågningar gjorda inom denna serieförfrågan kommer förbli privata under samma längd. När en individuell begäran offentliggörs kommer alla andra i serieförfrågan också publiceras på {{site_name}}."
 
 msgid "Also called {{other_name}}."
 msgstr "Även kallad {{other_name}}"
 
 msgid "An all-in-one FOI toolkit for journalists, activists and campaigners"
-msgstr ""
+msgstr "En allt-i-ett FOI-verktyg för journalister, aktivister och förespråkare"
 
 msgid "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
 msgstr "Anteckningar tillåter dig att lägga till extra anteckningar på en begäran, vilka eventuellt kommer offentliggöras. Till exempel:"
 
 msgid "Are you interested in free training, seminars and workshops about {{site_name}}?"
-msgstr ""
+msgstr "Är du intresserad av gratis träning, seminarier och workshops om {{site_name}}?"
 
 msgid "Are you sure the information you’re after isn’t available elsewhere?"
 msgstr "Är du säker på att informationen du söker efter inte är tillgänglig någon annanstans?"
@@ -136,43 +137,43 @@ msgid "Are you sure you want to publish this request?"
 msgstr "Är du säker på att du vill publicera denna begäran?"
 
 msgid "Are you sure?"
-msgstr ""
+msgstr "Är du säker?"
 
 msgid "Batch request"
 msgstr "Massförfrågan"
 
 msgid "Batch requests allow multiple recipients of a single request"
-msgstr ""
+msgstr "Massförfrågningar tillåter flera mottagare av en enda förfrågan"
 
 msgid "Batch requests are part of a new workflow"
-msgstr ""
+msgstr "Massförfrågningar är en del av ett nytt arbetsflöde"
 
 msgid "Billed: Annually"
-msgstr ""
+msgstr "Betalning: Årligen"
 
 msgid "Billed: Daily"
-msgstr ""
+msgstr "Betalning: Dagligen"
 
 msgid "Billed: Monthly"
-msgstr ""
+msgstr "Betalning: Månatlig"
 
 msgid "Billed: Weekly"
-msgstr ""
+msgstr "Betalning: Veckovis"
 
 msgid "Billing"
-msgstr ""
+msgstr "Betalning"
 
 msgid "Browse public requests"
 msgstr "Bläddra bland offentliga förfrågningar"
 
 msgid "Cancel"
-msgstr ""
+msgstr "Avbryt"
 
 msgid "Cancel subscription"
-msgstr ""
+msgstr "Avbryt prenumerationen "
 
 msgid "Cancel your subscription"
-msgstr ""
+msgstr "Avbryt din prenumeration"
 
 msgid "Change privacy"
 msgstr "Ändra sekretessinställningar"
@@ -190,34 +191,34 @@ msgid "Choose a duration"
 msgstr "Välj en varaktighet"
 
 msgid "Contact us"
-msgstr ""
+msgstr "Kontakta oss"
 
 msgid "Continuing with checkout requires your browser to have JavaScript enabled."
-msgstr ""
+msgstr "För att fortsätta i kassan krävs det att din webbläsare har JavaScript aktiverat."
 
 msgid "Coupon code has expired."
-msgstr ""
+msgstr "Rabattkoden har löpt ut."
 
 msgid "Coupon code is invalid."
-msgstr ""
+msgstr "Rabattkoden är ogiltig."
 
 msgid "Created"
 msgstr "Skapad"
 
 msgid "Daily summary emails to keep your inbox clean"
-msgstr ""
+msgstr "Dagliga sammanfattande mejl för att hålla din inkorg ren"
 
 msgid "Dashboard"
 msgstr "Panel"
 
 msgid "Delivery verification for proof of receipt"
-msgstr ""
+msgstr "Leveransbekräftelse för kvitto på mottagande"
 
 msgid "Details"
-msgstr ""
+msgstr "Detaljer"
 
 msgid "Do you have a coupon code?"
-msgstr ""
+msgstr "Har du en rabattkod?"
 
 msgid "Download a zip file of all correspondence"
 msgstr "Ladda ned en zip-fil av all korrespondens"
@@ -232,16 +233,16 @@ msgid "Edit your request"
 msgstr "Redigera din begäran"
 
 msgid "Email address"
-msgstr ""
+msgstr "E-postadress"
 
 msgid "Email doesn't look like a valid address"
 msgstr "E-postadressen ser inte ut att vara en giltig adress"
 
 msgid "Everything you need to keep on top of complex FOI-driven stories."
-msgstr ""
+msgstr "Allt du behöver för att hålla dig uppdaterad om komplexa FOI-drivna projekt"
 
 msgid "Expires soon"
-msgstr ""
+msgstr "Förfaller snart"
 
 msgid "First created"
 msgstr "Först skapad"
@@ -253,16 +254,16 @@ msgid "From this screen you can see what you need to do next to keep your reques
 msgstr "Av den skärmbilden ser du vad du behöver göra härnäst för att dina förfrågningar skall bearbetas vidare. Varför inte starta en ny förfrågan redan nu?"
 
 msgid "Get access to the beta"
-msgstr ""
+msgstr "Få tillgång till beta"
 
 msgid "Get email updates about {{site_name}}?"
-msgstr ""
+msgstr "Få e-postuppdateringar om {{site_name}}?"
 
 msgid "Get pre-launch access"
-msgstr ""
+msgstr "Få förlansering åtkomst"
 
 msgid "Get regular updates as the responses come in — without overwhelming your inbox"
-msgstr ""
+msgstr "Få regelbundna uppdateringar när svaren kommer in - utan att översvämma din inkorg"
 
 msgid "Get started with your first request"
 msgstr "Kom igång med din första begäran"
@@ -271,19 +272,19 @@ msgid "Help"
 msgstr "Hjälp"
 
 msgid "I have read and accepted these terms and conditions"
-msgstr ""
+msgstr "Jag har läst och godkänt dessa villkor"
 
 msgid "I understand and still want to cancel"
-msgstr ""
+msgstr "Jag förstår och vill fortfarande avbryta"
 
 msgid "If you have an <strong>offer code</strong>, please enter it here:"
-msgstr ""
+msgstr "Om du har en <strong>rabattkod</strong>, vänligen ange den här:"
 
 msgid "Keep private for a further:"
 msgstr "Håll den privat för en vidare:"
 
 msgid "Keep requests and responses private while you work on your story"
-msgstr ""
+msgstr "Håll förfrågningar och svar privata medan du arbetar på ditt projekt"
 
 msgid "Last updated"
 msgstr "Senast uppdaterad"
@@ -295,37 +296,37 @@ msgid "Make a request"
 msgstr "Gör en begäran"
 
 msgid "Make a request to multiple authorities: select authorities at the click of a button"
-msgstr ""
+msgstr "Gör en förfrågan till flera myndigheter: välj myndigheter med ett knapptryck"
 
 msgid "Make an {{law_used_short}} request"
 msgstr "Gör en begäran enligt {{law_used_short}}"
 
 msgid "Manage large volumes of responses:  easily keep track of the status of each request"
-msgstr ""
+msgstr "Hantera stora volymer av svar: håll enkelt reda på statusen för varje förfrågan"
 
 msgid "More information"
-msgstr ""
+msgstr "Mer information"
 
 msgid "My profile"
 msgstr "Min profil"
 
 msgid "My subscription"
-msgstr ""
+msgstr "Min prenumeration"
 
 msgid "My wall"
 msgstr "Mitt flöde"
 
 msgid "Next payment"
-msgstr ""
+msgstr "Nästa betalning"
 
 msgid "No"
-msgstr ""
+msgstr "Nej"
 
 msgid "No bodies selected"
 msgstr "Inga valda myndigheter"
 
 msgid "No results found"
-msgstr ""
+msgstr "Hittade inga resultat"
 
 msgid "No title"
 msgstr "Ingen titel"
@@ -337,22 +338,22 @@ msgid "Note: When this request is made public on {{site_name}}, your name and an
 msgstr "Observera: När denna begäran är gjord offentlig på {{site_name}} kommer ditt namn och anteckningar att dyka upp i <strong>sökmotorer</strong>."
 
 msgid "Now in beta"
-msgstr ""
+msgstr "Nu i beta"
 
 msgid "Once the privacy period ends, everything that you enter on this page, including <strong>your name</strong>, will be <strong><a href=\"{{url}}\">displayed publicly</a></strong> on this website."
-msgstr ""
+msgstr "När sekretessperioden avslutas, allt som du anger på denna sida, inklusive<strong> ditt namn</strong>, kommer att <strong><a href=\"{{url}}\">visas offentligt </a></strong>på denna hemsida"
 
 msgid "Once you’re happy with your request, click preview and send."
 msgstr "När du är nöjd med din förfrågan, klicka på förhandsgranska och sänd."
 
 msgid "Pay with card"
-msgstr ""
+msgstr "Betala med kort"
 
 msgid "Pending"
 msgstr "Pågående..."
 
 msgid "Plans and pricing"
-msgstr ""
+msgstr "Planer och prissättning"
 
 msgid "Please enter the reason why you want access"
 msgstr "Vänligen ange anledningen till varför du vill ha tillgång"
@@ -361,7 +362,7 @@ msgid "Please enter your email address"
 msgstr "Vänligen ange din e-postadress"
 
 msgid "Please include links to some examples of your journalism or blogging if you can."
-msgstr ""
+msgstr "Vänligen inkludera några exempel på din journalistik eller blogginlägg om du kan."
 
 msgid "Please tell us if you want to get updates"
 msgstr "Vänligen berätta om du vill ha uppdateringar"
@@ -391,10 +392,10 @@ msgid "Private until {{date}}"
 msgstr "Privat till och med {{date}}"
 
 msgid "Pro brings a new dashboard view"
-msgstr ""
+msgstr "Pro introducerar en ny dashboard-vy"
 
 msgid "Pro features a new request list view"
-msgstr ""
+msgstr "Pro innehåller en ny listvy för förfrågningar"
 
 msgid "Provide extra context on the request and your reasons for making it."
 msgstr "Motivera din förfrågan med extra bakgrund och skäl varför du gör den."
@@ -423,7 +424,7 @@ msgid "Remember, public authorities have {{late_number_of_days}} working days to
 msgstr "Kom ihåg att myndigheten har {{late_number_of_days}} arbetsdagar på sig att besvara en FOI förfrågan."
 
 msgid "Replies"
-msgstr ""
+msgstr "Svar"
 
 msgid "Request an internal review"
 msgstr "Fråga efter en intern granskning"
@@ -458,7 +459,7 @@ msgid "Response due"
 msgstr "Inväntar svar"
 
 msgid "Save as draft to get back to it later"
-msgstr ""
+msgstr "Spara som utkast för att komma tillbaka till det senare"
 
 msgid "Save draft"
 msgstr "Spara utkast"
@@ -510,7 +511,7 @@ msgid "Sent"
 msgstr "Skickat"
 
 msgid "Settings"
-msgstr ""
+msgstr "Inställningar"
 
 msgid "Show {{count}} request in detail</span>"
 msgid_plural "Show {{count}} requests in detail</span>"
@@ -518,7 +519,7 @@ msgstr[0] "Visa {{count}} begäran i detalj</span>"
 msgstr[1] "Visa {{count}} förfrågningar i detalj</span>"
 
 msgid "Sign up"
-msgstr ""
+msgstr "Registrera dig"
 
 msgid "Sorry, no authorities matched that search"
 msgstr "Tyvärr, ingen myndighet matchade den sökningen"
@@ -560,16 +561,16 @@ msgid "Submit Search"
 msgstr "Gör sökning"
 
 msgid "Subscription began"
-msgstr ""
+msgstr "Prenumerationen började"
 
 msgid "Subscription cancellations are applied at the end of the current billing period (<strong>{{date}}</strong>)."
-msgstr ""
+msgstr "Prenumerations uppsägningen tillämpas vid slutet av den aktuella betalningsperioden (<strong>{{date}}</strong>)."
 
 msgid "Subscription ends"
-msgstr ""
+msgstr "Prenumerationen slutar"
 
 msgid "Successful applicants will receive free early access to {{site_name}} for 6 months."
-msgstr ""
+msgstr "Framgångsrika ansökande kommer få tidig tillgång till {{site_name}} i 6 månader."
 
 msgid "Thanks for logging in. We've saved your request as a draft, in case you wanted to add an embargo before sending it. You can set that (or just send it straight away) using the form below."
 msgstr "Tack för att du loggar in. Vi har sparat din begäran som ett utkast ifall du skulle vilja lägga till ett embargo innan du skickar den. Du kan sätta det (eller bara skicka iväg det direkt) genom att använda formuläret nedanför."
@@ -586,19 +587,19 @@ msgid "Then you can access {{pro_site_name}}"
 msgstr "Sen kan du tillgå {{pro_site_name}}"
 
 msgid "Then you can update your payment details"
-msgstr ""
+msgstr "Sedan kan du uppdatera dina betalningsuppgifter"
 
 msgid "Then you can upgrade your account"
-msgstr ""
+msgstr "Sedan kan du uppgradera ditt konto"
 
 msgid "There was a problem cancelling your account. Please try again later."
-msgstr ""
+msgstr "Det uppstod ett problem med att avbryta ditt konto. Vänligen försök igen senare."
 
 msgid "There was a problem submitting your payment. You have not been charged. Please try again later."
-msgstr ""
+msgstr "Din betalning gick inte igenom. Du har inte debiterats. Vänligen försök igen senare."
 
 msgid "There was a problem updating your payment details. Please try again later."
-msgstr ""
+msgstr "Det gick inte att uppdatera dina betalningsuppgifter. Vänligen försök igen senare."
 
 msgid "There's nothing to do right now. Great job!"
 msgstr "Det finns ingenting att göra just nu. Bra jobbat!"
@@ -634,10 +635,10 @@ msgid "To access {{pro_site_name}}"
 msgstr "För att få tillgång till {{pro_site_name}}"
 
 msgid "To update your payment details"
-msgstr ""
+msgstr "För att uppdatera dina betalningsuppgifter"
 
 msgid "To upgrade your account"
-msgstr ""
+msgstr "För att uppgradera ditt konto"
 
 msgid "Unless you choose a privacy option, requests in this batch will be public on {{site_name}} immediately."
 msgstr "Såvida du inte väljer ett sekretessalternativ kommer förfrågningar i denna serie att omedelbart bli offentliga på {{site_name}}."
@@ -646,13 +647,13 @@ msgid "Unless you choose a privacy option, your request will be public on {{site
 msgstr "Såvida du inte väljer ett eget alternativ, kommer din förfrågan att bli tillgänglig på {{site_name}} omgående."
 
 msgid "Up-to-date database of contact details for 20,000 authorities"
-msgstr ""
+msgstr "Uppdaterad databas med kontaktuppgifter till 20 000 myndigheter"
 
 msgid "Update"
 msgstr "Uppdatera"
 
 msgid "Update Card Details"
-msgstr ""
+msgstr "Uppdatera kortdetaljer"
 
 msgid "Update its status."
 msgid_plural "Update statuses."
@@ -663,10 +664,10 @@ msgid "Updated"
 msgstr "Uppdaterad"
 
 msgid "Updating your payment card requires your browser to have JavaScript enabled."
-msgstr ""
+msgstr "För att uppdatera ditt betalkort krävs det att din webbläsare har JavaScript aktiverat."
 
 msgid "Upgrade account"
-msgstr ""
+msgstr "Uppgradera konto"
 
 msgid "View"
 msgstr "Se"
@@ -675,10 +676,10 @@ msgid "View authorities"
 msgstr "Se myndigheter"
 
 msgid "Wall"
-msgstr ""
+msgstr "Vägg"
 
 msgid "We are processing your payment. You can access your subscription settings and account information from the \"My subscription\" link in your user menu (accessed from the dropdown next to your name, above)."
-msgstr ""
+msgstr "Vi behandlar din betalning. Du kan komma åt dina prenumerationsinställningar och kontoinformation från \"Min prenumeration\" i din användarmeny (nås från menyn bredvid ditt namn ovan)."
 
 msgid "We will remind you by email and on the site when the request is going be made public, and you'll have the option to keep it private for longer if you want to. You can extend this time indefinitely, or make the request public at any time."
 msgstr "Vi kommer att påminna dig när förfrågan kommer att publiceras och du kommer att ha möjligheten att behålla den privat. Du utöka  detta på obestämd tid eller publicera den när som helst."
@@ -687,16 +688,16 @@ msgid "When a request is private we guarantee that it will only be visible on {{
 msgstr "När en förfrågan är privat garanterar vi att den kan enbart ses på {{site_name}} under den tid du valt. {{pro_site_name}} administratörer kommer att kunna se din förfrågan men bara vid de tillfällen när de tillfällen behöver åtgärda något problem med t ex (e.g. failed delivery to the authority). De kommer ej att avslöja innehållet i din förfrågan eller något svar som du fått till någon annan. Myndigheten kommer dock att publicera den i förteckning som vanligt."
 
 msgid "When the current billing period ends:"
-msgstr ""
+msgstr "När den aktuella betalningsperioden slutar:"
 
 msgid "When you cancel your account:"
-msgstr ""
+msgstr "När du avbryter ditt konto:"
 
 msgid "When your request is made public on {{site_name}}, any annotations you add will also be public. However, they are <strong>not</strong> sent to {{public_body_name}}."
 msgstr "När din begäran offentliggörs på {{site_name}}, kommer alla anteckningar du lägger till också att offentliggöras. Däremot är dem <strong>inte</strong> skickade till {{public_body_name}}."
 
 msgid "Why do you want access?"
-msgstr ""
+msgstr "Varför vill du ha åtkomst?"
 
 msgid "Write a reply"
 msgstr "Skriv ett svar"
@@ -705,22 +706,22 @@ msgid "Write request"
 msgstr "Skriv begäran"
 
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 msgid "You added a new annotation on your request to {{public_body_name}} \"{{info_request_title}}.\""
 msgstr "Du lade till en ny kommentar på din förfrågan till {{public_body_name}} \"{{info_request_title}}.\""
 
 msgid "You are already subscribed to this plan"
-msgstr ""
+msgstr "Du prenumererar redan på den här planen"
 
 msgid "You can re-subscribe at any time and full access to these features will be restored."
-msgstr ""
+msgstr "Du kan prenumerera när som helst och åtkomsten till dessa funktioner kommer då att återställas."
 
 msgid "You don't currently have an active Pro subscription"
-msgstr ""
+msgstr "Du har för närvarande inte ett aktivt Pro-prenumeration"
 
 msgid "You have successfully cancelled your subscription to {{pro_site_name}}"
-msgstr ""
+msgstr "Du har avslutat din prenumeration på {{pro_site_name}}"
 
 msgid "You haven't added any authorities to your batch yet"
 msgstr "Du har inte uppgivit några myndigheter till dina förfrågningar"
@@ -729,7 +730,7 @@ msgid "You know what caused the error, and can <strong>suggest a solution</stron
 msgstr "Du vet vad som orsakade felet och kan <strong> föreslå en lösning</strong>, såsom en giltig e-postadress."
 
 msgid "You must accept the terms and conditions"
-msgstr ""
+msgstr "Du måste godkänna villkoren"
 
 msgid "You sent a clarification to {{public_body_name}} for \"{{info_request_title}}\"."
 msgstr "Du sände en förklaring till {{public_body_name}} för \"{{info_request_title}}\"."
@@ -744,16 +745,16 @@ msgid "You sent an internal review request to {{public_body_name}} for \"{{info_
 msgstr "Du sände en intern revisionsförfrågan till {{public_body_name}} för \"{{info_request_title}}\"."
 
 msgid "You will be able to extend this privacy period from {{embargo_extend_from}}."
-msgstr ""
+msgstr "Du kommer att kunna förlänga denna sekretessperiod från {{embargo_extend_from}}."
 
 msgid "You will still be able to see any requests which are currently private, but you won't be able to make new private requests or extend privacy durations. These requests will be published when the current privacy period ends."
-msgstr ""
+msgstr "Du kommer fortfarande att kunna se eventuella förfrågningar som för närvarande är privata, men du kommer inte att kunna göra nya privata förfrågningar eller förlänga sekretessens varaktighet. Dessa förfrågningar kommer att publiceras när den aktuella sekretessperioden slutar."
 
 msgid "You won't be able to access {{pro_site_name}} tools, including the dashboard and pro request management."
-msgstr ""
+msgstr "Du kommer inte att kunna komma åt {{pro_site_name}} verktyg, inklusive panelen och Pro-förfråganhantering."
 
 msgid "You'll lose access to any requests you still have in draft."
-msgstr ""
+msgstr "Du kommer att förlora åtkomsten till eventuella förfrågningar som du fortfarande har som utkast."
 
 msgid "Your Batch Request has been saved!"
 msgstr "Din massbegäran har sparats!"
@@ -762,7 +763,7 @@ msgid "Your clarification to {{public_body_name}} for \"{{info_request_title}}\"
 msgstr "Ditt förtydligande till {{public_body_name}} för \"{{info_request_title}}\" skickades om."
 
 msgid "Your current subscription"
-msgstr ""
+msgstr "Din nuvarande prenumeration"
 
 msgid "Your dashboard"
 msgstr "Din panel"
@@ -780,7 +781,7 @@ msgid "Your message will be displayed publicly on this website once you publish 
 msgstr "Ditt meddelande kommer att visas offentligt på denna hemsida när du publicerar din begäran."
 
 msgid "Your payment details"
-msgstr ""
+msgstr "Dina betalningsuppgifter"
 
 msgid "Your request"
 msgstr "Din begäran"
@@ -810,7 +811,7 @@ msgid "Your requests will now be private on {{site_name}} until {{expiry_date}}.
 msgstr "Dina förfrågningar kommer nu vara hemliga på {{site_name}} fram tills {{expiry_date}}."
 
 msgid "Your subscription has been cancelled, your access to {{pro_site_name}} will end on <strong>{{date}}</strong>."
-msgstr ""
+msgstr "Din prenumeration har avslutats, din tillgång till {{pro_site_name}} kommer att avslutas den {{date}}."
 
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr "Dina synpunkter vad {{site_name}} <strong>administratörerna</strong>  skall göra med förfrågan."
@@ -884,13 +885,13 @@ msgid "{{count}} {{phase}}"
 msgstr "{{count}} {{phase}}"
 
 msgid "{{date}}"
-msgstr ""
+msgstr "{{date}}"
 
 msgid "{{length_of_time}} ago"
 msgstr "{{length_of_time}} sen"
 
 msgid "{{pro_site_name}} is a powerful, fully-featured FOI toolkit for journalists"
-msgstr ""
+msgstr "{{pro_site_name}} är ett kraftfullt, fullt utrustad FOI-verktyg för journalister"
 
 msgid "{{public_body_name}} are delayed in responding to your request \"{{info_request_title}}\"."
 msgstr "{{public_body_name}} är försenad med att svara till din begäran \"{{info_request_title}}\"."

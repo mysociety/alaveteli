@@ -6,13 +6,14 @@
 # Translators:
 # louisecrow <louise@mysociety.org>, 2017
 # Liz Conlan <liz@mysociety.org>, 2017
+# Páll Hilmarsson <pallih@kaninka.net>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-18 02:19-0800\n"
 "PO-Revision-Date: 2017-01-20 17:40+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>, 2017\n"
+"Last-Translator: Páll Hilmarsson <pallih@kaninka.net>, 2018\n"
 "Language-Team: Icelandic (Iceland) (https://www.transifex.com/mysociety/teams/33529/is_IS/)\n"
 "Language: is_IS\n"
 "MIME-Version: 1.0\n"
@@ -222,19 +223,19 @@ msgid "Download a zip file of all correspondence"
 msgstr ""
 
 msgid "Draft"
-msgstr ""
+msgstr "Drög"
 
 msgid "Drafts"
-msgstr ""
+msgstr "Drög"
 
 msgid "Edit your request"
 msgstr ""
 
 msgid "Email address"
-msgstr ""
+msgstr "Netfang"
 
 msgid "Email doesn't look like a valid address"
-msgstr ""
+msgstr "Netfangið lítur ekki út fyrir að vera gilt"
 
 msgid "Everything you need to keep on top of complex FOI-driven stories."
 msgstr ""
