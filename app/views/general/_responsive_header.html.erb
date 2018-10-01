@@ -14,7 +14,9 @@
       </div>
 
       <%= render :partial => 'general/locale_switcher' %>
-
+      <% if ! (controller.action_name == 'signin' or controller.action_name == 'signup' or controller.action_name == 'login') %>
+        <%= render partial: 'general/log_in_bar' %>
+      <% end %>
       <div id="navigation_search" class="navigation_search">
         <form id="navigation_search_form" class="navigation_search_form" method="get" action="<%= search_redirect_path %>" role="search">
           <label class="visually-hidden" for="navigation_search_button">

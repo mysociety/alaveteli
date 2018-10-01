@@ -6,8 +6,5 @@
     <% else %>
       <%= render :partial => 'general/nav_items' %>
     <% end %>
-    <% if ! (controller.action_name == 'signin' or controller.action_name == 'signup' or controller.action_name == 'login') %>
-      <%= render partial: 'general/log_in_bar' %>
-    <% end %>
   </ul>
 </div>
