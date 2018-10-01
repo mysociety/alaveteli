@@ -1,7 +1,10 @@
-# develop
+# 0.32.0.0
 
 ## Highlighted Features
 
+* Move the user menu and sign up/sign in links from the navigation bar to the
+  header to allow space for longer navigation link translations (Martin Wright)
+* Better duplicate request detection (Graeme Porteous)
 * Strip leading and trailing whitespace when searching for users in the admin
   interface (Gareth Rees)
 * Fall back to the theme's standard opengraph logo rather than the example pro
@@ -15,7 +18,6 @@
 * Make the pro sidebar sticky (Martin Wright)
 * Improvements to the pro sidebar to make it easier for a pro user to see when
   a private request will be published from the request page (Martin Wright)
-* Destroy embargoes when the related info request is destroyed (Gareth Rees)
 * Parse and display incoming email headers in the admin interface (Gareth Rees)
 * Don't update the Atom feed timestamp if there are no events (Graeme Porteous)
 * Fix padding around delivery status and hidden message containers (Martin
@@ -34,7 +36,7 @@
 * Add Google Analytics events for clicks for "Related requests" links (Zarino
   Zappia)
 * Add support for the `foi_no` tag for authorities so that new requests can
-  still be made while making it clearer that the are not obliged by law to
+  still be made while making it clearer that they are not obliged by law to
   respond (Liz Conlan)
 * Add tooltip prompts and an "Are you sure?" dialogue on save to the admin
   interface when marking a request as "vexatious" or "not_foi" without hiding it
@@ -65,6 +67,9 @@
   `InfoRequest.stop_new_responses_on_old_requests` (Gareth Rees)
 * Show that a request is part of a batch on the request page in the admin
   interface (Gareth Rees)
+* Improve batch sending - better checks for whether a batch has finished
+  sending, allows batch sending to be resumed if it exits before completion
+  (Graeme Porteous)
 * Add "Rejected incoming count" do the request page in the admin interface
   (Gareth Rees)
 * Highlight non-default states of "Allow new responses from" in the admin
@@ -153,6 +158,7 @@
     app/views/alaveteli_pro/general/_nav_items.html.erb
     app/views/alaveteli_pro/info_request_batches/_embargo_form.html.erb
     app/views/alaveteli_pro/info_request_batches/_embargo_info.html.erb
+    app/views/alaveteli_pro/info_request_batches/_info_request_batch.html.erb
     app/views/alaveteli_pro/info_request_batches/_message_preview.html.erb
     app/views/alaveteli_pro/info_requests/_after_actions.html.erb
     app/views/alaveteli_pro/info_requests/_embargo_extension_form.html.erb
@@ -170,6 +176,7 @@
     app/views/general/_log_in_bar.html.erb
     app/views/general/_opengraph_tags.html.erb
     app/views/general/_popup_banner.html.erb
+    app/views/general/_responsive_header.html.erb
     app/views/general/_responsive_stylesheets.html.erb
     app/views/general/_responsive_topnav.html.erb
     app/views/info_request_batch/show.html.erb
@@ -177,6 +184,7 @@
     app/views/layouts/default.html.erb
     app/views/notification_mailer/info_requests/messages/_very_overdue.text.erb
     app/views/notification_mailer/very_overdue_notification.text.erb
+    app/views/public_body/show.html.erb
     app/views/reports/new.html.erb
     app/views/request/_after_actions.html.erb
     app/views/request/_incoming_correspondence.html.erb
