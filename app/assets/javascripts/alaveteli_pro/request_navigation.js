@@ -48,9 +48,11 @@
             } else if(currentCorrespondenceIndex + 1 >= correspondenceIds.length) {
                 //disable next
                 $nextButton.attr('disabled', 'disabled');
+                $prevButton.removeAttr('disabled');
             } else if (currentCorrespondenceIndex <= 0) {
                 //disable prev
                 $prevButton.attr('disabled', 'disabled');
+                $nextButton.removeAttr('disabled');
             } else {
                 $nextButton.removeAttr('disabled');
                 $prevButton.removeAttr('disabled');

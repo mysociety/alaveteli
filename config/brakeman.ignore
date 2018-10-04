@@ -21,26 +21,6 @@
       "note": "InfoRequest.download_zip_dir does not contain user input"
     },
     {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
-      "fingerprint": "2391062d9eda06f5597e4cffece62bb89d977adc2a44601b415bcdd679dcc282",
-      "check_name": "SQL",
-      "message": "Possible SQL injection",
-      "file": "app/models/public_body.rb",
-      "line": 280,
-      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "count_by_sql(\"SELECT COUNT(*)\\n                  #{blank_contact_sql_clause}\")",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "PublicBody",
-        "method": "PublicBody.blank_contact_count"
-      },
-      "user_input": "blank_contact_sql_clause",
-      "confidence": "Medium",
-      "note": "blank_contact_sql_clause does not contain user input"
-    },
-    {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
       "fingerprint": "35494e7819a95f0e75a986411c705073e37f76700de7e94f6e4882d1fd8c35a0",
@@ -59,26 +39,6 @@
       "user_input": "params[:id]",
       "confidence": "Medium",
       "note": "Can only redirect to an existing template"
-    },
-    {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
-      "fingerprint": "51068f91ee29cebedba9c55039b70805725520c9311b821c7c26503db1e880fd",
-      "check_name": "SQL",
-      "message": "Possible SQL injection",
-      "file": "app/models/public_body.rb",
-      "line": 285,
-      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "find_by_sql(\"SELECT public_bodies.id\\n                       #{blank_contact_sql_clause}\\n                       LIMIT #{limit}\")",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "PublicBody",
-        "method": "PublicBody.blank_contacts"
-      },
-      "user_input": "blank_contact_sql_clause",
-      "confidence": "Medium",
-      "note": "blank_contact_sql_clause does not contain user input"
     },
     {
       "warning_type": "File Access",

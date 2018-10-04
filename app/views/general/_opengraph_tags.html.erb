@@ -1,7 +1,11 @@
 <%
   if @in_pro_area
     _site_name = pro_site_name
-    opengraph_logo = 'logo-opengraph-pro.png'
+    opengraph_logo = if theme_asset_exists?('images/logo-opengraph-pro.png')
+      'logo-opengraph-pro.png'
+    else
+      'logo-opengraph.png'
+    end
     default_title = _('A powerful, fully-featured FOI toolkit for journalists')
   else
     _site_name = site_name

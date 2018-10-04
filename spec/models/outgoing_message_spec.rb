@@ -32,6 +32,40 @@ describe OutgoingMessage do
 
   end
 
+  describe '.with_body' do
+
+    let(:message) { FactoryBot.create(:initial_request, body: "foo\r\nbar") }
+
+    it 'should return message if body matches exactly' do
+      expect(OutgoingMessage.with_body("foo\r\nbar")).to include(message)
+    end
+
+    context 'when using PostgreSQL database' do
+
+      before do
+        if ActiveRecord::Base.connection.adapter_name != 'PostgreSQL'
+          skip 'These tests only work for PostgreSQL'
+        end
+      end
+
+      it 'should match message body when whitespace is ignored' do
+        expect(OutgoingMessage.with_body('foobar')).to include(message)
+        expect(OutgoingMessage.with_body('foo bar')).to include(message)
+        expect(OutgoingMessage.with_body("foo\nbar")).to include(message)
+      end
+
+      it 'should match whole message body' do
+        expect(OutgoingMessage.with_body('foo')).to_not include(message)
+        expect(OutgoingMessage.with_body('foobarbaz')).to_not include(message)
+        expect(OutgoingMessage.with_body('foo bar baz')).to_not include(message)
+        expect(OutgoingMessage.with_body("foo\nbar\nbaz")).to_not include(message)
+        expect(OutgoingMessage.with_body("foo\r\nbar\r\nbaz")).to_not include(message)
+      end
+
+    end
+
+  end
+
   describe '#initialize' do
 
     it 'does not censor the #body' do

@@ -140,6 +140,44 @@ describe PublicBody do
 
   end
 
+  describe '.without_tag' do
+
+    it 'should not return authorities with key/value categories' do
+      public_bodies(:humpadink_public_body).tag_string = 'eats_cheese:stilton'
+
+      pbs = PublicBody.without_tag('eats_cheese')
+      expect(pbs).to_not include(public_bodies(:humpadink_public_body))
+
+      pbs = PublicBody.without_tag('eats_cheese:stilton')
+      expect(pbs).to_not include(public_bodies(:humpadink_public_body))
+
+      pbs = PublicBody.without_tag('eats_cheese:jarlsberg')
+      expect(pbs).to include(public_bodies(:humpadink_public_body))
+    end
+
+    it 'should not return authorities with categories' do
+      public_bodies(:humpadink_public_body).tag_string = 'mycategory'
+
+      pbs = PublicBody.without_tag('mycategory')
+      expect(pbs).to_not include(public_bodies(:humpadink_public_body))
+
+      pbs = PublicBody.without_tag('myothercategory')
+      expect(pbs).to include(public_bodies(:humpadink_public_body))
+    end
+
+    it 'should be chainable to exclude more than one tag' do
+      public_bodies(:geraldine_public_body).tag_string = 'council'
+      public_bodies(:humpadink_public_body).tag_string = 'defunct'
+      public_bodies(:forlorn_public_body).tag_string = 'not_apply'
+
+      pbs = PublicBody.without_tag('defunct').without_tag('not_apply')
+      expect(pbs).to include(public_bodies(:geraldine_public_body))
+      expect(pbs).to_not include(public_bodies(:humpadink_public_body))
+      expect(pbs).to_not include(public_bodies(:forlorn_public_body))
+    end
+
+  end
+
   describe '.with_query' do
 
     it 'should return authorities starting with a multibyte first letter' do
@@ -825,32 +863,25 @@ describe PublicBody do
 
   end
 
-  describe '.blank_contact_count' do
-    let(:public_body){ FactoryBot.create(:public_body) }
-    let(:blank_contact){ FactoryBot.create(:blank_email_public_body) }
-    let(:defunct_body) do
-      FactoryBot.create(:defunct_public_body,
-                        :request_email => '')
-    end
+  describe '.without_request_email' do
+    subject { PublicBody.without_request_email }
 
-    before do
-      InfoRequest.destroy_all
-      PublicBody.destroy_all
+    let!(:public_body) { FactoryBot.create(:public_body) }
+    let!(:blank_body) { FactoryBot.create(:blank_email_public_body) }
+    let!(:defunct_body) do
+      FactoryBot.create(:defunct_public_body, request_email: '')
     end
 
     it 'does not include bodies with a request email' do
-      public_body
-      expect(PublicBody.blank_contact_count).to eq 0
+      is_expected.to_not include(public_body)
     end
 
     it 'includes bodies with an empty request email' do
-      blank_contact
-      expect(PublicBody.blank_contact_count).to eq 1
+      is_expected.to include(blank_body)
     end
 
     it 'does not include defunct bodies' do
-      defunct_body
-      expect(PublicBody.blank_contact_count).to eq 0
+      is_expected.to_not include(defunct_body)
     end
 
     it 'includes bodies with a translation that has an empty request email' do
@@ -858,41 +889,23 @@ describe PublicBody do
         public_body.request_email = ''
         public_body.save
       end
-      expect(PublicBody.blank_contact_count).to eq 1
+      is_expected.to include(blank_body)
     end
 
   end
 
-  describe '.blank_contacts' do
-    let!(:public_body){ FactoryBot.create(:public_body) }
-    let!(:blank_contact){ FactoryBot.create(:blank_email_public_body) }
-    let!(:defunct_body) do
-      FactoryBot.create(:defunct_public_body,
-                        :request_email => '')
+  describe '.with_request_email' do
+    subject { PublicBody.with_request_email }
+
+    let!(:public_body) { FactoryBot.create(:public_body) }
+    let!(:blank_body) { FactoryBot.create(:blank_email_public_body) }
+
+    it 'include bodies with a request email' do
+      is_expected.to include(public_body)
     end
 
-    it 'does not include bodies with a request email' do
-      expect(PublicBody.blank_contacts.include?(public_body))
-        .to be false
-    end
-
-    it 'includes bodies with an empty request email' do
-      expect(PublicBody.blank_contacts.include?(blank_contact))
-        .to be true
-    end
-
-    it 'does not include defunct bodies' do
-      expect(PublicBody.blank_contacts.include?(defunct_body))
-        .to be false
-    end
-
-    it 'includes bodies with a translation that has an empty request email' do
-      AlaveteliLocalization.with_locale(:es) do
-        public_body.request_email = ''
-        public_body.save
-      end
-      expect(PublicBody.blank_contacts.include?(public_body))
-        .to be true
+    it 'does not include bodies with an empty request email' do
+      is_expected.to_not include(blank_body)
     end
 
   end
@@ -2005,6 +2018,38 @@ end
 
 describe PublicBody do
 
+  describe '.foi_applies' do
+    subject { PublicBody.foi_applies }
+
+    let!(:public_body) { FactoryBot.create(:public_body) }
+    let!(:not_apply_body) { FactoryBot.create(:not_apply_public_body) }
+
+    it 'include active bodies' do
+      is_expected.to include(public_body)
+    end
+
+    it 'does not include bodies where FOI/EIR is not applicable' do
+      is_expected.to_not include(not_apply_body)
+    end
+
+  end
+
+  describe '.not_defunct' do
+    subject { PublicBody.not_defunct }
+
+    let!(:public_body) { FactoryBot.create(:public_body) }
+    let!(:defunct_body) { FactoryBot.create(:defunct_public_body) }
+
+    it 'include active bodies' do
+      is_expected.to include(public_body)
+    end
+
+    it 'does not include defunct bodies' do
+      is_expected.to_not include(defunct_body)
+    end
+
+  end
+
   describe '#is_requestable?' do
 
     before do
@@ -2033,6 +2078,32 @@ describe PublicBody do
 
     it 'should return true if the request email is an email address' do
       expect(@body.is_requestable?).to eq(true)
+    end
+
+  end
+
+  describe '.is_requestable' do
+    subject { PublicBody.is_requestable }
+
+    let!(:public_body) { FactoryBot.create(:public_body) }
+    let!(:blank_body) { FactoryBot.create(:blank_email_public_body) }
+    let!(:defunct_body) { FactoryBot.create(:defunct_public_body) }
+    let!(:not_apply_body) { FactoryBot.create(:not_apply_public_body) }
+
+    it 'includes return requestable body' do
+      is_expected.to include(public_body)
+    end
+
+    it 'does not include bodies without request email' do
+      is_expected.to_not include(blank_body)
+    end
+
+    it 'does not include defunct bodies' do
+      is_expected.to_not include(defunct_body)
+    end
+
+    it 'does not include bodies where FOI/EIR is not applicable' do
+      is_expected.to_not include(not_apply_body)
     end
 
   end

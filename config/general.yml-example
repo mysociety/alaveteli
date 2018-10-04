@@ -497,18 +497,18 @@ STAGING_SITE: 1
 # Recaptcha, for detecting humans. Get keys here:
 # http://recaptcha.net/whyrecaptcha.html
 #
-# RECAPTCHA_PUBLIC_KEY - String (default: 'x')
+# RECAPTCHA_SITE_KEY - String (default: 'x')
 #
 # ---
-RECAPTCHA_PUBLIC_KEY: 'x'
+RECAPTCHA_SITE_KEY: 'x'
 
 # Recaptcha, for detecting humans. Get keys here:
 # http://recaptcha.net/whyrecaptcha.html
 #
-# RECAPTCHA_PRIVATE_KEY - String (default: 'x')
+# RECAPTCHA_SECRET_KEY - String (default: 'x')
 #
 # ---
-RECAPTCHA_PRIVATE_KEY: 'x'
+RECAPTCHA_SECRET_KEY: 'x'
 
 # Number of days after which to send a 'new response reminder'
 #

@@ -276,17 +276,15 @@ class PublicBody < ActiveRecord::Base
     PublicBody.find(old.first)
   end
 
-  def self.blank_contact_count
-    count_by_sql("SELECT COUNT(*)
-                  #{blank_contact_sql_clause}")
+  def self.without_request_email
+    joins(:translations).
+      where(public_body_translations: { request_email: '' }).
+      not_defunct
   end
 
-  def self.blank_contacts(limit = 20)
-    ids = find_by_sql("SELECT public_bodies.id
-                       #{blank_contact_sql_clause}
-                       LIMIT #{limit}")
-    where(:id => ids).
-      includes(:tags, :translations)
+  def self.with_request_email
+    joins(:translations).
+      where.not(public_body_translations: { request_email: '' })
   end
 
   # If tagged "not_apply", then FOI/EIR no longer applies to authority at all
@@ -294,6 +292,8 @@ class PublicBody < ActiveRecord::Base
   def not_apply?
     has_tag?('not_apply')
   end
+
+  scope :foi_applies, -> { without_tag('not_apply') }
 
   # If tagged "foi_no", then the authority is not subject to FOI law but
   # requests may still be made through the site (e.g. they may have agreed to
@@ -309,6 +309,8 @@ class PublicBody < ActiveRecord::Base
     has_tag?('defunct')
   end
 
+  scope :not_defunct, -> { without_tag('defunct') }
+
   # Are all requests to this body under the Environmental Information
   # Regulations?
   def eir_only?
@@ -323,6 +325,8 @@ class PublicBody < ActiveRecord::Base
   def is_requestable?
     has_request_email? && !defunct? && !not_apply?
   end
+
+  scope :is_requestable, -> { with_request_email.not_defunct.foi_applies }
 
   # Strict superset of is_requestable?
   def is_followupable?
@@ -790,35 +794,44 @@ class PublicBody < ActiveRecord::Base
   end
 
   def self.with_tag(tag)
-    return all if tag.size == 1
+    return all if tag.size == 1 || tag.nil? || tag == 'all'
 
-    where_condition = ''
-    where_parameters = []
-
-    base_tag_condition = <<-EOF.strip_heredoc
-    (SELECT count(*) FROM has_tag_string_tags
-     WHERE has_tag_string_tags.model_id = public_bodies.id
-     AND has_tag_string_tags.model = 'PublicBody'
-    EOF
+    base_scope = HasTagString::HasTagStringTag.select('COUNT(*)').
+      where("has_tag_string_tags.model_id = #{table_name}.id").
+      where("has_tag_string_tags.model = '#{to_s}'")
 
     # Restrict the public bodies shown according to the tag
     # parameter supplied in the URL:
-    if tag.nil? || tag == 'all'
-      tag = 'all'
-    elsif tag == 'other'
+    if tag == 'other'
       tags = PublicBodyCategory.get.tags - ['other']
-      where_condition += base_tag_condition + " AND has_tag_string_tags.name IN (?)) = 0"
-      where_parameters.concat [tags]
+      where('(' + base_scope.where(name: tags).to_sql + ') = 0')
     elsif tag.include?(':')
-      name, value = HasTagString::HasTagStringTag.split_tag_into_name_value(tag)
-      where_condition += base_tag_condition + " AND has_tag_string_tags.name = ? AND has_tag_string_tags.value = ?) > 0"
-      where_parameters.concat [name, value]
+      tag, value = HasTagString::HasTagStringTag.split_tag_into_name_value(tag)
+      where('(' + base_scope.where(name: tag, value: value).to_sql + ') > 0')
     else
-      where_condition += base_tag_condition + " AND has_tag_string_tags.name = ?) > 0"
-      where_parameters.concat [tag]
+      where('(' + base_scope.where(name: tag).to_sql + ') > 0')
+    end
+  end
+
+  def self.without_tag(tag)
+    # Generate a unique table alias for the has_tag_string_tags join so this
+    # scope can be chained to be used more than once
+    join_alias = aliased_table_for('tags')
+
+    if tag.include?(':')
+      tag, value = HasTagString::HasTagStringTag.split_tag_into_name_value(tag)
+      condition = "#{join_alias}.name = #{sanitize(tag)} AND " \
+        "#{join_alias}.value = #{sanitize(value)}"
+    else
+      condition = "#{join_alias}.name = #{sanitize(tag)}"
     end
 
-    where(where_condition, *where_parameters)
+    joins(
+      "LEFT JOIN has_tag_string_tags AS #{join_alias} ON " \
+      "#{join_alias}.model = '#{to_s}' AND " \
+      "#{join_alias}.model_id = #{table_name}.id AND " +
+      condition
+    ).where(join_alias => { id: nil })
   end
 
   def self.with_query(query, tag)
@@ -933,22 +946,6 @@ class PublicBody < ActiveRecord::Base
     name.downcase
   end
 
-  def self.blank_contact_sql_clause
-    clause = <<-EOF.strip_heredoc
-      FROM public_bodies
-      INNER JOIN public_body_translations
-      ON public_body_translations.public_body_id = public_bodies.id
-      WHERE public_body_translations.request_email = ''
-      AND NOT EXISTS (
-        SELECT *
-        FROM has_tag_string_tags
-        WHERE name = 'defunct'
-        AND model = 'PublicBody'
-        AND model_id = public_bodies.id
-      )
-      EOF
-  end
-
   def self.get_public_body_list_translated_condition(table, has_first_letter=false, locale=nil)
     result = "(upper(#{table}.name) LIKE upper(:query)" \
       " OR upper(#{table}.notes) LIKE upper(:query)" \
@@ -960,5 +957,12 @@ class PublicBody < ActiveRecord::Base
           result += " AND #{table}.locale = :locale"
         end
         result
+  end
+
+  def self.aliased_table_for(table)
+    # AliasTracker tracks SQL join table aliases so multiple joins can happen
+    # against the same table, see: https://github.com/rails/rails/blob/4-2-stable/activerecord/lib/active_record/associations/alias_tracker.rb
+    @alias_tracker ||= AliasTracker.empty connection
+    @alias_tracker.aliased_table_for(table, table).name
   end
 end

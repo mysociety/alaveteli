@@ -16,7 +16,7 @@
 # Adrien Chauvet, 2013
 # Adrien Chauvet, 2013
 # andreas.pavlou <andreas@access-info.org>, 2013
-# Bbear <borisjf@post.harvard.edu>, 2011
+# 0c5d54599df8b711a7a254a114ba48aa, 2011
 # Benoît Simard <contact@bsimard.com>, 2013
 # cegall, 2013
 # Christophe Van Gheluwe <info@vg-webdesign.be>, 2016-2017
@@ -40,7 +40,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-18 01:28-0800\n"
-"PO-Revision-Date: 2018-02-08 16:36+0000\n"
+"PO-Revision-Date: 2018-02-17 17:49+0000\n"
 "Last-Translator: claude transparencia <audit.citoyen.quartier@gmail.com>\n"
 "Language-Team: French (Belgium) (http://www.transifex.com/mysociety/alaveteli/language/fr_BE/)\n"
 "Language: fr_BE\n"
@@ -445,10 +445,10 @@ msgid "All of the information requested has been received"
 msgstr "Tous les renseignements demandés ont été reçus"
 
 msgid "All the options below can use <strong>status</strong> or <strong>latest_status</strong> before the colon. For example, <strong>status:not_held</strong> will match requests which have <em>ever</em> been marked as not held; <strong>latest_status:not_held</strong> will match only requests that are <em>currently</em> marked as not held."
-msgstr "Toutes les options ci-dessous peuvent utiliser les <strong>status</strong> ou <strong>latest_status</strong> avant les deux points. Par exemple, <strong>status:not_held</strong> correspondra aux demandes qui ont <em>toujours</em> été marquées  comme \"information non détenue par l'autorité publique\" ; <strong>latest_status:not_held</strong> correspondra uniquement aux demandes qui sont <em>actuellement</em> marquées comme \"\tinformation non détenue par l'autorité publique\"."
+msgstr "Toutes les options ci-dessous peuvent utiliser les <strong>status</strong> ou <strong>latest_status</strong> avant les deux points. Par exemple, <strong>status:not_held</strong> correspondra aux demandes qui ont <em>un jour</em> été marquées  comme \"information non détenue par l'autorité publique\" ; <strong>latest_status:not_held</strong> correspondra uniquement aux demandes qui sont <em>actuellement</em> marquées comme \"\tinformation non détenue par l'autorité publique\"."
 
 msgid "All the options below can use <strong>variety</strong> or <strong>latest_variety</strong> before the colon. For example, <strong>variety:sent</strong> will match requests which have <em>ever</em> been sent; <strong>latest_variety:sent</strong> will match only requests that are <em>currently</em> marked as sent."
-msgstr "Toutes les options ci-dessous peuvent utiliser <strong>variety</strong> ou <strong>latest_variety</strong> avant les deux points. Par exemple, <strong>variety:sent</strong> correspondra aux demandes qui ont <em>toujours</em> été envoyées ; <strong>latest_variety:sent</strong> correspondra uniquement aux demandes qui sont <em>actuellement</em> marquées comme envoyées."
+msgstr "Toutes les options ci-dessous peuvent utiliser <strong>variety</strong> ou <strong>latest_variety</strong> avant les deux points. Par exemple, <strong>variety:sent</strong> correspondra aux demandes qui ont  <em>un jour</em> été envoyées ; <strong>latest_variety:sent</strong> correspondra uniquement aux demandes qui sont actuellement marquées comme envoyées."
 
 msgid "All time"
 msgstr "Tout le temps"

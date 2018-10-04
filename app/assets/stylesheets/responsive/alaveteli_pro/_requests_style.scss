@@ -10,7 +10,9 @@ $complete: rgb(112, 203, 99);
 }
 
 .request {
-  border-bottom: 1px solid #ddd;
+  border: 3px solid #e6e4df;
+  padding: 1em;
+  margin-bottom: 1em;
 }
 
 .request__title {
@@ -125,13 +127,32 @@ $complete: rgb(112, 203, 99);
   }
 }
 
+.embargo-status {
+  @include flexbox();
+}
+
+.embargo-status--content {
+  // embargo-indicator and embargo-text sit side by side, using flexbox for this.
+  // If no flexbox support the layout is the same, but the text will wrap underneath the icon
+  @include flex(1);
+}
+
+.embargo-status--icon {
+  margin-right: 0.5em;
+}
+
 .embargo-indicator {
-  //doesn't exist yet
-  //background-image: image-url('/assets/alaveteli-pro/embargo-indicator.png');
+  background-image: image-url('alaveteli-pro/embargo-lock.png');
   background-position: top left;
   background-repeat: no-repeat;
   display: inline-block;
   @include image-replacement();
+  height: 28px;
+  width: 20px;
+  background-size: 20px 28px;
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    background-image: image-url('alaveteli-pro/embargo-lock@2.png');
+  }
 }
 
 .embargo-indicator--small {
@@ -143,6 +164,8 @@ $complete: rgb(112, 203, 99);
     background-image: image-url('alaveteli-pro/embargo-lock--small@2.png');
   }
 }
+
+
 
 .search-and-filter-overview {
   color: #999;

@@ -23,7 +23,7 @@ msgid " <strong>Summarising</strong> the content of any information returned. "
 msgstr "<strong>Samenvattend</strong>de inhoud van teruggestuurde informatie."
 
 msgid " Say how you've <strong>used the information</strong>, with links if possible."
-msgstr "Vertel hoe u <strong>de informatie hebt gebruikt</strong>, met links indien mogelijk. "
+msgstr "Vertel hoe u <strong>de informatie heeft gebruikt</strong>, met links indien mogelijk. "
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "' misdaadstatistieken op levelafdelingsniveau voor Wales’"
@@ -56,7 +56,7 @@ msgid "<strong>Thank</strong> the public authority."
 msgstr "<strong>Dank</strong> de overheid."
 
 msgid "<strong>{{brand}}</strong> ending in {{last4}}, expiry {{exp_month}}/{{exp_year}}"
-msgstr "<strong>{{brand}}</strong>eindigt in  {{last4}}, verstrijkt  {{exp_month}}/{{exp_year}}"
+msgstr "<strong>{{brand}}</strong>eindigt in  {{last4}}, verstrijkt op {{exp_month}}/{{exp_year}}"
 
 msgid "<strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 msgstr "<strong>{{filter_description}}</strong> gesorteerd op <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">wis</a>"
@@ -95,10 +95,10 @@ msgid "Activity"
 msgstr "activiteit"
 
 msgid "Add Payment Card"
-msgstr "Voeg betalingskaart toe"
+msgstr "Voeg betaalkaart toe"
 
 msgid "Add an annotation"
-msgstr "Voeg er een aantekening aan toe "
+msgstr "Voeg een aantekening toe "
 
 msgid "Add annotation"
 msgstr "voeg een aantekening toe"
@@ -116,13 +116,13 @@ msgid "All requests within this batch will remain private for the same duration.
 msgstr "Alle aanvragen in deze batch zullen privé blijven voor dezelfde duurtijd. Wanneer een individuele aanvraag publiek gemaakt wordt zullen alle andere aanvragen van deze batch ook gepubliceerd worden op {{site_name}}."
 
 msgid "Also called {{other_name}}."
-msgstr "Ook benoemd {{other_name}}"
+msgstr "Ook genaamd {{other_name}}"
 
 msgid "An all-in-one FOI toolkit for journalists, activists and campaigners"
 msgstr "Een één-in-alles WOB-toolkit voor journalisten, activisten en campagnevoerders"
 
 msgid "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
-msgstr "Aantekeningen geven u de mogelijkheid om wat extra toe te voegen aan uw vraag die eventueel openbaar zullen gemaakt worden. Bvb.:"
+msgstr "Aantekeningen geven u de mogelijkheid om wat extra toe te voegen aan uw vraag en zullen eventueel openbaar zullen gemaakt worden. Bv.:"
 
 msgid "Are you interested in free training, seminars and workshops about {{site_name}}?"
 msgstr "Bent u geinteresseerd in een gratis training, seminaries en workshops over {{site_name}}?"
@@ -143,7 +143,7 @@ msgid "Batch requests allow multiple recipients of a single request"
 msgstr "Batch-aanvragen laten toe om meerdere ontvangers te bereiken met één enkele aanvraag"
 
 msgid "Batch requests are part of a new workflow"
-msgstr "Batch aanvragen maken deel uit van een nieuwe workflow"
+msgstr "Batch-aanvragen maken deel uit van een nieuwe workflow"
 
 msgid "Billed: Annually"
 msgstr "Betaling: Jaarlijks"
@@ -155,7 +155,7 @@ msgid "Billed: Monthly"
 msgstr "Betaling: Maandelijks"
 
 msgid "Billed: Weekly"
-msgstr "Betaling: Weekelijks"
+msgstr "Betaling: Wekelijks"
 
 msgid "Billing"
 msgstr "Facturatie"
@@ -221,10 +221,10 @@ msgid "Download a zip file of all correspondence"
 msgstr "Download een zip file van alle briefwisseling "
 
 msgid "Draft"
-msgstr " klad-ontwerp"
+msgstr "Klad-ontwerp"
 
 msgid "Drafts"
-msgstr " klad-ontwerpen"
+msgstr "Klad-ontwerpen"
 
 msgid "Edit your request"
 msgstr "Schrijf je vraag"
@@ -284,19 +284,19 @@ msgid "Keep requests and responses private while you work on your story"
 msgstr "Hou uw aanvragen en antwoorden privé terwijl u werkt aan uw dossier"
 
 msgid "Last updated"
-msgstr "Laatste updated"
+msgstr "Laatste update"
 
 msgid "Make a batch request"
-msgstr "Maak een batchaanvraag"
+msgstr "Maak een batch-aanvraag"
 
 msgid "Make a request"
 msgstr "Maak een aanvraag"
 
 msgid "Make a request to multiple authorities: select authorities at the click of a button"
-msgstr "Doe een aanvraag bij meerdere overheden: selecteerd de overheden met een klik "
+msgstr "Doe een aanvraag bij meerdere overheden: selecteer de overheden met een klik "
 
 msgid "Make an {{law_used_short}} request"
-msgstr "Maak een  {{law_used_short}} aanvraag"
+msgstr "Doe een {{law_used_short}} aanvraag"
 
 msgid "Manage large volumes of responses:  easily keep track of the status of each request"
 msgstr "Beheer grote volumes antwoorden: volg de status van elke aanvraag met gemak "
@@ -329,16 +329,16 @@ msgid "No title"
 msgstr "Geen titel"
 
 msgid "Note: When this request is made public on {{site_name}}, this message will also be made public."
-msgstr "Nota: als deze vraag openbaar wordt gemaakt op {{site_name}}, zal deze boodschap ook openbaar worden."
+msgstr "NB: als deze vraag gepubliceerd wordt op {{site_name}}, zal deze boodschap ook openbaar worden."
 
 msgid "Note: When this request is made public on {{site_name}}, your name and annotation will appear in <strong>search engines</strong>."
-msgstr "Nota: als deze vraag openbaar wordt gemaakt op {{site_name}}, zullen uw naam en de aantekeningen te vinden zijn via <strong>zoekmachines</strong>."
+msgstr "NB: als deze vraag gepubliceerd wordt op {{site_name}}, zullen uw naam en de aantekeningen te vinden zijn via <strong>zoekmachines</strong>."
 
 msgid "Now in beta"
 msgstr "Nu in bèta-versie"
 
 msgid "Once the privacy period ends, everything that you enter on this page, including <strong>your name</strong>, will be <strong><a href=\"{{url}}\">displayed publicly</a></strong> on this website."
-msgstr "Eens de privé periode eindigt, zal alles wat u hier op deze bladzijde inbrengt, inclusief <strong>uw naam</strong>, <strong><a href=\"{{url}}\">publiek gemaakt worden</a></strong>op deze website"
+msgstr "Eens de privé-periode eindigt, zal alles wat u hier op deze bladzijde inbrengt, inclusief <strong>uw naam</strong>, <strong><a href=\"{{url}}\">publiek gemaakt worden</a></strong>op deze website"
 
 msgid "Once you’re happy with your request, click preview and send."
 msgstr "Wanneer u tevreden bent met uw vraag, klik dan preview en verzend."
@@ -389,7 +389,7 @@ msgid "Private until {{date}}"
 msgstr "Privé tot {{date}}"
 
 msgid "Pro brings a new dashboard view"
-msgstr "Pro brengt een nieuw zicht op het dashboard"
+msgstr "Pro brengt een nieuw dashboard"
 
 msgid "Pro features a new request list view"
 msgstr "Pro toont een nieuwe aanvraaglijst "
@@ -429,10 +429,10 @@ msgstr "Verzoek tot een interne herziening"
 msgid "Request an internal review (or send another followup)."
 msgid_plural "Request internal reviews (or send other followups)."
 msgstr[0] "Verzoek een herziening (of verzend een nieuwe follow-up)."
-msgstr[1] "Verzoek tot interne herzieningen (of verzend nieuwe follow-ups)."
+msgstr[1] "Verzoek tot heroverweging aan de bevraagde overheid (of verzend nieuwe follow-ups)."
 
 msgid "Request an internal review from {{person_or_body}}"
-msgstr "Verzoek tot een herziening  van {{person_or_body}}"
+msgstr "Verzoek tot een heroverweging aan {{person_or_body}}"
 
 msgid "Request to"
 msgstr "Aanvraag aan"
@@ -444,10 +444,10 @@ msgid "Requests in this batch are private on {{site_name}} until <span class=\"j
 msgstr " Aanvragen binnen deze batch zijn privé op {{site_name}}<span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
 
 msgid "Requests in this batch are public"
-msgstr " Aanvragen binnen deze batch worden openbaar gepubliceerd"
+msgstr "Aanvragen binnen deze batch worden openbaar gepubliceerd"
 
 msgid "Requests in this batch will be private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
-msgstr " Aanvragen binnen deze batch zullen privé tot <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span> op {{site_name}}  blijven"
+msgstr "Aanvragen binnen deze batch zullen privé tot <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span> op {{site_name}}  blijven"
 
 msgid "Requests that will be made public soon"
 msgstr "Aanvragen worden binnenkort openbaar"
@@ -459,7 +459,7 @@ msgid "Save as draft to get back to it later"
 msgstr "Bewaar als een ontwerp om later op terug te komen"
 
 msgid "Save draft"
-msgstr "kladontwerp bewaren"
+msgstr "Kladontwerp bewaren"
 
 msgid "Search"
 msgstr "Zoek"
@@ -479,16 +479,16 @@ msgstr "Verzend een opvolgingsbericht"
 msgid "Send a follow up (or request an internal review)."
 msgid_plural "Send follow ups (or request internal reviews)."
 msgstr[0] "Verzend een opvolging bericht (of vraag een herziening)"
-msgstr[1] "Verzend opvolgingsberichten (of vraag herzieningen)"
+msgstr[1] "Verzend opvolgingsberichten (of vraag heroverwegingen)"
 
 msgid "Send a follow up message to {{person_or_body}}"
-msgstr "Verzend een opvolging bericht naar {{person_or_body}}"
+msgstr "Verzend een opvolgingsbericht naar {{person_or_body}}"
 
 msgid "Send a followup"
 msgstr "Verzend een opvolging"
 
 msgid "Send a reply to {{person_or_body}}"
-msgstr "Verzend een publiek antwoord naar {{person_or_body}}"
+msgstr "Verzend een antwoord naar {{person_or_body}}"
 
 msgid "Send message"
 msgstr "Verzend een boodschap"
@@ -502,7 +502,7 @@ msgstr[0] "Verzend {{count}} aanvraag"
 msgstr[1] "Verzend {{count}} aanvragen"
 
 msgid "Sending..."
-msgstr "Verzenden..."
+msgstr "Wordt verzonden ..."
 
 msgid "Sent"
 msgstr "Verzonden"
@@ -519,7 +519,7 @@ msgid "Sign up"
 msgstr "Teken in"
 
 msgid "Sorry, no authorities matched that search"
-msgstr "Jammer, maar geen instellingen beantwoorden aan uw zoekcriteria"
+msgstr "Jammer, maar geen overheden beantwoorden aan uw zoekcriteria"
 
 msgid "Sorry, something went wrong getting your results, please try searching again."
 msgstr "Tot onze spijt ging iets fout bij het ophalen van uw resultaten. Probeer  opnieuw aub."
@@ -534,7 +534,7 @@ msgid "Sorry, something went wrong updating your batch request, please try again
 msgstr " Tot onze spijt ging iets fout bij het updaten van uw batch-aanvraag. Probeer opnieuw aub"
 
 msgid "Sorry, something went wrong updating your request's privacy settings, please try again."
-msgstr " Tot onze spijt ging iets fout bij het updaten van de privacy instellingen van uw aanvraag. Probeer opnieuw aub"
+msgstr "Tot onze spijt ging iets fout bij het updaten van de privacy-instellingen van uw aanvraag. Probeer opnieuw aub"
 
 msgid "Sorry, something went wrong updating your requests' privacy settings, please try again."
 msgstr " Tot onze spijt ging iets fout bij het updaten van de privacy settings van uw aanvraag. Probeer opnieuw aub"
@@ -578,7 +578,7 @@ msgstr "Bedankt voor uw interesse voor {{pro_site_name}}, we zullen weldra conta
 msgid "The following request will be made public on {{site_name}} in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer."
 msgid_plural "The following requests will be made public on {{site_name}} in the next week. If you do not wish for any of these requests to go public, please click on the links below to extend them."
 msgstr[0] "Deze aanvraag wordt volgende week openbaar gemaakt op {{site_name}} . Indien uw die aanvraag nog niet wil publiek maken , kan u op onderstaande link klikken om dat uit te stellen."
-msgstr[1] "Deze aanvragen worden volgende week openbaar gemaakt op {{site_name}} . Indien uw voor sommige van die vragen niet wil dat ze openbaar gemaakt worden, kan u op onderstaande link klikken om dat uit te stellen."
+msgstr[1] "Deze aanvragen worden volgende week openbaar gemaakt op {{site_name}} . Indien u voor sommige van die vragen niet wil dat ze openbaar gemaakt worden, kan u op onderstaande link klikken om dat uit te stellen."
 
 msgid "Then you can access {{pro_site_name}}"
 msgstr "Dan kan u toegang krijgen tot {{pro_site_name}}"
@@ -638,7 +638,7 @@ msgid "To upgrade your account"
 msgstr "Om uw account up te graden"
 
 msgid "Unless you choose a privacy option, requests in this batch will be public on {{site_name}} immediately."
-msgstr "Behalve als u kiest voor de privé-optie, gaan aanvragen in deze groep onmiddelijk openbaar gemaakt worden op {{site_name}}"
+msgstr "Behalve als u kiest voor de privé-optie, gaan aanvragen in deze batch onmiddelijk openbaar gemaakt worden op {{site_name}}"
 
 msgid "Unless you choose a privacy option, your request will be public on {{site_name}} immediately."
 msgstr "Behalve als u kiest voor de privé-optie, wordt uw aanvraag onmiddelijk gepubliceerd op {{site_name}}"
@@ -682,7 +682,7 @@ msgid "We will remind you by email and on the site when the request is going be 
 msgstr "We zullen je per mail en op de site eraan herinneren wanneer de aanvraag openbaar zal gemaakt worden en je zal de mogelijkheid hebben om ze langer privé te houden zo je dat wil. Je kan die termijn onbeperkt instellen of de aanvraag op eender welk moment openbaar maken."
 
 msgid "When a request is private we guarantee that it will only be visible on {{site_name}} for the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
-msgstr "Wanneer een aanvraag privé is waarborgen we dat het enkel zichtbaar is op {{site_name}} voor de periode die u selecteert. De {{pro_site_name}} site-beheerders kunnen je aanvraag zien, doch zullen dit enkel bekijken in het geval ze een technisch probleem moeten oplossen (bv. een niet gelukte aflevering van aanvraag bij de betrokken overheid). Ze zullen nooit de inhoud van je aanvraag of antwoorden erop vrijmaken voor derden. De betrokken overheid kan het wel zoals gebruikelijk op een geanonimiseerd wijze in een log vrijgeven."
+msgstr "Wanneer een aanvraag privé is waarborgen we dat het enkel zichtbaar is op {{site_name}} voor de periode die u selecteert. De {{pro_site_name}} site-beheerders kunnen je aanvraag zien, doch zullen dit enkel bekijken in het geval ze een technisch probleem moeten oplossen (bv. een niet gelukte aflevering van aanvraag bij de betrokken overheid). Ze zullen nooit de inhoud van je aanvraag of antwoorden erop vrijmaken voor derden. De betrokken overheid kan het wel zoals gebruikelijk op een geanonimiseerde wijze in een log vrijgeven."
 
 msgid "When the current billing period ends:"
 msgstr "Einde van de lopende betaalperiode: "
@@ -691,7 +691,7 @@ msgid "When you cancel your account:"
 msgstr "Wanneer u uw account annuleert: "
 
 msgid "When your request is made public on {{site_name}}, any annotations you add will also be public. However, they are <strong>not</strong> sent to {{public_body_name}}."
-msgstr "Wanneer je aanvraag openbaar gemaak is op {{site_name}}, zullen alle wijzigingen die je aanbrengt ook openbaar zijn. Zij worden echter <strong>niet</strong> verstuurd aan {{public_body_name}}."
+msgstr "Wanneer je aanvraag openbaar gemaakt is op {{site_name}}, zullen alle wijzigingen die je aanbrengt ook openbaar zijn. Zij worden echter <strong>niet</strong> verstuurd aan {{public_body_name}}."
 
 msgid "Why do you want access?"
 msgstr "Waarom wenst u toegang?"
@@ -709,7 +709,7 @@ msgid "You added a new annotation on your request to {{public_body_name}} \"{{in
 msgstr "U voegde een nieuwe aantekening toe aan {{public_body_name}} \"{{info_request_title}}.\""
 
 msgid "You are already subscribed to this plan"
-msgstr "U bent reeds ingeschreven voor dit formule "
+msgstr "U bent reeds ingeschreven voor deze formule "
 
 msgid "You can re-subscribe at any time and full access to these features will be restored."
 msgstr "U kan herinschrijven op elk ogenblik; en de volledige toegang tot deze features zal hersteld worden."
@@ -721,10 +721,10 @@ msgid "You have successfully cancelled your subscription to {{pro_site_name}}"
 msgstr "U heeft uw inschrijving op {{pro_site_name}} succesvol geannuleerd"
 
 msgid "You haven't added any authorities to your batch yet"
-msgstr "U heeft nog geen overheid toegevoegd aan uw lot"
+msgstr "U heeft nog geen overheid toegevoegd aan uw batch"
 
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
-msgstr "Uw kent de oorzaak van de fout, en u kan <strong>een oplossing voorstellen</strong>, zoals een functioneel e-mail adres."
+msgstr "U kent de oorzaak van de fout, en u kan <strong>een oplossing voorstellen</strong>, zoals een functioneel e-mail adres."
 
 msgid "You must accept the terms and conditions"
 msgstr "U dient de voorwaarden te aanvaarden"
@@ -739,16 +739,16 @@ msgid "You sent a request \"{{info_request_title}}\" to {{public_body_name}}."
 msgstr "U zond een aanvraag \"{{info_request_title}}\" naar {{public_body_name}}."
 
 msgid "You sent an internal review request to {{public_body_name}} for \"{{info_request_title}}\"."
-msgstr "U zond een verzoek van herziening naar {{public_body_name}} over\"{{info_request_title}}\"."
+msgstr "U zond een verzoek van heroverweging naar {{public_body_name}} over\"{{info_request_title}}\"."
 
 msgid "You will be able to extend this privacy period from {{embargo_extend_from}}."
-msgstr "U kan de privacy periode uitbreiden vanaf {{embargo_extend_from}}."
+msgstr "U kan de privacy-periode uitbreiden vanaf {{embargo_extend_from}}."
 
 msgid "You will still be able to see any requests which are currently private, but you won't be able to make new private requests or extend privacy durations. These requests will be published when the current privacy period ends."
 msgstr "U zal nog steeds elke aanvraag die thans privé is kunnen zien, maar u zal niet opnieuw privé-aanvragen kunnen doen of privacyduur kunnen uitbreiden. Deze aanvragen zullen gepubliceerd worden wanneer de huidige privacy-periode eindigt. "
 
 msgid "You won't be able to access {{pro_site_name}} tools, including the dashboard and pro request management."
-msgstr "U zal niet in staat zijn om toegang te krijgen tot de {{pro_site_name}} tools, inclusief het dashboard en het pro aanvraagbeheer."
+msgstr "U zal niet in staat zijn om toegang te krijgen tot de {{pro_site_name}} tools, inclusief het dashboard en het pro aanvraagbeheer."
 
 msgid "You'll lose access to any requests you still have in draft."
 msgstr "U zal toegang verliezen tot elke aanvraag die nog in ontwerpfase is."
@@ -774,7 +774,7 @@ msgstr ""
 "{{info_request_title}} werd teruggestuurd."
 
 msgid "Your internal review request to {{public_body_name}} for \"{{info_request_title}}\" was resent."
-msgstr "Uw vraag tot interne navraag bij {{public_body_name}} voor \"{{info_request_title}}\" werd opnieuw verzonden."
+msgstr "Uw verzoek tot heroverweging bij {{public_body_name}} voor \"{{info_request_title}}\" werd opnieuw verzonden."
 
 msgid "Your message will be displayed publicly on this website once you publish your request."
 msgstr "Uw boodschap zal zichtbaar worden op de website eens je je aanvraag gepubliceerd hebt. "
@@ -786,7 +786,7 @@ msgid "Your request"
 msgstr "Uw aanvraag"
 
 msgid "Your request \"{{info_request_title}}\" to {{public_body_name}} was resent."
-msgstr "Uw aanvraag \"{{info_request_title}}\" to {{public_body_name}} werd opnieuw verzonden."
+msgstr "Uw aanvraag \"{{info_request_title}}\" aan {{public_body_name}} werd opnieuw verzonden."
 
 msgid "Your request has been updated!"
 msgstr "Uw aanvraag werd geupdatet! "
@@ -843,7 +843,7 @@ msgid "{{commenter_name}} added a new annotation on your request to {{public_bod
 msgstr "{{commenter_name}} deed een nieuwe aantekening bij uw aanvraag  {{public_body_name}}\" betreffende {{info_request_title}}.\""
 
 msgid "{{count}} Pending"
-msgstr "{{count}}  ... hangende ..."
+msgstr "{{count}} Hangende"
 
 msgid "{{count}} recipient, <a href=\"{{url}}\">show</a>"
 msgid_plural "{{count}} recipients, <a href=\"{{url}}\">show all</a>"
@@ -863,12 +863,12 @@ msgstr[1] "{{count}} aanvragen hebben een antwoord gekregen "
 msgid "{{count}} request is delayed."
 msgid_plural "{{count}} requests are delayed."
 msgstr[0] "{{count}} aanvraag heeft vertraging "
-msgstr[1] "{{count}} aanvragen hebben vertraging "
+msgstr[1] "{{count}} aanvragen hebben vertraging."
 
 msgid "{{count}} request is long overdue."
 msgid_plural "{{count}} requests are long overdue."
 msgstr[0] "{{count}} aanvraag is lang overtijd"
-msgstr[1] "{{count}} aanvragen zijn lang overtijd"
+msgstr[1] "{{count}} aanvragen zijn lang overtijd."
 
 msgid "{{count}} request made"
 msgid_plural "{{count}} requests made"

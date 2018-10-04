@@ -1336,6 +1336,14 @@ describe InfoRequest do
         to eq(info_request)
     end
 
+    it 'ignores whitespace when considering duplicates' do
+      info_request = FactoryBot.create(:info_request)
+      expect(InfoRequest.find_existing(info_request.title,
+                                       info_request.public_body_id,
+                                       "Some  information\n\nplease")).
+        to eq(info_request)
+    end
+
   end
 
   describe '#find_existing_outgoing_message' do

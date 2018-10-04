@@ -2,7 +2,37 @@
 
 ## Highlighted Features
 
-* Run the full user spam check during signup rather than just checking the email domain (Liz Conlan)
+* Strip leading and trailing whitespace when searching for users in the admin
+  interface (Gareth Rees)
+* Fall back to the theme's standard opengraph logo rather than the example pro
+  logo from core if there's no opengraph-pro logo available in the theme
+  (Liz Conlan)
+* Don't show the pro blank slate message when the user has a saved draft (Graeme
+  Porteous)
+* Improve the pro blank slate/"Getting started" message (Martin Wright)
+* Add message navigation buttons to pro request pages to make it easier to move
+  through long request threads (Martin Wright)
+* Make the pro sidebar sticky (Martin Wright)
+* Improvements to the pro sidebar to make it easier for a pro user to see when
+  a private request will be published from the request page (Martin Wright)
+* Destroy embargoes when the related info request is destroyed (Gareth Rees)
+* Parse and display incoming email headers in the admin interface (Gareth Rees)
+* Don't update the Atom feed timestamp if there are no events (Graeme Porteous)
+* Fix padding around delivery status and hidden message containers (Martin
+  Wright, Zarino Zappia)
+* Fix vertical alignment of follower count for easier theme overrides (Martin
+  Wright)
+* Avoid drawing border under final attachment in list (Zarino Zappia)
+* Better user menu behaviour with long names (Martin Wright)
+* Add the ability to collapse the correspondence on the request page (Martin
+  Wright)
+* Fix clash between the action menu and the sidebar in the mobile view (Martin
+  Wright)
+* Add missing background colour for "awaiting classification" status message
+  (Martin Wright)
+* Better HTML encoding on new request and admin email forms (Liz Conlan)
+* Add Google Analytics events for clicks for "Related requests" links (Zarino
+  Zappia)
 * Add support for the `foi_no` tag for authorities so that new requests can
   still be made while making it clearer that the are not obliged by law to
   respond (Liz Conlan)
@@ -15,6 +45,10 @@
 * Add a footer to the Admin layout with useful links to alaveteli.org (Gareth
   Rees)
 * Add user name spam checking (Gareth Rees)
+* Run the full user spam check during signup rather than just checking the
+  email domain (Liz Conlan)
+* Improve the spam checker code, make it easier to reuse and enable it on the
+  sign in page (Graeme Porteous)
 * Make it quicker to ban users for spamming in admin interface (Gareth Rees)
 * Limit the frequency that `PublicBody#updated_at` gets updated by unrelated
   changes to an associated `InfoRequest` (Gareth Rees)
@@ -23,8 +57,10 @@
 * Destroy embargoes when the attached info request is destroyed (Gareth Rees)
 * Fix case sensitivity bug in password reset form (Gareth Rees)
 * Rename dangerous Xapian commands (Gareth Rees)
+* Improved handling of Xapian indexing failures (Gareth Rees)
 * Prioritise direct matches on `PublicBody#name` in search results (Liz Conlan,
   Gareth Rees)
+* Fix double encoding of URL params for search (Gareth Rees)
 * Log an `InfoRequestEvent` when updating response handling attributes in
   `InfoRequest.stop_new_responses_on_old_requests` (Gareth Rees)
 * Show that a request is part of a batch on the request page in the admin
@@ -44,31 +80,38 @@
 * Improve password encryption by switching to bcrypt algorithm, existing
   password hashes will be upgraded when a user signs in (Graeme Porteous)
 * Restore translated attributes to Public Body admin view (Gareth Rees)
+* Updates the addresses of the OS base boxes in the Vagrantfile
+* Various improvements to the test suite (Gareth Rees, Graeme Porteous, Liz Conlan)
 
 ## Upgrade Notes
 
-* The `BLOCK_SPAM_EMAIL_DOMAINS` config setting has been renamed to `BLOCK_SPAM_SIGNUPS` to reflect the change in functionality (it will now also run the full spam checker against the new user data rather than just looking at the email domain)
-* Add a 256x256 image named `logo-opengraph-pro.png` to
-  `YOUR_THEME_ROOT/assets/images`, to be shown next to pages from your site when
-  shared on Facebook. You can just duplicate `logo-opengraph.png` if you don't
-  have specific Pro branding.
-* We've removed the spring preloader as it didn't seem to provide much benefit.
-* `InfoRequest.get_last_event` is deprecated and will be removed in 0.33. Please
-  use `InfoRequest.last_event`.
-* You'll need to reindex your public bodies to benefit from the improved direct
-  match results:
-  `bundle exec rake xapian:rebuild_index models="PublicBody" verbose="true"`
-* Xapian's `rebuild_index` is now called `destroy_and_rebuild_index`.
-* There are some database structure updates so remember to `rake db:migrate`
+* We've removed the spring preloader so run `bundle exec spring stop` before
+  switching away from your current git branch otherwise you might see some odd
+  code caching effects (if you're happy managing processes manually, you can
+  find and kill the spring processes yourself instead)
+* There are some database structure updates so remember to run `bundle exec rake db:migrate`
 * Run `bundle exec rake temp:populate_missing_timestamps` to populate the new
   timestamp columns.
+* You'll need to reindex your public bodies to benefit from the improved direct
+  match results:
+  `bundle exec rake reindex:public_bodies verbose="true"`
+* Run `bundle exec rake users:update_hashed_password` to improve password
+  encryption for existing users. As we don't know the original passwords this
+  double encrypts the old SHA1 hash using the bcrypt algorithm.
+* The reCAPTCHA config settings have changed, `RECAPTCHA_PUBLIC_KEY` is now
+`RECAPTCHA_SITE_KEY` and `RECAPTCHA_PRIVATE_KEY` has changed to `RECAPTCHA_SECRET_KEY`
+* The `BLOCK_SPAM_EMAIL_DOMAINS` config setting has been renamed to `BLOCK_SPAM_SIGNUPS` to reflect the change in functionality (it will now also run the full spam checker against the new user data rather than just looking at the email domain)
 * The "very old" calculation driven by
   `RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS` has been increased from
   `2 *` to `4 *`. Please check that this config value is acceptable for your
   site's usage profile.
-* Run `bundle exec rake users:update_hashed_password` to improve password
-  encryption for existing users. As we don't know the original passwords this
-  double encrypts the old SHA1 hash using the bcrypt algorithm.
+* Add a 256x256 image named `logo-opengraph-pro.png` to
+  `YOUR_THEME_ROOT/assets/images`, to be shown next to pages from your site when
+  shared on Facebook. You can just duplicate `logo-opengraph.png` if you don't
+  have specific Pro branding.
+* `InfoRequest.get_last_event` is deprecated and will be removed in 0.33. Please
+  use `InfoRequest.last_event`.
+* Xapian's `rebuild_index` is now called `destroy_and_rebuild_index`.
 * The no-reply address handling can be customised in your theme. You can do this
   in `lib/model_patches.rb` by assigning a `Regexp` of your choice to
   `ReplyToAddressValidator.no_reply_regexp`. e.g.
@@ -79,8 +122,85 @@
   be set by assigning an Array of addresses to
   `ReplyToAddressValidator.invalid_reply_addresses` in `lib/model_patches.rb`.
   e.g: `ReplyToAddressValidator.invalid_reply_addresses = %w(a@example.com)`.
+* FactoryGirl is now called FactoryBot so you may need to update your test code
+  accordingly.
+* We've removed the Foundation gem as we're no longer using it so you will need
+  to edit your theme code if you've relied on Foundation for any customisation.
+* This release includes an update to the commonlib submodule - you
+  should be warned about this when running `rails-post-deploy`.
 
 ### Changed Templates
+
+    app/views/admin_general/_admin_navbar.html.erb
+    app/views/admin_general/index.html.erb
+    app/views/admin_incoming_message/_actions.html.erb
+    app/views/admin_public_body/_form.html.erb
+    app/views/admin_raw_email/show.html.erb
+    app/views/admin_request/edit.html.erb
+    app/views/admin_request/hidden_user_explanation.text.erb
+    app/views/admin_request/show.html.erb
+    app/views/admin_user/_user_table.html.erb
+    app/views/admin_user/show.html.erb
+    app/views/alaveteli_pro/account_request/index.html.erb
+    app/views/alaveteli_pro/batch_request_authority_searches/_add_authority_to_draft_button.html.erb
+    app/views/alaveteli_pro/batch_request_authority_searches/_remove_authority_from_draft_button.html.erb
+    app/views/alaveteli_pro/batch_request_authority_searches/_search_result.html.erb
+    app/views/alaveteli_pro/batch_request_authority_searches/_search_results.html.erb
+    app/views/alaveteli_pro/batch_request_authority_searches/index.html.erb
+    app/views/alaveteli_pro/dashboard/_no_to_dos.html.erb
+    app/views/alaveteli_pro/dashboard/index.html.erb
+    app/views/alaveteli_pro/draft_info_request_batches/_summary.html.erb
+    app/views/alaveteli_pro/general/_nav_items.html.erb
+    app/views/alaveteli_pro/info_request_batches/_embargo_form.html.erb
+    app/views/alaveteli_pro/info_request_batches/_embargo_info.html.erb
+    app/views/alaveteli_pro/info_request_batches/_message_preview.html.erb
+    app/views/alaveteli_pro/info_requests/_after_actions.html.erb
+    app/views/alaveteli_pro/info_requests/_embargo_extension_form.html.erb
+    app/views/alaveteli_pro/info_requests/_embargo_form.html.erb
+    app/views/alaveteli_pro/info_requests/_embargo_info.html.erb
+    app/views/alaveteli_pro/info_requests/_message_preview.html.erb
+    app/views/alaveteli_pro/info_requests/_no_requests.html.erb
+    app/views/alaveteli_pro/info_requests/_sidebar.html.erb
+    app/views/alaveteli_pro/info_requests/index.html.erb
+    app/views/alaveteli_pro/plans/index.html.erb
+    app/views/alaveteli_pro/plans/show.html.erb
+    app/views/alaveteli_pro/subscriptions/index.html.erb
+    app/views/api/request_events.atom.builder
+    app/views/followups/_followup.html.erb
+    app/views/general/_log_in_bar.html.erb
+    app/views/general/_opengraph_tags.html.erb
+    app/views/general/_popup_banner.html.erb
+    app/views/general/_responsive_stylesheets.html.erb
+    app/views/general/_responsive_topnav.html.erb
+    app/views/info_request_batch/show.html.erb
+    app/views/layouts/admin.html.erb
+    app/views/layouts/default.html.erb
+    app/views/notification_mailer/info_requests/messages/_very_overdue.text.erb
+    app/views/notification_mailer/very_overdue_notification.text.erb
+    app/views/reports/new.html.erb
+    app/views/request/_after_actions.html.erb
+    app/views/request/_incoming_correspondence.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
+    app/views/request/_request_subtitle.html.erb
+    app/views/request/describe_notices/_waiting_response.html.erb
+    app/views/request/describe_notices/_waiting_response_overdue.html.erb
+    app/views/request/details.html.erb
+    app/views/request/new.html.erb
+    app/views/request/show.text.erb
+    app/views/request_mailer/very_overdue_alert.text.erb
+    app/views/user/_show_user_info.html.erb
+    app/views/user/_signup.html.erb
+    app/views/user/rate_limited.html.erb
+    app/views/user/set_draft_profile_photo.html.erb
+    app/views/user/set_profile_about_me.html.erb
+    app/views/user/show/_show_profile.html.erb
+    app/views/user_profile/about_me/edit.html.erb
+
+# 0.31.0.4
+
+## Highlighted Features
+
+* Updated translations from Transifex (Liz Conlan)
 
 # 0.31.0.3
 

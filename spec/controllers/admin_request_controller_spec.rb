@@ -109,19 +109,6 @@ describe AdminRequestController, "when administering requests" do
       expect(response).to be_success
     end
 
-    it "shows a suitable default 'your email has been hidden' message" do
-      get :show, { :id => info_request.id }, { :user_id => admin_user.id }
-      expect(assigns[:request_hidden_user_explanation]).
-        to include(info_request.user.name)
-      expect(assigns[:request_hidden_user_explanation]).
-        to include("vexatious")
-      get :show, :id => info_request.id, :reason => "not_foi"
-      expect(assigns[:request_hidden_user_explanation]).
-        not_to include("vexatious")
-      expect(assigns[:request_hidden_user_explanation]).
-        to include("not a valid FOI")
-    end
-
     context 'if the request is embargoed' do
 
       before do

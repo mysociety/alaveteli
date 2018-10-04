@@ -9,7 +9,7 @@
   </p>
 
   <div class="correspondence_text">
-    <p><%= simple_format(@outgoing_message.body) %></p>
+    <p><%= simple_format(@outgoing_message.get_body_for_html_display) %></p>
   </div>
 </div>
 

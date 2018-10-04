@@ -14,7 +14,7 @@
 # Translators:
 # Translators:
 # andreas.pavlou <andreas@access-info.org>, 2013
-# Bbear <borisjf@post.harvard.edu>, 2011
+# 0c5d54599df8b711a7a254a114ba48aa, 2011
 # Benoît Simard <contact@bsimard.com>, 2013
 # David Cabo <david.cabo@gmail.com>, 2013
 # louisecrow <louise@mysociety.org>, 2014

@@ -99,8 +99,8 @@ describe InfoRequestBatchController do
       context "when showing pros their own requests" do
         context "when the request is embargoed" do
           let(:batch) do
-            FactoryBot.create(:embargoed_batch_request, public_bodies: bodies,
-                                                        user: pro_user)
+            FactoryBot.create(:info_request_batch, :embargoed,
+                              public_bodies: bodies, user: pro_user)
           end
 
           it "should redirect to the pro version of the page" do
@@ -115,8 +115,8 @@ describe InfoRequestBatchController do
 
         context "when the request is not embargoed" do
           let(:batch) do
-            FactoryBot.create(:batch_request, user: pro_user,
-                                              public_bodies: bodies)
+            FactoryBot.create(:info_request_batch, user: pro_user,
+                                                   public_bodies: bodies)
           end
 
           it "should not redirect to the pro version of the page" do
@@ -145,8 +145,8 @@ describe InfoRequestBatchController do
 
     describe "accessing embargoed batches" do
       let(:batch) do
-        FactoryBot.create(:embargoed_batch_request, public_bodies: bodies,
-                                                    user: pro_user)
+        FactoryBot.create(:info_request_batch, :embargoed,
+                          public_bodies: bodies, user: pro_user)
       end
       let(:admin) { FactoryBot.create(:admin_user) }
       let(:pro_admin) { FactoryBot.create(:pro_admin_user) }
