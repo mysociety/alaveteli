@@ -5,7 +5,7 @@
         <div class="dashboard__announcement">
           <% if announcement.title.present? %><h2 class="dashboard__announcement__title"><%= announcement.title %></h2><% end %>
           <div class="dashboard__announcement__content">
-            <p><%= announcement.content.html_safe %></p>
+            <p><%= sanitize announcement.content %></p>
           </div>
           <%= link_to _('Dismiss'), announcement_path(announcement), method: :delete, remote: true, class: 'dashboard__announcement_dismiss carousel-item-dismiss' %>
         </div>
