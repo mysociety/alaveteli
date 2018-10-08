@@ -6,15 +6,15 @@ describe AdminUsersAccountSuspensionsController do
   describe 'POST #create' do
     let(:user) { FactoryBot.create(:user) }
 
-    let(:valid_params) do
-      { user_id: user.id, suspension_reason: 'Banned for spamming' }
-    end
+    context 'with valid params for banning' do
+      let(:valid_params) do
+        { user_id: user.id, suspension_reason: 'Banned for spamming' }
+      end
 
-    context 'with valid params' do
       before { post :create, valid_params }
 
       it 'finds the user to suspend' do
-        expect(assigns[:banned_user]).to eq(user)
+        expect(assigns[:suspended_user]).to eq(user)
       end
 
       it 'sets the suspension reason' do
@@ -23,6 +23,30 @@ describe AdminUsersAccountSuspensionsController do
 
       it 'bans the user' do
         expect(user.reload.ban_text).to eq('Banned for spamming')
+      end
+
+      it 'tells the admin that the user was banned' do
+        expect(flash[:notice]).to eq('The user was suspended.')
+      end
+
+      it 'redirects to the user page' do
+        expect(response).to redirect_to(admin_user_path(user))
+      end
+    end
+
+    context 'with valid params for closing' do
+      let(:valid_params) do
+        { user_id: user.id, close_and_anonymise: true }
+      end
+
+      before { post :create, valid_params }
+
+      it 'finds the user to suspend' do
+        expect(assigns[:suspended_user]).to eq(user)
+      end
+
+      it 'closes the user' do
+        expect { user.reload }.to change(user, :closed?).to(true)
       end
 
       it 'tells the admin that the user was banned' do
