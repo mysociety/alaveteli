@@ -30,8 +30,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-09-28 15:37+0000\n"
-"PO-Revision-Date: 2018-09-29 11:24+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
+"PO-Revision-Date: 2018-10-09 09:20+0000\n"
+"Last-Translator: Elle Lingh <elenor.lingh@hyperisland.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/mysociety/alaveteli/language/sv/)\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -136,7 +136,7 @@ msgid ",\\n\\n\\n\\nYours,\\n\\n{{user_name}}"
 msgstr ",\\n\\n\\n\\nEr,\\n\\n{{user_name}}"
 
 msgid "12 characters minimum. 72 characters maximum."
-msgstr ""
+msgstr "12 tecken minimum. Maximalt 72 tecken."
 
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
 msgstr "<a href=\"{{browse_url}}\">Bläddra bland alla</a> eller <a href=\"{{add_url}}\">be oss om att lägga till en</a>."
@@ -306,7 +306,7 @@ msgid "A one line summary of the information you are requesting, e.g."
 msgstr "En rads sammanfattning av den information som du begär, t.ex."
 
 msgid "A powerful, fully-featured FOI toolkit for journalists"
-msgstr ""
+msgstr "Ett kraftfull, fullt utrustad FOI-verktyg för journalister"
 
 msgid "A public authority"
 msgstr "En offentlig myndighet"
@@ -333,7 +333,7 @@ msgid "About {{count}} FOI requests found"
 msgstr "Omkring {{count}} förfrågningar funna"
 
 msgid "Account suspended – Please contact us"
-msgstr ""
+msgstr "Konto avstängt - Vänligen kontakta oss"
 
 msgid "Act on what you've learnt"
 msgstr "Agera baserat på vad du har lärt dig"
@@ -471,16 +471,16 @@ msgid "Although all responses are automatically published, we depend on you, the
 msgstr "Även om alla svar publiceras automatiskt är vi beroende av dig, den frågande, för att utvärdera dem."
 
 msgid "Although not legally required to do so, we would have expected {{public_body_link}} to have responded by "
-msgstr ""
+msgstr "Även om det inte är lagligt nödvändigt att göra det, skulle vi ha förväntat {{public_body_link}} att ha svarat den"
 
 msgid "Although not legally required to do so, we would have expected {{public_body_link}} to have responded by now"
-msgstr ""
+msgstr "Även om det inte är lagligt nödvändigt att göra det, skulle vi ha förväntat {{public_body_link}} att ha svarat "
 
 msgid "Although the authority is not legally obliged to reply, you should get a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>."
-msgstr ""
+msgstr "Även om myndigheten inte är lagligt skyldiga att svara, bör du få ett svar snabbt och normalt före slutet av <strong>{{date_response_required_by}}</strong>."
 
 msgid "Although the authority is not legally obliged to reply, you should have got a response, normally before the end of <strong>{{date_response_required_by}}</strong>."
-msgstr ""
+msgstr "Även om myndigheten inte är lagligt skyldiga att svara, bör du få ett svar snabbt och normalt före slutet av <strong>{{date_response_required_by}}</strong>."
 
 msgid "An <a href=\"{{request_url}}\">annotation</a> to <em>{{request_title}}</em> was made by {{event_comment_user}} on {{date}}"
 msgstr "En <a href=\"{{request_url}}\">anteckning</a> till <em>{{request_title}}</em> gjordes av {{event_comment_user}} den {{date}}"
@@ -513,10 +513,10 @@ msgid "Annotations will be posted publicly here, and are <strong>not</strong> se
 msgstr "Kommentarer kommer att läggas upp offentligt här och skickas <strong>inte</strong> till {{public_body_name}}."
 
 msgid "Announcement"
-msgstr ""
+msgstr "Meddelande"
 
 msgid "Announcement|Visibility"
-msgstr ""
+msgstr "Meddelande|Synlighet"
 
 msgid "Anonymous user"
 msgstr "Anonym användare"
@@ -741,7 +741,7 @@ msgid "Close the request and respond:"
 msgstr "Stäng begäran och svara:"
 
 msgid "Collapse all correspondence"
-msgstr ""
+msgstr "Dölj all korrespondens"
 
 msgid "Comment"
 msgstr "Kommentar"
@@ -798,10 +798,10 @@ msgid "Confirm your new email address on {{site_name}}"
 msgstr "Bekräfta din nya e-postadress på {{public_body_name}}"
 
 msgid "Considered by administrators as not an FOI request."
-msgstr ""
+msgstr "Bedömd av administratörer som icke giltig begäran av allmän handling."
 
 msgid "Considered by administrators as vexatious."
-msgstr ""
+msgstr "Bedömd av administratörer som förarglig."
 
 msgid "Contact us"
 msgstr "Kontakta oss"
@@ -846,7 +846,7 @@ msgid "Cultural sites and built structures (as they may be affected by the envir
 msgstr "Kulturella platser och byggda strukturer (då de kan ha påverkats av de miljömässiga faktorerna listade ovanför)"
 
 msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they should respond promptly and"
-msgstr ""
+msgstr "För närvarande <strong>inväntande till ett svar</strong> från {{public_body_link}}, de måste svara snabbt och"
 
 msgid "Date:"
 msgstr "Datum:"
@@ -1002,7 +1002,7 @@ msgid "Everything that you enter on this page, including <strong>your name</stro
 msgstr "Allt som du anger på denna sida, inklusive <strong>ditt namn</strong>, kommer att <strong>visas offentligt</strong> på denna hemsida <a href=\"{{url}}\">för evigt</a>"
 
 msgid "Expand all correspondence"
-msgstr ""
+msgstr "Expandera all korrespondens"
 
 msgid "FOI"
 msgstr "Offentlighetsprincipen"
@@ -2057,10 +2057,10 @@ msgid "Password is not correct"
 msgstr "Lösenordet är inte korrekt"
 
 msgid "Password is too long (maximum is 72 characters)"
-msgstr ""
+msgstr "Lösenordet är för långt (maximalt 72 tecken)"
 
 msgid "Password is too short (minimum is 12 characters)"
-msgstr ""
+msgstr "Lösenordet är för kort (minst 12 tecken)"
 
 msgid "Password:"
 msgstr "Lösenord:"
@@ -2512,7 +2512,7 @@ msgid "Read blog"
 msgstr "Blogg"
 
 msgid "Reason:"
-msgstr ""
+msgstr "Orsak:"
 
 msgid "Received an error message, such as delivery failure."
 msgstr "Tog emot ett felmeddelande så som leveransfel."
@@ -2937,7 +2937,7 @@ msgid "Summary is too short. Please be a little more descriptive about the infor
 msgstr "Sammanfattningen är för kort. Vänligen var lite mer beskrivande om informationen du frågar efter."
 
 msgid "Suspended users cannot edit their profile"
-msgstr ""
+msgstr "Avstängda användare kan inte redigera sin profil"
 
 msgid "Table of statuses"
 msgstr "Tabell över statusar"
@@ -3111,13 +3111,13 @@ msgid "The requester has abandoned this request for some reason"
 msgstr "Den frågande har övergett denna begäran av någon anledning"
 
 msgid "The response to your request has been <strong>delayed</strong>. Although the authority has no legal obligation to reply, they should normally have responded by <strong>{{date}}</strong>"
-msgstr ""
+msgstr "Svaret till din begäran har blivit <strong>försenat</strong>. Även om myndigheten inte är lagligt skyldiga att svara, ska myndigheten normalt ha svarat <strong>{{date}}</strong> "
 
 msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and by <strong>{{date}}</strong>"
 msgstr "Svaret till din begäran har blivit <strong>försenat</strong>. Du kan säga att, enligt lagen, ska myndigheten normalt ha svarat <strong>hastigt</strong> och"
 
 msgid "The response to your request is <strong>long overdue</strong>. Although the authority has no legal obligation to reply, they should have responded by now"
-msgstr ""
+msgstr "Svaret på din begäran är <strong>kraftigt försenat</strong>. Även om myndigheten inte är lagligt skyldiga att svara, skulle myndigheten normalt ha svarat  "
 
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr "Svaret på din begäran är <strong>kraftigt försenat</strong>. Man kan säga att, enligt lag, under alla omständigheter, borde myndigheten borde ha svarat vid det här laget"
@@ -3255,10 +3255,10 @@ msgid "They have not replied to your {{law_used_short}} request {{title}} prompt
 msgstr "De har inte svarat på din begäran enligt {{law_used_short}} {{titel}} hastigt, som normalt krävs enligt lag"
 
 msgid "They have not replied to your {{law_used_short}} request {{title}}, as normally required by law"
-msgstr ""
+msgstr "De har inte svarat på din begäran enligt {{law_used_short}} {{titel}}, som normalt krävs enligt lag "
 
 msgid "They have still not replied to your {{law_used_short}} request {{title}}, as normally required by law"
-msgstr ""
+msgstr "De har fortfarande inte svarat på din {{law_used_short}} begäran {{title}}, som normalt krävs enligt lag"
 
 msgid "Things you're following"
 msgstr "Saker som du följer"
@@ -3373,10 +3373,10 @@ msgid "This request has been reported for administrator attention"
 msgstr "Denna begäran har rapporterats för administratorns uppmärksamhet"
 
 msgid "This request has been reviewed by an administrator and is considered not to be an FOI request"
-msgstr ""
+msgstr "Denna begäran har blivit granskad av en administratör och anser att den inte är en begäran om allmän handling"
 
 msgid "This request has been reviewed by an administrator and is considered to be vexatious"
-msgstr ""
+msgstr "Denna begäran har blivit <strong>dold</strong> från hemsidan, därför en administratör anser den vara förarglig"
 
 msgid "This request has been set by an administrator to \"allow new responses from nobody\""
 msgstr "Denna begäran har blivit satt av en administratör för \"att inte tillåta nya svar från någon\""
@@ -3409,7 +3409,7 @@ msgid "This table shows the technical details of the internal events that happen
 msgstr "Denna tabell visar de tekniska detaljerna av de interna händelser som hänt denna begäran på {{site_name}}. Detta kan användas för att generera information om den hastighet myndigheter har för att svara på förfrågningar, antalet förfrågningar som kräver ett postsvar och mycket mer."
 
 msgid "This user has been suspended from {{site_name}} "
-msgstr ""
+msgstr "Denna användare har blivit avstängd från {{site_name}} "
 
 msgid "This was not possible because there is already an account using the email address {{email}}."
 msgstr "Detta var inte möjligt därför att det redan är ett konto som använder e-postadressen {{email}}."
@@ -4034,7 +4034,7 @@ msgid "You can change the requests and users you are following on <a href=\"{{pr
 msgstr "Du kan ändra de förfrågningar och användare som du följer på <a href=\"{{profile_url}}\">din profilsida</a>."
 
 msgid "You can get this page in computer-readable format as part of the <a href=\"{{json_path}}\">main JSON page</a> for the request. See the <a href=\"{{api_path}}\">API documentation</a>."
-msgstr ""
+msgstr "Du kan få den här sidan i maskinläsbart format som en del av den <a href=\"{{json_path}}\">huvudsakliga JSON-sidan</a> för begäran. Se <a href=\"{{api_path}}\">API dokumentationen</a>."
 
 msgid "You can only request information about the environment from this authority."
 msgstr "Du kan endast begära information om miljön från denna myndighet."
@@ -4712,7 +4712,7 @@ msgid "{{public_body_name}} have not replied to your {{law_used_short}} request 
 msgstr "{{public_body_name}} har inte svarat på din {{law_used_short}} förfrågan {{titel}} hastigt, som normalt krävs enligt lag"
 
 msgid "{{public_body_name}} have still not replied to your {{law_used_short}} request {{title}}, as normally required by law. Click on the link below to tell them to reply. You might like to ask for an internal review, asking them to find out why their response to the request has been so slow."
-msgstr ""
+msgstr "{{public_body_name}} har fortfarande inte svarat på din {{law_used_short}} förfrågan {{title}}, enligt lagen. Klicka på länken nedan för att berätta för dem att svara. Du kanske vill be om en intern granskning. Be dem att ta reda på varför svaret på begäran har tagit så lång tid. "
 
 msgid "{{public_body_name}} no longer exists. From the request page, try replying to a particular message, rather than sending a general followup. If you need to make a general followup, and know an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
 msgstr "{{public_body_name}} existerar inte längre. Från förfrågningssidan, försök att svara till ett specifikt meddelande, istället för att skicka en generell uppföljning. Om du behöver göra en generell uppföljning, och behöver veta ett e-postadress som kommer gå till rätt plats, vänligen <a href=\"{{url}}\">skicka den till oss</a>."
