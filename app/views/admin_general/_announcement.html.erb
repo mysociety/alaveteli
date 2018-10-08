@@ -5,7 +5,7 @@
         <span aria-hidden="true">&times;</span>
       <% end %>
       <% if announcement.title.present? %><strong><%= announcement.title %> - </strong><% end %>
-      <%= raw announcement.content %>
+      <%= sanitize announcement.content %>
     </div>
   </div>
 </div>
