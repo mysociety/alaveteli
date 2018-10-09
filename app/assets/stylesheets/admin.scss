@@ -142,6 +142,17 @@ body.admin {
     display: inline-block;
   }
 
+  /* Danger Zone */
+  .danger-zone {
+    border: 3px solid #b94a48;
+    border-radius: 5px;
+  }
+
+  .danger-zone__header {
+    color: #b94a48;
+    font-size: 24px
+  }
+
   /* Users */
   .sort-order {
     margin-bottom: 30px;
