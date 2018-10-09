@@ -589,10 +589,23 @@ describe User do
 
   describe '.authenticate_from_form' do
     let(:empty_user) { described_class.new }
+
     let!(:full_user) do
       FactoryBot.create(:user, name: 'Sensible User',
                                password: 'foolishpassword',
                                email: 'sensible@localhost')
+    end
+
+    let(:wrong_password_attrs) do
+      { email: 'sensible@localhost', password: 'iownzyou' }
+    end
+
+    let(:wrong_email_attrs) do
+      { email: 'soccer@localhost', password: 'foolishpassword' }
+    end
+
+    let(:correct_attrs) do
+      { email: 'sensible@localhost', password: 'foolishpassword' }
     end
 
     it 'creates a hashed password when the password is set' do
@@ -602,17 +615,17 @@ describe User do
     end
 
     it 'has errors when given the wrong password' do
-      found_user = User.authenticate_from_form({ :email => "sensible@localhost", :password => "iownzyou" })
+      found_user = User.authenticate_from_form(wrong_password_attrs)
       expect(found_user.errors.size).to be > 0
     end
 
     it 'does not find the user when given the wrong email' do
-      found_user = User.authenticate_from_form( { :email => "soccer@localhost", :password => "foolishpassword" })
+      found_user = User.authenticate_from_form(wrong_email_attrs)
       expect(found_user.errors.size).to be > 0
     end
 
-    it 'returns the user when given the correct email and password' do
-      found_user = User.authenticate_from_form( { :email => "sensible@localhost", :password => "foolishpassword" })
+    it 'returns the user with no errors when given the correct email and password' do
+      found_user = User.authenticate_from_form(correct_attrs)
       expect(found_user.errors.size).to eq(0)
       expect(found_user).to eq(full_user)
     end
