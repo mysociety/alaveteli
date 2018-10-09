@@ -324,6 +324,10 @@ Rails.application.routes.draw do
   #### Track controller
   # /track/ is for setting up an email alert for the item
   # /feed/ is a direct RSS feed of the item
+  resources :tracks,
+            controller: 'track',
+            only: [:destroy]
+
   match '/:feed/request/:url_title' => 'track#track_request',
         :as => :track_request,
         :feed => /(track|feed)/,

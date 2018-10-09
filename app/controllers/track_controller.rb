@@ -220,6 +220,26 @@ class TrackController < ApplicationController
     end
   end
 
+  def destroy
+    track_thing = TrackThing.find(params[:id])
+
+    reason_params = {
+      web: _("To cancel this alert"),
+      email: _("Then you can cancel the alert."),
+      email_subject: _("Cancel a {{site_name}} alert", site_name: site_name)
+    }
+
+    unless authenticated_as_user?(track_thing.tracking_user, reason_params)
+      # do nothing - as "authenticated?" has done the redirect to signin page
+      # for us
+      return
+    end
+
+    track_thing.destroy!
+    flash[:notice] = view_context.unsubscribe_notice(track_thing)
+    redirect_to SafeRedirect.new(params[:r]).path
+  end
+
   # Remove all tracks of a certain type (e.g. requests / users / bodies)
   def delete_all_type
     user_id = User.find(params[:user].to_i)

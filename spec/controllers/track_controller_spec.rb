@@ -390,6 +390,55 @@ describe TrackController do
 
   end
 
+  describe 'DELETE #destroy' do
+    let(:track_thing) { FactoryBot.create(:search_track) }
+
+    context 'when not signed in' do
+      it 'redirects to signin' do
+        delete :destroy, id: track_thing.id, r: 'http://example.com'
+        expect(response).
+          to redirect_to(signin_path(token: get_last_post_redirect.token))
+      end
+    end
+
+    context 'when signed in as a different user' do
+      before do
+        session[:user_id] = FactoryBot.create(:user).id
+      end
+
+      it 'redirects to signin' do
+        delete :destroy, id: track_thing.id, r: 'http://example.com'
+        expect(response).to render_template('user/wrong_user')
+      end
+    end
+
+    context 'when signed in as the tracking user' do
+      before do
+        session[:user_id] = track_thing.tracking_user.id
+      end
+
+      it 'destroys the track thing' do
+        delete :destroy, id: track_thing.id, r: 'http://example.com'
+        expect(TrackThing.find_by(id: track_thing.id)).to eq(nil)
+      end
+
+      it 'informs the user that the track has been destroyed' do
+        delete :destroy, id: track_thing.id, r: 'http://example.com'
+        expect(flash[:notice]).to match(/You are no longer following/)
+      end
+
+      it 'redirects to a URL on the site' do
+        delete :destroy, id: track_thing.id, r: '/'
+        expect(response).to redirect_to(root_path)
+      end
+
+      it 'does not redirect to a URL on another site' do
+        delete :destroy, id: track_thing.id, r: 'http://example.com/'
+        expect(response).to redirect_to(root_path)
+      end
+    end
+  end
+
   describe 'POST #delete_all_type' do
 
     let(:track_thing) { FactoryBot.create(:search_track) }
