@@ -618,6 +618,18 @@ describe User do
       expect(found_user.errors.size).to be > 0
     end
 
+    it 'does not find closed user accounts' do
+      full_user.update!(closed_at: Time.zone.now)
+      found_user = User.authenticate_from_form(correct_attrs)
+      expect(found_user.errors[:base]).to eq(['This account has been closed.'])
+    end
+
+    it 'does not reveal closed user accounts with an incorrect password' do
+      full_user.update!(closed_at: Time.zone.now)
+      found_user = User.authenticate_from_form(wrong_password_attrs)
+      expect(found_user.errors[:base].join).to match(/please try again/)
+    end
+
     it 'returns the user with no errors when given the correct email and password' do
       found_user = User.authenticate_from_form(correct_attrs)
       expect(found_user.errors.size).to eq(0)
