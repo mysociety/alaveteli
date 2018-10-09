@@ -1173,7 +1173,7 @@ href="#smtp_mailer_enable_starttls_auto">SMTP_MAILER_ENABLE_STARTTLS_AUTO</a>.
   </dt>
   <dd>
      Recaptcha, for detecting humans. Get keys here:
-     <a href="http://recaptcha.net/whyrecaptcha.html">http://recaptcha.net/whyrecaptcha.html</a>
+     <a href="https://www.google.com/recaptcha">https://www.google.com/recaptcha</a>
 
     <div class="more-info">
       <p>Examples:</p>
