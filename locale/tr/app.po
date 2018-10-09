@@ -13,6 +13,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Baran Ozgul <baran@ozgul.net>, 2012
 # Baran Ozgul <baran@ozgul.net>, 2012
 # Baran Ozgul <baran@ozgul.net>, 2012
@@ -25,9 +26,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-18 01:28-0800\n"
-"PO-Revision-Date: 2018-02-14 06:57+0000\n"
-"Last-Translator: Senol Kaya <kayasenolk@gmail.com>\n"
+"POT-Creation-Date: 2018-09-28 15:37+0000\n"
+"PO-Revision-Date: 2018-09-29 11:24+0000\n"
+"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Turkish (http://www.transifex.com/mysociety/alaveteli/language/tr/)\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -131,6 +132,9 @@ msgstr "*bilinmeyen*"
 msgid ",\\n\\n\\n\\nYours,\\n\\n{{user_name}}"
 msgstr ",\\n\\n\\n\\nSaygılarımla,\\n\\n{{user_name}}"
 
+msgid "12 characters minimum. 72 characters maximum."
+msgstr ""
+
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
 msgstr "<a href=\"{{browse_url}}\">Tüm kurumlara bakın</a> veya herhangi bir kurumu <a href=\"{{add_url}}\">eklememizi isteyin</a>."
 
@@ -232,6 +236,9 @@ msgstr "<strong>Bizden söylemesi!</strong> Bu verileri düzgün bir biçimde ku
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong>Açıklık getirilmesi</strong>istendi"
 
+msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
+msgstr ""
+
 msgid "<strong>No response</strong> has been received <small>(maybe there's just an acknowledgement)</small>"
 msgstr "<strong>Hiçbir cevap</strong> alınmadı\\n <small>(belki sadece başvurunuzun kurumun eline geçtiğine dair bir bilgi verilmiş olabilir) </small>"
 
@@ -297,6 +304,9 @@ msgstr "   {{info_request_user}}  tarafından yapılan <em><a href=\"{{request_u
 msgid "A one line summary of the information you are requesting, e.g."
 msgstr "İstediğiniz bilginin tek satırlık bir özeti,  \\nvb. "
 
+msgid "A powerful, fully-featured FOI toolkit for journalists"
+msgstr ""
+
 msgid "A public authority"
 msgstr "Bir kamu kuruluşu"
 
@@ -319,6 +329,9 @@ msgid "About you:"
 msgstr "Hakkınızda:"
 
 msgid "About {{count}} FOI requests found"
+msgstr ""
+
+msgid "Account suspended – Please contact us"
 msgstr ""
 
 msgid "Act on what you've learnt"
@@ -456,6 +469,18 @@ msgstr "Abonelik şeklinizi değiştirin"
 msgid "Although all responses are automatically published, we depend on you, the original requester, to evaluate them."
 msgstr "Başvurulara gelen tüm cevaplar otomatik olarak siteye konulsa da, cevabın değerlendirlmesi konusunda size, yani başvuruyu yapan kişiye, ihtiyacımız var"
 
+msgid "Although not legally required to do so, we would have expected {{public_body_link}} to have responded by "
+msgstr ""
+
+msgid "Although not legally required to do so, we would have expected {{public_body_link}} to have responded by now"
+msgstr ""
+
+msgid "Although the authority is not legally obliged to reply, you should get a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>."
+msgstr ""
+
+msgid "Although the authority is not legally obliged to reply, you should have got a response, normally before the end of <strong>{{date_response_required_by}}</strong>."
+msgstr ""
+
 msgid "An <a href=\"{{request_url}}\">annotation</a> to <em>{{request_title}}</em> was made by {{event_comment_user}} on {{date}}"
 msgstr " {{date}} tarihinde <em>{{request_title}}</em> başlıklı başvuruya{{event_comment_user}} tarafından bir <a href=\"{{request_url}}\">açıklama notu</a> eklendi"
 
@@ -485,6 +510,12 @@ msgstr "Açıklamalar herkesin başvuru dolduranlara yardım etmesine yarar. Ör
 
 msgid "Annotations will be posted publicly here, and are <strong>not</strong> sent to {{public_body_name}}."
 msgstr "Açıklamalar kamuya açık bir şekilde buraya yüklenir. {{public_body_name}} kurumuna <strong>gönderilmezler</strong>.  "
+
+msgid "Announcement"
+msgstr ""
+
+msgid "Announcement|Visibility"
+msgstr ""
 
 msgid "Anonymous user"
 msgstr "İsimsiz kullanıcı"
@@ -563,9 +594,6 @@ msgstr ""
 
 msgid "Banned from this site"
 msgstr ""
-
-msgid "Banned users cannot edit their profile"
-msgstr "Yasaklı kullanıcılar profillerini düzenleyemez"
 
 msgid "Batch created by {{info_request_user}} on {{date}}."
 msgstr "Toplu istek  {{date}} tarihinde {{info_request_user}} tarafından oluşturuldu"
@@ -711,6 +739,9 @@ msgstr "Kapat"
 msgid "Close the request and respond:"
 msgstr "Başvuruyu kapat ve yanıtla:"
 
+msgid "Collapse all correspondence"
+msgstr ""
+
 msgid "Comment"
 msgstr "Yorum"
 
@@ -765,11 +796,11 @@ msgstr "Email adresinizi doğrulayın"
 msgid "Confirm your new email address on {{site_name}}"
 msgstr " {{info_request_title}} sitesindeki yeni email adresinizi doğrulayın"
 
-msgid "Considered by administrators as not an FOI request and hidden from site."
-msgstr "Site yöneticileri tarafından Bilgi Edinme başvurusu olarak görülmemiş ve siteden gizlenmiş"
+msgid "Considered by administrators as not an FOI request."
+msgstr ""
 
-msgid "Considered by administrators as vexatious and hidden from site."
-msgstr "Yöneticiler tarafından kötü niyetli bir başvuru olarak kabul edilmiş ve sitede gizlenmiş "
+msgid "Considered by administrators as vexatious."
+msgstr ""
 
 msgid "Contact us"
 msgstr "Bize ulaşın"
@@ -813,8 +844,8 @@ msgstr "Profil fotonuzu kesin"
 msgid "Cultural sites and built structures (as they may be affected by the environmental factors listed above)"
 msgstr "Kültürel siteler ve inşa edilmiş yapılar (bu tür yapılar yukarıda sıralanmış olan çevresel faktörlerden etkilenebileceği için)"
 
-msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they must respond promptly and"
-msgstr "Şu anda  {{public_body_link}} adlı kamu kuruluşundan <strong>cevap bekleniyor</strong>. Hızlı bir şekilde cevap vermeleri gerekir ve"
+msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they should respond promptly and"
+msgstr ""
 
 msgid "Date:"
 msgstr "Tarih:"
@@ -968,6 +999,9 @@ msgstr "Kamu kurumlarında bulunan bilgiye ulaşmak her vatandaşın hakkıdır.
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
 msgstr "Bu sayfada <strong>adınız</strong> dahil girdiğiniz her türlü bilgi  <a href=\"{{url}}\">sonsuza kadar</a> bu web sitesinde<strong>halka açık </strong>şekilde görünür olacaktır. "
+
+msgid "Expand all correspondence"
+msgstr ""
 
 msgid "FOI"
 msgstr "Bilgi Edinme Başvurusu"
@@ -2023,6 +2057,12 @@ msgstr "Kısmen olumlu "
 msgid "Password is not correct"
 msgstr "Şifre yanlış"
 
+msgid "Password is too long (maximum is 72 characters)"
+msgstr ""
+
+msgid "Password is too short (minimum is 12 characters)"
+msgstr ""
+
 msgid "Password:"
 msgstr "Şifre:"
 
@@ -2472,6 +2512,9 @@ msgstr "Aramalarda yakınlık ve wildcard karakter kullanımı gibi <a href=\"{{
 msgid "Read blog"
 msgstr "Blogu okuyun"
 
+msgid "Reason:"
+msgstr ""
+
 msgid "Received an error message, such as delivery failure."
 msgstr "Hata mesajı alındı, mailin ulaşmaması gibi"
 
@@ -2897,6 +2940,9 @@ msgstr ""
 msgid "Summary is too short. Please be a little more descriptive about the information you are asking for."
 msgstr ""
 
+msgid "Suspended users cannot edit their profile"
+msgstr ""
+
 msgid "Table of statuses"
 msgstr "Durum tablosu"
 
@@ -3068,8 +3114,14 @@ msgstr "Görüntülemek istediğiniz başvuru siteden kaldırılmıştır. Bunu 
 msgid "The requester has abandoned this request for some reason"
 msgstr "Başvuruyu yapan kişi bir nedenle bu başvurudan vazgeçti"
 
+msgid "The response to your request has been <strong>delayed</strong>. Although the authority has no legal obligation to reply, they should normally have responded by <strong>{{date}}</strong>"
+msgstr ""
+
 msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and by <strong>{{date}}</strong>"
 msgstr "Başvurunuza gelmesi gereken cevap<strong>gecikti</strong>. Yasaya göre kuruluşun <strong>kısa sürede</strong>cevap vermesi gerektiğini söyleyebilir ve "
+
+msgid "The response to your request is <strong>long overdue</strong>. Although the authority has no legal obligation to reply, they should have responded by now"
+msgstr ""
 
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr "Başvurunuza gelmesi gereken cevap için yasal sürenin dolmasından beri <strong>çok zaman geçti</strong>. Yasaya göre her koşulda kuruluşun şimdiye kadar başvurunuza çoktan cevap vermiş olması gerektiğini söyleyebilirsiniz"
@@ -3206,16 +3258,19 @@ msgstr "Aşağıdaki açıklama verildi:"
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
 msgstr " {{law_used_short}} başvurunuza {{title}} yasanın gerektirdiği süre içinde cevap vermediler "
 
-msgid "They have not replied to your {{law_used_short}} request {{title}}, as required by law"
-msgstr " {{law_used_short}} başvurunuza {{title}}, \\nyasaya uygun bir şekilde cevap vermediler"
+msgid "They have not replied to your {{law_used_short}} request {{title}}, as normally required by law"
+msgstr ""
 
-msgid "They have still not replied to your {{law_used_short}} request {{title}}, as required by law"
+msgid "They have still not replied to your {{law_used_short}} request {{title}}, as normally required by law"
 msgstr ""
 
 msgid "Things you're following"
 msgstr "Takip ettiğiniz şeyler"
 
 msgid "This annotation has been reported for administrator attention"
+msgstr ""
+
+msgid "This authority is not subject to FOI law, so is not legally obliged to respond"
 msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
@@ -3306,12 +3361,6 @@ msgstr "Bu başvuru, yöneticinin ilgilenmesi için zaten rapor edildi"
 msgid "This request has an <strong>unknown status</strong>."
 msgstr "Bu başvurunun <strong>durumu bilinmiyor</strong>."
 
-msgid "This request has been <strong>hidden</strong> from the site, because an administrator considers it not to be an FOI request"
-msgstr "Bu başvuru bu sitede <strong>gizlendi</strong>, çünkü site yöneticilerinden biri bunun bir Bilgi Edinme Başvurusu olmadığını düşünüyor"
-
-msgid "This request has been <strong>hidden</strong> from the site, because an administrator considers it vexatious"
-msgstr "Bu başvuru sitede <strong>gizlendi</strong> çünkü site yöneticilerinden biri bu başvurunun kurumu taciz etmeye yönelik olduğunu düşünüyor"
-
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
 msgstr "Bu başvuru site yöneticisinin bakması için <strong>rapor edildi</strong> (belki taciz edici bulundu, belki de kişisel bilgi içeriyor)"
 
@@ -3326,6 +3375,12 @@ msgstr "Bu başvuru site yöneticileri tarafından gözden geçirilmek üzere gi
 
 msgid "This request has been reported for administrator attention"
 msgstr "Bu başvuru site yöneticilerinin bakması için rapor edildi"
+
+msgid "This request has been reviewed by an administrator and is considered not to be an FOI request"
+msgstr ""
+
+msgid "This request has been reviewed by an administrator and is considered to be vexatious"
+msgstr ""
 
 msgid "This request has been set by an administrator to \"allow new responses from nobody\""
 msgstr "Bu başvuru site yöneticileri tarafından \"hiç kimseden yeni cevap kabul etme\" seçeneğine ayarlandı."
@@ -3357,8 +3412,8 @@ msgstr ""
 msgid "This table shows the technical details of the internal events that happened to this request on {{site_name}}. This could be used to generate information about the speed with which authorities respond to requests, the number of requests which require a postal response and much more."
 msgstr "Bu tabloda\\n {{site_name}} sitesinde bu başvuruyla ilgili site içinde gerçekleşmiş adımların teknik detaylarını görebilirsiniz. Bu tablo, kamu kuruluşlarının başvurulara cevap verme hızı\\n, postayla cevap verilmesi gereken başvuru sayısı ve birçok başka konuda bilgi üretmek için kullanılabilir. "
 
-msgid "This user has been banned from {{site_name}} "
-msgstr "Bu kullanıcı {{site_name}} sitesinde yasaklı "
+msgid "This user has been suspended from {{site_name}} "
+msgstr ""
 
 msgid "This was not possible because there is already an account using the email address {{email}}."
 msgstr "Bu işlemin gerçekleşmesi mümkün olamadı çünkü zaten \\n{{email}} adresini kullanan bir kullanıcı kayıtlı. "
@@ -3984,8 +4039,8 @@ msgstr " <strong>Şikayette bulunabilirsiniz</strong>"
 msgid "You can change the requests and users you are following on <a href=\"{{profile_url}}\">your profile page</a>."
 msgstr "Takip ettiğiniz başvuru ve kullanıcıları <a href=\"{{profile_url}}\">profil sayfanızda</a> değiştirebilirsiniz."
 
-msgid "You can get this page in computer-readable format as part of the main JSON page for the request.  See the <a href=\"{{api_path}}\">API documentation</a>."
-msgstr "Bu sayfayı başvuru için yapılmş ana JSON\\nsayfanın bir parçası olarak bilgisayar tarafından okunabilecek bir formatta indirebilirsiniz. <a href=\"{{api_path}}\">API dokümentasyonuna</a> bakın."
+msgid "You can get this page in computer-readable format as part of the <a href=\"{{json_path}}\">main JSON page</a> for the request. See the <a href=\"{{api_path}}\">API documentation</a>."
+msgstr ""
 
 msgid "You can only request information about the environment from this authority."
 msgstr "Bu kuruluştan yalnızca çevre ile ilgili bilgi isteyebilirsiniz.  "
@@ -4662,7 +4717,7 @@ msgstr ""
 msgid "{{public_body_name}} have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law. Click on the link below to remind them to reply."
 msgstr ""
 
-msgid "{{public_body_name}} have still not replied to your {{law_used_short}} request {{title}}, as required by law. Click on the link below to tell them to reply. You might like to ask for an internal review, asking them to find out why their response to the request has been so slow."
+msgid "{{public_body_name}} have still not replied to your {{law_used_short}} request {{title}}, as normally required by law. Click on the link below to tell them to reply. You might like to ask for an internal review, asking them to find out why their response to the request has been so slow."
 msgstr ""
 
 msgid "{{public_body_name}} no longer exists. From the request page, try replying to a particular message, rather than sending a general followup. If you need to make a general followup, and know an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
