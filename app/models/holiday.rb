@@ -6,6 +6,8 @@
 #  id          :integer          not null, primary key
 #  day         :date
 #  description :text
+#  created_at  :datetime
+#  updated_at  :datetime
 #
 
 # models/holiday.rb:

@@ -2,9 +2,9 @@
 require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
 
 describe "request_mailer/comment_on_alert" do
-  let(:request) { FactoryGirl.create(:info_request) }
-  let(:user) { FactoryGirl.create(:user, :name => "Test Us'r") }
-  let(:comment) { FactoryGirl.create(:comment, :user => user) }
+  let(:request) { FactoryBot.create(:info_request) }
+  let(:user) { FactoryBot.create(:user, :name => "Test Us'r") }
+  let(:comment) { FactoryBot.create(:comment, :user => user) }
 
   before do
     allow(AlaveteliConfiguration).to receive(:site_name).

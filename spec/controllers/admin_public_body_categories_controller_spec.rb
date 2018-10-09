@@ -18,8 +18,8 @@ describe AdminPublicBodyCategoriesController do
     it 'finds all category headings' do
       PublicBodyHeading.destroy_all
 
-      headings = [FactoryGirl.create(:public_body_heading),
-                  FactoryGirl.create(:public_body_heading)]
+      headings = [FactoryBot.create(:public_body_heading),
+                  FactoryBot.create(:public_body_heading)]
 
       get :index
 
@@ -30,10 +30,10 @@ describe AdminPublicBodyCategoriesController do
       PublicBodyHeading.destroy_all
       PublicBodyCategory.destroy_all
 
-      without_heading = FactoryGirl.create(:public_body_category)
+      without_heading = FactoryBot.create(:public_body_category)
 
-      heading = FactoryGirl.create(:public_body_heading)
-      with_heading = FactoryGirl.create(:public_body_category)
+      heading = FactoryBot.create(:public_body_heading)
+      with_heading = FactoryBot.create(:public_body_category)
       PublicBodyCategoryLink.create!(:public_body_heading_id => heading.id,
                                      :public_body_category_id => with_heading.id)
 
@@ -125,8 +125,8 @@ describe AdminPublicBodyCategoriesController do
       end
 
       it "saves the public body category's heading associations" do
-        heading = FactoryGirl.create(:public_body_heading)
-        params = FactoryGirl.attributes_for(:public_body_category)
+        heading = FactoryBot.create(:public_body_heading)
+        params = FactoryBot.attributes_for(:public_body_category)
 
         post :create, :public_body_category => @params,
           :headings => { "heading_#{ heading.id }" => heading.id }
@@ -238,7 +238,7 @@ describe AdminPublicBodyCategoriesController do
   describe 'GET edit' do
 
     before do
-      @category = FactoryGirl.create(:public_body_category)
+      @category = FactoryBot.create(:public_body_category)
       AlaveteliLocalization.with_locale('es') do
         @category.title = 'Los category'
         @category.description = 'ES Description'
@@ -265,11 +265,11 @@ describe AdminPublicBodyCategoriesController do
       # FIXME: I wanted to call PublicBody.destroy_all here so that we
       # have a known DB state, but the constraints were preventing the
       # deletion of the fixture data
-      FactoryGirl.create(:public_body, :tag_string => 'wont_be_found')
+      FactoryBot.create(:public_body, :tag_string => 'wont_be_found')
 
-      category = FactoryGirl.create(:public_body_category, :category_tag => 'spec')
-      expected_bodies = [FactoryGirl.create(:public_body, :tag_string => 'spec'),
-                         FactoryGirl.create(:public_body, :tag_string => 'spec')]
+      category = FactoryBot.create(:public_body_category, :category_tag => 'spec')
+      expected_bodies = [FactoryBot.create(:public_body, :tag_string => 'spec'),
+                         FactoryBot.create(:public_body, :tag_string => 'spec')]
 
       get :edit, :id => category.id
 
@@ -286,12 +286,12 @@ describe AdminPublicBodyCategoriesController do
   describe 'PUT update' do
 
     before do
-      @heading = FactoryGirl.create(:public_body_heading)
-      @category = FactoryGirl.create(:public_body_category)
-      link = FactoryGirl.create(:public_body_category_link,
-                                :public_body_category => @category,
-                                :public_body_heading => @heading,
-                                :category_display_order => 0)
+      @heading = FactoryBot.create(:public_body_heading)
+      @category = FactoryBot.create(:public_body_category)
+      link = FactoryBot.create(:public_body_category_link,
+                               :public_body_category => @category,
+                               :public_body_heading => @heading,
+                               :category_display_order => 0)
       @tag = @category.category_tag
       AlaveteliLocalization.with_locale('es') do
         @category.title = 'Los category'
@@ -322,11 +322,11 @@ describe AdminPublicBodyCategoriesController do
       # FIXME: I wanted to call PublicBody.destroy_all here so that we
       # have a known DB state, but the constraints were preventing the
       # deletion of the fixture data
-      FactoryGirl.create(:public_body, :tag_string => 'wont_be_found')
+      FactoryBot.create(:public_body, :tag_string => 'wont_be_found')
 
-      category = FactoryGirl.create(:public_body_category, :category_tag => 'spec')
-      expected_bodies = [FactoryGirl.create(:public_body, :tag_string => 'spec'),
-                         FactoryGirl.create(:public_body, :tag_string => 'spec')]
+      category = FactoryBot.create(:public_body_category, :category_tag => 'spec')
+      expected_bodies = [FactoryBot.create(:public_body, :tag_string => 'spec'),
+                         FactoryBot.create(:public_body, :tag_string => 'spec')]
 
       post :update, :id => category.id,
         :public_body_category => category.serializable_hash.except(:title, :description)
@@ -337,7 +337,7 @@ describe AdminPublicBodyCategoriesController do
     it "saves edits to a public body category's heading associations" do
       # We already have a heading from the before block. Here we're going
       # to update to a new heading.
-      heading = FactoryGirl.create(:public_body_heading)
+      heading = FactoryBot.create(:public_body_heading)
 
       post :update, :id => @category.id,
         :public_body_category => {
@@ -355,7 +355,7 @@ describe AdminPublicBodyCategoriesController do
     context 'when the category has associated bodies' do
 
       it 'does not save edits to category_tag' do
-        body = FactoryGirl.create(:public_body, :tag_string => @tag)
+        body = FactoryBot.create(:public_body, :tag_string => @tag)
 
         post :update, :id => @category.id,
           :public_body_category => { :category_tag => 'Renamed' }
@@ -366,7 +366,7 @@ describe AdminPublicBodyCategoriesController do
       end
 
       it 'notifies the user that the category_tag could not be updated' do
-        body = FactoryGirl.create(:public_body, :tag_string => @tag)
+        body = FactoryBot.create(:public_body, :tag_string => @tag)
         msg = %Q(There are authorities associated with this category,
                          so the tag can't be renamed).squish
 
@@ -377,7 +377,7 @@ describe AdminPublicBodyCategoriesController do
       end
 
       it 'renders the edit action' do
-        body = FactoryGirl.create(:public_body, :tag_string => @tag)
+        body = FactoryBot.create(:public_body, :tag_string => @tag)
 
         post :update, :id => @category.id,
           :public_body_category => { :category_tag => 'Renamed' }
@@ -417,7 +417,7 @@ describe AdminPublicBodyCategoriesController do
       end
 
       it 'saves edits to category_tag if the category has no associated bodies' do
-        category = FactoryGirl.create(:public_body_category, :category_tag => 'empty')
+        category = FactoryBot.create(:public_body_category, :category_tag => 'empty')
 
         post :update, :id => category.id,
           :public_body_category => { :category_tag => 'Renamed' }
@@ -642,7 +642,7 @@ describe AdminPublicBodyCategoriesController do
     it 'destroys empty public body categories' do
       PublicBodyCategory.destroy_all
 
-      category = FactoryGirl.create(:public_body_category)
+      category = FactoryBot.create(:public_body_category)
 
       expect{
         post :destroy, :id => category.id
@@ -653,8 +653,8 @@ describe AdminPublicBodyCategoriesController do
       PublicBodyCategory.destroy_all
 
       tag = 'empty'
-      authority = FactoryGirl.create(:public_body, :tag_string => tag)
-      category = FactoryGirl.create(:public_body_category, :category_tag => tag)
+      authority = FactoryBot.create(:public_body, :tag_string => tag)
+      category = FactoryBot.create(:public_body_category, :category_tag => tag)
 
       expect{
         post :destroy, :id => category.id
@@ -662,13 +662,13 @@ describe AdminPublicBodyCategoriesController do
     end
 
     it 'notifies the admin that the category was destroyed' do
-      category = FactoryGirl.create(:public_body_category)
+      category = FactoryBot.create(:public_body_category)
       post :destroy, :id => category.id
       expect(flash[:notice]).to eq('Category was successfully destroyed.')
     end
 
     it 'redirects to the categories index' do
-      category = FactoryGirl.create(:public_body_category)
+      category = FactoryBot.create(:public_body_category)
       post :destroy, :id => category.id
       expect(response).to redirect_to(admin_categories_path)
     end

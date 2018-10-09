@@ -16,9 +16,19 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
         end
       when 'invoice.payment_succeeded'
         charge_id = @stripe_event.data.object.charge
-        charge = Stripe::Charge.retrieve(charge_id)
-        charge.description = AlaveteliConfiguration.pro_site_name
-        charge.save
+
+        if charge_id
+          charge = Stripe::Charge.retrieve(charge_id)
+
+          subscription_id = @stripe_event.data.object.subscription
+          subscription = Stripe::Subscription.retrieve(subscription_id)
+          plan_name = subscription.plan.name
+
+          charge.description =
+            "#{ AlaveteliConfiguration.pro_site_name }: #{ plan_name }"
+
+          charge.save
+        end
       else
         raise UnhandledStripeWebhookError.new(@stripe_event.type)
       end

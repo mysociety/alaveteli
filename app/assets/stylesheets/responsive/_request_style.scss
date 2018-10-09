@@ -20,6 +20,18 @@ $color-delivery-unknown: darken(#F3BD2A, 20%) !default; // yellow
   }
 }
 
+.request-header__foi_no {
+  font-size: 0.85em;
+  color: #666;
+
+  a {
+    color: #666;
+    &:visited {
+      color: #666;
+    }
+  }
+}
+
 a.track-request-action {
   white-space: nowrap;
   text-align: left;
@@ -40,6 +52,40 @@ a.track-request-action {
   background-color: #f4f4f4;
   border-bottom: 1px solid #ddd;
   position: relative;
+
+  padding-left: 3em;
+  background-position: 1.2em 50%;
+  background-repeat: no-repeat;
+  background-size: 16px;
+  background-image: image-url('correspondence-collapse/collapse.png');
+
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    background-image: image-url('correspondence-collapse/collapse@2x.png');
+  }
+
+  .collapsed & {
+    background-color: #fff;
+    background-image: image-url('correspondence-collapse/uncollapse.png');
+
+    @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+      background-image: image-url('correspondence-collapse/uncollapse@2x.png');
+    }
+  }
+}
+
+.correspondence--current {
+  box-shadow: 0 0 20px rgba(0,0,0,0.3) !important;
+}
+
+// Interactive styling for header if JavaScript has loaded.
+.js-loaded .js-collapsable {
+  .correspondence__header {
+    cursor: pointer;
+
+    &.hovered {
+      background-color: #eee;
+    }
+  }
 }
 
 .correspondence__header__date,
@@ -119,7 +165,8 @@ input.cplink__field {
 .request-status-message--gone_postal,
 .request-status-message--error_message,
 .request-status-message--internal_review,
-.request-status-message--user_withdrawn {
+.request-status-message--user_withdrawn,
+.request-status-message--waiting_classification {
   background-color: mix(#fff, $status-pending, 70%);
 }
 
@@ -196,8 +243,12 @@ div.comment_in_request {
   }
 }
 
-.attachment {
-  border-bottom: 1px solid #e9e9e9;
+.attachments__show-more {
+  border-top: 1px solid #e9e9e9;
+}
+
+.attachment + .attachment {
+  border-top: 1px solid #e9e9e9;
 }
 
 .attachment__name {
@@ -249,6 +300,8 @@ div.comment_in_request {
   h2 {
     text-align: inherit;
     font-size: 1.2em;
+    padding-left: 0;
+    padding-top: 0;
   }
 
   pre {

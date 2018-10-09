@@ -2,26 +2,26 @@
 require 'spec_helper'
 
 describe "alaveteli_pro/info_requests/dashboard/_projects.html.erb" do
-  let(:pro_user) { FactoryGirl.create(:pro_user) }
+  let(:pro_user) { FactoryBot.create(:pro_user) }
 
   before do
     TestAfterCommit.with_commits(true) do
-      FactoryGirl.create(:info_request, user: pro_user)
-      FactoryGirl.create(:waiting_clarification_info_request, user: pro_user)
-      FactoryGirl.create(:successful_request, user: pro_user)
-      FactoryGirl.create(:error_message_request, user: pro_user)
-      FactoryGirl.create(:awaiting_description, user: pro_user)
-      FactoryGirl.create(:overdue_request, user: pro_user)
-      FactoryGirl.create(:very_overdue_request, user: pro_user)
+      FactoryBot.create(:info_request, user: pro_user)
+      FactoryBot.create(:waiting_clarification_info_request, user: pro_user)
+      FactoryBot.create(:successful_request, user: pro_user)
+      FactoryBot.create(:error_message_request, user: pro_user)
+      FactoryBot.create(:awaiting_description, user: pro_user)
+      FactoryBot.create(:overdue_request, user: pro_user)
+      FactoryBot.create(:very_overdue_request, user: pro_user)
 
-      FactoryGirl.create(:draft_info_request, user: pro_user)
+      FactoryBot.create(:draft_info_request, user: pro_user)
 
-      public_bodies = FactoryGirl.create_list(:public_body, 10)
-      FactoryGirl.create(:info_request_batch, user: pro_user,
-                                              public_bodies: public_bodies)
-      FactoryGirl.create(:draft_info_request_batch,
-                         user: pro_user,
-                         public_bodies: public_bodies)
+      public_bodies = FactoryBot.create_list(:public_body, 10)
+      FactoryBot.create(:info_request_batch, user: pro_user,
+                                             public_bodies: public_bodies)
+      FactoryBot.create(:draft_info_request_batch,
+                        user: pro_user,
+                        public_bodies: public_bodies)
     end
   end
 
@@ -32,7 +32,7 @@ describe "alaveteli_pro/info_requests/dashboard/_projects.html.erb" do
 
   def render_empty_view
     # Create a different user so that they have no requests
-    assign :user, FactoryGirl.create(:pro_user)
+    assign :user, FactoryBot.create(:pro_user)
     render partial: 'alaveteli_pro/dashboard/projects'
   end
 

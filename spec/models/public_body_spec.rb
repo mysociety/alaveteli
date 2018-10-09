@@ -30,20 +30,20 @@ describe PublicBody do
   EOF
 
     it 'create without translated name' do
-      body = FactoryGirl.build(:public_body)
+      body = FactoryBot.build(:public_body)
       expect(body.update_attributes('name' => nil)).to eq(false)
       expect(body).not_to be_valid
     end
 
     it 'create with translated name' do
-      body = FactoryGirl.build(:public_body)
+      body = FactoryBot.build(:public_body)
       AlaveteliLocalization.with_locale(:es) { body.name = 'hola' }
 
       expect(body.update_attributes('name' => nil)).to eq(false)
       expect(body).not_to be_valid
     end
     it 'update without translated name' do
-      body = FactoryGirl.create(:public_body)
+      body = FactoryBot.create(:public_body)
       body.reload
 
       expect(body.update_attributes('name' => nil)).to eq(false)
@@ -51,7 +51,7 @@ describe PublicBody do
     end
 
     it 'update with translated name' do
-      body = FactoryGirl.create(:public_body)
+      body = FactoryBot.create(:public_body)
       AlaveteliLocalization.with_locale(:es) { body.name = 'hola' ; body.save }
       body.reload
 
@@ -60,20 +60,20 @@ describe PublicBody do
     end
 
     it 'blank string create without translated name' do
-      body = FactoryGirl.build(:public_body)
+      body = FactoryBot.build(:public_body)
       expect(body.update_attributes('name' => '')).to eq(false)
       expect(body).not_to be_valid
     end
 
     it 'blank string create with translated name' do
-      body = FactoryGirl.build(:public_body)
+      body = FactoryBot.build(:public_body)
       AlaveteliLocalization.with_locale(:es) { body.name = 'hola' }
 
       expect(body.update_attributes('name' => '')).to eq(false)
       expect(body).not_to be_valid
     end
     it 'blank string update without translated name' do
-      body = FactoryGirl.create(:public_body)
+      body = FactoryBot.create(:public_body)
       body.reload
 
       expect(body.update_attributes('name' => '')).to eq(false)
@@ -81,13 +81,127 @@ describe PublicBody do
     end
 
     it 'blank string update with translated name' do
-      body = FactoryGirl.create(:public_body)
+      body = FactoryBot.create(:public_body)
       AlaveteliLocalization.with_locale(:es) { body.name = 'hola' ; body.save }
       body.reload
 
       expect(body.update_attributes('name' => '')).to eq(false)
       expect(body).not_to be_valid
     end
+  end
+
+  describe '.with_tag' do
+
+    it 'should returns all authorities' do
+      pbs = PublicBody.with_tag('all')
+      expect(pbs).to match_array([
+        public_bodies(:geraldine_public_body),
+        public_bodies(:humpadink_public_body),
+        public_bodies(:forlorn_public_body),
+        public_bodies(:silly_walks_public_body),
+        public_bodies(:sensible_walks_public_body),
+        public_bodies(:other_public_body)
+      ])
+    end
+
+    it 'should returns authorities without categories' do
+      pbs = PublicBody.with_tag('other')
+      expect(pbs).to match_array([
+        public_bodies(:geraldine_public_body),
+        public_bodies(:humpadink_public_body),
+        public_bodies(:silly_walks_public_body),
+        public_bodies(:sensible_walks_public_body),
+        public_bodies(:other_public_body)
+      ])
+    end
+
+    it 'should return authorities with key/value categories' do
+      public_bodies(:humpadink_public_body).tag_string = 'eats_cheese:stilton'
+
+      pbs = PublicBody.with_tag('eats_cheese')
+      expect(pbs).to match_array([public_bodies(:humpadink_public_body)])
+
+      pbs = PublicBody.with_tag('eats_cheese:jarlsberg')
+      expect(pbs).to be_empty
+
+      pbs = PublicBody.with_tag('eats_cheese:stilton')
+      expect(pbs).to match_array([public_bodies(:humpadink_public_body)])
+    end
+
+    it 'should return authorities with categories' do
+      public_bodies(:humpadink_public_body).tag_string = 'mycategory'
+
+      pbs = PublicBody.with_tag('mycategory')
+      expect(pbs).to match_array([public_bodies(:humpadink_public_body)])
+
+      pbs = PublicBody.with_tag('myothercategory')
+      expect(pbs).to be_empty
+    end
+
+  end
+
+  describe '.without_tag' do
+
+    it 'should not return authorities with key/value categories' do
+      public_bodies(:humpadink_public_body).tag_string = 'eats_cheese:stilton'
+
+      pbs = PublicBody.without_tag('eats_cheese')
+      expect(pbs).to_not include(public_bodies(:humpadink_public_body))
+
+      pbs = PublicBody.without_tag('eats_cheese:stilton')
+      expect(pbs).to_not include(public_bodies(:humpadink_public_body))
+
+      pbs = PublicBody.without_tag('eats_cheese:jarlsberg')
+      expect(pbs).to include(public_bodies(:humpadink_public_body))
+    end
+
+    it 'should not return authorities with categories' do
+      public_bodies(:humpadink_public_body).tag_string = 'mycategory'
+
+      pbs = PublicBody.without_tag('mycategory')
+      expect(pbs).to_not include(public_bodies(:humpadink_public_body))
+
+      pbs = PublicBody.without_tag('myothercategory')
+      expect(pbs).to include(public_bodies(:humpadink_public_body))
+    end
+
+    it 'should be chainable to exclude more than one tag' do
+      public_bodies(:geraldine_public_body).tag_string = 'council'
+      public_bodies(:humpadink_public_body).tag_string = 'defunct'
+      public_bodies(:forlorn_public_body).tag_string = 'not_apply'
+
+      pbs = PublicBody.without_tag('defunct').without_tag('not_apply')
+      expect(pbs).to include(public_bodies(:geraldine_public_body))
+      expect(pbs).to_not include(public_bodies(:humpadink_public_body))
+      expect(pbs).to_not include(public_bodies(:forlorn_public_body))
+    end
+
+  end
+
+  describe '.with_query' do
+
+    it 'should return authorities starting with a multibyte first letter' do
+      authority = FactoryBot.create(:public_body, name: 'Åčçèñtéd Authority')
+      department = FactoryBot.create(:public_body, name: 'Åčçèñtéd Department')
+
+      pbs = PublicBody.with_query('', 'Å')
+      expect(pbs).to match_array([authority, department])
+
+      pbs = PublicBody.with_query('Authority', 'Å')
+      expect(pbs).to match_array([authority])
+
+      pbs = PublicBody.with_query('Department', 'Å')
+      expect(pbs).to match_array([department])
+    end
+
+    it 'should ignore tag if greater than one character' do
+      pbs = PublicBody.with_query('Department', 'Åč')
+      expect(pbs).to match_array([
+        public_bodies(:humpadink_public_body),
+        public_bodies(:forlorn_public_body)
+      ])
+    end
+
   end
 
   describe '#name' do
@@ -105,7 +219,7 @@ describe PublicBody do
     end
 
     it 'is invalid when not unique' do
-      existing = FactoryGirl.create(:public_body)
+      existing = FactoryBot.create(:public_body)
       subject = described_class.new(:name => existing.name)
       subject.valid?
       expect(subject.errors[:name]).to eq(["Name is already taken"])
@@ -116,7 +230,7 @@ describe PublicBody do
   describe '#short_name' do
 
     it 'is invalid when not unique' do
-      existing = FactoryGirl.create(:public_body, :short_name => 'xyz')
+      existing = FactoryBot.create(:public_body, :short_name => 'xyz')
       subject = described_class.new(:short_name => existing.short_name)
       subject.valid?
       expect(subject.errors[:short_name]).to eq(["Short name is already taken"])
@@ -142,8 +256,8 @@ describe PublicBody do
     context "when the email is set" do
 
       subject(:public_body) do
-        FactoryGirl.build(:public_body,
-                           :request_email => "request@example.com")
+        FactoryBot.build(:public_body,
+                         :request_email => "request@example.com")
       end
 
       it "should return the set email address" do
@@ -162,7 +276,7 @@ describe PublicBody do
     context "when no email is set" do
 
       subject(:public_body) do
-        FactoryGirl.build(:public_body, :request_email => "")
+        FactoryBot.build(:public_body, :request_email => "")
       end
 
       it "should return a blank email address" do
@@ -196,7 +310,7 @@ describe PublicBody do
   describe '#version' do
 
     it 'ignores manually set attributes' do
-      subject = FactoryGirl.build(:public_body, :version => 21)
+      subject = FactoryBot.build(:public_body, :version => 21)
       subject.save
       expect(subject.version).to eq(1)
     end
@@ -218,7 +332,7 @@ describe PublicBody do
     end
 
     it 'is invalid when not unique' do
-      existing = FactoryGirl.create(:public_body, :url_name => 'xyz')
+      existing = FactoryBot.create(:public_body, :url_name => 'xyz')
       subject = described_class.new(:url_name => existing.url_name)
       subject.valid?
       expect(subject.errors[:url_name]).to eq(["URL name is already taken"])
@@ -271,18 +385,18 @@ describe PublicBody do
   describe '#first_letter' do
 
     it 'is empty on initialization' do
-      subject = FactoryGirl.build(:public_body)
+      subject = FactoryBot.build(:public_body)
       expect(subject.first_letter).to be_nil
     end
 
     it 'gets set on save' do
-      subject = FactoryGirl.build(:public_body, :name => 'Body')
+      subject = FactoryBot.build(:public_body, :name => 'Body')
       subject.save!
       expect(subject.first_letter).to eq('B')
     end
 
     it 'gets updated on save' do
-      subject = FactoryGirl.create(:public_body, :name => 'Body')
+      subject = FactoryBot.create(:public_body, :name => 'Body')
       subject.name = 'Authority'
       expect(subject.first_letter).to eq('B')
       subject.save!
@@ -290,13 +404,13 @@ describe PublicBody do
     end
 
     it 'sets the first letter to a multibyte character' do
-      subject = FactoryGirl.build(:public_body, :name => 'åccents')
+      subject = FactoryBot.build(:public_body, :name => 'åccents')
       subject.save!
       expect(subject.first_letter).to eq('Å')
     end
 
     it 'should save the first letter of a translation' do
-      subject = FactoryGirl.build(:public_body, :name => 'Body')
+      subject = FactoryBot.build(:public_body, :name => 'Body')
       AlaveteliLocalization.with_locale(:es) do
         subject.name = 'Prueba body'
         subject.save!
@@ -306,7 +420,7 @@ describe PublicBody do
 
     it 'saves the first letter of a translation, even when it is the same as the
           first letter in the default locale' do
-      subject = FactoryGirl.build(:public_body, :name => 'Body')
+      subject = FactoryBot.build(:public_body, :name => 'Body')
       AlaveteliLocalization.with_locale(:es) do
         subject.name = 'Body ES'
         subject.save!
@@ -319,18 +433,18 @@ describe PublicBody do
   describe '#api_key' do
 
     it 'is empty on initialization' do
-      subject = FactoryGirl.build(:public_body)
+      subject = FactoryBot.build(:public_body)
       expect(subject.api_key).to be_nil
     end
 
     it 'gets set on save' do
-      subject = FactoryGirl.build(:public_body)
+      subject = FactoryBot.build(:public_body)
       subject.save
       expect(subject.api_key).not_to be_blank
     end
 
     it 'does not get changed on update' do
-      subject = FactoryGirl.create(:public_body)
+      subject = FactoryBot.create(:public_body)
       existing = subject.api_key
       subject.save!
       expect(subject.api_key).to eq(existing)
@@ -378,7 +492,7 @@ describe PublicBody do
     end
 
     it 'strips blank attributes' do
-      subject = FactoryGirl.create(:public_body, :last_edit_comment => '')
+      subject = FactoryBot.create(:public_body, :last_edit_comment => '')
       expect(subject.last_edit_comment).to be_nil
     end
 
@@ -393,7 +507,7 @@ describe PublicBody do
     end
 
     it 'strips blank attributes' do
-      subject = FactoryGirl.create(:public_body, :home_page => '')
+      subject = FactoryBot.create(:public_body, :home_page => '')
       expect(subject.home_page).to be_nil
     end
 
@@ -408,8 +522,50 @@ describe PublicBody do
     end
 
     it 'strips blank attributes' do
-      subject = FactoryGirl.create(:public_body, :notes => '')
+      subject = FactoryBot.create(:public_body, :notes => '')
       expect(subject.notes).to be_nil
+    end
+
+  end
+
+  describe '#has_notes?' do
+
+    it 'returns false if notes is nil' do
+      subject = PublicBody.new(:notes => nil)
+      expect(subject.has_notes?).to eq(false)
+    end
+
+    it 'returns false if notes is blank' do
+      subject = PublicBody.new(:notes => '')
+      expect(subject.has_notes?).to eq(false)
+    end
+
+    it 'returns true if notes are present' do
+      subject = PublicBody.new(:notes => 'x')
+      expect(subject.has_notes?).to eq(true)
+    end
+
+    context 'when the authority is tagged with the tag option' do
+
+      it 'returns true if the authority has notes' do
+        subject = PublicBody.new(:notes => 'x', :tag_string => 'popular')
+        expect(subject.has_notes?(tag: 'popular')).to eq(true)
+      end
+
+      it 'returns false if the authority does not have notes' do
+        subject = PublicBody.new(:notes => nil, :tag_string => 'popular')
+        expect(subject.has_notes?(tag: 'popular')).to eq(false)
+      end
+
+    end
+
+    context 'when the authority is not tagged with the tag option' do
+
+      it 'returns false' do
+        subject = PublicBody.new(:notes => 'x', :tag_string => 'useless')
+        expect(subject.has_notes?(tag: 'popular')).to eq(false)
+      end
+
     end
 
   end
@@ -423,7 +579,7 @@ describe PublicBody do
     end
 
     it 'strips blank attributes' do
-      subject = FactoryGirl.create(:public_body, :publication_scheme => '')
+      subject = FactoryBot.create(:public_body, :publication_scheme => '')
       expect(subject.publication_scheme).to be_nil
     end
 
@@ -438,7 +594,7 @@ describe PublicBody do
     end
 
     it 'strips blank attributes' do
-      subject = FactoryGirl.create(:public_body, :disclosure_log => '')
+      subject = FactoryBot.create(:public_body, :disclosure_log => '')
       expect(subject.disclosure_log).to be_nil
     end
 
@@ -449,7 +605,7 @@ describe PublicBody do
     context 'translation_attrs is a Hash' do
 
       it 'does not persist translations' do
-        body = FactoryGirl.create(:public_body)
+        body = FactoryBot.create(:public_body)
         body.translations_attributes = { :es => { :locale => 'es',
                                                   :name => 'El Body' } }
 
@@ -457,7 +613,7 @@ describe PublicBody do
       end
 
       it 'creates a new translation' do
-        body = FactoryGirl.create(:public_body)
+        body = FactoryBot.create(:public_body)
         body.translations_attributes = { :es => { :locale => 'es',
                                                   :name => 'El Body' } }
         body.save
@@ -466,7 +622,7 @@ describe PublicBody do
       end
 
       it 'updates an existing translation' do
-        body = FactoryGirl.create(:public_body)
+        body = FactoryBot.create(:public_body)
         body.translations_attributes = { 'es' => { :locale => 'es',
                                                    :name => 'El Body' } }
         body.save
@@ -479,7 +635,7 @@ describe PublicBody do
       end
 
       it 'updates an existing translation and creates a new translation' do
-        body = FactoryGirl.create(:public_body)
+        body = FactoryBot.create(:public_body)
         body.translations.create(:locale => 'es',
                                  :name => 'El Body')
 
@@ -503,7 +659,7 @@ describe PublicBody do
       end
 
       it 'skips empty translations' do
-        body = FactoryGirl.create(:public_body)
+        body = FactoryBot.create(:public_body)
         body.translations.create(:locale => 'es',
                                  :name => 'El Body')
 
@@ -560,7 +716,7 @@ describe PublicBody do
   describe '#expire_requests' do
 
     it 'calls expire on all associated requests' do
-      public_body = FactoryGirl.build(:public_body)
+      public_body = FactoryBot.build(:public_body)
       requests = [double, double]
       expect(public_body).to receive(:info_requests).and_return(requests)
 
@@ -611,6 +767,28 @@ describe PublicBody do
       public_body = PublicBody.new(:name => 'åccented')
       public_body.set_first_letter
       expect(public_body.first_letter).to eq('Å')
+    end
+
+  end
+
+  describe '#not_subject_to_law?' do
+
+    it 'returns true if tagged with "foi_no"' do
+      public_body = FactoryBot.build(:public_body,
+                                     tag_string: 'foi_no')
+      expect(public_body.not_subject_to_law?).to eq true
+    end
+
+    it 'returns false if not tagged with "foi_no"' do
+      public_body = FactoryBot.build(:public_body)
+      expect(public_body.not_subject_to_law?).to eq false
+    end
+
+    it 'returns true if authority_must_respond has been set to false in config' do
+      allow(AlaveteliConfiguration).to receive(:authority_must_respond).
+        and_return(false)
+      public_body = FactoryBot.build(:public_body)
+      expect(public_body.not_subject_to_law?).to eq true
     end
 
   end
@@ -685,32 +863,25 @@ describe PublicBody do
 
   end
 
-  describe '.blank_contact_count' do
-    let(:public_body){ FactoryGirl.create(:public_body) }
-    let(:blank_contact){ FactoryGirl.create(:blank_email_public_body) }
-    let(:defunct_body) do
-      FactoryGirl.create(:defunct_public_body,
-                         :request_email => '')
-    end
+  describe '.without_request_email' do
+    subject { PublicBody.without_request_email }
 
-    before do
-      InfoRequest.destroy_all
-      PublicBody.destroy_all
+    let!(:public_body) { FactoryBot.create(:public_body) }
+    let!(:blank_body) { FactoryBot.create(:blank_email_public_body) }
+    let!(:defunct_body) do
+      FactoryBot.create(:defunct_public_body, request_email: '')
     end
 
     it 'does not include bodies with a request email' do
-      public_body
-      expect(PublicBody.blank_contact_count).to eq 0
+      is_expected.to_not include(public_body)
     end
 
     it 'includes bodies with an empty request email' do
-      blank_contact
-      expect(PublicBody.blank_contact_count).to eq 1
+      is_expected.to include(blank_body)
     end
 
     it 'does not include defunct bodies' do
-      defunct_body
-      expect(PublicBody.blank_contact_count).to eq 0
+      is_expected.to_not include(defunct_body)
     end
 
     it 'includes bodies with a translation that has an empty request email' do
@@ -718,41 +889,23 @@ describe PublicBody do
         public_body.request_email = ''
         public_body.save
       end
-      expect(PublicBody.blank_contact_count).to eq 1
+      is_expected.to include(blank_body)
     end
 
   end
 
-  describe '.blank_contacts' do
-    let!(:public_body){ FactoryGirl.create(:public_body) }
-    let!(:blank_contact){ FactoryGirl.create(:blank_email_public_body) }
-    let!(:defunct_body) do
-      FactoryGirl.create(:defunct_public_body,
-                         :request_email => '')
+  describe '.with_request_email' do
+    subject { PublicBody.with_request_email }
+
+    let!(:public_body) { FactoryBot.create(:public_body) }
+    let!(:blank_body) { FactoryBot.create(:blank_email_public_body) }
+
+    it 'include bodies with a request email' do
+      is_expected.to include(public_body)
     end
 
-    it 'does not include bodies with a request email' do
-      expect(PublicBody.blank_contacts.include?(public_body))
-        .to be false
-    end
-
-    it 'includes bodies with an empty request email' do
-      expect(PublicBody.blank_contacts.include?(blank_contact))
-        .to be true
-    end
-
-    it 'does not include defunct bodies' do
-      expect(PublicBody.blank_contacts.include?(defunct_body))
-        .to be false
-    end
-
-    it 'includes bodies with a translation that has an empty request email' do
-      AlaveteliLocalization.with_locale(:es) do
-        public_body.request_email = ''
-        public_body.save
-      end
-      expect(PublicBody.blank_contacts.include?(public_body))
-        .to be true
+    it 'does not include bodies with an empty request email' do
+      is_expected.to_not include(blank_body)
     end
 
   end
@@ -760,17 +913,17 @@ describe PublicBody do
   describe  'when generating json for the api' do
 
     let(:public_body) do
-      FactoryGirl.create(:public_body,
-                         :name => 'Marmot Appreciation Society',
-                         :short_name => 'MAS',
-                         :request_email => 'marmots@flourish.org',
-                         :last_edit_editor => 'test',
-                         :last_edit_comment => '',
-                         :info_requests_count => 10,
-                         :info_requests_successful_count => 2,
-                         :info_requests_not_held_count   => 2,
-                         :info_requests_overdue_count    => 3,
-                         :info_requests_visible_classified_count => 3)
+      FactoryBot.create(:public_body,
+                        :name => 'Marmot Appreciation Society',
+                        :short_name => 'MAS',
+                        :request_email => 'marmots@flourish.org',
+                        :last_edit_editor => 'test',
+                        :last_edit_comment => '',
+                        :info_requests_count => 10,
+                        :info_requests_successful_count => 2,
+                        :info_requests_not_held_count   => 2,
+                        :info_requests_overdue_count    => 3,
+                        :info_requests_visible_classified_count => 3)
     end
 
     it 'should return info about request counts' do
@@ -945,7 +1098,7 @@ describe PublicBody, " when saving" do
   end
 
   it 'should create a url_name for a translation' do
-    existing = FactoryGirl.create(:public_body, :first_letter => 'T', :short_name => 'Test body')
+    existing = FactoryBot.create(:public_body, :first_letter => 'T', :short_name => 'Test body')
     AlaveteliLocalization.with_locale(:es) do
       existing.update_attributes :short_name => 'Prueba', :name => 'Prueba body'
       expect(existing.url_name).to eq('prueba')
@@ -1049,7 +1202,7 @@ describe PublicBody, "when searching" do
 end
 
 describe PublicBody, "when destroying" do
-  let(:public_body) { FactoryGirl.create(:public_body) }
+  let(:public_body) { FactoryBot.create(:public_body) }
 
   it 'should destroy the public_body' do
     public_body.destroy
@@ -1057,16 +1210,16 @@ describe PublicBody, "when destroying" do
   end
 
   it 'should destroy the associated track_things' do
-    FactoryGirl.create(:public_body_track,
-                       :public_body => public_body,
-                       :track_medium => 'email_daily',
-                       :track_query => 'test')
+    FactoryBot.create(:public_body_track,
+                      :public_body => public_body,
+                      :track_medium => 'email_daily',
+                      :track_query => 'test')
     public_body.destroy
     expect(TrackThing.where(:public_body_id => public_body.id)).to be_empty
   end
 
   it 'should destroy the associated censor_rules' do
-    FactoryGirl.create(:censor_rule, :public_body => public_body)
+    FactoryBot.create(:censor_rule, :public_body => public_body)
     public_body.destroy
     expect(CensorRule.where(:public_body_id => public_body.id)).to be_empty
   end
@@ -1084,7 +1237,7 @@ describe PublicBody, "when destroying" do
   end
 
   it 'should raise an error if there are associated info_requests' do
-    FactoryGirl.create(:info_request, :public_body => public_body)
+    FactoryBot.create(:info_request, :public_body => public_body)
     public_body.reload
     expect{ public_body.destroy }.to raise_error(ActiveRecord::InvalidForeignKey)
   end
@@ -1278,7 +1431,7 @@ describe PublicBody, " when loading CSV files" do
     context 'an existing body without tags' do
 
       before do
-        @body = FactoryGirl.create(:public_body, :name => 'Existing Body')
+        @body = FactoryBot.create(:public_body, :name => 'Existing Body')
       end
 
       it 'will not import if there is an existing body without the tag' do
@@ -1299,7 +1452,7 @@ describe PublicBody, " when loading CSV files" do
     context 'an existing body with tags' do
 
       before do
-        @body = FactoryGirl.create(:public_body, :tag_string => 'imported first_tag second_tag')
+        @body = FactoryBot.create(:public_body, :tag_string => 'imported first_tag second_tag')
       end
 
       it 'created with tags, different tags in csv, add import tag' do
@@ -1392,7 +1545,7 @@ describe PublicBody, " when loading CSV files" do
     context 'with an existing body without tags' do
 
       before do
-        @body = FactoryGirl.create(:public_body)
+        @body = FactoryBot.create(:public_body)
       end
 
       it 'appends when no tag_string is specified' do
@@ -1452,7 +1605,7 @@ describe PublicBody, " when loading CSV files" do
     describe 'with an existing body with tags' do
 
       before do
-        @body = FactoryGirl.create(:public_body, :tag_string => 'first_tag second_tag')
+        @body = FactoryBot.create(:public_body, :tag_string => 'first_tag second_tag')
       end
 
       it 'created with tags, different tags in csv, add tags' do
@@ -1551,7 +1704,6 @@ describe PublicBody, " when loading CSV files" do
       # of the confusing change in behaviour of CSV.parse between
       # Ruby 1.8 and 1.9.)
       original_count = PublicBody.count
-      filename = file_fixture_name('fake-authority-type-with-field-names.csv')
       PublicBody.
         import_csv_from_file(filename, '', 'replace', false, 'someadmin')
       expect(PublicBody.count).to eq(original_count + 3)
@@ -1706,12 +1858,12 @@ describe PublicBody do
   describe '#site_administration?' do
 
     it 'is true when the body has the site_administration tag' do
-      p = FactoryGirl.build(:public_body, :tag_string => 'site_administration')
+      p = FactoryBot.build(:public_body, :tag_string => 'site_administration')
       expect(p.site_administration?).to be true
     end
 
     it 'is false when the body does not have the site_administration tag' do
-      p = FactoryGirl.build(:public_body)
+      p = FactoryBot.build(:public_body)
       expect(p.site_administration?).to be false
     end
 
@@ -1866,6 +2018,38 @@ end
 
 describe PublicBody do
 
+  describe '.foi_applies' do
+    subject { PublicBody.foi_applies }
+
+    let!(:public_body) { FactoryBot.create(:public_body) }
+    let!(:not_apply_body) { FactoryBot.create(:not_apply_public_body) }
+
+    it 'include active bodies' do
+      is_expected.to include(public_body)
+    end
+
+    it 'does not include bodies where FOI/EIR is not applicable' do
+      is_expected.to_not include(not_apply_body)
+    end
+
+  end
+
+  describe '.not_defunct' do
+    subject { PublicBody.not_defunct }
+
+    let!(:public_body) { FactoryBot.create(:public_body) }
+    let!(:defunct_body) { FactoryBot.create(:defunct_public_body) }
+
+    it 'include active bodies' do
+      is_expected.to include(public_body)
+    end
+
+    it 'does not include defunct bodies' do
+      is_expected.to_not include(defunct_body)
+    end
+
+  end
+
   describe '#is_requestable?' do
 
     before do
@@ -1887,8 +2071,39 @@ describe PublicBody do
       expect(@body.is_requestable?).to eq(false)
     end
 
+    it 'returns true if not subject to FOI law' do
+      allow(@body).to receive(:not_subject_to_law?).and_return true
+      expect(@body.is_requestable?).to eq(true)
+    end
+
     it 'should return true if the request email is an email address' do
       expect(@body.is_requestable?).to eq(true)
+    end
+
+  end
+
+  describe '.is_requestable' do
+    subject { PublicBody.is_requestable }
+
+    let!(:public_body) { FactoryBot.create(:public_body) }
+    let!(:blank_body) { FactoryBot.create(:blank_email_public_body) }
+    let!(:defunct_body) { FactoryBot.create(:defunct_public_body) }
+    let!(:not_apply_body) { FactoryBot.create(:not_apply_public_body) }
+
+    it 'includes return requestable body' do
+      is_expected.to include(public_body)
+    end
+
+    it 'does not include bodies without request email' do
+      is_expected.to_not include(blank_body)
+    end
+
+    it 'does not include defunct bodies' do
+      is_expected.to_not include(defunct_body)
+    end
+
+    it 'does not include bodies where FOI/EIR is not applicable' do
+      is_expected.to_not include(not_apply_body)
     end
 
   end
@@ -1939,6 +2154,96 @@ describe PublicBody do
 
   end
 
+  describe '#update_counter_cache' do
+    let(:public_body) { FactoryBot.create(:public_body) }
+    let(:tmp_body) { FactoryBot.create(:public_body) }
+
+    it 'does not create a new version of the authority' do
+      expect { public_body.update_counter_cache }.
+        not_to change { public_body.versions.count }
+    end
+
+    it 'does not mark the authority for reindexing' do
+      # Call public_body so that any unrelated indexing events are created
+      # before we call update_counter_cache
+      public_body.save!
+      jobs = ActsAsXapian::ActsAsXapianJob.where(model: 'PublicBody')
+      expect { public_body.update_counter_cache }.not_to change { jobs.count }
+    end
+
+    it 'does not touch updated_at' do
+      expect { public_body.update_counter_cache }.
+        not_to change { public_body.updated_at }
+    end
+
+    it 'increments info_requests_not_held_count' do
+      request = FactoryBot.create(:not_held_request)
+      request.update_column(:public_body_id, public_body.id)
+      expect { public_body.update_counter_cache }.
+        to change { public_body.info_requests_not_held_count }.from(nil).to(1)
+    end
+
+    it 'decrements info_requests_not_held_count' do
+      request = FactoryBot.create(:not_held_request, public_body: public_body)
+      public_body.update_counter_cache
+      request.update_column(:public_body_id, tmp_body.id)
+
+      expect { public_body.update_counter_cache }.
+        to change { public_body.info_requests_not_held_count }.from(1).to(0)
+    end
+
+    it 'increments info_requests_successful_count' do
+      request = FactoryBot.create(:successful_request)
+      request.update_column(:public_body_id, public_body.id)
+      expect { public_body.update_counter_cache }.
+        to change { public_body.info_requests_successful_count }.from(nil).to(1)
+    end
+
+    it 'decrements info_requests_successful_count' do
+      request =
+        FactoryBot.create(:successful_request, public_body: public_body)
+      public_body.update_counter_cache
+      request.update_column(:public_body_id, tmp_body.id)
+
+      expect { public_body.update_counter_cache }.
+        to change { public_body.info_requests_successful_count }.from(1).to(0)
+    end
+
+    it 'increments info_requests_visible_classified_count' do
+      request = FactoryBot.create(:info_request)
+      request.update_column(:public_body_id, public_body.id)
+      expect { public_body.update_counter_cache }.
+        to change { public_body.info_requests_visible_classified_count }.
+        from(nil).to(1)
+    end
+
+    it 'decrements info_requests_visible_classified_count' do
+      request = FactoryBot.create(:info_request, public_body: public_body)
+      public_body.update_counter_cache
+      request.update_column(:public_body_id, tmp_body.id)
+
+      expect { public_body.update_counter_cache }.
+        to change { public_body.info_requests_visible_classified_count }.
+        from(1).to(0)
+    end
+
+    it 'increments info_requests_visible_count' do
+      request = FactoryBot.create(:info_request, awaiting_description: true)
+      request.update_column(:public_body_id, public_body.id)
+      expect { public_body.update_counter_cache }.
+        to change { public_body.info_requests_visible_count }.from(0).to(1)
+    end
+
+    it 'decrements info_requests_visible_count' do
+      request = FactoryBot.create(:info_request, public_body: public_body,
+                                                 awaiting_description: true)
+      public_body.update_counter_cache
+      request.update_column(:public_body_id, tmp_body.id)
+
+      expect { public_body.update_counter_cache }.
+        to change { public_body.info_requests_visible_count }.from(1).to(0)
+    end
+  end
 end
 
 describe PublicBody::Translation do
@@ -1959,7 +2264,7 @@ describe PublicBody::Translation do
 end
 
 describe PublicBody::Version do
-  let(:public_body){ FactoryGirl.create(:public_body) }
+  let(:public_body){ FactoryBot.create(:public_body) }
 
   describe '#compare' do
 

@@ -3,7 +3,9 @@
 #
 # Table name: raw_emails
 #
-#  id :integer          not null, primary key
+#  id         :integer          not null, primary key
+#  created_at :datetime
+#  updated_at :datetime
 #
 
 # models/raw_email.rb:
@@ -37,6 +39,14 @@ class RawEmail < ActiveRecord::Base
     end
 
     File.join(directory, incoming_message_id)
+  end
+
+  def mail
+    @mail ||= mail!
+  end
+
+  def mail!
+    MailHandler.mail_from_raw_email(data)
   end
 
   def data=(d)

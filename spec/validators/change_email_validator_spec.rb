@@ -9,7 +9,7 @@ end
 
 describe ChangeEmailValidator do
 
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryBot.create(:user) }
 
   describe '#old_email' do
 
@@ -42,7 +42,7 @@ describe ChangeEmailValidator do
                  :user_circumstance => 'change_email',
                  :password => 'jonespassword' }
       validator = validator_with_user_and_params(user, params)
-      validator.logged_in_user = FactoryGirl.build(:user)
+      validator.logged_in_user = FactoryBot.build(:user)
       validator.valid?
       msg = "Old email address isn't the same as the address of the account you are logged in with"
       expect(validator.errors[:old_email]).to include(msg)

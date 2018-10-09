@@ -4,8 +4,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../alaveteli_dsl')
 
 describe "creating requests in alaveteli_pro" do
   context "when writing a new request from scratch" do
-    let!(:public_body) { FactoryGirl.create(:public_body, :name => 'example') }
-    let!(:pro_user) { FactoryGirl.create(:pro_user) }
+    let!(:public_body) { FactoryBot.create(:public_body, :name => 'example') }
+    let!(:pro_user) { FactoryBot.create(:pro_user) }
     let!(:pro_user_session) { login(pro_user) }
 
     before do
@@ -45,8 +45,7 @@ describe "creating requests in alaveteli_pro" do
 
         embargoed_until = AlaveteliPro::Embargo.three_months_from_now
         expect(page).to have_content("Your draft has been saved!")
-        expect(page).to have_content("This request will be private on " \
-                                     "Alaveteli until " \
+        expect(page).to have_content("This request will be private until " \
                                      "#{embargoed_until.strftime('%-d %B %Y')}")
 
         # The page should pre-fill the form with data from the draft
@@ -78,9 +77,20 @@ describe "creating requests in alaveteli_pro" do
                                      "work?")
         expect(page).to have_content("A very short letter.")
         embargoed_until = AlaveteliPro::Embargo.three_months_from_now
-        expect(page).to have_content("This request will be private on " \
-                                     "Alaveteli until " \
+        expect(page).to have_content("This request will be private until " \
                                      "#{embargoed_until.strftime('%-d %B %Y')}")
+      end
+    end
+
+    it 'does not render HTML on the preview page' do
+      public_body.update_attribute(:name, "Test's <sup>html</sup> authority")
+      using_pro_session(pro_user_session) do
+        visit show_public_body_path(:url_name => public_body.url_name)
+        click_link("Make a request to this authority")
+        fill_in 'Subject', :with => "HTML test"
+        click_button "Preview and send"
+
+        expect(page).to have_content("Dear Test's <sup>html</sup> authority")
       end
     end
 
@@ -162,8 +172,7 @@ describe "creating requests in alaveteli_pro" do
                                      "work?")
         expect(page).to have_content("A very short letter, edited.")
         embargoed_until = AlaveteliPro::Embargo.three_months_from_now
-        expect(page).to have_content("This request will be private on " \
-                                     "Alaveteli until " \
+        expect(page).to have_content("This request will be private until " \
                                      "#{embargoed_until.strftime('%-d %B %Y')}")
       end
     end

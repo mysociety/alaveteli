@@ -26,6 +26,16 @@ body.admin {
   padding-top: 42px;
 }
 
+.admin-footer {
+  background-color: #f9f9f9;
+  border-top: 1px solid #dddddd;
+  padding: 1em 0;
+
+  .nav.nav-pills {
+    margin-bottom: 0;
+  }
+}
+
 .admin {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
@@ -80,10 +90,6 @@ body.admin {
     }
   }
 
-  .fieldWithErrors input{
-    border: 1px solid #ff0c11;
-  }
-
   body.admin blockquote p {
     font-size: 13px;
     display: inline;
@@ -126,9 +132,14 @@ body.admin {
   .fieldWithErrors {
     display:block;
     padding:0.2em;
+
     textarea, input {
-      border:solid 1px Red !important;
+      border: 1px solid #ff0c11 !important;
     }
+  }
+
+  .inline-element .fieldWithErrors {
+    display: inline-block;
   }
 
   /* Users */

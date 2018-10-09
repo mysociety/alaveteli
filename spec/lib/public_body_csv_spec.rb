@@ -95,7 +95,7 @@ describe PublicBodyCSV do
                 :notes => 'An exported authority',
                 :created_at => '2007-10-25 10:51:01 UTC',
                 :updated_at => '2007-10-25 10:51:01 UTC' }
-      body = FactoryGirl.create(:public_body, attrs)
+      body = FactoryBot.create(:public_body, attrs)
 
       csv = PublicBodyCSV.new
       csv << body
@@ -116,7 +116,7 @@ describe PublicBodyCSV do
                  :notes => 'An exported authority',
                  :created_at => '2007-10-25 10:51:01 UTC',
                  :updated_at => '2007-10-25 10:51:01 UTC' }
-      body1 = FactoryGirl.create(:public_body, attrs1)
+      body1 = FactoryBot.create(:public_body, attrs1)
 
       attrs2 = { :name => 'Exported to CSV 2',
                  :short_name => 'CSV2',
@@ -125,7 +125,7 @@ describe PublicBodyCSV do
                  :notes => 'Exported authority',
                  :created_at => '2011-01-26 14:11:02 UTC',
                  :updated_at => '2011-01-26 14:11:02 UTC' }
-      body2 = FactoryGirl.create(:public_body, attrs2)
+      body2 = FactoryBot.create(:public_body, attrs2)
 
       expected = <<-CSV.strip_heredoc
       Name,Short name,URL name,Home page,Publication scheme,Disclosure log,Notes,Created at,Updated at,Version

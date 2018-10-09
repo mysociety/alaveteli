@@ -2,9 +2,9 @@
 require 'spec_helper'
 
 describe "alaveteli_pro/info_request_batches/_authority_list.text.erb" do
-  let(:html_body) { FactoryGirl.create(:public_body, name: "One & Two") }
-  let(:other_body) { FactoryGirl.create(:public_body) }
-  let(:other_body_2) { FactoryGirl.create(:public_body) }
+  let(:html_body) { FactoryBot.create(:public_body, name: "One & Two") }
+  let(:other_body) { FactoryBot.create(:public_body) }
+  let(:other_body_2) { FactoryBot.create(:public_body) }
   let(:public_bodies) { [html_body, other_body, other_body_2] }
   let(:template) do
     "alaveteli_pro/info_request_batches/authority_list.text.erb"

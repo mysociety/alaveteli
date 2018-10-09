@@ -14,6 +14,7 @@
   <body class="admin">
     <div id="main" class="container">
       <%= render :partial => 'admin_general/admin_navbar' %>
+
       <% if flash[:error] %>
         <div class="row">
           <div class="span12">
@@ -35,6 +36,27 @@
       <% end %>
 
       <%= yield  %>
+    </div>
+
+    <div class="admin-footer">
+      <div class="container">
+        <div class="row">
+          <span class="span4 offset8">
+            <ul class="nav nav-pills">
+              <li>
+                <a href="http://alaveteli.org/docs/running/admin_manual/">
+                  Admin Manual
+                </a>
+              </li>
+              <li>
+                <a href="http://alaveteli.org/community/">
+                  Alaveteli Community
+                </a>
+              </li>
+            </ul>
+          </span>
+        </div>
+      </div>
     </div>
   </body>
 </html>

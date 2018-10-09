@@ -24,7 +24,7 @@ describe OutgoingMessages::DeliveryStatusesController do
   describe 'GET show' do
 
     it 'assigns the outgoing message' do
-      session[:user_id] = FactoryGirl.create(:user).id
+      session[:user_id] = FactoryBot.create(:user).id
       attrs = { :id => '1',
                 :prominence => 'normal',
                 :info_request => visible_info_request,
@@ -39,7 +39,7 @@ describe OutgoingMessages::DeliveryStatusesController do
     end
 
     it 'renders hidden when the message cannot be viewed' do
-      session[:user_id] = FactoryGirl.create(:user).id
+      session[:user_id] = FactoryBot.create(:user).id
       attrs = { :id => '1',
                 :prominence => 'hidden',
                 :info_request => visible_info_request,
@@ -54,7 +54,7 @@ describe OutgoingMessages::DeliveryStatusesController do
     end
 
     it 'renders hidden when the request cannot be viewed' do
-      session[:user_id] = FactoryGirl.create(:user).id
+      session[:user_id] = FactoryBot.create(:user).id
       attrs = { :id => '1',
                 :prominence => 'normal',
                 :info_request => mock_model(InfoRequest, { :prominence => 'hidden',
@@ -70,7 +70,7 @@ describe OutgoingMessages::DeliveryStatusesController do
     end
 
     it 'sets the title' do
-      session[:user_id] = FactoryGirl.create(:user).id
+      session[:user_id] = FactoryBot.create(:user).id
       attrs = { :id => '1',
                 :prominence => 'normal',
                 :info_request => visible_info_request,
@@ -91,7 +91,7 @@ describe OutgoingMessages::DeliveryStatusesController do
           to receive(:line).with(:redact => false).and_return(log.line)
       end
 
-      session[:user_id] = FactoryGirl.create(:admin_user).id
+      session[:user_id] = FactoryBot.create(:admin_user).id
       attrs = { :id => '1',
                 :prominence => 'normal',
                 :info_request => visible_info_request,
@@ -106,7 +106,7 @@ describe OutgoingMessages::DeliveryStatusesController do
     end
 
     it 'sets show_mail_server_logs to true if the user is an owner' do
-      session[:user_id] = FactoryGirl.create(:user).id
+      session[:user_id] = FactoryBot.create(:user).id
       attrs = { :id => '1',
                 :prominence => 'normal',
                 :info_request => visible_info_request,
@@ -121,7 +121,7 @@ describe OutgoingMessages::DeliveryStatusesController do
     end
 
     it 'sets show_mail_server_logs to false if the user is not an owner' do
-      session[:user_id] = FactoryGirl.create(:user).id
+      session[:user_id] = FactoryBot.create(:user).id
       attrs = { :id => '1',
                 :prominence => 'normal',
                 :info_request => visible_info_request,
@@ -141,7 +141,7 @@ describe OutgoingMessages::DeliveryStatusesController do
           to receive(:line).with(:redact => true).and_return(log.line)
       end
 
-      session[:user_id] = FactoryGirl.create(:user).id
+      session[:user_id] = FactoryBot.create(:user).id
       attrs = { :id => '1',
                 :prominence => 'normal',
                 :info_request => visible_info_request,
@@ -161,7 +161,7 @@ describe OutgoingMessages::DeliveryStatusesController do
           to receive(:line).with(:redact => false).and_return(log.line)
       end
 
-      session[:user_id] = FactoryGirl.create(:admin_user).id
+      session[:user_id] = FactoryBot.create(:admin_user).id
       attrs = { :id => '1',
                 :prominence => 'normal',
                 :info_request => visible_info_request,
@@ -190,7 +190,7 @@ describe OutgoingMessages::DeliveryStatusesController do
     end
 
     it 'renders the show template' do
-      session[:user_id] = FactoryGirl.create(:user).id
+      session[:user_id] = FactoryBot.create(:user).id
       attrs = { :id => '1',
                 :prominence => 'normal',
                 :info_request => visible_info_request,

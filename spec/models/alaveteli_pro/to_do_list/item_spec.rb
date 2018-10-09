@@ -10,7 +10,7 @@ describe AlaveteliPro::ToDoList::Item do
     end
 
     it 'assigns the user' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       list = described_class.new(user)
       expect(list.user).to eq user
     end
@@ -20,7 +20,7 @@ describe AlaveteliPro::ToDoList::Item do
   describe '#count' do
 
     it 'returns a count of the number of items' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       expect(described_class.new(user).count).to eq 0
     end
 

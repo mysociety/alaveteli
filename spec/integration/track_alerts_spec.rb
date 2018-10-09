@@ -14,14 +14,14 @@ describe "When sending track alerts" do
 
   it "should send alerts" do
 
-    info_request = FactoryGirl.create(:info_request)
-    user = FactoryGirl.create(:user, :last_daily_track_email => 3.days.ago)
+    info_request = FactoryBot.create(:info_request)
+    user = FactoryBot.create(:user, :last_daily_track_email => 3.days.ago)
     user_session = login(user)
     using_session(user_session) do
       visit "track/request/#{info_request.url_title}"
     end
 
-    other_user = FactoryGirl.create(:user)
+    other_user = FactoryBot.create(:user)
     other_user_session = login(other_user)
     using_session(other_user_session) do
       visit "en/annotate/request/#{info_request.url_title}"
@@ -30,7 +30,7 @@ describe "When sending track alerts" do
       click_button 'Post annotation'
     end
 
-    rebuild_xapian_index
+    destroy_and_rebuild_xapian_index
 
     TrackMailer.alert_tracks
 
@@ -65,15 +65,15 @@ describe "When sending track alerts" do
   end
 
   it "should send localised alerts" do
-    info_request = FactoryGirl.create(:info_request)
-    user = FactoryGirl.create(:user, :last_daily_track_email => 3.days.ago,
+    info_request = FactoryBot.create(:info_request)
+    user = FactoryBot.create(:user, :last_daily_track_email => 3.days.ago,
                                      :locale => 'es')
     user_session = login(user)
     using_session(user_session) do
       visit "es/track/request/#{info_request.url_title}"
     end
 
-    other_user = FactoryGirl.create(:user, :locale => 'en')
+    other_user = FactoryBot.create(:user, :locale => 'en')
     other_user_session = login(other_user)
     using_session(other_user_session) do
       visit "annotate/request/#{info_request.url_title}"
@@ -82,7 +82,7 @@ describe "When sending track alerts" do
       click_button 'Post annotation'
     end
 
-    rebuild_xapian_index
+    destroy_and_rebuild_xapian_index
 
     TrackMailer.alert_tracks
     deliveries = ActionMailer::Base.deliveries

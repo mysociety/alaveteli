@@ -23,11 +23,11 @@ describe AdminPublicBodyController do
   end
 
   describe 'GET #show' do
-    let(:public_body){ FactoryGirl.create(:public_body) }
-    let(:info_request){ FactoryGirl.create(:info_request,
-                                           :public_body => public_body) }
-    let(:admin_user){ FactoryGirl.create(:admin_user) }
-    let(:pro_admin_user){ FactoryGirl.create(:pro_admin_user) }
+    let(:public_body){ FactoryBot.create(:public_body) }
+    let(:info_request){ FactoryBot.create(:info_request,
+                                          :public_body => public_body) }
+    let(:admin_user){ FactoryBot.create(:admin_user) }
+    let(:pro_admin_user){ FactoryBot.create(:pro_admin_user) }
 
     it "returns successfully" do
       get :show, { :id => public_body.id }, { :user_id => admin_user.id }
@@ -111,7 +111,7 @@ describe AdminPublicBodyController do
       render_views
 
       it 'should populate the name, email address and last edit comment on the public body' do
-        change_request = FactoryGirl.create(:add_body_request)
+        change_request = FactoryBot.create(:add_body_request)
         get :new, :change_request_id => change_request.id
         expect(assigns[:public_body].name).to eq(change_request.public_body_name)
         expect(assigns[:public_body].request_email).to eq(change_request.public_body_email)
@@ -119,7 +119,7 @@ describe AdminPublicBodyController do
       end
 
       it 'should assign a default response text to the view' do
-        change_request = FactoryGirl.create(:add_body_request)
+        change_request = FactoryBot.create(:add_body_request)
         get :new, :change_request_id => change_request.id
         expect(assigns[:change_request_user_response]).to match("Thanks for your suggestion to add A New Body")
       end
@@ -267,7 +267,7 @@ describe AdminPublicBodyController do
     context 'when the body is being created as a result of a change request' do
 
       before do
-        @change_request = FactoryGirl.create(:add_body_request)
+        @change_request = FactoryBot.create(:add_body_request)
         post :create, { :public_body => { :name => "New Quango",
                                           :short_name => "",
                                           :tag_string => "blah",
@@ -298,7 +298,7 @@ describe AdminPublicBodyController do
   describe "GET #edit" do
 
     before do
-      @body = FactoryGirl.create(:public_body)
+      @body = FactoryBot.create(:public_body)
       AlaveteliLocalization.with_locale('es') do
         @body.name = 'Los Body'
         @body.save!
@@ -339,7 +339,7 @@ describe AdminPublicBodyController do
       render_views
 
       it 'does not show the form for destroying the body' do
-        info_request = FactoryGirl.create(:info_request)
+        info_request = FactoryBot.create(:info_request)
         get :edit, :id => info_request.public_body.id
         expect(response.body).not_to match("Destroy #{info_request.public_body.name}")
       end
@@ -361,12 +361,12 @@ describe AdminPublicBodyController do
       render_views
 
       before do
-        @change_request = FactoryGirl.create(:update_body_request)
+        @change_request = FactoryBot.create(:update_body_request)
         get :edit, :id => @change_request.public_body_id,  :change_request_id => @change_request.id
       end
 
       it 'should populate the email address and last edit comment on the public body' do
-        change_request = FactoryGirl.create(:update_body_request)
+        change_request = FactoryBot.create(:update_body_request)
         get :edit, :id => change_request.public_body_id,  :change_request_id => change_request.id
         expect(assigns[:public_body].request_email).to eq(@change_request.public_body_email)
         expect(assigns[:public_body].last_edit_comment).to match('Notes: Please')
@@ -382,7 +382,7 @@ describe AdminPublicBodyController do
   describe "POST #update" do
 
     before do
-      @body = FactoryGirl.create(:public_body)
+      @body = FactoryBot.create(:public_body)
       AlaveteliLocalization.with_locale('es') do
         @body.name = 'Los Quango'
         @body.save!
@@ -595,7 +595,7 @@ describe AdminPublicBodyController do
     context 'when the body is being updated as a result of a change request' do
 
       before do
-        @change_request = FactoryGirl.create(:update_body_request)
+        @change_request = FactoryBot.create(:update_body_request)
         post :update, { :id => @change_request.public_body_id,
                         :public_body => { :name => "New Quango",
                                           :short_name => "",

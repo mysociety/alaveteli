@@ -17,7 +17,11 @@
       </div> <!-- .dashboard-left-column -->
 
       <div class="dashboard-right-column">
-        <% if @to_do_list.active_items.empty? && @user.info_requests.empty? && @user.draft_info_requests.empty? %>
+        <% if @announcements.present? %>
+          <%= render partial: 'announcements' %>
+        <% end %>
+
+        <% if @to_do_list.active_items.empty? && @user.info_requests.empty? && @user.draft_info_requests.empty? && @user.info_request_batches.empty? && @user.draft_info_request_batches.empty? %>
           <%= render partial: 'no_to_dos' %>
         <% elsif @to_do_list.active_items.empty? %>
           <%= render partial: 'done_to_dos' %>

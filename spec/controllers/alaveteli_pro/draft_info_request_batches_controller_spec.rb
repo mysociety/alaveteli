@@ -16,14 +16,16 @@ shared_examples_for "adding a body to a request" do
   end
 
   context "if the user doesn't own the given draft" do
-    let(:other_pro_user) { FactoryGirl.create(:pro_user) }
+    let(:other_pro_user) { FactoryBot.create(:pro_user) }
 
     before do
       session[:user_id] = other_pro_user.id
     end
 
-    it "raises an ActiveRecord::RecordNotFound error" do
-      expect { subject }.to raise_error(ActiveRecord::RecordNotFound)
+    it "creates new draft object" do
+      subject
+      expect(assigns[:draft]).to_not eq(draft)
+      expect(assigns[:draft]).to be_a(AlaveteliPro::DraftInfoRequestBatch)
     end
   end
 end
@@ -35,8 +37,19 @@ shared_examples_for "removing a body from a request" do
     expect(draft.public_bodies).to eq [authority_1]
   end
 
+  context 'if the draft is left with no authorities' do
+    before do
+      draft.public_bodies.delete(authority_1)
+    end
+
+    it 'deletes the draft' do
+      subject
+      expect(assigns[:draft]).to_not be_persisted
+    end
+  end
+
   context "if the user doesn't own the given draft" do
-    let(:other_pro_user) { FactoryGirl.create(:pro_user) }
+    let(:other_pro_user) { FactoryBot.create(:pro_user) }
 
     before do
       session[:user_id] = other_pro_user.id
@@ -48,11 +61,26 @@ shared_examples_for "removing a body from a request" do
   end
 end
 
+shared_examples_for 'respecting the selected page' do
+  it "respects the selected page if one is provided" do
+    params[:authority_query] = "Department"
+    params[:page] = 2
+    subject
+    expected_path = alaveteli_pro_batch_request_authority_searches_path(
+      draft_id: draft.id,
+      authority_query: "Department",
+      page: 2,
+      mode: 'search'
+    )
+    expect(response).to redirect_to(expected_path)
+  end
+end
+
 describe AlaveteliPro::DraftInfoRequestBatchesController do
-  let(:pro_user) { FactoryGirl.create(:pro_user) }
-  let(:authority_1) { FactoryGirl.create(:public_body) }
-  let(:authority_2) { FactoryGirl.create(:public_body) }
-  let(:authority_3) { FactoryGirl.create(:public_body) }
+  let(:pro_user) { FactoryBot.create(:pro_user) }
+  let(:authority_1) { FactoryBot.create(:public_body) }
+  let(:authority_2) { FactoryBot.create(:public_body) }
+  let(:authority_3) { FactoryBot.create(:public_body) }
 
   before do
     session[:user_id] = pro_user.id
@@ -70,6 +98,8 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
       }
     end
 
+    let(:draft) { pro_user.draft_info_request_batches.first }
+
     describe "when responding to a normal request" do
       subject do
         with_feature_enabled(:alaveteli_pro) do
@@ -78,36 +108,24 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
       end
 
       it_behaves_like "creating a request"
+      it_behaves_like "respecting the selected page"
 
       it "redirects to a new search if no query was provided" do
         params.delete(:authority_query)
         subject
-        new_draft = pro_user.draft_info_request_batches.first
         expected_path = alaveteli_pro_batch_request_authority_searches_path(
-          draft_id: new_draft.id
+          draft_id: draft.id,
+          mode: 'search'
         )
         expect(response).to redirect_to(expected_path)
       end
 
       it "redirects to an existing search if a query is provided" do
         subject
-        new_draft = pro_user.draft_info_request_batches.first
         expected_path = alaveteli_pro_batch_request_authority_searches_path(
-          draft_id: new_draft.id,
-          authority_query: "Department"
-        )
-        expect(response).to redirect_to(expected_path)
-      end
-
-      it "respects the selected page if one is provided" do
-        params[:authority_query] = "Department"
-        params[:page] = 2
-        subject
-        new_draft = pro_user.draft_info_request_batches.first
-        expected_path = alaveteli_pro_batch_request_authority_searches_path(
-          draft_id: new_draft.id,
+          draft_id: draft.id,
           authority_query: "Department",
-          page: 2
+          mode: 'search'
         )
         expect(response).to redirect_to(expected_path)
       end
@@ -136,14 +154,17 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
 
   describe "#update_bodies" do
     let(:draft) do
-      FactoryGirl.create(:draft_info_request_batch, user: pro_user)
+      FactoryBot.create(:draft_info_request_batch, user: pro_user)
     end
 
     describe "when adding a body" do
       let(:params) do
         {
-          id: draft.id,
-          add_body_id: authority_1.id
+          alaveteli_pro_draft_info_request_batch: {
+            draft_id: draft.id,
+            public_body_id: authority_1.id,
+            action: 'add'
+          }
         }
       end
 
@@ -159,7 +180,9 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
         it "redirects to a new search if no query was provided" do
           subject
           expected_path = alaveteli_pro_batch_request_authority_searches_path(
-            draft_id: draft.id)
+            draft_id: draft.id,
+            mode: 'search'
+          )
           expect(response).to redirect_to(expected_path)
         end
 
@@ -168,21 +191,13 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
           subject
           expected_path = alaveteli_pro_batch_request_authority_searches_path(
             draft_id: draft.id,
-            authority_query: "Department")
-          expect(response).to redirect_to(expected_path)
-        end
-
-        it "respects the selected page if one is provided" do
-          params[:authority_query] = "Department"
-          params[:page] = 2
-          subject
-          expected_path = alaveteli_pro_batch_request_authority_searches_path(
-            draft_id: draft.id,
             authority_query: "Department",
-            page: 2
+            mode: 'search'
           )
           expect(response).to redirect_to(expected_path)
         end
+
+        it_behaves_like "respecting the selected page"
 
         it "sets a :notice flash message" do
           subject
@@ -209,8 +224,11 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
     describe "when removing a body" do
       let(:params) do
         {
-          id: draft.id,
-          remove_body_id: authority_2.id
+          alaveteli_pro_draft_info_request_batch: {
+            draft_id: draft.id,
+            public_body_id: authority_2.id,
+            action: 'remove'
+          }
         }
       end
 
@@ -230,7 +248,9 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
         it "redirects to a new search if no query was provided" do
           subject
           expected_path = alaveteli_pro_batch_request_authority_searches_path(
-            draft_id: draft.id)
+            draft_id: draft.id,
+            mode: 'search'
+          )
           expect(response).to redirect_to(expected_path)
         end
 
@@ -239,25 +259,32 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
           subject
           expected_path = alaveteli_pro_batch_request_authority_searches_path(
             draft_id: draft.id,
-            authority_query: "Department")
-          expect(response).to redirect_to(expected_path)
-        end
-
-        it "respects the selected page if one is provided" do
-          params[:authority_query] = "Department"
-          params[:page] = 2
-          subject
-          expected_path = alaveteli_pro_batch_request_authority_searches_path(
-            draft_id: draft.id,
             authority_query: "Department",
-            page: 2
+            mode: 'search'
           )
           expect(response).to redirect_to(expected_path)
         end
 
-        it "sets a :notice flash message" do
+        it_behaves_like "respecting the selected page"
+
+        it "sets a :notice flash message if the draft is persisted" do
           subject
           expect(flash[:notice]).to eq 'Your Batch Request has been saved!'
+        end
+
+        it 'redirects without the draft_id param if the draft is not persisted' do
+          draft.public_bodies.delete(authority_1)
+          subject
+          expected_path = alaveteli_pro_batch_request_authority_searches_path(
+            mode: 'search'
+          )
+          expect(response).to redirect_to(expected_path)
+        end
+
+        it "does not set a :notice flash message if the draft is not persisted" do
+          draft.public_bodies.delete(authority_1)
+          subject
+          expect(flash[:notice]).to be_nil
         end
       end
 
@@ -280,7 +307,7 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
 
   describe "#update" do
     let(:draft) do
-      FactoryGirl.create(:draft_info_request_batch, user: pro_user)
+      FactoryBot.create(:draft_info_request_batch, user: pro_user)
     end
     let(:params) do
       {
@@ -311,7 +338,8 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
       it "redirects to the batch preview page" do
         put :update, params
         expected_path = preview_new_alaveteli_pro_info_request_batch_path(
-          draft_id: draft.id)
+          draft_id: draft.id
+        )
         expect(response).to redirect_to(expected_path)
       end
     end
@@ -320,7 +348,8 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
       it "redirects to the new batch page" do
         put :update, params
         expected_path = new_alaveteli_pro_info_request_batch_path(
-          draft_id: draft.id)
+          draft_id: draft.id
+        )
         expect(response).to redirect_to(expected_path)
       end
     end

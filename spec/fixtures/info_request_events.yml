@@ -13,6 +13,7 @@
 #  incoming_message_id :integer
 #  outgoing_message_id :integer
 #  comment_id          :integer
+#  updated_at          :datetime
 #
 
 useless_outgoing_message_event:

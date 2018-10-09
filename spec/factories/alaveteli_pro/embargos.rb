@@ -11,7 +11,7 @@
 #  embargo_duration :string(255)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :embargo, :class => AlaveteliPro::Embargo do
     info_request
     publish_at AlaveteliPro::Embargo.three_months_from_now

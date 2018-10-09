@@ -1,8 +1,6 @@
 <%= form_for(
       [AlaveteliPro::EmbargoExtension.new(embargo: info_request.embargo)],
       html: {class: 'js-embargo-form'}) do |f| %>
-  <%= render partial: "alaveteli_pro/info_requests/embargo_info",
-             locals: {embargo: info_request.embargo, tense: :present} %>
   <%= f.hidden_field :embargo_id %>
 
   <% if info_request.embargo.expiring_soon? %>

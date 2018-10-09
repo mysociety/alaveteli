@@ -2,15 +2,15 @@
 require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
 
 describe "track_mailer/event_digest" do
-  let(:user) { FactoryGirl.create(:user, :name => "Test Us'r") }
-  let(:body) { FactoryGirl.create(:public_body, :name => "Apostrophe's") }
+  let(:user) { FactoryBot.create(:user, :name => "Test Us'r") }
+  let(:body) { FactoryBot.create(:public_body, :name => "Apostrophe's") }
   let(:request) do
-    FactoryGirl.create(:info_request_with_incoming,
-                       :public_body => body,
-                       :user => user,
-                       :title => "Request apostrophe's data")
+    FactoryBot.create(:info_request_with_incoming,
+                      :public_body => body,
+                      :user => user,
+                      :title => "Request apostrophe's data")
   end
-  let(:track) { FactoryGirl.create(:search_track, :tracking_user => user) }
+  let(:track) { FactoryBot.create(:search_track, :tracking_user => user) }
   let(:xapian_search) do
     double('xapian search', :results => [event], :words_to_highlight => 'test')
   end
@@ -22,9 +22,9 @@ describe "track_mailer/event_digest" do
 
   describe "tracking a response" do
     let(:event) do
-      FactoryGirl.create(:response_event,
-                         :incoming_message => request.incoming_messages.last,
-                         :info_request => request)
+      FactoryBot.create(:response_event,
+                        :incoming_message => request.incoming_messages.last,
+                        :info_request => request)
     end
 
     it "does not add HTMLEntities to the request title" do
@@ -51,10 +51,10 @@ describe "track_mailer/event_digest" do
 
   describe "tracking a followup" do
     let(:event) do
-      FactoryGirl.create(:response_event,
-                         :outgoing_message => request.outgoing_messages.last,
-                         :info_request => request,
-                         :event_type => 'followup_sent')
+      FactoryBot.create(:response_event,
+                        :outgoing_message => request.outgoing_messages.last,
+                        :info_request => request,
+                        :event_type => 'followup_sent')
     end
 
     it "does not add HTMLEntities to the request title" do
@@ -81,13 +81,13 @@ describe "track_mailer/event_digest" do
 
   describe "tracking a comment" do
     let(:comment) do
-      FactoryGirl.create(:comment, :info_request => request, :user => user)
+      FactoryBot.create(:comment, :info_request => request, :user => user)
     end
     let(:event) do
-      FactoryGirl.create(:info_request_event,
-                         :comment => comment,
-                         :info_request => request,
-                         :event_type => 'comment')
+      FactoryBot.create(:info_request_event,
+                        :comment => comment,
+                        :info_request => request,
+                        :event_type => 'comment')
     end
 
     it "does not add HTMLEntities to the request title" do
@@ -108,10 +108,10 @@ describe "track_mailer/event_digest" do
   # this is unlikely to happen in real life, but happens in the test code
   describe "tracking a sent event" do
     let(:event) do
-      FactoryGirl.create(:info_request_event,
-                         :outgoing_message => request.outgoing_messages.last,
-                         :info_request => request,
-                         :event_type => 'sent')
+      FactoryBot.create(:info_request_event,
+                        :outgoing_message => request.outgoing_messages.last,
+                        :info_request => request,
+                        :event_type => 'sent')
     end
 
     it "does not add HTMLEntities to the request title" do

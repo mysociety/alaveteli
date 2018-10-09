@@ -2,7 +2,11 @@
 module ConfigHelper
 
   def site_name
-    AlaveteliConfiguration::site_name
+    AlaveteliConfiguration.site_name
+  end
+
+  def pro_site_name
+    AlaveteliConfiguration.pro_site_name
   end
 
   def send_exception_notifications?

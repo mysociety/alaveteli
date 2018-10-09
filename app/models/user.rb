@@ -7,7 +7,7 @@
 #  email                             :string           not null
 #  name                              :string           not null
 #  hashed_password                   :string           not null
-#  salt                              :string           not null
+#  salt                              :string
 #  created_at                        :datetime         not null
 #  updated_at                        :datetime         not null
 #  email_confirmed                   :boolean          default(FALSE), not null
@@ -35,15 +35,15 @@
 #  daily_summary_minute              :integer
 #
 
-require 'digest/sha1'
-
 class User < ActiveRecord::Base
   include AlaveteliFeatures::Helpers
   include AlaveteliPro::PhaseCounts
+  include User::Authentication
+
   rolify before_add: :setup_pro_account
   strip_attributes :allow_empty => true
 
-  attr_accessor :password_confirmation, :no_xapian_reindex
+  attr_accessor :no_xapian_reindex
   attr_accessor :entered_otp_code
 
   has_many :info_requests,
@@ -114,13 +114,18 @@ class User < ActiveRecord::Base
            :dependent => :destroy
   has_many :track_things_sent_emails,
            :dependent => :destroy
+  has_many :announcements,
+           :inverse_of => :user
+  has_many :announcement_dismissals,
+           :inverse_of => :user,
+           :dependent => :destroy
 
+  scope :active, -> { not_banned }
+  scope :banned, -> { where.not(ban_text: "") }
   scope :not_banned, -> { where(ban_text: "") }
 
   validates_presence_of :email, :message => _("Please enter your email address")
   validates_presence_of :name, :message => _("Please enter your name")
-  validates_presence_of :hashed_password, :message => _("Please enter a password")
-  validates_confirmation_of :password, :message => _("Please enter the same password twice")
 
   validates_length_of :about_me,
     :maximum => 500,
@@ -248,11 +253,6 @@ class User < ActiveRecord::Base
     nil # so doesn't print all users on console
   end
 
-  def self.encrypted_password(password, salt)
-    string_to_hash = password + salt # TODO: need to add a secret here too?
-    Digest::SHA1.hexdigest(string_to_hash)
-  end
-
   def self.record_bounce_for_email(email, message)
     user = User.find_user_by_email(email)
     return false if user.nil?
@@ -354,7 +354,7 @@ class User < ActiveRecord::Base
 
   def name
     _name = read_attribute(:name)
-    if banned?
+    if suspended?
       _name = _("{{user_name}} (Account suspended)", :user_name => _name)
     end
     _name
@@ -377,26 +377,6 @@ class User < ActiveRecord::Base
       suffix_num = suffix_num + 1
     end
     write_attribute(:url_name, unique_url_name)
-  end
-
-  # Virtual password attribute, which stores the hashed password, rather than plain text.
-  def password
-    @password
-  end
-
-  def password=(pwd)
-    @password = pwd
-    if pwd.blank?
-      self.hashed_password = nil
-      return
-    end
-    create_new_salt
-    self.hashed_password = User.encrypted_password(password, salt)
-  end
-
-  def has_this_password?(password)
-    expected_password = User.encrypted_password(password, salt)
-    hashed_password == expected_password
   end
 
   def otp_enabled?
@@ -462,9 +442,17 @@ class User < ActiveRecord::Base
     !ban_text.empty?
   end
 
+  def active?
+    !banned?
+  end
+
+  def suspended?
+    !active?
+  end
+
   # Various ways the user can be banned, and text to describe it if failed
   def can_file_requests?
-    ban_text.empty? && !exceeded_limit?
+    active? && !exceeded_limit?
   end
 
   def exceeded_limit?
@@ -505,19 +493,19 @@ class User < ActiveRecord::Base
   end
 
   def can_make_followup?
-    ban_text.empty?
+    active?
   end
 
   def can_make_comments?
-    ban_text.empty?
+    active?
   end
 
   def can_contact_other_users?
-    ban_text.empty?
+    active?
   end
 
   def can_fail_html
-    if ban_text
+    if banned?
       text = ban_text.strip
     else
       raise "Unknown reason for ban"
@@ -543,7 +531,8 @@ class User < ActiveRecord::Base
   end
 
   def about_me_already_exists?
-    self.class.where(:about_me => about_me).any?
+    return false if about_me.blank?
+    self.class.where(:about_me => about_me).where.not(id: id).any?
   end
 
   # Return about me text for display as HTML
@@ -589,7 +578,7 @@ class User < ActiveRecord::Base
   end
 
   def indexed_by_search?
-    email_confirmed && !banned?
+    email_confirmed && active?
   end
 
   def for_admin_column(complete = false)
@@ -648,10 +637,6 @@ class User < ActiveRecord::Base
   end
 
   private
-
-  def create_new_salt
-    self.salt = object_id.to_s + rand.to_s
-  end
 
   def set_defaults
     if new_record?

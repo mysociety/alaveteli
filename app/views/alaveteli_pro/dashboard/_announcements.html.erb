@@ -1,0 +1,24 @@
+<div class="dashboard__announcements carousel" aria-live="polite">
+  <ul class="dashboard__announcements__list carousel-content">
+    <% @announcements.each_with_index do |announcement, idx| %>
+      <li class="dashboard__announcements__list-item carousel-item" aria-hidden="<% if idx.zero? %>false<% else %>true<% end %>">
+        <div class="dashboard__announcement">
+          <% if announcement.title.present? %><h2 class="dashboard__announcement__title"><%= announcement.title %></h2><% end %>
+          <div class="dashboard__announcement__content">
+            <p><%= sanitize announcement.content %></p>
+          </div>
+          <%= link_to _('Dismiss'), announcement_path(announcement), method: :delete, remote: true, class: 'dashboard__announcement_dismiss carousel-item-dismiss' %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+  <fieldset aria-label="carousel buttons" class="dashboard__announcements__controls carousel-buttons" aria-controls="carousel">
+    <button value="prev" aria-label="previous" id="prev" class="carousel-button">&laquo;</button>
+    <span class="dashboard__announcements__controls__status">
+      <%= _('<span class="current-page">{{current_page}}</span> of ' \
+            '<span class="total-pages">{{total_pages}}</span>',
+            current_page: 1, total_pages: @announcements.count) %>
+    </span>
+    <button value="next" id="next" aria-label="next" class="carousel-button">&raquo;</button>
+  </fieldset>
+</div>

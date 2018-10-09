@@ -28,7 +28,7 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
     end
 
     it 'expires the file cache for the associated info_request' do
-      info_request = FactoryGirl.create(:info_request)
+      info_request = FactoryBot.create(:info_request)
       allow(@im).to receive(:info_request).and_return(info_request)
       allow(IncomingMessage).to receive(:find).and_return(@im)
       expect(@im.info_request).to receive(:expire).with(:preserve_database_cache => true)
@@ -45,7 +45,7 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
     end
 
     it 'expires the file cache for the previous request' do
-      previous_info_request = FactoryGirl.create(:info_request)
+      previous_info_request = FactoryBot.create(:info_request)
       destination_info_request = info_requests(:naughty_chicken_request)
       incoming_message = incoming_messages(:useless_incoming_message)
       allow(incoming_message).to receive(:info_request).and_return(previous_info_request)
@@ -68,7 +68,7 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
     end
 
     it 'shouldn\'t do anything if no message_id is supplied' do
-      incoming_message = FactoryGirl.create(:incoming_message)
+      incoming_message = FactoryBot.create(:incoming_message)
       post :redeliver, :id => incoming_message.id,
         :url_title => ''
       # It shouldn't delete this message
@@ -84,7 +84,7 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
   describe 'when editing an incoming message' do
 
     before do
-      @incoming = FactoryGirl.create(:incoming_message)
+      @incoming = FactoryBot.create(:incoming_message)
     end
 
     it 'should be successful' do
@@ -102,7 +102,7 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
   describe 'when updating an incoming message' do
 
     before do
-      @incoming = FactoryGirl.create(:incoming_message, :prominence => 'normal')
+      @incoming = FactoryBot.create(:incoming_message, :prominence => 'normal')
       @default_params = {:id => @incoming.id,
                          :incoming_message => {:prominence => 'hidden',
                                                :prominence_reason => 'dull'} }
@@ -139,7 +139,7 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
     end
 
     it 'should expire the file cache for the info request' do
-      info_request = FactoryGirl.create(:info_request)
+      info_request = FactoryBot.create(:info_request)
       allow(IncomingMessage).to receive(:find).and_return(@incoming)
       allow(@incoming).to receive(:info_request).and_return(info_request)
       expect(info_request).to receive(:expire)
@@ -173,12 +173,12 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
   end
 
   describe "when destroying multiple incoming messages" do
-    let(:request) { FactoryGirl.create(:info_request) }
-    let(:spam1) { FactoryGirl.create(
+    let(:request) { FactoryBot.create(:info_request) }
+    let(:spam1) { FactoryBot.create(
                     :incoming_message,
                     :subject => "Buy a watch!1!!",
                     :info_request => request) }
-    let(:spam2) { FactoryGirl.create(
+    let(:spam2) { FactoryBot.create(
                     :incoming_message,
                     :subject => "Best cheap w@tches!!1!",
                     :info_request => request) }

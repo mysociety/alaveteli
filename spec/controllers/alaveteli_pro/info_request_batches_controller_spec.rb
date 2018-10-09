@@ -104,15 +104,15 @@ shared_examples_for "an info_request_batch action" do
 end
 
 describe AlaveteliPro::InfoRequestBatchesController do
-  let(:body_1) { FactoryGirl.create(:public_body) }
-  let(:body_2) { FactoryGirl.create(:public_body) }
+  let(:body_1) { FactoryBot.create(:public_body) }
+  let(:body_2) { FactoryBot.create(:public_body) }
   let(:bodies) { [body_1, body_2] }
-  let(:user) { FactoryGirl.create(:pro_user) }
-  let(:other_user) { FactoryGirl.create(:pro_user) }
+  let(:user) { FactoryBot.create(:pro_user) }
+  let(:other_user) { FactoryBot.create(:pro_user) }
   let!(:draft) do
-    FactoryGirl.create(:draft_info_request_batch,
-                       public_bodies: bodies,
-                       user: user)
+    FactoryBot.create(:draft_info_request_batch,
+                      public_bodies: bodies,
+                      user: user)
   end
   let(:params) { {draft_id: draft.id} }
 
@@ -206,6 +206,35 @@ describe AlaveteliPro::InfoRequestBatchesController do
           new_batch = InfoRequestBatch.order(created_at: :desc).first
           expect(response).to redirect_to(show_alaveteli_pro_batch_request_path(new_batch.id))
         end
+      end
+    end
+
+    context 'when a user is below the rate limit' do
+      before(:each) do
+        limiter = double
+        allow(limiter).to receive(:record)
+        allow(limiter).to receive(:limit?).and_return(false)
+        allow(controller).to receive(:rate_monitor).and_return(limiter)
+      end
+
+      it 'does not send a notification' do
+        action
+        expect(ActionMailer::Base.deliveries).to be_empty
+      end
+    end
+
+    context 'when a user hits the rate limit' do
+      before(:each) do
+        limiter = double
+        allow(limiter).to receive(:record)
+        allow(limiter).to receive(:limit?).and_return(true)
+        allow(controller).to receive(:rate_monitor).and_return(limiter)
+      end
+
+      it 'sends a notification' do
+        action
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).to match(/Batch rate limit hit/)
       end
     end
 

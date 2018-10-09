@@ -15,7 +15,7 @@
 require 'spec_helper'
 
 describe DraftInfoRequest do
-  let(:draft) { FactoryGirl.create(:draft_info_request) }
+  let(:draft) { FactoryBot.create(:draft_info_request) }
 
   it "belongs to a public body" do
     expect(draft.public_body).to be_a(PublicBody)
@@ -36,7 +36,7 @@ describe DraftInfoRequest do
   it "requires a user" do
     draft_request = DraftInfoRequest.new
     expect(draft_request.valid?).to be false
-    draft_request.user = FactoryGirl.create(:user)
+    draft_request.user = FactoryBot.create(:user)
     expect(draft_request.valid?).to be true
   end
 

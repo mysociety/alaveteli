@@ -13,6 +13,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # andreli <andre@lindhjem.net>, 2013
 # Hans-Petter Fjeld <atluxity@1kb.no>, 2014
 # Ben W <bwng@openmailbox.org>, 2016
@@ -35,8 +36,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-18 01:28-0800\n"
-"PO-Revision-Date: 2018-01-18 10:23+0000\n"
+"POT-Creation-Date: 2018-09-28 15:37+0000\n"
+"PO-Revision-Date: 2018-09-29 11:24+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/mysociety/alaveteli/language/nb/)\n"
 "Language: nb\n"
@@ -141,6 +142,9 @@ msgstr "*ukjent*"
 msgid ",\\n\\n\\n\\nYours,\\n\\n{{user_name}}"
 msgstr ",\\n\\n\\n\\nMed vennlig hilsen,\\n\\n{{user_name}}"
 
+msgid "12 characters minimum. 72 characters maximum."
+msgstr ""
+
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
 msgstr "<a href=\"{{browse_url}}\">Bla i gjennom alle</a> eller <a href=\"{{add_url}}\">be oss om å legge til en ny</a>."
 
@@ -242,6 +246,9 @@ msgstr "<strong>Advarsel!</strong> For å bruke disse dataene ordentlig, vil du 
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong>Klargjøring</strong> har blitt forespurt"
 
+msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
+msgstr ""
+
 msgid "<strong>No response</strong> has been received <small>(maybe there's just an acknowledgement)</small>"
 msgstr "<strong>Intet svar</strong>er mottatt\\n <small>(kanskje bare en  bekreftelse på at henvendelsen er mottatt)</small>"
 
@@ -305,6 +312,9 @@ msgstr "En ny henvendelse, <em><a href=\"{{request_url}}\">{{request_title}}</a>
 msgid "A one line summary of the information you are requesting, e.g."
 msgstr "en linjes oppsummering av informasjonen du spør om, \\n\t\t\tf.eks.."
 
+msgid "A powerful, fully-featured FOI toolkit for journalists"
+msgstr ""
+
 msgid "A public authority"
 msgstr "En offentlig myndighet"
 
@@ -327,6 +337,9 @@ msgid "About you:"
 msgstr "Om deg:"
 
 msgid "About {{count}} FOI requests found"
+msgstr ""
+
+msgid "Account suspended – Please contact us"
 msgstr ""
 
 msgid "Act on what you've learnt"
@@ -464,6 +477,18 @@ msgstr "Endre ditt abonnement"
 msgid "Although all responses are automatically published, we depend on you, the original requester, to evaluate them."
 msgstr "Selv om alle svar blir automatisk publisert, er vi avhengig av at du - innsenderen - evaluerer status på svar fra myndigheten."
 
+msgid "Although not legally required to do so, we would have expected {{public_body_link}} to have responded by "
+msgstr ""
+
+msgid "Although not legally required to do so, we would have expected {{public_body_link}} to have responded by now"
+msgstr ""
+
+msgid "Although the authority is not legally obliged to reply, you should get a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>."
+msgstr ""
+
+msgid "Although the authority is not legally obliged to reply, you should have got a response, normally before the end of <strong>{{date_response_required_by}}</strong>."
+msgstr ""
+
 msgid "An <a href=\"{{request_url}}\">annotation</a> to <em>{{request_title}}</em> was made by {{event_comment_user}} on {{date}}"
 msgstr "En <a href=\"{{request_url}}\">annotering</a> til <em>{{request_title}}</em> ble laget av {{event_comment_user}} på {{date}}"
 
@@ -493,6 +518,12 @@ msgstr "Merknader gjør at enhver, også du, kan hjelpe innsender med deres henv
 
 msgid "Annotations will be posted publicly here, and are <strong>not</strong> sent to {{public_body_name}}."
 msgstr "Merknader gjøres offentlig tilgjengelig her, men blir <strong>ikke</strong> sendt til {{public_body_name}}."
+
+msgid "Announcement"
+msgstr ""
+
+msgid "Announcement|Visibility"
+msgstr ""
 
 msgid "Anonymous user"
 msgstr "Anonym bruker"
@@ -571,9 +602,6 @@ msgstr "Tilbake til innhold"
 
 msgid "Banned from this site"
 msgstr "Utestengt fra nettstedet"
-
-msgid "Banned users cannot edit their profile"
-msgstr "Bannlyste brukere kan ikke redigere profilen sin"
 
 msgid "Batch created by {{info_request_user}} on {{date}}."
 msgstr "Bunt opprettet av {{info_request_user}} den {{date}}."
@@ -719,6 +747,9 @@ msgstr "Lukk"
 msgid "Close the request and respond:"
 msgstr "Lukk henvendelsen og svar:"
 
+msgid "Collapse all correspondence"
+msgstr ""
+
 msgid "Comment"
 msgstr "Kommenter"
 
@@ -773,11 +804,11 @@ msgstr "Bekreft din e-postadresse"
 msgid "Confirm your new email address on {{site_name}}"
 msgstr "Bekreft din nye e-postadresse på {{site_name}}"
 
-msgid "Considered by administrators as not an FOI request and hidden from site."
-msgstr "Administratorene ser ikke på dette som en innsynshenvendelse, og den er skjult på nettstedet."
+msgid "Considered by administrators as not an FOI request."
+msgstr ""
 
-msgid "Considered by administrators as vexatious and hidden from site."
-msgstr "Ansett av administratorer som sjikanøs og skjult fra nettstedet."
+msgid "Considered by administrators as vexatious."
+msgstr ""
 
 msgid "Contact us"
 msgstr "Kontakt oss"
@@ -821,8 +852,8 @@ msgstr "Beskjær ditt profilbilde"
 msgid "Cultural sites and built structures (as they may be affected by the environmental factors listed above)"
 msgstr "Vern av kulturminner og rett til miljøinformasjon "
 
-msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they must respond promptly and"
-msgstr "<strong>Venter på svar</strong> fra {{public_body_link}}, de må svare uten ugrunnet opphold og"
+msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they should respond promptly and"
+msgstr ""
 
 msgid "Date:"
 msgstr "Dato:"
@@ -976,6 +1007,9 @@ msgstr "Alle mennesker kan be om å få se myndighetene i kortene."
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
 msgstr "Alt som du skriver inn på denne tjenesten, inkludert <strong>navnet ditt</strong>,\\n vil bli <strong>vist offentlig</strong> på\\ndenne tjenesten <a href=\"{{url}}\">for alltid</a>"
+
+msgid "Expand all correspondence"
+msgstr ""
 
 msgid "FOI"
 msgstr "innsyn etter Offentleglova"
@@ -2029,6 +2063,12 @@ msgstr "Delvis vellykket."
 msgid "Password is not correct"
 msgstr "Passordet er ikke riktig"
 
+msgid "Password is too long (maximum is 72 characters)"
+msgstr ""
+
+msgid "Password is too short (minimum is 12 characters)"
+msgstr ""
+
 msgid "Password:"
 msgstr "Passord:"
 
@@ -2478,6 +2518,9 @@ msgstr "Les om <a href=\"{{advanced_search_url}}\">avanserte søkefunksjoner</a>
 msgid "Read blog"
 msgstr "Les blogg"
 
+msgid "Reason:"
+msgstr ""
+
 msgid "Received an error message, such as delivery failure."
 msgstr "Mottokk en feilmelding, slik som feil ved levering."
 
@@ -2900,6 +2943,9 @@ msgstr "Oppsummering"
 msgid "Summary is too short. Please be a little more descriptive about the information you are asking for."
 msgstr ""
 
+msgid "Suspended users cannot edit their profile"
+msgstr ""
+
 msgid "Table of statuses"
 msgstr "Tabell over statuser"
 
@@ -3071,10 +3117,16 @@ msgstr "Henvendelsen du har forsøkt å se på er fjernet.  Det er ulike\\n grun
 msgid "The requester has abandoned this request for some reason"
 msgstr "Forespørrer har av en eller annen grunn gitt opp denne henvendelsen"
 
+msgid "The response to your request has been <strong>delayed</strong>. Although the authority has no legal obligation to reply, they should normally have responded by <strong>{{date}}</strong>"
+msgstr ""
+
 msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and by <strong>{{date}}</strong>"
 msgstr ""
 "Svaret på din henvendelse er <strong>forsinket</strong>.  I følge lovverket\\n kan en si\n"
 "at etaten normal skulle svart <strong>uten opphold</strong> og"
+
+msgid "The response to your request is <strong>long overdue</strong>. Although the authority has no legal obligation to reply, they should have responded by now"
+msgstr ""
 
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr "Svaret på din henvendelse er <strong>svært forsinket</strong>.  I følge loven\\n så burde instansen under enhver omstendighet ha svart på\\n dette tidspunkt"
@@ -3211,16 +3263,19 @@ msgstr "De har fått følgende forklaring:"
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
 msgstr "De har ikke svart på din {{law_used_short}} om «{{title}}» innen kort tid, som er det som normalt kreves i følge lovverket"
 
-msgid "They have not replied to your {{law_used_short}} request {{title}}, as required by law"
-msgstr "De har ikke svart på din {{law_used_short}} om «{{title}}», slik det kreves i følge lovverket"
+msgid "They have not replied to your {{law_used_short}} request {{title}}, as normally required by law"
+msgstr ""
 
-msgid "They have still not replied to your {{law_used_short}} request {{title}}, as required by law"
+msgid "They have still not replied to your {{law_used_short}} request {{title}}, as normally required by law"
 msgstr ""
 
 msgid "Things you're following"
 msgstr "Ting du følger"
 
 msgid "This annotation has been reported for administrator attention"
+msgstr ""
+
+msgid "This authority is not subject to FOI law, so is not legally obliged to respond"
 msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
@@ -3311,12 +3366,6 @@ msgstr "Denne henvendelsen har allerede blitt rapportert til administrator for g
 msgid "This request has an <strong>unknown status</strong>."
 msgstr "Denne henvendelsen har en <strong>ukjent status</strong>."
 
-msgid "This request has been <strong>hidden</strong> from the site, because an administrator considers it not to be an FOI request"
-msgstr "Denne henvendelsen er <strong>skjult</strong> fra siden fordi en administrator anser det for å ikke være en innsynshenvendelse"
-
-msgid "This request has been <strong>hidden</strong> from the site, because an administrator considers it vexatious"
-msgstr "Denne henvendelsen er blitt <strong>skjult</strong> fra nettstedet, fordi en administrator vurderer den som sjikanøs."
-
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
 msgstr "Denne henvendelsen er blitt <strong>rapportert</strong> da den trenger oppmerksomhet fra administrator (kanskje fordi den er sjikanøs, eller er en henvendelse om personopplysninger)"
 
@@ -3331,6 +3380,12 @@ msgstr "Denne henvendelsen har blitt markert for gjennomgang av nettstedet admin
 
 msgid "This request has been reported for administrator attention"
 msgstr "Denne henvendelsen har blitt rapportert for gjennomgang av administrator"
+
+msgid "This request has been reviewed by an administrator and is considered not to be an FOI request"
+msgstr ""
+
+msgid "This request has been reviewed by an administrator and is considered to be vexatious"
+msgstr ""
 
 msgid "This request has been set by an administrator to \"allow new responses from nobody\""
 msgstr "Denne henvendelsen har blitt markert av en administrator til å \"ikke tillate nye svar\""
@@ -3362,8 +3417,8 @@ msgstr ""
 msgid "This table shows the technical details of the internal events that happened to this request on {{site_name}}. This could be used to generate information about the speed with which authorities respond to requests, the number of requests which require a postal response and much more."
 msgstr "Denne tabellen viser de tekniske detaljene til interne hendelser som skjedde med denne henvendelsen på {{site_name}}.  Dette kan brukes til å generere informasjon om hvor raskt ulike etater svarer på henvendelser, antall henvendelser som krever papirpostsvar og mye mer."
 
-msgid "This user has been banned from {{site_name}} "
-msgstr "Denne brukeren er sperret ute fra {{site_name}}"
+msgid "This user has been suspended from {{site_name}} "
+msgstr ""
 
 msgid "This was not possible because there is already an account using the email address {{email}}."
 msgstr "Dette var ikke mulig da det allerede er en konto som bruker e-postadressen {{email}}."
@@ -3992,8 +4047,8 @@ msgstr "Du kan <strong>klage</strong> ved å"
 msgid "You can change the requests and users you are following on <a href=\"{{profile_url}}\">your profile page</a>."
 msgstr "Du kan endre hvilke henvendelser og brukere du følger på <a href=\"{{profile_url}}\">din profilside</a>."
 
-msgid "You can get this page in computer-readable format as part of the main JSON page for the request.  See the <a href=\"{{api_path}}\">API documentation</a>."
-msgstr "Du kan få tak i denne siden på maskinlesbart format som del av\\nhoved-JSON-siden for henvendelsen.  Se <a href=\"{{api_path}}\">API-dokumentasjonen</a>."
+msgid "You can get this page in computer-readable format as part of the <a href=\"{{json_path}}\">main JSON page</a> for the request. See the <a href=\"{{api_path}}\">API documentation</a>."
+msgstr ""
 
 msgid "You can only request information about the environment from this authority."
 msgstr "Du kan kun spørre om miljøinformasjon fra denne myndigheten."
@@ -4670,7 +4725,7 @@ msgstr "{{public_body_name}}"
 msgid "{{public_body_name}} have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law. Click on the link below to remind them to reply."
 msgstr ""
 
-msgid "{{public_body_name}} have still not replied to your {{law_used_short}} request {{title}}, as required by law. Click on the link below to tell them to reply. You might like to ask for an internal review, asking them to find out why their response to the request has been so slow."
+msgid "{{public_body_name}} have still not replied to your {{law_used_short}} request {{title}}, as normally required by law. Click on the link below to tell them to reply. You might like to ask for an internal review, asking them to find out why their response to the request has been so slow."
 msgstr ""
 
 msgid "{{public_body_name}} no longer exists. From the request page, try replying to a particular message, rather than sending a general followup. If you need to make a general followup, and know an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."

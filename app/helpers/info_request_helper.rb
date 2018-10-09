@@ -42,7 +42,7 @@ module InfoRequestHelper
 
   def status_text_waiting_response(info_request, opts = {})
     str = _('Currently <strong>waiting for a response</strong> from ' \
-            '{{public_body_link}}, they must respond promptly and',
+            '{{public_body_link}}, they should respond promptly and',
             :public_body_link => public_body_link(info_request.public_body))
     str += ' '
     str += _('normally')
@@ -53,38 +53,48 @@ module InfoRequestHelper
                        simple_date(info_request.date_response_required_by))
     str += ' '
     str += "("
-    str += link_to _("details"), "/help/requesting#quickly_response"
+    str += details_help_link(info_request.public_body)
     str += ")."
   end
 
   def status_text_waiting_response_overdue(info_request, opts = {})
     str = _('Response to this request is <strong>delayed</strong>.')
     str += ' '
-    str += _('By law, {{public_body_link}} should normally have responded ' \
-             '<strong>promptly</strong> and',
-             :public_body_link => public_body_link(info_request.public_body))
-    str += ' '
-    str += _('by')
-    str += ' '
+    if info_request.public_body.not_subject_to_law?
+      str += _('Although not legally required to do so, we would have ' \
+               'expected {{public_body_link}} to have responded by ',
+               :public_body_link => public_body_link(info_request.public_body))
+    else
+      str += _('By law, {{public_body_link}} should normally have responded ' \
+               '<strong>promptly</strong> and',
+               :public_body_link => public_body_link(info_request.public_body))
+      str += ' '
+      str += _('by')
+      str += ' '
+    end
     str += content_tag(:strong,
                        simple_date(info_request.date_response_required_by))
     str += ' '
     str += "("
-    str += link_to _('details'),
-                   help_requesting_path(:anchor => 'quickly_response')
+    str += details_help_link(info_request.public_body)
     str += ")"
   end
 
   def status_text_waiting_response_very_overdue(info_request, opts = {})
     str = _('Response to this request is <strong>long overdue</strong>.')
     str += ' '
-    str += _('By law, under all circumstances, {{public_body_link}} should ' \
-            'have responded by now',
-            :public_body_link => public_body_link(info_request.public_body))
+    if info_request.public_body.not_subject_to_law?
+      str += _('Although not legally required to do so, we would have ' \
+               'expected {{public_body_link}} to have responded by now',
+               :public_body_link => public_body_link(info_request.public_body))
+    else
+      str += _('By law, under all circumstances, {{public_body_link}} should ' \
+               'have responded by now',
+               :public_body_link => public_body_link(info_request.public_body))
+    end
     str += ' '
     str += "("
-    str += link_to _('details'),
-                   help_requesting_path(:anchor => 'quickly_response')
+    str += details_help_link(info_request.public_body)
     str += ")."
 
     unless info_request.is_external?
@@ -188,13 +198,13 @@ module InfoRequestHelper
   end
 
   def status_text_vexatious(info_request, opts = {})
-    _('This request has been <strong>hidden</strong> from the site, ' \
-      'because an administrator considers it vexatious')
+    _('This request has been reviewed by an administrator and is ' \
+       'considered to be vexatious')
   end
 
   def status_text_not_foi(info_request, opts = {})
-    _('This request has been <strong>hidden</strong> from the site, ' \
-      'because an administrator considers it not to be an FOI request')
+    _('This request has been reviewed by an administrator and is ' \
+      'considered not to be an FOI request')
   end
 
   def custom_state_description(info_request, opts = {})
@@ -261,6 +271,12 @@ module InfoRequestHelper
     else
       get_attachment_path(attach_params)
     end
+  end
+
+  def details_help_link(public_body)
+    anchor =
+      public_body.not_subject_to_law? ? 'authorities' : 'quickly_response'
+    link_to _('details'), help_requesting_path(:anchor => anchor)
   end
 
   private

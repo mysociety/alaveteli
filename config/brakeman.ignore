@@ -7,7 +7,7 @@
       "check_name": "FileAccess",
       "message": "Model attribute used in file name",
       "file": "app/controllers/public_body_controller.rb",
-      "line": 289,
+      "line": 206,
       "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
       "code": "File.open(Tempfile.new(\"all-authorities.csv\", File.join(InfoRequest.download_zip_dir, \"download\")).path, \"w\")",
       "render_path": null,
@@ -23,62 +23,22 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
-      "fingerprint": "2391062d9eda06f5597e4cffece62bb89d977adc2a44601b415bcdd679dcc282",
+      "fingerprint": "29fba5ac59dfb2c79ad8c1974f193e59fc655cecf13d5ba7ae3723f5d585de78",
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/models/public_body.rb",
-      "line": 280,
+      "line": 861,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "count_by_sql(\"SELECT COUNT(*)\\n                  #{blank_contact_sql_clause}\")",
+      "code": "select((\"public_bodies.*, COALESCE(current_locale.name, default_locale.name) COLLATE \\\"#{AlaveteliLocalization.locale}\\\" AS display_name\" or \"public_bodies.*, COALESCE(current_locale.name, default_locale.name) AS display_name\")).joins(\"LEFT OUTER JOIN public_body_translations as current_locale ON (public_bodies.id = current_locale.public_body_id AND current_locale.locale = #{sanitize(AlaveteliLocalization.locale)})\").joins(\"LEFT OUTER JOIN public_body_translations as default_locale ON (public_bodies.id = default_locale.public_body_id AND default_locale.locale = #{sanitize(AlaveteliLocalization.default_locale)})\").where(\"(#{get_public_body_list_translated_condition(\"current_locale\", (tag.size == 1))}) OR (#{get_public_body_list_translated_condition(\"default_locale\", (tag.size == 1))}) \", :locale => AlaveteliLocalization.locale, :query => (\"%#{query}%\"), :first_letter => tag)",
       "render_path": null,
       "location": {
         "type": "method",
         "class": "PublicBody",
-        "method": "PublicBody.blank_contact_count"
+        "method": "PublicBody.with_query"
       },
-      "user_input": "blank_contact_sql_clause",
-      "confidence": "Medium",
-      "note": "blank_contact_sql_clause does not contain user input"
-    },
-    {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "35494e7819a95f0e75a986411c705073e37f76700de7e94f6e4882d1fd8c35a0",
-      "check_name": "Render",
-      "message": "Render path contains parameter value",
-      "file": "app/controllers/alaveteli_pro/pages_controller.rb",
-      "line": 14,
-      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(template => \"alaveteli_pro/pages/#{params[:id]}\", {})",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "AlaveteliPro::PagesController",
-        "method": "show"
-      },
-      "user_input": "params[:id]",
-      "confidence": "Medium",
-      "note": "Can only redirect to an existing template"
-    },
-    {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
-      "fingerprint": "51068f91ee29cebedba9c55039b70805725520c9311b821c7c26503db1e880fd",
-      "check_name": "SQL",
-      "message": "Possible SQL injection",
-      "file": "app/models/public_body.rb",
-      "line": 285,
-      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "find_by_sql(\"SELECT public_bodies.id\\n                       #{blank_contact_sql_clause}\\n                       LIMIT #{limit}\")",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "PublicBody",
-        "method": "PublicBody.blank_contacts"
-      },
-      "user_input": "blank_contact_sql_clause",
-      "confidence": "Medium",
-      "note": "blank_contact_sql_clause does not contain user input"
+      "user_input": "get_public_body_list_translated_condition(\"current_locale\", (tag.size == 1))",
+      "confidence": "Weak",
+      "note": "current_locale is not user input"
     },
     {
       "warning_type": "File Access",
@@ -87,7 +47,7 @@
       "check_name": "FileAccess",
       "message": "Model attribute used in file name",
       "file": "app/controllers/public_body_controller.rb",
-      "line": 272,
+      "line": 189,
       "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
       "code": "FileUtils.mkdir_p(File.join(InfoRequest.download_zip_dir, \"download\"))",
       "render_path": null,
@@ -107,7 +67,7 @@
       "check_name": "FileAccess",
       "message": "Model attribute used in file name",
       "file": "app/controllers/public_body_controller.rb",
-      "line": 291,
+      "line": 208,
       "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
       "code": "File.rename(Tempfile.new(\"all-authorities.csv\", File.join(InfoRequest.download_zip_dir, \"download\")).path, File.join(File.join(InfoRequest.download_zip_dir, \"download\"), \"all-authorities.csv\"))",
       "render_path": null,
@@ -119,8 +79,87 @@
       "user_input": "InfoRequest.download_zip_dir",
       "confidence": "Weak",
       "note": "InfoRequest.download_zip_dir does not contain user input"
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "842b0e55a880d41d1f9dcf1f2835dbd323cd6004238c32802494c2db3a7e12ba",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/request/new.html.erb",
+      "line": 35,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "track_analytics_event(\"Search Official Website\", \"Possible related requests\", :label => InfoRequest.create_from_attributes(info_request_params, outgoing_message_params).public_body.calculated_home_page)",
+      "render_path": [{"type":"controller","class":"RequestController","method":"new","line":357,"file":"app/controllers/request_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "request/new"
+      },
+      "user_input": "InfoRequest.create_from_attributes(info_request_params, outgoing_message_params).public_body",
+      "confidence": "Weak",
+      "note": "The public body's homepage is not user-generated data"
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "b15d81001f859afabd0e740dce159578c91d2915f20dc63016b4afd7ef0c8855",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/models/public_body.rb",
+      "line": 833,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "joins((\"LEFT JOIN has_tag_string_tags AS #{aliased_table_for(\"tags\")} ON #{aliased_table_for(\"tags\")}.model = '#{to_s}' AND #{aliased_table_for(\"tags\")}.model_id = #{table_name}.id AND \" + (\"#{aliased_table_for(\"tags\")}.name = #{sanitize(tag)} AND #{aliased_table_for(\"tags\")}.value = #{sanitize(value)}\" or \"#{aliased_table_for(\"tags\")}.name = #{sanitize(tag)}\")))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "PublicBody",
+        "method": "PublicBody.without_tag"
+      },
+      "user_input": "(\"#{aliased_table_for(\"tags\")}.name = #{sanitize(tag)} AND #{aliased_table_for(\"tags\")}.value = #{sanitize(value)}\" or \"#{aliased_table_for(\"tags\")}.name = #{sanitize(tag)}\")",
+      "confidence": "Medium",
+      "note": "Globalize translation table names, not user input"
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "de9eb288e8940cd9941f18ca1c93fee4d0744b22a2413ac5e535545d0c6b91f1",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/models/public_body.rb",
+      "line": 872,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "where(get_public_body_list_translated_condition(\"public_body_translations\", (tag.size == 1), true), :locale => AlaveteliLocalization.locale, :query => (\"%#{query}%\"), :first_letter => tag).joins(:translations).order(\"public_body_translations.name COLLATE \\\"#{AlaveteliLocalization.locale}\\\"\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "PublicBody",
+        "method": "PublicBody.with_query"
+      },
+      "user_input": "AlaveteliLocalization.locale",
+      "confidence": "Weak",
+      "note": "AlaveteliLocalization.locale is not user input"
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "f7ccc8364f37ed9a6d20edffafa3e5788fe4a7cc5e8e4da3fd816f1696214985",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "lib/has_tag_string/has_tag_string.rb",
+      "line": 162,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "joins(\"      LEFT JOIN has_tag_string_tags\\n      ON has_tag_string_tags.model = '#{to_s}'\\n      AND has_tag_string_tags.model_id = #{table_name}.id\\n\".strip_heredoc.squish).where(:has_tag_string_tags => ({ :name => tag_as_string, :model => to_s })).references(:has_tag_string_tags).includes(:translations).references(:translations).order(\"#{translations_table_name}.name ASC\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "HasTagString::ClassMethods",
+        "method": "find_by_tag"
+      },
+      "user_input": "translations_table_name",
+      "confidence": "Weak",
+      "note": "translations_table_name is not user input"
     }
   ],
-  "updated": "2018-01-17 08:24:18 -0800",
-  "brakeman_version": "4.1.1"
+  "updated": "2018-10-01 11:16:07 +0000",
+  "brakeman_version": "4.3.1"
 }

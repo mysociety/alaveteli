@@ -35,13 +35,6 @@ class AdminRequestController < AdminController
     if cannot? :admin, @info_request
       raise ActiveRecord::RecordNotFound
     end
-    vars_for_explanation = {:reason => params[:reason],
-                            :info_request => @info_request,
-                            :name_to => @info_request.user_name,
-                            :name_from => AlaveteliConfiguration::contact_name,
-                            :info_request_url => request_url(@info_request, :only_path => false)}
-    @request_hidden_user_explanation = render_to_string(:template => "admin_request/hidden_user_explanation",
-                                                        :locals => vars_for_explanation)
   end
 
   def edit

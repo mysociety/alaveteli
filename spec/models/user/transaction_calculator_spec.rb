@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe User::TransactionCalculator do
 
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryBot.create(:user) }
 
   subject { described_class.new(user) }
 
@@ -47,8 +47,8 @@ describe User::TransactionCalculator do
 
       it 'sums the total transactions made by the user' do
         3.times do
-          FactoryGirl.create(:comment, :user => user)
-          FactoryGirl.create(:info_request, :user => user)
+          FactoryBot.create(:comment, :user => user)
+          FactoryBot.create(:info_request, :user => user)
         end
         expect(subject.total).to eq(6)
       end
@@ -59,16 +59,16 @@ describe User::TransactionCalculator do
 
       it 'sums the total transactions made by the user during the range' do
         time_travel_to(1.year.ago) do
-          FactoryGirl.create(:comment, :user => user)
-          FactoryGirl.create(:info_request, :user => user)
+          FactoryBot.create(:comment, :user => user)
+          FactoryBot.create(:info_request, :user => user)
         end
 
         time_travel_to(3.days.ago) do
-          FactoryGirl.create(:comment, :user => user)
-          FactoryGirl.create(:info_request, :user => user)
+          FactoryBot.create(:comment, :user => user)
+          FactoryBot.create(:info_request, :user => user)
         end
 
-        FactoryGirl.create(:comment, :user => user)
+        FactoryBot.create(:comment, :user => user)
 
         expect(subject.total(10.days.ago..1.day.ago)).to eq(2)
       end
@@ -79,15 +79,15 @@ describe User::TransactionCalculator do
 
       it ':last_7_days sums the total transactions made by the user in the last 7 days' do
         time_travel_to(8.days.ago) do
-          FactoryGirl.create(:comment, :user => user)
+          FactoryBot.create(:comment, :user => user)
         end
 
         time_travel_to(7.days.ago) do
-          FactoryGirl.create(:comment, :user => user)
+          FactoryBot.create(:comment, :user => user)
         end
 
         time_travel_to(6.days.ago) do
-          FactoryGirl.create(:comment, :user => user)
+          FactoryBot.create(:comment, :user => user)
         end
 
         expect(subject.total(:last_7_days)).to eq(2)
@@ -95,15 +95,15 @@ describe User::TransactionCalculator do
 
       it ':last_30_days sums the total transactions made by the user in the last 30 days' do
         time_travel_to(31.days.ago) do
-          FactoryGirl.create(:comment, :user => user)
+          FactoryBot.create(:comment, :user => user)
         end
 
         time_travel_to(30.days.ago) do
-          FactoryGirl.create(:comment, :user => user)
+          FactoryBot.create(:comment, :user => user)
         end
 
         time_travel_to(29.days.ago) do
-          FactoryGirl.create(:comment, :user => user)
+          FactoryBot.create(:comment, :user => user)
         end
 
         expect(subject.total(:last_30_days)).to eq(2)
@@ -111,19 +111,19 @@ describe User::TransactionCalculator do
 
       it ':last_quarter sums the total transactions made by the user in the last quarter' do
         time_travel_to(Time.zone.parse('2014-12-31')) do
-          FactoryGirl.create(:comment, :user => user)
+          FactoryBot.create(:comment, :user => user)
         end
 
         time_travel_to(Time.zone.parse('2015-01-01')) do
-          FactoryGirl.create(:comment, :user => user)
+          FactoryBot.create(:comment, :user => user)
         end
 
         time_travel_to(Time.zone.parse('2015-03-31')) do
-          FactoryGirl.create(:comment, :user => user)
+          FactoryBot.create(:comment, :user => user)
         end
 
         time_travel_to(Time.zone.parse('2015-04-01')) do
-          FactoryGirl.create(:comment, :user => user)
+          FactoryBot.create(:comment, :user => user)
         end
 
         time_travel_to(Time.zone.parse('2015-04-01')) do
@@ -148,19 +148,19 @@ describe User::TransactionCalculator do
 
     it 'returns a hash containing the total transactions grouped by month' do
       time_travel_to(Time.zone.parse('2016-01-05')) do
-        FactoryGirl.create(:comment, :user => user)
+        FactoryBot.create(:comment, :user => user)
       end
 
       time_travel_to(Time.zone.parse('2016-01-05')) do
-        FactoryGirl.create(:info_request, :user => user)
+        FactoryBot.create(:info_request, :user => user)
       end
 
       time_travel_to(Time.zone.parse('2016-01-05') + 1.hour) do
-        FactoryGirl.create(:info_request, :user => user)
+        FactoryBot.create(:info_request, :user => user)
       end
 
       time_travel_to(Time.zone.parse('2016-03-06')) do
-        FactoryGirl.create(:comment, :user => user)
+        FactoryBot.create(:comment, :user => user)
       end
 
       expect(subject.total_per_month).
@@ -173,15 +173,15 @@ describe User::TransactionCalculator do
 
     it 'returns the average transactions per month' do
       time_travel_to(Time.zone.parse('2016-01-01'))
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       back_to_the_present
 
       time_travel_to(Time.zone.parse('2016-02-01')) do
-        3.times { FactoryGirl.create(:comment, :user => user) }
+        3.times { FactoryBot.create(:comment, :user => user) }
       end
 
       time_travel_to(Time.zone.parse('2016-04-01')) do
-        3.times { FactoryGirl.create(:comment, :user => user) }
+        3.times { FactoryBot.create(:comment, :user => user) }
       end
 
       subject = described_class.new(user)

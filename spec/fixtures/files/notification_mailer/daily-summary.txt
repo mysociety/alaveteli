@@ -8,7 +8,7 @@ You have a new response to the Freedom of Information request 'The cost of paper
 
 To view the response, click on the link below.
 
-http://test.host/en/request/the_cost_of_paperclips?nocache=incoming-995#incoming-995
+http://test.host/en/request/the_cost_of_paperclips?nocache=incoming-$THE_COST_OF_PAPERCLIPS_MOF_INCOMING_ID$#incoming-$THE_COST_OF_PAPERCLIPS_MOF_INCOMING_ID$
 
 
 Thefts of stationary
@@ -19,7 +19,7 @@ You have a new response to the Freedom of Information request 'Thefts of station
 
 To view the response, click on the link below.
 
-http://test.host/en/request/thefts_of_stationary?nocache=incoming-996#incoming-996
+http://test.host/en/request/thefts_of_stationary?nocache=incoming-$THEFTS_OF_STATIONARY_MIQ_INCOMING_ID$#incoming-$THEFTS_OF_STATIONARY_MIQ_INCOMING_ID$
 
 This request will be made public on Alaveteli in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer.
 
@@ -41,16 +41,16 @@ Late expenses claims
 What's happened:
 Ministry of fact keeping have not replied to your FOI request Late expenses claims promptly, as normally required by law. Click on the link below to remind them to reply.
 
-http://test.host/en/profile/sign_in?r=%2Fen%2Frequest%2F1004%2Ffollowups%2Fnew%23followup
+http://test.host/en/profile/sign_in?r=%2Fen%2Frequest%2F$LATE_EXPENSES_CLAIMS_MOF_ID$%2Ffollowups%2Fnew%23followup
 
 
 Extremely late expenses claims
 ------------------------------
 
 What's happened:
-Ministry of fact keeping have still not replied to your FOI request Extremely late expenses claims, as required by law. Click on the link below to tell them to reply. You might like to ask for an internal review, asking them to find out why their response to the request has been so slow.
+Ministry of fact keeping have still not replied to your FOI request Extremely late expenses claims, as normally required by law. Click on the link below to tell them to reply. You might like to ask for an internal review, asking them to find out why their response to the request has been so slow.
 
-http://test.host/en/profile/sign_in?r=%2Fen%2Frequest%2F1005%2Ffollowups%2Fnew%23followup
+http://test.host/en/profile/sign_in?r=%2Fen%2Frequest%2F$EXTREMELY_LATE_EXPENSES_CLAIMS_MOF_ID$%2Ffollowups%2Fnew%23followup
 
 
 Misdelivered letters
@@ -72,8 +72,8 @@ Zero hours employees
 What's happened:
 2 requests had new responses:
 You can see the responses with the following links:
-  Ministry of fact keeping: http://test.host/en/request/zero_hours_employees?nocache=incoming-997#incoming-997
-  Minor infractions quango: http://test.host/en/request/zero_hours_employees_2?nocache=incoming-998#incoming-998
+  Ministry of fact keeping: http://test.host/en/request/zero_hours_employees?nocache=incoming-$ZERO_HOURS_EMPLOYEES_MOF_INCOMING_ID$#incoming-$ZERO_HOURS_EMPLOYEES_MOF_INCOMING_ID$
+  Minor infractions quango: http://test.host/en/request/zero_hours_employees_2?nocache=incoming-$ZERO_HOURS_EMPLOYEES_2_MIQ_INCOMING_ID$#incoming-$ZERO_HOURS_EMPLOYEES_2_MIQ_INCOMING_ID$
 
 
 Employees caught stealing stationary
@@ -114,8 +114,8 @@ What's happened:
 
 You can see the requests and remind the bodies to respond with the following links:
 
-  Ministry of fact keeping: http://test.host/en/profile/sign_in?r=%2Fen%2Frequest%2FLATE_FOI_REQUESTS_MOF_ID%2Ffollowups%2Fnew%23followup
-  Minor infractions quango: http://test.host/en/profile/sign_in?r=%2Fen%2Frequest%2FLATE_FOI_REQUESTS_2_MIQ_ID%2Ffollowups%2Fnew%23followup
+  Ministry of fact keeping: http://test.host/en/profile/sign_in?r=%2Fen%2Frequest%2F$LATE_FOI_REQUESTS_MOF_ID$%2Ffollowups%2Fnew%23followup
+  Minor infractions quango: http://test.host/en/profile/sign_in?r=%2Fen%2Frequest%2F$LATE_FOI_REQUESTS_2_MIQ_ID$%2Ffollowups%2Fnew%23followup
 
 
 Ignored FOI requests
@@ -130,8 +130,8 @@ What's happened:
 
 You can see the requests and tell the bodies to respond with the following links. You might like to ask for internal reviews, asking the bodies to find out why responses to the requests have been so slow.
 
-  Ministry of fact keeping: http://test.host/en/profile/sign_in?r=%2Fen%2Frequest%2FIGNORED_FOI_REQUESTS_MOF_ID%2Ffollowups%2Fnew%23followup
-  Minor infractions quango: http://test.host/en/profile/sign_in?r=%2Fen%2Frequest%2FIGNORED_FOI_REQUESTS_2_MIQ_ID%2Ffollowups%2Fnew%23followup
+  Ministry of fact keeping: http://test.host/en/profile/sign_in?r=%2Fen%2Frequest%2F$IGNORED_FOI_REQUESTS_MOF_ID$%2Ffollowups%2Fnew%23followup
+  Minor infractions quango: http://test.host/en/profile/sign_in?r=%2Fen%2Frequest%2F$IGNORED_FOI_REQUESTS_2_MIQ_ID$%2Ffollowups%2Fnew%23followup
 
 
 

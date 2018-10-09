@@ -69,6 +69,8 @@
 
 <p>
 <%= _('You can get this page in computer-readable format as part of the ' \
-      'main JSON page for the request.  See the <a href="{{api_path}}">' \
-      'API documentation</a>.', :api_path => help_api_path) %>
+      '<a href="{{json_path}}">main JSON page</a> for the request. See the ' \
+      '<a href="{{api_path}}">API documentation</a>.',
+      json_path: request_path(@info_request, format: :json),
+      api_path: help_api_path) %>
 </p>

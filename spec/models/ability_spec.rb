@@ -2,8 +2,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 require "cancan/matchers"
 
 shared_examples_for "a class with message prominence" do
-  let(:admin_ability) { Ability.new(FactoryGirl.create(:admin_user)) }
-  let(:other_user_ability) { Ability.new(FactoryGirl.create(:user)) }
+  let(:admin_ability) { Ability.new(FactoryBot.create(:admin_user)) }
+  let(:other_user_ability) { Ability.new(FactoryBot.create(:user)) }
 
   context 'if the prominence is hidden' do
     before do
@@ -62,7 +62,7 @@ end
 
 describe Ability do
   describe "reading IncomingMessages" do
-    let(:info_request) { FactoryGirl.create(:info_request_with_incoming) }
+    let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
     let!(:resource) { info_request.incoming_messages.first }
     let!(:owner_ability) { Ability.new(info_request.user) }
 
@@ -70,7 +70,7 @@ describe Ability do
   end
 
   describe "reading OutgoingMessages" do
-    let(:info_request) { FactoryGirl.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
     let!(:resource) { info_request.outgoing_messages.first }
     let!(:owner_ability) { Ability.new(info_request.user) }
 
@@ -78,16 +78,16 @@ describe Ability do
   end
 
   describe "reading InfoRequests" do
-    let!(:resource) { FactoryGirl.create(:info_request) }
+    let!(:resource) { FactoryBot.create(:info_request) }
     let!(:owner_ability) { Ability.new(resource.user) }
 
     it_behaves_like "a class with message prominence"
 
     context 'when the request is embargoed' do
-      let!(:resource) { FactoryGirl.create(:embargoed_request) }
-      let(:admin_ability) { Ability.new(FactoryGirl.create(:admin_user)) }
-      let(:pro_admin_ability) { Ability.new(FactoryGirl.create(:pro_admin_user)) }
-      let(:other_user_ability) { Ability.new(FactoryGirl.create(:user)) }
+      let!(:resource) { FactoryBot.create(:embargoed_request) }
+      let(:admin_ability) { Ability.new(FactoryBot.create(:admin_user)) }
+      let(:pro_admin_ability) { Ability.new(FactoryBot.create(:pro_admin_user)) }
+      let(:other_user_ability) { Ability.new(FactoryBot.create(:user)) }
 
       context 'if the prominence is hidden' do
         before do
@@ -196,7 +196,7 @@ describe Ability do
 
   describe "updating request state of InfoRequests" do
     context "given an old and unclassified request" do
-      let(:request) { FactoryGirl.create(:old_unclassified_request) }
+      let(:request) { FactoryBot.create(:old_unclassified_request) }
 
       context "when logged out" do
         let(:ability) { Ability.new(nil) }
@@ -207,7 +207,7 @@ describe Ability do
       end
 
       context "when logged in but not owner of request" do
-        let(:user) { FactoryGirl.create(:user) }
+        let(:user) { FactoryBot.create(:user) }
         let(:ability) { Ability.new(user) }
 
         it "should return true" do
@@ -226,7 +226,7 @@ describe Ability do
     end
 
     context "given a new request" do
-      let(:request) { FactoryGirl.create(:info_request) }
+      let(:request) { FactoryBot.create(:info_request) }
 
       context "when logged out" do
         let(:ability) { Ability.new(nil) }
@@ -246,7 +246,7 @@ describe Ability do
         end
 
         context "as an admin" do
-          let(:ability) { Ability.new(FactoryGirl.create(:admin_user)) }
+          let(:ability) { Ability.new(FactoryBot.create(:admin_user)) }
 
           it "should return true" do
             expect(ability).to be_able_to(:update_request_state, request)
@@ -254,7 +254,7 @@ describe Ability do
         end
 
         context "but not owner of request" do
-          let(:ability) { Ability.new(FactoryGirl.create(:user)) }
+          let(:ability) { Ability.new(FactoryBot.create(:user)) }
 
           it "should return false" do
             expect(ability).not_to be_able_to(:update_request_state, request)
@@ -265,13 +265,13 @@ describe Ability do
   end
 
   describe "reading InfoRequestBatches" do
-    let(:admin_ability) { Ability.new(FactoryGirl.create(:admin_user)) }
-    let(:pro_admin_ability) { Ability.new(FactoryGirl.create(:pro_admin_user)) }
-    let(:pro_user_ability) { Ability.new(FactoryGirl.create(:pro_user)) }
-    let(:other_user_ability) { Ability.new(FactoryGirl.create(:user)) }
+    let(:admin_ability) { Ability.new(FactoryBot.create(:admin_user)) }
+    let(:pro_admin_ability) { Ability.new(FactoryBot.create(:pro_admin_user)) }
+    let(:pro_user_ability) { Ability.new(FactoryBot.create(:pro_user)) }
+    let(:other_user_ability) { Ability.new(FactoryBot.create(:user)) }
 
     context "when the batch is embargoed" do
-      let(:resource) { FactoryGirl.create(:embargoed_batch_request) }
+      let(:resource) { FactoryBot.create(:info_request_batch, :embargoed) }
 
       context "when the user owns the batch" do
         let(:ability) { Ability.new(resource.user) }
@@ -317,7 +317,7 @@ describe Ability do
     end
 
     context "when the batch is not embargoed" do
-      let(:resource) { FactoryGirl.create(:batch_request) }
+      let(:resource) { FactoryBot.create(:info_request_batch) }
       let(:all_the_abilities) do
         [
           admin_ability,
@@ -338,15 +338,15 @@ describe Ability do
   end
 
   describe "updating InfoRequestBatches" do
-    let(:admin_ability) { Ability.new(FactoryGirl.create(:admin_user)) }
-    let(:pro_admin_ability) { Ability.new(FactoryGirl.create(:pro_admin_user)) }
-    let(:pro_user_ability) { Ability.new(FactoryGirl.create(:pro_user)) }
-    let(:other_user_ability) { Ability.new(FactoryGirl.create(:user)) }
+    let(:admin_ability) { Ability.new(FactoryBot.create(:admin_user)) }
+    let(:pro_admin_ability) { Ability.new(FactoryBot.create(:pro_admin_user)) }
+    let(:pro_user_ability) { Ability.new(FactoryBot.create(:pro_user)) }
+    let(:other_user_ability) { Ability.new(FactoryBot.create(:user)) }
 
     context "when the batch is embargoed" do
       let(:resource) do
-        FactoryGirl.create(:embargoed_batch_request,
-                           user: FactoryGirl.create(:pro_user))
+        FactoryBot.create(:info_request_batch, :embargoed,
+                          user: FactoryBot.create(:pro_user))
       end
 
       context "when the user owns the batch" do
@@ -402,7 +402,7 @@ describe Ability do
     end
 
     context "when the batch is not embargoed" do
-      let(:resource) { FactoryGirl.create(:batch_request) }
+      let(:resource) { FactoryBot.create(:info_request_batch) }
 
       context "when the user owns the batch" do
         let(:ability) { Ability.new(resource.user) }
@@ -452,7 +452,7 @@ describe Ability do
     subject(:ability) { Ability.new(user) }
 
     context "when the user is a pro" do
-      let(:user) { FactoryGirl.create(:pro_user) }
+      let(:user) { FactoryBot.create(:pro_user) }
       it "should return true" do
         with_feature_enabled(:alaveteli_pro) do
           expect(ability).to be_able_to(:access, :alaveteli_pro)
@@ -461,7 +461,7 @@ describe Ability do
     end
 
     context "when the user is an admin" do
-      let(:user) { FactoryGirl.create(:admin_user) }
+      let(:user) { FactoryBot.create(:admin_user) }
 
       it "should return false" do
         with_feature_enabled(:alaveteli_pro) do
@@ -471,7 +471,7 @@ describe Ability do
     end
 
     context "when the user is a pro admin" do
-      let(:user) { FactoryGirl.create(:pro_admin_user) }
+      let(:user) { FactoryBot.create(:pro_admin_user) }
 
       it "should return true" do
         with_feature_enabled(:alaveteli_pro) do
@@ -481,7 +481,7 @@ describe Ability do
     end
 
     context "when the user is a normal user" do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
 
       it "should return false" do
         with_feature_enabled(:alaveteli_pro) do
@@ -502,11 +502,11 @@ describe Ability do
   end
 
   describe "Creating Embargoes" do
-    let(:pro_admin_user) { FactoryGirl.create(:pro_admin_user) }
+    let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
 
     context 'the info request owner is a pro user' do
-      let(:user) { FactoryGirl.create(:pro_user) }
-      let(:info_request) { FactoryGirl.create(:info_request, user: user) }
+      let(:user) { FactoryBot.create(:pro_user) }
+      let(:info_request) { FactoryBot.create(:info_request, user: user) }
 
       it 'allows the request owner to add an embargo' do
         with_feature_enabled(:alaveteli_pro) do
@@ -525,9 +525,9 @@ describe Ability do
 
       context 'the info request is part of a batch' do
         let(:batch_request) do
-          batch = FactoryGirl.create(:batch_request, user: user)
-          request = FactoryGirl.create(:info_request, title: batch.title,
-                                                      user: batch.user)
+          batch = FactoryBot.create(:info_request_batch, user: user)
+          request = FactoryBot.create(:info_request, title: batch.title,
+                                                     user: batch.user)
           batch.info_requests << request
           batch.info_requests.first
         end
@@ -544,8 +544,8 @@ describe Ability do
     end
 
     context 'the info request owner is not a pro user' do
-      let(:user) { FactoryGirl.create(:pro_user) }
-      let(:info_request) { FactoryGirl.create(:info_request, user: user) }
+      let(:user) { FactoryBot.create(:pro_user) }
+      let(:info_request) { FactoryBot.create(:info_request, user: user) }
 
       before do
         user.remove_role(:pro)
@@ -568,16 +568,36 @@ describe Ability do
 
     end
 
+    context 'the info request was made anonymously', feature: :alaveteli_pro do
+      let(:info_request) { FactoryBot.build(:external_request) }
+
+      it 'prevents user from adding an embargo' do
+        ability = Ability.new(FactoryBot.build(:user))
+        expect(ability).not_to be_able_to(:create_embargo, info_request)
+      end
+
+      it 'prevents admin from adding an embargo' do
+        ability = Ability.new(FactoryBot.build(:admin_user))
+        expect(ability).not_to be_able_to(:create_embargo, info_request)
+      end
+
+      it 'prevents pro admin from adding an embargo' do
+        ability = Ability.new(FactoryBot.build(:pro_admin_user))
+        expect(ability).not_to be_able_to(:create_embargo, info_request)
+      end
+
+    end
+
   end
 
   describe "Updating Embargoes" do
 
     let(:embargo) do
-      FactoryGirl.create(:embargo, user: FactoryGirl.create(:pro_user))
+      FactoryBot.create(:embargo, user: FactoryBot.create(:pro_user))
     end
 
-    let(:admin_user) { FactoryGirl.create(:admin_user) }
-    let(:pro_admin_user) { FactoryGirl.create(:pro_admin_user) }
+    let(:admin_user) { FactoryBot.create(:admin_user) }
+    let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
 
     it "allows pro info request owners to update it" do
       with_feature_enabled(:alaveteli_pro) do
@@ -617,7 +637,7 @@ describe Ability do
     end
 
     it "doesnt allow other users to update it" do
-      other_user = FactoryGirl.create(:user)
+      other_user = FactoryBot.create(:user)
       with_feature_enabled(:alaveteli_pro) do
         ability = Ability.new(other_user)
         expect(ability).not_to be_able_to(:update, embargo)
@@ -628,11 +648,11 @@ describe Ability do
   describe "Destroying Embargoes" do
 
     let(:embargo) do
-      FactoryGirl.create(:embargo, user: FactoryGirl.create(:pro_user))
+      FactoryBot.create(:embargo, user: FactoryBot.create(:pro_user))
     end
 
-    let(:admin_user) { FactoryGirl.create(:admin_user) }
-    let(:pro_admin_user) { FactoryGirl.create(:pro_admin_user) }
+    let(:admin_user) { FactoryBot.create(:admin_user) }
+    let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
 
     it 'allows a pro info request owner to destroy it' do
       with_feature_enabled(:alaveteli_pro) do
@@ -671,7 +691,7 @@ describe Ability do
     end
 
     it "doesnt allow other users to destroy it" do
-      other_user = FactoryGirl.create(:user)
+      other_user = FactoryBot.create(:user)
       with_feature_enabled(:alaveteli_pro) do
         ability = Ability.new(other_user)
         expect(ability).not_to be_able_to(:destroy, embargo)
@@ -683,12 +703,12 @@ describe Ability do
   describe "Destroying Batch Embargoes" do
 
     let(:batch) do
-      FactoryGirl.create(:embargoed_batch_request,
-                         user: FactoryGirl.create(:pro_user))
+      FactoryBot.create(:info_request_batch, :embargoed,
+                        user: FactoryBot.create(:pro_user))
     end
 
-    let(:admin_user) { FactoryGirl.create(:admin_user) }
-    let(:pro_admin_user) { FactoryGirl.create(:pro_admin_user) }
+    let(:admin_user) { FactoryBot.create(:admin_user) }
+    let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
 
     it 'allows a pro info batch owner to destroy it' do
       with_feature_enabled(:alaveteli_pro) do
@@ -727,7 +747,7 @@ describe Ability do
     end
 
     it "doesnt allow other users to destroy it" do
-      other_user = FactoryGirl.create(:user)
+      other_user = FactoryBot.create(:user)
       with_feature_enabled(:alaveteli_pro) do
         ability = Ability.new(other_user)
         expect(ability).not_to be_able_to(:destroy_embargo, batch)
@@ -737,10 +757,10 @@ describe Ability do
   end
 
   describe "Logging in as a user" do
-    let(:user) { FactoryGirl.create(:user) }
-    let(:pro_user) { FactoryGirl.create(:pro_user) }
-    let(:admin_user) { FactoryGirl.create(:admin_user) }
-    let(:pro_admin_user) { FactoryGirl.create(:pro_admin_user) }
+    let(:user) { FactoryBot.create(:user) }
+    let(:pro_user) { FactoryBot.create(:pro_user) }
+    let(:admin_user) { FactoryBot.create(:admin_user) }
+    let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
 
     context 'when the user has no roles' do
 
@@ -760,7 +780,7 @@ describe Ability do
 
       it 'does not allow user with no roles to login as them' do
         with_feature_enabled(:alaveteli_pro) do
-          ability = Ability.new(FactoryGirl.create(:user))
+          ability = Ability.new(FactoryBot.create(:user))
           expect(ability).not_to be_able_to(:login_as, user)
         end
       end
@@ -778,7 +798,7 @@ describe Ability do
 
       it 'allows an admin user to login as them' do
         with_feature_enabled(:alaveteli_pro) do
-          ability = Ability.new(FactoryGirl.create(:admin_user))
+          ability = Ability.new(FactoryBot.create(:admin_user))
           expect(ability).to be_able_to(:login_as, admin_user)
         end
       end
@@ -817,7 +837,7 @@ describe Ability do
 
      it 'does not allow a pro user to login as them' do
         with_feature_enabled(:alaveteli_pro) do
-          ability = Ability.new(FactoryGirl.create(:pro_user))
+          ability = Ability.new(FactoryBot.create(:pro_user))
           expect(ability).not_to be_able_to(:login_as, pro_user)
         end
       end
@@ -870,7 +890,7 @@ describe Ability do
 
       it 'allows a pro admin user to login as them' do
         with_feature_enabled(:alaveteli_pro) do
-          ability = Ability.new(FactoryGirl.create(:pro_admin_user))
+          ability = Ability.new(FactoryBot.create(:pro_admin_user))
           expect(ability).to be_able_to(:login_as, pro_admin_user)
         end
       end
@@ -885,13 +905,13 @@ describe Ability do
   end
 
   describe 'administering requests' do
-    let(:user) { FactoryGirl.create(:user) }
-    let(:pro_user) { FactoryGirl.create(:pro_user) }
-    let(:admin_user) { FactoryGirl.create(:admin_user) }
-    let(:pro_admin_user) { FactoryGirl.create(:pro_admin_user) }
+    let(:user) { FactoryBot.create(:user) }
+    let(:pro_user) { FactoryBot.create(:pro_user) }
+    let(:admin_user) { FactoryBot.create(:admin_user) }
+    let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
 
     context 'when the request is embargoed' do
-      let(:info_request){ FactoryGirl.create(:embargoed_request) }
+      let(:info_request){ FactoryBot.create(:embargoed_request) }
 
       it 'allows a pro admin user to administer' do
         with_feature_enabled(:alaveteli_pro) do
@@ -931,7 +951,7 @@ describe Ability do
     end
 
     context 'when the request is not embargoed' do
-      let(:info_request){ FactoryGirl.create(:info_request) }
+      let(:info_request){ FactoryBot.create(:info_request) }
 
       it 'allows a pro admin user to administer' do
         with_feature_enabled(:alaveteli_pro) do
@@ -972,15 +992,15 @@ describe Ability do
   end
 
   describe 'administering comments' do
-    let(:user) { FactoryGirl.create(:user) }
-    let(:pro_user) { FactoryGirl.create(:pro_user) }
-    let(:admin_user) { FactoryGirl.create(:admin_user) }
-    let(:pro_admin_user) { FactoryGirl.create(:pro_admin_user) }
+    let(:user) { FactoryBot.create(:user) }
+    let(:pro_user) { FactoryBot.create(:pro_user) }
+    let(:admin_user) { FactoryBot.create(:admin_user) }
+    let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
 
     context "when the comment's request is embargoed" do
-      let(:info_request){ FactoryGirl.create(:embargoed_request) }
-      let(:comment){ FactoryGirl.create(:comment,
-                                        :info_request => info_request) }
+      let(:info_request){ FactoryBot.create(:embargoed_request) }
+      let(:comment){ FactoryBot.create(:comment,
+                                       :info_request => info_request) }
 
       it 'allows a pro admin user to administer' do
         with_feature_enabled(:alaveteli_pro) do
@@ -1020,9 +1040,9 @@ describe Ability do
     end
 
     context 'when the request is not embargoed' do
-      let(:info_request){ FactoryGirl.create(:info_request) }
-      let(:comment){ FactoryGirl.create(:comment,
-                                        :info_request => info_request) }
+      let(:info_request){ FactoryBot.create(:info_request) }
+      let(:comment){ FactoryBot.create(:comment,
+                                       :info_request => info_request) }
 
       it 'allows a pro admin user to administer' do
         with_feature_enabled(:alaveteli_pro) do
@@ -1062,10 +1082,10 @@ describe Ability do
   end
 
   describe 'administering embargoes' do
-    let(:user) { FactoryGirl.create(:user) }
-    let(:pro_user) { FactoryGirl.create(:pro_user) }
-    let(:admin_user) { FactoryGirl.create(:admin_user) }
-    let(:pro_admin_user) { FactoryGirl.create(:pro_admin_user) }
+    let(:user) { FactoryBot.create(:user) }
+    let(:pro_user) { FactoryBot.create(:pro_user) }
+    let(:admin_user) { FactoryBot.create(:admin_user) }
+    let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
 
     it 'allows a pro admin user to administer' do
       with_feature_enabled(:alaveteli_pro) do
@@ -1105,10 +1125,10 @@ describe Ability do
   end
 
   describe 'reading API keys' do
-    let(:user) { FactoryGirl.create(:user) }
-    let(:pro_user) { FactoryGirl.create(:pro_user) }
-    let(:admin_user) { FactoryGirl.create(:admin_user) }
-    let(:pro_admin_user) { FactoryGirl.create(:pro_admin_user) }
+    let(:user) { FactoryBot.create(:user) }
+    let(:pro_user) { FactoryBot.create(:pro_user) }
+    let(:admin_user) { FactoryBot.create(:admin_user) }
+    let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
 
     context 'if pro is not enabled' do
 

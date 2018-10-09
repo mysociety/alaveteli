@@ -8,7 +8,7 @@ shared_examples_for "RequestSummaries" do
 
   it "calls create_or_update_request_summary on create" do
     TestAfterCommit.with_commits(true) do
-      resource = FactoryGirl.build(factory)
+      resource = FactoryBot.build(factory)
       expect(resource).to receive(:create_or_update_request_summary)
       resource.save!
     end
@@ -16,7 +16,7 @@ shared_examples_for "RequestSummaries" do
 
   it "calls create_or_update_request_summary on update" do
     TestAfterCommit.with_commits(true) do
-      resource = FactoryGirl.create(factory)
+      resource = FactoryBot.create(factory)
       expect(resource).to receive(:create_or_update_request_summary)
       resource.save!
     end
@@ -24,7 +24,7 @@ shared_examples_for "RequestSummaries" do
 
   it "does not call create_or_update_request_summary on destroy" do
     TestAfterCommit.with_commits(true) do
-      resource = FactoryGirl.create(factory)
+      resource = FactoryBot.create(factory)
       expect(resource).not_to receive(:create_or_update_request_summary)
       resource.destroy
     end
@@ -32,7 +32,7 @@ shared_examples_for "RequestSummaries" do
 
   it "deletes associated request_summaries on destroy" do
     TestAfterCommit.with_commits(true) do
-      resource = FactoryGirl.create(factory)
+      resource = FactoryBot.create(factory)
       expect(AlaveteliPro::RequestSummary.where(
         :summarisable_id => resource.id,
         :summarisable_type => class_name)

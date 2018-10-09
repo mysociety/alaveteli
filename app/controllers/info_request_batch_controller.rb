@@ -8,13 +8,16 @@ class InfoRequestBatchController < ApplicationController
   def show
     @per_page = 25
     @page = get_search_page_from_params
-    offset = (@page - 1) * @per_page
     if @info_request_batch.sent_at
-      @info_requests = load_info_requests(offset)
+      @info_requests = load_info_requests.paginate(page: @page,
+                                                   per_page: @per_page)
     else
-      @public_bodies = load_public_bodies(offset)
+      @public_bodies = load_public_bodies.paginate(page: @page,
+                                                   per_page: @per_page)
     end
   end
+
+  private
 
   def load_and_authorise_resource
     @info_request_batch = InfoRequestBatch.find(params[:id])
@@ -46,23 +49,23 @@ class InfoRequestBatchController < ApplicationController
     end
   end
 
-  def load_info_requests(offset)
+  def load_info_requests
     if @info_request_batch.embargo_duration.present?
-      load_all_info_requests(offset)
+      load_all_info_requests
     else
-      load_searchable_info_requests(offset)
+      load_searchable_info_requests
     end
   end
 
-  def load_all_info_requests(offset)
-    @info_request_batch.info_requests.offset(offset).limit(@per_page)
+  def load_all_info_requests
+    @info_request_batch.info_requests
   end
 
-  def load_searchable_info_requests(offset)
-    @info_request_batch.info_requests.is_searchable.offset(offset).limit(@per_page)
+  def load_searchable_info_requests
+    @info_request_batch.info_requests.is_searchable
   end
 
-  def load_public_bodies(offset)
-    @info_request_batch.public_bodies.offset(offset).limit(@per_page)
+  def load_public_bodies
+    @info_request_batch.public_bodies
   end
 end

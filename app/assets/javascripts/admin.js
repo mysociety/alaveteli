@@ -6,6 +6,7 @@
 //= require bootstrap-collapse
 //= require bootstrap-tab
 //= require bootstrap-dropdown
+//= require bootstrap-tooltip
 //= require admin/admin
 //= require admin/category-order
 //= require admin/holidays

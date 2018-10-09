@@ -1,7 +1,7 @@
 <%= raw @info_request.public_body.name %> <%= _('are long overdue.')%>
 
 <%= _('They have still not replied to your {{law_used_short}} request ' \
-      '{{title}}, as required by law',
+      '{{title}}, as normally required by law',
       :law_used_short => @info_request.law_used_human(:short).html_safe,
       :title => @info_request.title.html_safe) %>.
 

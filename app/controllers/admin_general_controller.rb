@@ -32,8 +32,10 @@ class AdminGeneralController < AdminController
                               @old_unclassified ].
       any?{ |to_do_list| ! to_do_list.empty? }
 
-    @blank_contact_count = PublicBody.blank_contact_count
-    @blank_contacts = PublicBody.blank_contacts
+    @blank_contact_count = PublicBody.without_request_email.count
+    @blank_contacts = PublicBody.without_request_email.
+                                   limit(20).
+                                     includes(:tags, :translations)
 
     @new_body_requests = PublicBodyChangeRequest.
       includes(:public_body, :user).
@@ -59,6 +61,10 @@ class AdminGeneralController < AdminController
     @nothing_to_do = !@public_request_tasks &&
                      !@authority_tasks &&
                      !@comment_tasks
+
+    @announcements = Announcement.
+      for_user_with_roles(current_user, :admin, :pro_admin).
+      limit(3)
 
     if can? :admin, AlaveteliPro::Embargo
       @embargoed_requires_admin_requests = InfoRequest.

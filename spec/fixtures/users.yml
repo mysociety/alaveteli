@@ -6,7 +6,7 @@
 #  email                             :string           not null
 #  name                              :string           not null
 #  hashed_password                   :string           not null
-#  salt                              :string           not null
+#  salt                              :string
 #  created_at                        :datetime         not null
 #  updated_at                        :datetime         not null
 #  email_confirmed                   :boolean          default(FALSE), not null

@@ -87,6 +87,7 @@ DEFAULTS = {
   'memory' => 1536,
   'themes_dir' => '../alaveteli-themes',
   'os' => 'jessie64',
+  'name' => 'default',
   'use_nfs' => false,
   'show_settings' => false,
   'cpus' => cpu_count
@@ -116,8 +117,8 @@ if SETTINGS['show_settings']
 end
 
 SUPPORTED_OPERATING_SYSTEMS = {
-  'trusty64' => 'https://atlas.hashicorp.com/ubuntu/boxes/trusty64/versions/20160714.0.0/providers/virtualbox.box',
-  'jessie64' => 'https://atlas.hashicorp.com/puppetlabs/boxes/debian-8.2-64-nocm',
+  'trusty64' => 'https://app.vagrantup.com/ubuntu/boxes/trusty64',
+  'jessie64' => 'https://app.vagrantup.com/puppetlabs/debian-8.2-64-nocm',
   'stretch64' => 'https://app.vagrantup.com/debian/boxes/stretch64'
 }
 
@@ -136,9 +137,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     'puppetlabs/debian-8.2-64-nocm'
   elsif box == 'stretch64'
     'debian/stretch64'
+  elsif box == 'trusty64'
+    'ubuntu/trusty64'
   else
     box
   end
+  config.vm.define SETTINGS['name']
   config.vm.box_url = box_url
   config.vm.network :private_network, ip: SETTINGS['ip']
 
@@ -175,15 +179,20 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.customize ['modifyvm', :id, '--cpus', SETTINGS['cpus']]
   end
 
-  # Fetch and run the install script:
-  config.vm.provision :shell, inline: "apt-get -y install curl"
-  config.vm.provision :shell, inline: "curl -O https://raw.githubusercontent.com/mysociety/commonlib/master/bin/install-site.sh"
-  config.vm.provision :shell, inline: "chmod a+rx install-site.sh"
-  config.vm.provision :shell, inline: "./install-site.sh " \
-                                      "--dev " \
-                                      "alaveteli " \
-                                      "vagrant " \
-                                      "#{ SETTINGS['fqdn'] }"
+  config.vm.provision :shell, inline: <<-EOF
+  if [[ -f "/home/vagrant/alaveteli/commonlib/bin/install-site.sh" ]]
+    then
+      /home/vagrant/alaveteli/commonlib/bin/install-site.sh \
+        --dev \
+        alaveteli \
+        vagrant \
+        #{ SETTINGS['fqdn'] }
+  else
+    echo "Couldn't find provisioning script." >&2
+    echo "Did you forget to run git submodule update --init?" >&2
+    exit 1
+  fi
+EOF
 
   # Append basic usage instructions to the MOTD
   motd = <<-EOF

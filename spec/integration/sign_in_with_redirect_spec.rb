@@ -8,7 +8,7 @@ describe 'Signing in with a redirect parameter' do
   after { restore_consider_all_requests_local }
 
   context 'when not logged in' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     it 'redirects to an unprotected path' do
       login!(user, r: help_about_path)
@@ -16,13 +16,13 @@ describe 'Signing in with a redirect parameter' do
     end
 
     it 'redirects to an embargoed request that you own' do
-      embargoed_request = FactoryGirl.create(:embargoed_request, user: user)
+      embargoed_request = FactoryBot.create(:embargoed_request, user: user)
       login!(user, r: show_request_path(embargoed_request.url_title))
       expect(response.status).to eq(200)
     end
 
     it 'renders a 404 when redirecting to an embargoed request that is not yours' do
-      embargoed_request = FactoryGirl.create(:embargoed_request)
+      embargoed_request = FactoryBot.create(:embargoed_request)
       login!(user, r: show_request_path(embargoed_request.url_title))
       expect(response.status).to eq(404)
     end
@@ -35,7 +35,7 @@ describe 'Signing in with a redirect parameter' do
   end
 
   context 'when already logged in' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     before do
       login!(user)
@@ -47,14 +47,14 @@ describe 'Signing in with a redirect parameter' do
     end
 
     it 'redirects to an embargoed request that you own' do
-      embargoed_request = FactoryGirl.create(:embargoed_request, user: user)
+      embargoed_request = FactoryBot.create(:embargoed_request, user: user)
       get signin_path, r: show_request_path(embargoed_request.url_title)
       follow_redirect!
       expect(response.status).to eq(200)
     end
 
     it 'renders a 404 when redirecting to an embargoed request that is not yours' do
-      embargoed_request = FactoryGirl.create(:embargoed_request)
+      embargoed_request = FactoryBot.create(:embargoed_request)
       get signin_path, r: show_request_path(embargoed_request.url_title)
       follow_redirect!
       expect(response.status).to eq(404)

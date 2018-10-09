@@ -3,20 +3,20 @@ require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
 
 describe "request/show" do
 
-  let(:mock_body) { FactoryGirl.create(:public_body, :name => "test body") }
+  let(:mock_body) { FactoryBot.create(:public_body, :name => "test body") }
 
   let(:mock_user) do
-    FactoryGirl.create(:user, :name => "test user",
-                              :url_name => "test_user",
-                              :profile_photo => nil)
+    FactoryBot.create(:user, :name => "test user",
+                             :url_name => "test_user",
+                             :profile_photo => nil)
   end
 
-  let(:admin_user) { FactoryGirl.create(:admin_user) }
+  let(:admin_user) { FactoryBot.create(:admin_user) }
 
   let(:mock_request) do
-    FactoryGirl.create(:info_request, :title => "Test request",
-                                      :public_body => mock_body,
-                                      :user => mock_user)
+    FactoryBot.create(:info_request, :title => "Test request",
+                                     :public_body => mock_body,
+                                     :user => mock_user)
   end
 
   let(:mock_track) do
@@ -72,7 +72,7 @@ describe "request/show" do
       end
 
       context "and there is a last response" do
-        let(:mock_response) { FactoryGirl.create(:incoming_message) }
+        let(:mock_response) { FactoryBot.create(:incoming_message) }
 
         it "should show a link to follow up the last response with clarification" do
           allow(mock_request).to receive(:get_last_public_response).
@@ -198,9 +198,38 @@ describe "request/show" do
     end
   end
 
+  describe 'when the authority is not subject to FOI law' do
+    before do
+      mock_body.add_tag_if_not_already_present('foi_no')
+    end
+
+    it 'displays a message that that authority is not obliged to respond' do
+      request_page
+      expect(rendered).
+        to have_content('This authority is not subject to FOI law, so is not ' \
+                        'legally obliged to respond')
+    end
+
+    context 'when the authority is only accepting EIR requests' do
+
+      before do
+        mock_body.add_tag_if_not_already_present('eir_only')
+      end
+
+      it 'displays a message that that authority is not obliged to respond' do
+        request_page
+        expect(rendered).
+          to have_content('You can only request information about the ' \
+                          'environment from this authority.')
+      end
+
+    end
+
+  end
+
   describe "censoring attachment names" do
     let(:request_with_attachment) do
-      FactoryGirl.create(:info_request_with_html_attachment)
+      FactoryBot.create(:info_request_with_html_attachment)
     end
 
     before do

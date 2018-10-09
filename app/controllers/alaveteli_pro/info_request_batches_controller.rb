@@ -27,6 +27,12 @@ class AlaveteliPro::InfoRequestBatchesController < AlaveteliPro::BaseController
     @draft_info_request_batch = load_draft
     load_data_from_draft(@draft_info_request_batch)
     if all_models_valid?
+      rate_monitor.record(current_user.id)
+
+      if rate_monitor_limit?(current_user.id)
+        handle_rate_monitor_limit_hit(current_user.id)
+      end
+
       @info_request_batch.save
       @draft_info_request_batch.destroy
       redirect_to show_alaveteli_pro_batch_request_path(id: @info_request_batch.id)
@@ -37,6 +43,39 @@ class AlaveteliPro::InfoRequestBatchesController < AlaveteliPro::BaseController
   end
 
   private
+
+  def rate_monitor
+    @rate_monitor ||=
+      AlaveteliRateLimiter::RateLimiter.new(
+        AlaveteliRateLimiter::Rule.new(
+          :pro_batch_creation,
+          5,
+          AlaveteliRateLimiter::Window.new(1, :day)))
+  end
+
+  def rate_monitor_limit?(user_id)
+    hour_window = AlaveteliRateLimiter::Window.new(1, :hour)
+    hour_rule =
+      AlaveteliRateLimiter::Rule.new(:pro_batch_creation, 5, hour_window)
+
+    week_window = AlaveteliRateLimiter::Window.new(1, :week)
+    week_rule =
+      AlaveteliRateLimiter::Rule.new(:pro_batch_creation, 5, week_window)
+
+    rate_monitor.limit?(user_id, hour_rule) ||
+      rate_monitor.limit?(user_id) ||
+        rate_monitor.limit?(user_id, week_rule)
+  end
+
+  def handle_rate_monitor_limit_hit(user_id)
+    msg = "Batch rate limit hit by User: #{ user_id }"
+    logger.warn(msg)
+
+    if send_exception_notifications?
+      e = Exception.new(msg)
+      ExceptionNotifier.notify_exception(e, env: request.env)
+    end
+  end
 
   def load_draft
     current_user.draft_info_request_batches.find(params[:draft_id])
@@ -53,6 +92,13 @@ class AlaveteliPro::InfoRequestBatchesController < AlaveteliPro::BaseController
     # lines and body content.
     @example_info_request = @info_request_batch.example_request
     @embargo = @example_info_request.embargo
+    # if no title or embargo has been set, assume this is an initial draft
+    # rather than an edit in progress and apply a default embargo
+    if @info_request_batch.title.blank? && !@embargo
+      # TODO: set duration based on current user's account settings
+      @embargo = AlaveteliPro::Embargo.new(info_request: @example_info_request)
+    end
+
     @outgoing_message = @example_info_request.outgoing_messages.first
   end
 

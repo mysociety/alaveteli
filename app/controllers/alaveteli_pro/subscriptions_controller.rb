@@ -16,6 +16,11 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
         @customer.
           sources.select { |card| card.id == @customer.default_source }.first
     end
+
+    if referral_coupon
+      @discount_code = remove_stripe_namespace(referral_coupon.id)
+      @discount_terms = referral_coupon.metadata.humanized_terms
+    end
   end
 
   # TODO: remove reminder of Stripe params once shipped
@@ -69,18 +74,20 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
            Stripe::APIConnectionError,
            Stripe::StripeError => e
 
-      if e.message =~ /No such coupon/
-        flash[:notice] = _('Coupon code is invalid.')
-      elsif e.message =~ /Coupon expired/
-        flash[:notice] = _('Coupon code has expired.')
-      else
-        if send_exception_notifications?
-          ExceptionNotifier.notify_exception(e, :env => request.env)
-        end
+      flash[:error] =
+        case e.message
+        when /No such coupon/
+          _('Coupon code is invalid.')
+        when /Coupon expired/
+          _('Coupon code has expired.')
+        else
+          if send_exception_notifications?
+            ExceptionNotifier.notify_exception(e, :env => request.env)
+          end
 
-        flash[:error] = _('There was a problem submitting your payment. You ' \
-                          'have not been charged. Please try again later.')
-      end
+          _('There was a problem submitting your payment. You ' \
+            'have not been charged. Please try again later.')
+        end
 
       if params[:plan_id]
         redirect_to plan_path(non_namespaced_plan_id)
@@ -101,8 +108,12 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
           enable_actor(:accept_mail_from_poller, current_user)
     end
 
-    unless feature_enabled? :notifications, current_user
+    unless feature_enabled?(:notifications, current_user)
       AlaveteliFeatures.backend.enable_actor(:notifications, current_user)
+    end
+
+    unless feature_enabled?(:pro_batch_access, current_user)
+      AlaveteliFeatures.backend.enable_actor(:pro_batch_access, current_user)
     end
 
     flash[:notice] =
@@ -172,6 +183,19 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
 
   def coupon_code
     add_stripe_namespace(params.require(:coupon_code)).upcase
+  end
+
+  def referral_coupon
+    coupon_code =
+      add_stripe_namespace(AlaveteliConfiguration.pro_referral_coupon)
+
+    @referral_coupon ||=
+      unless coupon_code.blank?
+        begin
+          Stripe::Coupon.retrieve(coupon_code)
+        rescue Stripe::StripeError
+        end
+      end
   end
 
   def prevent_duplicate_submission

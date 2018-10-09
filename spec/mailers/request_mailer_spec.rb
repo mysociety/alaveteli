@@ -42,8 +42,23 @@ describe RequestMailer do
     end
 
     it "puts messages with a malformed To: in the holding pen" do
-      request = FactoryGirl.create(:info_request)
+      request = FactoryBot.create(:info_request)
       receive_incoming_mail('incoming-request-plain.email', 'asdfg')
+      expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
+    end
+
+    it "puts messages with the request address in Bcc: in the holding pen" do
+      request = FactoryBot.create(:info_request)
+      receive_incoming_mail('bcc-contact-reply.email', request.incoming_email)
+      expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
+    end
+
+    it "puts messages with multiple request addresses in Bcc: in the holding pen" do
+      request1 = FactoryBot.create(:info_request)
+      request2 = FactoryBot.create(:info_request)
+      request3 = FactoryBot.create(:info_request)
+      bcc_addrs = [request1, request2, request3].map(&:incoming_email)
+      receive_incoming_mail('bcc-contact-reply.email', bcc_addrs.join(', '))
       expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
     end
 
@@ -117,7 +132,7 @@ describe RequestMailer do
     end
 
     it "should ignore mail sent to known spam addresses" do
-      @spam_address = FactoryGirl.create(:spam_address)
+      @spam_address = FactoryBot.create(:spam_address)
 
       receive_incoming_mail('incoming-request-plain.email', @spam_address.email)
 
@@ -261,7 +276,7 @@ describe RequestMailer do
 
     let(:old_request) do
       InfoRequest.destroy_all
-      FactoryGirl.create(:old_unclassified_request)
+      FactoryBot.create(:old_unclassified_request)
     end
 
     def send_alerts
@@ -343,16 +358,16 @@ describe RequestMailer do
   describe "when sending mail when someone has updated an old unclassified request" do
 
     let(:user) do
-      FactoryGirl.create(:user, :name => "test name", :email => "email@localhost")
+      FactoryBot.create(:user, :name => "test name", :email => "email@localhost")
     end
 
-    let(:public_body) { FactoryGirl.create(:public_body, :name => "Test public body") }
+    let(:public_body) { FactoryBot.create(:public_body, :name => "Test public body") }
 
     let(:info_request) do
-      FactoryGirl.create(:info_request, :user => user,
-                                        :title => "Test request",
-                                        :public_body => public_body,
-                                        :url_title => "test_request")
+      FactoryBot.create(:info_request, :user => user,
+                                       :title => "Test request",
+                                       :public_body => public_body,
+                                       :url_title => "test_request")
     end
 
     let(:mail) { RequestMailer.old_unclassified_updated(info_request) }
@@ -400,25 +415,25 @@ describe RequestMailer do
   describe "when sending a new response email" do
 
     let(:user) do
-      FactoryGirl.create(:user, :name => "test name",
-                                :email => "email@localhost")
+      FactoryBot.create(:user, :name => "test name",
+                               :email => "email@localhost")
     end
 
     let(:public_body) do
-      FactoryGirl.create(:public_body, :name => "Test public body")
+      FactoryBot.create(:public_body, :name => "Test public body")
     end
 
     let(:info_request) do
-      FactoryGirl.create(:info_request,
-                         :user => user,
-                         :title => "Here is a character that needs quoting …",
-                         :public_body => public_body,
-                         :described_state => 'rejected',
-                         :url_title => "test_request")
+      FactoryBot.create(:info_request,
+                        :user => user,
+                        :title => "Here is a character that needs quoting …",
+                        :public_body => public_body,
+                        :described_state => 'rejected',
+                        :url_title => "test_request")
     end
 
     let(:incoming_message) do
-      FactoryGirl.create(:incoming_message, :info_request => info_request)
+      FactoryBot.create(:incoming_message, :info_request => info_request)
     end
 
     it 'should not error when sending mails requests with characters requiring quoting in the subject' do
@@ -426,15 +441,15 @@ describe RequestMailer do
     end
 
     it 'should not create HTML entities in the subject line' do
-      mail = RequestMailer.new_response(FactoryGirl.create(:info_request, :title => "Here's a request"), FactoryGirl.create(:incoming_message))
+      mail = RequestMailer.new_response(FactoryBot.create(:info_request, :title => "Here's a request"), FactoryBot.create(:incoming_message))
       expect(mail.subject).to eq "New response to your FOI request - Here's a request"
     end
 
     it 'should send pro users a signin link' do
-      pro_user = FactoryGirl.create(:pro_user)
-      info_request = FactoryGirl.create(:embargoed_request, user: pro_user)
-      incoming_message = FactoryGirl.create(:incoming_message,
-                                            info_request: info_request)
+      pro_user = FactoryBot.create(:pro_user)
+      info_request = FactoryBot.create(:embargoed_request, user: pro_user)
+      incoming_message = FactoryBot.create(:incoming_message,
+                                           info_request: info_request)
       mail = RequestMailer.new_response(info_request, incoming_message)
       mail.body.to_s =~ /(http:\/\/.*)/
       mail_url = $1
@@ -488,15 +503,15 @@ describe RequestMailer do
   describe "requires_admin" do
 
     let(:user) do
-      FactoryGirl.create(:user, :name => "Bruce Jones",
-                                :email => "bruce@example.com")
+      FactoryBot.create(:user, :name => "Bruce Jones",
+                               :email => "bruce@example.com")
     end
 
     let(:info_request) do
-      FactoryGirl.create(:info_request, :user => user,
-                                        :title => "It's a Test request",
-                                        :url_title => "test_request",
-                                        :id => 123)
+      FactoryBot.create(:info_request, :user => user,
+                                       :title => "It's a Test request",
+                                       :url_title => "test_request",
+                                       :id => 123)
     end
 
     before do
@@ -539,8 +554,8 @@ describe RequestMailer do
     end
 
     context "when the user is a pro" do
-      let(:pro_user) { FactoryGirl.create(:pro_user) }
-      let(:pro_request) { FactoryGirl.create(:info_request, user: pro_user) }
+      let(:pro_user) { FactoryBot.create(:pro_user) }
+      let(:pro_request) { FactoryBot.create(:info_request, user: pro_user) }
 
       it "sends the request to the pro contact address" do
         with_feature_enabled(:alaveteli_pro) do
@@ -555,8 +570,8 @@ describe RequestMailer do
   describe "sending overdue request alerts", :focus => true do
 
     before(:each) do
-      @kitten_request = FactoryGirl.create(:info_request,
-                                           :title => "Do you really own a kitten?")
+      @kitten_request = FactoryBot.create(:info_request,
+                                          :title => "Do you really own a kitten?")
     end
 
     def kitten_mails
@@ -564,8 +579,8 @@ describe RequestMailer do
     end
 
     it 'should not create HTML entities in the subject line' do
-      info_request = FactoryGirl.create(:info_request,
-                                        :title => "Here's a request")
+      info_request = FactoryBot.create(:info_request,
+                                       :title => "Here's a request")
       mail = RequestMailer.overdue_alert(info_request, info_request.user)
       expect(mail.subject).to eq "Delayed response to your FOI request - Here's a request"
     end
@@ -646,7 +661,7 @@ describe RequestMailer do
     end
 
     it "sends alerts for embargoed requests" do
-      info_request = FactoryGirl.create(:embargoed_request)
+      info_request = FactoryBot.create(:embargoed_request)
 
       time_travel_to(31.days.from_now) do
         RequestMailer.alert_overdue_requests
@@ -660,7 +675,7 @@ describe RequestMailer do
     end
 
     it "does not send alerts for requests with use_notifications set to true" do
-      info_request = FactoryGirl.create(:use_notifications_request)
+      info_request = FactoryBot.create(:use_notifications_request)
 
       time_travel_to(31.days.from_now) do
         RequestMailer.alert_overdue_requests
@@ -675,8 +690,8 @@ describe RequestMailer do
     context "very overdue alerts" do
 
       it 'should not create HTML entities in the subject line' do
-        info_request = FactoryGirl.create(:info_request,
-                                          :title => "Here's a request")
+        info_request = FactoryBot.create(:info_request,
+                                         :title => "Here's a request")
         mail = RequestMailer.very_overdue_alert(info_request,
                                                 info_request.user)
         expect(mail.subject).to eq "You're long overdue a response " \
@@ -701,7 +716,7 @@ describe RequestMailer do
       end
 
       it "sends very overdue alerts for embargoed requests" do
-        info_request = FactoryGirl.create(:embargoed_request)
+        info_request = FactoryBot.create(:embargoed_request)
 
         time_travel_to(61.days.from_now) do
           RequestMailer.alert_overdue_requests
@@ -716,7 +731,7 @@ describe RequestMailer do
       end
 
       it "does not send alerts for requests with use_notifications set to true" do
-        info_request = FactoryGirl.create(:use_notifications_request)
+        info_request = FactoryBot.create(:use_notifications_request)
 
         time_travel_to(61.days.from_now) do
           RequestMailer.alert_overdue_requests
@@ -735,7 +750,7 @@ describe RequestMailer do
   describe "not_clarified_alert" do
 
     it 'should not create HTML entities in the subject line' do
-      mail = RequestMailer.not_clarified_alert(FactoryGirl.create(:info_request, :title => "Here's a request"), FactoryGirl.create(:incoming_message))
+      mail = RequestMailer.not_clarified_alert(FactoryBot.create(:info_request, :title => "Here's a request"), FactoryBot.create(:incoming_message))
       expect(mail.subject).to eq "Clarify your FOI request - Here's a request"
     end
 
@@ -744,7 +759,7 @@ describe RequestMailer do
   describe "comment_on_alert" do
 
     it 'should not create HTML entities in the subject line' do
-      mail = RequestMailer.comment_on_alert(FactoryGirl.create(:info_request, :title => "Here's a request"), FactoryGirl.create(:comment))
+      mail = RequestMailer.comment_on_alert(FactoryBot.create(:info_request, :title => "Here's a request"), FactoryBot.create(:comment))
       expect(mail.subject).to eq "Somebody added a note to your FOI request - Here's a request"
     end
 
@@ -753,7 +768,7 @@ describe RequestMailer do
   describe "comment_on_alert_plural" do
 
     it 'should not create HTML entities in the subject line' do
-      mail = RequestMailer.comment_on_alert_plural(FactoryGirl.create(:info_request, :title => "Here's a request"), 2, FactoryGirl.create(:comment))
+      mail = RequestMailer.comment_on_alert_plural(FactoryBot.create(:info_request, :title => "Here's a request"), 2, FactoryBot.create(:comment))
       expect(mail.subject).to eq "Some notes have been added to your FOI request - Here's a request"
     end
 
@@ -805,7 +820,7 @@ describe RequestMailer do
     end
 
     it "should alert about embargoed requests" do
-      info_request = FactoryGirl.create(:embargoed_request)
+      info_request = FactoryBot.create(:embargoed_request)
       info_request.set_described_state('waiting_clarification')
       force_updated_at_to_past(info_request)
 
@@ -819,7 +834,7 @@ describe RequestMailer do
     end
 
     it "should not send an alert for requests where use_notifications is true" do
-      info_request = FactoryGirl.create(:use_notifications_request)
+      info_request = FactoryBot.create(:use_notifications_request)
       info_request.set_described_state('waiting_clarification')
 
       force_updated_at_to_past(info_request)
@@ -908,10 +923,10 @@ describe RequestMailer do
     end
 
     it "should send alerts for comments on embargoed requests" do
-      info_request = FactoryGirl.create(:embargoed_request)
+      info_request = FactoryBot.create(:embargoed_request)
       new_comment = info_request.add_comment(
         "Test comment on embargoed_request",
-        FactoryGirl.create(:user))
+        FactoryBot.create(:user))
 
       RequestMailer.alert_comment_on_request
 

@@ -51,7 +51,7 @@ describe AlaveteliPro::PlansController do
     end
 
     context 'with a signed-in user' do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
 
       before do
         session[:user_id] = user.id
@@ -77,7 +77,7 @@ describe AlaveteliPro::PlansController do
 
       end
 
-      context 'with a Stripe namespaced' do
+      context 'with a Stripe namespace' do
 
         before do
           allow(AlaveteliConfiguration).to receive(:stripe_namespace).
@@ -153,6 +153,32 @@ describe AlaveteliPro::PlansController do
         it 'returns ActiveRecord::RecordNotFound' do
           expect { get :show, id: 'invalid-123' }.
             to raise_error(ActiveRecord::RecordNotFound)
+        end
+
+      end
+
+      context 'setting stripe_button_description' do
+
+        before do
+          get :show, id: plan.id
+        end
+
+        context 'with a monthly plan' do
+          let(:plan) { stripe_helper.create_plan(interval: 'month') }
+
+          it 'sets the stripe button description to monthly' do
+            expect(assigns[:stripe_button_description]).
+              to eq('A monthly subscription')
+          end
+        end
+
+        context 'with an annual plan' do
+          let(:plan) { stripe_helper.create_plan(interval: 'year') }
+
+          it 'sets the stripe button description to annual' do
+            expect(assigns[:stripe_button_description]).
+              to eq('An annual subscription')
+          end
         end
 
       end

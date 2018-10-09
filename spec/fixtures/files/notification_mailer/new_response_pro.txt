@@ -4,7 +4,7 @@ Test public body.
 
 To view the response, click on the link below.
 
-http://test.host/en/profile/sign_in?r=http%3A%2F%2Ftest.host%2Fen%2Frequest%2Fhere_is_a_character_that_needs_q%3Fnocache%3Dincoming-999%23incoming-999
+http://test.host/en/profile/sign_in?r=http%3A%2F%2Ftest.host%2Fen%2Frequest%2Fhere_is_a_character_that_needs_q%3Fnocache%3Dincoming-INCOMING_MESSAGE_ID%23incoming-INCOMING_MESSAGE_ID
 
 When you get there, please update the status to say if the response contains any useful information.
 

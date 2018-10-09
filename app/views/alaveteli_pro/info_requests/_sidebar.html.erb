@@ -1,4 +1,11 @@
-<div id="right_column" class="sidebar right_column" role="complementary">
+<div id="right_column" class="sidebar sidebar--sticky right_column" role="complementary">
+  <div class="js-request-navigation request-navigation"
+       data-next-text="<%= _("Next message") %>"
+       data-prev-text="<%= _("Previous message") %>"
+       data-status-text="<%= _("Message {{current_message}} of {{total_messages}}",
+                               current_message: '[[x]]',
+                               total_messages: '[[y]]') %>">
+  </div>
   <% if @info_request.info_request_batch_id %>
     <%= render partial: "alaveteli_pro/info_request_batches/embargo_form",
                locals: {
@@ -9,6 +16,7 @@
     <%= render partial: "alaveteli_pro/info_requests/embargo_form",
                locals: { info_request: @info_request } %>
   <% end %>
+
   <% unless state_transitions_empty?(@state_transitions) %>
     <div class="sidebar__section update-status">
       <h2><%= _("Status") %></h2>
@@ -25,7 +33,7 @@
           <ul class="status-picker__options">
             <% @state_transitions.each do |group, transitions| %>
               <% transitions.each do |state, label| %>
-                <li class="status-picker__option">
+                <li class="status-picker__option" tabindex="0">
                   <%= f.label :described_state, value: state do %>
                     <i class="icon-standalone icon_<%= state %>"></i>
                     <%# Note we force this to be unchecked, you can select the

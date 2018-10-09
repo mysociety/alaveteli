@@ -15,7 +15,7 @@
 #  circumstance       :text             default("normal"), not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :post_redirect do
     user
     uri { frontpage_path }
@@ -30,7 +30,7 @@ FactoryGirl.define do
     factory :new_request_post_redirect do
       uri '/en/new'
       post_params_yaml do
-        public_body = FactoryGirl.create(:public_body)
+        public_body = FactoryBot.create(:public_body)
         {
           "outgoing_message" => {
             "body" => "Dear Ministry of Defence,\r\n\r\nThis is my test\r\n\r\n\r\nYours faithfully,\r\n\r\nSteve Day",

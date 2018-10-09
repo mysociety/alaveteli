@@ -6,9 +6,9 @@ describe AdminHolidaysController do
   describe 'GET index' do
 
     before do
-      @holiday_one = FactoryGirl.create(:holiday, :day => Date.new(2010, 1, 1))
-      @holiday_two = FactoryGirl.create(:holiday, :day => Date.new(2011, 2, 2))
-      @holiday_three = FactoryGirl.create(:holiday, :day => Date.new(2011, 3, 3))
+      @holiday_one = FactoryBot.create(:holiday, :day => Date.new(2010, 1, 1))
+      @holiday_two = FactoryBot.create(:holiday, :day => Date.new(2011, 2, 2))
+      @holiday_three = FactoryBot.create(:holiday, :day => Date.new(2011, 3, 3))
     end
 
     it 'gets a hash of holidays keyed by year' do
@@ -99,7 +99,7 @@ describe AdminHolidaysController do
   describe 'GET edit' do
 
     before do
-      @holiday = FactoryGirl.create(:holiday)
+      @holiday = FactoryBot.create(:holiday)
     end
 
     describe 'when not using ajax' do
@@ -130,8 +130,8 @@ describe AdminHolidaysController do
   describe 'PUT update' do
 
     before do
-      @holiday = FactoryGirl.create(:holiday, :day => Date.new(2010, 1, 1),
-                                    :description => "Test Holiday")
+      @holiday = FactoryBot.create(:holiday, :day => Date.new(2010, 1, 1),
+                                   :description => "Test Holiday")
       put :update, :id => @holiday.id, :holiday => { :description => 'New Test Holiday' }
     end
 
@@ -168,7 +168,7 @@ describe AdminHolidaysController do
   describe 'DELETE destroy' do
 
     before(:each) do
-      @holiday = FactoryGirl.create(:holiday)
+      @holiday = FactoryBot.create(:holiday)
       delete :destroy, :id => @holiday.id
     end
 

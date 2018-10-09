@@ -225,7 +225,7 @@ describe PublicBodyController, "when listing bodies" do
         and_return(true)
 
     get :list, :locale => 'en_GB'
-    expect(assigns[:sql].to_s).to include('COLLATE')
+    expect(assigns[:public_bodies].to_sql).to include('COLLATE')
   end
 
   it 'list bodies in default order according to the locale with the fallback set' do
@@ -238,7 +238,7 @@ describe PublicBodyController, "when listing bodies" do
 
     get :list, :locale => 'unknown'
 
-    expect(assigns[:sql].to_s).to_not include('COLLATE')
+    expect(assigns[:public_bodies].to_sql).to_not include('COLLATE')
   end
 
   it 'list bodies in collate order according to the locale' do
@@ -298,8 +298,8 @@ describe PublicBodyController, "when listing bodies" do
     PublicBodyHeading.destroy_all
     PublicBodyCategoryLink.destroy_all
 
-    category = FactoryGirl.create(:public_body_category)
-    heading = FactoryGirl.create(:public_body_heading)
+    category = FactoryBot.create(:public_body_category)
+    heading = FactoryBot.create(:public_body_heading)
     PublicBodyCategoryLink.create(:public_body_heading_id => heading.id,
                                   :public_body_category_id => category.id)
     public_bodies(:humpadink_public_body).tag_string = category.category_tag
@@ -349,15 +349,17 @@ describe PublicBodyController, "when listing bodies" do
   end
 
   it 'should not include hidden requests in the request count' do
-    fake_pb = FactoryGirl.create(:public_body)
-    hidden_request = FactoryGirl.create(:info_request,
-                                        :prominence => 'hidden',
-                                        :public_body => fake_pb)
-    visible_request = FactoryGirl.create(:info_request, :public_body => fake_pb)
+    fake_pb = FactoryBot.create(:public_body)
+    hidden_request = FactoryBot.create(:info_request,
+                                       :prominence => 'hidden',
+                                       :public_body => fake_pb)
+    visible_request = FactoryBot.create(:info_request, :public_body => fake_pb)
     fake_pb.reload
     expect(fake_pb.info_requests.size).to eq(2)
     expect(fake_pb.info_requests.is_searchable.size).to eq(1)
-    fake_list = [fake_pb]
+    fake_list = PublicBody.where(id: fake_pb.id)
+    allow(fake_list).to receive(:with_tag).and_return(fake_list)
+    allow(fake_list).to receive(:with_query).and_return(fake_list)
     allow(fake_list).to receive(:joins).and_return(fake_list)
     allow(fake_list).to receive(:paginate).and_return(fake_list)
     allow(fake_list).to receive(:order).and_return(fake_list)
@@ -378,7 +380,7 @@ describe PublicBodyController, "when listing bodies" do
     AlaveteliLocalization.set_locales('cs', 'cs')
 
     authority = AlaveteliLocalization.with_locale(:cs) do
-      FactoryGirl.create(:public_body, name: "Åčçèñtéd Authority")
+      FactoryBot.create(:public_body, name: "Åčçèñtéd Authority")
     end
 
     get :list, {:tag => "å", :locale => 'cs'}
@@ -422,7 +424,7 @@ describe PublicBodyController, "when asked to export public bodies as CSV" do
   end
 
   it "does not include site_administration bodies" do
-    FactoryGirl.create(:public_body,
+    FactoryBot.create(:public_body,
                        :name => 'Site Admin Body',
                        :tag_string => 'site_administration')
 

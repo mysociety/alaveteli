@@ -18,25 +18,25 @@ require "spec_helper"
 
 RSpec.describe Notification do
   it "requires an info_request_event" do
-    notification = FactoryGirl.build(:notification,
-                                     info_request_event: nil,
-                                     user: FactoryGirl.create(:user))
+    notification = FactoryBot.build(:notification,
+                                    info_request_event: nil,
+                                    user: FactoryBot.create(:user))
     expect(notification).not_to be_valid
   end
 
   it "requires a user" do
-    notification = FactoryGirl.build(:notification, user: nil)
+    notification = FactoryBot.build(:notification, user: nil)
     expect(notification).not_to be_valid
   end
 
   it "requires a frequency" do
-    notification = FactoryGirl.build(:notification, frequency: nil)
+    notification = FactoryBot.build(:notification, frequency: nil)
     expect(notification).not_to be_valid
   end
 
   describe "setting send_after" do
     context "when frequency is 'instantly'" do
-      let(:notification) { FactoryGirl.create(:instant_notification) }
+      let(:notification) { FactoryBot.create(:instant_notification) }
 
       it "sets send_after to Time.zone.now" do
         expect(notification.send_after).to be_within(1.second).of(Time.zone.now)
@@ -44,9 +44,9 @@ RSpec.describe Notification do
     end
 
     context "when the frequency is 'daily'" do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
       let(:notification) do
-        FactoryGirl.create(:daily_notification, user: user)
+        FactoryBot.create(:daily_notification, user: user)
       end
       let(:user_time) { Time.zone.now + 3.hours }
 
@@ -60,7 +60,7 @@ RSpec.describe Notification do
     end
 
     context "when the notification has already been created" do
-      let(:notification) { FactoryGirl.create(:instant_notification) }
+      let(:notification) { FactoryBot.create(:instant_notification) }
       let(:new_time) { expected_time = Time.zone.now + 3.hours }
 
       it "doesn't recalculate the send_after" do
@@ -73,7 +73,7 @@ RSpec.describe Notification do
     context "when the send_after time is set manually during creating" do
       let(:delayed_time) { expected_time = Time.zone.now + 3.hours }
       let(:notification) do
-        FactoryGirl.create(:instant_notification, send_after: delayed_time)
+        FactoryBot.create(:instant_notification, send_after: delayed_time)
       end
 
       it "doesn't overwrite it" do
@@ -84,10 +84,10 @@ RSpec.describe Notification do
 
   describe ".unseen" do
     let!(:unseen_notification) do
-      FactoryGirl.create(:notification, seen_at: nil)
+      FactoryBot.create(:notification, seen_at: nil)
     end
     let!(:seen_notification) do
-      FactoryGirl.create(:notification, seen_at: Time.zone.now)
+      FactoryBot.create(:notification, seen_at: Time.zone.now)
     end
 
     it "only returns unseen notifications" do
@@ -96,17 +96,17 @@ RSpec.describe Notification do
   end
 
   describe ".reject_and_mark_expired" do
-    let(:notification) { FactoryGirl.create(:notification) }
+    let(:notification) { FactoryBot.create(:notification) }
     let(:embargo_expiring_request) do
-      FactoryGirl.create(:embargo_expiring_request)
+      FactoryBot.create(:embargo_expiring_request)
     end
     let(:embargo_expiring_event) do
-      FactoryGirl.create(:embargo_expiring_event,
-                         info_request: embargo_expiring_request)
+      FactoryBot.create(:embargo_expiring_event,
+                        info_request: embargo_expiring_request)
     end
     let(:expired_notification) do
-      FactoryGirl.create(:notification,
-                         info_request_event: embargo_expiring_event)
+      FactoryBot.create(:notification,
+                        info_request_event: embargo_expiring_event)
     end
     let(:notifications) { [notification, expired_notification]}
 
@@ -138,7 +138,7 @@ RSpec.describe Notification do
 
   describe "#expired" do
     context "when the notification is for a new response" do
-      let(:notification) { FactoryGirl.create(:notification) }
+      let(:notification) { FactoryBot.create(:notification) }
 
       it "returns false" do
         expect(notification.expired).to be false
@@ -147,15 +147,15 @@ RSpec.describe Notification do
 
     context "when the notification is for an expiring embargo" do
       let(:embargo_expiring_request) do
-        FactoryGirl.create(:embargo_expiring_request)
+        FactoryBot.create(:embargo_expiring_request)
       end
       let(:embargo_expiring_event) do
-        FactoryGirl.create(:embargo_expiring_event,
-                           info_request: embargo_expiring_request)
+        FactoryBot.create(:embargo_expiring_event,
+                          info_request: embargo_expiring_request)
       end
       let(:notification) do
-        FactoryGirl.create(:notification,
-                           info_request_event: embargo_expiring_event)
+        FactoryBot.create(:notification,
+                          info_request_event: embargo_expiring_event)
       end
 
       context "and the embargo is still expiring" do
@@ -194,17 +194,17 @@ RSpec.describe Notification do
 
     context 'when the notification is for an expired embargo' do
       let(:embargo_expired_request) do
-        FactoryGirl.create(:embargo_expired_request)
+        FactoryBot.create(:embargo_expired_request)
       end
 
       let(:embargo_expired_event) do
-        FactoryGirl.create(:expire_embargo_event,
-                           info_request: embargo_expired_request)
+        FactoryBot.create(:expire_embargo_event,
+                          info_request: embargo_expired_request)
       end
 
       let(:notification) do
-        FactoryGirl.create(:notification,
-                           info_request_event: embargo_expired_event)
+        FactoryBot.create(:notification,
+                          info_request_event: embargo_expired_event)
       end
 
       context 'and a new embargo has not been created' do
@@ -218,7 +218,7 @@ RSpec.describe Notification do
       context 'and a new embargo has been created' do
 
         before do
-          FactoryGirl.create(:embargo, info_request: embargo_expired_request)
+          FactoryBot.create(:embargo, info_request: embargo_expired_request)
           notification.reload
         end
 
@@ -231,12 +231,12 @@ RSpec.describe Notification do
     end
 
     context "when the notification is for an overdue request" do
-      let(:info_request) { FactoryGirl.create(:overdue_request) }
+      let(:info_request) { FactoryBot.create(:overdue_request) }
       let(:event) do
-        FactoryGirl.create(:overdue_event, info_request: info_request)
+        FactoryBot.create(:overdue_event, info_request: info_request)
       end
       let(:notification) do
-        FactoryGirl.create(:notification, info_request_event: event)
+        FactoryBot.create(:notification, info_request_event: event)
       end
 
       context "and the request is still overdue" do
@@ -281,12 +281,12 @@ RSpec.describe Notification do
     end
 
     context "when the notification is for a very overdue request" do
-      let(:info_request) { FactoryGirl.create(:very_overdue_request) }
+      let(:info_request) { FactoryBot.create(:very_overdue_request) }
       let(:event) do
-        FactoryGirl.create(:very_overdue_event, info_request: info_request)
+        FactoryBot.create(:very_overdue_event, info_request: info_request)
       end
       let(:notification) do
-        FactoryGirl.create(:notification, info_request_event: event)
+        FactoryBot.create(:notification, info_request_event: event)
       end
 
       context "and the request is still very_overdue" do
@@ -332,7 +332,7 @@ RSpec.describe Notification do
   end
 
   describe "#expired?" do
-    let(:notification) { FactoryGirl.create(:notification) }
+    let(:notification) { FactoryBot.create(:notification) }
 
     it "calls #expired" do
       expect(notification).to receive(:expired)

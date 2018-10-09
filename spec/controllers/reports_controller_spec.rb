@@ -4,8 +4,8 @@ require 'spec_helper'
 describe ReportsController do
 
   describe 'POST #create' do
-    let(:info_request){ FactoryGirl.create(:info_request) }
-    let(:user){ FactoryGirl.create(:user) }
+    let(:info_request){ FactoryBot.create(:info_request) }
+    let(:user){ FactoryBot.create(:user) }
 
     context "when reporting a request when not logged in" do
       it "should only allow logged-in users to report requests" do
@@ -58,7 +58,7 @@ describe ReportsController do
       end
 
       it 'should 404 for embargoed requests' do
-        info_request = FactoryGirl.create(:embargoed_request)
+        info_request = FactoryBot.create(:embargoed_request)
         expect {
           post :create, :request_id => info_request.url_title
         }.to raise_error(ActiveRecord::RecordNotFound)
@@ -132,8 +132,8 @@ describe ReportsController do
       end
 
       let(:comment) do
-        FactoryGirl.create(:comment, :info_request => info_request,
-                                     :attention_requested => false)
+        FactoryBot.create(:comment, :info_request => info_request,
+                                    :attention_requested => false)
       end
 
       it "finds the expected request" do
@@ -169,7 +169,7 @@ describe ReportsController do
       end
 
       it "returns a 404 if the comment does not belong to the request" do
-        new_comment = FactoryGirl.create(:comment)
+        new_comment = FactoryBot.create(:comment)
         expect {
           post :create, :request_id => info_request.url_title,
                         :comment_id => new_comment.id,
@@ -247,8 +247,8 @@ describe ReportsController do
   end
 
   describe "GET #new" do
-    let(:info_request){ FactoryGirl.create(:info_request) }
-    let(:user){ FactoryGirl.create(:user) }
+    let(:info_request){ FactoryBot.create(:info_request) }
+    let(:user){ FactoryBot.create(:user) }
 
     context "not logged in" do
       it "should require the user to be logged in" do
@@ -297,7 +297,7 @@ describe ReportsController do
       end
 
       it 'should 404 for embargoed requests' do
-        info_request = FactoryGirl.create(:embargoed_request)
+        info_request = FactoryBot.create(:embargoed_request)
         expect {
           get :new, :request_id => info_request.url_title
         }.to raise_error(ActiveRecord::RecordNotFound)
@@ -313,8 +313,8 @@ describe ReportsController do
       end
 
       let(:comment) do
-        FactoryGirl.create(:comment, :info_request => info_request,
-                                     :attention_requested => false)
+        FactoryBot.create(:comment, :info_request => info_request,
+                                    :attention_requested => false)
       end
 
       it "finds the expected request" do
@@ -354,7 +354,7 @@ describe ReportsController do
       end
 
       it "returns a 404 if the comment does not belong to the request" do
-        new_comment = FactoryGirl.create(:comment)
+        new_comment = FactoryBot.create(:comment)
         expect {
           get :new, :request_id => info_request.url_title,
                     :comment_id => new_comment.id
@@ -383,7 +383,7 @@ describe ReportsController do
       end
 
       it 'should 404 for embargoed requests' do
-        info_request = FactoryGirl.create(:embargoed_request)
+        info_request = FactoryBot.create(:embargoed_request)
         expect {
           get :new, :request_id => info_request.url_title,
                     :comment_id => comment.id

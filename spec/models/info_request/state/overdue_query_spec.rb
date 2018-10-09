@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../../../spec_helper')
 describe InfoRequest::State::OverdueQuery do
 
   describe '#call' do
-    let(:info_request) { FactoryGirl.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
 
     it 'includes those that are waiting for a response where the response
         is past due' do

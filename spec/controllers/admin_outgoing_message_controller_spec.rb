@@ -5,7 +5,7 @@ describe AdminOutgoingMessageController do
 
   describe 'GET #edit' do
 
-    let(:info_request) { FactoryGirl.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
     let(:outgoing) { info_request.outgoing_messages.first }
 
     it 'should be successful' do
@@ -30,8 +30,8 @@ describe AdminOutgoingMessageController do
     context 'when the message is not initial outgoing message' do
 
       it 'sets is_initial_message to false' do
-        outgoing = FactoryGirl.create(:new_information_followup,
-                                      :info_request => info_request)
+        outgoing = FactoryBot.create(:new_information_followup,
+                                     :info_request => info_request)
         get :edit, :id => outgoing.id
         expect(assigns[:is_initial_message]).to eq(false)
       end
@@ -42,10 +42,10 @@ describe AdminOutgoingMessageController do
 
   describe 'DELETE #destroy' do
 
-    let(:info_request) { FactoryGirl.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
     let(:outgoing) do
-      FactoryGirl.create(:new_information_followup,
-                         :info_request => info_request)
+      FactoryBot.create(:new_information_followup,
+                        :info_request => info_request)
     end
 
     it 'finds the outgoing message' do
@@ -62,7 +62,7 @@ describe AdminOutgoingMessageController do
 
       it 'logs an event on the info request' do
         delete :destroy, :id => outgoing.id
-        expect(info_request.reload.get_last_event.event_type).
+        expect(info_request.reload.last_event.event_type).
           to eq('destroy_outgoing')
       end
 
@@ -105,13 +105,13 @@ describe AdminOutgoingMessageController do
     context 'when the message is the initial outgoing message' do
 
       it 'sets is_initial_message to true' do
-        outgoing = FactoryGirl.create(:initial_request)
+        outgoing = FactoryBot.create(:initial_request)
         delete :destroy, :id => outgoing.id
         expect(assigns[:is_initial_message]).to eq(true)
       end
 
       it 'prevents the destruction of the message' do
-        outgoing = FactoryGirl.create(:initial_request)
+        outgoing = FactoryBot.create(:initial_request)
         delete :destroy, :id => outgoing.id
         expect(assigns[:outgoing_message]).to be_persisted
       end
@@ -136,7 +136,7 @@ describe AdminOutgoingMessageController do
 
   describe 'PUT #update' do
 
-    let(:info_request) { FactoryGirl.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
     let(:outgoing) { info_request.outgoing_messages.first }
     let(:default_params) do
       { :id => outgoing.id,
@@ -184,10 +184,10 @@ describe AdminOutgoingMessageController do
     end
 
     it 'should expire the file cache for the info request' do
-      info_request = FactoryGirl.create(:info_request)
+      info_request = FactoryBot.create(:info_request)
       allow_any_instance_of(OutgoingMessage).to receive(:info_request) { info_request }
 
-      outgoing = FactoryGirl.create(:initial_request, :info_request => info_request)
+      outgoing = FactoryBot.create(:initial_request, :info_request => info_request)
 
       expect(info_request).to receive(:expire)
 

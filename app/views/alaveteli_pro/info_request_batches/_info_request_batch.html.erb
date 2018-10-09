@@ -1,6 +1,6 @@
 <div id="info-request-batch-<%= info_request_batch.id %>"
      class="request batch-request">
-  <label class="request__title houdini-label batch-request__show-requests" for="houdini-batch-expand-<%= info_request_batch.id %>">
+  <label class="request__title houdini-label" for="houdini-batch-expand-<%= info_request_batch.id %>">
     <% if info_request_batch.embargo_duration.present? %>
       <span class="embargo-indicator embargo-indicator--small">
         <%= _("Private") %>

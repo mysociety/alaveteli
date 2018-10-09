@@ -14,7 +14,7 @@
 require 'spec_helper'
 require 'stripe_mock'
 
-describe ProAccount do
+describe ProAccount, feature: :pro_pricing do
 
   before do
     StripeMock.start
@@ -29,7 +29,7 @@ describe ProAccount do
 
   let(:customer) do
     Stripe::Customer.create(
-      email: FactoryGirl.build(:user).email,
+      email: FactoryBot.build(:user).email,
       source: stripe_helper.generate_card_token
     )
   end
@@ -41,7 +41,7 @@ describe ProAccount do
   describe 'validations' do
 
     it 'requires a user' do
-      pro_account = FactoryGirl.build(:pro_account, user: nil)
+      pro_account = FactoryBot.build(:pro_account, user: nil)
       expect(pro_account).not_to be_valid
     end
 
@@ -50,10 +50,22 @@ describe ProAccount do
   describe 'create callbacks' do
 
     it 'creates Stripe customer and stores Stripe customer ID' do
-      pro_account = FactoryGirl.build(:pro_account, stripe_customer_id: nil)
+      pro_account = FactoryBot.build(:pro_account, stripe_customer_id: nil)
       expect(Stripe::Customer).to receive(:create).and_call_original
       pro_account.run_callbacks :create
       expect(pro_account.stripe_customer_id).to_not be_nil
+    end
+
+    context 'with pro_pricing disabled' do
+
+      it 'does not create a Stripe customer' do
+        with_feature_disabled(:alaveteli_pro) do
+          pro_account = FactoryBot.build(:pro_account, stripe_customer_id: nil)
+          pro_account.run_callbacks :create
+          expect(pro_account.stripe_customer_id).to be_nil
+        end
+      end
+
     end
 
   end
@@ -64,7 +76,7 @@ describe ProAccount do
 
     context 'with invalid Stripe customer ID' do
       let(:pro_account) do
-        FactoryGirl.create(:pro_account, stripe_customer_id: 'invalid_id')
+        FactoryBot.create(:pro_account, stripe_customer_id: 'invalid_id')
       end
 
       it 'raises an error' do
@@ -76,7 +88,7 @@ describe ProAccount do
 
     context 'with valid Stripe customer ID' do
       let(:pro_account) do
-        FactoryGirl.create(:pro_account, stripe_customer_id: customer.id)
+        FactoryBot.create(:pro_account, stripe_customer_id: customer.id)
       end
 
       it 'finds the Stripe::Customer linked to the ProAccount' do
@@ -89,7 +101,7 @@ describe ProAccount do
 
   describe '#active?' do
     let(:pro_account) do
-      FactoryGirl.create(:pro_account, stripe_customer_id: customer.id)
+      FactoryBot.create(:pro_account, stripe_customer_id: customer.id)
     end
 
     subject { pro_account.active? }
@@ -121,8 +133,8 @@ describe ProAccount do
   end
 
   describe '#update_email_address' do
-    let(:user) { FactoryGirl.build(:user, email: 'bilbo@example.com') }
-    let(:pro_account) { FactoryGirl.create(:pro_account, user: user) }
+    let(:user) { FactoryBot.build(:user, email: 'bilbo@example.com') }
+    let(:pro_account) { FactoryBot.create(:pro_account, user: user) }
 
     before { allow(pro_account).to receive(:stripe_customer) { customer } }
 

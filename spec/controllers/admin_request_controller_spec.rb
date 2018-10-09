@@ -4,9 +4,9 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe AdminRequestController, "when administering requests" do
 
   describe 'GET #index' do
-    let(:info_request){ FactoryGirl.create(:info_request) }
-    let(:admin_user){ FactoryGirl.create(:admin_user) }
-    let(:pro_admin_user){ FactoryGirl.create(:pro_admin_user) }
+    let(:info_request){ FactoryBot.create(:info_request) }
+    let(:admin_user){ FactoryBot.create(:admin_user) }
+    let(:pro_admin_user){ FactoryBot.create(:pro_admin_user) }
 
     it "is successful" do
       get :index, {}, { :user_id => admin_user.id }
@@ -48,10 +48,10 @@ describe AdminRequestController, "when administering requests" do
     end
 
     context 'when passed a query' do
-      let!(:dog_request){ FactoryGirl.create(:info_request,
-                                             :title => 'A dog request') }
-      let!(:cat_request){ FactoryGirl.create(:info_request,
-                                             :title => 'A cat request') }
+      let!(:dog_request){ FactoryBot.create(:info_request,
+                                            :title => 'A dog request') }
+      let!(:cat_request){ FactoryBot.create(:info_request,
+                                            :title => 'A cat request') }
 
       it 'assigns info requests with titles matching the query to the view
           case insensitively' do
@@ -92,10 +92,10 @@ describe AdminRequestController, "when administering requests" do
   end
 
   describe 'GET #show' do
-    let(:info_request){ FactoryGirl.create(:info_request) }
-    let(:external_request){ FactoryGirl.create(:external_request) }
-    let(:admin_user){ FactoryGirl.create(:admin_user) }
-    let(:pro_admin_user){ FactoryGirl.create(:pro_admin_user) }
+    let(:info_request){ FactoryBot.create(:info_request) }
+    let(:external_request){ FactoryBot.create(:external_request) }
+    let(:admin_user){ FactoryBot.create(:admin_user) }
+    let(:pro_admin_user){ FactoryBot.create(:pro_admin_user) }
 
     render_views
 
@@ -107,19 +107,6 @@ describe AdminRequestController, "when administering requests" do
     it 'shows an external info request with no username' do
       get :show, { :id => external_request }, { :user_id => admin_user.id }
       expect(response).to be_success
-    end
-
-    it "shows a suitable default 'your email has been hidden' message" do
-      get :show, { :id => info_request.id }, { :user_id => admin_user.id }
-      expect(assigns[:request_hidden_user_explanation]).
-        to include(info_request.user.name)
-      expect(assigns[:request_hidden_user_explanation]).
-        to include("vexatious")
-      get :show, :id => info_request.id, :reason => "not_foi"
-      expect(assigns[:request_hidden_user_explanation]).
-        not_to include("vexatious")
-      expect(assigns[:request_hidden_user_explanation]).
-        to include("not a valid FOI")
     end
 
     context 'if the request is embargoed' do
@@ -157,7 +144,7 @@ describe AdminRequestController, "when administering requests" do
   end
 
   describe 'GET #edit' do
-    let(:info_request){ FactoryGirl.create(:info_request) }
+    let(:info_request){ FactoryBot.create(:info_request) }
 
     it "is successful" do
       get :edit, :id => info_request
@@ -167,7 +154,7 @@ describe AdminRequestController, "when administering requests" do
   end
 
   describe 'PUT #update' do
-    let(:info_request){ FactoryGirl.create(:info_request) }
+    let(:info_request){ FactoryBot.create(:info_request) }
 
     it "saves edits to a request" do
       post :update, { :id => info_request,
@@ -197,7 +184,7 @@ describe AdminRequestController, "when administering requests" do
   end
 
   describe 'DELETE #destroy' do
-    let(:info_request){ FactoryGirl.create(:info_request) }
+    let(:info_request){ FactoryBot.create(:info_request) }
 
     it 'calls destroy on the info_request object' do
       allow(InfoRequest).to receive(:find).with(info_request.id.to_s).and_return(info_request)
@@ -212,8 +199,8 @@ describe AdminRequestController, "when administering requests" do
     end
 
     it 'redirects after destroying a request with incoming_messages' do
-      incoming_message = FactoryGirl.create(:incoming_message_with_html_attachment,
-                                            :info_request => info_request)
+      incoming_message = FactoryBot.create(:incoming_message_with_html_attachment,
+                                           :info_request => info_request)
       delete :destroy, { :id => info_request.id }
 
       expect(response).to redirect_to(admin_requests_url)
@@ -222,7 +209,7 @@ describe AdminRequestController, "when administering requests" do
   end
 
   describe 'POST #hide' do
-    let(:info_request){ FactoryGirl.create(:info_request) }
+    let(:info_request){ FactoryBot.create(:info_request) }
 
     it "hides requests and sends a notification email that it has done so" do
       post :hide, :id => info_request.id, :explanation => "Foo", :reason => "vexatious"

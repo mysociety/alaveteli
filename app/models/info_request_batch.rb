@@ -15,6 +15,7 @@
 
 class InfoRequestBatch < ActiveRecord::Base
   include AlaveteliPro::RequestSummaries
+  include AlaveteliFeatures::Helpers
 
   has_many :info_requests,
            :inverse_of => :info_request_batch
@@ -32,6 +33,21 @@ class InfoRequestBatch < ActiveRecord::Base
   validates_presence_of :user
   validates_presence_of :title
   validates_presence_of :body
+
+  def self.send_batches
+    where(:sent_at => nil).find_each do |info_request_batch|
+      info_request_batch.create_batch!
+
+      InfoRequestBatchMailer.batch_sent(
+        info_request_batch,
+        info_request_batch.unrequestable_public_bodies,
+        info_request_batch.user
+      ).deliver_now
+
+      info_request_batch.sent_at = Time.zone.now
+      info_request_batch.save!
+    end
+  end
 
   #  When constructing a new batch, use this to check user hasn't double submitted.
   def self.find_existing(user, title, body, public_body_ids)
@@ -56,39 +72,25 @@ class InfoRequestBatch < ActiveRecord::Base
              :embargo_duration => draft.embargo_duration)
   end
 
-  # Create a batch of information requests, returning a list of public bodies
-  # that are unrequestable from the initial list of public body ids passed.
+  # Create a batch of information requests and sends them to public bodies
   def create_batch!
-    unrequestable = []
-    created = []
-    public_bodies.each do |public_body|
-      if public_body.is_requestable?
-        info_request = nil
-        ActiveRecord::Base.transaction do
-          info_request = create_request!(public_body)
-          created << info_request
-          # Set send_at in every loop so that if a request errors and any are
-          # already created, we won't automatically try to resend this batch
-          # and can deal with the failures manually
-          self.sent_at = Time.zone.now
-          self.save!
-        end
-        send_request(info_request)
-        # Sleep between requests in production, in case we're sending a huge
-        # batch which may result in a torrent of auto-replies coming back to
-        # us and overloading the server.
-        if Rails.env.production?
-          sleep 60
-        end
-      else
-        unrequestable << public_body
+    requestable_public_bodies.each do |public_body|
+      info_request = transaction do
+        create_request!(public_body)
       end
-    end
 
-    return unrequestable
+      send_request(info_request)
+
+      # Sleep between requests in production, in case we're sending a huge
+      # batch which may result in a torrent of auto-replies coming back to
+      # us and overloading the server.
+      uses_poller = feature_enabled?(:accept_mail_from_poller, user)
+      sleep 60 if Rails.env.production? && !uses_poller
+    end
+    reload
   end
 
-  # Create and send an FOI request to a public body
+  # Create a FOI request for a public body
   def create_request!(public_body)
     body = OutgoingMessage.fill_in_salutation(self.body, public_body)
     info_request = InfoRequest.create_from_attributes({:title => self.title},
@@ -106,6 +108,7 @@ class InfoRequestBatch < ActiveRecord::Base
     info_request
   end
 
+  # Send a FOI request to a public body
   def send_request(info_request)
     outgoing_message = info_request.outgoing_messages.first
     outgoing_message.sendable?
@@ -116,18 +119,6 @@ class InfoRequestBatch < ActiveRecord::Base
     outgoing_message.record_email_delivery(
       mail_message.to_addrs.join(', '),
       mail_message.message_id)
-  end
-
-  def self.send_batches
-    where(:sent_at => nil).find_each do |info_request_batch|
-      unrequestable = info_request_batch.create_batch!
-      mail_message = InfoRequestBatchMailer.
-                       batch_sent(
-                         info_request_batch,
-                         unrequestable,
-                         info_request_batch.user
-                       ).deliver_now
-    end
   end
 
   # Build an InfoRequest object which is an example of this batch.
@@ -223,6 +214,41 @@ class InfoRequestBatch < ActiveRecord::Base
       categories << AlaveteliPro::RequestSummaryCategory.awaiting_response
     end
     categories
+  end
+
+  # Return a list of public bodies we've already sent the request to
+  #
+  # Returns an array of PublicBody objects
+  def sent_public_bodies
+    info_requests.map(&:public_body)
+  end
+
+  # Return a list of public bodies which we can send the request to
+  #
+  # Returns an array of PublicBody objects
+  def requestable_public_bodies
+    public_bodies.is_requestable - sent_public_bodies
+  end
+
+  # Return a list of public bodies which we can't sent the request to
+  #
+  # Returns an array of PublicBody objects
+  def unrequestable_public_bodies
+    public_bodies - public_bodies.is_requestable - sent_public_bodies
+  end
+
+  # Have we persisted an InfoRequest for each PublicBody in this batch?
+  #
+  # Returns a Boolean
+  def all_requests_created?
+    requestable_public_bodies.empty?
+  end
+
+  # Should we summarise the batch request?
+  #
+  # Returns a Boolean
+  def should_summarise?
+    request_summary.nil? || all_requests_created?
   end
 
   # Log an event for all information requests within the batch

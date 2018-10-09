@@ -10,19 +10,19 @@ describe InfoRequest::ResponseGatekeeper::Base do
     end
 
     it 'assigns the info_request' do
-      info_request = FactoryGirl.build(:info_request)
+      info_request = FactoryBot.build(:info_request)
       gatekeeper = described_class.new(info_request)
       expect(gatekeeper.info_request).to eq(info_request)
     end
 
     it 'sets a default value for allow' do
-      info_request = FactoryGirl.build(:info_request)
+      info_request = FactoryBot.build(:info_request)
       gatekeeper = described_class.new(info_request)
       expect(gatekeeper.allow).to eq(true)
     end
 
     it 'sets a default value for reason' do
-      info_request = FactoryGirl.build(:info_request)
+      info_request = FactoryBot.build(:info_request)
       gatekeeper = described_class.new(info_request)
       expect(gatekeeper.reason).to be_nil
     end
@@ -32,7 +32,7 @@ describe InfoRequest::ResponseGatekeeper::Base do
   describe '#info_request' do
 
     it 'returns the info_request' do
-      info_request = FactoryGirl.build(:info_request)
+      info_request = FactoryBot.build(:info_request)
       gatekeeper = described_class.new(info_request)
       expect(gatekeeper.info_request).to eq(info_request)
     end
@@ -42,13 +42,13 @@ describe InfoRequest::ResponseGatekeeper::Base do
   describe '#allow?' do
 
     it 'requires an email' do
-      gatekeeper = described_class.new(FactoryGirl.build(:info_request))
+      gatekeeper = described_class.new(FactoryBot.build(:info_request))
       expect{ gatekeeper.allow? }.to raise_error(ArgumentError)
     end
 
     it 'allows all emails' do
       email = double
-      gatekeeper = described_class.new(FactoryGirl.build(:info_request))
+      gatekeeper = described_class.new(FactoryBot.build(:info_request))
       expect(gatekeeper.allow?(email)).to eq(true)
     end
 
@@ -57,7 +57,7 @@ describe InfoRequest::ResponseGatekeeper::Base do
   describe '#rejection_action' do
 
     it 'delegates to the info_request' do
-      info_request = FactoryGirl.
+      info_request = FactoryBot.
         build(:info_request, :handle_rejected_responses => 'holding_pen')
       gatekeeper = described_class.new(info_request)
       expect(gatekeeper.rejection_action).to eq('holding_pen')

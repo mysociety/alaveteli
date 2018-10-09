@@ -7,7 +7,7 @@
         <span class="user-labels">
           <%= user_labels(user) %>
         </span>
-        <%= link_to("#{ h(user.name) }", admin_user_path(user)) %>
+        <%= link_to(user.name, admin_user_path(user)) %>
         <%= link_to("(#{ h(user.email) })", "mailto:#{ h(user.email) }") %>
       </span>
       <span class="item-metadata">
@@ -39,6 +39,15 @@
           <% end %>
         </tbody>
       </table>
+      <div class="row">
+        <div class="span12 text-right">
+          <%= form_tag admin_users_account_suspensions_path(user_id: user.id, suspension_reason: 'Banned for spamming'), class: 'form form-inline' do %>
+            <% submit_class = %w(btn btn-danger) %>
+            <% submit_class << 'disabled' if user.suspended? %>
+            <%= submit_tag 'Ban for spamming', class: submit_class %>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
 <% end %>

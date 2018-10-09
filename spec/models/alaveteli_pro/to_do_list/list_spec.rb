@@ -10,7 +10,7 @@ describe AlaveteliPro::ToDoList::List do
     end
 
     it 'assigns the user' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       list = described_class.new(user)
       expect(list.user).to eq user
     end
@@ -20,7 +20,7 @@ describe AlaveteliPro::ToDoList::List do
   describe '#items' do
 
     it 'returns to do list items' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       described_class.new(user).items.each do |item|
         expect(item).to be_kind_of AlaveteliPro::ToDoList::Item
       end
@@ -31,7 +31,7 @@ describe AlaveteliPro::ToDoList::List do
   describe '#active_items' do
 
     it 'returns items whose count is greater than zero' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       new_response = double('new_response', :count => 1)
       expiring_embargo = double('expiring_embargo', :count => 0)
       overdue_request = double('overdue_request', :count => 2)

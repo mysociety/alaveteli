@@ -8,9 +8,9 @@ cov_formats = [Coveralls::SimpleCov::Formatter]
 cov_formats << SimpleCov::Formatter::HTMLFormatter if ENV['COVERAGE'] == 'local'
 
 # Generate coverage in coveralls.io and locally if requested
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
-  *cov_formats
-]
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
+  [*cov_formats]
+)
 
 SimpleCov.start('rails') do
   add_filter  'commonlib'
@@ -128,6 +128,8 @@ RSpec.configure do |config|
         File.write(oink_log, '')
       end
     end
+
+    BCrypt::Engine.cost = 1
   end
 
   config.after(:suite) do
@@ -257,8 +259,8 @@ def basic_auth_login(request, username = nil, password = nil)
   request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("#{username}:#{password}")
 end
 
-FactoryGirl.definition_file_paths = [ Rails.root.join('spec', 'factories') ]
-FactoryGirl.reload
+FactoryBot.definition_file_paths = [ Rails.root.join('spec', 'factories') ]
+FactoryBot.reload
 
 def normalise_whitespace(s)
   s = s.gsub(/\A\s+|\s+\Z/, "")

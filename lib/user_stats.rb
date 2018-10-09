@@ -60,7 +60,7 @@ class UserStats
   def self.unbanned_by_domain(domain, start_date=nil)
     eligible = User.
                  where("email LIKE ?", "%@#{domain}").
-                   where(:ban_text => '').
+                   not_banned.
                      where.not(:id => User.with_role(:admin).pluck('users.id'))
 
     if start_date

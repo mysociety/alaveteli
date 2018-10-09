@@ -86,11 +86,11 @@ describe RequestController, "when classifying an information request" do
   describe 'FOI officer uploading a reponse' do
 
     let(:public_body) do
-      FactoryGirl.create(:public_body, :request_email => "foi@example.com")
+      FactoryBot.create(:public_body, :request_email => "foi@example.com")
     end
-    let(:officer) { FactoryGirl.create(:user, :email => "officer@example.com") }
-    let(:user) { FactoryGirl.create(:user, :name => "Awkward > Name") }
-    let(:request) { FactoryGirl.create(:info_request, :user => user) }
+    let(:officer) { FactoryBot.create(:user, :email => "officer@example.com") }
+    let(:user) { FactoryBot.create(:user, :name => "Awkward > Name") }
+    let(:request) { FactoryBot.create(:info_request, :user => user) }
 
     it 'should render a message confirming the response has been published' do
       message = "Thank you for responding to this FOI request! " \
@@ -108,17 +108,56 @@ describe RequestController, "when classifying an information request" do
 
   describe 'request owner classifying a request' do
 
-    let(:info_request) { FactoryGirl.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
     let(:user) { info_request.user }
+
+    shared_examples_for 'authority is not subject to FOI law' do
+
+      it 'does not include "By law"' do
+        info_request.public_body.add_tag_if_not_already_present('foi_no')
+        using_session(login(user)) do
+          classify_request(info_request, classification)
+          expect(page).not_to have_content('By law')
+        end
+      end
+
+    end
+
+    shared_examples_for 'authority is subject to FOI law' do
+
+      it 'does includes the text "By law"' do
+        using_session(login(user)) do
+          classify_request(info_request, classification)
+          expect(page).to have_content('By law')
+        end
+      end
+
+    end
+
+    shared_examples_for 'the donation link is configured' do
+
+      it 'shows the donation link' do
+        allow(AlaveteliConfiguration).to receive(:donation_url).
+          and_return('http://donations.example.com')
+
+        using_session(login(user)) do
+          classify_request(info_request, classification)
+
+          expect(page).
+            to have_link('make a donation',
+                         :href => 'http://donations.example.com')
+        end
+      end
+
+    end
 
     context 'marking request as error_message' do
 
+      let(:classification) { 'error_message1' }
+
       it 'displays a thank you message post redirect' do
         using_session(login(user)) do
-          visit show_request_path :url_title => info_request.url_title,
-                                  :update_status => 1
-          choose('error_message1')
-          click_button('Submit status')
+          classify_request(info_request, classification)
 
           # fill in form on the next page to supply more info about the error
           fill_in 'incoming_message_message', :with => 'test data'
@@ -135,13 +174,11 @@ describe RequestController, "when classifying an information request" do
 
     context 'marking request as internal_review' do
 
+      let(:classification) { 'internal_review1' }
+
       it 'displays a thank you message post redirect' do
         using_session(login(user)) do
-          visit show_request_path :url_title => info_request.url_title,
-                                  :update_status => 1
-
-          choose('internal_review1')
-          click_button('Submit status')
+          classify_request(info_request, classification)
           message = "Thank you! Hopefully your wait isn't too long."
           # redirect and receive thank you message
           expect(page).to have_content(message)
@@ -156,12 +193,11 @@ describe RequestController, "when classifying an information request" do
 
     context 'marking request as not_held' do
 
+      let(:classification) { 'not_held1' }
+
       it 'displays a thank you message post redirect' do
         using_session(login(user)) do
-          visit show_request_path :url_title => info_request.url_title,
-                                  :update_status => 1
-          choose('not_held1')
-          click_button('Submit status')
+          classify_request(info_request, classification)
           message = "Thank you! Here are some ideas on what to do next"
           # redirect and receive thank you message
           expect(page).to have_content(message)
@@ -174,12 +210,11 @@ describe RequestController, "when classifying an information request" do
 
     context 'marking request as partially_successful' do
 
+      let(:classification) { 'partially_successful1' }
+
       it 'displays a thank you message post redirect' do
         using_session(login(user)) do
-          visit show_request_path :url_title => info_request.url_title,
-                                  :update_status => 1
-          choose('partially_successful1')
-          click_button('Submit status')
+          classify_request(info_request, classification)
           message = "We're glad you got some of the information that you wanted"
           # redirect and receive thank you message
           expect(page).to have_content(message)
@@ -187,35 +222,17 @@ describe RequestController, "when classifying an information request" do
         end
       end
 
-      context 'there is a donation link' do
-
-        it 'displays the donation link' do
-          allow(AlaveteliConfiguration).to receive(:donation_url).
-            and_return('http://donations.example.com')
-
-          using_session(login(user)) do
-            visit show_request_path :url_title => info_request.url_title,
-                                    :update_status => 1
-            choose('partially_successful1')
-            click_button('Submit status')
-            message = "We're glad you got some of the information that you wanted"
-            # redirect and receive thank you message
-            expect(page).to have_link('make a donation',
-                                      :href => 'http://donations.example.com')
-          end
-        end
-      end
+      include_examples 'the donation link is configured'
 
     end
 
     context 'marking request as rejected' do
 
+      let(:classification) { 'rejected1' }
+
       it 'displays a thank you message post redirect' do
         using_session(login(user)) do
-          visit show_request_path :url_title => info_request.url_title,
-                                  :update_status => 1
-          choose('rejected1')
-          click_button('Submit status')
+          classify_request(info_request, classification)
           message = "Oh no! Sorry to hear that your request was refused"
           # redirect and receive thank you message
           expect(page).to have_content(message)
@@ -226,12 +243,11 @@ describe RequestController, "when classifying an information request" do
 
     context 'marking request as requires_admin' do
 
+      let(:classification) { 'requires_admin1' }
+
       it 'displays a thank you message post redirect' do
         using_session(login(user)) do
-          visit show_request_path :url_title => info_request.url_title,
-                                  :update_status => 1
-          choose('requires_admin1')
-          click_button('Submit status')
+          classify_request(info_request, classification)
 
           # fill in form on the next page to supply more info about the error
           fill_in 'incoming_message_message', :with => 'test data'
@@ -248,12 +264,12 @@ describe RequestController, "when classifying an information request" do
 
     context 'marking request as successful' do
 
+      let(:classification) { 'successful1' }
+
       it 'displays a thank you message post redirect' do
         using_session(login(user)) do
-          visit show_request_path :url_title => info_request.url_title,
-                                  :update_status => 1
-          choose('successful1')
-          click_button('Submit status')
+          classify_request(info_request, classification)
+
           message = "We're glad you got all the information that you wanted. " \
                     "If you write about or make use of the information, " \
                     "please come back and add an annotation below saying " \
@@ -264,26 +280,7 @@ describe RequestController, "when classifying an information request" do
         end
       end
 
-      context 'there is a donation link' do
-
-        it 'displays the donation link' do
-          allow(AlaveteliConfiguration).to receive(:donation_url).
-            and_return('http://donations.example.com')
-
-          using_session(login(user)) do
-            visit show_request_path :url_title => info_request.url_title,
-                                    :update_status => 1
-            choose('partially_successful1')
-            click_button('Submit status')
-            message = "We're glad you got some of the information " \
-                      "that you wanted"
-            # redirect and receive thank you message
-            expect(page).to have_link('make a donation',
-                                      :href => 'http://donations.example.com')
-          end
-        end
-
-      end
+      include_examples 'the donation link is configured'
 
       context 'when annotations are disabled' do
 
@@ -301,10 +298,7 @@ describe RequestController, "when classifying an information request" do
         it 'does not display the annotations part of the message' do
 
           using_session(login(user)) do
-            visit show_request_path :url_title => info_request.url_title,
-                                    :update_status => 1
-            choose('successful1')
-            click_button('Submit status')
+            classify_request(info_request, classification)
             message = "We're glad you got all the information that you wanted."
              unexpected = "please come back and add an annotation"
             # redirect and receive thank you message
@@ -320,12 +314,11 @@ describe RequestController, "when classifying an information request" do
 
     context 'marking request as user_withdrawn' do
 
+      let(:classification) { 'user_withdrawn1' }
+
       it 'displays a thank you message post redirect' do
         using_session(login(user)) do
-          visit show_request_path :url_title => info_request.url_title,
-                                  :update_status => 1
-          choose('user_withdrawn1')
-          click_button('Submit status')
+          classify_request(info_request, classification)
           message = "If you have not done so already, please write a " \
                     "message below telling the authority that you have " \
                     "withdrawn your request."
@@ -338,12 +331,11 @@ describe RequestController, "when classifying an information request" do
 
     context 'marking request as waiting_clarification' do
 
+      let(:classification) { 'waiting_clarification1' }
+
       it 'displays a thank you message post redirect' do
         using_session(login(user)) do
-          visit show_request_path :url_title => info_request.url_title,
-                                  :update_status => 1
-          choose('waiting_clarification1')
-          click_button('Submit status')
+          classify_request(info_request, classification)
           message = "Please write your follow up message containing the " \
                     "necessary clarifications below."
           # redirect and receive thank you message
@@ -355,53 +347,68 @@ describe RequestController, "when classifying an information request" do
 
     context 'marking request as waiting_response' do
 
+      let(:classification) {'waiting_response1'}
+
       it 'displays a thank you message post redirect' do
         using_session(login(user)) do
-          visit show_request_path :url_title => info_request.url_title,
-                                  :update_status => 1
-          choose('waiting_response1')
-          click_button('Submit status')
+          classify_request(info_request, classification)
           message = "Thank you! Hopefully your wait isn't too long"
           # redirect and receive thank you message
           expect(page).to have_content(message)
         end
       end
 
+      include_examples 'authority is not subject to FOI law'
+
+      include_examples 'authority is subject to FOI law'
+
     end
 
     context 'marking overdue request as waiting_response' do
 
-      it 'displays a thank you message post redirect' do
-        time_travel_to(info_request.date_response_required_by + 2.days) do
-          using_session(login(user)) do
-            visit show_request_path :url_title => info_request.url_title,
-                                    :update_status => 1
+      let(:classification) { 'waiting_response1' }
 
-            choose('waiting_response1')
-            click_button('Submit status')
-            message = "Thank you! Hope you don't have to wait much longer."
-            # redirect and receive thank you message
-            expect(page).to have_content(message)
-          end
+      before do
+        time_travel_to(info_request.date_response_required_by + 2.days)
+      end
+
+      after do
+        back_to_the_present
+      end
+
+      it 'displays a thank you message post redirect' do
+        using_session(login(user)) do
+          classify_request(info_request, classification)
+          message = "Thank you! Hope you don't have to wait much longer."
+          # redirect and receive thank you message
+          expect(page).to have_content(message)
         end
       end
+
+      include_examples 'authority is not subject to FOI law'
+
+      include_examples 'authority is subject to FOI law'
 
     end
 
     context 'marking very overdue request as waiting_responses' do
 
-      it 'displays a thank you message post redirect' do
-        time_travel_to(info_request.date_very_overdue_after + 2.days) do
-          using_session(login(user)) do
-            visit show_request_path :url_title => info_request.url_title,
-                                    :update_status => 1
+      let(:classification) { 'waiting_response1' }
 
-            choose('waiting_response1')
-            click_button('Submit status')
-            message = "Thank you! Your request is long overdue"
-            # redirect and receive thank you message
-            expect(page).to have_content(message)
-          end
+      before do
+        time_travel_to(info_request.date_very_overdue_after + 2.days)
+      end
+
+      after do
+        back_to_the_present
+      end
+
+      it 'displays a thank you message post redirect' do
+        using_session(login(user)) do
+          classify_request(info_request, classification)
+          message = "Thank you! Your request is long overdue"
+          # redirect and receive thank you message
+          expect(page).to have_content(message)
         end
       end
 

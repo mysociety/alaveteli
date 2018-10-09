@@ -1,5 +1,25 @@
+.batch-builder-mode {
+    margin-bottom: 1em;
+
+    .tabs {
+        @include grid-row();
+        padding-left: 0;
+    }
+
+    .tab-title {
+        margin-left: 1em;
+    }
+}
+
 .batch-builder {
-    @include grid-row();
+    // This "container" code is nabbed from grid-row():
+    // https://github.com/zurb/foundation-sites/blob/v5.5.3/scss/foundation/components/_grid.scss#L70
+    // We don't want to use grid-row() itself because, when we enable flexbox,
+    // desktop Safari seems to treat the pseudo-elements introduced by
+    // clearfix() as flex children, messing up the layout.
+    margin: 0 auto;
+    max-width: $row-width;
+    width: 100%;
 
     @media #{$large-up} {
         @include flexbox();
@@ -13,26 +33,42 @@
 .batch-builder__actions {
     padding: ($column-gutter / 2); // Same padding as grid-columns
 
+    // On desktop browsers that don't support flexbox (IE9 and below)
+    // this will cause all the batch UI elements to line up in a vertical
+    // column half the width of the container. It's not ideal, but it's
+    // still useable.
     @media #{$large-up} {
         width: 50%;
     }
 }
 
-@media #{$large-up} {
+.batch-builder--browse {
     .batch-builder__search-form {
-        @include flex-order(1);
+        display: none;
     }
 
     .batch-builder__actions {
-        @include flex-order(2);
+        width: 100%;
     }
+}
 
-    .batch-builder__search-results {
-        @include flex-order(3);
-    }
+@media #{$large-up} {
+    .batch-builder--search {
+        .batch-builder__search-form {
+            @include flex-order(1);
+        }
 
-    .batch-builder__chosen-authorities {
-        @include flex-order(4);
+        .batch-builder__actions {
+            @include flex-order(2);
+        }
+
+        .batch-builder__search-results {
+            @include flex-order(3);
+        }
+
+        .batch-builder__chosen-authorities {
+            @include flex-order(4);
+        }
     }
 }
 
@@ -51,9 +87,13 @@
     @include flexbox();
     @include justify-content(flex-end);
     @include flex-align(flex-end);
+
+    form {
+        margin-bottom: 0;
+    }
 }
 
-.batch-builder__authority-list {
+.batch-builder__list {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -62,17 +102,25 @@
     overflow: auto;
 }
 
-.batch-builder__authority-list__authority {
-    padding: 1.5em 1em;
+.batch-builder__list__item {
+    padding: 1em;
     @include flexbox();
     @include flex-align(center);
 }
 
-.batch-builder__authority-list__authority__name {
+.batch-builder__list__item__details {
     @include flex(1 0 0%);
 }
 
-.batch-builder__authority-list__authority__action {
+.batch-builder__list__item__anchor {
+    @include flex(1 0 0%);
+}
+
+.batch-builder__list__item__name {
+    @include flex(1 0 0%);
+}
+
+.batch-builder__list__item__action {
     @include flex(0 0 auto);
     margin-bottom: 0;
 
@@ -80,11 +128,32 @@
         margin-bottom: 0;
     }
 
-    input[type="submit"] { // need to be more specific than `form input[type="submit"]`
+    .button { // need to be more specific than `form input[type="submit"]`
         margin: -0.5em 0;
+        font-size: 0.8em;
     }
 }
 
-.batch-builder__authority-list__page-info {
+.batch-builder__list__page-info {
     text-align: center;
+}
+
+.batch-builder__list__group {
+    display: block; // avoids a Chrome bug where display:list-item introduced extra margin-top
+
+    ul {
+        padding-left: 0; // reset default list padding
+
+        .batch-builder__list__item {
+            padding-left: 2em; // group children are indented
+        }
+
+        ul .batch-builder__list__item {
+            padding-left: 4em; // grandchildren are indented even more
+        }
+    }
+
+    &.batch-builder__list__group--closed ul {
+        display: none;
+    }
 }

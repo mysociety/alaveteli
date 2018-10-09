@@ -75,4 +75,15 @@ module AdminHelper
     end
     text
   end
+
+  def highlight_allow_new_responses_from(string)
+    case string
+    when 'authority_only'
+      content_tag :span, string, class: 'text-warning'
+    when 'nobody'
+      content_tag :span, string, class: 'text-error'
+    else
+      string
+    end
+  end
 end

@@ -27,7 +27,7 @@ module AlaveteliDsl
   end
 
   def create_request_and_user(public_body)
-    user = FactoryGirl.build(:user)
+    user = FactoryBot.build(:user)
     # Make a request in the normal way
     using_session(without_login) do
       create_request(public_body)
@@ -67,7 +67,7 @@ module AlaveteliDsl
 
   def add_body_to_pro_batch(public_body)
     within ".batch-builder__search-results li[data-body-id=\"#{public_body.id}\"]" do
-      click_button "+ Add"
+      click_button "Add"
     end
   end
 end
@@ -84,6 +84,13 @@ def hide_outgoing_message(outgoing_message, prominence, reason)
   select prominence, :from => 'Prominence'
   fill_in 'Reason for prominence', :with => reason
   find_button('Save').click
+end
+
+def classify_request(request, chosen_option)
+  visit show_request_path :url_title => request.url_title,
+                          :update_status => 1
+  choose(chosen_option)
+  click_button('Submit status')
 end
 
 def alaveteli_session(session_id)

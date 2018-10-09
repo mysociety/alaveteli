@@ -328,10 +328,29 @@ Layout/TrailingWhitespace:
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-trailing-whitespace'
   Enabled: true
 
+Layout/BlockAlignment:
+  Description: 'Align block ends correctly.'
+  Enabled: false
+
+Layout/ConditionPosition:
+  Description: >-
+                 Checks for condition placed in a confusing position relative to
+                 the keyword.
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#same-line-condition'
+  Enabled: false
+
+Layout/DefEndAlignment:
+  Description: 'Align ends corresponding to defs correctly.'
+  Enabled: false
+
+Layout/EndAlignment:
+  Description: 'Align ends correctly.'
+  Enabled: false
+
 Style/Alias:
   Description: 'Use alias instead of alias_method.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#alias-method'
-  Enabled: false
+  Enabled: true
 
 Style/AndOr:
   Description: 'Use &&/|| instead of and/or.'
@@ -446,7 +465,7 @@ Style/PreferredHashMethods:
 
 Style/Documentation:
   Description: 'Document classes and non-namespace modules.'
-  Enabled: false
+  Enabled: true
   Exclude:
     - 'spec/**/*'
     - 'test/**/*'
@@ -460,7 +479,7 @@ Style/EachForSimpleLoop:
   Description: >-
                  Use `Integer#times` for a simple loop which iterates a fixed
                  number of times.
-  Enabled: false
+  Enabled: true
 
 Style/EachWithObject:
   Description: 'Prefer `each_with_object` over `inject` or `reduce`.'
@@ -468,11 +487,11 @@ Style/EachWithObject:
 
 Style/EmptyElse:
   Description: 'Avoid empty else-clauses.'
-  Enabled: false
+  Enabled: true
 
 Style/EmptyCaseCondition:
   Description: 'Avoid empty condition in case statements.'
-  Enabled: false
+  Enabled: true
 
 Style/EmptyLiteral:
   Description: 'Prefer literals to Array.new/Hash.new/String.new.'
@@ -552,7 +571,7 @@ Style/IfUnlessModifierOfIfUnless:
 Style/IfWithSemicolon:
   Description: 'Do not use if x; .... Use the ternary operator instead.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-semicolon-ifs'
-  Enabled: false
+  Enabled: true
 
 Style/IdenticalConditionalBranches:
   Description: >-
@@ -580,12 +599,12 @@ Style/LineEndConcatenation:
   Description: >-
                  Use \ instead of + or << to concatenate two string literals at
                  line end.
-  Enabled: false
+  Enabled: true
 
 Style/MethodCallWithoutArgsParentheses:
   Description: 'Do not use parentheses for method calls with no arguments.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-args-no-parens'
-  Enabled: false
+  Enabled: true
 
 Style/MethodDefParentheses:
   Description: >-
@@ -607,7 +626,7 @@ Style/MultilineBlockChain:
 Style/MultilineIfThen:
   Description: 'Do not use then for multi-line if/unless.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-then'
-  Enabled: false
+  Enabled: true
 
 Style/MultilineTernaryOperator:
   Description: >-
@@ -625,7 +644,7 @@ Style/NegatedIf:
                  Favor unless over if for negative conditions
                  (or control flow or).
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#unless-for-negatives'
-  Enabled: false
+  Enabled: true
 
 Style/NegatedWhile:
   Description: 'Favor until over while for negative conditions.'
@@ -666,7 +685,7 @@ Style/NonNilCheck:
 Style/Not:
   Description: 'Use ! instead of not.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#bang-not-not'
-  Enabled: false
+  Enabled: true
 
 Style/NumericLiterals:
   Description: >-
@@ -822,7 +841,7 @@ Style/StringLiteralsInInterpolation:
 Style/StructInheritance:
   Description: 'Checks for inheritance from Struct.new.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-extend-struct-new'
-  Enabled: false
+  Enabled: true
 
 Style/SymbolLiteral:
   Description: 'Use plain symbols instead of string symbols when possible.'
@@ -837,8 +856,13 @@ Style/TrailingCommaInArguments:
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-trailing-params-comma'
   Enabled: false
 
-Style/TrailingCommaInLiteral:
-  Description: 'Checks for trailing comma in array and hash literals.'
+Style/TrailingCommaInArrayLiteral:
+  Description: 'Checks for trailing comma in array literals.'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-trailing-array-commas'
+  Enabled: false
+
+Style/TrailingCommaInHashLiteral:
+  Description: 'Checks for trailing comma in hash literals.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-trailing-array-commas'
   Enabled: false
 
@@ -1042,27 +1066,12 @@ Lint/AssignmentInCondition:
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#safe-assignment-in-condition'
   Enabled: false
 
-Lint/BlockAlignment:
-  Description: 'Align block ends correctly.'
-  Enabled: false
-
 Lint/CircularArgumentReference:
   Description: "Default values in optional keyword arguments and optional ordinal arguments should not refer back to the name of the argument."
   Enabled: false
 
-Lint/ConditionPosition:
-  Description: >-
-                 Checks for condition placed in a confusing position relative to
-                 the keyword.
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#same-line-condition'
-  Enabled: false
-
 Lint/Debugger:
   Description: 'Check for debugger calls.'
-  Enabled: false
-
-Lint/DefEndAlignment:
-  Description: 'Align ends corresponding to defs correctly.'
   Enabled: false
 
 Lint/DeprecatedClassMethods:
@@ -1091,10 +1100,6 @@ Lint/EmptyEnsure:
 
 Lint/EmptyInterpolation:
   Description: 'Checks for empty string interpolation.'
-  Enabled: false
-
-Lint/EndAlignment:
-  Description: 'Align ends correctly.'
   Enabled: false
 
 Lint/EndInMethod:
@@ -1337,14 +1342,6 @@ Performance/FlatMap:
   # `flatten` being called without any parameters.
   # This can be dangerous since `flat_map` will only flatten 1 level, and
   # `flatten` without any parameters can flatten multiple levels.
-
-Performance/HashEachMethods:
-  Description: >-
-                 Use `Hash#each_key` and `Hash#each_value` instead of
-                 `Hash#keys.each` and `Hash#values.each`.
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#hash-each'
-  Enabled: false
-  AutoCorrect: false
 
 Performance/LstripRstrip:
   Description: 'Use `strip` instead of `lstrip.rstrip`.'

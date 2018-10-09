@@ -57,7 +57,7 @@
   <div class="control-group">
     <label class="control-label">Download</label>
     <div class="controls">
-      <%= link_to "Download",  admin_raw_email_path(incoming_message.raw_email, :format => 'txt'), :class => "btn" %>
+      <%= link_to 'Download', admin_raw_email_path(incoming_message.raw_email, format: 'eml'), class: 'btn' %>
     </div>
   </div>
 

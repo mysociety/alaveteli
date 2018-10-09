@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe "notification_mailer/daily_summary" do
-  let(:notifications) { FactoryGirl.create_list(:notification, 5) }
+  let(:notifications) { FactoryBot.create_list(:notification, 5) }
   let(:grouped_notifications) do
     notifications.group_by { |n| n.info_request_event.info_request }
   end

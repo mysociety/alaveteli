@@ -35,22 +35,21 @@ end
 def fill_in_batch_message
   fill_in "Subject", with: "Does the pro batch request form work?"
   fill_in "Your request", with: "Dear [Authority name], this is a batch request."
-  select "3 Months", from: "Privacy"
 end
 
 def search_results
-  page.find_all(".batch-builder__authority-list__authority__name").map(&:text)
+  page.find_all(".batch-builder__list__item__name").map(&:text)
 end
 
 describe "creating batch requests in alaveteli_pro" do
   let(:pro_user) do
-    user = FactoryGirl.create(:pro_user)
+    user = FactoryBot.create(:pro_user)
     AlaveteliFeatures.backend.enable_actor(:pro_batch_access, user)
     user
   end
 
   let!(:pro_user_session) { login(pro_user) }
-  let!(:authorities) { FactoryGirl.create_list(:public_body, 26) }
+  let!(:authorities) { FactoryBot.create_list(:public_body, 26) }
 
   before :all do
     get_fixtures_xapian_index
@@ -75,13 +74,13 @@ describe "creating batch requests in alaveteli_pro" do
       fill_in "Search for an authority by name", with: "Example"
       click_button "Search"
 
-      expect(page).to have_css(".batch-builder__authority-list__authority", count: 25)
+      expect(page).to have_css(".batch-builder__list__item", count: 25)
       first_page_results = search_results
 
       # Paginating
       click_link "Next →"
 
-      expect(page).to have_css(".batch-builder__authority-list__authority", count: 1)
+      expect(page).to have_css(".batch-builder__list__item", count: 1)
       second_page_result = search_results.first
 
       # We can't rely on Xapian to give us a deterministic search result
@@ -90,7 +89,7 @@ describe "creating batch requests in alaveteli_pro" do
       expect(first_page_results.include?(second_page_result)).to be false
 
       click_link "← Previous"
-      expect(page).to have_css(".batch-builder__authority-list__authority", count: 25)
+      expect(page).to have_css(".batch-builder__list__item", count: 25)
       first_page_results = search_results
 
       expect(first_page_results.include?(second_page_result)).to be false
@@ -121,7 +120,7 @@ describe "creating batch requests in alaveteli_pro" do
 
       # Removing from list
       within ".batch-builder__chosen-authorities form[data-body-id=\"#{first_search_result_body.id}\"]" do
-        click_button "- Remove"
+        click_button "Remove"
       end
 
       within ".batch-builder__chosen-authorities" do
@@ -147,7 +146,7 @@ describe "creating batch requests in alaveteli_pro" do
 
       expect(page).to have_content("Your draft has been saved!")
       expect(page).to have_content(
-        "Requests in this batch will be private on Alaveteli until " \
+        "Requests in this batch will be private until " \
         "#{AlaveteliPro::Embargo.three_months_from_now.strftime('%-d %B %Y')}")
 
       # The page should pre-fill the form with data from the draft
@@ -213,10 +212,13 @@ describe "creating batch requests in alaveteli_pro" do
     using_pro_session(pro_user_session) do
       start_batch_request
       fill_in_batch_message
+      fill_in "Your request",
+              with: "Dear [Authority name], this is a <b>batch</b> request."
       click_button "Preview and send request"
 
       # Preview page
-      drafts = AlaveteliPro::DraftInfoRequestBatch.where(title: "Does the pro batch request form work?")
+      drafts = AlaveteliPro::DraftInfoRequestBatch.
+        where(title: "Does the pro batch request form work?")
       expect(drafts).to exist
       draft = drafts.first
 
@@ -229,9 +231,11 @@ describe "creating batch requests in alaveteli_pro" do
                                    "form work?")
       # It should substitue an authority name in when previewing
       first_authority = draft.public_bodies.first
-      expect(page).to have_content("Dear #{first_authority.name}, this is a batch request.")
+      expect(page).
+        to have_content("Dear #{first_authority.name}, this is a " \
+                        "<b>batch</b> request.")
       expect(page).to have_content(
-        "Requests in this batch will be private on Alaveteli until " \
+        "Requests in this batch will be private until " \
         "#{AlaveteliPro::Embargo.three_months_from_now.strftime('%-d %B %Y')}")
 
     end
@@ -265,21 +269,15 @@ describe "creating batch requests in alaveteli_pro" do
       start_batch_request
       fill_in "Subject", with: ""
       fill_in "Your request", with: ""
-      select "Publish immediately", from: "Privacy"
       click_button "Save draft"
 
       expect(page).to have_content("Your draft has been saved!")
-      expect(page).to have_content("Unless you choose a privacy option, " \
-                                   "requests in this batch will be public " \
-                                   "on Alaveteli immediately.")
 
       # The page should pre-fill the form with data from the draft
       expect(page).to have_field("Subject",
                                  with: "")
       expect(page).to have_field("Your request",
                                  with: "Dear [Authority name],\n\n\n\nYours faithfully,\n\n#{pro_user.name}")
-      expect(page).to have_select("Privacy", selected: "Publish immediately")
-
     end
   end
 
@@ -288,6 +286,13 @@ describe "creating batch requests in alaveteli_pro" do
       start_batch_request
       expect(page).to have_field("Your request",
                                  with: "Dear [Authority name],\n\n\n\nYours faithfully,\n\n#{pro_user.name}")
+    end
+  end
+
+  it "supplies a default embargo when creating a new batch request" do
+    using_pro_session(pro_user_session) do
+      start_batch_request
+       expect(page).to have_select("Privacy", selected: "3 Months")
     end
   end
 
@@ -322,13 +327,15 @@ describe "creating batch requests in alaveteli_pro" do
 end
 
 describe "managing embargoed batch requests" do
-  let(:pro_user) { FactoryGirl.create(:pro_user) }
+  let(:pro_user) { FactoryBot.create(:pro_user) }
   let!(:pro_user_session) { login(pro_user) }
   let!(:batch) do
-    batch = FactoryGirl.create(
-      :embargoed_batch_request,
+    batch = FactoryBot.create(
+      :info_request_batch, :embargoed,
       user: pro_user,
-      public_bodies: FactoryGirl.create_list(:public_body, 2))
+      public_bodies: FactoryBot.create_list(:public_body, 2),
+      sent_at: Time.zone.now
+    )
     batch.create_batch!
     batch
   end
@@ -349,8 +356,8 @@ describe "managing embargoed batch requests" do
         old_publish_at = batch.info_requests.first.embargo.publish_at
 
         check 'Change privacy'
-        expect(page).to have_content("Requests in this batch are private on " \
-                                     "Alaveteli until " \
+        expect(page).to have_content("Requests in this batch are private " \
+                                     "until " \
                                      "#{old_publish_at.strftime('%-d %B %Y')}")
         select "3 Months", from: "Keep private for a further:"
         within ".update-embargo" do
@@ -360,7 +367,7 @@ describe "managing embargoed batch requests" do
         check 'Change privacy'
         expected_publish_at = old_publish_at + \
                               AlaveteliPro::Embargo::THREE_MONTHS
-        expected_content = "Requests in this batch are private on Alaveteli " \
+        expected_content = "Requests in this batch are private " \
                            "until #{expected_publish_at.strftime('%-d %B %Y')}"
         expect(page).to have_content(expected_content)
 
@@ -377,7 +384,7 @@ describe "managing embargoed batch requests" do
 
         check 'Change privacy'
         expect(page).to have_content(
-          "Requests in this batch are private on Alaveteli until " \
+          "Requests in this batch are private until " \
           "#{old_publish_at.strftime('%-d %B %Y')}")
         click_button("Publish requests")
         expect(batch.reload.embargo_duration).to be nil
@@ -405,7 +412,7 @@ describe "managing embargoed batch requests" do
         browse_pro_request(info_request.url_title)
         old_publish_at = info_request.embargo.publish_at
         expect(page).to have_content(
-          "Requests in this batch are private on Alaveteli until " \
+          "Requests in this batch are private until " \
           "#{old_publish_at.strftime('%-d %B %Y')}")
         select "3 Months", from: "Keep private for a further:"
         within ".update-embargo" do
@@ -414,7 +421,7 @@ describe "managing embargoed batch requests" do
         expected_publish_at = old_publish_at + \
                               AlaveteliPro::Embargo::THREE_MONTHS
         expect(page).to have_content(
-          "Requests in this batch are private on Alaveteli until " \
+          "Requests in this batch are private until " \
           "#{expected_publish_at.strftime('%-d %B %Y')}")
         batch.info_requests.each do |info_request|
           expect(info_request.embargo.publish_at).to eq expected_publish_at
@@ -426,8 +433,8 @@ describe "managing embargoed batch requests" do
       using_pro_session(pro_user_session) do
         browse_pro_request(info_request.url_title)
         old_publish_at = info_request.embargo.publish_at
-        expect(page).to have_content("Requests in this batch are private on " \
-                                     "Alaveteli until " \
+        expect(page).to have_content("Requests in this batch are private " \
+                                     "until " \
                                      "#{old_publish_at.strftime('%-d %B %Y')}")
         click_button("Publish request")
         batch.info_requests.each do |info_request|

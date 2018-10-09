@@ -29,15 +29,15 @@ end
 
 describe AlaveteliPro::BatchRequestAuthoritySearchesController do
   let(:pro_user) do
-    user = FactoryGirl.create(:pro_user)
+    user = FactoryBot.create(:pro_user)
     AlaveteliFeatures.backend.enable_actor(:pro_batch_access, user)
     user
   end
 
   describe "#index" do
-    let!(:authority_1) { FactoryGirl.create(:public_body) }
-    let!(:authority_2) { FactoryGirl.create(:public_body) }
-    let!(:authority_3) { FactoryGirl.create(:public_body) }
+    let!(:authority_1) { FactoryBot.create(:public_body) }
+    let!(:authority_2) { FactoryBot.create(:public_body) }
+    let!(:authority_3) { FactoryBot.create(:public_body) }
 
     before :all do
       get_fixtures_xapian_index
@@ -53,6 +53,29 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
       authority_2.destroy
       authority_3.destroy
       update_xapian_index
+    end
+
+    context 'without a draft_id param' do
+      it 'initializes a draft if a draft_id was not provided' do
+        get :index
+        expect(assigns[:draft_batch_request]).to be_new_record
+      end
+    end
+
+    context 'with a draft_id param' do
+      it 'finds a draft by draft_id' do
+        draft = FactoryBot.create(:draft_info_request_batch, user: pro_user)
+        get :index, draft_id: draft.id
+        expect(assigns[:draft_batch_request]).to eq(draft)
+      end
+
+      it 'initializes a draft if one cannot be found with the given draft_id' do
+        max_id =
+          AlaveteliPro::DraftInfoRequestBatch.maximum(:id).try(:next) || 99
+        get :index, draft_id: max_id
+        expect(assigns[:draft_batch_request]).to be_new_record
+        expect(assigns[:draft_batch_request].user).to eq(pro_user)
+      end
     end
 
     context "when responding to a normal request" do
@@ -112,7 +135,7 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
 
     context "the user does not have pro batch access" do
 
-      let(:pro_user) { FactoryGirl.create(:pro_user) }
+      let(:pro_user) { FactoryBot.create(:pro_user) }
 
       it 'redirects them to the standard request form' do
         with_feature_enabled(:alaveteli_pro) do
@@ -140,7 +163,7 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
 
     context "the user does not have pro batch access" do
 
-      let(:pro_user) { FactoryGirl.create(:pro_user) }
+      let(:pro_user) { FactoryBot.create(:pro_user) }
 
       it 'redirects them to the standard request form' do
         with_feature_enabled(:alaveteli_pro) do

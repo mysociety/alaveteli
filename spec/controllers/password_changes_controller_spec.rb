@@ -26,14 +26,14 @@ describe PasswordChangesController do
     end
 
     it 'pre-fills the email field for a signed in user' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       session[:user_id] = user.id
       get :new
       expect(assigns[:email_field_options][:value]).to eq(user.email)
     end
 
     it 'disables the email field for a signed in user' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       session[:user_id] = user.id
       get :new
       expect(assigns[:email_field_options][:disabled]).to eq(true)
@@ -51,14 +51,14 @@ describe PasswordChangesController do
     context 'when a user is signed in' do
 
       it 'ignores an email submitted in the post params' do
-        user = FactoryGirl.create(:user)
+        user = FactoryBot.create(:user)
         session[:user_id] = user.id
         post :create, :password_change_user => { :email => 'hacker@localhost' }
         expect(assigns[:password_change_user]).to eq(user)
       end
 
       it 'does not require an email to be submitted' do
-        user = FactoryGirl.create(:user)
+        user = FactoryBot.create(:user)
         session[:user_id] = user.id
         post :create
         expect(assigns[:password_change_user]).to eq(user)
@@ -77,13 +77,19 @@ describe PasswordChangesController do
     context 'when receiving an email address of an existing user' do
 
       it 'assigns the user' do
-        user = FactoryGirl.create(:user)
+        user = FactoryBot.create(:user)
         post :create, :password_change_user => { :email => user.email }
         expect(assigns[:password_change_user]).to eq(user)
       end
 
+      it 'finds the user if the email case is different' do
+        user = FactoryBot.create(:user)
+        post :create, :password_change_user => { :email => user.email.upcase }
+        expect(assigns[:password_change_user]).to eq(user)
+      end
+
       it 'creates a post redirect' do
-        user = FactoryGirl.create(:user)
+        user = FactoryBot.create(:user)
         expected_attrs =
           { :post_params => {},
             :reason_params => {
@@ -111,7 +117,7 @@ describe PasswordChangesController do
       context 'when a pretoken is supplied' do
 
         it 'adds the pretoken to the post redirect uri' do
-          user = FactoryGirl.create(:user)
+          user = FactoryBot.create(:user)
           pretoken = PostRedirect.create(:user => user, :uri => '/')
           post :create, :password_change_user => { :email => user.email },
                         :pretoken => pretoken.token
@@ -122,7 +128,7 @@ describe PasswordChangesController do
         end
 
         it 'does not add a blank pretoken to the post redirect uri' do
-          user = FactoryGirl.create(:user)
+          user = FactoryBot.create(:user)
           pretoken = PostRedirect.create(:user => user, :uri => '/')
           post :create, :password_change_user => { :email => user.email },
                         :pretoken => ''
@@ -134,7 +140,7 @@ describe PasswordChangesController do
       end
 
       it 'sends a confirmation email' do
-        user = FactoryGirl.create(:user)
+        user = FactoryBot.create(:user)
 
         post :create, :password_change_user => { :email => user.email }
 
@@ -150,7 +156,7 @@ describe PasswordChangesController do
       end
 
       it 'renders the confirmation message' do
-        user = FactoryGirl.create(:user)
+        user = FactoryBot.create(:user)
         post :create, :password_change_user => { :email => user.email }
         expect(response).to render_template(:check_email)
       end
@@ -179,7 +185,7 @@ describe PasswordChangesController do
 
   describe 'GET edit' do
 
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
     let(:post_redirect) do
       PostRedirect.create(:user => user, :uri => frontpage_url)
     end
@@ -234,15 +240,15 @@ describe PasswordChangesController do
 
   describe 'PUT update' do
 
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
     let(:post_redirect) do
       PostRedirect.create(:user => user, :uri => frontpage_path)
     end
 
     before(:each) do
       @valid_password_params =
-        { :password => 'secret',
-          :password_confirmation => 'secret' }
+        { :password => 'secret123456',
+          :password_confirmation => 'secret123456' }
       @invalid_password_params =
         { :password => 'secret',
           :password_confirmation => 'password' }
@@ -347,7 +353,7 @@ describe PasswordChangesController do
 
     context 'when the user has two factor authentication enabled' do
 
-      let(:user) { FactoryGirl.create(:user, :enable_otp) }
+      let(:user) { FactoryBot.create(:user, :enable_otp) }
 
       before(:each) do
         allow(AlaveteliConfiguration).

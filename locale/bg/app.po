@@ -13,6 +13,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Anton Stoychev <antitoxic@gmail.com>, 2013
 # Anton Stoychev <antitoxic@gmail.com>, 2013
 # louisecrow <louise@mysociety.org>, 2014
@@ -22,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-18 01:28-0800\n"
-"PO-Revision-Date: 2018-01-18 10:24+0000\n"
+"POT-Creation-Date: 2018-09-28 15:37+0000\n"
+"PO-Revision-Date: 2018-09-29 11:24+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/mysociety/alaveteli/language/bg/)\n"
 "Language: bg\n"
@@ -128,6 +129,9 @@ msgstr "*неизвестен*"
 msgid ",\\n\\n\\n\\nYours,\\n\\n{{user_name}}"
 msgstr ",\\n\\n\\n\\nВаш,\\n\\n{{user_name}}"
 
+msgid "12 characters minimum. 72 characters maximum."
+msgstr ""
+
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
 msgstr "<a href=\"{{browse_url}}\">Разгледайте всички</a> или <a href=\"{{add_url}}\">поискайте да добавим някой</a>."
 
@@ -229,6 +233,9 @@ msgstr ""
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "Поискано е <strong>пояснение</strong>"
 
+msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
+msgstr ""
+
 msgid "<strong>No response</strong> has been received <small>(maybe there's just an acknowledgement)</small>"
 msgstr "<strong>Не беше получен</strong> отговор\\n <small>(може би има само потвърждение)</small>"
 
@@ -292,6 +299,9 @@ msgstr "Ново заявление, <em><a href=\"{{request_url}}\">{{request_t
 msgid "A one line summary of the information you are requesting, e.g."
 msgstr "обобщение на един ред на информацията, която искате, \\n\t\t\t\tнапр."
 
+msgid "A powerful, fully-featured FOI toolkit for journalists"
+msgstr ""
+
 msgid "A public authority"
 msgstr "Публичен орган"
 
@@ -314,6 +324,9 @@ msgid "About you:"
 msgstr "За Вас:"
 
 msgid "About {{count}} FOI requests found"
+msgstr ""
+
+msgid "Account suspended – Please contact us"
 msgstr ""
 
 msgid "Act on what you've learnt"
@@ -451,6 +464,18 @@ msgstr "Промяна на абонамента Ви"
 msgid "Although all responses are automatically published, we depend on you, the original requester, to evaluate them."
 msgstr "Въпреки че всички отговори автоматично се публикуват, разчитаме на Вас,\\nкато заявител, да ги оценявате."
 
+msgid "Although not legally required to do so, we would have expected {{public_body_link}} to have responded by "
+msgstr ""
+
+msgid "Although not legally required to do so, we would have expected {{public_body_link}} to have responded by now"
+msgstr ""
+
+msgid "Although the authority is not legally obliged to reply, you should get a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>."
+msgstr ""
+
+msgid "Although the authority is not legally obliged to reply, you should have got a response, normally before the end of <strong>{{date_response_required_by}}</strong>."
+msgstr ""
+
 msgid "An <a href=\"{{request_url}}\">annotation</a> to <em>{{request_title}}</em> was made by {{event_comment_user}} on {{date}}"
 msgstr "Беше добавен <a href=\"{{request_url}}\">коментар</a> към <em>{{request_title}}</em> от {{event_comment_user}} на {{date}}"
 
@@ -480,6 +505,12 @@ msgstr "С коментарите всеки, включително Вие, м�
 
 msgid "Annotations will be posted publicly here, and are <strong>not</strong> sent to {{public_body_name}}."
 msgstr "Коментарите ще бъдат публикувани тук и\\n <strong>няма</strong> да бъдат изпращани до {{public_body_name}}."
+
+msgid "Announcement"
+msgstr ""
+
+msgid "Announcement|Visibility"
+msgstr ""
 
 msgid "Anonymous user"
 msgstr "Анонимен потребител"
@@ -557,9 +588,6 @@ msgid "Back to content"
 msgstr ""
 
 msgid "Banned from this site"
-msgstr ""
-
-msgid "Banned users cannot edit their profile"
 msgstr ""
 
 msgid "Batch created by {{info_request_user}} on {{date}}."
@@ -706,6 +734,9 @@ msgstr "Затвори"
 msgid "Close the request and respond:"
 msgstr "Затвори заявлението и отговори:"
 
+msgid "Collapse all correspondence"
+msgstr ""
+
 msgid "Comment"
 msgstr "Коментар"
 
@@ -760,11 +791,11 @@ msgstr "Потвърдете Вашия имейл адрес"
 msgid "Confirm your new email address on {{site_name}}"
 msgstr "Потвърдете Вашия нов имейл адрес в {{site_name}}"
 
-msgid "Considered by administrators as not an FOI request and hidden from site."
-msgstr "Според администраторите, не е Заявление за ДдИ и е скрито от сайта."
+msgid "Considered by administrators as not an FOI request."
+msgstr ""
 
-msgid "Considered by administrators as vexatious and hidden from site."
-msgstr "Според администраторите е неоснователно и е скрито от сайта."
+msgid "Considered by administrators as vexatious."
+msgstr ""
 
 msgid "Contact us"
 msgstr ""
@@ -808,8 +839,8 @@ msgstr "Изрязване на снимката Ви в профила"
 msgid "Cultural sites and built structures (as they may be affected by the environmental factors listed above)"
 msgstr ""
 
-msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they must respond promptly and"
-msgstr "Към момента <strong>чака за отговор</strong> от {{public_body_link}}, които трябва да отговорят незабавно и"
+msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they should respond promptly and"
+msgstr ""
 
 msgid "Date:"
 msgstr "Дата:"
@@ -963,6 +994,9 @@ msgstr ""
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
 msgstr "Това, което напишете на тази страница, включително <strong>Вашето име</strong>,\\n ще бъде <strong>показвано публично</strong> на\\n този сайт завинаги, (<a href=\"{{url}}\">вижте защо</a>)."
+
+msgid "Expand all correspondence"
+msgstr ""
 
 msgid "FOI"
 msgstr "ДдИ"
@@ -2016,6 +2050,12 @@ msgstr "Частично успешно."
 msgid "Password is not correct"
 msgstr "Паролата не е правилната"
 
+msgid "Password is too long (maximum is 72 characters)"
+msgstr ""
+
+msgid "Password is too short (minimum is 12 characters)"
+msgstr ""
+
 msgid "Password:"
 msgstr "Парола:"
 
@@ -2465,6 +2505,9 @@ msgstr "Прочетете за <a href=\"{{advanced_search_url}}\">детайл
 msgid "Read blog"
 msgstr "Четете в блога"
 
+msgid "Reason:"
+msgstr ""
+
 msgid "Received an error message, such as delivery failure."
 msgstr "Получено е съобщение за грешка, подобно на грешка при доставяне."
 
@@ -2887,6 +2930,9 @@ msgstr ""
 msgid "Summary is too short. Please be a little more descriptive about the information you are asking for."
 msgstr ""
 
+msgid "Suspended users cannot edit their profile"
+msgstr ""
+
 msgid "Table of statuses"
 msgstr "Таблица на състоянията"
 
@@ -3058,8 +3104,14 @@ msgstr "Заявлението, което се опитвате да видит
 msgid "The requester has abandoned this request for some reason"
 msgstr "Това заявление беше изоставено от заявителя поради някаква причина"
 
+msgid "The response to your request has been <strong>delayed</strong>. Although the authority has no legal obligation to reply, they should normally have responded by <strong>{{date}}</strong>"
+msgstr ""
+
 msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and by <strong>{{date}}</strong>"
 msgstr "Отговорът на Вашето заявление <strong>закъснява</strong>.  Може да се каже,\\n че по закон, органът трябва да отговори\\n <strong>в срок</strong> и"
+
+msgid "The response to your request is <strong>long overdue</strong>. Although the authority has no legal obligation to reply, they should have responded by now"
+msgstr ""
 
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr "Отговорът на Вашето заявление е <strong>доста закъснял</strong>. Може да се каже, че\\n по закон, при всички обстоятелства, органът трябваше да е отговорил\\n до сега"
@@ -3196,16 +3248,19 @@ msgstr "Те са дали следното обяснение:"
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
 msgstr "Те не са отговорили на заявлението Ви за {{law_used_short}} {{title}} навреме, както нормално се изисква по закон"
 
-msgid "They have not replied to your {{law_used_short}} request {{title}}, as required by law"
-msgstr "Те не са отговорили на Вашето Заявление {{title}} за {{law_used_short}} ,\\nкакто се изисква от закона"
+msgid "They have not replied to your {{law_used_short}} request {{title}}, as normally required by law"
+msgstr ""
 
-msgid "They have still not replied to your {{law_used_short}} request {{title}}, as required by law"
+msgid "They have still not replied to your {{law_used_short}} request {{title}}, as normally required by law"
 msgstr ""
 
 msgid "Things you're following"
 msgstr "Нещата, които следите"
 
 msgid "This annotation has been reported for administrator attention"
+msgstr ""
+
+msgid "This authority is not subject to FOI law, so is not legally obliged to respond"
 msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
@@ -3296,12 +3351,6 @@ msgstr "Това заявление вече беше докладвано на 
 msgid "This request has an <strong>unknown status</strong>."
 msgstr "Това заявление е в <strong>неизвестно състояние</strong>."
 
-msgid "This request has been <strong>hidden</strong> from the site, because an administrator considers it not to be an FOI request"
-msgstr "Това заявление беше <strong>скрито</strong> от сайта, понеже администратор е преценил, че не е заявление за ДдИ"
-
-msgid "This request has been <strong>hidden</strong> from the site, because an administrator considers it vexatious"
-msgstr "Това заявление беше <strong>скрито</strong> от сайта, понеже администратор е преценил, че е неоснователно"
-
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
 msgstr "Това заявление беше <strong>докладвано</strong> на вниманието на администратор (вероятно защото е неоснователно или е заявление за лична информация)"
 
@@ -3316,6 +3365,12 @@ msgstr "Това заявление беше отбелязано за прег�
 
 msgid "This request has been reported for administrator attention"
 msgstr "Това заявление беше докладвано на вниманието на администратор"
+
+msgid "This request has been reviewed by an administrator and is considered not to be an FOI request"
+msgstr ""
+
+msgid "This request has been reviewed by an administrator and is considered to be vexatious"
+msgstr ""
 
 msgid "This request has been set by an administrator to \"allow new responses from nobody\""
 msgstr "От администратор е зададено това заявление да \"не приема нови отговори от никого\""
@@ -3347,8 +3402,8 @@ msgstr ""
 msgid "This table shows the technical details of the internal events that happened to this request on {{site_name}}. This could be used to generate information about the speed with which authorities respond to requests, the number of requests which require a postal response and much more."
 msgstr "Тази таблица показва техническите подробности над вътрешните събития, случили се\\nпо това заявление в {{site_name}}. Това може да се използва за генериране на информация за\\nбързината, с която органите отговарят на заявления, броят на заявленията,\\nкоито изискват отговор по пощата и много други."
 
-msgid "This user has been banned from {{site_name}} "
-msgstr "Този потребител беше блокиран от {{site_name}} "
+msgid "This user has been suspended from {{site_name}} "
+msgstr ""
 
 msgid "This was not possible because there is already an account using the email address {{email}}."
 msgstr "Това не е възможно, понеже вече има регистрация, използваща\\nимейл адрес {{email}}."
@@ -3972,8 +4027,8 @@ msgstr "Можете да се <strong>оплачете</strong> като"
 msgid "You can change the requests and users you are following on <a href=\"{{profile_url}}\">your profile page</a>."
 msgstr "Можете да променяте следваните от Вас заявления и потребители в <a href=\"{{profile_url}}\">страницата на профила Ви</a>."
 
-msgid "You can get this page in computer-readable format as part of the main JSON page for the request.  See the <a href=\"{{api_path}}\">API documentation</a>."
-msgstr "Вие може да получите тази страница в компютърно-четим формат като част от главната JSON\\nстраница за Заявлението.  Вижте <a href=\"{{api_path}}\">API документацията</a>."
+msgid "You can get this page in computer-readable format as part of the <a href=\"{{json_path}}\">main JSON page</a> for the request. See the <a href=\"{{api_path}}\">API documentation</a>."
+msgstr ""
 
 msgid "You can only request information about the environment from this authority."
 msgstr "От този орган, Вие можете да искате информация само за околната среда."
@@ -4650,7 +4705,7 @@ msgstr ""
 msgid "{{public_body_name}} have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law. Click on the link below to remind them to reply."
 msgstr ""
 
-msgid "{{public_body_name}} have still not replied to your {{law_used_short}} request {{title}}, as required by law. Click on the link below to tell them to reply. You might like to ask for an internal review, asking them to find out why their response to the request has been so slow."
+msgid "{{public_body_name}} have still not replied to your {{law_used_short}} request {{title}}, as normally required by law. Click on the link below to tell them to reply. You might like to ask for an internal review, asking them to find out why their response to the request has been so slow."
 msgstr ""
 
 msgid "{{public_body_name}} no longer exists. From the request page, try replying to a particular message, rather than sending a general followup. If you need to make a general followup, and know an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."

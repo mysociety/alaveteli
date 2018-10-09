@@ -17,7 +17,7 @@ require 'spec_helper'
 
 describe InfoRequestBatch do
   context "when validating" do
-    let(:info_request_batch) { FactoryGirl.build(:info_request_batch) }
+    let(:info_request_batch) { FactoryBot.build(:info_request_batch) }
 
     it 'should require a user' do
       info_request_batch.user = nil
@@ -40,13 +40,13 @@ describe InfoRequestBatch do
   end
 
   context "when finding an existing batch" do
-    let(:first_body) { FactoryGirl.create(:public_body) }
-    let(:second_body) { FactoryGirl.create(:public_body) }
+    let(:first_body) { FactoryBot.create(:public_body) }
+    let(:second_body) { FactoryBot.create(:public_body) }
     let(:info_request_batch) do
-      FactoryGirl.create(:info_request_batch, :title => 'Matched title',
-                                              :body => 'Matched body',
-                                              :public_bodies => [first_body,
-                                                                 second_body])
+      FactoryBot.create(:info_request_batch, :title => 'Matched title',
+                                             :body => 'Matched body',
+                                             :public_bodies => [first_body,
+                                                                second_body])
     end
 
     it 'should return a batch with the same user, title and body sent to one of the same public bodies' do
@@ -60,7 +60,7 @@ describe InfoRequestBatch do
       expect(InfoRequestBatch.find_existing(info_request_batch.user,
                                             info_request_batch.title,
                                             info_request_batch.body,
-                                            [FactoryGirl.create(:public_body)])).to be_nil
+                                            [FactoryBot.create(:public_body)])).to be_nil
     end
 
     it 'should not return a batch sent to the same public bodies with a different title and body' do
@@ -72,7 +72,7 @@ describe InfoRequestBatch do
 
     it 'should not return a batch sent to one of the same public bodies with the same title and body by
           a different user' do
-      expect(InfoRequestBatch.find_existing(FactoryGirl.create(:user),
+      expect(InfoRequestBatch.find_existing(FactoryBot.create(:user),
                                             info_request_batch.title,
                                             info_request_batch.body,
                                             [first_body])).to be_nil
@@ -81,17 +81,17 @@ describe InfoRequestBatch do
   end
 
   context "when creating a batch" do
-    let(:first_public_body) { FactoryGirl.create(:public_body) }
-    let(:second_public_body) { FactoryGirl.create(:public_body) }
+    let(:first_public_body) { FactoryBot.create(:public_body) }
+    let(:second_public_body) { FactoryBot.create(:public_body) }
     let(:info_request_batch) do
-      FactoryGirl.create(
+      FactoryBot.create(
         :info_request_batch,
         :body => "Dear [Authority name],\nA message\nYours faithfully,\nRequester",
         :public_bodies => [first_public_body, second_public_body])
     end
 
     it 'should substitute authority name for the placeholder in each request' do
-      unrequestable = info_request_batch.create_batch!
+      info_request_batch.create_batch!
       [first_public_body, second_public_body].each do |public_body|
         request = info_request_batch.info_requests.detect do |info_request|
           info_request.public_body == public_body
@@ -101,24 +101,29 @@ describe InfoRequestBatch do
       end
     end
 
-    it 'should send requests to requestable public bodies, and return a list of unrequestable ones' do
-      allow(first_public_body).to receive(:is_requestable?).and_return(false)
-      unrequestable = info_request_batch.create_batch!
-      expect(unrequestable).to eq([first_public_body])
-      expect(info_request_batch.info_requests.size).to eq(1)
+    it 'does not resend requests to public bodies that have already received the request' do
+      expect(info_request_batch).to receive(:requestable_public_bodies).
+        and_return([first_public_body])
+      expect { info_request_batch.create_batch! }.to(
+        change(info_request_batch.info_requests, :count).by(1)
+      )
       request = info_request_batch.info_requests.first
       expect(request.outgoing_messages.first.status).to eq('sent')
     end
 
-    it 'should set the sent_at value of the info request batch' do
-      info_request_batch.create_batch!
-      expect(info_request_batch.sent_at).not_to be_nil
+    it 'should not only send requests to public bodies if already sent' do
+      info_request_batch.info_requests = [
+        FactoryBot.create(:info_request, public_body: first_public_body)
+      ]
+      expect { info_request_batch.create_batch! }.to(
+        change(info_request_batch.info_requests, :count).by(1)
+      )
     end
 
     it "it imposes an alphabetical sort order on associated public bodies" do
-      third_public_body = FactoryGirl.create(:public_body,
-                                             :name => "Another Body")
-      batch = FactoryGirl.create(
+      third_public_body = FactoryBot.create(:public_body,
+                                            :name => "Another Body")
+      batch = FactoryBot.create(
         :info_request_batch,
         :public_bodies => [first_public_body,
                            third_public_body])
@@ -144,15 +149,15 @@ describe InfoRequestBatch do
   end
 
   context "when sending batches" do
-    let(:first_public_body) { FactoryGirl.create(:public_body) }
-    let(:second_public_body) { FactoryGirl.create(:public_body) }
+    let(:first_public_body) { FactoryBot.create(:public_body) }
+    let(:second_public_body) { FactoryBot.create(:public_body) }
     let!(:info_request_batch) do
-      FactoryGirl.create(
+      FactoryBot.create(
         :info_request_batch,
         :public_bodies => [first_public_body, second_public_body])
     end
     let!(:sent_batch) do
-      FactoryGirl.create(
+      FactoryBot.create(
         :info_request_batch,
         :public_bodies => [first_public_body, second_public_body],
         :sent_at => Time.zone.now)
@@ -174,13 +179,20 @@ describe InfoRequestBatch do
       expect(third_email.subject).to eq('Your batch request "Example title" has been sent')
     end
 
+    it 'should set the sent_at value of the info request batch' do
+      InfoRequestBatch.send_batches
+      expect { info_request_batch.reload }.to(
+        change(info_request_batch, :sent_at).from(nil).to(Time)
+      )
+    end
+
   end
 
   describe "#from_draft" do
-    let(:first_public_body) { FactoryGirl.create(:public_body) }
-    let(:second_public_body) { FactoryGirl.create(:public_body) }
+    let(:first_public_body) { FactoryBot.create(:public_body) }
+    let(:second_public_body) { FactoryBot.create(:public_body) }
     let(:draft) do
-      FactoryGirl.create(
+      FactoryBot.create(
         :draft_info_request_batch,
         :public_bodies => [first_public_body, second_public_body])
     end
@@ -200,12 +212,12 @@ describe InfoRequestBatch do
   end
 
   describe "#example_request" do
-    let(:first_public_body) { FactoryGirl.create(:public_body) }
-    let(:second_public_body) { FactoryGirl.create(:public_body) }
+    let(:first_public_body) { FactoryBot.create(:public_body) }
+    let(:second_public_body) { FactoryBot.create(:public_body) }
 
     context "when the batch has an embargo duration" do
       let(:info_request_batch) do
-        FactoryGirl.create(
+        FactoryBot.create(
           :info_request_batch,
           :public_bodies => [first_public_body, second_public_body],
           :embargo_duration => "3_months")
@@ -241,7 +253,7 @@ describe InfoRequestBatch do
 
     context "when the batch doesn't have an embargo duration" do
       let(:info_request_batch) do
-        FactoryGirl.create(
+        FactoryBot.create(
           :info_request_batch,
           :public_bodies => [first_public_body, second_public_body])
       end
@@ -278,10 +290,10 @@ describe InfoRequestBatch do
   it_behaves_like "RequestSummaries"
 
   describe "#embargo_expiring?" do
-    let(:first_public_body) { FactoryGirl.create(:public_body) }
-    let(:second_public_body) { FactoryGirl.create(:public_body) }
+    let(:first_public_body) { FactoryBot.create(:public_body) }
+    let(:second_public_body) { FactoryBot.create(:public_body) }
     let(:info_request_batch) do
-      FactoryGirl.create(
+      FactoryBot.create(
         :info_request_batch,
         :public_bodies => [first_public_body, second_public_body])
     end
@@ -294,7 +306,7 @@ describe InfoRequestBatch do
     context "when requests have an embargoes which are expiring" do
       before do
         info_request_batch.info_requests.each do |request|
-          FactoryGirl.create(:expiring_embargo, info_request: request)
+          FactoryBot.create(:expiring_embargo, info_request: request)
         end
       end
 
@@ -306,7 +318,7 @@ describe InfoRequestBatch do
     context "when requests have embargoes but they're not expiring soon" do
       before do
         info_request_batch.info_requests.each do |request|
-          FactoryGirl.create(:embargo, info_request: request)
+          FactoryBot.create(:embargo, info_request: request)
         end
       end
 
@@ -323,9 +335,9 @@ describe InfoRequestBatch do
   end
 
   describe "#request_phases" do
-    let(:public_bodies) { FactoryGirl.create_list(:public_body, 3) }
+    let(:public_bodies) { FactoryBot.create_list(:public_body, 3) }
     let(:info_request_batch) do
-      FactoryGirl.create(:info_request_batch, :public_bodies => public_bodies)
+      FactoryBot.create(:info_request_batch, :public_bodies => public_bodies)
     end
 
     before do
@@ -345,9 +357,9 @@ describe InfoRequestBatch do
   end
 
   describe "#request_phases_summary" do
-    let(:public_bodies) { FactoryGirl.create_list(:public_body, 10) }
+    let(:public_bodies) { FactoryBot.create_list(:public_body, 10) }
     let(:info_request_batch) do
-      FactoryGirl.create(:info_request_batch, :public_bodies => public_bodies)
+      FactoryBot.create(:info_request_batch, :public_bodies => public_bodies)
     end
 
     before do
@@ -389,10 +401,123 @@ describe InfoRequestBatch do
     end
   end
 
+  describe '#sent_public_bodies' do
+    subject { batch.sent_public_bodies }
+
+    let(:sent_body) { FactoryBot.build(:public_body) }
+    let(:unsent_body) { FactoryBot.build(:public_body) }
+
+    let(:info_request) do
+      FactoryBot.build(:info_request, public_body: sent_body)
+    end
+
+    let(:batch) do
+      FactoryBot.create(
+        :info_request_batch,
+        info_requests: [info_request],
+        public_bodies: [sent_body, unsent_body]
+      )
+    end
+
+    it { is_expected.to include(sent_body) }
+    it { is_expected.to_not include(unsent_body) }
+  end
+
+  describe '#requestable_public_bodies' do
+    subject { batch.requestable_public_bodies }
+
+    let(:sent_body) { FactoryBot.build(:public_body) }
+    let(:requestable_body) { FactoryBot.build(:public_body) }
+    let(:unrequestable_body) { FactoryBot.build(:blank_email_public_body) }
+
+    let(:info_request) do
+      FactoryBot.build(:info_request, public_body: sent_body)
+    end
+
+    let(:batch) do
+      FactoryBot.create(
+        :info_request_batch,
+        info_requests: [info_request],
+        public_bodies: [sent_body, requestable_body, unrequestable_body]
+      )
+    end
+
+    it { is_expected.to_not include(sent_body) }
+    it { is_expected.to include(requestable_body) }
+    it { is_expected.to_not include(unrequestable_body) }
+  end
+
+  describe '#unrequestable_public_bodies' do
+    subject { batch.unrequestable_public_bodies }
+
+    let(:sent_body) { FactoryBot.build(:public_body) }
+    let(:requestable_body) { FactoryBot.build(:public_body) }
+    let(:unrequestable_body) { FactoryBot.build(:blank_email_public_body) }
+
+    let(:info_request) do
+      FactoryBot.build(:info_request, public_body: sent_body)
+    end
+
+    let(:batch) do
+      FactoryBot.create(
+        :info_request_batch,
+        info_requests: [info_request],
+        public_bodies: [sent_body, requestable_body, unrequestable_body]
+      )
+    end
+
+    it { is_expected.to_not include(sent_body) }
+    it { is_expected.to_not include(requestable_body) }
+    it { is_expected.to include(unrequestable_body) }
+  end
+
+  describe '#all_requests_created?' do
+    subject { batch.all_requests_created? }
+
+    let(:batch) { FactoryBot.build(:info_request_batch) }
+    let(:body) { FactoryBot.build(:public_body) }
+
+    context 'there no requestable public bodies' do
+      before { allow(batch).to receive(:requestable_public_bodies) { [] } }
+      it { is_expected.to eq true }
+    end
+
+    context 'there are requestable public bodies' do
+      before { allow(batch).to receive(:requestable_public_bodies) { [body] } }
+      it { is_expected.to eq false }
+    end
+
+  end
+
+  describe '#should_summarise?' do
+    subject { batch.should_summarise? }
+
+    let!(:batch) do
+      FactoryBot.create(
+        :info_request_batch,
+        public_bodies: [FactoryBot.build(:public_body)],
+        request_summary: FactoryBot.build(:request_summary)
+      )
+    end
+
+    it { is_expected.to eq false }
+
+    context 'without summary' do
+      before { batch.request_summary = nil }
+      it { is_expected.to eq true }
+    end
+
+    context 'all requests have been created' do
+      before { allow(batch).to receive(:all_requests_created?) { true } }
+      it { is_expected.to eq true }
+    end
+
+  end
+
   describe "#log_event" do
-    let(:public_bodies) { FactoryGirl.create_list(:public_body, 3) }
+    let(:public_bodies) { FactoryBot.create_list(:public_body, 3) }
     let(:info_request_batch) do
-      FactoryGirl.create(:info_request_batch, :public_bodies => public_bodies)
+      FactoryBot.create(:info_request_batch, :public_bodies => public_bodies)
     end
 
     before do

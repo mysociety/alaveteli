@@ -43,7 +43,7 @@ describe "when generating urls" do
 
     before do
       AlaveteliLocalization.set_locales('es en', 'en')
-      body = FactoryGirl.create(:public_body, :short_name => 'english_short')
+      body = FactoryBot.create(:public_body, :short_name => 'english_short')
       AlaveteliLocalization.with_locale('es') do
         body.short_name = 'spanish_short'
         body.save!

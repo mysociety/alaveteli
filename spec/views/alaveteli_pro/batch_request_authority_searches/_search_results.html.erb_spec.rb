@@ -2,18 +2,22 @@
 require 'spec_helper'
 
 describe '_search_results.html.erb' do
+  let(:draft_batch_request) { AlaveteliPro::DraftInfoRequestBatch.new() }
+
   def render_view(locals)
     render(:partial => "alaveteli_pro/batch_request_authority_searches/search_results",
            :locals => locals)
   end
 
   describe "when a search has been performed" do
-    let!(:authority_1) { FactoryGirl.create(:public_body) }
-    let!(:authority_2) { FactoryGirl.create(:public_body) }
-    let!(:authority_3) { FactoryGirl.create(:public_body) }
+    let!(:authority_1) { FactoryBot.create(:public_body) }
+    let!(:authority_2) { FactoryBot.create(:public_body) }
+    let!(:authority_3) { FactoryBot.create(:public_body) }
 
     before do
       update_xapian_index
+      allow(view).to receive(:mode)
+      allow(view).to receive(:category_tag)
     end
 
     describe "and there are some results" do
@@ -26,7 +30,7 @@ describe '_search_results.html.erb' do
         expect(search.results).to be_present
         render_view(:search => search,
                     :query => authority_1.name,
-                    :draft_batch_request => AlaveteliPro::DraftInfoRequestBatch.new,
+                    :draft_batch_request => draft_batch_request,
                     :body_ids_added => [],
                     :page => 1,
                     :per_page => 25,
@@ -35,18 +39,30 @@ describe '_search_results.html.erb' do
       end
     end
 
-    describe "and there are no results" do
-      it "renders a no results message" do
-        # @search is nil when there are no results
-        render_view(:search => nil, :query => "")
-        expect(rendered).to have_text("Sorry, no authorities matched that search")
+    describe 'and there are no results' do
+      let(:query) { 'serach term' }
+      let(:search) { ActsAsXapian::Search.new([PublicBody], query, limit: 3) }
+
+      it 'renders a no results message' do
+        render_view(
+          search: search,
+          query: query,
+          draft_batch_request: draft_batch_request
+        )
+        expect(rendered).to have_text(
+          'Sorry, no authorities matched that search'
+        )
       end
     end
   end
 
   describe "when no search has been performed" do
     it "renders nothing" do
-      render_view(:search => nil, :query => nil)
+      render_view(
+        search: nil,
+        query: nil,
+        draft_batch_request: draft_batch_request
+      )
       expect(rendered).to eq ""
     end
   end

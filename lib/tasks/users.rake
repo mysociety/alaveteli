@@ -26,25 +26,11 @@ namespace :users do
     domain = ENV["DOMAIN"]
     from = ENV["START_DATE"]
 
-    total_users = if from
-      User.where("email LIKE ?", "%@#{domain}").
-        where("created_at >= ?", from).
-        count
-    else
-      User.where("email LIKE ?", "%@#{domain}").
-        count
-    end
+    users = User.where("email like ?", "%@#{domain}")
+    users = users.where("created_at >= ?", from) if from
 
-    banned = if from
-      User.where("email like ?", "%@#{domain}").
-        where("ban_text != ''").
-        where("created_at >= ?", from).
-        count
-    else
-      User.where("email like ?", "%@#{domain}").
-        where("ban_text != ''").
-        count
-    end
+    total_users = users.count
+    banned = users.banned.count
 
     banned_percent = if total_users == 0
       0
@@ -152,5 +138,10 @@ namespace :users do
     end
 
     puts csv_string
+  end
+
+  desc 'Update hashed password to the latest algorithm (bcrypt)'
+  task update_hashed_password: :environment do
+    User.sha1.find_each { |user| user.update(password: user.hashed_password) }
   end
 end

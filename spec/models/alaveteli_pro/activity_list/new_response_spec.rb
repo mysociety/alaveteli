@@ -4,7 +4,7 @@ require 'spec_helper'
 describe AlaveteliPro::ActivityList::NewResponse do
   include Rails.application.routes.url_helpers
 
-  let(:event){ FactoryGirl.create(:response_event) }
+  let(:event){ FactoryBot.create(:response_event) }
   let(:activity){ described_class.new(event) }
 
   describe '#description' do

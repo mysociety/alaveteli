@@ -13,3 +13,18 @@
         :law_used_full=>h(@info_request.law_used_human(:full))) %>
   <%= _('to {{public_body}}',:public_body=>public_body_link(@info_request.public_body)) %>
 <% end %>
+<% if @info_request.public_body.eir_only? %>
+  <span class="request-header__foi_no">
+    <br>
+    <%= _('You can only request information about the environment ' \
+          'from this authority.')%>
+    </span>
+<% elsif @info_request.public_body.not_subject_to_law? %>
+  <span class="request-header__foi_no">
+    <br>
+    <%= _('This authority is not subject to FOI law, so is not ' \
+          'legally obliged to respond') %>
+    (<%= link_to _('details'),
+                 help_requesting_path(anchor: 'authorities') %>).
+    </span>
+<% end %>

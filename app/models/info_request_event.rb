@@ -14,6 +14,7 @@
 #  incoming_message_id :integer
 #  outgoing_message_id :integer
 #  comment_id          :integer
+#  updated_at          :datetime
 #
 
 # models/info_request_event.rb:
@@ -30,7 +31,6 @@ class InfoRequestEvent < ActiveRecord::Base
     'resent',
     'followup_sent',
     'followup_resent',
-
     'edit', # title etc. edited (in admin interface)
     'edit_outgoing', # outgoing message edited (in admin interface)
     'edit_comment', # comment edited (in admin interface)

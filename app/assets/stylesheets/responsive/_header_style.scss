@@ -29,10 +29,10 @@
   text-align: center;
   display: inline-block;
   // vertically center it with normal text
-  position: relative;
-  top: -0.35em;
+  position: absolute;
+  top: 1.1em;
   line-height: 1em;
-  right: -4px;
+  right: 20px;
 }
 
 .profile-summary__image {
@@ -43,4 +43,25 @@
   color: #777;
   font-size: 0.875em;
   overflow-wrap: break-word;
+}
+
+.locale-list {
+  border-bottom: 1px solid rgba(0,0,0,0.15);
+  @include respond-min( $main_menu-mobile_menu_cutoff ) {
+    border: 0;
+  }
+}
+
+.logged_in_bar {
+  border-bottom: 1px solid rgba(0,0,0,0.15);
+  @include respond-min( $main_menu-mobile_menu_cutoff ) {
+    border: 0;
+  }
+}
+
+.navigation_search {
+  border-bottom: 1px solid rgba(0,0,0,0.15);
+  @include respond-min( $main_menu-mobile_menu_cutoff ) {
+    border: 0;
+  }
 }

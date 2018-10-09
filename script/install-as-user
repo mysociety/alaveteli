@@ -150,8 +150,8 @@ then
     echo Running load-sample-data
     bundle exec script/load-sample-data
 
-    echo Running rebuild-xapian-index
-    script/rebuild-xapian-index
+    echo Running destroy-and-rebuild-xapian-index
+    script/destroy-and-rebuild-xapian-index
 
     touch "$LOADED_INDICATOR"
 fi

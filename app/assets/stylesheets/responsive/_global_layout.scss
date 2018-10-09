@@ -112,9 +112,10 @@ textarea{
 
 #right_column_flip, #right_column {
   @include grid-column(12);
+  margin-top: 20px;
   @include respond-min( $main_menu-mobile_menu_cutoff ){
+    margin-top: 0;
     @include grid-column($columns:3);
-    margin-top:20px;
     @include lte-ie7 {
       width: 12.625em;
     }
@@ -137,6 +138,26 @@ textarea{
 
   @include respond-min( $main_menu-mobile_menu_cutoff ){
     padding: 1.2em;
+  }
+}
+
+.sidebar--sticky {  
+  @supports (position: sticky) or (position: -webkit-sticky){
+    $sidebar-vertical-margin: 20px;
+    $adminbar-height: 41px;
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      position: -webkit-sticky;
+      position: sticky;
+      top: $sidebar-vertical-margin;
+      //If the sticky sidebar is taller than the screen height, make the contents scrollable
+      max-height: calc(100vh - #{$sidebar-vertical-margin});
+      overflow: auto;
+      .admin + * & {
+        // If you're an admin your sticky sidebar needs more space to account for the sticky admin bar
+        top: $adminbar-height + $sidebar-vertical-margin;
+        max-height: calc(100vh - #{$adminbar-height} - (#{$sidebar-vertical-margin} * 2));
+      }
+    }
   }
 }
 
@@ -179,7 +200,7 @@ textarea{
 .action-bar__follow,
 .action-bar__follow-button,
 .action-bar__follower-count {
- vertical-align: top;
+ vertical-align: middle;
  font-size: 16px;
  margin: 1em 0;
  @include respond-min( 30em ){

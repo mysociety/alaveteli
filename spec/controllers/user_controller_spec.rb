@@ -5,7 +5,7 @@ describe UserController do
 
   describe 'GET show' do
 
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     it 'renders the show template' do
       get :show, :url_name => user.url_name
@@ -29,7 +29,7 @@ describe UserController do
     end
 
     it 'raises a RecordNotFound for unconfirmed users' do
-      user = FactoryGirl.create(:user, email_confirmed: false)
+      user = FactoryBot.create(:user, email_confirmed: false)
       expect { get :show, url_name: user.url_name }.
         to raise_error(ActiveRecord::RecordNotFound)
     end
@@ -51,10 +51,10 @@ describe UserController do
       end
 
       it 'does not redirect a long canonical name that has a numerical suffix' do
-        FactoryGirl.create(:user,
-                           name: 'Bob Smith Bob Smith Bob Smith Bob Smith')
-        FactoryGirl.create(:user,
-                           name: 'Bob Smith Bob Smith Bob Smith Bob Smith')
+        FactoryBot.create(:user,
+                          name: 'Bob Smith Bob Smith Bob Smith Bob Smith')
+        FactoryBot.create(:user,
+                          name: 'Bob Smith Bob Smith Bob Smith Bob Smith')
         get :show, url_name: 'bob_smith_bob_smith_bob_smith_bo_2'
         expect(response).to be_success
       end
@@ -110,8 +110,8 @@ describe UserController do
       end
 
       it 'does not show private requests' do
-        user = FactoryGirl.create(:pro_user)
-        FactoryGirl.create(:embargoed_request, user: user)
+        user = FactoryBot.create(:pro_user)
+        FactoryBot.create(:embargoed_request, user: user)
         update_xapian_index
         get :show, url_name: user.url_name, view: 'requests'
         expect(assigns[:private_requests]).to be_empty
@@ -199,7 +199,7 @@ describe UserController do
       end
 
       it "assigns the user's undescribed requests" do
-        info_request = FactoryGirl.create(:info_request, user: user)
+        info_request = FactoryBot.create(:info_request, user: user)
 
         allow_any_instance_of(User).
           to receive(:get_undescribed_requests).
@@ -211,7 +211,7 @@ describe UserController do
       end
 
       it "assigns the user's track things" do
-        search_track = FactoryGirl.create(:search_track, tracking_user: user)
+        search_track = FactoryBot.create(:search_track, tracking_user: user)
 
         make_request
 
@@ -219,7 +219,7 @@ describe UserController do
       end
 
       it "assigns the user's grouped track things" do
-        search_track = FactoryGirl.create(:search_track, tracking_user: user)
+        search_track = FactoryBot.create(:search_track, tracking_user: user)
 
         make_request
 
@@ -237,23 +237,23 @@ describe UserController do
 
       it 'does not include annotations of hidden requests in the count' do
         hidden_request =
-          FactoryGirl.create(:info_request, prominence: 'hidden')
-        comment1 = FactoryGirl.create(:visible_comment,
-                                      info_request: hidden_request,
-                                      user: user)
-        FactoryGirl.create(:info_request_event,
-                           event_type: 'comment',
-                           comment: comment1,
-                           info_request: hidden_request)
+          FactoryBot.create(:info_request, prominence: 'hidden')
+        comment1 = FactoryBot.create(:visible_comment,
+                                     info_request: hidden_request,
+                                     user: user)
+        FactoryBot.create(:info_request_event,
+                          event_type: 'comment',
+                          comment: comment1,
+                          info_request: hidden_request)
 
-        shown_request = FactoryGirl.create(:info_request)
-        comment2 = FactoryGirl.create(:visible_comment,
-                                      info_request: shown_request,
-                                      user: user)
-        FactoryGirl.create(:info_request_event,
-                           event_type: 'comment',
-                           comment: comment2,
-                           info_request: shown_request)
+        shown_request = FactoryBot.create(:info_request)
+        comment2 = FactoryBot.create(:visible_comment,
+                                     info_request: shown_request,
+                                     user: user)
+        FactoryBot.create(:info_request_event,
+                          event_type: 'comment',
+                          comment: comment2,
+                          info_request: shown_request)
 
         expect(user.reload.comments.size).to eq(2)
         expect(user.reload.comments.visible.size).to eq(1)
@@ -265,8 +265,8 @@ describe UserController do
       end
 
       it 'shows private requests' do
-        user = FactoryGirl.create(:pro_user)
-        info_request = FactoryGirl.create(:embargoed_request, user: user)
+        user = FactoryBot.create(:pro_user)
+        info_request = FactoryBot.create(:embargoed_request, user: user)
         update_xapian_index
         session[:user_id] = user.id
         get :show, url_name: user.url_name, view: 'requests'
@@ -274,9 +274,9 @@ describe UserController do
       end
 
       it 'does not show hidden private requests' do
-        user = FactoryGirl.create(:pro_user)
-        info_request = FactoryGirl.create(:embargoed_request, user: user)
-        FactoryGirl.create(:embargoed_request, user: user, prominence: 'hidden')
+        user = FactoryBot.create(:pro_user)
+        info_request = FactoryBot.create(:embargoed_request, user: user)
+        FactoryBot.create(:embargoed_request, user: user, prominence: 'hidden')
         update_xapian_index
         session[:user_id] = user.id
         get :show, url_name: user.url_name, view: 'requests'
@@ -293,8 +293,8 @@ describe UserController do
 
       it 'filters by the given query' do
         request_1 =
-          FactoryGirl.create(:info_request, user: user, title: 'Some money?')
-        FactoryGirl.create(:info_request, user: user, title: 'How many books?')
+          FactoryBot.create(:info_request, user: user, title: 'Some money?')
+        FactoryBot.create(:info_request, user: user, title: 'How many books?')
         update_xapian_index
 
         get :show, url_name: user.url_name,
@@ -308,11 +308,11 @@ describe UserController do
       end
 
       it 'filters private requests by the given query' do
-        user = FactoryGirl.create(:pro_user)
+        user = FactoryBot.create(:pro_user)
         request_1 =
-          FactoryGirl.
+          FactoryBot.
           create(:embargoed_request, user: user, title: 'Some money?')
-        FactoryGirl.
+        FactoryBot.
           create(:embargoed_request, user: user, title: 'How many books?')
         update_xapian_index
 
@@ -327,9 +327,9 @@ describe UserController do
 
       it 'filters by the given query and request status' do
         request_1 =
-          FactoryGirl.create(:info_request, user: user, title: 'Some money?')
-        FactoryGirl.create(:successful_request, user: user, title: 'More money')
-        FactoryGirl.create(:info_request, user: user, title: 'How many books?')
+          FactoryBot.create(:info_request, user: user, title: 'Some money?')
+        FactoryBot.create(:successful_request, user: user, title: 'More money')
+        FactoryBot.create(:info_request, user: user, title: 'How many books?')
         update_xapian_index
 
         get :show, url_name: user.url_name,
@@ -345,11 +345,11 @@ describe UserController do
 
       it 'filters private requests by the given query and request status' do
         request_1 =
-          FactoryGirl.
+          FactoryBot.
           create(:embargoed_request, user: user, title: 'Some money?')
-        FactoryGirl.
+        FactoryBot.
           create(:embargoed_request, user: user, title: 'How many books?')
-        FactoryGirl.
+        FactoryBot.
           create(:embargoed_request, user: user, title: 'More money').
           set_described_state('successful')
         update_xapian_index
@@ -373,11 +373,11 @@ describe UserController do
       render_views
 
       before do
-        session[:user_id] = FactoryGirl.create(:user).id
+        session[:user_id] = FactoryBot.create(:user).id
       end
 
       it "does not assign undescribed requests" do
-        info_request = FactoryGirl.create(:info_request, user: user)
+        info_request = FactoryBot.create(:info_request, user: user)
 
         allow_any_instance_of(User).
           to receive(:get_undescribed_requests).
@@ -389,7 +389,7 @@ describe UserController do
       end
 
       it "does not assign the user's track things" do
-        search_track = FactoryGirl.create(:search_track, tracking_user: user)
+        search_track = FactoryBot.create(:search_track, tracking_user: user)
 
         make_request
 
@@ -397,7 +397,7 @@ describe UserController do
       end
 
       it "does not assign grouped track things" do
-        search_track = FactoryGirl.create(:search_track, tracking_user: user)
+        search_track = FactoryBot.create(:search_track, tracking_user: user)
 
         make_request
 
@@ -414,23 +414,23 @@ describe UserController do
 
       it 'does not include annotations of hidden requests in the count' do
         hidden_request =
-          FactoryGirl.create(:info_request, prominence: 'hidden')
-        comment1 = FactoryGirl.create(:visible_comment,
-                                      info_request: hidden_request,
-                                      user: user)
-        FactoryGirl.create(:info_request_event,
+          FactoryBot.create(:info_request, prominence: 'hidden')
+        comment1 = FactoryBot.create(:visible_comment,
+                                     info_request: hidden_request,
+                                     user: user)
+        FactoryBot.create(:info_request_event,
                            event_type: 'comment',
                            comment: comment1,
                            info_request: hidden_request)
 
-        shown_request = FactoryGirl.create(:info_request)
-        comment2 = FactoryGirl.create(:visible_comment,
-                                      info_request: shown_request,
-                                      user: user)
-        FactoryGirl.create(:info_request_event,
-                           event_type: 'comment',
-                           comment: comment2,
-                           info_request: shown_request)
+        shown_request = FactoryBot.create(:info_request)
+        comment2 = FactoryBot.create(:visible_comment,
+                                     info_request: shown_request,
+                                     user: user)
+        FactoryBot.create(:info_request_event,
+                          event_type: 'comment',
+                          comment: comment2,
+                          info_request: shown_request)
 
         expect(user.reload.comments.size).to eq(2)
         expect(user.reload.comments.visible.size).to eq(1)
@@ -442,17 +442,17 @@ describe UserController do
       end
 
       it 'does not show private requests' do
-        pro_user = FactoryGirl.create(:pro_user)
-        info_request = FactoryGirl.create(:embargoed_request, user: pro_user)
+        pro_user = FactoryBot.create(:pro_user)
+        info_request = FactoryBot.create(:embargoed_request, user: pro_user)
         update_xapian_index
         get :show, url_name: pro_user.url_name, view: 'requests'
         expect(assigns[:private_requests]).to be_empty
       end
 
       it 'does not show hidden private requests' do
-        pro_user = FactoryGirl.create(:pro_user)
-        info_request = FactoryGirl.create(:embargoed_request, user: pro_user)
-        FactoryGirl.
+        pro_user = FactoryBot.create(:pro_user)
+        info_request = FactoryBot.create(:embargoed_request, user: pro_user)
+        FactoryBot.
           create(:embargoed_request, user: pro_user, prominence: 'hidden')
         update_xapian_index
         get :show, url_name: pro_user.url_name, view: 'requests'
@@ -463,13 +463,13 @@ describe UserController do
     context 'when logged in filtering other requests' do
 
       before do
-        session[:user_id] = FactoryGirl.create(:user).id
+        session[:user_id] = FactoryBot.create(:user).id
       end
 
       it 'filters by the given query' do
         request_1 =
-          FactoryGirl.create(:info_request, user: user, title: 'Some money?')
-        FactoryGirl.create(:info_request, user: user, title: 'How many books?')
+          FactoryBot.create(:info_request, user: user, title: 'Some money?')
+        FactoryBot.create(:info_request, user: user, title: 'How many books?')
         update_xapian_index
 
         get :show, url_name: user.url_name,
@@ -483,11 +483,11 @@ describe UserController do
       end
 
       it 'does not show private requests when filtering by query' do
-        pro_user = FactoryGirl.create(:pro_user)
+        pro_user = FactoryBot.create(:pro_user)
         request_1 =
-          FactoryGirl.
+          FactoryBot.
           create(:embargoed_request, user: pro_user, title: 'Some money?')
-        FactoryGirl.
+        FactoryBot.
           create(:embargoed_request, user: pro_user, title: 'How many books?')
         update_xapian_index
 
@@ -500,9 +500,9 @@ describe UserController do
 
       it 'filters by the given query and request status' do
         request_1 =
-          FactoryGirl.create(:info_request, user: user, title: 'Some money?')
-        FactoryGirl.create(:successful_request, user: user, title: 'More money')
-        FactoryGirl.create(:info_request, user: user, title: 'How many books?')
+          FactoryBot.create(:info_request, user: user, title: 'Some money?')
+        FactoryBot.create(:successful_request, user: user, title: 'More money')
+        FactoryBot.create(:info_request, user: user, title: 'How many books?')
         update_xapian_index
 
         get :show, url_name: user.url_name,
@@ -517,13 +517,13 @@ describe UserController do
       end
 
       it 'does not show private requests when filtering by request status' do
-        pro_user = FactoryGirl.create(:pro_user)
+        pro_user = FactoryBot.create(:pro_user)
         request_1 =
-          FactoryGirl.
+          FactoryBot.
           create(:embargoed_request, user: pro_user, title: 'Some money?')
-        FactoryGirl.
+        FactoryBot.
           create(:embargoed_request, user: pro_user, title: 'How many books?')
-        FactoryGirl.
+        FactoryBot.
           create(:embargoed_request, user: pro_user, title: 'More money').
           set_described_state('successful')
         update_xapian_index
@@ -545,7 +545,7 @@ describe UserController do
     context 'user is banned' do
 
       before(:each) do
-        @user = FactoryGirl.create(:user, :ban_text => 'Causing trouble')
+        @user = FactoryBot.create(:user, :ban_text => 'Causing trouble')
         session[:user_id] = @user.id
         @uploadedfile = fixture_file_upload("/files/parrot.png")
 
@@ -560,7 +560,7 @@ describe UserController do
       end
 
       it 'renders an error message' do
-        msg = 'Banned users cannot edit their profile'
+        msg = 'Suspended users cannot edit their profile'
         expect(flash[:error]).to eq(msg)
       end
 
@@ -594,7 +594,7 @@ describe UserController, "when signing up" do
   end
 
   it "should not show the 'already in use' error when trying to sign up with a duplicate email" do
-    existing_user = FactoryGirl.create(:user, :email => 'in-use@localhost')
+    existing_user = FactoryBot.create(:user, :email => 'in-use@localhost')
 
     post :signup, { :user_signup => { :email => 'in-use@localhost', :name => 'Mr Suspected-Hacker',
                                       :password => 'sillypassword', :password_confirmation => 'mistyped' }
@@ -676,7 +676,7 @@ describe UserController, "when signing up" do
   end
 
   context 'when the user is already signed in' do
-    let(:user){ FactoryGirl.create(:user) }
+    let(:user){ FactoryBot.create(:user) }
 
     before do
       ActionController::Base.allow_forgery_protection = true
@@ -784,29 +784,30 @@ describe UserController, "when signing up" do
 
   end
 
-  context 'using a known spam domain' do
+  context 'using a spammy name or email from a known spam domain' do
 
     before do
       spam_scorer = double
-      allow(spam_scorer).
-        to receive(:email_from_spam_domain?).and_return(true)
+      allow(spam_scorer).to receive(:spam?).and_return(true)
       allow(UserSpamScorer).to receive(:new).and_return(spam_scorer)
     end
 
-    context 'when block_spam_email_domains? is true' do
+    context 'when spam_should_be_blocked? is true' do
 
       before do
         allow(@controller).
-          to receive(:block_spam_email_domains?).and_return(true)
+          to receive(:spam_should_be_blocked?).and_return(true)
       end
 
       it 'logs the signup attempt' do
-        msg = "Attempted signup from spam domain email: spammer@example.com"
+        msg = "Attempted signup from suspected spammer, " \
+              "email: spammer@example.com, " \
+              "name: 'Download New Person 1080p!'"
         expect(Rails.logger).to receive(:info).with(msg)
 
         post :signup,
              :user_signup => { :email => 'spammer@example.com',
-                               :name => 'New Person',
+                               :name => 'Download New Person 1080p!',
                                :password => 'sillypassword',
                                :password_confirmation => 'sillypassword' }
       end
@@ -814,7 +815,7 @@ describe UserController, "when signing up" do
       it 'blocks the signup' do
         post :signup,
              :user_signup => { :email => 'spammer@example.com',
-                               :name => 'New Person',
+                               :name => 'Download New Person 1080p!',
                                :password => 'sillypassword',
                                :password_confirmation => 'sillypassword' }
         expect(User.where(:email => 'spammer@example.com').count).to eq(0)
@@ -823,45 +824,35 @@ describe UserController, "when signing up" do
       it 're-renders the form' do
         post :signup,
              :user_signup => { :email => 'spammer@example.com',
-                               :name => 'New Person',
+                               :name => 'Download New Person 1080p!',
                                :password => 'sillypassword',
                                :password_confirmation => 'sillypassword' }
         expect(response).to render_template('sign')
       end
 
-      it 'sets a flash error' do
-        post :signup,
-             :user_signup => { :email => 'spammer@example.com',
-                               :name => 'New Person',
-                               :password => 'sillypassword',
-                               :password_confirmation => 'sillypassword' }
-        expect(flash[:error]).to match(/unable to sign up new users/)
-      end
-
     end
 
-    context 'when block_spam_email_domains? is false' do
+    context 'when spam_should_be_blocked? is false' do
 
       before do
         allow(@controller).
-          to receive(:block_spam_email_domains?).and_return(false)
+          to receive(:spam_should_be_blocked?).and_return(false)
       end
 
       it 'sends an exception notification' do
         post :signup,
              :user_signup => { :email => 'spammer@example.com',
-                               :name => 'New Person',
+                               :name => 'Download New Person 1080p!',
                                :password => 'sillypassword',
                                :password_confirmation => 'sillypassword' }
         mail = ActionMailer::Base.deliveries.first
-        expect(mail.subject).
-          to match(/signup from spam domain email: spammer@example\.com/)
+        expect(mail.subject).to match(/signup from suspected spammer/)
       end
 
       it 'allows the signup' do
         post :signup,
              :user_signup => { :email => 'spammer@example.com',
-                               :name => 'New Person',
+                               :name => 'Download New Person 1080p!',
                                :password => 'sillypassword',
                                :password_confirmation => 'sillypassword' }
         expect(User.where(:email => 'spammer@example.com').count).to eq(1)
@@ -1036,7 +1027,7 @@ describe UserController, "when using profile photos" do
   end
 
   context 'there is no profile text' do
-    let(:user) { FactoryGirl.create(:user, :about_me => '') }
+    let(:user) { FactoryBot.create(:user, :about_me => '') }
 
     it 'prompts you to add profile text when adding a photo' do
       session[:user_id] = user.id

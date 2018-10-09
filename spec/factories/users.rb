@@ -7,7 +7,7 @@
 #  email                             :string           not null
 #  name                              :string           not null
 #  hashed_password                   :string           not null
-#  salt                              :string           not null
+#  salt                              :string
 #  created_at                        :datetime         not null
 #  updated_at                        :datetime         not null
 #  email_confirmed                   :boolean          default(FALSE), not null
@@ -35,13 +35,12 @@
 #  daily_summary_minute              :integer
 #
 
-FactoryGirl.define do
+FactoryBot.define do
 
   factory :user do
     sequence(:name) { |n| "Example User #{n}" }
     sequence(:email) { |n| "person#{n}@example.com" }
-    salt "-6116981980.392287733335677"
-    hashed_password '6b7cd45a5f35fd83febc0452a799530398bfb6e8' # jonespassword
+    password 'jonespassword'
     email_confirmed true
     ban_text ""
     confirmed_not_spam true

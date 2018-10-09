@@ -70,8 +70,8 @@ module Alaveteli
     config.autoload_paths << "#{Rails.root.to_s}/lib/health_checks"
 
     # See Rails::Configuration for more options
-    ENV['RECAPTCHA_PUBLIC_KEY'] = ::AlaveteliConfiguration::recaptcha_public_key
-    ENV['RECAPTCHA_PRIVATE_KEY'] = ::AlaveteliConfiguration::recaptcha_private_key
+    ENV['RECAPTCHA_SITE_KEY'] = AlaveteliConfiguration.recaptcha_site_key
+    ENV['RECAPTCHA_SECRET_KEY'] = AlaveteliConfiguration.recaptcha_secret_key
 
     # Insert a bit of middleware code to prevent uneeded cookie setting.
     require "#{Rails.root}/lib/strip_empty_sessions"

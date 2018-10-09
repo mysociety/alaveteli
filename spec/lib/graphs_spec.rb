@@ -8,8 +8,8 @@ describe Graphs do
 
   describe "when asked to select data as columns" do
 
-    let(:user1) { FactoryGirl.create(:user) }
-    let(:user2) { FactoryGirl.create(:user) }
+    let(:user1) { FactoryBot.create(:user) }
+    let(:user2) { FactoryBot.create(:user) }
 
     it "returns an array containing arrays of column values" do
       sql = "SELECT name, id FROM users where id IN (#{user1.id}, #{user2.id}) " \

@@ -611,6 +611,81 @@ module ActsAsXapian
   class ActsAsXapianJob < ActiveRecord::Base
   end
 
+  # Encapsulates an ActsAsXapianJob ID that failed, the error that occured and
+  # information about the model that was being indexed in order to print
+  # diagnostic information.
+  class FailedJob
+    attr_reader :job_id, :error, :model_data
+
+    def initialize(job_id, error, model_data = {})
+      @job_id = job_id
+      @error = error
+      @model_data = model_data
+    end
+
+    def job_info
+      msg = "FAILED ActsAsXapian.update_index job #{ job_id } #{ error.class }"
+      msg += " model #{ job_model }" if job_model
+      msg += " id #{ job_model_id }" if job_model_id
+      msg += '.'
+      msg
+    end
+
+    # TODO: This tries to call join on nil in Ruby 2.5.0.
+    # We think its a Rails 4.2.x + Ruby 2.5.x incompatibility.
+    # https://github.com/mysociety/alaveteli/pull/4592#discussion_r180816027
+    def error_backtrace
+      error.backtrace.join("\n")
+    end
+
+    def full_message
+      msg = job_info
+      msg += "\n\n"
+      msg += error_message
+      msg += "\n\n"
+      msg += retry_message
+      msg += "\n\n"
+      msg += backtrace_header
+      msg += "\n"
+      msg += error_backtrace
+    end
+
+    private
+
+    def job_model
+      model_data[:model]
+    end
+
+    def job_model_id
+      model_data[:model_id]
+    end
+
+    def error_message
+      "#{ error.class }: #{ error.message }."
+    end
+
+    def retry_message
+      msg = 'This job will be removed from the queue. Once the underlying ' \
+            'problem is fixed, manually re-index the model record.'
+
+      if job_model && job_model_id
+        msg += "\n\n"
+        msg += "You can do this in a rails console with " \
+               "`#{job_model}.find(#{job_model_id}).xapian_mark_needs_index`."
+      end
+
+      msg
+    end
+
+    def backtrace_header
+      <<-EOF.strip_heredoc
+      ---------
+      Backtrace
+      ---------
+      EOF
+    end
+  end
+
   # Update index with any changes needed, call this offline. Usually call it
   # from a script that exits - otherwise Xapian's writable database won't
   # flush your changes. Specifying flush will reduce performance, but make
@@ -649,9 +724,18 @@ module ActsAsXapian
           end
           run_job(job, flush, verbose)
         end
-      rescue => detail
+      rescue StandardError => error
         # print any error, and carry on so other things are indexed
-        STDERR.puts(detail.backtrace.join("\n") + "\nFAILED ActsAsXapian.update_index job #{id} #{$!} " + (job.nil? ? "" : "model " + job.model + " id " + job.model_id.to_s))
+        model_data = { model: job.try(:model), model_id: job.try(:model_id) }
+        failed_job = FailedJob.new(id, error, model_data)
+        STDERR.puts(failed_job.full_message)
+      ensure
+        # We never want to reprocess existing jobs.
+        # If it succeeded the first time, it should already be destroyed.
+        # If it failed, then we don't want to keep trying to process it every
+        # cron run – we should create an issue and investigate it, and requeue
+        # the record once there's a fix in place.
+        job.try(:destroy)
       end
     end
     # We close the database when we're finished to remove the lock file. Since writable_init
@@ -698,8 +782,7 @@ module ActsAsXapian
   # Incremental update_index calls above are suspended while this rebuild
   # happens (i.e. while the .new database is there) - any index update jobs
   # are left in the database, and will run after the rebuild has finished.
-
-  def self.rebuild_index(model_classes, verbose = false, terms = true, values = true, texts = true, safe_rebuild = true)
+  def self.destroy_and_rebuild_index(model_classes, verbose = false, terms = true, values = true, texts = true, safe_rebuild = true)
     #raise "when rebuilding all, please call as first and only thing done in process / task" if not ActsAsXapian.writable_db.nil?
     prepare_environment
 
@@ -718,15 +801,15 @@ module ActsAsXapian
     ActsAsXapian.writable_db.close # just to make an empty one to read
     # Index everything
     if safe_rebuild
-      _rebuild_index_safely(model_classes, verbose, terms, values, texts)
+      _destroy_and_rebuild_index_safely(model_classes, verbose, terms, values, texts)
     else
       @@db_path = ActsAsXapian.db_path + ".new"
       ActsAsXapian.writable_init
       # Save time by running the indexing in one go and in-process
       for model_class in model_classes
-        STDOUT.puts("ActsAsXapian.rebuild_index: Rebuilding #{model_class.to_s}") if verbose
+        STDOUT.puts("ActsAsXapian.destroy_and_rebuild_index: Rebuilding #{model_class.to_s}") if verbose
         model_class.find_each do |model|
-          STDOUT.puts("ActsAsXapian.rebuild_index      #{model_class} #{model.id}") if verbose
+          STDOUT.puts("ActsAsXapian.destroy_and_rebuild_index      #{model_class} #{model.id}") if verbose
           model.xapian_index(terms, values, texts)
         end
       end
@@ -760,7 +843,7 @@ module ActsAsXapian
     @@db_path = old_path
   end
 
-  def self._rebuild_index_safely(model_classes, verbose, terms, values, texts)
+  def self._destroy_and_rebuild_index_safely(model_classes, verbose, terms, values, texts)
     batch_size = 1000
     for model_class in model_classes
       model_class_count = model_class.count
@@ -784,9 +867,9 @@ module ActsAsXapian
           ActiveRecord::Base.establish_connection
           @@db_path = ActsAsXapian.db_path + ".new"
           ActsAsXapian.writable_init
-          STDOUT.puts("ActsAsXapian.rebuild_index: New batch. #{model_class.to_s} from #{i} to #{i + batch_size} of #{model_class_count} pid #{Process.pid.to_s}") if verbose
+          STDOUT.puts("ActsAsXapian.destroy_and_rebuild_index: New batch. #{model_class.to_s} from #{i} to #{i + batch_size} of #{model_class_count} pid #{Process.pid.to_s}") if verbose
           model_class.limit(batch_size).offset(i).order('id').each do |model|
-            STDOUT.puts("ActsAsXapian.rebuild_index      #{model_class} #{model.id}") if verbose
+            STDOUT.puts("ActsAsXapian.destroy_and_rebuild_index      #{model_class} #{model.id}") if verbose
             model.xapian_index(terms, values, texts)
           end
           ActsAsXapian.writable_db.flush
@@ -936,9 +1019,11 @@ module ActsAsXapian
         if value.kind_of?(Array)
           for v in value
             doc.add_term(term[1] + v)
+            doc.add_posting(term[1] + v, 1, Integer(term[3])) if term[3]
           end
         else
           doc.add_term(term[1] + value)
+          doc.add_posting(term[1] + value, 1, Integer(term[3])) if term[3]
         end
       end
 
@@ -948,12 +1033,17 @@ module ActsAsXapian
           doc.add_value(value[1], xapian_value(value[0], value[3]))
         end
       end
+
       if texts
         ActsAsXapian.term_generator.document = doc
         for text in texts_to_index
           ActsAsXapian.term_generator.increase_termpos # stop phrases spanning different text fields
-          # TODO: the "1" here is a weight that could be varied for a boost function
-          ActsAsXapian.term_generator.index_text(xapian_value(text, nil, true), 1)
+          # The "100" here is a weight that could be varied for a boost
+          # function. A lower number represents a higher weight, so we set the
+          # default to a relatively low weight to give us flexibility either
+          # side.
+          xapian_value = xapian_value(text, nil, true)
+          ActsAsXapian.term_generator.index_text(xapian_value, 100)
         end
       end
 

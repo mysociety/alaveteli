@@ -45,7 +45,7 @@
               <%= @plan.name %>
             </div>
             <div class="plan-overview__details">
-              1 month auto-renew
+              <%= billing_frequency(@plan.interval) %>
             </div>
             <label class="plan-overview__amount amount">
               <span>
@@ -78,7 +78,7 @@
           <%= stripe_button(
             label: _('Pay with card'),
             panel_label: _('Pay'),
-            description: _('A monthly subscription'),
+            description: @stripe_button_description,
             amount: @plan.amount_with_tax,
             currency: AlaveteliConfiguration.iso_currency_code
           ) %>

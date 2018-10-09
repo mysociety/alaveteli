@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe "notification_mailer/embargo_expiring_notification.text.erb" do
   let!(:info_request) do
-    FactoryGirl.create(:embargo_expiring_request)
+    FactoryBot.create(:embargo_expiring_request)
   end
 
   before do

@@ -6,17 +6,17 @@ describe TrackController do
 
   describe 'GET #track_request' do
     let(:info_request) do
-      FactoryGirl.create(:info_request,
-                          :title => 'My request',
-                          :url_title => 'myrequest')
+      FactoryBot.create(:info_request,
+                        :title => 'My request',
+                        :url_title => 'myrequest')
     end
     let(:track_thing) do
-      FactoryGirl.create(:request_update_track,
-                         :info_request => info_request,
-                         :track_medium => 'email_daily',
-                         :track_query => 'example')
+      FactoryBot.create(:request_update_track,
+                        :info_request => info_request,
+                        :track_medium => 'email_daily',
+                        :track_query => 'example')
     end
-    let(:user) { FactoryGirl.create(:user, :locale => 'en', :name => 'bob') }
+    let(:user) { FactoryBot.create(:user, :locale => 'en', :name => 'bob') }
 
     it 'clears widget votes for the request' do
       allow(AlaveteliConfiguration).to receive(:enable_widgets).and_return(true)
@@ -66,7 +66,7 @@ describe TrackController do
 
     it "should 404 for embargoed requests" do
       session[:user_id] = user.id
-      embargoed_request = FactoryGirl.create(:embargoed_request)
+      embargoed_request = FactoryBot.create(:embargoed_request)
       expect { get :track_request, :url_title => embargoed_request.url_title,
                                    :feed => 'track' }
         .to raise_error(ActiveRecord::RecordNotFound)
@@ -139,7 +139,7 @@ describe TrackController do
       it 'should return atom/xml for a feed url without format specified, even if the
             requester prefers json' do
         request.env['HTTP_ACCEPT'] = 'application/json,text/xml'
-        track_thing = FactoryGirl.create(:request_update_track)
+        track_thing = FactoryBot.create(:request_update_track)
         get :track_request, :feed => 'feed',
                             :url_title => track_thing.info_request.url_title
         expect(response).to render_template('track/atom_feed')
@@ -151,12 +151,12 @@ describe TrackController do
 
   describe "GET #track_search_query" do
     let(:track_thing) do
-      FactoryGirl.create(:search_track,
-                         :track_medium => 'email_daily',
-                         :track_query => 'example')
+      FactoryBot.create(:search_track,
+                        :track_medium => 'email_daily',
+                        :track_query => 'example')
     end
 
-    let(:user) { FactoryGirl.create(:user, :locale => 'en', :name => 'bob') }
+    let(:user) { FactoryBot.create(:user, :locale => 'en', :name => 'bob') }
 
     it "should save a search track and redirect to the right place" do
       session[:user_id] = user.id
@@ -188,10 +188,10 @@ describe TrackController do
       session[:user_id] = user.id
 
       existing =
-        FactoryGirl.create(:search_track,
-                           :tracking_user => user,
-                           :track_medium => 'email_daily',
-                           :track_query => 'bob variety:sent')
+        FactoryBot.create(:search_track,
+                          :tracking_user => user,
+                          :track_medium => 'email_daily',
+                          :track_query => 'bob variety:sent')
 
       get :track_search_query,
           :query_array => 'bob variety:sent',
@@ -218,8 +218,8 @@ describe TrackController do
   end
 
   describe "GET #track_public_body" do
-    let(:public_body) { FactoryGirl.create(:public_body) }
-    let(:user) { FactoryGirl.create(:user, :locale => 'en', :name => 'bob') }
+    let(:public_body) { FactoryBot.create(:public_body) }
+    let(:user) { FactoryBot.create(:user, :locale => 'en', :name => 'bob') }
 
     before do
       # these tests depend on the xapian index existing, although
@@ -278,8 +278,8 @@ describe TrackController do
   end
 
   describe "GET #track_user" do
-    let(:target_user) { FactoryGirl.create(:user) }
-    let(:user) { FactoryGirl.create(:user) }
+    let(:target_user) { FactoryBot.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     it "should save a user track and redirect to the right place" do
       session[:user_id] = user.id
@@ -311,7 +311,7 @@ describe TrackController do
   end
 
   describe "GET #track_list" do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     it "should save a list track and redirect to the right place" do
       session[:user_id] = user.id
@@ -337,7 +337,7 @@ describe TrackController do
   end
 
   describe "PUT #update" do
-    let(:track_thing) { FactoryGirl.create(:search_track) }
+    let(:track_thing) { FactoryBot.create(:search_track) }
 
     it 'should destroy the track thing' do
       get :update, {:track_id => track_thing.id,
@@ -356,7 +356,7 @@ describe TrackController do
     end
 
     it 'should not redirect to a url on another site' do
-      track_thing = FactoryGirl.create(:search_track)
+      track_thing = FactoryBot.create(:search_track)
       get :update, {:track_id => track_thing.id,
                     :track_medium => 'delete',
                     :r => 'http://example.com/'},
@@ -367,7 +367,7 @@ describe TrackController do
 
   describe 'POST #delete_all_type' do
 
-    let(:track_thing) { FactoryGirl.create(:search_track) }
+    let(:track_thing) { FactoryBot.create(:search_track) }
 
     context 'when the user passed in the params is not logged in' do
 

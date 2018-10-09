@@ -4,7 +4,7 @@ require 'spec_helper'
 describe AlaveteliPro::ToDoList::ExpiringEmbargo do
   include Rails.application.routes.url_helpers
 
-  let(:embargo) { FactoryGirl.create(:expiring_embargo) }
+  let(:embargo) { FactoryBot.create(:expiring_embargo) }
   let(:user) { embargo.user }
 
   before do
@@ -19,7 +19,7 @@ describe AlaveteliPro::ToDoList::ExpiringEmbargo do
     end
 
     it 'gives a description for multiple expiring embargoes' do
-      embargo2 = FactoryGirl.create(:expiring_embargo, :user => user)
+      embargo2 = FactoryBot.create(:expiring_embargo, :user => user)
       AlaveteliPro::RequestSummary.create_or_update_from(embargo2.info_request)
       expect(@expiring_embargo.description).to eq "2 requests will be made public this week."
     end
@@ -47,7 +47,7 @@ describe AlaveteliPro::ToDoList::ExpiringEmbargo do
     context 'when there is more than one item' do
 
       it 'returns a link to the info request list with a "embargoed" filter' do
-        embargo2 = FactoryGirl.create(:expiring_embargo, :user => user)
+        embargo2 = FactoryBot.create(:expiring_embargo, :user => user)
         AlaveteliPro::RequestSummary.
           create_or_update_from(embargo2.info_request)
         expect(@expiring_embargo.url)
@@ -72,7 +72,7 @@ describe AlaveteliPro::ToDoList::ExpiringEmbargo do
     context 'when there is more than one item' do
 
       it 'returns an appropriate text' do
-        embargo2 = FactoryGirl.create(:expiring_embargo, :user => user)
+        embargo2 = FactoryBot.create(:expiring_embargo, :user => user)
         AlaveteliPro::RequestSummary.
           create_or_update_from(embargo2.info_request)
         expect(@expiring_embargo.call_to_action).

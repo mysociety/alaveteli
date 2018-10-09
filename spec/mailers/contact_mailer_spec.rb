@@ -40,22 +40,22 @@ describe ContactMailer do
     end
 
     it 'does not add HTMLEntities to an update public body email subject' do
-      public_body = FactoryGirl.create(:public_body, :name => "Apostrophe's")
-      change_request = FactoryGirl.create(:update_body_request,
-                                          :public_body => public_body)
+      public_body = FactoryBot.create(:public_body, :name => "Apostrophe's")
+      change_request = FactoryBot.create(:update_body_request,
+                                         :public_body => public_body)
       expect(ContactMailer.update_public_body_email(change_request).subject).
         to eq("Update email address - Apostrophe's")
     end
 
     it 'does not add HTMLEntities to an add public body email subject' do
-      change_request = FactoryGirl.create(:add_body_request,
-                                          :public_body_name => "Apostrophe's")
+      change_request = FactoryBot.create(:add_body_request,
+                                         :public_body_name => "Apostrophe's")
       expect(ContactMailer.add_public_body(change_request).subject).
         to eq("Add authority - Apostrophe's")
     end
 
     context "when the user is a pro user" do
-      let(:pro_user) { FactoryGirl.create(:pro_user) }
+      let(:pro_user) { FactoryBot.create(:pro_user) }
 
       it "sends messages to the pro contact address" do
         with_feature_enabled(:alaveteli_pro) do
@@ -72,7 +72,7 @@ describe ContactMailer do
     end
 
     context "when the user is a normal user" do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
 
       it "sends messages to the normal contact address" do
         with_feature_enabled(:alaveteli_pro) do
@@ -89,7 +89,7 @@ describe ContactMailer do
     end
 
     context "when no user is a provided" do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
 
       it "sends messages to the normal contact address" do
         with_feature_enabled(:alaveteli_pro) do
@@ -109,7 +109,7 @@ describe ContactMailer do
 
   describe "#from_admin_message" do
     context "when the receiving user is a pro user" do
-      let(:pro_user) { FactoryGirl.create(:pro_user) }
+      let(:pro_user) { FactoryBot.create(:pro_user) }
 
       it "sends messages from the pro contact address" do
         with_feature_enabled(:alaveteli_pro) do
@@ -123,7 +123,7 @@ describe ContactMailer do
     end
 
     context "when the receiving user is a normal user" do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
 
       it "sends messages from the normal contact address" do
         with_feature_enabled(:alaveteli_pro) do

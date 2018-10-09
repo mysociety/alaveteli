@@ -14,9 +14,10 @@
 #  incoming_message_id :integer
 #  outgoing_message_id :integer
 #  comment_id          :integer
+#  updated_at          :datetime
 #
 
-FactoryGirl.define do
+FactoryBot.define do
 
   factory :info_request_event do
     info_request

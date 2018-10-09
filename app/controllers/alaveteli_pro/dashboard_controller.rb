@@ -13,5 +13,8 @@ class AlaveteliPro::DashboardController < AlaveteliPro::BaseController
     @page = 1 if @page < 1
     @per_page = 10
     @activity_list = AlaveteliPro::ActivityList::List.new(@user, @page, @per_page)
+    @announcements = Announcement.
+      for_user_with_roles(current_user, :pro).
+      limit(3)
   end
 end

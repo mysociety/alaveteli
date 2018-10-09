@@ -14,7 +14,7 @@
 #  expired               :boolean          default(FALSE)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :notification, aliases: [:instant_notification] do
     association :info_request_event, factory: :response_event
     user { info_request_event.info_request.user }

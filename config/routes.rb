@@ -13,6 +13,8 @@ $alaveteli_route_extensions.each do |f|
 end
 
 Rails.application.routes.draw do
+  admin_constraint = lambda { |request| request.session[:using_admin] }
+
   root to: 'general#frontpage'
 
   #### General contoller
@@ -409,8 +411,16 @@ Rails.application.routes.draw do
         :via => :post
   ####
 
+  #### Announcement controller
+  resources :announcements, :only => [:destroy]
+  ####
+
   #### AdminPublicBody controller
   scope '/admin', :as => 'admin' do
+    constraints admin_constraint do
+      mount Flipper::UI.app(AlaveteliFeatures.backend) => '/flipper'
+    end
+
     resources :bodies,
     :controller => 'admin_public_body' do
       get 'missing_scheme', :on => :collection
@@ -560,6 +570,14 @@ Rails.application.routes.draw do
   end
   ####
 
+  #### AdminUsersAccountSuspensions controller
+  scope '/admin', :as => 'admin' do
+    resources :users_account_suspensions,
+      :controller => 'admin_users_account_suspensions',
+      :only => [:create]
+  end
+  ####
+
   #### AdminUsersSessions controller
   scope '/admin', :as => 'admin' do
     resources :users_sessions,
@@ -587,6 +605,12 @@ Rails.application.routes.draw do
     resources :spam_addresses,
       :controller => 'admin_spam_addresses',
       :only => [:index, :create, :destroy]
+  end
+  ####
+
+  #### AdminAnnouncement controller
+  scope '/admin', :as => 'admin' do
+    resources :announcements, :controller => 'admin_announcements'
   end
   ####
 
@@ -665,7 +689,7 @@ Rails.application.routes.draw do
       end
       resources :batch_request_authority_searches, :only => [:index, :new]
       resources :draft_info_request_batches, :only => [:create, :update] do
-        member do
+        collection do
           put :update_bodies
         end
       end

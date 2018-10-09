@@ -13,6 +13,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # alaveteli_hu <alaveteli@atlatszo.hu>, 2012
 # alaveteli_hu <alaveteli@atlatszo.hu>, 2012
 # Orsolya Batta <orsibatta@gmail.com>, 2013
@@ -23,8 +24,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-18 01:28-0800\n"
-"PO-Revision-Date: 2018-01-18 10:24+0000\n"
+"POT-Creation-Date: 2018-09-28 15:37+0000\n"
+"PO-Revision-Date: 2018-09-29 11:24+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/mysociety/alaveteli/language/hu_HU/)\n"
 "Language: hu_HU\n"
@@ -135,6 +136,9 @@ msgstr ""
 "Tisztelettel:\n"
 "\n"
 "{{user_name}} "
+
+msgid "12 characters minimum. 72 characters maximum."
+msgstr ""
 
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
 msgstr "<a href=\"{{browse_url}}\">Böngésszen az összes között</a> vagy <a href=\"{{add_url}}\">ha kéri, felvesszük a hiányzót</a>. "
@@ -254,6 +258,9 @@ msgstr ""
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong>Pontosítást</strong> kértek "
 
+msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
+msgstr ""
+
 msgid "<strong>No response</strong> has been received <small>(maybe there's just an acknowledgement)</small>"
 msgstr ""
 "<strong>Nem érkezett</strong> még válasz\n"
@@ -324,6 +331,9 @@ msgstr "{{info_request_user}} új adatigénylést <em><a href=\"{{request_url}}\
 msgid "A one line summary of the information you are requesting, e.g."
 msgstr "Az igényelt információk összefoglalása egy sorban. pl:<br/>"
 
+msgid "A powerful, fully-featured FOI toolkit for journalists"
+msgstr ""
+
 msgid "A public authority"
 msgstr "Egy adatgazda"
 
@@ -346,6 +356,9 @@ msgid "About you:"
 msgstr "Magamról: "
 
 msgid "About {{count}} FOI requests found"
+msgstr ""
+
+msgid "Account suspended – Please contact us"
 msgstr ""
 
 msgid "Act on what you've learnt"
@@ -485,6 +498,18 @@ msgstr "Feliratkozások módosítása "
 msgid "Although all responses are automatically published, we depend on you, the original requester, to evaluate them."
 msgstr " Minden választ automatikusan közzéteszünk, de azokat az eredeti igénylő/n - jelen esetben Ön - értékelheti."
 
+msgid "Although not legally required to do so, we would have expected {{public_body_link}} to have responded by "
+msgstr ""
+
+msgid "Although not legally required to do so, we would have expected {{public_body_link}} to have responded by now"
+msgstr ""
+
+msgid "Although the authority is not legally obliged to reply, you should get a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>."
+msgstr ""
+
+msgid "Although the authority is not legally obliged to reply, you should have got a response, normally before the end of <strong>{{date_response_required_by}}</strong>."
+msgstr ""
+
 msgid "An <a href=\"{{request_url}}\">annotation</a> to <em>{{request_title}}</em> was made by {{event_comment_user}} on {{date}}"
 msgstr "{{event_comment_user}} <a href=\"{{request_url}}\">hozzászólást</a> küldött a(z) <em>{{request_title}}</em> adatigénylésre vonatkozóan {{date}} napon."
 
@@ -516,6 +541,12 @@ msgid "Annotations will be posted publicly here, and are <strong>not</strong> se
 msgstr ""
 "A hozzászólások nyilvánosan megjelennek, de azokat \n"
 "        <strong>nem</strong> küldjük el a(z) {{public_body_name}} részére. "
+
+msgid "Announcement"
+msgstr ""
+
+msgid "Announcement|Visibility"
+msgstr ""
 
 msgid "Anonymous user"
 msgstr "Névtelen felhasználó"
@@ -595,9 +626,6 @@ msgid "Back to content"
 msgstr ""
 
 msgid "Banned from this site"
-msgstr ""
-
-msgid "Banned users cannot edit their profile"
 msgstr ""
 
 msgid "Batch created by {{info_request_user}} on {{date}}."
@@ -746,6 +774,9 @@ msgstr "Bezárás"
 msgid "Close the request and respond:"
 msgstr ""
 
+msgid "Collapse all correspondence"
+msgstr ""
+
 msgid "Comment"
 msgstr "Megjegyzés"
 
@@ -800,11 +831,11 @@ msgstr "E-mail címének megerősítése "
 msgid "Confirm your new email address on {{site_name}}"
 msgstr "Új e-mail címének megerősítése a {{site_name}} weboldalon "
 
-msgid "Considered by administrators as not an FOI request and hidden from site."
-msgstr "Az adminisztrátorok szerint az adatigénylés nem közérdekű, és ezért nem jelenik meg."
+msgid "Considered by administrators as not an FOI request."
+msgstr ""
 
-msgid "Considered by administrators as vexatious and hidden from site."
-msgstr "Az adminisztrátorok szerint az adatigénylés zaklató jellegű, és ezért nem jelenik meg."
+msgid "Considered by administrators as vexatious."
+msgstr ""
 
 msgid "Contact us"
 msgstr ""
@@ -850,8 +881,8 @@ msgstr ""
 "Kulturális értéket képviselő helyek és építmények (amelyeket érinthetnek a\n"
 "            fentiekben felsorolt környezeti tényezők) "
 
-msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they must respond promptly and"
-msgstr "Jelenleg a(z) {{public_body_link}} <strong>válaszát</strong> várjuk. Az adatigénylésre"
+msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they should respond promptly and"
+msgstr ""
 
 msgid "Date:"
 msgstr "Dátum: "
@@ -1010,6 +1041,9 @@ msgstr ""
 "Az <strong>ön neve</strong>, valamint minden, amit itt beír,\n"
 "                örökre <strong>látható marad</strong> ezen\n"
 "                a weboldalon. ( <a href=\"{{url}}\">... Miért?</a> )<br/>"
+
+msgid "Expand all correspondence"
+msgstr ""
 
 msgid "FOI"
 msgstr "KözAdat"
@@ -2105,6 +2139,12 @@ msgstr "Részben teljesítette"
 msgid "Password is not correct"
 msgstr "Hibás jelszó "
 
+msgid "Password is too long (maximum is 72 characters)"
+msgstr ""
+
+msgid "Password is too short (minimum is 12 characters)"
+msgstr ""
+
 msgid "Password:"
 msgstr "Jelszó:"
 
@@ -2567,6 +2607,9 @@ msgstr "Olvasnivaló a <a href=\"{{advanced_search_url}}\">összetett kereséshe
 msgid "Read blog"
 msgstr "Blog"
 
+msgid "Reason:"
+msgstr ""
+
 msgid "Received an error message, such as delivery failure."
 msgstr "Hibaüzenet érkezett (például sikertelen üzenettovábbítás). "
 
@@ -2998,6 +3041,9 @@ msgstr ""
 msgid "Summary is too short. Please be a little more descriptive about the information you are asking for."
 msgstr ""
 
+msgid "Suspended users cannot edit their profile"
+msgstr ""
+
 msgid "Table of statuses"
 msgstr "Állapottáblázat"
 
@@ -3182,11 +3228,17 @@ msgstr ""
 msgid "The requester has abandoned this request for some reason"
 msgstr "Az igénylő valami miatt felhagyott igénylésével"
 
+msgid "The response to your request has been <strong>delayed</strong>. Although the authority has no legal obligation to reply, they should normally have responded by <strong>{{date}}</strong>"
+msgstr ""
+
 msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and by <strong>{{date}}</strong>"
 msgstr ""
 "Az igénylésére való válasz <strong>késik</strong>. ön mondhatja azt, hogy \n"
 "            a jogszabály értelmében a közintézménynek általában \n"
 "            <strong>azonnal</strong> kellett volna válaszolnia, és "
+
+msgid "The response to your request is <strong>long overdue</strong>. Although the authority has no legal obligation to reply, they should have responded by now"
+msgstr ""
 
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr ""
@@ -3326,18 +3378,19 @@ msgstr "A következő magyarázatot kapták: "
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
 msgstr "Nem válaszoltak az ön {{title}} tárgyú {{law_used_short}} igénylésére, pedig a jogszabály ezt előírja"
 
-msgid "They have not replied to your {{law_used_short}} request {{title}}, as required by law"
+msgid "They have not replied to your {{law_used_short}} request {{title}}, as normally required by law"
 msgstr ""
-"Nem válaszoltak {{law_used_short}} {{title}} igénylésére, \n"
-"pedig a jogszabály ezt előírja "
 
-msgid "They have still not replied to your {{law_used_short}} request {{title}}, as required by law"
+msgid "They have still not replied to your {{law_used_short}} request {{title}}, as normally required by law"
 msgstr ""
 
 msgid "Things you're following"
 msgstr "Követett elemek:"
 
 msgid "This annotation has been reported for administrator attention"
+msgstr ""
+
+msgid "This authority is not subject to FOI law, so is not legally obliged to respond"
 msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
@@ -3432,12 +3485,6 @@ msgstr "Ezt az igénylést már jelentették az adminisztrátornak"
 msgid "This request has an <strong>unknown status</strong>."
 msgstr "Ennek az igénylésnek <strong>ismeretlen az állapota</strong>. "
 
-msgid "This request has been <strong>hidden</strong> from the site, because an administrator considers it not to be an FOI request"
-msgstr "Ez az igénylés <strong>nem jelenik meg</strong> a weboldalon, mert az adminisztrátor nem közérdekűadat-igénylésnek minősítette"
-
-msgid "This request has been <strong>hidden</strong> from the site, because an administrator considers it vexatious"
-msgstr "Ez az igénylés <strong>nem jelenik meg</strong> a weboldalon, mert az adminisztrátor zaklató jellegűnek minősítette"
-
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
 msgstr "Ezt az igénylést <strong>jelentették</strong> az adminisztrátornak (valószínűleg azért, mert zaklató jellegű vagy személyes információra irányult)"
 
@@ -3454,6 +3501,12 @@ msgstr ""
 
 msgid "This request has been reported for administrator attention"
 msgstr "Ezt az igénylést már jelentették az adminisztrátornak"
+
+msgid "This request has been reviewed by an administrator and is considered not to be an FOI request"
+msgstr ""
+
+msgid "This request has been reviewed by an administrator and is considered to be vexatious"
+msgstr ""
 
 msgid "This request has been set by an administrator to \"allow new responses from nobody\""
 msgstr "Az adminisztrátor erre az igénylésre \"új választ senki sem küldhet\" beállítást adott meg "
@@ -3493,8 +3546,8 @@ msgstr ""
 "a közintézmények milyen gyorsan válaszolnak, mennyi igénylés esetén\n"
 "van szükség postai válaszra stb.. "
 
-msgid "This user has been banned from {{site_name}} "
-msgstr "Ezt a felhasználót letiltották a {{site_name}} weboldalról "
+msgid "This user has been suspended from {{site_name}} "
+msgstr ""
 
 msgid "This was not possible because there is already an account using the email address {{email}}."
 msgstr ""
@@ -4144,10 +4197,8 @@ msgstr "<strong>Panaszt nyújthat be</strong> a következő időpontig:"
 msgid "You can change the requests and users you are following on <a href=\"{{profile_url}}\">your profile page</a>."
 msgstr "Módosíthatja a <a href=\"{{profile_url}}\">profiloldalon</a> követett igényléseket és felhasználókat."
 
-msgid "You can get this page in computer-readable format as part of the main JSON page for the request.  See the <a href=\"{{api_path}}\">API documentation</a>."
+msgid "You can get this page in computer-readable format as part of the <a href=\"{{json_path}}\">main JSON page</a> for the request. See the <a href=\"{{api_path}}\">API documentation</a>."
 msgstr ""
-"Ezt az oldalt számítógép által olvasható formátumban is megkaphatja az igénylésre\n"
-"vonatkozó fő JSON oldal részeként. Lásd: <a href=\"{{api_path}}\">API dokumentáció</a>. "
 
 msgid "You can only request information about the environment from this authority."
 msgstr "Ettől a közintézménytől csak környezettel kapcsolatos információkat kérhet. "
@@ -4845,7 +4896,7 @@ msgstr ""
 msgid "{{public_body_name}} have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law. Click on the link below to remind them to reply."
 msgstr ""
 
-msgid "{{public_body_name}} have still not replied to your {{law_used_short}} request {{title}}, as required by law. Click on the link below to tell them to reply. You might like to ask for an internal review, asking them to find out why their response to the request has been so slow."
+msgid "{{public_body_name}} have still not replied to your {{law_used_short}} request {{title}}, as normally required by law. Click on the link below to tell them to reply. You might like to ask for an internal review, asking them to find out why their response to the request has been so slow."
 msgstr ""
 
 msgid "{{public_body_name}} no longer exists. From the request page, try replying to a particular message, rather than sending a general followup. If you need to make a general followup, and know an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."

@@ -22,9 +22,8 @@ class AlaveteliPro::EmbargoExtensionsController < AlaveteliPro::BaseController
       embargo_extension_params)
     if @embargo_extension.save
       @embargo.extend(@embargo_extension)
-      flash[:notice] = _("Your request will now be private on " \
-                         "{{site_name}} until {{expiry_date}}.",
-                         site_name: AlaveteliConfiguration.site_name,
+      flash[:notice] = _("Your request will now be private " \
+                         "until {{expiry_date}}.",
                          expiry_date: I18n.l(
                            @embargo.publish_at, format: '%d %B %Y'))
     else
@@ -51,9 +50,8 @@ class AlaveteliPro::EmbargoExtensionsController < AlaveteliPro::BaseController
         end
       end
       publish_at = @info_request_batch.info_requests.first.embargo.publish_at
-      flash[:notice] = _("Your requests will now be private on " \
-                         "{{site_name}} until {{expiry_date}}.",
-                         site_name: AlaveteliConfiguration.site_name,
+      flash[:notice] = _("Your requests will now be private " \
+                         "until {{expiry_date}}.",
                          expiry_date: I18n.l(publish_at, format: '%d %B %Y'))
     rescue ActiveRecord::RecordInvalid
       flash[:error] = _("Sorry, something went wrong updating your " \

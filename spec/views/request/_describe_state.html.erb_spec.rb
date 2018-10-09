@@ -2,7 +2,7 @@
 require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
 
 describe 'when showing the form for describing the state of a request' do
-  let(:info_request) { FactoryGirl.create(:info_request) }
+  let(:info_request) { FactoryBot.create(:info_request) }
   let(:user) { info_request.user }
 
   def expect_radio_button(value)

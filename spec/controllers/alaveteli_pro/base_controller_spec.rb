@@ -24,7 +24,7 @@ describe AlaveteliPro::BaseController do
     end
 
     context "when the user is logged in but not a pro" do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
 
       before do
         session[:user_id] = user.id
@@ -43,7 +43,7 @@ describe AlaveteliPro::BaseController do
     end
 
     context "when the user is logged in and is a pro" do
-      let(:user) { FactoryGirl.create(:pro_user) }
+      let(:user) { FactoryBot.create(:pro_user) }
 
       before do
         session[:user_id] = user.id
