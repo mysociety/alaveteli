@@ -588,20 +588,17 @@ end
 describe User do
 
   describe '.authenticate_from_form' do
-    before do
-      @empty_user = User.new
-
-      @full_user = User.new
-      @full_user.name = "Sensible User"
-      @full_user.password = "foolishpassword"
-      @full_user.email = "sensible@localhost"
-      @full_user.save
+    let(:empty_user) { described_class.new }
+    let!(:full_user) do
+      FactoryBot.create(:user, name: 'Sensible User',
+                               password: 'foolishpassword',
+                               email: 'sensible@localhost')
     end
 
     it "should create a hashed password when the password is set" do
-      expect(@empty_user.hashed_password).to be_nil
-      @empty_user.password = "a test password"
-      expect(@empty_user.hashed_password).not_to be_nil
+      expect(empty_user.hashed_password).to be_nil
+      empty_user.password = "a test password"
+      expect(empty_user.hashed_password).not_to be_nil
     end
 
     it "should have errors when given the wrong password" do
@@ -617,7 +614,7 @@ describe User do
     it "should find the user when given the right email and password" do
       found_user = User.authenticate_from_form( { :email => "sensible@localhost", :password => "foolishpassword" })
       expect(found_user.errors.size).to eq(0)
-      expect(found_user).to eq(@full_user)
+      expect(found_user).to eq(full_user)
     end
 
   end
