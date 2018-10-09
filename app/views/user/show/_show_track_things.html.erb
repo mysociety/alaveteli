@@ -30,17 +30,11 @@
       <% end %>
     <% end %>
 
-    <ul>
+    <ul class="feed_list">
       <% track_things.each do |track_thing| %>
         <li>
-          <%= form_tag({:controller => 'track', :action => 'update', :track_id => track_thing.id}, :class => "feed_form") do %>
-            <div>
-              <%= track_description(track_thing) %>
-              <%= hidden_field_tag 'track_medium', "delete", { :id => 'track_medium_' + track_thing.id.to_s } %>
-              <%= hidden_field_tag 'r', request.fullpath, { :id => 'r_' + track_thing.id.to_s }  %>
-              <%= submit_tag _('unsubscribe') %>
-            </div>
-          <% end %>
+          <%= track_description(track_thing) %>
+          <%= button_to _("unsubscribe"), track_path(track_thing, r: request.fullpath), method: :delete %>
         </li>
       <% end %>
     </ul>

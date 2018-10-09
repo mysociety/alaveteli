@@ -11,7 +11,7 @@
   <p><%= track_thing.params[:verb_on_page_already] %></p>
 
   <div class="feed_link feed_link_<%= location %>">
-    <%= link_to _("Unsubscribe"), { :controller => 'track', :action => 'update', :track_id => existing_track.id, :track_medium => "delete", :r => request.fullpath }, :class => "link_button_green unsubscribe-request-action" %>
+    <%= link_to _("Unsubscribe"), track_path(existing_track, r: request.fullpath), method: :delete, class: "link_button_green unsubscribe-request-action" %>
   </div>
 <% elsif track_thing %>
   <div class="feed_link feed_link_<%= location %>">

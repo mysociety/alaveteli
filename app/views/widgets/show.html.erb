@@ -37,13 +37,16 @@
           <%= _('This is your request') %>
         </span>
       <% elsif @existing_track %>
-        <%= link_to update_url(:track_id => @existing_track.id, :track_medium => "delete", :r => show_user_profile_url(:url_name => @user.url_name)), :target => '_top',
-          :class => 'alaveteli-widget__bottom__action alaveteli-widget__button--unsubscribe',
-          :onclick => track_analytics_event(
-                        AnalyticsEvent::Category::WIDGET_CLICK,
-                        AnalyticsEvent::Action::WIDGET_UNSUB,
-                        :label => "window.top.location.href",
-                        :label_is_script => true) do %>
+        <%= link_to track_url(@existing_track,
+          r: show_user_profile_url(url_name: @user.url_name)),
+          method: :delete,
+          target: '_top',
+          class: 'alaveteli-widget__bottom__action alaveteli-widget__button--unsubscribe',
+          onclick: track_analytics_event(
+                     AnalyticsEvent::Category::WIDGET_CLICK,
+                     AnalyticsEvent::Action::WIDGET_UNSUB,
+                     label: "window.top.location.href",
+                     label_is_script: true) do %>
             <%= _('Unsubscribe') %>
         <% end %>
       <% elsif @existing_vote %>
