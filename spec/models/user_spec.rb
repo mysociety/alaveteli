@@ -104,41 +104,6 @@ describe User, "showing the name" do
 
 end
 
-describe User, " when authenticating" do
-  before do
-    @empty_user = User.new
-
-    @full_user = User.new
-    @full_user.name = "Sensible User"
-    @full_user.password = "foolishpassword"
-    @full_user.email = "sensible@localhost"
-    @full_user.save
-  end
-
-  it "should create a hashed password when the password is set" do
-    expect(@empty_user.hashed_password).to be_nil
-    @empty_user.password = "a test password"
-    expect(@empty_user.hashed_password).not_to be_nil
-  end
-
-  it "should have errors when given the wrong password" do
-    found_user = User.authenticate_from_form({ :email => "sensible@localhost", :password => "iownzyou" })
-    expect(found_user.errors.size).to be > 0
-  end
-
-  it "should not find the user when given the wrong email" do
-    found_user = User.authenticate_from_form( { :email => "soccer@localhost", :password => "foolishpassword" })
-    expect(found_user.errors.size).to be > 0
-  end
-
-  it "should find the user when given the right email and password" do
-    found_user = User.authenticate_from_form( { :email => "sensible@localhost", :password => "foolishpassword" })
-    expect(found_user.errors.size).to eq(0)
-    expect(found_user).to eq(@full_user)
-  end
-
-end
-
 describe User, 'password hashing algorithms' do
   def create_user(options = {})
     User.create(options.merge(
@@ -621,6 +586,41 @@ describe User, "when calculating if a user has exceeded the request limit" do
 end
 
 describe User do
+
+  describe '.authenticate_from_form' do
+    before do
+      @empty_user = User.new
+
+      @full_user = User.new
+      @full_user.name = "Sensible User"
+      @full_user.password = "foolishpassword"
+      @full_user.email = "sensible@localhost"
+      @full_user.save
+    end
+
+    it "should create a hashed password when the password is set" do
+      expect(@empty_user.hashed_password).to be_nil
+      @empty_user.password = "a test password"
+      expect(@empty_user.hashed_password).not_to be_nil
+    end
+
+    it "should have errors when given the wrong password" do
+      found_user = User.authenticate_from_form({ :email => "sensible@localhost", :password => "iownzyou" })
+      expect(found_user.errors.size).to be > 0
+    end
+
+    it "should not find the user when given the wrong email" do
+      found_user = User.authenticate_from_form( { :email => "soccer@localhost", :password => "foolishpassword" })
+      expect(found_user.errors.size).to be > 0
+    end
+
+    it "should find the user when given the right email and password" do
+      found_user = User.authenticate_from_form( { :email => "sensible@localhost", :password => "foolishpassword" })
+      expect(found_user.errors.size).to eq(0)
+      expect(found_user).to eq(@full_user)
+    end
+
+  end
 
   describe '.stay_logged_in_on_redirect?' do
 
