@@ -111,8 +111,8 @@ indentation correct. If in doubt, look at the examples already in the file, and 
 ### General admin (keys, paths, back-end services):
 
 <code><a href="#cookie_store_session_secret">COOKIE_STORE_SESSION_SECRET</a></code>
-<br> <code><a href="#recaptcha_public_key">RECAPTCHA_PUBLIC_KEY</a></code>
-<br> <code><a href="#recaptcha_private_key">RECAPTCHA_PRIVATE_KEY</a></code>
+<br> <code><a href="#recaptcha_site_key">RECAPTCHA_SITE_KEY</a></code>
+<br> <code><a href="#recaptcha_secret_key">RECAPTCHA_SECRET_KEY</a></code>
 <br> <code><a href="#geoip_database">GEOIP_DATABASE</a></code>
 <br> <code><a href="#gaze_url">GAZE_URL</a></code>
 <br> <code><a href="#ga_code">GA_CODE</a></code> (GA=Google Analytics)
@@ -1168,8 +1168,8 @@ href="#smtp_mailer_enable_starttls_auto">SMTP_MAILER_ENABLE_STARTTLS_AUTO</a>.
   </dd>
 
   <dt>
-      <a name="recaptcha_public_key"><code>RECAPTCHA_PUBLIC_KEY</code></a> &amp;
-      <a name="recaptcha_private_key"><code>RECAPTCHA_PRIVATE_KEY</code></a>
+      <a name="recaptcha_site_key"><code>RECAPTCHA_SITE_KEY</code></a> &amp;
+      <a name="recaptcha_secret_key"><code>RECAPTCHA_SECRET_KEY</code></a>
   </dt>
   <dd>
      Recaptcha, for detecting humans. Get keys here:
@@ -1179,10 +1179,10 @@ href="#smtp_mailer_enable_starttls_auto">SMTP_MAILER_ENABLE_STARTTLS_AUTO</a>.
       <p>Examples:</p>
       <ul class="examples">
         <li>
-            <code>RECAPTCHA_PUBLIC_KEY: '7HoPjGBBBBBBBBBkmj78HF9PjjaisQ893'</code>
+            <code>RECAPTCHA_SITE_KEY: '7HoPjGBBBBBBBBBkmj78HF9PjjaisQ893'</code>
         </li>
         <li>
-            <code>RECAPTCHA_PRIVATE_KEY: '7HjPjGBBBBBCBBBpuTy8a33sgnGG7A'</code>
+            <code>RECAPTCHA_SECRET_KEY: '7HjPjGBBBBBCBBBpuTy8a33sgnGG7A'</code>
         </li>
       </ul>
     </div>
