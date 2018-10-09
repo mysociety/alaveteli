@@ -608,12 +608,6 @@ describe User do
       { email: 'sensible@localhost', password: 'foolishpassword' }
     end
 
-    it 'creates a hashed password when the password is set' do
-      expect(empty_user.hashed_password).to be_nil
-      empty_user.password = "a test password"
-      expect(empty_user.hashed_password).not_to be_nil
-    end
-
     it 'has errors when given the wrong password' do
       found_user = User.authenticate_from_form(wrong_password_attrs)
       expect(found_user.errors.size).to be > 0
@@ -740,6 +734,16 @@ describe User do
         User::TransactionCalculator.
           new(user, :transaction_associations => [:comments, :info_requests])
       expect(user.transactions(:comments, :info_requests)).to eq(calculator)
+    end
+
+  end
+
+  describe '#password=' do
+
+    it 'creates a hashed password when the password is set' do
+      expect(subject.hashed_password).to be_nil
+      subject.password = "a test password"
+      expect(subject.hashed_password).not_to be_nil
     end
 
   end
