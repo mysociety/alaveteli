@@ -595,23 +595,23 @@ describe User do
                                email: 'sensible@localhost')
     end
 
-    it "should create a hashed password when the password is set" do
+    it 'creates a hashed password when the password is set' do
       expect(empty_user.hashed_password).to be_nil
       empty_user.password = "a test password"
       expect(empty_user.hashed_password).not_to be_nil
     end
 
-    it "should have errors when given the wrong password" do
+    it 'has errors when given the wrong password' do
       found_user = User.authenticate_from_form({ :email => "sensible@localhost", :password => "iownzyou" })
       expect(found_user.errors.size).to be > 0
     end
 
-    it "should not find the user when given the wrong email" do
+    it 'does not find the user when given the wrong email' do
       found_user = User.authenticate_from_form( { :email => "soccer@localhost", :password => "foolishpassword" })
       expect(found_user.errors.size).to be > 0
     end
 
-    it "should find the user when given the right email and password" do
+    it 'returns the user when given the correct email and password' do
       found_user = User.authenticate_from_form( { :email => "sensible@localhost", :password => "foolishpassword" })
       expect(found_user.errors.size).to eq(0)
       expect(found_user).to eq(full_user)
