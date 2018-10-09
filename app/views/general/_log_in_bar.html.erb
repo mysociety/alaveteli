@@ -1,4 +1,4 @@
-<li id="logged_in_bar" class="logged_in_bar account-link-menu-item">
+<div id="logged_in_bar" class="logged_in_bar account-link-menu-item">
 <% if @user %>
   <a href="<%= show_user_profile_path(:url_name => @user.url_name) %>" class="account-link js-account-link <% if can?(:access, :alaveteli_pro) %>account-link--with-pro-pill<% end %>">
     <%= @user.name.split.first %>
@@ -40,6 +40,6 @@
     </ul>
     </div>
 <% else %>
-  <%= link_to _("Sign in or sign up"), signin_path(:r => request.fullpath) %>
+  <%= link_to _("Sign in or sign up"), signin_path(:r => request.fullpath), :class => "sign_in_link"  %>
 <% end %>
-</li>
+</div>

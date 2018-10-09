@@ -5,14 +5,13 @@
 #
 # Translators:
 # louisecrow <louise@mysociety.org>, 2017
-# Liz Conlan <liz@mysociety.org>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-18 02:19-0800\n"
+"POT-Creation-Date: 2018-09-28 15:40+0000\n"
 "PO-Revision-Date: 2017-01-20 17:40+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>, 2017\n"
+"Last-Translator: louisecrow <louise@mysociety.org>, 2017\n"
 "Language-Team: Nepali (https://www.transifex.com/mysociety/teams/33529/ne/)\n"
 "Language: ne\n"
 "MIME-Version: 1.0\n"
@@ -35,12 +34,6 @@ msgstr ""
 msgid "(with <b>{{discount_name}}</b> discount applied)"
 msgstr ""
 
-msgid "+ Add"
-msgstr "+ थप्नुहोस् "
-
-msgid "- Remove"
-msgstr "- हटाउनुहोस् "
-
 msgid "12 Months"
 msgstr "बाह्र महिना "
 
@@ -49,6 +42,9 @@ msgstr "तिन महिना "
 
 msgid "6 Months"
 msgstr "छ महिना "
+
+msgid "<span class=\"current-page\">{{current_page}}</span> of <span class=\"total-pages\">{{total_pages}}</span>"
+msgstr ""
 
 msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
 msgstr ""
@@ -98,6 +94,9 @@ msgstr "गतिबिधि "
 msgid "Add Payment Card"
 msgstr ""
 
+msgid "Add all"
+msgstr ""
+
 msgid "Add an annotation"
 msgstr "टिप्पणी थप्नुहोस् "
 
@@ -122,6 +121,9 @@ msgstr ""
 msgid "An all-in-one FOI toolkit for journalists, activists and campaigners"
 msgstr ""
 
+msgid "An annual subscription"
+msgstr ""
+
 msgid "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
 msgstr ""
 
@@ -135,6 +137,9 @@ msgid "Are you sure you want to publish this request?"
 msgstr ""
 
 msgid "Are you sure?"
+msgstr ""
+
+msgid "Batch"
 msgstr ""
 
 msgid "Batch request"
@@ -159,6 +164,9 @@ msgid "Billed: Weekly"
 msgstr ""
 
 msgid "Billing"
+msgstr ""
+
+msgid "Browse by category"
 msgstr ""
 
 msgid "Browse public requests"
@@ -188,6 +196,12 @@ msgstr ""
 msgid "Choose a duration"
 msgstr "एक अवधि चयन गर्नुहोस् "
 
+msgid "Collapse all correspondence"
+msgstr ""
+
+msgid "Confirm your account on {{site_name}}"
+msgstr ""
+
 msgid "Contact us"
 msgstr ""
 
@@ -215,6 +229,12 @@ msgstr ""
 msgid "Details"
 msgstr ""
 
+msgid "Disabled while sending remaining requests."
+msgstr ""
+
+msgid "Dismiss"
+msgstr ""
+
 msgid "Do you have a coupon code?"
 msgstr ""
 
@@ -237,6 +257,9 @@ msgid "Email doesn't look like a valid address"
 msgstr ""
 
 msgid "Everything you need to keep on top of complex FOI-driven stories."
+msgstr ""
+
+msgid "Expand all correspondence"
 msgstr ""
 
 msgid "Expires soon"
@@ -278,6 +301,9 @@ msgstr ""
 msgid "If you have an <strong>offer code</strong>, please enter it here:"
 msgstr ""
 
+msgid "Important info about requests to this authority"
+msgstr ""
+
 msgid "Keep private for a further:"
 msgstr "केहि अघि सम्मको लागि निजि राख्नुहोस्"
 
@@ -302,6 +328,9 @@ msgstr ""
 msgid "Manage large volumes of responses:  easily keep track of the status of each request"
 msgstr ""
 
+msgid "Message {{current_message}} of {{total_messages}}"
+msgstr ""
+
 msgid "More information"
 msgstr ""
 
@@ -314,6 +343,9 @@ msgstr ""
 msgid "My wall"
 msgstr "मेरो भित्ता "
 
+msgid "Next message"
+msgstr ""
+
 msgid "Next payment"
 msgstr ""
 
@@ -321,6 +353,9 @@ msgid "No"
 msgstr ""
 
 msgid "No bodies selected"
+msgstr ""
+
+msgid "No more authorities can be added to this batch request."
 msgstr ""
 
 msgid "No results found"
@@ -342,6 +377,9 @@ msgid "Once the privacy period ends, everything that you enter on this page, inc
 msgstr ""
 
 msgid "Once you’re happy with your request, click preview and send."
+msgstr ""
+
+msgid "Pay"
 msgstr ""
 
 msgid "Pay with card"
@@ -368,6 +406,9 @@ msgstr ""
 msgid "Please tell us if you're interested in training and seminars"
 msgstr ""
 
+msgid "Plus, all the power of {{site_name}}"
+msgstr ""
+
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
 msgstr ""
 
@@ -378,6 +419,9 @@ msgid "Preview new batch request"
 msgstr ""
 
 msgid "Preview new {{law_used_short}} request to '{{public_body_name}}'"
+msgstr ""
+
+msgid "Previous message"
 msgstr ""
 
 msgid "Privacy"
@@ -393,6 +437,9 @@ msgid "Pro brings a new dashboard view"
 msgstr ""
 
 msgid "Pro features a new request list view"
+msgstr ""
+
+msgid "Profile"
 msgstr ""
 
 msgid "Provide extra context on the request and your reasons for making it."
@@ -415,13 +462,22 @@ msgstr[1] ""
 msgid "Read blog"
 msgstr ""
 
+msgid "Refer a friend"
+msgstr ""
+
 msgid "Remember, public authorities have {{late_number_of_days}} calendar days to respond to FOI requests."
 msgstr ""
 
 msgid "Remember, public authorities have {{late_number_of_days}} working days to respond to FOI requests."
 msgstr ""
 
+msgid "Remove"
+msgstr ""
+
 msgid "Replies"
+msgstr ""
+
+msgid "Request access to {{site_name}} beta"
 msgstr ""
 
 msgid "Request an internal review"
@@ -441,13 +497,13 @@ msgstr ""
 msgid "Requests"
 msgstr ""
 
-msgid "Requests in this batch are private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
+msgid "Requests in this batch are private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
 msgstr ""
 
 msgid "Requests in this batch are public"
 msgstr ""
 
-msgid "Requests in this batch will be private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
+msgid "Requests in this batch will be private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
 msgstr ""
 
 msgid "Requests that will be made public soon"
@@ -463,6 +519,9 @@ msgid "Save draft"
 msgstr ""
 
 msgid "Search"
+msgstr ""
+
+msgid "Search by name"
 msgstr ""
 
 msgid "Search for an authority"
@@ -511,6 +570,9 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
+msgid "Share the code {{discount_code}} with a friend to give them {{discount_terms}} on signup."
+msgstr ""
+
 msgid "Show {{count}} request in detail</span>"
 msgid_plural "Show {{count}} requests in detail</span>"
 msgstr[0] ""
@@ -552,6 +614,9 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
+msgid "Streamlined process for requesting internal reviews"
+msgstr ""
+
 msgid "Subject"
 msgstr ""
 
@@ -576,12 +641,20 @@ msgstr ""
 msgid "Thanks for your interest in {{pro_site_name}}, we'll get back to you soon!"
 msgstr ""
 
+msgid "The following request has been made public on {{site_name}} this week."
+msgid_plural "The following requests have been made public on {{site_name}} this week."
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "The following request will be made public on {{site_name}} in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer."
 msgid_plural "The following requests will be made public on {{site_name}} in the next week. If you do not wish for any of these requests to go public, please click on the links below to extend them."
 msgstr[0] ""
 msgstr[1] ""
 
 msgid "Then you can access {{pro_site_name}}"
+msgstr ""
+
+msgid "Then you can activate your {{site_name}} account"
 msgstr ""
 
 msgid "Then you can update your payment details"
@@ -608,13 +681,13 @@ msgstr ""
 msgid "This page is only accessible to {{pro_site_name}} users"
 msgstr ""
 
-msgid "This request is private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
+msgid "This request is private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
 msgstr ""
 
 msgid "This request is public"
 msgstr ""
 
-msgid "This request will be private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
+msgid "This request will be private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
 msgstr ""
 
 msgid "This will publish all of the requests in this batch. Are you sure?"
@@ -632,6 +705,9 @@ msgstr ""
 msgid "To access {{pro_site_name}}"
 msgstr ""
 
+msgid "To signup to {{site_name}}"
+msgstr ""
+
 msgid "To update your payment details"
 msgstr ""
 
@@ -642,6 +718,9 @@ msgid "Unless you choose a privacy option, requests in this batch will be public
 msgstr ""
 
 msgid "Unless you choose a privacy option, your request will be public on {{site_name}} immediately."
+msgstr ""
+
+msgid "Until that date you will continue to have full access to {{pro_site_name}}."
 msgstr ""
 
 msgid "Up-to-date database of contact details for 20,000 authorities"
@@ -680,6 +759,9 @@ msgid "We are processing your payment. You can access your subscription settings
 msgstr ""
 
 msgid "We will remind you by email and on the site when the request is going be made public, and you'll have the option to keep it private for longer if you want to. You can extend this time indefinitely, or make the request public at any time."
+msgstr ""
+
+msgid "Welcome to {{pro_site_name}}!"
 msgstr ""
 
 msgid "When a request is private we guarantee that it will only be visible on {{site_name}} for the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
@@ -781,6 +863,9 @@ msgstr ""
 msgid "Your payment details"
 msgstr ""
 
+msgid "Your payment details have been updated"
+msgstr ""
+
 msgid "Your request"
 msgstr ""
 
@@ -802,10 +887,13 @@ msgstr ""
 msgid "Your request will now be private on {{site_name}} until {{expiry_date}}."
 msgstr ""
 
+msgid "Your request will now be private until {{expiry_date}}."
+msgstr ""
+
 msgid "Your requests are now public!"
 msgstr ""
 
-msgid "Your requests will now be private on {{site_name}} until {{expiry_date}}."
+msgid "Your requests will now be private until {{expiry_date}}."
 msgstr ""
 
 msgid "Your subscription has been cancelled, your access to {{pro_site_name}} will end on <strong>{{date}}</strong>."
@@ -827,6 +915,9 @@ msgid "first created"
 msgstr ""
 
 msgid "last updated"
+msgstr ""
+
+msgid "or start a batch request"
 msgstr ""
 
 msgid "requests that will be made public soon"
@@ -851,6 +942,11 @@ msgstr[1] ""
 
 msgid "{{count}} recipient, {{first_public_body}}"
 msgid_plural "{{count}} recipients, including {{first_public_body}} and {{second_public_body}}"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "{{count}} reply"
+msgid_plural "{{count}} replies"
 msgstr[0] ""
 msgstr[1] ""
 

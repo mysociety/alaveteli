@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-18 02:19-0800\n"
+"POT-Creation-Date: 2018-09-28 15:40+0000\n"
 "PO-Revision-Date: 2017-01-20 17:40+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,12 +32,6 @@ msgstr ""
 msgid "(with <b>{{discount_name}}</b> discount applied)"
 msgstr ""
 
-msgid "+ Add"
-msgstr ""
-
-msgid "- Remove"
-msgstr ""
-
 msgid "12 Months"
 msgstr ""
 
@@ -45,6 +39,9 @@ msgid "3 Months"
 msgstr ""
 
 msgid "6 Months"
+msgstr ""
+
+msgid "<span class=\"current-page\">{{current_page}}</span> of <span class=\"total-pages\">{{total_pages}}</span>"
 msgstr ""
 
 msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
@@ -92,7 +89,13 @@ msgstr ""
 msgid "Activity"
 msgstr ""
 
+msgid "Add"
+msgstr ""
+
 msgid "Add Payment Card"
+msgstr ""
+
+msgid "Add all"
 msgstr ""
 
 msgid "Add an annotation"
@@ -119,6 +122,9 @@ msgstr ""
 msgid "An all-in-one FOI toolkit for journalists, activists and campaigners"
 msgstr ""
 
+msgid "An annual subscription"
+msgstr ""
+
 msgid "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
 msgstr ""
 
@@ -132,6 +138,9 @@ msgid "Are you sure you want to publish this request?"
 msgstr ""
 
 msgid "Are you sure?"
+msgstr ""
+
+msgid "Batch"
 msgstr ""
 
 msgid "Batch request"
@@ -156,6 +165,9 @@ msgid "Billed: Weekly"
 msgstr ""
 
 msgid "Billing"
+msgstr ""
+
+msgid "Browse by category"
 msgstr ""
 
 msgid "Browse public requests"
@@ -185,7 +197,7 @@ msgstr ""
 msgid "Choose a duration"
 msgstr ""
 
-msgid "Coming soon - batch requests"
+msgid "Collapse all correspondence"
 msgstr ""
 
 msgid "Confirm your account on {{site_name}}"
@@ -218,6 +230,12 @@ msgstr ""
 msgid "Details"
 msgstr ""
 
+msgid "Disabled while sending remaining requests."
+msgstr ""
+
+msgid "Dismiss"
+msgstr ""
+
 msgid "Do you have a coupon code?"
 msgstr ""
 
@@ -240,6 +258,9 @@ msgid "Email doesn't look like a valid address"
 msgstr ""
 
 msgid "Everything you need to keep on top of complex FOI-driven stories."
+msgstr ""
+
+msgid "Expand all correspondence"
 msgstr ""
 
 msgid "Expires soon"
@@ -281,6 +302,9 @@ msgstr ""
 msgid "If you have an <strong>offer code</strong>, please enter it here:"
 msgstr ""
 
+msgid "Important info about requests to this authority"
+msgstr ""
+
 msgid "Keep private for a further:"
 msgstr ""
 
@@ -305,6 +329,9 @@ msgstr ""
 msgid "Manage large volumes of responses:  easily keep track of the status of each request"
 msgstr ""
 
+msgid "Message {{current_message}} of {{total_messages}}"
+msgstr ""
+
 msgid "More information"
 msgstr ""
 
@@ -317,6 +344,9 @@ msgstr ""
 msgid "My wall"
 msgstr ""
 
+msgid "Next message"
+msgstr ""
+
 msgid "Next payment"
 msgstr ""
 
@@ -324,6 +354,9 @@ msgid "No"
 msgstr ""
 
 msgid "No bodies selected"
+msgstr ""
+
+msgid "No more authorities can be added to this batch request."
 msgstr ""
 
 msgid "No results found"
@@ -389,6 +422,9 @@ msgstr ""
 msgid "Preview new {{law_used_short}} request to '{{public_body_name}}'"
 msgstr ""
 
+msgid "Previous message"
+msgstr ""
+
 msgid "Privacy"
 msgstr ""
 
@@ -427,10 +463,16 @@ msgstr[1] ""
 msgid "Read blog"
 msgstr ""
 
+msgid "Refer a friend"
+msgstr ""
+
 msgid "Remember, public authorities have {{late_number_of_days}} calendar days to respond to FOI requests."
 msgstr ""
 
 msgid "Remember, public authorities have {{late_number_of_days}} working days to respond to FOI requests."
+msgstr ""
+
+msgid "Remove"
 msgstr ""
 
 msgid "Replies"
@@ -456,13 +498,13 @@ msgstr ""
 msgid "Requests"
 msgstr ""
 
-msgid "Requests in this batch are private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
+msgid "Requests in this batch are private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
 msgstr ""
 
 msgid "Requests in this batch are public"
 msgstr ""
 
-msgid "Requests in this batch will be private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
+msgid "Requests in this batch will be private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
 msgstr ""
 
 msgid "Requests that will be made public soon"
@@ -478,6 +520,9 @@ msgid "Save draft"
 msgstr ""
 
 msgid "Search"
+msgstr ""
+
+msgid "Search by name"
 msgstr ""
 
 msgid "Search for an authority"
@@ -524,6 +569,9 @@ msgid "Sent"
 msgstr ""
 
 msgid "Settings"
+msgstr ""
+
+msgid "Share the code {{discount_code}} with a friend to give them {{discount_terms}} on signup."
 msgstr ""
 
 msgid "Show {{count}} request in detail</span>"
@@ -634,13 +682,13 @@ msgstr ""
 msgid "This page is only accessible to {{pro_site_name}} users"
 msgstr ""
 
-msgid "This request is private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
+msgid "This request is private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
 msgstr ""
 
 msgid "This request is public"
 msgstr ""
 
-msgid "This request will be private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
+msgid "This request will be private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
 msgstr ""
 
 msgid "This will publish all of the requests in this batch. Are you sure?"
@@ -840,10 +888,13 @@ msgstr ""
 msgid "Your request will now be private on {{site_name}} until {{expiry_date}}."
 msgstr ""
 
+msgid "Your request will now be private until {{expiry_date}}."
+msgstr ""
+
 msgid "Your requests are now public!"
 msgstr ""
 
-msgid "Your requests will now be private on {{site_name}} until {{expiry_date}}."
+msgid "Your requests will now be private until {{expiry_date}}."
 msgstr ""
 
 msgid "Your subscription has been cancelled, your access to {{pro_site_name}} will end on <strong>{{date}}</strong>."

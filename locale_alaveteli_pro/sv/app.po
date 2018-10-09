@@ -5,14 +5,13 @@
 #
 # Translators:
 # louisecrow <louise@mysociety.org>, 2017
-# Liz Conlan <liz@mysociety.org>, 2017
 # Mattias Axell <mattias@okfn.se>, 2018
 # Elle Lingh <elenor.lingh@hyperisland.se>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-18 02:19-0800\n"
+"POT-Creation-Date: 2018-09-28 15:40+0000\n"
 "PO-Revision-Date: 2017-01-20 17:40+0000\n"
 "Last-Translator: Elle Lingh <elenor.lingh@hyperisland.se>, 2018\n"
 "Language-Team: Swedish (https://www.transifex.com/mysociety/teams/33529/sv/)\n"
@@ -37,12 +36,6 @@ msgstr "(ingen titel)"
 msgid "(with <b>{{discount_name}}</b> discount applied)"
 msgstr "(med<b>{{discount_name}}</b>har rabatt tillämpas)"
 
-msgid "+ Add"
-msgstr "+ Lägg till"
-
-msgid "- Remove"
-msgstr "- Ta bort"
-
 msgid "12 Months"
 msgstr "12 månader"
 
@@ -51,6 +44,9 @@ msgstr "3 månader"
 
 msgid "6 Months"
 msgstr "6 månader"
+
+msgid "<span class=\"current-page\">{{current_page}}</span> of <span class=\"total-pages\">{{total_pages}}</span>"
+msgstr "<span class=\"current-page\">{{current_page}}</span> av <span class=\"total-pages\">{{total_pages}}</span>"
 
 msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
 msgstr "<strong> Kan jag begära information om mig själv?</strong> <a href=\"{{url}}\">Nej!</a>"
@@ -100,6 +96,9 @@ msgstr "Aktivitet"
 msgid "Add Payment Card"
 msgstr "Lägg till betalkort"
 
+msgid "Add all"
+msgstr "Lägg till alla"
+
 msgid "Add an annotation"
 msgstr "Lägg till en anteckning"
 
@@ -124,6 +123,9 @@ msgstr "Även kallad {{other_name}}"
 msgid "An all-in-one FOI toolkit for journalists, activists and campaigners"
 msgstr "En allt-i-ett FOI-verktyg för journalister, aktivister och förespråkare"
 
+msgid "An annual subscription"
+msgstr "En årlig prenumeration"
+
 msgid "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
 msgstr "Anteckningar tillåter dig att lägga till extra anteckningar på en begäran, vilka eventuellt kommer offentliggöras. Till exempel:"
 
@@ -138,6 +140,9 @@ msgstr "Är du säker på att du vill publicera denna begäran?"
 
 msgid "Are you sure?"
 msgstr "Är du säker?"
+
+msgid "Batch"
+msgstr "Mängd"
 
 msgid "Batch request"
 msgstr "Massförfrågan"
@@ -162,6 +167,9 @@ msgstr "Betalning: Veckovis"
 
 msgid "Billing"
 msgstr "Betalning"
+
+msgid "Browse by category"
+msgstr "Bläddra enligt kategori"
 
 msgid "Browse public requests"
 msgstr "Bläddra bland offentliga förfrågningar"
@@ -190,6 +198,12 @@ msgstr "Kontrollera att du inte har inkluderat någon <strong>personlig informat
 msgid "Choose a duration"
 msgstr "Välj en varaktighet"
 
+msgid "Collapse all correspondence"
+msgstr "Dölj all korrespondens"
+
+msgid "Confirm your account on {{site_name}}"
+msgstr "Bekräfta ditt konto på {{site_name}}"
+
 msgid "Contact us"
 msgstr "Kontakta oss"
 
@@ -217,6 +231,12 @@ msgstr "Leveransbekräftelse för kvitto på mottagande"
 msgid "Details"
 msgstr "Detaljer"
 
+msgid "Disabled while sending remaining requests."
+msgstr "Inaktiverad medan återstående förfrågningar skickas"
+
+msgid "Dismiss"
+msgstr "Avfärda"
+
 msgid "Do you have a coupon code?"
 msgstr "Har du en rabattkod?"
 
@@ -240,6 +260,9 @@ msgstr "E-postadressen ser inte ut att vara en giltig adress"
 
 msgid "Everything you need to keep on top of complex FOI-driven stories."
 msgstr "Allt du behöver för att hålla dig uppdaterad om komplexa FOI-drivna projekt"
+
+msgid "Expand all correspondence"
+msgstr "Expandera all korrespondens"
 
 msgid "Expires soon"
 msgstr "Förfaller snart"
@@ -280,6 +303,9 @@ msgstr "Jag förstår och vill fortfarande avbryta"
 msgid "If you have an <strong>offer code</strong>, please enter it here:"
 msgstr "Om du har en <strong>rabattkod</strong>, vänligen ange den här:"
 
+msgid "Important info about requests to this authority"
+msgstr "Viktig info om förfrågningar till denna myndighet"
+
 msgid "Keep private for a further:"
 msgstr "Håll den privat för en vidare:"
 
@@ -304,6 +330,9 @@ msgstr "Gör en begäran enligt {{law_used_short}}"
 msgid "Manage large volumes of responses:  easily keep track of the status of each request"
 msgstr "Hantera stora volymer av svar: håll enkelt reda på statusen för varje förfrågan"
 
+msgid "Message {{current_message}} of {{total_messages}}"
+msgstr "Meddelande {{current_message}} av {{total_messages}}"
+
 msgid "More information"
 msgstr "Mer information"
 
@@ -316,6 +345,9 @@ msgstr "Min prenumeration"
 msgid "My wall"
 msgstr "Mitt flöde"
 
+msgid "Next message"
+msgstr "Nästa meddelande"
+
 msgid "Next payment"
 msgstr "Nästa betalning"
 
@@ -324,6 +356,9 @@ msgstr "Nej"
 
 msgid "No bodies selected"
 msgstr "Inga valda myndigheter"
+
+msgid "No more authorities can be added to this batch request."
+msgstr "Inga fler myndigheter kan läggas till denna mängdförfrågan"
 
 msgid "No results found"
 msgstr "Hittade inga resultat"
@@ -345,6 +380,9 @@ msgstr "När sekretessperioden avslutas, allt som du anger på denna sida, inklu
 
 msgid "Once you’re happy with your request, click preview and send."
 msgstr "När du är nöjd med din förfrågan, klicka på förhandsgranska och sänd."
+
+msgid "Pay"
+msgstr "Betala"
 
 msgid "Pay with card"
 msgstr "Betala med kort"
@@ -370,6 +408,9 @@ msgstr "Vänligen berätta om du vill ha uppdateringar"
 msgid "Please tell us if you're interested in training and seminars"
 msgstr "Vänligen berätta om du är intresserad av utbildning och föreläsningar"
 
+msgid "Plus, all the power of {{site_name}}"
+msgstr "Plus, all kraft från {{site_name}}"
+
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
 msgstr "Referera till <strong>sammanhörande information</strong>, kampanjer eller forum kan vara lämpligt."
 
@@ -381,6 +422,9 @@ msgstr "Förhandsvisa ny massförfrågan"
 
 msgid "Preview new {{law_used_short}} request to '{{public_body_name}}'"
 msgstr "Förhandsgranska ny begäran enligt {{law_used_short}} till '{{public_body_name}}'"
+
+msgid "Previous message"
+msgstr "Föregående meddelande"
 
 msgid "Privacy"
 msgstr "Privatliv och integritet"
@@ -396,6 +440,9 @@ msgstr "Pro introducerar en ny dashboard-vy"
 
 msgid "Pro features a new request list view"
 msgstr "Pro innehåller en ny listvy för förfrågningar"
+
+msgid "Profile"
+msgstr "Profil"
 
 msgid "Provide extra context on the request and your reasons for making it."
 msgstr "Motivera din förfrågan med extra bakgrund och skäl varför du gör den."
@@ -417,14 +464,23 @@ msgstr[1] "Publicera dessa förfrågningar eller håll dem privata för en läng
 msgid "Read blog"
 msgstr "Läs blogg"
 
+msgid "Refer a friend"
+msgstr "Referera en vän"
+
 msgid "Remember, public authorities have {{late_number_of_days}} calendar days to respond to FOI requests."
 msgstr "Kom ihåg att myndigheten har {{late_number_of_days}} kalenderdagar på sig att besvara FOI förfrågningar."
 
 msgid "Remember, public authorities have {{late_number_of_days}} working days to respond to FOI requests."
 msgstr "Kom ihåg att myndigheten har {{late_number_of_days}} arbetsdagar på sig att besvara en FOI förfrågan."
 
+msgid "Remove"
+msgstr "Ta bort"
+
 msgid "Replies"
 msgstr "Svar"
+
+msgid "Request access to {{site_name}} beta"
+msgstr "Begär tillgång till {{site_name}} Beta"
 
 msgid "Request an internal review"
 msgstr "Fråga efter en intern granskning"
@@ -443,14 +499,14 @@ msgstr "Begäran till"
 msgid "Requests"
 msgstr "Förfrågningar"
 
-msgid "Requests in this batch are private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
-msgstr "Förfrågningar i denna serie är privata på {{site_name}} fram till<span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
+msgid "Requests in this batch are private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
+msgstr "Förfrågningar i denna mängd är privata t.o.m. <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
 
 msgid "Requests in this batch are public"
 msgstr "Förfrågningar i denna serieförfrågan är offentliga"
 
-msgid "Requests in this batch will be private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
-msgstr "Förfrågningar i denna serie kommer vara privata på {{site_name}} fram till<span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
+msgid "Requests in this batch will be private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
+msgstr "Förfrågningar i denna mängd kommer vara privata t.o.m. <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
 
 msgid "Requests that will be made public soon"
 msgstr "Förfrågningar som kommer offentliggöras snart"
@@ -466,6 +522,9 @@ msgstr "Spara utkast"
 
 msgid "Search"
 msgstr "Sök"
+
+msgid "Search by name"
+msgstr "Sök på namn"
 
 msgid "Search for an authority"
 msgstr "Sök efter en myndighet"
@@ -513,6 +572,9 @@ msgstr "Skickat"
 msgid "Settings"
 msgstr "Inställningar"
 
+msgid "Share the code {{discount_code}} with a friend to give them {{discount_terms}} on signup."
+msgstr "Dela koden {{discount_code}} med en vän för att ge dem {{discount_terms}} vid registrering."
+
 msgid "Show {{count}} request in detail</span>"
 msgid_plural "Show {{count}} requests in detail</span>"
 msgstr[0] "Visa {{count}} begäran i detalj</span>"
@@ -554,6 +616,9 @@ msgstr "Starta ny begäran"
 msgid "Status"
 msgstr "Status"
 
+msgid "Streamlined process for requesting internal reviews"
+msgstr "Strömlinjeformad process för att begära interna granskningar"
+
 msgid "Subject"
 msgstr "Ämne"
 
@@ -578,6 +643,11 @@ msgstr "Tack för att du loggar in. Vi har sparat din begäran som ett utkast if
 msgid "Thanks for your interest in {{pro_site_name}}, we'll get back to you soon!"
 msgstr "Tack för ditt intresse i {{pro_site_name}}. Vi återkommer till dig snart!"
 
+msgid "The following request has been made public on {{site_name}} this week."
+msgid_plural "The following requests have been made public on {{site_name}} this week."
+msgstr[0] "Följande begäran har offentliggjorts på {{site_name}} denna vecka."
+msgstr[1] "Följande förfrågningar har offentliggjorts på {{site_name}} denna vecka."
+
 msgid "The following request will be made public on {{site_name}} in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer."
 msgid_plural "The following requests will be made public on {{site_name}} in the next week. If you do not wish for any of these requests to go public, please click on the links below to extend them."
 msgstr[0] "Den följande begäran kommer offentliggöras på {{site_name}} i nästa vecka. Om du inte önskar att denna begäran offentliggörs, vänligen klicka på länken nedan för att hålla den privat en längre tid."
@@ -585,6 +655,9 @@ msgstr[1] "De följande förfrågningarna kommer offentliggöras på {{site_name
 
 msgid "Then you can access {{pro_site_name}}"
 msgstr "Sen kan du tillgå {{pro_site_name}}"
+
+msgid "Then you can activate your {{site_name}} account"
+msgstr "Sen kan du aktivera ditt konto på {{site_name}}"
 
 msgid "Then you can update your payment details"
 msgstr "Sedan kan du uppdatera dina betalningsuppgifter"
@@ -610,14 +683,14 @@ msgstr "Saker att göra idag"
 msgid "This page is only accessible to {{pro_site_name}} users"
 msgstr "Denna sida är endast tillgänglig för användare vid {{pro_site_name}}"
 
-msgid "This request is private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
-msgstr "Denna begäran är hemlig på {{site_name}} fram tills <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
+msgid "This request is private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
+msgstr "Denna begäran är privat t.o.m. <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
 
 msgid "This request is public"
 msgstr "Denna begäran är offentlig"
 
-msgid "This request will be private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
-msgstr "Denna förfrågan kommer att vara privat på {{site_name}} tills  <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span> "
+msgid "This request will be private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
+msgstr "Denna förfrågan kommer att vara hemlig tills <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
 
 msgid "This will publish all of the requests in this batch. Are you sure?"
 msgstr "Detta kommer publicera alla förfrågningar i denna serie. Är du säker?"
@@ -634,6 +707,9 @@ msgstr "Till"
 msgid "To access {{pro_site_name}}"
 msgstr "För att få tillgång till {{pro_site_name}}"
 
+msgid "To signup to {{site_name}}"
+msgstr "För registrering på {{site_name}}"
+
 msgid "To update your payment details"
 msgstr "För att uppdatera dina betalningsuppgifter"
 
@@ -645,6 +721,9 @@ msgstr "Såvida du inte väljer ett sekretessalternativ kommer förfrågningar i
 
 msgid "Unless you choose a privacy option, your request will be public on {{site_name}} immediately."
 msgstr "Såvida du inte väljer ett eget alternativ, kommer din förfrågan att bli tillgänglig på {{site_name}} omgående."
+
+msgid "Until that date you will continue to have full access to {{pro_site_name}}."
+msgstr "Fram till det datumet fortsätter du att ha full tillgång till {{pro_site_name}}."
 
 msgid "Up-to-date database of contact details for 20,000 authorities"
 msgstr "Uppdaterad databas med kontaktuppgifter till 20 000 myndigheter"
@@ -683,6 +762,9 @@ msgstr "Vi behandlar din betalning. Du kan komma åt dina prenumerationsinställ
 
 msgid "We will remind you by email and on the site when the request is going be made public, and you'll have the option to keep it private for longer if you want to. You can extend this time indefinitely, or make the request public at any time."
 msgstr "Vi kommer att påminna dig när förfrågan kommer att publiceras och du kommer att ha möjligheten att behålla den privat. Du utöka  detta på obestämd tid eller publicera den när som helst."
+
+msgid "Welcome to {{pro_site_name}}!"
+msgstr "Välkommen till {{pro_site_name}}!"
 
 msgid "When a request is private we guarantee that it will only be visible on {{site_name}} for the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
 msgstr "När en förfrågan är privat garanterar vi att den kan enbart ses på {{site_name}} under den tid du valt. {{pro_site_name}} administratörer kommer att kunna se din förfrågan men bara vid de tillfällen när de tillfällen behöver åtgärda något problem med t ex (e.g. failed delivery to the authority). De kommer ej att avslöja innehållet i din förfrågan eller något svar som du fått till någon annan. Myndigheten kommer dock att publicera den i förteckning som vanligt."
@@ -783,6 +865,9 @@ msgstr "Ditt meddelande kommer att visas offentligt på denna hemsida när du pu
 msgid "Your payment details"
 msgstr "Dina betalningsuppgifter"
 
+msgid "Your payment details have been updated"
+msgstr "Dina betalningsuppgifter har uppdaterats"
+
 msgid "Your request"
 msgstr "Din begäran"
 
@@ -804,11 +889,14 @@ msgstr "Din förfrågan till {{public_body_name}} \"{{info_request_title}}\" erh
 msgid "Your request will now be private on {{site_name}} until {{expiry_date}}."
 msgstr "Din förfrågan kommer nu att var privat på {{site_name}} fram till {{expiry_date}}."
 
+msgid "Your request will now be private until {{expiry_date}}."
+msgstr "Din förfrågan kommer nu vara hemlig fram tills {{expiry_date}}."
+
 msgid "Your requests are now public!"
 msgstr "Dina förfrågningar är nu offentliga!"
 
-msgid "Your requests will now be private on {{site_name}} until {{expiry_date}}."
-msgstr "Dina förfrågningar kommer nu vara hemliga på {{site_name}} fram tills {{expiry_date}}."
+msgid "Your requests will now be private until {{expiry_date}}."
+msgstr "Dina förfrågningar kommer nu vara hemliga fram tills {{expiry_date}}."
 
 msgid "Your subscription has been cancelled, your access to {{pro_site_name}} will end on <strong>{{date}}</strong>."
 msgstr "Din prenumeration har avslutats, din tillgång till {{pro_site_name}} kommer att avslutas den {{date}}."
@@ -830,6 +918,9 @@ msgstr "först skapad"
 
 msgid "last updated"
 msgstr "sist uppdaterad"
+
+msgid "or start a batch request"
+msgstr "eller starta en massförfrågan"
 
 msgid "requests that will be made public soon"
 msgstr "förfrågningar som snart kommer att bli offentliga"
@@ -855,6 +946,11 @@ msgid "{{count}} recipient, {{first_public_body}}"
 msgid_plural "{{count}} recipients, including {{first_public_body}} and {{second_public_body}}"
 msgstr[0] "{{count}} mottagare, {{first_public_body}}"
 msgstr[1] "{{count}} mottagare, inklusive {{first_public_body}} och {{second_public_body}}"
+
+msgid "{{count}} reply"
+msgid_plural "{{count}} replies"
+msgstr[0] "{{count}} svar"
+msgstr[1] "{{count}} svar"
 
 msgid "{{count}} request has received a response."
 msgid_plural "{{count}} requests have received a response."

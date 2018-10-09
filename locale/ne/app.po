@@ -13,6 +13,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Amit Shrestha <amitshrestha37@gmail.com>, 2017
 # Anjesh Ojha <anjeshojha67@gmail.com>, 2017
 # arjun gautam <arjun.gautam.1694@gmail.com>, 2016
@@ -47,9 +48,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-18 01:28-0800\n"
-"PO-Revision-Date: 2018-02-13 18:54+0000\n"
-"Last-Translator: Saroj Dhakal <lotusnagarkot@gmail.com>\n"
+"POT-Creation-Date: 2018-09-28 15:37+0000\n"
+"PO-Revision-Date: 2018-09-29 11:24+0000\n"
+"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Nepali (http://www.transifex.com/mysociety/alaveteli/language/ne/)\n"
 "Language: ne\n"
 "MIME-Version: 1.0\n"
@@ -153,6 +154,9 @@ msgstr "*अज्ञात*"
 msgid ",\\n\\n\\n\\nYours,\\n\\n{{user_name}}"
 msgstr ",\\n\\n\\n\\nतपाईँकै,\\n\\n{{user_name}}"
 
+msgid "12 characters minimum. 72 characters maximum."
+msgstr ""
+
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
 msgstr "<a href=\"{{browse_url}}\">सबै हेर्नुहोस्</a> अथवा <a href=\"{{add_url}}\">हामीलाई थप्न भन्नुहोस्</a>।"
 
@@ -254,6 +258,9 @@ msgstr "<strong>Caveat emptor!</strong>यो आँकडा प्रयोग
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong>स्पष्टीकरण</strong> अनुरोध गरियो"
 
+msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
+msgstr ""
+
 msgid "<strong>No response</strong> has been received <small>(maybe there's just an acknowledgement)</small>"
 msgstr "<strong>कुनै पनि</strong> जवाफ पाइएको छैन <small>(हुन सक्छ अनुरोध प्राप्त भएको जानकारी मात्र)</small>"
 
@@ -317,6 +324,9 @@ msgstr "एउटा नयाँ अनुरोध, <em><a href=\"{{request_ur
 msgid "A one line summary of the information you are requesting, e.g."
 msgstr "तपाईँले अनुरोध गर्नु भएको जानकारीको छोटो सारांश  \\n⇥⇥⇥उदाहरण. "
 
+msgid "A powerful, fully-featured FOI toolkit for journalists"
+msgstr ""
+
 msgid "A public authority"
 msgstr "एक सार्वजनिक निकाय"
 
@@ -339,6 +349,9 @@ msgid "About you:"
 msgstr "तपाईँको बारेमा:"
 
 msgid "About {{count}} FOI requests found"
+msgstr ""
+
+msgid "Account suspended – Please contact us"
 msgstr ""
 
 msgid "Act on what you've learnt"
@@ -476,6 +489,18 @@ msgstr "सदस्यता अनुरोध बदल्नुहोस्"
 msgid "Although all responses are automatically published, we depend on you, the original requester, to evaluate them."
 msgstr "सबै प्रतिक्रियाहरू स्वचालित रूपमा प्रकाशित छन्, तैपनि हामी तिनीहरूलाई मूल्याङ्कन गर्न, \\ n तपाईँले, मूल REQUESTER भर पर्छन्।"
 
+msgid "Although not legally required to do so, we would have expected {{public_body_link}} to have responded by "
+msgstr ""
+
+msgid "Although not legally required to do so, we would have expected {{public_body_link}} to have responded by now"
+msgstr ""
+
+msgid "Although the authority is not legally obliged to reply, you should get a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>."
+msgstr ""
+
+msgid "Although the authority is not legally obliged to reply, you should have got a response, normally before the end of <strong>{{date_response_required_by}}</strong>."
+msgstr ""
+
 msgid "An <a href=\"{{request_url}}\">annotation</a> to <em>{{request_title}}</em> was made by {{event_comment_user}} on {{date}}"
 msgstr "एक <a href=\"{{request_url}}\"> एनोटेशन </a> गर्न <em> {{request_title}} </em> द्वारा गरिएको थियो {{event_comment_user}} मा {{date}}"
 
@@ -505,6 +530,12 @@ msgstr "Annotations are so anyone, including you, can help the requester with th
 
 msgid "Annotations will be posted publicly here, and are <strong>not</strong> sent to {{public_body_name}}."
 msgstr "उद्धरणहरू सार्वजनिक यहाँ पोस्ट गरिनेछ, र छन्\\n<strong>छैन</strong>पठाइएको {{public_body_name}}"
+
+msgid "Announcement"
+msgstr ""
+
+msgid "Announcement|Visibility"
+msgstr ""
 
 msgid "Anonymous user"
 msgstr "अज्ञात प्रयोगकर्ता"
@@ -583,9 +614,6 @@ msgstr "विषयवस्तुमा फर्कनुहोस्"
 
 msgid "Banned from this site"
 msgstr "साइटबाट हटाइएको"
-
-msgid "Banned users cannot edit their profile"
-msgstr "रोक लगाइएका प्रयोगकर्ताहरूले आफ्नो प्रोफाइल सम्पादन गर्न पाउँदैनन्"
 
 msgid "Batch created by {{info_request_user}} on {{date}}."
 msgstr "ब्याच बनाउने {{info_request_user}} मिति {{date}}।"
@@ -733,6 +761,9 @@ msgstr "बन्द गर्नुहोस्"
 msgid "Close the request and respond:"
 msgstr "अनुरोधलाई बन्द गरेर जवाफ दिनुहोस्:"
 
+msgid "Collapse all correspondence"
+msgstr ""
+
 msgid "Comment"
 msgstr "टिप्पणी"
 
@@ -787,11 +818,11 @@ msgstr "तपाईँको इमेल ठेगाना निश्चि
 msgid "Confirm your new email address on {{site_name}}"
 msgstr "{{site_name}} मा रहेको तपाईँको इमेल ठेगाना निश्चित गर्नुहोस्"
 
-msgid "Considered by administrators as not an FOI request and hidden from site."
-msgstr "प्रवन्धकहरूले FOI अनुरोध हैन भनेर एकिन गरेको कारण साइटबाट लुकाइएको"
+msgid "Considered by administrators as not an FOI request."
+msgstr ""
 
-msgid "Considered by administrators as vexatious and hidden from site."
-msgstr "प्रवन्धकहरूले आधारहीन रहेको एकिन गरेको कारणले साइटबाट लुकाइएको"
+msgid "Considered by administrators as vexatious."
+msgstr ""
 
 msgid "Contact us"
 msgstr "सम्पर्क गर्नुहोस्"
@@ -835,8 +866,8 @@ msgstr "तपाईँको प्रोफाइल फोटो काट्
 msgid "Cultural sites and built structures (as they may be affected by the environmental factors listed above)"
 msgstr "सांस्कृतिक साइटहरू र निर्माण संरचना (तिनीहरूद्वारा \\ प्रभावित रूपमा N सक्छ पर्यावरण कारक माथि सूचीबद्ध)"
 
-msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they must respond promptly and"
-msgstr "हाल प्रतिक्रिया </ strong> देखि लागि प्रतीक्षा <strong> {{public_body_link}}, तिनीहरूले द्रुत प्रतिक्रिया हुनु पर्छ र"
+msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they should respond promptly and"
+msgstr ""
 
 msgid "Date:"
 msgstr "मिति:"
@@ -990,6 +1021,9 @@ msgstr "हरेक नागरिकलाई साधारण अधिक
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
 msgstr "तपाईँ ले यो पेजमा लेख्नु भएको हरेक कुराहरू,तपाईँको सहित<strong>नाम</strong>सहित,\\n<strong> सार्वजनिक रूपमा</strong>वेवसाइटमा देखाइनेछ <a href=\"{{url}}\">सधैँ भरी </a>"
+
+msgid "Expand all correspondence"
+msgstr ""
 
 msgid "FOI"
 msgstr "FOI"
@@ -2043,6 +2077,12 @@ msgstr "आंशिकरूपमा सफल"
 msgid "Password is not correct"
 msgstr "पासवर्ड मिलेन"
 
+msgid "Password is too long (maximum is 72 characters)"
+msgstr ""
+
+msgid "Password is too short (minimum is 12 characters)"
+msgstr ""
+
 msgid "Password:"
 msgstr "पासवर्ड:"
 
@@ -2492,6 +2532,9 @@ msgstr " <a href=\"{{advanced_search_url}}\">विकसित खोज अप
 msgid "Read blog"
 msgstr "ब्लग पढ्नुहोस्"
 
+msgid "Reason:"
+msgstr ""
+
 msgid "Received an error message, such as delivery failure."
 msgstr "त्रुटी सन्देश प्राप्त भयो, जस्तै प्रापकले प्राप्त गर्न नसकेको।"
 
@@ -2914,6 +2957,9 @@ msgstr "सारांश"
 msgid "Summary is too short. Please be a little more descriptive about the information you are asking for."
 msgstr ""
 
+msgid "Suspended users cannot edit their profile"
+msgstr ""
+
 msgid "Table of statuses"
 msgstr "स्थितीको सूची"
 
@@ -3085,8 +3131,14 @@ msgstr "यो सन्देश लुकाइएको छ। यसका �
 msgid "The requester has abandoned this request for some reason"
 msgstr "अनुरोधकर्ताद्वारा यो अनुरोध केहि कारणबस निषेध गरिएको छ"
 
+msgid "The response to your request has been <strong>delayed</strong>. Although the authority has no legal obligation to reply, they should normally have responded by <strong>{{date}}</strong>"
+msgstr ""
+
 msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and by <strong>{{date}}</strong>"
 msgstr "तपाई को अनुरोधको प्रतिक्रिया <strong>ढिलाई</strong> गरिएको छ। अक्तियारद्वारा <strong>कडा </strong> प्रतिक्रिया गरिएको भनेर बुझ्न सकिन्छ।"
+
+msgid "The response to your request is <strong>long overdue</strong>. Although the authority has no legal obligation to reply, they should have responded by now"
+msgstr ""
 
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr "तपाई को अनुरोधको प्रतिक्रिया <strong>ढिलाई</strong> गरिएको छ। अक्तियारद्वारा <strong>कडा </strong> प्रतिक्रिया गरिएको भनेर बुझ्न सकिन्छ।"
@@ -3223,16 +3275,19 @@ msgstr "उनीहरूलाई उल्लिखित विवरण द
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
 msgstr "सामान्य कानुनी जरुरत अनुसारको {{law_used_short}} अनुरोधलाई{{title}}  , उनीहरूले जवाफ द्रुतरुपमा जवाफ दिएका छैनन् |"
 
-msgid "They have not replied to your {{law_used_short}} request {{title}}, as required by law"
-msgstr "तिनीहरूले तपाइको {{law_used_short}} अनुरोध {{title}} को जवाफ दिएकाछैनन्, \\nनियमले चाहे बमोजिम"
+msgid "They have not replied to your {{law_used_short}} request {{title}}, as normally required by law"
+msgstr ""
 
-msgid "They have still not replied to your {{law_used_short}} request {{title}}, as required by law"
+msgid "They have still not replied to your {{law_used_short}} request {{title}}, as normally required by law"
 msgstr ""
 
 msgid "Things you're following"
 msgstr "तपाइले पछ्यौनुभएको कुराहरु"
 
 msgid "This annotation has been reported for administrator attention"
+msgstr ""
+
+msgid "This authority is not subject to FOI law, so is not legally obliged to respond"
 msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
@@ -3325,12 +3380,6 @@ msgstr "यो अनुरोध पहिले नै प्रशासक�
 msgid "This request has an <strong>unknown status</strong>."
 msgstr "यो अनुरोध को  <strong>अज्ञात स्थिति छ</strong>."
 
-msgid "This request has been <strong>hidden</strong> from the site, because an administrator considers it not to be an FOI request"
-msgstr "यो अनुरोध साइटबाट <strong> लुकेको </strong> छ किनभने एक प्रशासकले यस्लाइ अ्याफ ओ इ अनुरोध मान्दैन​।"
-
-msgid "This request has been <strong>hidden</strong> from the site, because an administrator considers it vexatious"
-msgstr "यो अनुरोध<strong>  साइटबाट  </strong> लुकाइएको छ किनभने प्रशासकले      यसलाई अफसोसजनक मानेको छ"
-
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
 msgstr "प्रशासक को ध्यान चाहिएको संधर्वमा यो अनुरोधलाई <strong>गुनासो</strong> गरिएको छ (सायद किनभने,यो  रिसउठ्दो छ, वा यो व्यक्तिगत जानकारी को अनुरोध हुनसक्छ )"
 
@@ -3345,6 +3394,12 @@ msgstr "यो अनुरोध साइट प्रशासकद्वा
 
 msgid "This request has been reported for administrator attention"
 msgstr "यो अनुरोध , प्रशासकको ध्यानको लागि रिपोर्ट गरिएको छ"
+
+msgid "This request has been reviewed by an administrator and is considered not to be an FOI request"
+msgstr ""
+
+msgid "This request has been reviewed by an administrator and is considered to be vexatious"
+msgstr ""
 
 msgid "This request has been set by an administrator to \"allow new responses from nobody\""
 msgstr "यो अनुरोध \"कसैको नयाँ  प्रतिक्रियाहरूलाई  अनुमति नगर्ने  \" प्रशासकद्वारा सेट गरिएको छ ।"
@@ -3376,8 +3431,8 @@ msgstr "सार्वजनिक शरीर तथ्याङ्कको 
 msgid "This table shows the technical details of the internal events that happened to this request on {{site_name}}. This could be used to generate information about the speed with which authorities respond to requests, the number of requests which require a postal response and much more."
 msgstr "यस सूचीले {{site_name}} मा \\nरहेका अनुरोधहरूको आन्तरिक घटनाहरू देखाउँछ। यो प्रयोग गरेर कुन निकायहरूले कति समय लगाउँछन् भन्ने जानकारी निकाल्न सकिन्छ\\nर कसलाई कति वटा अनुरोधहरू छन् भन्ने पनि\\nकतिलाई हुलाकद्वारा जवाफ दिनु पर्छ इत्यादि। "
 
-msgid "This user has been banned from {{site_name}} "
-msgstr "यो प्रयोगकर्ता यस {{site_name}} बाट निषेध गरिएको छ |"
+msgid "This user has been suspended from {{site_name}} "
+msgstr ""
 
 msgid "This was not possible because there is already an account using the email address {{email}}."
 msgstr "यो सम्भव थिएन​ किनभने त्यहाँ पहिले नै \\nइमेल ठेगाना{{email}} प्रयोग गरेको एउटा खाता छ।"
@@ -4001,8 +4056,8 @@ msgstr "<strong>गुनासो</strong> को लागी"
 msgid "You can change the requests and users you are following on <a href=\"{{profile_url}}\">your profile page</a>."
 msgstr "तपाईं आफ्नो अनुरोध र निम्न  प्रयोगकर्ता<a href=\"{{profile_url}}\"> आफ्नो प्रोफाइल पेजमा परिवर्तन गर्न सक्नुहुन्छ</a>|"
 
-msgid "You can get this page in computer-readable format as part of the main JSON page for the request.  See the <a href=\"{{api_path}}\">API documentation</a>."
-msgstr "अनुरोधका लागि तपाई यो पेज मुख्य JSON\\nपेजको रुपमा computer-readable ढाँचा मा पाउन सक्नु हुन्छ | <a href=\"{{api_path}}\">API दस्तावेज</a> हेर्नुहोस | "
+msgid "You can get this page in computer-readable format as part of the <a href=\"{{json_path}}\">main JSON page</a> for the request. See the <a href=\"{{api_path}}\">API documentation</a>."
+msgstr ""
 
 msgid "You can only request information about the environment from this authority."
 msgstr "तपाइले यस अधिकारिक निकायमा वातावरणबारे मात्र जानकारी अनुरोध गर्न सक्नुहुन्छ"
@@ -4679,7 +4734,7 @@ msgstr "{{public_body_name}}"
 msgid "{{public_body_name}} have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law. Click on the link below to remind them to reply."
 msgstr ""
 
-msgid "{{public_body_name}} have still not replied to your {{law_used_short}} request {{title}}, as required by law. Click on the link below to tell them to reply. You might like to ask for an internal review, asking them to find out why their response to the request has been so slow."
+msgid "{{public_body_name}} have still not replied to your {{law_used_short}} request {{title}}, as normally required by law. Click on the link below to tell them to reply. You might like to ask for an internal review, asking them to find out why their response to the request has been so slow."
 msgstr ""
 
 msgid "{{public_body_name}} no longer exists. From the request page, try replying to a particular message, rather than sending a general followup. If you need to make a general followup, and know an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."

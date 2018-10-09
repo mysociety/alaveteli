@@ -13,8 +13,9 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Jiří Vírava <appukonrad@gmail.com>, 2012
-# Hana Hunt <hana@hana-hunt.cz>, 2016-2017
+# Hana Hunt <hana@hana-hunt.cz>, 2016-2018
 # Hana Huntova <>, 2012-2015
 # Jana Kneschke <>, 2012-2013
 # janakneschke <jana.kneschke@gmail.com>, 2013
@@ -33,9 +34,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-18 01:28-0800\n"
-"PO-Revision-Date: 2018-01-18 10:22+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
+"POT-Creation-Date: 2018-09-28 15:37+0000\n"
+"PO-Revision-Date: 2018-09-30 21:05+0000\n"
+"Last-Translator: Hana Hunt <hana@hana-hunt.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/mysociety/alaveteli/language/cs/)\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -110,7 +111,7 @@ msgid "'Pollution levels over time for the River Tyne'"
 msgstr "\"Úroveň znečištění ve zvoleném časovém úseku pro řeku Labe\""
 
 msgid "'{{authority_name}}' is defunct"
-msgstr ""
+msgstr "'{{authority_name}}' neexistuje"
 
 msgid "'{{link_to_authority}}', a public authority"
 msgstr "'{{link_to_authority}}', instituce"
@@ -145,6 +146,9 @@ msgstr ""
 "S pozdravem,\n"
 "\n"
 "{{user_name}}"
+
+msgid "12 characters minimum. 72 characters maximum."
+msgstr "Nejméně 12 znaků. Maximálně 72 znaků. "
 
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
 msgstr "<a href=\"{{browse_url}}\">Prohlížet vše</a> nebo <a href=\"{{add_url}}\">požádat o přidání kontaktu</a>."
@@ -257,6 +261,9 @@ msgstr ""
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "Bylo vyžádáno <strong>upřesnění</strong> "
 
+msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
+msgstr ""
+
 msgid "<strong>No response</strong> has been received <small>(maybe there's just an acknowledgement)</small>"
 msgstr ""
 "<strong>Bez odpovědi</strong> \n"
@@ -327,6 +334,9 @@ msgstr "Nový dotaz byl vznesen na instituci {{public_body_name}} uživatelem {{
 msgid "A one line summary of the information you are requesting, e.g."
 msgstr "Napište stručný obsah vašeho dotazu na jeden řádek. Například:"
 
+msgid "A powerful, fully-featured FOI toolkit for journalists"
+msgstr ""
+
 msgid "A public authority"
 msgstr "Instituce"
 
@@ -349,6 +359,9 @@ msgid "About you:"
 msgstr "O vás:"
 
 msgid "About {{count}} FOI requests found"
+msgstr ""
+
+msgid "Account suspended – Please contact us"
 msgstr ""
 
 msgid "Act on what you've learnt"
@@ -490,6 +503,18 @@ msgstr "Upravit sledování dotazů"
 msgid "Although all responses are automatically published, we depend on you, the original requester, to evaluate them."
 msgstr "I když jsou všechny odpovědi automaticky uveřejňovány, hodnocení dotazu závisí na vás, na tazateli."
 
+msgid "Although not legally required to do so, we would have expected {{public_body_link}} to have responded by "
+msgstr ""
+
+msgid "Although not legally required to do so, we would have expected {{public_body_link}} to have responded by now"
+msgstr ""
+
+msgid "Although the authority is not legally obliged to reply, you should get a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>."
+msgstr ""
+
+msgid "Although the authority is not legally obliged to reply, you should have got a response, normally before the end of <strong>{{date_response_required_by}}</strong>."
+msgstr ""
+
 msgid "An <a href=\"{{request_url}}\">annotation</a> to <em>{{request_title}}</em> was made by {{event_comment_user}} on {{date}}"
 msgstr "<a href=\"{{request_url}}\">Dotaz</a> <em>{{request_title}}</em> byl okomentován uživatelem {{event_comment_user}} dne {{date}}"
 
@@ -521,6 +546,12 @@ msgid "Annotations will be posted publicly here, and are <strong>not</strong> se
 msgstr ""
 "Poznámky zde budou veřejně k dispozici\n"
 "        <strong>a nebudou</strong> poslány {{public_body_name}}."
+
+msgid "Announcement"
+msgstr ""
+
+msgid "Announcement|Visibility"
+msgstr ""
 
 msgid "Anonymous user"
 msgstr "Nezaregistrovaný uživatel"
@@ -599,9 +630,6 @@ msgstr "Zpět na obsah"
 
 msgid "Banned from this site"
 msgstr "Odstraněno s těchto stránek"
-
-msgid "Banned users cannot edit their profile"
-msgstr "Blokovaní uživatelé nemohou upravovat svůj profil"
 
 msgid "Batch created by {{info_request_user}} on {{date}}."
 msgstr "Dávka vytvořena {{info_request_user}} dne {{date}}."
@@ -747,6 +775,9 @@ msgstr "Zavřít"
 msgid "Close the request and respond:"
 msgstr "Uzavřete žádost a odpovězte:"
 
+msgid "Collapse all correspondence"
+msgstr ""
+
 msgid "Comment"
 msgstr "Komentář"
 
@@ -801,11 +832,11 @@ msgstr "Potvrďte svou e-mailovou adresu"
 msgid "Confirm your new email address on {{site_name}}"
 msgstr "Potvrďte novou e-mailovou adresu na stránkách {{site_name}}"
 
-msgid "Considered by administrators as not an FOI request and hidden from site."
-msgstr "Tento dotaz neodopovídá 106/1999 Sb., o svobodném přístupu k informacím a byl tudíž skryt."
+msgid "Considered by administrators as not an FOI request."
+msgstr ""
 
-msgid "Considered by administrators as vexatious and hidden from site."
-msgstr "Tento dotaz odporoval dobrým mravům a byl proto skryt."
+msgid "Considered by administrators as vexatious."
+msgstr ""
 
 msgid "Contact us"
 msgstr "Kontaktujte nás"
@@ -851,8 +882,8 @@ msgstr ""
 "Kulturní památky (které mohou být ovlivěny tak, \n"
 "            jak je vyjmenovanáno výše)"
 
-msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they must respond promptly and"
-msgstr "V současnosti <strong> se čeká na odpověď</strong> od instituce {{public_body_link}}. Musí odpovědět co nejdříve,  "
+msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they should respond promptly and"
+msgstr ""
 
 msgid "Date:"
 msgstr "Datum:"
@@ -1016,6 +1047,9 @@ msgstr "Každý občan má právo na přístup k informacím veřejných institu
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
 msgstr "Veškeré informace, které vložíte na tuto stránku, včetně <strong>vašeho jména</strong>, budou <a href=\"{{url}}\">trvale</a> <strong>uveřejněny</strong> na tomto webu."
+
+msgid "Expand all correspondence"
+msgstr ""
 
 msgid "FOI"
 msgstr "dotaz"
@@ -2093,6 +2127,12 @@ msgstr "Částečně úspěšné."
 msgid "Password is not correct"
 msgstr "Heslo není správné"
 
+msgid "Password is too long (maximum is 72 characters)"
+msgstr ""
+
+msgid "Password is too short (minimum is 12 characters)"
+msgstr ""
+
 msgid "Password:"
 msgstr "Heslo:"
 
@@ -2551,6 +2591,9 @@ msgstr "Přečtěte si <a href=\"{{advanced_search_url}}\">operandy pokročiléh
 msgid "Read blog"
 msgstr "Číst blog"
 
+msgid "Reason:"
+msgstr ""
+
 msgid "Received an error message, such as delivery failure."
 msgstr "Objevila se chybová zpráva, jako je nemožnost doručení zprávy"
 
@@ -2983,6 +3026,9 @@ msgstr "Předmět"
 msgid "Summary is too short. Please be a little more descriptive about the information you are asking for."
 msgstr "Shrnutí je příliš krátké. Prosím, popište trochu podrobněji jaké informace chcete získat. "
 
+msgid "Suspended users cannot edit their profile"
+msgstr ""
+
 msgid "Table of statuses"
 msgstr "Tabulka stavů"
 
@@ -3169,10 +3215,16 @@ msgstr ""
 msgid "The requester has abandoned this request for some reason"
 msgstr "Tazatel z nějakého důvodu tento dotaz opustil ??"
 
+msgid "The response to your request has been <strong>delayed</strong>. Although the authority has no legal obligation to reply, they should normally have responded by <strong>{{date}}</strong>"
+msgstr ""
+
 msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and by <strong>{{date}}</strong>"
 msgstr ""
 "Odpověď na váš dotaz má <strong>zpoždění</strong>. Můžete napsat, že podle zákona by instituce měla odpovědět nejpozději\n"
 "            <strong>do 15 dnů</strong> a "
+
+msgid "The response to your request is <strong>long overdue</strong>. Although the authority has no legal obligation to reply, they should have responded by now"
+msgstr ""
 
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr "Odpověď na váš dotaz<strong>má velké zpoždění</strong>.                           Můžete napsat, že podle zákona by měl být bez výhrad již dávno zodpovězen,"
@@ -3309,12 +3361,10 @@ msgstr "Obdrželi následující vysvětlení:"
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
 msgstr "Neodpověděli na dotaz {{title}} v zákonem daném termínu"
 
-msgid "They have not replied to your {{law_used_short}} request {{title}}, as required by law"
+msgid "They have not replied to your {{law_used_short}} request {{title}}, as normally required by law"
 msgstr ""
-"Neodpověděli vám {{law_used_short}} na dotaz {{title}}\n"
-"v zákonem daném termínu"
 
-msgid "They have still not replied to your {{law_used_short}} request {{title}}, as required by law"
+msgid "They have still not replied to your {{law_used_short}} request {{title}}, as normally required by law"
 msgstr ""
 
 msgid "Things you're following"
@@ -3322,6 +3372,9 @@ msgstr "Témata, která sledujete:"
 
 msgid "This annotation has been reported for administrator attention"
 msgstr "Tato poznámka byla nahlášena administrátorovi"
+
+msgid "This authority is not subject to FOI law, so is not legally obliged to respond"
+msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Tato instituce již neexistuje, nelze na ni proto vznést dotaz. "
@@ -3417,12 +3470,6 @@ msgstr "Tento dotaz byl již nahlášen."
 msgid "This request has an <strong>unknown status</strong>."
 msgstr "Stav tohoto dotazu je <strong>neznámý</strong>."
 
-msgid "This request has been <strong>hidden</strong> from the site, because an administrator considers it not to be an FOI request"
-msgstr "Tento dotaz byl <strong>skryt</strong>, jelikož se na něj nevztahuje zákon 106/1999 Sb., o svobodném přístupu k informacím."
-
-msgid "This request has been <strong>hidden</strong> from the site, because an administrator considers it vexatious"
-msgstr "Tento dotaz byl <strong>skryt</strong>, jelikož jeho obsah odporoval dobrým mravům."
-
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
 msgstr "Tento dotaz byl <strong>nahlášen</strong> administrátorům stránek, (pravděpodobně z důvodu nevhodného obsahu)."
 
@@ -3439,6 +3486,12 @@ msgstr "Tento dotaz byl označen administrátory ke kontrole. Pokud si myslíte,
 
 msgid "This request has been reported for administrator attention"
 msgstr "Odesláno administrátorovi"
+
+msgid "This request has been reviewed by an administrator and is considered not to be an FOI request"
+msgstr ""
+
+msgid "This request has been reviewed by an administrator and is considered to be vexatious"
+msgstr ""
 
 msgid "This request has been set by an administrator to \"allow new responses from nobody\""
 msgstr "Tento dotaz byl poslán administrátorovi, aby \"povolil nové odpovědi od nikoho\"."
@@ -3472,8 +3525,8 @@ msgstr "Sekce se statistickými informacemi o institucích je v současnosti v t
 msgid "This table shows the technical details of the internal events that happened to this request on {{site_name}}. This could be used to generate information about the speed with which authorities respond to requests, the number of requests which require a postal response and much more."
 msgstr "Tato tabulka ukazuje technické detaily související s tímto dotazem vzneseným na stránkách {{site_name}}. Tento přehled lze použít k analýze rychlosti, s jakou instituce odpovídají na dotazy, počtu dotazů, které byly zodpovězeny poštou atd. "
 
-msgid "This user has been banned from {{site_name}} "
-msgstr "Tomuto uživateli byl vstup na stránky {{site_name}} zakázán."
+msgid "This user has been suspended from {{site_name}} "
+msgstr ""
 
 msgid "This was not possible because there is already an account using the email address {{email}}."
 msgstr ""
@@ -4125,10 +4178,8 @@ msgstr "Můžete si <strong>stěžovat</strong> a"
 msgid "You can change the requests and users you are following on <a href=\"{{profile_url}}\">your profile page</a>."
 msgstr "<a href=\"{{profile_url}}\">Ve svém profilu</a> můžete upravit jaké dotazy a uživatele sledujete. "
 
-msgid "You can get this page in computer-readable format as part of the main JSON page for the request.  See the <a href=\"{{api_path}}\">API documentation</a>."
+msgid "You can get this page in computer-readable format as part of the <a href=\"{{json_path}}\">main JSON page</a> for the request. See the <a href=\"{{api_path}}\">API documentation</a>."
 msgstr ""
-"Tato stránka je k dispozici ve formátu čitelném pro počítač jako součást hlavní JSON\n"
-"stránky pro dotazy.  Podívejte se na <a href=\"{{api_path}}\">Dokumentaci API</a>.  ??"
 
 msgid "You can only request information about the environment from this authority."
 msgstr "Od této instituce můžete požadovat pouze informace podle zákona o životním prostředí. "
@@ -4867,7 +4918,7 @@ msgstr "{{public_body_name}}"
 msgid "{{public_body_name}} have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law. Click on the link below to remind them to reply."
 msgstr ""
 
-msgid "{{public_body_name}} have still not replied to your {{law_used_short}} request {{title}}, as required by law. Click on the link below to tell them to reply. You might like to ask for an internal review, asking them to find out why their response to the request has been so slow."
+msgid "{{public_body_name}} have still not replied to your {{law_used_short}} request {{title}}, as normally required by law. Click on the link below to tell them to reply. You might like to ask for an internal review, asking them to find out why their response to the request has been so slow."
 msgstr ""
 
 msgid "{{public_body_name}} no longer exists. From the request page, try replying to a particular message, rather than sending a general followup. If you need to make a general followup, and know an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."

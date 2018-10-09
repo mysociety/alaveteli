@@ -13,6 +13,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Clarisse Umutesi Mwitegereze <clarisse@mediae.org>, 2014-2015
 # Gareth Rees <gareth@mysociety.org>, 2015
 # Jean Pierre <afadhalipierre@gmail.com>, 2017
@@ -23,8 +24,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-18 01:28-0800\n"
-"PO-Revision-Date: 2018-01-18 10:23+0000\n"
+"POT-Creation-Date: 2018-09-28 15:37+0000\n"
+"PO-Revision-Date: 2018-09-29 11:24+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Kinyarwanda (http://www.transifex.com/mysociety/alaveteli/language/rw/)\n"
 "Language: rw\n"
@@ -129,6 +130,9 @@ msgstr "*ntizwi*"
 msgid ",\\n\\n\\n\\nYours,\\n\\n{{user_name}}"
 msgstr ",\\n\\n\\n\\nMurakoze,\\n\\n{{user_name}}"
 
+msgid "12 characters minimum. 72 characters maximum."
+msgstr ""
+
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
 msgstr "<a href=\"{{browse_url}}\">Reba byose</a> cyangwa <a href=\"{{add_url}}\">udusabe kongeraho imwe</a>."
 
@@ -230,6 +234,9 @@ msgstr "<strong>Icyitonderwa:</strong> Kugirango ukoreshe aya makuru mu buryo bw
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong>Basabye</strong> ibisobanuro"
 
+msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
+msgstr ""
+
 msgid "<strong>No response</strong> has been received <small>(maybe there's just an acknowledgement)</small>"
 msgstr "<strong>Nta gisubizo</strong> twabonye\\n                <small>(Bashobora kuba barabyemeye gusa)</small>"
 
@@ -293,6 +300,9 @@ msgstr "Ikindi kibazo, <em><a href=\"{{request_url}}\">{{request_title}}</a></em
 msgid "A one line summary of the information you are requesting, e.g."
 msgstr "Incamake y'umurongo umwe ivuga amakuru uri kubaza \\n\t\t\te.g."
 
+msgid "A powerful, fully-featured FOI toolkit for journalists"
+msgstr ""
+
 msgid "A public authority"
 msgstr "Umuyobozi"
 
@@ -315,6 +325,9 @@ msgid "About you:"
 msgstr "Ibikwerekeyeho"
 
 msgid "About {{count}} FOI requests found"
+msgstr ""
+
+msgid "Account suspended – Please contact us"
 msgstr ""
 
 msgid "Act on what you've learnt"
@@ -452,6 +465,18 @@ msgstr "Hindura uko wiyandikishije"
 msgid "Although all responses are automatically published, we depend on you, the original requester, to evaluate them."
 msgstr "N'ubwo ibisubizo byose bihita bishyirwa ku mugaragaro, tugendera kuri\\nwowe, watanze ikibazo bwa mbere, kugirango tubisesengure."
 
+msgid "Although not legally required to do so, we would have expected {{public_body_link}} to have responded by "
+msgstr ""
+
+msgid "Although not legally required to do so, we would have expected {{public_body_link}} to have responded by now"
+msgstr ""
+
+msgid "Although the authority is not legally obliged to reply, you should get a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>."
+msgstr ""
+
+msgid "Although the authority is not legally obliged to reply, you should have got a response, normally before the end of <strong>{{date_response_required_by}}</strong>."
+msgstr ""
+
 msgid "An <a href=\"{{request_url}}\">annotation</a> to <em>{{request_title}}</em> was made by {{event_comment_user}} on {{date}}"
 msgstr "Igisobanuro<a href=\"{{request_url}}\"></a> kuri <em>{{request_title}}</em> cyashyizweho na {{event_comment_user}} kuwa {{date}}"
 
@@ -481,6 +506,12 @@ msgstr "Ibisobanuro bifasha buri wese, nawe urimo, kwunganira uwabajije ku kibaz
 
 msgid "Annotations will be posted publicly here, and are <strong>not</strong> sent to {{public_body_name}}."
 msgstr "Ibisobanuro birashyirwa hano ku mugaragaro, kandi\\n        <strong>ntabwo</strong> bizohererezwa {{public_body_name}}."
+
+msgid "Announcement"
+msgstr ""
+
+msgid "Announcement|Visibility"
+msgstr ""
 
 msgid "Anonymous user"
 msgstr "Umuntu ukoresha urubuga utazwi"
@@ -559,9 +590,6 @@ msgstr "Subira ku byandiste"
 
 msgid "Banned from this site"
 msgstr "Yaciwe gukoresha urubuga"
-
-msgid "Banned users cannot edit their profile"
-msgstr "Abantu baciwe ku rubuga ntibashobora guhindura ibibaranga"
 
 msgid "Batch created by {{info_request_user}} on {{date}}."
 msgstr "Urutonde rwakozwe na {{info_request_user}} kuwa {{date}}"
@@ -707,6 +735,9 @@ msgstr "Funga"
 msgid "Close the request and respond:"
 msgstr "Funga ikibazo hanyuma usubize"
 
+msgid "Collapse all correspondence"
+msgstr ""
+
 msgid "Comment"
 msgstr "Igitekerezo"
 
@@ -761,11 +792,11 @@ msgstr "Emeza imeli yawe "
 msgid "Confirm your new email address on {{site_name}}"
 msgstr "Emeza imeli yawe nshya kuri {{site_name}}"
 
-msgid "Considered by administrators as not an FOI request and hidden from site."
-msgstr "Abayobozi b'urubuga babonye iki kibazo atari icy'ubwisanzure bwo kumenya amakuru ndetse cyahishwe ku rubuga."
+msgid "Considered by administrators as not an FOI request."
+msgstr ""
 
-msgid "Considered by administrators as vexatious and hidden from site."
-msgstr "Abayobozi b'urubuga babonye gikomeretsanya kandi cyahishwe ku rubuga."
+msgid "Considered by administrators as vexatious."
+msgstr ""
 
 msgid "Contact us"
 msgstr "Twandikire"
@@ -809,8 +840,8 @@ msgstr "Gabanya ifoto ikuranga"
 msgid "Cultural sites and built structures (as they may be affected by the environmental factors listed above)"
 msgstr "Ahantu ndanga mateka n'ahubatswe (kuko hashobora gukorwaho \\n            n'amategeko agenga ibidukikije ari haruguru)"
 
-msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they must respond promptly and"
-msgstr "Ubu <strong>gitegereje igisubizo</strong> cya {{public_body_link}}, bagomba guhita basubiza kandi"
+msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they should respond promptly and"
+msgstr ""
 
 msgid "Date:"
 msgstr "Itariki:"
@@ -964,6 +995,9 @@ msgstr "Buri muntu wese afite uburenganzira bwo kumenya amakuru afitwe n'ibigo b
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
 msgstr "Ibintu byose ushyira kuri uru rubuga, harimo <strong>amazina yawe</strong>,\\n                bizajya <strong>bigaragarira buri wese</strong> kuri\\n                uru rubuga iteka ryose (<a href=\"{{url}}\">why?</a>)."
+
+msgid "Expand all correspondence"
+msgstr ""
 
 msgid "FOI"
 msgstr "Ubwisanzure bwo kumenya amakuru"
@@ -2017,6 +2051,12 @@ msgstr "Hasubijwe igice kimwe."
 msgid "Password is not correct"
 msgstr "Ijambobanga siryo"
 
+msgid "Password is too long (maximum is 72 characters)"
+msgstr ""
+
+msgid "Password is too short (minimum is 12 characters)"
+msgstr ""
+
 msgid "Password:"
 msgstr "Ijambo banga:"
 
@@ -2466,6 +2506,9 @@ msgstr "Soma ibijyanye <a href=\"{{advanced_search_url}}\">na porogaramu zifashi
 msgid "Read blog"
 msgstr "Soma urubuga rw'amakuru agezweho"
 
+msgid "Reason:"
+msgstr ""
+
 msgid "Received an error message, such as delivery failure."
 msgstr "Nakiriye ubutumwa bwo kwibeshya, nk'ubutumwa butagiye."
 
@@ -2888,6 +2931,9 @@ msgstr "Inshamake"
 msgid "Summary is too short. Please be a little more descriptive about the information you are asking for."
 msgstr "Inshamake ni ngufi cyane.Turabasaba ko mwongeraho ibisobanuro ku makuru muri gusaba."
 
+msgid "Suspended users cannot edit their profile"
+msgstr ""
+
 msgid "Table of statuses"
 msgstr "Urutonde rw'amarangamimerere"
 
@@ -3059,8 +3105,14 @@ msgstr "Ikibazo uri kugerageza kureba cyakuweho. Hari \\nimpamvu zitandukanye za
 msgid "The requester has abandoned this request for some reason"
 msgstr "Uwatanze ikibazo yaretse gukomeza kugikurikirana kubera impamvu tutazi"
 
+msgid "The response to your request has been <strong>delayed</strong>. Although the authority has no legal obligation to reply, they should normally have responded by <strong>{{date}}</strong>"
+msgstr ""
+
 msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and by <strong>{{date}}</strong>"
 msgstr "Igisubizo cy'ikibazo cyawe <strong>cyaratinze</strong>.  Ushobora kuvuga ko,\\n            hakurikijwe itegeko, umuyobozi yagombye kuba \\n            <strong>yarahise asubiza</strong> kandi"
+
+msgid "The response to your request is <strong>long overdue</strong>. Although the authority has no legal obligation to reply, they should have responded by now"
+msgstr ""
 
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr "Igisubizo cy'ikibazo cyawe <strong>cyarakerewe cyawe</strong>.   Ushobora kuvuga ko hakurikijwe\\n            itegeko, uko byaba bimeze kose, umuyobozi yagombye kuba yaramaze gusubiza\\n            ubu"
@@ -3197,16 +3249,19 @@ msgstr "Bahawe ibisobanuro bikurikira:"
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
 msgstr "Ntabwo basubije ikibazo {{law_used_short}} cyawe {{title}} ako kanya, nk'uko bisabwa n'itegeko"
 
-msgid "They have not replied to your {{law_used_short}} request {{title}}, as required by law"
-msgstr "Ntabwo basubije ikibazo {{law_used_short}} cyawe {{title}}, \\nnk'uko itegeko ribisaba"
+msgid "They have not replied to your {{law_used_short}} request {{title}}, as normally required by law"
+msgstr ""
 
-msgid "They have still not replied to your {{law_used_short}} request {{title}}, as required by law"
+msgid "They have still not replied to your {{law_used_short}} request {{title}}, as normally required by law"
 msgstr ""
 
 msgid "Things you're following"
 msgstr "Ibintu ukurikira"
 
 msgid "This annotation has been reported for administrator attention"
+msgstr ""
+
+msgid "This authority is not subject to FOI law, so is not legally obliged to respond"
 msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
@@ -3297,12 +3352,6 @@ msgstr "Iki kibazo cyamaze kugaragazwa ko gikeneye kurebwaho n'abayobozi b'urubu
 msgid "This request has an <strong>unknown status</strong>."
 msgstr "Irangamimerere y'iki kibazo <strong>ntabwo rizwi</strong>."
 
-msgid "This request has been <strong>hidden</strong> from the site, because an administrator considers it not to be an FOI request"
-msgstr "Iki kibazo <strong>cyakuwe</strong> ku rubuga, kubera ko hari umuyobozi w'urubuga wabonye atari icy'ubwisanzure bwo kumenya amakuru"
-
-msgid "This request has been <strong>hidden</strong> from the site, because an administrator considers it vexatious"
-msgstr "Iki kibazo <strong>cyakuwe</strong> ku rubuga, kuberako hari umuyobozi w'urubuga wabonye gikomeretsanya"
-
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
 msgstr "Iki kibazo <strong>cyagaragajwe</strong> nk'igikenewe kurebwaho n'abayobozi b'urubuga (gishobora kuba gikomeretsanya cyangwa se ari icyo gusaba amakuru bwite)"
 
@@ -3317,6 +3366,12 @@ msgstr "Iki kibazo cyashyizweho ikimenyetso ko gikeneye gukorerwa isuzuma n'abay
 
 msgid "This request has been reported for administrator attention"
 msgstr "Iki kibazo cyagaragarijwe abayobozi b'urubuga ko bakwiye kukigaho."
+
+msgid "This request has been reviewed by an administrator and is considered not to be an FOI request"
+msgstr ""
+
+msgid "This request has been reviewed by an administrator and is considered to be vexatious"
+msgstr ""
 
 msgid "This request has been set by an administrator to \"allow new responses from nobody\""
 msgstr "Iki kibazo cyatanzwe n'umwe mu bayobozi b'urubuga kugirango \"allow new responses from nobody\""
@@ -3348,8 +3403,8 @@ msgstr "Iki gice kerekeye imibare yo mu bigo cya leta kiracyari mwigeragezwa:"
 msgid "This table shows the technical details of the internal events that happened to this request on {{site_name}}. This could be used to generate information about the speed with which authorities respond to requests, the number of requests which require a postal response and much more."
 msgstr "Izi mbonerahamwe ziragaragaza mu magambo arambuye ibikorwa tekinike by'imirimo yakozwe \\nkuri iki kibazo ku rubuga {{site_name}}. Ibi bishobora gukoreshwa mu gutanga amakuru ku \\ngihe abayobozi bafata mu gusubiza ibibazo, umubare w'ibibazo\\nbisubizwa hakoreshejwe iposita n'ibindi byinshi."
 
-msgid "This user has been banned from {{site_name}} "
-msgstr "Uyu muntu yaraciwe kuri {{site_name}} "
+msgid "This user has been suspended from {{site_name}} "
+msgstr ""
 
 msgid "This was not possible because there is already an account using the email address {{email}}."
 msgstr "Ibi ntibyashobotse kuko hari indi konti ikoreshwaho \\niyi imeli {{email}}."
@@ -3973,8 +4028,8 @@ msgstr "Ushobora <strong>gutanga ikirego</strong> kuri"
 msgid "You can change the requests and users you are following on <a href=\"{{profile_url}}\">your profile page</a>."
 msgstr "Ushobora guhindura ibibazo n'abantu ukurikira ku <a href=\"{{profile_url}}\">ipaji ikuranga</a>."
 
-msgid "You can get this page in computer-readable format as part of the main JSON page for the request.  See the <a href=\"{{api_path}}\">API documentation</a>."
-msgstr "Ushobora kubona iyi paji mu nyandiko isomwa na mudasobwa nk'igice cya JSON\\npaji ibanza y'ikibazo.  Reba <a href=\"{{api_path}}\">ishyinguranyandiko rya API</a>."
+msgid "You can get this page in computer-readable format as part of the <a href=\"{{json_path}}\">main JSON page</a> for the request. See the <a href=\"{{api_path}}\">API documentation</a>."
+msgstr ""
 
 msgid "You can only request information about the environment from this authority."
 msgstr "Uyu muyobozi ushobora kumubaza amakuru ajyanye n'ibidukikije gusa."
@@ -4651,7 +4706,7 @@ msgstr "{{public_body_name}}"
 msgid "{{public_body_name}} have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law. Click on the link below to remind them to reply."
 msgstr ""
 
-msgid "{{public_body_name}} have still not replied to your {{law_used_short}} request {{title}}, as required by law. Click on the link below to tell them to reply. You might like to ask for an internal review, asking them to find out why their response to the request has been so slow."
+msgid "{{public_body_name}} have still not replied to your {{law_used_short}} request {{title}}, as normally required by law. Click on the link below to tell them to reply. You might like to ask for an internal review, asking them to find out why their response to the request has been so slow."
 msgstr ""
 
 msgid "{{public_body_name}} no longer exists. From the request page, try replying to a particular message, rather than sending a general followup. If you need to make a general followup, and know an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
