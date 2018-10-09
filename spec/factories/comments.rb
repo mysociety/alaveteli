@@ -41,6 +41,12 @@ FactoryBot.define do
     factory :embargoed_comment do
       association :info_request, factory: :embargoed_request
     end
+
+    trait :with_event do
+      after(:create) do |comment, _|
+        comment.info_request.log_event('comment', comment_id: comment.id)
+      end
+    end
   end
 
 end

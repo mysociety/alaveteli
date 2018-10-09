@@ -109,6 +109,15 @@ describe UserController do
           not_to match(/change password, subscriptions and more/)
       end
 
+      it 'does not show requests and batch requests for a closed user' do
+        user.close_and_anonymise
+        make_request
+
+        expect(assigns[:show_profile]).to be false
+        expect(assigns[:show_requests]).to be false
+        expect(assigns[:show_batches]).to be false
+      end
+
       it 'does not show private requests' do
         user = FactoryBot.create(:pro_user)
         FactoryBot.create(:embargoed_request, user: user)
@@ -1125,4 +1134,12 @@ describe UserController, "when viewing the wall" do
     expect(assigns[:feed_results].uniq).to eq(assigns[:feed_results])
   end
 
+  it 'does not return feed results for closed users' do
+    user = FactoryBot.create(:user)
+    comment = FactoryBot.create(:visible_comment, :with_event, user: user)
+    user.close_and_anonymise
+    update_xapian_index
+    get :wall, url_name: user.url_name
+    expect(assigns[:feed_results]).to be_empty
+  end
 end
