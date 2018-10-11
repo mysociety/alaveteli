@@ -179,6 +179,7 @@ class User < ActiveRecord::Base
       end
 
       if user.has_this_password?(params[:password]) && user.closed?
+        logger.info "Closed user attempted login: #{ params[:email] }"
         user.errors.add(:base, _('This account has been closed.'))
       end
     else
