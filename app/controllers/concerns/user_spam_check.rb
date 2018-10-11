@@ -32,7 +32,7 @@ module UserSpamCheck
 
   def spam_scorer_config
     {
-      spam_score_threshold: 13,
+      spam_score_threshold: 12,
       score_mappings: {
         name_is_all_lowercase?: 1,
         name_is_one_word?: 1,

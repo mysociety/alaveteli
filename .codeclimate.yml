@@ -3,3 +3,4 @@ languages:
   PHP: true
 exclude_paths:
 - "lib/strip_attributes/test/*"
+- "spec/"
