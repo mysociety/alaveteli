@@ -177,6 +177,11 @@ class User < ActiveRecord::Base
       unless user.has_this_password?(params[:password])
         user.errors.add(:base, auth_fail_message)
       end
+
+      if user.has_this_password?(params[:password]) && user.closed?
+        logger.info "Closed user attempted login: #{ params[:email] }"
+        user.errors.add(:base, _('This account has been closed.'))
+      end
     else
       # No user of same email, make one (that we don't save in the database)
       # for the forms code to use.

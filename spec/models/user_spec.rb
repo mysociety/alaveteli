@@ -104,41 +104,6 @@ describe User, "showing the name" do
 
 end
 
-describe User, " when authenticating" do
-  before do
-    @empty_user = User.new
-
-    @full_user = User.new
-    @full_user.name = "Sensible User"
-    @full_user.password = "foolishpassword"
-    @full_user.email = "sensible@localhost"
-    @full_user.save
-  end
-
-  it "should create a hashed password when the password is set" do
-    expect(@empty_user.hashed_password).to be_nil
-    @empty_user.password = "a test password"
-    expect(@empty_user.hashed_password).not_to be_nil
-  end
-
-  it "should have errors when given the wrong password" do
-    found_user = User.authenticate_from_form({ :email => "sensible@localhost", :password => "iownzyou" })
-    expect(found_user.errors.size).to be > 0
-  end
-
-  it "should not find the user when given the wrong email" do
-    found_user = User.authenticate_from_form( { :email => "soccer@localhost", :password => "foolishpassword" })
-    expect(found_user.errors.size).to be > 0
-  end
-
-  it "should find the user when given the right email and password" do
-    found_user = User.authenticate_from_form( { :email => "sensible@localhost", :password => "foolishpassword" })
-    expect(found_user.errors.size).to eq(0)
-    expect(found_user).to eq(@full_user)
-  end
-
-end
-
 describe User, 'password hashing algorithms' do
   def create_user(options = {})
     User.create(options.merge(
@@ -622,6 +587,57 @@ end
 
 describe User do
 
+  describe '.authenticate_from_form' do
+    let(:empty_user) { described_class.new }
+
+    let!(:full_user) do
+      FactoryBot.create(:user, name: 'Sensible User',
+                               password: 'foolishpassword',
+                               email: 'sensible@localhost')
+    end
+
+    let(:wrong_password_attrs) do
+      { email: 'sensible@localhost', password: 'iownzyou' }
+    end
+
+    let(:wrong_email_attrs) do
+      { email: 'soccer@localhost', password: 'foolishpassword' }
+    end
+
+    let(:correct_attrs) do
+      { email: 'sensible@localhost', password: 'foolishpassword' }
+    end
+
+    it 'has errors when given the wrong password' do
+      found_user = User.authenticate_from_form(wrong_password_attrs)
+      expect(found_user.errors.size).to be > 0
+    end
+
+    it 'does not find the user when given the wrong email' do
+      found_user = User.authenticate_from_form(wrong_email_attrs)
+      expect(found_user.errors.size).to be > 0
+    end
+
+    it 'does not find closed user accounts' do
+      full_user.update!(closed_at: Time.zone.now)
+      found_user = User.authenticate_from_form(correct_attrs)
+      expect(found_user.errors[:base]).to eq(['This account has been closed.'])
+    end
+
+    it 'does not reveal closed user accounts with an incorrect password' do
+      full_user.update!(closed_at: Time.zone.now)
+      found_user = User.authenticate_from_form(wrong_password_attrs)
+      expect(found_user.errors[:base].join).to match(/please try again/)
+    end
+
+    it 'returns the user with no errors when given the correct email and password' do
+      found_user = User.authenticate_from_form(correct_attrs)
+      expect(found_user.errors.size).to eq(0)
+      expect(found_user).to eq(full_user)
+    end
+
+  end
+
   describe '.stay_logged_in_on_redirect?' do
 
     it 'is false if the user is nil' do
@@ -730,6 +746,16 @@ describe User do
         User::TransactionCalculator.
           new(user, :transaction_associations => [:comments, :info_requests])
       expect(user.transactions(:comments, :info_requests)).to eq(calculator)
+    end
+
+  end
+
+  describe '#password=' do
+
+    it 'creates a hashed password when the password is set' do
+      expect(subject.hashed_password).to be_nil
+      subject.password = "a test password"
+      expect(subject.hashed_password).not_to be_nil
     end
 
   end
