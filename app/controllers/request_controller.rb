@@ -27,7 +27,7 @@ class RequestController < ApplicationController
     require 'customstates'
     include RequestControllerCustomStates
     @@custom_states_loaded = true
-  rescue MissingSourceFile, NameError
+  rescue LoadError, NameError
   end
 
   def select_authority
