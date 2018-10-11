@@ -1179,10 +1179,12 @@ href="#smtp_mailer_enable_starttls_auto">SMTP_MAILER_ENABLE_STARTTLS_AUTO</a>.
       <p>Examples:</p>
       <ul class="examples">
         <li>
-            <code>RECAPTCHA_SITE_KEY: '7HoPjGBBBBBBBBBkmj78HF9PjjaisQ893'</code>
+            <code>RECAPTCHA_SITE_KEY: '7HoPjGBBBBBBBBBkmj78HF9PjjaisQ893'</code><br>
+            (Called <small><code>RECAPTCHA_PUBLIC_KEY</code></small> before release 0.32)
         </li>
         <li>
-            <code>RECAPTCHA_SECRET_KEY: '7HjPjGBBBBBCBBBpuTy8a33sgnGG7A'</code>
+            <code>RECAPTCHA_SECRET_KEY: '7HjPjGBBBBBCBBBpuTy8a33sgnGG7A'</code><br>
+            (Called <small><code>RECAPTCHA_PRIVATE_KEY</code></small> before release 0.32)
         </li>
       </ul>
     </div>
