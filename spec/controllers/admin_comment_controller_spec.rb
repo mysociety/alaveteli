@@ -8,7 +8,7 @@ describe AdminCommentController do
     let(:pro_admin_user){ FactoryBot.create(:pro_admin_user) }
 
     it 'sets the title' do
-      get :index, {}, { :user_id => admin_user.id }
+      get :index, session: { :user_id => admin_user.id }
       expect(assigns[:title]).to eq('Listing comments')
     end
 
@@ -18,12 +18,13 @@ describe AdminCommentController do
       comment_1 = FactoryBot.create(:comment)
       back_to_the_present
       comment_2 = FactoryBot.create(:comment)
-      get :index, {}, { :user_id => admin_user.id }
+      get :index, session: { :user_id => admin_user.id }
       expect(assigns[:comments]).to eq([comment_2, comment_1])
     end
 
     it 'assigns the query' do
-      get :index, { :query => 'hello' }, { :user_id => admin_user.id }
+      get :index, params: { :query => 'hello' },
+                  session: { :user_id => admin_user.id }
       expect(assigns[:query]).to eq('hello')
     end
 
@@ -32,17 +33,18 @@ describe AdminCommentController do
       comment_1 = FactoryBot.create(:comment, :body => 'Hello world')
       comment_2 = FactoryBot.create(:comment, :body => 'Hi! hello world')
       comment_3 = FactoryBot.create(:comment, :body => 'xyz')
-      get :index, { :query => 'hello' }, { :user_id => admin_user.id }
+      get :index, params: { :query => 'hello' },
+                  session: { :user_id => admin_user.id }
       expect(assigns[:comments]).to eq([comment_2, comment_1])
     end
 
     it 'renders the index template' do
-      get :index, {}, { :user_id => admin_user.id }
+      get :index, session: { :user_id => admin_user.id }
       expect(response).to render_template('index')
     end
 
     it 'responds successfully' do
-      get :index, {}, { :user_id => admin_user.id }
+      get :index, session: { :user_id => admin_user.id }
       expect(response).to be_success
     end
 
@@ -50,7 +52,7 @@ describe AdminCommentController do
         not a pro admin user' do
       comment = FactoryBot.create(:comment)
       comment.info_request.create_embargo
-      get :index, {}, { :user_id => admin_user.id }
+      get :index, session: { :user_id => admin_user.id }
       expect(assigns[:comments].include?(comment)).to be false
     end
 
@@ -61,7 +63,7 @@ describe AdminCommentController do
         with_feature_enabled(:alaveteli_pro) do
           comment = FactoryBot.create(:comment)
           comment.info_request.create_embargo
-          get :index, {}, { :user_id => admin_user.id }
+          get :index, session: { :user_id => admin_user.id }
           expect(assigns[:comments].include?(comment)).to be false
         end
       end
@@ -71,7 +73,7 @@ describe AdminCommentController do
         with_feature_enabled(:alaveteli_pro) do
           comment = FactoryBot.create(:comment)
           comment.info_request.create_embargo
-          get :index, {}, { :user_id => pro_admin_user.id }
+          get :index, session: { :user_id => pro_admin_user.id }
           expect(assigns[:comments].include?(comment)).to be true
         end
       end
@@ -85,12 +87,14 @@ describe AdminCommentController do
     let(:comment){ FactoryBot.create(:comment) }
 
     it 'renders the edit template' do
-      get :edit, { :id => comment.id }, { :user_id => admin_user.id }
+      get :edit, params: { :id => comment.id },
+                 session: { :user_id => admin_user.id }
       expect(response).to render_template('edit')
     end
 
     it 'gets the comment' do
-      get :edit, { :id => comment.id }, { :user_id => admin_user.id }
+      get :edit, params: { :id => comment.id },
+                 session: { :user_id => admin_user.id }
       expect(assigns[:comment]).to eq(comment)
     end
 
@@ -103,7 +107,8 @@ describe AdminCommentController do
           with_feature_enabled(:alaveteli_pro) do
             comment.info_request.create_embargo
             expect {
-              get :edit, { :id => comment.id }, { :user_id => admin_user.id }
+              get :edit, params: { :id => comment.id },
+                         session: { :user_id => admin_user.id }
             }.to raise_error ActiveRecord::RecordNotFound
           end
         end
@@ -114,7 +119,8 @@ describe AdminCommentController do
         it 'renders the edit template' do
           with_feature_enabled(:alaveteli_pro) do
             comment.info_request.create_embargo
-            get :edit, { :id => comment.id }, { :user_id => pro_admin_user.id }
+            get :edit, params: { :id => comment.id },
+                       session: { :user_id => pro_admin_user.id }
             expect(response).to render_template('edit')
           end
         end
@@ -131,17 +137,20 @@ describe AdminCommentController do
     context 'on valid data submission' do
 
       it 'gets the comment' do
-        put :update, { :id => comment.id, :comment => atts }, { :user_id => admin_user.id }
+        put :update, params: { :id => comment.id, :comment => atts },
+                     session: { :user_id => admin_user.id }
         expect(assigns[:comment]).to eq(comment)
       end
 
       it 'updates the comment' do
-        put :update, { :id => comment.id, :comment => atts }, { :user_id => admin_user.id }
+        put :update, params: { :id => comment.id, :comment => atts },
+                     session: { :user_id => admin_user.id }
         expect(Comment.find(comment.id).body).to eq('I am new')
       end
 
       it 'logs the update event' do
-        put :update, { :id => comment.id, :comment => atts }, { :user_id => admin_user.id }
+        put :update, params: { :id => comment.id, :comment => atts },
+                     session: { :user_id => admin_user.id }
         most_recent_event = Comment.find(comment.id).info_request_events.last
         expect(most_recent_event.event_type).to eq('edit_comment')
         expect(most_recent_event.comment_id).to eq(comment.id)
@@ -155,7 +164,8 @@ describe AdminCommentController do
         end
 
         before do
-          put :update, { :id => comment.id, :comment => atts }, { :user_id => admin_user.id }
+          put :update, params: { :id => comment.id, :comment => atts },
+                       session: { :user_id => admin_user.id }
         end
 
         it 'logs the update event' do
@@ -185,7 +195,8 @@ describe AdminCommentController do
             atts = FactoryBot.attributes_for(:comment,
                                              :attention_requested => true,
                                              :visible => false)
-            put :update, { :id => comment.id, :comment => atts }, { :user_id => admin_user.id }
+            put :update, params: { :id => comment.id, :comment => atts },
+                         session: { :user_id => admin_user.id }
 
             last_event = Comment.find(comment.id).info_request_events.last
             expect(last_event.event_type).to eq('hide_comment')
@@ -200,7 +211,8 @@ describe AdminCommentController do
                                              :attention_requested => true,
                                              :visible => false,
                                              :body => 'updated text')
-            put :update, { :id => comment.id, :comment => atts }, { :user_id => admin_user.id }
+            put :update, params: { :id => comment.id, :comment => atts },
+                         session: { :user_id => admin_user.id }
 
             last_event = Comment.find(comment.id).info_request_events.last
             expect(last_event.event_type).to eq('edit_comment')
@@ -215,7 +227,8 @@ describe AdminCommentController do
                                          :attention_requested => true,
                                          :visible => false,
                                          :body => 'updated text')
-        put :update, { :id => comment.id, :comment => atts }, { :user_id => admin_user.id }
+        put :update, params: { :id => comment.id, :comment => atts },
+                     session: { :user_id => admin_user.id }
         expect(flash[:notice]).to eq("Comment successfully updated.")
       end
 
@@ -224,7 +237,8 @@ describe AdminCommentController do
                                          :attention_requested => true,
                                          :visible => false,
                                          :body => 'updated text')
-        put :update, { :id => comment.id, :comment => atts }, { :user_id => admin_user.id }
+        put :update, params: { :id => comment.id, :comment => atts },
+                     session: { :user_id => admin_user.id }
         expect(response).to redirect_to(admin_request_path(comment.info_request))
       end
     end
@@ -233,8 +247,8 @@ describe AdminCommentController do
 
       it 'renders the edit template' do
         with_feature_enabled(:alaveteli_pro) do
-          put :update, { :id => comment.id, :comment => { :body => '' } },
-                       { :user_id => admin_user.id }
+          put :update, params: { :id => comment.id, :comment => { :body => '' } },
+                       session: { :user_id => admin_user.id }
           expect(response).to render_template('edit')
         end
       end
@@ -250,7 +264,8 @@ describe AdminCommentController do
           with_feature_enabled(:alaveteli_pro) do
             comment.info_request.create_embargo
             expect {
-              put :update, { :id => comment.id }, { :user_id => admin_user.id }
+              put :update, params: { :id => comment.id },
+                           session: { :user_id => admin_user.id }
             }.to raise_error ActiveRecord::RecordNotFound
           end
         end
@@ -261,7 +276,8 @@ describe AdminCommentController do
         it 'updates the comment' do
           with_feature_enabled(:alaveteli_pro) do
             comment.info_request.create_embargo
-            put :update, { :id => comment.id, :comment => atts }, { :user_id => pro_admin_user.id }
+            put :update, params: { :id => comment.id, :comment => atts },
+                         session: { :user_id => pro_admin_user.id }
             expect(Comment.find(comment.id).body).to eq('I am new')
           end
         end

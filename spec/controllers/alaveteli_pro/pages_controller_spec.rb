@@ -8,7 +8,7 @@ describe AlaveteliPro::PagesController do
     context 'when asked for an existing template' do
 
       before do
-        get :show, id: 'legal'
+        get :show, params: { id: 'legal' }
       end
 
       it 'renders the template' do
@@ -28,7 +28,7 @@ describe AlaveteliPro::PagesController do
 
       it 'raises ActiveRecord::RecordNotFound' do
         expect {
-          get :show, id: 'nope'
+          get :show, params: { id: 'nope' }
         }.to raise_error ActiveRecord::RecordNotFound
       end
     end

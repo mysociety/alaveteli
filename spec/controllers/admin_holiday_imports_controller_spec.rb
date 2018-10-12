@@ -62,7 +62,7 @@ describe AdminHolidayImportsController do
 
       it 'should create the expected holidays' do
         Holiday.delete_all
-        post :create, params
+        post :create, params: params
         expect(Holiday.count).to eq(2)
       end
 

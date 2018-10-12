@@ -11,12 +11,12 @@ describe AdminPublicBodyController do
     end
 
     it "searches for 'humpa'" do
-      get :index, :query => "humpa"
+      get :index, params: { :query => "humpa" }
       expect(assigns[:public_bodies]).to eq([ public_bodies(:humpadink_public_body) ])
     end
 
     it "searches for 'humpa' in another locale" do
-      get :index, {:query => "humpa", :locale => "es"}
+      get :index, params: { :query => "humpa", :locale => "es" }
       expect(assigns[:public_bodies]).to eq([ public_bodies(:humpadink_public_body) ])
     end
 
@@ -30,12 +30,14 @@ describe AdminPublicBodyController do
     let(:pro_admin_user){ FactoryBot.create(:pro_admin_user) }
 
     it "returns successfully" do
-      get :show, { :id => public_body.id }, { :user_id => admin_user.id }
+      get :show, params: { :id => public_body.id },
+                 session: { :user_id => admin_user.id }
       expect(response).to be_success
     end
 
     it "sets a using_admin flag" do
-      get :show, { :id => public_body.id}, { :user_id => admin_user.id }
+      get :show, params: { :id => public_body.id},
+                 session: { :user_id => admin_user.id }
       expect(session[:using_admin]).to eq(1)
     end
 
@@ -44,14 +46,16 @@ describe AdminPublicBodyController do
         public_body.name = 'El Public Body'
         public_body.save
       end
-      get :show, { :id => public_body.id, :locale => "es" }, { :user_id => admin_user.id }
+      get :show, params: { :id => public_body.id, :locale => "es" },
+                 session: { :user_id => admin_user.id }
       expect(assigns[:public_body].name).to eq 'El Public Body'
     end
 
     it 'does not include embargoed requests if the current user is
         not a pro admin user' do
       info_request.create_embargo
-      get :show, { :id => public_body.id }, { :user_id => admin_user.id }
+      get :show, params: { :id => public_body.id },
+                 session: { :user_id => admin_user.id }
       expect(assigns[:info_requests].include?(info_request)).to be false
     end
 
@@ -61,7 +65,8 @@ describe AdminPublicBodyController do
           not a pro admin user' do
         with_feature_enabled(:alaveteli_pro) do
           info_request.create_embargo
-          get :show, { :id => public_body.id }, { :user_id => admin_user.id }
+          get :show, params: { :id => public_body.id },
+                     session: { :user_id => admin_user.id }
           expect(assigns[:info_requests].include?(info_request)).to be false
         end
       end
@@ -71,7 +76,8 @@ describe AdminPublicBodyController do
           user' do
         with_feature_enabled(:alaveteli_pro) do
           info_request.create_embargo
-          get :show, { :id => public_body.id }, { :user_id => pro_admin_user.id }
+          get :show, params: { :id => public_body.id },
+                     session: { :user_id => pro_admin_user.id }
           expect(assigns[:info_requests].include?(info_request)).to be true
         end
       end
@@ -111,7 +117,7 @@ describe AdminPublicBodyController do
 
       it 'should populate the name, email address and last edit comment on the public body' do
         change_request = FactoryBot.create(:add_body_request)
-        get :new, :change_request_id => change_request.id
+        get :new, params: { :change_request_id => change_request.id }
         expect(assigns[:public_body].name).to eq(change_request.public_body_name)
         expect(assigns[:public_body].request_email).to eq(change_request.public_body_email)
         expect(assigns[:public_body].last_edit_comment).to match('Notes: Please')
@@ -119,7 +125,7 @@ describe AdminPublicBodyController do
 
       it 'should assign a default response text to the view' do
         change_request = FactoryBot.create(:add_body_request)
-        get :new, :change_request_id => change_request.id
+        get :new, params: { :change_request_id => change_request.id }
         expect(assigns[:change_request_user_response]).to match("Thanks for your suggestion to add A New Body")
       end
 
@@ -145,25 +151,25 @@ describe AdminPublicBodyController do
         existing = PublicBody.count
         expected = existing + 1
         expect {
-          post :create, @params
+          post :create, params: @params
         }.to change{ PublicBody.count }.from(existing).to(expected)
       end
 
       it 'can create a public body when the default locale is an underscore locale' do
         AlaveteliLocalization.set_locales('es en_GB', 'en_GB')
-        post :create, @params
+        post :create, params: @params
         expect(
           PublicBody.find_by_name('New Quango').translations.first.locale
         ).to eq(:en_GB)
       end
 
       it 'notifies the admin that the body was created' do
-        post :create, @params
+        post :create, params: @params
         expect(flash[:notice]).to eq('PublicBody was successfully created.')
       end
 
       it 'redirects to the admin page of the body' do
-        post :create, @params
+        post :create, params: @params
         expect(response).to redirect_to(admin_body_path(assigns(:public_body)))
       end
 
@@ -190,12 +196,12 @@ describe AdminPublicBodyController do
         existing = PublicBody.count
         expected = existing + 1
         expect {
-          post :create, @params
+          post :create, params: @params
         }.to change{ PublicBody.count }.from(existing).to(expected)
       end
 
       it 'saves the default locale translation' do
-        post :create, @params
+        post :create, params: @params
 
         body = PublicBody.find_by_name('New Quango')
 
@@ -205,7 +211,7 @@ describe AdminPublicBodyController do
       end
 
       it 'saves the alternative locale translation' do
-        post :create, @params
+        post :create, params: @params
 
         body = PublicBody.find_by_name('New Quango')
 
@@ -221,12 +227,12 @@ describe AdminPublicBodyController do
     context 'on failure' do
 
       it 'renders the form if creating the record was unsuccessful' do
-        post :create, :public_body => { :name => '', :translations_attributes => {} }
+        post :create, params: { :public_body => { :name => '', :translations_attributes => {} } }
         expect(response).to render_template('new')
       end
 
       it 'is rebuilt with the given params' do
-        post :create, :public_body => { :name => '', :request_email => 'newquango@localhost', :translations_attributes => {} }
+        post :create, params: { :public_body => { :name => '', :request_email => 'newquango@localhost', :translations_attributes => {} } }
         expect(assigns(:public_body).request_email).to eq('newquango@localhost')
       end
 
@@ -244,13 +250,13 @@ describe AdminPublicBodyController do
       end
 
       it 'is rebuilt with the default locale translation' do
-        post :create, @params
+        post :create, params: @params
         expect(assigns(:public_body)).to_not be_persisted
         expect(assigns(:public_body).request_email).to eq('newquango@localhost')
       end
 
       it 'is rebuilt with the alternative locale translation' do
-        post :create, @params
+        post :create, params: @params
 
         expect(assigns(:public_body)).to_not be_persisted
         AlaveteliLocalization.with_locale(:es) do
@@ -264,7 +270,7 @@ describe AdminPublicBodyController do
 
       before do
         @change_request = FactoryBot.create(:add_body_request)
-        post :create, { :public_body => { :name => "New Quango", :short_name => "", :tag_string => "blah", :request_email => 'newquango@localhost', :last_edit_comment => 'From test code' }, :change_request_id => @change_request.id, :subject => 'Adding a new body', :response => 'The URL will be [Authority URL will be inserted here]'}
+        post :create, params: { :public_body => { :name => "New Quango", :short_name => "", :tag_string => "blah", :request_email => 'newquango@localhost', :last_edit_comment => 'From test code' }, :change_request_id => @change_request.id, :subject => 'Adding a new body', :response => 'The URL will be [Authority URL will be inserted here]'}
       end
 
       it 'should send a response to the requesting user' do
@@ -295,27 +301,27 @@ describe AdminPublicBodyController do
     end
 
     it 'responds successfully' do
-      get :edit, :id => @body.id
+      get :edit, params: { :id => @body.id }
       expect(response).to be_success
     end
 
     it 'finds the requested body' do
-      get :edit, :id => @body.id
+      get :edit, params: { :id => @body.id }
       expect(assigns[:public_body]).to eq(@body)
     end
 
     it 'builds new translations if the body does not already have a translation in the specified locale' do
-      get :edit, :id => @body.id
+      get :edit, params: { :id => @body.id }
       expect(assigns[:public_body].translations.map(&:locale)).to include(:fr)
     end
 
     it 'renders the edit template' do
-      get :edit, :id => @body.id
+      get :edit, params: { :id => @body.id }
       expect(response).to render_template('edit')
     end
 
     it "edits a public body in another locale" do
-      get :edit, {:id => 3, :locale => :en}
+      get :edit, params: { :id => 3, :locale => :en }
 
       # When editing a body, the controller returns all available translations
       expect(assigns[:public_body].find_translation_by_locale("es").name).to eq('El Department for Humpadinking')
@@ -330,6 +336,7 @@ describe AdminPublicBodyController do
       it 'does not show the form for destroying the body' do
         info_request = FactoryBot.create(:info_request)
         get :edit, :id => info_request.public_body.id
+        get :edit, params: { :id => info_request.public_body.id }
         expect(response.body).not_to match("Destroy #{info_request.public_body.name}")
       end
 
@@ -340,7 +347,7 @@ describe AdminPublicBodyController do
       render_views
 
       it 'shows the form for destroying the body' do
-        get :edit, :id => @body.id
+        get :edit, params: { :id => @body.id }
         expect(response.body).to match("Destroy #{@body.name}")
       end
 
@@ -351,12 +358,12 @@ describe AdminPublicBodyController do
 
       before do
         @change_request = FactoryBot.create(:update_body_request)
-        get :edit, :id => @change_request.public_body_id,  :change_request_id => @change_request.id
+        get :edit, params: { :id => @change_request.public_body_id,  :change_request_id => @change_request.id }
       end
 
       it 'should populate the email address and last edit comment on the public body' do
         change_request = FactoryBot.create(:update_body_request)
-        get :edit, :id => change_request.public_body_id,  :change_request_id => change_request.id
+        get :edit, params: { :id => change_request.public_body_id,  :change_request_id => change_request.id }
         expect(assigns[:public_body].request_email).to eq(@change_request.public_body_email)
         expect(assigns[:public_body].last_edit_comment).to match('Notes: Please')
       end
@@ -391,25 +398,25 @@ describe AdminPublicBodyController do
     end
 
     it 'finds the heading to update' do
-      post :update, @params
+      post :update, params: @params
       expect(assigns(:heading)).to eq(@heading)
     end
 
     context 'on success' do
 
       it 'saves edits to a public body heading' do
-        post :update, @params
+        post :update, params: @params
         body = PublicBody.find(@body.id)
         expect(body.name).to eq('Renamed')
       end
 
       it 'notifies the admin that the body was updated' do
-        post :update, @params
+        post :update, params: @params
         expect(flash[:notice]).to eq('PublicBody was successfully updated.')
       end
 
       it 'redirects to the admin body page' do
-        post :update, @params
+        post :update, params: @params
         expect(response).to redirect_to(admin_body_path(@body))
       end
 
@@ -419,7 +426,7 @@ describe AdminPublicBodyController do
 
       it 'saves edits to a public body heading in another locale' do
         expect(@body.name(:es)).to eq('Los Quango')
-        post :update, :id => @body.id, :public_body => { :name => @body.name(:en), :translations_attributes => { 'es' => { :id => @body.translation_for(:es).id, :locale => 'es', :name => 'Renamed' } } }
+        post :update, params: { :id => @body.id, :public_body => { :name => @body.name(:en), :translations_attributes => { 'es' => { :id => @body.translation_for(:es).id, :locale => 'es', :name => 'Renamed' } } } }
 
         body = PublicBody.find(@body.id)
         expect(body.name(:es)).to eq('Renamed')
@@ -430,7 +437,7 @@ describe AdminPublicBodyController do
         @body.translation_for(:es).destroy
         @body.reload
 
-        put :update, { :id => @body.id, :public_body => { :name => @body.name(:en), :translations_attributes => { 'es' => { :locale => "es", :name => "Example Public Body ES" } } } }
+        put :update, params: { :id => @body.id, :public_body => { :name => @body.name(:en), :translations_attributes => { 'es' => { :locale => "es", :name => "Example Public Body ES" } } } }
 
         expect(request.flash[:notice]).to include('successful')
 
@@ -443,7 +450,7 @@ describe AdminPublicBodyController do
 
       it 'creates a new translation for the default locale' do
         AlaveteliLocalization.set_locales('es en_GB', 'en_GB')
-        put :update, { :id => @body.id, :public_body => { :name => "Example Public Body en_GB", } }
+        put :update, params: { :id => @body.id, :public_body => { :name => "Example Public Body en_GB", } }
 
         body = PublicBody.find(@body.id)
         expect(body.translations.map(&:locale)).to include(:en_GB)
@@ -453,7 +460,7 @@ describe AdminPublicBodyController do
         @body.translation_for(:es).destroy
         @body.reload
 
-        post :update, { :id => @body.id, :public_body => { :name => @body.name(:en), :translations_attributes => { 'es' => { :locale => "es", :name => "Example Public Body ES" }, 'fr' => { :locale => "fr", :name => "Example Public Body FR" } } } }
+        post :update, params: { :id => @body.id, :public_body => { :name => @body.name(:en), :translations_attributes => { 'es' => { :locale => "es", :name => "Example Public Body ES" }, 'fr' => { :locale => "fr", :name => "Example Public Body FR" } } } }
 
         expect(request.flash[:notice]).to include('successful')
 
@@ -468,7 +475,7 @@ describe AdminPublicBodyController do
       end
 
       it 'updates an existing translation and adds a third translation' do
-        post :update, {
+        post :update, params: {
           :id => @body.id,
           :public_body => {
             :name => @body.name(:en),
@@ -501,12 +508,12 @@ describe AdminPublicBodyController do
     context 'on failure' do
 
       it 'renders the form if creating the record was unsuccessful' do
-        post :update, :id => @body.id, :public_body => { :name => '', :translations_attributes => {} }
+        post :update, params: { :id => @body.id, :public_body => { :name => '', :translations_attributes => {} } }
         expect(response).to render_template('edit')
       end
 
       it 'is rebuilt with the given params' do
-        post :update, :id => @body.id, :public_body => { :name => '', :request_email => 'updated@localhost', :translations_attributes => {} }
+        post :update, params: { :id => @body.id, :public_body => { :name => '', :request_email => 'updated@localhost', :translations_attributes => {} } }
         expect(assigns(:public_body).request_email).to eq('updated@localhost')
       end
 
@@ -525,12 +532,12 @@ describe AdminPublicBodyController do
       end
 
       it 'is rebuilt with the default locale translation' do
-        post :update, @params
+        post :update, params: @params
         expect(assigns(:public_body).name(:en)).to be_nil
       end
 
       it 'is rebuilt with the alternative locale translation' do
-        post :update, @params
+        post :update, params: @params
 
         AlaveteliLocalization.with_locale(:es) do
           expect(assigns(:public_body).name).to eq('Mi Nuevo Body')
@@ -543,7 +550,7 @@ describe AdminPublicBodyController do
 
       before do
         @change_request = FactoryBot.create(:update_body_request)
-        post :update, { :id => @change_request.public_body_id, :public_body => { :name => "New Quango", :short_name => "", :request_email => 'newquango@localhost', :last_edit_comment => 'From test code' }, :change_request_id => @change_request.id, :subject => 'Body update', :response => 'Done.'}
+        post :update, params: { :id => @change_request.public_body_id, :public_body => { :name => "New Quango", :short_name => "", :request_email => 'newquango@localhost', :last_edit_comment => 'From test code' }, :change_request_id => @change_request.id, :subject => 'Body update', :response => 'Done.'}
       end
 
       it 'should send a response to the requesting user' do
@@ -567,14 +574,14 @@ describe AdminPublicBodyController do
     it "does not destroy a public body that has associated requests" do
       id = public_bodies(:humpadink_public_body).id
       n = PublicBody.count
-      post :destroy, { :id => id }
+      post :destroy, params: { :id => id }
       expect(response).to redirect_to(:controller=>'admin_public_body', :action=>'show', :id => id)
       expect(PublicBody.count).to eq(n)
     end
 
     it "destroys a public body" do
       n = PublicBody.count
-      post :destroy, { :id => public_bodies(:forlorn_public_body).id }
+      post :destroy, params: { :id => public_bodies(:forlorn_public_body).id }
       expect(response).to redirect_to admin_bodies_path
       expect(PublicBody.count).to eq(n - 1)
     end
@@ -587,7 +594,7 @@ describe AdminPublicBodyController do
     it "mass assigns tags" do
       condition = "public_body_translations.locale = ?"
       n = PublicBody.joins(:translations).where([condition, "en"]).count
-      post :mass_tag_add, { :new_tag => "department", :table_name => "substring" }
+      post :mass_tag_add, params: { :new_tag => "department", :table_name => "substring" }
       expect(request.flash[:notice]).to eq("Added tag to table of bodies.")
       expect(response).to redirect_to admin_bodies_path
       expect(PublicBody.find_by_tag("department").count).to eq(n)
@@ -613,7 +620,7 @@ describe AdminPublicBodyController do
       end
 
       it 'should handle a nil csv file param' do
-        post :import_csv, { :commit => 'Dry run' }
+        post :import_csv, params: { :commit => 'Dry run' }
         expect(response).to be_success
       end
 
@@ -621,11 +628,11 @@ describe AdminPublicBodyController do
 
         it 'should try to get the contents and original name of a csv file param' do
           expect(@file_object).to receive(:read).and_return('some contents')
-          post :import_csv, { :csv_file => @file_object, :commit => 'Dry run'}
+          post :import_csv, params: { :csv_file => @file_object, :commit => 'Dry run' }
         end
 
         it 'should assign the original filename to the view' do
-          post :import_csv, { :csv_file => @file_object, :commit => 'Dry run'}
+          post :import_csv, params: { :csv_file => @file_object, :commit => 'Dry run' }
           expect(assigns[:original_csv_file]).to eq('fake-authority-type.csv')
         end
 
@@ -637,7 +644,7 @@ describe AdminPublicBodyController do
         it 'should try and get the file contents from a temporary file whose name
                   is passed as a param' do
           expect(@controller).to receive(:retrieve_csv_data).with('csv_upload-2046-12-31-394')
-          post :import_csv, { :temporary_csv_file => 'csv_upload-2046-12-31-394', :original_csv_file => 'original_contents.txt', :commit => 'Dry run'}
+          post :import_csv, params: { :temporary_csv_file => 'csv_upload-2046-12-31-394', :original_csv_file => 'original_contents.txt', :commit => 'Dry run' }
         end
 
         it 'should raise an error on an invalid temp file name' do
@@ -646,7 +653,7 @@ describe AdminPublicBodyController do
                      :commit => 'Dry run'}
           expected_error = "Invalid filename in upload_csv: bad_name"
           expect {
-            post :import_csv, params
+            post :import_csv, params: params
           }.to raise_error(expected_error)
         end
 
@@ -657,12 +664,12 @@ describe AdminPublicBodyController do
                      :commit => 'Dry run'}
           expected_error = "Missing file in upload_csv: csv_upload-20461231-394"
           expect {
-            post :import_csv, params
+            post :import_csv, params: params
           }.to raise_error(expected_error)
         end
 
         it 'should assign the temporary filename to the view' do
-          post :import_csv, { :csv_file => @file_object, :commit => 'Dry run'}
+          post :import_csv, params: { :csv_file => @file_object, :commit => 'Dry run' }
           temporary_filename = assigns[:temporary_csv_file]
           expect(temporary_filename).to match(/csv_upload-#{Time.zone.now.strftime("%Y%m%d")}-\d{1,5}/)
         end
@@ -695,7 +702,7 @@ describe AdminPublicBodyController do
     it "disallows non-authenticated users to do anything" do
       @request.env["HTTP_AUTHORIZATION"] = ""
       n = PublicBody.count
-      post :destroy, { :id => 3 }
+      post :destroy, params: { :id => 3 }
       expect(response).
         to redirect_to(signin_path(:token => get_last_post_redirect.token))
       expect(PublicBody.count).to eq(n)
@@ -707,7 +714,7 @@ describe AdminPublicBodyController do
       config['SKIP_ADMIN_AUTH'] = true
       @request.env["HTTP_AUTHORIZATION"] = ""
       n = PublicBody.count
-      post :destroy, { :id => public_bodies(:forlorn_public_body).id }
+      post :destroy, params: { :id => public_bodies(:forlorn_public_body).id }
       expect(PublicBody.count).to eq(n - 1)
       expect(session[:using_admin]).to eq(1)
     end
@@ -716,7 +723,7 @@ describe AdminPublicBodyController do
       setup_emergency_credentials('biz', 'fuz')
       n = PublicBody.count
       basic_auth_login(@request, "baduser", "badpassword")
-      post :destroy, { :id => public_bodies(:forlorn_public_body).id }
+      post :destroy, params: { :id => public_bodies(:forlorn_public_body).id }
       expect(response).
         to redirect_to(signin_path(:token => get_last_post_redirect.token))
       expect(PublicBody.count).to eq(n)
@@ -727,10 +734,10 @@ describe AdminPublicBodyController do
       setup_emergency_credentials('biz', 'fuz')
       n = PublicBody.count
       basic_auth_login(@request, "biz", "fuz")
-      post :show, { :id => public_bodies(:humpadink_public_body).id, :emergency => 1}
+      post :show, params: { :id => public_bodies(:humpadink_public_body).id, :emergency => 1 }
       expect(session[:using_admin]).to eq(1)
       n = PublicBody.count
-      post :destroy, { :id => public_bodies(:forlorn_public_body).id }
+      post :destroy, params: { :id => public_bodies(:forlorn_public_body).id }
       expect(session[:using_admin]).to eq(1)
       expect(PublicBody.count).to eq(n - 1)
     end
@@ -740,10 +747,10 @@ describe AdminPublicBodyController do
       allow(AlaveteliConfiguration).to receive(:disable_emergency_user).and_return(true)
       n = PublicBody.count
       basic_auth_login(@request, "biz", "fuz")
-      post :show, { :id => public_bodies(:humpadink_public_body).id, :emergency => 1}
+      post :show, params: { :id => public_bodies(:humpadink_public_body).id, :emergency => 1 }
       expect(session[:using_admin]).to eq(nil)
       n = PublicBody.count
-      post :destroy, { :id => public_bodies(:forlorn_public_body).id }
+      post :destroy, params: { :id => public_bodies(:forlorn_public_body).id }
       expect(session[:using_admin]).to eq(nil)
       expect(PublicBody.count).to eq(n)
     end
@@ -752,7 +759,7 @@ describe AdminPublicBodyController do
       session[:user_id] = users(:admin_user).id
       @request.env["HTTP_AUTHORIZATION"] = ""
       n = PublicBody.count
-      post :destroy, { :id => public_bodies(:forlorn_public_body).id }
+      post :destroy, params: { :id => public_bodies(:forlorn_public_body).id }
       expect(PublicBody.count).to eq(n - 1)
       expect(session[:using_admin]).to eq(1)
     end
@@ -761,7 +768,7 @@ describe AdminPublicBodyController do
       session[:user_id] = users(:robin_user).id
       @request.env["HTTP_AUTHORIZATION"] = ""
       n = PublicBody.count
-      post :destroy, { :id => public_bodies(:forlorn_public_body).id }
+      post :destroy, params: { :id => public_bodies(:forlorn_public_body).id }
       expect(response).
         to redirect_to(signin_path(:token => get_last_post_redirect.token))
       expect(PublicBody.count).to eq(n)
@@ -773,14 +780,14 @@ describe AdminPublicBodyController do
       it 'returns the emergency account name for someone who logged in with the emergency account' do
         setup_emergency_credentials('biz', 'fuz')
         basic_auth_login(@request, "biz", "fuz")
-        post :show, { :id => public_bodies(:humpadink_public_body).id, :emergency => 1 }
+        post :show, params: { :id => public_bodies(:humpadink_public_body).id, :emergency => 1 }
         expect(controller.send(:admin_current_user)).to eq('biz')
       end
 
       it 'returns the current user url_name for a superuser' do
         session[:user_id] = users(:admin_user).id
         @request.env["HTTP_AUTHORIZATION"] = ""
-        post :show, { :id => public_bodies(:humpadink_public_body).id }
+        post :show, params: { :id => public_bodies(:humpadink_public_body).id }
         expect(controller.send(:admin_current_user)).to eq(users(:admin_user).url_name)
       end
 
@@ -789,7 +796,7 @@ describe AdminPublicBodyController do
         config['SKIP_ADMIN_AUTH'] = true
         @request.env["HTTP_AUTHORIZATION"] = ""
         @request.env["REMOTE_USER"] = "i_am_admin"
-        post :show, { :id => public_bodies(:humpadink_public_body).id }
+        post :show, params: { :id => public_bodies(:humpadink_public_body).id }
         expect(controller.send(:admin_current_user)).to eq("i_am_admin")
       end
 

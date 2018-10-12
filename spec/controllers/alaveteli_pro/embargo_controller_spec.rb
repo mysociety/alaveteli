@@ -21,7 +21,7 @@ describe AlaveteliPro::EmbargoesController do
         before do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = pro_user.id
-            post :create, { alaveteli_pro_embargo: { info_request_id: info_request, embargo_duration: '3_months' } }
+            post :create, params: { alaveteli_pro_embargo: { info_request_id: info_request, embargo_duration: '3_months' } }
           end
         end
 
@@ -39,7 +39,7 @@ describe AlaveteliPro::EmbargoesController do
         before do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = admin.id
-            post :create, { alaveteli_pro_embargo: { info_request_id: info_request, embargo_duration: '3_months' } }
+            post :create, params: { alaveteli_pro_embargo: { info_request_id: info_request, embargo_duration: '3_months' } }
           end
         end
 
@@ -62,7 +62,7 @@ describe AlaveteliPro::EmbargoesController do
         expect do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = other_user.id
-            post :create, { alaveteli_pro_embargo: { info_request_id: info_request, embargo_duration: '3_months' } }
+            post :create, params: { alaveteli_pro_embargo: { info_request_id: info_request, embargo_duration: '3_months' } }
           end
         end.to raise_error(CanCan::AccessDenied)
       end
@@ -81,7 +81,7 @@ describe AlaveteliPro::EmbargoesController do
         expect do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = pro_user.id
-            post :create, { alaveteli_pro_embargo: { info_request_id: info_request, embargo_duration: '3_months' } }
+            post :create, params: { alaveteli_pro_embargo: { info_request_id: info_request, embargo_duration: '3_months' } }
           end
         end.to raise_error(CanCan::AccessDenied)
       end
@@ -96,7 +96,7 @@ describe AlaveteliPro::EmbargoesController do
         before do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = pro_user.id
-            delete :destroy, id: embargo.id
+            delete :destroy, params: { id: embargo.id }
           end
         end
 
@@ -129,7 +129,7 @@ describe AlaveteliPro::EmbargoesController do
         before do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = admin.id
-            delete :destroy, id: embargo.id
+            delete :destroy, params: { id: embargo.id }
           end
         end
 
@@ -154,7 +154,7 @@ describe AlaveteliPro::EmbargoesController do
         expect do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = other_user.id
-            delete :destroy, id: embargo.id
+            delete :destroy, params: { id: embargo.id }
           end
         end.to raise_error(CanCan::AccessDenied)
       end
@@ -172,7 +172,7 @@ describe AlaveteliPro::EmbargoesController do
         expect do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = pro_user.id
-            delete :destroy, id: embargo.id
+            delete :destroy, params: { id: embargo.id }
           end
         end.to raise_error(ApplicationController::PermissionDenied)
       end
@@ -195,7 +195,7 @@ describe AlaveteliPro::EmbargoesController do
         before do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = pro_user.id
-            post :destroy_batch, info_request_batch_id: info_request_batch.id
+            post :destroy_batch, params: { info_request_batch_id: info_request_batch.id }
           end
         end
 
@@ -232,7 +232,7 @@ describe AlaveteliPro::EmbargoesController do
         before do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = admin.id
-            post :destroy_batch, info_request_batch_id: info_request_batch.id
+            post :destroy_batch, params: { info_request_batch_id: info_request_batch.id }
           end
         end
 
@@ -273,7 +273,7 @@ describe AlaveteliPro::EmbargoesController do
         expect do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = other_user.id
-            post :destroy_batch, info_request_batch_id: info_request_batch.id
+            post :destroy_batch, params: { info_request_batch_id: info_request_batch.id }
           end
         end.to raise_error(CanCan::AccessDenied)
       end
@@ -283,7 +283,7 @@ describe AlaveteliPro::EmbargoesController do
       before do
         with_feature_enabled(:alaveteli_pro) do
           session[:user_id] = admin.id
-          post :destroy_batch, info_request_batch_id: info_request_batch.id, info_request_id: info_request_batch.info_requests.first.id
+          post :destroy_batch, params: { info_request_batch_id: info_request_batch.id, info_request_id: info_request_batch.info_requests.first.id }
         end
       end
 

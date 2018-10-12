@@ -20,7 +20,7 @@ describe ServicesController do
     it 'keeps the flash' do
       # Make two get requests to simulate the flash getting swept after the
       # first response.
-      get :other_country_message, nil, nil, :some_flash_key => 'abc'
+      get :other_country_message, flash: { :some_flash_key => 'abc' }
       get :other_country_message
       expect(flash[:some_flash_key]).to eq('abc')
     end

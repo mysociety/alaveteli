@@ -22,13 +22,13 @@ describe "when generating urls" do
 
   it "should fall back to the language if the territory is unknown" do
     AlaveteliLocalization.set_locales('es en', 'en')
-    get '/', {}, { 'HTTP_ACCEPT_LANGUAGE' => 'en_US' }
+    get '/', headers: { 'HTTP_ACCEPT_LANGUAGE' => 'en_US' }
     expect(response.body).to match /href="\/en\//
     expect(response.body).not_to match /href="\/en_US\//
   end
 
   it 'falls back to the default if the requested locale is unavailable' do
-    get '/', { :locale => "unknown" }
+    get '/', params: { :locale => "unknown" }
     expect(response.body).to match /href="\/en\//
     expect(response.body).not_to match /href="\/unknown\//
   end
@@ -109,7 +109,7 @@ describe "when generating urls" do
 
         it 'should render the front page in the default language when no locale param
                     is present and the session locale is not the default' do
-          get '/', {}, { :locale => 'es' }
+          get '/', headers: { :locale => 'es' }
           expect(response.body).to match  /class="current-locale">English/
         end
       end

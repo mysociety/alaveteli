@@ -8,7 +8,7 @@ describe Users::ConfirmationsController do
     context 'if the post redirect cannot be found' do
 
       it 'renders bad_token' do
-        get :confirm, { :email_token => '' }
+        get :confirm, params: { :email_token => '' }
         expect(response).to render_template(:bad_token)
       end
 
@@ -25,7 +25,7 @@ describe Users::ConfirmationsController do
         @post_redirect[:uri] = edit_password_change_path(@post_redirect.token)
         @post_redirect.save
 
-        get :confirm, { :email_token => @post_redirect.email_token }
+        get :confirm, params: { :email_token => @post_redirect.email_token }
       end
 
       it 'does not log the user in' do
@@ -36,21 +36,21 @@ describe Users::ConfirmationsController do
         logged_in_user = FactoryBot.create(:user)
 
         session[:user_id] = logged_in_user.id
-        get :confirm, { :email_token => @post_redirect.email_token }
+        get :confirm, params: { :email_token => @post_redirect.email_token }
 
         expect(session[:user_id]).to be_nil
       end
 
       it 'does not log out a user if they own the post redirect' do
         session[:user_id] = @user.id
-        get :confirm, { :email_token => @post_redirect.email_token }
+        get :confirm, params: { :email_token => @post_redirect.email_token }
 
         expect(session[:user_id]).to eq(@user.id)
         expect(assigns[:user]).to eq(@user)
       end
 
       it 'does not confirm an unconfirmed user' do
-        get :confirm, { :email_token => @post_redirect.email_token }
+        get :confirm, params: { :email_token => @post_redirect.email_token }
 
         expect(@user.reload.email_confirmed).to eq(false)
       end
@@ -70,7 +70,7 @@ describe Users::ConfirmationsController do
         @post_redirect = PostRedirect.create(:uri => '/', :user => @user)
 
         session[:user_id] = @admin.id
-        get :confirm, { :email_token => @post_redirect.email_token }
+        get :confirm, params: { :email_token => @post_redirect.email_token }
       end
 
       it 'does not confirm the post redirect user' do
@@ -101,7 +101,7 @@ describe Users::ConfirmationsController do
         @post_redirect = PostRedirect.create(:uri => '/', :user => @user)
 
         session[:user_id] = @user.id
-        get :confirm, { :email_token => @post_redirect.email_token }
+        get :confirm, params: { :email_token => @post_redirect.email_token }
       end
 
       it 'confirms the post redirect user' do
@@ -132,7 +132,7 @@ describe Users::ConfirmationsController do
         @post_redirect = PostRedirect.create(:uri => '/', :user => @user)
 
         session[:user_id] = @current_user.id
-        get :confirm, { :email_token => @post_redirect.email_token }
+        get :confirm, params: { :email_token => @post_redirect.email_token }
       end
 
       it 'confirms the post redirect user' do
@@ -160,7 +160,7 @@ describe Users::ConfirmationsController do
         @user = FactoryBot.create(:user, :email_confirmed => false)
         @post_redirect = PostRedirect.create(:uri => '/', :user => @user)
 
-        get :confirm, { :email_token => @post_redirect.email_token }
+        get :confirm, params: { :email_token => @post_redirect.email_token }
       end
 
       it 'confirms the post redirect user' do
