@@ -339,30 +339,55 @@ describe TrackController do
   describe "PUT #update" do
     let(:track_thing) { FactoryBot.create(:search_track) }
 
-    it 'should destroy the track thing' do
-      get :update, {:track_id => track_thing.id,
-                    :track_medium => 'delete',
-                    :r => 'http://example.com'},
-                   {:user_id => track_thing.tracking_user.id}
-      expect(TrackThing.where(:id => track_thing.id).first).to eq(nil)
+    before do
+      session[:user_id] = track_thing.tracking_user.id
     end
 
-    it 'should redirect to a URL on the site' do
-      get :update, {:track_id => track_thing.id,
-                    :track_medium => 'delete',
-                    :r => '/'},
-                   {:user_id => track_thing.tracking_user.id}
+    it 'destroys the track thing' do
+      put :update, track_id: track_thing.id,
+                   track_medium: 'delete',
+                   r: 'http://example.com'
+      expect(TrackThing.find_by(id: track_thing.id)).to eq(nil)
+    end
+
+    it 'also responds to GET for backwards compatability' do
+      get :update, track_id: track_thing.id,
+                   track_medium: 'delete',
+                   r: 'http://example.com'
+      expect(TrackThing.find_by(id: track_thing.id)).to eq(nil)
+    end
+
+    it 'redirects to a URL on the site' do
+      put :update, track_id: track_thing.id,
+                   track_medium: 'delete',
+                   r: '/'
       expect(response).to redirect_to('/')
     end
 
-    it 'should not redirect to a url on another site' do
-      track_thing = FactoryBot.create(:search_track)
-      get :update, {:track_id => track_thing.id,
-                    :track_medium => 'delete',
-                    :r => 'http://example.com/'},
-                   {:user_id => track_thing.tracking_user.id}
+    it 'does not redirect to a URL on another site' do
+      put :update, track_id: track_thing.id,
+                   track_medium: 'delete',
+                   r: 'http://example.com/'
       expect(response).to redirect_to('/')
     end
+
+    it 'raises an error with an invalid track_medium param' do
+      msg = 'Given track_medium not handled: invalid123'
+      expect {
+        put :update, track_id: track_thing.id,
+                     track_medium: 'invalid123',
+                     r: 'http://example.com/'
+      }.to raise_error(RuntimeError, msg)
+    end
+
+    it 'raises an error with no track_medium param' do
+      msg = 'No track_medium supplied'
+      expect {
+        put :update, track_id: track_thing.id,
+                     r: 'http://example.com/'
+      }.to raise_error(RuntimeError, msg)
+    end
+
   end
 
   describe 'POST #delete_all_type' do
