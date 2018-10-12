@@ -34,7 +34,7 @@ describe OutgoingMessages::DeliveryStatusesController do
       message = mock_model(OutgoingMessage, attrs)
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
-      get :show, :outgoing_message_id => message.id
+      get :show, params: { :outgoing_message_id => message.id }
       expect(assigns[:outgoing_message]).to eq(message)
     end
 
@@ -49,7 +49,7 @@ describe OutgoingMessages::DeliveryStatusesController do
       message = mock_model(OutgoingMessage, attrs)
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
-      get :show, :outgoing_message_id => message.id
+      get :show, params: { :outgoing_message_id => message.id }
       expect(response).to render_template('request/_hidden_correspondence')
     end
 
@@ -65,7 +65,7 @@ describe OutgoingMessages::DeliveryStatusesController do
       message = mock_model(OutgoingMessage, attrs)
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
-      get :show, :outgoing_message_id => message.id
+      get :show, params: { :outgoing_message_id => message.id }
       expect(response).to render_template('request/_hidden_correspondence')
     end
 
@@ -80,7 +80,7 @@ describe OutgoingMessages::DeliveryStatusesController do
       message = mock_model(OutgoingMessage, attrs)
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
-      get :show, :outgoing_message_id => message.id
+      get :show, params: { :outgoing_message_id => message.id }
       expected = 'Delivery Status for Outgoing Message #1'
       expect(assigns[:title]).to eq(expected)
     end
@@ -101,7 +101,7 @@ describe OutgoingMessages::DeliveryStatusesController do
       message = mock_model(OutgoingMessage, attrs)
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
-      get :show, :outgoing_message_id => message.id
+      get :show, params: { :outgoing_message_id => message.id }
       expect(assigns[:delivery_status]).to eq(@status)
     end
 
@@ -116,7 +116,7 @@ describe OutgoingMessages::DeliveryStatusesController do
       message = mock_model(OutgoingMessage, attrs)
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
-      get :show, :outgoing_message_id => message.id
+      get :show, params: { :outgoing_message_id => message.id }
       expect(assigns[:show_mail_server_logs]).to eq(true)
     end
 
@@ -131,7 +131,7 @@ describe OutgoingMessages::DeliveryStatusesController do
       message = mock_model(OutgoingMessage, attrs)
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
-      get :show, :outgoing_message_id => message.id
+      get :show, params: { :outgoing_message_id => message.id }
       expect(assigns[:show_mail_server_logs]).to eq(false)
     end
 
@@ -151,7 +151,7 @@ describe OutgoingMessages::DeliveryStatusesController do
       message = mock_model(OutgoingMessage, attrs)
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
-      get :show, :outgoing_message_id => message.id
+      get :show, params: { :outgoing_message_id => message.id }
       expect(assigns[:mail_server_logs]).to eq(@logs.map(&:line))
     end
 
@@ -171,7 +171,7 @@ describe OutgoingMessages::DeliveryStatusesController do
       message = mock_model(OutgoingMessage, attrs)
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
-      get :show, :outgoing_message_id => message.id
+      get :show, params: { :outgoing_message_id => message.id }
       expect(assigns[:mail_server_logs]).to eq(@logs.map(&:line))
     end
 
@@ -185,7 +185,7 @@ describe OutgoingMessages::DeliveryStatusesController do
       message = mock_model(OutgoingMessage, attrs)
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
-      get :show, :outgoing_message_id => message.id
+      get :show, params: { :outgoing_message_id => message.id }
       expect(assigns[:mail_server_logs]).to eq(nil)
     end
 
@@ -200,7 +200,7 @@ describe OutgoingMessages::DeliveryStatusesController do
       message = mock_model(OutgoingMessage, attrs)
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
-      get :show, :outgoing_message_id => message.id
+      get :show, params: { :outgoing_message_id => message.id }
       expect(response).to render_template('show')
     end
 

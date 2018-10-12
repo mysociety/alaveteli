@@ -121,7 +121,7 @@ describe AlaveteliPro::InfoRequestBatchesController do
   end
 
   describe "#new" do
-    let(:action) { get :new, params }
+    let(:action) { get :new, params: params }
 
     it_behaves_like "an info_request_batch action"
 
@@ -134,7 +134,7 @@ describe AlaveteliPro::InfoRequestBatchesController do
   end
 
   describe "#preview" do
-    let(:action) { get :preview, params }
+    let(:action) { get :preview, params: params }
 
     it_behaves_like "an info_request_batch action"
 
@@ -176,7 +176,7 @@ describe AlaveteliPro::InfoRequestBatchesController do
 
   describe "#create" do
     let(:params) { {draft_id: draft.id} }
-    let(:action) { post :create, params }
+    let(:action) { post :create, params: params }
 
     it_behaves_like "an info_request_batch action"
 

@@ -65,14 +65,14 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
     context 'with a draft_id param' do
       it 'finds a draft by draft_id' do
         draft = FactoryBot.create(:draft_info_request_batch, user: pro_user)
-        get :index, draft_id: draft.id
+        get :index, params: { draft_id: draft.id }
         expect(assigns[:draft_batch_request]).to eq(draft)
       end
 
       it 'initializes a draft if one cannot be found with the given draft_id' do
         max_id =
           AlaveteliPro::DraftInfoRequestBatch.maximum(:id).try(:next) || 99
-        get :index, draft_id: max_id
+        get :index, params: { draft_id: max_id }
         expect(assigns[:draft_batch_request]).to be_new_record
         expect(assigns[:draft_batch_request].user).to eq(pro_user)
       end
@@ -81,7 +81,7 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
     context "when responding to a normal request" do
       before do
         with_feature_enabled(:alaveteli_pro) do
-          get :index, authority_query: 'Example'
+          get :index, params: { authority_query: 'Example' }
         end
       end
 
@@ -101,7 +101,10 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
 
       it "raises WillPaginate::InvalidPage error for pages beyond the limit" do
         expect {
-          get :index, authority_query: 'Example Public Body', page: 21
+          get :index, params: {
+                        authority_query: 'Example Public Body',
+                        page: 21
+                      }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -109,7 +112,7 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
     context "when responding to an ajax request" do
       before do
         with_feature_enabled :alaveteli_pro do
-          xhr :get, :index, authority_query: 'Example'
+          get :index, xhr: true, params: { authority_query: 'Example' }
         end
       end
 
@@ -117,7 +120,7 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
 
       it "handles an empty query string" do
         with_feature_enabled(:alaveteli_pro) do
-          xhr :get, :index, authority_query: ''
+          get :index, xhr: true, params: { authority_query: '' }
           # No need for _search_result because no results
           expect(response).not_to render_template partial: '_search_result'
         end
@@ -130,7 +133,12 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
 
       it "raises WillPaginate::InvalidPage error for pages beyond the limit" do
         expect {
-          xhr :get, :index, authority_query: 'Example Public Body', page: 21
+          get :index,
+              xhr: true,
+              params: {
+                authority_query: 'Example Public Body',
+                page: 21
+              }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end

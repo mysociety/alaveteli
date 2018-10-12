@@ -44,29 +44,29 @@ describe AlaveteliPro::AccountRequestController do
                                     training_emails: 'no' } }
 
     it 'sets the pro livery' do
-      post :create, account_request: account_request_params
+      post :create, params: { account_request: account_request_params }
       expect(assigns[:in_pro_area]).to eq true
     end
 
     it 'assigns the account request' do
-      post :create, account_request: account_request_params
+      post :create, params: { account_request: account_request_params }
       expect(assigns[:account_request]).not_to be nil
     end
 
     context 'if the account request is valid' do
 
       it 'shows a notice' do
-        post :create, account_request: account_request_params
+        post :create, params: { account_request: account_request_params }
         expect(flash[:notice]).not_to be nil
       end
 
       it 'redirects to the frontpage' do
-        post :create, account_request: account_request_params
+        post :create, params: { account_request: account_request_params }
         expect(response).to redirect_to frontpage_path
       end
 
       it 'emails the pro contact address with the request' do
-        post :create, account_request: account_request_params
+        post :create, params: { account_request: account_request_params }
         expect(ActionMailer::Base.deliveries.size).to eq 1
         mail = ActionMailer::Base.deliveries.first
         expect(mail.to.first).to eq AlaveteliConfiguration::pro_contact_email
@@ -77,7 +77,7 @@ describe AlaveteliPro::AccountRequestController do
     context 'if the account request is not valid' do
 
       it 'renders the index template' do
-        post :create, account_request: {}
+        post :create, params: { account_request: {} }
         expect(response).to render_template('index')
       end
 

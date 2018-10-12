@@ -12,7 +12,7 @@ describe InfoRequestBatchController do
                                              :public_bodies => bodies)
     end
     let(:params) { {:id => info_request_batch.id} }
-    let(:action) { get :show, params }
+    let(:action) { get :show, params: params }
     let(:pro_user) { FactoryBot.create(:pro_user) }
 
     it 'should be successful' do
@@ -106,7 +106,7 @@ describe InfoRequestBatchController do
           it "should redirect to the pro version of the page" do
             with_feature_enabled(:alaveteli_pro) do
               session[:user_id] = pro_user.id
-              get :show, id: batch.id
+              get :show, params: { id: batch.id }
               expected_url = show_alaveteli_pro_batch_request_path(batch)
               expect(response).to redirect_to expected_url
             end
@@ -122,7 +122,7 @@ describe InfoRequestBatchController do
           it "should not redirect to the pro version of the page" do
             with_feature_enabled(:alaveteli_pro) do
               session[:user_id] = pro_user.id
-              get :show, id: batch.id
+              get :show, params: { id: batch.id }
               expect(response).to be_success
             end
           end
@@ -136,7 +136,7 @@ describe InfoRequestBatchController do
 
         it "should not redirect to the pro version of the page" do
           with_feature_enabled(:alaveteli_pro) do
-            get :show, id: info_request_batch.id
+            get :show, params: { id: info_request_batch.id }
             expect(response).to be_success
           end
         end
@@ -156,7 +156,7 @@ describe InfoRequestBatchController do
       it "allows the owner to access it" do
         with_feature_enabled(:alaveteli_pro) do
           session[:user_id] = pro_user.id
-          get :show, id: batch.id, pro: "1"
+          get :show, params: { id: batch.id, pro: "1" }
           expect(response).to be_success
         end
       end
@@ -164,7 +164,7 @@ describe InfoRequestBatchController do
       it "allows pro admins to access it" do
         with_feature_enabled(:alaveteli_pro) do
           session[:user_id] = pro_admin.id
-          get :show, id: batch.id
+          get :show, params: { id: batch.id }
           expect(response).to be_success
         end
       end
@@ -173,7 +173,7 @@ describe InfoRequestBatchController do
         with_feature_enabled(:alaveteli_pro) do
           session[:user_id] = admin.id
           expect {
-            get :show, id: batch.id
+            get :show, params: { id: batch.id }
           }.to raise_error(ActiveRecord::RecordNotFound)
         end
       end
@@ -182,7 +182,7 @@ describe InfoRequestBatchController do
         with_feature_enabled(:alaveteli_pro) do
           session[:user_id] = other_pro_user.id
           expect {
-            get :show, id: batch.id
+            get :show, params: { id: batch.id }
           }.to raise_error(ActiveRecord::RecordNotFound)
         end
       end
@@ -191,7 +191,7 @@ describe InfoRequestBatchController do
         with_feature_enabled(:alaveteli_pro) do
           session[:user_id] = other_user.id
           expect {
-            get :show, id: batch.id
+            get :show, params: { id: batch.id }
           }.to raise_error(ActiveRecord::RecordNotFound)
         end
       end
@@ -200,7 +200,7 @@ describe InfoRequestBatchController do
         with_feature_enabled(:alaveteli_pro) do
           session[:user_id] = nil
           expect {
-            get :show, id: batch.id
+            get :show, params: { id: batch.id }
           }.to raise_error(ActiveRecord::RecordNotFound)
         end
       end

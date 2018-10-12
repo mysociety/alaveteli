@@ -62,7 +62,7 @@ describe "When errors occur" do
     end
 
     it 'should render a 404 when given an invalid page parameter' do
-      get '/body/list/all', :page => 'xoforvfmy'
+      get '/body/list/all', params: { :page => 'xoforvfmy' }
       expect(response).to render_template('general/exception_caught')
       expect(response.code).to eq('404')
       expect(response.body).to match("Sorry, we couldn't find that page")

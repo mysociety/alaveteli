@@ -13,22 +13,22 @@ describe WidgetsController do
     end
 
     it 'should render the widget template' do
-      get :show, :request_id => @info_request.id
+      get :show, params: { :request_id => @info_request.id }
       expect(response).to render_template('show')
     end
 
     it 'should find the info request' do
-      get :show, :request_id => @info_request.id
+      get :show, params: { :request_id => @info_request.id }
       expect(assigns[:info_request]).to eq(@info_request)
     end
 
     it 'should create a track thing for the request' do
-      get :show, :request_id => @info_request.id
+      get :show, params: { :request_id => @info_request.id }
       expect(assigns[:track_thing].info_request).to eq(@info_request)
     end
 
     it 'should assign the request status' do
-      get :show, :request_id => @info_request.id
+      get :show, params: { :request_id => @info_request.id }
       expect(assigns[:status]).to eq(@info_request.calculate_status)
     end
 
@@ -45,7 +45,7 @@ describe WidgetsController do
         @info_request.widget_votes.create(:cookie => SecureRandom.hex(10))
       end
 
-      get :show, :request_id => @info_request.id
+      get :show, params: { :request_id => @info_request.id }
 
       # Count should be 5
       # 1 for the request's owning user
@@ -56,18 +56,18 @@ describe WidgetsController do
 
     it 'sets user_owns_request to true if the user owns the request' do
       session[:user_id] = @info_request.user.id
-      get :show, :request_id => @info_request.id
+      get :show, params: { :request_id => @info_request.id }
       expect(assigns[:user_owns_request]).to be true
     end
 
     it 'sets user_owns_request to false if the user does not own the request' do
       session[:user_id] = FactoryBot.create(:user).id
-      get :show, :request_id => @info_request.id
+      get :show, params: { :request_id => @info_request.id }
       expect(assigns[:user_owns_request]).to be false
     end
 
     it 'should not send an x-frame-options header' do
-      get :show, :request_id => @info_request.id
+      get :show, params: { :request_id => @info_request.id }
       expect(response.headers["X-Frame-Options"]).to be_nil
     end
 
@@ -75,7 +75,7 @@ describe WidgetsController do
 
       it 'will not find existing tracks' do
         request.cookies['widget_vote'] = mock_cookie
-        get :show, :request_id => @info_request.id
+        get :show, params: { :request_id => @info_request.id }
         expect(assigns[:existing_track]).to be_nil
       end
 
@@ -84,14 +84,14 @@ describe WidgetsController do
                                  :info_request => @info_request,
                                  :cookie => mock_cookie)
         request.cookies['widget_vote'] = vote.cookie
-        get :show, :request_id => @info_request.id
+        get :show, params: { :request_id => @info_request.id }
         expect(assigns[:existing_vote]).to be true
       end
 
       it 'will not find any existing votes if none exist' do
         WidgetVote.delete_all
         request.cookies['widget_vote'] = mock_cookie
-        get :show, :request_id => @info_request.id
+        get :show, params: { :request_id => @info_request.id }
         expect(assigns[:existing_vote]).to be false
       end
 
@@ -101,13 +101,13 @@ describe WidgetsController do
 
       it 'will not find existing tracks' do
         request.cookies['widget_vote'] = nil
-        get :show, :request_id => @info_request.id
+        get :show, params: { :request_id => @info_request.id }
         expect(assigns[:existing_track]).to be_nil
       end
 
       it 'will not find any existing votes' do
         request.cookies['widget_vote'] = nil
-        get :show, :request_id => @info_request.id
+        get :show, params: { :request_id => @info_request.id }
         expect(assigns[:existing_vote]).to be false
       end
 
@@ -123,7 +123,7 @@ describe WidgetsController do
         track.save!
         session[:user_id] = user.id
 
-        get :show, :request_id => @info_request.id
+        get :show, params: { :request_id => @info_request.id }
 
         expect(assigns[:existing_track]).to eq(track)
       end
@@ -137,7 +137,7 @@ describe WidgetsController do
         user = FactoryBot.create(:user)
         session[:user_id] = user.id
 
-        get :show, :request_id => @info_request.id
+        get :show, params: { :request_id => @info_request.id }
 
         expect(assigns[:existing_track]).to be_nil
       end
@@ -150,7 +150,7 @@ describe WidgetsController do
         session[:user_id] = @info_request.user.id
         request.cookies['widget_vote'] = mock_cookie
 
-        get :show, :request_id => @info_request.id
+        get :show, params: { :request_id => @info_request.id }
 
         expect(assigns[:existing_vote]).to be true
       end
@@ -161,7 +161,7 @@ describe WidgetsController do
         session[:user_id] = @info_request.user.id
         request.cookies['widget_vote'] = mock_cookie
 
-        get :show, :request_id => @info_request.id
+        get :show, params: { :request_id => @info_request.id }
 
         expect(assigns[:existing_vote]).to be false
       end
@@ -173,7 +173,7 @@ describe WidgetsController do
       it 'raises ActiveRecord::RecordNotFound' do
         allow(AlaveteliConfiguration).to receive(:enable_widgets).and_return(false)
         expect {
-          get :show, :request_id => @info_request.id
+          get :show, params: { :request_id => @info_request.id }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
 
@@ -184,7 +184,7 @@ describe WidgetsController do
       it 'should return a 403' do
         @info_request.prominence = 'hidden'
         @info_request.save!
-        get :show, :request_id => @info_request.id
+        get :show, params: { :request_id => @info_request.id }
         expect(response.code).to eq("403")
       end
 
@@ -194,7 +194,7 @@ describe WidgetsController do
                                  :cookie => mock_cookie)
         session[:user_id] = @info_request.user.id
 
-        get :show, :request_id => @info_request.id
+        get :show, params: { :request_id => @info_request.id }
 
         expect(assigns[:existing_vote]).to be false
       end
@@ -211,12 +211,12 @@ describe WidgetsController do
     end
 
     it 'should render the create widget template' do
-      get :new, :request_id => @info_request.id
+      get :new, params: { :request_id => @info_request.id }
       expect(response).to render_template('new')
     end
 
     it 'should find the info request' do
-      get :new, :request_id => @info_request.id
+      get :new, params: { :request_id => @info_request.id }
       expect(assigns[:info_request]).to eq(@info_request)
     end
 
@@ -225,7 +225,7 @@ describe WidgetsController do
       it 'raises ActiveRecord::RecordNotFound' do
         allow(AlaveteliConfiguration).to receive(:enable_widgets).and_return(false)
         expect {
-          get :new, :request_id => @info_request.id
+          get :new, params: { :request_id => @info_request.id }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
 
@@ -236,7 +236,7 @@ describe WidgetsController do
       it 'should return a 403' do
         @info_request.prominence = 'hidden'
         @info_request.save!
-        get :show, :request_id => @info_request.id
+        get :show, params: { :request_id => @info_request.id }
         expect(response.code).to eq("403")
       end
 
