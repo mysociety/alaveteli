@@ -299,13 +299,13 @@
             <% outgoing_message.for_admin_column do |name, value, type, column_name| %>
               <tr>
                 <td class="span3">
-                  <b><%=name%></b>
+                  <b><%= name %></b>
                 </td>
                 <td>
                   <% if column_name == 'body' %>
-                    <% truncated_value = truncate(h(outgoing_message.body), length: 400, omission: '') { link_to '…', '#', title: 'Toggle hidden', class: 'toggle-hidden' } %>
+                    <% truncated_value = truncate(h(value), length: 400, omission: '') { link_to '…', '#', title: 'Toggle hidden', class: 'toggle-hidden' } %>
                     <%= simple_format(truncated_value) %>
-                    <div style="display:none;"><%= simple_format(outgoing_message.body) %></div>
+                    <div style="display:none;"><%= simple_format(value) %></div>
                   <% else %>
                     <%= admin_value(value) %>
                   <% end %>
