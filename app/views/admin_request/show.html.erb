@@ -312,6 +312,17 @@
                 </td>
               </tr>
             <% end %>
+            <tr>
+              <td class="span3">
+                <b>Raw body</b>
+              <td>
+                <% truncated_value = truncate(h(outgoing_message.raw_body), length: 400, omission: '') { link_to '…', '#', title: 'Toggle hidden', class: 'toggle-hidden' } %>
+                <%= simple_format(truncated_value) %>
+                <div style="display:none;">
+                  <%= simple_format(outgoing_message.raw_body) %>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
