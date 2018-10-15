@@ -53,6 +53,21 @@ describe 'Editing the OutgoingMessage body' do
       expect(ogm.body).to eq('Some coffee please. And a biscuit.')
     end
 
+    it 'stores the unredacted body changes in the update event params' do
+      using_session(@admin) do
+        visit edit_admin_outgoing_message_path(ogm)
+        fill_in 'outgoing_message_body',
+                with: 'Some information please. And a biscuit.'
+        click_button 'Save'
+      end
+
+      event = ogm.reload.info_request_events.last
+      expect(event.params_yaml).
+        to include('old_body: Some information please')
+      expect(event.params_yaml).
+        to include('body: Some information please. And a biscuit.')
+    end
+
   end
 
 end

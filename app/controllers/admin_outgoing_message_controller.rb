@@ -24,7 +24,7 @@ class AdminOutgoingMessageController < AdminController
   end
 
   def update
-    old_body = @outgoing_message.body
+    old_body = @outgoing_message.raw_body
     old_prominence = @outgoing_message.prominence
     old_prominence_reason = @outgoing_message.prominence_reason
     if @outgoing_message.update_attributes(outgoing_message_params)
@@ -32,7 +32,7 @@ class AdminOutgoingMessageController < AdminController
                                                { :outgoing_message_id => @outgoing_message.id,
                                                  :editor => admin_current_user,
                                                  :old_body => old_body,
-                                                 :body => @outgoing_message.body,
+                                                 :body => @outgoing_message.raw_body,
                                                  :old_prominence => old_prominence,
                                                  :old_prominence_reason => old_prominence_reason,
                                                  :prominence => @outgoing_message.prominence,
