@@ -303,7 +303,8 @@
                 </td>
                 <td>
                   <% if column_name == 'body' %>
-                    <%= simple_format(truncate(h(outgoing_message.body), length: 400, omission: link_to('...', '#', class: 'toggle-hidden' )).html_safe) %>
+                    <% truncated_value = truncate(h(outgoing_message.body), length: 400, omission: '') { link_to '...', '#', class: 'toggle-hidden' } %>
+                    <%= simple_format(truncated_value) %>
                     <div style="display:none;"><%= simple_format(outgoing_message.body) %></div>
                   <% else %>
                     <%= admin_value(value) %>
@@ -354,7 +355,8 @@
                 </td>
                 <td>
                   <% if column_name =~ /^cached_.*?$/ %>
-                    <%= simple_format(truncate(h(value), length: 400, omission: link_to('...', '#', class: 'toggle-hidden')).html_safe) %>
+                    <% truncated_value = truncate(h(value), length: 400, omission: '') { link_to '...', '#', class: 'toggle-hidden' } %>
+                    <%= simple_format(truncated_value) %>
                     <div style="display:none;"><%= simple_format(value) %></div>
                   <% else %>
                     <%= simple_format(value.to_s) %>
