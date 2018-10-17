@@ -733,7 +733,7 @@ msgid "You sent a clarification to {{public_body_name}} for \"{{info_request_tit
 msgstr "U zond een verduidelijking naar {{ public_body_name}} omtrent  \"{{info_request_title}}\"."
 
 msgid "You sent a follow up to {{public_body_name}} on \"{{info_request_title}}\"."
-msgstr "U zond een opvolgingsbericht naar {{public_body_name }} over \"{{info_request_title}}\"."
+msgstr "U zond een opvolgingsbericht naar {{public_body_name}} over \"{{info_request_title}}\"."
 
 msgid "You sent a request \"{{info_request_title}}\" to {{public_body_name}}."
 msgstr "U zond een aanvraag \"{{info_request_title}}\" naar {{public_body_name}}."
@@ -770,7 +770,7 @@ msgstr "Uw ontwerp is opgeslagen!"
 
 msgid "Your follow up to {{public_body_name}} on \"{{info_request_title}}\" was resent."
 msgstr ""
-"Uw follow-up naar {{public_body_name }} omtrent \n"
+"Uw follow-up naar {{public_body_name}} omtrent \n"
 "{{info_request_title}} werd teruggestuurd."
 
 msgid "Your internal review request to {{public_body_name}} for \"{{info_request_title}}\" was resent."
