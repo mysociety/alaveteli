@@ -303,7 +303,7 @@
                 </td>
                 <td>
                   <% if column_name == 'body' %>
-                    <% truncated_value = truncate(h(outgoing_message.body), length: 400, omission: '') { link_to '...', '#', class: 'toggle-hidden' } %>
+                    <% truncated_value = truncate(h(outgoing_message.body), length: 400, omission: '') { link_to '…', '#', class: 'toggle-hidden' } %>
                     <%= simple_format(truncated_value) %>
                     <div style="display:none;"><%= simple_format(outgoing_message.body) %></div>
                   <% else %>
@@ -355,7 +355,7 @@
                 </td>
                 <td>
                   <% if column_name =~ /^cached_.*?$/ %>
-                    <% truncated_value = truncate(h(value), length: 400, omission: '') { link_to '...', '#', class: 'toggle-hidden' } %>
+                    <% truncated_value = truncate(h(value), length: 400, omission: '') { link_to '…', '#', class: 'toggle-hidden' } %>
                     <%= simple_format(truncated_value) %>
                     <div style="display:none;"><%= simple_format(value) %></div>
                   <% else %>
