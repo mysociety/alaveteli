@@ -1,3 +1,9 @@
+# 0.31.0.5
+
+## Highlighted Features
+
+* Fix broken translation strings (Liz Conlan)
+
 # 0.31.0.4
 
 ## Highlighted Features
