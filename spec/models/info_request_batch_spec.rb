@@ -211,6 +211,20 @@ describe InfoRequestBatch do
     end
   end
 
+  describe '#sent?' do
+    subject { batch.sent? }
+
+    context 'sent_at has been set' do
+      let(:batch) { FactoryBot.create(:info_request_batch, :sent) }
+      it { is_expected.to eq true }
+    end
+
+    context 'sent_at has not been set' do
+      let(:batch) { FactoryBot.create(:info_request_batch) }
+      it { is_expected.to eq false }
+    end
+  end
+
   describe "#example_request" do
     let(:first_public_body) { FactoryBot.create(:public_body) }
     let(:second_public_body) { FactoryBot.create(:public_body) }

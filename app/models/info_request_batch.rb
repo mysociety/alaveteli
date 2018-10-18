@@ -121,6 +121,13 @@ class InfoRequestBatch < ActiveRecord::Base
       mail_message.message_id)
   end
 
+  # Do we consider the InfoRequestBatch to be sent to all authorities?
+  #
+  # Returns a Boolean
+  def sent?
+    sent_at.present?
+  end
+
   # Build an InfoRequest object which is an example of this batch.
   def example_request
     public_body = self.public_bodies.first
