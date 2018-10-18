@@ -191,6 +191,31 @@ describe HelpController do
       deliveries.clear
     end
 
+    context 'the site is configured to require reCAPTCHA' do
+
+      before do
+        allow(AlaveteliConfiguration).
+          to receive(:contact_form_recaptcha).and_return(true)
+        allow(controller).to receive(:verify_recaptcha).and_return(false)
+      end
+
+      it 'does not send the message without the recaptcha being completed' do
+        post :contact, { contact: {
+                           name: 'Possible Spammmer',
+                           email: 'spammer@localhost',
+                           subject: 'Can I sell you my book?',
+                           comment: '',
+                           message: "It's great, you should buy 1!!" },
+                         submitted_contact_form: 1 }
+        expect(response).not_to redirect_to(frontpage_path)
+
+        deliveries = ActionMailer::Base.deliveries
+        expect(deliveries.size).to eq(0)
+        deliveries.clear
+      end
+
+    end
+
     it 'has rudimentary spam protection' do
       post :contact, { :contact => {
                          :name => 'Vinny Vanilli',
