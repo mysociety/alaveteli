@@ -7,7 +7,7 @@
 <div class="info_request_batch_intro">
   <h1><%= @title %></h1>
 
-  <% if @info_request_batch.sent_at %>
+  <% if @info_request_batch.sent? %>
     <%= n_('Sent to one authority by {{info_request_user}} on {{date}}.',
            'Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}.',
            @info_request_batch.info_requests.size,
@@ -26,7 +26,7 @@
 <div id="left_column" class="left_column">
   <div class="results_section">
     <div class="results_block">
-      <% if @info_request_batch.sent_at %>
+      <% if @info_request_batch.sent? %>
         <% @info_requests.each do |info_request| %>
           <%= render partial: 'request/request_listing_via_event',
                      locals: { event: info_request.last_event_forming_initial_request } %>
@@ -44,7 +44,7 @@
 </div>
 
 <div id="right_column" class="sidebar right_column" role="complementary">
-  <% if @info_request_batch.sent_at %>
+  <% if @info_request_batch.sent? %>
     <%= render partial: "alaveteli_pro/info_request_batches/embargo_form",
                locals: { info_request_batch: @info_request_batch } %>
   <% end %>
