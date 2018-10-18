@@ -154,6 +154,13 @@ class InfoRequestBatch < ActiveRecord::Base
     info_requests.embargo_expiring.any?
   end
 
+  # Can the Embargo be safely changed?
+  #
+  # Returns a Boolean
+  def can_change_embargo?
+    sent?
+  end
+
   # What phases are the requests in this batch in
   #
   # Returns unique array of symbols representing phases from InfoRequest::State

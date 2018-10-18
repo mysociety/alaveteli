@@ -348,6 +348,20 @@ describe InfoRequestBatch do
     end
   end
 
+  describe '#can_change_embargo?' do
+    subject { batch.can_change_embargo? }
+
+    context 'the batch has been sent' do
+      let(:batch) { FactoryBot.create(:info_request_batch, :sent) }
+      it { is_expected.to eq true }
+    end
+
+    context 'the batch is unsent' do
+      let(:batch) { FactoryBot.create(:info_request_batch) }
+      it { is_expected.to eq false }
+    end
+  end
+
   describe "#request_phases" do
     let(:public_bodies) { FactoryBot.create_list(:public_body, 3) }
     let(:info_request_batch) do
