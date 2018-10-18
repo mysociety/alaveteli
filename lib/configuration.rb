@@ -75,6 +75,7 @@ module AlaveteliConfiguration
       :MTA_LOG_PATH => '/var/log/exim4/exim-mainlog-*',
       :MTA_LOG_TYPE => 'exim',
       :NEW_REQUEST_RECAPTCHA => false,
+      :CONTACT_FORM_RECAPTCHA => false,
       :NEW_RESPONSE_REMINDER_AFTER_DAYS => [3, 10, 24],
       :OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS => '',
       :PUBLIC_BODY_STATISTICS_PAGE => false,
