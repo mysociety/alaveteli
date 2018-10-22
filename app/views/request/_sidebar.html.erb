@@ -38,6 +38,8 @@
 
   <%= render :partial => 'request/act' %>
   <%= render :partial => 'request/next_actions' %>
+  <%= render :partial => 'request/batch',
+             :locals => { :info_request => @info_request } %>
 
   <% similar_requests, similar_more = @info_request.similar_requests %>
   <% unless similar_requests.empty? %>

@@ -13,6 +13,12 @@
         :law_used_full=>h(@info_request.law_used_human(:full))) %>
   <%= _('to {{public_body}}',:public_body=>public_body_link(@info_request.public_body)) %>
 <% end %>
+<% if @info_request.info_request_batch %>
+  <%= _('as part of ' \
+        '<a href="{{url}}">a batch sent to {{count}} authorities</a>',
+        :url => info_request_batch_path(@info_request.info_request_batch),
+        :count => @info_request.info_request_batch.public_bodies.count) %>
+<% end %>
 <% if @info_request.public_body.eir_only? %>
   <span class="request-header__foi_no">
     <br>

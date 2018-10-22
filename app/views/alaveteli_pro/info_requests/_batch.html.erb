@@ -1,0 +1,14 @@
+<div class="sidebar__section">
+  <% if @info_request.info_request_batch %>
+    <h2><%= _('Batch') %></h2>
+    <p class="batch-status">
+      <i class="batch-indicator batch-status--icon"></i>
+      <span class="batch-status--content">
+        <%= _('This request is part of ' \
+            '<a href="{{url}}">a batch sent to {{count}} authorities</a>',
+            :url => info_request_batch_path(@info_request.info_request_batch),
+            :count => @info_request.info_request_batch.public_bodies.count) %>
+      </span>
+    </p>
+  <% end %>
+</div>

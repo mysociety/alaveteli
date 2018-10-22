@@ -127,31 +127,47 @@ $complete: rgb(112, 203, 99);
   }
 }
 
-.embargo-status {
+.embargo-status,
+.batch-status {
   @include flexbox();
 }
 
-.embargo-status--content {
+.embargo-status--content,
+.batch-status--content {
   // embargo-indicator and embargo-text sit side by side, using flexbox for this.
   // If no flexbox support the layout is the same, but the text will wrap underneath the icon
   @include flex(1);
 }
 
-.embargo-status--icon {
+.embargo-status--icon,
+.batch-status--icon {
   margin-right: 0.5em;
 }
 
-.embargo-indicator {
-  background-image: image-url('alaveteli-pro/embargo-lock.png');
+.embargo-indicator,
+.batch-indicator {
   background-position: top left;
   background-repeat: no-repeat;
   display: inline-block;
   @include image-replacement();
-  height: 28px;
   width: 20px;
+}
+
+.embargo-indicator {
+  background-image: image-url('alaveteli-pro/embargo-lock.png');
   background-size: 20px 28px;
+  height: 28px;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image: image-url('alaveteli-pro/embargo-lock@2.png');
+  }
+}
+
+.batch-indicator {
+  background-image: image-url('alaveteli-pro/batch-stack.png');
+  background-size: 20px 24px;
+  height: 24px;
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    background-image: image-url('alaveteli-pro/batch-stack@2.png');
   }
 }
 
