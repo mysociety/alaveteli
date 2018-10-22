@@ -141,7 +141,8 @@ $complete: rgb(112, 203, 99);
 
 .embargo-status--icon,
 .batch-status--icon {
-  margin-right: 0.5em;
+  margin-right: 0.75em;
+  margin-top: 0.2em; // compensate for *--content line-height
 }
 
 .embargo-indicator,
