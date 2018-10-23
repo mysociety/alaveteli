@@ -12,15 +12,10 @@ class Webhook
   end
 
   def process
-    raise UnhandledTypeError.new(type) unless type_klass
-    type_klass.new(event.data).process unless plans.empty?
+    Webhook::Base.process(type, event.data) unless plans.empty?
   end
 
   private
-
-  def type_klass
-    @type_klass ||= "Webhook::#{type.gsub('.', '/').camelize}".safe_constantize
-  end
 
   def type
     type = event.type if event.respond_to?(:type)

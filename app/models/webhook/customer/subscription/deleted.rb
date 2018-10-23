@@ -2,11 +2,9 @@ class Webhook
   module Customer
     module Subscription
       class Deleted
-        attr_reader :data
+        include Webhook::Base
 
-        def initialize(data)
-          @data = data
-        end
+        register 'customer.subscription.deleted'
 
         def process
           customer_id = data.object.customer

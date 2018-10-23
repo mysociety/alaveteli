@@ -1,11 +1,9 @@
 class Webhook
   module Invoice
     class PaymentSucceeded
-      attr_reader :data
+      include Webhook::Base
 
-      def initialize(data)
-        @data = data
-      end
+      register 'invoice.payment_succeeded'
 
       def process
         charge_id = data.object.charge
