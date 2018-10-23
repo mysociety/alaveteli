@@ -8,6 +8,10 @@
 
 ## Upgrade Notes
 
+* The `hidden_incoming_message` factory has been removed. Use the `:hidden`
+  _trait_ instead if you rely on this in theme specs. See
+  https://github.com/thoughtbot/factory_bot/blob/v4.10.0/GETTING_STARTED.md#traits
+  for more information on traits.
 
 # 0.32.0.0
 

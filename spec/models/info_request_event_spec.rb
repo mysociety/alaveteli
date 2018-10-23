@@ -80,7 +80,7 @@ describe InfoRequestEvent do
     end
 
     it 'returns a falsey value for an incoming message that is not indexed by search' do
-      incoming_message = FactoryBot.create(:hidden_incoming_message)
+      incoming_message = FactoryBot.create(:incoming_message, :hidden)
       response_event = FactoryBot.build(:response_event,
                                         :incoming_message => incoming_message)
       expect(response_event.indexed_by_search?).to be_falsey
