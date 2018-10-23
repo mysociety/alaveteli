@@ -4,10 +4,28 @@ class Webhook
   ParserError = Class.new(StandardError)
   MissingTypeError = Class.new(NoMethodError)
   VerificationError = Class.new(StandardError)
+  UnhandledTypeError = Class.new(StandardError)
 
   def initialize(payload:, signature:)
     @payload = payload
     @signature = signature
+  end
+
+  def process
+    raise UnhandledTypeError.new(type) unless type_klass
+    type_klass.new(event.data).process unless plans.empty?
+  end
+
+  private
+
+  def type_klass
+    @type_klass ||= "Webhook::#{type.gsub('.', '/').camelize}".safe_constantize
+  end
+
+  def type
+    type = event.type if event.respond_to?(:type)
+    type || raise(MissingTypeError,
+                  "undefined method `type' for #{event.inspect}")
   end
 
   def event
@@ -22,12 +40,6 @@ class Webhook
     rescue Stripe::SignatureVerificationError => ex
       raise VerificationError.new(ex)
     end
-  end
-
-  def type
-    type = event.type if event.respond_to?(:type)
-    type || raise(MissingTypeError,
-                  "undefined method `type' for #{event.inspect}")
   end
 
   def plans
@@ -45,8 +57,6 @@ class Webhook
       plans.select { |plan| plan_matches_namespace(plan) }
     )
   end
-
-  private
 
   def secret
     AlaveteliConfiguration.stripe_webhook_secret

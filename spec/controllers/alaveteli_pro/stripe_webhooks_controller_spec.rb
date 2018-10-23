@@ -136,7 +136,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
         request.headers.merge! signed_headers
         post :receive, payload
         mail = ActionMailer::Base.deliveries.first
-        expect(mail.subject).to match(/UnhandledStripeWebhookError/)
+        expect(mail.subject).to match(/Webhook::UnhandledTypeError/)
       end
 
     end
@@ -203,7 +203,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
           post :receive, payload
           expect(response.status).to eq(200)
           expect(response.body).
-            to match('Does not appear to be one of our plans')
+            to match('OK')
         end
 
         it 'does not send an exception email' do
