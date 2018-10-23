@@ -5,8 +5,8 @@
 # Copyright (c) 2018 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 class AdminUsersAccountSuspensionsController < AdminController
-  before_filter :set_suspended_user
-  before_filter :set_suspension_reason
+  before_action :set_suspended_user
+  before_action :set_suspension_reason
 
   def create
     if suspend

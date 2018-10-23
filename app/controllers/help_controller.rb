@@ -9,8 +9,8 @@ class HelpController < ApplicationController
 
   # we don't even have a control subroutine for most help pages, just see their templates
 
-  before_filter :long_cache
-  before_filter :catch_spam, :only => [:contact]
+  before_action :long_cache
+  before_action :catch_spam, :only => [:contact]
 
   def index
     redirect_to help_about_path

@@ -3,7 +3,7 @@ class AlaveteliPro::PlansController < AlaveteliPro::BaseController
   include AlaveteliPro::StripeNamespace
 
   skip_before_action :pro_user_authenticated?
-  before_filter :authenticate, :check_existing_subscription, only: [:show]
+  before_action :authenticate, :check_existing_subscription, only: [:show]
 
   def index
   end

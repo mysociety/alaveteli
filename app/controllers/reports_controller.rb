@@ -1,9 +1,9 @@
 # -*- encoding : utf-8 -*-
 class ReportsController < ApplicationController
-  before_filter :set_info_request
-  before_filter :set_comment
-  before_filter :set_reportable
-  before_filter :set_report_reasons
+  before_action :set_info_request
+  before_action :set_comment
+  before_action :set_reportable
+  before_action :set_report_reasons
 
   def create
     @reason = params[:reason]

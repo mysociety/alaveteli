@@ -7,7 +7,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class TrackController < ApplicationController
-  before_filter :medium_cache
+  before_action :medium_cache
 
   # Track all updates to a particular request
   def track_request

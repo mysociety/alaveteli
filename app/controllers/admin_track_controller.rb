@@ -7,7 +7,7 @@
 
 class AdminTrackController < AdminController
 
-  before_filter :set_track_thing, :only => [:destroy]
+  before_action :set_track_thing, :only => [:destroy]
 
   def index
     @query = params[:query]

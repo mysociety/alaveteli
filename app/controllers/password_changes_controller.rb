@@ -6,9 +6,9 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class PasswordChangesController < ApplicationController
-  before_filter :set_pretoken
-  before_filter :set_pretoken_hash
-  before_filter :set_user_from_token, :only => [:edit, :update]
+  before_action :set_pretoken
+  before_action :set_pretoken_hash
+  before_action :set_user_from_token, :only => [:edit, :update]
 
   def new
     @email_field_options =

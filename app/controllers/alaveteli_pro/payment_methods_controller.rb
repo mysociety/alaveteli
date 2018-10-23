@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class AlaveteliPro::PaymentMethodsController < AlaveteliPro::BaseController
-  before_filter :authenticate
+  before_action :authenticate
 
   def update
     begin

@@ -7,7 +7,7 @@
 
 class AdminRequestController < AdminController
 
-  before_filter :set_info_request, :only => [ :show,
+  before_action :set_info_request, :only => [ :show,
                                               :edit,
                                               :update,
                                               :destroy,

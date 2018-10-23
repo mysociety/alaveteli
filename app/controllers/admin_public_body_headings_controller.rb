@@ -3,7 +3,7 @@ class AdminPublicBodyHeadingsController < AdminController
 
   include TranslatableParams
 
-  before_filter :set_public_body_heading, :only => [:edit, :update, :destroy]
+  before_action :set_public_body_heading, :only => [:edit, :update, :destroy]
 
   def new
     @public_body_heading = PublicBodyHeading.new

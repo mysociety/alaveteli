@@ -1,9 +1,9 @@
 # -*- encoding : utf-8 -*-
 class ApiController < ApplicationController
-  before_filter :check_api_key
-  before_filter :check_external_request,
+  before_action :check_api_key
+  before_action :check_external_request,
     :only => [:add_correspondence, :update_state]
-  before_filter :check_request_ownership,
+  before_action :check_request_ownership,
     :only => [:add_correspondence, :update_state]
 
   def show_request
