@@ -26,6 +26,17 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe IncomingMessage do
 
+  describe '.unparsed' do
+    subject { described_class.unparsed }
+    before { IncomingMessage.destroy_all }
+
+    it 'does not include parsed messages' do
+      FactoryBot.create(:incoming_message)
+      unparsed = FactoryBot.create(:incoming_message, :unparsed)
+      expect(subject).to match_array [unparsed]
+    end
+  end
+
   describe '#mail' do
     subject { FactoryBot.create(:incoming_message) }
     let(:raw_email) { subject.raw_email }

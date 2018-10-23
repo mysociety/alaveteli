@@ -38,6 +38,13 @@ FactoryBot.define do
       incoming_message.raw_email.data = "somedata"
     end
 
+    trait :unparsed do
+      last_parsed nil
+      sent_at nil
+      after(:create) do |incoming_message, evaluator|
+      end
+    end
+
     trait :hidden do
       prominence 'hidden'
     end
