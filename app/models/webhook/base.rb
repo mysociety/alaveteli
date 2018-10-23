@@ -4,7 +4,7 @@ class Webhook
 
     def self.process(type, data)
       handler = Webhook::Base.registered_handlers.find do |h|
-        h[:type] == type
+        h[:type] == type && h[:if].call(data)
       end
 
       raise Webhook::UnhandledTypeError.new(type) unless handler
@@ -16,6 +16,7 @@ class Webhook
       def register(type, options = {})
         options[:type] = type
         options[:klass] = self
+        options[:if] ||= ->(_data) { true }
 
         Webhook::Base.registered_handlers ||= []
         Webhook::Base.registered_handlers << options
