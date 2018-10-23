@@ -313,6 +313,35 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
     end
 
+    describe 'updating the Stripe subscription updated' do
+
+      let(:stripe_event) do
+        StripeMock.mock_webhook_event('customer.subscription.updated')
+      end
+
+      before do
+        request.headers.merge! signed_headers
+        post :receive, payload
+      end
+
+      it 'send an exception email' do
+        expect(ActionMailer::Base.deliveries.count).to eq(1)
+      end
+
+      context 'on renewing' do
+
+        let(:stripe_event) do
+          StripeMock.mock_webhook_event('customer.subscription.updated-renewed')
+        end
+
+        it 'does not send an exception email' do
+          expect(ActionMailer::Base.deliveries.count).to eq(0)
+        end
+
+      end
+
+    end
+
   end
 
 end
