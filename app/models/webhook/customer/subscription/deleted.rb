@@ -7,10 +7,18 @@ class Webhook
         register 'customer.subscription.deleted'
 
         def process
-          customer_id = data.object.customer
-          if account = ProAccount.find_by(stripe_customer_id: customer_id)
-            account.user.remove_role(:pro)
-          end
+          return unless pro_account
+
+          pro_account.user.remove_role(:pro)
+        end
+
+        private
+
+        def pro_account
+          @pro_account ||= (
+            id = data.object.customer
+            ProAccount.find_by(stripe_customer_id: id) if id
+          )
         end
       end
     end

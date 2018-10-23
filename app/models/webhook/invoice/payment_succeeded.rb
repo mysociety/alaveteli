@@ -6,20 +6,30 @@ class Webhook
       register 'invoice.payment_succeeded'
 
       def process
-        charge_id = data.object.charge
+        return unless charge && subscription
 
-        if charge_id
-          charge = Stripe::Charge.retrieve(charge_id)
+        plan_name = subscription.plan.name
 
-          subscription_id = data.object.subscription
-          subscription = Stripe::Subscription.retrieve(subscription_id)
-          plan_name = subscription.plan.name
+        charge.description =
+          "#{ AlaveteliConfiguration.pro_site_name }: #{ plan_name }"
 
-          charge.description =
-            "#{ AlaveteliConfiguration.pro_site_name }: #{ plan_name }"
+        charge.save
+      end
 
-          charge.save
-        end
+      private
+
+      def charge
+        @charge ||= (
+          id = data.object.charge
+          Stripe::Charge.retrieve(id) if id
+        )
+      end
+
+      def subscription
+        @subscription ||= (
+          id = data.object.subscription
+          Stripe::Subscription.retrieve(id) if id
+        )
       end
     end
   end
