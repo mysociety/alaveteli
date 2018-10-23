@@ -81,7 +81,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       end
 
       it 'sends an exception email' do
-        expected = '(Stripe::SignatureVerificationError) "Unable to extract ' \
+        expected = '(Webhook::VerificationError) "Unable to extract ' \
                    'timestamp and signatures from header'
         post :receive, payload
         mail = ActionMailer::Base.deliveries.first
@@ -111,7 +111,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       end
 
       it 'sends an exception email' do
-        expected = '(Stripe::SignatureVerificationError) "No signatures ' \
+        expected = '(Webhook::VerificationError) "No signatures ' \
                    'found matching the expected signature for payload'
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to include(expected)
@@ -166,7 +166,11 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
     context 'the notification type is missing' do
 
-      let(:payload) { '{"id": "1234"}' }
+      let(:payload) do
+        event = StripeMock.mock_webhook_event('invoice.payment_succeeded')
+        event.type = nil
+        event.to_s
+      end
 
       before do
         request.headers.merge! signed_headers
@@ -178,7 +182,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       end
 
       it 'sends an exception email' do
-        expected = '(NoMethodError) "undefined method `type\''
+        expected = '(Webhook::MissingTypeError) "undefined method `type\''
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to include(expected)
       end
