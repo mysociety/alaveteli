@@ -37,6 +37,19 @@ describe IncomingMessage do
     end
   end
 
+  describe '.pro' do
+    subject { described_class.pro }
+    before { IncomingMessage.destroy_all }
+
+    it 'finds messages belonging to pro users' do
+      FactoryBot.create(:incoming_message)
+      pro_user = FactoryBot.create(:pro_user)
+      embargoed_request = FactoryBot.create(:embargoed_request, user: pro_user)
+      pro_message = embargoed_request.incoming_messages.first
+      expect(subject).to match_array [pro_message]
+    end
+  end
+
   describe '#mail' do
     subject { FactoryBot.create(:incoming_message) }
     let(:raw_email) { subject.raw_email }

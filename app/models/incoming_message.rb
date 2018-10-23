@@ -71,6 +71,7 @@ class IncomingMessage < ActiveRecord::Base
   after_update :update_request
   before_destroy :destroy_email_file
 
+  scope :pro, -> { joins(:info_request).merge(InfoRequest.pro) }
   scope :unparsed, -> { where(last_parsed: nil) }
 
   # Given that there are in theory many info request events, a convenience method for
