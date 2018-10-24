@@ -12,11 +12,13 @@ rvm:
   - 2.3.0 # Ubuntu Xenial
   - 2.3.1 # Ubuntu Xenial
   - 2.3 # Latest Official 2.3.x
+  - 2.4 # Latest Official 2.4.x
 matrix:
   fast_finish: true
   allow_failures:
   - rvm: 2.3.0 # Ubuntu Xenial
   - rvm: 2.3.1 # Ubuntu Xenial
+  - rvm: 2.4 # Latest Official 2.4.x
 env:
   global:
     - S3_REGION=us-east-1
