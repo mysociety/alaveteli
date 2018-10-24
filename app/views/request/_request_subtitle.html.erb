@@ -1,24 +1,13 @@
-<% if !@user.nil? && @user.admin_page_links? %>
-  <%= _('{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href="{{request_admin_url}}">admin</a>) to {{public_body_link}} (<a href="{{public_body_admin_url}}">admin</a>)',
-        :user => request_user_link(@info_request, _('An anonymous user')),
-        :law_used_full => h(@info_request.law_used_human(:full)),
-        :user_admin_link => user_admin_link_for_request(
-          @info_request, _('external'), _('admin')),
-        :request_admin_url => admin_request_url(@info_request),
-        :public_body_link => public_body_link(@info_request.public_body),
-        :public_body_admin_url => admin_body_url(@info_request.public_body)) %>
-<% else %>
-  <%= _('{{user}} made this {{law_used_full}} request',
-        :user=>request_user_link(@info_request, _('An anonymous user')),
-        :law_used_full=>h(@info_request.law_used_human(:full))) %>
-  <%= _('to {{public_body}}',:public_body=>public_body_link(@info_request.public_body)) %>
-<% end %>
 <% if @info_request.info_request_batch %>
-  <%= _('as part of ' \
-        '<a href="{{url}}">a batch sent to {{count}} authorities</a>',
-        :url => info_request_batch_path(@info_request.info_request_batch),
-        :count => @info_request.info_request_batch.public_bodies.count) %>
+  <%= render partial: 'request/request_subtitle/batch',
+             locals: { info_request: @info_request,
+                       user: @user } %>
+<% else %>
+  <%= render partial: 'request/request_subtitle/single',
+             locals: { info_request: @info_request,
+                       user: @user } %>
 <% end %>
+
 <% if @info_request.public_body.eir_only? %>
   <span class="request-header__foi_no">
     <br>
