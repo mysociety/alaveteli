@@ -17,7 +17,6 @@ matrix:
   allow_failures:
   - rvm: 2.3.0 # Ubuntu Xenial
   - rvm: 2.3.1 # Ubuntu Xenial
-  - rvm: 2.3.5 # Latest Official 2.3.x
 env:
   global:
     - S3_REGION=us-east-1
