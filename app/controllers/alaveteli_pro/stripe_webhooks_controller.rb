@@ -86,13 +86,13 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
     plans = []
     case @stripe_event.data.object.object
     when 'subscription'
-      plans = get_plan_ids(@stripe_event.data.object.items)
+      plans = plan_ids(@stripe_event.data.object.items)
     when 'invoice'
-      plans = get_plan_ids(@stripe_event.data.object.lines)
+      plans = plan_ids(@stripe_event.data.object.lines)
     end
 
     # ignore any plans that don't start with our namespace
-    plans.delete_if { |plan| !plan_matches_namespace(plan) }
+    plans.delete_if { |plan| !plan_matches_namespace?(plan) }
 
     if plans.empty?
       # accept it so it doesn't get resent but don't process it
@@ -103,12 +103,12 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
     end
   end
 
-  def plan_matches_namespace(plan_id)
+  def plan_matches_namespace?(plan_id)
     (AlaveteliConfiguration.stripe_namespace == '' ||
      plan_id =~ /^#{AlaveteliConfiguration.stripe_namespace}/)
   end
 
-  def get_plan_ids(items)
+  def plan_ids(items)
     items.map { |item| item.plan.id if item.plan }.compact.uniq
   end
 end
