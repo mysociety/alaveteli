@@ -48,6 +48,7 @@ FactoryBot.define do
         end
 
         batch.public_bodies = batch.info_requests.map(&:public_body)
+        batch.sent_at = Time.zone.now
       end
     end
   end
