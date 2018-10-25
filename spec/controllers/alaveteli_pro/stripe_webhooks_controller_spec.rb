@@ -278,6 +278,77 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
     end
 
+    describe 'a customer moves to a new billing period' do
+      let(:stripe_event) do
+        StripeMock.mock_webhook_event('customer.subscription.updated-renewed')
+      end
+
+      let(:payload) { stripe_event.to_s }
+
+      before do
+        signed =
+          signed_headers(payload: payload, signing_secret: signing_secret)
+        request.headers.merge!(signed)
+        post :receive, params: payload
+      end
+
+      it 'handles the event' do
+        expect(response.status).to eq(200)
+      end
+
+      it 'does not sent an exception email' do
+        expect(ActionMailer::Base.deliveries).to be_empty
+      end
+    end
+
+    describe 'a trial ends' do
+      let(:stripe_event) do
+        StripeMock.mock_webhook_event('customer.subscription.updated-trial-end')
+      end
+
+      let(:payload) { stripe_event.to_s }
+
+      before do
+        signed =
+          signed_headers(payload: payload, signing_secret: signing_secret)
+        request.headers.merge!(signed)
+        post :receive, params: payload
+      end
+
+      it 'handles the event' do
+        expect(response.status).to eq(200)
+      end
+
+      it 'sends an exception email' do
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).to match(/UnhandledStripeWebhookError/)
+      end
+    end
+
+    describe 'a customer cancells' do
+      let(:stripe_event) do
+        StripeMock.mock_webhook_event('customer.subscription.updated-cancelled')
+      end
+
+      let(:payload) { stripe_event.to_s }
+
+      before do
+        signed =
+          signed_headers(payload: payload, signing_secret: signing_secret)
+        request.headers.merge!(signed)
+        post :receive, params: payload
+      end
+
+      it 'handles the event' do
+        expect(response.status).to eq(200)
+      end
+
+      it 'sends an exception email' do
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).to match(/UnhandledStripeWebhookError/)
+      end
+    end
+
     describe 'a cancelled subscription is deleted at the end of the billing period' do
 
       let!(:user) do
