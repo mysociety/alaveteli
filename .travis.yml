@@ -9,16 +9,26 @@ rvm:
   - 2.0.0 # Ubuntu Trusty
   - 2.1.5 # Debian Jessie
   - 2.3.3 # Debian Stretch
-  - 2.3.0 # Ubuntu Xenial
-  - 2.3.1 # Ubuntu Xenial
-  - 2.3 # Latest Official 2.3.x
-  - 2.4 # Latest Official 2.4.x
+  - 2.3 # Latest official 2.3.x
+  - 2.4 # Latest official 2.4.x
+  - 2.5 # Latest official 2.5.x
+  - ruby-head
+gemfile:
+  - Gemfile
+  - Gemfile.rails5
 matrix:
   fast_finish: true
+  exclude:
+    # Ignore Rubies which Rails 5 doesn't support
+    - rvm: 2.0.0
+      gemfile: Gemfile.rails5
+    - rvm: 2.1.5
+      gemfile: Gemfile.rails5
   allow_failures:
-  - rvm: 2.3.0 # Ubuntu Xenial
-  - rvm: 2.3.1 # Ubuntu Xenial
-  - rvm: 2.4 # Latest Official 2.4.x
+    - rvm: 2.4 # Latest official 2.4.x
+    - rvm: 2.5 # Latest official 2.5.x
+    - rvm: ruby-head
+    - gemfile: Gemfile.rails5
 env:
   global:
     - S3_REGION=us-east-1
