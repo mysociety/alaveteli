@@ -78,9 +78,8 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
   end
 
   def notify_exception(error)
-    if send_exception_notifications?
-      ExceptionNotifier.notify_exception(error, :env => request.env)
-    end
+    return unless send_exception_notifications?
+    ExceptionNotifier.notify_exception(error, env: request.env)
   end
 
   # ignore any that don't match our plan namespace
