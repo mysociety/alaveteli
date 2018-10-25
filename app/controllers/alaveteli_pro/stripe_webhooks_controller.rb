@@ -1,6 +1,17 @@
 # -*- encoding : utf-8 -*-
 # Does not inherit from AlaveteliPro::BaseController because it doesn't need to
 class AlaveteliPro::StripeWebhooksController < ApplicationController
+  rescue_from JSON::ParserError do |exception|
+    # Invalid payload, reject the webhook
+    notify_exception(exception)
+    render json: { error: exception.message }, status: 400
+  end
+
+  rescue_from Stripe::SignatureVerificationError do |exception|
+    # Invalid signature, reject the webhook
+    notify_exception(exception)
+    render json: { error: exception.message }, status: 401
+  end
 
   before_action :read_event_notification, :check_for_event_type, :filter_hooks
 
@@ -49,21 +60,9 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
     endpoint_secret = AlaveteliConfiguration.stripe_webhook_secret
     @stripe_event = nil
 
-    begin
-      @stripe_event = Stripe::Webhook.construct_event(
-        payload, sig_header, endpoint_secret
-      )
-    rescue JSON::ParserError => e
-      # Invalid payload, reject the webhook
-      notify_exception(e)
-      render json: { error: e.message }, status: 400
-      return
-    rescue Stripe::SignatureVerificationError => e
-      # Invalid signature, reject the webhook
-      notify_exception(e)
-      render json: { error: e.message }, status: 401
-      return
-    end
+    @stripe_event = Stripe::Webhook.construct_event(
+      payload, sig_header, endpoint_secret
+    )
   end
 
   def check_for_event_type
