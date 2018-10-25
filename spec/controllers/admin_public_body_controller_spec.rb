@@ -335,7 +335,6 @@ describe AdminPublicBodyController do
 
       it 'does not show the form for destroying the body' do
         info_request = FactoryBot.create(:info_request)
-        get :edit, :id => info_request.public_body.id
         get :edit, params: { :id => info_request.public_body.id }
         expect(response.body).not_to match("Destroy #{info_request.public_body.name}")
       end
