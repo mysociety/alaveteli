@@ -36,25 +36,9 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
   def receive
     case @stripe_event.type
     when 'customer.subscription.deleted'
-      customer_id = @stripe_event.data.object.customer
-      if account = ProAccount.find_by(stripe_customer_id: customer_id)
-        account.user.remove_role(:pro)
-      end
+      customer_subscription_deleted
     when 'invoice.payment_succeeded'
-      charge_id = @stripe_event.data.object.charge
-
-      if charge_id
-        charge = Stripe::Charge.retrieve(charge_id)
-
-        subscription_id = @stripe_event.data.object.subscription
-        subscription = Stripe::Subscription.retrieve(subscription_id)
-        plan_name = subscription.plan.name
-
-        charge.description =
-          "#{ AlaveteliConfiguration.pro_site_name }: #{ plan_name }"
-
-        charge.save
-      end
+      invoice_payment_succeeded
     else
       raise UnhandledStripeWebhookError.new(@stripe_event.type)
     end
@@ -65,6 +49,30 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
   end
 
   private
+
+  def customer_subscription_deleted
+    customer_id = @stripe_event.data.object.customer
+    if account = ProAccount.find_by(stripe_customer_id: customer_id)
+      account.user.remove_role(:pro)
+    end
+  end
+
+  def invoice_payment_succeeded
+    charge_id = @stripe_event.data.object.charge
+
+    if charge_id
+      charge = Stripe::Charge.retrieve(charge_id)
+
+      subscription_id = @stripe_event.data.object.subscription
+      subscription = Stripe::Subscription.retrieve(subscription_id)
+      plan_name = subscription.plan.name
+
+      charge.description =
+        "#{ AlaveteliConfiguration.pro_site_name }: #{ plan_name }"
+
+      charge.save
+    end
+  end
 
   def read_event_notification
     payload = request.body.read
