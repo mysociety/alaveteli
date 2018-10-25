@@ -166,7 +166,7 @@ group :test do
   gem 'capybara', rails5? ? '~> 3.5.0' : '~> 2.18.0'
   gem 'delorean', '~> 2.1.0'
   gem 'stripe-ruby-mock', rails5? ? nil : '~> 2.5.4'
-  gem 'test_after_commit', '~> 1.1.0'
+  gem('test_after_commit', '~> 1.1.0') unless rails5?
 end
 
 group :test, :development do
