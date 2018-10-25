@@ -178,7 +178,9 @@ describe Users::SessionsController do
 
       def do_signin(email, password)
         post :create, {
-          :user_signin => { :email => email, :password => password }
+          params: {
+            :user_signin => { :email => email, :password => password }
+          }
         }
       end
 
