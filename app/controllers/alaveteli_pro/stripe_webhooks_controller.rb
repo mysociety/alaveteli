@@ -1,7 +1,10 @@
 # -*- encoding : utf-8 -*-
 # Does not inherit from AlaveteliPro::BaseController because it doesn't need to
 class AlaveteliPro::StripeWebhooksController < ApplicationController
-  rescue_from JSON::ParserError do |exception|
+  class UnhandledStripeWebhookError < StandardError ; end
+  class MissingTypeStripeWebhookError < StandardError ; end
+
+  rescue_from JSON::ParserError, MissingTypeStripeWebhookError do |exception|
     # Invalid payload, reject the webhook
     notify_exception(exception)
     render json: { error: exception.message }, status: 400
@@ -14,8 +17,6 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
   end
 
   before_action :read_event_notification, :check_for_event_type, :filter_hooks
-
-  class UnhandledStripeWebhookError < StandardError ; end
 
   def receive
     begin
@@ -67,12 +68,8 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
 
   def check_for_event_type
     unless @stripe_event.respond_to?(:type)
-      e = NoMethodError.new("undefined method `type' for " \
-                            "#{@stripe_event.inspect}")
-      # reject the webhook
-      notify_exception(e)
-      render json: { error: e.message }, status: 400
-      return
+      msg = "undefined method `type' for #{ @stripe_event.inspect }"
+      raise MissingTypeStripeWebhookError.new(msg)
     end
   end
 
