@@ -3,6 +3,7 @@
 class AlaveteliPro::StripeWebhooksController < ApplicationController
   class UnhandledStripeWebhookError < StandardError ; end
   class MissingTypeStripeWebhookError < StandardError ; end
+  class UnknownPlanStripeWebhookError < StandardError ; end
 
   rescue_from JSON::ParserError, MissingTypeStripeWebhookError do |exception|
     # Invalid payload, reject the webhook
@@ -14,6 +15,13 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
     # Invalid signature, reject the webhook
     notify_exception(exception)
     render json: { error: exception.message }, status: 401
+  end
+
+  rescue_from UnknownPlanStripeWebhookError do |exception|
+    # accept it so it doesn't get resent but don't process it
+    # (and don't generate an exception email for it)
+    render json: { message: 'Does not appear to be one of our plans' },
+           status: 200
   end
 
   before_action :read_event_notification, :check_for_event_type, :filter_hooks
@@ -91,13 +99,7 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
     # ignore any plans that don't start with our namespace
     plans.delete_if { |plan| !plan_matches_namespace?(plan) }
 
-    if plans.empty?
-      # accept it so it doesn't get resent but don't process it
-      # (and don't generate an exception email for it)
-      render json: { message: 'Does not appear to be one of our plans' },
-             status: 200
-      return
-    end
+    raise UnknownPlanStripeWebhookError if plans.empty?
   end
 
   def plan_matches_namespace?(plan_id)
