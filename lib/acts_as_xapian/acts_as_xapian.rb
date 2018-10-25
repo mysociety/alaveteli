@@ -724,7 +724,7 @@ module ActsAsXapian
           end
           run_job(job, flush, verbose)
         end
-      rescue StandardError => error
+      rescue StandardError, NoMemoryError => error
         # print any error, and carry on so other things are indexed
         model_data = { model: job.try(:model), model_id: job.try(:model_id) }
         failed_job = FailedJob.new(id, error, model_data)
