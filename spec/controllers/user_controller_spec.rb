@@ -739,7 +739,7 @@ describe UserController, "when signing up" do
               "name: 'Download New Person 1080p!'"
         expect(Rails.logger).to receive(:info).with(msg)
 
-        post :signup, params: { :user_signup => { :email => 'spammer@example.com', :name => 'New Person', :password => 'sillypassword', :password_confirmation => 'sillypassword' } }
+        post :signup, params: { :user_signup => { :email => 'spammer@example.com', :name => 'Download New Person 1080p!', :password => 'sillypassword', :password_confirmation => 'sillypassword' } }
       end
 
       it 'blocks the signup' do
@@ -762,7 +762,6 @@ describe UserController, "when signing up" do
       end
 
       it 'sends an exception notification' do
-        post :signup, :user_signup => { :email => 'spammer@example.com', :name => 'Download New Person 1080p!', :password => 'sillypassword', :password_confirmation => 'sillypassword' }
         post :signup, params: { :user_signup => { :email => 'spammer@example.com', :name => 'New Person', :password => 'sillypassword', :password_confirmation => 'sillypassword' } }
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to match(/signup from suspected spammer/)
@@ -1030,7 +1029,7 @@ describe UserController, "when viewing the wall" do
     comment = FactoryBot.create(:visible_comment, :with_event, user: user)
     user.close_and_anonymise
     update_xapian_index
-    get :wall, url_name: user.url_name
+    get :wall, params: { url_name: user.url_name }
     expect(assigns[:feed_results]).to be_empty
   end
 end
