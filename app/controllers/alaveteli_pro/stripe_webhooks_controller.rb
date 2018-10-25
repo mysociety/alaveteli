@@ -24,36 +24,39 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
            status: 200
   end
 
+  rescue_from UnhandledStripeWebhookError do |exception|
+    # accept it so it doesn't get resent but notify us that we haven't handled
+    # it yet.
+    notify_exception(exception)
+    render json: { message: 'OK' }, status: 200
+  end
+
   before_action :read_event_notification, :check_for_event_type, :filter_hooks
 
   def receive
-    begin
-      case @stripe_event.type
-      when 'customer.subscription.deleted'
-        customer_id = @stripe_event.data.object.customer
-        if account = ProAccount.find_by(stripe_customer_id: customer_id)
-          account.user.remove_role(:pro)
-        end
-      when 'invoice.payment_succeeded'
-        charge_id = @stripe_event.data.object.charge
-
-        if charge_id
-          charge = Stripe::Charge.retrieve(charge_id)
-
-          subscription_id = @stripe_event.data.object.subscription
-          subscription = Stripe::Subscription.retrieve(subscription_id)
-          plan_name = subscription.plan.name
-
-          charge.description =
-            "#{ AlaveteliConfiguration.pro_site_name }: #{ plan_name }"
-
-          charge.save
-        end
-      else
-        raise UnhandledStripeWebhookError.new(@stripe_event.type)
+    case @stripe_event.type
+    when 'customer.subscription.deleted'
+      customer_id = @stripe_event.data.object.customer
+      if account = ProAccount.find_by(stripe_customer_id: customer_id)
+        account.user.remove_role(:pro)
       end
-    rescue UnhandledStripeWebhookError => e
-      notify_exception(e)
+    when 'invoice.payment_succeeded'
+      charge_id = @stripe_event.data.object.charge
+
+      if charge_id
+        charge = Stripe::Charge.retrieve(charge_id)
+
+        subscription_id = @stripe_event.data.object.subscription
+        subscription = Stripe::Subscription.retrieve(subscription_id)
+        plan_name = subscription.plan.name
+
+        charge.description =
+          "#{ AlaveteliConfiguration.pro_site_name }: #{ plan_name }"
+
+        charge.save
+      end
+    else
+      raise UnhandledStripeWebhookError.new(@stripe_event.type)
     end
 
     # send a 200 ok to acknowlege receipt of the webhook
