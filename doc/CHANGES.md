@@ -1,3 +1,14 @@
+# develop
+
+## Highlighted Features
+
+* Prevent censor rules from being unintentionally made permanent when admins
+  edit outgoing messages. Allow admins to see the unredacted outgoing message
+  text on request's admin page and in the associated event log (Liz Conlan)
+
+## Upgrade Notes
+
+
 # 0.32.0.0
 
 ## Highlighted Features
