@@ -104,7 +104,7 @@ gem 'icalendar', '~> 2.4.0'
 gem 'jquery-rails', rails5? ? nil : '~> 4.3.3'
 gem 'jquery-ui-rails', rails5? ? nil : '~> 6.0.0'
 gem 'json', rails5? ? nil : ['~> 1.8.0', '< 2.0.0']
-gem 'holidays', '~> 4.7.0', '< 5.0.0'
+gem 'holidays', '~> 6.6.1'
 gem 'iso_country_codes', '~> 0.7.8'
 gem 'mahoro', '~> 0.4'
 gem 'newrelic_rpm'
