@@ -5,6 +5,10 @@
 * Prevent censor rules from being unintentionally made permanent when admins
   edit outgoing messages. Allow admins to see the unredacted outgoing message
   text on request's admin page and in the associated event log (Liz Conlan)
+* Add a `CONTACT_FORM_RECAPTCHA` config setting to show a reCAPTCHA on the
+  contact form if set to true (defaults to false). Needs a small code snippet -
+  documented in the `general.yml-example` file to be added to the theme's
+  contact form for the reCAPTCHA to be displayed correctly (Liz Conlan)
 
 ## Upgrade Notes
 
