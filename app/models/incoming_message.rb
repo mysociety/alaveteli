@@ -620,8 +620,12 @@ class IncomingMessage < ActiveRecord::Base
 
     attachment_ids = attachments.map{ |attachment| attachment.id }
     # now get rid of any attachments we no longer have
-    FoiAttachment.destroy_all(["id NOT IN (?) AND incoming_message_id = ?",
-                               attachment_ids, self.id])
+    FoiAttachment.
+      where(
+        ["id NOT IN (?) AND incoming_message_id = ?",
+         attachment_ids,
+         self.id]
+      ).destroy_all
   end
 
   # Returns body text as HTML with quotes flattened, and emails removed.
