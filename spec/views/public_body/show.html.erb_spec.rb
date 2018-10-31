@@ -90,8 +90,8 @@ describe "public_body/show" do
       assign(:public_body, public_body)
       render
       expect(rendered).
-        to have_content('You can only request information about the ' \
-                        'environment from this authority.')
+        to have_content('You only have a right in law to access information ' \
+                        'about the environment from this authority')
     end
 
   end
@@ -106,8 +106,8 @@ describe "public_body/show" do
       assign(:public_body, public_body)
       render
       expect(rendered).
-        to have_content('You can only request information about the ' \
-                        'environment from this authority.')
+        to have_content('You only have a right in law to access information ' \
+                        'about the environment from this authority')
     end
 
   end
