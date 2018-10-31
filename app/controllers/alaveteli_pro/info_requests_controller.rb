@@ -6,10 +6,10 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
-  before_filter :set_draft
-  before_filter :set_public_body, only: [:new]
-  before_filter :load_data_from_draft, only: [:preview, :create]
-  before_filter :check_public_body_is_requestable, only: [:preview, :create]
+  before_action :set_draft
+  before_action :set_public_body, only: [:new]
+  before_action :load_data_from_draft, only: [:preview, :create]
+  before_action :check_public_body_is_requestable, only: [:preview, :create]
 
   def index
     @request_filter = AlaveteliPro::RequestFilter.new

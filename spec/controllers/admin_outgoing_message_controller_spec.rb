@@ -173,14 +173,15 @@ describe AdminOutgoingMessageController do
       info_request.reload
       last_event = info_request.info_request_events.last
       expect(last_event.event_type).to eq('edit_outgoing')
-      expect(last_event.params).to eq({ :outgoing_message_id => outgoing.id,
-                                    :editor => "Admin user",
-                                    :old_prominence => "normal",
-                                    :prominence => "hidden",
-                                    :old_prominence_reason => nil,
-                                    :old_body => 'Some information please',
-                                    :body => 'changed body',
-                                    :prominence_reason => "dull" })
+      expect(last_event.params).
+        to eq({ outgoing_message_id: outgoing.id,
+                editor: 'Admin user',
+                old_prominence: 'normal',
+                prominence: 'hidden',
+                old_prominence_reason: nil,
+                old_body: 'Some information please',
+                body: 'changed body',
+                prominence_reason: 'dull' })
     end
 
     it 'should expire the file cache for the info request' do

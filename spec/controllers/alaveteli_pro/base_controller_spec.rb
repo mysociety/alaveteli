@@ -9,7 +9,7 @@ describe AlaveteliPro::BaseController do
   end
 
   describe "#pro_user_authenticated?" do
-    # Testing the fact that every controller action inherits the before_filter
+    # Testing the fact that every controller action inherits the before_action
     # of pro_user_authenticated?
 
     before do

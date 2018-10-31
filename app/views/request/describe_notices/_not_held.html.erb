@@ -6,17 +6,17 @@
   <li>
     <%= _("To send your request to another authority, first copy the text of " \
           "your request below, then <a href=\"{{find_authority_url}}\">find " \
-          "the other authority</a>.", :find_authority_url => "/new") %>
+          "the other authority</a>.", find_authority_url: select_authority_path) %>
   </li>
   <li>
     <%= _("If you would like to contest the authority's claim that they do " \
           "not hold the information, here is <a href=\"{{complain_url}}\">" \
           "how to complain</a>.",
-          :complain_url => unhappy_url(info_request)) %>
+          complain_url: unhappy_url(info_request)) %>
   </li>
   <li>
     <%= _("We have <a href=\"{{other_means_url}}\">suggestions</a> on other " \
           "means to answer your question.",
-          :other_means_url => unhappy_url(info_request, :anchor => 'other_means')) %>
+          other_means_url: unhappy_url(info_request, anchor: 'other_means')) %>
   </li>
 </ul>

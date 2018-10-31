@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class AdminHolidaysController < AdminController
 
-  before_filter :set_holiday, :only => [:edit, :update, :destroy]
+  before_action :set_holiday, :only => [:edit, :update, :destroy]
 
   def index
     get_all_holidays

@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   class RouteNotFound < StandardError
   end
   protect_from_forgery :if => :user?, :with => :exception
-  skip_before_filter :verify_authenticity_token, :unless => :user?
+  skip_before_action :verify_authenticity_token, :unless => :user?
 
   # Deal with access denied errors from CanCan
   rescue_from CanCan::AccessDenied do |exception|
@@ -31,14 +31,14 @@ class ApplicationController < ActionController::Base
   include AlaveteliPro::PostRedirectHandler
 
   # Note: a filter stops the chain if it redirects or renders something
-  before_filter :authentication_check
-  before_filter :set_gettext_locale
-  before_filter :check_in_post_redirect
-  before_filter :session_remember_me
-  before_filter :set_vary_header
-  before_filter :validate_session_timestamp
-  before_filter :collect_locales
-  after_filter  :persist_session_timestamp
+  before_action :authentication_check
+  before_action :set_gettext_locale
+  before_action :check_in_post_redirect
+  before_action :session_remember_me
+  before_action :set_vary_header
+  before_action :validate_session_timestamp
+  before_action :collect_locales
+  after_action  :persist_session_timestamp
 
   def set_vary_header
     response.headers['Vary'] = 'Cookie'
@@ -105,7 +105,7 @@ class ApplicationController < ActionController::Base
   #
   # To find things that are using causing LOTS of peak memory, then do something like:
   # egrep "CONSUME MEMORY: [0-9]{7} KB" production.log
-  around_filter :record_memory
+  around_action :record_memory
   def record_memory
     record_memory = AlaveteliConfiguration::debug_record_memory
     if record_memory
@@ -244,7 +244,7 @@ class ApplicationController < ActionController::Base
   # A helper method to set @in_pro_area, for controller actions which are
   # used in both a pro and non-pro context and depend on the :pro parameter
   # to know which one they're displaying.
-  # Intended to be used as a before_filter, see RequestController for example
+  # Intended to be used as a before_action, see RequestController for example
   # usage.
   def set_in_pro_area
     @in_pro_area = params[:pro] == "1" && current_user.present? && current_user.is_pro?

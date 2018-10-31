@@ -692,7 +692,7 @@ class InfoRequest < ActiveRecord::Base
     require 'customstates'
     include InfoRequestCustomStates
     @@custom_states_loaded = true
-  rescue MissingSourceFile, NameError
+  rescue LoadError, NameError
   end
 
   # If the URL name has changed, then all request: queries will break unless

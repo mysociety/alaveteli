@@ -7,9 +7,9 @@
 
 class AdminCensorRuleController < AdminController
 
-  before_filter :set_editor, :only => [:create, :update]
-  before_filter :set_censor_rule, :only => [:edit, :update, :destroy]
-  before_filter :set_subject_and_censor_rule_and_form_url, :only => [:new, :create]
+  before_action :set_editor, :only => [:create, :update]
+  before_action :set_censor_rule, :only => [:edit, :update, :destroy]
+  before_action :set_subject_and_censor_rule_and_form_url, :only => [:new, :create]
 
   def index
     @censor_rules = CensorRule.global

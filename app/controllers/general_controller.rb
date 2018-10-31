@@ -12,7 +12,7 @@ class GeneralController < ApplicationController
 
   MAX_RESULTS = 500
 
-  before_filter :redirect_pros_to_dashboard, only: :frontpage
+  before_action :redirect_pros_to_dashboard, only: :frontpage
 
   # New, improved front page!
   def frontpage

@@ -20,7 +20,11 @@
   <div class="control-group">
     <label class="control-label" for="outgoing_message_body">Body of message</label>
     <div class="controls">
-      <%= text_area 'outgoing_message', 'body', :rows => 10, :cols => 60  %>
+      <%= text_area_tag 'outgoing_message[body]',
+                        @outgoing_message.raw_body,
+                        id: 'outgoing_message_body',
+                        rows: 10,
+                        cols: 60 %>
     </div>
 
     <p><strong>Note:</strong> This is mainly to be used to excise information

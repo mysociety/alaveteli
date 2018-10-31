@@ -7,7 +7,7 @@
 
 class AdminController < ApplicationController
   layout "admin"
-  before_filter :authenticate
+  before_action :authenticate
 
   # action to take if expecting an authenticity token and one isn't received
   def handle_unverified_request

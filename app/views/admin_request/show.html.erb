@@ -299,18 +299,30 @@
             <% outgoing_message.for_admin_column do |name, value, type, column_name| %>
               <tr>
                 <td class="span3">
-                  <b><%=name%></b>
+                  <b><%= name %></b>
                 </td>
                 <td>
                   <% if column_name == 'body' %>
-                    <%= simple_format(truncate(h(outgoing_message.body), :length => 400, :omission => link_to("...", "#", :class => "toggle-hidden" )).html_safe) %>
-                    <div style="display:none;"><%= simple_format( outgoing_message.body ) %></div>
+                    <% truncated_value = truncate(h(value), length: 400, omission: '') { link_to '…', '#', title: 'Toggle hidden', class: 'toggle-hidden' } %>
+                    <%= simple_format(truncated_value) %>
+                    <div style="display:none;"><%= simple_format(value) %></div>
                   <% else %>
                     <%= admin_value(value) %>
                   <% end %>
                 </td>
               </tr>
             <% end %>
+            <tr>
+              <td class="span3">
+                <b>Raw body</b>
+              <td>
+                <% truncated_value = truncate(h(outgoing_message.raw_body), length: 400, omission: '') { link_to '…', '#', title: 'Toggle hidden', class: 'toggle-hidden' } %>
+                <%= simple_format(truncated_value) %>
+                <div style="display:none;">
+                  <%= simple_format(outgoing_message.raw_body) %>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -354,7 +366,8 @@
                 </td>
                 <td>
                   <% if column_name =~ /^cached_.*?$/ %>
-                    <%= simple_format( truncate(h(value), :length => 400, :omission => link_to("...", "#", :class => "toggle-hidden")).html_safe) %>
+                    <% truncated_value = truncate(h(value), length: 400, omission: '') { link_to '…', '#', title: 'Toggle hidden', class: 'toggle-hidden' } %>
+                    <%= simple_format(truncated_value) %>
                     <div style="display:none;"><%= simple_format(value) %></div>
                   <% else %>
                     <%= simple_format(value.to_s) %>

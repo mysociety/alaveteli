@@ -2,9 +2,9 @@
 class Users::SessionsController < UserController
   include UserSpamCheck
 
-  before_filter :work_out_post_redirect, :only => [ :new, :create ]
-  before_filter :set_request_from_foreign_country, :only => [ :new, :create ]
-  before_filter :set_in_pro_area, :only => [ :new, :create ]
+  before_action :work_out_post_redirect, :only => [ :new, :create ]
+  before_action :set_request_from_foreign_country, :only => [ :new, :create ]
+  before_action :set_in_pro_area, :only => [ :new, :create ]
 
   # Normally we wouldn't be verifying the authenticity token on these actions
   # anyway as there shouldn't be a user_id in the session when the before
@@ -12,7 +12,7 @@ class Users::SessionsController < UserController
   # tries to sign in or sign up. There's little CSRF potential here as
   # these actions only sign in or up users with valid credentials. The
   # user_id in the session is not expected, and gives no extra privilege
-  skip_before_filter :verify_authenticity_token, :only => [:new, :create]
+  skip_before_action :verify_authenticity_token, :only => [:new, :create]
 
   def new
     if @user

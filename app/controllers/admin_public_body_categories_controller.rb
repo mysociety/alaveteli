@@ -3,7 +3,7 @@ class AdminPublicBodyCategoriesController < AdminController
 
   include TranslatableParams
 
-  before_filter :set_public_body_category, :only => [:edit, :update, :destroy]
+  before_action :set_public_body_category, :only => [:edit, :update, :destroy]
 
   def index
     @locale = AlaveteliLocalization.locale

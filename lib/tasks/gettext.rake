@@ -68,6 +68,18 @@ namespace :gettext do
     end
   end
 
+  desc 'Remove fuzzy translations for Alaveteli Pro'
+  task :remove_fuzzy_alaveteli_pro do
+    require "alaveteli_gettext/fuzzy_cleaner.rb"
+    fuzzy_cleaner = AlaveteliGetText::FuzzyCleaner.new
+
+    Dir.glob("locale_alaveteli_pro/**/app.po").each do |po_file|
+      lines = File.read(po_file)
+      output = fuzzy_cleaner.clean_po(lines)
+      File.open(po_file, "w") { |f| f.puts(output) }
+    end
+  end
+
   desc 'Update locale files with slightly changed English msgids using a csv file of old to new strings'
   task :update_msgids_from_csv do
     mapping_file = find_mapping_file(ENV['MAPPING_FILE'])

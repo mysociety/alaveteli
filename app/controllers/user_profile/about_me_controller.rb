@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class UserProfile::AboutMeController < ApplicationController
-  before_filter :set_title
-  before_filter :check_user_logged_in
+  before_action :set_title
+  before_action :check_user_logged_in
 
   def edit ; end
 
