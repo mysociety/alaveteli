@@ -69,27 +69,27 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
     it 'returns a successful response for correctly signed headers' do
       request.headers.merge! signed_headers
-      post :receive, payload
+      post :receive, params: payload
       expect(response).to be_success
     end
 
     context 'the secret is not in the request' do
 
       it 'returns a 401 Unauthorized response' do
-        post :receive, payload
+        post :receive, params: payload
         expect(response.status).to eq(401)
       end
 
       it 'sends an exception email' do
         expected = '(Stripe::SignatureVerificationError) "Unable to extract ' \
                    'timestamp and signatures from header'
-        post :receive, payload
+        post :receive, params: payload
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to include(expected)
       end
 
       it 'includes the error message in the message body' do
-        post :receive, payload
+        post :receive, params: payload
         expect(response.body).
           to eq('{"error":"Unable to extract timestamp and signatures ' \
                 'from header"}')
@@ -103,7 +103,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
       before do
         request.headers.merge! signed_headers
-        post :receive, payload
+        post :receive, params: payload
       end
 
       it 'returns 401 Unauthorized response' do
@@ -134,7 +134,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
       it 'sends an exception email' do
         request.headers.merge! signed_headers
-        post :receive, payload
+        post :receive, params: payload
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to match(/UnhandledStripeWebhookError/)
       end
@@ -149,7 +149,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
       before do
         request.headers.merge! stale_headers
-        post :receive, payload
+        post :receive, params: payload
       end
 
       it 'returns a 401 Unauthorized response' do
@@ -170,7 +170,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
       before do
         request.headers.merge! signed_headers
-        post :receive, payload
+        post :receive, params: payload
       end
 
       it 'returns a 400 Bad Request response' do
@@ -196,7 +196,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
         it 'returns a custom 200 response' do
           request.headers.merge! signed_headers
-          post :receive, payload
+          post :receive, params: payload
           expect(response.status).to eq(200)
           expect(response.body).
             to match('Does not appear to be one of our plans')
@@ -204,7 +204,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
         it 'does not send an exception email' do
           request.headers.merge! signed_headers
-          post :receive, payload
+          post :receive, params: payload
           expect(ActionMailer::Base.deliveries.count).to eq(0)
         end
 
@@ -234,7 +234,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
         it 'returns a 200 OK response' do
           request.headers.merge! signed_headers
-          post :receive, payload
+          post :receive, params: payload
           expect(response.status).to eq(200)
           expect(response.body).to match('OK')
         end
@@ -249,7 +249,9 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
         it 'does not raise an error when trying to filter on plan name' do
           request.headers.merge! signed_headers
-          expect{ post :receive, payload }.not_to raise_error
+          expect {
+            post :receive, params: payload
+          }.not_to raise_error
         end
 
       end
@@ -268,7 +270,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       it 'removes the pro role from the associated user' do
         expect(user.is_pro?).to be true
         request.headers.merge! signed_headers
-        post :receive, payload
+        post :receive, params: payload
         expect(user.reload.is_pro?).to be false
       end
 
@@ -278,7 +280,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
       before do
         request.headers.merge!(signed_headers)
-        post :receive, payload
+        post :receive, params: payload
       end
 
       context 'when there is a charge for an invoice' do

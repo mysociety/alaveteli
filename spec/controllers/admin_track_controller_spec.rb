@@ -14,7 +14,7 @@ describe AdminTrackController do
       let(:track){ FactoryBot.create(:track_thing) }
 
       it 'destroys the track' do
-        post :destroy, id: track.id
+        post :destroy, params: { id: track.id }
         expect(TrackThing.where(id: track.id)).to be_empty
       end
 

@@ -103,7 +103,7 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
     describe "when responding to a normal request" do
       subject do
         with_feature_enabled(:alaveteli_pro) do
-          post :create, params
+          post :create, params: params
         end
       end
 
@@ -139,7 +139,7 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
     describe "when responding to an AJAX request" do
       subject do
         with_feature_enabled(:alaveteli_pro) do
-          xhr :post, :create, params
+          post :create, xhr: true, params: params
         end
       end
 
@@ -171,7 +171,7 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
       describe "when responding to a normal request" do
         subject do
           with_feature_enabled(:alaveteli_pro) do
-            put :update_bodies, params
+            put :update_bodies, params: params
           end
         end
 
@@ -208,7 +208,7 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
       describe "responding to an AJAX request" do
         subject do
           with_feature_enabled(:alaveteli_pro) do
-            xhr :put, :update_bodies, params
+            put :update_bodies, xhr: true, params: params
           end
         end
 
@@ -239,7 +239,7 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
       describe "when responding to a normal request" do
         subject do
           with_feature_enabled(:alaveteli_pro) do
-            put :update_bodies, params
+            put :update_bodies, params: params
           end
         end
 
@@ -291,7 +291,7 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
       describe "responding to an AJAX request" do
         subject do
           with_feature_enabled(:alaveteli_pro) do
-            xhr :put, :update_bodies, params
+            put :update_bodies, xhr: true, params: params
           end
         end
 
@@ -322,7 +322,7 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
     end
 
     it "updates the draft" do
-      put :update, params
+      put :update, params: params
       draft.reload
       expect(draft.title).to eq 'Test Batch Request'
       expect(draft.body).to eq 'This is a test batch request.'
@@ -336,7 +336,7 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
       end
 
       it "redirects to the batch preview page" do
-        put :update, params
+        put :update, params: params
         expected_path = preview_new_alaveteli_pro_info_request_batch_path(
           draft_id: draft.id
         )
@@ -346,7 +346,7 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
 
     context "when the user is saving" do
       it "redirects to the new batch page" do
-        put :update, params
+        put :update, params: params
         expected_path = new_alaveteli_pro_info_request_batch_path(
           draft_id: draft.id
         )

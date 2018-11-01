@@ -11,7 +11,7 @@ describe AdminUsersAccountSuspensionsController do
         { user_id: user.id, suspension_reason: 'Banned for spamming' }
       end
 
-      before { post :create, valid_params }
+      before { post :create, params: valid_params }
 
       it 'finds the user to suspend' do
         expect(assigns[:suspended_user]).to eq(user)
@@ -39,7 +39,7 @@ describe AdminUsersAccountSuspensionsController do
         { user_id: user.id, close_and_anonymise: true }
       end
 
-      before { post :create, valid_params }
+      before { post :create, params: valid_params }
 
       it 'finds the user to suspend' do
         expect(assigns[:suspended_user]).to eq(user)
@@ -60,12 +60,14 @@ describe AdminUsersAccountSuspensionsController do
 
     context 'with invalid params' do
       it 'renders a 404' do
-        expect { post :create, {} }.to raise_error(ActiveRecord::RecordNotFound)
+        expect {
+          post :create
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
     context 'without a suspension_reason' do
-      before { post :create, user_id: user.id }
+      before { post :create, params: { user_id: user.id } }
 
       it 'sets a default suspension reason' do
         default = 'Account suspended – Please contact us'

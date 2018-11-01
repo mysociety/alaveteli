@@ -40,7 +40,9 @@ describe OneTimePasswordsController do
       it 'raises ActiveRecord::RecordNotFound' do
         allow(AlaveteliConfiguration).
           to receive(:enable_two_factor_auth).and_return(false)
-        expect{ get :show }.to raise_error(ActiveRecord::RecordNotFound)
+        expect {
+          get :show
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
 
     end
@@ -114,7 +116,9 @@ describe OneTimePasswordsController do
       it 'raises ActiveRecord::RecordNotFound' do
         allow(AlaveteliConfiguration).
           to receive(:enable_two_factor_auth).and_return(false)
-        expect{ post :create }.to raise_error(ActiveRecord::RecordNotFound)
+        expect {
+          post :create
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
 
     end
@@ -180,7 +184,9 @@ describe OneTimePasswordsController do
       it 'raises ActiveRecord::RecordNotFound' do
         allow(AlaveteliConfiguration).
           to receive(:enable_two_factor_auth).and_return(false)
-        expect{ put :update }.to raise_error(ActiveRecord::RecordNotFound)
+        expect {
+          put :update
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
 
     end
@@ -248,7 +254,9 @@ describe OneTimePasswordsController do
       it 'raises ActiveRecord::RecordNotFound' do
         allow(AlaveteliConfiguration).
           to receive(:enable_two_factor_auth).and_return(false)
-        expect{ delete :destroy }.to raise_error(ActiveRecord::RecordNotFound)
+        expect {
+          delete :destroy
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
 
     end
