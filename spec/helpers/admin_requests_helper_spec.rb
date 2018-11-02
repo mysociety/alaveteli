@@ -24,6 +24,13 @@ EOF
               'therefore hidden it from other users.'
     end
 
+    it 'returns the correct text for "immigration_correspondence"' do
+      expect(reason_text('immigration_correspondence')).
+        to include 'We consider this is not a valid FOI request as it ' \
+                   'contains personal correspondence relating to an ' \
+                   'immigration enquiry.'
+    end
+
   end
 
 end
