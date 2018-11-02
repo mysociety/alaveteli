@@ -64,10 +64,8 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
   end
 
   def customer_subscription_deleted
-    customer_id = @stripe_event.data.object.customer
-    if account = ProAccount.find_by(stripe_customer_id: customer_id)
-      account.user.remove_role(:pro)
-    end
+    account = pro_account_from_stripe_event(@stripe_event)
+    account.user.remove_role(:pro) if account
   end
 
   def invoice_payment_succeeded
@@ -96,6 +94,11 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
     @stripe_event = Stripe::Webhook.construct_event(
       payload, sig_header, endpoint_secret
     )
+  end
+
+  def pro_account_from_stripe_event(event)
+    customer_id = event.data.object.customer
+    ProAccount.find_by(stripe_customer_id: customer_id)
   end
 
   def check_for_event_type
