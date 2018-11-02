@@ -2,7 +2,7 @@
 
 <%= _("Your request '{{request}}' at {{url}} has been reviewed by moderators.", :request => info_request.title.html_safe, :url => info_request_url) %>
 
-<%= reason_text(reason) %>
+<%= reason_text(reason, info_request.public_body) %>
 
 <%= _("Yours,") %>
 
