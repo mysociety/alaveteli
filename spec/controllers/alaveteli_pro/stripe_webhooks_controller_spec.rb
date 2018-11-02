@@ -278,6 +278,43 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
     end
 
+    describe 'a payment fails' do
+      let(:stripe_event) do
+        StripeMock.mock_webhook_event('invoice.payment_failed')
+      end
+
+      let!(:user) do
+        _user = FactoryBot.create(:pro_user)
+        _user.pro_account.stripe_customer_id = stripe_event.data.object.customer
+        _user.pro_account.save!
+        _user
+      end
+
+      let(:payload) { stripe_event.to_s }
+
+      before do
+        signed =
+          signed_headers(payload: payload, signing_secret: signing_secret)
+        request.headers.merge!(signed)
+        post :receive, params: payload
+      end
+
+      it 'handles the event' do
+        expect(response.status).to eq(200)
+      end
+
+      it 'notifies the user that their payment failed' do
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).to match(/Payment failed/)
+        expect(mail.to).to include(user.email)
+      end
+
+      it 'notifies site admins' do
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.bcc).to include(AlaveteliConfiguration.pro_contact_email)
+      end
+    end
+
     describe 'a customer moves to a new billing period' do
       let(:stripe_event) do
         StripeMock.mock_webhook_event('customer.subscription.updated-renewed')

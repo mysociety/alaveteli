@@ -41,6 +41,8 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
       customer_subscription_deleted
     when 'invoice.payment_succeeded'
       invoice_payment_succeeded
+    when 'invoice.payment_failed'
+      invoice_payment_failed
     else
       raise UnhandledStripeWebhookError.new(@stripe_event.type)
     end
@@ -82,6 +84,13 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
         "#{ AlaveteliConfiguration.pro_site_name }: #{ plan_name }"
 
       charge.save
+    end
+  end
+
+  def invoice_payment_failed
+    account = pro_account_from_stripe_event(@stripe_event)
+    if account
+      AlaveteliPro::SubscriptionMailer.payment_failed(account.user).deliver_now
     end
   end
 
