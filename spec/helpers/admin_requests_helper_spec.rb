@@ -26,9 +26,8 @@ EOF
 
     it 'returns the correct text for "immigration_correspondence"' do
       expect(reason_text('immigration_correspondence')).
-        to include 'We consider this is not a valid FOI request as it ' \
-                   'contains personal correspondence relating to an ' \
-                   'immigration enquiry.'
+        to include 'personal correspondence which it wasn\'t appropriate to ' \
+                   'send via our public website'
     end
 
   end

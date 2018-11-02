@@ -27,9 +27,9 @@ module AdminRequestsHelper
   end
 
   def reason_text_immigration_correspondence
-    _("We consider this is not a valid FOI request as it contains personal " \
-      "correspondence relating to an immigration enquiry. We have therefore " \
-      "hidden it from others.")
+    _("As it is personal correspondence which it wasn't appropriate to " \
+      "send via our public website we have hidden it from other users. " \
+      "You will still be able to view it while logged in to the site.")
   end
 
 end
