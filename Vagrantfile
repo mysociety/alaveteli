@@ -27,7 +27,7 @@ require 'yaml'
 # at http://10.10.10.30:3000
 #
 #   # Guest
-#   bundle exec rails server
+#   bundle exec rails server -b 0.0.0.0
 #
 # Customizing the Vagrant instance
 # ================================
@@ -198,7 +198,7 @@ EOF
   motd = <<-EOF
 To start your alaveteli instance:
 * cd alaveteli
-* bundle exec rails server
+* bundle exec rails server -b 0.0.0.0
 EOF
 
   if SETTINGS['os'] == 'jessie64'
