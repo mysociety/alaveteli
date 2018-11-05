@@ -25,8 +25,8 @@
 
   <% if @public_body.eir_only? %>
     <p class="authority__header__foi_no">
-      <%= _('You can only request information about the environment ' \
-            'from this authority.')%>
+      <%= _('You only have a right in law to access information about the ' \
+            'environment from this authority') %>
     </p>
   <% elsif @public_body.not_subject_to_law? %>
     <p class="authority__header__foi_no">
