@@ -1027,6 +1027,21 @@ RESTRICTED_COUNTRIES: ''
 # ---
 NEW_REQUEST_RECAPTCHA: false
 
+# Show a reCAPTCHA on the contact form to discourage spammers
+#
+# Add the following code to `help/_contact_form.html.erb` in your theme (just
+# above the submit button works best) and a reCAPTCHA will be shown if
+# CONTACT_FORM_RECAPTCHA is set to true.
+#
+#     <% if @recaptcha_required %>
+#       <%= recaptcha_tags %><br />
+#     <% end %>
+#
+# CONTACT_FORM_RECAPTCHA – Boolean (default: false)
+#
+# ---
+CONTACT_FORM_RECAPTCHA: false
+
 # Enable AlaveteliProfessional
 # If ENABLE_ALAVETELI_PRO is set to true, Alaveteli will include extra
 # functionality and account levels for professional FOI users, e.g.

@@ -5,7 +5,7 @@ describe AdminPublicBodyChangeRequestsController, "editing a change request" do
 
   it "should render the edit template" do
     change_request = FactoryBot.create(:add_body_request)
-    get :edit, :id => change_request.id
+    get :edit, params: { :id => change_request.id }
     expect(response).to render_template("edit")
   end
 
@@ -18,16 +18,18 @@ describe AdminPublicBodyChangeRequestsController, 'updating a change request' do
   end
 
   it 'should close the change request' do
-    post :update, { :id => @change_request.id }
+    post :update, params: { :id => @change_request.id }
     expect(PublicBodyChangeRequest.find(@change_request.id).is_open).to eq(false)
   end
 
   context 'when a response and subject are passed' do
 
     it 'should send a response email to the user who requested the change' do
-      post :update, { :id => @change_request.id,
+      post :update, params: {
+                      :id => @change_request.id,
                       :response => 'Thanks but no',
-                      :subject => 'Your request' }
+                      :subject => 'Your request'
+                    }
       deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
       mail = deliveries[0]
@@ -41,7 +43,7 @@ describe AdminPublicBodyChangeRequestsController, 'updating a change request' do
   context 'when no response or subject are passed' do
 
     it 'should send a response email to the user who requested the change' do
-      post :update, { :id => @change_request.id }
+      post :update, params: { :id => @change_request.id }
       deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(0)
     end

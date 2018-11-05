@@ -16,8 +16,8 @@
 <% if @info_request.public_body.eir_only? %>
   <span class="request-header__foi_no">
     <br>
-    <%= _('You can only request information about the environment ' \
-          'from this authority.')%>
+    <%= _('You only have a right in law to access information about the ' \
+          'environment from this authority') %>
     </span>
 <% elsif @info_request.public_body.not_subject_to_law? %>
   <span class="request-header__foi_no">

@@ -119,16 +119,20 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
         before do
           session[:user_id] = user.id
-          post :create, 'stripeToken' => token,
-                        'stripeTokenType' => 'card',
-                        'stripeEmail' => user.email,
-                        'plan_id' => 'pro',
-                        'coupon_code' => ''
-          post :create, 'stripeToken' => token,
-                        'stripeTokenType' => 'card',
-                        'stripeEmail' => user.email,
-                        'plan_id' => 'pro',
-                        'coupon_code' => ''
+          post :create, params: {
+                          'stripeToken' => token,
+                          'stripeTokenType' => 'card',
+                          'stripeEmail' => user.email,
+                          'plan_id' => 'pro',
+                          'coupon_code' => ''
+                        }
+          post :create, params: {
+                          'stripeToken' => token,
+                          'stripeTokenType' => 'card',
+                          'stripeEmail' => user.email,
+                          'plan_id' => 'pro',
+                          'coupon_code' => ''
+                        }
         end
 
         it 'does not create a duplicate subscription' do
@@ -146,11 +150,13 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
       context 'the user previously had some pro features enabled' do
 
         def successful_signup
-          post :create, 'stripeToken' => token,
-                        'stripeTokenType' => 'card',
-                        'stripeEmail' => user.email,
-                        'plan_id' => 'pro',
-                        'coupon_code' => 'coupon_code'
+          post :create, params: {
+                          'stripeToken' => token,
+                          'stripeTokenType' => 'card',
+                          'stripeEmail' => user.email,
+                          'plan_id' => 'pro',
+                          'coupon_code' => 'coupon_code'
+                        }
         end
 
         it 'does not raise an error if the user already uses the poller' do
@@ -172,11 +178,13 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
       context 'with a successful transaction' do
         before do
-          post :create, 'stripeToken' => token,
-                        'stripeTokenType' => 'card',
-                        'stripeEmail' => user.email,
-                        'plan_id' => 'pro',
-                        'coupon_code' => ''
+          post :create, params: {
+                          'stripeToken' => token,
+                          'stripeTokenType' => 'card',
+                          'stripeEmail' => user.email,
+                          'plan_id' => 'pro',
+                          'coupon_code' => ''
+                        }
         end
 
         include_examples 'successful example'
@@ -189,11 +197,13 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
             to receive(:production_mailer_retriever_method).
             and_return('pop')
 
-          post :create, 'stripeToken' => token,
-                        'stripeTokenType' => 'card',
-                        'stripeEmail' => user.email,
-                        'plan_id' => 'pro',
-                        'coupon_code' => ''
+          post :create, params: {
+                          'stripeToken' => token,
+                          'stripeTokenType' => 'card',
+                          'stripeEmail' => user.email,
+                          'plan_id' => 'pro',
+                          'coupon_code' => ''
+                        }
         end
 
         it 'enables pop polling for the user' do
@@ -206,11 +216,13 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
       context 'with coupon code' do
         before do
-          post :create, 'stripeToken' => token,
-                        'stripeTokenType' => 'card',
-                        'stripeEmail' => user.email,
-                        'plan_id' => 'pro',
-                        'coupon_code' => 'coupon_code'
+          post :create, params: {
+                          'stripeToken' => token,
+                          'stripeTokenType' => 'card',
+                          'stripeEmail' => user.email,
+                          'plan_id' => 'pro',
+                          'coupon_code' => 'coupon_code'
+                        }
         end
 
         include_examples 'successful example'
@@ -225,11 +237,13 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
           allow(AlaveteliConfiguration).to receive(:stripe_namespace).
             and_return('alaveteli')
 
-          post :create, 'stripeToken' => token,
-                        'stripeTokenType' => 'card',
-                        'stripeEmail' => user.email,
-                        'plan_id' => 'pro',
-                        'coupon_code' => 'coupon_code'
+          post :create, params: {
+                          'stripeToken' => token,
+                          'stripeTokenType' => 'card',
+                          'stripeEmail' => user.email,
+                          'plan_id' => 'pro',
+                          'coupon_code' => 'coupon_code'
+                        }
         end
 
         include_examples 'successful example'
@@ -248,11 +262,13 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
                                     source: stripe_helper.generate_card_token)
           user.create_pro_account(:stripe_customer_id => customer.id)
 
-          post :create, 'stripeToken' => token,
-                        'stripeTokenType' => 'card',
-                        'stripeEmail' => user.email,
-                        'plan_id' => 'pro',
-                        'coupon_code' => ''
+          post :create, params: {
+                          'stripeToken' => token,
+                          'stripeTokenType' => 'card',
+                          'stripeEmail' => user.email,
+                          'plan_id' => 'pro',
+                          'coupon_code' => ''
+                        }
         end
 
         include_examples 'successful example'
@@ -272,11 +288,13 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
         before do
           StripeMock.prepare_card_error(:card_declined, :create_subscription)
-          post :create, 'stripeToken' => token,
-                        'stripeTokenType' => 'card',
-                        'stripeEmail' => user.email,
-                        'plan_id' => 'pro',
-                        'coupon_code' => ''
+          post :create, params: {
+                          'stripeToken' => token,
+                          'stripeTokenType' => 'card',
+                          'stripeEmail' => user.email,
+                          'plan_id' => 'pro',
+                          'coupon_code' => ''
+                        }
         end
 
         it 'renders the card error message' do
@@ -298,11 +316,13 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         before do
           error = Stripe::RateLimitError.new
           StripeMock.prepare_error(error, :create_subscription)
-          post :create, 'stripeToken' => token,
-                        'stripeTokenType' => 'card',
-                        'stripeEmail' => user.email,
-                        'plan_id' => 'pro',
-                        'coupon_code' => ''
+          post :create, params: {
+                          'stripeToken' => token,
+                          'stripeTokenType' => 'card',
+                          'stripeEmail' => user.email,
+                          'plan_id' => 'pro',
+                          'coupon_code' => ''
+                        }
         end
 
         it 'sends an exception email' do
@@ -325,11 +345,13 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         before do
           error = Stripe::InvalidRequestError.new('message', 'param')
           StripeMock.prepare_error(error, :create_subscription)
-          post :create, 'stripeToken' => token,
-                        'stripeTokenType' => 'card',
-                        'stripeEmail' => user.email,
-                        'plan_id' => 'pro',
-                        'coupon_code' => ''
+          post :create, params: {
+                          'stripeToken' => token,
+                          'stripeTokenType' => 'card',
+                          'stripeEmail' => user.email,
+                          'plan_id' => 'pro',
+                          'coupon_code' => ''
+                        }
         end
 
         it 'sends an exception email' do
@@ -352,11 +374,13 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         before do
           error = Stripe::AuthenticationError.new
           StripeMock.prepare_error(error, :create_subscription)
-          post :create, 'stripeToken' => token,
-                        'stripeTokenType' => 'card',
-                        'stripeEmail' => user.email,
-                        'plan_id' => 'pro',
-                        'coupon_code' => ''
+          post :create, params: {
+                          'stripeToken' => token,
+                          'stripeTokenType' => 'card',
+                          'stripeEmail' => user.email,
+                          'plan_id' => 'pro',
+                          'coupon_code' => ''
+                        }
         end
 
         it 'sends an exception email' do
@@ -379,11 +403,13 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         before do
           error = Stripe::APIConnectionError.new
           StripeMock.prepare_error(error, :create_subscription)
-          post :create, 'stripeToken' => token,
-                        'stripeTokenType' => 'card',
-                        'stripeEmail' => user.email,
-                        'plan_id' => 'pro',
-                        'coupon_code' => ''
+          post :create, params: {
+                          'stripeToken' => token,
+                          'stripeTokenType' => 'card',
+                          'stripeEmail' => user.email,
+                          'plan_id' => 'pro',
+                          'coupon_code' => ''
+                        }
         end
 
         it 'sends an exception email' do
@@ -406,11 +432,13 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         before do
           error = Stripe::StripeError.new
           StripeMock.prepare_error(error, :create_subscription)
-          post :create, 'stripeToken' => token,
-                        'stripeTokenType' => 'card',
-                        'stripeEmail' => user.email,
-                        'plan_id' => 'pro',
-                        'coupon_code' => ''
+          post :create, params: {
+                          'stripeToken' => token,
+                          'stripeTokenType' => 'card',
+                          'stripeEmail' => user.email,
+                          'plan_id' => 'pro',
+                          'coupon_code' => ''
+                        }
         end
 
         it 'sends an exception email' do
@@ -433,11 +461,13 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         before do
           error = Stripe::InvalidRequestError.new('No such coupon', 'param')
           StripeMock.prepare_error(error, :create_subscription)
-          post :create, 'stripeToken' => token,
-                        'stripeTokenType' => 'card',
-                        'stripeEmail' => user.email,
-                        'plan_id' => 'pro',
-                        'coupon_code' => 'INVALID'
+          post :create, params: {
+                          'stripeToken' => token,
+                          'stripeTokenType' => 'card',
+                          'stripeEmail' => user.email,
+                          'plan_id' => 'pro',
+                          'coupon_code' => 'INVALID'
+                        }
         end
 
         it 'does not sends an exception email' do
@@ -460,11 +490,13 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         before do
           error = Stripe::InvalidRequestError.new('Coupon expired', 'param')
           StripeMock.prepare_error(error, :create_subscription)
-          post :create, 'stripeToken' => token,
-                        'stripeTokenType' => 'card',
-                        'stripeEmail' => user.email,
-                        'plan_id' => 'pro',
-                        'coupon_code' => 'EXPIRED'
+          post :create, params: {
+                          'stripeToken' => token,
+                          'stripeTokenType' => 'card',
+                          'stripeEmail' => user.email,
+                          'plan_id' => 'pro',
+                          'coupon_code' => 'EXPIRED'
+                        }
         end
 
         it 'does not sends an exception email' do
@@ -485,7 +517,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
       context 'when invalid params are submitted' do
 
         it 'redirects to the plan page if there is a plan' do
-          post :create, :plan_id => 'pro'
+          post :create, params: { :plan_id => 'pro' }
           expect(response).to redirect_to(plan_path('pro'))
         end
 
@@ -633,7 +665,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
     context 'without a signed-in user' do
 
       before do
-        delete :destroy, id: '123'
+        delete :destroy, params: { id: '123' }
       end
 
       it 'redirects to the login form' do
@@ -652,8 +684,9 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
       end
 
       it 'raise an error' do
-        expect { delete :destroy, id: '123' }.
-          to raise_error ActiveRecord::RecordNotFound
+        expect {
+          delete :destroy, params: { id: '123' }
+        }.to raise_error ActiveRecord::RecordNotFound
       end
 
     end
@@ -679,7 +712,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
       before do
         session[:user_id] = user.id
-        delete :destroy, id: subscription.id
+        delete :destroy, params: { id: subscription.id }
       end
 
       it 'finds the subscription in Stripe' do
@@ -712,8 +745,9 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
         it 'raises an error' do
           session[:user_id] = user.id
-          expect { delete :destroy, id: other_subscription.id }.
-            to raise_error ActiveRecord::RecordNotFound
+          expect {
+            delete :destroy, params: { id: other_subscription.id }
+          }.to raise_error ActiveRecord::RecordNotFound
         end
       end
 
@@ -722,7 +756,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         before do
           error = Stripe::RateLimitError.new
           StripeMock.prepare_error(error, :cancel_subscription)
-          delete :destroy, id: subscription.id
+          delete :destroy, params: { id: subscription.id }
         end
 
         it 'sends an exception email' do
@@ -745,7 +779,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         before do
           error = Stripe::InvalidRequestError.new('message', 'param')
           StripeMock.prepare_error(error, :cancel_subscription)
-          delete :destroy, id: subscription.id
+          delete :destroy, params: { id: subscription.id }
         end
 
         it 'sends an exception email' do
@@ -768,7 +802,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         before do
           error = Stripe::AuthenticationError.new
           StripeMock.prepare_error(error, :cancel_subscription)
-          delete :destroy, id: subscription.id
+          delete :destroy, params: { id: subscription.id }
         end
 
         it 'sends an exception email' do
@@ -791,7 +825,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         before do
           error = Stripe::APIConnectionError.new
           StripeMock.prepare_error(error, :cancel_subscription)
-          delete :destroy, id: subscription.id
+          delete :destroy, params: { id: subscription.id }
         end
 
         it 'sends an exception email' do
@@ -814,7 +848,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         before do
           error = Stripe::StripeError.new
           StripeMock.prepare_error(error, :cancel_subscription)
-          delete :destroy, id: subscription.id
+          delete :destroy, params: { id: subscription.id }
         end
 
         it 'sends an exception email' do
@@ -835,7 +869,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
       context 'when invalid params are submitted' do
 
         it 'redirects to the plan page if there is a plan' do
-          delete :destroy, :id => 'unknown'
+          delete :destroy, params: { :id => 'unknown' }
           expect(response).to redirect_to(subscriptions_path)
         end
 

@@ -29,21 +29,23 @@ describe HelpController do
     context 'when a url_title param is supplied' do
 
       it 'assigns the info_request' do
-        get :unhappy, :url_title => info_request.url_title
+        get :unhappy, params: { :url_title => info_request.url_title }
         expect(assigns[:info_request]).to eq info_request
       end
 
       it 'raises an ActiveRecord::RecordNotFound error if the InfoRequest
           is not found' do
-        expect{ get :unhappy, :url_title => 'something_not_existing' }
-          .to raise_error ActiveRecord::RecordNotFound
+        expect {
+          get :unhappy, params: { :url_title => 'something_not_existing' }
+        }.to raise_error ActiveRecord::RecordNotFound
       end
 
       it 'raises an ActiveRecord::RecordNotFound error if the InfoRequest
           is embargoed' do
         info_request = FactoryBot.create(:embargoed_request)
-        expect{ get :unhappy, :url_title => info_request.url_title }
-          .to raise_error ActiveRecord::RecordNotFound
+        expect {
+          get :unhappy, params: { :url_title => info_request.url_title }
+        }.to raise_error ActiveRecord::RecordNotFound
       end
     end
 
@@ -118,7 +120,7 @@ describe HelpController do
       end
 
       it 'should render the locale-specific template if available' do
-        get :contact, {:locale => 'es'}
+        get :contact, params: { :locale => 'es' }
         expect(response.body).to match('contáctenos theme one')
       end
 
@@ -176,13 +178,16 @@ describe HelpController do
   describe 'POST #contact' do
 
     it 'sends a contact message' do
-      post :contact, { :contact => {
+      post :contact, params: {
+                       :contact => {
                          :name => 'Vinny Vanilli',
                          :email => 'vinny@localhost',
                          :subject => 'Why do I have such an ace name?',
                          :comment => '',
-                         :message => "You really should know!!!\n\nVinny" },
-                       :submitted_contact_form => 1 }
+                         :message => "You really should know!!!\n\nVinny"
+                       },
+                       :submitted_contact_form => 1
+                     }
       expect(response).to redirect_to(frontpage_path)
 
       deliveries = ActionMailer::Base.deliveries
@@ -191,14 +196,42 @@ describe HelpController do
       deliveries.clear
     end
 
+    context 'the site is configured to require reCAPTCHA' do
+
+      before do
+        allow(AlaveteliConfiguration).
+          to receive(:contact_form_recaptcha).and_return(true)
+        allow(controller).to receive(:verify_recaptcha).and_return(false)
+      end
+
+      it 'does not send the message without the recaptcha being completed' do
+        post :contact, { contact: {
+                           name: 'Possible Spammmer',
+                           email: 'spammer@localhost',
+                           subject: 'Can I sell you my book?',
+                           comment: '',
+                           message: "It's great, you should buy 1!!" },
+                         submitted_contact_form: 1 }
+        expect(response).not_to redirect_to(frontpage_path)
+
+        deliveries = ActionMailer::Base.deliveries
+        expect(deliveries.size).to eq(0)
+        deliveries.clear
+      end
+
+    end
+
     it 'has rudimentary spam protection' do
-      post :contact, { :contact => {
+      post :contact, params: {
+                       :contact => {
                          :name => 'Vinny Vanilli',
                          :email => 'vinny@localhost',
                          :subject => 'Why do I have such an ace name?',
                          :comment => 'I AM A SPAMBOT',
-                         :message => "You really should know!!!\n\nVinny" },
-                       :submitted_contact_form => 1 }
+                         :message => "You really should know!!!\n\nVinny"
+                       },
+                       :submitted_contact_form => 1
+                     }
 
       expect(response).to redirect_to(frontpage_path)
 
@@ -214,12 +247,15 @@ describe HelpController do
     end
 
     it 'does not accept a form without a comment param' do
-      post :contact, { :contact => {
+      post :contact, params: {
+                       :contact => {
                          :name => 'Vinny Vanilli',
                          :email => 'vinny@localhost',
                          :subject => 'Why do I have such an ace name?',
-                         :message => "You really should know!!!\n\nVinny" },
-                       :submitted_contact_form => 1 }
+                         :message => "You really should know!!!\n\nVinny"
+                       },
+                       :submitted_contact_form => 1
+                     }
       expect(response).to redirect_to(frontpage_path)
     end
 

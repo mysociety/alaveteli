@@ -219,8 +219,9 @@ describe "request/show" do
       it 'displays a message that that authority is not obliged to respond' do
         request_page
         expect(rendered).
-          to have_content('You can only request information about the ' \
-                          'environment from this authority.')
+          to have_content('You only have a right in law to access ' \
+                          'information about the environment from this ' \
+                          'authority')
       end
 
     end

@@ -36,7 +36,7 @@ describe AlaveteliPro::PlansController do
     context 'without a signed-in user' do
 
       before do
-        get :show, id: 'pro'
+        get :show, params: { id: 'pro' }
       end
 
       it 'redirects to the login form' do
@@ -60,7 +60,7 @@ describe AlaveteliPro::PlansController do
       context 'with a valid plan' do
 
         before do
-          get :show, id: 'pro'
+          get :show, params: { id: 'pro' }
         end
 
         it 'finds the specified plan' do
@@ -82,7 +82,7 @@ describe AlaveteliPro::PlansController do
         before do
           allow(AlaveteliConfiguration).to receive(:stripe_namespace).
             and_return('alaveteli')
-          get :show, id: 'pro'
+          get :show, params: { id: 'pro' }
         end
 
         it 'finds the specified plan' do
@@ -110,7 +110,7 @@ describe AlaveteliPro::PlansController do
           Stripe::Subscription.create(customer: customer, plan: 'pro')
           user.create_pro_account(:stripe_customer_id => customer.id)
           user.add_role(:pro)
-          get :show, id: 'pro'
+          get :show, params: { id: 'pro' }
         end
 
         it 'tells the user they already have a plan' do
@@ -135,7 +135,7 @@ describe AlaveteliPro::PlansController do
 
           subscription.delete
           user.create_pro_account(:stripe_customer_id => customer.id)
-          get :show, id: 'pro'
+          get :show, params: { id: 'pro' }
         end
 
         it 'renders the plan page' do
@@ -151,8 +151,9 @@ describe AlaveteliPro::PlansController do
       context 'with an invalid plan' do
 
         it 'returns ActiveRecord::RecordNotFound' do
-          expect { get :show, id: 'invalid-123' }.
-            to raise_error(ActiveRecord::RecordNotFound)
+          expect {
+            get :show, params: { id: 'invalid-123' }
+          }.to raise_error(ActiveRecord::RecordNotFound)
         end
 
       end
@@ -160,7 +161,7 @@ describe AlaveteliPro::PlansController do
       context 'setting stripe_button_description' do
 
         before do
-          get :show, id: plan.id
+          get :show, params: { id: plan.id }
         end
 
         context 'with a monthly plan' do
