@@ -139,7 +139,7 @@ gem 'gettext_i18n_rails', rails5? ? nil : ['~> 0.9.0', '< 1.0.0']
   gem 'fast_gettext', rails5? ? nil : '< 1.2.0'
 gem 'gettext', '~> 2.3.0'
 gem 'globalize', rails5? ? nil : ['~> 5.0.0', '< 5.1.0']
-gem 'locale', '~> 2.0.0', '< 2.1.0'
+gem 'locale', '~> 2.1.2'
 gem 'routing-filter', rails5? ? nil : '~> 0.6.2'
 gem 'unicode', '~> 0.4.4'
 gem 'unidecoder', '~> 1.1.0'
