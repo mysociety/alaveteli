@@ -1,7 +1,7 @@
-<label class="radio inline">
-  <%= radio_button_tag "reason", "not_foi" %> Not a valid FOI request
-</label>
+<%= hidden_user_explanation label: 'Not a valid FOI request',
+                            state: 'not_foi',
+                            message: 'not_foi' %>
 
-<label class="radio inline">
-  <%= radio_button_tag "reason", "vexatious" %> A vexatious request
-</label>
+<%= hidden_user_explanation label: 'A vexatious request',
+                            state: 'vexatious',
+                            message: 'vexatious' %>

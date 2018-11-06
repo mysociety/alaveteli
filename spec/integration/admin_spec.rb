@@ -183,7 +183,7 @@ describe "When administering the site" do
     it 'sets the prominence of the request to requester_only' do
       using_session(@admin) do
         visit admin_request_path :id => request.id
-        choose('reason_not_foi')
+        choose('reason_not_foi_not_foi')
         find_button('Hide request').click
       end
 
@@ -194,7 +194,7 @@ describe "When administering the site" do
     it 'renders a message to confirm the requester has been notified' do
       using_session(@admin) do
         visit admin_request_path :id => request.id
-        choose('reason_not_foi')
+        choose('reason_not_foi_not_foi')
         find_button('Hide request').click
         expect(page).
           to have_content('Your message to Awkward > Name has been sent')

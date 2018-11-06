@@ -8,12 +8,13 @@ jQuery ->
   $('.toggle-hidden').on('click', ->
     $(@).parents('td').find('div:hidden').show()
     false)
+
   $('#request_hidden_user_explanation_reasons').on('click', 'input', ->
     $('#request_hidden_user_subject, #request_hidden_user_explanation, #request_hide_button').show()
     info_request_id = $('#hide_request_form').attr('data-info-request-id')
-    reason = $(this).val()
+    message = $(this).attr('data-message')
     $('#request_hidden_user_explanation_field').val("[loading default text...]")
-    $.ajax "/hidden_user_explanation?reason=" + reason + "&info_request_id=" + info_request_id,
+    $.ajax "/hidden_user_explanation?message=" + message + "&info_request_id=" + info_request_id,
       type: "GET"
       dataType: "text"
       error: (data, textStatus, jqXHR) ->
@@ -21,6 +22,7 @@ jQuery ->
       success: (data, textStatus, jqXHR) ->
         $('#request_hidden_user_explanation_field').val(data)
   )
+
   $('#incoming_messages').on('change', 'input[class=delete-checkbox]', ->
     selected = if $('#ids').val() isnt ""
       $('#ids').val().split(',')

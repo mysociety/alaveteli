@@ -61,7 +61,7 @@ class ServicesController < ApplicationController
            locals: {
              name_to: info_request.user_name.html_safe,
              info_request: info_request,
-             reason: params[:reason],
+             message: params[:message],
              info_request_url: request_url(info_request),
              site_name: site_name.html_safe }
   end

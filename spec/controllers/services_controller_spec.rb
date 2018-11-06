@@ -98,7 +98,7 @@ describe ServicesController do
 
     it 'generates plaintext output' do
       get :hidden_user_explanation,
-          params: { info_request_id: info_request.id, reason: 'not_foi' }
+          params: { info_request_id: info_request.id, message: 'not_foi' }
       expect(response.content_type).to eq 'text/plain'
     end
 
@@ -106,7 +106,7 @@ describe ServicesController do
       allow(AlaveteliConfiguration).
         to receive(:site_name).and_return('A&B Test')
       get :hidden_user_explanation,
-          params: { info_request_id: info_request.id, reason: 'not_foi' }
+          params: { info_request_id: info_request.id, message: 'not_foi' }
       expect(response.body).to match(/Dear P O'Toole/)
       expect(response.body).to match(/Yours,\n\nThe A&B Test team/)
     end
