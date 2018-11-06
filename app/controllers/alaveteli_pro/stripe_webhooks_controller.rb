@@ -41,6 +41,8 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
       customer_subscription_deleted
     when 'invoice.payment_succeeded'
       invoice_payment_succeeded
+    when 'invoice.payment_failed'
+      invoice_payment_failed
     else
       raise UnhandledStripeWebhookError.new(@stripe_event.type)
     end
@@ -64,10 +66,8 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
   end
 
   def customer_subscription_deleted
-    customer_id = @stripe_event.data.object.customer
-    if account = ProAccount.find_by(stripe_customer_id: customer_id)
-      account.user.remove_role(:pro)
-    end
+    account = pro_account_from_stripe_event(@stripe_event)
+    account.user.remove_role(:pro) if account
   end
 
   def invoice_payment_succeeded
@@ -87,6 +87,13 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
     end
   end
 
+  def invoice_payment_failed
+    account = pro_account_from_stripe_event(@stripe_event)
+    if account
+      AlaveteliPro::SubscriptionMailer.payment_failed(account.user).deliver_now
+    end
+  end
+
   def read_event_notification
     payload = request.body.read
     sig_header = request.headers['HTTP_STRIPE_SIGNATURE']
@@ -96,6 +103,11 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
     @stripe_event = Stripe::Webhook.construct_event(
       payload, sig_header, endpoint_secret
     )
+  end
+
+  def pro_account_from_stripe_event(event)
+    customer_id = event.data.object.customer
+    ProAccount.find_by(stripe_customer_id: customer_id)
   end
 
   def check_for_event_type
