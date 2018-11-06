@@ -1,12 +1,15 @@
-<%= _("Dear {{name}},", :name => name_to) %>
+<%= _('Dear {{name}},', name: name_to) %>
 
-<%= _("Your request '{{request}}' at {{url}} has been reviewed by moderators.", :request => info_request.title.html_safe, :url => info_request_url) %>
+<%= _("Your request '{{request}}' at {{url}} has been reviewed by moderators.",
+      request: info_request.title.html_safe,
+      url: info_request_url) %>
 
 <%= render partial: "admin_request/hidden_user_explanation/#{ reason }" -%>
 
-<%= _("You will still be able to view it while logged in to the site. Please reply to this email if you would like to discuss this decision further.") %>
+<%= _('You will still be able to view it while logged in to the site. ' \
+      'Please reply to this email if you would like to discuss this decision ' \
+      'further.') %>
 
-<%= _("Yours,") %>
+<%= _('Yours,') %>
 
-<%= _("The {{site_name}} team.", :site_name => site_name) %>
-
+<%= _('The {{site_name}} team.', site_name: site_name) %>
