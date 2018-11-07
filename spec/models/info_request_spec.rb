@@ -1697,6 +1697,21 @@ describe InfoRequest do
       expect(guessed[0].id).to eq(ir.id)
     end
 
+    it 'leading angle bracket' do
+      ir = info_requests(:fancy_dog_request)
+      idhash = ir.idhash
+      @im.mail.to = "<Some User <#{ ir.incoming_email }>"
+      guessed = InfoRequest.guess_by_incoming_email(@im)
+      expect(guessed[0].id).to eq(ir.id)
+    end
+
+    it 'trailing comma and angle bracket' do
+      ir = info_requests(:fancy_dog_request)
+      idhash = ir.idhash
+      @im.mail.to = "Some User <#{ ir.incoming_email }>, >"
+      guessed = InfoRequest.guess_by_incoming_email(@im)
+      expect(guessed[0].id).to eq(ir.id)
+    end
   end
 
   describe "making up the URL title" do

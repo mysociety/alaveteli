@@ -29,6 +29,21 @@ module Mail
       self.clean_addresses :old_cc, val
     end
 
+    def invalid_addresses
+      addrs = []
+      addrs << self[:to].try(:value) if to.nil?
+      addrs << self[:cc].try(:value) if cc.nil?
+      addrs.compact
+    end
+
+    def invalid_addresses_matching_incoming
+      p = Regexp.escape(AlaveteliConfiguration.incoming_email_prefix)
+      d = Regexp.escape(AlaveteliConfiguration.incoming_email_domain)
+
+      regexp = /#{p}request-\d+-\w+@#{d}/i
+
+      invalid_addresses.flat_map { |value| value.scan(regexp) }
+    end
   end
 end
 
@@ -134,9 +149,13 @@ module MailHandler
 
       def get_all_addresses(mail)
         envelope_to = mail['envelope-to'] ? [mail['envelope-to'].value.to_s] : []
+
+        invalid = mail.invalid_addresses_matching_incoming.uniq
+
         ((mail.to || []) +
          (mail.cc || []) +
-         (envelope_to || [])).compact.uniq
+         (envelope_to || []) +
+         (invalid || [])).compact.uniq
       end
 
       def empty_return_path?(mail)
