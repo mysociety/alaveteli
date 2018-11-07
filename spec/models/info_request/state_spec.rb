@@ -12,6 +12,20 @@ describe InfoRequest::State do
 
   end
 
+  describe '.valid?' do
+    subject { described_class.valid?(state) }
+
+    context 'with a state included in .all' do
+      let(:state) { 'waiting_response' }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'with a state not included in .all' do
+      let(:state) { 'invalid_state' }
+      it { is_expected.to eq(false) }
+    end
+  end
+
   describe :phases do
 
     it 'returns an array' do

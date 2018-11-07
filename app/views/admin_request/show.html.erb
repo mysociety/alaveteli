@@ -177,12 +177,7 @@
         <% if @info_request.prominence(:decorate => true).is_private? %>
           <p class="help-block">This request has already been hidden</p>
         <% else %>
-          <label class="radio inline">
-            <%= radio_button_tag "reason", "not_foi" %> <%= _("Not a valid FOI request") %>
-          </label>
-          <label class="radio inline">
-            <%= radio_button_tag "reason", "vexatious" %> <%= _("A vexatious request") %>
-          </label>
+          <%= render partial: 'hidden_user_explanation_reasons' %>
         <% end %>
       </div>
     </div>

@@ -25,6 +25,10 @@ class InfoRequest
       states
     end
 
+    def self.valid?(state)
+      all.include?(state)
+    end
+
     def self.short_description(state)
       descriptions = {
             'waiting_classification'        => _("Needs status update"),
