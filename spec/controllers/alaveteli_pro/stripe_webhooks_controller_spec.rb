@@ -308,11 +308,6 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
         expect(mail.subject).to match(/Payment failed/)
         expect(mail.to).to include(user.email)
       end
-
-      it 'notifies site admins' do
-        mail = ActionMailer::Base.deliveries.first
-        expect(mail.bcc).to include(AlaveteliConfiguration.pro_contact_email)
-      end
     end
 
     describe 'a customer moves to a new billing period' do

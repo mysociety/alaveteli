@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add an option to hide a request containing personal information (Gareth Rees)
 * Prevent censor rules from being unintentionally made permanent when admins
   edit outgoing messages. Allow admins to see the unredacted outgoing message
   text on request's admin page and in the associated event log (Liz Conlan)

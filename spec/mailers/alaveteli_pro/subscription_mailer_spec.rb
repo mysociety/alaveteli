@@ -15,10 +15,6 @@ describe AlaveteliPro::SubscriptionMailer, feature: [:alaveteli_pro] do
       expect(subject.to).to include(user.email)
     end
 
-    it 'notifies site pro admins' do
-      expect(subject.bcc).to include(AlaveteliConfiguration.pro_contact_email)
-    end
-
     it 'renders the body correctly' do
       expect(subject.body.to_s).
         to eq(read_described_class_fixture('payment_failed'))
