@@ -1,2 +1,2 @@
 <%= raw yield -%>
-<%= render partial: 'footer' -%>
+<%= render partial: 'footer' if @use_footer -%>
