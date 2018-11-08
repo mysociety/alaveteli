@@ -32,12 +32,6 @@ describe 'when creating a mail object from raw data' do
     expect(mail.to).to eq(["request-66666-caa77777@whatdotheyknow.com", "foi@example.com"])
   end
 
-  it 'should return nil for malformed To: and Cc: lines' do
-    mail = get_fixture_mail('malformed-to-and-cc.email')
-    expect(mail.to).to eq(nil)
-    expect(mail.cc).to eq(nil)
-  end
-
   it 'should convert an iso8859 email to utf8' do
     mail = get_fixture_mail('iso8859_2_raw_email.email')
     expect(mail.subject).to match /gjatë/u

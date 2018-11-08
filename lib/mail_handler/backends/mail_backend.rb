@@ -3,35 +3,6 @@ require 'mail'
 require 'mapi/msg'
 require 'mapi/convert'
 
-module Mail
-  class Message
-
-    # The behaviour of the 'to' and 'cc' methods have changed
-    # between TMail and Mail; this monkey-patching restores the
-    # TMail behaviour.  The key difference is that when there's an
-    # invalid address, e.g. '<foo@example.org', Mail returns the
-    # string as an ActiveSupport::Multibyte::Chars, whereas
-    # previously TMail would return nil.
-
-    alias_method :old_to, :to
-    alias_method :old_cc, :cc
-
-    def clean_addresses(old_method, val)
-      old_result = self.send(old_method, val)
-      old_result.class == Mail::AddressContainer ? old_result : nil
-    end
-
-    def to(val = nil)
-      self.clean_addresses :old_to, val
-    end
-
-    def cc(val = nil)
-      self.clean_addresses :old_cc, val
-    end
-
-  end
-end
-
 module MailHandler
   module Backends
     module MailBackend
@@ -134,9 +105,12 @@ module MailHandler
 
       def get_all_addresses(mail)
         envelope_to = mail['envelope-to'] ? [mail['envelope-to'].value.to_s] : []
-        ((mail.to || []) +
-         (mail.cc || []) +
-         (envelope_to || [])).compact.uniq
+
+        addresses = []
+        addresses << mail.to
+        addresses << mail.cc
+        addresses << envelope_to
+        addresses.flatten.compact.uniq
       end
 
       def empty_return_path?(mail)
