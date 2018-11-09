@@ -2951,11 +2951,7 @@ describe InfoRequest do
     let(:info_request) { FactoryBot.build(:info_request) }
 
     it 'computes a hash' do
-      @info_request = InfoRequest.new(:title => "Testing",
-                                      :public_body => public_bodies(:geraldine_public_body),
-                                      :user_id => 1)
-      @info_request.save!
-      expect(@info_request.idhash).not_to eq(nil)
+      expect { info_request.save! }.to change { info_request.idhash }.from(nil)
     end
 
     it 'calls update_counter_cache' do
