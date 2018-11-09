@@ -1673,14 +1673,6 @@ describe InfoRequest do
       load_raw_emails_data
     end
 
-    it 'computes a hash' do
-      @info_request = InfoRequest.new(:title => "Testing",
-                                      :public_body => public_bodies(:geraldine_public_body),
-                                      :user_id => 1)
-      @info_request.save!
-      expect(@info_request.idhash).not_to eq(nil)
-    end
-
     it 'finds a request based on an email with an intact id and a broken hash' do
       ir = info_requests(:fancy_dog_request)
       id = ir.id
@@ -2957,6 +2949,14 @@ describe InfoRequest do
 
   describe '#save' do
     let(:info_request) { FactoryBot.build(:info_request) }
+
+    it 'computes a hash' do
+      @info_request = InfoRequest.new(:title => "Testing",
+                                      :public_body => public_bodies(:geraldine_public_body),
+                                      :user_id => 1)
+      @info_request.save!
+      expect(@info_request.idhash).not_to eq(nil)
+    end
 
     it 'calls update_counter_cache' do
       expect(info_request).to receive(:update_counter_cache)
