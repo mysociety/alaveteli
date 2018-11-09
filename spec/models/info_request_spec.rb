@@ -1666,7 +1666,7 @@ describe InfoRequest do
 
   end
 
-  describe "guessing a request from an email" do
+  describe '.guess_by_incoming_email' do
 
     before(:each) do
       @im = incoming_messages(:useless_incoming_message)
