@@ -229,16 +229,19 @@ class InfoRequest < ActiveRecord::Base
     @@custom_states_loaded
   end
 
-  # Return list of info requests which *might* be right given email address
-  # e.g. For the id-hash email addresses, don't match the hash.
-  def self.guess_by_incoming_email(incoming_message)
-    guesses = []
-    # 1. Try to guess based on the email address(es)
-    incoming_message.addresses.each do |address|
-      id, hash = InfoRequest._extract_id_hash_from_email(address)
-      guesses.push(InfoRequest.find_by_id(id))
-      guesses.push(InfoRequest.find_by_idhash(hash))
+  # Public: Attempt to find InfoRequests by matching against extracted `id` and
+  # `idhash` elements of an `incoming_email`.
+  #
+  # emails - A String email address or an Array of String email addresses.
+  #
+  # Returns an Array
+  def self.guess_by_incoming_email(*emails)
+    guesses = emails.flatten.reduce([]) do |memo, email|
+      id, hash = _extract_id_hash_from_email(email)
+      memo << find_by_id(id)
+      memo << find_by_idhash(hash)
     end
+
     guesses.compact.uniq
   end
 

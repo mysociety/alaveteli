@@ -1667,28 +1667,64 @@ describe InfoRequest do
   end
 
   describe '.guess_by_incoming_email' do
+    subject { described_class.guess_by_incoming_email(email) }
+    let(:info_request) { FactoryBot.create(:info_request) }
 
-    before(:each) do
-      @im = incoming_messages(:useless_incoming_message)
-      load_raw_emails_data
+    context 'email with an intact id and broken idhash' do
+      let(:email) { "request-#{ info_request.id }-asdfg@example.com" }
+      it { is_expected.to include(info_request) }
     end
 
-    it 'finds a request based on an email with an intact id and a broken hash' do
-      ir = info_requests(:fancy_dog_request)
-      id = ir.id
-      @im.mail.to = "request-#{id}-asdfg@example.com"
-      guessed = InfoRequest.guess_by_incoming_email(@im)
-      expect(guessed[0].idhash).to eq(ir.idhash)
+    context 'email with a broken id and an intact idhash' do
+      let(:email) { "request-123ab-#{ info_request.idhash }@example.com" }
+      it { is_expected.to include(info_request) }
     end
 
-    it 'finds a request based on an email with a broken id and an intact hash' do
-      ir = info_requests(:fancy_dog_request)
-      idhash = ir.idhash
-      @im.mail.to = "request-123ab-#{idhash}@example.com"
-      guessed = InfoRequest.guess_by_incoming_email(@im)
-      expect(guessed[0].id).to eq(ir.id)
+    context 'email matching no requests' do
+      let(:email) do
+        invalid_id = described_class.maximum(:id) + 10
+        invalid_idhash = 'x'
+        "request-#{ invalid_id }-#{ invalid_idhash }@example.com"
+      end
+
+      it { is_expected.to be_empty }
     end
 
+    context 'email that possibly matches multiple requests' do
+      let(:info_request_1) { FactoryBot.create(:info_request) }
+      let(:info_request_2) { FactoryBot.create(:info_request) }
+
+      let(:email) do
+        "request-#{ info_request_1.id }-#{ info_request_2.idhash }@example.com"
+      end
+
+      it { is_expected.to match_array([info_request_1, info_request_2]) }
+    end
+
+    context 'when passed multiple emails matching a single request' do
+      let(:email_1) { "request-123ab-#{ info_request.idhash }@example.com" }
+      let(:email_2) { "request-#{ info_request.id }-asdfg@example.com" }
+      let(:email) { [email_1, email_2] }
+
+      it { is_expected.to match_array([info_request]) }
+    end
+
+    context 'when passed multiple emails matching multiple requests' do
+      let(:info_request_1) { FactoryBot.create(:info_request) }
+      let(:info_request_2) { FactoryBot.create(:info_request) }
+
+      let(:email_1) do
+        "request-#{ info_request_1.id }-#{ info_request_2.idhash }@example.com"
+      end
+
+      let(:email_2) do
+        "request-#{ info_request_2.id }-#{ info_request_1.idhash }@example.com"
+      end
+
+      let(:email) { [email_1, email_2] }
+
+      it { is_expected.to match_array([info_request_1, info_request_2]) }
+    end
   end
 
   describe "making up the URL title" do
