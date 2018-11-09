@@ -74,8 +74,8 @@ class IncomingMessage < ActiveRecord::Base
   scope :pro, -> { joins(:info_request).merge(InfoRequest.pro) }
   scope :unparsed, -> { where(last_parsed: nil) }
 
-  delegate :multipart?, to: :mail
-  delegate :parts, to: :mail
+  delegate :multipart?, to: :raw_email
+  delegate :parts, to: :raw_email
 
   # Given that there are in theory many info request events, a convenience method for
   # getting the response event

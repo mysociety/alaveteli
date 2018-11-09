@@ -20,6 +20,9 @@ class RawEmail < ActiveRecord::Base
   has_one :incoming_message,
           :inverse_of => :raw_email
 
+  delegate :multipart?, to: :mail
+  delegate :parts, to: :mail
+
   def directory
     if request_id.empty?
       raise "Failed to find the id number of the associated request: has it been saved?"
