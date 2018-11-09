@@ -28,6 +28,10 @@ class RawEmail < ActiveRecord::Base
     MailHandler.get_all_addresses(mail)
   end
 
+  def empty_from_field?
+    mail.from_addrs.nil? || mail.from_addrs.size == 0
+  end
+
   def directory
     if request_id.empty?
       raise "Failed to find the id number of the associated request: has it been saved?"

@@ -75,6 +75,7 @@ class IncomingMessage < ActiveRecord::Base
   scope :unparsed, -> { where(last_parsed: nil) }
 
   delegate :addresses, to: :raw_email
+  delegate :empty_from_field?, to: :raw_email
   delegate :message_id, to: :raw_email
   delegate :multipart?, to: :raw_email
   delegate :parts, to: :raw_email
@@ -83,10 +84,6 @@ class IncomingMessage < ActiveRecord::Base
   # getting the response event
   def response_event
     self.info_request_events.detect{ |e| e.event_type == 'response' }
-  end
-
-  def empty_from_field?
-    mail.from_addrs.nil? || mail.from_addrs.size == 0
   end
 
   def from_email
