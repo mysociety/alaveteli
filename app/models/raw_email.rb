@@ -24,6 +24,10 @@ class RawEmail < ActiveRecord::Base
   delegate :multipart?, to: :mail
   delegate :parts, to: :mail
 
+  def addresses
+    MailHandler.get_all_addresses(mail)
+  end
+
   def directory
     if request_id.empty?
       raise "Failed to find the id number of the associated request: has it been saved?"

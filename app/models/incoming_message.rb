@@ -74,6 +74,7 @@ class IncomingMessage < ActiveRecord::Base
   scope :pro, -> { joins(:info_request).merge(InfoRequest.pro) }
   scope :unparsed, -> { where(last_parsed: nil) }
 
+  delegate :addresses, to: :raw_email
   delegate :message_id, to: :raw_email
   delegate :multipart?, to: :raw_email
   delegate :parts, to: :raw_email
@@ -90,10 +91,6 @@ class IncomingMessage < ActiveRecord::Base
 
   def from_email
     MailHandler.get_from_address(mail)
-  end
-
-  def addresses
-    MailHandler.get_all_addresses(mail)
   end
 
   # Return false if for some reason this is a message that we shouldn't let them
