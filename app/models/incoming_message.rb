@@ -74,39 +74,29 @@ class IncomingMessage < ActiveRecord::Base
   scope :pro, -> { joins(:info_request).merge(InfoRequest.pro) }
   scope :unparsed, -> { where(last_parsed: nil) }
 
+  delegate :multipart?, to: :mail
+  delegate :parts, to: :mail
+
   # Given that there are in theory many info request events, a convenience method for
   # getting the response event
   def response_event
     self.info_request_events.detect{ |e| e.event_type == 'response' }
   end
 
-  # Return a cached structured mail object
-  def mail(force = nil)
-    return nil if raw_email.nil?
-    return mail! if force
-
-    @mail ||= raw_email.mail
-  end
-
-  def mail!
-    return nil if raw_email.nil?
-    raw_email.mail!
-  end
-
   def empty_from_field?
-    self.mail.from_addrs.nil? || self.mail.from_addrs.size == 0
+    mail.from_addrs.nil? || mail.from_addrs.size == 0
   end
 
   def from_email
-    MailHandler.get_from_address(self.mail)
+    MailHandler.get_from_address(mail)
   end
 
   def addresses
-    MailHandler.get_all_addresses(self.mail)
+    MailHandler.get_all_addresses(mail)
   end
 
   def message_id
-    self.mail.message_id
+    mail.message_id
   end
 
   # Return false if for some reason this is a message that we shouldn't let them
@@ -151,9 +141,9 @@ class IncomingMessage < ActiveRecord::Base
     if (!force.nil? || self.last_parsed.nil?)
       ActiveRecord::Base.transaction do
         self.extract_attachments!
-        write_attribute(:sent_at, self.mail.date || self.created_at)
-        write_attribute(:subject, MailHandler.get_subject(self.mail))
-        write_attribute(:mail_from, MailHandler.get_from_name(self.mail))
+        write_attribute(:sent_at, mail.date || self.created_at)
+        write_attribute(:subject, MailHandler.get_subject(mail))
+        write_attribute(:mail_from, MailHandler.get_from_name(mail))
         if self.from_email
           self.mail_from_domain = PublicBody.extract_domain_from_email(self.from_email)
         else
@@ -586,7 +576,7 @@ class IncomingMessage < ActiveRecord::Base
 
   def extract_attachments!
     force = true
-    attachment_attributes = MailHandler.get_attachment_attributes(self.mail(force))
+    attachment_attributes = MailHandler.get_attachment_attributes(mail(force))
     attachments = []
     attachment_attributes.each do |attrs|
       attachment = self.foi_attachments.find_or_create_by(:hexdigest => attrs[:hexdigest])
@@ -609,7 +599,7 @@ class IncomingMessage < ActiveRecord::Base
     # e.g. for https://secure.mysociety.org/admin/foi/request/show_raw_email/24550
     if !main_part.nil?
       uudecoded_attachments = _uudecode_and_save_attachments(main_part.body)
-      c = self.mail.count_first_uudecode_count
+      c = mail.count_first_uudecode_count
       for uudecode_attachment in uudecoded_attachments
         c += 1
         uudecode_attachment.url_part_number = c
@@ -769,5 +759,20 @@ class IncomingMessage < ActiveRecord::Base
   # Return space separated list of all file extensions known
   def self.get_all_file_extensions
     return AlaveteliFileTypes.all_extensions.join(" ")
+  end
+
+  private
+
+  # Return a cached structured mail object
+  def mail(force = nil)
+    return nil if raw_email.nil?
+    return mail! if force
+
+    @mail ||= raw_email.mail
+  end
+
+  def mail!
+    return nil if raw_email.nil?
+    raw_email.mail!
   end
 end

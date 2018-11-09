@@ -50,63 +50,6 @@ describe IncomingMessage do
     end
   end
 
-  describe '#mail' do
-    subject { FactoryBot.create(:incoming_message) }
-    let(:raw_email) { subject.raw_email }
-
-    it 'returns nil if an associated raw email does not exist' do
-      expect(described_class.new.mail).to be_nil
-    end
-
-    it 'delegates to the associated_raw_email' do
-      expect(subject.mail).to eq(raw_email.mail)
-    end
-
-    context 'when the force option is false' do
-
-      it 'caches the result' do
-        initial = subject.mail
-        updated = double('updated')
-        allow(raw_email).to receive(:mail).and_return(updated)
-        expect(subject.mail(false)).to eq(initial)
-      end
-
-    end
-
-    context 'when the force option is true' do
-
-      it 'does not cache the result' do
-        initial = subject.mail
-        updated = double('updated')
-        allow(raw_email).to receive(:mail!).and_return(updated)
-        expect(subject.mail(true)).to eq(updated)
-      end
-
-    end
-
-  end
-
-  describe '#mail!' do
-    subject { FactoryBot.create(:incoming_message) }
-    let(:raw_email) { subject.raw_email }
-
-    it 'returns nil if an associated raw email does not exist' do
-      expect(described_class.new.mail!).to be_nil
-    end
-
-    it 'delegates to the associated_raw_email' do
-      expect(subject.mail!).to eq(raw_email.mail)
-    end
-
-    it 'does not cache the result' do
-      initial = subject.mail!
-      updated = double('updated')
-      allow(raw_email).to receive(:mail!).and_return(updated)
-      expect(subject.mail!).to eq(updated)
-    end
-
-  end
-
   describe '#valid_to_reply_to' do
 
     it 'is true if _calculate_valid_to_reply_to is true' do
@@ -606,8 +549,8 @@ describe IncomingMessage, " when dealing with incoming mail" do
     ir = info_requests(:fancy_dog_request)
     receive_incoming_mail('space-boundary.email', ir.incoming_email)
     message = ir.incoming_messages[1]
-    expect(message.mail.parts.size).to eq(2)
-    expect(message.mail.multipart?).to eq(true)
+    expect(message.parts.size).to eq(2)
+    expect(message.multipart?).to eq(true)
   end
 
   it "should correctly fold various types of footer" do

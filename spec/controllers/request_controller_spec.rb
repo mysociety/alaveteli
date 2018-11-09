@@ -2805,7 +2805,8 @@ describe RequestController, "authority uploads a response from the web interface
 
     # check new attachment looks vaguely OK
     new_im = @ir.incoming_messages[-1]
-    expect(new_im.mail.body).to match(/Find attached a picture of a parrot/)
+    expect(new_im.get_main_body_text_unfolded).
+      to match(/Find attached a picture of a parrot/)
     attachments = new_im.get_attachments_for_display
     expect(attachments.size).to eq(1)
     expect(attachments[0].filename).to eq("parrot.png")
