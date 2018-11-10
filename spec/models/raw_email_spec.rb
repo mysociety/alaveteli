@@ -19,6 +19,101 @@ describe RawEmail do
     raw_email.data
   end
 
+  describe '#valid_to_reply_to?' do
+    def test_email(result, email, empty_return_path, autosubmitted = nil)
+      stubs = { :from_email => email,
+                :empty_return_path? => empty_return_path,
+                :auto_submitted? => autosubmitted }
+      raw_email = RawEmail.new
+      stubs.each do |method, value|
+        allow(raw_email).to receive(method).and_return(value)
+      end
+      expect(raw_email.valid_to_reply_to?).to eq(result)
+    end
+
+    it "says a valid email is fine" do
+      test_email(true, "team@mysociety.org", false)
+    end
+
+    it "says postmaster email is bad" do
+      test_email(false, "postmaster@mysociety.org", false)
+    end
+
+    it "says Mailer-Daemon email is bad" do
+      test_email(false, "Mailer-Daemon@mysociety.org", false)
+    end
+
+    it "says case mangled MaIler-DaemOn email is bad" do
+      test_email(false, "MaIler-DaemOn@mysociety.org", false)
+    end
+
+    it "says Auto_Reply email is bad" do
+      test_email(false, "Auto_Reply@mysociety.org", false)
+    end
+
+    it "says DoNotReply email is bad" do
+      test_email(false, "DoNotReply@tube.tfl.gov.uk", false)
+    end
+
+    it "says no reply email is bad" do
+      test_email(false, "noreply@tube.tfl.gov.uk", false)
+      test_email(false, "no.reply@tube.tfl.gov.uk", false)
+      test_email(false, "no-reply@tube.tfl.gov.uk", false)
+    end
+
+    it "says a filled-out return-path is fine" do
+      test_email(true, "team@mysociety.org", false)
+    end
+
+    it "says an empty return-path is bad" do
+      test_email(false, "team@mysociety.org", true)
+    end
+
+    it "says an auto-submitted keyword is bad" do
+      test_email(false, "team@mysociety.org", false, "auto-replied")
+    end
+
+    it 'returns true if the full email is not included in the invalid reply addresses' do
+      ReplyToAddressValidator.invalid_reply_addresses = %w(a@example.com)
+
+      test_email(true, 'b@example.com', false)
+
+      ReplyToAddressValidator.invalid_reply_addresses =
+        ReplyToAddressValidator::DEFAULT_INVALID_REPLY_ADDRESSES
+    end
+
+    it 'returns false if the full email is included in the invalid reply addresses' do
+      ReplyToAddressValidator.invalid_reply_addresses = %w(a@example.com)
+
+      test_email(false, 'a@example.com', false)
+
+      ReplyToAddressValidator.invalid_reply_addresses =
+        ReplyToAddressValidator::DEFAULT_INVALID_REPLY_ADDRESSES
+    end
+
+    context 'checking validity to reply to with real emails' do
+      def test_real(fixture_file, expected)
+        mail = get_fixture_mail(fixture_file, 'a@example.com', 'b@example.net')
+        raw_email = FactoryBot.create(:raw_email)
+        FactoryBot.create(:incoming_message, raw_email: raw_email)
+        raw_email.update!(data: mail)
+        expect(raw_email.valid_to_reply_to?).to eq(expected)
+      end
+
+      it "should allow a reply to plain emails" do
+        test_real('incoming-request-plain.email', true)
+      end
+
+      it "should not allow a reply to emails with empty return-paths" do
+        test_real('empty-return-path.email', false)
+      end
+
+      it "should not allow a reply to emails with autoresponse headers" do
+        test_real('autoresponse-header.email', false)
+      end
+    end
+  end
+
   describe '#mail' do
     let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
     let(:mock_mail) { double }

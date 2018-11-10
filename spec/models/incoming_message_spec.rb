@@ -50,33 +50,6 @@ describe IncomingMessage do
     end
   end
 
-  describe '#valid_to_reply_to' do
-
-    it 'is true if _calculate_valid_to_reply_to is true' do
-      message = FactoryBot.create(:incoming_message)
-      allow(message).to receive(:_calculate_valid_to_reply_to).and_return(true)
-      message.parse_raw_email!(true)
-      expect(message.valid_to_reply_to).to eq(true)
-    end
-
-    it 'is false if _calculate_valid_to_reply_to is false' do
-      message = FactoryBot.create(:incoming_message)
-      allow(message).to receive(:_calculate_valid_to_reply_to).and_return(false)
-      message.parse_raw_email!(true)
-      expect(message.valid_to_reply_to).to eq(false)
-    end
-
-  end
-
-  describe '#valid_to_reply_to?' do
-
-    it 'returns the value of #valid_to_reply_to' do
-      message = FactoryBot.create(:incoming_message)
-      expect(message.valid_to_reply_to?).to eq(message.valid_to_reply_to)
-    end
-
-  end
-
   describe '#mail_from' do
 
     it 'returns the name in the From: field of an email' do
@@ -726,107 +699,23 @@ describe IncomingMessage, " folding quoted parts of emails" do
 
 end
 
-describe IncomingMessage, " checking validity to reply to" do
-  def test_email(result, email, empty_return_path, autosubmitted = nil)
-    @mail = double('mail')
-    allow(MailHandler).to receive(:get_from_address).and_return(email)
-    allow(MailHandler).to receive(:empty_return_path?).with(@mail).and_return(empty_return_path)
-    allow(MailHandler).to receive(:get_auto_submitted).with(@mail).and_return(autosubmitted)
-    @incoming_message = IncomingMessage.new
-    allow(@incoming_message).to receive(:mail).and_return(@mail)
-    expect(@incoming_message._calculate_valid_to_reply_to).to eq(result)
-  end
-
-  it "says a valid email is fine" do
-    test_email(true, "team@mysociety.org", false)
-  end
-
-  it "says postmaster email is bad" do
-    test_email(false, "postmaster@mysociety.org", false)
-  end
-
-  it "says Mailer-Daemon email is bad" do
-    test_email(false, "Mailer-Daemon@mysociety.org", false)
-  end
-
-  it "says case mangled MaIler-DaemOn email is bad" do
-    test_email(false, "MaIler-DaemOn@mysociety.org", false)
-  end
-
-  it "says Auto_Reply email is bad" do
-    test_email(false, "Auto_Reply@mysociety.org", false)
-  end
-
-  it "says DoNotReply email is bad" do
-    test_email(false, "DoNotReply@tube.tfl.gov.uk", false)
-  end
-
-  it "says no reply email is bad" do
-    test_email(false, "noreply@tube.tfl.gov.uk", false)
-    test_email(false, "no.reply@tube.tfl.gov.uk", false)
-    test_email(false, "no-reply@tube.tfl.gov.uk", false)
-  end
-
-  it "says a filled-out return-path is fine" do
-    test_email(true, "team@mysociety.org", false)
-  end
-
-  it "says an empty return-path is bad" do
-    test_email(false, "team@mysociety.org", true)
-  end
-
-  it "says an auto-submitted keyword is bad" do
-    test_email(false, "team@mysociety.org", false, "auto-replied")
-  end
-
-  it 'returns true if the full email is not included in the invalid reply addresses' do
-    ReplyToAddressValidator.invalid_reply_addresses = %w(a@example.com)
-
-    test_email(true, 'b@example.com', false)
-
-    ReplyToAddressValidator.invalid_reply_addresses =
-      ReplyToAddressValidator::DEFAULT_INVALID_REPLY_ADDRESSES
-  end
-
-  it 'returns false if the full email is included in the invalid reply addresses' do
-    ReplyToAddressValidator.invalid_reply_addresses = %w(a@example.com)
-
-    test_email(false, 'a@example.com', false)
-
-    ReplyToAddressValidator.invalid_reply_addresses =
-      ReplyToAddressValidator::DEFAULT_INVALID_REPLY_ADDRESSES
-  end
-end
-
-describe IncomingMessage, " checking validity to reply to with real emails" do
-
-  after(:all) do
-    ActionMailer::Base.deliveries.clear
-  end
-  it "should allow a reply to plain emails" do
-    ir = info_requests(:fancy_dog_request)
-    receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
-    expect(ir.incoming_messages[1].valid_to_reply_to?).to eq(true)
-  end
-  it "should not allow a reply to emails with empty return-paths" do
-    ir = info_requests(:fancy_dog_request)
-    receive_incoming_mail('empty-return-path.email', ir.incoming_email)
-    expect(ir.incoming_messages[1].valid_to_reply_to?).to eq(false)
-  end
-  it "should not allow a reply to emails with autoresponse headers" do
-    ir = info_requests(:fancy_dog_request)
-    receive_incoming_mail('autoresponse-header.email', ir.incoming_email)
-    expect(ir.incoming_messages[1].valid_to_reply_to?).to eq(false)
-  end
-
-end
-
 describe IncomingMessage, " when uudecoding bad messages" do
+  let(:raw_email) { FactoryBot.create(:raw_email) }
+
+  let(:im) do
+    FactoryBot.create(:incoming_message, raw_email: raw_email)
+  end
+
+  let(:to) { im.info_request.incoming_email }
+  let(:from) { im.info_request.public_body.request_email }
+
+  def populate_raw_email(fixture)
+    mail = get_fixture_mail(fixture, to, from)
+    raw_email.update!(data: mail)
+  end
 
   it "decodes a valid uuencoded attachment" do
-    mail = get_fixture_mail('simple-uuencoded-attachment.email')
-    im = incoming_messages(:useless_incoming_message)
-    allow(im).to receive(:mail).and_return(mail)
+    populate_raw_email('simple-uuencoded-attachment.email')
     im.extract_attachments!
 
     im.reload
@@ -838,9 +727,7 @@ describe IncomingMessage, " when uudecoding bad messages" do
   end
 
   it "should be able to do it at all" do
-    mail = get_fixture_mail('incoming-request-bad-uuencoding.email')
-    im = incoming_messages(:useless_incoming_message)
-    allow(im).to receive(:mail).and_return(mail)
+    populate_raw_email('incoming-request-bad-uuencoding.email')
     im.extract_attachments!
 
     im.reload
@@ -852,9 +739,7 @@ describe IncomingMessage, " when uudecoding bad messages" do
 
   it "decodes an attachment where the uudecode program reports a 'No end line' error" do
     # See https://github.com/mysociety/alaveteli/issues/2508
-    mail = get_fixture_mail('incoming-request-bad-uuencoding-2.email')
-    im = incoming_messages(:useless_incoming_message)
-    allow(im).to receive(:mail).and_return(mail)
+    populate_raw_email('incoming-request-bad-uuencoding-2.email')
     im.extract_attachments!
 
     im.reload
@@ -879,11 +764,8 @@ describe IncomingMessage, " when uudecoding bad messages" do
   end
 
   it "should apply censor rules" do
-    mail = get_fixture_mail('incoming-request-bad-uuencoding.email')
-
-    im = incoming_messages(:useless_incoming_message)
-    allow(im).to receive(:mail).and_return(mail)
-    ir = info_requests(:fancy_dog_request)
+    populate_raw_email('incoming-request-bad-uuencoding.email')
+    ir = im.info_request
 
     @censor_rule = CensorRule.new
     @censor_rule.text = "moo"
@@ -901,16 +783,25 @@ describe IncomingMessage, " when uudecoding bad messages" do
 end
 
 describe IncomingMessage, "when messages are attached to messages" do
+  let(:raw_email) { FactoryBot.create(:raw_email) }
+
+  let(:im) do
+    FactoryBot.create(:incoming_message, raw_email: raw_email)
+  end
+
+  let(:to) { im.info_request.incoming_email }
+  let(:from) { im.info_request.public_body.request_email }
+
+  def populate_raw_email(fixture)
+    mail = get_fixture_mail(fixture, to, from)
+    raw_email.update!(data: mail)
+  end
 
   it 'should expand an RFC822 attachment' do
     # Note that this spec will only pass using Tmail in the timezone set as datetime headers
     # are rendered out in the local time - using the Mail gem this is not necessary
     with_env_tz('London') do
-      mail_body = load_file_fixture('rfc822-attachment.email')
-      mail = MailHandler.mail_from_raw_email(mail_body)
-
-      im = incoming_messages(:useless_incoming_message)
-      allow(im).to receive(:mail).and_return(mail)
+      populate_raw_email('rfc822-attachment.email')
       im.parse_raw_email!(true)
       attachments = im.get_attachments_for_display
       expect(attachments.size).to eq(1)
@@ -925,11 +816,7 @@ describe IncomingMessage, "when messages are attached to messages" do
   end
 
   it "should flatten all the attachments out" do
-    mail = get_fixture_mail('incoming-request-attach-attachments.email')
-
-    im = incoming_messages(:useless_incoming_message)
-    allow(im).to receive(:mail).and_return(mail)
-
+    populate_raw_email('incoming-request-attach-attachments.email')
     im.extract_attachments!
 
     attachments = im.get_attachments_for_display
@@ -944,11 +831,7 @@ describe IncomingMessage, "when messages are attached to messages" do
     # Note that this spec will only pass using Tmail in the timezone set as datetime headers
     # are rendered out in the local time - using the Mail gem this is not necessary
     with_env_tz('London') do
-      mail_body = load_file_fixture('incoming-request-attachment-headers.email')
-      mail = MailHandler.mail_from_raw_email(mail_body)
-
-      im = incoming_messages(:useless_incoming_message)
-      allow(im).to receive(:mail).and_return(mail)
+      populate_raw_email('incoming-request-attachment-headers.email')
       im.parse_raw_email!(true)
       attachments = im.get_attachments_for_display
       expect(attachments.size).to eq(2)
@@ -959,12 +842,22 @@ describe IncomingMessage, "when messages are attached to messages" do
 end
 
 describe IncomingMessage, "when Outlook messages are attached to messages" do
+  let(:raw_email) { FactoryBot.create(:raw_email) }
+
+  let(:im) do
+    FactoryBot.create(:incoming_message, raw_email: raw_email)
+  end
+
+  let(:to) { im.info_request.incoming_email }
+  let(:from) { im.info_request.public_body.request_email }
+
+  def populate_raw_email(fixture)
+    mail = get_fixture_mail(fixture, to, from)
+    raw_email.update!(data: mail)
+  end
 
   it "should flatten all the attachments out" do
-    mail = get_fixture_mail('incoming-request-oft-attachments.email')
-
-    im = incoming_messages(:useless_incoming_message)
-    allow(im).to receive(:mail).and_return(mail)
+    populate_raw_email('incoming-request-oft-attachments.email')
     im.extract_attachments!
 
     expect(im.get_attachments_for_display.map(&:display_filename)).to eq([
@@ -975,12 +868,22 @@ describe IncomingMessage, "when Outlook messages are attached to messages" do
 end
 
 describe IncomingMessage, "when TNEF attachments are attached to messages" do
+  let(:raw_email) { FactoryBot.create(:raw_email) }
+
+  let(:im) do
+    FactoryBot.create(:incoming_message, raw_email: raw_email)
+  end
+
+  let(:to) { im.info_request.incoming_email }
+  let(:from) { im.info_request.public_body.request_email }
+
+  def populate_raw_email(fixture)
+    mail = get_fixture_mail(fixture, to, from)
+    raw_email.update!(data: mail)
+  end
 
   it "should flatten all the attachments out" do
-    mail = get_fixture_mail('incoming-request-tnef-attachments.email')
-
-    im = incoming_messages(:useless_incoming_message)
-    allow(im).to receive(:mail).and_return(mail)
+    populate_raw_email('incoming-request-tnef-attachments.email')
     im.extract_attachments!
 
     expect(im.get_attachments_for_display.map(&:display_filename)).to eq([
@@ -990,10 +893,7 @@ describe IncomingMessage, "when TNEF attachments are attached to messages" do
   end
 
   it 'does not attempt to save null bytes to the database' do
-    mail = get_fixture_mail('incoming-request-tnef-only.email')
-
-    im = incoming_messages(:useless_incoming_message)
-    allow(im).to receive(:mail).and_return(mail)
+    populate_raw_email('incoming-request-tnef-only.email')
     im.extract_attachments!
 
     expect { im.get_main_body_text_unfolded }.not_to raise_error

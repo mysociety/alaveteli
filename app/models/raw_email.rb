@@ -28,6 +28,38 @@ class RawEmail < ActiveRecord::Base
     MailHandler.get_all_addresses(mail)
   end
 
+  # Return false if for some reason this is a message that we shouldn't let them
+  # reply to
+  #
+  # TODO: Extract this validation out in to ReplyToAddressValidator#valid?
+  def valid_to_reply_to?
+    email = from_email.try(:downcase)
+
+    # check validity of email
+    return false if email.nil? || !MySociety::Validate.is_valid_email(email)
+
+    # Check whether the email is a known invalid reply address
+    if ReplyToAddressValidator.invalid_reply_addresses.include?(email)
+      return false
+    end
+
+    prefix = email
+    prefix =~ /^(.*)@/
+    prefix = $1
+
+    return false unless prefix
+
+    no_reply_regexp = ReplyToAddressValidator.no_reply_regexp
+
+    # reject postmaster - authorities seem to nearly always not respond to
+    # email to postmaster, and it tends to only happen after delivery failure.
+    # likewise Mailer-Daemon, Auto_Reply...
+    return false if prefix.match(no_reply_regexp)
+    return false if empty_return_path?
+    return false if auto_submitted?
+    true
+  end
+
   def empty_from_field?
     mail.from_addrs.nil? || mail.from_addrs.size == 0
   end
@@ -90,6 +122,18 @@ class RawEmail < ActiveRecord::Base
   end
 
   private
+
+  def from_email
+    MailHandler.get_from_address(mail)
+  end
+
+  def empty_return_path?
+    MailHandler.empty_return_path?(mail)
+  end
+
+  def auto_submitted?
+    MailHandler.get_auto_submitted(mail)
+  end
 
   def request_id
     incoming_message.info_request.id.to_s

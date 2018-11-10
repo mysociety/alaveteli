@@ -90,38 +90,6 @@ class IncomingMessage < ActiveRecord::Base
     MailHandler.get_from_address(mail)
   end
 
-  # Return false if for some reason this is a message that we shouldn't let them
-  # reply to
-  #
-  # TODO: Extract this validation out in to ReplyToAddressValidator#valid?
-  def _calculate_valid_to_reply_to
-    email = from_email.try(:downcase)
-
-    # check validity of email
-    return false if email.nil? || !MySociety::Validate.is_valid_email(email)
-
-    # Check whether the email is a known invalid reply address
-    if ReplyToAddressValidator.invalid_reply_addresses.include?(email)
-      return false
-    end
-
-    prefix = email
-    prefix =~ /^(.*)@/
-    prefix = $1
-
-    return false unless prefix
-
-    no_reply_regexp = ReplyToAddressValidator.no_reply_regexp
-
-    # reject postmaster - authorities seem to nearly always not respond to
-    # email to postmaster, and it tends to only happen after delivery failure.
-    # likewise Mailer-Daemon, Auto_Reply...
-    return false if prefix.match(no_reply_regexp)
-    return false if MailHandler.empty_return_path?(mail)
-    return false if MailHandler.get_auto_submitted(mail)
-    true
-  end
-
   def parse_raw_email!(force = nil)
     # The following fields may be absent; we treat them as cached
     # values in case we want to regenerate them (due to mail
@@ -140,7 +108,7 @@ class IncomingMessage < ActiveRecord::Base
         else
           self.mail_from_domain = ""
         end
-        write_attribute(:valid_to_reply_to, self._calculate_valid_to_reply_to)
+        write_attribute(:valid_to_reply_to, raw_email.valid_to_reply_to?)
         self.last_parsed = Time.zone.now
         self.foi_attachments.reload
         self.save!
@@ -155,7 +123,7 @@ class IncomingMessage < ActiveRecord::Base
   # The cached fields mentioned in the previous comment
 
   # Public: Can this message be replied to?
-  # Caches the value set by _calculate_valid_to_reply_to in #parse_raw_email!
+  # Caches the value set by raw_email.valid_to_reply_to? in #parse_raw_email!
   # #valid_to_reply_to overrides the ActiveRecord provided #valid_to_reply_to
   #
   # Returns a Boolean
