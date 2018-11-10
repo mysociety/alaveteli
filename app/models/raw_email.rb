@@ -125,6 +125,10 @@ class RawEmail < ActiveRecord::Base
     MailHandler.get_from_address(mail)
   end
 
+  def subject
+    MailHandler.get_subject(mail)
+  end
+
   private
 
   def empty_return_path?
