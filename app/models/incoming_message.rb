@@ -533,7 +533,8 @@ class IncomingMessage < ActiveRecord::Base
 
   def extract_attachments!
     force = true
-    attachment_attributes = MailHandler.get_attachment_attributes(mail(force))
+    _mail = raw_email.mail!
+    attachment_attributes = MailHandler.get_attachment_attributes(_mail)
     attachments = []
     attachment_attributes.each do |attrs|
       attachment = self.foi_attachments.find_or_create_by(:hexdigest => attrs[:hexdigest])
@@ -556,7 +557,7 @@ class IncomingMessage < ActiveRecord::Base
     # e.g. for https://secure.mysociety.org/admin/foi/request/show_raw_email/24550
     if !main_part.nil?
       uudecoded_attachments = _uudecode_and_save_attachments(main_part.body)
-      c = mail.count_first_uudecode_count
+      c = _mail.count_first_uudecode_count
       for uudecode_attachment in uudecoded_attachments
         c += 1
         uudecode_attachment.url_part_number = c
@@ -716,22 +717,5 @@ class IncomingMessage < ActiveRecord::Base
   # Return space separated list of all file extensions known
   def self.get_all_file_extensions
     return AlaveteliFileTypes.all_extensions.join(" ")
-  end
-
-  private
-
-  # Return a cached structured mail object
-  def mail(force = nil)
-    return nil if raw_email.nil?
-    if force
-      @mail = mail!
-    else
-      @mail ||= raw_email.mail
-    end
-  end
-
-  def mail!
-    return nil if raw_email.nil?
-    raw_email.mail!
   end
 end
