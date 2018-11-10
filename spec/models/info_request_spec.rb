@@ -1672,12 +1672,14 @@ describe InfoRequest do
 
     context 'email with an intact id and broken idhash' do
       let(:email) { "request-#{ info_request.id }-asdfg@example.com" }
-      it { is_expected.to include(info_request) }
+      let(:guess) { described_class::Guess.new(info_request, email, :id) }
+      it { is_expected.to include(guess) }
     end
 
     context 'email with a broken id and an intact idhash' do
       let(:email) { "request-123ab-#{ info_request.idhash }@example.com" }
-      it { is_expected.to include(info_request) }
+      let(:guess) { described_class::Guess.new(info_request, email, :idhash) }
+      it { is_expected.to include(guess) }
     end
 
     context 'email matching no requests' do
@@ -1698,15 +1700,22 @@ describe InfoRequest do
         "request-#{ info_request_1.id }-#{ info_request_2.idhash }@example.com"
       end
 
-      it { is_expected.to match_array([info_request_1, info_request_2]) }
+      let(:guess_1) { described_class::Guess.new(info_request_1, email, :id) }
+
+      let(:guess_2) do
+        described_class::Guess.new(info_request_2, email, :idhash)
+      end
+
+      it { is_expected.to match_array([guess_1, guess_2]) }
     end
 
     context 'when passed multiple emails matching a single request' do
       let(:email_1) { "request-123ab-#{ info_request.idhash }@example.com" }
       let(:email_2) { "request-#{ info_request.id }-asdfg@example.com" }
       let(:email) { [email_1, email_2] }
+      let(:guess) { described_class::Guess.new(info_request, email_1, :idhash) }
 
-      it { is_expected.to match_array([info_request]) }
+      it { is_expected.to match_array([guess]) }
     end
 
     context 'when passed multiple emails matching multiple requests' do
@@ -1723,7 +1732,13 @@ describe InfoRequest do
 
       let(:email) { [email_1, email_2] }
 
-      it { is_expected.to match_array([info_request_1, info_request_2]) }
+      let(:guess_1) { described_class::Guess.new(info_request_1, email_1, :id) }
+
+      let(:guess_2) do
+        described_class::Guess.new(info_request_2, email_1, :idhash)
+      end
+
+      it { is_expected.to match_array([guess_1, guess_2]) }
     end
   end
 

@@ -37,6 +37,7 @@ require 'digest/sha1'
 require 'fileutils'
 
 class InfoRequest < ActiveRecord::Base
+  Guess = Struct.new(:info_request, :matched_email, :match_method).freeze
   OLD_AGE_IN_DAYS = 21.days
 
   include AdminColumn
@@ -237,12 +238,13 @@ class InfoRequest < ActiveRecord::Base
   # Returns an Array
   def self.guess_by_incoming_email(*emails)
     guesses = emails.flatten.reduce([]) do |memo, email|
-      id, hash = _extract_id_hash_from_email(email)
-      memo << find_by_id(id)
-      memo << find_by_idhash(hash)
+      id, idhash = _extract_id_hash_from_email(email)
+      memo << Guess.new(find_by_id(id), email, :id)
+      memo << Guess.new(find_by_idhash(idhash), email, :idhash)
     end
 
-    guesses.compact.uniq
+    # Unique Guesses where we've found an `InfoRequest`
+    guesses.select(&:info_request).uniq(&:info_request)
   end
 
   # Internal function used by find_by_magic_email and guess_by_incoming_email
