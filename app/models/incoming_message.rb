@@ -97,7 +97,7 @@ class IncomingMessage < ActiveRecord::Base
     if (!force.nil? || self.last_parsed.nil?)
       ActiveRecord::Base.transaction do
         self.extract_attachments!
-        write_attribute(:sent_at, mail.date || self.created_at)
+        write_attribute(:sent_at, raw_email.date || self.created_at)
         write_attribute(:subject, raw_email.subject)
         write_attribute(:mail_from, raw_email.from_name)
         if from_email
