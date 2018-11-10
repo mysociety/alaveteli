@@ -757,9 +757,11 @@ class IncomingMessage < ActiveRecord::Base
   # Return a cached structured mail object
   def mail(force = nil)
     return nil if raw_email.nil?
-    return mail! if force
-
-    @mail ||= raw_email.mail
+    if force
+      @mail = mail!
+    else
+      @mail ||= raw_email.mail
+    end
   end
 
   def mail!
