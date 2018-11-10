@@ -44,7 +44,7 @@ class AdminRawEmailController < AdminController
   def in_holding_pen?(raw_email)
     raw_email.incoming_message.info_request ==
       InfoRequest.holding_pen_request &&
-      !raw_email.incoming_message.empty_from_field?
+      !raw_email.empty_from_field?
   end
 
   def domain_from_email(raw_email)

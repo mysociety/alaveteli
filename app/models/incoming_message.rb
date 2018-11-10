@@ -74,7 +74,6 @@ class IncomingMessage < ActiveRecord::Base
   scope :pro, -> { joins(:info_request).merge(InfoRequest.pro) }
   scope :unparsed, -> { where(last_parsed: nil) }
 
-  delegate :empty_from_field?, to: :raw_email
   delegate :from_email, to: :raw_email
   delegate :message_id, to: :raw_email
   delegate :multipart?, to: :raw_email
