@@ -121,11 +121,11 @@ class RawEmail < ActiveRecord::Base
     File.delete(filepath) if File.exists?(filepath)
   end
 
-  private
-
   def from_email
     MailHandler.get_from_address(mail)
   end
+
+  private
 
   def empty_return_path?
     MailHandler.empty_return_path?(mail)

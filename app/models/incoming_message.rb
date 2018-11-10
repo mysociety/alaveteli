@@ -76,6 +76,7 @@ class IncomingMessage < ActiveRecord::Base
 
   delegate :addresses, to: :raw_email
   delegate :empty_from_field?, to: :raw_email
+  delegate :from_email, to: :raw_email
   delegate :message_id, to: :raw_email
   delegate :multipart?, to: :raw_email
   delegate :parts, to: :raw_email
@@ -84,10 +85,6 @@ class IncomingMessage < ActiveRecord::Base
   # getting the response event
   def response_event
     self.info_request_events.detect{ |e| e.event_type == 'response' }
-  end
-
-  def from_email
-    MailHandler.get_from_address(mail)
   end
 
   def parse_raw_email!(force = nil)
@@ -103,8 +100,9 @@ class IncomingMessage < ActiveRecord::Base
         write_attribute(:sent_at, mail.date || self.created_at)
         write_attribute(:subject, MailHandler.get_subject(mail))
         write_attribute(:mail_from, MailHandler.get_from_name(mail))
-        if self.from_email
-          self.mail_from_domain = PublicBody.extract_domain_from_email(self.from_email)
+        if from_email
+          self.mail_from_domain =
+            PublicBody.extract_domain_from_email(from_email)
         else
           self.mail_from_domain = ""
         end
