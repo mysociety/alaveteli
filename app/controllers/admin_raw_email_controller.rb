@@ -21,9 +21,8 @@ class AdminRawEmailController < AdminController
           @public_bodies = public_bodies_from_domain(domain)
 
           # 2. Match the email address in the message without matching the hash
-          guess_addresses = @raw_email.incoming_message.addresses
           @info_requests =
-            InfoRequest.guess_by_incoming_email(guess_addresses)
+            InfoRequest.guess_by_incoming_email(@raw_email.addresses)
 
           # 3. Give a reason why it's in the holding pen
           @rejected_reason = rejected_reason(@raw_email) || 'unknown reason'
