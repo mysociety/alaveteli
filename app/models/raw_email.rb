@@ -121,6 +121,10 @@ class RawEmail < ActiveRecord::Base
     File.delete(filepath) if File.exists?(filepath)
   end
 
+  def from_name
+    MailHandler.get_from_name(mail)
+  end
+
   def from_email
     MailHandler.get_from_address(mail)
   end
