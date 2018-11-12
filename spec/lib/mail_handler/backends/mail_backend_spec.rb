@@ -106,14 +106,22 @@ when it really should be application/pdf.\n
 
   end
 
-  describe :get_all_addresses do
+  describe '.get_all_addresses' do
 
-    it 'returns all addresses present in an email' do
-      mail = get_fixture_mail('raw_emails/1.email')
-      mail.cc = 'bob@example.com'
-      mail['envelope-to'] = 'bob@example.net'
-      expected = %w(bob@localhost bob@example.com bob@example.net)
-      expect(get_all_addresses(mail)).to eq(expected)
+    context 'include_invalid: false' do
+      subject { MailHandler.get_all_addresses(mail) }
+
+      let(:mail) do
+        mail = get_fixture_mail('raw_emails/1.email')
+        mail.cc = 'bob@example.com'
+        mail['envelope-to'] = 'bob@example.net'
+        mail
+      end
+
+      it 'returns all parsed addresses present in an email' do
+        expected = %w(bob@localhost bob@example.com bob@example.net)
+        expect(subject).to eq(expected)
+      end
     end
 
   end
