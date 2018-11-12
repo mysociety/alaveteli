@@ -156,11 +156,18 @@ describe RawEmail do
       expect(raw_email.mail!).to eq(mock_mail)
     end
 
-    it 'does not cache the Mail object' do
-      initial = raw_email.mail!
+    it 'updates the cache of the Mail object' do
+      # Store a cached Mail
+      initial = raw_email.mail
+
+      # Call mail! again to get a fresh cache
       updated = double('updated')
       allow(MailHandler).to receive(:mail_from_raw_email).and_return(updated)
-      expect(raw_email.mail!).to eq(updated)
+      raw_email.mail!
+
+      # Now when we call the safe mail, we should get the last cached
+      # version, _not_ the initial cache
+      expect(raw_email.mail).to eq(updated)
     end
 
   end
