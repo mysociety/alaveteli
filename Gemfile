@@ -85,7 +85,7 @@ end
 
 gem 'rails', rails5? ? '5.0.7' : '4.2.10'
 
-gem 'pg', '~> 0.20.0'
+gem 'pg', '~> 1.1.3'
 
 # New gem releases aren't being done. master is newer and supports Rails > 3.0
 gem 'acts_as_versioned', :git => 'https://github.com/technoweenie/acts_as_versioned.git', :ref => '63b1fc8529d028'
