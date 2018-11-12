@@ -25,8 +25,8 @@ class RawEmail < ActiveRecord::Base
   delegate :multipart?, to: :mail
   delegate :parts, to: :mail
 
-  def addresses
-    MailHandler.get_all_addresses(mail)
+  def addresses(include_invalid: false)
+    MailHandler.get_all_addresses(mail, include_invalid: include_invalid)
   end
 
   # Return false if for some reason this is a message that we shouldn't let them

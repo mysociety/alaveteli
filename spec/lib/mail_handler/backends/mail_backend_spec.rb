@@ -107,20 +107,73 @@ when it really should be application/pdf.\n
   end
 
   describe '.get_all_addresses' do
+    let(:valid_only) do
+      mail = Mail.new(<<-EOF.strip_heredoc)
+      From: "FOI Person" <foiperson@localhost>
+      To: "Bob Smith" <bob@localhost>
+      Cc: bob@example.com
+      Envelope-To: bob@example.net
+      Date: Tue, 13 Nov 2007 11:39:55 +0000
+      Bcc:
+      Subject: Test
+      Reply-To:
+
+      Test
+      EOF
+    end
+
+    let(:with_invalid) do
+      mail = Mail.new(<<-EOF.strip_heredoc)
+      From: "FOI Person" <foiperson@localhost>
+      To: <Bob Smith <bob@localhost>
+      Cc: bob@example.com>
+      Envelope-To: bob@example.net
+      Date: Tue, 13 Nov 2007 11:39:55 +0000
+      Bcc:
+      Subject: Test
+      Reply-To:
+
+      Test
+      EOF
+    end
 
     context 'include_invalid: false' do
       subject { MailHandler.get_all_addresses(mail) }
 
-      let(:mail) do
-        mail = get_fixture_mail('raw_emails/1.email')
-        mail.cc = 'bob@example.com'
-        mail['envelope-to'] = 'bob@example.net'
-        mail
+      context 'with a mail with only valid addresses' do
+        let(:mail) { valid_only }
+
+        it do
+          is_expected.to eq(%w(bob@localhost bob@example.com bob@example.net))
+        end
       end
 
-      it 'returns all parsed addresses present in an email' do
-        expected = %w(bob@localhost bob@example.com bob@example.net)
-        expect(subject).to eq(expected)
+      context 'with an email with invalid addresses' do
+        let(:mail) { with_invalid }
+        it { is_expected.to eq(%w(bob@example.net)) }
+      end
+    end
+
+    context 'include_invalid: true' do
+      subject { MailHandler.get_all_addresses(mail, include_invalid: true) }
+
+      context 'with a mail with only valid addresses' do
+        let(:mail) { valid_only }
+
+        it do
+          is_expected.to eq(%w(bob@localhost bob@example.com bob@example.net))
+        end
+      end
+
+      context 'with an email with invalid addresses' do
+        let(:mail) { with_invalid }
+
+        it do
+          expected = ['<Bob Smith <bob@localhost>',
+                      'bob@example.com>',
+                      'bob@example.net']
+          is_expected.to eq(expected)
+        end
       end
     end
 
