@@ -3076,7 +3076,7 @@ msgid "The requester has abandoned this request for some reason"
 msgstr "Le demandeur a renoncé à cette demande."
 
 msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and by <strong>{{date}}</strong>"
-msgstr "La réponse à votre demande a été <strong>retardée</strong>. Vous pouvez indiquer que légalement l'autorité publique aurait dû répondre <strong>rapidement</strong> et "
+msgstr "La réponse à votre demande a été <strong>retardée</strong>. Vous pouvez indiquer que légalement l'autorité publique aurait dû répondre <strong>rapidement</strong> et avant <strong>{{date}}</strong>"
 
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr "La réponse à votre demande est <strong>très en retard</strong>. Selon la loi l'autorité publique aurait dû vous transmettre une réponse "

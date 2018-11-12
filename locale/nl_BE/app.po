@@ -701,7 +701,7 @@ msgid "Click on the link below to send a message to {{public_body_name}} telling
 msgstr "Klik op de link hieronder om een boodschap naar {{public_body_name}} te sturen en te vragen om  intern na te gaan en uit te zoeken waarom de reactie op de aanvraag zo lang uitblijft."
 
 msgid "Click on the link below to send a message to {{public_body}} reminding them to reply to your request."
-msgstr "Klik op de link hieronder om een boodschap naar {{public_body_name}} te sturen en hen eraan te herinneren om op uw aanvraag te reageren."
+msgstr "Klik op de link hieronder om een boodschap naar {{public_body}} te sturen en hen eraan te herinneren om op uw aanvraag te reageren."
 
 msgid "Close"
 msgstr "Sluit"
@@ -1180,7 +1180,7 @@ msgid "From"
 msgstr "Van"
 
 msgid "From the request page, try replying to a particular message, rather than sending a general followup. If you need to make a general followup, and know an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
-msgstr "Probeer op de aanvraagpagina te antwoorden op een bepaald bericht in plaats\\n van een algemeen follow-up bericht te versturen. Als u een algemene follow-up wil doen en u kent\\n het juiste e-mailadres, </a>stuur het dan naar ons door</a>."
+msgstr "Probeer op de aanvraagpagina te antwoorden op een bepaald bericht in plaats\\n van een algemeen follow-up bericht te versturen. Als u een algemene follow-up wil doen en u kent\\n het juiste e-mailadres, <a href=\"{{url}}\">stuur het dan naar ons door</a>."
 
 msgid "From time to time requests need to be hidden on {{site_name}}. This can happen for a number of reasons. For example, the request could be about someone’s personal information that shouldn’t be public or the contents could be abusive."
 msgstr "Soms worden aanvragen verborgen op {{site_name}}. Dit gebeurt omwille van verschillende redenen: bv. wanneer de aanvraag over persoonlijke informatie gaat die niet publiek mag  gemaakt worden, of wanneer de inhoud beledigend is,…"
@@ -3062,7 +3062,7 @@ msgid "The requester has abandoned this request for some reason"
 msgstr "De aanvrager heeft omwille van een bepaalde reden afgezien van deze aanvraag."
 
 msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and by <strong>{{date}}</strong>"
-msgstr "Het antwoord op uw vraag is <strong>vertraagd</strong>. Het is zo dat, wettelijk gezien, de overheidsinstelling\\n <strong> snel</strong> had moeten antwoorden en"
+msgstr "Het antwoord op uw vraag is <strong>vertraagd</strong>. Het is zo dat, wettelijk gezien, de overheidsinstelling\\n <strong> snel</strong> had moeten antwoorden en tegen <strong>{{date}}</strong>"
 
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr "Het antwoord op uw vraag is <strong> teveel vertraagd</strong>. Volgens de wet\\n had de overheidsinstelling u een antwoord moeten bezorgen."
@@ -3555,7 +3555,7 @@ msgid "Unfortunately, we do not have a working address for {{public_body_names}}
 msgstr "Jammer genoeg hebben wij geen werkend adres voor {{public_body_names}}."
 
 msgid "Unfortunately, we do not have a working {{info_request_law_used_full}} address for"
-msgstr "Jammergenoeg hebben wij geen werkend adres {{info_request_law_u full}} \\nvoor"
+msgstr "Jammergenoeg hebben wij geen werkend adres {{info_request_law_used_full}} voor"
 
 msgid "Unknown"
 msgstr "Ongekend"
@@ -3925,7 +3925,7 @@ msgid "You are already subscribed to any <a href=\"{{new_requests_url}}\">new re
 msgstr "U bent reeds ingeschreven voor alle <a href=\"{{new_requests_url}}\">nieuwe aanvragen</a>."
 
 msgid "You are already subscribed to any <a href=\"{{successful_requests_url}}\">successful requests</a>."
-msgstr "U bent reeds ingeschreven voor alle <a href=\"{{new_requests_url}}\">succesvol afgehandelde aanvragen</a>."
+msgstr "U bent reeds ingeschreven voor alle <a href=\"{{successful_requests_url}}\">succesvol afgehandelde aanvragen</a>."
 
 msgid "You are currently receiving notification of new activity on your wall by email."
 msgstr "U ontvangt nu per mail de meldingen van nieuwe activiteiten op uw muur."
@@ -4508,7 +4508,7 @@ msgid "unknown reason "
 msgstr "reden onbekend"
 
 msgid "unknown status {{state}}"
-msgstr "status onbekend {{status}}"
+msgstr "status onbekend {{state}}"
 
 msgid "unknown status {{status}}"
 msgstr "status onbekend {{status}}"
@@ -4583,7 +4583,7 @@ msgstr[1] "{{count}} aanvragen kregen geen snel antwoord: "
 msgid "{{count}} request has still not had a response:"
 msgid_plural "{{count}} requests have still not had responses:"
 msgstr[0] "{{count}} aanvraag kreeg nog steeds geen antwoord:"
-msgstr[1] "{{count}}  aanvragen kregen nog steeds geen antwoord:"
+msgstr[1] "{{count}} aanvragen kregen nog steeds geen antwoord:"
 
 msgid "{{count}} request made."
 msgid_plural "{{count}} requests made."
