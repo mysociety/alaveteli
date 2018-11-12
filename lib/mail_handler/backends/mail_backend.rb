@@ -133,15 +133,12 @@ module MailHandler
       end
 
       def get_all_addresses(mail, include_invalid: false)
-        envelope_to =
-          mail['envelope-to'] ? [mail['envelope-to'].value.to_s] : []
-
         addrs = []
-        addrs << mail.to || []
+        addrs << mail.to
         addrs << mail[:to].try(:value) if mail.to.nil? && include_invalid
-        addrs << mail.cc || []
+        addrs << mail.cc
         addrs << mail[:cc].try(:value) if mail.cc.nil? && include_invalid
-        addrs << envelope_to || []
+        addrs << (mail['envelope-to'] ? mail['envelope-to'].value.to_s : nil)
         addrs.flatten.compact.uniq
       end
 
