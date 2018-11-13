@@ -2,6 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/mysociety/alaveteli.png)](http://travis-ci.org/mysociety/alaveteli) [![Coverage Status](https://coveralls.io/repos/mysociety/alaveteli/badge.png?branch=develop)](https://coveralls.io/r/mysociety/alaveteli) [![Code Climate](https://codeclimate.com/github/mysociety/alaveteli.png)](https://codeclimate.com/github/mysociety/alaveteli)
 [![Installability: Gold](http://img.shields.io/badge/installability-gold-ffd700.svg "Installability: Gold")](http://mysociety.github.io/installation-standards.html)
+[![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 
 This is an open source project to create a standard, internationalised
 platform for making Freedom of Information (FOI) requests in different
