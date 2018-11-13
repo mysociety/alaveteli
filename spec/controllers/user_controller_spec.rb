@@ -996,6 +996,30 @@ describe UserController, "when sending another user a message" do
     expect(response).to render_template('contact')
   end
 
+  context 'the site is configured to require a captcha' do
+    before do
+      allow(AlaveteliConfiguration).
+        to receive(:user_contact_form_recaptcha).and_return(true)
+      allow(controller).to receive(:verify_recaptcha).and_return(false)
+    end
+
+    it 'does not send the message without the recaptcha being completed' do
+       session[:user_id] = users(:bob_smith_user).id
+       post :contact, params: {
+                          id: users(:silly_name_user).id,
+                          contact: {
+                            subject: 'Have some spam',
+                            :message => 'Spam, spam, spam'
+                          },
+                          submitted_contact_form: 1 }
+
+       deliveries = ActionMailer::Base.deliveries
+       expect(deliveries.size).to eq(0)
+       deliveries.clear
+     end
+
+  end
+
   it "should send the message" do
     session[:user_id] = users(:bob_smith_user).id
     post :contact, params: {
