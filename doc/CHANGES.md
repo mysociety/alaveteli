@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Add a note to the top of the request page when a request thread is closed to
+  further correspondence (Liz Conlan)
 * Add an option to hide a request containing personal information (Gareth Rees)
 * Prevent censor rules from being unintentionally made permanent when admins
   edit outgoing messages. Allow admins to see the unredacted outgoing message

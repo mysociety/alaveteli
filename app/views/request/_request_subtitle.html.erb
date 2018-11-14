@@ -28,3 +28,13 @@
                  help_requesting_path(anchor: 'authorities') %>).
     </span>
 <% end %>
+
+<% if @info_request.allow_new_responses_from == 'nobody' %>
+  <span class="request-header__closed_to_correspondence">
+    <br><br>
+    <%= _('This request has been <strong>closed to new correspondence ' \
+          'from the public body</strong>. <a href="{{url}}"">Contact us</a> ' \
+          'if you think it ought be re-opened.',
+          url: help_contact_path) %>
+  </span>
+<% end %>

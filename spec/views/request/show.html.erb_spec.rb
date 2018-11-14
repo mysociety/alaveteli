@@ -228,6 +228,19 @@ describe "request/show" do
 
   end
 
+  describe 'when the request is closed to new authority responses' do
+
+    it 'displays to say that the request is closed to further correspondence' do
+      mock_request.update_attribute(:allow_new_responses_from, 'nobody')
+      request_page
+      expect(rendered).
+        to have_content('This request has been closed to new correspondence ' \
+                        'from the public body. Contact us if you think it ' \
+                        'ought be re-opened.')
+    end
+
+  end
+
   describe "censoring attachment names" do
     let(:request_with_attachment) do
       FactoryBot.create(:info_request_with_html_attachment)
