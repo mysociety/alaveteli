@@ -793,45 +793,38 @@ class PublicBody < ActiveRecord::Base
     return bodies
   end
 
+  def self.tag_search_sql(name, value = nil)
+    scope = HasTagString::HasTagStringTag.
+      select(1).
+      where("has_tag_string_tags.model_id = public_bodies.id").
+      where("has_tag_string_tags.model = 'PublicBody'").
+      where(name: name)
+    scope = scope.where(value: value) if value
+    scope.to_sql
+  end
+  private_class_method :tag_search_sql
+
   def self.with_tag(tag)
     return all if tag.size == 1 || tag.nil? || tag == 'all'
 
-    base_scope = HasTagString::HasTagStringTag.select('COUNT(*)').
-      where("has_tag_string_tags.model_id = #{table_name}.id").
-      where("has_tag_string_tags.model = '#{to_s}'")
-
-    # Restrict the public bodies shown according to the tag
-    # parameter supplied in the URL:
     if tag == 'other'
       tags = PublicBodyCategory.get.tags - ['other']
-      where('(' + base_scope.where(name: tags).to_sql + ') = 0')
+      where.not("EXISTS(#{tag_search_sql(tags)})")
     elsif tag.include?(':')
       tag, value = HasTagString::HasTagStringTag.split_tag_into_name_value(tag)
-      where('(' + base_scope.where(name: tag, value: value).to_sql + ') > 0')
+      where("EXISTS(#{tag_search_sql(tag, value)})")
     else
-      where('(' + base_scope.where(name: tag).to_sql + ') > 0')
+      where("EXISTS(#{tag_search_sql(tag)})")
     end
   end
 
   def self.without_tag(tag)
-    # Generate a unique table alias for the has_tag_string_tags join so this
-    # scope can be chained to be used more than once
-    join_alias = aliased_table_for('tags')
-
     if tag.include?(':')
       tag, value = HasTagString::HasTagStringTag.split_tag_into_name_value(tag)
-      condition = "#{join_alias}.name = #{sanitize(tag)} AND " \
-        "#{join_alias}.value = #{sanitize(value)}"
+      where.not("EXISTS(#{tag_search_sql(tag, value)})")
     else
-      condition = "#{join_alias}.name = #{sanitize(tag)}"
+      where.not("EXISTS(#{tag_search_sql(tag)})")
     end
-
-    joins(
-      "LEFT JOIN has_tag_string_tags AS #{join_alias} ON " \
-      "#{join_alias}.model = '#{to_s}' AND " \
-      "#{join_alias}.model_id = #{table_name}.id AND " +
-      condition
-    ).where(join_alias => { id: nil })
   end
 
   def self.with_query(query, tag)
@@ -957,12 +950,5 @@ class PublicBody < ActiveRecord::Base
           result += " AND #{table}.locale = :locale"
         end
         result
-  end
-
-  def self.aliased_table_for(table)
-    # AliasTracker tracks SQL join table aliases so multiple joins can happen
-    # against the same table, see: https://github.com/rails/rails/blob/4-2-stable/activerecord/lib/active_record/associations/alias_tracker.rb
-    @alias_tracker ||= AliasTracker.empty connection
-    @alias_tracker.aliased_table_for(table, table).name
   end
 end
