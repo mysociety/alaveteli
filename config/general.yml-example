@@ -1042,6 +1042,13 @@ NEW_REQUEST_RECAPTCHA: false
 # ---
 CONTACT_FORM_RECAPTCHA: false
 
+# Show a reCAPTCHA on the user to user contact form to discourage spammers
+#
+# USER_CONTACT_FORM_RECAPTCHA – Boolean (default: false)
+#
+# ---
+USER_CONTACT_FORM_RECAPTCHA: false
+
 # Enable AlaveteliProfessional
 # If ENABLE_ALAVETELI_PRO is set to true, Alaveteli will include extra
 # functionality and account levels for professional FOI users, e.g.

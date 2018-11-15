@@ -2,6 +2,10 @@
 
 ## Highlighted Features
 
+
+* Add a `USER_CONTACT_FORM_RECAPTCHA` config setting to show a reCAPTCHA
+  on the user-to-user contact form if set to true (defaults to false)
+  (Liz Conlan)
 * Add an option to hide a request containing personal information (Gareth Rees)
 * Prevent censor rules from being unintentionally made permanent when admins
   edit outgoing messages. Allow admins to see the unredacted outgoing message
