@@ -36,6 +36,10 @@
     <% end %>
   </p>
 
+  <% if @recaptcha_required %>
+    <%= recaptcha_tags %><br />
+  <% end %>
+
   <div class="form_button">
     <%= hidden_field_tag(:submitted_contact_form, { :value => 1 } ) %>
     <%= submit_tag _("Send message") %>
