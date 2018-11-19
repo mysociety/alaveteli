@@ -205,13 +205,16 @@ describe HelpController do
       end
 
       it 'does not send the message without the recaptcha being completed' do
-        post :contact, { contact: {
+        post :contact, params: {
+                         contact: {
                            name: 'Possible Spammmer',
                            email: 'spammer@localhost',
                            subject: 'Can I sell you my book?',
                            comment: '',
-                           message: "It's great, you should buy 1!!" },
-                         submitted_contact_form: 1 }
+                           message: "It's great, you should buy 1!!"
+                         },
+                         submitted_contact_form: 1
+                       }
         expect(response).not_to redirect_to(frontpage_path)
 
         deliveries = ActionMailer::Base.deliveries

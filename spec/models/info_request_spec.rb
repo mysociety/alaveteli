@@ -3752,9 +3752,9 @@ describe InfoRequest do
       it 'returns the most recent "resent" event' do
         outgoing_message = info_request.outgoing_messages.first
         outgoing_message.record_email_delivery('', '', 'resent')
-        resending_event = info_request
-                            .info_request_events(true)
-                              .detect{ |e| e.event_type == 'resent'}
+        resending_event = info_request.
+                            info_request_events.reload.
+                              detect{ |e| e.event_type == 'resent'}
         expect(info_request.last_event_forming_initial_request)
           .to eq resending_event
       end
@@ -3771,9 +3771,9 @@ describe InfoRequest do
                                              :body => 'Some text',
                                              :what_doing => 'normal_sort')
       outgoing_message.record_email_delivery('', '')
-      followup_event = info_request
-                            .info_request_events(true)
-                              .detect{ |e| e.event_type == 'followup_sent'}
+      followup_event = info_request.
+                         info_request_events.reload.
+                           detect{ |e| e.event_type == 'followup_sent'}
         expect(info_request.last_event_forming_initial_request)
           .to eq followup_event
       end
@@ -3879,7 +3879,7 @@ describe InfoRequest do
 
     it 'creates an event with the type and params passed' do
       info_request.log_event("resent", :param => 'value')
-      event = info_request.info_request_events(true).last
+      event = info_request.info_request_events.reload.last
       expect(event.event_type).to eq 'resent'
       expect(event.params).to eq :param => 'value'
     end
@@ -3996,7 +3996,7 @@ describe InfoRequest do
         time_travel_to(Time.zone.parse('2015-01-15')) do
           InfoRequest.log_overdue_events
           overdue_events = info_request.
-                             info_request_events(true).
+                             info_request_events.reload.
                                where(:event_type => 'overdue')
           expect(overdue_events.size).to eq 0
         end
@@ -4013,7 +4013,7 @@ describe InfoRequest do
         time_travel_to(Time.zone.parse('2015-01-30')) do
           InfoRequest.log_overdue_events
           overdue_events = info_request.
-                             info_request_events(true).
+                             info_request_events.reload.
                                where(:event_type => 'overdue')
           expect(overdue_events.size).to eq 1
           overdue_event = overdue_events.first
@@ -4064,7 +4064,7 @@ describe InfoRequest do
         time_travel_to(Time.zone.parse('2015-03-01')) do
           InfoRequest.log_overdue_events
           overdue_events = info_request.
-                             info_request_events(true).
+                             info_request_events.reload.
                                where(:event_type => 'overdue')
           expect(overdue_events.size).to eq 2
           overdue_event = overdue_events.first
@@ -4097,7 +4097,7 @@ describe InfoRequest do
         time_travel_to(Time.zone.parse('2015-01-30')) do
           InfoRequest.log_very_overdue_events
           very_overdue_events = info_request.
-                                  info_request_events(true).
+                                  info_request_events.reload.
                                     where(:event_type => 'very_overdue')
           expect(very_overdue_events.size).to eq 0
         end
@@ -4113,7 +4113,7 @@ describe InfoRequest do
         time_travel_to(Time.zone.parse('2015-02-28')) do
           InfoRequest.log_very_overdue_events
           very_overdue_events = info_request.
-                                  info_request_events(true).
+                                  info_request_events.reload.
                                     where(:event_type => 'very_overdue')
           expect(very_overdue_events.size).to eq 1
           very_overdue_event = very_overdue_events.first
@@ -4165,7 +4165,7 @@ describe InfoRequest do
         time_travel_to(Time.zone.parse('2015-04-30')) do
           InfoRequest.log_very_overdue_events
           very_overdue_events = info_request.
-                                  info_request_events(true).
+                                  info_request_events.reload.
                                     where(:event_type => 'very_overdue')
           expect(very_overdue_events.size).to eq 2
           very_overdue_event = very_overdue_events.first

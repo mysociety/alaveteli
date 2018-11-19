@@ -30,7 +30,8 @@ class TrackThingsSentEmail < ActiveRecord::Base
 
   # Called from cron job delete-old-things
   def self.delete_old_track_things_sent_email
-    TrackThingsSentEmail.delete_all "updated_at < (now() - interval '1 month')"
+    TrackThingsSentEmail.
+      where("updated_at < (now() - interval '1 month')").delete_all
   end
 
 end

@@ -161,7 +161,7 @@ class IncomingMessage < ActiveRecord::Base
         end
         write_attribute(:valid_to_reply_to, self._calculate_valid_to_reply_to)
         self.last_parsed = Time.zone.now
-        self.foi_attachments reload=true
+        self.foi_attachments.reload
         self.save!
       end
     end
@@ -620,8 +620,12 @@ class IncomingMessage < ActiveRecord::Base
 
     attachment_ids = attachments.map{ |attachment| attachment.id }
     # now get rid of any attachments we no longer have
-    FoiAttachment.destroy_all(["id NOT IN (?) AND incoming_message_id = ?",
-                               attachment_ids, self.id])
+    FoiAttachment.
+      where(
+        ["id NOT IN (?) AND incoming_message_id = ?",
+         attachment_ids,
+         self.id]
+      ).destroy_all
   end
 
   # Returns body text as HTML with quotes flattened, and emails removed.

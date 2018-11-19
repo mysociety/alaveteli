@@ -27,7 +27,7 @@ class Holiday < ActiveRecord::Base
   validates_presence_of :day
 
   def self.holidays
-    @@holidays ||= uniq.pluck(:day)
+    @@holidays ||= distinct.pluck(:day)
   end
 
   def self.weekend_or_holiday?(date)

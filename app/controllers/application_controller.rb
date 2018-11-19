@@ -190,7 +190,7 @@ class ApplicationController < ActionController::Base
     end
     respond_to do |format|
       format.html{ render :template => "general/exception_caught", :status => @status }
-      format.any{ render :nothing => true, :status => @status }
+      format.any{ head @status }
     end
   end
 
@@ -200,7 +200,7 @@ class ApplicationController < ActionController::Base
 
     respond_to do |format|
       format.html { render(options) }
-      format.any { render :nothing => true, :status => response_code }
+      format.any { head response_code }
     end
     false
   end

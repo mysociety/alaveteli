@@ -1073,7 +1073,9 @@ module ActsAsXapian
     def xapian_create_job(action, model, model_id)
       begin
         ActiveRecord::Base.transaction(:requires_new => true) do
-          ActsAsXapianJob.delete_all([ "model = ? and model_id = ?", model, model_id])
+          ActsAsXapianJob.
+            where([ "model = ? and model_id = ?", model, model_id]).
+              delete_all
           xapian_before_create_job_hook(action, model, model_id)
           ActsAsXapianJob.create!(:model => model,
                                   :model_id => model_id,

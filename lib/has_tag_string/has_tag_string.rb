@@ -164,7 +164,7 @@ module HasTagString
           search.order("#{ table_name }.name ASC")
         end
 
-      ordered.uniq
+      ordered.distinct
     end
   end
 

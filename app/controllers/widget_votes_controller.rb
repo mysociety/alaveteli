@@ -44,7 +44,7 @@ class WidgetVotesController < ApplicationController
 
   def check_prominence
     unless @info_request.prominence(:decorate => true).is_searchable?
-      render :nothing => true, :status => :forbidden
+      head :forbidden
     end
   end
 

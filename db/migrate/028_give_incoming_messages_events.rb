@@ -19,6 +19,6 @@ class GiveIncomingMessagesEvents < ActiveRecord::Migration
   end
 
   def self.down
-    InfoRequestEvent.delete_all "event_type = 'response'"
+    InfoRequestEvent.where("event_type = 'response'").delete_all
   end
 end
