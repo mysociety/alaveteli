@@ -77,11 +77,7 @@ class PublicBodyChangeRequest < ActiveRecord::Base
   end
 
   def send_message
-    if public_body
-      ContactMailer.update_public_body_email(self).deliver_now
-    else
-      ContactMailer.add_public_body(self).deliver_now
-    end
+    ContactMailer.change_request_message(self).deliver_now
   end
 
   def thanks_notice
