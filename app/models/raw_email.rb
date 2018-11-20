@@ -20,6 +20,51 @@ class RawEmail < ActiveRecord::Base
   has_one :incoming_message,
           :inverse_of => :raw_email
 
+  delegate :date, to: :mail
+  delegate :message_id, to: :mail
+  delegate :multipart?, to: :mail
+  delegate :parts, to: :mail
+
+  def addresses(include_invalid: false)
+    MailHandler.get_all_addresses(mail, include_invalid: include_invalid)
+  end
+
+  # Return false if for some reason this is a message that we shouldn't let them
+  # reply to
+  #
+  # TODO: Extract this validation out in to ReplyToAddressValidator#valid?
+  def valid_to_reply_to?
+    email = from_email.try(:downcase)
+
+    # check validity of email
+    return false if email.nil? || !MySociety::Validate.is_valid_email(email)
+
+    # Check whether the email is a known invalid reply address
+    if ReplyToAddressValidator.invalid_reply_addresses.include?(email)
+      return false
+    end
+
+    prefix = email
+    prefix =~ /^(.*)@/
+    prefix = $1
+
+    return false unless prefix
+
+    no_reply_regexp = ReplyToAddressValidator.no_reply_regexp
+
+    # reject postmaster - authorities seem to nearly always not respond to
+    # email to postmaster, and it tends to only happen after delivery failure.
+    # likewise Mailer-Daemon, Auto_Reply...
+    return false if prefix.match(no_reply_regexp)
+    return false if empty_return_path?
+    return false if auto_submitted?
+    true
+  end
+
+  def empty_from_field?
+    mail.from_addrs.nil? || mail.from_addrs.size == 0
+  end
+
   def directory
     if request_id.empty?
       raise "Failed to find the id number of the associated request: has it been saved?"
@@ -46,7 +91,7 @@ class RawEmail < ActiveRecord::Base
   end
 
   def mail!
-    MailHandler.mail_from_raw_email(data)
+    @mail = MailHandler.mail_from_raw_email(data)
   end
 
   def data=(d)
@@ -77,7 +122,27 @@ class RawEmail < ActiveRecord::Base
     File.delete(filepath) if File.exists?(filepath)
   end
 
+  def from_name
+    MailHandler.get_from_name(mail)
+  end
+
+  def from_email
+    MailHandler.get_from_address(mail)
+  end
+
+  def subject
+    MailHandler.get_subject(mail)
+  end
+
   private
+
+  def empty_return_path?
+    MailHandler.empty_return_path?(mail)
+  end
+
+  def auto_submitted?
+    MailHandler.get_auto_submitted(mail)
+  end
 
   def request_id
     incoming_message.info_request.id.to_s

@@ -10,13 +10,12 @@ end
 def receive_incoming_mail(email_name_or_string, email_to, email_from = 'geraldinequango@localhost')
   content = load_file_fixture(email_name_or_string)
   content ||= email_name_or_string
-  content.gsub!('EMAIL_TO', email_to)
-  content.gsub!('EMAIL_FROM', email_from)
-  RequestMailer.receive(content)
+  RequestMailer.receive(gsub_addresses(content, email_to, email_from))
 end
 
-def get_fixture_mail(filename)
-  MailHandler.mail_from_raw_email(load_file_fixture(filename))
+def get_fixture_mail(filename, email_to = nil, email_from = nil)
+  content = load_file_fixture(filename)
+  MailHandler.mail_from_raw_email(gsub_addresses(content, email_to, email_from))
 end
 
 def parse_all_incoming_messages
@@ -36,4 +35,10 @@ def load_mail_server_logs(log)
     raise "Unexpected MTA type: #{ mta_log_type }"
   end
 
+end
+
+def gsub_addresses(content, email_to, email_from)
+  content.gsub!('EMAIL_TO', email_to) if email_to
+  content.gsub!('EMAIL_FROM', email_from) if email_from
+  content
 end

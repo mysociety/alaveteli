@@ -2,7 +2,8 @@
 
 ## Highlighted Features
 
-
+* Improve guessing from malformed addresses for incoming email in the holding
+  pen (Gareth Rees)
 * Add a `USER_CONTACT_FORM_RECAPTCHA` config setting to show a reCAPTCHA
   on the user-to-user contact form if set to true (defaults to false)
   (Liz Conlan)
