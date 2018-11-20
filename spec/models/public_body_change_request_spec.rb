@@ -171,6 +171,12 @@ describe PublicBodyChangeRequest, '#request_subject' do
         to eq('Add authority - Test\'s')
     end
 
+    it 'does not mark subject line with unescaped text as html_safe' do
+      change_request =
+        PublicBodyChangeRequest.new(:public_body_name => "Test's")
+      expect(change_request.request_subject.html_safe?).to eq(false)
+    end
+
   end
 
   context 'updating an existing authority' do

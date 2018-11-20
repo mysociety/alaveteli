@@ -117,10 +117,10 @@ class PublicBodyChangeRequest < ActiveRecord::Base
   def request_subject
     if add_body_request?
       _("Add authority - {{public_body_name}}",
-        :public_body_name => public_body_name.html_safe)
+        :public_body_name => public_body_name.html_safe).to_str
     else
       _("Update email address - {{public_body_name}}",
-        :public_body_name => public_body.name.html_safe)
+        :public_body_name => public_body.name.html_safe).to_str
     end
   end
 
