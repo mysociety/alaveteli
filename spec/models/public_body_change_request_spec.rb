@@ -154,6 +154,45 @@ describe PublicBodyChangeRequest, 'when creating a comment for the associated pu
 
 end
 
+describe PublicBodyChangeRequest, '#request_subject' do
+
+  context 'requesting a new authority' do
+
+    it 'returns an appropriate subject line' do
+      change_request = PublicBodyChangeRequest.new(:public_body_name => 'Test')
+      expect(change_request.request_subject).
+        to eq('Add authority - Test')
+    end
+
+    it 'does not HTML escape the authority name' do
+      change_request =
+        PublicBodyChangeRequest.new(:public_body_name => "Test's")
+      expect(change_request.request_subject).
+        to eq('Add authority - Test\'s')
+    end
+
+  end
+
+  context 'updating an existing authority' do
+
+    it 'returns an appropriate subject line' do
+      public_body = FactoryBot.build(:public_body)
+      change_request = PublicBodyChangeRequest.new(:public_body => public_body)
+      expect(change_request.request_subject).
+        to eq("Update email address - #{public_body.name}")
+    end
+
+    it 'does not HTML escape the authority name' do
+      public_body = FactoryBot.build(:public_body, name: "Test's")
+      change_request = PublicBodyChangeRequest.new(:public_body => public_body)
+      expect(change_request.request_subject).
+        to eq('Update email address - Test\'s')
+    end
+
+  end
+
+end
+
 describe PublicBodyChangeRequest, 'when creating a default subject for a response email' do
 
   it 'should create an appropriate subject for a request to add a body' do

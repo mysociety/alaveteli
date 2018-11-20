@@ -111,6 +111,16 @@ class PublicBodyChangeRequest < ActiveRecord::Base
     comments.join("\n")
   end
 
+  def request_subject
+    if public_body
+      _("Update email address - {{public_body_name}}",
+        :public_body_name => public_body.name.html_safe)
+    else
+      _("Add authority - {{public_body_name}}",
+        :public_body_name => public_body_name.html_safe)
+    end
+  end
+
   def default_response_subject
     if self.public_body
       _("Your request to update {{public_body_name}} on {{site_name}}", :site_name => AlaveteliConfiguration::site_name,
