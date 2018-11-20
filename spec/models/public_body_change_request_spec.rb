@@ -193,6 +193,21 @@ describe PublicBodyChangeRequest, '#request_subject' do
 
 end
 
+describe PublicBodyChangeRequest, '#add_body_request?' do
+
+  it 'returns false if there is an associated public_body' do
+    public_body = FactoryBot.build(:public_body)
+    change_request = PublicBodyChangeRequest.new(:public_body => public_body)
+    expect(change_request.add_body_request?).to eq(false)
+  end
+
+  it 'returns true if there is no associated public_body' do
+    change_request = PublicBodyChangeRequest.new(:public_body_name => 'Test')
+    expect(change_request.add_body_request?).to eq(true)
+  end
+
+end
+
 describe PublicBodyChangeRequest, 'when creating a default subject for a response email' do
 
   it 'should create an appropriate subject for a request to add a body' do

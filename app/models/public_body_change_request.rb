@@ -64,6 +64,10 @@ class PublicBodyChangeRequest < ActiveRecord::Base
     self
   end
 
+  def add_body_request?
+    public_body ? false : true
+  end
+
   def get_user_name
     user ? user.name : user_name
   end
@@ -81,11 +85,14 @@ class PublicBodyChangeRequest < ActiveRecord::Base
   end
 
   def thanks_notice
-    if self.public_body
-      _("Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon.",
-        :public_body_name => get_public_body_name)
+    if add_body_request?
+      _("Your request to add an authority has been sent. Thank you for " \
+        "getting in touch! We'll get back to you soon.")
     else
-      _("Your request to add an authority has been sent. Thank you for getting in touch! We'll get back to you soon.")
+      _("Your request to update the address for {{public_body_name}} has " \
+        "been sent. Thank you for getting in touch! We'll get back to you " \
+        "soon.",
+        :public_body_name => get_public_body_name)
     end
   end
 
@@ -108,12 +115,12 @@ class PublicBodyChangeRequest < ActiveRecord::Base
   end
 
   def request_subject
-    if public_body
-      _("Update email address - {{public_body_name}}",
-        :public_body_name => public_body.name.html_safe)
-    else
+    if add_body_request?
       _("Add authority - {{public_body_name}}",
         :public_body_name => public_body_name.html_safe)
+    else
+      _("Update email address - {{public_body_name}}",
+        :public_body_name => public_body.name.html_safe)
     end
   end
 
