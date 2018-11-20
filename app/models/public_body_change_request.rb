@@ -122,13 +122,7 @@ class PublicBodyChangeRequest < ActiveRecord::Base
   end
 
   def default_response_subject
-    if self.public_body
-      _("Your request to update {{public_body_name}} on {{site_name}}", :site_name => AlaveteliConfiguration::site_name,
-        :public_body_name => public_body.name)
-    else
-      _("Your request to add {{public_body_name}} to {{site_name}}", :site_name => AlaveteliConfiguration::site_name,
-        :public_body_name => public_body_name)
-    end
+    "Re: #{request_subject}"
   end
 
   def close!

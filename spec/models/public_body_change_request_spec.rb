@@ -197,14 +197,15 @@ describe PublicBodyChangeRequest, 'when creating a default subject for a respons
 
   it 'should create an appropriate subject for a request to add a body' do
     change_request = PublicBodyChangeRequest.new(:public_body_name => 'Test Body')
-    expect(change_request.default_response_subject).to eq('Your request to add Test Body to Alaveteli')
+    expect(change_request.default_response_subject).
+      to eq('Re: Add authority - Test Body')
   end
 
   it 'should create an appropriate subject for a request to update an email address' do
     public_body = FactoryBot.build(:public_body)
     change_request = PublicBodyChangeRequest.new(:public_body => public_body)
-    expect(change_request.default_response_subject).to eq("Your request to update #{public_body.name} on Alaveteli")
-
+    expect(change_request.default_response_subject).
+      to eq("Re: Update email address - #{public_body.name}")
   end
 
 end
