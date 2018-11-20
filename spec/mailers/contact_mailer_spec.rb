@@ -98,15 +98,17 @@ describe ContactMailer do
       public_body = FactoryBot.create(:public_body, :name => "Apostrophe's")
       change_request = FactoryBot.create(:update_body_request,
                                          :public_body => public_body)
-      expect(ContactMailer.change_request_message(change_request).subject).
-        to eq("Update email address - Apostrophe's")
+      expect(
+        ContactMailer.change_request_message(change_request, false).subject
+      ).to eq("Update email address - Apostrophe's")
     end
 
     it 'does not add HTMLEntities to an add public body email subject' do
       change_request = FactoryBot.create(:add_body_request,
                                          :public_body_name => "Apostrophe's")
-      expect(ContactMailer.change_request_message(change_request).subject).
-        to eq("Add authority - Apostrophe's")
+      expect(
+        ContactMailer.change_request_message(change_request, true).subject
+      ).to eq("Add authority - Apostrophe's")
     end
 
   end

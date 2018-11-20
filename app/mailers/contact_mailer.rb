@@ -47,13 +47,13 @@ class ContactMailer < ApplicationMailer
   end
 
   # Send a request to the administrator to add an authority
-  def change_request_message(change_request)
+  def change_request_message(change_request, use_new_body_template)
     @change_request = change_request
     template =
-      if @change_request.public_body
-        'update_public_body_email'
-      else
+      if use_new_body_template
         'add_public_body'
+      else
+        'update_public_body_email'
       end
 
     reply_to_address = MailHandler.address_from_name_and_email(
