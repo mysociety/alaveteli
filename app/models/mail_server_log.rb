@@ -50,7 +50,7 @@ class MailServerLog < ActiveRecord::Base
           # already have that, nothing to do
           return
         else
-          MailServerLog.delete_all "mail_server_log_done_id = " + done.id.to_s
+          MailServerLog.where("mail_server_log_done_id = ?", done.id).delete_all
         end
       else
         done = MailServerLogDone.new(:filename => file_name_db)

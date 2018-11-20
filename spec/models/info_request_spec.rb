@@ -1666,37 +1666,80 @@ describe InfoRequest do
 
   end
 
-  describe "guessing a request from an email" do
+  describe '.guess_by_incoming_email' do
+    subject { described_class.guess_by_incoming_email(email) }
+    let(:info_request) { FactoryBot.create(:info_request) }
 
-    before(:each) do
-      @im = incoming_messages(:useless_incoming_message)
-      load_raw_emails_data
+    context 'email with an intact id and broken idhash' do
+      let(:email) { "request-#{ info_request.id }-asdfg@example.com" }
+      let(:guess) { described_class::Guess.new(info_request, email, :id) }
+      it { is_expected.to include(guess) }
     end
 
-    it 'computes a hash' do
-      @info_request = InfoRequest.new(:title => "Testing",
-                                      :public_body => public_bodies(:geraldine_public_body),
-                                      :user_id => 1)
-      @info_request.save!
-      expect(@info_request.idhash).not_to eq(nil)
+    context 'email with a broken id and an intact idhash' do
+      let(:email) { "request-123ab-#{ info_request.idhash }@example.com" }
+      let(:guess) { described_class::Guess.new(info_request, email, :idhash) }
+      it { is_expected.to include(guess) }
     end
 
-    it 'finds a request based on an email with an intact id and a broken hash' do
-      ir = info_requests(:fancy_dog_request)
-      id = ir.id
-      @im.mail.to = "request-#{id}-asdfg@example.com"
-      guessed = InfoRequest.guess_by_incoming_email(@im)
-      expect(guessed[0].idhash).to eq(ir.idhash)
+    context 'email matching no requests' do
+      let(:email) do
+        invalid_id = described_class.maximum(:id) + 10
+        invalid_idhash = 'x'
+        "request-#{ invalid_id }-#{ invalid_idhash }@example.com"
+      end
+
+      it { is_expected.to be_empty }
     end
 
-    it 'finds a request based on an email with a broken id and an intact hash' do
-      ir = info_requests(:fancy_dog_request)
-      idhash = ir.idhash
-      @im.mail.to = "request-123ab-#{idhash}@example.com"
-      guessed = InfoRequest.guess_by_incoming_email(@im)
-      expect(guessed[0].id).to eq(ir.id)
+    context 'email that possibly matches multiple requests' do
+      let(:info_request_1) { FactoryBot.create(:info_request) }
+      let(:info_request_2) { FactoryBot.create(:info_request) }
+
+      let(:email) do
+        "request-#{ info_request_1.id }-#{ info_request_2.idhash }@example.com"
+      end
+
+      let(:guess_1) { described_class::Guess.new(info_request_1, email, :id) }
+
+      let(:guess_2) do
+        described_class::Guess.new(info_request_2, email, :idhash)
+      end
+
+      it { is_expected.to match_array([guess_1, guess_2]) }
     end
 
+    context 'when passed multiple emails matching a single request' do
+      let(:email_1) { "request-123ab-#{ info_request.idhash }@example.com" }
+      let(:email_2) { "request-#{ info_request.id }-asdfg@example.com" }
+      let(:email) { [email_1, email_2] }
+      let(:guess) { described_class::Guess.new(info_request, email_1, :idhash) }
+
+      it { is_expected.to match_array([guess]) }
+    end
+
+    context 'when passed multiple emails matching multiple requests' do
+      let(:info_request_1) { FactoryBot.create(:info_request) }
+      let(:info_request_2) { FactoryBot.create(:info_request) }
+
+      let(:email_1) do
+        "request-#{ info_request_1.id }-#{ info_request_2.idhash }@example.com"
+      end
+
+      let(:email_2) do
+        "request-#{ info_request_2.id }-#{ info_request_1.idhash }@example.com"
+      end
+
+      let(:email) { [email_1, email_2] }
+
+      let(:guess_1) { described_class::Guess.new(info_request_1, email_1, :id) }
+
+      let(:guess_2) do
+        described_class::Guess.new(info_request_2, email_1, :idhash)
+      end
+
+      it { is_expected.to match_array([guess_1, guess_2]) }
+    end
   end
 
   describe "making up the URL title" do
@@ -2958,6 +3001,10 @@ describe InfoRequest do
   describe '#save' do
     let(:info_request) { FactoryBot.build(:info_request) }
 
+    it 'computes a hash' do
+      expect { info_request.save! }.to change { info_request.idhash }.from(nil)
+    end
+
     it 'calls update_counter_cache' do
       expect(info_request).to receive(:update_counter_cache)
       info_request.save!
@@ -3752,9 +3799,9 @@ describe InfoRequest do
       it 'returns the most recent "resent" event' do
         outgoing_message = info_request.outgoing_messages.first
         outgoing_message.record_email_delivery('', '', 'resent')
-        resending_event = info_request
-                            .info_request_events(true)
-                              .detect{ |e| e.event_type == 'resent'}
+        resending_event = info_request.
+                            info_request_events.reload.
+                              detect{ |e| e.event_type == 'resent'}
         expect(info_request.last_event_forming_initial_request)
           .to eq resending_event
       end
@@ -3771,9 +3818,9 @@ describe InfoRequest do
                                              :body => 'Some text',
                                              :what_doing => 'normal_sort')
       outgoing_message.record_email_delivery('', '')
-      followup_event = info_request
-                            .info_request_events(true)
-                              .detect{ |e| e.event_type == 'followup_sent'}
+      followup_event = info_request.
+                         info_request_events.reload.
+                           detect{ |e| e.event_type == 'followup_sent'}
         expect(info_request.last_event_forming_initial_request)
           .to eq followup_event
       end
@@ -3879,7 +3926,7 @@ describe InfoRequest do
 
     it 'creates an event with the type and params passed' do
       info_request.log_event("resent", :param => 'value')
-      event = info_request.info_request_events(true).last
+      event = info_request.info_request_events.reload.last
       expect(event.event_type).to eq 'resent'
       expect(event.params).to eq :param => 'value'
     end
@@ -3996,7 +4043,7 @@ describe InfoRequest do
         time_travel_to(Time.zone.parse('2015-01-15')) do
           InfoRequest.log_overdue_events
           overdue_events = info_request.
-                             info_request_events(true).
+                             info_request_events.reload.
                                where(:event_type => 'overdue')
           expect(overdue_events.size).to eq 0
         end
@@ -4013,7 +4060,7 @@ describe InfoRequest do
         time_travel_to(Time.zone.parse('2015-01-30')) do
           InfoRequest.log_overdue_events
           overdue_events = info_request.
-                             info_request_events(true).
+                             info_request_events.reload.
                                where(:event_type => 'overdue')
           expect(overdue_events.size).to eq 1
           overdue_event = overdue_events.first
@@ -4064,7 +4111,7 @@ describe InfoRequest do
         time_travel_to(Time.zone.parse('2015-03-01')) do
           InfoRequest.log_overdue_events
           overdue_events = info_request.
-                             info_request_events(true).
+                             info_request_events.reload.
                                where(:event_type => 'overdue')
           expect(overdue_events.size).to eq 2
           overdue_event = overdue_events.first
@@ -4097,7 +4144,7 @@ describe InfoRequest do
         time_travel_to(Time.zone.parse('2015-01-30')) do
           InfoRequest.log_very_overdue_events
           very_overdue_events = info_request.
-                                  info_request_events(true).
+                                  info_request_events.reload.
                                     where(:event_type => 'very_overdue')
           expect(very_overdue_events.size).to eq 0
         end
@@ -4113,7 +4160,7 @@ describe InfoRequest do
         time_travel_to(Time.zone.parse('2015-02-28')) do
           InfoRequest.log_very_overdue_events
           very_overdue_events = info_request.
-                                  info_request_events(true).
+                                  info_request_events.reload.
                                     where(:event_type => 'very_overdue')
           expect(very_overdue_events.size).to eq 1
           very_overdue_event = very_overdue_events.first
@@ -4165,7 +4212,7 @@ describe InfoRequest do
         time_travel_to(Time.zone.parse('2015-04-30')) do
           InfoRequest.log_very_overdue_events
           very_overdue_events = info_request.
-                                  info_request_events(true).
+                                  info_request_events.reload.
                                     where(:event_type => 'very_overdue')
           expect(very_overdue_events.size).to eq 2
           very_overdue_event = very_overdue_events.first

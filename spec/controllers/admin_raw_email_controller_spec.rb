@@ -21,9 +21,11 @@ describe AdminRawEmailController do
           @public_body = FactoryBot.create(:public_body,
                                            :request_email => 'body@example.uk')
           @info_request = FactoryBot.create(:info_request)
+          @invalid_to =
+            @info_request.incoming_email.sub(@info_request.id.to_s, 'invalid')
           raw_email_data = <<-EOF.strip_heredoc
           From: bob@example.uk
-          To: #{@info_request.incoming_email}
+          To: #{ @invalid_to }
           Subject: Basic Email
           Hello, World
           EOF
@@ -47,9 +49,10 @@ describe AdminRawEmailController do
           expect(assigns[:public_bodies]).to eq [@public_body]
         end
 
-        it 'assigns info requests based on the hash' do
+        it 'assigns guessed requests based on the hash' do
           get :show, params: { :id => @incoming_message.raw_email.id }
-          expect(assigns[:info_requests]).to eq [@info_request]
+          guess = InfoRequest::Guess.new(@info_request, @invalid_to, :idhash)
+          expect(assigns[:guessed_info_requests]).to eq([guess])
         end
 
         it 'assigns a reason why the message is in the holding pen' do

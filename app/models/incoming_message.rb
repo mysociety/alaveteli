@@ -74,71 +74,15 @@ class IncomingMessage < ActiveRecord::Base
   scope :pro, -> { joins(:info_request).merge(InfoRequest.pro) }
   scope :unparsed, -> { where(last_parsed: nil) }
 
+  delegate :from_email, to: :raw_email
+  delegate :message_id, to: :raw_email
+  delegate :multipart?, to: :raw_email
+  delegate :parts, to: :raw_email
+
   # Given that there are in theory many info request events, a convenience method for
   # getting the response event
   def response_event
     self.info_request_events.detect{ |e| e.event_type == 'response' }
-  end
-
-  # Return a cached structured mail object
-  def mail(force = nil)
-    return nil if raw_email.nil?
-    return mail! if force
-
-    @mail ||= raw_email.mail
-  end
-
-  def mail!
-    return nil if raw_email.nil?
-    raw_email.mail!
-  end
-
-  def empty_from_field?
-    self.mail.from_addrs.nil? || self.mail.from_addrs.size == 0
-  end
-
-  def from_email
-    MailHandler.get_from_address(self.mail)
-  end
-
-  def addresses
-    MailHandler.get_all_addresses(self.mail)
-  end
-
-  def message_id
-    self.mail.message_id
-  end
-
-  # Return false if for some reason this is a message that we shouldn't let them
-  # reply to
-  #
-  # TODO: Extract this validation out in to ReplyToAddressValidator#valid?
-  def _calculate_valid_to_reply_to
-    email = from_email.try(:downcase)
-
-    # check validity of email
-    return false if email.nil? || !MySociety::Validate.is_valid_email(email)
-
-    # Check whether the email is a known invalid reply address
-    if ReplyToAddressValidator.invalid_reply_addresses.include?(email)
-      return false
-    end
-
-    prefix = email
-    prefix =~ /^(.*)@/
-    prefix = $1
-
-    return false unless prefix
-
-    no_reply_regexp = ReplyToAddressValidator.no_reply_regexp
-
-    # reject postmaster - authorities seem to nearly always not respond to
-    # email to postmaster, and it tends to only happen after delivery failure.
-    # likewise Mailer-Daemon, Auto_Reply...
-    return false if prefix.match(no_reply_regexp)
-    return false if MailHandler.empty_return_path?(mail)
-    return false if MailHandler.get_auto_submitted(mail)
-    true
   end
 
   def parse_raw_email!(force = nil)
@@ -151,17 +95,18 @@ class IncomingMessage < ActiveRecord::Base
     if (!force.nil? || self.last_parsed.nil?)
       ActiveRecord::Base.transaction do
         self.extract_attachments!
-        write_attribute(:sent_at, self.mail.date || self.created_at)
-        write_attribute(:subject, MailHandler.get_subject(self.mail))
-        write_attribute(:mail_from, MailHandler.get_from_name(self.mail))
-        if self.from_email
-          self.mail_from_domain = PublicBody.extract_domain_from_email(self.from_email)
+        write_attribute(:sent_at, raw_email.date || self.created_at)
+        write_attribute(:subject, raw_email.subject)
+        write_attribute(:mail_from, raw_email.from_name)
+        if from_email
+          self.mail_from_domain =
+            PublicBody.extract_domain_from_email(from_email)
         else
           self.mail_from_domain = ""
         end
-        write_attribute(:valid_to_reply_to, self._calculate_valid_to_reply_to)
+        write_attribute(:valid_to_reply_to, raw_email.valid_to_reply_to?)
         self.last_parsed = Time.zone.now
-        self.foi_attachments reload=true
+        self.foi_attachments.reload
         self.save!
       end
     end
@@ -174,7 +119,7 @@ class IncomingMessage < ActiveRecord::Base
   # The cached fields mentioned in the previous comment
 
   # Public: Can this message be replied to?
-  # Caches the value set by _calculate_valid_to_reply_to in #parse_raw_email!
+  # Caches the value set by raw_email.valid_to_reply_to? in #parse_raw_email!
   # #valid_to_reply_to overrides the ActiveRecord provided #valid_to_reply_to
   #
   # Returns a Boolean
@@ -586,7 +531,8 @@ class IncomingMessage < ActiveRecord::Base
 
   def extract_attachments!
     force = true
-    attachment_attributes = MailHandler.get_attachment_attributes(self.mail(force))
+    _mail = raw_email.mail!
+    attachment_attributes = MailHandler.get_attachment_attributes(_mail)
     attachments = []
     attachment_attributes.each do |attrs|
       attachment = self.foi_attachments.find_or_create_by(:hexdigest => attrs[:hexdigest])
@@ -609,7 +555,7 @@ class IncomingMessage < ActiveRecord::Base
     # e.g. for https://secure.mysociety.org/admin/foi/request/show_raw_email/24550
     if !main_part.nil?
       uudecoded_attachments = _uudecode_and_save_attachments(main_part.body)
-      c = self.mail.count_first_uudecode_count
+      c = _mail.count_first_uudecode_count
       for uudecode_attachment in uudecoded_attachments
         c += 1
         uudecode_attachment.url_part_number = c
@@ -620,8 +566,12 @@ class IncomingMessage < ActiveRecord::Base
 
     attachment_ids = attachments.map{ |attachment| attachment.id }
     # now get rid of any attachments we no longer have
-    FoiAttachment.destroy_all(["id NOT IN (?) AND incoming_message_id = ?",
-                               attachment_ids, self.id])
+    FoiAttachment.
+      where(
+        ["id NOT IN (?) AND incoming_message_id = ?",
+         attachment_ids,
+         self.id]
+      ).destroy_all
   end
 
   # Returns body text as HTML with quotes flattened, and emails removed.

@@ -2,9 +2,9 @@ class AnnouncementsController < ApplicationController
   def destroy
     if announcement
       store_dismissal_in_session unless dismissal.save
-      render nothing: true, status: 200
+      head :ok
     else
-      render nothing: true, status: 403
+      head :forbidden
     end
   end
 
