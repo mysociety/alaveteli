@@ -2675,6 +2675,13 @@ describe InfoRequest do
                                                     @incoming_message.id]])
     end
 
+    it 'does not include details of a message that is passed in' do
+      expect(@info_request.who_can_followup_to(@incoming_message)).
+        to eq([[@public_body.name,
+                @public_body.request_email,
+                nil]])
+    end
+
   end
 
   describe  'when generating json for the api' do
