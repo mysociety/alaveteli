@@ -1409,6 +1409,11 @@ class InfoRequest < ActiveRecord::Base
   def who_can_followup_to(skip_message = nil)
     ret = []
     done = {}
+    if skip_message
+      if email = OutgoingMailer.email_for_followup(self, skip_message)
+        done[email.downcase] = 1
+      end
+    end
     for incoming_message in incoming_messages.reverse
       if incoming_message == skip_message
         next

@@ -97,4 +97,5 @@ describe "followups/_followup.html.erb" do
     end
 
   end
+
 end
