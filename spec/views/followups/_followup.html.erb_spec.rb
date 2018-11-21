@@ -98,4 +98,40 @@ describe "followups/_followup.html.erb" do
 
   end
 
+  describe 'displaying followup contact options' do
+
+    context 'without an incoming message' do
+
+      it 'does not show the "other options" panel' do
+        render partial: "followups/followup", locals: { incoming_message: nil }
+        expect(rendered).to_not have_content 'You can also write to'
+      end
+
+    end
+
+    context 'with an incoming message' do
+
+      let(:incoming) do
+        FactoryBot.create(:plain_incoming_message, info_request: info_request)
+      end
+
+      it 'shows the "other options" panel if the incoming message is not from the main contact address' do
+        render partial: "followups/followup",
+               locals: { incoming_message: incoming }
+        expect(rendered).to have_content 'You can also write to'
+      end
+
+      it 'does not show the "other options" panel if the incoming message is from the main contact address' do
+        info_request.
+          public_body.
+            update_attribute(:request_email, 'bob@example.com')
+        render partial: "followups/followup",
+               locals: { incoming_message: incoming }
+        expect(rendered).to_not have_content 'You can also write to'
+      end
+
+    end
+
+  end
+
 end
