@@ -247,6 +247,24 @@ class InfoRequest < ActiveRecord::Base
     guesses.select(&:info_request).uniq(&:info_request)
   end
 
+  # Public: Attempt to find InfoRequests by matching against extracted `subject`
+  # element of an `incoming_email`.
+  #
+  # emails - A String email address or an Array of String email addresses.
+  # Returns an Array
+  def self.guess_by_incoming_subject(subject_line)
+    # try to find a match on InfoRequest#title
+    reply_format = InfoRequest.new(title: '').email_subject_followup
+    requests =
+      where(title: subject_line.gsub(/#{reply_format}/i, '').strip)
+    guesses = requests.each.reduce([]) do |memo, request|
+      memo << Guess.new(request, subject_line, :subject)
+    end
+
+    # Unique Guesses where we've found an `InfoRequest`
+    guesses.select(&:info_request).uniq(&:info_request)
+  end
+
   # Internal function used by find_by_magic_email and guess_by_incoming_email
   def self._extract_id_hash_from_email(incoming_email)
     # Match case insensitively, FOI officers often write Request with capital R.
