@@ -37,7 +37,7 @@ require 'digest/sha1'
 require 'fileutils'
 
 class InfoRequest < ActiveRecord::Base
-  Guess = Struct.new(:info_request, :matched_email, :match_method).freeze
+  Guess = Struct.new(:info_request, :matched_value, :match_method).freeze
   OLD_AGE_IN_DAYS = 21.days
 
   include AdminColumn
