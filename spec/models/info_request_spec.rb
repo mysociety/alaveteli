@@ -1863,6 +1863,44 @@ describe InfoRequest do
       it { is_expected.to be_empty }
     end
 
+    context 'a reply with a subject that matches a previous incoming_message subject' do
+
+      before do
+        FactoryBot.create(:incoming_message, subject: subject_line,
+                                             info_request: info_request)
+      end
+
+      let(:subject_line) { 'Our ref: 12345678' }
+
+      let(:guess) do
+        described_class::Guess.new(info_request, subject_line, :subject)
+      end
+
+      it { is_expected.to include(guess) }
+    end
+
+    context 'a reply with a subject that matches incoming_messages for multiple requests' do
+      let(:subject_line) { 'Our ref: 12345678' }
+
+      let!(:info_request_1) do
+        FactoryBot.create(:incoming_message, subject: subject_line).info_request
+      end
+
+      let!(:info_request_2) do
+        FactoryBot.create(:incoming_message, subject: subject_line).info_request
+      end
+
+      let(:guess_1) do
+        described_class::Guess.new(info_request_1, subject_line, :subject)
+      end
+
+      let(:guess_2) do
+        described_class::Guess.new(info_request_2, subject_line, :subject)
+      end
+
+      it { is_expected.to match_array([guess_1, guess_2]) }
+    end
+
   end
 
   describe "making up the URL title" do
