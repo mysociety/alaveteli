@@ -260,6 +260,10 @@ class InfoRequest < ActiveRecord::Base
       partial_match = subject_line.split(" - ").last.strip
       requests = where('title ILIKE ?', "%#{partial_match}%")
     end
+
+    # try to find a match on IncomingMessage#subject
+    requests +=
+      IncomingMessage.where(subject: subject_line).map(&:info_request).uniq
     guesses = requests.each.reduce([]) do |memo, request|
       memo << Guess.new(request, subject_line, :subject)
     end
