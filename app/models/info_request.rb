@@ -305,6 +305,7 @@ class InfoRequest < ActiveRecord::Base
                   includes(:info_request).
                     where(subject: subject_line).
                       map(&:info_request).uniq
+    requests.delete_if { |req| req == InfoRequest.holding_pen_request }
     guesses = requests.each.reduce([]) do |memo, request|
       memo << Guess.new(request, subject_line, :subject)
     end

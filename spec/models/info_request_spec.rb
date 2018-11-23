@@ -1879,6 +1879,24 @@ describe InfoRequest do
       it { is_expected.to include(guess) }
     end
 
+    context 'when the subject matches an incoming message in the holding pen' do
+      let(:subject_line) { 'Our ref: 12345678' }
+
+      before do
+        FactoryBot.create(:incoming_message,
+                          subject: subject_line,
+                          info_request: InfoRequest.holding_pen_request)
+      end
+
+      let(:guess) do
+        described_class::Guess.new(InfoRequest.holding_pen_request,
+                                   subject_line,
+                                   :subject)
+      end
+
+      it { is_expected.to_not include(guess) }
+    end
+
     context 'a reply with a subject that matches incoming_messages for multiple requests' do
       let(:subject_line) { 'Our ref: 12345678' }
 
