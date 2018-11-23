@@ -25,7 +25,11 @@ class AdminRawEmailController < AdminController
           @guessed_info_requests =
             InfoRequest.guess_by_incoming_email(guess_addresses)
 
-          # 3. Give a reason why it's in the holding pen
+          # 3. Match the email subject in the message
+          @guessed_info_requests +=
+            InfoRequest.guess_by_incoming_subject(@raw_email.subject)
+
+          # 4. Give a reason why it's in the holding pen
           @rejected_reason = rejected_reason(@raw_email) || 'unknown reason'
         end
       end

@@ -64,6 +64,15 @@ describe AdminRawEmailController do
           expect(assigns[:guessed_info_requests]).to eq([guess])
         end
 
+        it 'assigns guessed requests based on the message subject' do
+          other_request =
+            FactoryBot.create(:incoming_message, subject: 'Basic Email').
+              info_request
+          get :show, params: { :id => incoming_message.raw_email.id }
+          guess = InfoRequest::Guess.new(other_request, 'Basic Email', :subject)
+          expect(assigns[:guessed_info_requests]).to include(guess)
+        end
+
         it 'assigns a reason why the message is in the holding pen' do
           get :show, params: { :id => incoming_message.raw_email.id }
           expect(assigns[:rejected_reason]).to eq 'Too dull'
