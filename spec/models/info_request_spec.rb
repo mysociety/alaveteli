@@ -1829,7 +1829,19 @@ describe InfoRequest do
         described_class::Guess.new(info_request, subject_line, :subject)
       end
 
+      let(:holding_pen_guess) do
+        described_class::Guess.
+          new(InfoRequest.holding_pen_request, subject_line, :subject)
+      end
+
       it { is_expected.to include(guess) }
+
+      it 'does not find the holding pen' do
+        FactoryBot.create(:incoming_message,
+                          subject: subject_line,
+                          info_request: InfoRequest.holding_pen_request)
+        expect(subject).to_not include(holding_pen_guess)
+      end
     end
 
     context 'a reply with a subject that matches incoming_messages for multiple requests' do
