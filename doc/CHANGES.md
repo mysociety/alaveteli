@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Add one-click unsubscribe to `TrackMailer`-generated email notifications
+  (Gareth Rees)
 * Use the original subject line when sending an email reply to a
   PublicBodyChangeRequest through the admin interface (Liz Conlan)
 * Improve logic for showing contact options when making followups to a request
