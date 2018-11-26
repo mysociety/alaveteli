@@ -301,10 +301,12 @@ class InfoRequest < ActiveRecord::Base
     requests = where(title: subject_line.gsub(/#{reply_format}/i, '').strip)
 
     # try to find a match on IncomingMessage#subject
-    requests += IncomingMessage.
-                  includes(:info_request).
-                    where(subject: subject_line).
-                      map(&:info_request).uniq
+    requests +=
+      IncomingMessage.
+        includes(:info_request).
+          where(subject: [subject_line.gsub(/^Re: /i, ''), subject_line]).
+            map(&:info_request).uniq
+
     requests.delete_if { |req| req == InfoRequest.holding_pen_request }
     guesses = requests.each.reduce([]) do |memo, request|
       memo << Guess.new(request, subject_line, :subject)

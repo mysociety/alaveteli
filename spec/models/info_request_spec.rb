@@ -1897,6 +1897,21 @@ describe InfoRequest do
       it { is_expected.to_not include(guess) }
     end
 
+    context 'when the subject indirectly matches an incoming message associated with the request' do
+      let(:subject_line) { 'Re: Our ref ABCDEFG' }
+
+      before do
+        FactoryBot.create(:incoming_message, subject: 'Our ref ABCDEFG',
+                                             info_request: info_request)
+      end
+
+      let(:guess) do
+        described_class::Guess.new(info_request, subject_line, :subject)
+      end
+
+      it { is_expected.to include(guess) }
+    end
+
     context 'a reply with a subject that matches incoming_messages for multiple requests' do
       let(:subject_line) { 'Our ref: 12345678' }
 
