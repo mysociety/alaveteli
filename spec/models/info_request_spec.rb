@@ -1842,6 +1842,30 @@ describe InfoRequest do
                           info_request: InfoRequest.holding_pen_request)
         expect(subject).to_not include(holding_pen_guess)
       end
+
+      context 'the subject is prefixed with "Re: "' do
+        let(:subject_line) { 'Re: Our ref ABCDEFG' }
+
+        context 'and there is no direct match' do
+
+          let!(:incoming_message) do
+            FactoryBot.
+              create(:incoming_message, subject: subject_line.gsub('Re: ', ''),
+                                        info_request: info_request)
+          end
+
+          it { is_expected.to include(guess) }
+
+        end
+
+        context 'and there is a direct match' do
+
+          it { is_expected.to include(guess) }
+
+        end
+
+      end
+
     end
 
     context 'a reply with a subject that matches incoming_messages for multiple requests' do

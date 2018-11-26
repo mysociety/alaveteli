@@ -262,10 +262,16 @@ class InfoRequest < ActiveRecord::Base
     end
 
     # try to find a match on IncomingMessage#subject
-    requests += IncomingMessage.
-                  includes(:info_request).
-                    where(subject: subject_line).
-                      map(&:info_request).uniq
+    requests +=
+      if subject_line =~ /^Re: /i
+        IncomingMessage.
+          includes(:info_request).
+            where(subject: [subject_line.gsub(/^Re: /i, ''), subject_line]).
+              map(&:info_request).uniq
+      else
+        IncomingMessage.where(subject: subject_line).map(&:info_request).uniq
+      end
+
     requests.delete_if { |req| req == InfoRequest.holding_pen_request }
     guesses = requests.each.reduce([]) do |memo, request|
       memo << Guess.new(request, subject_line, :subject)
