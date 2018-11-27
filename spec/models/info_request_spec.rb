@@ -1695,6 +1695,36 @@ describe InfoRequest do
       it { is_expected.to include(guess) }
     end
 
+    context 'upper case email with a broken id and otherwise intact idhash' do
+      let(:email) { "REQUEST-123a-#{ info_request.idhash.upcase }@example.com" }
+      let(:guess) { described_class::Guess.new(info_request, email, :idhash) }
+      it { is_expected.to include(guess) }
+    end
+
+    context 'correct id and idhash with no punctuation' do
+      let(:email) do
+        "request#{ info_request.id }#{ info_request.idhash }@example.com"
+      end
+
+      let(:guess) { described_class::Guess.new(info_request, email, :id) }
+      it { is_expected.to include(guess) }
+    end
+
+    context 'correct id and idhash with missing separator' do
+      let(:email) do
+        "request-#{ info_request.id }#{ info_request.idhash }@example.com"
+      end
+
+      let(:guess) { described_class::Guess.new(info_request, email, :id) }
+      it { is_expected.to include(guess) }
+    end
+
+    context 'email with a broken id and an intact idhash but missing punctuation' do
+      let(:email) { "request123ab#{ info_request.idhash }@example.com" }
+      let(:guess) { described_class::Guess.new(info_request, email, :idhash) }
+      it { is_expected.to include(guess) }
+    end
+
     context 'email matching no requests' do
       let(:email) do
         invalid_id = described_class.maximum(:id) + 10
