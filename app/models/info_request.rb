@@ -255,8 +255,18 @@ class InfoRequest < ActiveRecord::Base
     if incoming_email.include?('@')
       # try to grab the last 8 chars of the local part of the address instead
       local_part = incoming_email[0..incoming_email.index('@')-1]
-      local_part[-8..-1] if local_part.length >= 8
+      if local_part.length >= 8
+        _clean_idhash(local_part[-8..-1])
+      end
     end
+  end
+
+  # Internal function used to clean the id_hash from incoming email addresses.
+  # Converts l to 1, and o to 0. FOI officers quite often retype the email
+  # address and make this kind of error.
+  def self._clean_idhash(hash)
+    return unless hash
+    hash.gsub(/l/, "1").gsub(/o/, "0")
   end
 
   # Internal function used by find_by_magic_email and guess_by_incoming_email
@@ -275,15 +285,7 @@ class InfoRequest < ActiveRecord::Base
       id = nil
     end
 
-    hash = $2
-
-    if hash
-      # Convert l to 1, and o to 0. FOI officers quite often retype the
-      # email address and make this kind of error.
-      hash.gsub!(/l/, "1")
-      hash.gsub!(/o/, "0")
-    end
-
+    hash = _clean_idhash($2)
     [id, hash]
   end
 
