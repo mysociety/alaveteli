@@ -375,7 +375,7 @@
       </div>
     </div>
   <% end %>
-  <% if @info_request.incoming_messages.count > 0 %>
+  <% if @info_request.incoming_messages.any? %>
     <%= form_tag bulk_destroy_admin_incoming_messages_path do %>
       <%= hidden_field_tag(:ids) %>
       <%= hidden_field_tag(:request_id, @info_request.id) %>
