@@ -2675,6 +2675,21 @@ describe InfoRequest do
                                                     @incoming_message.id]])
     end
 
+    it 'does not include details of a message that is passed in' do
+      expect(@info_request.who_can_followup_to(@incoming_message)).
+        to eq([[@public_body.name,
+                @public_body.request_email,
+                nil]])
+    end
+
+    it 'does not include details that match a message that is passed in' do
+      FactoryBot.create(:plain_incoming_message, info_request: @info_request)
+      expect(@info_request.who_can_followup_to(@incoming_message)).
+        to eq([[@public_body.name,
+                @public_body.request_email,
+                nil]])
+    end
+
   end
 
   describe  'when generating json for the api' do
