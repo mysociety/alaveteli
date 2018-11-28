@@ -257,7 +257,7 @@ class InfoRequest < ActiveRecord::Base
     incoming_email =~ /request\-?(\w+)-?(\w{8})@/
 
     begin
-      id = Integer($1) if $1
+      id = Integer(_clean_idhash($1)) if $1
     rescue ArgumentError
       id = nil
     end
