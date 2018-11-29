@@ -1,23 +1,22 @@
 AllCops:
+  RubyInterpreters:
+    - ruby
+    - rake
   Include:
-  - "**/*.gemspec"
-  - "**/*.podspec"
-  - "**/*.jbuilder"
-  - "**/*.rake"
-  - "**/*.opal"
-  - "**/Gemfile"
-  - "**/Rakefile"
-  - "**/Capfile"
-  - "**/Guardfile"
-  - "**/Podfile"
-  - "**/Thorfile"
-  - "**/Vagrantfile"
-  - "**/Berksfile"
-  - "**/Cheffile"
-  - "**/Vagabondfile"
+    - '**/*.rb'
+    - '**/*.gemfile'
+    - '**/*.gemspec'
+    - '**/*.rake'
+    - '**/*.ru'
+    - '**/*.spec'
+    - '**/Gemfile'
+    - '**/Rakefile'
+    - '**/Vagrantfile'
   Exclude:
-  - "vendor/**/*"
-  - "db/schema.rb"
+    - 'db/schema.rb'
+    - 'node_modules/**/*'
+    - 'vendor/**/*'
+    - '.git/**/*'
   DisplayCopNames: false
   StyleGuideCopsOnly: false
   DisabledByDefault: true
