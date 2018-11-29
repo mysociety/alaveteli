@@ -4,6 +4,27 @@ require File.expand_path(File.dirname(__FILE__) + "./../../lib/data_export.rb")
 
 describe DataExport do
 
+  describe '.case_insensitive_user_censor' do
+    subject { described_class.case_insensitive_user_censor(text, user) }
+    let(:text) { "Yours faithfully, #{ user.name }" }
+    let(:user) { FactoryBot.build(:user, name: 'A User') }
+
+    it { is_expected.to eq 'Yours faithfully, <REQUESTER>' }
+
+    context 'the user name contains asterisks' do
+      let(:user) { FactoryBot.build(:user, name: 'A ** User') }
+
+      it { is_expected.to eq 'Yours faithfully, <REQUESTER>' }
+    end
+
+    context 'the user name contains a bracket' do
+      let(:user) { FactoryBot.build(:user, name: 'A (User') }
+
+      it { is_expected.to eq 'Yours faithfully, <REQUESTER>' }
+    end
+
+  end
+
   describe ".exportable_requests" do
 
     let(:cut_off) { Date.today + 1 }

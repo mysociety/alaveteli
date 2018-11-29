@@ -71,7 +71,7 @@ class DataExport
   # Returns a String
   def self.case_insensitive_user_censor(text, user)
     if user && text
-      text.gsub(/#{user.name}/i, "<REQUESTER>")
+      text.gsub(/#{ Regexp.escape(user.name) }/i, "<REQUESTER>")
     else
       text
     end
