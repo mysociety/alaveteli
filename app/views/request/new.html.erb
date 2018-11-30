@@ -239,6 +239,8 @@
         </p>
       <% end %>
 
+      <%= render partial: 'new_message_text_length' %>
+
       <div class="form_button">
         <% if @batch %>
           <% params[:public_body_ids].each do |public_body_id| %>
