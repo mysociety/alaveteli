@@ -256,6 +256,10 @@ class InfoRequest < ActiveRecord::Base
     # try to find a match on InfoRequest#title
     reply_format = InfoRequest.new(title: '').email_subject_followup
     requests = where(title: subject_line.gsub(/#{reply_format}/i, '').strip)
+    if requests.empty?
+      partial_match = subject_line.split(" - ").last.strip
+      requests = where('title ILIKE ?', "%#{partial_match}%")
+    end
     guesses = requests.each.reduce([]) do |memo, request|
       memo << Guess.new(request, subject_line, :subject)
     end

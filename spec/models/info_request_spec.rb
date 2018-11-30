@@ -1756,9 +1756,25 @@ describe InfoRequest do
       it { is_expected.to include(guess) }
     end
 
-    context '"Re" in the incoming subject has different capitalisation' do
+    context 'the incoming subject has different capitalisation' do
       let(:subject_line) do
-        info_request.email_subject_followup.gsub('Re: ', 'RE: ')
+        info_request.email_subject_followup.upcase
+      end
+
+      let(:guess) do
+        described_class::Guess.new(info_request, subject_line, :subject)
+      end
+
+      it { is_expected.to include(guess) }
+    end
+
+    context 'subject line is a partial match for the request title' do
+      let!(:info_request) do
+        FactoryBot.create(:info_request, title: 'How many jelly beans?')
+      end
+
+      let(:subject_line) do
+        'Your Freedom of Information request - how many jelly beans'
       end
 
       let(:guess) do
