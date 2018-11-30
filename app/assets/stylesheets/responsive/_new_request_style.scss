@@ -2,8 +2,15 @@
 
 /* /select_authority page */
 #select_authority_help {
+  & > div {
+    margin-top: 1.5em;
+    padding-top: 1.5em;
+    border-top: 1px solid #ccc;
+    border-top-color: rgba(0,0,0,0.15);
+  }
+
   .info {
-    font-style: italic;
+    font-weight: bold;
   }
 }
 
