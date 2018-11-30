@@ -64,6 +64,10 @@ class PublicBodyChangeRequest < ActiveRecord::Base
     self
   end
 
+  def add_body_request?
+    public_body ? false : true
+  end
+
   def get_user_name
     user ? user.name : user_name
   end
@@ -77,19 +81,18 @@ class PublicBodyChangeRequest < ActiveRecord::Base
   end
 
   def send_message
-    if public_body
-      ContactMailer.update_public_body_email(self).deliver_now
-    else
-      ContactMailer.add_public_body(self).deliver_now
-    end
+    ContactMailer.change_request_message(self, add_body_request?).deliver_now
   end
 
   def thanks_notice
-    if self.public_body
-      _("Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon.",
-        :public_body_name => get_public_body_name)
+    if add_body_request?
+      _("Your request to add an authority has been sent. Thank you for " \
+        "getting in touch! We'll get back to you soon.")
     else
-      _("Your request to add an authority has been sent. Thank you for getting in touch! We'll get back to you soon.")
+      _("Your request to update the address for {{public_body_name}} has " \
+        "been sent. Thank you for getting in touch! We'll get back to you " \
+        "soon.",
+        :public_body_name => get_public_body_name)
     end
   end
 
@@ -111,14 +114,18 @@ class PublicBodyChangeRequest < ActiveRecord::Base
     comments.join("\n")
   end
 
-  def default_response_subject
-    if self.public_body
-      _("Your request to update {{public_body_name}} on {{site_name}}", :site_name => AlaveteliConfiguration::site_name,
-        :public_body_name => public_body.name)
+  def request_subject
+    if add_body_request?
+      _("Add authority - {{public_body_name}}",
+        :public_body_name => public_body_name.html_safe).to_str
     else
-      _("Your request to add {{public_body_name}} to {{site_name}}", :site_name => AlaveteliConfiguration::site_name,
-        :public_body_name => public_body_name)
+      _("Update email address - {{public_body_name}}",
+        :public_body_name => public_body.name.html_safe).to_str
     end
+  end
+
+  def default_response_subject
+    "Re: #{request_subject}"
   end
 
   def close!
