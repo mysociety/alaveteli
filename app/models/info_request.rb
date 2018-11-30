@@ -830,17 +830,22 @@ class InfoRequest < ActiveRecord::Base
   def update_url_title
     return unless title
     url_title = MySociety::Format.simplify_url_part(title, 'request', 32)
-    # For request with same title as others, add on arbitary numeric identifier
-    unique_url_title = url_title
-    suffix_num = 2 # as there's already one without numeric suffix
     conditions = id ? ["id <> ?", id] : []
 
-    while InfoRequest.
-      where(:url_title => unique_url_title).
-        where(conditions).
-          any? do
+    existing_url_titles = InfoRequest.
+      where(conditions).
+      where('url_title ~ ?', "^#{url_title}(_\\d+)?$").
+      pluck(:url_title)
+
+    if existing_url_titles.empty?
+      unique_url_title = url_title
+    else
+      # For request with same title as others, add on arbitrary numeric
+      # identifier
+      suffix_num = existing_url_titles.map { |t| (t[/_(\d+)$/, 1] || 1).to_i }.
+                                       sort.
+                                       last + 1
       unique_url_title = "#{url_title}_#{suffix_num}"
-      suffix_num = suffix_num + 1
     end
 
     write_attribute(:url_title, unique_url_title)
