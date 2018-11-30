@@ -1754,15 +1754,18 @@ describe InfoRequest do
       end
 
       it { is_expected.to include(guess) }
+    end
 
-      context 'the incoming subject has different capitalisation' do
-        let(:subject_line) do
-          info_request.email_subject_followup.gsub('Re: ', 'RE: ')
-        end
-
-        it { is_expected.to include(guess) }
+    context '"Re" in the incoming subject has different capitalisation' do
+      let(:subject_line) do
+        info_request.email_subject_followup.gsub('Re: ', 'RE: ')
       end
 
+      let(:guess) do
+        described_class::Guess.new(info_request, subject_line, :subject)
+      end
+
+      it { is_expected.to include(guess) }
     end
 
     context 'a direct reply to an original request email which matches multiple requests' do
