@@ -599,9 +599,9 @@ describe IncomingMessage, " when dealing with incoming mail" do
   it "should load an email with funny MIME settings" do
     ActionMailer::Base.deliveries.clear
     # just send it to the holding pen
-    expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(0)
+    expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(0)
     receive_incoming_mail("humberside-police-odd-mime-type.email", 'dummy')
-    expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
+    expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
 
     # clear the notification of new message in holding pen
     deliveries = ActionMailer::Base.deliveries

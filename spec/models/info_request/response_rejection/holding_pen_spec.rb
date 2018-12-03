@@ -38,7 +38,7 @@ describe InfoRequest::ResponseRejection::HoldingPen do
 
       described_class.new(*args).reject
 
-      expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
+      expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
     end
 
   end

@@ -31,6 +31,7 @@
 #  last_event_forming_initial_request_id :integer
 #  use_notifications                     :boolean
 #  last_event_time                       :datetime
+#  incoming_messages_count               :integer          default(0)
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
@@ -354,7 +355,7 @@ describe InfoRequest do
       info_request = FactoryBot.create(:info_request)
       email, raw_email = email_and_raw_email
       info_request.receive(email, raw_email)
-      expect(info_request.incoming_messages.size).to eq(1)
+      expect(info_request.incoming_messages.count).to eq(1)
       expect(info_request.incoming_messages.last).to be_persisted
     end
 
@@ -461,7 +462,7 @@ describe InfoRequest do
       it 'processes mail where no source is specified' do
         email, raw_email = email_and_raw_email
         info_request.receive(email, raw_email)
-        expect(info_request.incoming_messages.size).to eq(1)
+        expect(info_request.incoming_messages.count).to eq(1)
         expect(info_request.incoming_messages.last).to be_persisted
       end
 
@@ -471,7 +472,7 @@ describe InfoRequest do
           with_feature_enabled(:accept_mail_from_anywhere) do
             email, raw_email = email_and_raw_email
             info_request.receive(email, raw_email)
-            expect(info_request.incoming_messages.size).to eq(1)
+            expect(info_request.incoming_messages.count).to eq(1)
             expect(info_request.incoming_messages.last).to be_persisted
           end
         end
@@ -480,7 +481,7 @@ describe InfoRequest do
           with_feature_enabled(:accept_mail_from_anywhere) do
             email, raw_email = email_and_raw_email
             info_request.receive(email, raw_email, :source => :poller)
-            expect(info_request.incoming_messages.size).to eq(1)
+            expect(info_request.incoming_messages.count).to eq(1)
             expect(info_request.incoming_messages.last).to be_persisted
           end
         end
@@ -489,7 +490,7 @@ describe InfoRequest do
           with_feature_enabled(:accept_mail_from_anywhere) do
             email, raw_email = email_and_raw_email
             info_request.receive(email, raw_email, :source => :poller)
-            expect(info_request.incoming_messages.size).to eq(1)
+            expect(info_request.incoming_messages.count).to eq(1)
             expect(info_request.incoming_messages.last).to be_persisted
           end
         end
@@ -510,14 +511,14 @@ describe InfoRequest do
           it 'processes mail from the poller' do
             email, raw_email = email_and_raw_email
             info_request.receive(email, raw_email, :source => :poller)
-            expect(info_request.incoming_messages.size).to eq(1)
+            expect(info_request.incoming_messages.count).to eq(1)
             expect(info_request.incoming_messages.last).to be_persisted
           end
 
           it 'ignores mail from mailin' do
             email, raw_email = email_and_raw_email
             info_request.receive(email, raw_email, :source => :mailin)
-            expect(info_request.incoming_messages.size).to eq(0)
+            expect(info_request.incoming_messages.count).to eq(0)
           end
 
         end
@@ -528,13 +529,13 @@ describe InfoRequest do
           it 'ignores mail from the poller' do
             email, raw_email = email_and_raw_email
             info_request.receive(email, raw_email, :source => :poller)
-            expect(info_request.incoming_messages.size).to eq(0)
+            expect(info_request.incoming_messages.count).to eq(0)
           end
 
           it 'processes mail from mailin' do
             email, raw_email = email_and_raw_email
             info_request.receive(email, raw_email, :source => :mailin)
-            expect(info_request.incoming_messages.size).to eq(1)
+            expect(info_request.incoming_messages.count).to eq(1)
             expect(info_request.incoming_messages.last).to be_persisted
           end
 
@@ -560,8 +561,8 @@ describe InfoRequest do
         msg = 'This request has been set by an administrator to "allow new ' \
               'responses from nobody"'
 
-        expect(info_request.incoming_messages.size).to eq(0)
-        expect(holding_pen.incoming_messages.size).to eq(1)
+        expect(info_request.incoming_messages.count).to eq(0)
+        expect(holding_pen.incoming_messages.count).to eq(1)
         expect(holding_pen.info_request_events.last.params[:rejected_reason]).
           to eq(msg)
         expect(info_request.reload.rejected_incoming_count).to eq(1)
@@ -575,7 +576,7 @@ describe InfoRequest do
         info_request = FactoryBot.create(:info_request, attrs)
         email, raw_email = email_and_raw_email
         info_request.receive(email, raw_email)
-        expect(info_request.incoming_messages.size).to eq(1)
+        expect(info_request.incoming_messages.count).to eq(1)
       end
 
       it 'from authority_only receives if the mail is from the authority' do
@@ -584,7 +585,7 @@ describe InfoRequest do
         info_request = FactoryBot.create(:info_request_with_incoming, attrs)
         email, raw_email = email_and_raw_email(:from => 'bob@example.com')
         info_request.receive(email, raw_email)
-        expect(info_request.reload.incoming_messages.size).to eq(2)
+        expect(info_request.reload.incoming_messages.count).to eq(2)
       end
 
       it 'from authority_only rejects if there is no from address' do
@@ -599,9 +600,9 @@ describe InfoRequest do
         updated_at = info_request.updated_at
         email, raw_email = email_and_raw_email(:from => '')
         info_request.receive(email, raw_email)
-        expect(info_request.reload.incoming_messages.size).to eq(0)
+        expect(info_request.reload.incoming_messages.count).to eq(0)
         holding_pen = InfoRequest.holding_pen_request
-        expect(holding_pen.incoming_messages.size).to eq(1)
+        expect(holding_pen.incoming_messages.count).to eq(1)
         msg = 'Only the authority can reply to this request, but there is ' \
               'no "From" address to check against'
         expect(holding_pen.info_request_events.last.params[:rejected_reason]).
@@ -623,9 +624,9 @@ describe InfoRequest do
         updated_at = info_request.updated_at
         email, raw_email = email_and_raw_email(:from => 'spam@example.net')
         info_request.receive(email, raw_email)
-        expect(info_request.reload.incoming_messages.size).to eq(0)
+        expect(info_request.reload.incoming_messages.count).to eq(0)
         holding_pen = InfoRequest.holding_pen_request
-        expect(holding_pen.incoming_messages.size).to eq(1)
+        expect(holding_pen.incoming_messages.count).to eq(1)
         msg = "Only the authority can reply to this request, and I don't " \
               "recognise the address this reply was sent from"
         expect(holding_pen.info_request_events.last.params[:rejected_reason]).
@@ -652,7 +653,7 @@ describe InfoRequest do
         info_request.receive(email,
                              raw_email,
                              :override_stop_new_responses => true)
-        expect(info_request.incoming_messages.size).to eq(1)
+        expect(info_request.incoming_messages.count).to eq(1)
       end
 
       it 'does not check spam when overriding the stop new responses status of a request' do
@@ -683,7 +684,7 @@ describe InfoRequest do
         info_request.receive(email,
                              raw_email,
                              :override_stop_new_responses => true)
-        expect(info_request.incoming_messages.size).to eq(1)
+        expect(info_request.incoming_messages.count).to eq(1)
       end
 
     end
@@ -725,7 +726,7 @@ describe InfoRequest do
         info_request = FactoryBot.create(:info_request, attrs)
         email, raw_email = email_and_raw_email
         info_request.receive(email, raw_email)
-        expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
+        expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
         # Check that the notification that there's something new in the holding
         # has been sent
         expect(ActionMailer::Base.deliveries.size).to eq(1)
@@ -739,7 +740,7 @@ describe InfoRequest do
         email, raw_email = email_and_raw_email
         info_request.receive(email, raw_email)
         expect(ActionMailer::Base.deliveries).to be_empty
-        expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(0)
+        expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(0)
         ActionMailer::Base.deliveries.clear
       end
 
@@ -776,7 +777,7 @@ describe InfoRequest do
 
       receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
       expect(info_request.reload.rejected_incoming_count).to eq(1)
-      expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(0)
+      expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(0)
     end
 
     it "redirects spam to the holding_pen" do
@@ -805,7 +806,7 @@ describe InfoRequest do
       receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
 
       expect(info_request.reload.rejected_incoming_count).to eq(1)
-      expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
+      expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
     end
 
     it "discards mail over the configured spam threshold" do
@@ -881,7 +882,7 @@ describe InfoRequest do
 
       receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
       expect(info_request.rejected_incoming_count).to eq(0)
-      expect(info_request.incoming_messages.size).to eq(1)
+      expect(info_request.incoming_messages.count).to eq(1)
       ActionMailer::Base.deliveries.clear
     end
 

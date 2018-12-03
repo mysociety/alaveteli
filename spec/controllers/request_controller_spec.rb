@@ -2752,7 +2752,7 @@ describe RequestController, "authority uploads a response from the web interface
 
   it "should prevent uploads if you are not a requester" do
     @ir = info_requests(:fancy_dog_request)
-    incoming_before = @ir.incoming_messages.size
+    incoming_before = @ir.incoming_messages.count
     session[:user_id] = @normal_user.id
 
     # post up a photo of the parrot
@@ -2784,7 +2784,7 @@ describe RequestController, "authority uploads a response from the web interface
   # http://stackoverflow.com/questions/1178587/how-do-i-test-a-file-upload-in-rails
   it "should let the authority upload a file" do
     @ir = info_requests(:fancy_dog_request)
-    incoming_before = @ir.incoming_messages.size
+    incoming_before = @ir.incoming_messages.count
     session[:user_id] = @foi_officer_user.id
 
     # post up a photo of the parrot
@@ -2800,7 +2800,7 @@ describe RequestController, "authority uploads a response from the web interface
     expect(flash[:notice]).to match(/Thank you for responding to this FOI request/)
 
     # check there is a new attachment
-    incoming_after = @ir.incoming_messages.size
+    incoming_after = @ir.incoming_messages.count
     expect(incoming_after).to eq(incoming_before + 1)
 
     # check new attachment looks vaguely OK
