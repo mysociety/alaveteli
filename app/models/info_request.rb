@@ -262,8 +262,10 @@ class InfoRequest < ActiveRecord::Base
     end
 
     # try to find a match on IncomingMessage#subject
-    requests +=
-      IncomingMessage.where(subject: subject_line).map(&:info_request).uniq
+    requests += IncomingMessage.
+                  includes(:info_request).
+                    where(subject: subject_line).
+                      map(&:info_request).uniq
     guesses = requests.each.reduce([]) do |memo, request|
       memo << Guess.new(request, subject_line, :subject)
     end

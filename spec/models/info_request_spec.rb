@@ -1817,12 +1817,13 @@ describe InfoRequest do
     end
 
     context 'a reply with a subject that matches a previous incoming_message subject' do
-      let(:subject_line) { 'Our ref: 12345678' }
 
-      let!(:incoming_message) do
+      before do
         FactoryBot.create(:incoming_message, subject: subject_line,
                                              info_request: info_request)
       end
+
+      let(:subject_line) { 'Our ref: 12345678' }
 
       let(:guess) do
         described_class::Guess.new(info_request, subject_line, :subject)
