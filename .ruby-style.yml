@@ -1,23 +1,22 @@
 AllCops:
+  RubyInterpreters:
+    - ruby
+    - rake
   Include:
-  - "**/*.gemspec"
-  - "**/*.podspec"
-  - "**/*.jbuilder"
-  - "**/*.rake"
-  - "**/*.opal"
-  - "**/Gemfile"
-  - "**/Rakefile"
-  - "**/Capfile"
-  - "**/Guardfile"
-  - "**/Podfile"
-  - "**/Thorfile"
-  - "**/Vagrantfile"
-  - "**/Berksfile"
-  - "**/Cheffile"
-  - "**/Vagabondfile"
+    - '**/*.rb'
+    - '**/*.gemfile'
+    - '**/*.gemspec'
+    - '**/*.rake'
+    - '**/*.ru'
+    - '**/*.spec'
+    - '**/Gemfile'
+    - '**/Rakefile'
+    - '**/Vagrantfile'
   Exclude:
-  - "vendor/**/*"
-  - "db/schema.rb"
+    - 'db/schema.rb'
+    - 'node_modules/**/*'
+    - 'vendor/**/*'
+    - '.git/**/*'
   DisplayCopNames: false
   StyleGuideCopsOnly: false
   DisabledByDefault: true
@@ -288,9 +287,12 @@ Layout/SpaceInsidePercentLiteralDelimiters:
   Description: 'No unnecessary spaces inside delimiters of %i/%w/%x literals.'
   Enabled: false
 
-Layout/SpaceInsideBrackets:
-  Description: 'No spaces after [ or before ].'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-spaces-braces'
+Layout/SpaceInsideArrayLiteralBrackets:
+  Description: 'Checks the spacing inside array literal brackets.'
+  Enabled: false
+
+Layout/SpaceInsideReferenceBrackets:
+  Description: 'Checks the spacing inside referential brackets.'
   Enabled: false
 
 Layout/SpaceInsideHashLiteralBraces:
@@ -467,6 +469,7 @@ Style/Documentation:
   Description: 'Document classes and non-namespace modules.'
   Enabled: true
   Exclude:
+    - 'db/migrate/*'
     - 'spec/**/*'
     - 'test/**/*'
 
@@ -1227,7 +1230,7 @@ Lint/UnderscorePrefixedVariableName:
   Description: 'Do not use prefix `_` for a variable that is used.'
   Enabled: false
 
-Lint/UnneededDisable:
+Lint/UnneededCopDisableDirective:
   Description: >-
                  Checks for rubocop:disable comments that can be removed.
                  Note: this cop is not disabled when disabling all cops.
