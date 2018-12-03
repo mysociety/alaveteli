@@ -13,7 +13,7 @@
   <p class="batch-request__requests__request__responses">
     <%= n_('{{count}} reply',
            '{{count}} replies',
-           info_request.incoming_messages.count,
-           :count => info_request.incoming_messages.count) %>
+           info_request.incoming_messages.size,
+           :count => info_request.incoming_messages.size) %>
   </p>
 </div>

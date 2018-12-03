@@ -12,9 +12,9 @@ describe RequestMailer do
 
     it "should append it to the appropriate request" do
       ir = info_requests(:fancy_dog_request)
-      expect(ir.incoming_messages.size).to eq(1) # in the fixture
+      expect(ir.incoming_messages.count).to eq(1) # in the fixture
       receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
-      expect(ir.incoming_messages.size).to eq(2) # one more arrives
+      expect(ir.incoming_messages.count).to eq(2) # one more arrives
       expect(ir.info_request_events[-1].incoming_message_id).not_to be_nil
 
       deliveries = ActionMailer::Base.deliveries
@@ -26,11 +26,11 @@ describe RequestMailer do
 
     it "should store mail in holding pen and send to admin when the email is not to any information request" do
       ir = info_requests(:fancy_dog_request)
-      expect(ir.incoming_messages.size).to eq(1)
-      expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(0)
+      expect(ir.incoming_messages.count).to eq(1)
+      expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(0)
       receive_incoming_mail('incoming-request-plain.email', 'dummy@localhost')
-      expect(ir.incoming_messages.size).to eq(1)
-      expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
+      expect(ir.incoming_messages.count).to eq(1)
+      expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
       last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.info_request_events.last
       expect(last_event.params[:rejected_reason]).to eq("Could not identify the request from the email address")
 
@@ -44,13 +44,13 @@ describe RequestMailer do
     it "puts messages with a malformed To: in the holding pen" do
       request = FactoryBot.create(:info_request)
       receive_incoming_mail('incoming-request-plain.email', 'asdfg')
-      expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
+      expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
     end
 
     it "puts messages with the request address in Bcc: in the holding pen" do
       request = FactoryBot.create(:info_request)
       receive_incoming_mail('bcc-contact-reply.email', request.incoming_email)
-      expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
+      expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
     end
 
     it "puts messages with multiple request addresses in Bcc: in the holding pen" do
@@ -59,16 +59,16 @@ describe RequestMailer do
       request3 = FactoryBot.create(:info_request)
       bcc_addrs = [request1, request2, request3].map(&:incoming_email)
       receive_incoming_mail('bcc-contact-reply.email', bcc_addrs.join(', '))
-      expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
+      expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
     end
 
     it "should parse attachments from mails sent with apple mail" do
       ir = info_requests(:fancy_dog_request)
-      expect(ir.incoming_messages.size).to eq(1)
-      expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(0)
+      expect(ir.incoming_messages.count).to eq(1)
+      expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(0)
       receive_incoming_mail('apple-mail-with-attachments.email', 'dummy@localhost')
-      expect(ir.incoming_messages.size).to eq(1)
-      expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
+      expect(ir.incoming_messages.count).to eq(1)
+      expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
       last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.info_request_events.last
       expect(last_event.params[:rejected_reason]).to eq("Could not identify the request from the email address")
 
@@ -96,11 +96,11 @@ describe RequestMailer do
       ir.allow_new_responses_from = 'authority_only'
       ir.handle_rejected_responses = 'holding_pen'
       ir.save!
-      expect(ir.incoming_messages.size).to eq(1)
-      expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(0)
+      expect(ir.incoming_messages.count).to eq(1)
+      expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(0)
       receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "")
-      expect(ir.incoming_messages.size).to eq(1)
-      expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
+      expect(ir.incoming_messages.count).to eq(1)
+      expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
       last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.info_request_events.last
       expect(last_event.params[:rejected_reason]).to match(/there is no "From" address/)
 
@@ -116,11 +116,11 @@ describe RequestMailer do
       ir.allow_new_responses_from = 'authority_only'
       ir.handle_rejected_responses = 'holding_pen'
       ir.save!
-      expect(ir.incoming_messages.size).to eq(1)
-      expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(0)
+      expect(ir.incoming_messages.count).to eq(1)
+      expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(0)
       receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "frob@nowhere.com")
-      expect(ir.incoming_messages.size).to eq(1)
-      expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
+      expect(ir.incoming_messages.count).to eq(1)
+      expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
       last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.info_request_events.last
       expect(last_event.params[:rejected_reason]).to match(/Only the authority can reply/)
 
@@ -150,9 +150,9 @@ describe RequestMailer do
       ir.save!
 
       # test what happens if something arrives
-      expect(ir.incoming_messages.size).to eq(1) # in the fixture
+      expect(ir.incoming_messages.count).to eq(1) # in the fixture
       receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
-      expect(ir.incoming_messages.size).to eq(1) # nothing should arrive
+      expect(ir.incoming_messages.count).to eq(1) # nothing should arrive
 
       # should be a message back to sender
       deliveries = ActionMailer::Base.deliveries
@@ -172,9 +172,9 @@ describe RequestMailer do
       ir.save!
 
       # Test what happens if something arrives from authority domain (@localhost)
-      expect(ir.incoming_messages.size).to eq(1) # in the fixture
+      expect(ir.incoming_messages.count).to eq(1) # in the fixture
       receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "Geraldine <geraldinequango@localhost>")
-      expect(ir.incoming_messages.size).to eq(2) # one more arrives
+      expect(ir.incoming_messages.count).to eq(2) # one more arrives
 
       # ... should get "responses arrived" message for original requester
       deliveries = ActionMailer::Base.deliveries
@@ -184,9 +184,9 @@ describe RequestMailer do
       deliveries.clear
 
       # Test what happens if something arrives from another domain
-      expect(ir.incoming_messages.size).to eq(2) # in fixture and above
+      expect(ir.incoming_messages.count).to eq(2) # in fixture and above
       receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "dummy-address@dummy.localhost")
-      expect(ir.incoming_messages.size).to eq(2) # nothing should arrive
+      expect(ir.incoming_messages.count).to eq(2) # nothing should arrive
 
       # ... should be a bounce message back to sender
       deliveries = ActionMailer::Base.deliveries
@@ -201,10 +201,10 @@ describe RequestMailer do
       ir.allow_new_responses_from = 'nobody'
       ir.handle_rejected_responses = 'bounce'
       ir.save!
-      expect(ir.incoming_messages.size).to eq(1)
+      expect(ir.incoming_messages.count).to eq(1)
 
       receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "")
-      expect(ir.incoming_messages.size).to eq(1)
+      expect(ir.incoming_messages.count).to eq(1)
 
       deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(0)
@@ -220,11 +220,13 @@ describe RequestMailer do
 
       # test what happens if something arrives
       ir = info_requests(:fancy_dog_request)
-      expect(ir.incoming_messages.size).to eq(1)
-      expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(0)
+      expect(ir.incoming_messages.count).to eq(1)
+      expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(0)
       receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
-      expect(ir.incoming_messages.size).to eq(1)
-      expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1) # arrives in holding pen
+      expect(ir.incoming_messages.count).to eq(1)
+
+      # arrives in holding pen
+      expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
       last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.info_request_events.last
       expect(last_event.params[:rejected_reason]).to match(/allow new responses from nobody/)
 
@@ -246,11 +248,11 @@ describe RequestMailer do
 
       # test what happens if something arrives - should be nothing
       ir = info_requests(:fancy_dog_request)
-      expect(ir.incoming_messages.size).to eq(1)
-      expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(0)
+      expect(ir.incoming_messages.count).to eq(1)
+      expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(0)
       receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
-      expect(ir.incoming_messages.size).to eq(1)
-      expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(0)
+      expect(ir.incoming_messages.count).to eq(1)
+      expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(0)
 
       # should be no messages to anyone
       deliveries = ActionMailer::Base.deliveries

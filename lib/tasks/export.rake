@@ -27,6 +27,15 @@ namespace :export do
   end
 
 
+  # This can be a long-running task if you're holding a large amount of data so
+  # it's advisable to run it inside a screen or tmux session that you can
+  # reconnect to check on progress.
+  # It best to run it using `nice` to avoid hogging server resources:
+  #   nice -n 19 bundle exec rake export:research_export CUTOFF_DATE='xxxx'
+  # It can also be quite noisy as it currently sends debug output to stdout
+  # rather than writing to a log so you may also want to pipe the output into a
+  # file using something like `tee`
+  #  nice -n 19 [task] 1> exports/stdout.log 2> >(tee -a exports/stderr.log >&2)
   desc 'exports all non-personal information to export folder'
   task :research_export => :environment do
     cut_off_date = ENV["CUTOFF_DATE"]

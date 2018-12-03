@@ -43,7 +43,8 @@ class IncomingMessage < ActiveRecord::Base
   MAX_ATTACHMENT_TEXT_CLIPPED = 1000000 # 1Mb ish
 
   belongs_to :info_request,
-             :inverse_of => :incoming_messages
+             inverse_of: :incoming_messages,
+             counter_cache: true
 
   validates_presence_of :info_request
 

@@ -9,4 +9,11 @@ namespace :incoming_messages do
       puts "Parsed #{msg.id} in #{ bm.real.round(6) }" if verbose
     end
   end
+
+  desc 'Update InfoRequest#incoming_messages_count counter cache'
+  task update_counter_cache: :environment do
+    InfoRequest.update_all('incoming_messages_count = (SELECT COUNT(*) FROM ' \
+      '"incoming_messages" WHERE "incoming_messages"."info_request_id" = ' \
+      '"info_requests"."id")')
+  end
 end

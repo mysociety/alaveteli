@@ -93,24 +93,34 @@ describe FollowupsController do
         expect(response).to render_template('new')
       end
 
-      it "offers the opportunity to reply to the main address" do
-        get :new, params: { :request_id => request.id,
-                            :incoming_message_id => message_id }
-        expect(response.body).
-          to have_css("div#other_recipients ul li", :text => "the main FOI contact address for")
-      end
+      context 'the request has responses' do
+        let(:message_id) { request.incoming_messages[0].id }
 
-      it "offers an opportunity to reply to another address" do
-        open_request = FactoryBot.create(:info_request_with_incoming,
-                                         :user => request_user,
-                                         :allow_new_responses_from => "anybody")
-        receive_incoming_mail('incoming-request-plain.email',
-                              open_request.incoming_email, "Frob <frob@bonce.com>")
-        get :new, params: {
-                    :request_id => open_request.id,
-                    :incoming_message_id => open_request.incoming_messages[0].id
-                  }
-        expect(response.body).to have_css("div#other_recipients ul li", :text => "Frob")
+        before do
+          allow_any_instance_of(IncomingMessage).
+             to receive(:valid_to_reply_to?).and_return(true)
+          receive_incoming_mail('incoming-request-plain.email',
+                                request.incoming_email,
+                                'Frob <frob@bonce.com>')
+        end
+
+        it "offers the opportunity to reply to the main address" do
+          get :new, params: { :request_id => request.id,
+                              :incoming_message_id => message_id }
+          expect(response.body).
+            to have_css("div#other_recipients ul li",
+                        :text => "the main FOI contact address for")
+        end
+
+        it "offers an opportunity to reply to another address" do
+          get :new, params: {
+                      :request_id => request.id,
+                      :incoming_message_id => message_id
+                    }
+          expect(response.body).
+            to have_css("div#other_recipients ul li", :text => "Frob")
+        end
+
       end
 
       context "the request is hidden" do

@@ -2,6 +2,10 @@
 
 ## Highlighted Features
 
+* Use the original subject line when sending an email reply to a
+  PublicBodyChangeRequest through the admin interface (Liz Conlan)
+* Improve logic for showing contact options when making followups to a request
+  (Liz Conlan)
 * Improve guessing from malformed addresses for incoming email in the holding
   pen (Gareth Rees)
 * Add a `USER_CONTACT_FORM_RECAPTCHA` config setting to show a reCAPTCHA

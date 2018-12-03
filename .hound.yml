@@ -1,8 +1,11 @@
-scss:
+eslint:
   enabled: false
+
+rubocop:
+  version: 0.60.0
 
 ruby:
   config_file: .ruby-style.yml
 
-javascript:
+scss:
   enabled: false

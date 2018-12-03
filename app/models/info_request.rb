@@ -31,6 +31,7 @@
 #  last_event_forming_initial_request_id :integer
 #  use_notifications                     :boolean
 #  last_event_time                       :datetime
+#  incoming_messages_count               :integer          default(0)
 #
 
 require 'digest/sha1'
@@ -1409,6 +1410,11 @@ class InfoRequest < ActiveRecord::Base
   def who_can_followup_to(skip_message = nil)
     ret = []
     done = {}
+    if skip_message
+      if email = OutgoingMailer.email_for_followup(self, skip_message)
+        done[email.downcase] = 1
+      end
+    end
     for incoming_message in incoming_messages.reverse
       if incoming_message == skip_message
         next

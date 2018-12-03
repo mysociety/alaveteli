@@ -234,7 +234,7 @@ class InfoRequestBatch < ActiveRecord::Base
   #
   # Returns an array of PublicBody objects
   def sent_public_bodies
-    info_requests.map(&:public_body)
+    PublicBody.where(id: info_requests.map(&:public_body_id))
   end
 
   # Return a list of public bodies which we can send the request to
