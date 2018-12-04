@@ -524,7 +524,7 @@ class RequestMailer < ApplicationMailer
   private
 
   def set_footer_template
-    @footer_template = 'general/default_footer'
+    @footer_template = 'default'
   end
 
 end

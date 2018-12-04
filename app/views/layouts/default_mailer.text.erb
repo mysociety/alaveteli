@@ -1,2 +1,2 @@
 <%= raw yield -%>
-<%= render partial: @footer_template if @footer_template -%>
+<%= render partial: "general/#{@footer_template}_footer" if @footer_template -%>
