@@ -9,6 +9,7 @@ require 'action_mailer/version'
 class ApplicationMailer < ActionMailer::Base
   # Include all the functions views get, as emails call similar things.
   helper :application
+  layout 'default_mailer'
   include MailerHelper
   include AlaveteliFeatures::Helpers
 
@@ -67,6 +68,10 @@ class ApplicationMailer < ActionMailer::Base
     }
     default_opts.merge!(opts)
     headers(default_opts)
+  end
+
+  def set_use_footer
+    @use_footer = nil
   end
 
   # URL generating functions are needed by all controllers (for redirects),
