@@ -232,6 +232,12 @@ Rails.application.routes.draw do
         :as => :get_draft_profile_photo,
         :via => :get
 
+  namespace :users do
+    get 'email_alerts/disable/:token',
+        to: 'email_alerts#destroy',
+        as: :disable_email_alerts
+  end
+
   namespace :profile, :module => 'user_profile' do
     resource :about_me, :only => [:edit, :update], :controller => 'about_me'
   end

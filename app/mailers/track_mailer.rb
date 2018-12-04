@@ -14,8 +14,12 @@ class TrackMailer < ApplicationMailer
 
   def event_digest(user, email_about_things)
     @user, @email_about_things = user, email_about_things
+
     @unsubscribe_url =
       signin_url(r: user_path(user, anchor: 'email_subscriptions'))
+
+    token = CGI.escape(User::EmailAlerts.token(user))
+    @disable_email_alerts_url = users_disable_email_alerts_url(token: token)
 
     headers('Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
             'Precedence' => 'bulk')# http://www.vbulletin.com/forum/project.php?issueid=27687 (Exchange hack)
