@@ -70,8 +70,8 @@ class ApplicationMailer < ActionMailer::Base
     headers(default_opts)
   end
 
-  def set_use_footer
-    @use_footer = nil
+  def set_footer_template
+    @footer_template = nil
   end
 
   # URL generating functions are needed by all controllers (for redirects),

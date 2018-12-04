@@ -8,7 +8,7 @@
 class RequestMailer < ApplicationMailer
   include AlaveteliFeatures::Helpers
 
-  before_action :set_use_footer,
+  before_action :set_footer_template,
                 :only => [
                   :new_response, :overdue_alert, :very_overdue_alert,
                   :new_response_reminder_alert, :old_unclassified_updated,
@@ -523,8 +523,8 @@ class RequestMailer < ApplicationMailer
 
   private
 
-  def set_use_footer
-    @use_footer = true
+  def set_footer_template
+    @footer_template = 'general/default_footer'
   end
 
 end

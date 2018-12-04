@@ -1,2 +1,2 @@
 <%= raw yield -%>
-<%= render partial: 'general/default_footer' if @use_footer -%>
+<%= render partial: @footer_template if @footer_template -%>
