@@ -6,6 +6,9 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class TrackMailer < ApplicationMailer
+
+  before_action :set_footer_template, :only => :event_digest
+
   # Note that this is different from all the other mailers, as tracks are
   # sent from a different email address and have different bounce handling.
   def contact_from_name_and_email
@@ -134,6 +137,12 @@ class TrackMailer < ApplicationMailer
         sleep_seconds = 300 if sleep_seconds > 300
       end
     end
+  end
+
+  private
+
+  def set_footer_template
+    @footer_template = 'default'
   end
 
 end
