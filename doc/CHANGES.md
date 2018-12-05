@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Warn users when their request is getting too long (Zarino Zappia)
 * Add one-click unsubscribe to `TrackMailer`-generated email notifications
   (Gareth Rees)
 * Use the original subject line when sending an email reply to a
