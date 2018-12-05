@@ -387,6 +387,9 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
   describe ".category" do
     it "returns summaries with the appropriate category" do
       TestAfterCommit.with_commits(true) do
+        # Make sure there aren't any random other request summaries around from
+        # fixtures etc
+        AlaveteliPro::RequestSummary.destroy_all
         draft = AlaveteliPro::RequestSummaryCategory.draft
         awaiting_response = AlaveteliPro::RequestSummaryCategory.
           awaiting_response
