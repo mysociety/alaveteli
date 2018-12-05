@@ -300,33 +300,45 @@ describe InfoRequest do
     end
 
     it 'does not affect requests that have been updated before the configured number of months' do
-      request.update(updated_at: 3.months.ago)
+      time_travel_to(3.months.ago) { request }
       expect { subject }.
         not_to change { request.reload.allow_new_responses_from }
     end
 
     it 'allows new responses from authority_only after the old number of months' do
-      request.update(updated_at: 3.months.ago - 1.day)
+      time_travel_to(3.months.ago - 1.day) { request }
       expect { subject }.
         to change { request.reload.allow_new_responses_from }.
         to('authority_only')
     end
 
     it 'stops all new responses after quadruple the old number of months' do
-      request.update(updated_at: 12.months.ago - 1.day)
+      time_travel_to(12.months.ago - 1.day) { request }
       expect { subject }.
         to change { request.reload.allow_new_responses_from }.to('nobody')
     end
 
     it 'does not affect requests that have never been published' do
-      request = FactoryBot.create(:embargoed_request)
-      request.update(updated_at: 5.years.ago)
+      time_travel_to(5.years.ago) do
+        request = FactoryBot.create(:embargoed_request)
+      end
+
+      expect { subject }.
+        not_to change { request.reload.allow_new_responses_from }
+    end
+
+    it 'does not affect requests which have recent followups' do
+      time_travel_to(3.months.ago - 1.day) { request }
+      time_travel_to(3.days.ago) do
+        FactoryBot.create(:new_information_followup, info_request: request)
+      end
+
       expect { subject }.
         not_to change { request.reload.allow_new_responses_from }
     end
 
     it 'logs an event after changing new responses to authority_only' do
-      request.update(updated_at: 6.months.ago - 1.day)
+      time_travel_to(6.months.ago - 1.day) { request }
       subject
       last_event = request.reload.last_event
       expect(last_event.event_type).to eq('edit')
@@ -337,6 +349,8 @@ describe InfoRequest do
     end
 
     it 'logs an event after changing new responses to nobody' do
+      request.outgoing_messages.last.
+        update_attribute(:created_at, 2.year.ago - 1.day)
       request.update(updated_at: 2.years.ago - 1.day)
       subject
       last_event = request.reload.last_event

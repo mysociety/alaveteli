@@ -151,7 +151,9 @@ class InfoRequest < ActiveRecord::Base
     alias_method :in_progress, :awaiting_response
   end
   scope :action_needed, State::ActionNeededQuery.new
-  scope :updated_before, ->(ts) { where('"info_requests"."updated_at" < ?', ts) }
+  scope :updated_before, ->(ts) do
+    State::UpdatedBeforeQuery.new(timestamp: ts).call
+  end
 
   # user described state (also update in info_request_event, admin_request/edit.rhtml)
   validate :must_be_valid_state
