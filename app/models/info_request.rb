@@ -257,7 +257,13 @@ class InfoRequest < ActiveRecord::Base
     # (that was abandoned because councils would send hand written responses to them, not just
     # bounce messages)
     incoming_email =~ /request-(?:bounce-)?([a-z0-9]+)-([a-z0-9]+)/
-    id = $1.to_i
+
+    begin
+      id = Integer($1) if $1
+    rescue ArgumentError
+      id = nil
+    end
+
     hash = $2
 
     if hash
