@@ -1030,7 +1030,7 @@ describe UserController, "when sending another user a message" do
                      },
                      :submitted_contact_form => 1
                    }
-    expect(response).to redirect_to(:controller => 'user', :action => 'show', :url_name => users(:silly_name_user).url_name)
+    expect(response).to redirect_to(user_url(users(:silly_name_user)))
 
     deliveries = ActionMailer::Base.deliveries
     expect(deliveries.size).to  eq(1)
