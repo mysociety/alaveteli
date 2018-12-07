@@ -119,7 +119,8 @@ end
 SUPPORTED_OPERATING_SYSTEMS = {
   'trusty64' => 'https://app.vagrantup.com/ubuntu/boxes/trusty64',
   'jessie64' => 'https://app.vagrantup.com/puppetlabs/debian-8.2-64-nocm',
-  'stretch64' => 'https://app.vagrantup.com/debian/boxes/stretch64'
+  'stretch64' => 'https://app.vagrantup.com/debian/boxes/stretch64',
+  'xenial64' => 'https://app.vagrantup.com/ubuntu/boxes/xenial64'
 }
 
 def box
@@ -139,6 +140,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     'debian/stretch64'
   elsif box == 'trusty64'
     'ubuntu/trusty64'
+  elsif box == 'xenial64'
+    'ubuntu/xenial64'
   else
     box
   end
@@ -211,7 +214,7 @@ EOF
     config.vm.provision :shell, inline: "chmod +x /etc/update-motd.d/*"
     config.vm.provision :shell, inline: "rm /etc/motd"
     config.vm.provision :shell, inline: "ln -s /var/run/motd /etc/motd"
-  elsif SETTINGS['os'] == 'trusty64'
+  elsif SETTINGS['os'] == 'trusty64' || SETTINGS['os'] == 'xenial64'
     config.vm.provision :shell, inline: "echo '#{ motd }' >> /etc/motd"
   end
   config.vm.provision :shell, inline: "echo '#{ motd }' >> /etc/motd.tail"
