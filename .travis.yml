@@ -25,8 +25,6 @@ matrix:
     - rvm: 2.1.5
       gemfile: Gemfile.rails5
   allow_failures:
-    - rvm: 2.4 # Latest official 2.4.x
-    - rvm: 2.5 # Latest official 2.5.x
     - rvm: ruby-head
     - gemfile: Gemfile.rails5
 env:
