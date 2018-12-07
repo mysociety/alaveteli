@@ -29,11 +29,8 @@ matrix:
     - gemfile: Gemfile.rails5
 services:
   - postgresql
-env:
-  global:
-    - S3_REGION=us-east-1
-    - S3_BUCKET_NAME=alaveteli-bundle-cache
-    - secure: "cbZMhxbih4k2syqykwVprnBBTyD9Rk9pVhwM2W1Oa3Y9QIn79giL2yTUrJi3+bapHHFedWstG1wkLxEalc/Ei1G4vWYDqXiOtdzYR/WMqqCyd8royrkusist+rVcolvZ2dTCu8uvmteQ6sE3/FsoayTlYJmWCNFWhAiWayaai8Q="
+cache:
+  - bundler
 before_install:
   - sudo add-apt-repository --remove 'http://us-central1.gce.archive.ubuntu.com/ubuntu/ main restricted'
   - sudo add-apt-repository --remove 'http://us-central1.gce.archive.ubuntu.com/ubuntu/ universe'
