@@ -35,6 +35,7 @@
   contact form if set to true (defaults to false). Needs a small code snippet -
   documented in the `general.yml-example` file to be added to the theme's
   contact form for the reCAPTCHA to be displayed correctly (Liz Conlan)
+* Added support for Ubuntu 16.04 LTS (Xenial Xerus) (Graeme Porteous)
 
 ## Upgrade Notes
 
