@@ -256,13 +256,9 @@ class InfoRequest < ActiveRecord::Base
     incoming_email = incoming_email.downcase
     incoming_email =~ /request\-?(\w+)-?(\w{8})@/
 
-    begin
-      id = Integer(_clean_idhash($1)) if $1
-    rescue ArgumentError
-      id = nil
-    end
-
+    id = _id_string_to_i(_clean_idhash($1))
     id_hash = $2
+
     if id_hash.nil? && incoming_email.include?('@')
       # try to grab the last 8 chars of the local part of the address instead
       local_part = incoming_email[0..incoming_email.index('@')-1]
@@ -273,6 +269,17 @@ class InfoRequest < ActiveRecord::Base
     end
 
     [id, id_hash]
+  end
+
+  # Internal function - attempts to convert a guessed id String from incoming
+  # email addresses to an Integer. Returns nil if it fails to avoid accidentally
+  # stripping trailing letters e.g. '123ab' should not match 123
+  #
+  # Returns an Integer
+  def self._id_string_to_i(id_string)
+    Integer(id_string) if id_string
+  rescue ArgumentError
+    nil
   end
 
   # Internal function used to clean the id_hash from incoming email addresses.
@@ -293,13 +300,9 @@ class InfoRequest < ActiveRecord::Base
     # bounce messages)
     incoming_email =~ /request-(?:bounce-)?([a-z0-9]+)-([a-z0-9]+)/
 
-    begin
-      id = Integer($1) if $1
-    rescue ArgumentError
-      id = nil
-    end
-
+    id = _id_string_to_i($1)
     hash = _clean_idhash($2)
+
     [id, hash]
   end
 
