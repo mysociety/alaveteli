@@ -71,7 +71,7 @@ badger_request:
     described_state: waiting_response
     awaiting_description: false
     comments_allowed: true
-    idhash: e8d18c84
+    idhash: e8d18c85
     use_notifications: false
 boring_request:
     id: 105
@@ -129,7 +129,7 @@ spam_2_request:
     described_state: successful
     awaiting_description: false
     comments_allowed: true
-    idhash: 173fd005
+    idhash: 173fd006
     use_notifications: false
 external_request:
     id: 109
@@ -171,5 +171,5 @@ other_request:
     described_state: waiting_response
     awaiting_description: false
     comments_allowed: true
-    idhash: b234567
+    idhash: b234567a
     use_notifications: false
