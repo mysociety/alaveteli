@@ -307,7 +307,7 @@ class InfoRequest < ActiveRecord::Base
           where(subject: [subject_line.gsub(/^Re: /i, ''), subject_line]).
             map(&:info_request).uniq
 
-    requests.delete_if { |req| req == InfoRequest.holding_pen_request }
+    requests.delete_if(&:holding_pen_request?)
     guesses = requests.each.reduce([]) do |memo, request|
       memo << Guess.new(request, subject_line, :subject)
     end
@@ -1759,6 +1759,11 @@ class InfoRequest < ActiveRecord::Base
       categories << phase unless phase.blank?
     end
     categories
+  end
+
+  def holding_pen_request?
+    return true if url_title == 'holding_pen'
+    self == self.class.holding_pen_request
   end
 
   private
