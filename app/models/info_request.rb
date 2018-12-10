@@ -38,7 +38,7 @@ require 'digest/sha1'
 require 'fileutils'
 
 class InfoRequest < ActiveRecord::Base
-  Guess = Struct.new(:info_request, :matched_email, :match_method).freeze
+  Guess = Struct.new(:info_request, :matched_value, :match_method).freeze
   OLD_AGE_IN_DAYS = 21.days
 
   include AdminColumn
@@ -288,6 +288,32 @@ class InfoRequest < ActiveRecord::Base
   def self._clean_idhash(hash)
     return unless hash
     hash.gsub(/l/, "1").gsub(/o/, "0")
+  end
+
+  # Public: Attempt to find InfoRequests by matching against extracted `subject`
+  # element of an `incoming_email`.
+  #
+  # subject_line - A String an email subject line
+  # Returns an Array
+  def self.guess_by_incoming_subject(subject_line)
+    # try to find a match on InfoRequest#title
+    reply_format = InfoRequest.new(title: '').email_subject_followup
+    requests = where(title: subject_line.gsub(/#{reply_format}/i, '').strip)
+
+    # try to find a match on IncomingMessage#subject
+    requests +=
+      IncomingMessage.
+        includes(:info_request).
+          where(subject: [subject_line.gsub(/^Re: /i, ''), subject_line]).
+            map(&:info_request).uniq
+
+    requests.delete_if { |req| req == InfoRequest.holding_pen_request }
+    guesses = requests.each.reduce([]) do |memo, request|
+      memo << Guess.new(request, subject_line, :subject)
+    end
+
+    # Unique Guesses where we've found an `InfoRequest`
+    guesses.select(&:info_request).uniq(&:info_request)
   end
 
   # Internal function used by find_by_magic_email and guess_by_incoming_email

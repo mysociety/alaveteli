@@ -1805,6 +1805,137 @@ describe InfoRequest do
     end
   end
 
+  describe '.guess_by_incoming_subject' do
+    subject { described_class.guess_by_incoming_subject(subject_line) }
+    let(:info_request) { FactoryBot.create(:info_request) }
+
+    context 'a direct reply to the original request email' do
+      let(:subject_line) { info_request.email_subject_followup }
+
+      let(:guess) do
+        described_class::Guess.new(info_request, subject_line, :subject)
+      end
+
+      it { is_expected.to include(guess) }
+    end
+
+    context '"Re" in the incoming subject has different capitalisation' do
+      let(:subject_line) do
+        info_request.email_subject_followup.gsub('Re: ', 'RE: ')
+      end
+
+      let(:guess) do
+        described_class::Guess.new(info_request, subject_line, :subject)
+      end
+
+      it { is_expected.to include(guess) }
+    end
+
+    context 'a direct reply to an original request email which matches multiple requests' do
+      let!(:info_request_1) do
+        FactoryBot.create(:info_request, title: 'How many jelly beans?')
+      end
+
+      let!(:info_request_2) do
+        FactoryBot.create(:info_request, title: 'How many jelly beans?')
+      end
+
+      let(:subject_line) do
+        'Re: Freedom of Information request - How many jelly beans?'
+      end
+
+      let(:guess_1) do
+        described_class::Guess.new(info_request_1, subject_line, :subject)
+      end
+
+      let(:guess_2) do
+        described_class::Guess.new(info_request_2, subject_line, :subject)
+      end
+
+      it { is_expected.to match_array([guess_1, guess_2]) }
+    end
+
+    context 'subject line matches no requests' do
+      let(:subject_line) do
+        'Premium watches for sale!'
+      end
+
+      it { is_expected.to be_empty }
+    end
+
+    context 'a reply with a subject that matches a previous incoming_message subject' do
+
+      before do
+        FactoryBot.create(:incoming_message, subject: subject_line,
+                                             info_request: info_request)
+      end
+
+      let(:subject_line) { 'Our ref: 12345678' }
+
+      let(:guess) do
+        described_class::Guess.new(info_request, subject_line, :subject)
+      end
+
+      it { is_expected.to include(guess) }
+    end
+
+    context 'when the subject matches an incoming message in the holding pen' do
+      let(:subject_line) { 'Our ref: 12345678' }
+
+      before do
+        FactoryBot.create(:incoming_message,
+                          subject: subject_line,
+                          info_request: InfoRequest.holding_pen_request)
+      end
+
+      let(:guess) do
+        described_class::Guess.new(InfoRequest.holding_pen_request,
+                                   subject_line,
+                                   :subject)
+      end
+
+      it { is_expected.to_not include(guess) }
+    end
+
+    context 'when the subject indirectly matches an incoming message associated with the request' do
+      let(:subject_line) { 'Re: Our ref ABCDEFG' }
+
+      before do
+        FactoryBot.create(:incoming_message, subject: 'Our ref ABCDEFG',
+                                             info_request: info_request)
+      end
+
+      let(:guess) do
+        described_class::Guess.new(info_request, subject_line, :subject)
+      end
+
+      it { is_expected.to include(guess) }
+    end
+
+    context 'a reply with a subject that matches incoming_messages for multiple requests' do
+      let(:subject_line) { 'Our ref: 12345678' }
+
+      let!(:info_request_1) do
+        FactoryBot.create(:incoming_message, subject: subject_line).info_request
+      end
+
+      let!(:info_request_2) do
+        FactoryBot.create(:incoming_message, subject: subject_line).info_request
+      end
+
+      let(:guess_1) do
+        described_class::Guess.new(info_request_1, subject_line, :subject)
+      end
+
+      let(:guess_2) do
+        described_class::Guess.new(info_request_2, subject_line, :subject)
+      end
+
+      it { is_expected.to match_array([guess_1, guess_2]) }
+    end
+
+  end
+
   describe "making up the URL title" do
 
     before do

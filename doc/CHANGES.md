@@ -9,6 +9,8 @@
   PublicBodyChangeRequest through the admin interface (Liz Conlan)
 * Improve logic for showing contact options when making followups to a request
   (Liz Conlan)
+* Add guessing from the subject line of an incoming email in the holding pen
+  (Liz Conlan)
 * Improve guessing from addresses with missing punctuation for incoming email in
   the holding pen (Liz Conlan)
 * Improve guessing from malformed addresses for incoming email in the holding
