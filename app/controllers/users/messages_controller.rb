@@ -14,13 +14,7 @@ class Users::MessagesController < UserController
                             'Please try again.')
     else
       if @contact.valid?
-        ContactMailer.user_message(
-          @user,
-          @recipient_user,
-          user_url(@user),
-          params[:contact][:subject],
-          params[:contact][:message]
-        ).deliver_now
+        send_message(@user, @recipient_user)
         flash[:notice] = _('Your message to {{recipient_user_name}} has ' \
                            'been sent!',
                            recipient_user_name: @recipient_user.name.html_safe)
@@ -75,6 +69,16 @@ class Users::MessagesController < UserController
 
   def set_recaptcha_required
     @recaptcha_required = AlaveteliConfiguration.user_contact_form_recaptcha
+  end
+
+  def send_message(sender, recipient)
+    ContactMailer.user_message(
+      sender,
+      recipient,
+      user_url(sender),
+      params[:contact][:subject],
+      params[:contact][:message]
+    ).deliver_now
   end
 
 end
