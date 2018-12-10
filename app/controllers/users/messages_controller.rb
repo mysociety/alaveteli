@@ -2,25 +2,11 @@
 # Allowing users to send user-to-user messages
 class Users::MessagesController < UserController
 
-  before_action :set_recipient, :check_can_send_messages,
+  before_action :set_recipient, :check_can_send_messages, :check_logged_in,
                 :set_recaptcha_required
 
   # Send a message to another user
   def contact
-    # You *must* be logged into send a message to another user. (This is
-    # partly to avoid spam, and partly to have some equanimity of openess
-    # between the two users)
-    #
-    # "authenticated?" has done the redirect to signin page for us
-    return unless authenticated?(
-        :web => _("To send a message to {{user_name}}",
-                  :user_name => CGI.escapeHTML(@recipient_user.name)),
-        :email => _("Then you can send a message to {{user_name}}.",
-                    :user_name => @recipient_user.name),
-        :email_subject => _("Send a message to {{user_name}}",
-                            :user_name => @recipient_user.name)
-      )
-
     if params[:submitted_contact_form]
       if @recaptcha_required && !verify_recaptcha
         flash.now[:error] = _('There was an error with the reCAPTCHA. ' \
@@ -66,6 +52,22 @@ class Users::MessagesController < UserController
       render template: 'user/banned'
       return
     end
+  end
+
+  def check_logged_in
+    # You *must* be logged into send a message to another user. (This is
+    # partly to avoid spam, and partly to have some equanimity of openess
+    # between the two users)
+    #
+    # "authenticated?" has done the redirect to signin page for us
+    return unless authenticated?(
+      web: _('To send a message to {{user_name}}',
+             user_name: CGI.escapeHTML(@recipient_user.name)),
+      email: _('Then you can send a message to {{user_name}}.',
+               user_name: @recipient_user.name),
+      email_subject: _('Send a message to {{user_name}}',
+                       user_name: @recipient_user.name)
+    )
   end
 
   def set_recaptcha_required
