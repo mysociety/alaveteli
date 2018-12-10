@@ -2,17 +2,11 @@
 # Allowing users to send user-to-user messages
 class Users::MessagesController < UserController
 
-  before_action :set_recipient, :set_recaptcha_required
+  before_action :set_recipient, :check_can_send_messages,
+                :set_recaptcha_required
 
   # Send a message to another user
   def contact
-    # Banned from messaging users?
-    if authenticated_user && !authenticated_user.can_contact_other_users?
-      @details = authenticated_user.can_fail_html
-      render :template => 'user/banned'
-      return
-    end
-
     # You *must* be logged into send a message to another user. (This is
     # partly to avoid spam, and partly to have some equanimity of openess
     # between the two users)
@@ -63,6 +57,15 @@ class Users::MessagesController < UserController
 
   def set_recipient
     @recipient_user = User.find(params[:id])
+  end
+
+  def check_can_send_messages
+    # Banned from messaging users?
+    if authenticated_user && !authenticated_user.can_contact_other_users?
+      @details = authenticated_user.can_fail_html
+      render template: 'user/banned'
+      return
+    end
   end
 
   def set_recaptcha_required
