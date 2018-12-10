@@ -26,7 +26,7 @@ class Users::MessagesController < UserController
   private
 
   def set_recipient
-    @recipient_user = User.find(params[:id])
+    @recipient_user = User.find_by!(url_name: params[:url_name])
   end
 
   def check_can_send_messages

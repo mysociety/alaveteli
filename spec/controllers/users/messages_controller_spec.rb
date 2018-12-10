@@ -16,7 +16,7 @@ describe Users::MessagesController do
 
       it 'redirects to signin page' do
         session[:user_id] = nil
-        get :contact, params: { id: recipient.id }
+        get :contact, params: { url_name: recipient.url_name }
         expect(response).
           to redirect_to(signin_path(token: get_last_post_redirect.token))
       end
@@ -24,8 +24,14 @@ describe Users::MessagesController do
     end
 
     it 'shows the contact form' do
-      get :contact, params: { id: recipient.id }
+      get :contact, params: { url_name: recipient.url_name }
       expect(response).to render_template('contact')
+    end
+
+    it 'raises an error if the recipient user is not found' do
+      expect {
+        get :contact, params: { url_name: 'not-known-at-this-address' }
+      }.to raise_error ActiveRecord::RecordNotFound
     end
 
   end
@@ -34,7 +40,7 @@ describe Users::MessagesController do
 
     it 'shows an error if not given a subject line' do
       post :contact, params: {
-                       id: recipient.id,
+                       url_name: recipient.url_name,
                        contact: {
                          subject: '',
                          message: 'Gah'
@@ -53,7 +59,7 @@ describe Users::MessagesController do
 
       it 'does not send the message without the recaptcha being completed' do
          post :contact, params: {
-                          id: recipient.id,
+                          url_name: recipient.url_name,
                           contact: {
                             subject: 'Have some spam',
                             message: 'Spam, spam, spam'
@@ -70,7 +76,7 @@ describe Users::MessagesController do
 
     it 'sends the message' do
       post :contact, params: {
-                       id: recipient.id,
+                       url_name: recipient.url_name,
                        contact: {
                          subject: 'Dearest you',
                          message: 'Just a test!'
