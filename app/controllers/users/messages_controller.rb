@@ -2,12 +2,10 @@
 # Allowing users to send user-to-user messages
 class Users::MessagesController < UserController
 
-  before_action :set_recaptcha_required
+  before_action :set_recipient, :set_recaptcha_required
 
   # Send a message to another user
   def contact
-    @recipient_user = User.find(params[:id])
-
     # Banned from messaging users?
     if authenticated_user && !authenticated_user.can_contact_other_users?
       @details = authenticated_user.can_fail_html
@@ -62,6 +60,10 @@ class Users::MessagesController < UserController
   end
 
   private
+
+  def set_recipient
+    @recipient_user = User.find(params[:id])
+  end
 
   def set_recaptcha_required
     @recaptcha_required = AlaveteliConfiguration.user_contact_form_recaptcha
