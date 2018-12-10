@@ -7,25 +7,24 @@ class Users::MessagesController < UserController
 
   # Send a message to another user
   def contact
-    if params[:submitted_contact_form]
-      if @recaptcha_required && !verify_recaptcha
-        flash.now[:error] = _('There was an error with the reCAPTCHA. ' \
-                              'Please try again.')
-      else
-        if @contact.valid?
-          ContactMailer.user_message(
-            @user,
-            @recipient_user,
-            user_url(@user),
-            params[:contact][:subject],
-            params[:contact][:message]
-          ).deliver_now
-          flash[:notice] = _("Your message to {{recipient_user_name}} has " \
-                             "been sent!",
-                             :recipient_user_name => @recipient_user.
-                                                       name.html_safe)
-          redirect_to user_url(@recipient_user)
-        end
+    return unless params[:submitted_contact_form]
+
+    if @recaptcha_required && !verify_recaptcha
+      flash.now[:error] = _('There was an error with the reCAPTCHA. ' \
+                            'Please try again.')
+    else
+      if @contact.valid?
+        ContactMailer.user_message(
+          @user,
+          @recipient_user,
+          user_url(@user),
+          params[:contact][:subject],
+          params[:contact][:message]
+        ).deliver_now
+        flash[:notice] = _('Your message to {{recipient_user_name}} has ' \
+                           'been sent!',
+                           recipient_user_name: @recipient_user.name.html_safe)
+        redirect_to user_url(@recipient_user)
       end
     end
   end
