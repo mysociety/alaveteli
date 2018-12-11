@@ -99,6 +99,12 @@ span#to_public_body {
   width: 100%;
 }
 
+.message-text-length {
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    float: right;
+  }
+}
+
 /* Message preview */
 .message-preview {
   @include grid-row($behavior: nest);

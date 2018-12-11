@@ -38,7 +38,7 @@ require 'digest/sha1'
 require 'fileutils'
 
 class InfoRequest < ActiveRecord::Base
-  Guess = Struct.new(:info_request, :matched_email, :match_method).freeze
+  Guess = Struct.new(:info_request, :matched_value, :match_method).freeze
   OLD_AGE_IN_DAYS = 21.days
 
   include AdminColumn
@@ -240,8 +240,76 @@ class InfoRequest < ActiveRecord::Base
   def self.guess_by_incoming_email(*emails)
     guesses = emails.flatten.reduce([]) do |memo, email|
       id, idhash = _extract_id_hash_from_email(email)
+      if idhash.nil? || id.nil?
+        id, idhash = _guess_idhash_from_email(email)
+      end
       memo << Guess.new(find_by_id(id), email, :id)
       memo << Guess.new(find_by_idhash(idhash), email, :idhash)
+    end
+
+    # Unique Guesses where we've found an `InfoRequest`
+    guesses.select(&:info_request).uniq(&:info_request)
+  end
+
+  # Internal function used by guess_by_incoming_email
+  def self._guess_idhash_from_email(incoming_email)
+    incoming_email = incoming_email.downcase
+    incoming_email =~ /request\-?(\w+)-?(\w{8})@/
+
+    id = _id_string_to_i(_clean_idhash($1))
+    id_hash = $2
+
+    if id_hash.nil? && incoming_email.include?('@')
+      # try to grab the last 8 chars of the local part of the address instead
+      local_part = incoming_email[0..incoming_email.index('@')-1]
+      id_hash =
+        if local_part.length >= 8
+          _clean_idhash(local_part[-8..-1])
+        end
+    end
+
+    [id, id_hash]
+  end
+
+  # Internal function - attempts to convert a guessed id String from incoming
+  # email addresses to an Integer. Returns nil if it fails to avoid accidentally
+  # stripping trailing letters e.g. '123ab' should not match 123
+  #
+  # Returns an Integer
+  def self._id_string_to_i(id_string)
+    Integer(id_string) if id_string
+  rescue ArgumentError
+    nil
+  end
+
+  # Internal function used to clean the id_hash from incoming email addresses.
+  # Converts l to 1, and o to 0. FOI officers quite often retype the email
+  # address and make this kind of error.
+  def self._clean_idhash(hash)
+    return unless hash
+    hash.gsub(/l/, "1").gsub(/o/, "0")
+  end
+
+  # Public: Attempt to find InfoRequests by matching against extracted `subject`
+  # element of an `incoming_email`.
+  #
+  # subject_line - A String an email subject line
+  # Returns an Array
+  def self.guess_by_incoming_subject(subject_line)
+    # try to find a match on InfoRequest#title
+    reply_format = InfoRequest.new(title: '').email_subject_followup
+    requests = where(title: subject_line.gsub(/#{reply_format}/i, '').strip)
+
+    # try to find a match on IncomingMessage#subject
+    requests +=
+      IncomingMessage.
+        includes(:info_request).
+          where(subject: [subject_line.gsub(/^Re: /i, ''), subject_line]).
+            map(&:info_request).uniq
+
+    requests.delete_if { |req| req == InfoRequest.holding_pen_request }
+    guesses = requests.each.reduce([]) do |memo, request|
+      memo << Guess.new(request, subject_line, :subject)
     end
 
     # Unique Guesses where we've found an `InfoRequest`
@@ -257,15 +325,9 @@ class InfoRequest < ActiveRecord::Base
     # (that was abandoned because councils would send hand written responses to them, not just
     # bounce messages)
     incoming_email =~ /request-(?:bounce-)?([a-z0-9]+)-([a-z0-9]+)/
-    id = $1.to_i
-    hash = $2
 
-    if hash
-      # Convert l to 1, and o to 0. FOI officers quite often retype the
-      # email address and make this kind of error.
-      hash.gsub!(/l/, "1")
-      hash.gsub!(/o/, "0")
-    end
+    id = _id_string_to_i($1)
+    hash = _clean_idhash($2)
 
     [id, hash]
   end

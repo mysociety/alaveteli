@@ -95,6 +95,19 @@
   }
 }
 
+.message-text-length {
+  &.text-length-s {
+    display: none;
+  }
+
+  &.text-length-l {
+    color: #d80;
+  }
+
+  &.text-length-xl {
+    color: #c00;
+  }
+}
 
 input#reedit_button {
   background-color: transparent;

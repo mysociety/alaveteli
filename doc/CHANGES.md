@@ -2,12 +2,18 @@
 
 ## Highlighted Features
 
+* Warn users when their request is getting too long (Zarino Zappia)
+* Add a customisable email footer for emails sent to users (Liz Conlan)
 * Add one-click unsubscribe to `TrackMailer`-generated email notifications
   (Gareth Rees)
 * Use the original subject line when sending an email reply to a
   PublicBodyChangeRequest through the admin interface (Liz Conlan)
 * Improve logic for showing contact options when making followups to a request
   (Liz Conlan)
+* Add guessing from the subject line of an incoming email in the holding pen
+  (Liz Conlan)
+* Improve guessing from addresses with missing punctuation for incoming email in
+  the holding pen (Liz Conlan)
 * Improve guessing from malformed addresses for incoming email in the holding
   pen (Gareth Rees)
 * Add a `USER_CONTACT_FORM_RECAPTCHA` config setting to show a reCAPTCHA

@@ -166,7 +166,8 @@ Layout/MultilineHashBraceLayout:
                  Checks that the closing brace in a hash literal is
                  either on the same line as the last hash element, or
                  a new line.
-  Enabled: false
+  Enabled: true
+  EnforcedStyle: symmetrical
 
 Layout/MultilineMethodCallBraceLayout:
   Description: >-
@@ -298,7 +299,9 @@ Layout/SpaceInsideReferenceBrackets:
 Layout/SpaceInsideHashLiteralBraces:
   Description: "Use spaces inside hash literal braces - or don't."
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#spaces-operators'
-  Enabled: false
+  Enabled: true
+  EnforcedStyle: space
+  EnforcedStyleForEmptyBraces: no_space
 
 Layout/SpaceInsideParens:
   Description: 'No spaces after ( or before ).'
@@ -401,7 +404,8 @@ Style/BlockDelimiters:
 
 Style/BracesAroundHashParameters:
   Description: 'Enforce braces style around hash parameters.'
-  Enabled: false
+  Enabled: true
+  EnforcedStyle: no_braces
 
 Style/CaseEquality:
   Description: 'Avoid explicit use of the case equality operator(===).'
@@ -553,7 +557,8 @@ Style/HashSyntax:
                  Prefer Ruby 1.9 hash syntax { a: 1, b: 2 } over 1.8 syntax
                  { :a => 1, :b => 2 }.
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#hash-literals'
-  Enabled: false
+  Enabled: true
+  EnforcedStyle: ruby19_no_mixed_keys
 
 Style/IfInsideElse:
   Description: 'Finds if nodes inside else, which can be converted to elsif.'
@@ -748,7 +753,7 @@ Style/PerlBackrefs:
 Style/Proc:
   Description: 'Use proc instead of Proc.new.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#proc'
-  Enabled: false
+  Enabled: true
 
 Style/RaiseArgs:
   Description: 'Checks the arguments passed to raise/fail.'
@@ -867,7 +872,8 @@ Style/TrailingCommaInArrayLiteral:
 Style/TrailingCommaInHashLiteral:
   Description: 'Checks for trailing comma in hash literals.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-trailing-array-commas'
-  Enabled: false
+  Enabled: true
+  EnforcedStyleForMultiline: no_comma
 
 Style/TrivialAccessors:
   Description: 'Prefer attr_* methods to trivial readers/writers.'
@@ -1087,7 +1093,7 @@ Lint/DuplicateMethods:
 
 Lint/DuplicatedKey:
   Description: 'Check for duplicate keys in hash literals.'
-  Enabled: false
+  Enabled: true
 
 Lint/EachWithObjectArgument:
   Description: 'Check for immutable argument given to each_with_object.'
@@ -1369,7 +1375,7 @@ Performance/RedundantMatch:
 Performance/RedundantMerge:
   Description: 'Use Hash#[]=, rather than Hash#merge! with a single key-value pair.'
   Reference: 'https://github.com/JuanitoFatas/fast-ruby#hashmerge-vs-hash-code'
-  Enabled: false
+  Enabled: true
 
 Performance/RedundantSortBy:
   Description: 'Use `sort` instead of `sort_by { |x| x }`.'

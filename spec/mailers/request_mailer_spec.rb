@@ -273,6 +273,29 @@ describe RequestMailer do
 
   end
 
+  describe 'when sending emails' do
+
+    it 'renders the footer partial for a user email' do
+      expect_any_instance_of(RequestMailer).to receive(:set_footer_template)
+      info_request = FactoryBot.create(:waiting_clarification_info_request)
+      info_request.update_column(:updated_at, Time.zone.now - 5.days)
+      RequestMailer.alert_not_clarified_request
+    end
+
+    it 'does not render the footer partial for a non-user email' do
+      expect_any_instance_of(RequestMailer).not_to receive(:set_footer_template)
+      info_request = FactoryBot.create(:info_request_with_incoming)
+      mail = RequestMailer.
+               fake_response(info_request,
+                             mock_model(User, :name_and_email => "test"),
+                             "The body of the email...",
+                             "blah.txt",
+                             "The content of blah.txt")
+      mail.message
+    end
+
+  end
+
 
   describe "when sending reminders to requesters to classify a response to their request" do
 

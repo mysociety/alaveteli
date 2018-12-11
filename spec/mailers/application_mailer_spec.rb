@@ -14,10 +14,13 @@ describe ApplicationMailer do
     end
 
     def add_mail_methods(method_names)
+      @previous_layout = ApplicationMailer._layout.dup
+      ApplicationMailer.send(:layout, nil)
       method_names.each{ |method_name| ApplicationMailer.send(:define_method, method_name){ mail } }
     end
 
     def remove_mail_methods(method_names)
+      ApplicationMailer.send(:layout, @previous_layout)
       method_names.each do |method_name|
         if ApplicationMailer.respond_to?(method_name)
           ApplicationMailer.send(:remove_method, method_name)
