@@ -42,9 +42,9 @@ describe PublicBodyChangeRequestMailer do
     end
 
     it 'does not add HTMLEntities to an update public body email subject' do
-      public_body = FactoryBot.create(:public_body, :name => "Apostrophe's")
+      public_body = FactoryBot.create(:public_body, name: "Apostrophe's")
       change_request = FactoryBot.create(:update_body_request,
-                                         :public_body => public_body)
+                                         public_body: public_body)
       expect(
         described_class.change_request_message(change_request, false).subject
       ).to eq("Update email address - Apostrophe's")
@@ -52,7 +52,7 @@ describe PublicBodyChangeRequestMailer do
 
     it 'does not add HTMLEntities to an add public body email subject' do
       change_request = FactoryBot.create(:add_body_request,
-                                         :public_body_name => "Apostrophe's")
+                                         public_body_name: "Apostrophe's")
       expect(
         described_class.change_request_message(change_request, true).subject
       ).to eq("Add authority - Apostrophe's")

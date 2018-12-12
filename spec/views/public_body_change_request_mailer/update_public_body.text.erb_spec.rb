@@ -1,25 +1,24 @@
 # -*- encoding : utf-8 -*-
-require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
+require 'spec_helper'
 
-describe "public_body_change_request_mailer/update_public_body" do
-  let(:user) { FactoryBot.create(:user, :name => "Test Us'r") }
-  let(:public_body) do
-    FactoryBot.create(:public_body, :name => "Apostrophe's")
-  end
+describe 'public_body_change_request_mailer/update_public_body' do
+  let(:user) { FactoryBot.create(:user, name: "Test Us'r") }
+  let(:public_body) { FactoryBot.create(:public_body, name: "Apostrophe's") }
+
   let(:change_request) do
     FactoryBot.create(
       :update_body_request,
-      :public_body => public_body,
-      :user => user)
+      public_body: public_body,
+      user: user)
   end
 
-  it "does not add HTMLEntities to the user name" do
+  it 'does not add HTMLEntities to the user name' do
     assign(:change_request, change_request)
     render
     expect(response).to match("Test Us'r would like the email address for")
   end
 
-  it "does not add HTMLEntities to the public body name" do
+  it 'does not add HTMLEntities to the public body name' do
     assign(:change_request, change_request)
     render
     expect(response).to match("email address for Apostrophe's to be updated")

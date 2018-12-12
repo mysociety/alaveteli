@@ -1,14 +1,15 @@
 # -*- encoding : utf-8 -*-
-require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
+require 'spec_helper'
 
-describe "public_body_change_request_mailer/add_public_body" do
-  let(:user) { FactoryBot.create(:user, :name => "Test Us'r") }
+describe 'public_body_change_request_mailer/add_public_body' do
+  let(:user) { FactoryBot.create(:user, name: "Test Us'r") }
+
   let(:change_request) do
     FactoryBot.create(
       :add_body_request,
-      :public_body_name => "Apostrophe's",
-      :user => user,
-      :notes => "Meeting starts at 12 o'clock")
+      public_body_name: "Apostrophe's",
+      user: user,
+      notes: "Meeting starts at 12 o'clock")
   end
 
   before do
@@ -16,19 +17,19 @@ describe "public_body_change_request_mailer/add_public_body" do
       and_return("l'Information")
   end
 
-  it "does not add HTMLEntities to the user name" do
+  it 'does not add HTMLEntities to the user name' do
     assign(:change_request, change_request)
     render
     expect(response).to match("Test Us'r would like a new authority added")
   end
 
-  it "does not add HTMLEntities to the site name" do
+  it 'does not add HTMLEntities to the site name' do
     assign(:change_request, change_request)
     render
     expect(response).to match("new authority added to l'Information")
   end
 
-  it "does not add HTMLEntities to the public body name" do
+  it 'does not add HTMLEntities to the public body name' do
     assign(:change_request, change_request)
     render
     expect(response).to match("Authority:\nApostrophe's")
