@@ -81,9 +81,14 @@ class PublicBodyChangeRequest < ActiveRecord::Base
   end
 
   def send_message
-    PublicBodyChangeRequestMailer.
-      change_request_message(self, add_body_request?).
-      deliver_now
+    mail =
+      if add_body_request?
+        PublicBodyChangeRequestMailer.add_public_body(self)
+      else
+        PublicBodyChangeRequestMailer.update_public_body(self)
+      end
+
+    mail.deliver_now
   end
 
   def thanks_notice

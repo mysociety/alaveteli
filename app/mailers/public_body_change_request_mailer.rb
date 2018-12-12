@@ -1,16 +1,21 @@
 # -*- encoding : utf-8 -*-
 # Emails about PublicBodyChangeRequests.
 class PublicBodyChangeRequestMailer < ApplicationMailer
-  # Send a request to the administrator to add an authority
-  def change_request_message(change_request, use_new_body_template)
-    @change_request = change_request
+  # Send a request to the administrator to add a new PublicBody.
+  def add_public_body(change_request)
+    change_request_message(change_request, 'add_public_body')
+  end
 
-    template =
-      if use_new_body_template
-        'add_public_body'
-      else
-        'update_public_body'
-      end
+  # Send a request to the administrator to update the email of an existing
+  # PublicBody.
+  def update_public_body(change_request)
+    change_request_message(change_request, 'update_public_body')
+  end
+
+  private
+
+  def change_request_message(change_request, template)
+    @change_request = change_request
 
     # From is an address we control so that strict DMARC senders don't get
     # refused
