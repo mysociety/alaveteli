@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
 
-describe "contact_mailer/add_public_body" do
+describe "public_body_change_request_mailer/add_public_body" do
   let(:user) { FactoryBot.create(:user, :name => "Test Us'r") }
   let(:change_request) do
     FactoryBot.create(
