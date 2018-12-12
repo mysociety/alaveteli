@@ -179,6 +179,8 @@ RSpec.configure do |config|
   end
 end
 
+include Mail::Matchers
+
 # Helper with_xxx methods for working with feature flags
 include AlaveteliFeatures::SpecHelpers
 
