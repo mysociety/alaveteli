@@ -8,7 +8,7 @@ class PublicBodyChangeRequestMailer < ApplicationMailer
       if use_new_body_template
         'add_public_body'
       else
-        'update_public_body_email'
+        'update_public_body'
       end
 
     # From is an address we control so that strict DMARC senders don't get refused

@@ -12,7 +12,7 @@ describe PublicBodyChangeRequestMailer do
     end
 
     context 'when use_new_body_template is false' do
-      it 'uses the update_public_body_email template' do
+      it 'uses the update_public_body template' do
         change_request = FactoryBot.create(:update_body_request)
         mail = described_class.change_request_message(change_request, false)
         expect(mail.body.to_s).to match(/would like the email address for/)
