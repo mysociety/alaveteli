@@ -149,6 +149,7 @@ class FollowupsController < ApplicationController
       mail_message.to_addrs.join(', '),
       mail_message.message_id
     )
+    @outgoing_message.info_request.reopen_to_new_responses
 
     @outgoing_message.save!
 

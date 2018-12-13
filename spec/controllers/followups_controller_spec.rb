@@ -421,6 +421,44 @@ describe FollowupsController do
       expect(request.reload.described_state).to eq('waiting_response')
     end
 
+    context 'the request is no longer open to "anybody"' do
+
+      before do
+        request.update_attributes(
+          allow_new_responses_from: 'authority_only',
+          reject_incoming_at_mta: true
+        )
+      end
+
+      it 'reopens the parent request to new responses' do
+        post :create, params: {
+                        outgoing_message: dummy_message,
+                        request_id: request.id,
+                        incoming_message_id: message_id
+                      }
+
+        expect(request.reload.allow_new_responses_from).to eq('anybody')
+        expect(request.reload.reject_incoming_at_mta).to eq(false)
+      end
+
+      it 'sends the follow up message' do
+        post :create, params: {
+                        outgoing_message: dummy_message,
+                        request_id: request.id,
+                        incoming_message_id: message_id
+                      }
+
+        # check it worked
+        deliveries = ActionMailer::Base.deliveries
+        expect(deliveries.size).to eq(1)
+        mail = deliveries[0]
+        expect(mail.body).to match(/What a useless response! You suck./)
+        expect(mail.to_addrs.first.to_s).
+          to eq(request.public_body.request_email)
+      end
+
+    end
+
     it "updates the event status for successful followup sends if the request is waiting clarification" do
       request.set_described_state('waiting_clarification')
 
