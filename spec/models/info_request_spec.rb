@@ -349,6 +349,34 @@ describe InfoRequest do
 
   end
 
+  describe '#reopen_to_new_responses' do
+    subject { info_request.reopen_to_new_responses }
+
+    let(:info_request) do
+      time_travel_to(8.months.ago) do
+        FactoryBot.create(:info_request, allow_new_responses_from: 'nobody',
+                                         reject_incoming_at_mta: true)
+      end
+    end
+
+    it 'resets #allow_new_responses_from to "anybody"' do
+      subject
+      expect(info_request.allow_new_responses_from).to eq('anybody')
+    end
+
+    it 'resets #reject_incoming_at_mta to false' do
+      subject
+      expect(info_request.reject_incoming_at_mta).to eq(false)
+    end
+
+    it 'changes the updated_at timestamp' do
+      expect { subject }.
+        to change { info_request.reload.updated_at.to_date }.
+          from(8.months.ago.to_date).to(now.to_date)
+    end
+
+  end
+
   describe '#receive' do
 
     it 'creates a new incoming message' do

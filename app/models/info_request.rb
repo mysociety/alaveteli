@@ -968,6 +968,12 @@ class InfoRequest < ActiveRecord::Base
     end
   end
 
+  # Called when outgoing_messages are sent to ensure that the request
+  # is not closed during an active discussion or an internal review
+  def reopen_to_new_responses
+    update(allow_new_responses_from: 'anybody', reject_incoming_at_mta: false)
+  end
+
   # An annotation (comment) is made
   def add_comment(body, user)
     comment = Comment.new
