@@ -225,4 +225,27 @@ describe AdminOutgoingMessageController do
 
   end
 
+  describe 'POST #resend' do
+    let(:info_request) { FactoryBot.create(:info_request) }
+    let(:outgoing) { info_request.outgoing_messages.first }
+
+    it 'redirects to the admin show request page' do
+      post :resend, params: { id: outgoing.id }
+      expect(response).
+        to redirect_to(admin_request_path(info_request))
+    end
+
+    it 'logs the message resend' do
+      post :resend, params: { id: outgoing.id }
+      expect(info_request.reload.last_event.event_type).to eq 'resent'
+    end
+
+    it 'raises an error if given an unexpected message type' do
+      outgoing.update_attribute(:message_type, 'invalid')
+      expect { post :resend, params: { id: outgoing.id } }.
+        to raise_error(RuntimeError)
+    end
+
+  end
+
 end
