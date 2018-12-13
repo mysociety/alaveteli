@@ -71,6 +71,7 @@ class AdminOutgoingMessageController < AdminController
       mail_message.message_id,
       'resent'
     )
+    @outgoing_message.info_request.reopen_to_new_responses
 
     flash[:notice] = "Outgoing message resent"
     redirect_to admin_request_url(@outgoing_message.info_request)

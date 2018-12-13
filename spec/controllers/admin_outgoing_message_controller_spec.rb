@@ -253,6 +253,18 @@ describe AdminOutgoingMessageController do
           from(1.day.ago.to_date).to(now.to_date)
     end
 
+    it 'reopens closed requests to new responses' do
+      info_request.update_attributes(
+        allow_new_responses_from: 'nobody',
+        reject_incoming_at_mta: true
+      )
+
+      post :resend, params: { id: outgoing.id }
+      expect(info_request.reload.allow_new_responses_from).
+        to eq('anybody')
+      expect(info_request.reload.reject_incoming_at_mta).to eq(false)
+    end
+
   end
 
 end
