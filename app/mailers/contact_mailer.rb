@@ -45,30 +45,4 @@ class ContactMailer < ApplicationMailer
          :bcc => AlaveteliConfiguration::contact_email,
          :subject => subject)
   end
-
-  # Send a request to the administrator to add an authority
-  def change_request_message(change_request, use_new_body_template)
-    @change_request = change_request
-    template =
-      if use_new_body_template
-        'add_public_body'
-      else
-        'update_public_body_email'
-      end
-
-    reply_to_address = MailHandler.address_from_name_and_email(
-      @change_request.get_user_name,
-      @change_request.get_user_email)
-    set_reply_to_headers(nil, 'Reply-To' => reply_to_address)
-
-    # From is an address we control so that strict DMARC senders don't get refused
-    mail(:from => MailHandler.address_from_name_and_email(
-                    @change_request.get_user_name,
-                    blackhole_email
-                  ),
-         :to => contact_from_name_and_email,
-         :subject => @change_request.request_subject,
-         :template_name => template)
-  end
-
 end
