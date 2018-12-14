@@ -4626,4 +4626,32 @@ describe InfoRequest do
     end
   end
 
+  describe '#holding_pen_request?' do
+    subject { info_request.holding_pen_request? }
+
+    context 'the request is the holding pen' do
+      let(:info_request) { described_class.holding_pen_request }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'the request is not the holding pen' do
+      let(:info_request) { FactoryBot.create(:info_request) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'a new request' do
+      let(:info_request) { described_class.new }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'the holding pen does not exist' do
+      before { described_class.where(url_title: 'holding_pen').destroy_all }
+      let(:info_request) { described_class.new }
+
+      it 'creates the holding pen' do
+        subject
+        expect(described_class.exists?(url_title: 'holding_pen')).to eq(true)
+      end
+    end
+  end
 end
