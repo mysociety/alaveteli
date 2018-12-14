@@ -213,7 +213,7 @@ Rails.application.routes.draw do
   match '/user/:url_name/wall' => 'user#wall',
         :as => :show_user_wall,
         :via => :get
-  match '/user/contact/:id' => 'user#contact',
+  match '/user/contact/:url_name' => 'users/messages#contact',
         :as => :contact_user,
         :via => [:get, :post]
   match '/profile/change_email' => 'user#signchangeemail',
