@@ -78,6 +78,9 @@ update_mysociety_apt_sources
 
 apt-get -y update
 
+echo 'Setting hostname...'
+hostnamectl set-hostname $HOST
+
 if [ ! "$DEVELOPMENT_INSTALL" = true ]; then
     install_nginx
     add_website_to_nginx
