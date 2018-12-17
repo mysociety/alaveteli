@@ -130,13 +130,20 @@ namespace :themes do
     puts ""
   end
 
+  def theme_urls
+    urls = AlaveteliConfiguration.theme_urls || []
+    urls.delete_if(&:blank?)
+  end
+
   desc "Install themes specified in the config file's THEME_URLS"
   task :install => :environment do
     verbose = true
-    AlaveteliConfiguration::theme_urls.each{ |theme_url| install_theme(theme_url, verbose) }
-    if ! AlaveteliConfiguration::theme_url.blank?
-      # Old version of the above, for backwards compatibility
-      install_theme(AlaveteliConfiguration::theme_url, verbose, deprecated=true)
+    theme_urls.each do |theme_url|
+      install_theme(theme_url, verbose)
+    end
+    # Old version of the above, for backwards compatibility
+    unless AlaveteliConfiguration.theme_url.blank?
+      install_theme(AlaveteliConfiguration.theme_url, verbose, deprecated=true)
     end
   end
 
@@ -206,7 +213,7 @@ structure:
 
 EOF
     puts intro_message
-    theme_names = AlaveteliConfiguration::theme_urls.map do |theme_url|
+    theme_names = theme_urls.map do |theme_url|
       theme_url_to_theme_name(theme_url)
     end
 
