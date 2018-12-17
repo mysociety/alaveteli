@@ -49,7 +49,11 @@ namespace :themes do
 
   def move_old_theme(old_theme_directory)
     puts "There was an old-style theme at #{old_theme_directory}" if verbose
-    moved_directory = "#{old_theme_directory}-moved"
+
+    # remove trailing slashes
+    old_theme_directory.gsub!(/\/\z/, '')
+
+    moved_directory = "#{ old_theme_directory }-moved"
     begin
       File.rename old_theme_directory, moved_directory
     rescue Errno::ENOTEMPTY, Errno::EEXIST
