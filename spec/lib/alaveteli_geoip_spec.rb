@@ -74,22 +74,18 @@ describe AlaveteliGeoIP do
     context 'when the Gaze service is configured and is in different states' do
 
       before(:each) do
-        FakeWeb.clean_registry
         allow(AlaveteliConfiguration).to receive(:geoip_database).and_return ''
-      end
-
-      after(:each) do
-        FakeWeb.clean_registry
       end
 
       it "returns the country code if the service returns one" do
         allow(AlaveteliConfiguration).to receive(:gaze_url).and_return('http://denmark.com')
-        FakeWeb.register_uri(:get, %r|denmark.com|, :body => "DK")
+        stub_request(:get, %r|denmark.com|).to_return(body: 'DK')
         expect(AlaveteliGeoIP.new.country_code_from_ip('127.0.0.1')).to eq('DK')
       end
 
       it "returns the current code if the service domain doesn't exist" do
         allow(AlaveteliConfiguration).to receive(:gaze_url).and_return('http://12123sdf14qsd.com')
+        stub_request(:get, %r|12123sdf14qsd.com|).to_raise(SocketError)
         instance = AlaveteliGeoIP.new
         expect(instance.country_code_from_ip('127.0.0.1')).
           to eq(instance.current_code)
@@ -97,6 +93,7 @@ describe AlaveteliGeoIP do
 
       it "returns the current code if the service doesn't exist" do
         allow(AlaveteliConfiguration).to receive(:gaze_url).and_return('http://www.google.com')
+        stub_request(:get, %r|google.com|).to_return(status: 404)
         instance = AlaveteliGeoIP.new
         expect(instance.country_code_from_ip('127.0.0.1')).
           to eq(instance.current_code)
@@ -112,7 +109,7 @@ describe AlaveteliGeoIP do
 
       it "returns the current code and logs the error with url if the
            service returns an error" do
-        FakeWeb.register_uri(:get, %r|500.com|, :body => "Error", :status => ["500", "Error"])
+        stub_request(:get, %r|500.com|).to_return(status: [500, 'Error'])
         allow(AlaveteliConfiguration).to receive(:gaze_url).and_return('http://500.com')
         expect(Rails.logger).to receive(:warn).with /500\.com.*500 Error/
         instance = AlaveteliGeoIP.new

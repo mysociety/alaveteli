@@ -162,7 +162,7 @@ gem 'alaveteli_features', :path => 'gems/alaveteli_features'
 gem 'flipper-ui', '~> 0.10.2'
 
 group :test do
-  gem 'fakeweb', '~> 1.3.0'
+  gem 'webmock', '~> 3.4.2'
   gem 'coveralls', '~> 0.8.0', :require => false
   gem 'capybara', rails5? ? '~> 3.5.0' : '~> 2.18.0'
   gem 'delorean', '~> 2.1.0'

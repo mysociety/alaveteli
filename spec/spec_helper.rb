@@ -2,6 +2,7 @@
 require 'rubygems'
 require 'simplecov'
 require 'coveralls'
+require 'webmock/rspec'
 require "alaveteli_features/spec_helpers"
 
 cov_formats = [Coveralls::SimpleCov::Formatter]

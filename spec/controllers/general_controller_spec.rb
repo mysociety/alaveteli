@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
-require 'fakeweb'
 
 describe GeneralController do
 
@@ -77,15 +76,10 @@ describe GeneralController do
 end
 
 describe GeneralController, "when trying to show the blog" do
-  before (:each) do
-    FakeWeb.clean_registry
-  end
-  after (:each) do
-    FakeWeb.clean_registry
-  end
-
   it "should fail silently if the blog is returning an error" do
-    FakeWeb.register_uri(:get, %r|.*|, :body => "Error", :status => ["500", "Error"])
+    allow(AlaveteliConfiguration).to receive(:blog_feed).
+      and_return("http://blog.example.com")
+    stub_request(:get, %r|blog.example.com|).to_return(status: 500)
     get :blog
     expect(response.status).to eq(200)
     expect(assigns[:blog_items].count).to eq(0)
