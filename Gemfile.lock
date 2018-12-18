@@ -463,6 +463,7 @@ DEPENDENCIES
   launchy (~> 2.4.0)
   locale (~> 2.0.0, < 2.1.0)
   mahoro (~> 0.4)
+  mail (~> 2.6.6)
   mailcatcher (~> 0.6.0)
   mime-types (< 3.0.0)
   money (~> 6.12.0)

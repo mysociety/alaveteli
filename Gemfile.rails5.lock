@@ -221,8 +221,8 @@ GEM
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mahoro (0.4)
-    mail (2.7.0)
-      mini_mime (>= 0.1.1)
+    mail (2.6.6)
+      mime-types (>= 1.16, < 4)
     method_source (0.9.0)
     mime-types (2.99.3)
     mini_mime (1.0.1)
@@ -457,6 +457,7 @@ DEPENDENCIES
   launchy (~> 2.4.0)
   locale (~> 2.0.0, < 2.1.0)
   mahoro (~> 0.4)
+  mail (~> 2.6.6)
   mime-types (< 3.0.0)
   money (~> 6.12.0)
   net-ssh

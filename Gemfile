@@ -106,6 +106,7 @@ gem 'jquery-ui-rails', rails5? ? nil : '~> 6.0.0'
 gem 'json', rails5? ? nil : ['~> 1.8.0', '< 2.0.0']
 gem 'holidays', '~> 4.7.0', '< 5.0.0'
 gem 'iso_country_codes', '~> 0.7.8'
+gem 'mail', '~> 2.6.6'
 gem 'mahoro', '~> 0.4'
 gem 'newrelic_rpm'
 gem 'nokogiri', rails5? ? nil : ['~> 1.6.0', '< 1.7']
