@@ -89,6 +89,26 @@ describe 'classifying a request' do
       end
     end
 
+    it 'captures the message in the info_request_event log' do
+      using_session(login(user)) do
+        classify_request(info_request, classification)
+
+        # fill in form on the next page to supply more info about the error
+        fill_in 'incoming_message_message', with: 'test data'
+        click_button('Submit status and send message')
+
+        last_event = info_request.reload.last_event
+        expect(last_event.event_type).to eq('status_update')
+        expect(last_event.params).
+          to match(
+            user_id: user.id,
+            described_state: 'error_message',
+            old_described_state: 'waiting_response',
+            message: 'test data'
+          )
+      end
+    end
+
   end
 
   context 'marking request as internal_review' do
@@ -176,6 +196,26 @@ describe 'classifying a request' do
                   "and fix it up."
         # redirect and receive thank you message
         expect(page).to have_content(message)
+      end
+    end
+
+    it 'captures the message in the info_request_event log' do
+      using_session(login(user)) do
+        classify_request(info_request, classification)
+
+        # fill in form on the next page to supply more info about the error
+        fill_in 'incoming_message_message', with: 'test data'
+        click_button('Submit status and send message')
+
+        last_event = info_request.reload.last_event
+        expect(last_event.event_type).to eq('status_update')
+        expect(last_event.params).
+          to match(
+            user_id: user.id,
+            described_state: 'requires_admin',
+            old_described_state: 'waiting_response',
+            message: 'test data'
+          )
       end
     end
 

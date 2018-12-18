@@ -464,23 +464,31 @@ class RequestController < ApplicationController
 
     described_state = params[:incoming_message][:described_state]
     message = params[:incoming_message][:message]
-    # For requires_admin and error_message states we ask for an extra message to send to
-    # the administrators.
-    # If this message hasn't been included then ask for it
-    if ["error_message", "requires_admin"].include?(described_state) && message.nil?
-      redirect_to describe_state_message_url(:url_title => info_request.url_title,
-                                             :described_state => described_state)
-      return
+
+    log_params = {
+      user_id: authenticated_user.id,
+      old_described_state: info_request.described_state,
+      described_state: described_state
+    }
+
+    # For requires_admin and error_message states we ask for an extra message to
+    # send to the administrators.
+    # If this message hasn't been included then ask for it. If it has, log it.
+    if ["error_message", "requires_admin"].include?(described_state)
+      if message.nil?
+        redirect_to describe_state_message_url(
+                      url_title: info_request.url_title,
+                      described_state: described_state)
+        return
+      else
+        log_params[:message] = message
+      end
     end
 
     # Make the state change
-    event = info_request.log_event("status_update",
-                                   { :user_id => authenticated_user.id,
-                                     :old_described_state => info_request.described_state,
-                                     :described_state => described_state,
-                                     })
-
-    info_request.set_described_state(described_state, authenticated_user, message)
+    event = info_request.log_event("status_update", log_params)
+    info_request.
+      set_described_state(described_state, authenticated_user, message)
 
     # If you're not the *actual* requester. e.g. you are playing the
     # classification game, or you're doing this just because you are an
