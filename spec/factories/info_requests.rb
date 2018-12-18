@@ -80,6 +80,13 @@ FactoryBot.define do
 
       factory :attention_requested_request do
         after(:create) do |info_request, evaluator|
+          info_request.log_event('report_request',
+                                 request_id: info_request.id,
+                                 editor: info_request.user,
+                                 reason: 'Not a valid request',
+                                 message: 'Useful info',
+                                 old_attention_requested: false,
+                                 attention_requested: true)
           info_request.set_described_state('attention_requested')
         end
       end

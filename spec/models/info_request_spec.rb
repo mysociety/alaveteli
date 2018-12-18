@@ -1514,6 +1514,21 @@ describe InfoRequest do
         to eq 'attention_requested'
     end
 
+    it 'logs an event' do
+      subject
+      last_event = info_request.reload.last_event
+      expect(last_event.event_type).to eq('report_request')
+      expect(last_event.params).
+        to match(
+          request_id: info_request.id,
+          editor: user,
+          reason: 'test',
+          message: 'Test message',
+          old_attention_requested: false,
+          attention_requested: true
+        )
+    end
+
   end
 
   describe 'when working out which law is in force' do
