@@ -2,6 +2,7 @@
 require 'rubygems'
 require 'simplecov'
 require 'coveralls'
+require 'webmock/rspec'
 require "alaveteli_features/spec_helpers"
 
 cov_formats = [Coveralls::SimpleCov::Formatter]
@@ -178,6 +179,8 @@ RSpec.configure do |config|
     AlaveteliRateLimiter::IPRateLimiter.new(:signup).backend.destroy
   end
 end
+
+include Mail::Matchers
 
 # Helper with_xxx methods for working with feature flags
 include AlaveteliFeatures::SpecHelpers

@@ -12,7 +12,7 @@ describe InfoRequest::ResponseRejection::HoldingPen do
 
     it 'finds and sets the holding_pen' do
       rejection = described_class.new(double, double, double)
-      expect(rejection.holding_pen).to eq(InfoRequest.holding_pen_request)
+      expect(rejection.holding_pen).to be_holding_pen_request
     end
 
   end

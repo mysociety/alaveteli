@@ -19,6 +19,25 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+describe PublicBodyChangeRequest do
+  describe '#send_message' do
+    subject { change_request.send_message }
+
+    context 'when adding a public body' do
+      let(:change_request) { FactoryBot.create(:add_body_request) }
+      it { is_expected.to have_sent_email.matching_subject(/Add authority/) }
+    end
+
+    context 'when updating a public body' do
+      let(:change_request) { FactoryBot.create(:update_body_request) }
+
+      it do
+        is_expected.to have_sent_email.matching_subject(/Update email address/)
+      end
+    end
+  end
+end
+
 describe PublicBodyChangeRequest, 'when validating' do
 
   it 'should not be valid without a public body name' do

@@ -106,6 +106,7 @@ gem 'jquery-ui-rails', rails5? ? nil : '~> 6.0.0'
 gem 'json', rails5? ? nil : ['~> 1.8.0', '< 2.0.0']
 gem 'holidays', '~> 4.7.0', '< 5.0.0'
 gem 'iso_country_codes', '~> 0.7.8'
+gem 'mail', '~> 2.6.6'
 gem 'mahoro', '~> 0.4'
 gem 'newrelic_rpm'
 gem 'nokogiri', rails5? ? nil : ['~> 1.6.0', '< 1.7']
@@ -161,7 +162,7 @@ gem 'alaveteli_features', :path => 'gems/alaveteli_features'
 gem 'flipper-ui', '~> 0.10.2'
 
 group :test do
-  gem 'fakeweb', '~> 1.3.0'
+  gem 'webmock', '~> 3.4.2'
   gem 'coveralls', '~> 0.8.0', :require => false
   gem 'capybara', rails5? ? '~> 3.5.0' : '~> 2.18.0'
   gem 'delorean', '~> 2.1.0'
