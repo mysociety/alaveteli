@@ -40,7 +40,7 @@ describe 'classifying a request' do
 
         expect(page).
           to have_link('make a donation',
-                       :href => 'http://donations.example.com')
+                       href: 'http://donations.example.com')
       end
     end
 
@@ -79,7 +79,7 @@ describe 'classifying a request' do
         classify_request(info_request, classification)
 
         # fill in form on the next page to supply more info about the error
-        fill_in 'incoming_message_message', :with => 'test data'
+        fill_in 'incoming_message_message', with: 'test data'
         click_button('Submit status and send message')
 
         message = "Thank you! We'll look into what happened " \
@@ -102,9 +102,9 @@ describe 'classifying a request' do
         # redirect and receive thank you message
         expect(page).to have_content(message)
         expect(page).to have_link('details',
-                                  :href => unhappy_url(
-                                            info_request,
-                                            :anchor => 'internal_review'))
+                                  href: unhappy_url(
+                                          info_request,
+                                          anchor: 'internal_review'))
       end
     end
 
@@ -117,11 +117,11 @@ describe 'classifying a request' do
     it 'displays a thank you message post redirect' do
       using_session(login(user)) do
         classify_request(info_request, classification)
-        message = "Thank you! Here are some ideas on what to do next"
+        message = 'Thank you! Here are some ideas on what to do next'
         # redirect and receive thank you message
         expect(page).to have_content(message)
-        expect(page).to have_link("how to complain",
-                                  :href => unhappy_url(info_request))
+        expect(page).to have_link('how to complain',
+                                  href: unhappy_url(info_request))
       end
     end
 
@@ -152,7 +152,7 @@ describe 'classifying a request' do
     it 'displays a thank you message post redirect' do
       using_session(login(user)) do
         classify_request(info_request, classification)
-        message = "Oh no! Sorry to hear that your request was refused"
+        message = 'Oh no! Sorry to hear that your request was refused'
         # redirect and receive thank you message
         expect(page).to have_content(message)
       end
@@ -169,7 +169,7 @@ describe 'classifying a request' do
         classify_request(info_request, classification)
 
         # fill in form on the next page to supply more info about the error
-        fill_in 'incoming_message_message', :with => 'test data'
+        fill_in 'incoming_message_message', with: 'test data'
         click_button('Submit status and send message')
 
         message = "Thank you! We'll look into what happened and try " \
@@ -238,9 +238,9 @@ describe 'classifying a request' do
     it 'displays a thank you message post redirect' do
       using_session(login(user)) do
         classify_request(info_request, classification)
-        message = "If you have not done so already, please write a " \
-                  "message below telling the authority that you have " \
-                  "withdrawn your request."
+        message = 'If you have not done so already, please write a ' \
+                  'message below telling the authority that you have ' \
+                  'withdrawn your request.'
         # redirect and receive thank you message
         expect(page).to have_content(message)
       end
@@ -255,8 +255,8 @@ describe 'classifying a request' do
     it 'displays a thank you message post redirect' do
       using_session(login(user)) do
         classify_request(info_request, classification)
-        message = "Please write your follow up message containing the " \
-                  "necessary clarifications below."
+        message = 'Please write your follow up message containing the ' \
+                  'necessary clarifications below.'
         # redirect and receive thank you message
         expect(page).to have_content(message)
       end
@@ -325,7 +325,7 @@ describe 'classifying a request' do
     it 'displays a thank you message post redirect' do
       using_session(login(user)) do
         classify_request(info_request, classification)
-        message = "Thank you! Your request is long overdue"
+        message = 'Thank you! Your request is long overdue'
         # redirect and receive thank you message
         expect(page).to have_content(message)
       end
