@@ -49,6 +49,11 @@ describe 'admin_general/_to_do_list.html.erb' do
     context 'someone used the "Report request" button to flag the request' do
       let(:request) { FactoryBot.create(:attention_requested_request) }
       it_behaves_like 'showing requests in an error state'
+
+      it 'shows the reason given for the request being reported' do
+        render_errors(items)
+        expect(rendered).to include('Not a valid request')
+      end
     end
 
   end

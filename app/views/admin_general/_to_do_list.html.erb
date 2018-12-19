@@ -38,6 +38,14 @@
                           <% end %>
                         </td>
                       </tr>
+                      <% if item.described_state == 'attention_requested' %>
+                      <tr>
+                        <td><b>Reason</b></td>
+                        <td>
+                          <%= item.last_event.params[:reason] %>
+                        </td>
+                      </tr>
+                      <% end %>
                     </table>
                   <% end %>
                 <% elsif item.is_a? Comment %>
