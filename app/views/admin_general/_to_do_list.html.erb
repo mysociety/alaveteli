@@ -26,6 +26,20 @@
                   <% end %>
                 <% elsif item.is_a? InfoRequest %>
                   <%= request_both_links(item) %>
+                  <% if InfoRequest.requires_admin_states.include?(item.described_state) %>
+                    <table class="table table-striped table-condensed">
+                      <tr>
+                        <td><b>User message</b></td>
+                        <td>
+                          <% if item.last_event.params[:message].blank? %>
+                            None given
+                          <% else %>
+                            <%= item.last_event.params[:message] %>
+                          <% end %>
+                        </td>
+                      </tr>
+                    </table>
+                  <% end %>
                 <% elsif item.is_a? Comment %>
                   <%= comment_both_links(item) %>
                 <% elsif item.is_a? PublicBody %>
