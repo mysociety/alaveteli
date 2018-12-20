@@ -4,6 +4,9 @@
 
 * Fix bug were the header was displayed at the wrong width if the site only had
   one language configured (Martin Wright)
+* Log an event when a user reports a request and capture the message data
+  supplied by the user when they report a request as needing administrator
+  attention in the log (Liz Conlan)
 * Uses the url_name instead of a numeric id when sending messages between users
   to prevent id guessing (Liz Conlan)
 * Reopen closed requests to allow responses from anybody when a new followup
