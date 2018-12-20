@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Fix bug were the header was displayed at the wrong width if the site only had
+  one language configured (Martin Wright)
 * Uses the url_name instead of a numeric id when sending messages between users
   to prevent id guessing (Liz Conlan)
 * Warn users when their request is getting too long (Zarino Zappia)
