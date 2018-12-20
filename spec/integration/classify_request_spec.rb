@@ -3,40 +3,6 @@ require 'integration/alaveteli_dsl'
 
 describe 'classifying a request' do
 
-  describe 'when the request is internal' do
-
-    before(:each) do
-      load_raw_emails_data
-      @dog_request = info_requests(:fancy_dog_request)
-      # This should happen automatically before each test but doesn't with these integration
-      # tests for some reason.
-      ActionMailer::Base.deliveries = []
-    end
-
-    describe 'when logged in as the requestor' do
-
-      before :each do
-        @bob = login(:bob_smith_user)
-      end
-
-      it "should send an email including the message" do
-        using_session(@bob) do
-          visit describe_state_message_path(:url_title => @dog_request.url_title,
-                                            :described_state => "requires_admin")
-          fill_in "Please tell us more:", :with => "Okay. I don't quite understand."
-          click_button "Submit status and send message"
-          expect(page).to have_content "Thank you! We'll look into what happened and try and fix it up."
-        end
-
-        deliveries = ActionMailer::Base.deliveries
-        expect(deliveries.size).to eq(1)
-        mail = deliveries[0]
-        expect(mail.body).to match(/as needing admin/)
-        expect(mail.body).to match(/Okay. I don't quite understand./)
-      end
-    end
-  end
-
   let(:info_request) { FactoryBot.create(:info_request) }
   let(:user) { info_request.user }
 
@@ -78,6 +44,30 @@ describe 'classifying a request' do
       end
     end
 
+  end
+
+  context 'when the request is internal' do
+
+    describe 'the requestor tries to classify their request' do
+
+      it 'sends an email including the message' do
+        using_session(login(user)) do
+          visit describe_state_message_path(url_title: info_request.url_title,
+                                            described_state: 'requires_admin')
+          fill_in 'Please tell us more:',
+                  with: "Okay. I don't quite understand."
+          click_button 'Submit status and send message'
+          expect(page).
+            to have_content "Thank you! We'll look into what happened and " \
+                            "try and fix it up."
+        end
+
+        is_expected.to have_sent_email.matching_body(/as needing admin/)
+        is_expected.
+          to have_sent_email.
+            matching_body(/Okay. I don't quite understand./)
+      end
+    end
   end
 
   context 'marking request as error_message' do
