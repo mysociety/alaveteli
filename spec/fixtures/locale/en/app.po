@@ -2602,7 +2602,7 @@ msgid "The accounts have been left as they previously were."
 msgstr ""
 
 #: app/views/request/_other_describe_state.rhtml:48
-msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)"
+msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr ""
 
 #: app/views/request/show_response.rhtml:26

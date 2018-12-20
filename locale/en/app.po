@@ -3007,7 +3007,7 @@ msgid "The accounts have been left as they previously were."
 msgstr "The accounts have been left as they previously were."
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr "The authority do <strong>not have</strong> the information <small>(maybe they say who does)"
+msgstr "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 
 msgid "The authority email doesn't look like a valid address"
 msgstr "The authority email doesn't look like a valid address"
