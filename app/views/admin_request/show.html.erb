@@ -60,6 +60,8 @@
                   <% if type == 'datetime' && value %>
                     <%= I18n.l(value, :format => "%e %B %Y %H:%M:%S") %>
                     (<%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(value)) %>)
+                  <% elsif column_name == 'prominence' %>
+                    <%= h highlight_prominence(value) %>
                   <% elsif column_name == 'allow_new_responses_from' %>
                     <%= h highlight_allow_new_responses_from(value) %>
                   <% else %>
@@ -301,6 +303,8 @@
                     <% truncated_value = truncate(h(value), length: 400, omission: '') { link_to '…', '#', title: 'Toggle hidden', class: 'toggle-hidden' } %>
                     <%= simple_format(truncated_value) %>
                     <div style="display:none;"><%= simple_format(value) %></div>
+                  <% elsif column_name == 'prominence' %>
+                    <%= h highlight_prominence(value) %>
                   <% else %>
                     <%= admin_value(value) %>
                   <% end %>
@@ -364,6 +368,8 @@
                     <% truncated_value = truncate(h(value), length: 400, omission: '') { link_to '…', '#', title: 'Toggle hidden', class: 'toggle-hidden' } %>
                     <%= simple_format(truncated_value) %>
                     <div style="display:none;"><%= simple_format(value) %></div>
+                  <% elsif column_name == 'prominence' %>
+                    <%= h highlight_prominence(value) %>
                   <% else %>
                     <%= simple_format(value.to_s) %>
                   <% end %>
