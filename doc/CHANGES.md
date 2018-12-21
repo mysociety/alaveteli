@@ -6,6 +6,8 @@
   one language configured (Martin Wright)
 * Uses the url_name instead of a numeric id when sending messages between users
   to prevent id guessing (Liz Conlan)
+* Reopen closed requests to allow responses from anybody when a new followup
+  message is sent, or an admin resends an outgoing message (Liz Conlan)
 * Warn users when their request is getting too long (Zarino Zappia)
 * Add a customisable email footer for emails sent to users (Liz Conlan)
 * Add one-click unsubscribe to `TrackMailer`-generated email notifications
