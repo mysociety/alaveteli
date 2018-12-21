@@ -14,6 +14,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # andreas.pavlou <andreas@access-info.org>, 2016
 # andreas.pavlou <andreas@access-info.org>, 2016
 # arne <arne.semsrott@okfn.de>, 2015-2016
@@ -22,6 +23,7 @@
 # FOI Monkey <>, 2012
 # KerstiRu <kersti@access-info.org>, 2011
 # KerstiRu <kersti@access-info.org>, 2011
+# Liz Conlan <liz@mysociety.org>, 2018
 # louisecrow <louise@mysociety.org>, 2014,2016
 # louisecrow <louise@mysociety.org>, 2014,2016
 # Philipp Brocar <brocar@fra-uni.net>, 2015
@@ -31,7 +33,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-09-28 15:37+0000\n"
-"PO-Revision-Date: 2018-09-29 11:24+0000\n"
+"PO-Revision-Date: 2018-12-21 12:26+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: German (http://www.transifex.com/mysociety/alaveteli/language/de/)\n"
 "Language: de\n"
@@ -3071,7 +3073,7 @@ msgid "The accounts have been left as they previously were."
 msgstr "Die Nutzerkonten wurden in Ihrem ursprünglichen Zustand belassen."
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr "Die Informationen <strong>liegen der Behörde nicht vor</strong> the information <small>(vielleicht können sie Ihnen mitteilen von wem Sie die Informationen erhalten können)"
+msgstr "Die Informationen <strong>liegen der Behörde nicht vor</strong> the information <small>(vielleicht können sie Ihnen mitteilen von wem Sie die Informationen erhalten können)</small>"
 
 msgid "The authority email doesn't look like a valid address"
 msgstr ""

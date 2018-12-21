@@ -14,10 +14,12 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Aleksandar Krstić <krsta1987@gmail.com>, 2015
 # Goran Rakic <grakic@devbase.net>, 2013
 # Goran Vučković <vucko@acm.org>, 2013
 # Srdjan Krstic <krledmno1@gmail.com>, 2013
+# Liz Conlan <liz@mysociety.org>, 2018
 # louisecrow <louise@mysociety.org>, 2014
 # louisecrow <louise@mysociety.org>, 2014
 # Srdjan Krstic <krledmno1@gmail.com>, 2013
@@ -30,7 +32,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-09-28 15:37+0000\n"
-"PO-Revision-Date: 2018-09-29 11:24+0000\n"
+"PO-Revision-Date: 2018-12-21 12:32+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Serbian (Latin) (http://www.transifex.com/mysociety/alaveteli/language/sr%40latin/)\n"
 "Language: sr@latin\n"
@@ -3062,7 +3064,7 @@ msgid "The accounts have been left as they previously were."
 msgstr "Korisnički profili nisu menjani"
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr "Ustanova <strong>ne poseduje</strong> informacije <small>(ali oni možda mogu reći ko ih poseduje)"
+msgstr "Ustanova <strong>ne poseduje</strong> informacije <small>(ali oni možda mogu reći ko ih poseduje)</small>"
 
 msgid "The authority email doesn't look like a valid address"
 msgstr ""

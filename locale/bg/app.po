@@ -14,8 +14,10 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Anton Stoychev <antitoxic@gmail.com>, 2013
 # Anton Stoychev <antitoxic@gmail.com>, 2013
+# Liz Conlan <liz@mysociety.org>, 2018
 # louisecrow <louise@mysociety.org>, 2014
 # louisecrow <louise@mysociety.org>, 2014
 # Valentin Laskov <v_laskov@mail.bg>, 2013-2014
@@ -24,7 +26,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-09-28 15:37+0000\n"
-"PO-Revision-Date: 2018-09-29 11:24+0000\n"
+"PO-Revision-Date: 2018-12-21 12:21+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/mysociety/alaveteli/language/bg/)\n"
 "Language: bg\n"
@@ -3012,7 +3014,7 @@ msgid "The accounts have been left as they previously were."
 msgstr "Акаунтите бяха оставени както си бяха."
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr "Органът <strong>не притежава</strong> информацията <small>(вероятно посочват кой я притежава)"
+msgstr "Органът <strong>не притежава</strong> информацията <small>(вероятно посочват кой я притежава)</small>"
 
 msgid "The authority email doesn't look like a valid address"
 msgstr "Имейлът на органа не изглежда да е валиден адрес"

@@ -14,18 +14,20 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # alaveteli_hu <alaveteli@atlatszo.hu>, 2012
 # alaveteli_hu <alaveteli@atlatszo.hu>, 2012
 # Orsolya Batta <orsibatta@gmail.com>, 2013
 # louisecrow <louise@mysociety.org>, 2014
 # louisecrow <louise@mysociety.org>, 2014
 # Orsolya Batta <orsibatta@gmail.com>, 2013
+# Liz Conlan <liz@mysociety.org>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-09-28 15:37+0000\n"
-"PO-Revision-Date: 2018-09-29 11:24+0000\n"
+"PO-Revision-Date: 2018-12-21 12:21+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/mysociety/alaveteli/language/hu_HU/)\n"
 "Language: hu_HU\n"
@@ -3131,7 +3133,7 @@ msgid "The accounts have been left as they previously were."
 msgstr "A fiókok úgy lettek hagyva, ahogyan voltak. "
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr "Az adatgazda <strong>nem rendelkezik</strong> az információval <small>(de lehet, hogy megmondják, hogy kihez lehet fordulni) "
+msgstr "Az adatgazda <strong>nem rendelkezik</strong> az információval <small>(de lehet, hogy megmondják, hogy kihez lehet fordulni)</small> "
 
 msgid "The authority email doesn't look like a valid address"
 msgstr ""
@@ -3370,7 +3372,7 @@ msgid "They are going to reply <strong>by post</strong>"
 msgstr "<strong>Postai úton</strong> fognak válaszolni "
 
 msgid "They do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr "<strong>Nem rendelkeznek</strong> az információval <small>(de lehet, hogy megmondják, hogy kihez lehet fordulni) "
+msgstr "<strong>Nem rendelkeznek</strong> az információval <small>(de lehet, hogy megmondják, hogy kihez lehet fordulni)</small> "
 
 msgid "They have been given the following explanation:"
 msgstr "A következő magyarázatot kapták: "

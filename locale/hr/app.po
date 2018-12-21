@@ -14,9 +14,11 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Bojan Opacak <bojan@rationalinternational.net>, 2013
 # Bojan Opacak <bojan@rationalinternational.net>, 2013
 # Igor Dobrača <id.public@rovinj.net>, 2015
+# Liz Conlan <liz@mysociety.org>, 2018
 # Marina Ninić <inactive+mninic5@transifex.com>, 2015
 # Marina Ninić <inactive+mninic5@transifex.com>, 2015
 # Mateja Fabijanić <mateja.fabijanic@gmail.com>, 2015
@@ -33,7 +35,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-09-28 15:37+0000\n"
-"PO-Revision-Date: 2018-09-29 11:24+0000\n"
+"PO-Revision-Date: 2018-12-21 12:23+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Croatian (http://www.transifex.com/mysociety/alaveteli/language/hr/)\n"
 "Language: hr\n"
@@ -3094,7 +3096,7 @@ msgid "The accounts have been left as they previously were."
 msgstr "Korisnički računi nisu mijenjani"
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr "Tijelo javne vlasti <strong>ne posjeduje</strong> informacije <small>(možda mogu reći tko posjeduje)"
+msgstr "Tijelo javne vlasti <strong>ne posjeduje</strong> informacije <small>(možda mogu reći tko posjeduje)</small>"
 
 msgid "The authority email doesn't look like a valid address"
 msgstr "Adresa e-pošte tijela javne vlasti ne izgleda kao valjana adresa"

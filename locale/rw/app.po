@@ -14,10 +14,12 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Clarisse Umutesi Mwitegereze <clarisse@mediae.org>, 2014-2015
 # Gareth Rees <gareth@mysociety.org>, 2015
 # Jean Pierre <afadhalipierre@gmail.com>, 2017
 # Jean Pierre <afadhalipierre@gmail.com>, 2017
+# Liz Conlan <liz@mysociety.org>, 2018
 # mySociety <transifex@mysociety.org>, 2015
 # Stephen Abbott Pugh <stephendabbott@gmail.com>, 2015
 msgid ""
@@ -25,7 +27,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-09-28 15:37+0000\n"
-"PO-Revision-Date: 2018-09-29 11:24+0000\n"
+"PO-Revision-Date: 2018-12-21 12:28+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Kinyarwanda (http://www.transifex.com/mysociety/alaveteli/language/rw/)\n"
 "Language: rw\n"
@@ -3013,7 +3015,7 @@ msgid "The accounts have been left as they previously were."
 msgstr "Konti zagumye uko zari zimeze."
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr "Umuyobozi ntabwo <strong>afite</strong> ayo amakuru <small>(bashobora kuba bavuze uyafite)"
+msgstr "Umuyobozi ntabwo <strong>afite</strong> ayo amakuru <small>(bashobora kuba bavuze uyafite)</small>"
 
 msgid "The authority email doesn't look like a valid address"
 msgstr "Imeli y'umuyobozi isa nk'itabaho"

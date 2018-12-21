@@ -14,6 +14,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Andra Ciuraru <andra.ciuraru@gmail.com>, 2016
 # Andrei Cristian Petcu <andreip@posteo.net>, 2012-2013
 # Andrei Cristian Petcu <andreip@posteo.net>, 2012-2013
@@ -25,6 +26,7 @@
 # Cosmin Pojoranu <cosmin@funkycitizens.org>, 2013
 # Elena Calistru <calistru.elena@gmail.com>, 2013
 # Elena Calistru <calistru.elena@gmail.com>, 2013
+# Liz Conlan <liz@mysociety.org>, 2018
 # louisecrow <louise@mysociety.org>, 2014
 # louisecrow <louise@mysociety.org>, 2014
 # paul.chioveanu <paul_kimmy@yahoo.com>, 2013
@@ -43,7 +45,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-09-28 15:37+0000\n"
-"PO-Revision-Date: 2018-09-29 11:24+0000\n"
+"PO-Revision-Date: 2018-12-21 12:32+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/mysociety/alaveteli/language/ro_RO/)\n"
 "Language: ro_RO\n"
@@ -3040,7 +3042,7 @@ msgid "The accounts have been left as they previously were."
 msgstr "Contuile au rămas aşa cum erau înainte."
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr "Autoritatea  <strong>nu are</strong> informatiile <small>(probabil vor spune cine le are)"
+msgstr "Autoritatea  <strong>nu are</strong> informatiile <small>(probabil vor spune cine le are)</small>"
 
 msgid "The authority email doesn't look like a valid address"
 msgstr "Email-ul instituției publice nu arată ca o adresă email validă"
