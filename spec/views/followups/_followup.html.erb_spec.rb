@@ -134,4 +134,20 @@ describe "followups/_followup.html.erb" do
 
   end
 
+  describe 'the request is closed to new responses' do
+
+    before do
+      info_request.update_attribute(:allow_new_responses_from, 'nobody')
+    end
+
+    it 'renders a message to say new responses have been stopped' do
+      render partial: 'followups/followup', locals: { incoming_message: nil }
+
+      expect(rendered).
+        to have_content 'Follow ups and new responses to this request have ' \
+                        'been stopped to prevent spam.'
+    end
+
+  end
+
 end
