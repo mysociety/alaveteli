@@ -140,6 +140,16 @@ describe "followups/_followup.html.erb" do
       info_request.update_attribute(:allow_new_responses_from, 'nobody')
     end
 
+    it 'does not render the title partial' do
+      render partial: 'followups/followup', locals: { incoming_message: nil }
+      expect(rendered).to_not have_css('h2', text: 'Send a public follow up')
+    end
+
+    it 'does not render the followup form' do
+      render partial: 'followups/followup', locals: { incoming_message: nil }
+      expect(rendered).to_not have_css 'form#followup_form'
+    end
+
     it 'renders a message to say new responses have been stopped' do
       render partial: 'followups/followup', locals: { incoming_message: nil }
 
