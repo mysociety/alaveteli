@@ -170,10 +170,10 @@ class FollowupsController < ApplicationController
 
   def set_info_request
     if current_user && current_user.is_pro?
-      @info_request = current_user.info_requests.find(params[:request_id].to_i)
-    else
-      @info_request = InfoRequest.not_embargoed.find(params[:request_id].to_i)
+      @info_request =
+        current_user.info_requests.find_by(id: params[:request_id].to_i)
     end
+    @info_request ||= InfoRequest.not_embargoed.find(params[:request_id].to_i)
   end
 
   def set_last_request_data
