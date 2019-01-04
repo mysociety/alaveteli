@@ -12,6 +12,7 @@ rvm:
   - 2.3 # Latest official 2.3.x
   - 2.4 # Latest official 2.4.x
   - 2.5 # Latest official 2.5.x
+  - 2.6 # Latest official 2.6.x
   - ruby-head
 gemfile:
   - Gemfile
@@ -25,6 +26,7 @@ matrix:
     - rvm: 2.1.5
       gemfile: Gemfile.rails5
   allow_failures:
+    - rvm: 2.6
     - rvm: ruby-head
     - gemfile: Gemfile.rails5
 services:
