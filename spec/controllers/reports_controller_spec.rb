@@ -52,6 +52,24 @@ describe ReportsController do
         expect(assigns(:report_reasons)).to eq(info_request.report_reasons)
       end
 
+      it 'logs an event' do
+        post :create, params: {
+                        request_id: info_request.url_title,
+                        reason: 'my reason'
+                      }
+        last_event = info_request.reload.last_event
+        expect(last_event.event_type).to eq('report_request')
+        expect(last_event.params).
+          to match(
+            request_id: info_request.id,
+            editor: user,
+            reason: 'my reason',
+            message: '',
+            old_attention_requested: false,
+            attention_requested: true
+          )
+      end
+
       it 'ignores an empty comment_id param' do
         post :create, params: {
                         :request_id => info_request.url_title,

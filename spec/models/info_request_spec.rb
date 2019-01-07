@@ -1491,6 +1491,46 @@ describe InfoRequest do
 
   end
 
+  describe '#report!' do
+    let(:user) { FactoryBot.create(:user) }
+    let(:info_request) { FactoryBot.create(:info_request) }
+    subject { info_request.report!('test', 'Test message', user) }
+
+    it 'sets #attention_requested to true' do
+      expect { subject }.
+        to change { info_request.attention_requested }.
+          from(false).to(true)
+    end
+
+    it 'sets #described_state to "attention_requested"' do
+      expect { subject }.
+        to change { info_request.described_state }.
+          from('waiting_response').to('attention_requested')
+    end
+
+    it 'sets the last event described_state to "attention_requested"' do
+      subject
+      expect(info_request.reload.last_event.described_state).
+        to eq 'attention_requested'
+    end
+
+    it 'logs an event' do
+      subject
+      last_event = info_request.reload.last_event
+      expect(last_event.event_type).to eq('report_request')
+      expect(last_event.params).
+        to match(
+          request_id: info_request.id,
+          editor: user,
+          reason: 'test',
+          message: 'Test message',
+          old_attention_requested: false,
+          attention_requested: true
+        )
+    end
+
+  end
+
   describe 'when working out which law is in force' do
 
     context 'when using FOI law' do
