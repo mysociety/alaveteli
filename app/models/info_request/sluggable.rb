@@ -29,6 +29,8 @@ module InfoRequest::Sluggable
     _url_title
   end
 
+  private
+
   def update_url_title
     return unless title
     url_title = MySociety::Format.simplify_url_part(title, 'request', 32)
