@@ -59,12 +59,18 @@ describe 'admin_general/_to_do_list.html.erb' do
     context 'comment reported as requiring admin attention' do
       let(:comment) do
         FactoryBot.create(:attention_requested_comment,
+                          reason: 'Annotation contains defamatory material',
                           message: 'Useful info')
       end
 
       let(:items) { [ comment ] }
       let(:request) { comment.info_request }
       it_behaves_like 'showing requests in an error state'
+
+      it 'shows the reason given for the comment being reported' do
+        render_errors(items)
+        expect(rendered).to include('Annotation contains defamatory material')
+      end
     end
 
   end

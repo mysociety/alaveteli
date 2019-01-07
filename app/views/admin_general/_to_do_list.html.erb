@@ -61,6 +61,12 @@
                         <% end %>
                       </td>
                     </tr>
+                    <tr>
+                      <td><b>Reason</b></td>
+                      <td>
+                        <%= item.info_request.last_event.params[:reason] %>
+                      </td>
+                    </tr>
                   </table>
                 <% elsif item.is_a? PublicBody %>
                   <%= public_body_both_links(item) %>
