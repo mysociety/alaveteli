@@ -50,6 +50,18 @@
                   <% end %>
                 <% elsif item.is_a? Comment %>
                   <%= comment_both_links(item) %>
+                  <table class="table table-striped table-condensed">
+                    <tr>
+                      <td><b>User message</b></td>
+                      <td>
+                        <% if item.info_request.last_event.params[:message].blank? %>
+                          None given
+                        <% else %>
+                          <%= item.info_request.last_event.params[:message] %>
+                        <% end %>
+                      </td>
+                    </tr>
+                  </table>
                 <% elsif item.is_a? PublicBody %>
                   <%= public_body_both_links(item) %>
                 <% end %>

@@ -56,6 +56,17 @@ describe 'admin_general/_to_do_list.html.erb' do
       end
     end
 
+    context 'comment reported as requiring admin attention' do
+      let(:comment) do
+        FactoryBot.create(:attention_requested_comment,
+                          message: 'Useful info')
+      end
+
+      let(:items) { [ comment ] }
+      let(:request) { comment.info_request }
+      it_behaves_like 'showing requests in an error state'
+    end
+
   end
 
 end

@@ -50,7 +50,8 @@ body.admin {
   }
 
   /* A nested table on the todo list section of the admin summary page */
-  #public-request-things-to-do {
+  #public-request-things-to-do,
+  #comments-things-to-do {
     table {
       table {
         margin-bottom: 0;
