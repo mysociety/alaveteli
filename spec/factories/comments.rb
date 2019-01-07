@@ -30,7 +30,7 @@ FactoryBot.define do
       visible false
     end
 
-    factory :attention_requested do
+    factory :attention_requested_comment do
       after(:create) do |comment, evaluator|
         reporting_user = create(:user)
         reason = comment.report_reasons.sample
