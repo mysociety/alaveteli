@@ -32,6 +32,14 @@ describe FollowupsController do
         expect(response).to be_success
       end
 
+      it "displays 'wrong user' message when not logged in as the request owner" do
+        get :new, params: {
+                    request_id: request.id,
+                    incoming_message_id: message_id
+                  }
+        expect(response).to render_template('user/wrong_user')
+      end
+
       it 'raises an ActiveRecord::RecordNotFound error for other embargoed requests' do
         embargoed_request = FactoryBot.create(:embargoed_request)
         expect {
