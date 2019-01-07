@@ -33,25 +33,31 @@ module InfoRequest::Sluggable
 
   def update_url_title
     return unless title
+
     url_title = MySociety::Format.simplify_url_part(title, 'request', 32)
-    conditions = id ? ["id <> ?", id] : []
-
-    existing_url_titles = InfoRequest.
-      where(conditions).
-      where('url_title ~ ?', "^#{url_title}(_\\d+)?$").
-      pluck(:url_title)
-
-    if existing_url_titles.empty?
-      unique_url_title = url_title
-    else
-      # For request with same title as others, add on arbitrary numeric
-      # identifier
-      suffix_num = existing_url_titles.map { |t| (t[/_(\d+)$/, 1] || 1).to_i }.
-                                       sort.
-                                       last + 1
-      unique_url_title = "#{url_title}_#{suffix_num}"
-    end
+    suffix = suffix_number(url_title)
+    unique_url_title = suffix ? "#{url_title}_#{suffix}" : url_title
 
     write_attribute(:url_title, unique_url_title)
+  end
+
+  def suffix_number(url_title)
+    # For request with same title as others, add on arbitrary numeric identifier
+    suffixes = existing_url_titles(url_title)
+    suffixes.last + 1 if suffixes.present?
+  end
+
+  def existing_url_titles(url_title)
+    scope =
+      if persisted?
+        InfoRequest.where.not(id: id)
+      else
+        InfoRequest
+      end
+
+    scope.where('url_title ~ ?', "^#{url_title}(_\\d+)?$").
+          pluck(:url_title).
+          map { |t| (t[/_(\d+)$/, 1] || 1).to_i }.
+          sort
   end
 end
