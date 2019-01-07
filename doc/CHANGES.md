@@ -4,6 +4,8 @@
 
 * Fix bug were the header was displayed at the wrong width if the site only had
   one language configured (Martin Wright)
+* Show the message from the user on the admin summary page for requests and
+  comments which have been flagged as needing administrator attention (Liz Conlan)
 * Log an event when a user reports a request and capture the message data
   supplied by the user when they report a request as needing administrator
   attention in the log (Liz Conlan)
