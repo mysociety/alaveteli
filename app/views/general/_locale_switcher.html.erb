@@ -7,7 +7,7 @@
     <ul class="available-languages">
       <% @locales[:available].each do |locale| %>
         <li class="available-languages__item">
-          <%= link_to locale_name(locale), url_for(params.merge(:locale => locale)) %>
+          <%= link_to locale_name(locale), current_path_with_locale(locale) %>
         </li>
       <% end %>
     </ul>
