@@ -968,6 +968,12 @@ class InfoRequest < ActiveRecord::Base
     end
   end
 
+  # Called when outgoing_messages are sent to ensure that the request
+  # is not closed during an active discussion or an internal review
+  def reopen_to_new_responses
+    update(allow_new_responses_from: 'anybody', reject_incoming_at_mta: false)
+  end
+
   # An annotation (comment) is made
   def add_comment(body, user)
     comment = Comment.new
@@ -990,6 +996,14 @@ class InfoRequest < ActiveRecord::Base
   # Report this request for administrator attention
   def report!(reason, message, user)
     ActiveRecord::Base.transaction do
+      log_event('report_request',
+                request_id: id,
+                editor: user,
+                reason: reason,
+                message: message,
+                old_attention_requested: attention_requested,
+                attention_requested: true)
+
       set_described_state('attention_requested', user, "Reason: #{reason}\n\n#{message}")
       self.attention_requested = true # tells us if attention has ever been requested
       save!

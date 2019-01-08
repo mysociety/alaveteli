@@ -349,6 +349,34 @@ describe InfoRequest do
 
   end
 
+  describe '#reopen_to_new_responses' do
+    subject { info_request.reopen_to_new_responses }
+
+    let(:info_request) do
+      time_travel_to(8.months.ago) do
+        FactoryBot.create(:info_request, allow_new_responses_from: 'nobody',
+                                         reject_incoming_at_mta: true)
+      end
+    end
+
+    it 'resets #allow_new_responses_from to "anybody"' do
+      subject
+      expect(info_request.allow_new_responses_from).to eq('anybody')
+    end
+
+    it 'resets #reject_incoming_at_mta to false' do
+      subject
+      expect(info_request.reject_incoming_at_mta).to eq(false)
+    end
+
+    it 'changes the updated_at timestamp' do
+      expect { subject }.
+        to change { info_request.reload.updated_at.to_date }.
+          from(8.months.ago.to_date).to(now.to_date)
+    end
+
+  end
+
   describe '#receive' do
 
     it 'creates a new incoming message' do
@@ -1459,6 +1487,46 @@ describe InfoRequest do
           to eq(unfollowupable_body.not_requestable_reason)
       end
 
+    end
+
+  end
+
+  describe '#report!' do
+    let(:user) { FactoryBot.create(:user) }
+    let(:info_request) { FactoryBot.create(:info_request) }
+    subject { info_request.report!('test', 'Test message', user) }
+
+    it 'sets #attention_requested to true' do
+      expect { subject }.
+        to change { info_request.attention_requested }.
+          from(false).to(true)
+    end
+
+    it 'sets #described_state to "attention_requested"' do
+      expect { subject }.
+        to change { info_request.described_state }.
+          from('waiting_response').to('attention_requested')
+    end
+
+    it 'sets the last event described_state to "attention_requested"' do
+      subject
+      expect(info_request.reload.last_event.described_state).
+        to eq 'attention_requested'
+    end
+
+    it 'logs an event' do
+      subject
+      last_event = info_request.reload.last_event
+      expect(last_event.event_type).to eq('report_request')
+      expect(last_event.params).
+        to match(
+          request_id: info_request.id,
+          editor: user,
+          reason: 'test',
+          message: 'Test message',
+          old_attention_requested: false,
+          attention_requested: true
+        )
     end
 
   end

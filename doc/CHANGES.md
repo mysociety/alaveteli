@@ -2,8 +2,15 @@
 
 ## Highlighted Features
 
+* Fix bug were the header was displayed at the wrong width if the site only had
+  one language configured (Martin Wright)
+* Log an event when a user reports a request and capture the message data
+  supplied by the user when they report a request as needing administrator
+  attention in the log (Liz Conlan)
 * Uses the url_name instead of a numeric id when sending messages between users
   to prevent id guessing (Liz Conlan)
+* Reopen closed requests to allow responses from anybody when a new followup
+  message is sent, or an admin resends an outgoing message (Liz Conlan)
 * Warn users when their request is getting too long (Zarino Zappia)
 * Add a customisable email footer for emails sent to users (Liz Conlan)
 * Add one-click unsubscribe to `TrackMailer`-generated email notifications
@@ -31,6 +38,7 @@
   contact form if set to true (defaults to false). Needs a small code snippet -
   documented in the `general.yml-example` file to be added to the theme's
   contact form for the reCAPTCHA to be displayed correctly (Liz Conlan)
+* Added support for Ubuntu 16.04 LTS (Xenial Xerus) (Graeme Porteous)
 
 ## Upgrade Notes
 

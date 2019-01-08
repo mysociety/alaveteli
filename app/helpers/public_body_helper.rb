@@ -40,7 +40,7 @@ module PublicBodyHelper
   # Returns a String
   def type_of_authority(public_body)
     categories = PublicBodyCategory.
-      where(:category_tag => public_body.tag_string.split)
+      where(category_tag: public_body.tag_string.split).order(:id)
 
     types = categories.each_with_index.map do |category, index|
       desc = category.description
