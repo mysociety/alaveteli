@@ -268,7 +268,7 @@ in any language, and within any legislation</p>
                         <img src="/assets/img/informini.jpg" class="deployment__screenshot" alt=""/>
                         <h3 class="deployment__title">Informini</h3>
                         <p class="deployment__country">Tunisia</p>
-                        <p class="deployment__link"><a href="http://informini.org/ar">http://informini.org/ar</a></p>
+                        <p class="deployment__link"><a href="https://www.informini.org/">https://www.informini.org/</a></p>
                     </div>
                 </div>
             </div>
