@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Highlight non-default states of "Prominence" in the admin
+  interface (Gareth Rees)
 * Fix bug were the header was displayed at the wrong width if the site only had
   one language configured (Martin Wright)
 * Log an event when a user reports a request and capture the message data
