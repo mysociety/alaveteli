@@ -118,7 +118,8 @@ class FollowupsController < ApplicationController
   end
 
   def outgoing_message_params
-    params_outgoing_message = params[:outgoing_message] ? params[:outgoing_message].clone : {}
+    params_outgoing_message = params_to_unsafe_hash(params[:outgoing_message])
+
     params_outgoing_message.merge!({
                                      :status => 'ready',
                                      :message_type => 'followup',
@@ -134,6 +135,15 @@ class FollowupsController < ApplicationController
                       :incoming_message_followup_id,
                       :info_request_id,
                       :what_doing)
+  end
+
+  def params_to_unsafe_hash(input_params)
+    return {} if input_params.blank?
+    if rails5?
+      input_params.to_unsafe_h
+    else
+      input_params.clone
+    end
   end
 
   def send_followup
