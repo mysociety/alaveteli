@@ -137,15 +137,6 @@ class FollowupsController < ApplicationController
                       :what_doing)
   end
 
-  def params_to_unsafe_hash(input_params)
-    return {} if input_params.blank?
-    if rails5?
-      input_params.to_unsafe_h
-    else
-      input_params.clone
-    end
-  end
-
   def send_followup
     @outgoing_message.sendable?
 
