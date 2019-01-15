@@ -530,4 +530,6 @@ class ApplicationController < ActionController::Base
 
   # Site-wide access to configuration settings
   include ConfigHelper
+
+  include HashableParams
 end
