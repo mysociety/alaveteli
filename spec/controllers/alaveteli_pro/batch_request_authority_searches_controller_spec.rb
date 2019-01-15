@@ -35,15 +35,18 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
   end
 
   describe "#index" do
-    let!(:authority_1) { FactoryBot.create(:public_body) }
-    let!(:authority_2) { FactoryBot.create(:public_body) }
-    let!(:authority_3) { FactoryBot.create(:public_body) }
+    let(:authority_1) { FactoryBot.build(:public_body) }
+    let(:authority_2) { FactoryBot.build(:public_body) }
+    let(:authority_3) { FactoryBot.build(:public_body) }
 
     before :all do
       get_fixtures_xapian_index
     end
 
     before do
+      authority_1.save
+      authority_2.save
+      authority_3.save
       update_xapian_index
       session[:user_id] = pro_user.id
     end
