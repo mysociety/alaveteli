@@ -30,11 +30,17 @@ FactoryBot.define do
       visible false
     end
 
-    factory :attention_requested do
+    factory :attention_requested_comment do
+      transient do
+        message nil
+        reason nil
+      end
+
       after(:create) do |comment, evaluator|
         reporting_user = create(:user)
-        reason = comment.report_reasons.sample
-        comment.report!(reason, 'Bad Comment', reporting_user)
+        reason = evaluator.reason || comment.report_reasons.sample
+        user_message = evaluator.message || 'Bad Comment'
+        comment.report!(reason, user_message, reporting_user)
       end
     end
 

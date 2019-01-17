@@ -107,7 +107,7 @@ describe AdminGeneralController do
     end
 
     it 'assigns comments requiring attention to the view' do
-      comment = FactoryBot.create(:attention_requested)
+      comment = FactoryBot.create(:attention_requested_comment)
       get :index, session: { :user_id => admin_user.id }
       expect(assigns[:attention_comments]).to eq([comment])
     end
@@ -115,7 +115,7 @@ describe AdminGeneralController do
     context 'when there are comment tasks' do
 
       it 'assigns comment tasks to true' do
-        comment = FactoryBot.create(:attention_requested)
+        comment = FactoryBot.create(:attention_requested_comment)
         get :index, session: { :user_id => admin_user.id }
         expect(assigns[:comment_tasks]).to be true
       end
@@ -143,7 +143,7 @@ describe AdminGeneralController do
     context 'when there is something to do' do
 
       it 'assigns nothing to do to false' do
-        comment = FactoryBot.create(:attention_requested)
+        comment = FactoryBot.create(:attention_requested_comment)
         get :index, session: { :user_id => admin_user.id }
         expect(assigns[:nothing_to_do]).to be false
       end
