@@ -20,7 +20,11 @@ describe "When importing mail into the application" do
   # Turn off transactional fixtures for this suite - incoming message is imported
   # outside the transaction via ExternalCommand, so needs to be destroyed outside the
   # transaction
-  self.use_transactional_fixtures = false
+  if rails5?
+    self.use_transactional_tests = false
+  else
+    self.use_transactional_fixtures = false
+  end
 
   it "should not produce any output and should return a 0 code on importing a plain email" do
     r = mailin_test("incoming-request-empty.email")
