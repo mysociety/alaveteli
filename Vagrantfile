@@ -86,7 +86,7 @@ DEFAULTS = {
   'ip' => '10.10.10.30',
   'memory' => 1536,
   'themes_dir' => '../alaveteli-themes',
-  'os' => 'jessie64',
+  'os' => 'stretch64',
   'name' => 'default',
   'use_nfs' => false,
   'show_settings' => false,
@@ -115,10 +115,6 @@ SUPPORTED_OPERATING_SYSTEMS = {
   'xenial64' => {
     box: 'ubuntu/xenial64',
     box_url: 'https://app.vagrantup.com/ubuntu/boxes/xenial64'
-  },
-  'jessie64' => {
-    box: 'puppetlabs/debian-8.2-64-nocm',
-    box_url: 'https://app.vagrantup.com/puppetlabs/debian-8.2-64-nocm'
   },
   'stretch64' => {
     box: 'debian/stretch64',
@@ -206,17 +202,7 @@ To start your alaveteli instance:
 * bundle exec rails server -b 0.0.0.0
 EOF
 
-  if SETTINGS['os'] == 'jessie64'
-    # workaround for dynamic MOTD support on jessie
-    # adapted from: https://oitibs.com/debian-jessie-dynamic-motd/
-    config.vm.provision :shell, inline: "mkdir /etc/update-motd.d/"
-    config.vm.provision :shell, inline: "cd /etc/update-motd.d/ && touch 00-header && touch 10-sysinfo && touch 90-footer"
-    config.vm.provision :shell, inline: "echo '#!/bin/sh' >> /etc/update-motd.d/90-footer"
-    config.vm.provision :shell, inline: "echo '[ -f /etc/motd.tail ] && cat /etc/motd.tail || true' >> /etc/update-motd.d/90-footer"
-    config.vm.provision :shell, inline: "chmod +x /etc/update-motd.d/*"
-    config.vm.provision :shell, inline: "rm /etc/motd"
-    config.vm.provision :shell, inline: "ln -s /var/run/motd /etc/motd"
-  elsif SETTINGS['os'] == 'trusty64' || SETTINGS['os'] == 'xenial64'
+  if SETTINGS['os'] == 'trusty64' || SETTINGS['os'] == 'xenial64'
     config.vm.provision :shell, inline: "echo '#{ motd }' >> /etc/motd"
   end
   config.vm.provision :shell, inline: "echo '#{ motd }' >> /etc/motd.tail"

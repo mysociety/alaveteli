@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Drop support for Debian Jessie (Gareth Rees)
 * Highlight non-default states of "Prominence" in the admin
   interface (Gareth Rees)
 * Fix bug were the header was displayed at the wrong width if the site only had
@@ -50,6 +51,8 @@
   _trait_ instead if you rely on this in theme specs. See
   https://github.com/thoughtbot/factory_bot/blob/v4.10.0/GETTING_STARTED.md#traits
   for more information on traits.
+* We no longer support Debian Jessie. Please upgrade to Debian Stretch at the
+  earliest opportinuity.
 
 # 0.32.0.0
 
