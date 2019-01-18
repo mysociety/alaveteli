@@ -111,7 +111,7 @@ class AdminUserController < AdminController
   def modify_comment_visibility
     Comment.where(:id => params[:comment_ids]).
       update_all(:visible => !params[:hide_selected])
-    redirect_to :back
+    redirect_to admin_user_url(params[:id])
   end
 
   private
