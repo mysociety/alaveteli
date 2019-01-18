@@ -1800,7 +1800,7 @@ describe InfoRequest do
     end
 
     context 'email with an id mistyped using letters and missing punctuation' do
-      before { InfoRequest.destroy_all(id: 1231014) }
+      before { InfoRequest.where(id: 1231014).destroy_all }
       let!(:info_request) { FactoryBot.create(:info_request, id: 1231014) }
       let(:email) { 'request-123loL4abcdefgh@example.com' }
       let(:guess) { described_class::Guess.new(info_request, email, :id) }
