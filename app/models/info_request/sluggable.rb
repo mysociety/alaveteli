@@ -10,10 +10,11 @@ module InfoRequest::Sluggable
                 if: proc { |request| request.title_changed? }
   end
 
-  # When name is changed, also change the url name
+  # When title is changed, also change the URL title
   def title=(title)
-    write_attribute(:title, title)
-    update_url_title
+    super.tap do
+      update_url_title
+    end
   end
 
   # Public: url_title attribute reader
