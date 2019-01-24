@@ -1320,7 +1320,7 @@ class InfoRequest < ActiveRecord::Base
   # Returns index of last event which is described or nil if none described.
   def index_of_last_described_event
     events = info_request_events
-    events.each_index do |i|
+    events.each_with_index do |_, i|
       revi = events.size - 1 - i
       m = events[revi]
       return revi if m.described_state
