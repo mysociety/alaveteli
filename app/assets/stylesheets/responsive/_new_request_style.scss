@@ -121,6 +121,20 @@ input#reedit_button {
   border: none;
 }
 
+.request_deny_response {
+  background-color: #FFF;
+}
+
+.js-loaded {
+  div.request_form_response--allow {
+    div#request_subject {
+      margin-top: 1em;
+      padding-top: 1em;
+      border-top: 1px solid #ccc;
+      border-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+}
 
 /* Batch request page */
 

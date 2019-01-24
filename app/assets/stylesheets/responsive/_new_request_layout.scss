@@ -92,7 +92,31 @@ span#to_public_body {
       width: 36.813em;
     }
   }
+}
 
+.js-loaded {
+  #request_form_questions {
+    label { font-size: 1.1em; }
+  }
+  .request_form_response {
+    display: none;
+
+    &.request_form_response--focused { display: block; }
+  }
+}
+
+.no-js {
+  #request_form_questions { display: none; }
+
+  .request_form_response {
+    display: none;
+
+    &.request_form_response--allow { display: block; }
+  }
+}
+
+.request_deny_response {
+  padding: 1em 1.5em;
 }
 
 #outgoing_message_body {

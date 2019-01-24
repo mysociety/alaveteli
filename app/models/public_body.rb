@@ -895,6 +895,10 @@ class PublicBody < ActiveRecord::Base
     update_columns(updated_counts)
   end
 
+  def questions
+    PublicBodyQuestion.fetch(self)
+  end
+
   private
 
   # if the URL name has changed, then all requested_from: queries
