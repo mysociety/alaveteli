@@ -11,6 +11,11 @@ describe HashableParams do
       it { is_expected.to eq({}) }
     end
 
+    context 'passed a hash' do
+      let(:raw_params) { { foo: 1, bar: 2 } }
+      it { is_expected.to match_array(raw_params) }
+    end
+
     context 'passed an instance of ActionController::Parameters' do
       let(:params_hash) { { foo: "1", bar: "false" } }
       let(:raw_params) { ActionController::Parameters.new(params_hash) }
