@@ -45,6 +45,7 @@ class InfoRequest < ActiveRecord::Base
   include Rails.application.routes.url_helpers
   include AlaveteliPro::RequestSummaries
   include AlaveteliFeatures::Helpers
+  include InfoRequest::Sluggable
 
   @non_admin_columns = %w(title url_title)
   @additional_admin_columns = %w(rejected_incoming_count)
@@ -183,10 +184,6 @@ class InfoRequest < ActiveRecord::Base
   after_destroy :update_counter_cache
   after_update :reindex_some_request_events
   before_destroy :expire
-  # make sure the url_title is unique but don't update
-  # existing requests unless the title is being changed
-  before_save :update_url_title,
-    :if => Proc.new { |request| request.title_changed? }
   before_validation :compute_idhash
   before_create :set_use_notifications
 
@@ -806,44 +803,6 @@ class InfoRequest < ActiveRecord::Base
     for incoming_message in incoming_messages
       incoming_message.clear_in_database_caches!
     end
-  end
-
-  # When name is changed, also change the url name
-  def title=(title)
-    write_attribute(:title, title)
-    update_url_title
-  end
-
-  # Public: url_title attribute reader
-  #
-  # opts - Hash of options (default: {})
-  #        :collapse - Set true to strip the numeric section. Use this to group
-  #                    lots of similar requests by url_title.
-  #
-  # Returns a String
-  def url_title(opts = {})
-    _url_title = super()
-    return _url_title.gsub(/[_0-9]+$/, "") if opts[:collapse]
-    _url_title
-  end
-
-  def update_url_title
-    return unless title
-    url_title = MySociety::Format.simplify_url_part(title, 'request', 32)
-    # For request with same title as others, add on arbitary numeric identifier
-    unique_url_title = url_title
-    suffix_num = 2 # as there's already one without numeric suffix
-    conditions = id ? ["id <> ?", id] : []
-
-    while InfoRequest.
-      where(:url_title => unique_url_title).
-        where(conditions).
-          any? do
-      unique_url_title = "#{url_title}_#{suffix_num}"
-      suffix_num = suffix_num + 1
-    end
-
-    write_attribute(:url_title, unique_url_title)
   end
 
   def update_last_public_response_at
