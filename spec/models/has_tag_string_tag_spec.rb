@@ -40,7 +40,8 @@ describe HasTagString::HasTagStringTag do
       create_table :globalize_model_with_tag_translations, force: true do |t|
         t.references 'globalize_model_with_tags'.
                        sub(/^#{ GlobalizeModelWithTag.table_name_prefix}/, '').
-                       singularize, null: false
+                         singularize,
+                     null: false
         t.string :locale, null: false
         t.string :name
         t.timestamps null: false
