@@ -1276,17 +1276,6 @@ class InfoRequest < ActiveRecord::Base
     first_message.is_public? ? first_message.get_text_for_indexing(true, body_opts) : ''
   end
 
-  # Returns index of last event which is described or nil if none described.
-  def index_of_last_described_event
-    events = info_request_events
-    events.each_index do |i|
-      revi = events.size - 1 - i
-      m = events[revi]
-      return revi if m.described_state
-    end
-    nil
-  end
-
   def last_event_id_needing_description
     last_event = events_needing_description[-1]
     last_event.nil? ? 0 : last_event.id
@@ -1840,6 +1829,17 @@ class InfoRequest < ActiveRecord::Base
     reindex_request_events
 
     incoming_message
+  end
+
+  # Returns index of last event which is described or nil if none described.
+  def index_of_last_described_event
+    info_request_events.reverse.each_with_index do |event, index|
+      if event.described_state
+        reverse_index = info_request_events.size - 1 - index
+        return reverse_index
+      end
+    end
+    nil
   end
 
   def set_defaults
