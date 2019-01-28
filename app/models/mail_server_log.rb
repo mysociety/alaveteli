@@ -268,7 +268,11 @@ class MailServerLog < ActiveRecord::Base
         raw_write_attribute(:delivery_status, decorated.delivery_status)
         # record the new value in `changes` so that save will have something
         # to do as raw_write_attribute just updates the value
-        save_changed_attribute(:delivery_status, decorated.delivery_status)
+        if rails5?
+          delivery_status_will_change!
+        else
+          save_changed_attribute(:delivery_status, decorated.delivery_status)
+        end
       else
         write_attribute(:delivery_status, decorated.delivery_status)
       end
