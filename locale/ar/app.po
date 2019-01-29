@@ -14,11 +14,13 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Aladdin El-Haraty <aelharaty@gmail.com>, 2012
 # Aladdin El-Haraty <aelharaty@gmail.com>, 2012
 # Aladdin El-Haraty <aelharaty@gmail.com>, 2012
 # kimoensi <kamel.mellah@gmail.com>, 2017
 # kimoensi <kamel.mellah@gmail.com>, 2017
+# Liz Conlan <liz@mysociety.org>, 2018
 # louisecrow <louise@mysociety.org>, 2014
 # louisecrow <louise@mysociety.org>, 2014
 # radhouane fazai <radhouanef@gmail.com>, 2013-2014
@@ -31,7 +33,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-09-28 15:37+0000\n"
-"PO-Revision-Date: 2018-09-29 11:24+0000\n"
+"PO-Revision-Date: 2018-12-21 12:21+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Arabic (http://www.transifex.com/mysociety/alaveteli/language/ar/)\n"
 "Language: ar\n"
@@ -3047,7 +3049,7 @@ msgid "The accounts have been left as they previously were."
 msgstr "تم ترك كل حساب كما كان سابقا"
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr "السلطة <strong>لا تملك</strong> المعلومة <small>(ربما يقولون من يملكها)"
+msgstr "السلطة <strong>لا تملك</strong> المعلومة <small>(ربما يقولون من يملكها)</small>"
 
 msgid "The authority email doesn't look like a valid address"
 msgstr ""

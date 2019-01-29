@@ -14,7 +14,9 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Finnur Magnusson <gommit@gmail.com>, 2015
+# Liz Conlan <liz@mysociety.org>, 2018
 # Ölvir Gíslason <olvirg@gmail.com>, 2016
 # Páll Hilmarsson <pallih@kaninka.net>, 2015-2018
 msgid ""
@@ -22,7 +24,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-09-28 15:37+0000\n"
-"PO-Revision-Date: 2018-09-29 11:24+0000\n"
+"PO-Revision-Date: 2018-12-21 12:27+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/mysociety/alaveteli/language/is_IS/)\n"
 "Language: is_IS\n"
@@ -3010,7 +3012,7 @@ msgid "The accounts have been left as they previously were."
 msgstr "Reikningarnir eru enn eins og þeir voru áður."
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr "Stjórnvaldið <strong>hefur ekki</strong> gögnin <small>(kannski kom fram hver hefur þau)"
+msgstr "Stjórnvaldið <strong>hefur ekki</strong> gögnin <small>(kannski kom fram hver hefur þau)</small>"
 
 msgid "The authority email doesn't look like a valid address"
 msgstr "Netfang stjórnvaldsins virðist ekki vera gilt netfang"

@@ -14,8 +14,10 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # David Cabo <david.cabo@gmail.com>, 2012
 # sroberto <ertoba@yahoo.es>, 2012
+# Liz Conlan <liz@mysociety.org>, 2018
 # louisecrow <louise@mysociety.org>, 2014
 # louisecrow <louise@mysociety.org>, 2014
 # sroberto <ertoba@yahoo.es>, 2012
@@ -24,7 +26,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-09-28 15:37+0000\n"
-"PO-Revision-Date: 2018-09-29 11:24+0000\n"
+"PO-Revision-Date: 2018-12-21 12:07+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Basque (http://www.transifex.com/mysociety/alaveteli/language/eu/)\n"
 "Language: eu\n"
@@ -3052,7 +3054,7 @@ msgid "The accounts have been left as they previously were."
 msgstr "Kontuak lehen zeuden bezalaxe utzi dira."
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr "Erakundeak <strong>ez dauka</strong> informazioa <small>(agian esan dezakete nork daukan)"
+msgstr "Erakundeak <strong>ez dauka</strong> informazioa <small>(agian esan dezakete nork daukan)</small>"
 
 msgid "The authority email doesn't look like a valid address"
 msgstr ""

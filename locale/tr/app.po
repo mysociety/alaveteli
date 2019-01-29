@@ -14,10 +14,12 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Baran Ozgul <baran@ozgul.net>, 2012
 # Baran Ozgul <baran@ozgul.net>, 2012
 # Baran Ozgul <baran@ozgul.net>, 2012
 # Baris Altintas <info@platform24.org>, 2015-2016
+# Liz Conlan <liz@mysociety.org>, 2018
 # louisecrow <louise@mysociety.org>, 2016
 # louisecrow <louise@mysociety.org>, 2016
 # Pinar Dag <pinar.dag@dagmedya.com>, 2014
@@ -27,7 +29,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-09-28 15:37+0000\n"
-"PO-Revision-Date: 2018-09-29 11:24+0000\n"
+"PO-Revision-Date: 2018-12-21 12:34+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Turkish (http://www.transifex.com/mysociety/alaveteli/language/tr/)\n"
 "Language: tr\n"
@@ -3022,7 +3024,7 @@ msgid "The accounts have been left as they previously were."
 msgstr "Hesaplar daha önceki hallerinde bırakıldı"
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr "Kurumun elinde istenilen bilgi <strong>bulunmamaktadır</strong>  <small>(belki nereden bulabileceğinizi söylemişlerdir)"
+msgstr "Kurumun elinde istenilen bilgi <strong>bulunmamaktadır</strong>  <small>(belki nereden bulabileceğinizi söylemişlerdir)</small>"
 
 msgid "The authority email doesn't look like a valid address"
 msgstr "Kamu kuruluşunun email adresi geçerli bir adrese benzemiyor"

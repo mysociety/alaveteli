@@ -2790,8 +2790,8 @@ msgstr "Las cuentas se han dejado tal y como estaban anteriormente."
 #: app/views/request/_other_describe_state.rhtml:48
 msgid ""
 "The authority do <strong>not have</strong> the information <small>(maybe "
-"they say who does)"
-msgstr "El organismo <strong>no tiene</strong> la información <small>(tal vez dicen quién la tiene)"
+"they say who does)</small>"
+msgstr "El organismo <strong>no tiene</strong> la información <small>(tal vez dicen quién la tiene)</small>"
 
 #: app/views/request/show_response.rhtml:26
 msgid ""

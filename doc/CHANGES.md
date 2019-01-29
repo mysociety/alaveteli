@@ -2,8 +2,13 @@
 
 ## Highlighted Features
 
+* Drop support for Debian Jessie (Gareth Rees)
+* Highlight non-default states of "Prominence" in the admin
+  interface (Gareth Rees)
 * Fix bug were the header was displayed at the wrong width if the site only had
   one language configured (Martin Wright)
+* Show the message from the user on the admin summary page for requests and
+  comments which have been flagged as needing administrator attention (Liz Conlan)
 * Log an event when a user reports a request and capture the message data
   supplied by the user when they report a request as needing administrator
   attention in the log (Liz Conlan)
@@ -46,6 +51,8 @@
   _trait_ instead if you rely on this in theme specs. See
   https://github.com/thoughtbot/factory_bot/blob/v4.10.0/GETTING_STARTED.md#traits
   for more information on traits.
+* We no longer support Debian Jessie. Please upgrade to Debian Stretch at the
+  earliest opportinuity.
 
 # 0.32.0.0
 

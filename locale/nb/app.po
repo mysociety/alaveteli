@@ -14,6 +14,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # andreli <andre@lindhjem.net>, 2013
 # Hans-Petter Fjeld <atluxity@1kb.no>, 2014
 # Ben W <bwng@openmailbox.org>, 2016
@@ -27,6 +28,7 @@
 # Kjetil Torgrim Homme <kjetilho@ifi.uio.no>, 2015
 # Knut Arne Bjørndal <inactive+bobkare@transifex.com>, 2015
 # Knut Arne Bjørndal <inactive+bobkare@transifex.com>, 2015
+# Liz Conlan <liz@mysociety.org>, 2018
 # louisecrow <louise@mysociety.org>, 2014
 # Ole-Erik Yrvin <oeyrvin@gmail.com>, 2014
 # Ole-Erik Yrvin <oeyrvin@gmail.com>, 2014,2017
@@ -37,7 +39,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-09-28 15:37+0000\n"
-"PO-Revision-Date: 2018-09-29 11:24+0000\n"
+"PO-Revision-Date: 2018-12-21 12:31+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/mysociety/alaveteli/language/nb/)\n"
 "Language: nb\n"
@@ -3025,7 +3027,7 @@ msgid "The accounts have been left as they previously were."
 msgstr "Kontoene er etterlatt slik de tidligere var."
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr "Myndigheten <strong>har ikke</strong> denne informasjonen <small>(kanskje de sier hvem som har)"
+msgstr "Myndigheten <strong>har ikke</strong> denne informasjonen <small>(kanskje de sier hvem som har)</small>"
 
 msgid "The authority email doesn't look like a valid address"
 msgstr "Myndighetens e-postadresse ser ikke ut som en gyldig adresse"

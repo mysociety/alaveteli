@@ -14,16 +14,17 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Giancarlo <pinet@pinet.it>, 2015
 # guido romeo <guido.romeo@gmail.com>, 2015
-# Liz Conlan <liz@mysociety.org>, 2017
+# Liz Conlan <liz@mysociety.org>, 2017-2018
 # Marco Giustini <info@marcogiustini.info>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-09-28 15:37+0000\n"
-"PO-Revision-Date: 2018-09-29 11:24+0000\n"
+"PO-Revision-Date: 2018-12-21 12:28+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/mysociety/alaveteli/language/it_IT/)\n"
 "Language: it_IT\n"
@@ -3017,7 +3018,7 @@ msgid "The accounts have been left as they previously were."
 msgstr "Gli account sono stati lasciati immutati."
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr "L'amministrazione <strong>non ha</strong> queste informazioni <small>(forse sanno dire chi ne è in possesso)"
+msgstr "L'amministrazione <strong>non ha</strong> queste informazioni <small>(forse sanno dire chi ne è in possesso)</small>"
 
 msgid "The authority email doesn't look like a valid address"
 msgstr "L'indirizzo email dell'amministrazione non sembra valido"

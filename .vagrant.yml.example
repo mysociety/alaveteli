@@ -2,7 +2,7 @@ fqdn: alaveteli.10.10.10.30.nip.io
 ip: 10.10.10.30
 memory: 1536
 themes_dir: ../alaveteli-themes
-os: jessie64
+os: stretch64
 use_nfs: false
 show_settings: false
 # By default CPU count is calculated dynamically

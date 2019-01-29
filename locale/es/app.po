@@ -14,6 +14,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Anatoli F. Peña Castillo <djanatoli@gmail.com>, 2017
 # Anatoli F. Peña Castillo <djanatoli@gmail.com>, 2017
 # andreas.pavlou <andreas@access-info.org>, 2015,2017
@@ -26,6 +27,7 @@
 # gaba <gabelula@gmail.com>, 2012
 # Gareth Rees <gareth@mysociety.org>, 2016
 # J Daniel Luke <daniel@access-info.org>, 2015
+# Liz Conlan <liz@mysociety.org>, 2018
 # louisecrow <louise@mysociety.org>, 2014
 # louisecrow <louise@mysociety.org>, 2014-2015
 # Maria Isabel Magaña <marisamagar94@gmail.com>, 2016
@@ -40,7 +42,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-09-28 15:37+0000\n"
-"PO-Revision-Date: 2018-09-29 11:24+0000\n"
+"PO-Revision-Date: 2018-12-21 12:33+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Spanish (http://www.transifex.com/mysociety/alaveteli/language/es/)\n"
 "Language: es\n"
@@ -3140,7 +3142,7 @@ msgid "The accounts have been left as they previously were."
 msgstr "Las cuentas se han dejado tal y como estaban anteriormente."
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr "El organismo <strong>no tiene</strong> la información <small>(tal vez dicen quién la tiene)"
+msgstr "El organismo <strong>no tiene</strong> la información <small>(tal vez dicen quién la tiene)</small>"
 
 msgid "The authority email doesn't look like a valid address"
 msgstr "El correo electronico de la autoridad no parece una dirección válida"

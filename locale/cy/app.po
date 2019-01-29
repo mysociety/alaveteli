@@ -14,6 +14,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Aled Powell <aled@aledpowell.cymru>, 2014,2017
 # Aled Powell <aled@aledpowell.cymru>, 2014
 # skenaja <alex@alexskene.com>, 2011-2012
@@ -26,6 +27,7 @@
 # hywelm <hywelm.jones@talk21.com>, 2013
 # hywelm <hywelm.jones@talk21.com>, 2013
 # hywelm <hywelm.jones@talk21.com>, 2013
+# Liz Conlan <liz@mysociety.org>, 2018
 # louisecrow <louise@mysociety.org>, 2013
 # louisecrow <louise@mysociety.org>, 2013-2015
 # PerryX <wyeboy@gmail.com>, 2013
@@ -35,7 +37,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-09-28 15:37+0000\n"
-"PO-Revision-Date: 2018-09-29 11:25+0000\n"
+"PO-Revision-Date: 2018-12-21 12:35+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Welsh (http://www.transifex.com/mysociety/alaveteli/language/cy/)\n"
 "Language: cy\n"
@@ -3037,7 +3039,7 @@ msgid "The accounts have been left as they previously were."
 msgstr "Mae'r cyfrifon wedi cael eu gadael fel yr oeddent o'r blaen."
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr "<strong>Nid</strong> yw'r wybodaeth gan yr awdurdod<small>(efallai eu bod yn dweud pwy gan bwy y mae)"
+msgstr "<strong>Nid</strong> yw'r wybodaeth gan yr awdurdod<small>(efallai eu bod yn dweud pwy gan bwy y mae)</small>"
 
 msgid "The authority email doesn't look like a valid address"
 msgstr "Nid yw ebost yr awdurdod yn edrych fel cyfeiriad dilys."

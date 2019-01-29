@@ -44,6 +44,21 @@
             }
           });
         }));
+
+        var questions = $('#request_form_questions')
+        var questionInputs = $('input[name=request_form_response]', questions)
+        var questionResponses = $('.request_form_response')
+
+        // when inputs are checked update which response is focused.
+        questionInputs.on('click', function () {
+          var id = '#request_form_response--' + $(this).val()
+          questionResponses.removeClass('request_form_response--focused')
+          questionResponses.filter(id).addClass('request_form_response--focused')
+        })
+
+        // checked state can follow manual page reloads, ensure correct response
+        // is focused.
+        questionInputs.filter(':checked').click()
       });
     </script>
   <% end %>
@@ -216,52 +231,29 @@
     </div>
 
     <div id="request_form" class="request_form">
-      <div id="request_subject" class="request_subject">
-        <p>
-          <label class="form_label" for="typeahead_search"><%= _('Summary') %></label>
-          <%= f.text_field :title, :size => 50, :id =>"typeahead_search" %>
-        </p>
+      <% if @batch || @info_request.public_body.questions.blank? %>
+        <%= render 'form', f: f %>
+      <% else %>
+        <div id="request_form_questions">
+          <p><%= _('Are you asking about your, or others\', personal information or personal situation?') %></p>
 
-        <div class="form_item_note">
-          <%= _("A one line summary of the information you are requesting, e.g.") %>
-          <%= render :partial => "summary_suggestion" %>
-        </div>
-      </div>
-
-      <div id="typeahead_response" class="typeahead_response">
-      </div>
-
-      <%= fields_for :outgoing_message do |o| %>
-        <p>
-          <label class="form_label" for="outgoing_message_body">
-            <%= _('Your request') %></label>
-          <%= o.text_area :body, :rows => 20, :cols => 60 %>
-        </p>
-      <% end %>
-
-      <%= render partial: 'new_message_text_length' %>
-
-      <div class="form_button">
-        <% if @batch %>
-          <% params[:public_body_ids].each do |public_body_id| %>
-            <%= hidden_field_tag("public_body_ids[]", public_body_id)%>
+          <% @info_request.public_body.questions.each do |question| %>
+            <label for="<%= question.key %>">
+              <input type="radio" name="request_form_response" id="<%= question.key %>" value="<%= question.key %>" <%= 'checked="checked"' if params[:request_form_response] == question.key.to_s %>>
+              <%= question.text %>
+            </label>
           <% end %>
-        <% else %>
-          <%= f.hidden_field(:public_body_id, { :value => @info_request.public_body_id } ) %>
+        </div>
+
+        <% @info_request.public_body.questions.each do |question| %>
+          <div class="request_form_response request_form_response--<%= question.action %>" id="request_form_response--<%= question.key %>">
+            <% if question.action == :allow %>
+              <%= render 'form', f: f %>
+            <% else %>
+              <div class="request_deny_response"><%= question.response %></div>
+            <% end %>
+          </div>
         <% end %>
-        <%= hidden_field_tag(:submitted_new_request, 1 ) %>
-        <%= hidden_field_tag(:preview, 1 ) %>
-        <%= submit_tag _("Preview your public request") %>
-      </div>
-
-      <% if !@info_request.tag_string.empty? %>
-        <p class="form_note">
-          <!-- <label class="form_label" for="info_request_tag_string"><%= _("Tags (separated by a space):") %></label>
-            <%= f.text_field :tag_string, :size => 50 %> -->
-
-            <%= f.hidden_field(:tag_string) %>
-            <strong>Tags:</strong> <%=h @info_request.tag_string %>
-        </p>
       <% end %>
     </div>
   </div>

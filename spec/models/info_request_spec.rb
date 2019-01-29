@@ -1800,7 +1800,7 @@ describe InfoRequest do
     end
 
     context 'email with an id mistyped using letters and missing punctuation' do
-      before { InfoRequest.destroy_all(id: 1231014) }
+      before { InfoRequest.where(id: 1231014).destroy_all }
       let!(:info_request) { FactoryBot.create(:info_request, id: 1231014) }
       let(:email) { 'request-123loL4abcdefgh@example.com' }
       let(:guess) { described_class::Guess.new(info_request, email, :id) }
@@ -2022,22 +2022,22 @@ describe InfoRequest do
 
   end
 
-  describe "when asked for the last event id that needs description" do
+  describe '#last_event_id_needing_description' do
+    subject { info_request.last_event_id_needing_description }
+    let(:info_request) { FactoryBot.create(:successful_request) }
 
-    before do
-      @info_request = InfoRequest.new
+    it 'returns the last undescribed event id' do
+      incoming_message = FactoryBot.create(:incoming_message,
+                                           info_request: info_request)
+      info_request.
+        log_event('response', incoming_message_id: incoming_message.id)
+
+      expect(subject).to eq incoming_message.info_request_events.last.id
     end
 
-    it 'returns the last undescribed event id if there is one' do
-      last_mock_event = mock_model(InfoRequestEvent)
-      other_mock_event = mock_model(InfoRequestEvent)
-      allow(@info_request).to receive(:events_needing_description).and_return([other_mock_event, last_mock_event])
-      expect(@info_request.last_event_id_needing_description).to eq(last_mock_event.id)
-    end
-
-    it 'returns zero if there are no undescribed events' do
-      allow(@info_request).to receive(:events_needing_description).and_return([])
-      expect(@info_request.last_event_id_needing_description).to eq(0)
+    context 'there are no undescribed events' do
+      let(:info_request) { FactoryBot.create(:info_request) }
+      it { is_expected.to eq 0 }
     end
 
   end

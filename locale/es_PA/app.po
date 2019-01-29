@@ -14,10 +14,12 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Aida Martinez <amartinez@antai.gob.pa>, 2016
 # fabrizioscrollini <fabrizio.scrollini@gmail.com>, 2012
 # gaba <gabelula@gmail.com>, 2012,2014
 # Gareth Rees <gareth@mysociety.org>, 2016
+# Liz Conlan <liz@mysociety.org>, 2018
 # louisecrow <louise@mysociety.org>, 2014,2016
 # louisecrow <louise@mysociety.org>, 2016
 # skenaja <alex@alexskene.com>, 2011
@@ -32,7 +34,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-09-28 15:37+0000\n"
-"PO-Revision-Date: 2018-09-29 11:24+0000\n"
+"PO-Revision-Date: 2018-12-21 12:33+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Spanish (Panama) (http://www.transifex.com/mysociety/alaveteli/language/es_PA/)\n"
 "Language: es_PA\n"
@@ -3028,7 +3030,7 @@ msgid "The accounts have been left as they previously were."
 msgstr "Las cuentas se han dejado tal y como estaban anteriormente."
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr "La institución pública <strong>no tiene</strong> la información <small>(tal vez saben quien la tiene)"
+msgstr "La institución pública <strong>no tiene</strong> la información <small>(tal vez saben quien la tiene)</small>"
 
 msgid "The authority email doesn't look like a valid address"
 msgstr "El correo electronico de la institución no parece una dirección válida"
