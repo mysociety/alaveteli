@@ -100,7 +100,7 @@ gem 'fancybox-rails', '~> 0.3.0'
 gem 'geoip', '~> 1.6.4'
 gem 'gnuplot', '~> 2.6.0'
 gem 'htmlentities', '~> 4.3.0'
-gem 'icalendar', '~> 2.4.0'
+gem 'icalendar', '~> 2.5.2'
 gem 'jquery-rails', rails5? ? nil : '~> 4.3.3'
 gem 'jquery-ui-rails', rails5? ? nil : '~> 6.0.0'
 gem 'json', rails5? ? nil : ['~> 1.8.0', '< 2.0.0']
