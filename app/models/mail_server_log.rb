@@ -263,15 +263,23 @@ class MailServerLog < ActiveRecord::Base
     decorated = line(:decorate => true)
     if decorated && decorated.delivery_status
       if force
-        # write the value without checking the old (invalid) value, avoiding
-        # the unintended ArgumentError caused by reading the old value
-        raw_write_attribute(:delivery_status, decorated.delivery_status)
-        # record the new value in `changes` so that save will have something
-        # to do as raw_write_attribute just updates the value
-        save_changed_attribute(:delivery_status, decorated.delivery_status)
+        force_delivery_status(decorated.delivery_status)
       else
         write_attribute(:delivery_status, decorated.delivery_status)
       end
+    end
+  end
+
+  def force_delivery_status(new_status)
+    # write the value without checking the old (invalid) value, avoiding
+    # the unintended ArgumentError caused by reading the old value
+    raw_write_attribute(:delivery_status, new_status)
+    # record the new value in `changes` so that save will have something
+    # to do as raw_write_attribute just updates the value
+    if rails5?
+      delivery_status_will_change!
+    else
+      save_changed_attribute(:delivery_status, new_status)
     end
   end
 
