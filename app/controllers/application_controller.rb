@@ -256,9 +256,14 @@ class ApplicationController < ActionController::Base
     !session[:user_id].nil?
   end
 
-  def form_authenticity_token
+  def form_authenticity_token(*args)
     if user?
-      session[:_csrf_token] ||= SecureRandom.base64(32)
+      session[:_csrf_token] ||=
+        if rails5?
+          super
+        else
+          super()
+        end
     end
   end
 
