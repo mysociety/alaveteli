@@ -6,19 +6,7 @@ describe HashableParams do
   describe '#params_to_hash' do
     subject { params_to_hash(raw_params) }
 
-    context 'passed an empty hash' do
-      let(:raw_params) { {} }
-      it { is_expected.to eq({}) }
-    end
-
-    context 'passed a hash' do
-      let(:raw_params) { { foo: 1, bar: 2 } }
-      it { is_expected.to match_array(raw_params) }
-    end
-
-    context 'passed an instance of ActionController::Parameters' do
-      let(:params_hash) { { foo: "1", bar: "false" } }
-      let(:raw_params) { ActionController::Parameters.new(params_hash) }
+    shared_examples_for 'populated_params_provided' do
 
       it 'returns a hash' do
         expect(subject).to be_a(Hash)
@@ -28,10 +16,34 @@ describe HashableParams do
         expect(subject).to respond_to(:with_indifferent_access)
       end
 
+    end
+
+    context 'passed an empty hash' do
+      let(:raw_params) { {} }
+      it { is_expected.to eq({}) }
+    end
+
+    context 'passed nil' do
+      let(:raw_params) { nil }
+      it { is_expected.to eq({}) }
+    end
+
+    context 'passed a hash' do
+      let(:raw_params) { { foo: 1, bar: 2 } }
+      it { is_expected.to match_array(raw_params) }
+
+      it_behaves_like 'populated_params_provided'
+    end
+
+    context 'passed an instance of ActionController::Parameters' do
+      let(:params_hash) { { foo: "1", bar: "false" } }
+      let(:raw_params) { ActionController::Parameters.new(params_hash) }
+
       it 'does not strip unpermitted keys' do
         expect(subject.keys).to match_array(['foo', 'bar'])
       end
 
+      it_behaves_like 'populated_params_provided'
     end
 
   end
