@@ -256,6 +256,8 @@ class ApplicationController < ActionController::Base
     !session[:user_id].nil?
   end
 
+  # Override the Rails method to only set the CSRF form token if there is a
+  # logged in user
   def form_authenticity_token(*args)
     if user?
       if rails5?
