@@ -258,12 +258,11 @@ class ApplicationController < ActionController::Base
 
   def form_authenticity_token(*args)
     if user?
-      session[:_csrf_token] ||=
-        if rails5?
-          super
-        else
-          super()
-        end
+      if rails5?
+        super
+      else
+        super()
+      end
     end
   end
 
