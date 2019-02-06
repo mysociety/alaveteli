@@ -353,29 +353,6 @@ describe AdminPublicBodyController do
       expect(response).to render_template('edit')
     end
 
-    context 'when the body has info requests' do
-
-      render_views
-
-      it 'does not show the form for destroying the body' do
-        info_request = FactoryBot.create(:info_request)
-        get :edit, params: { :id => info_request.public_body.id }
-        expect(response.body).not_to match("Destroy #{info_request.public_body.name}")
-      end
-
-    end
-
-    context 'when the body does not have info requests' do
-
-      render_views
-
-      it 'shows the form for destroying the body' do
-        get :edit, params: { :id => @body.id }
-        expect(response.body).to match("Destroy #{@body.name}")
-      end
-
-    end
-
     context 'when passed a change request id as a param' do
       render_views
 
