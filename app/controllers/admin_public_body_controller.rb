@@ -72,6 +72,8 @@ class AdminPublicBodyController < AdminController
 
   def edit
     @public_body.build_all_translations
+    @hide_destroy_button = @public_body.info_requests.count > 0
+
     if params[:change_request_id]
       @change_request = PublicBodyChangeRequest.find(params[:change_request_id])
     end
