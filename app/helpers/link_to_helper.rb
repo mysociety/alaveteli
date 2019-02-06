@@ -233,6 +233,18 @@ module LinkToHelper
     if !options.nil?
       routing_info = options.merge(routing_info)
     end
+
+    if rails5?
+      if routing_info.kind_of?(Hash)
+        routing_info = ActionController::Parameters.new(routing_info)
+      end
+
+      allowed_keys =
+        %w[query latest_status view combined only_path controller action page]
+      unpermitted = routing_info.keys - allowed_keys
+      routing_info = routing_info.reject { |k| unpermitted.include?(k) }.permit!
+    end
+
     url = url_for(routing_info)
     # Here we can't escape the slashes, as RFC 2396 doesn't allow slashes
     # within a path component. Rails is assuming when generating URLs that
