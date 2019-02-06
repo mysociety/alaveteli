@@ -19,14 +19,18 @@
         </div>
       </div>
 
-      <% unless @hide_destroy_button %>
-        <%= form_tag admin_body_path(@public_body),
-                     class: 'form form-inline',
-                     method: 'delete' do %>
-          <%= submit_tag "Destroy #{@public_body.name}",
-                         class: 'btn btn-danger' %>
-          (this is permanent!)
-        <% end %>
+      <%= form_tag admin_body_path(@public_body),
+                   class: 'form form-inline',
+                   method: 'delete' do %>
+        <% button_opts = { class: 'btn btn-danger' } %>
+          <% if @hide_destroy_button
+             button_opts[:disabled] = true
+             button_opts[:title] =
+               "This authority has #{@public_body.info_requests.count} " \
+               "requests (may be embargoed)"
+          end %>
+        <%= submit_tag "Destroy #{@public_body.name}", button_opts %>
+        (this is permanent!)
       <% end %>
     </div>
 

@@ -7,9 +7,10 @@ describe 'admin_public_body/edit.html.erb' do
     assign :public_body, public_body
   end
 
-  it 'shows the button for destroying the body' do
+  it 'shows and enables the button for destroying the body' do
     render template: 'admin_public_body/edit'
-    expect(rendered).to have_button("Destroy #{public_body.name}")
+    expect(rendered).
+      to have_button("Destroy #{public_body.name}", disabled: false)
   end
 
   context 'when the body has associated requests' do
@@ -18,9 +19,10 @@ describe 'admin_public_body/edit.html.erb' do
       assign :hide_destroy_button, true
     end
 
-    it 'does not show the button for destroying the body' do
+    it 'disables the button for destroying the body' do
       render template: 'admin_public_body/edit'
-      expect(rendered).not_to have_button("Destroy #{public_body.name}")
+      expect(rendered).
+        to have_button("Destroy #{public_body.name}", disabled: true)
     end
 
   end
