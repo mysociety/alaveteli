@@ -115,7 +115,7 @@ describe IncomingMessage do
                         :text => 'Person',
                         :info_request => message.info_request)
 
-      expect(message.safe_mail_from).to eq('FOI [REDACTED]')
+      expect(message.reload.safe_mail_from).to eq('FOI [REDACTED]')
     end
 
   end
