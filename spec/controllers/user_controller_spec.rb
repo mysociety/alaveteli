@@ -894,6 +894,7 @@ describe UserController, "when signing up" do
         msg = "Attempted signup from suspected spammer, " \
               "email: spammer@example.com, " \
               "name: 'Download New Person 1080p!'"
+        allow(Rails.logger).to receive(:info)
         expect(Rails.logger).to receive(:info).with(msg)
 
         post :signup, params: {
