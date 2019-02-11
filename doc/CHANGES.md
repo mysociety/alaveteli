@@ -3,6 +3,8 @@
 ## Highlighted Features
 
 * Drop support for Debian Jessie (Gareth Rees)
+* Disable the destroy authority button in the admin interface rather than hiding
+  it as that can be confusing with embargoed requests (Liz Conlan)
 * Highlight non-default states of "Prominence" in the admin
   interface (Gareth Rees)
 * Fix bug were the header was displayed at the wrong width if the site only had
