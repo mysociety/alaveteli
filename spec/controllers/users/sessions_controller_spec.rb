@@ -260,8 +260,9 @@ describe Users::SessionsController do
                 "email: spammer@example.com, " \
                 "name: 'Download New Person 1080p!'"
           allow(Rails.logger).to receive(:info)
+          expect(Rails.logger).to receive(:info).with(msg)
+
           do_signin(user.email, 'password1234')
-          expect(Rails.logger).to have_received(:info).with(msg)
         end
 
         it 'blocks the signup' do
