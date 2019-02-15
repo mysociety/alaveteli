@@ -111,11 +111,12 @@ describe IncomingMessage do
       message = FactoryBot.create(:incoming_message)
       message.raw_email.data = raw_email_data
       message.parse_raw_email!(true)
+      message.reload
       FactoryBot.create(:censor_rule,
                         :text => 'Person',
                         :info_request => message.info_request)
 
-      expect(message.reload.safe_mail_from).to eq('FOI [REDACTED]')
+      expect(message.safe_mail_from).to eq('FOI [REDACTED]')
     end
 
   end
