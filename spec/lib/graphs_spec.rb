@@ -15,13 +15,26 @@ describe Graphs do
       sql = "SELECT name, id FROM users where id IN (#{user1.id}, #{user2.id}) " \
             "ORDER BY id"
       result = dummy_class.select_as_columns(sql)
-      expect(result).to eq [[user1.name, user2.name], [user1.id.to_s, user2.id.to_s]]
+      expected =
+        if rails5?
+          [[user1.name, user2.name], [user1.id, user2.id]]
+        else
+          [[user1.name, user2.name], [user1.id.to_s, user2.id.to_s]]
+        end
+      expect(result).to eq expected
     end
 
     it "returns an array containing single value arrays if there is a single result row" do
       sql = "SELECT name, id FROM users where id = #{user1.id}"
       result = dummy_class.select_as_columns(sql)
-      expect(result).to eq [[user1.name], [user1.id.to_s]]
+      expected =
+        if rails5?
+          [[user1.name], [user1.id]]
+        else
+          [[user1.name], [user1.id]]
+        end
+      expect(result).to eq expected
+
     end
 
     it "returns nil if there are no results" do
