@@ -61,6 +61,13 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       end
     end
 
+    def send_request
+      request.headers.merge!(
+        signed_headers(payload: payload, signing_secret: signing_secret)
+      )
+      post :receive, params: payload
+    end
+
     before do
       allow(AlaveteliConfiguration).to receive(:stripe_namespace).
         and_return('')
@@ -74,9 +81,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
     end
 
     it 'returns a successful response for correctly signed headers' do
-      signed = signed_headers(payload: payload, signing_secret: signing_secret)
-      request.headers.merge!(signed)
-      post :receive, params: payload
+      send_request
       expect(response).to be_success
     end
 
@@ -109,10 +114,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       let(:signing_secret) { 'whsec_fake' }
 
       before do
-        signed =
-          signed_headers(payload: payload, signing_secret: signing_secret)
-        request.headers.merge!(signed)
-        post :receive, params: payload
+        send_request
       end
 
       it 'returns 401 Unauthorized response' do
@@ -148,10 +150,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       end
 
       it 'sends an exception email' do
-        signed =
-          signed_headers(payload: payload, signing_secret: signing_secret)
-        request.headers.merge!(signed)
-        post :receive, params: payload
+        send_request
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to match(/UnhandledStripeWebhookError/)
       end
@@ -195,10 +194,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       end
 
       before do
-        signed =
-          signed_headers(payload: payload, signing_secret: signing_secret)
-        request.headers.merge!(signed)
-        post :receive, params: payload
+        send_request
       end
 
       it 'returns a 400 Bad Request response' do
@@ -225,20 +221,14 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       context 'the webhook does not reference our plan namespace' do
 
         it 'returns a custom 200 response' do
-          signed =
-            signed_headers(payload: payload, signing_secret: signing_secret)
-          request.headers.merge!(signed)
-          post :receive, params: payload
+          send_request
           expect(response.status).to eq(200)
           expect(response.body).
             to match('Does not appear to be one of our plans')
         end
 
         it 'does not send an exception email' do
-          signed =
-            signed_headers(payload: payload, signing_secret: signing_secret)
-          request.headers.merge!(signed)
-          post :receive, params: payload
+          send_request
           expect(ActionMailer::Base.deliveries.count).to eq(0)
         end
 
@@ -264,10 +254,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
         end
 
         it 'returns a 200 OK response' do
-          signed =
-            signed_headers(payload: payload, signing_secret: signing_secret)
-          request.headers.merge!(signed)
-          post :receive, params: payload
+          send_request
           expect(response.status).to eq(200)
           expect(response.body).to match('OK')
         end
@@ -306,10 +293,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       end
 
       before do
-        signed =
-          signed_headers(payload: payload, signing_secret: signing_secret)
-        request.headers.merge!(signed)
-        post :receive, params: payload
+        send_request
       end
 
       it 'handles the event' do
@@ -329,10 +313,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       end
 
       before do
-        signed =
-          signed_headers(payload: payload, signing_secret: signing_secret)
-        request.headers.merge!(signed)
-        post :receive, params: payload
+        send_request
       end
 
       it 'handles the event' do
@@ -350,10 +331,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       end
 
       before do
-        signed =
-          signed_headers(payload: payload, signing_secret: signing_secret)
-        request.headers.merge!(signed)
-        post :receive, params: payload
+        send_request
       end
 
       it 'handles the event' do
@@ -372,10 +350,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       end
 
       before do
-        signed =
-          signed_headers(payload: payload, signing_secret: signing_secret)
-        request.headers.merge!(signed)
-        post :receive, params: payload
+        send_request
       end
 
       it 'handles the event' do
@@ -399,10 +374,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
       it 'removes the pro role from the associated user' do
         expect(user.is_pro?).to be true
-        signed =
-          signed_headers(payload: payload, signing_secret: signing_secret)
-        request.headers.merge!(signed)
-        post :receive, params: payload
+        send_request
         expect(user.reload.is_pro?).to be false
       end
 
@@ -411,10 +383,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
     describe 'updating the Stripe charge description when a payment succeeds' do
 
       before do
-        signed =
-          signed_headers(payload: payload, signing_secret: signing_secret)
-        request.headers.merge!(signed)
-        post :receive, params: payload
+        send_request
       end
 
       context 'when there is a charge for an invoice' do
