@@ -235,17 +235,14 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
                               interval: 'monthly')
         end
 
-        let(:payload) do
-          event = StripeMock.mock_webhook_event(
-                    'invoice.payment_succeeded',
-                    {
-                      lines: paid_invoice.lines,
-                      currency: 'gbp',
-                      charge: paid_invoice.charge,
-                      subscription: paid_invoice.subscription
-                    }
-                  )
-          event.to_s
+        let(:stripe_event) do
+          StripeMock.mock_webhook_event(
+            'invoice.payment_succeeded',
+            lines: paid_invoice.lines,
+            currency: 'gbp',
+            charge: paid_invoice.charge,
+            subscription: paid_invoice.subscription
+          )
         end
 
         it 'returns a 200 OK response' do
@@ -261,8 +258,8 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
       context 'the webhook data does not have namespaced plans' do
 
-        let(:payload) do
-          StripeMock.mock_webhook_event('invoice.payment_succeeded').to_s
+        let(:stripe_event) do
+          StripeMock.mock_webhook_event('invoice.payment_succeeded')
         end
 
         it 'does not raise an error when trying to filter on plan name' do
