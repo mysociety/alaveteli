@@ -53,7 +53,13 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       StripeMock.mock_webhook_event('customer.subscription.deleted')
     end
 
-    let(:payload) { stripe_event.to_s }
+    let(:payload) do
+      if rails5?
+        stripe_event.to_hash
+      else
+        stripe_event.to_s
+      end
+    end
 
     before do
       allow(AlaveteliConfiguration).to receive(:stripe_namespace).
@@ -130,9 +136,8 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
     context 'receiving an unhandled notification type' do
 
-      let(:payload) do
-        stripe_event.
-          to_s.gsub!('customer.subscription.deleted', 'custom.random_event')
+      before do
+        stripe_event.type = 'custom.unhandle_event'
       end
 
       it 'sends an exception email' do
@@ -174,7 +179,13 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
     context 'the notification type is missing' do
 
-      let(:payload) { '{"id": "1234"}' }
+      let(:payload) do
+        if rails5?
+          { id: '1234' }
+        else
+          '{"id": "1234"}'
+        end
+      end
 
       before do
         signed =
