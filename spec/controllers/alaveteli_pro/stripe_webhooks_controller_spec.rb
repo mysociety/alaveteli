@@ -94,7 +94,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
       it 'sends an exception email' do
         expected = '(Stripe::SignatureVerificationError) "Unable to extract ' \
-                   'timestamp and signatures from header'
+                   'timestamp and signatures'
         post :receive, params: payload
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to include(expected)
@@ -123,7 +123,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
       it 'sends an exception email' do
         expected = '(Stripe::SignatureVerificationError) "No signatures ' \
-                   'found matching the expected signature for payload'
+                   'found matching the expected'
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to include(expected)
       end
@@ -202,9 +202,8 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       end
 
       it 'sends an exception email' do
-        klass = 'AlaveteliPro::StripeWebhooksController::' \
-                'MissingTypeStripeWebhookError'
-        expected = %Q((#{ klass }) "undefined method `type')
+        expected  = 'AlaveteliPro::StripeWebhooksController::' \
+                    'MissingTypeStripeWebhookError'
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to include(expected)
       end
