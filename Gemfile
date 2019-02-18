@@ -173,7 +173,7 @@ end
 
 group :test, :development do
   gem 'bullet', rails5? ? nil : '~> 5.7.6'
-  gem 'factory_bot_rails', '~> 4.10.0'
+  gem 'factory_bot_rails', '~> 5.0.1'
   gem 'oink', '~> 0.10.1'
   gem 'rspec-activemodel-mocks', '~> 1.1.0'
   gem 'rspec-rails', rails5? ? nil : '~> 3.7.2'
