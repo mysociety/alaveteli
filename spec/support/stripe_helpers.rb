@@ -4,10 +4,16 @@ def signed_headers(signing_secret: nil, payload: nil, timestamp: Time.zone.now)
   raise ArgumentError, "must provide payload key" unless payload
 
   timestamp = timestamp.to_i
+  payload_data =
+    if rails5?
+      payload.to_json.to_s
+    else
+      payload
+    end
 
   secret =
     Stripe::Webhook::Signature.send(:compute_signature,
-                                    "#{timestamp}.#{payload}",
+                                    "#{timestamp}.#{payload_data}",
                                     signing_secret)
 
   {
