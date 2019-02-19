@@ -18,6 +18,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
     let(:stripe_plan) do
       Stripe::Plan.create(id: 'test',
                           name: 'Test',
+                          product: { id: 'pr_0000', name: 'Test' },
                           amount: 10,
                           currency: 'gbp',
                           interval: 'monthly')
@@ -53,7 +54,20 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       StripeMock.mock_webhook_event('customer.subscription.deleted')
     end
 
-    let(:payload) { stripe_event.to_s }
+    let(:payload) do
+      if rails5?
+        stripe_event.to_hash
+      else
+        stripe_event.to_s
+      end
+    end
+
+    def send_request
+      request.headers.merge!(
+        signed_headers(payload: payload, signing_secret: signing_secret)
+      )
+      post :receive, params: payload
+    end
 
     before do
       allow(AlaveteliConfiguration).to receive(:stripe_namespace).
@@ -68,9 +82,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
     end
 
     it 'returns a successful response for correctly signed headers' do
-      signed = signed_headers(payload: payload, signing_secret: signing_secret)
-      request.headers.merge!(signed)
-      post :receive, params: payload
+      send_request
       expect(response).to be_success
     end
 
@@ -83,7 +95,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
       it 'sends an exception email' do
         expected = '(Stripe::SignatureVerificationError) "Unable to extract ' \
-                   'timestamp and signatures from header'
+                   'timestamp and signatures'
         post :receive, params: payload
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to include(expected)
@@ -103,10 +115,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       let(:signing_secret) { 'whsec_fake' }
 
       before do
-        signed =
-          signed_headers(payload: payload, signing_secret: signing_secret)
-        request.headers.merge!(signed)
-        post :receive, params: payload
+        send_request
       end
 
       it 'returns 401 Unauthorized response' do
@@ -115,7 +124,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
       it 'sends an exception email' do
         expected = '(Stripe::SignatureVerificationError) "No signatures ' \
-                   'found matching the expected signature for payload'
+                   'found matching the expected'
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to include(expected)
       end
@@ -131,15 +140,18 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
     context 'receiving an unhandled notification type' do
 
       let(:payload) do
-        stripe_event.
-          to_s.gsub!('customer.subscription.deleted', 'custom.random_event')
+        event_string =
+          stripe_event.
+            to_s.gsub!('customer.subscription.deleted', 'custom.random_event')
+        if rails5?
+          JSON.parse(event_string)
+        else
+          event_string
+        end
       end
 
       it 'sends an exception email' do
-        signed =
-          signed_headers(payload: payload, signing_secret: signing_secret)
-        request.headers.merge!(signed)
-        post :receive, params: payload
+        send_request
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to match(/UnhandledStripeWebhookError/)
       end
@@ -174,13 +186,16 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
     context 'the notification type is missing' do
 
-      let(:payload) { '{"id": "1234"}' }
+      let(:payload) do
+        if rails5?
+          { id: '1234' }
+        else
+          '{"id": "1234"}'
+        end
+      end
 
       before do
-        signed =
-          signed_headers(payload: payload, signing_secret: signing_secret)
-        request.headers.merge!(signed)
-        post :receive, params: payload
+        send_request
       end
 
       it 'returns a 400 Bad Request response' do
@@ -190,7 +205,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       it 'sends an exception email' do
         klass = 'AlaveteliPro::StripeWebhooksController::' \
                 'MissingTypeStripeWebhookError'
-        expected = %Q((#{ klass }) "undefined method `type')
+        expected = %Q((#{ klass }))
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to include(expected)
       end
@@ -207,20 +222,14 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       context 'the webhook does not reference our plan namespace' do
 
         it 'returns a custom 200 response' do
-          signed =
-            signed_headers(payload: payload, signing_secret: signing_secret)
-          request.headers.merge!(signed)
-          post :receive, params: payload
+          send_request
           expect(response.status).to eq(200)
           expect(response.body).
             to match('Does not appear to be one of our plans')
         end
 
         it 'does not send an exception email' do
-          signed =
-            signed_headers(payload: payload, signing_secret: signing_secret)
-          request.headers.merge!(signed)
-          post :receive, params: payload
+          send_request
           expect(ActionMailer::Base.deliveries.count).to eq(0)
         end
 
@@ -230,29 +239,24 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
         let(:stripe_plan) do
           Stripe::Plan.create(id: 'WDTK-test',
                               name: 'Test',
+                              product: { id: 'pr_0000', name: 'Test' },
                               amount: 10,
                               currency: 'gbp',
                               interval: 'monthly')
         end
 
-        let(:payload) do
-          event = StripeMock.mock_webhook_event(
-                    'invoice.payment_succeeded',
-                    {
-                      lines: paid_invoice.lines,
-                      currency: 'gbp',
-                      charge: paid_invoice.charge,
-                      subscription: paid_invoice.subscription
-                    }
-                  )
-          event.to_s
+        let(:stripe_event) do
+          StripeMock.mock_webhook_event(
+            'invoice.payment_succeeded',
+            lines: paid_invoice.lines,
+            currency: 'gbp',
+            charge: paid_invoice.charge,
+            subscription: paid_invoice.subscription
+          )
         end
 
         it 'returns a 200 OK response' do
-          signed =
-            signed_headers(payload: payload, signing_secret: signing_secret)
-          request.headers.merge!(signed)
-          post :receive, params: payload
+          send_request
           expect(response.status).to eq(200)
           expect(response.body).to match('OK')
         end
@@ -261,8 +265,8 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
       context 'the webhook data does not have namespaced plans' do
 
-        let(:payload) do
-          StripeMock.mock_webhook_event('invoice.payment_succeeded').to_s
+        let(:stripe_event) do
+          StripeMock.mock_webhook_event('invoice.payment_succeeded')
         end
 
         it 'does not raise an error when trying to filter on plan name' do
@@ -290,13 +294,8 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
         _user
       end
 
-      let(:payload) { stripe_event.to_s }
-
       before do
-        signed =
-          signed_headers(payload: payload, signing_secret: signing_secret)
-        request.headers.merge!(signed)
-        post :receive, params: payload
+        send_request
       end
 
       it 'handles the event' do
@@ -315,13 +314,8 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
         StripeMock.mock_webhook_event('customer.subscription.updated-renewed')
       end
 
-      let(:payload) { stripe_event.to_s }
-
       before do
-        signed =
-          signed_headers(payload: payload, signing_secret: signing_secret)
-        request.headers.merge!(signed)
-        post :receive, params: payload
+        send_request
       end
 
       it 'handles the event' do
@@ -338,13 +332,8 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
         StripeMock.mock_webhook_event('customer.subscription.updated-trial-end')
       end
 
-      let(:payload) { stripe_event.to_s }
-
       before do
-        signed =
-          signed_headers(payload: payload, signing_secret: signing_secret)
-        request.headers.merge!(signed)
-        post :receive, params: payload
+        send_request
       end
 
       it 'handles the event' do
@@ -362,13 +351,8 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
         StripeMock.mock_webhook_event('customer.subscription.updated-cancelled')
       end
 
-      let(:payload) { stripe_event.to_s }
-
       before do
-        signed =
-          signed_headers(payload: payload, signing_secret: signing_secret)
-        request.headers.merge!(signed)
-        post :receive, params: payload
+        send_request
       end
 
       it 'handles the event' do
@@ -392,10 +376,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
       it 'removes the pro role from the associated user' do
         expect(user.is_pro?).to be true
-        signed =
-          signed_headers(payload: payload, signing_secret: signing_secret)
-        request.headers.merge!(signed)
-        post :receive, params: payload
+        send_request
         expect(user.reload.is_pro?).to be false
       end
 
@@ -404,10 +385,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
     describe 'updating the Stripe charge description when a payment succeeds' do
 
       before do
-        signed =
-          signed_headers(payload: payload, signing_secret: signing_secret)
-        request.headers.merge!(signed)
-        post :receive, params: payload
+        send_request
       end
 
       context 'when there is a charge for an invoice' do
