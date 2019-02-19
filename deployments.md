@@ -193,14 +193,6 @@ in any language, and within any legislation</p>
                 </div><!--
                 --><div class="deployments__unit--minor">
                     <div class="deployment--minor">
-                        <img src="/assets/img/queremo-saber.jpg" class="deployment__screenshot" alt=""/>
-                        <h3 class="deployment__title">QueremoSaber</h3>
-                        <p class="deployment__country">Paraguay</p>
-                        <p class="deployment__link"><a href="http://queremosaber.org.py">http://queremosaber.org.py/</a></p>
-                    </div>
-                </div><!--
-                --><div class="deployments__unit--minor">
-                    <div class="deployment--minor">
                         <img src="/assets/img/derecho-a-preguntar.jpg" class="deployment__screenshot" alt=""/>
                         <h3 class="deployment__title">Derecho A Preguntar</h3>
                         <p class="deployment__country">Nicaragua</p>
