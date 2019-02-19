@@ -225,14 +225,6 @@ in any language, and within any legislation</p>
                 </div><!--
                 --><div class="deployments__unit--minor">
                     <div class="deployment--minor">
-                        <img src="/assets/img/fraga-staten.jpg" class="deployment__screenshot" alt=""/>
-                        <h3 class="deployment__title">Fråga Staten</h3>
-                        <p class="deployment__country">Sweden</p>
-                        <p class="deployment__link"><a href="https://fragastaten.se/">https://fragastaten.se/</a></p>
-                    </div>
-                </div><!--
-                --><div class="deployments__unit--minor">
-                    <div class="deployment--minor">
                         <img src="/assets/img/opra-machine.jpg" class="deployment__screenshot" alt=""/>
                         <h3 class="deployment__title">OPRA Machine</h3>
                         <p class="deployment__country">New Jersey, USA</p>
