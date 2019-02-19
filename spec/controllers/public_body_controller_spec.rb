@@ -468,7 +468,13 @@ describe PublicBodyController, "when doing type ahead searches" do
       'bodies' => '1'
     }
     get :search_typeahead, params: search_params
-    expect(flash[:search_params]).to eq(search_params)
+    flash_params =
+      if rails5?
+        flash[:search_params].to_unsafe_h
+      else
+        flash[:search_params]
+      end
+    expect(flash_params).to eq(search_params)
   end
 
 end
