@@ -259,6 +259,7 @@ describe Users::SessionsController do
           msg = "Attempted signup from suspected spammer, " \
                 "email: spammer@example.com, " \
                 "name: 'Download New Person 1080p!'"
+          allow(Rails.logger).to receive(:info)
           expect(Rails.logger).to receive(:info).with(msg)
 
           do_signin(user.email, 'password1234')
