@@ -121,14 +121,6 @@ in any language, and within any legislation</p>
             <div class="grid-row">
                 <div class="deployments__unit--minor">
                     <div class="deployment--minor">
-                        <img src="/assets/img/right-to-know-malaysia.jpg" class="deployment__screenshot" alt=""/>
-                        <h3 class="deployment__title">RightToKnow</h3>
-                        <p class="deployment__country">Malaysia</p>
-                        <p class="deployment__link"><a href="http://foi.sinarproject.org">http://foi.sinarproject.org/</a></p>
-                    </div>
-                </div><!--
-                --><div class="deployments__unit--minor">
-                    <div class="deployment--minor">
                         <img src="/assets/img/que-sabes.jpg" class="deployment__screenshot" alt=""/>
                         <h3 class="deployment__title">Que Sabes</h3>
                         <p class="deployment__country">Uruguay</p>
