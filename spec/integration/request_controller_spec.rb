@@ -12,11 +12,13 @@ describe RequestController do
     end
 
     it 'shows a flash alert to users' do
-      expected_message = 'Alaveteli is currently in maintenance. You ' \
-                         'can only view existing requests. You cannot make ' \
-                         'new ones, add followups or annotations, or ' \
-                         'otherwise change the database. '\
-                         'Down for maintenance'
+      expected_message = "Alaveteli is currently in maintenance. You " \
+                         "can only view existing requests. You cannot " \
+                         "make new ones, add followups or annotations, or " \
+                         "otherwise change the database." \
+                         "\nDown for maintenance"
+
+      expected_message.gsub!("\n", ' ') unless rails5?
 
       visit new_request_path
       expect(page).to have_content(expected_message)
@@ -36,10 +38,12 @@ describe RequestController do
       end
 
       it 'shows a flash alert to users' do
-        expected_message = 'Alaveteli is currently in maintenance. You ' \
-                           'can only view existing requests. You cannot make ' \
-                           'new ones, add followups or otherwise change the ' \
-                           'database. Down for maintenance'
+        expected_message = "Alaveteli is currently in maintenance. You " \
+                           "can only view existing requests. You cannot make " \
+                           "new ones, add followups or otherwise change the " \
+                           "database.\nDown for maintenance"
+
+        expected_message.gsub!("\n", ' ') unless rails5?
 
         visit new_request_path
         expect(page).to have_content(expected_message)
