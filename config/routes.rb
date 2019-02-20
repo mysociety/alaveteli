@@ -685,7 +685,7 @@ Rails.application.routes.draw do
       end
       resources :embargoes, :only => [:destroy, :create] do
         collection do
-          post :destroy_batch, :only => [:destroy]
+          post :destroy_batch
         end
       end
       resources :embargo_extensions, :only => [:create] do
