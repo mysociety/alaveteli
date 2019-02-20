@@ -218,6 +218,7 @@ class PublicBodyController < ApplicationController
   # Type ahead search
   def search_typeahead
     query = params[:query]
+    return head :bad_request unless query
     flash[:search_params] = params.slice(:query, :bodies, :page)
     @xapian_requests = typeahead_search(query, :model => PublicBody)
     render :partial => "public_body/search_ahead"
