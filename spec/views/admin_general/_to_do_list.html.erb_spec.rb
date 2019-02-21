@@ -21,10 +21,9 @@ describe 'admin_general/_to_do_list.html.erb' do
       end
 
       it 'shows "None given" if there is no user message' do
-        original_params = request.last_event.params
-        allow(request.last_event).
-          to receive(:params).
-            and_return(params.delete_if { |key| key == :message } )
+        alt_params = request.last_event.params.delete_if { |k| k == :message }
+        allow_any_instance_of(InfoRequestEvent).
+          to receive(:params).and_return(alt_params)
         render_errors(items)
         expect(rendered).to include('None given')
       end
