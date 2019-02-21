@@ -102,7 +102,7 @@ describe InfoRequestBatch do
     end
 
     it 'does not resend requests to public bodies that have already received the request' do
-      expect(info_request_batch).to receive(:requestable_public_bodies).
+      allow(info_request_batch).to receive(:requestable_public_bodies).
         and_return([first_public_body])
       expect { info_request_batch.create_batch! }.to(
         change(info_request_batch.info_requests, :count).by(1)
