@@ -30,7 +30,7 @@ describe InfoRequestEvent do
     it 'should not add an error message for described_state if it is valid' do
       ire = InfoRequestEvent.new(:described_state => 'waiting_response')
       ire.valid?
-      expect(ire.errors.messages[:described_state]).to be_nil
+      expect(ire.errors.messages[:described_state]).to be_blank
     end
   end
 
