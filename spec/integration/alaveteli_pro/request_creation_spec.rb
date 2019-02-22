@@ -197,7 +197,7 @@ describe "creating requests in alaveteli_pro" do
       using_pro_session(pro_user_session) do
         # New request form
         visit new_alaveteli_pro_info_request_path
-        expect(page).to have_content <<-EOF
+        expected = <<-EOF
 Dear [Authority name],
 
 
@@ -206,6 +206,7 @@ Yours faithfully,
 
 #{pro_user.name}
         EOF
+        expect(page.source).to include(expected.strip)
       end
     end
 
