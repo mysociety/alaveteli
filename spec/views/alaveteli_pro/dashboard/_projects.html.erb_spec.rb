@@ -75,9 +75,10 @@ describe "alaveteli_pro/info_requests/dashboard/_projects.html.erb" do
           expected_path = alaveteli_pro_info_requests_path(
               'alaveteli_pro_request_filter[filter]' => phase[:scope]
             )
-          expected_text = "#{phase[:capital_label]} 0"
+          expected_text = /#{phase[:capital_label]}\s*0/
           expect(rendered).to have_content(expected_text)
-          expect(rendered).not_to have_link(expected_text, href: expected_path)
+          expect(rendered).
+            not_to have_link(text: expected_text, href: expected_path)
         end
       end
     end
@@ -90,7 +91,7 @@ describe "alaveteli_pro/info_requests/dashboard/_projects.html.erb" do
         expected_path = alaveteli_pro_info_requests_path(
             'alaveteli_pro_request_filter[filter]' => 'draft'
           )
-        expect(rendered).to have_link("Drafts 2", href: expected_path)
+        expect(rendered).to have_link(text: /Drafts\s*2/, href: expected_path)
       end
     end
 
@@ -100,8 +101,8 @@ describe "alaveteli_pro/info_requests/dashboard/_projects.html.erb" do
         expected_path = alaveteli_pro_info_requests_path(
             'alaveteli_pro_request_filter[filter]' => 'draft'
           )
-        expect(rendered).to have_content("Drafts 0")
-        expect(rendered).not_to have_link("Drafts 0", href: expected_path)
+        expect(rendered).to have_content(/Drafts\s*0/)
+        expect(rendered).not_to have_link(text: /Drafts\s*0/, href: expected_path)
       end
     end
   end
