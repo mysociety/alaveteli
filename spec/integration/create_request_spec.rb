@@ -59,7 +59,8 @@ describe "When creating requests" do
         visit show_public_body_path(:url_name => public_body.url_name)
         click_link("Make a request to this authority")
 
-        expect(page).to have_content "Yours faithfully,\n\n#{user.name}"
+        expect(page.source).
+          to include("Yours faithfully,\n\n#{user.name}")
       end
     end
 
