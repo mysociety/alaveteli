@@ -139,19 +139,30 @@ class FollowupsController < ApplicationController
   def send_followup
     @outgoing_message.sendable?
 
-    mail_message = OutgoingMailer.followup(
-      @outgoing_message.info_request,
-      @outgoing_message,
-      @outgoing_message.incoming_message_followup
-    ).deliver_now
-
-    @outgoing_message.record_email_delivery(
-      mail_message.to_addrs.join(', '),
-      mail_message.message_id
-    )
-    @outgoing_message.info_request.reopen_to_new_responses
-
+    # OutgoingMailer.followup() depends on DB id of the
+    # outgoing message, save just before sending.
     @outgoing_message.save!
+
+    begin
+      mail_message = OutgoingMailer.followup(
+        @outgoing_message.info_request,
+        @outgoing_message,
+        @outgoing_message.incoming_message_followup
+      ).deliver_now
+    rescue StandardError => e
+      @outgoing_message.record_email_failure(e.message)
+    else
+      @outgoing_message.record_email_delivery(
+        mail_message.to_addrs.join(', '),
+        mail_message.message_id
+      )
+
+      @outgoing_message.info_request.reopen_to_new_responses
+    ensure
+      # Ensure DB is updated to isolate potential templating issues
+      # from impacting delivery status information.
+      @outgoing_message.save!
+    end
 
     if @outgoing_message.what_doing == 'internal_review'
       flash[:notice] = _("Your internal review request has been sent on its way.")

@@ -196,6 +196,18 @@ class OutgoingMessage < ActiveRecord::Base
     info_request.is_owning_user?(user)
   end
 
+  # Without recording the send failure, parts of the public and admin
+  # interfaces for the request and authority may become inaccessible.
+  def record_email_failure(failure_reason)
+    self.last_sent_at = Time.zone.now
+    self.status = 'failed'
+    save!
+
+    info_request.log_event('send_error', { :reason => failure_reason,
+                                           :outgoing_message_id => id })
+    set_info_request_described_state
+  end
+
   def record_email_delivery(to_addrs, message_id, log_event_type = 'sent')
     self.last_sent_at = Time.zone.now
     self.status = 'sent'
@@ -268,13 +280,20 @@ class OutgoingMessage < ActiveRecord::Base
   end
 
   def delivery_status
-    mail_server_logs.map(&:delivery_status).compact.reject(&:unknown?).last ||
-      MailServerLog::DeliveryStatus.new(:unknown)
+    # If the outgoing status is failed, we won't have mail logs, and know we can
+    # present a failed status to the end user.
+    if status == 'failed'
+      MailServerLog::DeliveryStatus.new(:failed)
+    else
+      mail_server_logs.map(&:delivery_status).compact.reject(&:unknown?).last ||
+        MailServerLog::DeliveryStatus.new(:unknown)
+    end
   end
 
   # An admin function
   def prepare_message_for_resend
-    if MESSAGE_TYPES.include?(message_type) and status == 'sent'
+    if MESSAGE_TYPES.include?(message_type) &&
+         (status == 'sent' || status == 'failed')
       self.status = 'ready'
     else
       raise "Message id #{id} has type '#{message_type}' status " \
@@ -348,7 +367,9 @@ class OutgoingMessage < ActiveRecord::Base
   private
 
   def set_info_request_described_state
-    if message_type == 'initial_request'
+    if status == 'failed'
+      info_request.set_described_state('error_message')
+    elsif message_type == 'initial_request'
       info_request.set_described_state('waiting_response')
     elsif message_type == 'followup'
       if info_request.described_state == 'waiting_clarification'
