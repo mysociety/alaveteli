@@ -183,8 +183,7 @@ describe AdminRequestController, "when administering requests" do
     end
 
     it 'expires the request cache when saving edits to it' do
-      allow(InfoRequest).to receive(:find).
-        with(info_request.id).and_return(info_request)
+      allow(InfoRequest).to receive(:find).and_call_original
       allow(InfoRequest).to receive(:find).
         with(info_request.id.to_s).and_return(info_request)
       expect(info_request).to receive(:expire)
@@ -247,8 +246,7 @@ describe AdminRequestController, "when administering requests" do
     end
 
     it 'expires the file cache for the request' do
-      allow(InfoRequest).to receive(:find).
-        with(info_request.id).and_return(info_request)
+      allow(InfoRequest).to receive(:find).and_call_original
       allow(InfoRequest).to receive(:find).
         with(info_request.id.to_s).and_return(info_request)
       expect(info_request).to receive(:expire)
