@@ -1115,7 +1115,7 @@ class InfoRequest < ActiveRecord::Base
         expecting_clarification = true
       end
 
-      if %w(sent resent followup_sent followup_resent).include?(event.event_type)
+      if %w(sent resent followup_sent followup_resent send_error).include?(event.event_type)
         if last_sent.nil?
           last_sent = event
         elsif event.event_type == 'resent'

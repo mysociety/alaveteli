@@ -405,21 +405,33 @@ class RequestController < ApplicationController
     # This automatically saves dependent objects, such as @outgoing_message, in the same transaction
     @info_request.save!
 
-    # TODO: Sending the message needs the database id, so we send after
-    # saving, which isn't ideal if the request broke here.
     if @outgoing_message.sendable?
-      mail_message = OutgoingMailer.initial_request(
-        @outgoing_message.info_request,
-        @outgoing_message
-      ).deliver_now
+      begin
+        mail_message = OutgoingMailer.initial_request(
+          @outgoing_message.info_request,
+          @outgoing_message
+        ).deliver_now
+      rescue StandardError => e
+        # Catch a wide variety of potential ActionMailer failures and
+        # record the exception reason so administrators don't have to
+        # dig into logs.
+        @outgoing_message.record_email_failure(
+          e.message
+        )
+      else
+        @outgoing_message.record_email_delivery(
+          mail_message.to_addrs.join(', '),
+          mail_message.message_id
+        )
 
-      @outgoing_message.record_email_delivery(
-        mail_message.to_addrs.join(', '),
-        mail_message.message_id
-      )
+        flash[:request_sent] = true
+      ensure
+        # Ensure the InfoRequest is fully updated before templating to
+        # isolate templating issues recording delivery status.
+        @info_request.save!
+      end
     end
 
-    flash[:request_sent] = true
     redirect_to show_request_path(:url_title => @info_request.url_title)
   end
 

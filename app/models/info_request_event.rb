@@ -51,7 +51,8 @@ class InfoRequestEvent < ActiveRecord::Base
     'very_overdue', # the request becomes very overdue
     'embargo_expiring', # an embargo is about to expire
     'expire_embargo', # an embargo on the request expires
-    'set_embargo' # an embargo is added or extended
+    'set_embargo', # an embargo is added or extended
+    'send_error' # an error during sending
   ].freeze
 
   belongs_to :info_request,
