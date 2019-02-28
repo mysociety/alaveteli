@@ -134,7 +134,9 @@ class RequestMailer < ApplicationMailer
   # Tell the requester that they need to say if the new response
   # contains info or not
   def new_response_reminder_alert(info_request, incoming_message)
-    target = show_request_path(info_request, anchor: 'describe_state_form_1')
+    target = show_request_url(info_request,
+                              anchor: 'describe_state_form_1',
+                              only_path: true)
     @url = signin_url(r: target)
     @incoming_message = incoming_message
     @info_request = info_request

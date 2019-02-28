@@ -19,7 +19,9 @@ class TrackMailer < ApplicationMailer
     @user, @email_about_things = user, email_about_things
 
     @unsubscribe_url =
-      signin_url(r: user_path(user, anchor: 'email_subscriptions'))
+      signin_url(r: user_url(user,
+                             anchor: 'email_subscriptions',
+                             only_path: true))
 
     token = CGI.escape(User::EmailAlerts.token(user))
     @disable_email_alerts_url = users_disable_email_alerts_url(token: token)

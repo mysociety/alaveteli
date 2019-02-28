@@ -495,7 +495,8 @@ READ_ONLY: ''
 STAGING_SITE: 1
 
 # Recaptcha, for detecting humans. Get keys here:
-# http://recaptcha.net/whyrecaptcha.html
+# https://www.google.com/recaptcha
+# Currently Alaveteli requires a reCAPTCHA v2 Checkbox key.
 #
 # RECAPTCHA_SITE_KEY - String (default: 'x')
 #
@@ -503,7 +504,8 @@ STAGING_SITE: 1
 RECAPTCHA_SITE_KEY: 'x'
 
 # Recaptcha, for detecting humans. Get keys here:
-# http://recaptcha.net/whyrecaptcha.html
+# https://www.google.com/recaptcha
+# Currently Alaveteli requires a reCAPTCHA v2 Checkbox key.
 #
 # RECAPTCHA_SECRET_KEY - String (default: 'x')
 #

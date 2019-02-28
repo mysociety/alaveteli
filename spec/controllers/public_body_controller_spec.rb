@@ -446,6 +446,11 @@ describe PublicBodyController, "when doing type ahead searches" do
     get_fixtures_xapian_index
   end
 
+  it 'returns a 400 bad request status code without a query param' do
+    get :search_typeahead
+    expect(response.status).to eq(400)
+  end
+
   it 'renders the search_ahead template' do
     get :search_typeahead, params: { :query => "" }
     expect(response).to render_template('public_body/_search_ahead')

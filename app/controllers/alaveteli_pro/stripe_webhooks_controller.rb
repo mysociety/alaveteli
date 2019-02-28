@@ -62,7 +62,7 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
 
   def renewal?(previous_attributes)
     previous_attributes.keys.to_set ==
-      %i(current_period_start current_period_end).to_set
+      %i(current_period_start current_period_end latest_invoice).to_set
   end
 
   def customer_subscription_deleted

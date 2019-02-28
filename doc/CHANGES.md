@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Fix search.png not being included in precompiled assets (Nigel Jones)
 * Drop support for Debian Jessie (Gareth Rees)
 * Highlight non-default states of "Prominence" in the admin
   interface (Gareth Rees)

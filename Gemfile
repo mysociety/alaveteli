@@ -162,7 +162,7 @@ gem 'alaveteli_features', :path => 'gems/alaveteli_features'
 gem 'flipper-ui', '~> 0.10.2'
 
 group :test do
-  gem 'webmock', '~> 3.4.2'
+  gem 'webmock', '~> 3.5.1'
   gem 'coveralls', '~> 0.8.0', :require => false
   gem 'capybara', rails5? ? '~> 3.5.0' : '~> 2.18.0'
   gem 'delorean', '~> 2.1.0'
@@ -189,6 +189,9 @@ group :development do
     gem('mailcatcher', '~> 0.6.0') unless rails5? # https://github.com/sj26/mailcatcher#bundler
   gem('quiet_assets', '~> 1.1.0') unless rails5?
   gem 'launchy', '~> 2.4.0'
-  gem 'rubocop', '~> 0.60.0'
   gem 'web-console', '~> 2.3.0', '< 3.0.0'
+
+  install_if -> { RUBY_VERSION >= '2.2.0' } do
+    gem 'rubocop', '~> 0.63.1'
+  end
 end
