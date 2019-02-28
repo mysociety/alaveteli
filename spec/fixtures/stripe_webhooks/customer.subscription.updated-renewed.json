@@ -65,7 +65,8 @@
     },
     "previous_attributes": {
       "current_period_start": 1378488561,
-      "current_period_end": 1381076961
+      "current_period_end": 1381076961,
+      "latest_invoice": "in_1234"
     }
   }
 }
