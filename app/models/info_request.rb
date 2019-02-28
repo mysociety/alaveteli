@@ -671,6 +671,10 @@ class InfoRequest < ActiveRecord::Base
 
   end
 
+  def self.request_sent_types
+    %w(sent resent followup_sent followup_resent send_error)
+  end
+
   # Possible reasons that a request could be reported for administrator attention
   def report_reasons
     [_("Contains defamatory material"),
@@ -1115,7 +1119,7 @@ class InfoRequest < ActiveRecord::Base
         expecting_clarification = true
       end
 
-      if %w(sent resent followup_sent followup_resent send_error).include?(event.event_type)
+      if self.class.request_sent_types.include?(event.event_type)
         if last_sent.nil?
           last_sent = event
         elsif event.event_type == 'resent'

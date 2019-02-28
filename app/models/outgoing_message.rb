@@ -292,7 +292,8 @@ class OutgoingMessage < ActiveRecord::Base
 
   # An admin function
   def prepare_message_for_resend
-    if MESSAGE_TYPES.include?(message_type) and (status == 'sent' || status == 'failed')
+    if MESSAGE_TYPES.include?(message_type) &&
+         (status == 'sent' || status == 'failed')
       self.status = 'ready'
     else
       raise "Message id #{id} has type '#{message_type}' status " \

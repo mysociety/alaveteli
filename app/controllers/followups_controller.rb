@@ -150,9 +150,7 @@ class FollowupsController < ApplicationController
         @outgoing_message.incoming_message_followup
       ).deliver_now
     rescue StandardError => e
-      @outgoing_message.record_email_failure(
-        e.message
-      )
+      @outgoing_message.record_email_failure(e.message)
     else
       @outgoing_message.record_email_delivery(
         mail_message.to_addrs.join(', '),
