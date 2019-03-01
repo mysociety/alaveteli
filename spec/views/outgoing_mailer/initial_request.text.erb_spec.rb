@@ -2,7 +2,10 @@
 require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
 
 describe "outgoing_mailer/initial_request" do
-  let(:body) { FactoryBot.create(:public_body, :name => "Apostrophe's") }
+  let(:body) do
+    FactoryBot.create(:public_body, name: "Apostrophe's",
+                                    request_email: "a'b@example.com")
+  end
   let(:request) { FactoryBot.create(:info_request, :public_body => body) }
   let(:outgoing_message) { FactoryBot.create(:initial_request) }
 
@@ -21,8 +24,7 @@ describe "outgoing_mailer/initial_request" do
     expect(response).to match("the wrong address for Test's Law requests")
   end
 
-  it "does not add HTMLEntities to the public body email address" do
-    allow(body).to receive(:request_email).and_return("a'b@example.com")
+  it 'does not add HTMLEntities to the public body email address' do
     assign(:info_request, request)
     assign(:outgoing_message, outgoing_message)
     render
