@@ -368,6 +368,8 @@ Rails.application.routes.draw do
   match '/help/unhappy/:url_title' => 'help#unhappy',
         :as => :help_unhappy,
         :via => :get
+  match '/help/unhappy' => 'help#unhappy',
+        :via => :get
   match '/help/about' => 'help#about',
         :as => :help_about,
         :via => :get
@@ -392,9 +394,10 @@ Rails.application.routes.draw do
   match '/help/credits' => 'help#credits',
         :as => :help_credits,
         :via => :get
-  match '/help/:action' => 'help#action',
-        :as => :help_general,
-        :via => :get
+  match '/help/:template', to: 'help#action',
+      via: :get,
+      template: /[-_a-z]+/,
+      as: :help_general
   match '/help' => 'help#index',
         :via => :get
   ####
