@@ -258,14 +258,14 @@ module LinkToHelper
 
   # About page URLs
   def about_url(options = {})
-    help_general_url(options.merge(:action => 'about'))
+    help_general_url(options.merge(template: 'about'))
   end
 
   def unhappy_url(info_request = nil, options = {})
     if info_request.nil?
-      return help_general_url(options.merge(:action => 'unhappy'))
+      return help_general_url(options.merge(template: 'unhappy'))
     else
-      return help_unhappy_url(options.merge(:url_title => info_request.url_title))
+      return help_unhappy_url(options.merge(url_title: info_request.url_title))
     end
   end
 

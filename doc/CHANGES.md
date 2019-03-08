@@ -54,6 +54,9 @@
   for more information on traits.
 * We no longer support Debian Jessie. Please upgrade to Debian Stretch at the
   earliest opportinuity.
+* The changes to the way dynamic routes work means that any themes that use
+  the `help_general_url` helper will need to pass in `:template` instead of
+  `:action`
 
 # 0.32.0.0
 
