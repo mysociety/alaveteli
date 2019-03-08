@@ -1,20 +1,24 @@
 <div class="list-sidebar-extra">
   <% if AlaveteliConfiguration::public_body_statistics_page %>
     <p>
-      <%= link_to _('Public authority statistics'), statistics_path(:anchor => 'public_bodies') %>
+      <%= link_to _('Public authority statistics'),
+                  statistics_path(anchor: 'public_bodies') %>
     </p>
   <% end %>
   <p>
-    <%= link_to _('Are we missing a public authority?'), help_requesting_path(:anchor => 'missing_body') %>
+    <%= link_to _('Are we missing a public authority?'),
+                help_requesting_path(anchor: 'missing_body') %>
   </p>
   <p>
-    <%= link_to _('List of all authorities (CSV)'), all_public_bodies_csv_path %>
+    <%= link_to _('List of all authorities (CSV)'),
+                all_public_bodies_csv_path %>
   </p>
 
   <% if can_ask_the_eu?(country_code) %>
     <p>
       <%= link_to _('Ask EU Authorities'), 'http://www.asktheeu.org' %>
-      <%= link_to _('?'), help_general_url(:template => 'unhappy', :anchor => 'other_means') %>
+      <%= link_to _('?'),
+          help_general_url(template: 'unhappy', anchor: 'other_means') %>
     <p>
   <% end %>
 </div>
