@@ -6,18 +6,6 @@ describe HashableParams do
   describe '#params_to_unsafe_hash' do
     subject { params_to_unsafe_hash(raw_params) }
 
-    shared_examples_for 'populated_params_provided' do
-
-      it 'returns a hash' do
-        expect(subject).to be_a(Hash)
-      end
-
-      it 'returns a hash which responds to #with_indifferent_access' do
-        expect(subject).to respond_to(:with_indifferent_access)
-      end
-
-    end
-
     context 'passed an empty hash' do
       let(:raw_params) { {} }
       it { is_expected.to eq({}) }
@@ -28,11 +16,20 @@ describe HashableParams do
       it { is_expected.to eq({}) }
     end
 
-    context 'passed a hash' do
+    context 'passed a populated hash' do
       let(:raw_params) { { foo: 1, bar: 2 } }
-      it { is_expected.to match_array(raw_params) }
 
-      it_behaves_like 'populated_params_provided'
+      it 'raises an error under rails 5' do
+        if rails5?
+          expect { subject }.to raise_error(NoMethodError)
+        end
+      end
+
+      it 'returns the original params under rails 4' do
+        unless rails5?
+          expect(subject).to eq(raw_params)
+        end
+      end
     end
 
     context 'passed an instance of ActionController::Parameters' do
@@ -43,7 +40,13 @@ describe HashableParams do
         expect(subject.keys).to match_array(['foo', 'bar'])
       end
 
-      it_behaves_like 'populated_params_provided'
+      it 'returns a hash' do
+        expect(subject).to be_a(Hash)
+      end
+
+      it 'returns a hash which responds to #with_indifferent_access' do
+        expect(subject).to respond_to(:with_indifferent_access)
+      end
     end
 
   end

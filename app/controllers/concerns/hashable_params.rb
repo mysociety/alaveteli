@@ -8,7 +8,7 @@ module HashableParams
   def params_to_unsafe_hash(input_params)
     return {} if input_params.blank?
     if rails5?
-      input_params.try(:to_unsafe_h) || input_params.clone
+      input_params.to_unsafe_h
     else
       input_params.clone
     end
