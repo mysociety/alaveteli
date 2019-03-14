@@ -1,3 +1,9 @@
+# 0.31.0.7
+
+## Highlighted Features
+
+* Update Rails to 4.2.11.1 (Liz Conlan)
+
 # 0.31.0.6
 
 ## Highlighted Features
