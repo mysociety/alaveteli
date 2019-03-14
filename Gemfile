@@ -83,7 +83,7 @@ def rails5?
   %w[1 true].include?(ENV['RAILS5'])
 end
 
-gem 'rails', rails5? ? '5.0.7' : '4.2.10'
+gem 'rails', rails5? ? '5.0.7' : '4.2.11.1'
 
 gem 'pg', '~> 0.20.0'
 
