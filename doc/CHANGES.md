@@ -1,3 +1,9 @@
+# 0.32.0.1
+
+## Highlighted Features
+
+* Upgrade Rails to 4.2.11.1 (Gareth Rees, Liz Conlan)
+
 # 0.32.0.0
 
 ## Highlighted Features
