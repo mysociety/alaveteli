@@ -1,3 +1,10 @@
+# 0.31.0.8
+
+## Highlighted Features
+
+* Fix intermittent spec failure during or following short month (:iz Conlan)
+* Switch back to using the geoip-database package (Liz Conlan)
+
 # 0.31.0.7
 
 ## Highlighted Features
