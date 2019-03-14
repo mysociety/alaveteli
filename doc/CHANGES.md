@@ -1,3 +1,10 @@
+# 0.30.0.6
+
+## Highlighted Features
+
+* Update Rails to 4.2.11.1
+* Switch back to using the geoip-database package (Liz Conlan)
+
 # 0.30.0.5
 
 ## Highlighted Features
