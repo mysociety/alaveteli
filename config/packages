@@ -5,7 +5,7 @@ build-essential
 bundler
 catdoc
 elinks
-geoip-database-contrib
+geoip-database
 gettext
 ghostscript
 gnuplot-nox
