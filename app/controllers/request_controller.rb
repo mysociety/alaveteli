@@ -405,13 +405,27 @@ class RequestController < ApplicationController
     # This automatically saves dependent objects, such as @outgoing_message, in the same transaction
     @info_request.save!
 
+    errors = [ EOFError,
+               IOError,
+               Timeout::Error,
+               Errno::ECONNRESET,
+               Errno::ECONNABORTED,
+               Errno::EPIPE,
+               Errno::ETIMEDOUT,
+               Net::SMTPAuthenticationError,
+               Net::SMTPServerBusy,
+               Net::SMTPSyntaxError,
+               Net::SMTPUnknownError,
+               OpenSSL::SSL::SSLError ]
+    errors << AWS::SES::ResponseError if defined?(AWS::SES::ResponseError)
+
     if @outgoing_message.sendable?
       begin
         mail_message = OutgoingMailer.initial_request(
           @outgoing_message.info_request,
           @outgoing_message
         ).deliver_now
-      rescue StandardError => e
+      rescue *errors => e
         # Catch a wide variety of potential ActionMailer failures and
         # record the exception reason so administrators don't have to
         # dig into logs.
