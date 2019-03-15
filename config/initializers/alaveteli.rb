@@ -60,6 +60,7 @@ require 'analytics_event'
 require 'alaveteli_gettext/fuzzy_cleaner'
 require 'user_spam_scorer'
 require 'alaveteli_rate_limiter'
+require 'mime_negotiation_patch'
 
 AlaveteliLocalization.set_locales(AlaveteliConfiguration::available_locales,
                                   AlaveteliConfiguration::default_locale)
