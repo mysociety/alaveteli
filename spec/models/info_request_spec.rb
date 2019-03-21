@@ -4057,6 +4057,17 @@ describe InfoRequest do
           .to raise_error(RuntimeError)
       end
 
+      it 'returns the most recent "send_error" event after an error sending the request' do
+        outgoing_message = info_request.outgoing_messages.first
+        outgoing_message.record_email_failure('sending stopped by test')
+
+        failure_event = info_request.
+                          info_request_events.reload.
+                            detect{ |e| e.event_type == 'send_error'}
+        expect(info_request.last_event_forming_initial_request).
+          to eq failure_event
+      end
+
     end
 
     context 'when there is no value in the database' do
@@ -4100,6 +4111,20 @@ describe InfoRequest do
                            detect{ |e| e.event_type == 'followup_sent'}
         expect(info_request.last_event_forming_initial_request)
           .to eq followup_event
+      end
+
+      it 'returns the most recent "send_error" event after an error sending a request' do
+        outgoing_message = info_request.outgoing_messages.first
+        outgoing_message.record_email_failure('sending stopped by test')
+        # manually unset the id so that it has to be recalculated
+        info_request.
+          update_attribute(:last_event_forming_initial_request_id, nil)
+
+        failure_event = info_request.
+                          info_request_events.reload.
+                            detect{ |e| e.event_type == 'send_error'}
+        expect(info_request.last_event_forming_initial_request).
+          to eq failure_event
       end
 
       it 'raises an error if the request has never been sent' do

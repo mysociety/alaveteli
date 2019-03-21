@@ -377,7 +377,9 @@ class InfoRequestEvent < ActiveRecord::Base
   end
 
   def is_request_sending?
-    ['sent', 'resent'].include?(event_type)
+    ['sent', 'resent'].include?(event_type) ||
+    (event_type == 'send_error' &&
+     outgoing_message.message_type == 'initial_request')
   end
 
   def is_clarification?

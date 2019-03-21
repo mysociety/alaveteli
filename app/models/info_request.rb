@@ -1122,7 +1122,9 @@ class InfoRequest < ActiveRecord::Base
       if self.class.request_sent_types.include?(event.event_type)
         if last_sent.nil?
           last_sent = event
-        elsif event.event_type == 'resent'
+        elsif event.event_type == 'resent' ||
+              (event.event_type == 'send_error' &&
+               event.outgoing_message.message_type == 'initial_request')
           last_sent = event
         elsif expecting_clarification && event.event_type == 'followup_sent'
           # TODO: this needs to cope with followup_resent, which it doesn't.
