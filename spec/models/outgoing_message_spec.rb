@@ -66,6 +66,25 @@ describe OutgoingMessage do
 
   end
 
+  describe '.expected_send_errors' do
+    subject { described_class.expected_send_errors }
+    class TestError < StandardError ; end
+
+    it { is_expected.to be_an(Array) }
+    it { is_expected.to include(IOError) }
+    it { is_expected.to_not include(TestError) }
+
+    context '.additional_send_errors has been overriden to include a custom error' do
+      before do
+        allow(described_class).to receive(:additional_send_errors).
+          and_return([ TestError ])
+      end
+
+      it { is_expected.to include(TestError) }
+    end
+
+  end
+
   describe '#initialize' do
 
     it 'does not censor the #body' do

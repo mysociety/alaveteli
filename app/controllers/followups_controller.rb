@@ -143,27 +143,13 @@ class FollowupsController < ApplicationController
     # outgoing message, save just before sending.
     @outgoing_message.save!
 
-    errors = [ EOFError,
-               IOError,
-               Timeout::Error,
-               Errno::ECONNRESET,
-               Errno::ECONNABORTED,
-               Errno::EPIPE,
-               Errno::ETIMEDOUT,
-               Net::SMTPAuthenticationError,
-               Net::SMTPServerBusy,
-               Net::SMTPSyntaxError,
-               Net::SMTPUnknownError,
-               OpenSSL::SSL::SSLError ]
-    errors << AWS::SES::ResponseError if defined?(AWS::SES::ResponseError)
-
     begin
       mail_message = OutgoingMailer.followup(
         @outgoing_message.info_request,
         @outgoing_message,
         @outgoing_message.incoming_message_followup
       ).deliver_now
-    rescue *errors => e
+    rescue *OutgoingMessage.expected_send_errors => e
       @outgoing_message.record_email_failure(e.message)
     else
       @outgoing_message.record_email_delivery(
