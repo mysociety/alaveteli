@@ -1146,6 +1146,31 @@ describe RequestController, "when creating a new request" do
 
   end
 
+  context 'a network error occurs while sending the initial request' do
+
+    def send_request
+      session[:user_id] = @user.id
+      post :new, params: {
+                 info_request: {
+                   public_body_id: @body.id,
+                   title: 'Test request',
+                   tag_string: ''
+                 },
+                 outgoing_message: {
+                   body: 'This is a silly letter.'
+                 },
+                 submitted_new_request: 1,
+                 preview: 0
+               }
+    end
+
+    let(:request) { assigns[:info_request] }
+    let(:outgoing_message) { request.reload.outgoing_messages.last }
+
+    it_behaves_like 'NetworkSendErrors'
+
+  end
+
   it "should redirect pros to the pro version" do
     with_feature_enabled(:alaveteli_pro) do
       pro_user = FactoryBot.create(:pro_user)
