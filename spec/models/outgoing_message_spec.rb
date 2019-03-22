@@ -1808,6 +1808,34 @@ describe OutgoingMessage do
 
   end
 
+  describe '#record_email_failure' do
+    let(:outgoing_message) { FactoryBot.create(:initial_request) }
+    subject { outgoing_message.record_email_failure('Exception#message') }
+
+    it 'sets the status to "failed"' do
+      subject
+      expect(outgoing_message.status).to eq 'failed'
+    end
+
+    it 'records the reason for the failure in the event log' do
+      subject
+      event = outgoing_message.info_request.info_request_events.last
+      expect(event.event_type).to eq('send_error')
+      expect(event.params[:reason]).to eq('Exception#message')
+    end
+
+    it 'sets described_state to "error_message"' do
+      subject
+      expect(outgoing_message.info_request.described_state).
+        to eq 'error_message'
+    end
+
+    it 'updates OutgoingMessage#last_sent_at' do
+      expect{ subject }.to change{ outgoing_message.last_sent_at }
+    end
+
+  end
+
 end
 
 describe OutgoingMessage, " when making an outgoing message" do
