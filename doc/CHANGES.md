@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Fixed a bug that meant request urls could unexpectedly change when the request
+  is edited if they're in the middle of a numbered sequence (Liz Conlan)
 * Fix search.png not being included in precompiled assets (Nigel Jones)
 * Drop support for Debian Jessie (Gareth Rees)
 * Highlight non-default states of "Prominence" in the admin

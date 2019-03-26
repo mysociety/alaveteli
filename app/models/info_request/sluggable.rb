@@ -13,7 +13,7 @@ module InfoRequest::Sluggable
   # When title is changed, also change the URL title
   def title=(title)
     super.tap do
-      update_url_title
+      update_url_title if title_changed?
     end
   end
 
