@@ -1,6 +1,9 @@
-# develop
+# Version 0.22.4.12
 
 ## Highlighted Features
+
+* Backported security fixes from Rails 4.2.11.1 - fixes CVE-2019-5418 and
+  CVE-2019-5419 (Liz Conlan)
 
 # Version 0.22.4.11
 
