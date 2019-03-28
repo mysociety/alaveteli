@@ -2022,6 +2022,28 @@ describe InfoRequest do
 
   end
 
+  describe '#title=' do
+
+    let(:test_requests) do
+      3.times.map { FactoryBot.create(:info_request, title: 'URL test') }
+    end
+
+    let(:request) do
+      test_requests[1]
+    end
+
+    it 'updates url_title when the title is changed' do
+      request.update_attributes(title: 'Something new')
+      expect(request.url_title).to eq('something_new')
+    end
+
+    it 'does not update url_title when the same title is assigned' do
+      request.update_attributes(title: request.title.dup)
+      expect(request.url_title).to eq('url_test_2')
+    end
+
+  end
+
   describe '#last_event_id_needing_description' do
     subject { info_request.last_event_id_needing_description }
     let(:info_request) { FactoryBot.create(:successful_request) }
