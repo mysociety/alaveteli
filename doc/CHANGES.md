@@ -1,3 +1,10 @@
+# 0.27.0.11
+
+## Highlighted features
+
+* Backported security fixes from Rails 4.2.11.1 - fixes CVE-2019-5418 and
+  CVE-2019-5419 (Liz Conlan)
+
 # 0.27.0.10
 
 ## Highlighted Features
