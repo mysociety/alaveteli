@@ -11,7 +11,7 @@ load "debug_helpers.rb"
 load "util.rb"
 
 # Application version
-ALAVETELI_VERSION = '0.27.0.10'
+ALAVETELI_VERSION = '0.27.0.11'
 
 # Add new inflection rules using the following format
 # (all these examples are active by default):
