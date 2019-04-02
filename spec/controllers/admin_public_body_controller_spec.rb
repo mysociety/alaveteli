@@ -720,11 +720,9 @@ describe AdminPublicBodyController do
 
       end
 
-      describe 'if there is no csv file param, but there are temporary_csv_file and
-                    original_csv_file params' do
+      describe 'if there is no csv file param, but there are temporary_csv_file and original_csv_file params' do
 
-        it 'should try and get the file contents from a temporary file whose name
-                  is passed as a param' do
+        it 'should try and get the file contents from a temporary file whose name is passed as a param' do
           expect(@controller).to receive(:retrieve_csv_data).with('csv_upload-2046-12-31-394')
           post :import_csv,
                params: {
