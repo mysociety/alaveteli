@@ -702,14 +702,6 @@ describe AdminPublicBodyController do
 
       describe 'if there is a csv file param' do
 
-        it 'should try to get the contents and original name of a csv file param' do
-          expect(@file_object).to receive(:read).and_return('some contents')
-          post :import_csv, params: {
-                              :csv_file => @file_object,
-                              :commit => 'Dry run'
-                            }
-        end
-
         it 'should assign the original filename to the view' do
           post :import_csv, params: {
                               :csv_file => @file_object,
