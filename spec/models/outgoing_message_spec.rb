@@ -1656,6 +1656,12 @@ describe OutgoingMessage do
 
     describe '#delivery_status' do
 
+      it 'returns a failed status if the message send failed' do
+        message = FactoryBot.create(:failed_sent_request_event).outgoing_message
+        status = MailServerLog::DeliveryStatus.new(:failed)
+        expect(message.delivery_status).to eq(status)
+      end
+
       it 'returns an unknown delivery status if there are no mail logs' do
         message = FactoryBot.create(:initial_request)
         allow(message).to receive(:mail_server_logs).and_return([])
