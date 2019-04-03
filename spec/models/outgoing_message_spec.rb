@@ -1795,6 +1795,32 @@ describe OutgoingMessage do
 
   end
 
+  describe '#prepare_message_for_resend' do
+    let(:outgoing_message) { FactoryBot.build(:initial_request) }
+    subject { outgoing_message.prepare_message_for_resend }
+
+    it 'raises an error if it receives an unexpected message_type' do
+      allow(outgoing_message).to receive(:message_type).and_return('fake')
+      expect{ subject }.to raise_error(RuntimeError)
+    end
+
+    it 'raises an error if it receives an unexpected status' do
+      outgoing_message.status = 'ready'
+      expect{ subject }.to raise_error(RuntimeError)
+    end
+
+    it 'sets status to "ready" if the current status is "sent"' do
+      outgoing_message.status = 'sent'
+      expect{ subject }.to change{ outgoing_message.status }.to('ready')
+    end
+
+    it 'sets status to "ready" if the current status is "failed"' do
+      outgoing_message.status = 'failed'
+      expect{ subject }.to change{ outgoing_message.status }.to('ready')
+    end
+
+  end
+
   describe '#record_email_failure' do
     let(:outgoing_message) { FactoryBot.create(:initial_request) }
     subject { outgoing_message.record_email_failure('Exception#message') }
