@@ -4,3 +4,7 @@ require File.expand_path('../application', __FILE__)
 
 # Initialize the Rails application.
 Rails.application.initialize!
+
+if rails5? && theme_exists?
+  load_theme_assets
+end
