@@ -17,9 +17,9 @@ def theme_exists?
 end
 
 def require_theme(theme_name)
-  theme_lib = Rails.root.join 'lib', 'themes', theme_name, 'lib'
-  $LOAD_PATH.unshift theme_lib.to_s
-  theme_main_include = Rails.root.join theme_lib, "alavetelitheme.rb"
+  _theme_lib = theme_lib(theme_name)
+  $LOAD_PATH.unshift _theme_lib.to_s
+  theme_main_include = Rails.root.join _theme_lib, "alavetelitheme.rb"
   if File.exists? theme_main_include
     require theme_main_include
   end
