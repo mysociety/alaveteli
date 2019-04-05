@@ -225,6 +225,7 @@ class GeneralController < ApplicationController
           :alaveteli_git_commit => alaveteli_git_commit,
           :alaveteli_version => ALAVETELI_VERSION,
           :ruby_version => RUBY_VERSION,
+          :rails_version => Rails.version,
           :visible_public_body_count => PublicBody.visible.count,
           :visible_request_count => InfoRequest.is_searchable.count,
           :confirmed_user_count => User.active.
