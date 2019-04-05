@@ -1345,6 +1345,3 @@ often the quickest way of getting a definitive answer.
 Additionally, you can often find the answers to questions by Googling them,
 because whatever problem you have, the chances are that it has been experienced
 by others, and solved, before.
-
-Do also feel free to drop us a line at mySociety, and we’ll do our best to
-answer your questions: our email address is international@mysociety.org.
