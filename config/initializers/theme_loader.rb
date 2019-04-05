@@ -3,6 +3,19 @@
 # It is used by our config/routes.rb to decide which route extension files to load.
 $alaveteli_route_extensions = []
 
+def theme_lib(theme_name)
+  Rails.root.join 'lib', 'themes', theme_name, 'lib'
+end
+
+def theme_exists?
+  AlaveteliConfiguration::theme_urls.reverse.each do |url|
+    theme_main_include =
+      Rails.root.join theme_lib(theme_url_to_theme_name(url)),
+                      'alavetelitheme.rb'
+    return true if File.exists? theme_main_include
+  end
+end
+
 def require_theme(theme_name)
   theme_lib = Rails.root.join 'lib', 'themes', theme_name, 'lib'
   $LOAD_PATH.unshift theme_lib.to_s
