@@ -49,10 +49,6 @@ to begin. <img src="/assets/img/icon_smile.gif" alt=":-)">
 
   <a href="https://groups.google.com/forum/#!forum/alaveteli-dev" class="button">Alaveteli for developers mailing list<a>
 
-## mySociety international team
-
-mySociety has very limited capacity to run a handful of Alaveteli sites for willing volunteers. Contact our <a href="mailto:international@mysociety.org">international team</a> for more information.
-
 ## Code and issues on github
 
 The [Alaveteli software is on github](https://github.com/mysociety/alaveteli) and we actively use
