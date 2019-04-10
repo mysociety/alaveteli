@@ -376,7 +376,13 @@ class ApplicationController < ActionController::Base
         post_redirect =
           PostRedirect.find_by_token(session[:post_redirect_token])
         if post_redirect
-          params.update(post_redirect.post_params)
+          post_redirect_params =
+            params_to_unsafe_hash(post_redirect.post_params)
+          if rails5?
+            params.merge!(post_redirect_params)
+          else
+            params.update(post_redirect_params)
+          end
           params[:post_redirect_user] = post_redirect.user
         end
       else
@@ -535,4 +541,6 @@ class ApplicationController < ActionController::Base
 
   # Site-wide access to configuration settings
   include ConfigHelper
+
+  include HashableParams
 end
