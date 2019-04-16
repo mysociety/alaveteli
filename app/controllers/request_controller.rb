@@ -586,10 +586,12 @@ class RequestController < ApplicationController
     raise ActiveRecord::RecordNotFound.new("Message not found") if incoming_message.nil?
     if cannot?(:read, incoming_message.info_request)
       @info_request = incoming_message.info_request # used by view
+      request.format = :html
       return render_hidden
     end
     if cannot?(:read, incoming_message)
       @incoming_message = incoming_message # used by view
+      request.format = :html
       return render_hidden('request/hidden_correspondence')
     end
     # Is this a completely public request that we can cache attachments for

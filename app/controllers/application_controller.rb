@@ -209,6 +209,11 @@ class ApplicationController < ActionController::Base
   # URL using the first three digits of the info request id, because we can't
   # have more than 32,000 entries in one directory on an ext3 filesystem.
   def foi_fragment_cache_part_path(param)
+    if rails5?
+      param =
+        param.permit(:incoming_message_id, :part, :file_name, :id,
+                     :only_path, :locale, :skip_cache)
+    end
     path = url_for(param)
     id = param['id'] || param[:id]
     first_three_digits = id.to_s[0..2]
@@ -371,7 +376,13 @@ class ApplicationController < ActionController::Base
         post_redirect =
           PostRedirect.find_by_token(session[:post_redirect_token])
         if post_redirect
-          params.update(post_redirect.post_params)
+          post_redirect_params =
+            params_to_unsafe_hash(post_redirect.post_params)
+          if rails5?
+            params.merge!(post_redirect_params)
+          else
+            params.update(post_redirect_params)
+          end
           params[:post_redirect_user] = post_redirect.user
         end
       else
@@ -530,4 +541,6 @@ class ApplicationController < ActionController::Base
 
   # Site-wide access to configuration settings
   include ConfigHelper
+
+  include HashableParams
 end

@@ -365,7 +365,7 @@ Rails.application.routes.draw do
   ####
 
   #### Help controller
-  match '/help/unhappy/:url_title' => 'help#unhappy',
+  match '/help/unhappy(/:url_title)' => 'help#unhappy',
         :as => :help_unhappy,
         :via => :get
   match '/help/about' => 'help#about',
@@ -392,9 +392,10 @@ Rails.application.routes.draw do
   match '/help/credits' => 'help#credits',
         :as => :help_credits,
         :via => :get
-  match '/help/:action' => 'help#action',
+  match '/help/:template' => 'help#action',
         :as => :help_general,
-        :via => :get
+        :via => :get,
+        :template => /[-_a-z]+/
   match '/help' => 'help#index',
         :via => :get
   ####
@@ -685,7 +686,7 @@ Rails.application.routes.draw do
       end
       resources :embargoes, :only => [:destroy, :create] do
         collection do
-          post :destroy_batch, :only => [:destroy]
+          post :destroy_batch
         end
       end
       resources :embargo_extensions, :only => [:create] do
