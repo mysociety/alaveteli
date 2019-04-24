@@ -1,5 +1,4 @@
 <ul>
-  <% public_bodies = PublicBody.with_tag(category_tag).includes(:translations) %>
   <% key = rails5? ? public_bodies : public_bodies.maximum(:updated_at).to_i %>
   <% cache [:batch_builder, locale, category_tag, key] do %>
     <% public_bodies.select(&:is_requestable?).each do |public_body| %>

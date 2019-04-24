@@ -42,12 +42,16 @@ class AlaveteliPro::BatchRequestAuthoritySearchesController < AlaveteliPro::Base
   end
 
   def browse
+    @public_bodies = PublicBody.with_tag(category_tag).
+                       includes(:translations)
+
     if request.xhr?
       render partial: 'public_bodies',
              layout: false,
              locals: {
                draft_batch_request: @draft_batch_request,
-               body_ids_added: @body_ids_added
+               body_ids_added: @body_ids_added,
+               public_bodies: @public_bodies
              }
     else
       render :index
