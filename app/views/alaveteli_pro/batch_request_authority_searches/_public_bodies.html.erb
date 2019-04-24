@@ -21,8 +21,7 @@
                 mode: mode,
                 category_tag: category_tag,
                 draft_id: draft_batch_request.id,
-                page: page.pred,
-                per_page: per_page),
+                page: page.pred),
               class: 'batch-builder__list__item__action__prev button button--prev' do %>
             <%= _('Previous') %>
           <% end %>
@@ -32,8 +31,7 @@
                 mode: mode,
                 category_tag: category_tag,
                 draft_id: draft_batch_request.id,
-                page: page.next,
-                per_page: per_page),
+                page: page.next),
               class: 'batch-builder__list__item__action__next button button--next' do %>
             <%= _('Next') %>
           <% end %>

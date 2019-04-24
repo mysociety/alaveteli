@@ -43,12 +43,11 @@ class AlaveteliPro::BatchRequestAuthoritySearchesController < AlaveteliPro::Base
 
   def browse
     @page = params.fetch(:page, 1).to_i
-    @per_page = params.fetch(:per_page, 5).to_i
     @public_bodies = PublicBody.with_tag(category_tag).
                        is_requestable.
                        includes(:translations).
                        order(:id).
-                       paginate(page: @page, per_page: @per_page)
+                       paginate(page: @page, per_page: 100)
 
     if request.xhr?
       render partial: 'public_bodies',
