@@ -1,6 +1,6 @@
 <ul>
   <% key = rails5? ? public_bodies : public_bodies.maximum(:updated_at).to_i %>
-  <% cache [:batch_builder, locale, category_tag, key] do %>
+  <% cache [:batch_builder, locale, category_tag, page, key] do %>
     <% public_bodies.each do |public_body| %>
       <% body_key = "public_bodies/#{public_body.id}-#{public_body.updated_at.to_i}" %>
       <% cache [:batch_builder, locale, category_tag, body_key] do %>
@@ -16,7 +16,7 @@
   <% if public_bodies.total_pages > 1 %>
     <li class="batch-builder__list__item">
       <div class="batch-builder__list__item__action">
-        <% if public_bodies.current_page > 1 %>
+        <% if page > 1 %>
           <%= link_to alaveteli_pro_batch_request_authority_searches_path(
                 mode: mode,
                 category_tag: category_tag,

@@ -33,6 +33,7 @@
       url: url,
       dataType: 'html',
       success: function (data) {
+        group.children('ul').children().remove();
         group.append(data);
         openCaret(group);
         toggleSpinner(group);
@@ -89,14 +90,14 @@
 
     $search.on(SearchEvents.rendered, bindListItemAnchors);
     $search.on(SearchEvents.rendered, bindListItemPagination);
-    $search.on(SearchEvents.rendered, removePrevButton);
+    //$search.on(SearchEvents.rendered, removePrevButton);
     $search.on(SearchEvents.domUpdated, bindListItemPagination);
-    $search.on(SearchEvents.domUpdated, removePrevButton);
+    //$search.on(SearchEvents.domUpdated, removePrevButton);
 
     collapseTopLevelGroups();
     bindListItemAnchors();
     bindListItemPagination();
-    removePrevButton();
+    //removePrevButton();
   });
 })(window.jQuery,
    window.AlaveteliPro.BatchAuthoritySearch,
