@@ -1,8 +1,10 @@
 <ul>
   <% public_bodies = PublicBody.with_tag(category_tag) %>
-  <% cache [:batch_builder, locale, category_tag, public_bodies] do %>
+  <% key = rails5? ? public_bodies : public_bodies.maximum(:updated_at).to_i %>
+  <% cache [:batch_builder, locale, category_tag, key] do %>
     <% public_bodies.select(&:is_requestable?).each do |public_body| %>
-      <% cache [:batch_builder, locale, category_tag, public_body] do %>
+      <% body_key = "public_bodies/#{public_body.id}-#{public_body.updated_at.to_i}" %>
+      <% cache [:batch_builder, locale, category_tag, body_key] do %>
         <%= render partial: 'alaveteli_pro/batch_request_authority_searches/search_result',
                    locals: { public_body: public_body,
                              draft: draft_batch_request,
