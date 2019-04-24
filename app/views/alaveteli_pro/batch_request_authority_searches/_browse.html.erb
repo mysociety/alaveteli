@@ -2,7 +2,7 @@
   <div class="blank-slate"><%= _('No more authorities can be added to this batch request.') %></div>
 <% else %>
   <ul class="batch-builder__list">
-  <% PublicBodyHeading.by_display_order.each do |heading| %>
+  <% PublicBodyHeading.includes(:translations).by_display_order.each do |heading| %>
     <% opened = heading.public_body_categories.map(&:category_tag).include?(category_tag) %>
     <li class="batch-builder__list__group">
       <div class="batch-builder__list__item">
@@ -13,7 +13,7 @@
         </span>
       </div>
       <ul>
-      <% heading.public_body_categories.each do |category| %>
+      <% heading.public_body_categories.includes(:translations).each do |category| %>
         <% selected = category.category_tag == category_tag %>
         <li class="batch-builder__list__group <%= 'batch-builder__list__group--closed' unless selected %>">
           <div class="batch-builder__list__item">
