@@ -47,6 +47,7 @@ class AlaveteliPro::BatchRequestAuthoritySearchesController < AlaveteliPro::Base
     @public_bodies = PublicBody.with_tag(category_tag).
                        is_requestable.
                        includes(:translations).
+                       order(:id).
                        paginate(page: @page, per_page: @per_page)
 
     if request.xhr?
