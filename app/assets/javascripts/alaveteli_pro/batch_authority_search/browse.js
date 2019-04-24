@@ -46,8 +46,8 @@
     $('.batch-builder__list__item__anchor', $search).on('click', function (e) {
       e.preventDefault();
 
-      var listItem = $(this).parent(listItemSelector);
-      var group = listItem.parent(groupSelector);
+      var listItem = $(this).closest(listItemSelector);
+      var group = listItem.closest(groupSelector);
       var childList = listItem.siblings('ul');
 
       if (childList.is('*')) {
