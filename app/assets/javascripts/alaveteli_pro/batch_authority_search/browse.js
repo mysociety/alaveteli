@@ -11,6 +11,14 @@
   var closedClass = 'batch-builder__list__group--closed';
   var loadingClass = 'batch-builder__list__group--loading';
 
+  var openCaret = function openCaret(group) {
+    group.removeClass(closedClass);
+  };
+
+  var closeCaret = function closeCaret(group) {
+    group.addClass(closedClass);
+  };
+
   var toggleCaret = function toogleCaret(group) {
     group.toggleClass(closedClass);
   };
@@ -26,7 +34,7 @@
       dataType: 'html',
       success: function (data) {
         group.append(data);
-        toggleCaret(group);
+        openCaret(group);
         toggleSpinner(group);
         $draft.trigger(DraftEvents.bodyAdded);
         $search.trigger(SearchEvents.domUpdated);
@@ -53,7 +61,7 @@
 
   var collapseTopLevelGroups = function collapseTopLevelGroups() {
     var groups = $('.batch-builder__list > .batch-builder__list__group');
-    toggleCaret(groups);
+    closeCaret(groups);
   };
 
   $(function(){
