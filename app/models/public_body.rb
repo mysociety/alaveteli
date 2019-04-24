@@ -805,7 +805,7 @@ class PublicBody < ActiveRecord::Base
   private_class_method :tag_search_sql
 
   def self.with_tag(tag)
-    return all if tag.size == 1 || tag.nil? || tag == 'all'
+    return all if tag.nil? || tag.size == 1 || tag == 'all'
 
     if tag == 'other'
       tags = PublicBodyCategory.get.tags - ['other']
