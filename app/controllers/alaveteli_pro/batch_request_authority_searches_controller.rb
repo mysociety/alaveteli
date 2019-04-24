@@ -42,8 +42,11 @@ class AlaveteliPro::BatchRequestAuthoritySearchesController < AlaveteliPro::Base
   end
 
   def browse
+    @page = params.fetch(:page, 1).to_i
+    @per_page = params.fetch(:per_page, 5).to_i
     @public_bodies = PublicBody.with_tag(category_tag).
-                       includes(:translations)
+                       includes(:translations).
+                       paginate(page: @page, per_page: @per_page)
 
     if request.xhr?
       render partial: 'public_bodies',
@@ -51,7 +54,9 @@ class AlaveteliPro::BatchRequestAuthoritySearchesController < AlaveteliPro::Base
              locals: {
                draft_batch_request: @draft_batch_request,
                body_ids_added: @body_ids_added,
-               public_bodies: @public_bodies
+               public_bodies: @public_bodies,
+               page: @page,
+               per_page: @per_page
              }
     else
       render :index

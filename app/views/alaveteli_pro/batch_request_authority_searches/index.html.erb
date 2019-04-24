@@ -66,7 +66,9 @@
             <%= render partial: 'browse',
                        locals: { draft_batch_request: @draft_batch_request,
                                  body_ids_added: @body_ids_added,
-                                 public_bodies: @public_bodies %>
+                                 public_bodies: @public_bodies,
+                                 page: @page,
+                                 per_page: @per_page } %>
           <% end %>
         </div>
 
