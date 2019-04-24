@@ -27,7 +27,7 @@
     group.toggleClass(loadingClass);
   };
 
-  var fetchBodies = function fetchBodies(url, group) {
+  var fetchBodies = function fetchBodies(url, group, cb) {
     toggleSpinner(group);
     $.ajax({
       url: url,
@@ -38,6 +38,7 @@
         toggleSpinner(group);
         $draft.trigger(DraftEvents.bodyAdded);
         $search.trigger(SearchEvents.domUpdated);
+        if(cb) { cb(); }
       }
     });
   }
@@ -59,6 +60,24 @@
     });
   };
 
+  var bindListItemPagination = function bindListItemPagination() {
+    $('.batch-builder__list__item__action__next', $search).on('click', function (e) {
+      e.preventDefault();
+
+      var listItem = $(this).closest(listItemSelector);
+      var group = listItem.closest(groupSelector);
+
+      var url = $(this).attr('href');
+      fetchBodies(url, group, function() {
+        listItem.remove();
+      });
+    });
+  };
+
+  var removePrevButton = function removePrevButton() {
+    $('.batch-builder__list__item__action__prev', $search).remove();
+  }
+
   var collapseTopLevelGroups = function collapseTopLevelGroups() {
     var groups = $('.batch-builder__list > .batch-builder__list__group');
     closeCaret(groups);
@@ -69,9 +88,15 @@
     $draft = DraftBatchSummary.$el;
 
     $search.on(SearchEvents.rendered, bindListItemAnchors);
+    $search.on(SearchEvents.rendered, bindListItemPagination);
+    $search.on(SearchEvents.rendered, removePrevButton);
+    $search.on(SearchEvents.domUpdated, bindListItemPagination);
+    $search.on(SearchEvents.domUpdated, removePrevButton);
 
     collapseTopLevelGroups();
     bindListItemAnchors();
+    bindListItemPagination();
+    removePrevButton();
   });
 })(window.jQuery,
    window.AlaveteliPro.BatchAuthoritySearch,

@@ -13,4 +13,32 @@
       <% end %>
     <% end %>
   <% end %>
+  <% if public_bodies.total_pages > 1 %>
+    <li class="batch-builder__list__item">
+      <div class="batch-builder__list__item__action">
+        <% if public_bodies.current_page > 1 %>
+          <%= link_to alaveteli_pro_batch_request_authority_searches_path(
+                mode: mode,
+                category_tag: category_tag,
+                draft_id: draft_batch_request.id,
+                page: page.pred,
+                per_page: per_page),
+              class: 'batch-builder__list__item__action__prev button button--prev' do %>
+            <%= _('Previous') %>
+          <% end %>
+        <% end %>
+        <% if page < public_bodies.total_pages %>
+          <%= link_to alaveteli_pro_batch_request_authority_searches_path(
+                mode: mode,
+                category_tag: category_tag,
+                draft_id: draft_batch_request.id,
+                page: page.next,
+                per_page: per_page),
+              class: 'batch-builder__list__item__action__next button button--next' do %>
+            <%= _('Next') %>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </li>
 </ul>
