@@ -27,7 +27,7 @@
     group.toggleClass(loadingClass);
   };
 
-  var fetchBodies = function fetchBodies(url, group, cb) {
+  var fetchBodies = function fetchBodies(url, group, onSuccess, onError) {
     toggleSpinner(group);
     $.ajax({
       url: url,
@@ -38,8 +38,9 @@
         toggleSpinner(group);
         $draft.trigger(DraftEvents.bodyAdded);
         $search.trigger(SearchEvents.domUpdated);
-        if(cb) { cb(); }
-      }
+        if (onSuccess) { onSuccess(); }
+      },
+      error: function () { if (onError) { onError(); } }
     });
   }
 
@@ -57,19 +58,25 @@
         var url = $(this).attr('href');
         fetchBodies(url, group);
       }
-    });
+    })
   };
 
   var bindListItemPagination = function bindListItemPagination() {
     $('.batch-builder__list__item__action__next', $search).on('click', function (e) {
       e.preventDefault();
 
+      if ($(this).hasClass('disabled')) { return }
+      $(this).addClass('disabled');
+
+      var that = $(this);
       var listItem = $(this).closest(listItemSelector);
       var group = listItem.closest(groupSelector);
 
       var url = $(this).attr('href');
       fetchBodies(url, group, function() {
-        listItem.remove();
+        listItem.remove(); // remove list item which contains the 'Next' button
+      }, function () {
+        that.removeClass('disabled');
       });
     });
   };
