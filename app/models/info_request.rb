@@ -1898,4 +1898,14 @@ class InfoRequest < ActiveRecord::Base
       errors.add(:described_state, "is not a valid state")
     end
   end
+
+  def default_rejection_response
+    @default_rejection_response ||=
+      if %w(bounce holding_pen blackhole).
+           include?(AlaveteliConfiguration.default_rejection_action)
+        AlaveteliConfiguration.default_rejection_action
+      else
+        'bounce'
+      end
+  end
 end
