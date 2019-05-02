@@ -125,7 +125,8 @@ module AlaveteliConfiguration
       :UTILITY_SEARCH_PATH => ["/usr/bin", "/usr/local/bin"],
       :WORKING_OR_CALENDAR_DAYS => 'working',
       :USE_BULLET_IN_DEVELOPMENT => false,
-      :EXTERNAL_REVIEWERS => ''
+      :EXTERNAL_REVIEWERS => '',
+      :DEFAULT_REJECTION_ACTION => ''
     }
   end
 

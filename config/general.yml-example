@@ -1243,3 +1243,14 @@ STRIPE_WEBHOOK_SECRET: ''
 # PRO_REFERRAL_COUPON: 'PROREFERRAL'
 # ---
 PRO_REFERRAL_COUPON: ''
+
+# Override the default rejection action ('bounce') for messages sent to
+# old/closed request threads
+#
+# DEFAULT_REJECTION_ACTION: - String (default: '')
+#
+# Examples:
+#
+# DEFAULT_REJECTION_ACTION: 'holding_pen'
+# ---
+DEFAULT_REJECTION_ACTION: 'holding_pen'
