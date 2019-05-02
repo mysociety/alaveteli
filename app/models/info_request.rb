@@ -1522,6 +1522,14 @@ class InfoRequest < ActiveRecord::Base
       outgoing_messages.all?{ |message| message.is_public? }
   end
 
+  def handle_rejected_responses
+    if read_attribute(:handle_rejected_responses) == 'bounce'
+      default_rejection_response
+    else
+      read_attribute(:handle_rejected_responses)
+    end
+  end
+
   def json_for_api(deep)
     ret = {
       :id => id,
