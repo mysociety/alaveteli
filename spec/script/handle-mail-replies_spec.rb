@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-require "spec_helper"
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 require "external_command"
 
 def mail_reply_test(email_filename)
