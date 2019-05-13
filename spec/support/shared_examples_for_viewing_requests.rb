@@ -1,5 +1,4 @@
 # -*- encoding : utf-8 -*-
-require 'spec_helper'
 
 shared_examples_for 'allows the embargo to be lifted' do
 
