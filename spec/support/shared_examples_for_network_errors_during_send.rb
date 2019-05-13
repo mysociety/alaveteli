@@ -1,6 +1,4 @@
 # -*- encoding : utf-8 -*-
-require 'spec_helper'
-
 shared_examples_for 'NetworkSendErrors' do
 
   describe 'handles a network error during message sending' do
