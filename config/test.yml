@@ -53,7 +53,9 @@ FRONTPAGE_SEARCH_EXAMPLES: 'Geraldine Quango; Department for Humpadinking'
 FRONTPAGE_PUBLICBODY_EXAMPLES: 'tgq'
 
 # URL of theme to install (when running rails-post-deploy script)
-THEME_URL: 'https://github.com/garethrees/alavetelitheme.git'
+THEME_URLS:
+ - 'https://github.com/garethrees/alavetelitheme.git'
+
 THEME_BRANCH: 'fork-spec-helper-path'
 
 
