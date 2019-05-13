@@ -88,19 +88,22 @@ Layout/EmptyLinesAroundAccessModifier:
 
 Layout/EmptyLinesAroundBlockBody:
   Description: "Keeps track of empty lines around block bodies."
-  Enabled: false
+  Enabled: true
+  EnforcedStyle: no_empty_lines
 
 Layout/EmptyLinesAroundClassBody:
   Description: "Keeps track of empty lines around class bodies."
-  Enabled: false
+  Enabled: true
+  EnforcedStyle: no_empty_lines
 
 Layout/EmptyLinesAroundModuleBody:
   Description: "Keeps track of empty lines around module bodies."
-  Enabled: false
+  Enabled: true
+  EnforcedStyle: no_empty_lines
 
 Layout/EmptyLinesAroundMethodBody:
   Description: "Keeps track of empty lines around method bodies."
-  Enabled: false
+  Enabled: true
 
 Layout/EndOfLine:
   Description: 'Use Unix-style line endings.'
