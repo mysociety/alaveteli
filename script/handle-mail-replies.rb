@@ -30,6 +30,8 @@ require 'reply_handler'
 Encoding.default_external = Encoding.default_internal = Encoding::UTF_8
 
 def main(in_test_mode)
+  puts "script/handle-mail-replies.rb"
+  puts "in test mode? #{ in_test_mode }"
   Dir.chdir($alaveteli_dir) do
     raw_message = $stdin.read
     begin
@@ -46,6 +48,7 @@ def main(in_test_mode)
         puts pfas
       else
         pfas.each do |pfa|
+          puts "script/handle-mail-replies.rb recording bounce"
           MailHandler::ReplyHandler.record_bounce(pfa, raw_message)
         end
       end

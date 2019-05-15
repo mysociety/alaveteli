@@ -114,6 +114,10 @@ module MailHandler
     end
 
     def self.load_rails
+      require 'pp'
+      puts "MailHandler::ReplyHandler.load_rails"
+      pp ENV
+      puts "------------------------------------"
       require File.join($alaveteli_dir, 'config', 'boot')
       require File.join($alaveteli_dir, 'config', 'environment')
     end

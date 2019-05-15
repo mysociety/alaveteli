@@ -20,6 +20,7 @@ describe "When filtering" do
       xc = ExternalCommand.new("script/handle-mail-replies",
                                { :stdin_string => load_file_fixture("track-response-exim-bounce.email") })
       xc.run
+      puts xc.out
       expect(xc.err).to eq("")
     end
 

@@ -2,6 +2,10 @@
 
 ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../../Gemfile', __FILE__)
 
+require 'pp'
+puts "config/boot.rb"
+pp ENV
+puts "--------------"
 require 'bundler/setup' # Set up gems listed in the Gemfile.
 
 # TODO: Remove this. This is a hacky system for having a default environment.

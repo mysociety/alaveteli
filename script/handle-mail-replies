@@ -1,4 +1,5 @@
 #!/bin/bash
 
+echo "running script/handle-mail-replies"
 cd "`dirname "${BASH_SOURCE[0]}"`"
 exec bundle exec ./handle-mail-replies.rb "$@"
