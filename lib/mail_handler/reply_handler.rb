@@ -120,6 +120,7 @@ module MailHandler
       puts "------------------------------------"
       require File.join($alaveteli_dir, 'config', 'boot')
       require File.join($alaveteli_dir, 'config', 'environment')
+      puts "Loaded Rails version: #{ Rails.version }"
     end
 
     def self.record_bounce(email_address, bounce_message)
