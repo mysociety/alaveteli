@@ -114,14 +114,18 @@ module MailHandler
     end
 
     def self.load_rails
-      return true if Object.const_defined?('Rails')
-      require 'pp'
       puts "MailHandler::ReplyHandler.load_rails"
-      pp ENV
-      puts "------------------------------------"
-      require File.join($alaveteli_dir, 'config', 'boot')
-      require File.join($alaveteli_dir, 'config', 'environment')
-      puts "Loaded Rails version: #{ Rails.version }"
+      if Object.const_defined?('Rails')
+        puts "RAILS ALREADY DEFINED"
+      else
+        puts "RAILS NOT DEFINED"
+        require 'pp'
+        pp ENV
+        puts "------------------------------------"
+        require File.join($alaveteli_dir, 'config', 'boot')
+        require File.join($alaveteli_dir, 'config', 'environment')
+        puts "Loaded Rails version: #{ Rails.version }"
+      end
     end
 
     def self.record_bounce(email_address, bounce_message)
