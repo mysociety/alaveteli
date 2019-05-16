@@ -80,7 +80,7 @@
 source 'https://rubygems.org'
 
 def rails5?
-  %w[1 true].include?(ENV['RAILS5'])
+  true
 end
 
 gem 'rails', rails5? ? '5.0.7' : '4.2.11.1'
@@ -139,7 +139,7 @@ gem 'rails-i18n', rails5? ? nil : ['~> 4.0.0', '< 5.0.0']
 gem 'gettext_i18n_rails', rails5? ? nil : ['~> 0.9.0', '< 1.0.0']
   gem 'fast_gettext', rails5? ? nil : '< 1.2.0'
 gem 'gettext', '~> 2.3.0'
-gem 'globalize', rails5? ? nil : ['~> 5.0.0', '< 5.1.0']
+gem 'globalize', rails5? ? '< 5.3.0' : ['~> 5.0.0', '< 5.1.0']
 gem 'locale', '~> 2.0.0', '< 2.1.0'
 gem 'routing-filter', rails5? ? nil : '~> 0.6.2'
 gem 'unicode', '~> 0.4.4'

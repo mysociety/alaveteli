@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'alaveteli_features/version'
 
 def rails5?
-  %w[1 true].include?(ENV['RAILS5'])
+  true
 end
 
 Gem::Specification.new do |spec|
