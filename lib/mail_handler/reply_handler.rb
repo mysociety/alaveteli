@@ -115,6 +115,13 @@ module MailHandler
 
     def self.load_rails
       puts "MailHandler::ReplyHandler.load_rails"
+
+      if Object.const_defined?('RSpec')
+        puts "RSPEC ALREADY DEFINED"
+      else
+        puts "RSPEC NOT DEFINED"
+      end
+
       if Object.const_defined?('Rails')
         puts "RAILS ALREADY DEFINED"
       else
@@ -125,6 +132,18 @@ module MailHandler
         require File.join($alaveteli_dir, 'config', 'boot')
         require File.join($alaveteli_dir, 'config', 'environment')
         puts "Loaded Rails version: #{ Rails.version }"
+      end
+
+      if Object.const_defined?('RSpec')
+        puts "x RSPEC ALREADY DEFINED"
+      else
+        puts "x RSPEC NOT DEFINED"
+      end
+
+      if Object.const_defined?('Rails')
+        puts "x RAILS ALREADY DEFINED"
+      else
+        puts "x RAILS NOT DEFINED"
       end
     end
 
