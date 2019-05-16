@@ -114,6 +114,7 @@ module MailHandler
     end
 
     def self.load_rails
+      return true if Object.const_defined?('Rails')
       require 'pp'
       puts "MailHandler::ReplyHandler.load_rails"
       pp ENV
