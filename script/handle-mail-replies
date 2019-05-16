@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo `rvm list rubies`
+
 echo "running script/handle-mail-replies"
 cd "`dirname "${BASH_SOURCE[0]}"`"
 exec bundle exec ./handle-mail-replies.rb "$@"
