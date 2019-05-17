@@ -20,18 +20,18 @@ describe 'admin_general/_to_do_list.html.erb' do
         expect(rendered).to include('Fix these delivery and other errors')
       end
 
-      it 'shows "None given" if there is no user message' do
-        original_params = request.last_event.params
-        allow(request.last_event).
-          to receive(:params).
-            and_return(params.delete_if { |key| key == :message } )
-        render_errors(items)
-        expect(rendered).to include('None given')
-      end
-
       it 'shows the user message when there is one' do
         render_errors(items)
         expect(rendered).to include('Useful info')
+      end
+
+      context 'without user message' do
+        let(:request) { FactoryBot.create(:blank_message_request) }
+
+        it 'shows "None given"' do
+          render_errors(items)
+          expect(rendered).to include('None given')
+        end
       end
 
     end
@@ -57,14 +57,17 @@ describe 'admin_general/_to_do_list.html.erb' do
     end
 
     context 'comment reported as requiring admin attention' do
+      let(:request) { FactoryBot.create(:error_message_request) }
+
       let(:comment) do
         FactoryBot.create(:attention_requested_comment,
                           reason: 'Annotation contains defamatory material',
-                          message: 'Useful info')
+                          message: request.last_event.params[:message],
+                          info_request: request)
       end
 
       let(:items) { [ comment ] }
-      let(:request) { comment.info_request }
+
       it_behaves_like 'showing requests in an error state'
 
       it 'shows the reason given for the comment being reported' do

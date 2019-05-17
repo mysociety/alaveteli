@@ -90,6 +90,18 @@ FactoryBot.define do
         end
       end
 
+      factory :blank_message_request do
+        after(:create) do |info_request, evaluator|
+          info_request.log_event(
+            'status_update',
+            user_id: info_request.user.id,
+            old_described_state: info_request.described_state,
+            described_state: 'error_message',
+            message: '')
+          info_request.set_described_state('error_message')
+        end
+      end
+
       factory :attention_requested_request do
         after(:create) do |info_request, evaluator|
           info_request.log_event('report_request',
