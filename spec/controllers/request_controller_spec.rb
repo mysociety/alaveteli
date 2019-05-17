@@ -409,7 +409,7 @@ describe RequestController, "when showing one request" do
       :pending => {
         "waiting_response"      => "<strong>No response</strong> has been received <small>(maybe there's just an acknowledgement)</small>",
         "waiting_clarification" => "<strong>Clarification</strong> has been requested",
-        "gone_postal"           => "A response will be sent <strong>by post</strong>"
+        "gone_postal"           => "A response will be sent <strong>by postal mail</strong>"
       },
       :complete => {
         "not_held"              => "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>",

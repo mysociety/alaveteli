@@ -85,7 +85,7 @@ class InfoRequest
       end
 
       def self.owner_gone_postal_transition_label(opts = {})
-        _("They are going to reply <strong>by post</strong>")
+        _("They are going to reply <strong>by postal mail</strong>")
       end
 
       def self.owner_internal_review_transition_label(opts = {})
@@ -138,7 +138,7 @@ class InfoRequest
       end
 
       def self.other_user_gone_postal_transition_label(opts = {})
-        _("A response will be sent <strong>by post</strong>")
+        _("A response will be sent <strong>by postal mail</strong>")
       end
 
       def self.other_user_internal_review_transition_label(opts = {})
