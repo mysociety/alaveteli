@@ -36,14 +36,6 @@
 
   </div>
   <div class="span4">
-    <% if @public_body.ordered_translations.many? %>
-      <div class="alert alert-info">
-        <i class="icon-info-sign"></i>
-        Make sure you add the request email for <em>all</em> locales that have a
-        translation.
-      </div>
-    <% end %>
-
     <%= render :partial => 'tag_help' %>
   </div>
 </div>
