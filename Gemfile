@@ -134,7 +134,7 @@ gem 'xml-simple', '~> 1.1.0', :require => 'xmlsimple'
 gem 'gender_detector', '~> 1.0.0'
 
 # Gems related to internationalisation
-gem 'i18n', rails5? ? nil : ['~> 0.9.0', '< 0.9.3']
+gem 'i18n', ['~> 0.9.0', '< 0.9.3']
 gem 'rails-i18n', rails5? ? nil : ['~> 4.0.0', '< 5.0.0']
 gem 'gettext_i18n_rails', rails5? ? nil : ['~> 0.9.0', '< 1.0.0']
   gem 'fast_gettext', '< 1.2.0'
