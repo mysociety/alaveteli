@@ -475,6 +475,7 @@ DEPENDENCIES
   mime-types (< 3.0.0)
   money (~> 6.13.2)
   net-ssh (~> 2.9.0, < 3.0.0)
+  net-ssh-gateway (>= 1.1.0, < 2.0.0)
   newrelic_rpm
   nokogiri (~> 1.6.0, < 1.7)
   oink (~> 0.10.1)
