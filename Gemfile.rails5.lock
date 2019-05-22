@@ -449,7 +449,7 @@ DEPENDENCIES
   gender_detector (~> 1.0.0)
   geoip (~> 1.6.4)
   gettext (~> 2.3.0)
-  gettext_i18n_rails
+  gettext_i18n_rails (~> 1.8.0)
   globalize (~> 5.1.0)
   gnuplot (~> 2.6.0)
   holidays (~> 4.7.0, < 5.0.0)
