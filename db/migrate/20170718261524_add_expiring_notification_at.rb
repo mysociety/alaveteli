@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-class AddExpiringNotificationAt < ActiveRecord::Migration
+class AddExpiringNotificationAt < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 4.1
   def up
     unless column_exists?(:embargoes, :expiring_notification_at)
       add_column :embargoes, :expiring_notification_at, :datetime

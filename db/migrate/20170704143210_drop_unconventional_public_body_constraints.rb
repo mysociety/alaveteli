@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class DropUnconventionalPublicBodyConstraints < ActiveRecord::Migration
+class DropUnconventionalPublicBodyConstraints < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 4.1
   DATA = { PublicBody =>          [:short_name,
                                    :home_page,
                                    :notes,
