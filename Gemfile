@@ -109,7 +109,7 @@ gem 'iso_country_codes', '~> 0.7.8'
 gem 'mail', '~> 2.6.6'
 gem 'mahoro', '~> 0.4'
 gem 'newrelic_rpm'
-gem 'nokogiri', rails5? ? nil : ['~> 1.6.0', '< 1.7']
+gem 'nokogiri', rails5? ? '~> 1.8.5' : ['~> 1.6.0', '< 1.7']
 gem 'open4', '~> 1.3.0'
 gem 'rack', rails5? ? '~> 2.0.0' : '~> 1.6.0'
 gem 'rack-ssl', '~> 1.4.0'
