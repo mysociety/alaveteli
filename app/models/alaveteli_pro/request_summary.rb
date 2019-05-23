@@ -16,7 +16,7 @@
 #  request_updated_at :datetime         not null
 #
 
-class AlaveteliPro::RequestSummary < ActiveRecord::Base
+class AlaveteliPro::RequestSummary < ApplicationRecord
   belongs_to :summarisable, polymorphic: true
   belongs_to :user,
              :inverse_of => :request_summaries

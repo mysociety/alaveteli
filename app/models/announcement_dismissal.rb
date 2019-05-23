@@ -9,7 +9,7 @@
 #  updated_at      :datetime         not null
 #
 
-class AnnouncementDismissal < ActiveRecord::Base
+class AnnouncementDismissal < ApplicationRecord
   belongs_to :announcement,
              inverse_of: :dismissals
   belongs_to :user,

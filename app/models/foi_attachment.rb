@@ -25,7 +25,7 @@
 
 require 'digest'
 
-class FoiAttachment < ActiveRecord::Base
+class FoiAttachment < ApplicationRecord
   belongs_to :incoming_message,
              :inverse_of => :foi_attachments
 

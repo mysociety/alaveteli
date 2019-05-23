@@ -36,7 +36,7 @@ require 'rexml/document'
 require 'zip'
 require 'iconv' unless String.method_defined?(:encode)
 
-class IncomingMessage < ActiveRecord::Base
+class IncomingMessage < ApplicationRecord
   include AdminColumn
   include MessageProminence
 

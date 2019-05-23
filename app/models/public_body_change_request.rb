@@ -17,7 +17,7 @@
 #  updated_at        :datetime         not null
 #
 
-class PublicBodyChangeRequest < ActiveRecord::Base
+class PublicBodyChangeRequest < ApplicationRecord
   belongs_to :user,
              :inverse_of => :public_body_change_requests,
              :counter_cache => true
