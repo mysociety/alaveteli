@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class CreateCategoryTranslationTables < ActiveRecord::Migration
+class CreateCategoryTranslationTables < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 3.2
   class PublicBodyCategory < ActiveRecord::Base
     translates :title, :description
   end
