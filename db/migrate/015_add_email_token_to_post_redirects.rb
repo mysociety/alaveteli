@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class AddEmailTokenToPostRedirects < ActiveRecord::Migration
+class AddEmailTokenToPostRedirects < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 1.2
   def self.up
     add_column :post_redirects, :email_token, :text
   end
