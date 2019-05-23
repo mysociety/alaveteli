@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class CreateFoiAttachments < ActiveRecord::Migration
+class CreateFoiAttachments < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 2.3
   def self.up
     create_table :foi_attachments do |t|
       t.column :content_type, :text

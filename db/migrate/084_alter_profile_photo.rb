@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class AlterProfilePhoto < ActiveRecord::Migration
+class AlterProfilePhoto < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 2.3
   def self.up
     remove_column :users, :profile_photo_id
   end

@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class AddPublicBodyIndexToInfoRequests < ActiveRecord::Migration
+class AddPublicBodyIndexToInfoRequests < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 2.3
   def self.up
     add_index :info_requests, :public_body_id
   end
