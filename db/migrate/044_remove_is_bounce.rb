@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class RemoveIsBounce < ActiveRecord::Migration
+class RemoveIsBounce < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 2.0
   def self.up
     remove_column :incoming_messages, :is_bounce
   end

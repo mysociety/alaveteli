@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class AddUrlNotes < ActiveRecord::Migration
+class AddUrlNotes < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 2.0
   def self.up
     add_column :public_bodies, :home_page, :text, :null => false, :default => ""
     add_column :public_bodies, :notes, :text, :null => false, :default => ""

@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class RequestUrlNames < ActiveRecord::Migration
+class RequestUrlNames < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 2.0
   def self.up
     add_column :info_requests, :url_title, :text
 
