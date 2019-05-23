@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class AddTimestampsToHolidays < ActiveRecord::Migration
+class AddTimestampsToHolidays < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2]
   def change
     add_timestamps(:holidays)
   end
