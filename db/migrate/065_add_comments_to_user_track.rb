@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class AddCommentsToUserTrack < ActiveRecord::Migration
+class AddCommentsToUserTrack < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 2.1
   def self.up
     TrackThing.update_all "track_query = replace(track_query, 'variety:sent ', '') where track_type in ('public_body_updates', 'user_updates')"
     TrackThing.where(:track_type => 'user_updates').each do |track_thing|
