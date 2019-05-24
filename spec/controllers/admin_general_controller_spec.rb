@@ -70,9 +70,15 @@ describe AdminGeneralController do
     end
 
     it 'assigns blank contacts to the view' do
-      blank_contact = FactoryBot.create(:public_body, :request_email => '')
-      get :index, session: { :user_id => admin_user.id }
+      blank_contact = FactoryBot.create(:blank_email_public_body)
+      get :index, session: { user_id: admin_user.id }
       expect(assigns[:blank_contacts]).to eq([blank_contact])
+    end
+
+    it 'limits blank contacts to 20' do
+      25.times { FactoryBot.create(:blank_email_public_body) }
+      get :index, session: { user_id: admin_user.id }
+      expect(assigns[:blank_contacts].count).to eq(20)
     end
 
     it 'assigns new body request to the view' do
