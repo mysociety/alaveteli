@@ -338,7 +338,7 @@ describe InfoRequestHelper do
       it 'returns a description' do
         allow(info_request).to receive(:calculate_status).and_return("gone_postal")
         expected = 'The authority would like to / has <strong>responded by ' \
-                   'post</strong> to this request.'
+                   'postal mail</strong> to this request.'
         expect(status_text(info_request)).to eq(expected)
       end
 

@@ -18,7 +18,7 @@
 
   <% if [ 'gone_postal' ].include?(@info_request.described_state) %>
     <li> <%= _("A <strong>summary</strong> of the response if you have " \
-                  "received it by post. ")%></li>
+                  "received it by postal mail. ")%></li>
   <% end %>
 
   <% if [ 'error_message' ].include?(@info_request.described_state) %>
