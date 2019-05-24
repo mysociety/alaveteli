@@ -15,7 +15,6 @@
 .sass-cache/
 .vagrant/
 .vagrant.yml
-TAGS
 alaveteli*.sublime*
 cache/
 config/aliases
