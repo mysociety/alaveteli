@@ -31,7 +31,7 @@
     <table class="table table-striped table-condensed">
       <tbody>
         <% @holidays_by_year[year].sort_by(&:day).each do |holiday| %>
-          <%= content_tag_for(:tr, holiday, prefix=nil, 'data-target' => edit_admin_holiday_path(holiday)) do %>
+          <%= content_tag(:tr, holiday, class: 'holiday', id: dom_id(holiday), 'data-target' => edit_admin_holiday_path(holiday)) do %>
             <%= render :partial => 'holiday', :locals => { :holiday => holiday }%>
           <% end %>
         <% end %>
