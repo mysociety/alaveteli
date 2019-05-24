@@ -33,7 +33,6 @@ old-cache/
 public/*theme/
 public/assets/
 public/download/
-sqlitedbs/
 tmp/
 vendor/bundle/
 webrat.log
