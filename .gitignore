@@ -4,8 +4,8 @@
 .bundle/
 .ruby-version
 .sass-cache/
-.vagrant/
 .vagrant.yml
+.vagrant/
 cache/
 config/*.deployed
 config/aliases
