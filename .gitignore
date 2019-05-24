@@ -1,6 +1,5 @@
 !/lib/themes/.keep
 !/log/.keep
-!/public/adminbootstraptheme
 .bundle/
 .ruby-version
 .sass-cache/
