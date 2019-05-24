@@ -1,7 +1,7 @@
 <% @title = 'Public Holidays' %>
 <h1><%= @title %></h1>
-<p>
 
+<p>
   Alaveteli calculates the due dates of requests taking account of the
   public holidays shown here. If you have set the
   <code>WORKING_OR_CALENDAR_DAYS</code><a
@@ -14,25 +14,37 @@
   date will be calculated in calendar days, but if the due date falls
   on a public holiday or weekend day, then the due date is considered
   to be the next week day that isn't a holiday.
-
 </p>
+
 <div class="btn-toolbar">
   <div class="btn-group">
-    <%= link_to 'New holiday', new_admin_holiday_path, :class => "btn btn-primary", :id => 'new-holiday-button' %>
+    <%= link_to 'New holiday',
+                new_admin_holiday_path,
+                class: 'btn btn-primary',
+                id: 'new-holiday-button' %>
   </div>
+
   <div class="btn-group">
-    <%= link_to 'Create holidays from suggestions or iCal feed', new_admin_holiday_import_path, :class => "btn btn-warning" %>
+    <%= link_to new_admin_holiday_import_path, class: 'btn btn-warning' do %>
+      Create holidays from suggestions or iCal feed
+    <% end %>
   </div>
 </div>
 
 <div id="existing-holidays">
   <% @years.each do |year| %>
     <h2><%= year %></h2>
+
     <table class="table table-striped table-condensed">
       <tbody>
         <% @holidays_by_year[year].sort_by(&:day).each do |holiday| %>
-          <%= content_tag(:tr, holiday, class: 'holiday', id: dom_id(holiday), 'data-target' => edit_admin_holiday_path(holiday)) do %>
-            <%= render :partial => 'holiday', :locals => { :holiday => holiday }%>
+          <% tag_opts = { class: 'holiday',
+                          id: dom_id(holiday),
+                          data: { target: edit_admin_holiday_path(holiday) } }
+          %>
+
+          <%= content_tag :tr, holiday, tag_opts do %>
+            <%= render partial: 'holiday', locals: { holiday: holiday } %>
           <% end %>
         <% end %>
       </tbody>
