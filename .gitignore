@@ -30,7 +30,14 @@ locale/model_attributes.rb
 log/*
 old-cache/
 public/*theme/
+public/asktheeu-theme
 public/assets/
+public/down.current.html
+public/down.html
 public/download/
+public/foi-live-creation.png
+public/foi-user-use.png
+public/google*.html
+public/wordpress
 tmp/
 vendor/bundle/
