@@ -23,6 +23,7 @@ config/rails_env.rb
 config/user_spam_scorer.yml
 coverage/
 db/development_structure.sql
+db/schema.rb
 db/structure.sql
 files/
 lib/themes/*
