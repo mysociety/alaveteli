@@ -10,7 +10,6 @@
 .bundle
 .overcommit.yml
 .rbenv-version
-.rbenv-version
 .ruby-version
 .rvmrc
 .sass-cache
