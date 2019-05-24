@@ -11,8 +11,7 @@ config/aliases
 config/config.tmp
 config/crontab
 config/database.yml
-config/deploy.yml
-config/deploy.yml.*
+config/deploy.yml*
 config/general*.yml
 config/httpd.conf
 config/logrotate
