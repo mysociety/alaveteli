@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class RemoveSessionsAgain < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 2.3
+class RemoveSessionsAgain <  ActiveRecord::Migration[4.2] # 2.3
   def self.up
     drop_table :sessions
   end

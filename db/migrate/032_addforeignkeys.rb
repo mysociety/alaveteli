@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class Addforeignkeys < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 2.0
+class Addforeignkeys <  ActiveRecord::Migration[4.2] # 2.0
   def self.up
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
       execute "ALTER TABLE incoming_messages ADD CONSTRAINT fk_incoming_messages_info_request FOREIGN KEY (info_request_id) REFERENCES info_requests(id)"

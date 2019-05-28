@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require "securerandom"
 
-class AddApiKeyToPublicBodies < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 2.3
+class AddApiKeyToPublicBodies <  ActiveRecord::Migration[4.2] # 2.3
   def self.up
     add_column :public_bodies, :api_key, :string
     

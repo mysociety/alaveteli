@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class CreateInfoRequestBatches < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 3.2
+class CreateInfoRequestBatches <  ActiveRecord::Migration[4.2] # 3.2
   def up
     create_table :info_request_batches do |t|
       t.column :title, :text, :null => false

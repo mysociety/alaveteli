@@ -1014,12 +1014,7 @@ describe RequestController, "when searching for an authority" do
 
     get :select_authority, params: search_params
 
-    flash_params =
-      if rails5?
-        flash[:search_params].to_unsafe_h
-      else
-        flash[:search_params]
-      end
+    flash_params = flash[:search_params].to_unsafe_h
     expect(flash_params).to eq(search_params)
   end
 

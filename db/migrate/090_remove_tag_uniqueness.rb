@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class RemoveTagUniqueness < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 2.3
+class RemoveTagUniqueness <  ActiveRecord::Migration[4.2] # 2.3
   def self.up
     # MySQL cannot index text blobs like this
     # TODO: perhaps should change :name/:value to be a :string
