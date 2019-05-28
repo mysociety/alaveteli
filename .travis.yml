@@ -14,13 +14,13 @@ rvm:
   - ruby-head
 gemfile:
   - Gemfile
-  - Gemfile.rails5
+  - Gemfile.rails_next
 matrix:
   fast_finish: true
   allow_failures:
     - rvm: 2.6
     - rvm: ruby-head
-    - gemfile: Gemfile.rails5
+    - gemfile: Gemfile.rails_next
 services:
   - postgresql
 cache:
