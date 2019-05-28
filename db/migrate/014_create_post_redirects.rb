@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class CreatePostRedirects < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 1.2
+class CreatePostRedirects <  ActiveRecord::Migration[4.2] # 1.2
   def self.up
     create_table :post_redirects do |t|
       t.column :token, :text

@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class AddTrackThingsUniqueIndices < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 2.0
+class AddTrackThingsUniqueIndices <  ActiveRecord::Migration[4.2] # 2.0
   def self.up
     add_index :track_things, [:tracking_user_id, :track_query], :unique => true
     # GRRR - this index confuses Rails migrations, and it makes part of the index but not all

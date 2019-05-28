@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class AddReasonsToPostRedirects < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 1.2
+class AddReasonsToPostRedirects <  ActiveRecord::Migration[4.2] # 1.2
   def self.up
     add_column :post_redirects, :reason_params_yaml, :text
     add_column :post_redirects, :user_id, :integer

@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class CreateInfoRequestEvents < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 2.0
+class CreateInfoRequestEvents <  ActiveRecord::Migration[4.2] # 2.0
   def self.up
     create_table :info_request_events do |t|
       t.column "info_request_id", :integer

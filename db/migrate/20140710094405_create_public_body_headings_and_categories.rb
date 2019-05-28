@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class CreatePublicBodyHeadingsAndCategories < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 3.2
+class CreatePublicBodyHeadingsAndCategories <  ActiveRecord::Migration[4.2] # 3.2
   def up
     create_table :public_body_headings, :force => true do |t|
       t.string :locale

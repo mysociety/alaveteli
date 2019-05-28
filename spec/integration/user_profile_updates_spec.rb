@@ -15,7 +15,6 @@ describe 'Updating your user profile' do
           msg = "Thanks for changing the text about you on your " \
                 "profile.\nNext... You can " \
                 "upload a profile photograph too."
-          msg.gsub!("\n", '') unless rails5?
           visit edit_profile_about_me_path
           fill_in :user_about_me, :with => "I am a researcher"
           click_button "Save"
@@ -58,7 +57,6 @@ describe 'Updating your user profile' do
           msg = "Thanks for updating your profile photo.\n" \
                 "Next... You can put some text about " \
                 "you and your research on your profile."
-          msg.gsub!("\n", '') unless rails5?
           # post the form to work around the Next button being drawn
           # by JavaScript
           profile_photo = ProfilePhoto.

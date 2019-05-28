@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class MoveToHasTagString < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 2.3
+class MoveToHasTagString <  ActiveRecord::Migration[4.2] # 2.3
   def self.up
     rename_table :public_body_tags, :has_tag_string_tags
 

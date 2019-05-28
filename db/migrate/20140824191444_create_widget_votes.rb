@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class CreateWidgetVotes < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 3.2
+class CreateWidgetVotes <  ActiveRecord::Migration[4.2] # 3.2
   def change
     create_table :widget_votes do |t|
       t.string :cookie

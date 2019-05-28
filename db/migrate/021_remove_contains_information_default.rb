@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class RemoveContainsInformationDefault < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 1.2
+class RemoveContainsInformationDefault <  ActiveRecord::Migration[4.2] # 1.2
   def self.up
     change_column :incoming_messages, :contains_information, :boolean, :default => nil
     drop_table :rejection_reasons

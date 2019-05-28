@@ -25,9 +25,7 @@ describe TranslatableParams do
                       { :locale => 'en',
                         :name => 'Other name' } } }
 
-      if rails5?
-        params = ActionController::Parameters.new(params)
-      end
+      params = ActionController::Parameters.new(params)
       expect(translatable_params(keys, params)).
         to eq(ActionController::Parameters.new(expected).permit!)
     end
@@ -50,9 +48,7 @@ describe TranslatableParams::WhitelistedParams do
       expected = { :name => 'Some name',
                    :status => 'good' }
 
-      if rails5?
-        params = ActionController::Parameters.new(params)
-      end
+      params = ActionController::Parameters.new(params)
       expect(TranslatableParams::WhitelistedParams.new(keys).whitelist(params)).
         to eq(ActionController::Parameters.new(expected).permit!)
     end
@@ -65,9 +61,7 @@ describe TranslatableParams::WhitelistedParams do
                      :name => 'Other name' } } }
       expected = ActionController::Parameters.new(params).permit!
 
-      if rails5?
-        params = params = ActionController::Parameters.new(params)
-      end
+      params = params = ActionController::Parameters.new(params)
       expect(TranslatableParams::WhitelistedParams.new(keys).whitelist(params.dup)).
         to eq(expected)
     end
@@ -83,9 +77,7 @@ describe TranslatableParams::WhitelistedParams do
                     { :locale => 'en',
                       :name => 'Other name' } } }
 
-      if rails5?
-        params = ActionController::Parameters.new(params)
-      end
+      params = ActionController::Parameters.new(params)
       expect(TranslatableParams::WhitelistedParams.new(keys).whitelist(params)).
         to eq(ActionController::Parameters.new(expected).permit!)
     end
