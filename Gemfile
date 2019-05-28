@@ -80,10 +80,10 @@
 source 'https://rubygems.org'
 
 def rails5?
-  %w[1 true].include?(ENV['RAILS5'])
+  true
 end
 
-gem 'rails', rails5? ? '5.0.7' : '4.2.11.1'
+gem 'rails', '5.0.7'
 
 gem 'pg', '~> 0.20.0'
 
@@ -111,7 +111,7 @@ gem 'mahoro', '~> 0.4'
 gem 'newrelic_rpm'
 gem 'nokogiri', '~> 1.8.5'
 gem 'open4', '~> 1.3.0'
-gem 'rack', rails5? ? '~> 2.0.0' : '~> 1.6.0'
+gem 'rack', '~> 2.0.0'
 gem 'rack-ssl', '~> 1.4.0'
 gem 'rack-utf8_sanitizer', '~> 1.3.0'
 gem 'recaptcha', '~> 4.9.0', '< 4.10.0', :require => 'recaptcha/rails'
@@ -135,11 +135,11 @@ gem 'gender_detector', '~> 1.0.0'
 
 # Gems related to internationalisation
 gem 'i18n', ['~> 0.9.0', '< 0.9.3']
-gem 'rails-i18n', rails5? ? '~> 5.1.0' : ['~> 4.0.0', '< 5.0.0']
-gem 'gettext_i18n_rails', rails5? ? '~> 1.8.0' : ['~> 0.9.0', '< 1.0.0']
+gem 'rails-i18n', '~> 5.1.0'
+gem 'gettext_i18n_rails', '~> 1.8.0'
   gem 'fast_gettext', '< 1.2.0'
 gem 'gettext', '~> 2.3.0'
-gem 'globalize', rails5? ? '~> 5.1.0' : ['~> 5.0.0', '< 5.1.0']
+gem 'globalize', '~> 5.1.0'
 gem 'locale', '~> 2.0.0', '< 2.1.0'
 gem 'routing-filter', '~> 0.6.2'
 gem 'unicode', '~> 0.4.4'
@@ -164,11 +164,10 @@ gem 'flipper-ui', '~> 0.10.2'
 group :test do
   gem 'webmock', '~> 3.5.1'
   gem 'coveralls', '~> 0.8.0', :require => false
-  gem 'capybara', rails5? ? '~> 3.5.0' : '~> 2.18.0'
+  gem 'capybara', '~> 3.5.0'
   gem 'delorean', '~> 2.1.0'
   gem 'stripe-ruby-mock', '~> 2.5.4'
-  gem('test_after_commit', '~> 1.1.0') unless rails5?
-  gem('rails-controller-testing') if rails5?
+  gem('rails-controller-testing')
 end
 
 group :test, :development do
@@ -187,8 +186,6 @@ group :development do
   gem 'capistrano', '~> 2.15.0', '< 3.0.0'
     gem 'net-ssh', ['~> 2.9.0', '< 3.0.0']
       gem 'net-ssh-gateway', ['>= 1.1.0', '< 2.0.0']
-    gem('mailcatcher', '~> 0.6.0') unless rails5? # https://github.com/sj26/mailcatcher#bundler
-  gem('quiet_assets', '~> 1.1.0') unless rails5?
   gem 'launchy', '~> 2.4.0'
   gem 'listen', '~> 3.0.5' if rails5?
   gem 'web-console', rails5? ? '>= 3.3.0' : ['~> 2.3.0', '< 3.0.0']

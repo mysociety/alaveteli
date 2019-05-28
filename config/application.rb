@@ -20,7 +20,7 @@ require File.dirname(__FILE__) + '/../lib/configuration'
 Bundler.require(*Rails.groups)
 
 def rails5?
-  %w[1 true].include?(ENV['RAILS5'])
+  true
 end
 
 module Alaveteli
