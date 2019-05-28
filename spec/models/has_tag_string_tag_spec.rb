@@ -3,17 +3,17 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe HasTagString::HasTagStringTag do
 
-  class ModelWithTag < ActiveRecord::Base
+  class ModelWithTag < ApplicationRecord
     has_tag_string
     after_initialize { self.name ||= 'test' }
   end
 
-  class AnotherModelWithTag < ActiveRecord::Base
+  class AnotherModelWithTag < ApplicationRecord
     has_tag_string
     after_initialize { self.name ||= 'test' }
   end
 
-  class GlobalizeModelWithTag < ActiveRecord::Base
+  class GlobalizeModelWithTag < ApplicationRecord
     translates :name
     has_tag_string
     after_initialize { self.name ||= 'test' }

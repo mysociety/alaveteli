@@ -23,7 +23,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
-class Holiday < ActiveRecord::Base
+class Holiday < ApplicationRecord
   validates_presence_of :day
 
   def self.holidays

@@ -19,7 +19,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
-class UserInfoRequestSentAlert < ActiveRecord::Base
+class UserInfoRequestSentAlert < ApplicationRecord
   ALERT_TYPES = [
     'overdue_1', # tell user that info request has become overdue
     'very_overdue_1', # tell user that info request has become very overdue

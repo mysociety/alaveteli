@@ -25,7 +25,7 @@ require 'set'
 
 # TODO: TrackThing looks like a good candidate for single table inheritance
 
-class TrackThing < ActiveRecord::Base
+class TrackThing < ApplicationRecord
 
   TRACK_MEDIUMS = %w(email_daily feed)
 

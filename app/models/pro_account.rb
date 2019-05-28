@@ -11,7 +11,7 @@
 #  stripe_customer_id       :string
 #
 
-class ProAccount < ActiveRecord::Base
+class ProAccount < ApplicationRecord
   include AlaveteliFeatures::Helpers
 
   belongs_to :user,

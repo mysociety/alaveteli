@@ -36,7 +36,7 @@
 #  closed_at                         :datetime
 #
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   include AlaveteliFeatures::Helpers
   include AlaveteliPro::PhaseCounts
   include User::Authentication

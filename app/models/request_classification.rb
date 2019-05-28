@@ -10,7 +10,7 @@
 #  updated_at            :datetime         not null
 #
 
-class RequestClassification < ActiveRecord::Base
+class RequestClassification < ApplicationRecord
   belongs_to :user,
              :inverse_of => :request_classifications,
              :counter_cache => true

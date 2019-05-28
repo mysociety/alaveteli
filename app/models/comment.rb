@@ -20,7 +20,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
-class Comment < ActiveRecord::Base
+class Comment < ApplicationRecord
   include AdminColumn
   include Rails.application.routes.url_helpers
   include LinkToHelper

@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
-class InfoRequestEvent < ActiveRecord::Base
+class InfoRequestEvent < ApplicationRecord
   include AdminColumn
   extend XapianQueries
 
