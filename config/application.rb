@@ -19,8 +19,8 @@ require File.dirname(__FILE__) + '/../lib/configuration'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-def rails5?
-  true
+def rails_upgrade?
+  %w[1 true].include?(ENV['RAILS_UPGRADE'])
 end
 
 module Alaveteli
