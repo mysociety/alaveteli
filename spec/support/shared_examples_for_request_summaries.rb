@@ -7,41 +7,33 @@ shared_examples_for "RequestSummaries" do
   let(:factory) { class_name.demodulize.underscore }
 
   it "calls create_or_update_request_summary on create" do
-    TestAfterCommit.with_commits(true) do
-      resource = FactoryBot.build(factory)
-      expect(resource).to receive(:create_or_update_request_summary)
-      resource.save!
-    end
+    resource = FactoryBot.build(factory)
+    expect(resource).to receive(:create_or_update_request_summary)
+    resource.save!
   end
 
   it "calls create_or_update_request_summary on update" do
-    TestAfterCommit.with_commits(true) do
-      resource = FactoryBot.create(factory)
-      expect(resource).to receive(:create_or_update_request_summary)
-      resource.save!
-    end
+    resource = FactoryBot.create(factory)
+    expect(resource).to receive(:create_or_update_request_summary)
+    resource.save!
   end
 
   it "does not call create_or_update_request_summary on destroy" do
-    TestAfterCommit.with_commits(true) do
-      resource = FactoryBot.create(factory)
-      expect(resource).not_to receive(:create_or_update_request_summary)
-      resource.destroy
-    end
+    resource = FactoryBot.create(factory)
+    expect(resource).not_to receive(:create_or_update_request_summary)
+    resource.destroy
   end
 
   it "deletes associated request_summaries on destroy" do
-    TestAfterCommit.with_commits(true) do
-      resource = FactoryBot.create(factory)
-      expect(AlaveteliPro::RequestSummary.where(
-        :summarisable_id => resource.id,
-        :summarisable_type => class_name)
-      ).to exist
-      resource.destroy
-      expect(AlaveteliPro::RequestSummary.where(
-        :summarisable_id => resource.id,
-        :summarisable_type => class_name)
-      ).not_to exist
-    end
+    resource = FactoryBot.create(factory)
+    expect(AlaveteliPro::RequestSummary.where(
+      :summarisable_id => resource.id,
+      :summarisable_type => class_name)
+    ).to exist
+    resource.destroy
+    expect(AlaveteliPro::RequestSummary.where(
+      :summarisable_id => resource.id,
+      :summarisable_type => class_name)
+    ).not_to exist
   end
 end

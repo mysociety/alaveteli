@@ -139,102 +139,88 @@ describe AlaveteliPro::RequestFilter do
     context 'when no attributes are supplied' do
 
       it 'sorts the requests by most recently updated' do
-        TestAfterCommit.with_commits(true) do
-          first_request = FactoryBot.create(:info_request, :user => user)
-          second_request = FactoryBot.create(:info_request, :user => user)
-
-          request_filter = described_class.new
-          expected = [second_request.request_summary,
-                      first_request.request_summary]
-          expect(request_filter.results(user)).to eq(expected)
-        end
-      end
-    end
-
-    it 'applies a sort order' do
-      TestAfterCommit.with_commits(true) do
         first_request = FactoryBot.create(:info_request, :user => user)
         second_request = FactoryBot.create(:info_request, :user => user)
 
         request_filter = described_class.new
-        request_filter.update_attributes(:order => 'created_at_asc')
-        expected = [first_request.request_summary,
-                    second_request.request_summary]
+        expected = [second_request.request_summary,
+                    first_request.request_summary]
         expect(request_filter.results(user)).to eq(expected)
       end
     end
 
+    it 'applies a sort order' do
+      first_request = FactoryBot.create(:info_request, :user => user)
+      second_request = FactoryBot.create(:info_request, :user => user)
+
+      request_filter = described_class.new
+      request_filter.update_attributes(:order => 'created_at_asc')
+      expected = [first_request.request_summary,
+                  second_request.request_summary]
+      expect(request_filter.results(user)).to eq(expected)
+    end
+
     it 'applies a filter' do
-      TestAfterCommit.with_commits(true) do
-        complete_request = FactoryBot.create(:successful_request,
+      complete_request = FactoryBot.create(:successful_request,
+                                           :user => user)
+      incomplete_request = FactoryBot.create(:info_request,
                                              :user => user)
-        incomplete_request = FactoryBot.create(:info_request,
-                                               :user => user)
-        request_filter = described_class.new
-        request_filter.update_attributes(:filter => 'complete')
-        expect(request_filter.results(user))
-          .to eq([complete_request.request_summary])
-      end
+      request_filter = described_class.new
+      request_filter.update_attributes(:filter => 'complete')
+      expect(request_filter.results(user))
+        .to eq([complete_request.request_summary])
     end
 
     it 'applies a search to the request titles' do
-      TestAfterCommit.with_commits(true) do
-        dog_request = FactoryBot.create(:info_request,
-                                        :title => 'Where is my dog?',
-                                        :user => user)
-        cat_request = FactoryBot.create(:info_request,
-                                        :title => 'Where is my cat?',
-                                        :user => user)
-        request_filter = described_class.new
-        request_filter.update_attributes(:search => 'CAT')
-        expect(request_filter.results(user))
-          .to eq([cat_request.request_summary])
-      end
+      dog_request = FactoryBot.create(:info_request,
+                                      :title => 'Where is my dog?',
+                                      :user => user)
+      cat_request = FactoryBot.create(:info_request,
+                                      :title => 'Where is my cat?',
+                                      :user => user)
+      request_filter = described_class.new
+      request_filter.update_attributes(:search => 'CAT')
+      expect(request_filter.results(user))
+        .to eq([cat_request.request_summary])
     end
 
     context 'when the filter is "draft"' do
 
       it 'returns draft requests' do
-        TestAfterCommit.with_commits(true) do
-          draft_request = FactoryBot.create(:draft_info_request,
-                                            :user => user)
-          request_filter = described_class.new
-          request_filter.update_attributes(:filter => 'draft')
-          expect(request_filter.results(user))
-            .to eq([draft_request.request_summary])
-        end
+        draft_request = FactoryBot.create(:draft_info_request,
+                                          :user => user)
+        request_filter = described_class.new
+        request_filter.update_attributes(:filter => 'draft')
+        expect(request_filter.results(user))
+          .to eq([draft_request.request_summary])
       end
 
       it 'applies a search to the request titles' do
-        TestAfterCommit.with_commits(true) do
-          dog_request = FactoryBot.create(:draft_info_request,
-                                          :title => 'Where is my dog?',
-                                          :user => user)
-          cat_request = FactoryBot.create(:draft_info_request,
-                                          :title => 'Where is my cat?',
-                                          :user => user)
-          request_filter = described_class.new
-          request_filter.update_attributes(:search => 'CAT',
-                                           :filter => 'draft')
-          expect(request_filter.results(user))
-            .to eq([cat_request.request_summary])
-        end
+        dog_request = FactoryBot.create(:draft_info_request,
+                                        :title => 'Where is my dog?',
+                                        :user => user)
+        cat_request = FactoryBot.create(:draft_info_request,
+                                        :title => 'Where is my cat?',
+                                        :user => user)
+        request_filter = described_class.new
+        request_filter.update_attributes(:search => 'CAT',
+                                         :filter => 'draft')
+        expect(request_filter.results(user))
+          .to eq([cat_request.request_summary])
       end
 
       it 'applies a sort order' do
-        TestAfterCommit.with_commits(true) do
-          first_request = FactoryBot.create(:draft_info_request,
-                                            :user => user)
-          second_request = FactoryBot.create(:draft_info_request,
-                                             :user => user)
+        first_request = FactoryBot.create(:draft_info_request,
+                                          :user => user)
+        second_request = FactoryBot.create(:draft_info_request,
+                                           :user => user)
 
-          request_filter = described_class.new
-          request_filter.update_attributes(:order => 'created_at_asc',
-                                           :filter => 'draft')
-          expected = [first_request.request_summary,
-                      second_request.request_summary]
-          expect(request_filter.results(user)).to eq(expected)
-        end
+        request_filter = described_class.new
+        request_filter.update_attributes(:order => 'created_at_asc',
+                                         :filter => 'draft')
+        expected = [first_request.request_summary,
+                    second_request.request_summary]
+        expect(request_filter.results(user)).to eq(expected)
       end
     end
   end
