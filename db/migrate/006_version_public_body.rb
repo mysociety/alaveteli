@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class VersionPublicBody < ActiveRecord::Migration
+class VersionPublicBody < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 1.2
   def self.up
     PublicBody.create_versioned_table
 

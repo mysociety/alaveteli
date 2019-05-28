@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class AddSomeIndices < ActiveRecord::Migration
+class AddSomeIndices < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 2.0
   def self.up
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
       execute 'create index users_lower_email_index on users(lower(email))'
