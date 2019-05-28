@@ -79,8 +79,8 @@
 # the new version. It is always preferable to upgrade our code.
 source 'https://rubygems.org'
 
-def rails5?
-  true
+def rails_upgrade?
+  %w[1 true].include?(ENV['RAILS_UPGRADE'])
 end
 
 gem 'rails', '5.0.7'
