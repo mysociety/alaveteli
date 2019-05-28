@@ -17,11 +17,7 @@ Rails.application.configure do
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
-  if !rails5?
-    config.serve_static_files = ENV['RAILS_SERVE_STATIC_FILES'].present?
-  else
-    config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
-  end
+  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
@@ -29,12 +25,6 @@ Rails.application.configure do
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
-
-  unless rails5?
-    # Asset digests allow you to set far-future HTTP expiration dates on all assets,
-    # yet still be able to expire them through the digest params.
-    config.assets.digest = true
-  end
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
@@ -57,7 +47,7 @@ Rails.application.configure do
   config.log_level = :info
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ] if rails5?
+  config.log_tags = [ :request_id ]
 
   # Use a different logger for distributed setups.
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
@@ -68,7 +58,7 @@ Rails.application.configure do
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "alaveteli_#{Rails.env}"
-  config.action_mailer.perform_caching = false if rails5?
+  config.action_mailer.perform_caching = false
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.

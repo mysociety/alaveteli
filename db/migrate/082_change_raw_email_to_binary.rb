@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class ChangeRawEmailToBinary < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 2.1
+class ChangeRawEmailToBinary <  ActiveRecord::Migration[4.2] # 2.1
   def self.up
     change_column :raw_emails, :data, :text, :null => true # allow null
     rename_column :raw_emails, :data, :data_text

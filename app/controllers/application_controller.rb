@@ -209,11 +209,8 @@ class ApplicationController < ActionController::Base
   # URL using the first three digits of the info request id, because we can't
   # have more than 32,000 entries in one directory on an ext3 filesystem.
   def foi_fragment_cache_part_path(param)
-    if rails5?
-      param =
-        param.permit(:incoming_message_id, :part, :file_name, :id,
-                     :only_path, :locale, :skip_cache)
-    end
+    param = param.permit(:incoming_message_id, :part, :file_name, :id,
+                         :only_path, :locale, :skip_cache)
     path = url_for(param)
     id = param['id'] || param[:id]
     first_three_digits = id.to_s[0..2]
@@ -265,13 +262,7 @@ class ApplicationController < ActionController::Base
   # Override the Rails method to only set the CSRF form token if there is a
   # logged in user
   def form_authenticity_token(*args)
-    if user?
-      if rails5?
-        super
-      else
-        super()
-      end
-    end
+    super if user?
   end
 
   # Check the user is logged in
@@ -379,11 +370,7 @@ class ApplicationController < ActionController::Base
         if post_redirect
           post_redirect_params =
             params_to_unsafe_hash(post_redirect.post_params)
-          if rails5?
-            params.merge!(post_redirect_params)
-          else
-            params.update(post_redirect_params)
-          end
+          params.merge!(post_redirect_params)
           params[:post_redirect_user] = post_redirect.user
         end
       else

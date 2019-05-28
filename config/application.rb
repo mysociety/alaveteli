@@ -74,20 +74,13 @@ module Alaveteli
       app.routes.append { match '*path', :to => 'general#not_found', :via => [:get, :post] }
     end
 
-    unless rails5?
-      # Do not swallow errors in after_commit/after_rollback callbacks.
-      config.active_record.raise_in_transactional_callbacks = true
-    end
-
     config.autoload_paths << "#{Rails.root.to_s}/app/controllers/concerns"
     config.autoload_paths << "#{Rails.root.to_s}/app/models/concerns"
     config.autoload_paths << "#{Rails.root.to_s}/lib/mail_handler"
     config.autoload_paths << "#{Rails.root.to_s}/lib/attachment_to_html"
     config.autoload_paths << "#{Rails.root.to_s}/lib/health_checks"
 
-    if rails5?
-      config.enable_dependency_loading = true
-    end
+    config.enable_dependency_loading = true
 
     # See Rails::Configuration for more options
     ENV['RECAPTCHA_SITE_KEY'] = AlaveteliConfiguration.recaptcha_site_key

@@ -19,7 +19,7 @@ describe HasTagString::HasTagStringTag do
     after_initialize { self.name ||= 'test' }
   end
 
-  class CreateModelsWithTags < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 1.2
+  class CreateModelsWithTags < ActiveRecord::Migration[4.2] # 1.2
     def self.up
       self.verbose = false
 
