@@ -3776,12 +3776,10 @@ describe InfoRequest do
   describe "Updating request summaries when in a batch request" do
     let(:batch) do
       batch = nil
-      TestAfterCommit.with_commits(true) do
-        batch = FactoryBot.create(
-          :info_request_batch,
-          public_bodies: FactoryBot.create_list(:public_body, 3)
-        )
-      end
+      batch = FactoryBot.create(
+        :info_request_batch,
+        public_bodies: FactoryBot.create_list(:public_body, 3)
+      )
       batch
     end
 
@@ -3790,12 +3788,10 @@ describe InfoRequest do
     end
 
     it "calls the batch request's create_or_update_request_summary on update" do
-      TestAfterCommit.with_commits(true) do
-        info_request = batch.info_requests.first
-        expect(info_request.info_request_batch).
-          to receive(:create_or_update_request_summary)
-        info_request.save!
-      end
+      info_request = batch.info_requests.first
+      expect(info_request.info_request_batch).
+        to receive(:create_or_update_request_summary)
+      info_request.save!
     end
   end
 
@@ -3807,50 +3803,46 @@ describe InfoRequest do
 
     context "when logging overdue events" do
       it "updates the request summary's status" do
-        TestAfterCommit.with_commits(true) do
-          # We want to make the info_request in the past, then effectively
-          # jump forward to a point where it's delayed and we would be calling
-          # log_overdue_events to mark it as overdue
-          time_travel_to(Time.zone.parse('2014-12-31')){ info_request }
-          time_travel_to(Time.zone.parse('2015-01-30')) do
-            request_summary = info_request.request_summary
-            expect(request_summary.request_summary_categories).
-              to match_array([awaiting])
+        # We want to make the info_request in the past, then effectively
+        # jump forward to a point where it's delayed and we would be calling
+        # log_overdue_events to mark it as overdue
+        time_travel_to(Time.zone.parse('2014-12-31')){ info_request }
+        time_travel_to(Time.zone.parse('2015-01-30')) do
+          request_summary = info_request.request_summary
+          expect(request_summary.request_summary_categories).
+            to match_array([awaiting])
 
-            info_request.log_event(
-              'overdue',
-              { :event_created_at => Time.zone.now },
-              { :created_at => Time.zone.now - 1.day }
-            )
+          info_request.log_event(
+            'overdue',
+            { :event_created_at => Time.zone.now },
+            { :created_at => Time.zone.now - 1.day }
+          )
 
-            expect(request_summary.reload.request_summary_categories).
-              to match_array([overdue])
-          end
+          expect(request_summary.reload.request_summary_categories).
+            to match_array([overdue])
         end
       end
     end
 
     context "when logging very overdue events" do
       it "updates the request summary's status" do
-        TestAfterCommit.with_commits(true) do
-          # We want to make the info_request in the past, then effectively
-          # jump forward to a point where it's delayed and we would be calling
-          # log_overdue_events to mark it as overdue
-          time_travel_to(Time.zone.parse('2014-12-31')){ info_request }
-          time_travel_to(Time.zone.parse('2015-02-28')) do
-            request_summary = info_request.request_summary
-            expect(request_summary.request_summary_categories).
-              to match_array([awaiting])
+        # We want to make the info_request in the past, then effectively
+        # jump forward to a point where it's delayed and we would be calling
+        # log_overdue_events to mark it as overdue
+        time_travel_to(Time.zone.parse('2014-12-31')){ info_request }
+        time_travel_to(Time.zone.parse('2015-02-28')) do
+          request_summary = info_request.request_summary
+          expect(request_summary.request_summary_categories).
+            to match_array([awaiting])
 
-            info_request.log_event(
-              'overdue',
-              { :event_created_at => Time.zone.now },
-              { :created_at => Time.zone.now - 1.day }
-            )
+          info_request.log_event(
+            'overdue',
+            { :event_created_at => Time.zone.now },
+            { :created_at => Time.zone.now - 1.day }
+          )
 
-            expect(request_summary.reload.request_summary_categories).
-              to match_array([very_overdue])
-          end
+          expect(request_summary.reload.request_summary_categories).
+            to match_array([very_overdue])
         end
       end
     end
@@ -3863,17 +3855,15 @@ describe InfoRequest do
     let(:summary) { info_request.request_summary.reload }
 
     it "updates the request summary when the status is updated" do
-      TestAfterCommit.with_commits(true) do
-        expect(summary.request_summary_categories).to match_array([received])
-        info_request.log_event(
-          "status_update",
-          { :user_id => info_request.user.id,
-            :old_described_state => info_request.described_state,
-            :described_state => 'successful' })
-        info_request.set_described_state('successful')
-        expect(summary.reload.request_summary_categories).
-          to match_array([complete])
-      end
+      expect(summary.request_summary_categories).to match_array([received])
+      info_request.log_event(
+        "status_update",
+        { :user_id => info_request.user.id,
+          :old_described_state => info_request.described_state,
+          :described_state => 'successful' })
+      info_request.set_described_state('successful')
+      expect(summary.reload.request_summary_categories).
+        to match_array([complete])
     end
   end
 
