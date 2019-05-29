@@ -10,13 +10,13 @@
   </div>
   <div class="btn-group">
     <%= link_to "Authority changes",
-                params.merge(:event_type => 'authority_change'),
+                { :event_type => 'authority_change' },
                 :class => "btn" %>
     <%= link_to "Request events",
-            params.merge(:event_type => 'info_request_event'),
+            { :event_type => 'info_request_event' },
             :class => "btn" %>
     <%= link_to "All",
-        params.merge(:event_type => nil),
+        { :event_type => nil },
         :class => "btn" %>
   </div>
 </div>
