@@ -54,10 +54,12 @@
 
 ## Upgrade Notes
 
-* The `hidden_incoming_message` factory has been removed. Use the `:hidden`
-  _trait_ instead if you rely on this in theme specs. See
-  https://github.com/thoughtbot/factory_bot/blob/v4.10.0/GETTING_STARTED.md#traits
+* Some factories have been removed. Use traits if you rely on these in theme
+  specs. See https://github.com/thoughtbot/factory_bot/blob/v4.10.0/GETTING_STARTED.md#traits
   for more information on traits.
+    * Factory: `hidden_incoming_message` Trait: `:hidden`
+    * Factory: `defunct_public_body` Trait: `:defunct`
+    * Factory: `not_apply_public_body` Trait: `:not_apply`
 * We no longer support Debian Jessie. Please upgrade to Debian Stretch at the
   earliest opportinuity.
 * The changes to the way dynamic routes work means that any themes that use
