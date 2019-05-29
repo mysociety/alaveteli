@@ -11,7 +11,7 @@
 #  updated_at    :datetime         not null
 #
 
-class Role < ActiveRecord::Base
+class Role < ApplicationRecord
   extend AlaveteliFeatures::Helpers
 
   has_and_belongs_to_many :users,

@@ -18,7 +18,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
-class MailServerLog < ActiveRecord::Base
+class MailServerLog < ApplicationRecord
   # `serialize` needs to be called before all other ActiveRecord code.
   # See http://stackoverflow.com/a/15610692/387558
   serialize :delivery_status, DeliveryStatusSerializer

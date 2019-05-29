@@ -4,7 +4,7 @@
 #    validates_inclusion_of :described_state, :in => [
 # Or do some nice hack in here to make it happen permanently :)
 
-class GiveIncomingMessagesEvents < ActiveRecord::Migration
+class GiveIncomingMessagesEvents < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 2.0
   def self.up
     ActiveRecord::Base.transaction do
       IncomingMessage.find_each do |incoming_message|

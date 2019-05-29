@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
-class OutgoingMessage < ActiveRecord::Base
+class OutgoingMessage < ApplicationRecord
   include AdminColumn
   include MessageProminence
   include Rails.application.routes.url_helpers

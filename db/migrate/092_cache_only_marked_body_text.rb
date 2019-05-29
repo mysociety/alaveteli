@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class CacheOnlyMarkedBodyText < ActiveRecord::Migration
+class CacheOnlyMarkedBodyText < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 2.3
   def self.up
     remove_column :incoming_messages, :cached_main_body_text
     add_column :incoming_messages, :cached_main_body_text_folded, :text

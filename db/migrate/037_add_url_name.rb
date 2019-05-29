@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class AddUrlName < ActiveRecord::Migration
+class AddUrlName < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 2.0
   def self.up
     add_column :public_bodies, :url_name, :text
     add_column :public_body_versions, :url_name, :text

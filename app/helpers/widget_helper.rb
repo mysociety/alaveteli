@@ -21,7 +21,7 @@ module WidgetHelper
     when 'waiting_clarification'
       _('Awaiting clarification')
     when 'gone_postal'
-      _('Handled by post')
+      _('Handled by postal mail')
     when 'internal_review'
       _('Internal review')
     when 'error_message'

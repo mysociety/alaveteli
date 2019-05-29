@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'digest/sha1'
 
-class AddHashToInfoRequest < ActiveRecord::Migration
+class AddHashToInfoRequest < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 2.3
   def self.up
     add_column :info_requests, :idhash, :string
 

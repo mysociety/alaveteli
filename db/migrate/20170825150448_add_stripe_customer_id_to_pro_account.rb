@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-class AddStripeCustomerIdToProAccount < ActiveRecord::Migration
+class AddStripeCustomerIdToProAccount < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2]
   def up
     unless column_exists?(:pro_accounts, :stripe_customer_id)
       add_column :pro_accounts, :stripe_customer_id, :string
@@ -15,12 +15,12 @@ class AddStripeCustomerIdToProAccount < ActiveRecord::Migration
   private
 
   def column_exists?(table, column)
-    if table_exists?(table)
+    if data_source_exists?(table)
       connection.column_exists?(table, column)
     end
   end
 
-  def table_exists?(table)
-    connection.table_exists?(table)
+  def data_source_exists?(table)
+    connection.data_source_exists?(table)
   end
 end

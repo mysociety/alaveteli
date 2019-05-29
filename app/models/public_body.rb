@@ -25,7 +25,7 @@ require 'securerandom'
 require 'set'
 require 'confidence_intervals'
 
-class PublicBody < ActiveRecord::Base
+class PublicBody < ApplicationRecord
   include AdminColumn
 
   class ImportCSVDryRun < StandardError ; end

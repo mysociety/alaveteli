@@ -186,7 +186,7 @@ describe AlaveteliPro::InfoRequestBatchesController do
           expect { action }.to change { InfoRequestBatch.count }.by(1)
           new_batch = InfoRequestBatch.order(created_at: :desc).first
           expect(new_batch.title).to eq draft.title
-          expect(new_batch.public_bodies).to match_array(draft.public_bodies)
+          expect(new_batch.public_bodies).to match_array(bodies)
           expect(new_batch.body).to eq draft.body
           expect(new_batch.embargo_duration).to eq draft.embargo_duration
         end

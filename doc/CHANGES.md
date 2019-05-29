@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Fixed a bug in AlaveteliExternalCommand where the full program path was
+  not being returned correctly (Laurent Savaete)
 * Fixed a bug that meant request urls could unexpectedly change when the request
   is edited if they're in the middle of a numbered sequence (Liz Conlan)
 * Fix search.png not being included in precompiled assets (Nigel Jones)

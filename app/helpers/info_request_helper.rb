@@ -165,7 +165,7 @@ module InfoRequestHelper
 
   def status_text_gone_postal(info_request, opts = {})
     _('The authority would like to / has <strong>responded by ' \
-      'post</strong> to this request.')
+      'postal mail</strong> to this request.')
   end
 
   def status_text_internal_review(info_request, opts = {})

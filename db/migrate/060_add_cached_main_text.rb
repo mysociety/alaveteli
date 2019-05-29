@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class AddCachedMainText < ActiveRecord::Migration
+class AddCachedMainText < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 2.0
   def self.up
     add_column :incoming_messages, :cached_main_body_text, :text
   end

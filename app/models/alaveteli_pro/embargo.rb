@@ -13,7 +13,7 @@
 #
 
 module AlaveteliPro
-  class Embargo < ActiveRecord::Base
+  class Embargo < ApplicationRecord
     belongs_to :info_request,
                :inverse_of => :embargo
     has_many :embargo_extensions,

@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class AddLastPublicResponseAtToInfoRequest < ActiveRecord::Migration
+class AddLastPublicResponseAtToInfoRequest < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 3.2
   def up
     add_column :info_requests, :last_public_response_at, :datetime, :null => true
 

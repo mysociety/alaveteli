@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class CreateIncomingMessageError < ActiveRecord::Migration
+class CreateIncomingMessageError < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 4.1
   def change
     create_table :incoming_message_errors do |t|
       t.timestamps null: false

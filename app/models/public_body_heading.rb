@@ -9,7 +9,7 @@
 #  updated_at    :datetime
 #
 
-class PublicBodyHeading < ActiveRecord::Base
+class PublicBodyHeading < ApplicationRecord
   has_many :public_body_category_links,
            :inverse_of => :public_body_category,
            :dependent => :destroy

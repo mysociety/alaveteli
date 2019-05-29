@@ -14,7 +14,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
-class RawEmail < ActiveRecord::Base
+class RawEmail < ApplicationRecord
   # deliberately don't strip_attributes, so keeps raw email properly
 
   has_one :incoming_message,

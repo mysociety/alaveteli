@@ -12,7 +12,7 @@
 #  embargo_duration :string
 #
 
-class AlaveteliPro::DraftInfoRequestBatch < ActiveRecord::Base
+class AlaveteliPro::DraftInfoRequestBatch < ApplicationRecord
   include AlaveteliPro::RequestSummaries
 
   belongs_to :user,

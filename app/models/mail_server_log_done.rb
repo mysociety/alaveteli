@@ -15,7 +15,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
-class MailServerLogDone < ActiveRecord::Base
+class MailServerLogDone < ApplicationRecord
   has_many :mail_server_logs,
            :inverse_of => :mail_server_log_done
 end

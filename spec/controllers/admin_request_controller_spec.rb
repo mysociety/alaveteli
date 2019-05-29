@@ -183,7 +183,8 @@ describe AdminRequestController, "when administering requests" do
     end
 
     it 'expires the request cache when saving edits to it' do
-      allow(InfoRequest).to receive(:find).with(info_request.id.to_s).and_return(info_request)
+      allow(InfoRequest).to receive(:find).
+        with(info_request.id).and_return(info_request)
       expect(info_request).to receive(:expire)
       post :update, params: {
                       :id => info_request.id,
@@ -204,7 +205,8 @@ describe AdminRequestController, "when administering requests" do
     let(:info_request){ FactoryBot.create(:info_request) }
 
     it 'calls destroy on the info_request object' do
-      allow(InfoRequest).to receive(:find).with(info_request.id.to_s).and_return(info_request)
+      allow(InfoRequest).to receive(:find).
+        with(info_request.id).and_return(info_request)
       expect(info_request).to receive(:destroy)
       delete :destroy, params: { :id => info_request.id }
     end
@@ -244,7 +246,8 @@ describe AdminRequestController, "when administering requests" do
     end
 
     it 'expires the file cache for the request' do
-      allow(InfoRequest).to receive(:find).with(info_request.id.to_s).and_return(info_request)
+      allow(InfoRequest).to receive(:find).
+        with(info_request.id).and_return(info_request)
       expect(info_request).to receive(:expire)
       post :hide, params: {
                     :id => info_request.id,
@@ -265,7 +268,8 @@ describe AdminRequestController, "when administering requests" do
                                    :is_external? => true)
         allow(@info_request).to receive(:expire)
 
-        allow(InfoRequest).to receive(:find).with(@info_request.id.to_s).and_return(@info_request)
+        allow(InfoRequest).to receive(:find).with(@info_request.id).
+          and_return(@info_request)
         @default_params = { :id => @info_request.id,
                             :explanation => 'Foo',
                             :reason => 'vexatious' }

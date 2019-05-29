@@ -22,7 +22,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
-class CensorRule < ActiveRecord::Base
+class CensorRule < ApplicationRecord
   include AdminColumn
   belongs_to :info_request,
              :inverse_of => :censor_rules

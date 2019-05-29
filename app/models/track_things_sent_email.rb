@@ -18,7 +18,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
-class TrackThingsSentEmail < ActiveRecord::Base
+class TrackThingsSentEmail < ApplicationRecord
   belongs_to :info_request_event,
              :inverse_of => :track_things_sent_emails
   belongs_to :user,

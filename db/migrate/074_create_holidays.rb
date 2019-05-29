@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class CreateHolidays < ActiveRecord::Migration
+class CreateHolidays < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 2.1
   def self.up
     create_table :holidays do |t|
       t.column :day, :date

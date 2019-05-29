@@ -164,7 +164,8 @@ describe OneTimePasswordsController do
 
     it 'renders #show on failure' do
       user = FactoryBot.create(:user, :otp_enabled => true)
-      allow_any_instance_of(User).to receive(:save).and_return(false)
+      allow_any_instance_of(User).
+        to receive(:increment!).and_return(false)
       session[:user_id] = user.id
       put :update
       expect(response).to render_template(:show)
@@ -172,7 +173,8 @@ describe OneTimePasswordsController do
 
     it 'warns the user on failure' do
       user = FactoryBot.create(:user, :otp_enabled => true)
-      allow_any_instance_of(User).to receive(:save).and_return(false)
+      allow_any_instance_of(User).
+        to receive(:increment!).and_return(false)
       session[:user_id] = user.id
       put :update
       expect(flash[:error]).

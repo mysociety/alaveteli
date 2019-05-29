@@ -37,7 +37,7 @@
 require 'digest/sha1'
 require 'fileutils'
 
-class InfoRequest < ActiveRecord::Base
+class InfoRequest < ApplicationRecord
   Guess = Struct.new(:info_request, :matched_value, :match_method).freeze
   OLD_AGE_IN_DAYS = 21.days
 
@@ -392,7 +392,7 @@ class InfoRequest < ActiveRecord::Base
       'partially_successful'          => _("Partially successful."),
       'successful'                    => _("Successful."),
       'waiting_clarification'         => _("Waiting clarification."),
-      'gone_postal'                   => _("Handled by post."),
+      'gone_postal'                   => _("Handled by postal mail."),
       'internal_review'               => _("Awaiting internal review."),
       'error_message'                 => _("Delivery error"),
       'requires_admin'                => _("Unusual response."),

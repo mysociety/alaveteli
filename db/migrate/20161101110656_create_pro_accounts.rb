@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class CreateProAccounts < ActiveRecord::Migration
+class CreateProAccounts < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 3.2
   def change
     create_table :pro_accounts do |t|
       t.column :user_id, :integer, null: false

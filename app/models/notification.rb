@@ -14,7 +14,7 @@
 #  expired               :boolean          default(FALSE)
 #
 
-class Notification < ActiveRecord::Base
+class Notification < ApplicationRecord
   belongs_to :info_request_event,
              :inverse_of => :notifications
   belongs_to :user,

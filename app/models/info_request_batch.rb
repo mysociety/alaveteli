@@ -13,7 +13,7 @@
 #  embargo_duration :string
 #
 
-class InfoRequestBatch < ActiveRecord::Base
+class InfoRequestBatch < ApplicationRecord
   include AlaveteliPro::RequestSummaries
   include AlaveteliFeatures::Helpers
 

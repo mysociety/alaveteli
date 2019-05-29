@@ -11,7 +11,7 @@
 #  updated_at              :datetime
 #
 
-class PublicBodyCategoryLink < ActiveRecord::Base
+class PublicBodyCategoryLink < ApplicationRecord
   belongs_to :public_body_category,
              :inverse_of => :public_body_category_links
   belongs_to :public_body_heading,
