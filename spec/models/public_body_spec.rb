@@ -2022,7 +2022,7 @@ describe PublicBody do
     subject { PublicBody.foi_applies }
 
     let!(:public_body) { FactoryBot.create(:public_body) }
-    let!(:not_apply_body) { FactoryBot.create(:not_apply_public_body) }
+    let!(:not_apply_body) { FactoryBot.create(:public_body, :not_apply) }
 
     it 'include active bodies' do
       is_expected.to include(public_body)
@@ -2088,7 +2088,7 @@ describe PublicBody do
     let!(:public_body) { FactoryBot.create(:public_body) }
     let!(:blank_body) { FactoryBot.create(:blank_email_public_body) }
     let!(:defunct_body) { FactoryBot.create(:public_body, :defunct) }
-    let!(:not_apply_body) { FactoryBot.create(:not_apply_public_body) }
+    let!(:not_apply_body) { FactoryBot.create(:public_body, :not_apply) }
 
     it 'includes return requestable body' do
       is_expected.to include(public_body)

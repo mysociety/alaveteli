@@ -40,11 +40,6 @@ FactoryBot.define do
     factory :blank_email_public_body do
       request_email ''
     end
-
-    # DEPRECATED: Prefer traits
-    factory :not_apply_public_body do
-      not_apply
-    end
   end
 
 end
