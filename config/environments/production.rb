@@ -57,7 +57,7 @@ Rails.application.configure do
   config.log_level = :info
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [ :request_id ] if rails5?
 
   # Use a different logger for distributed setups.
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
