@@ -95,6 +95,58 @@
 * There are some database structure updates so remember to run
   `bundle exec rake db:migrate`
 
+### Changed Templates
+
+    app/views/admin_general/_to_do_list.html.erb
+    app/views/admin_holidays/index.html.erb
+    app/views/admin_incoming_message/_actions.html.erb
+    app/views/admin_outgoing_message/edit.html.erb
+    app/views/admin_public_body/_locale_fields.html.erb
+    app/views/admin_public_body/edit.html.erb
+    app/views/admin_raw_email/show.html.erb
+    app/views/admin_request/hidden_user_explanation.text.erb
+    app/views/admin_request/show.html.erb
+    app/views/admin_user/_user_table.html.erb
+    app/views/admin_user/edit.html.erb
+    app/views/admin_user/show.html.erb
+    app/views/alaveteli_pro/batch_request_authority_searches/_browse.html.erb
+    app/views/alaveteli_pro/comment/_suggestions.html.erb
+    app/views/alaveteli_pro/info_request_batches/_embargo_form.html.erb
+    app/views/alaveteli_pro/info_request_batches/_info_request.html.erb
+    app/views/alaveteli_pro/info_requests/_embargo_create_form.html.erb
+    app/views/alaveteli_pro/info_requests/_info_request.html.erb
+    app/views/alaveteli_pro/info_requests/_sidebar.html.erb
+    app/views/comment/_single_comment.html.erb
+    app/views/comment/_suggestions.html.erb
+    app/views/contact_mailer/add_public_body.text.erb
+    app/views/contact_mailer/update_public_body_email.text.erb
+    app/views/followups/_followup.html.erb
+    app/views/general/_advanced_search_tips.html.erb
+    app/views/general/_locale_switcher.html.erb
+    app/views/info_request_batch/show.html.erb
+    app/views/layouts/contact_mailer.text.erb
+    app/views/layouts/outgoing_mailer.text.erb
+    app/views/layouts/request_mailer.text.erb
+    app/views/layouts/user_mailer.text.erb
+    app/views/public_body/_list_sidebar_extra.html.erb
+    app/views/public_body/show.html.erb
+    app/views/request/_incoming_correspondence.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
+    app/views/request/_request_subtitle.html.erb
+    app/views/request/_sidebar.html.erb
+    app/views/request/describe_notices/_not_held.html.erb
+    app/views/request/new.html.erb
+    app/views/request/select_authority.html.erb
+    app/views/request_mailer/comment_on_alert.text.erb
+    app/views/request_mailer/comment_on_alert_plural.text.erb
+    app/views/request_mailer/new_response.text.erb
+    app/views/request_mailer/new_response_reminder_alert.text.erb
+    app/views/request_mailer/not_clarified_alert.text.erb
+    app/views/request_mailer/very_overdue_alert.text.erb
+    app/views/track_mailer/event_digest.text.erb
+    app/views/user/contact.html.erb
+    app/views/user/show/_show_profile.html.erb
+
 # 0.32.0.1
 
 ## Highlighted Features
