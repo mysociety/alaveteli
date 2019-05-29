@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Fix broken display of blank contact authorities (Gareth Rees)
 * Fixed a bug in AlaveteliExternalCommand where the full program path was
   not being returned correctly (Laurent Savaete)
 * Fixed a bug that meant request urls could unexpectedly change when the request
@@ -10,6 +11,11 @@
 * Drop support for Debian Jessie (Gareth Rees)
 * Disable the destroy authority button in the admin interface rather than hiding
   it as that can be confusing with embargoed requests (Liz Conlan)
+* Handle missing query param in body search typeahead (Gareth Rees)
+* Add experimental ability to deter personal requests (Graeme Porteous)
+* Multiple performance refactorings (Graeme Porteous)
+* Don't show followup options if the request is closed to new responses
+  (Liz Conlan)
 * Highlight non-default states of "Prominence" in the admin
   interface (Gareth Rees)
 * Fix bug were the header was displayed at the wrong width if the site only had
@@ -23,6 +29,9 @@
   to prevent id guessing (Liz Conlan)
 * Reopen closed requests to allow responses from anybody when a new followup
   message is sent, or an admin resends an outgoing message (Liz Conlan)
+* Cache the number of incoming messages belonging to an `InfoRequest` to improve
+  performance (Graeme Porteous)
+* Simplify layout of "Find an authority" page (Zarino Zappia)
 * Warn users when their request is getting too long (Zarino Zappia)
 * Add a customisable email footer for emails sent to users (Liz Conlan)
 * Add one-click unsubscribe to `TrackMailer`-generated email notifications
@@ -33,6 +42,8 @@
   (Liz Conlan)
 * Add guessing from the subject line of an incoming email in the holding pen
   (Liz Conlan)
+* Encourage reporting correspondence through the request page (Gareth Rees)
+* Link to parent batch from request page (Zarino Zappia, Gareth Rees)
 * Improve guessing from addresses with missing punctuation for incoming email in
   the holding pen (Liz Conlan)
 * Improve guessing from malformed addresses for incoming email in the holding
@@ -51,6 +62,12 @@
   documented in the `general.yml-example` file to be added to the theme's
   contact form for the reCAPTCHA to be displayed correctly (Liz Conlan)
 * Added support for Ubuntu 16.04 LTS (Xenial Xerus) (Graeme Porteous)
+* Preparation for upgrading to Rails 5 (Graeme Porteous, Liz Conlan, Gareth
+  Rees)
+* Add missing `gettext:remove_fuzzy_alaveteli_pro` task (Liz Conlan)
+* Fix erroneously escaped HTML on admin request pages (Gareth Rees)
+* Fix edge-case bug in following requests (Gareth Rees)
+* Add experimental "Close and anonymise" user feature (Graeme Porteous)
 
 ## Upgrade Notes
 
@@ -60,11 +77,23 @@
     * Factory: `hidden_incoming_message` Trait: `:hidden`
     * Factory: `defunct_public_body` Trait: `:defunct`
     * Factory: `not_apply_public_body` Trait: `:not_apply`
+* `ContactMailer#change_request_message` has been extracted to
+  `PublicBodyChangeRequestMailer#add_public_body` and
+  `PublicBodyChangeRequestMailer#update_public_body`.
+* `UserController#contact` has been extracted to
+  `Users::MessagesController#contact`.
 * We no longer support Debian Jessie. Please upgrade to Debian Stretch at the
   earliest opportinuity.
 * The changes to the way dynamic routes work means that any themes that use
   the `help_general_url` helper will need to pass in `:template` instead of
   `:action`
+* This release temporarily reverts back to the `geoip-database` package from
+  `geoip-database-contrib`. See
+  https://github.com/mysociety/alaveteli/issues/5040 for details.
+* This release includes an update to the commonlib submodule - you
+  should be warned about this when running `rails-post-deploy`.
+* There are some database structure updates so remember to run
+  `bundle exec rake db:migrate`
 
 # 0.32.0.1
 
