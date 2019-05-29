@@ -7,7 +7,7 @@ RSpec.describe AlaveteliPro::PublicBodiesController do
     let!(:pro_user) { FactoryBot.create(:pro_user) }
     let!(:body) { FactoryBot.create(:public_body, :name => 'example') }
     let!(:defunct_body) do
-      FactoryBot.create(:defunct_public_body, :name => 'defunct')
+      FactoryBot.create(:public_body, :defunct, name: 'defunct')
     end
     let!(:not_apply_body) do
       FactoryBot.create(:not_apply_public_body, :name => 'not_apply')

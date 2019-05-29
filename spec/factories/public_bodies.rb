@@ -42,10 +42,6 @@ FactoryBot.define do
     end
 
     # DEPRECATED: Prefer traits
-    factory :defunct_public_body do
-      defunct
-    end
-
     factory :not_apply_public_body do
       not_apply
     end

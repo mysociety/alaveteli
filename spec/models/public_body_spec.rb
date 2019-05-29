@@ -869,7 +869,7 @@ describe PublicBody do
     let!(:public_body) { FactoryBot.create(:public_body) }
     let!(:blank_body) { FactoryBot.create(:blank_email_public_body) }
     let!(:defunct_body) do
-      FactoryBot.create(:defunct_public_body, request_email: '')
+      FactoryBot.create(:public_body, :defunct, request_email: '')
     end
 
     it 'does not include bodies with a request email' do
@@ -2038,7 +2038,7 @@ describe PublicBody do
     subject { PublicBody.not_defunct }
 
     let!(:public_body) { FactoryBot.create(:public_body) }
-    let!(:defunct_body) { FactoryBot.create(:defunct_public_body) }
+    let!(:defunct_body) { FactoryBot.create(:public_body, :defunct) }
 
     it 'include active bodies' do
       is_expected.to include(public_body)
@@ -2087,7 +2087,7 @@ describe PublicBody do
 
     let!(:public_body) { FactoryBot.create(:public_body) }
     let!(:blank_body) { FactoryBot.create(:blank_email_public_body) }
-    let!(:defunct_body) { FactoryBot.create(:defunct_public_body) }
+    let!(:defunct_body) { FactoryBot.create(:public_body, :defunct) }
     let!(:not_apply_body) { FactoryBot.create(:not_apply_public_body) }
 
     it 'includes return requestable body' do
