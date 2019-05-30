@@ -71,6 +71,10 @@
 
 ## Upgrade Notes
 
+* This will be the last release to support Ubuntu 14.04 LTS (Trusty)
+* This will be the last release to support Ruby 2.0
+* This will be the last release to support Ruby 2.1
+* This will be the last release to support Ruby 2.2
 * Some factories have been removed. Use traits if you rely on these in theme
   specs. See https://github.com/thoughtbot/factory_bot/blob/v4.10.0/GETTING_STARTED.md#traits
   for more information on traits.
