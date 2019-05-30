@@ -71,12 +71,18 @@
 
 ## Upgrade Notes
 
+* We no longer support Debian Jessie. Please upgrade to Debian Stretch at the
+  earliest opportinuity.
 * This will be the last release to support Ubuntu 14.04 LTS (Trusty)
 * This will be the last release to support Ruby 2.0
 * This will be the last release to support Ruby 2.1
 * This will be the last release to support Ruby 2.2
-* Some factories have been removed. Use traits if you rely on these in theme
-  specs. See https://github.com/thoughtbot/factory_bot/blob/v4.10.0/GETTING_STARTED.md#traits
+* This release temporarily reverts back to the `geoip-database` package from
+  `geoip-database-contrib`. See
+  https://github.com/mysociety/alaveteli/issues/5040 for details.
+* The `hidden_incoming_message` factory has been removed. Use the `:hidden`
+  _trait_ instead if you rely on this in theme specs. See
+  https://github.com/thoughtbot/factory_bot/blob/v4.10.0/GETTING_STARTED.md#traits
   for more information on traits.
     * Factory: `hidden_incoming_message` Trait: `:hidden`
     * Factory: `defunct_public_body` Trait: `:defunct`
@@ -86,14 +92,9 @@
   `PublicBodyChangeRequestMailer#update_public_body`.
 * `UserController#contact` has been extracted to
   `Users::MessagesController#contact`.
-* We no longer support Debian Jessie. Please upgrade to Debian Stretch at the
-  earliest opportinuity.
 * The changes to the way dynamic routes work means that any themes that use
   the `help_general_url` helper will need to pass in `:template` instead of
   `:action`
-* This release temporarily reverts back to the `geoip-database` package from
-  `geoip-database-contrib`. See
-  https://github.com/mysociety/alaveteli/issues/5040 for details.
 * This release includes an update to the commonlib submodule - you
   should be warned about this when running `rails-post-deploy`.
 * There are some database structure updates so remember to run
