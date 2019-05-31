@@ -116,6 +116,10 @@ SUPPORTED_OPERATING_SYSTEMS = {
     box: 'ubuntu/xenial64',
     box_url: 'https://app.vagrantup.com/ubuntu/boxes/xenial64'
   },
+  'bionic64' => {
+    box: 'ubuntu/bionic64',
+    box_url: 'https://app.vagrantup.com/ubuntu/boxes/bionic64'
+  },
   'stretch64' => {
     box: 'debian/stretch64',
     box_url: 'https://app.vagrantup.com/debian/boxes/stretch64'
