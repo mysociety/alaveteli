@@ -1299,13 +1299,6 @@ class InfoRequest < ApplicationRecord
     info_request_events.last
   end
 
-  # Deprecated: Returns last event
-  def get_last_event
-    warn %q([DEPRECATION] InfoRequest#get_last_event will be removed in 0.33.
-            It has been replaced by InfoRequest#last_event).squish
-    last_event
-  end
-
   def last_update_hash
     Digest::SHA1.hexdigest(info_request_events.last.created_at.to_i.to_s + updated_at.to_i.to_s)
   end
