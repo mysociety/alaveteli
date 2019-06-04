@@ -207,4 +207,27 @@ describe LinkToHelper do
       expect(current_path_with_locale('cy')).to eq '/cy/body/welsh_government'
     end
   end
+
+  describe '#current_path_as_json' do
+    it 'appends current path with json format' do
+      allow(controller).to receive(:params).and_return(
+        ActionController::Parameters.new(
+          controller: 'public_body', action: 'show',
+          url_name: 'welsh_government', view: 'all'
+        )
+      )
+      expect(current_path_as_json).to eq '/body/welsh_government.json'
+    end
+
+    it 'ignores current protocol and host' do
+      allow(controller).to receive(:params).and_return(
+        ActionController::Parameters.new(
+          controller: 'public_body', action: 'show',
+          url_name: 'welsh_government', view: 'all',
+          protocol: 'http', host: 'example.com'
+        )
+      )
+      expect(current_path_as_json).to eq '/body/welsh_government.json'
+    end
+  end
 end
