@@ -86,7 +86,7 @@ module Alaveteli
     config.autoload_paths << "#{Rails.root.to_s}/lib/health_checks"
 
     if rails5?
-      config.eager_load_paths << "#{Rails.root}/lib/**/*.rb"
+      config.enable_dependency_loading = true
     end
 
     # See Rails::Configuration for more options
