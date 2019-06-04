@@ -190,7 +190,7 @@ group :development do
     gem('mailcatcher', '~> 0.6.0') unless rails5? # https://github.com/sj26/mailcatcher#bundler
   gem('quiet_assets', '~> 1.1.0') unless rails5?
   gem 'launchy', '~> 2.4.0'
-  gem 'web-console', '~> 2.3.0', '< 3.0.0'
+  gem 'web-console', rails5? ? '>= 3.3.0' : ['~> 2.3.0', '< 3.0.0']
 
   install_if -> { RUBY_VERSION >= '2.2.0' } do
     gem 'rubocop', '~> 0.63.1'
