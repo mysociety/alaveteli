@@ -17,15 +17,15 @@ describe Users::ConfirmationsController do
     context 'the post redirect circumstance is change_password' do
 
       before :each do
-        @user = FactoryBot.create(:user, :email_confirmed => false)
+        @user = FactoryBot.create(:user, email_confirmed: false)
         @post_redirect = PostRedirect.new(
-          :user => @user,
-          :circumstance => 'change_password'
+          user: @user,
+          circumstance: 'change_password'
         )
         @post_redirect[:uri] = edit_password_change_path(@post_redirect.token)
         @post_redirect.save
 
-        get :confirm, params: { :email_token => @post_redirect.email_token }
+        get :confirm, params: { email_token: @post_redirect.email_token }
       end
 
       it 'does not log the user in' do
@@ -36,21 +36,21 @@ describe Users::ConfirmationsController do
         logged_in_user = FactoryBot.create(:user)
 
         session[:user_id] = logged_in_user.id
-        get :confirm, params: { :email_token => @post_redirect.email_token }
+        get :confirm, params: { email_token: @post_redirect.email_token }
 
         expect(session[:user_id]).to be_nil
       end
 
       it 'does not log out a user if they own the post redirect' do
         session[:user_id] = @user.id
-        get :confirm, params: { :email_token => @post_redirect.email_token }
+        get :confirm, params: { email_token: @post_redirect.email_token }
 
         expect(session[:user_id]).to eq(@user.id)
         expect(assigns[:user]).to eq(@user)
       end
 
       it 'does not confirm an unconfirmed user' do
-        get :confirm, params: { :email_token => @post_redirect.email_token }
+        get :confirm, params: { email_token: @post_redirect.email_token }
 
         expect(@user.reload.email_confirmed).to eq(false)
       end
