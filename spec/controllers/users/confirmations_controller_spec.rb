@@ -50,7 +50,6 @@ describe Users::ConfirmationsController do
       end
 
       it 'does not confirm an unconfirmed user' do
-
         get :confirm, params: { email_token: post_redirect.email_token }
         expect(user.reload.email_confirmed).to eq(false)
       end
