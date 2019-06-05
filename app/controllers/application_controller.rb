@@ -244,6 +244,7 @@ class ApplicationController < ActionController::Base
     File.atomic_write(key_path) do |f|
       f.write(content)
     end
+    FileUtils.chmod 0644, key_path
   end
 
   # A helper method to set @in_pro_area, for controller actions which are
