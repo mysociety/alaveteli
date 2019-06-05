@@ -60,6 +60,19 @@ describe Users::ConfirmationsController do
           to redirect_to("/profile/change_password/#{post_redirect.token}")
       end
 
+      context 'with a malicious post_redirect URI' do
+        let(:post_redirect) do
+          PostRedirect.create(
+            user: user,
+            circumstance: 'change_password',
+            uri: 'http://example.com/blah'
+          )
+        end
+
+        it 'does not redirect to another domain' do
+          expect(response).to redirect_to('/blah')
+        end
+      end
     end
 
     context 'if the currently logged in user is an admin' do
