@@ -57,7 +57,7 @@ class InfoRequest < ApplicationRecord
   validates_presence_of :title, :message => N_("Please enter a summary of your request")
 
   validates_format_of :title,
-    with: /[[:alpha:]]/,
+    with: /\A.*[[:alpha:]]+.*\z/,
     message: N_('Please write a summary with some text in it'),
     unless: proc { |info_request| info_request.title.blank? }
 
