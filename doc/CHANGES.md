@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Added support for Ubuntu 18.04 LTS (Bionic Beaver) (Gareth Rees)
 * Fix broken display of blank contact authorities (Gareth Rees)
 * Fixed a bug in AlaveteliExternalCommand where the full program path was
   not being returned correctly (Laurent Savaete)
