@@ -15,7 +15,7 @@ class Users::ConfirmationsController < UserController
         clear_session_credentials
       end
 
-      redirect_to post_redirect.uri
+      redirect_to SafeRedirect.new(post_redirect.uri).path
       return
 
     when 'normal', 'change_email'
