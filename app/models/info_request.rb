@@ -55,9 +55,12 @@ class InfoRequest < ApplicationRecord
                    :replace_newlines => true, :collapse_spaces => true
 
   validates_presence_of :title, :message => N_("Please enter a summary of your request")
-  validates_format_of :title, :with => /[[:alpha:]]/,
-    :message => N_("Please write a summary with some text in it"),
-    :unless => Proc.new { |info_request| info_request.title.blank? }
+
+  validates_format_of :title,
+    with: /\A.*[[:alpha:]]+.*\z/,
+    message: N_('Please write a summary with some text in it'),
+    unless: proc { |info_request| info_request.title.blank? }
+
   validates :title, :length => {
     :maximum => 200,
     :message => _('Please keep the summary short, like in the subject of an ' \
