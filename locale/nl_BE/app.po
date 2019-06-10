@@ -14,12 +14,13 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Christophe Van Gheluwe <info@vg-webdesign.be>, 2017
 # claude transparencia <audit.citoyen.quartier@gmail.com>, 2017-2018
 # Edwin Bosveld <edwin@inwy.nl>, 2013,2016
 # Gareth Rees <gareth@mysociety.org>, 2017-2018
 # Infwolf <infwolf@gmail.com>, 2014
-# Liz Conlan <liz@mysociety.org>, 2017
+# Liz Conlan <liz@mysociety.org>, 2017-2018
 # louisecrow <louise@mysociety.org>, 2017
 # louisecrow <louise@mysociety.org>, 2017
 msgid ""
@@ -27,7 +28,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-09-28 15:37+0000\n"
-"PO-Revision-Date: 2018-09-29 11:24+0000\n"
+"PO-Revision-Date: 2019-04-29 14:31+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Dutch (Belgium) (http://www.transifex.com/mysociety/alaveteli/language/nl_BE/)\n"
 "Language: nl_BE\n"
@@ -3610,7 +3611,7 @@ msgid "Unfortunately, we do not have a working address for {{public_body_names}}
 msgstr "Jammer genoeg hebben wij geen werkend adres voor {{public_body_names}}."
 
 msgid "Unfortunately, we do not have a working {{info_request_law_used_full}} address for"
-msgstr "Jammergenoeg hebben wij geen werkend adres {{info_request_law_u full}} \\nvoor"
+msgstr "Jammergenoeg hebben wij geen werkend adres {{info_request_law_used_full}} \\nvoor"
 
 msgid "Unknown"
 msgstr "Ongekend"
@@ -3980,7 +3981,7 @@ msgid "You are already subscribed to any <a href=\"{{new_requests_url}}\">new re
 msgstr "U bent reeds ingeschreven voor alle <a href=\"{{new_requests_url}}\">nieuwe aanvragen</a>."
 
 msgid "You are already subscribed to any <a href=\"{{successful_requests_url}}\">successful requests</a>."
-msgstr "U bent reeds ingeschreven voor alle <a href=\"{{new_requests_url}}\">succesvol afgehandelde aanvragen</a>."
+msgstr "U bent reeds ingeschreven voor alle <a href=\"{{successful_requests_url}}\">succesvol afgehandelde aanvragen</a>."
 
 msgid "You are currently receiving notification of new activity on your wall by email."
 msgstr "U ontvangt nu per mail de meldingen van nieuwe activiteiten op uw muur."
@@ -4563,7 +4564,7 @@ msgid "unknown reason "
 msgstr "reden onbekend"
 
 msgid "unknown status {{state}}"
-msgstr "status onbekend {{status}}"
+msgstr "status onbekend {{state}}"
 
 msgid "unknown status {{status}}"
 msgstr "status onbekend {{status}}"

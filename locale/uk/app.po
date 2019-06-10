@@ -14,22 +14,24 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Ferents <ferencbaki89@gmail.com>, 2013
 # Ferents <ferencbaki89@gmail.com>, 2013
 # Gareth Rees <gareth@mysociety.org>, 2017
 # Natalie Hiirulainen <murahoid@gmail.com>, 2012,2014
+# Liz Conlan <liz@mysociety.org>, 2018
 # louisecrow <louise@mysociety.org>, 2013
 # louisecrow <louise@mysociety.org>, 2013-2014
 # Natalie Hiirulainen <murahoid@gmail.com>, 2014,2016
 # Natalie Hiirulainen <murahoid@gmail.com>, 2012
-# Natalie Hiirulainen <murahoid@gmail.com>, 2012,2014,2016-2018
+# Natalie Hiirulainen <murahoid@gmail.com>, 2012,2014,2016-2019
 # Natalie Hiirulainen <murahoid@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-09-28 15:37+0000\n"
-"PO-Revision-Date: 2018-09-29 11:24+0000\n"
+"PO-Revision-Date: 2019-04-29 14:31+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/mysociety/alaveteli/language/uk/)\n"
 "Language: uk\n"
@@ -491,7 +493,7 @@ msgid "All time best players"
 msgstr ""
 
 msgid "Also called {{other_name}}."
-msgstr "Also called {{other_name}}."
+msgstr "Інша назва {{other_name}}."
 
 msgid "Also send me alerts by email"
 msgstr "Також надсилайте мені сповіщення на мейл"
@@ -2442,7 +2444,7 @@ msgid "Public authorities - {{description}}"
 msgstr "Розпорядники інформації - {{description}}"
 
 msgid "Public authorities {{start_count}} to {{end_count}} of {{total_count}}"
-msgstr ""
+msgstr "Розпорядники інформації {{start_count}} - {{end_count}} з {{total_count}}"
 
 msgid "Public authority statistics"
 msgstr "Статистика розпорядників інформації"
@@ -4179,10 +4181,10 @@ msgid "You can't update your profile text at this time."
 msgstr "Ви не можете оновити текст у своєму профілі зараз."
 
 msgid "You have a new response to the {{law_used_full}} request"
-msgstr ""
+msgstr "Ви отримали нову відповідь на запит"
 
 msgid "You have a new response to the {{law_used_full}} request '{{request_title}}' that you made to {{public_body_name}}."
-msgstr ""
+msgstr "Ви отримали нову відповідь на свій запит '{{request_title}}' до розпорядника {{public_body_name}}."
 
 msgid "You have found a bug.  Please <a href=\"{{contact_url}}\">contact us</a> to tell us about the problem"
 msgstr "Ви натрапили на баг. Будь ласка, <a href=\"{{contact_url}}\">напишіть нам</a> про цю проблему"
@@ -4514,7 +4516,7 @@ msgid "all requests or comments matching text '{{query}}'"
 msgstr ""
 
 msgid "also called {{public_body_short_name}}"
-msgstr ""
+msgstr "інша назва {{public_body_short_name}}"
 
 msgid "an anonymous user"
 msgstr "анонімний користувач"
