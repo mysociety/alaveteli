@@ -4,14 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# louisecrow <louise@mysociety.org>, 2017
+# louisecrow <louise@mysociety.org>, 2018
+# Hana Hunt <hana@hana-hunt.cz>, 2019
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-09-28 15:40+0000\n"
-"PO-Revision-Date: 2017-01-20 17:40+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>, 2017\n"
+"PO-Revision-Date: 2017-04-03 11:57+0000\n"
+"Last-Translator: Hana Hunt <hana@hana-hunt.cz>, 2019\n"
 "Language-Team: Czech (https://www.transifex.com/mysociety/teams/33529/cs/)\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -29,7 +31,7 @@ msgid "'Crime statistics by ward level for Wales'"
 msgstr ""
 
 msgid "(no title)"
-msgstr ""
+msgstr "(bez názvu)"
 
 msgid "(with <b>{{discount_name}}</b> discount applied)"
 msgstr ""
@@ -62,7 +64,7 @@ msgid "A <strong>summary</strong> of the response if you have received it by pos
 msgstr "<strong>Shrnutí</strong> odpovědi, kterou jste obdrželi poštou."
 
 msgid "A monthly subscription"
-msgstr ""
+msgstr "Měsíční předplatné"
 
 msgid "A one line summary of the information you are requesting, e.g."
 msgstr "Shrnutí vašeho dotazu na jeden řádek. Například:"
@@ -80,28 +82,28 @@ msgid "A super-smart to-do list: follow the progress of your requests"
 msgstr ""
 
 msgid "About {{public_body_name}}"
-msgstr ""
+msgstr "Více informací o {{public_body_name}}"
 
 msgid "Account"
-msgstr ""
+msgstr "Účet"
 
 msgid "Action alerts: know when it’s time to take the next step"
-msgstr ""
+msgstr "Upozornění: dozvíš se kdy bude potřeba udělat další krok"
 
 msgid "Activity"
 msgstr "Aktivita"
 
 msgid "Add Payment Card"
-msgstr ""
+msgstr "Přidej platební kartu"
 
 msgid "Add all"
-msgstr ""
+msgstr "Přidat vše"
 
 msgid "Add an annotation"
 msgstr "Přidat poznámku"
 
 msgid "Add annotation"
-msgstr ""
+msgstr "Přidej poznámku"
 
 msgid "Add authorities to your batch"
 msgstr "Přidejte instituce do svého hromadného dotazu"
@@ -116,13 +118,13 @@ msgid "All requests within this batch will remain private for the same duration.
 msgstr ""
 
 msgid "Also called {{other_name}}."
-msgstr ""
+msgstr "Také jako {{other_name}}"
 
 msgid "An all-in-one FOI toolkit for journalists, activists and campaigners"
 msgstr ""
 
 msgid "An annual subscription"
-msgstr ""
+msgstr "Roční předplatné"
 
 msgid "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
 msgstr "Poznámky vám umožní přidat další komentář k žádosti a budou časem zveřejněny. Například:"
@@ -137,10 +139,10 @@ msgid "Are you sure you want to publish this request?"
 msgstr "Jste si jisti, že tuto žádost chcete publikovat?"
 
 msgid "Are you sure?"
-msgstr ""
+msgstr "Jste si jistá/ý?"
 
 msgid "Batch"
-msgstr ""
+msgstr "Hromadný dotaz"
 
 msgid "Batch request"
 msgstr ""
@@ -152,34 +154,34 @@ msgid "Batch requests are part of a new workflow"
 msgstr ""
 
 msgid "Billed: Annually"
-msgstr ""
+msgstr "Fakturováno: ročně"
 
 msgid "Billed: Daily"
-msgstr ""
+msgstr "Fakturováno: denně"
 
 msgid "Billed: Monthly"
-msgstr ""
+msgstr "Fakturováno: Měsíčně"
 
 msgid "Billed: Weekly"
-msgstr ""
+msgstr "Fakturováno: týdně"
 
 msgid "Billing"
-msgstr ""
+msgstr "Fakturace"
 
 msgid "Browse by category"
-msgstr ""
+msgstr "Prohledávej kategorii"
 
 msgid "Browse public requests"
 msgstr "Zobrazit veřejné dotazy"
 
 msgid "Cancel"
-msgstr ""
+msgstr "Zrušit"
 
 msgid "Cancel subscription"
-msgstr ""
+msgstr "Zrušit předplatné"
 
 msgid "Cancel your subscription"
-msgstr ""
+msgstr "Zrušit své předplatné"
 
 msgid "Change privacy"
 msgstr "Změnit nastavení soukromí"
@@ -197,28 +199,28 @@ msgid "Choose a duration"
 msgstr "Vyberte časové rozmezí"
 
 msgid "Collapse all correspondence"
-msgstr ""
+msgstr "Sbalit celou korespondenci"
 
 msgid "Confirm your account on {{site_name}}"
-msgstr ""
+msgstr "Potvrďte svůj účet na {{site_name}}"
 
 msgid "Contact us"
-msgstr ""
+msgstr "Kontaktujte nás"
 
 msgid "Continuing with checkout requires your browser to have JavaScript enabled."
 msgstr ""
 
 msgid "Coupon code has expired."
-msgstr ""
+msgstr "Platnost kupónu vypršela"
 
 msgid "Coupon code is invalid."
-msgstr ""
+msgstr "Kód kuponu není platný"
 
 msgid "Created"
 msgstr "Vytvořeno"
 
 msgid "Daily summary emails to keep your inbox clean"
-msgstr ""
+msgstr "Denní souhrn e-mailů, tvá e-mailová schránka bude uklizenější"
 
 msgid "Dashboard"
 msgstr "Nástěnka"
@@ -227,16 +229,16 @@ msgid "Delivery verification for proof of receipt"
 msgstr ""
 
 msgid "Details"
-msgstr ""
+msgstr "Podrobnosti"
 
 msgid "Disabled while sending remaining requests."
 msgstr ""
 
 msgid "Dismiss"
-msgstr ""
+msgstr "Zrušit"
 
 msgid "Do you have a coupon code?"
-msgstr ""
+msgstr "Máte kupón s kódem?"
 
 msgid "Download a zip file of all correspondence"
 msgstr "Stáhnout zazipovaný soubor celé korespondence"
@@ -251,19 +253,19 @@ msgid "Edit your request"
 msgstr "Upravit tento dotaz"
 
 msgid "Email address"
-msgstr ""
+msgstr "E-mailová adresa"
 
 msgid "Email doesn't look like a valid address"
-msgstr ""
+msgstr "E-mail nevypadá jako platná adresa"
 
 msgid "Everything you need to keep on top of complex FOI-driven stories."
 msgstr ""
 
 msgid "Expand all correspondence"
-msgstr ""
+msgstr "Rozbal všechnu korespondenci"
 
 msgid "Expires soon"
-msgstr ""
+msgstr "Brzy vyprší"
 
 msgid "First created"
 msgstr "Datum vytvoření"
@@ -275,7 +277,7 @@ msgid "From this screen you can see what you need to do next to keep your reques
 msgstr "Na této stránce se dozvíte, co je potřeba udělat, aby vaše dotazy byly zodpovězeny. Co takhle vznést první dotaz?"
 
 msgid "Get access to the beta"
-msgstr ""
+msgstr "Získej přistup do beta "
 
 msgid "Get email updates about {{site_name}}?"
 msgstr ""
@@ -314,7 +316,7 @@ msgid "Last updated"
 msgstr "Naposledy aktualizováno"
 
 msgid "Make a batch request"
-msgstr ""
+msgstr "Vzneste hromadný dotaz"
 
 msgid "Make a request"
 msgstr "Vzneste dotaz"
@@ -338,25 +340,25 @@ msgid "My profile"
 msgstr "Můj profil"
 
 msgid "My subscription"
-msgstr ""
+msgstr "Moje předplatné "
 
 msgid "My wall"
 msgstr "Moje nástěnka"
 
 msgid "Next message"
-msgstr ""
+msgstr "Další zpráva"
 
 msgid "Next payment"
-msgstr ""
+msgstr "Další platba"
 
 msgid "No"
-msgstr ""
+msgstr "Ne"
 
 msgid "No bodies selected"
-msgstr ""
+msgstr "Žádná instituce nebyla vybrána"
 
 msgid "No more authorities can be added to this batch request."
-msgstr ""
+msgstr "K tomuto hromadnému dotazu nemůže být přidána žádná další instituce"
 
 msgid "No results found"
 msgstr ""

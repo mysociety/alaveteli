@@ -14,24 +14,28 @@
 # Translators:
 # Translators:
 # Translators:
-# Elle Lingh <elenor.lingh@hyperisland.se>, 2018
-# Kristoffer Grundström <kristoffer.grundstrom1983@gmail.com>, 2015
+# Translators:
+# Elenor Weijmar <ellelingh@hotmail.se>, 2019
+# Elenor Weijmar <ellelingh@hotmail.se>, 2018
+# Kristoffer Grundström <hamnisdude@gmail.com>, 2015
+# Liz Conlan <liz@mysociety.org>, 2018
 # Lord Cobol, 2016
-# Lord Cobol, 2016
+# 03992e16f8df6e39b9d1cc0ff635887e, 2016
 # louisecrow <louise@mysociety.org>, 2016
 # louisecrow <louise@mysociety.org>, 2016
 # Mattias A, 2015
-# Mattias Axell <mattias@okfn.se>, 2015-2017
-# Mattias Axell <mattias@okfn.se>, 2015,2017-2018
+# Mattias Axell <mattias@libertador.es>, 2015-2017
+# Mattias Axell <mattias@libertador.es>, 2019
+# Mattias Axell <mattias@libertador.es>, 2015,2017-2018
 # Mattias OKFSE, 2015
-# Mattias Axell <mattias@okfn.se>, 2015
+# Mattias Axell <mattias@libertador.es>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-09-28 15:37+0000\n"
-"PO-Revision-Date: 2018-10-09 09:20+0000\n"
-"Last-Translator: Elle Lingh <elenor.lingh@hyperisland.se>\n"
+"PO-Revision-Date: 2019-06-07 16:54+0000\n"
+"Last-Translator: Elenor Weijmar <ellelingh@hotmail.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/mysociety/alaveteli/language/sv/)\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -240,7 +244,7 @@ msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong>Förtydligande</strong> har blivit begärd"
 
 msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
-msgstr ""
+msgstr "<strong>Journalist, Akademiker eller Superanvändare?</strong> {{pro_site_link}} är en allt-i-ett verktyg för offentlighetsprincipen inklusive allt du behöver för att hålla dig uppdaterad på komplicerade undersökningar som drivs med hjälp av offentlighetsprincipen."
 
 msgid "<strong>No response</strong> has been received <small>(maybe there's just an acknowledgement)</small>"
 msgstr "<strong>Inget svar</strong> har tagits emot <small>(kanske det är bara en kvittering)</small>"
@@ -612,7 +616,7 @@ msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for
 msgstr "Bläddra bland <a href='{{url}}'> andra förfrågningar</a> till '{{public_body_name}}' för exempel på hur du kan formulera din begäran."
 
 msgid "Browse all authorities &rarr;"
-msgstr "Bläddra bland alla myndigheter &arr;"
+msgstr "Bläddra bland alla myndigheter &rarr;"
 
 msgid "Browse all requests &rarr;"
 msgstr "Bläddra bland alla förfrågningar &rarr;"
@@ -996,7 +1000,7 @@ msgid "Event {{id}}"
 msgstr "Händelse {{id}}"
 
 msgid "Every citizen has the right to access information held by public authorities."
-msgstr "Varje invånare har rätten till tillgång av information som  myndigheter upprätthåller."
+msgstr "Alla människor har rätt att få tillgång till information som myndigheter har."
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
 msgstr "Allt som du anger på denna sida, inklusive <strong>ditt namn</strong>, kommer att <strong>visas offentligt</strong> på denna hemsida <a href=\"{{url}}\">för evigt</a>"
@@ -2287,7 +2291,7 @@ msgid "Posted on {{date}} by {{author}}"
 msgstr "Postad den {{date}} av {{author}}"
 
 msgid "Powered by <a href=\"http://www.alaveteli.org/\">Alaveteli</a>"
-msgstr "Drivs av <a href=\"http://okfn.se/\">Open Knowledge Sverige</a> genom <a href=\"http://www.alaveteli.org/\">Alaveteli</a>"
+msgstr "Drivs av <a href=\"http://www.alaveteli.org/\">Alaveteli</a>"
 
 msgid "Prefer not to receive emails?"
 msgstr "Föredrar du att inte ta emot e-post?"
@@ -3018,7 +3022,7 @@ msgid "The accounts have been left as they previously were."
 msgstr "Förklaringarna har lämnats som de tidigare var."
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr "Myndigheten <strong>har inte</strong> informationen <small>(kanske de berättar om vem som har den)</small>"
+msgstr "De har <strong>inte</strong>informationen <small>(kanske de säger vem som har den)</small>"
 
 msgid "The authority email doesn't look like a valid address"
 msgstr "E-postadressen för myndigheten ser inte ut att vara giltig"
@@ -3267,7 +3271,7 @@ msgid "This annotation has been reported for administrator attention"
 msgstr "Kommentaren har blivit rapporterad för administratörens uppmärksamhet"
 
 msgid "This authority is not subject to FOI law, so is not legally obliged to respond"
-msgstr ""
+msgstr "Denna myndighet lyder inte under offentlighetsprincipen så den är inte lagligt skyldig att svara"
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Denna myndighet existerar inte längre, så du kan inte göra en begäran till den."
@@ -3649,7 +3653,7 @@ msgid "Use quotes when you want to find an exact phrase, e.g. <strong><code>\"Li
 msgstr "Använd citattecken när du vill hitta en exakt fras, t.ex. <strong><code>\"Göteborgs stadsfullmäktige\"</code> </strong>"
 
 msgid "Use this site to make your request for information – we'll show you how."
-msgstr "Använd denna sida för att göra din begäran om allmän handling - vi kommer visa dig hur."
+msgstr "Använd denna sida för att göra din begäran om allmän handling - vi visar dig hur."
 
 msgid "User"
 msgstr "Användare"
@@ -3841,7 +3845,7 @@ msgid "We will not reveal your email addresses to anybody unless you or the law 
 msgstr "Vi kommer inte att avslöja dina e-postadresser till någon såvida inte du eller lagen säger till oss."
 
 msgid "We'll drop you an email as soon as your request gets a response."
-msgstr "Vi kommer att skicka dig ett e-postmeddelande när din begäran får ett svar."
+msgstr "Vi skickar dig ett e-postmeddelande när din begäran får ett svar."
 
 msgid "We're glad you got all the information that you wanted."
 msgstr "Vi är glada att du fått all den information som du begärde."
@@ -4545,7 +4549,7 @@ msgid "the main FOI contact at {{public_body}}"
 msgstr "den huvudsakliga kontakten för registrator vid {{public_body}}"
 
 msgid "the {{site_name}} team"
-msgstr "till {{site_name}}s arbetsgrupp"
+msgstr "Arbetsgruppen vid {{site_name}}"
 
 msgid "to send a follow up message."
 msgstr "för att skicka ett uppföljningsmeddelande."
