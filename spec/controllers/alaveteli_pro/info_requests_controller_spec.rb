@@ -77,7 +77,7 @@ describe AlaveteliPro::InfoRequestsController do
     end
 
     context "when the public body is not requestable" do
-      let(:public_body) { FactoryBot.create(:defunct_public_body) }
+      let(:public_body) { FactoryBot.create(:public_body, :defunct) }
       let(:draft) do
         FactoryBot.create(:draft_info_request, public_body: public_body,
                                                user: pro_user)

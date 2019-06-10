@@ -287,6 +287,12 @@ module LinkToHelper
     url_for(sanitized_params.merge(locale: locale, only_path: true))
   end
 
+  def current_path_as_json
+    unsafe_keys = %w[protocol host]
+    sanitized_params = params.reject { |k| unsafe_keys.include?(k) }.permit!
+    url_for(sanitized_params.merge(format: :json, only_path: true))
+  end
+
   private
 
   # Private: Generate a request_url linking to the new correspondence

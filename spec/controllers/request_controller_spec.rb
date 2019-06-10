@@ -481,20 +481,41 @@ end
 describe RequestController do
   describe 'GET get_attachment' do
 
-    let(:info_request){ FactoryBot.create(:info_request_with_incoming_attachments) }
+    let(:info_request) do
+      FactoryBot.create(:info_request_with_incoming_attachments)
+    end
+
+    let(:default_params) do
+      { incoming_message_id: info_request.incoming_messages.first.id,
+        id: info_request.id,
+        part: 2,
+        file_name: 'interesting.pdf' }
+    end
 
     def get_attachment(params = {})
-      default_params = { :incoming_message_id =>
-                           info_request.incoming_messages.first.id,
-                         :id => info_request.id,
-                         :part => 2,
-                         :file_name => 'interesting.pdf' }
       get :get_attachment, params: default_params.merge(params)
     end
 
     it 'should cache an attachment on a request with normal prominence' do
       expect(@controller).to receive(:foi_fragment_cache_write)
       get_attachment
+    end
+
+    it 'sets the correct read permissions for the new file' do
+      # ensure the cache directory exists
+      get_attachment
+
+      param =
+        ActionController::Parameters.new(default_params.merge(only_path: true))
+      key_path = @controller.foi_fragment_cache_path(param)
+
+      # remove the pre-existing cached file
+      File.delete(key_path)
+
+      # create a new cache file and check the file permissions
+      get_attachment
+      octal_stat = sprintf("%o", File.stat(key_path).mode)[-4..-1]
+      expect(octal_stat).to eq('0644')
     end
 
     # This is a regression test for a bug where URLs of this form were causing 500 errors

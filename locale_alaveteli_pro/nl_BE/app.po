@@ -5,13 +5,15 @@
 #
 # Translators:
 # claude transparencia <audit.citoyen.quartier@gmail.com>, 2018
+# Liz Conlan <liz@mysociety.org>, 2018
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-09-28 15:40+0000\n"
-"PO-Revision-Date: 2017-01-20 17:40+0000\n"
-"Last-Translator: claude transparencia <audit.citoyen.quartier@gmail.com>, 2018\n"
+"PO-Revision-Date: 2017-04-03 11:57+0000\n"
+"Last-Translator: Liz Conlan <liz@mysociety.org>, 2018\n"
 "Language-Team: Dutch (Belgium) (https://www.transifex.com/mysociety/teams/33529/nl_BE/)\n"
 "Language: nl_BE\n"
 "MIME-Version: 1.0\n"
@@ -816,7 +818,7 @@ msgid "You sent a clarification to {{public_body_name}} for \"{{info_request_tit
 msgstr "U zond een verduidelijking naar {{ public_body_name}} omtrent  \"{{info_request_title}}\"."
 
 msgid "You sent a follow up to {{public_body_name}} on \"{{info_request_title}}\"."
-msgstr "U zond een opvolgingsbericht naar {{public_body_name }} over \"{{info_request_title}}\"."
+msgstr "U zond een opvolgingsbericht naar {{public_body_name}} over \"{{info_request_title}}\"."
 
 msgid "You sent a request \"{{info_request_title}}\" to {{public_body_name}}."
 msgstr "U zond een aanvraag \"{{info_request_title}}\" naar {{public_body_name}}."
@@ -853,7 +855,7 @@ msgstr "Uw ontwerp is opgeslagen!"
 
 msgid "Your follow up to {{public_body_name}} on \"{{info_request_title}}\" was resent."
 msgstr ""
-"Uw follow-up naar {{public_body_name }} omtrent \n"
+"Uw follow-up naar {{public_body_name}} omtrent \n"
 "{{info_request_title}} werd teruggestuurd."
 
 msgid "Your internal review request to {{public_body_name}} for \"{{info_request_title}}\" was resent."
