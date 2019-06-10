@@ -15,21 +15,24 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # beckymak <makpowan@gmail.com>, 2015
 # caxekis <caxekis@gmail.com>, 2013
 # caxekis <caxekis@gmail.com>, 2013
+# gensitu <pstew892@protonmail.com>, 2018
 # Liz Conlan <liz@mysociety.org>, 2018
 # beckymak <makpowan@gmail.com>, 2015
 # gensitu <pstew892@protonmail.com>, 2018
 # spions kwong, 2015
 # spions kwong, 2015-2016
 # wen xing, 2019
+# wen xing, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-28 15:37+0000\n"
-"PO-Revision-Date: 2019-04-29 14:31+0000\n"
+"POT-Creation-Date: 2019-06-10 14:02+0000\n"
+"PO-Revision-Date: 2019-06-10 14:40+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Chinese (Hong Kong) (http://www.transifex.com/mysociety/alaveteli/language/zh_HK/)\n"
 "Language: zh_HK\n"
@@ -146,6 +149,9 @@ msgstr ""
 msgid "<a href=\"{{new_request_link}}\">Make a new FOI request</a> to {{public_body_name}}"
 msgstr "向{{public_body_name}}索取資料"
 
+msgid "<a href=\"{{sign_in_link}}\">Sign in</a> to get updates on things you follow or re-enable email alerts."
+msgstr ""
+
 msgid "<a href=\"{{url}}\">Do you want to request private information about yourself?</a>"
 msgstr "<a href=\"{{url}}\">你是否希望查詢有關你自己的個人私隱資料？</a>"
 
@@ -157,6 +163,9 @@ msgstr "<a href=\"{{url}}\">登入</a>後方可更改密碼、訂閱選項等（
 
 msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>"
 msgstr "<a href=\"{{url}}\">想用化名索取資料？</a>"
+
+msgid "<a href=\"{{wall_link}}\">Visit your Wall</a> to get updates on things you follow or re-enable email alerts."
+msgstr ""
 
 msgid "<div class=\"alaveteli-widget__count\">{{count}}</div> person wants to know"
 msgid_plural "<div class=\"alaveteli-widget__count\">{{count}}</div> people want to know"
@@ -288,7 +297,7 @@ msgstr ""
 msgid "A <a href=\"{{request_url}}\">response</a> to <em>{{request_title}}</em> was sent by {{public_body_name}} to {{info_request_user}} on {{date}}.  The request status is: {{request_status}}"
 msgstr ""
 
-msgid "A <strong>summary</strong> of the response if you have received it by post. "
+msgid "A <strong>summary</strong> of the response if you have received it by postal mail. "
 msgstr ""
 
 msgid "A Freedom of Information request"
@@ -309,13 +318,10 @@ msgstr ""
 msgid "A public authority"
 msgstr "一個公共機構"
 
-msgid "A response will be sent <strong>by post</strong>"
-msgstr "公共機構將透過<strong>郵寄</strong>回應我的要求"
-
-msgid "A strange reponse, required attention by the {{site_name}} team"
+msgid "A response will be sent <strong>by postal mail</strong>"
 msgstr ""
 
-msgid "A vexatious request"
+msgid "A strange response, required attention by the {{site_name}} team"
 msgstr ""
 
 msgid "A {{site_name}} user"
@@ -329,6 +335,9 @@ msgstr "自我介紹："
 
 msgid "About {{count}} FOI requests found"
 msgstr "找到約{{count}}項索取資料要求"
+
+msgid "Account closed at user request"
+msgstr ""
 
 msgid "Account suspended – Please contact us"
 msgstr "帳户已被封鎖，請聯絡我們。"
@@ -382,63 +391,6 @@ msgid "Advise on whether the <strong>refusal is legal</strong>, and how to compl
 msgstr ""
 
 msgid "Air, water, soil, land, flora and fauna (including how these effect human beings)"
-msgstr ""
-
-msgid "Alaveteli pro/draft info request batch"
-msgstr ""
-
-msgid "Alaveteli pro/embargo"
-msgstr ""
-
-msgid "Alaveteli pro/embargo extension"
-msgstr ""
-
-msgid "Alaveteli pro/request summary"
-msgstr ""
-
-msgid "Alaveteli pro/request summary category"
-msgstr ""
-
-msgid "AlaveteliPro::DraftInfoRequestBatch|Body"
-msgstr ""
-
-msgid "AlaveteliPro::DraftInfoRequestBatch|Embargo duration"
-msgstr ""
-
-msgid "AlaveteliPro::DraftInfoRequestBatch|Title"
-msgstr ""
-
-msgid "AlaveteliPro::EmbargoExtension|Extension duration"
-msgstr ""
-
-msgid "AlaveteliPro::Embargo|Embargo duration"
-msgstr ""
-
-msgid "AlaveteliPro::Embargo|Expiring notification at"
-msgstr ""
-
-msgid "AlaveteliPro::Embargo|Publish at"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummaryCategory|Slug"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Body"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Public body names"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Request created at"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Request updated at"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Summarisable type"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Title"
 msgstr ""
 
 msgid "All of the information requested has been received"
@@ -510,12 +462,6 @@ msgstr ""
 msgid "Annotations will be posted publicly here, and are <strong>not</strong> sent to {{public_body_name}}."
 msgstr ""
 
-msgid "Announcement"
-msgstr "通告"
-
-msgid "Announcement|Visibility"
-msgstr ""
-
 msgid "Anonymous user"
 msgstr "匿名用户"
 
@@ -524,6 +470,9 @@ msgstr "適用於"
 
 msgid "Are we missing a public authority?"
 msgstr "我們是否沒有包括某個公共機構？"
+
+msgid "Are you asking about your, or others', personal information or personal situation?"
+msgstr ""
 
 msgid "Are you sure you want to disable two factor authentication?"
 msgstr "你確定要關閉雙重認證？"
@@ -654,24 +603,6 @@ msgstr ""
 msgid "Cancel, return to your profile page"
 msgstr "取消並返回用户頁"
 
-msgid "Censor rule"
-msgstr ""
-
-msgid "CensorRule|Last edit comment"
-msgstr ""
-
-msgid "CensorRule|Last edit editor"
-msgstr ""
-
-msgid "CensorRule|Regexp"
-msgstr ""
-
-msgid "CensorRule|Replacement"
-msgstr ""
-
-msgid "CensorRule|Text"
-msgstr ""
-
 msgid "Change email on {{site_name}}"
 msgstr "更改在{{site_name}}使用的電郵地址"
 
@@ -739,21 +670,6 @@ msgid "Close the request and respond:"
 msgstr ""
 
 msgid "Collapse all correspondence"
-msgstr ""
-
-msgid "Comment"
-msgstr ""
-
-msgid "Comment|Attention requested"
-msgstr ""
-
-msgid "Comment|Body"
-msgstr ""
-
-msgid "Comment|Locale"
-msgstr ""
-
-msgid "Comment|Visible"
 msgstr ""
 
 msgid "Complete"
@@ -882,9 +798,6 @@ msgstr ""
 msgid "Delivery error"
 msgstr ""
 
-msgid "Destroy {{name}}"
-msgstr ""
-
 msgid "Details of request &ldquo;{{request_title}}&rdquo;"
 msgstr "要求「{{request_title}}」的詳情"
 
@@ -927,18 +840,6 @@ msgstr "下載含全部回覆的壓縮檔案"
 msgid "Download original attachment"
 msgstr "下載原始附件"
 
-msgid "Draft info request"
-msgstr ""
-
-msgid "DraftInfoRequest|Body"
-msgstr ""
-
-msgid "DraftInfoRequest|Embargo duration"
-msgstr ""
-
-msgid "DraftInfoRequest|Title"
-msgstr ""
-
 msgid "EIR"
 msgstr ""
 
@@ -958,6 +859,12 @@ msgid "Either the email or password was not recognised, please try again."
 msgstr "未能確認你的電郵或密碼，請再輸入。"
 
 msgid "Either the email or password was not recognised, please try again. Or create a new account using the form on the left."
+msgstr ""
+
+msgid "Email Alerts Disabled"
+msgstr ""
+
+msgid "Email alerts for things you follow have now been disabled."
 msgstr ""
 
 msgid "Email doesn't look like a valid address"
@@ -1072,30 +979,6 @@ msgid "Flipper::Adapters::ActiveRecord::Gate|Key"
 msgstr ""
 
 msgid "Flipper::Adapters::ActiveRecord::Gate|Value"
-msgstr ""
-
-msgid "Foi attachment"
-msgstr ""
-
-msgid "FoiAttachment|Charset"
-msgstr ""
-
-msgid "FoiAttachment|Content type"
-msgstr ""
-
-msgid "FoiAttachment|Display size"
-msgstr ""
-
-msgid "FoiAttachment|Filename"
-msgstr ""
-
-msgid "FoiAttachment|Hexdigest"
-msgstr ""
-
-msgid "FoiAttachment|Url part number"
-msgstr ""
-
-msgid "FoiAttachment|Within rfc822 subject"
 msgstr ""
 
 msgid "Follow"
@@ -1222,16 +1105,19 @@ msgstr "由："
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "請在此詳述你的投訴"
 
+msgid "Getting long – remember to keep it focussed"
+msgstr ""
+
 msgid "Got a {{site_name}} account?"
 msgstr ""
 
 msgid "Got an account?"
 msgstr "已經註冊？"
 
-msgid "Handled by post"
+msgid "Handled by postal mail"
 msgstr ""
 
-msgid "Handled by post."
+msgid "Handled by postal mail."
 msgstr ""
 
 msgid "Has tag string tag"
@@ -1308,15 +1194,6 @@ msgstr ""
 
 msgid "Hide request"
 msgstr "隱藏索取資料要求"
-
-msgid "Holiday"
-msgstr "假期"
-
-msgid "Holiday|Day"
-msgstr "假期|日數"
-
-msgid "Holiday|Description"
-msgstr "假期|描述"
 
 msgid "Home page"
 msgstr "主頁"
@@ -1474,154 +1351,10 @@ msgstr ""
 msgid "Incoming email address"
 msgstr ""
 
-msgid "Incoming message"
-msgstr ""
-
-msgid "Incoming message error"
-msgstr ""
-
 msgid "Incoming message has a spam score above the configured threshold ({{spam_threshold}})."
 msgstr ""
 
-msgid "IncomingMessageError|Backtrace"
-msgstr ""
-
-msgid "IncomingMessageError|Retry at"
-msgstr ""
-
-msgid "IncomingMessage|Cached attachment text clipped"
-msgstr ""
-
-msgid "IncomingMessage|Cached main body text folded"
-msgstr ""
-
-msgid "IncomingMessage|Cached main body text unfolded"
-msgstr ""
-
-msgid "IncomingMessage|Last parsed"
-msgstr ""
-
-msgid "IncomingMessage|Mail from"
-msgstr ""
-
-msgid "IncomingMessage|Mail from domain"
-msgstr ""
-
-msgid "IncomingMessage|Prominence"
-msgstr ""
-
-msgid "IncomingMessage|Prominence reason"
-msgstr ""
-
-msgid "IncomingMessage|Sent at"
-msgstr ""
-
-msgid "IncomingMessage|Subject"
-msgstr ""
-
-msgid "IncomingMessage|Valid to reply to"
-msgstr ""
-
 msgid "Individual requests"
-msgstr ""
-
-msgid "Info request"
-msgstr ""
-
-msgid "Info request batch"
-msgstr ""
-
-msgid "Info request event"
-msgstr ""
-
-msgid "InfoRequestBatch|Body"
-msgstr ""
-
-msgid "InfoRequestBatch|Embargo duration"
-msgstr ""
-
-msgid "InfoRequestBatch|Sent at"
-msgstr ""
-
-msgid "InfoRequestBatch|Title"
-msgstr ""
-
-msgid "InfoRequestEvent|Calculated state"
-msgstr ""
-
-msgid "InfoRequestEvent|Described state"
-msgstr ""
-
-msgid "InfoRequestEvent|Event type"
-msgstr ""
-
-msgid "InfoRequestEvent|Last described at"
-msgstr ""
-
-msgid "InfoRequestEvent|Params yaml"
-msgstr ""
-
-msgid "InfoRequest|Allow new responses from"
-msgstr ""
-
-msgid "InfoRequest|Attention requested"
-msgstr ""
-
-msgid "InfoRequest|Awaiting description"
-msgstr ""
-
-msgid "InfoRequest|Comments allowed"
-msgstr ""
-
-msgid "InfoRequest|Date initial request last sent at"
-msgstr ""
-
-msgid "InfoRequest|Date response required by"
-msgstr ""
-
-msgid "InfoRequest|Date very overdue after"
-msgstr ""
-
-msgid "InfoRequest|Described state"
-msgstr ""
-
-msgid "InfoRequest|External url"
-msgstr ""
-
-msgid "InfoRequest|External user name"
-msgstr ""
-
-msgid "InfoRequest|Handle rejected responses"
-msgstr ""
-
-msgid "InfoRequest|Idhash"
-msgstr ""
-
-msgid "InfoRequest|Last event time"
-msgstr ""
-
-msgid "InfoRequest|Last public response at"
-msgstr ""
-
-msgid "InfoRequest|Law used"
-msgstr ""
-
-msgid "InfoRequest|Prominence"
-msgstr ""
-
-msgid "InfoRequest|Reject incoming at mta"
-msgstr ""
-
-msgid "InfoRequest|Rejected incoming count"
-msgstr ""
-
-msgid "InfoRequest|Title"
-msgstr ""
-
-msgid "InfoRequest|Url title"
-msgstr ""
-
-msgid "InfoRequest|Use notifications"
 msgstr ""
 
 msgid "Information not held"
@@ -1646,6 +1379,9 @@ msgid "Internal review request sent to {{public_body_name}} by {{info_request_us
 msgstr "{{info_request_user}}已在{{date}}要求{{public_body_name}}覆檢索取資料要求。"
 
 msgid "Invalid one time password"
+msgstr ""
+
+msgid "Invalid token"
 msgstr ""
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
@@ -1744,27 +1480,6 @@ msgstr "嚴重逾時"
 msgid "Made between"
 msgstr ""
 
-msgid "Mail server log"
-msgstr ""
-
-msgid "Mail server log done"
-msgstr ""
-
-msgid "MailServerLogDone|Filename"
-msgstr ""
-
-msgid "MailServerLogDone|Last stat"
-msgstr ""
-
-msgid "MailServerLog|Delivery status"
-msgstr ""
-
-msgid "MailServerLog|Line"
-msgstr ""
-
-msgid "MailServerLog|Order"
-msgstr ""
-
 msgid "Make a batch request"
 msgstr ""
 
@@ -1808,6 +1523,9 @@ msgid "Missing contact details for '{{authority_name}}'"
 msgstr ""
 
 msgid "More about this authority"
+msgstr ""
+
+msgid "More requests in this batch"
 msgstr ""
 
 msgid "More similar requests"
@@ -1906,9 +1624,6 @@ msgstr ""
 msgid "None made."
 msgstr ""
 
-msgid "Not a valid FOI request"
-msgstr ""
-
 msgid "Not a valid request"
 msgstr ""
 
@@ -1921,22 +1636,10 @@ msgstr ""
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
 msgstr ""
 
+msgid "Note that we may still send you emails when new correspondence appears on your requests, or when you perform actions that require an email confirmation step."
+msgstr ""
+
 msgid "Notes:"
-msgstr ""
-
-msgid "Notification"
-msgstr ""
-
-msgid "Notification|Expired"
-msgstr ""
-
-msgid "Notification|Frequency"
-msgstr ""
-
-msgid "Notification|Seen at"
-msgstr ""
-
-msgid "Notification|Send after"
 msgstr ""
 
 msgid "Now check your email!"
@@ -2013,30 +1716,6 @@ msgstr "其他"
 
 msgid "Other:"
 msgstr "其他："
-
-msgid "Outgoing message"
-msgstr ""
-
-msgid "OutgoingMessage|Body"
-msgstr ""
-
-msgid "OutgoingMessage|Last sent at"
-msgstr ""
-
-msgid "OutgoingMessage|Message type"
-msgstr ""
-
-msgid "OutgoingMessage|Prominence"
-msgstr ""
-
-msgid "OutgoingMessage|Prominence reason"
-msgstr ""
-
-msgid "OutgoingMessage|Status"
-msgstr ""
-
-msgid "OutgoingMessage|What doing"
-msgstr ""
 
 msgid "Partial success"
 msgstr ""
@@ -2123,6 +1802,9 @@ msgid "Please click on the link below to confirm that you want to change the ema
 msgstr ""
 
 msgid "Please click on the link below to confirm your email address."
+msgstr ""
+
+msgid "Please click on the link below to stop these emails."
 msgstr ""
 
 msgid "Please create an account or sign in"
@@ -2255,27 +1937,6 @@ msgstr ""
 msgid "Post annotation"
 msgstr ""
 
-msgid "Post redirect"
-msgstr ""
-
-msgid "PostRedirect|Circumstance"
-msgstr ""
-
-msgid "PostRedirect|Email token"
-msgstr ""
-
-msgid "PostRedirect|Post params yaml"
-msgstr ""
-
-msgid "PostRedirect|Reason params yaml"
-msgstr ""
-
-msgid "PostRedirect|Token"
-msgstr ""
-
-msgid "PostRedirect|Uri"
-msgstr ""
-
 msgid "Posted on {{date}} by {{author}}"
 msgstr "{{author}}於{{date}}發布"
 
@@ -2318,23 +1979,8 @@ msgstr ""
 msgid "Privacy and cookies"
 msgstr "私隱及Cookies"
 
-msgid "Pro account"
-msgstr ""
-
-msgid "ProAccount|Default embargo duration"
-msgstr ""
-
 msgid "Profile image for {{user_name}}"
 msgstr "{{user_name}}的頭像"
-
-msgid "Profile photo"
-msgstr "頭像"
-
-msgid "ProfilePhoto|Data"
-msgstr "頭像|數據"
-
-msgid "ProfilePhoto|Draft"
-msgstr "頭像|草稿"
 
 msgid "Public Bodies"
 msgstr ""
@@ -2372,22 +2018,7 @@ msgstr ""
 msgid "Public bodies with the most successful requests"
 msgstr ""
 
-msgid "Public body"
-msgstr ""
-
-msgid "Public body category"
-msgstr ""
-
-msgid "Public body category link"
-msgstr ""
-
 msgid "Public body category translation"
-msgstr ""
-
-msgid "Public body change request"
-msgstr ""
-
-msgid "Public body heading"
 msgstr ""
 
 msgid "Public body heading translation"
@@ -2399,9 +2030,6 @@ msgstr ""
 msgid "Public page not available"
 msgstr ""
 
-msgid "PublicBodyCategoryLink|Category display order"
-msgstr ""
-
 msgid "PublicBodyCategoryTranslation|Description"
 msgstr ""
 
@@ -2411,73 +2039,10 @@ msgstr ""
 msgid "PublicBodyCategoryTranslation|Title"
 msgstr ""
 
-msgid "PublicBodyCategory|Category tag"
-msgstr ""
-
-msgid "PublicBodyChangeRequest|Is open"
-msgstr ""
-
-msgid "PublicBodyChangeRequest|Notes"
-msgstr ""
-
-msgid "PublicBodyChangeRequest|Public body email"
-msgstr ""
-
-msgid "PublicBodyChangeRequest|Public body name"
-msgstr ""
-
-msgid "PublicBodyChangeRequest|Source url"
-msgstr ""
-
-msgid "PublicBodyChangeRequest|User email"
-msgstr ""
-
-msgid "PublicBodyChangeRequest|User name"
-msgstr ""
-
 msgid "PublicBodyHeadingTranslation|Locale"
 msgstr ""
 
 msgid "PublicBodyHeadingTranslation|Name"
-msgstr ""
-
-msgid "PublicBodyHeading|Display order"
-msgstr ""
-
-msgid "PublicBody|Api key"
-msgstr ""
-
-msgid "PublicBody|Disclosure log"
-msgstr ""
-
-msgid "PublicBody|Home page"
-msgstr ""
-
-msgid "PublicBody|Info requests count"
-msgstr ""
-
-msgid "PublicBody|Info requests not held count"
-msgstr ""
-
-msgid "PublicBody|Info requests overdue count"
-msgstr ""
-
-msgid "PublicBody|Info requests successful count"
-msgstr ""
-
-msgid "PublicBody|Info requests visible classified count"
-msgstr ""
-
-msgid "PublicBody|Info requests visible count"
-msgstr ""
-
-msgid "PublicBody|Last edit comment"
-msgstr ""
-
-msgid "PublicBody|Last edit editor"
-msgstr ""
-
-msgid "PublicBody|Version"
 msgstr ""
 
 msgid "Publication scheme"
@@ -2529,6 +2094,9 @@ msgid "Rejected"
 msgstr ""
 
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
+msgstr ""
+
+msgid "Report"
 msgstr ""
 
 msgid "Report an offensive or unsuitable request"
@@ -2671,15 +2239,6 @@ msgstr ""
 
 msgid "Results page {{page_number}}"
 msgstr ""
-
-msgid "Role"
-msgstr "角色"
-
-msgid "Role|Name"
-msgstr "角色|名稱"
-
-msgid "Role|Resource type"
-msgstr "角色|資源種類"
 
 msgid "Save"
 msgstr "儲存"
@@ -2862,12 +2421,6 @@ msgstr "來源網址："
 msgid "Source:"
 msgstr "來源："
 
-msgid "Spam address"
-msgstr "垃圾電郵地址"
-
-msgid "SpamAddress|Email"
-msgstr "垃圾電郵地址|電郵"
-
 msgid "Start your own request"
 msgstr ""
 
@@ -3021,7 +2574,7 @@ msgstr ""
 msgid "The authority say that they <strong>need a postal address</strong>, not just an email, for it to be a valid FOI request"
 msgstr ""
 
-msgid "The authority would like to / has <strong>responded by post</strong> to this request."
+msgid "The authority would like to / has <strong>responded by postal mail</strong> to this request."
 msgstr ""
 
 msgid "The classification of requests (e.g. to say whether they were successful or not) is done manually by users and administrators of the site, which means that they are subject to error."
@@ -3072,7 +2625,7 @@ msgstr ""
 msgid "The public authority would like part of the request explained"
 msgstr ""
 
-msgid "The public authority would like to / has responded by post"
+msgid "The public authority would like to / has responded by postal mail"
 msgstr ""
 
 msgid "The request has been <strong>refused</strong>"
@@ -3234,7 +2787,7 @@ msgstr ""
 msgid "These logs show what happened to this message as it passed through our {{mta_type}} mail server. You can send these logs to an authority to help them diagnose problems receiving email from {{site_name}}."
 msgstr ""
 
-msgid "They are going to reply <strong>by post</strong>"
+msgid "They are going to reply <strong>by postal mail</strong>"
 msgstr ""
 
 msgid "They do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
@@ -3253,6 +2806,9 @@ msgid "They have still not replied to your {{law_used_short}} request {{title}},
 msgstr ""
 
 msgid "Things you're following"
+msgstr ""
+
+msgid "This account has been closed."
 msgstr ""
 
 msgid "This annotation has been reported for administrator attention"
@@ -3347,6 +2903,9 @@ msgstr ""
 msgid "This request has an <strong>unknown status</strong>."
 msgstr ""
 
+msgid "This request has been <strong>closed to new correspondence from the public body</strong>. <a href=\"{{url}}\"\">Contact us</a> if you think it ought be re-opened."
+msgstr ""
+
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
 msgstr ""
 
@@ -3378,6 +2937,9 @@ msgid "This request has prominence 'hidden'. You can only see it because you are
 msgstr ""
 
 msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
+msgstr ""
+
+msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
 msgstr ""
 
 msgid "This request is still in progress:"
@@ -3521,22 +3083,10 @@ msgstr "過多要求"
 msgid "Top recent players"
 msgstr ""
 
-msgid "Track thing"
-msgstr ""
-
 msgid "Track this person"
 msgstr ""
 
 msgid "Track this search"
-msgstr ""
-
-msgid "TrackThing|Track medium"
-msgstr ""
-
-msgid "TrackThing|Track query"
-msgstr ""
-
-msgid "TrackThing|Track type"
 msgstr ""
 
 msgid "Try opening the logs in a new window."
@@ -3641,104 +3191,17 @@ msgstr ""
 msgid "Use this site to make your request for information – we'll show you how."
 msgstr ""
 
-msgid "User"
-msgstr "用户"
-
-msgid "User info request sent alert"
-msgstr ""
-
 msgid "User – {{name}}"
 msgstr "用户 － {{name}}"
-
-msgid "UserInfoRequestSentAlert|Alert type"
-msgstr ""
 
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
 msgstr "用户不能同一時間向多個公共機構提出索取資料要求，因為我們不希望公共機構被大量索取資料要求影響其正常運作。如果你認為有充分理由需要向多個公共機構提出相同的索取資料要求，請 <a href=\"{{url}}\">聯絡我們</a>。"
 
-msgid "User|About me"
-msgstr "用户|關於自己"
-
-msgid "User|Ban text"
-msgstr "用户|封禁字眼"
-
-msgid "User|Can make batch requests"
-msgstr "用户|可以同時向多個公共機構索取資料"
-
-msgid "User|Comments count"
-msgstr ""
-
-msgid "User|Confirmed not spam"
-msgstr ""
-
-msgid "User|Daily summary hour"
-msgstr ""
-
-msgid "User|Daily summary minute"
-msgstr ""
-
-msgid "User|Email"
-msgstr "用户|電郵"
-
-msgid "User|Email bounce message"
-msgstr "用户|電郵退回訊息"
-
-msgid "User|Email bounced at"
-msgstr "用户|電郵退回於"
-
-msgid "User|Email confirmed"
-msgstr "用户|電郵已確認"
-
-msgid "User|Hashed password"
-msgstr ""
-
-msgid "User|Info request batches count"
-msgstr ""
-
-msgid "User|Info requests count"
-msgstr ""
-
-msgid "User|Last daily track email"
-msgstr ""
-
-msgid "User|Locale"
-msgstr ""
-
-msgid "User|Name"
-msgstr "用户|名稱"
-
-msgid "User|No limit"
-msgstr "用户|沒有限制"
-
-msgid "User|Otp counter"
-msgstr ""
-
-msgid "User|Otp enabled"
-msgstr ""
-
-msgid "User|Otp secret key"
-msgstr ""
-
-msgid "User|Public body change requests count"
-msgstr ""
-
-msgid "User|Receive email alerts"
-msgstr "用户|接收電郵提示"
-
-msgid "User|Request classifications count"
-msgstr ""
-
-msgid "User|Salt"
-msgstr ""
-
-msgid "User|Track things count"
-msgstr ""
-
-msgid "User|Url name"
-msgstr ""
-
 msgid "Version {{version}}"
 msgstr "版本 {{version}}"
+
+msgid "Very long – shorter requests are more successful"
+msgstr ""
 
 msgid "Vexatious"
 msgstr "困擾的"
@@ -3786,6 +3249,9 @@ msgid "Waiting for the public authority to reply"
 msgstr "正等待公共機構回應"
 
 msgid "Want to know something?"
+msgstr ""
+
+msgid "We consider it is not a valid FOI request as it was correspondence about your personal circumstances, and we have therefore hidden it from other users."
 msgstr ""
 
 msgid "We consider it is not a valid FOI request, and have therefore hidden it from other users."
@@ -3910,12 +3376,6 @@ msgstr "我可以向哪些公共機構查閱資料？"
 msgid "Why specifically do you consider this request unsuitable?"
 msgstr "請問你為何認為這項要求不恰當？"
 
-msgid "Widget vote"
-msgstr ""
-
-msgid "WidgetVote|Cookie"
-msgstr ""
-
 msgid "Withdrawn"
 msgstr ""
 
@@ -4024,9 +3484,6 @@ msgstr "你可以在<a href=\"{{profile_url}}\">你的用户頁</a>更改你關�
 msgid "You can get this page in computer-readable format as part of the <a href=\"{{json_path}}\">main JSON page</a> for the request. See the <a href=\"{{api_path}}\">API documentation</a>."
 msgstr ""
 
-msgid "You can only request information about the environment from this authority."
-msgstr ""
-
 msgid "You can regenerate your one time passcode at any time."
 msgstr ""
 
@@ -4104,6 +3561,9 @@ msgstr "編輯用户頁前，請先登入。"
 
 msgid "You need to be logged in to report a request for administrator attention"
 msgstr "舉報要求前，請先登入。"
+
+msgid "You only have a right in law to access information about the environment from this authority"
+msgstr ""
 
 msgid "You previously submitted that exact follow up message for this request."
 msgstr ""
@@ -4256,13 +3716,7 @@ msgstr ""
 msgid "Your request to add an authority has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr ""
 
-msgid "Your request to add {{public_body_name}} to {{site_name}}"
-msgstr ""
-
 msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
-msgstr ""
-
-msgid "Your request to update {{public_body_name}} on {{site_name}}"
 msgstr ""
 
 msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
@@ -4321,6 +3775,9 @@ msgstr "[公共機構名稱]"
 
 msgid "[FOI #{{request}} email]"
 msgstr "[索取資料要求電郵#{{request}}]"
+
+msgid "[Name Removed]"
+msgstr ""
 
 msgid "[REDACTED]"
 msgstr ""
@@ -4530,9 +3987,6 @@ msgstr "{{site_name}} 團隊"
 
 msgid "to send a follow up message."
 msgstr "發出一則跟進訊息。"
-
-msgid "to {{public_body}}"
-msgstr "給{{public_body}}"
 
 msgid "type your search term here"
 msgstr "在這裡輸入你的搜尋文字"
@@ -4781,7 +4235,13 @@ msgstr "{{username}}加入了備註："
 msgid "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 msgstr ""
 
-msgid "{{user}} made this {{law_used_full}} request"
+msgid "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>) as part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
+msgstr ""
+
+msgid "{{user}} made this {{law_used_full}} request to {{public_body}}"
+msgstr ""
+
+msgid "{{user}} made this {{law_used_full}} request to {{public_body}} as part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
 msgstr ""
 
 msgid "« Back to search results"

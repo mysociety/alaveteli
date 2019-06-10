@@ -15,6 +15,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Anton Stoychev <antitoxic@gmail.com>, 2013
 # Anton Stoychev <antitoxic@gmail.com>, 2013
 # Liz Conlan <liz@mysociety.org>, 2018
@@ -25,8 +26,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-28 15:37+0000\n"
-"PO-Revision-Date: 2018-12-21 12:21+0000\n"
+"POT-Creation-Date: 2019-06-10 14:02+0000\n"
+"PO-Revision-Date: 2019-06-10 14:40+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/mysociety/alaveteli/language/bg/)\n"
 "Language: bg\n"
@@ -143,6 +144,9 @@ msgstr ""
 msgid "<a href=\"{{new_request_link}}\">Make a new FOI request</a> to {{public_body_name}}"
 msgstr ""
 
+msgid "<a href=\"{{sign_in_link}}\">Sign in</a> to get updates on things you follow or re-enable email alerts."
+msgstr ""
+
 msgid "<a href=\"{{url}}\">Do you want to request private information about yourself?</a>"
 msgstr "<strong>Забележка за лични данни:</strong> Ако желаете да поискате лична\\n     информация за себе си, <a href=\"{{url}}\">цъкнете тук</a>."
 
@@ -153,6 +157,9 @@ msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and mor
 msgstr "<a href=\"{{url}}\">Влезте</a> за да смените паролата, абонаментите или друго (само за {{user_name}})"
 
 msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>"
+msgstr ""
+
+msgid "<a href=\"{{wall_link}}\">Visit your Wall</a> to get updates on things you follow or re-enable email alerts."
 msgstr ""
 
 msgid "<div class=\"alaveteli-widget__count\">{{count}}</div> person wants to know"
@@ -286,8 +293,8 @@ msgstr "<a href=\"{{request_url}}\">Пояснително съобщение</a
 msgid "A <a href=\"{{request_url}}\">response</a> to <em>{{request_title}}</em> was sent by {{public_body_name}} to {{info_request_user}} on {{date}}.  The request status is: {{request_status}}"
 msgstr "Към <em>{{request_title}}</em> беше изпратен <a href=\"{{request_url}}\">отговор</a> от {{public_body_name}} до {{info_request_user}} на {{date}}.  Състоянието на заявлението е: {{request_status}}"
 
-msgid "A <strong>summary</strong> of the response if you have received it by post. "
-msgstr "<strong>Обобщение</strong> на отговора ако сте го получили по пощата. "
+msgid "A <strong>summary</strong> of the response if you have received it by postal mail. "
+msgstr ""
 
 msgid "A Freedom of Information request"
 msgstr "Заявление за достъп до обществена информация"
@@ -307,14 +314,11 @@ msgstr ""
 msgid "A public authority"
 msgstr "Публичен орган"
 
-msgid "A response will be sent <strong>by post</strong>"
-msgstr "Отговор ще бъде изпратен <strong>по пощата</strong>"
+msgid "A response will be sent <strong>by postal mail</strong>"
+msgstr ""
 
-msgid "A strange reponse, required attention by the {{site_name}} team"
-msgstr "Странен отговор, изисква вниманието на екипа на {{site_name}}"
-
-msgid "A vexatious request"
-msgstr "Неоснователно Заявление"
+msgid "A strange response, required attention by the {{site_name}} team"
+msgstr ""
 
 msgid "A {{site_name}} user"
 msgstr "Потребител на {{site_name}}"
@@ -326,6 +330,9 @@ msgid "About you:"
 msgstr "За Вас:"
 
 msgid "About {{count}} FOI requests found"
+msgstr ""
+
+msgid "Account closed at user request"
 msgstr ""
 
 msgid "Account suspended – Please contact us"
@@ -381,63 +388,6 @@ msgstr "Съветвайте дали <strong>отказът е законен</
 
 msgid "Air, water, soil, land, flora and fauna (including how these effect human beings)"
 msgstr "Въздух, вода, почва, земя, флора и фауна (включително\\nтяхното влияние върху хората)"
-
-msgid "Alaveteli pro/draft info request batch"
-msgstr ""
-
-msgid "Alaveteli pro/embargo"
-msgstr ""
-
-msgid "Alaveteli pro/embargo extension"
-msgstr ""
-
-msgid "Alaveteli pro/request summary"
-msgstr ""
-
-msgid "Alaveteli pro/request summary category"
-msgstr ""
-
-msgid "AlaveteliPro::DraftInfoRequestBatch|Body"
-msgstr ""
-
-msgid "AlaveteliPro::DraftInfoRequestBatch|Embargo duration"
-msgstr ""
-
-msgid "AlaveteliPro::DraftInfoRequestBatch|Title"
-msgstr ""
-
-msgid "AlaveteliPro::EmbargoExtension|Extension duration"
-msgstr ""
-
-msgid "AlaveteliPro::Embargo|Embargo duration"
-msgstr ""
-
-msgid "AlaveteliPro::Embargo|Expiring notification at"
-msgstr ""
-
-msgid "AlaveteliPro::Embargo|Publish at"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummaryCategory|Slug"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Body"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Public body names"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Request created at"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Request updated at"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Summarisable type"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Title"
-msgstr ""
 
 msgid "All of the information requested has been received"
 msgstr "Цялата поискана информация беше получена"
@@ -508,12 +458,6 @@ msgstr "С коментарите всеки, включително Вие, м�
 msgid "Annotations will be posted publicly here, and are <strong>not</strong> sent to {{public_body_name}}."
 msgstr "Коментарите ще бъдат публикувани тук и\\n <strong>няма</strong> да бъдат изпращани до {{public_body_name}}."
 
-msgid "Announcement"
-msgstr ""
-
-msgid "Announcement|Visibility"
-msgstr ""
-
 msgid "Anonymous user"
 msgstr "Анонимен потребител"
 
@@ -522,6 +466,9 @@ msgstr "Приложимо за"
 
 msgid "Are we missing a public authority?"
 msgstr "Да не сме пропуснали публичен орган?"
+
+msgid "Are you asking about your, or others', personal information or personal situation?"
+msgstr ""
 
 msgid "Are you sure you want to disable two factor authentication?"
 msgstr ""
@@ -652,24 +599,6 @@ msgstr " Спиране на някои известия от {{site_name}}"
 msgid "Cancel, return to your profile page"
 msgstr "Отказ и връщане в страницата на профила Ви"
 
-msgid "Censor rule"
-msgstr ""
-
-msgid "CensorRule|Last edit comment"
-msgstr ""
-
-msgid "CensorRule|Last edit editor"
-msgstr ""
-
-msgid "CensorRule|Regexp"
-msgstr ""
-
-msgid "CensorRule|Replacement"
-msgstr ""
-
-msgid "CensorRule|Text"
-msgstr ""
-
 msgid "Change email on {{site_name}}"
 msgstr "Промяна на имейла в {{site_name}}"
 
@@ -738,21 +667,6 @@ msgstr "Затвори заявлението и отговори:"
 
 msgid "Collapse all correspondence"
 msgstr ""
-
-msgid "Comment"
-msgstr "Коментар"
-
-msgid "Comment|Attention requested"
-msgstr ""
-
-msgid "Comment|Body"
-msgstr "Коментар|Тяло"
-
-msgid "Comment|Locale"
-msgstr "Comment|Националност"
-
-msgid "Comment|Visible"
-msgstr "Comment|Видим"
 
 msgid "Complete"
 msgstr ""
@@ -880,9 +794,6 @@ msgstr ""
 msgid "Delivery error"
 msgstr "Грешка при доставка"
 
-msgid "Destroy {{name}}"
-msgstr ""
-
 msgid "Details of request &ldquo;{{request_title}}&rdquo;"
 msgstr ""
 
@@ -925,18 +836,6 @@ msgstr "Сваляне на zip файл с цялата кореспонден�
 msgid "Download original attachment"
 msgstr "Сваляне на оригиналното приложение"
 
-msgid "Draft info request"
-msgstr ""
-
-msgid "DraftInfoRequest|Body"
-msgstr ""
-
-msgid "DraftInfoRequest|Embargo duration"
-msgstr ""
-
-msgid "DraftInfoRequest|Title"
-msgstr ""
-
 msgid "EIR"
 msgstr ""
 
@@ -956,6 +855,12 @@ msgid "Either the email or password was not recognised, please try again."
 msgstr "Или имейлът, или паролата не бяха разпознати, моля, опитайте отново."
 
 msgid "Either the email or password was not recognised, please try again. Or create a new account using the form on the left."
+msgstr ""
+
+msgid "Email Alerts Disabled"
+msgstr ""
+
+msgid "Email alerts for things you follow have now been disabled."
 msgstr ""
 
 msgid "Email doesn't look like a valid address"
@@ -1070,30 +975,6 @@ msgid "Flipper::Adapters::ActiveRecord::Gate|Key"
 msgstr ""
 
 msgid "Flipper::Adapters::ActiveRecord::Gate|Value"
-msgstr ""
-
-msgid "Foi attachment"
-msgstr "ДдИ приложение"
-
-msgid "FoiAttachment|Charset"
-msgstr "FoiAttachment|Кодова таблица"
-
-msgid "FoiAttachment|Content type"
-msgstr "FoiAttachment|Тип съдържание"
-
-msgid "FoiAttachment|Display size"
-msgstr "FoiAttachment|Показвай големината"
-
-msgid "FoiAttachment|Filename"
-msgstr "FoiAttachment|Име на файл"
-
-msgid "FoiAttachment|Hexdigest"
-msgstr ""
-
-msgid "FoiAttachment|Url part number"
-msgstr ""
-
-msgid "FoiAttachment|Within rfc822 subject"
 msgstr ""
 
 msgid "Follow"
@@ -1224,17 +1105,20 @@ msgstr "От:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "ТУК НАПИШЕТЕ ПОДРОБНОСТИ ЗА ВАШЕТО ОПЛАКВАНЕ"
 
+msgid "Getting long – remember to keep it focussed"
+msgstr ""
+
 msgid "Got a {{site_name}} account?"
 msgstr ""
 
 msgid "Got an account?"
 msgstr ""
 
-msgid "Handled by post"
+msgid "Handled by postal mail"
 msgstr ""
 
-msgid "Handled by post."
-msgstr "Доставено по пощата."
+msgid "Handled by postal mail."
+msgstr ""
 
 msgid "Has tag string tag"
 msgstr ""
@@ -1310,15 +1194,6 @@ msgstr ""
 
 msgid "Hide request"
 msgstr "Скрий заявлението"
-
-msgid "Holiday"
-msgstr "Празник"
-
-msgid "Holiday|Day"
-msgstr "Празник|Ден"
-
-msgid "Holiday|Description"
-msgstr "Празник|Описание"
 
 msgid "Home page"
 msgstr "Начална страница"
@@ -1476,155 +1351,11 @@ msgstr "Поставете препратки към материали по т�
 msgid "Incoming email address"
 msgstr "Адрес за входяща поща"
 
-msgid "Incoming message"
-msgstr "Входящо съобщение"
-
-msgid "Incoming message error"
-msgstr ""
-
 msgid "Incoming message has a spam score above the configured threshold ({{spam_threshold}})."
-msgstr ""
-
-msgid "IncomingMessageError|Backtrace"
-msgstr ""
-
-msgid "IncomingMessageError|Retry at"
-msgstr ""
-
-msgid "IncomingMessage|Cached attachment text clipped"
-msgstr ""
-
-msgid "IncomingMessage|Cached main body text folded"
-msgstr ""
-
-msgid "IncomingMessage|Cached main body text unfolded"
-msgstr ""
-
-msgid "IncomingMessage|Last parsed"
-msgstr ""
-
-msgid "IncomingMessage|Mail from"
-msgstr ""
-
-msgid "IncomingMessage|Mail from domain"
-msgstr ""
-
-msgid "IncomingMessage|Prominence"
-msgstr ""
-
-msgid "IncomingMessage|Prominence reason"
-msgstr ""
-
-msgid "IncomingMessage|Sent at"
-msgstr ""
-
-msgid "IncomingMessage|Subject"
-msgstr ""
-
-msgid "IncomingMessage|Valid to reply to"
 msgstr ""
 
 msgid "Individual requests"
 msgstr "Индивидуални заявления"
-
-msgid "Info request"
-msgstr "Info Заявление"
-
-msgid "Info request batch"
-msgstr ""
-
-msgid "Info request event"
-msgstr ""
-
-msgid "InfoRequestBatch|Body"
-msgstr ""
-
-msgid "InfoRequestBatch|Embargo duration"
-msgstr ""
-
-msgid "InfoRequestBatch|Sent at"
-msgstr ""
-
-msgid "InfoRequestBatch|Title"
-msgstr ""
-
-msgid "InfoRequestEvent|Calculated state"
-msgstr ""
-
-msgid "InfoRequestEvent|Described state"
-msgstr ""
-
-msgid "InfoRequestEvent|Event type"
-msgstr ""
-
-msgid "InfoRequestEvent|Last described at"
-msgstr ""
-
-msgid "InfoRequestEvent|Params yaml"
-msgstr ""
-
-msgid "InfoRequest|Allow new responses from"
-msgstr ""
-
-msgid "InfoRequest|Attention requested"
-msgstr ""
-
-msgid "InfoRequest|Awaiting description"
-msgstr ""
-
-msgid "InfoRequest|Comments allowed"
-msgstr ""
-
-msgid "InfoRequest|Date initial request last sent at"
-msgstr ""
-
-msgid "InfoRequest|Date response required by"
-msgstr ""
-
-msgid "InfoRequest|Date very overdue after"
-msgstr ""
-
-msgid "InfoRequest|Described state"
-msgstr ""
-
-msgid "InfoRequest|External url"
-msgstr ""
-
-msgid "InfoRequest|External user name"
-msgstr ""
-
-msgid "InfoRequest|Handle rejected responses"
-msgstr ""
-
-msgid "InfoRequest|Idhash"
-msgstr ""
-
-msgid "InfoRequest|Last event time"
-msgstr ""
-
-msgid "InfoRequest|Last public response at"
-msgstr ""
-
-msgid "InfoRequest|Law used"
-msgstr ""
-
-msgid "InfoRequest|Prominence"
-msgstr ""
-
-msgid "InfoRequest|Reject incoming at mta"
-msgstr ""
-
-msgid "InfoRequest|Rejected incoming count"
-msgstr ""
-
-msgid "InfoRequest|Title"
-msgstr ""
-
-msgid "InfoRequest|Url title"
-msgstr ""
-
-msgid "InfoRequest|Use notifications"
-msgstr ""
 
 msgid "Information not held"
 msgstr ""
@@ -1648,6 +1379,9 @@ msgid "Internal review request sent to {{public_body_name}} by {{info_request_us
 msgstr "Заявление за вътрешно разглеждане, изпратено до {{public_body_name}} от {{info_request_user}} на {{date}}."
 
 msgid "Invalid one time password"
+msgstr ""
+
+msgid "Invalid token"
 msgstr ""
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
@@ -1746,27 +1480,6 @@ msgstr "Значително пресрочено."
 msgid "Made between"
 msgstr "Направено между"
 
-msgid "Mail server log"
-msgstr "Журнал на пощенския сървър"
-
-msgid "Mail server log done"
-msgstr "Журналът на пощенския сървър е готов"
-
-msgid "MailServerLogDone|Filename"
-msgstr ""
-
-msgid "MailServerLogDone|Last stat"
-msgstr ""
-
-msgid "MailServerLog|Delivery status"
-msgstr ""
-
-msgid "MailServerLog|Line"
-msgstr ""
-
-msgid "MailServerLog|Order"
-msgstr ""
-
 msgid "Make a batch request"
 msgstr "Направете размножено заявление"
 
@@ -1811,6 +1524,9 @@ msgstr "Липсват детайли за контакт за '{{authority_name
 
 msgid "More about this authority"
 msgstr "Още за този орган"
+
+msgid "More requests in this batch"
+msgstr ""
 
 msgid "More similar requests"
 msgstr "Още подобни заявления"
@@ -1908,9 +1624,6 @@ msgstr "Нищо не е намерено."
 msgid "None made."
 msgstr "Няма създадени такива."
 
-msgid "Not a valid FOI request"
-msgstr "Не е валидно Заявление за ДдИ"
-
 msgid "Not a valid request"
 msgstr "Невалидно заявление"
 
@@ -1923,23 +1636,11 @@ msgstr ""
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
 msgstr "Имайте предвид, че заявителят няма да бъде уведомен за коментара Ви, понеже заявлението бе публикувано от {{public_body_name}} от тяхно име."
 
+msgid "Note that we may still send you emails when new correspondence appears on your requests, or when you perform actions that require an email confirmation step."
+msgstr ""
+
 msgid "Notes:"
 msgstr "Бележки:"
-
-msgid "Notification"
-msgstr ""
-
-msgid "Notification|Expired"
-msgstr ""
-
-msgid "Notification|Frequency"
-msgstr ""
-
-msgid "Notification|Seen at"
-msgstr ""
-
-msgid "Notification|Send after"
-msgstr ""
 
 msgid "Now check your email!"
 msgstr "Сега си проверете пощата!"
@@ -2015,30 +1716,6 @@ msgstr "Друг"
 
 msgid "Other:"
 msgstr "Друг:"
-
-msgid "Outgoing message"
-msgstr "Изходящо съобщение"
-
-msgid "OutgoingMessage|Body"
-msgstr ""
-
-msgid "OutgoingMessage|Last sent at"
-msgstr ""
-
-msgid "OutgoingMessage|Message type"
-msgstr ""
-
-msgid "OutgoingMessage|Prominence"
-msgstr ""
-
-msgid "OutgoingMessage|Prominence reason"
-msgstr ""
-
-msgid "OutgoingMessage|Status"
-msgstr ""
-
-msgid "OutgoingMessage|What doing"
-msgstr ""
 
 msgid "Partial success"
 msgstr ""
@@ -2126,6 +1803,9 @@ msgstr "Моля, цъкнете върху връзката по-долу, за
 
 msgid "Please click on the link below to confirm your email address."
 msgstr "Моля, цъкнете върху връзката по-долу за да потвърдите Вашия имейл адрес."
+
+msgid "Please click on the link below to stop these emails."
+msgstr ""
 
 msgid "Please create an account or sign in"
 msgstr "Моля, влезте или създайте нова регистрация."
@@ -2258,27 +1938,6 @@ msgstr "Вероятно свързани заявления:"
 msgid "Post annotation"
 msgstr "Публикувай коментара"
 
-msgid "Post redirect"
-msgstr ""
-
-msgid "PostRedirect|Circumstance"
-msgstr ""
-
-msgid "PostRedirect|Email token"
-msgstr ""
-
-msgid "PostRedirect|Post params yaml"
-msgstr ""
-
-msgid "PostRedirect|Reason params yaml"
-msgstr ""
-
-msgid "PostRedirect|Token"
-msgstr ""
-
-msgid "PostRedirect|Uri"
-msgstr ""
-
 msgid "Posted on {{date}} by {{author}}"
 msgstr "Публикувано на {{date}} от {{author}}"
 
@@ -2321,22 +1980,7 @@ msgstr ""
 msgid "Privacy and cookies"
 msgstr ""
 
-msgid "Pro account"
-msgstr ""
-
-msgid "ProAccount|Default embargo duration"
-msgstr ""
-
 msgid "Profile image for {{user_name}}"
-msgstr ""
-
-msgid "Profile photo"
-msgstr "Снимка в профила"
-
-msgid "ProfilePhoto|Data"
-msgstr ""
-
-msgid "ProfilePhoto|Draft"
 msgstr ""
 
 msgid "Public Bodies"
@@ -2375,22 +2019,7 @@ msgstr "Публични органи с най-много заявления"
 msgid "Public bodies with the most successful requests"
 msgstr "Публични органи с най-много успешни заявления"
 
-msgid "Public body"
-msgstr "Публичен орган"
-
-msgid "Public body category"
-msgstr ""
-
-msgid "Public body category link"
-msgstr ""
-
 msgid "Public body category translation"
-msgstr ""
-
-msgid "Public body change request"
-msgstr ""
-
-msgid "Public body heading"
 msgstr ""
 
 msgid "Public body heading translation"
@@ -2402,9 +2031,6 @@ msgstr "Публична страница"
 msgid "Public page not available"
 msgstr "Публичната страница не е достъпна"
 
-msgid "PublicBodyCategoryLink|Category display order"
-msgstr ""
-
 msgid "PublicBodyCategoryTranslation|Description"
 msgstr ""
 
@@ -2414,74 +2040,11 @@ msgstr ""
 msgid "PublicBodyCategoryTranslation|Title"
 msgstr ""
 
-msgid "PublicBodyCategory|Category tag"
-msgstr ""
-
-msgid "PublicBodyChangeRequest|Is open"
-msgstr ""
-
-msgid "PublicBodyChangeRequest|Notes"
-msgstr "PublicBodyChangeRequest|Бележки"
-
-msgid "PublicBodyChangeRequest|Public body email"
-msgstr "PublicBodyChangeRequest|Имейл на публичния орган"
-
-msgid "PublicBodyChangeRequest|Public body name"
-msgstr "PublicBodyChangeRequest|Име на публичния орган"
-
-msgid "PublicBodyChangeRequest|Source url"
-msgstr "PublicBodyChangeRequest|url източник"
-
-msgid "PublicBodyChangeRequest|User email"
-msgstr "PublicBodyChangeRequest|Имейл на потребител"
-
-msgid "PublicBodyChangeRequest|User name"
-msgstr "PublicBodyChangeRequest|Име на потребител"
-
 msgid "PublicBodyHeadingTranslation|Locale"
 msgstr ""
 
 msgid "PublicBodyHeadingTranslation|Name"
 msgstr ""
-
-msgid "PublicBodyHeading|Display order"
-msgstr ""
-
-msgid "PublicBody|Api key"
-msgstr ""
-
-msgid "PublicBody|Disclosure log"
-msgstr ""
-
-msgid "PublicBody|Home page"
-msgstr "PublicBody|Сайт"
-
-msgid "PublicBody|Info requests count"
-msgstr "PublicBody|Брой заявления"
-
-msgid "PublicBody|Info requests not held count"
-msgstr ""
-
-msgid "PublicBody|Info requests overdue count"
-msgstr "PublicBody|Брой просрочени заявления"
-
-msgid "PublicBody|Info requests successful count"
-msgstr "PublicBody|Брой успешни заявления"
-
-msgid "PublicBody|Info requests visible classified count"
-msgstr ""
-
-msgid "PublicBody|Info requests visible count"
-msgstr ""
-
-msgid "PublicBody|Last edit comment"
-msgstr "PublicBody|Последно редактиран коментар"
-
-msgid "PublicBody|Last edit editor"
-msgstr "PublicBody|Последен редактор на коментар"
-
-msgid "PublicBody|Version"
-msgstr "PublicBody|Версия"
 
 msgid "Publication scheme"
 msgstr ""
@@ -2532,6 +2095,9 @@ msgid "Rejected"
 msgstr ""
 
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
+msgstr ""
+
+msgid "Report"
 msgstr ""
 
 msgid "Report an offensive or unsuitable request"
@@ -2674,15 +2240,6 @@ msgstr "Ограничи до"
 
 msgid "Results page {{page_number}}"
 msgstr "Страница с резултати {{page_number}}"
-
-msgid "Role"
-msgstr ""
-
-msgid "Role|Name"
-msgstr ""
-
-msgid "Role|Resource type"
-msgstr ""
 
 msgid "Save"
 msgstr "Запази"
@@ -2866,12 +2423,6 @@ msgstr "URL източник:"
 msgid "Source:"
 msgstr "Източник:"
 
-msgid "Spam address"
-msgstr ""
-
-msgid "SpamAddress|Email"
-msgstr ""
-
 msgid "Start your own request"
 msgstr ""
 
@@ -3014,7 +2565,7 @@ msgid "The accounts have been left as they previously were."
 msgstr "Акаунтите бяха оставени както си бяха."
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr "Органът <strong>не притежава</strong> информацията <small>(вероятно посочват кой я притежава)</small>"
+msgstr ""
 
 msgid "The authority email doesn't look like a valid address"
 msgstr "Имейлът на органа не изглежда да е валиден адрес"
@@ -3025,8 +2576,8 @@ msgstr "Органът притежава информацията само на
 msgid "The authority say that they <strong>need a postal address</strong>, not just an email, for it to be a valid FOI request"
 msgstr "Органът съобщи, че те <strong>се нуждаят от пощенски\\n            адрес</strong>, а не само имейл, за да бъде валидно заявление за ДдИ"
 
-msgid "The authority would like to / has <strong>responded by post</strong> to this request."
-msgstr "Публичният орган би желал или вече е<strong>отговорил по пощата</strong> на това заявление."
+msgid "The authority would like to / has <strong>responded by postal mail</strong> to this request."
+msgstr ""
 
 msgid "The classification of requests (e.g. to say whether they were successful or not) is done manually by users and administrators of the site, which means that they are subject to error."
 msgstr "Класифицирането на заявления, (напр. дали са успешни или не) е направено от потребители и администратори на сайта, като те би могло да са сгрешили."
@@ -3076,8 +2627,8 @@ msgstr "Публичният орган не разполага с искана�
 msgid "The public authority would like part of the request explained"
 msgstr "Публичният орган желае пояснение на част от заявлението"
 
-msgid "The public authority would like to / has responded by post"
-msgstr "Публичният орган би желал или вече е отговорил по пощата"
+msgid "The public authority would like to / has responded by postal mail"
+msgstr ""
 
 msgid "The request has been <strong>refused</strong>"
 msgstr "Заявлението беше <strong>отхвърлено</strong>"
@@ -3238,8 +2789,8 @@ msgstr "Тези графики са частично вдъхновени от 
 msgid "These logs show what happened to this message as it passed through our {{mta_type}} mail server. You can send these logs to an authority to help them diagnose problems receiving email from {{site_name}}."
 msgstr ""
 
-msgid "They are going to reply <strong>by post</strong>"
-msgstr "Те ще отговорят <strong>по пощата</strong>"
+msgid "They are going to reply <strong>by postal mail</strong>"
+msgstr ""
 
 msgid "They do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr "Те <strong>не притежават</strong> информацията <small>(вероятно посочват кой я притежава)</small>"
@@ -3258,6 +2809,9 @@ msgstr ""
 
 msgid "Things you're following"
 msgstr "Нещата, които следите"
+
+msgid "This account has been closed."
+msgstr ""
 
 msgid "This annotation has been reported for administrator attention"
 msgstr ""
@@ -3353,6 +2907,9 @@ msgstr "Това заявление вече беше докладвано на 
 msgid "This request has an <strong>unknown status</strong>."
 msgstr "Това заявление е в <strong>неизвестно състояние</strong>."
 
+msgid "This request has been <strong>closed to new correspondence from the public body</strong>. <a href=\"{{url}}\"\">Contact us</a> if you think it ought be re-opened."
+msgstr ""
+
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
 msgstr "Това заявление беше <strong>докладвано</strong> на вниманието на администратор (вероятно защото е неоснователно или е заявление за лична информация)"
 
@@ -3385,6 +2942,9 @@ msgstr "Това съобщение е отбелязано като 'скрит
 
 msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
 msgstr "Това Заявление е скрито, така че само Вие, заявителят, може да го види. Молим\\n    <a href=\"{{url}}\">свържете се с нас</a> ако не сте сигурни защо."
+
+msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
+msgstr ""
 
 msgid "This request is still in progress:"
 msgstr "Това заявление все още се обработва:"
@@ -3527,23 +3087,11 @@ msgstr "Твърде много заявления"
 msgid "Top recent players"
 msgstr ""
 
-msgid "Track thing"
-msgstr "Следване"
-
 msgid "Track this person"
 msgstr "Следване на този потребител"
 
 msgid "Track this search"
 msgstr "Следване на такива резултати"
-
-msgid "TrackThing|Track medium"
-msgstr ""
-
-msgid "TrackThing|Track query"
-msgstr ""
-
-msgid "TrackThing|Track type"
-msgstr "TrackThing|Тип следване"
 
 msgid "Try opening the logs in a new window."
 msgstr ""
@@ -3647,104 +3195,17 @@ msgstr "Ползвайте кавички, когато искате да нам
 msgid "Use this site to make your request for information – we'll show you how."
 msgstr ""
 
-msgid "User"
-msgstr "Потребител"
-
-msgid "User info request sent alert"
-msgstr "Потребителска заявка за уведомления"
-
 msgid "User – {{name}}"
 msgstr "Потребител – {{name}}"
-
-msgid "UserInfoRequestSentAlert|Alert type"
-msgstr "UserInfoRequestSentAlert|Тип известяване"
 
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
 msgstr "Нормално потребителите не могат да правят размножени заявления до множество органи, понеже не желаем публичните органи да бъдат бомбардирани с голям брой неуместни заявления. Ако считате, че имате основателна причина да изпратите размножено заявление до няколко органа наведнъж, молим, <a href=\"{{url}}\">свържете се с нас</a>."
 
-msgid "User|About me"
-msgstr "User|За мен"
-
-msgid "User|Ban text"
-msgstr "User|Текст при блокиране"
-
-msgid "User|Can make batch requests"
-msgstr "User|Може да създава размножени заявления"
-
-msgid "User|Comments count"
-msgstr ""
-
-msgid "User|Confirmed not spam"
-msgstr ""
-
-msgid "User|Daily summary hour"
-msgstr ""
-
-msgid "User|Daily summary minute"
-msgstr ""
-
-msgid "User|Email"
-msgstr "User|Имейл"
-
-msgid "User|Email bounce message"
-msgstr "User|Връщане на съобщение по имейл"
-
-msgid "User|Email bounced at"
-msgstr "User|Имейл върнат на"
-
-msgid "User|Email confirmed"
-msgstr "User|Имейлът потвърден"
-
-msgid "User|Hashed password"
-msgstr "User|Криптирана парола"
-
-msgid "User|Info request batches count"
-msgstr ""
-
-msgid "User|Info requests count"
-msgstr ""
-
-msgid "User|Last daily track email"
-msgstr ""
-
-msgid "User|Locale"
-msgstr "User|Националност"
-
-msgid "User|Name"
-msgstr "User|Име"
-
-msgid "User|No limit"
-msgstr "User|Без ограничения"
-
-msgid "User|Otp counter"
-msgstr ""
-
-msgid "User|Otp enabled"
-msgstr ""
-
-msgid "User|Otp secret key"
-msgstr ""
-
-msgid "User|Public body change requests count"
-msgstr ""
-
-msgid "User|Receive email alerts"
-msgstr "User|Получава известия по имейл"
-
-msgid "User|Request classifications count"
-msgstr ""
-
-msgid "User|Salt"
-msgstr ""
-
-msgid "User|Track things count"
-msgstr ""
-
-msgid "User|Url name"
-msgstr ""
-
 msgid "Version {{version}}"
 msgstr "Версия {{version}}"
+
+msgid "Very long – shorter requests are more successful"
+msgstr ""
 
 msgid "Vexatious"
 msgstr "Неоснователно"
@@ -3792,6 +3253,9 @@ msgid "Waiting for the public authority to reply"
 msgstr "Очаква отговор на публичния орган"
 
 msgid "Want to know something?"
+msgstr ""
+
+msgid "We consider it is not a valid FOI request as it was correspondence about your personal circumstances, and we have therefore hidden it from other users."
 msgstr ""
 
 msgid "We consider it is not a valid FOI request, and have therefore hidden it from other users."
@@ -3918,12 +3382,6 @@ msgstr "От кого мога да поискам информация?"
 msgid "Why specifically do you consider this request unsuitable?"
 msgstr "Защо конкретно смятате това заявление за неподходящо?"
 
-msgid "Widget vote"
-msgstr ""
-
-msgid "WidgetVote|Cookie"
-msgstr ""
-
 msgid "Withdrawn"
 msgstr ""
 
@@ -4032,9 +3490,6 @@ msgstr "Можете да променяте следваните от Вас з
 msgid "You can get this page in computer-readable format as part of the <a href=\"{{json_path}}\">main JSON page</a> for the request. See the <a href=\"{{api_path}}\">API documentation</a>."
 msgstr ""
 
-msgid "You can only request information about the environment from this authority."
-msgstr "От този орган, Вие можете да искате информация само за околната среда."
-
 msgid "You can regenerate your one time passcode at any time."
 msgstr ""
 
@@ -4115,6 +3570,9 @@ msgstr "Трябва да сте влезли за да можете да ред
 
 msgid "You need to be logged in to report a request for administrator attention"
 msgstr "Трябва да сте влезли в сайта, за да докладвате заявление на вниманието на администратор"
+
+msgid "You only have a right in law to access information about the environment from this authority"
+msgstr ""
 
 msgid "You previously submitted that exact follow up message for this request."
 msgstr "Изпращали сте точно същото пояснително съобщение за това заявление и преди."
@@ -4268,14 +3726,8 @@ msgstr "Вашето заявление на {{site_name}} е скрито"
 msgid "Your request to add an authority has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr "Вашата заявка за добавяне на орган беше изпратена. Благодарим Ви, че ни пишете! Ще се постараем да Ви отговорим скоро."
 
-msgid "Your request to add {{public_body_name}} to {{site_name}}"
-msgstr "Вашата заявка за добавяне на {{public_body_name}} в {{site_name}}"
-
 msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr "Вашата заявка за обновяване адреса на {{public_body_name}} беше изпратена. Благодарим Ви, че ни пишете! Ще се постараем да Ви отговорим скоро."
-
-msgid "Your request to update {{public_body_name}} on {{site_name}}"
-msgstr "Вашата заявка за обновление на {{public_body_name}} в {{site_name}}"
 
 msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
 msgstr "Вашето Заявление беше наречено {{info_request}}. Като уведомите всички, че сте получили исканата информация, ще ни помогнете да следим "
@@ -4336,6 +3788,9 @@ msgstr ""
 
 msgid "[FOI #{{request}} email]"
 msgstr "[ДдИ #{{request}} имейл]"
+
+msgid "[Name Removed]"
+msgstr ""
 
 msgid "[REDACTED]"
 msgstr ""
@@ -4545,9 +4000,6 @@ msgstr "екипът на {{site_name}}"
 
 msgid "to send a follow up message."
 msgstr "да изпратите пояснително съобщение."
-
-msgid "to {{public_body}}"
-msgstr "дo {{public_body}}"
 
 msgid "type your search term here"
 msgstr ""
@@ -4813,8 +4265,14 @@ msgstr "{{username}} остави коментар:"
 msgid "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 msgstr "{{user}} ({{user_admin_link}}) отправи това заявление за {{law_used_full}} (<a href=\"{{request_admin_url}}\">admin</a>) до {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 
-msgid "{{user}} made this {{law_used_full}} request"
-msgstr "{{user}} отправи това {{law_used_full}} заявление"
+msgid "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>) as part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
+msgstr ""
+
+msgid "{{user}} made this {{law_used_full}} request to {{public_body}}"
+msgstr ""
+
+msgid "{{user}} made this {{law_used_full}} request to {{public_body}} as part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
+msgstr ""
 
 msgid "« Back to search results"
 msgstr ""

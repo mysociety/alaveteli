@@ -14,13 +14,15 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
 # Andreas Nedelkos <vandreas2004@yahoo.gr>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-28 15:37+0000\n"
-"PO-Revision-Date: 2018-09-29 11:24+0000\n"
+"POT-Creation-Date: 2019-06-10 14:02+0000\n"
+"PO-Revision-Date: 2019-06-10 14:40+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Greek (http://www.transifex.com/mysociety/alaveteli/language/el/)\n"
 "Language: el\n"
@@ -137,6 +139,9 @@ msgstr "<a href=\"{{new_request_link}}\">Κάντε μία νέα EIR αίτησ
 msgid "<a href=\"{{new_request_link}}\">Make a new FOI request</a> to {{public_body_name}}"
 msgstr "<a href=\"{{new_request_link}}\">Κάντε μια νέα αίτηση Δικαιώματος γνώσης διοικητικών εγγράφων</a> στο {{public_body_name}}"
 
+msgid "<a href=\"{{sign_in_link}}\">Sign in</a> to get updates on things you follow or re-enable email alerts."
+msgstr ""
+
 msgid "<a href=\"{{url}}\">Do you want to request private information about yourself?</a>"
 msgstr "<a href=\"{{url}}\">Θέλετε να ζητήσετε προσωπικές πληροφορίες για τον εαυτό σας;</a>"
 
@@ -148,6 +153,9 @@ msgstr "<a href=\"{{url}}\">Συνδεθείτε</a> για να αλλάξετ�
 
 msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>"
 msgstr "<a href=\"{{url}}\">Σκέφτεστε να χρησιμοποιήσετε ψευδώνυμο;</a>"
+
+msgid "<a href=\"{{wall_link}}\">Visit your Wall</a> to get updates on things you follow or re-enable email alerts."
+msgstr ""
 
 msgid "<div class=\"alaveteli-widget__count\">{{count}}</div> person wants to know"
 msgid_plural "<div class=\"alaveteli-widget__count\">{{count}}</div> people want to know"
@@ -280,8 +288,8 @@ msgstr "Ένα <a href=\"{{request_url}}\">follow up</a> στο <em>{{request_ti
 msgid "A <a href=\"{{request_url}}\">response</a> to <em>{{request_title}}</em> was sent by {{public_body_name}} to {{info_request_user}} on {{date}}.  The request status is: {{request_status}}"
 msgstr "Μία <a href=\"{{request_url}}\">απάντηση</a> στο <em>{{request_title}}</em> έχει σταλεί από {{public_body_name}} σε {{info_request_user}} στις {{date}}. Η κατάσταση της αίτησης είναι: {{request_status}}"
 
-msgid "A <strong>summary</strong> of the response if you have received it by post. "
-msgstr "Μια <strong>περίληψη</strong> της απάντησης εαν την λάβατε μέσω ταχυδρομείου."
+msgid "A <strong>summary</strong> of the response if you have received it by postal mail. "
+msgstr ""
 
 msgid "A Freedom of Information request"
 msgstr "Μια αίτηση Δικαιώματος Γνώσης Διοικητικών Εγγράφων"
@@ -301,14 +309,11 @@ msgstr ""
 msgid "A public authority"
 msgstr "Ένας δημόσιος οργανισμός."
 
-msgid "A response will be sent <strong>by post</strong>"
-msgstr "Μία απάντηση θα αποσταλεί <strong>ταχυδρομικώς</strong>"
+msgid "A response will be sent <strong>by postal mail</strong>"
+msgstr ""
 
-msgid "A strange reponse, required attention by the {{site_name}} team"
-msgstr "Μια παράξενη απάντηση, χρειάζεται προσοχή από την ομάδα του {{site_name}} "
-
-msgid "A vexatious request"
-msgstr "Μια ενοχλητική απάντηση"
+msgid "A strange response, required attention by the {{site_name}} team"
+msgstr ""
 
 msgid "A {{site_name}} user"
 msgstr "Ένας χρήστης του {{site_name}}"
@@ -320,6 +325,9 @@ msgid "About you:"
 msgstr "Πληροφορίες για εσάς:"
 
 msgid "About {{count}} FOI requests found"
+msgstr ""
+
+msgid "Account closed at user request"
 msgstr ""
 
 msgid "Account suspended – Please contact us"
@@ -375,63 +383,6 @@ msgstr "Συμβουλέψτε εάν <strong>η άρνηση είναι νόμ�
 
 msgid "Air, water, soil, land, flora and fauna (including how these effect human beings)"
 msgstr "Αέρας, νερό, έδαφος, χλωρίδα και πανίδα (συμεριλαμβανομένου του πως αυτά\\n επηρρεαζουν τους ανθρώπους)"
-
-msgid "Alaveteli pro/draft info request batch"
-msgstr ""
-
-msgid "Alaveteli pro/embargo"
-msgstr ""
-
-msgid "Alaveteli pro/embargo extension"
-msgstr ""
-
-msgid "Alaveteli pro/request summary"
-msgstr ""
-
-msgid "Alaveteli pro/request summary category"
-msgstr ""
-
-msgid "AlaveteliPro::DraftInfoRequestBatch|Body"
-msgstr ""
-
-msgid "AlaveteliPro::DraftInfoRequestBatch|Embargo duration"
-msgstr ""
-
-msgid "AlaveteliPro::DraftInfoRequestBatch|Title"
-msgstr ""
-
-msgid "AlaveteliPro::EmbargoExtension|Extension duration"
-msgstr ""
-
-msgid "AlaveteliPro::Embargo|Embargo duration"
-msgstr ""
-
-msgid "AlaveteliPro::Embargo|Expiring notification at"
-msgstr ""
-
-msgid "AlaveteliPro::Embargo|Publish at"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummaryCategory|Slug"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Body"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Public body names"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Request created at"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Request updated at"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Summarisable type"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Title"
-msgstr ""
 
 msgid "All of the information requested has been received"
 msgstr "Όλες οι πληροφορίες που ζητήθηκαν έχουν ληφθεί"
@@ -502,12 +453,6 @@ msgstr ""
 msgid "Annotations will be posted publicly here, and are <strong>not</strong> sent to {{public_body_name}}."
 msgstr ""
 
-msgid "Announcement"
-msgstr ""
-
-msgid "Announcement|Visibility"
-msgstr ""
-
 msgid "Anonymous user"
 msgstr "Ανώνυμος χρήστης"
 
@@ -516,6 +461,9 @@ msgstr "Εφαρμόζεται στα"
 
 msgid "Are we missing a public authority?"
 msgstr "Μας λείπει κάποια δημόσια αρχή;"
+
+msgid "Are you asking about your, or others', personal information or personal situation?"
+msgstr ""
 
 msgid "Are you sure you want to disable two factor authentication?"
 msgstr ""
@@ -646,24 +594,6 @@ msgstr "Ακυρώστε κάποιες ειδοποιήσεις από το {{s
 msgid "Cancel, return to your profile page"
 msgstr "Ακύρωση, επιστροφή στην σελίδα προφίλ σας"
 
-msgid "Censor rule"
-msgstr "Κανόνας λογοκρισίας"
-
-msgid "CensorRule|Last edit comment"
-msgstr "ΚανόναςΛογοκρισίας|Τελευταίο επεξεργασμένο σχόλιο"
-
-msgid "CensorRule|Last edit editor"
-msgstr "ΚανόναςΛογοκρισίας|Τελευταίος που επεξεργάστηκε"
-
-msgid "CensorRule|Regexp"
-msgstr "CensorRule|Regexp"
-
-msgid "CensorRule|Replacement"
-msgstr "ΚανόναςΛογοκρισίας|Αντικατάσταση"
-
-msgid "CensorRule|Text"
-msgstr "ΚανόναςΛογοκρισίας|Κείμενο"
-
 msgid "Change email on {{site_name}}"
 msgstr "Αλλαγή email στο {{site_name}}"
 
@@ -732,21 +662,6 @@ msgstr "Κλείστε το αίτημα και απαντήστε:"
 
 msgid "Collapse all correspondence"
 msgstr ""
-
-msgid "Comment"
-msgstr "Σχόλιο"
-
-msgid "Comment|Attention requested"
-msgstr ""
-
-msgid "Comment|Body"
-msgstr "Σχόλιο|Κορμός"
-
-msgid "Comment|Locale"
-msgstr "Σχόλιο|Τοποθεσία"
-
-msgid "Comment|Visible"
-msgstr "Σχόλιο|Εμφανές"
 
 msgid "Complete"
 msgstr "Ολοκλήρωση"
@@ -874,9 +789,6 @@ msgstr "Κατάσταση παράδοσης για Εξερχόμενο Μήν
 msgid "Delivery error"
 msgstr "Σφάλμα παραλαβής"
 
-msgid "Destroy {{name}}"
-msgstr "Καταστροφή {{name}}"
-
 msgid "Details of request &ldquo;{{request_title}}&rdquo;"
 msgstr "Λεπτομέρειες αίτησης &ldquo;{{request_title}}&rdquo;"
 
@@ -919,18 +831,6 @@ msgstr "Κατεβάστε ένα αρχείο zip με όλη την αλληλ
 msgid "Download original attachment"
 msgstr "Κατεβάστε την αρχική επισύναψη"
 
-msgid "Draft info request"
-msgstr ""
-
-msgid "DraftInfoRequest|Body"
-msgstr ""
-
-msgid "DraftInfoRequest|Embargo duration"
-msgstr ""
-
-msgid "DraftInfoRequest|Title"
-msgstr ""
-
 msgid "EIR"
 msgstr ""
 
@@ -951,6 +851,12 @@ msgstr "Είτε το email ή ο κωδικός σας δεν αναγνωρί�
 
 msgid "Either the email or password was not recognised, please try again. Or create a new account using the form on the left."
 msgstr "Είτε το email ή ο κωδικός σας δεν αναγνωρίστηκε, παρακαλούμε προσπαθήστε ξανά. Εναλλακτικά δημιουργήστε ένα νέο λογαριασμό από την φόρμα στα αριστερά."
+
+msgid "Email Alerts Disabled"
+msgstr ""
+
+msgid "Email alerts for things you follow have now been disabled."
+msgstr ""
 
 msgid "Email doesn't look like a valid address"
 msgstr "Το email δεν φαίνεται να είναι μια έγκυρη διεύθηνση"
@@ -1064,30 +970,6 @@ msgid "Flipper::Adapters::ActiveRecord::Gate|Key"
 msgstr ""
 
 msgid "Flipper::Adapters::ActiveRecord::Gate|Value"
-msgstr ""
-
-msgid "Foi attachment"
-msgstr "Επισύναψη ΔΓΔΕ"
-
-msgid "FoiAttachment|Charset"
-msgstr ""
-
-msgid "FoiAttachment|Content type"
-msgstr ""
-
-msgid "FoiAttachment|Display size"
-msgstr ""
-
-msgid "FoiAttachment|Filename"
-msgstr ""
-
-msgid "FoiAttachment|Hexdigest"
-msgstr ""
-
-msgid "FoiAttachment|Url part number"
-msgstr ""
-
-msgid "FoiAttachment|Within rfc822 subject"
 msgstr ""
 
 msgid "Follow"
@@ -1218,17 +1100,20 @@ msgstr "Από:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "ΔΩΣΤΕ ΛΕΠΤΟΜΕΡΕΙΕΣ ΓΙΑ ΤΟ ΠΑΡΑΠΟΝΟ ΣΑΣ ΕΔΩ"
 
+msgid "Getting long – remember to keep it focussed"
+msgstr ""
+
 msgid "Got a {{site_name}} account?"
 msgstr ""
 
 msgid "Got an account?"
 msgstr "Έχετε λογαριασμό;"
 
-msgid "Handled by post"
-msgstr "Χειρισμός από ταχυδρομείο"
+msgid "Handled by postal mail"
+msgstr ""
 
-msgid "Handled by post."
-msgstr "Χειρισμός από ταχυδρομείο."
+msgid "Handled by postal mail."
+msgstr ""
 
 msgid "Has tag string tag"
 msgstr ""
@@ -1304,15 +1189,6 @@ msgstr "Κρυφές αιτήσεις δεν μετράνε. Αταξινόμη�
 
 msgid "Hide request"
 msgstr "Απόκρυψη αίτησης"
-
-msgid "Holiday"
-msgstr "Διακοπές"
-
-msgid "Holiday|Day"
-msgstr "Διακοπές|Ημέρα"
-
-msgid "Holiday|Description"
-msgstr "Διακοπές|Περιγραφή"
 
 msgid "Home page"
 msgstr "Αρχική σελίδα"
@@ -1470,155 +1346,11 @@ msgstr "Συμπεριλάβετε σχετικά λινκ, όπως σελίδ�
 msgid "Incoming email address"
 msgstr "Εισερχόμενη διεύθυνση email"
 
-msgid "Incoming message"
-msgstr "Εισερχόμενο μήνυμα"
-
-msgid "Incoming message error"
-msgstr ""
-
 msgid "Incoming message has a spam score above the configured threshold ({{spam_threshold}})."
 msgstr "Το εισερχόμενο μήνυμα έχει σκορ spam παραπάνω από το όριο που ρυθμίστηκε ({{spam_threshold}})."
 
-msgid "IncomingMessageError|Backtrace"
-msgstr ""
-
-msgid "IncomingMessageError|Retry at"
-msgstr ""
-
-msgid "IncomingMessage|Cached attachment text clipped"
-msgstr "ΕισερχόμενοΜήνυμα|Προσωρινό κείμενο επισύναψης αφαιρέθηκε"
-
-msgid "IncomingMessage|Cached main body text folded"
-msgstr "ΕισερχόμενοΜήνυμα|Προσωρινό κυρίως κείμενο αναδιπλώθηκε"
-
-msgid "IncomingMessage|Cached main body text unfolded"
-msgstr "ΕισερχόμενοΜήνυμα|Προσωρινό κυρίως κείμενο ξεδιπλώθηκε"
-
-msgid "IncomingMessage|Last parsed"
-msgstr "ΕισερχόμενοΜήνυμα|Αναλύθηκε τελευταία"
-
-msgid "IncomingMessage|Mail from"
-msgstr "ΕισερχόμενοΜήνυμα|Email από"
-
-msgid "IncomingMessage|Mail from domain"
-msgstr "ΕισερχόμενοΜήνυμα|Email από domain"
-
-msgid "IncomingMessage|Prominence"
-msgstr "ΕισερχόμενοΜήνυμα|Ξεχωρίζει"
-
-msgid "IncomingMessage|Prominence reason"
-msgstr "ΕισερχόμενοΜήνυμα|Λόγος που ξεχωρίζει"
-
-msgid "IncomingMessage|Sent at"
-msgstr "ΕισερχόμενοΜήνυμα|Στάλθηκε στις"
-
-msgid "IncomingMessage|Subject"
-msgstr "ΕισερχόμενοΜήνυμα|Θέμα"
-
-msgid "IncomingMessage|Valid to reply to"
-msgstr "ΕισερχόμενοΜήνυμα|Ισχύει για απάντηση σε"
-
 msgid "Individual requests"
 msgstr "Ατομικές αιτήσεις"
-
-msgid "Info request"
-msgstr "Αίτηση πληροφοριών"
-
-msgid "Info request batch"
-msgstr "Πολλαπλές αιτήσεις πληροφορίας"
-
-msgid "Info request event"
-msgstr "Συμβάν αίτησης πληροφοριών"
-
-msgid "InfoRequestBatch|Body"
-msgstr "ΠολλαπλέςΑιτήσειςΠληροφορίας|Κορμός"
-
-msgid "InfoRequestBatch|Embargo duration"
-msgstr ""
-
-msgid "InfoRequestBatch|Sent at"
-msgstr "ΠολλαπλέςΑιτήσειςΠληροφορίας|Στάλθηκαν στις"
-
-msgid "InfoRequestBatch|Title"
-msgstr "ΠολλαπλέςΑιτήσειςΠληροφορίας|Τίτλος"
-
-msgid "InfoRequestEvent|Calculated state"
-msgstr "ΠολλαπλέςΑιτήσειςΠληροφορίας|Υπολογισμένη κατάσταση"
-
-msgid "InfoRequestEvent|Described state"
-msgstr "ΣυμβάνΑίτησηςΠληροφορίας|Περιγραφόμενη κατάσταση"
-
-msgid "InfoRequestEvent|Event type"
-msgstr "ΣυμβάνΑίτησηςΠληροφορίας|Τύπος συμβάντος"
-
-msgid "InfoRequestEvent|Last described at"
-msgstr "ΣυμβάνΑίτησηςΠληροφορίας|Τελευταία περιγραφή στις"
-
-msgid "InfoRequestEvent|Params yaml"
-msgstr "ΣυμβάνΑίτησηςΠληροφορίας|Παράμετροι yaml"
-
-msgid "InfoRequest|Allow new responses from"
-msgstr "ΑίτησηΠληροφορίας|Επιτρέψτε νέες απαντήσεις από"
-
-msgid "InfoRequest|Attention requested"
-msgstr "ΑίτησηΠληροφορίας|Αιτήθηκε προσοχή"
-
-msgid "InfoRequest|Awaiting description"
-msgstr "ΑίτησηΠληροφορίας|Αναμένει περιγραφή"
-
-msgid "InfoRequest|Comments allowed"
-msgstr "ΑίτησηΠληροφορίας|Επιτρεπτά σχόλια"
-
-msgid "InfoRequest|Date initial request last sent at"
-msgstr "ΑίτησηΠληροφορίας|Ημερομηνία αρχικής αίτησης τελευταία αποστολή στις"
-
-msgid "InfoRequest|Date response required by"
-msgstr "ΑίτησηΠληροφορίας|Τελική ημερομηνία που χρειάζεται απάντηση"
-
-msgid "InfoRequest|Date very overdue after"
-msgstr "ΑίτησηΠληροφορίας|Πολύ εκπρόθεσμο μετά από ημερομηνία"
-
-msgid "InfoRequest|Described state"
-msgstr "ΑίτησηΠληροφορίας|Κατάσταση που περιγράφεται"
-
-msgid "InfoRequest|External url"
-msgstr "ΑίτησηΠληροφορίας|Εξωτερικό url"
-
-msgid "InfoRequest|External user name"
-msgstr "ΑίτησηΠληροφορίας|Εξωτερικό όνομα χρήστη"
-
-msgid "InfoRequest|Handle rejected responses"
-msgstr "ΑίτησηΠληροφορίας|Διαχεριστείτε απορρίψεις"
-
-msgid "InfoRequest|Idhash"
-msgstr "ΑίτησηΠληροφορίας|Idhash"
-
-msgid "InfoRequest|Last event time"
-msgstr ""
-
-msgid "InfoRequest|Last public response at"
-msgstr "ΑίτησηΠληροφορίας|Τελευταία δημόσια απάντηση στις"
-
-msgid "InfoRequest|Law used"
-msgstr "ΑίτησηΠληροφορίας|Νόμος σε χρήση"
-
-msgid "InfoRequest|Prominence"
-msgstr "ΑίτησηΠληροφορίας|Τονισμός"
-
-msgid "InfoRequest|Reject incoming at mta"
-msgstr "ΑίτησηΠληροφορίας|Απόρριψη εισερχόμενου στο mta"
-
-msgid "InfoRequest|Rejected incoming count"
-msgstr "ΑίτησηΠληροφορίας|Πλήθος απορριφθέντων εισερχόμενων"
-
-msgid "InfoRequest|Title"
-msgstr "ΑίτησηΠληροφορίας|Τίτλος"
-
-msgid "InfoRequest|Url title"
-msgstr "ΑίτησηΠληροφορίας|Τίτλος url"
-
-msgid "InfoRequest|Use notifications"
-msgstr ""
 
 msgid "Information not held"
 msgstr "Πληροφορίες μη διαθέσιμες"
@@ -1643,6 +1375,9 @@ msgstr "Αίτηση εσωτερικής διερεύνησης απεστάλ�
 
 msgid "Invalid one time password"
 msgstr "Μη έγκυρος κωδικός μιας χρήσης"
+
+msgid "Invalid token"
+msgstr ""
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr ""
@@ -1740,27 +1475,6 @@ msgstr "Πολύ εκπρόθεσμο"
 msgid "Made between"
 msgstr "Έγινε μεταξύ"
 
-msgid "Mail server log"
-msgstr ""
-
-msgid "Mail server log done"
-msgstr ""
-
-msgid "MailServerLogDone|Filename"
-msgstr ""
-
-msgid "MailServerLogDone|Last stat"
-msgstr ""
-
-msgid "MailServerLog|Delivery status"
-msgstr ""
-
-msgid "MailServerLog|Line"
-msgstr ""
-
-msgid "MailServerLog|Order"
-msgstr ""
-
 msgid "Make a batch request"
 msgstr ""
 
@@ -1805,6 +1519,9 @@ msgstr ""
 
 msgid "More about this authority"
 msgstr "Περισσότερα για αυτή την υπηρεσία"
+
+msgid "More requests in this batch"
+msgstr ""
 
 msgid "More similar requests"
 msgstr "Παρόμοιες αιτήσεις"
@@ -1902,9 +1619,6 @@ msgstr "Δεν βρέθηκε κανένα."
 msgid "None made."
 msgstr "Δεν έγινε κανένα."
 
-msgid "Not a valid FOI request"
-msgstr "Μη έγκυρη αίτηση Δικαίωματος γνώσης διοικητικών εγγράφων"
-
 msgid "Not a valid request"
 msgstr "Μη έγκυρη αίτηση"
 
@@ -1917,23 +1631,11 @@ msgstr "Μη διαθέσιμο"
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
 msgstr "Σημειώστε ότι ο αιτών δεν θα ειδοποιηθεί για την σημείωσή σας, γιατί η αίτηση δημοσιεύτηκε από το {{public_body_name}} για δικό τους λογαριασμό"
 
+msgid "Note that we may still send you emails when new correspondence appears on your requests, or when you perform actions that require an email confirmation step."
+msgstr ""
+
 msgid "Notes:"
 msgstr "Σημειώσεις:"
-
-msgid "Notification"
-msgstr ""
-
-msgid "Notification|Expired"
-msgstr ""
-
-msgid "Notification|Frequency"
-msgstr ""
-
-msgid "Notification|Seen at"
-msgstr ""
-
-msgid "Notification|Send after"
-msgstr ""
 
 msgid "Now check your email!"
 msgstr "Τώρα ελέγξτε το email σας!"
@@ -2009,30 +1711,6 @@ msgstr "Άλλα"
 
 msgid "Other:"
 msgstr "Άλλα:"
-
-msgid "Outgoing message"
-msgstr "Εξερχόμενο μήνυμα"
-
-msgid "OutgoingMessage|Body"
-msgstr ""
-
-msgid "OutgoingMessage|Last sent at"
-msgstr ""
-
-msgid "OutgoingMessage|Message type"
-msgstr ""
-
-msgid "OutgoingMessage|Prominence"
-msgstr ""
-
-msgid "OutgoingMessage|Prominence reason"
-msgstr ""
-
-msgid "OutgoingMessage|Status"
-msgstr ""
-
-msgid "OutgoingMessage|What doing"
-msgstr ""
 
 msgid "Partial success"
 msgstr "Μερική επιτυχία"
@@ -2119,6 +1797,9 @@ msgid "Please click on the link below to confirm that you want to change the ema
 msgstr ""
 
 msgid "Please click on the link below to confirm your email address."
+msgstr ""
+
+msgid "Please click on the link below to stop these emails."
 msgstr ""
 
 msgid "Please create an account or sign in"
@@ -2252,27 +1933,6 @@ msgstr ""
 msgid "Post annotation"
 msgstr ""
 
-msgid "Post redirect"
-msgstr ""
-
-msgid "PostRedirect|Circumstance"
-msgstr ""
-
-msgid "PostRedirect|Email token"
-msgstr ""
-
-msgid "PostRedirect|Post params yaml"
-msgstr ""
-
-msgid "PostRedirect|Reason params yaml"
-msgstr ""
-
-msgid "PostRedirect|Token"
-msgstr ""
-
-msgid "PostRedirect|Uri"
-msgstr ""
-
 msgid "Posted on {{date}} by {{author}}"
 msgstr ""
 
@@ -2315,22 +1975,7 @@ msgstr ""
 msgid "Privacy and cookies"
 msgstr ""
 
-msgid "Pro account"
-msgstr ""
-
-msgid "ProAccount|Default embargo duration"
-msgstr ""
-
 msgid "Profile image for {{user_name}}"
-msgstr ""
-
-msgid "Profile photo"
-msgstr "Φωτογραφία προφίλ"
-
-msgid "ProfilePhoto|Data"
-msgstr ""
-
-msgid "ProfilePhoto|Draft"
 msgstr ""
 
 msgid "Public Bodies"
@@ -2369,22 +2014,7 @@ msgstr ""
 msgid "Public bodies with the most successful requests"
 msgstr ""
 
-msgid "Public body"
-msgstr "Δημόσια υπηρεσία"
-
-msgid "Public body category"
-msgstr ""
-
-msgid "Public body category link"
-msgstr "Δημόσια υπηρεσία λινκ"
-
 msgid "Public body category translation"
-msgstr ""
-
-msgid "Public body change request"
-msgstr ""
-
-msgid "Public body heading"
 msgstr ""
 
 msgid "Public body heading translation"
@@ -2396,9 +2026,6 @@ msgstr "Δημόσια σελίδα"
 msgid "Public page not available"
 msgstr "Δημόσια σελίδα μη διαθέσιμη"
 
-msgid "PublicBodyCategoryLink|Category display order"
-msgstr ""
-
 msgid "PublicBodyCategoryTranslation|Description"
 msgstr ""
 
@@ -2408,73 +2035,10 @@ msgstr ""
 msgid "PublicBodyCategoryTranslation|Title"
 msgstr ""
 
-msgid "PublicBodyCategory|Category tag"
-msgstr ""
-
-msgid "PublicBodyChangeRequest|Is open"
-msgstr ""
-
-msgid "PublicBodyChangeRequest|Notes"
-msgstr ""
-
-msgid "PublicBodyChangeRequest|Public body email"
-msgstr ""
-
-msgid "PublicBodyChangeRequest|Public body name"
-msgstr ""
-
-msgid "PublicBodyChangeRequest|Source url"
-msgstr ""
-
-msgid "PublicBodyChangeRequest|User email"
-msgstr ""
-
-msgid "PublicBodyChangeRequest|User name"
-msgstr ""
-
 msgid "PublicBodyHeadingTranslation|Locale"
 msgstr ""
 
 msgid "PublicBodyHeadingTranslation|Name"
-msgstr ""
-
-msgid "PublicBodyHeading|Display order"
-msgstr ""
-
-msgid "PublicBody|Api key"
-msgstr ""
-
-msgid "PublicBody|Disclosure log"
-msgstr ""
-
-msgid "PublicBody|Home page"
-msgstr ""
-
-msgid "PublicBody|Info requests count"
-msgstr ""
-
-msgid "PublicBody|Info requests not held count"
-msgstr ""
-
-msgid "PublicBody|Info requests overdue count"
-msgstr ""
-
-msgid "PublicBody|Info requests successful count"
-msgstr ""
-
-msgid "PublicBody|Info requests visible classified count"
-msgstr ""
-
-msgid "PublicBody|Info requests visible count"
-msgstr ""
-
-msgid "PublicBody|Last edit comment"
-msgstr ""
-
-msgid "PublicBody|Last edit editor"
-msgstr ""
-
-msgid "PublicBody|Version"
 msgstr ""
 
 msgid "Publication scheme"
@@ -2526,6 +2090,9 @@ msgid "Rejected"
 msgstr "Έχει απορριφθεί"
 
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
+msgstr ""
+
+msgid "Report"
 msgstr ""
 
 msgid "Report an offensive or unsuitable request"
@@ -2668,15 +2235,6 @@ msgstr "Περιορίστε σε"
 
 msgid "Results page {{page_number}}"
 msgstr "Σελίδα αποτελεσμάτων {{page_number}}"
-
-msgid "Role"
-msgstr ""
-
-msgid "Role|Name"
-msgstr ""
-
-msgid "Role|Resource type"
-msgstr ""
 
 msgid "Save"
 msgstr "Αποθήκευση"
@@ -2860,12 +2418,6 @@ msgstr ""
 msgid "Source:"
 msgstr ""
 
-msgid "Spam address"
-msgstr ""
-
-msgid "SpamAddress|Email"
-msgstr ""
-
 msgid "Start your own request"
 msgstr ""
 
@@ -3019,7 +2571,7 @@ msgstr ""
 msgid "The authority say that they <strong>need a postal address</strong>, not just an email, for it to be a valid FOI request"
 msgstr ""
 
-msgid "The authority would like to / has <strong>responded by post</strong> to this request."
+msgid "The authority would like to / has <strong>responded by postal mail</strong> to this request."
 msgstr ""
 
 msgid "The classification of requests (e.g. to say whether they were successful or not) is done manually by users and administrators of the site, which means that they are subject to error."
@@ -3070,7 +2622,7 @@ msgstr ""
 msgid "The public authority would like part of the request explained"
 msgstr ""
 
-msgid "The public authority would like to / has responded by post"
+msgid "The public authority would like to / has responded by postal mail"
 msgstr ""
 
 msgid "The request has been <strong>refused</strong>"
@@ -3232,7 +2784,7 @@ msgstr ""
 msgid "These logs show what happened to this message as it passed through our {{mta_type}} mail server. You can send these logs to an authority to help them diagnose problems receiving email from {{site_name}}."
 msgstr ""
 
-msgid "They are going to reply <strong>by post</strong>"
+msgid "They are going to reply <strong>by postal mail</strong>"
 msgstr ""
 
 msgid "They do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
@@ -3252,6 +2804,9 @@ msgstr ""
 
 msgid "Things you're following"
 msgstr "Πράγματα που παρακολουθείτε"
+
+msgid "This account has been closed."
+msgstr ""
 
 msgid "This annotation has been reported for administrator attention"
 msgstr ""
@@ -3347,6 +2902,9 @@ msgstr "Αυτή η αίτηση έχει αναφερθεί ήδη ότι χρ�
 msgid "This request has an <strong>unknown status</strong>."
 msgstr "Αυτή η αίτηση έχει <strong>άγνωστη κατάσταση</strong>."
 
+msgid "This request has been <strong>closed to new correspondence from the public body</strong>. <a href=\"{{url}}\"\">Contact us</a> if you think it ought be re-opened."
+msgstr ""
+
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
 msgstr ""
 
@@ -3378,6 +2936,9 @@ msgid "This request has prominence 'hidden'. You can only see it because you are
 msgstr ""
 
 msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
+msgstr ""
+
+msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
 msgstr ""
 
 msgid "This request is still in progress:"
@@ -3521,23 +3082,11 @@ msgstr "Πάρα πολλές αιτήσεις"
 msgid "Top recent players"
 msgstr "Κορυφαίοι πρόσφατοι παίκτες"
 
-msgid "Track thing"
-msgstr "Παρακολουθήστε το"
-
 msgid "Track this person"
 msgstr "Παρακολουθήστε αυτό το άτομο"
 
 msgid "Track this search"
 msgstr "Παρακολουθήστε αυτή την αναζήτηση"
-
-msgid "TrackThing|Track medium"
-msgstr ""
-
-msgid "TrackThing|Track query"
-msgstr ""
-
-msgid "TrackThing|Track type"
-msgstr ""
 
 msgid "Try opening the logs in a new window."
 msgstr ""
@@ -3641,103 +3190,16 @@ msgstr ""
 msgid "Use this site to make your request for information – we'll show you how."
 msgstr ""
 
-msgid "User"
-msgstr "Χρήστης"
-
-msgid "User info request sent alert"
-msgstr ""
-
 msgid "User – {{name}}"
 msgstr "Χρήστης – {{name}}"
-
-msgid "UserInfoRequestSentAlert|Alert type"
-msgstr ""
 
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
 msgstr ""
 
-msgid "User|About me"
-msgstr ""
-
-msgid "User|Ban text"
-msgstr ""
-
-msgid "User|Can make batch requests"
-msgstr ""
-
-msgid "User|Comments count"
-msgstr ""
-
-msgid "User|Confirmed not spam"
-msgstr ""
-
-msgid "User|Daily summary hour"
-msgstr ""
-
-msgid "User|Daily summary minute"
-msgstr ""
-
-msgid "User|Email"
-msgstr ""
-
-msgid "User|Email bounce message"
-msgstr ""
-
-msgid "User|Email bounced at"
-msgstr ""
-
-msgid "User|Email confirmed"
-msgstr ""
-
-msgid "User|Hashed password"
-msgstr ""
-
-msgid "User|Info request batches count"
-msgstr ""
-
-msgid "User|Info requests count"
-msgstr ""
-
-msgid "User|Last daily track email"
-msgstr ""
-
-msgid "User|Locale"
-msgstr ""
-
-msgid "User|Name"
-msgstr ""
-
-msgid "User|No limit"
-msgstr ""
-
-msgid "User|Otp counter"
-msgstr ""
-
-msgid "User|Otp enabled"
-msgstr ""
-
-msgid "User|Otp secret key"
-msgstr ""
-
-msgid "User|Public body change requests count"
-msgstr ""
-
-msgid "User|Receive email alerts"
-msgstr ""
-
-msgid "User|Request classifications count"
-msgstr ""
-
-msgid "User|Salt"
-msgstr ""
-
-msgid "User|Track things count"
-msgstr ""
-
-msgid "User|Url name"
-msgstr ""
-
 msgid "Version {{version}}"
+msgstr ""
+
+msgid "Very long – shorter requests are more successful"
 msgstr ""
 
 msgid "Vexatious"
@@ -3787,6 +3249,9 @@ msgstr "Περιμένετε τον δημόσιο οργανισμό να απ�
 
 msgid "Want to know something?"
 msgstr "Θέλετε να μάθετε κάτι;"
+
+msgid "We consider it is not a valid FOI request as it was correspondence about your personal circumstances, and we have therefore hidden it from other users."
+msgstr ""
 
 msgid "We consider it is not a valid FOI request, and have therefore hidden it from other users."
 msgstr ""
@@ -3912,12 +3377,6 @@ msgstr ""
 msgid "Why specifically do you consider this request unsuitable?"
 msgstr ""
 
-msgid "Widget vote"
-msgstr ""
-
-msgid "WidgetVote|Cookie"
-msgstr ""
-
 msgid "Withdrawn"
 msgstr "Αποσύρθηκε"
 
@@ -4026,9 +3485,6 @@ msgstr ""
 msgid "You can get this page in computer-readable format as part of the <a href=\"{{json_path}}\">main JSON page</a> for the request. See the <a href=\"{{api_path}}\">API documentation</a>."
 msgstr ""
 
-msgid "You can only request information about the environment from this authority."
-msgstr ""
-
 msgid "You can regenerate your one time passcode at any time."
 msgstr ""
 
@@ -4108,6 +3564,9 @@ msgid "You need to be logged in to edit your profile."
 msgstr ""
 
 msgid "You need to be logged in to report a request for administrator attention"
+msgstr ""
+
+msgid "You only have a right in law to access information about the environment from this authority"
 msgstr ""
 
 msgid "You previously submitted that exact follow up message for this request."
@@ -4262,13 +3721,7 @@ msgstr ""
 msgid "Your request to add an authority has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr ""
 
-msgid "Your request to add {{public_body_name}} to {{site_name}}"
-msgstr ""
-
 msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
-msgstr ""
-
-msgid "Your request to update {{public_body_name}} on {{site_name}}"
 msgstr ""
 
 msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
@@ -4329,6 +3782,9 @@ msgid "[Authority name]"
 msgstr "[Όνομα αρχής]"
 
 msgid "[FOI #{{request}} email]"
+msgstr ""
+
+msgid "[Name Removed]"
 msgstr ""
 
 msgid "[REDACTED]"
@@ -4539,9 +3995,6 @@ msgstr "η ομάδα του {{site_name}}"
 
 msgid "to send a follow up message."
 msgstr "για να στείλετε ένα μήνυμα follow up."
-
-msgid "to {{public_body}}"
-msgstr "στο {{public_body}}"
 
 msgid "type your search term here"
 msgstr "πληκτρολογήστε τον όρο της αναζήτησής σας εδώ"
@@ -4807,8 +4260,14 @@ msgstr "Ο/η {{username}} άφησε μια σημείωση:"
 msgid "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 msgstr "Ο/η {{user}} ({{user_admin_link}}) έκανε αυτή την {{law_used_full}} αίτηση(<a href=\"{{request_admin_url}}\">διαχειριστής</a>) στο {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">διαχειριστής</a>)"
 
-msgid "{{user}} made this {{law_used_full}} request"
-msgstr "Ο/η {{user}} έκανε αυτή την {{law_used_full}} αίτηση"
+msgid "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>) as part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
+msgstr ""
+
+msgid "{{user}} made this {{law_used_full}} request to {{public_body}}"
+msgstr ""
+
+msgid "{{user}} made this {{law_used_full}} request to {{public_body}} as part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
+msgstr ""
 
 msgid "« Back to search results"
 msgstr "« Πίσω στα αποτελέσματα αναζήτησης"
