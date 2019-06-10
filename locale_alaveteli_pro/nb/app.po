@@ -4,16 +4,18 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Ole-Erik Yrvin <oeyrvin@gmail.com>, 2017
 # Ingrid Yrvin <ingrid.yrvin@gmail.com>, 2017
+# Ole-Erik Yrvin <oeyrvin@gmail.com>, 2017
 # pere <pere-transifex@hungry.com>, 2017
+# Liz Conlan <liz@mysociety.org>, 2019
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-28 15:40+0000\n"
-"PO-Revision-Date: 2017-01-20 17:40+0000\n"
-"Last-Translator: pere <pere-transifex@hungry.com>, 2017\n"
+"POT-Creation-Date: 2019-06-10 14:58+0000\n"
+"PO-Revision-Date: 2017-04-03 11:57+0000\n"
+"Last-Translator: Liz Conlan <liz@mysociety.org>, 2019\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/mysociety/teams/33529/nb/)\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
@@ -60,8 +62,8 @@ msgstr ""
 msgid "<strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 msgstr "<strong>{{filter_description}}</strong> sortert av <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 
-msgid "A <strong>summary</strong> of the response if you have received it by post. "
-msgstr "En <strong>oppsummering</strong> av svaret om du har mottatt det i posten. "
+msgid "A <strong>summary</strong> of the response if you have received it by postal mail. "
+msgstr ""
 
 msgid "A monthly subscription"
 msgstr ""
@@ -92,6 +94,9 @@ msgstr ""
 
 msgid "Activity"
 msgstr "Aktivitet"
+
+msgid "Add"
+msgstr ""
 
 msgid "Add Payment Card"
 msgstr ""
@@ -225,6 +230,9 @@ msgstr ""
 msgid "Dashboard"
 msgstr "Skjermbilde"
 
+msgid "Dear {{user_name}},"
+msgstr ""
+
 msgid "Delivery verification for proof of receipt"
 msgstr ""
 
@@ -300,7 +308,13 @@ msgstr ""
 msgid "I understand and still want to cancel"
 msgstr ""
 
+msgid "If payment continues to fail, unfortunately your account will revert back to a free account, and you’ll no longer have access to {{pro_site_name}}."
+msgstr ""
+
 msgid "If you have an <strong>offer code</strong>, please enter it here:"
+msgstr ""
+
+msgid "If you wish to preserve your access to {{pro_site_name}}, please could you check that your card has sufficient funds, and that the card details are correct on your subscriptions page: {{subscriptions_page_url}}"
 msgstr ""
 
 msgid "Important info about requests to this authority"
@@ -308,6 +322,9 @@ msgstr ""
 
 msgid "Keep private for a further:"
 msgstr "Hold det privat for en ytterligere:"
+
+msgid "Keep private for:"
+msgstr ""
 
 msgid "Keep requests and responses private while you work on your story"
 msgstr ""
@@ -637,6 +654,9 @@ msgstr ""
 msgid "Successful applicants will receive free early access to {{site_name}} for 6 months."
 msgstr ""
 
+msgid "Thank you for your interest in {{pro_site_name}}."
+msgstr ""
+
 msgid "Thanks for logging in. We've saved your request as a draft, in case you wanted to add an embargo before sending it. You can set that (or just send it straight away) using the form below."
 msgstr "Takk for at du logget inn. Vi har lagret forespørselen din som et utkast, om du vil legge til en tidsfrist før du sender den. Du kan angi den (eller bare sende den straks) ved hjelp av skjemaet under."
 
@@ -682,6 +702,9 @@ msgstr "Ting å gjøre i dag"
 
 msgid "This page is only accessible to {{pro_site_name}} users"
 msgstr "Denne siden er bare tilgjengelig for {{pro_site_name}}-brukere"
+
+msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
+msgstr ""
 
 msgid "This request is private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
 msgstr ""
@@ -764,6 +787,12 @@ msgid "We will remind you by email and on the site when the request is going be 
 msgstr "Vi vil minne deg med e-post, og på nettstedet, når forespørselen skal offentliggjøres, og du får muligheten til å beholde den privat lenger hvis du vil. Du kan forlenge denne fristen på ubestemt tid, eller når som helst gjøre forespørselen offentlig."
 
 msgid "Welcome to {{pro_site_name}}!"
+msgstr ""
+
+msgid "We’ll attempt to bill your card again over the coming days."
+msgstr ""
+
+msgid "We’ve tried to bill your card but the charge was unsuccessful."
 msgstr ""
 
 msgid "When a request is private we guarantee that it will only be visible on {{site_name}} for the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
@@ -924,6 +953,9 @@ msgstr ""
 
 msgid "requests that will be made public soon"
 msgstr "forespørsler som snart vil bli offentliggjort"
+
+msgid "the {{pro_site_name}} team"
+msgstr ""
 
 msgid "the {{site_name}} team"
 msgstr "{{site_name}} teamet"

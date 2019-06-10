@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-28 15:40+0000\n"
-"PO-Revision-Date: 2017-01-20 17:40+0000\n"
+"POT-Creation-Date: 2019-06-10 14:58+0000\n"
+"PO-Revision-Date: 2017-04-03 11:57+0000\n"
 "Language-Team: Croatian (https://www.transifex.com/mysociety/teams/33529/hr/)\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
@@ -55,7 +55,7 @@ msgstr ""
 msgid "<strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 msgstr ""
 
-msgid "A <strong>summary</strong> of the response if you have received it by post. "
+msgid "A <strong>summary</strong> of the response if you have received it by postal mail. "
 msgstr ""
 
 msgid "A monthly subscription"
@@ -86,6 +86,9 @@ msgid "Action alerts: know when it’s time to take the next step"
 msgstr ""
 
 msgid "Activity"
+msgstr ""
+
+msgid "Add"
 msgstr ""
 
 msgid "Add Payment Card"
@@ -220,6 +223,9 @@ msgstr ""
 msgid "Dashboard"
 msgstr ""
 
+msgid "Dear {{user_name}},"
+msgstr ""
+
 msgid "Delivery verification for proof of receipt"
 msgstr ""
 
@@ -295,13 +301,22 @@ msgstr ""
 msgid "I understand and still want to cancel"
 msgstr ""
 
+msgid "If payment continues to fail, unfortunately your account will revert back to a free account, and you’ll no longer have access to {{pro_site_name}}."
+msgstr ""
+
 msgid "If you have an <strong>offer code</strong>, please enter it here:"
+msgstr ""
+
+msgid "If you wish to preserve your access to {{pro_site_name}}, please could you check that your card has sufficient funds, and that the card details are correct on your subscriptions page: {{subscriptions_page_url}}"
 msgstr ""
 
 msgid "Important info about requests to this authority"
 msgstr ""
 
 msgid "Keep private for a further:"
+msgstr ""
+
+msgid "Keep private for:"
 msgstr ""
 
 msgid "Keep requests and responses private while you work on your story"
@@ -637,6 +652,9 @@ msgstr ""
 msgid "Successful applicants will receive free early access to {{site_name}} for 6 months."
 msgstr ""
 
+msgid "Thank you for your interest in {{pro_site_name}}."
+msgstr ""
+
 msgid "Thanks for logging in. We've saved your request as a draft, in case you wanted to add an embargo before sending it. You can set that (or just send it straight away) using the form below."
 msgstr ""
 
@@ -683,6 +701,9 @@ msgid "Things to do today"
 msgstr ""
 
 msgid "This page is only accessible to {{pro_site_name}} users"
+msgstr ""
+
+msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
 msgstr ""
 
 msgid "This request is private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
@@ -767,6 +788,12 @@ msgid "We will remind you by email and on the site when the request is going be 
 msgstr ""
 
 msgid "Welcome to {{pro_site_name}}!"
+msgstr ""
+
+msgid "We’ll attempt to bill your card again over the coming days."
+msgstr ""
+
+msgid "We’ve tried to bill your card but the charge was unsuccessful."
 msgstr ""
 
 msgid "When a request is private we guarantee that it will only be visible on {{site_name}} for the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
@@ -926,6 +953,9 @@ msgid "or start a batch request"
 msgstr ""
 
 msgid "requests that will be made public soon"
+msgstr ""
+
+msgid "the {{pro_site_name}} team"
 msgstr ""
 
 msgid "the {{site_name}} team"
