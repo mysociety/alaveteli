@@ -5,15 +5,16 @@
 #
 # Translators:
 # louisecrow <louise@mysociety.org>, 2017
-# Mattias Axell <mattias@okfn.se>, 2018
-# Elle Lingh <elenor.lingh@hyperisland.se>, 2018
+# Mattias Axell <mattias@libertador.es>, 2018
+# Elenor Weijmar <ellelingh@hotmail.se>, 2018
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-09-28 15:40+0000\n"
-"PO-Revision-Date: 2017-01-20 17:40+0000\n"
-"Last-Translator: Elle Lingh <elenor.lingh@hyperisland.se>, 2018\n"
+"PO-Revision-Date: 2017-04-03 11:57+0000\n"
+"Last-Translator: Elenor Weijmar <ellelingh@hotmail.se>, 2018\n"
 "Language-Team: Swedish (https://www.transifex.com/mysociety/teams/33529/sv/)\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
