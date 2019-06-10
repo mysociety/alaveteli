@@ -3372,7 +3372,7 @@ msgid "They are going to reply <strong>by post</strong>"
 msgstr "<strong>Postai úton</strong> fognak válaszolni "
 
 msgid "They do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr "<strong>Nem rendelkeznek</strong> az információval <small>(de lehet, hogy megmondják, hogy kihez lehet fordulni)</small> "
+msgstr "<strong>Nem rendelkeznek</strong> az információval <small>(de lehet, hogy megmondják, hogy kihez lehet fordulni)</small>"
 
 msgid "They have been given the following explanation:"
 msgstr "A következő magyarázatot kapták: "

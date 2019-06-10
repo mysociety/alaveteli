@@ -14,6 +14,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # 0c5d54599df8b711a7a254a114ba48aa, 2011
 # Adrien Chauvet, 2013
 # Adrien Chauvet, 2013
@@ -21,12 +22,13 @@
 # 0c5d54599df8b711a7a254a114ba48aa, 2011
 # Benoît Simard <contact@bsimard.com>, 2013
 # cegall, 2013
+# Charlotte Mestan <ch.mestan@gmail.com>, 2018
 # Christophe Van Gheluwe <info@vg-webdesign.be>, 2016-2017
 # Claire, 2013
 # claude transparencia <audit.citoyen.quartier@gmail.com>, 2016-2018
 # David Cabo <david.cabo@gmail.com>, 2013
 # Gareth Rees <gareth@mysociety.org>, 2016
-# Liz Conlan <liz@mysociety.org>, 2016-2017
+# Liz Conlan <liz@mysociety.org>, 2016-2018
 # louisecrow <louise@mysociety.org>, 2013,2017
 # louisecrow <louise@mysociety.org>, 2017
 # mySociety <transifex@mysociety.org>, 2016
@@ -42,7 +44,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-09-28 15:37+0000\n"
-"PO-Revision-Date: 2018-09-29 11:24+0000\n"
+"PO-Revision-Date: 2019-04-29 14:31+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: French (Belgium) (http://www.transifex.com/mysociety/alaveteli/language/fr_BE/)\n"
 "Language: fr_BE\n"
@@ -148,7 +150,7 @@ msgid ",\\n\\n\\n\\nYours,\\n\\n{{user_name}}"
 msgstr ",\\n\\n\\n\\nCordialement,\\n\\n{{user_name}}"
 
 msgid "12 characters minimum. 72 characters maximum."
-msgstr ""
+msgstr "12 caractères minimum. 72 caractères maximum."
 
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
 msgstr "<a href=\"{{browse_url}}\">Voir toutes les autorités</a> ou <a href=\"{{add_url}}\"> demandez-nous d'en ajouter une</a>."
@@ -345,7 +347,7 @@ msgid "About {{count}} FOI requests found"
 msgstr "{{count}} demandes d'accès à l'information trouvées"
 
 msgid "Account suspended – Please contact us"
-msgstr ""
+msgstr "Compte suspendu - Veuillez nous contacter"
 
 msgid "Act on what you've learnt"
 msgstr "Agissez en fonction de ce que vous avez appris."
@@ -525,7 +527,7 @@ msgid "Annotations will be posted publicly here, and are <strong>not</strong> se
 msgstr "Les commentaires seront postés publiquement sur ce site mais ne seront <strong>pas</strong> envoyés à l'autorité \"{{public_body_name}}\"."
 
 msgid "Announcement"
-msgstr ""
+msgstr "Annonce"
 
 msgid "Announcement|Visibility"
 msgstr ""
