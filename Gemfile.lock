@@ -345,7 +345,7 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.4.0)
-    ruby-ole (1.2.12)
+    ruby-ole (1.2.12.1)
     ruby-progressbar (1.10.0)
     rubyzip (1.2.2)
     safe_yaml (1.0.4)
