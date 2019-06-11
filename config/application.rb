@@ -80,9 +80,7 @@ module Alaveteli
     config.autoload_paths << "#{Rails.root.to_s}/lib/attachment_to_html"
     config.autoload_paths << "#{Rails.root.to_s}/lib/health_checks"
 
-    if rails5?
-      config.enable_dependency_loading = true
-    end
+    config.enable_dependency_loading = true
 
     # See Rails::Configuration for more options
     ENV['RECAPTCHA_SITE_KEY'] = AlaveteliConfiguration.recaptcha_site_key
