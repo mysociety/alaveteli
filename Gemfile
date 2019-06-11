@@ -187,7 +187,7 @@ group :development do
     gem 'net-ssh', ['~> 2.9.0', '< 3.0.0']
       gem 'net-ssh-gateway', ['>= 1.1.0', '< 2.0.0']
   gem 'launchy', '~> 2.4.0'
-  gem 'listen', '~> 3.0.5' if rails5?
-  gem 'web-console', rails5? ? '>= 3.3.0' : ['~> 2.3.0', '< 3.0.0']
+  gem 'listen', '~> 3.0.5'
+  gem 'web-console', '>= 3.3.0'
   gem 'rubocop', '~> 0.63.1'
 end
