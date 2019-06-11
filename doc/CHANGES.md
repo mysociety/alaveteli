@@ -3,6 +3,7 @@
 ## Highlighted Features
 
 * Removed support for Ubuntu 14.04 LTS (Trusty Tahr) (Liz Conlan)
+* Dropped support for Ruby 2.0 (Liz Conlan)
 
 # 0.33.0.0
 

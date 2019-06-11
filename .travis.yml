@@ -6,7 +6,6 @@ branches:
     - master
     - develop
 rvm:
-  - 2.0.0 # Ubuntu Trusty
   - 2.1.5 # Debian Jessie
   - 2.3.3 # Debian Stretch
   - 2.3 # Latest official 2.3.x
@@ -21,8 +20,6 @@ matrix:
   fast_finish: true
   exclude:
     # Ignore Rubies which Rails 5 doesn't support
-    - rvm: 2.0.0
-      gemfile: Gemfile.rails5
     - rvm: 2.1.5
       gemfile: Gemfile.rails5
   allow_failures:
