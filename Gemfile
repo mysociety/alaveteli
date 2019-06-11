@@ -192,8 +192,5 @@ group :development do
   gem 'launchy', '~> 2.4.0'
   gem 'listen', '~> 3.0.5' if rails5?
   gem 'web-console', rails5? ? '>= 3.3.0' : ['~> 2.3.0', '< 3.0.0']
-
-  install_if -> { RUBY_VERSION >= '2.2.0' } do
-    gem 'rubocop', '~> 0.63.1'
-  end
+  gem 'rubocop', '~> 0.63.1'
 end
