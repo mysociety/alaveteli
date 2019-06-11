@@ -1,3 +1,9 @@
+# develop
+
+## Highlighted Features
+
+* Removed support for Ubuntu 14.04 LTS (Trusty Tahr) (Liz Conlan)
+
 # 0.33.0.0
 
 ## Highlighted Features
