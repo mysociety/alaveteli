@@ -296,6 +296,8 @@ class InfoRequest < ApplicationRecord
   # subject_line - A String an email subject line
   # Returns an Array
   def self.guess_by_incoming_subject(subject_line)
+    return [] unless subject_line
+
     # try to find a match on InfoRequest#title
     reply_format = InfoRequest.new(title: '').email_subject_followup
     requests = where(title: subject_line.gsub(/#{reply_format}/i, '').strip)

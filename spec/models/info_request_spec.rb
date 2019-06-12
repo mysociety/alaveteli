@@ -1877,6 +1877,12 @@ describe InfoRequest do
     subject { described_class.guess_by_incoming_subject(subject_line) }
     let(:info_request) { FactoryBot.create(:info_request) }
 
+    context 'there is no subject line' do
+      let(:subject_line) { nil }
+
+      it { is_expected.to eq([]) }
+    end
+
     context 'a direct reply to the original request email' do
       let(:subject_line) { info_request.email_subject_followup }
 
