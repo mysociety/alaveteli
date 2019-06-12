@@ -49,6 +49,21 @@ body.admin {
     padding-top: 50px;
   }
 
+  /* A nested table on the todo list section of the admin summary page */
+  #public-request-things-to-do,
+  #comments-things-to-do {
+    table {
+      table {
+        margin-bottom: 0;
+        width: 100%;
+
+        td:first-child {
+          width: 20em;
+        }
+      }
+    }
+  }
+
   .form-inline {
     display: inline;
   }
@@ -140,6 +155,17 @@ body.admin {
 
   .inline-element .fieldWithErrors {
     display: inline-block;
+  }
+
+  /* Danger Zone */
+  .danger-zone {
+    border: 3px solid #b94a48;
+    border-radius: 5px;
+  }
+
+  .danger-zone__header {
+    color: #b94a48;
+    font-size: 24px
   }
 
   /* Users */

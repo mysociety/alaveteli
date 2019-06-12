@@ -7,7 +7,7 @@
 
 class AdminRequestController < AdminController
 
-  before_filter :set_info_request, :only => [ :show,
+  before_action :set_info_request, :only => [ :show,
                                               :edit,
                                               :update,
                                               :destroy,
@@ -212,7 +212,7 @@ class AdminRequestController < AdminController
   end
 
   def set_info_request
-    @info_request = InfoRequest.find(params[:id])
+    @info_request = InfoRequest.find(params[:id].to_i)
   end
 
 end

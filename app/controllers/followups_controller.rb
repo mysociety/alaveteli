@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class FollowupsController < ApplicationController
-  before_filter :check_read_only,
+  before_action :check_read_only,
                 :set_incoming_message,
                 :set_info_request,
                 :set_last_request_data,
@@ -12,9 +12,9 @@ class FollowupsController < ApplicationController
                 :set_outgoing_message,
                 :set_in_pro_area
 
-  before_filter :check_reedit, :only => [:preview, :create]
+  before_action :check_reedit, :only => [:preview, :create]
 
-  before_filter :check_responses_allowed, :only => [:create]
+  before_action :check_responses_allowed, :only => [:create]
 
   def new
   end
@@ -118,12 +118,13 @@ class FollowupsController < ApplicationController
   end
 
   def outgoing_message_params
-    params_outgoing_message = params[:outgoing_message] ? params[:outgoing_message].clone : {}
+    params_outgoing_message = params_to_unsafe_hash(params[:outgoing_message])
+
     params_outgoing_message.merge!({
-                                     :status => 'ready',
-                                     :message_type => 'followup',
-                                     :incoming_message_followup_id => @incoming_message.try(:id),
-                                     :info_request_id => @info_request.id
+      status: 'ready',
+      message_type: 'followup',
+      incoming_message_followup_id: @incoming_message.try(:id),
+      info_request_id: @info_request.id
     })
     params_outgoing_message[:what_doing] = 'internal_review' if @internal_review
 
@@ -149,6 +150,7 @@ class FollowupsController < ApplicationController
       mail_message.to_addrs.join(', '),
       mail_message.message_id
     )
+    @outgoing_message.info_request.reopen_to_new_responses
 
     @outgoing_message.save!
 
@@ -169,10 +171,10 @@ class FollowupsController < ApplicationController
 
   def set_info_request
     if current_user && current_user.is_pro?
-      @info_request = current_user.info_requests.find(params[:request_id].to_i)
-    else
-      @info_request = InfoRequest.not_embargoed.find(params[:request_id].to_i)
+      @info_request =
+        current_user.info_requests.find_by(id: params[:request_id].to_i)
     end
+    @info_request ||= InfoRequest.not_embargoed.find(params[:request_id].to_i)
   end
 
   def set_last_request_data

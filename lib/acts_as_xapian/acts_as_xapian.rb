@@ -724,7 +724,7 @@ module ActsAsXapian
           end
           run_job(job, flush, verbose)
         end
-      rescue StandardError => error
+      rescue StandardError, NoMemoryError => error
         # print any error, and carry on so other things are indexed
         model_data = { model: job.try(:model), model_id: job.try(:model_id) }
         failed_job = FailedJob.new(id, error, model_data)
@@ -1073,7 +1073,9 @@ module ActsAsXapian
     def xapian_create_job(action, model, model_id)
       begin
         ActiveRecord::Base.transaction(:requires_new => true) do
-          ActsAsXapianJob.delete_all([ "model = ? and model_id = ?", model, model_id])
+          ActsAsXapianJob.
+            where([ "model = ? and model_id = ?", model, model_id]).
+              delete_all
           xapian_before_create_job_hook(action, model, model_id)
           ActsAsXapianJob.create!(:model => model,
                                   :model_id => model_id,

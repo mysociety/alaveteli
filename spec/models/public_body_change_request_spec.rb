@@ -19,6 +19,25 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+describe PublicBodyChangeRequest do
+  describe '#send_message' do
+    subject { change_request.send_message }
+
+    context 'when adding a public body' do
+      let(:change_request) { FactoryBot.create(:add_body_request) }
+      it { is_expected.to have_sent_email.matching_subject(/Add authority/) }
+    end
+
+    context 'when updating a public body' do
+      let(:change_request) { FactoryBot.create(:update_body_request) }
+
+      it do
+        is_expected.to have_sent_email.matching_subject(/Update email address/)
+      end
+    end
+  end
+end
+
 describe PublicBodyChangeRequest, 'when validating' do
 
   it 'should not be valid without a public body name' do
@@ -154,18 +173,79 @@ describe PublicBodyChangeRequest, 'when creating a comment for the associated pu
 
 end
 
+describe PublicBodyChangeRequest, '#request_subject' do
+
+  context 'requesting a new authority' do
+
+    it 'returns an appropriate subject line' do
+      change_request = PublicBodyChangeRequest.new(:public_body_name => 'Test')
+      expect(change_request.request_subject).
+        to eq('Add authority - Test')
+    end
+
+    it 'does not HTML escape the authority name' do
+      change_request =
+        PublicBodyChangeRequest.new(:public_body_name => "Test's")
+      expect(change_request.request_subject).
+        to eq('Add authority - Test\'s')
+    end
+
+    it 'does not mark subject line with unescaped text as html_safe' do
+      change_request =
+        PublicBodyChangeRequest.new(:public_body_name => "Test's")
+      expect(change_request.request_subject.html_safe?).to eq(false)
+    end
+
+  end
+
+  context 'updating an existing authority' do
+
+    it 'returns an appropriate subject line' do
+      public_body = FactoryBot.build(:public_body)
+      change_request = PublicBodyChangeRequest.new(:public_body => public_body)
+      expect(change_request.request_subject).
+        to eq("Update email address - #{public_body.name}")
+    end
+
+    it 'does not HTML escape the authority name' do
+      public_body = FactoryBot.build(:public_body, name: "Test's")
+      change_request = PublicBodyChangeRequest.new(:public_body => public_body)
+      expect(change_request.request_subject).
+        to eq('Update email address - Test\'s')
+    end
+
+  end
+
+end
+
+describe PublicBodyChangeRequest, '#add_body_request?' do
+
+  it 'returns false if there is an associated public_body' do
+    public_body = FactoryBot.build(:public_body)
+    change_request = PublicBodyChangeRequest.new(:public_body => public_body)
+    expect(change_request.add_body_request?).to eq(false)
+  end
+
+  it 'returns true if there is no associated public_body' do
+    change_request = PublicBodyChangeRequest.new(:public_body_name => 'Test')
+    expect(change_request.add_body_request?).to eq(true)
+  end
+
+end
+
 describe PublicBodyChangeRequest, 'when creating a default subject for a response email' do
 
   it 'should create an appropriate subject for a request to add a body' do
     change_request = PublicBodyChangeRequest.new(:public_body_name => 'Test Body')
-    expect(change_request.default_response_subject).to eq('Your request to add Test Body to Alaveteli')
+    expect(change_request.default_response_subject).
+      to eq('Re: Add authority - Test Body')
   end
 
   it 'should create an appropriate subject for a request to update an email address' do
     public_body = FactoryBot.build(:public_body)
     change_request = PublicBodyChangeRequest.new(:public_body => public_body)
-    expect(change_request.default_response_subject).to eq("Your request to update #{public_body.name} on Alaveteli")
-
+    expect(change_request.default_response_subject).
+      to eq("Re: Update email address - #{public_body.name}")
   end
 
 end

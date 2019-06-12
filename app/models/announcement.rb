@@ -9,7 +9,7 @@
 #  updated_at :datetime         not null
 #
 
-class Announcement < ActiveRecord::Base
+class Announcement < ApplicationRecord
   SITE_WIDE = 'everyone'.freeze
 
   belongs_to :user,

@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class AdminPublicBodyChangeRequestsController < AdminController
 
-  before_filter :set_change_request, :only => [:edit, :update]
+  before_action :set_change_request, :only => [:edit, :update]
 
   def edit
   end

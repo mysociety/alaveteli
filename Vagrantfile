@@ -27,7 +27,7 @@ require 'yaml'
 # at http://10.10.10.30:3000
 #
 #   # Guest
-#   bundle exec rails server
+#   bundle exec rails server -b 0.0.0.0
 #
 # Customizing the Vagrant instance
 # ================================
@@ -86,7 +86,7 @@ DEFAULTS = {
   'ip' => '10.10.10.30',
   'memory' => 1536,
   'themes_dir' => '../alaveteli-themes',
-  'os' => 'jessie64',
+  'os' => 'stretch64',
   'name' => 'default',
   'use_nfs' => false,
   'show_settings' => false,
@@ -107,6 +107,29 @@ else
   {}
 end
 
+SUPPORTED_OPERATING_SYSTEMS = {
+  'trusty64' => {
+    box: 'ubuntu/trusty64',
+    box_url: 'https://app.vagrantup.com/ubuntu/boxes/trusty64'
+  },
+  'xenial64' => {
+    box: 'ubuntu/xenial64',
+    box_url: 'https://app.vagrantup.com/ubuntu/boxes/xenial64'
+  },
+  'bionic64' => {
+    box: 'ubuntu/bionic64',
+    box_url: 'https://app.vagrantup.com/ubuntu/boxes/bionic64'
+  },
+  'stretch64' => {
+    box: 'debian/stretch64',
+    box_url: 'https://app.vagrantup.com/debian/boxes/stretch64'
+  }
+}
+
+def os
+  SUPPORTED_OPERATING_SYSTEMS.fetch(SETTINGS['os'], box: SETTINGS['os'])
+end
+
 SETTINGS = DEFAULTS.merge(settings_file).merge(env).freeze
 
 if SETTINGS['show_settings']
@@ -114,36 +137,19 @@ if SETTINGS['show_settings']
   puts "\n"
   pp SETTINGS
   puts "\n"
-end
-
-SUPPORTED_OPERATING_SYSTEMS = {
-  'trusty64' => 'https://app.vagrantup.com/ubuntu/boxes/trusty64',
-  'jessie64' => 'https://app.vagrantup.com/puppetlabs/debian-8.2-64-nocm',
-  'stretch64' => 'https://app.vagrantup.com/debian/boxes/stretch64'
-}
-
-def box
-  SETTINGS['os']
-end
-
-def box_url
-  SUPPORTED_OPERATING_SYSTEMS[box]
+  puts 'Current OS settings:'
+  puts "\n"
+  pp os
+  puts "\n"
 end
 
 VAGRANTFILE_API_VERSION = '2'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = if box == 'jessie64'
-    'puppetlabs/debian-8.2-64-nocm'
-  elsif box == 'stretch64'
-    'debian/stretch64'
-  elsif box == 'trusty64'
-    'ubuntu/trusty64'
-  else
-    box
-  end
+  config.vm.box = os[:box]
   config.vm.define SETTINGS['name']
-  config.vm.box_url = box_url
+  config.vm.box_url = os[:box_url]
+  config.vm.hostname = "alaveteli-#{ SETTINGS['os'] }"
   config.vm.network :private_network, ip: SETTINGS['ip']
 
   config.vm.synced_folder '.', '/vagrant', disabled: true
@@ -198,20 +204,10 @@ EOF
   motd = <<-EOF
 To start your alaveteli instance:
 * cd alaveteli
-* bundle exec rails server
+* bundle exec rails server -b 0.0.0.0
 EOF
 
-  if SETTINGS['os'] == 'jessie64'
-    # workaround for dynamic MOTD support on jessie
-    # adapted from: https://oitibs.com/debian-jessie-dynamic-motd/
-    config.vm.provision :shell, inline: "mkdir /etc/update-motd.d/"
-    config.vm.provision :shell, inline: "cd /etc/update-motd.d/ && touch 00-header && touch 10-sysinfo && touch 90-footer"
-    config.vm.provision :shell, inline: "echo '#!/bin/sh' >> /etc/update-motd.d/90-footer"
-    config.vm.provision :shell, inline: "echo '[ -f /etc/motd.tail ] && cat /etc/motd.tail || true' >> /etc/update-motd.d/90-footer"
-    config.vm.provision :shell, inline: "chmod +x /etc/update-motd.d/*"
-    config.vm.provision :shell, inline: "rm /etc/motd"
-    config.vm.provision :shell, inline: "ln -s /var/run/motd /etc/motd"
-  elsif SETTINGS['os'] == 'trusty64'
+  if SETTINGS['os'] == 'trusty64' || SETTINGS['os'] == 'xenial64'
     config.vm.provision :shell, inline: "echo '#{ motd }' >> /etc/motd"
   end
   config.vm.provision :shell, inline: "echo '#{ motd }' >> /etc/motd.tail"

@@ -60,6 +60,8 @@
                   <% if type == 'datetime' && value %>
                     <%= I18n.l(value, :format => "%e %B %Y %H:%M:%S") %>
                     (<%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(value)) %>)
+                  <% elsif column_name == 'prominence' %>
+                    <%= h highlight_prominence(value) %>
                   <% elsif column_name == 'allow_new_responses_from' %>
                     <%= h highlight_allow_new_responses_from(value) %>
                   <% else %>
@@ -177,12 +179,7 @@
         <% if @info_request.prominence(:decorate => true).is_private? %>
           <p class="help-block">This request has already been hidden</p>
         <% else %>
-          <label class="radio inline">
-            <%= radio_button_tag "reason", "not_foi" %> <%= _("Not a valid FOI request") %>
-          </label>
-          <label class="radio inline">
-            <%= radio_button_tag "reason", "vexatious" %> <%= _("A vexatious request") %>
-          </label>
+          <%= render partial: 'hidden_user_explanation_reasons' %>
         <% end %>
       </div>
     </div>
@@ -299,18 +296,32 @@
             <% outgoing_message.for_admin_column do |name, value, type, column_name| %>
               <tr>
                 <td class="span3">
-                  <b><%=name%></b>
+                  <b><%= name %></b>
                 </td>
                 <td>
                   <% if column_name == 'body' %>
-                    <%= simple_format(truncate(h(outgoing_message.body), :length => 400, :omission => link_to("...", "#", :class => "toggle-hidden" )).html_safe) %>
-                    <div style="display:none;"><%= simple_format( outgoing_message.body ) %></div>
+                    <% truncated_value = truncate(h(value), length: 400, omission: '') { link_to '…', '#', title: 'Toggle hidden', class: 'toggle-hidden' } %>
+                    <%= simple_format(truncated_value) %>
+                    <div style="display:none;"><%= simple_format(value) %></div>
+                  <% elsif column_name == 'prominence' %>
+                    <%= h highlight_prominence(value) %>
                   <% else %>
                     <%= admin_value(value) %>
                   <% end %>
                 </td>
               </tr>
             <% end %>
+            <tr>
+              <td class="span3">
+                <b>Raw body</b>
+              <td>
+                <% truncated_value = truncate(h(outgoing_message.raw_body), length: 400, omission: '') { link_to '…', '#', title: 'Toggle hidden', class: 'toggle-hidden' } %>
+                <%= simple_format(truncated_value) %>
+                <div style="display:none;">
+                  <%= simple_format(outgoing_message.raw_body) %>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -354,8 +365,11 @@
                 </td>
                 <td>
                   <% if column_name =~ /^cached_.*?$/ %>
-                    <%= simple_format( truncate(h(value), :length => 400, :omission => link_to("...", "#", :class => "toggle-hidden")).html_safe) %>
+                    <% truncated_value = truncate(h(value), length: 400, omission: '') { link_to '…', '#', title: 'Toggle hidden', class: 'toggle-hidden' } %>
+                    <%= simple_format(truncated_value) %>
                     <div style="display:none;"><%= simple_format(value) %></div>
+                  <% elsif column_name == 'prominence' %>
+                    <%= h highlight_prominence(value) %>
                   <% else %>
                     <%= simple_format(value.to_s) %>
                   <% end %>
@@ -367,7 +381,7 @@
       </div>
     </div>
   <% end %>
-  <% if @info_request.incoming_messages.count > 0 %>
+  <% if @info_request.incoming_messages.any? %>
     <%= form_tag bulk_destroy_admin_incoming_messages_path do %>
       <%= hidden_field_tag(:ids) %>
       <%= hidden_field_tag(:request_id, @info_request.id) %>

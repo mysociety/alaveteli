@@ -1,23 +1,22 @@
 AllCops:
+  RubyInterpreters:
+    - ruby
+    - rake
   Include:
-  - "**/*.gemspec"
-  - "**/*.podspec"
-  - "**/*.jbuilder"
-  - "**/*.rake"
-  - "**/*.opal"
-  - "**/Gemfile"
-  - "**/Rakefile"
-  - "**/Capfile"
-  - "**/Guardfile"
-  - "**/Podfile"
-  - "**/Thorfile"
-  - "**/Vagrantfile"
-  - "**/Berksfile"
-  - "**/Cheffile"
-  - "**/Vagabondfile"
+    - '**/*.rb'
+    - '**/*.gemfile'
+    - '**/*.gemspec'
+    - '**/*.rake'
+    - '**/*.ru'
+    - '**/*.spec'
+    - '**/Gemfile'
+    - '**/Rakefile'
+    - '**/Vagrantfile'
   Exclude:
-  - "vendor/**/*"
-  - "db/schema.rb"
+    - 'db/schema.rb'
+    - 'node_modules/**/*'
+    - 'vendor/**/*'
+    - '.git/**/*'
   DisplayCopNames: false
   StyleGuideCopsOnly: false
   DisabledByDefault: true
@@ -89,19 +88,22 @@ Layout/EmptyLinesAroundAccessModifier:
 
 Layout/EmptyLinesAroundBlockBody:
   Description: "Keeps track of empty lines around block bodies."
-  Enabled: false
+  Enabled: true
+  EnforcedStyle: no_empty_lines
 
 Layout/EmptyLinesAroundClassBody:
   Description: "Keeps track of empty lines around class bodies."
-  Enabled: false
+  Enabled: true
+  EnforcedStyle: no_empty_lines
 
 Layout/EmptyLinesAroundModuleBody:
   Description: "Keeps track of empty lines around module bodies."
-  Enabled: false
+  Enabled: true
+  EnforcedStyle: no_empty_lines
 
 Layout/EmptyLinesAroundMethodBody:
   Description: "Keeps track of empty lines around method bodies."
-  Enabled: false
+  Enabled: true
 
 Layout/EndOfLine:
   Description: 'Use Unix-style line endings.'
@@ -167,7 +169,8 @@ Layout/MultilineHashBraceLayout:
                  Checks that the closing brace in a hash literal is
                  either on the same line as the last hash element, or
                  a new line.
-  Enabled: false
+  Enabled: true
+  EnforcedStyle: symmetrical
 
 Layout/MultilineMethodCallBraceLayout:
   Description: >-
@@ -288,15 +291,20 @@ Layout/SpaceInsidePercentLiteralDelimiters:
   Description: 'No unnecessary spaces inside delimiters of %i/%w/%x literals.'
   Enabled: false
 
-Layout/SpaceInsideBrackets:
-  Description: 'No spaces after [ or before ].'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-spaces-braces'
+Layout/SpaceInsideArrayLiteralBrackets:
+  Description: 'Checks the spacing inside array literal brackets.'
+  Enabled: false
+
+Layout/SpaceInsideReferenceBrackets:
+  Description: 'Checks the spacing inside referential brackets.'
   Enabled: false
 
 Layout/SpaceInsideHashLiteralBraces:
   Description: "Use spaces inside hash literal braces - or don't."
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#spaces-operators'
-  Enabled: false
+  Enabled: true
+  EnforcedStyle: space
+  EnforcedStyleForEmptyBraces: no_space
 
 Layout/SpaceInsideParens:
   Description: 'No spaces after ( or before ).'
@@ -399,7 +407,8 @@ Style/BlockDelimiters:
 
 Style/BracesAroundHashParameters:
   Description: 'Enforce braces style around hash parameters.'
-  Enabled: false
+  Enabled: true
+  EnforcedStyle: no_braces
 
 Style/CaseEquality:
   Description: 'Avoid explicit use of the case equality operator(===).'
@@ -467,6 +476,7 @@ Style/Documentation:
   Description: 'Document classes and non-namespace modules.'
   Enabled: true
   Exclude:
+    - 'db/migrate/*'
     - 'spec/**/*'
     - 'test/**/*'
 
@@ -550,7 +560,8 @@ Style/HashSyntax:
                  Prefer Ruby 1.9 hash syntax { a: 1, b: 2 } over 1.8 syntax
                  { :a => 1, :b => 2 }.
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#hash-literals'
-  Enabled: false
+  Enabled: true
+  EnforcedStyle: ruby19_no_mixed_keys
 
 Style/IfInsideElse:
   Description: 'Finds if nodes inside else, which can be converted to elsif.'
@@ -745,7 +756,7 @@ Style/PerlBackrefs:
 Style/Proc:
   Description: 'Use proc instead of Proc.new.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#proc'
-  Enabled: false
+  Enabled: true
 
 Style/RaiseArgs:
   Description: 'Checks the arguments passed to raise/fail.'
@@ -864,7 +875,8 @@ Style/TrailingCommaInArrayLiteral:
 Style/TrailingCommaInHashLiteral:
   Description: 'Checks for trailing comma in hash literals.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-trailing-array-commas'
-  Enabled: false
+  Enabled: true
+  EnforcedStyleForMultiline: no_comma
 
 Style/TrivialAccessors:
   Description: 'Prefer attr_* methods to trivial readers/writers.'
@@ -1084,7 +1096,7 @@ Lint/DuplicateMethods:
 
 Lint/DuplicatedKey:
   Description: 'Check for duplicate keys in hash literals.'
-  Enabled: false
+  Enabled: true
 
 Lint/EachWithObjectArgument:
   Description: 'Check for immutable argument given to each_with_object.'
@@ -1227,7 +1239,7 @@ Lint/UnderscorePrefixedVariableName:
   Description: 'Do not use prefix `_` for a variable that is used.'
   Enabled: false
 
-Lint/UnneededDisable:
+Lint/UnneededCopDisableDirective:
   Description: >-
                  Checks for rubocop:disable comments that can be removed.
                  Note: this cop is not disabled when disabling all cops.
@@ -1366,7 +1378,7 @@ Performance/RedundantMatch:
 Performance/RedundantMerge:
   Description: 'Use Hash#[]=, rather than Hash#merge! with a single key-value pair.'
   Reference: 'https://github.com/JuanitoFatas/fast-ruby#hashmerge-vs-hash-code'
-  Enabled: false
+  Enabled: true
 
 Performance/RedundantSortBy:
   Description: 'Use `sort` instead of `sort_by { |x| x }`.'

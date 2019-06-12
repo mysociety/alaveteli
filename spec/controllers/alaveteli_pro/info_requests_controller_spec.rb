@@ -49,7 +49,10 @@ describe AlaveteliPro::InfoRequestsController do
     context 'when a search is passed' do
 
       it 'applies the search' do
-        get :index, {:alaveteli_pro_request_filter => {:search => 'foo'}}
+        get :index, params: { :alaveteli_pro_request_filter => {
+                                :search => 'foo'
+                              }
+                            }
         expect(assigns[:request_summaries].size).to eq 1
       end
 
@@ -66,7 +69,7 @@ describe AlaveteliPro::InfoRequestsController do
       it "removes duplicate errors from the info_request" do
         session[:user_id] = pro_user.id
         with_feature_enabled(:alaveteli_pro) do
-          post :preview, draft_id: draft
+          post :preview, params: { draft_id: draft }
           expect(assigns[:info_request].errors[:outgoing_messages]).to be_empty
           expect(assigns[:outgoing_message].errors).not_to be_empty
         end
@@ -74,7 +77,7 @@ describe AlaveteliPro::InfoRequestsController do
     end
 
     context "when the public body is not requestable" do
-      let(:public_body) { FactoryBot.create(:defunct_public_body) }
+      let(:public_body) { FactoryBot.create(:public_body, :defunct) }
       let(:draft) do
         FactoryBot.create(:draft_info_request, public_body: public_body,
                                                user: pro_user)
@@ -83,7 +86,7 @@ describe AlaveteliPro::InfoRequestsController do
       it "renders a message to tell the user" do
         session[:user_id] = pro_user.id
         with_feature_enabled(:alaveteli_pro) do
-          post :preview, draft_id: draft
+          post :preview, params: { draft_id: draft }
           expect(response).to render_template('request/new_defunct.html.erb')
         end
       end
@@ -99,7 +102,7 @@ describe AlaveteliPro::InfoRequestsController do
       it "removes duplicate errors from the info_request" do
         session[:user_id] = pro_user.id
         with_feature_enabled(:alaveteli_pro) do
-          post :create, draft_id: draft
+          post :create, params: { draft_id: draft }
           expect(assigns[:info_request].errors[:outgoing_messages]).to be_empty
           expect(assigns[:outgoing_message].errors).not_to be_empty
         end
@@ -116,8 +119,10 @@ describe AlaveteliPro::InfoRequestsController do
       it "raises a CanCan::AccessDenied error" do
         session[:user_id] = other_pro_user.id
         expect do
-          put :update, id: info_request.id,
-                       info_request: { described_state: "successful" }
+          put :update, params: {
+                         id: info_request.id,
+                         info_request: { described_state: "successful" }
+                       }
         end.to raise_error(CanCan::AccessDenied)
       end
     end

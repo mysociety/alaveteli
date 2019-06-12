@@ -9,14 +9,14 @@ require 'zip'
 require 'open-uri'
 
 class RequestController < ApplicationController
-  before_filter :check_read_only, :only => [ :new, :describe_state, :upload_response ]
-  before_filter :check_batch_requests_and_user_allowed, :only => [ :select_authorities, :new_batch ]
-  before_filter :set_render_recaptcha, :only => [ :new ]
-  before_filter :redirect_numeric_id_to_url_title, :only => [:show]
-  before_filter :redirect_embargoed_requests_for_pro_users, :only => [:show]
-  before_filter :redirect_public_requests_from_pro_context, :only => [:show]
-  before_filter :redirect_new_form_to_pro_version, :only => [:select_authority, :new]
-  before_filter :set_in_pro_area, :only => [:select_authority, :show]
+  before_action :check_read_only, :only => [ :new, :describe_state, :upload_response ]
+  before_action :check_batch_requests_and_user_allowed, :only => [ :select_authorities, :new_batch ]
+  before_action :set_render_recaptcha, :only => [ :new ]
+  before_action :redirect_numeric_id_to_url_title, :only => [:show]
+  before_action :redirect_embargoed_requests_for_pro_users, :only => [:show]
+  before_action :redirect_public_requests_from_pro_context, :only => [:show]
+  before_action :redirect_new_form_to_pro_version, :only => [:select_authority, :new]
+  before_action :set_in_pro_area, :only => [:select_authority, :show]
   helper_method :state_transitions_empty?
 
   MAX_RESULTS = 500
@@ -27,7 +27,7 @@ class RequestController < ApplicationController
     require 'customstates'
     include RequestControllerCustomStates
     @@custom_states_loaded = true
-  rescue MissingSourceFile, NameError
+  rescue LoadError, NameError
   end
 
   def select_authority
@@ -464,23 +464,31 @@ class RequestController < ApplicationController
 
     described_state = params[:incoming_message][:described_state]
     message = params[:incoming_message][:message]
-    # For requires_admin and error_message states we ask for an extra message to send to
-    # the administrators.
-    # If this message hasn't been included then ask for it
-    if ["error_message", "requires_admin"].include?(described_state) && message.nil?
-      redirect_to describe_state_message_url(:url_title => info_request.url_title,
-                                             :described_state => described_state)
-      return
+
+    log_params = {
+      user_id: authenticated_user.id,
+      old_described_state: info_request.described_state,
+      described_state: described_state
+    }
+
+    # For requires_admin and error_message states we ask for an extra message to
+    # send to the administrators.
+    # If this message hasn't been included then ask for it. If it has, log it.
+    if ["error_message", "requires_admin"].include?(described_state)
+      if message.nil?
+        redirect_to describe_state_message_url(
+                      url_title: info_request.url_title,
+                      described_state: described_state)
+        return
+      else
+        log_params[:message] = message
+      end
     end
 
     # Make the state change
-    event = info_request.log_event("status_update",
-                                   { :user_id => authenticated_user.id,
-                                     :old_described_state => info_request.described_state,
-                                     :described_state => described_state,
-                                     })
-
-    info_request.set_described_state(described_state, authenticated_user, message)
+    event = info_request.log_event("status_update", log_params)
+    info_request.
+      set_described_state(described_state, authenticated_user, message)
 
     # If you're not the *actual* requester. e.g. you are playing the
     # classification game, or you're doing this just because you are an
@@ -571,17 +579,19 @@ class RequestController < ApplicationController
     end
   end
 
-  before_filter :authenticate_attachment, :only => [ :get_attachment, :get_attachment_as_html ]
+  before_action :authenticate_attachment, :only => [ :get_attachment, :get_attachment_as_html ]
   def authenticate_attachment
     # Test for hidden
     incoming_message = IncomingMessage.find(params[:incoming_message_id])
     raise ActiveRecord::RecordNotFound.new("Message not found") if incoming_message.nil?
     if cannot?(:read, incoming_message.info_request)
       @info_request = incoming_message.info_request # used by view
+      request.format = :html
       return render_hidden
     end
     if cannot?(:read, incoming_message)
       @incoming_message = incoming_message # used by view
+      request.format = :html
       return render_hidden('request/hidden_correspondence')
     end
     # Is this a completely public request that we can cache attachments for
@@ -593,7 +603,7 @@ class RequestController < ApplicationController
   end
 
   # special caching code so mime types are handled right
-  around_filter :cache_attachments, :only => [ :get_attachment, :get_attachment_as_html ]
+  around_action :cache_attachments, :only => [ :get_attachment, :get_attachment_as_html ]
   def cache_attachments
     if !params[:skip_cache].nil?
       yield

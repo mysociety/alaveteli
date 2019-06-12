@@ -1,9 +1,9 @@
 # -*- encoding : utf-8 -*-
-class AddRequestClassificationsCountToUsers < ActiveRecord::Migration
+class AddRequestClassificationsCountToUsers < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 3.2
   def up
     add_column :users, :request_classifications_count, :integer, :default => 0, :null => false
 
-    RequestClassification.uniq.pluck(:user_id).compact.each do |user_id|
+    RequestClassification.distinct.pluck(:user_id).compact.each do |user_id|
       User.reset_counters(user_id, :request_classifications)
     end
   end

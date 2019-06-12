@@ -219,10 +219,24 @@ describe "request/show" do
       it 'displays a message that that authority is not obliged to respond' do
         request_page
         expect(rendered).
-          to have_content('You can only request information about the ' \
-                          'environment from this authority.')
+          to have_content('You only have a right in law to access ' \
+                          'information about the environment from this ' \
+                          'authority')
       end
 
+    end
+
+  end
+
+  describe 'when the request is closed to new authority responses' do
+
+    it 'displays to say that the request is closed to further correspondence' do
+      mock_request.update_attribute(:allow_new_responses_from, 'nobody')
+      request_page
+      expect(rendered).
+        to have_content('This request has been closed to new correspondence ' \
+                        'from the public body. Contact us if you think it ' \
+                        'ought be re-opened.')
     end
 
   end

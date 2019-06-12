@@ -8,6 +8,14 @@
 class RequestMailer < ApplicationMailer
   include AlaveteliFeatures::Helpers
 
+  before_action :set_footer_template,
+                :only => [
+                  :new_response, :overdue_alert, :very_overdue_alert,
+                  :new_response_reminder_alert, :old_unclassified_updated,
+                  :not_clarified_alert, :comment_on_alert,
+                  :comment_on_alert_plural
+                ]
+
   # Used when an FOI officer uploads a response from their web browser - this is
   # the "fake" email used to store in the same format in the database as if they
   # had emailed it.
@@ -126,7 +134,9 @@ class RequestMailer < ApplicationMailer
   # Tell the requester that they need to say if the new response
   # contains info or not
   def new_response_reminder_alert(info_request, incoming_message)
-    target = show_request_path(info_request, anchor: 'describe_state_form_1')
+    target = show_request_url(info_request,
+                              anchor: 'describe_state_form_1',
+                              only_path: true)
     @url = signin_url(r: target)
     @incoming_message = incoming_message
     @info_request = info_request
@@ -511,6 +521,12 @@ class RequestMailer < ApplicationMailer
         store_sent.save!
       end
     end
+  end
+
+  private
+
+  def set_footer_template
+    @footer_template = 'default'
   end
 
 end

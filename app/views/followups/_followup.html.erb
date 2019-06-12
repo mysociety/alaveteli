@@ -5,45 +5,32 @@
     # Send a public follow up message to...
     # Send a public reply to...
     # Don't want to address your message to... ?
-    name_for_followup = _("the main FOI contact at {{public_body}}", :public_body => h(OutgoingMailer.name_for_followup(@info_request, nil))) %>
+    name_for_followup =
+      _("the main FOI contact at {{public_body}}",
+        public_body: h(OutgoingMailer.name_for_followup(@info_request, nil))) %>
   <% else %>
-    <% name_for_followup = h(OutgoingMailer.name_for_followup(@info_request, incoming_message)) %>
+    <% name_for_followup =
+         h(OutgoingMailer.name_for_followup(@info_request, incoming_message)) %>
   <% end %>
 
-  <% if @info_request.embargo %>
-    <%= render partial: 'alaveteli_pro/followups/embargoed_form_title',
-               locals: { incoming_message: incoming_message,
-                         name_for_followup: name_for_followup } %>
-  <% else %>
-    <%= render partial: 'form_title',
-               locals: { incoming_message: incoming_message,
-                         name_for_followup: name_for_followup } %>
-  <% end %>
+  <% if @info_request.allow_new_responses_from != 'nobody' %>
+    <% if @info_request.embargo %>
+      <%= render partial: 'alaveteli_pro/followups/embargoed_form_title',
+                 locals: { incoming_message: incoming_message,
+                           name_for_followup: name_for_followup } %>
+    <% else %>
+      <%= render partial: 'form_title',
+                 locals: { incoming_message: incoming_message,
+                           name_for_followup: name_for_followup } %>
+    <% end %>
 
-  <% if @info_request.who_can_followup_to(incoming_message).count > 0 %>
-    <div id="other_recipients" class="box other_recipients">
-      <%= _("Don't want to address your message to {{person_or_body}}?  You can also write to:", :person_or_body => name_for_followup) %>
+    <% if incoming_message &&
+          @info_request.who_can_followup_to(incoming_message).any? %>
+      <%= render partial: 'choose_recipient',
+                 locals: { incoming_message: incoming_message,
+                           name_for_followup: name_for_followup } %>
+    <% end %>
 
-      <ul>
-        <% @info_request.who_can_followup_to(incoming_message).each do |name, email, id|  %>
-          <% if id.nil? && !incoming_message.nil? && incoming_message.valid_to_reply_to? %>
-            <li><%= link_to(_("the main FOI contact address for {{public_body}}", :public_body => name), new_request_followup_path(:request_id => @info_request.id)) %></li>
-          <% else %>
-            <% if !id.nil? %>
-              <% if @info_request.public_body.request_email == email %>
-                <% if !incoming_message.nil? %>
-                  <li><%= link_to(_("the main FOI contact address for {{public_body}}", :public_body => name), new_request_followup_path(:request_id => @info_request.id)) %></li>
-                <% end %>
-              <% else %>
-                <li><%= link_to name, new_request_incoming_followup_path(:request_id => @info_request.id, :incoming_message_id => id)%></li>
-              <% end %>
-            <% else %>
-              <li><%= link_to(_("the main FOI contact address for {{public_body}}", :public_body => name), new_request_followup_path(:request_id => @info_request.id)) %></li>
-            <% end %>
-          <% end %>
-        <% end %>
-      </ul>
-    </div>
   <% end %>
 
   <% if @info_request.allow_new_responses_from == 'nobody' %>
@@ -54,8 +41,8 @@
           _('Follow ups and new responses to this request have been stopped ' \
             'to prevent spam. Please <a href="{{url}}">contact us</a> if you ' \
             'are {{user_link}} and need to send a follow up.',
-            :user_link => user_link(@info_request.user),
-            :url => help_contact_path) %>
+            user_link: user_link(@info_request.user),
+            url: help_contact_path) %>
     </p>
   <% else %>
     <% if @internal_review %>
@@ -63,16 +50,20 @@
         <%= _('If you are dissatisfied by the response you got from the ' \
               'public authority, you have the right to complain ' \
               '(<a href="{{url}}">details</a>).',
-              :url => help_unhappy_path(
-                        :anchor => "internal_review",
-                        :url_title => @info_request.url_title)) %>
+              url: help_unhappy_path(
+                     anchor: 'internal_review',
+                     url_title: @info_request.url_title)) %>
       </p>
     <% end %>
 
     <p>
-      <%= _('Please <strong>only</strong> write messages directly relating to your request {{request_link}}. If you would like to ask for information that was not in your original request, then <a href="{{new_request_link}}">file a new request</a>.',
-            :request_link => request_link(@info_request),
-            :new_request_link => new_request_to_body_url(:url_name => @info_request.public_body.url_name)) %>
+    <%= _('Please <strong>only</strong> write messages directly relating ' \
+          'to your request {{request_link}}. If you would like to ask for ' \
+          'information that was not in your original request, then <a ' \
+          'href="{{new_request_link}}">file a new request</a>.',
+          request_link: request_link(@info_request),
+          new_request_link: new_request_to_body_url(
+                              url_name: @info_request.public_body.url_name)) %>
     </p>
 
     <% status = @info_request.calculate_status %>
@@ -83,7 +74,7 @@
                 '</strong>. Although the authority has no legal obligation ' \
                 'to reply, they should normally have responded by ' \
                 '<strong>{{date}}</strong>',
-                :date=>simple_date(@info_request.date_response_required_by)) %>
+                date: simple_date(@info_request.date_response_required_by)) %>
 
           (<%= link_to _('details'),
                        help_requesting_path(anchor: 'authorities') %>).
@@ -92,7 +83,7 @@
                 '</strong>. You can say that, by law, the authority should ' \
                 'normally have responded <strong>promptly</strong> and by ' \
                 '<strong>{{date}}</strong>',
-                :date=>simple_date(@info_request.date_response_required_by)) %>
+                date: simple_date(@info_request.date_response_required_by)) %>
 
           (<%= link_to _('details'),
                        help_requesting_path(anchor: 'quickly_response') %>).
@@ -118,13 +109,24 @@
       </p>
     <% end %>
 
-    <%= form_for(@outgoing_message, :html => { :id => 'followup_form' }, :url => incoming_message.nil? ? preview_request_followups_url(:request_id => @info_request.id) : preview_request_followups_url(:request_id => @info_request.id, :incoming_message_id => incoming_message.id)) do |o| %>
+    <% form_url =
+         if incoming_message.nil?
+           preview_request_followups_url(request_id: @info_request.id)
+         else
+           preview_request_followups_url(
+             request_id: @info_request.id,
+             incoming_message_id: incoming_message.id)
+         end -%>
+    <%= form_for @outgoing_message,
+                 html: { id: 'followup_form' },
+                 url: form_url do |o| %>
       <p>
-        <%= o.text_area :body, :rows => 15, :cols => 55 %>
+        <%= o.text_area :body, rows: 15, cols: 55 %>
       </p>
 
       <% if @internal_review %>
-        <%= hidden_field_tag "outgoing_message[what_doing]", "internal_review" %>
+        <%= hidden_field_tag 'outgoing_message[what_doing]',
+                             'internal_review' %>
       <% else %>
         <h3><%= _('What are you doing?') %></h3>
 
@@ -135,25 +137,34 @@
         <% end %>
           <!--
             <div>
-            <%= radio_button "outgoing_message", "what_doing", "new_information", :id => "new_information" %>
+            <%= radio_button 'outgoing_message',
+                             'what_doing',
+                             'new_information',
+                             id: 'new_information' %>
             <label for="new_information">
               <%= _('I am asking for <strong>new information</strong>') %>
             </label>
             </div>
           -->
           <div>
-            <%= radio_button "outgoing_message", "what_doing", "internal_review", :id => "internal_review" %>
+            <%= radio_button 'outgoing_message',
+                             'what_doing',
+                             'internal_review',
+                             id: 'internal_review' %>
             <label for="internal_review">
               <%= _('I am requesting an <strong>internal review</strong>') %>
-              <%= link_to _("what's that?"), "/help/unhappy" %>
+              <%= link_to _("what's that?"), '/help/unhappy' %>
             </label>
           </div>
 
           <div>
-            <%= radio_button "outgoing_message", "what_doing", "normal_sort", :id => "sort_normal" %>
+            <%= radio_button 'outgoing_message',
+                             'what_doing',
+                             'normal_sort',
+                             id: 'sort_normal' %>
             <label for="sort_normal">
               <%= _('<strong>Anything else</strong>, such as clarifying, ' \
-                       'prompting, thanking') %>
+                    'prompting, thanking') %>
             </label>
           </div>
         </div>
@@ -172,14 +183,14 @@
         <% if @internal_review %>
           <%= hidden_field_tag(:internal_review, 1 ) %>
         <% end %>
-        <%= submit_tag _("Preview your message") %>
+        <%= submit_tag _('Preview your message') %>
       </p>
     <% end %>
 
     <p>
       <% if not @is_owning_user %>
-        <%= _("(You will be asked to sign in as {{user_name}})",
-              :user_name => user_link(@info_request.user)) %>
+        <%= _('(You will be asked to sign in as {{user_name}})',
+              user_name: user_link(@info_request.user)) %>
       <% end %>
     </p>
   <% end %>

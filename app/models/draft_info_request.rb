@@ -13,7 +13,7 @@
 #  updated_at       :datetime         not null
 #
 
-class DraftInfoRequest < ActiveRecord::Base
+class DraftInfoRequest < ApplicationRecord
   include AlaveteliPro::RequestSummaries
 
   validates_presence_of :user

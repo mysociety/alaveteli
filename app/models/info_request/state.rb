@@ -25,6 +25,10 @@ class InfoRequest
       states
     end
 
+    def self.valid?(state)
+      all.include?(state)
+    end
+
     def self.short_description(state)
       descriptions = {
             'waiting_classification'        => _("Needs status update"),
@@ -36,7 +40,7 @@ class InfoRequest
             'partially_successful'          => _("Partially successful"),
             'successful'                    => _("Successful"),
             'waiting_clarification'         => _("Awaiting clarification"),
-            'gone_postal'                   => _("Handled by post"),
+            'gone_postal'                   => _("Handled by postal mail"),
             'internal_review'               => _("Awaiting internal review"),
             'error_message'                 => _("Delivery error"),
             'requires_admin'                => _("Requires admin attention"),

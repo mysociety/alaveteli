@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class AddPublicBodyTags < ActiveRecord::Migration
+class AddPublicBodyTags < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 2.0
   def self.up
     create_table :public_body_tags do |t|
       t.column :public_body_id, :integer, :null => false

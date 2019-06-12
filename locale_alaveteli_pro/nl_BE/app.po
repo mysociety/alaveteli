@@ -5,15 +5,15 @@
 #
 # Translators:
 # claude transparencia <audit.citoyen.quartier@gmail.com>, 2018
-# Liz Conlan <liz@mysociety.org>, 2018
+# Liz Conlan <liz@mysociety.org>, 2019
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-28 15:40+0000\n"
+"POT-Creation-Date: 2019-06-10 14:58+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>, 2018\n"
+"Last-Translator: Liz Conlan <liz@mysociety.org>, 2019\n"
 "Language-Team: Dutch (Belgium) (https://www.transifex.com/mysociety/teams/33529/nl_BE/)\n"
 "Language: nl_BE\n"
 "MIME-Version: 1.0\n"
@@ -60,8 +60,8 @@ msgstr "<strong>{{brand}}</strong>eindigt in  {{last4}}, verstrijkt op {{exp_mon
 msgid "<strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 msgstr "<strong>{{filter_description}}</strong> gesorteerd op <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">wis</a>"
 
-msgid "A <strong>summary</strong> of the response if you have received it by post. "
-msgstr "Een <strong>overzicht</strong> van de antwoorden die u via post kreeg."
+msgid "A <strong>summary</strong> of the response if you have received it by postal mail. "
+msgstr ""
 
 msgid "A monthly subscription"
 msgstr "Een maandelijk abonnement"
@@ -92,6 +92,9 @@ msgstr "Waarschuwingen tot actie: weet wanneer het het best is om een volgende s
 
 msgid "Activity"
 msgstr "activiteit"
+
+msgid "Add"
+msgstr ""
 
 msgid "Add Payment Card"
 msgstr "Voeg betaalkaart toe"
@@ -225,6 +228,9 @@ msgstr "Dagelijkse samenvattende e-mails houden uw inbox clean"
 msgid "Dashboard"
 msgstr "Dashboard"
 
+msgid "Dear {{user_name}},"
+msgstr ""
+
 msgid "Delivery verification for proof of receipt"
 msgstr "Controle van aflevering als ontvangstbewijs"
 
@@ -300,14 +306,23 @@ msgstr "Ik heb de voorwaarden gelezen en goedgekeurd"
 msgid "I understand and still want to cancel"
 msgstr "Ik begrijp het maar wil nog steeds annuleren"
 
+msgid "If payment continues to fail, unfortunately your account will revert back to a free account, and you’ll no longer have access to {{pro_site_name}}."
+msgstr ""
+
 msgid "If you have an <strong>offer code</strong>, please enter it here:"
 msgstr "Indien u een <strong>kortingscode</strong>heeft, gelieve die hier in te brengen:"
+
+msgid "If you wish to preserve your access to {{pro_site_name}}, please could you check that your card has sufficient funds, and that the card details are correct on your subscriptions page: {{subscriptions_page_url}}"
+msgstr ""
 
 msgid "Important info about requests to this authority"
 msgstr ""
 
 msgid "Keep private for a further:"
 msgstr "Hou dit privé voor nog:"
+
+msgid "Keep private for:"
+msgstr ""
 
 msgid "Keep requests and responses private while you work on your story"
 msgstr "Hou uw aanvragen en antwoorden privé terwijl u werkt aan uw dossier"
@@ -637,6 +652,9 @@ msgstr "De inschrijving stopt "
 msgid "Successful applicants will receive free early access to {{site_name}} for 6 months."
 msgstr "Succesvolle deelnemers zullen een gratis vroege toegang van 6 maanden krijgen tot  {{site_name}} "
 
+msgid "Thank you for your interest in {{pro_site_name}}."
+msgstr ""
+
 msgid "Thanks for logging in. We've saved your request as a draft, in case you wanted to add an embargo before sending it. You can set that (or just send it straight away) using the form below."
 msgstr "Bedankt om in te loggen. We hebben uw aanvraag als kladontwerp bewaard, voor het geval u een tijdsembargo wou instellen vooraleer hem te verzenden. U kan die instellen (of onmiddellijk zo verzenden) via het formulier hieronder"
 
@@ -682,6 +700,9 @@ msgstr "Taken van vandaag"
 
 msgid "This page is only accessible to {{pro_site_name}} users"
 msgstr "Deze bladzijde is enkel toegankelijk voor  gebruikers van {{pro_site_name}}"
+
+msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
+msgstr ""
 
 msgid "This request is private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
 msgstr ""
@@ -764,6 +785,12 @@ msgid "We will remind you by email and on the site when the request is going be 
 msgstr "We zullen je per mail en op de site eraan herinneren wanneer de aanvraag openbaar zal gemaakt worden en je zal de mogelijkheid hebben om ze langer privé te houden zo je dat wil. Je kan die termijn onbeperkt instellen of de aanvraag op eender welk moment openbaar maken."
 
 msgid "Welcome to {{pro_site_name}}!"
+msgstr ""
+
+msgid "We’ll attempt to bill your card again over the coming days."
+msgstr ""
+
+msgid "We’ve tried to bill your card but the charge was unsuccessful."
 msgstr ""
 
 msgid "When a request is private we guarantee that it will only be visible on {{site_name}} for the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
@@ -926,6 +953,9 @@ msgstr ""
 
 msgid "requests that will be made public soon"
 msgstr "aanvragen die binnenkort zullen publiek gemaakt worden"
+
+msgid "the {{pro_site_name}} team"
+msgstr ""
 
 msgid "the {{site_name}} team"
 msgstr "het {{site_name}} team"

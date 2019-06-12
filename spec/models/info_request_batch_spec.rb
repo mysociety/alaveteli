@@ -102,7 +102,7 @@ describe InfoRequestBatch do
     end
 
     it 'does not resend requests to public bodies that have already received the request' do
-      expect(info_request_batch).to receive(:requestable_public_bodies).
+      allow(info_request_batch).to receive(:requestable_public_bodies).
         and_return([first_public_body])
       expect { info_request_batch.create_batch! }.to(
         change(info_request_batch.info_requests, :count).by(1)
@@ -208,6 +208,20 @@ describe InfoRequestBatch do
     it "doesn't save the batch" do
       batch = InfoRequestBatch.from_draft(draft)
       expect(batch.persisted?).to be false
+    end
+  end
+
+  describe '#sent?' do
+    subject { batch.sent? }
+
+    context 'sent_at has been set' do
+      let(:batch) { FactoryBot.create(:info_request_batch, :sent) }
+      it { is_expected.to eq true }
+    end
+
+    context 'sent_at has not been set' do
+      let(:batch) { FactoryBot.create(:info_request_batch) }
+      it { is_expected.to eq false }
     end
   end
 
@@ -331,6 +345,20 @@ describe InfoRequestBatch do
       it "returns false" do
         expect(info_request_batch.embargo_expiring?).to be false
       end
+    end
+  end
+
+  describe '#can_change_embargo?' do
+    subject { batch.can_change_embargo? }
+
+    context 'the batch has been sent' do
+      let(:batch) { FactoryBot.create(:info_request_batch, :sent) }
+      it { is_expected.to eq true }
+    end
+
+    context 'the batch is unsent' do
+      let(:batch) { FactoryBot.create(:info_request_batch) }
+      it { is_expected.to eq false }
     end
   end
 

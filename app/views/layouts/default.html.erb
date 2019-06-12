@@ -28,7 +28,7 @@
       <% end %>
     <% end %>
     <% if @has_json %>
-      <link rel="alternate" type="application/json" title="JSON version of this page" href="<%=h url_for(request.params.merge(:format => 'json')) %>">
+      <link rel="alternate" type="application/json" title="JSON version of this page" href="<%= current_path_as_json %>">
     <% end %>
     <% if @no_crawl %>
       <meta name="robots" content="noindex, nofollow">

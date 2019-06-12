@@ -1,14 +1,15 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
 #
-# Table name: embargos
+# Table name: embargoes
 #
-#  id              :integer          not null, primary key
-#  info_request_id :integer          not null
-#  publish_at      :datetime         not null
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  embargo_duration :string(255)
+#  id                       :integer          not null, primary key
+#  info_request_id          :integer
+#  publish_at               :datetime         not null
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  embargo_duration         :string
+#  expiring_notification_at :datetime
 #
 
 FactoryBot.define do

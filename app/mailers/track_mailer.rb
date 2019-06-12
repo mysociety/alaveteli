@@ -6,6 +6,9 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class TrackMailer < ApplicationMailer
+
+  before_action :set_footer_template, :only => :event_digest
+
   # Note that this is different from all the other mailers, as tracks are
   # sent from a different email address and have different bounce handling.
   def contact_from_name_and_email
@@ -14,8 +17,14 @@ class TrackMailer < ApplicationMailer
 
   def event_digest(user, email_about_things)
     @user, @email_about_things = user, email_about_things
+
     @unsubscribe_url =
-      signin_url(r: user_path(user, anchor: 'email_subscriptions'))
+      signin_url(r: user_url(user,
+                             anchor: 'email_subscriptions',
+                             only_path: true))
+
+    token = CGI.escape(User::EmailAlerts.token(user))
+    @disable_email_alerts_url = users_disable_email_alerts_url(token: token)
 
     headers('Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
             'Precedence' => 'bulk')# http://www.vbulletin.com/forum/project.php?issueid=27687 (Exchange hack)
@@ -130,6 +139,12 @@ class TrackMailer < ApplicationMailer
         sleep_seconds = 300 if sleep_seconds > 300
       end
     end
+  end
+
+  private
+
+  def set_footer_template
+    @footer_template = 'default'
   end
 
 end

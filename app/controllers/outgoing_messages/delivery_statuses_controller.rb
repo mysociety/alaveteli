@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class OutgoingMessages::DeliveryStatusesController < ApplicationController
-  before_filter :set_outgoing_message, :check_prominence
+  before_action :set_outgoing_message, :check_prominence
 
   def show
     @title = _('Delivery Status for Outgoing Message #{{id}}',

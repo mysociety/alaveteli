@@ -68,7 +68,7 @@ module AlaveteliExternalCommand
         search_path = AlaveteliConfiguration::utility_search_path
         search_path.each do |d|
           program_path = File.join(d, program_name)
-          return program_name if File.file? program_path and File.executable? program_path
+          return program_path if File.file? program_path and File.executable? program_path
         end
         raise "Could not find #{program_name} in any of #{search_path.join(', ')}"
       end

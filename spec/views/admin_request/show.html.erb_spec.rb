@@ -42,4 +42,30 @@ describe "admin_request/show.html.erb" do
 
   end
 
+  context 'for a redacted request' do
+
+    let(:info_request) do
+      request = FactoryBot.create(:info_request)
+      FactoryBot.create(:info_request_censor_rule,
+                        text: 'information',
+                        replacement: '[REDACTED]',
+                        info_request: request)
+      request.reload
+    end
+
+    it 'shows the redacted message in the main Outgoing Messages section' do
+      render
+      expect(rendered).to have_css('#outgoing_messages blockquote',
+                                   text: 'Some [REDACTED] please')
+    end
+
+    it 'shows the unredacted message in the Outgoing Messages accordion' do
+      render
+      ogm = info_request.outgoing_messages.last
+      expect(rendered).to have_css("#outgoing_#{ogm.id}",
+                                   text: 'Some information please')
+    end
+
+  end
+
 end

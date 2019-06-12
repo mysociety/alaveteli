@@ -77,7 +77,7 @@ describe InfoRequest::State::Calculator do
             "waiting_response"      => "I'm still <strong>waiting</strong> for my information <small>(maybe you got an acknowledgement)</small>",
             "waiting_clarification" => "I've been asked to <strong>clarify</strong> my request",
             "internal_review"       => "I'm waiting for an <strong>internal review</strong> response",
-            "gone_postal"           => "They are going to reply <strong>by post</strong>"
+            "gone_postal"           => "They are going to reply <strong>by postal mail</strong>"
           },
           complete: {
             "not_held"              => "They do <strong>not have</strong> the information <small>(maybe they say who does)</small>",
@@ -98,7 +98,7 @@ describe InfoRequest::State::Calculator do
           pending:  {
             "waiting_response"      => "I'm still <strong>waiting</strong> for my information <small>(maybe you got an acknowledgement)</small>",
             "waiting_clarification" => "I've been asked to <strong>clarify</strong> my request",
-            "gone_postal"           => "They are going to reply <strong>by post</strong>"
+            "gone_postal"           => "They are going to reply <strong>by postal mail</strong>"
           },
           complete: {
             "not_held"              => "They do <strong>not have</strong> the information <small>(maybe they say who does)</small>",
@@ -142,7 +142,7 @@ describe InfoRequest::State::Calculator do
           pending:  {
             "waiting_response"      => "<strong>No response</strong> has been received <small>(maybe there's just an acknowledgement)</small>",
             "waiting_clarification" => "<strong>Clarification</strong> has been requested",
-            "gone_postal"           => "A response will be sent <strong>by post</strong>"
+            "gone_postal"           => "A response will be sent <strong>by postal mail</strong>"
           },
           complete: {
             "not_held"              => "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>",

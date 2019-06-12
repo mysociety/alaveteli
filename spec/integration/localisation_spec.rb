@@ -9,33 +9,33 @@ describe "when generating urls" do
 
   it "should generate URLs that include the locale when using one that includes an underscore" do
     AlaveteliLocalization.set_locales('es en_GB', 'es')
-    get('/en_GB')
+    get '/en_GB'
     expect(response.body).to match /href="\/en_GB\//
   end
 
   it "returns a 404 error if passed the locale with a hyphen instead of an underscore" do
     allow(Rails.application.config).to receive(:consider_all_requests_local).
       and_return(false)
-    get('/en-GB')
+    get '/en-GB'
     expect(response.status).to eq(404)
   end
 
   it "should fall back to the language if the territory is unknown" do
     AlaveteliLocalization.set_locales('es en', 'en')
-    get('/', {}, {'HTTP_ACCEPT_LANGUAGE' => 'en_US'})
+    get '/', headers: { 'HTTP_ACCEPT_LANGUAGE' => 'en_US' }
     expect(response.body).to match /href="\/en\//
     expect(response.body).not_to match /href="\/en_US\//
   end
 
   it 'falls back to the default if the requested locale is unavailable' do
-    get('/', { :locale => "unknown" })
+    get '/', params: { :locale => "unknown" }
     expect(response.body).to match /href="\/en\//
     expect(response.body).not_to match /href="\/unknown\//
   end
 
   it "should generate URLs without a locale prepended when there's only one locale set" do
     AlaveteliLocalization.set_locales('en', 'en')
-    get('/')
+    get '/'
     expect(response).not_to match /#{@home_link_regex}/
   end
 
@@ -51,13 +51,13 @@ describe "when generating urls" do
     end
 
     it 'should redirect requests for a public body in a locale to the canonical name in that locale' do
-      get('/es/body/english_short')
+      get '/es/body/english_short'
       expect(response).to redirect_to "/es/body/spanish_short"
     end
 
     it 'should remember a filter view when redirecting a public body request to the canonical name' do
       AlaveteliLocalization.set_locales(available_locales='es en', default_locale='en')
-      get('/es/body/english_short/successful')
+      get '/es/body/english_short/successful'
       expect(response).to redirect_to "/es/body/spanish_short/successful"
     end
   end
@@ -69,7 +69,7 @@ describe "when generating urls" do
     end
 
     it "should generate URLs with a locale prepended when there's more than one locale set" do
-      get('/')
+      get '/'
       expect(response.body).to match @home_link_regex
     end
 
@@ -101,7 +101,7 @@ describe "when generating urls" do
 
           it "generates URLs without a locale prepended" do
             AlaveteliLocalization.set_locales('en_GB es', 'en_GB')
-            get('/')
+            get '/'
             expect(response.body).not_to match /href="\/en_GB\//
           end
 
@@ -109,7 +109,7 @@ describe "when generating urls" do
 
         it 'should render the front page in the default language when no locale param
                     is present and the session locale is not the default' do
-          get('/', {}, {:locale => 'es'})
+          get '/', headers: { :locale => 'es' }
           expect(response.body).to match  /class="current-locale">English/
         end
       end

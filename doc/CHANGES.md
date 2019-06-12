@@ -1,3 +1,159 @@
+# 0.33.0.0
+
+## Highlighted Features
+
+* Added support for Ubuntu 18.04 LTS (Bionic Beaver) (Gareth Rees)
+* Fix broken display of blank contact authorities (Gareth Rees)
+* Fixed a bug in AlaveteliExternalCommand where the full program path was
+  not being returned correctly (Laurent Savaete)
+* Fixed a bug that meant request urls could unexpectedly change when the request
+  is edited if they're in the middle of a numbered sequence (Liz Conlan)
+* Fix search.png not being included in precompiled assets (Nigel Jones)
+* Drop support for Debian Jessie (Gareth Rees)
+* Disable the destroy authority button in the admin interface rather than hiding
+  it as that can be confusing with embargoed requests (Liz Conlan)
+* Handle missing query param in body search typeahead (Gareth Rees)
+* Add experimental ability to deter personal requests (Graeme Porteous)
+* Multiple performance refactorings (Graeme Porteous)
+* Don't show followup options if the request is closed to new responses
+  (Liz Conlan)
+* Highlight non-default states of "Prominence" in the admin
+  interface (Gareth Rees)
+* Fix bug were the header was displayed at the wrong width if the site only had
+  one language configured (Martin Wright)
+* Show the message from the user on the admin summary page for requests and
+  comments which have been flagged as needing administrator attention (Liz Conlan)
+* Log an event when a user reports a request and capture the message data
+  supplied by the user when they report a request as needing administrator
+  attention in the log (Liz Conlan)
+* Uses the url_name instead of a numeric id when sending messages between users
+  to prevent id guessing (Liz Conlan)
+* Reopen closed requests to allow responses from anybody when a new followup
+  message is sent, or an admin resends an outgoing message (Liz Conlan)
+* Cache the number of incoming messages belonging to an `InfoRequest` to improve
+  performance (Graeme Porteous)
+* Simplify layout of "Find an authority" page (Zarino Zappia)
+* Warn users when their request is getting too long (Zarino Zappia)
+* Add a customisable email footer for emails sent to users (Liz Conlan)
+* Add one-click unsubscribe to `TrackMailer`-generated email notifications
+  (Gareth Rees)
+* Use the original subject line when sending an email reply to a
+  PublicBodyChangeRequest through the admin interface (Liz Conlan)
+* Improve logic for showing contact options when making followups to a request
+  (Liz Conlan)
+* Add guessing from the subject line of an incoming email in the holding pen
+  (Liz Conlan)
+* Encourage reporting correspondence through the request page (Gareth Rees)
+* Link to parent batch from request page (Zarino Zappia, Gareth Rees)
+* Improve guessing from addresses with missing punctuation for incoming email in
+  the holding pen (Liz Conlan)
+* Improve guessing from malformed addresses for incoming email in the holding
+  pen (Gareth Rees)
+* Add a `USER_CONTACT_FORM_RECAPTCHA` config setting to show a reCAPTCHA
+  on the user-to-user contact form if set to true (defaults to false)
+  (Liz Conlan)
+* Add a note to the top of the request page when a request thread is closed to
+  further correspondence (Liz Conlan)
+* Add an option to hide a request containing personal information (Gareth Rees)
+* Prevent censor rules from being unintentionally made permanent when admins
+  edit outgoing messages. Allow admins to see the unredacted outgoing message
+  text on request's admin page and in the associated event log (Liz Conlan)
+* Add a `CONTACT_FORM_RECAPTCHA` config setting to show a reCAPTCHA on the
+  contact form if set to true (defaults to false). Needs a small code snippet -
+  documented in the `general.yml-example` file to be added to the theme's
+  contact form for the reCAPTCHA to be displayed correctly (Liz Conlan)
+* Added support for Ubuntu 16.04 LTS (Xenial Xerus) (Graeme Porteous)
+* Preparation for upgrading to Rails 5 (Graeme Porteous, Liz Conlan, Gareth
+  Rees)
+* Add missing `gettext:remove_fuzzy_alaveteli_pro` task (Liz Conlan)
+* Fix erroneously escaped HTML on admin request pages (Gareth Rees)
+* Fix edge-case bug in following requests (Gareth Rees)
+* Add experimental "Close and anonymise" user feature (Graeme Porteous)
+
+## Upgrade Notes
+
+* We no longer support Debian Jessie. Please upgrade to Debian Stretch at the
+  earliest opportinuity.
+* This will be the last release to support Ubuntu 14.04 LTS (Trusty)
+* This will be the last release to support Ruby 2.0
+* This will be the last release to support Ruby 2.1
+* This will be the last release to support Ruby 2.2
+* This release officially adds support for Ruby 2.4 and 2.5
+* This release temporarily reverts back to the `geoip-database` package from
+  `geoip-database-contrib`. See
+  https://github.com/mysociety/alaveteli/issues/5040 for details.
+* The `hidden_incoming_message` factory has been removed. Use the `:hidden`
+  _trait_ instead if you rely on this in theme specs. See
+  https://github.com/thoughtbot/factory_bot/blob/v4.10.0/GETTING_STARTED.md#traits
+  for more information on traits.
+    * Factory: `hidden_incoming_message` Trait: `:hidden`
+    * Factory: `defunct_public_body` Trait: `:defunct`
+    * Factory: `not_apply_public_body` Trait: `:not_apply`
+* `ContactMailer#change_request_message` has been extracted to
+  `PublicBodyChangeRequestMailer#add_public_body` and
+  `PublicBodyChangeRequestMailer#update_public_body`.
+* `UserController#contact` has been extracted to
+  `Users::MessagesController#contact`.
+* The changes to the way dynamic routes work means that any themes that use
+  the `help_general_url` helper will need to pass in `:template` instead of
+  `:action`
+* This release includes an update to the commonlib submodule - you
+  should be warned about this when running `rails-post-deploy`.
+* There are some database structure updates so remember to run
+  `bundle exec rake db:migrate`
+
+### Changed Templates
+
+    app/views/admin_general/_to_do_list.html.erb
+    app/views/admin_holidays/index.html.erb
+    app/views/admin_incoming_message/_actions.html.erb
+    app/views/admin_outgoing_message/edit.html.erb
+    app/views/admin_public_body/_locale_fields.html.erb
+    app/views/admin_public_body/edit.html.erb
+    app/views/admin_raw_email/show.html.erb
+    app/views/admin_request/hidden_user_explanation.text.erb
+    app/views/admin_request/show.html.erb
+    app/views/admin_user/_user_table.html.erb
+    app/views/admin_user/edit.html.erb
+    app/views/admin_user/show.html.erb
+    app/views/alaveteli_pro/batch_request_authority_searches/_browse.html.erb
+    app/views/alaveteli_pro/comment/_suggestions.html.erb
+    app/views/alaveteli_pro/info_request_batches/_embargo_form.html.erb
+    app/views/alaveteli_pro/info_request_batches/_info_request.html.erb
+    app/views/alaveteli_pro/info_requests/_embargo_create_form.html.erb
+    app/views/alaveteli_pro/info_requests/_info_request.html.erb
+    app/views/alaveteli_pro/info_requests/_sidebar.html.erb
+    app/views/comment/_single_comment.html.erb
+    app/views/comment/_suggestions.html.erb
+    app/views/contact_mailer/add_public_body.text.erb
+    app/views/contact_mailer/update_public_body_email.text.erb
+    app/views/followups/_followup.html.erb
+    app/views/general/_advanced_search_tips.html.erb
+    app/views/general/_locale_switcher.html.erb
+    app/views/info_request_batch/show.html.erb
+    app/views/layouts/contact_mailer.text.erb
+    app/views/layouts/outgoing_mailer.text.erb
+    app/views/layouts/request_mailer.text.erb
+    app/views/layouts/user_mailer.text.erb
+    app/views/public_body/_list_sidebar_extra.html.erb
+    app/views/public_body/show.html.erb
+    app/views/request/_incoming_correspondence.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
+    app/views/request/_request_subtitle.html.erb
+    app/views/request/_sidebar.html.erb
+    app/views/request/describe_notices/_not_held.html.erb
+    app/views/request/new.html.erb
+    app/views/request/select_authority.html.erb
+    app/views/request_mailer/comment_on_alert.text.erb
+    app/views/request_mailer/comment_on_alert_plural.text.erb
+    app/views/request_mailer/new_response.text.erb
+    app/views/request_mailer/new_response_reminder_alert.text.erb
+    app/views/request_mailer/not_clarified_alert.text.erb
+    app/views/request_mailer/very_overdue_alert.text.erb
+    app/views/track_mailer/event_digest.text.erb
+    app/views/user/contact.html.erb
+    app/views/user/show/_show_profile.html.erb
+
 # 0.32.0.2
 
 ## Highlighted Features

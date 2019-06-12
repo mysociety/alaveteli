@@ -213,7 +213,7 @@ Rails.application.routes.draw do
   match '/user/:url_name/wall' => 'user#wall',
         :as => :show_user_wall,
         :via => :get
-  match '/user/contact/:id' => 'user#contact',
+  match '/user/contact/:url_name' => 'users/messages#contact',
         :as => :contact_user,
         :via => [:get, :post]
   match '/profile/change_email' => 'user#signchangeemail',
@@ -231,6 +231,12 @@ Rails.application.routes.draw do
   match '/profile/draft_photo/:id.png' => 'user#get_draft_profile_photo',
         :as => :get_draft_profile_photo,
         :via => :get
+
+  namespace :users do
+    get 'email_alerts/disable/:token',
+        to: 'email_alerts#destroy',
+        as: :disable_email_alerts
+  end
 
   namespace :profile, :module => 'user_profile' do
     resource :about_me, :only => [:edit, :update], :controller => 'about_me'
@@ -359,7 +365,7 @@ Rails.application.routes.draw do
   ####
 
   #### Help controller
-  match '/help/unhappy/:url_title' => 'help#unhappy',
+  match '/help/unhappy(/:url_title)' => 'help#unhappy',
         :as => :help_unhappy,
         :via => :get
   match '/help/about' => 'help#about',
@@ -386,9 +392,10 @@ Rails.application.routes.draw do
   match '/help/credits' => 'help#credits',
         :as => :help_credits,
         :via => :get
-  match '/help/:action' => 'help#action',
+  match '/help/:template' => 'help#action',
         :as => :help_general,
-        :via => :get
+        :via => :get,
+        :template => /[-_a-z]+/
   match '/help' => 'help#index',
         :via => :get
   ####
@@ -679,7 +686,7 @@ Rails.application.routes.draw do
       end
       resources :embargoes, :only => [:destroy, :create] do
         collection do
-          post :destroy_batch, :only => [:destroy]
+          post :destroy_batch
         end
       end
       resources :embargo_extensions, :only => [:create] do

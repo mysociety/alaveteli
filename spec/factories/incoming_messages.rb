@@ -38,7 +38,14 @@ FactoryBot.define do
       incoming_message.raw_email.data = "somedata"
     end
 
-    factory :hidden_incoming_message do
+    trait :unparsed do
+      last_parsed nil
+      sent_at nil
+      after(:create) do |incoming_message, evaluator|
+      end
+    end
+
+    trait :hidden do
       prominence 'hidden'
     end
 
@@ -80,5 +87,4 @@ FactoryBot.define do
       end
     end
   end
-
 end

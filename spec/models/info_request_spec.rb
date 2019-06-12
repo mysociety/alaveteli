@@ -31,6 +31,7 @@
 #  last_event_forming_initial_request_id :integer
 #  use_notifications                     :boolean
 #  last_event_time                       :datetime
+#  incoming_messages_count               :integer          default(0)
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
@@ -348,13 +349,41 @@ describe InfoRequest do
 
   end
 
+  describe '#reopen_to_new_responses' do
+    subject { info_request.reopen_to_new_responses }
+
+    let(:info_request) do
+      time_travel_to(8.months.ago) do
+        FactoryBot.create(:info_request, allow_new_responses_from: 'nobody',
+                                         reject_incoming_at_mta: true)
+      end
+    end
+
+    it 'resets #allow_new_responses_from to "anybody"' do
+      subject
+      expect(info_request.allow_new_responses_from).to eq('anybody')
+    end
+
+    it 'resets #reject_incoming_at_mta to false' do
+      subject
+      expect(info_request.reject_incoming_at_mta).to eq(false)
+    end
+
+    it 'changes the updated_at timestamp' do
+      expect { subject }.
+        to change { info_request.reload.updated_at.to_date }.
+          from(8.months.ago.to_date).to(now.to_date)
+    end
+
+  end
+
   describe '#receive' do
 
     it 'creates a new incoming message' do
       info_request = FactoryBot.create(:info_request)
       email, raw_email = email_and_raw_email
       info_request.receive(email, raw_email)
-      expect(info_request.incoming_messages.size).to eq(1)
+      expect(info_request.incoming_messages.count).to eq(1)
       expect(info_request.incoming_messages.last).to be_persisted
     end
 
@@ -461,7 +490,7 @@ describe InfoRequest do
       it 'processes mail where no source is specified' do
         email, raw_email = email_and_raw_email
         info_request.receive(email, raw_email)
-        expect(info_request.incoming_messages.size).to eq(1)
+        expect(info_request.incoming_messages.count).to eq(1)
         expect(info_request.incoming_messages.last).to be_persisted
       end
 
@@ -471,7 +500,7 @@ describe InfoRequest do
           with_feature_enabled(:accept_mail_from_anywhere) do
             email, raw_email = email_and_raw_email
             info_request.receive(email, raw_email)
-            expect(info_request.incoming_messages.size).to eq(1)
+            expect(info_request.incoming_messages.count).to eq(1)
             expect(info_request.incoming_messages.last).to be_persisted
           end
         end
@@ -480,7 +509,7 @@ describe InfoRequest do
           with_feature_enabled(:accept_mail_from_anywhere) do
             email, raw_email = email_and_raw_email
             info_request.receive(email, raw_email, :source => :poller)
-            expect(info_request.incoming_messages.size).to eq(1)
+            expect(info_request.incoming_messages.count).to eq(1)
             expect(info_request.incoming_messages.last).to be_persisted
           end
         end
@@ -489,7 +518,7 @@ describe InfoRequest do
           with_feature_enabled(:accept_mail_from_anywhere) do
             email, raw_email = email_and_raw_email
             info_request.receive(email, raw_email, :source => :poller)
-            expect(info_request.incoming_messages.size).to eq(1)
+            expect(info_request.incoming_messages.count).to eq(1)
             expect(info_request.incoming_messages.last).to be_persisted
           end
         end
@@ -510,14 +539,14 @@ describe InfoRequest do
           it 'processes mail from the poller' do
             email, raw_email = email_and_raw_email
             info_request.receive(email, raw_email, :source => :poller)
-            expect(info_request.incoming_messages.size).to eq(1)
+            expect(info_request.incoming_messages.count).to eq(1)
             expect(info_request.incoming_messages.last).to be_persisted
           end
 
           it 'ignores mail from mailin' do
             email, raw_email = email_and_raw_email
             info_request.receive(email, raw_email, :source => :mailin)
-            expect(info_request.incoming_messages.size).to eq(0)
+            expect(info_request.incoming_messages.count).to eq(0)
           end
 
         end
@@ -528,13 +557,13 @@ describe InfoRequest do
           it 'ignores mail from the poller' do
             email, raw_email = email_and_raw_email
             info_request.receive(email, raw_email, :source => :poller)
-            expect(info_request.incoming_messages.size).to eq(0)
+            expect(info_request.incoming_messages.count).to eq(0)
           end
 
           it 'processes mail from mailin' do
             email, raw_email = email_and_raw_email
             info_request.receive(email, raw_email, :source => :mailin)
-            expect(info_request.incoming_messages.size).to eq(1)
+            expect(info_request.incoming_messages.count).to eq(1)
             expect(info_request.incoming_messages.last).to be_persisted
           end
 
@@ -560,8 +589,8 @@ describe InfoRequest do
         msg = 'This request has been set by an administrator to "allow new ' \
               'responses from nobody"'
 
-        expect(info_request.incoming_messages.size).to eq(0)
-        expect(holding_pen.incoming_messages.size).to eq(1)
+        expect(info_request.incoming_messages.count).to eq(0)
+        expect(holding_pen.incoming_messages.count).to eq(1)
         expect(holding_pen.info_request_events.last.params[:rejected_reason]).
           to eq(msg)
         expect(info_request.reload.rejected_incoming_count).to eq(1)
@@ -575,7 +604,7 @@ describe InfoRequest do
         info_request = FactoryBot.create(:info_request, attrs)
         email, raw_email = email_and_raw_email
         info_request.receive(email, raw_email)
-        expect(info_request.incoming_messages.size).to eq(1)
+        expect(info_request.incoming_messages.count).to eq(1)
       end
 
       it 'from authority_only receives if the mail is from the authority' do
@@ -584,7 +613,7 @@ describe InfoRequest do
         info_request = FactoryBot.create(:info_request_with_incoming, attrs)
         email, raw_email = email_and_raw_email(:from => 'bob@example.com')
         info_request.receive(email, raw_email)
-        expect(info_request.reload.incoming_messages.size).to eq(2)
+        expect(info_request.reload.incoming_messages.count).to eq(2)
       end
 
       it 'from authority_only rejects if there is no from address' do
@@ -599,9 +628,9 @@ describe InfoRequest do
         updated_at = info_request.updated_at
         email, raw_email = email_and_raw_email(:from => '')
         info_request.receive(email, raw_email)
-        expect(info_request.reload.incoming_messages.size).to eq(0)
+        expect(info_request.reload.incoming_messages.count).to eq(0)
         holding_pen = InfoRequest.holding_pen_request
-        expect(holding_pen.incoming_messages.size).to eq(1)
+        expect(holding_pen.incoming_messages.count).to eq(1)
         msg = 'Only the authority can reply to this request, but there is ' \
               'no "From" address to check against'
         expect(holding_pen.info_request_events.last.params[:rejected_reason]).
@@ -623,9 +652,9 @@ describe InfoRequest do
         updated_at = info_request.updated_at
         email, raw_email = email_and_raw_email(:from => 'spam@example.net')
         info_request.receive(email, raw_email)
-        expect(info_request.reload.incoming_messages.size).to eq(0)
+        expect(info_request.reload.incoming_messages.count).to eq(0)
         holding_pen = InfoRequest.holding_pen_request
-        expect(holding_pen.incoming_messages.size).to eq(1)
+        expect(holding_pen.incoming_messages.count).to eq(1)
         msg = "Only the authority can reply to this request, and I don't " \
               "recognise the address this reply was sent from"
         expect(holding_pen.info_request_events.last.params[:rejected_reason]).
@@ -652,7 +681,7 @@ describe InfoRequest do
         info_request.receive(email,
                              raw_email,
                              :override_stop_new_responses => true)
-        expect(info_request.incoming_messages.size).to eq(1)
+        expect(info_request.incoming_messages.count).to eq(1)
       end
 
       it 'does not check spam when overriding the stop new responses status of a request' do
@@ -683,7 +712,7 @@ describe InfoRequest do
         info_request.receive(email,
                              raw_email,
                              :override_stop_new_responses => true)
-        expect(info_request.incoming_messages.size).to eq(1)
+        expect(info_request.incoming_messages.count).to eq(1)
       end
 
     end
@@ -725,7 +754,7 @@ describe InfoRequest do
         info_request = FactoryBot.create(:info_request, attrs)
         email, raw_email = email_and_raw_email
         info_request.receive(email, raw_email)
-        expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
+        expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
         # Check that the notification that there's something new in the holding
         # has been sent
         expect(ActionMailer::Base.deliveries.size).to eq(1)
@@ -739,7 +768,7 @@ describe InfoRequest do
         email, raw_email = email_and_raw_email
         info_request.receive(email, raw_email)
         expect(ActionMailer::Base.deliveries).to be_empty
-        expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(0)
+        expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(0)
         ActionMailer::Base.deliveries.clear
       end
 
@@ -776,7 +805,7 @@ describe InfoRequest do
 
       receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
       expect(info_request.reload.rejected_incoming_count).to eq(1)
-      expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(0)
+      expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(0)
     end
 
     it "redirects spam to the holding_pen" do
@@ -805,7 +834,7 @@ describe InfoRequest do
       receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
 
       expect(info_request.reload.rejected_incoming_count).to eq(1)
-      expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
+      expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
     end
 
     it "discards mail over the configured spam threshold" do
@@ -881,7 +910,7 @@ describe InfoRequest do
 
       receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
       expect(info_request.rejected_incoming_count).to eq(0)
-      expect(info_request.incoming_messages.size).to eq(1)
+      expect(info_request.incoming_messages.count).to eq(1)
       ActionMailer::Base.deliveries.clear
     end
 
@@ -1462,6 +1491,46 @@ describe InfoRequest do
 
   end
 
+  describe '#report!' do
+    let(:user) { FactoryBot.create(:user) }
+    let(:info_request) { FactoryBot.create(:info_request) }
+    subject { info_request.report!('test', 'Test message', user) }
+
+    it 'sets #attention_requested to true' do
+      expect { subject }.
+        to change { info_request.attention_requested }.
+          from(false).to(true)
+    end
+
+    it 'sets #described_state to "attention_requested"' do
+      expect { subject }.
+        to change { info_request.described_state }.
+          from('waiting_response').to('attention_requested')
+    end
+
+    it 'sets the last event described_state to "attention_requested"' do
+      subject
+      expect(info_request.reload.last_event.described_state).
+        to eq 'attention_requested'
+    end
+
+    it 'logs an event' do
+      subject
+      last_event = info_request.reload.last_event
+      expect(last_event.event_type).to eq('report_request')
+      expect(last_event.params).
+        to match(
+          request_id: info_request.id,
+          editor: user,
+          reason: 'test',
+          message: 'Test message',
+          old_attention_requested: false,
+          attention_requested: true
+        )
+    end
+
+  end
+
   describe 'when working out which law is in force' do
 
     context 'when using FOI law' do
@@ -1666,35 +1735,277 @@ describe InfoRequest do
 
   end
 
-  describe "guessing a request from an email" do
+  describe '.guess_by_incoming_email' do
+    subject { described_class.guess_by_incoming_email(email) }
+    let(:info_request) { FactoryBot.create(:info_request) }
 
-    before(:each) do
-      @im = incoming_messages(:useless_incoming_message)
-      load_raw_emails_data
+    context 'email with an intact id and broken idhash' do
+      let(:email) { "request-#{ info_request.id }-asdfg@example.com" }
+      let(:guess) { described_class::Guess.new(info_request, email, :id) }
+      it { is_expected.to include(guess) }
     end
 
-    it 'computes a hash' do
-      @info_request = InfoRequest.new(:title => "Testing",
-                                      :public_body => public_bodies(:geraldine_public_body),
-                                      :user_id => 1)
-      @info_request.save!
-      expect(@info_request.idhash).not_to eq(nil)
+    context 'email with a malformed id and an intact idhash' do
+      let(:email) do
+        "request-#{ info_request.id }ab-#{ info_request.idhash }@example.com"
+      end
+
+      let(:guess) { described_class::Guess.new(info_request, email, :idhash) }
+      it { is_expected.to include(guess) }
     end
 
-    it 'finds a request based on an email with an intact id and a broken hash' do
-      ir = info_requests(:fancy_dog_request)
-      id = ir.id
-      @im.mail.to = "request-#{id}-asdfg@example.com"
-      guessed = InfoRequest.guess_by_incoming_email(@im)
-      expect(guessed[0].idhash).to eq(ir.idhash)
+    context 'email with a broken id and an intact idhash' do
+      let(:email) do
+        "request-a12x3b-#{ info_request.idhash }@example.com"
+      end
+
+      let(:guess) { described_class::Guess.new(info_request, email, :idhash) }
+      it { is_expected.to include(guess) }
     end
 
-    it 'finds a request based on an email with a broken id and an intact hash' do
-      ir = info_requests(:fancy_dog_request)
-      idhash = ir.idhash
-      @im.mail.to = "request-123ab-#{idhash}@example.com"
-      guessed = InfoRequest.guess_by_incoming_email(@im)
-      expect(guessed[0].id).to eq(ir.id)
+    context 'upper case email with a broken id and otherwise intact idhash' do
+      let(:email) { "REQUEST-123a-#{ info_request.idhash.upcase }@example.com" }
+      let(:guess) { described_class::Guess.new(info_request, email, :idhash) }
+      it { is_expected.to include(guess) }
+    end
+
+    context 'correct id and idhash with no punctuation' do
+      let(:email) do
+        "request#{ info_request.id }#{ info_request.idhash }@example.com"
+      end
+
+      let(:guess) { described_class::Guess.new(info_request, email, :id) }
+      it { is_expected.to include(guess) }
+    end
+
+    context 'correct id and idhash with missing separator' do
+      let(:email) do
+        "request-#{ info_request.id }#{ info_request.idhash }@example.com"
+      end
+
+      let(:guess) { described_class::Guess.new(info_request, email, :id) }
+      it { is_expected.to include(guess) }
+    end
+
+    context 'email with a broken id and an intact idhash but missing punctuation' do
+      let(:email) { "request123ab#{ info_request.idhash }@example.com" }
+      let(:guess) { described_class::Guess.new(info_request, email, :idhash) }
+      it { is_expected.to include(guess) }
+    end
+
+    context 'email with an intact id and a broken idhash but missing punctuation' do
+      let(:email) { "request#{ info_request.id }abcdefgh@example.com" }
+      let(:guess) { described_class::Guess.new(info_request, email, :id) }
+      it { is_expected.to include(guess) }
+    end
+
+    context 'email with an id mistyped using letters and missing punctuation' do
+      before { InfoRequest.where(id: 1231014).destroy_all }
+      let!(:info_request) { FactoryBot.create(:info_request, id: 1231014) }
+      let(:email) { 'request-123loL4abcdefgh@example.com' }
+      let(:guess) { described_class::Guess.new(info_request, email, :id) }
+      it { is_expected.to include(guess) }
+    end
+
+    context 'email with a broken id and an intact idhash but broken format' do
+      let(:email) { "reqeust=123ab#{ info_request.idhash }@example.com" }
+      let(:guess) { described_class::Guess.new(info_request, email, :idhash) }
+      it { is_expected.to include(guess) }
+    end
+
+    context 'email matching no requests' do
+      let(:email) do
+        invalid_id = described_class.maximum(:id) + 10
+        invalid_idhash = 'x'
+        "request-#{ invalid_id }-#{ invalid_idhash }@example.com"
+      end
+
+      it { is_expected.to be_empty }
+    end
+
+    context 'email that possibly matches multiple requests' do
+      let(:info_request_1) { FactoryBot.create(:info_request) }
+      let(:info_request_2) { FactoryBot.create(:info_request) }
+
+      let(:email) do
+        "request-#{ info_request_1.id }-#{ info_request_2.idhash }@example.com"
+      end
+
+      let(:guess_1) { described_class::Guess.new(info_request_1, email, :id) }
+
+      let(:guess_2) do
+        described_class::Guess.new(info_request_2, email, :idhash)
+      end
+
+      it { is_expected.to match_array([guess_1, guess_2]) }
+    end
+
+    context 'when passed multiple emails matching a single request' do
+      let(:email_1) { "request-123ab-#{ info_request.idhash }@example.com" }
+      let(:email_2) { "request-#{ info_request.id }-asdfg@example.com" }
+      let(:email) { [email_1, email_2] }
+      let(:guess) { described_class::Guess.new(info_request, email_1, :idhash) }
+
+      it { is_expected.to match_array([guess]) }
+    end
+
+    context 'when passed multiple emails matching multiple requests' do
+      let(:info_request_1) { FactoryBot.create(:info_request) }
+      let(:info_request_2) { FactoryBot.create(:info_request) }
+
+      let(:email_1) do
+        "request-#{ info_request_1.id }-#{ info_request_2.idhash }@example.com"
+      end
+
+      let(:email_2) do
+        "request-#{ info_request_2.id }-#{ info_request_1.idhash }@example.com"
+      end
+
+      let(:email) { [email_1, email_2] }
+
+      let(:guess_1) { described_class::Guess.new(info_request_1, email_1, :id) }
+
+      let(:guess_2) do
+        described_class::Guess.new(info_request_2, email_1, :idhash)
+      end
+
+      it { is_expected.to match_array([guess_1, guess_2]) }
+    end
+  end
+
+  describe '.guess_by_incoming_subject' do
+    subject { described_class.guess_by_incoming_subject(subject_line) }
+    let(:info_request) { FactoryBot.create(:info_request) }
+
+    context 'there is no subject line' do
+      let(:subject_line) { nil }
+
+      it { is_expected.to eq([]) }
+    end
+
+    context 'a direct reply to the original request email' do
+      let(:subject_line) { info_request.email_subject_followup }
+
+      let(:guess) do
+        described_class::Guess.new(info_request, subject_line, :subject)
+      end
+
+      it { is_expected.to include(guess) }
+    end
+
+    context '"Re" in the incoming subject has different capitalisation' do
+      let(:subject_line) do
+        info_request.email_subject_followup.gsub('Re: ', 'RE: ')
+      end
+
+      let(:guess) do
+        described_class::Guess.new(info_request, subject_line, :subject)
+      end
+
+      it { is_expected.to include(guess) }
+    end
+
+    context 'a direct reply to an original request email which matches multiple requests' do
+      let!(:info_request_1) do
+        FactoryBot.create(:info_request, title: 'How many jelly beans?')
+      end
+
+      let!(:info_request_2) do
+        FactoryBot.create(:info_request, title: 'How many jelly beans?')
+      end
+
+      let(:subject_line) do
+        'Re: Freedom of Information request - How many jelly beans?'
+      end
+
+      let(:guess_1) do
+        described_class::Guess.new(info_request_1, subject_line, :subject)
+      end
+
+      let(:guess_2) do
+        described_class::Guess.new(info_request_2, subject_line, :subject)
+      end
+
+      it { is_expected.to match_array([guess_1, guess_2]) }
+    end
+
+    context 'subject line matches no requests' do
+      let(:subject_line) do
+        'Premium watches for sale!'
+      end
+
+      it { is_expected.to be_empty }
+    end
+
+    context 'a reply with a subject that matches a previous incoming_message subject' do
+
+      before do
+        FactoryBot.create(:incoming_message, subject: subject_line,
+                                             info_request: info_request)
+      end
+
+      let(:subject_line) { 'Our ref: 12345678' }
+
+      let(:guess) do
+        described_class::Guess.new(info_request, subject_line, :subject)
+      end
+
+      it { is_expected.to include(guess) }
+    end
+
+    context 'when the subject matches an incoming message in the holding pen' do
+      let(:subject_line) { 'Our ref: 12345678' }
+
+      before do
+        FactoryBot.create(:incoming_message,
+                          subject: subject_line,
+                          info_request: InfoRequest.holding_pen_request)
+      end
+
+      let(:guess) do
+        described_class::Guess.new(InfoRequest.holding_pen_request,
+                                   subject_line,
+                                   :subject)
+      end
+
+      it { is_expected.to_not include(guess) }
+    end
+
+    context 'when the subject indirectly matches an incoming message associated with the request' do
+      let(:subject_line) { 'Re: Our ref ABCDEFG' }
+
+      before do
+        FactoryBot.create(:incoming_message, subject: 'Our ref ABCDEFG',
+                                             info_request: info_request)
+      end
+
+      let(:guess) do
+        described_class::Guess.new(info_request, subject_line, :subject)
+      end
+
+      it { is_expected.to include(guess) }
+    end
+
+    context 'a reply with a subject that matches incoming_messages for multiple requests' do
+      let(:subject_line) { 'Our ref: 12345678' }
+
+      let!(:info_request_1) do
+        FactoryBot.create(:incoming_message, subject: subject_line).info_request
+      end
+
+      let!(:info_request_2) do
+        FactoryBot.create(:incoming_message, subject: subject_line).info_request
+      end
+
+      let(:guess_1) do
+        described_class::Guess.new(info_request_1, subject_line, :subject)
+      end
+
+      let(:guess_2) do
+        described_class::Guess.new(info_request_2, subject_line, :subject)
+      end
+
+      it { is_expected.to match_array([guess_1, guess_2]) }
     end
 
   end
@@ -1717,22 +2028,44 @@ describe InfoRequest do
 
   end
 
-  describe "when asked for the last event id that needs description" do
+  describe '#title=' do
 
-    before do
-      @info_request = InfoRequest.new
+    let(:test_requests) do
+      3.times.map { FactoryBot.create(:info_request, title: 'URL test') }
     end
 
-    it 'returns the last undescribed event id if there is one' do
-      last_mock_event = mock_model(InfoRequestEvent)
-      other_mock_event = mock_model(InfoRequestEvent)
-      allow(@info_request).to receive(:events_needing_description).and_return([other_mock_event, last_mock_event])
-      expect(@info_request.last_event_id_needing_description).to eq(last_mock_event.id)
+    let(:request) do
+      test_requests[1]
     end
 
-    it 'returns zero if there are no undescribed events' do
-      allow(@info_request).to receive(:events_needing_description).and_return([])
-      expect(@info_request.last_event_id_needing_description).to eq(0)
+    it 'updates url_title when the title is changed' do
+      request.update_attributes(title: 'Something new')
+      expect(request.url_title).to eq('something_new')
+    end
+
+    it 'does not update url_title when the same title is assigned' do
+      request.update_attributes(title: request.title.dup)
+      expect(request.url_title).to eq('url_test_2')
+    end
+
+  end
+
+  describe '#last_event_id_needing_description' do
+    subject { info_request.last_event_id_needing_description }
+    let(:info_request) { FactoryBot.create(:successful_request) }
+
+    it 'returns the last undescribed event id' do
+      incoming_message = FactoryBot.create(:incoming_message,
+                                           info_request: info_request)
+      info_request.
+        log_event('response', incoming_message_id: incoming_message.id)
+
+      expect(subject).to eq incoming_message.info_request_events.last.id
+    end
+
+    context 'there are no undescribed events' do
+      let(:info_request) { FactoryBot.create(:info_request) }
+      it { is_expected.to eq 0 }
     end
 
   end
@@ -2632,6 +2965,21 @@ describe InfoRequest do
                                                     @incoming_message.id]])
     end
 
+    it 'does not include details of a message that is passed in' do
+      expect(@info_request.who_can_followup_to(@incoming_message)).
+        to eq([[@public_body.name,
+                @public_body.request_email,
+                nil]])
+    end
+
+    it 'does not include details that match a message that is passed in' do
+      FactoryBot.create(:plain_incoming_message, info_request: @info_request)
+      expect(@info_request.who_can_followup_to(@incoming_message)).
+        to eq([[@public_body.name,
+                @public_body.request_email,
+                nil]])
+    end
+
   end
 
   describe  'when generating json for the api' do
@@ -2957,6 +3305,10 @@ describe InfoRequest do
 
   describe '#save' do
     let(:info_request) { FactoryBot.build(:info_request) }
+
+    it 'computes a hash' do
+      expect { info_request.save! }.to change { info_request.idhash }.from(nil)
+    end
 
     it 'calls update_counter_cache' do
       expect(info_request).to receive(:update_counter_cache)
@@ -3752,9 +4104,9 @@ describe InfoRequest do
       it 'returns the most recent "resent" event' do
         outgoing_message = info_request.outgoing_messages.first
         outgoing_message.record_email_delivery('', '', 'resent')
-        resending_event = info_request
-                            .info_request_events(true)
-                              .detect{ |e| e.event_type == 'resent'}
+        resending_event = info_request.
+                            info_request_events.reload.
+                              detect{ |e| e.event_type == 'resent'}
         expect(info_request.last_event_forming_initial_request)
           .to eq resending_event
       end
@@ -3771,9 +4123,9 @@ describe InfoRequest do
                                              :body => 'Some text',
                                              :what_doing => 'normal_sort')
       outgoing_message.record_email_delivery('', '')
-      followup_event = info_request
-                            .info_request_events(true)
-                              .detect{ |e| e.event_type == 'followup_sent'}
+      followup_event = info_request.
+                         info_request_events.reload.
+                           detect{ |e| e.event_type == 'followup_sent'}
         expect(info_request.last_event_forming_initial_request)
           .to eq followup_event
       end
@@ -3879,7 +4231,7 @@ describe InfoRequest do
 
     it 'creates an event with the type and params passed' do
       info_request.log_event("resent", :param => 'value')
-      event = info_request.info_request_events(true).last
+      event = info_request.info_request_events.reload.last
       expect(event.event_type).to eq 'resent'
       expect(event.params).to eq :param => 'value'
     end
@@ -3996,7 +4348,7 @@ describe InfoRequest do
         time_travel_to(Time.zone.parse('2015-01-15')) do
           InfoRequest.log_overdue_events
           overdue_events = info_request.
-                             info_request_events(true).
+                             info_request_events.reload.
                                where(:event_type => 'overdue')
           expect(overdue_events.size).to eq 0
         end
@@ -4013,7 +4365,7 @@ describe InfoRequest do
         time_travel_to(Time.zone.parse('2015-01-30')) do
           InfoRequest.log_overdue_events
           overdue_events = info_request.
-                             info_request_events(true).
+                             info_request_events.reload.
                                where(:event_type => 'overdue')
           expect(overdue_events.size).to eq 1
           overdue_event = overdue_events.first
@@ -4064,7 +4416,7 @@ describe InfoRequest do
         time_travel_to(Time.zone.parse('2015-03-01')) do
           InfoRequest.log_overdue_events
           overdue_events = info_request.
-                             info_request_events(true).
+                             info_request_events.reload.
                                where(:event_type => 'overdue')
           expect(overdue_events.size).to eq 2
           overdue_event = overdue_events.first
@@ -4097,7 +4449,7 @@ describe InfoRequest do
         time_travel_to(Time.zone.parse('2015-01-30')) do
           InfoRequest.log_very_overdue_events
           very_overdue_events = info_request.
-                                  info_request_events(true).
+                                  info_request_events.reload.
                                     where(:event_type => 'very_overdue')
           expect(very_overdue_events.size).to eq 0
         end
@@ -4113,7 +4465,7 @@ describe InfoRequest do
         time_travel_to(Time.zone.parse('2015-02-28')) do
           InfoRequest.log_very_overdue_events
           very_overdue_events = info_request.
-                                  info_request_events(true).
+                                  info_request_events.reload.
                                     where(:event_type => 'very_overdue')
           expect(very_overdue_events.size).to eq 1
           very_overdue_event = very_overdue_events.first
@@ -4165,7 +4517,7 @@ describe InfoRequest do
         time_travel_to(Time.zone.parse('2015-04-30')) do
           InfoRequest.log_very_overdue_events
           very_overdue_events = info_request.
-                                  info_request_events(true).
+                                  info_request_events.reload.
                                     where(:event_type => 'very_overdue')
           expect(very_overdue_events.size).to eq 2
           very_overdue_event = very_overdue_events.first
@@ -4370,4 +4722,32 @@ describe InfoRequest do
     end
   end
 
+  describe '#holding_pen_request?' do
+    subject { info_request.holding_pen_request? }
+
+    context 'the request is the holding pen' do
+      let(:info_request) { described_class.holding_pen_request }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'the request is not the holding pen' do
+      let(:info_request) { FactoryBot.create(:info_request) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'a new request' do
+      let(:info_request) { described_class.new }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'the holding pen does not exist' do
+      before { described_class.where(url_title: 'holding_pen').destroy_all }
+      let(:info_request) { described_class.new }
+
+      it 'creates the holding pen' do
+        subject
+        expect(described_class.exists?(url_title: 'holding_pen')).to eq(true)
+      end
+    end
+  end
 end

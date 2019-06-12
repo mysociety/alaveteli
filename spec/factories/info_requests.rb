@@ -31,6 +31,7 @@
 #  last_event_forming_initial_request_id :integer
 #  use_notifications                     :boolean
 #  last_event_time                       :datetime
+#  incoming_messages_count               :integer          default(0)
 #
 
 FactoryBot.define do
@@ -67,18 +68,49 @@ FactoryBot.define do
 
       factory :requires_admin_request do
         after(:create) do |info_request, evaluator|
+          info_request.log_event(
+            'status_update',
+            user_id: info_request.user.id,
+            old_described_state: info_request.described_state,
+            described_state: 'requires_admin',
+            message: 'Useful info')
           info_request.set_described_state('requires_admin')
         end
       end
 
       factory :error_message_request do
         after(:create) do |info_request, evaluator|
+          info_request.log_event(
+            'status_update',
+            user_id: info_request.user.id,
+            old_described_state: info_request.described_state,
+            described_state: 'error_message',
+            message: 'Useful info')
+          info_request.set_described_state('error_message')
+        end
+      end
+
+      factory :blank_message_request do
+        after(:create) do |info_request, evaluator|
+          info_request.log_event(
+            'status_update',
+            user_id: info_request.user.id,
+            old_described_state: info_request.described_state,
+            described_state: 'error_message',
+            message: '')
           info_request.set_described_state('error_message')
         end
       end
 
       factory :attention_requested_request do
         after(:create) do |info_request, evaluator|
+          info_request.log_event('report_request',
+                                 request_id: info_request.id,
+                                 editor: info_request.user,
+                                 reason: 'Not a valid request',
+                                 message: 'Useful info',
+                                 old_attention_requested: false,
+                                 attention_requested: true)
           info_request.set_described_state('attention_requested')
         end
       end

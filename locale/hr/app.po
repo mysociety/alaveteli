@@ -14,9 +14,12 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
 # Bojan Opacak <bojan@rationalinternational.net>, 2013
 # Bojan Opacak <bojan@rationalinternational.net>, 2013
 # Igor Dobrača <id.public@rovinj.net>, 2015
+# Liz Conlan <liz@mysociety.org>, 2018
 # Marina Ninić <inactive+mninic5@transifex.com>, 2015
 # Marina Ninić <inactive+mninic5@transifex.com>, 2015
 # Mateja Fabijanić <mateja.fabijanic@gmail.com>, 2015
@@ -32,8 +35,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-28 15:37+0000\n"
-"PO-Revision-Date: 2018-09-29 11:24+0000\n"
+"POT-Creation-Date: 2019-06-10 14:02+0000\n"
+"PO-Revision-Date: 2019-06-10 14:40+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Croatian (http://www.transifex.com/mysociety/alaveteli/language/hr/)\n"
 "Language: hr\n"
@@ -157,6 +160,9 @@ msgstr ""
 msgid "<a href=\"{{new_request_link}}\">Make a new FOI request</a> to {{public_body_name}}"
 msgstr ""
 
+msgid "<a href=\"{{sign_in_link}}\">Sign in</a> to get updates on things you follow or re-enable email alerts."
+msgstr ""
+
 msgid "<a href=\"{{url}}\">Do you want to request private information about yourself?</a>"
 msgstr "<a href=\"{{url}}\">Želite zatražiti privatne informacije o sebi?</a>"
 
@@ -168,6 +174,9 @@ msgstr "<a href=\"{{url}}\">Prijavite se</a> da biste promijenili lozinku, pretp
 
 msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>"
 msgstr "<a href=\"{{url}}\">Razmišljate li o korištenju pseudonima?</a>"
+
+msgid "<a href=\"{{wall_link}}\">Visit your Wall</a> to get updates on things you follow or re-enable email alerts."
+msgstr ""
 
 msgid "<div class=\"alaveteli-widget__count\">{{count}}</div> person wants to know"
 msgid_plural "<div class=\"alaveteli-widget__count\">{{count}}</div> people want to know"
@@ -310,8 +319,8 @@ msgstr "<a href=\"{{request_url}}\">Dodatna poruka</a> na <em>'{{request_title}}
 msgid "A <a href=\"{{request_url}}\">response</a> to <em>{{request_title}}</em> was sent by {{public_body_name}} to {{info_request_user}} on {{date}}.  The request status is: {{request_status}}"
 msgstr "{{public_body_name}} je <a href=\"{{request_url}}\">odgovorio</a> na zahtjev od {{info_request_user}} s naslovom <em>{{request_title}}</em> dana {{date}}.  Status zahtjeva je: {{request_status}}"
 
-msgid "A <strong>summary</strong> of the response if you have received it by post. "
-msgstr " <strong>Sažetak</strong> odgovora ako ste ga primili poštom. "
+msgid "A <strong>summary</strong> of the response if you have received it by postal mail. "
+msgstr ""
 
 msgid "A Freedom of Information request"
 msgstr "Zahtjev za pristup informacijama"
@@ -331,14 +340,11 @@ msgstr ""
 msgid "A public authority"
 msgstr "Tijelo javne vlasti"
 
-msgid "A response will be sent <strong>by post</strong>"
-msgstr "Odgovor će biti poslan <strong>poštom</strong>"
+msgid "A response will be sent <strong>by postal mail</strong>"
+msgstr ""
 
-msgid "A strange reponse, required attention by the {{site_name}} team"
-msgstr "Neobičan odgovor, potreban pregled od strane {{site_name}} tima"
-
-msgid "A vexatious request"
-msgstr "Uznemirujući zahtjev"
+msgid "A strange response, required attention by the {{site_name}} team"
+msgstr ""
 
 msgid "A {{site_name}} user"
 msgstr "Korisnik stranice {{site_name}}"
@@ -350,6 +356,9 @@ msgid "About you:"
 msgstr "O Vama:"
 
 msgid "About {{count}} FOI requests found"
+msgstr ""
+
+msgid "Account closed at user request"
 msgstr ""
 
 msgid "Account suspended – Please contact us"
@@ -405,63 +414,6 @@ msgstr "Savjet o tome je li<strong>odbijanje legalno</strong>, i o tome kako se 
 
 msgid "Air, water, soil, land, flora and fauna (including how these effect human beings)"
 msgstr "Zrak, voda, tlo, kopno, flora i fauna (uključujući kako utječu\\n na ljudska bića)"
-
-msgid "Alaveteli pro/draft info request batch"
-msgstr ""
-
-msgid "Alaveteli pro/embargo"
-msgstr ""
-
-msgid "Alaveteli pro/embargo extension"
-msgstr ""
-
-msgid "Alaveteli pro/request summary"
-msgstr ""
-
-msgid "Alaveteli pro/request summary category"
-msgstr ""
-
-msgid "AlaveteliPro::DraftInfoRequestBatch|Body"
-msgstr ""
-
-msgid "AlaveteliPro::DraftInfoRequestBatch|Embargo duration"
-msgstr ""
-
-msgid "AlaveteliPro::DraftInfoRequestBatch|Title"
-msgstr ""
-
-msgid "AlaveteliPro::EmbargoExtension|Extension duration"
-msgstr ""
-
-msgid "AlaveteliPro::Embargo|Embargo duration"
-msgstr ""
-
-msgid "AlaveteliPro::Embargo|Expiring notification at"
-msgstr ""
-
-msgid "AlaveteliPro::Embargo|Publish at"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummaryCategory|Slug"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Body"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Public body names"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Request created at"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Request updated at"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Summarisable type"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Title"
-msgstr ""
 
 msgid "All of the information requested has been received"
 msgstr "Sve su tražene informacije primljene"
@@ -534,12 +486,6 @@ msgstr "Bilješke služe da bilo tko, uključujući Vas, može pomoći podnosite
 msgid "Annotations will be posted publicly here, and are <strong>not</strong> sent to {{public_body_name}}."
 msgstr "Bilješke će biti objavljene javno ovdje, i\\n<strong>neće</strong> biti poslane u {{public_body_name}}."
 
-msgid "Announcement"
-msgstr ""
-
-msgid "Announcement|Visibility"
-msgstr ""
-
 msgid "Anonymous user"
 msgstr "Anonimni korisnik"
 
@@ -548,6 +494,9 @@ msgstr "Primjenjuje se na"
 
 msgid "Are we missing a public authority?"
 msgstr "Nedostaje li nam neko tijelo javne vlasti?"
+
+msgid "Are you asking about your, or others', personal information or personal situation?"
+msgstr ""
 
 msgid "Are you sure you want to disable two factor authentication?"
 msgstr ""
@@ -680,24 +629,6 @@ msgstr "Poništite neka upozorenja na {{site_name}}"
 msgid "Cancel, return to your profile page"
 msgstr "Odustanite, vratite se na stranicu svojeg profila"
 
-msgid "Censor rule"
-msgstr "Pravilo cenzure"
-
-msgid "CensorRule|Last edit comment"
-msgstr "PraviloCenzure|Posljednji uređeni komentar"
-
-msgid "CensorRule|Last edit editor"
-msgstr "PraviloCenzure|Posljednji uređeni urednik"
-
-msgid "CensorRule|Regexp"
-msgstr "PraviloCenzure|Regexp"
-
-msgid "CensorRule|Replacement"
-msgstr "Pravilo Cenzure|Zamjena"
-
-msgid "CensorRule|Text"
-msgstr "Pravilo Cenzure|Tekst"
-
 msgid "Change email on {{site_name}}"
 msgstr "Promijenite elektroničku poštu na {{site_name}}"
 
@@ -766,21 +697,6 @@ msgstr "Zatvorite zahtjev i odgovorite:"
 
 msgid "Collapse all correspondence"
 msgstr ""
-
-msgid "Comment"
-msgstr "Komentirajte"
-
-msgid "Comment|Attention requested"
-msgstr ""
-
-msgid "Comment|Body"
-msgstr "Komentar|Tijelo"
-
-msgid "Comment|Locale"
-msgstr "Komentar|Mjesto"
-
-msgid "Comment|Visible"
-msgstr "Komentar|Vidljiv"
 
 msgid "Complete"
 msgstr ""
@@ -911,9 +827,6 @@ msgstr ""
 msgid "Delivery error"
 msgstr "Greška u isporuci"
 
-msgid "Destroy {{name}}"
-msgstr "Poništiti {{name}}"
-
 msgid "Details of request &ldquo;{{request_title}}&rdquo;"
 msgstr "Detalji zahtjeva &ldquo;{{request_title}}&rdquo;"
 
@@ -956,18 +869,6 @@ msgstr "Preuzmite svu korespondenciju u zip datoteci"
 msgid "Download original attachment"
 msgstr "Preuzmite originalni prilog"
 
-msgid "Draft info request"
-msgstr ""
-
-msgid "DraftInfoRequest|Body"
-msgstr ""
-
-msgid "DraftInfoRequest|Embargo duration"
-msgstr ""
-
-msgid "DraftInfoRequest|Title"
-msgstr ""
-
 msgid "EIR"
 msgstr "EIR"
 
@@ -989,6 +890,12 @@ msgid "Either the email or password was not recognised, please try again."
 msgstr "Adresa e-pošte ili lozinka nisu prepoznati, molimo pokušajte ponovo."
 
 msgid "Either the email or password was not recognised, please try again. Or create a new account using the form on the left."
+msgstr ""
+
+msgid "Email Alerts Disabled"
+msgstr ""
+
+msgid "Email alerts for things you follow have now been disabled."
 msgstr ""
 
 msgid "Email doesn't look like a valid address"
@@ -1106,30 +1013,6 @@ msgstr ""
 
 msgid "Flipper::Adapters::ActiveRecord::Gate|Value"
 msgstr ""
-
-msgid "Foi attachment"
-msgstr "Privitak zahtjeva za pristup informacijama"
-
-msgid "FoiAttachment|Charset"
-msgstr "FoiPrivitak|Skup znakova"
-
-msgid "FoiAttachment|Content type"
-msgstr "FoiPrivitak|Vrsta Sadržaja"
-
-msgid "FoiAttachment|Display size"
-msgstr "FoiPrivitak|Veličina prikaza"
-
-msgid "FoiAttachment|Filename"
-msgstr "FoiPrivitak|Ime podatka"
-
-msgid "FoiAttachment|Hexdigest"
-msgstr "FoiAttachment|Hexdigest"
-
-msgid "FoiAttachment|Url part number"
-msgstr "FoiPrivitakt|Url dio broja"
-
-msgid "FoiAttachment|Within rfc822 subject"
-msgstr "FoiPrivitak|Unutar rfc822 subjekta"
 
 msgid "Follow"
 msgstr "Zapratite"
@@ -1263,17 +1146,20 @@ msgstr "Od:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "OVDJE IZNESITE DETALJE POŽURNICE"
 
+msgid "Getting long – remember to keep it focussed"
+msgstr ""
+
 msgid "Got a {{site_name}} account?"
 msgstr ""
 
 msgid "Got an account?"
 msgstr "Imate li račun?"
 
-msgid "Handled by post"
-msgstr "Riješen poštom"
+msgid "Handled by postal mail"
+msgstr ""
 
-msgid "Handled by post."
-msgstr "Riješen poštom."
+msgid "Handled by postal mail."
+msgstr ""
 
 msgid "Has tag string tag"
 msgstr ""
@@ -1349,15 +1235,6 @@ msgstr ""
 
 msgid "Hide request"
 msgstr "Sakrij zahtjev"
-
-msgid "Holiday"
-msgstr "Praznik"
-
-msgid "Holiday|Day"
-msgstr "Praznik|Dan"
-
-msgid "Holiday|Description"
-msgstr "Praznik|Opis"
 
 msgid "Home page"
 msgstr "Početna stranica"
@@ -1532,155 +1409,11 @@ msgstr " Uključite relevantne poveznice, poput stranice kampanje, Vašeg bloga 
 msgid "Incoming email address"
 msgstr "Adresa dolazne pošte"
 
-msgid "Incoming message"
-msgstr "Dolazna poruka"
-
-msgid "Incoming message error"
-msgstr ""
-
 msgid "Incoming message has a spam score above the configured threshold ({{spam_threshold}})."
 msgstr ""
 
-msgid "IncomingMessageError|Backtrace"
-msgstr ""
-
-msgid "IncomingMessageError|Retry at"
-msgstr ""
-
-msgid "IncomingMessage|Cached attachment text clipped"
-msgstr "DolaznaPoruka|Spojeni predmemorirani tekst privitka "
-
-msgid "IncomingMessage|Cached main body text folded"
-msgstr "DolaznaPoruka|Spremljeni predmemorirani glavni dio teksta"
-
-msgid "IncomingMessage|Cached main body text unfolded"
-msgstr "DolaznaPoruka|Raspremljeni predmemorirani glavni dio teksta"
-
-msgid "IncomingMessage|Last parsed"
-msgstr "DolaznaPoruka|Posljednje raščlanjeno "
-
-msgid "IncomingMessage|Mail from"
-msgstr "DolaznaPoruka|Pošta od"
-
-msgid "IncomingMessage|Mail from domain"
-msgstr "Dolazna poruka|Pošta sa domene"
-
-msgid "IncomingMessage|Prominence"
-msgstr "DolaznaPoruka|Istaknuto"
-
-msgid "IncomingMessage|Prominence reason"
-msgstr "DolaznaPoruka|Razlog istaknutosti"
-
-msgid "IncomingMessage|Sent at"
-msgstr "Dolazna poruka|Poslana u"
-
-msgid "IncomingMessage|Subject"
-msgstr "Dolazna poruka|Tema"
-
-msgid "IncomingMessage|Valid to reply to"
-msgstr "Dolazna poruka|Važeća za odgovor za"
-
 msgid "Individual requests"
 msgstr "Pojedinačni zahtjevi"
-
-msgid "Info request"
-msgstr "Zahtjev za informacijom"
-
-msgid "Info request batch"
-msgstr "Zahtjev za skupinom informacija"
-
-msgid "Info request event"
-msgstr "Zahtjev za informacijama o događanju"
-
-msgid "InfoRequestBatch|Body"
-msgstr "ZahtjevZaSkupinomInformacija|Tijelo"
-
-msgid "InfoRequestBatch|Embargo duration"
-msgstr ""
-
-msgid "InfoRequestBatch|Sent at"
-msgstr "ZahtjevZaSkupinomInformacija|Poslano"
-
-msgid "InfoRequestBatch|Title"
-msgstr "ZahtjevZaSkupinomInformacija|Naslov"
-
-msgid "InfoRequestEvent|Calculated state"
-msgstr "ZahtjevZaInformacijamaODogađanju|Izračunato stanje"
-
-msgid "InfoRequestEvent|Described state"
-msgstr "ZahtjevZaInformacijamaODogađanju|Opisano stanje"
-
-msgid "InfoRequestEvent|Event type"
-msgstr "ZahtjevZaInformacijamaODogađanju|Tip događanja"
-
-msgid "InfoRequestEvent|Last described at"
-msgstr "ZahtjevZaInformacijamaODogađanju|Posljednje opisano"
-
-msgid "InfoRequestEvent|Params yaml"
-msgstr "ZahtjevZaInformacijamaODogađanju|Params yaml"
-
-msgid "InfoRequest|Allow new responses from"
-msgstr "ZahtjevZaInformacijom|Dopusti novi odgovor od "
-
-msgid "InfoRequest|Attention requested"
-msgstr "ZahtjevZaInformacijom|Zahtjevana pozornost"
-
-msgid "InfoRequest|Awaiting description"
-msgstr "ZahtjevZaInformacijom|Čekanje opisa"
-
-msgid "InfoRequest|Comments allowed"
-msgstr "ZahtjevZaInformacijom|Dopušteno komentiranje"
-
-msgid "InfoRequest|Date initial request last sent at"
-msgstr ""
-
-msgid "InfoRequest|Date response required by"
-msgstr ""
-
-msgid "InfoRequest|Date very overdue after"
-msgstr ""
-
-msgid "InfoRequest|Described state"
-msgstr "ZahtjevZaInformacijom|Opisano stanje"
-
-msgid "InfoRequest|External url"
-msgstr "ZahtjevZaInformacijom|Vanjski url"
-
-msgid "InfoRequest|External user name"
-msgstr "ZahtjevZaInformacijom|Ime vanjskog korisnika"
-
-msgid "InfoRequest|Handle rejected responses"
-msgstr "ZahtjevZaInformacijom|Riješi odbijene odgovore"
-
-msgid "InfoRequest|Idhash"
-msgstr "ZahtjevZaInformacijom|Idhash"
-
-msgid "InfoRequest|Last event time"
-msgstr ""
-
-msgid "InfoRequest|Last public response at"
-msgstr ""
-
-msgid "InfoRequest|Law used"
-msgstr "ZahtjevZaInformacijom|Korišteni zakon"
-
-msgid "InfoRequest|Prominence"
-msgstr "ZahtjevZaInformacijom|Istaknuto"
-
-msgid "InfoRequest|Reject incoming at mta"
-msgstr ""
-
-msgid "InfoRequest|Rejected incoming count"
-msgstr ""
-
-msgid "InfoRequest|Title"
-msgstr "ZahtjevZaInformacijom|Naslov"
-
-msgid "InfoRequest|Url title"
-msgstr "ZahtjevZaInformacijom|Url naslov"
-
-msgid "InfoRequest|Use notifications"
-msgstr ""
 
 msgid "Information not held"
 msgstr ""
@@ -1704,6 +1437,9 @@ msgid "Internal review request sent to {{public_body_name}} by {{info_request_us
 msgstr "Zahtjev za požurnicom poslan {{public_body_name}} od strane {{info_request_user}} dana {{date}}."
 
 msgid "Invalid one time password"
+msgstr ""
+
+msgid "Invalid token"
 msgstr ""
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
@@ -1805,27 +1541,6 @@ msgstr "Kašnjenja"
 msgid "Made between"
 msgstr "Napravljen između"
 
-msgid "Mail server log"
-msgstr "Zapisnik maila servera"
-
-msgid "Mail server log done"
-msgstr "Zapisnik mail servera izrađen"
-
-msgid "MailServerLogDone|Filename"
-msgstr "ZapisnikMailServera|Naziv"
-
-msgid "MailServerLogDone|Last stat"
-msgstr "ZapisnikMailServera|Posljednji status"
-
-msgid "MailServerLog|Delivery status"
-msgstr ""
-
-msgid "MailServerLog|Line"
-msgstr "ZapisnikMailServera|Redak"
-
-msgid "MailServerLog|Order"
-msgstr "ZapisnikMailServera|Red"
-
 msgid "Make a batch request"
 msgstr "Napravite zahtjev za skupinom podataka"
 
@@ -1870,6 +1585,9 @@ msgstr "Nedostaje kontakt adresa za '{{authority_name}}'"
 
 msgid "More about this authority"
 msgstr "Više o ovom tijelu javne vlasti"
+
+msgid "More requests in this batch"
+msgstr ""
 
 msgid "More similar requests"
 msgstr "Više sličnih zahtjeva"
@@ -1967,9 +1685,6 @@ msgstr "Ništa nije nađeno."
 msgid "None made."
 msgstr "Ništa podneseno."
 
-msgid "Not a valid FOI request"
-msgstr "Zahtjev za pravo na pristup informacijama nije valjan."
-
 msgid "Not a valid request"
 msgstr "Zahtjev nije valjan"
 
@@ -1982,23 +1697,11 @@ msgstr "Ne posjeduje"
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
 msgstr "Uzmite u obzir da podnositelj zahtjeva neće biti obaviješten o Vašoj pribilješci, jer je zahtjev u njegovo ime objavljen od strane {{public_body_name}}."
 
+msgid "Note that we may still send you emails when new correspondence appears on your requests, or when you perform actions that require an email confirmation step."
+msgstr ""
+
 msgid "Notes:"
 msgstr "Poruka:"
-
-msgid "Notification"
-msgstr ""
-
-msgid "Notification|Expired"
-msgstr ""
-
-msgid "Notification|Frequency"
-msgstr ""
-
-msgid "Notification|Seen at"
-msgstr ""
-
-msgid "Notification|Send after"
-msgstr ""
 
 msgid "Now check your email!"
 msgstr "Sada provjerite Vašu e-poštu!"
@@ -2074,30 +1777,6 @@ msgstr "Ostalo"
 
 msgid "Other:"
 msgstr "Ostalo:"
-
-msgid "Outgoing message"
-msgstr "Odlazna poruka"
-
-msgid "OutgoingMessage|Body"
-msgstr "Odlazna poruka|Tijelo"
-
-msgid "OutgoingMessage|Last sent at"
-msgstr "Odlazna poruka|Zadnja poslana u"
-
-msgid "OutgoingMessage|Message type"
-msgstr "Odlazna poruka|Tip poruke"
-
-msgid "OutgoingMessage|Prominence"
-msgstr "Odlazna poruka|Istaknuto"
-
-msgid "OutgoingMessage|Prominence reason"
-msgstr "Odlazna poruka|Razlog isticanja"
-
-msgid "OutgoingMessage|Status"
-msgstr "Odlazna poruka|Status"
-
-msgid "OutgoingMessage|What doing"
-msgstr "Odlazna poruka|Što radi"
 
 msgid "Partial success"
 msgstr "Djelomično uspješno"
@@ -2190,6 +1869,9 @@ msgstr ""
 
 msgid "Please click on the link below to confirm your email address."
 msgstr "Molimo kliknite na poveznicu ispod da biste potvrdili Vašu adresu e-pošte."
+
+msgid "Please click on the link below to stop these emails."
+msgstr ""
 
 msgid "Please create an account or sign in"
 msgstr "Molimo prijavite se ili izradite novi račun"
@@ -2327,27 +2009,6 @@ msgstr "Vjerojatno srodni zahtjevi"
 msgid "Post annotation"
 msgstr "Objavite pribilješku"
 
-msgid "Post redirect"
-msgstr "Preusmjeravanje poruke"
-
-msgid "PostRedirect|Circumstance"
-msgstr "PostRedirect|Circumstance"
-
-msgid "PostRedirect|Email token"
-msgstr "PostRedirect|Email token"
-
-msgid "PostRedirect|Post params yaml"
-msgstr "PostRedirect|Post params yaml"
-
-msgid "PostRedirect|Reason params yaml"
-msgstr "PostRedirect|Reason params yaml"
-
-msgid "PostRedirect|Token"
-msgstr "PostRedirect|Token"
-
-msgid "PostRedirect|Uri"
-msgstr "PostRedirect|Uri"
-
 msgid "Posted on {{date}} by {{author}}"
 msgstr "Objavio/la {{author}} dana {{date}} "
 
@@ -2390,23 +2051,8 @@ msgstr ""
 msgid "Privacy and cookies"
 msgstr ""
 
-msgid "Pro account"
-msgstr ""
-
-msgid "ProAccount|Default embargo duration"
-msgstr ""
-
 msgid "Profile image for {{user_name}}"
 msgstr ""
-
-msgid "Profile photo"
-msgstr "Slika na profilu"
-
-msgid "ProfilePhoto|Data"
-msgstr "Slika na profilu|Podaci"
-
-msgid "ProfilePhoto|Draft"
-msgstr "Slika na profilu|Skica"
 
 msgid "Public Bodies"
 msgstr "Javna tijela"
@@ -2444,23 +2090,8 @@ msgstr "Javna tijela s najviše zahtjeva"
 msgid "Public bodies with the most successful requests"
 msgstr "Javna tijela s najviše uspješnih zahtjeva"
 
-msgid "Public body"
-msgstr "Javno tijelo"
-
-msgid "Public body category"
-msgstr "Kategorija javnog tijela"
-
-msgid "Public body category link"
-msgstr "Poveznica na kategoriju javnog tijela"
-
 msgid "Public body category translation"
 msgstr ""
-
-msgid "Public body change request"
-msgstr "Zahtjev za promjenom javnog tijela"
-
-msgid "Public body heading"
-msgstr "Naslov javnog tijela"
 
 msgid "Public body heading translation"
 msgstr ""
@@ -2471,9 +2102,6 @@ msgstr "Javna stranica"
 msgid "Public page not available"
 msgstr "Javna stranica nije dostupna"
 
-msgid "PublicBodyCategoryLink|Category display order"
-msgstr "Kategorija javnog tijela|Redoslijed prikazivanja kategorije"
-
 msgid "PublicBodyCategoryTranslation|Description"
 msgstr ""
 
@@ -2483,74 +2111,11 @@ msgstr ""
 msgid "PublicBodyCategoryTranslation|Title"
 msgstr ""
 
-msgid "PublicBodyCategory|Category tag"
-msgstr "Kategorija javnog tijela|Oznaka kategorije"
-
-msgid "PublicBodyChangeRequest|Is open"
-msgstr "ZahtjevZaPromjenomJavnogTijela|Je otvoren"
-
-msgid "PublicBodyChangeRequest|Notes"
-msgstr "ZahtjevZaPromjenomJavnogTijela|Bilješke"
-
-msgid "PublicBodyChangeRequest|Public body email"
-msgstr "ZahtjevZaPromjenomJavnogTijela|Email javnog tijela"
-
-msgid "PublicBodyChangeRequest|Public body name"
-msgstr "ZahtjevZaPromjenomJavnogTijela|Naziv javnog tijela"
-
-msgid "PublicBodyChangeRequest|Source url"
-msgstr "ZahtjevZaPromjenomJavnogTijela|Izvorni url"
-
-msgid "PublicBodyChangeRequest|User email"
-msgstr "ZahtjevZaPromjenomJavnogTijela|Korisnički email"
-
-msgid "PublicBodyChangeRequest|User name"
-msgstr "ZahtjevZaPromjenomJavnogTijela|Korisničko ime"
-
 msgid "PublicBodyHeadingTranslation|Locale"
 msgstr ""
 
 msgid "PublicBodyHeadingTranslation|Name"
 msgstr ""
-
-msgid "PublicBodyHeading|Display order"
-msgstr "NaslovJavnogTijela|Redoslijed prikaza"
-
-msgid "PublicBody|Api key"
-msgstr "JavnoTijelo|Api ključ"
-
-msgid "PublicBody|Disclosure log"
-msgstr "JavnoTijelo|Zapisnik razotkrivanja"
-
-msgid "PublicBody|Home page"
-msgstr "Tijelo javne vlasti|Službene stranice"
-
-msgid "PublicBody|Info requests count"
-msgstr "JavnoTijelo|Broj zahtjeva za informacijom"
-
-msgid "PublicBody|Info requests not held count"
-msgstr "JavnoTijelo|Ne broje se zahtjevi za informacijom"
-
-msgid "PublicBody|Info requests overdue count"
-msgstr "JavnoTijelo|Broj zakašnjelih zahtjeva za informacijom"
-
-msgid "PublicBody|Info requests successful count"
-msgstr "JavnoTijelo|Broj uspješnih zahtjeva za informacijom"
-
-msgid "PublicBody|Info requests visible classified count"
-msgstr "JavnoTijelo|Broj vidljivih povjerljivih zahtjeva za informacijom"
-
-msgid "PublicBody|Info requests visible count"
-msgstr ""
-
-msgid "PublicBody|Last edit comment"
-msgstr "Javno tijelo|Zadnji uređeni komentar"
-
-msgid "PublicBody|Last edit editor"
-msgstr "Javno tijelo|Zadnji uređivač"
-
-msgid "PublicBody|Version"
-msgstr "Javno tijelo|Verzija"
 
 msgid "Publication scheme"
 msgstr "Nacrt publikacije"
@@ -2602,6 +2167,9 @@ msgstr "Odbijeno"
 
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr "Zapamti me (ostajete dulje prijavljeni; ne koristite na javnim računalima)"
+
+msgid "Report"
+msgstr ""
 
 msgid "Report an offensive or unsuitable request"
 msgstr "Prijavite uvredljiv ili neprimjeren zahtjev"
@@ -2743,15 +2311,6 @@ msgstr "Ograničiti na"
 
 msgid "Results page {{page_number}}"
 msgstr "Rezultati na stranici {{page_number}}"
-
-msgid "Role"
-msgstr ""
-
-msgid "Role|Name"
-msgstr ""
-
-msgid "Role|Resource type"
-msgstr ""
 
 msgid "Save"
 msgstr "Spremiti"
@@ -2941,12 +2500,6 @@ msgstr "URL izvora:"
 msgid "Source:"
 msgstr "Izvor:"
 
-msgid "Spam address"
-msgstr "Adresa neželjene pošte"
-
-msgid "SpamAddress|Email"
-msgstr "SpamAdresa|Epošta"
-
 msgid "Start your own request"
 msgstr ""
 
@@ -3094,7 +2647,7 @@ msgid "The accounts have been left as they previously were."
 msgstr "Korisnički računi nisu mijenjani"
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr "Tijelo javne vlasti <strong>ne posjeduje</strong> informacije <small>(možda mogu reći tko posjeduje)"
+msgstr ""
 
 msgid "The authority email doesn't look like a valid address"
 msgstr "Adresa e-pošte tijela javne vlasti ne izgleda kao valjana adresa"
@@ -3105,8 +2658,8 @@ msgstr "Tijelo javne vlasti ima samo informaciju u <strong>papirnatom obliku</st
 msgid "The authority say that they <strong>need a postal address</strong>, not just an email, for it to be a valid FOI request"
 msgstr "Iz tijela javne vlasti kažu da im <strong>treba poštanska\\n adresa</strong>, ne samo adresa e-pošte, da bi zahtjev za pristup informacijama bio valjan"
 
-msgid "The authority would like to / has <strong>responded by post</strong> to this request."
-msgstr "Tijelo javne vlasti želi na ovaj zahtjev odgovoriti <strong>poštanskim putem</strong> ."
+msgid "The authority would like to / has <strong>responded by postal mail</strong> to this request."
+msgstr ""
 
 msgid "The classification of requests (e.g. to say whether they were successful or not) is done manually by users and administrators of the site, which means that they are subject to error."
 msgstr "Klasifikaciju zahtjeva (tj. jesu li bili uspješni ili ne) rade ručno korisnici ili administratori stranice, što znači da su podložni pogrešci."
@@ -3156,8 +2709,8 @@ msgstr "Tijelo javen vlasti ne posjeduje tražene informacije"
 msgid "The public authority would like part of the request explained"
 msgstr "Tijelo javne vlasti bi htjela objašnjenje dijela zahtjeva"
 
-msgid "The public authority would like to / has responded by post"
-msgstr "Tijelo javne vlasti bi htjela odgovoriti ili je već odgovorila poštom"
+msgid "The public authority would like to / has responded by postal mail"
+msgstr ""
 
 msgid "The request has been <strong>refused</strong>"
 msgstr "Zahtjev je <strong>odbijen</strong>"
@@ -3323,8 +2876,8 @@ msgstr "Ovi su grafovi djelomično inspirirani  <a href=\"http://mark.goodge.co.
 msgid "These logs show what happened to this message as it passed through our {{mta_type}} mail server. You can send these logs to an authority to help them diagnose problems receiving email from {{site_name}}."
 msgstr ""
 
-msgid "They are going to reply <strong>by post</strong>"
-msgstr "Odgovorit će <strong>poštom</strong>"
+msgid "They are going to reply <strong>by postal mail</strong>"
+msgstr ""
 
 msgid "They do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr "Oni <strong>ne posjeduju</strong> informaciju <small>(možda mogu reći tko je posjeduje)</small>"
@@ -3343,6 +2896,9 @@ msgstr ""
 
 msgid "Things you're following"
 msgstr "Stavke koje pratite"
+
+msgid "This account has been closed."
+msgstr ""
 
 msgid "This annotation has been reported for administrator attention"
 msgstr ""
@@ -3444,6 +3000,9 @@ msgstr "Ovaj je zahtjev već prijavljen administratoru."
 msgid "This request has an <strong>unknown status</strong>."
 msgstr "Ovaj zahtjev ima <strong>nepoznat status</strong>."
 
+msgid "This request has been <strong>closed to new correspondence from the public body</strong>. <a href=\"{{url}}\"\">Contact us</a> if you think it ought be re-opened."
+msgstr ""
+
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
 msgstr "Ovaj je zahtjev <strong>prijavljen</strong> administratoru (možda je neprikladan ili se zahtijevaju osobne informacije)"
 
@@ -3480,6 +3039,9 @@ msgid "This request is hidden, so that only you the requester can see it. Please
 msgstr ""
 "Ovaj je zahtjev skriven tako da ga samo Vi, kao podnositelj, možete vidjeti. Molimo\n"
 "<a href=\"{{url}}\">kontaktirajte nas</a> ako niste sigurni zašto."
+
+msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
+msgstr ""
 
 msgid "This request is still in progress:"
 msgstr "Ovaj zahtjev je još u tijeku:"
@@ -3630,23 +3192,11 @@ msgstr "Previše zahtjeva"
 msgid "Top recent players"
 msgstr ""
 
-msgid "Track thing"
-msgstr "Pratite stvar"
-
 msgid "Track this person"
 msgstr "Pratite ovu osobu"
 
 msgid "Track this search"
 msgstr "Pratite ovu pretragu."
-
-msgid "TrackThing|Track medium"
-msgstr "PratiStvar|Prati medij"
-
-msgid "TrackThing|Track query"
-msgstr "PratiStvar|Prati upit"
-
-msgid "TrackThing|Track type"
-msgstr "PratiStvar|Prati tip"
 
 msgid "Try opening the logs in a new window."
 msgstr ""
@@ -3752,104 +3302,17 @@ msgstr "Koristite navodnike kada želite naći točne fraze, npr. <strong><code>
 msgid "Use this site to make your request for information – we'll show you how."
 msgstr ""
 
-msgid "User"
-msgstr "Korisnik/ca"
-
-msgid "User info request sent alert"
-msgstr "Obavijest o korisnikovom zahtjevu za informacijama poslana"
-
 msgid "User – {{name}}"
 msgstr "Korisnik/ca – {{name}}"
-
-msgid "UserInfoRequestSentAlert|Alert type"
-msgstr "UserInfoRequestSentAlert|Alert type"
 
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
 msgstr "Korisnici obično ne mogu raditi skupne zahtjeve prema više nadležnih tijela odjednom jer ne želimo da javna tijela budu zatrpana velikim brojem neprimjerenih zahtjeva. Molimo <a href=\"{{url}}\">kontaktirajte nas</a> ako mislite da imate dobar razlog za slanje istovjetnog zahtjeva na više nadležnih tijela odjednom."
 
-msgid "User|About me"
-msgstr "Korisnik|O meni"
-
-msgid "User|Ban text"
-msgstr "Korisnik|tekst isključenja"
-
-msgid "User|Can make batch requests"
-msgstr "Korisnik|Može raditi skupne zahtjeve"
-
-msgid "User|Comments count"
-msgstr ""
-
-msgid "User|Confirmed not spam"
-msgstr ""
-
-msgid "User|Daily summary hour"
-msgstr ""
-
-msgid "User|Daily summary minute"
-msgstr ""
-
-msgid "User|Email"
-msgstr "Korisnik|E-mail"
-
-msgid "User|Email bounce message"
-msgstr "Korisnik|Email preusmjerena poruka"
-
-msgid "User|Email bounced at"
-msgstr "Korisnik|Email preusmjeren"
-
-msgid "User|Email confirmed"
-msgstr "Korisnik | E-mail potvrđen"
-
-msgid "User|Hashed password"
-msgstr "Korisnik|Hashed password"
-
-msgid "User|Info request batches count"
-msgstr ""
-
-msgid "User|Info requests count"
-msgstr ""
-
-msgid "User|Last daily track email"
-msgstr "Korisnik|Last daily track email"
-
-msgid "User|Locale"
-msgstr "Korisnik|Mjesni"
-
-msgid "User|Name"
-msgstr "Korisnik|Ime"
-
-msgid "User|No limit"
-msgstr "Korisnik|Bez ograničenja"
-
-msgid "User|Otp counter"
-msgstr ""
-
-msgid "User|Otp enabled"
-msgstr ""
-
-msgid "User|Otp secret key"
-msgstr ""
-
-msgid "User|Public body change requests count"
-msgstr ""
-
-msgid "User|Receive email alerts"
-msgstr "Korisnik|Prima obavijesti e-mailom"
-
-msgid "User|Request classifications count"
-msgstr ""
-
-msgid "User|Salt"
-msgstr "Korisnik|Salt"
-
-msgid "User|Track things count"
-msgstr ""
-
-msgid "User|Url name"
-msgstr "Korisnik|Url ime"
-
 msgid "Version {{version}}"
 msgstr "Verzija {{version}}"
+
+msgid "Very long – shorter requests are more successful"
+msgstr ""
 
 msgid "Vexatious"
 msgstr "Uznemirujuće"
@@ -3897,6 +3360,9 @@ msgid "Waiting for the public authority to reply"
 msgstr "Čekamo odgovor tijela javne vlasti"
 
 msgid "Want to know something?"
+msgstr ""
+
+msgid "We consider it is not a valid FOI request as it was correspondence about your personal circumstances, and we have therefore hidden it from other users."
 msgstr ""
 
 msgid "We consider it is not a valid FOI request, and have therefore hidden it from other users."
@@ -4031,12 +3497,6 @@ msgstr "Od koga mogu tražiti informacije?"
 msgid "Why specifically do you consider this request unsuitable?"
 msgstr "Zašto ovaj zahtjev smatrate neodgovarajućim?"
 
-msgid "Widget vote"
-msgstr "Widget za glasanje"
-
-msgid "WidgetVote|Cookie"
-msgstr "WidgetZaGlasanje|Cookie"
-
 msgid "Withdrawn"
 msgstr "Povučeno"
 
@@ -4145,9 +3605,6 @@ msgstr "Možete promijeniti zahtjeve i korisnike koje pratite na <a href=\"{{pro
 msgid "You can get this page in computer-readable format as part of the <a href=\"{{json_path}}\">main JSON page</a> for the request. See the <a href=\"{{api_path}}\">API documentation</a>."
 msgstr ""
 
-msgid "You can only request information about the environment from this authority."
-msgstr "Možete samo zahtijevati informacije o okolišu od ovog tijela javne vlasti."
-
 msgid "You can regenerate your one time passcode at any time."
 msgstr ""
 
@@ -4238,6 +3695,9 @@ msgstr "Morate biti prijavljeni da biste mogli uređivati svoj profil. "
 
 msgid "You need to be logged in to report a request for administrator attention"
 msgstr "Morate biti prijavljeni da biste administratoru mogli prijaviti zahtjev."
+
+msgid "You only have a right in law to access information about the environment from this authority"
+msgstr ""
 
 msgid "You previously submitted that exact follow up message for this request."
 msgstr "Prethodno ste predali istu dodatnu poruku za ovaj zahtjev."
@@ -4396,14 +3856,8 @@ msgstr "Vaš zahtjev na {{site_name}} je skriven"
 msgid "Your request to add an authority has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr "Vaš zahtjev za dodavanje tijela javne vlasti je poslan. Hvala što ste nam javili! Odgovorit ćemo Vam uskoro."
 
-msgid "Your request to add {{public_body_name}} to {{site_name}}"
-msgstr "Vaš zahtjev da dodamo javnu ustanovu {{public_body_name}} na {{site_name}}"
-
 msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr "Vaš zahtjev za ažuriranjem adrese za {{public_body_name}} je poslan. Hvala što ste nas kontaktirali! Javit ćemo se uskoro."
-
-msgid "Your request to update {{public_body_name}} on {{site_name}}"
-msgstr "Vaš zahtjev za ažuriranjem {{public_body_name}} na {{site_name}}"
 
 msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
 msgstr "Naziv Vašeg zahtjeva je \"{{info_request}}\". Putem linka recite nam jeste li ovim odgovorm dobili informaciju koju ste tražili kako bismo bolje mogli pratiti što radi"
@@ -4467,6 +3921,9 @@ msgstr ""
 
 msgid "[FOI #{{request}} email]"
 msgstr "[ZPPI #{{request}} email]"
+
+msgid "[Name Removed]"
+msgstr ""
 
 msgid "[REDACTED]"
 msgstr ""
@@ -4676,9 +4133,6 @@ msgstr "{{site_name}} tim"
 
 msgid "to send a follow up message."
 msgstr "poslati dodatnu poruku."
-
-msgid "to {{public_body}}"
-msgstr "za {{public_body}}"
 
 msgid "type your search term here"
 msgstr "upišite izraz za pretraživanje"
@@ -4964,8 +4418,14 @@ msgstr "{{username}} je ostavio pribilješku:"
 msgid "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 msgstr "{{user}} ({{user_admin_link}}) je podnio/la ovaj zahtjev za {{law_used_full}} (<a href=\"{{request_admin_url}}\">admin</a>) za {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 
-msgid "{{user}} made this {{law_used_full}} request"
-msgstr "{{user}} je podnio/la ovaj zahtjev za {{law_used_full}}"
+msgid "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>) as part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
+msgstr ""
+
+msgid "{{user}} made this {{law_used_full}} request to {{public_body}}"
+msgstr ""
+
+msgid "{{user}} made this {{law_used_full}} request to {{public_body}} as part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
+msgstr ""
 
 msgid "« Back to search results"
 msgstr "« Povratak na rezultate pretrage"

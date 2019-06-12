@@ -495,7 +495,8 @@ READ_ONLY: ''
 STAGING_SITE: 1
 
 # Recaptcha, for detecting humans. Get keys here:
-# http://recaptcha.net/whyrecaptcha.html
+# https://www.google.com/recaptcha
+# Currently Alaveteli requires a reCAPTCHA v2 Checkbox key.
 #
 # RECAPTCHA_SITE_KEY - String (default: 'x')
 #
@@ -503,7 +504,8 @@ STAGING_SITE: 1
 RECAPTCHA_SITE_KEY: 'x'
 
 # Recaptcha, for detecting humans. Get keys here:
-# http://recaptcha.net/whyrecaptcha.html
+# https://www.google.com/recaptcha
+# Currently Alaveteli requires a reCAPTCHA v2 Checkbox key.
 #
 # RECAPTCHA_SECRET_KEY - String (default: 'x')
 #
@@ -1017,6 +1019,28 @@ RESTRICTED_COUNTRIES: ''
 #
 # ---
 NEW_REQUEST_RECAPTCHA: false
+
+# Show a reCAPTCHA on the contact form to discourage spammers
+#
+# Add the following code to `help/_contact_form.html.erb` in your theme (just
+# above the submit button works best) and a reCAPTCHA will be shown if
+# CONTACT_FORM_RECAPTCHA is set to true.
+#
+#     <% if @recaptcha_required %>
+#       <%= recaptcha_tags %><br />
+#     <% end %>
+#
+# CONTACT_FORM_RECAPTCHA – Boolean (default: false)
+#
+# ---
+CONTACT_FORM_RECAPTCHA: false
+
+# Show a reCAPTCHA on the user to user contact form to discourage spammers
+#
+# USER_CONTACT_FORM_RECAPTCHA – Boolean (default: false)
+#
+# ---
+USER_CONTACT_FORM_RECAPTCHA: false
 
 # Enable AlaveteliProfessional
 # If ENABLE_ALAVETELI_PRO is set to true, Alaveteli will include extra

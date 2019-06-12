@@ -2,8 +2,15 @@
 
 /* /select_authority page */
 #select_authority_help {
+  & > div {
+    margin-top: 1.5em;
+    padding-top: 1.5em;
+    border-top: 1px solid #ccc;
+    border-top-color: rgba(0,0,0,0.15);
+  }
+
   .info {
-    font-style: italic;
+    font-weight: bold;
   }
 }
 
@@ -88,6 +95,19 @@
   }
 }
 
+.message-text-length {
+  &.text-length-s {
+    display: none;
+  }
+
+  &.text-length-l {
+    color: #d80;
+  }
+
+  &.text-length-xl {
+    color: #c00;
+  }
+}
 
 input#reedit_button {
   background-color: transparent;
@@ -101,6 +121,20 @@ input#reedit_button {
   border: none;
 }
 
+.request_deny_response {
+  background-color: #FFF;
+}
+
+.js-loaded {
+  div.request_form_response--allow {
+    div#request_subject {
+      margin-top: 1em;
+      padding-top: 1em;
+      border-top: 1px solid #ccc;
+      border-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+}
 
 /* Batch request page */
 

@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'fakeweb'
 
 describe ServicesController do
 
@@ -20,7 +19,7 @@ describe ServicesController do
     it 'keeps the flash' do
       # Make two get requests to simulate the flash getting swept after the
       # first response.
-      get :other_country_message, nil, nil, :some_flash_key => 'abc'
+      get :other_country_message, flash: { :some_flash_key => 'abc' }
       get :other_country_message
       expect(flash[:some_flash_key]).to eq('abc')
     end
@@ -97,14 +96,16 @@ describe ServicesController do
     let(:info_request) { FactoryBot.create(:info_request, user: user) }
 
     it 'generates plaintext output' do
-      get :hidden_user_explanation, info_request_id: info_request.id
+      get :hidden_user_explanation,
+          params: { info_request_id: info_request.id, message: 'not_foi' }
       expect(response.content_type).to eq 'text/plain'
     end
 
     it 'does not HTML escape the user or site name' do
       allow(AlaveteliConfiguration).
         to receive(:site_name).and_return('A&B Test')
-      get :hidden_user_explanation, info_request_id: info_request.id
+      get :hidden_user_explanation,
+          params: { info_request_id: info_request.id, message: 'not_foi' }
       expect(response.body).to match(/Dear P O'Toole/)
       expect(response.body).to match(/Yours,\n\nThe A&B Test team/)
     end

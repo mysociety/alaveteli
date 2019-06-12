@@ -76,7 +76,30 @@ fi
 
 update_mysociety_apt_sources
 
+# Ubuntu Bionic Fixes
+if [ x"$DISTRIBUTION" = x"ubuntu" ] && [ x"$DISTVERSION" = x"bionic" ]
+then
+  # Add cosmic repo to get pdftk-java
+  cat > /etc/apt/sources.list.d/ubuntu-cosmic.list <<EOF
+deb http://archive.ubuntu.com/ubuntu/ cosmic universe
+deb-src http://archive.ubuntu.com/ubuntu/ cosmic universe
+EOF
+
+  # De-prioritise all packages from cosmic. We only add the repo to install
+  # pdftk-java, as pdftk is not available in bionic.
+  cat >> /etc/apt/preferences <<EOF
+Package: *
+Pin: release n=cosmic
+Pin-Priority: 50
+EOF
+
+  apt-get -qq update
+fi
+
 apt-get -y update
+
+echo 'Setting hostname...'
+hostnamectl set-hostname $HOST
 
 if [ ! "$DEVELOPMENT_INSTALL" = true ]; then
     install_nginx

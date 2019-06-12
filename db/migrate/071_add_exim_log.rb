@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class AddEximLog < ActiveRecord::Migration
+class AddEximLog < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 2.1
   def self.up
     create_table :exim_logs do |t|
       t.column :exim_log_done_id, :integer

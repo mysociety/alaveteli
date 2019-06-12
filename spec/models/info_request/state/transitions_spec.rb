@@ -68,7 +68,7 @@ describe InfoRequest::State::Transitions do
     context "when the to_state is gone_postal" do
       context "and is_owning_user is true" do
         it "returns the right label" do
-          expected = "They are going to reply <strong>by post</strong>"
+          expected = "They are going to reply <strong>by postal mail</strong>"
           actual = subject.transition_label("gone_postal", is_owning_user: true)
           expect(actual).to eq(expected)
         end
@@ -76,7 +76,7 @@ describe InfoRequest::State::Transitions do
 
       context "and is_owning_user is false" do
         it "returns the right label" do
-          expected = "A response will be sent <strong>by post</strong>"
+          expected = "A response will be sent <strong>by postal mail</strong>"
           actual = subject.transition_label("gone_postal", is_owning_user: false)
           expect(actual).to eq(expected)
         end
@@ -84,7 +84,7 @@ describe InfoRequest::State::Transitions do
 
       context "and is_pro_user is true" do
         it "returns the right label" do
-          expected = "Handled by post"
+          expected = "Handled by postal mail"
           actual = subject.transition_label("gone_postal", is_pro_user: true, is_owning_user: true)
           expect(actual).to eq(expected)
         end

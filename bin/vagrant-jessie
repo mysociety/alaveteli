@@ -1,2 +1,0 @@
-#!/bin/sh
-ALAVETELI_VAGRANT_NAME=jessie ALAVETELI_VAGRANT_OS=jessie64 exec vagrant "$@"

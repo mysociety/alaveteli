@@ -11,11 +11,10 @@ class UserController < ApplicationController
   include UserSpamCheck
 
   layout :select_layout
-  # NOTE: Rails 4 syntax: change before_filter to before_action
-  before_filter :normalize_url_name, :only => :show
-  before_filter :work_out_post_redirect, :only => [ :signup ]
-  before_filter :set_request_from_foreign_country, :only => [ :signup ]
-  before_filter :set_in_pro_area, :only => [ :signup ]
+  before_action :normalize_url_name, :only => :show
+  before_action :work_out_post_redirect, :only => [ :signup ]
+  before_action :set_request_from_foreign_country, :only => [ :signup ]
+  before_action :set_in_pro_area, :only => [ :signup ]
 
   # Normally we wouldn't be verifying the authenticity token on these actions
   # anyway as there shouldn't be a user_id in the session when the before
@@ -23,13 +22,13 @@ class UserController < ApplicationController
   # tries to sign in or sign up. There's little CSRF potential here as
   # these actions only sign in or up users with valid credentials. The
   # user_id in the session is not expected, and gives no extra privilege
-  skip_before_filter :verify_authenticity_token, :only => [:signin, :signup]
+  skip_before_action :verify_authenticity_token, :only => [:signin, :signup]
 
   # Show page about a user
   def show
     long_cache
-    set_view_instance_variables
     @display_user = set_display_user
+    set_view_instance_variables
     @same_name_users = User.find_similar_named_users(@display_user)
     @is_you = current_user_is_display_user
 
@@ -112,6 +111,8 @@ class UserController < ApplicationController
     end
 
     @feed_results = feed_results.to_a.sort { |x, y| y.created_at <=> x.created_at }.first(20)
+
+    @feed_results = [] if @display_user.closed?
 
     respond_to do |format|
       format.html { @has_json = true }
@@ -246,58 +247,6 @@ class UserController < ApplicationController
     session[:user_circumstance] = nil
     flash[:notice] = _("You have now changed your email address used on {{site_name}}",:site_name=>site_name)
     redirect_to user_url(@user)
-  end
-
-  # Send a message to another user
-  def contact
-    @recipient_user = User.find(params[:id])
-
-    # Banned from messaging users?
-    if authenticated_user && !authenticated_user.can_contact_other_users?
-      @details = authenticated_user.can_fail_html
-      render :template => 'user/banned'
-      return
-    end
-
-    # You *must* be logged into send a message to another user. (This is
-    # partly to avoid spam, and partly to have some equanimity of openess
-    # between the two users)
-    #
-    # "authenticated?" has done the redirect to signin page for us
-    return unless authenticated?(
-        :web => _("To send a message to {{user_name}}",
-                  :user_name => CGI.escapeHTML(@recipient_user.name)),
-        :email => _("Then you can send a message to {{user_name}}.",
-                    :user_name => @recipient_user.name),
-        :email_subject => _("Send a message to {{user_name}}",
-                            :user_name => @recipient_user.name)
-      )
-
-    if params[:submitted_contact_form]
-      params[:contact][:name] = @user.name
-      params[:contact][:email] = @user.email
-      @contact = ContactValidator.new(params[:contact])
-      if @contact.valid?
-        ContactMailer.user_message(
-          @user,
-          @recipient_user,
-          user_url(@user),
-          params[:contact][:subject],
-          params[:contact][:message]
-        ).deliver_now
-        flash[:notice] = _("Your message to {{recipient_user_name}} has " \
-                           "been sent!",
-                           :recipient_user_name => @recipient_user.
-                                                     name.html_safe)
-        redirect_to user_url(@recipient_user)
-        return
-      end
-    else
-      @contact = ContactValidator.new(
-        { :message => "" + @recipient_user.name + _(",\n\n\n\nYours,\n\n{{user_name}}",:user_name=>@user.name) }
-      )
-    end
-
   end
 
   # River of News: What's happening with your tracked things
@@ -450,6 +399,11 @@ class UserController < ApplicationController
       @show_requests = true
       @show_batches = true
     end
+
+    if @display_user.closed?
+      @show_requests = false
+      @show_batches = false
+    end
   end
 
   def user_params(key = :user)
@@ -524,7 +478,7 @@ class UserController < ApplicationController
   end
 
   def set_display_user
-    User.find_by!(:url_name => params[:url_name], :email_confirmed => true)
+    User.find_by!(url_name: params[:url_name], email_confirmed: true)
   end
 
   def set_show_requests

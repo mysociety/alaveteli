@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class AddComments < ActiveRecord::Migration
+class AddComments < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 2.0
   def self.up
     create_table :comments do |t|
       t.column :user_id, :integer, :null => false

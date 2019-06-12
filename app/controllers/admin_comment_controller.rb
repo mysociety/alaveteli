@@ -7,7 +7,7 @@
 
 class AdminCommentController < AdminController
 
-  before_filter :set_comment, :only => [:edit, :update]
+  before_action :set_comment, :only => [:edit, :update]
 
   def index
     @title = 'Listing comments'

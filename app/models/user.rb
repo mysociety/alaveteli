@@ -33,9 +33,10 @@
 #  info_request_batches_count        :integer          default(0), not null
 #  daily_summary_hour                :integer
 #  daily_summary_minute              :integer
+#  closed_at                         :datetime
 #
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   include AlaveteliFeatures::Helpers
   include AlaveteliPro::PhaseCounts
   include User::Authentication
@@ -120,9 +121,11 @@ class User < ActiveRecord::Base
            :inverse_of => :user,
            :dependent => :destroy
 
-  scope :active, -> { not_banned }
+  scope :active, -> { not_banned.not_closed }
   scope :banned, -> { where.not(ban_text: "") }
   scope :not_banned, -> { where(ban_text: "") }
+  scope :closed, -> { where.not(closed_at: nil) }
+  scope :not_closed, -> { where(closed_at: nil) }
 
   validates_presence_of :email, :message => _("Please enter your email address")
   validates_presence_of :name, :message => _("Please enter your name")
@@ -173,6 +176,11 @@ class User < ActiveRecord::Base
       # There is user with email, check password
       unless user.has_this_password?(params[:password])
         user.errors.add(:base, auth_fail_message)
+      end
+
+      if user.has_this_password?(params[:password]) && user.closed?
+        logger.info "Closed user attempted login: #{ params[:email] }"
+        user.errors.add(:base, _('This account has been closed.'))
       end
     else
       # No user of same email, make one (that we don't save in the database)
@@ -442,8 +450,28 @@ class User < ActiveRecord::Base
     !ban_text.empty?
   end
 
+  def closed?
+    closed_at.present?
+  end
+
+  def close_and_anonymise
+    sha = Digest::SHA1.hexdigest(rand.to_s)
+
+    redact_name! if info_requests.any?
+
+    update(
+      name: _('[Name Removed]'),
+      email: "#{sha}@invalid",
+      url_name: sha,
+      about_me: '',
+      password: MySociety::Util.generate_token,
+      receive_email_alerts: false,
+      closed_at: Time.zone.now
+    )
+  end
+
   def active?
-    !banned?
+    !banned? && !closed?
   end
 
   def suspended?
@@ -507,6 +535,8 @@ class User < ActiveRecord::Base
   def can_fail_html
     if banned?
       text = ban_text.strip
+    elsif closed?
+      text = _('Account closed at user request')
     else
       raise "Unknown reason for ban"
     end
@@ -574,7 +604,7 @@ class User < ActiveRecord::Base
   end
 
   def should_be_emailed?
-    email_confirmed && email_bounced_at.nil?
+    email_confirmed && email_bounced_at.nil? && active?
   end
 
   def indexed_by_search?
@@ -637,6 +667,13 @@ class User < ActiveRecord::Base
   end
 
   private
+
+  def redact_name!
+    censor_rules.create!(text: name,
+                         replacement: _('[Name Removed]'),
+                         last_edit_editor: 'User#close_and_anonymise',
+                         last_edit_comment: 'User#close_and_anonymise')
+  end
 
   def set_defaults
     if new_record?

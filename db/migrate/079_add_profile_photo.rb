@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class AddProfilePhoto < ActiveRecord::Migration
+class AddProfilePhoto < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 2.1
   def self.up
     create_table :profile_photos do |t|
       t.column :data, :binary, :null => false

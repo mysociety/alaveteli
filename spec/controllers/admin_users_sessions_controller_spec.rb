@@ -12,17 +12,17 @@ describe AdminUsersSessionsController do
     end
 
     it 'logs in as another user' do
-      post :create, id: target_user.id
+      post :create, params: { id: target_user.id }
       expect(session[:user_id]).to eq(target_user.id)
     end
 
     it 'sets the user_circumstance session to login_as' do
-      post :create, id: target_user.id
+      post :create, params: { id: target_user.id }
       expect(session[:user_circumstance]).to eq('login_as')
     end
 
     it 'redirects to the target user page' do
-      post :create, id: target_user.id
+      post :create, params: { id: target_user.id }
       expect(response).to redirect_to(user_path(target_user))
     end
 
@@ -30,7 +30,7 @@ describe AdminUsersSessionsController do
       let(:target_user) { FactoryBot.create(:unconfirmed_user) }
 
       it 'confirms their account' do
-        post :create, id: target_user.id
+        post :create, params: { id: target_user.id }
         expect(target_user.reload.email_confirmed).to eq(true)
       end
 
@@ -41,14 +41,14 @@ describe AdminUsersSessionsController do
 
       it 'redirects to the admin user page for that user' do
         with_feature_enabled(:alaveteli_pro) do
-          post :create, id: target_user.id
+          post :create, params: { id: target_user.id }
           expect(response).to redirect_to(admin_user_path(target_user))
         end
       end
 
       it 'shows an error message' do
         with_feature_enabled(:alaveteli_pro) do
-          post :create, id: target_user.id
+          post :create, params: { id: target_user.id }
           expect(flash[:error]).
             to eq "You don't have permission to log in as #{ target_user.name }"
         end

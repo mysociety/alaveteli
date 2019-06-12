@@ -33,6 +33,7 @@
 #  info_request_batches_count        :integer          default(0), not null
 #  daily_summary_hour                :integer
 #  daily_summary_minute              :integer
+#  closed_at                         :datetime
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
@@ -100,41 +101,6 @@ describe User, "showing the name" do
 
   end
 
-
-end
-
-describe User, " when authenticating" do
-  before do
-    @empty_user = User.new
-
-    @full_user = User.new
-    @full_user.name = "Sensible User"
-    @full_user.password = "foolishpassword"
-    @full_user.email = "sensible@localhost"
-    @full_user.save
-  end
-
-  it "should create a hashed password when the password is set" do
-    expect(@empty_user.hashed_password).to be_nil
-    @empty_user.password = "a test password"
-    expect(@empty_user.hashed_password).not_to be_nil
-  end
-
-  it "should have errors when given the wrong password" do
-    found_user = User.authenticate_from_form({ :email => "sensible@localhost", :password => "iownzyou" })
-    expect(found_user.errors.size).to be > 0
-  end
-
-  it "should not find the user when given the wrong email" do
-    found_user = User.authenticate_from_form( { :email => "soccer@localhost", :password => "foolishpassword" })
-    expect(found_user.errors.size).to be > 0
-  end
-
-  it "should find the user when given the right email and password" do
-    found_user = User.authenticate_from_form( { :email => "sensible@localhost", :password => "foolishpassword" })
-    expect(found_user.errors.size).to eq(0)
-    expect(found_user).to eq(@full_user)
-  end
 
 end
 
@@ -530,15 +496,44 @@ describe User, "when setting a profile photo" do
   #    end
 end
 
-describe User, "when unconfirmed" do
+describe User, '#should_be_emailed?' do
 
-  before do
-    @user = users(:unconfirmed_user)
+  context 'when confirmed and active' do
+    let(:user) { FactoryBot.build(:user) }
+    before { allow(user).to receive(:active?).and_return(true) }
+
+    it 'should be emailed' do
+      expect(user).to be_should_be_emailed
+    end
   end
 
-  it "should not be emailed" do
-    expect(@user.should_be_emailed?).to be false
+  context 'when confirmed and inactive' do
+    let(:user) { FactoryBot.build(:user) }
+    before { allow(user).to receive(:active?).and_return(false) }
+
+    it 'should not be emailed' do
+      expect(user).to_not be_should_be_emailed
+    end
   end
+
+  context 'when unconfirmed and active' do
+    let(:user) { FactoryBot.build(:unconfirmed_user) }
+    before { allow(user).to receive(:active?).and_return(true) }
+
+    it 'should not be emailed' do
+      expect(user).to_not be_should_be_emailed
+    end
+  end
+
+  context 'when unconfirmed and inactive' do
+    let(:user) { FactoryBot.build(:unconfirmed_user) }
+    before { allow(user).to receive(:active?).and_return(false) }
+
+    it 'should not be emailed' do
+      expect(user).to_not be_should_be_emailed
+    end
+  end
+
 end
 
 describe User, "when emails have bounced" do
@@ -591,6 +586,57 @@ describe User, "when calculating if a user has exceeded the request limit" do
 end
 
 describe User do
+
+  describe '.authenticate_from_form' do
+    let(:empty_user) { described_class.new }
+
+    let!(:full_user) do
+      FactoryBot.create(:user, name: 'Sensible User',
+                               password: 'foolishpassword',
+                               email: 'sensible@localhost')
+    end
+
+    let(:wrong_password_attrs) do
+      { email: 'sensible@localhost', password: 'iownzyou' }
+    end
+
+    let(:wrong_email_attrs) do
+      { email: 'soccer@localhost', password: 'foolishpassword' }
+    end
+
+    let(:correct_attrs) do
+      { email: 'sensible@localhost', password: 'foolishpassword' }
+    end
+
+    it 'has errors when given the wrong password' do
+      found_user = User.authenticate_from_form(wrong_password_attrs)
+      expect(found_user.errors.size).to be > 0
+    end
+
+    it 'does not find the user when given the wrong email' do
+      found_user = User.authenticate_from_form(wrong_email_attrs)
+      expect(found_user.errors.size).to be > 0
+    end
+
+    it 'does not find closed user accounts' do
+      full_user.update!(closed_at: Time.zone.now)
+      found_user = User.authenticate_from_form(correct_attrs)
+      expect(found_user.errors[:base]).to eq(['This account has been closed.'])
+    end
+
+    it 'does not reveal closed user accounts with an incorrect password' do
+      full_user.update!(closed_at: Time.zone.now)
+      found_user = User.authenticate_from_form(wrong_password_attrs)
+      expect(found_user.errors[:base].join).to match(/please try again/)
+    end
+
+    it 'returns the user with no errors when given the correct email and password' do
+      found_user = User.authenticate_from_form(correct_attrs)
+      expect(found_user.errors.size).to eq(0)
+      expect(found_user).to eq(full_user)
+    end
+
+  end
 
   describe '.stay_logged_in_on_redirect?' do
 
@@ -700,6 +746,16 @@ describe User do
         User::TransactionCalculator.
           new(user, :transaction_associations => [:comments, :info_requests])
       expect(user.transactions(:comments, :info_requests)).to eq(calculator)
+    end
+
+  end
+
+  describe '#password=' do
+
+    it 'creates a hashed password when the password is set' do
+      expect(subject.hashed_password).to be_nil
+      subject.password = "a test password"
+      expect(subject.hashed_password).not_to be_nil
     end
 
   end
@@ -1068,11 +1124,108 @@ describe User do
 
   end
 
+  describe '#close_and_anonymise' do
+    let(:user) { FactoryBot.create(:user, about_me: 'Hi') }
+
+    before do
+      allow(Digest::SHA1).to receive(:hexdigest).and_return('1234')
+      allow(MySociety::Util).to receive(:generate_token).and_return('ABCD')
+    end
+
+    it 'creates a censor rule for user name if the user has info requests' do
+      FactoryBot.create(:info_request, user: user)
+      user_name = user.name
+      user.close_and_anonymise
+      censor_rule = user.censor_rules.last
+      expect(censor_rule.text).to eq(user_name)
+      expect(censor_rule.replacement).to eq ('[Name Removed]')
+    end
+
+    it 'does not create a censor rule for user name if the user does not have info requests' do
+      user.close_and_anonymise
+      expect(user.censor_rules).to be_empty
+    end
+
+    it 'should anonymise user name' do
+      expect{ user.close_and_anonymise }.
+        to change(user, :name).to('[Name Removed] (Account suspended)')
+    end
+
+    it 'should anonymise user email' do
+      expect{ user.close_and_anonymise }.
+        to change(user, :email).to('1234@invalid')
+    end
+
+    it 'should anonymise user url_name' do
+      expect{ user.close_and_anonymise }.
+        to change(user, :url_name).to('1234')
+    end
+
+    it 'should anonymise user about_me' do
+      expect{ user.close_and_anonymise }.
+        to change(user, :about_me).to('')
+    end
+
+    it 'should anonymise user password' do
+      expect{ user.close_and_anonymise }.
+        to change(user, :password).to('ABCD')
+    end
+
+    it 'should set user to not receive email alerts' do
+      expect{ user.close_and_anonymise }.
+        to change(user, :receive_email_alerts?).to(false)
+    end
+
+    it 'should set user to be closed' do
+      expect{ user.close_and_anonymise }.
+        to change(user, :closed?).to(true)
+    end
+
+  end
+
+  describe '#closed?' do
+    let(:user) { FactoryBot.build(:user) }
+
+    it 'should be closed if closed_at present' do
+      user.closed_at = Time.zone.now
+      expect(user).to be_closed
+    end
+
+    it 'should not be closed if closed_at not present' do
+      user.closed_at = nil
+      expect(user).to_not be_closed
+    end
+
+  end
+
+  describe '.closed' do
+
+    it 'should not return users with closed_at timestamp' do
+      active_user = FactoryBot.create(:user)
+      user = FactoryBot.create(:user, closed_at: Time.zone.now)
+      expect(User.closed).to_not include(active_user)
+      expect(User.closed).to include(user)
+    end
+
+  end
+
+  describe '.not_closed' do
+
+    it 'should return users with closed_at timestamp' do
+      active_user = FactoryBot.create(:user)
+      user = FactoryBot.create(:user, closed_at: Time.zone.now)
+      expect(User.not_closed).to include(active_user)
+      expect(User.not_closed).to_not include(user)
+    end
+
+  end
+
   describe '#active?' do
     let(:user) { FactoryBot.build(:user) }
 
-    it 'should be active if not banned' do
+    it 'should be active if not banned and not closed' do
       allow(user).to receive(:banned?).and_return(false)
+      allow(user).to receive(:closed?).and_return(false)
       expect(user).to be_active
     end
 
@@ -1081,13 +1234,19 @@ describe User do
       expect(user).to_not be_active
     end
 
+    it 'should not be active if closed' do
+      allow(user).to receive(:closed?).and_return(true)
+      expect(user).to_not be_active
+    end
+
   end
 
   describe '#suspended?' do
     let(:user) { FactoryBot.build(:user) }
 
-    it 'should not be suspended if not banned' do
+    it 'should not be suspended if not banned and not closed' do
       allow(user).to receive(:banned?).and_return(false)
+      allow(user).to receive(:closed?).and_return(false)
       expect(user).to_not be_suspended
     end
 
@@ -1096,12 +1255,26 @@ describe User do
       expect(user).to be_suspended
     end
 
+    it 'should be suspended if closed' do
+      allow(user).to receive(:closed?).and_return(true)
+      expect(user).to be_suspended
+    end
+
   end
 
   describe '.active' do
 
     it 'should not return banned users' do
-      user = FactoryBot.create(:user, :ban_text => 'banned')
+      active_user = FactoryBot.create(:user)
+      user = FactoryBot.create(:user, ban_text: 'banned')
+      expect(User.active).to include(active_user)
+      expect(User.active).to_not include(user)
+    end
+
+    it 'should not return closed users' do
+      active_user = FactoryBot.create(:user)
+      user = FactoryBot.create(:user, closed_at: Time.zone.now)
+      expect(User.active).to include(active_user)
       expect(User.active).to_not include(user)
     end
 
@@ -1110,7 +1283,9 @@ describe User do
   describe '.banned' do
 
     it 'should return banned users' do
-      user = FactoryBot.create(:user, :ban_text => 'banned')
+      active_user = FactoryBot.create(:user)
+      user = FactoryBot.create(:user, ban_text: 'banned')
+      expect(User.banned).to_not include(active_user)
       expect(User.banned).to include(user)
     end
 
@@ -1119,7 +1294,9 @@ describe User do
   describe '.not_banned' do
 
     it 'should not return banned users' do
-      user = FactoryBot.create(:user, :ban_text => 'banned')
+      active_user = FactoryBot.create(:user)
+      user = FactoryBot.create(:user, ban_text: 'banned')
+      expect(User.not_banned).to include(active_user)
       expect(User.not_banned).not_to include(user)
     end
 

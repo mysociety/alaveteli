@@ -7,7 +7,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class TrackController < ApplicationController
-  before_filter :medium_cache
+  before_action :medium_cache
 
   # Track all updates to a particular request
   def track_request
@@ -209,7 +209,14 @@ class TrackController < ApplicationController
       flash[:notice] = view_context.unsubscribe_notice(track_thing)
       redirect_to SafeRedirect.new(params[:r]).path
     else
-      raise "new medium not handled " + new_medium
+      msg =
+        if new_medium
+          "Given track_medium not handled: #{ new_medium }"
+        else
+          'No track_medium supplied'
+        end
+
+      raise msg
     end
   end
 

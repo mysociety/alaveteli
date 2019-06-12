@@ -233,6 +233,18 @@ module LinkToHelper
     if !options.nil?
       routing_info = options.merge(routing_info)
     end
+
+    if rails5?
+      if routing_info.kind_of?(Hash)
+        routing_info = ActionController::Parameters.new(routing_info)
+      end
+
+      allowed_keys =
+        %w[query latest_status view combined only_path controller action page]
+      unpermitted = routing_info.keys - allowed_keys
+      routing_info = routing_info.reject { |k| unpermitted.include?(k) }.permit!
+    end
+
     url = url_for(routing_info)
     # Here we can't escape the slashes, as RFC 2396 doesn't allow slashes
     # within a path component. Rails is assuming when generating URLs that
@@ -258,15 +270,27 @@ module LinkToHelper
 
   # About page URLs
   def about_url(options = {})
-    help_general_url(options.merge(:action => 'about'))
+    help_general_url(options.merge(template: 'about'))
   end
 
   def unhappy_url(info_request = nil, options = {})
     if info_request.nil?
-      return help_general_url(options.merge(:action => 'unhappy'))
+      return help_general_url(options.merge(template: 'unhappy'))
     else
-      return help_unhappy_url(options.merge(:url_title => info_request.url_title))
+      return help_unhappy_url(options.merge(url_title: info_request.url_title))
     end
+  end
+
+  def current_path_with_locale(locale)
+    unsafe_keys = %w[protocol host]
+    sanitized_params = params.reject { |k| unsafe_keys.include?(k) }.permit!
+    url_for(sanitized_params.merge(locale: locale, only_path: true))
+  end
+
+  def current_path_as_json
+    unsafe_keys = %w[protocol host]
+    sanitized_params = params.reject { |k| unsafe_keys.include?(k) }.permit!
+    url_for(sanitized_params.merge(format: :json, only_path: true))
   end
 
   private

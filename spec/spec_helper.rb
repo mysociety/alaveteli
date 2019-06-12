@@ -2,6 +2,7 @@
 require 'rubygems'
 require 'simplecov'
 require 'coveralls'
+require 'webmock/rspec'
 require "alaveteli_features/spec_helpers"
 
 cov_formats = [Coveralls::SimpleCov::Formatter]
@@ -83,10 +84,13 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = true
-  # https://github.com/grosser/test_after_commit allows us to test
-  # after_commit hooks properly, but we only want to use it where we know it's
-  # necessary.
-  TestAfterCommit.enabled = false
+
+  unless rails5?
+    # https://github.com/grosser/test_after_commit allows us to test
+    # after_commit hooks properly, but we only want to use it where we know it's
+    # necessary.
+    TestAfterCommit.enabled = false
+  end
 
   # If true, the base class of anonymous controllers will be inferred
   # automatically. This will be the default behavior in future versions of
@@ -178,6 +182,8 @@ RSpec.configure do |config|
     AlaveteliRateLimiter::IPRateLimiter.new(:signup).backend.destroy
   end
 end
+
+include Mail::Matchers
 
 # Helper with_xxx methods for working with feature flags
 include AlaveteliFeatures::SpecHelpers

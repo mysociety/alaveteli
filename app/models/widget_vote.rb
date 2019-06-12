@@ -10,7 +10,7 @@
 #  updated_at      :datetime         not null
 #
 
-class WidgetVote < ActiveRecord::Base
+class WidgetVote < ApplicationRecord
   belongs_to :info_request,
              :inverse_of => :widget_votes
 

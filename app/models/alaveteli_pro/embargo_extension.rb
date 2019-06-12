@@ -11,7 +11,7 @@
 #
 
 module AlaveteliPro
-  class EmbargoExtension < ActiveRecord::Base
+  class EmbargoExtension < ApplicationRecord
     belongs_to :embargo,
                :inverse_of => :embargo_extensions
     validates_presence_of :embargo

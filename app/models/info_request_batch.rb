@@ -13,7 +13,7 @@
 #  embargo_duration :string
 #
 
-class InfoRequestBatch < ActiveRecord::Base
+class InfoRequestBatch < ApplicationRecord
   include AlaveteliPro::RequestSummaries
   include AlaveteliFeatures::Helpers
 
@@ -121,6 +121,13 @@ class InfoRequestBatch < ActiveRecord::Base
       mail_message.message_id)
   end
 
+  # Do we consider the InfoRequestBatch to be sent to all authorities?
+  #
+  # Returns a Boolean
+  def sent?
+    sent_at.present?
+  end
+
   # Build an InfoRequest object which is an example of this batch.
   def example_request
     public_body = self.public_bodies.first
@@ -147,11 +154,18 @@ class InfoRequestBatch < ActiveRecord::Base
     info_requests.embargo_expiring.any?
   end
 
+  # Can the Embargo be safely changed?
+  #
+  # Returns a Boolean
+  def can_change_embargo?
+    sent?
+  end
+
   # What phases are the requests in this batch in
   #
   # Returns unique array of symbols representing phases from InfoRequest::State
   def request_phases
-    phases = info_requests(true).collect do |ir|
+    phases = info_requests.reload.map do |ir|
       if ir.last_event_forming_initial_request_id.nil?
         :awaiting_response
       else
@@ -220,7 +234,7 @@ class InfoRequestBatch < ActiveRecord::Base
   #
   # Returns an array of PublicBody objects
   def sent_public_bodies
-    info_requests.map(&:public_body)
+    PublicBody.where(id: info_requests.map(&:public_body_id))
   end
 
   # Return a list of public bodies which we can send the request to

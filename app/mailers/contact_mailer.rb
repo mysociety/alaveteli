@@ -45,45 +45,4 @@ class ContactMailer < ApplicationMailer
          :bcc => AlaveteliConfiguration::contact_email,
          :subject => subject)
   end
-
-  # Send a request to the administrator to add an authority
-  def add_public_body(change_request)
-    @change_request = change_request
-
-    reply_to_address = MailHandler.address_from_name_and_email(
-      @change_request.get_user_name,
-      @change_request.get_user_email)
-    set_reply_to_headers(nil, 'Reply-To' => reply_to_address)
-
-    # From is an address we control so that strict DMARC senders don't get refused
-    mail(:from => MailHandler.address_from_name_and_email(
-                    @change_request.get_user_name,
-                    blackhole_email
-                  ),
-         :to => contact_from_name_and_email,
-         :subject => _('Add authority - {{public_body_name}}',
-                       :public_body_name => @change_request.
-                                              get_public_body_name.html_safe))
-  end
-
-  # Send a request to the administrator to update an authority email address
-  def update_public_body_email(change_request)
-    @change_request = change_request
-
-    reply_to_address = MailHandler.address_from_name_and_email(
-      @change_request.get_user_name,
-      @change_request.get_user_email)
-    set_reply_to_headers(nil, 'Reply-To' => reply_to_address)
-
-    # From is an address we control so that strict DMARC senders don't get refused
-    mail(:from => MailHandler.address_from_name_and_email(
-                    @change_request.get_user_name,
-                    blackhole_email
-                  ),
-         :to => contact_from_name_and_email,
-         :subject => _('Update email address - {{public_body_name}}',
-                       :public_body_name => @change_request.
-                                              get_public_body_name.html_safe))
-  end
-
 end

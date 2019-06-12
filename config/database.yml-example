@@ -6,6 +6,7 @@ default: &default
   template: template_utf8
   host: localhost
   port: 5432
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default

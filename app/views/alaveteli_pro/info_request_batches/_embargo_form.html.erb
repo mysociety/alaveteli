@@ -45,7 +45,7 @@
       <% end %>
     <% end %>
 
-    <% if info_request_batch.all_requests_created? %>
+    <% if info_request_batch.can_change_embargo? %>
       <%= button_to _("Publish requests"),
                     destroy_batch_alaveteli_pro_embargoes_path(
                       info_request_batch_id: info_request_batch.id),

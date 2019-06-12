@@ -79,7 +79,11 @@
 # the new version. It is always preferable to upgrade our code.
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.11.1'
+def rails5?
+  %w[1 true].include?(ENV['RAILS5'])
+end
+
+gem 'rails', rails5? ? '5.0.7' : '4.2.11.1'
 
 gem 'pg', '~> 0.20.0'
 
@@ -91,28 +95,28 @@ gem 'cancancan', '~> 1.17.0', '< 2.0.0'
 gem 'charlock_holmes', '~> 0.7.0'
 gem 'dalli', '~> 2.7.0'
 gem 'dynamic_form', '~> 1.1.0'
-gem 'exception_notification', '~> 4.1.0', '< 4.1.2'
+gem 'exception_notification', ['~> 4.1.0', '< 4.1.2']
 gem 'fancybox-rails', '~> 0.3.0'
 gem 'geoip', '~> 1.6.4'
 gem 'gnuplot', '~> 2.6.0'
 gem 'htmlentities', '~> 4.3.0'
 gem 'icalendar', '~> 2.4.0'
-gem 'jquery-rails', '~> 3.1.0', '< 4.0.0'
+gem 'jquery-rails', '~> 4.3.3'
 gem 'jquery-ui-rails', '~> 6.0.0'
-gem 'json', '~> 1.8.0', '< 2.0.0'
+gem 'json', ['~> 1.8.0', '< 2.0.0']
 gem 'holidays', '~> 4.7.0', '< 5.0.0'
 gem 'iso_country_codes', '~> 0.7.8'
+gem 'mail', '~> 2.6.6'
 gem 'mahoro', '~> 0.4'
 gem 'newrelic_rpm'
-gem 'nokogiri', '~> 1.6.0', '< 1.7'
+gem 'nokogiri', rails5? ? '~> 1.8.5' : ['~> 1.6.0', '< 1.7']
 gem 'open4', '~> 1.3.0'
-gem 'rack', '~> 1.6.0'
+gem 'rack', rails5? ? '~> 2.0.0' : '~> 1.6.0'
 gem 'rack-ssl', '~> 1.4.0'
 gem 'rack-utf8_sanitizer', '~> 1.3.0'
-gem 'rails-i18n', '~> 4.0.0', '< 5.0.0'
 gem 'recaptcha', '~> 4.9.0', '< 4.10.0', :require => 'recaptcha/rails'
 gem 'rmagick', '~> 2.16.0'
-gem 'rolify', '~> 5.1.0'
+gem 'rolify', '~> 5.2.0'
 gem 'ruby-msg', '~> 1.5.0', :git => 'https://github.com/mysociety/ruby-msg.git', :branch => 'ascii-encoding'
 gem 'rubyzip', '~> 1.2.2'
 gem 'secure_headers', '~> 3.6.0'
@@ -130,16 +134,17 @@ gem 'xml-simple', '~> 1.1.0', :require => 'xmlsimple'
 gem 'gender_detector', '~> 1.0.0'
 
 # Gems related to internationalisation
-gem 'i18n', '~> 0.9.0', '< 0.9.3'
-gem 'gettext_i18n_rails', '~> 0.9.0', '< 1.0.0'
+gem 'i18n', ['~> 0.9.0', '< 0.9.3']
+gem 'rails-i18n', rails5? ? '~> 5.1.0' : ['~> 4.0.0', '< 5.0.0']
+gem 'gettext_i18n_rails', rails5? ? '~> 1.8.0' : ['~> 0.9.0', '< 1.0.0']
   gem 'fast_gettext', '< 1.2.0'
 gem 'gettext', '~> 2.3.0'
-gem 'globalize', '~> 5.0.0', '< 5.1.0'
+gem 'globalize', rails5? ? '~> 5.1.0' : ['~> 5.0.0', '< 5.1.0']
 gem 'locale', '~> 2.0.0', '< 2.1.0'
 gem 'routing-filter', '~> 0.6.2'
 gem 'unicode', '~> 0.4.4'
 gem 'unidecoder', '~> 1.1.0'
-gem 'money', '~> 6.12.0'
+gem 'money', '~> 6.13.2'
 
 # mime-types 3.0.0 requires Ruby 2.0.0, and _something_ is trying to update it
 gem 'mime-types', '< 3.0.0', require: false
@@ -157,12 +162,13 @@ gem 'alaveteli_features', :path => 'gems/alaveteli_features'
 gem 'flipper-ui', '~> 0.10.2'
 
 group :test do
-  gem 'fakeweb', '~> 1.3.0'
+  gem 'webmock', '~> 3.5.1'
   gem 'coveralls', '~> 0.8.0', :require => false
-  gem 'capybara', '~> 2.18.0'
+  gem 'capybara', rails5? ? '~> 3.5.0' : '~> 2.18.0'
   gem 'delorean', '~> 2.1.0'
   gem 'stripe-ruby-mock', '~> 2.5.4'
-  gem 'test_after_commit', '~> 1.1.0'
+  gem('test_after_commit', '~> 1.1.0') unless rails5?
+  gem('rails-controller-testing') if rails5?
 end
 
 group :test, :development do
@@ -171,7 +177,7 @@ group :test, :development do
   gem 'oink', '~> 0.10.1'
   gem 'rspec-activemodel-mocks', '~> 1.1.0'
   gem 'rspec-rails', '~> 3.7.2'
-  gem 'pry', '~> 0.11.3'
+  gem 'pry', '~> 0.12.2'
   gem 'pry-byebug', '~> 3.4.0'
     gem 'public_suffix', '~> 2.0.0', '< 3.0.0'
 end
@@ -179,9 +185,15 @@ end
 group :development do
   gem 'annotate', '~> 2.7.0'
   gem 'capistrano', '~> 2.15.0', '< 3.0.0'
-    gem 'net-ssh', '~> 2.9.0', '< 3.0.0'
-  gem 'mailcatcher', '~> 0.6.0'
-  gem 'quiet_assets', '~> 1.1.0'
+    gem 'net-ssh', ['~> 2.9.0', '< 3.0.0']
+      gem 'net-ssh-gateway', ['>= 1.1.0', '< 2.0.0']
+    gem('mailcatcher', '~> 0.6.0') unless rails5? # https://github.com/sj26/mailcatcher#bundler
+  gem('quiet_assets', '~> 1.1.0') unless rails5?
   gem 'launchy', '~> 2.4.0'
-  gem 'web-console', '~> 2.3.0', '< 3.0.0'
+  gem 'listen', '~> 3.0.5' if rails5?
+  gem 'web-console', rails5? ? '>= 3.3.0' : ['~> 2.3.0', '< 3.0.0']
+
+  install_if -> { RUBY_VERSION >= '2.2.0' } do
+    gem 'rubocop', '~> 0.63.1'
+  end
 end

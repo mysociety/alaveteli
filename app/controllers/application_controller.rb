@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   class RouteNotFound < StandardError
   end
   protect_from_forgery :if => :user?, :with => :exception
-  skip_before_filter :verify_authenticity_token, :unless => :user?
+  skip_before_action :verify_authenticity_token, :unless => :user?
 
   # Deal with access denied errors from CanCan
   rescue_from CanCan::AccessDenied do |exception|
@@ -31,14 +31,14 @@ class ApplicationController < ActionController::Base
   include AlaveteliPro::PostRedirectHandler
 
   # Note: a filter stops the chain if it redirects or renders something
-  before_filter :authentication_check
-  before_filter :set_gettext_locale
-  before_filter :check_in_post_redirect
-  before_filter :session_remember_me
-  before_filter :set_vary_header
-  before_filter :validate_session_timestamp
-  before_filter :collect_locales
-  after_filter  :persist_session_timestamp
+  before_action :authentication_check
+  before_action :set_gettext_locale
+  before_action :check_in_post_redirect
+  before_action :session_remember_me
+  before_action :set_vary_header
+  before_action :validate_session_timestamp
+  before_action :collect_locales
+  after_action  :persist_session_timestamp
 
   def set_vary_header
     response.headers['Vary'] = 'Cookie'
@@ -105,7 +105,7 @@ class ApplicationController < ActionController::Base
   #
   # To find things that are using causing LOTS of peak memory, then do something like:
   # egrep "CONSUME MEMORY: [0-9]{7} KB" production.log
-  around_filter :record_memory
+  around_action :record_memory
   def record_memory
     record_memory = AlaveteliConfiguration::debug_record_memory
     if record_memory
@@ -190,7 +190,7 @@ class ApplicationController < ActionController::Base
     end
     respond_to do |format|
       format.html{ render :template => "general/exception_caught", :status => @status }
-      format.any{ render :nothing => true, :status => @status }
+      format.any{ head @status }
     end
   end
 
@@ -200,7 +200,7 @@ class ApplicationController < ActionController::Base
 
     respond_to do |format|
       format.html { render(options) }
-      format.any { render :nothing => true, :status => response_code }
+      format.any { head response_code }
     end
     false
   end
@@ -209,6 +209,11 @@ class ApplicationController < ActionController::Base
   # URL using the first three digits of the info request id, because we can't
   # have more than 32,000 entries in one directory on an ext3 filesystem.
   def foi_fragment_cache_part_path(param)
+    if rails5?
+      param =
+        param.permit(:incoming_message_id, :part, :file_name, :id,
+                     :only_path, :locale, :skip_cache)
+    end
     path = url_for(param)
     id = param['id'] || param[:id]
     first_three_digits = id.to_s[0..2]
@@ -239,12 +244,13 @@ class ApplicationController < ActionController::Base
     File.atomic_write(key_path) do |f|
       f.write(content)
     end
+    FileUtils.chmod 0644, key_path
   end
 
   # A helper method to set @in_pro_area, for controller actions which are
   # used in both a pro and non-pro context and depend on the :pro parameter
   # to know which one they're displaying.
-  # Intended to be used as a before_filter, see RequestController for example
+  # Intended to be used as a before_action, see RequestController for example
   # usage.
   def set_in_pro_area
     @in_pro_area = params[:pro] == "1" && current_user.present? && current_user.is_pro?
@@ -256,9 +262,15 @@ class ApplicationController < ActionController::Base
     !session[:user_id].nil?
   end
 
-  def form_authenticity_token
+  # Override the Rails method to only set the CSRF form token if there is a
+  # logged in user
+  def form_authenticity_token(*args)
     if user?
-      session[:_csrf_token] ||= SecureRandom.base64(32)
+      if rails5?
+        super
+      else
+        super()
+      end
     end
   end
 
@@ -365,7 +377,13 @@ class ApplicationController < ActionController::Base
         post_redirect =
           PostRedirect.find_by_token(session[:post_redirect_token])
         if post_redirect
-          params.update(post_redirect.post_params)
+          post_redirect_params =
+            params_to_unsafe_hash(post_redirect.post_params)
+          if rails5?
+            params.merge!(post_redirect_params)
+          else
+            params.update(post_redirect_params)
+          end
           params[:post_redirect_user] = post_redirect.user
         end
       else
@@ -524,4 +542,6 @@ class ApplicationController < ActionController::Base
 
   # Site-wide access to configuration settings
   include ConfigHelper
+
+  include HashableParams
 end

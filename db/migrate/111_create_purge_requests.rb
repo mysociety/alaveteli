@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class CreatePurgeRequests < ActiveRecord::Migration
+class CreatePurgeRequests < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 2.3
   def self.up
     create_table :purge_requests do |t|
       t.column :url, :string

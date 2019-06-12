@@ -1,4 +1,6 @@
 # -*- encoding : utf-8 -*-
-# Set the cookie serializer to :hybrid to migrate the old format Marshalled
-# cookies to the new, more secure, JSON format
+# Be sure to restart your server when you modify this file.
+
+# Specify a serializer for the signed and encrypted cookie jars.
+# Valid options are :json, :marshal, and :hybrid.
 Rails.application.config.action_dispatch.cookies_serializer = :hybrid

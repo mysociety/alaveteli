@@ -2,6 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/mysociety/alaveteli.png)](http://travis-ci.org/mysociety/alaveteli) [![Coverage Status](https://coveralls.io/repos/mysociety/alaveteli/badge.png?branch=develop)](https://coveralls.io/r/mysociety/alaveteli) [![Code Climate](https://codeclimate.com/github/mysociety/alaveteli.png)](https://codeclimate.com/github/mysociety/alaveteli)
 [![Installability: Gold](http://img.shields.io/badge/installability-gold-ffd700.svg "Installability: Gold")](http://mysociety.github.io/installation-standards.html)
+[![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 
 This is an open source project to create a standard, internationalised
 platform for making Freedom of Information (FOI) requests in different
@@ -37,6 +38,8 @@ Every Alaveteli commit is tested by Travis on the [following Ruby platforms](htt
 * ruby-2.0.0
 * ruby-2.1.5
 * ruby-2.3.0
+* ruby-2.4.0
+* ruby-2.5.0
 
 
 If you use a ruby version management tool (such as RVM or .rbenv) and want to use the default development version used by the alaveteli team (currently 2.0.0), you can create a `.ruby-version` symlink with a target of `.ruby-version.example` to switch to that automatically in the project directory.

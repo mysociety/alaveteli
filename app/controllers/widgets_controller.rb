@@ -7,7 +7,7 @@
 
 class WidgetsController < ApplicationController
 
-  before_filter :check_widget_config, :find_info_request, :check_prominence
+  before_action :check_widget_config, :find_info_request, :check_prominence
 
   def show
     use_secure_headers_override(:allow_frames)
@@ -51,7 +51,7 @@ class WidgetsController < ApplicationController
 
   def check_prominence
     unless @info_request.prominence(:decorate => true).is_searchable?
-      render :nothing => true, :status => :forbidden
+      head :forbidden
     end
   end
 

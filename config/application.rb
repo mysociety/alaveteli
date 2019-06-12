@@ -1,13 +1,27 @@
 # -*- encoding : utf-8 -*-
-require File.expand_path('../boot', __FILE__)
+require_relative 'boot'
 
-require 'rails/all'
+require 'rails'
+# Pick the frameworks you want:
+require 'active_model/railtie'
+# require 'active_job/railtie'
+require 'active_record/railtie'
+require 'action_controller/railtie'
+require 'action_mailer/railtie'
+require 'action_view/railtie'
+# require 'action_cable/engine'
+require 'sprockets/railtie'
+# require 'rails/test_unit/railtie'
 
 require File.dirname(__FILE__) + '/../lib/configuration'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
+
+def rails5?
+  %w[1 true].include?(ENV['RAILS5'])
+end
 
 module Alaveteli
   class Application < Rails::Application
@@ -60,14 +74,20 @@ module Alaveteli
       app.routes.append { match '*path', :to => 'general#not_found', :via => [:get, :post] }
     end
 
-    # Do not swallow errors in after_commit/after_rollback callbacks.
-    config.active_record.raise_in_transactional_callbacks = true
+    unless rails5?
+      # Do not swallow errors in after_commit/after_rollback callbacks.
+      config.active_record.raise_in_transactional_callbacks = true
+    end
 
     config.autoload_paths << "#{Rails.root.to_s}/app/controllers/concerns"
     config.autoload_paths << "#{Rails.root.to_s}/app/models/concerns"
     config.autoload_paths << "#{Rails.root.to_s}/lib/mail_handler"
     config.autoload_paths << "#{Rails.root.to_s}/lib/attachment_to_html"
     config.autoload_paths << "#{Rails.root.to_s}/lib/health_checks"
+
+    if rails5?
+      config.enable_dependency_loading = true
+    end
 
     # See Rails::Configuration for more options
     ENV['RECAPTCHA_SITE_KEY'] = AlaveteliConfiguration.recaptcha_site_key

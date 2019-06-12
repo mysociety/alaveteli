@@ -31,18 +31,21 @@
 #  last_event_forming_initial_request_id :integer
 #  use_notifications                     :boolean
 #  last_event_time                       :datetime
+#  incoming_messages_count               :integer          default(0)
 #
 
 require 'digest/sha1'
 require 'fileutils'
 
-class InfoRequest < ActiveRecord::Base
+class InfoRequest < ApplicationRecord
+  Guess = Struct.new(:info_request, :matched_value, :match_method).freeze
   OLD_AGE_IN_DAYS = 21.days
 
   include AdminColumn
   include Rails.application.routes.url_helpers
   include AlaveteliPro::RequestSummaries
   include AlaveteliFeatures::Helpers
+  include InfoRequest::Sluggable
 
   @non_admin_columns = %w(title url_title)
   @additional_admin_columns = %w(rejected_incoming_count)
@@ -52,9 +55,12 @@ class InfoRequest < ActiveRecord::Base
                    :replace_newlines => true, :collapse_spaces => true
 
   validates_presence_of :title, :message => N_("Please enter a summary of your request")
-  validates_format_of :title, :with => /[[:alpha:]]/,
-    :message => N_("Please write a summary with some text in it"),
-    :unless => Proc.new { |info_request| info_request.title.blank? }
+
+  validates_format_of :title,
+    with: /\A.*[[:alpha:]]+.*\z/,
+    message: N_('Please write a summary with some text in it'),
+    unless: proc { |info_request| info_request.title.blank? }
+
   validates :title, :length => {
     :maximum => 200,
     :message => _('Please keep the summary short, like in the subject of an ' \
@@ -181,10 +187,6 @@ class InfoRequest < ActiveRecord::Base
   after_destroy :update_counter_cache
   after_update :reindex_some_request_events
   before_destroy :expire
-  # make sure the url_title is unique but don't update
-  # existing requests unless the title is being changed
-  before_save :update_url_title,
-    :if => Proc.new { |request| request.title_changed? }
   before_validation :compute_idhash
   before_create :set_use_notifications
 
@@ -229,17 +231,91 @@ class InfoRequest < ActiveRecord::Base
     @@custom_states_loaded
   end
 
-  # Return list of info requests which *might* be right given email address
-  # e.g. For the id-hash email addresses, don't match the hash.
-  def self.guess_by_incoming_email(incoming_message)
-    guesses = []
-    # 1. Try to guess based on the email address(es)
-    incoming_message.addresses.each do |address|
-      id, hash = InfoRequest._extract_id_hash_from_email(address)
-      guesses.push(InfoRequest.find_by_id(id))
-      guesses.push(InfoRequest.find_by_idhash(hash))
+  # Public: Attempt to find InfoRequests by matching against extracted `id` and
+  # `idhash` elements of an `incoming_email`.
+  #
+  # emails - A String email address or an Array of String email addresses.
+  #
+  # Returns an Array
+  def self.guess_by_incoming_email(*emails)
+    guesses = emails.flatten.reduce([]) do |memo, email|
+      id, idhash = _extract_id_hash_from_email(email)
+      if idhash.nil? || id.nil?
+        id, idhash = _guess_idhash_from_email(email)
+      end
+      memo << Guess.new(find_by_id(id), email, :id)
+      memo << Guess.new(find_by_idhash(idhash), email, :idhash)
     end
-    guesses.compact.uniq
+
+    # Unique Guesses where we've found an `InfoRequest`
+    guesses.select(&:info_request).uniq(&:info_request)
+  end
+
+  # Internal function used by guess_by_incoming_email
+  def self._guess_idhash_from_email(incoming_email)
+    incoming_email = incoming_email.downcase
+    incoming_email =~ /request\-?(\w+)-?(\w{8})@/
+
+    id = _id_string_to_i(_clean_idhash($1))
+    id_hash = $2
+
+    if id_hash.nil? && incoming_email.include?('@')
+      # try to grab the last 8 chars of the local part of the address instead
+      local_part = incoming_email[0..incoming_email.index('@')-1]
+      id_hash =
+        if local_part.length >= 8
+          _clean_idhash(local_part[-8..-1])
+        end
+    end
+
+    [id, id_hash]
+  end
+
+  # Internal function - attempts to convert a guessed id String from incoming
+  # email addresses to an Integer. Returns nil if it fails to avoid accidentally
+  # stripping trailing letters e.g. '123ab' should not match 123
+  #
+  # Returns an Integer
+  def self._id_string_to_i(id_string)
+    Integer(id_string) if id_string
+  rescue ArgumentError
+    nil
+  end
+
+  # Internal function used to clean the id_hash from incoming email addresses.
+  # Converts l to 1, and o to 0. FOI officers quite often retype the email
+  # address and make this kind of error.
+  def self._clean_idhash(hash)
+    return unless hash
+    hash.gsub(/l/, "1").gsub(/o/, "0")
+  end
+
+  # Public: Attempt to find InfoRequests by matching against extracted `subject`
+  # element of an `incoming_email`.
+  #
+  # subject_line - A String an email subject line
+  # Returns an Array
+  def self.guess_by_incoming_subject(subject_line)
+    return [] unless subject_line
+
+    # try to find a match on InfoRequest#title
+    reply_format = InfoRequest.new(title: '').email_subject_followup
+    requests = where(title: subject_line.gsub(/#{reply_format}/i, '').strip)
+
+    # try to find a match on IncomingMessage#subject
+    requests +=
+      IncomingMessage.
+        includes(:info_request).
+          where(subject: [subject_line.gsub(/^Re: /i, ''), subject_line]).
+            map(&:info_request).uniq
+
+    requests.delete_if(&:holding_pen_request?)
+    guesses = requests.each.reduce([]) do |memo, request|
+      memo << Guess.new(request, subject_line, :subject)
+    end
+
+    # Unique Guesses where we've found an `InfoRequest`
+    guesses.select(&:info_request).uniq(&:info_request)
   end
 
   # Internal function used by find_by_magic_email and guess_by_incoming_email
@@ -251,15 +327,9 @@ class InfoRequest < ActiveRecord::Base
     # (that was abandoned because councils would send hand written responses to them, not just
     # bounce messages)
     incoming_email =~ /request-(?:bounce-)?([a-z0-9]+)-([a-z0-9]+)/
-    id = $1.to_i
-    hash = $2
 
-    if hash
-      # Convert l to 1, and o to 0. FOI officers quite often retype the
-      # email address and make this kind of error.
-      hash.gsub!(/l/, "1")
-      hash.gsub!(/o/, "0")
-    end
+    id = _id_string_to_i($1)
+    hash = _clean_idhash($2)
 
     [id, hash]
   end
@@ -327,7 +397,7 @@ class InfoRequest < ActiveRecord::Base
       'partially_successful'          => _("Partially successful."),
       'successful'                    => _("Successful."),
       'waiting_clarification'         => _("Waiting clarification."),
-      'gone_postal'                   => _("Handled by post."),
+      'gone_postal'                   => _("Handled by postal mail."),
       'internal_review'               => _("Awaiting internal review."),
       'error_message'                 => _("Delivery error"),
       'requires_admin'                => _("Unusual response."),
@@ -692,7 +762,7 @@ class InfoRequest < ActiveRecord::Base
     require 'customstates'
     include InfoRequestCustomStates
     @@custom_states_loaded = true
-  rescue MissingSourceFile, NameError
+  rescue LoadError, NameError
   end
 
   # If the URL name has changed, then all request: queries will break unless
@@ -738,44 +808,6 @@ class InfoRequest < ActiveRecord::Base
     for incoming_message in incoming_messages
       incoming_message.clear_in_database_caches!
     end
-  end
-
-  # When name is changed, also change the url name
-  def title=(title)
-    write_attribute(:title, title)
-    update_url_title
-  end
-
-  # Public: url_title attribute reader
-  #
-  # opts - Hash of options (default: {})
-  #        :collapse - Set true to strip the numeric section. Use this to group
-  #                    lots of similar requests by url_title.
-  #
-  # Returns a String
-  def url_title(opts = {})
-    _url_title = super()
-    return _url_title.gsub(/[_0-9]+$/, "") if opts[:collapse]
-    _url_title
-  end
-
-  def update_url_title
-    return unless title
-    url_title = MySociety::Format.simplify_url_part(title, 'request', 32)
-    # For request with same title as others, add on arbitary numeric identifier
-    unique_url_title = url_title
-    suffix_num = 2 # as there's already one without numeric suffix
-    conditions = id ? ["id <> ?", id] : []
-
-    while InfoRequest.
-      where(:url_title => unique_url_title).
-        where(conditions).
-          any? do
-      unique_url_title = "#{url_title}_#{suffix_num}"
-      suffix_num = suffix_num + 1
-    end
-
-    write_attribute(:url_title, unique_url_title)
   end
 
   def update_last_public_response_at
@@ -900,6 +932,12 @@ class InfoRequest < ActiveRecord::Base
     end
   end
 
+  # Called when outgoing_messages are sent to ensure that the request
+  # is not closed during an active discussion or an internal review
+  def reopen_to_new_responses
+    update(allow_new_responses_from: 'anybody', reject_incoming_at_mta: false)
+  end
+
   # An annotation (comment) is made
   def add_comment(body, user)
     comment = Comment.new
@@ -922,6 +960,14 @@ class InfoRequest < ActiveRecord::Base
   # Report this request for administrator attention
   def report!(reason, message, user)
     ActiveRecord::Base.transaction do
+      log_event('report_request',
+                request_id: id,
+                editor: user,
+                reason: reason,
+                message: message,
+                old_attention_requested: attention_requested,
+                attention_requested: true)
+
       set_described_state('attention_requested', user, "Reason: #{reason}\n\n#{message}")
       self.attention_requested = true # tells us if attention has ever been requested
       save!
@@ -1235,17 +1281,6 @@ class InfoRequest < ActiveRecord::Base
     first_message.is_public? ? first_message.get_text_for_indexing(true, body_opts) : ''
   end
 
-  # Returns index of last event which is described or nil if none described.
-  def index_of_last_described_event
-    events = info_request_events
-    events.each_index do |i|
-      revi = events.size - 1 - i
-      m = events[revi]
-      return revi if m.described_state
-    end
-    nil
-  end
-
   def last_event_id_needing_description
     last_event = events_needing_description[-1]
     last_event.nil? ? 0 : last_event.id
@@ -1267,13 +1302,6 @@ class InfoRequest < ActiveRecord::Base
   # Returns an InfoRequestEvent or nil
   def last_event
     info_request_events.last
-  end
-
-  # Deprecated: Returns last event
-  def get_last_event
-    warn %q([DEPRECATION] InfoRequest#get_last_event will be removed in 0.33.
-            It has been replaced by InfoRequest#last_event).squish
-    last_event
   end
 
   def last_update_hash
@@ -1404,6 +1432,11 @@ class InfoRequest < ActiveRecord::Base
   def who_can_followup_to(skip_message = nil)
     ret = []
     done = {}
+    if skip_message
+      if email = OutgoingMailer.email_for_followup(self, skip_message)
+        done[email.downcase] = 1
+      end
+    end
     for incoming_message in incoming_messages.reverse
       if incoming_message == skip_message
         next
@@ -1688,6 +1721,11 @@ class InfoRequest < ActiveRecord::Base
     categories
   end
 
+  def holding_pen_request?
+    return true if url_title == 'holding_pen'
+    self == self.class.holding_pen_request
+  end
+
   private
 
   def self.add_conditions_from_extra_params(params, extra_params)
@@ -1789,6 +1827,17 @@ class InfoRequest < ActiveRecord::Base
     reindex_request_events
 
     incoming_message
+  end
+
+  # Returns index of last event which is described or nil if none described.
+  def index_of_last_described_event
+    info_request_events.reverse.each_with_index do |event, index|
+      if event.described_state
+        reverse_index = info_request_events.size - 1 - index
+        return reverse_index
+      end
+    end
+    nil
   end
 
   def set_defaults

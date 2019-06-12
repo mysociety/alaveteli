@@ -1,9 +1,9 @@
 # -*- encoding : utf-8 -*-
 class InfoRequestBatchController < ApplicationController
-  before_filter :set_in_pro_area, :only => [:show]
-  before_filter :load_and_authorise_resource, :only => [:show]
-  before_filter :redirect_embargoed_requests_for_pro_users, :only => [:show]
-  before_filter :redirect_public_requests_from_pro_context, :only => [:show]
+  before_action :set_in_pro_area, :only => [:show]
+  before_action :load_and_authorise_resource, :only => [:show]
+  before_action :redirect_embargoed_requests_for_pro_users, :only => [:show]
+  before_action :redirect_public_requests_from_pro_context, :only => [:show]
 
   def show
     @per_page = 25

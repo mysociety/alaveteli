@@ -39,21 +39,6 @@ describe ContactMailer do
         eq('do-not-reply-to-this-address@localhost')
     end
 
-    it 'does not add HTMLEntities to an update public body email subject' do
-      public_body = FactoryBot.create(:public_body, :name => "Apostrophe's")
-      change_request = FactoryBot.create(:update_body_request,
-                                         :public_body => public_body)
-      expect(ContactMailer.update_public_body_email(change_request).subject).
-        to eq("Update email address - Apostrophe's")
-    end
-
-    it 'does not add HTMLEntities to an add public body email subject' do
-      change_request = FactoryBot.create(:add_body_request,
-                                         :public_body_name => "Apostrophe's")
-      expect(ContactMailer.add_public_body(change_request).subject).
-        to eq("Add authority - Apostrophe's")
-    end
-
     context "when the user is a pro user" do
       let(:pro_user) { FactoryBot.create(:pro_user) }
 

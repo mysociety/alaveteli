@@ -4,12 +4,12 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 describe AlaveteliPro::BaseController do
   controller(AlaveteliPro::BaseController) do
     def index
-      render :nothing => true
+      head :ok
     end
   end
 
   describe "#pro_user_authenticated?" do
-    # Testing the fact that every controller action inherits the before_filter
+    # Testing the fact that every controller action inherits the before_action
     # of pro_user_authenticated?
 
     before do

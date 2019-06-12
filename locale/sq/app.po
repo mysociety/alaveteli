@@ -14,6 +14,8 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
 # arianit <ardob11@gmail.com>, 2012
 # arianit <ardob11@gmail.com>, 2012
 # bresta <bresta@gmail.com>, 2011
@@ -21,6 +23,7 @@
 # Dorian Kavaja <dorik2k@gmail.com>, 2016
 # driton <dritoni.h@gmail.com>, 2011
 # Hana Huntova <>, 2012
+# Liz Conlan <liz@mysociety.org>, 2018
 # louisecrow <louise@mysociety.org>, 2014,2016
 # louisecrow <louise@mysociety.org>, 2014,2016
 # Valon <vbrestovci@gmail.com>, 2011
@@ -31,8 +34,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-28 15:37+0000\n"
-"PO-Revision-Date: 2018-09-29 11:24+0000\n"
+"POT-Creation-Date: 2019-06-10 14:02+0000\n"
+"PO-Revision-Date: 2019-06-10 14:40+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Albanian (http://www.transifex.com/mysociety/alaveteli/language/sq/)\n"
 "Language: sq\n"
@@ -149,6 +152,9 @@ msgstr ""
 msgid "<a href=\"{{new_request_link}}\">Make a new FOI request</a> to {{public_body_name}}"
 msgstr ""
 
+msgid "<a href=\"{{sign_in_link}}\">Sign in</a> to get updates on things you follow or re-enable email alerts."
+msgstr ""
+
 msgid "<a href=\"{{url}}\">Do you want to request private information about yourself?</a>"
 msgstr "<a href=\"{{url}}\">Do të kërkosh informacione private për vetën tënde?</a>."
 
@@ -160,6 +166,9 @@ msgstr "<a href=\"{{url}}\">Kyçu</a> për të ndryshuar fjalëkalimin, abonimet
 
 msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>"
 msgstr "<a href=\"{{url}}\">Mendoni te perdorni nje pseudonim?</a>"
+
+msgid "<a href=\"{{wall_link}}\">Visit your Wall</a> to get updates on things you follow or re-enable email alerts."
+msgstr ""
 
 msgid "<div class=\"alaveteli-widget__count\">{{count}}</div> person wants to know"
 msgid_plural "<div class=\"alaveteli-widget__count\">{{count}}</div> people want to know"
@@ -309,8 +318,8 @@ msgstr "Nje <a href=\"{{request_url}}\">mesazh vijues</a> per <em>{{request_titl
 msgid "A <a href=\"{{request_url}}\">response</a> to <em>{{request_title}}</em> was sent by {{public_body_name}} to {{info_request_user}} on {{date}}.  The request status is: {{request_status}}"
 msgstr "Nje <a href=\"{{request_url}}\">response</a> per <em>{{request_title}}</em> u dergua nga {{public_body_name}} tek {{info_request_user}} me {{date}}.  Statusi i kerkeses eshte: {{request_status}}"
 
-msgid "A <strong>summary</strong> of the response if you have received it by post. "
-msgstr "Një <strong>përmbledhje</strong> e përgjigjes nëse ate e keni marrë me postë. "
+msgid "A <strong>summary</strong> of the response if you have received it by postal mail. "
+msgstr ""
 
 msgid "A Freedom of Information request"
 msgstr "Kerkese per te Drejten e Informimit"
@@ -332,14 +341,11 @@ msgstr ""
 msgid "A public authority"
 msgstr "Institucioni publik"
 
-msgid "A response will be sent <strong>by post</strong>"
-msgstr "Përgjigja do të dërgohet <strong>me postë</strong>"
+msgid "A response will be sent <strong>by postal mail</strong>"
+msgstr ""
 
-msgid "A strange reponse, required attention by the {{site_name}} team"
-msgstr "Një përgjigje e çuditshme, kërkohet vëmendje e ekipit të {{site_name}}"
-
-msgid "A vexatious request"
-msgstr "Nje kerkese shqetesuese"
+msgid "A strange response, required attention by the {{site_name}} team"
+msgstr ""
 
 msgid "A {{site_name}} user"
 msgstr "Përdorues i {{site_name}}"
@@ -351,6 +357,9 @@ msgid "About you:"
 msgstr "Rreth jush:"
 
 msgid "About {{count}} FOI requests found"
+msgstr ""
+
+msgid "Account closed at user request"
 msgstr ""
 
 msgid "Account suspended – Please contact us"
@@ -408,63 +417,6 @@ msgstr "Këshillo se a <strong>është refuzimi i ligjshëm,</strong> dhe si të
 
 msgid "Air, water, soil, land, flora and fauna (including how these effect human beings)"
 msgstr "Ajeri, uji, dheu, toka, flora dhe fauna(duke perfshire si ndikojne keto ne qeniet njerezore)"
-
-msgid "Alaveteli pro/draft info request batch"
-msgstr ""
-
-msgid "Alaveteli pro/embargo"
-msgstr ""
-
-msgid "Alaveteli pro/embargo extension"
-msgstr ""
-
-msgid "Alaveteli pro/request summary"
-msgstr ""
-
-msgid "Alaveteli pro/request summary category"
-msgstr ""
-
-msgid "AlaveteliPro::DraftInfoRequestBatch|Body"
-msgstr ""
-
-msgid "AlaveteliPro::DraftInfoRequestBatch|Embargo duration"
-msgstr ""
-
-msgid "AlaveteliPro::DraftInfoRequestBatch|Title"
-msgstr ""
-
-msgid "AlaveteliPro::EmbargoExtension|Extension duration"
-msgstr ""
-
-msgid "AlaveteliPro::Embargo|Embargo duration"
-msgstr ""
-
-msgid "AlaveteliPro::Embargo|Expiring notification at"
-msgstr ""
-
-msgid "AlaveteliPro::Embargo|Publish at"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummaryCategory|Slug"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Body"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Public body names"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Request created at"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Request updated at"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Summarisable type"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Title"
-msgstr ""
 
 msgid "All of the information requested has been received"
 msgstr "Të gjitha informacionin e kërkuara janë marrë"
@@ -537,12 +489,6 @@ msgstr ""
 "Shënimet do të shfaqen publikisht këtu, dhe\n"
 "<strong>nuk</strong> dërgohen te {{public_body_name}}."
 
-msgid "Announcement"
-msgstr ""
-
-msgid "Announcement|Visibility"
-msgstr ""
-
 msgid "Anonymous user"
 msgstr "Përdorues anonim"
 
@@ -551,6 +497,9 @@ msgstr "Aplikohet per"
 
 msgid "Are we missing a public authority?"
 msgstr "Na mungon ndonje institucion publik"
+
+msgid "Are you asking about your, or others', personal information or personal situation?"
+msgstr ""
 
 msgid "Are you sure you want to disable two factor authentication?"
 msgstr "Jeni i sigurte qe doni te c'aktivizoni verifikimin me dy faktor?"
@@ -683,24 +632,6 @@ msgstr "Anulo disa njoftime për {{site_name}}"
 msgid "Cancel, return to your profile page"
 msgstr "Anulo, kthehu në faqen e profilit tënd "
 
-msgid "Censor rule"
-msgstr "Rregull censure"
-
-msgid "CensorRule|Last edit comment"
-msgstr "CensorRule | Editimi i fundit i koment"
-
-msgid "CensorRule|Last edit editor"
-msgstr "CensorRule | Editimi i fundit të editorit"
-
-msgid "CensorRule|Regexp"
-msgstr "CensorRule|Regexp"
-
-msgid "CensorRule|Replacement"
-msgstr "CensorRule | Zëvendësimi"
-
-msgid "CensorRule|Text"
-msgstr "CensorRule | Teksti"
-
 msgid "Change email on {{site_name}}"
 msgstr "Ndrysho emailin në {{site_name}}"
 
@@ -769,21 +700,6 @@ msgstr "Mbyll kerkesen dhe pergjigju:"
 
 msgid "Collapse all correspondence"
 msgstr ""
-
-msgid "Comment"
-msgstr "Komenti"
-
-msgid "Comment|Attention requested"
-msgstr ""
-
-msgid "Comment|Body"
-msgstr "Komenti | Trupi"
-
-msgid "Comment|Locale"
-msgstr "Koment | Lokale"
-
-msgid "Comment|Visible"
-msgstr "Koment | i/e dukshëm"
 
 msgid "Complete"
 msgstr ""
@@ -911,9 +827,6 @@ msgstr ""
 msgid "Delivery error"
 msgstr "Gabim gjatë dorëzimit"
 
-msgid "Destroy {{name}}"
-msgstr "Shkaterro {{name}}"
-
 msgid "Details of request &ldquo;{{request_title}}&rdquo;"
 msgstr "Detajet e kerkeses &ldquo;{{request_title}}&rdquo;"
 
@@ -956,18 +869,6 @@ msgstr "Shkarko zip fajllin me korrespondencën e plotë"
 msgid "Download original attachment"
 msgstr "Shkarko shtojcën (attachment) origjinale"
 
-msgid "Draft info request"
-msgstr ""
-
-msgid "DraftInfoRequest|Body"
-msgstr ""
-
-msgid "DraftInfoRequest|Embargo duration"
-msgstr ""
-
-msgid "DraftInfoRequest|Title"
-msgstr ""
-
 msgid "EIR"
 msgstr "EIR"
 
@@ -989,6 +890,12 @@ msgid "Either the email or password was not recognised, please try again."
 msgstr "Adresa e email-it apo fjalëkalimi nuk janë njohur, të lutem provo përsëri."
 
 msgid "Either the email or password was not recognised, please try again. Or create a new account using the form on the left."
+msgstr ""
+
+msgid "Email Alerts Disabled"
+msgstr ""
+
+msgid "Email alerts for things you follow have now been disabled."
 msgstr ""
 
 msgid "Email doesn't look like a valid address"
@@ -1107,30 +1014,6 @@ msgstr ""
 
 msgid "Flipper::Adapters::ActiveRecord::Gate|Value"
 msgstr ""
-
-msgid "Foi attachment"
-msgstr "Dokumentat te DI te bashkangjitur"
-
-msgid "FoiAttachment|Charset"
-msgstr "DokumentatteDItebashkangjitur|Lloji i karakter setit"
-
-msgid "FoiAttachment|Content type"
-msgstr "DokumentatteDItebashkangjitur|Lloji i përmbajtjes"
-
-msgid "FoiAttachment|Display size"
-msgstr "DokumentatteDItebashkangjitur|Madhësia e ekranit"
-
-msgid "FoiAttachment|Filename"
-msgstr "DokumentatteDItebashkangjitur|Emri i dokumentit"
-
-msgid "FoiAttachment|Hexdigest"
-msgstr "DokumentatteLItebashkangjitur|Hexdigest"
-
-msgid "FoiAttachment|Url part number"
-msgstr "DokumentatteDItebashkangjitur| Pjese e numrit URL"
-
-msgid "FoiAttachment|Within rfc822 subject"
-msgstr "DokumentatteDItebashkangjitur|a|Brenda temës rreth rfc822"
 
 msgid "Follow"
 msgstr "Ndiq"
@@ -1263,17 +1146,20 @@ msgstr "Nga:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "JEPI DETAJET PËR ANKESËN TËNDE KËTU"
 
+msgid "Getting long – remember to keep it focussed"
+msgstr ""
+
 msgid "Got a {{site_name}} account?"
 msgstr ""
 
 msgid "Got an account?"
 msgstr "Keni llogari"
 
-msgid "Handled by post"
-msgstr "Do te trajtohet me postim"
+msgid "Handled by postal mail"
+msgstr ""
 
-msgid "Handled by post."
-msgstr "Do të trajtohet me postim."
+msgid "Handled by postal mail."
+msgstr ""
 
 msgid "Has tag string tag"
 msgstr ""
@@ -1349,15 +1235,6 @@ msgstr ""
 
 msgid "Hide request"
 msgstr "Fshih kerkesen"
-
-msgid "Holiday"
-msgstr "Festa"
-
-msgid "Holiday|Day"
-msgstr "Festa | Dita"
-
-msgid "Holiday|Description"
-msgstr "Festa | Përshkrimi"
 
 msgid "Home page"
 msgstr "Faqa hyrese"
@@ -1520,155 +1397,11 @@ msgstr "Perfshini lidhje te rendesishme, te tilla si faqe fushatash, blogun apo 
 msgid "Incoming email address"
 msgstr "Adresa e postes elektornike per mesazhet hyrese"
 
-msgid "Incoming message"
-msgstr "Mesazh i ardhur"
-
-msgid "Incoming message error"
-msgstr ""
-
 msgid "Incoming message has a spam score above the configured threshold ({{spam_threshold}})."
 msgstr "Mesazhi qe po vjen ka nje spam score mbi konfigurimin hyres ({{spam_threshold}}). "
 
-msgid "IncomingMessageError|Backtrace"
-msgstr ""
-
-msgid "IncomingMessageError|Retry at"
-msgstr ""
-
-msgid "IncomingMessage|Cached attachment text clipped"
-msgstr "MesazheteArdhura|Cached teks i prere bashkangjitur"
-
-msgid "IncomingMessage|Cached main body text folded"
-msgstr "MesazheteArdhura|Cached trupi kryesor i tekstit"
-
-msgid "IncomingMessage|Cached main body text unfolded"
-msgstr "MesazheteArdhura|Cached trupi kryesor i tekstit"
-
-msgid "IncomingMessage|Last parsed"
-msgstr "MesazheteArdhura|Norma e fundit"
-
-msgid "IncomingMessage|Mail from"
-msgstr "MesazheteArdhura|Mesazhe nga"
-
-msgid "IncomingMessage|Mail from domain"
-msgstr "MesazheteArdhura | Mesazh nga domaini"
-
-msgid "IncomingMessage|Prominence"
-msgstr "MesazheteArdhura |Klasifikim"
-
-msgid "IncomingMessage|Prominence reason"
-msgstr "MesazheteArdhura Arsye e klasifikueshme"
-
-msgid "IncomingMessage|Sent at"
-msgstr "MesazheteArdhura | Dërguar tek"
-
-msgid "IncomingMessage|Subject"
-msgstr "MesazheteArdhura | Lënda"
-
-msgid "IncomingMessage|Valid to reply to"
-msgstr "MesazheteArdhura | E vlefshme për t'iu përgjigjur tek"
-
 msgid "Individual requests"
 msgstr "Kërkesa individuale"
-
-msgid "Info request"
-msgstr "Kërkesë për informacion"
-
-msgid "Info request batch"
-msgstr "Lista e kerkesave per informacion"
-
-msgid "Info request event"
-msgstr "Ngjarje e kerkesave per informacion"
-
-msgid "InfoRequestBatch|Body"
-msgstr "ListaEKerkesavePerInformacion|Trupi"
-
-msgid "InfoRequestBatch|Embargo duration"
-msgstr ""
-
-msgid "InfoRequestBatch|Sent at"
-msgstr "ListaEKerkesavePerInformacion|Derguar tek"
-
-msgid "InfoRequestBatch|Title"
-msgstr "ListaEKerkesavePerInformacion|Titulli"
-
-msgid "InfoRequestEvent|Calculated state"
-msgstr "NgjarjeEKerkesavePerInformacion|Statusi i llogaritjes"
-
-msgid "InfoRequestEvent|Described state"
-msgstr "gjarjeEKerkesavePerInformacion|Statusi i pershkrimit"
-
-msgid "InfoRequestEvent|Event type"
-msgstr "gjarjeEKerkesavePerInformacion|Lloji ngjarjes"
-
-msgid "InfoRequestEvent|Last described at"
-msgstr "gjarjeEKerkesavePerInformacion|Pershkruar se fundmi tek"
-
-msgid "InfoRequestEvent|Params yaml"
-msgstr "gjarjeEKerkesavePerInformacion|Params yaml"
-
-msgid "InfoRequest|Allow new responses from"
-msgstr "KerkeseInformacioni|Lejo përgjigje të reja nga"
-
-msgid "InfoRequest|Attention requested"
-msgstr "KerkeseInformacioni|Kerkohet vemendje"
-
-msgid "InfoRequest|Awaiting description"
-msgstr "KerkeseInformacioni|Ne pritje te pershkrimit"
-
-msgid "InfoRequest|Comments allowed"
-msgstr "InfoRequest|Comments allowed"
-
-msgid "InfoRequest|Date initial request last sent at"
-msgstr ""
-
-msgid "InfoRequest|Date response required by"
-msgstr ""
-
-msgid "InfoRequest|Date very overdue after"
-msgstr ""
-
-msgid "InfoRequest|Described state"
-msgstr "InfoRequest|Described state"
-
-msgid "InfoRequest|External url"
-msgstr "KerkeseInformacioni|URL i jashtem"
-
-msgid "InfoRequest|External user name"
-msgstr "KerkeseInformacioni| Perdorues i jashtem"
-
-msgid "InfoRequest|Handle rejected responses"
-msgstr "KerkeseInformacioni|Trajton pergjigjet e refuzuara"
-
-msgid "InfoRequest|Idhash"
-msgstr "KerkeseInformacioni||Idhash"
-
-msgid "InfoRequest|Last event time"
-msgstr ""
-
-msgid "InfoRequest|Last public response at"
-msgstr "InfoRequest|Last public response at"
-
-msgid "InfoRequest|Law used"
-msgstr "KerkeseInformacioni| Ligji i përdorur"
-
-msgid "InfoRequest|Prominence"
-msgstr "KerkeseInformacioni| Klasifikim"
-
-msgid "InfoRequest|Reject incoming at mta"
-msgstr ""
-
-msgid "InfoRequest|Rejected incoming count"
-msgstr ""
-
-msgid "InfoRequest|Title"
-msgstr "KerkeseInformacioni| Titulli"
-
-msgid "InfoRequest|Url title"
-msgstr "KerkeseInformacioni| Titulli Url"
-
-msgid "InfoRequest|Use notifications"
-msgstr ""
 
 msgid "Information not held"
 msgstr ""
@@ -1693,6 +1426,9 @@ msgstr "Kerkesa per shqyrtim te brendshem dergukar tek {{public_body_name}} nga 
 
 msgid "Invalid one time password"
 msgstr "Fjalekalim njeperdorimsh i pasakte"
+
+msgid "Invalid token"
+msgstr ""
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr "A është {{email_address}} adresë e gabuar  për {{public_body_name}}? Nëse po, të lutem na kontakto nëpermjet ketij formulari:"
@@ -1790,27 +1526,6 @@ msgstr "Tepër e vonuar."
 msgid "Made between"
 msgstr "Bërë ndërmjet"
 
-msgid "Mail server log"
-msgstr "Ditari i serverit te postes"
-
-msgid "Mail server log done"
-msgstr "Ditari i serverit te postes plotesuar"
-
-msgid "MailServerLogDone|Filename"
-msgstr "DitariIServeritTePostesPlotesuar|Emri dokumentit"
-
-msgid "MailServerLogDone|Last stat"
-msgstr "DitariIServeritTePostesPlotesuar|Statistikat e fundit"
-
-msgid "MailServerLog|Delivery status"
-msgstr ""
-
-msgid "MailServerLog|Line"
-msgstr "DitariIServeritTePostes|Linja"
-
-msgid "MailServerLog|Order"
-msgstr "DitariIServeritTePostes|Urdher"
-
 msgid "Make a batch request"
 msgstr "Bej nje liste kerkese"
 
@@ -1855,6 +1570,9 @@ msgstr "Mungojnë të dhënat për '{{authority_name}}'"
 
 msgid "More about this authority"
 msgstr "Më shumë për këtë autoritet"
+
+msgid "More requests in this batch"
+msgstr ""
 
 msgid "More similar requests"
 msgstr "Më shumë kërkesa të ngjashme"
@@ -1952,9 +1670,6 @@ msgstr "Asnjë nuk u gjet."
 msgid "None made."
 msgstr "Asnjë e bërë."
 
-msgid "Not a valid FOI request"
-msgstr "Nje kerkese per DI e pavlefshme"
-
 msgid "Not a valid request"
 msgstr "Kerkse e pavlefshme"
 
@@ -1967,23 +1682,11 @@ msgstr "Nuk u mbajt"
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
 msgstr "Vi re qe kerkuesi nuk do te njoftohet per shenimin tuaj, sepse kerkesa eshte publikuar nga {{public_body_name}} e emrin e tyre "
 
+msgid "Note that we may still send you emails when new correspondence appears on your requests, or when you perform actions that require an email confirmation step."
+msgstr ""
+
 msgid "Notes:"
 msgstr "Shenime"
-
-msgid "Notification"
-msgstr ""
-
-msgid "Notification|Expired"
-msgstr ""
-
-msgid "Notification|Frequency"
-msgstr ""
-
-msgid "Notification|Seen at"
-msgstr ""
-
-msgid "Notification|Send after"
-msgstr ""
 
 msgid "Now check your email!"
 msgstr "Kontrollo posten tende elektronike!"
@@ -2059,30 +1762,6 @@ msgstr "Te tjera"
 
 msgid "Other:"
 msgstr "Te Tjera:"
-
-msgid "Outgoing message"
-msgstr "Mesazh dalës"
-
-msgid "OutgoingMessage|Body"
-msgstr "MesazhDales | Trupi"
-
-msgid "OutgoingMessage|Last sent at"
-msgstr "MesazhDales | Së fundi është dërguar tek"
-
-msgid "OutgoingMessage|Message type"
-msgstr "MesazhDales |Lloji mesazhit"
-
-msgid "OutgoingMessage|Prominence"
-msgstr "MesazhDales | Klasifikim"
-
-msgid "OutgoingMessage|Prominence reason"
-msgstr "MesazhDales | Arsye te klasifikueshme"
-
-msgid "OutgoingMessage|Status"
-msgstr "MesazhDales | Statusi"
-
-msgid "OutgoingMessage|What doing"
-msgstr "MesazhDales | Cfare behet"
 
 msgid "Partial success"
 msgstr "Sukses i pjesshem"
@@ -2173,6 +1852,9 @@ msgstr ""
 
 msgid "Please click on the link below to confirm your email address."
 msgstr "Të lutem kliko në lidhjen e mëposhtme për të konfirmuar adresen tuaj te postes elektronike."
+
+msgid "Please click on the link below to stop these emails."
+msgstr ""
 
 msgid "Please create an account or sign in"
 msgstr "Ju lutem krijoni një llogari ose Kyçuni"
@@ -2309,27 +1991,6 @@ msgstr "Kërkesa të ndërlidhura:"
 msgid "Post annotation"
 msgstr "Posto shënimin"
 
-msgid "Post redirect"
-msgstr "Posto ndryshim drejtimi"
-
-msgid "PostRedirect|Circumstance"
-msgstr "PostoNdryshimDrejtimit|Rethane"
-
-msgid "PostRedirect|Email token"
-msgstr "PostoNdryshimDrejtimit|Personalizim postes elektronike"
-
-msgid "PostRedirect|Post params yaml"
-msgstr "PostoNdryshimDrejtimit|Posto params yaml"
-
-msgid "PostRedirect|Reason params yaml"
-msgstr "PostoNdryshimDrejtimit|Arsye params yaml"
-
-msgid "PostRedirect|Token"
-msgstr "PostoNdryshimDrejtimit|Personalizim"
-
-msgid "PostRedirect|Uri"
-msgstr "PostoNdryshimDrejtimit|Uri"
-
 msgid "Posted on {{date}} by {{author}}"
 msgstr "Postuar më {{date}} nga {{author}}"
 
@@ -2372,23 +2033,8 @@ msgstr "Shtyp fjalekodin e vetem nje here"
 msgid "Privacy and cookies"
 msgstr "Privatësia dhe Cookies"
 
-msgid "Pro account"
-msgstr ""
-
-msgid "ProAccount|Default embargo duration"
-msgstr ""
-
 msgid "Profile image for {{user_name}}"
 msgstr ""
-
-msgid "Profile photo"
-msgstr "Fotografia e profilit"
-
-msgid "ProfilePhoto|Data"
-msgstr "FotografiaEProfilit|Data"
-
-msgid "ProfilePhoto|Draft"
-msgstr "FotografiaEProfilit|Draft"
 
 msgid "Public Bodies"
 msgstr "Organet Publike"
@@ -2426,23 +2072,8 @@ msgstr "Institucionet publike me me shume kerkesa"
 msgid "Public bodies with the most successful requests"
 msgstr "Institucionet publike me kerkesat me te shumta te suksesshme"
 
-msgid "Public body"
-msgstr "Institucion publik"
-
-msgid "Public body category"
-msgstr "Kategoria e institucionit publik"
-
-msgid "Public body category link"
-msgstr "Lidhja e kategorise se institucionit publik"
-
 msgid "Public body category translation"
 msgstr ""
-
-msgid "Public body change request"
-msgstr "Kerkesa per ndryshim institucionit publik"
-
-msgid "Public body heading"
-msgstr "Hyrja institucionit publik"
 
 msgid "Public body heading translation"
 msgstr ""
@@ -2453,9 +2084,6 @@ msgstr "Faqa publike"
 msgid "Public page not available"
 msgstr "Faqa publike e padisponueshme"
 
-msgid "PublicBodyCategoryLink|Category display order"
-msgstr "LidhjaKategorisePerInstitucioninPublik|Rradha e shfaqjes se kategorise "
-
 msgid "PublicBodyCategoryTranslation|Description"
 msgstr ""
 
@@ -2465,74 +2093,11 @@ msgstr ""
 msgid "PublicBodyCategoryTranslation|Title"
 msgstr ""
 
-msgid "PublicBodyCategory|Category tag"
-msgstr "KerksaPerNdryshimTeInstitucionitPublik|Tagu kategorise"
-
-msgid "PublicBodyChangeRequest|Is open"
-msgstr "KerksaPerNdryshimTeInstitucionitPublik|Eshe hapur"
-
-msgid "PublicBodyChangeRequest|Notes"
-msgstr "KerksaPerNdryshimTeInstitucionitPublik|Shenime"
-
-msgid "PublicBodyChangeRequest|Public body email"
-msgstr "KerksaPerNdryshimTeInstitucionitPublik|Posta elektronike e organit publik"
-
-msgid "PublicBodyChangeRequest|Public body name"
-msgstr "KerksaPerNdryshimTeOrganiPublik|Emri i organit publik"
-
-msgid "PublicBodyChangeRequest|Source url"
-msgstr "KerksaPerNdryshimTeInstitucionitPublik|Burimi url"
-
-msgid "PublicBodyChangeRequest|User email"
-msgstr "KerksaPerNdryshimTeInstitucionitPublik|Posta elektronike e perdoruesit"
-
-msgid "PublicBodyChangeRequest|User name"
-msgstr "KerksaPerNdryshimTeInstitucionitPublik|Emri perdoruesit"
-
 msgid "PublicBodyHeadingTranslation|Locale"
 msgstr ""
 
 msgid "PublicBodyHeadingTranslation|Name"
 msgstr ""
-
-msgid "PublicBodyHeading|Display order"
-msgstr "HyrjaInstitucionitPublik|Shfaq rradhitjen"
-
-msgid "PublicBody|Api key"
-msgstr "InstitucioniPublik|Celesi Api"
-
-msgid "PublicBody|Disclosure log"
-msgstr "InstitucioniPublik|Ditari i zbulimeve"
-
-msgid "PublicBody|Home page"
-msgstr "InstitucioniPublik|Hyrja"
-
-msgid "PublicBody|Info requests count"
-msgstr "InstitucioniPublik| Numri i kerkesave"
-
-msgid "PublicBody|Info requests not held count"
-msgstr "InstitucioniPublik| Numri i kerkesave te pambajtura"
-
-msgid "PublicBody|Info requests overdue count"
-msgstr "InstitucioniPublik| Numri i kerkesave te vonuara"
-
-msgid "PublicBody|Info requests successful count"
-msgstr "InstitucioniPublik| Numri i kerkesave te susesshme"
-
-msgid "PublicBody|Info requests visible classified count"
-msgstr "InstitucioniPublik| Numri i klasifikimeve te kerkesave te dukshme"
-
-msgid "PublicBody|Info requests visible count"
-msgstr "InstitucioniPublik|Numri i kerkesave te dukshme"
-
-msgid "PublicBody|Last edit comment"
-msgstr "InsitucioniPublik | Editimi i fundit i komentit"
-
-msgid "PublicBody|Last edit editor"
-msgstr "InstitucioniPublik | Editimi i fundit editor"
-
-msgid "PublicBody|Version"
-msgstr "InstitucioniPublik|Versioni"
 
 msgid "Publication scheme"
 msgstr "Skema e publikimit"
@@ -2584,6 +2149,9 @@ msgstr "Refuzuar"
 
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr "Më kutjo mua (të mban signed in më gjatë; mos e përdorni në kompjutera publik)"
+
+msgid "Report"
+msgstr ""
 
 msgid "Report an offensive or unsuitable request"
 msgstr "Raporto një kërkesë fyese ose të papërshtatshme"
@@ -2725,15 +2293,6 @@ msgstr "Kufizo në"
 
 msgid "Results page {{page_number}}"
 msgstr "Faqja e rezultateve {{page_number}}"
-
-msgid "Role"
-msgstr ""
-
-msgid "Role|Name"
-msgstr ""
-
-msgid "Role|Resource type"
-msgstr ""
 
 msgid "Save"
 msgstr "Ruaj"
@@ -2922,12 +2481,6 @@ msgstr "Burimi URL"
 msgid "Source:"
 msgstr "Burim:"
 
-msgid "Spam address"
-msgstr "Adrese spam"
-
-msgid "SpamAddress|Email"
-msgstr "AdreseSpam |Posta Elektronike "
-
 msgid "Start your own request"
 msgstr "Nise kërkesën tënde"
 
@@ -3074,7 +2627,7 @@ msgid "The accounts have been left as they previously were."
 msgstr "Llogaritë janë lënë siq kanë qenë më përpara."
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr "Institucioni <strong>nuk e ka</strong> informacionin<small>(ndoshta mund te thone kush e ka)</small>"
+msgstr ""
 
 msgid "The authority email doesn't look like a valid address"
 msgstr "Adresa elektronike e institucionit nuk eshte e vlefshme"
@@ -3085,8 +2638,8 @@ msgstr "Institucioni ka vetëm kopje në letër të këtij informacioni"
 msgid "The authority say that they <strong>need a postal address</strong>, not just an email, for it to be a valid FOI request"
 msgstr "Institucioni thotë se ata kanë <strong>nevojë për një adresë postare,</strong> jo vetëm një adresë te emailit, që ajo të jetë një kërkesë e vlefshme për te Drejten e Informimit"
 
-msgid "The authority would like to / has <strong>responded by post</strong> to this request."
-msgstr "Institucioni do të / është <strong>përgjigjur me postë</strong> në këtë kërkesë."
+msgid "The authority would like to / has <strong>responded by postal mail</strong> to this request."
+msgstr ""
 
 msgid "The classification of requests (e.g. to say whether they were successful or not) is done manually by users and administrators of the site, which means that they are subject to error."
 msgstr "Klasifikimi i kerkesave(p.sh. ku thuhet jane te suksesshme apo jo) eshte bere manualisht nga perdoruesit dhe administratoret e kesaj faqeje, cka do te thote qe gabime mund te ndodhin."
@@ -3136,8 +2689,8 @@ msgstr "Institucioni publik nuk e disponon informacionin e kërkuara"
 msgid "The public authority would like part of the request explained"
 msgstr "Institucioni publik do të donte që një pjesë e kërkesës të shpjegohet"
 
-msgid "The public authority would like to / has responded by post"
-msgstr "Institucioni publik do të përgjigjet ose tashmë është përgjigjur me postë"
+msgid "The public authority would like to / has responded by postal mail"
+msgstr ""
 
 msgid "The request has been <strong>refused</strong>"
 msgstr "Kërkesa është <strong>refuzuar</strong>"
@@ -3302,8 +2855,8 @@ msgstr "Keto grafiqe pjeserisht jane frymezuar nga <a href=\"http://mark.goodge.
 msgid "These logs show what happened to this message as it passed through our {{mta_type}} mail server. You can send these logs to an authority to help them diagnose problems receiving email from {{site_name}}."
 msgstr ""
 
-msgid "They are going to reply <strong>by post</strong>"
-msgstr "Ata do të përgjigjen <strong>me postë</strong>"
+msgid "They are going to reply <strong>by postal mail</strong>"
+msgstr ""
 
 msgid "They do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr "Ata <strong>nuk e kanë</strong> informacionin <small>(ndoshta të tregojnë kush e ka)</small>"
@@ -3322,6 +2875,9 @@ msgstr ""
 
 msgid "Things you're following"
 msgstr "Gjërat që po i ndiqni"
+
+msgid "This account has been closed."
+msgstr ""
 
 msgid "This annotation has been reported for administrator attention"
 msgstr ""
@@ -3417,6 +2973,9 @@ msgstr "Kjo kërkesë tashmë është raportuar për vëmendjen e administratori
 msgid "This request has an <strong>unknown status</strong>."
 msgstr "Kjo kërkesë ka <strong>status të panjohur</strong>."
 
+msgid "This request has been <strong>closed to new correspondence from the public body</strong>. <a href=\"{{url}}\"\">Contact us</a> if you think it ought be re-opened."
+msgstr ""
+
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
 msgstr "Kjo kerkese eshte <strong>raportuar</strong> qe ka nevoje per vemendjen e administratorit(ndoshta spese eshte shqetesuese, ose kerkesa posedon informacion personal)"
 
@@ -3451,6 +3010,9 @@ msgstr "Kjo kërkesë ka klasifikim 'fshehur'. Ti mund të shohësh atë, vetëm
 
 msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
 msgstr "Kjo kërkesë është e fshehur, kështu që vetëm ju -  kërkuesi mund ta shihni ate. Të lutem <a href=\"{{url}}\">na kontakto</a> nëse nuk je i sigurt pse po ndodhë dicka e tille."
+
+msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
+msgstr ""
 
 msgid "This request is still in progress:"
 msgstr "Kjo kërkesë është ende në përpunim:"
@@ -3600,23 +3162,11 @@ msgstr "Shumë kërkesa"
 msgid "Top recent players"
 msgstr ""
 
-msgid "Track thing"
-msgstr "Gjurmo gjënë"
-
 msgid "Track this person"
 msgstr "Gjurmo aktivitetin e këtij personi"
 
 msgid "Track this search"
 msgstr "Gjurmo këtë kërkim"
-
-msgid "TrackThing|Track medium"
-msgstr "GjurmoGjera |Gjurmim mesatar"
-
-msgid "TrackThing|Track query"
-msgstr "GjurmoGjera |Pyetje per gjurmimin"
-
-msgid "TrackThing|Track type"
-msgstr "GjurmoGjera | Lloji gjurmimit"
 
 msgid "Try opening the logs in a new window."
 msgstr ""
@@ -3720,104 +3270,17 @@ msgstr "Përdor thonjëzat (\" \") kur dëshiron të gjesh një fjalë ekzakte, 
 msgid "Use this site to make your request for information – we'll show you how."
 msgstr "Përdor këtë faqe interneti për të bërë kërkesën tuaj për informacion – ne do ju tregojmë hapat që duhen ndjekur."
 
-msgid "User"
-msgstr "Përdoruesi"
-
-msgid "User info request sent alert"
-msgstr "Lajmerimi i perdoruesit per dergimin e kerkeses informuese"
-
 msgid "User – {{name}}"
 msgstr "Perdorues – {{name}}"
-
-msgid "UserInfoRequestSentAlert|Alert type"
-msgstr "LajmerimiIPerdoruesitPerDergiminEKerkesesInformuese|Lloji i lajmerimit"
 
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
 msgstr ""
 
-msgid "User|About me"
-msgstr "Përdoruesi|Rreth meje"
-
-msgid "User|Ban text"
-msgstr "Përdoruesi|Tekst i ndaluar"
-
-msgid "User|Can make batch requests"
-msgstr "Përdoruesi|Mund te beje nje liste kerkesash"
-
-msgid "User|Comments count"
-msgstr ""
-
-msgid "User|Confirmed not spam"
-msgstr ""
-
-msgid "User|Daily summary hour"
-msgstr ""
-
-msgid "User|Daily summary minute"
-msgstr ""
-
-msgid "User|Email"
-msgstr "Përdoruesi |Posta elektronike"
-
-msgid "User|Email bounce message"
-msgstr "Përdoruesi|Posta elektronike e mesazhit te kthyer mbrapsh"
-
-msgid "User|Email bounced at"
-msgstr "Përdoruesi|Posta elektronike kthyer mbrapsh tek"
-
-msgid "User|Email confirmed"
-msgstr "Përdoruesi|Posta elektronike u konfirmua"
-
-msgid "User|Hashed password"
-msgstr "Përdoruesi|Fjalekalim Hashed"
-
-msgid "User|Info request batches count"
-msgstr ""
-
-msgid "User|Info requests count"
-msgstr ""
-
-msgid "User|Last daily track email"
-msgstr "Përdoruesi|Mesazhi i fundit ditor i gjurmimit"
-
-msgid "User|Locale"
-msgstr "Përdoruesi|Vendndodhja"
-
-msgid "User|Name"
-msgstr "Përdoruesi|Emri"
-
-msgid "User|No limit"
-msgstr "Përdoruesi|Pa limit"
-
-msgid "User|Otp counter"
-msgstr "Përdoruesi|Numerimi Otp"
-
-msgid "User|Otp enabled"
-msgstr "Përdoruesi|Otp e aktivizuar"
-
-msgid "User|Otp secret key"
-msgstr "Përdoruesi|Celesi sekret per Otp"
-
-msgid "User|Public body change requests count"
-msgstr ""
-
-msgid "User|Receive email alerts"
-msgstr "Përdoruesi|Merr lajmerime elektronike"
-
-msgid "User|Request classifications count"
-msgstr ""
-
-msgid "User|Salt"
-msgstr "Përdoruesi|Kripe"
-
-msgid "User|Track things count"
-msgstr ""
-
-msgid "User|Url name"
-msgstr "Përdoruesi | Emri Url"
-
 msgid "Version {{version}}"
 msgstr "Versioni {{version}}"
+
+msgid "Very long – shorter requests are more successful"
+msgstr ""
 
 msgid "Vexatious"
 msgstr "Shqetesuese"
@@ -3866,6 +3329,9 @@ msgstr "Duke pritur që institucioni publik të përgjigjet"
 
 msgid "Want to know something?"
 msgstr "Dëshironi të dini diçka?"
+
+msgid "We consider it is not a valid FOI request as it was correspondence about your personal circumstances, and we have therefore hidden it from other users."
+msgstr ""
 
 msgid "We consider it is not a valid FOI request, and have therefore hidden it from other users."
 msgstr "Ne nuk e konsiderojme nje kerkese per te DI te vlefshme dhe per kete arsye e kemi fshehur nga perdoruesit e tjere."
@@ -3997,12 +3463,6 @@ msgstr "Nga kush mund të kërkoj informacion?"
 msgid "Why specifically do you consider this request unsuitable?"
 msgstr "Pse konsideroni pikerisht kete kerkese te papershtatshme?"
 
-msgid "Widget vote"
-msgstr "Vota widget"
-
-msgid "WidgetVote|Cookie"
-msgstr "VotaWdget|Cookie"
-
 msgid "Withdrawn"
 msgstr "Terhequr"
 
@@ -4113,9 +3573,6 @@ msgstr "Ju mund të ndryshoni kerkesat dhe perdoruesit qe po ndiqni tek <a href=
 msgid "You can get this page in computer-readable format as part of the <a href=\"{{json_path}}\">main JSON page</a> for the request. See the <a href=\"{{api_path}}\">API documentation</a>."
 msgstr ""
 
-msgid "You can only request information about the environment from this authority."
-msgstr "Ju mund të kërkoni vetem informacione në lidhje me mjedisin nga ky Insttucion."
-
 msgid "You can regenerate your one time passcode at any time."
 msgstr "Ju mund të rigjeneroni kodkalimin tuaj te vetem nje here ne cdo kohe. "
 
@@ -4202,6 +3659,9 @@ msgstr "Duhet të kyçesh për të redaktuar profilin tuaj."
 
 msgid "You need to be logged in to report a request for administrator attention"
 msgstr "Duhet të kyçesh për të raportuar nje kerkese per vemendjen e administratorit."
+
+msgid "You only have a right in law to access information about the environment from this authority"
+msgstr ""
 
 msgid "You previously submitted that exact follow up message for this request."
 msgstr "Më parë ke dërguar të njejtin mesazh vazhdues për këtë kërkesë."
@@ -4362,14 +3822,8 @@ msgstr "Kerkese juaj ne {{site_name}} eshte fshehur"
 msgid "Your request to add an authority has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr "Kerkesa juaj per te shtuar nje institucion eshte derguar. Faleminderit qe na kontaktuat! Do lidhemi se shpejti sebashku."
 
-msgid "Your request to add {{public_body_name}} to {{site_name}}"
-msgstr "Kerkesa juaj per te shtuar {{public_body_name}} tek {{site_name}}"
-
 msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr "Kerkesa juja per te perditesuar adresen e {{public_body_name}} eshte derguar. Faleminderit qe na kontaktuat! Do lidhemi se shpejti sebashku.."
-
-msgid "Your request to update {{public_body_name}} on {{site_name}}"
-msgstr "Kerkesa juaj per te perditesuar{{public_body_name}} tek{{site_name}}"
 
 msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
 msgstr "Kërkesa juaj eshte emëruar {{info_request}}. Nëse i lejoni të tjerër ta dinë a keni marrë informacionit qe kerkoni në pergjigje, do të na mundësoni edhe ne mbikqyrjen e tyre "
@@ -4430,6 +3884,9 @@ msgstr ""
 
 msgid "[FOI #{{request}} email]"
 msgstr "[Mesazhi per #{{request}} per te Drejten e Informimit]"
+
+msgid "[Name Removed]"
+msgstr ""
 
 msgid "[REDACTED]"
 msgstr ""
@@ -4639,9 +4096,6 @@ msgstr "ekipi i {{site_name}}"
 
 msgid "to send a follow up message."
 msgstr "për të dërguar një mesazh vijues."
-
-msgid "to {{public_body}}"
-msgstr "për {{public_body}}"
 
 msgid "type your search term here"
 msgstr "shtypni frazat e kerkimit tuaj ketu"
@@ -4910,8 +4364,14 @@ msgstr "{{username}} ka lënë një shënim:"
 msgid "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 msgstr "{{user}} ({{user_admin_link}}) bëri këtë  kërkesë (<a href=\"{{request_admin_url}}\">admin</a>) te {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 
-msgid "{{user}} made this {{law_used_full}} request"
-msgstr "{{user}} bëri këtë kërkesë {{law_used_full}} "
+msgid "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>) as part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
+msgstr ""
+
+msgid "{{user}} made this {{law_used_full}} request to {{public_body}}"
+msgstr ""
+
+msgid "{{user}} made this {{law_used_full}} request to {{public_body}} as part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
+msgstr ""
 
 msgid "« Back to search results"
 msgstr "« Kthehu tek rezultatet e kërkimit"

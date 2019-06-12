@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class RemovePurgeRequest < ActiveRecord::Migration
+class RemovePurgeRequest < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2]
   def up
     drop_table :purge_requests
   end

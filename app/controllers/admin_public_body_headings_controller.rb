@@ -3,7 +3,7 @@ class AdminPublicBodyHeadingsController < AdminController
 
   include TranslatableParams
 
-  before_filter :set_public_body_heading, :only => [:edit, :update, :destroy]
+  before_action :set_public_body_heading, :only => [:edit, :update, :destroy]
 
   def new
     @public_body_heading = PublicBodyHeading.new
@@ -48,7 +48,7 @@ class AdminPublicBodyHeadingsController < AdminController
   def reorder
     transaction = reorder_headings(params[:headings])
     if transaction[:success]
-      render :nothing => true, :status => :ok
+      head :ok
     else
       render :plain => transaction[:error], :status => :unprocessable_entity
     end
@@ -57,7 +57,8 @@ class AdminPublicBodyHeadingsController < AdminController
   def reorder_categories
     transaction = reorder_categories_for_heading(params[:id], params[:categories])
     if transaction[:success]
-      render :nothing => true, :status => :ok and return
+      head :ok
+      return
     else
       render :plain => transaction[:error], :status => :unprocessable_entity
     end

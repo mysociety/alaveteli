@@ -30,7 +30,7 @@ describe InfoRequestEvent do
     it 'should not add an error message for described_state if it is valid' do
       ire = InfoRequestEvent.new(:described_state => 'waiting_response')
       ire.valid?
-      expect(ire.errors.messages[:described_state]).to be_nil
+      expect(ire.errors.messages[:described_state]).to be_blank
     end
   end
 
@@ -80,7 +80,7 @@ describe InfoRequestEvent do
     end
 
     it 'returns a falsey value for an incoming message that is not indexed by search' do
-      incoming_message = FactoryBot.create(:hidden_incoming_message)
+      incoming_message = FactoryBot.create(:incoming_message, :hidden)
       response_event = FactoryBot.build(:response_event,
                                         :incoming_message => incoming_message)
       expect(response_event.indexed_by_search?).to be_falsey

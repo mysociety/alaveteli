@@ -18,7 +18,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
-class MailServerLog < ActiveRecord::Base
+class MailServerLog < ApplicationRecord
   # `serialize` needs to be called before all other ActiveRecord code.
   # See http://stackoverflow.com/a/15610692/387558
   serialize :delivery_status, DeliveryStatusSerializer
@@ -50,7 +50,7 @@ class MailServerLog < ActiveRecord::Base
           # already have that, nothing to do
           return
         else
-          MailServerLog.delete_all "mail_server_log_done_id = " + done.id.to_s
+          MailServerLog.where("mail_server_log_done_id = ?", done.id).delete_all
         end
       else
         done = MailServerLogDone.new(:filename => file_name_db)
@@ -263,15 +263,23 @@ class MailServerLog < ActiveRecord::Base
     decorated = line(:decorate => true)
     if decorated && decorated.delivery_status
       if force
-        # write the value without checking the old (invalid) value, avoiding
-        # the unintended ArgumentError caused by reading the old value
-        raw_write_attribute(:delivery_status, decorated.delivery_status)
-        # record the new value in `changes` so that save will have something
-        # to do as raw_write_attribute just updates the value
-        save_changed_attribute(:delivery_status, decorated.delivery_status)
+        force_delivery_status(decorated.delivery_status)
       else
         write_attribute(:delivery_status, decorated.delivery_status)
       end
+    end
+  end
+
+  def force_delivery_status(new_status)
+    # write the value without checking the old (invalid) value, avoiding
+    # the unintended ArgumentError caused by reading the old value
+    raw_write_attribute(:delivery_status, new_status)
+    # record the new value in `changes` so that save will have something
+    # to do as raw_write_attribute just updates the value
+    if rails5?
+      delivery_status_will_change!
+    else
+      save_changed_attribute(:delivery_status, new_status)
     end
   end
 

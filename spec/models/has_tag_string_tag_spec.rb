@@ -3,17 +3,17 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe HasTagString::HasTagStringTag do
 
-  class ModelWithTag < ActiveRecord::Base
+  class ModelWithTag < ApplicationRecord
     has_tag_string
     after_initialize { self.name ||= 'test' }
   end
 
-  class AnotherModelWithTag < ActiveRecord::Base
+  class AnotherModelWithTag < ApplicationRecord
     has_tag_string
     after_initialize { self.name ||= 'test' }
   end
 
-  class GlobalizeModelWithTag < ActiveRecord::Base
+  class GlobalizeModelWithTag < ApplicationRecord
     translates :name
     has_tag_string
     after_initialize { self.name ||= 'test' }
@@ -38,9 +38,11 @@ describe HasTagString::HasTagStringTag do
       end
 
       create_table :globalize_model_with_tag_translations, force: true do |t|
-        t.references 'globalize_model_with_tags'.
-                       sub(/^#{ GlobalizeModelWithTag.table_name_prefix}/, '').
-                       singularize, null: false
+        t.references 'globalize_model_with_tag',
+                     null: false,
+                     index: {
+                       name: 'index_globalize_tagged_translations_with_tag_id'
+                     }
         t.string :locale, null: false
         t.string :name
         t.timestamps null: false
