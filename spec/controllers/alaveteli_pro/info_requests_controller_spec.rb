@@ -6,16 +6,11 @@ describe AlaveteliPro::InfoRequestsController do
 
   describe "GET #index" do
     let!(:info_request) do
-      request = nil
-      request = FactoryBot.create(:info_request, :user => pro_user)
-      request
+      FactoryBot.create(:info_request, user: pro_user)
     end
 
     let!(:foo_request) do
-      request = nil
-      request = FactoryBot.create(:info_request, :user => pro_user,
-                                                 :title => 'Foo foo')
-      request
+      FactoryBot.create(:info_request, user: pro_user, title: 'Foo foo')
     end
 
     before do

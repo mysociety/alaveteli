@@ -20,7 +20,7 @@ describe 'Adding/removing embargoes from requests' do
 
       using_session(user_session) do
         visit frontpage_path
-        fill_in "navigation_search_button", :with => 'awesome'
+        fill_in "navigation_search_button", with: 'awesome'
         click_button "Search"
         expect(page).to have_content(info_request.title)
       end
@@ -32,7 +32,7 @@ describe 'Adding/removing embargoes from requests' do
 
       using_session(user_session) do
         visit frontpage_path
-        fill_in "navigation_search_button", :with => 'awesome'
+        fill_in "navigation_search_button", with: 'awesome'
         click_button "Search"
         expect(page).not_to have_content(info_request.title)
       end
@@ -54,7 +54,7 @@ describe 'Adding/removing embargoes from requests' do
 
       using_session(user_session) do
         visit frontpage_path
-        fill_in "navigation_search_button", :with => 'embargoed'
+        fill_in "navigation_search_button", with: 'embargoed'
         click_button "Search"
         expect(page).not_to have_content(info_request.title)
       end
@@ -66,7 +66,7 @@ describe 'Adding/removing embargoes from requests' do
 
       using_session(user_session) do
         visit frontpage_path
-        fill_in "navigation_search_button", :with => 'embargoed'
+        fill_in "navigation_search_button", with: 'embargoed'
         click_button "Search"
         expect(page).to have_content(info_request.title)
       end

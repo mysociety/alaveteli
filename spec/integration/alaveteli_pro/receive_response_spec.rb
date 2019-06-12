@@ -13,7 +13,7 @@ describe "receiving responses to requests in alaveteli_pro" do
 
     it "appears in the request list as having received a response" do
       receive_incoming_mail('incoming-request-plain.email',
-                             info_request.incoming_email,
+                            info_request.incoming_email,
                             "Frob <frob@bonce.com>")
 
       using_pro_session(pro_user_session) do

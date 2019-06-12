@@ -150,11 +150,11 @@ describe AlaveteliPro::RequestFilter do
     end
 
     it 'applies a sort order' do
-      first_request = FactoryBot.create(:info_request, :user => user)
-      second_request = FactoryBot.create(:info_request, :user => user)
+      first_request = FactoryBot.create(:info_request, user: user)
+      second_request = FactoryBot.create(:info_request, user: user)
 
       request_filter = described_class.new
-      request_filter.update_attributes(:order => 'created_at_asc')
+      request_filter.update_attributes(order: 'created_at_asc')
       expected = [first_request.request_summary,
                   second_request.request_summary]
       expect(request_filter.results(user)).to eq(expected)
@@ -162,62 +162,62 @@ describe AlaveteliPro::RequestFilter do
 
     it 'applies a filter' do
       complete_request = FactoryBot.create(:successful_request,
-                                           :user => user)
+                                           user: user)
       incomplete_request = FactoryBot.create(:info_request,
-                                             :user => user)
+                                             user: user)
       request_filter = described_class.new
-      request_filter.update_attributes(:filter => 'complete')
-      expect(request_filter.results(user))
-        .to eq([complete_request.request_summary])
+      request_filter.update_attributes(filter: 'complete')
+      expect(request_filter.results(user)).
+        to eq([complete_request.request_summary])
     end
 
     it 'applies a search to the request titles' do
       dog_request = FactoryBot.create(:info_request,
-                                      :title => 'Where is my dog?',
-                                      :user => user)
+                                      title: 'Where is my dog?',
+                                      user: user)
       cat_request = FactoryBot.create(:info_request,
-                                      :title => 'Where is my cat?',
-                                      :user => user)
+                                      title: 'Where is my cat?',
+                                      user: user)
       request_filter = described_class.new
-      request_filter.update_attributes(:search => 'CAT')
-      expect(request_filter.results(user))
-        .to eq([cat_request.request_summary])
+      request_filter.update_attributes(search: 'CAT')
+      expect(request_filter.results(user)).
+        to eq([cat_request.request_summary])
     end
 
     context 'when the filter is "draft"' do
 
       it 'returns draft requests' do
         draft_request = FactoryBot.create(:draft_info_request,
-                                          :user => user)
+                                          user: user)
         request_filter = described_class.new
-        request_filter.update_attributes(:filter => 'draft')
-        expect(request_filter.results(user))
-          .to eq([draft_request.request_summary])
+        request_filter.update_attributes(filter: 'draft')
+        expect(request_filter.results(user)).
+          to eq([draft_request.request_summary])
       end
 
       it 'applies a search to the request titles' do
         dog_request = FactoryBot.create(:draft_info_request,
-                                        :title => 'Where is my dog?',
-                                        :user => user)
+                                        title: 'Where is my dog?',
+                                        user: user)
         cat_request = FactoryBot.create(:draft_info_request,
-                                        :title => 'Where is my cat?',
-                                        :user => user)
+                                        title: 'Where is my cat?',
+                                        user: user)
         request_filter = described_class.new
-        request_filter.update_attributes(:search => 'CAT',
-                                         :filter => 'draft')
-        expect(request_filter.results(user))
-          .to eq([cat_request.request_summary])
+        request_filter.update_attributes(search: 'CAT',
+                                         filter: 'draft')
+        expect(request_filter.results(user)).
+          to eq([cat_request.request_summary])
       end
 
       it 'applies a sort order' do
         first_request = FactoryBot.create(:draft_info_request,
-                                          :user => user)
+                                          user: user)
         second_request = FactoryBot.create(:draft_info_request,
-                                           :user => user)
+                                           user: user)
 
         request_filter = described_class.new
-        request_filter.update_attributes(:order => 'created_at_asc',
-                                         :filter => 'draft')
+        request_filter.update_attributes(order: 'created_at_asc',
+                                         filter: 'draft')
         expected = [first_request.request_summary,
                     second_request.request_summary]
         expect(request_filter.results(user)).to eq(expected)

@@ -27,13 +27,13 @@ shared_examples_for "RequestSummaries" do
   it "deletes associated request_summaries on destroy" do
     resource = FactoryBot.create(factory)
     expect(AlaveteliPro::RequestSummary.where(
-      :summarisable_id => resource.id,
-      :summarisable_type => class_name)
+      summarisable_id: resource.id,
+      summarisable_type: class_name)
     ).to exist
     resource.destroy
     expect(AlaveteliPro::RequestSummary.where(
-      :summarisable_id => resource.id,
-      :summarisable_type => class_name)
+      summarisable_id: resource.id,
+      summarisable_type: class_name)
     ).not_to exist
   end
 end

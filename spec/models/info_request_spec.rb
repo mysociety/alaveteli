@@ -3814,8 +3814,8 @@ describe InfoRequest do
 
           info_request.log_event(
             'overdue',
-            { :event_created_at => Time.zone.now },
-            { :created_at => Time.zone.now - 1.day }
+            event_created_at: Time.zone.now,
+            created_at: Time.zone.now - 1.day
           )
 
           expect(request_summary.reload.request_summary_categories).
@@ -3837,8 +3837,8 @@ describe InfoRequest do
 
           info_request.log_event(
             'overdue',
-            { :event_created_at => Time.zone.now },
-            { :created_at => Time.zone.now - 1.day }
+            event_created_at: Time.zone.now,
+            created_at: Time.zone.now - 1.day
           )
 
           expect(request_summary.reload.request_summary_categories).
@@ -3858,9 +3858,9 @@ describe InfoRequest do
       expect(summary.request_summary_categories).to match_array([received])
       info_request.log_event(
         "status_update",
-        { :user_id => info_request.user.id,
-          :old_described_state => info_request.described_state,
-          :described_state => 'successful' })
+        user_id: info_request.user.id,
+        old_described_state: info_request.described_state,
+        described_state: 'successful')
       info_request.set_described_state('successful')
       expect(summary.reload.request_summary_categories).
         to match_array([complete])
