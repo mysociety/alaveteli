@@ -7,10 +7,10 @@ describe "pro request list" do
   let(:public_body){ FactoryBot.create(:public_body) }
   let!(:pro_user_session) { login(pro_user) }
   let!(:info_requests) do
-    requests = []
-    requests = FactoryBot.create_list(:info_request, 3, user: pro_user,
-                                      :public_body => public_body)
-    requests
+    FactoryBot.create_list(:info_request,
+                           3,
+                           user: pro_user,
+                           public_body: public_body)
   end
 
   let(:public_bodies) do

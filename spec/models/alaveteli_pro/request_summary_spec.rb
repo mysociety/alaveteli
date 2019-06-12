@@ -316,17 +316,17 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
           first_request = batch.info_requests.first
           incoming_message = FactoryBot.create(
             :incoming_message,
-            :info_request => first_request)
+            info_request: first_request)
           first_request.log_event(
             "response",
-            {:incoming_message_id => incoming_message.id})
+            incoming_message_id: incoming_message.id)
           first_request.awaiting_description = true
           first_request.save!
 
           second_request = batch.info_requests.second
           incoming_message = FactoryBot.create(
             :incoming_message,
-            :info_request => second_request)
+            info_request: second_request)
           second_request.set_described_state('successful')
 
           batch.reload
