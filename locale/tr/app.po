@@ -15,6 +15,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Baran Ozgul <baran@ozgul.net>, 2012
 # Baran Ozgul <baran@ozgul.net>, 2012
 # Baran Ozgul <baran@ozgul.net>, 2012
@@ -28,8 +29,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-28 15:37+0000\n"
-"PO-Revision-Date: 2018-12-21 12:34+0000\n"
+"POT-Creation-Date: 2019-06-10 14:02+0000\n"
+"PO-Revision-Date: 2019-06-10 14:40+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Turkish (http://www.transifex.com/mysociety/alaveteli/language/tr/)\n"
 "Language: tr\n"
@@ -146,6 +147,9 @@ msgstr "<a href=\"{{new_request_link}}\">Yeni EIR talebi oluştur</a>{{public_bo
 msgid "<a href=\"{{new_request_link}}\">Make a new FOI request</a> to {{public_body_name}}"
 msgstr "<a href=\"{{new_request_link}}\">Yeni FOI talebi oluştur</a>{{public_body_name}}nın"
 
+msgid "<a href=\"{{sign_in_link}}\">Sign in</a> to get updates on things you follow or re-enable email alerts."
+msgstr ""
+
 msgid "<a href=\"{{url}}\">Do you want to request private information about yourself?</a>"
 msgstr "<a href=\"{{url}}\">Kendinizle ilgili özel kişisel bilgi mi istiyorsunuz?</a>"
 
@@ -157,6 +161,9 @@ msgstr " Şifre değişikliği, aboneliklerinizi yönetmek ve daha fazlası içi
 
 msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>"
 msgstr "<a href=\"{{url}}\">Bir takma ad kullanmayı mı düşünüyorsunuz?</a>"
+
+msgid "<a href=\"{{wall_link}}\">Visit your Wall</a> to get updates on things you follow or re-enable email alerts."
+msgstr ""
 
 msgid "<div class=\"alaveteli-widget__count\">{{count}}</div> person wants to know"
 msgid_plural "<div class=\"alaveteli-widget__count\">{{count}}</div> people want to know"
@@ -291,8 +298,8 @@ msgstr ""
 msgid "A <a href=\"{{request_url}}\">response</a> to <em>{{request_title}}</em> was sent by {{public_body_name}} to {{info_request_user}} on {{date}}.  The request status is: {{request_status}}"
 msgstr " {{date}} tarihinde <em>{{request_title}}</em> hakkında {{info_request_user}} tarafından yapılmış olan başvuruya <a href=\"{{request_url}}\">cevap</a> verilmiştir. Başvurunun durumu:  {{request_status}}"
 
-msgid "A <strong>summary</strong> of the response if you have received it by post. "
-msgstr "Posta ile almışsanız, aldığınız cevabın <strong>özetini</strong> paylaşın."
+msgid "A <strong>summary</strong> of the response if you have received it by postal mail. "
+msgstr ""
 
 msgid "A Freedom of Information request"
 msgstr "Bilgi Edinme Başvurusu"
@@ -312,14 +319,11 @@ msgstr ""
 msgid "A public authority"
 msgstr "Bir kamu kuruluşu"
 
-msgid "A response will be sent <strong>by post</strong>"
-msgstr " <strong>Postayla  </strong>bir cevap verilecek"
+msgid "A response will be sent <strong>by postal mail</strong>"
+msgstr ""
 
-msgid "A strange reponse, required attention by the {{site_name}} team"
-msgstr "{{site_name}} ekibinin ilgilenmesini gerektiren değişik bir cevap."
-
-msgid "A vexatious request"
-msgstr "Tekrar eden ya da kötü niyetli bir başvuru"
+msgid "A strange response, required attention by the {{site_name}} team"
+msgstr ""
 
 msgid "A {{site_name}} user"
 msgstr "Bir {{site_name}}  kullanıcısı"
@@ -331,6 +335,9 @@ msgid "About you:"
 msgstr "Hakkınızda:"
 
 msgid "About {{count}} FOI requests found"
+msgstr ""
+
+msgid "Account closed at user request"
 msgstr ""
 
 msgid "Account suspended – Please contact us"
@@ -386,63 +393,6 @@ msgstr "Başvurunun <strong>reddedilmesi</strong>nin kanunsuz olup olmadığı v
 
 msgid "Air, water, soil, land, flora and fauna (including how these effect human beings)"
 msgstr "Hava, su, toprak, arazi, flora ve fauna (ve bunların insanları nasıl etkilediği)"
-
-msgid "Alaveteli pro/draft info request batch"
-msgstr ""
-
-msgid "Alaveteli pro/embargo"
-msgstr ""
-
-msgid "Alaveteli pro/embargo extension"
-msgstr ""
-
-msgid "Alaveteli pro/request summary"
-msgstr ""
-
-msgid "Alaveteli pro/request summary category"
-msgstr ""
-
-msgid "AlaveteliPro::DraftInfoRequestBatch|Body"
-msgstr ""
-
-msgid "AlaveteliPro::DraftInfoRequestBatch|Embargo duration"
-msgstr ""
-
-msgid "AlaveteliPro::DraftInfoRequestBatch|Title"
-msgstr ""
-
-msgid "AlaveteliPro::EmbargoExtension|Extension duration"
-msgstr ""
-
-msgid "AlaveteliPro::Embargo|Embargo duration"
-msgstr ""
-
-msgid "AlaveteliPro::Embargo|Expiring notification at"
-msgstr ""
-
-msgid "AlaveteliPro::Embargo|Publish at"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummaryCategory|Slug"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Body"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Public body names"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Request created at"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Request updated at"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Summarisable type"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Title"
-msgstr ""
 
 msgid "All of the information requested has been received"
 msgstr "İstenilen tüm bilgiyi aldım"
@@ -513,12 +463,6 @@ msgstr "Açıklamalar herkesin başvuru dolduranlara yardım etmesine yarar. Ör
 msgid "Annotations will be posted publicly here, and are <strong>not</strong> sent to {{public_body_name}}."
 msgstr "Açıklamalar kamuya açık bir şekilde buraya yüklenir. {{public_body_name}} kurumuna <strong>gönderilmezler</strong>.  "
 
-msgid "Announcement"
-msgstr ""
-
-msgid "Announcement|Visibility"
-msgstr ""
-
 msgid "Anonymous user"
 msgstr "İsimsiz kullanıcı"
 
@@ -527,6 +471,9 @@ msgstr "Aşağıdakine uygulanabilir"
 
 msgid "Are we missing a public authority?"
 msgstr "Aradığım kurumu bulamıyorum"
+
+msgid "Are you asking about your, or others', personal information or personal situation?"
+msgstr ""
 
 msgid "Are you sure you want to disable two factor authentication?"
 msgstr "İki aşamalı doğrulamayı devreden çıkarmak istediğinize emin misiniz?"
@@ -657,24 +604,6 @@ msgstr "Bazı {{site_name}} alert'lerini iptal edin"
 msgid "Cancel, return to your profile page"
 msgstr "İptal edip, profil sayfanıza dönün"
 
-msgid "Censor rule"
-msgstr "Denetçi kuralı"
-
-msgid "CensorRule|Last edit comment"
-msgstr "CensorRule|Son yorumu düzenle"
-
-msgid "CensorRule|Last edit editor"
-msgstr "CensorRule|Last edit editor"
-
-msgid "CensorRule|Regexp"
-msgstr "CensorRule|Regexp"
-
-msgid "CensorRule|Replacement"
-msgstr "CensorRule|Replacement"
-
-msgid "CensorRule|Text"
-msgstr "CensorRule|Text"
-
 msgid "Change email on {{site_name}}"
 msgstr " {{site_name}} sitesindeki email adresini değiştir"
 
@@ -743,21 +672,6 @@ msgstr "Başvuruyu kapat ve yanıtla:"
 
 msgid "Collapse all correspondence"
 msgstr ""
-
-msgid "Comment"
-msgstr "Yorum"
-
-msgid "Comment|Attention requested"
-msgstr ""
-
-msgid "Comment|Body"
-msgstr "Comment|Body"
-
-msgid "Comment|Locale"
-msgstr "Comment|Locale"
-
-msgid "Comment|Visible"
-msgstr "Comment|Visible"
 
 msgid "Complete"
 msgstr ""
@@ -885,9 +799,6 @@ msgstr ""
 msgid "Delivery error"
 msgstr "Teslim hatası"
 
-msgid "Destroy {{name}}"
-msgstr "Yok et {{name}}"
-
 msgid "Details of request &ldquo;{{request_title}}&rdquo;"
 msgstr " &ldquo;{{request_title}}&rdquo; başvurunun detayları"
 
@@ -930,18 +841,6 @@ msgstr "Tüm yazışmalarınızı bir zip dosyası olarak indirin"
 msgid "Download original attachment"
 msgstr "En başta iletmiş olduğunuz ekteki belgeyi indirin"
 
-msgid "Draft info request"
-msgstr ""
-
-msgid "DraftInfoRequest|Body"
-msgstr ""
-
-msgid "DraftInfoRequest|Embargo duration"
-msgstr ""
-
-msgid "DraftInfoRequest|Title"
-msgstr ""
-
 msgid "EIR"
 msgstr "Çevresel Konularla İlgili Bilgi Edinme Başvurusu "
 
@@ -961,6 +860,12 @@ msgid "Either the email or password was not recognised, please try again."
 msgstr "Email adresi ya da şifre tanınmadı. Lütfen tekrar deneyin."
 
 msgid "Either the email or password was not recognised, please try again. Or create a new account using the form on the left."
+msgstr ""
+
+msgid "Email Alerts Disabled"
+msgstr ""
+
+msgid "Email alerts for things you follow have now been disabled."
 msgstr ""
 
 msgid "Email doesn't look like a valid address"
@@ -1076,30 +981,6 @@ msgstr ""
 
 msgid "Flipper::Adapters::ActiveRecord::Gate|Value"
 msgstr ""
-
-msgid "Foi attachment"
-msgstr "Bilgi edinme isteği ek dosya"
-
-msgid "FoiAttachment|Charset"
-msgstr "FoiAttachment|Charset"
-
-msgid "FoiAttachment|Content type"
-msgstr "FoiAttachment|Content type"
-
-msgid "FoiAttachment|Display size"
-msgstr "FoiAttachment|Display size"
-
-msgid "FoiAttachment|Filename"
-msgstr "FoiAttachment|Filename"
-
-msgid "FoiAttachment|Hexdigest"
-msgstr "FoiAttachment|Hexdigest"
-
-msgid "FoiAttachment|Url part number"
-msgstr "FoiAttachment|Url part number"
-
-msgid "FoiAttachment|Within rfc822 subject"
-msgstr "FoiAttachment|Within rfc822 subject"
 
 msgid "Follow"
 msgstr "Takip et"
@@ -1229,17 +1110,20 @@ msgstr "Gönderen:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "ŞİKAYETİNİZLE İLGİLİ DETAYLARI BURADA PAYLAŞIN"
 
+msgid "Getting long – remember to keep it focussed"
+msgstr ""
+
 msgid "Got a {{site_name}} account?"
 msgstr ""
 
 msgid "Got an account?"
 msgstr "Hesabınız var mı?"
 
-msgid "Handled by post"
-msgstr "Postayla gerçekleştirildi"
+msgid "Handled by postal mail"
+msgstr ""
 
-msgid "Handled by post."
-msgstr "Postayla gerçekleştirildi"
+msgid "Handled by postal mail."
+msgstr ""
 
 msgid "Has tag string tag"
 msgstr ""
@@ -1315,15 +1199,6 @@ msgstr ""
 
 msgid "Hide request"
 msgstr "Başvuruyu gizle"
-
-msgid "Holiday"
-msgstr "Tatil"
-
-msgid "Holiday|Day"
-msgstr "Holiday|Day"
-
-msgid "Holiday|Description"
-msgstr "Holiday|Description"
 
 msgid "Home page"
 msgstr "Ana sayfa"
@@ -1483,155 +1358,11 @@ msgstr "Konuyla ilgili yürütülen bir kampanyaya ait web sitesi, blog siteniz 
 msgid "Incoming email address"
 msgstr "Gelen email adresi"
 
-msgid "Incoming message"
-msgstr "Gelen ileti"
-
-msgid "Incoming message error"
-msgstr ""
-
 msgid "Incoming message has a spam score above the configured threshold ({{spam_threshold}})."
 msgstr "Gelen iletinizin spam puanı belirlenmiş eşiğin üstünde ({{spam_threshold}})."
 
-msgid "IncomingMessageError|Backtrace"
-msgstr ""
-
-msgid "IncomingMessageError|Retry at"
-msgstr ""
-
-msgid "IncomingMessage|Cached attachment text clipped"
-msgstr "IncomingMessage|Cached attachment text clipped"
-
-msgid "IncomingMessage|Cached main body text folded"
-msgstr "IncomingMessage|Cached main body text folded"
-
-msgid "IncomingMessage|Cached main body text unfolded"
-msgstr "IncomingMessage|Cached main body text unfolded"
-
-msgid "IncomingMessage|Last parsed"
-msgstr "IncomingMessage|Last parsed"
-
-msgid "IncomingMessage|Mail from"
-msgstr "IncomingMessage|Mail from"
-
-msgid "IncomingMessage|Mail from domain"
-msgstr "IncomingMessage|Mail from domain"
-
-msgid "IncomingMessage|Prominence"
-msgstr "IncomingMessage|Prominence"
-
-msgid "IncomingMessage|Prominence reason"
-msgstr "IncomingMessage|Prominence reason"
-
-msgid "IncomingMessage|Sent at"
-msgstr "IncomingMessage|Sent at"
-
-msgid "IncomingMessage|Subject"
-msgstr "IncomingMessage|Subject"
-
-msgid "IncomingMessage|Valid to reply to"
-msgstr "IncomingMessage|Valid to reply to"
-
 msgid "Individual requests"
 msgstr "Tekil başvurular"
-
-msgid "Info request"
-msgstr "Bilgi edinme başvurusu"
-
-msgid "Info request batch"
-msgstr "Bilgi edinme başvurusu, toplu olarak"
-
-msgid "Info request event"
-msgstr "Bilgi edinme isteği olay"
-
-msgid "InfoRequestBatch|Body"
-msgstr "InfoRequestBatch|Body"
-
-msgid "InfoRequestBatch|Embargo duration"
-msgstr ""
-
-msgid "InfoRequestBatch|Sent at"
-msgstr "InfoRequestBatch|Sent at"
-
-msgid "InfoRequestBatch|Title"
-msgstr "InfoRequestBatch|Title"
-
-msgid "InfoRequestEvent|Calculated state"
-msgstr "InfoRequestEvent|Calculated state"
-
-msgid "InfoRequestEvent|Described state"
-msgstr "InfoRequestEvent|Described state"
-
-msgid "InfoRequestEvent|Event type"
-msgstr "InfoRequestEvent|Event type"
-
-msgid "InfoRequestEvent|Last described at"
-msgstr "InfoRequestEvent|Last described at"
-
-msgid "InfoRequestEvent|Params yaml"
-msgstr "InfoRequestEvent|Params yaml"
-
-msgid "InfoRequest|Allow new responses from"
-msgstr "InfoRequest|Allow new responses from"
-
-msgid "InfoRequest|Attention requested"
-msgstr "InfoRequest|Attention requested"
-
-msgid "InfoRequest|Awaiting description"
-msgstr "InfoRequest|Awaiting description"
-
-msgid "InfoRequest|Comments allowed"
-msgstr "nfoRequest|Comments izin veriliyor"
-
-msgid "InfoRequest|Date initial request last sent at"
-msgstr ""
-
-msgid "InfoRequest|Date response required by"
-msgstr ""
-
-msgid "InfoRequest|Date very overdue after"
-msgstr ""
-
-msgid "InfoRequest|Described state"
-msgstr "InfoRequest|Described durum"
-
-msgid "InfoRequest|External url"
-msgstr "InfoRequest|External url"
-
-msgid "InfoRequest|External user name"
-msgstr "InfoRequest|External user name"
-
-msgid "InfoRequest|Handle rejected responses"
-msgstr "InfoRequest|Handle reddedilmiş başvurular"
-
-msgid "InfoRequest|Idhash"
-msgstr "InfoRequest|Idhash"
-
-msgid "InfoRequest|Last event time"
-msgstr ""
-
-msgid "InfoRequest|Last public response at"
-msgstr ""
-
-msgid "InfoRequest|Law used"
-msgstr "InfoRequest|Law used"
-
-msgid "InfoRequest|Prominence"
-msgstr "InfoRequest|Prominence"
-
-msgid "InfoRequest|Reject incoming at mta"
-msgstr ""
-
-msgid "InfoRequest|Rejected incoming count"
-msgstr ""
-
-msgid "InfoRequest|Title"
-msgstr "InfoRequest|Title"
-
-msgid "InfoRequest|Url title"
-msgstr "InfoRequest|Url title"
-
-msgid "InfoRequest|Use notifications"
-msgstr ""
 
 msgid "Information not held"
 msgstr ""
@@ -1656,6 +1387,9 @@ msgstr "{{date}} tarihinde {{public_body_name}} adlı kuruma  {{info_request_use
 
 msgid "Invalid one time password"
 msgstr "Tek kullanımlık şifre geçersiz"
+
+msgid "Invalid token"
+msgstr ""
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr " {{email_address}} adresi  {{public_body_name}} kurumuna yapılan {{type_of_request}} başvuruları için yanlış adres mi? Öyleyse, lütfen aşağıdaki formu kullanarak bunu bizimle paylaşın:"
@@ -1753,27 +1487,6 @@ msgstr "Son cevap verme tarihinden bu yana çok süre geçmiş."
 msgid "Made between"
 msgstr "Şu tarihler arasında yapılan:"
 
-msgid "Mail server log"
-msgstr "Posta sunucusu raporu"
-
-msgid "Mail server log done"
-msgstr "Posta sunucusu raporu tamamlandı"
-
-msgid "MailServerLogDone|Filename"
-msgstr "MailServerLogDone|Filename"
-
-msgid "MailServerLogDone|Last stat"
-msgstr "MailServerLogDone|Last stat"
-
-msgid "MailServerLog|Delivery status"
-msgstr ""
-
-msgid "MailServerLog|Line"
-msgstr "MailServerLog|Line"
-
-msgid "MailServerLog|Order"
-msgstr "MailServerLog|Order"
-
 msgid "Make a batch request"
 msgstr "Çoklu başvuruda bulunun"
 
@@ -1818,6 +1531,9 @@ msgstr "için iletişim bilgisi eksik '{{authority_name}}'"
 
 msgid "More about this authority"
 msgstr "Bu kurum hakkında daha fazla "
+
+msgid "More requests in this batch"
+msgstr ""
 
 msgid "More similar requests"
 msgstr "Daha çok sayıda benzeri başvuru"
@@ -1915,9 +1631,6 @@ msgstr "Sonuç bulunamadı"
 msgid "None made."
 msgstr "Hiç yok"
 
-msgid "Not a valid FOI request"
-msgstr "Geçerli bir Bilgi Edinme Başvurusu değil"
-
 msgid "Not a valid request"
 msgstr "Geçerli bir başvuru değil"
 
@@ -1930,23 +1643,11 @@ msgstr "Bilgi ellerinde yok"
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
 msgstr "Başvuran kişiye eklediğiniz açıklama hakkında bilgi verilmeyecektir, çünkü başvuru başvuran kişi adına  {{public_body_name}} tarafından yüklenmiştir. "
 
+msgid "Note that we may still send you emails when new correspondence appears on your requests, or when you perform actions that require an email confirmation step."
+msgstr ""
+
 msgid "Notes:"
 msgstr "Notlar:"
-
-msgid "Notification"
-msgstr ""
-
-msgid "Notification|Expired"
-msgstr ""
-
-msgid "Notification|Frequency"
-msgstr ""
-
-msgid "Notification|Seen at"
-msgstr ""
-
-msgid "Notification|Send after"
-msgstr ""
 
 msgid "Now check your email!"
 msgstr "Şimdi emailinizi kontrol edin!"
@@ -2022,30 +1723,6 @@ msgstr "Diğer"
 
 msgid "Other:"
 msgstr "Diğer:"
-
-msgid "Outgoing message"
-msgstr "Giden mesaj"
-
-msgid "OutgoingMessage|Body"
-msgstr "OutgoingMessage|Body"
-
-msgid "OutgoingMessage|Last sent at"
-msgstr "OutgoingMessage|Last gönderim zamanı"
-
-msgid "OutgoingMessage|Message type"
-msgstr "OutgoingMessage|Message type"
-
-msgid "OutgoingMessage|Prominence"
-msgstr "OutgoingMessage|Prominence"
-
-msgid "OutgoingMessage|Prominence reason"
-msgstr "OutgoingMessage|Prominence neden"
-
-msgid "OutgoingMessage|Status"
-msgstr "OutgoingMessage|Status"
-
-msgid "OutgoingMessage|What doing"
-msgstr "OutgoingMessage|What doing"
 
 msgid "Partial success"
 msgstr "Kısmen olumlu cevap"
@@ -2133,6 +1810,9 @@ msgstr " {{site_name}} sitesinde kullandığınız email adresi olan {{old_email
 
 msgid "Please click on the link below to confirm your email address."
 msgstr "Lütfen email adresinizi doğrulamak için aşağıdaki bağlantıyı tıklayın. "
+
+msgid "Please click on the link below to stop these emails."
+msgstr ""
 
 msgid "Please create an account or sign in"
 msgstr "Lütfen bir hesap oluşturun ya da giriş yapın."
@@ -2265,27 +1945,6 @@ msgstr "Konunuzla ilgili olması muhtemel bilgi edinme başvuruları"
 msgid "Post annotation"
 msgstr "Açıklama notunu yükle"
 
-msgid "Post redirect"
-msgstr "Paylaşımı yeniden yönlendirme"
-
-msgid "PostRedirect|Circumstance"
-msgstr "PostRedirect|Circumstance"
-
-msgid "PostRedirect|Email token"
-msgstr "PostRedirect|Email token"
-
-msgid "PostRedirect|Post params yaml"
-msgstr "PostRedirect|Post params yaml"
-
-msgid "PostRedirect|Reason params yaml"
-msgstr "PostRedirect|Reason params yaml"
-
-msgid "PostRedirect|Token"
-msgstr "PostRedirect|Token"
-
-msgid "PostRedirect|Uri"
-msgstr "PostRedirect|Uri"
-
 msgid "Posted on {{date}} by {{author}}"
 msgstr " {{date}} tarihinde {{author}} tarafından paylaşıldı"
 
@@ -2328,23 +1987,8 @@ msgstr "Tek kullanımlık giriş kodunuzu yazdırın"
 msgid "Privacy and cookies"
 msgstr ""
 
-msgid "Pro account"
-msgstr ""
-
-msgid "ProAccount|Default embargo duration"
-msgstr ""
-
 msgid "Profile image for {{user_name}}"
 msgstr ""
-
-msgid "Profile photo"
-msgstr "Profil resmi"
-
-msgid "ProfilePhoto|Data"
-msgstr "ProfilePhoto|Data"
-
-msgid "ProfilePhoto|Draft"
-msgstr "ProfilePhoto|Draft"
 
 msgid "Public Bodies"
 msgstr "Kamu Kurumları"
@@ -2382,23 +2026,8 @@ msgstr "En çok bilgi edinme başvurusu yapılan kamu kuruluşları"
 msgid "Public bodies with the most successful requests"
 msgstr "Yapılan bilgi edinme başvurularının en çok olumlu sonuçlandığı kurumlar "
 
-msgid "Public body"
-msgstr "Kamu kurumu"
-
-msgid "Public body category"
-msgstr "Kamu kurumu kategorisi"
-
-msgid "Public body category link"
-msgstr "Kamu kurumu kategori bağlantısı"
-
 msgid "Public body category translation"
 msgstr ""
-
-msgid "Public body change request"
-msgstr "Kamu kuruluşu değişim isteği"
-
-msgid "Public body heading"
-msgstr "Kamu kuruluşu başlık"
 
 msgid "Public body heading translation"
 msgstr ""
@@ -2409,9 +2038,6 @@ msgstr "Kamu sayfası"
 msgid "Public page not available"
 msgstr "Kamu kurumu sayfa adresi bulunmuyor"
 
-msgid "PublicBodyCategoryLink|Category display order"
-msgstr "PublicBodyCategoryLink|Category görüntüleme sırası"
-
 msgid "PublicBodyCategoryTranslation|Description"
 msgstr ""
 
@@ -2421,74 +2047,11 @@ msgstr ""
 msgid "PublicBodyCategoryTranslation|Title"
 msgstr ""
 
-msgid "PublicBodyCategory|Category tag"
-msgstr "PublicBodyCategory|Category etiket"
-
-msgid "PublicBodyChangeRequest|Is open"
-msgstr "PublicBodyChangeRequest|Is open"
-
-msgid "PublicBodyChangeRequest|Notes"
-msgstr "PublicBodyChangeRequest|Notes"
-
-msgid "PublicBodyChangeRequest|Public body email"
-msgstr "PublicBodyChangeRequest|Public body email"
-
-msgid "PublicBodyChangeRequest|Public body name"
-msgstr "PublicBodyChangeRequest|Public body name"
-
-msgid "PublicBodyChangeRequest|Source url"
-msgstr "PublicBodyChangeRequest|Source url"
-
-msgid "PublicBodyChangeRequest|User email"
-msgstr "PublicBodyChangeRequest|User email"
-
-msgid "PublicBodyChangeRequest|User name"
-msgstr "PublicBodyChangeRequest|User name"
-
 msgid "PublicBodyHeadingTranslation|Locale"
 msgstr ""
 
 msgid "PublicBodyHeadingTranslation|Name"
 msgstr ""
-
-msgid "PublicBodyHeading|Display order"
-msgstr "PublicBodyHeading|Display order"
-
-msgid "PublicBody|Api key"
-msgstr "PublicBody|Api key"
-
-msgid "PublicBody|Disclosure log"
-msgstr "PublicBody|Disclosure log"
-
-msgid "PublicBody|Home page"
-msgstr "PublicBody|Home page"
-
-msgid "PublicBody|Info requests count"
-msgstr "PublicBody|Info requests count"
-
-msgid "PublicBody|Info requests not held count"
-msgstr "PublicBody|Info requests not held count"
-
-msgid "PublicBody|Info requests overdue count"
-msgstr "PublicBody|Info requests overdue count"
-
-msgid "PublicBody|Info requests successful count"
-msgstr "PublicBody|Info requests successful count"
-
-msgid "PublicBody|Info requests visible classified count"
-msgstr "PublicBody|Info requests visible classified count"
-
-msgid "PublicBody|Info requests visible count"
-msgstr "PublicBody|Info requests visible count"
-
-msgid "PublicBody|Last edit comment"
-msgstr "PublicBody|Last edit comment"
-
-msgid "PublicBody|Last edit editor"
-msgstr "PublicBody|Last edit editor"
-
-msgid "PublicBody|Version"
-msgstr "PublicBody|Version"
 
 msgid "Publication scheme"
 msgstr "Yayınlama planı"
@@ -2540,6 +2103,9 @@ msgstr "Reddedildi"
 
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr "Beni hatırla (siteye giriş yaptıktan sonra, daha uzun süre kalmanızı sağlar. Halka açık bir bilgisayarda kullanmayın)"
+
+msgid "Report"
+msgstr ""
 
 msgid "Report an offensive or unsuitable request"
 msgstr "Rahatsız edici olabilecek ya da uygunsuz bir başvuruyu şikayet et"
@@ -2681,15 +2247,6 @@ msgstr "Şunlarla sınırla"
 
 msgid "Results page {{page_number}}"
 msgstr "Sonuç sayfası {{page_number}}"
-
-msgid "Role"
-msgstr ""
-
-msgid "Role|Name"
-msgstr ""
-
-msgid "Role|Resource type"
-msgstr ""
 
 msgid "Save"
 msgstr "Kaydet"
@@ -2876,12 +2433,6 @@ msgstr "Kaynak URL:"
 msgid "Source:"
 msgstr "Kaynak:"
 
-msgid "Spam address"
-msgstr "Spam adres"
-
-msgid "SpamAddress|Email"
-msgstr "SpamAddress|Email"
-
 msgid "Start your own request"
 msgstr "Bilgi edinme başvurunuzu yapmaya başlayın"
 
@@ -3024,7 +2575,7 @@ msgid "The accounts have been left as they previously were."
 msgstr "Hesaplar daha önceki hallerinde bırakıldı"
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr "Kurumun elinde istenilen bilgi <strong>bulunmamaktadır</strong>  <small>(belki nereden bulabileceğinizi söylemişlerdir)</small>"
+msgstr ""
 
 msgid "The authority email doesn't look like a valid address"
 msgstr "Kamu kuruluşunun email adresi geçerli bir adrese benzemiyor"
@@ -3035,8 +2586,8 @@ msgstr "İstenilen bilgi kamu kuruluşunun elinde sadece <strong>kağıda basıl
 msgid "The authority say that they <strong>need a postal address</strong>, not just an email, for it to be a valid FOI request"
 msgstr "Kamu kuruluşu geçerli bir Bilgi Edinme başvurusu için tek bir email değil <strong>ayrıca bir posta adresi</strong> bulunması gerektiğini söylüyor"
 
-msgid "The authority would like to / has <strong>responded by post</strong> to this request."
-msgstr "Kurum bu başvuruya <strong>posta yolu ile</strong> cevap verecek ya da verdi. "
+msgid "The authority would like to / has <strong>responded by postal mail</strong> to this request."
+msgstr ""
 
 msgid "The classification of requests (e.g. to say whether they were successful or not) is done manually by users and administrators of the site, which means that they are subject to error."
 msgstr "Başvuruların sonuçlarına göre sınıflandırılması (Örneğin, olumlu sonuçlanıp sonuçlanmadıklarının belirtilmesi) kullanıcılar ve yöneticiler tarafından elle yapılmaktadır. Yani hata içeriyor olabilirler. "
@@ -3086,8 +2637,8 @@ msgstr "Kamu kuruluşu istenilen bilgiye sahip değil"
 msgid "The public authority would like part of the request explained"
 msgstr "Kamu kuruluşu başvurunun bir kısmının açıklanmasını istiyor"
 
-msgid "The public authority would like to / has responded by post"
-msgstr "Kamu kuruluşu postayla cevapladı ya da cevaplayacak"
+msgid "The public authority would like to / has responded by postal mail"
+msgstr ""
 
 msgid "The request has been <strong>refused</strong>"
 msgstr "Bu başvuru <strong>reddedildi</strong>"
@@ -3248,8 +2799,8 @@ msgstr "Bu grafikler kısmen <a href=\"http://mark.goodge.co.uk/2011/08/number-c
 msgid "These logs show what happened to this message as it passed through our {{mta_type}} mail server. You can send these logs to an authority to help them diagnose problems receiving email from {{site_name}}."
 msgstr ""
 
-msgid "They are going to reply <strong>by post</strong>"
-msgstr "<strong>Posta ile </strong> cevap verecekler"
+msgid "They are going to reply <strong>by postal mail</strong>"
+msgstr ""
 
 msgid "They do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr "Bu bilgi <strong>ellerinde yok</strong> <small>(belki kimin elinde bulunduğunu söylemişlerdir)</small>"
@@ -3268,6 +2819,9 @@ msgstr ""
 
 msgid "Things you're following"
 msgstr "Takip ettiğiniz şeyler"
+
+msgid "This account has been closed."
+msgstr ""
 
 msgid "This annotation has been reported for administrator attention"
 msgstr ""
@@ -3363,6 +2917,9 @@ msgstr "Bu başvuru, yöneticinin ilgilenmesi için zaten rapor edildi"
 msgid "This request has an <strong>unknown status</strong>."
 msgstr "Bu başvurunun <strong>durumu bilinmiyor</strong>."
 
+msgid "This request has been <strong>closed to new correspondence from the public body</strong>. <a href=\"{{url}}\"\">Contact us</a> if you think it ought be re-opened."
+msgstr ""
+
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
 msgstr "Bu başvuru site yöneticisinin bakması için <strong>rapor edildi</strong> (belki taciz edici bulundu, belki de kişisel bilgi içeriyor)"
 
@@ -3395,6 +2952,9 @@ msgstr "Bu başvurunun önem derecesi \"gizli\" olarak seçilmiş. Bu başvuruyu
 
 msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
 msgstr "Bu başvuru sadece yapan kişinin görebileceği şekilde gizlendi. Neden böyle olduğu konusunda sorularınız varsa lütfen\\n <a href=\"{{url}}\">bize yazın</a>."
+
+msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
+msgstr ""
 
 msgid "This request is still in progress:"
 msgstr "Bu başvuru hakkında işlem devam ediyor:"
@@ -3539,23 +3099,11 @@ msgstr "Çok fazla sayıda başvuru"
 msgid "Top recent players"
 msgstr ""
 
-msgid "Track thing"
-msgstr "Şeyi izle"
-
 msgid "Track this person"
 msgstr "Bu kişiyi izle"
 
 msgid "Track this search"
 msgstr "Bu aramayı izle"
-
-msgid "TrackThing|Track medium"
-msgstr "TrackThing|Track medium"
-
-msgid "TrackThing|Track query"
-msgstr "TrackThing|Track query"
-
-msgid "TrackThing|Track type"
-msgstr "TrackThing|Track type"
 
 msgid "Try opening the logs in a new window."
 msgstr ""
@@ -3659,104 +3207,17 @@ msgstr "Aradığınız kelimeleri aynen içeren bir arama yapmak için tırnak i
 msgid "Use this site to make your request for information – we'll show you how."
 msgstr "Bu site aracılığıyla bilgi edinme hakkından faydalanmak için önce üye olunuz.  "
 
-msgid "User"
-msgstr "Kullanıcı"
-
-msgid "User info request sent alert"
-msgstr "Kullanıcı bilgisi başvuru alert gönderimi"
-
 msgid "User – {{name}}"
 msgstr "Kullanıcı - {{name}}"
-
-msgid "UserInfoRequestSentAlert|Alert type"
-msgstr "UserInfoRequestSentAlert|Alert type"
 
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
 msgstr "Genelde kullanıcıların birçok kamu kurumuna toplu başvuru gönderimi yapmasına izin vermiyoruz çünkü kamu kurum ve kuruluşlarının uygunsuz birçok mesajla bombardmana maruz kalmasını istemiyoruz. Aynı başvuruyu bir kerede farklı kuruluşlara göndermek için iyi bir nedeniniz olduğuna inanıyorsanız, lütfen <a href=\"{{url}}\">bizimle iletişime geçin</a>."
 
-msgid "User|About me"
-msgstr "User|About me"
-
-msgid "User|Ban text"
-msgstr "User|Ban text"
-
-msgid "User|Can make batch requests"
-msgstr "User|Can make batch requests"
-
-msgid "User|Comments count"
-msgstr ""
-
-msgid "User|Confirmed not spam"
-msgstr ""
-
-msgid "User|Daily summary hour"
-msgstr ""
-
-msgid "User|Daily summary minute"
-msgstr ""
-
-msgid "User|Email"
-msgstr "User|Email"
-
-msgid "User|Email bounce message"
-msgstr "User|Email bounce message"
-
-msgid "User|Email bounced at"
-msgstr "User|Email bounced at"
-
-msgid "User|Email confirmed"
-msgstr "User|Email confirmed"
-
-msgid "User|Hashed password"
-msgstr "User|Hashed password"
-
-msgid "User|Info request batches count"
-msgstr ""
-
-msgid "User|Info requests count"
-msgstr ""
-
-msgid "User|Last daily track email"
-msgstr "User|Last daily track email"
-
-msgid "User|Locale"
-msgstr "User|Locale"
-
-msgid "User|Name"
-msgstr "User|Name"
-
-msgid "User|No limit"
-msgstr "User|No limit"
-
-msgid "User|Otp counter"
-msgstr "User|Otp counter"
-
-msgid "User|Otp enabled"
-msgstr "User|Otp enabled"
-
-msgid "User|Otp secret key"
-msgstr "User|Otp secret key"
-
-msgid "User|Public body change requests count"
-msgstr ""
-
-msgid "User|Receive email alerts"
-msgstr "User|Receive email alerts"
-
-msgid "User|Request classifications count"
-msgstr ""
-
-msgid "User|Salt"
-msgstr "User|Salt"
-
-msgid "User|Track things count"
-msgstr ""
-
-msgid "User|Url name"
-msgstr "User|Url name"
-
 msgid "Version {{version}}"
 msgstr "Versiyon {{version}}"
+
+msgid "Very long – shorter requests are more successful"
+msgstr ""
 
 msgid "Vexatious"
 msgstr "Taciz amaçlı yapılmış başvuru"
@@ -3805,6 +3266,9 @@ msgstr "Kamu kuruluşunun cevap vermesi bekleniyor"
 
 msgid "Want to know something?"
 msgstr "Bilmek istediğiniz bir şey mi var?"
+
+msgid "We consider it is not a valid FOI request as it was correspondence about your personal circumstances, and we have therefore hidden it from other users."
+msgstr ""
 
 msgid "We consider it is not a valid FOI request, and have therefore hidden it from other users."
 msgstr "Biz bunun geçerli bir Bilgi Edinme Başvurusu olmadığını düşünüyoruz ve bu yüzden diğer kullanıcılardan gizledik."
@@ -3930,12 +3394,6 @@ msgstr "Hangi kurumlardan bilgi isteyebilirim?"
 msgid "Why specifically do you consider this request unsuitable?"
 msgstr "Tam olarak neden bu başvuruyu uygunsuz buluyorsunuz?"
 
-msgid "Widget vote"
-msgstr "Widget oy"
-
-msgid "WidgetVote|Cookie"
-msgstr "WidgetVote|Cookie"
-
 msgid "Withdrawn"
 msgstr "Geri çekildi"
 
@@ -4044,9 +3502,6 @@ msgstr "Takip ettiğiniz başvuru ve kullanıcıları <a href=\"{{profile_url}}\
 msgid "You can get this page in computer-readable format as part of the <a href=\"{{json_path}}\">main JSON page</a> for the request. See the <a href=\"{{api_path}}\">API documentation</a>."
 msgstr ""
 
-msgid "You can only request information about the environment from this authority."
-msgstr "Bu kuruluştan yalnızca çevre ile ilgili bilgi isteyebilirsiniz.  "
-
 msgid "You can regenerate your one time passcode at any time."
 msgstr "Tek kullanımlık giriş kodunu her zaman yeniden oluşturabilirsiniz. "
 
@@ -4127,6 +3582,9 @@ msgstr "Profilinizi düzenlemek için siteye giriş yapmış olmalısınız."
 
 msgid "You need to be logged in to report a request for administrator attention"
 msgstr "Herhangi bir başvuruyu yöneticilerin gözden geçirmesi için şikayet etmek istiyorsanız, siteye giriş yapmalısınız. "
+
+msgid "You only have a right in law to access information about the environment from this authority"
+msgstr ""
 
 msgid "You previously submitted that exact follow up message for this request."
 msgstr "Bu başvuru için daha önce tam olarak bu takip mesajını gönderdiniz"
@@ -4280,14 +3738,8 @@ msgstr " {{site_name}} sitesinde başvurunuz gizli"
 msgid "Your request to add an authority has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr "Bir kamu kuruluşunu veritabanımıza ekleme isteğiniz gönderildi. Bizimle iletişime geçtiğiniz için teşekkür ederiz. Kısa süre içinde yanıtlayacağız. "
 
-msgid "Your request to add {{public_body_name}} to {{site_name}}"
-msgstr " {{public_body_name}} kuruluşunu {{site_name}} sitesine ekleme isteğiniz"
-
 msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr "{{public_body_name}}  kuruluşunun adresini güncelleme isteğiniz gönderildi. Bizimle iletişime geçtiğiniz için teşekkürler! Kısa sürede yanıt vereceğiz. "
-
-msgid "Your request to update {{public_body_name}} on {{site_name}}"
-msgstr "{{site_name}}sitesinde {{public_body_name}}kuruluşunu güncelleme isteğiniz"
 
 msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
 msgstr "Başvurunuzu başlığı şuydu: {{info_request}}. İstediğiniz bilgiyi alıp almadığınız hakkında herkese bilgi vermeniz bizim de bu kuruluşun performansını izlememize yardımcı olur"
@@ -4348,6 +3800,9 @@ msgstr ""
 
 msgid "[FOI #{{request}} email]"
 msgstr "[Bilgi Edinme Başvuruları  #{{request}} email]"
+
+msgid "[Name Removed]"
+msgstr ""
 
 msgid "[REDACTED]"
 msgstr ""
@@ -4557,9 +4012,6 @@ msgstr " {{site_name}} ekibi"
 
 msgid "to send a follow up message."
 msgstr "takip mesajı göndermek için."
-
-msgid "to {{public_body}}"
-msgstr "{{public_body}} adlı kamu kuruluşuna"
 
 msgid "type your search term here"
 msgstr "aradığınız terimi buraya girin "
@@ -4825,8 +4277,14 @@ msgstr "{{username}} bir açıklama notu ekledi:"
 msgid "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 msgstr "{{user}} ({{user_admin_link}}) bu {{law_used_full}} başvurusunu (<a href=\"{{request_admin_url}}\">yönetici</a>) aşağıdaki kuruma yaptı {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">yönetici</a>)"
 
-msgid "{{user}} made this {{law_used_full}} request"
-msgstr "{{user}}, bu {{law_used_full}} başvurusunu gerçekleştirdi"
+msgid "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>) as part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
+msgstr ""
+
+msgid "{{user}} made this {{law_used_full}} request to {{public_body}}"
+msgstr ""
+
+msgid "{{user}} made this {{law_used_full}} request to {{public_body}} as part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
+msgstr ""
 
 msgid "« Back to search results"
 msgstr "« Arama sonuçlarına dön"

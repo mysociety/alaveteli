@@ -1,4 +1,4 @@
-# develop
+# 0.33.0.0
 
 ## Highlighted Features
 
@@ -78,6 +78,7 @@
 * This will be the last release to support Ruby 2.0
 * This will be the last release to support Ruby 2.1
 * This will be the last release to support Ruby 2.2
+* This release officially adds support for Ruby 2.4 and 2.5
 * This release temporarily reverts back to the `geoip-database` package from
   `geoip-database-contrib`. See
   https://github.com/mysociety/alaveteli/issues/5040 for details.

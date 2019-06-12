@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-28 15:40+0000\n"
+"POT-Creation-Date: 2019-06-10 14:58+0000\n"
 "PO-Revision-Date: 2017-01-20 17:40+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,8 +56,8 @@ msgstr "<strong>{{brand}}</strong> ending in {{last4}}, expiry {{exp_month}}/{{e
 msgid "<strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 msgstr "<strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 
-msgid "A <strong>summary</strong> of the response if you have received it by post. "
-msgstr "A <strong>summary</strong> of the response if you have received it by post. "
+msgid "A <strong>summary</strong> of the response if you have received it by postal mail. "
+msgstr "A <strong>summary</strong> of the response if you have received it by postal mail. "
 
 msgid "A monthly subscription"
 msgstr "A monthly subscription"
@@ -88,6 +88,9 @@ msgstr "Action alerts: know when it’s time to take the next step"
 
 msgid "Activity"
 msgstr "Activity"
+
+msgid "Add"
+msgstr "Add"
 
 msgid "Add Payment Card"
 msgstr "Add Payment Card"
@@ -221,6 +224,9 @@ msgstr "Daily summary emails to keep your inbox clean"
 msgid "Dashboard"
 msgstr "Dashboard"
 
+msgid "Dear {{user_name}},"
+msgstr "Dear {{user_name}},"
+
 msgid "Delivery verification for proof of receipt"
 msgstr "Delivery verification for proof of receipt"
 
@@ -296,14 +302,23 @@ msgstr "I have read and accepted these terms and conditions"
 msgid "I understand and still want to cancel"
 msgstr "I understand and still want to cancel"
 
+msgid "If payment continues to fail, unfortunately your account will revert back to a free account, and you’ll no longer have access to {{pro_site_name}}."
+msgstr "If payment continues to fail, unfortunately your account will revert back to a free account, and you’ll no longer have access to {{pro_site_name}}."
+
 msgid "If you have an <strong>offer code</strong>, please enter it here:"
 msgstr "If you have an <strong>offer code</strong>, please enter it here:"
+
+msgid "If you wish to preserve your access to {{pro_site_name}}, please could you check that your card has sufficient funds, and that the card details are correct on your subscriptions page: {{subscriptions_page_url}}"
+msgstr "If you wish to preserve your access to {{pro_site_name}}, please could you check that your card has sufficient funds, and that the card details are correct on your subscriptions page: {{subscriptions_page_url}}"
 
 msgid "Important info about requests to this authority"
 msgstr "Important info about requests to this authority"
 
 msgid "Keep private for a further:"
 msgstr "Keep private for a further:"
+
+msgid "Keep private for:"
+msgstr "Keep private for:"
 
 msgid "Keep requests and responses private while you work on your story"
 msgstr "Keep requests and responses private while you work on your story"
@@ -384,7 +399,7 @@ msgid "Pay with card"
 msgstr "Pay with card"
 
 msgid "Pending"
-msgstr "Pending..."
+msgstr "Pending"
 
 msgid "Plans and pricing"
 msgstr "Plans and pricing"
@@ -633,6 +648,9 @@ msgstr "Subscription ends"
 msgid "Successful applicants will receive free early access to {{site_name}} for 6 months."
 msgstr "Successful applicants will receive free early access to {{site_name}} for 6 months."
 
+msgid "Thank you for your interest in {{pro_site_name}}."
+msgstr "Thank you for your interest in {{pro_site_name}}."
+
 msgid "Thanks for logging in. We've saved your request as a draft, in case you wanted to add an embargo before sending it. You can set that (or just send it straight away) using the form below."
 msgstr "Thanks for logging in. We've saved your request as a draft, in case you wanted to add an embargo before sending it. You can set that (or just send it straight away) using the form below."
 
@@ -678,6 +696,9 @@ msgstr "Things to do today"
 
 msgid "This page is only accessible to {{pro_site_name}} users"
 msgstr "This page is only accessible to {{pro_site_name}} users"
+
+msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
+msgstr "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
 
 msgid "This request is private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
 msgstr "This request is private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
@@ -761,6 +782,12 @@ msgstr "We will remind you by email and on the site when the request is going be
 
 msgid "Welcome to {{pro_site_name}}!"
 msgstr "Welcome to {{pro_site_name}}!"
+
+msgid "We’ll attempt to bill your card again over the coming days."
+msgstr "We’ll attempt to bill your card again over the coming days."
+
+msgid "We’ve tried to bill your card but the charge was unsuccessful."
+msgstr "We’ve tried to bill your card but the charge was unsuccessful."
 
 msgid "When a request is private we guarantee that it will only be visible on {{site_name}} for the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
 msgstr "When a request is private we guarantee that it will only be visible on {{site_name}} for the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
@@ -920,6 +947,9 @@ msgstr "or start a batch request"
 
 msgid "requests that will be made public soon"
 msgstr "requests that will be made public soon"
+
+msgid "the {{pro_site_name}} team"
+msgstr "the {{pro_site_name}} team"
 
 msgid "the {{site_name}} team"
 msgstr "the {{site_name}} team"

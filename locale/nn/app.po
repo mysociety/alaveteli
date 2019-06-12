@@ -15,6 +15,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # andreli <andre@lindhjem.net>, 2013
 # Hans-Petter Fjeld <atluxity@1kb.no>, 2014
 # Carl Petter F. Sky <carl.sky@gmail.com>, 2015
@@ -38,8 +39,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-28 15:37+0000\n"
-"PO-Revision-Date: 2018-12-21 12:31+0000\n"
+"POT-Creation-Date: 2019-06-10 14:02+0000\n"
+"PO-Revision-Date: 2019-06-10 14:40+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Norwegian Nynorsk (http://www.transifex.com/mysociety/alaveteli/language/nn/)\n"
 "Language: nn\n"
@@ -156,6 +157,9 @@ msgstr ""
 msgid "<a href=\"{{new_request_link}}\">Make a new FOI request</a> to {{public_body_name}}"
 msgstr ""
 
+msgid "<a href=\"{{sign_in_link}}\">Sign in</a> to get updates on things you follow or re-enable email alerts."
+msgstr ""
+
 msgid "<a href=\"{{url}}\">Do you want to request private information about yourself?</a>"
 msgstr "<a href=\"{{url}}\">Ynskjer du å spørja om personleg informasjon om deg sjølv?</a>"
 
@@ -167,6 +171,9 @@ msgstr "<a href=\"{{url}}\">Logg inn</a> for å endre passord, abonnement og ann
 
 msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>"
 msgstr "<a href=\"{{url}}\">Vurderer du å bruke et pseudonym?</a>"
+
+msgid "<a href=\"{{wall_link}}\">Visit your Wall</a> to get updates on things you follow or re-enable email alerts."
+msgstr ""
 
 msgid "<div class=\"alaveteli-widget__count\">{{count}}</div> person wants to know"
 msgid_plural "<div class=\"alaveteli-widget__count\">{{count}}</div> people want to know"
@@ -299,8 +306,8 @@ msgstr "Ein <a href=\"{{request_url}}\">oppfølging</a> til <em>{{request_title}
 msgid "A <a href=\"{{request_url}}\">response</a> to <em>{{request_title}}</em> was sent by {{public_body_name}} to {{info_request_user}} on {{date}}.  The request status is: {{request_status}}"
 msgstr "Eit <a href=\"{{request_url}}\">svar til</a>  <em>{{request_title}}</em> var sendt av {{public_body_name}} til {{info_request_user}} den {{date}}.  Status for førespurnaden er: {{request_status}}"
 
-msgid "A <strong>summary</strong> of the response if you have received it by post. "
-msgstr "Ein <strong>oppsummering</strong> av svaret dersom du har mottat det i posten. "
+msgid "A <strong>summary</strong> of the response if you have received it by postal mail. "
+msgstr ""
 
 msgid "A Freedom of Information request"
 msgstr "Eit krav om innsyn"
@@ -320,14 +327,11 @@ msgstr ""
 msgid "A public authority"
 msgstr "Ei offentleg styresmakt"
 
-msgid "A response will be sent <strong>by post</strong>"
-msgstr "Eit svar vil sendast <strong>per brev</strong>"
+msgid "A response will be sent <strong>by postal mail</strong>"
+msgstr ""
 
-msgid "A strange reponse, required attention by the {{site_name}} team"
-msgstr "Eit merkeleg svar kravde oppfølging frå {{site_name}}-gruppa"
-
-msgid "A vexatious request"
-msgstr "Ein sjikanøs førespurnad"
+msgid "A strange response, required attention by the {{site_name}} team"
+msgstr ""
 
 msgid "A {{site_name}} user"
 msgstr "Ein {{site_name}} brukar"
@@ -339,6 +343,9 @@ msgid "About you:"
 msgstr "Om deg:"
 
 msgid "About {{count}} FOI requests found"
+msgstr ""
+
+msgid "Account closed at user request"
 msgstr ""
 
 msgid "Account suspended – Please contact us"
@@ -394,63 +401,6 @@ msgstr "Råd om i kva grad <strong>avvisningen er lovleg</strong>, og korleis du
 
 msgid "Air, water, soil, land, flora and fauna (including how these effect human beings)"
 msgstr "Luft, vatn, jord, flora og fauna (inkludert korleis desse påverkar\\n menneske)"
-
-msgid "Alaveteli pro/draft info request batch"
-msgstr ""
-
-msgid "Alaveteli pro/embargo"
-msgstr ""
-
-msgid "Alaveteli pro/embargo extension"
-msgstr ""
-
-msgid "Alaveteli pro/request summary"
-msgstr ""
-
-msgid "Alaveteli pro/request summary category"
-msgstr ""
-
-msgid "AlaveteliPro::DraftInfoRequestBatch|Body"
-msgstr ""
-
-msgid "AlaveteliPro::DraftInfoRequestBatch|Embargo duration"
-msgstr ""
-
-msgid "AlaveteliPro::DraftInfoRequestBatch|Title"
-msgstr ""
-
-msgid "AlaveteliPro::EmbargoExtension|Extension duration"
-msgstr ""
-
-msgid "AlaveteliPro::Embargo|Embargo duration"
-msgstr ""
-
-msgid "AlaveteliPro::Embargo|Expiring notification at"
-msgstr ""
-
-msgid "AlaveteliPro::Embargo|Publish at"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummaryCategory|Slug"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Body"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Public body names"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Request created at"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Request updated at"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Summarisable type"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Title"
-msgstr ""
 
 msgid "All of the information requested has been received"
 msgstr "All etterspurd informasjon er motteke"
@@ -521,12 +471,6 @@ msgstr "Merknader gjer at kvar og ein, òg du, kan hjelpa innsender med deira f�
 msgid "Annotations will be posted publicly here, and are <strong>not</strong> sent to {{public_body_name}}."
 msgstr "Merknader vert gjort offentleg tilgjengeleg her og er <strong>ikkje</strong> sendt til {{public_body_name}}."
 
-msgid "Announcement"
-msgstr ""
-
-msgid "Announcement|Visibility"
-msgstr ""
-
 msgid "Anonymous user"
 msgstr "Anonym brukar"
 
@@ -535,6 +479,9 @@ msgstr "Gjelder for"
 
 msgid "Are we missing a public authority?"
 msgstr "Skal vi leggja til fleire styresmakter?"
+
+msgid "Are you asking about your, or others', personal information or personal situation?"
+msgstr ""
 
 msgid "Are you sure you want to disable two factor authentication?"
 msgstr "Er du sikker på at du vil slå av tofaktor autentisering?"
@@ -665,24 +612,6 @@ msgstr "Avbryt nokon {{site_name}}-varsel"
 msgid "Cancel, return to your profile page"
 msgstr "Kanselerer, returner til profil-biletet ditt"
 
-msgid "Censor rule"
-msgstr "Sensurregel"
-
-msgid "CensorRule|Last edit comment"
-msgstr "Sensurregel|Siste redigeringskommentar"
-
-msgid "CensorRule|Last edit editor"
-msgstr "Sensurregel|Siste endring av"
-
-msgid "CensorRule|Regexp"
-msgstr "Sensurregel|Regexp"
-
-msgid "CensorRule|Replacement"
-msgstr "Sensurregel|Erstatning"
-
-msgid "CensorRule|Text"
-msgstr "Sensurregel|Tekst"
-
 msgid "Change email on {{site_name}}"
 msgstr "Byt e-post-adresse på {{site_name}}"
 
@@ -751,21 +680,6 @@ msgstr "Lukk førespurnaden og svar:"
 
 msgid "Collapse all correspondence"
 msgstr ""
-
-msgid "Comment"
-msgstr "Kommenter"
-
-msgid "Comment|Attention requested"
-msgstr ""
-
-msgid "Comment|Body"
-msgstr "Kommentar|Brødtekst"
-
-msgid "Comment|Locale"
-msgstr "Kommentar|Lokalisering"
-
-msgid "Comment|Visible"
-msgstr "Kommentar|Synleg"
 
 msgid "Complete"
 msgstr ""
@@ -893,9 +807,6 @@ msgstr ""
 msgid "Delivery error"
 msgstr "Leveringsfeil"
 
-msgid "Destroy {{name}}"
-msgstr "Fjern {{name}}"
-
 msgid "Details of request &ldquo;{{request_title}}&rdquo;"
 msgstr "Detaljer for førespurnad &ldquo;{{request_title}}&rdquo;"
 
@@ -938,18 +849,6 @@ msgstr "Last ned ein zip-fil med all korrespondanse"
 msgid "Download original attachment"
 msgstr "Last ned orginalt vedlegg"
 
-msgid "Draft info request"
-msgstr ""
-
-msgid "DraftInfoRequest|Body"
-msgstr ""
-
-msgid "DraftInfoRequest|Embargo duration"
-msgstr ""
-
-msgid "DraftInfoRequest|Title"
-msgstr ""
-
 msgid "EIR"
 msgstr "miljøinformasjonslov"
 
@@ -969,6 +868,12 @@ msgid "Either the email or password was not recognised, please try again."
 msgstr "Anten så var e-postadresse eller passord feil, forsøk igjen."
 
 msgid "Either the email or password was not recognised, please try again. Or create a new account using the form on the left."
+msgstr ""
+
+msgid "Email Alerts Disabled"
+msgstr ""
+
+msgid "Email alerts for things you follow have now been disabled."
 msgstr ""
 
 msgid "Email doesn't look like a valid address"
@@ -1084,30 +989,6 @@ msgstr ""
 
 msgid "Flipper::Adapters::ActiveRecord::Gate|Value"
 msgstr ""
-
-msgid "Foi attachment"
-msgstr "Innsynsbegjæring vedlegg"
-
-msgid "FoiAttachment|Charset"
-msgstr "FoiAttachment|Charset"
-
-msgid "FoiAttachment|Content type"
-msgstr "FoiAttachment|Content type"
-
-msgid "FoiAttachment|Display size"
-msgstr "FoiAttachment|Display size"
-
-msgid "FoiAttachment|Filename"
-msgstr "FoiAttachment|Filename"
-
-msgid "FoiAttachment|Hexdigest"
-msgstr "FoiAttachment|Hexdigest"
-
-msgid "FoiAttachment|Url part number"
-msgstr "FoiAttachment|Url part number"
-
-msgid "FoiAttachment|Within rfc822 subject"
-msgstr "FoiAttachment|Within rfc822 subject"
 
 msgid "Follow"
 msgstr "Følg"
@@ -1237,17 +1118,20 @@ msgstr "Frå:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "SKRIV GRUNNENE FOR KVIFOR DU KLAGAR HER"
 
+msgid "Getting long – remember to keep it focussed"
+msgstr ""
+
 msgid "Got a {{site_name}} account?"
 msgstr ""
 
 msgid "Got an account?"
 msgstr "Har du ein konto?"
 
-msgid "Handled by post"
-msgstr "Handtert via post"
+msgid "Handled by postal mail"
+msgstr ""
 
-msgid "Handled by post."
-msgstr "Handtert av post."
+msgid "Handled by postal mail."
+msgstr ""
 
 msgid "Has tag string tag"
 msgstr ""
@@ -1323,15 +1207,6 @@ msgstr ""
 
 msgid "Hide request"
 msgstr "Skjul førespurnad"
-
-msgid "Holiday"
-msgstr "Ferie"
-
-msgid "Holiday|Day"
-msgstr "Ferie|Dag"
-
-msgid "Holiday|Description"
-msgstr "Ferie|Skildring"
 
 msgid "Home page"
 msgstr "Heimeside"
@@ -1489,155 +1364,11 @@ msgstr "Ta med relevante lenker, t.d. kampanjesider, bloggar, eller Twitter-kont
 msgid "Incoming email address"
 msgstr "Inngåande e-postadresse"
 
-msgid "Incoming message"
-msgstr "Innkommende melding"
-
-msgid "Incoming message error"
-msgstr ""
-
 msgid "Incoming message has a spam score above the configured threshold ({{spam_threshold}})."
 msgstr "Inngåande melding har spam-verdi over den oppsette grenseverdien ({{spam_threshold}})."
 
-msgid "IncomingMessageError|Backtrace"
-msgstr ""
-
-msgid "IncomingMessageError|Retry at"
-msgstr ""
-
-msgid "IncomingMessage|Cached attachment text clipped"
-msgstr "IncomingMessage|Cached attachment text clipped"
-
-msgid "IncomingMessage|Cached main body text folded"
-msgstr "IncomingMessage|Cached main body text folded"
-
-msgid "IncomingMessage|Cached main body text unfolded"
-msgstr "IncomingMessage|Cached main body text unfolded"
-
-msgid "IncomingMessage|Last parsed"
-msgstr "IncomingMessage|Last parsed"
-
-msgid "IncomingMessage|Mail from"
-msgstr "IncomingMessage|Mail from"
-
-msgid "IncomingMessage|Mail from domain"
-msgstr "IncomingMessage|Mail from domain"
-
-msgid "IncomingMessage|Prominence"
-msgstr "IncomingMessage|Prominence"
-
-msgid "IncomingMessage|Prominence reason"
-msgstr "IncomingMessage|Prominence reason"
-
-msgid "IncomingMessage|Sent at"
-msgstr "IncomingMessage|Seint at"
-
-msgid "IncomingMessage|Subject"
-msgstr "IncomingMessage|Subject"
-
-msgid "IncomingMessage|Valid to reply to"
-msgstr "IncomingMessage|Valid to reply to"
-
 msgid "Individual requests"
 msgstr "Individuelle førespurnader"
-
-msgid "Info request"
-msgstr "Informasjonskrav"
-
-msgid "Info request batch"
-msgstr "Samla infokrav"
-
-msgid "Info request event"
-msgstr "Informasjonskravhending"
-
-msgid "InfoRequestBatch|Body"
-msgstr "InfoRequestBatch|Body"
-
-msgid "InfoRequestBatch|Embargo duration"
-msgstr ""
-
-msgid "InfoRequestBatch|Sent at"
-msgstr "InfoRequestBatch|Seint at"
-
-msgid "InfoRequestBatch|Title"
-msgstr "InfoRequestBatch|Title"
-
-msgid "InfoRequestEvent|Calculated state"
-msgstr "InfoRequestEvent|Calculated state"
-
-msgid "InfoRequestEvent|Described state"
-msgstr "InfoRequestEvent|Described state"
-
-msgid "InfoRequestEvent|Event type"
-msgstr "InfoRequestEvent|Event type"
-
-msgid "InfoRequestEvent|Last described at"
-msgstr "InfoRequestEvent|Last described at"
-
-msgid "InfoRequestEvent|Params yaml"
-msgstr "InfoRequestEvent|Params yaml"
-
-msgid "InfoRequest|Allow new responses from"
-msgstr "InfoRequest|Tillat nye svar frå"
-
-msgid "InfoRequest|Attention requested"
-msgstr "InfoRequest|Attention requested"
-
-msgid "InfoRequest|Awaiting description"
-msgstr "InfoRequest|Awaiting description"
-
-msgid "InfoRequest|Comments allowed"
-msgstr "InfoRequest|Comments allowed"
-
-msgid "InfoRequest|Date initial request last sent at"
-msgstr ""
-
-msgid "InfoRequest|Date response required by"
-msgstr ""
-
-msgid "InfoRequest|Date very overdue after"
-msgstr ""
-
-msgid "InfoRequest|Described state"
-msgstr "InfoRequest|Described state"
-
-msgid "InfoRequest|External url"
-msgstr "InfoRequest|External url"
-
-msgid "InfoRequest|External user name"
-msgstr "InfoRequest|External user name"
-
-msgid "InfoRequest|Handle rejected responses"
-msgstr "InfoRequest|Handter avviste svar"
-
-msgid "InfoRequest|Idhash"
-msgstr "InfoRequest|Idhash"
-
-msgid "InfoRequest|Last event time"
-msgstr ""
-
-msgid "InfoRequest|Last public response at"
-msgstr ""
-
-msgid "InfoRequest|Law used"
-msgstr "InfoRequest|Law used"
-
-msgid "InfoRequest|Prominence"
-msgstr "InfoRequest|Prominence"
-
-msgid "InfoRequest|Reject incoming at mta"
-msgstr ""
-
-msgid "InfoRequest|Rejected incoming count"
-msgstr ""
-
-msgid "InfoRequest|Title"
-msgstr "InfoRequest|Title"
-
-msgid "InfoRequest|Url title"
-msgstr "InfoRequest|Url title"
-
-msgid "InfoRequest|Use notifications"
-msgstr ""
 
 msgid "Information not held"
 msgstr ""
@@ -1662,6 +1393,9 @@ msgstr "Klage sendt til {{public_body_name}} av {{info_request_user}} den {{date
 
 msgid "Invalid one time password"
 msgstr "Feil eingongspasskode"
+
+msgid "Invalid token"
+msgstr ""
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr "Er  {{email_address}} feil adresse for førespurnader om {{type_of_request}} til {{public_body_name}}? I såg fall, ver så snill å ta kontakt med oss ved å bruka dette skjemaet:"
@@ -1759,27 +1493,6 @@ msgstr "Svært forseinka."
 msgid "Made between"
 msgstr "Oppretta mellom"
 
-msgid "Mail server log"
-msgstr "E-posttenarlogg"
-
-msgid "Mail server log done"
-msgstr "E-posttenarlogg ferdig"
-
-msgid "MailServerLogDone|Filename"
-msgstr "MailServerLogDone|Filename"
-
-msgid "MailServerLogDone|Last stat"
-msgstr "MailServerLogDone|Last stat"
-
-msgid "MailServerLog|Delivery status"
-msgstr ""
-
-msgid "MailServerLog|Line"
-msgstr "MailServerLog|Line"
-
-msgid "MailServerLog|Order"
-msgstr "MailServerLog|Order"
-
 msgid "Make a batch request"
 msgstr "Lag eit samlekrav"
 
@@ -1824,6 +1537,9 @@ msgstr "Manglar kontaktdetaljar for '{{authority_name}}'"
 
 msgid "More about this authority"
 msgstr "Meir om denne styresmakta"
+
+msgid "More requests in this batch"
+msgstr ""
 
 msgid "More similar requests"
 msgstr "Fleire liknande førespurnader"
@@ -1921,9 +1637,6 @@ msgstr "Ingen funnet."
 msgid "None made."
 msgstr "Ingen laga."
 
-msgid "Not a valid FOI request"
-msgstr "Ikkje eit gyldig krav om innsyn"
-
 msgid "Not a valid request"
 msgstr "Ikkje ein gyldig førespurnad"
 
@@ -1936,23 +1649,11 @@ msgstr "Det har me ikkje"
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
 msgstr "Merk at personen som står bak førespurnaden ikkje vil få melding om din bemerkning, fordi førespurnaden vart publisert av {{public_body_name}} på deira  vegne."
 
+msgid "Note that we may still send you emails when new correspondence appears on your requests, or when you perform actions that require an email confirmation step."
+msgstr ""
+
 msgid "Notes:"
 msgstr "Merknadar:"
-
-msgid "Notification"
-msgstr ""
-
-msgid "Notification|Expired"
-msgstr ""
-
-msgid "Notification|Frequency"
-msgstr ""
-
-msgid "Notification|Seen at"
-msgstr ""
-
-msgid "Notification|Send after"
-msgstr ""
 
 msgid "Now check your email!"
 msgstr "Sjekk e-posten din no!"
@@ -2028,30 +1729,6 @@ msgstr "Anna"
 
 msgid "Other:"
 msgstr "Anna:"
-
-msgid "Outgoing message"
-msgstr "Komande frå melding"
-
-msgid "OutgoingMessage|Body"
-msgstr "OutgoingMessage|Body"
-
-msgid "OutgoingMessage|Last sent at"
-msgstr "OutgoingMessage|Last seint at"
-
-msgid "OutgoingMessage|Message type"
-msgstr "OutgoingMessage|Message type"
-
-msgid "OutgoingMessage|Prominence"
-msgstr "OutgoingMessage|Prominence"
-
-msgid "OutgoingMessage|Prominence reason"
-msgstr "OutgoingMessage|Prominence reason"
-
-msgid "OutgoingMessage|Status"
-msgstr "OutgoingMessage|Status"
-
-msgid "OutgoingMessage|What doing"
-msgstr "OutgoingMessage|What doing"
 
 msgid "Partial success"
 msgstr "Delvis suksess"
@@ -2139,6 +1816,9 @@ msgstr "Vennlegast klikk på linken nedanfor for å stadfesta at du ynskjer \\no
 
 msgid "Please click on the link below to confirm your email address."
 msgstr "Vennlegast klikk på lenkja under for å stadfesta e-postadressa di."
+
+msgid "Please click on the link below to stop these emails."
+msgstr ""
 
 msgid "Please create an account or sign in"
 msgstr "Logg inn eller lag ein ny konto."
@@ -2271,27 +1951,6 @@ msgstr "Mogleg relatert førespurnad:"
 msgid "Post annotation"
 msgstr "Send inn merknad"
 
-msgid "Post redirect"
-msgstr "Post-omdirigeringer"
-
-msgid "PostRedirect|Circumstance"
-msgstr "PostRedirect|Circumstance"
-
-msgid "PostRedirect|Email token"
-msgstr "PostRedirect|Email token"
-
-msgid "PostRedirect|Post params yaml"
-msgstr "PostRedirect|Post params yaml"
-
-msgid "PostRedirect|Reason params yaml"
-msgstr "PostRedirect|Reason params yaml"
-
-msgid "PostRedirect|Token"
-msgstr "PostRedirect|Token"
-
-msgid "PostRedirect|Uri"
-msgstr "PostRedirect|Uri"
-
 msgid "Posted on {{date}} by {{author}}"
 msgstr "Innsendt {{date}} av {{author}}"
 
@@ -2334,23 +1993,8 @@ msgstr "Skriv ut eingongspasskoden din"
 msgid "Privacy and cookies"
 msgstr ""
 
-msgid "Pro account"
-msgstr ""
-
-msgid "ProAccount|Default embargo duration"
-msgstr ""
-
 msgid "Profile image for {{user_name}}"
 msgstr ""
-
-msgid "Profile photo"
-msgstr "Profilbilete"
-
-msgid "ProfilePhoto|Data"
-msgstr "ProfilePhoto|Data"
-
-msgid "ProfilePhoto|Draft"
-msgstr "ProfilePhoto|Draft"
 
 msgid "Public Bodies"
 msgstr "Offentlege instansar"
@@ -2388,23 +2032,8 @@ msgstr "Offentlege instansar med flest førespurnader"
 msgid "Public bodies with the most successful requests"
 msgstr "Offentlege instansar med flest vellukka førespurnader"
 
-msgid "Public body"
-msgstr "Offentleg kropp"
-
-msgid "Public body category"
-msgstr "Offentleg instans-kategori"
-
-msgid "Public body category link"
-msgstr "Offentleg instans-kategorilenkje"
-
 msgid "Public body category translation"
 msgstr ""
-
-msgid "Public body change request"
-msgstr "Offentleg instans-endringsførespurnad"
-
-msgid "Public body heading"
-msgstr "Offentleg instans-overskrift"
 
 msgid "Public body heading translation"
 msgstr ""
@@ -2415,9 +2044,6 @@ msgstr "Offentleg side"
 msgid "Public page not available"
 msgstr "Offentleg side er ikkje tilgjengeleg"
 
-msgid "PublicBodyCategoryLink|Category display order"
-msgstr "PublicBodyCategoryLink|Category display order"
-
 msgid "PublicBodyCategoryTranslation|Description"
 msgstr ""
 
@@ -2427,74 +2053,11 @@ msgstr ""
 msgid "PublicBodyCategoryTranslation|Title"
 msgstr ""
 
-msgid "PublicBodyCategory|Category tag"
-msgstr "PublicBodyCategory|Category tag"
-
-msgid "PublicBodyChangeRequest|Is open"
-msgstr "PublicBodyChangeRequest|Is open"
-
-msgid "PublicBodyChangeRequest|Notes"
-msgstr "PublicBodyChangeRequest|Note sin"
-
-msgid "PublicBodyChangeRequest|Public body email"
-msgstr "PublicBodyChangeRequest|Public body email"
-
-msgid "PublicBodyChangeRequest|Public body name"
-msgstr "PublicBodyChangeRequest|Public body name"
-
-msgid "PublicBodyChangeRequest|Source url"
-msgstr "PublicBodyChangeRequest|Source url"
-
-msgid "PublicBodyChangeRequest|User email"
-msgstr "PublicBodyChangeRequest|User email"
-
-msgid "PublicBodyChangeRequest|User name"
-msgstr "PublicBodyChangeRequest|User name"
-
 msgid "PublicBodyHeadingTranslation|Locale"
 msgstr ""
 
 msgid "PublicBodyHeadingTranslation|Name"
 msgstr ""
-
-msgid "PublicBodyHeading|Display order"
-msgstr "PublicBodyHeading|Display order"
-
-msgid "PublicBody|Api key"
-msgstr "PublicBody|Api key"
-
-msgid "PublicBody|Disclosure log"
-msgstr "PublicBody|Disclosure log"
-
-msgid "PublicBody|Home page"
-msgstr "PublicBody|Home page"
-
-msgid "PublicBody|Info requests count"
-msgstr "PublicBody|Info requests count"
-
-msgid "PublicBody|Info requests not held count"
-msgstr "PublicBody|Info requests nót held count"
-
-msgid "PublicBody|Info requests overdue count"
-msgstr "PublicBody|Info requests overdue count"
-
-msgid "PublicBody|Info requests successful count"
-msgstr "PublicBody|Info requests successful count"
-
-msgid "PublicBody|Info requests visible classified count"
-msgstr "PublicBody|Info requests visible classified count"
-
-msgid "PublicBody|Info requests visible count"
-msgstr "PublicBody|Info requests visible count"
-
-msgid "PublicBody|Last edit comment"
-msgstr "PublicBody|Last edit comment"
-
-msgid "PublicBody|Last edit editor"
-msgstr "PublicBody|Last edit editor"
-
-msgid "PublicBody|Version"
-msgstr "PublicBody|Version"
 
 msgid "Publication scheme"
 msgstr "Arkivplan"
@@ -2546,6 +2109,9 @@ msgstr "Avvist"
 
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr "Hugs meg (lèt deg loggast inn lengre, ikkje bruk dette på ei offentleg datamaskin)"
+
+msgid "Report"
+msgstr ""
 
 msgid "Report an offensive or unsuitable request"
 msgstr "Meld ein støytande eller upassande førespurnad"
@@ -2687,15 +2253,6 @@ msgstr "Avgrens til"
 
 msgid "Results page {{page_number}}"
 msgstr "Resultatside nummer {{page_number}}"
-
-msgid "Role"
-msgstr ""
-
-msgid "Role|Name"
-msgstr ""
-
-msgid "Role|Resource type"
-msgstr ""
 
 msgid "Save"
 msgstr "Lager"
@@ -2879,12 +2436,6 @@ msgstr "Kilde-URL:"
 msgid "Source:"
 msgstr "Kilde:"
 
-msgid "Spam address"
-msgstr "Spam-adresse"
-
-msgid "SpamAddress|Email"
-msgstr "SpamAddress|Email"
-
 msgid "Start your own request"
 msgstr "Lag din eigen førespurnad"
 
@@ -3027,7 +2578,7 @@ msgid "The accounts have been left as they previously were."
 msgstr "Kontoane er etterlate slik dei tidlegare var."
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr "Styresmakta <strong>har ikkje</strong> denne informasjonen <small>(kanskje dei seier kven som har)</small>"
+msgstr ""
 
 msgid "The authority email doesn't look like a valid address"
 msgstr "E-postadressa til styresmakta ser ikkje ut som ei gyldig adresse"
@@ -3038,8 +2589,8 @@ msgstr "Styresmakta har berre <strong>papireksemplar</strong> av informasjonen."
 msgid "The authority say that they <strong>need a postal address</strong>, not just an email, for it to be a valid FOI request"
 msgstr "Styresmakta seier at dei <strong> treng ei postadresse</strong>, og ikkje berre ei e-post, for at det skal vera ein gyldig krav om innsyn."
 
-msgid "The authority would like to / has <strong>responded by post</strong> to this request."
-msgstr "Styresmakta ynskjer å / har <strong>svara på post</strong> på denne førespurnaden."
+msgid "The authority would like to / has <strong>responded by postal mail</strong> to this request."
+msgstr ""
 
 msgid "The classification of requests (e.g. to say whether they were successful or not) is done manually by users and administrators of the site, which means that they are subject to error."
 msgstr "Klassifiseringen av førespurnader (dvs. å seia om dei var vellukka eller ikkje) gjerast manuelt av brukarar og administratorar på nettstaden, kva for eit tyder at det kan gjerast feil."
@@ -3089,8 +2640,8 @@ msgstr "Den offentlege styresmakta har ikkje informasjonen som er etterspurt"
 msgid "The public authority would like part of the request explained"
 msgstr "Den offentlege styresmakta ynskjer ei forklaring på ein del av førespurnaden"
 
-msgid "The public authority would like to / has responded by post"
-msgstr "Den offentlege styresmakta ynskjer å / har svara via post"
+msgid "The public authority would like to / has responded by postal mail"
+msgstr ""
 
 msgid "The request has been <strong>refused</strong>"
 msgstr "Førespurnaden vart <strong>avvist</strong>"
@@ -3253,8 +2804,8 @@ msgstr "Desse grafane er delvis inspirert av <a href=\"http://mark.goodge.co.uk/
 msgid "These logs show what happened to this message as it passed through our {{mta_type}} mail server. You can send these logs to an authority to help them diagnose problems receiving email from {{site_name}}."
 msgstr ""
 
-msgid "They are going to reply <strong>by post</strong>"
-msgstr "Dei kjem til å svara <stron>per brev</strong>"
+msgid "They are going to reply <strong>by postal mail</strong>"
+msgstr ""
 
 msgid "They do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr "Dei <strong>har ikkje</strong> informasjonen <small>(veit dei kven som har henne?)</small>"
@@ -3273,6 +2824,9 @@ msgstr ""
 
 msgid "Things you're following"
 msgstr "Ting du følgjer"
+
+msgid "This account has been closed."
+msgstr ""
 
 msgid "This annotation has been reported for administrator attention"
 msgstr ""
@@ -3368,6 +2922,9 @@ msgstr "Denne førespurnaden har allereie vorte rapportert til administrator for
 msgid "This request has an <strong>unknown status</strong>."
 msgstr "Denne førespurnaden har ein <strong>ukjend status</strong>."
 
+msgid "This request has been <strong>closed to new correspondence from the public body</strong>. <a href=\"{{url}}\"\">Contact us</a> if you think it ought be re-opened."
+msgstr ""
+
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
 msgstr "Denne førespurnaden er vorte <strong>rapportert</ strong> då han treng merksemd frå administrator (kanskje fordi han er sjikanøs, eller er ein førespurnad om personopplysningar)"
 
@@ -3400,6 +2957,9 @@ msgstr "Denne meldinga er fremhevet som «skjult».  Du kan berre sjå han på g
 
 msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
 msgstr "Denne førespurnaden er skjult, slik at berre du som innsender kan sjå henne.  Ver så snill <a href=\"{{url}}\">å ta kontakt</a> viss du er usikker på kvifor."
+
+msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
+msgstr ""
 
 msgid "This request is still in progress:"
 msgstr "Denne førespurnaden er endå ikkje ferdigbehandlet:"
@@ -3544,23 +3104,11 @@ msgstr "For mange førespurnader"
 msgid "Top recent players"
 msgstr ""
 
-msgid "Track thing"
-msgstr "Følg ting"
-
 msgid "Track this person"
 msgstr "Følg denne personen"
 
 msgid "Track this search"
 msgstr "Følg dette søket"
-
-msgid "TrackThing|Track medium"
-msgstr "TrackThing|Track medium"
-
-msgid "TrackThing|Track query"
-msgstr "TrackThing|Track query"
-
-msgid "TrackThing|Track type"
-msgstr "TrackThing|Track type"
 
 msgid "Try opening the logs in a new window."
 msgstr ""
@@ -3664,104 +3212,17 @@ msgstr "Bruk hermeteikn der du vil søkja etter eit nøyaktig uttrykk, til døme
 msgid "Use this site to make your request for information – we'll show you how."
 msgstr "Bruk denne nettstaden til å gjera innsynsførespurnader – vi viser dei korleis."
 
-msgid "User"
-msgstr "Nytter"
-
-msgid "User info request sent alert"
-msgstr "Varsel sendt for brukarinfoførespurnad"
-
 msgid "User – {{name}}"
 msgstr "Brukar – {{name}}"
-
-msgid "UserInfoRequestSentAlert|Alert type"
-msgstr "UserInfoRequestSentAlert|Alert type"
 
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
 msgstr "Brukarar kan normalt ikkje laga samlekrav til fleire styresmakter på ein gong, då vi ikkje ynskjer at offentlege styresmakter vert bombardert med ei stort mengd malplasserte førespurnader. <a href=\"{{url}}\">Ta kontakt med oss</a> viss du trur du har ein god grunn til å senda same førespurnad til fleire styresmakter på ein gong."
 
-msgid "User|About me"
-msgstr "Nytter|Om meg"
-
-msgid "User|Ban text"
-msgstr "Nytter|Ban tekst"
-
-msgid "User|Can make batch requests"
-msgstr "User|Can make batch requests"
-
-msgid "User|Comments count"
-msgstr ""
-
-msgid "User|Confirmed not spam"
-msgstr ""
-
-msgid "User|Daily summary hour"
-msgstr ""
-
-msgid "User|Daily summary minute"
-msgstr ""
-
-msgid "User|Email"
-msgstr "Nytter|E-post"
-
-msgid "User|Email bounce message"
-msgstr "Nytter|E-post bounce melding"
-
-msgid "User|Email bounced at"
-msgstr "User|Email bounced at"
-
-msgid "User|Email confirmed"
-msgstr "Brukar|E-post stadfesta"
-
-msgid "User|Hashed password"
-msgstr "Nytter|Hashet passord"
-
-msgid "User|Info request batches count"
-msgstr ""
-
-msgid "User|Info requests count"
-msgstr ""
-
-msgid "User|Last daily track email"
-msgstr "Nytter|Siste daglege track e-post"
-
-msgid "User|Locale"
-msgstr "Brukar|Localisering"
-
-msgid "User|Name"
-msgstr "Nytter|Namn"
-
-msgid "User|No limit"
-msgstr "Brukar|Ingen grense"
-
-msgid "User|Otp counter"
-msgstr "User|Otp counter"
-
-msgid "User|Otp enabled"
-msgstr "User|Otp enabled"
-
-msgid "User|Otp secret key"
-msgstr "User|Otp secret key"
-
-msgid "User|Public body change requests count"
-msgstr ""
-
-msgid "User|Receive email alerts"
-msgstr "User|Motta e-post notifikasjonar"
-
-msgid "User|Request classifications count"
-msgstr ""
-
-msgid "User|Salt"
-msgstr "Nytter|Salt"
-
-msgid "User|Track things count"
-msgstr ""
-
-msgid "User|Url name"
-msgstr "Nytter|Url namn"
-
 msgid "Version {{version}}"
 msgstr "Versjon {{version}}"
+
+msgid "Very long – shorter requests are more successful"
+msgstr ""
 
 msgid "Vexatious"
 msgstr "Sjikane"
@@ -3810,6 +3271,9 @@ msgstr "Ventar på svar frå styresmakta"
 
 msgid "Want to know something?"
 msgstr "Vil du vita noko?"
+
+msgid "We consider it is not a valid FOI request as it was correspondence about your personal circumstances, and we have therefore hidden it from other users."
+msgstr ""
 
 msgid "We consider it is not a valid FOI request, and have therefore hidden it from other users."
 msgstr "Vi ser ikkje på dette som ein gyldig krav om innsyn, og har difor gøymt han for dei andre brukarane."
@@ -3938,12 +3402,6 @@ msgstr "Kven kan eg be om informasjon frå?"
 msgid "Why specifically do you consider this request unsuitable?"
 msgstr "Kvifor meiner du denne førespurnaden er upassande?"
 
-msgid "Widget vote"
-msgstr "Skjermelementstemme"
-
-msgid "WidgetVote|Cookie"
-msgstr "WidgetVote|Cookie"
-
 msgid "Withdrawn"
 msgstr "Trekt tilbake"
 
@@ -4052,9 +3510,6 @@ msgstr "Du kan endra kva for førespurnader og brukarar du følgjer på <a href=
 msgid "You can get this page in computer-readable format as part of the <a href=\"{{json_path}}\">main JSON page</a> for the request. See the <a href=\"{{api_path}}\">API documentation</a>."
 msgstr ""
 
-msgid "You can only request information about the environment from this authority."
-msgstr "Du kan berre spørja om miljøinformasjon frå denne styresmakta."
-
 msgid "You can regenerate your one time passcode at any time."
 msgstr "Du kan laga ny eingongspasskode kor tid som helst."
 
@@ -4135,6 +3590,9 @@ msgstr "Du må vera innlogga for å endra profilbiletet."
 
 msgid "You need to be logged in to report a request for administrator attention"
 msgstr "Du må loggast inn for å be om at ein førespurnad vert sett på av adminstrasjonen"
+
+msgid "You only have a right in law to access information about the environment from this authority"
+msgstr ""
 
 msgid "You previously submitted that exact follow up message for this request."
 msgstr "Du har tidlegare sendt inn ein eksakt lik oppfølgingsbeskjed for denne førespurnaden."
@@ -4288,14 +3746,8 @@ msgstr "Din førespurnad på {{site_name}} er skjult"
 msgid "Your request to add an authority has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr "Din førespurnad om å leggja til ei styresmakt er sendt.  Takk for at du tok kontakt!  Vi svarar deg så snart som mogleg."
 
-msgid "Your request to add {{public_body_name}} to {{site_name}}"
-msgstr "Din førespurnad for å leggja {{public_body_name}} til {{site_name}}"
-
 msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr "Din førespurnad om å oppdatera adressa til {{public_body_name}} er sendt.  Takk for at du tok kontakt.  Vi vil snart koma tilbake til deg."
-
-msgid "Your request to update {{public_body_name}} on {{site_name}}"
-msgstr "Din førespurnad om å oppdatera {{public_body_name}} på {{site_name}}"
 
 msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
 msgstr "Din førespurnad vart kalla {{info_request}}. Ved å la alle vita i kva grad du fekk informasjonen vil du hjelpa oss å halda reie på"
@@ -4356,6 +3808,9 @@ msgstr ""
 
 msgid "[FOI #{{request}} email]"
 msgstr "[Innsyns-e-postadresse #{{request}}]"
+
+msgid "[Name Removed]"
+msgstr ""
 
 msgid "[REDACTED]"
 msgstr ""
@@ -4565,9 +4020,6 @@ msgstr "{{site_name}}-gjengen"
 
 msgid "to send a follow up message."
 msgstr "for å senda ei oppfølgingsmelding."
-
-msgid "to {{public_body}}"
-msgstr "til {{public_body}}"
 
 msgid "type your search term here"
 msgstr "skriv inn søketerm her"
@@ -4833,8 +4285,14 @@ msgstr "{{username}} la igjen ein bemerkning:"
 msgid "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 msgstr "{{user}} ({{user_admin_link}}) laga denne {{law_used_full}} førespurnaden (<a href=\"{{request_admin_url}}\">admin</a>) til {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 
-msgid "{{user}} made this {{law_used_full}} request"
-msgstr "{{user}} sende denne førespurnaden om {{law_used_full}}"
+msgid "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>) as part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
+msgstr ""
+
+msgid "{{user}} made this {{law_used_full}} request to {{public_body}}"
+msgstr ""
+
+msgid "{{user}} made this {{law_used_full}} request to {{public_body}} as part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
+msgstr ""
 
 msgid "« Back to search results"
 msgstr "« Tilbake til søkeresultatene"

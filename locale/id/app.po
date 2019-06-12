@@ -15,6 +15,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Agung Riyadi <ariadi01@gmail.com>, 2013
 # Agung Riyadi <ariadi01@gmail.com>, 2012-2013
 # agustriwanto <agus.triwanto@gmail.com>, 2012
@@ -31,8 +32,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-28 15:37+0000\n"
-"PO-Revision-Date: 2018-12-21 12:27+0000\n"
+"POT-Creation-Date: 2019-06-10 14:02+0000\n"
+"PO-Revision-Date: 2019-06-10 14:40+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Indonesian (http://www.transifex.com/mysociety/alaveteli/language/id/)\n"
 "Language: id\n"
@@ -156,6 +157,9 @@ msgstr ""
 msgid "<a href=\"{{new_request_link}}\">Make a new FOI request</a> to {{public_body_name}}"
 msgstr ""
 
+msgid "<a href=\"{{sign_in_link}}\">Sign in</a> to get updates on things you follow or re-enable email alerts."
+msgstr ""
+
 msgid "<a href=\"{{url}}\">Do you want to request private information about yourself?</a>"
 msgstr ""
 "<strong>Catatan privasi:</strong> Jika Anda ingin meminta informasi privat tentang\n"
@@ -168,6 +172,9 @@ msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and mor
 msgstr "<a href=\"{{url}}\">Daftar</a> untuk mengubah kode sandi, langganan dan lain-lain (hanya {{user_name}})"
 
 msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>"
+msgstr ""
+
+msgid "<a href=\"{{wall_link}}\">Visit your Wall</a> to get updates on things you follow or re-enable email alerts."
 msgstr ""
 
 msgid "<div class=\"alaveteli-widget__count\">{{count}}</div> person wants to know"
@@ -324,8 +331,8 @@ msgstr "Sebuah <a href=\"{{request_url}}\">tindak lanjut</a> untuk <em>{{request
 msgid "A <a href=\"{{request_url}}\">response</a> to <em>{{request_title}}</em> was sent by {{public_body_name}} to {{info_request_user}} on {{date}}.  The request status is: {{request_status}}"
 msgstr "Sebuah <a href=\"{{request_url}}\">jawaban</a> untuk <em>{{request_title}}</em> telah dikirim oleh {{public_body_name}} kepada {{info_request_user}} pada {{date}}. Status permintaan sekarang adalah : {{request_status}}"
 
-msgid "A <strong>summary</strong> of the response if you have received it by post. "
-msgstr "Sebuah<strong>ringkasan</strong> dari respon jika Anda telah menerimanya lewat pos. "
+msgid "A <strong>summary</strong> of the response if you have received it by postal mail. "
+msgstr ""
 
 msgid "A Freedom of Information request"
 msgstr "Permintaan Freedom of Information"
@@ -347,14 +354,11 @@ msgstr ""
 msgid "A public authority"
 msgstr "Sebuah otoritas publik"
 
-msgid "A response will be sent <strong>by post</strong>"
-msgstr "Respon akan dikirimkan <strong>lewat pos </strong>"
+msgid "A response will be sent <strong>by postal mail</strong>"
+msgstr ""
 
-msgid "A strange reponse, required attention by the {{site_name}} team"
-msgstr "Respon yang tidak biasa, membutuhkan perhatian tim {{site_name}}"
-
-msgid "A vexatious request"
-msgstr "Sebuah permintaan menjengkelkan"
+msgid "A strange response, required attention by the {{site_name}} team"
+msgstr ""
 
 msgid "A {{site_name}} user"
 msgstr "Pengguna{{site_name}}"
@@ -366,6 +370,9 @@ msgid "About you:"
 msgstr "Tentang Anda:"
 
 msgid "About {{count}} FOI requests found"
+msgstr ""
+
+msgid "Account closed at user request"
 msgstr ""
 
 msgid "Account suspended – Please contact us"
@@ -425,63 +432,6 @@ msgid "Air, water, soil, land, flora and fauna (including how these effect human
 msgstr ""
 "Udara, air, tanah, daratan, tumbuhan dan hewan (termasuk bagaimana hal-hal ini mempengaruhi\n"
 "            manusia)"
-
-msgid "Alaveteli pro/draft info request batch"
-msgstr ""
-
-msgid "Alaveteli pro/embargo"
-msgstr ""
-
-msgid "Alaveteli pro/embargo extension"
-msgstr ""
-
-msgid "Alaveteli pro/request summary"
-msgstr ""
-
-msgid "Alaveteli pro/request summary category"
-msgstr ""
-
-msgid "AlaveteliPro::DraftInfoRequestBatch|Body"
-msgstr ""
-
-msgid "AlaveteliPro::DraftInfoRequestBatch|Embargo duration"
-msgstr ""
-
-msgid "AlaveteliPro::DraftInfoRequestBatch|Title"
-msgstr ""
-
-msgid "AlaveteliPro::EmbargoExtension|Extension duration"
-msgstr ""
-
-msgid "AlaveteliPro::Embargo|Embargo duration"
-msgstr ""
-
-msgid "AlaveteliPro::Embargo|Expiring notification at"
-msgstr ""
-
-msgid "AlaveteliPro::Embargo|Publish at"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummaryCategory|Slug"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Body"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Public body names"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Request created at"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Request updated at"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Summarisable type"
-msgstr ""
-
-msgid "AlaveteliPro::RequestSummary|Title"
-msgstr ""
 
 msgid "All of the information requested has been received"
 msgstr "Semua informasi yang diminta telah diterima"
@@ -556,12 +506,6 @@ msgstr ""
 "Anotasi akan dimuat secara terbuka di sini, dan\n"
 "        <strong>tidak</strong> dikirimkan ke{{public_body_name}}"
 
-msgid "Announcement"
-msgstr ""
-
-msgid "Announcement|Visibility"
-msgstr ""
-
 msgid "Anonymous user"
 msgstr "Pengguna anonim"
 
@@ -570,6 +514,9 @@ msgstr "Berlaku untuk"
 
 msgid "Are we missing a public authority?"
 msgstr "Adakah otoritas publik yang belum kami cantumkan?"
+
+msgid "Are you asking about your, or others', personal information or personal situation?"
+msgstr ""
 
 msgid "Are you sure you want to disable two factor authentication?"
 msgstr ""
@@ -702,24 +649,6 @@ msgstr "Cancel some {{site_name}} alerts"
 msgid "Cancel, return to your profile page"
 msgstr "Batal, kembali ke halaman profil Anda"
 
-msgid "Censor rule"
-msgstr "Aturan sensor"
-
-msgid "CensorRule|Last edit comment"
-msgstr "CensorRule|Last edit comment"
-
-msgid "CensorRule|Last edit editor"
-msgstr "CensorRule|Last edit editor"
-
-msgid "CensorRule|Regexp"
-msgstr "CensorRule | Regexp"
-
-msgid "CensorRule|Replacement"
-msgstr "CensorRule|Replacement"
-
-msgid "CensorRule|Text"
-msgstr "CensorRule|Text"
-
 msgid "Change email on {{site_name}}"
 msgstr "Merubah email pada{{site_name}}"
 
@@ -790,21 +719,6 @@ msgstr ""
 
 msgid "Collapse all correspondence"
 msgstr ""
-
-msgid "Comment"
-msgstr "Komentar"
-
-msgid "Comment|Attention requested"
-msgstr ""
-
-msgid "Comment|Body"
-msgstr "Comment|Body"
-
-msgid "Comment|Locale"
-msgstr "Comment|Locale"
-
-msgid "Comment|Visible"
-msgstr "Comment|Visible"
 
 msgid "Complete"
 msgstr ""
@@ -934,9 +848,6 @@ msgstr ""
 msgid "Delivery error"
 msgstr "Kesalahan pengiriman"
 
-msgid "Destroy {{name}}"
-msgstr "Menghapus {{name}}"
-
 msgid "Details of request &ldquo;{{request_title}}&rdquo;"
 msgstr ""
 
@@ -979,18 +890,6 @@ msgstr "Unduh file zip dari semua korespondensi"
 msgid "Download original attachment"
 msgstr "Unduh lampiran original"
 
-msgid "Draft info request"
-msgstr ""
-
-msgid "DraftInfoRequest|Body"
-msgstr ""
-
-msgid "DraftInfoRequest|Embargo duration"
-msgstr ""
-
-msgid "DraftInfoRequest|Title"
-msgstr ""
-
 msgid "EIR"
 msgstr "EIR"
 
@@ -1012,6 +911,12 @@ msgid "Either the email or password was not recognised, please try again."
 msgstr "Email atau kode sandi tidak dikenali, silakan coba lagi."
 
 msgid "Either the email or password was not recognised, please try again. Or create a new account using the form on the left."
+msgstr ""
+
+msgid "Email Alerts Disabled"
+msgstr ""
+
+msgid "Email alerts for things you follow have now been disabled."
 msgstr ""
 
 msgid "Email doesn't look like a valid address"
@@ -1130,30 +1035,6 @@ msgstr ""
 
 msgid "Flipper::Adapters::ActiveRecord::Gate|Value"
 msgstr ""
-
-msgid "Foi attachment"
-msgstr "Lampiran permintaan"
-
-msgid "FoiAttachment|Charset"
-msgstr "FoiAttachment|Charset"
-
-msgid "FoiAttachment|Content type"
-msgstr "FoiAttachment|Content type"
-
-msgid "FoiAttachment|Display size"
-msgstr "FoiAttachment|Display size"
-
-msgid "FoiAttachment|Filename"
-msgstr "FoiAttachment|Filename"
-
-msgid "FoiAttachment|Hexdigest"
-msgstr "FoiAttachment|Hexdigest"
-
-msgid "FoiAttachment|Url part number"
-msgstr "FoiAttachment|Url part number"
-
-msgid "FoiAttachment|Within rfc822 subject"
-msgstr "FoiAttachment|Within rfc822 subject"
 
 msgid "Follow"
 msgstr "Ikuti"
@@ -1284,17 +1165,20 @@ msgstr "Dari:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "BERIKAN RINCIAN TENTANG KEBERATAN ANDA DI SINI"
 
+msgid "Getting long – remember to keep it focussed"
+msgstr ""
+
 msgid "Got a {{site_name}} account?"
 msgstr ""
 
 msgid "Got an account?"
 msgstr ""
 
-msgid "Handled by post"
+msgid "Handled by postal mail"
 msgstr ""
 
-msgid "Handled by post."
-msgstr "Ditangani oleh pos."
+msgid "Handled by postal mail."
+msgstr ""
 
 msgid "Has tag string tag"
 msgstr ""
@@ -1377,15 +1261,6 @@ msgstr ""
 
 msgid "Hide request"
 msgstr "Sembunyikan permintaan"
-
-msgid "Holiday"
-msgstr "Liburan"
-
-msgid "Holiday|Day"
-msgstr "Hari libur|Hari"
-
-msgid "Holiday|Description"
-msgstr "Hari libur|Deskripsi"
 
 msgid "Home page"
 msgstr "Halaman beranda"
@@ -1566,155 +1441,11 @@ msgstr ""
 msgid "Incoming email address"
 msgstr "Email masuk"
 
-msgid "Incoming message"
-msgstr "Pesan Masuk"
-
-msgid "Incoming message error"
-msgstr ""
-
 msgid "Incoming message has a spam score above the configured threshold ({{spam_threshold}})."
 msgstr ""
 
-msgid "IncomingMessageError|Backtrace"
-msgstr ""
-
-msgid "IncomingMessageError|Retry at"
-msgstr ""
-
-msgid "IncomingMessage|Cached attachment text clipped"
-msgstr "IncomingMessage|Cached attachment text clipped"
-
-msgid "IncomingMessage|Cached main body text folded"
-msgstr "IncomingMessage|Cached main body text folded"
-
-msgid "IncomingMessage|Cached main body text unfolded"
-msgstr "IncomingMessage|Cached main body text unfolded"
-
-msgid "IncomingMessage|Last parsed"
-msgstr "IncomingMessage|Last parsed"
-
-msgid "IncomingMessage|Mail from"
-msgstr "IncomingMessage|Mail from"
-
-msgid "IncomingMessage|Mail from domain"
-msgstr "IncomingMessage|Mail from domain"
-
-msgid "IncomingMessage|Prominence"
-msgstr ""
-
-msgid "IncomingMessage|Prominence reason"
-msgstr ""
-
-msgid "IncomingMessage|Sent at"
-msgstr "IncomingMessage|Sent at"
-
-msgid "IncomingMessage|Subject"
-msgstr "IncomingMessage|Subject"
-
-msgid "IncomingMessage|Valid to reply to"
-msgstr "IncomingMessage|Valid to reply to"
-
 msgid "Individual requests"
 msgstr "Permintaan individu"
-
-msgid "Info request"
-msgstr "Info permintaan"
-
-msgid "Info request batch"
-msgstr ""
-
-msgid "Info request event"
-msgstr "Event info permintaan"
-
-msgid "InfoRequestBatch|Body"
-msgstr ""
-
-msgid "InfoRequestBatch|Embargo duration"
-msgstr ""
-
-msgid "InfoRequestBatch|Sent at"
-msgstr ""
-
-msgid "InfoRequestBatch|Title"
-msgstr ""
-
-msgid "InfoRequestEvent|Calculated state"
-msgstr "InfoRequestEvent|Calculated state"
-
-msgid "InfoRequestEvent|Described state"
-msgstr "InfoRequestEvent|Described state"
-
-msgid "InfoRequestEvent|Event type"
-msgstr "InfoRequestEvent|Event type"
-
-msgid "InfoRequestEvent|Last described at"
-msgstr "InfoRequestEvent|Last described at"
-
-msgid "InfoRequestEvent|Params yaml"
-msgstr "InfoRequestEvent|Params yaml"
-
-msgid "InfoRequest|Allow new responses from"
-msgstr "InfoRequest|Allow new responses from"
-
-msgid "InfoRequest|Attention requested"
-msgstr "InfoRequest|Attention requested"
-
-msgid "InfoRequest|Awaiting description"
-msgstr "InfoRequest|Awaiting description"
-
-msgid "InfoRequest|Comments allowed"
-msgstr "InfoRequest | Comments allowed"
-
-msgid "InfoRequest|Date initial request last sent at"
-msgstr ""
-
-msgid "InfoRequest|Date response required by"
-msgstr ""
-
-msgid "InfoRequest|Date very overdue after"
-msgstr ""
-
-msgid "InfoRequest|Described state"
-msgstr "InfoRequest|Described state"
-
-msgid "InfoRequest|External url"
-msgstr "InfoRequest | External url"
-
-msgid "InfoRequest|External user name"
-msgstr "InfoRequest | External user name"
-
-msgid "InfoRequest|Handle rejected responses"
-msgstr "InfoRequest|Handle rejected responses"
-
-msgid "InfoRequest|Idhash"
-msgstr "InfoRequest|Idhash"
-
-msgid "InfoRequest|Last event time"
-msgstr ""
-
-msgid "InfoRequest|Last public response at"
-msgstr ""
-
-msgid "InfoRequest|Law used"
-msgstr "InfoRequest|Law used"
-
-msgid "InfoRequest|Prominence"
-msgstr "InfoRequest|Prominence"
-
-msgid "InfoRequest|Reject incoming at mta"
-msgstr ""
-
-msgid "InfoRequest|Rejected incoming count"
-msgstr ""
-
-msgid "InfoRequest|Title"
-msgstr "InfoRequest|Title"
-
-msgid "InfoRequest|Url title"
-msgstr "InfoRequest|Url title"
-
-msgid "InfoRequest|Use notifications"
-msgstr ""
 
 msgid "Information not held"
 msgstr ""
@@ -1740,6 +1471,9 @@ msgid "Internal review request sent to {{public_body_name}} by {{info_request_us
 msgstr ""
 
 msgid "Invalid one time password"
+msgstr ""
+
+msgid "Invalid token"
 msgstr ""
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
@@ -1843,27 +1577,6 @@ msgstr "Lama terlambat."
 msgid "Made between"
 msgstr "Dibuat antara"
 
-msgid "Mail server log"
-msgstr "Riwayat server email"
-
-msgid "Mail server log done"
-msgstr "Riwayat server mail selesai"
-
-msgid "MailServerLogDone|Filename"
-msgstr "MailServerLogDone | Filename"
-
-msgid "MailServerLogDone|Last stat"
-msgstr "MailServerLogDone | Last stat"
-
-msgid "MailServerLog|Delivery status"
-msgstr ""
-
-msgid "MailServerLog|Line"
-msgstr "MailServerLog | Line"
-
-msgid "MailServerLog|Order"
-msgstr "MailServerLog | Order"
-
 msgid "Make a batch request"
 msgstr ""
 
@@ -1908,6 +1621,9 @@ msgstr "Kehilangan rincian kontak untuk '{{authority_name}}'"
 
 msgid "More about this authority"
 msgstr "Lebih jauh tentang otoritas ini"
+
+msgid "More requests in this batch"
+msgstr ""
 
 msgid "More similar requests"
 msgstr "Lebih banyak permintaan serupa"
@@ -2005,9 +1721,6 @@ msgstr "Tidak ditemukan."
 msgid "None made."
 msgstr "Tidak ada yang dibuat."
 
-msgid "Not a valid FOI request"
-msgstr "Permintaan FOI tidak valid"
-
 msgid "Not a valid request"
 msgstr ""
 
@@ -2020,22 +1733,10 @@ msgstr ""
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
 msgstr "Catat bahwa peminta informasi tidak akan mendapat pemberitahuan tentang notasi Anda, karena permintaan ditampilkan oleh {{public_body_name}} atas nama mereka."
 
+msgid "Note that we may still send you emails when new correspondence appears on your requests, or when you perform actions that require an email confirmation step."
+msgstr ""
+
 msgid "Notes:"
-msgstr ""
-
-msgid "Notification"
-msgstr ""
-
-msgid "Notification|Expired"
-msgstr ""
-
-msgid "Notification|Frequency"
-msgstr ""
-
-msgid "Notification|Seen at"
-msgstr ""
-
-msgid "Notification|Send after"
 msgstr ""
 
 msgid "Now check your email!"
@@ -2112,30 +1813,6 @@ msgstr ""
 
 msgid "Other:"
 msgstr "Yang lain:"
-
-msgid "Outgoing message"
-msgstr "Pesan keluar"
-
-msgid "OutgoingMessage|Body"
-msgstr "OutgoingMessage|Body"
-
-msgid "OutgoingMessage|Last sent at"
-msgstr "OutgoingMessage|Last sent at"
-
-msgid "OutgoingMessage|Message type"
-msgstr "OutgoingMessage|Message type"
-
-msgid "OutgoingMessage|Prominence"
-msgstr ""
-
-msgid "OutgoingMessage|Prominence reason"
-msgstr ""
-
-msgid "OutgoingMessage|Status"
-msgstr "OutgoingMessage|Status"
-
-msgid "OutgoingMessage|What doing"
-msgstr "OutgoingMessage|What doing"
 
 msgid "Partial success"
 msgstr ""
@@ -2228,6 +1905,9 @@ msgstr ""
 
 msgid "Please click on the link below to confirm your email address."
 msgstr "Silakan klik tautan di bawah untuk mengkonfirmasi alamat email Anda."
+
+msgid "Please click on the link below to stop these emails."
+msgstr ""
 
 msgid "Please create an account or sign in"
 msgstr "Silakan masuk atau membuat akun baru"
@@ -2365,27 +2045,6 @@ msgstr "Permintaan yang mungkin berhubungan:"
 msgid "Post annotation"
 msgstr "Pasang anotasi"
 
-msgid "Post redirect"
-msgstr "Tulisan dialihkan"
-
-msgid "PostRedirect|Circumstance"
-msgstr "PostRedirect|Circumstance"
-
-msgid "PostRedirect|Email token"
-msgstr "PostRedirect|Email token"
-
-msgid "PostRedirect|Post params yaml"
-msgstr "PostRedirect|Post params yaml"
-
-msgid "PostRedirect|Reason params yaml"
-msgstr "PostRedirect|Reason params yaml"
-
-msgid "PostRedirect|Token"
-msgstr "PostRedirect|Token"
-
-msgid "PostRedirect|Uri"
-msgstr "PostRedirect|Uri"
-
 msgid "Posted on {{date}} by {{author}}"
 msgstr "Diposting pada{{date}} oleh{{author}}"
 
@@ -2428,23 +2087,8 @@ msgstr ""
 msgid "Privacy and cookies"
 msgstr ""
 
-msgid "Pro account"
-msgstr ""
-
-msgid "ProAccount|Default embargo duration"
-msgstr ""
-
 msgid "Profile image for {{user_name}}"
 msgstr ""
-
-msgid "Profile photo"
-msgstr "Foto profil"
-
-msgid "ProfilePhoto|Data"
-msgstr "ProfilePhoto|Data"
-
-msgid "ProfilePhoto|Draft"
-msgstr "ProfilePhoto|Draft"
 
 msgid "Public Bodies"
 msgstr ""
@@ -2482,22 +2126,7 @@ msgstr ""
 msgid "Public bodies with the most successful requests"
 msgstr ""
 
-msgid "Public body"
-msgstr "Badan publik"
-
-msgid "Public body category"
-msgstr ""
-
-msgid "Public body category link"
-msgstr ""
-
 msgid "Public body category translation"
-msgstr ""
-
-msgid "Public body change request"
-msgstr ""
-
-msgid "Public body heading"
 msgstr ""
 
 msgid "Public body heading translation"
@@ -2509,9 +2138,6 @@ msgstr "Halaman publik"
 msgid "Public page not available"
 msgstr "Halaman publik tidak ada"
 
-msgid "PublicBodyCategoryLink|Category display order"
-msgstr ""
-
 msgid "PublicBodyCategoryTranslation|Description"
 msgstr ""
 
@@ -2521,74 +2147,11 @@ msgstr ""
 msgid "PublicBodyCategoryTranslation|Title"
 msgstr ""
 
-msgid "PublicBodyCategory|Category tag"
-msgstr ""
-
-msgid "PublicBodyChangeRequest|Is open"
-msgstr ""
-
-msgid "PublicBodyChangeRequest|Notes"
-msgstr ""
-
-msgid "PublicBodyChangeRequest|Public body email"
-msgstr ""
-
-msgid "PublicBodyChangeRequest|Public body name"
-msgstr ""
-
-msgid "PublicBodyChangeRequest|Source url"
-msgstr ""
-
-msgid "PublicBodyChangeRequest|User email"
-msgstr ""
-
-msgid "PublicBodyChangeRequest|User name"
-msgstr ""
-
 msgid "PublicBodyHeadingTranslation|Locale"
 msgstr ""
 
 msgid "PublicBodyHeadingTranslation|Name"
 msgstr ""
-
-msgid "PublicBodyHeading|Display order"
-msgstr ""
-
-msgid "PublicBody|Api key"
-msgstr "PublicBody | Api key"
-
-msgid "PublicBody|Disclosure log"
-msgstr "PublicBody | Disclosure log"
-
-msgid "PublicBody|Home page"
-msgstr "PublicBody|Home page"
-
-msgid "PublicBody|Info requests count"
-msgstr "PublicBody | Info requests count"
-
-msgid "PublicBody|Info requests not held count"
-msgstr ""
-
-msgid "PublicBody|Info requests overdue count"
-msgstr ""
-
-msgid "PublicBody|Info requests successful count"
-msgstr ""
-
-msgid "PublicBody|Info requests visible classified count"
-msgstr ""
-
-msgid "PublicBody|Info requests visible count"
-msgstr ""
-
-msgid "PublicBody|Last edit comment"
-msgstr "PublicBody|Last edit comment"
-
-msgid "PublicBody|Last edit editor"
-msgstr "PublicBody|Last edit editor"
-
-msgid "PublicBody|Version"
-msgstr "PublicBody|Version"
 
 msgid "Publication scheme"
 msgstr "Skema publikasi"
@@ -2639,6 +2202,9 @@ msgid "Rejected"
 msgstr ""
 
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
+msgstr ""
+
+msgid "Report"
 msgstr ""
 
 msgid "Report an offensive or unsuitable request"
@@ -2781,15 +2347,6 @@ msgstr "Batasi untuk"
 
 msgid "Results page {{page_number}}"
 msgstr "Halaman hasil {{page_number}}"
-
-msgid "Role"
-msgstr ""
-
-msgid "Role|Name"
-msgstr ""
-
-msgid "Role|Resource type"
-msgstr ""
 
 msgid "Save"
 msgstr "Simpan"
@@ -2981,12 +2538,6 @@ msgstr ""
 msgid "Source:"
 msgstr ""
 
-msgid "Spam address"
-msgstr ""
-
-msgid "SpamAddress|Email"
-msgstr ""
-
 msgid "Start your own request"
 msgstr ""
 
@@ -3137,7 +2688,7 @@ msgid "The accounts have been left as they previously were."
 msgstr "Akun-akun yang ditinggalkan sebagaimana mereka sebelumnya."
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr "Otoritas<strong>tidak memiliki</strong> informasi tersebut <small>(mungkin mereka mengatakan siapa yang memilikinya)</small>"
+msgstr ""
 
 msgid "The authority email doesn't look like a valid address"
 msgstr ""
@@ -3150,8 +2701,8 @@ msgstr ""
 "Otoritas mengatakan bahwa mereka <strong>membutuhkan\n"
 "            alamat surat-menyurat</strong>, bukan hanya sebuah email, untuk menjadkannya permintaan FOI yang valid"
 
-msgid "The authority would like to / has <strong>responded by post</strong> to this request."
-msgstr "Otoritas hendak /sudah <strong>merespon lewat pos</strong> terhadap permintaan ini."
+msgid "The authority would like to / has <strong>responded by postal mail</strong> to this request."
+msgstr ""
 
 msgid "The classification of requests (e.g. to say whether they were successful or not) is done manually by users and administrators of the site, which means that they are subject to error."
 msgstr ""
@@ -3201,8 +2752,8 @@ msgstr "Otoritas publik tidak memiliki informasi yang diminta"
 msgid "The public authority would like part of the request explained"
 msgstr "Otoritas publik menghendaki sebagian dari permintaan untuk dijelaskan"
 
-msgid "The public authority would like to / has responded by post"
-msgstr "Otoritas publik hendak/sudah merespon lewat pos"
+msgid "The public authority would like to / has responded by postal mail"
+msgstr ""
 
 msgid "The request has been <strong>refused</strong>"
 msgstr "Permintaan sudah <strong>ditolak</strong>"
@@ -3372,8 +2923,8 @@ msgstr ""
 msgid "These logs show what happened to this message as it passed through our {{mta_type}} mail server. You can send these logs to an authority to help them diagnose problems receiving email from {{site_name}}."
 msgstr ""
 
-msgid "They are going to reply <strong>by post</strong>"
-msgstr "Mereka akan membalas <strong>lewat pos</strong>"
+msgid "They are going to reply <strong>by postal mail</strong>"
+msgstr ""
 
 msgid "They do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr "Mereka <strong>tidak memiliki</strong> informasi tersebut <small>(mungkin mereka mengatakan siapa yang memilikinya)</small>"
@@ -3392,6 +2943,9 @@ msgstr ""
 
 msgid "Things you're following"
 msgstr "Hal yang Anda ikuti"
+
+msgid "This account has been closed."
+msgstr ""
 
 msgid "This annotation has been reported for administrator attention"
 msgstr ""
@@ -3489,6 +3043,9 @@ msgstr "Permintaan ini telah dilaporkan untuk menjadi perhatian administrator"
 msgid "This request has an <strong>unknown status</strong>."
 msgstr "Permintaan ini memiliki <strong>status yang tidak diketahui</strong>."
 
+msgid "This request has been <strong>closed to new correspondence from the public body</strong>. <a href=\"{{url}}\"\">Contact us</a> if you think it ought be re-opened."
+msgstr ""
+
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
 msgstr "Permintaan ini telah <strong>dilaporkan</strong> sebagai keperluan untuk diperhatikan administrator (mungkin karena permintaan ini tidak sesuai, atau sebuah permintaan pribadi)"
 
@@ -3527,6 +3084,9 @@ msgid "This request is hidden, so that only you the requester can see it. Please
 msgstr ""
 "Permintaan ini disembunyikan, sehingga hanya Anda sang pemhon yang dapat melihatnya. Silakan\n"
 "    <a href=\"{{url}}\">hubungi kami</a> jika Anda tidak yakin mengapa."
+
+msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
+msgstr ""
 
 msgid "This request is still in progress:"
 msgstr "Permintaan ini masih dalam proses:"
@@ -3683,22 +3243,10 @@ msgstr "Terlalu banyak permintaan"
 msgid "Top recent players"
 msgstr ""
 
-msgid "Track thing"
-msgstr "Melacak sesuatu (permintaan)"
-
 msgid "Track this person"
 msgstr "Lacak orang ini"
 
 msgid "Track this search"
-msgstr "Lacak pencarian ini"
-
-msgid "TrackThing|Track medium"
-msgstr "Lacak orang ini lewat email"
-
-msgid "TrackThing|Track query"
-msgstr "Lacak permintaan ini lewat email"
-
-msgid "TrackThing|Track type"
 msgstr "Lacak pencarian ini"
 
 msgid "Try opening the logs in a new window."
@@ -3805,104 +3353,17 @@ msgstr "Gunakan tanda kutip ketika Anda ingin menemukan frase yang persis sama, 
 msgid "Use this site to make your request for information – we'll show you how."
 msgstr ""
 
-msgid "User"
-msgstr "Pengguna"
-
-msgid "User info request sent alert"
-msgstr "Informasi permintaan pengguna telah mengirim notifikasi"
-
 msgid "User – {{name}}"
 msgstr "Pengguna - {{name}}"
-
-msgid "UserInfoRequestSentAlert|Alert type"
-msgstr "UserInfoRequestSentAlert|Alert type"
 
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
 msgstr ""
 
-msgid "User|About me"
-msgstr "User|About me"
-
-msgid "User|Ban text"
-msgstr "User|Ban text"
-
-msgid "User|Can make batch requests"
-msgstr ""
-
-msgid "User|Comments count"
-msgstr ""
-
-msgid "User|Confirmed not spam"
-msgstr ""
-
-msgid "User|Daily summary hour"
-msgstr ""
-
-msgid "User|Daily summary minute"
-msgstr ""
-
-msgid "User|Email"
-msgstr "User|Email"
-
-msgid "User|Email bounce message"
-msgstr "User|Email bounce message"
-
-msgid "User|Email bounced at"
-msgstr "User|Email bounced at"
-
-msgid "User|Email confirmed"
-msgstr "User|Email confirmed"
-
-msgid "User|Hashed password"
-msgstr "User|Hashed password"
-
-msgid "User|Info request batches count"
-msgstr ""
-
-msgid "User|Info requests count"
-msgstr ""
-
-msgid "User|Last daily track email"
-msgstr "User|Last daily track email"
-
-msgid "User|Locale"
-msgstr "User|Locale"
-
-msgid "User|Name"
-msgstr "User|Name"
-
-msgid "User|No limit"
-msgstr "User|No limit"
-
-msgid "User|Otp counter"
-msgstr ""
-
-msgid "User|Otp enabled"
-msgstr ""
-
-msgid "User|Otp secret key"
-msgstr ""
-
-msgid "User|Public body change requests count"
-msgstr ""
-
-msgid "User|Receive email alerts"
-msgstr "User|Receive email alerts"
-
-msgid "User|Request classifications count"
-msgstr ""
-
-msgid "User|Salt"
-msgstr "User|Salt"
-
-msgid "User|Track things count"
-msgstr ""
-
-msgid "User|Url name"
-msgstr "User|Url name"
-
 msgid "Version {{version}}"
 msgstr "Versi {{version}}"
+
+msgid "Very long – shorter requests are more successful"
+msgstr ""
 
 msgid "Vexatious"
 msgstr ""
@@ -3950,6 +3411,9 @@ msgid "Waiting for the public authority to reply"
 msgstr "Menunggu otoritas publik untuk membalas"
 
 msgid "Want to know something?"
+msgstr ""
+
+msgid "We consider it is not a valid FOI request as it was correspondence about your personal circumstances, and we have therefore hidden it from other users."
 msgstr ""
 
 msgid "We consider it is not a valid FOI request, and have therefore hidden it from other users."
@@ -4092,12 +3556,6 @@ msgstr "Dari siapa saya dapat meminta informasi?"
 msgid "Why specifically do you consider this request unsuitable?"
 msgstr ""
 
-msgid "Widget vote"
-msgstr ""
-
-msgid "WidgetVote|Cookie"
-msgstr ""
-
 msgid "Withdrawn"
 msgstr ""
 
@@ -4206,9 +3664,6 @@ msgstr "Anda dapat mengubah permintaan dan profil Anda di <a href=\"{{profile_ur
 msgid "You can get this page in computer-readable format as part of the <a href=\"{{json_path}}\">main JSON page</a> for the request. See the <a href=\"{{api_path}}\">API documentation</a>."
 msgstr ""
 
-msgid "You can only request information about the environment from this authority."
-msgstr "Anda hanya dapat meminta informasi tentang lingkungan dari otoritas ini."
-
 msgid "You can regenerate your one time passcode at any time."
 msgstr ""
 
@@ -4293,6 +3748,9 @@ msgid "You need to be logged in to edit your profile."
 msgstr "Anda perlu masuk untuk mengubah profil Anda."
 
 msgid "You need to be logged in to report a request for administrator attention"
+msgstr ""
+
+msgid "You only have a right in law to access information about the environment from this authority"
 msgstr ""
 
 msgid "You previously submitted that exact follow up message for this request."
@@ -4458,13 +3916,7 @@ msgstr ""
 msgid "Your request to add an authority has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr ""
 
-msgid "Your request to add {{public_body_name}} to {{site_name}}"
-msgstr ""
-
 msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
-msgstr ""
-
-msgid "Your request to update {{public_body_name}} on {{site_name}}"
 msgstr ""
 
 msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
@@ -4523,6 +3975,9 @@ msgstr ""
 
 msgid "[FOI #{{request}} email]"
 msgstr "[FOI #{{request}} email]"
+
+msgid "[Name Removed]"
+msgstr ""
 
 msgid "[REDACTED]"
 msgstr ""
@@ -4732,9 +4187,6 @@ msgstr "tim {{site_name}}"
 
 msgid "to send a follow up message."
 msgstr "untuk mengirimkan pesan tindak lanjut."
-
-msgid "to {{public_body}}"
-msgstr "kepada {{public_body}}"
 
 msgid "type your search term here"
 msgstr ""
@@ -4993,8 +4445,14 @@ msgstr "{{username}} meninggalkan anotasi:"
 msgid "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 msgstr "{{user}} ({{user_admin_link}}) membuat {{law_used_full}} permintaan (<a href=\"{{request_admin_url}}\">admin</a>) kepada {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 
-msgid "{{user}} made this {{law_used_full}} request"
-msgstr "{{user}} membuat {{law_used_full}} permintaan ini"
+msgid "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>) as part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
+msgstr ""
+
+msgid "{{user}} made this {{law_used_full}} request to {{public_body}}"
+msgstr ""
+
+msgid "{{user}} made this {{law_used_full}} request to {{public_body}} as part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
+msgstr ""
 
 msgid "« Back to search results"
 msgstr ""
