@@ -905,10 +905,20 @@ class PublicBody < ApplicationRecord
   # will break unless we update index for every event for every
   # request linked to it
   def reindex_requested_from
-    if changes.include?('url_name')
-      info_requests.each do |info_request|
-        info_request.info_request_events.each do |info_request_event|
-          info_request_event.xapian_mark_needs_index
+    if rails_upgrade?
+      if will_save_change_to_attribute?('url_name')
+        info_requests.each do |info_request|
+          info_request.info_request_events.each do |info_request_event|
+            info_request_event.xapian_mark_needs_index
+          end
+        end
+      end
+    else
+      if changes.include?('url_name')
+        info_requests.each do |info_request|
+          info_request.info_request_events.each do |info_request_event|
+            info_request_event.xapian_mark_needs_index
+          end
         end
       end
     end
