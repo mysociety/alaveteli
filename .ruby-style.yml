@@ -1040,6 +1040,7 @@ Metrics/LineLength:
     - '^\s*it\s+.*do$'
     - '^\s*context\s+.*do$'
     - '^\s*describe\s+.*do$'
+    - '^\s*class\s+[A-Z].*<.*'
 
 Metrics/MethodLength:
   Description: 'Avoid methods longer than 10 lines of code.'

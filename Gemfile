@@ -109,7 +109,7 @@ gem 'iso_country_codes', '~> 0.7.8'
 gem 'mail', '~> 2.6.6'
 gem 'mahoro', '~> 0.4'
 gem 'newrelic_rpm'
-gem 'nokogiri', rails5? ? '~> 1.8.5' : ['~> 1.6.0', '< 1.7']
+gem 'nokogiri', '~> 1.8.5'
 gem 'open4', '~> 1.3.0'
 gem 'rack', rails5? ? '~> 2.0.0' : '~> 1.6.0'
 gem 'rack-ssl', '~> 1.4.0'
@@ -192,8 +192,5 @@ group :development do
   gem 'launchy', '~> 2.4.0'
   gem 'listen', '~> 3.0.5' if rails5?
   gem 'web-console', rails5? ? '>= 3.3.0' : ['~> 2.3.0', '< 3.0.0']
-
-  install_if -> { RUBY_VERSION >= '2.2.0' } do
-    gem 'rubocop', '~> 0.63.1'
-  end
+  gem 'rubocop', '~> 0.63.1'
 end
