@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class CreateEmbargoExtensions < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 3.2
+class CreateEmbargoExtensions <  ActiveRecord::Migration[4.2] # 3.2
   def change
     create_table :embargo_extensions do |t|
       t.integer :embargo_id

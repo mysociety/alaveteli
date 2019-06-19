@@ -3,8 +3,8 @@ lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'alaveteli_features/version'
 
-def rails5?
-  %w[1 true].include?(ENV['RAILS5'])
+def rails_upgrade?
+  %w[1 true].include?(ENV['RAILS_UPGRADE'])
 end
 
 Gem::Specification.new do |spec|
@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "rails", rails5? ? "~> 5.0.7" : [">= 4.0.13", "< 5.0"]
+  spec.add_dependency "rails", "~> 5.0.7"
   spec.add_dependency "flipper"
   spec.add_dependency "flipper-active_record"
   # Mime types 3 needs Ruby 2.0.0 or greater, but we need to support 1.9.3 so

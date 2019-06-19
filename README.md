@@ -35,14 +35,11 @@ see [the project website](http://alaveteli.org) for instructions on installing A
 
 Every Alaveteli commit is tested by Travis on the [following Ruby platforms](https://github.com/mysociety/alaveteli/blob/master/.travis.yml#L7)
 
-* ruby-2.0.0
-* ruby-2.1.5
 * ruby-2.3.0
 * ruby-2.4.0
 * ruby-2.5.0
 
-
-If you use a ruby version management tool (such as RVM or .rbenv) and want to use the default development version used by the alaveteli team (currently 2.0.0), you can create a `.ruby-version` symlink with a target of `.ruby-version.example` to switch to that automatically in the project directory.
+If you use a ruby version management tool (such as RVM or .rbenv) and want to use the default development version used by the alaveteli team (currently 2.3.8), you can create a `.ruby-version` symlink with a target of `.ruby-version.example` to switch to that automatically in the project directory.
 
 ## How to contribute
 

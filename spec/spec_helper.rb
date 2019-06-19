@@ -85,13 +85,6 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = true
 
-  unless rails5?
-    # https://github.com/grosser/test_after_commit allows us to test
-    # after_commit hooks properly, but we only want to use it where we know it's
-    # necessary.
-    TestAfterCommit.enabled = false
-  end
-
   # If true, the base class of anonymous controllers will be inferred
   # automatically. This will be the default behavior in future versions of
   # rspec-rails.

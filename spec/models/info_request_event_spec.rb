@@ -370,11 +370,9 @@ describe InfoRequestEvent do
     end
 
     it "calls the request's create_or_update_request_summary on create" do
-      TestAfterCommit.with_commits(true) do
-        event = FactoryBot.build(:info_request_event)
-        expect(event.info_request).to receive(:create_or_update_request_summary)
-        event.save
-      end
+      event = FactoryBot.build(:info_request_event)
+      expect(event.info_request).to receive(:create_or_update_request_summary)
+      event.save
     end
 
   end

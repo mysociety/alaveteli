@@ -1,3 +1,12 @@
+# develop
+
+## Highlighted Features
+
+* Removed support for Ubuntu 14.04 LTS (Trusty Tahr) (Liz Conlan)
+* Dropped support for Ruby 2.0 (Liz Conlan)
+* Dropped support for Ruby 2.1 and 2.2 (Liz Conlan)
+* Upgrade to Rails 5.0 (Liz Conlan, Graeme Porteous)
+
 # 0.33.0.0
 
 ## Highlighted Features

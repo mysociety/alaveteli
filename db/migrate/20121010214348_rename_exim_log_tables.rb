@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class RenameEximLogTables < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 2.3
+class RenameEximLogTables <  ActiveRecord::Migration[4.2] # 2.3
   def self.up
     rename_table :exim_logs, :mail_server_logs
     rename_table :exim_log_dones, :mail_server_log_dones

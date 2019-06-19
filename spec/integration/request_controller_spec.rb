@@ -18,8 +18,6 @@ describe RequestController do
                          "otherwise change the database." \
                          "\nDown for maintenance"
 
-      expected_message.gsub!("\n", ' ') unless rails5?
-
       visit new_request_path
       expect(page).to have_content(expected_message)
     end
@@ -42,8 +40,6 @@ describe RequestController do
                            "can only view existing requests. You cannot make " \
                            "new ones, add followups or otherwise change the " \
                            "database.\nDown for maintenance"
-
-        expected_message.gsub!("\n", ' ') unless rails5?
 
         visit new_request_path
         expect(page).to have_content(expected_message)

@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class AddCensorTable < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 2.1
+class AddCensorTable <  ActiveRecord::Migration[4.2] # 2.1
   def self.up
     create_table :censor_rules do |t|
       t.column :info_request_id, :integer

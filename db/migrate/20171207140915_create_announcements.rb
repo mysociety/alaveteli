@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class CreateAnnouncements < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2]
+class CreateAnnouncements <  ActiveRecord::Migration[4.2]
   def change
     create_table :announcements do |t|
       t.string :visibility

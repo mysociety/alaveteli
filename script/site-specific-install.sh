@@ -63,17 +63,6 @@ install_daemon() {
 [ -z "$DEVELOPMENT_INSTALL" ] && misuse DEVELOPMENT_INSTALL
 [ -z "$BIN_DIRECTORY" ] && misuse BIN_DIRECTORY
 
-# Ubuntu Trusty Fixes
-if [ x"$DISTRIBUTION" = x"ubuntu" ] && [ x"$DISTVERSION" = x"trusty" ]
-then
-  # add brightbox as a source
-  apt-add-repository ppa:brightbox/ruby-ng
-  apt-get -qq update
-
-  # install brightbox's ruby 2.1 packages
-  apt-get install -y ruby2.1 ruby2.1-dev
-fi
-
 update_mysociety_apt_sources
 
 # Ubuntu Bionic Fixes
