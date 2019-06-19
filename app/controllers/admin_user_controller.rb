@@ -111,11 +111,7 @@ class AdminUserController < AdminController
   def modify_comment_visibility
     Comment.where(:id => params[:comment_ids]).
       update_all(:visible => !params[:hide_selected])
-    if rails5?
-      redirect_back(fallback_location: admin_users_url)
-    else
-      redirect_to :back
-    end
+    redirect_back(fallback_location: admin_users_url)
   end
 
   private

@@ -55,11 +55,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
     end
 
     let(:payload) do
-      if rails5?
-        stripe_event.to_hash
-      else
-        stripe_event.to_s
-      end
+      stripe_event.to_hash
     end
 
     def send_request
@@ -180,11 +176,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
     context 'the notification type is missing' do
 
       let(:payload) do
-        if rails5?
-          { id: '1234' }
-        else
-          '{"id": "1234"}'
-        end
+        { id: '1234' }
       end
 
       before do

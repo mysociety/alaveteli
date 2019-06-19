@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class DropPublicBodyTranslatedColumns < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 4.1
+class DropPublicBodyTranslatedColumns <  ActiveRecord::Migration[4.2] # 4.1
   def up
     PublicBody.transaction do
       PublicBody.find_each do |record|

@@ -7,12 +7,10 @@ describe "pro request list" do
   let(:public_body){ FactoryBot.create(:public_body) }
   let!(:pro_user_session) { login(pro_user) }
   let!(:info_requests) do
-    requests = []
-    TestAfterCommit.with_commits(true) do
-      requests = FactoryBot.create_list(:info_request, 3, user: pro_user,
-                                        :public_body => public_body)
-    end
-    requests
+    FactoryBot.create_list(:info_request,
+                           3,
+                           user: pro_user,
+                           public_body: public_body)
   end
 
   let(:public_bodies) do
@@ -21,23 +19,19 @@ describe "pro request list" do
 
   let!(:batch_requests) do
     requests = []
-    TestAfterCommit.with_commits(true) do
-      requests = FactoryBot.create_list(
-        :info_request_batch,
-        5,
-        user: pro_user,
-        public_bodies: public_bodies)
-    end
+    requests = FactoryBot.create_list(
+      :info_request_batch,
+      5,
+      user: pro_user,
+      public_bodies: public_bodies)
   end
 
   before do
     # Send 4 out of 5 of the batch requests
-    TestAfterCommit.with_commits(true) do
-      batch_requests[0..3].each do |batch|
-        batch.create_batch!
-        batch.update(sent_at: Time.zone.now)
-        batch.reload
-      end
+    batch_requests[0..3].each do |batch|
+      batch.create_batch!
+      batch.update(sent_at: Time.zone.now)
+      batch.reload
     end
   end
 
@@ -150,20 +144,16 @@ describe "pro request list" do
   describe "showing draft requests" do
     let!(:draft_request) do
       draft = nil
-      TestAfterCommit.with_commits(true) do
-        draft = FactoryBot.create(:draft_info_request, user: pro_user)
-      end
+      draft = FactoryBot.create(:draft_info_request, user: pro_user)
       draft
     end
     let!(:draft_batch_request) do
       draft = nil
-      TestAfterCommit.with_commits(true) do
-        draft = FactoryBot.create(
-          :draft_info_request_batch,
-          user: pro_user,
-          public_bodies: public_bodies
-        )
-      end
+      draft = FactoryBot.create(
+        :draft_info_request_batch,
+        user: pro_user,
+        public_bodies: public_bodies
+      )
       draft
     end
 

@@ -21,18 +21,10 @@ describe UserStats do
       end
 
       it "returns the expected results" do
-        expected =
-          if rails5?
-            [
-              { "domain" => "localhost", "count" => 2 },
-              { "domain" => "example.com", "count" => 1 }
-            ]
-          else
-            [
-              { "domain" => "localhost", "count" => "2" },
-              { "domain" => "example.com", "count" => "1" }
-            ]
-          end
+        expected = [
+          { "domain" => "localhost", "count" => 2 },
+          { "domain" => "example.com", "count" => 1 }
+        ]
         expect(user_stats).to eq(expected)
       end
 
@@ -47,16 +39,9 @@ describe UserStats do
       end
 
       it "only returns data for signups created since the start date" do
-        expected =
-          if rails5?
-            [
-              { "domain" => "example.com", "count" => 1 }
-            ]
-          else
-            [
-              { "domain" => "example.com", "count" => "1" }
-            ]
-          end
+        expected = [
+          { "domain" => "example.com", "count" => 1 }
+        ]
 
         expect(UserStats.list_user_domains(:start_date => 2.weeks.ago)).
           to eq(expected)

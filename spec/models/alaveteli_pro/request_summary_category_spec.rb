@@ -13,15 +13,13 @@ require "spec_helper"
 
 describe AlaveteliPro::RequestSummaryCategory do
   it "can belong to multiple request_summaries" do
-    TestAfterCommit.with_commits do
-      category = FactoryBot.create(:request_summary_category)
-      summary_1 = FactoryBot.create(:request_summary,
-                                    request_summary_categories: [category])
-      summary_2 = FactoryBot.create(:request_summary,
-                                    request_summary_categories: [category])
-      expect(category.request_summaries).
-        to match_array([summary_1, summary_2])
-    end
+    category = FactoryBot.create(:request_summary_category)
+    summary_1 = FactoryBot.create(:request_summary,
+                                  request_summary_categories: [category])
+    summary_2 = FactoryBot.create(:request_summary,
+                                  request_summary_categories: [category])
+    expect(category.request_summaries).
+      to match_array([summary_1, summary_2])
   end
 
   describe "#draft" do

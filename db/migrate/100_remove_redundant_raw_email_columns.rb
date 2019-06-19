@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class RemoveRedundantRawEmailColumns < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 2.3
+class RemoveRedundantRawEmailColumns <  ActiveRecord::Migration[4.2] # 2.3
   def self.up
     remove_column :raw_emails, :data_text
     remove_column :raw_emails, :data_binary
