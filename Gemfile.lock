@@ -262,7 +262,7 @@ GEM
       byebug (>= 9.0, < 9.1)
       pry (~> 0.10)
     public_suffix (2.0.5)
-    rack (2.0.5)
+    rack (2.0.7)
     rack-protection (2.0.4)
       rack
     rack-ssl (1.4.1)
