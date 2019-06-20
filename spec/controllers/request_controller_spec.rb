@@ -2939,29 +2939,24 @@ describe RequestController, "when showing similar requests" do
 end
 
 describe RequestController, "when caching fragments" do
+  let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
+  let(:incoming_message) { info_request.incoming_messages.first }
+
   it "should not fail with long filenames" do
-    long_name = "blahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblah.txt"
-    info_request = double(InfoRequest, :prominence => 'normal',
-                                       :is_public? => true,
-                                       :embargo => nil)
-    incoming_message = double(IncomingMessage, :info_request => info_request,
-                            :parse_raw_email! => true,
-                            :info_request_id => 132,
-                            :id => 44,
-                            :get_attachments_for_display => nil,
-                            :apply_masks => nil,
-                            :prominence => 'normal',
-                            :is_public? => true)
-    attachment = FactoryBot.build(:body_text, :filename => long_name)
-    allow(IncomingMessage).to receive(:find).with("44").and_return(incoming_message)
-    allow(IncomingMessage).to receive(:get_attachment_by_url_part_number_and_filename).and_return(attachment)
-    allow(InfoRequest).to receive(:find).with("132").and_return(info_request)
-    params = { :file_name => long_name,
-               :controller => "request",
-               :action => "get_attachment_as_html",
-               :id => "132",
-               :incoming_message_id => "44",
-               :part => "2" }
+    long_name = 'blahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblah.pdf'
+
+    attachment = FactoryBot.create(:pdf_attachment,
+                                   filename: long_name,
+                                   incoming_message: incoming_message,
+                                   url_part_number: 2)
+
+    params = { file_name: long_name,
+               controller: 'request',
+               action: 'get_attachment_as_html',
+               id: info_request.id,
+               incoming_message_id: incoming_message.id,
+               part: '2' }
+
     get :get_attachment_as_html, params: params
   end
 
