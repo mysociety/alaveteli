@@ -2958,6 +2958,8 @@ describe RequestController, "when caching fragments" do
                part: '2' }
 
     get :get_attachment_as_html, params: params
+
+    expect(response).to be_success
   end
 
 end
