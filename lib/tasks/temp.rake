@@ -1,6 +1,16 @@
 # -*- coding: utf-8 -*-
 namespace :temp do
 
+  desc 'Convert serialized params_yaml from PostgreSQL::OID::Integer to ActiveModel::Type::Integer'
+  task :update_params_yaml => :environment do
+    InfoRequestEvent.where("params_yaml LIKE '%OID::Integer%'").find_each do |event|
+      new_params =
+        event.params_yaml.gsub('!ruby/object:ActiveRecord::ConnectionAdapters::PostgreSQL::OID::Integer',
+                               '!ruby/object:ActiveModel::Type::Integer')
+      event.update(params_yaml: new_params)
+    end
+  end
+
   desc 'Populate missing timestamp columns'
   task :populate_missing_timestamps => :environment do
     puts 'Populating FoiAttachment created_at, updated_at'
