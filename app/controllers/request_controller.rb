@@ -687,7 +687,8 @@ class RequestController < ApplicationController
              attachment_url: Rack::Utils.escape(@attachment_url),
              content_for: {
                head_suffix: render_to_string(
-                              partial: 'request/view_html_stylesheet'),
+                              partial: 'request/view_html_stylesheet',
+                              formats: [:html]),
                body_prefix: render_to_string(
                               partial: 'request/view_html_prefix')
              })
