@@ -7,6 +7,11 @@
 * Dropped support for Ruby 2.1 and 2.2 (Liz Conlan)
 * Upgrade to Rails 5.0 (Liz Conlan, Graeme Porteous)
 
+## Upgrade Notes
+
+* Run `bundle exec rake temp:update_params_yaml` to prevent errors when trying to
+  load stored event log params after upgrading to Rails 5.0.
+
 # 0.33.0.0
 
 ## Highlighted Features
