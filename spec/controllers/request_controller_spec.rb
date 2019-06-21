@@ -2943,7 +2943,7 @@ describe RequestController, "when caching fragments" do
   let(:incoming_message) { info_request.incoming_messages.first }
 
   it "should not fail with long filenames" do
-    long_name = 'blahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblah.pdf'
+    long_name = 'blah' * 150 + '.pdf'
 
     attachment = FactoryBot.create(:pdf_attachment,
                                    filename: long_name,
