@@ -11,6 +11,9 @@
 
 * Run `bundle exec rake temp:update_params_yaml` to prevent errors when trying to
   load stored event log params after upgrading to Rails 5.0.
+* This version of Rails offers database environment protection. We recommend
+  enabling this by running:
+  `bundle exec rails db:environment:set RAILS_ENV=production`
 
 # 0.33.0.0
 
