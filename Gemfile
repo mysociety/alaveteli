@@ -83,7 +83,7 @@ def rails_upgrade?
   %w[1 true].include?(ENV['RAILS_UPGRADE'])
 end
 
-gem 'rails', '5.0.7.2'
+gem 'rails', rails_upgrade? ? '5.1.7' : '5.0.7.2'
 
 gem 'pg', '~> 0.20.0'
 
