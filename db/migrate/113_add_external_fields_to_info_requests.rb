@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class AddExternalFieldsToInfoRequests < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 2.3
+class AddExternalFieldsToInfoRequests <  ActiveRecord::Migration[4.2] # 2.3
   def self.up
     change_column_null :info_requests, :user_id, true
     add_column :info_requests, :external_user_name, :string, :null => true

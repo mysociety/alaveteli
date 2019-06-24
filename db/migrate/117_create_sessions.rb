@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class CreateSessions < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 2.3
+class CreateSessions <  ActiveRecord::Migration[4.2] # 2.3
   def self.up
     create_table :sessions do |t|
       t.string :session_id, :null => false

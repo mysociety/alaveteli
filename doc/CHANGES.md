@@ -1,3 +1,25 @@
+# 0.34.0.0
+
+## Highlighted Features
+
+* Removed support for Ubuntu 14.04 LTS (Trusty Tahr) (Liz Conlan)
+* Dropped support for Ruby 2.0 (Liz Conlan)
+* Dropped support for Ruby 2.1 and 2.2 (Liz Conlan)
+* Upgrade to Rails 5.0 (Liz Conlan, Graeme Porteous)
+
+## Upgrade Notes
+
+* Run `bundle exec rake temp:update_params_yaml` to prevent errors when trying to
+  load stored event log params after upgrading to Rails 5.0.
+* This version of Rails offers database environment protection. We recommend
+  enabling this by running:
+  `bundle exec rails db:environment:set RAILS_ENV=production`
+* We no longer support Ruby 2.0, 2.1 or 2.2.
+* We no longer support Ubuntu 14.04 LTS (Trusty Tahr). Please upgrade to Ubuntu
+  16.04 LTS (Xenial Xerus) or Ubuntu 18.04 LTS (Bionic Beaver) at the earliest
+  opportunity.
+* This will be the last release to support Ubuntu 16.04 LTS (Xenial Xerus)
+
 # 0.33.0.0
 
 ## Highlighted Features

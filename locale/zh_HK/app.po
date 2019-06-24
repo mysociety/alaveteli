@@ -26,7 +26,7 @@
 # spions kwong, 2015
 # spions kwong, 2015-2016
 # wen xing, 2019
-# wen xing, 2019
+# Wen XING, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"

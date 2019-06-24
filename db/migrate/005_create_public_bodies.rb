@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class CreatePublicBodies < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 1.2
+class CreatePublicBodies <  ActiveRecord::Migration[4.2] # 1.2
   def self.up
     create_table :public_bodies do |t|
       t.column :name, :text

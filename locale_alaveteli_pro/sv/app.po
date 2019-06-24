@@ -6,8 +6,8 @@
 # Translators:
 # louisecrow <louise@mysociety.org>, 2017
 # Mattias Axell <mattias@libertador.es>, 2018
-# Elenor Weijmar <ellelingh@hotmail.se>, 2018
 # Liz Conlan <liz@mysociety.org>, 2019
+# Elenor Weijmar <ellelingh@hotmail.se>, 2019
 #
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-06-10 14:58+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>, 2019\n"
+"Last-Translator: Elenor Weijmar <ellelingh@hotmail.se>, 2019\n"
 "Language-Team: Swedish (https://www.transifex.com/mysociety/teams/33529/sv/)\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -63,7 +63,7 @@ msgid "<strong>{{filter_description}}</strong> sorted by <strong>{{order_descrip
 msgstr "<strong>{{filter_description}}</strong> sorterat efter <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">rensa</a>"
 
 msgid "A <strong>summary</strong> of the response if you have received it by postal mail. "
-msgstr ""
+msgstr "En <strong>summering</strong> av svaret om du fått det med post."
 
 msgid "A monthly subscription"
 msgstr "En månatlig prenumeration"
@@ -96,7 +96,7 @@ msgid "Activity"
 msgstr "Aktivitet"
 
 msgid "Add"
-msgstr ""
+msgstr "Lägg till"
 
 msgid "Add Payment Card"
 msgstr "Lägg till betalkort"
@@ -231,7 +231,7 @@ msgid "Dashboard"
 msgstr "Panel"
 
 msgid "Dear {{user_name}},"
-msgstr ""
+msgstr "Hej {{user_name}},"
 
 msgid "Delivery verification for proof of receipt"
 msgstr "Leveransbekräftelse för kvitto på mottagande"
@@ -324,7 +324,7 @@ msgid "Keep private for a further:"
 msgstr "Håll den privat för en vidare:"
 
 msgid "Keep private for:"
-msgstr ""
+msgstr "Håll privat för:"
 
 msgid "Keep requests and responses private while you work on your story"
 msgstr "Håll förfrågningar och svar privata medan du arbetar på ditt projekt"
@@ -655,7 +655,7 @@ msgid "Successful applicants will receive free early access to {{site_name}} for
 msgstr "Framgångsrika ansökande kommer få tidig tillgång till {{site_name}} i 6 månader."
 
 msgid "Thank you for your interest in {{pro_site_name}}."
-msgstr ""
+msgstr "Tack för ditt intresse för {{pro_site_name}}. "
 
 msgid "Thanks for logging in. We've saved your request as a draft, in case you wanted to add an embargo before sending it. You can set that (or just send it straight away) using the form below."
 msgstr "Tack för att du loggar in. Vi har sparat din begäran som ett utkast ifall du skulle vilja lägga till ett embargo innan du skickar den. Du kan sätta det (eller bara skicka iväg det direkt) genom att använda formuläret nedanför."
@@ -955,7 +955,7 @@ msgid "requests that will be made public soon"
 msgstr "förfrågningar som snart kommer att bli offentliga"
 
 msgid "the {{pro_site_name}} team"
-msgstr ""
+msgstr "{{pro_site_name}} teamet"
 
 msgid "the {{site_name}} team"
 msgstr "{{site_name}} gruppen"

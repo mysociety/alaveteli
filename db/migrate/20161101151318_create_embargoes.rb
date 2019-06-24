@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class CreateEmbargoes < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 3.2
+class CreateEmbargoes <  ActiveRecord::Migration[4.2] # 3.2
   def change
     create_table :embargoes do |t|
       t.belongs_to :info_request, index: true

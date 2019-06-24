@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class RemoveAdminLevel < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2]
+class RemoveAdminLevel <  ActiveRecord::Migration[4.2]
   def self.up
     remove_column :users, :admin_level
   end

@@ -19,16 +19,8 @@ describe HashableParams do
     context 'passed a populated hash' do
       let(:raw_params) { { foo: 1, bar: 2 } }
 
-      it 'raises an error under rails 5' do
-        if rails5?
-          expect { subject }.to raise_error(NoMethodError)
-        end
-      end
-
-      it 'returns the original params under rails 4' do
-        unless rails5?
-          expect(subject).to eq(raw_params)
-        end
+      it 'raises an error' do
+        expect { subject }.to raise_error(NoMethodError)
       end
     end
 

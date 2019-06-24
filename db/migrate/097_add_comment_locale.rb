@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class AddCommentLocale < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 2.3
+class AddCommentLocale <  ActiveRecord::Migration[4.2] # 2.3
   def self.up
     add_column :comments, :locale, :text, :null => false, :default => ""
   end

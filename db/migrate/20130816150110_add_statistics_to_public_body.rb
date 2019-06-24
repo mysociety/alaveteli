@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class AddStatisticsToPublicBody < !rails5? ? ActiveRecord::Migration : ActiveRecord::Migration[4.2] # 3.1
+class AddStatisticsToPublicBody <  ActiveRecord::Migration[4.2] # 3.1
   def self.up
     add_column :public_bodies, :info_requests_successful_count, :integer
     add_column :public_bodies, :info_requests_not_held_count, :integer

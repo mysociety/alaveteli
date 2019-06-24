@@ -667,7 +667,6 @@ class RequestController < ApplicationController
   end
 
   def get_attachment_as_html
-
     # The conversion process can generate files in the cache directory that can be served up
     # directly by the webserver according to httpd.conf, so don't allow it unless that's OK.
     if @files_can_be_cached != true
@@ -683,12 +682,16 @@ class RequestController < ApplicationController
     image_dir = File.dirname(key_path)
     FileUtils.mkdir_p(image_dir)
 
-    html = @attachment.body_as_html(image_dir,
-                                    :attachment_url => Rack::Utils.escape(@attachment_url),
-                                    :content_for => {
-                                      :head_suffix => render_to_string(:partial => "request/view_html_stylesheet"),
-                                      :body_prefix => render_to_string(:partial => "request/view_html_prefix")
-                                    })
+    html = @attachment.body_as_html(
+             image_dir,
+             attachment_url: Rack::Utils.escape(@attachment_url),
+             content_for: {
+               head_suffix: render_to_string(
+                              partial: 'request/view_html_stylesheet',
+                              formats: [:html]),
+               body_prefix: render_to_string(
+                              partial: 'request/view_html_prefix')
+             })
 
     html = @incoming_message.apply_masks(html, response.content_type)
 

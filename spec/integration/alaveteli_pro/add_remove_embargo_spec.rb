@@ -16,29 +16,25 @@ describe 'Adding/removing embargoes from requests' do
     end
 
     it 'removes the request from the search results' do
-      TestAfterCommit.with_commits(true) do
-        update_xapian_index
+      update_xapian_index
 
-        using_session(user_session) do
-          visit frontpage_path
-          fill_in "navigation_search_button", :with => 'awesome'
-          click_button "Search"
-          expect(page).to have_content(info_request.title)
-        end
+      using_session(user_session) do
+        visit frontpage_path
+        fill_in "navigation_search_button", with: 'awesome'
+        click_button "Search"
+        expect(page).to have_content(info_request.title)
       end
 
       # add the embargo
       FactoryBot.create(:embargo, info_request: info_request)
 
-      TestAfterCommit.with_commits(true) do
-        update_xapian_index
+      update_xapian_index
 
-        using_session(user_session) do
-          visit frontpage_path
-          fill_in "navigation_search_button", :with => 'awesome'
-          click_button "Search"
-          expect(page).not_to have_content(info_request.title)
-        end
+      using_session(user_session) do
+        visit frontpage_path
+        fill_in "navigation_search_button", with: 'awesome'
+        click_button "Search"
+        expect(page).not_to have_content(info_request.title)
       end
     end
 
@@ -54,29 +50,25 @@ describe 'Adding/removing embargoes from requests' do
     end
 
     it 'adds the request to the search results' do
-      TestAfterCommit.with_commits(true) do
-        update_xapian_index
+      update_xapian_index
 
-        using_session(user_session) do
-          visit frontpage_path
-          fill_in "navigation_search_button", :with => 'embargoed'
-          click_button "Search"
-          expect(page).not_to have_content(info_request.title)
-        end
+      using_session(user_session) do
+        visit frontpage_path
+        fill_in "navigation_search_button", with: 'embargoed'
+        click_button "Search"
+        expect(page).not_to have_content(info_request.title)
       end
 
       # destroy the embargo
       info_request.embargo.destroy
 
-      TestAfterCommit.with_commits(true) do
-        update_xapian_index
+      update_xapian_index
 
-        using_session(user_session) do
-          visit frontpage_path
-          fill_in "navigation_search_button", :with => 'embargoed'
-          click_button "Search"
-          expect(page).to have_content(info_request.title)
-        end
+      using_session(user_session) do
+        visit frontpage_path
+        fill_in "navigation_search_button", with: 'embargoed'
+        click_button "Search"
+        expect(page).to have_content(info_request.title)
       end
     end
 
