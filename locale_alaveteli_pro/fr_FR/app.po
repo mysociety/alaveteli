@@ -6,6 +6,7 @@
 # Translators:
 # Catia Guerreiro <CatiaGuerreiro1980@hotmail.com>, 2019
 # Liz Conlan <liz@mysociety.org>, 2019
+# Doryan R, 2019
 #
 msgid ""
 msgstr ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-06-10 14:58+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>, 2019\n"
+"Last-Translator: Doryan R, 2019\n"
 "Language-Team: French (France) (https://www.transifex.com/mysociety/teams/33529/fr_FR/)\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
@@ -61,7 +62,7 @@ msgid "<strong>{{filter_description}}</strong> sorted by <strong>{{order_descrip
 msgstr "<strong>{{filter_description}}</strong> classé par <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">réinitialiser</a>"
 
 msgid "A <strong>summary</strong> of the response if you have received it by postal mail. "
-msgstr ""
+msgstr "Un <strong>résumé</strong> de la réponse si vous l'avez reçue par courrier postal."
 
 msgid "A monthly subscription"
 msgstr "Un abonnement mensuel"
@@ -94,7 +95,7 @@ msgid "Activity"
 msgstr "Activité"
 
 msgid "Add"
-msgstr ""
+msgstr "Ajouter"
 
 msgid "Add Payment Card"
 msgstr "Ajoutez une carte de paiement"
@@ -229,7 +230,7 @@ msgid "Dashboard"
 msgstr "Tableau de bord"
 
 msgid "Dear {{user_name}},"
-msgstr ""
+msgstr "Cher/Chère {{user_name}},"
 
 msgid "Delivery verification for proof of receipt"
 msgstr "Vérification de l'envoi pour un accusé de réception "
@@ -307,13 +308,13 @@ msgid "I understand and still want to cancel"
 msgstr "J'ai compris et je veux toujours annuler"
 
 msgid "If payment continues to fail, unfortunately your account will revert back to a free account, and you’ll no longer have access to {{pro_site_name}}."
-msgstr ""
+msgstr "Si le paiement continue d’échouer, votre compte redeviendra malheureusement gratuit et vous n’a plus accès à {{pro_site_name}}."
 
 msgid "If you have an <strong>offer code</strong>, please enter it here:"
 msgstr "Si vous avez un <strong>code promotionnel</strong>, encodez le ici:"
 
 msgid "If you wish to preserve your access to {{pro_site_name}}, please could you check that your card has sufficient funds, and that the card details are correct on your subscriptions page: {{subscriptions_page_url}}"
-msgstr ""
+msgstr "Si vous souhaitez conserver votre accès à {{pro_site_name}}, veuillez vérifier que votre carte dispose de fonds suffisants et que les détails de la carte sont corrects sur votre page d'abonnement:{{subscriptions_page_url}}"
 
 msgid "Important info about requests to this authority"
 msgstr "Info importante concernant les demandes à cette autorité"
@@ -322,7 +323,7 @@ msgid "Keep private for a further:"
 msgstr "Garder privé pour une période : "
 
 msgid "Keep private for:"
-msgstr ""
+msgstr "Restez privé pour:"
 
 msgid "Keep requests and responses private while you work on your story"
 msgstr "Gardez vos demandes et réponses privées pendant votre travail d'investigation"
@@ -653,7 +654,7 @@ msgid "Successful applicants will receive free early access to {{site_name}} for
 msgstr "Les candidats retenus recevront un accès libre à {{site_name}}  pour 6 mois."
 
 msgid "Thank you for your interest in {{pro_site_name}}."
-msgstr ""
+msgstr "Merci de votre intérêt pour {{pro_site_name}}."
 
 msgid "Thanks for logging in. We've saved your request as a draft, in case you wanted to add an embargo before sending it. You can set that (or just send it straight away) using the form below."
 msgstr "Merci de vous être connecté. Nous avons sauvé votre demande comme brouillon au cas ou vous voudriez ajouter un embargo avant de l'envoyer. Vous pouvez le spécifier (ou juste l'envoyer directement) en utilisant le formulaire ci-dessous."
@@ -702,7 +703,7 @@ msgid "This page is only accessible to {{pro_site_name}} users"
 msgstr "Cette page est uniquement accessible aux utilisateurs de {{pro_site_name}}"
 
 msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
-msgstr ""
+msgstr "Cette demande fait partie d'un <a href=\"{{url}}\">un lot envoyé à {{count}} autorités</a>"
 
 msgid "This request is private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
 msgstr "Cette demande est privée jusqu' au <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
@@ -788,10 +789,10 @@ msgid "Welcome to {{pro_site_name}}!"
 msgstr "Bienvenu sur {{pro_site_name}}! "
 
 msgid "We’ll attempt to bill your card again over the coming days."
-msgstr ""
+msgstr "Nous essaierons de facturer votre carte à nouveau au cours des prochains jours."
 
 msgid "We’ve tried to bill your card but the charge was unsuccessful."
-msgstr ""
+msgstr "Nous avons essayé de facturer votre carte, mais le paiement a échoué."
 
 msgid "When a request is private we guarantee that it will only be visible on {{site_name}} for the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
 msgstr "Lorsqu'une demande est confidentielle nous garantissons qu'elle sera uniquement visible sur {{site_name}} pour la période que vous sélectionnez. Les administrateurs de {{pro_site_name}} pourront également voir votre demande mais ils ne le feront qu'au cas où ils doivent régler un problème avec votre demande (par exemple une erreur de délivrabilité à l'autorité publique). Ils ne révéleront à personne le contenu de votre demande ou de toute réponse obtenue. Il est toutefois possible que l'autorité publie votre demande dans un registre."
@@ -953,7 +954,7 @@ msgid "requests that will be made public soon"
 msgstr "Demandes qui seront prochainement rendues publiques"
 
 msgid "the {{pro_site_name}} team"
-msgstr ""
+msgstr "la {{pro_site_name}} équipe"
 
 msgid "the {{site_name}} team"
 msgstr "L'équipe de {{site_name}}"

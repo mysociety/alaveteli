@@ -37,8 +37,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-06-10 14:02+0000\n"
-"PO-Revision-Date: 2019-06-10 14:45+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
+"PO-Revision-Date: 2019-06-12 13:52+0000\n"
+"Last-Translator: Elenor Weijmar <ellelingh@hotmail.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/mysociety/alaveteli/language/sv/)\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -328,7 +328,7 @@ msgid "A response will be sent <strong>by postal mail</strong>"
 msgstr ""
 
 msgid "A strange response, required attention by the {{site_name}} team"
-msgstr ""
+msgstr "Ett konstigt svar, som behöver granskas av {{site_name}}s team"
 
 msgid "A {{site_name}} user"
 msgstr "En {{site_name}}-användare"
@@ -2800,7 +2800,7 @@ msgid "These logs show what happened to this message as it passed through our {{
 msgstr "Dessa loggar visar vad som hände med detta meddelande då den passerade genom vår {{mta_type}} e-postserver. Du kan skicka dessa loggar till en myndighet för att hjälpa dem diagnosticera problemen med att ta emot e-post från {{site_name}}."
 
 msgid "They are going to reply <strong>by postal mail</strong>"
-msgstr ""
+msgstr "De kommer att svara <strong>via brev</strong>"
 
 msgid "They do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr "De har <strong>inte</strong> informationen <small>(kanske de säger vem som har den)</small>"
@@ -3800,7 +3800,7 @@ msgid "[FOI #{{request}} email]"
 msgstr "[Registrators #{{request}} e-postadress]"
 
 msgid "[Name Removed]"
-msgstr ""
+msgstr "[Namn borttaget]"
 
 msgid "[REDACTED]"
 msgstr "[MASKERAT]"
@@ -4279,7 +4279,7 @@ msgid "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a hr
 msgstr ""
 
 msgid "{{user}} made this {{law_used_full}} request to {{public_body}}"
-msgstr ""
+msgstr "{{user}} gjorde denna {{law_used_full}} begäran till {{public_body}}"
 
 msgid "{{user}} made this {{law_used_full}} request to {{public_body}} as part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
 msgstr ""
