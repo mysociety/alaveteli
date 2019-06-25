@@ -842,12 +842,12 @@ describe Ability do
         end
       end
 
-      it 'does not allow them to login as themselves' do
-        with_feature_enabled(:alaveteli_pro) do
-          ability = Ability.new(pro_user)
-          expect(ability).not_to be_able_to(:login_as, pro_user)
-        end
-      end
+     it 'does not allow them to login as themselves' do
+       with_feature_enabled(:alaveteli_pro) do
+         ability = Ability.new(pro_user)
+         expect(ability).not_to be_able_to(:login_as, pro_user)
+       end
+     end
 
      it 'does not allow user with no roles to login as them' do
         with_feature_enabled(:alaveteli_pro) do

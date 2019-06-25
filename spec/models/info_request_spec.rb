@@ -4116,8 +4116,8 @@ describe InfoRequest do
       followup_event = info_request.
                          info_request_events.reload.
                            detect{ |e| e.event_type == 'followup_sent'}
-        expect(info_request.last_event_forming_initial_request)
-          .to eq followup_event
+      expect(info_request.last_event_forming_initial_request)
+        .to eq followup_event
       end
 
       it 'raises an error if the request has never been sent' do

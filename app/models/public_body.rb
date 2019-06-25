@@ -692,8 +692,8 @@ class PublicBody < ApplicationRecord
     # sub-select to find the IDs of those public bodies.
     test_tagged_query = "SELECT model_id FROM has_tag_string_tags" \
       " WHERE model = 'PublicBody' AND name = 'test'"
-      "#{total_column} >= #{minimum_requests} " \
-      "AND id NOT IN (#{test_tagged_query})"
+    "#{total_column} >= #{minimum_requests} " \
+    "AND id NOT IN (#{test_tagged_query})"
   end
 
   # Return data for the 'n' public bodies with the highest (or
@@ -947,12 +947,12 @@ class PublicBody < ApplicationRecord
     result = "(upper(#{table}.name) LIKE upper(:query)" \
       " OR upper(#{table}.notes) LIKE upper(:query)" \
         " OR upper(#{table}.short_name) LIKE upper(:query))"
-        if has_first_letter
-          result += " AND #{table}.first_letter = :first_letter"
-        end
-        if locale
-          result += " AND #{table}.locale = :locale"
-        end
-        result
+    if has_first_letter
+      result += " AND #{table}.first_letter = :first_letter"
+    end
+    if locale
+      result += " AND #{table}.locale = :locale"
+    end
+    result
   end
 end

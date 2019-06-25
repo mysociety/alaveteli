@@ -198,7 +198,7 @@ namespace :themes do
   desc "Check that all help sections referred to in the application are present in theme"
   task :check_help_sections => :environment do
 
-  intro_message = <<-EOF
+    intro_message = <<-EOF
 
 Checking that all help templates linked to from Alaveteli are present in the theme,
 and that all sections linked to from Alaveteli are present in the templates. For

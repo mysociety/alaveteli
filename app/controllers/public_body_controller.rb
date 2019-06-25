@@ -128,40 +128,40 @@ class PublicBodyController < ApplicationController
                                   with_query(params[:public_body_query], @tag).
                                   paginate(page: params[:page], per_page: 100)
 
-    @description =
-      if @tag == 'all'
-        n_('Found {{count}} public authority',
-           'Found {{count}} public authorities',
-           @public_bodies.total_entries,
-           :count => @public_bodies.total_entries)
-      elsif @tag.size == 1
-        n_('Found {{count}} public authority beginning with ' \
-           '‘{{first_letter}}’',
-           'Found {{count}} public authorities beginning with ' \
-           '‘{{first_letter}}’',
-           @public_bodies.total_entries,
-           :count => @public_bodies.total_entries,
-           :first_letter => @tag)
-      else
-        category_name = PublicBodyCategory.get.by_tag[@tag]
-        if category_name.nil?
-          n_('Found {{count}} public authority matching the tag ' \
-             '‘{{tag_name}}’',
-             'Found {{count}} public authorities matching the tag ' \
-             '‘{{tag_name}}’',
+      @description =
+        if @tag == 'all'
+          n_('Found {{count}} public authority',
+             'Found {{count}} public authorities',
+             @public_bodies.total_entries,
+             :count => @public_bodies.total_entries)
+        elsif @tag.size == 1
+          n_('Found {{count}} public authority beginning with ' \
+             '‘{{first_letter}}’',
+             'Found {{count}} public authorities beginning with ' \
+             '‘{{first_letter}}’',
              @public_bodies.total_entries,
              :count => @public_bodies.total_entries,
-             :tag_name => @tag)
+             :first_letter => @tag)
         else
-          n_('Found {{count}} public authority in the category ' \
-             '‘{{category_name}}’',
-             'Found {{count}} public authorities in the category ' \
-             '‘{{category_name}}’',
-             @public_bodies.total_entries,
-             :count => @public_bodies.total_entries,
-             :category_name => category_name)
+          category_name = PublicBodyCategory.get.by_tag[@tag]
+          if category_name.nil?
+            n_('Found {{count}} public authority matching the tag ' \
+               '‘{{tag_name}}’',
+               'Found {{count}} public authorities matching the tag ' \
+               '‘{{tag_name}}’',
+               @public_bodies.total_entries,
+               :count => @public_bodies.total_entries,
+               :tag_name => @tag)
+          else
+            n_('Found {{count}} public authority in the category ' \
+               '‘{{category_name}}’',
+               'Found {{count}} public authorities in the category ' \
+               '‘{{category_name}}’',
+               @public_bodies.total_entries,
+               :count => @public_bodies.total_entries,
+               :category_name => category_name)
+          end
         end
-      end
 
       respond_to do |format|
         format.html { render :template => 'public_body/list' }

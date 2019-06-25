@@ -235,7 +235,7 @@ describe 'classifying a request' do
                   "what you did."
         # redirect and receive thank you message
         expect(page).to have_content(message)
-      expect(page).to_not have_link('make a donation')
+        expect(page).to_not have_link('make a donation')
       end
     end
 
@@ -259,7 +259,7 @@ describe 'classifying a request' do
         using_session(login(user)) do
           classify_request(info_request, classification)
           message = "We're glad you got all the information that you wanted."
-           unexpected = "please come back and add an annotation"
+          unexpected = "please come back and add an annotation"
           # redirect and receive thank you message
           expect(page).to have_content(message)
           expect(page).to_not have_content(unexpected)

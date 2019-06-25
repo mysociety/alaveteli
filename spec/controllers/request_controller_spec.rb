@@ -3381,10 +3381,10 @@ describe RequestController do
     end
 
     it 'assigns the last info request event id to the view' do
-       get :describe_state_message, params: {
-                                      :url_title => info_request.url_title,
-                                      :described_state => 'error_message'
-                                    }
+      get :describe_state_message, params: {
+                                     :url_title => info_request.url_title,
+                                     :described_state => 'error_message'
+                                   }
       expect(assigns[:last_info_request_event_id])
         .to eq info_request.last_event_id_needing_description
     end

@@ -489,9 +489,9 @@ describe AdminPublicBodyCategoriesController do
                         }
                       }
 
-          category = PublicBodyCategory.find(@category.id)
-          expect(category.title(:es)).to eq('Renamed')
-          expect(category.title(:en)).to eq(@category.title(:en))
+        category = PublicBodyCategory.find(@category.id)
+        expect(category.title(:es)).to eq('Renamed')
+        expect(category.title(:en)).to eq(@category.title(:en))
       end
 
       it 'adds a new translation' do
@@ -615,7 +615,7 @@ describe AdminPublicBodyCategoriesController do
                         }
                       }
 
-          expect(response).to redirect_to(edit_admin_category_path(@category))
+        expect(response).to redirect_to(edit_admin_category_path(@category))
       end
 
     end

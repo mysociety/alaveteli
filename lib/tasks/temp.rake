@@ -352,7 +352,7 @@ namespace :temp do
            !incoming_message.cached_main_body_text_folded.valid_encoding?) ||
           (incoming_message.cached_main_body_text_unfolded &&
            !incoming_message.cached_main_body_text_unfolded.valid_encoding?)
-          puts "Bad encoding in IncomingMessage cached fields, :id #{incoming_message.id} "
+        puts "Bad encoding in IncomingMessage cached fields, :id #{incoming_message.id} "
         unless dryrun
           incoming_message.clear_in_database_caches!
         end
