@@ -236,18 +236,15 @@ EOF
                                           'full_address',
                                           'postal_answer',
                                           'public_request',
-                                          'real_name'
-                                          ]},
+                                          'real_name']},
                            {:name => 'requesting',
                             :sections => ['focused',
                                           'data_protection',
                                           'missing_body',
-                                          'quickly_response',
-                                          ]},
+                                          'quickly_response',]},
                            {:name => 'unhappy',
                             :sections => ['internal_review',
-                                          'other_means'
-                                          ]},
+                                          'other_means']},
                            {:name => '_why_they_should_reply_by_email',
                             :sections => []}]
 

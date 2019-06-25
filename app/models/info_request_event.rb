@@ -120,8 +120,7 @@ class InfoRequestEvent < ApplicationRecord
                              [ :waiting_classification, 'W', "waiting_classification" ],
                              [ :filetype, 'T', "filetype" ],
                              [ :tags, 'U', "tag" ],
-                             [ :request_public_body_tags, 'X', "request_public_body_tag" ]
-                            ],
+                             [ :request_public_body_tags, 'X', "request_public_body_tag" ] ],
                  :if => :indexed_by_search?,
                  :eager_load => [ :outgoing_message, :comment, { :info_request => [ :user, :public_body, :censor_rules ] } ]
 

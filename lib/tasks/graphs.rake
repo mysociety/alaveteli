@@ -71,7 +71,8 @@ namespace :graphs do
         # start plotting the data from largest to smallest so
         # that the shorter bars overlay the taller bars
 
-        state_list = [ {
+        state_list = [
+                       {
                           :title => "users each day ... who registered",
                           :colour => :lightblue
                         },

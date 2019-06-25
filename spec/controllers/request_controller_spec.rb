@@ -3182,9 +3182,11 @@ describe RequestController, "#select_authorities" do
               params: {
                 :public_body_ids => [
                   public_bodies(:humpadink_public_body).id,
-                  public_bodies(:geraldine_public_body).id ],
+                  public_bodies(:geraldine_public_body).id
+                ],
                 :remove_public_body_ids => [
-                  public_bodies(:geraldine_public_body).id ]
+                  public_bodies(:geraldine_public_body).id
+                ]
               },
               session: { :user_id => @user.id }
           expect(assigns[:public_bodies].size).to eq(1)

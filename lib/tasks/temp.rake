@@ -124,7 +124,8 @@ namespace :temp do
 
   desc 'Audit cached zip download files with censor rules'
   task :audit_cached_zip_downloads_with_censor_rules => :environment do
-    puts [ "Info Request ID",
+    puts [
+           "Info Request ID",
            "URL Title",
            "Censor rule IDs",
            "Censor rule patterns",
@@ -165,7 +166,8 @@ namespace :temp do
           cached_types << :public
         end
       end
-      puts [ info_request.id,
+      puts [
+             info_request.id,
              info_request.url_title,
              info_request.applicable_censor_rules.map{ |rule| rule.id }.join(","),
              info_request.applicable_censor_rules.map{ |rule| rule.text }.join(","),
