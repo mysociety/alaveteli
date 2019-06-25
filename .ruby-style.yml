@@ -126,6 +126,8 @@ Layout/FirstParameterIndentation:
 Layout/IndentationConsistency:
   Description: 'Keep indentation straight.'
   Enabled: true
+  Exclude:
+    - Gemfile
 
 Layout/IndentationWidth:
   Description: 'Use 2 spaces for indentation.'
