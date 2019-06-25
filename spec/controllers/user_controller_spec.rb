@@ -170,7 +170,7 @@ describe UserController do
                    }
 
         actual =
-          assigns[:xapian_requests].results.map{ |x| x[:model].info_request }
+          assigns[:xapian_requests].results.map { |x| x[:model].info_request }
 
         expect(actual).to match_array([info_requests(:naughty_chicken_request)])
       end
@@ -357,7 +357,7 @@ describe UserController do
                    }
 
         actual =
-          assigns[:xapian_requests].results.map{ |x| x[:model].info_request }
+          assigns[:xapian_requests].results.map { |x| x[:model].info_request }
 
         expect(actual).to match_array([request_1])
       end
@@ -538,7 +538,7 @@ describe UserController do
                    }
 
         actual =
-          assigns[:xapian_requests].results.map{ |x| x[:model].info_request }
+          assigns[:xapian_requests].results.map { |x| x[:model].info_request }
 
         expect(actual).to match_array([request_1])
       end
@@ -749,7 +749,7 @@ describe UserController, "when signing up" do
   end
 
   context 'when the user is already signed in' do
-    let(:user){ FactoryBot.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     before do
       ActionController::Base.allow_forgery_protection = true

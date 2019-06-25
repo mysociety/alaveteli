@@ -47,7 +47,7 @@ describe InfoRequest::State do
     end
 
     it 'raises an error for an unknown state' do
-      expect{ InfoRequest::State.short_description('meow') }
+      expect { InfoRequest::State.short_description('meow') }
         .to raise_error 'unknown status meow'
     end
 
@@ -65,7 +65,7 @@ describe InfoRequest::State do
       end
 
       it 'raises an error for an unknown state' do
-        expect{ InfoRequest::State.short_description('meow') }
+        expect { InfoRequest::State.short_description('meow') }
           .to raise_error 'unknown status meow'
       end
 

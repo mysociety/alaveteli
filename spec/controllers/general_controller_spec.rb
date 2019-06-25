@@ -308,20 +308,20 @@ describe GeneralController, 'when using xapian search' do
 
   it "should filter results based on end of URL being 'all'" do
     get :search, params: { :combined => "bob/all" }
-    expect(assigns[:xapian_requests].results.map{|x| x[:model]}).to match_array([
+    expect(assigns[:xapian_requests].results.map {|x| x[:model]}).to match_array([
       info_request_events(:useless_outgoing_message_event),
       info_request_events(:silly_outgoing_message_event),
       info_request_events(:useful_incoming_message_event),
       info_request_events(:another_useful_incoming_message_event),
     ])
-    expect(assigns[:xapian_users].results.map{|x| x[:model]}).to eq([users(:bob_smith_user)])
+    expect(assigns[:xapian_users].results.map {|x| x[:model]}).to eq([users(:bob_smith_user)])
     expect(assigns[:xapian_bodies].results).to eq([])
   end
 
   it "should filter results based on end of URL being 'users'" do
     get :search, params: { :combined => "bob/users" }
     expect(assigns[:xapian_requests]).to eq(nil)
-    expect(assigns[:xapian_users].results.map{|x| x[:model]}).to eq([users(:bob_smith_user)])
+    expect(assigns[:xapian_users].results.map {|x| x[:model]}).to eq([users(:bob_smith_user)])
     expect(assigns[:xapian_bodies]).to eq(nil)
   end
 
@@ -338,7 +338,7 @@ describe GeneralController, 'when using xapian search' do
 
   it "should filter results based on end of URL being 'requests'" do
     get :search, params: { :combined => "bob/requests" }
-    expect(assigns[:xapian_requests].results.map{|x|x[:model]}).to match_array([
+    expect(assigns[:xapian_requests].results.map {|x|x[:model]}).to match_array([
       info_request_events(:useless_outgoing_message_event),
       info_request_events(:silly_outgoing_message_event),
       info_request_events(:useful_incoming_message_event),
@@ -352,7 +352,7 @@ describe GeneralController, 'when using xapian search' do
     get :search, params: { :combined => "quango/bodies" }
     expect(assigns[:xapian_requests]).to eq(nil)
     expect(assigns[:xapian_users]).to eq(nil)
-    expect(assigns[:xapian_bodies].results.map{|x|x[:model]}).to eq([public_bodies(:geraldine_public_body)])
+    expect(assigns[:xapian_bodies].results.map {|x|x[:model]}).to eq([public_bodies(:geraldine_public_body)])
   end
 
   it 'should prioritise direct matches of public body names' do
@@ -392,7 +392,7 @@ describe GeneralController, 'when using xapian search' do
   it "should not show unconfirmed users" do
     get :search, params: { :combined => "unconfirmed/users" }
     expect(response).to render_template('search')
-    expect(assigns[:xapian_users].results.map{|x|x[:model]}).to eq([])
+    expect(assigns[:xapian_users].results.map {|x|x[:model]}).to eq([])
   end
 
   it "should show newly-confirmed users" do
@@ -403,7 +403,7 @@ describe GeneralController, 'when using xapian search' do
 
     get :search, params: { :combined => "unconfirmed/users" }
     expect(response).to render_template('search')
-    expect(assigns[:xapian_users].results.map{|x|x[:model]}).to eq([u])
+    expect(assigns[:xapian_users].results.map {|x|x[:model]}).to eq([u])
   end
 
   it "should show tracking links for requests-only searches" do

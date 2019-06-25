@@ -47,7 +47,7 @@ class HolidayImport
   end
 
   def holidays_attributes=(incoming_data)
-    incoming_data.each{ |offset, incoming| self.holidays << Holiday.new(incoming) }
+    incoming_data.each { |offset, incoming| self.holidays << Holiday.new(incoming) }
   end
 
   def holidays
@@ -70,7 +70,7 @@ class HolidayImport
         errors.add(:ical_feed_url, "Sorry, there's a problem with the format of that feed.")
         return
       end
-      cal.events.each{ |cal_event| populate_from_ical_event(cal_event) }
+      cal.events.each { |cal_event| populate_from_ical_event(cal_event) }
     rescue Errno::ENOENT, Exception => e
       if e.message == 'Invalid line in calendar string!'
         errors.add(:ical_feed_url, "Sorry, there's a problem with the format of that feed.")

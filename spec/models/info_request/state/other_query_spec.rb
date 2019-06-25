@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../../../spec_helper')
 describe InfoRequest::State::OtherQuery do
 
   describe '#call' do
-    let(:info_request){ FactoryBot.create(:info_request_with_internal_review_request) }
+    let(:info_request) { FactoryBot.create(:info_request_with_internal_review_request) }
 
     it 'includes those that are in internal review,
         and not waiting for description' do

@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../../../spec_helper')
 describe InfoRequest::State::ClarificationNeededQuery do
 
   describe '#call' do
-    let(:info_request){ FactoryBot.create(:waiting_clarification_info_request) }
+    let(:info_request) { FactoryBot.create(:waiting_clarification_info_request) }
 
     it 'includes those that are waiting for a clarification,
         and not waiting for description' do

@@ -190,7 +190,7 @@ describe Users::SessionsController do
     end
 
     context 'if the user is already signed in' do
-      let(:user){ FactoryBot.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
 
       before do
         ActionController::Base.allow_forgery_protection = true

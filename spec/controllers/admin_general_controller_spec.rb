@@ -4,8 +4,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe AdminGeneralController do
 
   describe "GET #index" do
-    let(:admin_user){ FactoryBot.create(:admin_user) }
-    let(:pro_admin_user){ FactoryBot.create(:pro_admin_user) }
+    let(:admin_user) { FactoryBot.create(:admin_user) }
+    let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
 
     before do
       InfoRequest.destroy_all

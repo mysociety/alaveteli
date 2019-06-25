@@ -136,7 +136,7 @@ class UserController < ApplicationController
     if user_alreadyexists
       # attempt to remove the 'already in use message' from the errors hash
       # so it doesn't get accidentally shown to the end user
-      @user_signup.errors[:email].delete_if{|message| message == _("This email is already in use")}
+      @user_signup.errors[:email].delete_if {|message| message == _("This email is already in use")}
     end
     if error || !@user_signup.errors.empty?
       # Show the form

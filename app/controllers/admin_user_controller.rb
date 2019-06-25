@@ -38,7 +38,7 @@ class AdminUserController < AdminController
     # so we need to requery in order to paginate
     if !@roles.empty?
       users = users.with_any_role(*@roles)
-      users = User.where(:id => users.map{ |user| user.id })
+      users = User.where(:id => users.map { |user| user.id })
     end
 
     @admin_users =
@@ -150,7 +150,7 @@ class AdminUserController < AdminController
   end
 
   def changed_role_ids
-    params[:admin_user][:role_ids].map!{ |role_id| role_id.to_i }
+    params[:admin_user][:role_ids].map! { |role_id| role_id.to_i }
     (params[:admin_user][:role_ids] - @admin_user.role_ids) |
       (@admin_user.role_ids - params[:admin_user][:role_ids])
   end
@@ -158,7 +158,7 @@ class AdminUserController < AdminController
   def check_role_requirements
     role_names = Role.
                    where(:id => params[:admin_user][:role_ids]).
-                     pluck(:name).map{ |role| role.to_sym }
+                     pluck(:name).map { |role| role.to_sym }
     missing_required = Hash.new { |h, k| h[k] = [] }
     role_names.each do |role_name|
       Role.requires(role_name).each do |required_role_name|

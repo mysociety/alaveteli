@@ -9,4 +9,4 @@
 #
 # See http://dev.rubyonrails.org/ticket/2210
 
-ActionView::Base.field_error_proc = Proc.new{ |html_tag, instance| %(<span class="fieldWithErrors">#{html_tag}</span>).html_safe}
+ActionView::Base.field_error_proc = Proc.new { |html_tag, instance| %(<span class="fieldWithErrors">#{html_tag}</span>).html_safe}

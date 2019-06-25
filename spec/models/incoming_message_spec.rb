@@ -349,7 +349,7 @@ describe IncomingMessage do
                           :url_part_number => 3)
         message.reload
 
-        expect{ message._extract_text }.
+        expect { message._extract_text }.
           to_not raise_error
       end
     end
@@ -1040,7 +1040,7 @@ describe IncomingMessage, 'when getting the main body text' do
                       "to implement clipping like for attachment " \
                       "text, or there is some other MIME decoding " \
                       "problem or similar"
-      expect{ @incoming_message.get_main_body_text_unfolded }.
+      expect { @incoming_message.get_main_body_text_unfolded }.
         to raise_error(RuntimeError, expected_text)
     end
 

@@ -4,8 +4,8 @@ require 'spec_helper'
 describe ReportsController do
 
   describe 'POST #create' do
-    let(:info_request){ FactoryBot.create(:info_request) }
-    let(:user){ FactoryBot.create(:user) }
+    let(:info_request) { FactoryBot.create(:info_request) }
+    let(:user) { FactoryBot.create(:user) }
 
     context "when reporting a request when not logged in" do
       it "should only allow logged-in users to report requests" do
@@ -307,8 +307,8 @@ describe ReportsController do
   end
 
   describe "GET #new" do
-    let(:info_request){ FactoryBot.create(:info_request) }
-    let(:user){ FactoryBot.create(:user) }
+    let(:info_request) { FactoryBot.create(:info_request) }
+    let(:user) { FactoryBot.create(:user) }
 
     context "not logged in" do
       it "should require the user to be logged in" do

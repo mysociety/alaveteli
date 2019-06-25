@@ -438,7 +438,7 @@ describe 'when making a zipfile available' do
     it 'should successfully make a zipfile for an external request' do
       external_request = FactoryBot.create(:external_request)
       user = login(FactoryBot.create(:user))
-      inspect_zip_download(user, external_request){ |zip| expect(zip.count).to eq(1) }
+      inspect_zip_download(user, external_request) { |zip| expect(zip.count).to eq(1) }
     end
   end
 

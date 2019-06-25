@@ -30,7 +30,7 @@ class AdminGeneralController < AdminController
                               @attention_requests,
                               @requires_admin_requests,
                               @old_unclassified ].
-      any?{ |to_do_list| ! to_do_list.empty? }
+      any? { |to_do_list| ! to_do_list.empty? }
 
     @blank_contact_count = PublicBody.without_request_email.count
     @blank_contacts = PublicBody.without_request_email.limit(20)
@@ -47,14 +47,14 @@ class AdminGeneralController < AdminController
     @authority_tasks = [ @blank_contacts,
                          @new_body_requests,
                          @body_update_requests ].
-      any?{ |to_do_list| ! to_do_list.empty? }
+      any? { |to_do_list| ! to_do_list.empty? }
 
     # HACK: Running this query through ActiveRecord freezes…
     @attention_comments = Comment.
       find_by_sql(Comment.where(attention_requested: true).not_embargoed.to_sql)
 
     @comment_tasks = [ @attention_comments ].
-      any?{ |to_do_list| ! to_do_list.empty? }
+      any? { |to_do_list| ! to_do_list.empty? }
 
     @nothing_to_do = !@public_request_tasks &&
                      !@authority_tasks &&
@@ -79,7 +79,7 @@ class AdminGeneralController < AdminController
         @embargoed_requires_admin_requests,
         @embargoed_error_message_requests,
         @embargoed_attention_requests,
-      ].any?{ |to_do_list| ! to_do_list.empty? }
+      ].any? { |to_do_list| ! to_do_list.empty? }
 
       @embargoed_attention_comments = Comment.
                                         where(:attention_requested => true).
@@ -87,7 +87,7 @@ class AdminGeneralController < AdminController
 
       @embargoed_comment_tasks = [
                                    @embargoed_attention_comments
-                                 ].any?{ |to_do_list| ! to_do_list.empty? }
+                                 ].any? { |to_do_list| ! to_do_list.empty? }
       @nothing_to_do = @nothing_to_do &&
                        !@embargoed_request_tasks &&
                        !@embargoed_comment_tasks

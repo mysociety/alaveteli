@@ -23,11 +23,11 @@ describe AdminPublicBodyController do
   end
 
   describe 'GET #show' do
-    let(:public_body){ FactoryBot.create(:public_body) }
-    let(:info_request){ FactoryBot.create(:info_request,
+    let(:public_body) { FactoryBot.create(:public_body) }
+    let(:info_request) { FactoryBot.create(:info_request,
                                           :public_body => public_body) }
-    let(:admin_user){ FactoryBot.create(:admin_user) }
-    let(:pro_admin_user){ FactoryBot.create(:pro_admin_user) }
+    let(:admin_user) { FactoryBot.create(:admin_user) }
+    let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
 
     it "returns successfully" do
       get :show, params: { :id => public_body.id },
@@ -152,7 +152,7 @@ describe AdminPublicBodyController do
         expected = existing + 1
         expect {
           post :create, params: @params
-        }.to change{ PublicBody.count }.from(existing).to(expected)
+        }.to change { PublicBody.count }.from(existing).to(expected)
       end
 
       it 'can create a public body when the default locale is an underscore locale' do
@@ -197,7 +197,7 @@ describe AdminPublicBodyController do
         expected = existing + 1
         expect {
           post :create, params: @params
-        }.to change{ PublicBody.count }.from(existing).to(expected)
+        }.to change { PublicBody.count }.from(existing).to(expected)
       end
 
       it 'saves the default locale translation' do

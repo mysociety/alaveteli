@@ -4,8 +4,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe AdminCommentController do
 
   describe 'GET index' do
-    let(:admin_user){ FactoryBot.create(:admin_user) }
-    let(:pro_admin_user){ FactoryBot.create(:pro_admin_user) }
+    let(:admin_user) { FactoryBot.create(:admin_user) }
+    let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
 
     it 'sets the title' do
       get :index, session: { :user_id => admin_user.id }
@@ -82,9 +82,9 @@ describe AdminCommentController do
   end
 
   describe 'GET edit' do
-    let(:pro_admin_user){ FactoryBot.create(:pro_admin_user) }
-    let(:admin_user){ FactoryBot.create(:admin_user) }
-    let(:comment){ FactoryBot.create(:comment) }
+    let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
+    let(:admin_user) { FactoryBot.create(:admin_user) }
+    let(:comment) { FactoryBot.create(:comment) }
 
     it 'renders the edit template' do
       get :edit, params: { :id => comment.id },
@@ -129,10 +129,10 @@ describe AdminCommentController do
   end
 
   describe 'PUT update' do
-    let(:pro_admin_user){ FactoryBot.create(:pro_admin_user) }
-    let(:admin_user){ FactoryBot.create(:admin_user) }
-    let(:comment){ FactoryBot.create(:comment) }
-    let(:atts){ FactoryBot.attributes_for(:comment, :body => 'I am new') }
+    let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
+    let(:admin_user) { FactoryBot.create(:admin_user) }
+    let(:comment) { FactoryBot.create(:comment) }
+    let(:atts) { FactoryBot.attributes_for(:comment, :body => 'I am new') }
 
     context 'on valid data submission' do
 

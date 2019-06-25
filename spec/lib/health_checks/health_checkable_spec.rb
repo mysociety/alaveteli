@@ -35,7 +35,7 @@ describe HealthChecks::HealthCheckable do
   describe '#ok?' do
 
     it 'is intended to be overridden by the includer' do
-      expect{ @subject.ok? }.to raise_error(NotImplementedError)
+      expect { @subject.ok? }.to raise_error(NotImplementedError)
     end
 
   end

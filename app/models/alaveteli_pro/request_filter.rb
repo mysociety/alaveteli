@@ -83,11 +83,11 @@ module AlaveteliPro
     end
 
     def order_params
-      order_attributes.map{ |atts| atts[:param] }
+      order_attributes.map { |atts| atts[:param] }
     end
 
     def order_values
-      Hash[order_attributes.map{ |atts| [ atts[:param], atts[:value] ] }]
+      Hash[order_attributes.map { |atts| [ atts[:param], atts[:value] ] }]
     end
 
     def order_capital_labels
@@ -121,7 +121,7 @@ module AlaveteliPro
     end
 
     def phase_filters
-      InfoRequest::State.phases.map{ |phase| { :param => phase[:scope].to_s,
+      InfoRequest::State.phases.map { |phase| { :param => phase[:scope].to_s,
                                                :value => phase[:scope],
                                                :label => phase[:label],
                                                :capital_label => phase[:capital_label] } }
@@ -140,11 +140,11 @@ module AlaveteliPro
     end
 
     def filter_params
-      filter_attributes.map{ |atts| atts[:param] }
+      filter_attributes.map { |atts| atts[:param] }
     end
 
     def filter_values
-      Hash[ filter_attributes.map{ |atts| [ atts[:param], atts[:value] ] } ]
+      Hash[ filter_attributes.map { |atts| [ atts[:param], atts[:value] ] } ]
     end
 
     def filter_labels

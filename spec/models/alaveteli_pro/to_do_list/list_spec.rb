@@ -6,7 +6,7 @@ describe AlaveteliPro::ToDoList::List do
   describe '.new' do
 
     it 'requires a user' do
-      expect{ described_class.new }.to raise_error(ArgumentError)
+      expect { described_class.new }.to raise_error(ArgumentError)
     end
 
     it 'assigns the user' do

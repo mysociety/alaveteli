@@ -148,7 +148,7 @@ class TrackController < ApplicationController
       return true
     else
       # this will most likely be tripped by a single error - probably track_query length
-      flash[:error] = @track_thing.errors.map{ |_, msg| msg }.join(", ")
+      flash[:error] = @track_thing.errors.map { |_, msg| msg }.join(", ")
       return false
     end
   end

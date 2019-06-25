@@ -387,7 +387,7 @@ describe PublicBody, " when only indexing selected things on a rebuild" do
     xapian_object = ActsAsXapian::Search.new([PublicBody], "frobzn", :limit => 100)
     expect(xapian_object.results.size).to eq(0)
     xapian_object = ActsAsXapian::Search.new([PublicBody], "variety:authority", :limit => 100)
-    expect(xapian_object.results.map{|x|x[:model]}).to match_array(PublicBody.all)
+    expect(xapian_object.results.map {|x|x[:model]}).to match_array(PublicBody.all)
     # only reindex 'tag' and text
     dropfirst = true
     terms = "U"
@@ -410,7 +410,7 @@ describe PublicBody, " when only indexing selected things on a rebuild" do
     xapian_object = ActsAsXapian::Search.new([PublicBody], "frobzn", :limit => 100)
     expect(xapian_object.results.size).to eq(1)
     xapian_object = ActsAsXapian::Search.new([PublicBody], "variety:authority", :limit => 100)
-    expect(xapian_object.results.map{|x|x[:model]}).to match_array(PublicBody.all)
+    expect(xapian_object.results.map {|x|x[:model]}).to match_array(PublicBody.all)
     # only reindex 'variety' term, blowing away existing data
     dropfirst = true
     destroy_and_rebuild_xapian_index(terms, values, texts, dropfirst)
@@ -419,7 +419,7 @@ describe PublicBody, " when only indexing selected things on a rebuild" do
     xapian_object = ActsAsXapian::Search.new([PublicBody], "frobzn", :limit => 100)
     expect(xapian_object.results.size).to eq(0)
     xapian_object = ActsAsXapian::Search.new([PublicBody], "variety:authority", :limit => 100)
-    expect(xapian_object.results.map{|x|x[:model]}).to match_array(PublicBody.all)
+    expect(xapian_object.results.map {|x|x[:model]}).to match_array(PublicBody.all)
   end
 end
 

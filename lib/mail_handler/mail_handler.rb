@@ -127,7 +127,7 @@ module MailHandler
                                            {:binary_output => false})
         if !xml.nil?
           doc = REXML::Document.new(xml)
-          text += doc.each_element( './/text()' ){}.join(" ")
+          text += doc.each_element( './/text()' ) {}.join(" ")
         end
       elsif content_type == 'application/zip'
         # recurse into zip files

@@ -485,7 +485,7 @@ describe InfoRequest do
     end
 
     describe 'receiving mail from different sources' do
-      let(:info_request){ FactoryBot.create(:info_request) }
+      let(:info_request) { FactoryBot.create(:info_request) }
 
       it 'processes mail where no source is specified' do
         email, raw_email = email_and_raw_email
@@ -1550,7 +1550,7 @@ describe InfoRequest do
       end
 
       it 'raises an error when given an unknown key' do
-        expect{ info_request.law_used_human(:random) }.to raise_error.
+        expect { info_request.law_used_human(:random) }.to raise_error.
           with_message( "Unknown key 'random' for '#{info_request.law_used}'")
       end
 
@@ -1573,7 +1573,7 @@ describe InfoRequest do
       end
 
       it 'raises an error when given an unknown key' do
-        expect{ info_request.law_used_human(:random) }.to raise_error.
+        expect { info_request.law_used_human(:random) }.to raise_error.
           with_message( "Unknown key 'random' for '#{info_request.law_used}'")
       end
 
@@ -1584,22 +1584,22 @@ describe InfoRequest do
       let(:info_request) { InfoRequest.new(:law_used => 'unknown') }
 
       it 'raises an error when asked for law_used_full string' do
-        expect{ info_request.law_used_human(:full) }.to raise_error.
+        expect { info_request.law_used_human(:full) }.to raise_error.
           with_message("Unknown law used '#{info_request.law_used}'")
       end
 
       it 'raises an error when asked for law_used_short string' do
-        expect{ info_request.law_used_human(:short) }.to raise_error.
+        expect { info_request.law_used_human(:short) }.to raise_error.
           with_message("Unknown law used '#{info_request.law_used}'")
       end
 
       it 'raises an error when asked for law_used_act string' do
-        expect{ info_request.law_used_human(:act) }.to raise_error.
+        expect { info_request.law_used_human(:act) }.to raise_error.
           with_message("Unknown law used '#{info_request.law_used}'")
       end
 
       it 'raises an error when given an unknown key' do
-        expect{ info_request.law_used_human(:random) }.to raise_error.
+        expect { info_request.law_used_human(:random) }.to raise_error.
           with_message("Unknown law used '#{info_request.law_used}'")
       end
 
@@ -2145,7 +2145,7 @@ describe InfoRequest do
 
     it "copes with indexing after item is deleted" do
       load_raw_emails_data
-      IncomingMessage.find_each{ |message| message.parse_raw_email! }
+      IncomingMessage.find_each { |message| message.parse_raw_email! }
       destroy_and_rebuild_xapian_index
       # delete event from underneath indexing; shouldn't cause error
       info_request_events(:useless_incoming_message_event).save!
@@ -2724,7 +2724,7 @@ describe InfoRequest do
 
   describe '#prominence' do
 
-    let(:info_request){ FactoryBot.build(:info_request) }
+    let(:info_request) { FactoryBot.build(:info_request) }
 
     it 'returns the prominence of the request' do
       expect(info_request.prominence).to eq("normal")
@@ -3445,7 +3445,7 @@ describe InfoRequest do
 
     it 'coalesces duplicate requests' do
       request_events, request_events_all_successful = InfoRequest.recent_requests
-      expect(request_events.map(&:info_request).select{|x|x.url_title =~ /^spam/}.length).to eq(1)
+      expect(request_events.map(&:info_request).select {|x|x.url_title =~ /^spam/}.length).to eq(1)
     end
 
   end
@@ -3806,7 +3806,7 @@ describe InfoRequest do
         # We want to make the info_request in the past, then effectively
         # jump forward to a point where it's delayed and we would be calling
         # log_overdue_events to mark it as overdue
-        time_travel_to(Time.zone.parse('2014-12-31')){ info_request }
+        time_travel_to(Time.zone.parse('2014-12-31')) { info_request }
         time_travel_to(Time.zone.parse('2015-01-30')) do
           request_summary = info_request.request_summary
           expect(request_summary.request_summary_categories).
@@ -3829,7 +3829,7 @@ describe InfoRequest do
         # We want to make the info_request in the past, then effectively
         # jump forward to a point where it's delayed and we would be calling
         # log_overdue_events to mark it as overdue
-        time_travel_to(Time.zone.parse('2014-12-31')){ info_request }
+        time_travel_to(Time.zone.parse('2014-12-31')) { info_request }
         time_travel_to(Time.zone.parse('2015-02-28')) do
           request_summary = info_request.request_summary
           expect(request_summary.request_summary_categories).
@@ -4014,7 +4014,7 @@ end
 describe InfoRequest do
 
   describe '#date_initial_request_last_sent_at' do
-    let(:info_request){ FactoryBot.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
 
     context 'when there is a value stored in the database' do
 
@@ -4040,7 +4040,7 @@ describe InfoRequest do
   end
 
   describe '#calculate_date_initial_request_last_sent_at' do
-    let(:info_request){ FactoryBot.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
 
     it 'returns a date' do
       expect(info_request.calculate_date_initial_request_last_sent_at)
@@ -4055,7 +4055,7 @@ describe InfoRequest do
   end
 
   describe '#last_event_forming_initial_request' do
-    let(:info_request){ FactoryBot.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
 
     context 'when there is a value in the database' do
 
@@ -4071,7 +4071,7 @@ describe InfoRequest do
       it 'raises an error if the request has never been sent' do
         info_request.send(:write_attribute, :last_event_forming_initial_request_id,
                           InfoRequestEvent.maximum(:id)+1)
-        expect{ info_request.last_event_forming_initial_request }
+        expect { info_request.last_event_forming_initial_request }
           .to raise_error(RuntimeError)
       end
 
@@ -4096,7 +4096,7 @@ describe InfoRequest do
         outgoing_message.record_email_delivery('', '', 'resent')
         resending_event = info_request.
                             info_request_events.reload.
-                              detect{ |e| e.event_type == 'resent'}
+                              detect { |e| e.event_type == 'resent'}
         expect(info_request.last_event_forming_initial_request)
           .to eq resending_event
       end
@@ -4115,14 +4115,14 @@ describe InfoRequest do
       outgoing_message.record_email_delivery('', '')
       followup_event = info_request.
                          info_request_events.reload.
-                           detect{ |e| e.event_type == 'followup_sent'}
+                           detect { |e| e.event_type == 'followup_sent'}
       expect(info_request.last_event_forming_initial_request)
         .to eq followup_event
       end
 
       it 'raises an error if the request has never been sent' do
         info_request.info_request_events.destroy_all
-        expect{ info_request.last_event_forming_initial_request }
+        expect { info_request.last_event_forming_initial_request }
           .to raise_error(RuntimeError)
       end
 
@@ -4131,7 +4131,7 @@ describe InfoRequest do
   end
 
   describe '#date_response_required_by' do
-    let(:info_request){ FactoryBot.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
 
     context 'when there is a value stored in the database' do
 
@@ -4162,7 +4162,7 @@ describe InfoRequest do
   end
 
   describe '#calculate_date_response_required_by' do
-    let(:info_request){ FactoryBot.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
 
     it 'returns the date a response is required by' do
       time_travel_to(Time.zone.parse('2014-12-31')) do
@@ -4174,7 +4174,7 @@ describe InfoRequest do
   end
 
   describe '#date_very_overdue_after' do
-    let(:info_request){ FactoryBot.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
 
     context 'when there is a value stored in the database' do
 
@@ -4205,7 +4205,7 @@ describe InfoRequest do
   end
 
   describe '#calculate_date_very_overdue_after' do
-    let(:info_request){ FactoryBot.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
 
     it 'returns the date a response is required by' do
       time_travel_to(Time.zone.parse('2014-12-31')) do
@@ -4217,7 +4217,7 @@ describe InfoRequest do
   end
 
   describe '#log_event' do
-    let(:info_request){ FactoryBot.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
 
     it 'creates an event with the type and params passed' do
       info_request.log_event("resent", :param => 'value')
@@ -4240,7 +4240,7 @@ describe InfoRequest do
 
       it 'sets the due dates for the request' do
         # initial request sent
-        time_travel_to(Time.zone.parse('2014-12-31')){ info_request }
+        time_travel_to(Time.zone.parse('2014-12-31')) { info_request }
 
         time_travel_to(Time.zone.parse('2015-01-01')) do
           event = info_request.log_event("resent", :param => 'value')
@@ -4290,11 +4290,11 @@ describe InfoRequest do
   end
 
   describe '#set_due_dates' do
-    let(:info_request){ FactoryBot.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
 
     before do
       # initial request sent
-      time_travel_to(Time.zone.parse('2014-12-31')){ info_request }
+      time_travel_to(Time.zone.parse('2014-12-31')) { info_request }
       # due dates updated based on new event
       time_travel_to(Time.zone.parse('2015-01-01')) do
         @event = FactoryBot.create(:sent_event)
@@ -4334,7 +4334,7 @@ describe InfoRequest do
     context 'when an InfoRequest is not overdue' do
 
       it 'does not create an event' do
-        time_travel_to(Time.zone.parse('2014-12-31')){ info_request }
+        time_travel_to(Time.zone.parse('2014-12-31')) { info_request }
         time_travel_to(Time.zone.parse('2015-01-15')) do
           InfoRequest.log_overdue_events
           overdue_events = info_request.
@@ -4350,7 +4350,7 @@ describe InfoRequest do
 
       it "creates an overdue event at the beginning of the first day
           after the request's due date" do
-        time_travel_to(Time.zone.parse('2014-12-31')){ info_request }
+        time_travel_to(Time.zone.parse('2014-12-31')) { info_request }
 
         time_travel_to(Time.zone.parse('2015-01-30')) do
           InfoRequest.log_overdue_events
@@ -4393,7 +4393,7 @@ describe InfoRequest do
 
       it "creates an overdue event at the beginning of the first day
           after the request's due date" do
-        time_travel_to(Time.zone.parse('2014-12-31')){ info_request }
+        time_travel_to(Time.zone.parse('2014-12-31')) { info_request }
 
         time_travel_to(Time.zone.parse('2015-01-30')) do
           InfoRequest.log_overdue_events
@@ -4425,7 +4425,7 @@ describe InfoRequest do
 
   describe '.log_very_overdue_events' do
 
-    let(:info_request){ FactoryBot.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
     let(:use_notifications_request) do
       FactoryBot.create(:use_notifications_request)
     end
@@ -4434,7 +4434,7 @@ describe InfoRequest do
 
       it 'should not create an event' do
 
-        time_travel_to(Time.zone.parse('2014-12-31')){ info_request }
+        time_travel_to(Time.zone.parse('2014-12-31')) { info_request }
 
         time_travel_to(Time.zone.parse('2015-01-30')) do
           InfoRequest.log_very_overdue_events
@@ -4450,7 +4450,7 @@ describe InfoRequest do
 
       it "creates an overdue event at the beginning of the first day
           after the request's date_very_overdue_after" do
-        time_travel_to(Time.zone.parse('2014-12-31')){ info_request }
+        time_travel_to(Time.zone.parse('2014-12-31')) { info_request }
 
         time_travel_to(Time.zone.parse('2015-02-28')) do
           InfoRequest.log_very_overdue_events
@@ -4494,7 +4494,7 @@ describe InfoRequest do
 
       it "creates a very_overdue event at the beginning of the first day
           after the request's date_very_overdue_after" do
-        time_travel_to(Time.zone.parse('2014-12-31')){ info_request }
+        time_travel_to(Time.zone.parse('2014-12-31')) { info_request }
 
         time_travel_to(Time.zone.parse('2015-02-28')) do
           InfoRequest.log_very_overdue_events
@@ -4527,7 +4527,7 @@ describe InfoRequest do
   describe '#last_embargo_set_event' do
 
     context 'if no embargo has been set' do
-      let(:info_request){ FactoryBot.create(:info_request) }
+      let(:info_request) { FactoryBot.create(:info_request) }
 
       it 'returns nil' do
         expect(info_request.last_embargo_set_event).to be_nil
@@ -4536,8 +4536,8 @@ describe InfoRequest do
     end
 
     context 'if embargos have been set' do
-      let(:embargo){ FactoryBot.create(:embargo) }
-      let(:embargo_extension){ FactoryBot.create(:embargo_extension) }
+      let(:embargo) { FactoryBot.create(:embargo) }
+      let(:embargo_extension) { FactoryBot.create(:embargo_extension) }
 
       it 'returns the last "set_embargo" event' do
         last_embargo_set_event = embargo.info_request.last_embargo_set_event

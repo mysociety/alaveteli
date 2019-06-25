@@ -6,16 +6,16 @@ describe InfoRequest::ResponseRejection::Base do
   describe '.new' do
 
     it 'requires an info_request' do
-      expect{ described_class.new }.to raise_error(ArgumentError)
+      expect { described_class.new }.to raise_error(ArgumentError)
     end
 
     it 'requires an email' do
-      expect{ described_class.new(double('info_request')) }.
+      expect { described_class.new(double('info_request')) }.
         to raise_error(ArgumentError)
     end
 
     it 'requires a raw_email_data' do
-      expect{ described_class.new(double('info_request'), double('email')) }.
+      expect { described_class.new(double('info_request'), double('email')) }.
         to raise_error(ArgumentError)
     end
 

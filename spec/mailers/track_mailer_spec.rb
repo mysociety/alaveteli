@@ -113,7 +113,7 @@ describe TrackMailer do
 
         it 'should raise an error if a non-event class is returned by the tracking query' do
           allow(@xapian_search).to receive(:results).and_return([{:model => 'string class'}])
-          expect{ TrackMailer.alert_tracks }.to raise_error('need to add other types to TrackMailer.alert_tracks (unalerted)')
+          expect { TrackMailer.alert_tracks }.to raise_error('need to add other types to TrackMailer.alert_tracks (unalerted)')
         end
 
         it 'should record that a tracking email has been sent for each event that

@@ -169,8 +169,8 @@ namespace :temp do
       puts [
              info_request.id,
              info_request.url_title,
-             info_request.applicable_censor_rules.map{ |rule| rule.id }.join(","),
-             info_request.applicable_censor_rules.map{ |rule| rule.text }.join(","),
+             info_request.applicable_censor_rules.map { |rule| rule.id }.join(","),
+             info_request.applicable_censor_rules.map { |rule| rule.text }.join(","),
              cached_types.uniq.join(",")
            ].join("\t")
     end

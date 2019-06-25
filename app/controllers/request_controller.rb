@@ -68,7 +68,7 @@ class RequestController < ApplicationController
       end
       format.json do
         if @search_bodies
-          render :json => @search_bodies.results.map{ |result| {:name => result[:model].name,
+          render :json => @search_bodies.results.map { |result| {:name => result[:model].name,
                                                                 :id => result[:model].id } }
         else
           render :json => []

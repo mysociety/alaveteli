@@ -292,7 +292,7 @@ describe UserSpamScorer do
                      :track_things => [] }
       user = mock_model(User, user_attrs)
       scorer = described_class.new(:score_mappings => { :invalid_method => 1 })
-      expect{ scorer.score(user) }.to raise_error(NoMethodError)
+      expect { scorer.score(user) }.to raise_error(NoMethodError)
     end
 
   end

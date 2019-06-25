@@ -482,7 +482,7 @@ class PublicBody < ApplicationRecord
           end
 
           fields = {}
-          field_names.each{ |name, i| fields[name] = row[i] }
+          field_names.each { |name, i| fields[name] = row[i] }
 
           yield line, fields if block_given?
 
@@ -577,7 +577,7 @@ class PublicBody < ApplicationRecord
       # Tags are a special case, as we support adding to the field,
       # not just setting a new value
       if field_name == 'tag_string'
-        new_tags = [value, options[:tag]].select{ |new_tag| !new_tag.blank? }
+        new_tags = [value, options[:tag]].select { |new_tag| !new_tag.blank? }
         if new_tags.empty?
           value = nil
         else
