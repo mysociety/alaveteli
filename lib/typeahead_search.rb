@@ -78,7 +78,7 @@ class TypeaheadSearch
 
   def default_flags
     Xapian::QueryParser::FLAG_LOVEHATE |
-    Xapian::QueryParser::FLAG_SPELLING_CORRECTION
+      Xapian::QueryParser::FLAG_SPELLING_CORRECTION
   end
 
   def prepared_query

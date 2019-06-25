@@ -450,9 +450,9 @@ class InfoRequestEvent < ApplicationRecord
 
   def only_editing_prominence_to_hide?
     event_type == 'edit' &&
-    params_diff[:new].keys == [:prominence] &&
-    params_diff[:old][:prominence] == "normal" &&
-    %w(hidden requester_only backpage).include?(params_diff[:new][:prominence])
+      params_diff[:new].keys == [:prominence] &&
+      params_diff[:old][:prominence] == "normal" &&
+      %w(hidden requester_only backpage).include?(params_diff[:new][:prominence])
   end
 
   # This method updates the cached column of the InfoRequest that

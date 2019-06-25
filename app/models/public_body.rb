@@ -166,7 +166,7 @@ class PublicBody < ApplicationRecord
     def copy_translated_attributes
       public_body.attributes.each do |name, value|
         if public_body.translated?(name) &&
-            !public_body.non_versioned_columns.include?(name)
+           !public_body.non_versioned_columns.include?(name)
           send("#{name}=", value)
         end
       end
@@ -610,7 +610,7 @@ class PublicBody < ApplicationRecord
 
   def request_email
     if AlaveteliConfiguration.override_all_public_body_request_emails.blank? ||
-        read_attribute(:request_email).blank?
+       read_attribute(:request_email).blank?
       read_attribute(:request_email)
     else
       AlaveteliConfiguration.override_all_public_body_request_emails

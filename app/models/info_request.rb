@@ -1875,7 +1875,7 @@ class InfoRequest < ApplicationRecord
   def title_formatting
     return unless title
     unless MySociety::Validate.uses_mixed_capitals(title, 1) ||
-      title_starts_with_number || title_is_acronym(6)
+           title_starts_with_number || title_is_acronym(6)
       errors.add(:title, _('Please write the summary using a mixture of capital and lower case letters. This makes it easier for others to read.'))
     end
     if title =~ /^(FOI|Freedom of Information)\s*requests?$/i

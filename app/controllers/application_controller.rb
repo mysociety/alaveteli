@@ -327,9 +327,9 @@ class ApplicationController < ActionController::Base
   def do_post_redirect(post_redirect, user=nil)
     uri = SafeRedirect.new(post_redirect.uri).path
     if feature_enabled?(:alaveteli_pro) &&
-      user &&
-      user.is_pro? &&
-      session[:admin_confirmation] != 1
+       user &&
+       user.is_pro? &&
+       session[:admin_confirmation] != 1
       uri = override_post_redirect_for_pro(uri,
                                            post_redirect,
                                            user)

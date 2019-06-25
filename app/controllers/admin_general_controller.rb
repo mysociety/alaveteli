@@ -89,8 +89,8 @@ class AdminGeneralController < AdminController
                                    @embargoed_attention_comments
                                  ].any?{ |to_do_list| ! to_do_list.empty? }
       @nothing_to_do = @nothing_to_do &&
-                      !@embargoed_request_tasks &&
-                      !@embargoed_comment_tasks
+                       !@embargoed_request_tasks &&
+                       !@embargoed_comment_tasks
     end
   end
 

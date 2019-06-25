@@ -350,10 +350,10 @@ namespace :temp do
     IncomingMessage.find_each do |incoming_message|
       if (incoming_message.cached_attachment_text_clipped &&
         !incoming_message.cached_attachment_text_clipped.valid_encoding?) ||
-          (incoming_message.cached_main_body_text_folded &&
-           !incoming_message.cached_main_body_text_folded.valid_encoding?) ||
-          (incoming_message.cached_main_body_text_unfolded &&
-           !incoming_message.cached_main_body_text_unfolded.valid_encoding?)
+         (incoming_message.cached_main_body_text_folded &&
+          !incoming_message.cached_main_body_text_folded.valid_encoding?) ||
+         (incoming_message.cached_main_body_text_unfolded &&
+          !incoming_message.cached_main_body_text_unfolded.valid_encoding?)
         puts "Bad encoding in IncomingMessage cached fields, :id #{incoming_message.id} "
         unless dryrun
           incoming_message.clear_in_database_caches!
