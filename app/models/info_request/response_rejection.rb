@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class InfoRequest
   module ResponseRejection
-    class UnknownResponseRejectionError < ArgumentError ; end
+    class UnknownResponseRejectionError < ArgumentError; end
 
     SPECIALIZED_CLASSES = { 'bounce' => Bounce,
                             'holding_pen' => HoldingPen,

@@ -28,7 +28,7 @@ require 'confidence_intervals'
 class PublicBody < ApplicationRecord
   include AdminColumn
 
-  class ImportCSVDryRun < StandardError ; end
+  class ImportCSVDryRun < StandardError; end
 
   @non_admin_columns = %w(name last_edit_comment)
 

@@ -52,7 +52,7 @@ describe PublicBody do
 
     it 'update with translated name' do
       body = FactoryBot.create(:public_body)
-      AlaveteliLocalization.with_locale(:es) { body.name = 'hola' ; body.save }
+      AlaveteliLocalization.with_locale(:es) { body.name = 'hola'; body.save }
       body.reload
 
       expect(body.update_attributes('name' => nil)).to eq(false)
@@ -82,7 +82,7 @@ describe PublicBody do
 
     it 'blank string update with translated name' do
       body = FactoryBot.create(:public_body)
-      AlaveteliLocalization.with_locale(:es) { body.name = 'hola' ; body.save }
+      AlaveteliLocalization.with_locale(:es) { body.name = 'hola'; body.save }
       body.reload
 
       expect(body.update_attributes('name' => '')).to eq(false)
