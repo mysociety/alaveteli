@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class EmailIsUnique <  ActiveRecord::Migration[4.2] # 2.0
+class EmailIsUnique < ActiveRecord::Migration[4.2] # 2.0
   def self.up
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
       execute "create unique index users_email_index on users (lower(email))"

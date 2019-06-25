@@ -2119,7 +2119,7 @@ describe InfoRequest do
     end
 
     it 'returns the cache path for any other locales' do
-      other_locale_path =  File.join(Rails.root, 'cache', 'views', 'es', 'request', '101', '101')
+      other_locale_path = File.join(Rails.root, 'cache', 'views', 'es', 'request', '101', '101')
       expect(@info_request.foi_fragment_cache_directories.include?(other_locale_path)).to eq(true)
     end
 
@@ -2982,7 +2982,7 @@ describe InfoRequest do
 
   end
 
-  describe  'when generating json for the api' do
+  describe 'when generating json for the api' do
 
     before do
       @user = mock_model(User, :json_for_api => { :id => 20,

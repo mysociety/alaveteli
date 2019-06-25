@@ -348,7 +348,7 @@ describe Users::SessionsController do
       expect(ActionMailer::Base.deliveries).not_to be_empty
 
       deliveries = ActionMailer::Base.deliveries
-      expect(deliveries.size).to  eq(1)
+      expect(deliveries.size).to eq(1)
       mail = deliveries[0]
       mail.body.to_s =~ /(http:\/\/.*(\/c\/(.*)))/
       mail_url = $1
@@ -382,7 +382,7 @@ describe Users::SessionsController do
       expect(ActionMailer::Base.deliveries).not_to be_empty
 
       deliveries = ActionMailer::Base.deliveries
-      expect(deliveries.size).to  eq(1)
+      expect(deliveries.size).to eq(1)
       mail = deliveries[0]
       mail.body.to_s =~ /(http:\/\/.*(\/c\/(.*)))/
       mail_url = $1

@@ -199,15 +199,15 @@ namespace :graphs do
 
         state_list = [ {:state => 'waiting_response', :colour => :darkblue},
                    {:state => 'waiting_clarification', :colour => :lightblue},
-                   {:state => 'not_held',  :colour => :yellow},
-                   {:state => 'rejected', :colour =>  :red},
-                   {:state => 'successful',  :colour => :lightgreen},
-                   {:state => 'partially_successful',  :colour => :darkgreen},
-                   {:state => 'requires_admin', :colour =>  :cyan},
-                   {:state => 'gone_postal',  :colour => :darkyellow},
-                   {:state => 'internal_review', :colour =>  :mauve},
-                   {:state => 'error_message', :colour =>  :redbrown},
-                   {:state => 'user_withdrawn',  :colour => :pink} ]
+                   {:state => 'not_held', :colour => :yellow},
+                   {:state => 'rejected', :colour => :red},
+                   {:state => 'successful', :colour => :lightgreen},
+                   {:state => 'partially_successful', :colour => :darkgreen},
+                   {:state => 'requires_admin', :colour => :cyan},
+                   {:state => 'gone_postal', :colour => :darkyellow},
+                   {:state => 'internal_review', :colour => :mauve},
+                   {:state => 'error_message', :colour => :redbrown},
+                   {:state => 'user_withdrawn', :colour => :pink} ]
 
         options = {:with => "impulses",
                    :linecolor => COLOURS[state_list[0][:colour]],

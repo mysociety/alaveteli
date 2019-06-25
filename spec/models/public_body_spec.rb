@@ -910,7 +910,7 @@ describe PublicBody do
 
   end
 
-  describe  'when generating json for the api' do
+  describe 'when generating json for the api' do
 
     let(:public_body) do
       FactoryBot.create(:public_body,

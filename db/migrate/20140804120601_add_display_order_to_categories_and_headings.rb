@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class AddDisplayOrderToCategoriesAndHeadings <  ActiveRecord::Migration[4.2] # 3.2
+class AddDisplayOrderToCategoriesAndHeadings < ActiveRecord::Migration[4.2] # 3.2
   def up
     add_column :public_body_categories_public_body_headings, :category_display_order, :integer
     rename_table :public_body_categories_public_body_headings, :public_body_category_links

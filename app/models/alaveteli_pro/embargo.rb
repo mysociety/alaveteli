@@ -51,7 +51,7 @@ module AlaveteliPro
     scope :expiring, -> { where("publish_at <= ?", expiring_soon_time) }
 
     def set_default_duration
-      self.embargo_duration  ||= "3_months"
+      self.embargo_duration ||= "3_months"
     end
 
     def allowed_durations

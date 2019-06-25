@@ -100,7 +100,7 @@ describe AlaveteliPro::EmbargoExtensionsController do
     end
 
     context "when the user does not own the embargo" do
-      let(:other_user) {  FactoryBot.create(:pro_user) }
+      let(:other_user) { FactoryBot.create(:pro_user) }
 
       it 'raises a CanCan::AccessDenied error' do
         expect do

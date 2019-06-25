@@ -177,7 +177,7 @@ namespace :themes do
     missing_templates = []
     missing_sections = []
     if !template_file
-      missing_templates <<  template_file
+      missing_templates << template_file
       puts "Missing help template:  #{help_template_info[:name]} #{locale}"
     else
       contents = File.read(template_file)

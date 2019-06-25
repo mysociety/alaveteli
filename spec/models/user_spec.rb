@@ -89,7 +89,7 @@ describe User, "showing the name" do
     expect(@user.name).to eq('Some Name')
   end
 
-  describe  'if user has been banned' do
+  describe 'if user has been banned' do
 
     before do
       @user.ban_text = "Naughty user"
@@ -343,7 +343,7 @@ describe User, 'when saving' do
     @user.save!
   end
 
-  it 'should mark the model for reindexing in xapian if the no_xapian_reindex flag is not set'  do
+  it 'should mark the model for reindexing in xapian if the no_xapian_reindex flag is not set' do
     @user.name = 'Mr. Second'
     @user.password = 'insecurepassword'
     @user.email = 'reasonable@localhost'

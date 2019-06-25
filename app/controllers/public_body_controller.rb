@@ -22,7 +22,7 @@ class PublicBodyController < ApplicationController
     end
 
     if MySociety::Format.simplify_url_part(params[:url_name], 'body') != params[:url_name]
-      redirect_to :url_name =>  MySociety::Format.simplify_url_part(params[:url_name], 'body'), :status => :moved_permanently
+      redirect_to :url_name => MySociety::Format.simplify_url_part(params[:url_name], 'body'), :status => :moved_permanently
       return
     end
 
@@ -38,7 +38,7 @@ class PublicBodyController < ApplicationController
       end
 
       # If found by historic name, or alternate locale name, redirect to new name
-      if  @public_body.url_name != params[:url_name]
+      if @public_body.url_name != params[:url_name]
         redirect_to :url_name => @public_body.url_name
         return
       end

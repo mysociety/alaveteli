@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class ImproveTrackThings <  ActiveRecord::Migration[4.2] # 2.0
+class ImproveTrackThings < ActiveRecord::Migration[4.2] # 2.0
   def self.up
     # SQLite at least needs a default for this
     add_column :track_things, :track_type, :string, :null => false, :default => "internal_error"

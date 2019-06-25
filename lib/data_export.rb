@@ -140,7 +140,7 @@ class DataExport
     CSV.open(filename, "wb") do |csv|
       csv << display_header
       find_each_record(query) do |model_instance|
-        line  = []
+        line = []
         # iterate over columns to create an array of data to make a line of csv
         column_data.each do |attribute|
           if overrides.key?(attribute) #do we have an override for this column?

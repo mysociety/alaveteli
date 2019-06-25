@@ -1048,7 +1048,7 @@ class InfoRequest < ApplicationRecord
   def calculate_event_states
     curr_state = nil
     for event in info_request_events.reverse
-      event.xapian_mark_needs_index  # we need to reindex all events in order to update their latest_* terms
+      event.xapian_mark_needs_index # we need to reindex all events in order to update their latest_* terms
       if curr_state.nil?
         if event.described_state
           curr_state = event.described_state

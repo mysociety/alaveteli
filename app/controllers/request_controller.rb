@@ -222,7 +222,7 @@ class RequestController < ApplicationController
     # TODO: Decide if we make batch requesters describe their undescribed requests
     # before being able to make a new batch request
 
-    if  !authenticated_user.can_file_requests?
+    if !authenticated_user.can_file_requests?
       @details = authenticated_user.can_fail_html
       render :template => 'user/banned' and return
     end

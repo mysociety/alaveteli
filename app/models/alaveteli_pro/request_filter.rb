@@ -123,7 +123,7 @@ module AlaveteliPro
       InfoRequest::State.phases.map{ |phase| { :param => phase[:scope].to_s,
                                                :value => phase[:scope],
                                                :label => phase[:label],
-                                               :capital_label => phase[:capital_label] }  }
+                                               :capital_label => phase[:capital_label] } }
     end
 
     def filter_attributes

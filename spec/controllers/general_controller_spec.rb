@@ -327,7 +327,7 @@ describe GeneralController, 'when using xapian search' do
 
   it 'should highlight words for a user-only request' do
     get :search, params: { :combined => "bob/users" }
-    expect(assigns[:highlight_words]).to eq([/\b(bob)\w*\b/iu,  /\b(bob)\b/iu])
+    expect(assigns[:highlight_words]).to eq([/\b(bob)\w*\b/iu, /\b(bob)\b/iu])
   end
 
   it 'should show spelling corrections for a user-only request' do

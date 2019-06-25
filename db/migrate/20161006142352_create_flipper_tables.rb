@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class CreateFlipperTables <  ActiveRecord::Migration[4.2] # 3.2
+class CreateFlipperTables < ActiveRecord::Migration[4.2] # 3.2
   def self.up
     create_table :flipper_features do |t|
       t.string :key, null: false

@@ -12,12 +12,12 @@ describe AlaveteliRateLimiter::Window do
     end
 
     it 'requires a :value key' do
-      hash = {  :unit => :day }
+      hash = { :unit => :day }
       expect { described_class.from_hash(hash) }.to raise_error(KeyError)
     end
 
     it 'requires a :unit key' do
-      hash = {  :value => 3 }
+      hash = { :value => 3 }
       expect { described_class.from_hash(hash) }.to raise_error(KeyError)
     end
 

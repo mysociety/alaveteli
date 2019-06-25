@@ -93,7 +93,7 @@ describe "when generating urls" do
 
         it 'should generate URLs without a locale prepended' do
           get '/'
-          expect(response.body).to match  /class="current-locale">English/
+          expect(response.body).to match /class="current-locale">English/
           expect(response.body).not_to match /#{@default_lang_home_link}/
         end
 
@@ -110,7 +110,7 @@ describe "when generating urls" do
         it 'should render the front page in the default language when no locale param
                     is present and the session locale is not the default' do
           get '/', headers: { :locale => 'es' }
-          expect(response.body).to match  /class="current-locale">English/
+          expect(response.body).to match /class="current-locale">English/
         end
       end
 
@@ -123,7 +123,7 @@ describe "when generating urls" do
 
         it 'should generate URLs with a locale prepended' do
           get '/'
-          expect(response.body).to match  /class="current-locale">English/
+          expect(response.body).to match /class="current-locale">English/
           expect(response.body).to match /#{@default_lang_home_link}/
         end
 

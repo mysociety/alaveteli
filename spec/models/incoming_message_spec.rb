@@ -862,7 +862,7 @@ describe IncomingMessage, "when Outlook messages are attached to messages" do
     im.extract_attachments!
 
     expect(im.get_attachments_for_display.map(&:display_filename)).to eq([
-      'test.html',  # picks HTML rather than text by default, as likely to render better
+      'test.html', # picks HTML rather than text by default, as likely to render better
       'attach.txt',
     ])
   end

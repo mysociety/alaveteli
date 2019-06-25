@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class RolifyCreateRoles <  ActiveRecord::Migration[4.2] # 4.0
+class RolifyCreateRoles < ActiveRecord::Migration[4.2] # 4.0
   def change
     create_table(:roles) do |t|
       t.string :name
