@@ -138,7 +138,7 @@ class InfoRequestEvent < ApplicationRecord
     # although it relies on a translated field in PublicBody. Hence, we need to
     # manually add all the localized values to the index (Xapian can handle a list
     # of values in a term, btw)
-    info_request.public_body.translations.map {|t| t.url_name}
+    info_request.public_body.translations.map { |t| t.url_name }
   end
 
   def commented_by

@@ -285,7 +285,7 @@ describe 'when getting the content type of a mail part' do
 
   it 'should correctly return the types in an example bounce report' do
     mail = get_fixture_mail('track-response-ms-bounce.email')
-    report = mail.parts.detect { |part| MailHandler.get_content_type(part) == 'multipart/report'}
+    report = mail.parts.detect { |part| MailHandler.get_content_type(part) == 'multipart/report' }
     expect(MailHandler.get_content_type(report.parts[0])).to eq('text/plain')
     expect(MailHandler.get_content_type(report.parts[1])).to eq('message/delivery-status')
     expect(MailHandler.get_content_type(report.parts[2])).to eq('message/rfc822')

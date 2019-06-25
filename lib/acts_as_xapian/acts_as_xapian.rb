@@ -478,7 +478,7 @@ module ActsAsXapian
       self.query_string = query_string
 
       # Construct query which only finds things from specified models
-      model_query = Xapian::Query.new(Xapian::Query::OP_OR, model_classes.map {|mc| "M" + mc.to_s})
+      model_query = Xapian::Query.new(Xapian::Query::OP_OR, model_classes.map { |mc| "M" + mc.to_s })
       if user_query.nil?
         user_query = ActsAsXapian.query_parser.parse_query(
           self.query_string,
@@ -559,7 +559,7 @@ module ActsAsXapian
         self.query_models = query_models
 
         # Find the documents by their unique term
-        input_models_query = Xapian::Query.new(Xapian::Query::OP_OR, query_models.map {|m| "I" + m.xapian_document_term})
+        input_models_query = Xapian::Query.new(Xapian::Query::OP_OR, query_models.map { |m| "I" + m.xapian_document_term })
         ActsAsXapian.enquire.query = input_models_query
         matches = ActsAsXapian.enquire.mset(0, 100, 100) # TODO: so this whole method will only work with 100 docs
 
@@ -589,7 +589,7 @@ module ActsAsXapian
         combined_query = Xapian::Query.new(Xapian::Query::OP_AND_NOT, similar_query, input_models_query)
 
         # Restrain to model classes
-        model_query = Xapian::Query.new(Xapian::Query::OP_OR, model_classes.map {|mc| "M" + mc.to_s})
+        model_query = Xapian::Query.new(Xapian::Query::OP_OR, model_classes.map { |mc| "M" + mc.to_s })
         self.query = Xapian::Query.new(Xapian::Query::OP_AND, model_query, combined_query)
       }
 
@@ -901,16 +901,16 @@ module ActsAsXapian
           value = single_xapian_value(field, type = type)
         else
           values = []
-          for locale in self.translations.map {|x| x.locale}
+          for locale in self.translations.map { |x| x.locale }
             AlaveteliLocalization.with_locale(locale) do
               values << single_xapian_value(field, type=type)
             end
           end
           if values[0].kind_of?(Array)
             values = values.flatten
-            value = values.reject {|x| x.nil?}
+            value = values.reject { |x| x.nil? }
           else
-            values = values.reject {|x| x.nil?}
+            values = values.reject { |x| x.nil? }
             value = values.join(" ")
           end
         end
@@ -936,7 +936,7 @@ module ActsAsXapian
       else
         # Arrays are for terms which require multiple of them, e.g. tags
         if value.kind_of?(Array)
-          value.map {|v| v.to_s}
+          value.map { |v| v.to_s }
         else
           value.to_s
         end
@@ -973,7 +973,7 @@ module ActsAsXapian
       if terms and self.xapian_options[:terms]
         terms_to_index = self.xapian_options[:terms].dup
         if terms.is_a?(String)
-          terms_to_index.reject! {|term| !terms.include?(term[1])}
+          terms_to_index.reject! { |term| !terms.include?(term[1]) }
           if terms_to_index.length == self.xapian_options[:terms].length
             drop_all_terms = true
           end
@@ -999,7 +999,7 @@ module ActsAsXapian
         doc.add_term("M" + self.class.to_s)
         doc.add_term("I" + doc.data)
       else
-        term_prefixes_to_index = terms_to_index.map {|x| x[1]}
+        term_prefixes_to_index = terms_to_index.map { |x| x[1] }
         for existing_term in doc.terms
           first_letter = existing_term.term[0...1]
           if !"MI".include?(first_letter) # it's not one of the reserved value

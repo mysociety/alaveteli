@@ -90,7 +90,7 @@ class TypeaheadSearch
       @query
     end
     if @exclude_tags
-      tag_string = @exclude_tags.map {|tag| "-tag:#{tag}"}.join(" ")
+      tag_string = @exclude_tags.map { |tag| "-tag:#{tag}" }.join(" ")
       query = "#{query} #{tag_string}"
     end
     query

@@ -59,7 +59,7 @@ class DataExport
   end
 
   def self.gender_lambda
-    lambda {|x| detects_gender(x.name)}
+    lambda { |x| detects_gender(x.name) }
   end
 
   # Remove all instances of user's name (if there is a user), otherwise

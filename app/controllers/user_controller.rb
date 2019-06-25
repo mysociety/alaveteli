@@ -90,8 +90,8 @@ class UserController < ApplicationController
       @xapian_comments = nil
     end
 
-    feed_results += @xapian_requests.results.map {|x| x[:model]} if @xapian_requests
-    feed_results += @xapian_comments.results.map {|x| x[:model]} if @xapian_comments
+    feed_results += @xapian_requests.results.map { |x| x[:model] } if @xapian_requests
+    feed_results += @xapian_comments.results.map { |x| x[:model] } if @xapian_comments
 
     # All tracks for the user
     if @is_you
@@ -106,7 +106,7 @@ class UserController < ApplicationController
                                                  :sort_by_ascending => true,
                                                  :collapse_by_prefix => nil,
                                                  :limit => 20)
-        feed_results += xapian_object.results.map {|x| x[:model]}
+        feed_results += xapian_object.results.map { |x| x[:model] }
       end
     end
 
@@ -136,7 +136,7 @@ class UserController < ApplicationController
     if user_alreadyexists
       # attempt to remove the 'already in use message' from the errors hash
       # so it doesn't get accidentally shown to the end user
-      @user_signup.errors[:email].delete_if {|message| message == _("This email is already in use")}
+      @user_signup.errors[:email].delete_if { |message| message == _("This email is already in use") }
     end
     if error || !@user_signup.errors.empty?
       # Show the form

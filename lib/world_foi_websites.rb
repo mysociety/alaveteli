@@ -140,7 +140,7 @@ class WorldFOIWebsites
   end
 
   def self.by_code(code)
-    result = self.world_foi_websites.find {|x| x[:country_iso_code].downcase == code.downcase}
+    result = self.world_foi_websites.find { |x| x[:country_iso_code].downcase == code.downcase }
     return result
   end
 

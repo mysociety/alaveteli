@@ -2112,7 +2112,7 @@ describe RequestController do
 
       describe 'when the request is old and unclassified' do
 
-        let(:info_request) { FactoryBot.create(:old_unclassified_request)}
+        let(:info_request) { FactoryBot.create(:old_unclassified_request) }
 
         describe 'when the user is not logged in' do
 
@@ -2744,7 +2744,7 @@ describe RequestController, "authority uploads a response from the web interface
   end
 
   context 'when the request is embargoed' do
-    let(:embargoed_request) { FactoryBot.create(:embargoed_request)}
+    let(:embargoed_request) { FactoryBot.create(:embargoed_request) }
 
     it 'raises an ActiveRecord::RecordNotFound error' do
       expect {
@@ -3302,7 +3302,7 @@ describe RequestController do
 
   describe 'GET #details' do
 
-    let(:info_request) { FactoryBot.create(:info_request)}
+    let(:info_request) { FactoryBot.create(:info_request) }
 
     it 'renders the details template' do
       get :details, params: { :url_title => info_request.url_title }

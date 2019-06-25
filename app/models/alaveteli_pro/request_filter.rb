@@ -95,7 +95,7 @@ module AlaveteliPro
     end
 
     def order_labels
-      Hash[ order_attributes.map { |atts| [atts[:param], atts[:label]]} ]
+      Hash[ order_attributes.map { |atts| [atts[:param], atts[:label]] } ]
     end
 
     def order_value
@@ -132,7 +132,7 @@ module AlaveteliPro
     end
 
     def filter_options
-      filter_attributes.map {|atts| [atts[:capital_label], atts[:param]] }
+      filter_attributes.map { |atts| [atts[:capital_label], atts[:param]] }
     end
 
     def filter_capital_labels
@@ -148,7 +148,7 @@ module AlaveteliPro
     end
 
     def filter_labels
-      Hash[ filter_attributes.map { |atts| [atts[:param], atts[:label]]} ]
+      Hash[ filter_attributes.map { |atts| [atts[:param], atts[:label]] } ]
     end
 
     def filter_value

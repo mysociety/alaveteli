@@ -306,7 +306,7 @@ describe 'classifying a request' do
 
   context 'marking request as waiting_response' do
 
-    let(:classification) {'waiting_response1'}
+    let(:classification) { 'waiting_response1' }
 
     it 'displays a thank you message post redirect' do
       using_session(login(user)) do

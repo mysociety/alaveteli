@@ -1661,7 +1661,7 @@ describe PublicBody, " when loading CSV files" do
     # the way categories are loaded every time from the PublicBody class. For now we just
     # test some translation was done.
     body = PublicBody.find_by_name('North West Fake Authority')
-    expect(body.translated_locales.map {|l|l.to_s}.sort).to eq(["en", "es"])
+    expect(body.translated_locales.map { |l|l.to_s }.sort).to eq(["en", "es"])
   end
 
   it "should not fail if a locale is not found in the input file" do

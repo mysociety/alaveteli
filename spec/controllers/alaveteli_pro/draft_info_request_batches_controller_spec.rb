@@ -4,7 +4,7 @@ require 'spec_helper'
 shared_examples_for "creating a request" do
   it "creates a new DraftInfoRequestBatch" do
     expect { subject }.
-      to change {AlaveteliPro::DraftInfoRequestBatch.count }.by 1
+      to change { AlaveteliPro::DraftInfoRequestBatch.count }.by 1
   end
 end
 

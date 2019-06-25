@@ -1323,7 +1323,7 @@ describe InfoRequest do
     it 'removes any zip files' do
       # expire deletes foi_fragment_cache_directories as well as the zip files
       # so stubbing out the call lets us just see the effect we care about here
-      allow(info_request).to receive(:foi_fragment_cache_directories) {[]}
+      allow(info_request).to receive(:foi_fragment_cache_directories) { [] }
       expect(FileUtils).to receive(:rm_rf).with(info_request.download_zip_dir)
       info_request.expire
     end
@@ -2335,7 +2335,7 @@ describe InfoRequest do
     end
 
     it "rejects invalid states" do
-      expect {@ir.set_described_state("foo")}.to raise_error(ActiveRecord::RecordInvalid)
+      expect { @ir.set_described_state("foo") }.to raise_error(ActiveRecord::RecordInvalid)
     end
 
     it "accepts core states" do
@@ -3445,7 +3445,7 @@ describe InfoRequest do
 
     it 'coalesces duplicate requests' do
       request_events, request_events_all_successful = InfoRequest.recent_requests
-      expect(request_events.map(&:info_request).select {|x|x.url_title =~ /^spam/}.length).to eq(1)
+      expect(request_events.map(&:info_request).select { |x|x.url_title =~ /^spam/ }.length).to eq(1)
     end
 
   end
@@ -4096,7 +4096,7 @@ describe InfoRequest do
         outgoing_message.record_email_delivery('', '', 'resent')
         resending_event = info_request.
                             info_request_events.reload.
-                              detect { |e| e.event_type == 'resent'}
+                              detect { |e| e.event_type == 'resent' }
         expect(info_request.last_event_forming_initial_request)
           .to eq resending_event
       end
@@ -4115,7 +4115,7 @@ describe InfoRequest do
       outgoing_message.record_email_delivery('', '')
       followup_event = info_request.
                          info_request_events.reload.
-                           detect { |e| e.event_type == 'followup_sent'}
+                           detect { |e| e.event_type == 'followup_sent' }
       expect(info_request.last_event_forming_initial_request)
         .to eq followup_event
       end

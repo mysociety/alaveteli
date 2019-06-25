@@ -614,7 +614,7 @@ class InfoRequest < ApplicationRecord
         more_events = xapian_object.results.map { |r| r[:model] }
         request_events += more_events
         # Overall we still want the list sorted with the newest first
-        request_events.sort! {|e1,e2| e2.created_at <=> e1.created_at}
+        request_events.sort! { |e1,e2| e2.created_at <=> e1.created_at }
       else
         request_events_all_successful = true
       end
@@ -1265,7 +1265,7 @@ class InfoRequest < ApplicationRecord
   end
 
   def public_outgoing_events
-    info_request_events.select {|e| e.outgoing? && e.outgoing_message.is_public? }
+    info_request_events.select { |e| e.outgoing? && e.outgoing_message.is_public? }
   end
 
   # The last public outgoing message

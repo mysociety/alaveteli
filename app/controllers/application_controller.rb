@@ -223,7 +223,7 @@ class ApplicationController < ActionController::Base
     max_file_length = 255 - 35 # we subtract 35 because tempfile
     # adds on a variable number of
     # characters
-    return File.join(File.split(path).map {|x| x[0...max_file_length]})
+    return File.join(File.split(path).map { |x| x[0...max_file_length] })
   end
 
   def foi_fragment_cache_exists?(key_path)

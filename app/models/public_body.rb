@@ -185,7 +185,7 @@ class PublicBody < ApplicationRecord
         changes = []
       else
         v = self
-        changes = self.class.content_columns.inject([]) {|memo, c|
+        changes = self.class.content_columns.inject([]) { |memo, c|
           unless %w(version
                     last_edit_editor
                     last_edit_comment
@@ -477,7 +477,7 @@ class PublicBody < ApplicationRecord
           # Parse the first line as a field list if it starts with '#'
           if line==1 and row.first.to_s =~ /^#(.*)$/
             row[0] = row[0][1..-1] # Remove the # sign on first field
-            row.each_with_index {|field, i| field_names[field] = i}
+            row.each_with_index { |field, i| field_names[field] = i }
             next
           end
 
