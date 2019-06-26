@@ -306,8 +306,9 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
         expect(response.status).to eq(200)
       end
 
-      it 'does not sent an exception email' do
-        expect(ActionMailer::Base.deliveries).to be_empty
+      it 'sends an exception email' do
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).to match(/UnhandledStripeWebhookError/)
       end
     end
 

@@ -35,8 +35,6 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
 
   def receive
     case @stripe_event.type
-    when 'customer.subscription.updated'
-      customer_subscription_updated
     when 'customer.subscription.deleted'
       customer_subscription_deleted
     when 'invoice.payment_succeeded'
@@ -53,17 +51,6 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
   end
 
   private
-
-  def customer_subscription_updated
-    unless renewal?(@stripe_event.data[:previous_attributes])
-      raise UnhandledStripeWebhookError.new(@stripe_event.type)
-    end
-  end
-
-  def renewal?(previous_attributes)
-    previous_attributes.keys.to_set ==
-      %i(current_period_start current_period_end latest_invoice).to_set
-  end
 
   def customer_subscription_deleted
     account = pro_account_from_stripe_event(@stripe_event)
