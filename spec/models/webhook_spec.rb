@@ -12,6 +12,20 @@ RSpec.describe Webhook, type: :model do
     end
   end
 
+  describe '.pending_notification' do
+    subject { Webhook.pending_notification }
+
+    it 'includes webhooks if notified_at is nil' do
+      webhook = FactoryBot.create(:webhook, notified_at: nil)
+      is_expected.to include webhook
+    end
+
+    it 'excludes webhooks if notified_at is set' do
+      webhook = FactoryBot.create(:webhook, notified_at: Time.zone.now)
+      is_expected.to_not include webhook
+    end
+  end
+
   describe '#date' do
     it 'returns nil if there is not a created parameter' do
       webhook.params = { 'created' => nil }

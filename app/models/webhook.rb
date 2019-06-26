@@ -7,6 +7,8 @@
 class Webhook < ApplicationRecord
   validates :params, presence: true
 
+  scope :pending_notification, -> { where(notified_at: nil) }
+
   def date
     Time.at(params['created']) if params['created']
   end
