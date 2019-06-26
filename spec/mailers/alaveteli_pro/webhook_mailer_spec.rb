@@ -3,6 +3,40 @@ require 'spec_helper'
 RSpec.describe AlaveteliPro::WebhookMailer do
   MockWebhook = Struct.new(:date, :customer_id, :state)
 
+  describe '.send_digest' do
+    subject { described_class.send_digest }
+
+    let!(:webhook) { FactoryBot.create(:webhook, notified_at: nil) }
+
+    context 'pro pricing enabled', feature: %i[pro_pricing] do
+      context 'with pending notifications' do
+        it 'should deliver digest email' do
+          expect { subject }.to(
+            change(ActionMailer::Base.deliveries, :size).by(1)
+          )
+        end
+
+        it 'should mark webhook as not pending' do
+          expect { subject }.to(
+            change(Webhook.pending_notification, :count).by(-1)
+          )
+        end
+      end
+
+      context 'without pending notifications' do
+        before do
+          allow(Webhook).to receive(:pending_notification).and_return([])
+        end
+
+        include_examples 'does not deliver any mail'
+      end
+    end
+
+    context 'pro pricing disabled' do
+      include_examples 'does not deliver any mail'
+    end
+  end
+
   describe '#digest' do
     let(:webhooks) do
       [

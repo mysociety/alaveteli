@@ -3,6 +3,16 @@ module AlaveteliPro
   # A mailer responsible for sending out webhook information to the Pro contact
   #
   class WebhookMailer < ApplicationMailer
+    def self.send_digest
+      return unless feature_enabled?(:pro_pricing)
+
+      webhooks = Webhook.pending_notification
+      return if webhooks.empty?
+
+      digest(webhooks).deliver_now
+      webhooks.update_all(notified_at: Time.zone.now)
+    end
+
     def digest(webhooks)
       @customer_webhooks = webhooks.sort_by(&:date).group_by(&:customer_id)
 
