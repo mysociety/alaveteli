@@ -6,4 +6,22 @@
 #
 class Webhook < ApplicationRecord
   validates :params, presence: true
+
+  def date
+    Time.at(params['created']) if params['created']
+  end
+
+  def customer_id
+    object['customer']
+  end
+
+  def state
+    # fixme
+  end
+
+  private
+
+  def object
+    params.dig('data', 'object') || {}
+  end
 end
