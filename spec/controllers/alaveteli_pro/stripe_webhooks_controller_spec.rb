@@ -292,7 +292,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
     describe 'a customer moves to a new billing period' do
       let(:stripe_event) do
-        StripeMock.mock_webhook_event('customer.subscription.updated-renewed')
+        StripeMock.mock_webhook_event('subscription-renewed')
       end
 
       it 'handles the event' do
@@ -307,7 +307,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
     describe 'a trial ends' do
       let(:stripe_event) do
-        StripeMock.mock_webhook_event('customer.subscription.updated-trial-end')
+        StripeMock.mock_webhook_event('trial-ended-first-payment-failed')
       end
 
       it 'handles the event' do
@@ -322,7 +322,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
     describe 'a customer cancels' do
       let(:stripe_event) do
-        StripeMock.mock_webhook_event('customer.subscription.updated-cancelled')
+        StripeMock.mock_webhook_event('subscription-cancelled')
       end
 
       it 'handles the event' do
