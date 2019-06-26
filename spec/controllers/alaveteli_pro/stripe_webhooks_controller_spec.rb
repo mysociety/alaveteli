@@ -139,10 +139,8 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
         stripe_event.type = 'custom.unhandle_event'
       end
 
-      it 'sends an exception email' do
-        send_request
-        mail = ActionMailer::Base.deliveries.first
-        expect(mail.subject).to match(/UnhandledStripeWebhookError/)
+      it 'stores unhandled webhook' do
+        expect { send_request }.to change(Webhook, :count).by(1)
       end
 
     end
@@ -212,9 +210,8 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
             to match('Does not appear to be one of our plans')
         end
 
-        it 'does not send an exception email' do
-          send_request
-          expect(ActionMailer::Base.deliveries.count).to eq(0)
+        it 'does not store unhandled webhook' do
+          expect { send_request }.to_not change(Webhook, :count)
         end
 
       end
@@ -298,17 +295,13 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
         StripeMock.mock_webhook_event('customer.subscription.updated-renewed')
       end
 
-      before do
-        send_request
-      end
-
       it 'handles the event' do
+        send_request
         expect(response.status).to eq(200)
       end
 
-      it 'sends an exception email' do
-        mail = ActionMailer::Base.deliveries.first
-        expect(mail.subject).to match(/UnhandledStripeWebhookError/)
+      it 'stores unhandled webhook' do
+        expect { send_request }.to change(Webhook, :count).by(1)
       end
     end
 
@@ -317,36 +310,28 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
         StripeMock.mock_webhook_event('customer.subscription.updated-trial-end')
       end
 
-      before do
-        send_request
-      end
-
       it 'handles the event' do
+        send_request
         expect(response.status).to eq(200)
       end
 
-      it 'sends an exception email' do
-        mail = ActionMailer::Base.deliveries.first
-        expect(mail.subject).to match(/UnhandledStripeWebhookError/)
+      it 'stores unhandled webhook' do
+        expect { send_request }.to change(Webhook, :count).by(1)
       end
     end
 
-    describe 'a customer cancells' do
+    describe 'a customer cancels' do
       let(:stripe_event) do
         StripeMock.mock_webhook_event('customer.subscription.updated-cancelled')
       end
 
-      before do
-        send_request
-      end
-
       it 'handles the event' do
+        send_request
         expect(response.status).to eq(200)
       end
 
-      it 'sends an exception email' do
-        mail = ActionMailer::Base.deliveries.first
-        expect(mail.subject).to match(/UnhandledStripeWebhookError/)
+      it 'stores unhandled webhook' do
+        expect { send_request }.to change(Webhook, :count).by(1)
       end
     end
 

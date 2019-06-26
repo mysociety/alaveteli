@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 # Does not inherit from AlaveteliPro::BaseController because it doesn't need to
 class AlaveteliPro::StripeWebhooksController < ApplicationController
-  class UnhandledStripeWebhookError < StandardError; end
   class MissingTypeStripeWebhookError < StandardError; end
   class UnknownPlanStripeWebhookError < StandardError; end
 
@@ -24,13 +23,6 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
            status: 200
   end
 
-  rescue_from UnhandledStripeWebhookError do |exception|
-    # accept it so it doesn't get resent but notify us that we haven't handled
-    # it yet.
-    notify_exception(exception)
-    render json: { message: 'OK' }, status: 200
-  end
-
   before_action :read_event_notification, :check_for_event_type, :filter_hooks
 
   def receive
@@ -42,7 +34,7 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
     when 'invoice.payment_failed'
       invoice_payment_failed
     else
-      raise UnhandledStripeWebhookError.new(@stripe_event.type)
+      store_unhandled_webhook
     end
 
     # send a 200 ok to acknowlege receipt of the webhook
@@ -79,6 +71,10 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
     if account
       AlaveteliPro::SubscriptionMailer.payment_failed(account.user).deliver_now
     end
+  end
+
+  def store_unhandled_webhook
+    Webhook.create(params: @stripe_event.to_h)
   end
 
   def read_event_notification
