@@ -1836,7 +1836,7 @@ describe OutgoingMessage, "when validating the format of the message body" do
   it 'should handle a salutation with a bracket in it' do
     outgoing_message = FactoryBot.build(:initial_request)
     allow(outgoing_message).to receive(:get_salutation).and_return("Dear Bob (Robert,")
-    expect{ outgoing_message.valid? }.not_to raise_error
+    expect { outgoing_message.valid? }.not_to raise_error
   end
 
 end

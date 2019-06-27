@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class DraftProfilePhoto <  ActiveRecord::Migration[4.2] # 2.3
+class DraftProfilePhoto < ActiveRecord::Migration[4.2] # 2.3
   def self.up
     add_column :profile_photos, :draft, :boolean, :default => false, :null => false
   end

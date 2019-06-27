@@ -27,7 +27,7 @@ namespace :reindex do
       reindex_log.error("** Error while processing event #{current_id}, " \
                         "last event successfully queued was: #{last_id}")
       reindex_log.error("uncaught #{e} exception while handling connection: #{e.message}")
-      reindex_log.error("Stack trace: #{e.backtrace.map {|l| "  #{l}\n"}.join}")
+      reindex_log.error("Stack trace: #{e.backtrace.map { |l| "  #{l}\n" }.join}")
       abort
     end
   end
@@ -58,7 +58,7 @@ namespace :reindex do
       reindex_log.error("** Error while processing body #{current_id}, " \
                         "last body successfully queued was: #{last_id}")
       reindex_log.error("uncaught #{e} exception while handling connection: #{e.message}")
-      reindex_log.error("Stack trace: #{e.backtrace.map {|l| "  #{l}\n"}.join}")
+      reindex_log.error("Stack trace: #{e.backtrace.map { |l| "  #{l}\n" }.join}")
       abort
     end
   end
@@ -89,7 +89,7 @@ namespace :reindex do
       reindex_log.error("** Error while processing user #{current_id}, " \
                         "last user successfully queued was: #{last_id}")
       reindex_log.error("uncaught #{e} exception while handling connection: #{e.message}")
-      reindex_log.error("Stack trace: #{e.backtrace.map {|l| "  #{l}\n"}.join}")
+      reindex_log.error("Stack trace: #{e.backtrace.map { |l| "  #{l}\n" }.join}")
       abort
     end
   end

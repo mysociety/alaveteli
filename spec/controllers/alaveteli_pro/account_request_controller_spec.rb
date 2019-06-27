@@ -38,7 +38,7 @@ describe AlaveteliPro::AccountRequestController do
   end
 
   describe "#create" do
-    let(:account_request_params){ { email: 'test@localhost',
+    let(:account_request_params) { { email: 'test@localhost',
                                     reason: 'Have a look around',
                                     marketing_emails: 'yes',
                                     training_emails: 'no' } }

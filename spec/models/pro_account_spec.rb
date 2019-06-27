@@ -80,7 +80,7 @@ describe ProAccount, feature: :pro_pricing do
       end
 
       it 'raises an error' do
-        expect{ pro_account.stripe_customer }.
+        expect { pro_account.stripe_customer }.
           to raise_error Stripe::InvalidRequestError
       end
 

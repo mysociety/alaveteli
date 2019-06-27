@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class InfoRequest
   module ResponseGatekeeper
-    class UnknownResponseGatekeeperError < ArgumentError ; end
+    class UnknownResponseGatekeeperError < ArgumentError; end
 
     SPECIALIZED_CLASSES = { 'nobody' => Nobody,
                             'anybody' => Base,

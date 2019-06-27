@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class CorrectExternalRequestConstraint <  ActiveRecord::Migration[4.2] # 2.3
+class CorrectExternalRequestConstraint < ActiveRecord::Migration[4.2] # 2.3
   def self.up
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
       execute "ALTER TABLE info_requests DROP CONSTRAINT info_requests_external_ck"

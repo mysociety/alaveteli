@@ -230,7 +230,7 @@ describe AlaveteliPro::Embargo, :type => :model do
           info_request = FactoryBot.create(:use_notifications_request)
           embargo = FactoryBot.create(:expiring_embargo,
                                       info_request: info_request)
-          embargo.update_attribute(:publish_at, Time.zone.today -  4.months)
+          embargo.update_attribute(:publish_at, Time.zone.today - 4.months)
           AlaveteliPro::Embargo.expire_publishable
           expect(Notification.count).to eq 1
         end

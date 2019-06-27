@@ -8,7 +8,7 @@ describe "admin_request/show.html.erb" do
   end
 
   context 'for a public request' do
-    let(:info_request){ FactoryBot.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
 
     it 'links to the public request page' do
       render
@@ -23,7 +23,7 @@ describe "admin_request/show.html.erb" do
   end
 
   context 'for an embargoed request' do
-    let(:info_request){ FactoryBot.create(:embargoed_request) }
+    let(:info_request) { FactoryBot.create(:embargoed_request) }
 
     it 'links to the pro request page' do
       render

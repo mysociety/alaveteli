@@ -614,7 +614,7 @@ class InfoRequest < ApplicationRecord
         more_events = xapian_object.results.map { |r| r[:model] }
         request_events += more_events
         # Overall we still want the list sorted with the newest first
-        request_events.sort!{|e1,e2| e2.created_at <=> e1.created_at}
+        request_events.sort! { |e1,e2| e2.created_at <=> e1.created_at }
       else
         request_events_all_successful = true
       end
@@ -790,7 +790,7 @@ class InfoRequest < ApplicationRecord
   def expire(options={})
     # Clear out cached entries, by removing files from disk (the built in
     # Rails fragment cache made doing this and other things too hard)
-    foi_fragment_cache_directories.each{ |dir| FileUtils.rm_rf(dir) }
+    foi_fragment_cache_directories.each { |dir| FileUtils.rm_rf(dir) }
 
     # Remove any download zips
     FileUtils.rm_rf(download_zip_dir)
@@ -1048,7 +1048,7 @@ class InfoRequest < ApplicationRecord
   def calculate_event_states
     curr_state = nil
     for event in info_request_events.reverse
-      event.xapian_mark_needs_index  # we need to reindex all events in order to update their latest_* terms
+      event.xapian_mark_needs_index # we need to reindex all events in order to update their latest_* terms
       if curr_state.nil?
         if event.described_state
           curr_state = event.described_state
@@ -1265,7 +1265,7 @@ class InfoRequest < ApplicationRecord
   end
 
   def public_outgoing_events
-    info_request_events.select{|e| e.outgoing? && e.outgoing_message.is_public? }
+    info_request_events.select { |e| e.outgoing? && e.outgoing_message.is_public? }
   end
 
   # The last public outgoing message
@@ -1516,8 +1516,8 @@ class InfoRequest < ApplicationRecord
 
   def all_correspondence_is_public?
     prominence(:decorate => true).is_public? &&
-      incoming_messages.all?{ |message| message.is_public? } &&
-      outgoing_messages.all?{ |message| message.is_public? }
+      incoming_messages.all? { |message| message.is_public? } &&
+      outgoing_messages.all? { |message| message.is_public? }
   end
 
   def json_for_api(deep)
@@ -1875,7 +1875,7 @@ class InfoRequest < ApplicationRecord
   def title_formatting
     return unless title
     unless MySociety::Validate.uses_mixed_capitals(title, 1) ||
-      title_starts_with_number || title_is_acronym(6)
+           title_starts_with_number || title_is_acronym(6)
       errors.add(:title, _('Please write the summary using a mixture of capital and lower case letters. This makes it easier for others to read.'))
     end
     if title =~ /^(FOI|Freedom of Information)\s*requests?$/i

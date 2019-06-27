@@ -124,7 +124,8 @@ namespace :temp do
 
   desc 'Audit cached zip download files with censor rules'
   task :audit_cached_zip_downloads_with_censor_rules => :environment do
-    puts [ "Info Request ID",
+    puts [
+           "Info Request ID",
            "URL Title",
            "Censor rule IDs",
            "Censor rule patterns",
@@ -165,10 +166,11 @@ namespace :temp do
           cached_types << :public
         end
       end
-      puts [ info_request.id,
+      puts [
+             info_request.id,
              info_request.url_title,
-             info_request.applicable_censor_rules.map{ |rule| rule.id }.join(","),
-             info_request.applicable_censor_rules.map{ |rule| rule.text }.join(","),
+             info_request.applicable_censor_rules.map { |rule| rule.id }.join(","),
+             info_request.applicable_censor_rules.map { |rule| rule.text }.join(","),
              cached_types.uniq.join(",")
            ].join("\t")
     end
@@ -348,11 +350,11 @@ namespace :temp do
     IncomingMessage.find_each do |incoming_message|
       if (incoming_message.cached_attachment_text_clipped &&
         !incoming_message.cached_attachment_text_clipped.valid_encoding?) ||
-          (incoming_message.cached_main_body_text_folded &&
-           !incoming_message.cached_main_body_text_folded.valid_encoding?) ||
-          (incoming_message.cached_main_body_text_unfolded &&
-           !incoming_message.cached_main_body_text_unfolded.valid_encoding?)
-          puts "Bad encoding in IncomingMessage cached fields, :id #{incoming_message.id} "
+         (incoming_message.cached_main_body_text_folded &&
+          !incoming_message.cached_main_body_text_folded.valid_encoding?) ||
+         (incoming_message.cached_main_body_text_unfolded &&
+          !incoming_message.cached_main_body_text_unfolded.valid_encoding?)
+        puts "Bad encoding in IncomingMessage cached fields, :id #{incoming_message.id} "
         unless dryrun
           incoming_message.clear_in_database_caches!
         end

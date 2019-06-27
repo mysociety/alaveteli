@@ -34,7 +34,7 @@ module XapianQueries
       if params[:latest_status].class == String
         params[:latest_status] = [params[:latest_status]]
       end
-      if params[:latest_status].include?("recent") ||  params[:latest_status].include?("all")
+      if params[:latest_status].include?("recent") || params[:latest_status].include?("all")
         query += " (variety:sent OR variety:followup_sent OR variety:response OR variety:comment)"
       end
       if params[:latest_status].include? "successful"

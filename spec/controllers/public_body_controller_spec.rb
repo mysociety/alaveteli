@@ -29,7 +29,7 @@ describe PublicBodyController, "when showing a body" do
   it "should assign the requests (1)" do
     get :show, params: { :url_name => "tgq", :view => 'all' }
     conditions = { :public_body_id => public_bodies(:geraldine_public_body).id }
-    actual = assigns[:xapian_requests].results.map{ |x| x[:model].info_request }
+    actual = assigns[:xapian_requests].results.map { |x| x[:model].info_request }
     expect(actual).to match_array(InfoRequest.where(conditions))
   end
 
@@ -37,14 +37,14 @@ describe PublicBodyController, "when showing a body" do
     get :show, params: { :url_name => "tgq", :view => 'successful' }
     conditions = { :described_state => 'successful',
                    :public_body_id => public_bodies(:geraldine_public_body).id }
-    actual = assigns[:xapian_requests].results.map{ |x| x[:model].info_request }
+    actual = assigns[:xapian_requests].results.map { |x| x[:model].info_request }
     expect(actual).to match_array(InfoRequest.where(conditions))
   end
 
   it "should assign the requests (3)" do
     get :show, params: { :url_name => "dfh", :view => 'all' }
     conditions = { :public_body_id => public_bodies(:humpadink_public_body).id }
-    actual = assigns[:xapian_requests].results.map{ |x| x[:model].info_request }
+    actual = assigns[:xapian_requests].results.map { |x| x[:model].info_request }
     expect(actual).to match_array(InfoRequest.where(conditions))
   end
 
@@ -422,7 +422,7 @@ describe PublicBodyController, "when asked to export public bodies as CSV" do
   it "only includes visible bodies" do
     get :list_all_csv
     all_data = CSV.parse(response.body)
-    expect(all_data.any?{ |row| row.include?('Internal admin authority') }).to be false
+    expect(all_data.any? { |row| row.include?('Internal admin authority') }).to be false
   end
 
   it "does not include site_administration bodies" do
@@ -433,7 +433,7 @@ describe PublicBodyController, "when asked to export public bodies as CSV" do
     get :list_all_csv
 
     all_data = CSV.parse(response.body)
-    expect(all_data.any?{ |row| row.include?('Site Admin Body') }).to be false
+    expect(all_data.any? { |row| row.include?('Site Admin Body') }).to be false
   end
 
 end

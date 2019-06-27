@@ -14,7 +14,7 @@ describe HelpController do
   end
 
   describe 'GET #unhappy' do
-    let(:info_request){ FactoryBot.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
 
     it 'shows the unhappy template' do
       get :unhappy
@@ -127,7 +127,7 @@ describe HelpController do
     end
 
     context 'when a last_request_id cookie is set' do
-      let(:info_request){ FactoryBot.create(:info_request) }
+      let(:info_request) { FactoryBot.create(:info_request) }
 
       context "when the user can access the specified request" do
         it 'assigns @last_request' do
@@ -156,7 +156,7 @@ describe HelpController do
     end
 
     context 'when a last_body_id cookie is set' do
-      let(:body){ FactoryBot.create(:public_body) }
+      let(:body) { FactoryBot.create(:public_body) }
 
       it 'assigns @last_body' do
         request.cookies["last_body_id"] = body.id

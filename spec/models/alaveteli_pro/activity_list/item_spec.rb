@@ -5,7 +5,7 @@ describe AlaveteliPro::ActivityList::Item do
 
   describe '.new' do
     it 'requires an event argument' do
-      expect{ described_class.new }.to raise_error(ArgumentError)
+      expect { described_class.new }.to raise_error(ArgumentError)
     end
 
     it 'assigns the event argument' do

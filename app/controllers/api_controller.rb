@@ -209,7 +209,8 @@ class ApiController < ApplicationController
         since_date = Date.strptime(since_date_str, "%Y-%m-%d")
       rescue ArgumentError
         render :json => {"errors" => [
-        "Parameter since_date must be in format yyyy-mm-dd (not '#{since_date_str}')" ] },
+          "Parameter since_date must be in format yyyy-mm-dd (not '#{since_date_str}')"
+        ] },
           :status => 500
         return
       end
@@ -223,7 +224,8 @@ class ApiController < ApplicationController
         event = InfoRequestEvent.find(since_event_id)
       rescue ActiveRecord::RecordNotFound
         render :json => {"errors" => [
-        "Event ID #{since_event_id} not found" ] },
+          "Event ID #{since_event_id} not found"
+        ] },
           :status => 500
         return
       end

@@ -433,7 +433,7 @@ class User < ApplicationRecord
   end
 
   def can_admin_roles
-    roles.flat_map{ |role| Role.grants_and_revokes(role.name.to_sym) }.compact.uniq
+    roles.flat_map { |role| Role.grants_and_revokes(role.name.to_sym) }.compact.uniq
   end
 
   def can_admin_role?(role)

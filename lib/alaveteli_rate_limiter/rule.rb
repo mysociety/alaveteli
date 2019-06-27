@@ -38,7 +38,7 @@ module AlaveteliRateLimiter
     def ==(other)
       name == other.name &&
         count == other.count &&
-          window == other.window
+        window == other.window
     end
 
     # Public: Are there more records in the Window than the Rule allows?

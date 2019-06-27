@@ -4,9 +4,9 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe AdminRequestController, "when administering requests" do
 
   describe 'GET #index' do
-    let(:info_request){ FactoryBot.create(:info_request) }
-    let(:admin_user){ FactoryBot.create(:admin_user) }
-    let(:pro_admin_user){ FactoryBot.create(:pro_admin_user) }
+    let(:info_request) { FactoryBot.create(:info_request) }
+    let(:admin_user) { FactoryBot.create(:admin_user) }
+    let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
 
     it "is successful" do
       get :index, session: { :user_id => admin_user.id }
@@ -48,9 +48,9 @@ describe AdminRequestController, "when administering requests" do
     end
 
     context 'when passed a query' do
-      let!(:dog_request){ FactoryBot.create(:info_request,
+      let!(:dog_request) { FactoryBot.create(:info_request,
                                             :title => 'A dog request') }
-      let!(:cat_request){ FactoryBot.create(:info_request,
+      let!(:cat_request) { FactoryBot.create(:info_request,
                                             :title => 'A cat request') }
 
       it 'assigns info requests with titles matching the query to the view
@@ -96,10 +96,10 @@ describe AdminRequestController, "when administering requests" do
   end
 
   describe 'GET #show' do
-    let(:info_request){ FactoryBot.create(:info_request) }
-    let(:external_request){ FactoryBot.create(:external_request) }
-    let(:admin_user){ FactoryBot.create(:admin_user) }
-    let(:pro_admin_user){ FactoryBot.create(:pro_admin_user) }
+    let(:info_request) { FactoryBot.create(:info_request) }
+    let(:external_request) { FactoryBot.create(:external_request) }
+    let(:admin_user) { FactoryBot.create(:admin_user) }
+    let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
 
     render_views
 
@@ -153,7 +153,7 @@ describe AdminRequestController, "when administering requests" do
   end
 
   describe 'GET #edit' do
-    let(:info_request){ FactoryBot.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
 
     it "is successful" do
       get :edit, params: { :id => info_request }
@@ -163,7 +163,7 @@ describe AdminRequestController, "when administering requests" do
   end
 
   describe 'PUT #update' do
-    let(:info_request){ FactoryBot.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
 
     it "saves edits to a request" do
       post :update, params: {
@@ -202,7 +202,7 @@ describe AdminRequestController, "when administering requests" do
   end
 
   describe 'DELETE #destroy' do
-    let(:info_request){ FactoryBot.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
 
     it 'calls destroy on the info_request object' do
       allow(InfoRequest).to receive(:find).
@@ -228,7 +228,7 @@ describe AdminRequestController, "when administering requests" do
   end
 
   describe 'POST #hide' do
-    let(:info_request){ FactoryBot.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
 
     it "hides requests and sends a notification email that it has done so" do
       post :hide, params: {

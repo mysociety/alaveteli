@@ -89,7 +89,7 @@ describe User, "showing the name" do
     expect(@user.name).to eq('Some Name')
   end
 
-  describe  'if user has been banned' do
+  describe 'if user has been banned' do
 
     before do
       @user.ban_text = "Naughty user"
@@ -343,7 +343,7 @@ describe User, 'when saving' do
     @user.save!
   end
 
-  it 'should mark the model for reindexing in xapian if the no_xapian_reindex flag is not set'  do
+  it 'should mark the model for reindexing in xapian if the no_xapian_reindex flag is not set' do
     @user.name = 'Mr. Second'
     @user.password = 'insecurepassword'
     @user.email = 'reasonable@localhost'
@@ -1147,37 +1147,37 @@ describe User do
     end
 
     it 'should anonymise user name' do
-      expect{ user.close_and_anonymise }.
+      expect { user.close_and_anonymise }.
         to change(user, :name).to('[Name Removed] (Account suspended)')
     end
 
     it 'should anonymise user email' do
-      expect{ user.close_and_anonymise }.
+      expect { user.close_and_anonymise }.
         to change(user, :email).to('1234@invalid')
     end
 
     it 'should anonymise user url_name' do
-      expect{ user.close_and_anonymise }.
+      expect { user.close_and_anonymise }.
         to change(user, :url_name).to('1234')
     end
 
     it 'should anonymise user about_me' do
-      expect{ user.close_and_anonymise }.
+      expect { user.close_and_anonymise }.
         to change(user, :about_me).to('')
     end
 
     it 'should anonymise user password' do
-      expect{ user.close_and_anonymise }.
+      expect { user.close_and_anonymise }.
         to change(user, :password).to('ABCD')
     end
 
     it 'should set user to not receive email alerts' do
-      expect{ user.close_and_anonymise }.
+      expect { user.close_and_anonymise }.
         to change(user, :receive_email_alerts?).to(false)
     end
 
     it 'should set user to be closed' do
-      expect{ user.close_and_anonymise }.
+      expect { user.close_and_anonymise }.
         to change(user, :closed?).to(true)
     end
 
@@ -1450,8 +1450,8 @@ describe User do
   end
 
   describe '#can_admin_role?' do
-    let(:admin_user){ FactoryBot.create(:admin_user) }
-    let(:pro_user){ FactoryBot.create(:pro_user) }
+    let(:admin_user) { FactoryBot.create(:admin_user) }
+    let(:pro_user) { FactoryBot.create(:pro_user) }
 
     it 'returns true for an admin user and the admin role' do
       expect(admin_user.can_admin_role?(:admin))

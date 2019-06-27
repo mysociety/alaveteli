@@ -84,7 +84,7 @@ module MailHandler
                          :timeout => 1200 }
       if content_type == 'application/vnd.ms-word'
         AlaveteliExternalCommand.run("wvText", tempfile.path, tempfile.path + ".txt",
-                                     { :memory_limit => 536870912,  :timeout => 120 } )
+                                     { :memory_limit => 536870912, :timeout => 120 } )
         # Try catdoc if we get into trouble (e.g. for InfoRequestEvent 2701)
         if not File.exists?(tempfile.path + ".txt")
           AlaveteliExternalCommand.run("catdoc", tempfile.path, default_params)
@@ -127,7 +127,7 @@ module MailHandler
                                            {:binary_output => false})
         if !xml.nil?
           doc = REXML::Document.new(xml)
-          text += doc.each_element( './/text()' ){}.join(" ")
+          text += doc.each_element( './/text()' ) {}.join(" ")
         end
       elsif content_type == 'application/zip'
         # recurse into zip files

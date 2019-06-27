@@ -188,7 +188,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       end
 
       it 'sends an exception email' do
-        expected  = 'AlaveteliPro::StripeWebhooksController::' \
+        expected = 'AlaveteliPro::StripeWebhooksController::' \
                     'MissingTypeStripeWebhookError'
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to include(expected)

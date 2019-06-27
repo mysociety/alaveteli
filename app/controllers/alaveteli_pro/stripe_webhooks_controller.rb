@@ -1,9 +1,9 @@
 # -*- encoding : utf-8 -*-
 # Does not inherit from AlaveteliPro::BaseController because it doesn't need to
 class AlaveteliPro::StripeWebhooksController < ApplicationController
-  class UnhandledStripeWebhookError < StandardError ; end
-  class MissingTypeStripeWebhookError < StandardError ; end
-  class UnknownPlanStripeWebhookError < StandardError ; end
+  class UnhandledStripeWebhookError < StandardError; end
+  class MissingTypeStripeWebhookError < StandardError; end
+  class UnknownPlanStripeWebhookError < StandardError; end
 
   rescue_from JSON::ParserError, MissingTypeStripeWebhookError do |exception|
     # Invalid payload, reject the webhook

@@ -108,7 +108,7 @@ RSpec.describe Notification do
       FactoryBot.create(:notification,
                         info_request_event: embargo_expiring_event)
     end
-    let(:notifications) { [notification, expired_notification]}
+    let(:notifications) { [notification, expired_notification] }
 
     context "when no notifications are expired" do
       it "returns the original list" do

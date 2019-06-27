@@ -161,7 +161,7 @@ describe "When administering the site" do
 
         url = confirm_url(PostRedirect.last.email_token)
 
-        message = "Send \"#{authority_name}\" <#{authority_email}> "
+        message = "Send \"#{authority_name}\" <#{authority_email}> " \
                   "this URL: #{url} - it will log them in and let " \
                   "them upload a response to this request."
 

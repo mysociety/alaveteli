@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class AddStatsDenominator <  ActiveRecord::Migration[4.2] # 3.2
+class AddStatsDenominator < ActiveRecord::Migration[4.2] # 3.2
   def up
     add_column :public_bodies, :info_requests_visible_classified_count, :integer
     PublicBody.connection.execute("UPDATE public_bodies

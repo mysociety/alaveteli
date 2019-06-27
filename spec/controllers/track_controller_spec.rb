@@ -110,7 +110,8 @@ describe TrackController do
         expect(assigns[:xapian_object].results[2][:model])
           .to eq(info_request_events(:useless_outgoing_message_event))
       end
-          it "should get JSON version of the feed" do
+
+      it "should get JSON version of the feed" do
         track_thing = track_things(:track_fancy_dog_request)
 
         get :track_request, params: {

@@ -34,8 +34,8 @@ describe AlaveteliPro::EmbargoMailer do
       AlaveteliPro::EmbargoMailer.alert_expiring
       mails = ActionMailer::Base.deliveries
       expect(mails.size).to eq 2
-      first_mail = mails.detect{ |mail| mail.to == [pro_user.email] }
-      second_mail = mails.detect{ |mail| mail.to == [pro_user_2.email] }
+      first_mail = mails.detect { |mail| mail.to == [pro_user.email] }
+      second_mail = mails.detect { |mail| mail.to == [pro_user_2.email] }
       expect(first_mail).not_to be nil
       expect(second_mail).not_to be nil
     end
@@ -58,7 +58,7 @@ describe AlaveteliPro::EmbargoMailer do
       time_travel_to(AlaveteliPro::Embargo.three_months_from_now - 3.days) do
         AlaveteliPro::EmbargoMailer.alert_expiring
         mails = ActionMailer::Base.deliveries
-        expect(mails.detect{ |mail| mail.to == [pro_user_2.email] }).
+        expect(mails.detect { |mail| mail.to == [pro_user_2.email] }).
           not_to be_nil
       end
     end
@@ -104,7 +104,7 @@ describe AlaveteliPro::EmbargoMailer do
       AlaveteliPro::EmbargoMailer.alert_expiring
 
       mails = ActionMailer::Base.deliveries
-      mail = mails.detect{ |mail| mail.to == [pro_user_3.email] }
+      mail = mails.detect { |mail| mail.to == [pro_user_3.email] }
       expect(mail).to be nil
     end
   end
@@ -169,8 +169,8 @@ describe AlaveteliPro::EmbargoMailer do
       AlaveteliPro::EmbargoMailer.alert_expired
       mails = ActionMailer::Base.deliveries
       expect(mails.size).to eq 2
-      first_mail = mails.detect{ |mail| mail.to == [pro_user.email] }
-      second_mail = mails.detect{ |mail| mail.to == [pro_user_2.email] }
+      first_mail = mails.detect { |mail| mail.to == [pro_user.email] }
+      second_mail = mails.detect { |mail| mail.to == [pro_user_2.email] }
       expect(first_mail).not_to be nil
       expect(second_mail).not_to be nil
     end
@@ -229,7 +229,7 @@ describe AlaveteliPro::EmbargoMailer do
       AlaveteliPro::EmbargoMailer.alert_expired
 
       mails = ActionMailer::Base.deliveries
-      mail = mails.detect{ |mail| mail.to == [pro_user_3.email] }
+      mail = mails.detect { |mail| mail.to == [pro_user_3.email] }
       expect(mail).to be nil
     end
   end

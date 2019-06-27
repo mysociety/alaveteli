@@ -127,7 +127,7 @@ describe AlaveteliTextMasker do
       it 'keeps the uncensored original if uncompression of a PDF fails' do
         orig_pdf = load_file_fixture('tfl.pdf')
         pdf = orig_pdf.dup
-        allow(class_instance).to receive(:uncompress_pdf){ nil }
+        allow(class_instance).to receive(:uncompress_pdf) { nil }
         result = class_instance.apply_masks(pdf, "application/pdf")
         expect(result).to eq(orig_pdf)
       end
@@ -135,8 +135,8 @@ describe AlaveteliTextMasker do
       it 'uses the uncompressed PDF text if re-compression of a compressed PDF fails' do
         orig_pdf = load_file_fixture('tfl.pdf')
         pdf = orig_pdf.dup
-        allow(class_instance).to receive(:uncompress_pdf){ "something about foi@tfl.gov.uk" }
-        allow(class_instance).to receive(:compress_pdf){ nil }
+        allow(class_instance).to receive(:uncompress_pdf) { "something about foi@tfl.gov.uk" }
+        allow(class_instance).to receive(:compress_pdf) { nil }
         result = class_instance.apply_masks(pdf, "application/pdf")
         expect(result).to match "something about xxx@xxx.xxx.xx"
       end

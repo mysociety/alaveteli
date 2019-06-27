@@ -14,11 +14,11 @@ module AlaveteliPro
 
       # Calculate the phase totals from the request_summary_categories
       raw_counts =
-       request_summaries.
-         joins(:request_summary_categories).
-         references(:request_summary_categories).
-         group("request_summary_categories.slug").
-         count("request_summary_categories.id")
+        request_summaries.
+          joins(:request_summary_categories).
+          references(:request_summary_categories).
+          group("request_summary_categories.slug").
+          count("request_summary_categories.id")
       raw_counts['not_drafts'] = request_summaries.not_category(:draft).count
 
       @phase_counts =

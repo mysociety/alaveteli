@@ -16,7 +16,7 @@ describe ApplicationMailer do
     def add_mail_methods(method_names)
       @previous_layout = ApplicationMailer._layout.dup
       ApplicationMailer.send(:layout, nil)
-      method_names.each{ |method_name| ApplicationMailer.send(:define_method, method_name){ mail } }
+      method_names.each { |method_name| ApplicationMailer.send(:define_method, method_name) { mail } }
     end
 
     def remove_mail_methods(method_names)
@@ -82,7 +82,7 @@ describe ApplicationMailer do
           neither core nor theme' do
         prepend_theme_views('theme_one')
         @mail = ApplicationMailer.neither
-        expect{ @mail.body }.to raise_error(ActionView::MissingTemplate)
+        expect { @mail.body }.to raise_error(ActionView::MissingTemplate)
       end
 
       it 'should render a multipart email using a theme template' do
@@ -129,7 +129,7 @@ describe ApplicationMailer do
           neither core nor theme' do
         append_theme_views('theme_one')
         @mail = ApplicationMailer.neither
-        expect{ @mail.body }.to raise_error(ActionView::MissingTemplate)
+        expect { @mail.body }.to raise_error(ActionView::MissingTemplate)
       end
 
       it 'should render a multipart email using a core template' do

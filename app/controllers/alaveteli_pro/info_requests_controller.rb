@@ -77,7 +77,7 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
 
   def all_models_valid?
     @info_request.valid? && @outgoing_message.valid? && \
-    (@embargo.nil? || @embargo.present? && @embargo.valid?)
+      (@embargo.nil? || @embargo.present? && @embargo.valid?)
   end
 
   def set_draft

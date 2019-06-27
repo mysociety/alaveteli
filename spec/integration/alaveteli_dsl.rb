@@ -163,7 +163,7 @@ def cache_directories_exist?(request)
   AlaveteliLocalization.available_locales.each do |locale|
     paths << File.join(cache_path, locale, 'request', request.request_dirs)
   end
-  paths.any?{ |path| File.exist?(path) }
+  paths.any? { |path| File.exist?(path) }
 end
 
 def with_forgery_protection

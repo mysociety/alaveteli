@@ -221,7 +221,7 @@ describe RawEmail do
     it 'should only delete the directory if it exists' do
       expect(File).to receive(:delete).once.and_call_original
       raw_email.destroy_file_representation!
-      expect{ raw_email.destroy_file_representation! }.not_to raise_error
+      expect { raw_email.destroy_file_representation! }.not_to raise_error
     end
 
   end
