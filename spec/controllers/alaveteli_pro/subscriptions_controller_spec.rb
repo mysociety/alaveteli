@@ -549,7 +549,11 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
     context 'user has no Stripe id' do
 
-      let(:user) { FactoryBot.create(:pro_user) }
+      let(:user) do
+        user = FactoryBot.create(:pro_user)
+        user.pro_account.update(stripe_customer_id: nil)
+        user
+      end
 
       before do
         session[:user_id] = user.id
@@ -677,9 +681,14 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
     context 'user has no Stripe id' do
 
-      let(:user) { FactoryBot.create(:pro_user) }
+      let(:user) do
+        user = FactoryBot.create(:pro_user)
+        user.pro_account.update(stripe_customer_id: nil)
+        user
+      end
 
       before do
+        user.pro_account.update(stripe_customer_id: nil)
         session[:user_id] = user.id
       end
 
