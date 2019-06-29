@@ -418,6 +418,11 @@ class RequestController < ApplicationController
         @outgoing_message.record_email_failure(
           e.message
         )
+
+        flash[:error] = _("An error occurred while sending your request to " \
+                          "{{authority_name}} but has been saved and flagged " \
+                          "for administrator attention.",
+                          authority_name: @info_request.public_body.name)
       else
         @outgoing_message.record_email_delivery(
           mail_message.to_addrs.join(', '),
