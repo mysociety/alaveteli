@@ -132,9 +132,9 @@ describe AdminUserController do
   end
 
   describe 'GET #show' do
-    let(:info_request){ FactoryBot.create(:info_request) }
-    let(:admin_user){ FactoryBot.create(:admin_user) }
-    let(:pro_admin_user){ FactoryBot.create(:pro_admin_user) }
+    let(:info_request) { FactoryBot.create(:info_request) }
+    let(:admin_user) { FactoryBot.create(:admin_user) }
+    let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
 
     it "is successful" do
       get :show, params: { :id => FactoryBot.create(:user) },
@@ -230,7 +230,7 @@ describe AdminUserController do
 
   describe "POST #update" do
 
-    let(:admin_user){ FactoryBot.create(:admin_user) }
+    let(:admin_user) { FactoryBot.create(:admin_user) }
 
     before do
       allow(AlaveteliConfiguration).to receive(:skip_admin_auth).and_return(false)

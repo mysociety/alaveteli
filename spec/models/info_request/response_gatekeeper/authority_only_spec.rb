@@ -13,7 +13,7 @@ describe InfoRequest::ResponseGatekeeper::AuthorityOnly do
 
     it 'requires an email' do
       gatekeeper = described_class.new(FactoryBot.build(:info_request))
-      expect{ gatekeeper.allow? }.to raise_error(ArgumentError)
+      expect { gatekeeper.allow? }.to raise_error(ArgumentError)
     end
 
     context 'if the email has no From address' do

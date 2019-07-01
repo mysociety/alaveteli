@@ -35,8 +35,8 @@ module ApplicationHelper
   # Copied from error_messages_for in active_record_helper.rb
   def foi_error_messages_for(*params)
     options = params.last.is_a?(Hash) ? params.pop.symbolize_keys : {}
-    objects = params.collect {|object_name| instance_variable_get("@#{object_name}") }.compact
-    count   = objects.inject(0) {|sum, object| sum + object.errors.count }
+    objects = params.collect { |object_name| instance_variable_get("@#{object_name}") }.compact
+    count   = objects.inject(0) { |sum, object| sum + object.errors.count }
     unless count.zero?
       html = {}
       [:id, :class].each do |key|
@@ -146,7 +146,7 @@ module ApplicationHelper
   # views
   def request_list_cache_key
     cacheable_param_list = ['controller', 'action', 'locale', 'view']
-    if params.keys.all?{ |key| cacheable_param_list.include?(key) }
+    if params.keys.all? { |key| cacheable_param_list.include?(key) }
       "request-list-#{@view}-#{@locale}"
     else
       nil

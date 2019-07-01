@@ -74,12 +74,12 @@ describe MailServerLog::DeliveryStatus do
        :sent].map { |s| described_class.new(s) }
      end
 
-     let(:sorted) do
-       [:unknown,
-        :failed,
-        :sent,
-        :delivered]
-     end
+    let(:sorted) do
+      [:unknown,
+       :failed,
+       :sent,
+       :delivered]
+    end
 
     it { expect(statuses.sort.map(&:to_sym)).to eq(sorted) }
     it { expect(statuses.sort { |a,b| b <=> a }.map(&:to_sym)).to eq(sorted.reverse) }

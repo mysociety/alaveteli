@@ -292,7 +292,7 @@ describe "creating batch requests in alaveteli_pro" do
   it "supplies a default embargo when creating a new batch request" do
     using_pro_session(pro_user_session) do
       start_batch_request
-       expect(page).to have_select("Privacy", selected: "3 Months")
+      expect(page).to have_select("Privacy", selected: "3 Months")
     end
   end
 

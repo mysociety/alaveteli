@@ -4,10 +4,10 @@ require 'spec_helper'
 describe AlaveteliPro::ActivityList::Comment do
   include Rails.application.routes.url_helpers
 
-  let!(:user){ FactoryBot.create(:user) }
-  let!(:comment){ FactoryBot.create(:comment, :user => user) }
-  let!(:event){ FactoryBot.create(:comment_event, :comment => comment) }
-  let!(:activity){ described_class.new(event) }
+  let!(:user) { FactoryBot.create(:user) }
+  let!(:comment) { FactoryBot.create(:comment, :user => user) }
+  let!(:event) { FactoryBot.create(:comment_event, :comment => comment) }
+  let!(:activity) { described_class.new(event) }
 
   describe '#description' do
 

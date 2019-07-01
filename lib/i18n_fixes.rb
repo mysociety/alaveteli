@@ -52,7 +52,7 @@ end
 module GettextI18nRails
   class Backend
     def available_locales
-      FastGettext.available_locales.map{|l| l.to_sym} || []
+      FastGettext.available_locales.map { |l| l.to_sym } || []
     end
   end
 end

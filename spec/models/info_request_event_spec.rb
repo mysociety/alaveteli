@@ -498,7 +498,7 @@ describe InfoRequestEvent do
   end
 
   describe '#destroy' do
-    let (:info_request) { FactoryBot.create(:info_request)}
+    let (:info_request) { FactoryBot.create(:info_request) }
     let (:event) { InfoRequestEvent.create(:info_request => info_request,
                                            :event_type => 'sent',
                                            :params => {})

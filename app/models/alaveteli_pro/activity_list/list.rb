@@ -22,7 +22,7 @@ module AlaveteliPro
       def current_items
         current_events = events.paginate :page => page,
                                          :per_page => per_page
-        current_events.map{ |event| activity_types[event.event_type].new(event) }
+        current_events.map { |event| activity_types[event.event_type].new(event) }
       end
 
       private

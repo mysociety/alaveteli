@@ -106,7 +106,7 @@ class UserSpamScorer
 
     define_singleton_method key do
       value = instance_variable_get("@#{ key }") ||
-        const_get("DEFAULT_#{ key }".upcase)
+              const_get("DEFAULT_#{ key }".upcase)
       instance_variable_set("@#{ key }", value)
     end
   end

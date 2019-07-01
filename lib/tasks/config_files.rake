@@ -25,7 +25,7 @@ namespace :config_files do
   def daemons(only_active = false)
     daemons = [ 'alert-tracks', 'send-notifications' ]
     if AlaveteliConfiguration.production_mailer_retriever_method == 'pop' ||
-      !only_active
+       !only_active
       daemons << 'poll-for-incoming'
     end
     daemons

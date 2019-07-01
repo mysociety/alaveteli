@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class CreateDraftInfoRequests <  ActiveRecord::Migration[4.2] # 3.2
+class CreateDraftInfoRequests < ActiveRecord::Migration[4.2] # 3.2
   def change
     create_table :draft_info_requests do |t|
       t.string :title

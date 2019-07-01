@@ -11,7 +11,7 @@ describe InfoRequest::ResponseGatekeeper::Nobody do
   describe '.new' do
 
     it 'requires an info_request' do
-      expect{ described_class.new }.to raise_error(ArgumentError)
+      expect { described_class.new }.to raise_error(ArgumentError)
     end
 
     it 'assigns the info_request' do

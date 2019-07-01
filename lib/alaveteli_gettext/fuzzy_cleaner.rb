@@ -11,7 +11,7 @@ module AlaveteliGetText
             # one line msgstr
             if /^msgstr "(.+)"/.match(lines[index+1])
              lines[index+1] = "msgstr \"\""
-              lines.delete_at(index-1)
+             lines.delete_at(index-1)
             end
             # multiline msgstr
             if /^msgstr ""/.match(lines[index+1])

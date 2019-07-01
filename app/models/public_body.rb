@@ -28,7 +28,7 @@ require 'confidence_intervals'
 class PublicBody < ApplicationRecord
   include AdminColumn
 
-  class ImportCSVDryRun < StandardError ; end
+  class ImportCSVDryRun < StandardError; end
 
   @non_admin_columns = %w(name last_edit_comment)
 
@@ -166,7 +166,7 @@ class PublicBody < ApplicationRecord
     def copy_translated_attributes
       public_body.attributes.each do |name, value|
         if public_body.translated?(name) &&
-            !public_body.non_versioned_columns.include?(name)
+           !public_body.non_versioned_columns.include?(name)
           send("#{name}=", value)
         end
       end
@@ -185,7 +185,7 @@ class PublicBody < ApplicationRecord
         changes = []
       else
         v = self
-        changes = self.class.content_columns.inject([]) {|memo, c|
+        changes = self.class.content_columns.inject([]) { |memo, c|
           unless %w(version
                     last_edit_editor
                     last_edit_comment
@@ -476,13 +476,13 @@ class PublicBody < ApplicationRecord
 
           # Parse the first line as a field list if it starts with '#'
           if line==1 and row.first.to_s =~ /^#(.*)$/
-            row[0] = row[0][1..-1]  # Remove the # sign on first field
-            row.each_with_index {|field, i| field_names[field] = i}
+            row[0] = row[0][1..-1] # Remove the # sign on first field
+            row.each_with_index { |field, i| field_names[field] = i }
             next
           end
 
           fields = {}
-          field_names.each{ |name, i| fields[name] = row[i] }
+          field_names.each { |name, i| fields[name] = row[i] }
 
           yield line, fields if block_given?
 
@@ -577,7 +577,7 @@ class PublicBody < ApplicationRecord
       # Tags are a special case, as we support adding to the field,
       # not just setting a new value
       if field_name == 'tag_string'
-        new_tags = [value, options[:tag]].select{ |new_tag| !new_tag.blank? }
+        new_tags = [value, options[:tag]].select { |new_tag| !new_tag.blank? }
         if new_tags.empty?
           value = nil
         else
@@ -610,7 +610,7 @@ class PublicBody < ApplicationRecord
 
   def request_email
     if AlaveteliConfiguration.override_all_public_body_request_emails.blank? ||
-        read_attribute(:request_email).blank?
+       read_attribute(:request_email).blank?
       read_attribute(:request_email)
     else
       AlaveteliConfiguration.override_all_public_body_request_emails
@@ -692,8 +692,8 @@ class PublicBody < ApplicationRecord
     # sub-select to find the IDs of those public bodies.
     test_tagged_query = "SELECT model_id FROM has_tag_string_tags" \
       " WHERE model = 'PublicBody' AND name = 'test'"
-      "#{total_column} >= #{minimum_requests} " \
-      "AND id NOT IN (#{test_tagged_query})"
+    "#{total_column} >= #{minimum_requests} " \
+    "AND id NOT IN (#{test_tagged_query})"
   end
 
   # Return data for the 'n' public bodies with the highest (or
@@ -947,12 +947,12 @@ class PublicBody < ApplicationRecord
     result = "(upper(#{table}.name) LIKE upper(:query)" \
       " OR upper(#{table}.notes) LIKE upper(:query)" \
         " OR upper(#{table}.short_name) LIKE upper(:query))"
-        if has_first_letter
-          result += " AND #{table}.first_letter = :first_letter"
-        end
-        if locale
-          result += " AND #{table}.locale = :locale"
-        end
-        result
+    if has_first_letter
+      result += " AND #{table}.first_letter = :first_letter"
+    end
+    if locale
+      result += " AND #{table}.locale = :locale"
+    end
+    result
   end
 end

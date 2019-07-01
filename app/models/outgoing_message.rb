@@ -402,13 +402,13 @@ class OutgoingMessage < ApplicationRecord
   def replying_to_incoming_message?
     message_type == 'followup' &&
       incoming_message_followup &&
-        incoming_message_followup.safe_mail_from &&
-          incoming_message_followup.valid_to_reply_to?
+      incoming_message_followup.safe_mail_from &&
+      incoming_message_followup.valid_to_reply_to?
   end
 
   def template_changed
     if raw_body.empty? || HTMLEntities.new.decode(raw_body) =~
-     /\A#{template_regex(letter_template.body(default_message_replacements))}/
+                          /\A#{template_regex(letter_template.body(default_message_replacements))}/
       if message_type == 'followup'
         if what_doing == 'internal_review'
           errors.add(:body, _("Please give details explaining why you want a review"))

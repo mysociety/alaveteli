@@ -75,7 +75,7 @@ describe FollowupsController do
       expected_reason = "To send a follow up message to #{request.public_body.name}"
       get :new, params: { :request_id => request.id,
                           :incoming_message_id => message_id }
-       expect(get_last_post_redirect.reason_params[:web]).to eq(expected_reason)
+      expect(get_last_post_redirect.reason_params[:web]).to eq(expected_reason)
     end
 
     it "calls the message a reply if there is no incoming message" do

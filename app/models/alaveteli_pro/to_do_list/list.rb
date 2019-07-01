@@ -10,11 +10,11 @@ module AlaveteliPro
       end
 
       def items
-        self.class.item_types.map{ |item_type| item_type.new(user) }
+        self.class.item_types.map { |item_type| item_type.new(user) }
       end
 
       def active_items
-        items.select{ |item| item.count > 0 }
+        items.select { |item| item.count > 0 }
       end
 
       private

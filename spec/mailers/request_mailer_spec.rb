@@ -320,7 +320,7 @@ describe RequestMailer do
       old_request.save!
       expected_message = "internal error, no last response while making alert " \
                          "new response reminder, request id #{old_request.id}"
-      expect{ send_alerts }.to raise_error(expected_message)
+      expect { send_alerts }.to raise_error(expected_message)
     end
 
     context 'if the request is embargoed' do
@@ -600,7 +600,7 @@ describe RequestMailer do
     end
 
     def kitten_mails
-      ActionMailer::Base.deliveries.select{ |mail| mail.body =~ /kitten/ }
+      ActionMailer::Base.deliveries.select { |mail| mail.body =~ /kitten/ }
     end
 
     it 'should not create HTML entities in the subject line' do

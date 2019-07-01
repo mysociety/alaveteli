@@ -54,7 +54,7 @@ class TrackController < ApplicationController
     @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
     raise ActiveRecord::RecordNotFound.new("None found") if @public_body.nil?
     # If found by historic name, or alternate locale name, redirect to new name
-    if  @public_body.url_name != params[:url_name]
+    if @public_body.url_name != params[:url_name]
       redirect_to track_public_body_url(:url_name => @public_body.url_name, :feed => params[:feed], :event_type => params[:event_type])
       return
     end
@@ -148,7 +148,7 @@ class TrackController < ApplicationController
       return true
     else
       # this will most likely be tripped by a single error - probably track_query length
-      flash[:error] = @track_thing.errors.map{ |_, msg| msg }.join(", ")
+      flash[:error] = @track_thing.errors.map { |_, msg| msg }.join(", ")
       return false
     end
   end

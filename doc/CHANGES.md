@@ -1,3 +1,10 @@
+# develop
+
+## Highlighted Features
+
+* Fixed bug where expiring embargoes were not fully removed from batches when
+  the related requests reached the publication data (Liz Conlan)
+
 # 0.34.0.0
 
 ## Highlighted Features

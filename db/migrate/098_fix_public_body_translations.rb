@@ -8,7 +8,7 @@
 # Note that the "update ... from" syntax is a Postgres
 # extension to SQL.
 
-class FixPublicBodyTranslations <  ActiveRecord::Migration[4.2] # 2.3
+class FixPublicBodyTranslations < ActiveRecord::Migration[4.2] # 2.3
   def self.up
     execute <<-SQL
     update public_body_translations

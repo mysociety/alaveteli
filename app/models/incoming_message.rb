@@ -83,7 +83,7 @@ class IncomingMessage < ApplicationRecord
   # Given that there are in theory many info request events, a convenience method for
   # getting the response event
   def response_event
-    self.info_request_events.detect{ |e| e.event_type == 'response' }
+    self.info_request_events.detect { |e| e.event_type == 'response' }
   end
 
   def parse_raw_email!(force = nil)
@@ -565,7 +565,7 @@ class IncomingMessage < ApplicationRecord
       end
     end
 
-    attachment_ids = attachments.map{ |attachment| attachment.id }
+    attachment_ids = attachments.map { |attachment| attachment.id }
     # now get rid of any attachments we no longer have
     FoiAttachment.
       where(
@@ -662,7 +662,7 @@ class IncomingMessage < ApplicationRecord
 
   def _extract_text
     # Extract text from each attachment
-    self.get_attachments_for_display.reduce(''){ |memo, attachment|
+    self.get_attachments_for_display.reduce('') { |memo, attachment|
       memo += MailHandler.get_attachment_text_one_file(attachment.content_type,
                                                        attachment.default_body,
                                                        attachment.charset)

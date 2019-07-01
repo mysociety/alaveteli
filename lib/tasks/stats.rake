@@ -134,7 +134,7 @@ namespace :stats do
       puts "Bodies with tag '#{tag}': #{tag_bodies.size}"
       public_bodies += tag_bodies
     end
-    public_body_ids = public_bodies.map{ |body| body.id }.uniq
+    public_body_ids = public_bodies.map { |body| body.id }.uniq
     public_body_condition_string = 'AND public_bodies.id in (?)'
     month_starts = (Date.new(start_year, start_month)..Date.new(end_year, end_month)).select { |d| d.day == 1 }
     headers = ['Period',

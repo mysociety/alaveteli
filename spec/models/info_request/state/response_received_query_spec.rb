@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../../../spec_helper')
 describe InfoRequest::State::ResponseReceivedQuery do
 
   describe '#call' do
-    let(:info_request){ FactoryBot.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
 
     it 'includes those that are waiting for description' do
       info_request.awaiting_description = true

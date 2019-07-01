@@ -140,8 +140,7 @@ class Comment < ApplicationRecord
   def report_reasons
     [_("Annotation contains defamatory material"),
      _("Annotation contains personal information"),
-     _("Vexatious annotation")
-    ]
+     _("Vexatious annotation")]
   end
 
   # Report this comment for administrator attention

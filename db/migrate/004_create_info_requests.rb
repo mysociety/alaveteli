@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class CreateInfoRequests <  ActiveRecord::Migration[4.2] # 1.2
+class CreateInfoRequests < ActiveRecord::Migration[4.2] # 1.2
   def self.up
     create_table :info_requests do |t|
       t.column :title,   :text

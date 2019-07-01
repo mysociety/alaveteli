@@ -31,7 +31,7 @@ describe ApplicationHelper do
   describe '#read_asset_file' do
 
     it "raises an Exception if it can't find the file" do
-      expect{ read_asset_file('nosuchfile.css') }.
+      expect { read_asset_file('nosuchfile.css') }.
         to raise_error(Sprockets::FileNotFound,
                        "Asset file 'nosuchfile.css' was not found in the " \
                        "assets directory")

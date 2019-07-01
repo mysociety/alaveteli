@@ -81,7 +81,7 @@ namespace :deploy do
     end
 
     # "ln -sf <a> <b>" creates a symbolic link but deletes <b> if it already exists
-    run links.map {|a| "ln -sf #{a.last} #{a.first}"}.join(";")
+    run links.map { |a| "ln -sf #{a.last} #{a.first}" }.join(";")
   end
 
   namespace :assets do

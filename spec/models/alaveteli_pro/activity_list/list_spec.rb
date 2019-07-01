@@ -5,7 +5,7 @@ describe AlaveteliPro::ActivityList::List do
 
   describe '.new' do
     it 'requires a user, page and per_page arguments' do
-      expect{ described_class.new }.to raise_error(ArgumentError)
+      expect { described_class.new }.to raise_error(ArgumentError)
     end
 
     it 'assigns the user, page and per_page arguments' do
@@ -19,7 +19,7 @@ describe AlaveteliPro::ActivityList::List do
   end
 
   describe '#event_types' do
-    let(:user){ FactoryBot.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     it 'returns an array' do
       expect(described_class.new(user, 1, 10).event_types.class).to eq Array

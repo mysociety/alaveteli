@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class CreateOutgoingMessages <  ActiveRecord::Migration[4.2] # 1.2
+class CreateOutgoingMessages < ActiveRecord::Migration[4.2] # 1.2
   def self.up
     create_table :outgoing_messages do |t|
       t.column :info_request_id, :integer

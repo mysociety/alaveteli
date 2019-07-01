@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class RemoveOldTagsForeignKey <  ActiveRecord::Migration[4.2] # 2.3
+class RemoveOldTagsForeignKey < ActiveRecord::Migration[4.2] # 2.3
   def self.up
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
       execute "ALTER TABLE has_tag_string_tags DROP CONSTRAINT fk_public_body_tags_public_body"

@@ -16,7 +16,7 @@ class StripEmptySessions
     if session_data
       if (session_data.keys - STRIPPABLE_KEYS).empty?
         if set_cookie.is_a? Array
-          set_cookie.reject! {|c| c.match(/^\n?#{@options[:key]}=/)}
+          set_cookie.reject! { |c| c.match(/^\n?#{@options[:key]}=/) }
         elsif set_cookie.is_a? String
           headers[HTTP_SET_COOKIE].gsub!( /(^|\n)#{@options[:key]}=.*?(\n|$)/, "" )
         end

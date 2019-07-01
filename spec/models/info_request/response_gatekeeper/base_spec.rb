@@ -6,7 +6,7 @@ describe InfoRequest::ResponseGatekeeper::Base do
   describe '.new' do
 
     it 'requires an info_request' do
-      expect{ described_class.new }.to raise_error(ArgumentError)
+      expect { described_class.new }.to raise_error(ArgumentError)
     end
 
     it 'assigns the info_request' do
@@ -43,7 +43,7 @@ describe InfoRequest::ResponseGatekeeper::Base do
 
     it 'requires an email' do
       gatekeeper = described_class.new(FactoryBot.build(:info_request))
-      expect{ gatekeeper.allow? }.to raise_error(ArgumentError)
+      expect { gatekeeper.allow? }.to raise_error(ArgumentError)
     end
 
     it 'allows all emails' do

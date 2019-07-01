@@ -51,7 +51,7 @@ module AlaveteliPro
     scope :expiring, -> { where("publish_at <= ?", expiring_soon_time) }
 
     def set_default_duration
-      self.embargo_duration  ||= "3_months"
+      self.embargo_duration ||= "3_months"
     end
 
     def allowed_durations
@@ -95,9 +95,14 @@ module AlaveteliPro
 
     def self.expire_publishable
       beginning_of_day = Time.zone.now.beginning_of_day
+
       where(['publish_at < ?', beginning_of_day]).find_each do |embargo|
         embargo.info_request.log_event('expire_embargo', {})
         embargo.destroy
+
+        if embargo.info_request.info_request_batch_id
+          embargo.info_request.info_request_batch.update(embargo_duration: nil)
+        end
       end
     end
 

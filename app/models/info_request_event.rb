@@ -120,8 +120,7 @@ class InfoRequestEvent < ApplicationRecord
                              [ :waiting_classification, 'W', "waiting_classification" ],
                              [ :filetype, 'T', "filetype" ],
                              [ :tags, 'U', "tag" ],
-                             [ :request_public_body_tags, 'X', "request_public_body_tag" ]
-                            ],
+                             [ :request_public_body_tags, 'X', "request_public_body_tag" ] ],
                  :if => :indexed_by_search?,
                  :eager_load => [ :outgoing_message, :comment, { :info_request => [ :user, :public_body, :censor_rules ] } ]
 
@@ -139,7 +138,7 @@ class InfoRequestEvent < ApplicationRecord
     # although it relies on a translated field in PublicBody. Hence, we need to
     # manually add all the localized values to the index (Xapian can handle a list
     # of values in a term, btw)
-    info_request.public_body.translations.map {|t| t.url_name}
+    info_request.public_body.translations.map { |t| t.url_name }
   end
 
   def commented_by
@@ -451,9 +450,9 @@ class InfoRequestEvent < ApplicationRecord
 
   def only_editing_prominence_to_hide?
     event_type == 'edit' &&
-    params_diff[:new].keys == [:prominence] &&
-    params_diff[:old][:prominence] == "normal" &&
-    %w(hidden requester_only backpage).include?(params_diff[:new][:prominence])
+      params_diff[:new].keys == [:prominence] &&
+      params_diff[:old][:prominence] == "normal" &&
+      %w(hidden requester_only backpage).include?(params_diff[:new][:prominence])
   end
 
   # This method updates the cached column of the InfoRequest that

@@ -88,8 +88,7 @@ namespace :export do
                 "track_things_count",
                 "request_classifications_count",
                 "public_body_change_requests_count",
-                "info_request_batches_count",
-                ],
+                "info_request_batches_count"],
                 override = {
                  "name" => DataExport.gender_lambda,
                 },
@@ -113,8 +112,7 @@ namespace :export do
                 "url_title",
                 "law_used",
                 "last_public_response_at",
-                "info_request_batch_id"
-               ])
+                "info_request_batch_id"])
 
     DataExport.csv_export(InfoRequestBatch,
                  to_run,
@@ -160,8 +158,7 @@ namespace :export do
                 "message_type",
                 "subject",
                 "last_sent_at",
-                "incoming_message_followup_id"
-               ],
+                "incoming_message_followup_id"],
                override = {
                  "body" => DataExport.name_censor_lambda('body'),
                })

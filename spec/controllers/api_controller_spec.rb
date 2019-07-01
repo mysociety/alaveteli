@@ -229,7 +229,8 @@ describe ApiController, "when using the API" do
       # And make sure it worked
       expect(response.status).to eq(500)
       expect(ActiveSupport::JSON.decode(response.body)['errors']).to eq([
-      "'random_string' is not a valid request state"])
+        "'random_string' is not a valid request state"
+      ])
 
       incoming_messages =
         IncomingMessage.where(:info_request_id => request_id)
@@ -256,7 +257,8 @@ describe ApiController, "when using the API" do
 
       expect(response.status).to eq(403)
       expect(ActiveSupport::JSON.decode(response.body)['errors']).to eq([
-      "Request #{request_id} cannot be updated using the API"])
+        "Request #{request_id} cannot be updated using the API"
+      ])
 
       expect(IncomingMessage.count).to eq(n_incoming_messages)
       expect(OutgoingMessage.count).to eq(n_outgoing_messages)
@@ -280,7 +282,8 @@ describe ApiController, "when using the API" do
 
       expect(response.status).to eq(403)
       expect(ActiveSupport::JSON.decode(response.body)['errors']).to eq([
-      "You do not own request #{request_id}"])
+        "You do not own request #{request_id}"
+      ])
 
       expect(IncomingMessage.count).to eq(n_incoming_messages)
       expect(OutgoingMessage.count).to eq(n_outgoing_messages)
@@ -530,7 +533,7 @@ describe ApiController, "when using the API" do
       assigns[:events].each do |event|
         expect(event.info_request.public_body).to eq(public_bodies(:geraldine_public_body))
         expect(event.outgoing_message).not_to be_nil
-        expect(event.event_type).to satisfy {|x| ['sent', 'followup_sent', 'resent', 'followup_resent'].include?(x)}
+        expect(event.event_type).to satisfy { |x| ['sent', 'followup_sent', 'resent', 'followup_resent'].include?(x) }
       end
 
       expect(assigns[:event_data].size).to eq(assigns[:events].size)
