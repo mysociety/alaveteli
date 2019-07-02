@@ -1412,10 +1412,6 @@ There are some database structure updates so remember to rake db:migrate
   httpd.conf-example` and `config/nginx.conf.example`).
 * Install the `geoip-database-contrib` package to automatically fetch latest
   geoip databases.
-* To make requests searchable based on their public body's tags you'll need to
-  reindex Xapian. To make this quicker you can selectively reindex just the
-  model and new term by running
-  `bundle exec rake xapian:rebuild_index models="InfoRequestEvent" terms="X"`
 * To update events to use the new 'hide' event type you need to run
   `rake temp:update_hide_event_type`
 * If you've added Javascript to overriden view templates, you should wrap it
