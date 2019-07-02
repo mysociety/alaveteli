@@ -5,6 +5,11 @@
 * Fixed bug where expiring embargoes were not fully removed from batches when
   the related requests reached the publication data (Liz Conlan)
 
+## Upgrade Notes
+
+* We no longer support PostgreSQL 9.3 or earlier. Please upgrade to 9.4 or above
+  before upgrading Alaveteli. See: https://www.postgresql.org/docs/9.4/release-9-4.html
+
 # 0.34.0.0
 
 ## Highlighted Features

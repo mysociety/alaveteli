@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 # Does not inherit from AlaveteliPro::BaseController because it doesn't need to
 class AlaveteliPro::StripeWebhooksController < ApplicationController
-  class UnhandledStripeWebhookError < StandardError; end
   class MissingTypeStripeWebhookError < StandardError; end
   class UnknownPlanStripeWebhookError < StandardError; end
 
@@ -24,19 +23,10 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
            status: 200
   end
 
-  rescue_from UnhandledStripeWebhookError do |exception|
-    # accept it so it doesn't get resent but notify us that we haven't handled
-    # it yet.
-    notify_exception(exception)
-    render json: { message: 'OK' }, status: 200
-  end
-
   before_action :read_event_notification, :check_for_event_type, :filter_hooks
 
   def receive
     case @stripe_event.type
-    when 'customer.subscription.updated'
-      customer_subscription_updated
     when 'customer.subscription.deleted'
       customer_subscription_deleted
     when 'invoice.payment_succeeded'
@@ -44,7 +34,7 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
     when 'invoice.payment_failed'
       invoice_payment_failed
     else
-      raise UnhandledStripeWebhookError.new(@stripe_event.type)
+      store_unhandled_webhook
     end
 
     # send a 200 ok to acknowlege receipt of the webhook
@@ -53,17 +43,6 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
   end
 
   private
-
-  def customer_subscription_updated
-    unless renewal?(@stripe_event.data[:previous_attributes])
-      raise UnhandledStripeWebhookError.new(@stripe_event.type)
-    end
-  end
-
-  def renewal?(previous_attributes)
-    previous_attributes.keys.to_set ==
-      %i(current_period_start current_period_end latest_invoice).to_set
-  end
 
   def customer_subscription_deleted
     account = pro_account_from_stripe_event(@stripe_event)
@@ -92,6 +71,10 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
     if account
       AlaveteliPro::SubscriptionMailer.payment_failed(account.user).deliver_now
     end
+  end
+
+  def store_unhandled_webhook
+    Webhook.create(params: @stripe_event.to_h)
   end
 
   def read_event_notification

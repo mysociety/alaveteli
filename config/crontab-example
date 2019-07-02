@@ -34,6 +34,7 @@ MAILTO=!!(*= $mailto *)!!
 2 4 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/check-recent-requests-sent.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/check-recent-requests-sent || echo "stalled?"
 45 3 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/stop-new-responses-on-old-requests.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/stop-new-responses-on-old-requests || echo "stalled?"
 55 4 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/update-public-body-stats.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/update-public-body-stats || echo "stalled?"
+0 6 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/send-webhook-digest.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/send-webhook-digest || echo "stalled?"
 
 # Once a day on all servers
 43 2 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/request-creation-graph
