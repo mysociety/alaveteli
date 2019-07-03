@@ -30,6 +30,19 @@ FactoryBot.define do
       info_request { outgoing_message.info_request }
     end
 
+    factory :failed_sent_request_event do
+      event_type 'send_error'
+      association :outgoing_message, factory: :initial_request
+      params_yaml "---\n:reason: Connection timed out"
+      info_request { outgoing_message.info_request.reload }
+
+      after(:create) do |evnt, evaluator|
+        evnt.params_yaml += "\noutgoing_message_id: #{evnt.outgoing_message.id}"
+        evnt.outgoing_message.status = 'failed'
+        evnt.info_request.described_state = 'error_message'
+      end
+    end
+
     factory :response_event do
       event_type 'response'
       incoming_message
@@ -46,6 +59,19 @@ FactoryBot.define do
       event_type 'followup_resent'
       association :outgoing_message, :factory => :new_information_followup
       info_request { outgoing_message.info_request }
+    end
+
+    factory :failed_sent_followup_event do
+      event_type 'send_error'
+      association :outgoing_message, factory: :new_information_followup
+      params_yaml "---\n:reason: Connection timed out"
+      info_request { outgoing_message.info_request.reload }
+
+      after(:create) do |evnt, evaluator|
+        evnt.params_yaml += "\noutgoing_message_id: #{evnt.outgoing_message.id}"
+        evnt.outgoing_message.status = 'failed'
+        evnt.info_request.described_state = 'error_message'
+      end
     end
 
     factory :comment_event do
