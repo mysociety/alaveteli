@@ -2,6 +2,9 @@
 
 ## Highlighted Features
 
+* Improve error handling when sending request-related emails (initial request
+  mails and followups) - failed messages are captured and a send_error event is
+  logged to make it easier for site admins to see what's happened (Nigel Jones)
 * Fixed bug where expiring embargoes were not fully removed from batches when
   the related requests reached the publication data (Liz Conlan)
 
