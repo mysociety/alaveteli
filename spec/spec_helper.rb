@@ -280,3 +280,45 @@ RSpec::Matchers.define :be_equal_modulo_whitespace_to do |expected|
   end
 end
 
+# Monkeypatch StripeMock to support past_due and unpaid subscription statuses
+module StripeMock
+  def self.mark_subscription_as_past_due(subscription)
+    ::Stripe::Subscription.update(subscription.id,
+                                  metadata: { marked_past_due: true })
+  end
+
+  def self.mark_subscription_as_unpaid(subscription)
+    ::Stripe::Subscription.update(subscription.id,
+                                  metadata: { marked_unpaid: true })
+  end
+
+  module RequestHandlers::Subscriptions
+    def retrieve_subscription(route, method_url, params, headers)
+      route =~ method_url
+
+      subscription = subscriptions[$1]
+      set_custom_status_from_metadata(subscription) if subscription
+      assert_existence :subscription, $1, subscription
+    end
+
+    def retrieve_subscriptions(route, method_url, params, headers)
+      route =~ method_url
+
+      subscriptions.values.each do |subscription|
+        set_custom_status_from_metadata(subscription)
+      end
+
+      Data.mock_list_object(subscriptions.values, params)
+    end
+
+    private
+
+    def set_custom_status_from_metadata(subscription)
+      if subscription[:metadata][:marked_past_due]
+        subscription.merge!(status: 'past_due')
+      elsif subscription[:metadata][:marked_unpaid]
+        subscription.merge!(status: 'unpaid')
+      end
+    end
+  end
+end
