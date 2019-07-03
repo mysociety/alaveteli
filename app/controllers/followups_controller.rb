@@ -150,15 +150,16 @@ class FollowupsController < ApplicationController
         @outgoing_message.incoming_message_followup
       ).deliver_now
     rescue *OutgoingMessage.expected_send_errors => e
+      authority_name = @outgoing_message.info_request.public_body.name
       @outgoing_message.record_email_failure(e.message)
       if @outgoing_message.what_doing == 'internal_review'
-        flash[:error] = _("Your internal review request has been saved but not " \
-                          "yet sent to {{authority_name}} due to an error.",
-                            :authority_name => @outgoing_message.info_request.public_body.name)
+        flash[:error] = _("Your internal review request has been saved but " \
+                          "not yet sent to {{authority_name}} due to an error.",
+                          authority_name: authority_name)
       else
         flash[:error] = _("Your follow up message has been saved but not yet " \
                           "sent to {{authority_name}} due to an error.",
-                            :authority_name => @outgoing_message.info_request.public_body.name)
+                          authority_name: authority_name)
       end
     else
       @outgoing_message.record_email_delivery(
@@ -167,7 +168,8 @@ class FollowupsController < ApplicationController
       )
 
       if @outgoing_message.what_doing == 'internal_review'
-        flash[:notice] = _("Your internal review request has been sent on its way.")
+        flash[:notice] = _("Your internal review request has been sent on " \
+                           "its way.")
       else
         flash[:notice] = _("Your follow up message has been sent on its way.")
       end
