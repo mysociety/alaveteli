@@ -222,8 +222,8 @@ class OutgoingMessage < ActiveRecord::Base
     self.status = 'failed'
     save!
 
-    info_request.log_event('send_error', { :reason => failure_reason,
-                                           :outgoing_message_id => id })
+    info_request.log_event('send_error', reason: failure_reason,
+                                         outgoing_message_id: id)
     set_info_request_described_state
   end
 
