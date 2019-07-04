@@ -12,6 +12,10 @@ module AlaveteliPro
       @report_end = Time.zone.yesterday.end_of_day
     end
 
+    def includes_pricing_data?
+      feature_enabled?(:pro_pricing)
+    end
+
     def report_data
       data =
         {
@@ -23,12 +27,12 @@ module AlaveteliPro
           active_accounts: number_of_pro_accounts_active_this_week
         }
 
-      data.merge!(stripe_report_data) if feature_enabled?(:pro_pricing)
+      data.merge!(stripe_report_data) if includes_pricing_data?
       data
     end
 
     def stripe_report_data
-      return {} unless feature_enabled?(:pro_pricing)
+      return {} unless includes_pricing_data?
 
       data =
         {

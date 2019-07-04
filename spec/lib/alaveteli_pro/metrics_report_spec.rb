@@ -11,6 +11,18 @@ describe AlaveteliPro::MetricsReport do
     stripe_helper.create_plan(id: 'pro-annual-billing', amount: 100)
   end
 
+  describe '#includes_pricing_data?' do
+    subject { described_class.new.includes_pricing_data? }
+
+    context 'with pricing disabled' do
+      it { is_expected.to eq(false) }
+    end
+
+    context 'with pricing enabled', feature: :pro_pricing do
+      it { is_expected.to eq(true) }
+    end
+  end
+
   describe '#report_data' do
     subject { described_class.new.report_data }
 

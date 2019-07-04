@@ -1,0 +1,31 @@
+<%= _("Weekly Pro Metrics report for {{start_date}} - {{end_date}}",
+      start_date: @report_start.strftime('%d %B %Y'),
+      end_date: @report_end.strftime('%d %B %Y')) %>
+
+
+<%- if @pricing_enabled %>
+<%= _('Number of paying users:') %> <%= @data[:paying_users] %>
+<%= _('Number of free trial users:') %> <%= @data[:trialing_users] %>
+<%= _('Number of discounted users:') %> <%= @data[:discounted_users] %>
+<% end %>
+<%= _('Total number of Pro accounts:') %> <%= @data[:total_accounts] %>
+<%= _('Number of Pro accounts active this week:') %> <%= @data[:active_accounts] %>
+
+<%= _('New batches made this week:') %> <%= @data[:new_batches] %>
+<%= _('New Pro requests this week:') %> <%= @data[:new_pro_requests] %>
+<%= _('Total requests made this week:') %> <%= @data[:total_new_requests] %>
+
+<%- if !@pricing_enabled %>
+<%= _('New Pro accounts this week:') %> <%= @data[:new_signups] %>
+<% else %>
+<%= _('New Pro subscriptions this week:') %> <%= @data[:new_and_returning_users][:count] %>
+<%- if @data[:new_and_returning_users][:count] - @data[:new_signups] > 0 %>
+<%= n_("(includes {{count}} returning subscriber)",
+       "(includes {{count}} returning subscribers)",
+       @data[:new_and_returning_users][:count] - @data[:new_signups],
+       count: @data[:new_and_returning_users][:count] - @data[:new_signups]) %>
+<% end %>
+<%= _('Cancelled subscriptions:') %> <%= @data[:canceled_users][:count] %>
+<%= _('Pending cancellations:') %> <%= @data[:pending_cancellations][:count] %>
+<%= _('Payments past due:') %> <%= @data[:past_due_users][:count] %>
+<% end %>
