@@ -166,7 +166,7 @@ group :test do
   gem 'coveralls', '~> 0.8.0', :require => false
   gem 'capybara', '~> 3.5.0'
   gem 'delorean', '~> 2.1.0'
-  gem 'stripe-ruby-mock', '~> 2.5.4'
+  gem 'stripe-ruby-mock', ['~> 2.5.4', '< 2.5.7']
   gem('rails-controller-testing')
 end
 
