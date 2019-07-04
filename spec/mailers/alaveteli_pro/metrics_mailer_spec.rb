@@ -120,6 +120,17 @@ RSpec.describe AlaveteliPro::MetricsMailer do
             TXT
           )
         end
+
+        it 'should not include a list if there are no pending cancellations' do
+          data[:pending_cancellations][:count] = 0
+          data[:pending_cancellations][:subs] = 0
+          expect(message.body).to include(
+            <<~TXT
+              Pending cancellations: 0
+
+            TXT
+          )
+        end
       end
     end
   end
