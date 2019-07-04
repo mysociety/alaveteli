@@ -108,6 +108,18 @@ RSpec.describe AlaveteliPro::MetricsMailer do
             to_not include('(includes 0 returning subscriber')
         end
       end
+
+      describe 'listing subscriber dashboard links' do
+        it 'should include an indented bullet point list' do
+          expect(message.body).to include(
+            <<~TXT
+              Pending cancellations: 2
+                * https://dashboard.stripe.com/subscriptions/sub_1234
+                * https://dashboard.stripe.com/subscriptions/sub_1235
+            TXT
+          )
+        end
+      end
     end
   end
 end

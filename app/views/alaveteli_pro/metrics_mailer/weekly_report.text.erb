@@ -5,14 +5,19 @@
 
 <%- if @pricing_enabled %>
 <%= _('Number of paying users:') %> <%= @data[:paying_users] %>
+
 <%= _('Number of free trial users:') %> <%= @data[:trialing_users] %>
+
 <%= -('Number of discounted users:') %> <%= @data[:discounted_users] %>
 <% end %>
 <%= _('Total number of Pro accounts:') %> <%= @data[:total_accounts] %>
+
 <%= _('Number of Pro accounts active this week:') %> <%= @data[:active_accounts] %>
 
 <%= _('New batches made this week:') %> <%= @data[:new_batches] %>
+
 <%= _('New Pro requests this week:') %> <%= @data[:new_pro_requests] %>
+
 <%= _('Total requests made this week:') %> <%= @data[:total_new_requests] %>
 
 <%- if !@pricing_enabled %>
@@ -25,7 +30,30 @@
        @data[:new_and_returning_users][:count] - @data[:new_signups],
        count: @data[:new_and_returning_users][:count] - @data[:new_signups]) %>
 <% end %>
+<%- if @data[:new_and_returning_users][:count] > 0 %>
+<%- @data[:new_and_returning_users][:subs].each do |sub| %>
+  * https://dashboard.stripe.com/subscriptions/<%= sub %>
+<% end %>
+<% end %>
+
 <%= _('Cancelled subscriptions:') %> <%= @data[:canceled_users][:count] %>
+<%- if @data[:canceled_users][:count] > 0 %>
+<%- @data[:canceled_users][:subs].each do |sub| %>
+  * https://dashboard.stripe.com/subscriptions/<%= sub %>
+<% end %>
+<% end %>
+
 <%= _('Pending cancellations:') %> <%= @data[:pending_cancellations][:count] %>
+<%- if @data[:pending_cancellations][:count] > 0 %>
+<%- @data[:pending_cancellations][:subs].each do |sub| %>
+  * https://dashboard.stripe.com/subscriptions/<%= sub %>
+<% end %>
+<% end %>
+
 <%= _('Payments past due:') %> <%= @data[:past_due_users][:count] %>
+<%- if @data[:past_due_users][:count] > 0 %>
+<%- @data[:past_due_users][:subs].each do |sub| %>
+  * https://dashboard.stripe.com/subscriptions/<%= sub %>
+<% end %>
+<% end %>
 <% end %>
