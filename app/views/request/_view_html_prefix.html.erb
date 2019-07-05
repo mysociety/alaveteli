@@ -1,6 +1,6 @@
 <div class="view_html_prefix">
   <div class="view_html_logo">
-    <a href="/"><img src="/assets/navimg/logo-trans-small.png" alt="<%= site_name %>"></a>
+    <%= link_to site_name, frontpage_path, :id => 'logo', :class => 'site-title__logo' %>
   </div>
   <div class="view_html_download_link">
     <%=link_to _("Download original attachment"), @attachment_url %>
