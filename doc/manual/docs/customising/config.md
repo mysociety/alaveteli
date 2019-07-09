@@ -12,7 +12,7 @@ title: Configuration
 
 ## The general configuration file
 
-The alaveteli code ships with an example configuration file: `config/general.yml-example`.
+The Alaveteli code ships with an example configuration file: `config/general.yml-example`.
 
 As part of the [installation process]({{ page.baseurl }}/docs/installing/ ), the
 example file gets copied to `config/general.yml`. You **must** edit this file to
@@ -274,7 +274,7 @@ THEME_URLS:
     When <code>rails-post-deploy</code> installs the <a href="{{ page.baseurl }}/docs/customising/themes/">themes</a>,
     it will try the theme branch first, but only if you've set <code>THEME_BRANCH</code>
     to be true. If the branch doesn't exist it will fall back to using a tagged version
-    specific to your installed alaveteli version, and if that doesn't exist it will
+    specific to your installed Alaveteli version, and if that doesn't exist it will
     back to <code>master</code>.
     <p>
         The default theme is the "Alaveteli" theme. This gets installed automatically when
