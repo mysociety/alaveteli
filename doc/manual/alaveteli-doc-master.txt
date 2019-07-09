@@ -24,7 +24,7 @@ These pages (in the wiki) have work/attention still pending:
 [no] [ok] Improved document conversion kept on wiki
 [ok] [ok] List of foi websites and projects <-- keep non-production alaveteli and non-alaveteli in the wiki, rest are in the site **TODO**: move the alaveteli ones to the Twiki so we keep the repo links (e.g. Hungarian fork on their own github) etc. The rest remain there -- and put a link to the "live" page on http://alaveteli.org/deployments/
 [no] [ok] Local customization; Initial setup and administration <-- no info, but good questions: where should this go? (moved into an issue #1651)
-[ok] [no] Marking up text for translation <-- needs writing as part of specific Alavateli i18n, but
+[ok] [no] Marking up text for translation <-- needs writing as part of specific Alaveteli i18n, but
                                               linking to http://mysociety.github.io/internationalization.html
 [>>] [x ] Setting up a demo site <-- TODO should be in the docs, presumably into the EC2/AMI installation page
           The section on Localisation (pulling in Transifex translations) should probably end up in 

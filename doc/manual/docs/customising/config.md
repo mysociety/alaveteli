@@ -1212,7 +1212,7 @@ href="#smtp_mailer_enable_starttls_auto">SMTP_MAILER_ENABLE_STARTTLS_AUTO</a>.
   <dt>
     <a name="gaze_url"><code>GAZE_URL</code></a>
   </dt>
-  <dd> In the absence of a <a href="#geoip_database">GeoIP database</a>, Alateveli can use
+  <dd> In the absence of a <a href="#geoip_database">GeoIP database</a>, Alaveteli can use
        <a href="{{ page.baseurl }}/docs/glossary/#gaze" class="glossary__link">Gaze</a>,
        mySociety's gazeteer, to determine the country from the IP address of an HTTP request
        to the site. You shouldn't normally need to change this.
