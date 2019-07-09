@@ -103,7 +103,7 @@ Edit the file `/etc/exim4/conf.d/acl/30_exim4-config_check_rcpt` to add the foll
     # Deny recipient addresses that now just get spam
     deny   recipients     = /var/www/alaveteli/config/recipient-reject
 
-_Note:_ Replace `/var/www/alaveteli` with the correct path to alaveteli if required.
+_Note:_ Replace `/var/www/alaveteli` with the correct path to Alaveteli if required.
 
 Now, execute the commands:
 
@@ -133,7 +133,7 @@ and not delivering messages for other destinations.
     cat >> /etc/postfix/main.cf <<EOF
     smtpd_recipient_restrictions=check_recipient_access hash:/var/www/alaveteli/config/recipient-reject,reject_unauth_destination
 
-_Note:_ Replace `/var/www/alaveteli` with the correct path to alaveteli if required.
+_Note:_ Replace `/var/www/alaveteli` with the correct path to Alaveteli if required.
 
 Now, create a postfix lookup table from the file
 
