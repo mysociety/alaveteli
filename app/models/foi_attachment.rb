@@ -233,6 +233,7 @@ class FoiAttachment < ApplicationRecord
   end
 
   def filename=(filename)
+    filename.try(:delete!, "\0")
     calc_ext = AlaveteliFileTypes.mimetype_to_extension(self.content_type)
     # Put right extension on if missing
     if !filename.nil? && !filename.match(/\.#{calc_ext}$/) && calc_ext

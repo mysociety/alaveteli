@@ -2,8 +2,16 @@
 
 ## Highlighted Features
 
+* Improve error handling when sending request-related emails (initial request
+  mails and followups) - failed messages are captured and a send_error event is
+  logged to make it easier for site admins to see what's happened (Nigel Jones)
 * Fixed bug where expiring embargoes were not fully removed from batches when
   the related requests reached the publication data (Liz Conlan)
+
+## Upgrade Notes
+
+* We no longer support PostgreSQL 9.3 or earlier. Please upgrade to 9.4 or above
+  before upgrading Alaveteli. See: https://www.postgresql.org/docs/9.4/release-9-4.html
 
 # 0.34.0.0
 

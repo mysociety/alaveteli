@@ -56,6 +56,22 @@ describe 'admin_general/_to_do_list.html.erb' do
       end
     end
 
+    context 'the message send failed due to a network error' do
+      let(:request) do
+        FactoryBot.create(:failed_sent_request_event).info_request
+      end
+
+      it 'describes an error message rather than a user message' do
+        render_errors(items)
+        expect(rendered).to include('Reason')
+      end
+
+      it 'shows the reason given for the failed send' do
+        render_errors(items)
+        expect(rendered).to include('Connection timed out')
+      end
+    end
+
     context 'comment reported as requiring admin attention' do
       let(:request) { FactoryBot.create(:error_message_request) }
 

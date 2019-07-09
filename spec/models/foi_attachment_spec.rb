@@ -125,6 +125,13 @@ describe FoiAttachment do
 
   end
 
+  describe '#filename=' do
+    it 'strips null bytes' do
+      attachment = FactoryBot.build(:pdf_attachment)
+      attachment.filename = "Tender Loving Care Trust (Europe).pdf\u0000"
+      expect(attachment.filename).to eq('Tender Loving Care Trust (Europe).pdf')
+    end
+  end
 
   describe '#ensure_filename!' do
 

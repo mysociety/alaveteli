@@ -51,7 +51,8 @@ class InfoRequestEvent < ApplicationRecord
     'very_overdue', # the request becomes very overdue
     'embargo_expiring', # an embargo is about to expire
     'expire_embargo', # an embargo on the request expires
-    'set_embargo' # an embargo is added or extended
+    'set_embargo', # an embargo is added or extended
+    'send_error' # an error during sending
   ].freeze
 
   belongs_to :info_request,
@@ -375,7 +376,9 @@ class InfoRequestEvent < ApplicationRecord
   end
 
   def is_request_sending?
-    ['sent', 'resent'].include?(event_type)
+    ['sent', 'resent'].include?(event_type) ||
+    (event_type == 'send_error' &&
+     outgoing_message.message_type == 'initial_request')
   end
 
   def is_clarification?

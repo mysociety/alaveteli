@@ -676,6 +676,10 @@ class InfoRequest < ApplicationRecord
 
   end
 
+  def self.request_sent_types
+    %w(sent resent followup_sent followup_resent send_error)
+  end
+
   # Possible reasons that a request could be reported for administrator attention
   def report_reasons
     [_("Contains defamatory material"),
@@ -1120,10 +1124,12 @@ class InfoRequest < ApplicationRecord
         expecting_clarification = true
       end
 
-      if %w(sent resent followup_sent followup_resent).include?(event.event_type)
+      if self.class.request_sent_types.include?(event.event_type)
         if last_sent.nil?
           last_sent = event
-        elsif event.event_type == 'resent'
+        elsif event.event_type == 'resent' ||
+              (event.event_type == 'send_error' &&
+               event.outgoing_message.message_type == 'initial_request')
           last_sent = event
         elsif expecting_clarification && event.event_type == 'followup_sent'
           # TODO: this needs to cope with followup_resent, which it doesn't.
