@@ -24,7 +24,7 @@ from those on the UK's instance, [WhatDoTheyKnow](http://www.whatdotheyknow.com)
 (WDTK).
 
 Generally, this arises simply because the local legislation, or the way the
-groups running the sites work, are different in different places. Alavateli
+groups running the sites work, are different in different places. Alaveteli
 facilitates this by allowing you to customise the states that are used.
 
 This example is to show clearly that you can use different states depending on

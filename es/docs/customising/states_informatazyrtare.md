@@ -23,7 +23,7 @@ a los utilizados en la implementación de Reino Unido, [WhatDoTheyKnow](http://w
 (WDTK).
 
 En general estas diferencias se deben a que la legislación local o el modo en que funcionan
-los grupos que gestionan los sitios son distintos y se hallan en distintos lugares. Alavateli
+los grupos que gestionan los sitios son distintos y se hallan en distintos lugares. Alaveteli
 facilita los cambios permitiendo personalizar los estados que se utilizan.
 
 Este ejemplo muestra claramente que puede utilizar distintos estados dependiendo de sus 

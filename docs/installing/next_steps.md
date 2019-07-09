@@ -49,7 +49,7 @@ First, in the browser:
 * Click on **Users**  (in the navigation menu across the top of the page), and
   click on your name in the list of users. On *that* page,  click **Edit**.
 * In the "Roles" section, check the "admin" checkbox and click **Save**.
-* From now on, when you are logged into your Alavateli site, you'll have access
+* From now on, when you are logged into your Alaveteli site, you'll have access
   to the admin (at `/admin`). Furthermore, you'll see links to admin pages off
   the main site (which don't appear for regular users).
 
@@ -71,7 +71,7 @@ emergency user access to the admin. On the command line shell, edit
 `/var/www/alaveteli/alaveteli/config/general.yml`:
 
 * It's important that you change the emergency user's password (and, ideally,
-  the username too) from the values Alavateli ships with, because they are
+  the username too) from the values Alaveteli ships with, because they are
   public and hence insecure. In `general.yml`, change
   [`ADMIN_PASSWORD`]({{ page.baseurl }}/docs/customising/config/#admin_password)
   (and maybe [`ADMIN_USERNAME`]({{ page.baseurl }}/docs/customising/config/#admin_username)
