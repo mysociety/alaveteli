@@ -65,8 +65,8 @@ describe AlaveteliPro::MetricsReport do
       expect(subject[:new_pro_requests]).to eq 4
     end
 
-    it 'returns the total number of Pro requests' do
-      expect(subject[:total_new_requests]).to eq 5
+    it 'returns the estimated (total) number of Pro requests' do
+      expect(subject[:estimated_total_pro_requests]).to eq 5
     end
 
     it 'returns the number of batch requests' do
