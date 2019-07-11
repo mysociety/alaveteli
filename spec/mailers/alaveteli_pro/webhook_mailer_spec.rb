@@ -68,6 +68,7 @@ RSpec.describe AlaveteliPro::WebhookMailer do
           * https://dashboard.stripe.com/customers/cus_123
             - state_a
             - state_b
+
           * https://dashboard.stripe.com/customers/cus_456
             - state_a
         TXT
