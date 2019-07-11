@@ -22,8 +22,8 @@ Note that the default settings for frontpage examples are designed to work with
 the dummy data shipped with Alaveteli. Once you have real data, you should
 certainly edit these.
 
-Note that there are [other configuration files](#other-config) too, for specific aspects of Alaveteli.
-
+Note that there are [other configuration settings and files](#other-config) too,
+for specific aspects of Alaveteli.
 
 ## Config settings by topic
 
@@ -1674,7 +1674,13 @@ SHARED_DIRECTORIES:
 
 <a name="other-config"> </a>
 
-## Other configuration files
+## Other configuration settings and files
+
+There are more configuration settings for [Alaveteli Professional](
+  {{ page.baseurl }}/docs/pro/
+) and [Alaveteli Pro Pricing](
+  {{ page.baseurl }}/docs/pro/pricing/
+).
 
 Note that there are other configuration files for Alaveteli &mdash; you'll find them all
 in the `config` directory. These are presented in the git repository as `*-example` files
