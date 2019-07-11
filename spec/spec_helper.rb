@@ -3,6 +3,7 @@ require 'rubygems'
 require 'simplecov'
 require 'coveralls'
 require 'webmock/rspec'
+require 'stripe_mock_patch'
 require "alaveteli_features/spec_helpers"
 
 cov_formats = [Coveralls::SimpleCov::Formatter]
@@ -279,4 +280,3 @@ RSpec::Matchers.define :be_equal_modulo_whitespace_to do |expected|
     normalise_whitespace(actual) == normalise_whitespace(expected)
   end
 end
-
