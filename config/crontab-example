@@ -43,6 +43,9 @@ MAILTO=!!(*= $mailto *)!!
 # Once a week (very early Monday morning)
 54 2 * * 1 !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/cleanup-holding-pen
 
+# Once a week (early Monday morning)
+37 8 * * 1 !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/send-pro-metrics-report.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/send-pro-metrics-report || echo "stalled?"
+
 # Once a year :)
 0 0 1 11 * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/send-public-holiday-reminder
 

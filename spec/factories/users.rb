@@ -62,6 +62,7 @@ FactoryBot.define do
       sequence(:name) { |n| "Pro User #{n}" }
       after(:create) do |user, evaluator|
         user.add_role :pro
+        create(:pro_account, user: user)
       end
     end
 
