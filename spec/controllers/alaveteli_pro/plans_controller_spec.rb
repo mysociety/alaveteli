@@ -29,6 +29,9 @@ describe AlaveteliPro::PlansController do
       expect(assigns(:in_pro_area)).to be true
     end
 
+    it 'uses the default plan for pricing info' do
+      expect(assigns(:plan)).to eq(pro_plan)
+    end
   end
 
   describe 'GET #show' do

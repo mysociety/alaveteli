@@ -6,6 +6,9 @@ class AlaveteliPro::PlansController < AlaveteliPro::BaseController
   before_action :authenticate, :check_existing_subscription, only: [:show]
 
   def index
+    default_plan_name = add_stripe_namespace('pro')
+    stripe_plan = Stripe::Plan.retrieve(default_plan_name)
+    @plan = AlaveteliPro::WithTax.new(stripe_plan)
   end
 
   def show

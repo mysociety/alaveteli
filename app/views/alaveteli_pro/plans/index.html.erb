@@ -6,7 +6,13 @@
     <div class="pricing__tier__heading">
       <h2><%= _('Professional') %></h2>
       <p class="pricing__tier__subhead"><%= _('For journalists, academics and power users') %></p>
-      <p class="price-label"><span class="price-label__amount">£10</span> per user, per month</p>
+      <p class="price-label">
+        <%= _('<span class="price-label__amount">{{monthly_price}}</span> ' \
+              'per user, per month',
+              monthly_price: format_currency(
+                               @plan.amount_with_tax,
+                               no_cents_if_whole: true)) %>
+      </p>
       <p class="pricing__tier__subhead pricing__tier__subhead--intro_pricing"><%= _('Introductory Pricing') %></p>
     </div>
 
