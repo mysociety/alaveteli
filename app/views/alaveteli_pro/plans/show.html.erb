@@ -39,7 +39,7 @@
       <div class="settings-right-column">
         <%= form_tag(subscriptions_path, id: 'pro-signup') do %>
         <div class="settings__section">
-          <h3>Selected plan</h3>
+          <h3><%= _('Selected plan') %></h3>
           <div class="plan-overview">
             <div class="plan-overview__desc">
               <%= @plan.name %>
@@ -60,7 +60,7 @@
         </div>
 
         <div class="settings__section">
-          <h3>Terms and conditions</h3>
+          <h3><%= _('Terms and conditions') %></h3>
           <div class="settings__terms">
             <div class="settings__terms-content">
               <%= render partial: 'alaveteli_pro/pages/legal' %>
