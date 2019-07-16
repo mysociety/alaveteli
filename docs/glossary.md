@@ -979,7 +979,7 @@ Definitions
           <a href="http://rubyonrails.org/">Ruby on Rails</a> website
         </li>
         <li>
-          Alavateli's <a href="{{ page.baseurl }}/docs/developers/directory_structure/">directory structure</a>
+          Alaveteli's <a href="{{ page.baseurl }}/docs/developers/directory_structure/">directory structure</a>
           is influenced by its use of Ruby on Rails
         </li>
       </ul>

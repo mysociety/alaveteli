@@ -38,7 +38,7 @@ En primer lugar, en el navegador:
 * Haga clic en **Users**  (en el menú de navegación superior de la página) y eliga
   su nombre en el listado de usuarios. En *esa* página,  haga clic en **Edit**.
 * En la sección "Roles", marque la casilla "admin" y haga clic en **Save**.
-* A partir de ahora, al iniciar sesión en su sitio basado en Alavateli, tendrá acceso
+* A partir de ahora, al iniciar sesión en su sitio basado en Alaveteli, tendrá acceso
   a la interfaz de administración (en `/admin`). Es más, verá enlaces a páginas administrativas
   externas al sitio principal (que no son visibles para usuarios comunes).
 
@@ -60,7 +60,7 @@ acceso del usuario de emergencia a la interfaz de administración. En la línea 
 `/var/www/alaveteli/alaveteli/config/general.yml`:
 
 * Es importante que modifique la contraseña del usuario de emergencia (e, idealmente,
-  también el código de usuario) que se incluye en Alavateli, pues es públicos y
+  también el código de usuario) que se incluye en Alaveteli, pues es públicos y
   consecuentemente no seguro. En `general.yml`, cambie
   [`ADMIN_PASSWORD`]({{ page.baseurl }}/docs/customising/config/#admin_password)
   (y tal vez [`ADMIN_USERNAME`]({{ page.baseurl }}/docs/customising/config/#admin_username)

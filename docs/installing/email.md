@@ -241,7 +241,7 @@ Create a new pipe to handle replies:
       flags=R user=alaveteli argv=/var/www/alaveteli/script/handle-mail-replies
     EOF
 
-_Note:_ Replace `/var/www/alaveteli` with the correct path to alaveteli if required.
+_Note:_ Replace `/var/www/alaveteli` with the correct path to Alaveteli if required.
 
 Pipe mail sent to `user-support@example.com` to the `alaveteli_replies` pipe:
 
@@ -452,7 +452,7 @@ Create the `config/aliases` file that the `alaveteli_request` exim `router` sour
     ^foi\\+.*: "|/var/www/alaveteli/script/mailin", backupfoi
     EOF
 
-_Note:_ Replace `/var/www/alaveteli` with the correct path to alaveteli if required.
+_Note:_ Replace `/var/www/alaveteli` with the correct path to Alaveteli if required.
 
 #### Set up your contact email recipient groups
 
@@ -473,7 +473,7 @@ Configure exim to discard any messages sent to the [`BLACKHOLE_PREFIX`]({{ page.
     do-not-reply-to-this-address:        :blackhole:
     EOF
 
-_Note:_ Replace `/var/www/alaveteli` with the correct path to alaveteli if required.
+_Note:_ Replace `/var/www/alaveteli` with the correct path to Alaveteli if required.
 
 #### Filter incoming messages to admin addresses
 

@@ -399,12 +399,12 @@ and then drop it in `/etc/cron.d/` on the server.
 
 **Template Variables:**
 
-* `vhost_dir`: the full path to the directory where alaveteli is checked out.
+* `vhost_dir`: the full path to the directory where Alaveteli is checked out.
   e.g. If your checkout is at `/var/www/alaveteli` then set this to `/var/www`
-* `vcspath`: the name of the directory that contains the alaveteli code.
+* `vcspath`: the name of the directory that contains the Alaveteli code.
   e.g. `alaveteli`
 * `user`: the user that the software runs as
-* `site`: a string to identify your alaveteli instance
+* `site`: a string to identify your Alaveteli instance
 * `mailto`: The email address or local account that cron output will be sent to - setting an email address depends on your MTA having been configured for remote delivery.
 * `ruby_version`: The version of ruby that was used to install `bundler` as a gem,
   if that was neccessary. This will be used to add the deployment user's local
@@ -442,11 +442,11 @@ to use the native `service` command to stop, start and restart the application.
 
 **Template Variables:**
 
-* `vhost_dir`: the full path to the directory where alaveteli is checked out.
+* `vhost_dir`: the full path to the directory where Alaveteli is checked out.
   e.g. If your checkout is at `/var/www/alaveteli` then set this to `/var/www`
-* `vcspath`: the name of the directory that contains the alaveteli code.
+* `vcspath`: the name of the directory that contains the Alaveteli code.
   e.g. `alaveteli`
-* `site`: a string to identify your alaveteli instance
+* `site`: a string to identify your Alaveteli instance
 * `user`: the user that the software runs as
 
 There is a rake task that will help to rewrite this file into one that is
@@ -472,11 +472,11 @@ Start the application:
 
 **Template Variables:**
 
-* `vhost_dir`: the full path to the directory where alaveteli is checked out.
+* `vhost_dir`: the full path to the directory where Alaveteli is checked out.
   e.g. If your checkout is at `/var/www/alaveteli` then set this to `/var/www`
-* `vcspath`: the name of the directory that contains the alaveteli code.
+* `vcspath`: the name of the directory that contains the Alaveteli code.
   e.g. `alaveteli`
-* `site`: a string to identify your alaveteli instance
+* `site`: a string to identify your Alaveteli instance
 * `user`: the user that the software runs as
 * `cpus`: the number of CPU cores your server has - run `nproc` to find what
   this number should be. This controls how many thin servers the daemon starts.
@@ -510,11 +510,11 @@ is an init script, which can be generated from the
 **Template Variables:**
 
 * `daemon_name`: The name of the daemon. This is set by the rake task.
-* `vhost_dir`: the full path to the directory where alaveteli is checked out.
+* `vhost_dir`: the full path to the directory where Alaveteli is checked out.
   e.g. If your checkout is at `/var/www/alaveteli` then set this to `/var/www`
-* `vcspath`: the name of the directory that contains the alaveteli code.
+* `vcspath`: the name of the directory that contains the Alaveteli code.
   e.g. `alaveteli`
-* `site`: a string to identify your alaveteli instance
+* `site`: a string to identify your Alaveteli instance
 * `user`: the user that the software runs as
 * `ruby_version`: The version of ruby that was used to install `bundler` as a gem,
   if that was neccessary. This will be used to add the user's local
@@ -547,11 +547,11 @@ and not required if you choose not to run your site behind Varnish (see below). 
 **Template Variables:**
 
 * `daemon_name`: The name of the daemon. This is set by the rake task.
-* `vhost_dir`: the full path to the directory where alaveteli is checked out.
+* `vhost_dir`: the full path to the directory where Alaveteli is checked out.
   e.g. If your checkout is at `/var/www/alaveteli` then set this to `/var/www`
-* `vcspath`: the name of the directory that contains the alaveteli code.
+* `vcspath`: the name of the directory that contains the Alaveteli code.
   e.g. `alaveteli`
-* `site`: a string to identify your alaveteli instance
+* `site`: a string to identify your Alaveteli instance
 * `user`: the user that the software runs as
 * `ruby_version`: The version of ruby that was used to install `bundler` as a gem,
   if that was neccessary. This will be used to add the user's local
@@ -589,11 +589,11 @@ deliver incoming mail for requests to the mailbox, rather than into the applicat
 **Template Variables:**
 
 * `daemon_name`: The name of the daemon. This is set by the rake task.
-* `vhost_dir`: the full path to the directory where alaveteli is checked out.
+* `vhost_dir`: the full path to the directory where Alaveteli is checked out.
   e.g. If your checkout is at `/var/www/alaveteli` then set this to `/var/www`
-* `vcspath`: the name of the directory that contains the alaveteli code.
+* `vcspath`: the name of the directory that contains the Alaveteli code.
   e.g. `alaveteli`
-* `site`: a string to identify your alaveteli instance
+* `site`: a string to identify your Alaveteli instance
 * `user`: the user that the software runs as
 * `ruby_version`: The version of ruby that was used to install `bundler` as a gem,
   if that was neccessary. This will be used to add the user's local
@@ -780,7 +780,7 @@ production server**. Replace `www.example.com` with your domain name.
       -subj /CN=www.example.com
     chmod 640 /etc/ssl/certs/www.example.com.cert
 
-If you have configured thin to use more than one server, you will need to edit the alaveteli upstream
+If you have configured thin to use more than one server, you will need to edit the Alaveteli upstream
 directive in your <code>/etc/nginx/sites-enabled/alaveteli_https</code> file so
 that it has a `server` line for each instance you are running (otherwise nginx
 will only know how to send requests to the first server process). Each address
@@ -822,7 +822,7 @@ Disable the default site and enable the `alaveteli` server
     ln -s /etc/nginx/sites-available/alaveteli \
       /etc/nginx/sites-enabled/alaveteli
 
-If you have configured thin to use more than one server, you will need to edit the alaveteli upstream
+If you have configured thin to use more than one server, you will need to edit the Alaveteli upstream
 directive in your <code>/etc/nginx/sites-enabled/alaveteli</code> file so
 that it has a `server` line for each instance you are running (otherwise nginx
 will only know how to send requests to the first server process). Each address

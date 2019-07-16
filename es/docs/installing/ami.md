@@ -101,9 +101,9 @@ opción `-i` contiene la autorización que concuerda con la ubicada en el otro e
 en el servidor. Iniciará sesión en el terminal shell de su nuevo servidor de Alaveteli
 y podrá introducir comandos Unix en él.
 
-### Prueba de humo: inice Alavateli
+### Prueba de humo: inice Alaveteli
 
-Debe configurar su sitio basado en Alavateli, pero si solo desea ver si su implementación
+Debe configurar su sitio basado en Alaveteli, pero si solo desea ver si su implementación
 funciona correctamente, *puede* arrancarla directamente. Lo ideal sería omitir este
 paso e ir directamente a la configuración... Pero sabemos que la mayoría de personas
 prefieren ver algo en el navegador primero. ;-)

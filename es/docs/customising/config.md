@@ -752,7 +752,7 @@ THEME_URLS:
     <a name="gaze_url"><code>GAZE_URL</code></a>
   </dt>
   <dd>
-      Alateveli utiliza el servicio geográfico de mySociety para determinar el país de la dirección
+      Alaveteli utiliza el servicio geográfico de mySociety para determinar el país de la dirección
       IP recibida (así podemos sugerir un sitio basado en Alaveteli del país correspondiente, si existe alguno).
       Normalmente no es necesario modificar esta opción.
     <div class="more-info">
