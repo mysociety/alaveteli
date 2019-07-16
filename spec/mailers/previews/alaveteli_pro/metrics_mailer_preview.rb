@@ -6,7 +6,7 @@ module AlaveteliPro
       data =
         {
           new_pro_requests: 104,
-          total_new_requests: 37535,
+          estimated_total_pro_requests: 37535,
           new_batches: 3,
           new_signups: 5,
           total_accounts: 284,

@@ -20,7 +20,7 @@ module AlaveteliPro
       data =
         {
           new_pro_requests: number_of_requests_created_this_week,
-          total_new_requests: estimated_number_of_pro_requests,
+          estimated_total_pro_requests: estimated_number_of_pro_requests,
           new_batches: number_of_batch_requests_created_this_week,
           new_signups: number_of_pro_signups_this_week,
           total_accounts: total_number_of_pro_accounts,
