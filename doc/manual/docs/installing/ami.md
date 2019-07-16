@@ -112,9 +112,9 @@ You won't be asked for a password, because the `.pem` file you supply with the
 on the server. You will be logged into the shell on your new Alaveteli server,
 and can issue Unix commands to it.
 
-### Smoke test: start Alavateli
+### Smoke test: start Alaveteli
 
-You must configure your Alavateli site, but if you just want to see that you've
+You must configure your Alaveteli site, but if you just want to see that you've
 got your instance running OK, you *can* fire it up right away. Ideally, you
 should skip this step and go straight to the configuration... but we know most
 people like to see something in their browser first. ;-)

@@ -293,7 +293,7 @@ Can be for many reasons, e.g.
 
 ### Vexatious users
 
-Some users persistently misuse the website. An alaveteli site should have a
+Some users persistently misuse the website. An Alaveteli site should have a
 policy on banning users, for example giving them a first warning, informing
 them about moderation policy, etc.
 
