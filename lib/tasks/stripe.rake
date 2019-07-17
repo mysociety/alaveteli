@@ -18,6 +18,9 @@ namespace :stripe do
                                        'customer.subscription.updated'
                                      ]
                                     )
+      $stderr.puts 'Webhook endpoint successfully created!'
+    else
+      $stderr.puts 'Webhook endpoint already exists, stopping'
     end
   end
 end
