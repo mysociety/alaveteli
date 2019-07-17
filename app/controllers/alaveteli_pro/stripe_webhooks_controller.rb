@@ -29,10 +29,13 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
     case @stripe_event.type
     when 'customer.subscription.deleted'
       customer_subscription_deleted
+      log_webhook(@stripe_event)
     when 'invoice.payment_succeeded'
       invoice_payment_succeeded
+      log_webhook(@stripe_event)
     when 'invoice.payment_failed'
       invoice_payment_failed
+      log_webhook(@stripe_event)
     else
       store_unhandled_webhook
     end
@@ -43,6 +46,10 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
   end
 
   private
+
+  def log_webhook(event)
+    ProcessedWebhook.create(event_id: event.id)
+  end
 
   def customer_subscription_deleted
     account = pro_account_from_stripe_event(@stripe_event)

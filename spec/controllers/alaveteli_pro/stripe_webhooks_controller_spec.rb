@@ -275,18 +275,20 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
         _user
       end
 
-      before do
-        send_request
-      end
-
       it 'handles the event' do
+        send_request
         expect(response.status).to eq(200)
       end
 
       it 'notifies the user that their payment failed' do
+        send_request
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to match(/Payment failed/)
         expect(mail.to).to include(user.email)
+      end
+
+      it 'logs the processed webhook' do
+        expect { send_request }.to change(ProcessedWebhook, :count).by(1)
       end
     end
 
@@ -303,6 +305,10 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       it 'stores unhandled webhook' do
         expect { send_request }.to change(Webhook, :count).by(1)
       end
+
+      it 'does not log a processed webhook' do
+        expect { send_request }.to_not change(ProcessedWebhook, :count)
+      end
     end
 
     describe 'a trial ends' do
@@ -317,6 +323,10 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
       it 'stores unhandled webhook' do
         expect { send_request }.to change(Webhook, :count).by(1)
+      end
+
+      it 'does not log a processed webhook' do
+        expect { send_request }.to_not change(ProcessedWebhook, :count)
       end
     end
 
@@ -333,10 +343,13 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       it 'stores unhandled webhook' do
         expect { send_request }.to change(Webhook, :count).by(1)
       end
+
+      it 'does not log a processed webhook' do
+        expect { send_request }.to_not change(ProcessedWebhook, :count)
+      end
     end
 
     describe 'a cancelled subscription is deleted at the end of the billing period' do
-
       let!(:user) do
         _user = FactoryBot.create(:pro_user)
         _user.pro_account.stripe_customer_id = stripe_event.data.object.customer
@@ -350,13 +363,12 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
         expect(user.reload.is_pro?).to be false
       end
 
+      it 'logs the processed webhook' do
+        expect { send_request }.to change(ProcessedWebhook, :count).by(1)
+      end
     end
 
     describe 'updating the Stripe charge description when a payment succeeds' do
-
-      before do
-        send_request
-      end
 
       context 'when there is a charge for an invoice' do
         let(:stripe_event) do
@@ -366,10 +378,14 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
         end
 
         it 'updates the charge description with the site and plan name' do
+          send_request
           expect(Stripe::Charge.retrieve(charge.id).description).
             to eq('Alaveteli Professional: Test')
         end
 
+        it 'logs the processed webhook' do
+          expect { send_request }.to change(ProcessedWebhook, :count).by(1)
+        end
       end
 
       context 'when there is no charge for an invoice' do
@@ -379,9 +395,13 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
         end
 
         it 'does not attempt to update the nil charge' do
+          send_request
           expect(response.status).to eq(200)
         end
 
+        it 'logs the processed webhook' do
+          expect { send_request }.to change(ProcessedWebhook, :count).by(1)
+        end
       end
 
     end
