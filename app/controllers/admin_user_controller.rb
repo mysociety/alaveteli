@@ -30,7 +30,8 @@ class AdminUserController < AdminController
     users = if @query.present?
       User.where(
         "lower(users.name) LIKE lower('%'||:query||'%') OR " \
-        "lower(users.email) LIKE lower('%'||:query||'%')"
+        "lower(users.email) LIKE lower('%'||:query||'%') OR " \
+        "lower(users.about_me) LIKE lower('%'||:query||'%')",
         query: @query
       )
     else
