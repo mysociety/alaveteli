@@ -7,7 +7,9 @@ namespace :stripe do
     hooks = AlaveteliPro::WebhookEndpoints.retrieve_all_endpoints_data.
               select { |hook| hook.url == endpoint }
 
-    matching_hook = hooks.find { |hook| hook.api_version == Stripe.api_version }
+    matching_hook =
+      hooks.detect { |hook| hook.api_version == Stripe.api_version }
+
     stale_hooks = hooks - [matching_hook]
 
     if matching_hook
