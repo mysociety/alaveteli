@@ -194,6 +194,28 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
     end
 
+    context 'receiving a duplicate notification' do
+      before do
+        send_request
+      end
+
+      it 'returns a custom 200 response' do
+        send_request
+        expect(response.status).to eq(200)
+        expect(response.body).
+          to match('Looks like a duplicate')
+      end
+
+      it 'does not process the request' do
+        expect { controller.not_to receive(:receive) }
+        send_request
+      end
+
+      it 'does not log a processed webhook' do
+        expect { send_request }.to_not change(ProcessedWebhook, :count)
+      end
+    end
+
     context 'when using namespaced plans' do
 
       before do

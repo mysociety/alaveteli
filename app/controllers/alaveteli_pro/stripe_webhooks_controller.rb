@@ -3,6 +3,7 @@
 class AlaveteliPro::StripeWebhooksController < ApplicationController
   class MissingTypeStripeWebhookError < StandardError; end
   class UnknownPlanStripeWebhookError < StandardError; end
+  class DuplicateStripeWebhookError < StandardError; end
 
   rescue_from JSON::ParserError, MissingTypeStripeWebhookError do |exception|
     # Invalid payload, reject the webhook
@@ -16,6 +17,12 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
     render json: { error: exception.message }, status: 401
   end
 
+  rescue_from DuplicateStripeWebhookError do |exception|
+    # accept it so it doesn't get resent but don't process it
+    # (and don't generate an exception email for it)
+    render json: { message: 'Looks like a duplicate' }, status: 200
+  end
+
   rescue_from UnknownPlanStripeWebhookError do |exception|
     # accept it so it doesn't get resent but don't process it
     # (and don't generate an exception email for it)
@@ -23,7 +30,8 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
            status: 200
   end
 
-  before_action :read_event_notification, :check_for_event_type, :filter_hooks
+  before_action :read_event_notification, :check_for_event_type,
+                :check_for_duplicate_event, :filter_hooks
 
   def receive
     case @stripe_event.type
@@ -104,6 +112,12 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
     unless @stripe_event.respond_to?(:type)
       msg = "undefined method `type' for #{ @stripe_event.inspect }"
       raise MissingTypeStripeWebhookError.new(msg)
+    end
+  end
+
+  def check_for_duplicate_event
+    if ProcessedWebhook.find_by(event_id: @stripe_event.id)
+      raise DuplicateStripeWebhookError
     end
   end
 
