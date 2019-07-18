@@ -17,7 +17,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
     let(:stripe_plan) do
       Stripe::Plan.create(id: 'test',
-                          name: 'Test',
+                          nickname: 'Test',
                           product: { id: 'pr_0000', name: 'Test' },
                           amount: 10,
                           currency: 'gbp',
@@ -40,7 +40,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
               currency: stripe_plan.currency,
               type: 'subscription'
             },
-            plan: { id: stripe_plan.id, name: stripe_plan.name }
+            plan: { id: stripe_plan.id, nickname: stripe_plan.nickname }
           }
         ],
         subscription: stripe_subscription.id
@@ -219,7 +219,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       context 'the webhook is for a matching namespaced plan' do
         let(:stripe_plan) do
           Stripe::Plan.create(id: 'WDTK-test',
-                              name: 'Test',
+                              nickname: 'Test',
                               product: { id: 'pr_0000', name: 'Test' },
                               amount: 10,
                               currency: 'gbp',
