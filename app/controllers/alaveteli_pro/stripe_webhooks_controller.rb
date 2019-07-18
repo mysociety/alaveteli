@@ -57,7 +57,8 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
 
       subscription_id = @stripe_event.data.object.subscription
       subscription = Stripe::Subscription.retrieve(subscription_id)
-      plan_name = subscription.plan.nickname
+      plan_name =
+        subscription.plan.try(:name) || subscription.plan.nickname
 
       charge.description =
         "#{ AlaveteliConfiguration.pro_site_name }: #{ plan_name }"

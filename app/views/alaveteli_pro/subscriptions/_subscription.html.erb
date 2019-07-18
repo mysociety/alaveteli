@@ -1,7 +1,7 @@
 
 <div class="plan-overview">
   <div class="plan-overview__desc">
-    <%= subscription.plan.nickname %>
+    <%= subscription.plan.try(:name) || stripe.plan.nickname %>
   </div>
 
   <div class="plan-overview__details">
