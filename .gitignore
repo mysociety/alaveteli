@@ -28,6 +28,7 @@ locale/model_attributes.rb
 log/*
 old-cache/
 public/*theme/
+public/alavetelitheme
 public/asktheeu-theme
 public/assets/
 public/down.current.html
