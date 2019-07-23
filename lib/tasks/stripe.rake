@@ -9,11 +9,14 @@ namespace :stripe do
 
     # If there's no hook that matches our requirements, create it.
     if hooks.empty?
-      Stripe::WebhookEndpoint.create(url: endpoint,
-                                     api_version: Stripe.api_version,
-                                     enabled_events: Stripe.webhook_events)
+      ret =
+        Stripe::WebhookEndpoint.create(url: endpoint,
+                                       api_version: Stripe.api_version,
+                                       enabled_events: Stripe.webhook_events)
 
       $stderr.puts 'Webhook endpoint successfully created!'
+      $stderr.puts 'Add this line to your general.yml config file:'
+      $stderr.puts "  STRIPE_WEBHOOK_SECRET: #{ret.secret}"
     else
       $stderr.puts 'Webhook endpoint already exists, stopping'
     end
