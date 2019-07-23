@@ -11,13 +11,8 @@ namespace :stripe do
     if hooks.empty?
       Stripe::WebhookEndpoint.create(url: endpoint,
                                      api_version: Stripe.api_version,
-                                     enabled_events: [
-                                       'customer.subscription.deleted',
-                                       'invoice.payment_succeeded',
-                                       'invoice.payment_failed',
-                                       'customer.subscription.updated'
-                                     ]
-                                    )
+                                     enabled_events: Stripe.webhook_events)
+
       $stderr.puts 'Webhook endpoint successfully created!'
     else
       $stderr.puts 'Webhook endpoint already exists, stopping'
