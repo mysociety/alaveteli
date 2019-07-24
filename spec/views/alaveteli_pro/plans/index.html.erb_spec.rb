@@ -15,6 +15,13 @@ describe 'alaveteli_pro/plans/index.html.erb' do
     allow(AlaveteliConfiguration).to receive(:iso_currency_code).
         and_return('GBP')
     assign :plan, plan_with_tax
+    assign :pro_site_name, 'Alaveteli<sup>Pro</sup>'
+  end
+
+  it 'uses the pro site name assigned by the controller' do
+    render
+    expect(rendered).
+      to have_css('h2', text: assigns[:pro_site_name])
   end
 
   context 'the price does not have a cents value' do

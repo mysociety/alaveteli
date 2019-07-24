@@ -9,6 +9,7 @@ class AlaveteliPro::PlansController < AlaveteliPro::BaseController
     default_plan_name = add_stripe_namespace('pro')
     stripe_plan = Stripe::Plan.retrieve(default_plan_name)
     @plan = AlaveteliPro::WithTax.new(stripe_plan)
+    @pro_site_name = AlaveteliConfiguration.pro_site_name
   end
 
   def show
