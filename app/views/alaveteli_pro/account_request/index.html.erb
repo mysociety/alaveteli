@@ -13,7 +13,7 @@
       <% if @public_beta && feature_enabled?(:pro_pricing) %>
        <%= link_to _('Plans and pricing'), pro_plans_path, :class => "button" %>
       <% else %>
-        <h3><%= _("Now in beta") %></h2>
+        <h3><%= _("Now in beta") %></h3>
         <a href="#input-beta" class="button" id="launch-access">
           <%= _("Get pre-launch access") %>
         </a>
