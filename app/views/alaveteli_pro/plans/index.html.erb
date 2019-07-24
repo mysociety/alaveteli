@@ -42,7 +42,7 @@
 
 <div class="marketing__section">
   <div class="marketing__section__heading">
-    <h2><%= @pro_site_name %></h2>
+    <h2><%= @pro_site_name.html_safe %></h2>
     <p><%= _('An all-in-one FOI toolkit for journalists, activists and campaigners') %></p>
   </div>
   <div class="marketing__section__content">
@@ -68,7 +68,7 @@
     <h2><%= _('Plus, all the power of {{site_name}}', site_name: site_name) %></h2>
     <p><%= _('<strong>{{pro_site_name}}</strong> runs on the UK’s ' \
              'best-known FOI service',
-             pro_site_name: @pro_site_name) %></p>
+             pro_site_name: @pro_site_name.html_safe) %></p>
   </div>
   <div class="marketing__section__content">
     <div class="marketing__section__content-items">
