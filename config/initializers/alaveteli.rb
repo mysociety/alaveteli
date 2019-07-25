@@ -65,6 +65,7 @@ require 'typeahead_search'
 require 'alaveteli_mail_poller'
 require 'safe_redirect'
 require 'alaveteli_pro/metrics_report'
+require 'alaveteli_pro/webhook_endpoints'
 
 AlaveteliLocalization.set_locales(AlaveteliConfiguration::available_locales,
                                   AlaveteliConfiguration::default_locale)
