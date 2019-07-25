@@ -15,6 +15,7 @@ title: Next Steps
    * [Set the amount of time [...] to respond to requests](#set-the-amount-of-time-authorities-will-be-given-to-respond-to-requests)
    * [Add some public holidays](#add-some-public-holidays)
    * [Start thinking about customising Alaveteli](#start-thinking-about-customising-alaveteli)
+   * [Consider enabling Alaveteli Professional](#consider-enabling-alaveteli-professional)
 
 
 ## Create an admin account
@@ -175,3 +176,8 @@ once using the **Create holidays from suggestions or iCalendar feed** button.
 ## Start thinking about customising Alaveteli
 
 Check out [our guide]({{ page.baseurl }}/docs/customising/).
+
+## Consider enabling Alaveteli Professional
+
+[Alaveteli Professional]({{ page.baseurl }}/docs/pro/) offers a toolset for professional users.
+Everything journalists, researchers and campaigners need to conduct investigations.
