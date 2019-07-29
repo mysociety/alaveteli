@@ -565,6 +565,8 @@ Style/HashSyntax:
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#hash-literals'
   Enabled: true
   EnforcedStyle: ruby19_no_mixed_keys
+  Exclude:
+    - config/routes.rb
 
 Style/IfInsideElse:
   Description: 'Finds if nodes inside else, which can be converted to elsif.'
