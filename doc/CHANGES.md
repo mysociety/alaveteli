@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add new rake task to create the Stripe webhook endpoint (Liz Conlan)
 * Send weekly metrics email to the Pro Admin team (Liz Conlan, Gareth Rees)
 * Improve error handling when sending request-related emails (initial request
   mails and followups) - failed messages are captured and a send_error event is

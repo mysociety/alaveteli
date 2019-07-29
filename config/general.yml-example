@@ -1252,3 +1252,12 @@ STRIPE_WEBHOOK_SECRET: ''
 # PRO_REFERRAL_COUPON: 'PROREFERRAL'
 # ---
 PRO_REFERRAL_COUPON: ''
+
+# If ENABLE_PRO_PRICING is set to true, Alaveteli let users enter their bank
+# details and subscribe to a Stripe subscription which grants them access to the
+# pro role and all the features of Alaveteli Professional.
+#
+# ENABLE_PRO_PRICING – Boolean (default: false)
+#
+# ---
+ENABLE_PRO_PRICING: false

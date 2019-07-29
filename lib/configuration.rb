@@ -50,6 +50,7 @@ module AlaveteliConfiguration
       :ENABLE_TWO_FACTOR_AUTH => false,
       :ENABLE_WIDGETS => false,
       :ENABLE_ALAVETELI_PRO => false,
+      :ENABLE_PRO_PRICING => false,
       :EXCEPTION_NOTIFICATIONS_FROM => 'errors@localhost',
       :EXCEPTION_NOTIFICATIONS_TO => 'user-support@localhost',
       :FORCE_REGISTRATION_ON_NEW_REQUEST => false,

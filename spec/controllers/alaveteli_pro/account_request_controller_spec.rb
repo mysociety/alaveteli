@@ -18,6 +18,11 @@ describe AlaveteliPro::AccountRequestController do
       get :index
       expect(assigns[:public_beta]).to eq true
     end
+
+    it 'assigns pro site name variable' do
+      get :index
+      expect(assigns(:pro_site_name)).to eq AlaveteliConfiguration.pro_site_name
+    end
   end
 
   describe "#new" do
