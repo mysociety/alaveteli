@@ -6,7 +6,7 @@
 #  id                    :integer          not null, primary key
 #  info_request_event_id :integer          not null
 #  user_id               :integer          not null
-#  frequency             :integer          default(0), not null
+#  frequency             :integer          default("instantly"), not null
 #  seen_at               :datetime
 #  send_after            :datetime         not null
 #  created_at            :datetime         not null
