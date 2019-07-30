@@ -108,10 +108,6 @@ else
 end
 
 SUPPORTED_OPERATING_SYSTEMS = {
-  'xenial64' => {
-    box: 'ubuntu/xenial64',
-    box_url: 'https://app.vagrantup.com/ubuntu/boxes/xenial64'
-  },
   'bionic64' => {
     box: 'ubuntu/bionic64',
     box_url: 'https://app.vagrantup.com/ubuntu/boxes/bionic64'
@@ -203,9 +199,6 @@ To start your alaveteli instance:
 * bundle exec rails server -b 0.0.0.0
 EOF
 
-  if SETTINGS['os'] == 'xenial64'
-    config.vm.provision :shell, inline: "echo '#{ motd }' >> /etc/motd"
-  end
   config.vm.provision :shell, inline: "echo '#{ motd }' >> /etc/motd.tail"
 
   # Display next steps info at the end of a successful install

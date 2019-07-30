@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Removed support for Ubuntu 16.04 LTS (Xenial Xerus) (Liz Conlan)
 * Add new rake task to create the Stripe webhook endpoint (Liz Conlan)
 * Send weekly metrics email to the Pro Admin team (Liz Conlan, Gareth Rees)
 * Improve error handling when sending request-related emails (initial request
@@ -14,6 +15,8 @@
 
 * We no longer support PostgreSQL 9.3 or earlier. Please upgrade to 9.4 or above
   before upgrading Alaveteli. See: https://www.postgresql.org/docs/9.4/release-9-4.html
+* We no longer support Ubuntu 16.04 LTS (Xenial Xerus). Please upgrade to Ubuntu
+  18.04 LTS (Bionic Beaver) at the earliest opportunity.
 
 # 0.34.0.0
 
