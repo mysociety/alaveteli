@@ -3,13 +3,17 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AlaveteliGeoIP do
   let(:ip_address) { '127.0.0.1' }
+  let(:max_mind_config) { { mode: :MODE_MEMORY } }
 
   describe '.country_code_from_ip' do
     subject { described_class.country_code_from_ip }
+    let(:delegate) { double(described_class) }
+
+    before do
+      allow(described_class).to receive(:instance).and_return(delegate)
+    end
 
     it 'delegates to an instance of the class' do
-      delegate = double(described_class)
-      allow(described_class).to receive(:instance).and_return(delegate)
       expect(delegate).to receive(:country_code_from_ip).with(ip_address)
       AlaveteliGeoIP.country_code_from_ip(ip_address)
     end
@@ -40,7 +44,8 @@ describe AlaveteliGeoIP do
       end
 
       it 'configures the instance with the database specified' do
-        expect(GeoIP).to receive(:new).with('/my/geoip/database')
+        expect(MaxMind::DB).to receive(:new).
+          with('/my/geoip/database', max_mind_config)
         described_class.new('/my/geoip/database')
       end
     end
@@ -51,10 +56,16 @@ describe AlaveteliGeoIP do
           with(AlaveteliConfiguration.geoip_database).and_return(true)
       end
 
-      it 'configures the instance with an instance of geoip' do
-        expect(GeoIP).to receive(:new).
-          with(AlaveteliConfiguration.geoip_database)
+      it 'configures the instance with an instance of MaxMind::DB' do
+        expect(MaxMind::DB).to receive(:new).
+          with(AlaveteliConfiguration.geoip_database, max_mind_config)
         subject
+      end
+
+      it 'assigns the MaxMind::DB instance to geoip' do
+        mock_db = double(MaxMind::DB)
+        allow(MaxMind::DB).to receive(:new).and_return(mock_db)
+        expect(subject.geoip).to eq(mock_db)
       end
     end
 
@@ -78,11 +89,13 @@ describe AlaveteliGeoIP do
     subject { described_class.new.country_code_from_ip(ip_address) }
 
     context 'when the Gaze service is configured and is in different states' do
+      let(:current_code) { 'GB' }
+
       before(:each) do
         allow(AlaveteliConfiguration).to receive(:geoip_database).and_return ''
+        allow(AlaveteliConfiguration).
+          to receive(:iso_country_code).and_return current_code
       end
-
-      let(:current_code) { described_class.new.current_code }
 
       context 'the service returns a country code' do
         before do
@@ -139,20 +152,19 @@ describe AlaveteliGeoIP do
     end
 
     context 'when the geoip database is configured' do
-      let(:class_instance) { described_class.new }
-
-      let(:geoip) do
-        CountryData = Struct.new(:country_code2)
-        double('FakeGeoIP', :country => CountryData.new('XX'))
-      end
+      let(:geoip) { double('FakeGeoIP') }
 
       before do
-        allow(class_instance).to receive(:geoip).and_return(geoip)
+        allow(File).to receive(:file?).
+          with(AlaveteliConfiguration.geoip_database).and_return(true)
+
+        allow(geoip).to receive(:get).
+          and_return("country" => { "iso_code" => 'XX' })
+
+        allow(MaxMind::DB).to receive(:new).and_return(geoip)
       end
 
-      it 'returns the country code' do
-        expect(class_instance.country_code_from_ip(ip_address)).to eq('XX')
-      end
+      it { is_expected.to eq('XX') }
     end
   end
 end
