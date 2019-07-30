@@ -107,6 +107,7 @@ gem 'json', ['~> 1.8.0', '< 2.0.0']
 gem 'holidays', '~> 4.7.0', '< 5.0.0'
 gem 'iso_country_codes', '~> 0.7.8'
 gem 'mail', '~> 2.6.6'
+gem 'maxmind-db', '~> 1.0.0'
 gem 'mahoro', '~> 0.4'
 gem 'newrelic_rpm'
 gem 'nokogiri', '~> 1.10.3'
