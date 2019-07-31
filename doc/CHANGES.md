@@ -28,6 +28,14 @@
 * There are some database structure updates so remember to run
   `bundle exec rails db:migrate`
 
+### Changed Templates
+
+    app/views/admin_general/_to_do_list.html.erb
+    app/views/alaveteli_pro/account_request/index.html.erb
+    app/views/alaveteli_pro/plans/index.html.erb
+    app/views/alaveteli_pro/plans/show.html.erb
+    app/views/request/_correspondence.html.erb
+
 # 0.34.0.0
 
 ## Highlighted Features
