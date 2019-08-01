@@ -63,8 +63,11 @@ notifications:
       - cron-whatdotheyknow@mysociety.org
 addons:
   apt:
+    sources:
+      - brightbox
+      - sourceline: 'ppa:brightbox/ruby-ng'
     packages:
-    - ruby-2.3.3
+      - ruby2.3.3
   postgresql: "9.4"
   code_climate:
     repo_token: ee19b27266ded8ab2d2c4e65c66a79fc58b11ff9c4bd84673ae21b1a565f3e6d
