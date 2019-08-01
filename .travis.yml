@@ -1,4 +1,4 @@
-dist: bionic
+dist: xenial
 sudo: required
 language: ruby
 branches:
@@ -6,11 +6,7 @@ branches:
     - master
     - develop
 rvm:
-  - 2.3.3 # Debian Stretch
-  - 2.3 # Latest official 2.3.x
-  - 2.4 # Latest official 2.4.x
   - 2.5 # Latest official 2.5.x
-  - 2.6 # Latest official 2.6.x
   - ruby-head
 gemfile:
   - Gemfile
