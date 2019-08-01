@@ -25,7 +25,7 @@ services:
   - postgresql
 cache:
   - bundler
-before_install:
+before_script:
   - sudo add-apt-repository --remove 'http://us-central1.gce.archive.ubuntu.com/ubuntu/ main restricted'
   - sudo add-apt-repository --remove 'http://us-central1.gce.archive.ubuntu.com/ubuntu/ universe'
   - sudo add-apt-repository --remove 'http://us-central1.gce.archive.ubuntu.com/ubuntu/ multiverse'
@@ -52,8 +52,8 @@ before_install:
   - psql -c 'CREATE COLLATION "en_GB" (LOCALE = "en_GB.utf8");' -U postgres foi_test
   - psql -c 'CREATE COLLATION "en_GB.utf8" (LOCALE = "en_GB.utf8");' -U postgres foi_test
   - psql -c 'CREATE COLLATION "en" (LOCALE = "en_GB.utf8");' -U postgres foi_test
-  - RAILS_ENV=test ./script/update-xapian-index
-install: echo 'Bundle installed through script/rails-post-deploy'
+script: RAILS_ENV=test ./script/update-xapian-index
+install: skip
 notifications:
   email:
     recipients:
@@ -61,9 +61,7 @@ notifications:
 addons:
   apt:
     sources:
-      - cosmic
       - sourceline: 'deb http://archive.ubuntu.com/ubuntu/ cosmic universe'
-      - brightbox
       - sourceline: 'ppa:brightbox/ruby-ng'
     packages:
       - pdftk-java
