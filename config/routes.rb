@@ -392,6 +392,13 @@ Rails.application.routes.draw do
   match '/help/credits' => 'help#credits',
         :as => :help_credits,
         :via => :get
+
+  constraints FeatureConstraint.new(:alaveteli_pro) do
+    match '/help/pro' => 'help#pro',
+          as: :help_pro,
+          via: :get
+  end
+
   match '/help/:template' => 'help#action',
         :as => :help_general,
         :via => :get,
