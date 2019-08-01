@@ -5,6 +5,8 @@
 * This release rolls out Alaveteli Pro Pricing - a way to ask users to support
   your site by paying for access to the advanced Alaveteli Pro features
   (Liz Conlan, Gareth Rees, Graeme Porteous)
+* Switch to using the new MaxMind DB data format for geoip lookups. Adds a rake
+  task to download the geoip data file (Liz Conlan)
 * Add new rake task to create the Stripe webhook endpoint (Liz Conlan)
 * Send weekly metrics email to the Pro Admin team (Liz Conlan, Gareth Rees)
 * Improve error handling when sending request-related emails (initial request
@@ -27,6 +29,8 @@
   from the Stripe dashboard
 * We no longer support PostgreSQL 9.3 or earlier. Please upgrade to 9.4 or above
   before upgrading Alaveteli. See: https://www.postgresql.org/docs/9.4/release-9-4.html
+* Run `rails geoip:download_data` to download a fresh copy of the geoip data
+  and follow the steps in the output to update your general.yml config
 * There are some database structure updates so remember to run
   `bundle exec rails db:migrate`
 
