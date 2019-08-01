@@ -48,7 +48,9 @@ before_script:
   - psql -c 'CREATE COLLATION "en_GB" (LOCALE = "en_GB.utf8");' -U postgres foi_test
   - psql -c 'CREATE COLLATION "en_GB.utf8" (LOCALE = "en_GB.utf8");' -U postgres foi_test
   - psql -c 'CREATE COLLATION "en" (LOCALE = "en_GB.utf8");' -U postgres foi_test
-script: RAILS_ENV=test ./script/update-xapian-index
+script:
+  - RAILS_ENV=test ./script/update-xapian-index
+  - rake
 install: skip
 notifications:
   email:
@@ -58,10 +60,8 @@ addons:
   apt:
     sources:
       - sourceline: 'deb http://archive.ubuntu.com/ubuntu/ cosmic universe'
-      - sourceline: 'ppa:brightbox/ruby-ng'
     packages:
       - pdftk-java
-      - ruby-2.3.3
   postgresql: "9.4"
   code_climate:
     repo_token: ee19b27266ded8ab2d2c4e65c66a79fc58b11ff9c4bd84673ae21b1a565f3e6d
