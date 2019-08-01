@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: webhooks
+#
+#  id          :integer          not null, primary key
+#  params      :jsonb
+#  notified_at :datetime
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
 ##
 # A class which represents a Webhook from a 3rd party service or integration.
 #
