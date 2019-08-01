@@ -25,8 +25,6 @@ services:
   - postgresql
 cache:
   - bundler
-before_script:
-  - rvm install 2.3.3
 before_install:
   - sudo add-apt-repository --remove 'http://us-central1.gce.archive.ubuntu.com/ubuntu/ main restricted'
   - sudo add-apt-repository --remove 'http://us-central1.gce.archive.ubuntu.com/ubuntu/ universe'
@@ -64,6 +62,7 @@ notifications:
     recipients:
       - cron-whatdotheyknow@mysociety.org
 addons:
+  ruby: "2.3.3"
   postgresql: "9.4"
   code_climate:
     repo_token: ee19b27266ded8ab2d2c4e65c66a79fc58b11ff9c4bd84673ae21b1a565f3e6d
