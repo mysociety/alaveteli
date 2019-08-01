@@ -25,8 +25,9 @@ services:
   - postgresql
 cache:
   - bundler
-before_install:
+before_script:
   - rvm install 2.3.3
+before_install:
   - sudo add-apt-repository --remove 'http://us-central1.gce.archive.ubuntu.com/ubuntu/ main restricted'
   - sudo add-apt-repository --remove 'http://us-central1.gce.archive.ubuntu.com/ubuntu/ universe'
   - sudo add-apt-repository --remove 'http://us-central1.gce.archive.ubuntu.com/ubuntu/ multiverse'
