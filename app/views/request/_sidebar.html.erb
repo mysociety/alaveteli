@@ -62,9 +62,8 @@
 
       <% if similar_more %>
         <p class="sidebar_similar_requests__more-link">
-          <%= link_to similar_request_path(@info_request.url_title, utm_params) do %>
-            <%= _("More similar requests") %>
-          <% end %>
+          <% path = similar_request_path(@info_request.url_title, utm_params) %>
+          <%= link_to _("More similar requests"), path %>
         </p>
       <% end %>
     </div>
