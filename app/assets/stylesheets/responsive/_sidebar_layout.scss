@@ -12,6 +12,8 @@
   }
 }
 
+/* TODO: Not sure this is still used – we use the request header action bar for
+   tracks */
 /* #track-request .feed_link is here to override specificity in the request sidebar,
    normally .feed_link should be enough */
 #track-request .feed_link,
@@ -28,6 +30,7 @@
   }
 }
 
+/* TODO: Why is this in the layout file for the request page sidebar? */
 .authority__body__sidebar {
   .feed_link_sidebar {
     .track-request-action {
@@ -36,6 +39,8 @@
   }
 }
 
+/* TODO: I think this is only used in _request_listing_short_via_event, which is
+   only used in search_ahead */
 .request_short_listing {
   time {
     display: block;
