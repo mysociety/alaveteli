@@ -1,7 +1,6 @@
 /* Display of sidebars */
 .sidebar {
   h2 {
-    margin-top: 3.5em;
     margin-bottom: 0.875em;
   }
   .link_button_green {
@@ -9,6 +8,10 @@
   }
   .report-this-request {
     width: 100%;
+  }
+
+  .sidebar__section {
+    margin-bottom: 3.5em;
   }
 }
 
