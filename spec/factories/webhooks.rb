@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: webhooks
+#
+#  id          :integer          not null, primary key
+#  params      :jsonb
+#  notified_at :datetime
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
 FactoryBot.define do
   factory :webhook do
     params('type' => 'payment', 'id' => 'evt_123')

@@ -2,6 +2,9 @@
 
 ## Highlighted Features
 
+* This release rolls out Alaveteli Pro Pricing - a way to ask users to support
+  your site by paying for access to the advanced Alaveteli Pro features
+  (Liz Conlan, Gareth Rees, Graeme Porteous)
 * Add new rake task to create the Stripe webhook endpoint (Liz Conlan)
 * Send weekly metrics email to the Pro Admin team (Liz Conlan, Gareth Rees)
 * Improve error handling when sending request-related emails (initial request
@@ -9,11 +12,29 @@
   logged to make it easier for site admins to see what's happened (Nigel Jones)
 * Fixed bug where expiring embargoes were not fully removed from batches when
   the related requests reached the publication data (Liz Conlan)
+* Send daily webhook digest to the Pro Admin team (Graeme Porteous)
 
 ## Upgrade Notes
 
+* You can run this release without using the Alaveteli Pro Pricing functionality
+  - by default it is switched off.
+* We have specified a Stripe API version of `2017-01-27` if you are already
+  running Pro with pricing enabled you should consider re-creating the Stripe
+  Webhook using the new `bundle exec rails stripe:create_webhook_endpoint` to
+  ensure the versions are consistent. Any old Webhooks should then be disabled
+  from the Stripe dashboard
 * We no longer support PostgreSQL 9.3 or earlier. Please upgrade to 9.4 or above
   before upgrading Alaveteli. See: https://www.postgresql.org/docs/9.4/release-9-4.html
+* There are some database structure updates so remember to run
+  `bundle exec rails db:migrate`
+
+### Changed Templates
+
+    app/views/admin_general/_to_do_list.html.erb
+    app/views/alaveteli_pro/account_request/index.html.erb
+    app/views/alaveteli_pro/plans/index.html.erb
+    app/views/alaveteli_pro/plans/show.html.erb
+    app/views/request/_correspondence.html.erb
 
 # 0.34.0.0
 
