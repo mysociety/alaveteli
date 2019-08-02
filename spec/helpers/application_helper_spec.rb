@@ -126,6 +126,41 @@ describe ApplicationHelper do
 
   end
 
+  describe '#show_pro_upsell?' do
+    subject { show_pro_upsell?(user) }
+
+    context 'when the user is not logged in', feature: :alaveteli_pro do
+      let(:user) { nil }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when a regular user is logged in', feature: :alaveteli_pro do
+      let(:user) { FactoryBot.create(:user) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when a pro user is logged in', feature: :alaveteli_pro do
+      let(:user) { FactoryBot.create(:pro_user) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when pro is disabled' do
+      let(:user) { FactoryBot.create(:user) }
+      it { with_feature_disabled(:alaveteli_pro) { is_expected.to eq(false) } }
+    end
+  end
+
+  describe '#pro_upsell_text' do
+    subject { pro_upsell_text }
+
+    let(:expected) do
+      '<strong><a href="/pro">Alaveteli Professional</a></strong> is a ' \
+      'powerful, fully-featured FOI toolkit for journalists.'
+    end
+
+    it { is_expected.to eq(expected) }
+  end
+
   describe 'when creating an event description' do
 
     it 'should generate a description for a request' do
