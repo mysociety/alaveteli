@@ -1,5 +1,5 @@
 <div id="right_column" class="sidebar right_column" role="complementary">
-  <div class="new-request-cta">
+  <div class="sidebar__section new-request-cta">
     <%= render :partial => "general/new_request" %>
   </div>
 
@@ -10,7 +10,7 @@
   <% end %>
 
   <% if @info_request.attention_requested %>
-    <div class="request__special-status">
+    <div class="sidebar__section request__special-status">
       <% if @info_request.prominence(:decorate => true).is_hidden? %>
         <h2><%= _('Request hidden') %></h2>
         <p>
@@ -36,14 +36,17 @@
     </div>
   <% end %>
 
-  <%= render :partial => 'request/act' %>
-  <%= render :partial => 'request/next_actions' %>
+  <div class="sidebar__section next-actions">
+    <%= render :partial => 'request/act' %>
+    <%= render :partial => 'request/next_actions' %>
+  </div>
+
   <%= render :partial => 'request/batch',
              :locals => { :info_request => @info_request } %>
 
   <% similar_requests, similar_more = @info_request.similar_requests %>
   <% unless similar_requests.empty? %>
-    <div class="sidebar__similar-requests">
+    <div class="sidebar__section sidebar__similar-requests">
       <h2><%= _('Requests like this')%></h2>
 
       <% utm_params = { :utm_source => site_name.downcase,
@@ -67,7 +70,13 @@
     </div>
   <% end %>
 
-  <!-- this link with this wording is here for legal reasons, discuss with
-    board and our lawyer before changing or removing it -->
-  <p class="copyright-notice"><small><%= link_to _('Are you the owner of any commercial copyright on this page?'), help_officers_path(:anchor => "copyright") %></small></p>
+  <div class="sidebar__section">
+    <!-- this link with this wording is here for legal reasons, discuss with
+         board and our lawyer before changing or removing it -->
+    <p class="copyright-notice">
+      <small><%= link_to _('Are you the owner of any commercial copyright ' \
+                           'on this page?'),
+                         help_officers_path(anchor: 'copyright') %></small>
+    </p>
+  </div>
 </div>
