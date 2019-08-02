@@ -1,4 +1,4 @@
-dist: xenial
+dist: bionic
 sudo: required
 language: ruby
 branches:
@@ -7,11 +7,6 @@ branches:
     - develop
 rvm:
   - 2.3.3 # Debian Stretch
-  - 2.3 # Latest official 2.3.x
-  - 2.4 # Latest official 2.4.x
-  - 2.5 # Latest official 2.5.x
-  - 2.6 # Latest official 2.6.x
-  - ruby-head
 gemfile:
   - Gemfile
   - Gemfile.rails_next
@@ -46,6 +41,10 @@ before_install:
   - sudo apt-get update
   - export DEBIAN_FRONTEND=noninteractive
   - sudo apt-get -y install exim4-daemon-light
+  - sudo add-apt-repository 'deb http://archive.ubuntu.com/ubuntu/ cosmic universe'
+  - sudo apt-get -y install 'pdftk-java'
+  - sudo add-apt-repository --remove 'deb http://archive.ubuntu.com/ubuntu/ cosmic universe'
+  - sudo apt-get -y install `cut -d " " -f 1 config/packages.ubuntu-bionic | egrep -v "(^#|wkhtml|bundler|pdftk|postgres|^ruby$|^ruby1.9.1$|^rubygems$|^rake)"`
   - sudo apt-get -y install `cut -d " " -f 1 config/packages | egrep -v "(^#|wkhtml|bundler|^ruby$|^ruby1.9.1$|^rubygems$|^rake)"`
   - gem install bundler -v '< 2.0'
   - RAILS_ENV=test ./script/rails-post-deploy
@@ -59,5 +58,6 @@ notifications:
     recipients:
       - cron-whatdotheyknow@mysociety.org
 addons:
+  postgres: '9.4'
   code_climate:
     repo_token: ee19b27266ded8ab2d2c4e65c66a79fc58b11ff9c4bd84673ae21b1a565f3e6d
