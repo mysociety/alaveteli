@@ -12,6 +12,16 @@
   }
 }
 
+.new-request-cta {
+  .new-request__title {
+    margin-top: 0;
+  }
+}
+
+.act_link {
+  margin-bottom: 0.5em;
+}
+
 /* TODO: Not sure this is still used – we use the request header action bar for
    tracks */
 /* #track-request .feed_link is here to override specificity in the request sidebar,
@@ -21,12 +31,6 @@
   .track-request-action {
     margin-bottom: 1em;
     display: inline-block;
-  }
-}
-
-.new-request-cta {
-  .new-request__title {
-    margin-top: 0;
   }
 }
 
@@ -45,8 +49,4 @@
   time {
     display: block;
   }
-}
-
-.act_link {
-  margin-bottom: 0.5em;
 }
