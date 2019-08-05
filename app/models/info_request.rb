@@ -1572,7 +1572,7 @@ class InfoRequest < ApplicationRecord
   # Get requests that have similar important terms
   def similar_requests(limit=10)
     ids, more = similar_ids(limit)
-    [InfoRequest.includes(:public_body => :translations).find(ids), more]
+    [InfoRequest.includes(public_body: :translations).where(id: ids), more]
   end
 
   # Get the ids of similar requests, and whether there are more

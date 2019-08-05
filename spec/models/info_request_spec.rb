@@ -3407,6 +3407,11 @@ describe InfoRequest do
       expect(more).to be true
     end
 
+    it 'should not raise error if similar request has been deleted' do
+      request = info_requests(:spam_1_request)
+      allow(request).to receive(:similar_ids).and_return([[-1, -2], 0])
+      expect { request.similar_requests }.to_not raise_error
+    end
   end
 
   describe InfoRequest, 'when constructing the list of recent requests' do
