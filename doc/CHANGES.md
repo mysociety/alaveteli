@@ -8,6 +8,8 @@
   logged to make it easier for site admins to see what's happened (Nigel Jones)
 * Fixed bug where expiring embargoes were not fully removed from batches when
   the related requests reached the publication data (Liz Conlan)
+* Improved admin user search feature to also search the users' about me profile
+  text (Graeme Porteous)
 
 ## Upgrade Notes
 
