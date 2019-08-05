@@ -29,8 +29,10 @@ namespace :geoip do
                    "#{target_dir}/GeoLite2-Country.mmdb")
     end
 
-    $stdout.puts 'File downloaded!'
-    $stdout.puts 'Please make sure your config.yml has the following setting:'
-    $stdout.puts '  GEOIP_DATABASE: vendor/data/GeoLite2-Country.mmdb'
+    unless Rake.application.options.silent
+      $stdout.puts 'File downloaded!'
+      $stdout.puts 'Please make sure your config.yml has the following setting:'
+      $stdout.puts '  GEOIP_DATABASE: vendor/data/GeoLite2-Country.mmdb'
+    end
   end
 end
