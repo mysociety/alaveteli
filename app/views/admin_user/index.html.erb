@@ -10,7 +10,7 @@
     <div class="span12">
       <%= text_field_tag 'query', params[:query], { :size => 30, :class => "input-large search-query"} %>
       <%= hidden_field_tag 'sort_order', @sort_order %>
-      <%= submit_tag "Search", :class => "btn" %> (substring search, names and emails)
+      <%= submit_tag "Search", :class => "btn" %> (substring search, names, emails and about me)
       <%= link_to 'Banned users', banned_admin_users_path, :class => "btn btn-info" %>
     </div>
   </div>

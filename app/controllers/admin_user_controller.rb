@@ -28,8 +28,12 @@ class AdminUserController < AdminController
       @sort_options.key?(params[:sort_order]) ? params[:sort_order] : 'name_asc'
 
     users = if @query.present?
-      User.where(["lower(users.name) LIKE lower('%'||?||'%') OR " \
-                  "lower(users.email) LIKE lower('%'||?||'%')", @query, @query])
+      User.where(
+        "lower(users.name) LIKE lower('%'||:query||'%') OR " \
+        "lower(users.email) LIKE lower('%'||:query||'%') OR " \
+        "lower(users.about_me) LIKE lower('%'||:query||'%')",
+        query: @query
+      )
     else
       User
     end
