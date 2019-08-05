@@ -13,6 +13,8 @@
 * Fixed bug where expiring embargoes were not fully removed from batches when
   the related requests reached the publication data (Liz Conlan)
 * Send daily webhook digest to the Pro Admin team (Graeme Porteous)
+* Improved admin user search feature to also search the users' about me profile
+  text (Graeme Porteous)
 
 ## Upgrade Notes
 

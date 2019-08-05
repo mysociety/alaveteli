@@ -103,6 +103,12 @@ describe AdminUserController do
       expect(assigns[:admin_users]).to include(user)
     end
 
+    it 'will search the about me text' do
+      user = FactoryBot.create(:user, about_me: 'http://example.com')
+      get :index, params: { query: 'http' }
+      expect(assigns[:admin_users]).to include(user)
+    end
+
     it 'searches and sorts the records' do
       User.destroy_all
       u1 = FactoryBot.create(:user, :name => 'Alice Smith')
