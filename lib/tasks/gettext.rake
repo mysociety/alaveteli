@@ -104,6 +104,30 @@ namespace :gettext do
     end
   end
 
+  desc 'Reformat gettext files, correcting wrapping for msgids and msgstrs and removing trailing whitespace'
+  task :reformat do
+    Dir.glob('locale*/**/app.po').each do |po_file|
+      contents = File.read(po_file)
+
+      # Remove wrapping from msgid, msgid_plural and msgstr
+      while true do
+        break unless contents.gsub!(/((?:msgid(?:_plural)?|msgstr(?:\[\d+\])?) ".*?)"\n"(.*?(?!\\n)"\n)/, '\1\2')
+      end
+
+      # Re-add wrapping to msgstr if they contain newlines
+      while true do
+        break unless contents.gsub!(/(msgstr ".*)((?<!\\)\\n)(.+")$/, %Q(\\1\\2"\n"\\3))
+      end
+      # Deal with the first line of wrapped msgstr
+      contents.gsub!(/(msgstr ")(.*(?<!\\)\\n)"$/, %Q(\\1"\n"\\2"))
+
+      File.open(po_file, 'w') { |f| f.puts(contents) }
+    end
+
+    # Remove trailing whitespace
+    `sed -i 's/[ \\t]*$//' locale*/**/app.po`
+  end
+
   # Use a quote for quote-escaping as CSV errors on the \" with "Missing or stray quote"
   def clean_csv_mapping_file(file)
     data = ''
