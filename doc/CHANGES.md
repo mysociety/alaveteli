@@ -38,6 +38,12 @@
     app/views/alaveteli_pro/plans/show.html.erb
     app/views/request/_correspondence.html.erb
 
+# 0.34.0.1
+
+## Highlighted Features
+
+* Updated translations from Transifex (Liz Conlan, Graeme Porteous)
+
 # 0.34.0.0
 
 ## Highlighted Features

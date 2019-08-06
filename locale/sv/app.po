@@ -37,7 +37,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-06-10 14:02+0000\n"
-"PO-Revision-Date: 2019-06-12 13:52+0000\n"
+"PO-Revision-Date: 2019-06-26 06:18+0000\n"
 "Last-Translator: Elenor Weijmar <ellelingh@hotmail.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/mysociety/alaveteli/language/sv/)\n"
 "Language: sv\n"
@@ -155,7 +155,7 @@ msgid "<a href=\"{{new_request_link}}\">Make a new FOI request</a> to {{public_b
 msgstr "<a href=\"{{new_request_link}}\">Gör en ny begäran om allmän handling</a> till {{public_body_name}}"
 
 msgid "<a href=\"{{sign_in_link}}\">Sign in</a> to get updates on things you follow or re-enable email alerts."
-msgstr ""
+msgstr "<a href=\"{{sign_in_link}}\">Logga in </a> för att få uppdateringar på saker du följer eller återaktivera e-postmeddelanden."
 
 msgid "<a href=\"{{url}}\">Do you want to request private information about yourself?</a>"
 msgstr "<a href=\"{{url}}\">Vill du begära ut privat information om dig själv?</a>"
