@@ -1,3 +1,9 @@
+# 0.34.0.1
+
+## Highlighted Features
+
+* Updated translations from Transifex (Liz Conlan, Graeme Porteous)
+
 # 0.34.0.0
 
 ## Highlighted Features
