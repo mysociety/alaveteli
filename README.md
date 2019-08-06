@@ -38,6 +38,7 @@ Every Alaveteli commit is tested by Travis on the [following Ruby platforms](htt
 * ruby-2.3.0
 * ruby-2.4.0
 * ruby-2.5.0
+* ruby-2.6.0
 
 If you use a ruby version management tool (such as RVM or .rbenv) and want to use the default development version used by the alaveteli team (currently 2.3.8), you can create a `.ruby-version` symlink with a target of `.ruby-version.example` to switch to that automatically in the project directory.
 
