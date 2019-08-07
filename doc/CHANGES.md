@@ -17,6 +17,7 @@
 * Send daily webhook digest to the Pro Admin team (Graeme Porteous)
 * Improved admin user search feature to also search the users' about me profile
   text (Graeme Porteous)
+* Removed support for Ubuntu 16.04 LTS (Xenial Xerus) (Liz Conlan)
 * Add support for Ruby 2.6 (Liz Conlan)
 
 ## Upgrade Notes
@@ -35,6 +36,8 @@
   and follow the steps in the output to update your general.yml config
 * There are some database structure updates so remember to run
   `bundle exec rails db:migrate`
+* We no longer support Ubuntu 16.04 LTS (Xenial Xerus). Please upgrade to Ubuntu
+  18.04 LTS (Bionic Beaver) at the earliest opportunity.
 
 ### Changed Templates
 
