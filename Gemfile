@@ -99,7 +99,7 @@ gem 'exception_notification', ['~> 4.1.0', '< 4.1.2']
 gem 'fancybox-rails', '~> 0.3.0'
 gem 'gnuplot', '~> 2.6.0'
 gem 'htmlentities', '~> 4.3.0'
-gem 'icalendar', '~> 2.4.0'
+gem 'icalendar', '~> 2.5.3'
 gem 'jquery-rails', '~> 4.3.3'
 gem 'jquery-ui-rails', '~> 6.0.0'
 gem 'json', ['~> 1.8.0', '< 2.0.0']
