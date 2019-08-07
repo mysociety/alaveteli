@@ -213,4 +213,20 @@ module ApplicationHelper
       session[:announcement_dismissals]
     ).first
   end
+
+  def show_pro_upsell?(user)
+    feature_enabled?(:alaveteli_pro) && (!user || user && !user.is_pro?)
+  end
+
+  def pro_upsell_text
+    pro_link = link_to(account_request_index_path) do
+      AlaveteliConfiguration.pro_site_name
+    end
+
+    pro_site_name_link = content_tag(:strong, pro_link)
+
+    _('{{pro_site_name}} is a powerful, fully-featured FOI toolkit for ' \
+      'journalists.',
+      pro_site_name: pro_site_name_link)
+  end
 end
