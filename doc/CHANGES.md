@@ -17,11 +17,13 @@
 * Send daily webhook digest to the Pro Admin team (Graeme Porteous)
 * Improved admin user search feature to also search the users' about me profile
   text (Graeme Porteous)
+* Add support for Ruby 2.6 (Liz Conlan)
 
 ## Upgrade Notes
 
 * You can run this release without using the Alaveteli Pro Pricing functionality
   - by default it is switched off.
+* This release officially adds support for Ruby 2.6
 * We have specified a Stripe API version of `2017-01-27` if you are already
   running Pro with pricing enabled you should consider re-creating the Stripe
   Webhook using the new `bundle exec rails stripe:create_webhook_endpoint` to
