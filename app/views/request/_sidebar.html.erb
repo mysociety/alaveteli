@@ -9,8 +9,8 @@
                locals: { info_request: @info_request } %>
   <% end %>
 
-  <div class="request__special-status">
-    <% if @info_request.attention_requested %>
+  <% if @info_request.attention_requested %>
+    <div class="request__special-status">
       <% if @info_request.prominence(:decorate => true).is_hidden? %>
         <h2><%= _('Request hidden') %></h2>
         <p>
@@ -33,8 +33,8 @@
                  '<a href="{{url}}">contact us</a>.',
                 :url => help_requesting_path.html_safe) %></p>
       <% end %>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 
   <%= render :partial => 'request/act' %>
   <%= render :partial => 'request/next_actions' %>
