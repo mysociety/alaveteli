@@ -60,7 +60,7 @@ module AlaveteliConfiguration
       :FRONTPAGE_PUBLICBODY_EXAMPLES => '',
       :GA_CODE => '',
       :GAZE_URL => '',
-      :GEOIP_DATABASE => '/usr/share/GeoIP/GeoIP.dat',
+      :GEOIP_DATABASE => 'vendor/data/GeoLite2-Country.mmdb',
       :HTML_TO_PDF_COMMAND => '',
       :INCLUDE_DEFAULT_LOCALE_IN_URLS => true,
       :INCOMING_EMAIL_DOMAIN => 'localhost',
