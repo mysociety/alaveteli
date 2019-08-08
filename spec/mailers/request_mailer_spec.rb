@@ -845,12 +845,9 @@ describe RequestMailer do
                                 prominence_reason: 'test')
 
       force_updated_at_to_past(ir)
+      RequestMailer.alert_not_clarified_request
 
-      expected_message = "internal error, no last response while making alert " \
-                         "not clarified reminder, request id #{ir.id}"
-
-      expect { RequestMailer.alert_not_clarified_request }.
-        to raise_error(expected_message)
+      expect(ActionMailer::Base.deliveries.size).to eq(0)
     end
 
     it "should not send an alert to banned users" do
