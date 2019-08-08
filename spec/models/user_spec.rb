@@ -365,42 +365,45 @@ end
 
 
 describe User, "when reindexing referencing models" do
+  let(:user) do
+    FactoryBot.build(:user, comments: [@comment], info_requests: [@request])
+  end
+
 
   before do
     @request_event = mock_model(InfoRequestEvent, :xapian_mark_needs_index => true)
     @request = mock_model(InfoRequest, :info_request_events => [@request_event])
     @comment_event = mock_model(InfoRequestEvent, :xapian_mark_needs_index => true)
     @comment = mock_model(Comment, :info_request_events => [@comment_event])
-    @user = User.new(:comments => [@comment], :info_requests => [@request])
   end
 
   it 'should reindex events associated with that user\'s comments when URL changes' do
-    allow(@user).to receive(:changes).and_return({'url_name' => 1})
+    allow(user).to receive(:changes).and_return({'url_name' => 1})
     expect(@comment_event).to receive(:xapian_mark_needs_index)
-    @user.reindex_referencing_models
+    user.reindex_referencing_models
   end
 
   it 'should reindex events associated with that user\'s requests when URL changes' do
-    allow(@user).to receive(:changes).and_return({'url_name' => 1})
+    allow(user).to receive(:changes).and_return({'url_name' => 1})
     expect(@request_event).to receive(:xapian_mark_needs_index)
-    @user.reindex_referencing_models
+    user.reindex_referencing_models
   end
 
   describe 'when no_xapian_reindex is set' do
     before do
-      @user.no_xapian_reindex = true
+      user.no_xapian_reindex = true
     end
 
     it 'should not reindex events associated with that user\'s comments when URL changes' do
-      allow(@user).to receive(:changes).and_return({'url_name' => 1})
+      allow(user).to receive(:changes).and_return({'url_name' => 1})
       expect(@comment_event).not_to receive(:xapian_mark_needs_index)
-      @user.reindex_referencing_models
+      user.reindex_referencing_models
     end
 
     it 'should not reindex events associated with that user\'s requests when URL changes' do
-      allow(@user).to receive(:changes).and_return({'url_name' => 1})
+      allow(user).to receive(:changes).and_return({'url_name' => 1})
       expect(@request_event).not_to receive(:xapian_mark_needs_index)
-      @user.reindex_referencing_models
+      user.reindex_referencing_models
     end
 
   end
