@@ -35,8 +35,7 @@ describe TrackMailer do
 
     describe 'for each user' do
       before do
-        klass = User::ActiveRecord_Relation
-        allow_any_instance_of(klass).to receive(:find_each).and_yield(user)
+        allow(User).to receive_message_chain(:where, :find_each).and_yield(user)
         allow(user).to receive(:receive_email_alerts).and_return(true)
         allow(user).to receive(:no_xapian_reindex=)
       end
@@ -144,9 +143,7 @@ describe TrackMailer do
 
     describe 'when a user should not be emailed' do
       before do
-        klass = User::ActiveRecord_Relation
-        user.no_xapian_reindex = false
-        allow_any_instance_of(klass).to receive(:find_each).and_yield(user)
+        allow(User).to receive_message_chain(:where, :find_each).and_yield(user)
         allow(user).to receive(:should_be_emailed?).and_return(false)
         allow(user).to receive(:receive_email_alerts).and_return(true)
         allow(user).to receive(:no_xapian_reindex=)
