@@ -136,7 +136,6 @@ describe TrackMailer do
     describe 'when a user should not be emailed' do
       before do
         allow(User).to receive_message_chain(:where, :find_each).and_yield(user)
-        user.no_xapian_reindex = false
         allow(user).to receive(:should_be_emailed?).and_return(false)
         allow(user).to receive(:receive_email_alerts).and_return(true)
         allow(user).to receive(:no_xapian_reindex=)
