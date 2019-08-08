@@ -26,3 +26,6 @@
     </div>
   <% end %>
 </fieldset>
+
+<%= render partial: 'foi_attachments',
+           locals: { foi_attachments: @incoming_message.foi_attachments } %>
