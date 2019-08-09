@@ -165,6 +165,15 @@ describe AlaveteliGeoIP do
       end
 
       it { is_expected.to eq('XX') }
+
+      context 'the IP is mapped to a continent instead of a country' do
+        before do
+          allow(geoip).to receive(:get).
+            and_return("continent" => { "iso_code" => 'XR' })
+        end
+
+        it { is_expected.to eq('XR') }
+      end
     end
   end
 end
