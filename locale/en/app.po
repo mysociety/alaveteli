@@ -15,12 +15,13 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-06-10 14:02+0000\n"
-"PO-Revision-Date: 2019-04-29 14:31+0000\n"
+"PO-Revision-Date: 2019-06-10 14:40+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: English (http://www.transifex.com/mysociety/alaveteli/language/en/)\n"
 "Language: en\n"
@@ -138,7 +139,7 @@ msgid "<a href=\"{{new_request_link}}\">Make a new FOI request</a> to {{public_b
 msgstr "<a href=\"{{new_request_link}}\">Make a new FOI request</a> to {{public_body_name}}"
 
 msgid "<a href=\"{{sign_in_link}}\">Sign in</a> to get updates on things you follow or re-enable email alerts."
-msgstr ""
+msgstr "<a href=\"{{sign_in_link}}\">Sign in</a> to get updates on things you follow or re-enable email alerts."
 
 msgid "<a href=\"{{url}}\">Do you want to request private information about yourself?</a>"
 msgstr "<a href=\"{{url}}\">Do you want to request private information about yourself?</a>"
@@ -153,7 +154,7 @@ msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>"
 msgstr "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>"
 
 msgid "<a href=\"{{wall_link}}\">Visit your Wall</a> to get updates on things you follow or re-enable email alerts."
-msgstr ""
+msgstr "<a href=\"{{wall_link}}\">Visit your Wall</a> to get updates on things you follow or re-enable email alerts."
 
 msgid "<div class=\"alaveteli-widget__count\">{{count}}</div> person wants to know"
 msgid_plural "<div class=\"alaveteli-widget__count\">{{count}}</div> people want to know"
@@ -461,7 +462,7 @@ msgid "Are we missing a public authority?"
 msgstr "Are we missing a public authority?"
 
 msgid "Are you asking about your, or others', personal information or personal situation?"
-msgstr ""
+msgstr "Are you asking about your, or others', personal information or personal situation?"
 
 msgid "Are you sure you want to disable two factor authentication?"
 msgstr "Are you sure you want to disable two factor authentication?"
@@ -851,10 +852,10 @@ msgid "Either the email or password was not recognised, please try again. Or cre
 msgstr "Either the email or password was not recognised, please try again. Or create a new account using the form on the left."
 
 msgid "Email Alerts Disabled"
-msgstr ""
+msgstr "Email Alerts Disabled"
 
 msgid "Email alerts for things you follow have now been disabled."
-msgstr ""
+msgstr "Email alerts for things you follow have now been disabled."
 
 msgid "Email doesn't look like a valid address"
 msgstr "Email doesn't look like a valid address"
@@ -1099,7 +1100,7 @@ msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 
 msgid "Getting long – remember to keep it focussed"
-msgstr ""
+msgstr "Getting long – remember to keep it focussed"
 
 msgid "Got a {{site_name}} account?"
 msgstr "Got a {{site_name}} account?"
@@ -1375,7 +1376,7 @@ msgid "Invalid one time password"
 msgstr "Invalid one time password"
 
 msgid "Invalid token"
-msgstr ""
+msgstr "Invalid token"
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
@@ -1630,7 +1631,7 @@ msgid "Note that the requester will not be notified about your annotation, becau
 msgstr "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
 
 msgid "Note that we may still send you emails when new correspondence appears on your requests, or when you perform actions that require an email confirmation step."
-msgstr ""
+msgstr "Note that we may still send you emails when new correspondence appears on your requests, or when you perform actions that require an email confirmation step."
 
 msgid "Notes:"
 msgstr "Notes:"
@@ -2901,7 +2902,7 @@ msgid "This request has an <strong>unknown status</strong>."
 msgstr "This request has an <strong>unknown status</strong>."
 
 msgid "This request has been <strong>closed to new correspondence from the public body</strong>. <a href=\"{{url}}\"\">Contact us</a> if you think it ought be re-opened."
-msgstr ""
+msgstr "This request has been <strong>closed to new correspondence from the public body</strong>. <a href=\"{{url}}\"\">Contact us</a> if you think it ought be re-opened."
 
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
 msgstr "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
@@ -2937,7 +2938,7 @@ msgid "This request is hidden, so that only you the requester can see it. Please
 msgstr "This request is hidden, so that only you the requester can see it. Please\\n    <a href=\"{{url}}\">contact us</a> if you are not sure why."
 
 msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
-msgstr ""
+msgstr "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
 
 msgid "This request is still in progress:"
 msgstr "This request is still in progress:"
@@ -3198,7 +3199,7 @@ msgid "Version {{version}}"
 msgstr "Version {{version}}"
 
 msgid "Very long – shorter requests are more successful"
-msgstr ""
+msgstr "Very long – shorter requests are more successful"
 
 msgid "Vexatious"
 msgstr "Vexatious"
@@ -3783,7 +3784,7 @@ msgid "[FOI #{{request}} email]"
 msgstr "[FOI #{{request}} email]"
 
 msgid "[Name Removed]"
-msgstr ""
+msgstr "[Name Removed]"
 
 msgid "[REDACTED]"
 msgstr "[REDACTED]"
@@ -4265,7 +4266,7 @@ msgid "{{user}} made this {{law_used_full}} request to {{public_body}}"
 msgstr "{{user}} made this {{law_used_full}} request to {{public_body}}"
 
 msgid "{{user}} made this {{law_used_full}} request to {{public_body}} as part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
-msgstr ""
+msgstr "{{user}} made this {{law_used_full}} request to {{public_body}} as part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
 
 msgid "« Back to search results"
 msgstr "« Back to search results"

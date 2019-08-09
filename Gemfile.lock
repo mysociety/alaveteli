@@ -183,7 +183,6 @@ GEM
       rack (>= 1.4, < 3)
       rack-protection (>= 1.5.3, < 2.1.0)
     gender_detector (1.0.0)
-    geoip (1.6.4)
     gettext (2.3.9)
       locale
       text
@@ -226,6 +225,7 @@ GEM
     mahoro (0.4)
     mail (2.6.6)
       mime-types (>= 1.16, < 4)
+    maxmind-db (1.0.0)
     method_source (0.9.2)
     mime-types (2.99.3)
     mini_mime (1.0.1)
@@ -448,7 +448,6 @@ DEPENDENCIES
   fast_gettext (< 1.2.0)
   flipper-ui (~> 0.10.2)
   gender_detector (~> 1.0.0)
-  geoip (~> 1.6.4)
   gettext (~> 2.3.0)
   gettext_i18n_rails (~> 0.10.1)
   globalize (~> 5.1.0)
@@ -466,6 +465,7 @@ DEPENDENCIES
   locale (~> 2.0.0, < 2.1.0)
   mahoro (~> 0.4)
   mail (~> 2.6.6)
+  maxmind-db (~> 1.0.0)
   mime-types (< 3.0.0)
   money (~> 6.13.2)
   net-ssh (~> 2.9.0, < 3.0.0)

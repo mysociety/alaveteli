@@ -6,6 +6,7 @@
 # new instance.
 
 class AlaveteliGeoIP
+  require 'maxmind/db'
 
   attr_reader :geoip, :gaze_url, :current_code
 
@@ -23,7 +24,7 @@ class AlaveteliGeoIP
   def initialize(database = nil)
     database = AlaveteliConfiguration::geoip_database unless database
     if database.present? && File.file?(database)
-      @geoip = GeoIP.new(database)
+      @geoip = MaxMind::DB.new(database, mode: MaxMind::DB::MODE_MEMORY)
     elsif AlaveteliConfiguration::gaze_url.present?
       @gaze_url = AlaveteliConfiguration::gaze_url
     end
@@ -48,8 +49,12 @@ class AlaveteliGeoIP
       elsif gaze_url
         country_code_from_gaze(ip)
       end
-    country_code = current_code if country_code.blank?
-    country_code
+
+    if country_code.blank?
+      current_code
+    else
+      country_code
+    end
   end
 
   private
@@ -59,7 +64,8 @@ class AlaveteliGeoIP
   end
 
   def country_code_from_geoip(ip)
-    geoip.country(ip).country_code2
+    if record = geoip.get(ip)
+      record['country']['iso_code']
+    end
   end
-
 end

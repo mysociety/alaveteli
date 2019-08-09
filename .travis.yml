@@ -18,7 +18,6 @@ gemfile:
 matrix:
   fast_finish: true
   allow_failures:
-    - rvm: 2.6
     - rvm: ruby-head
     - gemfile: Gemfile.rails_next
 services:

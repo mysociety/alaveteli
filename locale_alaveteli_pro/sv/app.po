@@ -704,7 +704,7 @@ msgid "This page is only accessible to {{pro_site_name}} users"
 msgstr "Denna sida är endast tillgänglig för användare vid {{pro_site_name}}"
 
 msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
-msgstr ""
+msgstr "Den här begäran är del av <a href=\"{{url}}\">en serieförfråga skickad till {{count}} myndigheter</a>"
 
 msgid "This request is private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
 msgstr "Denna begäran är privat t.o.m. <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
