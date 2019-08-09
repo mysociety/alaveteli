@@ -65,7 +65,11 @@ class AlaveteliGeoIP
 
   def country_code_from_geoip(ip)
     if record = geoip.get(ip)
-      record['country']['iso_code']
+      iso_code(record['country'] || record['continent'])
     end
+  end
+
+  def iso_code(geoip_data)
+    geoip_data['iso_code']
   end
 end

@@ -829,6 +829,27 @@ describe RequestMailer do
                                     :incoming_message_id => ir.incoming_messages.last.id))
     end
 
+    it "skips requests that don't have a public last response" do
+      ir = info_requests(:fancy_dog_request)
+      ir.set_described_state('waiting_clarification')
+
+      im = ir.incoming_messages.last
+      old_prominence = im.prominence
+      im.update_attributes(prominence: 'hidden')
+      im.info_request.log_event('edit_incoming',
+                                incoming_message_id: im.id,
+                                editor: FactoryBot.create(:admin_user).id,
+                                old_prominence: 'normal',
+                                prominence: 'hidden',
+                                old_prominence_reason: 'test',
+                                prominence_reason: 'test')
+
+      force_updated_at_to_past(ir)
+      RequestMailer.alert_not_clarified_request
+
+      expect(ActionMailer::Base.deliveries.size).to eq(0)
+    end
+
     it "should not send an alert to banned users" do
       ir = info_requests(:fancy_dog_request)
       ir.set_described_state('waiting_clarification')
