@@ -42,10 +42,13 @@
 ### Changed Templates
 
     app/views/admin_general/_to_do_list.html.erb
+    app/views/admin_user/index.html.erb
     app/views/alaveteli_pro/account_request/index.html.erb
     app/views/alaveteli_pro/plans/index.html.erb
     app/views/alaveteli_pro/plans/show.html.erb
+    app/views/request/_batch.html.erb
     app/views/request/_correspondence.html.erb
+    app/views/request/_sidebar.html.erb
 
 # 0.34.0.1
 
