@@ -79,8 +79,8 @@ describe "request/show" do
             and_return(mock_response)
           request_page
           expected_url = new_request_incoming_followup_path(
-                          :request_id => mock_request.id,
-                          :incoming_message_id => mock_response.id)
+            :request_id => mock_request.id,
+            :incoming_message_id => mock_response.id)
           expect(response.body).
             to have_css(
               "a[href='#{expected_url}#followup']",

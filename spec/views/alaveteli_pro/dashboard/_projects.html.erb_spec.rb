@@ -56,7 +56,7 @@ describe "alaveteli_pro/info_requests/dashboard/_projects.html.erb" do
         render_view
         InfoRequest::State.phases.each do |phase|
           expected_path = alaveteli_pro_info_requests_path(
-              'alaveteli_pro_request_filter[filter]' => phase[:scope]
+            'alaveteli_pro_request_filter[filter]' => phase[:scope]
             )
           # Awaiting response includes the batch request too
           expected_count = phase[:scope] == :awaiting_response ? 2 : 1
@@ -71,7 +71,7 @@ describe "alaveteli_pro/info_requests/dashboard/_projects.html.erb" do
         render_empty_view
         InfoRequest::State.phases.each do |phase|
           expected_path = alaveteli_pro_info_requests_path(
-              'alaveteli_pro_request_filter[filter]' => phase[:scope]
+            'alaveteli_pro_request_filter[filter]' => phase[:scope]
             )
           expected_text = /#{phase[:capital_label]}\s*0/
           expect(rendered).to have_content(expected_text)
@@ -87,7 +87,7 @@ describe "alaveteli_pro/info_requests/dashboard/_projects.html.erb" do
       it "Has a link for draft requests" do
         render_view
         expected_path = alaveteli_pro_info_requests_path(
-            'alaveteli_pro_request_filter[filter]' => 'draft'
+          'alaveteli_pro_request_filter[filter]' => 'draft'
           )
         expect(rendered).to have_link(text: /Drafts\s*2/, href: expected_path)
       end
@@ -97,7 +97,7 @@ describe "alaveteli_pro/info_requests/dashboard/_projects.html.erb" do
       it "Has a label for draft requests" do
         render_empty_view
         expected_path = alaveteli_pro_info_requests_path(
-            'alaveteli_pro_request_filter[filter]' => 'draft'
+          'alaveteli_pro_request_filter[filter]' => 'draft'
           )
         expect(rendered).to have_content(/Drafts\s*0/)
         expect(rendered).

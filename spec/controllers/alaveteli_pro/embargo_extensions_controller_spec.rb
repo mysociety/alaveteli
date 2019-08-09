@@ -340,7 +340,7 @@ describe AlaveteliPro::EmbargoExtensionsController do
 
       it "redirects to that request, not the batch" do
         expected_path = show_alaveteli_pro_request_path(
-            url_title: info_request_batch.info_requests.first.url_title)
+          url_title: info_request_batch.info_requests.first.url_title)
         expect(response).to redirect_to(expected_path)
       end
     end

@@ -369,7 +369,7 @@ describe UserSpamScorer do
       mock_suspicious_domains = %w(example.com example.net example.org)
       user = mock_model(User, :email_domain => 'example.net')
       scorer = described_class.new(
-                 :suspicious_domains => mock_suspicious_domains)
+        :suspicious_domains => mock_suspicious_domains)
       expect(scorer.email_from_suspicious_domain?(user)).to eq(true)
     end
 
@@ -377,7 +377,7 @@ describe UserSpamScorer do
       mock_suspicious_domains = %w(example.com example.org)
       user = mock_model(User, :email_domain => 'example.net')
       scorer = described_class.new(
-                 :suspicious_domains => mock_suspicious_domains)
+        :suspicious_domains => mock_suspicious_domains)
       expect(scorer.email_from_suspicious_domain?(user)).to eq(false)
     end
 

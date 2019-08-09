@@ -929,25 +929,25 @@ describe PublicBody do
     it 'should return info about request counts' do
       expect(public_body.json_for_api).
         to eq(
-            {
-              :name => 'Marmot Appreciation Society',
-              :notes => "",
-              :publication_scheme => "",
-              :short_name => "MAS",
-              :tags => [],
-              :updated_at => public_body.updated_at,
-              :url_name => "mas",
-              :created_at => public_body.created_at,
-              :home_page => "http://www.flourish.org",
-              :id => public_body.id,
-              :info => {
-                :requests_count => 10,
-                :requests_successful_count => 2,
-                :requests_not_held_count   => 2,
-                :requests_overdue_count    => 3,
-                :requests_visible_classified_count => 3,
-              }
-            })
+          {
+            :name => 'Marmot Appreciation Society',
+            :notes => "",
+            :publication_scheme => "",
+            :short_name => "MAS",
+            :tags => [],
+            :updated_at => public_body.updated_at,
+            :url_name => "mas",
+            :created_at => public_body.created_at,
+            :home_page => "http://www.flourish.org",
+            :id => public_body.id,
+            :info => {
+              :requests_count => 10,
+              :requests_successful_count => 2,
+              :requests_not_held_count   => 2,
+              :requests_overdue_count    => 3,
+              :requests_visible_classified_count => 3,
+            }
+          })
     end
 
   end

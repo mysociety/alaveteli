@@ -8,7 +8,7 @@ describe AnalyticsHelper do
   describe "#track_analytics_event" do
     it "returns correctly formatted event javascript" do
       expect(track_analytics_event(
-        AnalyticsEvent::Category::OUTBOUND,
+               AnalyticsEvent::Category::OUTBOUND,
         AnalyticsEvent::Action::FACEBOOK_EXIT
       )).to eq(
         "if (ga) { ga('send','event'," \
@@ -19,7 +19,7 @@ describe AnalyticsHelper do
     context "when supplied option values" do
       it "includes any supplied :label option string" do
         expect(track_analytics_event(
-          AnalyticsEvent::Category::OUTBOUND,
+                 AnalyticsEvent::Category::OUTBOUND,
           AnalyticsEvent::Action::FACEBOOK_EXIT,
           :label => "test label"
         )).to eq(
@@ -30,7 +30,7 @@ describe AnalyticsHelper do
 
       it "uses 1 as the default for value if no :value option supplied" do
         expect(track_analytics_event(
-          AnalyticsEvent::Category::OUTBOUND,
+                 AnalyticsEvent::Category::OUTBOUND,
           AnalyticsEvent::Action::FACEBOOK_EXIT,
           :label => "test label"
         )).to eq(
@@ -41,7 +41,7 @@ describe AnalyticsHelper do
 
       it "uses the supplied :value option if there is one" do
         expect(track_analytics_event(
-          AnalyticsEvent::Category::OUTBOUND,
+                 AnalyticsEvent::Category::OUTBOUND,
           AnalyticsEvent::Action::FACEBOOK_EXIT,
           :label => "test label",
           :value => 42
@@ -53,7 +53,7 @@ describe AnalyticsHelper do
 
       it "treats the label as raw JavaScript if passed :label_is_script=true" do
         expect(track_analytics_event(
-          AnalyticsEvent::Category::WIDGET_CLICK,
+                 AnalyticsEvent::Category::WIDGET_CLICK,
           AnalyticsEvent::Action::WIDGET_VOTE,
           :label => "location.href",
           :label_is_script => true
@@ -65,7 +65,7 @@ describe AnalyticsHelper do
 
       it "ignores the :value option unless a :label option is supplied" do
         expect(track_analytics_event(
-          AnalyticsEvent::Category::OUTBOUND,
+                 AnalyticsEvent::Category::OUTBOUND,
           AnalyticsEvent::Action::FACEBOOK_EXIT,
           :value => 1234567
         )).not_to include("1234567")

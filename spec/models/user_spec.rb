@@ -107,8 +107,8 @@ end
 describe User, 'password hashing algorithms' do
   def create_user(options = {})
     User.create(options.merge(
-      name: 'User',
-      email: 'user@localhost'
+                  name: 'User',
+                  email: 'user@localhost'
     ))
   end
 

@@ -75,7 +75,7 @@ class RequestMailer < ApplicationMailer
 
     # From is an address we control so that strict DMARC senders don't get refused
     mail(:from => MailHandler.address_from_name_and_email(
-                    user.name,
+      user.name,
                     blackhole_email
                   ),
          :to => contact_for_user(user),

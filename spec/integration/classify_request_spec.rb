@@ -123,7 +123,7 @@ describe 'classifying a request' do
         expect(page).to have_content(message)
         expect(page).to have_link('details',
                                   href: unhappy_url(
-                                          info_request,
+                                    info_request,
                                           anchor: 'internal_review'))
       end
     end

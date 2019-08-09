@@ -41,7 +41,7 @@ namespace :xapian do
     end
     raise "specify ALL your models with models=\"ModelName1 ModelName2\" as parameter" if ENV['models'].nil?
     ActsAsXapian.destroy_and_rebuild_index(
-                               ENV['models'].split(" ").map { |m| m.constantize },
+      ENV['models'].split(" ").map { |m| m.constantize },
                                coerce_arg(ENV['verbose'], false),
                                coerce_arg(ENV['terms'], true),
                                coerce_arg(ENV['values'], true),

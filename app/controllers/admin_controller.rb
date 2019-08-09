@@ -46,10 +46,10 @@ class AdminController < ApplicationController
       if session[:using_admin].nil? || session[:admin_name].nil?
         if params[:emergency].nil? || AlaveteliConfiguration::disable_emergency_user
           if authenticated?(
-              :web => _("To log into the administrative interface"),
-              :email => _("Then you can log into the administrative interface"),
-              :email_subject => _("Log into the admin interface"),
-            :user_name => "a superuser")
+            :web => _("To log into the administrative interface"),
+            :email => _("Then you can log into the administrative interface"),
+            :email_subject => _("Log into the admin interface"),
+          :user_name => "a superuser")
             if !@user.nil? && @user.is_admin?
               session[:using_admin] = 1
               session[:admin_name] = @user.url_name

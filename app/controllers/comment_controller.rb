@@ -40,9 +40,9 @@ class CommentController < ApplicationController
     end
 
     if authenticated?(
-        :web => _("To post your annotation"),
-        :email => _("Then your annotation to {{info_request_title}} will be posted.",:info_request_title=>@info_request.title),
-        :email_subject => _("Confirm your annotation to {{info_request_title}}",:info_request_title=>@info_request.title)
+      :web => _("To post your annotation"),
+      :email => _("Then your annotation to {{info_request_title}} will be posted.",:info_request_title=>@info_request.title),
+      :email_subject => _("Confirm your annotation to {{info_request_title}}",:info_request_title=>@info_request.title)
       )
 
       if spam_comment?(params[:comment][:body], @user)

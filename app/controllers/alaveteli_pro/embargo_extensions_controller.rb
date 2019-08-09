@@ -31,7 +31,7 @@ class AlaveteliPro::EmbargoExtensionsController < AlaveteliPro::BaseController
                         "request's privacy settings, please try again.")
     end
     redirect_to show_alaveteli_pro_request_path(
-        url_title: @info_request.url_title)
+      url_title: @info_request.url_title)
   end
 
   def create_batch

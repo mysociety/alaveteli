@@ -30,11 +30,11 @@ describe 'when handling incoming mail' do
     expect(page).to have_content "Second hello"
 
     visit get_attachment_path(
-     :incoming_message_id => info_request.incoming_messages.first.id,
-     :id => info_request.id,
-     :part => 3,
-     :file_name => 'hello world.txt',
-     :skip_cache => 1)
+      :incoming_message_id => info_request.incoming_messages.first.id,
+      :id => info_request.id,
+      :part => 3,
+      :file_name => 'hello world.txt',
+      :skip_cache => 1)
     expect(page.response_headers['Content-Type']).to eq("text/plain; charset=utf-8")
     expect(page).to have_content "First hello"
   end
@@ -77,7 +77,7 @@ describe 'when handling incoming mail' do
                           info_request.incoming_email)
     incoming_message = info_request.incoming_messages.first
     attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(
-                   incoming_message.get_attachments_for_display,
+      incoming_message.get_attachments_for_display,
                    2,
                    'hello world.txt')
     expect(attachment.body).to match "Second hello"
@@ -97,7 +97,7 @@ describe 'when handling incoming mail' do
     )
 
     attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(
-                  incoming_message.get_attachments_for_display,
+      incoming_message.get_attachments_for_display,
                   2,
                   'hello world.txt')
     expect(attachment.body).to match "Second hello"
@@ -116,7 +116,7 @@ describe 'when handling incoming mail' do
     force = true
     incoming_message.parse_raw_email!(force)
     attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(
-                 incoming_message.get_attachments_for_display,
+      incoming_message.get_attachments_for_display,
                  2,
                  'hello world.txt')
     expect(attachment.body).to match "Third hello"

@@ -2254,8 +2254,8 @@ describe RequestController do
                           info_request.last_event_id_needing_description
                       }
                 expected_url = describe_state_message_url(
-                                 :url_title => info_request.url_title,
-                                 :described_state => 'requires_admin')
+                  :url_title => info_request.url_title,
+                  :described_state => 'requires_admin')
                 expect(response).to redirect_to(expected_url)
               end
 
@@ -2569,9 +2569,9 @@ describe RequestController do
             it 'should redirect to the "response url"' do
               session[:user_id] = info_request.user_id
               expected_url = new_request_incoming_followup_path(
-                              :request_id => info_request.id,
-                              :incoming_message_id =>
-                                info_request.get_last_public_response.id)
+                :request_id => info_request.id,
+                :incoming_message_id =>
+                  info_request.get_last_public_response.id)
               expect_redirect('waiting_clarification', expected_url)
               expect(flash[:notice][:partial]).
                 to eq('request/describe_notices/waiting_clarification')
@@ -2582,8 +2582,8 @@ describe RequestController do
           context 'when there are no events needing description' do
             it 'should redirect to the "followup no incoming url"' do
               expected_url = new_request_followup_path(
-                              :request_id => info_request.id,
-                              :incoming_message_id => nil)
+                :request_id => info_request.id,
+                :incoming_message_id => nil)
               expect_redirect('waiting_clarification', expected_url)
             end
           end
@@ -2619,10 +2619,10 @@ describe RequestController do
           it 'should redirect to the "respond to last" url' do
             session[:user_id] = info_request.user_id
             expected_url = new_request_incoming_followup_path(
-                            :request_id => info_request.id,
-                            :incoming_message_id =>
-                              info_request.get_last_public_response.id,
-                            :gone_postal => 1)
+              :request_id => info_request.id,
+              :incoming_message_id =>
+                info_request.get_last_public_response.id,
+              :gone_postal => 1)
             expect_redirect('gone_postal', expected_url)
           end
 
@@ -2675,7 +2675,7 @@ describe RequestController do
                   }
             expect(response)
               .to redirect_to(
-                    show_request_url(:url_title => info_request.url_title)
+                show_request_url(:url_title => info_request.url_title)
                   )
             expect(flash[:notice][:partial]).
                 to eq('request/describe_notices/error_message')
@@ -2696,8 +2696,8 @@ describe RequestController do
                         info_request.last_event_id_needing_description
                     }
               expected_url = describe_state_message_url(
-                               :url_title => info_request.url_title,
-                               :described_state => 'error_message')
+                :url_title => info_request.url_title,
+                :described_state => 'error_message')
               expect(response).to redirect_to(expected_url)
             end
 
@@ -2712,9 +2712,9 @@ describe RequestController do
           it 'should redirect to the "respond to last" url' do
             session[:user_id] = info_request.user_id
             expected_url = new_request_incoming_followup_path(
-                            :request_id => info_request.id,
-                            :incoming_message_id =>
-                              info_request.get_last_public_response.id)
+              :request_id => info_request.id,
+              :incoming_message_id =>
+                info_request.get_last_public_response.id)
             expect_redirect('user_withdrawn', expected_url)
             expect(flash[:notice][:partial]).
                 to eq('request/describe_notices/user_withdrawn')

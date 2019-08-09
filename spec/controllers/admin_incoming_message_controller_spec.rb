@@ -181,11 +181,11 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
   describe "when destroying multiple incoming messages" do
     let(:request) { FactoryBot.create(:info_request) }
     let(:spam1) { FactoryBot.create(
-                    :incoming_message,
+      :incoming_message,
                     :subject => "Buy a watch!1!!",
                     :info_request => request) }
     let(:spam2) { FactoryBot.create(
-                    :incoming_message,
+      :incoming_message,
                     :subject => "Best cheap w@tches!!1!",
                     :info_request => request) }
     let(:spam_ids) { [spam1.id, spam2.id] }

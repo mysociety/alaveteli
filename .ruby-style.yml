@@ -122,7 +122,7 @@ Layout/InitialIndentation:
 
 Layout/FirstParameterIndentation:
   Description: 'Checks the indentation of the first parameter in a method call.'
-  Enabled: false
+  Enabled: true
 
 Layout/IndentationConsistency:
   Description: 'Keep indentation straight.'

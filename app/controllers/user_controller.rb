@@ -178,9 +178,9 @@ class UserController < ApplicationController
   def signchangeemail
     # "authenticated?" has done the redirect to signin page for us
     return unless authenticated?(
-        :web => _("To change your email address used on {{site_name}}",:site_name=>site_name),
-        :email => _("Then you can change your email address used on {{site_name}}",:site_name=>site_name),
-        :email_subject => _("Change your email address used on {{site_name}}",:site_name=>site_name)
+      :web => _("To change your email address used on {{site_name}}",:site_name=>site_name),
+      :email => _("Then you can change your email address used on {{site_name}}",:site_name=>site_name),
+      :email_subject => _("Change your email address used on {{site_name}}",:site_name=>site_name)
       )
 
     unless params[:submitted_signchangeemail_do]

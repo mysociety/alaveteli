@@ -129,7 +129,7 @@ describe OutgoingMailer, "when working out follow up subjects" do
       request = FactoryBot.create(:info_request_with_internal_review_request,
                                   :title => "Test")
       expect(OutgoingMailer.subject_for_followup(
-        request,
+               request,
         request.outgoing_messages.last)).
           to eq("Internal review of Freedom of Information request - Test")
     end
@@ -138,7 +138,7 @@ describe OutgoingMailer, "when working out follow up subjects" do
       request = FactoryBot.create(:info_request_with_internal_review_request,
                                   :title => "Apostrophe's Test")
       expect(OutgoingMailer.subject_for_followup(
-        request,
+               request,
         request.outgoing_messages.last)).
           to eq("Internal review of Freedom of Information request - " \
                 "Apostrophe's Test")

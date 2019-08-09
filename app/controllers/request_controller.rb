@@ -34,9 +34,9 @@ class RequestController < ApplicationController
     # Check whether we force the user to sign in right at the start, or we allow her
     # to start filling the request anonymously
     if AlaveteliConfiguration::force_registration_on_new_request && !authenticated?(
-        :web => _("To send and publish your FOI request"),
-        :email => _("Then you'll be allowed to send FOI requests."),
-        :email_subject => _("Confirm your email address")
+      :web => _("To send and publish your FOI request"),
+      :email => _("Then you'll be allowed to send FOI requests."),
+      :email_subject => _("Confirm your email address")
       )
       # do nothing - as "authenticated?" has done the redirect to signin page for us
       return
@@ -369,9 +369,9 @@ class RequestController < ApplicationController
     end
 
     if !authenticated?(
-        :web => _("To send and publish your FOI request").to_str,
-        :email => _("Then your FOI request to {{public_body_name}} will be sent and published.",:public_body_name=>@info_request.public_body.name),
-        :email_subject => _("Confirm your FOI request to {{public_body_name}}",:public_body_name=>@info_request.public_body.name)
+      :web => _("To send and publish your FOI request").to_str,
+      :email => _("Then your FOI request to {{public_body_name}} will be sent and published.",:public_body_name=>@info_request.public_body.name),
+      :email_subject => _("Confirm your FOI request to {{public_body_name}}",:public_body_name=>@info_request.public_body.name)
       )
       # do nothing - as "authenticated?" has done the redirect to signin page for us
       return
@@ -494,8 +494,8 @@ class RequestController < ApplicationController
     if ["error_message", "requires_admin"].include?(described_state)
       if message.nil?
         redirect_to describe_state_message_url(
-                      url_title: info_request.url_title,
-                      described_state: described_state)
+          url_title: info_request.url_title,
+          described_state: described_state)
         return
       else
         log_params[:message] = message
@@ -700,14 +700,14 @@ class RequestController < ApplicationController
     FileUtils.mkdir_p(image_dir)
 
     html = @attachment.body_as_html(
-             image_dir,
+      image_dir,
              attachment_url: Rack::Utils.escape(@attachment_url),
              content_for: {
                head_suffix: render_to_string(
-                              partial: 'request/view_html_stylesheet',
-                              formats: [:html]),
+                 partial: 'request/view_html_stylesheet',
+                 formats: [:html]),
                body_prefix: render_to_string(
-                              partial: 'request/view_html_prefix')
+                 partial: 'request/view_html_prefix')
              })
 
     html = @incoming_message.apply_masks(html, response.content_type)
@@ -849,11 +849,11 @@ class RequestController < ApplicationController
         render_hidden
       end
       if authenticated?(
-          :web => _("To download the zip file"),
-          :email => _("Then you can download a zip file of {{info_request_title}}.",
-                      :info_request_title=>@info_request.title),
-          :email_subject => _("Log in to download a zip file of {{info_request_title}}",
-                              :info_request_title=>@info_request.title)
+        :web => _("To download the zip file"),
+        :email => _("Then you can download a zip file of {{info_request_title}}.",
+                    :info_request_title=>@info_request.title),
+        :email_subject => _("Log in to download a zip file of {{info_request_title}}",
+                            :info_request_title=>@info_request.title)
         )
         # Test for whole request being hidden or requester-only
         if cannot?(:read, @info_request)
@@ -1027,10 +1027,10 @@ class RequestController < ApplicationController
       raise RouteNotFound.new("Page not enabled")
     end
     if !authenticated?(
-        :web => _("To make a batch request"),
-        :email => _("Then you can make a batch request"),
-        :email_subject => _("Make a batch request"),
-      :user_name => "a user who has been authorised to make batch requests")
+      :web => _("To make a batch request"),
+      :email => _("Then you can make a batch request"),
+      :email_subject => _("Make a batch request"),
+    :user_name => "a user who has been authorised to make batch requests")
       # do nothing - as "authenticated?" has done the redirect to signin page for us
       return
     end
