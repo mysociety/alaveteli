@@ -1730,22 +1730,17 @@ describe User do
   end
 
   describe 'update callbacks' do
-    let(:user) { FactoryBot.build(:user) }
+    let(:user) { FactoryBot.create(:pro_user, email: 'old@example.com') }
 
     context 'changing email address of a pro user' do
-      let(:pro_account) { double(:pro_account) }
-
-      before do
-        allow(user).to receive(:pro_account).and_return(pro_account)
-        allow(user).to receive(:is_pro?).and_return(true)
-        allow(user).to receive(:email_changed?).and_return(true)
-      end
+      let(:pro_account) { user.pro_account }
 
       it 'calls update_email_address on Pro Account' do
+        allow(pro_account).to receive(:stripe_customer).and_return(true)
         expect(pro_account).to receive(:update_email_address)
+        user.email = 'new@example.com'
         user.run_callbacks :update
       end
-
     end
 
   end

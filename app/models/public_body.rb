@@ -906,7 +906,7 @@ class PublicBody < ApplicationRecord
   # request linked to it
   def reindex_requested_from
     if rails_upgrade?
-      if will_save_change_to_attribute?('url_name')
+      if saved_change_to_attribute?(:url_name)
         info_requests.each do |info_request|
           info_request.info_request_events.each do |info_request_event|
             info_request_event.xapian_mark_needs_index

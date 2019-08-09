@@ -773,9 +773,9 @@ class InfoRequest < ApplicationRecord
   # we update index for every event. Also reindex if prominence changes.
   def reindex_some_request_events
     if rails_upgrade?
-      if will_save_change_to_attribute?('url_title') ||
-         will_save_change_to_attribute?('prominence') ||
-         will_save_change_to_attribute?('user_id')
+      if saved_change_to_attribute?(:url_title) ||
+         saved_change_to_attribute?(:prominence) ||
+         saved_change_to_attribute?(:user_id)
         reindex_request_events
       end
     else
