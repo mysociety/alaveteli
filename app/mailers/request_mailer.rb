@@ -407,10 +407,8 @@ class RequestMailer < ApplicationMailer
     for info_request in info_requests
       alert_event_id = info_request.get_last_public_response_event_id
       last_response_message = info_request.get_last_public_response
-      if alert_event_id.nil?
-        raise "internal error, no last response while making alert not " \
-                "clarified reminder, request id " + info_request.id.to_s
-      end
+      next if alert_event_id.nil?
+
       # To the user who created the request
       sent_already = UserInfoRequestSentAlert.
         where("alert_type = 'not_clarified_1'
