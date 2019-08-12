@@ -1,4 +1,6 @@
 class AnnouncementsController < ApplicationController
+  skip_before_action :verify_authenticity_token, only: [:destroy]
+
   def destroy
     if announcement
       store_dismissal_in_session unless dismissal.save
