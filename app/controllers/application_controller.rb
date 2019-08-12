@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   end
   class RouteNotFound < StandardError
   end
+  before_action :collect_locales
   protect_from_forgery :if => :user?, :with => :exception
   skip_before_action :verify_authenticity_token, :unless => :user?
 
@@ -37,7 +38,6 @@ class ApplicationController < ActionController::Base
   before_action :session_remember_me
   before_action :set_vary_header
   before_action :validate_session_timestamp
-  before_action :collect_locales
   after_action  :persist_session_timestamp
 
   def set_vary_header
