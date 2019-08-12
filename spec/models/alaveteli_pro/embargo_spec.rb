@@ -203,12 +203,7 @@ describe AlaveteliPro::Embargo, :type => :model do
 
   describe '.expire_publishable' do
 
-    context 'for an embargo whose publish_at date has passed' do
-      let!(:embargo) do
-        FactoryBot.create(:embargo, :publish_at => Time.now - 2.days)
-      end
-
-      let!(:info_request) { embargo.info_request }
+    shared_examples_for 'successful_expiry' do
 
       it 'deletes the embargo' do
         AlaveteliPro::Embargo.expire_publishable
@@ -224,13 +219,43 @@ describe AlaveteliPro::Embargo, :type => :model do
         expect(expiry_events.size).to eq 1
       end
 
+    end
+
+    context 'for an embargo whose publish_at date has passed' do
+      let!(:embargo) do
+        FactoryBot.create(:embargo, publish_at: Time.now - 2.days)
+      end
+
+      let!(:info_request) { embargo.info_request }
+
+      it_behaves_like 'successful_expiry'
+
+      context 'when the request is part of a batch' do
+        let(:info_request_batch) { FactoryBot.create(:info_request_batch) }
+
+        before do
+          info_request.info_request_batch = info_request_batch
+          info_request_batch.sent_at = info_request.created_at
+          info_request_batch.embargo_duration = '3_months'
+          info_request_batch.save!
+          info_request.save!
+        end
+
+        it_behaves_like 'successful_expiry'
+
+        it 'deletes the embargo_duration from the batch' do
+          AlaveteliPro::Embargo.expire_publishable
+          expect(info_request_batch.reload.embargo_duration).to be_nil
+        end
+      end
+
       context 'when the request has use_notifications: true' do
 
         it 'notifies the user of the event' do
           info_request = FactoryBot.create(:use_notifications_request)
           embargo = FactoryBot.create(:expiring_embargo,
                                       info_request: info_request)
-          embargo.update_attribute(:publish_at, Time.zone.today -  4.months)
+          embargo.update_attribute(:publish_at, Time.zone.today - 4.months)
           AlaveteliPro::Embargo.expire_publishable
           expect(Notification.count).to eq 1
         end

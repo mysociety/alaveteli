@@ -580,10 +580,10 @@ describe InfoRequestHelper do
   end
 
   describe '#attachment_link' do
-    let(:incoming_message){ FactoryBot.create(:incoming_message) }
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
 
     context 'if an icon exists for the filetype' do
-      let(:jpeg_attachment){ FactoryBot.create(:jpeg_attachment,
+      let(:jpeg_attachment) { FactoryBot.create(:jpeg_attachment,
                               :incoming_message => incoming_message,
                               :url_part_number => 1)
                            }
@@ -597,7 +597,7 @@ describe InfoRequestHelper do
     end
 
     context 'if no icon exists for the filetype' do
-      let(:unknown_attachment){ FactoryBot.create(:unknown_attachment,
+      let(:unknown_attachment) { FactoryBot.create(:unknown_attachment,
                                   :incoming_message => incoming_message,
                                   :url_part_number => 1)
                               }
@@ -612,8 +612,8 @@ describe InfoRequestHelper do
   end
 
   describe '#attachment_path' do
-    let(:incoming_message){ FactoryBot.create(:incoming_message) }
-    let(:jpeg_attachment){ FactoryBot.create(:jpeg_attachment,
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+    let(:jpeg_attachment) { FactoryBot.create(:jpeg_attachment,
                              :incoming_message => incoming_message,
                              :url_part_number => 1)
                          }

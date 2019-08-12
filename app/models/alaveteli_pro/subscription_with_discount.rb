@@ -27,7 +27,7 @@ class AlaveteliPro::SubscriptionWithDiscount < SimpleDelegator
   end
 
   def amount
-    net = BigDecimal.new((original_amount * 0.01), 0).round(2)
+    net = BigDecimal((original_amount * 0.01), 0).round(2)
     net = net - reduction(net)
     (net * 100).floor
   end
@@ -74,7 +74,7 @@ class AlaveteliPro::SubscriptionWithDiscount < SimpleDelegator
 
   def coupon_reduction(net)
     if coupon.amount_off
-      BigDecimal.new((coupon.amount_off * 0.01), 0).round(2)
+      BigDecimal((coupon.amount_off * 0.01), 0).round(2)
     else
       (net * coupon.percent_off / 100)
     end

@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class RemoveSessions <  ActiveRecord::Migration[4.2] # 2.0
+class RemoveSessions < ActiveRecord::Migration[4.2] # 2.0
   def self.up
     drop_table :sessions
   end

@@ -549,10 +549,10 @@ USE_GHOSTSCRIPT_COMPRESSION: false
 # country if one exists). You shouldn't need to change this if you have the
 # geoip-database package installed as specified in the config/packages files.
 #
-# GEOIP_DATABASE - String (default: /usr/share/GeoIP/GeoIP.dat)
+# GEOIP_DATABASE - String (default: vendor/data/GeoLite2-Country.mmdb)
 #
 # ---
-GEOIP_DATABASE: /usr/share/GeoIP/GeoIP.dat
+GEOIP_DATABASE: vendor/data/GeoLite2-Country.mmdb
 
 # In the absence of a GeoIP database (see above), Alateveli can use Gaze,
 # mySociety's gazeteer, to determine the country from the IP address of an HTTP
@@ -1243,3 +1243,12 @@ STRIPE_WEBHOOK_SECRET: ''
 # PRO_REFERRAL_COUPON: 'PROREFERRAL'
 # ---
 PRO_REFERRAL_COUPON: ''
+
+# If ENABLE_PRO_PRICING is set to true, Alaveteli let users enter their bank
+# details and subscribe to a Stripe subscription which grants them access to the
+# pro role and all the features of Alaveteli Professional.
+#
+# ENABLE_PRO_PRICING – Boolean (default: false)
+#
+# ---
+ENABLE_PRO_PRICING: false

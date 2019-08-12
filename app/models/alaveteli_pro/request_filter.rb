@@ -83,11 +83,11 @@ module AlaveteliPro
     end
 
     def order_params
-      order_attributes.map{ |atts| atts[:param] }
+      order_attributes.map { |atts| atts[:param] }
     end
 
     def order_values
-      Hash[order_attributes.map{ |atts| [ atts[:param], atts[:value] ] }]
+      Hash[order_attributes.map { |atts| [ atts[:param], atts[:value] ] }]
     end
 
     def order_capital_labels
@@ -95,7 +95,7 @@ module AlaveteliPro
     end
 
     def order_labels
-      Hash[ order_attributes.map { |atts| [atts[:param], atts[:label]]} ]
+      Hash[ order_attributes.map { |atts| [atts[:param], atts[:label]] } ]
     end
 
     def order_value
@@ -103,7 +103,8 @@ module AlaveteliPro
     end
 
     def default_filters
-      [ { :param => nil,
+      [
+        { :param => nil,
           :value => nil,
           :label => _('all requests'),
           :capital_label => _('All requests') },
@@ -116,14 +117,14 @@ module AlaveteliPro
           :label => _('requests that will be made public soon'),
           :capital_label => _('Requests that will be made public soon')
         }
-       ]
+      ]
     end
 
     def phase_filters
-      InfoRequest::State.phases.map{ |phase| { :param => phase[:scope].to_s,
+      InfoRequest::State.phases.map { |phase| { :param => phase[:scope].to_s,
                                                :value => phase[:scope],
                                                :label => phase[:label],
-                                               :capital_label => phase[:capital_label] }  }
+                                               :capital_label => phase[:capital_label] } }
     end
 
     def filter_attributes
@@ -131,7 +132,7 @@ module AlaveteliPro
     end
 
     def filter_options
-      filter_attributes.map {|atts| [atts[:capital_label], atts[:param]] }
+      filter_attributes.map { |atts| [atts[:capital_label], atts[:param]] }
     end
 
     def filter_capital_labels
@@ -139,15 +140,15 @@ module AlaveteliPro
     end
 
     def filter_params
-      filter_attributes.map{ |atts| atts[:param] }
+      filter_attributes.map { |atts| atts[:param] }
     end
 
     def filter_values
-      Hash[ filter_attributes.map{ |atts| [ atts[:param], atts[:value] ] } ]
+      Hash[ filter_attributes.map { |atts| [ atts[:param], atts[:value] ] } ]
     end
 
     def filter_labels
-      Hash[ filter_attributes.map { |atts| [atts[:param], atts[:label]]} ]
+      Hash[ filter_attributes.map { |atts| [atts[:param], atts[:label]] } ]
     end
 
     def filter_value

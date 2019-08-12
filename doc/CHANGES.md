@@ -1,3 +1,55 @@
+# 0.35.0.0
+
+## Highlighted Features
+
+* This release rolls out Alaveteli Pro Pricing - a way to ask users to support
+  your site by paying for access to the advanced Alaveteli Pro features
+  (Liz Conlan, Gareth Rees, Graeme Porteous)
+* Switch to using the new MaxMind DB data format for geoip lookups. Adds a rake
+  task to download the geoip data file (Liz Conlan)
+* Add new rake task to create the Stripe webhook endpoint (Liz Conlan)
+* Send weekly metrics email to the Pro Admin team (Liz Conlan, Gareth Rees)
+* Improve error handling when sending request-related emails (initial request
+  mails and followups) - failed messages are captured and a send_error event is
+  logged to make it easier for site admins to see what's happened (Nigel Jones)
+* Fixed bug where expiring embargoes were not fully removed from batches when
+  the related requests reached the publication data (Liz Conlan)
+* Send daily webhook digest to the Pro Admin team (Graeme Porteous)
+* Improved admin user search feature to also search the users' about me profile
+  text (Graeme Porteous)
+* Removed support for Ubuntu 16.04 LTS (Xenial Xerus) (Liz Conlan)
+* Add support for Ruby 2.6 (Liz Conlan)
+
+## Upgrade Notes
+
+* You can run this release without using the Alaveteli Pro Pricing
+  functionality - by default it is switched off.
+* This release officially adds support for Ruby 2.6
+* We have specified a Stripe API version of `2017-01-27` if you are already
+  running Pro with pricing enabled you should consider re-creating the Stripe
+  Webhook using the new `bundle exec rails stripe:create_webhook_endpoint` to
+  ensure the versions are consistent. Any old Webhooks should then be disabled
+  from the Stripe dashboard
+* We no longer support PostgreSQL 9.3 or earlier. Please upgrade to 9.4 or above
+  before upgrading Alaveteli. See: https://www.postgresql.org/docs/9.4/release-9-4.html
+* Run `rails geoip:download_data` to download a fresh copy of the geoip data
+  and follow the steps in the output to update your general.yml config
+* There are some database structure updates so remember to run
+  `bundle exec rails db:migrate`
+* We no longer support Ubuntu 16.04 LTS (Xenial Xerus). Please upgrade to Ubuntu
+  18.04 LTS (Bionic Beaver) at the earliest opportunity.
+
+### Changed Templates
+
+    app/views/admin_general/_to_do_list.html.erb
+    app/views/admin_user/index.html.erb
+    app/views/alaveteli_pro/account_request/index.html.erb
+    app/views/alaveteli_pro/plans/index.html.erb
+    app/views/alaveteli_pro/plans/show.html.erb
+    app/views/request/_batch.html.erb
+    app/views/request/_correspondence.html.erb
+    app/views/request/_sidebar.html.erb
+
 # 0.34.0.1
 
 ## Highlighted Features
@@ -1406,10 +1458,6 @@ There are some database structure updates so remember to rake db:migrate
   httpd.conf-example` and `config/nginx.conf.example`).
 * Install the `geoip-database-contrib` package to automatically fetch latest
   geoip databases.
-* To make requests searchable based on their public body's tags you'll need to
-  reindex Xapian. To make this quicker you can selectively reindex just the
-  model and new term by running
-  `bundle exec rake xapian:rebuild_index models="InfoRequestEvent" terms="X"`
 * To update events to use the new 'hide' event type you need to run
   `rake temp:update_hide_event_type`
 * If you've added Javascript to overriden view templates, you should wrap it

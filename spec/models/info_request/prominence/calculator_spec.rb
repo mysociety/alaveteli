@@ -3,8 +3,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../../../spec_helper')
 
 describe InfoRequest::Prominence::Calculator do
 
-  let(:info_request){ FactoryBot.build(:info_request) }
-  let(:embargoed_request){ FactoryBot.create(:embargoed_request) }
+  let(:info_request) { FactoryBot.build(:info_request) }
+  let(:embargoed_request) { FactoryBot.create(:embargoed_request) }
 
   def expect_value(prominence, method, value)
     info_request.prominence = prominence

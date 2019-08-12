@@ -77,7 +77,7 @@ class FoiAttachment < ApplicationRecord
       tries = 0
       delay = 1
       begin
-        @cached_body = File.open(filepath, "rb" ){ |file| file.read }
+        @cached_body = File.open(filepath, "rb" ) { |file| file.read }
       rescue Errno::ENOENT
         # we've lost our cached attachments for some reason.  Reparse them.
         if tries > BODY_MAX_TRIES
@@ -233,6 +233,7 @@ class FoiAttachment < ApplicationRecord
   end
 
   def filename=(filename)
+    filename.try(:delete!, "\0")
     calc_ext = AlaveteliFileTypes.mimetype_to_extension(self.content_type)
     # Put right extension on if missing
     if !filename.nil? && !filename.match(/\.#{calc_ext}$/) && calc_ext

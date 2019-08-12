@@ -59,7 +59,7 @@ class DataExport
   end
 
   def self.gender_lambda
-    lambda {|x| detects_gender(x.name)}
+    lambda { |x| detects_gender(x.name) }
   end
 
   # Remove all instances of user's name (if there is a user), otherwise
@@ -140,7 +140,7 @@ class DataExport
     CSV.open(filename, "wb") do |csv|
       csv << display_header
       find_each_record(query) do |model_instance|
-        line  = []
+        line = []
         # iterate over columns to create an array of data to make a line of csv
         column_data.each do |attribute|
           if overrides.key?(attribute) #do we have an override for this column?

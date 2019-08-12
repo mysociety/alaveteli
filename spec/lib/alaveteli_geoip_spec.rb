@@ -2,136 +2,178 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AlaveteliGeoIP do
+  let(:ip_address) { '127.0.0.1' }
+  let(:max_mind_config) { { mode: :MODE_MEMORY } }
 
   describe '.country_code_from_ip' do
+    subject { described_class.country_code_from_ip }
+    let(:delegate) { double(described_class) }
 
-    it 'delegates to an instance of the class' do
-      instance = double
-      allow(AlaveteliGeoIP).to receive(:instance).and_return(instance)
-      expect(instance).to receive(:country_code_from_ip).with('127.0.0.1')
-      AlaveteliGeoIP.country_code_from_ip '127.0.0.1'
+    before do
+      allow(described_class).to receive(:instance).and_return(delegate)
     end
 
+    it 'delegates to an instance of the class' do
+      expect(delegate).to receive(:country_code_from_ip).with(ip_address)
+      AlaveteliGeoIP.country_code_from_ip(ip_address)
+    end
   end
 
   describe '.instance' do
+    subject { described_class.instance }
 
-    it 'creates a new instance' do
-      expect(AlaveteliGeoIP.instance).to be_instance_of(AlaveteliGeoIP)
-    end
+    it { is_expected.to be_a(described_class) }
 
     it 'caches the instance' do
       expect(AlaveteliGeoIP.instance).to equal(AlaveteliGeoIP.instance)
     end
-
   end
 
   describe '.new' do
+    subject { described_class.new }
 
     it 'configures the instance with the configured country code' do
-      expect(AlaveteliGeoIP.new.current_code).
-        to eq(AlaveteliConfiguration::iso_country_code)
+      expect(subject.current_code).
+        to eq(AlaveteliConfiguration.iso_country_code)
     end
 
     context 'if a database param is supplied' do
-
-      it 'configures the instance with the database specified' do
+      before do
         allow(File).to receive(:file?).
           with('/my/geoip/database').and_return(true)
-        expect(GeoIP).to receive(:new).with('/my/geoip/database')
-        AlaveteliGeoIP.new('/my/geoip/database')
       end
 
+      it 'configures the instance with the database specified' do
+        expect(MaxMind::DB).to receive(:new).
+          with('/my/geoip/database', max_mind_config)
+        described_class.new('/my/geoip/database')
+      end
     end
 
     context 'if there is a geoip database configured and present' do
-
-      it 'configures the instance with an instance of geoip' do
+      before do
         allow(File).to receive(:file?).
-          with(AlaveteliConfiguration::geoip_database).and_return(true)
-        expect(GeoIP).to receive(:new).with(AlaveteliConfiguration::geoip_database)
-        AlaveteliGeoIP.new
+          with(AlaveteliConfiguration.geoip_database).and_return(true)
       end
 
+      it 'configures the instance with an instance of MaxMind::DB' do
+        expect(MaxMind::DB).to receive(:new).
+          with(AlaveteliConfiguration.geoip_database, max_mind_config)
+        subject
+      end
+
+      it 'assigns the MaxMind::DB instance to geoip' do
+        mock_db = double(MaxMind::DB)
+        allow(MaxMind::DB).to receive(:new).and_return(mock_db)
+        expect(subject.geoip).to eq(mock_db)
+      end
     end
 
     context 'if there is only a Gaze URL configured' do
+      let(:gaze_url) { 'http://gaze.example.net' }
 
-      it 'configures the instance with the Gaze URL' do
-        allow(AlaveteliConfiguration).to receive(:geoip_database).and_return(nil)
+      before do
+        allow(AlaveteliConfiguration).to receive(:geoip_database).
+          and_return(nil)
         allow(AlaveteliConfiguration).to receive(:gaze_url).
-          and_return('http://gaze.example.net')
-        expect(AlaveteliGeoIP.new.gaze_url).
-         to eq('http://gaze.example.net')
+          and_return(gaze_url)
       end
 
+      it 'configures the instance with the Gaze URL' do
+        expect(subject.gaze_url).to eq(gaze_url)
+      end
     end
-
   end
 
   describe '#country_code_from_ip' do
+    subject { described_class.new.country_code_from_ip(ip_address) }
 
     context 'when the Gaze service is configured and is in different states' do
+      let(:current_code) { 'GB' }
 
       before(:each) do
         allow(AlaveteliConfiguration).to receive(:geoip_database).and_return ''
+        allow(AlaveteliConfiguration).
+          to receive(:iso_country_code).and_return current_code
       end
 
-      it "returns the country code if the service returns one" do
-        allow(AlaveteliConfiguration).to receive(:gaze_url).and_return('http://denmark.com')
-        stub_request(:get, %r|denmark.com|).to_return(body: 'DK')
-        expect(AlaveteliGeoIP.new.country_code_from_ip('127.0.0.1')).to eq('DK')
+      context 'the service returns a country code' do
+        before do
+          allow(AlaveteliConfiguration).to receive(:gaze_url).
+            and_return('http://denmark.com')
+          stub_request(:get, %r|denmark.com|).to_return(body: 'DK')
+        end
+
+        it { is_expected.to eq('DK') }
       end
 
-      it "returns the current code if the service domain doesn't exist" do
-        allow(AlaveteliConfiguration).to receive(:gaze_url).and_return('http://12123sdf14qsd.com')
-        stub_request(:get, %r|12123sdf14qsd.com|).to_raise(SocketError)
-        instance = AlaveteliGeoIP.new
-        expect(instance.country_code_from_ip('127.0.0.1')).
-          to eq(instance.current_code)
+      context 'the service domain does not exist' do
+        before do
+          allow(AlaveteliConfiguration).to receive(:gaze_url).
+            and_return('http://12123sdf14qsd.com')
+          stub_request(:get, %r|12123sdf14qsd.com|).to_raise(SocketError)
+        end
+
+        it { is_expected.to eq(current_code) }
       end
 
-      it "returns the current code if the service doesn't exist" do
-        allow(AlaveteliConfiguration).to receive(:gaze_url).and_return('http://www.google.com')
-        stub_request(:get, %r|google.com|).to_return(status: 404)
-        instance = AlaveteliGeoIP.new
-        expect(instance.country_code_from_ip('127.0.0.1')).
-          to eq(instance.current_code)
+      context 'the service does not exist' do
+        before do
+          allow(AlaveteliConfiguration).to receive(:gaze_url).
+            and_return('http://www.google.com')
+          stub_request(:get, %r|google.com|).to_return(status: 404)
+        end
+
+        it { is_expected.to eq(current_code) }
       end
 
-      it "returns the current code if the service isn't configured" do
-        allow(AlaveteliConfiguration).to receive(:gaze_url).and_return('')
-        instance = AlaveteliGeoIP.new
-        expect(instance.country_code_from_ip('127.0.0.1')).
-          to eq(instance.current_code)
+      context 'the service is not configured' do
+        before do
+          allow(AlaveteliConfiguration).to receive(:gaze_url).and_return('')
+        end
+
+        it { is_expected.to eq(current_code) }
       end
 
+      context 'the service returns an error' do
+        before do
+          stub_request(:get, %r|500.com|).to_return(status: [500, 'Error'])
+          allow(AlaveteliConfiguration).to receive(:gaze_url).
+            and_return('http://500.com')
+        end
 
-      it "returns the current code and logs the error with url if the
-           service returns an error" do
-        stub_request(:get, %r|500.com|).to_return(status: [500, 'Error'])
-        allow(AlaveteliConfiguration).to receive(:gaze_url).and_return('http://500.com')
-        expect(Rails.logger).to receive(:warn).with /500\.com.*500 Error/
-        instance = AlaveteliGeoIP.new
-        expect(instance.country_code_from_ip('127.0.0.1')).
-          to eq(instance.current_code)
+        it 'logs the error url' do
+          expect(Rails.logger).to receive(:warn).with /500\.com.*500 Error/
+          subject
+        end
+
+        it { is_expected.to eq(current_code) }
       end
-
     end
 
     context 'when the geoip database is configured' do
+      let(:geoip) { double('FakeGeoIP') }
 
-      it 'returns the country code if the geoip object returns one' do
-        CountryData = Struct.new(:country_code2)
-        geoip = double('FakeGeoIP', :country => CountryData.new('XX'))
-        instance = AlaveteliGeoIP.new
-        allow(instance).to receive(:geoip).and_return(geoip)
-        expect(instance.country_code_from_ip('127.0.0.1')).
-          to eq('XX')
+      before do
+        allow(File).to receive(:file?).
+          with(AlaveteliConfiguration.geoip_database).and_return(true)
+
+        allow(geoip).to receive(:get).
+          and_return("country" => { "iso_code" => 'XX' })
+
+        allow(MaxMind::DB).to receive(:new).and_return(geoip)
       end
 
+      it { is_expected.to eq('XX') }
+
+      context 'the IP is mapped to a continent instead of a country' do
+        before do
+          allow(geoip).to receive(:get).
+            and_return("continent" => { "iso_code" => 'XR' })
+        end
+
+        it { is_expected.to eq('XR') }
+      end
     end
-
   end
-
 end

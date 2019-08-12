@@ -1,7 +1,6 @@
 /* Display of sidebars */
 .sidebar {
   h2 {
-    margin-top: 3.5em;
     margin-bottom: 0.875em;
   }
   .link_button_green {
@@ -10,8 +9,24 @@
   .report-this-request {
     width: 100%;
   }
+
+  .sidebar__section {
+    margin-bottom: 3.5em;
+  }
 }
 
+.new-request-cta {
+  .new-request__title {
+    margin-top: 0;
+  }
+}
+
+.act_link {
+  margin-bottom: 0.5em;
+}
+
+/* TODO: Not sure this is still used – we use the request header action bar for
+   tracks */
 /* #track-request .feed_link is here to override specificity in the request sidebar,
    normally .feed_link should be enough */
 #track-request .feed_link,
@@ -22,12 +37,7 @@
   }
 }
 
-.new-request-cta {
-  .new-request__title {
-    margin-top: 0;
-  }
-}
-
+/* TODO: Why is this in the layout file for the request page sidebar? */
 .authority__body__sidebar {
   .feed_link_sidebar {
     .track-request-action {
@@ -36,12 +46,10 @@
   }
 }
 
+/* TODO: I think this is only used in _request_listing_short_via_event, which is
+   only used in search_ahead */
 .request_short_listing {
   time {
     display: block;
   }
-}
-
-.act_link {
-  margin-bottom: 0.5em;
 }

@@ -392,6 +392,13 @@ Rails.application.routes.draw do
   match '/help/credits' => 'help#credits',
         :as => :help_credits,
         :via => :get
+
+  constraints FeatureConstraint.new(:alaveteli_pro) do
+    match '/help/pro' => 'help#pro',
+          as: :help_pro,
+          via: :get
+  end
+
   match '/help/:template' => 'help#action',
         :as => :help_general,
         :via => :get,
@@ -449,7 +456,7 @@ Rails.application.routes.draw do
   ####
 
   #### AdminPublicBodyHeading controller
-  scope '/admin', :as => 'admin'  do
+  scope '/admin', :as => 'admin' do
     resources :headings,
       :controller => 'admin_public_body_headings',
     :except => [:index] do
@@ -475,7 +482,7 @@ Rails.application.routes.draw do
   ####
 
   #### AdminPublicBodyChangeRequest controller
-  scope '/admin', :as => 'admin'  do
+  scope '/admin', :as => 'admin' do
     resources :change_requests,
       :controller => 'admin_public_body_change_requests',
       :only => [:edit, :update]

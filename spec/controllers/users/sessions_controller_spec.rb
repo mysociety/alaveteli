@@ -190,7 +190,7 @@ describe Users::SessionsController do
     end
 
     context 'if the user is already signed in' do
-      let(:user){ FactoryBot.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
 
       before do
         ActionController::Base.allow_forgery_protection = true
@@ -348,7 +348,7 @@ describe Users::SessionsController do
       expect(ActionMailer::Base.deliveries).not_to be_empty
 
       deliveries = ActionMailer::Base.deliveries
-      expect(deliveries.size).to  eq(1)
+      expect(deliveries.size).to eq(1)
       mail = deliveries[0]
       mail.body.to_s =~ /(http:\/\/.*(\/c\/(.*)))/
       mail_url = $1
@@ -382,7 +382,7 @@ describe Users::SessionsController do
       expect(ActionMailer::Base.deliveries).not_to be_empty
 
       deliveries = ActionMailer::Base.deliveries
-      expect(deliveries.size).to  eq(1)
+      expect(deliveries.size).to eq(1)
       mail = deliveries[0]
       mail.body.to_s =~ /(http:\/\/.*(\/c\/(.*)))/
       mail_url = $1

@@ -12,11 +12,11 @@ describe AlaveteliPro::AccountMailer do
                                        offer_code: 'SPECIAL')
     end
 
-      before do
-        @message = AlaveteliPro::AccountMailer.
-                     account_request(account_request).
-                       message
-      end
+    before do
+      @message = AlaveteliPro::AccountMailer.
+                   account_request(account_request).
+                     message
+    end
 
     it "sends the email to the pro contact address" do
       expect(@message.to).to eq [AlaveteliConfiguration.pro_contact_email]

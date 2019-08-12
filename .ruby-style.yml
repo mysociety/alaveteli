@@ -13,6 +13,7 @@ AllCops:
     - '**/Rakefile'
     - '**/Vagrantfile'
   Exclude:
+    - 'commonlib/**/*'
     - 'db/schema.rb'
     - 'node_modules/**/*'
     - 'vendor/**/*'
@@ -112,20 +113,22 @@ Layout/EndOfLine:
 
 Layout/ExtraSpacing:
   Description: 'Do not use unnecessary spacing.'
-  Enabled: false
+  Enabled: true
 
 Layout/InitialIndentation:
   Description: >-
     Checks the indentation of the first non-blank non-comment line in a file.
-  Enabled: false
+  Enabled: true
 
 Layout/FirstParameterIndentation:
   Description: 'Checks the indentation of the first parameter in a method call.'
-  Enabled: false
+  Enabled: true
 
 Layout/IndentationConsistency:
   Description: 'Keep indentation straight.'
-  Enabled: false
+  Enabled: true
+  Exclude:
+    - Gemfile
 
 Layout/IndentationWidth:
   Description: 'Use 2 spaces for indentation.'
@@ -142,7 +145,7 @@ Layout/IndentAssignment:
   Description: >-
                  Checks the indentation of the first line of the
                  right-hand-side of a multi-line assignment.
-  Enabled: false
+  Enabled: true
 
 Layout/IndentHash:
   Description: 'Checks the indentation of the first key in a hash literal.'
@@ -158,7 +161,7 @@ Layout/MultilineArrayBraceLayout:
                  Checks that the closing brace in an array literal is
                  either on the same line as the last array element, or
                  a new line.
-  Enabled: false
+  Enabled: true
 
 Layout/MultilineBlockLayout:
   Description: 'Ensures newlines after multiline block do statements.'
@@ -177,7 +180,7 @@ Layout/MultilineMethodCallBraceLayout:
                  Checks that the closing brace in a method call is
                  either on the same line as the last method argument, or
                  a new line.
-  Enabled: false
+  Enabled: true
 
 Layout/MultilineMethodCallIndentation:
   Description: >-
@@ -190,13 +193,13 @@ Layout/MultilineMethodDefinitionBraceLayout:
                  Checks that the closing brace in a method definition is
                  either on the same line as the last method parameter, or
                  a new line.
-  Enabled: false
+  Enabled: true
 
 Layout/MultilineOperationIndentation:
   Description: >-
                  Checks indentation of binary operations that span more than
                  one line.
-  Enabled: false
+  Enabled: true
 
 Layout/RescueEnsureAlignment:
   Description: 'Align rescues and ensures correctly.'
@@ -206,7 +209,7 @@ Layout/SpaceBeforeFirstArg:
   Description: >-
                  Checks that exactly one space is used between a method name
                  and the first argument for method calls without parentheses.
-  Enabled: false
+  Enabled: true
 
 Layout/SpaceAfterColon:
   Description: 'Use spaces after colons.'
@@ -239,7 +242,7 @@ Layout/SpaceBeforeBlockBraces:
   Description: >-
                  Checks that the left block brace has or doesn't have space
                  before it.
-  Enabled: false
+  Enabled: true
 
 Layout/SpaceBeforeComma:
   Description: 'No spaces before commas.'
@@ -253,18 +256,18 @@ Layout/SpaceBeforeComment:
 
 Layout/SpaceBeforeSemicolon:
   Description: 'No spaces before semicolons.'
-  Enabled: false
+  Enabled: true
 
 Layout/SpaceInsideBlockBraces:
   Description: >-
                  Checks that block braces have or don't have surrounding space.
                  For blocks taking parameters, checks that the left brace has
                  or doesn't have trailing space.
-  Enabled: false
+  Enabled: true
 
 Layout/SpaceAroundBlockParameters:
   Description: 'Checks the spacing inside and after block parameters pipes.'
-  Enabled: false
+  Enabled: true
 
 Layout/SpaceAroundEqualsInParameterDefault:
   Description: >-
@@ -272,28 +275,28 @@ Layout/SpaceAroundEqualsInParameterDefault:
                  have or don't have surrounding space depending on
                  configuration.
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#spaces-around-equals'
-  Enabled: false
+  Enabled: true
 
 Layout/SpaceAroundKeyword:
   Description: 'Use a space around keywords if appropriate.'
-  Enabled: false
+  Enabled: true
 
 Layout/SpaceAroundOperators:
   Description: 'Use a single space around operators.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#spaces-operators'
-  Enabled: false
+  Enabled: true
 
 Layout/SpaceInsideArrayPercentLiteral:
   Description: 'No unnecessary additional spaces between elements in %i/%w literals.'
-  Enabled: false
+  Enabled: true
 
 Layout/SpaceInsidePercentLiteralDelimiters:
   Description: 'No unnecessary spaces inside delimiters of %i/%w/%x literals.'
-  Enabled: false
+  Enabled: true
 
 Layout/SpaceInsideArrayLiteralBrackets:
   Description: 'Checks the spacing inside array literal brackets.'
-  Enabled: false
+  Enabled: true
 
 Layout/SpaceInsideReferenceBrackets:
   Description: 'Checks the spacing inside referential brackets.'
@@ -562,6 +565,8 @@ Style/HashSyntax:
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#hash-literals'
   Enabled: true
   EnforcedStyle: ruby19_no_mixed_keys
+  Exclude:
+    - config/routes.rb
 
 Style/IfInsideElse:
   Description: 'Finds if nodes inside else, which can be converted to elsif.'

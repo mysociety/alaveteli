@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class UpdateTrackThingsIndex <  ActiveRecord::Migration[4.2] # 3.2
+class UpdateTrackThingsIndex < ActiveRecord::Migration[4.2] # 3.2
 
   def up
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"

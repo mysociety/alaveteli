@@ -18,6 +18,11 @@ describe AlaveteliPro::AccountRequestController do
       get :index
       expect(assigns[:public_beta]).to eq true
     end
+
+    it 'assigns pro site name variable' do
+      get :index
+      expect(assigns(:pro_site_name)).to eq AlaveteliConfiguration.pro_site_name
+    end
   end
 
   describe "#new" do
@@ -38,7 +43,7 @@ describe AlaveteliPro::AccountRequestController do
   end
 
   describe "#create" do
-    let(:account_request_params){ { email: 'test@localhost',
+    let(:account_request_params) { { email: 'test@localhost',
                                     reason: 'Have a look around',
                                     marketing_emails: 'yes',
                                     training_emails: 'no' } }

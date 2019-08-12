@@ -102,7 +102,7 @@ describe AdminPublicBodyCategoriesController do
 
         expect {
           post :create, params: { :public_body_category => @params }
-        }.to change{ PublicBodyCategory.count }.from(0).to(1)
+        }.to change { PublicBodyCategory.count }.from(0).to(1)
       end
 
       it 'can create a category when the default locale is an underscore locale' do
@@ -167,7 +167,7 @@ describe AdminPublicBodyCategoriesController do
       it 'saves the category' do
         expect {
           post :create, params: { :public_body_category => @params }
-        }.to change{ PublicBodyCategory.count }.from(0).to(1)
+        }.to change { PublicBodyCategory.count }.from(0).to(1)
       end
 
       it 'saves the default locale translation' do
@@ -489,9 +489,9 @@ describe AdminPublicBodyCategoriesController do
                         }
                       }
 
-          category = PublicBodyCategory.find(@category.id)
-          expect(category.title(:es)).to eq('Renamed')
-          expect(category.title(:en)).to eq(@category.title(:en))
+        category = PublicBodyCategory.find(@category.id)
+        expect(category.title(:es)).to eq('Renamed')
+        expect(category.title(:en)).to eq(@category.title(:en))
       end
 
       it 'adds a new translation' do
@@ -615,7 +615,7 @@ describe AdminPublicBodyCategoriesController do
                         }
                       }
 
-          expect(response).to redirect_to(edit_admin_category_path(@category))
+        expect(response).to redirect_to(edit_admin_category_path(@category))
       end
 
     end
@@ -706,7 +706,7 @@ describe AdminPublicBodyCategoriesController do
 
       expect {
         post :destroy, params: { :id => category.id }
-      }.to change{ PublicBodyCategory.count }.from(1).to(0)
+      }.to change { PublicBodyCategory.count }.from(1).to(0)
     end
 
     it 'destroys non-empty public body categories' do
@@ -718,7 +718,7 @@ describe AdminPublicBodyCategoriesController do
 
       expect {
         post :destroy, params: { :id => category.id }
-      }.to change{ PublicBodyCategory.count }.from(1).to(0)
+      }.to change { PublicBodyCategory.count }.from(1).to(0)
     end
 
     it 'notifies the admin that the category was destroyed' do

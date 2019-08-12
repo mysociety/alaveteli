@@ -26,15 +26,15 @@ class PublicBodyChangeRequest < ApplicationRecord
 
   validates_presence_of :public_body_name,
                         :message => N_("Please enter the name of the authority"),
-                        :unless => proc{ |change_request| change_request.public_body }
+                        :unless => proc { |change_request| change_request.public_body }
   validates_presence_of :user_name,
                         :message => N_("Please enter your name"),
-                        :unless => proc{ |change_request| change_request.user }
+                        :unless => proc { |change_request| change_request.user }
   validates_presence_of :user_email,
                         :message => N_("Please enter your email address"),
-                        :unless => proc{ |change_request| change_request.user }
-  validate :user_email_format, :unless => proc{ |change_request| change_request.user_email.blank? }
-  validate :body_email_format, :unless => proc{ |change_request| change_request.public_body_email.blank? }
+                        :unless => proc { |change_request| change_request.user }
+  validate :user_email_format, :unless => proc { |change_request| change_request.user_email.blank? }
+  validate :body_email_format, :unless => proc { |change_request| change_request.public_body_email.blank? }
 
   scope :new_body_requests, -> {
     where(public_body_id: nil).order("created_at")

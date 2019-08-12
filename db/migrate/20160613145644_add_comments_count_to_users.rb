@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class AddCommentsCountToUsers <  ActiveRecord::Migration[4.2] # 3.2
+class AddCommentsCountToUsers < ActiveRecord::Migration[4.2] # 3.2
   def up
     add_column :users, :comments_count, :integer, :default => 0, :null => false
 

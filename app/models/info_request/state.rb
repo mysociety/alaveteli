@@ -59,7 +59,8 @@ class InfoRequest
     end
 
     def self.phases
-      [ { capital_label: _('Awaiting response'),
+      [
+        { capital_label: _('Awaiting response'),
           label: _('awaiting response'),
           scope: :awaiting_response,
           param: 'awaiting-response' },
@@ -91,7 +92,7 @@ class InfoRequest
     end
 
     def self.phase_params
-      Hash[phases.map{ |atts| [ atts[:scope], atts[:param] ]}]
+      Hash[phases.map { |atts| [ atts[:scope], atts[:param] ] }]
     end
   end
 end

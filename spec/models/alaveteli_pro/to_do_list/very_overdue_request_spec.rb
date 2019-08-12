@@ -8,7 +8,7 @@ describe AlaveteliPro::ToDoList::VeryOverdueRequest do
   let(:user) { info_request.user }
 
   before do
-    time_travel_to(Time.zone.parse('2015-11-01')){ info_request }
+    time_travel_to(Time.zone.parse('2015-11-01')) { info_request }
     AlaveteliPro::RequestSummary.create_or_update_from(info_request)
     @very_overdue_request = described_class.new(user)
   end

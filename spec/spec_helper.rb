@@ -3,6 +3,7 @@ require 'rubygems'
 require 'simplecov'
 require 'coveralls'
 require 'webmock/rspec'
+require 'stripe_mock_patch'
 require "alaveteli_features/spec_helpers"
 
 cov_formats = [Coveralls::SimpleCov::Formatter]
@@ -30,7 +31,7 @@ require 'rspec/rails'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
-Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 load "#{Rails.root}/db/seeds.rb"
 # Use test-specific translations
@@ -279,4 +280,3 @@ RSpec::Matchers.define :be_equal_modulo_whitespace_to do |expected|
     normalise_whitespace(actual) == normalise_whitespace(expected)
   end
 end
-

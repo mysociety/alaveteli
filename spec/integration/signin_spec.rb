@@ -3,7 +3,7 @@ require 'spec_helper'
 require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
 describe "Signing in" do
-  let(:user){ FactoryBot.create(:user) }
+  let(:user) { FactoryBot.create(:user) }
 
   def try_login(user, options = {})
     default_options = { :email => user.email,

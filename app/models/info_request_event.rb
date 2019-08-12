@@ -51,7 +51,8 @@ class InfoRequestEvent < ApplicationRecord
     'very_overdue', # the request becomes very overdue
     'embargo_expiring', # an embargo is about to expire
     'expire_embargo', # an embargo on the request expires
-    'set_embargo' # an embargo is added or extended
+    'set_embargo', # an embargo is added or extended
+    'send_error' # an error during sending
   ].freeze
 
   belongs_to :info_request,
@@ -120,8 +121,7 @@ class InfoRequestEvent < ApplicationRecord
                              [ :waiting_classification, 'W', "waiting_classification" ],
                              [ :filetype, 'T', "filetype" ],
                              [ :tags, 'U', "tag" ],
-                             [ :request_public_body_tags, 'X', "request_public_body_tag" ]
-                            ],
+                             [ :request_public_body_tags, 'X', "request_public_body_tag" ] ],
                  :if => :indexed_by_search?,
                  :eager_load => [ :outgoing_message, :comment, { :info_request => [ :user, :public_body, :censor_rules ] } ]
 
@@ -139,7 +139,7 @@ class InfoRequestEvent < ApplicationRecord
     # although it relies on a translated field in PublicBody. Hence, we need to
     # manually add all the localized values to the index (Xapian can handle a list
     # of values in a term, btw)
-    info_request.public_body.translations.map {|t| t.url_name}
+    info_request.public_body.translations.map { |t| t.url_name }
   end
 
   def commented_by
@@ -376,7 +376,9 @@ class InfoRequestEvent < ApplicationRecord
   end
 
   def is_request_sending?
-    ['sent', 'resent'].include?(event_type)
+    ['sent', 'resent'].include?(event_type) ||
+    (event_type == 'send_error' &&
+     outgoing_message.message_type == 'initial_request')
   end
 
   def is_clarification?
@@ -451,9 +453,9 @@ class InfoRequestEvent < ApplicationRecord
 
   def only_editing_prominence_to_hide?
     event_type == 'edit' &&
-    params_diff[:new].keys == [:prominence] &&
-    params_diff[:old][:prominence] == "normal" &&
-    %w(hidden requester_only backpage).include?(params_diff[:new][:prominence])
+      params_diff[:new].keys == [:prominence] &&
+      params_diff[:old][:prominence] == "normal" &&
+      %w(hidden requester_only backpage).include?(params_diff[:new][:prominence])
   end
 
   # This method updates the cached column of the InfoRequest that

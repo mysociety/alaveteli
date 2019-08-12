@@ -3,7 +3,7 @@
     <h1>
       <%= _('{{pro_site_name}} is a powerful, fully-featured FOI toolkit ' \
             'for journalists',
-            pro_site_name: AlaveteliConfiguration.pro_site_name) %>
+            pro_site_name: @pro_site_name.html_safe) %>
     </h1>
     <h2>
       <%= _('Everything you need to keep on top of complex FOI-driven ' \
@@ -13,7 +13,7 @@
       <% if @public_beta && feature_enabled?(:pro_pricing) %>
        <%= link_to _('Plans and pricing'), pro_plans_path, :class => "button" %>
       <% else %>
-        <h3><%= _("Now in beta") %></h2>
+        <h3><%= _("Now in beta") %></h3>
         <a href="#input-beta" class="button" id="launch-access">
           <%= _("Get pre-launch access") %>
         </a>
@@ -23,7 +23,7 @@
 </div>
 <div class="marketing__section">
   <div class="marketing__section__heading">
-    <h2><%= AlaveteliConfiguration.pro_site_name %></h2>
+    <h2><%= @pro_site_name.html_safe %></h2>
     <p><%= _('An all-in-one FOI toolkit for journalists, activists and ' \
              'campaigners') %></p>
   </div>
@@ -73,14 +73,18 @@
 <div class="marketing__section">
   <div class="marketing__section__heading">
     <h2><%=_('Plus, all the power of {{site_name}}',
-             site_name: AlaveteliConfiguration.site_name) %></h2>
+             site_name: site_name) %></h2>
+    <p><%= _('<strong>{{pro_site_name}}</strong> runs on the UK’s ' \
+             'best-known FOI service',
+             pro_site_name: @pro_site_name.html_safe) %></p>
   </div>
   <div class="marketing__section__content">
     <div class="marketing__section__content-items">
       <ul class="marketing__section__feature-list">
         <li>
-          <%=_('Up-to-date database of contact details for 20,000 ' \
-               'authorities') %>
+          <%=_('Up-to-date database of ' \
+             'contact details for {{authority_count}} authorities',
+             authority_count: PublicBody.is_requestable.count) %>
         </li>
         <li>
           <%=_('A searchable archive of Freedom of Information requests') %>

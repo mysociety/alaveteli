@@ -47,7 +47,7 @@ describe AdminPublicBodyHeadingsController do
       it 'creates a new heading in the default locale' do
         expect {
           post :create, params: { :public_body_heading => @params }
-        }.to change{ PublicBodyHeading.count }.from(0).to(1)
+        }.to change { PublicBodyHeading.count }.from(0).to(1)
       end
 
       it 'can create a heading when the default locale is an underscore locale' do
@@ -92,7 +92,7 @@ describe AdminPublicBodyHeadingsController do
       it 'saves the heading' do
         expect {
           post :create, params: { :public_body_heading => @params }
-        }.to change{ PublicBodyHeading.count }.from(0).to(1)
+        }.to change { PublicBodyHeading.count }.from(0).to(1)
       end
 
       it 'saves the default locale translation' do
@@ -490,7 +490,7 @@ describe AdminPublicBodyHeadingsController do
 
       expect {
         post :destroy, params: { :id => heading.id }
-      }.to change{ PublicBodyHeading.count }.from(1).to(0)
+      }.to change { PublicBodyHeading.count }.from(1).to(0)
     end
 
     it 'destroys a heading that has associated categories' do
@@ -506,7 +506,7 @@ describe AdminPublicBodyHeadingsController do
 
       expect {
         post :destroy, params: { :id => heading.id }
-      }.to change{ PublicBodyHeading.count }.from(1).to(0)
+      }.to change { PublicBodyHeading.count }.from(1).to(0)
     end
 
     it 'notifies the admin that the heading was destroyed' do

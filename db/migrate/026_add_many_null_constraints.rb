@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class AddManyNullConstraints <  ActiveRecord::Migration[4.2] # 2.0
+class AddManyNullConstraints < ActiveRecord::Migration[4.2] # 2.0
   def self.up
     change_column :users, :email, :string, :null => false
     change_column :users, :name, :string, :null => false

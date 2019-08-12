@@ -78,7 +78,7 @@ class TypeaheadSearch
 
   def default_flags
     Xapian::QueryParser::FLAG_LOVEHATE |
-    Xapian::QueryParser::FLAG_SPELLING_CORRECTION
+      Xapian::QueryParser::FLAG_SPELLING_CORRECTION
   end
 
   def prepared_query
@@ -90,7 +90,7 @@ class TypeaheadSearch
       @query
     end
     if @exclude_tags
-      tag_string = @exclude_tags.map{|tag| "-tag:#{tag}"}.join(" ")
+      tag_string = @exclude_tags.map { |tag| "-tag:#{tag}" }.join(" ")
       query = "#{query} #{tag_string}"
     end
     query

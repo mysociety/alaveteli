@@ -52,7 +52,7 @@ describe PublicBody do
 
     it 'update with translated name' do
       body = FactoryBot.create(:public_body)
-      AlaveteliLocalization.with_locale(:es) { body.name = 'hola' ; body.save }
+      AlaveteliLocalization.with_locale(:es) { body.name = 'hola'; body.save }
       body.reload
 
       expect(body.update_attributes('name' => nil)).to eq(false)
@@ -82,7 +82,7 @@ describe PublicBody do
 
     it 'blank string update with translated name' do
       body = FactoryBot.create(:public_body)
-      AlaveteliLocalization.with_locale(:es) { body.name = 'hola' ; body.save }
+      AlaveteliLocalization.with_locale(:es) { body.name = 'hola'; body.save }
       body.reload
 
       expect(body.update_attributes('name' => '')).to eq(false)
@@ -910,7 +910,7 @@ describe PublicBody do
 
   end
 
-  describe  'when generating json for the api' do
+  describe 'when generating json for the api' do
 
     let(:public_body) do
       FactoryBot.create(:public_body,
@@ -1239,7 +1239,7 @@ describe PublicBody, "when destroying" do
   it 'should raise an error if there are associated info_requests' do
     FactoryBot.create(:info_request, :public_body => public_body)
     public_body.reload
-    expect{ public_body.destroy }.to raise_error(ActiveRecord::InvalidForeignKey)
+    expect { public_body.destroy }.to raise_error(ActiveRecord::InvalidForeignKey)
   end
 
 end
@@ -1661,7 +1661,7 @@ describe PublicBody, " when loading CSV files" do
     # the way categories are loaded every time from the PublicBody class. For now we just
     # test some translation was done.
     body = PublicBody.find_by_name('North West Fake Authority')
-    expect(body.translated_locales.map{|l|l.to_s}.sort).to eq(["en", "es"])
+    expect(body.translated_locales.map { |l|l.to_s }.sort).to eq(["en", "es"])
   end
 
   it "should not fail if a locale is not found in the input file" do
@@ -2149,7 +2149,7 @@ describe PublicBody do
 
     it 'should raise an error if the body is not defunct, FOI applies and has an email address' do
       expected_error = "not_requestable_reason called with type that has no reason"
-      expect{ @body.not_requestable_reason }.to raise_error(expected_error)
+      expect { @body.not_requestable_reason }.to raise_error(expected_error)
     end
 
   end
@@ -2264,7 +2264,7 @@ describe PublicBody::Translation do
 end
 
 describe PublicBody::Version do
-  let(:public_body){ FactoryBot.create(:public_body) }
+  let(:public_body) { FactoryBot.create(:public_body) }
 
   describe '#compare' do
 

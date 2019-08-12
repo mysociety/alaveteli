@@ -670,7 +670,7 @@ end
 
 describe RequestController do
   describe 'GET get_attachment_as_html' do
-    let(:info_request){ FactoryBot.create(:info_request_with_incoming_attachments) }
+    let(:info_request) { FactoryBot.create(:info_request_with_incoming_attachments) }
 
     def get_html_attachment(params = {})
       default_params = { :incoming_message_id =>
@@ -1165,6 +1165,31 @@ describe RequestController, "when creating a new request" do
 
       expect(response.body).to have_content('Your request contains a postcode')
     end
+
+  end
+
+  context 'a network error occurs while sending the initial request' do
+
+    def send_request
+      session[:user_id] = @user.id
+      post :new, params: {
+                 info_request: {
+                   public_body_id: @body.id,
+                   title: 'Test request',
+                   tag_string: ''
+                 },
+                 outgoing_message: {
+                   body: 'This is a silly letter.'
+                 },
+                 submitted_new_request: 1,
+                 preview: 0
+               }
+    end
+
+    let(:request) { assigns[:info_request] }
+    let(:outgoing_message) { request.reload.outgoing_messages.last }
+
+    it_behaves_like 'NetworkSendErrors'
 
   end
 
@@ -2062,7 +2087,7 @@ describe RequestController do
   describe "POST describe_state" do
     describe 'if the request is external' do
 
-      let(:external_request){ FactoryBot.create(:external_request) }
+      let(:external_request) { FactoryBot.create(:external_request) }
 
       it 'should redirect to the request page' do
         patch :describe_state, params: { :id => external_request.id }
@@ -2074,7 +2099,7 @@ describe RequestController do
 
     describe 'when the request is internal' do
 
-      let(:info_request){ FactoryBot.create(:info_request) }
+      let(:info_request) { FactoryBot.create(:info_request) }
 
       def post_status(status, info_request)
         patch :describe_state,
@@ -2090,10 +2115,10 @@ describe RequestController do
 
       context 'when the request is embargoed' do
 
-        let(:info_request){ FactoryBot.create(:embargoed_request) }
+        let(:info_request) { FactoryBot.create(:embargoed_request) }
 
         it 'should raise ActiveRecord::NotFound' do
-          expect{ post_status('rejected', info_request) }
+          expect { post_status('rejected', info_request) }
             .to raise_error ActiveRecord::RecordNotFound
         end
       end
@@ -2112,7 +2137,7 @@ describe RequestController do
 
       describe 'when the request is old and unclassified' do
 
-        let(:info_request){ FactoryBot.create(:old_unclassified_request)}
+        let(:info_request) { FactoryBot.create(:old_unclassified_request) }
 
         describe 'when the user is not logged in' do
 
@@ -2127,7 +2152,7 @@ describe RequestController do
 
         describe 'when the user is logged in as a different user' do
 
-          let(:other_user){ FactoryBot.create(:user) }
+          let(:other_user) { FactoryBot.create(:user) }
 
           before do
             session[:user_id] = other_user.id
@@ -2241,8 +2266,8 @@ describe RequestController do
 
       describe 'when logged in as an admin user who is not the actual requester' do
 
-        let(:admin_user){ FactoryBot.create(:admin_user) }
-        let(:info_request){ FactoryBot.create(:info_request) }
+        let(:admin_user) { FactoryBot.create(:admin_user) }
+        let(:info_request) { FactoryBot.create(:info_request) }
 
         before do
           session[:user_id] = admin_user.id
@@ -2292,8 +2317,8 @@ describe RequestController do
 
       describe 'when logged in as an admin user who is also the actual requester' do
 
-        let(:admin_user){ FactoryBot.create(:admin_user) }
-        let(:info_request){ FactoryBot.create(:info_request, :user => admin_user) }
+        let(:admin_user) { FactoryBot.create(:admin_user) }
+        let(:info_request) { FactoryBot.create(:info_request, :user => admin_user) }
 
         before do
           session[:user_id] = admin_user.id
@@ -2462,7 +2487,7 @@ describe RequestController do
 
         render_views
 
-        let(:info_request){ FactoryBot.create(:info_request) }
+        let(:info_request) { FactoryBot.create(:info_request) }
 
         before do
           session[:user_id] = info_request.user_id
@@ -2539,7 +2564,7 @@ describe RequestController do
 
           context 'when there is a last response' do
 
-            let(:info_request){ FactoryBot.create(:info_request_with_incoming) }
+            let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
 
             it 'should redirect to the "response url"' do
               session[:user_id] = info_request.user_id
@@ -2589,7 +2614,7 @@ describe RequestController do
 
         context 'when status is updated to "gone postal"' do
 
-          let(:info_request){ FactoryBot.create(:info_request_with_incoming) }
+          let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
 
           it 'should redirect to the "respond to last" url' do
             session[:user_id] = info_request.user_id
@@ -2682,7 +2707,7 @@ describe RequestController do
 
         context 'when status is updated to "user_withdrawn"' do
 
-          let(:info_request){ FactoryBot.create(:info_request_with_incoming) }
+          let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
 
           it 'should redirect to the "respond to last" url' do
             session[:user_id] = info_request.user_id
@@ -2744,7 +2769,7 @@ describe RequestController, "authority uploads a response from the web interface
   end
 
   context 'when the request is embargoed' do
-    let(:embargoed_request){ FactoryBot.create(:embargoed_request)}
+    let(:embargoed_request) { FactoryBot.create(:embargoed_request) }
 
     it 'raises an ActiveRecord::RecordNotFound error' do
       expect {
@@ -2885,7 +2910,7 @@ describe RequestController, "when showing similar requests" do
     load_raw_emails_data
   end
 
-  let(:badger_request){ info_requests(:badger_request) }
+  let(:badger_request) { info_requests(:badger_request) }
 
   it "renders the 'similar' template" do
     get :similar, params: {
@@ -2906,8 +2931,8 @@ describe RequestController, "when showing similar requests" do
 
     # Xapian seems to think *all* the requests are similar
     results = assigns[:xapian_object].results
-    expected = InfoRequest.all.reject{ |request| request == badger_request }
-    expect(results.map{ |result| result[:model].info_request })
+    expected = InfoRequest.all.reject { |request| request == badger_request }
+    expect(results.map { |result| result[:model].info_request })
       .to match_array(expected)
   end
 
@@ -3182,9 +3207,11 @@ describe RequestController, "#select_authorities" do
               params: {
                 :public_body_ids => [
                   public_bodies(:humpadink_public_body).id,
-                  public_bodies(:geraldine_public_body).id ],
+                  public_bodies(:geraldine_public_body).id
+                ],
                 :remove_public_body_ids => [
-                  public_bodies(:geraldine_public_body).id ]
+                  public_bodies(:geraldine_public_body).id
+                ]
               },
               session: { :user_id => @user.id }
           expect(assigns[:public_bodies].size).to eq(1)
@@ -3300,7 +3327,7 @@ describe RequestController do
 
   describe 'GET #details' do
 
-    let(:info_request){ FactoryBot.create(:info_request)}
+    let(:info_request) { FactoryBot.create(:info_request) }
 
     it 'renders the details template' do
       get :details, params: { :url_title => info_request.url_title }
@@ -3362,7 +3389,7 @@ end
 
 describe RequestController do
   describe 'GET #describe_state_message' do
-    let(:info_request){ FactoryBot.create(:info_request_with_incoming) }
+    let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
 
     it 'assigns the info_request to the view' do
       get :describe_state_message, params: {
@@ -3381,10 +3408,10 @@ describe RequestController do
     end
 
     it 'assigns the last info request event id to the view' do
-       get :describe_state_message, params: {
-                                      :url_title => info_request.url_title,
-                                      :described_state => 'error_message'
-                                    }
+      get :describe_state_message, params: {
+                                     :url_title => info_request.url_title,
+                                     :described_state => 'error_message'
+                                   }
       expect(assigns[:last_info_request_event_id])
         .to eq info_request.last_event_id_needing_description
     end
@@ -3398,7 +3425,7 @@ describe RequestController do
     end
 
     context 'when the request is embargoed' do
-      let(:info_request){ FactoryBot.create(:embargoed_request) }
+      let(:info_request) { FactoryBot.create(:embargoed_request) }
 
       it 'raises ActiveRecord::RecordNotFound' do
         expect {
@@ -3483,7 +3510,7 @@ describe RequestController do
   describe 'GET #show_request_event' do
 
     context 'when the event is an incoming message' do
-      let(:event){ FactoryBot.create(:response_event) }
+      let(:event) { FactoryBot.create(:response_event) }
 
       it 'returns a 301 status' do
         get :show_request_event, params: { :info_request_event_id => event.id }
@@ -3505,7 +3532,7 @@ describe RequestController do
     end
 
     context 'when the event is an outgoing message' do
-      let(:event){ FactoryBot.create(:sent_event) }
+      let(:event) { FactoryBot.create(:sent_event) }
 
       it 'returns a 301 status' do
         get :show_request_event, params: { :info_request_event_id => event.id }
@@ -3527,7 +3554,7 @@ describe RequestController do
     end
 
     context 'for any other kind of event' do
-      let(:event){ FactoryBot.create(:info_request_event) }
+      let(:event) { FactoryBot.create(:info_request_event) }
 
       it 'returns a 301 status' do
         get :show_request_event, params: { :info_request_event_id => event.id }

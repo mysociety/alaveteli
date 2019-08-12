@@ -3,7 +3,7 @@ class UserProfile::AboutMeController < ApplicationController
   before_action :set_title
   before_action :check_user_logged_in
 
-  def edit ; end
+  def edit; end
 
   def update
     if @user.suspended?

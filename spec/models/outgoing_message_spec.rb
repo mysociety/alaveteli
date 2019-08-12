@@ -66,6 +66,25 @@ describe OutgoingMessage do
 
   end
 
+  describe '.expected_send_errors' do
+    subject { described_class.expected_send_errors }
+    class TestError < StandardError ; end
+
+    it { is_expected.to be_an(Array) }
+    it { is_expected.to include(IOError) }
+    it { is_expected.to_not include(TestError) }
+
+    context '.additional_send_errors has been overriden to include a custom error' do
+      before do
+        allow(described_class).to receive(:additional_send_errors).
+          and_return([ TestError ])
+      end
+
+      it { is_expected.to include(TestError) }
+    end
+
+  end
+
   describe '#initialize' do
 
     it 'does not censor the #body' do
@@ -1637,6 +1656,12 @@ describe OutgoingMessage do
 
     describe '#delivery_status' do
 
+      it 'returns a failed status if the message send failed' do
+        message = FactoryBot.create(:failed_sent_request_event).outgoing_message
+        status = MailServerLog::DeliveryStatus.new(:failed)
+        expect(message.delivery_status).to eq(status)
+      end
+
       it 'returns an unknown delivery status if there are no mail logs' do
         message = FactoryBot.create(:initial_request)
         allow(message).to receive(:mail_server_logs).and_return([])
@@ -1789,6 +1814,60 @@ describe OutgoingMessage do
 
   end
 
+  describe '#prepare_message_for_resend' do
+    let(:outgoing_message) { FactoryBot.build(:initial_request) }
+    subject { outgoing_message.prepare_message_for_resend }
+
+    it 'raises an error if it receives an unexpected message_type' do
+      allow(outgoing_message).to receive(:message_type).and_return('fake')
+      expect{ subject }.to raise_error(RuntimeError)
+    end
+
+    it 'raises an error if it receives an unexpected status' do
+      outgoing_message.status = 'ready'
+      expect{ subject }.to raise_error(RuntimeError)
+    end
+
+    it 'sets status to "ready" if the current status is "sent"' do
+      outgoing_message.status = 'sent'
+      expect{ subject }.to change{ outgoing_message.status }.to('ready')
+    end
+
+    it 'sets status to "ready" if the current status is "failed"' do
+      outgoing_message.status = 'failed'
+      expect{ subject }.to change{ outgoing_message.status }.to('ready')
+    end
+
+  end
+
+  describe '#record_email_failure' do
+    let(:outgoing_message) { FactoryBot.create(:initial_request) }
+    subject { outgoing_message.record_email_failure('Exception#message') }
+
+    it 'sets the status to "failed"' do
+      subject
+      expect(outgoing_message.status).to eq 'failed'
+    end
+
+    it 'records the reason for the failure in the event log' do
+      subject
+      event = outgoing_message.info_request.info_request_events.last
+      expect(event.event_type).to eq('send_error')
+      expect(event.params[:reason]).to eq('Exception#message')
+    end
+
+    it 'sets described_state to "error_message"' do
+      subject
+      expect(outgoing_message.info_request.described_state).
+        to eq 'error_message'
+    end
+
+    it 'updates OutgoingMessage#last_sent_at' do
+      expect{ subject }.to change{ outgoing_message.last_sent_at }
+    end
+
+  end
+
 end
 
 describe OutgoingMessage, " when making an outgoing message" do
@@ -1836,7 +1915,7 @@ describe OutgoingMessage, "when validating the format of the message body" do
   it 'should handle a salutation with a bracket in it' do
     outgoing_message = FactoryBot.build(:initial_request)
     allow(outgoing_message).to receive(:get_salutation).and_return("Dear Bob (Robert,")
-    expect{ outgoing_message.valid? }.not_to raise_error
+    expect { outgoing_message.valid? }.not_to raise_error
   end
 
 end

@@ -72,7 +72,7 @@ class AdminIncomingMessageController < AdminController
 
   def redeliver
 
-    message_ids = params[:url_title].split(",").each {|x| x.strip}
+    message_ids = params[:url_title].split(",").each { |x| x.strip }
     previous_request = @incoming_message.info_request
     destination_request = nil
 

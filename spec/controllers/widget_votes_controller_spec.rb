@@ -6,7 +6,7 @@ describe WidgetVotesController do
   include LinkToHelper
 
   describe 'POST #create' do
-    let(:info_request){ FactoryBot.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request) }
 
     before do
       allow(AlaveteliConfiguration).to receive(:enable_widgets).and_return(true)

@@ -6,7 +6,7 @@
 #  id                    :integer          not null, primary key
 #  info_request_event_id :integer          not null
 #  user_id               :integer          not null
-#  frequency             :integer          default(0), not null
+#  frequency             :integer          default("instantly"), not null
 #  seen_at               :datetime
 #  send_after            :datetime         not null
 #  created_at            :datetime         not null
@@ -108,7 +108,7 @@ RSpec.describe Notification do
       FactoryBot.create(:notification,
                         info_request_event: embargo_expiring_event)
     end
-    let(:notifications) { [notification, expired_notification]}
+    let(:notifications) { [notification, expired_notification] }
 
     context "when no notifications are expired" do
       it "returns the original list" do

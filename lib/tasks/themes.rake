@@ -177,7 +177,7 @@ namespace :themes do
     missing_templates = []
     missing_sections = []
     if !template_file
-      missing_templates <<  template_file
+      missing_templates << template_file
       puts "Missing help template:  #{help_template_info[:name]} #{locale}"
     else
       contents = File.read(template_file)
@@ -198,7 +198,7 @@ namespace :themes do
   desc "Check that all help sections referred to in the application are present in theme"
   task :check_help_sections => :environment do
 
-  intro_message = <<-EOF
+    intro_message = <<-EOF
 
 Checking that all help templates linked to from Alaveteli are present in the theme,
 and that all sections linked to from Alaveteli are present in the templates. For
@@ -236,18 +236,15 @@ EOF
                                           'full_address',
                                           'postal_answer',
                                           'public_request',
-                                          'real_name'
-                                          ]},
+                                          'real_name']},
                            {:name => 'requesting',
                             :sections => ['focused',
                                           'data_protection',
                                           'missing_body',
-                                          'quickly_response',
-                                          ]},
+                                          'quickly_response',]},
                            {:name => 'unhappy',
                             :sections => ['internal_review',
-                                          'other_means'
-                                          ]},
+                                          'other_means']},
                            {:name => '_why_they_should_reply_by_email',
                             :sections => []}]
 

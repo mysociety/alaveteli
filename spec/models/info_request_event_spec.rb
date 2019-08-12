@@ -498,7 +498,7 @@ describe InfoRequestEvent do
   end
 
   describe '#destroy' do
-    let (:info_request) { FactoryBot.create(:info_request)}
+    let (:info_request) { FactoryBot.create(:info_request) }
     let (:event) { InfoRequestEvent.create(:info_request => info_request,
                                            :event_type => 'sent',
                                            :params => {})
@@ -700,6 +700,16 @@ describe InfoRequestEvent do
       expect(event.resets_due_dates?).to be true
     end
 
+    it 'returns true if the event is a failed send of a request' do
+      info_request_event = FactoryBot.create(:failed_sent_request_event)
+      expect(info_request_event.resets_due_dates?).to be true
+    end
+
+    it 'returns false if the event is a failed send of a followup' do
+      info_request_event = FactoryBot.create(:failed_sent_followup_event)
+      expect(info_request_event.resets_due_dates?).to be false
+    end
+
     it 'returns false if the event is neither a sending of the request or a
         clarification' do
       info_request_event = FactoryBot.create(:response_event)
@@ -718,6 +728,16 @@ describe InfoRequestEvent do
     it 'returns true if the event type is "resent"' do
       info_request_event = FactoryBot.create(:resent_event)
       expect(info_request_event.is_request_sending?).to be true
+    end
+
+    it 'returns true if the event is a failed send of a request' do
+      info_request_event = FactoryBot.create(:failed_sent_request_event)
+      expect(info_request_event.is_request_sending?).to be true
+    end
+
+    it 'returns false if the event is a failed send of a followup' do
+      info_request_event = FactoryBot.create(:failed_sent_followup_event)
+      expect(info_request_event.is_request_sending?).to be false
     end
 
     it 'returns false if the event type is not "sent" or "resent"' do

@@ -4,8 +4,8 @@ require 'spec_helper'
 describe ReportsController do
 
   describe 'POST #create' do
-    let(:info_request){ FactoryBot.create(:info_request) }
-    let(:user){ FactoryBot.create(:user) }
+    let(:info_request) { FactoryBot.create(:info_request) }
+    let(:user) { FactoryBot.create(:user) }
 
     context "when reporting a request when not logged in" do
       it "should only allow logged-in users to report requests" do
@@ -166,7 +166,7 @@ describe ReportsController do
 
     end
 
-   context "when reporting a comment (logged in)" do
+    context "when reporting a comment (logged in)" do
       before do
         session[:user_id] = user.id
       end
@@ -228,87 +228,87 @@ describe ReportsController do
       end
 
       it "marks the comment as having been reported" do
-         post :create, params: {
-                         :request_id => info_request.url_title,
-                         :comment_id => comment.id,
-                         :reason => "my reason"
-                       }
+        post :create, params: {
+                        :request_id => info_request.url_title,
+                        :comment_id => comment.id,
+                        :reason => "my reason"
+                      }
 
-         comment.reload
-         expect(comment.attention_requested).to eq(true)
-       end
+        comment.reload
+        expect(comment.attention_requested).to eq(true)
+      end
 
-       it "does not mark the parent request as having been reported" do
-         post :create, params: {
-                         :request_id => info_request.url_title,
-                         :comment_id => comment.id,
-                         :reason => "my reason"
-                       }
+      it "does not mark the parent request as having been reported" do
+        post :create, params: {
+                        :request_id => info_request.url_title,
+                        :comment_id => comment.id,
+                        :reason => "my reason"
+                      }
 
-         info_request.reload
-         expect(info_request.attention_requested).to eq(false)
-         expect(info_request.described_state).to_not eq("attention_requested")
-       end
+        info_request.reload
+        expect(info_request.attention_requested).to eq(false)
+        expect(info_request.described_state).to_not eq("attention_requested")
+      end
 
-       it "sends an email alerting admins to the report" do
-         post :create, params: {
-                         :request_id => info_request.url_title,
-                         :comment_id => comment.id,
-                         :reason => "my reason",
-                         :message => "It's just not"
-                       }
-         deliveries = ActionMailer::Base.deliveries
+      it "sends an email alerting admins to the report" do
+        post :create, params: {
+                        :request_id => info_request.url_title,
+                        :comment_id => comment.id,
+                        :reason => "my reason",
+                        :message => "It's just not"
+                      }
+        deliveries = ActionMailer::Base.deliveries
 
-         expect(deliveries.size).to eq(1)
-         mail = deliveries[0]
+        expect(deliveries.size).to eq(1)
+        mail = deliveries[0]
 
-         expect(mail.subject).to match(/requires admin/)
-         expect(mail.header['Reply-To'].to_s).to include(user.email)
-         expect(mail.body).to include(user.name)
+        expect(mail.subject).to match(/requires admin/)
+        expect(mail.header['Reply-To'].to_s).to include(user.email)
+        expect(mail.body).to include(user.name)
 
-         expect(mail.body)
-           .to include("Reason: my reason\n\nIt's just not")
+        expect(mail.body)
+          .to include("Reason: my reason\n\nIt's just not")
 
-         expect(mail.body)
-           .to include("The user wishes to draw attention to the comment: " \
-                       "#{comment_url(comment)} "\
-                       "\nadmin: #{edit_admin_comment_url(comment)}")
-       end
+        expect(mail.body)
+          .to include("The user wishes to draw attention to the comment: " \
+                      "#{comment_url(comment)} "\
+                      "\nadmin: #{edit_admin_comment_url(comment)}")
+      end
 
-       it "informs the user the comment has been reported" do
-         expected = "This annotation has been reported for " \
-                    "administrator attention"
+      it "informs the user the comment has been reported" do
+        expected = "This annotation has been reported for " \
+                   "administrator attention"
 
-         post :create, params: {
-                         :request_id => info_request.url_title,
-                         :comment_id => comment.id,
-                         :reason => "my reason",
-                         :message => "It's just not"
-                       }
+        post :create, params: {
+                        :request_id => info_request.url_title,
+                        :comment_id => comment.id,
+                        :reason => "my reason",
+                        :message => "It's just not"
+                      }
 
-         expect(flash[:notice]).to eq(expected)
-       end
+        expect(flash[:notice]).to eq(expected)
+      end
 
-       it "redirects to the parent info_request page" do
-         post :create, params: {
-                         :request_id => info_request.url_title,
-                         :comment_id => comment.id,
-                         :reason => "my reason",
-                         :message => "It's just not"
-                       }
+      it "redirects to the parent info_request page" do
+        post :create, params: {
+                        :request_id => info_request.url_title,
+                        :comment_id => comment.id,
+                        :reason => "my reason",
+                        :message => "It's just not"
+                      }
 
-         expect(response)
-           .to redirect_to show_request_path(:url_title =>
-                                               info_request.url_title)
-       end
+        expect(response)
+          .to redirect_to show_request_path(:url_title =>
+                                              info_request.url_title)
+      end
 
     end
 
   end
 
   describe "GET #new" do
-    let(:info_request){ FactoryBot.create(:info_request) }
-    let(:user){ FactoryBot.create(:user) }
+    let(:info_request) { FactoryBot.create(:info_request) }
+    let(:user) { FactoryBot.create(:user) }
 
     context "not logged in" do
       it "should require the user to be logged in" do

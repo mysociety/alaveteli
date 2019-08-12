@@ -11,7 +11,7 @@ describe AdminTrackController do
     end
 
     describe 'POST destroy' do
-      let(:track){ FactoryBot.create(:track_thing) }
+      let(:track) { FactoryBot.create(:track_thing) }
 
       it 'destroys the track' do
         post :destroy, params: { id: track.id }

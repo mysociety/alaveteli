@@ -134,7 +134,7 @@ describe AlaveteliPro::RequestFilter do
   end
 
   describe '#results' do
-    let(:user){ FactoryBot.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     context 'when no attributes are supplied' do
 

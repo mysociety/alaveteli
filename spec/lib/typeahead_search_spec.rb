@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe TypeaheadSearch do
-  let(:options){ { :model => InfoRequestEvent } }
+  let(:options) { { :model => InfoRequestEvent } }
 
   describe "#initialize" do
 
@@ -97,11 +97,11 @@ describe TypeaheadSearch do
     end
 
     def search_info_requests(xapian_search)
-      xapian_search.results.map{ |result| result[:model].info_request }
+      xapian_search.results.map { |result| result[:model].info_request }
     end
 
     def search_bodies(xapian_search)
-      xapian_search.results.map{ |result| result[:model] }
+      xapian_search.results.map { |result| result[:model] }
     end
 
     it "returns nil for the empty query string" do

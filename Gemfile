@@ -97,7 +97,6 @@ gem 'dalli', '~> 2.7.0'
 gem 'dynamic_form', '~> 1.1.0'
 gem 'exception_notification', ['~> 4.1.0', '< 4.1.2']
 gem 'fancybox-rails', '~> 0.3.0'
-gem 'geoip', '~> 1.6.4'
 gem 'gnuplot', '~> 2.6.0'
 gem 'htmlentities', '~> 4.3.0'
 gem 'icalendar', '~> 2.4.0'
@@ -107,9 +106,10 @@ gem 'json', ['~> 1.8.0', '< 2.0.0']
 gem 'holidays', '~> 4.7.0', '< 5.0.0'
 gem 'iso_country_codes', '~> 0.7.8'
 gem 'mail', '~> 2.6.6'
+gem 'maxmind-db', '~> 1.0.0'
 gem 'mahoro', '~> 0.4'
 gem 'newrelic_rpm'
-gem 'nokogiri', '~> 1.10.3'
+gem 'nokogiri', '~> 1.10.4'
 gem 'open4', '~> 1.3.0'
 gem 'rack', '~> 2.0.0'
 gem 'rack-ssl', '~> 1.4.0'
@@ -122,7 +122,7 @@ gem 'rubyzip', '~> 1.2.2'
 gem 'secure_headers', '~> 3.6.0'
 gem 'statistics2', '~> 0.54'
 gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :ref => 'c1c14da'
-gem 'stripe', '~> 3.4.1'
+gem 'stripe', '~> 3.29.0'
 gem 'syslog_protocol', '~> 0.9.0'
 gem 'thin', '~> 1.5.0', '< 1.6.0'
 gem 'vpim', '~> 13.11.11'
@@ -166,7 +166,7 @@ group :test do
   gem 'coveralls', '~> 0.8.0', :require => false
   gem 'capybara', '~> 3.5.0'
   gem 'delorean', '~> 2.1.0'
-  gem 'stripe-ruby-mock', '~> 2.5.4'
+  gem 'stripe-ruby-mock', ['~> 2.5.4', '< 2.5.7']
   gem('rails-controller-testing')
 end
 

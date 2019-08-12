@@ -170,7 +170,7 @@ describe UserController do
                    }
 
         actual =
-          assigns[:xapian_requests].results.map{ |x| x[:model].info_request }
+          assigns[:xapian_requests].results.map { |x| x[:model].info_request }
 
         expect(actual).to match_array([info_requests(:naughty_chicken_request)])
       end
@@ -357,7 +357,7 @@ describe UserController do
                    }
 
         actual =
-          assigns[:xapian_requests].results.map{ |x| x[:model].info_request }
+          assigns[:xapian_requests].results.map { |x| x[:model].info_request }
 
         expect(actual).to match_array([request_1])
       end
@@ -538,7 +538,7 @@ describe UserController do
                    }
 
         actual =
-          assigns[:xapian_requests].results.map{ |x| x[:model].info_request }
+          assigns[:xapian_requests].results.map { |x| x[:model].info_request }
 
         expect(actual).to match_array([request_1])
       end
@@ -662,7 +662,7 @@ describe UserController, "when signing up" do
     expect(response).to render_template('confirm')
 
     deliveries = ActionMailer::Base.deliveries
-    expect(deliveries.size).to  eq(1)
+    expect(deliveries.size).to eq(1)
     expect(deliveries[0].body).to include("not reveal your email")
   end
 
@@ -679,7 +679,7 @@ describe UserController, "when signing up" do
     expect(response).to render_template('confirm')
 
     deliveries = ActionMailer::Base.deliveries
-    expect(deliveries.size).to  eq(1)
+    expect(deliveries.size).to eq(1)
     expect(deliveries[0].body).to include("No revelaremos")
   end
 
@@ -696,7 +696,7 @@ describe UserController, "when signing up" do
       expect(response).to render_template('confirm')
 
       deliveries = ActionMailer::Base.deliveries
-      expect(deliveries.size).to  eq(1)
+      expect(deliveries.size).to eq(1)
 
       # This text may span a line break, depending on the length of the SITE_NAME
       expect(deliveries[0].body).to match(/when\s+you\s+already\s+have\s+an/)
@@ -714,7 +714,7 @@ describe UserController, "when signing up" do
       expect(response).to render_template('confirm')
 
       deliveries = ActionMailer::Base.deliveries
-      expect(deliveries.size).to  eq(1)
+      expect(deliveries.size).to eq(1)
 
       # This text may span a line break, depending on the length of the SITE_NAME
       expect(deliveries[0].body).to match(/when\s+you\s+already\s+have\s+an/)
@@ -749,7 +749,7 @@ describe UserController, "when signing up" do
   end
 
   context 'when the user is already signed in' do
-    let(:user){ FactoryBot.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     before do
       ActionController::Base.allow_forgery_protection = true
@@ -1010,7 +1010,7 @@ describe UserController, "when changing email address" do
     expect(assigns[:signchangeemail].errors[:password]).not_to be_nil
 
     deliveries = ActionMailer::Base.deliveries
-    expect(deliveries.size).to  eq(0)
+    expect(deliveries.size).to eq(0)
   end
 
   it "should be an error if old email is wrong, everything else right" do
@@ -1033,7 +1033,7 @@ describe UserController, "when changing email address" do
     expect(assigns[:signchangeemail].errors[:old_email]).not_to be_nil
 
     deliveries = ActionMailer::Base.deliveries
-    expect(deliveries.size).to  eq(0)
+    expect(deliveries.size).to eq(0)
   end
 
   it "should work even if the old email had a case difference" do
@@ -1074,7 +1074,7 @@ describe UserController, "when changing email address" do
     expect(response).to render_template('signchangeemail_confirm')
 
     deliveries = ActionMailer::Base.deliveries
-    expect(deliveries.size).to  eq(1)
+    expect(deliveries.size).to eq(1)
     mail = deliveries[0]
 
     expect(mail.body).to include("perhaps you, just tried to change their")

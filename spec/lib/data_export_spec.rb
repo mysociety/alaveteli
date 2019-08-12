@@ -156,7 +156,7 @@ describe DataExport do
     let(:cut_off) { Date.today + 1 }
 
     it "includes eligible attachments" do
-      incoming =  FactoryBot.create(:incoming_message)
+      incoming = FactoryBot.create(:incoming_message)
       attachment = FactoryBot.create(:html_attachment,
                                      :incoming_message => incoming)
       exportable = described_class.exportable_foi_attachments(cut_off)
@@ -165,7 +165,7 @@ describe DataExport do
     end
 
     it "does not include attachments of hidden messages" do
-      incoming =  FactoryBot.create(:incoming_message, :prominence => 'hidden')
+      incoming = FactoryBot.create(:incoming_message, :prominence => 'hidden')
       attachment = FactoryBot.create(:html_attachment,
                                      :incoming_message => incoming)
       exportable = described_class.exportable_foi_attachments(cut_off)

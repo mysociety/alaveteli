@@ -64,7 +64,7 @@ class AlaveteliPro::InfoRequestBatchesController < AlaveteliPro::BaseController
 
     rate_monitor.limit?(user_id, hour_rule) ||
       rate_monitor.limit?(user_id) ||
-        rate_monitor.limit?(user_id, week_rule)
+      rate_monitor.limit?(user_id, week_rule)
   end
 
   def handle_rate_monitor_limit_hit(user_id)
@@ -104,9 +104,9 @@ class AlaveteliPro::InfoRequestBatchesController < AlaveteliPro::BaseController
 
   def all_models_valid?
     @example_info_request.valid? && \
-    @outgoing_message.valid? && \
-    (@embargo.nil? || @embargo.present? && @embargo.valid?) && \
-    @info_request_batch.valid?
+      @outgoing_message.valid? && \
+      (@embargo.nil? || @embargo.present? && @embargo.valid?) && \
+      @info_request_batch.valid?
   end
 
   def remove_duplicate_errors

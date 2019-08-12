@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe "admin_public_body/show.html.erb" do
-  let(:public_body){ FactoryBot.create(:public_body) }
+  let(:public_body) { FactoryBot.create(:public_body) }
 
 
   before do
@@ -14,7 +14,7 @@ describe "admin_public_body/show.html.erb" do
   end
 
   context 'when the user cannot view API keys ' do
-    let(:current_user){ FactoryBot.create(:admin_user) }
+    let(:current_user) { FactoryBot.create(:admin_user) }
 
     it 'does not display the API key' do
       with_feature_enabled(:alaveteli_pro) do
@@ -27,7 +27,7 @@ describe "admin_public_body/show.html.erb" do
   end
 
   context 'when the user can view API keys' do
-    let(:current_user){ FactoryBot.create(:pro_admin_user) }
+    let(:current_user) { FactoryBot.create(:pro_admin_user) }
 
     it 'displays the API key' do
       with_feature_enabled(:alaveteli_pro) do

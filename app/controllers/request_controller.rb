@@ -68,7 +68,7 @@ class RequestController < ApplicationController
       end
       format.json do
         if @search_bodies
-          render :json => @search_bodies.results.map{ |result| {:name => result[:model].name,
+          render :json => @search_bodies.results.map { |result| {:name => result[:model].name,
                                                                 :id => result[:model].id } }
         else
           render :json => []
@@ -130,7 +130,7 @@ class RequestController < ApplicationController
       @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
 
       respond_to do |format|
-        format.html { @has_json = true; render :template => 'request/show'}
+        format.html { @has_json = true; render :template => 'request/show' }
         format.json { render :json => @info_request.json_for_api(true) }
       end
     end
@@ -222,7 +222,7 @@ class RequestController < ApplicationController
     # TODO: Decide if we make batch requesters describe their undescribed requests
     # before being able to make a new batch request
 
-    if  !authenticated_user.can_file_requests?
+    if !authenticated_user.can_file_requests?
       @details = authenticated_user.can_fail_html
       render :template => 'user/banned' and return
     end
@@ -405,21 +405,38 @@ class RequestController < ApplicationController
     # This automatically saves dependent objects, such as @outgoing_message, in the same transaction
     @info_request.save!
 
-    # TODO: Sending the message needs the database id, so we send after
-    # saving, which isn't ideal if the request broke here.
     if @outgoing_message.sendable?
-      mail_message = OutgoingMailer.initial_request(
-        @outgoing_message.info_request,
-        @outgoing_message
-      ).deliver_now
+      begin
+        mail_message = OutgoingMailer.initial_request(
+          @outgoing_message.info_request,
+          @outgoing_message
+        ).deliver_now
+      rescue *OutgoingMessage.expected_send_errors => e
+        # Catch a wide variety of potential ActionMailer failures and
+        # record the exception reason so administrators don't have to
+        # dig into logs.
+        @outgoing_message.record_email_failure(
+          e.message
+        )
 
-      @outgoing_message.record_email_delivery(
-        mail_message.to_addrs.join(', '),
-        mail_message.message_id
-      )
+        flash[:error] = _("An error occurred while sending your request to " \
+                          "{{authority_name}} but has been saved and flagged " \
+                          "for administrator attention.",
+                          authority_name: @info_request.public_body.name)
+      else
+        @outgoing_message.record_email_delivery(
+          mail_message.to_addrs.join(', '),
+          mail_message.message_id
+        )
+
+        flash[:request_sent] = true
+      ensure
+        # Ensure the InfoRequest is fully updated before templating to
+        # isolate templating issues recording delivery status.
+        @info_request.save!
+      end
     end
 
-    flash[:request_sent] = true
     redirect_to show_request_path(:url_title => @info_request.url_title)
   end
 
@@ -597,7 +614,7 @@ class RequestController < ApplicationController
     # Is this a completely public request that we can cache attachments for
     # to be served up without authentication?
     if incoming_message.info_request.prominence(:decorate => true).is_public? &&
-      incoming_message.is_public?
+       incoming_message.is_public?
       @files_can_be_cached = true
     end
   end
@@ -618,7 +635,7 @@ class RequestController < ApplicationController
         else
           content_type =
             AlaveteliFileTypes.filename_to_mimetype(params[:file_name]) ||
-              'application/octet-stream'
+            'application/octet-stream'
 
           render :body => foi_fragment_cache_read(key_path),
                  :content_type => content_type
@@ -649,7 +666,7 @@ class RequestController < ApplicationController
     # we don't use @attachment.content_type here, as we want same mime type when cached in cache_attachments above
     content_type =
       AlaveteliFileTypes.filename_to_mimetype(params[:file_name]) ||
-        'application/octet-stream'
+      'application/octet-stream'
 
     # Prevent spam to magic request address. Note that the binary
     # subsitution method used depends on the content type
@@ -1125,7 +1142,7 @@ class RequestController < ApplicationController
 
   def set_render_recaptcha
     @render_recaptcha = AlaveteliConfiguration.new_request_recaptcha &&
-      (!@user || !@user.confirmed_not_spam?)
+                        (!@user || !@user.confirmed_not_spam?)
   end
 
   def redirect_numeric_id_to_url_title
@@ -1168,9 +1185,9 @@ class RequestController < ApplicationController
   def redirect_new_form_to_pro_version
     # Pros should use the pro version of the form
     if feature_enabled?(:alaveteli_pro) &&
-      request_user &&
-      request_user.is_pro? &&
-      params[:pro] != "1"
+       request_user &&
+       request_user.is_pro? &&
+       params[:pro] != "1"
       if params[:url_name]
         redirect_to(
           new_alaveteli_pro_info_request_url(public_body: params[:url_name]))
@@ -1218,7 +1235,7 @@ class RequestController < ApplicationController
   def blocked_ip?(ip, user)
     !user.confirmed_not_spam? &&
       AlaveteliConfiguration.restricted_countries.include?(ip) &&
-        country_from_ip != AlaveteliConfiguration.iso_country_code
+      country_from_ip != AlaveteliConfiguration.iso_country_code
   end
 
   def block_restricted_country_ips?

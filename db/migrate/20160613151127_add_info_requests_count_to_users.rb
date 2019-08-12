@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class AddInfoRequestsCountToUsers <  ActiveRecord::Migration[4.2] # 3.2
+class AddInfoRequestsCountToUsers < ActiveRecord::Migration[4.2] # 3.2
   def up
     add_column :users, :info_requests_count, :integer, :default => 0, :null => false
 

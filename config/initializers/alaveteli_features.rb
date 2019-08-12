@@ -23,3 +23,11 @@ if AlaveteliConfiguration.enable_alaveteli_pro
 else
   AlaveteliFeatures.backend.disable(:alaveteli_pro) unless !AlaveteliFeatures.backend.enabled?(:alaveteli_pro)
 end
+
+# Pro Pricing
+# We enable pro_pricing globally based on the ENABLE_PRO_PRICING config
+if AlaveteliConfiguration.enable_pro_pricing
+  AlaveteliFeatures.backend.enable(:pro_pricing) unless AlaveteliFeatures.backend.enabled?(:pro_pricing)
+else
+  AlaveteliFeatures.backend.disable(:pro_pricing) unless !AlaveteliFeatures.backend.enabled?(:pro_pricing)
+end
