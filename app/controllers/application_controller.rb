@@ -191,7 +191,7 @@ class ApplicationController < ActionController::Base
     respond_to do |format|
       format.html do
         render template: 'general/exception_caught', status: @status
-      end
+      end unless request.xhr?
       format.any { head @status }
     end
   end
