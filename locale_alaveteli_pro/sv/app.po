@@ -309,13 +309,13 @@ msgid "I understand and still want to cancel"
 msgstr "Jag förstår och vill fortfarande avbryta"
 
 msgid "If payment continues to fail, unfortunately your account will revert back to a free account, and you’ll no longer have access to {{pro_site_name}}."
-msgstr ""
+msgstr "Om betalningen fortsätter att misslyckas återgår tyvärr ditt konto till ett gratis konto och du har inte längre tillgång till {{pro_site_name}}."
 
 msgid "If you have an <strong>offer code</strong>, please enter it here:"
 msgstr "Om du har en <strong>rabattkod</strong>, vänligen ange den här:"
 
 msgid "If you wish to preserve your access to {{pro_site_name}}, please could you check that your card has sufficient funds, and that the card details are correct on your subscriptions page: {{subscriptions_page_url}}"
-msgstr ""
+msgstr "Om du vill behålla din åtkomst till {{pro_site_name}}, kan du kontrollera att ditt kort har tillräckligt med pengar och att kortinformationen är korrekt på din prenumerationssida: {{subscriptions_page_url}}"
 
 msgid "Important info about requests to this authority"
 msgstr "Viktig info om förfrågningar till denna myndighet"
@@ -790,10 +790,10 @@ msgid "Welcome to {{pro_site_name}}!"
 msgstr "Välkommen till {{pro_site_name}}!"
 
 msgid "We’ll attempt to bill your card again over the coming days."
-msgstr ""
+msgstr "Vi kommer att försöka fakturera ditt kort igen under de kommande dagarna."
 
 msgid "We’ve tried to bill your card but the charge was unsuccessful."
-msgstr ""
+msgstr "Vi har försökt att fakturera ditt kort men det misslyckades."
 
 msgid "When a request is private we guarantee that it will only be visible on {{site_name}} for the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
 msgstr "När en förfrågan är privat garanterar vi att den kan enbart ses på {{site_name}} under den tid du valt. {{pro_site_name}} administratörer kommer att kunna se din förfrågan men bara vid de tillfällen när de tillfällen behöver åtgärda något problem med t ex (e.g. failed delivery to the authority). De kommer ej att avslöja innehållet i din förfrågan eller något svar som du fått till någon annan. Myndigheten kommer dock att publicera den i förteckning som vanligt."

@@ -1,4 +1,4 @@
-# develop
+# 0.35.0.0
 
 ## Highlighted Features
 
@@ -22,8 +22,8 @@
 
 ## Upgrade Notes
 
-* You can run this release without using the Alaveteli Pro Pricing functionality
-  - by default it is switched off.
+* You can run this release without using the Alaveteli Pro Pricing
+  functionality - by default it is switched off.
 * This release officially adds support for Ruby 2.6
 * We have specified a Stripe API version of `2017-01-27` if you are already
   running Pro with pricing enabled you should consider re-creating the Stripe
@@ -42,10 +42,13 @@
 ### Changed Templates
 
     app/views/admin_general/_to_do_list.html.erb
+    app/views/admin_user/index.html.erb
     app/views/alaveteli_pro/account_request/index.html.erb
     app/views/alaveteli_pro/plans/index.html.erb
     app/views/alaveteli_pro/plans/show.html.erb
+    app/views/request/_batch.html.erb
     app/views/request/_correspondence.html.erb
+    app/views/request/_sidebar.html.erb
 
 # 0.34.0.1
 
