@@ -189,7 +189,9 @@ class ApplicationController < ActionController::Base
       @status = 500
     end
     respond_to do |format|
-      format.html { render :template => "general/exception_caught", :status => @status }
+      format.html do
+        render template: 'general/exception_caught', status: @status
+      end
       format.any { head @status }
     end
   end
