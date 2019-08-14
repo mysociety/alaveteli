@@ -139,7 +139,7 @@ Layout/IndentArray:
   Description: >-
                  Checks the indentation of the first element in an array
                  literal.
-  Enabled: false
+  Enabled: true
 
 Layout/IndentAssignment:
   Description: >-
@@ -149,7 +149,7 @@ Layout/IndentAssignment:
 
 Layout/IndentHash:
   Description: 'Checks the indentation of the first key in a hash literal.'
-  Enabled: false
+  Enabled: true
 
 Layout/LeadingCommentSpace:
   Description: 'Comments should start with a space.'
@@ -300,7 +300,7 @@ Layout/SpaceInsideArrayLiteralBrackets:
 
 Layout/SpaceInsideReferenceBrackets:
   Description: 'Checks the spacing inside referential brackets.'
-  Enabled: false
+  Enabled: true
 
 Layout/SpaceInsideHashLiteralBraces:
   Description: "Use spaces inside hash literal braces - or don't."
@@ -312,12 +312,12 @@ Layout/SpaceInsideHashLiteralBraces:
 Layout/SpaceInsideParens:
   Description: 'No spaces after ( or before ).'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-spaces-braces'
-  Enabled: false
+  Enabled: true
 
 Layout/SpaceInsideRangeLiteral:
   Description: 'No spaces inside range literals.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-space-inside-range-literals'
-  Enabled: false
+  Enabled: true
 
 Layout/SpaceInsideStringInterpolation:
   Description: 'Checks for padding/surrounding spaces inside string interpolation.'
@@ -348,15 +348,15 @@ Layout/ConditionPosition:
                  Checks for condition placed in a confusing position relative to
                  the keyword.
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#same-line-condition'
-  Enabled: false
+  Enabled: true
 
 Layout/DefEndAlignment:
   Description: 'Align ends corresponding to defs correctly.'
-  Enabled: false
+  Enabled: true
 
 Layout/EndAlignment:
   Description: 'Align ends correctly.'
-  Enabled: false
+  Enabled: true
 
 Style/Alias:
   Description: 'Use alias instead of alias_method.'
@@ -456,7 +456,7 @@ Style/CommentAnnotation:
                  Checks formatting of special comments
                  (TODO, FIXME, OPTIMIZE, HACK, REVIEW).
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#annotate-keywords'
-  Enabled: false
+  Enabled: true
 
 Style/ConditionalAssignment:
   Description: >-
@@ -509,7 +509,7 @@ Style/EmptyCaseCondition:
 Style/EmptyLiteral:
   Description: 'Prefer literals to Array.new/Hash.new/String.new.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#literal-array-hash'
-  Enabled: false
+  Enabled: true
 
 Style/Encoding:
   Description: 'Use UTF-8 as the source file encoding.'
