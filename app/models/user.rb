@@ -341,17 +341,21 @@ class User < ApplicationRecord
   def reindex_referencing_models
     return if no_xapian_reindex == true
 
-    if changes.include?('url_name')
-      comments.each do |comment|
-        comment.info_request_events.each do |info_request_event|
-          info_request_event.xapian_mark_needs_index
-        end
-      end
+    if rails_upgrade?
+      return unless saved_change_to_attribute?(:url_name)
+    else
+      return unless changes.include?('url_name')
+    end
 
-      info_requests.each do |info_request|
-        info_request.info_request_events.each do |info_request_event|
-          info_request_event.xapian_mark_needs_index
-        end
+    comments.each do |comment|
+      comment.info_request_events.each do |info_request_event|
+        info_request_event.xapian_mark_needs_index
+      end
+    end
+
+    info_requests.each do |info_request|
+      info_request.info_request_events.each do |info_request_event|
+        info_request_event.xapian_mark_needs_index
       end
     end
   end
@@ -715,7 +719,11 @@ class User < ApplicationRecord
 
   def update_pro_account
     return unless is_pro? && pro_account
-    pro_account.update_email_address if email_changed?
+    if rails_upgrade?
+      pro_account.update_email_address if saved_change_to_attribute?(:email)
+    else
+      pro_account.update_email_address if email_changed?
+    end
   end
 
 end
