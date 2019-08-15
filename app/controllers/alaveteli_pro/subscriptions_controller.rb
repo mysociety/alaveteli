@@ -37,24 +37,12 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
     begin
       @token = Stripe::Token.retrieve(params[:stripeToken])
 
-      customer = current_user.pro_account.try(:stripe_customer)
-
-      @customer =
-        if customer
-          customer.source = @token.id
-          customer.save
-          customer
-        else
-          customer =
-            Stripe::Customer.create(email: params[:stripeEmail],
-                                    source: @token)
-
-          current_user.create_pro_account(stripe_customer_id: customer.id)
-          customer
-        end
+      @pro_account = current_user.pro_account ||= current_user.build_pro_account
+      @pro_account.source = @token.id
+      @pro_account.update_stripe_customer
 
       subscription_attributes = {
-        customer: @customer,
+        customer: @pro_account.stripe_customer,
         plan: params[:plan_id],
         tax_percent: 20.0
       }
