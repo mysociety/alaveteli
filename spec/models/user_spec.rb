@@ -1710,6 +1710,24 @@ describe User do
 
     let(:user) { FactoryBot.build(:user) }
 
+    context 'adding unknown role' do
+
+      it 'should not call grant pro access' do
+        expect(AlaveteliPro::Access).to_not receive(:grant)
+        user.add_role(:unknown)
+      end
+
+    end
+
+    context 'adding pro role' do
+
+      it 'should call grant pro access' do
+        expect(AlaveteliPro::Access).to receive(:grant).with(user)
+        user.add_role(:pro)
+      end
+
+    end
+
     context 'with pro pricing enabled', feature: :pro_pricing do
 
       it 'creates pro account when pro role added' do

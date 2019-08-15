@@ -77,24 +77,6 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
           expect(user.is_pro?).to eq(true)
         end
 
-        it 'does not enable pop polling by default' do
-          result =
-            AlaveteliFeatures.backend[:accept_mail_from_poller].enabled?(user)
-          expect(result).to eq(false)
-        end
-
-        it 'enables daily summary notifications for the user' do
-          result =
-            AlaveteliFeatures.backend[:notifications].enabled?(user)
-          expect(result).to eq(true)
-        end
-
-        it 'enables batch for the user' do
-          result =
-            AlaveteliFeatures.backend[:pro_batch_access].enabled?(user)
-          expect(result).to eq(true)
-        end
-
         it 'welcomes the new user' do
           partial_file = "alaveteli_pro/subscriptions/signup_message.html.erb"
           expect(flash[:notice]).to eq({ :partial => partial_file })
@@ -147,35 +129,6 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
       end
 
-      context 'the user previously had some pro features enabled' do
-
-        def successful_signup
-          post :create, params: {
-                          'stripeToken' => token,
-                          'stripeTokenType' => 'card',
-                          'stripeEmail' => user.email,
-                          'plan_id' => 'pro',
-                          'coupon_code' => 'coupon_code'
-                        }
-        end
-
-        it 'does not raise an error if the user already uses the poller' do
-          AlaveteliFeatures.backend.enable_actor(:accept_mail_from_poller, user)
-          expect { successful_signup }.not_to raise_error
-        end
-
-        it 'does not raise an error if the user already has notifications' do
-          AlaveteliFeatures.backend.enable_actor(:notifications, user)
-          expect { successful_signup }.not_to raise_error
-        end
-
-        it 'does not raise an error if the user already has batch' do
-          AlaveteliFeatures.backend.enable_actor(:pro_batch_access, user)
-          expect { successful_signup }.not_to raise_error
-        end
-
-      end
-
       context 'with a successful transaction' do
         before do
           post :create, params: {
@@ -188,30 +141,6 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         end
 
         include_examples 'successful example'
-      end
-
-      context 'when pop polling is enabled' do
-
-        before do
-          allow(AlaveteliConfiguration).
-            to receive(:production_mailer_retriever_method).
-            and_return('pop')
-
-          post :create, params: {
-                          'stripeToken' => token,
-                          'stripeTokenType' => 'card',
-                          'stripeEmail' => user.email,
-                          'plan_id' => 'pro',
-                          'coupon_code' => ''
-                        }
-        end
-
-        it 'enables pop polling for the user' do
-          result =
-            AlaveteliFeatures.backend[:accept_mail_from_poller].enabled?(user)
-          expect(result).to eq(true)
-        end
-
       end
 
       context 'with coupon code' do
