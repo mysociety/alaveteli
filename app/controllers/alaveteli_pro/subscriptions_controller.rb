@@ -97,24 +97,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
       return
     end
 
-    current_user.add_role(:pro)
-
-    # enable the mail poller only if the POP polling is configured AND it
-    # has not already been enabled for this user (raises an error)
-    if (AlaveteliConfiguration.production_mailer_retriever_method == 'pop' &&
-        !feature_enabled?(:accept_mail_from_poller, current_user))
-      AlaveteliFeatures.
-        backend.
-          enable_actor(:accept_mail_from_poller, current_user)
-    end
-
-    unless feature_enabled?(:notifications, current_user)
-      AlaveteliFeatures.backend.enable_actor(:notifications, current_user)
-    end
-
-    unless feature_enabled?(:pro_batch_access, current_user)
-      AlaveteliFeatures.backend.enable_actor(:pro_batch_access, current_user)
-    end
+    AlaveteliPro::GrantAccess.call(current_user)
 
     flash[:notice] =
       { :partial => "alaveteli_pro/subscriptions/signup_message.html.erb" }
