@@ -53,15 +53,14 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         end
 
         it 'creates a new Stripe customer' do
-          expect(assigns(:customer).email).to eq(user.email)
+          expect(assigns(:pro_account).stripe_customer.email).
+            to eq(user.email)
         end
 
         it 'subscribes the user to the plan' do
-          expected = { user: assigns(:customer).id,
-                       plan: 'pro' }
-          actual = { user: assigns(:subscription).customer,
-                     plan: assigns(:subscription).plan.id }
-          expect(actual).to eq(expected)
+          expect(assigns(:subscription).plan.id).to eq('pro')
+          expect(assigns(:pro_account).stripe_customer_id).
+            to eq(assigns(:subscription).customer)
         end
 
         it 'creates a pro account for the user' do
@@ -70,7 +69,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
         it 'stores the stripe_customer_id in the pro_account' do
           expect(user.pro_account.stripe_customer_id).
-            to eq(assigns(:customer).id)
+            to eq(assigns(:pro_account).stripe_customer_id)
         end
 
         it 'adds the pro role' do
@@ -208,7 +207,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         end
 
         it 'updates the source from the new token' do
-          expect(assigns[:customer].default_source).
+          expect(assigns[:pro_account].stripe_customer.default_source).
             to eq(assigns[:token].card.id)
         end
       end

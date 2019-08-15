@@ -37,31 +37,19 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
     begin
       @token = Stripe::Token.retrieve(params[:stripeToken])
 
-      customer = current_user.pro_account.try(:stripe_customer)
+      @pro_account = current_user.pro_account ||= current_user.build_pro_account
+      @pro_account.source = @token.id
+      @pro_account.update_stripe_customer
 
-      @customer =
-        if customer
-          customer.source = @token.id
-          customer.save
-          customer
-        else
-          customer =
-            Stripe::Customer.create(email: params[:stripeEmail],
-                                    source: @token)
+      @subscription = @pro_account.subscriptions.build
+      @subscription.update_attributes(
+        plan: params.require(:plan_id),
+        tax_percent: 20.0,
+      )
 
-          current_user.create_pro_account(stripe_customer_id: customer.id)
-          customer
-        end
+      @subscription.coupon = coupon_code if coupon_code?
 
-      subscription_attributes = {
-        customer: @customer,
-        plan: params[:plan_id],
-        tax_percent: 20.0
-      }
-
-      subscription_attributes[:coupon] = coupon_code if coupon_code?
-
-      @subscription = Stripe::Subscription.create(subscription_attributes)
+      @subscription.save
 
     rescue Stripe::CardError => e
       flash[:error] = e.message
