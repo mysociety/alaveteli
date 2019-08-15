@@ -1706,26 +1706,6 @@ describe User do
     end
   end
 
-  describe 'role callbacks' do
-
-    context 'with pro pricing enabled', feature: :pro_pricing do
-      it 'creates pro account when pro role added' do
-        user = FactoryBot.build(:user)
-        expect { user.add_role :pro }.to change(user, :pro_account).
-          from(nil).to(ProAccount)
-      end
-    end
-
-    context 'without pro pricing enabled' do
-      it 'does not create pro account when pro role is added' do
-        user = FactoryBot.build(:user)
-        expect { user.add_role :pro }.to_not change(user, :pro_account).
-          from(nil)
-      end
-    end
-
-  end
-
   describe 'update callbacks' do
     let(:user) { FactoryBot.build(:user) }
 
@@ -1734,12 +1714,10 @@ describe User do
 
       before do
         allow(user).to receive(:pro_account).and_return(pro_account)
-        allow(user).to receive(:is_pro?).and_return(true)
-        allow(user).to receive(:email_changed?).and_return(true)
       end
 
-      it 'calls update_email_address on Pro Account' do
-        expect(pro_account).to receive(:update_email_address)
+      it 'calls save on Pro Account' do
+        expect(pro_account).to receive(:update_stripe_customer)
         user.run_callbacks :update
       end
 

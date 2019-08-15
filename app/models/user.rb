@@ -41,7 +41,7 @@ class User < ApplicationRecord
   include AlaveteliPro::PhaseCounts
   include User::Authentication
 
-  rolify before_add: :setup_pro_account
+  rolify
   strip_attributes :allow_empty => true
 
   attr_accessor :no_xapian_reindex
@@ -143,7 +143,7 @@ class User < ApplicationRecord
            :if => Proc.new { |u| u.otp_enabled? && u.require_otp? }
 
   after_initialize :set_defaults
-  after_update :reindex_referencing_models, :update_pro_account
+  after_update :reindex_referencing_models, :update_stripe_customer
 
   acts_as_xapian :texts => [ :name, :about_me ],
     :values => [
@@ -708,14 +708,8 @@ class User < ApplicationRecord
     self.entered_otp_code = nil
   end
 
-  def setup_pro_account(role)
-    return unless role == Role.pro_role && feature_enabled?(:pro_pricing)
-    pro_account || build_pro_account
-  end
-
-  def update_pro_account
-    return unless is_pro? && pro_account
-    pro_account.update_email_address if email_changed?
+  def update_stripe_customer
+    pro_account.update_stripe_customer if pro_account
   end
 
 end
