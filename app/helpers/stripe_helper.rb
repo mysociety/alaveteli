@@ -1,8 +1,20 @@
 module StripeHelper
+  STRIPE_SUPPORTED_LOCALES = %w[
+    da de en es fi fr it ja nb nl pl pt sv zh
+  ].freeze
+
   def stripe_button(options = {})
     content_tag :script, '', stripe_button_default_options.deep_merge(
       data: options
     )
+  end
+
+  def stripe_locale
+    if STRIPE_SUPPORTED_LOCALES.include?(@locales[:current])
+      @locales[:current]
+    else
+      'auto'
+    end
   end
 
   private
