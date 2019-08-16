@@ -74,6 +74,12 @@ describe ProAccount, feature: :pro_pricing do
         with(pro_account.user.email)
     end
 
+    it 'sets Stripe customer source' do
+      pro_account.source = mock_source = double(:source)
+      pro_account.update_stripe_customer
+      expect(mock_customer).to have_received(:source=).with(mock_source)
+    end
+
     context 'with pro_pricing disabled' do
 
       it 'does not store Stripe customer ID' do
@@ -96,6 +102,14 @@ describe ProAccount, feature: :pro_pricing do
         with_feature_disabled(:alaveteli_pro) do
           pro_account.update_stripe_customer
           expect(mock_customer).to_not have_received(:email=)
+        end
+      end
+
+      it 'does not set Stripe customer source' do
+        with_feature_disabled(:alaveteli_pro) do
+          pro_account.source = double(:source)
+          pro_account.update_stripe_customer
+          expect(mock_customer).to_not have_received(:source=)
         end
       end
 

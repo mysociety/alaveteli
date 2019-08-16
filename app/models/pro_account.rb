@@ -14,6 +14,8 @@
 class ProAccount < ApplicationRecord
   include AlaveteliFeatures::Helpers
 
+  attr_writer :source
+
   belongs_to :user,
              :inverse_of => :pro_account
 
@@ -33,6 +35,8 @@ class ProAccount < ApplicationRecord
     @stripe_customer = stripe_customer || Stripe::Customer.new
 
     update_email
+    update_source
+
     stripe_customer.save
     update(stripe_customer_id: stripe_customer.id)
   end
@@ -43,6 +47,12 @@ class ProAccount < ApplicationRecord
     return unless stripe_customer.try(:email) != user.email
 
     stripe_customer.email = user.email
+  end
+
+  def update_source
+    return unless @source
+
+    stripe_customer.source = @source
   end
 
   def stripe_customer!
