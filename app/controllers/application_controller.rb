@@ -86,11 +86,8 @@ class ApplicationController < ActionController::Base
                                              browser_locale)
     # set the currrent locale to the requested_locale
     session[:locale] = AlaveteliLocalization.locale
-    if !@user.nil?
-      if @user.locale != AlaveteliLocalization.locale
-        @user.locale = AlaveteliLocalization.locale
-        @user.save!
-      end
+    if @user && @user.locale != AlaveteliLocalization.locale
+      @user.update_column(:locale, AlaveteliLocalization.locale)
     end
   end
 
