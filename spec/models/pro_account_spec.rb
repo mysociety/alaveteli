@@ -69,6 +69,15 @@ describe ProAccount, feature: :pro_pricing do
       expect(customer.email).to eq user.email
     end
 
+    it 'sets Stripe customer default source' do
+      old_source = customer.default_source
+      pro_account.source = stripe_helper.generate_card_token
+
+      expect { pro_account.update_stripe_customer }.to change(
+        customer, :default_source
+      ).from(old_source)
+    end
+
     context 'with pro_pricing disabled' do
 
       it 'does not store Stripe customer ID' do
@@ -93,6 +102,15 @@ describe ProAccount, feature: :pro_pricing do
           allow(customer).to receive(:email=)
           pro_account.update_stripe_customer
           expect(customer).to_not have_received(:email=)
+        end
+      end
+
+      it 'does not set new Stripe customer default source' do
+        with_feature_disabled(:alaveteli_pro) do
+          pro_account.source = stripe_helper.generate_card_token
+          expect { pro_account.update_stripe_customer }.to_not change(
+            customer, :default_source
+          )
         end
       end
 
