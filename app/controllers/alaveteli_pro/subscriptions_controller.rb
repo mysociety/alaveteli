@@ -28,14 +28,12 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
   # params =>
   # {"utf8"=>"✓",
   #  "authenticity_token"=>"Ono2YgLcl1eC1gGzyd7Vf5HJJhOek31yFpT+8z+tKoo=",
-  #  "stripeToken"=>"tok_s3kr3t…",
-  #  "stripeTokenType"=>"card",
-  #  "stripeEmail"=>"bob@example.com",
+  #  "stripe_token"=>"tok_s3kr3t…",
   #  "controller"=>"alaveteli_pro/subscriptions",
   #  "action"=>"create"}
   def create
     begin
-      @token = Stripe::Token.retrieve(params[:stripeToken])
+      @token = Stripe::Token.retrieve(params[:stripe_token])
 
       @pro_account = current_user.pro_account ||= current_user.build_pro_account
       @pro_account.source = @token.id

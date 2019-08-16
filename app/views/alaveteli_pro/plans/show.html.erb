@@ -1,27 +1,14 @@
+<% content_for :javascript_head do %>
+  <script src="https://js.stripe.com/v3/"></script>
+<% end %>
+
 <% content_for :javascript do %>
-  <script type="text/javascript">
-    $(document).ready(function(){
-      $('#pro-signup button').attr('disabled', 'disabled');
-    });
+  <%= javascript_tag do %>
+    AlaveteliPro.stripe_publishable_key = '<%= AlaveteliConfiguration.stripe_publishable_key %>';
+    AlaveteliPro.stripe_local = '<%= stripe_locale %>';
+  <% end %>
 
-    $(function() {
-      $('#accept-terms').click(function() {
-        if ($(this).is(':checked')) {
-          $('#pro-signup button').removeAttr('disabled');
-        } else {
-          $('#pro-signup button').attr('disabled', 'disabled');
-        }
-      });
-    });
-
-    $(function() {
-      $('#pro-signup button span').click(function() {
-        if ($('#pro-signup button').is(':disabled')) {
-          alert('<%=_('You must accept the terms and conditions') %>');
-        }
-      });
-    });
-  </script>
+  <%= javascript_include_tag 'alaveteli_pro/stripe' %>
 <% end %>
 
 <div class="inner-canvas settings">
@@ -53,10 +40,15 @@
               </span>
             </label>
           </div>
+        </div>
+
+        <div class="settings__section">
           <div class="plan-coupon">
             <label class="form_label" for="coupon_code"><%= _('Do you have a coupon code?') %></label>
             <%= text_field_tag 'coupon_code', params[:coupon_code] %>
           </div>
+          <div id="card-element"></div>
+          <p id="card-errors"></p>
         </div>
 
         <div class="settings__section">
@@ -67,22 +59,16 @@
             </div>
           </div>
           <div class="settings__terms__accept">
-            <label for="accept-terms">
-              <input type="checkbox" id="accept-terms" required />
+            <label for="pro-signup-terms">
+              <input type="checkbox" id="pro-signup-terms" required />
                <%= _('I have read and accepted these terms and conditions') %>
              </label>
            </div>
         </div>
+
+        <div class="settings__section">
           <%= hidden_field_tag 'plan_id', @plan.id %>
-
-          <%= stripe_button(
-            label: _('Pay with card'),
-            panel_label: _('Pay'),
-            description: @stripe_button_description,
-            amount: @plan.amount_with_tax,
-            currency: AlaveteliConfiguration.iso_currency_code
-          ) %>
-
+          <%= submit_tag 'Subscribe', id: 'pro-signup-submit', disabled: true, data: { disable_with: 'Processing...' } %>
           <%= link_to _('Cancel'), pro_plans_path, class: 'settings__cancel-button' %>
 
           <noscript>
@@ -93,6 +79,7 @@
               </p>
             </div>
           </noscript>
+        </div>
         <% end %>
 
         <% if feature_enabled?(:pro_pricing_faqs) %>
