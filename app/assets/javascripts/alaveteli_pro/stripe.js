@@ -5,6 +5,10 @@
   var stripe = Stripe(AlaveteliPro.stripe_publishable_key);
 
   var form = document.getElementById('pro-signup');
+  if (form) stripePaymentForm(stripe, form);
+})();
+
+function stripePaymentForm(stripe, form) {
   var terms = document.getElementById('pro-signup-terms');
   var submit = document.getElementById('pro-signup-submit');
   var cardError = document.getElementById('card-errors');
@@ -101,4 +105,4 @@
     // Submit the form
     form.submit();
   }
-})();
+}
