@@ -4,6 +4,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
 
   skip_before_action :pro_user_authenticated?, only: [:create]
   before_action :authenticate, :prevent_duplicate_submission, only: [:create]
+  before_action :check_plan_exists, only: [:create]
   before_action :check_active_subscription, only: [:index]
 
   def index
@@ -30,7 +31,8 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
   #  "authenticity_token"=>"Ono2YgLcl1eC1gGzyd7Vf5HJJhOek31yFpT+8z+tKoo=",
   #  "stripe_token"=>"tok_s3kr3t…",
   #  "controller"=>"alaveteli_pro/subscriptions",
-  #  "action"=>"create"}
+  #  "action"=>"create",
+  #  "plan_id"=>"WDTK-pro"}
   def create
     begin
       @token = Stripe::Token.retrieve(params[:stripe_token])
@@ -75,11 +77,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
             'have not been charged. Please try again later.')
         end
 
-      if params[:plan_id]
-        redirect_to plan_path(non_namespaced_plan_id)
-      else
-        redirect_to pro_plans_path
-      end
+      redirect_to plan_path(non_namespaced_plan_id)
       return
     end
 
@@ -143,7 +141,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
   end
 
   def non_namespaced_plan_id
-    remove_stripe_namespace(params[:plan_id])
+    remove_stripe_namespace(params[:plan_id]) if params[:plan_id]
   end
 
   def coupon_code?
@@ -165,6 +163,10 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
         rescue Stripe::StripeError
         end
       end
+  end
+
+  def check_plan_exists
+    redirect_to(pro_plans_path) unless non_namespaced_plan_id
   end
 
   def prevent_duplicate_submission
