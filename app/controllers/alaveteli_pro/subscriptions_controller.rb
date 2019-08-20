@@ -2,7 +2,7 @@
 class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
   include AlaveteliPro::StripeNamespace
 
-  skip_before_action :pro_user_authenticated?, only: [:create]
+  skip_before_action :pro_user_authenticated?, only: [:create, :authorise]
   before_action :authenticate, :prevent_duplicate_submission, only: [:create]
   before_action :check_plan_exists, only: [:create]
   before_action :check_active_subscription, only: [:index]
@@ -78,15 +78,49 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
 
     if flash[:error]
       redirect_to plan_path(non_namespaced_plan_id)
-      return
+    else
+      redirect_to authorise_subscription_path(@subscription.id)
     end
+  end
 
-    AlaveteliPro::GrantAccess.call(current_user)
+  def authorise
+    begin
+      @subscription = current_user.pro_account.subscriptions.
+        retrieve(params.require(:id))
 
-    flash[:notice] =
-      { :partial => "alaveteli_pro/subscriptions/signup_message.html.erb" }
-    flash[:new_pro_user] = true
-    redirect_to alaveteli_pro_dashboard_path
+      if @subscription.require_authorisation?
+        @payment_intent = @subscription.payment_intent.client_secret
+
+      elsif @subscription.invoice_open?
+        flash[:error] = _('There was a problem authorising your payment. You ' \
+                          'have not been charged. Please try again.')
+
+        redirect_to plan_path(remove_stripe_namespace(@subscription.plan.id))
+
+      elsif @subscription.active?
+        AlaveteliPro::GrantAccess.call(current_user)
+
+        flash[:notice] = {
+          partial: 'alaveteli_pro/subscriptions/signup_message.html.erb'
+        }
+        flash[:new_pro_user] = true
+
+        redirect_to alaveteli_pro_dashboard_path
+      end
+
+    rescue Stripe::RateLimitError,
+           Stripe::InvalidRequestError,
+           Stripe::AuthenticationError,
+           Stripe::APIConnectionError,
+           Stripe::StripeError => e
+      if send_exception_notifications?
+        ExceptionNotifier.notify_exception(e, :env => request.env)
+      end
+
+      flash[:error] = _('There was a problem submitting your payment. You ' \
+        'have not been charged. Please try again later.')
+      redirect_to plan_path(non_namespaced_plan_id)
+    end
   end
 
   def destroy

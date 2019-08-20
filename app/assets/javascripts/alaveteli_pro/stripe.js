@@ -6,6 +6,9 @@
 
   var form = document.getElementById('pro-signup');
   if (form) stripePaymentForm(stripe, form);
+  if (AlaveteliPro.payment_intent) {
+    stripePaymentIntent(stripe, AlaveteliPro.payment_intent);
+  }
 })();
 
 function stripePaymentForm(stripe, form) {
@@ -105,4 +108,12 @@ function stripePaymentForm(stripe, form) {
     // Submit the form
     form.submit();
   }
+}
+
+function stripePaymentIntent(stripe, paymentIntent) {
+  stripe.handleCardPayment(
+    paymentIntent
+  ).then(function(result) {
+    location.reload();
+  });
 }
