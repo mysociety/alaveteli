@@ -37,6 +37,14 @@ class ProSubscription < SimpleDelegator
       @subscriptions = subscriptions
     end
 
+    def build
+      ProSubscription.new(
+        Stripe::Subscription.new.tap do |subscription|
+          subscription.update_attributes(customer: @customer)
+        end
+      )
+    end
+
     def active
       self.class.new(@customer, select(&:active?))
     end
