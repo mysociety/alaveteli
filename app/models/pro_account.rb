@@ -22,7 +22,13 @@ class ProAccount < ApplicationRecord
   validates :user, presence: true
 
   def active?
-    stripe_customer.present? && stripe_customer.subscriptions.any?
+    subscriptions.active.any?
+  end
+
+  def subscriptions
+    ProSubscription::Collection.new(
+      stripe_customer, stripe_customer.try(:subscriptions) || []
+    )
   end
 
   def stripe_customer
