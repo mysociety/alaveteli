@@ -122,7 +122,7 @@ gem 'rubyzip', '~> 1.2.2'
 gem 'secure_headers', '~> 3.6.0'
 gem 'statistics2', '~> 0.54'
 gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :ref => 'c1c14da'
-gem 'stripe', '~> 3.29.0'
+gem 'stripe'
 gem 'syslog_protocol', '~> 0.9.0'
 gem 'thin', '~> 1.5.0', '< 1.6.0'
 gem 'vpim', '~> 13.11.11'
@@ -166,7 +166,7 @@ group :test do
   gem 'coveralls', '~> 0.8.0', :require => false
   gem 'capybara', '~> 3.5.0'
   gem 'delorean', '~> 2.1.0'
-  gem 'stripe-ruby-mock', ['~> 2.5.4', '< 2.5.7']
+  gem 'stripe-ruby-mock', path: '../stripe-ruby-mock'
   gem('rails-controller-testing')
 end
 
