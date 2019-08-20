@@ -55,8 +55,6 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
 
     rescue Stripe::CardError => e
       flash[:error] = e.message
-      redirect_to plan_path(non_namespaced_plan_id)
-      return
 
     rescue Stripe::RateLimitError,
            Stripe::InvalidRequestError,
@@ -78,7 +76,9 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
           _('There was a problem submitting your payment. You ' \
             'have not been charged. Please try again later.')
         end
+    end
 
+    if flash[:error]
       redirect_to plan_path(non_namespaced_plan_id)
       return
     end
