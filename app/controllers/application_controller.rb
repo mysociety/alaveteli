@@ -97,6 +97,12 @@ class ApplicationController < ActionController::Base
     collect_locales
     session[:locale] = cookies[:locale] = AlaveteliLocalization.locale
 
+    if AlaveteliLocalization.locale != params_locale
+      locale_path =
+        sanitize_path(params.merge(locale: AlaveteliLocalization.locale))
+      redirect_to url_for(locale_path)
+    end
+
     if !@user.nil?
       if @user.locale != AlaveteliLocalization.locale
         @user.locale = AlaveteliLocalization.locale
