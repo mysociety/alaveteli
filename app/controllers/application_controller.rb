@@ -92,8 +92,10 @@ class ApplicationController < ActionController::Base
                                              session[:locale],
                                              cookies[:locale],
                                              browser_locale)
+
     # set the currrent locale to the requested_locale
-    session[:locale] = AlaveteliLocalization.locale
+    session[:locale] = cookies[:locale] = AlaveteliLocalization.locale
+
     if !@user.nil?
       if @user.locale != AlaveteliLocalization.locale
         @user.locale = AlaveteliLocalization.locale
