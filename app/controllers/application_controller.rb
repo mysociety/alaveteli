@@ -68,6 +68,14 @@ class ApplicationController < ActionController::Base
   # required due to the I18nProxy used in Rails to trigger the
   # lookup_context and expire the template cache
   def set_gettext_locale
+    tryfirst = nil
+    browser_locale =
+      if AlaveteliConfiguration.use_default_browser_language
+        request.env['HTTP_ACCEPT_LANGUAGE']
+      else
+        nil
+      end
+
     if AlaveteliConfiguration.include_default_locale_in_urls == false
       params_locale = params.fetch(:locale) do
         AlaveteliLocalization.default_locale
@@ -75,12 +83,9 @@ class ApplicationController < ActionController::Base
     else
       params_locale = params[:locale]
     end
-    browser_locale = if AlaveteliConfiguration.use_default_browser_language
-      request.env['HTTP_ACCEPT_LANGUAGE']
-    else
-      nil
-    end
-    AlaveteliLocalization.set_session_locale(params_locale,
+
+    AlaveteliLocalization.set_session_locale(tryfirst,
+                                             params_locale,
                                              session[:locale],
                                              cookies[:locale],
                                              browser_locale)
