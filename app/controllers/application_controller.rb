@@ -80,6 +80,9 @@ class ApplicationController < ActionController::Base
       params_locale = params.fetch(:locale) do
         AlaveteliLocalization.default_locale
       end
+      unless session[:locale] || cookies[:locale]
+        tryfirst = browser_locale
+      end
     else
       params_locale = params[:locale]
     end
