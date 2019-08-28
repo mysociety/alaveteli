@@ -58,20 +58,6 @@ RSpec.describe AlaveteliPro::Access do
       }.to(true)
     end
 
-    context 'the user previously had some pro features enabled' do
-
-      it 'does not raise an error if the user already has notifications' do
-        AlaveteliFeatures.backend.enable_actor(:notifications, user)
-        expect { instance.call }.not_to raise_error
-      end
-
-      it 'does not raise an error if the user already has batch' do
-        AlaveteliFeatures.backend.enable_actor(:pro_batch_access, user)
-        expect { instance.call }.not_to raise_error
-      end
-
-    end
-
     context 'when pop polling is enabled' do
 
       before do
@@ -84,11 +70,6 @@ RSpec.describe AlaveteliPro::Access do
         expect { instance.grant }.to change {
           feature_enabled?(:accept_mail_from_poller, user)
         }.to(true)
-      end
-
-      it 'does not raise an error if the user already uses the poller' do
-        AlaveteliFeatures.backend.enable_actor(:accept_mail_from_poller, user)
-        expect { instance.call }.not_to raise_error
       end
 
     end
