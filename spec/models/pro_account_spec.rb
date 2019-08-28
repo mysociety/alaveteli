@@ -43,22 +43,56 @@ describe ProAccount, feature: :pro_pricing do
 
   end
 
-  describe 'create callbacks' do
+  describe '#update_stripe_customer', feature: :pro_pricing do
 
-    it 'creates Stripe customer and stores Stripe customer ID' do
-      pro_account = FactoryBot.build(:pro_account, stripe_customer_id: nil)
-      expect(Stripe::Customer).to receive(:create).and_call_original
-      pro_account.run_callbacks :create
-      expect(pro_account.stripe_customer_id).to_not be_nil
+    let(:user) { FactoryBot.build(:pro_user) }
+    let(:pro_account) { FactoryBot.build(:pro_account, user: user) }
+
+    before do
+      allow(Stripe::Customer).to receive(:new).and_return(customer)
+    end
+
+    it 'stores Stripe customer ID' do
+      expect {
+        pro_account.update_stripe_customer
+      }.to change(pro_account, :stripe_customer_id).from(nil)
+    end
+
+    it 'creates Stripe customer' do
+      allow(customer).to receive(:save)
+      pro_account.update_stripe_customer
+      expect(customer).to have_received(:save)
+    end
+
+    it 'sets Stripe customer email' do
+      pro_account.update_stripe_customer
+      expect(customer.email).to eq user.email
     end
 
     context 'with pro_pricing disabled' do
 
+      it 'does not store Stripe customer ID' do
+        with_feature_disabled(:pro_pricing) do
+          expect {
+            pro_account.update_stripe_customer
+          }.to_not change(pro_account, :stripe_customer_id)
+        end
+      end
+
       it 'does not create a Stripe customer' do
-        with_feature_disabled(:alaveteli_pro) do
-          pro_account = FactoryBot.build(:pro_account, stripe_customer_id: nil)
-          pro_account.run_callbacks :create
+        with_feature_disabled(:pro_pricing) do
+          allow(customer).to receive(:save)
+          pro_account.update_stripe_customer
+          expect(customer).to_not have_received(:save)
           expect(pro_account.stripe_customer_id).to be_nil
+        end
+      end
+
+      it 'does not set Stripe customer email' do
+        with_feature_disabled(:pro_pricing) do
+          allow(customer).to receive(:email=)
+          pro_account.update_stripe_customer
+          expect(customer).to_not have_received(:email=)
         end
       end
 
@@ -124,21 +158,6 @@ describe ProAccount, feature: :pro_pricing do
     context 'when there is no customer id' do
       before { pro_account.stripe_customer_id = nil }
       it { is_expected.to eq false }
-    end
-
-  end
-
-  describe '#update_email_address' do
-    let(:user) { FactoryBot.build(:user, email: 'bilbo@example.com') }
-    let(:pro_account) { FactoryBot.create(:pro_account, user: user) }
-
-    before { allow(pro_account).to receive(:stripe_customer) { customer } }
-
-    it 'update Stripe customer email address' do
-      expect(customer.email).to_not eq user.email
-      expect(customer).to receive(:save)
-      pro_account.update_email_address
-      expect(customer.email).to eq user.email
     end
 
   end

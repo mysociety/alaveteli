@@ -1756,12 +1756,10 @@ describe User do
 
       before do
         allow(user).to receive(:pro_account).and_return(pro_account)
-        allow(user).to receive(:is_pro?).and_return(true)
-        allow(user).to receive(:email_changed?).and_return(true)
       end
 
-      it 'calls update_email_address on Pro Account' do
-        expect(pro_account).to receive(:update_email_address)
+      it 'calls update_stripe_customer on Pro Account' do
+        expect(pro_account).to receive(:update_stripe_customer)
         user.run_callbacks :update
       end
 

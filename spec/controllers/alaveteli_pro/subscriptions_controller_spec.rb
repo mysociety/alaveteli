@@ -611,9 +611,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
     context 'user has no Stripe id' do
 
       let(:user) do
-        user = FactoryBot.create(:pro_user)
-        user.pro_account.update(stripe_customer_id: nil)
-        user
+        FactoryBot.create(:pro_user)
       end
 
       before do

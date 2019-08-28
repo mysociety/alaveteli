@@ -715,8 +715,7 @@ class User < ApplicationRecord
   end
 
   def update_pro_account
-    return unless is_pro? && pro_account
-    pro_account.update_email_address if email_changed?
+    pro_account.update_stripe_customer if pro_account
   end
 
 end
