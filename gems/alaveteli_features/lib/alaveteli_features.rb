@@ -3,7 +3,7 @@ require "alaveteli_features/helpers"
 require "alaveteli_features/constraints"
 require "alaveteli_features/railtie" if defined?(Rails)
 require "flipper"
-require "flipper-active_record"
+require "flipper-active_record" if defined?(Rails)
 
 module AlaveteliFeatures
   def self.backend

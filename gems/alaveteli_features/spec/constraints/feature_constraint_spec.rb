@@ -3,8 +3,11 @@ require 'spec_helper'
 describe AlaveteliFeatures::Constraints::FeatureConstraint do
   let(:test_backend) { Flipper.new(Flipper::Adapters::Memory.new) }
 
-  before do
+  around do |example|
+    old_backend = AlaveteliFeatures.backend
     AlaveteliFeatures.backend = test_backend
+    example.call
+    AlaveteliFeatures.backend = old_backend
   end
 
   describe "#matches?" do
