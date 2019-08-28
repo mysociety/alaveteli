@@ -709,8 +709,8 @@ class User < ApplicationRecord
   end
 
   def setup_pro_account(role)
-    return unless role == Role.pro_role && feature_enabled?(:pro_pricing)
-    pro_account || build_pro_account
+    return unless role == Role.pro_role
+    pro_account || build_pro_account if feature_enabled?(:pro_pricing)
   end
 
   def update_pro_account

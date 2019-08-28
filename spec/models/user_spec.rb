@@ -1708,20 +1708,24 @@ describe User do
 
   describe 'role callbacks' do
 
+    let(:user) { FactoryBot.build(:user) }
+
     context 'with pro pricing enabled', feature: :pro_pricing do
+
       it 'creates pro account when pro role added' do
-        user = FactoryBot.build(:user)
         expect { user.add_role :pro }.to change(user, :pro_account).
           from(nil).to(ProAccount)
       end
+
     end
 
     context 'without pro pricing enabled' do
+
       it 'does not create pro account when pro role is added' do
-        user = FactoryBot.build(:user)
         expect { user.add_role :pro }.to_not change(user, :pro_account).
           from(nil)
       end
+
     end
 
   end
