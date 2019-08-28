@@ -16,22 +16,13 @@ require 'stripe_mock'
 
 describe ProAccount, feature: :pro_pricing do
 
-  before do
-    StripeMock.start
-  end
-
-  after do
-    StripeMock.stop
-  end
+  around { |example| StripeMock.mock(&example) }
 
   let(:stripe_helper) { StripeMock.create_test_helper }
   let(:plan) { stripe_helper.create_plan(id: 'pro', amount: 1000) }
 
   let(:customer) do
-    Stripe::Customer.create(
-      email: FactoryBot.build(:user).email,
-      source: stripe_helper.generate_card_token
-    )
+    Stripe::Customer.create(source: stripe_helper.generate_card_token)
   end
 
   let(:subscription) do
@@ -40,8 +31,13 @@ describe ProAccount, feature: :pro_pricing do
 
   describe 'validations' do
 
+    let(:user) { FactoryBot.build(:pro_user) }
+    subject(:pro_account) { FactoryBot.build(:pro_account, user: user) }
+
+    it { is_expected.to be_valid }
+
     it 'requires a user' do
-      pro_account = FactoryBot.build(:pro_account, user: nil)
+      pro_account.user = nil
       expect(pro_account).not_to be_valid
     end
 
@@ -76,7 +72,7 @@ describe ProAccount, feature: :pro_pricing do
 
     context 'with invalid Stripe customer ID' do
       let(:pro_account) do
-        FactoryBot.create(:pro_account, stripe_customer_id: 'invalid_id')
+        FactoryBot.build(:pro_account, stripe_customer_id: 'invalid_id')
       end
 
       it 'raises an error' do
@@ -88,7 +84,7 @@ describe ProAccount, feature: :pro_pricing do
 
     context 'with valid Stripe customer ID' do
       let(:pro_account) do
-        FactoryBot.create(:pro_account, stripe_customer_id: customer.id)
+        FactoryBot.build(:pro_account, stripe_customer_id: customer.id)
       end
 
       it 'finds the Stripe::Customer linked to the ProAccount' do
