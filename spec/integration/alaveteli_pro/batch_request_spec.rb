@@ -44,7 +44,10 @@ end
 describe "creating batch requests in alaveteli_pro" do
   let(:pro_user) do
     user = FactoryBot.create(:pro_user)
-    AlaveteliFeatures.backend.enable_actor(:pro_batch_access, user)
+    begin
+      AlaveteliFeatures.backend.enable_actor(:pro_batch_access, user)
+    rescue ActiveRecord::RecordNotUnique
+    end
     user
   end
 
