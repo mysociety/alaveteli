@@ -2050,7 +2050,7 @@ end
 describe RequestController, "when making a new request" do
 
   before do
-    @user = mock_model(User, :id => 3481, :name => 'Testy')
+    @user = mock_model(User, id: 3481, name: 'Testy').as_null_object
     allow(@user).to receive(:get_undescribed_requests).and_return([])
     allow(@user).to receive(:can_file_requests?).and_return(true)
     allow(@user).to receive(:locale).and_return("en")
