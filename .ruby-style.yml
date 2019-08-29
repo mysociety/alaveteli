@@ -91,6 +91,8 @@ Layout/EmptyLinesAroundBlockBody:
   Description: "Keeps track of empty lines around block bodies."
   Enabled: true
   EnforcedStyle: no_empty_lines
+  Exclude:
+    - 'spec/**/*'
 
 Layout/EmptyLinesAroundClassBody:
   Description: "Keeps track of empty lines around class bodies."
