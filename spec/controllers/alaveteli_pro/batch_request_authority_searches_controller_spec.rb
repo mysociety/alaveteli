@@ -148,6 +148,10 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
 
     context "the user does not have pro batch access" do
 
+      before do
+        AlaveteliFeatures.backend.disable_actor(:pro_batch_access, pro_user)
+      end
+
       let(:pro_user) { FactoryBot.create(:pro_user) }
 
       it 'redirects them to the standard request form' do
@@ -175,6 +179,10 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
     end
 
     context "the user does not have pro batch access" do
+
+      before do
+        AlaveteliFeatures.backend.disable_actor(:pro_batch_access, pro_user)
+      end
 
       let(:pro_user) { FactoryBot.create(:pro_user) }
 

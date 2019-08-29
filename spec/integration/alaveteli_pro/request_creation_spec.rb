@@ -13,6 +13,8 @@ describe "creating requests in alaveteli_pro" do
     end
 
     it "doesn't show the link to the batch request form to standard users" do
+      AlaveteliFeatures.backend.disable_actor(:pro_batch_access, pro_user)
+
       using_pro_session(pro_user_session) do
         # New request form
         create_pro_request(public_body)
