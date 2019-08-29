@@ -23,11 +23,6 @@ describe "creating requests in alaveteli_pro" do
     end
 
     it "shows the link to the batch request form to pro batch users" do
-      begin
-        AlaveteliFeatures.backend.enable_actor(:pro_batch_access, pro_user)
-      rescue ActiveRecord::RecordNotUnique
-      end
-
       using_pro_session(pro_user_session) do
         # New request form
         create_pro_request(public_body)

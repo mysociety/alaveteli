@@ -28,14 +28,7 @@ shared_examples_for "creating a search" do
 end
 
 describe AlaveteliPro::BatchRequestAuthoritySearchesController do
-  let(:pro_user) do
-    user = FactoryBot.create(:pro_user)
-    begin
-      AlaveteliFeatures.backend.enable_actor(:pro_batch_access, user)
-    rescue ActiveRecord::RecordNotUnique
-    end
-    user
-  end
+  let(:pro_user) { FactoryBot.create(:pro_user) }
 
   describe "#index" do
     let(:authority_1) { FactoryBot.build(:public_body) }
