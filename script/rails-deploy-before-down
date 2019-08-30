@@ -119,6 +119,8 @@ bundle exec rake submodules:check
 
 bundle exec rake themes:install
 
+bundle exec rake geoip:download_data
+
 if [ "$OPTION_STAGING_SITE" = "0" ]
 then
     bundle exec rake assets:precompile &&
