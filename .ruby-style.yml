@@ -431,7 +431,7 @@ Style/ClassAndModuleChildren:
 
 Style/ClassCheck:
   Description: 'Enforces consistent use of `Object#is_a?` or `Object#kind_of?`.'
-  Enabled: false
+  Enabled: true
 
 Style/ClassMethods:
   Description: 'Use self when defining module/class methods.'
@@ -441,7 +441,7 @@ Style/ClassMethods:
 Style/ClassVars:
   Description: 'Avoid the use of class variables.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-class-vars'
-  Enabled: false
+  Enabled: true
 
 Style/ColonMethodCall:
   Description: 'Do not use :: for method call.'
@@ -521,12 +521,12 @@ Style/Encoding:
 Style/EndBlock:
   Description: 'Avoid the use of END blocks.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-END-blocks'
-  Enabled: false
+  Enabled: true
 
 Style/EvenOdd:
   Description: 'Favor the use of Fixnum#even? && Fixnum#odd?'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#predicate-methods'
-  Enabled: false
+  Enabled: true
 
 Style/FrozenStringLiteralComment:
   Description: >-
@@ -547,13 +547,13 @@ Style/For:
 Style/FormatString:
   Description: 'Enforce the use of Kernel#sprintf, Kernel#format or String#%.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#sprintf'
-  Enabled: false
+  Enabled: true
 
 Style/GlobalVars:
   Description: 'Do not introduce global variables.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#instance-vars'
   Reference: 'http://www.zenspider.com/Languages/Ruby/QuickRef.html'
-  Enabled: false
+  Enabled: true
 
 Style/GuardClause:
   Description: 'Check for conditionals that can be replaced with guard clauses'
@@ -601,7 +601,7 @@ Style/IdenticalConditionalBranches:
 Style/InfiniteLoop:
   Description: 'Use Kernel#loop for infinite loops.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#infinite-loop'
-  Enabled: false
+  Enabled: true
 
 Style/Lambda:
   Description: 'Use the new lambda literal syntax for single-line blocks.'
@@ -611,7 +611,7 @@ Style/Lambda:
 Style/LambdaCall:
   Description: 'Use lambda.call(...) instead of lambda.(...).'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#proc-call'
-  Enabled: false
+  Enabled: true
 
 Style/LineEndConcatenation:
   Description: >-
@@ -629,7 +629,7 @@ Style/MethodDefParentheses:
                  Checks if the method definitions have or don't have
                  parentheses.
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#method-parens'
-  Enabled: false
+  Enabled: true
 
 Style/ModuleFunction:
   Description: 'Checks for usage of `extend self` in modules.'
@@ -667,7 +667,7 @@ Style/NegatedIf:
 Style/NegatedWhile:
   Description: 'Favor until over while for negative conditions.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#until-for-negatives'
-  Enabled: false
+  Enabled: true
 
 Style/NestedModifier:
   Description: 'Avoid using nested modifiers.'
