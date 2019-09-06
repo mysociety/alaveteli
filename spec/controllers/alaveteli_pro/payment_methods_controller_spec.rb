@@ -63,12 +63,12 @@ describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         expect(assigns(:old_card_id)).to eq(old_card_id)
       end
 
-      it 'retrieves the correct Stripe customer' do
+      it 'retrieves the correct pro account' do
         post :update, params: {
                         'stripeToken' => new_token,
                         'old_card_id' => old_card_id
                       }
-        expect(assigns(:customer).id).
+        expect(assigns(:pro_account).stripe_customer_id).
           to eq(user.pro_account.stripe_customer_id)
       end
 

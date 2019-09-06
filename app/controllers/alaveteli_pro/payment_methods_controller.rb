@@ -6,10 +6,10 @@ class AlaveteliPro::PaymentMethodsController < AlaveteliPro::BaseController
     begin
       @token = Stripe::Token.retrieve(params[:stripeToken])
       @old_card_id = params[:old_card_id]
-      @customer = Stripe::Customer.
-                    retrieve(current_user.pro_account.stripe_customer_id)
-      @customer.source = @token.id
-      @customer.save
+
+      @pro_account = current_user.pro_account ||= current_user.build_pro_account
+      @pro_account.source = @token.id
+      @pro_account.update_stripe_customer
 
       flash[:notice] = _('Your payment details have been updated')
 
