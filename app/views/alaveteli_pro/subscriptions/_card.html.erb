@@ -15,8 +15,6 @@
 
   <div class="settings__item__secondary">
     <%= form_tag(payment_method_path, method: :put) do %>
-      <%= hidden_field_tag 'old_card_id', card.id %>
-
       <%= stripe_button(
         label: _('Update Card Details'),
         panel_label: _('Update Card Details')

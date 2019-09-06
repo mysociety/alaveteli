@@ -5,7 +5,6 @@ class AlaveteliPro::PaymentMethodsController < AlaveteliPro::BaseController
   def update
     begin
       @token = Stripe::Token.retrieve(params[:stripeToken])
-      @old_card_id = params[:old_card_id]
 
       @pro_account = current_user.pro_account ||= current_user.build_pro_account
       @pro_account.source = @token.id
