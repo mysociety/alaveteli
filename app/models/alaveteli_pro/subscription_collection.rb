@@ -23,9 +23,18 @@ module AlaveteliPro
       )
     end
 
+    def retrieve(id)
+      return unless @customer
+      AlaveteliPro::Subscription.new(subscriptions.retrieve(id))
+    end
+
     # scope
     def active
       select(&:active?)
+    end
+
+    def incomplete
+      select(&:incomplete?)
     end
 
     # enumerable

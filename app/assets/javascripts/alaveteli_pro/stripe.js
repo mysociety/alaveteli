@@ -10,6 +10,7 @@
 
 function stripeSubscriptionForm(form) {
   stripeForm(form, {
+    submitViaAjax: true,
     submitConditions: { cardValid: false, termAccepted: false },
     setupCallback: function (that) {
       var terms = document.getElementById('js-pro-signup-terms');
@@ -41,6 +42,9 @@ function stripeForm(form, options) {
 
     // Callback for customisation
     setupCallback: function() {},
+
+    // Ajax form used for SCA confirmation
+    submitViaAjax: false
   }, options);
 
   that.load = function() {
@@ -126,7 +130,37 @@ function stripeForm(form, options) {
     that.form.appendChild(hiddenInput);
 
     // Submit the form
-    that.form.submit();
+    if (that.submitViaAjax) {
+      $.ajax({
+        type: 'POST',
+        url: $(that.form).attr('action'),
+        data: $(that.form).serialize(),
+        dataType: 'json',
+        success: that.handleStripeCallback
+      });
+    } else {
+      that.form.submit();
+    }
+  };
+
+  that.handleStripeCallback = function(data) {
+    if (data.url) {
+      location.href = data.url;
+    } else if (data.payment_intent) {
+      that.stripePaymentIntent(data.payment_intent, data.callback_url);
+    }
+  };
+
+  that.stripePaymentIntent = function(paymentIntent, callbackUrl) {
+    that.stripe.handleCardPayment(
+      paymentIntent
+    ).then(function() {
+      $.ajax({
+        url: callbackUrl,
+        dataType: 'json',
+        success: that.handleStripeCallback
+      })
+    });
   };
 
   that.load();

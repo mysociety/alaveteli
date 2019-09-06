@@ -72,21 +72,10 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
             to eq(assigns(:pro_account).stripe_customer_id)
         end
 
-        it 'adds the pro role' do
-          expect(user.is_pro?).to eq(true)
-        end
-
-        it 'welcomes the new user' do
-          partial_file = "alaveteli_pro/subscriptions/signup_message.html.erb"
-          expect(flash[:notice]).to eq({ :partial => partial_file })
-        end
-
-        it 'redirects to the pro dashboard' do
-          expect(response).to redirect_to(alaveteli_pro_dashboard_path)
-        end
-
-        it 'sets new_pro_user in flash' do
-          expect(flash[:new_pro_user]).to be true
+        it 'redirects to the authorise action' do
+          expect(response).to redirect_to(
+            authorise_subscription_path(assigns(:subscription).id)
+          )
         end
 
       end
@@ -424,6 +413,277 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         it 'redirects to the pricing page if there is no plan' do
           post :create
           expect(response).to redirect_to(pro_plans_path)
+        end
+
+      end
+
+    end
+
+  end
+
+  describe 'GET #authorise' do
+
+    context 'without a signed-in user' do
+
+      before do
+        get :authorise, params: { id: 1 }
+      end
+
+      it 'redirects to the login form' do
+        expect(response).
+          to redirect_to(signin_path(token: PostRedirect.last.token))
+      end
+
+    end
+
+    context 'with a signed-in user' do
+      let(:token) { stripe_helper.generate_card_token }
+
+      let(:customer) { Stripe::Customer.create(source: token, plan: 'pro') }
+      let(:pro_account) do
+        FactoryBot.create(:pro_account, stripe_customer_id: customer.id)
+      end
+      let(:user) { pro_account.user }
+
+      before do
+        session[:user_id] = user.id
+        allow(controller).to receive(:current_user).and_return(user)
+      end
+
+      subject(:authorise) do
+        get :authorise, params: { id: 1 }
+      end
+
+      shared_context 'JSON request' do
+        subject(:authorise) do
+          get :authorise, params: { id: 1, format: :json }
+        end
+      end
+
+      shared_examples 'errored' do
+
+        it 'renders an error message' do
+          authorise
+          expect(flash[:error]).to match(/There was a problem/)
+        end
+
+        it 'redirects to the plan page' do
+          authorise
+          expect(response).to redirect_to(plan_path('pro'))
+        end
+
+        context 'when responding to JSON' do
+
+          include_context 'JSON request'
+
+          it 'returns URL to the pro dashboard' do
+            authorise
+            expect(JSON.parse(response.body, symbolize_names: true)).to eq(
+              url: plan_path('pro')
+            )
+          end
+
+        end
+
+      end
+
+      context 'subscription not found' do
+
+        before do
+          allow(pro_account.subscriptions).to receive(:retrieve).with('1').
+            and_return(nil)
+        end
+
+        it 'responds with a 404 not found error' do
+          authorise
+          expect(response.status).to eq 404
+        end
+
+      end
+
+      context 'subscription require authorisation' do
+
+        before do
+          subscription = double(
+            :subscription,
+            id: 1,
+            require_authorisation?: true,
+            payment_intent: double(client_secret: 'ABC_123')
+          )
+
+          allow(pro_account.subscriptions).to receive(:retrieve).with('1').
+            and_return(subscription)
+        end
+
+        it 'raises unknown format error' do
+          expect { authorise }.to raise_error(ActionController::UnknownFormat)
+        end
+
+        context 'when responding to JSON' do
+
+          include_context 'JSON request'
+
+          it 'should render payment intent client secret' do
+            authorise
+            expect(JSON.parse(response.body, symbolize_names: true)).to eq(
+              payment_intent: 'ABC_123',
+              callback_url: authorise_subscription_path(1)
+            )
+          end
+
+        end
+
+      end
+
+      context 'subscription invoice open' do
+
+        before do
+          subscription = double(
+            :subscription,
+            require_authorisation?: false,
+            invoice_open?: true,
+            plan: double(id: 'pro')
+          )
+
+          allow(pro_account.subscriptions).to receive(:retrieve).with('1').
+            and_return(subscription)
+        end
+
+        include_examples 'errored'
+
+      end
+
+      context 'subscription active' do
+
+        before do
+          subscription = double(
+            :subscription,
+            require_authorisation?: false,
+            invoice_open?: false,
+            active?: true
+          )
+
+          allow(pro_account.subscriptions).to receive(:retrieve).with('1').
+            and_return(subscription)
+        end
+
+        it 'adds the pro role' do
+          authorise
+          expect(user.is_pro?).to eq(true)
+        end
+
+        it 'welcomes the new user' do
+          authorise
+          partial_file = "alaveteli_pro/subscriptions/signup_message.html.erb"
+          expect(flash[:notice]).to eq(partial: partial_file)
+        end
+
+        it 'sets new_pro_user in flash' do
+          authorise
+          expect(flash[:new_pro_user]).to be true
+        end
+
+        it 'redirects to the pro dashboard' do
+          authorise
+          expect(response).to redirect_to(alaveteli_pro_dashboard_path)
+        end
+
+        context 'when responding to JSON' do
+
+          include_context 'JSON request'
+
+          it 'returns URL to the pro dashboard' do
+            authorise
+            expect(JSON.parse(response.body, symbolize_names: true)).to eq(
+              url: alaveteli_pro_dashboard_path
+            )
+          end
+
+        end
+
+      end
+
+      context 'when we are rate limited' do
+
+        before do
+          error = Stripe::RateLimitError.new
+          StripeMock.prepare_error(error, :retrieve_customer_subscription)
+        end
+
+        include_examples 'errored'
+
+        it 'sends an exception email' do
+          authorise
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail.subject).to match(/Stripe::RateLimitError/)
+        end
+
+      end
+
+      context 'when Stripe receives an invalid request' do
+
+        before do
+          error = Stripe::InvalidRequestError.new('message', 'param')
+          StripeMock.prepare_error(error, :retrieve_customer_subscription)
+        end
+
+        include_examples 'errored'
+
+        it 'sends an exception email' do
+          authorise
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail.subject).to match(/Stripe::InvalidRequestError/)
+        end
+
+      end
+
+      context 'when we cannot authenticate with Stripe' do
+
+        before do
+          error = Stripe::AuthenticationError.new
+          StripeMock.prepare_error(error, :retrieve_customer_subscription)
+        end
+
+        include_examples 'errored'
+
+        it 'sends an exception email' do
+          authorise
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail.subject).to match(/Stripe::AuthenticationError/)
+        end
+
+      end
+
+      context 'when we cannot connect to Stripe' do
+
+        before do
+          error = Stripe::APIConnectionError.new
+          StripeMock.prepare_error(error, :retrieve_customer_subscription)
+        end
+
+        include_examples 'errored'
+
+        it 'sends an exception email' do
+          authorise
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail.subject).to match(/Stripe::APIConnectionError/)
+        end
+
+      end
+
+      context 'when Stripe returns a generic error' do
+
+        before do
+          error = Stripe::StripeError.new
+          StripeMock.prepare_error(error, :retrieve_customer_subscription)
+        end
+
+        include_examples 'errored'
+
+        it 'sends an exception email' do
+          authorise
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail.subject).to match(/Stripe::StripeError/)
         end
 
       end

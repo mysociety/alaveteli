@@ -49,6 +49,40 @@ RSpec.describe AlaveteliPro::SubscriptionCollection do
 
   end
 
+  describe '#retrieve' do
+
+    context 'without customer' do
+
+      let(:customer) { nil }
+
+      it 'returns nil' do
+        expect(collection.retrieve(123)).to eq nil
+      end
+
+    end
+
+    context 'with Stripe subscriptions' do
+
+      let(:subscriptions) do
+        Stripe::ListObject.new
+      end
+
+      before do
+        allow(customer).to receive(:subscriptions).and_return(subscriptions)
+      end
+
+      it 'should retrieve wrapped subscription' do
+        subscription = double('Stripe::Subscription')
+        allow(subscriptions).to receive(:retrieve).with(123).
+          and_return(subscription)
+        expect(collection.retrieve(123)).to be_a AlaveteliPro::Subscription
+        expect(collection.retrieve(123)).to eq subscription
+      end
+
+    end
+
+  end
+
   describe '#active' do
 
     before do
@@ -59,6 +93,20 @@ RSpec.describe AlaveteliPro::SubscriptionCollection do
 
     it 'should return any active subscription' do
       expect(collection.active).to match_array [active_subscription]
+    end
+
+  end
+
+  describe '#incomplete' do
+
+    before do
+      allow(customer).to receive(:subscriptions).and_return(
+        [active_subscription, incomplete_subscription]
+      )
+    end
+
+    it 'should return any incomplete subscription' do
+      expect(collection.incomplete).to match_array [incomplete_subscription]
     end
 
   end

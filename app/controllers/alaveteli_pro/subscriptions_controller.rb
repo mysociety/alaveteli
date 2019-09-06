@@ -2,8 +2,9 @@
 class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
   include AlaveteliPro::StripeNamespace
 
-  skip_before_action :pro_user_authenticated?, only: [:create]
-  before_action :authenticate, :prevent_duplicate_submission, only: [:create]
+  skip_before_action :pro_user_authenticated?, only: [:create, :authorise]
+  before_action :authenticate, only: [:create, :authorise]
+  before_action :prevent_duplicate_submission, only: [:create]
   before_action :check_plan_exists, only: [:create]
   before_action :check_active_subscription, only: [:index]
 
@@ -45,6 +46,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
       @subscription.update_attributes(
         plan: params.require(:plan_id),
         tax_percent: 20.0,
+        payment_behavior: 'allow_incomplete'
       )
 
       @subscription.coupon = coupon_code if coupon_code?
@@ -78,15 +80,65 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
 
     if flash[:error]
       redirect_to plan_path(non_namespaced_plan_id)
-      return
+    else
+      redirect_to authorise_subscription_path(@subscription.id)
     end
+  end
 
-    current_user.add_role(:pro)
+  def authorise
+    begin
+      @subscription = current_user.pro_account.subscriptions.
+        retrieve(params.require(:id))
 
-    flash[:notice] =
-      { :partial => "alaveteli_pro/subscriptions/signup_message.html.erb" }
-    flash[:new_pro_user] = true
-    redirect_to alaveteli_pro_dashboard_path
+      if !@subscription
+        head :not_found
+
+      elsif @subscription.require_authorisation?
+        respond_to do |format|
+          format.json do
+            render json: {
+              payment_intent: @subscription.payment_intent.client_secret,
+              callback_url: authorise_subscription_path(@subscription.id)
+            }
+          end
+        end
+
+      elsif @subscription.invoice_open?
+        flash[:error] = _('There was a problem authorising your payment. You ' \
+                          'have not been charged. Please try again.')
+
+        json_redirect_to plan_path(
+          remove_stripe_namespace(@subscription.plan.id)
+        )
+
+      elsif @subscription.active?
+        current_user.add_role(:pro)
+
+        flash[:notice] = {
+          partial: 'alaveteli_pro/subscriptions/signup_message.html.erb'
+        }
+        flash[:new_pro_user] = true
+
+        json_redirect_to alaveteli_pro_dashboard_path
+
+      else
+        head :ok
+      end
+
+    rescue Stripe::RateLimitError,
+           Stripe::InvalidRequestError,
+           Stripe::AuthenticationError,
+           Stripe::APIConnectionError,
+           Stripe::StripeError => e
+      if send_exception_notifications?
+        ExceptionNotifier.notify_exception(e, env: request.env)
+      end
+
+      flash[:error] = _('There was a problem submitting your payment. You ' \
+        'have not been charged. Please try again later.')
+
+      json_redirect_to plan_path('pro')
+    end
   end
 
   def destroy
@@ -172,7 +224,14 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
   def prevent_duplicate_submission
     # TODO: This doesn't take the plan in to account
     if @user.pro_account.try(:active?)
-      redirect_to alaveteli_pro_dashboard_path
+      json_redirect_to alaveteli_pro_dashboard_path
+    end
+  end
+
+  def json_redirect_to(url)
+    respond_to do |format|
+      format.html { redirect_to url }
+      format.json { render json: { url: url } }
     end
   end
 end
