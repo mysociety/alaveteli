@@ -15,7 +15,6 @@ class AlaveteliPro::PlansController < AlaveteliPro::BaseController
   def show
     stripe_plan = Stripe::Plan.retrieve(plan_name)
     @plan = AlaveteliPro::WithTax.new(stripe_plan)
-    @stripe_button_description = stripe_button_description(@plan.interval)
   rescue Stripe::InvalidRequestError
     raise ActiveRecord::RecordNotFound
   end
@@ -24,15 +23,6 @@ class AlaveteliPro::PlansController < AlaveteliPro::BaseController
 
   def plan_name
     add_stripe_namespace(params.require(:id))
-  end
-
-  def stripe_button_description(interval)
-    case interval
-    when 'month'
-      _('A monthly subscription')
-    when 'year'
-      _('An annual subscription')
-    end
   end
 
   def authenticate
