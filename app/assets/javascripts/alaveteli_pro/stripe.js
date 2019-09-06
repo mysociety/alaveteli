@@ -2,23 +2,52 @@
   'use strict';
 
   var subscriptionForm = document.getElementById('js-stripe-subscription-form');
-  if (subscriptionForm) { stripeForm(form, {}) }
+  if (subscriptionForm) { stripeSubscriptionForm(subscriptionForm); }
+
+  var updateForm = document.getElementById('js-stripe-update-form');
+  if (updateForm) { stripeForm(form, {}) }
 })();
+
+function stripeSubscriptionForm(form) {
+  stripeForm(form, {
+    submitConditions: { cardValid: false, termAccepted: false },
+    setupCallback: function (that) {
+      var terms = document.getElementById('js-pro-signup-terms');
+
+      // Sync initial state for terms checkbox and submit button
+      terms.checked = false;
+
+      // Enable submit button if terms are accepted
+      terms.addEventListener('click', function(event) {
+        if (this.checked) {
+          that.submitConditions.termAccepted = true;
+        }	else {
+          that.submitConditions.termAccepted = false;
+        }
+        that.updateSubmit();
+      });
+    }
+  })
+}
 
 function stripeForm(form, options) {
   var that = Object.assign({
     stripe: Stripe(AlaveteliPro.stripe_publishable_key),
     form: form,
     submit: document.getElementById('js-stripe-submit'),
+
+    // Conditions which must be met before we submit the form
+    submitConditions: { cardValid: false },
+
+    // Callback for customisation
+    setupCallback: function() {},
   }, options);
 
   that.load = function() {
     var cardError = document.getElementById('card-errors');
-    var terms = document.getElementById('js-pro-signup-terms');
 
     // Sync initial state for terms checkbox and submit button
     that.submit.setAttribute('disabled', 'true');
-    terms.checked = false;
 
     // Initialise Stripe Elements
     var elements = that.stripe.elements({ locale: AlaveteliPro.stripe_locale });
@@ -30,6 +59,9 @@ function stripeForm(form, options) {
     // Add an instance of the card Element into the `card-element` <div>.
     card.mount('#card-element');
 
+    // Call callback to allow addition setup
+    that.setupCallback(that);
+
     // Listen to change events on the card Element and display any errors
     card.addEventListener('change', function(event) {
       if (event.error) {
@@ -39,15 +71,6 @@ function stripeForm(form, options) {
       }
 
       that.submitConditions.cardValid = !(event.error);
-      that.updateSubmit();
-    });
-
-    terms.addEventListener('click', function(event) {
-      if (this.checked) {
-        that.submitConditions.termAccepted = true;
-      }	else {
-        that.submitConditions.termAccepted = false;
-      }
       that.updateSubmit();
     });
 

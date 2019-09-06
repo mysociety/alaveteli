@@ -48,12 +48,12 @@ describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
       end
 
       it 'finds the card token' do
-        post :update, params: { 'stripeToken' => new_token }
+        post :update, params: { 'stripe_token' => new_token }
         expect(assigns(:token).id).to eq(new_token)
       end
 
       it 'retrieves the correct pro account' do
-        post :update, params: { 'stripeToken' => new_token }
+        post :update, params: { 'stripe_token' => new_token }
         expect(assigns(:pro_account).stripe_customer_id).
           to eq(user.pro_account.stripe_customer_id)
       end
@@ -66,7 +66,7 @@ describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
       context 'with a successful transaction' do
 
         before do
-          post :update, params: { 'stripeToken' => new_token }
+          post :update, params: { 'stripe_token' => new_token }
         end
 
         it 'adds the new card to the Stripe customer' do
@@ -99,7 +99,7 @@ describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         before do
           StripeMock.prepare_card_error(:card_declined, :update_customer)
 
-          post :update, params: { 'stripeToken' => new_token }
+          post :update, params: { 'stripe_token' => new_token }
         end
 
         it 'renders the card error message' do
@@ -119,7 +119,7 @@ describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         before do
           error = Stripe::RateLimitError.new
           StripeMock.prepare_error(error, :update_customer)
-          post :update, params: { 'stripeToken' => new_token }
+          post :update, params: { 'stripe_token' => new_token }
         end
 
         it 'sends an exception email' do
@@ -138,7 +138,7 @@ describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         before do
           error = Stripe::InvalidRequestError.new('message', 'param')
           StripeMock.prepare_error(error, :update_customer)
-          post :update, params: { 'stripeToken' => new_token }
+          post :update, params: { 'stripe_token' => new_token }
         end
 
         it 'sends an exception email' do
@@ -157,7 +157,7 @@ describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         before do
           error = Stripe::AuthenticationError.new
           StripeMock.prepare_error(error, :update_customer)
-          post :update, params: { 'stripeToken' => new_token }
+          post :update, params: { 'stripe_token' => new_token }
         end
 
         it 'sends an exception email' do
@@ -176,7 +176,7 @@ describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         before do
           error = Stripe::APIConnectionError.new
           StripeMock.prepare_error(error, :update_customer)
-          post :update, params: { 'stripeToken' => new_token }
+          post :update, params: { 'stripe_token' => new_token }
         end
 
         it 'sends an exception email' do
@@ -195,7 +195,7 @@ describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         before do
           error = Stripe::StripeError.new
           StripeMock.prepare_error(error, :update_customer)
-          post :update, params: { 'stripeToken' => new_token }
+          post :update, params: { 'stripe_token' => new_token }
         end
 
         it 'sends an exception email' do
