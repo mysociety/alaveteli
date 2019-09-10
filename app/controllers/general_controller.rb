@@ -65,6 +65,7 @@ class GeneralController < ApplicationController
       end
     end
     @twitter_user = AlaveteliConfiguration::twitter_username
+    @facebook_user = AlaveteliConfiguration::facebook_username
   end
 
   # Just does a redirect from ?query= search to /query
