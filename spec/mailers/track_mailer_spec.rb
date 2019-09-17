@@ -53,9 +53,20 @@ describe TrackMailer do
 
       it 'should update the time of the user\'s last daily tracking email' do
         expect(@user).to receive(:last_daily_track_email=).with(Time.zone.now)
-        expect(@user).to receive(:save!)
+        expect(@user).to receive(:save!).with(touch: false)
         TrackMailer.alert_tracks
       end
+
+      it "does not update the user's last updated timestamp" do
+        @user = FactoryBot.create(:user, updated_at: Time.zone.now - 1.day)
+        klass = User::ActiveRecord_Relation
+        allow_any_instance_of(klass).to receive(:find_each).and_yield(@user)
+        expect {
+          TrackMailer.alert_tracks
+          @user.reload
+        }.to_not change(@user, :updated_at)
+      end
+
       it 'should return true' do
         expect(TrackMailer.alert_tracks).to eq(true)
       end
