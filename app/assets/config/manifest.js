@@ -26,3 +26,5 @@
 //= link responsive/print.css
 //= link responsive/application-lte-ie7.css
 //= link responsive/application-ie8.css
+//
+//= link alaveteli_pro/stripe.js

@@ -2,8 +2,10 @@
 class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
   include AlaveteliPro::StripeNamespace
 
-  skip_before_action :pro_user_authenticated?, only: [:create]
-  before_action :authenticate, :prevent_duplicate_submission, only: [:create]
+  skip_before_action :pro_user_authenticated?, only: [:create, :authorise]
+  before_action :authenticate, only: [:create, :authorise]
+  before_action :prevent_duplicate_submission, only: [:create]
+  before_action :check_plan_exists, only: [:create]
   before_action :check_active_subscription, only: [:index]
 
   def index
@@ -28,45 +30,31 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
   # params =>
   # {"utf8"=>"✓",
   #  "authenticity_token"=>"Ono2YgLcl1eC1gGzyd7Vf5HJJhOek31yFpT+8z+tKoo=",
-  #  "stripeToken"=>"tok_s3kr3t…",
-  #  "stripeTokenType"=>"card",
-  #  "stripeEmail"=>"bob@example.com",
+  #  "stripe_token"=>"tok_s3kr3t…",
   #  "controller"=>"alaveteli_pro/subscriptions",
-  #  "action"=>"create"}
+  #  "action"=>"create",
+  #  "plan_id"=>"WDTK-pro"}
   def create
     begin
-      @token = Stripe::Token.retrieve(params[:stripeToken])
+      @token = Stripe::Token.retrieve(params[:stripe_token])
 
-      customer = current_user.pro_account.try(:stripe_customer)
+      @pro_account = current_user.pro_account ||= current_user.build_pro_account
+      @pro_account.source = @token.id
+      @pro_account.update_stripe_customer
 
-      @customer =
-        if customer
-          customer.source = @token.id
-          customer.save
-          customer
-        else
-          customer =
-            Stripe::Customer.create(email: params[:stripeEmail],
-                                    source: @token)
+      @subscription = @pro_account.subscriptions.build
+      @subscription.update_attributes(
+        plan: params.require(:plan_id),
+        tax_percent: 20.0,
+        payment_behavior: 'allow_incomplete'
+      )
 
-          current_user.create_pro_account(stripe_customer_id: customer.id)
-          customer
-        end
+      @subscription.coupon = coupon_code if coupon_code?
 
-      subscription_attributes = {
-        customer: @customer,
-        plan: params[:plan_id],
-        tax_percent: 20.0
-      }
-
-      subscription_attributes[:coupon] = coupon_code if coupon_code?
-
-      @subscription = Stripe::Subscription.create(subscription_attributes)
+      @subscription.save
 
     rescue Stripe::CardError => e
       flash[:error] = e.message
-      redirect_to plan_path(non_namespaced_plan_id)
-      return
 
     rescue Stripe::RateLimitError,
            Stripe::InvalidRequestError,
@@ -88,38 +76,69 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
           _('There was a problem submitting your payment. You ' \
             'have not been charged. Please try again later.')
         end
+    end
 
-      if params[:plan_id]
-        redirect_to plan_path(non_namespaced_plan_id)
+    if flash[:error]
+      redirect_to plan_path(non_namespaced_plan_id)
+    else
+      redirect_to authorise_subscription_path(@subscription.id)
+    end
+  end
+
+  def authorise
+    begin
+      @subscription = current_user.pro_account.subscriptions.
+        retrieve(params.require(:id))
+
+      if !@subscription
+        head :not_found
+
+      elsif @subscription.require_authorisation?
+        respond_to do |format|
+          format.json do
+            render json: {
+              payment_intent: @subscription.payment_intent.client_secret,
+              callback_url: authorise_subscription_path(@subscription.id)
+            }
+          end
+        end
+
+      elsif @subscription.invoice_open?
+        flash[:error] = _('There was a problem authorising your payment. You ' \
+                          'have not been charged. Please try again.')
+
+        json_redirect_to plan_path(
+          remove_stripe_namespace(@subscription.plan.id)
+        )
+
+      elsif @subscription.active?
+        current_user.add_role(:pro)
+
+        flash[:notice] = {
+          partial: 'alaveteli_pro/subscriptions/signup_message.html.erb'
+        }
+        flash[:new_pro_user] = true
+
+        json_redirect_to alaveteli_pro_dashboard_path
+
       else
-        redirect_to pro_plans_path
+        head :ok
       end
-      return
+
+    rescue Stripe::RateLimitError,
+           Stripe::InvalidRequestError,
+           Stripe::AuthenticationError,
+           Stripe::APIConnectionError,
+           Stripe::StripeError => e
+      if send_exception_notifications?
+        ExceptionNotifier.notify_exception(e, env: request.env)
+      end
+
+      flash[:error] = _('There was a problem submitting your payment. You ' \
+        'have not been charged. Please try again later.')
+
+      json_redirect_to plan_path('pro')
     end
-
-    current_user.add_role(:pro)
-
-    # enable the mail poller only if the POP polling is configured AND it
-    # has not already been enabled for this user (raises an error)
-    if (AlaveteliConfiguration.production_mailer_retriever_method == 'pop' &&
-        !feature_enabled?(:accept_mail_from_poller, current_user))
-      AlaveteliFeatures.
-        backend.
-          enable_actor(:accept_mail_from_poller, current_user)
-    end
-
-    unless feature_enabled?(:notifications, current_user)
-      AlaveteliFeatures.backend.enable_actor(:notifications, current_user)
-    end
-
-    unless feature_enabled?(:pro_batch_access, current_user)
-      AlaveteliFeatures.backend.enable_actor(:pro_batch_access, current_user)
-    end
-
-    flash[:notice] =
-      { :partial => "alaveteli_pro/subscriptions/signup_message.html.erb" }
-    flash[:new_pro_user] = true
-    redirect_to alaveteli_pro_dashboard_path
   end
 
   def destroy
@@ -174,7 +193,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
   end
 
   def non_namespaced_plan_id
-    remove_stripe_namespace(params[:plan_id])
+    remove_stripe_namespace(params[:plan_id]) if params[:plan_id]
   end
 
   def coupon_code?
@@ -198,10 +217,21 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
       end
   end
 
+  def check_plan_exists
+    redirect_to(pro_plans_path) unless non_namespaced_plan_id
+  end
+
   def prevent_duplicate_submission
     # TODO: This doesn't take the plan in to account
     if @user.pro_account.try(:active?)
-      redirect_to alaveteli_pro_dashboard_path
+      json_redirect_to alaveteli_pro_dashboard_path
+    end
+  end
+
+  def json_redirect_to(url)
+    respond_to do |format|
+      format.html { redirect_to url }
+      format.json { render json: { url: url } }
     end
   end
 end

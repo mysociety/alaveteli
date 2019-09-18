@@ -53,15 +53,14 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         end
 
         it 'creates a new Stripe customer' do
-          expect(assigns(:customer).email).to eq(user.email)
+          expect(assigns(:pro_account).stripe_customer.email).
+            to eq(user.email)
         end
 
         it 'subscribes the user to the plan' do
-          expected = { user: assigns(:customer).id,
-                       plan: 'pro' }
-          actual = { user: assigns(:subscription).customer,
-                     plan: assigns(:subscription).plan.id }
-          expect(actual).to eq(expected)
+          expect(assigns(:subscription).plan.id).to eq('pro')
+          expect(assigns(:pro_account).stripe_customer_id).
+            to eq(assigns(:subscription).customer)
         end
 
         it 'creates a pro account for the user' do
@@ -70,42 +69,13 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
         it 'stores the stripe_customer_id in the pro_account' do
           expect(user.pro_account.stripe_customer_id).
-            to eq(assigns(:customer).id)
+            to eq(assigns(:pro_account).stripe_customer_id)
         end
 
-        it 'adds the pro role' do
-          expect(user.is_pro?).to eq(true)
-        end
-
-        it 'does not enable pop polling by default' do
-          result =
-            AlaveteliFeatures.backend[:accept_mail_from_poller].enabled?(user)
-          expect(result).to eq(false)
-        end
-
-        it 'enables daily summary notifications for the user' do
-          result =
-            AlaveteliFeatures.backend[:notifications].enabled?(user)
-          expect(result).to eq(true)
-        end
-
-        it 'enables batch for the user' do
-          result =
-            AlaveteliFeatures.backend[:pro_batch_access].enabled?(user)
-          expect(result).to eq(true)
-        end
-
-        it 'welcomes the new user' do
-          partial_file = "alaveteli_pro/subscriptions/signup_message.html.erb"
-          expect(flash[:notice]).to eq({ :partial => partial_file })
-        end
-
-        it 'redirects to the pro dashboard' do
-          expect(response).to redirect_to(alaveteli_pro_dashboard_path)
-        end
-
-        it 'sets new_pro_user in flash' do
-          expect(flash[:new_pro_user]).to be true
+        it 'redirects to the authorise action' do
+          expect(response).to redirect_to(
+            authorise_subscription_path(assigns(:subscription).id)
+          )
         end
 
       end
@@ -120,19 +90,15 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         before do
           session[:user_id] = user.id
           post :create, params: {
-                          'stripeToken' => token,
-                          'stripeTokenType' => 'card',
-                          'stripeEmail' => user.email,
-                          'plan_id' => 'pro',
-                          'coupon_code' => ''
-                        }
+            'stripe_token' => token,
+            'plan_id' => 'pro',
+            'coupon_code' => ''
+          }
           post :create, params: {
-                          'stripeToken' => token,
-                          'stripeTokenType' => 'card',
-                          'stripeEmail' => user.email,
-                          'plan_id' => 'pro',
-                          'coupon_code' => ''
-                        }
+            'stripe_token' => token,
+            'plan_id' => 'pro',
+            'coupon_code' => ''
+          }
         end
 
         it 'does not create a duplicate subscription' do
@@ -147,82 +113,25 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
       end
 
-      context 'the user previously had some pro features enabled' do
-
-        def successful_signup
-          post :create, params: {
-                          'stripeToken' => token,
-                          'stripeTokenType' => 'card',
-                          'stripeEmail' => user.email,
-                          'plan_id' => 'pro',
-                          'coupon_code' => 'coupon_code'
-                        }
-        end
-
-        it 'does not raise an error if the user already uses the poller' do
-          AlaveteliFeatures.backend.enable_actor(:accept_mail_from_poller, user)
-          expect { successful_signup }.not_to raise_error
-        end
-
-        it 'does not raise an error if the user already has notifications' do
-          AlaveteliFeatures.backend.enable_actor(:notifications, user)
-          expect { successful_signup }.not_to raise_error
-        end
-
-        it 'does not raise an error if the user already has batch' do
-          AlaveteliFeatures.backend.enable_actor(:pro_batch_access, user)
-          expect { successful_signup }.not_to raise_error
-        end
-
-      end
-
       context 'with a successful transaction' do
         before do
           post :create, params: {
-                          'stripeToken' => token,
-                          'stripeTokenType' => 'card',
-                          'stripeEmail' => user.email,
-                          'plan_id' => 'pro',
-                          'coupon_code' => ''
-                        }
+            'stripe_token' => token,
+            'plan_id' => 'pro',
+            'coupon_code' => ''
+          }
         end
 
         include_examples 'successful example'
       end
 
-      context 'when pop polling is enabled' do
-
-        before do
-          allow(AlaveteliConfiguration).
-            to receive(:production_mailer_retriever_method).
-            and_return('pop')
-
-          post :create, params: {
-                          'stripeToken' => token,
-                          'stripeTokenType' => 'card',
-                          'stripeEmail' => user.email,
-                          'plan_id' => 'pro',
-                          'coupon_code' => ''
-                        }
-        end
-
-        it 'enables pop polling for the user' do
-          result =
-            AlaveteliFeatures.backend[:accept_mail_from_poller].enabled?(user)
-          expect(result).to eq(true)
-        end
-
-      end
-
       context 'with coupon code' do
         before do
           post :create, params: {
-                          'stripeToken' => token,
-                          'stripeTokenType' => 'card',
-                          'stripeEmail' => user.email,
-                          'plan_id' => 'pro',
-                          'coupon_code' => 'coupon_code'
-                        }
+            'stripe_token' => token,
+            'plan_id' => 'pro',
+            'coupon_code' => 'coupon_code'
+          }
         end
 
         include_examples 'successful example'
@@ -238,12 +147,10 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
             and_return('alaveteli')
 
           post :create, params: {
-                          'stripeToken' => token,
-                          'stripeTokenType' => 'card',
-                          'stripeEmail' => user.email,
-                          'plan_id' => 'pro',
-                          'coupon_code' => 'coupon_code'
-                        }
+            'stripe_token' => token,
+            'plan_id' => 'pro',
+            'coupon_code' => 'coupon_code'
+          }
         end
 
         include_examples 'successful example'
@@ -263,12 +170,10 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
           user.create_pro_account(:stripe_customer_id => customer.id)
 
           post :create, params: {
-                          'stripeToken' => token,
-                          'stripeTokenType' => 'card',
-                          'stripeEmail' => user.email,
-                          'plan_id' => 'pro',
-                          'coupon_code' => ''
-                        }
+            'stripe_token' => token,
+            'plan_id' => 'pro',
+            'coupon_code' => ''
+          }
         end
 
         include_examples 'successful example'
@@ -279,7 +184,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         end
 
         it 'updates the source from the new token' do
-          expect(assigns[:customer].default_source).
+          expect(assigns[:pro_account].stripe_customer.default_source).
             to eq(assigns[:token].card.id)
         end
       end
@@ -289,12 +194,10 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         before do
           StripeMock.prepare_card_error(:card_declined, :create_subscription)
           post :create, params: {
-                          'stripeToken' => token,
-                          'stripeTokenType' => 'card',
-                          'stripeEmail' => user.email,
-                          'plan_id' => 'pro',
-                          'coupon_code' => ''
-                        }
+            'stripe_token' => token,
+            'plan_id' => 'pro',
+            'coupon_code' => ''
+          }
         end
 
         it 'renders the card error message' do
@@ -317,12 +220,10 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
           error = Stripe::RateLimitError.new
           StripeMock.prepare_error(error, :create_subscription)
           post :create, params: {
-                          'stripeToken' => token,
-                          'stripeTokenType' => 'card',
-                          'stripeEmail' => user.email,
-                          'plan_id' => 'pro',
-                          'coupon_code' => ''
-                        }
+            'stripe_token' => token,
+            'plan_id' => 'pro',
+            'coupon_code' => ''
+          }
         end
 
         it 'sends an exception email' do
@@ -346,12 +247,10 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
           error = Stripe::InvalidRequestError.new('message', 'param')
           StripeMock.prepare_error(error, :create_subscription)
           post :create, params: {
-                          'stripeToken' => token,
-                          'stripeTokenType' => 'card',
-                          'stripeEmail' => user.email,
-                          'plan_id' => 'pro',
-                          'coupon_code' => ''
-                        }
+            'stripe_token' => token,
+            'plan_id' => 'pro',
+            'coupon_code' => ''
+          }
         end
 
         it 'sends an exception email' do
@@ -375,12 +274,10 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
           error = Stripe::AuthenticationError.new
           StripeMock.prepare_error(error, :create_subscription)
           post :create, params: {
-                          'stripeToken' => token,
-                          'stripeTokenType' => 'card',
-                          'stripeEmail' => user.email,
-                          'plan_id' => 'pro',
-                          'coupon_code' => ''
-                        }
+            'stripe_token' => token,
+            'plan_id' => 'pro',
+            'coupon_code' => ''
+          }
         end
 
         it 'sends an exception email' do
@@ -404,12 +301,10 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
           error = Stripe::APIConnectionError.new
           StripeMock.prepare_error(error, :create_subscription)
           post :create, params: {
-                          'stripeToken' => token,
-                          'stripeTokenType' => 'card',
-                          'stripeEmail' => user.email,
-                          'plan_id' => 'pro',
-                          'coupon_code' => ''
-                        }
+            'stripe_token' => token,
+            'plan_id' => 'pro',
+            'coupon_code' => ''
+          }
         end
 
         it 'sends an exception email' do
@@ -433,12 +328,10 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
           error = Stripe::StripeError.new
           StripeMock.prepare_error(error, :create_subscription)
           post :create, params: {
-                          'stripeToken' => token,
-                          'stripeTokenType' => 'card',
-                          'stripeEmail' => user.email,
-                          'plan_id' => 'pro',
-                          'coupon_code' => ''
-                        }
+            'stripe_token' => token,
+            'plan_id' => 'pro',
+            'coupon_code' => ''
+          }
         end
 
         it 'sends an exception email' do
@@ -462,12 +355,10 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
           error = Stripe::InvalidRequestError.new('No such coupon', 'param')
           StripeMock.prepare_error(error, :create_subscription)
           post :create, params: {
-                          'stripeToken' => token,
-                          'stripeTokenType' => 'card',
-                          'stripeEmail' => user.email,
-                          'plan_id' => 'pro',
-                          'coupon_code' => 'INVALID'
-                        }
+            'stripe_token' => token,
+            'plan_id' => 'pro',
+            'coupon_code' => 'INVALID'
+          }
         end
 
         it 'does not sends an exception email' do
@@ -491,12 +382,10 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
           error = Stripe::InvalidRequestError.new('Coupon expired', 'param')
           StripeMock.prepare_error(error, :create_subscription)
           post :create, params: {
-                          'stripeToken' => token,
-                          'stripeTokenType' => 'card',
-                          'stripeEmail' => user.email,
-                          'plan_id' => 'pro',
-                          'coupon_code' => 'EXPIRED'
-                        }
+            'stripe_token' => token,
+            'plan_id' => 'pro',
+            'coupon_code' => 'EXPIRED'
+          }
         end
 
         it 'does not sends an exception email' do
@@ -524,6 +413,277 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         it 'redirects to the pricing page if there is no plan' do
           post :create
           expect(response).to redirect_to(pro_plans_path)
+        end
+
+      end
+
+    end
+
+  end
+
+  describe 'GET #authorise' do
+
+    context 'without a signed-in user' do
+
+      before do
+        get :authorise, params: { id: 1 }
+      end
+
+      it 'redirects to the login form' do
+        expect(response).
+          to redirect_to(signin_path(token: PostRedirect.last.token))
+      end
+
+    end
+
+    context 'with a signed-in user' do
+      let(:token) { stripe_helper.generate_card_token }
+
+      let(:customer) { Stripe::Customer.create(source: token, plan: 'pro') }
+      let(:pro_account) do
+        FactoryBot.create(:pro_account, stripe_customer_id: customer.id)
+      end
+      let(:user) { pro_account.user }
+
+      before do
+        session[:user_id] = user.id
+        allow(controller).to receive(:current_user).and_return(user)
+      end
+
+      subject(:authorise) do
+        get :authorise, params: { id: 1 }
+      end
+
+      shared_context 'JSON request' do
+        subject(:authorise) do
+          get :authorise, params: { id: 1, format: :json }
+        end
+      end
+
+      shared_examples 'errored' do
+
+        it 'renders an error message' do
+          authorise
+          expect(flash[:error]).to match(/There was a problem/)
+        end
+
+        it 'redirects to the plan page' do
+          authorise
+          expect(response).to redirect_to(plan_path('pro'))
+        end
+
+        context 'when responding to JSON' do
+
+          include_context 'JSON request'
+
+          it 'returns URL to the pro dashboard' do
+            authorise
+            expect(JSON.parse(response.body, symbolize_names: true)).to eq(
+              url: plan_path('pro')
+            )
+          end
+
+        end
+
+      end
+
+      context 'subscription not found' do
+
+        before do
+          allow(pro_account.subscriptions).to receive(:retrieve).with('1').
+            and_return(nil)
+        end
+
+        it 'responds with a 404 not found error' do
+          authorise
+          expect(response.status).to eq 404
+        end
+
+      end
+
+      context 'subscription require authorisation' do
+
+        before do
+          subscription = double(
+            :subscription,
+            id: 1,
+            require_authorisation?: true,
+            payment_intent: double(client_secret: 'ABC_123')
+          )
+
+          allow(pro_account.subscriptions).to receive(:retrieve).with('1').
+            and_return(subscription)
+        end
+
+        it 'raises unknown format error' do
+          expect { authorise }.to raise_error(ActionController::UnknownFormat)
+        end
+
+        context 'when responding to JSON' do
+
+          include_context 'JSON request'
+
+          it 'should render payment intent client secret' do
+            authorise
+            expect(JSON.parse(response.body, symbolize_names: true)).to eq(
+              payment_intent: 'ABC_123',
+              callback_url: authorise_subscription_path(1)
+            )
+          end
+
+        end
+
+      end
+
+      context 'subscription invoice open' do
+
+        before do
+          subscription = double(
+            :subscription,
+            require_authorisation?: false,
+            invoice_open?: true,
+            plan: double(id: 'pro')
+          )
+
+          allow(pro_account.subscriptions).to receive(:retrieve).with('1').
+            and_return(subscription)
+        end
+
+        include_examples 'errored'
+
+      end
+
+      context 'subscription active' do
+
+        before do
+          subscription = double(
+            :subscription,
+            require_authorisation?: false,
+            invoice_open?: false,
+            active?: true
+          )
+
+          allow(pro_account.subscriptions).to receive(:retrieve).with('1').
+            and_return(subscription)
+        end
+
+        it 'adds the pro role' do
+          authorise
+          expect(user.is_pro?).to eq(true)
+        end
+
+        it 'welcomes the new user' do
+          authorise
+          partial_file = "alaveteli_pro/subscriptions/signup_message.html.erb"
+          expect(flash[:notice]).to eq(partial: partial_file)
+        end
+
+        it 'sets new_pro_user in flash' do
+          authorise
+          expect(flash[:new_pro_user]).to be true
+        end
+
+        it 'redirects to the pro dashboard' do
+          authorise
+          expect(response).to redirect_to(alaveteli_pro_dashboard_path)
+        end
+
+        context 'when responding to JSON' do
+
+          include_context 'JSON request'
+
+          it 'returns URL to the pro dashboard' do
+            authorise
+            expect(JSON.parse(response.body, symbolize_names: true)).to eq(
+              url: alaveteli_pro_dashboard_path
+            )
+          end
+
+        end
+
+      end
+
+      context 'when we are rate limited' do
+
+        before do
+          error = Stripe::RateLimitError.new
+          StripeMock.prepare_error(error, :retrieve_customer_subscription)
+        end
+
+        include_examples 'errored'
+
+        it 'sends an exception email' do
+          authorise
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail.subject).to match(/Stripe::RateLimitError/)
+        end
+
+      end
+
+      context 'when Stripe receives an invalid request' do
+
+        before do
+          error = Stripe::InvalidRequestError.new('message', 'param')
+          StripeMock.prepare_error(error, :retrieve_customer_subscription)
+        end
+
+        include_examples 'errored'
+
+        it 'sends an exception email' do
+          authorise
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail.subject).to match(/Stripe::InvalidRequestError/)
+        end
+
+      end
+
+      context 'when we cannot authenticate with Stripe' do
+
+        before do
+          error = Stripe::AuthenticationError.new
+          StripeMock.prepare_error(error, :retrieve_customer_subscription)
+        end
+
+        include_examples 'errored'
+
+        it 'sends an exception email' do
+          authorise
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail.subject).to match(/Stripe::AuthenticationError/)
+        end
+
+      end
+
+      context 'when we cannot connect to Stripe' do
+
+        before do
+          error = Stripe::APIConnectionError.new
+          StripeMock.prepare_error(error, :retrieve_customer_subscription)
+        end
+
+        include_examples 'errored'
+
+        it 'sends an exception email' do
+          authorise
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail.subject).to match(/Stripe::APIConnectionError/)
+        end
+
+      end
+
+      context 'when Stripe returns a generic error' do
+
+        before do
+          error = Stripe::StripeError.new
+          StripeMock.prepare_error(error, :retrieve_customer_subscription)
+        end
+
+        include_examples 'errored'
+
+        it 'sends an exception email' do
+          authorise
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail.subject).to match(/Stripe::StripeError/)
         end
 
       end
@@ -682,9 +842,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
     context 'user has no Stripe id' do
 
       let(:user) do
-        user = FactoryBot.create(:pro_user)
-        user.pro_account.update(stripe_customer_id: nil)
-        user
+        FactoryBot.create(:pro_user)
       end
 
       before do

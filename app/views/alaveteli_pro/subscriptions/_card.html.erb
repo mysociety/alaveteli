@@ -1,6 +1,6 @@
 <div class="settings__item">
   <div class="settings__item__primary">
-    <span class="card-desc">
+    <p class="card-desc">
       <%= _('<strong>{{brand}}</strong> ending in {{last4}}, expiry ' \
             '{{exp_month}}/{{exp_year}}',
             brand: card.brand,
@@ -8,19 +8,17 @@
             exp_month: card.exp_month,
             exp_year: card.exp_year)
         %>
-    </span>
+    </p>
 
     <%= card_expiry_message(card.exp_month, card.exp_year) %>
   </div>
 
-  <div class="settings__item__secondary">
-    <%= form_tag(payment_method_path, method: :put) do %>
-      <%= hidden_field_tag 'old_card_id', card.id %>
+  <div class="settings__item__primary">
+    <%= form_tag(payment_method_path, id: 'js-stripe-update-form', class: 'stripe-form', method: :put) do %>
+      <div id="card-element"></div>
 
-      <%= stripe_button(
-        label: _('Update Card Details'),
-        panel_label: _('Update Card Details')
-      ) %>
+      <%= submit_tag _('Update Card Details'), id: 'js-stripe-submit', disabled: true, data: { disable_with: 'Processing...' } %>
+      <p id="card-errors"></p>
 
       <noscript>
         <div id="error">

@@ -1,3 +1,16 @@
+<% content_for :javascript_head do %>
+  <script src="https://js.stripe.com/v3/"></script>
+<% end %>
+
+<% content_for :javascript do %>
+  <%= javascript_tag do %>
+    AlaveteliPro.stripe_publishable_key = '<%= AlaveteliConfiguration.stripe_publishable_key %>';
+    AlaveteliPro.stripe_local = '<%= stripe_locale %>';
+  <% end %>
+
+  <%= javascript_include_tag 'alaveteli_pro/stripe' %>
+<% end %>
+
 <div class="inner-canvas settings">
 
   <div class="inner-canvas-header">

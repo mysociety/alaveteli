@@ -41,52 +41,32 @@ describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         customer
       end
 
-      let(:old_card_id) { customer.sources.first.id }
+      let!(:card_ids) { customer.sources.data.map(&:id) }
 
       before do
         session[:user_id] = user.id
       end
 
       it 'finds the card token' do
-        post :update, params: {
-                        'stripeToken' => new_token,
-                        'old_card_id' => old_card_id
-                      }
+        post :update, params: { 'stripe_token' => new_token }
         expect(assigns(:token).id).to eq(new_token)
       end
 
-      it 'finds the id of the card being updated' do
-        post :update, params: {
-                        'stripeToken' => new_token,
-                        'old_card_id' => old_card_id
-                      }
-        expect(assigns(:old_card_id)).to eq(old_card_id)
-      end
-
-      it 'retrieves the correct Stripe customer' do
-        post :update, params: {
-                        'stripeToken' => new_token,
-                        'old_card_id' => old_card_id
-                      }
-        expect(assigns(:customer).id).
+      it 'retrieves the correct pro account' do
+        post :update, params: { 'stripe_token' => new_token }
+        expect(assigns(:pro_account).stripe_customer_id).
           to eq(user.pro_account.stripe_customer_id)
       end
 
       it 'redirects to the account page' do
-        post :update, params: {
-                        'stripeToken' => new_token,
-                        'old_card_id' => old_card_id
-                      }
+        post :update, params: { 'stripeToken' => new_token }
         expect(response).to redirect_to(subscriptions_path)
       end
 
       context 'with a successful transaction' do
 
         before do
-          post :update, params: {
-                          'stripeToken' => new_token,
-                          'old_card_id' => old_card_id
-                        }
+          post :update, params: { 'stripe_token' => new_token }
         end
 
         it 'adds the new card to the Stripe customer' do
@@ -105,8 +85,7 @@ describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         it 'removes the old card from the Stripe customer' do
           reloaded = Stripe::Customer.
                        retrieve(user.pro_account.stripe_customer_id)
-          expect(reloaded.sources.data.map(&:id)).
-            to_not include(old_card_id)
+          expect(reloaded.sources.data.map(&:id)).to_not match_array(card_ids)
         end
 
         it 'shows a message to confirm the update' do
@@ -120,10 +99,7 @@ describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         before do
           StripeMock.prepare_card_error(:card_declined, :update_customer)
 
-          post :update, params: {
-                          'stripeToken' => new_token,
-                          'old_card_id' => old_card_id
-                        }
+          post :update, params: { 'stripe_token' => new_token }
         end
 
         it 'renders the card error message' do
@@ -133,8 +109,7 @@ describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         it 'does not update the stored payment methods' do
           reloaded = Stripe::Customer.
                        retrieve(user.pro_account.stripe_customer_id)
-          expect(reloaded.sources.data.map(&:id)).
-            to include(old_card_id)
+          expect(reloaded.sources.data.map(&:id)).to match_array(card_ids)
         end
 
       end
@@ -144,10 +119,7 @@ describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         before do
           error = Stripe::RateLimitError.new
           StripeMock.prepare_error(error, :update_customer)
-          post :update, params: {
-                          'stripeToken' => new_token,
-                          'old_card_id' => old_card_id
-                        }
+          post :update, params: { 'stripe_token' => new_token }
         end
 
         it 'sends an exception email' do
@@ -166,10 +138,7 @@ describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         before do
           error = Stripe::InvalidRequestError.new('message', 'param')
           StripeMock.prepare_error(error, :update_customer)
-          post :update, params: {
-                          'stripeToken' => new_token,
-                          'old_card_id' => old_card_id
-                        }
+          post :update, params: { 'stripe_token' => new_token }
         end
 
         it 'sends an exception email' do
@@ -188,10 +157,7 @@ describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         before do
           error = Stripe::AuthenticationError.new
           StripeMock.prepare_error(error, :update_customer)
-          post :update, params: {
-                          'stripeToken' => new_token,
-                          'old_card_id' => old_card_id
-                        }
+          post :update, params: { 'stripe_token' => new_token }
         end
 
         it 'sends an exception email' do
@@ -210,10 +176,7 @@ describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         before do
           error = Stripe::APIConnectionError.new
           StripeMock.prepare_error(error, :update_customer)
-          post :update, params: {
-                          'stripeToken' => new_token,
-                          'old_card_id' => old_card_id
-                        }
+          post :update, params: { 'stripe_token' => new_token }
         end
 
         it 'sends an exception email' do
@@ -232,10 +195,7 @@ describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         before do
           error = Stripe::StripeError.new
           StripeMock.prepare_error(error, :update_customer)
-          post :update, params: {
-                          'stripeToken' => new_token,
-                          'old_card_id' => old_card_id
-                        }
+          post :update, params: { 'stripe_token' => new_token }
         end
 
         it 'sends an exception email' do

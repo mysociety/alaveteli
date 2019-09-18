@@ -14,35 +14,51 @@
 class ProAccount < ApplicationRecord
   include AlaveteliFeatures::Helpers
 
+  attr_writer :source
+
   belongs_to :user,
              :inverse_of => :pro_account
 
   validates :user, presence: true
 
-  before_create :set_stripe_customer_id
-
   def active?
-    stripe_customer.present? && stripe_customer.subscriptions.any?
+    subscriptions.active.any?
+  end
+
+  def subscriptions
+    @subscriptions ||= AlaveteliPro::SubscriptionCollection.for_customer(
+      stripe_customer
+    )
   end
 
   def stripe_customer
     @stripe_customer ||= stripe_customer!
   end
 
-  def update_email_address
-    return unless stripe_customer
-    stripe_customer.email = user.email
+  def update_stripe_customer
+    return unless feature_enabled?(:pro_pricing)
+
+    @stripe_customer = stripe_customer || Stripe::Customer.new
+
+    update_email
+    update_source
+
     stripe_customer.save
+    update(stripe_customer_id: stripe_customer.id)
   end
 
   private
 
-  def set_stripe_customer_id
-    return unless feature_enabled? :pro_pricing
-    self.stripe_customer_id ||= begin
-      @stripe_customer = Stripe::Customer.create(email: user.email)
-      stripe_customer.id
-    end
+  def update_email
+    return unless stripe_customer.try(:email) != user.email
+
+    stripe_customer.email = user.email
+  end
+
+  def update_source
+    return unless @source
+
+    stripe_customer.source = @source
   end
 
   def stripe_customer!

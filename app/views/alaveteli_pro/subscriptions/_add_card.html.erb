@@ -1,16 +1,15 @@
 <div class="settings__item">
   <div class="settings__item__primary">
-    <%= form_tag(payment_method_path, method: :put) do %>
+    <%= form_tag(payment_method_path, id: 'js-stripe-update-form', class: 'stripe-form', method: :put) do %>
+      <div id="card-element"></div>
 
-      <%= stripe_button(
-        label: _('Add Payment Card'),
-        panel_label: _('Add Payment Card')
-      ) %>
+      <%= submit_tag _('Add Card Details'), id: 'js-stripe-submit', disabled: true, data: { disable_with: 'Processing...' } %>
+      <p id="card-errors"></p>
 
       <noscript>
         <div id="error">
           <p>
-            <%= _('Updating your payment card requires your browser to have ' \
+            <%= _('Adding your payment card requires your browser to have ' \
                   'JavaScript enabled.') %>
           </p>
         </div>

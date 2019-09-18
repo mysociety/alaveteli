@@ -1708,20 +1708,42 @@ describe User do
 
   describe 'role callbacks' do
 
+    let(:user) { FactoryBot.build(:user) }
+
+    context 'adding unknown role' do
+
+      it 'should not call grant pro access' do
+        expect(AlaveteliPro::Access).to_not receive(:grant)
+        user.add_role(:unknown)
+      end
+
+    end
+
+    context 'adding pro role' do
+
+      it 'should call grant pro access' do
+        expect(AlaveteliPro::Access).to receive(:grant).with(user)
+        user.add_role(:pro)
+      end
+
+    end
+
     context 'with pro pricing enabled', feature: :pro_pricing do
+
       it 'creates pro account when pro role added' do
-        user = FactoryBot.build(:user)
         expect { user.add_role :pro }.to change(user, :pro_account).
           from(nil).to(ProAccount)
       end
+
     end
 
     context 'without pro pricing enabled' do
+
       it 'does not create pro account when pro role is added' do
-        user = FactoryBot.build(:user)
         expect { user.add_role :pro }.to_not change(user, :pro_account).
           from(nil)
       end
+
     end
 
   end
@@ -1734,12 +1756,10 @@ describe User do
 
       before do
         allow(user).to receive(:pro_account).and_return(pro_account)
-        allow(user).to receive(:is_pro?).and_return(true)
-        allow(user).to receive(:email_changed?).and_return(true)
       end
 
-      it 'calls update_email_address on Pro Account' do
-        expect(pro_account).to receive(:update_email_address)
+      it 'calls update_stripe_customer on Pro Account' do
+        expect(pro_account).to receive(:update_stripe_customer)
         user.run_callbacks :update
       end
 
