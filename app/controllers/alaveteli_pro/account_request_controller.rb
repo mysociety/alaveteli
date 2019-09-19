@@ -5,7 +5,6 @@ class AlaveteliPro::AccountRequestController < ApplicationController
 
   def index
     @public_beta = true
-    @pro_site_name = AlaveteliConfiguration.pro_site_name
   end
 
   def new

@@ -3,10 +3,6 @@ require 'spec_helper'
 
 describe 'alaveteli_pro/account_request/index.html.erb' do
 
-  before do
-    assign(:pro_site_name, AlaveteliConfiguration.pro_site_name)
-  end
-
   shared_examples_for 'rendering account request form' do
 
     it 'renders an in page link to the account request form' do
