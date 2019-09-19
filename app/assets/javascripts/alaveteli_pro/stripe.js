@@ -5,7 +5,7 @@
   if (subscriptionForm) { stripeSubscriptionForm(subscriptionForm); }
 
   var updateForm = document.getElementById('js-stripe-update-form');
-  if (updateForm) { stripeForm(form, {}) }
+  if (updateForm) { stripeForm(updateForm, {}) }
 })();
 
 function stripeSubscriptionForm(form) {
