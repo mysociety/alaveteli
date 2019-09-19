@@ -1,5 +1,5 @@
 $(function() {
-    $('#launch-access').click(function() {
-        $('#input-beta').click();
+    $('#js-request-access').click(function() {
+        $('#input-account-request').click();
     });
 });

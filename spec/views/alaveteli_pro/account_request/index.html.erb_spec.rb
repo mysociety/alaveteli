@@ -6,7 +6,7 @@ describe 'alaveteli_pro/account_request/index.html.erb' do
   shared_examples_for 'rendering account request form' do
 
     it 'renders an in page link to the account request form' do
-      expect(rendered).to have_css('a#launch-access')
+      expect(rendered).to have_css('a#js-request-access')
     end
 
     it 'includes the account request form' do

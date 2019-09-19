@@ -1,17 +1,14 @@
-<label class="houdini-label input-beta-button button" for="input-beta">
-  <%= _('Get access to the beta') %>
+<label class="houdini-label input-account-request-button button" for="input-account-request">
+  <%= _('Request access to {{pro_site_name}}', pro_site_name: pro_site_name) %>
 </label>
-<input class="houdini-input" type="checkbox" id="input-beta" <% if params[:account_request].present? %>checked="true"<% end %>>
+<input class="houdini-input" type="checkbox" id="input-account-request" <% if params[:account_request].present? %>checked="true"<% end %>>
 <%= form_for :account_request,
   url: "#{account_request_index_path}#input-account-request",
   html: {class: 'houdini-target form account-request-signup-form'} do |f| %>
   <h3>
-    <%= _('Request access to {{pro_site_name}} beta',
+    <%= _('Request access to {{pro_site_name}}',
           pro_site_name: pro_site_name) %>
   </h3>
-  <%= _('Successful applicants will receive free early access to ' \
-        '{{pro_site_name}} for 6 months.',
-        pro_site_name: pro_site_name) %>
   <%= foi_error_messages_for :account_request %>
   <div>
     <label for="account_request_email">
