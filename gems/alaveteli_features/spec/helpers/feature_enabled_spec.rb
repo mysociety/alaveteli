@@ -5,35 +5,24 @@ require 'alaveteli_features/helpers'
 describe AlaveteliFeatures::Helpers do
   let(:instance) { Class.new { include AlaveteliFeatures::Helpers }.new }
   let(:test_backend) { Flipper.new(Flipper::Adapters::Memory.new) }
-  let(:user_class) do
-    # A test class to let us test the actor-based feature flipping
-    class User
-      attr_reader :id
 
-      def initialize(id, admin)
-        @id = id
-        @admin = admin
-      end
+  # A test class to let us test the actor-based feature flipping
+  class MockUser
+    attr_reader :id
 
-      def admin?
-        @admin
-      end
-
-      # Must respond to flipper_id
-      alias_method :flipper_id, :id
+    def initialize(id)
+      @id = id
     end
+
+    # Must respond to flipper_id
+    alias flipper_id id
   end
 
-  before do
+  around do |example|
+    old_backend = AlaveteliFeatures.backend
     AlaveteliFeatures.backend = test_backend
-    # Seems to be the only way to make sure we don't register a group twice
-    begin
-      AlaveteliFeatures.backend.group(:admins)
-    rescue Flipper::GroupNotRegistered
-      Flipper.register :admins do |actor|
-        actor.respond_to?(:admin?) && actor.admin?
-      end
-    end
+    example.call
+    AlaveteliFeatures.backend = old_backend
   end
 
   describe "#feature_enabled?" do
@@ -48,12 +37,9 @@ describe AlaveteliFeatures::Helpers do
     end
 
     it "should pass on other arguments to the backend" do
-      user1 = user_class.new(1, true)
+      user1 = MockUser.new(1)
 
-      mock_backend = double("backend")
-      AlaveteliFeatures.backend = mock_backend
-
-      expect(mock_backend).to(
+      expect(AlaveteliFeatures.backend).to(
         receive(:enabled?).with(:test_feature, user1)
       )
       instance.feature_enabled?(:test_feature, user1)

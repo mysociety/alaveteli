@@ -28,11 +28,7 @@ shared_examples_for "creating a search" do
 end
 
 describe AlaveteliPro::BatchRequestAuthoritySearchesController do
-  let(:pro_user) do
-    user = FactoryBot.create(:pro_user)
-    AlaveteliFeatures.backend.enable_actor(:pro_batch_access, user)
-    user
-  end
+  let(:pro_user) { FactoryBot.create(:pro_user) }
 
   describe "#index" do
     let(:authority_1) { FactoryBot.build(:public_body) }
@@ -148,6 +144,10 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
 
     context "the user does not have pro batch access" do
 
+      before do
+        AlaveteliFeatures.backend.disable_actor(:pro_batch_access, pro_user)
+      end
+
       let(:pro_user) { FactoryBot.create(:pro_user) }
 
       it 'redirects them to the standard request form' do
@@ -175,6 +175,10 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
     end
 
     context "the user does not have pro batch access" do
+
+      before do
+        AlaveteliFeatures.backend.disable_actor(:pro_batch_access, pro_user)
+      end
 
       let(:pro_user) { FactoryBot.create(:pro_user) }
 

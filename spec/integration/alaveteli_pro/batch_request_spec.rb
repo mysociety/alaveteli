@@ -42,12 +42,7 @@ def search_results
 end
 
 describe "creating batch requests in alaveteli_pro" do
-  let(:pro_user) do
-    user = FactoryBot.create(:pro_user)
-    AlaveteliFeatures.backend.enable_actor(:pro_batch_access, user)
-    user
-  end
-
+  let(:pro_user) { FactoryBot.create(:pro_user) }
   let!(:pro_user_session) { login(pro_user) }
   let!(:authorities) { FactoryBot.create_list(:public_body, 26) }
 

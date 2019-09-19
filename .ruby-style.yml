@@ -91,6 +91,8 @@ Layout/EmptyLinesAroundBlockBody:
   Description: "Keeps track of empty lines around block bodies."
   Enabled: true
   EnforcedStyle: no_empty_lines
+  Exclude:
+    - 'spec/**/*'
 
 Layout/EmptyLinesAroundClassBody:
   Description: "Keeps track of empty lines around class bodies."
@@ -139,7 +141,7 @@ Layout/IndentArray:
   Description: >-
                  Checks the indentation of the first element in an array
                  literal.
-  Enabled: false
+  Enabled: true
 
 Layout/IndentAssignment:
   Description: >-
@@ -149,7 +151,7 @@ Layout/IndentAssignment:
 
 Layout/IndentHash:
   Description: 'Checks the indentation of the first key in a hash literal.'
-  Enabled: false
+  Enabled: true
 
 Layout/LeadingCommentSpace:
   Description: 'Comments should start with a space.'
@@ -300,7 +302,7 @@ Layout/SpaceInsideArrayLiteralBrackets:
 
 Layout/SpaceInsideReferenceBrackets:
   Description: 'Checks the spacing inside referential brackets.'
-  Enabled: false
+  Enabled: true
 
 Layout/SpaceInsideHashLiteralBraces:
   Description: "Use spaces inside hash literal braces - or don't."
@@ -312,12 +314,12 @@ Layout/SpaceInsideHashLiteralBraces:
 Layout/SpaceInsideParens:
   Description: 'No spaces after ( or before ).'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-spaces-braces'
-  Enabled: false
+  Enabled: true
 
 Layout/SpaceInsideRangeLiteral:
   Description: 'No spaces inside range literals.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-space-inside-range-literals'
-  Enabled: false
+  Enabled: true
 
 Layout/SpaceInsideStringInterpolation:
   Description: 'Checks for padding/surrounding spaces inside string interpolation.'
@@ -348,15 +350,15 @@ Layout/ConditionPosition:
                  Checks for condition placed in a confusing position relative to
                  the keyword.
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#same-line-condition'
-  Enabled: false
+  Enabled: true
 
 Layout/DefEndAlignment:
   Description: 'Align ends corresponding to defs correctly.'
-  Enabled: false
+  Enabled: true
 
 Layout/EndAlignment:
   Description: 'Align ends correctly.'
-  Enabled: false
+  Enabled: true
 
 Style/Alias:
   Description: 'Use alias instead of alias_method.'
@@ -429,7 +431,7 @@ Style/ClassAndModuleChildren:
 
 Style/ClassCheck:
   Description: 'Enforces consistent use of `Object#is_a?` or `Object#kind_of?`.'
-  Enabled: false
+  Enabled: true
 
 Style/ClassMethods:
   Description: 'Use self when defining module/class methods.'
@@ -439,7 +441,7 @@ Style/ClassMethods:
 Style/ClassVars:
   Description: 'Avoid the use of class variables.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-class-vars'
-  Enabled: false
+  Enabled: true
 
 Style/ColonMethodCall:
   Description: 'Do not use :: for method call.'
@@ -456,7 +458,7 @@ Style/CommentAnnotation:
                  Checks formatting of special comments
                  (TODO, FIXME, OPTIMIZE, HACK, REVIEW).
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#annotate-keywords'
-  Enabled: false
+  Enabled: true
 
 Style/ConditionalAssignment:
   Description: >-
@@ -509,7 +511,7 @@ Style/EmptyCaseCondition:
 Style/EmptyLiteral:
   Description: 'Prefer literals to Array.new/Hash.new/String.new.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#literal-array-hash'
-  Enabled: false
+  Enabled: true
 
 Style/Encoding:
   Description: 'Use UTF-8 as the source file encoding.'
@@ -519,12 +521,12 @@ Style/Encoding:
 Style/EndBlock:
   Description: 'Avoid the use of END blocks.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-END-blocks'
-  Enabled: false
+  Enabled: true
 
 Style/EvenOdd:
   Description: 'Favor the use of Fixnum#even? && Fixnum#odd?'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#predicate-methods'
-  Enabled: false
+  Enabled: true
 
 Style/FrozenStringLiteralComment:
   Description: >-
@@ -545,13 +547,13 @@ Style/For:
 Style/FormatString:
   Description: 'Enforce the use of Kernel#sprintf, Kernel#format or String#%.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#sprintf'
-  Enabled: false
+  Enabled: true
 
 Style/GlobalVars:
   Description: 'Do not introduce global variables.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#instance-vars'
   Reference: 'http://www.zenspider.com/Languages/Ruby/QuickRef.html'
-  Enabled: false
+  Enabled: true
 
 Style/GuardClause:
   Description: 'Check for conditionals that can be replaced with guard clauses'
@@ -599,7 +601,7 @@ Style/IdenticalConditionalBranches:
 Style/InfiniteLoop:
   Description: 'Use Kernel#loop for infinite loops.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#infinite-loop'
-  Enabled: false
+  Enabled: true
 
 Style/Lambda:
   Description: 'Use the new lambda literal syntax for single-line blocks.'
@@ -609,7 +611,7 @@ Style/Lambda:
 Style/LambdaCall:
   Description: 'Use lambda.call(...) instead of lambda.(...).'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#proc-call'
-  Enabled: false
+  Enabled: true
 
 Style/LineEndConcatenation:
   Description: >-
@@ -627,7 +629,7 @@ Style/MethodDefParentheses:
                  Checks if the method definitions have or don't have
                  parentheses.
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#method-parens'
-  Enabled: false
+  Enabled: true
 
 Style/ModuleFunction:
   Description: 'Checks for usage of `extend self` in modules.'
@@ -665,7 +667,7 @@ Style/NegatedIf:
 Style/NegatedWhile:
   Description: 'Favor until over while for negative conditions.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#until-for-negatives'
-  Enabled: false
+  Enabled: true
 
 Style/NestedModifier:
   Description: 'Avoid using nested modifiers.'

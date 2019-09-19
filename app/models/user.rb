@@ -709,13 +709,13 @@ class User < ApplicationRecord
   end
 
   def setup_pro_account(role)
-    return unless role == Role.pro_role && feature_enabled?(:pro_pricing)
-    pro_account || build_pro_account
+    return unless role == Role.pro_role
+    pro_account || build_pro_account if feature_enabled?(:pro_pricing)
+    AlaveteliPro::Access.grant(self)
   end
 
   def update_pro_account
-    return unless is_pro? && pro_account
-    pro_account.update_email_address if email_changed?
+    pro_account.update_stripe_customer if pro_account
   end
 
 end

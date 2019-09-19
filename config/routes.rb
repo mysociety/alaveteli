@@ -665,6 +665,9 @@ Rails.application.routes.draw do
           collection do
             resource :payment_method, only: [:update]
           end
+          member do
+            get :authorise
+          end
         end
       end
 
