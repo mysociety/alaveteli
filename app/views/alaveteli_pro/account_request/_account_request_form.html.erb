@@ -3,8 +3,8 @@
 </label>
 <input class="houdini-input" type="checkbox" id="input-beta" <% if params[:account_request].present? %>checked="true"<% end %>>
 <%= form_for :account_request,
-  :url => "#{account_request_index_path}#input-account-request",
-  :html => {class: 'houdini-target form account-request-signup-form'} do |f| %>
+  url: "#{account_request_index_path}#input-account-request",
+  html: {class: 'houdini-target form account-request-signup-form'} do |f| %>
   <h3>
     <%= _('Request access to {{site_name}} beta',
           site_name: AlaveteliConfiguration.pro_site_name) %>
@@ -19,7 +19,7 @@
         <%= _('Email address') %>
       </strong>
     </label>
-    <%= f.email_field :email, :size => 20, :required => true %>
+    <%= f.email_field :email, size: 20, required: true %>
   </div>
   <div>
     <label for="account_request_reason">
@@ -29,14 +29,14 @@
       <%= _('Please include links to some examples of your journalism or ' \
             'blogging if you can.') %>
     </label>
-    <%= f.text_area :reason, :rows => 10, :cols => 50, :required => true %>
+    <%= f.text_area :reason, rows: 10, cols: 50, required: true %>
   </div>
   <div>
     <label for="account_request_offer_code">
       <%= _('If you have an <strong>offer code</strong>, please enter it ' \
             'here:') %>
     </label>
-    <%= f.text_field :offer_code, :size => 20, :required => false %>
+    <%= f.text_field :offer_code, size: 20, required: false %>
   </div>
   <div>
     <label for="account_request_training_emails">
@@ -46,11 +46,11 @@
     </label>
     <div class="inline-elements">
       <label for="account_request_training_emails_yes" class="inline-element">
-      <%= f.radio_button 'training_emails', 'yes', :required => true %>
+      <%= f.radio_button 'training_emails', 'yes', required: true %>
         <%= _("Yes") %>
       </label>
       <label for="account_request_training_emails_no" class="inline-element">
-      <%= f.radio_button 'training_emails', 'no', :required => true %>
+      <%= f.radio_button 'training_emails', 'no', required: true %>
         <%= _("No") %>
       </label>
     </div>
@@ -62,11 +62,11 @@
     </label>
     <div class="inline-elements">
       <label for="account_request_marketing_emails_yes" class="inline-element">
-      <%= f.radio_button 'marketing_emails', 'yes', :required => true %>
+      <%= f.radio_button 'marketing_emails', 'yes', required: true %>
         <%= _("Yes") %>
       </label>
       <label for="account_request_marketing_emails_no" class="inline-element">
-      <%= f.radio_button 'marketing_emails', 'no', :required => true %>
+      <%= f.radio_button 'marketing_emails', 'no', required: true %>
         <%= _("No") %>
       </label>
     </div>

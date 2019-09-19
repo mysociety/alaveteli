@@ -11,7 +11,7 @@
     </h2>
     <div class="marketing__hero__cta">
       <% if @public_beta && feature_enabled?(:pro_pricing) %>
-        <%= link_to _('Plans and pricing'), pro_plans_path, :class => "button" %>
+        <%= link_to _('Plans and pricing'), pro_plans_path, class: "button" %>
       <% else %>
         <h3><%= _("Now in beta") %></h3>
         <a href="#input-beta" class="button" id="launch-access">
@@ -57,13 +57,13 @@
         <div class="side-by-side-element">
           <a href="<%= image_path("alaveteli-pro/screenshot-dashboard.jpg") %>">
             <%= image_tag("alaveteli-pro/screenshot-dashboard.jpg",
-                          :alt => _("Pro brings a new dashboard view")) %>
+                          alt: _("Pro brings a new dashboard view")) %>
           </a>
         </div>
         <div class="side-by-side-element">
           <a href="<%= image_path("alaveteli-pro/screenshot-requests.jpg") %>">
             <%= image_tag("alaveteli-pro/screenshot-requests.jpg",
-                          :alt => _("Pro features a new request list view")) %>
+                          alt: _("Pro features a new request list view")) %>
           </a>
         </div>
       </div>
@@ -129,21 +129,21 @@
         <div class="side-by-side-element">
           <a href="<%= image_path("alaveteli-pro/screenshot-batch-selection.jpg") %>">
             <%= image_tag("alaveteli-pro/screenshot-batch-selection.jpg",
-                          :alt => _("Batch requests allow multiple recipients" \
+                          alt: _("Batch requests allow multiple recipients" \
                                     " of a single request")) %>
           </a>
         </div>
         <div class="side-by-side-element">
           <a href="<%= image_path("alaveteli-pro/screenshot-batch-list.jpg") %>">
             <%= image_tag("alaveteli-pro/screenshot-batch-list.jpg",
-                        :alt => _("Batch requests are part of a new workflow")) %>
+                        alt: _("Batch requests are part of a new workflow")) %>
           </a>
         </div>
       </div>
       <% if @public_beta && feature_enabled?(:pro_pricing) %>
-        <%= link_to _('Plans and pricing'), pro_plans_path, :class => "button" %>
+        <%= link_to _('Plans and pricing'), pro_plans_path, class: "button" %>
       <% else %>
-        <%= render :partial => 'account_request_form' %>
+        <%= render partial: 'account_request_form' %>
       <% end %>
     </div>
   </div>
