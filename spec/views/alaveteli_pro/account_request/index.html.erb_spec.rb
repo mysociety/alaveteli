@@ -22,7 +22,6 @@ describe 'alaveteli_pro/account_request/index.html.erb' do
   context 'when pro_pricing is disabled' do
 
     before do
-      assign(:public_beta, true)
       render
     end
 
@@ -30,22 +29,9 @@ describe 'alaveteli_pro/account_request/index.html.erb' do
 
   end
 
-  context 'when not public beta' do
+  context 'when pro_pricing is enabled' do
 
     before do
-      with_feature_enabled(:pro_pricing) do
-        render
-      end
-    end
-
-    it_behaves_like 'rendering account request form'
-
-  end
-
-  context 'when both public beta and pro_pricing is enabled' do
-
-    before do
-      assign(:public_beta, true)
       with_feature_enabled(:pro_pricing) do
         render
       end

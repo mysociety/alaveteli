@@ -13,11 +13,6 @@ describe AlaveteliPro::AccountRequestController do
       get :index
       expect(assigns[:in_pro_area]).to eq true
     end
-
-    it 'assigns public beta variable' do
-      get :index
-      expect(assigns[:public_beta]).to eq true
-    end
   end
 
   describe "#new" do
@@ -29,11 +24,6 @@ describe AlaveteliPro::AccountRequestController do
     it 'sets the pro livery' do
       get :new
       expect(assigns[:in_pro_area]).to eq true
-    end
-
-    it 'does not assign public beta variable' do
-      get :new
-      expect(assigns[:public_beta]).to_not eq true
     end
   end
 

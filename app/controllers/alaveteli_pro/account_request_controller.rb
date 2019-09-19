@@ -4,7 +4,6 @@ class AlaveteliPro::AccountRequestController < ApplicationController
   before_action :set_in_pro_area
 
   def index
-    @public_beta = true
   end
 
   def new
