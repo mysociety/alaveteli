@@ -6,12 +6,12 @@
   url: "#{account_request_index_path}#input-account-request",
   html: {class: 'houdini-target form account-request-signup-form'} do |f| %>
   <h3>
-    <%= _('Request access to {{site_name}} beta',
-          site_name: pro_site_name) %>
+    <%= _('Request access to {{pro_site_name}} beta',
+          pro_site_name: pro_site_name) %>
   </h3>
   <%= _('Successful applicants will receive free early access to ' \
-        '{{site_name}} for 6 months.',
-        site_name: pro_site_name) %>
+        '{{pro_site_name}} for 6 months.',
+        pro_site_name: pro_site_name) %>
   <%= foi_error_messages_for :account_request %>
   <div>
     <label for="account_request_email">
@@ -41,8 +41,8 @@
   <div>
     <label for="account_request_training_emails">
       <%= _('Are you interested in free training, seminars and workshops ' \
-            'about {{site_name}}?',
-            site_name: pro_site_name) %>
+            'about {{pro_site_name}}?',
+            pro_site_name: pro_site_name) %>
     </label>
     <div class="inline-elements">
       <label for="account_request_training_emails_yes" class="inline-element">
@@ -57,8 +57,8 @@
   </div>
   <div>
     <label for="account_request_marketing_emails">
-      <%= _('Get email updates about {{site_name}}?',
-            site_name: pro_site_name) %>
+      <%= _('Get email updates about {{pro_site_name}}?',
+            pro_site_name: pro_site_name) %>
     </label>
     <div class="inline-elements">
       <label for="account_request_marketing_emails_yes" class="inline-element">
