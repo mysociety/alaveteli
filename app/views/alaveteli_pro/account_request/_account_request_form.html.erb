@@ -29,13 +29,6 @@
     <%= f.text_area :reason, rows: 10, cols: 50, required: true %>
   </div>
   <div>
-    <label for="account_request_offer_code">
-      <%= _('If you have an <strong>offer code</strong>, please enter it ' \
-            'here:') %>
-    </label>
-    <%= f.text_field :offer_code, size: 20, required: false %>
-  </div>
-  <div>
     <label for="account_request_training_emails">
       <%= _('Are you interested in free training, seminars and workshops ' \
             'about {{pro_site_name}}?',
