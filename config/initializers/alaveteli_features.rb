@@ -31,3 +31,11 @@ if AlaveteliConfiguration.enable_pro_pricing
 else
   AlaveteliFeatures.backend.disable(:pro_pricing) unless !AlaveteliFeatures.backend.enabled?(:pro_pricing)
 end
+
+# Pro Self Serve
+# We enable pro_self_serve globally based on the ENABLE_PRO_SELF_SERVE config
+if AlaveteliConfiguration.enable_pro_self_serve
+  AlaveteliFeatures.backend.enable(:pro_self_serve) unless AlaveteliFeatures.backend.enabled?(:pro_self_serve)
+else
+  AlaveteliFeatures.backend.disable(:pro_self_serve) unless !AlaveteliFeatures.backend.enabled?(:pro_self_serve)
+end
