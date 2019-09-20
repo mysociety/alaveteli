@@ -554,7 +554,7 @@ USE_GHOSTSCRIPT_COMPRESSION: false
 # ---
 GEOIP_DATABASE: vendor/data/GeoLite2-Country.mmdb
 
-# In the absence of a GeoIP database (see above), Alateveli can use Gaze,
+# In the absence of a GeoIP database (see above), Alaveteli can use Gaze,
 # mySociety's gazeteer, to determine the country from the IP address of an HTTP
 # request to the site. You shouldn't normally need to change this.
 #
