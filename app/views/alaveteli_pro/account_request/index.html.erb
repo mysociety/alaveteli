@@ -12,6 +12,8 @@
     <div class="marketing__hero__cta">
       <% if feature_enabled?(:pro_pricing) %>
         <%= link_to _('Plans and pricing'), pro_plans_path, class: "button" %>
+      <% elsif feature_enabled?(:pro_self_serve) %>
+        <%= render partial: 'self_serve_button' %>
       <% else %>
         <a href="#input-account-request" class="button" id="js-request-access">
           <%= _('Request access to {{pro_site_name}}',
@@ -142,6 +144,8 @@
       </div>
       <% if feature_enabled?(:pro_pricing) %>
         <%= link_to _('Plans and pricing'), pro_plans_path, class: "button" %>
+      <% elsif feature_enabled?(:pro_self_serve) %>
+        <%= render partial: 'self_serve_button' %>
       <% else %>
         <%= render partial: 'account_request_form' %>
       <% end %>

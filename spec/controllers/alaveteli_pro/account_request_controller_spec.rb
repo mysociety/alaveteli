@@ -70,6 +70,52 @@ describe AlaveteliPro::AccountRequestController do
 
     end
 
+    context 'when pro_self_serve is enabled', feature: :pro_self_serve do
+
+      context 'when current user is signed out' do
+
+        it 'redirects to sign in' do
+          post :create
+          expect(response).to redirect_to(
+            signin_path(token: get_last_post_redirect.token)
+          )
+        end
+
+      end
+
+      context 'when current user is signed in' do
+
+        let(:user) { FactoryBot.create(:user) }
+
+        before do
+          session[:user_id] = user.id
+          allow(controller).to receive(:current_user).and_return(user)
+        end
+
+        it 'adds the pro role' do
+          post :create
+          expect(user.is_pro?).to eq(true)
+        end
+
+        it 'welcomes the new user' do
+          post :create
+          expect(flash[:notice]).to eq('Welcome to Alaveteli Professional!')
+        end
+
+        it 'sets new_pro_user in flash' do
+          post :create
+          expect(flash[:new_pro_user]).to be true
+        end
+
+        it 'redirects to the pro dashboard' do
+          post :create
+          expect(response).to redirect_to(alaveteli_pro_dashboard_path)
+        end
+
+      end
+
+    end
+
   end
 
 end
