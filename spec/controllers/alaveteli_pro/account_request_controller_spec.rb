@@ -61,6 +61,15 @@ describe AlaveteliPro::AccountRequestController do
 
     end
 
+    context 'when pro_pricing is enabled', feature: :pro_pricing do
+
+      it 'redirects to the pro plans' do
+        post :create
+        expect(response).to redirect_to pro_plans_path
+      end
+
+    end
+
   end
 
 end

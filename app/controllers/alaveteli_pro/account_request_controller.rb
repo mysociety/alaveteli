@@ -3,6 +3,9 @@
 class AlaveteliPro::AccountRequestController < ApplicationController
   before_action :set_in_pro_area
 
+  before_action :check_pro_pricing,
+                only: :create, if: -> { feature_enabled?(:pro_pricing) }
+
   def index
   end
 
@@ -26,5 +29,9 @@ class AlaveteliPro::AccountRequestController < ApplicationController
 
   def set_in_pro_area
     @in_pro_area = true
+  end
+
+  def check_pro_pricing
+    redirect_to pro_plans_path
   end
 end
