@@ -6,10 +6,6 @@ class AlaveteliPro::AccountRequestController < ApplicationController
   def index
   end
 
-  def new
-    render :index
-  end
-
   def create
     @account_request = AlaveteliPro::AccountRequest.new(
       params[:account_request]

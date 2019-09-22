@@ -15,18 +15,6 @@ describe AlaveteliPro::AccountRequestController do
     end
   end
 
-  describe "#new" do
-    it "renders index.html.erb" do
-      get :new
-      expect(response).to render_template('index')
-    end
-
-    it 'sets the pro livery' do
-      get :new
-      expect(assigns[:in_pro_area]).to eq true
-    end
-  end
-
   describe "#create" do
     let(:account_request_params) { { email: 'test@localhost',
                                     reason: 'Have a look around',
