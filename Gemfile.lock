@@ -358,7 +358,7 @@ GEM
       unicode-display_width (~> 1.4.0)
     ruby-ole (1.2.12.1)
     ruby-progressbar (1.10.0)
-    rubyzip (1.2.2)
+    rubyzip (2.0.0)
     safe_yaml (1.0.4)
     sass (3.4.25)
     sass-rails (5.0.7)
@@ -498,7 +498,7 @@ DEPENDENCIES
   rspec-rails (~> 3.7.2)
   rubocop (~> 0.63.1)
   ruby-msg (~> 1.5.0)!
-  rubyzip (~> 1.2.2)
+  rubyzip (~> 2.0.0)
   sass-rails (~> 5.0.7)
   secure_headers (~> 3.6.0)
   statistics2 (~> 0.54)
