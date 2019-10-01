@@ -81,7 +81,7 @@ A continuación, en su equipo local:
 
 * Instale Capistrano:
    * Capistrano requiere Ruby 1.9 o superior y puede instalarse con RubyGems.
-   * Ejecute `gem install capistrano`.
+   * Ejecute `gem install capistrano -v 2.15.9`.
 * Instale bundler si aún no lo ha hecho. Para ello ejecute: `gem install bundler`.
 * Compruebe el [repositorio de Alaveteli](https://github.com/mysociety/alaveteli/) 
   (necesita algunos de los archivos disponibles localmente, incluso aunque no ejecute

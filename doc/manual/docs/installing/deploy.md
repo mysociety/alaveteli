@@ -81,7 +81,7 @@ Next, on your local machine:
 
 * install Capistrano:
    * Capistrano requires Ruby 1.9 or more, and can be installed using rubygems
-   * do: `gem install capistrano`
+   * do: `gem install capistrano -v 2.15.9`
 * install Bundler if you don't have it already -- do: `gem install bundler`
 * checkout the [Alaveteli repo](https://github.com/mysociety/alaveteli/) (you
   need some of the files available locally even though you might not be running
