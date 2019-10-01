@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add Facebook link to blog sidebar (Zarino Zappia)
 * Show incoming message attachments in admin interface (Gareth Rees)
 
 ## Upgrade Notes
