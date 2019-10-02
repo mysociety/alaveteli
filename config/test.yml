@@ -36,8 +36,10 @@ BLOG_FEED: 'http://www.mysociety.org/category/projects/whatdotheyknow/feed/'
 TWITTER_USERNAME: 'alaveteli_foi'
 
 # Locales we wish to support in this app, space-delimited
-AVAILABLE_LOCALES: 'en es fr en_GB'
-DEFAULT_LOCALE: 'en'
+#AVAILABLE_LOCALES: 'en es fr en_GB'
+#DEFAULT_LOCALE: 'en'
+AVAILABLE_LOCALES: 'fr_BE nl_BE'
+DEFAULT_LOCALE: 'fr_BE'
 
 # if 'true', respect the user's choice of language in the browser
 USE_DEFAULT_BROWSER_LANGUAGE: true

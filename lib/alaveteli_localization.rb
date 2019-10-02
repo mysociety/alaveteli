@@ -15,9 +15,28 @@ class AlaveteliLocalization
         to_hyphen(locale_name)
       end
 
+      fallbacks = {}
+      fallbacks[default_locale] = default_locale_fallbacks(default_locale)
+      (available_locales - [default_locale]).each do |locale|
+        fallbacks[locale] = alternative_locale_fallbacks(locale)
+      end
+
       I18n.locale = I18n.default_locale = to_hyphen(default_locale)
       FastGettext.default_locale = canonicalize(default_locale)
       RoutingFilter::Conditionallyprependlocale.locales = available_locales
+      Globalize.fallbacks = fallbacks
+    end
+
+
+    def default_locale_fallbacks(locale)
+      [locale, canonicalize(locale), to_hyphen(locale), base(locale)].
+        uniq.map(&:to_sym)
+    end
+
+    def alternative_locale_fallbacks(locale)
+      [locale, canonicalize(locale), to_hyphen(locale),
+       canonicalize(default_locale), to_hyphen(default_locale),
+       base(default_locale)].compact.uniq.map(&:to_sym)
     end
 
     def set_default_locale(locale)
@@ -80,6 +99,10 @@ class AlaveteliLocalization
 
     def to_hyphen(locale)
       locale.to_s.gsub('_', '-')
+    end
+
+    def base(locale)
+      canonicalize(locale).split('_').first
     end
   end
 end

@@ -218,8 +218,8 @@ class IncomingMessage < ApplicationRecord
 
   def specific_from_name?
     !safe_mail_from.nil? && safe_mail_from.strip != info_request.public_body.name.strip
-  rescue NoMethodError
-    !safe_mail_from.nil? && safe_mail_from.strip != AlaveteliLocalization.with_default_locale { info_request.public_body.name.strip }
+  #rescue NoMethodError
+    #!safe_mail_from.nil? && safe_mail_from.strip != AlaveteliLocalization.with_default_locale { info_request.public_body.name.strip }
   end
 
   def from_public_body?
