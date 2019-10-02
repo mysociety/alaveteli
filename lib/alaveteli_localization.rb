@@ -47,6 +47,10 @@ class AlaveteliLocalization
       I18n.with_locale(tmp_locale, &block)
     end
 
+    def with_default_locale(&block)
+      with_locale(default_locale, &block)
+    end
+
     def locale
       FastGettext.locale
     end
