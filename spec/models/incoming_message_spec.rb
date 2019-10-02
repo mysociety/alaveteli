@@ -275,6 +275,44 @@ describe IncomingMessage do
 
       it { is_expected.to eq(true) }
     end
+
+    context 'when the body name translation is empty' do
+      it 'breaks' do
+        AlaveteliLocalization.set_locales('fr_BE nl_BE', 'fr_BE')
+        msg = AlaveteliLocalization.with_locale(:fr_BE) do
+          body = FactoryBot.create(:public_body, name: 'Foo')
+          request = FactoryBot.create(:info_request, public_body: body)
+          FactoryBot.
+            create(:incoming_message, info_request: request, mail_from: 'Bar')
+        end
+
+        AlaveteliLocalization.with_locale(:nl_BE) do
+          expect(msg.specific_from_name?).to eq(true)
+        end
+      end
+    end
+
+
+    context 'when the body name translation is empty' do
+      let(:incoming_message) do
+        body = AlaveteliLocalization.with_locale(:en) do
+          body = FactoryBot.create(:public_body, name: 'Foo')
+        end
+        request = FactoryBot.build(:info_request, public_body: body)
+        FactoryBot.
+          build(:incoming_message, info_request: request, mail_from: 'Bar')
+      end
+
+      it 'foo' do
+          #binding.pry
+        AlaveteliLocalization.with_locale(:es) do
+          expect(subject).to eq(true)
+        end
+      end
+      AlaveteliLocalization.with_locale(:es) do
+        #it { is_expected.to eq(true) }
+      end
+    end
   end
 
   describe '#apply_masks' do
