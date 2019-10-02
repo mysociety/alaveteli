@@ -535,10 +535,10 @@ Style/FrozenStringLiteralComment:
                  to help transition from Ruby 2.3.0 to Ruby 3.0.
   Enabled: false
 
-Style/FlipFlop:
+Lint/FlipFlop:
   Description: 'Checks for flip flops'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-flip-flops'
-  Enabled: false
+  Enabled: true
 
 Style/For:
   Description: 'Checks use of for or each in multiline loops.'
@@ -559,7 +559,7 @@ Style/GlobalVars:
 Style/GuardClause:
   Description: 'Check for conditionals that can be replaced with guard clauses'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-nested-conditionals'
-  Enabled: false
+  Enabled: true
 
 Style/HashSyntax:
   Description: >-
@@ -573,19 +573,19 @@ Style/HashSyntax:
 
 Style/IfInsideElse:
   Description: 'Finds if nodes inside else, which can be converted to elsif.'
-  Enabled: false
+  Enabled: true
 
 Style/IfUnlessModifier:
   Description: >-
                  Favor modifier if/unless usage when you have a
                  single-line body.
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#if-as-a-modifier'
-  Enabled: false
+  Enabled: true
 
 Style/IfUnlessModifierOfIfUnless:
   Description: >-
                  Avoid modifier if/unless usage on conditionals.
-  Enabled: false
+  Enabled: true
 
 Style/IfWithSemicolon:
   Description: 'Do not use if x; .... Use the ternary operator instead.'
@@ -597,7 +597,7 @@ Style/IdenticalConditionalBranches:
                  Checks that conditional statements do not have an identical
                  line at the end of each branch, which can validly be moved
                  out of the conditional.
-  Enabled: false
+  Enabled: true
 
 Style/InfiniteLoop:
   Description: 'Use Kernel#loop for infinite loops.'
@@ -607,7 +607,7 @@ Style/InfiniteLoop:
 Style/Lambda:
   Description: 'Use the new lambda literal syntax for single-line blocks.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#lambda-multi-line'
-  Enabled: false
+  Enabled: true
 
 Style/LambdaCall:
   Description: 'Use lambda.call(...) instead of lambda.(...).'
@@ -673,7 +673,7 @@ Style/NegatedWhile:
 Style/NestedModifier:
   Description: 'Avoid using nested modifiers.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-nested-modifiers'
-  Enabled: false
+  Enabled: true
 
 Style/NestedParenthesizedCalls:
   Description: >-
@@ -684,7 +684,7 @@ Style/NestedParenthesizedCalls:
 Style/NestedTernaryOperator:
   Description: 'Use one expression per branch in a ternary operator.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-nested-ternary'
-  Enabled: false
+  Enabled: true
 
 Style/Next:
   Description: 'Use `next` to skip iteration instead of a condition at the end.'
@@ -694,7 +694,7 @@ Style/Next:
 Style/NilComparison:
   Description: 'Prefer x.nil? to x == nil.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#predicate-methods'
-  Enabled: false
+  Enabled: true
 
 Style/NonNilCheck:
   Description: 'Checks for redundant nil checks.'
