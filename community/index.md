@@ -62,3 +62,11 @@ found in the documentation:
 * [this documentation]({{ page.baseurl }}/docs/) &mdash; always the first place to look
 * [the dev wiki](https://github.com/mysociety/alaveteli/wiki) &mdash; informal or specific notes
 * [docs in the repo](https://github.com/mysociety/alaveteli/tree/develop/doc) (although we're slowly phasing these out in favour of the docs you're reading now)
+
+## Conferences
+
+Every few years we bring together people with an interest in online Freedom of Information technologies.
+
+* [AlaveteliCon 2012]({{ page.baseurl }}/community/conferences/2012/)
+* [AlaveteliCon 2015]({{ page.baseurl }}/community/conferences/2015/)
+* [AlaveteliCon 2019](https://www.mysociety.org/transparency/alaveteli/alavetelicon-2019/)
