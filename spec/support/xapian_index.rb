@@ -32,7 +32,12 @@ def get_fixtures_xapian_index
   path_array.pop
   temp_path = File.join(path_array, 'test.temp')
   FileUtils.remove_entry_secure(temp_path, force=true)
-  FileUtils.cp_r($original_xapian_path, temp_path)
+  begin
+    FileUtils.cp_r($original_xapian_path, temp_path)
+  rescue Errno::ENOENT
+    sleep(3)
+    retry
+  end
   ActsAsXapian.db_path = temp_path
 end
 
