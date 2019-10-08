@@ -382,7 +382,11 @@ class PublicBody < ApplicationRecord
 
   # The "internal admin" is a special body for internal use.
   def self.internal_admin_body
-    matching_pbs = PublicBody.where(:url_name => 'internal_admin_authority')
+    matching_pbs = AlaveteliLocalization.
+      with_locale(AlaveteliLocalization.default_locale) do
+      PublicBody.where(url_name: 'internal_admin_authority')
+    end
+
     case
     when matching_pbs.empty? then
       # "internal admin" exists but has the wrong default locale - fix & return
