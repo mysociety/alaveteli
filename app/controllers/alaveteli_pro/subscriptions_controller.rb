@@ -79,7 +79,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
     end
 
     if flash[:error]
-      redirect_to plan_path(non_namespaced_plan_id)
+      json_redirect_to plan_path(non_namespaced_plan_id)
     else
       redirect_to authorise_subscription_path(@subscription.id)
     end
