@@ -81,6 +81,30 @@ describe HelpController do
         expect(assigns[:contact_email]).
           to eq AlaveteliConfiguration.pro_contact_email
       end
+
+      context 'when a last viewed request belongs to a pro' do
+        let(:info_request) { FactoryBot.create(:info_request, user: pro_user) }
+
+        it 'sets @contact_email to the pro contact address' do
+          request.cookies['last_request_id'] = info_request.id
+
+          get :contact
+          expect(assigns[:contact_email]).
+            to eq AlaveteliConfiguration.pro_contact_email
+        end
+      end
+
+      context 'when a last viewed request does not belong to a pro' do
+        let(:info_request) { FactoryBot.create(:info_request) }
+
+        it 'sets @contact_email to the normal contact address' do
+          request.cookies['last_request_id'] = info_request.id
+
+          get :contact
+          expect(assigns[:contact_email]).
+            to eq AlaveteliConfiguration.contact_email
+        end
+      end
     end
 
     context 'when the user is a normal user' do

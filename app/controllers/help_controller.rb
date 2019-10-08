@@ -42,7 +42,8 @@ class HelpController < ApplicationController
     @last_body = PublicBody.find_by(id: cookies["last_body_id"].to_i)
 
     @contact_email = AlaveteliConfiguration.contact_email
-    if feature_enabled?(:alaveteli_pro) && @user && @user.is_pro?
+    if feature_enabled?(:alaveteli_pro) && @user && @user.is_pro? &&
+       (!@last_request || @last_request.user.is_pro?)
       @contact_email = AlaveteliConfiguration.pro_contact_email
     end
 
