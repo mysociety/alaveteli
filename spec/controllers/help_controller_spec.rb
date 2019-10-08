@@ -61,7 +61,7 @@ describe HelpController do
 
   end
 
-  describe 'GET #contact' do
+  describe 'GET #contact', feature: :alaveteli_pro do
 
     it 'shows contact form' do
       get :contact
@@ -77,11 +77,9 @@ describe HelpController do
       end
 
       it 'sets @contact_email to the pro contact address' do
-        with_feature_enabled(:alaveteli_pro) do
-          get :contact
-          expect(assigns[:contact_email]).
-            to eq AlaveteliConfiguration.pro_contact_email
-        end
+        get :contact
+        expect(assigns[:contact_email]).
+          to eq AlaveteliConfiguration.pro_contact_email
       end
     end
 
@@ -93,21 +91,17 @@ describe HelpController do
       end
 
       it 'sets @contact_email to the normal contact address' do
-        with_feature_enabled(:alaveteli_pro) do
-          get :contact
-          expect(assigns[:contact_email]).
-            to eq AlaveteliConfiguration.contact_email
-        end
+        get :contact
+        expect(assigns[:contact_email]).
+          to eq AlaveteliConfiguration.contact_email
       end
     end
 
     context 'when the user is logged out' do
       it 'sets @contact_email to the normal contact address' do
-        with_feature_enabled(:alaveteli_pro) do
-          get :contact
-          expect(assigns[:contact_email]).
-            to eq AlaveteliConfiguration.contact_email
-        end
+        get :contact
+        expect(assigns[:contact_email]).
+          to eq AlaveteliConfiguration.contact_email
       end
     end
 
