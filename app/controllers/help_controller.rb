@@ -28,11 +28,6 @@ class HelpController < ApplicationController
   end
 
   def contact
-    @contact_email = AlaveteliConfiguration::contact_email
-    if feature_enabled?(:alaveteli_pro) && @user && @user.is_pro?
-      @contact_email = AlaveteliConfiguration::pro_contact_email
-    end
-
     # if they clicked remove for link to request/body, remove it
     if params[:remove]
       @last_request = nil
@@ -45,6 +40,11 @@ class HelpController < ApplicationController
     @last_request = request if can?(:read, request)
 
     @last_body = PublicBody.find_by(id: cookies["last_body_id"].to_i)
+
+    @contact_email = AlaveteliConfiguration.contact_email
+    if feature_enabled?(:alaveteli_pro) && @user && @user.is_pro?
+      @contact_email = AlaveteliConfiguration.pro_contact_email
+    end
 
     # submit form
     if params[:submitted_contact_form]
