@@ -3,7 +3,9 @@ require 'spec_helper'
 
 describe 'alaveteli_pro/account_request/index.html.erb' do
 
-  shared_examples_for 'rendering account request form' do
+  before { render }
+
+  context 'when pro_pricing is disabled' do
 
     it 'renders an in page link to the account request form' do
       expect(rendered).to have_css('a#js-request-access')
@@ -19,23 +21,7 @@ describe 'alaveteli_pro/account_request/index.html.erb' do
 
   end
 
-  context 'when pro_pricing is disabled' do
-
-    before do
-      render
-    end
-
-    it_behaves_like 'rendering account request form'
-
-  end
-
-  context 'when pro_pricing is enabled' do
-
-    before do
-      with_feature_enabled(:pro_pricing) do
-        render
-      end
-    end
+  context 'when pro_pricing is enabled', feature: :pro_pricing do
 
     it 'links to the pricing page' do
       expect(rendered).to have_link(href: pro_plans_path)
