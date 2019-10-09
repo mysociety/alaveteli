@@ -32,12 +32,20 @@ def get_fixtures_xapian_index
   path_array.pop
   temp_path = File.join(path_array, 'test.temp')
   FileUtils.remove_entry_secure(temp_path, force=true)
+
   begin
-    FileUtils.cp_r(original_xapian_path, temp_path)
+    File.read "#{ existing_xapian_db }/postlist.baseB"
   rescue Errno::ENOENT
-    sleep(3)
-    retry
+    Pathname.new(existing_xapian_db).children.each do |child|
+      begin
+        File.read(child)
+      rescue Errno::ENOENT
+        File.read(child)
+      end
+    end
   end
+
+  FileUtils.cp_r(original_xapian_path, temp_path)
   ActsAsXapian.db_path = temp_path
 end
 
