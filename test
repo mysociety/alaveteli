@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+
+require 'fileutils'
+require 'pathname'
+
+BASE_PATH = Pathname.new('/home/vagrant/alaveteli')
+XAPIAN_PATH = BASE_PATH + 'lib/acts_as_xapian/xapiandbs/test'
+TEST_PATH = BASE_PATH + 'xdb'
+
+def make_test_files
+  FileUtils.cp_r(XAPIAN_PATH, TEST_PATH)
+end
+
+def run_test
+  path_array = TEST_PATH.to_s.split(File::Separator)
+  path_array.pop
+  temp_path = File.join(path_array, 'xdb.temp')
+
+  FileUtils.remove_entry_secure(temp_path, force=true)
+  FileUtils.cp_r(TEST_PATH, temp_path)
+end
+
+def cleanup
+  FileUtils.rm_r(TEST_PATH, force: true)
+  FileUtils.rm_r((BASE_PATH + 'xdb.temp'), force: true)
+end
+
+make_test_files
+run_test
+cleanup
