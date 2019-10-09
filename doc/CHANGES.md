@@ -1,3 +1,9 @@
+# 0.29.0.5
+
+## Highlighted Features
+
+* Backport removal of `script/rails` (Gareth Rees)
+
 # 0.29.0.4
 
 ## Highlighted Features
