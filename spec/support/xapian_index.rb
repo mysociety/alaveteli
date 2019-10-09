@@ -6,6 +6,7 @@ def destroy_and_rebuild_xapian_index(terms = true, values = true, texts = true, 
       ActsAsXapian.readable_init
       FileUtils.rm_rf(ActsAsXapian.db_path)
     rescue RuntimeError
+      puts "RuntimeError destroy_and_rebuild_index dropfirst"
     end
     ActsAsXapian.writable_init
     ActsAsXapian.writable_db.close
