@@ -25,18 +25,30 @@ end
 # copy at the same level and point xapian at the copy
 def get_fixtures_xapian_index
   # Create a base index for the fixtures if not already created
-  existing_xapian_db ||= create_fixtures_xapian_index
+  $existing_xapian_db ||= create_fixtures_xapian_index
   # Store whatever the xapian db path is originally
-  original_xapian_path ||= ActsAsXapian.db_path
-  path_array = original_xapian_path.split(File::Separator)
+  $original_xapian_path ||= ActsAsXapian.db_path
+  path_array = $original_xapian_path.split(File::Separator)
   path_array.pop
   temp_path = File.join(path_array, 'test.temp')
   FileUtils.remove_entry_secure(temp_path, force=true)
 
-  begin
-    File.read "#{ existing_xapian_db }/postlist.baseB"
-  rescue Errno::ENOENT
-    Pathname.new(existing_xapian_db).children.each do |child|
+  #if ENV['USER'] == 'vagrant'
+    #begin
+      #File.read "#{ $original_xapian_path }/postlist.baseB"
+    #rescue Errno::ENOENT
+      #Pathname.new($original_xapian_path).children.each do |child|
+        #begin
+          #File.read(child)
+        #rescue Errno::ENOENT
+          #File.read(child)
+        #end
+      #end
+    #end
+  #end
+
+  if ENV['USER'] == 'vagrant'
+    Pathname.new($original_xapian_path).children.each do |child|
       begin
         File.read(child)
       rescue Errno::ENOENT
@@ -45,7 +57,7 @@ def get_fixtures_xapian_index
     end
   end
 
-  FileUtils.cp_r(original_xapian_path, temp_path)
+  FileUtils.cp_r($original_xapian_path, temp_path)
   ActsAsXapian.db_path = temp_path
 end
 
