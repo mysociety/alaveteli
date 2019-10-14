@@ -29,7 +29,7 @@
     httponly: { only: ['_wdtk_cookie_session'] },
     secure: { only: ['_wdtk_cookie_session'] },
     samesite: {
-      strict: { only: ['_wdtk_cookie_session'] }
+      lax: { only: ['_wdtk_cookie_session'] }
     }
   }
 end
