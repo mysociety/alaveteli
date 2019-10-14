@@ -2,6 +2,9 @@
 
 ## Highlighted Features
 
+* Fix rendering of Stripe errors (Graeme Porteous)
+* Fix wording on password reset page (Gareth Rees)
+* Add Facebook link to blog sidebar (Zarino Zappia)
 * Show incoming message attachments in admin interface (Gareth Rees)
 
 ## Upgrade Notes
