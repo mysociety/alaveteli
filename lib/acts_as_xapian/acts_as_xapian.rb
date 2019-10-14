@@ -119,8 +119,7 @@ module ActsAsXapian
 
     # make the directory for the xapian databases to go in
     Dir.mkdir(db_parent_path) unless File.exists?(db_parent_path)
-
-    @@db_path = File.join(db_parent_path, environment)
+    @@db_path = File.join(db_parent_path, "#{environment}#{ENV['TEST_ENV_NUMBER']}")
 
     # make some things that don't depend on the db
     # TODO: this gets made once for each acts_as_xapian. Oh well.

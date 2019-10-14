@@ -99,7 +99,7 @@ RSpec.configure do |config|
 
   # Clean up raw emails directory
   config.after(:suite) do
-    raw_email_dir = File.join(Rails.root, 'files/raw_email_test')
+    raw_email_dir = File.join(Rails.root, "files/raw_email_test#{ENV['TEST_ENV_NUMBER']}")
     if File.directory?(raw_email_dir)
       FileUtils.rm_rf(raw_email_dir)
     end

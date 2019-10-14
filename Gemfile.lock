@@ -261,6 +261,8 @@ GEM
       hodel_3000_compliant_logger
     open4 (1.3.4)
     parallel (1.13.0)
+    parallel_tests (2.29.2)
+      parallel
     parser (2.6.0.0)
       ast (~> 2.4.0)
     pg (0.20.0)
@@ -480,6 +482,7 @@ DEPENDENCIES
   nokogiri (~> 1.10.4)
   oink (~> 0.10.1)
   open4 (~> 1.3.0)
+  parallel_tests
   pg (~> 0.20.0)
   pry (~> 0.12.2)
   pry-byebug (~> 3.4.0)
@@ -517,3 +520,6 @@ DEPENDENCIES
   will_paginate (~> 3.1.6)
   xapian-full-alaveteli (~> 1.2.21.1)
   xml-simple (~> 1.1.0)
+
+BUNDLED WITH
+   1.16.1
