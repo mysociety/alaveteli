@@ -12,6 +12,16 @@
 
   .sidebar__section {
     margin-bottom: 3.5em;
+
+    .houdini-label {
+      color: #2688dc;
+      text-decoration: underline;
+      &:hover,
+      &:active,
+      &:focus {
+        color: #000;
+      }
+    }
   }
 }
 

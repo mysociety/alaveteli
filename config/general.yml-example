@@ -554,7 +554,7 @@ USE_GHOSTSCRIPT_COMPRESSION: false
 # ---
 GEOIP_DATABASE: vendor/data/GeoLite2-Country.mmdb
 
-# In the absence of a GeoIP database (see above), Alateveli can use Gaze,
+# In the absence of a GeoIP database (see above), Alaveteli can use Gaze,
 # mySociety's gazeteer, to determine the country from the IP address of an HTTP
 # request to the site. You shouldn't normally need to change this.
 #
@@ -1252,3 +1252,16 @@ PRO_REFERRAL_COUPON: ''
 #
 # ---
 ENABLE_PRO_PRICING: false
+
+# This option is only used when ENABLE_PRO_PRICING is set to false.
+#
+# If ENABLE_PRO_SELF_SERVE is set to true, Alaveteli will let users upgrade
+# their accounts to Pro without needing to enter payment details.
+#
+# If ENABLE_PRO_SELF_SERVE is set to false, admins will receive an account
+# request email and has to assign the role in the Alaveteli admin interface.
+#
+# ENABLE_PRO_SELF_SERVE – Boolean (default: false)
+#
+# ---
+ENABLE_PRO_SELF_SERVE: false

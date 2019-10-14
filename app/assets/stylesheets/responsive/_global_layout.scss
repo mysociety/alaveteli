@@ -341,3 +341,15 @@ textarea{
 .inner-canvas-body {
   padding-top: 2em;
 }
+
+//Houdini customisations
+
+.houdini-input {
+  //should be hidden from view with no height
+  margin: 0 !important;
+  height: 0 !important;
+}
+
+.houdini-target {
+  margin-top: 1.5em;
+}

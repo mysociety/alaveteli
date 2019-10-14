@@ -18,15 +18,7 @@ $complete: rgb(112, 203, 99);
 .request__title {
   font-size: 1.1875em; // 19px
   font-weight: 600;
-  text-decoration: none !important; //houdini sets this so we'll aggressively unset it
-  a {
-    text-decoration: none;
-    &:hover,
-    &:active,
-    &:focus {
-      text-decoration: underline;
-    }
-  }
+  color: $primary-color;
 }
 
 .request--action_needed {

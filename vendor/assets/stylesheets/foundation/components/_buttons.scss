@@ -164,7 +164,11 @@ $button-disabled-cursor: $cursor-default-value !default;
     &:focus { background-color: $bg-hover; }
 
     // We control the text color for you based on the background color.
-    color: if($bg-lightness > 70%, $button-font-color-alt, $button-font-color);
+    &,
+    &:link,
+    &:visited {
+      color: if($bg-lightness > 70%, $button-font-color-alt, $button-font-color);
+    }
 
     &:hover,
     &:focus {
@@ -215,7 +219,7 @@ $button-disabled-cursor: $cursor-default-value !default;
   @if $include-html-button-classes {
 
     // Default styles applied outside of media query
-    button, .button {
+    button, .button, a.button {
       @include button-base;
       @include button-size;
       @include button-style;
@@ -252,7 +256,7 @@ $button-disabled-cursor: $cursor-default-value !default;
     button::-moz-focus-inner {border:0; padding:0;}
 
     @media #{$medium-up} {
-      button, .button {
+      button, .button, a.button {
         @include button-base($style:false, $display:inline-block);
         @include button-size($padding:false, $full-width:false);
       }
