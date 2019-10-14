@@ -11,7 +11,7 @@ namespace :config_files do
       line = line.gsub(ugly_var) do |match|
         var = $1.to_sym
         replacement = replacements[var]
-        if replacement == nil
+        if replacement.nil?
           raise "Unhandled variable in example file: $#{var}"
         else
           replacements[var]
