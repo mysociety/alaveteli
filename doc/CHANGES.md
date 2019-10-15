@@ -1,3 +1,10 @@
+# 0.29.0.6
+
+## Highlighted Features
+
+* Backport fix for `script/compact-xapian-database` when running on operating
+  systems that use systemd (Gareth Rees)
+
 # 0.29.0.5
 
 ## Highlighted Features
