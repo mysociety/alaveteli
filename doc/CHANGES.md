@@ -82,6 +82,8 @@
 
 ## Upgrade Notes
 
+* Update your theme's `lib/alavetelitheme.rb` with
+  https://github.com/mysociety/alavetelitheme/commit/e08fbdbb11dd6ede3a5490f0ac6a5f73c1c3b216
 * Run `bundle exec rake temp:update_params_yaml` to prevent errors when trying to
   load stored event log params after upgrading to Rails 5.0.
 * This version of Rails offers database environment protection. We recommend
