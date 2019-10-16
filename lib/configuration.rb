@@ -51,6 +51,7 @@ module AlaveteliConfiguration
       :ENABLE_WIDGETS => false,
       :ENABLE_ALAVETELI_PRO => false,
       :ENABLE_PRO_PRICING => false,
+      :ENABLE_PRO_SELF_SERVE => false,
       :EXCEPTION_NOTIFICATIONS_FROM => 'errors@localhost',
       :EXCEPTION_NOTIFICATIONS_TO => 'user-support@localhost',
       :FORCE_REGISTRATION_ON_NEW_REQUEST => false,

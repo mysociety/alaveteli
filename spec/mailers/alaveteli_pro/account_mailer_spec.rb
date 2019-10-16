@@ -8,8 +8,7 @@ describe AlaveteliPro::AccountMailer do
       AlaveteliPro::AccountRequest.new(email: 'test@localhost',
                                        reason: 'Have a look around',
                                        marketing_emails: 'no',
-                                       training_emails: 'yes',
-                                       offer_code: 'SPECIAL')
+                                       training_emails: 'yes')
     end
 
     before do
@@ -40,10 +39,6 @@ describe AlaveteliPro::AccountMailer do
 
     it 'includes the reason' do
       expect(@message.body).to match(account_request.reason)
-    end
-
-    it 'includes the offer code' do
-      expect(@message.body).to match(account_request.offer_code)
     end
 
     it 'includes the marketing emails opt-in' do

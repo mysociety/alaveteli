@@ -13,33 +13,6 @@ describe AlaveteliPro::AccountRequestController do
       get :index
       expect(assigns[:in_pro_area]).to eq true
     end
-
-    it 'assigns public beta variable' do
-      get :index
-      expect(assigns[:public_beta]).to eq true
-    end
-
-    it 'assigns pro site name variable' do
-      get :index
-      expect(assigns(:pro_site_name)).to eq AlaveteliConfiguration.pro_site_name
-    end
-  end
-
-  describe "#new" do
-    it "renders index.html.erb" do
-      get :new
-      expect(response).to render_template('index')
-    end
-
-    it 'sets the pro livery' do
-      get :new
-      expect(assigns[:in_pro_area]).to eq true
-    end
-
-    it 'does not assign public beta variable' do
-      get :new
-      expect(assigns[:public_beta]).to_not eq true
-    end
   end
 
   describe "#create" do
@@ -84,6 +57,61 @@ describe AlaveteliPro::AccountRequestController do
       it 'renders the index template' do
         post :create, params: { account_request: {} }
         expect(response).to render_template('index')
+      end
+
+    end
+
+    context 'when pro_pricing is enabled', feature: :pro_pricing do
+
+      it 'redirects to the pro plans' do
+        post :create
+        expect(response).to redirect_to pro_plans_path
+      end
+
+    end
+
+    context 'when pro_self_serve is enabled', feature: :pro_self_serve do
+
+      context 'when current user is signed out' do
+
+        it 'redirects to sign in' do
+          post :create
+          expect(response).to redirect_to(
+            signin_path(token: get_last_post_redirect.token)
+          )
+        end
+
+      end
+
+      context 'when current user is signed in' do
+
+        let(:user) { FactoryBot.create(:user) }
+
+        before do
+          session[:user_id] = user.id
+          allow(controller).to receive(:current_user).and_return(user)
+        end
+
+        it 'adds the pro role' do
+          post :create
+          expect(user.is_pro?).to eq(true)
+        end
+
+        it 'welcomes the new user' do
+          post :create
+          expect(flash[:notice]).to eq('Welcome to Alaveteli Professional!')
+        end
+
+        it 'sets new_pro_user in flash' do
+          post :create
+          expect(flash[:new_pro_user]).to be true
+        end
+
+        it 'redirects to the pro dashboard' do
+          post :create
+          expect(response).to redirect_to(alaveteli_pro_dashboard_path)
+        end
+
       end
 
     end

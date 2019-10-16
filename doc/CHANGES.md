@@ -6,6 +6,8 @@
 * Fix wording on password reset page (Gareth Rees)
 * Add Facebook link to blog sidebar (Zarino Zappia)
 * Show incoming message attachments in admin interface (Gareth Rees)
+* Add self serve configuration option to allow users to upgrade their accounts
+  to Pro, bypassing the payment/subscription form (Graeme Porteous)
 
 ## Upgrade Notes
 

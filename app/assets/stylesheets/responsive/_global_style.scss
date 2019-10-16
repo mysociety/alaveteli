@@ -452,25 +452,3 @@ button,
     }
   }
 }
-
-//Houdini customisations
-
-.houdini-input {
-  //should be hidden from view with no height
-  margin: 0 !important;
-  height: 0 !important;
-}
-
-.houdini-label {
-  color: #2688dc;
-  text-decoration: underline;
-    &:hover,
-    &:active,
-    &:focus {
-      color: #000;
-    }
-}
-
-.houdini-target {
-  margin-top: 1.5em;
-}

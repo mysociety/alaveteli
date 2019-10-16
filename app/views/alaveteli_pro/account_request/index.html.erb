@@ -3,19 +3,21 @@
     <h1>
       <%= _('{{pro_site_name}} is a powerful, fully-featured FOI toolkit ' \
             'for journalists',
-            pro_site_name: @pro_site_name.html_safe) %>
+            pro_site_name: pro_site_name) %>
     </h1>
     <h2>
       <%= _('Everything you need to keep on top of complex FOI-driven ' \
             'stories.') %>
     </h2>
     <div class="marketing__hero__cta">
-      <% if @public_beta && feature_enabled?(:pro_pricing) %>
-       <%= link_to _('Plans and pricing'), pro_plans_path, :class => "button" %>
+      <% if feature_enabled?(:pro_pricing) %>
+        <%= link_to _('Plans and pricing'), pro_plans_path, class: "button" %>
+      <% elsif feature_enabled?(:pro_self_serve) %>
+        <%= render partial: 'self_serve_button' %>
       <% else %>
-        <h3><%= _("Now in beta") %></h3>
-        <a href="#input-beta" class="button" id="launch-access">
-          <%= _("Get pre-launch access") %>
+        <a href="#input-account-request" class="button" id="js-request-access">
+          <%= _('Request access to {{pro_site_name}}',
+                pro_site_name: pro_site_name) %>
         </a>
       <% end %>
     </div>
@@ -23,7 +25,7 @@
 </div>
 <div class="marketing__section">
   <div class="marketing__section__heading">
-    <h2><%= @pro_site_name.html_safe %></h2>
+    <h2><%= pro_site_name %></h2>
     <p><%= _('An all-in-one FOI toolkit for journalists, activists and ' \
              'campaigners') %></p>
   </div>
@@ -57,13 +59,13 @@
         <div class="side-by-side-element">
           <a href="<%= image_path("alaveteli-pro/screenshot-dashboard.jpg") %>">
             <%= image_tag("alaveteli-pro/screenshot-dashboard.jpg",
-                          :alt => _("Pro brings a new dashboard view")) %>
+                          alt: _("Pro brings a new dashboard view")) %>
           </a>
         </div>
         <div class="side-by-side-element">
           <a href="<%= image_path("alaveteli-pro/screenshot-requests.jpg") %>">
             <%= image_tag("alaveteli-pro/screenshot-requests.jpg",
-                          :alt => _("Pro features a new request list view")) %>
+                          alt: _("Pro features a new request list view")) %>
           </a>
         </div>
       </div>
@@ -76,7 +78,7 @@
              site_name: site_name) %></h2>
     <p><%= _('<strong>{{pro_site_name}}</strong> runs on the UK’s ' \
              'best-known FOI service',
-             pro_site_name: @pro_site_name.html_safe) %></p>
+             pro_site_name: pro_site_name) %></p>
   </div>
   <div class="marketing__section__content">
     <div class="marketing__section__content-items">
@@ -129,21 +131,23 @@
         <div class="side-by-side-element">
           <a href="<%= image_path("alaveteli-pro/screenshot-batch-selection.jpg") %>">
             <%= image_tag("alaveteli-pro/screenshot-batch-selection.jpg",
-                          :alt => _("Batch requests allow multiple recipients" \
+                          alt: _("Batch requests allow multiple recipients" \
                                     " of a single request")) %>
           </a>
         </div>
         <div class="side-by-side-element">
           <a href="<%= image_path("alaveteli-pro/screenshot-batch-list.jpg") %>">
             <%= image_tag("alaveteli-pro/screenshot-batch-list.jpg",
-                        :alt => _("Batch requests are part of a new workflow")) %>
+                        alt: _("Batch requests are part of a new workflow")) %>
           </a>
         </div>
       </div>
-      <% if @public_beta && feature_enabled?(:pro_pricing) %>
-        <%= link_to _('Plans and pricing'), pro_plans_path, :class => "button" %>
+      <% if feature_enabled?(:pro_pricing) %>
+        <%= link_to _('Plans and pricing'), pro_plans_path, class: "button" %>
+      <% elsif feature_enabled?(:pro_self_serve) %>
+        <%= render partial: 'self_serve_button' %>
       <% else %>
-        <%= render :partial => 'account_request_form' %>
+        <%= render partial: 'account_request_form' %>
       <% end %>
     </div>
   </div>
