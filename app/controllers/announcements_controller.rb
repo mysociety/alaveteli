@@ -24,7 +24,7 @@ class AnnouncementsController < ApplicationController
   end
 
   def store_dismissal_in_session
-    session[:announcement_dismissals] ||= Array.new
+    session[:announcement_dismissals] ||= []
     session[:announcement_dismissals] << announcement.id
   end
 end
