@@ -8,6 +8,8 @@
 * Show incoming message attachments in admin interface (Gareth Rees)
 * Add self serve configuration option to allow users to upgrade their accounts
   to Pro, bypassing the payment/subscription form (Graeme Porteous)
+* Fix users updated at timestamps being inadvertently changed by background jobs
+  (Graeme Porteous)
 
 ## Upgrade Notes
 
