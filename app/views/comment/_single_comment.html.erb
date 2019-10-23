@@ -36,12 +36,12 @@
       <% unless @info_request.embargo %>
         <div class="correspondence__footer__cplink">
           <input type="text" id="cplink__field" class="cplink__field" value="<%= comment_url(comment) %>">
-          <button class="cplink__button button"><%= _('Link to this') %></button>
+          <a class="cplink__button"><%= _('Link to this') %></a>
 
           <% report_path =
                new_request_report_path(request_id: @info_request.url_title,
                                        comment_id: comment.id) %>
-          <%= link_to _('Report'), report_path, class: 'cplink__button button' %>
+          <%= link_to _('Report'), report_path, class: 'cplink__button' %>
         </div>
       <% end %>
     </div>
