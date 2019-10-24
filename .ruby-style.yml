@@ -640,7 +640,7 @@ Style/ModuleFunction:
 Style/MultilineBlockChain:
   Description: 'Avoid multi-line chains of blocks.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#single-line-blocks'
-  Enabled: false
+  Enabled: true
 
 Style/MultilineIfThen:
   Description: 'Do not use then for multi-line if/unless.'
@@ -679,7 +679,7 @@ Style/NestedParenthesizedCalls:
   Description: >-
                  Parenthesize method calls which are nested inside the
                  argument list of another parenthesized method call.
-  Enabled: false
+  Enabled: true
 
 Style/NestedTernaryOperator:
   Description: 'Use one expression per branch in a ternary operator.'
@@ -711,12 +711,12 @@ Style/NumericLiterals:
                  Add underscores to large numeric literals to improve their
                  readability.
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#underscores-in-numerics'
-  Enabled: false
+  Enabled: true
 
 Style/NumericLiteralPrefix:
   Description: 'Use smallcase prefixes for numeric literals.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#numeric-literal-prefixes'
-  Enabled: false
+  Enabled: true
 
 Style/OneLineConditional:
   Description: >-
@@ -730,7 +730,7 @@ Style/OptionalArguments:
                  Checks for optional arguments that do not appear at the end
                  of the argument list
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#optional-arguments'
-  Enabled: false
+  Enabled: true
 
 Style/ParallelAssignment:
   Description: >-
@@ -738,14 +738,14 @@ Style/ParallelAssignment:
                   It will only warn when the number of variables
                   matches on both sides of the assignment.
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#parallel-assignment'
-  Enabled: false
+  Enabled: true
 
 Style/ParenthesesAroundCondition:
   Description: >-
                  Don't use parentheses around the condition of an
                  if/unless/while.
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-parens-if'
-  Enabled: false
+  Enabled: true
 
 Style/PercentLiteralDelimiters:
   Description: 'Use `%`-literal delimiters consistently'
@@ -769,17 +769,17 @@ Style/Proc:
 Style/RaiseArgs:
   Description: 'Checks the arguments passed to raise/fail.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#exception-class-messages'
-  Enabled: false
+  Enabled: true
 
 Style/RedundantBegin:
   Description: "Don't use begin blocks when they are not needed."
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#begin-implicit'
-  Enabled: false
+  Enabled: true
 
 Style/RedundantException:
   Description: "Checks for an obsolete RuntimeException argument in raise/fail."
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-explicit-runtimeerror'
-  Enabled: false
+  Enabled: true
 
 Style/RedundantFreeze:
   Description: "Checks usages of Object#freeze on immutable objects."
