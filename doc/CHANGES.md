@@ -1,3 +1,10 @@
+# 0.29.0.7
+
+## Highlighted Features
+
+* Backport fix making session cookie lax
+  (See: https://github.com/mysociety/alaveteli/issues/5046) (Gareth Rees)
+
 # 0.29.0.6
 
 ## Highlighted Features
