@@ -96,7 +96,7 @@ class User < ApplicationRecord
            -> { order('created_at desc') },
            :inverse_of => :user,
            :dependent => :destroy,
-           :class_name => AlaveteliPro::DraftInfoRequestBatch
+           :class_name => 'AlaveteliPro::DraftInfoRequestBatch'
   has_many :request_classifications,
            :inverse_of => :user,
            :dependent => :destroy
@@ -106,7 +106,7 @@ class User < ApplicationRecord
   has_many :request_summaries,
            :inverse_of => :user,
            :dependent => :destroy,
-           :class_name => AlaveteliPro::RequestSummary
+           :class_name => 'AlaveteliPro::RequestSummary'
   has_many :notifications,
            :inverse_of => :user,
            :dependent => :destroy
