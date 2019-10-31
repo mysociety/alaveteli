@@ -14,6 +14,10 @@
       <%= f.password_field :password, :size => 15, :autocomplete => 'off' %>
     </p>
 
+    <div class="form_item_note">
+      <%= _('12 characters minimum. 72 characters maximum.') %>
+    </div>
+
     <p>
       <%= f.label :password_confirmation, _('New password: (again)'), :class => 'form_label' %>
       <%= f.password_field :password_confirmation, :size => 15, :autocomplete => 'off' %>

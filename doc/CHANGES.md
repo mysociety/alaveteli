@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add the password requirements to change password form (Gareth Rees)
 * Fix rendering of Stripe errors (Graeme Porteous)
 * Fix wording on password reset page (Gareth Rees)
 * Add Facebook link to blog sidebar (Zarino Zappia)
