@@ -853,8 +853,17 @@ class PublicBody < ApplicationRecord
       end
 
       select(select_sql).
-        joins(%Q(LEFT OUTER JOIN public_body_translations as current_locale ON (public_bodies.id = current_locale.public_body_id AND current_locale.locale = #{sanitize(underscore_locale)}))).
-        joins(%Q(LEFT OUTER JOIN public_body_translations as default_locale ON (public_bodies.id = default_locale.public_body_id AND default_locale.locale = #{sanitize(underscore_default_locale)}))).
+        joins(
+          "LEFT OUTER JOIN public_body_translations as current_locale ON " \
+          "(public_bodies.id = current_locale.public_body_id AND " \
+          "current_locale.locale = '#{sanitize_sql(underscore_locale)}')"
+        ).
+        joins(
+          "LEFT OUTER JOIN public_body_translations as default_locale ON " \
+          "(public_bodies.id = default_locale.public_body_id AND " \
+          "default_locale.locale = " \
+          "'#{sanitize_sql(underscore_default_locale)}')"
+        ).
         where("(#{get_public_body_list_translated_condition('current_locale', has_first_letter)}) OR " \
               "(#{get_public_body_list_translated_condition('default_locale', has_first_letter)}) ", where_parameters).
         where('COALESCE(current_locale.name, default_locale.name) IS NOT NULL').
