@@ -79,8 +79,7 @@ class PasswordChangesController < ApplicationController
       @password_change_user.password_confirmation =
         params[:password_change_user][:password_confirmation]
 
-      if AlaveteliConfiguration.enable_two_factor_auth &&
-         @password_change_user.otp_enabled?
+      if otp_enabled?(@password_change_user)
             @password_change_user.entered_otp_code =
               params[:password_change_user][:otp_code]
             @password_change_user.require_otp = true
@@ -90,8 +89,7 @@ class PasswordChangesController < ApplicationController
         session[:user_id] ||= @password_change_user.id
 
         if @pretoken_redirect
-          if AlaveteliConfiguration.enable_two_factor_auth &&
-             @password_change_user.otp_enabled?
+          if otp_enabled?(@password_change_user)
                 msg = _("Your password has been changed. " \
                         "You also have a new one time passcode which you'll " \
                         "need next time you want to change your password")
@@ -101,8 +99,7 @@ class PasswordChangesController < ApplicationController
                         notice: _('Your password has been changed.')
           end
         else
-          if AlaveteliConfiguration.enable_two_factor_auth &&
-             @password_change_user.otp_enabled?
+          if otp_enabled?(@password_change_user)
                 msg = _("Your password has been changed. " \
                         "You also have a new one time passcode which you'll " \
                         "need next time you want to change your password")
