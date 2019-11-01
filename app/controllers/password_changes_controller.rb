@@ -62,6 +62,7 @@ class PasswordChangesController < ApplicationController
 
   def edit
     if @password_change_user
+      @otp_enabled = otp_enabled?(@password_change_user)
       render :edit
     else
       redirect_to new_password_change_path(@pretoken_hash)
@@ -138,4 +139,7 @@ class PasswordChangesController < ApplicationController
       end
   end
 
+  def otp_enabled?(user)
+    AlaveteliConfiguration.enable_two_factor_auth && user.otp_enabled?
+  end
 end

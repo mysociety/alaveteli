@@ -32,10 +32,6 @@
                            autocomplete: 'off' %>
     </p>
 
-    <% @otp_enabled =
-      AlaveteliConfiguration.enable_two_factor_auth &&
-      @password_change_user.otp_enabled? %>
-
     <% if @otp_enabled %>
       <p>
         <%= f.label :otp_code, class: 'form_label' do %>
