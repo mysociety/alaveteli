@@ -783,21 +783,21 @@ Style/RedundantException:
 
 Style/RedundantFreeze:
   Description: "Checks usages of Object#freeze on immutable objects."
-  Enabled: false
+  Enabled: true
 
 Style/RedundantParentheses:
   Description: "Checks for parentheses that seem not to serve any purpose."
-  Enabled: false
+  Enabled: true
 
 Style/RedundantReturn:
   Description: "Don't use return where it's not required."
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-explicit-return'
-  Enabled: false
+  Enabled: true
 
 Style/RedundantSelf:
   Description: "Don't use self where it's not needed."
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-self-unless-required'
-  Enabled: false
+  Enabled: true
 
 Style/RegexpLiteral:
   Description: 'Use / or %r around regular expressions.'
@@ -807,24 +807,24 @@ Style/RegexpLiteral:
 Style/RescueModifier:
   Description: 'Avoid using rescue in its modifier form.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-rescue-modifiers'
-  Enabled: false
+  Enabled: true
 
 Style/SelfAssignment:
   Description: >-
                  Checks for places where self-assignment shorthand should have
                  been used.
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#self-assignment'
-  Enabled: false
+  Enabled: true
 
 Style/Semicolon:
   Description: "Don't use semicolons to terminate expressions."
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-semicolon'
-  Enabled: false
+  Enabled: true
 
 Style/SignalException:
   Description: 'Checks for proper usage of fail and raise.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#prefer-raise-over-fail'
-  Enabled: false
+  Enabled: true
 
 Style/SingleLineBlockParams:
   Description: 'Enforces the names of some block params.'
@@ -834,12 +834,12 @@ Style/SingleLineBlockParams:
 Style/SingleLineMethods:
   Description: 'Avoid single-line methods.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-single-line-methods'
-  Enabled: false
+  Enabled: true
 
 Style/SpecialGlobalVars:
   Description: 'Avoid Perl-style global variables.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-cryptic-perlisms'
-  Enabled: false
+  Enabled: true
 
 Style/StabbyLambdaParentheses:
   Description: 'Check for the usage of parentheses around stabby lambda arguments.'
