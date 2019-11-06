@@ -95,7 +95,7 @@ class Comment < ApplicationRecord
 
   # So when takes changes it updates, or when made invisble it vanishes
   def event_xapian_update
-    info_request_events.each { |event| event.xapian_mark_needs_index }
+    info_request_events.find_each { |event| event.xapian_mark_needs_index }
   end
 
   # Return body for display as HTML

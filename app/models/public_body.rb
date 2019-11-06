@@ -924,8 +924,8 @@ class PublicBody < ApplicationRecord
       return unless changes.include?('url_name')
     end
 
-    info_requests.each do |info_request|
-      info_request.info_request_events.each do |info_request_event|
+    info_requests.find_each do |info_request|
+      info_request.info_request_events.find_each do |info_request_event|
         info_request_event.xapian_mark_needs_index
       end
     end
