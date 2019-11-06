@@ -42,6 +42,10 @@ describe AlaveteliPro::MetricsReport do
         3.times { FactoryBot.create(:info_request, user: pro_user) }
         FactoryBot.create(:info_request_batch,
                           :sent, :embargoed, user: pro_user)
+        FactoryBot.create(:embargo_expired_request,
+                          user: pro_user)
+        FactoryBot.create(:re_embargoed_request,
+                          user: pro_user)
       }
     end
 
@@ -60,11 +64,11 @@ describe AlaveteliPro::MetricsReport do
     it { is_expected.to be_a(Hash) }
 
     it 'does not include non-pro requests in requests made count' do
-      expect(subject[:new_pro_requests]).to eq 4
+      expect(subject[:new_pro_requests]).to eq 6
     end
 
     it 'returns the estimated (total) number of Pro requests' do
-      expect(subject[:estimated_total_pro_requests]).to eq 5
+      expect(subject[:estimated_total_pro_requests]).to eq 7
     end
 
     it 'returns the number of batch requests' do
@@ -81,6 +85,10 @@ describe AlaveteliPro::MetricsReport do
 
     it 'does not include non-pro activity in the active user count' do
       expect(subject[:active_accounts]).to eq 1
+    end
+
+    it 'include expired embargoes but not re-embargoed requests' do
+      expect(subject[:expired_embargoes]).to eq 1
     end
   end
 

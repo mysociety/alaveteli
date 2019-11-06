@@ -28,7 +28,8 @@ module AlaveteliPro
           new_batches: number_of_batch_requests_created_this_week,
           new_signups: number_of_pro_signups_this_week,
           total_accounts: total_number_of_pro_accounts,
-          active_accounts: number_of_pro_accounts_active_this_week
+          active_accounts: number_of_pro_accounts_active_this_week,
+          expired_embargoes: number_of_expired_embargoes_this_week
         }
 
       data.merge!(stripe_report_data) if includes_pricing_data?
@@ -94,6 +95,14 @@ module AlaveteliPro
         where(info_request_events: {
                 created_at: report_period,
                 event_type: events
+              }).distinct.count
+    end
+
+    def number_of_expired_embargoes_this_week
+      InfoRequest.not_embargoed.joins(:info_request_events).
+        where(info_request_events: {
+                event_type: 'expire_embargo',
+                created_at: report_period
               }).distinct.count
     end
 

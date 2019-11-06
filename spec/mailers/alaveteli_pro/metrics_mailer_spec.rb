@@ -9,6 +9,7 @@ RSpec.describe AlaveteliPro::MetricsMailer do
       new_signups: 5,
       total_accounts: 284,
       active_accounts: 42,
+      expired_embargoes: 17,
       paying_users: 44,
       discounted_users: 7,
       trialing_users: 8,
@@ -62,6 +63,12 @@ RSpec.describe AlaveteliPro::MetricsMailer do
 
     it 'includes the number of Pro accounts' do
       expect(message.body).to include('Total number of Pro accounts: 284')
+    end
+
+    it 'includes the number of expired embargoes' do
+      expect(message.body).to include(
+        'Number of expired embargoes this week: 17'
+      )
     end
 
     context 'pro pricing disabled' do
