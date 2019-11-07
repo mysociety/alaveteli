@@ -31,7 +31,7 @@ describe "public_body/list" do
 
   it "should be successful" do
     render
-    expect(controller.response).to be_success
+    expect(controller.response).to be_successful
   end
 
   it "should show the body's name" do

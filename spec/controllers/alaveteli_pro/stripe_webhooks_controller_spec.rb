@@ -79,7 +79,7 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
     it 'returns a successful response for correctly signed headers' do
       send_request
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     context 'the secret is not in the request' do

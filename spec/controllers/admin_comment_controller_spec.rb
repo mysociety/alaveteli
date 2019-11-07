@@ -45,7 +45,7 @@ describe AdminCommentController do
 
     it 'responds successfully' do
       get :index, session: { :user_id => admin_user.id }
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'does not include comments on embargoed requests if the current user is

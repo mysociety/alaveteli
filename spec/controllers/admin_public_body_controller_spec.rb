@@ -7,7 +7,7 @@ describe AdminPublicBodyController do
 
     it "returns successfully" do
       get :index
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it "searches for 'humpa'" do
@@ -32,7 +32,7 @@ describe AdminPublicBodyController do
     it "returns successfully" do
       get :show, params: { :id => public_body.id },
                  session: { :user_id => admin_user.id }
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it "sets a using_admin flag" do
@@ -89,7 +89,7 @@ describe AdminPublicBodyController do
 
     it 'responds successfully' do
       get :new
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'should assign a new public body to the view' do
@@ -326,7 +326,7 @@ describe AdminPublicBodyController do
 
     it 'responds successfully' do
       get :edit, params: { :id => @body.id }
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'finds the requested body' do
@@ -683,7 +683,7 @@ describe AdminPublicBodyController do
 
       it 'should get the page successfully' do
         get :import_csv
-        expect(response).to be_success
+        expect(response).to be_successful
       end
 
     end
@@ -697,7 +697,7 @@ describe AdminPublicBodyController do
 
       it 'should handle a nil csv file param' do
         post :import_csv, params: { :commit => 'Dry run' }
-        expect(response).to be_success
+        expect(response).to be_successful
       end
 
       describe 'if there is a csv file param' do

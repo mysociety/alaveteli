@@ -19,7 +19,7 @@ describe UserController do
 
     it 'should be successful' do
       get :show, params: { url_name: user.url_name }
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'raises a RecordNotFound for non-existent users' do
@@ -58,7 +58,7 @@ describe UserController do
         FactoryBot.create(:user,
                           name: 'Bob Smith Bob Smith Bob Smith Bob Smith')
         get :show, params: { url_name: 'bob_smith_bob_smith_bob_smith_bo_2' }
-        expect(response).to be_success
+        expect(response).to be_successful
       end
 
     end

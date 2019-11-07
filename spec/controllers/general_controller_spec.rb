@@ -158,7 +158,7 @@ describe GeneralController, "when showing the frontpage" do
 
   it "should render the front page successfully" do
     get :frontpage
-    expect(response).to be_success
+    expect(response).to be_successful
   end
 
   it "should render the front page with default language" do
@@ -205,7 +205,7 @@ describe GeneralController, "when showing the frontpage" do
   it "doesn't raise an error when there's no user matching the one in the session" do
     session[:user_id] = 999
     get :frontpage
-    expect(response).to be_success
+    expect(response).to be_successful
   end
 
   describe 'when using locales' do
@@ -246,7 +246,7 @@ describe GeneralController, "when showing the frontpage" do
     it "should render the front page successfully with post_redirect if post_params is not set" do
       session[:post_redirect_token] = 'orphaned_token'
       get :frontpage, params: { :post_redirect => 1 }
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response).to have_http_status(200)
     end
 

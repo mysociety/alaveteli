@@ -95,7 +95,7 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
 
     it 'should be successful' do
       get :edit, params: { :id => @incoming.id }
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'should assign the incoming message to the view' do
