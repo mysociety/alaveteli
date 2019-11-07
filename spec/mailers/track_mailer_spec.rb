@@ -2,8 +2,22 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe TrackMailer do
+  describe '.alert_tracks' do
+    subject { described_class.alert_tracks }
 
-  describe 'when sending email alerts for tracked things' do
+    let(:user) do
+      user = FactoryBot.create(:user,
+                               name: 'test',
+                               url_name: 'test-name',
+                               last_daily_track_email: 2.days.ago,
+                               updated_at: 1.day.ago)
+      user.no_xapian_reindex = false
+      request = FactoryBot.create(:info_request)
+      FactoryBot.create(:track_thing,
+                        tracking_user: user,
+                        info_request_id: request.id)
+      user
+    end
 
     before do
       mail_mock = double("mail")
@@ -13,67 +27,51 @@ describe TrackMailer do
       get_fixtures_xapian_index
     end
 
-    it 'should ask for all the users whose last daily track email was sent more than a day ago' do
+    it 'asks for all the users whose last daily track email was sent more than a day ago' do
       expected_conditions = [ "last_daily_track_email < ?", Time.utc(2007, 11, 11, 23, 59)]
       expect(User).
         to receive(:where).with(expected_conditions).and_call_original
-      TrackMailer.alert_tracks
+      subject
     end
 
     describe 'for each user' do
-
       before do
-        @user = mock_model(User, :no_xapian_reindex= => false,
-                           :last_daily_track_email= => true,
-                           :save! => true,
-                           :url_name => 'test-name',
-                           :get_locale => 'en',
-                           :should_be_emailed? => true)
-        klass = User::ActiveRecord_Relation
-        allow_any_instance_of(klass).to receive(:find_each).and_yield(@user)
-        allow(@user).to receive(:receive_email_alerts).and_return(true)
-        allow(@user).to receive(:no_xapian_reindex=)
+        allow(User).to receive_message_chain(:where, :find_each).and_yield(user)
+        allow(user).to receive(:receive_email_alerts).and_return(true)
+        allow(user).to receive(:no_xapian_reindex=)
       end
 
-      it 'should ask for any daily track things for the user' do
+      it 'asks for any daily track things for the user' do
         expected_conditions = {
-          :tracking_user_id => @user.id,
-          :track_medium => "email_daily"
+          tracking_user_id: user.id,
+          track_medium: 'email_daily'
         }
         expect(TrackThing).
           to receive(:where).with(expected_conditions).and_return([])
-        TrackMailer.alert_tracks
+        subject
       end
 
-
-      it 'should set the no_xapian_reindex flag on the user' do
-        expect(@user).to receive(:no_xapian_reindex=).with(true)
-        TrackMailer.alert_tracks
+      it 'sets the no_xapian_reindex flag on the user' do
+        expect(user).to receive(:no_xapian_reindex=).with(true)
+        subject
       end
 
-      it 'should update the time of the user\'s last daily tracking email' do
-        expect(@user).to receive(:last_daily_track_email=).with(Time.zone.now)
-        expect(@user).to receive(:save!).with(touch: false)
-        TrackMailer.alert_tracks
+      it "updates the time of the user's last daily tracking email" do
+        expect(user).to receive(:last_daily_track_email=).with(Time.zone.now)
+        expect(user).to receive(:save!).with(touch: false)
+        subject
       end
 
       it "does not update the user's last updated timestamp" do
-        @user = FactoryBot.create(:user, updated_at: Time.zone.now - 1.day)
-        klass = User::ActiveRecord_Relation
-        allow_any_instance_of(klass).to receive(:find_each).and_yield(@user)
         expect {
-          TrackMailer.alert_tracks
-          @user.reload
-        }.to_not change(@user, :updated_at)
+          subject
+          user.reload
+        }.to_not change(user, :updated_at)
       end
 
-      it 'should return true' do
-        expect(TrackMailer.alert_tracks).to eq(true)
-      end
-
+      it { is_expected.to eq(true) }
 
       describe 'for each tracked thing' do
-
         before do
           @track_things_sent_emails_array = []
           allow(@track_things_sent_emails_array).to receive(:where).and_return([]) # this is for the date range find (created in last 14 days)
@@ -143,44 +141,43 @@ describe TrackMailer do
 
     describe 'when a user should not be emailed' do
       before do
-        @user = mock_model(User, :no_xapian_reindex= => false,
-                           :last_daily_track_email= => true,
-                           :save! => true,
-                           :url_name => 'test-name',
-                           :should_be_emailed? => false)
-        klass = User::ActiveRecord_Relation
-        allow_any_instance_of(klass).to receive(:find_each).and_yield(@user)
-        allow(@user).to receive(:receive_email_alerts).and_return(true)
-        allow(@user).to receive(:no_xapian_reindex=)
+        allow(User).to receive_message_chain(:where, :find_each).and_yield(user)
+        allow(user).to receive(:should_be_emailed?).and_return(false)
+        allow(user).to receive(:receive_email_alerts).and_return(true)
+        allow(user).to receive(:no_xapian_reindex=)
       end
 
-      it 'should not ask for any daily track things for the user' do
-        expected_conditions = [ "tracking_user_id = ? and track_medium = ?", @user.id, 'email_daily' ]
-        expect(TrackThing).not_to receive(:find).with(:all, :conditions => expected_conditions)
-        TrackMailer.alert_tracks
+      it 'does not ask for any daily track things for the user' do
+        expected_conditions =
+          ['tracking_user_id = ? and track_medium = ?', user.id, 'email_daily']
+        expect(TrackThing).
+          not_to receive(:find).with(:all, conditions: expected_conditions)
+        subject
       end
 
-      it 'should not ask for any daily track things for the user if they have receive_email_alerts off but could otherwise be emailed' do
-        allow(@user).to receive(:should_be_emailed?).and_return(true)
-        allow(@user).to receive(:receive_email_alerts).and_return(false)
-        expected_conditions = [ "tracking_user_id = ? and track_medium = ?", @user.id, 'email_daily' ]
-        expect(TrackThing).not_to receive(:find).with(:all, :conditions => expected_conditions)
-        TrackMailer.alert_tracks
+      it 'does not ask for any daily track things for the user if they have receive_email_alerts off but could otherwise be emailed' do
+        allow(user).to receive(:should_be_emailed?).and_return(true)
+        allow(user).to receive(:receive_email_alerts).and_return(false)
+        expected_conditions =
+          ['tracking_user_id = ? and track_medium = ?', user.id, 'email_daily']
+        expect(TrackThing).
+          not_to receive(:find).with(:all, conditions: expected_conditions)
+        subject
       end
 
-      it 'should not set the no_xapian_reindex flag on the user' do
-        expect(@user).not_to receive(:no_xapian_reindex=).with(true)
-        TrackMailer.alert_tracks
+      it 'does not set the no_xapian_reindex flag on the user' do
+        expect(user).not_to receive(:no_xapian_reindex=).with(true)
+        subject
       end
 
-      it 'should not update the time of the user\'s last daily tracking email' do
-        expect(@user).not_to receive(:last_daily_track_email=).with(Time.zone.now)
-        expect(@user).not_to receive(:save!)
-        TrackMailer.alert_tracks
+      it 'does not update the time of the user\'s last daily tracking email' do
+        expect(user).
+          not_to receive(:last_daily_track_email=).with(Time.zone.now)
+        expect(user).not_to receive(:save!)
+        subject
       end
-      it 'should return false' do
-        expect(TrackMailer.alert_tracks).to eq(false)
-      end
+
+      it { is_expected.to eq(false) }
     end
 
   end

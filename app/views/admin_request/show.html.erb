@@ -410,6 +410,9 @@
 <% end %>
 
 <hr>
-<h2>Censor rules</h2>
-<%= render :partial => 'admin_censor_rule/show', :locals => { :censor_rules => @info_request.censor_rules, :info_request => @info_request } %>
 
+<h2>Censor rules</h2>
+
+<%= render partial: 'admin_censor_rule/show',
+           locals: { censor_rules: @info_request.censor_rules,
+                     info_request: @info_request } %>
