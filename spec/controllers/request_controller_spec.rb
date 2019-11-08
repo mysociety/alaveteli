@@ -9,7 +9,7 @@ describe RequestController, "when listing recent requests" do
 
   it "should be successful" do
     get :list, params: { :view => 'all' }
-    expect(response).to be_success
+    expect(response).to be_successful
   end
 
   it "should render with 'list' template" do
@@ -50,7 +50,7 @@ describe RequestController, "when showing one request" do
 
   it "should be successful" do
     get :show, params: { :url_title => 'why_do_you_have_such_a_fancy_dog' }
-    expect(response).to be_success
+    expect(response).to be_successful
   end
 
   it "should render with 'show' template" do
@@ -102,7 +102,7 @@ describe RequestController, "when showing one request" do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = pro_user.id
             get :show, params: { url_title: info_request.url_title }
-            expect(response).to be_success
+            expect(response).to be_successful
           end
         end
       end
@@ -141,7 +141,7 @@ describe RequestController, "when showing one request" do
         with_feature_enabled(:alaveteli_pro) do
           session[:user_id] = pro_user.id
           get :show, params: { url_title: 'why_do_you_have_such_a_fancy_dog' }
-          expect(response).to be_success
+          expect(response).to be_successful
         end
       end
     end
@@ -168,7 +168,7 @@ describe RequestController, "when showing one request" do
       it 'should be successful' do
         get :show, params: { :url_title => 'balalas' },
                    session: { :user_id => nil }
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
 
@@ -180,7 +180,7 @@ describe RequestController, "when showing one request" do
 
       it 'should be successful' do
         make_request
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
   end
@@ -882,7 +882,7 @@ describe RequestController, "when handling prominence" do
             :skip_cache => 1
           }
       expect(response.content_type).to eq('application/pdf')
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'should not generate an HTML version of an attachment for a request whose prominence
@@ -945,7 +945,7 @@ describe RequestController, "when handling prominence" do
             :skip_cache => 1
           }
       expect(response.content_type).to eq('application/pdf')
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'should download attachments for an admin user' do
@@ -959,7 +959,7 @@ describe RequestController, "when handling prominence" do
             :skip_cache => 1
           }
       expect(response.content_type).to eq('application/pdf')
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'should not generate an HTML version of an attachment for a request whose prominence
@@ -1035,7 +1035,7 @@ describe RequestController, "when searching for an authority" do
         with_feature_enabled(:alaveteli_pro) do
           public_body = FactoryBot.create(:public_body)
           get :select_authority, params: { pro: "1" }
-          expect(response).to be_success
+          expect(response).to be_successful
         end
       end
     end
@@ -1054,7 +1054,7 @@ describe RequestController, "when searching for an authority" do
         with_feature_enabled(:alaveteli_pro) do
           public_body = FactoryBot.create(:public_body)
           get :select_authority, params: { pro: "1" }
-          expect(response).to be_success
+          expect(response).to be_successful
         end
       end
     end
@@ -2984,7 +2984,7 @@ describe RequestController, "when caching fragments" do
 
     get :get_attachment_as_html, params: params
 
-    expect(response).to be_success
+    expect(response).to be_successful
   end
 
 end
@@ -3015,7 +3015,7 @@ describe RequestController, "#new_batch" do
       it 'should be successful' do
         get :new_batch, params: { :public_body_ids => @public_body_ids },
                         session: { :user_id => @user.id }
-        expect(response).to be_success
+        expect(response).to be_successful
       end
 
       it 'should render the "new" template' do
@@ -3166,7 +3166,7 @@ describe RequestController, "#select_authorities" do
 
         it 'should be successful' do
           get :select_authorities, session: { :user_id => @user.id }
-          expect(response).to be_success
+          expect(response).to be_successful
         end
 
         it 'recognizes a GET request' do
@@ -3226,7 +3226,7 @@ describe RequestController, "#select_authorities" do
           get :select_authorities, params: { :public_body_query => "Quan",
                                              :format => 'json' },
                                    session: { :user_id => @user.id }
-          expect(response).to be_success
+          expect(response).to be_successful
         end
 
         it 'should return a list of public body names and ids' do
@@ -3480,7 +3480,7 @@ describe RequestController do
         it 'allows the download' do
           get :download_entire_request,
               params: { :url_title => info_request.url_title }
-          expect(response).to be_success
+          expect(response).to be_successful
         end
       end
     end

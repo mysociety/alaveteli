@@ -17,7 +17,7 @@ describe InfoRequestBatchController do
 
     it 'should be successful' do
       action
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'should assign an info_request_batch to the view' do
@@ -123,7 +123,7 @@ describe InfoRequestBatchController do
             with_feature_enabled(:alaveteli_pro) do
               session[:user_id] = pro_user.id
               get :show, params: { id: batch.id }
-              expect(response).to be_success
+              expect(response).to be_successful
             end
           end
         end
@@ -137,7 +137,7 @@ describe InfoRequestBatchController do
         it "should not redirect to the pro version of the page" do
           with_feature_enabled(:alaveteli_pro) do
             get :show, params: { id: info_request_batch.id }
-            expect(response).to be_success
+            expect(response).to be_successful
           end
         end
       end
@@ -157,7 +157,7 @@ describe InfoRequestBatchController do
         with_feature_enabled(:alaveteli_pro) do
           session[:user_id] = pro_user.id
           get :show, params: { id: batch.id, pro: "1" }
-          expect(response).to be_success
+          expect(response).to be_successful
         end
       end
 
@@ -165,7 +165,7 @@ describe InfoRequestBatchController do
         with_feature_enabled(:alaveteli_pro) do
           session[:user_id] = pro_admin.id
           get :show, params: { id: batch.id }
-          expect(response).to be_success
+          expect(response).to be_successful
         end
       end
 

@@ -285,7 +285,7 @@ describe TrackController do
                                 :feed => 'feed',
                                 :url_name => public_body.url_name
                               }
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response).to render_template('track/atom_feed')
       tt = assigns[:track_thing]
       expect(tt.public_body).to eq(public_body)
@@ -299,7 +299,7 @@ describe TrackController do
                                 :url_name => public_body.url_name,
                                 :event_type => 'sent'
                               }
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response).to render_template('track/atom_feed')
       tt = assigns[:track_thing]
       expect(tt.public_body).to eq(public_body)

@@ -35,7 +35,7 @@ describe UserProfile::AboutMeController do
       it 'is successful' do
         session[:user_id] = user.id
         get :edit
-        expect(response).to be_success
+        expect(response).to be_successful
       end
 
       it 'renders the edit form' do

@@ -10,7 +10,7 @@ describe AdminOutgoingMessageController do
 
     it 'should be successful' do
       get :edit, params: { :id => outgoing.id }
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'should assign the outgoing message to the view' do
