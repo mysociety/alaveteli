@@ -1,14 +1,14 @@
 # == Schema Information
-# Schema version: 20220210114052
+# Schema version: 20220322100510
 #
 # Table name: public_body_change_requests
 #
-#  id                :integer          not null, primary key
+#  id                :bigint           not null, primary key
 #  user_email        :string
 #  user_name         :string
-#  user_id           :integer
+#  user_id           :bigint
 #  public_body_name  :text
-#  public_body_id    :integer
+#  public_body_id    :bigint
 #  public_body_email :string
 #  source_url        :text
 #  notes             :text

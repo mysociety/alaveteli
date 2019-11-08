@@ -1,9 +1,9 @@
 # == Schema Information
-# Schema version: 20220210114052
+# Schema version: 20220322100510
 #
 # Table name: public_bodies
 #
-#  id                                     :integer          not null, primary key
+#  id                                     :bigint           not null, primary key
 #  version                                :integer          not null
 #  last_edit_editor                       :string           not null
 #  last_edit_comment                      :text

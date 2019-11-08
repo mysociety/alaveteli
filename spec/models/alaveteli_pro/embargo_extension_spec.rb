@@ -1,10 +1,10 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220322100510
 #
 # Table name: embargo_extensions
 #
-#  id                 :integer          not null, primary key
-#  embargo_id         :integer
+#  id                 :bigint           not null, primary key
+#  embargo_id         :bigint
 #  extension_duration :string
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null

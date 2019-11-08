@@ -1,11 +1,11 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220322100510
 #
 # Table name: widget_votes
 #
-#  id              :integer          not null, primary key
+#  id              :bigint           not null, primary key
 #  cookie          :string
-#  info_request_id :integer          not null
+#  info_request_id :bigint           not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #

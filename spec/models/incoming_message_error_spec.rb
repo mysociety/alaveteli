@@ -1,9 +1,9 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220322100510
 #
 # Table name: incoming_message_errors
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  unique_id  :string           not null

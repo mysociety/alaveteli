@@ -1,9 +1,9 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220322100510
 #
 # Table name: mail_server_log_dones
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  filename   :text             not null
 #  last_stat  :datetime         not null
 #  created_at :datetime         not null

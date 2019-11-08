@@ -1,13 +1,13 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220322100510
 #
 # Table name: user_info_request_sent_alerts
 #
-#  id                    :integer          not null, primary key
-#  user_id               :integer          not null
-#  info_request_id       :integer          not null
+#  id                    :bigint           not null, primary key
+#  user_id               :bigint           not null
+#  info_request_id       :bigint           not null
 #  alert_type            :string           not null
-#  info_request_event_id :integer
+#  info_request_event_id :bigint
 #  created_at            :datetime
 #  updated_at            :datetime
 #

@@ -1,9 +1,9 @@
 # == Schema Information
-# Schema version: 20220210114052
+# Schema version: 20220322100510
 #
 # Table name: public_body_categories
 #
-#  id           :integer          not null, primary key
+#  id           :bigint           not null, primary key
 #  category_tag :text             not null
 #  created_at   :datetime
 #  updated_at   :datetime

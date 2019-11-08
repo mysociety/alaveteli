@@ -1,11 +1,11 @@
 # == Schema Information
-# Schema version: 20220210114052
+# Schema version: 20220322100510
 #
 # Table name: notifications
 #
-#  id                    :integer          not null, primary key
-#  info_request_event_id :integer          not null
-#  user_id               :integer          not null
+#  id                    :bigint           not null, primary key
+#  info_request_event_id :bigint           not null
+#  user_id               :bigint           not null
 #  frequency             :integer          default("instantly"), not null
 #  seen_at               :datetime
 #  send_after            :datetime         not null

@@ -1,9 +1,9 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220322100510
 #
 # Table name: post_redirects
 #
-#  id                 :integer          not null, primary key
+#  id                 :bigint           not null, primary key
 #  token              :text             not null
 #  uri                :text             not null
 #  post_params_yaml   :text
@@ -11,7 +11,7 @@
 #  updated_at         :datetime         not null
 #  email_token        :text             not null
 #  reason_params_yaml :text
-#  user_id            :integer
+#  user_id            :bigint
 #  circumstance       :text             default("normal"), not null
 #
 

@@ -1,9 +1,9 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220322100510
 #
 # Table name: raw_emails
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  created_at :datetime
 #  updated_at :datetime
 #

@@ -1,16 +1,16 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220322100510
 #
 # Table name: foi_attachments
 #
-#  id                    :integer          not null, primary key
+#  id                    :bigint           not null, primary key
 #  content_type          :text
 #  filename              :text
 #  charset               :text
 #  display_size          :text
 #  url_part_number       :integer
 #  within_rfc822_subject :text
-#  incoming_message_id   :integer
+#  incoming_message_id   :bigint
 #  hexdigest             :string(32)
 #  created_at            :datetime
 #  updated_at            :datetime

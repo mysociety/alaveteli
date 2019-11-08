@@ -1,12 +1,12 @@
 # == Schema Information
-# Schema version: 20220210114052
+# Schema version: 20220322100510
 #
 # Table name: info_requests
 #
-#  id                                    :integer          not null, primary key
+#  id                                    :bigint           not null, primary key
 #  title                                 :text             not null
-#  user_id                               :integer
-#  public_body_id                        :integer          not null
+#  user_id                               :bigint
+#  public_body_id                        :bigint           not null
 #  created_at                            :datetime         not null
 #  updated_at                            :datetime         not null
 #  described_state                       :string           not null
@@ -21,14 +21,14 @@
 #  external_url                          :string
 #  attention_requested                   :boolean          default(FALSE)
 #  comments_allowed                      :boolean          default(TRUE), not null
-#  info_request_batch_id                 :integer
+#  info_request_batch_id                 :bigint
 #  last_public_response_at               :datetime
 #  reject_incoming_at_mta                :boolean          default(FALSE), not null
 #  rejected_incoming_count               :integer          default(0)
 #  date_initial_request_last_sent_at     :date
 #  date_response_required_by             :date
 #  date_very_overdue_after               :date
-#  last_event_forming_initial_request_id :integer
+#  last_event_forming_initial_request_id :bigint
 #  use_notifications                     :boolean
 #  last_event_time                       :datetime
 #  incoming_messages_count               :integer          default(0)

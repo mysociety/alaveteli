@@ -1,13 +1,13 @@
 # == Schema Information
-# Schema version: 20220210120801
+# Schema version: 20220322100510
 #
 # Table name: incoming_messages
 #
-#  id                             :integer          not null, primary key
-#  info_request_id                :integer          not null
+#  id                             :bigint           not null, primary key
+#  info_request_id                :bigint           not null
 #  created_at                     :datetime         not null
 #  updated_at                     :datetime         not null
-#  raw_email_id                   :integer          not null
+#  raw_email_id                   :bigint           not null
 #  cached_attachment_text_clipped :text
 #  cached_main_body_text_folded   :text
 #  cached_main_body_text_unfolded :text

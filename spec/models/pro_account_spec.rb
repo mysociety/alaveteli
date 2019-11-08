@@ -1,10 +1,10 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220322100510
 #
 # Table name: pro_accounts
 #
-#  id                       :integer          not null, primary key
-#  user_id                  :integer          not null
+#  id                       :bigint           not null, primary key
+#  user_id                  :bigint           not null
 #  default_embargo_duration :string
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null

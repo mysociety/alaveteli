@@ -1,19 +1,19 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220322100510
 #
 # Table name: info_request_events
 #
-#  id                  :integer          not null, primary key
-#  info_request_id     :integer          not null
+#  id                  :bigint           not null, primary key
+#  info_request_id     :bigint           not null
 #  event_type          :text             not null
 #  params_yaml         :text             not null
 #  created_at          :datetime         not null
 #  described_state     :string
 #  calculated_state    :string
 #  last_described_at   :datetime
-#  incoming_message_id :integer
-#  outgoing_message_id :integer
-#  comment_id          :integer
+#  incoming_message_id :bigint
+#  outgoing_message_id :bigint
+#  comment_id          :bigint
 #  updated_at          :datetime
 #
 

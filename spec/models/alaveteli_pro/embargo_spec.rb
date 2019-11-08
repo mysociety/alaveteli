@@ -1,10 +1,10 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220322100510
 #
 # Table name: embargoes
 #
-#  id                       :integer          not null, primary key
-#  info_request_id          :integer
+#  id                       :bigint           not null, primary key
+#  info_request_id          :bigint
 #  publish_at               :datetime         not null
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null

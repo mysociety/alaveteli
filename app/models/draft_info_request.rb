@@ -1,12 +1,12 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220322100510
 #
 # Table name: draft_info_requests
 #
-#  id               :integer          not null, primary key
+#  id               :bigint           not null, primary key
 #  title            :string
-#  user_id          :integer
-#  public_body_id   :integer
+#  user_id          :bigint
+#  public_body_id   :bigint
 #  body             :text
 #  embargo_duration :string
 #  created_at       :datetime         not null

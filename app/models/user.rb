@@ -1,9 +1,9 @@
 # == Schema Information
-# Schema version: 20220210114052
+# Schema version: 20220322100510
 #
 # Table name: users
 #
-#  id                                :integer          not null, primary key
+#  id                                :bigint           not null, primary key
 #  email                             :string           not null
 #  name                              :string           not null
 #  hashed_password                   :string           not null

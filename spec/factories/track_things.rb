@@ -1,14 +1,14 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220322100510
 #
 # Table name: track_things
 #
-#  id               :integer          not null, primary key
-#  tracking_user_id :integer          not null
+#  id               :bigint           not null, primary key
+#  tracking_user_id :bigint           not null
 #  track_query      :string(500)      not null
-#  info_request_id  :integer
-#  tracked_user_id  :integer
-#  public_body_id   :integer
+#  info_request_id  :bigint
+#  tracked_user_id  :bigint
+#  public_body_id   :bigint
 #  track_medium     :string           not null
 #  track_type       :string           default("internal_error"), not null
 #  created_at       :datetime

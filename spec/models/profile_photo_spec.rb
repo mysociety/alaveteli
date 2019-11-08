@@ -1,11 +1,11 @@
 # == Schema Information
-# Schema version: 20220210114052
+# Schema version: 20220322100510
 #
 # Table name: profile_photos
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  data       :binary           not null
-#  user_id    :integer
+#  user_id    :bigint
 #  draft      :boolean          default(FALSE), not null
 #  created_at :datetime
 #  updated_at :datetime

@@ -1,11 +1,11 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220322100510
 #
 # Table name: request_classifications
 #
-#  id                    :integer          not null, primary key
-#  user_id               :integer
-#  info_request_event_id :integer
+#  id                    :bigint           not null, primary key
+#  user_id               :bigint
+#  info_request_event_id :bigint
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
 #

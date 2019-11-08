@@ -1,17 +1,17 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220322100510
 #
 # Table name: outgoing_messages
 #
-#  id                           :integer          not null, primary key
-#  info_request_id              :integer          not null
+#  id                           :bigint           not null, primary key
+#  info_request_id              :bigint           not null
 #  body                         :text             not null
 #  status                       :string           not null
 #  message_type                 :string           not null
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
 #  last_sent_at                 :datetime
-#  incoming_message_followup_id :integer
+#  incoming_message_followup_id :bigint
 #  what_doing                   :string           not null
 #  prominence                   :string           default("normal"), not null
 #  prominence_reason            :text

@@ -1,11 +1,11 @@
 # == Schema Information
-# Schema version: 20220210114052
+# Schema version: 20220322100510
 #
 # Table name: comments
 #
-#  id                  :integer          not null, primary key
-#  user_id             :integer          not null
-#  info_request_id     :integer
+#  id                  :bigint           not null, primary key
+#  user_id             :bigint           not null
+#  info_request_id     :bigint
 #  body                :text             not null
 #  visible             :boolean          default(TRUE), not null
 #  created_at          :datetime         not null

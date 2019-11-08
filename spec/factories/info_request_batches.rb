@@ -1,11 +1,11 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220322100510
 #
 # Table name: info_request_batches
 #
-#  id               :integer          not null, primary key
+#  id               :bigint           not null, primary key
 #  title            :text             not null
-#  user_id          :integer          not null
+#  user_id          :bigint           not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  body             :text
