@@ -370,11 +370,7 @@ class OutgoingMessage < ApplicationRecord
   end
 
   def xapian_reindex_after_update
-    if rails_upgrade?
-      return unless saved_change_to_attribute?(:body)
-    else
-      return unless changes.include?('body')
-    end
+    return unless saved_change_to_attribute?(:body)
 
     info_request_events.each { |event| event.xapian_mark_needs_index }
   end

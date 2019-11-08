@@ -84,7 +84,7 @@ def rails_upgrade?
   %w[1 true].include?(ENV['RAILS_UPGRADE'])
 end
 
-gem 'rails', rails_upgrade? ? '5.1.7' : '5.0.7.2'
+gem 'rails', rails_upgrade? ? '5.2.3' : '5.1.7'
 
 gem 'pg', '~> 0.20.0'
 
@@ -140,7 +140,7 @@ gem 'rails-i18n', '~> 5.1.0'
 gem 'gettext_i18n_rails', '~> 0.10.1'
   gem 'fast_gettext', '< 1.2.0'
 gem 'gettext', '~> 2.3.0'
-gem 'globalize', rails_upgrade? ? '~> 5.2.0' : '~> 5.1.0'
+gem 'globalize', '~> 5.2.0'
 gem 'locale', '~> 2.0.0', '< 2.1.0'
 gem 'routing-filter', '~> 0.6.2'
 gem 'unicode', '~> 0.4.4'

@@ -340,12 +340,7 @@ class User < ApplicationRecord
   # requested_by: and commented_by: search queries also need updating after save
   def reindex_referencing_models
     return if no_xapian_reindex == true
-
-    if rails_upgrade?
-      return unless saved_change_to_attribute?(:url_name)
-    else
-      return unless changes.include?('url_name')
-    end
+    return unless saved_change_to_attribute?(:url_name)
 
     comments.each do |comment|
       comment.info_request_events.each do |info_request_event|
