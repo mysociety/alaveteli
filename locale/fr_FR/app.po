@@ -26,13 +26,13 @@
 # Claire, 2013
 # David Cabo <david.cabo@gmail.com>, 2013
 # Doryan R, 2019
-# Doryan R, 2019
+# a270031086f2a0d3514bc0cb507b48f6, 2019
 # Gareth Rees <gareth@mysociety.org>, 2016
 # Laurent S, 2019
 # Laurent S, 2019
 # louisecrow <louise@mysociety.org>, 2013,2017
 # mySociety <transifex@mysociety.org>, 2016
-# pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2013
+# pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2013,2019
 # radhouane fazai <radhouanef@gmail.com>, 2013
 # rrobert <rrobertpolson@gmail.com>, 2013
 # sebbacon <seb.bacon@gmail.com>, 2012
@@ -44,8 +44,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-07 09:17+0100\n"
-"PO-Revision-Date: 2019-08-07 08:20+0000\n"
-"Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
+"PO-Revision-Date: 2019-11-09 14:26+0000\n"
+"Last-Translator: pierre chrzanowski <pierre.chrzanowski@gmail.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/mysociety/alaveteli/language/fr_FR/)\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
@@ -923,7 +923,7 @@ msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Êtes-vous le propriétaire d'un droit d'auteur commercial sur cette page ?"
 
 msgid "Ask EU Authorities"
-msgstr "Questionnez les institutions européennes "
+msgstr "Faire une demande aux institutions européennes"
 
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "Demandez des documents ou des informations <strong>spécifiques</strong>, ce site ne convient pas aux demandes de renseignements d'ordre général."
@@ -998,7 +998,7 @@ msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for
 msgstr "Parcourir les <a href='{{url}}'>autres demandes</a> de '{{public_body_name}}' pour voir des exemples de formulation de votre demande."
 
 msgid "Browse all authorities &rarr;"
-msgstr "Parcourir toutes les autorités publiques &rarr;"
+msgstr "Parcourir toutes les autorités &rarr;"
 
 msgid "Browse all requests &rarr;"
 msgstr "Voir toutes les demandes &rarr;"
@@ -1013,7 +1013,7 @@ msgid "Browse requests"
 msgstr "Parcourir les demandes"
 
 msgid "By law, they have to respond."
-msgstr "Légalement, les autorités publiques doivent répondre."
+msgstr ""
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Selon la loi, en toutes circonstances, {{public_body_link}} aurait déjà dû répondre "
@@ -1205,7 +1205,7 @@ msgid "Cultural sites and built structures (as they may be affected by the envir
 msgstr "Les sites culturels et les bâtiments (s'ils peuvent être affectés par les facteurs environnementaux listés ci dessus)"
 
 msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they should respond promptly and"
-msgstr "Actuellement<strong>en attente de réponse</strong>de {{public_body_link}}, ils devraient répondre rapidement et"
+msgstr "Actuellement <strong>en attente de réponse</strong> de la part de l'autorité {{public_body_link}}, ils devraient répondre rapidement et"
 
 msgid "Date:"
 msgstr "Date :"
@@ -1220,7 +1220,13 @@ msgid "Dear {{placeholder_body_name}},"
 msgstr "Cher/Chère {{placeholder_body_name}},"
 
 msgid "Dear {{public_body_name}},"
-msgstr "Cher/Chère {{public_body_name}},"
+msgstr ""
+"Cher/Chère {{public_body_name}},\n"
+"\n"
+"En application de la loi n° 78-575 du 17 juillet 1978 relative aux documents administratifs, je souhaite recevoir communication des documents administratifs suivants: \n"
+"\n"
+"\n"
+"Je souhaite recevoir ces documents dans un format numérique, ouvert et réutilisable. Pour ce faire, veuillez m’indiquer leur adresse de téléchargement ou me les envoyer en pièce jointe."
 
 msgid "Dear {{user_name}},"
 msgstr "Cher/Chère {{user_name}},"
@@ -1346,7 +1352,7 @@ msgid "Event {{id}}"
 msgstr "Evénement {{id}}"
 
 msgid "Every citizen has the right to access information held by public authorities."
-msgstr "Chaque citoyen a le droit d'accéder aux informations détenues par les autorités publiques."
+msgstr "Les autorités sont tenues de communiquer les documents administratifs qu'elles détiennent aux personnes qui en font la demande."
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
 msgstr "Tout ce que vous indiquez dans cette page, y compris <strong>votre nom</strong>, sera <strong>public</strong> sur ce site (<a href=\"{{url}}\">pourquoi?</a>)."
@@ -1397,10 +1403,10 @@ msgid "Find an authority"
 msgstr "Trouver une autorité publique"
 
 msgid "Find the authorities"
-msgstr "Trouver les autorités publiques"
+msgstr "Trouver les autorités"
 
 msgid "Find the authorities to write to"
-msgstr "Sélectionnez les autorités à qui écrire"
+msgstr "Trouver les autorités à qui faire une demande"
 
 msgid "First, did your other requests succeed?"
 msgstr "Tout d'abord, est-ce que vos autres demandes ont abouti ?"
@@ -1495,28 +1501,28 @@ msgstr "Vous avez oublié votre mot de passe?"
 msgid "Found {{count}} public authority"
 msgid_plural "Found {{count}} public authorities"
 msgstr[0] "{{count}} autorité publique trouvée"
-msgstr[1] "{{count}} autorités publiques trouvées"
+msgstr[1] "{{count}} autorités trouvées"
 
 msgid "Found {{count}} public authority beginning with ‘{{first_letter}}’"
 msgid_plural "Found {{count}} public authorities beginning with ‘{{first_letter}}’"
 msgstr[0] "{{count}} autorité publique trouvée débutant par ‘{{first_letter}}’"
-msgstr[1] "{{count}} autorités publiques trouvées débutant par ‘{{first_letter}}’"
+msgstr[1] "{{count}} autorités trouvées débutant par ‘{{first_letter}}’"
 
 msgid "Found {{count}} public authority in the category ‘{{category_name}}’"
 msgid_plural "Found {{count}} public authorities in the category ‘{{category_name}}’"
 msgstr[0] "{{count}} autorité publique trouvée dans la catégorie ‘{{category_name}}’"
-msgstr[1] "{{count}} autorités publiques trouvées dans la catégorie ‘{{category_name}}’"
+msgstr[1] "{{count}} autorités trouvées dans la catégorie ‘{{category_name}}’"
 
 msgid "Found {{count}} public authority matching the tag ‘{{tag_name}}’"
 msgid_plural "Found {{count}} public authorities matching the tag ‘{{tag_name}}’"
 msgstr[0] "{{count}} autorité publique trouvée correspondant à la balise  ‘{{tag_name}}’"
-msgstr[1] "{{count}} autorités publiques trouvées correspondant à la balise  ‘{{tag_name}}’"
+msgstr[1] "{{count}} autorités trouvées correspondant à la balise  ‘{{tag_name}}’"
 
 msgid "Freedom of Information"
-msgstr "Liberté d'accès à l'information"
+msgstr "Droit d'accès à l'information"
 
 msgid "Freedom of Information Act"
-msgstr "Loi pour la liberté d'accès à l'information"
+msgstr "Loi pour le droit d'accès à l'information"
 
 msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
 msgstr "Le droit d'accès à l'information ne s'applique pas à cette autorité publique, dès lors vous ne pouvez pas lui adresser de demande."
@@ -1936,16 +1942,16 @@ msgid "Link to this"
 msgstr "Créer un lien vers"
 
 msgid "List of all authorities (CSV)"
-msgstr "Liste de toutes les autorités publiques (CSV)"
+msgstr "Liste de toutes les autorités (CSV)"
 
 msgid "Listing FOI requests"
 msgstr "Liste des demandes d'accès à l'information"
 
 msgid "Listing public authorities"
-msgstr "Liste des autorités publiques"
+msgstr "Liste des autorités"
 
 msgid "Listing public authorities matching '{{query}}'"
-msgstr "Liste des autorités publiques correspondant à '{{query}}'"
+msgstr "Liste des autorités correspondant à '{{query}}'"
 
 msgid "Listing tracks"
 msgstr "Liste des suivis"
@@ -1972,13 +1978,13 @@ msgid "Make a batch request"
 msgstr "Faire un paquet de demandes"
 
 msgid "Make a request"
-msgstr "Demander l'accès à une information"
+msgstr "Faire une demande"
 
 msgid "Make a request &raquo;"
 msgstr "Faire une demande &raquo;"
 
 msgid "Make a request to these authorities"
-msgstr "Faire une demande d'information à ces autorités publiques"
+msgstr "Faire une demande d'information à ces autorités"
 
 msgid "Make a request to this authority"
 msgstr "Faire une demande d'information à cette autorité publique"
@@ -1990,10 +1996,10 @@ msgid "Make an {{law_used_short}} request to '{{public_body_name}}'"
 msgstr "Faire une demande de {{law_used_short}} à '{{public_body_name}}'"
 
 msgid "Make and browse Freedom of Information (FOI) requests"
-msgstr "Envoyer et rechercher des demandes d'accès à l'information"
+msgstr "Faire ou rechercher une demande d'accès à un document administratif"
 
 msgid "Make sure the information you are asking for is not already publicly available."
-msgstr "Assurez-vous que l'information que vous demandez n'est pas déjà publiquement disponible."
+msgstr "Assurez-vous que l'information que vous demandez n'est pas déjà publiquement disponible, par exemple sur <a href=\"https://data.gouv.fr\" target=\"_blank\">data.gouv.fr</a> ou qu'elle ne fait pas déjà l'objet d'un <a href=\"https://cada.data.gouv.fr/\" target=\"_blank\">avis ou conseil émis par la CADA</a>."
 
 msgid "Many requests"
 msgstr "Beaucoup de demandes"
@@ -2128,7 +2134,7 @@ msgid "Note that we may still send you emails when new correspondence appears on
 msgstr "Notez que nous pouvons toujours vous envoyer des courriers électroniques lorsque de nouvelles correspondances apparaissent sur vos demandes ou lorsque vous effectuez des opérations nécessitant une étape de confirmation par courrier électronique."
 
 msgid "Notes:"
-msgstr "Remarques :"
+msgstr "Adresse :"
 
 msgid "Now check your email!"
 msgstr "Maintenant consultez vos emails !"
@@ -2403,7 +2409,10 @@ msgid "Please update the status of your request"
 msgstr "N'oubliez pas de mettre à jour le statut de votre demande"
 
 msgid "Please use this email address for all replies to this request:"
-msgstr "Merci d'utiliser cette adresse email pour toutes les réponses à cette demande :"
+msgstr ""
+"Le code des relations entre le public et l’administration fixe les conditions dans lesquels les documents administratifs sont communiqués aux citoyens. En particulier, dès qu’un citoyen en fait la demande, tout document administratif doit être mis en ligne de façon à être accessible à chacun.e (article L311-9), et ce dans leur version mise à jour (article L312-1-1).\n"
+"\n"
+"Merci d'utiliser cette adresse email pour toutes les réponses à cette demande :"
 
 msgid "Please write a summary with some text in it"
 msgstr "S'il vous plaît, écrivez un résumé avec un minimum de texte"
@@ -2481,13 +2490,13 @@ msgid "Public Body"
 msgstr "Autorité publique"
 
 msgid "Public authorities"
-msgstr "Autorités publiques"
+msgstr "Autorités"
 
 msgid "Public authorities - {{description}}"
-msgstr "Autorités publiques - {{description}}"
+msgstr "Autorités - {{description}}"
 
 msgid "Public authorities {{start_count}} to {{end_count}} of {{total_count}}"
-msgstr "Autorités publiques {{start_count}} à {{end_count}} sur {{total_count}}"
+msgstr "Autorités {{start_count}} à {{end_count}} sur {{total_count}}"
 
 msgid "Public authority statistics"
 msgstr "Statistique des autorités publiques"
@@ -2739,13 +2748,13 @@ msgid "Search"
 msgstr "Rechercher"
 
 msgid "Search Freedom of Information requests, public authorities and users"
-msgstr "Chercher des demandes d'accès à l'information, des autorités publiques et des utilisateurs"
+msgstr "Chercher des demandes d'accès à l'information, des autorités et des utilisateurs"
 
 msgid "Search contributions by this person"
 msgstr "Rechercher les contributions de cette personne"
 
 msgid "Search for the authorities you'd like information from:"
-msgstr "Recherchez les autorités publiques dont vous aimeriez recevoir des informations :"
+msgstr "Chercherch les autorités dont vous aimeriez recevoir des informations :"
 
 msgid "Search in"
 msgstr "Rechercher dans"
@@ -2754,7 +2763,7 @@ msgid "Search in their website for this information &rarr;"
 msgstr "Rechercher dans leur site Web pour obtenir cette information &rarr;"
 
 msgid "Search over<br/><strong>{{number_of_requests}} requests</strong> <span>and</span><br/><strong>{{number_of_authorities}} authorities</strong>"
-msgstr "Rechercher parmi <strong>{{number_of_requests}} demandes</strong> <span>et</span> <strong>{{number_of_authorities}} autorités publiques</strong>"
+msgstr "Rechercher parmi <strong>{{number_of_requests}} demandes</strong> <span>et</span> <strong>{{number_of_authorities}} autorités </strong>"
 
 msgid "Search queries"
 msgstr "Requêtes de recherche"
@@ -3750,7 +3759,7 @@ msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Voir les demandes d'accès à l'information introduites par {{user_name}} :"
 
 msgid "View authorities"
-msgstr "Voir les autorités publiques"
+msgstr "Voir les autorités"
 
 msgid "View email"
 msgstr "Voir l'email "
@@ -4368,7 +4377,7 @@ msgid "at"
 msgstr "à"
 
 msgid "authorities"
-msgstr "Autorités publiques"
+msgstr "Autorités"
 
 msgid "awaiting response"
 msgstr "En attente de réponse"
@@ -4437,7 +4446,7 @@ msgid "logged in as user {{user_name}}"
 msgstr "Connecté en tant qu'utilisateur {{user_name}}"
 
 msgid "messages from authorities"
-msgstr "messages des autorités publiques"
+msgstr "messages des autorités"
 
 msgid "messages from users"
 msgstr "messages des utilisateurs"
@@ -4646,7 +4655,7 @@ msgid "{{info_request_user_name}}"
 msgstr "{{info_request_user_name}}"
 
 msgid "{{law_used_full}} request - {{title}}"
-msgstr "Demande au nom de la {{law_used_full}} - {{title}}"
+msgstr "Demande au titre du droit d’accès aux documents administratifs - {{title}}"
 
 #. Please don't use double quotes (") in this translation
 #. or it will break the site's ability to send emails to authorities!
@@ -4728,7 +4737,7 @@ msgstr "{{site_name}} blog et tweets"
 msgid "{{site_name}} covers requests to {{number_of_authorities}} authority, including:"
 msgid_plural "{{site_name}} covers requests to {{number_of_authorities}} authorities, including:"
 msgstr[0] "{{site_name}} gère les demandes adressée à {{number_of_authorities}} autorité publique, dont :"
-msgstr[1] "{{site_name}} gère les demandes adressées à {{number_of_authorities}} autorités publiques, dont :"
+msgstr[1] "{{site_name}} gère les demandes adressées à {{number_of_authorities}} autorités, dont :"
 
 msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."
 msgstr "{{site_name}} envoie les nouvelles demandes à <strong>{{request_email}}</strong> pour cette autorité publique."
