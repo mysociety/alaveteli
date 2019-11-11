@@ -747,7 +747,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
       it 'successfully loads the page' do
         get :index
-        expect(response).to be_success
+        expect(response).to be_successful
       end
 
       it 'finds the Stripe subscription for the user' do

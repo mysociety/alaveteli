@@ -7,7 +7,7 @@ describe AdminPublicBodyCategoriesController do
 
     it 'responds successfully' do
       get :index
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'uses the current locale by default' do
@@ -53,7 +53,7 @@ describe AdminPublicBodyCategoriesController do
 
     it 'responds successfully' do
       get :new
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'builds a new PublicBodyCategory' do
@@ -254,7 +254,7 @@ describe AdminPublicBodyCategoriesController do
 
     it 'responds successfully' do
       get :edit, params: { :id => @category.id }
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'finds the requested category' do

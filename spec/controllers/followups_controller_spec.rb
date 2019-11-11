@@ -29,7 +29,7 @@ describe FollowupsController do
         embargoed_request = FactoryBot.create(:embargoed_request,
                                               user: pro_user)
         get :new, params: { :request_id => embargoed_request.id }
-        expect(response).to be_success
+        expect(response).to be_successful
       end
 
       it "displays 'wrong user' message when not logged in as the request owner" do
@@ -172,7 +172,7 @@ describe FollowupsController do
         get :new, params: {
                     :request_id => FactoryBot.create(:external_request).id
                   }
-        expect(response).to be_success
+        expect(response).to be_successful
       end
 
     end
@@ -235,7 +235,7 @@ describe FollowupsController do
                          :outgoing_message => dummy_message,
                          :request_id => embargoed_request.id
                        }
-        expect(response).to be_success
+        expect(response).to be_successful
       end
 
       it 'raises an ActiveRecord::RecordNotFound error for other embargoed requests' do

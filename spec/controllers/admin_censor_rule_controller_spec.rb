@@ -15,7 +15,7 @@ describe AdminCensorRuleController do
     end
 
     it 'returns a successful response' do
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'collects admin censor rules' do
@@ -40,7 +40,7 @@ describe AdminCensorRuleController do
       end
 
       it 'returns a successful response' do
-        expect(response).to be_success
+        expect(response).to be_successful
       end
 
       it 'initializes a new censor rule' do
@@ -78,7 +78,7 @@ describe AdminCensorRuleController do
       end
 
       it 'returns a successful response' do
-        expect(response).to be_success
+        expect(response).to be_successful
       end
 
       it 'initializes a new censor rule' do
@@ -113,7 +113,7 @@ describe AdminCensorRuleController do
       end
 
       it 'returns a successful response' do
-        expect(response).to be_success
+        expect(response).to be_successful
       end
 
       it 'initializes a new censor rule' do
@@ -148,7 +148,7 @@ describe AdminCensorRuleController do
       end
 
       it 'returns a successful response' do
-        expect(response).to be_success
+        expect(response).to be_successful
       end
 
       it 'initializes a new censor rule' do
@@ -575,7 +575,7 @@ describe AdminCensorRuleController do
 
       it 'returns a successful response' do
         get :edit, params: { :id => censor_rule.id }
-        expect(response).to be_success
+        expect(response).to be_successful
       end
 
       it 'renders the correct template' do
@@ -596,7 +596,7 @@ describe AdminCensorRuleController do
 
       it 'returns a successful response' do
         get :edit, params: { :id => censor_rule.id }
-        expect(response).to be_success
+        expect(response).to be_successful
       end
 
       it 'renders the correct template' do
@@ -617,7 +617,7 @@ describe AdminCensorRuleController do
 
       it 'returns a successful response' do
         get :edit, params: { :id => censor_rule.id }
-        expect(response).to be_success
+        expect(response).to be_successful
       end
 
       it 'renders the correct template' do
@@ -638,7 +638,7 @@ describe AdminCensorRuleController do
 
       it 'returns a successful response' do
         get :edit, params: { :id => censor_rule.id }
-        expect(response).to be_success
+        expect(response).to be_successful
       end
 
       it 'renders the correct template' do

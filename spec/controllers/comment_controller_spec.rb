@@ -56,7 +56,7 @@ describe CommentController, "when commenting on a request" do
                      :submitted_comment => 1,
                      :preview => 1
                    }
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
   end
@@ -339,7 +339,7 @@ describe CommentController, "when commenting on a request" do
       it 'should be successful' do
         get :new, params: { :url_title => @external_request.url_title,
                             :type => 'request' }
-        expect(response).to be_success
+        expect(response).to be_successful
       end
 
     end

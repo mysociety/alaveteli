@@ -55,7 +55,7 @@ describe HelpController do
 
     it 'shows the about page' do
       get :about
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response).to render_template('help/about')
     end
 
@@ -65,7 +65,7 @@ describe HelpController do
 
     it 'shows contact form' do
       get :contact
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response).to render_template('help/contact')
     end
 
@@ -245,7 +245,7 @@ describe HelpController do
 
     it 'renders the form when no params are supplied' do
       post :contact
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response).to render_template('help/contact')
     end
 

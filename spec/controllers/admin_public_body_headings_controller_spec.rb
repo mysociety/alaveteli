@@ -7,7 +7,7 @@ describe AdminPublicBodyHeadingsController do
 
     it 'responds successfully' do
       get :new
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'builds a new PublicBodyHeading' do
@@ -174,7 +174,7 @@ describe AdminPublicBodyHeadingsController do
 
     it 'responds successfully' do
       get :edit, params: { :id => @heading.id }
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'finds the requested heading' do
@@ -547,7 +547,7 @@ describe AdminPublicBodyHeadingsController do
 
       it 'should return a "success" status' do
         make_request
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
 
@@ -610,7 +610,7 @@ describe AdminPublicBodyHeadingsController do
 
       it 'should return a success status' do
         make_request
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
 

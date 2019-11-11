@@ -918,11 +918,7 @@ class PublicBody < ApplicationRecord
   # will break unless we update index for every event for every
   # request linked to it
   def reindex_requested_from
-    if rails_upgrade?
-      return unless saved_change_to_attribute?(:url_name)
-    else
-      return unless changes.include?('url_name')
-    end
+    return unless saved_change_to_attribute?(:url_name)
 
     info_requests.each do |info_request|
       info_request.info_request_events.each do |info_request_event|

@@ -68,7 +68,7 @@ describe ApiController, "when using the API" do
              :k => public_bodies(:geraldine_public_body).api_key,
              :request_json => request_data.to_json
            }
-      expect(response).to be_success
+      expect(response).to be_successful
 
       expect(response.content_type).to eq('application/json')
       response_body = ActiveSupport::JSON.decode(response.body)
@@ -122,7 +122,7 @@ describe ApiController, "when using the API" do
            }
 
       # And make sure it worked
-      expect(response).to be_success
+      expect(response).to be_successful
       incoming_messages =
         IncomingMessage.where(:info_request_id => request_id)
       expect(incoming_messages.count).to eq(1)
@@ -156,7 +156,7 @@ describe ApiController, "when using the API" do
            }
 
       # Make sure it worked
-      expect(response).to be_success
+      expect(response).to be_successful
 
       followup_messages =
         OutgoingMessage.where(:info_request_id => request_id,
@@ -193,7 +193,7 @@ describe ApiController, "when using the API" do
            }
 
       # And make sure it worked
-      expect(response).to be_success
+      expect(response).to be_successful
 
       actual2 = IncomingMessage.where(:info_request_id => request_id).count
       expect(actual2).to eq(1)
@@ -369,7 +369,7 @@ describe ApiController, "when using the API" do
            }
 
       # And make sure it worked
-      expect(response).to be_success
+      expect(response).to be_successful
 
       incoming_messages = IncomingMessage.where(:info_request_id => request_id)
       expect(incoming_messages.count).to eq(1)
@@ -475,7 +475,7 @@ describe ApiController, "when using the API" do
                            :id => info_request.id
                          }
 
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(assigns[:request].id).to eq(info_request.id)
 
       r = ActiveSupport::JSON.decode(response.body)
@@ -493,7 +493,7 @@ describe ApiController, "when using the API" do
                            :id => info_request.id
                          }
 
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(assigns[:request].id).to eq(info_request.id)
       r = ActiveSupport::JSON.decode(response.body)
       expect(r['title']).to eq(info_request.title)
@@ -510,7 +510,7 @@ describe ApiController, "when using the API" do
             :feed_type => 'atom'
           }
 
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response).to render_template('api/request_events')
       expect(assigns[:events].size).to be > 0
       assigns[:events].each do |event|
@@ -528,7 +528,7 @@ describe ApiController, "when using the API" do
             :feed_type => 'json'
           }
 
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(assigns[:events].size).to be > 0
       assigns[:events].each do |event|
         expect(event.info_request.public_body).to eq(public_bodies(:geraldine_public_body))
@@ -550,7 +550,7 @@ describe ApiController, "when using the API" do
             :feed_type => 'json'
           }
 
-      expect(response).to be_success
+      expect(response).to be_successful
       first_event = assigns[:event_data][0]
       second_event_id = assigns[:event_data][1][:event_id]
 
@@ -561,7 +561,7 @@ describe ApiController, "when using the API" do
             :feed_type => 'json',
             :since_event_id => second_event_id
           }
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(assigns[:event_data]).to eq([first_event])
     end
 
@@ -574,7 +574,7 @@ describe ApiController, "when using the API" do
             :feed_type => 'atom'
           }
 
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response).to render_template('api/request_events')
       expect(assigns[:events].size).to be > 0
       assigns[:events].each do |event|

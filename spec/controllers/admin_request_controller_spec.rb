@@ -10,7 +10,7 @@ describe AdminRequestController, "when administering requests" do
 
     it "is successful" do
       get :index, session: { :user_id => admin_user.id }
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'assigns all info requests to the view' do
@@ -106,13 +106,13 @@ describe AdminRequestController, "when administering requests" do
     it "is successful" do
       get :show, params: { :id => info_request },
                  session: { :user_id => admin_user.id }
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'shows an external info request with no username' do
       get :show, params: { :id => external_request },
                  session: { :user_id => admin_user.id }
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     context 'if the request is embargoed' do
@@ -143,7 +143,7 @@ describe AdminRequestController, "when administering requests" do
           with_feature_enabled(:alaveteli_pro) do
             get :show, params: { :id => info_request.id },
                        session: { :user_id => pro_admin_user.id }
-            expect(response).to be_success
+            expect(response).to be_successful
           end
         end
       end
@@ -157,7 +157,7 @@ describe AdminRequestController, "when administering requests" do
 
     it "is successful" do
       get :edit, params: { :id => info_request }
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
   end
