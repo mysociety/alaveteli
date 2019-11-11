@@ -4,11 +4,12 @@ RSpec.describe AlaveteliPro::MetricsMailer do
   let(:data) do
     {
       new_pro_requests: 104,
-      total_new_requests: 37535,
+      estimated_total_pro_requests: 37_535,
       new_batches: 3,
       new_signups: 5,
       total_accounts: 284,
       active_accounts: 42,
+      expired_embargoes: 17,
       paying_users: 44,
       discounted_users: 7,
       trialing_users: 8,
@@ -62,6 +63,32 @@ RSpec.describe AlaveteliPro::MetricsMailer do
 
     it 'includes the number of Pro accounts' do
       expect(message.body).to include('Total number of Pro accounts: 284')
+    end
+
+    it 'includes the number of active accounts' do
+      expect(message.body).to include(
+        'Number of Pro accounts active this week: 42'
+      )
+    end
+
+    it 'includes the number of expired embargoes' do
+      expect(message.body).to include(
+        'Number of expired embargoes this week: 17'
+      )
+    end
+
+    it 'includes the number of new batch requests' do
+      expect(message.body).to include('New batches made this week: 3')
+    end
+
+    it 'includes the number of new pro requests' do
+      expect(message.body).to include('New Pro requests this week: 104')
+    end
+
+    it 'includes the estimated total pro requests' do
+      expect(message.body).to include(
+        'Estimated total number of Pro requests: 37535'
+      )
     end
 
     context 'pro pricing disabled' do
