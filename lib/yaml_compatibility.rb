@@ -23,6 +23,19 @@ class YAMLCompatibility
   end
 
   # :nodoc:
+  class LazyAttributeHash < if rails_upgrade?
+                              ActiveModel::LazyAttributeHash
+                            else
+                              ActiveRecord::LazyAttributeHash
+                            end
+    def key?(key)
+      delegate_hash.key?(key) ||
+        (values && values.key?(key)) ||
+        (types && types.key?(key))
+    end
+  end
+
+  # :nodoc:
   class TimeZoneConverter
     def init_with(_coder); end
   end
@@ -35,6 +48,11 @@ class YAMLCompatibility
     private
 
     MAPPINGS = {
+      'ActiveModel::LazyAttributeHash' =>
+        'YAMLCompatibility::LazyAttributeHash',
+      'ActiveRecord::LazyAttributeHash' =>
+        'YAMLCompatibility::LazyAttributeHash',
+
       # Rails <5
       'ActiveRecord::AttributeMethods::TimeZoneConversion::TimeZoneConverter' =>
         'YAMLCompatibility::TimeZoneConverter',
