@@ -13,6 +13,14 @@ RSpec.describe YAMLCompatibility do
         is_expected.to eq hash
       end
     end
+
+    context 'YAML file with old TMail classes' do
+      let(:content) { yaml_compatibility_fixture('tmail') }
+
+      it 'does not raise an error' do
+        expect { output_hash }.to_not raise_error
+      end
+    end
   end
 
   private

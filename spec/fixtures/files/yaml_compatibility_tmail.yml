@@ -1,0 +1,62 @@
+---
+email: !ruby/object:TMail::Mail
+  port: !ruby/object:TMail::StringPort
+    buffer: ! "From: \"FOI Person\" <foiperson@localhost>\nTo: \"Bob Smith\" <bob@localhost>\nDate:
+      Tue, 13 Nov 2007 11:39:55 +0000\nBcc: \nSubject: Geraldine FOI Code AZXB421\nReply-To:
+      \nIn-Reply-To: <471f1eae5d1cb_7347..fdbe67386163@cat.tmail>\n\nNo way! I'm not
+      going to tell you that in a month of Thursdays.\n\nThe Geraldine Quango\n\nOn
+      Wed, Oct 24, 2007 at 11:30:06AM +0100, Bob Smith wrote:\n> Why do you have such
+      a fancy dog?\n\n"
+  config: &70134848947220 !ruby/object:TMail::Config
+    strict_parse: false
+    strict_base64decode: false
+  header:
+    from: !ruby/object:TMail::AddressHeader
+      body: ! '"FOI Person" <foiperson@localhost>
+
+        '
+      config: *70134848947220
+      illegal: false
+      parsed: false
+    to: !ruby/object:TMail::AddressHeader
+      body: ! '"Bob Smith" <bob@localhost>
+
+        '
+      config: *70134848947220
+      illegal: false
+      parsed: false
+    date: !ruby/object:TMail::DateTimeHeader
+      body: ! 'Tue, 13 Nov 2007 11:39:55 +0000
+
+        '
+      config: *70134848947220
+      illegal: false
+      parsed: false
+    bcc: !ruby/object:TMail::AddressHeader
+      body: ''
+      config: *70134848947220
+      illegal: false
+      parsed: false
+    subject: !ruby/object:TMail::UnstructuredHeader
+      body: ! 'Geraldine FOI Code AZXB421
+
+        '
+      config: *70134848947220
+      illegal: false
+      parsed: false
+    reply-to: !ruby/object:TMail::AddressHeader
+      body: ''
+      config: *70134848947220
+      illegal: false
+      parsed: false
+    in-reply-to: !ruby/object:TMail::ReferencesHeader
+      body: ! '<471f1eae5d1cb_7347..fdbe67386163@cat.tmail>
+
+        '
+      config: *70134848947220
+      illegal: false
+      parsed: false
+  body_port:
+  body_parsed: false
+  epilogue: ''
+  parts: []

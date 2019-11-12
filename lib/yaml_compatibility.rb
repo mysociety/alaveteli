@@ -23,10 +23,44 @@ class YAMLCompatibility
   end
 
   # :nodoc:
+  LegacyObject = Class.new
+
+  # :nodoc:
   class LegacyMapClassLoader < YAML::ClassLoader
     private
 
     MAPPINGS = {
+      # Legacy classes
+      'TMail::AddressHeader' =>
+        'YAMLCompatibility::LegacyObject',
+      'TMail::Config' =>
+        'YAMLCompatibility::LegacyObject',
+      'TMail::ContentDispositionHeader' =>
+        'YAMLCompatibility::LegacyObject',
+      'TMail::ContentTransferEncodingHeader' =>
+        'YAMLCompatibility::LegacyObject',
+      'TMail::ContentTypeHeader' =>
+        'YAMLCompatibility::LegacyObject',
+      'TMail::DateTimeHeader' =>
+        'YAMLCompatibility::LegacyObject',
+      'TMail::Mail' =>
+        'YAMLCompatibility::LegacyObject',
+      'TMail::MessageIdHeader' =>
+        'YAMLCompatibility::LegacyObject',
+      'TMail::MimeVersionHeader' =>
+        'YAMLCompatibility::LegacyObject',
+      'TMail::ReceivedHeader' =>
+        'YAMLCompatibility::LegacyObject',
+      'TMail::ReferencesHeader' =>
+        'YAMLCompatibility::LegacyObject',
+      'TMail::ReturnPathHeader' =>
+        'YAMLCompatibility::LegacyObject',
+      'TMail::SingleAddressHeader' =>
+        'YAMLCompatibility::LegacyObject',
+      'TMail::StringPort' =>
+        'YAMLCompatibility::LegacyObject',
+      'TMail::UnstructuredHeader' =>
+        'YAMLCompatibility::LegacyObject'
     }
 
     def resolve(klassname)
