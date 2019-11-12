@@ -41,6 +41,10 @@ class YAMLCompatibility
       'ActiveRecord::ConnectionAdapters::PostgreSQL::OID::Integer' =>
         'ActiveModel::Type::Integer',
 
+      # Rails 5.0
+      'ActiveModel::Type::Text' =>
+        'ActiveRecord::Type::Text',
+
       # Legacy classes
       'PublicBodyTag' =>
         'YAMLCompatibility::LegacyObject',

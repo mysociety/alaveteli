@@ -14,6 +14,14 @@ RSpec.describe YAMLCompatibility do
       end
     end
 
+    context 'with Rails 5.0 YAML file' do
+      let(:content) { yaml_compatibility_fixture('5_0') }
+
+      it 'correctly loads YAML file' do
+        is_expected.to eq hash
+      end
+    end
+
     context 'with Rails 5.1 YAML file' do
       let(:content) { yaml_compatibility_fixture('5_1') }
 
