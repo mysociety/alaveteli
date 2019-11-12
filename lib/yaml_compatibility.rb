@@ -23,6 +23,11 @@ class YAMLCompatibility
   end
 
   # :nodoc:
+  class TimeZoneConverter
+    def init_with(_coder); end
+  end
+
+  # :nodoc:
   LegacyObject = Class.new
 
   # :nodoc:
@@ -30,6 +35,12 @@ class YAMLCompatibility
     private
 
     MAPPINGS = {
+      # Rails <5
+      'ActiveRecord::AttributeMethods::TimeZoneConversion::TimeZoneConverter' =>
+        'YAMLCompatibility::TimeZoneConverter',
+      'ActiveRecord::ConnectionAdapters::PostgreSQL::OID::Integer' =>
+        'ActiveModel::Type::Integer',
+
       # Legacy classes
       'PublicBodyTag' =>
         'YAMLCompatibility::LegacyObject',
