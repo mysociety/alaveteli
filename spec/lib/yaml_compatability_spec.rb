@@ -14,6 +14,14 @@ RSpec.describe YAMLCompatibility do
       end
     end
 
+    context 'YAML file with old PublicBodyTag class' do
+      let(:content) { yaml_compatibility_fixture('public_body_tag') }
+
+      it 'does not raise an error' do
+        expect { output_hash }.to_not raise_error
+      end
+    end
+
     context 'YAML file with old TMail classes' do
       let(:content) { yaml_compatibility_fixture('tmail') }
 

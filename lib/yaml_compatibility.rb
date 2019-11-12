@@ -31,6 +31,9 @@ class YAMLCompatibility
 
     MAPPINGS = {
       # Legacy classes
+      'PublicBodyTag' =>
+        'YAMLCompatibility::LegacyObject',
+
       'TMail::AddressHeader' =>
         'YAMLCompatibility::LegacyObject',
       'TMail::Config' =>
