@@ -4565,7 +4565,7 @@ describe InfoRequest do
 
     end
 
-    context 'if embargos have been set' do
+    context 'if embargoes have been set' do
       let(:embargo) { FactoryBot.create(:embargo) }
       let(:embargo_extension) { FactoryBot.create(:embargo_extension) }
 

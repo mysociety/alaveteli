@@ -8,8 +8,12 @@ module AlaveteliPro
     attr_reader :report_start, :report_end
 
     def initialize
-      @report_start = 1.week.ago.beginning_of_day
-      @report_end = Time.zone.yesterday.end_of_day
+      @report_start = 1.week.ago.beginning_of_week
+      @report_end = 1.weeks.ago.end_of_week
+    end
+
+    def report_period
+      report_start..report_end
     end
 
     def includes_pricing_data?
@@ -24,7 +28,8 @@ module AlaveteliPro
           new_batches: number_of_batch_requests_created_this_week,
           new_signups: number_of_pro_signups_this_week,
           total_accounts: total_number_of_pro_accounts,
-          active_accounts: number_of_pro_accounts_active_this_week
+          active_accounts: number_of_pro_accounts_active_this_week,
+          expired_embargoes: number_of_expired_embargoes_this_week
         }
 
       data.merge!(stripe_report_data) if includes_pricing_data?
@@ -58,8 +63,7 @@ module AlaveteliPro
     private
 
     def number_of_requests_created_this_week
-      InfoRequest.pro.
-        where(["info_requests.created_at >= ?", report_start]).count
+      InfoRequest.pro.where(created_at: report_period).count
     end
 
     def estimated_number_of_pro_requests
@@ -73,14 +77,11 @@ module AlaveteliPro
 
     def number_of_batch_requests_created_this_week
       InfoRequestBatch.
-        where(["created_at >= ? AND embargo_duration IS NOT NULL",
-               report_start]).count
+        where(created_at: report_period).where.not(embargo_duration: nil).count
     end
 
     def number_of_pro_signups_this_week
-      ProAccount.
-        where("pro_accounts.created_at >= ?", report_start).
-          count
+      ProAccount.where(created_at: report_period).count
     end
 
     def total_number_of_pro_accounts
@@ -90,11 +91,19 @@ module AlaveteliPro
     def number_of_pro_accounts_active_this_week
       events = %w(comment set_embargo sent followup_sent status_update)
 
-      User.pro.includes(:info_request_events).
-        where(['info_request_events.created_at > ? AND ' \
-               'info_request_events.event_type in (?)',
-               report_start, events]).
-          references(:info_request_events).count
+      User.pro.joins(:info_request_events).
+        where(info_request_events: {
+                created_at: report_period,
+                event_type: events
+              }).distinct.count
+    end
+
+    def number_of_expired_embargoes_this_week
+      InfoRequest.not_embargoed.joins(:info_request_events).
+        where(info_request_events: {
+                event_type: 'expire_embargo',
+                created_at: report_period
+              }).distinct.count
     end
 
     def stripe_plans

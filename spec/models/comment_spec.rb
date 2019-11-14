@@ -60,7 +60,7 @@ describe Comment do
       expect(Comment.embargoed.include?(@embargoed_comment)).to be true
     end
 
-    it "doesn't include comments on requests without embargos" do
+    it "doesn't include comments on requests without embargoes" do
       expect(Comment.embargoed.include?(@request_comment)).to be false
     end
 
@@ -81,7 +81,7 @@ describe Comment do
       expect(Comment.not_embargoed.include?(@embargoed_comment)).to be false
     end
 
-    it "includes comments on requests without embargos" do
+    it "includes comments on requests without embargoes" do
       expect(Comment.not_embargoed.include?(@request_comment)).to be true
     end
 

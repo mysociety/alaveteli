@@ -20,6 +20,7 @@
 # 0c5d54599df8b711a7a254a114ba48aa, 2011
 # Adrien Chauvet, 2013
 # Adrien Chauvet, 2013
+# keronos <aka.keronos@gmail.com>, 2019
 # skenaja <alex@alexskene.com>, 2011
 # andreas.pavlou <andreas@access-info.org>, 2013
 # andreas.pavlou <andreas@access-info.org>, 2013
@@ -59,8 +60,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-07 09:17+0100\n"
-"PO-Revision-Date: 2019-08-07 08:20+0000\n"
-"Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
+"PO-Revision-Date: 2019-10-30 16:26+0000\n"
+"Last-Translator: keronos <aka.keronos@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/mysociety/alaveteli/language/fr/)\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -129,7 +130,7 @@ msgid " when you send this message."
 msgstr "quand vous envoyez ce message."
 
 msgid "'Crime statistics by ward level for Wales'"
-msgstr "'Statistiques de la criminalité par canton au  Pays de Galles'"
+msgstr "'Statistiques de la criminalité par canton en Ardèche'"
 
 msgid "'Pollution levels over time for the River Tyne'"
 msgstr "« Évolution dans le temps des niveaux de pollution de la rivière Tyne »"
@@ -1220,7 +1221,7 @@ msgid "Cultural sites and built structures (as they may be affected by the envir
 msgstr "Les sites culturels et les batiments (ils peuvent être affectés par \\n les facteurs environnementaux listés ci dessus) "
 
 msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they should respond promptly and"
-msgstr ""
+msgstr "Actuellement en attente de réponse de la part de l'autorité  {{public_body_link}}, ils devraient répondre rapidement et"
 
 msgid "Date:"
 msgstr "Date:"
@@ -4816,7 +4817,7 @@ msgid "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a hr
 msgstr ""
 
 msgid "{{user}} made this {{law_used_full}} request to {{public_body}}"
-msgstr ""
+msgstr "{{user}} a fait une demande de {{law_used_full}} à {{public_body}}"
 
 msgid "{{user}} made this {{law_used_full}} request to {{public_body}} as part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
 msgstr ""
