@@ -17,6 +17,8 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
 # 03992e16f8df6e39b9d1cc0ff635887e, 2016
 # Elenor Weijmar <ellelingh@hotmail.se>, 2018-2019
 # Elenor Weijmar <ellelingh@hotmail.se>, 2018
@@ -37,8 +39,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-07 09:17+0100\n"
-"PO-Revision-Date: 2019-08-08 12:09+0000\n"
+"POT-Creation-Date: 2019-11-14 10:15+0000\n"
+"PO-Revision-Date: 2019-11-12 08:37+0000\n"
 "Last-Translator: Elenor Weijmar <ellelingh@hotmail.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/mysociety/alaveteli/language/sv/)\n"
 "Language: sv\n"
@@ -1473,6 +1475,9 @@ msgstr "Uppföljning skickades till {{public_body_name}} av {{info_request_user}
 #. the initial request
 msgid "Follow ups and new responses to this request have been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and need to send a follow up."
 msgstr "Uppföljningar och nya svar på denna begäran har stoppats för att förhindra spam. Vänligen <a href=\"{{url}}\">kontakta oss</a> om du är {{user_link}} och behöver skicka en uppföljning."
+
+msgid "Follow us on Facebook"
+msgstr ""
 
 msgid "Follow us on twitter"
 msgstr "Följ oss på twitter"
@@ -3855,6 +3860,9 @@ msgstr "Vi har skickat detta meddelande men vi har inte tagit emot ett bekräfte
 msgid "We've sent you an email, and you'll need to click the link in it before you can continue."
 msgstr "Vi har skickat dig ett e-postmeddelande, och du måste klicka på länken i det innan du kan fortsätta."
 
+msgid "We've sent you an email, click the link in it, then you can change your password."
+msgstr "Vi har skickat ett e-postmeddelande, klicka på länken i det, då kan du ändra ditt lösenord."
+
 msgid "Week starting"
 msgstr "Vecka startar"
 
@@ -4667,6 +4675,9 @@ msgstr[1] "{{number_of_requests}} förfrågningar kvar att kategorisera / {{tota
 
 msgid "{{pro_site_name}} Terms"
 msgstr "{{pro_site_name}} Villkor"
+
+msgid "{{pro_site_name}} is a powerful, fully-featured FOI toolkit for journalists."
+msgstr ""
 
 msgid "{{public_body_link_absolute}}"
 msgstr "{{public_body_link_absolute}}"

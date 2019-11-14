@@ -17,6 +17,8 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
 # 0c5d54599df8b711a7a254a114ba48aa, 2011
 # Adrien Chauvet, 2013
 # Adrien Chauvet, 2013
@@ -34,6 +36,7 @@
 # claude transparencia <audit.citoyen.quartier@gmail.com>, 2016
 # David Cabo <david.cabo@gmail.com>, 2013
 # Gareth Rees <gareth@mysociety.org>, 2015-2016
+# keronos <aka.keronos@gmail.com>, 2019
 # Liz Conlan <liz@mysociety.org>, 2018
 # louisecrow <louise@mysociety.org>, 2013
 # louisecrow <louise@mysociety.org>, 2013-2015
@@ -59,9 +62,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-07 09:17+0100\n"
-"PO-Revision-Date: 2019-10-30 16:26+0000\n"
-"Last-Translator: keronos <aka.keronos@gmail.com>\n"
+"POT-Creation-Date: 2019-11-14 10:15+0000\n"
+"PO-Revision-Date: 2019-11-11 16:57+0000\n"
+"Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: French (http://www.transifex.com/mysociety/alaveteli/language/fr/)\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -1495,6 +1498,9 @@ msgstr "Suivi envoyé à {{public_body_name}} par {{info_request_user}} ce {{dat
 #. the initial request
 msgid "Follow ups and new responses to this request have been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and need to send a follow up."
 msgstr "Les suivis et les nouvelles réponses à cette demande ont été arrêtés afin de prémunir de spams. Veuillez <a href=\"{{url}}\">Nous contacter </a> si vous êtes {{user_link}} et avez besoin d'envoyer un suivi."
+
+msgid "Follow us on Facebook"
+msgstr ""
 
 msgid "Follow us on twitter"
 msgstr "Nous suivre sur Twitter"
@@ -3879,6 +3885,9 @@ msgstr "Nous avons envoyé ce message mais nous n'avons pas reçu de confirmatio
 msgid "We've sent you an email, and you'll need to click the link in it before you can continue."
 msgstr "Nous avons envoyé un email . Vous devez cliquer sur le lien dans \\n pour pouvoir continuer."
 
+msgid "We've sent you an email, click the link in it, then you can change your password."
+msgstr ""
+
 msgid "Week starting"
 msgstr ""
 
@@ -4690,6 +4699,9 @@ msgstr[0] "{{number_of_requests}} demandes restant à classer / {{total_number_o
 msgstr[1] "{{number_of_requests}} requests left to categorise / {{total_number_of_requests}} total"
 
 msgid "{{pro_site_name}} Terms"
+msgstr ""
+
+msgid "{{pro_site_name}} is a powerful, fully-featured FOI toolkit for journalists."
 msgstr ""
 
 msgid "{{public_body_link_absolute}}"

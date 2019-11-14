@@ -28,7 +28,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-11 16:55+0000\n"
+"POT-Creation-Date: 2019-11-14 10:15+0000\n"
 "PO-Revision-Date: 2019-11-14 10:01+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Dutch (http://www.transifex.com/mysociety/alaveteli/language/nl/)\n"
@@ -1464,6 +1464,9 @@ msgstr "Een follow-up bericht werd verstuurd aan {{public_body_name}} door {{inf
 #. the initial request
 msgid "Follow ups and new responses to this request have been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and need to send a follow up."
 msgstr "Follow-up berichten en nieuwe reacties op dit verzoek zijn tegengehouden om spam te voorkomen. Gelieve <a href=\"{{url}}\">ons te contacteren</a> als je {{user_link}} bent en een follow-up wil sturen."
+
+msgid "Follow us on Facebook"
+msgstr ""
 
 msgid "Follow us on twitter"
 msgstr "Volg ons op Twitter"
@@ -3846,6 +3849,9 @@ msgstr "Wob-Knop.nl heeft het bericht verstuurd, maar er is nog geen ontvangstbe
 msgid "We've sent you an email, and you'll need to click the link in it before you can continue."
 msgstr "Wob-Knop.nl heeft je een e-mail gestuurd. Klik op de link om\\n verder te gaan."
 
+msgid "We've sent you an email, click the link in it, then you can change your password."
+msgstr ""
+
 msgid "Week starting"
 msgstr "De week die begint op"
 
@@ -4658,6 +4664,9 @@ msgstr[1] "{{number_of_requests}} Wob-verzoeken nog te classificeren / {{total_n
 
 msgid "{{pro_site_name}} Terms"
 msgstr "Voorwaarden"
+
+msgid "{{pro_site_name}} is a powerful, fully-featured FOI toolkit for journalists."
+msgstr "{{pro_site_name}} is een handige Wob-tool voor journalisten."
 
 msgid "{{public_body_link_absolute}}"
 msgstr ""
