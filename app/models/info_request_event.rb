@@ -22,6 +22,8 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
+require 'yaml_compatibility'
+
 class InfoRequestEvent < ApplicationRecord
   include AdminColumn
   extend XapianQueries
@@ -327,7 +329,7 @@ class InfoRequestEvent < ApplicationRecord
   end
 
   def params
-    param_hash = YAML.load(params_yaml) || {}
+    param_hash = YAMLCompatibility.load(params_yaml) || {}
     param_hash.each do |key, value|
       param_hash[key] = value.force_encoding('UTF-8') if value.respond_to?(:force_encoding)
     end

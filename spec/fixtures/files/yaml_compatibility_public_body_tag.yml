@@ -1,0 +1,8 @@
+---
+public_body_tags:
+- !ruby/object:PublicBodyTag
+  attributes:
+    name: police
+    public_body_id: "1"
+    id: "2"
+  attributes_cache: {}

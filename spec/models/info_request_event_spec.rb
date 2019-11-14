@@ -291,6 +291,15 @@ describe InfoRequestEvent do
     end
   end
 
+  describe '#params' do
+    it 'should not error with Rails 5.0 params' do
+      ire = InfoRequestEvent.new(
+        params_yaml: load_file_fixture('yaml_compatibility_5_0.yml')
+      )
+      expect { ire.params }.to_not raise_error
+    end
+  end
+
   describe '#params_diff' do
     let(:ire) { InfoRequestEvent.new }
 
