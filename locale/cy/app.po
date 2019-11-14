@@ -17,13 +17,17 @@
 # Translators:
 # Translators:
 # Translators:
-# Aled Powell <aled@aledpowell.cymru>, 2014,2017
-# Aled Powell <aled@aledpowell.cymru>, 2014
+# Translators:
+# Translators:
+# Cymrodor <aled@aledpowell.cymru>, 2014,2017
+# Cymrodor <aled@aledpowell.cymru>, 2014
 # skenaja <alex@alexskene.com>, 2011-2012
 # baragouiner <graham.craig@gmail.com>, 2013
+# bc36d957be14c2eb7503c3ffd494e629, 2013
+# Cymrodor <aled@aledpowell.cymru>, 2014,2017
 # Gareth Rees <gareth@mysociety.org>, 2015
-# baragouiner <graham.craig@gmail.com>, 2013
-# baragouiner <graham.craig@gmail.com>, 2013
+# bc36d957be14c2eb7503c3ffd494e629, 2013
+# bc36d957be14c2eb7503c3ffd494e629, 2013
 # Huw Waters <huwwaters@gmail.com>, 2013
 # Huw Waters <huwwaters@gmail.com>, 2013,2015-2016
 # hywelm <hywelm.jones@talk21.com>, 2013
