@@ -12,17 +12,22 @@ describe AdminPublicBodyChangeRequestsController do
   end
 
   describe 'PUT #update' do
-    it 'closes the change request' do
-      post :update, params: { id: add_request.id }
-      expect(add_request.reload.is_open).to eq(false)
+    before do
+      post :update, params: params
     end
 
     context 'close and respond' do
-      it 'sends a response email to the user who requested the change' do
-        post :update, params: { id: add_request.id,
-                                response: 'Thanks but no',
-                                subject: 'Your request' }
+      let(:params) do
+        { id: add_request.id,
+          response: 'Thanks but no',
+          subject: 'Your request' }
+      end
 
+      it 'closes the change request' do
+        expect(add_request.reload.is_open).to eq(false)
+      end
+
+      it 'sends a response email to the user who requested the change' do
         deliveries = ActionMailer::Base.deliveries
         mail = deliveries.first
 
@@ -34,10 +39,16 @@ describe AdminPublicBodyChangeRequestsController do
     end
 
     context 'close' do
+      let(:params) do
+        { id: add_request.id }
+      end
+
+      it 'closes the change request' do
+        expect(add_request.reload.is_open).to eq(false)
+      end
+
       it 'no email is sent to the user who requested the change' do
-        post :update, params: { id: add_request.id }
-        deliveries = ActionMailer::Base.deliveries
-        expect(deliveries.size).to eq(0)
+        expect(ActionMailer::Base.deliveries).to be_empty
       end
     end
   end
