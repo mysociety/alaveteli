@@ -36,6 +36,15 @@ describe AdminPublicBodyChangeRequestsController do
         expect(mail.to).to eq([add_request.get_user_email])
         expect(mail.body).to match(/Thanks but no/)
       end
+
+      it 'notifies the admin the request is closed and user has been emailed' do
+        msg =
+          'The change request has been closed and the user has been notified'
+
+        expect(flash[:notice]).to eq(msg)
+      end
+
+      it { is_expected.to redirect_to(admin_general_index_path) }
     end
 
     context 'close' do
@@ -50,6 +59,12 @@ describe AdminPublicBodyChangeRequestsController do
       it 'no email is sent to the user who requested the change' do
         expect(ActionMailer::Base.deliveries).to be_empty
       end
+
+      it 'notifies the admin the request is closed' do
+        expect(flash[:notice]).to eq('The change request has been closed')
+      end
+
+      it { is_expected.to redirect_to(admin_general_index_path) }
     end
   end
 end
