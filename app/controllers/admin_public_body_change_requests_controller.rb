@@ -3,6 +3,7 @@ class AdminPublicBodyChangeRequestsController < AdminController
   before_action :set_change_request, only: [:edit, :update]
 
   def edit
+    @title = 'Close change request'
   end
 
   def update

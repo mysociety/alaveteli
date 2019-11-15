@@ -1,9 +1,20 @@
-<h1><%= @title %></h1>
+<div class="row">
+  <div class="span12">
+    <div class="page-header">
+      <h1><%= @title %></h1>
+    </div>
+  </div>
+</div>
 
 <%= form_tag admin_change_request_path(@change_request), method: 'put', class: 'form form-horizontal' do %>
   <%= render partial: 'admin_public_body_change_requests/response' %>
 
   <div class="form-actions">
-    <%= submit_tag 'Close and respond', accesskey: 'c', class: 'btn' %>
+    <%= link_to 'Close', admin_change_request_path(@change_request),
+                  method: :put,
+                  accesskey: 'c',
+                  class: 'btn btn-danger' %>
+
+    <%= submit_tag 'Close and respond', accesskey: 'r', class: 'btn' %>
   </div>
 <% end %>

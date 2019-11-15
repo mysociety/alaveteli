@@ -5,8 +5,15 @@ describe AdminPublicBodyChangeRequestsController do
   let(:add_request) { FactoryBot.create(:add_body_request) }
 
   describe 'GET #edit' do
-    it 'renders the edit template' do
+    before do
       get :edit, params: { id: add_request.id }
+    end
+
+    it 'sets the page title' do
+      expect(assigns[:title]).to eq('Close change request')
+    end
+
+    it 'renders the edit template' do
       expect(response).to render_template('edit')
     end
   end
