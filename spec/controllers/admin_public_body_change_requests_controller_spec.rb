@@ -14,8 +14,7 @@ describe AdminPublicBodyChangeRequestsController do
   describe 'PUT #update' do
     it 'closes the change request' do
       post :update, params: { id: add_request.id }
-      expect(PublicBodyChangeRequest.find(add_request.id).is_open).
-        to eq(false)
+      expect(add_request.reload.is_open).to eq(false)
     end
 
     context 'close and respond' do
