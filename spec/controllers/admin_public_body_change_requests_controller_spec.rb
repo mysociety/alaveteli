@@ -22,9 +22,11 @@ describe AdminPublicBodyChangeRequestsController do
         post :update, params: { id: add_request.id,
                                 response: 'Thanks but no',
                                 subject: 'Your request' }
+
         deliveries = ActionMailer::Base.deliveries
+        mail = deliveries.first
+
         expect(deliveries.size).to eq(1)
-        mail = deliveries[0]
         expect(mail.subject).to eq('Your request')
         expect(mail.to).to eq([add_request.get_user_email])
         expect(mail.body).to match(/Thanks but no/)
