@@ -22,7 +22,7 @@ describe AdminPublicBodyChangeRequestsController do
         to eq(false)
     end
 
-    context 'when a response and subject are passed' do
+    context 'close and respond' do
       it 'sends a response email to the user who requested the change' do
         post :update, params: { id: @change_request.id,
                                 response: 'Thanks but no',
@@ -36,8 +36,8 @@ describe AdminPublicBodyChangeRequestsController do
       end
     end
 
-    context 'when no response or subject are passed' do
-      it 'sends a response email to the user who requested the change' do
+    context 'close' do
+      it 'no email is sent to the user who requested the change' do
         post :update, params: { id: @change_request.id }
         deliveries = ActionMailer::Base.deliveries
         expect(deliveries.size).to eq(0)
