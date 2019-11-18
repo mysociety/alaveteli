@@ -80,6 +80,23 @@ $complete: rgb(112, 203, 99);
   }
 }
 
+.download-icon {
+  background-image: image-url('alaveteli-pro/download.png');
+  background-size: 13px 13px;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 13px;
+  width: 13px;
+  margin-right: 0.3em;
+  position: relative;
+  top: 1px;
+  @include image-replacement();
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    background-image: image-url('alaveteli-pro/download@2.png');
+  }
+}
+
 /* Blank slate - when there are no requests to show */
 .blank-slate {
 

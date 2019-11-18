@@ -104,6 +104,7 @@
 .request__meta {
   @include flexbox;
   flex-wrap: wrap;
+  margin: 0 0 1em;
 }
 
 .request__meta__label {
@@ -175,6 +176,12 @@
 
 .request__meta__label {
   display: block;
+}
+
+.request__download a {
+  @include button($padding: 0.428rem, $bg: #AAA, $radius: true);
+  font-size: 0.786rem;
+  margin: 0;
 }
 
 .search-and-filter-overview {
