@@ -64,7 +64,8 @@ class GeneralController < ApplicationController
         @feed_autodetect = [{:url => @feed_url, :title => "#{site_name} blog"}]
       end
     end
-    @twitter_user = AlaveteliConfiguration::twitter_username
+    @twitter_user = AlaveteliConfiguration.twitter_username
+    @facebook_user = AlaveteliConfiguration.facebook_username
   end
 
   # Just does a redirect from ?query= search to /query

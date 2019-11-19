@@ -12,7 +12,7 @@ describe AdminUserController do
 
     it 'responds successfully' do
       get :index
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'sets a default sort order' do
@@ -145,7 +145,7 @@ describe AdminUserController do
     it "is successful" do
       get :show, params: { :id => FactoryBot.create(:user) },
                  session: { :user_id => admin_user.id }
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it "assigns the user's info requests to the view" do

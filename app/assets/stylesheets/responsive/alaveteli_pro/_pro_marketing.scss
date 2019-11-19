@@ -28,8 +28,8 @@
 
 .marketing__hero__cta {
   background: white;
-  padding: 2em 0;
-  max-width: 20em;
+  padding: 2em 0 1em;
+  max-width: 25em;
   margin: 4em auto 0;
   box-shadow: 0 0 20px 2px rgba(0,0,0,0.11);
   border-radius: 5px;
@@ -129,16 +129,16 @@
   }
 }
 
-label.input-beta-button {
+label.input-account-request-button {
   color: white;
   text-decoration: none;
 }
 
-.input-beta-button {
+.input-account-request-button {
   margin-top: 2em;
 }
 
-.beta-signup-form {
+.account-request-signup-form {
   label {
     font-size: 1em;
   }

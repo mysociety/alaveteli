@@ -96,7 +96,7 @@ class User < ApplicationRecord
            -> { order('created_at desc') },
            :inverse_of => :user,
            :dependent => :destroy,
-           :class_name => AlaveteliPro::DraftInfoRequestBatch
+           :class_name => 'AlaveteliPro::DraftInfoRequestBatch'
   has_many :request_classifications,
            :inverse_of => :user,
            :dependent => :destroy
@@ -106,7 +106,7 @@ class User < ApplicationRecord
   has_many :request_summaries,
            :inverse_of => :user,
            :dependent => :destroy,
-           :class_name => AlaveteliPro::RequestSummary
+           :class_name => 'AlaveteliPro::RequestSummary'
   has_many :notifications,
            :inverse_of => :user,
            :dependent => :destroy
@@ -340,18 +340,17 @@ class User < ApplicationRecord
   # requested_by: and commented_by: search queries also need updating after save
   def reindex_referencing_models
     return if no_xapian_reindex == true
+    return unless saved_change_to_attribute?(:url_name)
 
-    if changes.include?('url_name')
-      comments.each do |comment|
-        comment.info_request_events.each do |info_request_event|
-          info_request_event.xapian_mark_needs_index
-        end
+    comments.each do |comment|
+      comment.info_request_events.each do |info_request_event|
+        info_request_event.xapian_mark_needs_index
       end
+    end
 
-      info_requests.each do |info_request|
-        info_request.info_request_events.each do |info_request_event|
-          info_request_event.xapian_mark_needs_index
-        end
+    info_requests.each do |info_request|
+      info_request.info_request_events.each do |info_request_event|
+        info_request_event.xapian_mark_needs_index
       end
     end
   end
@@ -709,13 +708,13 @@ class User < ApplicationRecord
   end
 
   def setup_pro_account(role)
-    return unless role == Role.pro_role && feature_enabled?(:pro_pricing)
-    pro_account || build_pro_account
+    return unless role == Role.pro_role
+    pro_account || build_pro_account if feature_enabled?(:pro_pricing)
+    AlaveteliPro::Access.grant(self)
   end
 
   def update_pro_account
-    return unless is_pro? && pro_account
-    pro_account.update_email_address if email_changed?
+    pro_account.update_stripe_customer if pro_account
   end
 
 end

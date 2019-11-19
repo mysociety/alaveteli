@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe '_search_results.html.erb' do
-  let(:draft_batch_request) { AlaveteliPro::DraftInfoRequestBatch.new() }
+  let(:draft_batch_request) { AlaveteliPro::DraftInfoRequestBatch.new }
 
   def render_view(locals)
     render(:partial => "alaveteli_pro/batch_request_authority_searches/search_results",

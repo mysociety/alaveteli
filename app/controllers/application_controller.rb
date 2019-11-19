@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   end
   class RouteNotFound < StandardError
   end
+  before_action :collect_locales
   protect_from_forgery :if => :user?, :with => :exception
   skip_before_action :verify_authenticity_token, :unless => :user?
 
@@ -37,7 +38,6 @@ class ApplicationController < ActionController::Base
   before_action :session_remember_me
   before_action :set_vary_header
   before_action :validate_session_timestamp
-  before_action :collect_locales
   after_action  :persist_session_timestamp
 
   def set_vary_header
@@ -68,30 +68,25 @@ class ApplicationController < ActionController::Base
   # required due to the I18nProxy used in Rails to trigger the
   # lookup_context and expire the template cache
   def set_gettext_locale
+    params_locale = params[:locale]
+
     if AlaveteliConfiguration.include_default_locale_in_urls == false
-      params_locale = params.fetch(:locale) do
-        AlaveteliLocalization.default_locale
-      end
-    else
-      params_locale = params[:locale]
+      params_locale ||= AlaveteliLocalization.default_locale
     end
-    browser_locale = if AlaveteliConfiguration.use_default_browser_language
-      request.env['HTTP_ACCEPT_LANGUAGE']
-    else
-      nil
+
+    if AlaveteliConfiguration.use_default_browser_language
+      browser_locale = request.env['HTTP_ACCEPT_LANGUAGE']
     end
-    AlaveteliLocalization.set_session_locale(params_locale,
-                                             session[:locale],
-                                             cookies[:locale],
-                                             browser_locale)
-    # set the currrent locale to the requested_locale
-    session[:locale] = AlaveteliLocalization.locale
-    if !@user.nil?
-      if @user.locale != AlaveteliLocalization.locale
-        @user.locale = AlaveteliLocalization.locale
-        @user.save!
-      end
-    end
+
+    locale = AlaveteliLocalization.set_session_locale(
+      params_locale, session[:locale], cookies[:locale], browser_locale
+    )
+
+    # set the current locale to the requested_locale
+    session[:locale] = locale
+
+    # ensure current user locale attribute is up-to-date
+    current_user.update_column(:locale, locale) if current_user
   end
 
   # Help work out which request causes RAM spike.

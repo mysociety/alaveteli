@@ -17,6 +17,8 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
 # fabrizioscrollini <fabrizio.scrollini@gmail.com>, 2012
 # gaba <gabelula@gmail.com>, 2012,2014
 # Gareth Rees <gareth@mysociety.org>, 2015-2016
@@ -34,8 +36,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-07 09:17+0100\n"
-"PO-Revision-Date: 2019-08-07 08:20+0000\n"
+"POT-Creation-Date: 2019-11-14 10:15+0000\n"
+"PO-Revision-Date: 2019-11-11 16:57+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Spanish (Nicaragua) (http://www.transifex.com/mysociety/alaveteli/language/es_NI/)\n"
 "Language: es_NI\n"
@@ -1513,6 +1515,9 @@ msgstr "Seguimiento enviado a {{public_body_name}} por {{info_request_user}} el 
 #. the initial request
 msgid "Follow ups and new responses to this request have been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and need to send a follow up."
 msgstr "Se han bloqueado nuevas respuestas a esta solicitud para prevenir spam. Por favor <a href=\"{{url}}\">contáctanos</a> si tú eres {{user_link}} y necesitas responder."
+
+msgid "Follow us on Facebook"
+msgstr ""
 
 msgid "Follow us on twitter"
 msgstr "Síguenos en Twitter"
@@ -4010,6 +4015,9 @@ msgstr ""
 "Te hemos enviado un correo, necesitarás seguir el enlace incluído en él antes\n"
 "de continuar."
 
+msgid "We've sent you an email, click the link in it, then you can change your password."
+msgstr ""
+
 msgid "Week starting"
 msgstr ""
 
@@ -4850,6 +4858,9 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "{{pro_site_name}} Terms"
+msgstr ""
+
+msgid "{{pro_site_name}} is a powerful, fully-featured FOI toolkit for journalists."
 msgstr ""
 
 msgid "{{public_body_link_absolute}}"

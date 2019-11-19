@@ -16,6 +16,12 @@
   }
 }
 
+// Blog page doesn't have the request page header, so extra
+// padding is required to stop its contents touching the nav.
+#general_blog .right_column {
+  padding-top: 2.5em;
+}
+
 .sidebar_similar_requests__more-link {
   font-size: 0.75em;
 }
@@ -47,7 +53,7 @@
   display: inline-block;
   height: 16px;
   width: 16px;
-  background-size: 96px 16px;
+  background-size: 128px 16px;
   background-repeat: no-repeat;
   background-image: image-url('act-links-sprite.png');
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
@@ -59,22 +65,30 @@
   background-position: 0 0;
 }
 
-.act-link-icon--medium {
-  background-position: -32px 0;
-}
-
-.act-link-icon--twitter{
+.act-link-icon--twitter {
   background-position: -16px 0;
 }
 
-.act-link-icon--wordpress {
-  background-position: -64px 0;
+.act-link-icon--medium {
+  background-position: -32px 0;
 }
 
 .act-link-icon--widget {
   background-position: -48px 0;
 }
 
+.act-link-icon--wordpress {
+  background-position: -64px 0;
+}
+
 .act-link-icon--write {
   background-position: -80px 0;
+}
+
+.act-link-icon--youtube {
+  background-position: -96px 0;
+}
+
+.act-link-icon--rss {
+  background-position: -112px 0;
 }

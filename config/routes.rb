@@ -665,6 +665,9 @@ Rails.application.routes.draw do
           collection do
             resource :payment_method, only: [:update]
           end
+          member do
+            get :authorise
+          end
         end
       end
 
@@ -680,7 +683,7 @@ Rails.application.routes.draw do
     scope module: :alaveteli_pro do
       resources :account_request, :only => [:index, :create], path: :pro do
         collection do
-          get :training, action: :new
+          get :training, to: redirect('/pro')
         end
       end
     end

@@ -43,6 +43,7 @@
         H.className = H.className.replace(/\bno-js\b/,'js-loaded')
       })(document.documentElement);
     </script>
+    <%= content_for :javascript_head %>
   </head>
   <body class="<%= 'front' if params[:action] == 'frontpage' %> <% if @in_pro_area %>alaveteli-pro<% end %>">
     <% if is_admin? %>

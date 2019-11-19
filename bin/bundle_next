@@ -1,0 +1,2 @@
+#!/bin/sh
+BUNDLE_GEMFILE=Gemfile.rails_next bundle "$@"

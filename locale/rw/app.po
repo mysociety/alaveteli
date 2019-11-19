@@ -17,6 +17,8 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
 # Clarisse Umutesi Mwitegereze <clarisse@mediae.org>, 2014-2015
 # Gareth Rees <gareth@mysociety.org>, 2015
 # Jean Pierre <afadhalipierre@gmail.com>, 2017
@@ -28,8 +30,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-07 09:17+0100\n"
-"PO-Revision-Date: 2019-08-07 08:20+0000\n"
+"POT-Creation-Date: 2019-11-14 10:15+0000\n"
+"PO-Revision-Date: 2019-11-11 16:57+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Kinyarwanda (http://www.transifex.com/mysociety/alaveteli/language/rw/)\n"
 "Language: rw\n"
@@ -1464,6 +1466,9 @@ msgstr "Ubutumwa bwo gukurikirana bwohererejwe {{public_body_name}} na {{info_re
 #. the initial request
 msgid "Follow ups and new responses to this request have been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and need to send a follow up."
 msgstr "Ubutumwa bwo gukurikira n'ibisubizo bishya kuri iki kibazo byarahagaritswe kugirango twirinde sipamu. Turabasaba <a href=\"{{url}}\">kutwandikira </a> niba uri {{user_link}} kandi ushaka kwohereza ubutumwa bwo gukurikirana."
+
+msgid "Follow us on Facebook"
+msgstr ""
 
 msgid "Follow us on twitter"
 msgstr "Dukurikire kuri twitter"
@@ -3846,6 +3851,9 @@ msgstr "Twohereje ubu butumwa ariko ntabwo turamenyeshwa niba ikigo bugenewe cya
 msgid "We've sent you an email, and you'll need to click the link in it before you can continue."
 msgstr "Twakoherereje imeli, ubanze ukande ihuza riyirimo\\nkugirango ubashe gukomeza."
 
+msgid "We've sent you an email, click the link in it, then you can change your password."
+msgstr ""
+
 msgid "Week starting"
 msgstr "Icyumweru kirigutandira"
 
@@ -4657,6 +4665,9 @@ msgstr[0] "{{number_of_requests}}ibyaasabwe bisigaye gushyirwa mu byiciro / {{to
 msgstr[1] "{{number_of_requests}}ibyaasabwe bisigaye gushyirwa mu byiciro / {{total_number_of_requests}} zose"
 
 msgid "{{pro_site_name}} Terms"
+msgstr ""
+
+msgid "{{pro_site_name}} is a powerful, fully-featured FOI toolkit for journalists."
 msgstr ""
 
 msgid "{{public_body_link_absolute}}"

@@ -17,6 +17,8 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
 # Baran Ozgul <baran@ozgul.net>, 2012
 # Baran Ozgul <baran@ozgul.net>, 2012
 # Baran Ozgul <baran@ozgul.net>, 2012
@@ -30,8 +32,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-07 09:17+0100\n"
-"PO-Revision-Date: 2019-08-07 08:20+0000\n"
+"POT-Creation-Date: 2019-11-14 10:15+0000\n"
+"PO-Revision-Date: 2019-11-11 16:57+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Turkish (http://www.transifex.com/mysociety/alaveteli/language/tr/)\n"
 "Language: tr\n"
@@ -1468,6 +1470,9 @@ msgstr "Başvuruyla ilgili takip mesajı  {{public_body_name}} adlı kuruma  {{d
 #. the initial request
 msgid "Follow ups and new responses to this request have been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and need to send a follow up."
 msgstr "Bu başvuruyla ilgili olarak atılan takip mesajları ve yeni yanıtlar, istenmeyen email mesajlarını engellemek için durduruldu. Eğer {{user_link}} iseniz ve bir takip mesajı göndermek istiyorsanız lütfen  <a href=\"{{url}}\">bizimle iletişime geçin</a>."
+
+msgid "Follow us on Facebook"
+msgstr ""
 
 msgid "Follow us on twitter"
 msgstr "Bizi Twitter'da takip edin"
@@ -3857,6 +3862,9 @@ msgstr ""
 msgid "We've sent you an email, and you'll need to click the link in it before you can continue."
 msgstr "Size bir email gönderdik; devam etmeden önce\\n o maildeki bağlantıyı tıklamanız gerekiyor. "
 
+msgid "We've sent you an email, click the link in it, then you can change your password."
+msgstr ""
+
 msgid "Week starting"
 msgstr ""
 
@@ -4668,6 +4676,9 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "{{pro_site_name}} Terms"
+msgstr ""
+
+msgid "{{pro_site_name}} is a powerful, fully-featured FOI toolkit for journalists."
 msgstr ""
 
 msgid "{{public_body_link_absolute}}"

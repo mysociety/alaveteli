@@ -382,7 +382,11 @@ class PublicBody < ApplicationRecord
 
   # The "internal admin" is a special body for internal use.
   def self.internal_admin_body
-    matching_pbs = PublicBody.where(:url_name => 'internal_admin_authority')
+    matching_pbs = AlaveteliLocalization.
+      with_locale(AlaveteliLocalization.default_locale) do
+      PublicBody.where(url_name: 'internal_admin_authority')
+    end
+
     case
     when matching_pbs.empty? then
       # "internal admin" exists but has the wrong default locale - fix & return
@@ -849,8 +853,17 @@ class PublicBody < ApplicationRecord
       end
 
       select(select_sql).
-        joins(%Q(LEFT OUTER JOIN public_body_translations as current_locale ON (public_bodies.id = current_locale.public_body_id AND current_locale.locale = #{sanitize(underscore_locale)}))).
-        joins(%Q(LEFT OUTER JOIN public_body_translations as default_locale ON (public_bodies.id = default_locale.public_body_id AND default_locale.locale = #{sanitize(underscore_default_locale)}))).
+        joins(
+          "LEFT OUTER JOIN public_body_translations as current_locale ON " \
+          "(public_bodies.id = current_locale.public_body_id AND " \
+          "current_locale.locale = '#{sanitize_sql(underscore_locale)}')"
+        ).
+        joins(
+          "LEFT OUTER JOIN public_body_translations as default_locale ON " \
+          "(public_bodies.id = default_locale.public_body_id AND " \
+          "default_locale.locale = " \
+          "'#{sanitize_sql(underscore_default_locale)}')"
+        ).
         where("(#{get_public_body_list_translated_condition('current_locale', has_first_letter)}) OR " \
               "(#{get_public_body_list_translated_condition('default_locale', has_first_letter)}) ", where_parameters).
         where('COALESCE(current_locale.name, default_locale.name) IS NOT NULL').
@@ -905,11 +918,11 @@ class PublicBody < ApplicationRecord
   # will break unless we update index for every event for every
   # request linked to it
   def reindex_requested_from
-    if changes.include?('url_name')
-      info_requests.each do |info_request|
-        info_request.info_request_events.each do |info_request_event|
-          info_request_event.xapian_mark_needs_index
-        end
+    return unless saved_change_to_attribute?(:url_name)
+
+    info_requests.each do |info_request|
+      info_request.info_request_events.each do |info_request_event|
+        info_request_event.xapian_mark_needs_index
       end
     end
   end

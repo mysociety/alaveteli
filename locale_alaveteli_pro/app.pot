@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-07 09:18+0100\n"
+"POT-Creation-Date: 2019-11-14 10:16+0000\n"
 "PO-Revision-Date: 2017-01-20 17:40+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -97,9 +97,6 @@ msgstr ""
 msgid "A <strong>summary</strong> of the response if you have received it by postal mail. "
 msgstr ""
 
-msgid "A monthly subscription"
-msgstr ""
-
 msgid "A one line summary of the information you are requesting, e.g."
 msgstr ""
 
@@ -139,7 +136,7 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
-msgid "Add Payment Card"
+msgid "Add Card Details"
 msgstr ""
 
 msgid "Add all"
@@ -157,6 +154,9 @@ msgstr ""
 msgid "Added"
 msgstr ""
 
+msgid "Adding your payment card requires your browser to have JavaScript enabled."
+msgstr ""
+
 msgid "All requests"
 msgstr ""
 
@@ -169,13 +169,10 @@ msgstr ""
 msgid "An all-in-one FOI toolkit for journalists, activists and campaigners"
 msgstr ""
 
-msgid "An annual subscription"
-msgstr ""
-
 msgid "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
 msgstr ""
 
-msgid "Are you interested in free training, seminars and workshops about {{site_name}}?"
+msgid "Are you interested in free training, seminars and workshops about {{pro_site_name}}?"
 msgstr ""
 
 msgid "Are you sure the information you’re after isn’t available elsewhere?"
@@ -230,6 +227,9 @@ msgid "Cancel your subscription"
 msgstr ""
 
 msgid "Cancelled subscriptions:"
+msgstr ""
+
+msgid "Card details"
 msgstr ""
 
 msgid "Change privacy"
@@ -346,13 +346,7 @@ msgstr ""
 msgid "From this screen you can see what you need to do next to keep your requests moving forward. Why not start a new request now?"
 msgstr ""
 
-msgid "Get access to the beta"
-msgstr ""
-
-msgid "Get email updates about {{site_name}}?"
-msgstr ""
-
-msgid "Get pre-launch access"
+msgid "Get email updates about {{pro_site_name}}?"
 msgstr ""
 
 msgid "Get regular updates as the responses come in — without overwhelming your inbox"
@@ -373,9 +367,6 @@ msgstr ""
 msgid "If payment continues to fail, unfortunately your account will revert back to a free account, and you’ll no longer have access to {{pro_site_name}}."
 msgstr ""
 
-msgid "If you have an <strong>offer code</strong>, please enter it here:"
-msgstr ""
-
 msgid "If you wish to preserve your access to {{pro_site_name}}, please could you check that your card has sufficient funds, and that the card details are correct on your subscriptions page: {{subscriptions_page_url}}"
 msgstr ""
 
@@ -383,6 +374,9 @@ msgid "Important info about requests to this authority"
 msgstr ""
 
 msgid "Introductory Pricing"
+msgstr ""
+
+msgid "Join {{pro_site_name}}"
 msgstr ""
 
 msgid "Keep <strong class=\"marketing-highlight\">requests and responses private</strong> while you work on your story"
@@ -475,13 +469,13 @@ msgstr ""
 msgid "Note: When this request is made public on {{site_name}}, your name and annotation will appear in <strong>search engines</strong>."
 msgstr ""
 
-msgid "Now in beta"
-msgstr ""
-
 msgid "Number of Pro accounts active this week:"
 msgstr ""
 
 msgid "Number of discounted users:"
+msgstr ""
+
+msgid "Number of expired embargoes this week:"
 msgstr ""
 
 msgid "Number of free trial users:"
@@ -494,12 +488,6 @@ msgid "Once the privacy period ends, everything that you enter on this page, inc
 msgstr ""
 
 msgid "Once you’re happy with your request, click preview and send."
-msgstr ""
-
-msgid "Pay"
-msgstr ""
-
-msgid "Pay with card"
 msgstr ""
 
 msgid "Payments past due:"
@@ -612,7 +600,7 @@ msgstr ""
 msgid "Replies"
 msgstr ""
 
-msgid "Request access to {{site_name}} beta"
+msgid "Request access to {{pro_site_name}}"
 msgstr ""
 
 msgid "Request an internal review"
@@ -761,6 +749,9 @@ msgstr ""
 msgid "Submit Search"
 msgstr ""
 
+msgid "Subscribe"
+msgstr ""
+
 msgid "Subscription began"
 msgstr ""
 
@@ -768,9 +759,6 @@ msgid "Subscription cancellations are applied at the end of the current billing 
 msgstr ""
 
 msgid "Subscription ends"
-msgstr ""
-
-msgid "Successful applicants will receive free early access to {{site_name}} for 6 months."
 msgstr ""
 
 msgid "Terms and conditions"
@@ -805,6 +793,9 @@ msgid "Then you can update your payment details"
 msgstr ""
 
 msgid "Then you can upgrade your account"
+msgstr ""
+
+msgid "There was a problem authorising your payment. You have not been charged. Please try again."
 msgstr ""
 
 msgid "There was a problem cancelling your account. Please try again later."
@@ -969,9 +960,6 @@ msgid "You haven't added any authorities to your batch yet"
 msgstr ""
 
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
-msgstr ""
-
-msgid "You must accept the terms and conditions"
 msgstr ""
 
 msgid "You sent a clarification to {{public_body_name}} for \"{{info_request_title}}\"."

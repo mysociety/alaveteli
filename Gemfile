@@ -79,11 +79,12 @@
 # the new version. It is always preferable to upgrade our code.
 source 'https://rubygems.org'
 
+# See instructions in Gemfile.rails_next
 def rails_upgrade?
   %w[1 true].include?(ENV['RAILS_UPGRADE'])
 end
 
-gem 'rails', '5.0.7.2'
+gem 'rails', rails_upgrade? ? '5.2.3' : '5.1.7'
 
 gem 'pg', '~> 0.20.0'
 
@@ -118,7 +119,7 @@ gem 'recaptcha', '~> 4.9.0', '< 4.10.0', :require => 'recaptcha/rails'
 gem 'rmagick', '~> 2.16.0'
 gem 'rolify', '~> 5.2.0'
 gem 'ruby-msg', '~> 1.5.0', :git => 'https://github.com/mysociety/ruby-msg.git', :branch => 'ascii-encoding'
-gem 'rubyzip', '~> 1.2.2'
+gem 'rubyzip', '~> 1.3.0', '< 2.0.0'
 gem 'secure_headers', '~> 3.6.0'
 gem 'statistics2', '~> 0.54'
 gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :ref => 'c1c14da'
@@ -126,7 +127,7 @@ gem 'stripe', '~> 3.29.0'
 gem 'syslog_protocol', '~> 0.9.0'
 gem 'thin', '~> 1.5.0', '< 1.6.0'
 gem 'vpim', '~> 13.11.11'
-gem 'will_paginate', '~> 3.1.6'
+gem 'will_paginate', '~> 3.1.8'
 gem 'xapian-full-alaveteli', '~> 1.2.21.1'
 gem 'xml-simple', '~> 1.1.0', :require => 'xmlsimple'
 
@@ -139,7 +140,7 @@ gem 'rails-i18n', '~> 5.1.0'
 gem 'gettext_i18n_rails', '~> 0.10.1'
   gem 'fast_gettext', '< 1.2.0'
 gem 'gettext', '~> 2.3.0'
-gem 'globalize', '~> 5.1.0'
+gem 'globalize', '~> 5.2.0'
 gem 'locale', '~> 2.0.0', '< 2.1.0'
 gem 'routing-filter', '~> 0.6.2'
 gem 'unicode', '~> 0.4.4'
@@ -166,7 +167,8 @@ group :test do
   gem 'coveralls', '~> 0.8.0', :require => false
   gem 'capybara', '~> 3.5.0'
   gem 'delorean', '~> 2.1.0'
-  gem 'stripe-ruby-mock', ['~> 2.5.4', '< 2.5.7']
+  gem 'stripe-ruby-mock', git: 'https://github.com/gbp/stripe-ruby-mock',
+                          branch: 'develop'
   gem('rails-controller-testing')
 end
 

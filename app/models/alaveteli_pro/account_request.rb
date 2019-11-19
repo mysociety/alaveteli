@@ -11,8 +11,7 @@ class AlaveteliPro::AccountRequest
                 :subject,
                 :reason,
                 :marketing_emails,
-                :training_emails,
-                :offer_code
+                :training_emails
 
   validates_presence_of :email, :message => N_("Please enter your email address")
   validates_presence_of :reason, :message => N_("Please enter the reason why you want access")

@@ -177,7 +177,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.customize ['modifyvm', :id, '--cpus', SETTINGS['cpus']]
   end
 
-  config.vm.provision :shell, inline: <<-EOF
+  config.vm.provision :shell, keep_color: true, inline: <<-EOF
   if [[ -f "/home/vagrant/alaveteli/commonlib/bin/install-site.sh" ]]
     then
       /home/vagrant/alaveteli/commonlib/bin/install-site.sh \
@@ -199,7 +199,7 @@ To start your alaveteli instance:
 * bundle exec rails server -b 0.0.0.0
 EOF
 
-  config.vm.provision :shell, inline: "echo '#{ motd }' >> /etc/motd.tail"
+  config.vm.provision :shell, keep_color: true, inline: "echo '#{ motd }' >> /etc/motd.tail"
 
   # Display next steps info at the end of a successful install
   instructions = <<-EOF
@@ -220,5 +220,5 @@ Type `vagrant ssh` to log into the Vagrant box to start the site
 or run the test suite
 EOF
 
-  config.vm.provision :shell, inline: "echo '#{ instructions }'"
+  config.vm.provision :shell, keep_color: true, inline: "echo '#{ instructions }'"
 end

@@ -266,6 +266,47 @@ describe PasswordChangesController do
 
     end
 
+    context 'with enable_two_factor_auth disabled' do
+      before do
+        allow(AlaveteliConfiguration).
+          to receive(:enable_two_factor_auth).and_return(false)
+      end
+
+      let(:user) { FactoryBot.create(:user, otp_enabled: true) }
+
+      it 'sets otp_enabled to false' do
+        get :edit, params: { id: post_redirect.token }
+        expect(assigns[:otp_enabled]).to eq(false)
+      end
+    end
+
+    context 'user has OTP enabled' do
+      before do
+        allow(AlaveteliConfiguration).
+          to receive(:enable_two_factor_auth).and_return(true)
+      end
+
+      let(:user) { FactoryBot.create(:user, otp_enabled: true) }
+
+      it 'sets otp_enabled to true' do
+        get :edit, params: { id: post_redirect.token }
+        expect(assigns[:otp_enabled]).to eq(true)
+      end
+    end
+
+    context 'user has OTP disabled' do
+      before do
+        allow(AlaveteliConfiguration).
+          to receive(:enable_two_factor_auth).and_return(true)
+      end
+
+      let(:user) { FactoryBot.create(:user, otp_enabled: false) }
+
+      it 'sets otp_enabled to false' do
+        get :edit, params: { id: post_redirect.token }
+        expect(assigns[:otp_enabled]).to eq(false)
+      end
+    end
   end
 
   describe 'PUT update' do

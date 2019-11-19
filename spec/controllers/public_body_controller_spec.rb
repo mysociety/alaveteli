@@ -13,7 +13,7 @@ describe PublicBodyController, "when showing a body" do
 
   it "should be successful" do
     get :show, params: { :url_name => "dfh", :view => 'all' }
-    expect(response).to be_success
+    expect(response).to be_successful
   end
 
   it "should render with 'show' template" do
@@ -95,7 +95,7 @@ describe PublicBodyController, "when showing a body" do
 
   it 'should not raise an error when given an empty query param' do
     get :show, params: { :url_name => "dfh", :view => 'all', :query => nil }
-    expect(response).to be_success
+    expect(response).to be_successful
   end
 end
 
@@ -104,7 +104,7 @@ describe PublicBodyController, "when listing bodies" do
 
   it "should be successful" do
     get :list
-    expect(response).to be_success
+    expect(response).to be_successful
   end
 
   def make_single_language_example(locale)

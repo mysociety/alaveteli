@@ -31,18 +31,35 @@
   </div>
 </div>
 
-<% if !@twitter_user.empty? %>
-  <div id="right_column" class="right_column" role="complementary">
+<div id="right_column" class="right_column" role="complementary">
+  <h2><%= _("Stay up to date") %></h2>
+
+  <% if !@twitter_user.empty? %>
     <div class="act_link">
-      <h2><%= _("Stay up to date") %></h2>
-      <%= image_tag "twitter.png", :alt => "twitter icon", :class => "twitter-icon" %> <a href="https://twitter.com/<%= @twitter_user %>"><%= _("Follow us on twitter") %></a><br/><br/>
-      <%= image_tag "feed-16.png", :alt => "RSS icon" %> <a href="<%= @feed_url %>"><%= _("Subscribe to blog") %></a>
+      <i class="act-link-icon act-link-icon--twitter"></i>
+      <a href="https://twitter.com/<%= @twitter_user %>"><%= _("Follow us on twitter") %></a>
     </div>
+  <% end %>
+
+  <% if !@facebook_user.empty? %>
+    <div class="act_link">
+      <i class="act-link-icon act-link-icon--facebook"></i>
+      <a href="https://facebook.com/<%= @facebook_user %>"><%= _("Follow us on Facebook") %></a>
+    </div>
+  <% end %>
+
+  <div class="act_link">
+    <i class="act-link-icon act-link-icon--rss"></i>
+    <a href="<%= @feed_url %>"><%= _("Subscribe to blog") %></a>
+  </div>
+
+  <% if !@twitter_user.empty? %>
     <% if AlaveteliConfiguration::twitter_widget_id %>
       <div id="twitter" class="twitter">
         <a class="twitter-timeline" data-dnt=true href="https://twitter.com/<%= AlaveteliConfiguration::twitter_username %>" data-widget-id="<%= AlaveteliConfiguration::twitter_widget_id %>">Tweets by @<%= AlaveteliConfiguration::twitter_username %></a>
         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
       </div>
     <% end %>
-  </div>
-<% end %>
+  <% end %>
+
+</div>

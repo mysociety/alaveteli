@@ -11,6 +11,7 @@ module AlaveteliPro
           new_signups: 5,
           total_accounts: 284,
           active_accounts: 42,
+          expired_embargoes: 17,
           paying_users: 44,
           discounted_users: 7,
           trialing_users: 8,

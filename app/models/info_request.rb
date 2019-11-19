@@ -772,14 +772,16 @@ class InfoRequest < ApplicationRecord
   # If the URL name has changed, then all request: queries will break unless
   # we update index for every event. Also reindex if prominence changes.
   def reindex_some_request_events
-    if changes.include?('url_title') || changes.include?('prominence') || changes.include?('user_id')
-      reindex_request_events
-    end
+    return unless saved_change_to_attribute?(:url_title) ||
+                  saved_change_to_attribute?(:prominence) ||
+                  saved_change_to_attribute?(:user_id)
+
+    reindex_request_events
   end
 
   def reindex_request_events
-    for info_request_event in info_request_events
-      info_request_event.xapian_mark_needs_index
+    info_request_events.each do |event|
+      event.xapian_mark_needs_index
     end
   end
 

@@ -17,6 +17,8 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
 # Amit Shrestha <amitshrestha37@gmail.com>, 2017
 # Anjesh Ojha <anjeshojha67@gmail.com>, 2017
 # arjun gautam <arjun.gautam.1694@gmail.com>, 2016
@@ -51,8 +53,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-07 09:17+0100\n"
-"PO-Revision-Date: 2019-08-07 08:20+0000\n"
+"POT-Creation-Date: 2019-11-14 10:15+0000\n"
+"PO-Revision-Date: 2019-11-11 16:57+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Nepali (http://www.transifex.com/mysociety/alaveteli/language/ne/)\n"
 "Language: ne\n"
@@ -1489,6 +1491,9 @@ msgstr "फल्लोअप्  {{info_request_user}} द्वारा {{pub
 #. the initial request
 msgid "Follow ups and new responses to this request have been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and need to send a follow up."
 msgstr "स्पामका  कारण यो अनुरोधमा ताकेता र नयाँ प्रतिकिर्या बन्द गरिएको छ|कृपया  <a href=\"{{url}}\">हामीलाई संपर्क गर्नुहोस्</a>यदी तपाईं {{user_link}} हुनुहुन्छ र ताकेता पठाउन चाहनुहुन्छ|"
+
+msgid "Follow us on Facebook"
+msgstr ""
 
 msgid "Follow us on twitter"
 msgstr "Twitter मा हामीलाई पछ्याउनुहोस्"
@@ -3873,6 +3878,9 @@ msgstr "We've sent this message but we have not received a confirmation of recei
 msgid "We've sent you an email, and you'll need to click the link in it before you can continue."
 msgstr "हामीले तपाइलाई इमेल पठाएका छौ र  अगाडी प्रस्थान हुन तपाइले त्यस इमेलमा रहेको लिंकमा क्लिक गर्नुपर्नेछ "
 
+msgid "We've sent you an email, click the link in it, then you can change your password."
+msgstr ""
+
 msgid "Week starting"
 msgstr "हप्ताको सुरु"
 
@@ -4684,6 +4692,9 @@ msgstr[0] "{{number_of_requests}} अनुरोधहरू वर्गिक
 msgstr[1] "{{number_of_requests}} अनुरोधहरू वर्गिकरण गर्न बाँकी / {{total_number_of_requests}}कुल अनुरोधहरू"
 
 msgid "{{pro_site_name}} Terms"
+msgstr ""
+
+msgid "{{pro_site_name}} is a powerful, fully-featured FOI toolkit for journalists."
 msgstr ""
 
 msgid "{{public_body_link_absolute}}"

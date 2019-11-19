@@ -32,6 +32,20 @@ def get_fixtures_xapian_index
   path_array.pop
   temp_path = File.join(path_array, 'test.temp')
   FileUtils.remove_entry_secure(temp_path, force=true)
+
+  # HACK: Sometimes VirtualBox seems unable to read the original xapian files
+  # until we've forcefully read them – maybe it uncaches them in the virtual box
+  # sharing system?
+  if ENV['USER'] == 'vagrant'
+    Pathname.new($original_xapian_path).children.each do |child|
+      begin
+        File.read(child)
+      rescue Errno::ENOENT
+        File.read(child)
+      end
+    end
+  end
+
   FileUtils.cp_r($original_xapian_path, temp_path)
   ActsAsXapian.db_path = temp_path
 end

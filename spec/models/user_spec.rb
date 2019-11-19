@@ -365,46 +365,51 @@ end
 
 
 describe User, "when reindexing referencing models" do
+  let(:user) { FactoryBot.create(:user) }
+  let(:comment) { FactoryBot.create(:comment, user: user) }
+  let(:comment_event) { mock_model(InfoRequestEvent) }
+  let(:request_event) { mock_model(InfoRequestEvent) }
+  let(:request) do
+    FactoryBot.build(:info_request, info_request_events: [request_event])
+  end
 
   before do
-    @request_event = mock_model(InfoRequestEvent, :xapian_mark_needs_index => true)
-    @request = mock_model(InfoRequest, :info_request_events => [@request_event])
-    @comment_event = mock_model(InfoRequestEvent, :xapian_mark_needs_index => true)
-    @comment = mock_model(Comment, :info_request_events => [@comment_event])
-    @user = User.new(:comments => [@comment], :info_requests => [@request])
+    allow(user).to receive(:comments).and_return([comment])
+    allow(user).to receive(:info_requests).and_return([request])
+    allow(comment).to receive(:info_request_events).and_return([comment_event])
   end
 
   it 'should reindex events associated with that user\'s comments when URL changes' do
-    allow(@user).to receive(:changes).and_return({'url_name' => 1})
-    expect(@comment_event).to receive(:xapian_mark_needs_index)
-    @user.reindex_referencing_models
+    allow(request_event).to receive(:xapian_mark_needs_index)
+    expect(comment_event).to receive(:xapian_mark_needs_index)
+    user.url_name = 'updated_url_name'
+    user.save
   end
 
   it 'should reindex events associated with that user\'s requests when URL changes' do
-    allow(@user).to receive(:changes).and_return({'url_name' => 1})
-    expect(@request_event).to receive(:xapian_mark_needs_index)
-    @user.reindex_referencing_models
+    allow(comment_event).to receive(:xapian_mark_needs_index)
+    expect(request_event).to receive(:xapian_mark_needs_index)
+    user.url_name = 'updated_url_name'
+    user.save
   end
 
   describe 'when no_xapian_reindex is set' do
     before do
-      @user.no_xapian_reindex = true
+      user.no_xapian_reindex = true
     end
 
     it 'should not reindex events associated with that user\'s comments when URL changes' do
-      allow(@user).to receive(:changes).and_return({'url_name' => 1})
-      expect(@comment_event).not_to receive(:xapian_mark_needs_index)
-      @user.reindex_referencing_models
+      expect(comment_event).to_not receive(:xapian_mark_needs_index)
+      user.url_name = 'updated_url_name'
+      user.save
     end
 
     it 'should not reindex events associated with that user\'s requests when URL changes' do
-      allow(@user).to receive(:changes).and_return({'url_name' => 1})
-      expect(@request_event).not_to receive(:xapian_mark_needs_index)
-      @user.reindex_referencing_models
+      expect(request_event).to_not receive(:xapian_mark_needs_index)
+      user.url_name = 'updated_url_name'
+      user.save
     end
-
   end
-
 end
 
 describe User, "when checking abilities" do
@@ -1708,41 +1713,60 @@ describe User do
 
   describe 'role callbacks' do
 
+    let(:user) { FactoryBot.build(:user) }
+
+    context 'adding unknown role' do
+
+      it 'should not call grant pro access' do
+        expect(AlaveteliPro::Access).to_not receive(:grant)
+        user.add_role(:unknown)
+      end
+
+    end
+
+    context 'adding pro role' do
+
+      it 'should call grant pro access' do
+        expect(AlaveteliPro::Access).to receive(:grant).with(user)
+        user.add_role(:pro)
+      end
+
+    end
+
     context 'with pro pricing enabled', feature: :pro_pricing do
+
       it 'creates pro account when pro role added' do
-        user = FactoryBot.build(:user)
         expect { user.add_role :pro }.to change(user, :pro_account).
           from(nil).to(ProAccount)
       end
+
     end
 
     context 'without pro pricing enabled' do
+
       it 'does not create pro account when pro role is added' do
-        user = FactoryBot.build(:user)
         expect { user.add_role :pro }.to_not change(user, :pro_account).
           from(nil)
       end
+
     end
 
   end
 
   describe 'update callbacks' do
-    let(:user) { FactoryBot.build(:user) }
+    let(:user) { FactoryBot.create(:pro_user, email: 'old@example.com') }
 
     context 'changing email address of a pro user' do
       let(:pro_account) { double(:pro_account) }
 
       before do
         allow(user).to receive(:pro_account).and_return(pro_account)
-        allow(user).to receive(:is_pro?).and_return(true)
-        allow(user).to receive(:email_changed?).and_return(true)
       end
 
-      it 'calls update_email_address on Pro Account' do
-        expect(pro_account).to receive(:update_email_address)
+      it 'calls update_stripe_customer on Pro Account' do
+        expect(pro_account).to receive(:update_stripe_customer)
         user.run_callbacks :update
       end
-
     end
 
   end

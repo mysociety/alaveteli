@@ -17,6 +17,8 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
 # Andra Ciuraru <andra.ciuraru@gmail.com>, 2016
 # Andrei Cristian Petcu <andreip@posteo.net>, 2012-2013
 # Andrei Cristian Petcu <andreip@posteo.net>, 2012-2013
@@ -46,8 +48,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-07 09:17+0100\n"
-"PO-Revision-Date: 2019-08-07 08:20+0000\n"
+"POT-Creation-Date: 2019-11-14 10:15+0000\n"
+"PO-Revision-Date: 2019-11-11 16:57+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/mysociety/alaveteli/language/ro_RO/)\n"
 "Language: ro_RO\n"
@@ -1483,6 +1485,9 @@ msgstr "Mesajele ulterioare trimise către {{public_body_name}} de la {{info_req
 #. the initial request
 msgid "Follow ups and new responses to this request have been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and need to send a follow up."
 msgstr "Urmăririle si noile răspunsuri la această cerere au fost stopate pentru a preveni spam-ul. Vă rugăm <a href=\"{{url}}\"> să ne contactaţi</a> dacă sunteţi {{user_link}} şi aveţi nevoie să trimiteţi follw up."
+
+msgid "Follow us on Facebook"
+msgstr ""
 
 msgid "Follow us on twitter"
 msgstr "Urmăriţi-ne pe Twitter"
@@ -3877,6 +3882,9 @@ msgstr ""
 msgid "We've sent you an email, and you'll need to click the link in it before you can continue."
 msgstr "Ţi-am trimis un email şi va trebui să accesezi link-ul din el înainte de a putea\\ncontinua."
 
+msgid "We've sent you an email, click the link in it, then you can change your password."
+msgstr ""
+
 msgid "Week starting"
 msgstr ""
 
@@ -4710,6 +4718,9 @@ msgstr[1] ""
 msgstr[2] ""
 
 msgid "{{pro_site_name}} Terms"
+msgstr ""
+
+msgid "{{pro_site_name}} is a powerful, fully-featured FOI toolkit for journalists."
 msgstr ""
 
 msgid "{{public_body_link_absolute}}"
