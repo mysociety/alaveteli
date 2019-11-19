@@ -1,23 +1,55 @@
-# develop
+# 0.36.0.0
 
 ## Highlighted Features
 
+* Upgrade to Rails 5.1 (Liz Conlan, Graeme Porteous)
 * Add the password requirements to change password form (Gareth Rees)
-* Fix rendering of Stripe errors (Graeme Porteous)
 * Fix wording on password reset page (Gareth Rees)
-* Add Facebook link to blog sidebar (Zarino Zappia)
+* Add spam addresses controller to admin navigation (Gareth Rees)
+* Show improved censor rule help in admin interface (Gareth Rees)
 * Show incoming message attachments in admin interface (Gareth Rees)
-* Add self serve configuration option to allow users to upgrade their accounts
-  to Pro, bypassing the payment/subscription form (Graeme Porteous)
+* Add Facebook link to blog sidebar (Zarino Zappia)
 * Fix users updated at timestamps being inadvertently changed by background jobs
   (Graeme Porteous)
+* Fixed issue with YAML generated in old Alaveletli versions and stored in
+  InfoRequestEvent (Graeme Porteous)
+
+## Highlighted Pro Features
+
+* Support payments using Strong Customer Authentication (Graeme Porteous)
+* Add Pro self serve configuration option allowing users to upgrade their
+  accounts to Pro and bypass the payment/subscription form (Graeme Porteous)
+* Add expired embargoes to weekly metric report (Graeme Porteous)
 
 ## Upgrade Notes
 
+* You can run this release with Pro self serve to allow users to upgrade to
+  Alaveteli Pro accounts - only applicable if you don't take Pro payments and
+  by default it is switched off.
+
 ### Changed Templates
 
-# 0.35.0.0
+    app/views/admin_censor_rule/_form.html.erb
+    app/views/admin_censor_rule/index.html.erb
+    app/views/admin_general/_admin_navbar.html.erb
+    app/views/admin_incoming_message/edit.html.erb
+    app/views/admin_request/show.html.erb
+    app/views/alaveteli_pro/account_mailer/account_request.text.erb
+    app/views/alaveteli_pro/account_request/_account_request_form.html.erb
+    app/views/alaveteli_pro/account_request/index.html.erb
+    app/views/alaveteli_pro/plans/show.html.erb
+    app/views/alaveteli_pro/subscriptions/_add_card.html.erb
+    app/views/alaveteli_pro/subscriptions/_card.html.erb
+    app/views/alaveteli_pro/subscriptions/index.html.erb
+    app/views/comment/_single_comment.html.erb
+    app/views/general/blog.html.erb
+    app/views/layouts/default.html.erb
+    app/views/password_changes/check_email.html.erb
+    app/views/password_changes/edit.html.erb
+    app/views/request/_incoming_correspondence.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
 
+# 0.35.0.0
 ## Highlighted Features
 
 * This release rolls out Alaveteli Pro Pricing - a way to ask users to support

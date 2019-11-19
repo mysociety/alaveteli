@@ -17,7 +17,10 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
 # 0c5d54599df8b711a7a254a114ba48aa, 2011
+# a270031086f2a0d3514bc0cb507b48f6, 2019
 # Adrien Chauvet, 2013
 # andreas.pavlou <andreas@access-info.org>, 2013
 # Benoît Simard <contact@bsimard.com>, 2013
@@ -43,9 +46,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-07 09:17+0100\n"
-"PO-Revision-Date: 2019-11-09 14:26+0000\n"
-"Last-Translator: pierre chrzanowski <pierre.chrzanowski@gmail.com>\n"
+"POT-Creation-Date: 2019-11-14 10:15+0000\n"
+"PO-Revision-Date: 2019-11-11 16:57+0000\n"
+"Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: French (France) (http://www.transifex.com/mysociety/alaveteli/language/fr_FR/)\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
@@ -1485,6 +1488,9 @@ msgstr "Message de suivi envoyé à {{public_body_name}} par {{info_request_user
 #. the initial request
 msgid "Follow ups and new responses to this request have been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and need to send a follow up."
 msgstr "Les messages de suivi et les nouvelles réponses à cette demande ont été arrêtés pour prévenir le spam. Veuillez <a href=\"{{url}}\">nous contacter</a> si vous êtes {{user_link}} et avez besoin d'envoyer un suivi."
+
+msgid "Follow us on Facebook"
+msgstr ""
 
 msgid "Follow us on twitter"
 msgstr "Suivez-nous sur Twitter"
@@ -3870,6 +3876,9 @@ msgstr "Nous avons envoyé ce message mais nous n'avons pas reçu de confirmatio
 msgid "We've sent you an email, and you'll need to click the link in it before you can continue."
 msgstr "Nous vous avons envoyé un email. Vous devez cliquer sur le lien présent dans l'email pour pouvoir continuer."
 
+msgid "We've sent you an email, click the link in it, then you can change your password."
+msgstr ""
+
 msgid "Week starting"
 msgstr "Semaine débutant le"
 
@@ -4682,6 +4691,9 @@ msgstr[1] "{{number_of_requests}} demandes restant à catégoriser / {{total_num
 
 msgid "{{pro_site_name}} Terms"
 msgstr "Conditions de {{pro_site_name}}"
+
+msgid "{{pro_site_name}} is a powerful, fully-featured FOI toolkit for journalists."
+msgstr ""
 
 msgid "{{public_body_link_absolute}}"
 msgstr "{{public_body_link_absolute}}"

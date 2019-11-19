@@ -17,6 +17,8 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
 # Aida Martinez <amartinez@antai.gob.pa>, 2016
 # fabrizioscrollini <fabrizio.scrollini@gmail.com>, 2012
 # gaba <gabelula@gmail.com>, 2012,2014
@@ -35,8 +37,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-07 09:17+0100\n"
-"PO-Revision-Date: 2019-08-07 08:20+0000\n"
+"POT-Creation-Date: 2019-11-14 10:15+0000\n"
+"PO-Revision-Date: 2019-11-11 16:57+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Spanish (Panama) (http://www.transifex.com/mysociety/alaveteli/language/es_PA/)\n"
 "Language: es_PA\n"
@@ -1475,6 +1477,9 @@ msgstr "Seguimiento enviado a {{public_body_name}} por {{info_request_user}} el 
 #. the initial request
 msgid "Follow ups and new responses to this request have been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and need to send a follow up."
 msgstr "Se han detenido nuevas respuestas a esta solicitud para prevenir spam. Por favor <a href=\"{{url}}\">contáctenos</a> si usted es {{user_link}} y necesita responder."
+
+msgid "Follow us on Facebook"
+msgstr ""
 
 msgid "Follow us on twitter"
 msgstr "Síguenos en Twitter"
@@ -3861,6 +3866,9 @@ msgstr "Hemos enviado este mensaje pero no hemos recibido confirmación de haber
 msgid "We've sent you an email, and you'll need to click the link in it before you can continue."
 msgstr "Le hemos enviado un correo electrónico, necesitará seguir el enlace incluido en él antes de continuar."
 
+msgid "We've sent you an email, click the link in it, then you can change your password."
+msgstr ""
+
 msgid "Week starting"
 msgstr ""
 
@@ -4672,6 +4680,9 @@ msgstr[0] "{{number_of_requests}} solicitud sin categorizar / {{total_number_of_
 msgstr[1] "{{number_of_requests}} solicitudes sin categorizar / {{total_number_of_requests}} en total"
 
 msgid "{{pro_site_name}} Terms"
+msgstr ""
+
+msgid "{{pro_site_name}} is a powerful, fully-featured FOI toolkit for journalists."
 msgstr ""
 
 msgid "{{public_body_link_absolute}}"
