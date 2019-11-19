@@ -844,7 +844,7 @@ Style/SpecialGlobalVars:
 Style/StabbyLambdaParentheses:
   Description: 'Check for the usage of parentheses around stabby lambda arguments.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#stabby-lambda-with-args'
-  Enabled: false
+  Enabled: true
 
 Style/StringLiterals:
   Description: 'Checks if uses of quotes match the configured preference.'
@@ -864,21 +864,21 @@ Style/StructInheritance:
 
 Style/SymbolLiteral:
   Description: 'Use plain symbols instead of string symbols when possible.'
-  Enabled: false
+  Enabled: true
 
 Style/SymbolProc:
   Description: 'Use symbols as procs instead of blocks when possible.'
-  Enabled: false
+  Enabled: true
 
 Style/TrailingCommaInArguments:
   Description: 'Checks for trailing comma in argument lists.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-trailing-params-comma'
-  Enabled: false
+  Enabled: true
 
 Style/TrailingCommaInArrayLiteral:
   Description: 'Checks for trailing comma in array literals.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-trailing-array-commas'
-  Enabled: false
+  Enabled: true
 
 Style/TrailingCommaInHashLiteral:
   Description: 'Checks for trailing comma in hash literals.'
@@ -889,22 +889,22 @@ Style/TrailingCommaInHashLiteral:
 Style/TrivialAccessors:
   Description: 'Prefer attr_* methods to trivial readers/writers.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#attr_family'
-  Enabled: false
+  Enabled: true
 
 Style/UnlessElse:
   Description: >-
                  Do not use unless with else. Rewrite these with the positive
                  case first.
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-else-with-unless'
-  Enabled: false
+  Enabled: true
 
 Style/UnneededCapitalW:
   Description: 'Checks for %W when interpolation is not needed.'
-  Enabled: false
+  Enabled: true
 
 Style/UnneededInterpolation:
   Description: 'Checks for strings that are just an interpolated expression.'
-  Enabled: false
+  Enabled: true
 
 Style/UnneededPercentQ:
   Description: 'Checks for %q/%Q when single quotes or double quotes would do.'
@@ -916,7 +916,7 @@ Style/TrailingUnderscoreVariable:
                  Checks for the usage of unneeded trailing underscores at the
                  end of parallel variable assignment.
   AllowNamedUnderscoreVariables: true
-  Enabled: false
+  Enabled: true
 
 Style/VariableInterpolation:
   Description: >-

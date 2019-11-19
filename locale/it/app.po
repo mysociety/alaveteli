@@ -17,6 +17,8 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
 # Antonella <anapolitano@gmail.com>, 2014-2015
 # Claudio Cesarano <claudio@dirittodisapere.it>, 2015-2016
 # Giancarlo <pinet@pinet.it>, 2015
@@ -29,8 +31,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-07 09:17+0100\n"
-"PO-Revision-Date: 2019-08-07 08:20+0000\n"
+"POT-Creation-Date: 2019-11-14 10:15+0000\n"
+"PO-Revision-Date: 2019-11-11 16:57+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Italian (http://www.transifex.com/mysociety/alaveteli/language/it/)\n"
 "Language: it\n"
@@ -1465,6 +1467,9 @@ msgstr "Messaggi di risposta spediti a \"{{public_body_name}}\" da {{info_reques
 #. the initial request
 msgid "Follow ups and new responses to this request have been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and need to send a follow up."
 msgstr "Messaggi di risposta e nuove ulteriori risposte a questa richiesta sono stati fermati per prevenire lo spam. <a href=\"{{url}}\">Contattaci</a> se sei l'utente {{user_link}} e necessiti di inviare un messaggio di risposta."
+
+msgid "Follow us on Facebook"
+msgstr ""
 
 msgid "Follow us on twitter"
 msgstr "Seguici su Twitter"
@@ -3857,6 +3862,9 @@ msgstr "Abbiamo inviato questo messaggio ma non abbiamo ricevuto una conferma de
 msgid "We've sent you an email, and you'll need to click the link in it before you can continue."
 msgstr "Ti abbiamo inviato un'email, clicca sul link al suo interno per continuare."
 
+msgid "We've sent you an email, click the link in it, then you can change your password."
+msgstr ""
+
 msgid "Week starting"
 msgstr "La settimana inizia"
 
@@ -4668,6 +4676,9 @@ msgstr[0] "{{number_of_requests}} richiesta rimasta da categorizzare / su {{tota
 msgstr[1] "{{number_of_requests}} richieste rimaste da categorizzare / su {{total_number_of_requests}}"
 
 msgid "{{pro_site_name}} Terms"
+msgstr ""
+
+msgid "{{pro_site_name}} is a powerful, fully-featured FOI toolkit for journalists."
 msgstr ""
 
 msgid "{{public_body_link_absolute}}"

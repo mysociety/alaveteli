@@ -17,6 +17,8 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
 # Christophe Van Gheluwe <info@vg-webdesign.be>, 2017
 # claude transparencia <audit.citoyen.quartier@gmail.com>, 2017-2018
 # Edwin Bosveld <edwin@inwy.nl>, 2013,2016
@@ -29,8 +31,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-07 09:17+0100\n"
-"PO-Revision-Date: 2019-08-07 08:20+0000\n"
+"POT-Creation-Date: 2019-11-14 10:15+0000\n"
+"PO-Revision-Date: 2019-11-11 16:57+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Dutch (Belgium) (http://www.transifex.com/mysociety/alaveteli/language/nl_BE/)\n"
 "Language: nl_BE\n"
@@ -1465,6 +1467,9 @@ msgstr "Een follow-up bericht werd gestuurd aan {{public_body_name}} door {{info
 #. the initial request
 msgid "Follow ups and new responses to this request have been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and need to send a follow up."
 msgstr "Follow-up berichten en nieuwe antwoorden op deze aanvraag werden tegengehouden om spam te voorkomen. Gelieve <a href=\"{{url}}\">ons te contacteren</a> indien u {{user_link}} bent en een follow-up wil sturen."
+
+msgid "Follow us on Facebook"
+msgstr ""
 
 msgid "Follow us on twitter"
 msgstr "Volg ons op Twitter"
@@ -3847,6 +3852,9 @@ msgstr "Wij hebben dit bericht verstuurd, maar wij hebben geen bevestiging of on
 msgid "We've sent you an email, and you'll need to click the link in it before you can continue."
 msgstr "Wij hebben u een e-mail gestuurd. In deze e-mail staat een link waarop u dient te klikken om\\n verder te kunnen gaan."
 
+msgid "We've sent you an email, click the link in it, then you can change your password."
+msgstr ""
+
 msgid "Week starting"
 msgstr "Week vanaf"
 
@@ -4658,6 +4666,9 @@ msgstr[0] "{{number_of_requests}} vraag nog te klasseren / {{total_number_of_req
 msgstr[1] "{{number_of_requests}} aanvragen nog te klasseren / {{total_number_of_requests}} totaal aantal aanvragen"
 
 msgid "{{pro_site_name}} Terms"
+msgstr ""
+
+msgid "{{pro_site_name}} is a powerful, fully-featured FOI toolkit for journalists."
 msgstr ""
 
 msgid "{{public_body_link_absolute}}"

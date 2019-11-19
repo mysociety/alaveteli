@@ -42,6 +42,7 @@ fixture_files = ["public_bodies",
 
 # append everything else that isn't order critical
 Dir["#{fixtures_dir}/**/*.yml"].map{ |f| f[(fixtures_dir.size + 1)..-5] }.each do |fixture|
+  next if fixture =~ /yaml_compatibility/
   fixture_files << fixture unless fixture_files.include?(fixture)
 end
 
