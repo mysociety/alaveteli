@@ -7,7 +7,7 @@
 # Ingrid Yrvin <ingrid.yrvin@gmail.com>, 2017
 # Ole-Erik Yrvin <oeyrvin@gmail.com>, 2017
 # pere <pere-transifex@hungry.com>, 2017
-# Liz Conlan <liz@mysociety.org>, 2019
+# 1bb8f5eb4bc72723d4109decfd20c765, 2019
 #
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-06-10 14:58+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>, 2019\n"
+"Last-Translator: 1bb8f5eb4bc72723d4109decfd20c765, 2019\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/mysociety/teams/33529/nb/)\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"

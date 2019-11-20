@@ -8,7 +8,7 @@
 # claude transparencia <audit.citoyen.quartier@gmail.com>, 2018
 # Christophe Van Gheluwe <info@vg-webdesign.be>, 2018
 # Cedric Swaelens, 2019
-# Liz Conlan <liz@mysociety.org>, 2019
+# 1bb8f5eb4bc72723d4109decfd20c765, 2019
 #
 msgid ""
 msgstr ""
@@ -16,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-06-10 14:58+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>, 2019\n"
+"Last-Translator: 1bb8f5eb4bc72723d4109decfd20c765, 2019\n"
 "Language-Team: French (Belgium) (https://www.transifex.com/mysociety/teams/33529/fr_BE/)\n"
 "Language: fr_BE\n"
 "MIME-Version: 1.0\n"
