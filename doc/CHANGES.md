@@ -56,6 +56,7 @@
     app/views/request/_outgoing_correspondence.html.erb
 
 # 0.35.0.0
+
 ## Highlighted Features
 
 * This release rolls out Alaveteli Pro Pricing - a way to ask users to support
