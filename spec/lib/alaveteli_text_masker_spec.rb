@@ -81,6 +81,15 @@ describe AlaveteliTextMasker do
         expect(result).to eq(expected)
       end
 
+      it 'replaces UTF-8 double width characters' do
+        data = 'Héllø world'
+        rule = CensorRule.new(text: 'Héllø')
+        result = class_instance.apply_masks(
+          data, 'application/vnd.ms-word', censor_rules: [rule]
+        )
+        expect(result).to eq 'xxxxxxx world'
+      end
+
     end
 
     context 'applying masks to PDF' do

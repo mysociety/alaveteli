@@ -51,7 +51,10 @@ class CensorRule < ApplicationRecord
 
   def apply_to_binary(binary_to_censor)
     return nil if binary_to_censor.nil?
-    binary_to_censor.gsub(to_replace('ASCII-8BIT')) { |match| match.gsub(single_char_regexp, 'x') }
+
+    binary_to_censor.gsub(to_replace(binary_to_censor.encoding)) do |match|
+      match.gsub(single_char_regexp) { |m| 'x' * m.bytesize }
+    end
   end
 
   def is_global?
