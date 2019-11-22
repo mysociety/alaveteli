@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 RSpec.shared_examples 'does not deliver any mail' do
   it { is_expected.to be_nil }
 
