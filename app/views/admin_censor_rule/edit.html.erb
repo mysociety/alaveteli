@@ -8,13 +8,14 @@
   </div>
 </div>
 
-<%= form_tag admin_censor_rule_path(@censor_rule), :method => 'put', :class => "form form-horizontal" do %>
-  <%= render :partial => 'form',
-             :locals => { :info_request => @censor_rule.info_request,
-                          :user => @censor_rule.user,
-                          :public_body => @censor_rule.public_body } %>
+<%= form_tag admin_censor_rule_path(@censor_rule), method: :put, class: 'form form-horizontal' do %>
+  <%= render partial: 'form',
+             locals: { info_request: @censor_rule.info_request,
+                       user: @censor_rule.user,
+                       public_body: @censor_rule.public_body } %>
+
   <div class="form-actions">
-    <%= submit_tag 'Save', :accesskey => 's', :class => "btn btn-success" %>
+    <%= submit_tag 'Save', accesskey: 's', class: 'btn btn-success' %>
 
     <%= link_to 'Destroy censor rule', admin_censor_rule_path(@censor_rule),
                 method: :delete,
