@@ -8,7 +8,7 @@
   </div>
 </div>
 
-<%= form_for @censor_rule, url: @form_url, class: 'form form-horizontal' do %>
+<%= form_for @censor_rule, url: @form_url, html: { class: 'form form-horizontal' } do %>
   <%= render partial: 'form',
              locals: { info_request: @info_request,
                        user: @censor_user,
