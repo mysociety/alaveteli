@@ -167,12 +167,12 @@ class Comment < ApplicationRecord
 
       info_request.
         log_event("report_comment",
-                  { comment_id: id,
-                    editor: user,
-                    reason: reason,
-                    message: raw_message,
-                    old_attention_requested: old_attention,
-                    attention_requested: true })
+                  comment_id: id,
+                  editor: user,
+                  reason: reason,
+                  message: raw_message,
+                  old_attention_requested: old_attention,
+                  attention_requested: true)
     end
   end
 
