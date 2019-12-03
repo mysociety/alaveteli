@@ -42,19 +42,19 @@ class Comment < ApplicationRecord
   validate :check_body_has_content,
            :check_body_uses_mixed_capitals
 
-  scope :visible, -> {
+  scope :visible, lambda {
     joins(:info_request).
       merge(InfoRequest.is_searchable.except(:select)).
         where(visible: true)
   }
 
-  scope :embargoed, -> {
+  scope :embargoed, lambda {
     joins(info_request: :embargo).
       where('embargoes.id IS NOT NULL').
       references(:embargoes)
   }
 
-  scope :not_embargoed, -> {
+  scope :not_embargoed, lambda {
     joins(:info_request).
       select('comments.*').
         joins('LEFT OUTER JOIN embargoes
