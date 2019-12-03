@@ -54,7 +54,7 @@ class Comment < ApplicationRecord
 
   scope :not_embargoed, -> {
     joins(:info_request).
-      select("comments.*").
+      select('comments.*').
         joins('LEFT OUTER JOIN embargoes
                ON embargoes.info_request_id = info_requests.id').
           where('embargoes.id IS NULL').
@@ -69,7 +69,7 @@ class Comment < ApplicationRecord
   # submitted.
   def self.find_existing(info_request_id, body)
     # TODO: can add other databases here which have regexp_replace
-    if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
+    if ActiveRecord::Base.connection.adapter_name == 'PostgreSQL'
       # Exclude spaces from the body comparison using regexp_replace
       regex_replace_sql = "regexp_replace(body, '[[:space:]]', '', 'g') = " \
                           "regexp_replace(?, '[[:space:]]', '', 'g')"
@@ -145,9 +145,9 @@ class Comment < ApplicationRecord
   end
 
   def report_reasons
-    [_("Annotation contains defamatory material"),
-     _("Annotation contains personal information"),
-     _("Vexatious annotation")]
+    [_('Annotation contains defamatory material'),
+     _('Annotation contains personal information'),
+     _('Vexatious annotation')]
   end
 
   # Report this comment for administrator attention
@@ -166,7 +166,7 @@ class Comment < ApplicationRecord
       RequestMailer.requires_admin(info_request, user, message).deliver_now
 
       info_request.
-        log_event("report_comment",
+        log_event('report_comment',
                   comment_id: id,
                   editor: user,
                   reason: reason,
@@ -188,7 +188,7 @@ class Comment < ApplicationRecord
 
   def check_body_has_content
     if body.empty? || body =~ /^\s+$/
-      errors.add(:body, _("Please enter your annotation"))
+      errors.add(:body, _('Please enter your annotation'))
     end
   end
 
