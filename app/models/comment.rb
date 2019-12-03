@@ -38,7 +38,7 @@ class Comment < ApplicationRecord
 
   # validates_presence_of :user # breaks during construction of new ones :(
   validate :check_body_has_content,
-    :check_body_uses_mixed_capitals
+           :check_body_uses_mixed_capitals
 
   scope :visible, -> {
     joins(:info_request)
