@@ -25,16 +25,16 @@ class Comment < ApplicationRecord
   include Rails.application.routes.url_helpers
   include LinkToHelper
 
-  strip_attributes :allow_empty => true
+  strip_attributes allow_empty: true
 
   belongs_to :user,
-             :inverse_of => :comments,
-             :counter_cache => true
+             inverse_of: :comments,
+             counter_cache: true
   belongs_to :info_request,
-             :inverse_of => :comments
+             inverse_of: :comments
   has_many :info_request_events, # in practice only ever has one
-           :inverse_of => :comment,
-           :dependent => :destroy
+           inverse_of: :comment,
+           dependent: :destroy
 
   #validates_presence_of :user # breaks during construction of new ones :(
   validate :check_body_has_content,
@@ -43,11 +43,11 @@ class Comment < ApplicationRecord
   scope :visible, -> {
     joins(:info_request)
       .merge(InfoRequest.is_searchable.except(:select))
-        .where(:visible => true)
+        .where(visible: true)
   }
 
   scope :embargoed, -> {
-    joins(:info_request => :embargo).
+    joins(info_request: :embargo).
       where('embargoes.id IS NOT NULL').
       references(:embargoes)
   }
@@ -76,7 +76,7 @@ class Comment < ApplicationRecord
     else
       # For other databases (e.g. SQLite) not the end of the world being
       # space-sensitive for this check
-      Comment.where(:info_request_id => info_request_id, :body => body).first
+      Comment.where(info_request_id: info_request_id, body: body).first
     end
   end
 
@@ -102,7 +102,7 @@ class Comment < ApplicationRecord
   def get_body_for_html_display
     text = body.strip
     text = CGI.escapeHTML(text)
-    text = MySociety::Format.make_clickable(text, { :contract => 1, :nofollow => true })
+    text = MySociety::Format.make_clickable(text, { contract: 1, nofollow: true })
     text = text.gsub(/\n/, '<br>')
     text.html_safe
   end
@@ -160,17 +160,17 @@ class Comment < ApplicationRecord
 
       info_request.
         log_event("report_comment",
-                  { :comment_id => id,
-                    :editor => user,
-                    :reason => reason,
-                    :message => raw_message,
-                    :old_attention_requested => old_attention,
-                    :attention_requested => true })
+                  { comment_id: id,
+                    editor: user,
+                    reason: reason,
+                    message: raw_message,
+                    old_attention_requested: old_attention,
+                    attention_requested: true })
     end
   end
 
   def last_report
-    info_request_events.where(:event_type => 'report_comment').last
+    info_request_events.where(event_type: 'report_comment').last
   end
 
   def last_reported_at
