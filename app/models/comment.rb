@@ -71,8 +71,14 @@ class Comment < ApplicationRecord
     # TODO: can add other databases here which have regexp_replace
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
       # Exclude spaces from the body comparison using regexp_replace
-      regex_replace_sql = "regexp_replace(body, '[[:space:]]', '', 'g') = regexp_replace(?, '[[:space:]]', '', 'g')"
-      Comment.where(["info_request_id = ? AND #{ regex_replace_sql }", info_request_id, body ]).first
+      regex_replace_sql = "regexp_replace(body, '[[:space:]]', '', 'g') = " \
+                          "regexp_replace(?, '[[:space:]]', '', 'g')"
+
+      args = ["info_request_id = ? AND #{ regex_replace_sql }",
+              info_request_id,
+              body]
+
+      Comment.where(args).first
     else
       # For other databases (e.g. SQLite) not the end of the world being
       # space-sensitive for this check
@@ -102,7 +108,7 @@ class Comment < ApplicationRecord
   def get_body_for_html_display
     text = body.strip
     text = CGI.escapeHTML(text)
-    text = MySociety::Format.make_clickable(text, { contract: 1, nofollow: true })
+    text = MySociety::Format.make_clickable(text, contract: 1, nofollow: true)
     text = text.gsub(/\n/, '<br>')
     text.html_safe
   end
@@ -116,7 +122,8 @@ class Comment < ApplicationRecord
       end.compact
     end
     columns.each do |column|
-      yield(column.name.humanize, send(column.name), column.type.to_s, column.name)
+      name = column.name
+      yield(name.humanize, send(name), column.type.to_s, name)
     end
   end
 
