@@ -41,9 +41,9 @@ class Comment < ApplicationRecord
            :check_body_uses_mixed_capitals
 
   scope :visible, -> {
-    joins(:info_request)
-      .merge(InfoRequest.is_searchable.except(:select))
-        .where(visible: true)
+    joins(:info_request).
+      merge(InfoRequest.is_searchable.except(:select)).
+        where(visible: true)
   }
 
   scope :embargoed, -> {
@@ -53,12 +53,12 @@ class Comment < ApplicationRecord
   }
 
   scope :not_embargoed, -> {
-    joins(:info_request)
-      .select("comments.*")
-            .joins('LEFT OUTER JOIN embargoes
-                    ON embargoes.info_request_id = info_requests.id')
-              .where('embargoes.id IS NULL')
-                .references(:embargoes)
+    joins(:info_request).
+      select("comments.*").
+        joins('LEFT OUTER JOIN embargoes
+               ON embargoes.info_request_id = info_requests.id').
+          where('embargoes.id IS NULL').
+            references(:embargoes)
   }
 
   after_save :event_xapian_update
