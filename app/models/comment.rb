@@ -65,7 +65,7 @@ class Comment < ApplicationRecord
 
   after_save :event_xapian_update
 
-  self.default_url_options[:host] = AlaveteliConfiguration.domain
+  default_url_options[:host] = AlaveteliConfiguration.domain
 
   # When posting a new comment, use this to check user hasn't double
   # submitted.
