@@ -30,8 +30,10 @@ class Comment < ApplicationRecord
   belongs_to :user,
              inverse_of: :comments,
              counter_cache: true
+
   belongs_to :info_request,
              inverse_of: :comments
+
   has_many :info_request_events, # in practice only ever has one
            inverse_of: :comment,
            dependent: :destroy
@@ -121,6 +123,7 @@ class Comment < ApplicationRecord
         c if %w(body visible created_at updated_at).include?(c.name)
       end.compact
     end
+
     columns.each do |column|
       name = column.name
       yield(name.humanize, send(name), column.type.to_s, name)
