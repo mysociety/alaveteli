@@ -199,5 +199,4 @@ class Comment < ApplicationRecord
       errors.add(:body, msg)
     end
   end
-
 end
