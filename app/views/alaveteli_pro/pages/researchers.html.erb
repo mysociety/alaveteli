@@ -1,0 +1,174 @@
+<div class="marketing__section">
+  <div class="marketing__hero">
+    <h1>Researchers</h1>
+    <h2>Need a helping hand with your FOI requests?</h2>
+    <h3>WhatDoTheyKnow Pro does the hard work for you</h3>
+    <p class="marketing__subhead"><strong>A powerful, fully-featured toolset that solves problems for researchers and academics managing multiple requests or in-depth FOI investigations</strong></p>
+  </div>
+</div>
+<div class="marketing__features marketing__section">
+  <div class="row">
+    <div class="marketing__feature">
+      <%= image_tag("alaveteli-pro/pro-problem-inbox.png",
+                      alt: _("Overflowing inbox?")) %>
+      <h3>Overflowing inbox?</h3>
+      <p>WhatDoTheyKnow Pro moves request handling out of your email and onto a dedicated dashboard, keeping everything organised.</p>
+    </div>
+    <div class="marketing__feature">
+      <%= image_tag("alaveteli-pro/pro-books.png",
+                      alt: _("FOI address book")) %>
+      <h3>Searching for the right email address for every FOI contact?</h3>
+      <p>You’ll have access to our address book of more than 24,000 UK authorities that are subject to FOI.</p>
+    </div>
+    <div class="marketing__feature">
+      <%= image_tag("alaveteli-pro/pro-automation.png",
+                      alt: _("Automate FOI request management")) %>
+      <h3>Tired of the fiddly details that add time to your investigation?</h3>
+      <p>If your request bounces back, we source the new address for that authority.</p>
+    </div>
+    <div class="marketing__feature">
+      <%= image_tag("alaveteli-pro/pro-todo.png",
+                      alt: _("Keep track of FOI requests")) %>
+      <h3>Hard to keep track of your many requests?</h3>
+      <p>No need to check: we’ll send an email alert telling you when you need to take action.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="marketing__feature">
+      <%= image_tag("alaveteli-pro/pro-embargo.png",
+                      alt: _("Private FOI requests")) %>
+      <h3>Need to protect your research? </h3>
+      <p>Requests can stay completely private until you’re ready to go public, thanks to our Embargo function.</p>
+    </div>
+    <div class="marketing__feature">
+      <%= image_tag("alaveteli-pro/pro-multi-send.png",
+                      alt: _("Batch FOI requests")) %>
+      <h3>Sending to multiple authorities at once?</h3>
+      <p>No more copy and paste emails: our Batch Request tool helps you create one request and send it to many authorities at once.</p>
+    </div>
+    <div class="marketing__feature">
+      <%= image_tag("alaveteli-pro/pro-evidence.png",
+                      alt: _("Add credibility")) %>
+      <h3>Want to add weight to your research?</h3>
+      <p>Once you’re ready, publishing the data behind your investigation lends it extra credibility, and opens it to a wider community.</p>
+    </div>
+    <div class="marketing__feature">
+      <%= image_tag("alaveteli-pro/pro-time.png",
+                      alt: _("Save time managing FOI requests")) %>
+      <h3>Not enough hours in the day?</h3>
+      <p>WhatDoTheyKnow Pro does all the heavy lifting, leaving you with more time to focus on your research.</p>
+    </div>
+  </div>
+</div>
+<div class="marketing__section">
+  <div class="marketing__tweets">
+    <div class="marketing__tweet">
+      <div class="tweet__body">
+        <p><q>Loving the new <a href="https://twitter.com/WhatDoTheyKnow">@WhatDoTheyKnow</a> Pro account. Super slick.</q> <cite><a href="https://twitter.com/Charlie_Mole/">Charlie Mole</a> – <a href="https://twitter.com/Charlie_Mole/status/881824926738644992">3 July 2017</a></cite></p>
+      </div>
+    </div>
+    <div class="marketing__tweet">
+      <div class="tweet__body">
+        <p><q>I just sent an FOIA request with <a href="https://twitter.com/mySociety">@mySociety</a>'s <a href="https://twitter.com/WhatDoTheyKnow">@WhatDoTheyKnow</a> and I'm amazed at how painless it was. <br />
+        No doubt this will remain an item in my journalistic utility belt going forward.</q> <cite><a href="https://twitter.com/matthewhughes/">Matthew Hughes</a> – <a href="https://twitter.com/matthewhughes/status/1122801543839981569">29 April 2019</a></cite></p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="marketing__section">
+  <div class="marketing__section__heading">
+    <h2>Simple, affordable pricing</h2>
+  </div>
+  <div class="marketing__section__content">
+    <div class="marketing__section__content-items">
+      <ul class="marketing__section__feature-list">
+        <li><strong>Easy</strong> One monthly fee covers all Pro features, with no complex tiers or options to worry about.</li>
+        <li><strong>Reasonable</strong> We know that researchers can be on a limited budget, so we’ve kept the subscription affordable.</li>
+        <li><strong>Flexible</strong> You can cancel at any time, with no lengthy tie-ins and no notice required.</li>
+        <li class="bb-0">
+          <% if feature_enabled?(:pro_pricing) %>
+            <%= link_to _('Plans and pricing'), pro_plans_path, class: "button" %>
+          <% elsif feature_enabled?(:pro_self_serve) %>
+            <%= render partial: 'self_serve_button' %>
+          <% else %>
+            <%= render partial: 'account_request_form' %>
+          <% end %>
+        </li>
+      </ul> 
+    </div>
+  </div> 
+</div>
+<div class="marketing__section marketing__how-it-works">
+  <h2>How it works</h2>
+  <div class="row">
+    <div class="how-it-works__grid">
+      <div class="how-it-works__item">
+  <h3>Make a request</h3>
+  <p>Because we’ve streamlined the request-writing process, Pro saves you a lot of back and forth. Search our database of authorities, pick which one — or many — you want to contact,  and compose your request right there.</p>
+  </div>
+      <div class="how-it-works__item">
+  <h3>Dashboard</h3>
+  <p>Time is precious, so your dashboard just presents the information you need to know: which requests have received responses; which haven’t and need chasing up; and which require input from you. Search, filter or sort by status, to quickly find the request you’re looking for.</p>
+        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="how-it-works__grid">
+      <div class="how-it-works__item">
+  <h3>Batch requests</h3>
+  <p>FOI is an invaluable tool for researchers, helping you collect information that hasn’t previously been available as a single dataset, and understand the wider picture. Pro takes the slog out of sending multiple requests with the Batch feature: easily pick the authorities you want, then send one request to all of them.</p>
+       </div>
+      <div class="how-it-works__item">
+  <h3>Reminders</h3>
+  <p>You’ve got plenty of other things to think about, so you don’t want to be checking up on every single one of your requests to see if it needs attention. Instead, Pro keeps an eye on them for you, sending you a daily email digest.</p>
+       </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="how-it-works__grid">
+      <div class="how-it-works__item">
+  <h3>Embargoes</h3>
+  <p>Pro gives you all of the ease of WhatDoTheyKnow, without the worry of releasing all your work before you’re ready for the world to see it.</p>
+  <p>With the Embargo feature, you can choose to keep your requests private on the site for up to a year, not visible to anyone but you. We’ll make sure you know when that time’s about to run out, and you can extend it further if your research hasn’t been published yet.</p>
+       </div>
+      <div class="how-it-works__item">
+  <h3>Ready to go public</h3>
+  <p>Once your research is out there, it’s a great idea to put your requests and responses into the public domain. They’ll lend credence to your work, and make the data available for others who might want to research a different angle. </p>
+       </div>
+    </div>
+  </div>
+
+  <div class="marketing__cta">
+    <% if feature_enabled?(:pro_pricing) %>
+    <%= link_to _('Plans and pricing'), pro_plans_path, class: "button" %>
+    <% elsif feature_enabled?(:pro_self_serve) %>
+      <%= render partial: 'self_serve_button' %>
+    <% else %>
+      <%= render partial: 'account_request_form' %>
+    <% end %>
+  </div>
+
+
+</div>
+<div class="marketing__section marketing__testimonials">
+  <h2>How researchers are using Pro</h2>
+  <div class="row">
+    <div class="testimonials__grid">
+      <div class="testimonials__item">
+        <p>The ‘Data Scores as Governance’ project used Pro to help examine the <a href="http://orca.cf.ac.uk/117517/1/data-scores-as-governance-project-report2.pdf">use of data-driven scores in categorising citizens</a>, allocating services, and predicting behaviour.</p>
+      </div>
+      <div class="testimonials__item">
+        <p>The Wales Governance Centre sent FOI requests through Pro to discover the prison populations across Wales and England for their report ‘<a href="https://www.cardiff.ac.uk/__data/assets/pdf_file/0004/1547914/WGC-Report-SentencingandImprisonment04.pdf">Sentencing and Imprisonment in Wales</a>’. </p>
+      </div>
+    </div>
+  </div>
+  <div class="marketing__cta">
+    <% if feature_enabled?(:pro_pricing) %>
+    <%= link_to _('Plans and pricing'), pro_plans_path, class: "button" %>
+    <% elsif feature_enabled?(:pro_self_serve) %>
+      <%= render partial: 'self_serve_button' %>
+    <% else %>
+      <%= render partial: 'account_request_form' %>
+    <% end %>
+  </div>
+</div>

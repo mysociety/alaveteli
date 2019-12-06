@@ -2,7 +2,7 @@
   <div class="marketing__hero">
     <h1>
       <%= _('{{pro_site_name}} is a powerful, fully-featured FOI toolkit ' \
-            'for journalists',
+            'for journalists, campaigners and researchers',
             pro_site_name: pro_site_name) %>
     </h1>
     <h2>
@@ -20,6 +20,52 @@
                 pro_site_name: pro_site_name) %>
         </a>
       <% end %>
+    </div>
+  </div>
+</div>
+<div class="marketing__section marketing__roles">
+  <h2>
+    <%= _('Find out how {{pro_site_name}} can take the hard work out of FOI ' \
+          'investigations', pro_site_name: pro_site_name) %>
+  </h2>
+  <div class="row">
+    <div class="marketing__roles__columns">
+      <div class="marketing__roles__journalist">
+        <%= link_to pro_page_path('journalists') do %>
+          <%= image_tag("alaveteli-pro/pro-journalist.png",
+                        alt: _("FOI for journalists")) %>
+          <h3>I’m a journalist</h3>
+        <% end %>
+        <p>The Bureau of investigative Journalism used Pro to send requests to councils up and down the county, and build a nationwide picture of the public properties being sold off by councils in the face of austerity.</p>
+        <%= link_to pro_page_path('journalists') do %>
+          <%= _('Learn more about {{pro_site_name}} for journalists',
+            pro_site_name: pro_site_name) %>
+        <% end %>
+      </div>
+      <div class="marketing__roles__campaigner">
+        <%= link_to pro_page_path('campaigners') do %>
+        <%= image_tag("alaveteli-pro/pro-campaigner.png",
+                        alt: _("FOI for campaigners")) %>
+          <h3>I’m a campaigner</h3>
+        <% end %>
+        <p>Debt Resistance UK uncovered which councils are paying exorbitant LOBO loans, in some cases meaning that a large proportion of council tax income is being channelled directly into interest payments</p>
+        <%= link_to pro_page_path('campaigners') do %>
+          <%= _('Learn more about {{pro_site_name}} for campaigners',
+                pro_site_name: pro_site_name) %>
+        <% end %>
+      </div>
+      <div class="marketing__roles__researcher">
+        <%= link_to pro_page_path('researchers') do %>
+          <%= image_tag("alaveteli-pro/pro-researcher.png",
+                        alt: _("FOI for researchers")) %>
+          <h3>I’m a researcher</h3>
+        <% end %>
+        <p>The Wales Governance Centre sent FOI requests through Pro to discover the prison populations across Wales and England for their report ‘Sentencing and Imprisonment in Wales’.<br /><br /></p>
+        <%= link_to pro_page_path('researchers') do %>
+          <%= _('Learn more about {{pro_site_name}} for researchers',
+                pro_site_name: pro_site_name) %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
@@ -154,11 +200,11 @@
 </div>
 <div class="marketing__section">
   <div class="marketing__section__heading">
-    <h2><%=_('More information') %></h2>
+    <h2><%=_('Got questions?') %></h2>
   </div>
   <div class="marketing__section__content">
     <div class="marketing__section__content-items marketing__section__more-info">
-      <h3><%=_('Contact us') %></h3>
+      <h3><%=_('Get in touch') %></h3>
       <ul class="unstyled-list">
         <li>
           <a href="mailto:<%= AlaveteliConfiguration::pro_contact_email %>">

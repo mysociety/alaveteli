@@ -1,0 +1,202 @@
+<div class="marketing__section">
+  <div class="marketing__hero">
+    <h1>Campaigners</h1>
+    <h2>You’re busy fixing the world. Let us take care of your FOI requests.</h2>
+    <h3>WhatDoTheyKnow Pro does the hard work for you</h3>
+    <p class="marketing__subhead"><strong>A  powerful, fully-featured toolset that solves problems for campaigners managing multiple requests or in-depth FOI investigations</strong></p>
+  </div>
+</div>
+<div class="marketing__features marketing__section">
+  <div class="row">
+      <div class="marketing__feature">
+    <%= image_tag("alaveteli-pro/pro-problem-inbox.png",
+                      alt: _("Overflowing inbox?")) %>
+      <h3>Overflowing inbox?</h3>
+      <p>WhatDoTheyKnow Pro moves request handling out of your email and onto a dedicated dashboard, keeping everything organised.</p>
+    </div>
+    <div class="marketing__feature">
+      <%= image_tag("alaveteli-pro/pro-books.png",
+                      alt: _("FOI address book")) %>
+      <h3>Searching for the right email address for every FOI contact?</h3>
+      <p>You’ll have access to our address book of more than 24,000 UK authorities that are subject to FOI.</p>
+    </div>
+    <div class="marketing__feature">
+      <%= image_tag("alaveteli-pro/pro-automation.png",
+                      alt: _("Automate FOI request management")) %>
+      <h3>Tired of the fiddly details that add time to your investigation?</h3>
+      <p>If your request bounces back, we source the new address for that authority.</p>
+    </div>
+    <div class="marketing__feature">
+      <%= image_tag("alaveteli-pro/pro-todo.png",
+                      alt: _("Keep track of FOI requests")) %>
+      <h3>Hard to keep track of your many requests?</h3>
+      <p>No need to check: we’ll send an email alert telling you when you need to take action.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="marketing__feature">
+      <%= image_tag("alaveteli-pro/pro-embargo.png",
+                      alt: _("Private FOI requests")) %>
+      <h3>Need to keep things under wraps?</h3>
+      <p>Requests can stay completely private until you’re ready to go public, thanks to our Embargo function.</p>
+    </div>
+    <div class="marketing__feature">
+      <%= image_tag("alaveteli-pro/pro-multi-send.png",
+                      alt: _("Batch FOI requests")) %>
+      <h3>Sending to multiple authorities at once?</h3>
+      <p>No more copy and paste emails: our Batch Request tool helps you create one request and send it to many authorities at once.</p>
+    </div>
+    <div class="marketing__feature">
+      <%= image_tag("alaveteli-pro/pro-evidence.png",
+                      alt: _("Add credibility")) %>
+      <h3>Want to add weight to your campaign?</h3>
+      <p>Once you’re ready, publishing the data behind your investigation lends it extra credibility.</p>
+    </div>
+    <div class="marketing__feature">
+    <%= image_tag("alaveteli-pro/pro-time.png",
+                      alt: _("Save time managing FOI requests")) %>
+      <h3>Not enough hours in the day?</h3>
+      <p>WhatDoTheyKnow Pro does all the heavy lifting, leaving you with more time to focus on your campaigning.</p>
+    </div>
+  </div>
+</div>
+<div class="marketing__section">
+  <div class="marketing__tweets">
+    <div class="marketing__tweet">
+      <div class="tweet__body">
+        <p><q>Loving the new <a href="https://twitter.com/WhatDoTheyKnow">@WhatDoTheyKnow</a> Pro account. Super slick.</q> <cite><a href="https://twitter.com/Charlie_Mole/">Charlie Mole</a> – <a href="https://twitter.com/Charlie_Mole/status/881824926738644992">3 July 2017</a></cite></p>
+      </div>
+    </div>
+    <div class="marketing__tweet">
+      <div class="tweet__body">
+        <p><q>I just sent an FOIA request with <a href="https://twitter.com/mySociety">@mySociety</a>'s <a href="https://twitter.com/WhatDoTheyKnow">@WhatDoTheyKnow</a> and I'm amazed at how painless it was. <br />
+        No doubt this will remain an item in my journalistic utility belt going forward.</q> <cite><a href="https://twitter.com/matthewhughes/">Matthew Hughes</a> – <a href="https://twitter.com/matthewhughes/status/1122801543839981569">29 April 2019</a></cite></p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="marketing__section">
+  <div class="marketing__section__heading">
+    <h2>Simple, affordable pricing</h2>
+  </div>
+  <div class="marketing__section__content">
+    <div class="marketing__section__content-items">
+      <ul class="marketing__section__feature-list">
+        <li><strong>Easy</strong> One monthly fee covers all Pro features, with no complex tiers or options to worry about.</li>
+        <li><strong>Reasonable</strong> We know that campaigners are likely to be on a limited budget, so we’ve kept the subscription affordable.</li>
+        <li><strong>Flexible</strong> You can cancel at any time, with no lengthy tie-ins and no notice required. </li>
+        <li class="bb-0">
+          <% if feature_enabled?(:pro_pricing) %>
+            <%= link_to _('Plans and pricing'), pro_plans_path, class: "button" %>
+          <% elsif feature_enabled?(:pro_self_serve) %>
+            <%= render partial: 'self_serve_button' %>
+          <% else %>
+            <%= render partial: 'account_request_form' %>
+          <% end %>
+        </li>
+      </ul> 
+    </div>
+  </div>
+</div>
+
+<div class="marketing__section marketing__how-it-works">
+  <h2>How it works</h2>
+  <div class="row">
+    <div class="how-it-works__grid">
+      <div class="how-it-works__item">
+        <h3>Make a request</h3>
+        <p>Because we’ve streamlined the request-writing process, Pro saves you a lot of back and forth. Search our database of authorities, pick which one — or many — you want to contact,  and compose your request right there.</p>
+      </div>
+      <div class="how-it-works__item">
+        <h3>Dashboard</h3>
+        <p>Time is precious, so your dashboard just presents the information you need to know: which requests have received responses; which haven’t and need chasing up; and which require input from you. Search, filter or sort by status, to quickly find the request you’re looking for.</p>
+      </div>
+      </div>
+  </div>
+  <div class="row">
+    <div class="how-it-works__grid">
+      <div class="how-it-works__item">
+        <h3>Batch requests</h3>
+        <p>FOI is an invaluable tool in campaigns, helping you collect information that hasn’t previously been available as a single dataset so that you  and your supporters can understand the wider picture. Pro takes the slog out of sending multiple requests with the Batch feature: easily pick the authorities you want, then send one request to all of them.</p>
+      </div>
+      <div class="how-it-works__item">
+        <h3>Reminders</h3>
+        <p>You’ve got plenty of other things to think about, so you don’t want to be checking up on every single one of your requests to see if it needs attention. Instead, Pro keeps an eye on them for you, sending you a daily email digest.</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="how-it-works__grid">
+      <div class="how-it-works__item">
+        <h3>Embargoes</h3>
+        <p>Pro gives you all of the ease of WhatDoTheyKnow, without the worry of releasing all your work before you’re ready for the world to see it.</p>
+        <p>With the Embargo feature, you can choose to keep your requests private on the site for up to a year, not visible to anyone but you. We’ll make sure you know when that time’s about to run out, and you can extend it further if your campaign’s not live yet.</p>
+      </div>
+      <div class="how-it-works__item">
+        <h3>Ready to go public</h3>
+        <p>Once you launch your campaign, there’s every reason to put your requests and responses into the public domain. They’ll lend credence to your campaign, and make the data available for others who might want to research a different angle.</p>
+       </div>
+    </div>
+  </div>
+  <div class="marketing__cta">
+    <% if feature_enabled?(:pro_pricing) %>
+    <%= link_to _('Plans and pricing'), pro_plans_path, class: "button" %>
+    <% elsif feature_enabled?(:pro_self_serve) %>
+      <%= render partial: 'self_serve_button' %>
+    <% else %>
+      <%= render partial: 'account_request_form' %>
+    <% end %>
+  </div>
+  </div>
+
+<div class="marketing__section marketing__testimonials">
+  <h2>How campaigners are using Pro</h2>
+  <div class="row">
+    <div class="testimonials__grid">
+      <div class="testimonials__item">
+        <a href="https://www.mysociety.org/2017/08/04/is-your-local-authority-making-life-difficult-for-wheelchair-users/">
+        <%= image_tag("alaveteli-pro/promo-doug.jpg",
+                      alt: _("Campaigning for better wheelchair accessibility")) %>
+        </a>
+        <p>Activist Doug Paulley uncovered councils across the UK who, through inaction, are allowing legal discrimination against wheelchair users. <a href="https://www.mysociety.org/2017/08/04/is-your-local-authority-making-life-difficult-for-wheelchair-users/">See the whole story</a></p>
+        </div>
+      <div class="testimonials__item">
+        <a href="https://www.mysociety.org/2016/12/07/freedom-of-information-and-asbestos-in-schools/">
+        <%= image_tag("alaveteli-pro/promo-asbestos.jpg",
+                      alt: _("Investigating asbestos use in shcools")) %>
+        </a>
+        <p>Lucie Stephens, prompted by the death of someone she cared about, requested information about asbestos in schools from more than 200 LEAs. <a href="https://www.mysociety.org/2016/12/07/freedom-of-information-and-asbestos-in-schools/">Read about her campaign</a></p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="testimonials__grid">
+      <div class="testimonials__item">
+        <a href="https://www.mysociety.org/2018/06/13/foi-one-part-of-the-fight-against-the-lose-lose-lobo-loans-to-local-councils/">
+        <%= image_tag("alaveteli-pro/promo-lobo.jpg",
+                      alt: _("Uncovering which UK councils are paying exorbitant LOBO loans")) %>
+        </a>
+        <p>Debt Resistance UK uncovered <a href="https://www.mysociety.org/2018/06/13/foi-one-part-of-the-fight-against-the-lose-lose-lobo-loans-to-local-councils/">which councils are paying exorbitant LOBO loans</a>, in some cases meaning that a large proportion of council tax income is being channelled directly into interest payments. </p>
+      </div>
+      <div class="testimonials__item">
+        <a href="https://www.mysociety.org/2016/08/19/how-350-foi-requests-will-increase-the-chance-of-success-for-start-ups/">
+        <%= image_tag("alaveteli-pro/promo-empty.jpg",
+                      alt: _("Helping startups find the best location for their business")) %>
+        </a>
+        <p>Gavin Chait surveyed 350 local authorities to find out <a href="https://www.mysociety.org/2016/08/19/how-350-foi-requests-will-increase-the-chance-of-success-for-start-ups/">which commercial premises were empty</a>, in order to give a helping hand to start-up businesses. </p>
+     </div>
+    </div>
+    <small class="image-credits">Image credits: <a href="https://unsplash.com/photos/UnPhQSAVbdk">Raw Pixel</a>, <a href="https://www.flickr.com/photos/derekmindler/11283330806/">Derek Mindler</a> (<a href="https://creativecommons.org/licenses/by/2.0/">CC by/2.0</a>), <a href="https://www.flickr.com/photos/charlesweber/1312481285/">Webercw</a> (<a href="https://creativecommons.org/licenses/by-nc/2.0/">CC by-nc/2.0</a>), <a href="https://www.flickr.com/photos/danthompson/24039741764/in/faves-44633703@N00/">Dan Thompson</a> (<a href="https://creativecommons.org/licenses/by-nc-nd/2.0/">CC</a>)</small>
+  </div>
+  
+</div>
+    <div class="marketing__cta">
+    <% if feature_enabled?(:pro_pricing) %>
+    <%= link_to _('Plans and pricing'), pro_plans_path, class: "button" %>
+    <% elsif feature_enabled?(:pro_self_serve) %>
+      <%= render partial: 'self_serve_button' %>
+    <% else %>
+      <%= render partial: 'account_request_form' %>
+    <% end %>
+  </div>
+</div>
