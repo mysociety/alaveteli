@@ -366,31 +366,31 @@ end
 
 describe User, "when reindexing referencing models" do
   let(:user) { FactoryBot.create(:user) }
-  let(:comment) { FactoryBot.create(:comment, user: user) }
-  let(:comment_event) { mock_model(InfoRequestEvent) }
-  let(:request_event) { mock_model(InfoRequestEvent) }
-  let(:request) do
-    FactoryBot.build(:info_request, info_request_events: [request_event])
-  end
+  let!(:comment) { FactoryBot.create(:comment, :with_event, user: user) }
+  let(:comment_event) { comment.reload.info_request_events.last }
+  let(:request) { FactoryBot.create(:info_request, user: user) }
+  let(:request_event) { request.reload.last_event }
 
-  before do
-    allow(user).to receive(:comments).and_return([comment])
-    allow(user).to receive(:info_requests).and_return([request])
-    allow(comment).to receive(:info_request_events).and_return([comment_event])
-  end
-
-  it 'should reindex events associated with that user\'s comments when URL changes' do
-    allow(request_event).to receive(:xapian_mark_needs_index)
-    expect(comment_event).to receive(:xapian_mark_needs_index)
+  it "should reindex events associated with that user's comments when URL changes" do
     user.url_name = 'updated_url_name'
     user.save
+
+    query = { model: 'InfoRequestEvent',
+              model_id: comment_event.id,
+              action: 'update' }
+
+    expect(ActsAsXapian::ActsAsXapianJob.where(query).exists?).to eq(true)
   end
 
-  it 'should reindex events associated with that user\'s requests when URL changes' do
-    allow(comment_event).to receive(:xapian_mark_needs_index)
-    expect(request_event).to receive(:xapian_mark_needs_index)
+  it "should reindex events associated with that user's requests when URL changes" do
     user.url_name = 'updated_url_name'
     user.save
+
+    query = { model: 'InfoRequestEvent',
+              model_id: request_event.id,
+              action: 'update' }
+
+    expect(ActsAsXapian::ActsAsXapianJob.where(query).exists?).to eq(true)
   end
 
   describe 'when no_xapian_reindex is set' do

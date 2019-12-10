@@ -372,7 +372,7 @@ class OutgoingMessage < ApplicationRecord
   def xapian_reindex_after_update
     return unless saved_change_to_attribute?(:body)
 
-    info_request_events.each { |event| event.xapian_mark_needs_index }
+    info_request_events.find_each { |event| event.xapian_mark_needs_index }
   end
 
   def default_letter=(text)
