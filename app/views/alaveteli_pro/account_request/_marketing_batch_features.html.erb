@@ -1,0 +1,51 @@
+<div class="marketing__section">
+  <div class="marketing__section__heading">
+    <h2><%=_('Batch') %></h2>
+  </div>
+
+  <div class="marketing__section__content">
+    <div class="marketing__section__content-items">
+      <ul class="marketing__section__feature-list">
+        <li>
+          <%=_('Make a request to multiple authorities: select authorities at ' \
+               'the click of a button') %>
+        </li>
+
+        <li>
+          <%=_('Manage large volumes of responses:  easily keep track of the ' \
+               'status of each request') %>
+        </li>
+
+        <li>
+          <%=_('Get regular updates as the responses come in — without ' \
+               'overwhelming your inbox') %>
+        </li>
+      </ul>
+
+      <div class="side-by-side-elements screenshots">
+        <div class="side-by-side-element">
+          <a href="<%= image_path("alaveteli-pro/screenshot-batch-selection.jpg") %>">
+            <%= image_tag("alaveteli-pro/screenshot-batch-selection.jpg",
+                          alt: _("Batch requests allow multiple recipients" \
+                                    " of a single request")) %>
+          </a>
+        </div>
+
+        <div class="side-by-side-element">
+          <a href="<%= image_path("alaveteli-pro/screenshot-batch-list.jpg") %>">
+            <%= image_tag("alaveteli-pro/screenshot-batch-list.jpg",
+                        alt: _("Batch requests are part of a new workflow")) %>
+          </a>
+        </div>
+      </div>
+
+      <% if feature_enabled?(:pro_pricing) %>
+        <%= link_to _('Plans and pricing'), pro_plans_path, class: "button" %>
+      <% elsif feature_enabled?(:pro_self_serve) %>
+        <%= render partial: 'self_serve_button' %>
+      <% else %>
+        <%= render partial: 'account_request_form' %>
+      <% end %>
+    </div>
+  </div>
+</div>

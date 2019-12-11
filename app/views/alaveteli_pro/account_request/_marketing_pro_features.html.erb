@@ -1,0 +1,57 @@
+<div class="marketing__section">
+  <div class="marketing__section__heading">
+    <h2><%= pro_site_name %></h2>
+
+    <p><%= _('An all-in-one FOI toolkit for journalists, activists and ' \
+             'campaigners') %></p>
+  </div>
+
+  <div class="marketing__section__content">
+    <div class="marketing__section__content-items">
+      <ul class="marketing__section__feature-list">
+        <li>
+          <%=_('Keep requests and responses private while you work on your ' \
+               'story') %>
+        </li>
+
+        <li>
+          <%=_('A powerful private dashboard: track and manage your FOI ' \
+               'projects') %>
+        </li>
+
+        <li>
+          <%=_('A super-smart to-do list: follow the progress of your ' \
+               'requests') %>
+        </li>
+
+        <li>
+          <%=_('Action alerts: know when it’s time to take the next step') %>
+        </li>
+
+        <li>
+          <%=_('Daily summary emails to keep your inbox clean') %>
+        </li>
+
+        <li>
+          <%=_('Save as draft to get back to it later') %>
+        </li>
+      </ul>
+
+      <div class="side-by-side-elements screenshots">
+        <div class="side-by-side-element">
+          <a href="<%= image_path("alaveteli-pro/screenshot-dashboard.jpg") %>">
+            <%= image_tag("alaveteli-pro/screenshot-dashboard.jpg",
+                          alt: _("Pro brings a new dashboard view")) %>
+          </a>
+        </div>
+
+        <div class="side-by-side-element">
+          <a href="<%= image_path("alaveteli-pro/screenshot-requests.jpg") %>">
+            <%= image_tag("alaveteli-pro/screenshot-requests.jpg",
+                          alt: _("Pro features a new request list view")) %>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
