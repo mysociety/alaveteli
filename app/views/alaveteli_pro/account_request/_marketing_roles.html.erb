@@ -11,10 +11,15 @@
           <%= image_tag('alaveteli-pro/pro-journalist.png',
                         alt: _('FOI for journalists')) %>
 
-          <h3>I’m a journalist</h3>
+          <h3><%= _('I’m a journalist') %></h3>
         <% end %>
 
-        <p>The Bureau of investigative Journalism used Pro to send requests to councils up and down the county, and build a nationwide picture of the public properties being sold off by councils in the face of austerity.</p>
+        <p>
+          <%= _('The Bureau of investigative Journalism used Pro to send ' \
+                'requests to councils up and down the county, and build a ' \
+                'nationwide picture of the public properties being sold off ' \
+                'by councils in the face of austerity.') %>
+        </p>
 
         <%= link_to pro_page_path('journalists') do %>
           <%= _('Learn more about {{pro_site_name}} for journalists',
@@ -24,13 +29,18 @@
 
       <div class="marketing__roles__campaigner">
         <%= link_to pro_page_path('campaigners') do %>
-        <%= image_tag('alaveteli-pro/pro-campaigner.png',
-                      alt: _('FOI for campaigners')) %>
+          <%= image_tag('alaveteli-pro/pro-campaigner.png',
+                        alt: _('FOI for campaigners')) %>
 
-          <h3>I’m a campaigner</h3>
+          <h3><%= _('I’m a campaigner') %></h3>
         <% end %>
 
-        <p>Debt Resistance UK uncovered which councils are paying exorbitant LOBO loans, in some cases meaning that a large proportion of council tax income is being channelled directly into interest payments</p>
+        <p>
+          <%= _('Debt Resistance UK uncovered which councils are paying ' \
+                'exorbitant LOBO loans, in some cases meaning that a large ' \
+                'proportion of council tax income is being channelled ' \
+                'directly into interest payments.') %>
+        </p>
 
         <%= link_to pro_page_path('campaigners') do %>
           <%= _('Learn more about {{pro_site_name}} for campaigners',
@@ -43,10 +53,16 @@
           <%= image_tag('alaveteli-pro/pro-researcher.png',
                         alt: _('FOI for researchers')) %>
 
-          <h3>I’m a researcher</h3>
+          <h3><%= _('I’m a researcher') %></h3>
         <% end %>
 
-        <p>The Wales Governance Centre sent FOI requests through Pro to discover the prison populations across Wales and England for their report ‘Sentencing and Imprisonment in Wales’.<br /><br /></p>
+        <p>
+          <%= _('The Wales Governance Centre sent FOI requests through Pro ' \
+                'to discover the prison populations across Wales and England ' \
+                'for their report ‘Sentencing and Imprisonment in Wales’.') %>
+          <br />
+          <br />
+        </p>
 
         <%= link_to pro_page_path('researchers') do %>
           <%= _('Learn more about {{pro_site_name}} for researchers',
