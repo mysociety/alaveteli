@@ -181,28 +181,4 @@
   </div>
 </div>
 
-<div class="marketing__section marketing__testimonials">
-  <h2>How researchers are using Pro</h2>
-
-  <div class="row">
-    <div class="testimonials__grid">
-      <div class="testimonials__item">
-        <p>The ‘Data Scores as Governance’ project used Pro to help examine the <a href="http://orca.cf.ac.uk/117517/1/data-scores-as-governance-project-report2.pdf">use of data-driven scores in categorising citizens</a>, allocating services, and predicting behaviour.</p>
-      </div>
-
-      <div class="testimonials__item">
-        <p>The Wales Governance Centre sent FOI requests through Pro to discover the prison populations across Wales and England for their report ‘<a href="https://www.cardiff.ac.uk/__data/assets/pdf_file/0004/1547914/WGC-Report-SentencingandImprisonment04.pdf">Sentencing and Imprisonment in Wales</a>’. </p>
-      </div>
-    </div>
-  </div>
-
-  <div class="marketing__cta">
-    <% if feature_enabled?(:pro_pricing) %>
-    <%= link_to _('Plans and pricing'), pro_plans_path, class: "button" %>
-    <% elsif feature_enabled?(:pro_self_serve) %>
-      <%= render partial: 'self_serve_button' %>
-    <% else %>
-      <%= render partial: 'account_request_form' %>
-    <% end %>
-  </div>
-</div>
+<%= render partial: 'alaveteli_pro/pages/marketing_roles/researchers/marketing_testimonials' %>
