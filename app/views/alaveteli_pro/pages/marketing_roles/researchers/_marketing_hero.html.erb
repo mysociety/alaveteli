@@ -1,11 +1,24 @@
 <div class="marketing__section">
   <div class="marketing__hero">
-    <h1>Researchers</h1>
+    <h1>
+      <%= _('Researchers') %>
+    </h1>
 
-    <h2>Need a helping hand with your FOI requests?</h2>
+    <h2>
+      <%= _('Need a helping hand with your FOI requests?') %>
+    </h2>
 
-    <h3>WhatDoTheyKnow Pro does the hard work for you</h3>
+    <h3>
+      <%= _('{{pro_site_name}} does the hard work for you',
+            pro_site_name: AlaveteliConfiguration.pro_site_name) %>
+    </h3>
 
-    <p class="marketing__subhead"><strong>A powerful, fully-featured toolset that solves problems for researchers and academics managing multiple requests or in-depth FOI investigations</strong></p>
+    <p class="marketing__subhead">
+      <strong>
+        <%= _('A powerful, fully-featured toolset that solves problems for ' \
+              'researchers and academics managing multiple requests or ' \
+              'in-depth FOI investigations') %>
+      </strong>
+    </p>
   </div>
 </div>
