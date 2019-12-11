@@ -8,8 +8,8 @@
     <div class="marketing__roles__columns">
       <div class="marketing__roles__journalist">
         <%= link_to pro_page_path('journalists') do %>
-          <%= image_tag("alaveteli-pro/pro-journalist.png",
-                        alt: _("FOI for journalists")) %>
+          <%= image_tag('alaveteli-pro/pro-journalist.png',
+                        alt: _('FOI for journalists')) %>
 
           <h3>I’m a journalist</h3>
         <% end %>
@@ -18,14 +18,14 @@
 
         <%= link_to pro_page_path('journalists') do %>
           <%= _('Learn more about {{pro_site_name}} for journalists',
-            pro_site_name: pro_site_name) %>
+                pro_site_name: pro_site_name) %>
         <% end %>
       </div>
 
       <div class="marketing__roles__campaigner">
         <%= link_to pro_page_path('campaigners') do %>
-        <%= image_tag("alaveteli-pro/pro-campaigner.png",
-                        alt: _("FOI for campaigners")) %>
+        <%= image_tag('alaveteli-pro/pro-campaigner.png',
+                      alt: _('FOI for campaigners')) %>
 
           <h3>I’m a campaigner</h3>
         <% end %>
@@ -40,8 +40,9 @@
 
       <div class="marketing__roles__researcher">
         <%= link_to pro_page_path('researchers') do %>
-          <%= image_tag("alaveteli-pro/pro-researcher.png",
-                        alt: _("FOI for researchers")) %>
+          <%= image_tag('alaveteli-pro/pro-researcher.png',
+                        alt: _('FOI for researchers')) %>
+
           <h3>I’m a researcher</h3>
         <% end %>
 
