@@ -9,9 +9,7 @@
 
       <ul class="unstyled-list">
         <li>
-          <a href="mailto:<%= AlaveteliConfiguration::pro_contact_email %>">
-            <%= AlaveteliConfiguration::pro_contact_email %>
-          </a>
+          <%= mail_to AlaveteliConfiguration.pro_contact_email %>
         </li>
       </ul>
     </div>
