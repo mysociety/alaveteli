@@ -39,17 +39,17 @@
 
       <div class="side-by-side-elements screenshots">
         <div class="side-by-side-element">
-          <a href="<%= image_path("alaveteli-pro/screenshot-dashboard.jpg") %>">
-            <%= image_tag("alaveteli-pro/screenshot-dashboard.jpg",
-                          alt: _("Pro brings a new dashboard view")) %>
-          </a>
+          <%= link_to image_path('alaveteli-pro/screenshot-dashboard.jpg') do %>
+            <%= image_tag('alaveteli-pro/screenshot-dashboard.jpg',
+                          alt: _('Pro brings a new dashboard view')) %>
+          <% end %>
         </div>
 
         <div class="side-by-side-element">
-          <a href="<%= image_path("alaveteli-pro/screenshot-requests.jpg") %>">
-            <%= image_tag("alaveteli-pro/screenshot-requests.jpg",
-                          alt: _("Pro features a new request list view")) %>
-          </a>
+          <%= link_to image_path('alaveteli-pro/screenshot-requests.jpg') do %>
+            <%= image_tag('alaveteli-pro/screenshot-requests.jpg',
+                          alt: _('Pro features a new request list view')) %>
+          <% end %>
         </div>
       </div>
     </div>
