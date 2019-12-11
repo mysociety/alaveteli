@@ -24,18 +24,18 @@
 
       <div class="side-by-side-elements screenshots">
         <div class="side-by-side-element">
-          <a href="<%= image_path("alaveteli-pro/screenshot-batch-selection.jpg") %>">
-            <%= image_tag("alaveteli-pro/screenshot-batch-selection.jpg",
-                          alt: _("Batch requests allow multiple recipients" \
-                                    " of a single request")) %>
-          </a>
+          <%= link_to image_path('alaveteli-pro/screenshot-batch-selection.jpg') do %>
+            <%= image_tag('alaveteli-pro/screenshot-batch-selection.jpg',
+                          alt: _('Batch requests allow multiple recipients ' \
+                                 'of a single request')) %>
+          <% end %>
         </div>
 
         <div class="side-by-side-element">
-          <a href="<%= image_path("alaveteli-pro/screenshot-batch-list.jpg") %>">
-            <%= image_tag("alaveteli-pro/screenshot-batch-list.jpg",
-                        alt: _("Batch requests are part of a new workflow")) %>
-          </a>
+          <%= link_to image_path('alaveteli-pro/screenshot-batch-list.jpg') do %>
+            <%= image_tag('alaveteli-pro/screenshot-batch-list.jpg',
+                          alt: _('Batch requests are part of a new workflow')) %>
+          <% end %>
         </div>
       </div>
 
