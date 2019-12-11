@@ -1,65 +1,93 @@
 <div class="marketing__section">
   <div class="marketing__hero">
     <h1>Journalists</h1>
+
     <h2>Finding it hard to keep on top of your FOI requests? </h2>
+
     <h3>WhatDoTheyKnow Pro is here to help</h3>
+
     <p class="marketing__subhead"><strong>A powerful, fully-featured toolset that solves problems for journalists managing multiple requests or in-depth FOI investigations</strong></p>
   </div>
 </div>
+
 <div class="marketing__features marketing__section">
   <div class="row">
     <div class="marketing__feature">
       <%= image_tag("alaveteli-pro/pro-problem-inbox.png",
                       alt: _("Overflowing inbox?")) %>
+
       <h3>Overflowing inbox?</h3>
+
       <p>WhatDoTheyKnow Pro moves request handling out of your email and onto a dedicated dashboard, keeping everything organised.</p>
     </div>
+
     <div class="marketing__feature">
       <%= image_tag("alaveteli-pro/pro-books.png",
                       alt: _("FOI address book")) %>
+
       <h3>Searching for the right email address for every FOI contact?</h3>
+
       <p>You’ll have access to our address book of more than 24,000 UK authorities that are subject to FOI.</p>
     </div>
+
     <div class="marketing__feature">
       <%= image_tag("alaveteli-pro/pro-automation.png",
                       alt: _("Automate FOI request management")) %>
+
       <h3>Tired of the fiddly details that add time to your investigation?</h3>
+
       <p>If your request bounces back, we source the new address for that authority.</p>
     </div>
+
     <div class="marketing__feature">
       <%= image_tag("alaveteli-pro/pro-todo.png",
                       alt: _("Keep track of FOI requests")) %>
+
       <h3>Hard to keep track of your many requests?</h3>
+
       <p>No need to check: we’ll send an email alert telling you when you need to take action.</p>
     </div>
   </div>
+
   <div class="row">
     <div class="marketing__feature">
       <%= image_tag("alaveteli-pro/pro-embargo.png",
                       alt: _("Private FOI requests")) %>
+
       <h3>Need to protect your scoop? </h3>
+
       <p>Requests can stay completely private until you’re ready to go public with your story, thanks to our Embargo function.</p>
     </div>
+
     <div class="marketing__feature">
       <%= image_tag("alaveteli-pro/pro-multi-send.png",
                       alt: _("Batch FOI requests")) %>
+
       <h3>Sending to multiple authorities at once?</h3>
+
       <p>No more copy and paste emails: our Batch Request tool helps you create one request and send it to many authorities at once.</p>
     </div>
+
     <div class="marketing__feature">
       <%= image_tag("alaveteli-pro/pro-evidence.png",
                       alt: _("Add credibility")) %>
+
       <h3>Want to add weight to your story?</h3>
+
       <p>Once you’re ready, publishing the data behind your investigation lends it extra credibility.</p>
     </div>
+
     <div class="marketing__feature">
       <%= image_tag("alaveteli-pro/pro-time.png",
                       alt: _("Save time managing FOI requests")) %>
+
       <h3>Not enough hours in the day?</h3>
+
       <p>WhatDoTheyKnow Pro does all the heavy lifting, leaving you with more time to focus on your story.</p>
     </div>
   </div>
 </div>
+
 <div class="marketing__section">
   <div class="marketing__tweets">
     <div class="marketing__tweet">
@@ -67,6 +95,7 @@
         <p><q>Loving the new <a href="https://twitter.com/WhatDoTheyKnow">@WhatDoTheyKnow</a> Pro account. Super slick.</q> <cite><a href="https://twitter.com/Charlie_Mole/">Charlie Mole</a> – <a href="https://twitter.com/Charlie_Mole/status/881824926738644992">3 July 2017</a></cite></p>
       </div>
     </div>
+
     <div class="marketing__tweet">
       <div class="tweet__body">
         <p><q>I just sent an FOIA request with <a href="https://twitter.com/mySociety">@mySociety</a>'s <a href="https://twitter.com/WhatDoTheyKnow">@WhatDoTheyKnow</a> and I'm amazed at how painless it was. <br />
@@ -75,16 +104,21 @@
     </div>
   </div>
 </div>
+
 <div class="marketing__section">
   <div class="marketing__section__heading">
     <h2>Simple, affordable pricing</h2>
   </div>
+
   <div class="marketing__section__content">
     <div class="marketing__section__content-items">
       <ul class="marketing__section__feature-list">
         <li><strong>Easy</strong> One monthly fee covers all Pro features, with no complex tiers or options to worry about.</li>
+
         <li><strong>Reasonable</strong> We know that journalists can be on a limited budget, so we’ve kept the subscription affordable.</li>
+
         <li><strong>Flexible</strong> You can cancel at any time, with no lengthy tie-ins and no notice required.</li>
+
         <li class="bb-0">
           <% if feature_enabled?(:pro_pricing) %>
             <%= link_to _('Plans and pricing'), pro_plans_path, class: "button" %>
@@ -94,50 +128,63 @@
             <%= render partial: 'account_request_form' %>
           <% end %>
         </li>
-      </ul> 
+      </ul>
     </div>
-  </div> 
+  </div>
 </div>
- 
+
 <div class="marketing__section marketing__how-it-works">
   <h2>How it works</h2>
+
   <div class="row">
     <div class="how-it-works__grid">
       <div class="how-it-works__item">
         <h3>Make a request</h3>
+
         <p>Because we’ve streamlined the request-writing process, Pro saves you a lot of back and forth. Search our database of authorities, pick which one — or many — you want to contact,  and compose your request right there.</p>
       </div>
+
       <div class="how-it-works__item">
         <h3>Dashboard</h3>
+
         <p>Time is precious in newsrooms, so your dashboard just presents the information you need to know: which requests have received responses; which haven’t and need chasing up; and which require input from you. Search, filter or sort by status, to quickly find the request you’re looking for.</p>
       </div>
     </div>
   </div>
+
   <div class="row">
     <div class="how-it-works__grid">
       <div class="how-it-works__item">
         <h3>Batch requests</h3>
+
         <p>FOI is an invaluable tool in investigations, helping you collect information that hasn’t previously been available as a single dataset so that you and your readers can understand the wider picture. Pro takes the slog out of sending multiple requests with the Batch feature: easily pick the authorities you want, then send one request to all of them.</p>
       </div>
+
       <div class="how-it-works__item">
         <h3>Reminders</h3>
+
         <p>You’ve got plenty of other things to think about, so you don’t want to be checking up on every single one of your requests to see if it needs attention. Instead, Pro keeps an eye on them for you, sending you a daily email digest.</p>
       </div>
     </div>
   </div>
+
   <div class="row">
     <div class="how-it-works__grid">
       <div class="how-it-works__item">
         <h3>Embargoes</h3>
+
         <p>Pro gives you all of the ease of WhatDoTheyKnow, without the worry of others snatching your scoop before it’s ready.</p>
         <p>With the Embargo feature, you can choose to keep your requests private on the site for up to a year, not visible to anyone but you. We’ll make sure you know when that time’s about to run out, and you can extend it further if your story’s not published yet.</p>
       </div>
+
       <div class="how-it-works__item">
         <h3>Ready to go public</h3>
+
         <p>Once your story’s been published, there’s every reason to put your requests and responses into the public domain. They’ll lend credence to your investigation, and make the data available for others who might want to research a different angle. </p>
       </div>
     </div>
   </div>
+
   <div class="marketing__cta">
     <% if feature_enabled?(:pro_pricing) %>
     <%= link_to _('Plans and pricing'), pro_plans_path, class: "button" %>
@@ -147,10 +194,11 @@
       <%= render partial: 'account_request_form' %>
     <% end %>
   </div>
-
 </div>
+
 <div class="marketing__section marketing__testimonials">
   <h2>How journalists are using Pro</h2>
+
   <div class="row">
     <div class="testimonials__grid">
       <div class="testimonials__item">
@@ -159,21 +207,26 @@
           <%= image_tag("alaveteli-pro/promo-sold.jpg",
                         alt: _("Using WhatDoTheyKnow Pro to build a nationwide picture of the public properties being sold off by councils")) %>
           </a>
+
           <p><a href="https://www.mysociety.org/2019/06/05/case-study-sold-from-under-you-by-the-bureau-of-investigative-journalism/">Sold From Under You</a>  — the Bureau of investigative Journalism used Pro to send requests to councils up and down the county to build a nationwide picture of the public properties being sold off by councils in the face of austerity.</p>
         </div>
       </div>
+
       <div class="testimonials__item">
         <div class="testimonial__body">
           <a href="https://www.mysociety.org/2018/09/20/whatdotheyknow-pro-helps-set-the-news-agenda/">
           <%= image_tag("alaveteli-pro/promo-overspend.jpg",
                         alt: _("Bringing facts about campagin overspending to light with the embargo function")) %>
           </a>
+
           <p>Investigative journalist Jenna Corderoy has made good use of Pro’s Embargo function, keeping her extensive Brexit-related investigations private until her stories broke, bringing facts about <a href="https://www.mysociety.org/2018/09/20/whatdotheyknow-pro-helps-set-the-news-agenda/">campaign overspending</a> and <a href="https://www.mysociety.org/2019/07/05/whatdotheyknow-pro-helps-journalists-further-transparency-accountability-and-public-trust/">ERG</a> research to the public, among several other important stories.</p>
         </div>
       </div>
     </div>
+
     <small class="image-credits">Image credits: <a href="https://unsplash.com/photos/4IZPCkTsBpY">Daniel von Appen</a>, <a href="https://unsplash.com/photos/_Zua2hyvTBk">Roman Kraft</a></small>
   </div>
+
   <div class="marketing__cta">
     <% if feature_enabled?(:pro_pricing) %>
     <%= link_to _('Plans and pricing'), pro_plans_path, class: "button" %>

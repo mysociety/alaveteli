@@ -5,10 +5,12 @@
             'for journalists, campaigners and researchers',
             pro_site_name: pro_site_name) %>
     </h1>
+
     <h2>
       <%= _('Everything you need to keep on top of complex FOI-driven ' \
             'stories.') %>
     </h2>
+
     <div class="marketing__hero__cta">
       <% if feature_enabled?(:pro_pricing) %>
         <%= link_to _('Plans and pricing'), pro_plans_path, class: "button" %>
@@ -23,44 +25,56 @@
     </div>
   </div>
 </div>
+
 <div class="marketing__section marketing__roles">
   <h2>
     <%= _('Find out how {{pro_site_name}} can take the hard work out of FOI ' \
           'investigations', pro_site_name: pro_site_name) %>
   </h2>
+
   <div class="row">
     <div class="marketing__roles__columns">
       <div class="marketing__roles__journalist">
         <%= link_to pro_page_path('journalists') do %>
           <%= image_tag("alaveteli-pro/pro-journalist.png",
                         alt: _("FOI for journalists")) %>
+
           <h3>I’m a journalist</h3>
         <% end %>
+
         <p>The Bureau of investigative Journalism used Pro to send requests to councils up and down the county, and build a nationwide picture of the public properties being sold off by councils in the face of austerity.</p>
+
         <%= link_to pro_page_path('journalists') do %>
           <%= _('Learn more about {{pro_site_name}} for journalists',
             pro_site_name: pro_site_name) %>
         <% end %>
       </div>
+
       <div class="marketing__roles__campaigner">
         <%= link_to pro_page_path('campaigners') do %>
         <%= image_tag("alaveteli-pro/pro-campaigner.png",
                         alt: _("FOI for campaigners")) %>
+
           <h3>I’m a campaigner</h3>
         <% end %>
+
         <p>Debt Resistance UK uncovered which councils are paying exorbitant LOBO loans, in some cases meaning that a large proportion of council tax income is being channelled directly into interest payments</p>
+
         <%= link_to pro_page_path('campaigners') do %>
           <%= _('Learn more about {{pro_site_name}} for campaigners',
                 pro_site_name: pro_site_name) %>
         <% end %>
       </div>
+
       <div class="marketing__roles__researcher">
         <%= link_to pro_page_path('researchers') do %>
           <%= image_tag("alaveteli-pro/pro-researcher.png",
                         alt: _("FOI for researchers")) %>
           <h3>I’m a researcher</h3>
         <% end %>
+
         <p>The Wales Governance Centre sent FOI requests through Pro to discover the prison populations across Wales and England for their report ‘Sentencing and Imprisonment in Wales’.<br /><br /></p>
+
         <%= link_to pro_page_path('researchers') do %>
           <%= _('Learn more about {{pro_site_name}} for researchers',
                 pro_site_name: pro_site_name) %>
@@ -69,12 +83,15 @@
     </div>
   </div>
 </div>
+
 <div class="marketing__section">
   <div class="marketing__section__heading">
     <h2><%= pro_site_name %></h2>
+
     <p><%= _('An all-in-one FOI toolkit for journalists, activists and ' \
              'campaigners') %></p>
   </div>
+
   <div class="marketing__section__content">
     <div class="marketing__section__content-items">
       <ul class="marketing__section__feature-list">
@@ -82,20 +99,25 @@
           <%=_('Keep requests and responses private while you work on your ' \
                'story') %>
         </li>
+
         <li>
           <%=_('A powerful private dashboard: track and manage your FOI ' \
                'projects') %>
         </li>
+
         <li>
           <%=_('A super-smart to-do list: follow the progress of your ' \
                'requests') %>
         </li>
+
         <li>
           <%=_('Action alerts: know when it’s time to take the next step') %>
         </li>
+
         <li>
           <%=_('Daily summary emails to keep your inbox clean') %>
         </li>
+
         <li>
           <%=_('Save as draft to get back to it later') %>
         </li>
@@ -108,6 +130,7 @@
                           alt: _("Pro brings a new dashboard view")) %>
           </a>
         </div>
+
         <div class="side-by-side-element">
           <a href="<%= image_path("alaveteli-pro/screenshot-requests.jpg") %>">
             <%= image_tag("alaveteli-pro/screenshot-requests.jpg",
@@ -118,14 +141,17 @@
     </div>
   </div>
 </div>
+
 <div class="marketing__section">
   <div class="marketing__section__heading">
     <h2><%=_('Plus, all the power of {{site_name}}',
              site_name: site_name) %></h2>
+
     <p><%= _('<strong>{{pro_site_name}}</strong> runs on the UK’s ' \
              'best-known FOI service',
              pro_site_name: pro_site_name) %></p>
   </div>
+
   <div class="marketing__section__content">
     <div class="marketing__section__content-items">
       <ul class="marketing__section__feature-list">
@@ -134,16 +160,20 @@
              'contact details for {{authority_count}} authorities',
              authority_count: PublicBody.is_requestable.count) %>
         </li>
+
         <li>
           <%=_('A searchable archive of Freedom of Information requests') %>
         </li>
+
         <li>
           <%=_('Delivery verification for proof of receipt') %>
         </li>
+
         <li>
           <%=_('A permanent, searchable, public record of your request and ' \
                'the responses') %>
         </li>
+
         <li>
           <%=_('Streamlined process for requesting internal reviews') %>
         </li>
@@ -151,10 +181,12 @@
     </div>
   </div>
 </div>
+
 <div class="marketing__section">
   <div class="marketing__section__heading">
     <h2><%=_('Batch') %></h2>
   </div>
+
   <div class="marketing__section__content">
     <div class="marketing__section__content-items">
       <ul class="marketing__section__feature-list">
@@ -162,16 +194,17 @@
           <%=_('Make a request to multiple authorities: select authorities at ' \
                'the click of a button') %>
         </li>
+
         <li>
           <%=_('Manage large volumes of responses:  easily keep track of the ' \
                'status of each request') %>
         </li>
+
         <li>
           <%=_('Get regular updates as the responses come in — without ' \
                'overwhelming your inbox') %>
         </li>
       </ul>
-
 
       <div class="side-by-side-elements screenshots">
         <div class="side-by-side-element">
@@ -181,6 +214,7 @@
                                     " of a single request")) %>
           </a>
         </div>
+
         <div class="side-by-side-element">
           <a href="<%= image_path("alaveteli-pro/screenshot-batch-list.jpg") %>">
             <%= image_tag("alaveteli-pro/screenshot-batch-list.jpg",
@@ -188,6 +222,7 @@
           </a>
         </div>
       </div>
+
       <% if feature_enabled?(:pro_pricing) %>
         <%= link_to _('Plans and pricing'), pro_plans_path, class: "button" %>
       <% elsif feature_enabled?(:pro_self_serve) %>
@@ -198,13 +233,16 @@
     </div>
   </div>
 </div>
+
 <div class="marketing__section">
   <div class="marketing__section__heading">
     <h2><%=_('Got questions?') %></h2>
   </div>
+
   <div class="marketing__section__content">
     <div class="marketing__section__content-items marketing__section__more-info">
       <h3><%=_('Get in touch') %></h3>
+
       <ul class="unstyled-list">
         <li>
           <a href="mailto:<%= AlaveteliConfiguration::pro_contact_email %>">
