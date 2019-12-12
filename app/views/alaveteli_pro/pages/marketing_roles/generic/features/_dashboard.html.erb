@@ -2,7 +2,11 @@
   <%= image_tag('alaveteli-pro/pro-problem-inbox.png',
                 alt: _('Overflowing inbox?')) %>
 
-  <h3>Overflowing inbox?</h3>
+  <h3><%= _('Overflowing inbox?') %></h3>
 
-  <p>WhatDoTheyKnow Pro moves request handling out of your email and onto a dedicated dashboard, keeping everything organised.</p>
+  <p>
+    <%= _('{{pro_site_name}} moves request handling out of your email and ' \
+          'onto a dedicated dashboard, keeping everything organised.',
+          pro_site_name: AlaveteliConfiguration.pro_site_name) %>
+  </p>
 </div>
