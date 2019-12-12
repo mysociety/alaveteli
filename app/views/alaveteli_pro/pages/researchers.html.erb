@@ -1,34 +1,7 @@
 <%= render partial: 'alaveteli_pro/pages/marketing_roles/researchers/marketing_hero' %>
 <%= render partial: 'alaveteli_pro/pages/marketing_roles/researchers/marketing_features' %>
 <%= render partial: 'alaveteli_pro/pages/marketing_roles/generic/marketing_tweets' %>
-
-<div class="marketing__section">
-  <div class="marketing__section__heading">
-    <h2>Simple, affordable pricing</h2>
-  </div>
-
-  <div class="marketing__section__content">
-    <div class="marketing__section__content-items">
-      <ul class="marketing__section__feature-list">
-        <li><strong>Easy</strong> One monthly fee covers all Pro features, with no complex tiers or options to worry about.</li>
-
-        <li><strong>Reasonable</strong> We know that researchers can be on a limited budget, so we’ve kept the subscription affordable.</li>
-
-        <li><strong>Flexible</strong> You can cancel at any time, with no lengthy tie-ins and no notice required.</li>
-
-        <li class="bb-0">
-          <% if feature_enabled?(:pro_pricing) %>
-            <%= link_to _('Plans and pricing'), pro_plans_path, class: "button" %>
-          <% elsif feature_enabled?(:pro_self_serve) %>
-            <%= render partial: 'self_serve_button' %>
-          <% else %>
-            <%= render partial: 'account_request_form' %>
-          <% end %>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
+<%= render partial: 'alaveteli_pro/pages/marketing_roles/researchers/pricing' %>
 
 <div class="marketing__section marketing__how-it-works">
   <h2>How it works</h2>
