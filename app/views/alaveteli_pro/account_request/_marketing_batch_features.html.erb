@@ -39,13 +39,7 @@
         </div>
       </div>
 
-      <% if feature_enabled?(:pro_pricing) %>
-        <%= link_to _('Plans and pricing'), pro_plans_path, class: "button" %>
-      <% elsif feature_enabled?(:pro_self_serve) %>
-        <%= render partial: 'self_serve_button' %>
-      <% else %>
-        <%= render partial: 'account_request_form' %>
-      <% end %>
+      <%= render partial: 'cta' %>
     </div>
   </div>
 </div>

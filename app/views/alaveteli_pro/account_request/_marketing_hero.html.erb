@@ -12,10 +12,11 @@
     </h2>
 
     <div class="marketing__hero__cta">
+      <%# Can't use cta partial as the else needs a link instead of a form %>
       <% if feature_enabled?(:pro_pricing) %>
-        <%= link_to _('Plans and pricing'), pro_plans_path, class: "button" %>
+        <%= link_to _('Plans and pricing'), pro_plans_path, class: 'button' %>
       <% elsif feature_enabled?(:pro_self_serve) %>
-        <%= render partial: 'self_serve_button' %>
+        <%= render partial: 'alaveteli_pro/account_request/self_serve_button' %>
       <% else %>
         <a href="#input-account-request" class="button" id="js-request-access">
           <%= _('Request access to {{pro_site_name}}',
