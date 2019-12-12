@@ -1,0 +1,62 @@
+<div class="marketing__section marketing__how-it-works">
+  <h2>How it works</h2>
+
+  <div class="row">
+    <div class="how-it-works__grid">
+      <div class="how-it-works__item">
+        <h3>Make a request</h3>
+
+        <p>Because we’ve streamlined the request-writing process, Pro saves you a lot of back and forth. Search our database of authorities, pick which one — or many — you want to contact,  and compose your request right there.</p>
+      </div>
+
+      <div class="how-it-works__item">
+        <h3>Dashboard</h3>
+
+        <p>Time is precious, so your dashboard just presents the information you need to know: which requests have received responses; which haven’t and need chasing up; and which require input from you. Search, filter or sort by status, to quickly find the request you’re looking for.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="how-it-works__grid">
+      <div class="how-it-works__item">
+        <h3>Batch requests</h3>
+
+        <p>FOI is an invaluable tool in campaigns, helping you collect information that hasn’t previously been available as a single dataset so that you  and your supporters can understand the wider picture. Pro takes the slog out of sending multiple requests with the Batch feature: easily pick the authorities you want, then send one request to all of them.</p>
+      </div>
+
+      <div class="how-it-works__item">
+        <h3>Reminders</h3>
+
+        <p>You’ve got plenty of other things to think about, so you don’t want to be checking up on every single one of your requests to see if it needs attention. Instead, Pro keeps an eye on them for you, sending you a daily email digest.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="how-it-works__grid">
+      <div class="how-it-works__item">
+        <h3>Embargoes</h3>
+
+        <p>Pro gives you all of the ease of WhatDoTheyKnow, without the worry of releasing all your work before you’re ready for the world to see it.</p>
+        <p>With the Embargo feature, you can choose to keep your requests private on the site for up to a year, not visible to anyone but you. We’ll make sure you know when that time’s about to run out, and you can extend it further if your campaign’s not live yet.</p>
+      </div>
+
+      <div class="how-it-works__item">
+        <h3>Ready to go public</h3>
+
+        <p>Once you launch your campaign, there’s every reason to put your requests and responses into the public domain. They’ll lend credence to your campaign, and make the data available for others who might want to research a different angle.</p>
+       </div>
+    </div>
+  </div>
+
+  <div class="marketing__cta">
+    <% if feature_enabled?(:pro_pricing) %>
+    <%= link_to _('Plans and pricing'), pro_plans_path, class: "button" %>
+    <% elsif feature_enabled?(:pro_self_serve) %>
+      <%= render partial: 'self_serve_button' %>
+    <% else %>
+      <%= render partial: 'account_request_form' %>
+    <% end %>
+  </div>
+</div>
