@@ -1,6 +1,17 @@
 <div class="how-it-works__item">
-  <h3>Private Requests</h3>
+  <h3><%= _('Private Requests') %></h3>
 
-  <p>Pro gives you all of the ease of WhatDoTheyKnow, without the worry of releasing all your work before you’re ready for the world to see it.</p>
-  <p>You can choose to keep your requests private for up to a year, not visible to anyone but you. We’ll make sure you know when that time’s about to run out, and you can always extend it further if your campaign’s not live yet.</p>
+  <p>
+    <%= _('Pro gives you all of the ease of {{site_name}}, without the worry ' \
+          'of releasing all your work before you’re ready for the world to ' \
+          'see it.',
+          site_name: AlaveteliConfiguration.site_name) %>
+  </p>
+
+  <p>
+    <%= _('You can choose to keep your requests private for up to a year, ' \
+          'not visible to anyone but you. We’ll make sure you know when that ' \
+          'time’s about to run out, and you can always extend it further if ' \
+          'your campaign’s not live yet.') %>
+  </p>
 </div>
