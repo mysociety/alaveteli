@@ -1074,13 +1074,13 @@ Lint/AmbiguousOperator:
                  Checks for ambiguous operators in the first argument of a
                  method invocation without parentheses.
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#parens-as-args'
-  Enabled: false
+  Enabled: true
 
 Lint/AmbiguousRegexpLiteral:
   Description: >-
                  Checks for ambiguous regexp literals in the first argument of
                  a method invocation without parentheses.
-  Enabled: false
+  Enabled: true
 
 Lint/AssignmentInCondition:
   Description: "Don't use assignment in conditions."
@@ -1089,19 +1089,19 @@ Lint/AssignmentInCondition:
 
 Lint/CircularArgumentReference:
   Description: "Default values in optional keyword arguments and optional ordinal arguments should not refer back to the name of the argument."
-  Enabled: false
+  Enabled: true
 
 Lint/Debugger:
   Description: 'Check for debugger calls.'
-  Enabled: false
+  Enabled: true
 
 Lint/DeprecatedClassMethods:
   Description: 'Check for deprecated class method calls.'
-  Enabled: false
+  Enabled: true
 
 Lint/DuplicateMethods:
   Description: 'Check for duplicate method definitions.'
-  Enabled: false
+  Enabled: true
 
 Lint/DuplicatedKey:
   Description: 'Check for duplicate keys in hash literals.'
@@ -1109,19 +1109,19 @@ Lint/DuplicatedKey:
 
 Lint/EachWithObjectArgument:
   Description: 'Check for immutable argument given to each_with_object.'
-  Enabled: false
+  Enabled: true
 
 Lint/ElseLayout:
   Description: 'Check for odd code arrangement in an else block.'
-  Enabled: false
+  Enabled: true
 
 Lint/EmptyEnsure:
   Description: 'Checks for empty ensure block.'
-  Enabled: false
+  Enabled: true
 
 Lint/EmptyInterpolation:
   Description: 'Checks for empty string interpolation.'
-  Enabled: false
+  Enabled: true
 
 Lint/EndInMethod:
   Description: 'END blocks should not be placed inside method definitions.'
