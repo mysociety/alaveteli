@@ -1,0 +1,33 @@
+<div class="marketing__section marketing__testimonials">
+  <h2>
+    <%= _('How researchers are using Pro') %>
+  </h2>
+
+  <div class="row">
+    <div class="testimonials__grid">
+      <div class="testimonials__item">
+        <p>
+          <%= _('The ‘Data Scores as Governance’ project used Pro to help ' \
+                'examine the <a href="{{story_url}}">use of data-driven ' \
+                'scores in categorising citizens</a>, allocating services, ' \
+                'and predicting behaviour.',
+                story_url: 'http://orca.cf.ac.uk/117517/1/data-scores-as-governance-project-report2.pdf') %>
+        </p>
+      </div>
+
+      <div class="testimonials__item">
+        <p>
+          <%= _('The Wales Governance Centre sent FOI requests through Pro ' \
+                'to discover the prison populations across Wales and England ' \
+                'for their report ‘<a href="{{story_url}}">Sentencing and ' \
+                'Imprisonment in Wales</a>’.',
+                story_url: 'https://www.cardiff.ac.uk/__data/assets/pdf_file/0004/1547914/WGC-Report-SentencingandImprisonment04.pdf') %>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="marketing__cta">
+    <%= render partial: 'alaveteli_pro/account_request/cta' %>
+  </div>
+</div>

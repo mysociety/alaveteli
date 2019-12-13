@@ -10,6 +10,8 @@ class AlaveteliPro::AccountRequestController < ApplicationController
                 only: :create, if: -> { feature_enabled?(:pro_self_serve) }
 
   def index
+    @title =
+      _('FOI Management Tools for journalists, campaigners and researchers')
   end
 
   def create

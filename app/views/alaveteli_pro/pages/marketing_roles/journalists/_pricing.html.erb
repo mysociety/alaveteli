@@ -1,0 +1,31 @@
+<div class="marketing__section">
+  <div class="marketing__section__heading">
+    <h2><%= _('Simple, affordable pricing') %></h2>
+  </div>
+
+  <div class="marketing__section__content">
+    <div class="marketing__section__content-items">
+      <ul class="marketing__section__feature-list">
+        <li>
+          <%= _('<strong>Easy</strong> One monthly fee covers all Pro ' \
+                'features, with no complex tiers or options to worry about.') %>
+        </li>
+
+        <li>
+          <%= _('<strong>Reasonable</strong> We know that journalists can be ' \
+                'on a limited budget, so we’ve kept the subscription ' \
+                'affordable.') %>
+        </li>
+
+        <li>
+          <%= _('<strong>Flexible</strong> You can cancel at any time, with ' \
+                'no lengthy tie-ins and no notice required.') %>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="marketing__cta">
+    <%= render partial: 'alaveteli_pro/account_request/cta' %>
+  </div>
+</div>

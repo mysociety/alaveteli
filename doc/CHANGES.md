@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Add targeted Pro marketing pages (Myfanwy Nixon, Martin Wright, Gareth Rees)
+
 ## Upgrade Notes
 
 ### Changed Templates

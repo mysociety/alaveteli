@@ -1,0 +1,87 @@
+<div class="marketing__section marketing__testimonials">
+  <h2>
+    <%= _('How campaigners are using Pro') %>
+  </h2>
+
+  <div class="row">
+    <div class="testimonials__grid">
+      <div class="testimonials__item">
+        <a href="https://www.mysociety.org/2017/08/04/is-your-local-authority-making-life-difficult-for-wheelchair-users/">
+          <%= image_tag('alaveteli-pro/promo-doug.jpg',
+                        alt: _('Campaigning for better wheelchair ' \
+                               'accessibility')) %>
+        </a>
+
+        <p>
+          <%= _('Activist Doug Paulley uncovered councils across the UK who, ' \
+                'through inaction, are allowing legal discrimination against ' \
+                'wheelchair users. <a href="{{story_url}}">See the whole ' \
+                'story</a>',
+                story_url: 'https://www.mysociety.org/2017/08/04/is-your-local-authority-making-life-difficult-for-wheelchair-users/') %>
+        </p>
+      </div>
+
+      <div class="testimonials__item">
+        <a href="https://www.mysociety.org/2016/12/07/freedom-of-information-and-asbestos-in-schools/">
+          <%= image_tag('alaveteli-pro/promo-asbestos.jpg',
+                        alt: _('Investigating asbestos use in shcools')) %>
+        </a>
+
+        <p>
+          <%= _('Lucie Stephens, prompted by the death of someone she cared ' \
+                'about, requested information about asbestos in schools from ' \
+                'more than 200 LEAs. <a href="{{story_url}}">Read about her ' \
+                'campaign</a>',
+                story_url: 'https://www.mysociety.org/2016/12/07/freedom-of-information-and-asbestos-in-schools/') %>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="testimonials__grid">
+      <div class="testimonials__item">
+        <a href="https://www.mysociety.org/2018/06/13/foi-one-part-of-the-fight-against-the-lose-lose-lobo-loans-to-local-councils/">
+          <%= image_tag('alaveteli-pro/promo-lobo.jpg',
+                        alt: _('Uncovering which UK councils are paying ' \
+                               'exorbitant LOBO loans')) %>
+        </a>
+
+        <p>
+          <%= _('Debt Resistance UK uncovered <a href="{{story_url}}">which ' \
+                'councils are paying exorbitant LOBO loans</a>, in some ' \
+                'cases meaning that a large proportion of council tax income ' \
+                'is being channelled directly into interest payments.',
+                story_url: 'https://www.mysociety.org/2018/06/13/foi-one-part-of-the-fight-against-the-lose-lose-lobo-loans-to-local-councils/') %>
+        </p>
+      </div>
+
+      <div class="testimonials__item">
+        <a href="https://www.mysociety.org/2016/08/19/how-350-foi-requests-will-increase-the-chance-of-success-for-start-ups/">
+          <%= image_tag('alaveteli-pro/promo-empty.jpg',
+                        alt: _('Helping startups find the best location for ' \
+                               'their business')) %>
+        </a>
+
+        <p>
+          <%= _('Gavin Chait surveyed 350 local authorities to find out ' \
+                '<a href="{{story_url}}">which commercial premises were empty' \
+                '</a>, in order to give a helping hand to start-up businesses.',
+                story_url: 'https://www.mysociety.org/2016/08/19/how-350-foi-requests-will-increase-the-chance-of-success-for-start-ups/') %>
+        </p>
+     </div>
+    </div>
+
+    <small class="image-credits">
+      <%= _('Image credits:') %>
+      <a href="https://unsplash.com/photos/UnPhQSAVbdk">Raw Pixel</a>,
+      <a href="https://www.flickr.com/photos/derekmindler/11283330806/">Derek Mindler</a> (<a href="https://creativecommons.org/licenses/by/2.0/">CC by/2.0</a>),
+      <a href="https://www.flickr.com/photos/charlesweber/1312481285/">Webercw</a> (<a href="https://creativecommons.org/licenses/by-nc/2.0/">CC by-nc/2.0</a>),
+      <a href="https://www.flickr.com/photos/danthompson/24039741764/in/faves-44633703@N00/">Dan Thompson</a> (<a href="https://creativecommons.org/licenses/by-nc-nd/2.0/">CC</a>)
+    </small>
+  </div>
+
+  <div class="marketing__cta">
+    <%= render partial: 'alaveteli_pro/account_request/cta' %>
+  </div>
+</div>

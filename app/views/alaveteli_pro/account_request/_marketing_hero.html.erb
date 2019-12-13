@@ -1,0 +1,28 @@
+<div class="marketing__section">
+  <div class="marketing__hero">
+    <h1>
+      <%= _('{{pro_site_name}} is a powerful, fully-featured FOI toolkit ' \
+            'for journalists, campaigners and researchers',
+            pro_site_name: pro_site_name) %>
+    </h1>
+
+    <h2>
+      <%= _('Everything you need to keep on top of complex FOI-driven ' \
+            'stories.') %>
+    </h2>
+
+    <div class="marketing__hero__cta">
+      <%# Can't use cta partial as the else needs a link instead of a form %>
+      <% if feature_enabled?(:pro_pricing) %>
+        <%= link_to _('Plans and pricing'), pro_plans_path, class: 'button' %>
+      <% elsif feature_enabled?(:pro_self_serve) %>
+        <%= render partial: 'alaveteli_pro/account_request/self_serve_button' %>
+      <% else %>
+        <a href="#input-account-request" class="button" id="js-request-access">
+          <%= _('Request access to {{pro_site_name}}',
+                pro_site_name: pro_site_name) %>
+        </a>
+      <% end %>
+    </div>
+  </div>
+</div>
