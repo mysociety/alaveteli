@@ -780,7 +780,7 @@ class InfoRequest < ApplicationRecord
   end
 
   def reindex_request_events
-    info_request_events.each do |event|
+    info_request_events.find_each do |event|
       event.xapian_mark_needs_index
     end
   end

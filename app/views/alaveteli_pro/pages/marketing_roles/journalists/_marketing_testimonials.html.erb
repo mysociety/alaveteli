@@ -1,0 +1,61 @@
+<div class="marketing__section marketing__testimonials">
+  <h2>
+    <%= _('How journalists are using Pro') %>
+  </h2>
+
+  <div class="row">
+    <div class="testimonials__grid">
+      <div class="testimonials__item">
+        <div class="testimonial__body">
+          <a href="https://www.mysociety.org/2019/06/05/case-study-sold-from-under-you-by-the-bureau-of-investigative-journalism">
+            <%= image_tag('alaveteli-pro/promo-sold.jpg',
+                          alt: _('Using Pro to build a nationwide picture of ' \
+                                 'the public properties being sold off by ' \
+                                 'councils')) %>
+          </a>
+
+          <p>
+            <%= _('<a href="{{story_url}}">Sold From Under You</a> — the ' \
+                  'Bureau of investigative Journalism used Pro to send ' \
+                  'requests to councils up and down the county to build a ' \
+                  'nationwide picture of the public properties being sold ' \
+                  'off by councils in the face of austerity.',
+                  story_url: 'https://www.mysociety.org/2019/06/05/case-study-sold-from-under-you-by-the-bureau-of-investigative-journalism') %>
+          </p>
+        </div>
+      </div>
+
+      <div class="testimonials__item">
+        <div class="testimonial__body">
+          <a href="https://www.mysociety.org/2018/09/20/whatdotheyknow-pro-helps-set-the-news-agenda/">
+            <%= image_tag('alaveteli-pro/promo-overspend.jpg',
+                          alt: _('Bringing facts about campagin overspending ' \
+                                 'to light with the privacy features')) %>
+          </a>
+
+          <p>
+            <%= _('Investigative journalist Jenna Corderoy has made good ' \
+                  'use of Pro’s privacy features, keeping her extensive ' \
+                  'Brexit-related investigations private until her stories ' \
+                  'broke, bringing facts about <a href="{{story_url_1}}">' \
+                  'campaign overspending</a> and <a href="{{story_url_2}}">' \
+                  'ERG</a> research to the public, among several other ' \
+                  'important stories.',
+                  story_url_1: 'https://www.mysociety.org/2018/09/20/whatdotheyknow-pro-helps-set-the-news-agenda',
+                  story_url_2: 'https://www.mysociety.org/2019/07/05/whatdotheyknow-pro-helps-journalists-further-transparency-accountability-and-public-trust') %>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <small class="image-credits">
+      <%= _('Image credits:') %>
+      <a href="https://unsplash.com/photos/4IZPCkTsBpY">Daniel von Appen</a>,
+      <a href="https://unsplash.com/photos/_Zua2hyvTBk">Roman Kraft</a>
+    </small>
+  </div>
+
+  <div class="marketing__cta">
+    <%= render partial: 'alaveteli_pro/account_request/cta' %>
+  </div>
+</div>

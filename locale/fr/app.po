@@ -22,7 +22,7 @@
 # 0c5d54599df8b711a7a254a114ba48aa, 2011
 # Adrien Chauvet, 2013
 # Adrien Chauvet, 2013
-# keronos <aka.keronos@gmail.com>, 2019
+# Pascal Romain <aka.keronos@gmail.com>, 2019
 # skenaja <alex@alexskene.com>, 2011
 # andreas.pavlou <andreas@access-info.org>, 2013
 # andreas.pavlou <andreas@access-info.org>, 2013
@@ -36,7 +36,7 @@
 # claude transparencia <audit.citoyen.quartier@gmail.com>, 2016
 # David Cabo <david.cabo@gmail.com>, 2013
 # Gareth Rees <gareth@mysociety.org>, 2015-2016
-# keronos <aka.keronos@gmail.com>, 2019
+# Pascal Romain <aka.keronos@gmail.com>, 2019
 # Liz Conlan <liz@mysociety.org>, 2018
 # louisecrow <louise@mysociety.org>, 2013
 # louisecrow <louise@mysociety.org>, 2013-2015

@@ -342,14 +342,14 @@ class User < ApplicationRecord
     return if no_xapian_reindex == true
     return unless saved_change_to_attribute?(:url_name)
 
-    comments.each do |comment|
-      comment.info_request_events.each do |info_request_event|
+    comments.find_each do |comment|
+      comment.info_request_events.find_each do |info_request_event|
         info_request_event.xapian_mark_needs_index
       end
     end
 
-    info_requests.each do |info_request|
-      info_request.info_request_events.each do |info_request_event|
+    info_requests.find_each do |info_request|
+      info_request.info_request_events.find_each do |info_request_event|
         info_request_event.xapian_mark_needs_index
       end
     end

@@ -5,7 +5,7 @@
 #
 # Translators:
 # Catia Guerreiro <CatiaGuerreiro1980@hotmail.com>, 2019
-# Liz Conlan <liz@mysociety.org>, 2019
+# 1bb8f5eb4bc72723d4109decfd20c765, 2019
 # a270031086f2a0d3514bc0cb507b48f6, 2019
 # pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2019
 #

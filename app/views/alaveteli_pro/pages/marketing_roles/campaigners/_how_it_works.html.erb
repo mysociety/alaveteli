@@ -1,0 +1,28 @@
+<div class="marketing__section marketing__how-it-works">
+  <h2><%= _('How it works') %></h2>
+
+  <div class="row">
+    <div class="how-it-works__grid">
+      <%= render partial: 'alaveteli_pro/pages/marketing_roles/generic/how_it_works/make_request' %>
+      <%= render partial: 'alaveteli_pro/pages/marketing_roles/generic/how_it_works/dashboard' %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="how-it-works__grid">
+      <%= render partial: 'alaveteli_pro/pages/marketing_roles/campaigners/how_it_works/batch' %>
+      <%= render partial: 'alaveteli_pro/pages/marketing_roles/generic/how_it_works/reminders' %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="how-it-works__grid">
+      <%= render partial: 'alaveteli_pro/pages/marketing_roles/campaigners/how_it_works/embargoes' %>
+      <%= render partial: 'alaveteli_pro/pages/marketing_roles/campaigners/how_it_works/publishing' %>
+   </div>
+  </div>
+
+  <div class="marketing__cta">
+    <%= render partial: 'alaveteli_pro/account_request/cta' %>
+  </div>
+</div>

@@ -1,3 +1,19 @@
+# develop
+
+## Highlighted Features
+
+* Add targeted Pro marketing pages (Myfanwy Nixon, Martin Wright, Gareth Rees)
+
+## Upgrade Notes
+
+### Changed Templates
+
+# 0.36.0.1
+
+## Highlighted Features
+
+* Updated translations from Transifex (Gareth Rees)
+
 # 0.36.0.0
 
 ## Highlighted Features
@@ -50,6 +66,7 @@
     app/views/request/_outgoing_correspondence.html.erb
 
 # 0.35.0.0
+
 ## Highlighted Features
 
 * This release rolls out Alaveteli Pro Pricing - a way to ask users to support

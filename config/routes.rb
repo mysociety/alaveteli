@@ -431,10 +431,6 @@ Rails.application.routes.draw do
 
   #### AdminPublicBody controller
   scope '/admin', :as => 'admin' do
-    constraints admin_constraint do
-      mount Flipper::UI.app(AlaveteliFeatures.backend) => '/flipper'
-    end
-
     resources :bodies,
     :controller => 'admin_public_body' do
       get 'missing_scheme', :on => :collection
@@ -649,12 +645,18 @@ Rails.application.routes.draw do
         :via => :get
   ####
 
+  #### Pro Pages
+  constraints FeatureConstraint.new(:alaveteli_pro) do
+    namespace :alaveteli_pro, path: :pro, as: :pro do
+      resources :pages, only: [:show]
+    end
+  end
+
   #### Pro Pricing
   constraints FeatureConstraint.new(:pro_pricing) do
 
     namespace :alaveteli_pro, path: :pro, as: :pro do
       resources :plans, only: [:index], path: :pricing
-      resources :pages, only: [:show]
     end
 
     scope module: :alaveteli_pro do

@@ -23,16 +23,14 @@
   }
   h2 {
     font-weight: normal;
+    color: rgba(0,0,0,0.6)
   }
 }
 
 .marketing__hero__cta {
-  background: white;
   padding: 2em 0 1em;
   max-width: 25em;
-  margin: 4em auto 0;
-  box-shadow: 0 0 20px 2px rgba(0,0,0,0.11);
-  border-radius: 5px;
+  margin: 1.5em auto 0;
   h3 {
     text-transform: uppercase;
     font-size: 1em;
@@ -42,6 +40,11 @@
     padding: 1em 1.75em;
     cursor: pointer;
   }
+}
+
+.marketing__subhead {
+  max-width: 33em;
+  margin: 0 auto;
 }
 
 .marketing__section__heading {
@@ -179,4 +182,150 @@ label.input-account-request-button {
     padding-right: 0.85em;
   }
   margin-bottom: 1em;
+}
+
+.marketing__roles {
+  text-align: center;
+  h2 {
+    max-width: 22em;
+    text-align: center; 
+    margin: 0 auto 1em;
+  }
+  a {
+    text-decoration: none;
+    &:hover,
+    &:active,
+    &:focus {
+      text-decoration: underline;
+    }
+  }
+  p {
+    padding: 0 0.5em;
+  }
+  a h3 {
+    color: #5A7687;
+    &:hover,
+    &:active,
+    &:focus {
+      color: #333;
+    }
+  }
+}
+
+.marketing__roles__columns div {
+  @include grid-column($columns: 12);
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    @include grid-column($columns: 4);
+  }
+  img {
+    max-height: 160px;
+  }
+}
+
+.marketing__features {
+  margin-top: 1em;
+  h3 {
+    font-size: 1em;
+    line-height: 1.5em;
+  }
+  p { }
+  img {
+    max-width: 110px;
+    max-height: 64px;
+  }
+}
+
+.marketing__feature {
+  @include grid-column($columns: 6);
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    @include grid-column($columns: 3);
+  }
+}
+
+.marketing__pricing__grid {
+  @include grid-column($columns: 12);
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    @include grid-column($columns: 4);
+  }
+}
+
+.bb-0 {
+  border-bottom: 0 !important;
+}
+
+.marketing__testimonials,
+.marketing__how-it-works {
+  h2 {
+    @include grid-column($columns: 12);
+  }
+}
+
+.how-it-works__item {
+  @include grid-column($columns: 12);
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    @include grid-column($columns: 6);
+  }
+}
+
+.marketing__cta {
+  text-align: center;
+  margin-top: 2em;
+}
+
+.testimonials__item {
+  @include grid-column($columns: 12);
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    @include grid-column($columns: 6);
+  }
+  img {
+    margin-bottom: 1em;
+  }
+}
+
+.testimonials__body {
+  background-color: #fff;
+  p {
+    padding: 0.5em 1.5em 1.5em;
+  }
+}
+
+.marketing__tweets {
+
+}
+
+.marketing__tweet {
+  @include grid-column($columns: 12);
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    @include grid-column($columns: 6);
+  }
+
+}
+
+.tweet__body {
+  background-color: rgba(0,0,0,0.1);
+  padding: 1em 1.5em;
+  position: relative;
+  margin-bottom: 1.5em;
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    margin-bottom: 0;
+  }
+  cite {
+    display: block;
+    margin-top: 0.5em;
+  }
+
+  &:before {
+    content:" ";
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-top: 1em solid  rgba(0,0,0,0.1);
+    border-right: 1em solid transparent;
+    bottom: -1em;
+  }
+}
+
+.image-credits {
+  @include grid-column($columns: 12);
 }

@@ -32,7 +32,7 @@
 # claude transparencia <audit.citoyen.quartier@gmail.com>, 2016-2018
 # David Cabo <david.cabo@gmail.com>, 2013
 # Gareth Rees <gareth@mysociety.org>, 2016
-# Liz Conlan <liz@mysociety.org>, 2016-2018
+# 1bb8f5eb4bc72723d4109decfd20c765, 2016-2018
 # louisecrow <louise@mysociety.org>, 2013,2017
 # louisecrow <louise@mysociety.org>, 2017
 # mySociety <transifex@mysociety.org>, 2016

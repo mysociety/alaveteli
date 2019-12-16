@@ -21,7 +21,7 @@
 # Translators:
 # Giancarlo <pinet@pinet.it>, 2015
 # guido romeo <guido.romeo@gmail.com>, 2015
-# Liz Conlan <liz@mysociety.org>, 2017-2018
+# 1bb8f5eb4bc72723d4109decfd20c765, 2017-2018
 # Marco Giustini <info@marcogiustini.info>, 2013
 msgid ""
 msgstr ""
