@@ -25,58 +25,66 @@ class Comment < ApplicationRecord
   include Rails.application.routes.url_helpers
   include LinkToHelper
 
-  strip_attributes :allow_empty => true
+  strip_attributes allow_empty: true
 
   belongs_to :user,
-             :inverse_of => :comments,
-             :counter_cache => true
+             inverse_of: :comments,
+             counter_cache: true
+
   belongs_to :info_request,
-             :inverse_of => :comments
+             inverse_of: :comments
+
   has_many :info_request_events, # in practice only ever has one
-           :inverse_of => :comment,
-           :dependent => :destroy
+           inverse_of: :comment,
+           dependent: :destroy
 
-  #validates_presence_of :user # breaks during construction of new ones :(
+  # validates_presence_of :user # breaks during construction of new ones :(
   validate :check_body_has_content,
-    :check_body_uses_mixed_capitals
+           :check_body_uses_mixed_capitals
 
-  scope :visible, -> {
-    joins(:info_request)
-      .merge(InfoRequest.is_searchable.except(:select))
-        .where(:visible => true)
+  scope :visible, lambda {
+    joins(:info_request).
+      merge(InfoRequest.is_searchable.except(:select)).
+        where(visible: true)
   }
 
-  scope :embargoed, -> {
-    joins(:info_request => :embargo).
+  scope :embargoed, lambda {
+    joins(info_request: :embargo).
       where('embargoes.id IS NOT NULL').
       references(:embargoes)
   }
 
-  scope :not_embargoed, -> {
-    joins(:info_request)
-      .select("comments.*")
-            .joins('LEFT OUTER JOIN embargoes
-                    ON embargoes.info_request_id = info_requests.id')
-              .where('embargoes.id IS NULL')
-                .references(:embargoes)
+  scope :not_embargoed, lambda {
+    joins(:info_request).
+      select('comments.*').
+        joins('LEFT OUTER JOIN embargoes
+               ON embargoes.info_request_id = info_requests.id').
+          where('embargoes.id IS NULL').
+            references(:embargoes)
   }
 
   after_save :event_xapian_update
 
-  self.default_url_options[:host] = AlaveteliConfiguration.domain
+  default_url_options[:host] = AlaveteliConfiguration.domain
 
   # When posting a new comment, use this to check user hasn't double
   # submitted.
   def self.find_existing(info_request_id, body)
     # TODO: can add other databases here which have regexp_replace
-    if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
+    if ActiveRecord::Base.connection.adapter_name == 'PostgreSQL'
       # Exclude spaces from the body comparison using regexp_replace
-      regex_replace_sql = "regexp_replace(body, '[[:space:]]', '', 'g') = regexp_replace(?, '[[:space:]]', '', 'g')"
-      Comment.where(["info_request_id = ? AND #{ regex_replace_sql }", info_request_id, body ]).first
+      regex_replace_sql = "regexp_replace(body, '[[:space:]]', '', 'g') = " \
+                          "regexp_replace(?, '[[:space:]]', '', 'g')"
+
+      args = ["info_request_id = ? AND #{ regex_replace_sql }",
+              info_request_id,
+              body]
+
+      Comment.where(args).first
     else
       # For other databases (e.g. SQLite) not the end of the world being
       # space-sensitive for this check
-      Comment.where(:info_request_id => info_request_id, :body => body).first
+      Comment.where(info_request_id: info_request_id, body: body).first
     end
   end
 
@@ -95,14 +103,14 @@ class Comment < ApplicationRecord
 
   # So when takes changes it updates, or when made invisble it vanishes
   def event_xapian_update
-    info_request_events.find_each { |event| event.xapian_mark_needs_index }
+    info_request_events.find_each(&:xapian_mark_needs_index)
   end
 
   # Return body for display as HTML
   def get_body_for_html_display
     text = body.strip
     text = CGI.escapeHTML(text)
-    text = MySociety::Format.make_clickable(text, { :contract => 1, :nofollow => true })
+    text = MySociety::Format.make_clickable(text, contract: 1, nofollow: true)
     text = text.gsub(/\n/, '<br>')
     text.html_safe
   end
@@ -115,8 +123,10 @@ class Comment < ApplicationRecord
         c if %w(body visible created_at updated_at).include?(c.name)
       end.compact
     end
+
     columns.each do |column|
-      yield(column.name.humanize, send(column.name), column.type.to_s, column.name)
+      name = column.name
+      yield(name.humanize, send(name), column.type.to_s, name)
     end
   end
 
@@ -138,9 +148,9 @@ class Comment < ApplicationRecord
   end
 
   def report_reasons
-    [_("Annotation contains defamatory material"),
-     _("Annotation contains personal information"),
-     _("Vexatious annotation")]
+    [_('Annotation contains defamatory material'),
+     _('Annotation contains personal information'),
+     _('Vexatious annotation')]
   end
 
   # Report this comment for administrator attention
@@ -159,18 +169,18 @@ class Comment < ApplicationRecord
       RequestMailer.requires_admin(info_request, user, message).deliver_now
 
       info_request.
-        log_event("report_comment",
-                  { :comment_id => id,
-                    :editor => user,
-                    :reason => reason,
-                    :message => raw_message,
-                    :old_attention_requested => old_attention,
-                    :attention_requested => true })
+        log_event('report_comment',
+                  comment_id: id,
+                  editor: user,
+                  reason: reason,
+                  message: raw_message,
+                  old_attention_requested: old_attention,
+                  attention_requested: true)
     end
   end
 
   def last_report
-    info_request_events.where(:event_type => 'report_comment').last
+    info_request_events.where(event_type: 'report_comment').last
   end
 
   def last_reported_at
@@ -181,7 +191,7 @@ class Comment < ApplicationRecord
 
   def check_body_has_content
     if body.empty? || body =~ /^\s+$/
-      errors.add(:body, _("Please enter your annotation"))
+      errors.add(:body, _('Please enter your annotation'))
     end
   end
 
@@ -192,5 +202,4 @@ class Comment < ApplicationRecord
       errors.add(:body, msg)
     end
   end
-
 end
