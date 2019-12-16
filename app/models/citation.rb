@@ -40,4 +40,8 @@ class Citation < ApplicationRecord
     where(citable: info_request_batch).
       or(where(citable: info_request_batch.info_requests))
   end
+
+  def applies_to_batch_request?
+    citable.is_a?(InfoRequestBatch)
+  end
 end

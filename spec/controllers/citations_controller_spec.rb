@@ -123,13 +123,15 @@ RSpec.describe CitationsController, type: :controller do
       def action
         post :create, params: {
           url_title: info_request.url_title,
-          citation: params
+          citation: params,
+          applies_to_batch_request: apply_to_batch
         }
       end
 
       let(:params) do
         { source_url: 'http://example.com/news', type: 'news_story' }
       end
+      let(:apply_to_batch) { nil }
 
       include_examples 'authorisation', redirection: true
 
@@ -143,9 +145,22 @@ RSpec.describe CitationsController, type: :controller do
         expect(assigns[:citation].user).to eq user
       end
 
-      it 'assigns info_request to citation' do
-        action
-        expect(assigns[:citation].citable).to eq info_request
+      context 'when citation does not apply to a batch' do
+        it 'assigns info_request to citation' do
+          action
+          expect(assigns[:citation].citable).to eq info_request
+        end
+      end
+
+      context 'when citation applies to a batch' do
+        let(:batch) { FactoryBot.create(:info_request_batch, :sent) }
+        let(:info_request) { batch.info_requests.first }
+        let(:apply_to_batch) { true }
+
+        it 'assigns info_request_batch to citation' do
+          action
+          expect(assigns[:citation].citable).to eq batch
+        end
       end
 
       context 'params valid' do

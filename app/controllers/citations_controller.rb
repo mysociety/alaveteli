@@ -12,7 +12,7 @@ class CitationsController < ApplicationController
 
   def create
     @citation = current_user.citations.build(citation_params)
-    @citation.citable = info_request
+    @citation.citable = citable
 
     if @citation.save
       notice = _('Citation successfully created.')
@@ -52,5 +52,10 @@ class CitationsController < ApplicationController
 
   def citation_params
     params.require(:citation).permit(:source_url, :type)
+  end
+
+  def citable
+    (info_request.info_request_batch if params[:applies_to_batch_request]) ||
+      info_request
   end
 end

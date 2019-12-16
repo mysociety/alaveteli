@@ -187,4 +187,17 @@ RSpec.describe Citation, type: :model do
       is_expected.to be_valid
     end
   end
+
+  describe 'applies_to_batch_request?' do
+    subject { citation.applies_to_batch_request? }
+
+    context 'when citing info_request' do
+      it { is_expected.to eq false }
+    end
+
+    context 'when citing info_request_batch' do
+      let(:citation) { FactoryBot.build(:citation, :for_info_request_batch) }
+      it { is_expected.to eq true }
+    end
+  end
 end

@@ -39,6 +39,16 @@
     </label>
   </p>
 
+  <% if @info_request.info_request_batch_id %>
+    <p>
+      <label for="applies_to_batch_request" class="form_label">
+        <%= check_box_tag :applies_to_batch_request, true,
+                          @citation.applies_to_batch_request? %>
+        <%= _('The article references all requests in this batch') %>
+      </label>
+    </p>
+  <% end %>
+
   <div class="form_button">
     <%= submit_tag _('Submit'), class: 'button' %>
   </div>
