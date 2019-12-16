@@ -4,8 +4,10 @@
 class CitationsController < ApplicationController
   before_action :authenticate
   before_action :load_info_request_and_authorise
+  before_action :set_in_pro_area
 
   def new
+    @citation = current_user.citations.build
   end
 
   def create
@@ -32,5 +34,9 @@ class CitationsController < ApplicationController
     end
 
     authorize! :create_citation, info_request
+  end
+
+  def set_in_pro_area
+    @in_pro_area = current_user.is_pro? && info_request.user == current_user
   end
 end

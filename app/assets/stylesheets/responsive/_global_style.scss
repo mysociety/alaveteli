@@ -168,7 +168,8 @@ p + .form_item_note {
 
 form input[type=text],
 form input[type=password],
-form input[type=email] {
+form input[type=email],
+form input[type=url] {
   font-size:1.1em;
   width:200px;
   border-radius:3px;

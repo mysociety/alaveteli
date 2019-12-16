@@ -1,0 +1,45 @@
+<h1><%= _('In the News') %></h1>
+
+<p>
+  <%= ('Has this request been referenced in a news article or academic ' \
+       'paper? Let us know:') %>
+</p>
+
+<%= form_for @citation, class: 'form form-horizontal' do |f| %>
+  <%= foi_error_messages_for :citation %>
+
+  <p>
+    <%= f.label :source_url, _('Source URL:'), class: 'form_label' %>
+
+    <%= f.url_field :source_url %>
+
+    <div class="form_item_note">
+      <%= _('The URL where you found the article.') %>
+    </div>
+  </p>
+
+  <p>
+    <span class="form_item_note">
+      <%= _('What type of article is it?') %>
+    </span>
+
+    <label for="citation_type_news_story" class="form_label">
+      <%= f.radio_button :type, 'news_story' %>
+      <%= _('News story') %>
+    </label>
+
+    <label for="citation_type_academic_paper" class="form_label">
+      <%= f.radio_button :type, 'academic_paper' %>
+      <%= _('Academic paper') %>
+    </label>
+
+    <label for="citation_type_other" class="form_label">
+      <%= f.radio_button :type, 'other' %>
+      <%= _('Other') %>
+    </label>
+  </p>
+
+  <div class="form_button">
+    <%= submit_tag _('Submit'), class: 'button' %>
+  </div>
+<% end %>

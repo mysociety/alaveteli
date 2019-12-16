@@ -80,6 +80,16 @@ RSpec.describe CitationsController, type: :controller do
       end
 
       include_examples 'authorisation'
+
+      it 'assigns citation' do
+        action
+        expect(assigns[:citation]).to be_a Citation
+      end
+
+      it 'assigns citation' do
+        action
+        expect(assigns[:citation].user).to eq user
+      end
     end
 
     context 'logged out' do
