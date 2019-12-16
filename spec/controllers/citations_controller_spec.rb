@@ -5,15 +5,81 @@ RSpec.describe CitationsController, type: :controller do
     allow(controller).to receive(:site_name).and_return('SITE')
   end
 
-  describe 'GET new' do
-    context 'logged in' do
-      let(:user) { FactoryBot.create(:user) }
-      before { session[:user_id] = user.id }
+  shared_examples 'authorisation' do
+    let(:ability) { Ability.new(user) }
+
+    context 'when unable to read info request' do
+      before do
+        allow(controller).to receive(:cannot?).with(:read, info_request).
+                          and_return(true)
+      end
+
+      it 'should find InfoRequest' do
+        action
+        expect(assigns[:info_request]).to eq info_request
+      end
+
+      it 'return a 404' do
+        action
+        expect(response.status).to eq 404
+      end
+    end
+
+    shared_examples 'successful' do
+      it 'assigns info_request' do
+        action
+        expect(assigns[:info_request]).to eq info_request
+      end
 
       it 'should be successful' do
-        get :new, params: { url_title: 'request_title' }
+        action
         expect(response).to be_successful
       end
+    end
+
+    # when requester
+    include_examples 'successful'
+
+    context 'when admin' do
+      let(:user) { FactoryBot.create(:admin_user) }
+      include_examples 'successful'
+    end
+
+    context 'when pro' do
+      let(:user) { FactoryBot.create(:pro_user) }
+      include_examples 'successful'
+    end
+
+    context 'when not the requester' do
+      let(:user) { FactoryBot.create(:user) }
+
+      it 'assigns info_request' do
+        begin
+          action
+        rescue CanCan::AccessDenied
+        end
+        expect(assigns[:info_request]).to eq info_request
+      end
+
+      it 'raise access denied' do
+        expect {
+          action
+        }.to raise_error CanCan::AccessDenied
+      end
+    end
+  end
+
+  describe 'GET new' do
+    context 'logged in' do
+      let(:info_request) { FactoryBot.create(:info_request) }
+      let(:user) { info_request.user }
+      before { session[:user_id] = user.id }
+
+      def action
+        get :new, params: { url_title: info_request.url_title }
+      end
+
+      include_examples 'authorisation'
     end
 
     context 'logged out' do
@@ -38,13 +104,15 @@ RSpec.describe CitationsController, type: :controller do
 
   describe 'POST create' do
     context 'logged in' do
-      let(:user) { FactoryBot.create(:user) }
+      let(:info_request) { FactoryBot.create(:info_request) }
+      let(:user) { info_request.user }
       before { session[:user_id] = user.id }
 
-      it 'should be successful' do
-        post :create, params: { url_title: 'request_title' }
-        expect(response).to be_successful
+      def action
+        post :create, params: { url_title: info_request.url_title }
       end
+
+      include_examples 'authorisation'
     end
 
     context 'logged out' do
