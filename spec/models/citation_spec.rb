@@ -133,4 +133,58 @@ RSpec.describe Citation, type: :model do
       end
     end
   end
+
+  describe 'validations' do
+    it { is_expected.to be_valid }
+
+    it 'requires user' do
+      citation.user = nil
+      is_expected.not_to be_valid
+    end
+
+    it 'requires citable' do
+      citation.citable = nil
+      is_expected.not_to be_valid
+    end
+
+    it 'requires citable to be a InfoRequest or InfoRequestBatch' do
+      citation.citable = FactoryBot.build(:user)
+      is_expected.not_to be_valid
+      citation.citable = FactoryBot.build(:info_request)
+      is_expected.to be_valid
+      citation.citable = FactoryBot.build(:info_request_batch)
+      is_expected.to be_valid
+    end
+
+    it 'requires source_url' do
+      citation.source_url = nil
+      is_expected.not_to be_valid
+    end
+
+    it 'requires source_url to be under 255 in length' do
+      citation.source_url = 'http://' + 'a' * 255
+      is_expected.not_to be_valid
+    end
+
+    it 'requires source_url to start with http' do
+      citation.source_url = 'foobar'
+      is_expected.not_to be_valid
+    end
+
+    it 'requires type' do
+      citation.type = nil
+      is_expected.not_to be_valid
+    end
+
+    it 'requires known type' do
+      citation.type = 'foobar'
+      is_expected.not_to be_valid
+      citation.type = 'news_story'
+      is_expected.to be_valid
+      citation.type = 'academic_paper'
+      is_expected.to be_valid
+      citation.type = 'other'
+      is_expected.to be_valid
+    end
+  end
 end

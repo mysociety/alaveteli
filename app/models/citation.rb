@@ -22,6 +22,15 @@ class Citation < ApplicationRecord
   belongs_to :user, inverse_of: :citations
   belongs_to :citable, polymorphic: true
 
+  validates :user, :citable, presence: true
+  validates :citable_type, inclusion: { in: %w(InfoRequest InfoRequestBatch) }
+  validates :source_url, length: { maximum: 255,
+                                   message: _('Source URL is too long') },
+                         format: { with: /\Ahttps?:\/\/.*\z/,
+                                   message: _('Please enter a Source URL') }
+  validates :type, inclusion: { in: %w(news_story academic_paper other),
+                                message: _('Please select a type') }
+
   scope :for_request, ->(info_request) do
     where(citable: info_request).
       or(where(citable: info_request.info_request_batch))
