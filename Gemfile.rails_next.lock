@@ -46,8 +46,8 @@ PATH
   remote: gems/alaveteli_features
   specs:
     alaveteli_features (0.0.1)
-      flipper
-      flipper-active_record
+      flipper (~> 0.10)
+      flipper-active_record (~> 0.10)
       mime-types (< 3.0.0)
       rails (~> 5.2.3)
 
