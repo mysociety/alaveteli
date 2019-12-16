@@ -31,6 +31,12 @@ describe "request/show" do
     assign :track_thing, mock_track
     assign :similar_requests, double.as_null_object
     assign :similar_more, double.as_null_object
+    assign :citations, double.as_null_object
+
+    allow(controller).
+      to receive(:current_ability).and_return(double.as_null_object)
+    allow(view).to receive(:current_user).and_return(double.as_null_object)
+
     render
   end
 

@@ -99,7 +99,8 @@
   <%= render partial: @sidebar_template,
              locals: { info_request: @info_request,
                        similar_requests: @similar_requests,
-                       similar_more: @similar_more } %>
+                       similar_more: @similar_more,
+                       citations: @citations } %>
 <% end %>
 
 <%= content_for :javascript do %>
