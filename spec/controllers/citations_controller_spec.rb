@@ -5,7 +5,7 @@ RSpec.describe CitationsController, type: :controller do
     allow(controller).to receive(:site_name).and_return('SITE')
   end
 
-  shared_examples 'authorisation' do
+  shared_examples 'authorisation' do |opts|
     let(:ability) { Ability.new(user) }
 
     context 'when unable to read info request' do
@@ -31,9 +31,11 @@ RSpec.describe CitationsController, type: :controller do
         expect(assigns[:info_request]).to eq info_request
       end
 
-      it 'should be successful' do
-        action
-        expect(response).to be_successful
+      unless opts[:redirection]
+        it 'should be successful' do
+          action
+          expect(response).to be_successful
+        end
       end
     end
 
@@ -79,14 +81,14 @@ RSpec.describe CitationsController, type: :controller do
         get :new, params: { url_title: info_request.url_title }
       end
 
-      include_examples 'authorisation'
+      include_examples 'authorisation', redirection: false
 
       it 'assigns citation' do
         action
         expect(assigns[:citation]).to be_a Citation
       end
 
-      it 'assigns citation' do
+      it 'assigns user to citation' do
         action
         expect(assigns[:citation].user).to eq user
       end
@@ -119,10 +121,55 @@ RSpec.describe CitationsController, type: :controller do
       before { session[:user_id] = user.id }
 
       def action
-        post :create, params: { url_title: info_request.url_title }
+        post :create, params: {
+          url_title: info_request.url_title,
+          citation: params
+        }
       end
 
-      include_examples 'authorisation'
+      let(:params) do
+        { source_url: 'http://example.com/news', type: 'news_story' }
+      end
+
+      include_examples 'authorisation', redirection: true
+
+      it 'assigns citation' do
+        action
+        expect(assigns[:citation]).to be_a Citation
+      end
+
+      it 'assigns user to citation' do
+        action
+        expect(assigns[:citation].user).to eq user
+      end
+
+      it 'assigns info_request to citation' do
+        action
+        expect(assigns[:citation].citable).to eq info_request
+      end
+
+      context 'params valid' do
+        it 'redirects back to request' do
+          action
+          expect(response).to redirect_to(
+            show_request_url(url_title: info_request.url_title)
+          )
+        end
+
+        it 'sets notice' do
+          action
+          expect(flash[:notice]).to eq 'Citation successfully created.'
+        end
+      end
+
+      context 'params invalid' do
+        let(:params) { { source_url: '', type: '' } }
+
+        it 're-renders the new action' do
+          action
+          expect(response).to render_template :new
+        end
+      end
     end
 
     context 'logged out' do

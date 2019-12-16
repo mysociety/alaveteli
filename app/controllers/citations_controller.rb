@@ -11,6 +11,16 @@ class CitationsController < ApplicationController
   end
 
   def create
+    @citation = current_user.citations.build(citation_params)
+    @citation.citable = info_request
+
+    if @citation.save
+      notice = _('Citation successfully created.')
+      redirect_to show_request_path(url_title: info_request.url_title),
+                  notice: notice
+    else
+      render :new
+    end
   end
 
   private
@@ -38,5 +48,9 @@ class CitationsController < ApplicationController
 
   def set_in_pro_area
     @in_pro_area = current_user.is_pro? && info_request.user == current_user
+  end
+
+  def citation_params
+    params.require(:citation).permit(:source_url, :type)
   end
 end
