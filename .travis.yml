@@ -6,18 +6,22 @@ branches:
     - master
     - develop
 rvm:
-  - 2.3.3 # Debian Stretch
   - 2.3 # Latest official 2.3.x
   - 2.4 # Latest official 2.4.x
   - 2.5 # Latest official 2.5.x
   - 2.6 # Latest official 2.6.x
   - 2.7 # Latest official 2.7.x
-  - ruby-head
 gemfile:
   - Gemfile
-  - Gemfile.rails_next
 matrix:
   fast_finish: true
+  include:
+    - if: type != pull_request
+      rvm: 2.3.3 # Debian Stretch
+    - if: type != pull_request
+      rvm: ruby-head
+    - if: head_branch =~ /^rails\b/
+      gemfile: Gemfile.rails_next
   allow_failures:
     - rvm: 2.7
     - rvm: ruby-head
