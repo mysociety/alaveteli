@@ -73,6 +73,10 @@ class User < ApplicationRecord
            :inverse_of => :tracking_user,
            :foreign_key => 'tracking_user_id',
            :dependent => :destroy
+  has_many :citations,
+           -> { order('created_at desc') },
+           inverse_of: :user,
+           dependent: :destroy
   has_many :comments,
            -> { order('created_at desc') },
            :inverse_of => :user,

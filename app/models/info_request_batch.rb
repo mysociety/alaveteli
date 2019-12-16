@@ -22,6 +22,11 @@ class InfoRequestBatch < ApplicationRecord
   belongs_to :user,
              :inverse_of => :info_request_batches,
              :counter_cache => true
+  has_many :citations,
+           -> (batch) { unscope(:where).for_batch(batch) },
+           as: :citable,
+           inverse_of: :citable,
+           dependent: :destroy
 
   has_and_belongs_to_many :public_bodies, -> {
     AlaveteliLocalization.with_locale(AlaveteliLocalization.locale) do
