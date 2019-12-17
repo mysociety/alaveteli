@@ -67,4 +67,15 @@
 
   </div> <!-- .request__meta -->
 
+  <div class="request__download">
+
+    <%= link_to alaveteli_pro_info_request_batch_batch_download_path(
+                  info_request_batch_id: info_request_batch,
+                  format: :csv) do %>
+        <i class="download-icon"></i>
+        <%= _('CSV') %>
+    <% end %>
+
+  </div> <!-- .request__download -->
+
 </div> <!-- .request -->
