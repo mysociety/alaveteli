@@ -204,6 +204,12 @@ form button {
   }
 }
 
+label {
+  .fieldWithErrors {
+    display: inline;
+  }
+}
+
 .errorExplanation {
   border-radius:6px;
   -moz-border-radius:6px;
