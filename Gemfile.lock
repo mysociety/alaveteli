@@ -267,7 +267,7 @@ GEM
       byebug (>= 9.0, < 9.1)
       pry (~> 0.10)
     public_suffix (2.0.5)
-    rack (2.0.7)
+    rack (2.0.8)
     rack-ssl (1.4.1)
       rack
     rack-test (1.1.0)
@@ -476,7 +476,7 @@ DEPENDENCIES
   pry (~> 0.12.2)
   pry-byebug (~> 3.4.0)
   public_suffix (~> 2.0.0, < 3.0.0)
-  rack (~> 2.0.0)
+  rack (~> 2.0.8)
   rack-ssl (~> 1.4.0)
   rack-utf8_sanitizer (~> 1.3.0)
   rails (= 5.1.7)
