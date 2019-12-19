@@ -11,12 +11,15 @@ html {
 }
 
 body.admin {
-  margin: 0;
+  background-color: white;
+  color: #333333;
+  display: flex;
+  flex-direction: column;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 20px;
-  color: #333333;
-  background-color: white;
+  margin: 0;
+  min-height: 100vh;
 }
 
 /* When the admin stylesheet is loaded (and so the user is seeing the admin  navbar), pad the banner of the front end interface so that it isn't hidden, and move any special notice down too.
@@ -45,6 +48,7 @@ body.admin {
   @import "bootstrap";
 
   #main {
+    flex: 1;
     margin-bottom: 50px;
     padding-top: 50px;
   }
