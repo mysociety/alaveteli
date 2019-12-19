@@ -714,6 +714,7 @@ Rails.application.routes.draw do
       end
       resources :info_request_batches, :only => [:new, :create] do
         get :preview, on: :new # /info_request_batch/new/preview
+        resource :batch_download, only: [:show], format: true, path: 'download'
       end
       resources :public_bodies, :only => [:index]
     end

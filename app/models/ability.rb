@@ -57,6 +57,11 @@ class Ability
       end
     end
 
+    # Downloading batch requests
+    can :download, InfoRequestBatch do |batch_request|
+      user && user == batch_request.user && user.is_pro?
+    end
+
     # Updating batch requests
     can :update, InfoRequestBatch do |batch_request|
       if batch_request.embargo_duration
