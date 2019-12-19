@@ -2,17 +2,18 @@ require 'spec_helper'
 
 describe 'request/sidebar' do
   def render_view
-    render partial: self.class.top_level_description
+    render partial: self.class.top_level_description,
+           locals: stub_locals
   end
 
   let(:info_request) { FactoryBot.build(:info_request) }
   let(:similar_requests) { double.as_null_object }
   let(:similar_more) { double.as_null_object }
 
-  before do
-    assign :info_request, info_request
-    assign :similar_requests, similar_requests
-    assign :similar_more, similar_more
+  let(:stub_locals) do
+    { info_request: info_request,
+      similar_requests: similar_requests,
+      similar_more: similar_more }
   end
 
   it 'renders the new request CTA' do
