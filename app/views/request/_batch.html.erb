@@ -1,11 +1,12 @@
 <% if info_request.info_request_batch %>
   <div class="sidebar__section sidebar__part-of-batch">
     <h2><%= _('More requests in this batch') %></h2>
+
     <p>
       <%= _('This request is part of ' \
-          '<a href="{{url}}">a batch sent to {{count}} authorities</a>',
-          :url => info_request_batch_path(info_request.info_request_batch),
-          :count => info_request.info_request_batch.public_bodies.count) %>
+            '<a href="{{url}}">a batch sent to {{count}} authorities</a>',
+            url: info_request_batch_path(info_request.info_request_batch),
+            count: info_request.info_request_batch.public_bodies.size) %>
     </p>
   </div>
 <% end %>
