@@ -305,5 +305,4 @@ describe "request/show" do
     end
   end
 
-  describe "action"
 end
