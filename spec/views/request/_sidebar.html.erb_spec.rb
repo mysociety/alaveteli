@@ -14,6 +14,8 @@ describe 'request/_sidebar.html.erb' do
     assign :info_request, info_request
     assign :track_thing, track_thing
     assign :status, info_request.calculate_status
+    assign :similar_requests, double.as_null_object
+    assign :similar_more, double.as_null_object
     render
   end
 
