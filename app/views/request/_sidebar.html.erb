@@ -17,7 +17,9 @@
   <% end %>
 
   <div class="sidebar__section next-actions">
-    <%= render partial: 'request/act' %>
+    <%= render partial: 'request/act',
+               locals: { info_request: @info_request } %>
+
     <%= render partial: 'request/next_actions' %>
   </div>
 

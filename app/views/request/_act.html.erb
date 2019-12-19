@@ -5,7 +5,7 @@
   <% tweet_link = "https://twitter.com/share?" << {
     :url => request.url,
     :via => AlaveteliConfiguration.twitter_username,
-    :text => "'#{ @info_request.title }'",
+    :text => "'#{ info_request.title }'",
     :related => _('mySociety:Helping people set up sites like {{site_name}} all over the world', :site_name => site_name)
     }.to_query
   %>
@@ -44,6 +44,6 @@
 <% if AlaveteliConfiguration::enable_widgets %>
   <div class="act_link">
     <i class="act-link-icon act-link-icon--widget"></i>
-    <%= link_to _("Create a widget for this request"), new_request_widget_path(@info_request) %>
+    <%= link_to _("Create a widget for this request"), new_request_widget_path(info_request) %>
   </div>
 <% end %>
