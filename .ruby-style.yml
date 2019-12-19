@@ -1125,51 +1125,51 @@ Lint/EmptyInterpolation:
 
 Lint/EndInMethod:
   Description: 'END blocks should not be placed inside method definitions.'
-  Enabled: false
+  Enabled: true
 
 Lint/EnsureReturn:
   Description: 'Do not use return in an ensure block.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-return-ensure'
-  Enabled: false
+  Enabled: true
 
 Lint/FloatOutOfRange:
   Description: >-
                  Catches floating-point literals too large or small for Ruby to
                  represent.
-  Enabled: false
+  Enabled: true
 
 Lint/FormatParameterMismatch:
   Description: 'The number of parameters to format/sprint must match the fields.'
-  Enabled: false
+  Enabled: true
 
 Lint/HandleExceptions:
   Description: "Don't suppress exception."
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#dont-hide-exceptions'
-  Enabled: false
+  Enabled: true
 
 Lint/ImplicitStringConcatenation:
   Description: >-
                  Checks for adjacent string literals on the same line, which
                  could better be represented as a single string literal.
-  Enabled: false
+  Enabled: true
 
 Lint/IneffectiveAccessModifier:
   Description: >-
                  Checks for attempts to use `private` or `protected` to set
                  the visibility of a class method, which does not work.
-  Enabled: false
+  Enabled: true
 
 Lint/InheritException:
   Description: 'Avoid inheriting from the `Exception` class.'
-  Enabled: false
+  Enabled: true
 
 Lint/LiteralAsCondition:
   Description: 'Checks of literals used in conditions.'
-  Enabled: false
+  Enabled: true
 
 Lint/LiteralInInterpolation:
   Description: 'Checks for literals used in interpolation.'
-  Enabled: false
+  Enabled: true
 
 Lint/Loop:
   Description: >-
