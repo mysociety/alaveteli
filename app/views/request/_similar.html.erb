@@ -1,0 +1,21 @@
+<div class="sidebar__section sidebar__similar-requests">
+  <h2><%= _('Requests like this')%></h2>
+
+  <% utm_params = { :utm_source => site_name.downcase,
+                    :utm_medium => 'link',
+                    :utm_content => 'sidebar_similar_requests',
+                    :utm_campaign => 'alaveteli-experiments-87' } %>
+
+  <% similar_requests.each do |info_request| %>
+    <%= render :partial => 'request/request_listing_single_short',
+               :locals => { :info_request => info_request,
+                            :utm_params => utm_params } %>
+  <% end %>
+
+  <% if similar_more %>
+    <p class="sidebar_similar_requests__more-link">
+      <% path = similar_request_path(info_request.url_title, utm_params) %>
+      <%= link_to _("More similar requests"), path %>
+    </p>
+  <% end %>
+</div>
