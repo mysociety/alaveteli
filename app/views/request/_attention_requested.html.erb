@@ -1,0 +1,24 @@
+<div class="sidebar__section request__special-status">
+  <% if info_request.prominence(:decorate => true).is_hidden? %>
+    <h2><%= _('Request hidden') %></h2>
+    <p>
+      <%= _("This request has prominence 'hidden'. You can only see it " \
+            "because you are logged in as a super user.") %>
+    </p>
+  <% elsif info_request.prominence(:decorate => true).is_requester_only? %>
+    <h2><%= _('Request hidden') %></h2>
+    <%# The eccentric formatting of the following string is in order that it
+        be identical to the corresponding string in request/show.html.erb %>
+    <p><%= _('This request is hidden, so that only you the requester ' \
+                'can see it. Please <a href="{{url}}">contact us</a> ' \
+                'if you are not sure why.',
+             :url => help_requesting_path.html_safe) %></p>
+  <% elsif info_request.described_state != "attention_requested" %>
+    <h2><%= _('Offensive? Unsuitable?') %></h2>
+    <p><%= _('This request has been marked for review by the site ' \
+             'administrators, who have not hidden it at this time. ' \
+             'If you believe it should be hidden, please ' \
+             '<a href="{{url}}">contact us</a>.',
+            :url => help_requesting_path.html_safe) %></p>
+  <% end %>
+</div>
