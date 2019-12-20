@@ -12,12 +12,12 @@
 FactoryBot.define do
   factory :announcement do
     user
-    visibility 'everyone'
-    title 'Introducing projects'
-    content 'We’re delighted to announce we’ve rolled out the new projects'
+    visibility { 'everyone' }
+    title { 'Introducing projects' }
+    content { 'We’re delighted to announce we’ve rolled out the new projects' }
 
     transient do
-      dismissed_by nil
+      dismissed_by { nil }
     end
 
     after(:create) do |announcement, evaluator|

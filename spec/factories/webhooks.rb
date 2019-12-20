@@ -11,8 +11,8 @@
 
 FactoryBot.define do
   factory :webhook do
-    params('type' => 'payment', 'id' => 'evt_123')
-    notified_at nil
+    params { { 'type' => 'payment', 'id' => 'evt_123' } }
+    notified_at { nil }
 
     transient do
       fixture { nil }

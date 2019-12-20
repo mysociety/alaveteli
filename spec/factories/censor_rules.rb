@@ -19,14 +19,14 @@
 FactoryBot.define do
 
   factory :censor_rule do
-    text 'some text to redact'
-    replacement '[REDACTED]'
-    last_edit_editor 'FactoryBot'
-    last_edit_comment 'Modified by rspec'
+    text { 'some text to redact' }
+    replacement { '[REDACTED]' }
+    last_edit_editor { 'FactoryBot' }
+    last_edit_comment { 'Modified by rspec' }
 
     factory :regexp_censor_rule do
-      text '\w+@\w+'
-      regexp true
+      text { '\w+@\w+' }
+      regexp { true }
     end
 
     factory :info_request_censor_rule do
