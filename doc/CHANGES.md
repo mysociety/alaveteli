@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Improve flow of closing public body change requests (Gareth Rees)
 * Add targeted Pro marketing pages (Myfanwy Nixon, Martin Wright, Gareth Rees)
 
 ## Upgrade Notes
