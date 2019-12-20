@@ -93,7 +93,7 @@ gem 'acts_as_versioned', :git => 'https://github.com/technoweenie/acts_as_versio
 gem 'active_model_otp', :git => 'https://github.com/heapsource/active_model_otp.git', :ref => '55d93a3979'
 gem 'bcrypt', '~> 3.1.12'
 gem 'cancancan', '~> 1.17.0', '< 2.0.0'
-gem 'charlock_holmes', '~> 0.7.0'
+gem 'charlock_holmes', '~> 0.7.7'
 gem 'dalli', '~> 2.7.0'
 gem 'dynamic_form', '~> 1.1.0'
 gem 'exception_notification', ['~> 4.1.0', '< 4.1.2']
