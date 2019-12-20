@@ -19,7 +19,7 @@ FactoryBot.define do
     info_request
     mail_server_log_done
     sequence(:order) { |n| n }
-    line 'log line'
+    line { 'log line' }
   end
 
 end

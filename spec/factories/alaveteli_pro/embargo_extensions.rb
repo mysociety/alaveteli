@@ -13,6 +13,6 @@
 FactoryBot.define do
   factory :embargo_extension, :class => AlaveteliPro::EmbargoExtension do
     embargo
-    extension_duration "3_months"
+    extension_duration { '3_months' }
   end
 end

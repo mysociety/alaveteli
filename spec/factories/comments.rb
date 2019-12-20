@@ -20,20 +20,20 @@ FactoryBot.define do
     user
     info_request
 
-    body 'This a wise and helpful annotation.'
+    body { 'This a wise and helpful annotation.' }
 
     factory :visible_comment do
-      visible true
+      visible { true }
     end
 
     factory :hidden_comment do
-      visible false
+      visible { false }
     end
 
     factory :attention_requested_comment do
       transient do
-        message nil
-        reason nil
+        message { nil }
+        reason { nil }
       end
 
       after(:create) do |comment, evaluator|

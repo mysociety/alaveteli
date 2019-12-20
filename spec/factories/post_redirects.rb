@@ -28,7 +28,7 @@ FactoryBot.define do
     post_params_yaml { {}.to_yaml }
 
     factory :new_request_post_redirect do
-      uri '/en/new'
+      uri { '/en/new' }
       post_params_yaml do
         public_body = FactoryBot.create(:public_body)
         {
