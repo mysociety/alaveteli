@@ -100,7 +100,7 @@ describe 'Updating censor rules' do
 
       using_session(admin) do
         visit edit_admin_censor_rule_path(rule.id)
-        click_button 'Destroy censor rule'
+        click_link 'Destroy censor rule'
       end
 
       visit show_request_path :url_title => url_title
@@ -168,7 +168,7 @@ describe 'Updating censor rules' do
 
       using_session(admin) do
         visit edit_admin_censor_rule_path(rule.id)
-        click_button 'Destroy censor rule'
+        click_link 'Destroy censor rule'
       end
 
       visit show_request_path :url_title => url_title
@@ -239,7 +239,7 @@ describe 'Updating censor rules' do
 
       using_session(admin) do
         visit edit_admin_censor_rule_path(rule.id)
-        click_button 'Destroy censor rule'
+        click_link 'Destroy censor rule'
       end
 
       visit show_request_path :url_title => url_title
@@ -305,7 +305,7 @@ describe 'Updating censor rules' do
 
       using_session(admin) do
         visit edit_admin_censor_rule_path(rule.id)
-        click_button 'Destroy censor rule'
+        click_link 'Destroy censor rule'
       end
 
       visit show_request_path :url_title => url_title

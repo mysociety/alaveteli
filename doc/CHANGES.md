@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Clean up Censor Rule admin forms (Gareth Rees)
 * Improve flow of closing public body change requests (Gareth Rees)
 * Add targeted Pro marketing pages (Myfanwy Nixon, Martin Wright, Gareth Rees)
 
