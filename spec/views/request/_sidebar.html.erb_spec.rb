@@ -1,60 +1,122 @@
-# -*- encoding : utf-8 -*-
-require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
+require 'spec_helper'
 
-describe 'request/_sidebar.html.erb' do
-  let(:info_request) { FactoryBot.create(:info_request) }
-  let(:track_thing) do
-    FactoryBot.create(:track_thing, info_request: info_request)
-  end
-  let(:public_body) { info_request.public_body }
-  let(:user) { info_request.user }
-  let(:admin_user) { FactoryBot.create("admin_user") }
-
-  def render_page
-    assign :info_request, info_request
-    assign :track_thing, track_thing
-    assign :status, info_request.calculate_status
-    render
+describe 'request/sidebar' do
+  def render_view
+    render partial: self.class.top_level_description,
+           locals: stub_locals
   end
 
-  context "when the request has been reported" do
-    before :each do
-      info_request.report!("", "", nil)
+  let(:info_request) { FactoryBot.build(:info_request) }
+  let(:similar_requests) { double.as_null_object }
+  let(:similar_more) { double.as_null_object }
+
+  let(:stub_locals) do
+    { info_request: info_request,
+      similar_requests: similar_requests,
+      similar_more: similar_more }
+  end
+
+  it 'renders the new request CTA' do
+    render_view
+    expect(rendered).to render_template(partial: 'general/_new_request')
+  end
+
+  it 'renders the pro upsell' do
+    render_view
+    expect(rendered).to render_template(partial: '_sidebar_pro_upsell')
+  end
+
+  context 'when the user can create_embargo', feature: :alaveteli_pro do
+    before do
+      ability = Object.new.extend(CanCan::Ability)
+      ability.can :create_embargo, info_request
+      allow(controller).to receive(:current_ability).and_return(ability)
+      allow(view).to receive(:current_user).and_return(info_request.user)
     end
 
-    context "and the request is hidden" do
-      it "tell admins it's hidden" do
-        info_request.prominence = "hidden"
-        assign :user, admin_user
-        render_page
-        expect(response).to have_content("This request has prominence " \
-                                         "'hidden'. You can only see it " \
-                                         "because you are logged in as a " \
-                                         "super user.")
-      end
+    it 'renders the embargo_form' do
+      render_view
+      partial = 'alaveteli_pro/info_requests/_embargo_form'
+      expect(rendered).to render_template(partial: partial)
+    end
+  end
+
+  context 'when the user cannot create_embargo', feature: :alaveteli_pro do
+    before do
+      ability = Object.new.extend(CanCan::Ability)
+      ability.cannot :create_embargo, info_request
+      allow(controller).to receive(:current_ability).and_return(ability)
+      allow(view).to receive(:current_user).and_return(info_request.user)
     end
 
-    context "and the request is requester only" do
-      it "should tell the user that only they can see it" do
-        info_request.prominence = "requester_only"
-        assign :user, user
-        render_page
-        expect(response).to have_content("This request is hidden, so that " \
-                                         "only you the requester can see " \
-                                         "it. Please contact us if you are " \
-                                         "not sure why.")
-      end
+    it 'does not render the embargo_form' do
+      render_view
+      partial = 'alaveteli_pro/info_requests/_embargo_form'
+      expect(rendered).not_to render_template(partial: partial)
+    end
+  end
+
+  context 'when the request is attention_requested' do
+    let(:info_request) do
+      stubs = { prominence: double.as_null_object,
+                attention_requested: true }
+      double('InfoRequest', stubs).as_null_object
     end
 
-    context "and then deemed okay and left to complete" do
-      it "should let the user know that the admins have not hidden it" do
-        info_request.set_described_state("successful")
-        render_page
-        expect(response).to have_content("This request has been marked for " \
-                                         "review by the site " \
-                                         "administrators, who have not " \
-                                         "hidden it at this time.")
-      end
+    it 'renders attention_requested' do
+      render_view
+      expect(rendered).to render_template(partial: '_attention_requested')
     end
+  end
+
+  context 'when the request is not attention_requested' do
+    let(:info_request) do
+      stubs = { prominence: double.as_null_object,
+                attention_requested: false }
+      double('InfoRequest', stubs).as_null_object
+    end
+
+    it 'does not render attention_requested' do
+      render_view
+      expect(rendered).not_to render_template(partial: '_attention_requested')
+    end
+  end
+
+  it 'renders act links' do
+    render_view
+    expect(rendered).to render_template(partial: 'request/_act')
+  end
+
+  it 'renders next_actions' do
+    render_view
+    expect(rendered).to render_template(partial: 'request/_next_actions')
+  end
+
+  it 'renders batch' do
+    render_view
+    expect(rendered).to render_template(partial: 'request/_batch')
+  end
+
+  context 'when there are similar requests' do
+    let(:similar_requests) { double(any?: true).as_null_object }
+
+    it 'renders the similar requests' do
+      render_view
+      expect(rendered).to render_template(partial: 'request/_similar')
+    end
+  end
+
+  context 'when there are no similar requests' do
+    let(:similar_requests) { double(any?: false) }
+
+    it 'does not renders the similar requests' do
+      render_view
+      expect(rendered).not_to render_template(partial: 'request/_similar')
+    end
+  end
+
+  it 'renders the copyright notice' do
+    render_view
+    expect(rendered).to match(/Are you the owner of any commercial copyright/)
   end
 end
