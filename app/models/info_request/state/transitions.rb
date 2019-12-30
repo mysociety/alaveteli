@@ -123,7 +123,7 @@ class InfoRequest
       end
 
       def self.other_user_partially_successful_transition_label(opts = {})
-        # TODO - trailing space copied from
+        # TODO: - trailing space copied from
         # views/request/_other_describe_state.html.erb, will it break
         # translations if I fix it?
         _("<strong>Some of the information</strong> has been sent ")
