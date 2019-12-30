@@ -98,7 +98,7 @@ GEM
       rake (>= 10.4, < 13.0)
     arel (8.0.0)
     ast (2.4.0)
-    bcrypt (3.1.12)
+    bcrypt (3.1.13)
     bindex (0.7.0)
     bootstrap-sass (2.3.2.2)
       sass (~> 3.2)
@@ -428,7 +428,7 @@ DEPENDENCIES
   acts_as_versioned!
   alaveteli_features!
   annotate (~> 2.7.0)
-  bcrypt (~> 3.1.12)
+  bcrypt (~> 3.1.13)
   bootstrap-sass (~> 2.3.2.2)
   bullet (~> 5.7.6)
   cancancan (~> 1.17.0, < 2.0.0)
