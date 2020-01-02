@@ -27,7 +27,7 @@ class TrackMailer < ApplicationMailer
     @disable_email_alerts_url = users_disable_email_alerts_url(token: token)
 
     headers('Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-            'Precedence' => 'bulk')# http://www.vbulletin.com/forum/project.php?issueid=27687 (Exchange hack)
+            'Precedence' => 'bulk') # http://www.vbulletin.com/forum/project.php?issueid=27687 (Exchange hack)
     # 'Return-Path' => blackhole_email, 'Reply-To' => @from # we don't care about bounces for tracks
     # (We let it return bounces for now, so we can manually kill the tracks that bounce so Yahoo
     # etc. don't decide we are spammers.)
