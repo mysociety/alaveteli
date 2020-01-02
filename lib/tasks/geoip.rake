@@ -5,7 +5,16 @@ namespace :geoip do
   task download_data: :environment do
     # download location as documented at:
     #   https://dev.maxmind.com/geoip/geoip2/geolite2/
-    link = 'https://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.tar.gz'
+    link = URI::HTTPS.build(
+      host: 'download.maxmind.com',
+      path: '/app/geoip_download',
+      query: {
+        edition_id: 'GeoLite2-Country',
+        license_key: AlaveteliConfiguration.maxmind_license_key,
+        suffix: 'tar.gz'
+      }.to_query
+    )
+
     target_dir = "#{Rails.root}/vendor/data"
 
     Dir.mktmpdir('geodata') do |tmp_dir|

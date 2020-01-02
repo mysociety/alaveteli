@@ -1,3 +1,17 @@
+# 0.36.1.0
+
+## Highlighted Features
+
+* Account for new MaxMind license restrictions (Gareth Rees)
+
+## Upgrade Notes
+
+* MaxMind – the providers of the GeoLite2 GeoIP databases – now require a free
+  license key to download the databases. You must now add your license key to
+  `MAXMIND_LICENSE_KEY` in order to continue using the `GEOIP_DATABASE` setting.
+  See https://blog.maxmind.com/2019/12/18/significant-changes-to-accessing-and-using-geolite2-databases/
+  for more information.
+
 # 0.36.0.2
 
 ## Highlighted Features
