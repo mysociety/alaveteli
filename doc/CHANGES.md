@@ -2,9 +2,19 @@
 
 ## Highlighted Features
 
+* Account for new MaxMind license restrictions (Gareth Rees)
+* Fix HTML output in Zip download correspondence extract (Gareth Rees)
+* Clean up Censor Rule admin forms (Gareth Rees)
+* Improve flow of closing public body change requests (Gareth Rees)
 * Add targeted Pro marketing pages (Myfanwy Nixon, Martin Wright, Gareth Rees)
 
 ## Upgrade Notes
+
+* MaxMind – the providers of the GeoLite2 GeoIP databases – now require a free
+  license key to download the databases. You must now add your license key to
+  `MAXMIND_LICENSE_KEY` in order to continue using the `GEOIP_DATABASE` setting.
+  See https://blog.maxmind.com/2019/12/18/significant-changes-to-accessing-and-using-geolite2-databases/
+  for more information.
 
 ### Changed Templates
 

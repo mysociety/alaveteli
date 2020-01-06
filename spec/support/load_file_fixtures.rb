@@ -14,6 +14,6 @@ def read_described_class_fixture(fixture)
 end
 
 def read_described_template_fixture
-  described_template = self.class.description.gsub(/\..*\.erb/, '')
+  described_template = self.class.top_level_description.gsub(/\..*\.erb/, '')
   File.read(File.join(RSpec.configuration.fixture_path, described_template))
 end

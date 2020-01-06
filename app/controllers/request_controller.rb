@@ -944,6 +944,8 @@ class RequestController < ApplicationController
     @show_other_user_update_status_action = !!(
       @old_unclassified && !@render_to_file
     )
+
+    @similar_requests, @similar_more = @info_request.similar_requests
   end
 
   def assign_state_transition_variables

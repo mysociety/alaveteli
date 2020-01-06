@@ -3,7 +3,7 @@
 <%- else %>
   <%= _('From:') %><% if incoming_message.specific_from_name? %> <%= incoming_message.safe_mail_from %><% end %><% if incoming_message.from_public_body? %>, <%= @info_request.public_body.name %><% end %>
   <%= _('To:') %> <% if @info_request.user_name %><%= @info_request.user_name %><% else %><%= "[#{_('An anonymous user')}]"%><% end %>
-  <%= _('Date:') %> <%= simple_date(incoming_message.sent_at) %>
+  <%= _('Date:') %> <%= simple_date(incoming_message.sent_at, format: :text) %>
 
   <%= incoming_message.get_body_for_quoting %>
   <% incoming_message.get_attachments_for_display.each do |a| %>

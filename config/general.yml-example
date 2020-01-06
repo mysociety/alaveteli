@@ -549,10 +549,20 @@ USE_GHOSTSCRIPT_COMPRESSION: false
 # country if one exists). You shouldn't need to change this if you have the
 # geoip-database package installed as specified in the config/packages files.
 #
+# You **must** add MAXMIND_LICENSE_KEY with this setting.
+#
 # GEOIP_DATABASE - String (default: vendor/data/GeoLite2-Country.mmdb)
 #
 # ---
 GEOIP_DATABASE: vendor/data/GeoLite2-Country.mmdb
+
+# MaxMind requires a free license key to download the GeoLite2 databases.
+# https://blog.maxmind.com/2019/12/18/significant-changes-to-accessing-and-using-geolite2-databases/
+#
+# MAXMIND_LICENSE_KEY - String (default: '')
+#
+# ---
+MAXMIND_LICENSE_KEY: ''
 
 # In the absence of a GeoIP database (see above), Alaveteli can use Gaze,
 # mySociety's gazeteer, to determine the country from the IP address of an HTTP

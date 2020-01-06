@@ -25,20 +25,20 @@ FactoryBot.define do
   factory :public_body do
     sequence(:name) { |n| "Example Public Body #{n}" }
     sequence(:short_name) { |n| "Example Body #{n}" }
-    request_email 'request@example.com'
-    last_edit_editor "admin user"
-    last_edit_comment "Making an edit"
+    request_email { 'request@example.com' }
+    last_edit_editor { 'admin user' }
+    last_edit_comment { 'Making an edit' }
 
     trait :defunct do
-      tag_string 'defunct'
+      tag_string { 'defunct' }
     end
 
     trait :not_apply do
-      tag_string 'not_apply'
+      tag_string { 'not_apply' }
     end
 
     factory :blank_email_public_body do
-      request_email ''
+      request_email { '' }
     end
   end
 

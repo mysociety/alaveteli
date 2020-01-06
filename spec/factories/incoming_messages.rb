@@ -39,14 +39,14 @@ FactoryBot.define do
     end
 
     trait :unparsed do
-      last_parsed nil
-      sent_at nil
+      last_parsed { nil }
+      sent_at { nil }
       after(:create) do |incoming_message, evaluator|
       end
     end
 
     trait :hidden do
-      prominence 'hidden'
+      prominence { 'hidden' }
     end
 
     factory :plain_incoming_message do
@@ -72,7 +72,7 @@ FactoryBot.define do
       # foi_attachments_count is declared as an ignored attribute and available in
       # attributes on the factory, as well as the callback via the evaluator
       transient do
-        foi_attachments_count 2
+        foi_attachments_count { 2 }
       end
 
       # the after(:create) yields two values; the incoming_message instance itself and the

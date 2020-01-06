@@ -8,7 +8,7 @@ module DateQuarter
     quarter_start = start_at.beginning_of_quarter
     quarter_end   = start_at.end_of_quarter
 
-    while quarter_end <= finish_at.end_of_quarter do
+    while quarter_end <= finish_at.end_of_quarter
       # Collect these
       results << [quarter_start, quarter_end]
 

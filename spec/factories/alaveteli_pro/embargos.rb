@@ -15,11 +15,11 @@
 FactoryBot.define do
   factory :embargo, :class => AlaveteliPro::Embargo do
     info_request
-    publish_at AlaveteliPro::Embargo.three_months_from_now
-    embargo_duration "3_months"
+    publish_at { AlaveteliPro::Embargo.three_months_from_now }
+    embargo_duration { '3_months' }
 
     factory :expiring_embargo do
-      publish_at Time.zone.now + 3.days
+      publish_at { Time.zone.now + 3.days }
     end
   end
 end

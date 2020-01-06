@@ -91,9 +91,9 @@ gem 'pg', '~> 0.20.0'
 # New gem releases aren't being done. master is newer and supports Rails > 3.0
 gem 'acts_as_versioned', :git => 'https://github.com/technoweenie/acts_as_versioned.git', :ref => '63b1fc8529d028'
 gem 'active_model_otp', :git => 'https://github.com/heapsource/active_model_otp.git', :ref => '55d93a3979'
-gem 'bcrypt', '~> 3.1.12'
+gem 'bcrypt', '~> 3.1.13'
 gem 'cancancan', '~> 1.17.0', '< 2.0.0'
-gem 'charlock_holmes', '~> 0.7.0'
+gem 'charlock_holmes', '~> 0.7.7'
 gem 'dalli', '~> 2.7.0'
 gem 'dynamic_form', '~> 1.1.0'
 gem 'exception_notification', ['~> 4.1.0', '< 4.1.2']
@@ -110,7 +110,7 @@ gem 'mail', '~> 2.6.6'
 gem 'maxmind-db', '~> 1.0.0'
 gem 'mahoro', '~> 0.4'
 gem 'newrelic_rpm'
-gem 'nokogiri', '~> 1.10.4'
+gem 'nokogiri', '~> 1.10.7'
 gem 'open4', '~> 1.3.0'
 gem 'rack', '~> 2.0.8'
 gem 'rack-ssl', '~> 1.4.0'
@@ -145,7 +145,7 @@ gem 'locale', '~> 2.0.0', '< 2.1.0'
 gem 'routing-filter', '~> 0.6.2'
 gem 'unicode', '~> 0.4.4'
 gem 'unidecoder', '~> 1.1.0'
-gem 'money', '~> 6.13.2'
+gem 'money', '~> 6.13.6'
 
 # mime-types 3.0.0 requires Ruby 2.0.0, and _something_ is trying to update it
 gem 'mime-types', '< 3.0.0', require: false
@@ -178,7 +178,7 @@ group :test, :development do
   gem 'rspec-activemodel-mocks', '~> 1.1.0'
   gem 'rspec-rails', '~> 3.7.2'
   gem 'pry', '~> 0.12.2'
-  gem 'pry-byebug', '~> 3.4.0'
+  gem 'pry-byebug', '~> 3.7.0'
     gem 'public_suffix', '~> 2.0.0', '< 3.0.0'
 end
 
