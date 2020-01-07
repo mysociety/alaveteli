@@ -29,6 +29,12 @@ describe ProAccount, feature: :pro_pricing do
     Stripe::Subscription.create(customer: customer, plan: plan.id)
   end
 
+  let(:past_due_sub) do
+    subscription.save
+    StripeMock.mark_subscription_as_past_due(subscription)
+    Stripe::Subscription.retrieve(subscription.id)
+  end
+
   describe 'validations' do
 
     let(:user) { FactoryBot.build(:pro_user) }
@@ -156,6 +162,11 @@ describe ProAccount, feature: :pro_pricing do
 
     context 'when there is an active subscription' do
       before { subscription.save }
+      it { is_expected.to eq true }
+    end
+
+    context 'when the subscription is past_due' do
+      before { past_due_sub }
       it { is_expected.to eq true }
     end
 
