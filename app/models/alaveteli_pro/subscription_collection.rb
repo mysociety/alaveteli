@@ -33,6 +33,10 @@ module AlaveteliPro
       select(&:active?)
     end
 
+    def past_due
+      select(&:past_due?)
+    end
+
     def incomplete
       select(&:incomplete?)
     end

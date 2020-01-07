@@ -19,6 +19,20 @@ RSpec.describe AlaveteliPro::Subscription do
 
   end
 
+  describe '#past_due?' do
+
+    it 'should return true if status is past_due' do
+      object.status = 'past_due'
+      expect(subscription.past_due?).to eq true
+    end
+
+    it 'should return false if status is not past_due' do
+      object.status = 'other'
+      expect(subscription.past_due?).to eq false
+    end
+
+  end
+
   describe '#incomplete?' do
 
     it 'should return true if status is incomplete' do
