@@ -153,12 +153,12 @@ describe ProAccount, feature: :pro_pricing do
 
   end
 
-  describe '#active?' do
+  describe '#subscription?' do
     let(:pro_account) do
       FactoryBot.create(:pro_account, stripe_customer_id: customer.id)
     end
 
-    subject { pro_account.active? }
+    subject { pro_account.subscription? }
 
     context 'when there is an active subscription' do
       before { subscription.save }
