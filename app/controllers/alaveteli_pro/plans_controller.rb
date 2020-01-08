@@ -39,9 +39,8 @@ class AlaveteliPro::PlansController < AlaveteliPro::BaseController
 
   def check_has_current_subscription
     # TODO: This doesn't take the plan in to account
-    if @user.pro_account.try(:subscription?)
-      flash[:error] = _('You are already subscribed to this plan')
-      redirect_to subscriptions_path
-    end
+    return unless @user.pro_account.try(:subscription?)
+    flash[:error] = _('You are already subscribed to this plan')
+    redirect_to subscriptions_path
   end
 end

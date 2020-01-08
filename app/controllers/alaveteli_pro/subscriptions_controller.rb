@@ -186,10 +186,9 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
 
   def check_has_current_subscription
     # TODO: This doesn't take the plan in to account
-    unless @user.pro_account.try(:subscription?)
-      flash[:notice] = _("You don't currently have a Pro subscription")
-      redirect_to pro_plans_path
-    end
+    return if @user.pro_account.try(:subscription?)
+    flash[:notice] = _("You don't currently have a Pro subscription")
+    redirect_to pro_plans_path
   end
 
   def non_namespaced_plan_id
@@ -223,9 +222,8 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
 
   def prevent_duplicate_submission
     # TODO: This doesn't take the plan in to account
-    if @user.pro_account.try(:subscription?)
-      json_redirect_to alaveteli_pro_dashboard_path
-    end
+    return unless @user.pro_account.try(:subscription?)
+    json_redirect_to alaveteli_pro_dashboard_path
   end
 
   def json_redirect_to(url)
