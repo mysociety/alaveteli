@@ -38,6 +38,7 @@ class ProAccount < ApplicationRecord
   def update_stripe_customer
     return unless feature_enabled?(:pro_pricing)
 
+    @subscriptions = nil unless stripe_customer
     @stripe_customer = stripe_customer || Stripe::Customer.new
 
     update_email
