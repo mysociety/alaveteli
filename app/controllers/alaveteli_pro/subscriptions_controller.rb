@@ -36,9 +36,14 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
   #  "plan_id"=>"WDTK-pro"}
   def create
     begin
+      @pro_account = current_user.pro_account ||= current_user.build_pro_account
+
+      # Ensure previous incomplete subscriptions are cancelled to prevent them
+      # from using the new card
+      @pro_account.subscriptions.incomplete.map(&:delete)
+
       @token = Stripe::Token.retrieve(params[:stripe_token])
 
-      @pro_account = current_user.pro_account ||= current_user.build_pro_account
       @pro_account.source = @token.id
       @pro_account.update_stripe_customer
 
