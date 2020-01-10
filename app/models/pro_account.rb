@@ -22,7 +22,7 @@ class ProAccount < ApplicationRecord
   validates :user, presence: true
 
   def subscription?
-    subscriptions.any?
+    subscriptions.current.any?
   end
 
   def subscriptions
