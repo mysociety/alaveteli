@@ -29,12 +29,8 @@ module AlaveteliPro
     end
 
     # scope
-    def active
-      select(&:active?)
-    end
-
-    def past_due
-      select(&:past_due?)
+    def current
+      reject(&:incomplete?)
     end
 
     def incomplete

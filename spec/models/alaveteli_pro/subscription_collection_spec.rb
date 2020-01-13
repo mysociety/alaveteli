@@ -84,30 +84,18 @@ RSpec.describe AlaveteliPro::SubscriptionCollection do
 
   end
 
-  describe '#active' do
+  describe '#current' do
 
     before do
       allow(customer).to receive(:subscriptions).and_return(
-        [active_subscription, incomplete_subscription]
+        [active_subscription, past_due_subscription, incomplete_subscription]
       )
     end
 
-    it 'should return any active subscription' do
-      expect(collection.active).to match_array [active_subscription]
-    end
-
-  end
-
-  describe '#past_due' do
-
-    before do
-      allow(customer).to receive(:subscriptions).and_return(
-        [past_due_subscription, incomplete_subscription]
-      )
-    end
-
-    it 'should return any past_due subscription' do
-      expect(collection.past_due).to match_array [past_due_subscription]
+    it 'should return any current subscription' do
+      expect(collection.current).to match_array [
+        active_subscription, past_due_subscription
+      ]
     end
 
   end
@@ -116,7 +104,7 @@ RSpec.describe AlaveteliPro::SubscriptionCollection do
 
     before do
       allow(customer).to receive(:subscriptions).and_return(
-        [active_subscription, incomplete_subscription]
+        [active_subscription, past_due_subscription, incomplete_subscription]
       )
     end
 

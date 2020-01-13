@@ -189,6 +189,42 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         end
       end
 
+      context 'with an existing customer and an incomplete subscription' do
+
+        let(:customer) do
+          Stripe::Customer.create(
+            email: user.email,
+            source: stripe_helper.generate_card_token
+          )
+        end
+
+        let(:pro_account) do
+          user.create_pro_account(stripe_customer_id: customer.id)
+        end
+
+        it 'should cancel any incomplete subscriptions' do
+          # we can't create a subscription in the incomplete status so we have
+          # to need a lot of stubs.
+          subscription = Stripe::Subscription.create(
+            customer: customer,
+            plan: 'pro'
+          )
+
+          subs = double(:subscription_collection).as_null_object
+          allow(controller).to receive(:current_user).and_return(user)
+          allow(controller).to receive(:prevent_duplicate_submission)
+          allow(pro_account).to receive(:subscriptions).and_return(subs)
+          allow(subs).to receive(:incomplete).and_return([subscription])
+
+          expect(subscription).to receive(:delete).once
+
+          post :create, params: {
+            'stripe_token' => token,
+            'plan_id' => 'pro'
+          }
+        end
+      end
+
       context 'when the card is declined' do
 
         before do
