@@ -9,10 +9,6 @@ module AlaveteliPro
       status == 'active'
     end
 
-    def past_due?
-      status == 'past_due'
-    end
-
     def incomplete?
       status == 'incomplete'
     end

@@ -6,7 +6,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
   before_action :authenticate, only: [:create, :authorise]
   before_action :prevent_duplicate_submission, only: [:create]
   before_action :check_plan_exists, only: [:create]
-  before_action :check_active_subscription, only: [:index]
+  before_action :check_has_current_subscription, only: [:index]
 
   def index
     @customer = current_user.pro_account.try(:stripe_customer)
@@ -36,9 +36,14 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
   #  "plan_id"=>"WDTK-pro"}
   def create
     begin
+      @pro_account = current_user.pro_account ||= current_user.build_pro_account
+
+      # Ensure previous incomplete subscriptions are cancelled to prevent them
+      # from using the new card
+      @pro_account.subscriptions.incomplete.map(&:delete)
+
       @token = Stripe::Token.retrieve(params[:stripe_token])
 
-      @pro_account = current_user.pro_account ||= current_user.build_pro_account
       @pro_account.source = @token.id
       @pro_account.update_stripe_customer
 
@@ -184,12 +189,11 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
     authenticated?(post_redirect_params)
   end
 
-  def check_active_subscription
+  def check_has_current_subscription
     # TODO: This doesn't take the plan in to account
-    unless @user.pro_account.try(:active?)
-      flash[:notice] = _('You don\'t currently have an active Pro subscription')
-      redirect_to pro_plans_path
-    end
+    return if @user.pro_account.try(:subscription?)
+    flash[:notice] = _("You don't currently have a Pro subscription")
+    redirect_to pro_plans_path
   end
 
   def non_namespaced_plan_id
@@ -223,9 +227,8 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
 
   def prevent_duplicate_submission
     # TODO: This doesn't take the plan in to account
-    if @user.pro_account.try(:active?)
-      json_redirect_to alaveteli_pro_dashboard_path
-    end
+    return unless @user.pro_account.try(:subscription?)
+    json_redirect_to alaveteli_pro_dashboard_path
   end
 
   def json_redirect_to(url)
