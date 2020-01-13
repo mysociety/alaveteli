@@ -946,6 +946,8 @@ class RequestController < ApplicationController
     )
 
     @similar_requests, @similar_more = @info_request.similar_requests
+
+    @citations = @info_request.citations.limit(3)
   end
 
   def assign_state_transition_variables

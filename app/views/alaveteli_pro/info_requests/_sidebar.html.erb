@@ -20,6 +20,11 @@
   <%= render partial: "alaveteli_pro/info_requests/batch",
              locals: { info_request: @info_request } %>
 
+  <div class="sidebar__section citations">
+    <%= render partial: 'request/citations',
+               locals: { citations: @citations, info_request: @info_request } %>
+  </div>
+
   <% unless state_transitions_empty?(@state_transitions) %>
     <div class="sidebar__section update-status">
       <h2><%= _("Status") %></h2>

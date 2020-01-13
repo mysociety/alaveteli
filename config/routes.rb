@@ -141,6 +141,12 @@ Rails.application.routes.draw do
         :via => :get
   ####
 
+  #### Citations controller
+  scope path: 'request/:url_title' do
+    resources :citations, only: [:new, :create]
+  end
+  ####
+
   #### Followups controller
   match '/request/:request_id/followups/new' => 'followups#new',
         :as => :new_request_followup,
