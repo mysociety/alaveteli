@@ -168,7 +168,8 @@ p + .form_item_note {
 
 form input[type=text],
 form input[type=password],
-form input[type=email] {
+form input[type=email],
+form input[type=url] {
   font-size:1.1em;
   width:200px;
   border-radius:3px;
@@ -200,6 +201,12 @@ form button {
   padding:0.2em;
   textarea, input {
     border:solid 1px Red !important;
+  }
+}
+
+label {
+  .fieldWithErrors {
+    display: inline;
   }
 }
 

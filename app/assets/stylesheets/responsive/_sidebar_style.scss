@@ -92,3 +92,14 @@
 .act-link-icon--rss {
   background-position: -112px 0;
 }
+
+.sidebar__section.citations {
+  .citations-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .citations-new {
+    font-size: 0.875rem
+  }
+}

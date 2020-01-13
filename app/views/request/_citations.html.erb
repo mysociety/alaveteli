@@ -1,0 +1,45 @@
+<%# FIXME: Slighly messy logic, but can be cleaned up when we allow any user to
+    add citations %>
+
+<% if can? :create_citation, info_request %>
+  <h2><%= _('In the News') %></h2>
+
+  <% if citations.any? %>
+    <ul class="citations-list">
+      <% citations.each do |citation| %>
+        <li class="citations-list__citation">
+          <%= MySociety::Format.
+            make_clickable(citation.source_url, contract: true, nofollow: true).
+            html_safe %>
+        </li>
+      <% end %>
+    </ul>
+
+    <%= link_to new_citation_path(url_title: info_request.url_title), class: 'citations-new' do %>
+      <%= _('New Citation') %>
+    <% end %>
+  <% else %>
+    <p>
+      <%= ('Has this request been referenced in a news article or academic ' \
+           'paper?') %>
+    </p>
+
+    <%= link_to new_citation_path(url_title: info_request.url_title), class: 'citations-new' do %>
+      <%= _('Let us know') %>
+    <% end %>
+  <% end %>
+<% elsif citations.any? %>
+  <h2><%= _('In the News') %></h2>
+
+  <% if citations.any? %>
+    <ul class="citations-list">
+      <% citations.each do |citation| %>
+        <li class="citations-list__citation">
+          <%= MySociety::Format.
+            make_clickable(citation.source_url, contract: true, nofollow: true).
+            html_safe %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>

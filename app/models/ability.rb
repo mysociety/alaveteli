@@ -118,6 +118,10 @@ class Ability
       end
     end
 
+    can :create_citation, InfoRequest do |info_request|
+      user && (user.is_admin? || user.is_pro? || info_request.user == user)
+    end
+
     can :admin, Comment do |comment|
       if comment.info_request.embargo
         user && user.is_pro_admin?

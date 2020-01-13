@@ -2,6 +2,9 @@ require 'spec_helper'
 
 describe 'request/sidebar' do
   def render_view
+    allow(view).to receive(:current_user).and_return(info_request.user)
+    allow(controller).to receive(:current_ability).and_return(ability)
+
     render partial: self.class.top_level_description,
            locals: stub_locals
   end
@@ -9,11 +12,14 @@ describe 'request/sidebar' do
   let(:info_request) { FactoryBot.build(:info_request) }
   let(:similar_requests) { double.as_null_object }
   let(:similar_more) { double.as_null_object }
+  let(:citations) { double.as_null_object }
+  let(:ability) { Object.new.extend(CanCan::Ability) }
 
   let(:stub_locals) do
     { info_request: info_request,
       similar_requests: similar_requests,
-      similar_more: similar_more }
+      similar_more: similar_more,
+      citations: citations }
   end
 
   it 'renders the new request CTA' do
@@ -27,12 +33,7 @@ describe 'request/sidebar' do
   end
 
   context 'when the user can create_embargo', feature: :alaveteli_pro do
-    before do
-      ability = Object.new.extend(CanCan::Ability)
-      ability.can :create_embargo, info_request
-      allow(controller).to receive(:current_ability).and_return(ability)
-      allow(view).to receive(:current_user).and_return(info_request.user)
-    end
+    before { ability.can :create_embargo, info_request }
 
     it 'renders the embargo_form' do
       render_view
@@ -42,12 +43,7 @@ describe 'request/sidebar' do
   end
 
   context 'when the user cannot create_embargo', feature: :alaveteli_pro do
-    before do
-      ability = Object.new.extend(CanCan::Ability)
-      ability.cannot :create_embargo, info_request
-      allow(controller).to receive(:current_ability).and_return(ability)
-      allow(view).to receive(:current_user).and_return(info_request.user)
-    end
+    before { ability.cannot :create_embargo, info_request }
 
     it 'does not render the embargo_form' do
       render_view
