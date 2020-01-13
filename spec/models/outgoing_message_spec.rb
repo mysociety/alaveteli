@@ -68,7 +68,7 @@ describe OutgoingMessage do
 
   describe '.expected_send_errors' do
     subject { described_class.expected_send_errors }
-    class TestError < StandardError ; end
+    class TestError < StandardError; end
 
     it { is_expected.to be_an(Array) }
     it { is_expected.to include(IOError) }
