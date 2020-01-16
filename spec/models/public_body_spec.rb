@@ -850,7 +850,7 @@ describe PublicBody do
 
       it 'returns the field name if passed the default_locale' do
         AlaveteliLocalization.set_locales('en_GB es', 'en_GB')
-        expect(PublicBody.localized_csv_field_name(:"en_GB", "first_letter")).
+        expect(PublicBody.localized_csv_field_name(:en_GB, "first_letter")).
           to eq("first_letter")
       end
 
