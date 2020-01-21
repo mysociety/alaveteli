@@ -246,6 +246,30 @@ in any language, and within any legislation</p>
                         <p class="deployment__country">Tunisia</p>
                         <p class="deployment__link"><a href="https://www.informini.org/">https://www.informini.org/</a></p>
                     </div>
+                    </div><!--
+                --><div class="deployments__unit--minor">
+                    <div class="deployment--minor">
+                        <img src="/assets/img/handlingar.jpg" class="deployment__screenshot" alt=""/>
+                        <h3 class="deployment__title">Handlingar</h3>
+                        <p class="deployment__country">Sweden</p>
+                        <p class="deployment__link"><a href="https://handlingar.se/">https://handlingar.se/</a></p>
+                    </div>
+                    </div><!--
+                --><div class="deployments__unit--minor">
+                    <div class="deployment--minor">
+                        <img src="/assets/img/vreauinfo.jpg" class="deployment__screenshot" alt=""/>
+                        <h3 class="deployment__title">VreauInfo</h3>
+                        <p class="deployment__country">Moldova</p>
+                        <p class="deployment__link"><a href="https://www.vreauinfo.md/">https://www.vreauinfo.md/</a></p>
+                    </div>
+                    </div><!--
+                --><div class="deployments__unit--minor">
+                    <div class="deployment--minor">
+                        <img src="/assets/img/ma-dada.jpg" class="deployment__screenshot" alt=""/>
+                        <h3 class="deployment__title">MaDada</h3>
+                        <p class="deployment__country">France</p>
+                        <p class="deployment__link"><a href="https://madada.fr/">https://madada.fr/</a></p>
+                    </div>
                 </div>
             </div>
         </div>
