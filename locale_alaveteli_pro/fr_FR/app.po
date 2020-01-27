@@ -8,6 +8,7 @@
 # 1bb8f5eb4bc72723d4109decfd20c765, 2019
 # a270031086f2a0d3514bc0cb507b48f6, 2019
 # pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2019
+# Pascal Romain <aka.keronos@gmail.com>, 2019
 #
 msgid ""
 msgstr ""
@@ -15,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-06-10 14:58+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2019\n"
+"Last-Translator: Pascal Romain <aka.keronos@gmail.com>, 2019\n"
 "Language-Team: French (France) (https://www.transifex.com/mysociety/teams/33529/fr_FR/)\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
@@ -500,15 +501,15 @@ msgid "Request access to {{site_name}} beta"
 msgstr "Demande d'accès à {{site_name}} version beta"
 
 msgid "Request an internal review"
-msgstr "Demander une reconsidération"
+msgstr "Effectuer un recours"
 
 msgid "Request an internal review (or send another followup)."
 msgid_plural "Request internal reviews (or send other followups)."
 msgstr[0] "Demander une reconsidération (ou envoyer un autre message de suivi)."
-msgstr[1] "Demander des reconsidérations (ou envoyer d'autres messages de suivi)."
+msgstr[1] "Demander des recours (ou envoyer d'autres messages de suivi)."
 
 msgid "Request an internal review from {{person_or_body}}"
-msgstr "Demander une reconsidération de {{person_or_body}}"
+msgstr "Effectuer un recours auprès de {{person_or_body}}"
 
 msgid "Request to"
 msgstr "Demande à"
@@ -558,7 +559,7 @@ msgstr "Envoyer un message de suivi"
 msgid "Send a follow up (or request an internal review)."
 msgid_plural "Send follow ups (or request internal reviews)."
 msgstr[0] "Envoyer un message de suivi (ou demander une reconsidération)."
-msgstr[1] "Envoyer des messages de suivi (ou demander des reconsidérations)."
+msgstr[1] "Envoyer des messages de suivi (ou effectuer un recours)."
 
 msgid "Send a follow up message to {{person_or_body}}"
 msgstr "Envoyer un message de suivi à {{person_or_body}}"
@@ -853,7 +854,7 @@ msgid "You sent a request \"{{info_request_title}}\" to {{public_body_name}}."
 msgstr "Vous avez envoyé une demande \"{{info_request_title}}\" à l'autorité publique {{public_body_name}}."
 
 msgid "You sent an internal review request to {{public_body_name}} for \"{{info_request_title}}\"."
-msgstr "Vous avez envoyé une demande de reconsidération à l'autorité publique {{public_body_name}} au sujet de la demande \"{{info_request_title}}\"."
+msgstr "Vous avez effectué un recours auprès de l'autorité publique {{public_body_name}} au sujet de la demande \"{{info_request_title}}\"."
 
 msgid "You will be able to extend this privacy period from {{embargo_extend_from}}."
 msgstr "Vous pourrez prolonger cette période de non-publication (embargo) à partir de {{embargo_extend_from}}."
@@ -886,7 +887,7 @@ msgid "Your follow up to {{public_body_name}} on \"{{info_request_title}}\" was 
 msgstr "Votre message de suivi à l'autorité publique {{public_body_name}} au sujet de la demande \"{{info_request_title}}\" a été renvoyée."
 
 msgid "Your internal review request to {{public_body_name}} for \"{{info_request_title}}\" was resent."
-msgstr "Votre demande de reconsidération à l'autorité publique {{public_body_name}} au sujet de la demande \"{{info_request_title}}\" a été renvoyée."
+msgstr "Votre demande de recours auprès de l'autorité publique {{public_body_name}} au sujet de la demande \"{{info_request_title}}\" a été renvoyée."
 
 msgid "Your message will be displayed publicly on this website once you publish your request."
 msgstr "Votre message sera affiché publiquement sur ce site une fois que vous publierez votre demande."
