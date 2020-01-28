@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Automatically run `db:seed` on deployment (Gareth Rees)
 * Account for new MaxMind license restrictions (Gareth Rees)
 * Fix HTML output in Zip download correspondence extract (Gareth Rees)
 * Clean up Censor Rule admin forms (Gareth Rees)

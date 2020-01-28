@@ -6,6 +6,9 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+#
+# IMPORTANT! SEEDS MUST BE IDEMPOTENT. This generally means only creating seeds
+# when they don't exist.
 include AlaveteliFeatures::Helpers
 
 if Role.where(:name => 'admin').empty?
