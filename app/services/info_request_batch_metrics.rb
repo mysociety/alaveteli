@@ -30,7 +30,7 @@ class InfoRequestBatchMetrics
     url_title = MySociety::Format.simplify_url_part(
       @info_request_batch.title, 'batch', 32
     )
-    timestamp = Time.zone.now.to_formatted_s(:iso8601)
+    timestamp = Time.zone.now.to_formatted_s(:filename)
 
     "batch-#{id}-#{url_title}-dashboard-#{timestamp}.csv"
   end
