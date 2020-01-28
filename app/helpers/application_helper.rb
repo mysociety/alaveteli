@@ -37,31 +37,29 @@ module ApplicationHelper
     options = params.last.is_a?(Hash) ? params.pop.symbolize_keys : {}
     objects = params.collect { |object_name| instance_variable_get("@#{object_name}") }.compact
     count   = objects.inject(0) { |sum, object| sum + object.errors.count }
-    if count.zero?
-      ''
-    else
-      html = {}
-      [:id, :class].each do |key|
-        if options.include?(key)
-          value = options[key]
-          html[key] = value unless value.blank?
-        else
-          html[key] = 'errorExplanation'
-        end
-      end
+    return if count.zero?
 
-      error_messages = "".html_safe
-      for object in objects
-        object.errors.each do |attr, message|
-          error_messages << content_tag(:li, h(message))
-        end
+    html = {}
+    [:id, :class].each do |key|
+      if options.include?(key)
+        value = options[key]
+        html[key] = value unless value.blank?
+      else
+        html[key] = 'errorExplanation'
       end
-
-      content_tag(:div,
-                  content_tag(:ul, error_messages),
-                  html
-                  )
     end
+
+    error_messages = "".html_safe
+    for object in objects
+      object.errors.each do |attr, message|
+        error_messages << content_tag(:li, h(message))
+      end
+    end
+
+    content_tag(:div,
+                content_tag(:ul, error_messages),
+                html
+                )
   end
 
   def locale_name(locale)
