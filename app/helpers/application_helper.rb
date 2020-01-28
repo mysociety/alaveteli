@@ -50,16 +50,14 @@ module ApplicationHelper
     end
 
     error_messages = "".html_safe
-    for object in objects
+
+    objects.each do |object|
       object.errors.each do |attr, message|
         error_messages << content_tag(:li, h(message))
       end
     end
 
-    content_tag(:div,
-                content_tag(:ul, error_messages),
-                html
-                )
+    content_tag(:div, content_tag(:ul, error_messages), html)
   end
 
   def locale_name(locale)
