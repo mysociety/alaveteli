@@ -7,11 +7,19 @@
       <h2><%= _('Professional') %></h2>
       <p class="pricing__tier__subhead"><%= _('For journalists, academics and power users') %></p>
       <p class="price-label">
-        <%= _('<span class="price-label__amount">{{monthly_price}}</span> ' \
-              'per user, per month',
-              monthly_price: format_currency(
-                               @plan.amount_with_tax,
-                               no_cents_if_whole: true)) %>
+        <% if @plan.interval == 'month' %>
+          <%= _('<span class="price-label__amount">{{monthly_price}}</span> ' \
+                'per user, per month',
+                monthly_price: format_currency(
+                                 @plan.amount_with_tax,
+                                 no_cents_if_whole: true)) %>
+        <% elsif @plan.interval == 'year' %>
+          <%= _('<span class="price-label__amount">{{yearly_price}}</span> ' \
+                'per user, per year',
+                yearly_price: format_currency(
+                                @plan.amount_with_tax,
+                                no_cents_if_whole: true)) %>
+        <% end %>
       </p>
       <p class="pricing__tier__subhead pricing__tier__subhead--intro_pricing"><%= _('Introductory Pricing') %></p>
     </div>

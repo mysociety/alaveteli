@@ -8,6 +8,10 @@
 * Improve flow of closing public body change requests (Gareth Rees)
 * Add targeted Pro marketing pages (Myfanwy Nixon, Martin Wright, Gareth Rees)
 
+## Highlighted Features
+
+* Support plans with a yearly billing interval (Gareth Rees)
+
 ## Upgrade Notes
 
 * MaxMind – the providers of the GeoLite2 GeoIP databases – now require a free
