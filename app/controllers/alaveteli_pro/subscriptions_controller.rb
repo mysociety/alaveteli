@@ -50,7 +50,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
       @subscription = @pro_account.subscriptions.build
       @subscription.update_attributes(
         plan: params.require(:plan_id),
-        tax_percent: 20.0,
+        tax_percent: BigDecimal(AlaveteliConfiguration.stripe_tax_rate).to_f,
         payment_behavior: 'allow_incomplete'
       )
 
