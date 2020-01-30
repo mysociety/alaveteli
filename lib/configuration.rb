@@ -40,6 +40,7 @@ module AlaveteliConfiguration
       :STRIPE_SECRET_KEY => '',
       :STRIPE_NAMESPACE => '',
       :STRIPE_WEBHOOK_SECRET => '',
+      :STRIPE_TAX_RATE => '0.20',
       :DEBUG_RECORD_MEMORY => false,
       :DEFAULT_LOCALE => '',
       :DISABLE_EMERGENCY_USER => false,

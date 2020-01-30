@@ -8,8 +8,14 @@
 * Improve flow of closing public body change requests (Gareth Rees)
 * Add targeted Pro marketing pages (Myfanwy Nixon, Martin Wright, Gareth Rees)
 
+## Highlighted Pro Features
+
+* Add configurable `STRIPE_TAX_RATE` to correctly calculate gross amounts for
+  Pro plans (Gareth Rees)
+
 ## Upgrade Notes
 
+* Set `STRIPE_TAX_RATE` in `config/general.yml` if you charge for Pro features.
 * MaxMind – the providers of the GeoLite2 GeoIP databases – now require a free
   license key to download the databases. You must now add your license key to
   `MAXMIND_LICENSE_KEY` in order to continue using the `GEOIP_DATABASE` setting.

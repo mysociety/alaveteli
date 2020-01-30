@@ -1236,6 +1236,18 @@ STRIPE_NAMESPACE: ''
 # ---
 STRIPE_WEBHOOK_SECRET: ''
 
+# The rate of Tax / VAT to add to Pro subscriptions. Note that the Price per
+# unit of your Stripe Product Plan must be created without tax. Alaveteli will
+# automatically calculate the gross amount to charge.
+#
+# STRIPE_TAX_RATE: - String (default: '0.20')
+#
+# Examples:
+#
+# STRIPE_TAX_RATE: '0.21' # 21%
+# ---
+STRIPE_TAX_RATE: '0.20'
+
 # A Stripe coupon code – displayed to existing Pro users on their subscriptions
 # page – that they can share with friends for their friends to receive a signup
 # discount.
