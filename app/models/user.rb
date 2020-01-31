@@ -359,8 +359,14 @@ class User < ApplicationRecord
     end
   end
 
+  def locale
+    (super || AlaveteliLocalization.locale).to_s
+  end
+
   def get_locale
-    (locale || AlaveteliLocalization.locale).to_s
+    warn %q([DEPRECATION] User#get_locale will be removed in 0.38.
+            It has been replaced by User#locale).squish
+    locale
   end
 
   def name
