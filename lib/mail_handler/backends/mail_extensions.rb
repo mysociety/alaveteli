@@ -13,11 +13,10 @@ module Mail
 
   class Part < Message
     def inline?
-      begin
-        header[:content_disposition].disposition_type == 'inline' if header[:content_disposition]
-      rescue
-        false
-      end
+      return false unless header[:content_disposition]
+      header[:content_disposition].disposition_type == 'inline'
+    rescue
+      false
     end
   end
 
