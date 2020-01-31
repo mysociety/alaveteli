@@ -130,6 +130,7 @@ gem 'vpim', '~> 13.11.11'
 gem 'will_paginate', '~> 3.1.8'
 gem 'xapian-full-alaveteli', '~> 1.2.21.1'
 gem 'xml-simple', '~> 1.1.0', :require => 'xmlsimple'
+gem 'zip_tricks', '~> 5.0.0'
 
 # Gems only used by the research export task
 gem 'gender_detector', '~> 1.0.0'
