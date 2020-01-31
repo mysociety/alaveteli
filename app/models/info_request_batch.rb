@@ -41,16 +41,18 @@ class InfoRequestBatch < ApplicationRecord
 
   def self.send_batches
     where(:sent_at => nil).find_each do |info_request_batch|
-      info_request_batch.create_batch!
+      AlaveteliLocalization.with_locale(info_request_batch.user.locale) do
+        info_request_batch.create_batch!
 
-      InfoRequestBatchMailer.batch_sent(
-        info_request_batch,
-        info_request_batch.unrequestable_public_bodies,
-        info_request_batch.user
-      ).deliver_now
+        InfoRequestBatchMailer.batch_sent(
+          info_request_batch,
+          info_request_batch.unrequestable_public_bodies,
+          info_request_batch.user
+        ).deliver_now
 
-      info_request_batch.sent_at = Time.zone.now
-      info_request_batch.save!
+        info_request_batch.sent_at = Time.zone.now
+        info_request_batch.save!
+      end
     end
   end
 
