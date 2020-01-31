@@ -40,7 +40,7 @@ class InfoRequestBatch < ApplicationRecord
   validates_presence_of :body
 
   def self.send_batches
-    where(:sent_at => nil).find_each do |info_request_batch|
+    where(sent_at: nil).find_each do |info_request_batch|
       AlaveteliLocalization.with_locale(info_request_batch.user.locale) do
         info_request_batch.create_batch!
 
