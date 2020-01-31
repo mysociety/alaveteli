@@ -97,18 +97,20 @@ class InfoRequestBatch < ApplicationRecord
 
   # Create a FOI request for a public body
   def create_request!(public_body)
-    body = OutgoingMessage.fill_in_salutation(self.body, public_body)
-    info_request = InfoRequest.create_from_attributes({:title => self.title},
-                                                      {:body => body},
-                                                      self.user)
+    filled_body = OutgoingMessage.fill_in_salutation(body, public_body)
+    info_request = InfoRequest.create_from_attributes({ title: title },
+                                                      { body: filled_body },
+                                                      user)
     info_request.public_body = public_body
     info_request.info_request_batch = self
-    unless self.embargo_duration.blank?
+
+    unless embargo_duration.blank?
       info_request.embargo = AlaveteliPro::Embargo.create(
-        :info_request => info_request,
-        :embargo_duration => self.embargo_duration
+        info_request: info_request,
+        embargo_duration: embargo_duration
       )
     end
+
     info_request.save!
     info_request
   end
