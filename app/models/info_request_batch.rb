@@ -40,17 +40,19 @@ class InfoRequestBatch < ApplicationRecord
   validates_presence_of :body
 
   def self.send_batches
-    where(:sent_at => nil).find_each do |info_request_batch|
-      info_request_batch.create_batch!
+    where(sent_at: nil).find_each do |info_request_batch|
+      AlaveteliLocalization.with_locale(info_request_batch.user.locale) do
+        info_request_batch.create_batch!
 
-      InfoRequestBatchMailer.batch_sent(
-        info_request_batch,
-        info_request_batch.unrequestable_public_bodies,
-        info_request_batch.user
-      ).deliver_now
+        InfoRequestBatchMailer.batch_sent(
+          info_request_batch,
+          info_request_batch.unrequestable_public_bodies,
+          info_request_batch.user
+        ).deliver_now
 
-      info_request_batch.sent_at = Time.zone.now
-      info_request_batch.save!
+        info_request_batch.sent_at = Time.zone.now
+        info_request_batch.save!
+      end
     end
   end
 
@@ -97,18 +99,20 @@ class InfoRequestBatch < ApplicationRecord
 
   # Create a FOI request for a public body
   def create_request!(public_body)
-    body = OutgoingMessage.fill_in_salutation(self.body, public_body)
-    info_request = InfoRequest.create_from_attributes({:title => self.title},
-                                                      {:body => body},
-                                                      self.user)
+    filled_body = OutgoingMessage.fill_in_salutation(body, public_body)
+    info_request = InfoRequest.create_from_attributes({ title: title },
+                                                      { body: filled_body },
+                                                      user)
     info_request.public_body = public_body
     info_request.info_request_batch = self
-    unless self.embargo_duration.blank?
+
+    unless embargo_duration.blank?
       info_request.embargo = AlaveteliPro::Embargo.create(
-        :info_request => info_request,
-        :embargo_duration => self.embargo_duration
+        info_request: info_request,
+        embargo_duration: embargo_duration
       )
     end
+
     info_request.save!
     info_request
   end

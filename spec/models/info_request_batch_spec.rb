@@ -186,6 +186,28 @@ describe InfoRequestBatch do
       )
     end
 
+    context 'when the user has a non-default locale' do
+      let!(:user) { FactoryBot.create(:user, locale: :es) }
+
+      let!(:info_request_batch) do
+        FactoryBot.create(
+          :info_request_batch,
+          user: user,
+          body: "Dear [Authority name],\n\nSome text",
+          public_bodies: [first_public_body, second_public_body]
+        )
+      end
+
+      before { described_class.send_batches }
+
+      it 'sends the batches with the template for the user locale' do
+        info_request = info_request_batch.reload.info_requests.first
+        message_body = info_request.outgoing_messages.first.body
+        public_body_name = info_request.public_body.name
+
+        expect(message_body).to include("Estimado #{ public_body_name }")
+      end
+    end
   end
 
   describe "#from_draft" do
