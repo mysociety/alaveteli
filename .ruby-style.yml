@@ -1176,56 +1176,56 @@ Lint/Loop:
                  Use Kernel#loop with break rather than begin/end/until or
                  begin/end/while for post-loop tests.
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#loop-with-break'
-  Enabled: false
+  Enabled: true
 
 Lint/NestedMethodDefinition:
   Description: 'Do not use nested method definitions.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-nested-methods'
-  Enabled: false
+  Enabled: true
 
 Lint/NextWithoutAccumulator:
   Description:  >-
                   Do not omit the accumulator when calling `next`
                   in a `reduce`/`inject` block.
-  Enabled: false
+  Enabled: true
 
 Lint/NonLocalExitFromIterator:
   Description: 'Do not use return in iterator to cause non-local exit.'
-  Enabled: false
+  Enabled: true
 
 Lint/ParenthesesAsGroupedExpression:
   Description: >-
                  Checks for method calls with a space before the opening
                  parenthesis.
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#parens-no-spaces'
-  Enabled: false
+  Enabled: true
 
 Lint/PercentStringArray:
   Description: >-
                  Checks for unwanted commas and quotes in %w/%W literals.
-  Enabled: false
+  Enabled: true
 
 Lint/PercentSymbolArray:
   Description: >-
                  Checks for unwanted commas and colons in %i/%I literals.
-  Enabled: false
+  Enabled: true
 
 Lint/RandOne:
   Description: >-
                  Checks for `rand(1)` calls. Such calls always return `0`
                  and most likely a mistake.
-  Enabled: false
+  Enabled: true
 
 Lint/RequireParentheses:
   Description: >-
                  Use parentheses in the method call to avoid confusion
                  about precedence.
-  Enabled: false
+  Enabled: true
 
 Lint/RescueException:
   Description: 'Avoid rescuing the Exception class.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-blind-rescues'
-  Enabled: false
+  Enabled: true
 
 Lint/ShadowedException:
   Description: >-

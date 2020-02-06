@@ -387,8 +387,7 @@ class PublicBody < ApplicationRecord
       PublicBody.where(url_name: 'internal_admin_authority')
     end
 
-    case
-    when matching_pbs.empty? then
+    if matching_pbs.empty?
       # "internal admin" exists but has the wrong default locale - fix & return
       if invalid_locale = PublicBody::Translation.
                             find_by_url_name('internal_admin_authority')
@@ -415,7 +414,7 @@ class PublicBody < ApplicationRecord
                       "Made by PublicBody.internal_admin_body")
         end
       end
-    when matching_pbs.length == 1 then
+    elsif matching_pbs.length == 1
       matching_pbs[0]
     else
       raise "Multiple public bodies (#{matching_pbs.length}) found with url_name 'internal_admin_authority'"

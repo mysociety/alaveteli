@@ -738,6 +738,20 @@ describe User do
     end
   end
 
+  describe '#locale' do
+    subject { user.locale }
+
+    context 'when the locale is set' do
+      let(:user) { FactoryBot.build(:user, locale: 'fr') }
+      it { is_expected.to eq('fr') }
+    end
+
+    context 'when the locale is empty' do
+      let(:user) { FactoryBot.build(:user, locale: nil) }
+      it { is_expected.to eq(AlaveteliLocalization.locale) }
+    end
+  end
+
   describe '#transactions' do
 
     it 'returns a TransactionCalculator with the default transaction set' do
