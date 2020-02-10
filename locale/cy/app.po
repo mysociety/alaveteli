@@ -19,6 +19,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Cymrodor <aled@aledpowell.cymru>, 2014,2017
 # Cymrodor <aled@aledpowell.cymru>, 2014
 # skenaja <alex@alexskene.com>, 2011-2012
@@ -42,8 +43,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-14 10:15+0000\n"
-"PO-Revision-Date: 2019-11-11 16:57+0000\n"
+"POT-Creation-Date: 2020-02-10 15:57+0000\n"
+"PO-Revision-Date: 2020-02-10 15:36+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Welsh (http://www.transifex.com/mysociety/alaveteli/language/cy/)\n"
 "Language: cy\n"
@@ -350,6 +351,9 @@ msgstr "Amdanoch chi:"
 msgid "About {{count}} FOI requests found"
 msgstr ""
 
+msgid "Academic paper"
+msgstr ""
+
 msgid "Account closed at user request"
 msgstr ""
 
@@ -409,6 +413,9 @@ msgstr "Aer, dŵr, pridd, tir, fflora a ffawna (gan gynnwys sut y mae'r rhain yn
 
 msgid "All of the information requested has been received"
 msgstr "Mae'r holl wybodaeth y gwnaed cais amdani wedi ei derbyn."
+
+msgid "All responses will be published when the privacy period expires. We depend on you, the original requester, to evaluate them."
+msgstr ""
 
 msgid "All the options below can use <strong>status</strong> or <strong>latest_status</strong> before the colon. For example, <strong>status:not_held</strong> will match requests which have <em>ever</em> been marked as not held; <strong>latest_status:not_held</strong> will match only requests that are <em>currently</em> marked as not held."
 msgstr "Gall yr holl opsiynau isod defnyddio <strong>status</strong> neu <strong>latest_status</strong> cyn y colon. Er enghraifft, bydd <strong>status:not_held</strong> yn matsio ceisiadau sydd wedi wedi'u marcio <em>erioed</em> nad ydynt yn cael eu cadw; bydd <strong>latest_status:not_held</strong> yn matsio ceisiadau yn unig sydd <em > ar hyn o bryd</em>wedi eu marcio fel heb ei gadw."
@@ -537,6 +544,9 @@ msgid "ApplicationRecord|Charset"
 msgstr ""
 
 msgid "ApplicationRecord|Circumstance"
+msgstr ""
+
+msgid "ApplicationRecord|Citable type"
 msgstr ""
 
 msgid "ApplicationRecord|Closed at"
@@ -1075,6 +1085,9 @@ msgstr "Dewiswch rheswm"
 
 msgid "Choose your profile photo"
 msgstr "Dewiswch eich llun proffil"
+
+msgid "Citation successfully created."
+msgstr ""
 
 msgid "Clarification"
 msgstr "Eglurhad"
@@ -1845,6 +1858,9 @@ msgstr ""
 msgid "In progress"
 msgstr "Ar y gweill"
 
+msgid "In the News"
+msgstr ""
+
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr " Cynhwyswch gysylltiadau perthnasol, megis i dudalen yr ymgyrch, eich blog neu gyfrif Twitter. Byddant yn cael eu gwneud yn gliciadwy. ee"
 
@@ -1940,6 +1956,9 @@ msgstr "Y cais diwethaf edrychwyd arno: {{request_url}}"
 
 msgid "Learn more &rarr;"
 msgstr "Dysgu mwy &rarr;"
+
+msgid "Let us know"
+msgstr ""
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
 msgstr "Gadewch i ni wybod beth oeddech yn ei wneud pan ymddangosodd y neges hon, a manylion eich porwr, eich system weithredu a'i fersiwn."
@@ -2061,11 +2080,11 @@ msgstr "Angen sylw gweinyddwr"
 msgid "Needs status update"
 msgstr ""
 
+msgid "New Citation"
+msgstr ""
+
 msgid "New Freedom of Information requests"
 msgstr "Ceisiadau Rhyddid Gwybodaeth newydd"
-
-msgid "New censor rule"
-msgstr "Rheol sensro newydd"
 
 msgid "New e-mail:"
 msgstr "Cyfeiriad ebost newydd:"
@@ -2096,6 +2115,9 @@ msgstr "Diweddariadau newydd i'r cais '{{request_title}}'"
 
 msgid "Newest results first"
 msgstr "Canlyniadau diweddaraf yn gyntaf"
+
+msgid "News story"
+msgstr ""
 
 msgid "Next"
 msgstr "Nesaf"
@@ -2322,6 +2344,9 @@ msgstr "Peidiwch â llwytho lluniau sarhaus os gwelwch yn dda. Byddwn yn tynnu d
 msgid "Please enable \"cookies\" to carry on"
 msgstr "Galluogwch 'gwcis' i barhau"
 
+msgid "Please enter a Source URL"
+msgstr ""
+
 msgid "Please enter a password"
 msgstr "Rhowch gyfrinair"
 
@@ -2394,6 +2419,9 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
+
+msgid "Please select a type"
+msgstr ""
 
 msgid "Please select an authority"
 msgstr "Dewiswch awdurdod"
@@ -2924,6 +2952,9 @@ msgstr ""
 msgid "Sorry, we're currently unable to sign up new users, please try again later"
 msgstr ""
 
+msgid "Source URL is too long"
+msgstr ""
+
 msgid "Source URL:"
 msgstr "URL y Ffynhonnell:"
 
@@ -2950,6 +2981,9 @@ msgstr "Pwnc"
 
 msgid "Subject:"
 msgstr "Pwnc:"
+
+msgid "Submit"
+msgstr ""
 
 msgid "Submit Search"
 msgstr ""
@@ -3083,11 +3117,17 @@ msgstr "Mae'r <strong>adolygiad wedi gorffen</ strong> ac yn gyffredinol:"
 msgid "The Freedom of Information Act <strong>does not apply</strong> to"
 msgstr "<strong>Nid</strong> yw'r Ddeddf Rhyddid Gwybodaeth yn gymwys i"
 
+msgid "The URL where you found the article."
+msgstr ""
+
 msgid "The URL where you found the email address. This field is optional, but it would help us a lot if you can provide a link to a specific page on the authority's website that gives this address, as it will make it much easier for us to check."
 msgstr "Y cyfeiriad URL ble'r darganfyddoch y cyfeiriad ebost. Mae hyn yn ddewisol, ond mae'n ein helpu'n fawr iawn gan ei wneud yn haws i'w gwirio os gallech gynnwys ddolen i dudalen penodol ar wefan yr awdurdod ble mae'r cyfeiriad hwn yn ymddangos."
 
 msgid "The accounts have been left as they previously were."
 msgstr "Mae'r cyfrifon wedi cael eu gadael fel yr oeddent o'r blaen."
+
+msgid "The article references all requests in this batch"
+msgstr ""
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr ""
@@ -3205,6 +3245,9 @@ msgstr ""
 
 msgid "The {{site_name}} team."
 msgstr "Tîm {{site_name}}."
+
+msgid "Then you can add citations"
+msgstr ""
 
 msgid "Then you can cancel the alert."
 msgstr "Yna gallwch ganslo'r rhybudd."
@@ -3504,6 +3547,9 @@ msgstr "  Bydd hyn yn ymddangos ar eich proffil {{site_name}}, i'w wneud yn haws
 
 msgid "To"
 msgstr "At"
+
+msgid "To add a citation"
+msgstr ""
 
 msgid "To add a widget for <b>{{info_request_title}}</b>, copy and paste the following code to your web page:"
 msgstr ""
@@ -3908,6 +3954,9 @@ msgstr "Pa wybodaeth a ofynnwyd amdani?"
 
 msgid "What next?"
 msgstr "Beth nesaf?"
+
+msgid "What type of article is it?"
+msgstr ""
 
 msgid "What's happened:"
 msgstr ""

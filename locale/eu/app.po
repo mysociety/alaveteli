@@ -19,6 +19,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # David Cabo <david.cabo@gmail.com>, 2012
 # sroberto <ertoba@yahoo.es>, 2012
 # Liz Conlan <liz@mysociety.org>, 2018
@@ -29,8 +30,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-14 10:15+0000\n"
-"PO-Revision-Date: 2019-11-11 16:57+0000\n"
+"POT-Creation-Date: 2020-02-10 15:57+0000\n"
+"PO-Revision-Date: 2020-02-10 15:36+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Basque (http://www.transifex.com/mysociety/alaveteli/language/eu/)\n"
 "Language: eu\n"
@@ -354,6 +355,9 @@ msgstr "Zeure buruaz:"
 msgid "About {{count}} FOI requests found"
 msgstr ""
 
+msgid "Academic paper"
+msgstr ""
+
 msgid "Account closed at user request"
 msgstr ""
 
@@ -413,6 +417,9 @@ msgstr "Airea, ura, lurra, flora eta fauna (gizakiengan dituen ondorioak barne)"
 
 msgid "All of the information requested has been received"
 msgstr "Eskatutako informazio guztia jaso da"
+
+msgid "All responses will be published when the privacy period expires. We depend on you, the original requester, to evaluate them."
+msgstr ""
 
 msgid "All the options below can use <strong>status</strong> or <strong>latest_status</strong> before the colon. For example, <strong>status:not_held</strong> will match requests which have <em>ever</em> been marked as not held; <strong>latest_status:not_held</strong> will match only requests that are <em>currently</em> marked as not held."
 msgstr "Beheko aukera guztiek erabil dezakete <strong>status</strong> edo <strong>latest_status</strong> bi puntuak baino lehen. Adibidez, <strong>status:not_held</strong> oraindik heldu ez bezala markatutako <em>ever</em> eskaerak hartuko ditu; <strong>latest_status:not_held</strong> hartuko ditu oraindik heldu ez bezala markatutako eskaerak, <em>currently</em>."
@@ -543,6 +550,9 @@ msgid "ApplicationRecord|Charset"
 msgstr ""
 
 msgid "ApplicationRecord|Circumstance"
+msgstr ""
+
+msgid "ApplicationRecord|Citable type"
 msgstr ""
 
 msgid "ApplicationRecord|Closed at"
@@ -1081,6 +1091,9 @@ msgstr ""
 
 msgid "Choose your profile photo"
 msgstr "Aukeratu nire profilaren argazkia"
+
+msgid "Citation successfully created."
+msgstr ""
 
 msgid "Clarification"
 msgstr "Azalpena"
@@ -1853,6 +1866,9 @@ msgstr ""
 msgid "In progress"
 msgstr ""
 
+msgid "In the News"
+msgstr ""
+
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr " Sar itzazu esteka adierazgarriak, hala nola informazio orrialdea, zure bloga edo twitter kontua. Automatikoki esteka bihurtuko dira. Adibidez:"
 
@@ -1947,6 +1963,9 @@ msgid "Last request viewed: {{request_url}}"
 msgstr "Ikusi den azken eskabidea: {{request_url}}"
 
 msgid "Learn more &rarr;"
+msgstr ""
+
+msgid "Let us know"
 msgstr ""
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
@@ -2069,11 +2088,11 @@ msgstr ""
 msgid "Needs status update"
 msgstr ""
 
+msgid "New Citation"
+msgstr ""
+
 msgid "New Freedom of Information requests"
 msgstr "Informaziorako Sarbidearen eskabide berriak"
-
-msgid "New censor rule"
-msgstr ""
 
 msgid "New e-mail:"
 msgstr "Helbide berria:"
@@ -2104,6 +2123,9 @@ msgstr " '{{request_title}}' eskabidearen gaurkotzeak"
 
 msgid "Newest results first"
 msgstr "Lehenbizi emaitza berriak"
+
+msgid "News story"
+msgstr ""
 
 msgid "Next"
 msgstr "Hurrengoa"
@@ -2332,6 +2354,9 @@ msgstr "Mesedez, ez igo irudi iraingarririk. Desegokitzat jotzen dugun edozein i
 msgid "Please enable \"cookies\" to carry on"
 msgstr "Mesedez, aktiba itzazu \"cookiak\" jarraitzeko"
 
+msgid "Please enter a Source URL"
+msgstr ""
+
 msgid "Please enter a password"
 msgstr "Mesedez, sar ezazu pasahitz bat."
 
@@ -2402,6 +2427,9 @@ msgid "Please read the recent response and <strong>update the status</strong> so
 msgid_plural "Please read the recent responses and <strong>update the status</strong> so we know whether they contain useful information."
 msgstr[0] ""
 msgstr[1] ""
+
+msgid "Please select a type"
+msgstr ""
 
 msgid "Please select an authority"
 msgstr ""
@@ -2935,6 +2963,9 @@ msgstr ""
 msgid "Sorry, we're currently unable to sign up new users, please try again later"
 msgstr ""
 
+msgid "Source URL is too long"
+msgstr ""
+
 msgid "Source URL:"
 msgstr ""
 
@@ -2961,6 +2992,9 @@ msgstr ""
 
 msgid "Subject:"
 msgstr "Gaia:"
+
+msgid "Submit"
+msgstr ""
 
 msgid "Submit Search"
 msgstr ""
@@ -3096,11 +3130,17 @@ msgstr "<strong>Berrikusketa amaitu da</strong> eta laburki:"
 msgid "The Freedom of Information Act <strong>does not apply</strong> to"
 msgstr "Informaziorako sarbidearen legea ez zaio ______-ri <strong> aplikatzen</strong>"
 
+msgid "The URL where you found the article."
+msgstr ""
+
 msgid "The URL where you found the email address. This field is optional, but it would help us a lot if you can provide a link to a specific page on the authority's website that gives this address, as it will make it much easier for us to check."
 msgstr ""
 
 msgid "The accounts have been left as they previously were."
 msgstr "Kontuak lehen zeuden bezalaxe utzi dira."
+
+msgid "The article references all requests in this batch"
+msgstr ""
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr ""
@@ -3223,6 +3263,9 @@ msgid "The widget will look like this:"
 msgstr ""
 
 msgid "The {{site_name}} team."
+msgstr ""
+
+msgid "Then you can add citations"
 msgstr ""
 
 msgid "Then you can cancel the alert."
@@ -3520,6 +3563,9 @@ msgid "This will appear on your {{site_name}} profile, to make it easier for oth
 msgstr "  Hau zure {{site_name}} profilean agertuko da, beste pertsonek zure eskabideak ulertu eta parte har dezaten."
 
 msgid "To"
+msgstr ""
+
+msgid "To add a citation"
 msgstr ""
 
 msgid "To add a widget for <b>{{info_request_title}}</b>, copy and paste the following code to your web page:"
@@ -3925,6 +3971,9 @@ msgid "What information has been requested?"
 msgstr ""
 
 msgid "What next?"
+msgstr ""
+
+msgid "What type of article is it?"
 msgstr ""
 
 msgid "What's happened:"

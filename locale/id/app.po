@@ -19,6 +19,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Agung Riyadi <ariadi01@gmail.com>, 2013
 # Agung Riyadi <ariadi01@gmail.com>, 2012-2013
 # agustriwanto <agus.triwanto@gmail.com>, 2012
@@ -35,8 +36,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-14 10:15+0000\n"
-"PO-Revision-Date: 2019-11-11 16:57+0000\n"
+"POT-Creation-Date: 2020-02-10 15:57+0000\n"
+"PO-Revision-Date: 2020-02-10 15:36+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Indonesian (http://www.transifex.com/mysociety/alaveteli/language/id/)\n"
 "Language: id\n"
@@ -375,6 +376,9 @@ msgstr "Tentang Anda:"
 msgid "About {{count}} FOI requests found"
 msgstr ""
 
+msgid "Academic paper"
+msgstr ""
+
 msgid "Account closed at user request"
 msgstr ""
 
@@ -438,6 +442,9 @@ msgstr ""
 
 msgid "All of the information requested has been received"
 msgstr "Semua informasi yang diminta telah diterima"
+
+msgid "All responses will be published when the privacy period expires. We depend on you, the original requester, to evaluate them."
+msgstr ""
 
 msgid "All the options below can use <strong>status</strong> or <strong>latest_status</strong> before the colon. For example, <strong>status:not_held</strong> will match requests which have <em>ever</em> been marked as not held; <strong>latest_status:not_held</strong> will match only requests that are <em>currently</em> marked as not held."
 msgstr "Semua pilihan di bawah dapat menggunakan <strong>status</strong> atau <strong>status_terakhir</strong> sebelum tanda titik dua. Contohnya, <strong>status:tidak_dipegang</strong> akan mencocokkan permintaan yang <em>pernah</em> ditandai sebagai tidak dipegang; <strong>status_terakhir:tidak_dipegang</strong> hanya akan mencocokkan permintaan yang <em>saat ini</em> ditandai sebagai tidak dipegang."
@@ -570,6 +577,9 @@ msgid "ApplicationRecord|Charset"
 msgstr ""
 
 msgid "ApplicationRecord|Circumstance"
+msgstr ""
+
+msgid "ApplicationRecord|Citable type"
 msgstr ""
 
 msgid "ApplicationRecord|Closed at"
@@ -1110,6 +1120,9 @@ msgstr ""
 
 msgid "Choose your profile photo"
 msgstr "Memilih foto profil Anda"
+
+msgid "Citation successfully created."
+msgstr ""
 
 msgid "Clarification"
 msgstr "Klarifikasi"
@@ -1909,6 +1922,9 @@ msgstr ""
 msgid "In progress"
 msgstr ""
 
+msgid "In the News"
+msgstr ""
+
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr ""
 " Sertakan tautan-tautan yang relevan, seperti tautan ke halaman kampanye, blog Anda atau \n"
@@ -2011,6 +2027,9 @@ msgid "Last request viewed: {{request_url}}"
 msgstr "Permintaan terakhir yang dilihat: {{request_url}}"
 
 msgid "Learn more &rarr;"
+msgstr ""
+
+msgid "Let us know"
 msgstr ""
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
@@ -2135,11 +2154,11 @@ msgstr ""
 msgid "Needs status update"
 msgstr ""
 
+msgid "New Citation"
+msgstr ""
+
 msgid "New Freedom of Information requests"
 msgstr "Permintaan Freedom of Information baru"
-
-msgid "New censor rule"
-msgstr "Peraturan sensor baru"
 
 msgid "New e-mail:"
 msgstr "Email baru:"
@@ -2170,6 +2189,9 @@ msgstr "Update baru untuk permintaan '{{request_title}}'"
 
 msgid "Newest results first"
 msgstr "Hasil-hasil terbaru terlebih dahulu"
+
+msgid "News story"
+msgstr ""
 
 msgid "Next"
 msgstr "Berikutnya"
@@ -2403,6 +2425,9 @@ msgstr ""
 msgid "Please enable \"cookies\" to carry on"
 msgstr "Mohon aktifkan \"cookies\" untuk melanjutkan"
 
+msgid "Please enter a Source URL"
+msgstr ""
+
 msgid "Please enter a password"
 msgstr "Silakan masukkan kode sandi"
 
@@ -2474,6 +2499,9 @@ msgstr ""
 msgid "Please read the recent response and <strong>update the status</strong> so we know whether it contains useful information."
 msgid_plural "Please read the recent responses and <strong>update the status</strong> so we know whether they contain useful information."
 msgstr[0] ""
+
+msgid "Please select a type"
+msgstr ""
 
 msgid "Please select an authority"
 msgstr ""
@@ -3012,6 +3040,9 @@ msgstr ""
 msgid "Sorry, we're currently unable to sign up new users, please try again later"
 msgstr ""
 
+msgid "Source URL is too long"
+msgstr ""
+
 msgid "Source URL:"
 msgstr ""
 
@@ -3038,6 +3069,9 @@ msgstr "Subyek"
 
 msgid "Subject:"
 msgstr "Subyek:"
+
+msgid "Submit"
+msgstr ""
 
 msgid "Submit Search"
 msgstr ""
@@ -3179,11 +3213,17 @@ msgstr "Kajian <strong> sudah selesai</strong> dan keseluruhan:"
 msgid "The Freedom of Information Act <strong>does not apply</strong> to"
 msgstr "Undang-undang Freedom of Information <strong>tidak berlaku</strong> kepada"
 
+msgid "The URL where you found the article."
+msgstr ""
+
 msgid "The URL where you found the email address. This field is optional, but it would help us a lot if you can provide a link to a specific page on the authority's website that gives this address, as it will make it much easier for us to check."
 msgstr ""
 
 msgid "The accounts have been left as they previously were."
 msgstr "Akun-akun yang ditinggalkan sebagaimana mereka sebelumnya."
+
+msgid "The article references all requests in this batch"
+msgstr ""
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr ""
@@ -3311,6 +3351,9 @@ msgid "The widget will look like this:"
 msgstr ""
 
 msgid "The {{site_name}} team."
+msgstr ""
+
+msgid "Then you can add citations"
 msgstr ""
 
 msgid "Then you can cancel the alert."
@@ -3622,6 +3665,9 @@ msgstr ""
 "            lebih mudah bagi yang lain untuk terlibat dengan apa yang sedang Anda kerjakan."
 
 msgid "To"
+msgstr ""
+
+msgid "To add a citation"
 msgstr ""
 
 msgid "To add a widget for <b>{{info_request_title}}</b>, copy and paste the following code to your web page:"
@@ -4042,6 +4088,9 @@ msgid "What information has been requested?"
 msgstr "Informasi apa yang telah diminta?"
 
 msgid "What next?"
+msgstr ""
+
+msgid "What type of article is it?"
 msgstr ""
 
 msgid "What's happened:"

@@ -19,13 +19,14 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Andreas Nedelkos <vandreas2004@yahoo.gr>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-14 10:15+0000\n"
-"PO-Revision-Date: 2019-11-11 16:57+0000\n"
+"POT-Creation-Date: 2020-02-10 15:57+0000\n"
+"PO-Revision-Date: 2020-02-10 15:36+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Greek (http://www.transifex.com/mysociety/alaveteli/language/el/)\n"
 "Language: el\n"
@@ -330,6 +331,9 @@ msgstr "Πληροφορίες για εσάς:"
 msgid "About {{count}} FOI requests found"
 msgstr ""
 
+msgid "Academic paper"
+msgstr ""
+
 msgid "Account closed at user request"
 msgstr ""
 
@@ -389,6 +393,9 @@ msgstr "Αέρας, νερό, έδαφος, χλωρίδα και πανίδα (
 
 msgid "All of the information requested has been received"
 msgstr "Όλες οι πληροφορίες που ζητήθηκαν έχουν ληφθεί"
+
+msgid "All responses will be published when the privacy period expires. We depend on you, the original requester, to evaluate them."
+msgstr ""
 
 msgid "All the options below can use <strong>status</strong> or <strong>latest_status</strong> before the colon. For example, <strong>status:not_held</strong> will match requests which have <em>ever</em> been marked as not held; <strong>latest_status:not_held</strong> will match only requests that are <em>currently</em> marked as not held."
 msgstr "Όλες οι πληροφορίες παρακάτω μπορούν να έχουν  <strong>κατάσηταση</strong> ή <strong>τελευταία_κατάσταση</strong> πριν από την άνω κάτω τελεία. Για παράδειγμα, <strong>κατάσταση:μη_διαθέσιμο</strong> θα φέρει αποτελέσματα που έχουν <em>οποτεδήποτε</em> καταγραφεί ως μη διαθέσιμα; <strong>τελευταία_κατάσταση:μη_διαθέσιμο</strong> θα φέρει αποτελέσματα που είναι <em>τώρα</em> μη διαθέσιμα."
@@ -517,6 +524,9 @@ msgid "ApplicationRecord|Charset"
 msgstr ""
 
 msgid "ApplicationRecord|Circumstance"
+msgstr ""
+
+msgid "ApplicationRecord|Citable type"
 msgstr ""
 
 msgid "ApplicationRecord|Closed at"
@@ -1055,6 +1065,9 @@ msgstr "Επιλέξτε ένα λόγο."
 
 msgid "Choose your profile photo"
 msgstr "Επιλέξτε φωτογραφία προφίλ"
+
+msgid "Citation successfully created."
+msgstr ""
 
 msgid "Clarification"
 msgstr "Διευκρίνηση"
@@ -1817,6 +1830,9 @@ msgstr "Βελτιώστε την ασφάλεια του λογαριασμού
 msgid "In progress"
 msgstr ""
 
+msgid "In the News"
+msgstr ""
+
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr "Συμπεριλάβετε σχετικά λινκ, όπως σελίδα καμπάνιας, το blog σας ή ένα \\n λογαριασμό twitter. Θα μετατραπούν σε κουμπιά  \\n π.χ."
 
@@ -1912,6 +1928,9 @@ msgstr "Τελευταία αίτηση που είδατε: {{request_url}}"
 
 msgid "Learn more &rarr;"
 msgstr "Μάθετε περισσότερα &rarr;"
+
+msgid "Let us know"
+msgstr ""
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
 msgstr ""
@@ -2033,11 +2052,11 @@ msgstr "Χρειάζεται προσοχή από διαχειριστή"
 msgid "Needs status update"
 msgstr ""
 
+msgid "New Citation"
+msgstr ""
+
 msgid "New Freedom of Information requests"
 msgstr "Νέες αιτήσεις Δικαίωματος γνώσης διοικητικών εγγράφων"
-
-msgid "New censor rule"
-msgstr "Νέος κανόνας λογοκρισίας"
 
 msgid "New e-mail:"
 msgstr "Νέο e-mail:"
@@ -2068,6 +2087,9 @@ msgstr "Νέες ενημερώσεις για την αίτηση '{{request_ti
 
 msgid "Newest results first"
 msgstr "Νεότερα αποτελέσματα πρώτα"
+
+msgid "News story"
+msgstr ""
 
 msgid "Next"
 msgstr "Επόμενο"
@@ -2294,6 +2316,9 @@ msgstr ""
 msgid "Please enable \"cookies\" to carry on"
 msgstr ""
 
+msgid "Please enter a Source URL"
+msgstr ""
+
 msgid "Please enter a password"
 msgstr "Παρακαλούμε εισάγετε ένα password"
 
@@ -2364,6 +2389,9 @@ msgid "Please read the recent response and <strong>update the status</strong> so
 msgid_plural "Please read the recent responses and <strong>update the status</strong> so we know whether they contain useful information."
 msgstr[0] ""
 msgstr[1] ""
+
+msgid "Please select a type"
+msgstr ""
 
 msgid "Please select an authority"
 msgstr "Παρακαλούμε επιλέξτε μια υπηρεσία"
@@ -2892,6 +2920,9 @@ msgstr ""
 msgid "Sorry, we're currently unable to sign up new users, please try again later"
 msgstr ""
 
+msgid "Source URL is too long"
+msgstr ""
+
 msgid "Source URL:"
 msgstr ""
 
@@ -2918,6 +2949,9 @@ msgstr "Θέμα"
 
 msgid "Subject:"
 msgstr "Θέμα:"
+
+msgid "Submit"
+msgstr ""
 
 msgid "Submit Search"
 msgstr "Υποβολή Αναζήτησης"
@@ -3051,10 +3085,16 @@ msgstr ""
 msgid "The Freedom of Information Act <strong>does not apply</strong> to"
 msgstr ""
 
+msgid "The URL where you found the article."
+msgstr ""
+
 msgid "The URL where you found the email address. This field is optional, but it would help us a lot if you can provide a link to a specific page on the authority's website that gives this address, as it will make it much easier for us to check."
 msgstr ""
 
 msgid "The accounts have been left as they previously were."
+msgstr ""
+
+msgid "The article references all requests in this batch"
 msgstr ""
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
@@ -3173,6 +3213,9 @@ msgstr ""
 
 msgid "The {{site_name}} team."
 msgstr "Η διαχειριστική ομάδα του {{site_name}}."
+
+msgid "Then you can add citations"
+msgstr ""
 
 msgid "Then you can cancel the alert."
 msgstr "Τότε μπορείτε να ακυρώσετε την ειδοποίηση."
@@ -3468,6 +3511,9 @@ msgstr ""
 
 msgid "To"
 msgstr "Στο"
+
+msgid "To add a citation"
+msgstr ""
 
 msgid "To add a widget for <b>{{info_request_title}}</b>, copy and paste the following code to your web page:"
 msgstr ""
@@ -3867,6 +3913,9 @@ msgid "What information has been requested?"
 msgstr ""
 
 msgid "What next?"
+msgstr ""
+
+msgid "What type of article is it?"
 msgstr ""
 
 msgid "What's happened:"
