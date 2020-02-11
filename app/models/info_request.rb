@@ -125,7 +125,7 @@ class InfoRequest < ApplicationRecord
            :inverse_of => :info_request,
            :dependent => :destroy
   has_many :mail_server_logs,
-           -> { order('mail_server_log_done_id, "order"') },
+           -> { order(:mail_server_log_done_id, :order) },
            :inverse_of => :info_request,
            :dependent => :destroy
   has_one :embargo,

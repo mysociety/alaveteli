@@ -266,7 +266,8 @@ class PublicBody < ApplicationRecord
     # public bodies in it
     old = PublicBody::Version.
       where(:url_name => name).
-      pluck('DISTINCT public_body_id')
+      distinct.
+      pluck(:public_body_id)
 
     # Maybe return the first one, so we show something relevant,
     # rather than throwing an error?
