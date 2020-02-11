@@ -875,7 +875,7 @@ class PublicBody < ApplicationRecord
       if DatabaseCollation.supports?(underscore_locale)
         where(where_condition, where_parameters).
           joins(:translations).
-          order(%Q(public_body_translations.name COLLATE "#{underscore_locale}"))
+          order(Arel.sql(%Q(public_body_translations.name COLLATE "#{underscore_locale}")))
       else
         where(where_condition, where_parameters).
           joins(:translations).

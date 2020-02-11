@@ -26,7 +26,7 @@ class RequestGameController < ApplicationController
         where_old_unclassified.
           limit(3).
             is_searchable.
-              order('random()')
+              order(Arel.sql('random()'))
 
     if @missing == 0
       flash.now[:notice] = {
