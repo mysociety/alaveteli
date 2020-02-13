@@ -1231,51 +1231,51 @@ Lint/ShadowedException:
   Description: >-
                   Avoid rescuing a higher level exception
                   before a lower level exception.
-  Enabled: false
+  Enabled: true
 
 Lint/ShadowingOuterLocalVariable:
   Description: >-
                  Do not use the same name as outer local variable
                  for block arguments or block local variables.
-  Enabled: false
+  Enabled: true
 
 Lint/StringConversionInInterpolation:
   Description: 'Checks for Object#to_s usage in string interpolation.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-to-s'
-  Enabled: false
+  Enabled: true
 
 Lint/UnderscorePrefixedVariableName:
   Description: 'Do not use prefix `_` for a variable that is used.'
-  Enabled: false
+  Enabled: true
 
 Lint/UnneededCopDisableDirective:
   Description: >-
                  Checks for rubocop:disable comments that can be removed.
                  Note: this cop is not disabled when disabling all cops.
                  It must be explicitly disabled.
-  Enabled: false
+  Enabled: true
 
 Lint/UnusedBlockArgument:
   Description: 'Checks for unused block arguments.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#underscore-unused-vars'
-  Enabled: false
+  Enabled: true
 
 Lint/UnusedMethodArgument:
   Description: 'Checks for unused method arguments.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#underscore-unused-vars'
-  Enabled: false
+  Enabled: true
 
 Lint/UnreachableCode:
   Description: 'Unreachable code.'
-  Enabled: false
+  Enabled: true
 
 Lint/UselessAccessModifier:
   Description: 'Checks for useless access modifiers.'
-  Enabled: false
+  Enabled: true
 
 Lint/UnneededSplatExpansion:
   Description: 'Checks for useless array splats.'
-  Enabled: false
+  Enabled: true
 
 Lint/UselessAssignment:
   Description: 'Checks for useless assignment to a local variable.'
