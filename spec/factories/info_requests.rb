@@ -32,6 +32,7 @@
 #  use_notifications                     :boolean
 #  last_event_time                       :datetime
 #  incoming_messages_count               :integer          default(0)
+#  public_token                          :string
 #
 
 FactoryBot.define do
