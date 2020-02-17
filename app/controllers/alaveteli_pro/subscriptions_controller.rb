@@ -50,7 +50,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
       @subscription = @pro_account.subscriptions.build
       @subscription.update_attributes(
         plan: params.require(:plan_id),
-        tax_percent: BigDecimal(AlaveteliConfiguration.stripe_tax_rate).to_f,
+        tax_percent: tax_percent,
         payment_behavior: 'allow_incomplete'
       )
 
@@ -219,6 +219,10 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
         rescue Stripe::StripeError
         end
       end
+  end
+
+  def tax_percent
+    (BigDecimal(AlaveteliConfiguration.stripe_tax_rate).to_f * 100).to_f
   end
 
   def check_plan_exists
