@@ -67,7 +67,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
         it 'sets subscription plan amount and tax percentage' do
           expect(assigns(:subscription).plan.amount).to eq 1000
-          expect(assigns(:subscription).tax_percent).to eq 25
+          expect(assigns(:subscription).tax_percent).to eql 25.0
         end
 
         it 'creates a pro account for the user' do

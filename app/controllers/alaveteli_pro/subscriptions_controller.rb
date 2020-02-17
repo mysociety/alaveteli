@@ -222,7 +222,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
   end
 
   def tax_percent
-    (BigDecimal(AlaveteliConfiguration.stripe_tax_rate).to_f * 100).to_i
+    (BigDecimal(AlaveteliConfiguration.stripe_tax_rate).to_f * 100).to_f
   end
 
   def check_plan_exists
