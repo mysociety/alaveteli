@@ -32,6 +32,7 @@
 #  use_notifications                     :boolean
 #  last_event_time                       :datetime
 #  incoming_messages_count               :integer          default(0)
+#  public_token                          :string
 #
 
 require 'digest/sha1'
@@ -192,7 +193,7 @@ class InfoRequest < ApplicationRecord
   after_destroy :update_counter_cache
   after_update :reindex_some_request_events
   before_destroy :expire
-  before_validation :compute_idhash
+  before_validation :compute_idhash, :compute_public_token
   before_create :set_use_notifications
 
   # Return info request corresponding to an incoming email address, or nil if
@@ -469,8 +470,18 @@ class InfoRequest < ApplicationRecord
     info_request
   end
 
+  def self.digest_from_id(id)
+    Digest::SHA1.hexdigest(
+      id.to_s + AlaveteliConfiguration.incoming_email_secret
+    )
+  end
+
   def self.hash_from_id(id)
-    Digest::SHA1.hexdigest(id.to_s + AlaveteliConfiguration::incoming_email_secret)[0,8]
+    digest_from_id(id)[0...8]
+  end
+
+  def self.public_token_from_id(id)
+    digest_from_id(id)[8..-1]
   end
 
   # Used to find when event last changed
@@ -1348,6 +1359,10 @@ class InfoRequest < ApplicationRecord
 
   def compute_idhash
     self.idhash = InfoRequest.hash_from_id(id)
+  end
+
+  def compute_public_token
+    self.public_token = InfoRequest.public_token_from_id(id)
   end
 
   def foi_fragment_cache_directories

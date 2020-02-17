@@ -32,6 +32,7 @@
 #  use_notifications                     :boolean
 #  last_event_time                       :datetime
 #  incoming_messages_count               :integer          default(0)
+#  public_token                          :string
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
@@ -3308,6 +3309,11 @@ describe InfoRequest do
 
     it 'computes a hash' do
       expect { info_request.save! }.to change { info_request.idhash }.from(nil)
+    end
+
+    it 'computes a public token' do
+      expect { info_request.save! }.to change { info_request.public_token }.
+        from(nil)
     end
 
     it 'calls update_counter_cache' do
