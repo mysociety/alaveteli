@@ -19,6 +19,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # andreli <andre@lindhjem.net>, 2013
 # Hans-Petter Fjeld <atluxity@1kb.no>, 2014
 # Ben W <bwng@openmailbox.org>, 2016
@@ -42,8 +43,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-14 10:15+0000\n"
-"PO-Revision-Date: 2019-11-11 16:57+0000\n"
+"POT-Creation-Date: 2020-02-10 15:57+0000\n"
+"PO-Revision-Date: 2020-02-10 15:36+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/mysociety/alaveteli/language/nb/)\n"
 "Language: nb\n"
@@ -348,6 +349,9 @@ msgstr "Om deg:"
 msgid "About {{count}} FOI requests found"
 msgstr ""
 
+msgid "Academic paper"
+msgstr ""
+
 msgid "Account closed at user request"
 msgstr ""
 
@@ -407,6 +411,9 @@ msgstr "Luft, vann, jord, flora og fauna (inkludert hvordan disse påvirker\\n m
 
 msgid "All of the information requested has been received"
 msgstr "All forespurt informasjon er blitt mottatt"
+
+msgid "All responses will be published when the privacy period expires. We depend on you, the original requester, to evaluate them."
+msgstr ""
 
 msgid "All the options below can use <strong>status</strong> or <strong>latest_status</strong> before the colon. For example, <strong>status:not_held</strong> will match requests which have <em>ever</em> been marked as not held; <strong>latest_status:not_held</strong> will match only requests that are <em>currently</em> marked as not held."
 msgstr "Alle valgene under kan bruke <strong>status</strong> eller <strong>latest_status</strong> før kolon. For eksempel, <strong>status:not_held</strong> vil få treff i henvendelser som <em>nå eller tidligere</em> har vært merket som not held; <strong>latest_status:not_held</strong> vil kun treffe henvendelser som er <em>nå</em> er markert som not held."
@@ -535,6 +542,9 @@ msgid "ApplicationRecord|Charset"
 msgstr ""
 
 msgid "ApplicationRecord|Circumstance"
+msgstr ""
+
+msgid "ApplicationRecord|Citable type"
 msgstr ""
 
 msgid "ApplicationRecord|Closed at"
@@ -1073,6 +1083,9 @@ msgstr "Velg en grunn"
 
 msgid "Choose your profile photo"
 msgstr "Velg ditt profil-bilde"
+
+msgid "Citation successfully created."
+msgstr ""
 
 msgid "Clarification"
 msgstr "Klargjøring"
@@ -1835,6 +1848,9 @@ msgstr "Forbedr sikkerheten på din konto"
 msgid "In progress"
 msgstr ""
 
+msgid "In the News"
+msgstr ""
+
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr "Inkluder relevante lenker, som f.eks. din kampanjeside, blogg, Twitter-konto o.l. De vil vises som lenker her. \\n f.eks."
 
@@ -1930,6 +1946,9 @@ msgstr "Siste henvendelse du så på: {{request_url}}"
 
 msgid "Learn more &rarr;"
 msgstr "Lær mer &rarr;"
+
+msgid "Let us know"
+msgstr ""
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
 msgstr "Fortell oss hva du gjorde da denne meldingen dukket opp, samt type og versjon for din nettleser og ditt operativsystem."
@@ -2051,11 +2070,11 @@ msgstr "Bør ses på av en administrator"
 msgid "Needs status update"
 msgstr ""
 
+msgid "New Citation"
+msgstr ""
+
 msgid "New Freedom of Information requests"
 msgstr "Nye innsynshenvendelser"
-
-msgid "New censor rule"
-msgstr "Ny sensurregel"
 
 msgid "New e-mail:"
 msgstr "Ny e-postadresse:"
@@ -2086,6 +2105,9 @@ msgstr "Nye oppdateringer for henvendelsen '{{request_title}}'"
 
 msgid "Newest results first"
 msgstr "Nyeste resultater først"
+
+msgid "News story"
+msgstr ""
 
 msgid "Next"
 msgstr "Neste"
@@ -2312,6 +2334,9 @@ msgstr "Vennligst ikke last opp støtende bilder. Vi vil ta ned bilder\\nsom vi 
 msgid "Please enable \"cookies\" to carry on"
 msgstr "Vennligst tillat \"cookies\" i nettleseren for å komme videre"
 
+msgid "Please enter a Source URL"
+msgstr ""
+
 msgid "Please enter a password"
 msgstr "Skriv inn et passord"
 
@@ -2382,6 +2407,9 @@ msgid "Please read the recent response and <strong>update the status</strong> so
 msgid_plural "Please read the recent responses and <strong>update the status</strong> so we know whether they contain useful information."
 msgstr[0] ""
 msgstr[1] ""
+
+msgid "Please select a type"
+msgstr ""
 
 msgid "Please select an authority"
 msgstr "Vennligst velg en myndighet"
@@ -2910,6 +2938,9 @@ msgstr ""
 msgid "Sorry, we're currently unable to sign up new users, please try again later"
 msgstr "Beklager, vi kan for øyeblikket ikke opprette nye brukere, vennligst prøv igjen senere"
 
+msgid "Source URL is too long"
+msgstr ""
+
 msgid "Source URL:"
 msgstr "Kilde-URL:"
 
@@ -2936,6 +2967,9 @@ msgstr "Tema"
 
 msgid "Subject:"
 msgstr "Tema:"
+
+msgid "Submit"
+msgstr ""
 
 msgid "Submit Search"
 msgstr "Send inn søk"
@@ -3069,11 +3103,17 @@ msgstr "Klagen er ferdigbehandlet og:"
 msgid "The Freedom of Information Act <strong>does not apply</strong> to"
 msgstr "Offentlighetslova <strong>er ikke gjeldende</strong> for"
 
+msgid "The URL where you found the article."
+msgstr ""
+
 msgid "The URL where you found the email address. This field is optional, but it would help us a lot if you can provide a link to a specific page on the authority's website that gives this address, as it will make it much easier for us to check."
 msgstr "URL-en der du fant e-postadressen.  Dette feltet er valgfritt, men det vil hjelpe oss veldig hvis du kan legge ved en lenke til en spesifikk side på nettstedet til myndigheten som oppgir denne adressen, da det vil gjøre det mye enklere for oss å sjekke den."
 
 msgid "The accounts have been left as they previously were."
 msgstr "Kontoene er etterlatt slik de tidligere var."
+
+msgid "The article references all requests in this batch"
+msgstr ""
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr ""
@@ -3193,6 +3233,9 @@ msgstr "Widget vil se slik ut:"
 
 msgid "The {{site_name}} team."
 msgstr "{{site_name}}-gjengen."
+
+msgid "Then you can add citations"
+msgstr ""
 
 msgid "Then you can cancel the alert."
 msgstr "Så kan du kanselere varslingen."
@@ -3488,6 +3531,9 @@ msgstr "Dette vil vises i din profil på {{site_name}}, for å gjøre det enkler
 
 msgid "To"
 msgstr "Til"
+
+msgid "To add a citation"
+msgstr ""
 
 msgid "To add a widget for <b>{{info_request_title}}</b>, copy and paste the following code to your web page:"
 msgstr "For å legge til en widget for <b>{{info_request_title}}</b>, kopier og lim inn følgende kode på din webside:"
@@ -3891,6 +3937,9 @@ msgstr "Hva slags informasjon er forespurt?"
 
 msgid "What next?"
 msgstr "Hva er det neste?"
+
+msgid "What type of article is it?"
+msgstr ""
 
 msgid "What's happened:"
 msgstr ""

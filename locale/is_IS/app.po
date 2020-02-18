@@ -19,6 +19,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Finnur Magnusson <gommit@gmail.com>, 2015
 # Liz Conlan <liz@mysociety.org>, 2018
 # Ölvir Gíslason <olvirg@gmail.com>, 2016
@@ -27,8 +28,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-14 10:15+0000\n"
-"PO-Revision-Date: 2019-11-11 16:57+0000\n"
+"POT-Creation-Date: 2020-02-10 15:57+0000\n"
+"PO-Revision-Date: 2020-02-10 15:36+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/mysociety/alaveteli/language/is_IS/)\n"
 "Language: is_IS\n"
@@ -333,6 +334,9 @@ msgstr "Um þig:"
 msgid "About {{count}} FOI requests found"
 msgstr "{{count}} upplýsingabeiðnir fundust"
 
+msgid "Academic paper"
+msgstr ""
+
 msgid "Account closed at user request"
 msgstr ""
 
@@ -392,6 +396,9 @@ msgstr "Loft, vatn, jarðvegur, land, jurta- og dýralíf (og hvernig þetta hef
 
 msgid "All of the information requested has been received"
 msgstr "Öll umbeðin gögn hafa borist"
+
+msgid "All responses will be published when the privacy period expires. We depend on you, the original requester, to evaluate them."
+msgstr ""
 
 msgid "All the options below can use <strong>status</strong> or <strong>latest_status</strong> before the colon. For example, <strong>status:not_held</strong> will match requests which have <em>ever</em> been marked as not held; <strong>latest_status:not_held</strong> will match only requests that are <em>currently</em> marked as not held."
 msgstr "Með öllum neðangreindum valkostum má nota <strong>status</strong> eða <strong>latest_status</strong> á undan tvípunktinum. Til dæmis mun <strong>status:not_held</strong> stemma við beiðnir sem hafa <em>einhvern tíma</em> verið merktar sem ekki tiltækar; <strong>latest_status:not_held</strong> stemmir bara við niðurstöður sem eru <em>núna</em> merktar sem ekki tiltækar."
@@ -520,6 +527,9 @@ msgid "ApplicationRecord|Charset"
 msgstr ""
 
 msgid "ApplicationRecord|Circumstance"
+msgstr ""
+
+msgid "ApplicationRecord|Citable type"
 msgstr ""
 
 msgid "ApplicationRecord|Closed at"
@@ -1058,6 +1068,9 @@ msgstr "Veljið ástæðu"
 
 msgid "Choose your profile photo"
 msgstr "Veljið mynd "
+
+msgid "Citation successfully created."
+msgstr ""
 
 msgid "Clarification"
 msgstr "Útskýring"
@@ -1820,6 +1833,9 @@ msgstr "Gerðu reikninginn þinn öruggari"
 msgid "In progress"
 msgstr "Í vinnslu"
 
+msgid "In the News"
+msgstr ""
+
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr "Látið fylgja með hlekki á vefsíður, blogg eða Twitter sem tengjast beiðninni. Þeir verða tengdir svo fólk geti fræðst um beiðnina. \\ Til dæmis:"
 
@@ -1915,6 +1931,9 @@ msgstr "Síðasta beiðni sem var skoðuð: {{request_url}}"
 
 msgid "Learn more &rarr;"
 msgstr "Meiri upplýsingar &rarr;"
+
+msgid "Let us know"
+msgstr ""
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
 msgstr "Láttu okkur vita hvað þú varst að gera þegar skilaboðin birtust og hvaða vafra og stýrikerfi þú notar, tegund og útgáfu."
@@ -2036,11 +2055,11 @@ msgstr "Krefst athugunar stjórnenda"
 msgid "Needs status update"
 msgstr ""
 
+msgid "New Citation"
+msgstr ""
+
 msgid "New Freedom of Information requests"
 msgstr "Nýjar upplýsingabeiðnir"
-
-msgid "New censor rule"
-msgstr "Ný ritskoðunarregla"
 
 msgid "New e-mail:"
 msgstr "Nýtt netfang:"
@@ -2071,6 +2090,9 @@ msgstr "Nýjar uppfærslur á beiðninni '{{request_title}}'"
 
 msgid "Newest results first"
 msgstr "Nýjustu niðurstöður fyrst"
+
+msgid "News story"
+msgstr ""
 
 msgid "Next"
 msgstr "Áfram"
@@ -2297,6 +2319,9 @@ msgstr "Ekki senda inn ógeðslegar myndir. Við fjarlægjum myndir sem við tel
 msgid "Please enable \"cookies\" to carry on"
 msgstr "Kveiktu á „kökum“ til að halda áfram"
 
+msgid "Please enter a Source URL"
+msgstr ""
+
 msgid "Please enter a password"
 msgstr "Vinsamlegast sláðu inn lykilorð"
 
@@ -2367,6 +2392,9 @@ msgid "Please read the recent response and <strong>update the status</strong> so
 msgid_plural "Please read the recent responses and <strong>update the status</strong> so we know whether they contain useful information."
 msgstr[0] "Vinsamlegast lestu nýjasta svarið og <strong>uppfærðu stöðu beiðnarinnar</strong> svo við vitum hvort það inniheldur gagnlegar upplýsingar."
 msgstr[1] "Vinsamlegast lestu nýjustu svörin og <strong>uppfærðu stöðu beiðnarinnar</strong> svo við vitum hvort þau innihaldi gagnlegar upplýsingar."
+
+msgid "Please select a type"
+msgstr ""
 
 msgid "Please select an authority"
 msgstr "Veldu stjórnvald"
@@ -2895,6 +2923,9 @@ msgstr "Því miður getum við ekki send beiðnina þína núna. Reyndu aftur s
 msgid "Sorry, we're currently unable to sign up new users, please try again later"
 msgstr "Því miður getum við ekki nýskráð notendur sem stendur. Reyndu aftur síðar."
 
+msgid "Source URL is too long"
+msgstr ""
+
 msgid "Source URL:"
 msgstr "Upprunaleg slóð:"
 
@@ -2921,6 +2952,9 @@ msgstr "Innihald"
 
 msgid "Subject:"
 msgstr "Innihald:"
+
+msgid "Submit"
+msgstr ""
 
 msgid "Submit Search"
 msgstr "Leita"
@@ -3054,11 +3088,17 @@ msgstr "<strong>Yfirferðinni er lokið</strong> og í heildina:"
 msgid "The Freedom of Information Act <strong>does not apply</strong> to"
 msgstr "Upplýsingalög <strong>eiga ekki við</strong> um"
 
+msgid "The URL where you found the article."
+msgstr ""
+
 msgid "The URL where you found the email address. This field is optional, but it would help us a lot if you can provide a link to a specific page on the authority's website that gives this address, as it will make it much easier for us to check."
 msgstr "Slóðin þar sem þú fannst netfangið. Ekki er nauðsynlegt að fylla þetta út, en það myndi hjálpa okkur mikið að fá tengil á síðu hjá stjórnvaldinu þar sem þetta netfang kemur fram, þar sem það auðveldar okkur til muna að kanna málið."
 
 msgid "The accounts have been left as they previously were."
 msgstr "Reikningarnir eru enn eins og þeir voru áður."
+
+msgid "The article references all requests in this batch"
+msgstr ""
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr ""
@@ -3176,6 +3216,9 @@ msgstr "Græjan mun líta svona út:"
 
 msgid "The {{site_name}} team."
 msgstr "Fólkið hjá {{site_name}}."
+
+msgid "Then you can add citations"
+msgstr ""
 
 msgid "Then you can cancel the alert."
 msgstr "Þá getur þú hætt við viðvörunina."
@@ -3471,6 +3514,9 @@ msgstr "Þetta mun birtast á þinni síðu hjá {{site_name}} til að auðvelda
 
 msgid "To"
 msgstr "Til"
+
+msgid "To add a citation"
+msgstr ""
 
 msgid "To add a widget for <b>{{info_request_title}}</b>, copy and paste the following code to your web page:"
 msgstr "Afritaðu og límdu eftirfarandi kóða á vefsíðuna þína til að bæta við græju fyrir <b>{{info_request_title}}</b>:"
@@ -3871,6 +3917,9 @@ msgstr "Hvað hefur verið beðið um?"
 
 msgid "What next?"
 msgstr "Hvað næst?"
+
+msgid "What type of article is it?"
+msgstr ""
 
 msgid "What's happened:"
 msgstr "Það sem hefur gerst:"

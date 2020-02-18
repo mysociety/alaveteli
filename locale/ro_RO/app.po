@@ -19,6 +19,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Andra Ciuraru <andra.ciuraru@gmail.com>, 2016
 # Andrei Cristian Petcu <andreip@posteo.net>, 2012-2013
 # Andrei Cristian Petcu <andreip@posteo.net>, 2012-2013
@@ -48,8 +49,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-14 10:15+0000\n"
-"PO-Revision-Date: 2019-11-11 16:57+0000\n"
+"POT-Creation-Date: 2020-02-10 15:57+0000\n"
+"PO-Revision-Date: 2020-02-10 15:36+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/mysociety/alaveteli/language/ro_RO/)\n"
 "Language: ro_RO\n"
@@ -355,6 +356,9 @@ msgstr "Despre tine:"
 msgid "About {{count}} FOI requests found"
 msgstr ""
 
+msgid "Academic paper"
+msgstr ""
+
 msgid "Account closed at user request"
 msgstr ""
 
@@ -414,6 +418,9 @@ msgstr "Aer, apă, sol, pământ, floră și faună (inclusiv modul în care ace
 
 msgid "All of the information requested has been received"
 msgstr "Toate informaţiile cerute au fost primite."
+
+msgid "All responses will be published when the privacy period expires. We depend on you, the original requester, to evaluate them."
+msgstr ""
 
 msgid "All the options below can use <strong>status</strong> or <strong>latest_status</strong> before the colon. For example, <strong>status:not_held</strong> will match requests which have <em>ever</em> been marked as not held; <strong>latest_status:not_held</strong> will match only requests that are <em>currently</em> marked as not held."
 msgstr "Toate opţiunile de mai jos pot  utiliza <strong>statut</strong> sau <strong>ultimul_statut</strong> înainte de două puncte :. De exemplu, <strong>statut: ne_retinut</strong> va întruni toate cererile care  <em>ever</em> au fost marcate ca nereţinute; <strong>ultimul_statut:ne_reţinut</strong>va întruni numai cererile care  sunt  <em>în acest moment</em> marcate ca nereţinute."
@@ -542,6 +549,9 @@ msgid "ApplicationRecord|Charset"
 msgstr ""
 
 msgid "ApplicationRecord|Circumstance"
+msgstr ""
+
+msgid "ApplicationRecord|Citable type"
 msgstr ""
 
 msgid "ApplicationRecord|Closed at"
@@ -1080,6 +1090,9 @@ msgstr "Alege un motiv"
 
 msgid "Choose your profile photo"
 msgstr "Alegeti poza de profil"
+
+msgid "Citation successfully created."
+msgstr ""
 
 msgid "Clarification"
 msgstr "Clarificare"
@@ -1848,6 +1861,9 @@ msgstr "Îmbunătățește siguranța contului tău"
 msgid "In progress"
 msgstr ""
 
+msgid "In the News"
+msgstr ""
+
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr "Include link-uri relevante, precum cele către pagina campaniei, blogul tău sau către un cont de Twitter. Acestea vor fi accesibile direct din site. \\n e.g."
 
@@ -1943,6 +1959,9 @@ msgstr "Ultima cerere vizionată {{request_url}}"
 
 msgid "Learn more &rarr;"
 msgstr "Învață mai multe &rarr;"
+
+msgid "Let us know"
+msgstr ""
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
 msgstr "Spune-ne ce făceai atunci când ți-a apărut\\nacest mesaj și ce tip și versiune de browser și sistem de operare folosești."
@@ -2064,11 +2083,11 @@ msgstr "E nevoie de atenția unui administrator"
 msgid "Needs status update"
 msgstr ""
 
+msgid "New Citation"
+msgstr ""
+
 msgid "New Freedom of Information requests"
 msgstr "O nouă solicitare de acces la informații"
-
-msgid "New censor rule"
-msgstr "Nouă regulă de cenzurare"
 
 msgid "New e-mail:"
 msgstr "E-mail nou:"
@@ -2099,6 +2118,9 @@ msgstr "Actualizări noi la solicitarea '{{request_title}}'"
 
 msgid "Newest results first"
 msgstr "Cele mai noi rezultate prima dată"
+
+msgid "News story"
+msgstr ""
 
 msgid "Next"
 msgstr "Următorul"
@@ -2325,6 +2347,9 @@ msgstr "Te rugăm să nu încarci pe site poze ofensatoare. Vom șterge imaginil
 msgid "Please enable \"cookies\" to carry on"
 msgstr "Vă rugăm activaţi \"cookies\" pentru a funcţiona."
 
+msgid "Please enter a Source URL"
+msgstr ""
+
 msgid "Please enter a password"
 msgstr "Vă rugăm introduceţi parola"
 
@@ -2396,6 +2421,9 @@ msgid_plural "Please read the recent responses and <strong>update the status</st
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+
+msgid "Please select a type"
+msgstr ""
 
 msgid "Please select an authority"
 msgstr ""
@@ -2925,6 +2953,9 @@ msgstr ""
 msgid "Sorry, we're currently unable to sign up new users, please try again later"
 msgstr ""
 
+msgid "Source URL is too long"
+msgstr ""
+
 msgid "Source URL:"
 msgstr "Sursa adresei URL:"
 
@@ -2951,6 +2982,9 @@ msgstr "Subiect"
 
 msgid "Subject:"
 msgstr "Subiect:"
+
+msgid "Submit"
+msgstr ""
 
 msgid "Submit Search"
 msgstr "Trimite căutarea"
@@ -3084,11 +3118,17 @@ msgstr "<strong>Revizia s-a finalizat</strong> şi per ansamblu:"
 msgid "The Freedom of Information Act <strong>does not apply</strong> to"
 msgstr "Legea liberului acces la informaţii <strong>nu se aplică</strong>  la"
 
+msgid "The URL where you found the article."
+msgstr ""
+
 msgid "The URL where you found the email address. This field is optional, but it would help us a lot if you can provide a link to a specific page on the authority's website that gives this address, as it will make it much easier for us to check."
 msgstr "Adresa URL unde ați găsit adresa email. Acest câmp este opțional dar ne-ar ajuta enorm dacă ne-ați putea oferi link-ul specific spre pagina instituției publice unde este găsită adresa. Asta ne-ar ajuta foarte mult să putem verifica."
 
 msgid "The accounts have been left as they previously were."
 msgstr "Contuile au rămas aşa cum erau înainte."
+
+msgid "The article references all requests in this batch"
+msgstr ""
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr ""
@@ -3206,6 +3246,9 @@ msgstr "Widget-ul va arăta așa:"
 
 msgid "The {{site_name}} team."
 msgstr "Echipa {{site_name}}."
+
+msgid "Then you can add citations"
+msgstr ""
 
 msgid "Then you can cancel the alert."
 msgstr "Apoi puteţi anula alerta."
@@ -3503,6 +3546,9 @@ msgstr " Aceasta o să apară pe profilul tău de pe situl {{site_name}} , pentr
 
 msgid "To"
 msgstr "Către:"
+
+msgid "To add a citation"
+msgstr ""
 
 msgid "To add a widget for <b>{{info_request_title}}</b>, copy and paste the following code to your web page:"
 msgstr "Pentru a adăuga un widget pentru <b> {{info_request_title}}</b>, copiați următorul cod în pagina dumneavoastră:"
@@ -3905,6 +3951,9 @@ msgstr "Ce informaţii au fost solicitate?"
 
 msgid "What next?"
 msgstr "Care sunt următorii pași?"
+
+msgid "What type of article is it?"
+msgstr ""
 
 msgid "What's happened:"
 msgstr ""

@@ -19,6 +19,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # arianit <ardob11@gmail.com>, 2012
 # arianit <ardob11@gmail.com>, 2012
 # bresta <bresta@gmail.com>, 2011
@@ -37,8 +38,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-14 10:15+0000\n"
-"PO-Revision-Date: 2019-11-11 16:57+0000\n"
+"POT-Creation-Date: 2020-02-10 15:57+0000\n"
+"PO-Revision-Date: 2020-02-10 15:36+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Albanian (http://www.transifex.com/mysociety/alaveteli/language/sq/)\n"
 "Language: sq\n"
@@ -362,6 +363,9 @@ msgstr "Rreth jush:"
 msgid "About {{count}} FOI requests found"
 msgstr ""
 
+msgid "Academic paper"
+msgstr ""
+
 msgid "Account closed at user request"
 msgstr ""
 
@@ -423,6 +427,9 @@ msgstr "Ajeri, uji, dheu, toka, flora dhe fauna(duke perfshire si ndikojne keto 
 
 msgid "All of the information requested has been received"
 msgstr "Të gjitha informacionin e kërkuara janë marrë"
+
+msgid "All responses will be published when the privacy period expires. We depend on you, the original requester, to evaluate them."
+msgstr ""
 
 msgid "All the options below can use <strong>status</strong> or <strong>latest_status</strong> before the colon. For example, <strong>status:not_held</strong> will match requests which have <em>ever</em> been marked as not held; <strong>latest_status:not_held</strong> will match only requests that are <em>currently</em> marked as not held."
 msgstr "Te gjitha opsionet si me poshte mund te perdorin <strong>status</strong> ose <strong>latest_status</strong> para kolones. Per shembull, <strong>status:not_held</strong> do te mbledhe kerkesat te cilat kane <em>ever</em> te markuara si te pa mbajtura; <strong>latest_status:not_held</strong> do mbledhe vetem ato kerkesa te cilat <em>currently</em> jane markuar si te pambajtura."
@@ -553,6 +560,9 @@ msgid "ApplicationRecord|Charset"
 msgstr ""
 
 msgid "ApplicationRecord|Circumstance"
+msgstr ""
+
+msgid "ApplicationRecord|Citable type"
 msgstr ""
 
 msgid "ApplicationRecord|Closed at"
@@ -1093,6 +1103,9 @@ msgstr "Zgjidhni nje arsye"
 
 msgid "Choose your profile photo"
 msgstr "Zgjedh fotografinë për profilin tënd"
+
+msgid "Citation successfully created."
+msgstr ""
 
 msgid "Clarification"
 msgstr "Sqarim"
@@ -1868,6 +1881,9 @@ msgstr "Permiresoni sigurine e llogarise suaj"
 msgid "In progress"
 msgstr ""
 
+msgid "In the News"
+msgstr ""
+
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr "Perfshini lidhje te rendesishme, te tilla si faqe fushatash, blogun apo llogarine tuaj te twitter-it. Keto lidhje do te jene te klikueshme p.sh."
 
@@ -1963,6 +1979,9 @@ msgstr "Kerkesa e fundit e pare: {{request_url}}"
 
 msgid "Learn more &rarr;"
 msgstr "Meso me teper &rarr;"
+
+msgid "Let us know"
+msgstr ""
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
 msgstr "Na njofto se çfarë keni qenë duke bërë kur ky mesazh u shfaq, si dhe emrin e brauserit (browser) dhe versionin e sistemit tuaj operativ."
@@ -2084,11 +2103,11 @@ msgstr "Kerkon vemendjen e administratorit"
 msgid "Needs status update"
 msgstr ""
 
+msgid "New Citation"
+msgstr ""
+
 msgid "New Freedom of Information requests"
 msgstr "Kërkesat e reja për te Drejten e Informimit"
-
-msgid "New censor rule"
-msgstr "Rregull i ri censure"
 
 msgid "New e-mail:"
 msgstr "Poste elektronike e re:"
@@ -2119,6 +2138,9 @@ msgstr "Aktualizime të reja për kërkesën '{{request_title}}'"
 
 msgid "Newest results first"
 msgstr "Rezultatet më të reja të parat"
+
+msgid "News story"
+msgstr ""
 
 msgid "Next"
 msgstr "Me pas"
@@ -2348,6 +2370,9 @@ msgstr "Të lutem mos ngarko fotografi ofenduese. Ne do t'i fshime ato imazhet q
 msgid "Please enable \"cookies\" to carry on"
 msgstr "Të lutem aktivizo \"cookies\" për të vazhduar"
 
+msgid "Please enter a Source URL"
+msgstr ""
+
 msgid "Please enter a password"
 msgstr "Të lutem shkruaj fjalëkalimin"
 
@@ -2420,6 +2445,9 @@ msgid "Please read the recent response and <strong>update the status</strong> so
 msgid_plural "Please read the recent responses and <strong>update the status</strong> so we know whether they contain useful information."
 msgstr[0] ""
 msgstr[1] ""
+
+msgid "Please select a type"
+msgstr ""
 
 msgid "Please select an authority"
 msgstr ""
@@ -2955,6 +2983,9 @@ msgstr ""
 msgid "Sorry, we're currently unable to sign up new users, please try again later"
 msgstr ""
 
+msgid "Source URL is too long"
+msgstr ""
+
 msgid "Source URL:"
 msgstr "Burimi URL"
 
@@ -2981,6 +3012,9 @@ msgstr "Lënda"
 
 msgid "Subject:"
 msgstr "Lënda:"
+
+msgid "Submit"
+msgstr ""
 
 msgid "Submit Search"
 msgstr "Dergo Kerkimin"
@@ -3118,11 +3152,17 @@ msgstr "<strong>Rishqyrtimi ka përfunduar</strong> dhe përfundimi është:"
 msgid "The Freedom of Information Act <strong>does not apply</strong> to"
 msgstr "Ligji per te Drejten e Informimit <strong>nuk aplikohet </strong> per "
 
+msgid "The URL where you found the article."
+msgstr ""
+
 msgid "The URL where you found the email address. This field is optional, but it would help us a lot if you can provide a link to a specific page on the authority's website that gives this address, as it will make it much easier for us to check."
 msgstr "URL ku gjetet adresen e postes elektronike. Kjo fushe eshte opsionale, por do na ndihmonte shume nese mund te na dergoni lidhjen te nje faqe specifike qe jep kete adrese, tek faqa elektronike e institucionit, sepse keshtu do e kemi me te lehte per ta kontrolluar."
 
 msgid "The accounts have been left as they previously were."
 msgstr "Llogaritë janë lënë siq kanë qenë më përpara."
+
+msgid "The article references all requests in this batch"
+msgstr ""
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr ""
@@ -3244,6 +3284,9 @@ msgstr "Widget do te shfaqen keshtu:"
 
 msgid "The {{site_name}} team."
 msgstr " Skuadra e {{site_name}}  "
+
+msgid "Then you can add citations"
+msgstr ""
 
 msgid "Then you can cancel the alert."
 msgstr "Me pas mund të anulloni njoftimin urgjent."
@@ -3544,6 +3587,9 @@ msgstr "Kjo do të shfaqet në profilin tuaj në {{site_name}}, për ta bërë m
 
 msgid "To"
 msgstr "Per"
+
+msgid "To add a citation"
+msgstr ""
 
 msgid "To add a widget for <b>{{info_request_title}}</b>, copy and paste the following code to your web page:"
 msgstr "Per te shtuar nje widget per <b>{{info_request_title}}</b>, kopjo dhe ngjit kodin vijues tek faqa juaj e internetit:"
@@ -3952,6 +3998,9 @@ msgstr "Çfarë informacionesh janë kërkuar?"
 
 msgid "What next?"
 msgstr "Çfarë vjen me pas"
+
+msgid "What type of article is it?"
+msgstr ""
 
 msgid "What's happened:"
 msgstr ""

@@ -19,6 +19,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Jiří Vírava <appukonrad@gmail.com>, 2012
 # Hana Hunt <hana@hana-hunt.cz>, 2016-2018
 # Hana Huntova <>, 2012-2015
@@ -42,8 +43,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-14 10:15+0000\n"
-"PO-Revision-Date: 2019-11-11 16:57+0000\n"
+"POT-Creation-Date: 2020-02-10 15:57+0000\n"
+"PO-Revision-Date: 2020-02-10 15:36+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Czech (http://www.transifex.com/mysociety/alaveteli/language/cs/)\n"
 "Language: cs\n"
@@ -372,6 +373,9 @@ msgstr "O vás:"
 msgid "About {{count}} FOI requests found"
 msgstr "Bylo nalezeno přibližně {{count}} dotazů"
 
+msgid "Academic paper"
+msgstr ""
+
 msgid "Account closed at user request"
 msgstr "Účet uzavřen podle požadavku uživatele"
 
@@ -435,6 +439,9 @@ msgstr ""
 
 msgid "All of the information requested has been received"
 msgstr "Všechny požadované informace byly přijaty"
+
+msgid "All responses will be published when the privacy period expires. We depend on you, the original requester, to evaluate them."
+msgstr ""
 
 msgid "All the options below can use <strong>status</strong> or <strong>latest_status</strong> before the colon. For example, <strong>status:not_held</strong> will match requests which have <em>ever</em> been marked as not held; <strong>latest_status:not_held</strong> will match only requests that are <em>currently</em> marked as not held."
 msgstr "Všechny níže uvedené možnosti mohou mít <strong>status</strong> nebo <strong>last_status</strong> před dvojtečkou. Například, <strong>status:not_held</strong> vyhledá dotazy, které byly <em>někdy</em> označeny štítkem \"není k dispozici\"; <strong>latest_status:not_held</strong> vyhledá jen ty dotazy, které jsou <em>v současnosti</em> označeny štítkem není k dispozici\"."
@@ -565,6 +572,9 @@ msgid "ApplicationRecord|Charset"
 msgstr ""
 
 msgid "ApplicationRecord|Circumstance"
+msgstr ""
+
+msgid "ApplicationRecord|Citable type"
 msgstr ""
 
 msgid "ApplicationRecord|Closed at"
@@ -1103,6 +1113,9 @@ msgstr "Vyberte důvod"
 
 msgid "Choose your profile photo"
 msgstr "Vyberte své profilové foto:"
+
+msgid "Citation successfully created."
+msgstr ""
 
 msgid "Clarification"
 msgstr "Vysvětlení"
@@ -1896,6 +1909,9 @@ msgstr "Vylepšete bezpečnost svého účtu"
 msgid "In progress"
 msgstr "Pracuje se na tom"
 
+msgid "In the News"
+msgstr ""
+
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr "Vložte i konkrétní odkazy vztahující se k dotazu, například k vaší kampani, blogu, nebo k účtu Twitter. Bude na ně možné kliknout, např. "
 
@@ -1994,6 +2010,9 @@ msgstr "Naposled prohlížený dotaz: {{request_url}}"
 
 msgid "Learn more &rarr;"
 msgstr "Zjistěte více &rarr;"
+
+msgid "Let us know"
+msgstr ""
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
 msgstr ""
@@ -2117,11 +2136,11 @@ msgstr "Vyžaduje pozornost administrátora"
 msgid "Needs status update"
 msgstr "Je potřeba aktualizovat status"
 
+msgid "New Citation"
+msgstr ""
+
 msgid "New Freedom of Information requests"
 msgstr "Nové dotazy "
-
-msgid "New censor rule"
-msgstr "Nové pravidlo "
 
 msgid "New e-mail:"
 msgstr "Nový e-mail:"
@@ -2152,6 +2171,9 @@ msgstr "Nové aktualizace u dotazu '{{request_title}}'"
 
 msgid "Newest results first"
 msgstr "Nejnovější výsledky jako první"
+
+msgid "News story"
+msgstr ""
 
 msgid "Next"
 msgstr "Další"
@@ -2383,6 +2405,9 @@ msgstr "Nevkládejte urážlivé obrázky. Ty, které budeme považovat za nevho
 msgid "Please enable \"cookies\" to carry on"
 msgstr "Povolte \"cookies\" abyste mohli pokračovat"
 
+msgid "Please enter a Source URL"
+msgstr ""
+
 msgid "Please enter a password"
 msgstr "Vložte heslo. "
 
@@ -2455,6 +2480,9 @@ msgstr[0] "Prosím přečtěte si <strong> výše zobrazenou odpověď</strong> 
 msgstr[1] "Prosím přečtěte si <strong> výše zobrazené odpovědi</strong> ať se dozvíme, zda tato korespondence obsahuje zajímavé informace. "
 msgstr[2] "Prosím přečtěte si nedávné odpovědi a <strong> aktualizujte jejich stav</strong> ať se dozvíme, zda tato korespondence obsahuje zajímavé informace. "
 msgstr[3] "Prosím přečtěte si nedávné odpovědi a <strong> aktualizujte jejich stav</strong> ať se dozvíme, zda tato korespondence obsahuje zajímavé informace. "
+
+msgid "Please select a type"
+msgstr ""
 
 msgid "Please select an authority"
 msgstr "Vyberte instituci"
@@ -2995,6 +3023,9 @@ msgstr "Omlouváme se, teď nelze poslat vaši žádost. Prosím zkuste to pozd�
 msgid "Sorry, we're currently unable to sign up new users, please try again later"
 msgstr "Omlouváme se, teď nemůžeme přidávat nové uživatele, prosím zkuste to později"
 
+msgid "Source URL is too long"
+msgstr ""
+
 msgid "Source URL:"
 msgstr "Zdroj URL:"
 
@@ -3021,6 +3052,9 @@ msgstr "Předmět"
 
 msgid "Subject:"
 msgstr "Předmět:"
+
+msgid "Submit"
+msgstr ""
 
 msgid "Submit Search"
 msgstr "Hledat"
@@ -3164,11 +3198,17 @@ msgstr "<strong>Kontrola byla provedena</strong> a celkem:"
 msgid "The Freedom of Information Act <strong>does not apply</strong> to"
 msgstr "Zákon 106/1999 Sb. o svobodném přístupu informací <strong>se nedá aplikovat</strong> na"
 
+msgid "The URL where you found the article."
+msgstr ""
+
 msgid "The URL where you found the email address. This field is optional, but it would help us a lot if you can provide a link to a specific page on the authority's website that gives this address, as it will make it much easier for us to check."
 msgstr "Odkaz (URL), kde jste novou e-mailovou adresu našli. Toto pole je nepovinné, ale pokud nám dáte konkrétní odkaz na internetové stránky dané instituce, kde se příslušná adresa zobrazuje, bude ověřování pro nás mnohem jednodušší. "
 
 msgid "The accounts have been left as they previously were."
 msgstr "Ůčty zůstaly v původním stavu. "
+
+msgid "The article references all requests in this batch"
+msgstr ""
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr "Instituce má <strong>nemá</strong> informaci <small>(možná informují, kdo tuto informaci má)</small>"
@@ -3293,6 +3333,9 @@ msgstr "Widget bude vypadat takto:"
 
 msgid "The {{site_name}} team."
 msgstr "Tým Informace pro všechny"
+
+msgid "Then you can add citations"
+msgstr ""
 
 msgid "Then you can cancel the alert."
 msgstr "Pak můžete upozornění zrušit."
@@ -3600,6 +3643,9 @@ msgstr "Toto se objeví na vašem profilu na stránkách {{site_name}}, abyste m
 
 msgid "To"
 msgstr "Pro"
+
+msgid "To add a citation"
+msgstr ""
 
 msgid "To add a widget for <b>{{info_request_title}}</b>, copy and paste the following code to your web page:"
 msgstr "Widget pro <b>{{info_request_title}}</b>, přidáte na svou internetovou stránku zkopírováním následujícího kódu. "
@@ -4018,6 +4064,9 @@ msgstr "Jaká informace byla požadována?"
 
 msgid "What next?"
 msgstr "Co bude dál?"
+
+msgid "What type of article is it?"
+msgstr ""
 
 msgid "What's happened:"
 msgstr "Co se stalo:"

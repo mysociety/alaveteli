@@ -19,6 +19,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Bojan Opacak <bojan@rationalinternational.net>, 2013
 # Bojan Opacak <bojan@rationalinternational.net>, 2013
 # Igor Dobrača <id.public@rovinj.net>, 2015
@@ -44,9 +45,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-14 10:15+0000\n"
-"PO-Revision-Date: 2019-11-16 15:49+0000\n"
-"Last-Translator: Miroslav Schlossberg CfC\n"
+"POT-Creation-Date: 2020-02-10 15:57+0000\n"
+"PO-Revision-Date: 2020-02-10 15:36+0000\n"
+"Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Croatian (http://www.transifex.com/mysociety/alaveteli/language/hr/)\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
@@ -366,6 +367,9 @@ msgstr "O Vama:"
 msgid "About {{count}} FOI requests found"
 msgstr "Pronađeno oko {{count}} zahtjeva za pristup informacijama"
 
+msgid "Academic paper"
+msgstr ""
+
 msgid "Account closed at user request"
 msgstr "Račun zatvoren na zahtjev korisnika"
 
@@ -425,6 +429,9 @@ msgstr "Zrak, voda, tlo, kopno, flora i fauna (uključujući kako utječu\\n na 
 
 msgid "All of the information requested has been received"
 msgstr "Sve su tražene informacije primljene"
+
+msgid "All responses will be published when the privacy period expires. We depend on you, the original requester, to evaluate them."
+msgstr ""
 
 msgid "All the options below can use <strong>status</strong> or <strong>latest_status</strong> before the colon. For example, <strong>status:not_held</strong> will match requests which have <em>ever</em> been marked as not held; <strong>latest_status:not_held</strong> will match only requests that are <em>currently</em> marked as not held."
 msgstr "Sve opcije ispod mogu koristiti <strong>status</strong> ili <strong>latest_status</strong> ispred stupca. Na primjer, <strong>status:not_held</strong> odgovarat će zahtjevima koji su <em>bilo kada</em> bili označeni kao \"not held\"; <strong>latest_status:not_held</strong> odgovarat će samo zahtjevima koji su <em>trenutno</em> označeni kao \"not held\"."
@@ -555,6 +562,9 @@ msgid "ApplicationRecord|Charset"
 msgstr ""
 
 msgid "ApplicationRecord|Circumstance"
+msgstr ""
+
+msgid "ApplicationRecord|Citable type"
 msgstr ""
 
 msgid "ApplicationRecord|Closed at"
@@ -1095,6 +1105,9 @@ msgstr "Odaberite razlog"
 
 msgid "Choose your profile photo"
 msgstr "Odaberite sliku na Vašem profilu"
+
+msgid "Citation successfully created."
+msgstr ""
 
 msgid "Clarification"
 msgstr "Objašnjenje"
@@ -1885,6 +1898,9 @@ msgstr "Poboljšajte sigurnost računa"
 msgid "In progress"
 msgstr "U tijeku"
 
+msgid "In the News"
+msgstr ""
+
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr " Uključite relevantne poveznice, poput stranice kampanje, Vašeg bloga ili Twitter korisničkog računa. Moći će se kliknuti na njih, npr."
 
@@ -1983,6 +1999,9 @@ msgstr "Zadnji pregledani zahtjev: {{request_url}}"
 
 msgid "Learn more &rarr;"
 msgstr "Saznajte više &rarr;"
+
+msgid "Let us know"
+msgstr ""
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
 msgstr "Obavijestite nas o tome što ste radili kada se ova poruka\\n pojavila i o tipu i verziji Vašeg pretraživača i operativnog sistema."
@@ -2104,11 +2123,11 @@ msgstr "Potrebna aktivnost administratora"
 msgid "Needs status update"
 msgstr "Potrebno ažuriranje statusa"
 
+msgid "New Citation"
+msgstr ""
+
 msgid "New Freedom of Information requests"
 msgstr "Novi zahtjevi za pristup informacijama"
-
-msgid "New censor rule"
-msgstr "Novo pravilo cenzure"
 
 msgid "New e-mail:"
 msgstr "Nova adresa e-pošte:"
@@ -2139,6 +2158,9 @@ msgstr "Nova ažuriranja za zahtjev '{{request_title}}'"
 
 msgid "Newest results first"
 msgstr "Najnoviji rezultati "
+
+msgid "News story"
+msgstr ""
 
 msgid "Next"
 msgstr "Sljedeći"
@@ -2372,6 +2394,9 @@ msgstr ""
 msgid "Please enable \"cookies\" to carry on"
 msgstr "Molimo omogućite \"kolačiće\" da biste nastavili"
 
+msgid "Please enter a Source URL"
+msgstr ""
+
 msgid "Please enter a password"
 msgstr "Molimo unesite lozinku"
 
@@ -2443,6 +2468,9 @@ msgid_plural "Please read the recent responses and <strong>update the status</st
 msgstr[0] "Molimo pročitajte nedavne odgovore i 1ažurirajte status1 kako bi znali sadrže li korisne informacije. "
 msgstr[1] "Molimo pročitajte nedavne odgovore i 1ažurirajte status1 kako bi znali sadrže li korisne informacije. "
 msgstr[2] "Molimo pročitajte nedavne odgovore i <strong>ažurirajte status</strong> kako bi znali sadrže li korisne informacije. "
+
+msgid "Please select a type"
+msgstr ""
 
 msgid "Please select an authority"
 msgstr "Molimo odaberite tijelo javne vlasti"
@@ -2979,6 +3007,9 @@ msgstr "Nažalost, trenutno ne možemo poslati Vaš zahtjev. Molimo pokušajte p
 msgid "Sorry, we're currently unable to sign up new users, please try again later"
 msgstr "Nažalost, trenutno ne možemo prijaviti nove korisnike. Molimo pokušajte ponovo kasnije"
 
+msgid "Source URL is too long"
+msgstr ""
+
 msgid "Source URL:"
 msgstr "URL izvora:"
 
@@ -3005,6 +3036,9 @@ msgstr "Predmet"
 
 msgid "Subject:"
 msgstr "Predmet:"
+
+msgid "Submit"
+msgstr ""
 
 msgid "Submit Search"
 msgstr "Pošaljite upit"
@@ -3143,11 +3177,17 @@ msgstr "Pregled <strong>je završen</strong> i sveukupno:"
 msgid "The Freedom of Information Act <strong>does not apply</strong> to"
 msgstr "Zakon o pravu na pristup informacijama <strong>se ne odnosi</strong> na"
 
+msgid "The URL where you found the article."
+msgstr ""
+
 msgid "The URL where you found the email address. This field is optional, but it would help us a lot if you can provide a link to a specific page on the authority's website that gives this address, as it will make it much easier for us to check."
 msgstr "URL na kojem ste pronašli adresu e-pošte. Polje nije obavezno, ali pomoglo bi nam ukoliko nam možete dati poveznicu na određenu stranicu tijela javne vlasti na kojoj je ova adresa, jer tako biste nam jako olakšali provjeru. "
 
 msgid "The accounts have been left as they previously were."
 msgstr "Korisnički računi nisu mijenjani"
+
+msgid "The article references all requests in this batch"
+msgstr ""
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr "Tijelo javne vlasti <strong>ne posjeduje</strong> informacije <small>(možda mogu reći tko posjeduje)"
@@ -3268,6 +3308,9 @@ msgstr "Widget će izgledati ovako:"
 
 msgid "The {{site_name}} team."
 msgstr "{{site_name}} tim."
+
+msgid "Then you can add citations"
+msgstr ""
 
 msgid "Then you can cancel the alert."
 msgstr "Tada možete poništiti automatsko upozorenje."
@@ -3579,6 +3622,9 @@ msgstr "Ovo će se pojaviti na Vašem {{site_name}} profilu, kako biste\\n olak�
 
 msgid "To"
 msgstr "Za"
+
+msgid "To add a citation"
+msgstr ""
 
 msgid "To add a widget for <b>{{info_request_title}}</b>, copy and paste the following code to your web page:"
 msgstr "Da biste dodali widget za <b>{{info_request_title}}</b>, kopirajte i zalijepite sljedeći kôd na svoju web stranicu:"
@@ -3991,6 +4037,9 @@ msgstr "Koje su informacije zatražene?"
 
 msgid "What next?"
 msgstr "Što dalje?"
+
+msgid "What type of article is it?"
+msgstr ""
 
 msgid "What's happened:"
 msgstr "Što se dogodilo:"

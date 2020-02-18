@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-10 14:58+0000\n"
+"POT-Creation-Date: 2020-02-10 16:08+0000\n"
 "PO-Revision-Date: 2017-01-20 17:40+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,6 +26,11 @@ msgstr " Say how you've <strong>used the information</strong>, with links if pos
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Crime statistics by ward level for Wales'"
 
+msgid "(includes {{count}} returning subscriber)"
+msgid_plural "(includes {{count}} returning subscribers)"
+msgstr[0] "(includes {{count}} returning subscriber)"
+msgstr[1] "(includes {{count}} returning subscribers)"
+
 msgid "(no title)"
 msgstr "(no title)"
 
@@ -35,17 +40,71 @@ msgstr "(with <b>{{discount_name}}</b> discount applied)"
 msgid "12 Months"
 msgstr "12 Months"
 
+msgid "29 April 2019"
+msgstr "29 April 2019"
+
+msgid "3 July 2017"
+msgstr "3 July 2017"
+
 msgid "3 Months"
 msgstr "3 Months"
 
 msgid "6 Months"
 msgstr "6 Months"
 
+msgid "<a href=\"{{story_url}}\">Sold From Under You</a> — the Bureau of investigative Journalism used Pro to send requests to councils up and down the county to build a nationwide picture of the public properties being sold off by councils in the face of austerity."
+msgstr "<a href=\"{{story_url}}\">Sold From Under You</a> — the Bureau of investigative Journalism used Pro to send requests to councils up and down the county to build a nationwide picture of the public properties being sold off by councils in the face of austerity."
+
 msgid "<span class=\"current-page\">{{current_page}}</span> of <span class=\"total-pages\">{{total_pages}}</span>"
 msgstr "<span class=\"current-page\">{{current_page}}</span> of <span class=\"total-pages\">{{total_pages}}</span>"
 
+msgid "<span class=\"price-label__amount\">{{monthly_price}}</span> per user, per month"
+msgstr "<span class=\"price-label__amount\">{{monthly_price}}</span> per user, per month"
+
+msgid "<strong class=\"marketing-highlight\">Action alerts</strong>: know when it’s time to take the next step"
+msgstr "<strong class=\"marketing-highlight\">Action alerts</strong>: know when it’s time to take the next step"
+
+msgid "<strong class=\"marketing-highlight\">Daily summary emails</strong> to keep your inbox clean"
+msgstr "<strong class=\"marketing-highlight\">Daily summary emails</strong> to keep your inbox clean"
+
+msgid "<strong class=\"marketing-highlight\">Delivery verification</strong> for proof of receipt"
+msgstr "<strong class=\"marketing-highlight\">Delivery verification</strong> for proof of receipt"
+
+msgid "<strong class=\"marketing-highlight\">Delivery verification</strong> for proof of receipt</strong>"
+msgstr "<strong class=\"marketing-highlight\">Delivery verification</strong> for proof of receipt</strong>"
+
+msgid "<strong class=\"marketing-highlight\">Get regular updates</strong> as the responses come in — without overwhelming your inbox"
+msgstr "<strong class=\"marketing-highlight\">Get regular updates</strong> as the responses come in — without overwhelming your inbox"
+
+msgid "<strong class=\"marketing-highlight\">Make a request to multiple authorities</strong>: select authorities at the click of a button"
+msgstr "<strong class=\"marketing-highlight\">Make a request to multiple authorities</strong>: select authorities at the click of a button"
+
+msgid "<strong class=\"marketing-highlight\">Manage large volumes of responses</strong>: easily keep track of the status of each request"
+msgstr "<strong class=\"marketing-highlight\">Manage large volumes of responses</strong>: easily keep track of the status of each request"
+
+msgid "<strong class=\"marketing-highlight\">Save as draft</strong> to get back to it later"
+msgstr "<strong class=\"marketing-highlight\">Save as draft</strong> to get back to it later"
+
+msgid "<strong class=\"marketing-highlight\">Streamlined process</strong> for requesting internal reviews"
+msgstr "<strong class=\"marketing-highlight\">Streamlined process</strong> for requesting internal reviews"
+
 msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
 msgstr "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
+
+msgid "<strong>Easy</strong> One monthly fee covers all Pro features, with no complex tiers or options to worry about."
+msgstr "<strong>Easy</strong> One monthly fee covers all Pro features, with no complex tiers or options to worry about."
+
+msgid "<strong>Flexible</strong> You can cancel at any time, with no lengthy tie-ins and no notice required."
+msgstr "<strong>Flexible</strong> You can cancel at any time, with no lengthy tie-ins and no notice required."
+
+msgid "<strong>Reasonable</strong> We know that campaigners are likely to be on a limited budget, so we’ve kept the subscription affordable."
+msgstr "<strong>Reasonable</strong> We know that campaigners are likely to be on a limited budget, so we’ve kept the subscription affordable."
+
+msgid "<strong>Reasonable</strong> We know that journalists can be on a limited budget, so we’ve kept the subscription affordable."
+msgstr "<strong>Reasonable</strong> We know that journalists can be on a limited budget, so we’ve kept the subscription affordable."
+
+msgid "<strong>Reasonable</strong> We know that researchers can be on a limited budget, so we’ve kept the subscription affordable."
+msgstr "<strong>Reasonable</strong> We know that researchers can be on a limited budget, so we’ve kept the subscription affordable."
 
 msgid "<strong>Thank</strong> the public authority."
 msgstr "<strong>Thank</strong> the public authority."
@@ -56,26 +115,35 @@ msgstr "<strong>{{brand}}</strong> ending in {{last4}}, expiry {{exp_month}}/{{e
 msgid "<strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 msgstr "<strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 
+msgid "<strong>{{pro_site_name}}</strong> runs on the UK’s best-known FOI service"
+msgstr "<strong>{{pro_site_name}}</strong> runs on the UK’s best-known FOI service"
+
+msgid "A  powerful, fully-featured toolset that solves problems for campaigners managing multiple requests or in-depth FOI investigations"
+msgstr "A  powerful, fully-featured toolset that solves problems for campaigners managing multiple requests or in-depth FOI investigations"
+
+msgid "A <strong class=\"marketing-highlight\">searchable archive</strong> of Freedom of Information requests"
+msgstr "A <strong class=\"marketing-highlight\">searchable archive</strong> of Freedom of Information requests"
+
 msgid "A <strong>summary</strong> of the response if you have received it by postal mail. "
 msgstr "A <strong>summary</strong> of the response if you have received it by postal mail. "
-
-msgid "A monthly subscription"
-msgstr "A monthly subscription"
 
 msgid "A one line summary of the information you are requesting, e.g."
 msgstr "A one line summary of the information you are requesting, e.g."
 
-msgid "A permanent, searchable, public record of your request and the responses"
-msgstr "A permanent, searchable, public record of your request and the responses"
+msgid "A permanent, searchable, <strong class=\"marketing-highlight\">public record</strong> of your request and the responses"
+msgstr "A permanent, searchable, <strong class=\"marketing-highlight\">public record</strong> of your request and the responses"
 
-msgid "A powerful private dashboard: track and manage your FOI projects"
-msgstr "A powerful private dashboard: track and manage your FOI projects"
+msgid "A powerful <strong class=\"marketing-highlight\">private dashboard</strong>: track and manage your FOI projects"
+msgstr "A powerful <strong class=\"marketing-highlight\">private dashboard</strong>: track and manage your FOI projects"
 
-msgid "A searchable archive of Freedom of Information requests"
-msgstr "A powerful private dashboard: track and manage your FOI projects"
+msgid "A powerful, fully-featured toolset that solves problems for journalists managing multiple requests or in-depth FOI investigations"
+msgstr "A powerful, fully-featured toolset that solves problems for journalists managing multiple requests or in-depth FOI investigations"
 
-msgid "A super-smart to-do list: follow the progress of your requests"
-msgstr "A super-smart to-do list: follow the progress of your requests"
+msgid "A powerful, fully-featured toolset that solves problems for researchers and academics managing multiple requests or in-depth FOI investigations"
+msgstr "A powerful, fully-featured toolset that solves problems for researchers and academics managing multiple requests or in-depth FOI investigations"
+
+msgid "A super-smart <strong class=\"marketing-highlight\">to-do list</strong>: follow the progress of your requests"
+msgstr "A super-smart <strong class=\"marketing-highlight\">to-do list</strong>: follow the progress of your requests"
 
 msgid "About {{public_body_name}}"
 msgstr "About {{public_body_name}}"
@@ -83,8 +151,8 @@ msgstr "About {{public_body_name}}"
 msgid "Account"
 msgstr "Account"
 
-msgid "Action alerts: know when it’s time to take the next step"
-msgstr "Action alerts: know when it’s time to take the next step"
+msgid "Activist Doug Paulley uncovered councils across the UK who, through inaction, are allowing legal discrimination against wheelchair users. <a href=\"{{story_url}}\">See the whole story</a>"
+msgstr "Activist Doug Paulley uncovered councils across the UK who, through inaction, are allowing legal discrimination against wheelchair users. <a href=\"{{story_url}}\">See the whole story</a>"
 
 msgid "Activity"
 msgstr "Activity"
@@ -92,8 +160,8 @@ msgstr "Activity"
 msgid "Add"
 msgstr "Add"
 
-msgid "Add Payment Card"
-msgstr "Add Payment Card"
+msgid "Add Card Details"
+msgstr "Add Card Details"
 
 msgid "Add all"
 msgstr "Add all"
@@ -107,8 +175,14 @@ msgstr "Add annotation"
 msgid "Add authorities to your batch"
 msgstr "Add authorities to your batch"
 
+msgid "Add credibility"
+msgstr "Add credibility"
+
 msgid "Added"
 msgstr "Added"
+
+msgid "Adding your payment card requires your browser to have JavaScript enabled."
+msgstr "Adding your payment card requires your browser to have JavaScript enabled."
 
 msgid "All requests"
 msgstr "All requests"
@@ -122,14 +196,11 @@ msgstr "Also called {{other_name}}"
 msgid "An all-in-one FOI toolkit for journalists, activists and campaigners"
 msgstr "An all-in-one FOI toolkit for journalists, activists and campaigners"
 
-msgid "An annual subscription"
-msgstr "An annual subscription"
-
 msgid "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
 msgstr "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
 
-msgid "Are you interested in free training, seminars and workshops about {{site_name}}?"
-msgstr "Are you interested in free training, seminars and workshops about {{site_name}}?"
+msgid "Are you interested in free training, seminars and workshops about {{pro_site_name}}?"
+msgstr "Are you interested in free training, seminars and workshops about {{pro_site_name}}?"
 
 msgid "Are you sure the information you’re after isn’t available elsewhere?"
 msgstr "Are you sure the information you’re after isn’t available elsewhere?"
@@ -140,17 +211,29 @@ msgstr "Are you sure you want to publish this request?"
 msgid "Are you sure?"
 msgstr "Are you sure?"
 
+msgid "Automate FOI request management"
+msgstr "Automate FOI request management"
+
 msgid "Batch"
 msgstr "Batch"
 
+msgid "Batch FOI requests"
+msgstr "Batch FOI requests"
+
 msgid "Batch request"
 msgstr "Batch request"
+
+msgid "Batch requests"
+msgstr "Batch requests"
 
 msgid "Batch requests allow multiple recipients of a single request"
 msgstr "Batch requests allow multiple recipients of a single request"
 
 msgid "Batch requests are part of a new workflow"
 msgstr "Batch requests are part of a new workflow"
+
+msgid "Because we’ve streamlined the request-writing process, Pro saves you a lot of back and forth. Search our database of authorities, pick which one — or many — you want to contact, and compose your request right there."
+msgstr "Because we’ve streamlined the request-writing process, Pro saves you a lot of back and forth. Search our database of authorities, pick which one — or many — you want to contact, and compose your request right there."
 
 msgid "Billed: Annually"
 msgstr "Billed: Annually"
@@ -167,11 +250,20 @@ msgstr "Billed: Weekly"
 msgid "Billing"
 msgstr "Billing"
 
+msgid "Bringing facts about campagin overspending to light with the privacy features"
+msgstr "Bringing facts about campagin overspending to light with the privacy features"
+
 msgid "Browse by category"
 msgstr "Browse by category"
 
 msgid "Browse public requests"
 msgstr "Browse public requests"
+
+msgid "CSV"
+msgstr "CSV"
+
+msgid "Campaigning for better wheelchair accessibility"
+msgstr "Campaigning for better wheelchair accessibility"
 
 msgid "Cancel"
 msgstr "Cancel"
@@ -181,6 +273,12 @@ msgstr "Cancel subscription"
 
 msgid "Cancel your subscription"
 msgstr "Cancel your subscription"
+
+msgid "Cancelled subscriptions:"
+msgstr "Cancelled subscriptions:"
+
+msgid "Card details"
+msgstr "Card details"
 
 msgid "Change privacy"
 msgstr "Change privacy"
@@ -203,9 +301,6 @@ msgstr "Collapse all correspondence"
 msgid "Confirm your account on {{site_name}}"
 msgstr "Confirm your account on {{site_name}}"
 
-msgid "Contact us"
-msgstr "Contact us"
-
 msgid "Continuing with checkout requires your browser to have JavaScript enabled."
 msgstr "Continuing with checkout requires your browser to have JavaScript enabled."
 
@@ -218,17 +313,20 @@ msgstr "Coupon code is invalid."
 msgid "Created"
 msgstr "Created"
 
-msgid "Daily summary emails to keep your inbox clean"
-msgstr "Daily summary emails to keep your inbox clean"
-
 msgid "Dashboard"
 msgstr "Dashboard"
+
+msgid "Dashboard and workflow features"
+msgstr "Dashboard and workflow features"
 
 msgid "Dear {{user_name}},"
 msgstr "Dear {{user_name}},"
 
-msgid "Delivery verification for proof of receipt"
-msgstr "Delivery verification for proof of receipt"
+msgid "Debt Resistance UK uncovered <a href=\"{{story_url}}\">which councils are paying exorbitant LOBO loans</a>, in some cases meaning that a large proportion of council tax income is being channelled directly into interest payments."
+msgstr "Debt Resistance UK uncovered <a href=\"{{story_url}}\">which councils are paying exorbitant LOBO loans</a>, in some cases meaning that a large proportion of council tax income is being channelled directly into interest payments."
+
+msgid "Debt Resistance UK uncovered which councils are paying exorbitant LOBO loans, in some cases meaning that a large proportion of council tax income is being channelled directly into interest payments."
+msgstr "Debt Resistance UK uncovered which councils are paying exorbitant LOBO loans, in some cases meaning that a large proportion of council tax income is being channelled directly into interest payments."
 
 msgid "Details"
 msgstr "Details"
@@ -241,6 +339,9 @@ msgstr "Dismiss"
 
 msgid "Do you have a coupon code?"
 msgstr "Do you have a coupon code?"
+
+msgid "Don’t worry – <a href=\"{{signup_link}}\">our free accounts</a> are still available and always will be."
+msgstr "Don’t worry – <a href=\"{{signup_link}}\">our free accounts</a> are still available and always will be."
 
 msgid "Download a zip file of all correspondence"
 msgstr "Download a zip file of all correspondence"
@@ -260,6 +361,9 @@ msgstr "Email address"
 msgid "Email doesn't look like a valid address"
 msgstr "Email doesn't look like a valid address"
 
+msgid "Estimated total number of Pro requests:"
+msgstr "Estimated total number of Pro requests:"
+
 msgid "Everything you need to keep on top of complex FOI-driven stories."
 msgstr "Everything you need to keep on top of complex FOI-driven stories"
 
@@ -269,8 +373,56 @@ msgstr "Expand all correspondence"
 msgid "Expires soon"
 msgstr "Expires soon"
 
+msgid "FOI Management Tools for journalists, campaigners and researchers"
+msgstr "FOI Management Tools for journalists, campaigners and researchers"
+
+msgid "FOI Management for Campaigners"
+msgstr "FOI Management for Campaigners"
+
+msgid "FOI Management for Journalists"
+msgstr "FOI Management for Journalists"
+
+msgid "FOI Management for Researchers"
+msgstr "FOI Management for Researchers"
+
+msgid "FOI address book"
+msgstr "FOI address book"
+
+msgid "FOI for campaigners"
+msgstr "FOI for campaigners"
+
+msgid "FOI for journalists"
+msgstr "FOI for journalists"
+
+msgid "FOI for researchers"
+msgstr "FOI for researchers"
+
+msgid "FOI is an invaluable tool for researchers, helping you collect information that hasn’t previously been available as a single dataset, and understand the wider picture. Pro takes the slog out of sending multiple requests with the Batch feature: easily pick the authorities you want, then send one request to all of them."
+msgstr "FOI is an invaluable tool for researchers, helping you collect information that hasn’t previously been available as a single dataset, and understand the wider picture. Pro takes the slog out of sending multiple requests with the Batch feature: easily pick the authorities you want, then send one request to all of them."
+
+msgid "FOI is an invaluable tool in campaigns, helping you collect information that hasn’t previously been available as a single dataset so that you and your supporters can understand the wider picture. Pro takes the slog out of sending multiple requests with the Batch feature: easily pick the authorities you want, then send one request to all of them."
+msgstr "FOI is an invaluable tool in campaigns, helping you collect information that hasn’t previously been available as a single dataset so that you and your supporters can understand the wider picture. Pro takes the slog out of sending multiple requests with the Batch feature: easily pick the authorities you want, then send one request to all of them."
+
+msgid "FOI is an invaluable tool in investigations, helping you collect information that hasn’t previously been available as a single dataset so that you and your readers can understand the wider picture. Pro takes the slog out of sending multiple requests with the Batch feature: easily pick the authorities you want, then send one request to all of them."
+msgstr "FOI is an invaluable tool in investigations, helping you collect information that hasn’t previously been available as a single dataset so that you and your readers can understand the wider picture. Pro takes the slog out of sending multiple requests with the Batch feature: easily pick the authorities you want, then send one request to all of them."
+
+msgid "Featuring"
+msgstr "Featuring"
+
+msgid "Find out how {{pro_site_name}} can take the hard work out of FOI investigations"
+msgstr "Find out how {{pro_site_name}} can take the hard work out of FOI investigations"
+
+msgid "Finding it hard to keep on top of your FOI requests?"
+msgstr "Finding it hard to keep on top of your FOI requests?"
+
 msgid "First created"
 msgstr "First created"
+
+msgid "For journalists, academics and power users"
+msgstr "For journalists, academics and power users"
+
+msgid "Friendly support"
+msgstr "Friendly support"
 
 msgid "From this screen you can get a helpful overview of your requests, and use quick actions to keep them up to date. Why not start your first one now?"
 msgstr "From this screen you can get a helpful overview of your requests, and use quick actions to keep them up to date. Why not start your first one now?"
@@ -278,23 +430,41 @@ msgstr "From this screen you can get a helpful overview of your requests, and us
 msgid "From this screen you can see what you need to do next to keep your requests moving forward. Why not start a new request now?"
 msgstr "From this screen you can see what you need to do next to keep your requests moving forward. Why not start a new request now?"
 
-msgid "Get access to the beta"
-msgstr "Get access to the beta"
+msgid "Gavin Chait surveyed 350 local authorities to find out <a href=\"{{story_url}}\">which commercial premises were empty</a>, in order to give a helping hand to start-up businesses."
+msgstr "Gavin Chait surveyed 350 local authorities to find out <a href=\"{{story_url}}\">which commercial premises were empty</a>, in order to give a helping hand to start-up businesses."
 
-msgid "Get email updates about {{site_name}}?"
-msgstr "Get email updates about {{site_name}}?"
+msgid "Get email updates about {{pro_site_name}}?"
+msgstr "Get email updates about {{pro_site_name}}?"
 
-msgid "Get pre-launch access"
-msgstr "Get pre-launch access"
-
-msgid "Get regular updates as the responses come in — without overwhelming your inbox"
-msgstr "Get regular updates as the responses come in — without overwhelming your inbox"
+msgid "Get in touch"
+msgstr "Get in touch"
 
 msgid "Get started with your first request"
 msgstr "Get started with your first request"
 
+msgid "Got questions?"
+msgstr "Got questions?"
+
+msgid "Hard to keep track of your many requests?"
+msgstr "Hard to keep track of your many requests?"
+
 msgid "Help"
 msgstr "Help"
+
+msgid "Helping startups find the best location for their business"
+msgstr "Helping startups find the best location for their business"
+
+msgid "How campaigners are using Pro"
+msgstr "How campaigners are using Pro"
+
+msgid "How it works"
+msgstr "How it works"
+
+msgid "How journalists are using Pro"
+msgstr "How journalists are using Pro"
+
+msgid "How researchers are using Pro"
+msgstr "How researchers are using Pro"
 
 msgid "I have read and accepted these terms and conditions"
 msgstr "I have read and accepted these terms and conditions"
@@ -305,14 +475,44 @@ msgstr "I understand and still want to cancel"
 msgid "If payment continues to fail, unfortunately your account will revert back to a free account, and you’ll no longer have access to {{pro_site_name}}."
 msgstr "If payment continues to fail, unfortunately your account will revert back to a free account, and you’ll no longer have access to {{pro_site_name}}."
 
-msgid "If you have an <strong>offer code</strong>, please enter it here:"
-msgstr "If you have an <strong>offer code</strong>, please enter it here:"
-
 msgid "If you wish to preserve your access to {{pro_site_name}}, please could you check that your card has sufficient funds, and that the card details are correct on your subscriptions page: {{subscriptions_page_url}}"
 msgstr "If you wish to preserve your access to {{pro_site_name}}, please could you check that your card has sufficient funds, and that the card details are correct on your subscriptions page: {{subscriptions_page_url}}"
 
+msgid "If your request bounces back, we source the new address for that authority."
+msgstr "If your request bounces back, we source the new address for that authority."
+
+msgid "Image credits:"
+msgstr "Image credits:"
+
 msgid "Important info about requests to this authority"
 msgstr "Important info about requests to this authority"
+
+msgid "Introductory Pricing"
+msgstr "Introductory Pricing"
+
+msgid "Investigating asbestos use in shcools"
+msgstr "Investigating asbestos use in shcools"
+
+msgid "Investigative journalist Jenna Corderoy has made good use of Pro’s privacy features, keeping her extensive Brexit-related investigations private until her stories broke, bringing facts about <a href=\"{{story_url_1}}\">campaign overspending</a> and <a href=\"{{story_url_2}}\">ERG</a> research to the public, among several other important stories."
+msgstr "Investigative journalist Jenna Corderoy has made good use of Pro’s privacy features, keeping her extensive Brexit-related investigations private until her stories broke, bringing facts about <a href=\"{{story_url_1}}\">campaign overspending</a> and <a href=\"{{story_url_2}}\">ERG</a> research to the public, among several other important stories."
+
+msgid "I’m a campaigner"
+msgstr "I’m a campaigner"
+
+msgid "I’m a journalist"
+msgstr "I’m a journalist"
+
+msgid "I’m a researcher"
+msgstr "I’m a researcher"
+
+msgid "Join {{pro_site_name}}"
+msgstr "Join {{pro_site_name}}"
+
+msgid "Journalists"
+msgstr "Journalists"
+
+msgid "Keep <strong class=\"marketing-highlight\">requests and responses private</strong> while you work on your story"
+msgstr "Keep <strong class=\"marketing-highlight\">requests and responses private</strong> while you work on your story"
 
 msgid "Keep private for a further:"
 msgstr "Keep private for a further:"
@@ -320,11 +520,23 @@ msgstr "Keep private for a further:"
 msgid "Keep private for:"
 msgstr "Keep private for:"
 
-msgid "Keep requests and responses private while you work on your story"
-msgstr "Keep requests and responses private while you work on your story"
+msgid "Keep track of FOI requests"
+msgstr "Keep track of FOI requests"
 
 msgid "Last updated"
 msgstr "Last updated"
+
+msgid "Learn more about {{pro_site_name}} for campaigners"
+msgstr "Learn more about {{pro_site_name}} for campaigners"
+
+msgid "Learn more about {{pro_site_name}} for journalists"
+msgstr "Learn more about {{pro_site_name}} for journalists"
+
+msgid "Learn more about {{pro_site_name}} for researchers"
+msgstr "Learn more about {{pro_site_name}} for researchers"
+
+msgid "Lucie Stephens, prompted by the death of someone she cared about, requested information about asbestos in schools from more than 200 LEAs. <a href=\"{{story_url}}\">Read about her campaign</a>"
+msgstr "Lucie Stephens, prompted by the death of someone she cared about, requested information about asbestos in schools from more than 200 LEAs. <a href=\"{{story_url}}\">Read about her campaign</a>"
 
 msgid "Make a batch request"
 msgstr "Make a batch request"
@@ -332,20 +544,14 @@ msgstr "Make a batch request"
 msgid "Make a request"
 msgstr "Make a request"
 
-msgid "Make a request to multiple authorities: select authorities at the click of a button"
-msgstr "Make a request to multiple authorities: select authorities at the click of a button"
+msgid "Make a request to multiple authorities and manage the responses."
+msgstr "Make a request to multiple authorities and manage the responses."
 
 msgid "Make an {{law_used_short}} request"
 msgstr "Make an {{law_used_short}} request"
 
-msgid "Manage large volumes of responses:  easily keep track of the status of each request"
-msgstr "Manage large volumes of responses:  easily keep track of the status of each request"
-
 msgid "Message {{current_message}} of {{total_messages}}"
 msgstr "Message {{current_message}} of {{total_messages}}"
-
-msgid "More information"
-msgstr "More information"
 
 msgid "My profile"
 msgstr "My profile"
@@ -355,6 +561,36 @@ msgstr "My subscription"
 
 msgid "My wall"
 msgstr "My wall"
+
+msgid "Need a helping hand with your FOI requests?"
+msgstr "Need a helping hand with your FOI requests?"
+
+msgid "Need to keep things under wraps?"
+msgstr "Need to keep things under wraps?"
+
+msgid "Need to keep your requests private?"
+msgstr "Need to keep your requests private?"
+
+msgid "Need to protect your research?"
+msgstr "Need to protect your research?"
+
+msgid "Need to protect your scoop?"
+msgstr "Need to protect your scoop?"
+
+msgid "New Pro accounts this week:"
+msgstr "New Pro accounts this week:"
+
+msgid "New Pro requests this week:"
+msgstr "Pro requests this week:"
+
+msgid "New Pro subscriptions this week:"
+msgstr "New Pro subscriptions this week:"
+
+msgid "New batches made this week:"
+msgstr "New batches made this week:"
+
+msgid "New to Professional – Batch"
+msgstr "New to Professional – Batch"
 
 msgid "Next message"
 msgstr "Next message"
@@ -371,11 +607,20 @@ msgstr "No bodies selected"
 msgid "No more authorities can be added to this batch request."
 msgstr "No more authorities can be added to this batch request."
 
+msgid "No more copy and paste emails: our Batch Request tool helps you create one request and send it to many authorities at once."
+msgstr "No more copy and paste emails: our Batch Request tool helps you create one request and send it to many authorities at once."
+
+msgid "No need to check: we’ll send an email alert telling you when you need to take action."
+msgstr "No need to check: we’ll send an email alert telling you when you need to take action."
+
 msgid "No results found"
 msgstr "No results found"
 
 msgid "No title"
 msgstr "No title"
+
+msgid "Not enough hours in the day?"
+msgstr "Not enough hours in the day?"
 
 msgid "Note: When this request is made public on {{site_name}}, this message will also be made public."
 msgstr "Note: When this request is made public on {{site_name}}, this message will also be made public."
@@ -383,23 +628,53 @@ msgstr "Note: When this request is made public on {{site_name}}, this message wi
 msgid "Note: When this request is made public on {{site_name}}, your name and annotation will appear in <strong>search engines</strong>."
 msgstr "Note: When this request is made public on {{site_name}}, your name and annotation will appear in <strong>search engines</strong>."
 
-msgid "Now in beta"
-msgstr "Now in beta"
+msgid "Number of Pro accounts active this week:"
+msgstr "Number of Pro accounts active this week:"
+
+msgid "Number of discounted users:"
+msgstr "Number of discounted users:"
+
+msgid "Number of expired embargoes this week:"
+msgstr "Number of expired embargoes this week:"
+
+msgid "Number of free trial users:"
+msgstr "Number of free trial users:"
+
+msgid "Number of paying users:"
+msgstr "Number of paying users:"
 
 msgid "Once the privacy period ends, everything that you enter on this page, including <strong>your name</strong>, will be <strong><a href=\"{{url}}\">displayed publicly</a></strong> on this website."
 msgstr "Once the privacy period ends, everything that you enter on this page, including <strong>your name</strong>, will be <strong><a href=\"{{url}}\">displayed publicly</a></strong> on this website."
 
+msgid "Once you launch your campaign, there’s every reason to put your requests and responses into the public domain. They’ll lend credence to your campaign, and make the data available for others who might want to research a different angle."
+msgstr "Once you launch your campaign, there’s every reason to put your requests and responses into the public domain. They’ll lend credence to your campaign, and make the data available for others who might want to research a different angle."
+
+msgid "Once your research is out there, it’s a great idea to put your requests and responses into the public domain. They’ll lend credence to your work, and make the data available for others who might want to research a different angle."
+msgstr "Once your research is out there, it’s a great idea to put your requests and responses into the public domain. They’ll lend credence to your work, and make the data available for others who might want to research a different angle."
+
+msgid "Once your story’s been published, there’s every reason to put your requests and responses into the public domain. They’ll lend credence to your investigation, and make the data available for others who might want to research a different angle."
+msgstr "Once your story’s been published, there’s every reason to put your requests and responses into the public domain. They’ll lend credence to your investigation, and make the data available for others who might want to research a different angle."
+
 msgid "Once you’re happy with your request, click preview and send."
 msgstr "Once you’re happy with your request, click preview and send."
 
-msgid "Pay"
-msgstr "Pay"
+msgid "Once you’re ready, publishing the data behind your investigation lends it extra credibility, and opens it to a wider community."
+msgstr "Once you’re ready, publishing the data behind your investigation lends it extra credibility, and opens it to a wider community."
 
-msgid "Pay with card"
-msgstr "Pay with card"
+msgid "Once you’re ready, publishing the data behind your investigation lends it extra credibility."
+msgstr "Once you’re ready, publishing the data behind your investigation lends it extra credibility."
+
+msgid "Overflowing inbox?"
+msgstr "Overflowing inbox?"
+
+msgid "Payments past due:"
+msgstr "Payments past due:"
 
 msgid "Pending"
 msgstr "Pending"
+
+msgid "Pending cancellations:"
+msgstr "Pending cancellations:"
 
 msgid "Plans and pricing"
 msgstr "Plans and pricing"
@@ -437,11 +712,23 @@ msgstr "Preview new {{law_used_short}} request to '{{public_body_name}}'"
 msgid "Previous message"
 msgstr "Previous message"
 
+msgid "Pricing"
+msgstr "Pricing"
+
 msgid "Privacy"
 msgstr "Privacy"
 
 msgid "Private"
 msgstr "Private"
+
+msgid "Private FOI requests"
+msgstr "Private FOI requests"
+
+msgid "Private Requests"
+msgstr "Private Requests"
+
+msgid "Private requests for information"
+msgstr "Private requests for information"
 
 msgid "Private until {{date}}"
 msgstr "Private until {{date}}"
@@ -452,11 +739,23 @@ msgstr "Pro brings a new dashboard view"
 msgid "Pro features a new request list view"
 msgstr "Pro features a new request list view"
 
+msgid "Pro gives you all of the ease of {{site_name}}, without the worry of others snatching your scoop before it’s ready."
+msgstr "Pro gives you all of the ease of {{site_name}}, without the worry of others snatching your scoop before it’s ready."
+
+msgid "Pro gives you all of the ease of {{site_name}}, without the worry of releasing all your work before you’re ready for the world to see it."
+msgstr "Pro gives you all of the ease of {{site_name}}, without the worry of releasing all your work before you’re ready for the world to see it."
+
+msgid "Professional"
+msgstr "Professional"
+
 msgid "Profile"
 msgstr "Profile"
 
 msgid "Provide extra context on the request and your reasons for making it."
 msgstr "Provide extra context on the request and your reasons for making it."
+
+msgid "Public requests for information"
+msgstr "Public requests for information"
 
 msgid "Publish immediately"
 msgstr "Publish immediately"
@@ -475,6 +774,9 @@ msgstr[1] "Publish these requests or keep them private for longer."
 msgid "Read blog"
 msgstr "Read blog"
 
+msgid "Ready to go public"
+msgstr "Ready to go public"
+
 msgid "Refer a friend"
 msgstr "Refer a friend"
 
@@ -484,14 +786,17 @@ msgstr "Remember, public authorities have {{late_number_of_days}} calendar days 
 msgid "Remember, public authorities have {{late_number_of_days}} working days to respond to FOI requests."
 msgstr "Remember, public authorities have {{late_number_of_days}} working days to respond to FOI requests."
 
+msgid "Reminders"
+msgstr "Reminders"
+
 msgid "Remove"
 msgstr "Remove"
 
 msgid "Replies"
 msgstr "Replies"
 
-msgid "Request access to {{site_name}} beta"
-msgstr "Request access to {{site_name}} beta"
+msgid "Request access to {{pro_site_name}}"
+msgstr "Request access to {{pro_site_name}}"
 
 msgid "Request an internal review"
 msgstr "Request an internal review"
@@ -510,6 +815,15 @@ msgstr "Request to"
 msgid "Requests"
 msgstr "Requests"
 
+msgid "Requests can stay completely private until you’re ready to go public with your story."
+msgstr "Requests can stay completely private until you’re ready to go public with your story."
+
+msgid "Requests can stay completely private until you’re ready to go public."
+msgstr "Requests can stay completely private until you’re ready to go public."
+
+msgid "Requests can stay completely private until you’re ready to publish your research."
+msgstr "Requests can stay completely private until you’re ready to publish your research."
+
 msgid "Requests in this batch are private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
 msgstr "Requests in this batch are private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
 
@@ -522,14 +836,17 @@ msgstr "Requests in this batch will be private until <strong class=\"js-embargo-
 msgid "Requests that will be made public soon"
 msgstr "Requests that will be made public soon"
 
+msgid "Researchers"
+msgstr "Researchers"
+
 msgid "Response due"
 msgstr "Response due"
 
-msgid "Save as draft to get back to it later"
-msgstr "Save as draft to get back to it later"
-
 msgid "Save draft"
 msgstr "Save draft"
+
+msgid "Save time managing FOI requests"
+msgstr "Save time managing FOI requests"
 
 msgid "Search"
 msgstr "Search"
@@ -545,6 +862,12 @@ msgstr "Search for an authority by name"
 
 msgid "Searching for <strong>{{search_term}}</strong> in <strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 msgstr "Searching for <strong>{{search_term}}</strong> in <strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
+
+msgid "Searching for the right email address for every FOI contact?"
+msgstr "Searching for the right email address for every FOI contact?"
+
+msgid "Selected plan"
+msgstr "Selected plan"
 
 msgid "Send a follow up"
 msgstr "Send a follow up"
@@ -574,6 +897,9 @@ msgid_plural "Send {{count}} requests"
 msgstr[0] "Send {{count}} request"
 msgstr[1] "Send {{count}} requests"
 
+msgid "Sending to multiple authorities at once?"
+msgstr "Sending to multiple authorities at once?"
+
 msgid "Sending..."
 msgstr "Sending..."
 
@@ -593,6 +919,9 @@ msgstr[1] "Show {{count}} requests in detail</span>"
 
 msgid "Sign up"
 msgstr "Sign up"
+
+msgid "Simple, affordable pricing"
+msgstr "Simple, affordable pricing"
 
 msgid "Sorry, no authorities matched that search"
 msgstr "Sorry, no authorities matched that search"
@@ -627,14 +956,14 @@ msgstr "Start new request"
 msgid "Status"
 msgstr "Status"
 
-msgid "Streamlined process for requesting internal reviews"
-msgstr "Streamlined process for requesting internal reviews"
-
 msgid "Subject"
 msgstr "Subject"
 
 msgid "Submit Search"
 msgstr "Submit Search"
+
+msgid "Subscribe"
+msgstr "Subscribe"
 
 msgid "Subscription began"
 msgstr "Subscription began"
@@ -645,8 +974,8 @@ msgstr "Subscription cancellations are applied at the end of the current billing
 msgid "Subscription ends"
 msgstr "Subscription ends"
 
-msgid "Successful applicants will receive free early access to {{site_name}} for 6 months."
-msgstr "Successful applicants will receive free early access to {{site_name}} for 6 months."
+msgid "Terms and conditions"
+msgstr "Terms and conditions"
 
 msgid "Thank you for your interest in {{pro_site_name}}."
 msgstr "Thank you for your interest in {{pro_site_name}}."
@@ -657,6 +986,15 @@ msgstr "Thanks for logging in. We've saved your request as a draft, in case you 
 msgid "Thanks for your interest in {{pro_site_name}}, we'll get back to you soon!"
 msgstr "Thanks for your interest in {{pro_site_name}}, we'll get back to you soon!"
 
+msgid "The Bureau of investigative Journalism used Pro to send requests to councils up and down the county, and build a nationwide picture of the public properties being sold off by councils in the face of austerity."
+msgstr "The Bureau of investigative Journalism used Pro to send requests to councils up and down the county, and build a nationwide picture of the public properties being sold off by councils in the face of austerity."
+
+msgid "The Wales Governance Centre sent FOI requests through Pro to discover the prison populations across Wales and England for their report ‘<a href=\"{{story_url}}\">Sentencing and Imprisonment in Wales</a>’."
+msgstr "The Wales Governance Centre sent FOI requests through Pro to discover the prison populations across Wales and England for their report ‘<a href=\"{{story_url}}\">Sentencing and Imprisonment in Wales</a>’."
+
+msgid "The Wales Governance Centre sent FOI requests through Pro to discover the prison populations across Wales and England for their report ‘Sentencing and Imprisonment in Wales’."
+msgstr "The Wales Governance Centre sent FOI requests through Pro to discover the prison populations across Wales and England for their report ‘Sentencing and Imprisonment in Wales’."
+
 msgid "The following request has been made public on {{site_name}} this week."
 msgid_plural "The following requests have been made public on {{site_name}} this week."
 msgstr[0] "The following request has been made public on {{site_name}} this week."
@@ -666,6 +1004,9 @@ msgid "The following request will be made public on {{site_name}} in the next we
 msgid_plural "The following requests will be made public on {{site_name}} in the next week. If you do not wish for any of these requests to go public, please click on the links below to extend them."
 msgstr[0] "The following request will be made public on {{site_name}} in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer."
 msgstr[1] "The following requests will be made public on {{site_name}} in the next week. If you do not wish for any of these requests to go public, please click on the links below to extend them."
+
+msgid "The ‘Data Scores as Governance’ project used Pro to help examine the <a href=\"{{story_url}}\">use of data-driven scores in categorising citizens</a>, allocating services, and predicting behaviour."
+msgstr "The ‘Data Scores as Governance’ project used Pro to help examine the <a href=\"{{story_url}}\">use of data-driven scores in categorising citizens</a>, allocating services, and predicting behaviour."
 
 msgid "Then you can access {{pro_site_name}}"
 msgstr "Then you can access {{pro_site_name}}"
@@ -678,6 +1019,9 @@ msgstr "Then you can update your payment details"
 
 msgid "Then you can upgrade your account"
 msgstr "Then you can upgrade your account"
+
+msgid "There was a problem authorising your payment. You have not been charged. Please try again."
+msgstr "There was a problem authorising your payment. You have not been charged. Please try again."
 
 msgid "There was a problem cancelling your account. Please try again later."
 msgstr "There was a problem cancelling your account. Please try again later."
@@ -715,6 +1059,15 @@ msgstr "This will publish all of the requests in this batch. Are you sure?"
 msgid "This will update the privacy for all of the requests in this batch. Are you sure?"
 msgstr "This will update the privacy for all of the requests in this batch. Are you sure?"
 
+msgid "Time is precious in newsrooms, so your dashboard just presents the information you need to know: which requests have received responses; which haven’t and need chasing up; and which require input from you. Search, filter or sort by status to quickly find the request you’re looking for."
+msgstr "Time is precious in newsrooms, so your dashboard just presents the information you need to know: which requests have received responses; which haven’t and need chasing up; and which require input from you. Search, filter or sort by status to quickly find the request you’re looking for."
+
+msgid "Time is precious, so your dashboard just presents the information you need to know: which requests have received responses; which haven’t and need chasing up; and which require input from you. Search, filter or sort by status to quickly find the request you’re looking for."
+msgstr "Time is precious, so your dashboard just presents the information you need to know: which requests have received responses; which haven’t and need chasing up; and which require input from you. Search, filter or sort by status to quickly find the request you’re looking for."
+
+msgid "Tired of the fiddly details that add time to your investigation?"
+msgstr "Tired of the fiddly details that add time to your investigation?"
+
 msgid "Title (A-Z)"
 msgstr "Title (A-Z)"
 
@@ -733,6 +1086,12 @@ msgstr "To update your payment details"
 msgid "To upgrade your account"
 msgstr "To upgrade your account"
 
+msgid "Total number of Pro accounts:"
+msgstr "Total number of Pro accounts:"
+
+msgid "Uncovering which UK councils are paying exorbitant LOBO loans"
+msgstr "Uncovering which UK councils are paying exorbitant LOBO loans"
+
 msgid "Unless you choose a privacy option, requests in this batch will be public on {{site_name}} immediately."
 msgstr "Unless you choose a privacy option, requests in this batch will be public on {{site_name}} immediately."
 
@@ -742,8 +1101,8 @@ msgstr "Unless you choose a privacy option, your request will be public on {{sit
 msgid "Until that date you will continue to have full access to {{pro_site_name}}."
 msgstr "Until that date you will continue to have full access to {{pro_site_name}}."
 
-msgid "Up-to-date database of contact details for 20,000 authorities"
-msgstr "Up-to-date database of contact details for 20,000 authorities"
+msgid "Up-to-date database of <strong class=\"marketing-highlight\">contact details</strong> for {{authority_count}} authorities"
+msgstr "Up-to-date database of <strong class=\"marketing-highlight\">contact details</strong> for {{authority_count}} authorities"
 
 msgid "Update"
 msgstr "Update"
@@ -765,6 +1124,9 @@ msgstr "Updating your payment card requires your browser to have JavaScript enab
 msgid "Upgrade account"
 msgstr "Upgrade account"
 
+msgid "Using Pro to build a nationwide picture of the public properties being sold off by councils"
+msgstr "Using Pro to build a nationwide picture of the public properties being sold off by councils"
+
 msgid "View"
 msgstr "View"
 
@@ -774,11 +1136,26 @@ msgstr "View authorities"
 msgid "Wall"
 msgstr "Wall"
 
+msgid "Want to add weight to your campaign?"
+msgstr "Want to add weight to your campaign?"
+
+msgid "Want to add weight to your research?"
+msgstr "Want to add weight to your research?"
+
+msgid "Want to add weight to your story?"
+msgstr "Want to add weight to your story?"
+
+msgid "Want to add weight to your work?"
+msgstr "Want to add weight to your work?"
+
 msgid "We are processing your payment. You can access your subscription settings and account information from the \"My subscription\" link in your user menu (accessed from the dropdown next to your name, above)."
 msgstr "We are processing your payment. You can access your subscription settings and account information from the \"My subscription\" link in your user menu (accessed from the dropdown next to your name, above)."
 
 msgid "We will remind you by email and on the site when the request is going be made public, and you'll have the option to keep it private for longer if you want to. You can extend this time indefinitely, or make the request public at any time."
 msgstr "We will remind you by email and on the site when the request is going be made public, and you'll have the option to keep it private for longer if you want to. You can extend this time indefinitely, or make the request public at any time."
+
+msgid "Weekly Pro Metrics report for {{start_date}} - {{end_date}}"
+msgstr "Weekly Pro Metrics report for {{start_date}} - {{end_date}}"
 
 msgid "Welcome to {{pro_site_name}}!"
 msgstr "Welcome to {{pro_site_name}}!"
@@ -819,11 +1196,20 @@ msgstr "You added a new annotation on your request to {{public_body_name}} \"{{i
 msgid "You are already subscribed to this plan"
 msgstr "You are already subscribed to this plan"
 
+msgid "You can choose to keep your requests private for up to a year, not visible to anyone but you. We’ll make sure you know when that time’s about to run out, and you can always extend it further if your campaign’s not live yet."
+msgstr "You can choose to keep your requests private for up to a year, not visible to anyone but you. We’ll make sure you know when that time’s about to run out, and you can always extend it further if your campaign’s not live yet."
+
+msgid "You can choose to keep your requests private on the site for up to a year, not visible to anyone but you. We’ll make sure you know when that time’s about to run out, and you can always extend it further if your research hasn’t been published yet."
+msgstr "You can choose to keep your requests private on the site for up to a year, not visible to anyone but you. We’ll make sure you know when that time’s about to run out, and you can always extend it further if your research hasn’t been published yet."
+
+msgid "You can choose to keep your requests private on the site for up to a year, not visible to anyone but you. We’ll make sure you know when that time’s about to run out, and you can always extend it further if your story’s not published yet."
+msgstr "You can choose to keep your requests private on the site for up to a year, not visible to anyone but you. We’ll make sure you know when that time’s about to run out, and you can always extend it further if your story’s not published yet."
+
 msgid "You can re-subscribe at any time and full access to these features will be restored."
 msgstr "You can re-subscribe at any time and full access to these features will be restored."
 
-msgid "You don't currently have an active Pro subscription"
-msgstr "You don't currently have an active Pro subscription"
+msgid "You don't currently have a Pro subscription"
+msgstr "You don't currently have a Pro subscription"
 
 msgid "You have successfully cancelled your subscription to {{pro_site_name}}"
 msgstr "You have successfully cancelled your subscription to {{pro_site_name}}"
@@ -833,9 +1219,6 @@ msgstr "You haven't added any authorities to your batch yet"
 
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
-
-msgid "You must accept the terms and conditions"
-msgstr "You must accept the terms and conditions"
 
 msgid "You sent a clarification to {{public_body_name}} for \"{{info_request_title}}\"."
 msgstr "You sent a clarification to {{public_body_name}} for \"{{info_request_title}}\"."
@@ -927,6 +1310,15 @@ msgstr "Your subscription has been cancelled, your access to {{pro_site_name}} w
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 
+msgid "You’ll have access to our address book of {{authority_count}} authorities that are subject to FOI."
+msgstr "You’ll have access to our address book of {{authority_count}} authorities that are subject to FOI."
+
+msgid "You’re busy fixing the world. Let us take care of your FOI requests."
+msgstr "You’re busy fixing the world. Let us take care of your FOI requests."
+
+msgid "You’ve got plenty of other things to think about, so you don’t want to be checking up on every single one of your requests to see if it needs attention. Instead, Pro keeps an eye on them for you, sending you a daily email digest."
+msgstr "You’ve got plenty of other things to think about, so you don’t want to be checking up on every single one of your requests to see if it needs attention. Instead, Pro keeps an eye on them for you, sending you a daily email digest."
+
 msgid "all requests"
 msgstr "all requests"
 
@@ -1012,8 +1404,29 @@ msgstr "{{date}}"
 msgid "{{length_of_time}} ago"
 msgstr "{{length_of_time}} ago"
 
-msgid "{{pro_site_name}} is a powerful, fully-featured FOI toolkit for journalists"
-msgstr "{{pro_site_name}} is a powerful, fully-featured FOI toolkit for journalists"
+msgid "{{pro_site_name}} does all the heavy lifting, leaving you with more time to focus on your campaigning."
+msgstr "{{pro_site_name}} does all the heavy lifting, leaving you with more time to focus on your campaigning."
+
+msgid "{{pro_site_name}} does all the heavy lifting, leaving you with more time to focus on your investigation."
+msgstr "{{pro_site_name}} does all the heavy lifting, leaving you with more time to focus on your investigation."
+
+msgid "{{pro_site_name}} does all the heavy lifting, leaving you with more time to focus on your research."
+msgstr "{{pro_site_name}} does all the heavy lifting, leaving you with more time to focus on your research."
+
+msgid "{{pro_site_name}} does all the heavy lifting, leaving you with more time to focus on your story."
+msgstr "{{pro_site_name}} does all the heavy lifting, leaving you with more time to focus on your story."
+
+msgid "{{pro_site_name}} does the hard work for you"
+msgstr "{{pro_site_name}} does the hard work for you"
+
+msgid "{{pro_site_name}} is a powerful, fully-featured <strong class=\"marketing-highlight\">FOI toolkit</strong> for journalists, campaigners and researchers"
+msgstr "{{pro_site_name}} is a powerful, fully-featured <strong class=\"marketing-highlight\">FOI toolkit</strong> for journalists, campaigners and researchers"
+
+msgid "{{pro_site_name}} is here to help"
+msgstr "{{pro_site_name}} is here to help"
+
+msgid "{{pro_site_name}} moves request handling out of your email and onto a dedicated dashboard, keeping everything organised."
+msgstr "{{pro_site_name}} moves request handling out of your email and onto a dedicated dashboard, keeping everything organised."
 
 msgid "{{public_body_name}} are delayed in responding to your request \"{{info_request_title}}\"."
 msgstr "{{public_body_name}} are delayed in responding to your request \"{{info_request_title}}\"."
