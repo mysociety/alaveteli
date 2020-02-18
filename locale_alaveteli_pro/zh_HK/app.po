@@ -1419,24 +1419,3 @@ msgstr ""
 
 msgid "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."
 msgstr ""
-
-#~ msgid "A monthly subscription"
-#~ msgstr "每月訂閲"
-
-#~ msgid "Add Payment Card"
-#~ msgstr "加入付款卡"
-
-#~ msgid "An annual subscription"
-#~ msgstr "每年訂閲"
-
-#~ msgid "Contact us"
-#~ msgstr "聯絡我們"
-
-#~ msgid "More information"
-#~ msgstr "更多資訊"
-
-#~ msgid "Pay"
-#~ msgstr "付款"
-
-#~ msgid "Pay with card"
-#~ msgstr "信用卡付款"

@@ -1433,39 +1433,3 @@ msgstr "{{public_body_name}} are delayed in responding to your request \"{{info_
 
 msgid "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."
 msgstr "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."
-
-#~ msgid "A monthly subscription"
-#~ msgstr "A monthly subscription"
-
-#~ msgid "Add Payment Card"
-#~ msgstr "Add Payment Card"
-
-#~ msgid "An annual subscription"
-#~ msgstr "An annual subscription"
-
-#~ msgid "Contact us"
-#~ msgstr "Contact us"
-
-#~ msgid "Get access to the beta"
-#~ msgstr "Get access to the beta"
-
-#~ msgid "Get pre-launch access"
-#~ msgstr "Get pre-launch access"
-
-#~ msgid "If you have an <strong>offer code</strong>, please enter it here:"
-#~ msgstr "If you have an <strong>offer code</strong>, please enter it here:"
-
-#~ msgid "More information"
-#~ msgstr "More information"
-
-#~ msgid "Now in beta"
-#~ msgstr "Now in beta"
-
-#~ msgid "Pay"
-#~ msgstr "Pay"
-
-#~ msgid "Pay with card"
-#~ msgstr "Pay with card"
-
-#~ msgid "Successful applicants will receive free early access to {{site_name}} for 6 months."
-#~ msgstr "Successful applicants will receive free early access to {{site_name}} for 6 months."

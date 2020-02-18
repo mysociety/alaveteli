@@ -1441,39 +1441,3 @@ msgstr "{{public_body_name}} is te laat met antwoord op uw aanvraag \"{{info_req
 
 msgid "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."
 msgstr "{{public_body_name}} is veel te laat om uw aanvraag \"{{info_request_title}}\" te beantwoorden."
-
-#~ msgid "A monthly subscription"
-#~ msgstr "Een maandelijk abonnement"
-
-#~ msgid "Add Payment Card"
-#~ msgstr "Voeg betaalkaart toe"
-
-#~ msgid "An annual subscription"
-#~ msgstr "Een jaarlijks abonement"
-
-#~ msgid "Contact us"
-#~ msgstr "Neem contact met ons op"
-
-#~ msgid "Get access to the beta"
-#~ msgstr "Krijg toegang tot de bèta-versie"
-
-#~ msgid "Get pre-launch access"
-#~ msgstr "Krijg avant-première toegang"
-
-#~ msgid "If you have an <strong>offer code</strong>, please enter it here:"
-#~ msgstr "Indien u een <strong>kortingscode</strong>heeft, gelieve die hier in te brengen:"
-
-#~ msgid "More information"
-#~ msgstr "Meer informatie"
-
-#~ msgid "Now in beta"
-#~ msgstr "Nu in bèta-versie"
-
-#~ msgid "Pay"
-#~ msgstr "Betaal"
-
-#~ msgid "Pay with card"
-#~ msgstr "Betaal met uw betaalkaart"
-
-#~ msgid "Successful applicants will receive free early access to {{site_name}} for 6 months."
-#~ msgstr "Succesvolle deelnemers zullen een gratis vroege toegang van 6 maanden krijgen tot  {{site_name}} "

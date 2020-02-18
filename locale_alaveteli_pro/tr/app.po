@@ -1436,9 +1436,3 @@ msgstr ""
 
 msgid "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."
 msgstr ""
-
-#~ msgid "A monthly subscription"
-#~ msgstr "Aylık abonelik"
-
-#~ msgid "Add Payment Card"
-#~ msgstr "Kartlı ödeme ekle"

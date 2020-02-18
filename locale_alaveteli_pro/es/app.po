@@ -1439,6 +1439,3 @@ msgstr ""
 
 msgid "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."
 msgstr ""
-
-#~ msgid "A monthly subscription"
-#~ msgstr "Una suscripción mensual"

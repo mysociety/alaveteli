@@ -1471,18 +1471,3 @@ msgstr "{{public_body_name}} má zpoždění s odpovědí na váš dotaz \"{{inf
 
 msgid "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."
 msgstr "{{public_body_name}} má velké zpoždění s odpovědí na váš dotaz \"{{info_request_title}}\"."
-
-#~ msgid "A monthly subscription"
-#~ msgstr "Měsíční předplatné"
-
-#~ msgid "Add Payment Card"
-#~ msgstr "Přidej platební kartu"
-
-#~ msgid "An annual subscription"
-#~ msgstr "Roční předplatné"
-
-#~ msgid "Contact us"
-#~ msgstr "Kontaktujte nás"
-
-#~ msgid "Get access to the beta"
-#~ msgstr "Získej přistup do beta "
