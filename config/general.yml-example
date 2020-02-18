@@ -549,10 +549,20 @@ USE_GHOSTSCRIPT_COMPRESSION: false
 # country if one exists). You shouldn't need to change this if you have the
 # geoip-database package installed as specified in the config/packages files.
 #
+# You **must** add MAXMIND_LICENSE_KEY with this setting.
+#
 # GEOIP_DATABASE - String (default: vendor/data/GeoLite2-Country.mmdb)
 #
 # ---
 GEOIP_DATABASE: vendor/data/GeoLite2-Country.mmdb
+
+# MaxMind requires a free license key to download the GeoLite2 databases.
+# https://blog.maxmind.com/2019/12/18/significant-changes-to-accessing-and-using-geolite2-databases/
+#
+# MAXMIND_LICENSE_KEY - String (default: '')
+#
+# ---
+MAXMIND_LICENSE_KEY: ''
 
 # In the absence of a GeoIP database (see above), Alaveteli can use Gaze,
 # mySociety's gazeteer, to determine the country from the IP address of an HTTP
@@ -1187,7 +1197,7 @@ POP_MAILER_ENABLE_SSL: true
 #
 # Examples:
 #
-# STRIPE_PUBLISHABLE_KEY: sk_test_UD6BDsARFZIYb8273dbdl
+# STRIPE_PUBLISHABLE_KEY: pk_test_UD6BDsARFZIYb8273dbdl
 #
 # ---
 STRIPE_PUBLISHABLE_KEY: ''
@@ -1225,6 +1235,18 @@ STRIPE_NAMESPACE: ''
 # STRIPE_WEBHOOK_SECRET: wh_test_UD6BDsARFZIYb8273dbdl
 # ---
 STRIPE_WEBHOOK_SECRET: ''
+
+# The rate of Tax / VAT to add to Pro subscriptions. Note that the Price per
+# unit of your Stripe Product Plan must be created without tax. Alaveteli will
+# automatically calculate the gross amount to charge.
+#
+# STRIPE_TAX_RATE: - String (default: '0.20')
+#
+# Examples:
+#
+# STRIPE_TAX_RATE: '0.21' # 21%
+# ---
+STRIPE_TAX_RATE: '0.20'
 
 # A Stripe coupon code – displayed to existing Pro users on their subscriptions
 # page – that they can share with friends for their friends to receive a signup

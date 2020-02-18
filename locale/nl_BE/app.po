@@ -19,6 +19,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Christophe Van Gheluwe <info@vg-webdesign.be>, 2017
 # claude transparencia <audit.citoyen.quartier@gmail.com>, 2017-2018
 # Edwin Bosveld <edwin@inwy.nl>, 2013,2016
@@ -31,8 +32,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-14 10:15+0000\n"
-"PO-Revision-Date: 2019-11-11 16:57+0000\n"
+"POT-Creation-Date: 2020-02-10 15:57+0000\n"
+"PO-Revision-Date: 2020-02-10 15:36+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Dutch (Belgium) (http://www.transifex.com/mysociety/alaveteli/language/nl_BE/)\n"
 "Language: nl_BE\n"
@@ -337,6 +338,9 @@ msgstr "Over u:"
 msgid "About {{count}} FOI requests found"
 msgstr "Ongeveer {{count}} WOB-informatieaanvragen gevonden"
 
+msgid "Academic paper"
+msgstr ""
+
 msgid "Account closed at user request"
 msgstr ""
 
@@ -396,6 +400,9 @@ msgstr "Lucht, water, bodem, flora en fauna (inbegrepen de manier waarop ze de m
 
 msgid "All of the information requested has been received"
 msgstr "Alle gevraagde informatie werd ontvangen"
+
+msgid "All responses will be published when the privacy period expires. We depend on you, the original requester, to evaluate them."
+msgstr ""
 
 msgid "All the options below can use <strong>status</strong> or <strong>latest_status</strong> before the colon. For example, <strong>status:not_held</strong> will match requests which have <em>ever</em> been marked as not held; <strong>latest_status:not_held</strong> will match only requests that are <em>currently</em> marked as not held."
 msgstr "Alle opties hieronder kunnen <strong>status</strong> of <strong>latest_status</strong> voor het dubbele punt gebruiken. Bijvoorbeeld, <strong>status:niet_in_het-bezit</strong> komt overeen met aanvragen die <em>altijd</em> gemarkeerd staan als \"informatie die niet in het bezit is van de overheidsinstelling\" ; <strong>latest_status:niet_in_het_bezit</strong> komt enkel overeen met aanvragen die <em>momenteel</em> gemarkeerd staan als \"informatie niet in het bezit van de overheidsinstelling\"."
@@ -524,6 +531,9 @@ msgid "ApplicationRecord|Charset"
 msgstr ""
 
 msgid "ApplicationRecord|Circumstance"
+msgstr ""
+
+msgid "ApplicationRecord|Citable type"
 msgstr ""
 
 msgid "ApplicationRecord|Closed at"
@@ -1062,6 +1072,9 @@ msgstr "Kies een reden"
 
 msgid "Choose your profile photo"
 msgstr "Kies uw profielfoto"
+
+msgid "Citation successfully created."
+msgstr ""
 
 msgid "Clarification"
 msgstr "Toelichting"
@@ -1824,6 +1837,9 @@ msgstr "Verbeter de veiligheid van uw account"
 msgid "In progress"
 msgstr "In uitvoering"
 
+msgid "In the News"
+msgstr ""
+
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr "Voeg nuttige links toe,zoals naar uw campagnesite, naar uw blog of\\n een Twitter-account, etc. Deze links zullen aanklikbaar zijn. \\n e.g"
 
@@ -1919,6 +1935,9 @@ msgstr "Laatst bekeken aanvraag: {{request_url}}"
 
 msgid "Learn more &rarr;"
 msgstr "Meer weten &rarr;"
+
+msgid "Let us know"
+msgstr ""
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
 msgstr "Laat ons weten wat u deed wanneer dit bericht\\n is verschenen, welke browser en welk type en versie van besturingssysteem u gebruikt."
@@ -2040,11 +2059,11 @@ msgstr "Vraagt aandacht van de administrator"
 msgid "Needs status update"
 msgstr "Update van de aanvraag status is nodig"
 
+msgid "New Citation"
+msgstr ""
+
 msgid "New Freedom of Information requests"
 msgstr "Nieuwe WOB-informatieaanvragen"
-
-msgid "New censor rule"
-msgstr "Een nieuwe censuurregel"
 
 msgid "New e-mail:"
 msgstr "Nieuw e-mailadres:"
@@ -2075,6 +2094,9 @@ msgstr "Nieuwe updates voor de aanvraag '{{request_title}}'"
 
 msgid "Newest results first"
 msgstr "Meest recente resultaten eerst"
+
+msgid "News story"
+msgstr ""
 
 msgid "Next"
 msgstr "Volgende"
@@ -2301,6 +2323,9 @@ msgstr "Voeg a.u.b. geen aanstootgevende beelden bij. Ongepast materiaal \\n zal
 msgid "Please enable \"cookies\" to carry on"
 msgstr "Sta a.u.b. het gebruik van cookies toe om verder te kunnen gaan."
 
+msgid "Please enter a Source URL"
+msgstr ""
+
 msgid "Please enter a password"
 msgstr "Geef a.u.b. een wachtwoord op"
 
@@ -2371,6 +2396,9 @@ msgid "Please read the recent response and <strong>update the status</strong> so
 msgid_plural "Please read the recent responses and <strong>update the status</strong> so we know whether they contain useful information."
 msgstr[0] "Lees de jongste reactie en <strong>update de status</strong> zodat we weten of ze nuttige informatie bevat."
 msgstr[1] "Lees a.u.b. de jongste reacties en <strong>update de status</strong> zodat we weten of ze nuttige informatie bevatten."
+
+msgid "Please select a type"
+msgstr ""
 
 msgid "Please select an authority"
 msgstr "Kies a.u.b. een overheidsinstelling"
@@ -2899,6 +2927,9 @@ msgstr "Tot onze spijt kunnen wij uw aanvraag nu niet verzenden. Probeer a.u.b. 
 msgid "Sorry, we're currently unable to sign up new users, please try again later"
 msgstr "Sorry, we kunnen momenteel geen nieuwe bezoekers inschrijven. Probeer het later nog eens"
 
+msgid "Source URL is too long"
+msgstr ""
+
 msgid "Source URL:"
 msgstr "URL-bron:"
 
@@ -2925,6 +2956,9 @@ msgstr "Onderwerp"
 
 msgid "Subject:"
 msgstr "Onderwerp:"
+
+msgid "Submit"
+msgstr ""
 
 msgid "Submit Search"
 msgstr "Verzend uw opzoeking"
@@ -3058,11 +3092,17 @@ msgstr "De <strong>heroverweging is beëindigd</strong> en globaal genomen:"
 msgid "The Freedom of Information Act <strong>does not apply</strong> to"
 msgstr "De Wet openbaarheid van bestuur <strong> is niet van toepassing </strong> op"
 
+msgid "The URL where you found the article."
+msgstr ""
+
 msgid "The URL where you found the email address. This field is optional, but it would help us a lot if you can provide a link to a specific page on the authority's website that gives this address, as it will make it much easier for us to check."
 msgstr "De URL waar u het e-mailadres vond . Dit veld is optioneel, maar het zou ons erg vooruithelpen mocht u een  link bezorgen naar een specifieke bladzijde op de website van de overheidsinstelling waar dit mailadres staat. Het vergemakkelijkt ons het checken."
 
 msgid "The accounts have been left as they previously were."
 msgstr "De accounts zijn gebleven zoals ze waren."
+
+msgid "The article references all requests in this batch"
+msgstr ""
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr ""
@@ -3180,6 +3220,9 @@ msgstr "De widget zal er zo uit ziet:"
 
 msgid "The {{site_name}} team."
 msgstr "Het {{site_name}} team."
+
+msgid "Then you can add citations"
+msgstr ""
 
 msgid "Then you can cancel the alert."
 msgstr "Vervolgens zult u de waarschuwing kunnen negeren."
@@ -3475,6 +3518,9 @@ msgstr "Dit zal verschijnen op uw profiel van {{site_name}}; dit om \\n toe te l
 
 msgid "To"
 msgstr "Aan"
+
+msgid "To add a citation"
+msgstr ""
 
 msgid "To add a widget for <b>{{info_request_title}}</b>, copy and paste the following code to your web page:"
 msgstr "Om een widget toe te voegen aan <b>{{info_request_title}}</b>, kopieert en plakt u de volgende code in uw webpagina:"
@@ -3875,6 +3921,9 @@ msgstr "Welke informatie werd aangevraagd?"
 
 msgid "What next?"
 msgstr "Wat nu ?"
+
+msgid "What type of article is it?"
+msgstr ""
 
 msgid "What's happened:"
 msgstr ""

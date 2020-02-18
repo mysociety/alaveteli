@@ -73,6 +73,10 @@ class User < ApplicationRecord
            :inverse_of => :tracking_user,
            :foreign_key => 'tracking_user_id',
            :dependent => :destroy
+  has_many :citations,
+           -> { order('created_at desc') },
+           inverse_of: :user,
+           dependent: :destroy
   has_many :comments,
            -> { order('created_at desc') },
            :inverse_of => :user,
@@ -342,21 +346,27 @@ class User < ApplicationRecord
     return if no_xapian_reindex == true
     return unless saved_change_to_attribute?(:url_name)
 
-    comments.each do |comment|
-      comment.info_request_events.each do |info_request_event|
+    comments.find_each do |comment|
+      comment.info_request_events.find_each do |info_request_event|
         info_request_event.xapian_mark_needs_index
       end
     end
 
-    info_requests.each do |info_request|
-      info_request.info_request_events.each do |info_request_event|
+    info_requests.find_each do |info_request|
+      info_request.info_request_events.find_each do |info_request_event|
         info_request_event.xapian_mark_needs_index
       end
     end
   end
 
+  def locale
+    (super || AlaveteliLocalization.locale).to_s
+  end
+
   def get_locale
-    (locale || AlaveteliLocalization.locale).to_s
+    warn %q([DEPRECATION] User#get_locale will be removed in 0.38.
+            It has been replaced by User#locale).squish
+    locale
   end
 
   def name

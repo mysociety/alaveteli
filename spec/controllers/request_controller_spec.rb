@@ -74,6 +74,53 @@ describe RequestController, "when showing one request" do
     }.to raise_error(ActiveRecord::RecordNotFound)
   end
 
+  context 'when the request has similar requests' do
+    let(:info_request) { FactoryBot.create(:info_request) }
+    let(:similar_requests) { double.as_null_object }
+    let(:similar_more) { double.as_null_object }
+
+    before do
+      allow_any_instance_of(InfoRequest).
+        to receive(:similar_requests).
+        and_return([similar_requests, similar_more])
+
+      get :show, params: { url_title: info_request.url_title }
+    end
+
+    it 'assigns similar_requests' do
+      expect(assigns[:similar_requests]).to eq(similar_requests)
+    end
+
+    it 'assigns similar_more' do
+      expect(assigns[:similar_more]).to eq(similar_more)
+    end
+  end
+
+  context 'when the request has citations' do
+    let(:info_request) { FactoryBot.create(:info_request) }
+
+    let(:citations) do
+      FactoryBot.create_list(:citation, 5, citable: info_request)
+      info_request.citations.limit(3)
+    end
+
+    before { get :show, params: { url_title: info_request.url_title } }
+
+    it 'assigns 3 citations' do
+      expect(assigns[:citations]).to match_array(citations)
+    end
+  end
+
+  context 'when the request does not have citations' do
+    let(:info_request) { FactoryBot.create(:info_request) }
+
+    before { get :show, params: { url_title: info_request.url_title } }
+
+    it 'assigns an empty array of citations' do
+      expect(assigns[:citations]).to be_empty
+    end
+  end
+
   describe "redirecting pro users to the pro context" do
     let(:pro_user) { FactoryBot.create(:pro_user) }
 

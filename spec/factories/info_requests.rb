@@ -182,9 +182,9 @@ FactoryBot.define do
     end
 
     factory :external_request do
-      user nil
-      external_user_name 'External User'
-      external_url 'http://www.example.org/request/external'
+      user { nil }
+      external_user_name { 'External User' }
+      external_url { 'http://www.example.org/request/external' }
     end
 
     factory :old_unclassified_request do
@@ -210,7 +210,7 @@ FactoryBot.define do
     end
 
     factory :awaiting_description do
-      awaiting_description true
+      awaiting_description { true }
       after(:create) do |info_request, evaluator|
         info_request.awaiting_description = true
         info_request.save!
@@ -218,15 +218,15 @@ FactoryBot.define do
     end
 
     factory :hidden_request do
-      prominence 'hidden'
+      prominence { 'hidden' }
     end
 
     factory :backpage_request do
-      prominence 'backpage'
+      prominence { 'backpage' }
     end
 
     factory :overdue_request do
-      date_response_required_by Time.zone.now - 1.day
+      date_response_required_by { Time.zone.now - 1.day }
       after(:create) do |info_request, evaluator|
         info_request.date_response_required_by = Time.zone.now - 1.day
         info_request.save!
@@ -234,8 +234,8 @@ FactoryBot.define do
     end
 
     factory :very_overdue_request do
-      date_response_required_by Time.zone.now - 21.days
-      date_very_overdue_after Time.zone.now - 1.days
+      date_response_required_by { Time.zone.now - 21.days }
+      date_very_overdue_after { Time.zone.now - 1.days }
       after(:create) do |info_request, evaluator|
         info_request.date_response_required_by = Time.zone.now - 21.days
         info_request.date_very_overdue_after = Time.zone.now - 1.day
@@ -244,7 +244,7 @@ FactoryBot.define do
     end
 
     factory :use_notifications_request do
-      use_notifications true
+      use_notifications { true }
     end
   end
 

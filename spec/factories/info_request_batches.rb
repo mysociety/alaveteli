@@ -16,15 +16,15 @@
 FactoryBot.define do
 
   factory :info_request_batch do
-    title "Example title"
+    title { 'Example title' }
     user
-    body "Some text"
+    body { 'Some text' }
 
     # NB order of the traits is important as the after callbacks are run in the
     # order the traits are defined.
 
     trait :embargoed do
-      embargo_duration '3_months'
+      embargo_duration { '3_months' }
 
       after(:build) do |batch, evaluator|
         batch.info_requests.each do |request|
@@ -35,7 +35,7 @@ FactoryBot.define do
 
     trait :sent do
       transient do
-        public_body_count 1
+        public_body_count { 1 }
       end
 
       after(:build) do |batch, evaluator|

@@ -18,7 +18,7 @@ FactoryBot.define do
     public_body
     user
     sequence(:body) { |n| "Do you have information about record #{n}?" }
-    embargo_duration "3_months"
+    embargo_duration { '3_months' }
 
     factory :draft_with_no_duration do
       embargo_duration nil

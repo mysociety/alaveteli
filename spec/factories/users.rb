@@ -41,14 +41,14 @@ FactoryBot.define do
   factory :user do
     sequence(:name) { |n| "Example User #{n}" }
     sequence(:email) { |n| "person#{n}@example.com" }
-    password 'jonespassword'
-    email_confirmed true
-    ban_text ""
-    confirmed_not_spam true
+    password { 'jonespassword' }
+    email_confirmed { true }
+    ban_text { '' }
+    confirmed_not_spam { true }
 
     factory :unconfirmed_user do
-      email_confirmed false
-      confirmed_not_spam false
+      email_confirmed { false }
+      confirmed_not_spam { false }
     end
 
     factory :admin_user do
@@ -67,7 +67,7 @@ FactoryBot.define do
     end
 
     factory :pro_admin_user do
-      name 'Pro Admin User'
+      name { 'Pro Admin User' }
       after(:create) do |user, evaluator|
         user.add_role :admin
         user.add_role :pro_admin

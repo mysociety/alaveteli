@@ -20,13 +20,13 @@ FactoryBot.define do
   factory :request_summary, :class => AlaveteliPro::RequestSummary do
     sequence(:title) { |n| "Example Title #{n}" }
     sequence(:body) { |n| "Example request #{n}" }
-    public_body_names "Example Public Body"
+    public_body_names { 'Example Public Body' }
     association :summarisable, :factory => :info_request
     user :factory => :pro_user
 
     transient do
       # Should we fix the duplicated summarisable? (See the after(:build))
-      fix_summarisable true
+      fix_summarisable { true }
     end
 
     after(:build) do |summary, evaluator|

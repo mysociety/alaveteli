@@ -29,6 +29,14 @@ describe "request/show" do
     assign :info_request_events, []
     assign :status, mock_request.calculate_status
     assign :track_thing, mock_track
+    assign :similar_requests, double.as_null_object
+    assign :similar_more, double.as_null_object
+    assign :citations, double.as_null_object
+
+    allow(controller).
+      to receive(:current_ability).and_return(double.as_null_object)
+    allow(view).to receive(:current_user).and_return(double.as_null_object)
+
     render
   end
 
@@ -305,5 +313,27 @@ describe "request/show" do
     end
   end
 
-  describe "action"
+  context 'when sidebar is true' do
+    before do
+      assign :sidebar, true
+      assign :sidebar_template, 'sidebar'
+    end
+
+    it 'renders the sidebar' do
+      request_page
+      expect(rendered).to render_template(partial: '_sidebar')
+    end
+  end
+
+  context 'when sidebar is false' do
+    before do
+      assign :sidebar, false
+      assign :sidebar_template, 'sidebar'
+    end
+
+    it 'does not render the sidebar' do
+      request_page
+      expect(rendered).not_to render_template(partial: '_sidebar')
+    end
+  end
 end

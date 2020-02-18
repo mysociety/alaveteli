@@ -19,6 +19,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Amit Shrestha <amitshrestha37@gmail.com>, 2017
 # Anjesh Ojha <anjeshojha67@gmail.com>, 2017
 # arjun gautam <arjun.gautam.1694@gmail.com>, 2016
@@ -53,8 +54,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-14 10:15+0000\n"
-"PO-Revision-Date: 2019-11-11 16:57+0000\n"
+"POT-Creation-Date: 2020-02-10 15:57+0000\n"
+"PO-Revision-Date: 2020-02-10 15:36+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Nepali (http://www.transifex.com/mysociety/alaveteli/language/ne/)\n"
 "Language: ne\n"
@@ -359,6 +360,9 @@ msgstr "तपाईँको बारेमा:"
 msgid "About {{count}} FOI requests found"
 msgstr ""
 
+msgid "Academic paper"
+msgstr ""
+
 msgid "Account closed at user request"
 msgstr ""
 
@@ -418,6 +422,9 @@ msgstr "हावा, पानी, माटो, जमिन जीव जन�
 
 msgid "All of the information requested has been received"
 msgstr "अनुरोध गर्नुभएको सबै जानकारी प्राप्त भएको छ"
+
+msgid "All responses will be published when the privacy period expires. We depend on you, the original requester, to evaluate them."
+msgstr ""
 
 msgid "All the options below can use <strong>status</strong> or <strong>latest_status</strong> before the colon. For example, <strong>status:not_held</strong> will match requests which have <em>ever</em> been marked as not held; <strong>latest_status:not_held</strong> will match only requests that are <em>currently</em> marked as not held."
 msgstr "तल दिएका सबै विकल्पहरूले कोलोन भन्दा अगाडि <strong>status</strong> वा<strong>latest_status</strong> प्रयोग गर्न सक्छन्। उदाहरणका लागि<strong>status:not_held</strong> ले <em>कहिले पनि</em> चिन्ह नलगाएको अनुरोधहरू देखाउनेछ; <strong>latest_status:not_held</strong> ले <em>वर्तमानमा</em> चिन्ह नलगाएको अनुरोधहरू मात्र देखाउनेछ |"
@@ -546,6 +553,9 @@ msgid "ApplicationRecord|Charset"
 msgstr ""
 
 msgid "ApplicationRecord|Circumstance"
+msgstr ""
+
+msgid "ApplicationRecord|Citable type"
 msgstr ""
 
 msgid "ApplicationRecord|Closed at"
@@ -1084,6 +1094,9 @@ msgstr "कारण छान्नुहोस्"
 
 msgid "Choose your profile photo"
 msgstr "आफ्नो प्रोफाइल फोटो जाँच्नुहोस्"
+
+msgid "Citation successfully created."
+msgstr ""
 
 msgid "Clarification"
 msgstr "स्पष्टिकरण"
@@ -1848,6 +1861,9 @@ msgstr "तपाईको खाताको सुरक्षा सुधा
 msgid "In progress"
 msgstr ""
 
+msgid "In the News"
+msgstr ""
+
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. उदाहरण."
 
@@ -1943,6 +1959,9 @@ msgstr "अन्तिम पटक हेरिएको: {{request_url}} "
 
 msgid "Learn more &rarr;"
 msgstr "थप जान्नुहोस् &rarr;"
+
+msgid "Let us know"
+msgstr ""
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
 msgstr "यो सन्देस देख्दा तपाइले के गरिरहनु भएको थियो हामीलाइ थाहा दिनुहोस् र तपाइको ब्राउजर र अपरेटिङ सिस्टमको प्रकार र भर्जन।"
@@ -2064,11 +2083,11 @@ msgstr "एड्मिनको सहायता चाहिएको छ"
 msgid "Needs status update"
 msgstr ""
 
+msgid "New Citation"
+msgstr ""
+
 msgid "New Freedom of Information requests"
 msgstr "सूचना अनुरोधको नयाँ स्वतन्त्रता"
-
-msgid "New censor rule"
-msgstr "नयाँ सेन्सर नियम"
 
 msgid "New e-mail:"
 msgstr "नयाँ इमेल:"
@@ -2099,6 +2118,9 @@ msgstr "'{{request_title}}' अनुरोधको लागि नयाँ �
 
 msgid "Newest results first"
 msgstr "नयाँ  परिणाम पहिला "
+
+msgid "News story"
+msgstr ""
 
 msgid "Next"
 msgstr "अर्को"
@@ -2325,6 +2347,9 @@ msgstr "कृपया आपत्तिजनक तस्वीर अपल
 msgid "Please enable \"cookies\" to carry on"
 msgstr "कृपया पूरा गर्न \"कुकीहरू\" खुल्ला गर्नुहोस "
 
+msgid "Please enter a Source URL"
+msgstr ""
+
 msgid "Please enter a password"
 msgstr "कृपया पासवर्ड हाल्नुहोस्"
 
@@ -2395,6 +2420,9 @@ msgid "Please read the recent response and <strong>update the status</strong> so
 msgid_plural "Please read the recent responses and <strong>update the status</strong> so we know whether they contain useful information."
 msgstr[0] ""
 msgstr[1] ""
+
+msgid "Please select a type"
+msgstr ""
 
 msgid "Please select an authority"
 msgstr "कृपया निकाय चयन गर्नुहोस"
@@ -2923,6 +2951,9 @@ msgstr ""
 msgid "Sorry, we're currently unable to sign up new users, please try again later"
 msgstr "माफ गर्नुहोस्, हामी अहिले नयाँ प्रयोगकर्ता साइन अप गर्न असमर्थ छौं, कृपया पछि फेरि प्रयास गर्नुहोस्"
 
+msgid "Source URL is too long"
+msgstr ""
+
 msgid "Source URL:"
 msgstr "URL स्रोत:"
 
@@ -2949,6 +2980,9 @@ msgstr "विषय"
 
 msgid "Subject:"
 msgstr "विषय:"
+
+msgid "Submit"
+msgstr ""
 
 msgid "Submit Search"
 msgstr "खोज बुझाउनुहोस्"
@@ -3082,11 +3116,17 @@ msgstr "समग्रमा </strong> समीक्षा सकिएको
 msgid "The Freedom of Information Act <strong>does not apply</strong> to"
 msgstr "<strong> स्वतन्त्रता सूचना एन, यो माथि </strong>लागू हुदैन "
 
+msgid "The URL where you found the article."
+msgstr ""
+
 msgid "The URL where you found the email address. This field is optional, but it would help us a lot if you can provide a link to a specific page on the authority's website that gives this address, as it will make it much easier for us to check."
 msgstr "तपाइले इमेल अद्द्रेस भेट्नु भएको युरएल .यो छेत्र ठिक छ ,तर यदि तपाइले अक्तियार को पेज को लिंक प्रदान गरेमा निकै ठुलो सहयोग हुनेथ्यो, किनकि सजिल्लो हुनेछ हामीलाई ।"
 
 msgid "The accounts have been left as they previously were."
 msgstr "पहिला जस्तो खाता छोडिएको थियो अहिले नि तेस्तै छोडिएको छ "
+
+msgid "The article references all requests in this batch"
+msgstr ""
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr ""
@@ -3204,6 +3244,9 @@ msgstr "तपाइको विजेट येस्तो दखिने �
 
 msgid "The {{site_name}} team."
 msgstr "{{site_name}} समूह"
+
+msgid "Then you can add citations"
+msgstr ""
 
 msgid "Then you can cancel the alert."
 msgstr "अनि यो सूचक खारेज गर्न सक्नुहुन्छ।"
@@ -3501,6 +3544,9 @@ msgstr "तपाईले  गरिराख्नु भएको काम�
 
 msgid "To"
 msgstr "लाई"
+
+msgid "To add a citation"
+msgstr ""
 
 msgid "To add a widget for <b>{{info_request_title}}</b>, copy and paste the following code to your web page:"
 msgstr "<b>{{info_request_title}}</b> मा विजेट थप गर्नको लागि निम्न कोड आफ्नो वेबपेजमा कपी र पेस्ट गर्नुहोस्"
@@ -3901,6 +3947,9 @@ msgstr "के जानकारीहरु अनुरोध गरिएक
 
 msgid "What next?"
 msgstr "अब के गर्ने?"
+
+msgid "What type of article is it?"
+msgstr ""
 
 msgid "What's happened:"
 msgstr ""

@@ -111,6 +111,11 @@ class InfoRequest < ApplicationRecord
   has_many :widget_votes,
            :inverse_of => :info_request,
            :dependent => :destroy
+  has_many :citations,
+           -> (info_request) { unscope(:where).for_request(info_request) },
+           as: :citable,
+           inverse_of: :citable,
+           dependent: :destroy
   has_many :comments,
            -> { order('created_at') },
            :inverse_of => :info_request,
@@ -780,7 +785,7 @@ class InfoRequest < ApplicationRecord
   end
 
   def reindex_request_events
-    info_request_events.each do |event|
+    info_request_events.find_each do |event|
       event.xapian_mark_needs_index
     end
   end

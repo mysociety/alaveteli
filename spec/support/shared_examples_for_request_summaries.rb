@@ -1,6 +1,4 @@
 # -*- encoding : utf-8 -*-
-require 'spec_helper'
-
 shared_examples_for "RequestSummaries" do
   let(:model) { described_class }
   let(:class_name) { model.to_s }

@@ -1,0 +1,48 @@
+<div class="marketing__section">
+  <div class="marketing__section__heading">
+    <h2><%=_('Batch') %></h2>
+  </div>
+
+  <div class="marketing__section__content">
+    <div class="marketing__section__content-items">
+      <ul class="marketing__section__feature-list">
+        <li>
+          <%=_('<strong class="marketing-highlight">Make a request to ' \
+               'multiple authorities</strong>: select authorities at the ' \
+               'click of a button') %>
+        </li>
+
+        <li>
+          <%=_('<strong class="marketing-highlight">Manage large volumes of ' \
+               'responses</strong>: easily keep track of the status of each ' \
+               'request') %>
+        </li>
+
+        <li>
+          <%=_('<strong class="marketing-highlight">Get regular updates' \
+               '</strong> as the responses come in — without overwhelming ' \
+               'your inbox') %>
+        </li>
+      </ul>
+
+      <div class="side-by-side-elements screenshots">
+        <div class="side-by-side-element">
+          <%= link_to image_path('alaveteli-pro/screenshot-batch-selection.jpg') do %>
+            <%= image_tag('alaveteli-pro/screenshot-batch-selection.jpg',
+                          alt: _('Batch requests allow multiple recipients ' \
+                                 'of a single request')) %>
+          <% end %>
+        </div>
+
+        <div class="side-by-side-element">
+          <%= link_to image_path('alaveteli-pro/screenshot-batch-list.jpg') do %>
+            <%= image_tag('alaveteli-pro/screenshot-batch-list.jpg',
+                          alt: _('Batch requests are part of a new workflow')) %>
+          <% end %>
+        </div>
+      </div>
+
+      <%= render partial: 'cta' %>
+    </div>
+  </div>
+</div>

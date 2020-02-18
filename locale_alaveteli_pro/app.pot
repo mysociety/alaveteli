@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-14 10:16+0000\n"
+"POT-Creation-Date: 2020-02-10 16:08+0000\n"
 "PO-Revision-Date: 2017-01-20 17:40+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,10 +40,19 @@ msgstr ""
 msgid "12 Months"
 msgstr ""
 
+msgid "29 April 2019"
+msgstr ""
+
+msgid "3 July 2017"
+msgstr ""
+
 msgid "3 Months"
 msgstr ""
 
 msgid "6 Months"
+msgstr ""
+
+msgid "<a href=\"{{story_url}}\">Sold From Under You</a> — the Bureau of investigative Journalism used Pro to send requests to councils up and down the county to build a nationwide picture of the public properties being sold off by councils in the face of austerity."
 msgstr ""
 
 msgid "<span class=\"current-page\">{{current_page}}</span> of <span class=\"total-pages\">{{total_pages}}</span>"
@@ -56,6 +65,9 @@ msgid "<strong class=\"marketing-highlight\">Action alerts</strong>: know when i
 msgstr ""
 
 msgid "<strong class=\"marketing-highlight\">Daily summary emails</strong> to keep your inbox clean"
+msgstr ""
+
+msgid "<strong class=\"marketing-highlight\">Delivery verification</strong> for proof of receipt"
 msgstr ""
 
 msgid "<strong class=\"marketing-highlight\">Delivery verification</strong> for proof of receipt</strong>"
@@ -79,6 +91,21 @@ msgstr ""
 msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
 msgstr ""
 
+msgid "<strong>Easy</strong> One monthly fee covers all Pro features, with no complex tiers or options to worry about."
+msgstr ""
+
+msgid "<strong>Flexible</strong> You can cancel at any time, with no lengthy tie-ins and no notice required."
+msgstr ""
+
+msgid "<strong>Reasonable</strong> We know that campaigners are likely to be on a limited budget, so we’ve kept the subscription affordable."
+msgstr ""
+
+msgid "<strong>Reasonable</strong> We know that journalists can be on a limited budget, so we’ve kept the subscription affordable."
+msgstr ""
+
+msgid "<strong>Reasonable</strong> We know that researchers can be on a limited budget, so we’ve kept the subscription affordable."
+msgstr ""
+
 msgid "<strong>Thank</strong> the public authority."
 msgstr ""
 
@@ -89,6 +116,9 @@ msgid "<strong>{{filter_description}}</strong> sorted by <strong>{{order_descrip
 msgstr ""
 
 msgid "<strong>{{pro_site_name}}</strong> runs on the UK’s best-known FOI service"
+msgstr ""
+
+msgid "A  powerful, fully-featured toolset that solves problems for campaigners managing multiple requests or in-depth FOI investigations"
 msgstr ""
 
 msgid "A <strong class=\"marketing-highlight\">searchable archive</strong> of Freedom of Information requests"
@@ -103,22 +133,16 @@ msgstr ""
 msgid "A permanent, searchable, <strong class=\"marketing-highlight\">public record</strong> of your request and the responses"
 msgstr ""
 
-msgid "A permanent, searchable, public record of your request and the responses"
-msgstr ""
-
 msgid "A powerful <strong class=\"marketing-highlight\">private dashboard</strong>: track and manage your FOI projects"
 msgstr ""
 
-msgid "A powerful private dashboard: track and manage your FOI projects"
+msgid "A powerful, fully-featured toolset that solves problems for journalists managing multiple requests or in-depth FOI investigations"
 msgstr ""
 
-msgid "A searchable archive of Freedom of Information requests"
+msgid "A powerful, fully-featured toolset that solves problems for researchers and academics managing multiple requests or in-depth FOI investigations"
 msgstr ""
 
 msgid "A super-smart <strong class=\"marketing-highlight\">to-do list</strong>: follow the progress of your requests"
-msgstr ""
-
-msgid "A super-smart to-do list: follow the progress of your requests"
 msgstr ""
 
 msgid "About {{public_body_name}}"
@@ -127,7 +151,7 @@ msgstr ""
 msgid "Account"
 msgstr ""
 
-msgid "Action alerts: know when it’s time to take the next step"
+msgid "Activist Doug Paulley uncovered councils across the UK who, through inaction, are allowing legal discrimination against wheelchair users. <a href=\"{{story_url}}\">See the whole story</a>"
 msgstr ""
 
 msgid "Activity"
@@ -149,6 +173,9 @@ msgid "Add annotation"
 msgstr ""
 
 msgid "Add authorities to your batch"
+msgstr ""
+
+msgid "Add credibility"
 msgstr ""
 
 msgid "Added"
@@ -184,16 +211,28 @@ msgstr ""
 msgid "Are you sure?"
 msgstr ""
 
+msgid "Automate FOI request management"
+msgstr ""
+
 msgid "Batch"
 msgstr ""
 
+msgid "Batch FOI requests"
+msgstr ""
+
 msgid "Batch request"
+msgstr ""
+
+msgid "Batch requests"
 msgstr ""
 
 msgid "Batch requests allow multiple recipients of a single request"
 msgstr ""
 
 msgid "Batch requests are part of a new workflow"
+msgstr ""
+
+msgid "Because we’ve streamlined the request-writing process, Pro saves you a lot of back and forth. Search our database of authorities, pick which one — or many — you want to contact, and compose your request right there."
 msgstr ""
 
 msgid "Billed: Annually"
@@ -211,10 +250,19 @@ msgstr ""
 msgid "Billing"
 msgstr ""
 
+msgid "Bringing facts about campagin overspending to light with the privacy features"
+msgstr ""
+
 msgid "Browse by category"
 msgstr ""
 
 msgid "Browse public requests"
+msgstr ""
+
+msgid "CSV"
+msgstr ""
+
+msgid "Campaigning for better wheelchair accessibility"
 msgstr ""
 
 msgid "Cancel"
@@ -253,9 +301,6 @@ msgstr ""
 msgid "Confirm your account on {{site_name}}"
 msgstr ""
 
-msgid "Contact us"
-msgstr ""
-
 msgid "Continuing with checkout requires your browser to have JavaScript enabled."
 msgstr ""
 
@@ -268,9 +313,6 @@ msgstr ""
 msgid "Created"
 msgstr ""
 
-msgid "Daily summary emails to keep your inbox clean"
-msgstr ""
-
 msgid "Dashboard"
 msgstr ""
 
@@ -280,7 +322,10 @@ msgstr ""
 msgid "Dear {{user_name}},"
 msgstr ""
 
-msgid "Delivery verification for proof of receipt"
+msgid "Debt Resistance UK uncovered <a href=\"{{story_url}}\">which councils are paying exorbitant LOBO loans</a>, in some cases meaning that a large proportion of council tax income is being channelled directly into interest payments."
+msgstr ""
+
+msgid "Debt Resistance UK uncovered which councils are paying exorbitant LOBO loans, in some cases meaning that a large proportion of council tax income is being channelled directly into interest payments."
 msgstr ""
 
 msgid "Details"
@@ -328,7 +373,46 @@ msgstr ""
 msgid "Expires soon"
 msgstr ""
 
+msgid "FOI Management Tools for journalists, campaigners and researchers"
+msgstr ""
+
+msgid "FOI Management for Campaigners"
+msgstr ""
+
+msgid "FOI Management for Journalists"
+msgstr ""
+
+msgid "FOI Management for Researchers"
+msgstr ""
+
+msgid "FOI address book"
+msgstr ""
+
+msgid "FOI for campaigners"
+msgstr ""
+
+msgid "FOI for journalists"
+msgstr ""
+
+msgid "FOI for researchers"
+msgstr ""
+
+msgid "FOI is an invaluable tool for researchers, helping you collect information that hasn’t previously been available as a single dataset, and understand the wider picture. Pro takes the slog out of sending multiple requests with the Batch feature: easily pick the authorities you want, then send one request to all of them."
+msgstr ""
+
+msgid "FOI is an invaluable tool in campaigns, helping you collect information that hasn’t previously been available as a single dataset so that you and your supporters can understand the wider picture. Pro takes the slog out of sending multiple requests with the Batch feature: easily pick the authorities you want, then send one request to all of them."
+msgstr ""
+
+msgid "FOI is an invaluable tool in investigations, helping you collect information that hasn’t previously been available as a single dataset so that you and your readers can understand the wider picture. Pro takes the slog out of sending multiple requests with the Batch feature: easily pick the authorities you want, then send one request to all of them."
+msgstr ""
+
 msgid "Featuring"
+msgstr ""
+
+msgid "Find out how {{pro_site_name}} can take the hard work out of FOI investigations"
+msgstr ""
+
+msgid "Finding it hard to keep on top of your FOI requests?"
 msgstr ""
 
 msgid "First created"
@@ -346,16 +430,40 @@ msgstr ""
 msgid "From this screen you can see what you need to do next to keep your requests moving forward. Why not start a new request now?"
 msgstr ""
 
+msgid "Gavin Chait surveyed 350 local authorities to find out <a href=\"{{story_url}}\">which commercial premises were empty</a>, in order to give a helping hand to start-up businesses."
+msgstr ""
+
 msgid "Get email updates about {{pro_site_name}}?"
 msgstr ""
 
-msgid "Get regular updates as the responses come in — without overwhelming your inbox"
+msgid "Get in touch"
 msgstr ""
 
 msgid "Get started with your first request"
 msgstr ""
 
+msgid "Got questions?"
+msgstr ""
+
+msgid "Hard to keep track of your many requests?"
+msgstr ""
+
 msgid "Help"
+msgstr ""
+
+msgid "Helping startups find the best location for their business"
+msgstr ""
+
+msgid "How campaigners are using Pro"
+msgstr ""
+
+msgid "How it works"
+msgstr ""
+
+msgid "How journalists are using Pro"
+msgstr ""
+
+msgid "How researchers are using Pro"
 msgstr ""
 
 msgid "I have read and accepted these terms and conditions"
@@ -370,13 +478,37 @@ msgstr ""
 msgid "If you wish to preserve your access to {{pro_site_name}}, please could you check that your card has sufficient funds, and that the card details are correct on your subscriptions page: {{subscriptions_page_url}}"
 msgstr ""
 
+msgid "If your request bounces back, we source the new address for that authority."
+msgstr ""
+
+msgid "Image credits:"
+msgstr ""
+
 msgid "Important info about requests to this authority"
 msgstr ""
 
 msgid "Introductory Pricing"
 msgstr ""
 
+msgid "Investigating asbestos use in shcools"
+msgstr ""
+
+msgid "Investigative journalist Jenna Corderoy has made good use of Pro’s privacy features, keeping her extensive Brexit-related investigations private until her stories broke, bringing facts about <a href=\"{{story_url_1}}\">campaign overspending</a> and <a href=\"{{story_url_2}}\">ERG</a> research to the public, among several other important stories."
+msgstr ""
+
+msgid "I’m a campaigner"
+msgstr ""
+
+msgid "I’m a journalist"
+msgstr ""
+
+msgid "I’m a researcher"
+msgstr ""
+
 msgid "Join {{pro_site_name}}"
+msgstr ""
+
+msgid "Journalists"
 msgstr ""
 
 msgid "Keep <strong class=\"marketing-highlight\">requests and responses private</strong> while you work on your story"
@@ -388,10 +520,22 @@ msgstr ""
 msgid "Keep private for:"
 msgstr ""
 
-msgid "Keep requests and responses private while you work on your story"
+msgid "Keep track of FOI requests"
 msgstr ""
 
 msgid "Last updated"
+msgstr ""
+
+msgid "Learn more about {{pro_site_name}} for campaigners"
+msgstr ""
+
+msgid "Learn more about {{pro_site_name}} for journalists"
+msgstr ""
+
+msgid "Learn more about {{pro_site_name}} for researchers"
+msgstr ""
+
+msgid "Lucie Stephens, prompted by the death of someone she cared about, requested information about asbestos in schools from more than 200 LEAs. <a href=\"{{story_url}}\">Read about her campaign</a>"
 msgstr ""
 
 msgid "Make a batch request"
@@ -403,19 +547,10 @@ msgstr ""
 msgid "Make a request to multiple authorities and manage the responses."
 msgstr ""
 
-msgid "Make a request to multiple authorities: select authorities at the click of a button"
-msgstr ""
-
 msgid "Make an {{law_used_short}} request"
 msgstr ""
 
-msgid "Manage large volumes of responses:  easily keep track of the status of each request"
-msgstr ""
-
 msgid "Message {{current_message}} of {{total_messages}}"
-msgstr ""
-
-msgid "More information"
 msgstr ""
 
 msgid "My profile"
@@ -425,6 +560,21 @@ msgid "My subscription"
 msgstr ""
 
 msgid "My wall"
+msgstr ""
+
+msgid "Need a helping hand with your FOI requests?"
+msgstr ""
+
+msgid "Need to keep things under wraps?"
+msgstr ""
+
+msgid "Need to keep your requests private?"
+msgstr ""
+
+msgid "Need to protect your research?"
+msgstr ""
+
+msgid "Need to protect your scoop?"
 msgstr ""
 
 msgid "New Pro accounts this week:"
@@ -457,10 +607,19 @@ msgstr ""
 msgid "No more authorities can be added to this batch request."
 msgstr ""
 
+msgid "No more copy and paste emails: our Batch Request tool helps you create one request and send it to many authorities at once."
+msgstr ""
+
+msgid "No need to check: we’ll send an email alert telling you when you need to take action."
+msgstr ""
+
 msgid "No results found"
 msgstr ""
 
 msgid "No title"
+msgstr ""
+
+msgid "Not enough hours in the day?"
 msgstr ""
 
 msgid "Note: When this request is made public on {{site_name}}, this message will also be made public."
@@ -487,7 +646,25 @@ msgstr ""
 msgid "Once the privacy period ends, everything that you enter on this page, including <strong>your name</strong>, will be <strong><a href=\"{{url}}\">displayed publicly</a></strong> on this website."
 msgstr ""
 
+msgid "Once you launch your campaign, there’s every reason to put your requests and responses into the public domain. They’ll lend credence to your campaign, and make the data available for others who might want to research a different angle."
+msgstr ""
+
+msgid "Once your research is out there, it’s a great idea to put your requests and responses into the public domain. They’ll lend credence to your work, and make the data available for others who might want to research a different angle."
+msgstr ""
+
+msgid "Once your story’s been published, there’s every reason to put your requests and responses into the public domain. They’ll lend credence to your investigation, and make the data available for others who might want to research a different angle."
+msgstr ""
+
 msgid "Once you’re happy with your request, click preview and send."
+msgstr ""
+
+msgid "Once you’re ready, publishing the data behind your investigation lends it extra credibility, and opens it to a wider community."
+msgstr ""
+
+msgid "Once you’re ready, publishing the data behind your investigation lends it extra credibility."
+msgstr ""
+
+msgid "Overflowing inbox?"
 msgstr ""
 
 msgid "Payments past due:"
@@ -544,6 +721,12 @@ msgstr ""
 msgid "Private"
 msgstr ""
 
+msgid "Private FOI requests"
+msgstr ""
+
+msgid "Private Requests"
+msgstr ""
+
 msgid "Private requests for information"
 msgstr ""
 
@@ -554,6 +737,12 @@ msgid "Pro brings a new dashboard view"
 msgstr ""
 
 msgid "Pro features a new request list view"
+msgstr ""
+
+msgid "Pro gives you all of the ease of {{site_name}}, without the worry of others snatching your scoop before it’s ready."
+msgstr ""
+
+msgid "Pro gives you all of the ease of {{site_name}}, without the worry of releasing all your work before you’re ready for the world to see it."
 msgstr ""
 
 msgid "Professional"
@@ -585,6 +774,9 @@ msgstr[1] ""
 msgid "Read blog"
 msgstr ""
 
+msgid "Ready to go public"
+msgstr ""
+
 msgid "Refer a friend"
 msgstr ""
 
@@ -592,6 +784,9 @@ msgid "Remember, public authorities have {{late_number_of_days}} calendar days t
 msgstr ""
 
 msgid "Remember, public authorities have {{late_number_of_days}} working days to respond to FOI requests."
+msgstr ""
+
+msgid "Reminders"
 msgstr ""
 
 msgid "Remove"
@@ -620,6 +815,15 @@ msgstr ""
 msgid "Requests"
 msgstr ""
 
+msgid "Requests can stay completely private until you’re ready to go public with your story."
+msgstr ""
+
+msgid "Requests can stay completely private until you’re ready to go public."
+msgstr ""
+
+msgid "Requests can stay completely private until you’re ready to publish your research."
+msgstr ""
+
 msgid "Requests in this batch are private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
 msgstr ""
 
@@ -632,13 +836,16 @@ msgstr ""
 msgid "Requests that will be made public soon"
 msgstr ""
 
+msgid "Researchers"
+msgstr ""
+
 msgid "Response due"
 msgstr ""
 
-msgid "Save as draft to get back to it later"
+msgid "Save draft"
 msgstr ""
 
-msgid "Save draft"
+msgid "Save time managing FOI requests"
 msgstr ""
 
 msgid "Search"
@@ -654,6 +861,9 @@ msgid "Search for an authority by name"
 msgstr ""
 
 msgid "Searching for <strong>{{search_term}}</strong> in <strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
+msgstr ""
+
+msgid "Searching for the right email address for every FOI contact?"
 msgstr ""
 
 msgid "Selected plan"
@@ -687,6 +897,9 @@ msgid_plural "Send {{count}} requests"
 msgstr[0] ""
 msgstr[1] ""
 
+msgid "Sending to multiple authorities at once?"
+msgstr ""
+
 msgid "Sending..."
 msgstr ""
 
@@ -705,6 +918,9 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "Sign up"
+msgstr ""
+
+msgid "Simple, affordable pricing"
 msgstr ""
 
 msgid "Sorry, no authorities matched that search"
@@ -740,9 +956,6 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-msgid "Streamlined process for requesting internal reviews"
-msgstr ""
-
 msgid "Subject"
 msgstr ""
 
@@ -773,6 +986,15 @@ msgstr ""
 msgid "Thanks for your interest in {{pro_site_name}}, we'll get back to you soon!"
 msgstr ""
 
+msgid "The Bureau of investigative Journalism used Pro to send requests to councils up and down the county, and build a nationwide picture of the public properties being sold off by councils in the face of austerity."
+msgstr ""
+
+msgid "The Wales Governance Centre sent FOI requests through Pro to discover the prison populations across Wales and England for their report ‘<a href=\"{{story_url}}\">Sentencing and Imprisonment in Wales</a>’."
+msgstr ""
+
+msgid "The Wales Governance Centre sent FOI requests through Pro to discover the prison populations across Wales and England for their report ‘Sentencing and Imprisonment in Wales’."
+msgstr ""
+
 msgid "The following request has been made public on {{site_name}} this week."
 msgid_plural "The following requests have been made public on {{site_name}} this week."
 msgstr[0] ""
@@ -782,6 +1004,9 @@ msgid "The following request will be made public on {{site_name}} in the next we
 msgid_plural "The following requests will be made public on {{site_name}} in the next week. If you do not wish for any of these requests to go public, please click on the links below to extend them."
 msgstr[0] ""
 msgstr[1] ""
+
+msgid "The ‘Data Scores as Governance’ project used Pro to help examine the <a href=\"{{story_url}}\">use of data-driven scores in categorising citizens</a>, allocating services, and predicting behaviour."
+msgstr ""
 
 msgid "Then you can access {{pro_site_name}}"
 msgstr ""
@@ -834,6 +1059,15 @@ msgstr ""
 msgid "This will update the privacy for all of the requests in this batch. Are you sure?"
 msgstr ""
 
+msgid "Time is precious in newsrooms, so your dashboard just presents the information you need to know: which requests have received responses; which haven’t and need chasing up; and which require input from you. Search, filter or sort by status to quickly find the request you’re looking for."
+msgstr ""
+
+msgid "Time is precious, so your dashboard just presents the information you need to know: which requests have received responses; which haven’t and need chasing up; and which require input from you. Search, filter or sort by status to quickly find the request you’re looking for."
+msgstr ""
+
+msgid "Tired of the fiddly details that add time to your investigation?"
+msgstr ""
+
 msgid "Title (A-Z)"
 msgstr ""
 
@@ -855,6 +1089,9 @@ msgstr ""
 msgid "Total number of Pro accounts:"
 msgstr ""
 
+msgid "Uncovering which UK councils are paying exorbitant LOBO loans"
+msgstr ""
+
 msgid "Unless you choose a privacy option, requests in this batch will be public on {{site_name}} immediately."
 msgstr ""
 
@@ -865,9 +1102,6 @@ msgid "Until that date you will continue to have full access to {{pro_site_name}
 msgstr ""
 
 msgid "Up-to-date database of <strong class=\"marketing-highlight\">contact details</strong> for {{authority_count}} authorities"
-msgstr ""
-
-msgid "Up-to-date database of contact details for {{authority_count}} authorities"
 msgstr ""
 
 msgid "Update"
@@ -890,6 +1124,9 @@ msgstr ""
 msgid "Upgrade account"
 msgstr ""
 
+msgid "Using Pro to build a nationwide picture of the public properties being sold off by councils"
+msgstr ""
+
 msgid "View"
 msgstr ""
 
@@ -897,6 +1134,18 @@ msgid "View authorities"
 msgstr ""
 
 msgid "Wall"
+msgstr ""
+
+msgid "Want to add weight to your campaign?"
+msgstr ""
+
+msgid "Want to add weight to your research?"
+msgstr ""
+
+msgid "Want to add weight to your story?"
+msgstr ""
+
+msgid "Want to add weight to your work?"
 msgstr ""
 
 msgid "We are processing your payment. You can access your subscription settings and account information from the \"My subscription\" link in your user menu (accessed from the dropdown next to your name, above)."
@@ -947,10 +1196,19 @@ msgstr ""
 msgid "You are already subscribed to this plan"
 msgstr ""
 
+msgid "You can choose to keep your requests private for up to a year, not visible to anyone but you. We’ll make sure you know when that time’s about to run out, and you can always extend it further if your campaign’s not live yet."
+msgstr ""
+
+msgid "You can choose to keep your requests private on the site for up to a year, not visible to anyone but you. We’ll make sure you know when that time’s about to run out, and you can always extend it further if your research hasn’t been published yet."
+msgstr ""
+
+msgid "You can choose to keep your requests private on the site for up to a year, not visible to anyone but you. We’ll make sure you know when that time’s about to run out, and you can always extend it further if your story’s not published yet."
+msgstr ""
+
 msgid "You can re-subscribe at any time and full access to these features will be restored."
 msgstr ""
 
-msgid "You don't currently have an active Pro subscription"
+msgid "You don't currently have a Pro subscription"
 msgstr ""
 
 msgid "You have successfully cancelled your subscription to {{pro_site_name}}"
@@ -1052,6 +1310,15 @@ msgstr ""
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr ""
 
+msgid "You’ll have access to our address book of {{authority_count}} authorities that are subject to FOI."
+msgstr ""
+
+msgid "You’re busy fixing the world. Let us take care of your FOI requests."
+msgstr ""
+
+msgid "You’ve got plenty of other things to think about, so you don’t want to be checking up on every single one of your requests to see if it needs attention. Instead, Pro keeps an eye on them for you, sending you a daily email digest."
+msgstr ""
+
 msgid "all requests"
 msgstr ""
 
@@ -1137,7 +1404,28 @@ msgstr ""
 msgid "{{length_of_time}} ago"
 msgstr ""
 
-msgid "{{pro_site_name}} is a powerful, fully-featured FOI toolkit for journalists"
+msgid "{{pro_site_name}} does all the heavy lifting, leaving you with more time to focus on your campaigning."
+msgstr ""
+
+msgid "{{pro_site_name}} does all the heavy lifting, leaving you with more time to focus on your investigation."
+msgstr ""
+
+msgid "{{pro_site_name}} does all the heavy lifting, leaving you with more time to focus on your research."
+msgstr ""
+
+msgid "{{pro_site_name}} does all the heavy lifting, leaving you with more time to focus on your story."
+msgstr ""
+
+msgid "{{pro_site_name}} does the hard work for you"
+msgstr ""
+
+msgid "{{pro_site_name}} is a powerful, fully-featured <strong class=\"marketing-highlight\">FOI toolkit</strong> for journalists, campaigners and researchers"
+msgstr ""
+
+msgid "{{pro_site_name}} is here to help"
+msgstr ""
+
+msgid "{{pro_site_name}} moves request handling out of your email and onto a dedicated dashboard, keeping everything organised."
 msgstr ""
 
 msgid "{{public_body_name}} are delayed in responding to your request \"{{info_request_title}}\"."

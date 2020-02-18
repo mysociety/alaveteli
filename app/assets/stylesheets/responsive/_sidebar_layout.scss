@@ -35,6 +35,12 @@
   margin-bottom: 0.5em;
 }
 
+.sidebar__section.citations {
+  .citations-list {
+    overflow-wrap: break-word;
+  }
+}
+
 /* TODO: Not sure this is still used – we use the request header action bar for
    tracks */
 /* #track-request .feed_link is here to override specificity in the request sidebar,

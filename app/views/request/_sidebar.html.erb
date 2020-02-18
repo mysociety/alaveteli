@@ -1,83 +1,52 @@
 <div id="right_column" class="sidebar right_column" role="complementary">
   <div class="sidebar__section new-request-cta">
-    <%= render :partial => "general/new_request" %>
+    <%= render partial: 'general/new_request' %>
   </div>
 
   <%= render partial: 'sidebar_pro_upsell' %>
 
   <% if (feature_enabled?(:alaveteli_pro) &&
-         can?(:create_embargo, @info_request)) %>
-    <%= render partial: "alaveteli_pro/info_requests/embargo_form",
-               locals: { info_request: @info_request } %>
+         can?(:create_embargo, info_request)) %>
+    <%= render partial: 'alaveteli_pro/info_requests/embargo_form',
+               locals: { info_request: info_request } %>
   <% end %>
 
-  <% if @info_request.attention_requested %>
-    <div class="sidebar__section request__special-status">
-      <% if @info_request.prominence(:decorate => true).is_hidden? %>
-        <h2><%= _('Request hidden') %></h2>
-        <p>
-          <%= _("This request has prominence 'hidden'. You can only see it " \
-                "because you are logged in as a super user.") %>
-        </p>
-      <% elsif @info_request.prominence(:decorate => true).is_requester_only? %>
-        <h2><%= _('Request hidden') %></h2>
-        <%# The eccentric formatting of the following string is in order that it
-            be identical to the corresponding string in request/show.html.erb %>
-        <p><%= _('This request is hidden, so that only you the requester ' \
-                    'can see it. Please <a href="{{url}}">contact us</a> ' \
-                    'if you are not sure why.',
-                 :url => help_requesting_path.html_safe) %></p>
-      <% elsif @info_request.described_state != "attention_requested" %>
-        <h2><%= _('Offensive? Unsuitable?') %></h2>
-        <p><%= _('This request has been marked for review by the site ' \
-                 'administrators, who have not hidden it at this time. ' \
-                 'If you believe it should be hidden, please ' \
-                 '<a href="{{url}}">contact us</a>.',
-                :url => help_requesting_path.html_safe) %></p>
-      <% end %>
-    </div>
+  <% if info_request.attention_requested %>
+    <%= render partial: 'request/attention_requested',
+               locals: { info_request: info_request } %>
   <% end %>
 
   <div class="sidebar__section next-actions">
-    <%= render :partial => 'request/act' %>
-    <%= render :partial => 'request/next_actions' %>
+    <%= render partial: 'request/act',
+               locals: { info_request: info_request } %>
+
+    <%= render partial: 'request/next_actions' %>
   </div>
 
-  <%= render :partial => 'request/batch',
-             :locals => { :info_request => @info_request } %>
+  <%= render partial: 'request/batch',
+             locals: { info_request: info_request } %>
 
-  <% similar_requests, similar_more = @info_request.similar_requests %>
-  <% unless similar_requests.empty? %>
-    <div class="sidebar__section sidebar__similar-requests">
-      <h2><%= _('Requests like this')%></h2>
+  <div class="sidebar__section citations">
+    <%= render partial: 'request/citations',
+               locals: { citations: citations, info_request: info_request } %>
+  </div>
 
-      <% utm_params = { :utm_source => site_name.downcase,
-                        :utm_medium => 'link',
-                        :utm_content => 'sidebar_similar_requests',
-                        :utm_campaign => 'alaveteli-experiments-87' } %>
-
-      <% similar_requests.each do |info_request| %>
-        <%= render :partial => 'request/request_listing_single_short',
-                   :locals => { :info_request => info_request,
-                                :utm_params => utm_params } %>
-      <% end %>
-
-      <% if similar_more %>
-        <p class="sidebar_similar_requests__more-link">
-          <% path = similar_request_path(@info_request.url_title, utm_params) %>
-          <%= link_to _("More similar requests"), path %>
-        </p>
-      <% end %>
-    </div>
+  <% if similar_requests.any? %>
+    <%= render partial: 'request/similar',
+               locals: { info_request: info_request,
+                         similar_requests: similar_requests,
+                         similar_more: similar_more } %>
   <% end %>
 
   <div class="sidebar__section">
     <!-- this link with this wording is here for legal reasons, discuss with
          board and our lawyer before changing or removing it -->
     <p class="copyright-notice">
-      <small><%= link_to _('Are you the owner of any commercial copyright ' \
-                           'on this page?'),
-                         help_officers_path(anchor: 'copyright') %></small>
+      <small>
+        <%= link_to _('Are you the owner of any commercial copyright on this ' \
+                      'page?'),
+                    help_officers_path(anchor: 'copyright') %>
+      </small>
     </p>
   </div>
 </div>

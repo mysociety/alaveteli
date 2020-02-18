@@ -10,8 +10,13 @@
 <%= _('When you get there, please update the status to say if the response ' \
       'contains any useful information.' ) %>
 
+<% if @info_request.embargo %>
+<%= _('All responses will be published when the privacy period expires. We ' \
+      'depend on you, the original requester, to evaluate them.') %>
+<% else %>
 <%= _('Although all responses are automatically published, we depend on ' \
       'you, the original requester, to evaluate them.') %>
+<% end %>
 
 -- <%= _('the {{site_name}} team', :site_name => site_name.html_safe) %>
 

@@ -135,6 +135,18 @@ class WorldFOIWebsites
         :country_name => 'Liberia',
         :country_iso_code => 'LR',
         :url => "http://infolib.org.lr/" },
+      { :name => 'MaDada',
+        :country_name => 'France',
+        :country_iso_code => 'FR',
+        :url => "https://madada.fr/" },
+      { :name => 'Handlingar',
+        :country_name => 'Sweden',
+        :country_iso_code => 'SE',
+        :url => "https://handlingar.se/" },
+      { :name => 'VreauInfo',
+        :country_name => 'Moldova',
+        :country_iso_code => 'MD',
+        :url => "https://www.vreauinfo.md/" },
     ]
     return world_foi_websites
   end
