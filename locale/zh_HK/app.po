@@ -19,10 +19,11 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # beckymak <makpowan@gmail.com>, 2015
 # caxekis <caxekis@gmail.com>, 2013
 # caxekis <caxekis@gmail.com>, 2013
-# gensitu <pstew892@protonmail.com>, 2018
+# gensitu <pstew892@protonmail.com>, 2018,2020
 # Liz Conlan <liz@mysociety.org>, 2018
 # beckymak <makpowan@gmail.com>, 2015
 # gensitu <pstew892@protonmail.com>, 2018,2020
@@ -35,9 +36,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-14 10:15+0000\n"
-"PO-Revision-Date: 2020-01-25 19:37+0000\n"
-"Last-Translator: gensitu <pstew892@protonmail.com>\n"
+"POT-Creation-Date: 2020-02-10 15:57+0000\n"
+"PO-Revision-Date: 2020-02-10 15:36+0000\n"
+"Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Chinese (Hong Kong) (http://www.transifex.com/mysociety/alaveteli/language/zh_HK/)\n"
 "Language: zh_HK\n"
 "MIME-Version: 1.0\n"
@@ -340,6 +341,9 @@ msgstr "自我介紹："
 msgid "About {{count}} FOI requests found"
 msgstr "找到約{{count}}項索取資料要求"
 
+msgid "Academic paper"
+msgstr ""
+
 msgid "Account closed at user request"
 msgstr "賬户在用户要求下停用"
 
@@ -399,6 +403,9 @@ msgstr ""
 
 msgid "All of the information requested has been received"
 msgstr "已收到所有要求的資料。"
+
+msgid "All responses will be published when the privacy period expires. We depend on you, the original requester, to evaluate them."
+msgstr ""
 
 msgid "All the options below can use <strong>status</strong> or <strong>latest_status</strong> before the colon. For example, <strong>status:not_held</strong> will match requests which have <em>ever</em> been marked as not held; <strong>latest_status:not_held</strong> will match only requests that are <em>currently</em> marked as not held."
 msgstr ""
@@ -527,6 +534,9 @@ msgid "ApplicationRecord|Charset"
 msgstr ""
 
 msgid "ApplicationRecord|Circumstance"
+msgstr ""
+
+msgid "ApplicationRecord|Citable type"
 msgstr ""
 
 msgid "ApplicationRecord|Closed at"
@@ -1065,6 +1075,9 @@ msgstr "選擇原因"
 
 msgid "Choose your profile photo"
 msgstr "選擇你的頭像"
+
+msgid "Citation successfully created."
+msgstr ""
 
 msgid "Clarification"
 msgstr "澄清"
@@ -1823,6 +1836,9 @@ msgstr "改善你的賬户安全"
 msgid "In progress"
 msgstr ""
 
+msgid "In the News"
+msgstr ""
+
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr ""
 
@@ -1917,6 +1933,9 @@ msgid "Last request viewed: {{request_url}}"
 msgstr "最後已讀要求：{{request_url}}"
 
 msgid "Learn more &rarr;"
+msgstr ""
+
+msgid "Let us know"
 msgstr ""
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
@@ -2039,11 +2058,11 @@ msgstr "須管理員處理"
 msgid "Needs status update"
 msgstr "狀態須更新"
 
+msgid "New Citation"
+msgstr ""
+
 msgid "New Freedom of Information requests"
 msgstr "新索取資料的要求"
-
-msgid "New censor rule"
-msgstr ""
 
 msgid "New e-mail:"
 msgstr "新電郵地址："
@@ -2073,6 +2092,9 @@ msgid "New updates for the request '{{request_title}}'"
 msgstr ""
 
 msgid "Newest results first"
+msgstr ""
+
+msgid "News story"
 msgstr ""
 
 msgid "Next"
@@ -2300,6 +2322,9 @@ msgstr "切勿上載令人反感的圖片。我們將刪除我們認為是不當
 msgid "Please enable \"cookies\" to carry on"
 msgstr "請先啟用「cookies」"
 
+msgid "Please enter a Source URL"
+msgstr ""
+
 msgid "Please enter a password"
 msgstr "請輸入密碼"
 
@@ -2369,6 +2394,9 @@ msgstr "請將此電郵轉送至負責覆檢索取資料要求的職員。 "
 msgid "Please read the recent response and <strong>update the status</strong> so we know whether it contains useful information."
 msgid_plural "Please read the recent responses and <strong>update the status</strong> so we know whether they contain useful information."
 msgstr[0] "請細閲最近回覆，然後<strong>更新要求的狀態</strong>，讓我們知道回覆有否有用的資料。"
+
+msgid "Please select a type"
+msgstr ""
 
 msgid "Please select an authority"
 msgstr ""
@@ -2896,6 +2924,9 @@ msgstr "抱歉，我們現時無法寄出你的要求，請稍後再寄。"
 msgid "Sorry, we're currently unable to sign up new users, please try again later"
 msgstr "抱歉，我們現時無法註冊新用户，請稍後再註冊。"
 
+msgid "Source URL is too long"
+msgstr ""
+
 msgid "Source URL:"
 msgstr "來源網址："
 
@@ -2922,6 +2953,9 @@ msgstr "標題"
 
 msgid "Subject:"
 msgstr "標題："
+
+msgid "Submit"
+msgstr ""
 
 msgid "Submit Search"
 msgstr "開始搜尋"
@@ -3055,10 +3089,16 @@ msgstr "此<strong>內部審核已完成</strong>，整體而言："
 msgid "The Freedom of Information Act <strong>does not apply</strong> to"
 msgstr "《公開資料守則》<strong>不適用</strong>於"
 
+msgid "The URL where you found the article."
+msgstr ""
+
 msgid "The URL where you found the email address. This field is optional, but it would help us a lot if you can provide a link to a specific page on the authority's website that gives this address, as it will make it much easier for us to check."
 msgstr "你找到電郵地址的網頁。你可以選擇不填寫，但讓我們知道你是從公共機構網站的哪一頁找到電郵地址的，將讓我們更快確認電郵的真假。"
 
 msgid "The accounts have been left as they previously were."
+msgstr ""
+
+msgid "The article references all requests in this batch"
 msgstr ""
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
@@ -3177,6 +3217,9 @@ msgstr ""
 
 msgid "The {{site_name}} team."
 msgstr "{{site_name}}團隊。"
+
+msgid "Then you can add citations"
+msgstr ""
 
 msgid "Then you can cancel the alert."
 msgstr ""
@@ -3469,6 +3512,9 @@ msgid "This will appear on your {{site_name}} profile, to make it easier for oth
 msgstr "這會在{{site_name}}上的個人簡介出現，令其他用户更容易與你合作。"
 
 msgid "To"
+msgstr ""
+
+msgid "To add a citation"
 msgstr ""
 
 msgid "To add a widget for <b>{{info_request_title}}</b>, copy and paste the following code to your web page:"
@@ -3868,6 +3914,9 @@ msgstr ""
 
 msgid "What next?"
 msgstr "下一步是甚麼？"
+
+msgid "What type of article is it?"
+msgstr ""
 
 msgid "What's happened:"
 msgstr ""

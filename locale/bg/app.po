@@ -19,6 +19,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Anton Stoychev <antitoxic@gmail.com>, 2013
 # Anton Stoychev <antitoxic@gmail.com>, 2013
 # Liz Conlan <liz@mysociety.org>, 2018
@@ -29,8 +30,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-14 10:15+0000\n"
-"PO-Revision-Date: 2019-11-11 16:57+0000\n"
+"POT-Creation-Date: 2020-02-10 15:57+0000\n"
+"PO-Revision-Date: 2020-02-10 15:36+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/mysociety/alaveteli/language/bg/)\n"
 "Language: bg\n"
@@ -335,6 +336,9 @@ msgstr "За Вас:"
 msgid "About {{count}} FOI requests found"
 msgstr ""
 
+msgid "Academic paper"
+msgstr ""
+
 msgid "Account closed at user request"
 msgstr ""
 
@@ -394,6 +398,9 @@ msgstr "Въздух, вода, почва, земя, флора и фауна (
 
 msgid "All of the information requested has been received"
 msgstr "Цялата поискана информация беше получена"
+
+msgid "All responses will be published when the privacy period expires. We depend on you, the original requester, to evaluate them."
+msgstr ""
 
 msgid "All the options below can use <strong>status</strong> or <strong>latest_status</strong> before the colon. For example, <strong>status:not_held</strong> will match requests which have <em>ever</em> been marked as not held; <strong>latest_status:not_held</strong> will match only requests that are <em>currently</em> marked as not held."
 msgstr "Всички опции по-долу могат да се използват със <strong>status</strong> или <strong>latest_status</strong> преди двоеточието. Например, <strong>status:not_held</strong> ще намери заявления, които <em>някога</em> са били маркирани като not held; <strong>latest_status:not_held</strong> ще върне само заявленията, които <em>в момента</em> са маркирани като not held."
@@ -522,6 +529,9 @@ msgid "ApplicationRecord|Charset"
 msgstr ""
 
 msgid "ApplicationRecord|Circumstance"
+msgstr ""
+
+msgid "ApplicationRecord|Citable type"
 msgstr ""
 
 msgid "ApplicationRecord|Closed at"
@@ -1060,6 +1070,9 @@ msgstr "Изберете причина"
 
 msgid "Choose your profile photo"
 msgstr "Изберете снимка за профила Ви"
+
+msgid "Citation successfully created."
+msgstr ""
 
 msgid "Clarification"
 msgstr "Изясняване"
@@ -1822,6 +1835,9 @@ msgstr ""
 msgid "In progress"
 msgstr ""
 
+msgid "In the News"
+msgstr ""
+
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr "Поставете препратки към материали по темата като страници на кампании,\\nВашия блог или twitter акаунт. Върху тях ще може да се цъкне. \\n напр."
 
@@ -1916,6 +1932,9 @@ msgid "Last request viewed: {{request_url}}"
 msgstr "Последно гледано заявление: {{request_url}}"
 
 msgid "Learn more &rarr;"
+msgstr ""
+
+msgid "Let us know"
 msgstr ""
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
@@ -2038,11 +2057,11 @@ msgstr ""
 msgid "Needs status update"
 msgstr ""
 
+msgid "New Citation"
+msgstr ""
+
 msgid "New Freedom of Information requests"
 msgstr "Нови заявления за Достъп до информация"
-
-msgid "New censor rule"
-msgstr ""
 
 msgid "New e-mail:"
 msgstr "Нов имейл:"
@@ -2073,6 +2092,9 @@ msgstr "Новости по заявлението '{{request_title}}'"
 
 msgid "Newest results first"
 msgstr "Първо най-новите резултати"
+
+msgid "News story"
+msgstr ""
 
 msgid "Next"
 msgstr "Следващ"
@@ -2299,6 +2321,9 @@ msgstr "Молим, не качвайте оскърбителни снимки.
 msgid "Please enable \"cookies\" to carry on"
 msgstr "Моля, разрешете \"бисквитките\" за да продължим"
 
+msgid "Please enter a Source URL"
+msgstr ""
+
 msgid "Please enter a password"
 msgstr "Моля, въведете парола"
 
@@ -2369,6 +2394,9 @@ msgid "Please read the recent response and <strong>update the status</strong> so
 msgid_plural "Please read the recent responses and <strong>update the status</strong> so we know whether they contain useful information."
 msgstr[0] ""
 msgstr[1] ""
+
+msgid "Please select a type"
+msgstr ""
 
 msgid "Please select an authority"
 msgstr ""
@@ -2897,6 +2925,9 @@ msgstr ""
 msgid "Sorry, we're currently unable to sign up new users, please try again later"
 msgstr ""
 
+msgid "Source URL is too long"
+msgstr ""
+
 msgid "Source URL:"
 msgstr "URL източник:"
 
@@ -2923,6 +2954,9 @@ msgstr "Тема"
 
 msgid "Subject:"
 msgstr "Тема:"
+
+msgid "Submit"
+msgstr ""
 
 msgid "Submit Search"
 msgstr ""
@@ -3056,11 +3090,17 @@ msgstr "<strong>Вътрешното разглеждане завърши</stro
 msgid "The Freedom of Information Act <strong>does not apply</strong> to"
 msgstr "Законът за Достъп до обществена информация <strong>не се прилага</strong> за"
 
+msgid "The URL where you found the article."
+msgstr ""
+
 msgid "The URL where you found the email address. This field is optional, but it would help us a lot if you can provide a link to a specific page on the authority's website that gives this address, as it will make it much easier for us to check."
 msgstr "URL-ът, където сте намерили имейл адреса. Това поле не е задължително, но ще ни помогне много, ако може да ни предоставите конкретната страница в сайта на органа, където е посочен този адрес. Така най-лесно ще можем да го проверим."
 
 msgid "The accounts have been left as they previously were."
 msgstr "Акаунтите бяха оставени както си бяха."
+
+msgid "The article references all requests in this batch"
+msgstr ""
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr ""
@@ -3178,6 +3218,9 @@ msgstr ""
 
 msgid "The {{site_name}} team."
 msgstr "Екипът на {{site_name}}."
+
+msgid "Then you can add citations"
+msgstr ""
 
 msgid "Then you can cancel the alert."
 msgstr "След това ще можете да спрете известяването."
@@ -3472,6 +3515,9 @@ msgid "This will appear on your {{site_name}} profile, to make it easier for oth
 msgstr "Това ще се появи в профила Ви в {{site_name}}, за да\\n улесни останалите да се включат в това, което правите."
 
 msgid "To"
+msgstr ""
+
+msgid "To add a citation"
 msgstr ""
 
 msgid "To add a widget for <b>{{info_request_title}}</b>, copy and paste the following code to your web page:"
@@ -3872,6 +3918,9 @@ msgid "What information has been requested?"
 msgstr "Каква информация беше поискана?"
 
 msgid "What next?"
+msgstr ""
+
+msgid "What type of article is it?"
 msgstr ""
 
 msgid "What's happened:"

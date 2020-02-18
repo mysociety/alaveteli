@@ -19,6 +19,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Giancarlo <pinet@pinet.it>, 2015
 # guido romeo <guido.romeo@gmail.com>, 2015
 # 1bb8f5eb4bc72723d4109decfd20c765, 2017-2018
@@ -27,8 +28,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-14 10:15+0000\n"
-"PO-Revision-Date: 2019-11-11 16:57+0000\n"
+"POT-Creation-Date: 2020-02-10 15:57+0000\n"
+"PO-Revision-Date: 2020-02-10 15:36+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/mysociety/alaveteli/language/it_IT/)\n"
 "Language: it_IT\n"
@@ -333,6 +334,9 @@ msgstr "Bio:"
 msgid "About {{count}} FOI requests found"
 msgstr ""
 
+msgid "Academic paper"
+msgstr ""
+
 msgid "Account closed at user request"
 msgstr ""
 
@@ -392,6 +396,9 @@ msgstr "Aria, acqua, terra, flora e fauna (e l'impatto che hanno sugli esseri um
 
 msgid "All of the information requested has been received"
 msgstr "Tutte le informazioni richieste sono state ricevute"
+
+msgid "All responses will be published when the privacy period expires. We depend on you, the original requester, to evaluate them."
+msgstr ""
 
 msgid "All the options below can use <strong>status</strong> or <strong>latest_status</strong> before the colon. For example, <strong>status:not_held</strong> will match requests which have <em>ever</em> been marked as not held; <strong>latest_status:not_held</strong> will match only requests that are <em>currently</em> marked as not held."
 msgstr "Tutte le opzioni qui sotto possono usare <strong>status</strong> o <strong>latest_status</strong> prima della parentesi."
@@ -520,6 +527,9 @@ msgid "ApplicationRecord|Charset"
 msgstr ""
 
 msgid "ApplicationRecord|Circumstance"
+msgstr ""
+
+msgid "ApplicationRecord|Citable type"
 msgstr ""
 
 msgid "ApplicationRecord|Closed at"
@@ -1058,6 +1068,9 @@ msgstr "Scegli una motivazione"
 
 msgid "Choose your profile photo"
 msgstr "Scegli una foto profilo"
+
+msgid "Citation successfully created."
+msgstr ""
 
 msgid "Clarification"
 msgstr "Chiarimento"
@@ -1823,6 +1836,9 @@ msgstr "Aumenta la sicurezza del tuo account"
 msgid "In progress"
 msgstr ""
 
+msgid "In the News"
+msgstr ""
+
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr "Includi link pertinenti, per esempio alla pagina di una campagna, al tuo blog o al tuo account Twitter. I link diventeranno attivi \\n ad esempio"
 
@@ -1918,6 +1934,9 @@ msgstr "Ultima richiesta visualizzata: {{request_url}}"
 
 msgid "Learn more &rarr;"
 msgstr "Scopri di più &rarr;"
+
+msgid "Let us know"
+msgstr ""
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
 msgstr "Spiegaci cosa stavi facendo quando è comparso questo messaggio, quale browser, sistema operativo e versione stavi utilizzando."
@@ -2039,11 +2058,11 @@ msgstr "Serve l'intervento dell'amministratore"
 msgid "Needs status update"
 msgstr ""
 
+msgid "New Citation"
+msgstr ""
+
 msgid "New Freedom of Information requests"
 msgstr "Nuova richiesta di accesso"
-
-msgid "New censor rule"
-msgstr "Nuova regola per l'oscuramento automatico di dati"
 
 msgid "New e-mail:"
 msgstr "Nuova email:"
@@ -2074,6 +2093,9 @@ msgstr "Aggiornamenti sulla richiesta '{{request_title}}'"
 
 msgid "Newest results first"
 msgstr "Risultati più recenti in alto"
+
+msgid "News story"
+msgstr ""
 
 msgid "Next"
 msgstr "Prossimo"
@@ -2300,6 +2322,9 @@ msgstr "Non caricare foto inappropriate: le cancelleremo!"
 msgid "Please enable \"cookies\" to carry on"
 msgstr "Per favore abilita i \"cookies\" per continuare"
 
+msgid "Please enter a Source URL"
+msgstr ""
+
 msgid "Please enter a password"
 msgstr "Per favore inserisci una password"
 
@@ -2370,6 +2395,9 @@ msgid "Please read the recent response and <strong>update the status</strong> so
 msgid_plural "Please read the recent responses and <strong>update the status</strong> so we know whether they contain useful information."
 msgstr[0] ""
 msgstr[1] ""
+
+msgid "Please select a type"
+msgstr ""
 
 msgid "Please select an authority"
 msgstr ""
@@ -2901,6 +2929,9 @@ msgstr ""
 msgid "Sorry, we're currently unable to sign up new users, please try again later"
 msgstr ""
 
+msgid "Source URL is too long"
+msgstr ""
+
 msgid "Source URL:"
 msgstr "URL della fonte:"
 
@@ -2927,6 +2958,9 @@ msgstr "Oggetto"
 
 msgid "Subject:"
 msgstr "Oggetto:"
+
+msgid "Submit"
+msgstr ""
 
 msgid "Submit Search"
 msgstr "Cerca"
@@ -3060,11 +3094,17 @@ msgstr "La <strong>revisione è finita</strong>:"
 msgid "The Freedom of Information Act <strong>does not apply</strong> to"
 msgstr "La legge sul diritto di accesso <strong>non si applica</strong> a"
 
+msgid "The URL where you found the article."
+msgstr ""
+
 msgid "The URL where you found the email address. This field is optional, but it would help us a lot if you can provide a link to a specific page on the authority's website that gives this address, as it will make it much easier for us to check."
 msgstr "La pagina dove hai trovato l'indirizzo email. Il campo è facoltativo, ma ci aiuterebbe molto avere la pagina del sito dell'amministrazione che segnala questo indirizzo: in questo modo potremo controllare più rapidamente."
 
 msgid "The accounts have been left as they previously were."
 msgstr "Gli account sono stati lasciati immutati."
+
+msgid "The article references all requests in this batch"
+msgstr ""
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr ""
@@ -3182,6 +3222,9 @@ msgstr "Il widget apparirà così:"
 
 msgid "The {{site_name}} team."
 msgstr "Lo staff di {{site_name}}."
+
+msgid "Then you can add citations"
+msgstr ""
 
 msgid "Then you can cancel the alert."
 msgstr "Puoi cancellare l'avviso."
@@ -3481,6 +3524,9 @@ msgstr "Questo comparirà nel tuo profilo su {{site_name}}, per informare gli in
 
 msgid "To"
 msgstr "A"
+
+msgid "To add a citation"
+msgstr ""
 
 msgid "To add a widget for <b>{{info_request_title}}</b>, copy and paste the following code to your web page:"
 msgstr "Se vuoi aggiungere un widget di <b>{{info_request_title}}</b>, copia e incolla questo codice nella tua pagina web:"
@@ -3881,6 +3927,9 @@ msgstr "Quale informazione è stata richiesta?"
 
 msgid "What next?"
 msgstr "E ora?"
+
+msgid "What type of article is it?"
+msgstr ""
 
 msgid "What's happened:"
 msgstr ""
