@@ -18,6 +18,8 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
       amount_off: 1000,
       currency: 'gbp'
     )
+    allow(AlaveteliConfiguration).
+      to receive(:stripe_tax_rate).and_return('0.25')
   end
 
   after do
@@ -61,6 +63,11 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
           expect(assigns(:subscription).plan.id).to eq('pro')
           expect(assigns(:pro_account).stripe_customer_id).
             to eq(assigns(:subscription).customer)
+        end
+
+        it 'sets subscription plan amount and tax percentage' do
+          expect(assigns(:subscription).plan.amount).to eq 1000
+          expect(assigns(:subscription).tax_percent).to eql 25.0
         end
 
         it 'creates a pro account for the user' do
