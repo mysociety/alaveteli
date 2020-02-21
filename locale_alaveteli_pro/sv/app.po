@@ -7,15 +7,15 @@
 # louisecrow <louise@mysociety.org>, 2017
 # Mattias Axell <mattias@libertador.es>, 2018
 # 1bb8f5eb4bc72723d4109decfd20c765, 2019
-# Elenor Weijmar <ellelingh@hotmail.se>, 2019
+# Elenor Weijmar <ellelingh@hotmail.se>, 2020
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-10 16:08+0000\n"
+"POT-Creation-Date: 2020-02-18 17:08+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: Elenor Weijmar <ellelingh@hotmail.se>, 2019\n"
+"Last-Translator: Elenor Weijmar <ellelingh@hotmail.se>, 2020\n"
 "Language-Team: Swedish (https://www.transifex.com/mysociety/teams/33529/sv/)\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -47,10 +47,10 @@ msgid "12 Months"
 msgstr "12 månader"
 
 msgid "29 April 2019"
-msgstr ""
+msgstr "29 April 2019"
 
 msgid "3 July 2017"
-msgstr ""
+msgstr "3 Juli 2017"
 
 msgid "3 Months"
 msgstr "3 månader"
@@ -96,9 +96,6 @@ msgstr ""
 
 msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
 msgstr "<strong> Kan jag begära information om mig själv?</strong> <a href=\"{{url}}\">Nej!</a>"
-
-msgid "<strong>Easy</strong> One monthly fee covers all Pro features, with no complex tiers or options to worry about."
-msgstr ""
 
 msgid "<strong>Flexible</strong> You can cancel at any time, with no lengthy tie-ins and no notice required."
 msgstr ""
@@ -167,7 +164,7 @@ msgid "Add"
 msgstr "Lägg till"
 
 msgid "Add Card Details"
-msgstr ""
+msgstr "Lägg till kortuppgifter"
 
 msgid "Add all"
 msgstr "Lägg till alla"
@@ -179,7 +176,7 @@ msgid "Add annotation"
 msgstr "Lägg till anteckning"
 
 msgid "Add authorities to your batch"
-msgstr "Lägg till myndigheter till din massbegäran"
+msgstr "Lägg till myndigheter till din serieförfrågan"
 
 msgid "Add credibility"
 msgstr ""
@@ -221,22 +218,22 @@ msgid "Automate FOI request management"
 msgstr ""
 
 msgid "Batch"
-msgstr "Mängd"
+msgstr "Serie"
 
 msgid "Batch FOI requests"
-msgstr ""
+msgstr "Serieförfrågningar om allmänna handlingar"
 
 msgid "Batch request"
-msgstr "Massförfrågan"
+msgstr "Serieförfrågan"
 
 msgid "Batch requests"
-msgstr ""
+msgstr "Serieförfrågningar"
 
 msgid "Batch requests allow multiple recipients of a single request"
-msgstr "Massförfrågningar tillåter flera mottagare av en enda förfrågan"
+msgstr "Serieförfrågningar tillåter flera mottagare av en enda förfrågan"
 
 msgid "Batch requests are part of a new workflow"
-msgstr "Massförfrågningar är en del av ett nytt arbetsflöde"
+msgstr "Serieförfrågningar är en del av ett nytt arbetsflöde"
 
 msgid "Because we’ve streamlined the request-writing process, Pro saves you a lot of back and forth. Search our database of authorities, pick which one — or many — you want to contact, and compose your request right there."
 msgstr ""
@@ -404,13 +401,13 @@ msgid "FOI for researchers"
 msgstr ""
 
 msgid "FOI is an invaluable tool for researchers, helping you collect information that hasn’t previously been available as a single dataset, and understand the wider picture. Pro takes the slog out of sending multiple requests with the Batch feature: easily pick the authorities you want, then send one request to all of them."
-msgstr ""
+msgstr "Offentlighetsprincipen är ett ovärderligt verktyg för personer som hjälper att samla in information som inte tidigare varit tillgänglig som ett enda dataset och för att få förståelse och en bredare bild. Pro gör det enkelt att skicka flera förfrågningar med Serie-funktionen: välj enkelt de myndigheter du vill och skicka sedan en förfrågan till dem alla."
 
 msgid "FOI is an invaluable tool in campaigns, helping you collect information that hasn’t previously been available as a single dataset so that you and your supporters can understand the wider picture. Pro takes the slog out of sending multiple requests with the Batch feature: easily pick the authorities you want, then send one request to all of them."
-msgstr ""
+msgstr "Offentlighetsprincipen är ett ovärderligt verktyg för kampanjer som hjälper att samla in information som inte tidigare varit tillgänglig som ett enda dataset och för att få förståelse och en bredare bild. Pro gör det enkelt att skicka flera förfrågningar med Serie-funktionen: välj enkelt de myndigheter du vill och skicka sedan en förfrågan till dem alla."
 
 msgid "FOI is an invaluable tool in investigations, helping you collect information that hasn’t previously been available as a single dataset so that you and your readers can understand the wider picture. Pro takes the slog out of sending multiple requests with the Batch feature: easily pick the authorities you want, then send one request to all of them."
-msgstr ""
+msgstr "Offentlighetsprincipen är ett ovärderligt verktyg för utredningar som hjälper att samla in information som inte tidigare varit tillgänglig som ett enda dataset och för att få förståelse och en bredare bild. Pro gör det enkelt att skicka flera förfrågningar med Serie-funktionen: välj enkelt de myndigheter du vill och skicka sedan en förfrågan till dem alla."
 
 msgid "Featuring"
 msgstr ""
@@ -464,10 +461,10 @@ msgid "How campaigners are using Pro"
 msgstr ""
 
 msgid "How it works"
-msgstr ""
+msgstr "Hur det fungerar"
 
 msgid "How journalists are using Pro"
-msgstr ""
+msgstr "Hur journalister använder Pro"
 
 msgid "How researchers are using Pro"
 msgstr ""
@@ -506,16 +503,16 @@ msgid "I’m a campaigner"
 msgstr ""
 
 msgid "I’m a journalist"
-msgstr ""
+msgstr "Jag är en journalist"
 
 msgid "I’m a researcher"
-msgstr ""
+msgstr "Jag är en researcher"
 
 msgid "Join {{pro_site_name}}"
 msgstr ""
 
 msgid "Journalists"
-msgstr ""
+msgstr "Journalister"
 
 msgid "Keep <strong class=\"marketing-highlight\">requests and responses private</strong> while you work on your story"
 msgstr ""
@@ -545,7 +542,7 @@ msgid "Lucie Stephens, prompted by the death of someone she cared about, request
 msgstr ""
 
 msgid "Make a batch request"
-msgstr "Gör en massförfrågan"
+msgstr "Gör en serieförfrågan"
 
 msgid "Make a request"
 msgstr "Gör en begäran"
@@ -593,10 +590,10 @@ msgid "New Pro subscriptions this week:"
 msgstr ""
 
 msgid "New batches made this week:"
-msgstr ""
+msgstr "Nya serier gjorda den här veckan:"
 
 msgid "New to Professional – Batch"
-msgstr ""
+msgstr "Nytt för Pro - Serier"
 
 msgid "Next message"
 msgstr "Nästa meddelande"
@@ -611,7 +608,7 @@ msgid "No bodies selected"
 msgstr "Inga valda myndigheter"
 
 msgid "No more authorities can be added to this batch request."
-msgstr "Inga fler myndigheter kan läggas till denna mängdförfrågan"
+msgstr "Inga fler myndigheter kan läggas till denna serieförfrågan"
 
 msgid "No more copy and paste emails: our Batch Request tool helps you create one request and send it to many authorities at once."
 msgstr ""
@@ -710,7 +707,7 @@ msgid "Preview and send request"
 msgstr "Förhandsgranska och skicka förfrågan"
 
 msgid "Preview new batch request"
-msgstr "Förhandsvisa ny massförfrågan"
+msgstr "Förhandsvisa ny serieförfrågan"
 
 msgid "Preview new {{law_used_short}} request to '{{public_body_name}}'"
 msgstr "Förhandsgranska ny begäran enligt {{law_used_short}} till '{{public_body_name}}'"
@@ -719,7 +716,7 @@ msgid "Previous message"
 msgstr "Föregående meddelande"
 
 msgid "Pricing"
-msgstr ""
+msgstr "Priser"
 
 msgid "Privacy"
 msgstr "Privatliv och integritet"
@@ -969,7 +966,7 @@ msgid "Submit Search"
 msgstr "Gör sökning"
 
 msgid "Subscribe"
-msgstr ""
+msgstr "Prenumerera"
 
 msgid "Subscription began"
 msgstr "Prenumerationen började"
@@ -981,7 +978,7 @@ msgid "Subscription ends"
 msgstr "Prenumerationen slutar"
 
 msgid "Terms and conditions"
-msgstr ""
+msgstr "Villkor"
 
 msgid "Thank you for your interest in {{pro_site_name}}."
 msgstr "Tack för ditt intresse för {{pro_site_name}}. "
@@ -1114,7 +1111,7 @@ msgid "Update"
 msgstr "Uppdatera"
 
 msgid "Update Card Details"
-msgstr "Uppdatera kortdetaljer"
+msgstr "Uppdatera kortuppgifter"
 
 msgid "Update its status."
 msgid_plural "Update statuses."
@@ -1251,7 +1248,7 @@ msgid "You'll lose access to any requests you still have in draft."
 msgstr "Du kommer att förlora åtkomsten till eventuella förfrågningar som du fortfarande har som utkast."
 
 msgid "Your Batch Request has been saved!"
-msgstr "Din massbegäran har sparats!"
+msgstr "Din serieförfrågan har sparats!"
 
 msgid "Your clarification to {{public_body_name}} for \"{{info_request_title}}\" was resent."
 msgstr "Ditt förtydligande till {{public_body_name}} för \"{{info_request_title}}\" skickades om."
@@ -1341,7 +1338,7 @@ msgid "last updated"
 msgstr "sist uppdaterad"
 
 msgid "or start a batch request"
-msgstr "eller starta en massförfrågan"
+msgstr "eller starta en serieförfrågan"
 
 msgid "requests that will be made public soon"
 msgstr "förfrågningar som snart kommer att bli offentliga"
