@@ -20,6 +20,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Anatoli F. Peña Castillo <djanatoli@gmail.com>, 2017
 # Anatoli F. Peña Castillo <djanatoli@gmail.com>, 2017
 # andreas.pavlou <andreas@access-info.org>, 2015,2017
@@ -27,6 +28,7 @@
 # David Cabo <david.cabo@gmail.com>, 2011-2013,2015
 # fabrizioscrollini <fabrizio.scrollini@gmail.com>, 2012
 # fabrizioscrollini <fabrizio.scrollini@gmail.com>, 2012
+# gaba <gaba@torproject.org>, 2012,2014
 # gaba <gaba@torproject.org>, 2012,2014
 # gaba <gaba@torproject.org>, 2014
 # gaba <gaba@torproject.org>, 2012
@@ -46,7 +48,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-10 15:57+0000\n"
+"POT-Creation-Date: 2020-02-21 11:26+0000\n"
 "PO-Revision-Date: 2020-02-10 15:36+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Spanish (http://www.transifex.com/mysociety/alaveteli/language/es/)\n"
