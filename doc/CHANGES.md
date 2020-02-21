@@ -23,6 +23,10 @@
 * Add targeted Pro marketing pages (Myfanwy Nixon, Martin Wright, Gareth Rees)
 * Fix embargoed requests email response notification (Graeme Porteous)
 
+## Highlighted Features
+
+* Support plans with a yearly billing interval (Gareth Rees)
+
 ## Upgrade Notes
 
 * Set `STRIPE_TAX_RATE` in `config/general.yml` if you charge for Pro features.

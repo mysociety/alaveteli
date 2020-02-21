@@ -20,6 +20,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Krule <armin@pasalic.com.ba>, 2011
 # BORIS <brkanboris@gmail.com>, 2011
 # BORIS <brkanboris@gmail.com>, 2011
@@ -33,7 +34,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-10 15:57+0000\n"
+"POT-Creation-Date: 2020-02-21 11:26+0000\n"
 "PO-Revision-Date: 2020-02-10 15:36+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Bosnian (http://www.transifex.com/mysociety/alaveteli/language/bs/)\n"

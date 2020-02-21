@@ -20,6 +20,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Giancarlo <pinet@pinet.it>, 2015
 # guido romeo <guido.romeo@gmail.com>, 2015
 # 1bb8f5eb4bc72723d4109decfd20c765, 2017-2018
@@ -28,7 +29,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-10 15:57+0000\n"
+"POT-Creation-Date: 2020-02-21 11:26+0000\n"
 "PO-Revision-Date: 2020-02-10 15:36+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/mysociety/alaveteli/language/it_IT/)\n"
