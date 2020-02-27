@@ -72,8 +72,8 @@ when it really should be application/pdf.\n
     it 'returns valid UTF-8 for a non UTF-8 subject' do
       mail = Mail.new
       allow(mail).to receive(:subject).and_return("FOI ACT \x96 REQUEST")
-      expect(get_subject(mail).force_encoding('UTF-8').valid_encoding?)
-        .to be true
+      expect(get_subject(mail).force_encoding('UTF-8').valid_encoding?).
+        to be true
     end
 
   end
@@ -243,6 +243,5 @@ when it really should be application/pdf.\n
     end
 
   end
-
 
 end

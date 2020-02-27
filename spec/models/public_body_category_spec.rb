@@ -29,7 +29,7 @@ describe PublicBodyCategory do
 
     it 'should require a unique tag' do
       existing = FactoryBot.create(:public_body_category)
-      expect(PublicBodyCategory.new(:category_tag => existing.category_tag)).
+      expect(PublicBodyCategory.new(category_tag: existing.category_tag)).
         not_to be_valid
     end
 
@@ -47,8 +47,8 @@ describe PublicBodyCategory do
 
     it 'uses the base model validation for the default locale' do
       category = PublicBodyCategory.new
-      translation = category.translations.build(:locale => 'en',
-                                                :description => 'No title')
+      translation = category.translations.build(locale: 'en',
+                                                description: 'No title')
       category.valid?
       translation.valid?
       expect(category.errors[:title].size).to eq(1)
@@ -61,9 +61,9 @@ describe PublicBodyCategory do
 
     it 'saves translations' do
       category = FactoryBot.build(:public_body_category)
-      category.translations_attributes = { :es => { :locale => 'es',
-                                                    :title => 'El Category',
-                                                    :description => 'Spanish description' } }
+      category.translations_attributes = { es: { locale: 'es',
+                                                 title: 'El Category',
+                                                 description: 'Spanish description' } }
 
       category.save
       expect(PublicBodyCategory.find(category.id).translations.size).to eq(2)
@@ -77,18 +77,18 @@ describe PublicBodyCategory do
 
       it 'does not persist translations' do
         category = FactoryBot.create(:public_body_category)
-        category.translations_attributes = { :es => { :locale => 'es',
-                                                      :title => 'El Category',
-                                                      :description => 'Spanish description' } }
+        category.translations_attributes = { es: { locale: 'es',
+                                                   title: 'El Category',
+                                                   description: 'Spanish description' } }
 
         expect(PublicBodyCategory.find(category.id).translations.size).to eq(1)
       end
 
       it 'creates a new translation' do
         category = FactoryBot.create(:public_body_category)
-        category.translations_attributes = { :es => { :locale => 'es',
-                                                      :title => 'El Category',
-                                                      :description => 'Spanish description' } }
+        category.translations_attributes = { es: { locale: 'es',
+                                                   title: 'El Category',
+                                                   description: 'Spanish description' } }
         category.save
         category.reload
         expect(category.title(:es)).to eq('El Category')
@@ -96,33 +96,33 @@ describe PublicBodyCategory do
 
       it 'updates an existing translation' do
         category = FactoryBot.create(:public_body_category)
-        category.translations_attributes = { 'es' => { :locale => 'es',
-                                                       :title => 'Name',
-                                                       :description => 'Desc' } }
+        category.translations_attributes = { 'es' => { locale: 'es',
+                                                       title: 'Name',
+                                                       description: 'Desc' } }
         category.save
 
-        category.translations_attributes = { 'es' => { :id => category.translation_for(:es).id,
-                                                       :locale => 'es',
-                                                       :title => 'Renamed',
-                                                       :description => 'Desc' } }
+        category.translations_attributes = { 'es' => { id: category.translation_for(:es).id,
+                                                       locale: 'es',
+                                                       title: 'Renamed',
+                                                       description: 'Desc' } }
         category.save
         expect(category.title(:es)).to eq('Renamed')
       end
 
       it 'updates an existing translation and creates a new translation' do
         category = FactoryBot.create(:public_body_category)
-        category.translations.create(:locale => 'es',
-                                     :title => 'Los Category',
-                                     :description => 'ES Description')
+        category.translations.create(locale: 'es',
+                                     title: 'Los Category',
+                                     description: 'ES Description')
 
         expect(category.translations.size).to eq(2)
 
         category.translations_attributes = {
-          'es' => { :id => category.translation_for(:es).id,
-                    :locale => 'es',
-                    :title => 'Renamed' },
-          'fr' => { :locale => 'fr',
-                    :title => 'Le Category' }
+          'es' => { id: category.translation_for(:es).id,
+                    locale: 'es',
+                    title: 'Renamed' },
+          'fr' => { locale: 'fr',
+                    title: 'Le Category' }
         }
 
         expect(category.translations.size).to eq(3)
@@ -136,17 +136,17 @@ describe PublicBodyCategory do
 
       it 'skips empty translations' do
         category = FactoryBot.create(:public_body_category)
-        category.translations.create(:locale => 'es',
-                                     :title => 'Los Category',
-                                     :description => 'ES Description')
+        category.translations.create(locale: 'es',
+                                     title: 'Los Category',
+                                     description: 'ES Description')
 
         expect(category.translations.size).to eq(2)
 
         category.translations_attributes = {
-          'es' => { :id => category.translation_for(:es).id,
-                    :locale => 'es',
-                    :title => 'Renamed' },
-          'fr' => { :locale => 'fr' }
+          'es' => { id: category.translation_for(:es).id,
+                    locale: 'es',
+                    title: 'Renamed' },
+          'fr' => { locale: 'fr' }
         }
 
         expect(category.translations.size).to eq(2)
@@ -167,18 +167,18 @@ describe PublicBodyCategory::Translation do
 
   it 'is valid if no required attributes are assigned' do
     translation = PublicBodyCategory::Translation.
-                    new(:locale => AlaveteliLocalization.default_locale)
+                    new(locale: AlaveteliLocalization.default_locale)
     expect(translation).to be_valid
   end
 
   it 'requires a title if another required attribute is assigned' do
-    translation = PublicBodyCategory::Translation.new(:description => 'spec')
+    translation = PublicBodyCategory::Translation.new(description: 'spec')
     translation.valid?
     expect(translation.errors[:title]).to eq(["Title can't be blank"])
   end
 
   it 'requires a description if another required attribute is assigned' do
-    translation = PublicBodyCategory::Translation.new(:title => 'spec')
+    translation = PublicBodyCategory::Translation.new(title: 'spec')
     translation.valid?
     expect(translation.errors[:description]).to eq(["Description can't be blank"])
   end
@@ -186,7 +186,7 @@ describe PublicBodyCategory::Translation do
   describe '#default_locale?' do
 
     it 'returns true if the locale is the default locale' do
-      translation = PublicBodyCategory::Translation.new(:locale => "en")
+      translation = PublicBodyCategory::Translation.new(locale: "en")
       expect(translation.default_locale?).to be true
     end
 
@@ -194,7 +194,7 @@ describe PublicBodyCategory::Translation do
 
       it 'returns true if the locale is the default locale' do
         AlaveteliLocalization.set_locales('en_GB es', 'en_GB')
-        translation = PublicBodyCategory::Translation.new(:locale => "en_GB")
+        translation = PublicBodyCategory::Translation.new(locale: "en_GB")
 
         expect(translation.default_locale?).to be true
       end
@@ -202,7 +202,7 @@ describe PublicBodyCategory::Translation do
     end
 
     it 'returns false if the locale is not the default locale' do
-      translation = PublicBodyCategory::Translation.new(:locale => "es")
+      translation = PublicBodyCategory::Translation.new(locale: "es")
       expect(translation.default_locale?).to be false
     end
 

@@ -11,7 +11,7 @@ describe("notification_mailer/info_requests/messages/_very_overdue.text.erb") do
   end
   let!(:notification) do
     FactoryBot.create(:daily_notification,
-                       info_request_event: info_request_event)
+                      info_request_event: info_request_event)
   end
   let(:template) do
     "notification_mailer/info_requests/messages/overdue"

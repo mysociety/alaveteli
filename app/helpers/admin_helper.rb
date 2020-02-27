@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module AdminHelper
   def icon(name)
-    content_tag(:i, "", :class => "icon-#{name}")
+    content_tag(:i, "", class: "icon-#{name}")
   end
 
   def eye
@@ -21,25 +21,25 @@ module AdminHelper
   end
 
   def request_both_links(info_request)
-    link_to(eye, request_path(info_request), :title => "view request on public website") + " " +
-      link_to(info_request.title, admin_request_path(info_request), :title => "view full details")
+    link_to(eye, request_path(info_request), title: "view request on public website") + " " +
+      link_to(info_request.title, admin_request_path(info_request), title: "view full details")
   end
 
   def public_body_both_links(public_body)
-    link_to(eye, public_body_path(public_body), :title => "view authority on public website") + " " +
-      link_to(h(public_body.name), admin_body_path(public_body), :title => "view full details")
+    link_to(eye, public_body_path(public_body), title: "view authority on public website") + " " +
+      link_to(h(public_body.name), admin_body_path(public_body), title: "view full details")
   end
 
   def user_both_links(user)
-    link_to(eye, user_path(user), :title => "view user's page on public website") + " " +
-      link_to(h(user.name), admin_user_path(user), :title => "view full details")
+    link_to(eye, user_path(user), title: "view user's page on public website") + " " +
+      link_to(h(user.name), admin_user_path(user), title: "view full details")
   end
 
   def comment_both_links(comment)
     link_to(eye, comment_path(comment),
-            :title => "view comment on public website") + " " +
+            title: "view comment on public website") + " " +
       link_to(h(truncate(comment.body)), edit_admin_comment_path(comment),
-              :title => "view full details")
+              title: "view full details")
   end
 
   def comment_visibility(comment)
@@ -68,7 +68,7 @@ module AdminHelper
     if can?(:admin, AlaveteliPro::Embargo) || !event.info_request.embargo
       diff = event.params_diff
       significant_event_params(event).each do |key|
-        if diff[:new].has_key? key
+        if diff[:new].key? key
           text += "Changed #{key} from '#{diff[:old][key]}' to '#{diff[:new][key]}'. "
          end
       end

@@ -24,9 +24,9 @@ class MailServerLog < ApplicationRecord
   serialize :delivery_status, DeliveryStatusSerializer
 
   belongs_to :info_request,
-             :inverse_of => :mail_server_logs
+             inverse_of: :mail_server_logs
   belongs_to :mail_server_log_done,
-             :inverse_of => :mail_server_logs
+             inverse_of: :mail_server_logs
 
   before_create :calculate_delivery_status
 
@@ -53,14 +53,14 @@ class MailServerLog < ApplicationRecord
           MailServerLog.where("mail_server_log_done_id = ?", done.id).delete_all
         end
       else
-        done = MailServerLogDone.new(:filename => file_name_db)
+        done = MailServerLogDone.new(filename: file_name_db)
       end
       done.last_stat = modified
       # update done structure so we know when we last read this file
       done.save!
 
       f = is_gz ? Zlib::GzipReader.open(file_name) : File.open(file_name, 'r')
-      case(AlaveteliConfiguration::mta_log_type.to_sym)
+      case AlaveteliConfiguration.mta_log_type.to_sym
       when :exim
         load_exim_log_data(f, done)
       when :postfix
@@ -76,7 +76,7 @@ class MailServerLog < ApplicationRecord
   def self.load_exim_log_data(f, done)
     order = 0
     f.each do |line|
-      order = order + 1
+      order += 1
       create_exim_log_line(line, done, order)
     end
   end
@@ -88,9 +88,9 @@ class MailServerLog < ApplicationRecord
     f.rewind
     f.each do |line|
       sanitised_line = scrub(line)
-      order = order + 1
+      order += 1
       queue_id = extract_postfix_queue_id_from_syslog_line(sanitised_line)
-      if emails.has_key?(queue_id)
+      if emails.key?(queue_id)
         create_mail_server_logs(emails[queue_id], sanitised_line, order, done)
       end
     end
@@ -101,7 +101,7 @@ class MailServerLog < ApplicationRecord
     f.each do |line|
       emails = email_addresses_on_line(line)
       queue_id = extract_postfix_queue_id_from_syslog_line(line)
-      result[queue_id] = [] unless result.has_key?(queue_id)
+      result[queue_id] = [] unless result.key?(queue_id)
       result[queue_id] = (result[queue_id] + emails).uniq
     end
     result
@@ -117,13 +117,13 @@ class MailServerLog < ApplicationRecord
   # We also check the email prefix so that we could, for instance, separately handle a staging and production
   # instance running on the same server with different email prefixes.
   def self.email_addresses_on_line(line)
-    prefix = Regexp::quote(AlaveteliConfiguration::incoming_email_prefix)
-    domain = Regexp::quote(AlaveteliConfiguration::incoming_email_domain)
+    prefix = Regexp.quote(AlaveteliConfiguration.incoming_email_prefix)
+    domain = Regexp.quote(AlaveteliConfiguration.incoming_email_domain)
     line.scan(/#{prefix}request-[^\s]+@#{domain}/).sort.uniq
   end
 
   def self.request_sent?(ir)
-    case(AlaveteliConfiguration::mta_log_type.to_sym)
+    case AlaveteliConfiguration.mta_log_type.to_sym
     when :exim
       request_exim_sent?(ir)
     when :postfix
@@ -230,37 +230,35 @@ class MailServerLog < ApplicationRecord
   end
 
   def delivery_status
-    begin
-      unless attributes['delivery_status'].present?
-        # attempt to parse the status from the log line and store if successful
-        set_delivery_status
-      end
-
-      DeliveryStatusSerializer.load(read_attribute(:delivery_status))
-    # TODO: This rescue can be removed when there are no more cached
-    # MTA-specific statuses
-    rescue ArgumentError
-      warn %q(MailServerLog#delivery_status rescuing from invalid delivery
-              status. Run bundle exec rake temp:cache_delivery_status to update
-              cached values. This error handling will be removed soon.).
-              squish unless Rails.env.test?
-
-      # re-try setting the delivery status, forcing the write by avoiding the
-      # Rails 4.2 call to old_attribute_value hidden inside write_attribute as
-      # that will re-raise the 'Invalid delivery status' ArgumentError we're
-      # attempting to rescue
-      # https://apidock.com/rails/v4.2.7/ActiveRecord/AttributeMethods/Dirty/write_attribute
-      set_delivery_status(true)
-      save
-      DeliveryStatusSerializer.load(read_attribute(:delivery_status))
+    unless attributes['delivery_status'].present?
+      # attempt to parse the status from the log line and store if successful
+      set_delivery_status
     end
+
+    DeliveryStatusSerializer.load(read_attribute(:delivery_status))
+  # TODO: This rescue can be removed when there are no more cached
+  # MTA-specific statuses
+  rescue ArgumentError
+    warn %q(MailServerLog#delivery_status rescuing from invalid delivery
+            status. Run bundle exec rake temp:cache_delivery_status to update
+            cached values. This error handling will be removed soon.).
+            squish unless Rails.env.test?
+
+    # re-try setting the delivery status, forcing the write by avoiding the
+    # Rails 4.2 call to old_attribute_value hidden inside write_attribute as
+    # that will re-raise the 'Invalid delivery status' ArgumentError we're
+    # attempting to rescue
+    # https://apidock.com/rails/v4.2.7/ActiveRecord/AttributeMethods/Dirty/write_attribute
+    set_delivery_status(true)
+    save
+    DeliveryStatusSerializer.load(read_attribute(:delivery_status))
   end
 
   private
 
   # attempt to parse the status from the log line and store if successful
   def set_delivery_status(force = false)
-    decorated = line(:decorate => true)
+    decorated = line(decorate: true)
     if decorated && decorated.delivery_status
       if force
         force_delivery_status(decorated.delivery_status)
@@ -290,7 +288,7 @@ class MailServerLog < ApplicationRecord
       if info_request
         info_request.
           mail_server_logs.
-          create!(:line => line, :order => order, :mail_server_log_done => done)
+          create!(line: line, order: order, mail_server_log_done: done)
       end
     end
   end
@@ -334,5 +332,4 @@ class MailServerLog < ApplicationRecord
   def redact_idhash(line, idhash)
     line.gsub(idhash, _('[REDACTED]'))
   end
-
 end

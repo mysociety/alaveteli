@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 module TranslatableParams
-
   def translatable_params(keys, params)
     WhitelistedParams.new(keys).whitelist(params)
   end
@@ -50,7 +49,5 @@ module TranslatableParams
       end
       sliced_params
     end
-
   end
-
 end

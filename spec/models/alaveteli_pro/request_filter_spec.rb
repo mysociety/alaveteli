@@ -7,25 +7,25 @@ describe AlaveteliPro::RequestFilter do
 
     it 'assigns the filter' do
       request_filter = described_class.new
-      request_filter.update_attributes(:filter => 'awaiting_response')
+      request_filter.update_attributes(filter: 'awaiting_response')
       expect(request_filter.filter).to eq 'awaiting_response'
     end
 
     it 'assigns the search' do
       request_filter = described_class.new
-      request_filter.update_attributes(:search => 'lazy dog')
+      request_filter.update_attributes(search: 'lazy dog')
       expect(request_filter.search).to eq 'lazy dog'
     end
 
     it 'assigns the order' do
       request_filter = described_class.new
-      request_filter.update_attributes(:order => 'created_at_asc')
+      request_filter.update_attributes(order: 'created_at_asc')
       expect(request_filter.order).to eq 'created_at_asc'
     end
 
     it 'does not assign an empty filter' do
       request_filter = described_class.new
-      request_filter.update_attributes(:filter => '')
+      request_filter.update_attributes(filter: '')
       expect(request_filter.filter).to be nil
     end
 
@@ -35,7 +35,7 @@ describe AlaveteliPro::RequestFilter do
 
     def expect_label(label, filter)
       request_filter = described_class.new
-      request_filter.update_attributes(:filter => filter)
+      request_filter.update_attributes(filter: filter)
       expect(request_filter.filter_capital_label).to eq label
     end
 
@@ -77,7 +77,7 @@ describe AlaveteliPro::RequestFilter do
 
     def expect_label(label, filter)
       request_filter = described_class.new
-      request_filter.update_attributes(:filter => filter)
+      request_filter.update_attributes(filter: filter)
       expect(request_filter.filter_label).to eq label
     end
 
@@ -139,8 +139,8 @@ describe AlaveteliPro::RequestFilter do
     context 'when no attributes are supplied' do
 
       it 'sorts the requests by most recently updated' do
-        first_request = FactoryBot.create(:info_request, :user => user)
-        second_request = FactoryBot.create(:info_request, :user => user)
+        first_request = FactoryBot.create(:info_request, user: user)
+        second_request = FactoryBot.create(:info_request, user: user)
 
         request_filter = described_class.new
         expected = [second_request.request_summary,

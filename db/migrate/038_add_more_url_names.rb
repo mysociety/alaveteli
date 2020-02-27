@@ -11,7 +11,7 @@ class AddMoreUrlNames < ActiveRecord::Migration[4.2] # 2.0
     if ActiveRecord::Base.connection.adapter_name != "MySQL"
       add_index :users, :url_name
     end
-    change_column :users, :url_name, :text, :null => false
+    change_column :users, :url_name, :text, null: false
   end
 
   def self.down

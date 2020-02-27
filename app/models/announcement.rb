@@ -25,7 +25,7 @@ class Announcement < ApplicationRecord
   default_scope -> { order(created_at: :desc) }
   scope :visible_to, -> (visible_to) { where(visibility: visible_to) }
 
-  scope :for_user_with_roles, -> (user, *roles) {
+  scope :for_user_with_roles, lambda { |user, *roles|
     # has the user dismissed the announcement
     where(
       'announcements.id NOT IN (SELECT announcement_id FROM ' \
@@ -50,7 +50,7 @@ class Announcement < ApplicationRecord
     visible_to(roles)
   }
 
-  scope :site_wide_for_user, -> (user = nil, dismissed_announcements = nil) {
+  scope :site_wide_for_user, lambda { |user = nil, dismissed_announcements = nil|
     relation = visible_to(SITE_WIDE)
     return relation unless user || dismissed_announcements
 

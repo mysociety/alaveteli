@@ -6,15 +6,14 @@ require "net/imap"
 class EncodingNormalizationError < StandardError
 end
 
-def normalize_string_to_utf8(s, suggested_character_encoding=nil)
-
+def normalize_string_to_utf8(s, suggested_character_encoding = nil)
   # Make a list of encodings to try:
   to_try = []
 
   guessed_encoding = if CharlockHolmes::EncodingDetector.detect(s).blank?
-    ''
-  else
-    CharlockHolmes::EncodingDetector.detect(s)[:encoding]
+                       ''
+                     else
+                       CharlockHolmes::EncodingDetector.detect(s)[:encoding]
   end
   guessed_encoding ||= ''
 
@@ -57,7 +56,7 @@ def normalize_string_to_utf8(s, suggested_character_encoding=nil)
   raise EncodingNormalizationError, "Couldn't find a valid character encoding for the string"
 end
 
-def convert_string_to_utf8_or_binary(s, suggested_character_encoding=nil)
+def convert_string_to_utf8_or_binary(s, suggested_character_encoding = nil)
   # This function exists to help to keep consistent with the
   # behaviour of earlier versions of Alaveteli: in the code as it
   # is, there are situations where it's expected that we generally
@@ -87,20 +86,18 @@ StringConversionResult = Struct.new(:string, :scrubbed) do
   alias_method :scrubbed?, :scrubbed
 end
 
-def convert_string_to_utf8(s, suggested_character_encoding=nil)
-  begin
-    result = normalize_string_to_utf8 s, suggested_character_encoding
-    StringConversionResult.new(result, false)
-  rescue EncodingNormalizationError
-    result = scrub(s)
-    StringConversionResult.new(result, true)
-  end
+def convert_string_to_utf8(s, suggested_character_encoding = nil)
+  result = normalize_string_to_utf8 s, suggested_character_encoding
+  StringConversionResult.new(result, false)
+rescue EncodingNormalizationError
+  result = scrub(s)
+  StringConversionResult.new(result, true)
 end
 
 def scrub(string)
   if String.method_defined?(:encode)
     string = string.force_encoding("utf-8")
-    string.valid_encoding? ? string : string.encode("utf-16le", :invalid => :replace, :replace => "").encode("utf-8")
+    string.valid_encoding? ? string : string.encode("utf-16le", invalid: :replace, replace: "").encode("utf-8")
   else
     Iconv.conv('UTF-8//IGNORE', 'UTF-8', string)
   end

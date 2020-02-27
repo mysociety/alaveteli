@@ -48,7 +48,7 @@ describe AlaveteliPro::PlansController do
 
       it 'redirects to the login form' do
         expect(response).
-          to redirect_to(signin_path(:token => PostRedirect.last.token))
+          to redirect_to(signin_path(token: PostRedirect.last.token))
       end
 
       it 'sets in_pro_area' do
@@ -115,7 +115,7 @@ describe AlaveteliPro::PlansController do
                                     source: stripe_helper.generate_card_token)
 
           Stripe::Subscription.create(customer: customer, plan: 'pro')
-          user.create_pro_account(:stripe_customer_id => customer.id)
+          user.create_pro_account(stripe_customer_id: customer.id)
           user.add_role(:pro)
           get :show, params: { id: 'pro' }
         end
@@ -141,7 +141,7 @@ describe AlaveteliPro::PlansController do
             Stripe::Subscription.create(customer: customer, plan: 'pro')
 
           subscription.delete
-          user.create_pro_account(:stripe_customer_id => customer.id)
+          user.create_pro_account(stripe_customer_id: customer.id)
           get :show, params: { id: 'pro' }
         end
 

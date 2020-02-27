@@ -1,10 +1,9 @@
 # -*- encoding : utf-8 -*-
 namespace :gettext do
-
   def clean_dir(dir)
     Dir.glob("#{dir}/*/app.po") do |po_file|
-      GetText::msgmerge(po_file, po_file, 'alaveteli',
-                        :msgmerge => [:sort_output, :no_location, :no_wrap])
+      GetText.msgmerge(po_file, po_file, 'alaveteli',
+                       msgmerge: [:sort_output, :no_location, :no_wrap])
     end
   end
 
@@ -21,7 +20,7 @@ namespace :gettext do
   end
 
   desc "Update pot/po files for a theme."
-  task :find_theme => :environment do
+  task find_theme: :environment do
     theme = find_theme(ENV['THEME'])
     load_gettext
     msgmerge = Rails.application.config.gettext_i18n_rails.msgmerge
@@ -30,13 +29,13 @@ namespace :gettext do
       text_domain,
       theme_files_to_translate(theme),
       "version 0.0.1",
-      :po_root => theme_locale_path(theme),
-      :msgmerge => msgmerge
+      po_root: theme_locale_path(theme),
+      msgmerge: msgmerge
     )
   end
 
   desc "Update pot/po files for Alaveteli Pro."
-  task :find_alaveteli_pro => :environment do
+  task find_alaveteli_pro: :environment do
     load_gettext
     msgmerge = Rails.application.config.gettext_i18n_rails.msgmerge
     msgmerge ||= %w[--sort-output --no-location --no-wrap]
@@ -44,8 +43,8 @@ namespace :gettext do
       text_domain,
       pro_files_to_translate,
       "version 0.0.1",
-      :po_root => pro_locale_path,
-      :msgmerge => msgmerge
+      po_root: pro_locale_path,
+      msgmerge: msgmerge
     )
   end
 
@@ -85,7 +84,7 @@ namespace :gettext do
     mapping_file = find_mapping_file(ENV['MAPPING_FILE'])
     mappings = {}
     CSV.parse(clean_csv_mapping_file(mapping_file)) do |csv_line|
-      from,to = csv_line
+      from, to = csv_line
       mappings[from] = to
     end
     Dir.glob("locale/**/app.po").each do |po_file|
@@ -159,5 +158,4 @@ namespace :gettext do
   def theme_locale_path(theme)
     Rails.root.join "lib", "themes", theme, "locale-theme"
   end
-
 end

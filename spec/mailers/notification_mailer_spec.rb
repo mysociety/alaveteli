@@ -150,7 +150,8 @@ describe NotificationMailer do
     let(:incoming_2) do
       FactoryBot.build(
         :incoming_message,
-        info_request: new_response_and_embargo_expiring_request)
+        info_request: new_response_and_embargo_expiring_request
+      )
     end
 
     let(:incoming_3) do
@@ -166,9 +167,9 @@ describe NotificationMailer do
     # Notifications
     let(:notification_1) do
       event = FactoryBot.build(:response_event,
-                                incoming_message: incoming_1)
+                               incoming_message: incoming_1)
       FactoryBot.create(:daily_notification, info_request_event: event,
-                                              user: user)
+                                             user: user)
     end
 
     let(:notification_2) do
@@ -188,7 +189,8 @@ describe NotificationMailer do
     let(:notification_4) do
       event = FactoryBot.build(
         :embargo_expiring_event,
-        info_request: new_response_and_embargo_expiring_request)
+        info_request: new_response_and_embargo_expiring_request
+      )
       FactoryBot.create(:daily_notification, info_request_event: event,
                                              user: user)
     end
@@ -242,7 +244,8 @@ describe NotificationMailer do
 
       event_1 = FactoryBot.build(
         :embargo_expiring_event,
-        info_request: embargo_expiring_batch_requests.first)
+        info_request: embargo_expiring_batch_requests.first
+      )
       notifications << FactoryBot.create(
         :daily_notification,
         info_request_event: event_1,
@@ -251,7 +254,8 @@ describe NotificationMailer do
 
       event_2 = FactoryBot.build(
         :embargo_expiring_event,
-        info_request: embargo_expiring_batch_requests.second)
+        info_request: embargo_expiring_batch_requests.second
+      )
       notifications << FactoryBot.create(
         :daily_notification,
         info_request_event: event_2,
@@ -266,7 +270,8 @@ describe NotificationMailer do
 
       event_1 = FactoryBot.build(
         :expire_embargo_event,
-        info_request: embargo_expired_batch_requests.first)
+        info_request: embargo_expired_batch_requests.first
+      )
       notifications << FactoryBot.create(
         :daily_notification,
         info_request_event: event_1,
@@ -275,7 +280,8 @@ describe NotificationMailer do
 
       event_2 = FactoryBot.build(
         :expire_embargo_event,
-        info_request: embargo_expired_batch_requests.second)
+        info_request: embargo_expired_batch_requests.second
+      )
       notifications << FactoryBot.create(
         :daily_notification,
         info_request_event: event_2,
@@ -381,13 +387,14 @@ describe NotificationMailer do
     it "sets the right subject line" do
       mail = NotificationMailer.daily_summary(user, all_notifications)
       expect(mail.subject).
-        to eq ("Your daily request summary from Alaveteli Professional")
+        to eq "Your daily request summary from Alaveteli Professional"
     end
 
     it "matches the expected message" do
       mail = NotificationMailer.daily_summary(user, all_notifications)
       expected_message = load_file_fixture(
-        "notification_mailer/daily-summary.txt", 'r:utf-8')
+        "notification_mailer/daily-summary.txt", 'r:utf-8'
+      )
       id_mappings.each do |key, id|
         expected_message.gsub!("$#{key}$", id.to_s)
       end
@@ -487,7 +494,8 @@ describe NotificationMailer do
     it 'should send the expected message' do
       mail = NotificationMailer.response_notification(notification)
       expected_message = load_file_fixture(
-        "notification_mailer/new_response.txt", 'r:utf-8')
+        "notification_mailer/new_response.txt", 'r:utf-8'
+      )
       expected_message.gsub!('INCOMING_MESSAGE_ID', incoming_message.id.to_s)
       expect(mail.body.encoded).to eq(expected_message)
     end
@@ -503,7 +511,8 @@ describe NotificationMailer do
       it 'should send the expected message' do
         mail = NotificationMailer.response_notification(notification)
         expected_message = load_file_fixture(
-          "notification_mailer/new_response_pro.txt", 'r:utf-8')
+          "notification_mailer/new_response_pro.txt", 'r:utf-8'
+        )
         expected_message.gsub!('INCOMING_MESSAGE_ID', incoming_message.id.to_s)
         expect(mail.body.encoded).to eq(expected_message)
       end
@@ -577,7 +586,8 @@ describe NotificationMailer do
     it 'should send the expected message' do
       mail = NotificationMailer.embargo_expiring_notification(notification)
       expected_message = load_file_fixture(
-        "notification_mailer/embargo_expiring.txt", 'r:utf-8')
+        "notification_mailer/embargo_expiring.txt", 'r:utf-8'
+      )
       expect(mail.body.encoded).to eq(expected_message)
     end
   end
@@ -652,7 +662,8 @@ describe NotificationMailer do
     it 'should send the expected message' do
       mail = NotificationMailer.embargo_expired_notification(notification)
       expected_message = load_file_fixture(
-        'notification_mailer/embargo_expired.txt', 'r:utf-8')
+        'notification_mailer/embargo_expired.txt', 'r:utf-8'
+      )
       expect(mail.body.encoded).to eq(expected_message)
     end
 
@@ -722,7 +733,8 @@ describe NotificationMailer do
     it 'should send the expected message' do
       mail = NotificationMailer.overdue_notification(notification)
       expected_message = load_file_fixture(
-        "notification_mailer/overdue.txt", 'r:utf-8')
+        "notification_mailer/overdue.txt", 'r:utf-8'
+      )
       expected_message.gsub!(/INFO_REQUEST_ID/, info_request.id.to_s)
       expect(mail.body.encoded).to eq(expected_message)
     end
@@ -793,7 +805,8 @@ describe NotificationMailer do
     it 'should send the expected message' do
       mail = NotificationMailer.very_overdue_notification(notification)
       expected_message = load_file_fixture(
-        "notification_mailer/very_overdue.txt", 'r:utf-8')
+        "notification_mailer/very_overdue.txt", 'r:utf-8'
+      )
       expected_message.gsub!(/INFO_REQUEST_ID/, info_request.id.to_s)
       expect(mail.body.encoded).to eq(expected_message)
     end
@@ -859,8 +872,7 @@ describe NotificationMailer do
       let(:info_request_event) do
         FactoryBot.build(:response_event,
                          incoming_message: incoming_message,
-                         info_request: info_request
-        )
+                         info_request: info_request)
       end
       let(:instant_notification) do
         FactoryBot.create(:instant_notification,
@@ -891,8 +903,7 @@ describe NotificationMailer do
       let(:info_request_event) do
         FactoryBot.build(:response_event,
                          incoming_message: incoming_message,
-                         info_request: info_request
-        )
+                         info_request: info_request)
       end
       let(:seen_notification) do
         FactoryBot.create(:daily_notification,

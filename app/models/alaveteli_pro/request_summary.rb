@@ -19,10 +19,10 @@
 class AlaveteliPro::RequestSummary < ApplicationRecord
   belongs_to :summarisable, polymorphic: true
   belongs_to :user,
-             :inverse_of => :request_summaries
+             inverse_of: :request_summaries
   has_and_belongs_to_many :request_summary_categories,
-                          :class_name => "AlaveteliPro::RequestSummaryCategory",
-                          :inverse_of => :request_summaries
+                          class_name: "AlaveteliPro::RequestSummaryCategory",
+                          inverse_of: :request_summaries
 
   validates_presence_of :summarisable,
                         :request_created_at,
@@ -41,7 +41,7 @@ class AlaveteliPro::RequestSummary < ApplicationRecord
   end
 
   def self.not_category(category_slug)
-    summary_ids_to_exclude = self.category(category_slug).pluck(:id)
+    summary_ids_to_exclude = category(category_slug).pluck(:id)
     results = includes(:request_summary_categories)
     unless summary_ids_to_exclude.blank?
       results = results.
@@ -52,16 +52,16 @@ class AlaveteliPro::RequestSummary < ApplicationRecord
 
   def self.create_or_update_from(request)
     unless ALLOWED_REQUEST_CLASSES.include?(request.class.name)
-      raise ArgumentError.new("Can't create a RequestSummary from " \
+      raise ArgumentError, "Can't create a RequestSummary from " \
                               "#{request.class.name} instances. Only " \
-                              "#{ALLOWED_REQUEST_CLASSES} are allowed.")
+                              "#{ALLOWED_REQUEST_CLASSES} are allowed."
     end
     request.reload
     if request.request_summary
       request.request_summary.update_from(request)
       request.request_summary
     else
-      self.create_from(request)
+      create_from(request)
     end
   end
 
@@ -72,7 +72,7 @@ class AlaveteliPro::RequestSummary < ApplicationRecord
   private
 
   def self.create_from(request)
-    self.create(attributes_from_request(request))
+    create(attributes_from_request(request))
   end
 
   def self.attributes_from_request(request)
@@ -84,7 +84,7 @@ class AlaveteliPro::RequestSummary < ApplicationRecord
       user: request.user,
       request_summary_categories: request.request_summary_categories,
       request_created_at: request.created_at,
-      request_updated_at: request.updated_at,
+      request_updated_at: request.updated_at
     }
   end
 end

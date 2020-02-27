@@ -55,9 +55,7 @@ describe "creating batch requests in alaveteli_pro" do
   end
 
   after do
-    authorities.each do |authority|
-      authority.destroy
-    end
+    authorities.each(&:destroy)
     update_xapian_index
   end
 
@@ -88,7 +86,6 @@ describe "creating batch requests in alaveteli_pro" do
       first_page_results = search_results
 
       expect(first_page_results.include?(second_page_result)).to be false
-
 
       # Adding to list
       # We can't rely on Xapian to give us a deterministic search result
@@ -142,7 +139,8 @@ describe "creating batch requests in alaveteli_pro" do
       expect(page).to have_content("Your draft has been saved!")
       expect(page).to have_content(
         "Requests in this batch will be private until " \
-        "#{AlaveteliPro::Embargo.three_months_from_now.strftime('%-d %B %Y')}")
+        "#{AlaveteliPro::Embargo.three_months_from_now.strftime('%-d %B %Y')}"
+      )
 
       # The page should pre-fill the form with data from the draft
       expect(page).to have_field("Subject",
@@ -231,7 +229,8 @@ describe "creating batch requests in alaveteli_pro" do
                         "<b>batch</b> request.")
       expect(page).to have_content(
         "Requests in this batch will be private until " \
-        "#{AlaveteliPro::Embargo.three_months_from_now.strftime('%-d %B %Y')}")
+        "#{AlaveteliPro::Embargo.three_months_from_now.strftime('%-d %B %Y')}"
+      )
 
     end
   end
@@ -380,7 +379,8 @@ describe "managing embargoed batch requests" do
         check 'Change privacy'
         expect(page).to have_content(
           "Requests in this batch are private until " \
-          "#{old_publish_at.strftime('%-d %B %Y')}")
+          "#{old_publish_at.strftime('%-d %B %Y')}"
+        )
         click_button("Publish requests")
         expect(batch.reload.embargo_duration).to be nil
         batch.info_requests.each do |info_request|
@@ -408,7 +408,8 @@ describe "managing embargoed batch requests" do
         old_publish_at = info_request.embargo.publish_at
         expect(page).to have_content(
           "Requests in this batch are private until " \
-          "#{old_publish_at.strftime('%-d %B %Y')}")
+          "#{old_publish_at.strftime('%-d %B %Y')}"
+        )
         select "3 Months", from: "Keep private for a further:"
         within ".update-embargo" do
           click_button("Update")
@@ -417,7 +418,8 @@ describe "managing embargoed batch requests" do
                               AlaveteliPro::Embargo::THREE_MONTHS
         expect(page).to have_content(
           "Requests in this batch are private until " \
-          "#{expected_publish_at.strftime('%-d %B %Y')}")
+          "#{expected_publish_at.strftime('%-d %B %Y')}"
+        )
         batch.info_requests.each do |info_request|
           expect(info_request.embargo.publish_at).to eq expected_publish_at
         end

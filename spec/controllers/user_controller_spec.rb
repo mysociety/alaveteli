@@ -8,7 +8,7 @@ describe UserController do
     let(:user) { FactoryBot.create(:user) }
 
     it 'renders the show template' do
-      get :show, params: { :url_name => user.url_name }
+      get :show, params: { url_name: user.url_name }
       expect(response).to render_template(:show)
     end
 
@@ -164,10 +164,10 @@ describe UserController do
         user = users(:bob_smith_user)
 
         get :show, params: {
-                     url_name: 'bob_smith',
-                     user_query: 'money',
-                     request_latest_status: 'waiting_response'
-                   }
+          url_name: 'bob_smith',
+          user_query: 'money',
+          request_latest_status: 'waiting_response'
+        }
 
         actual =
           assigns[:xapian_requests].results.map { |x| x[:model].info_request }
@@ -311,10 +311,10 @@ describe UserController do
         update_xapian_index
 
         get :show, params: {
-                     url_name: user.url_name,
-                     view: 'requests',
-                     user_query: 'money'
-                   }
+          url_name: user.url_name,
+          view: 'requests',
+          user_query: 'money'
+        }
 
         actual =
           assigns[:xapian_requests].results.map { |x| x[:model].info_request }
@@ -334,10 +334,10 @@ describe UserController do
         session[:user_id] = user.id
 
         get :show, params: {
-                     url_name: user.url_name,
-                     view: 'requests',
-                     user_query: 'money'
-                   }
+          url_name: user.url_name,
+          view: 'requests',
+          user_query: 'money'
+        }
 
         expect(assigns[:private_requests]).to match_array([request_1])
       end
@@ -350,11 +350,11 @@ describe UserController do
         update_xapian_index
 
         get :show, params: {
-                     url_name: user.url_name,
-                     view: 'requests',
-                     user_query: 'money',
-                     request_latest_status: 'waiting_response'
-                   }
+          url_name: user.url_name,
+          view: 'requests',
+          user_query: 'money',
+          request_latest_status: 'waiting_response'
+        }
 
         actual =
           assigns[:xapian_requests].results.map { |x| x[:model].info_request }
@@ -374,11 +374,11 @@ describe UserController do
         update_xapian_index
 
         get :show, params: {
-                     url_name: user.url_name,
-                     view: 'requests',
-                     user_query: 'money',
-                     request_latest_status: 'waiting_response'
-                   }
+          url_name: user.url_name,
+          view: 'requests',
+          user_query: 'money',
+          request_latest_status: 'waiting_response'
+        }
 
         expect(assigns[:private_requests]).to match_array([request_1])
       end
@@ -440,9 +440,9 @@ describe UserController do
                                      info_request: hidden_request,
                                      user: user)
         FactoryBot.create(:info_request_event,
-                           event_type: 'comment',
-                           comment: comment1,
-                           info_request: hidden_request)
+                          event_type: 'comment',
+                          comment: comment1,
+                          info_request: hidden_request)
 
         shown_request = FactoryBot.create(:info_request)
         comment2 = FactoryBot.create(:visible_comment,
@@ -494,10 +494,10 @@ describe UserController do
         update_xapian_index
 
         get :show, params: {
-                     url_name: user.url_name,
-                     view: 'requests',
-                     user_query: 'money'
-                   }
+          url_name: user.url_name,
+          view: 'requests',
+          user_query: 'money'
+        }
 
         actual =
           assigns[:xapian_requests].results.map { |x| x[:model].info_request }
@@ -515,10 +515,10 @@ describe UserController do
         update_xapian_index
 
         get :show, params: {
-                     url_name: pro_user.url_name,
-                     view: 'requests',
-                     user_query: 'money'
-                   }
+          url_name: pro_user.url_name,
+          view: 'requests',
+          user_query: 'money'
+        }
 
         expect(assigns[:private_requests]).to be_empty
       end
@@ -531,11 +531,11 @@ describe UserController do
         update_xapian_index
 
         get :show, params: {
-                     url_name: user.url_name,
-                     view: 'requests',
-                     user_query: 'money',
-                     request_latest_status: 'waiting_response'
-                   }
+          url_name: user.url_name,
+          view: 'requests',
+          user_query: 'money',
+          request_latest_status: 'waiting_response'
+        }
 
         actual =
           assigns[:xapian_requests].results.map { |x| x[:model].info_request }
@@ -556,11 +556,11 @@ describe UserController do
         update_xapian_index
 
         get :show, params: {
-                     url_name: pro_user.url_name,
-                     view: 'requests',
-                     user_query: 'money',
-                     request_latest_status: 'waiting_response'
-                   }
+          url_name: pro_user.url_name,
+          view: 'requests',
+          user_query: 'money',
+          request_latest_status: 'waiting_response'
+        }
 
         expect(assigns[:private_requests]).to be_empty
       end
@@ -574,16 +574,16 @@ describe UserController do
     context 'user is banned' do
 
       before(:each) do
-        @user = FactoryBot.create(:user, :ban_text => 'Causing trouble')
+        @user = FactoryBot.create(:user, ban_text: 'Causing trouble')
         session[:user_id] = @user.id
         @uploadedfile = fixture_file_upload("/files/parrot.png")
 
         post :set_profile_photo, params: {
-                                   :id => @user.id,
-                                   :file => @uploadedfile,
-                                   :submitted_draft_profile_photo => 1,
-                                   :automatically_crop => 1
-                                 }
+          id: @user.id,
+          file: @uploadedfile,
+          submitted_draft_profile_photo: 1,
+          automatically_crop: 1
+        }
       end
 
       it 'redirects to the profile page' do
@@ -611,40 +611,40 @@ describe UserController, "when signing up" do
 
   it "should be an error if you type the password differently each time" do
     post :signup, params: {
-                    :user_signup => {
-                      :email => 'new@localhost',
-                      :name => 'New Person',
-                      :password => 'sillypassword',
-                      :password_confirmation => 'sillypasswordtwo'
-                    }
-                  }
+      user_signup: {
+        email: 'new@localhost',
+        name: 'New Person',
+        password: 'sillypassword',
+        password_confirmation: 'sillypasswordtwo'
+      }
+    }
     expect(assigns[:user_signup].errors[:password_confirmation]).
       to eq(['Please enter the same password twice'])
   end
 
   it "should be an error to sign up with a misformatted email" do
     post :signup, params: {
-                    :user_signup => {
-                      :email => 'malformed-email',
-                      :name => 'Mr Malformed',
-                      :password => 'sillypassword',
-                      :password_confirmation => 'sillypassword'
-                    }
-                  }
+      user_signup: {
+        email: 'malformed-email',
+        name: 'Mr Malformed',
+        password: 'sillypassword',
+        password_confirmation: 'sillypassword'
+      }
+    }
     expect(assigns[:user_signup].errors[:email]).to eq(['Please enter a valid email address'])
   end
 
   it "should not show the 'already in use' error when trying to sign up with a duplicate email" do
-    existing_user = FactoryBot.create(:user, :email => 'in-use@localhost')
+    existing_user = FactoryBot.create(:user, email: 'in-use@localhost')
 
     post :signup, params: {
-                    :user_signup => {
-                      :email => 'in-use@localhost',
-                      :name => 'Mr Suspected-Hacker',
-                      :password => 'sillypassword',
-                      :password_confirmation => 'mistyped'
-                    }
-                  }
+      user_signup: {
+        email: 'in-use@localhost',
+        name: 'Mr Suspected-Hacker',
+        password: 'sillypassword',
+        password_confirmation: 'mistyped'
+      }
+    }
     expect(assigns[:user_signup].errors[:password_confirmation]).
       to eq(['Please enter the same password twice'])
     expect(assigns[:user_signup].errors[:email]).to be_empty
@@ -652,13 +652,13 @@ describe UserController, "when signing up" do
 
   it "should send confirmation mail if you fill in the form right" do
     post :signup, params: {
-                    :user_signup => {
-                      :email => 'new@localhost',
-                      :name => 'New Person',
-                      :password => 'sillypassword',
-                      :password_confirmation => 'sillypassword'
-                    }
-                  }
+      user_signup: {
+        email: 'new@localhost',
+        name: 'New Person',
+        password: 'sillypassword',
+        password_confirmation: 'sillypassword'
+      }
+    }
     expect(response).to render_template('confirm')
 
     deliveries = ActionMailer::Base.deliveries
@@ -669,13 +669,13 @@ describe UserController, "when signing up" do
   it "should send confirmation mail in other languages or different locales" do
     session[:locale] = "es"
     post :signup, params: {
-                    :user_signup => {
-                      :email => 'new@localhost',
-                      :name => 'New Person',
-                      :password => 'sillypassword',
-                      :password_confirmation => 'sillypassword'
-                    }
-                  }
+      user_signup: {
+        email: 'new@localhost',
+        name: 'New Person',
+        password: 'sillypassword',
+        password_confirmation: 'sillypassword'
+      }
+    }
     expect(response).to render_template('confirm')
 
     deliveries = ActionMailer::Base.deliveries
@@ -686,13 +686,13 @@ describe UserController, "when signing up" do
   context "filling in the form with an existing registered email" do
     it "should send special 'already signed up' mail" do
       post :signup, params: {
-                      :user_signup => {
-                        :email => 'silly@localhost',
-                        :name => 'New Person',
-                        :password => 'sillypassword',
-                        :password_confirmation => 'sillypassword'
-                      }
-                    }
+        user_signup: {
+          email: 'silly@localhost',
+          name: 'New Person',
+          password: 'sillypassword',
+          password_confirmation: 'sillypassword'
+        }
+      }
       expect(response).to render_template('confirm')
 
       deliveries = ActionMailer::Base.deliveries
@@ -704,13 +704,13 @@ describe UserController, "when signing up" do
 
     it "cope with trailing spaces in the email address" do
       post :signup, params: {
-                      :user_signup => {
-                        :email => 'silly@localhost ',
-                        :name => 'New Person',
-                        :password => 'sillypassword',
-                        :password_confirmation => 'sillypassword'
-                      }
-                    }
+        user_signup: {
+          email: 'silly@localhost ',
+          name: 'New Person',
+          password: 'sillypassword',
+          password_confirmation: 'sillypassword'
+        }
+      }
       expect(response).to render_template('confirm')
 
       deliveries = ActionMailer::Base.deliveries
@@ -723,13 +723,13 @@ describe UserController, "when signing up" do
     it "should create a new PostRedirect if the old one has expired" do
       allow(PostRedirect).to receive(:find_by_token).and_return(nil)
       post :signup, params: {
-                      :user_signup => {
-                        :email => 'silly@localhost',
-                        :name => 'New Person',
-                        :password => 'sillypassword',
-                        :password_confirmation => 'sillypassword'
-                      }
-                    }
+        user_signup: {
+          email: 'silly@localhost',
+          name: 'New Person',
+          password: 'sillypassword',
+          password_confirmation: 'sillypassword'
+        }
+      }
       expect(response).to render_template('confirm')
     end
   end
@@ -737,14 +737,14 @@ describe UserController, "when signing up" do
   it 'accepts only whitelisted parameters' do
     expect {
       post :signup, params: {
-                      :user_signup => {
-                        :email => 'silly@localhost',
-                        :name => 'New Person',
-                        :password => 'sillypassword',
-                        :password_confirmation => 'sillypassword',
-                        :role_ids => Role.admin_role.id
-                      }
-                    }
+        user_signup: {
+          email: 'silly@localhost',
+          name: 'New Person',
+          password: 'sillypassword',
+          password_confirmation: 'sillypassword',
+          role_ids: Role.admin_role.id
+        }
+      }
     }.to raise_error(ActionController::UnpermittedParameters)
   end
 
@@ -760,14 +760,13 @@ describe UserController, "when signing up" do
     end
 
     it "shows the confirmation page for valid credentials" do
-      post :signup, params: { :user_signup => {
-                                :email => user.email,
-                                :name => user.name,
-                                :password => 'jonespassword',
-                                :password_confirmation => 'jonespassword'
-                              }
-                            },
-                    session: { :user_id => user.id }
+      post :signup, params: { user_signup: {
+        email: user.email,
+        name: user.name,
+        password: 'jonespassword',
+        password_confirmation: 'jonespassword'
+      } },
+                    session: { user_id: user.id }
       expect(response).to render_template('confirm')
     end
 
@@ -790,50 +789,50 @@ describe UserController, "when signing up" do
 
       it 'sends an exception notification' do
         post :signup, params: {
-                        :user_signup => {
-                          :email => 'rate-limited@localhost',
-                          :name => 'New Person',
-                          :password => 'sillypassword',
-                          :password_confirmation => 'sillypassword'
-                        }
-                      }
+          user_signup: {
+            email: 'rate-limited@localhost',
+            name: 'New Person',
+            password: 'sillypassword',
+            password_confirmation: 'sillypassword'
+          }
+        }
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to match(/Rate limited signup from/)
       end
 
       it 'blocks the signup' do
         post :signup, params: {
-                        :user_signup => {
-                          :email => 'rate-limited@localhost',
-                          :name => 'New Person',
-                          :password => 'sillypassword',
-                          :password_confirmation => 'sillypassword'
-                        }
-                      }
-        expect(User.where(:email => 'rate-limited@localhost').count).to eq(0)
+          user_signup: {
+            email: 'rate-limited@localhost',
+            name: 'New Person',
+            password: 'sillypassword',
+            password_confirmation: 'sillypassword'
+          }
+        }
+        expect(User.where(email: 'rate-limited@localhost').count).to eq(0)
       end
 
       it 're-renders the form' do
         post :signup, params: {
-                        :user_signup => {
-                          :email => 'rate-limited@localhost',
-                          :name => 'New Person',
-                          :password => 'sillypassword',
-                          :password_confirmation => 'sillypassword'
-                        }
-                      }
+          user_signup: {
+            email: 'rate-limited@localhost',
+            name: 'New Person',
+            password: 'sillypassword',
+            password_confirmation: 'sillypassword'
+          }
+        }
         expect(response).to render_template('sign')
       end
 
       it 'sets a flash error' do
         post :signup, params: {
-                        :user_signup => {
-                          :email => 'rate-limited@localhost',
-                          :name => 'New Person',
-                          :password => 'sillypassword',
-                          :password_confirmation => 'sillypassword'
-                        }
-                      }
+          user_signup: {
+            email: 'rate-limited@localhost',
+            name: 'New Person',
+            password: 'sillypassword',
+            password_confirmation: 'sillypassword'
+          }
+        }
         expect(flash[:error]).to match(/unable to sign up new users/)
       end
 
@@ -848,27 +847,27 @@ describe UserController, "when signing up" do
 
       it 'sends an exception notification' do
         post :signup, params: {
-                        :user_signup => {
-                          :email => 'rate-limited@localhost',
-                          :name => 'New Person',
-                          :password => 'sillypassword',
-                          :password_confirmation => 'sillypassword'
-                        }
-                      }
+          user_signup: {
+            email: 'rate-limited@localhost',
+            name: 'New Person',
+            password: 'sillypassword',
+            password_confirmation: 'sillypassword'
+          }
+        }
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to match(/Rate limited signup from/)
       end
 
       it 'allows the signup' do
         post :signup, params: {
-                        :user_signup => {
-                          :email => 'rate-limited@localhost',
-                          :name => 'New Person',
-                          :password => 'sillypassword',
-                          :password_confirmation => 'sillypassword'
-                        }
-                      }
-        expect(User.where(:email => 'rate-limited@localhost').count).to eq(1)
+          user_signup: {
+            email: 'rate-limited@localhost',
+            name: 'New Person',
+            password: 'sillypassword',
+            password_confirmation: 'sillypassword'
+          }
+        }
+        expect(User.where(email: 'rate-limited@localhost').count).to eq(1)
       end
 
     end
@@ -898,36 +897,36 @@ describe UserController, "when signing up" do
         expect(Rails.logger).to receive(:info).with(msg)
 
         post :signup, params: {
-                        :user_signup => {
-                          :email => 'spammer@example.com',
-                          :name => 'Download New Person 1080p!',
-                          :password => 'sillypassword',
-                          :password_confirmation => 'sillypassword'
-                        }
-                      }
+          user_signup: {
+            email: 'spammer@example.com',
+            name: 'Download New Person 1080p!',
+            password: 'sillypassword',
+            password_confirmation: 'sillypassword'
+          }
+        }
       end
 
       it 'blocks the signup' do
         post :signup, params: {
-                        :user_signup => {
-                          :email => 'spammer@example.com',
-                          :name => 'New Person',
-                          :password => 'sillypassword',
-                          :password_confirmation => 'sillypassword'
-                        }
-                      }
-        expect(User.where(:email => 'spammer@example.com').count).to eq(0)
+          user_signup: {
+            email: 'spammer@example.com',
+            name: 'New Person',
+            password: 'sillypassword',
+            password_confirmation: 'sillypassword'
+          }
+        }
+        expect(User.where(email: 'spammer@example.com').count).to eq(0)
       end
 
       it 're-renders the form' do
         post :signup, params: {
-                        :user_signup => {
-                          :email => 'spammer@example.com',
-                          :name => 'New Person',
-                          :password => 'sillypassword',
-                          :password_confirmation => 'sillypassword'
-                        }
-                      }
+          user_signup: {
+            email: 'spammer@example.com',
+            name: 'New Person',
+            password: 'sillypassword',
+            password_confirmation: 'sillypassword'
+          }
+        }
         expect(response).to render_template('sign')
       end
 
@@ -942,27 +941,27 @@ describe UserController, "when signing up" do
 
       it 'sends an exception notification' do
         post :signup, params: {
-                        :user_signup => {
-                          :email => 'spammer@example.com',
-                          :name => 'New Person',
-                          :password => 'sillypassword',
-                          :password_confirmation => 'sillypassword'
-                        }
-                      }
+          user_signup: {
+            email: 'spammer@example.com',
+            name: 'New Person',
+            password: 'sillypassword',
+            password_confirmation: 'sillypassword'
+          }
+        }
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to match(/signup from suspected spammer/)
       end
 
       it 'allows the signup' do
         post :signup, params: {
-                        :user_signup => {
-                          :email => 'spammer@example.com',
-                          :name => 'New Person',
-                          :password => 'sillypassword',
-                          :password_confirmation => 'sillypassword'
-                        }
-                      }
-        expect(User.where(:email => 'spammer@example.com').count).to eq(1)
+          user_signup: {
+            email: 'spammer@example.com',
+            name: 'New Person',
+            password: 'sillypassword',
+            password_confirmation: 'sillypassword'
+          }
+        }
+        expect(User.where(email: 'spammer@example.com').count).to eq(1)
       end
 
     end
@@ -978,7 +977,7 @@ describe UserController, "when changing email address" do
   it "should require login" do
     get :signchangeemail
     expect(response).
-      to redirect_to(signin_path(:token => get_last_post_redirect.token))
+      to redirect_to(signin_path(token: get_last_post_redirect.token))
   end
 
   it "should show form for changing email if logged in" do
@@ -996,12 +995,12 @@ describe UserController, "when changing email address" do
 
     post :signchangeemail,
          params: {
-           :signchangeemail => {
-             :old_email => 'bob@localhost',
-             :password => 'donotknowpassword',
-             :new_email => 'newbob@localhost'
+           signchangeemail: {
+             old_email: 'bob@localhost',
+             password: 'donotknowpassword',
+             new_email: 'newbob@localhost'
            },
-           :submitted_signchangeemail_do => 1
+           submitted_signchangeemail_do: 1
          }
 
     @user.reload
@@ -1019,12 +1018,12 @@ describe UserController, "when changing email address" do
 
     post :signchangeemail,
          params: {
-           :signchangeemail => {
-             :old_email => 'bob@moo',
-             :password => 'jonespassword',
-             :new_email => 'newbob@localhost'
+           signchangeemail: {
+             old_email: 'bob@moo',
+             password: 'jonespassword',
+             new_email: 'newbob@localhost'
            },
-           :submitted_signchangeemail_do => 1
+           submitted_signchangeemail_do: 1
          }
 
     @user.reload
@@ -1042,12 +1041,12 @@ describe UserController, "when changing email address" do
 
     post :signchangeemail,
          params: {
-           :signchangeemail => {
-             :old_email => 'BOB@localhost',
-             :password => 'jonespassword',
-             :new_email => 'newbob@localhost'
+           signchangeemail: {
+             old_email: 'BOB@localhost',
+             password: 'jonespassword',
+             new_email: 'newbob@localhost'
            },
-           :submitted_signchangeemail_do => 1
+           submitted_signchangeemail_do: 1
          }
 
     expect(response).to render_template('signchangeemail_confirm')
@@ -1059,12 +1058,12 @@ describe UserController, "when changing email address" do
 
     post :signchangeemail,
          params: {
-           :signchangeemail => {
-             :old_email => 'bob@localhost',
-             :password => 'jonespassword',
-             :new_email => 'silly@localhost'
+           signchangeemail: {
+             old_email: 'bob@localhost',
+             password: 'jonespassword',
+             new_email: 'silly@localhost'
            },
-           :submitted_signchangeemail_do => 1
+           submitted_signchangeemail_do: 1
          }
 
     @user.reload
@@ -1078,7 +1077,7 @@ describe UserController, "when changing email address" do
     mail = deliveries[0]
 
     expect(mail.body).to include("perhaps you, just tried to change their")
-    expect(mail.to).to eq([ 'silly@localhost' ])
+    expect(mail.to).to eq(['silly@localhost'])
   end
 end
 
@@ -1094,17 +1093,17 @@ describe UserController, "when using profile photos" do
 
   it "should not let you change profile photo if you're not logged in as the user" do
     post :set_profile_photo, params: {
-                               :id => @user.id,
-                               :file => @uploadedfile,
-                               :submitted_draft_profile_photo => 1,
-                               :automatically_crop => 1
-                             }
+      id: @user.id,
+      file: @uploadedfile,
+      submitted_draft_profile_photo: 1,
+      automatically_crop: 1
+    }
   end
 
   it "should return a 404 not a 500 when a profile photo has not been set" do
     expect(@user.profile_photo).to be_nil
     expect {
-      get :get_profile_photo, params: { :url_name => @user.url_name }
+      get :get_profile_photo, params: { url_name: @user.url_name }
     }.to raise_error(ActiveRecord::RecordNotFound)
   end
 
@@ -1113,13 +1112,13 @@ describe UserController, "when using profile photos" do
     session[:user_id] = @user.id
 
     post :set_profile_photo, params: {
-                               :id => @user.id,
-                               :file => @uploadedfile,
-                               :submitted_draft_profile_photo => 1,
-                               :automatically_crop => 1
-                             }
+      id: @user.id,
+      file: @uploadedfile,
+      submitted_draft_profile_photo: 1,
+      automatically_crop: 1
+    }
 
-    expect(response).to redirect_to(:controller => 'user', :action => 'show', :url_name => "bob_smith")
+    expect(response).to redirect_to(controller: 'user', action: 'show', url_name: "bob_smith")
     expect(flash[:notice]).to match(/Thank you for updating your profile photo/)
 
     @user.reload
@@ -1127,21 +1126,21 @@ describe UserController, "when using profile photos" do
   end
 
   context 'there is no profile text' do
-    let(:user) { FactoryBot.create(:user, :about_me => '') }
+    let(:user) { FactoryBot.create(:user, about_me: '') }
 
     it 'prompts you to add profile text when adding a photo' do
       session[:user_id] = user.id
 
       profile_photo = ProfilePhoto.
-                        create(:data => load_file_fixture("parrot.png"),
-                               :user => user)
+                        create(data: load_file_fixture("parrot.png"),
+                               user: user)
 
       post :set_profile_photo,
            params: {
-             :id => user.id,
-             :file => @uploadedfile,
-             :submitted_crop_profile_photo => 1,
-             :draft_profile_photo_id => profile_photo.id
+             id: user.id,
+             file: @uploadedfile,
+             submitted_crop_profile_photo: 1,
+             draft_profile_photo_id: profile_photo.id
            }
 
       expect(flash[:notice][:partial]).
@@ -1155,21 +1154,21 @@ describe UserController, "when using profile photos" do
     session[:user_id] = @user.id
 
     post :set_profile_photo, params: {
-                               :id => @user.id,
-                               :file => @uploadedfile,
-                               :submitted_draft_profile_photo => 1,
-                               :automatically_crop => 1
-                             }
-    expect(response).to redirect_to(:controller => 'user', :action => 'show', :url_name => "bob_smith")
+      id: @user.id,
+      file: @uploadedfile,
+      submitted_draft_profile_photo: 1,
+      automatically_crop: 1
+    }
+    expect(response).to redirect_to(controller: 'user', action: 'show', url_name: "bob_smith")
     expect(flash[:notice]).to match(/Thank you for updating your profile photo/)
 
     post :set_profile_photo, params: {
-                               :id => @user.id,
-                               :file => @uploadedfile_2,
-                               :submitted_draft_profile_photo => 1,
-                               :automatically_crop => 1
-                             }
-    expect(response).to redirect_to(:controller => 'user', :action => 'show', :url_name => "bob_smith")
+      id: @user.id,
+      file: @uploadedfile_2,
+      submitted_draft_profile_photo: 1,
+      automatically_crop: 1
+    }
+    expect(response).to redirect_to(controller: 'user', action: 'show', url_name: "bob_smith")
     expect(flash[:notice]).to match(/Thank you for updating your profile photo/)
 
     @user.reload
@@ -1182,7 +1181,7 @@ end
 describe UserController, "when showing JSON version for API" do
 
   it "should be successful" do
-    get :show, params: { :url_name => "bob_smith", :format => "json" }
+    get :show, params: { url_name: "bob_smith", format: "json" }
 
     u = JSON.parse(response.body)
     expect(u.class.to_s).to eq('Hash')
@@ -1204,21 +1203,21 @@ describe UserController, "when viewing the wall" do
   it "should show users stuff on their wall, most recent first" do
     user = users(:silly_name_user)
     ire = info_request_events(:useless_incoming_message_event)
-    ire.created_at = DateTime.new(2001,1,1)
+    ire.created_at = DateTime.new(2001, 1, 1)
     session[:user_id] = user.id
-    get :wall, params: { :url_name => user.url_name }
+    get :wall, params: { url_name: user.url_name }
     expect(assigns[:feed_results][0]).not_to eq(ire)
 
     ire.created_at = Time.zone.now
     ire.save!
-    get :wall, params: { :url_name => user.url_name }
+    get :wall, params: { url_name: user.url_name }
     expect(assigns[:feed_results][0]).to eq(ire)
   end
 
   it "should show other users' activities on their walls" do
     user = users(:silly_name_user)
     ire = info_request_events(:useless_incoming_message_event)
-    get :wall, params: { :url_name => user.url_name }
+    get :wall, params: { url_name: user.url_name }
     expect(assigns[:feed_results][0]).not_to eq(ire)
   end
 
@@ -1227,9 +1226,9 @@ describe UserController, "when viewing the wall" do
     session[:user_id] = user.id
     expect(user.receive_email_alerts).to eq(true)
     get :set_receive_email_alerts, params: {
-                                     :receive_email_alerts => 'false',
-                                     :came_from => "/"
-                                   }
+      receive_email_alerts: 'false',
+      came_from: "/"
+    }
     user.reload
     expect(user.receive_email_alerts).not_to eq(true)
   end
@@ -1237,7 +1236,7 @@ describe UserController, "when viewing the wall" do
   it 'should not show duplicate feed results' do
     user = users(:silly_name_user)
     session[:user_id] = user.id
-    get :wall, params: { :url_name => user.url_name }
+    get :wall, params: { url_name: user.url_name }
     expect(assigns[:feed_results].uniq).to eq(assigns[:feed_results])
   end
 

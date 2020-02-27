@@ -2,11 +2,11 @@
 class AddProfilePhoto < ActiveRecord::Migration[4.2] # 2.1
   def self.up
     create_table :profile_photos do |t|
-      t.column :data, :binary, :null => false
-      t.column :user_id, :integer, :null => false
+      t.column :data, :binary, null: false
+      t.column :user_id, :integer, null: false
     end
 
-    add_column :users, :profile_photo_id, :integer, :null => true
+    add_column :users, :profile_photo_id, :integer, null: true
 
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
       execute "ALTER TABLE profile_photos ADD CONSTRAINT fk_profile_photos_user FOREIGN KEY (user_id) REFERENCES users(id)"

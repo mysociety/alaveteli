@@ -38,7 +38,7 @@ describe ReplyToAddressValidator do
           described_class::DEFAULT_INVALID_REPLY_ADDRESSES
       end
 
-      it { is_expected.to eq(%W(a@example.com)) }
+      it { is_expected.to eq(%w(a@example.com)) }
     end
 
   end

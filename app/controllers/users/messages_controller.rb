@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 # Allowing users to send user-to-user messages
 class Users::MessagesController < UserController
-
   before_action :set_recipient, :check_can_send_messages, :check_logged_in,
                 :set_contact, :set_recaptcha_required
 
@@ -34,7 +33,7 @@ class Users::MessagesController < UserController
     if authenticated_user && !authenticated_user.can_contact_other_users?
       @details = authenticated_user.can_fail_html
       render template: 'user/banned'
-      return
+      nil
     end
   end
 
@@ -80,5 +79,4 @@ class Users::MessagesController < UserController
       params[:contact][:message]
     ).deliver_now
   end
-
 end

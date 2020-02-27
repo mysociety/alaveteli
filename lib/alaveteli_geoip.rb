@@ -11,7 +11,7 @@ class AlaveteliGeoIP
   attr_reader :geoip, :gaze_url, :current_code
 
   # Public: Get the country code for a given IP address
-  # Delegates to an instance configured with the geoip_database
+  #  Delegates to an instance configured with the geoip_database
   # See AlaveteliGeoIP#country_code_from_ip for more documentation.
   def self.country_code_from_ip(ip)
     instance.country_code_from_ip(ip)
@@ -22,13 +22,13 @@ class AlaveteliGeoIP
   end
 
   def initialize(database = nil)
-    database = AlaveteliConfiguration::geoip_database unless database
+    database = AlaveteliConfiguration.geoip_database unless database
     if database.present? && File.file?(database)
       @geoip = MaxMind::DB.new(database, mode: MaxMind::DB::MODE_MEMORY)
-    elsif AlaveteliConfiguration::gaze_url.present?
-      @gaze_url = AlaveteliConfiguration::gaze_url
+    elsif AlaveteliConfiguration.gaze_url.present?
+      @gaze_url = AlaveteliConfiguration.gaze_url
     end
-    @current_code = AlaveteliConfiguration::iso_country_code
+    @current_code = AlaveteliConfiguration.iso_country_code
   end
 
   # Public: Return the country code of the country indicated by

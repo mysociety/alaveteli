@@ -23,7 +23,7 @@ describe PublicBodyHeading do
 
     it 'should require a unique name' do
       heading = FactoryBot.create(:public_body_heading)
-      new_heading = PublicBodyHeading.new(:name => heading.name)
+      new_heading = PublicBodyHeading.new(name: heading.name)
       expect(new_heading).not_to be_valid
       expect(new_heading.errors[:name]).to eq(["Name is already taken"])
     end
@@ -60,8 +60,8 @@ describe PublicBodyHeading do
 
     it 'saves translations' do
       heading = FactoryBot.build(:public_body_heading)
-      heading.translations_attributes = { :es => { :locale => 'es',
-                                                   :name => 'El Heading' } }
+      heading.translations_attributes = { es: { locale: 'es',
+                                                name: 'El Heading' } }
 
       heading.save
       expect(PublicBodyHeading.find(heading.id).translations.size).to eq(2)
@@ -75,16 +75,16 @@ describe PublicBodyHeading do
 
       it 'does not persist translations' do
         heading = FactoryBot.create(:public_body_heading)
-        heading.translations_attributes = { :es => { :locale => 'es',
-                                                     :name => 'El Heading' } }
+        heading.translations_attributes = { es: { locale: 'es',
+                                                  name: 'El Heading' } }
 
         expect(PublicBodyHeading.find(heading.id).translations.size).to eq(1)
       end
 
       it 'creates a new translation' do
         heading = FactoryBot.create(:public_body_heading)
-        heading.translations_attributes = { :es => { :locale => 'es',
-                                                     :name => 'El Heading' } }
+        heading.translations_attributes = { es: { locale: 'es',
+                                                  name: 'El Heading' } }
         heading.save
         heading.reload
         expect(heading.name(:es)).to eq('El Heading')
@@ -92,30 +92,30 @@ describe PublicBodyHeading do
 
       it 'updates an existing translation' do
         heading = FactoryBot.create(:public_body_heading)
-        heading.translations_attributes = { 'es' => { :locale => 'es',
-                                                      :name => 'Name' } }
+        heading.translations_attributes = { 'es' => { locale: 'es',
+                                                      name: 'Name' } }
         heading.save
 
-        heading.translations_attributes = { 'es' => { :id => heading.translation_for(:es).id,
-                                                      :locale => 'es',
-                                                      :name => 'Renamed' } }
+        heading.translations_attributes = { 'es' => { id: heading.translation_for(:es).id,
+                                                      locale: 'es',
+                                                      name: 'Renamed' } }
         heading.save
         expect(heading.name(:es)).to eq('Renamed')
       end
 
       it 'updates an existing translation and creates a new translation' do
         heading = FactoryBot.create(:public_body_heading)
-        heading.translations.create(:locale => 'es',
-                                    :name => 'Los Heading')
+        heading.translations.create(locale: 'es',
+                                    name: 'Los Heading')
 
         expect(heading.translations.size).to eq(2)
 
         heading.translations_attributes = {
-          'es' => { :id => heading.translation_for(:es).id,
-                    :locale => 'es',
-                    :name => 'Renamed' },
-          'fr' => { :locale => 'fr',
-                    :name => 'Le Heading' }
+          'es' => { id: heading.translation_for(:es).id,
+                    locale: 'es',
+                    name: 'Renamed' },
+          'fr' => { locale: 'fr',
+                    name: 'Le Heading' }
         }
 
         expect(heading.translations.size).to eq(3)
@@ -129,16 +129,16 @@ describe PublicBodyHeading do
 
       it 'skips empty translations' do
         heading = FactoryBot.create(:public_body_heading)
-        heading.translations.create(:locale => 'es',
-                                    :name => 'Los Heading')
+        heading.translations.create(locale: 'es',
+                                    name: 'Los Heading')
 
         expect(heading.translations.size).to eq(2)
 
         heading.translations_attributes = {
-          'es' => { :id => heading.translation_for(:es).id,
-                    :locale => 'es',
-                    :name => 'Renamed' },
-          'fr' => { :locale => 'fr' }
+          'es' => { id: heading.translation_for(:es).id,
+                    locale: 'es',
+                    name: 'Renamed' },
+          'fr' => { locale: 'fr' }
         }
 
         expect(heading.translations.size).to eq(2)
@@ -157,7 +157,7 @@ describe PublicBodyHeading::Translation do
 
   it 'is valid if all required attributes are assigned' do
     translation = PublicBodyHeading::Translation.new(
-      :locale => AlaveteliLocalization.default_locale
+      locale: AlaveteliLocalization.default_locale
     )
     expect(translation).to be_valid
   end

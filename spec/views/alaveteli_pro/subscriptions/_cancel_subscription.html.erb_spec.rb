@@ -14,7 +14,7 @@ describe 'alaveteli_pro/subscriptions/_cancel_subscription' do
     let(:subscription) do
       double(id: 'sub_BWb9jBSSO0nafs',
              cancel_at_period_end: false,
-             current_period_end: 1509882971)
+             current_period_end: 1_509_882_971)
     end
 
     it 'sets the section heading' do
@@ -38,7 +38,7 @@ describe 'alaveteli_pro/subscriptions/_cancel_subscription' do
       render_view
       expect(rendered).
         to have_link(text: 'I understand and still want to cancel',
-                     href: subscription_path(subscription.id) )
+                     href: subscription_path(subscription.id))
     end
 
   end
@@ -48,7 +48,7 @@ describe 'alaveteli_pro/subscriptions/_cancel_subscription' do
     let(:subscription) do
       double(id: 'sub_BWb9jBSSO0nafs',
              cancel_at_period_end: true,
-             current_period_end: 1509882971)
+             current_period_end: 1_509_882_971)
     end
 
     it 'sets the section heading' do

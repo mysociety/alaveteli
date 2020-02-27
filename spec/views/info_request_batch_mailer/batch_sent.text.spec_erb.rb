@@ -5,7 +5,8 @@ describe "info_request_batch_mailer/batch_sent" do
   let(:batch) do
     FactoryBot.create(
       :info_request_batch,
-      :title => "Request apostrophe's data")
+      title: "Request apostrophe's data"
+    )
   end
 
   before do
@@ -29,8 +30,8 @@ describe "info_request_batch_mailer/batch_sent" do
   end
 
   it "does not add HTMLEntities to unrequestable public body names" do
-    body_1 = FactoryBot.create(:public_body, :name => "Dave's Test Authority")
-    body_2 = FactoryBot.create(:public_body, :name => "Jo's Test Authority")
+    body_1 = FactoryBot.create(:public_body, name: "Dave's Test Authority")
+    body_2 = FactoryBot.create(:public_body, name: "Jo's Test Authority")
     assign(:info_request_batch, batch)
     assign(:unrequestable, [body_1, body_2])
     render

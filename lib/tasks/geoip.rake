@@ -29,9 +29,7 @@ namespace :geoip do
 
       `tar -xzf #{downloaded_location} -C #{tmp_dir}`
 
-      unless File.exist?(target_dir)
-        FileUtils.mkdir target_dir
-      end
+      FileUtils.mkdir target_dir unless File.exist?(target_dir)
 
       extracted_folder = Dir["#{tmp_dir}/GeoLite2-Country_*"].last
       FileUtils.mv("#{extracted_folder}/GeoLite2-Country.mmdb",

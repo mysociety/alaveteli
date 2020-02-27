@@ -38,27 +38,27 @@ describe AdminPublicBodyHeadingsController do
 
       before(:each) do
         PublicBodyHeading.destroy_all
-        @params = { :translations_attributes => {
-                      'en' => { :locale => 'en',
-                                :name => 'New Heading' }
+        @params = { translations_attributes: {
+          'en' => { locale: 'en',
+                    name: 'New Heading' }
         } }
       end
 
       it 'creates a new heading in the default locale' do
         expect {
-          post :create, params: { :public_body_heading => @params }
+          post :create, params: { public_body_heading: @params }
         }.to change { PublicBodyHeading.count }.from(0).to(1)
       end
 
       it 'can create a heading when the default locale is an underscore locale' do
         AlaveteliLocalization.set_locales('es en_GB', 'en_GB')
         post :create, params: {
-                        :public_body_heading => { :name => 'New Heading en_GB' }
-                      }
+          public_body_heading: { name: 'New Heading en_GB' }
+        }
 
         expect(
           PublicBodyHeading.
-            find_by(:name => 'New Heading en_GB').
+            find_by(name: 'New Heading en_GB').
               translations.
                 first.
                   locale
@@ -66,12 +66,12 @@ describe AdminPublicBodyHeadingsController do
       end
 
       it 'notifies the admin that the heading was created' do
-        post :create, params: { :public_body_heading => @params }
+        post :create, params: { public_body_heading: @params }
         expect(flash[:notice]).to eq('Heading was successfully created.')
       end
 
       it 'redirects to the categories index' do
-        post :create, params: { :public_body_heading => @params }
+        post :create, params: { public_body_heading: @params }
         expect(response).to redirect_to(admin_categories_path)
       end
 
@@ -81,24 +81,24 @@ describe AdminPublicBodyHeadingsController do
 
       before(:each) do
         PublicBodyHeading.destroy_all
-        @params = { :translations_attributes => {
-                      'en' => { :locale => 'en',
-                                :name => 'New Heading' },
-                      'es' => { :locale => 'es',
-                                :name => 'Mi Nuevo Heading' }
+        @params = { translations_attributes: {
+          'en' => { locale: 'en',
+                    name: 'New Heading' },
+          'es' => { locale: 'es',
+                    name: 'Mi Nuevo Heading' }
         } }
       end
 
       it 'saves the heading' do
         expect {
-          post :create, params: { :public_body_heading => @params }
+          post :create, params: { public_body_heading: @params }
         }.to change { PublicBodyHeading.count }.from(0).to(1)
       end
 
       it 'saves the default locale translation' do
-        post :create, params: { :public_body_heading => @params }
+        post :create, params: { public_body_heading: @params }
 
-        heading = PublicBodyHeading.where(:name => 'New Heading').first
+        heading = PublicBodyHeading.where(name: 'New Heading').first
 
         AlaveteliLocalization.with_locale(:en) do
           expect(heading.name).to eq('New Heading')
@@ -106,9 +106,9 @@ describe AdminPublicBodyHeadingsController do
       end
 
       it 'saves the alternative locale translation' do
-        post :create, params: { :public_body_heading => @params }
+        post :create, params: { public_body_heading: @params }
 
-        heading = PublicBodyHeading.where(:name => 'New Heading').first
+        heading = PublicBodyHeading.where(name: 'New Heading').first
 
         AlaveteliLocalization.with_locale(:es) do
           expect(heading.name).to eq('Mi Nuevo Heading')
@@ -120,14 +120,14 @@ describe AdminPublicBodyHeadingsController do
     context 'on failure' do
 
       it 'renders the form if creating the record was unsuccessful' do
-        post :create, params: { :public_body_heading => { :name => '' } }
+        post :create, params: { public_body_heading: { name: '' } }
         expect(response).to render_template('new')
       end
 
       it 'is rebuilt with the given params' do
         post :create,
              params: {
-               :public_body_heading => { :name => 'Need a description' }
+               public_body_heading: { name: 'Need a description' }
              }
         expect(assigns(:public_body_heading).name).to eq('Need a description')
       end
@@ -137,21 +137,21 @@ describe AdminPublicBodyHeadingsController do
     context 'on failure for multiple locales' do
 
       before(:each) do
-        @params = { :translations_attributes => {
-                      'en' => { :locale => 'en',
-                                :name => 'Need a description' },
-                      'es' => { :locale => 'es',
-                                :name => 'Mi Nuevo Heading' }
+        @params = { translations_attributes: {
+          'en' => { locale: 'en',
+                    name: 'Need a description' },
+          'es' => { locale: 'es',
+                    name: 'Mi Nuevo Heading' }
         } }
       end
 
       it 'is rebuilt with the default locale translation' do
-        post :create, params: { :public_body_heading => @params }
+        post :create, params: { public_body_heading: @params }
         expect(assigns(:public_body_heading).name).to eq('Need a description')
       end
 
       it 'is rebuilt with the alternative locale translation' do
-        post :create, params: { :public_body_heading => @params }
+        post :create, params: { public_body_heading: @params }
 
         AlaveteliLocalization.with_locale(:es) do
           expect(assigns(:public_body_heading).name).to eq('Mi Nuevo Heading')
@@ -173,22 +173,22 @@ describe AdminPublicBodyHeadingsController do
     end
 
     it 'responds successfully' do
-      get :edit, params: { :id => @heading.id }
+      get :edit, params: { id: @heading.id }
       expect(response).to be_successful
     end
 
     it 'finds the requested heading' do
-      get :edit, params: { :id => @heading.id }
+      get :edit, params: { id: @heading.id }
       expect(assigns[:public_body_heading]).to eq(@heading)
     end
 
     it 'builds new translations if the body does not already have a translation in the specified locale' do
-      get :edit, params: { :id => @heading.id }
+      get :edit, params: { id: @heading.id }
       expect(assigns[:public_body_heading].translations.map(&:locale)).to include(:fr)
     end
 
     it 'renders the edit template' do
-      get :edit, params: { :id => @heading.id }
+      get :edit, params: { id: @heading.id }
       expect(response).to render_template('edit')
     end
 
@@ -202,35 +202,34 @@ describe AdminPublicBodyHeadingsController do
         @heading.name = 'Los heading'
         @heading.save!
       end
-      @params = { :translations_attributes => {
-                    'en' => { :id => @heading.translation_for(:en).id,
-                              :locale => 'en',
-                              :name => @heading.name(:en) },
-                    'es' => { :id => @heading.translation_for(:es).id,
-                              :locale => 'es',
-                              :title => @heading.name(:es) }
+      @params = { translations_attributes: {
+        'en' => { id: @heading.translation_for(:en).id,
+                  locale: 'en',
+                  name: @heading.name(:en) },
+        'es' => { id: @heading.translation_for(:es).id,
+                  locale: 'es',
+                  title: @heading.name(:es) }
       } }
     end
 
     it 'finds the heading to update' do
       post :update, params: {
-                      :id => @heading.id,
-                      :public_body_category => @params
-                    }
+        id: @heading.id,
+        public_body_category: @params
+      }
       expect(assigns(:public_body_heading)).to eq(@heading)
     end
 
     context 'on success' do
 
       before(:each) do
-        @params = { :id => @heading.id,
-                    :public_body_heading => {
-                      :translations_attributes => {
-                        'en' => { :id => @heading.translation_for(:en).id,
-                                  :name => 'Renamed' }
+        @params = { id: @heading.id,
+                    public_body_heading: {
+                      translations_attributes: {
+                        'en' => { id: @heading.translation_for(:en).id,
+                                  name: 'Renamed' }
                       }
-                    }
-                    }
+                    } }
       end
 
       it 'saves edits to a public body heading' do
@@ -248,11 +247,11 @@ describe AdminPublicBodyHeadingsController do
         AlaveteliLocalization.set_locales('es en_GB', 'en_GB')
 
         post :update, params: {
-                        :id => @heading.id,
-                        :public_body_heading => {
-                          :name => 'Heading en_GB'
-                        }
-                      }
+          id: @heading.id,
+          public_body_heading: {
+            name: 'Heading en_GB'
+          }
+        }
 
         expect(PublicBodyHeading.find(@heading.id).translations.map(&:locale)).
           to include(:en_GB)
@@ -270,22 +269,22 @@ describe AdminPublicBodyHeadingsController do
       it 'saves edits to a public body heading in another locale' do
         expect(@heading.name(:es)).to eq('Los heading')
         post :update, params: {
-                        :id => @heading.id,
-                        :public_body_heading => {
-                          :translations_attributes => {
-                            'en' => {
-                              :id => @heading.translation_for(:en).id,
-                              :locale => 'en',
-                              :name => @heading.name(:en)
-                            },
-                            'es' => {
-                              :id => @heading.translation_for(:es).id,
-                              :locale => 'es',
-                              :name => 'Renamed'
-                            }
-                          }
-                        }
-                      }
+          id: @heading.id,
+          public_body_heading: {
+            translations_attributes: {
+              'en' => {
+                id: @heading.translation_for(:en).id,
+                locale: 'en',
+                name: @heading.name(:en)
+              },
+              'es' => {
+                id: @heading.translation_for(:es).id,
+                locale: 'es',
+                name: 'Renamed'
+              }
+            }
+          }
+        }
 
         heading = PublicBodyHeading.find(@heading.id)
         expect(heading.name(:es)).to eq('Renamed')
@@ -297,21 +296,21 @@ describe AdminPublicBodyHeadingsController do
         @heading.reload
 
         put :update, params: {
-                       :id => @heading.id,
-                       :public_body_heading => {
-                         :translations_attributes => {
-                           'en' => {
-                             :id => @heading.translation_for(:en).id,
-                             :locale => 'en',
-                             :name => @heading.name(:en)
-                           },
-                           'es' => {
-                             :locale => "es",
-                             :name => "Example Public Body Heading ES"
-                           }
-                         }
-                       }
-                     }
+          id: @heading.id,
+          public_body_heading: {
+            translations_attributes: {
+              'en' => {
+                id: @heading.translation_for(:en).id,
+                locale: 'en',
+                name: @heading.name(:en)
+              },
+              'es' => {
+                locale: "es",
+                name: "Example Public Body Heading ES"
+              }
+            }
+          }
+        }
 
         expect(request.flash[:notice]).to include('successful')
 
@@ -327,25 +326,25 @@ describe AdminPublicBodyHeadingsController do
         @heading.reload
 
         post :update, params: {
-                        :id => @heading.id,
-                        :public_body_heading => {
-                          :translations_attributes => {
-                            'en' => {
-                              :id => @heading.translation_for(:en).id,
-                              :locale => 'en',
-                              :name => @heading.name(:en)
-                            },
-                            'es' => {
-                              :locale => "es",
-                              :name => "Example Public Body Heading ES"
-                            },
-                            'fr' => {
-                              :locale => "fr",
-                              :name => "Example Public Body Heading FR"
-                            }
-                          }
-                        }
-                      }
+          id: @heading.id,
+          public_body_heading: {
+            translations_attributes: {
+              'en' => {
+                id: @heading.translation_for(:en).id,
+                locale: 'en',
+                name: @heading.name(:en)
+              },
+              'es' => {
+                locale: "es",
+                name: "Example Public Body Heading ES"
+              },
+              'fr' => {
+                locale: "fr",
+                name: "Example Public Body Heading FR"
+              }
+            }
+          }
+        }
 
         expect(request.flash[:notice]).to include('successful')
 
@@ -361,19 +360,19 @@ describe AdminPublicBodyHeadingsController do
 
       it 'updates an existing translation and adds a third translation' do
         post :update, params: {
-          :id => @heading.id,
-          :public_body_heading => {
-            :translations_attributes => {
-              'en' => { :id => @heading.translation_for(:en).id,
-                        :locale => 'en',
-                        :name => @heading.name(:en) },
+          id: @heading.id,
+          public_body_heading: {
+            translations_attributes: {
+              'en' => { id: @heading.translation_for(:en).id,
+                        locale: 'en',
+                        name: @heading.name(:en) },
               # Update existing translation
-              'es' => { :id => @heading.translation_for(:es).id,
-                        :locale => "es",
-                        :name => "Renamed Example Public Body Heading ES" },
+              'es' => { id: @heading.translation_for(:es).id,
+                        locale: "es",
+                        name: "Renamed Example Public Body Heading ES" },
               # Add new translation
-              'fr' => { :locale => "fr",
-                        :name => "Example Public Body Heading FR" }
+              'fr' => { locale: "fr",
+                        name: "Example Public Body Heading FR" }
             }
           }
         }
@@ -392,17 +391,17 @@ describe AdminPublicBodyHeadingsController do
 
       it "redirects to the edit page after a successful update" do
         post :update, params: {
-                        :id => @heading.id,
-                        :public_body_heading => {
-                          :translations_attributes => {
-                            'en' => {
-                              :id => @heading.translation_for(:en).id,
-                              :locale => 'en',
-                              :name => @heading.name(:en)
-                            }
-                          }
-                        }
-                      }
+          id: @heading.id,
+          public_body_heading: {
+            translations_attributes: {
+              'en' => {
+                id: @heading.translation_for(:en).id,
+                locale: 'en',
+                name: @heading.name(:en)
+              }
+            }
+          }
+        }
 
         expect(response).to redirect_to(edit_admin_heading_path(@heading))
       end
@@ -413,33 +412,33 @@ describe AdminPublicBodyHeadingsController do
 
       it 'renders the form if creating the record was unsuccessful' do
         post :update, params: {
-                        :id => @heading.id,
-                        :public_body_heading => {
-                          :translations_attributes => {
-                            'en' => {
-                              :id => @heading.translation_for(:en).id,
-                              :locale => 'en',
-                              :name => ''
-                            }
-                          }
-                        }
-                      }
+          id: @heading.id,
+          public_body_heading: {
+            translations_attributes: {
+              'en' => {
+                id: @heading.translation_for(:en).id,
+                locale: 'en',
+                name: ''
+              }
+            }
+          }
+        }
         expect(response).to render_template('edit')
       end
 
       it 'is rebuilt with the given params' do
         post :update, params: {
-                        :id => @heading.id,
-                        :public_body_heading => {
-                          :translations_attributes => {
-                            'en' => {
-                              :id => @heading.translation_for(:en).id,
-                              :locale => 'en',
-                              :name => 'Need a description'
-                            }
-                          }
-                        }
-                      }
+          id: @heading.id,
+          public_body_heading: {
+            translations_attributes: {
+              'en' => {
+                id: @heading.translation_for(:en).id,
+                locale: 'en',
+                name: 'Need a description'
+              }
+            }
+          }
+        }
         expect(assigns(:public_body_heading).name).to eq('Need a description')
       end
 
@@ -448,29 +447,29 @@ describe AdminPublicBodyHeadingsController do
     context 'on failure for multiple locales' do
 
       before(:each) do
-        @params = { :translations_attributes => {
-                      'en' => { :id => @heading.translation_for(:en).id,
-                                :locale => 'en',
-                                :name => '' },
-                      'es' => { :id => @heading.translation_for(:es).id,
-                                :locale => 'es',
-                                :name => 'Mi Nuevo Heading' }
+        @params = { translations_attributes: {
+          'en' => { id: @heading.translation_for(:en).id,
+                    locale: 'en',
+                    name: '' },
+          'es' => { id: @heading.translation_for(:es).id,
+                    locale: 'es',
+                    name: 'Mi Nuevo Heading' }
         } }
       end
 
       it 'is rebuilt with the default locale translation' do
         post :update, params: {
-                        :id => @heading.id,
-                        :public_body_heading => @params
-                      }
+          id: @heading.id,
+          public_body_heading: @params
+        }
         expect(assigns(:public_body_heading).name(:en)).to eq('')
       end
 
       it 'is rebuilt with the alternative locale translation' do
         post :update, params: {
-                        :id => @heading.id,
-                        :public_body_heading => @params
-                      }
+          id: @heading.id,
+          public_body_heading: @params
+        }
 
         AlaveteliLocalization.with_locale(:es) do
           expect(assigns(:public_body_heading).name).to eq('Mi Nuevo Heading')
@@ -489,7 +488,7 @@ describe AdminPublicBodyHeadingsController do
       heading = FactoryBot.create(:public_body_heading)
 
       expect {
-        post :destroy, params: { :id => heading.id }
+        post :destroy, params: { id: heading.id }
       }.to change { PublicBodyHeading.count }.from(1).to(0)
     end
 
@@ -500,24 +499,24 @@ describe AdminPublicBodyHeadingsController do
       heading = FactoryBot.create(:public_body_heading)
       category = FactoryBot.create(:public_body_category)
       link = FactoryBot.create(:public_body_category_link,
-                               :public_body_category => category,
-                               :public_body_heading => heading,
-                               :category_display_order => 0)
+                               public_body_category: category,
+                               public_body_heading: heading,
+                               category_display_order: 0)
 
       expect {
-        post :destroy, params: { :id => heading.id }
+        post :destroy, params: { id: heading.id }
       }.to change { PublicBodyHeading.count }.from(1).to(0)
     end
 
     it 'notifies the admin that the heading was destroyed' do
       heading = FactoryBot.create(:public_body_heading)
-      post :destroy, params: { :id => heading.id }
+      post :destroy, params: { id: heading.id }
       expect(flash[:notice]).to eq('Heading was successfully destroyed.')
     end
 
     it 'redirects to the categories index' do
       heading = FactoryBot.create(:public_body_heading)
-      post :destroy, params: { :id => heading.id }
+      post :destroy, params: { id: heading.id }
       expect(response).to redirect_to(admin_categories_path)
     end
 
@@ -528,12 +527,12 @@ describe AdminPublicBodyHeadingsController do
     render_views
 
     before do
-      @first = FactoryBot.create(:public_body_heading, :display_order => 0)
-      @second = FactoryBot.create(:public_body_heading, :display_order => 1)
-      @default_params = { :headings => [@second.id, @first.id] }
+      @first = FactoryBot.create(:public_body_heading, display_order: 0)
+      @second = FactoryBot.create(:public_body_heading, display_order: 1)
+      @default_params = { headings: [@second.id, @first.id] }
     end
 
-    def make_request(params=@default_params)
+    def make_request(params = @default_params)
       post :reorder, params: params
     end
 
@@ -554,7 +553,7 @@ describe AdminPublicBodyHeadingsController do
     context 'when handling invalid input' do
 
       before do
-        @params = { :headings => [@second.id, @first.id, @second.id + 1]}
+        @params = { headings: [@second.id, @first.id, @second.id + 1] }
       end
 
       it 'should return an "unprocessable entity" status and an error message' do
@@ -580,21 +579,21 @@ describe AdminPublicBodyHeadingsController do
       @heading = FactoryBot.create(:public_body_heading)
       @first_category = FactoryBot.create(:public_body_category)
       @first_link = FactoryBot.create(:public_body_category_link,
-                                      :public_body_category => @first_category,
-                                      :public_body_heading => @heading,
-                                      :category_display_order => 0)
+                                      public_body_category: @first_category,
+                                      public_body_heading: @heading,
+                                      category_display_order: 0)
       @second_category = FactoryBot.create(:public_body_category)
       @second_link = FactoryBot.create(:public_body_category_link,
-                                       :public_body_category => @second_category,
-                                       :public_body_heading => @heading,
-                                       :category_display_order => 1)
-      @default_params = { :categories => [@second_category.id, @first_category.id],
-                          :id => @heading }
+                                       public_body_category: @second_category,
+                                       public_body_heading: @heading,
+                                       category_display_order: 1)
+      @default_params = { categories: [@second_category.id, @first_category.id],
+                          id: @heading }
       @old_order = [@first_category, @second_category]
       @new_order = [@second_category, @first_category]
     end
 
-    def make_request(params=@default_params)
+    def make_request(params = @default_params)
       post :reorder_categories, params: params
     end
 
@@ -618,9 +617,9 @@ describe AdminPublicBodyHeadingsController do
 
       before do
         @new_category = FactoryBot.create(:public_body_category)
-        @params = @default_params.merge(:categories => [@second_category.id,
-                                                        @first_category.id,
-                                                        @new_category.id])
+        @params = @default_params.merge(categories: [@second_category.id,
+                                                     @first_category.id,
+                                                     @new_category.id])
       end
 
       it 'should return an "unprocessable entity" status and an error message' do

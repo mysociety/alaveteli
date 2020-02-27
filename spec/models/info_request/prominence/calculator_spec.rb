@@ -31,7 +31,7 @@ describe InfoRequest::Prominence::Calculator do
     end
 
     it 'returns false if its prominence is requester_only' do
-       expect_value('requester_only', :is_public?, false)
+      expect_value('requester_only', :is_public?, false)
     end
 
     context 'when there is an embargo' do
@@ -49,7 +49,7 @@ describe InfoRequest::Prominence::Calculator do
       end
 
       it 'returns false if its prominence is requester_only' do
-         expect_embargoed_value('requester_only', :is_public?, false)
+        expect_embargoed_value('requester_only', :is_public?, false)
       end
 
     end
@@ -71,7 +71,7 @@ describe InfoRequest::Prominence::Calculator do
     end
 
     it 'returns false if its prominence is requester_only' do
-       expect_value('requester_only', :is_searchable?, false)
+      expect_value('requester_only', :is_searchable?, false)
     end
 
     context 'when there is an embargo' do
@@ -89,7 +89,7 @@ describe InfoRequest::Prominence::Calculator do
       end
 
       it 'returns false if its prominence is requester_only' do
-         expect_embargoed_value('requester_only', :is_searchable?, false)
+        expect_embargoed_value('requester_only', :is_searchable?, false)
       end
 
     end
@@ -111,9 +111,8 @@ describe InfoRequest::Prominence::Calculator do
     end
 
     it 'returns true if its prominence is requester_only' do
-       expect_value('requester_only', :is_private?, true)
+      expect_value('requester_only', :is_private?, true)
     end
-
 
     context 'when there is an embargo' do
 
@@ -130,7 +129,7 @@ describe InfoRequest::Prominence::Calculator do
       end
 
       it 'returns true if its prominence is requester_only' do
-         expect_embargoed_value('requester_only', :is_private?, true)
+        expect_embargoed_value('requester_only', :is_private?, true)
       end
 
     end
@@ -152,7 +151,7 @@ describe InfoRequest::Prominence::Calculator do
     end
 
     it 'returns true if its prominence is requester_only' do
-       expect_value('requester_only', :is_requester_only?, true)
+      expect_value('requester_only', :is_requester_only?, true)
     end
 
   end
@@ -172,7 +171,7 @@ describe InfoRequest::Prominence::Calculator do
     end
 
     it 'returns false if its prominence is requester_only' do
-       expect_value('requester_only', :is_hidden?, false)
+      expect_value('requester_only', :is_hidden?, false)
     end
 
   end

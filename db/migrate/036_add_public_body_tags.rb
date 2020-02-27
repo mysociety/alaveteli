@@ -2,9 +2,9 @@
 class AddPublicBodyTags < ActiveRecord::Migration[4.2] # 2.0
   def self.up
     create_table :public_body_tags do |t|
-      t.column :public_body_id, :integer, :null => false
-      t.column :name, :text, :null => false
-      t.column :created_at, :datetime, :null => false
+      t.column :public_body_id, :integer, null: false
+      t.column :name, :text, null: false
+      t.column :created_at, :datetime, null: false
     end
 
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
@@ -14,7 +14,7 @@ class AddPublicBodyTags < ActiveRecord::Migration[4.2] # 2.0
     # MySQL cannot index text blobs like this
     # TODO: perhaps should change :name to be a :string
     if ActiveRecord::Base.connection.adapter_name != "MySQL"
-      add_index :public_body_tags, [:public_body_id, :name], :unique => true
+      add_index :public_body_tags, [:public_body_id, :name], unique: true
     end
   end
 

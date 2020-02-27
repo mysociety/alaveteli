@@ -143,13 +143,9 @@ class Ability
     end
 
     if feature_enabled? :alaveteli_pro
-      if user && user.is_pro_admin?
-        can :read, :api_key
-      end
+      can :read, :api_key if user && user.is_pro_admin?
     else
-      if user && user.is_admin?
-        can :read, :api_key
-      end
+      can :read, :api_key if user && user.is_admin?
     end
 
     if feature_enabled? :projects

@@ -12,9 +12,9 @@
 
 class WidgetVote < ApplicationRecord
   belongs_to :info_request,
-             :inverse_of => :widget_votes
+             inverse_of: :widget_votes
 
-  validates :info_request, :presence => true
+  validates :info_request, presence: true
   validates :cookie, length: { is: 20 }
   validates :cookie, uniqueness: { scope: :info_request_id }
 end

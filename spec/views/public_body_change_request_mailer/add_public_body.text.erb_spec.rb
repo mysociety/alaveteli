@@ -9,7 +9,8 @@ describe 'public_body_change_request_mailer/add_public_body' do
       :add_body_request,
       public_body_name: "Apostrophe's",
       user: user,
-      notes: "Meeting starts at 12 o'clock")
+      notes: "Meeting starts at 12 o'clock"
+    )
   end
 
   before do

@@ -101,9 +101,9 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
       it "raises WillPaginate::InvalidPage error for pages beyond the limit" do
         expect {
           get :index, params: {
-                        authority_query: 'Example Public Body',
-                        page: 21
-                      }
+            authority_query: 'Example Public Body',
+            page: 21
+          }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end

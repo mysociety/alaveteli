@@ -45,52 +45,52 @@ class PublicBody < ApplicationRecord
       ['publication_scheme', '(i18n)'],
       ['disclosure_log', '(i18n)'],
       ['home_page', ''],
-      ['tag_string', '(tags separated by spaces)'],
+      ['tag_string', '(tags separated by spaces)']
     ]
   end
 
   has_many :info_requests,
            -> { order('created_at desc') },
-           :inverse_of => :public_body
+           inverse_of: :public_body
   has_many :track_things,
            -> { order('created_at desc') },
-           :inverse_of => :public_body,
-           :dependent => :destroy
+           inverse_of: :public_body,
+           dependent: :destroy
   has_many :censor_rules,
            -> { order('created_at desc') },
-           :inverse_of => :public_body,
-           :dependent => :destroy
+           inverse_of: :public_body,
+           dependent: :destroy
   has_many :track_things_sent_emails,
            -> { order('created_at DESC') },
-           :inverse_of => :public_body,
-           :dependent => :destroy
+           inverse_of: :public_body,
+           dependent: :destroy
   has_many :public_body_change_requests,
            -> { order('created_at DESC') },
-           :inverse_of => :public_body,
-           :dependent => :destroy
+           inverse_of: :public_body,
+           dependent: :destroy
   has_many :draft_info_requests,
            -> { order('created_at DESC') },
-           :inverse_of => :public_body
+           inverse_of: :public_body
 
   has_and_belongs_to_many :info_request_batches,
-                          :inverse_of => :public_bodies
+                          inverse_of: :public_bodies
   has_and_belongs_to_many :draft_info_request_batches,
-                          :class_name => 'AlaveteliPro::DraftInfoRequestBatch',
-                          :inverse_of => :public_bodies
+                          class_name: 'AlaveteliPro::DraftInfoRequestBatch',
+                          inverse_of: :public_bodies
 
-  validates_presence_of :name, :message => N_("Name can't be blank")
-  validates_presence_of :url_name, :message => N_("URL name can't be blank")
+  validates_presence_of :name, message: N_("Name can't be blank")
+  validates_presence_of :url_name, message: N_("URL name can't be blank")
   validates_presence_of :last_edit_editor,
-                        :message => N_("Last edit editor can't be blank")
+                        message: N_("Last edit editor can't be blank")
 
   validates :request_email,
             not_nil: { message: N_("Request email can't be nil") }
 
   validates_uniqueness_of :short_name,
-                          :message => N_("Short name is already taken"),
-                          :allow_blank => true
-  validates_uniqueness_of :url_name, :message => N_("URL name is already taken")
-  validates_uniqueness_of :name, :message => N_("Name is already taken")
+                          message: N_("Short name is already taken"),
+                          allow_blank: true
+  validates_uniqueness_of :url_name, message: N_("URL name is already taken")
+  validates_uniqueness_of :name, message: N_("Name is already taken")
 
   validates :last_edit_editor,
             length: { maximum: 255,
@@ -99,29 +99,28 @@ class PublicBody < ApplicationRecord
 
   validate :request_email_if_requestable
 
-  before_save :set_api_key!, :unless => :api_key
+  before_save :set_api_key!, unless: :api_key
   after_update :reindex_requested_from
-
 
   # Every public body except for the internal admin one is visible
   scope :visible, -> { where("public_bodies.id <> #{ PublicBody.internal_admin_body.id }") }
 
   acts_as_versioned
-  acts_as_xapian :texts => [:name, :short_name, :notes],
-                 :values => [
+  acts_as_xapian texts: [:name, :short_name, :notes],
+                 values: [
                    # for sorting
                    [:created_at_numeric, 1, "created_at", :number]
                  ],
-                 :terms => [
+                 terms: [
                    [:name_for_search, 'N', 'name'],
                    [:variety, 'V', "variety"],
                    [:tag_array_for_search, 'U', "tag"]
                  ],
-                 :eager_load => [:translations]
+                 eager_load: [:translations]
   has_tag_string
 
-  strip_attributes :allow_empty => false, :except => [:request_email]
-  strip_attributes :allow_empty => true, :only => [:request_email]
+  strip_attributes allow_empty: false, except: [:request_email]
+  strip_attributes allow_empty: true, only: [:request_email]
 
   translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
 
@@ -134,14 +133,14 @@ class PublicBody < ApplicationRecord
   # Cannot be grouped at top as it depends on the `translates` macro
   class Translation
     include PublicBodyDerivedFields
-    strip_attributes :allow_empty => true
+    strip_attributes allow_empty: true
   end
 
-  self.non_versioned_columns << 'created_at' << 'updated_at' << 'first_letter' << 'api_key'
-  self.non_versioned_columns << 'info_requests_count' << 'info_requests_successful_count'
-  self.non_versioned_columns << 'info_requests_count' << 'info_requests_visible_classified_count'
-  self.non_versioned_columns << 'info_requests_not_held_count' << 'info_requests_overdue'
-  self.non_versioned_columns << 'info_requests_overdue_count' << 'info_requests_visible_count'
+  non_versioned_columns << 'created_at' << 'updated_at' << 'first_letter' << 'api_key'
+  non_versioned_columns << 'info_requests_count' << 'info_requests_successful_count'
+  non_versioned_columns << 'info_requests_count' << 'info_requests_visible_classified_count'
+  non_versioned_columns << 'info_requests_not_held_count' << 'info_requests_overdue'
+  non_versioned_columns << 'info_requests_overdue_count' << 'info_requests_visible_count'
 
   # Cannot be defined directly under `include` statements as this is opening
   # the PublicBody::Version class dynamically defined by  the
@@ -173,14 +172,14 @@ class PublicBody < ApplicationRecord
     end
 
     def last_edit_comment_for_html_display
-      text = self.last_edit_comment.strip
+      text = last_edit_comment.strip
       text = CGI.escapeHTML(text)
       text = MySociety::Format.make_clickable(text)
       text = text.gsub(/\n/, '<br>')
-      return text
+      text
     end
 
-    def compare(previous = nil, &block)
+    def compare(previous = nil)
       if previous.nil?
         changes = []
       else
@@ -192,10 +191,10 @@ class PublicBody < ApplicationRecord
                     created_at
                     updated_at).include?(c.name)
             from = previous.send(c.name)
-            to = self.send(c.name)
-            memo << { :name => c.name.humanize,
-                      :from => from,
-                      :to => to } if from != to
+            to = send(c.name)
+            memo << { name: c.name.humanize,
+                      from: from,
+                      to: to } if from != to
           end
           memo
         }
@@ -265,7 +264,7 @@ class PublicBody < ApplicationRecord
     # If none found, then search the history of short names and find unique
     # public bodies in it
     old = PublicBody::Version.
-      where(:url_name => name).
+      where(url_name: name).
       pluck('DISTINCT public_body_id')
 
     # Maybe return the first one, so we show something relevant,
@@ -374,7 +373,7 @@ class PublicBody < ApplicationRecord
   # in an instance variable
   def calculated_home_page
     if home_page && !home_page.empty?
-      home_page[URI::regexp(%w(http https))] ? home_page : "http://#{home_page}"
+      home_page[URI.regexp(%w(http https))] ? home_page : "http://#{home_page}"
     elsif request_email_domain
       "http://www.#{request_email_domain}"
     end
@@ -403,15 +402,14 @@ class PublicBody < ApplicationRecord
         AlaveteliLocalization.
           with_locale(AlaveteliLocalization.default_locale) do
           PublicBody.
-            create!(:name => 'Internal admin authority',
-                    :short_name => "",
-                    :request_email => AlaveteliConfiguration.contact_email,
-                    :home_page => nil,
-                    :notes => nil,
-                    :publication_scheme => nil,
-                    :last_edit_editor => "internal_admin",
-                    :last_edit_comment =>
-                      "Made by PublicBody.internal_admin_body")
+            create!(name: 'Internal admin authority',
+                    short_name: "",
+                    request_email: AlaveteliConfiguration.contact_email,
+                    home_page: nil,
+                    notes: nil,
+                    publication_scheme: nil,
+                    last_edit_editor: "internal_admin",
+                    last_edit_comment: "Made by PublicBody.internal_admin_body")
         end
       end
     elsif matching_pbs.length == 1
@@ -452,7 +450,7 @@ class PublicBody < ApplicationRecord
         AlaveteliLocalization.
           with_locale(AlaveteliLocalization.default_locale) do
           bodies = (tag.nil? || tag.empty?) ? PublicBody.includes(:translations) : PublicBody.find_by_tag(tag)
-          for existing_body in bodies
+          bodies.each do |existing_body|
             # Hide InternalAdminBody from import notes
             next if existing_body.id == internal_admin_body_id
 
@@ -466,19 +464,19 @@ class PublicBody < ApplicationRecord
         field_names = { 'name' => 1, 'request_email' => 2 }
         line = 0
 
-        import_options = {:field_names => field_names,
-                          :available_locales => available_locales,
-                          :tag => tag,
-                          :tag_behaviour => tag_behaviour,
-                          :editor => editor,
-                          :notes => notes,
-                          :errors => errors }
+        import_options = { field_names: field_names,
+                           available_locales: available_locales,
+                           tag: tag,
+                           tag_behaviour: tag_behaviour,
+                           editor: editor,
+                           notes: notes,
+                           errors: errors }
 
         CSV.foreach(csv_filename) do |row|
-          line = line + 1
+          line += 1
 
           # Parse the first line as a field list if it starts with '#'
-          if line==1 and row.first.to_s =~ /^#(.*)$/
+          if (line == 1) && row.first.to_s =~ /^#(.*)$/
             row[0] = row[0][1..-1] # Remove the # sign on first field
             row.each_with_index { |field, i| field_names[field] = i }
             next
@@ -497,13 +495,13 @@ class PublicBody < ApplicationRecord
           email.strip! unless email.nil?
 
           if !email.nil? && !email.empty? && !MySociety::Validate.is_valid_email(email)
-            errors.push "error: line #{line.to_s}: invalid email '#{email}' for authority '#{name}'"
+            errors.push "error: line #{line}: invalid email '#{email}' for authority '#{name}'"
             next
           end
 
-          public_body = bodies_by_name[name] || PublicBody.new(:name => "",
-                                                               :short_name => "",
-                                                               :request_email => "")
+          public_body = bodies_by_name[name] || PublicBody.new(name: "",
+                                                               short_name: "",
+                                                               request_email: "")
 
           public_body.import_values_from_csv_row(row, line, name, import_options)
           set_of_importing.add(name)
@@ -511,20 +509,18 @@ class PublicBody < ApplicationRecord
 
         # Give an error listing ones that are to be deleted
         deleted_ones = set_of_existing - set_of_importing
-        if deleted_ones.size > 0
+        unless deleted_ones.empty?
           notes.push "Notes: Some " + tag + " bodies are in database, but not in CSV file:\n    " + Array(deleted_ones).sort.join("\n    ") + "\nYou may want to delete them manually.\n"
         end
 
         # Rollback if a dry run, or we had errors
-        if dry_run or errors.size > 0
-          raise ImportCSVDryRun
-        end
+        raise ImportCSVDryRun if dry_run || !errors.empty?
       end
     rescue ImportCSVDryRun
       # Ignore
     end
 
-    return [errors, notes]
+    [errors, notes]
   end
 
   def self.localized_csv_field_name(locale, field_name)
@@ -539,11 +535,11 @@ class PublicBody < ApplicationRecord
   def import_values_from_csv_row(row, line, name, options)
     is_new = new_record?
     edit_info = if is_new
-      { :action => "creating new authority",
-        :comment => 'Created from spreadsheet' }
-    else
-      { :action => "updating authority",
-        :comment => 'Updated from spreadsheet' }
+                  { action: "creating new authority",
+                    comment: 'Created from spreadsheet' }
+                else
+                  { action: "updating authority",
+                    comment: 'Updated from spreadsheet' }
     end
     locales = options[:available_locales]
     locales = [AlaveteliLocalization.default_locale] if locales.empty?
@@ -573,7 +569,7 @@ class PublicBody < ApplicationRecord
   def set_locale_fields_from_csv_row(is_new, locale, row, options)
     changed = ActiveSupport::OrderedHash.new
     csv_field_names = options[:field_names]
-    csv_import_fields.each do |field_name, field_notes|
+    csv_import_fields.each do |field_name, _field_notes|
       localized_field_name = self.class.localized_csv_field_name(locale, field_name)
       column = csv_field_names[localized_field_name]
       value = column && row[column]
@@ -585,7 +581,7 @@ class PublicBody < ApplicationRecord
           value = nil
         else
           value = new_tags.join(" ")
-          value = "#{value} #{tag_string}"if options[:tag_behaviour] == 'add'
+          value = "#{value} #{tag_string}" if options[:tag_behaviour] == 'add'
         end
       end
 
@@ -596,7 +592,7 @@ class PublicBody < ApplicationRecord
           changed[field_name] = "#{read_attribute_value(field_name, locale)}:" \
                                 " #{value}"
         end
-        assign_attributes({ field_name => value })
+        assign_attributes(field_name => value)
       end
     end
     changed
@@ -625,7 +621,7 @@ class PublicBody < ApplicationRecord
     PublicBody.extract_domain_from_email(request_email)
   end
 
-  alias_method :foi_officer_domain_required, :request_email_domain
+  alias foi_officer_domain_required request_email_domain
 
   # Return the canonicalised domain part of an email address
   #
@@ -659,34 +655,33 @@ class PublicBody < ApplicationRecord
 
   def json_for_api
     {
-      :id => id,
-      :url_name => url_name,
-      :name => name,
-      :short_name => short_name,
+      id: id,
+      url_name: url_name,
+      name: name,
+      short_name: short_name,
       # :request_email  # we hide this behind a captcha, to stop people
       # doing bulk requests easily
-      :created_at => created_at,
-      :updated_at => updated_at,
+      created_at: created_at,
+      updated_at: updated_at,
       # don't add the history as some edit comments contain sensitive
       # information
       # :version, :last_edit_editor, :last_edit_comment
-      :home_page => calculated_home_page,
-      :notes => notes.to_s,
-      :publication_scheme => publication_scheme.to_s,
-      :tags => tag_array,
-      :info => {
-        :requests_count => info_requests_count,
-        :requests_successful_count => info_requests_successful_count,
-        :requests_not_held_count   => info_requests_not_held_count,
-        :requests_overdue_count    => info_requests_overdue_count,
-        :requests_visible_classified_count =>
-          info_requests_visible_classified_count
-      },
+      home_page: calculated_home_page,
+      notes: notes.to_s,
+      publication_scheme: publication_scheme.to_s,
+      tags: tag_array,
+      info: {
+        requests_count: info_requests_count,
+        requests_successful_count: info_requests_successful_count,
+        requests_not_held_count: info_requests_not_held_count,
+        requests_overdue_count: info_requests_overdue_count,
+        requests_visible_classified_count: info_requests_visible_classified_count
+      }
     }
   end
 
   def expire_requests
-    info_requests.each { |request| request.expire }
+    info_requests.each(&:expire)
   end
 
   def self.where_clause_for_stats(minimum_requests, total_column)
@@ -706,18 +701,19 @@ class PublicBody < ApplicationRecord
     ordering = "info_requests_visible_count"
     ordering += " DESC" if highest
     where_clause = where_clause_for_stats minimum_requests,
-                  'info_requests_visible_count'
+                                          'info_requests_visible_count'
     public_bodies = PublicBody.order(ordering).
                       where(where_clause).
                         limit(n).
                           to_a
     public_bodies.reverse! if highest
-    y_values = public_bodies.map { |pb| pb.info_requests_visible_count }
-    return {
+    y_values = public_bodies.map(&:info_requests_visible_count)
+    {
       'public_bodies' => public_bodies,
       'y_values' => y_values,
       'y_max' => y_values.max,
-    'totals' => y_values}
+      'totals' => y_values
+    }
   end
 
   # Return data for the 'n' public bodies with the highest (or
@@ -760,13 +756,14 @@ class PublicBody < ApplicationRecord
     [y_values, cis_below, cis_above].each { |l|
       l.map! { |v| 100 * v }
     }
-    return {
+    {
       'public_bodies' => public_bodies,
       'y_values' => y_values,
       'cis_below' => cis_below,
       'cis_above' => cis_above,
       'y_max' => 100,
-    'totals' => original_totals}
+      'totals' => original_totals
+    }
   end
 
   def self.popular_bodies(locale)
@@ -782,18 +779,18 @@ class PublicBody < ApplicationRecord
         # This is too slow
         bodies = visible.
                   where('public_body_translations.locale = ?',
-                         underscore_locale).
+                        underscore_locale).
                     order("info_requests_visible_count desc").
                       limit(32).
                         joins(:translations)
       else
         bodies = where("public_body_translations.locale = ?
                         AND public_body_translations.url_name in (?)",
-                        underscore_locale, body_short_names).
+                       underscore_locale, body_short_names).
                   joins(:translations)
       end
     end
-    return bodies
+    bodies
   end
 
   def self.tag_search_sql(name, value = nil)
@@ -842,7 +839,7 @@ class PublicBody < ApplicationRecord
       first_letter: tag
     }
 
-    if AlaveteliConfiguration::public_body_list_fallback_to_default_locale
+    if AlaveteliConfiguration.public_body_list_fallback_to_default_locale
       # Unfortunately, when we might fall back to the
       # default locale, this is a rather complex query:
       if DatabaseCollation.supports?(underscore_locale)
@@ -894,7 +891,7 @@ class PublicBody < ApplicationRecord
                                       described_state: 'not_held' },
       info_requests_successful_count: { awaiting_description: false,
                                         described_state: success_states },
-      info_requests_visible_classified_count: { awaiting_description: false},
+      info_requests_visible_classified_count: { awaiting_description: false },
       info_requests_visible_count: {}
     }
 
@@ -920,9 +917,7 @@ class PublicBody < ApplicationRecord
     return unless saved_change_to_attribute?(:url_name)
 
     info_requests.find_each do |info_request|
-      info_request.info_request_events.find_each do |info_request_event|
-        info_request_event.xapian_mark_needs_index
-      end
+      info_request.info_request_events.find_each(&:xapian_mark_needs_index)
     end
   end
 
@@ -942,29 +937,24 @@ class PublicBody < ApplicationRecord
 
   def request_email_if_requestable
     # Request_email can be blank, meaning we don't have details
-    if self.is_requestable?
-      unless MySociety::Validate.is_valid_email(self.request_email)
+    if is_requestable?
+      unless MySociety::Validate.is_valid_email(request_email)
         errors.add(:request_email,
                    "Request email doesn't look like a valid email address")
       end
     end
-
   end
 
   def name_for_search
     name.downcase
   end
 
-  def self.get_public_body_list_translated_condition(table, has_first_letter=false, locale=nil)
+  def self.get_public_body_list_translated_condition(table, has_first_letter = false, locale = nil)
     result = "(upper(#{table}.name) LIKE upper(:query)" \
       " OR upper(#{table}.notes) LIKE upper(:query)" \
         " OR upper(#{table}.short_name) LIKE upper(:query))"
-    if has_first_letter
-      result += " AND #{table}.first_letter = :first_letter"
-    end
-    if locale
-      result += " AND #{table}.locale = :locale"
-    end
+    result += " AND #{table}.first_letter = :first_letter" if has_first_letter
+    result += " AND #{table}.locale = :locale" if locale
     result
   end
 end

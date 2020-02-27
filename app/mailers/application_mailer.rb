@@ -18,21 +18,21 @@ class ApplicationMailer < ActionMailer::Base
   self.raise_delivery_errors = true
 
   def blackhole_email
-    AlaveteliConfiguration::blackhole_prefix+"@"+AlaveteliConfiguration::incoming_email_domain
+    AlaveteliConfiguration.blackhole_prefix + "@" + AlaveteliConfiguration.incoming_email_domain
   end
 
   def mail_user(user, subject, opts = {})
     default_opts = {
-      :from => contact_for_user(user),
-      :to => user.name_and_email,
-      :subject => subject,
+      from: contact_for_user(user),
+      to: user.name_and_email,
+      subject: subject
     }
     default_opts.merge!(opts)
     mail(default_opts)
   end
 
   def contact_for_user(user = nil)
-    if feature_enabled?(:alaveteli_pro) and user and user.is_pro?
+    if feature_enabled?(:alaveteli_pro) && user && user.is_pro?
       pro_contact_from_name_and_email
     else
       contact_from_name_and_email
@@ -41,11 +41,11 @@ class ApplicationMailer < ActionMailer::Base
 
   # Set headers that mark an email as being auto-generated and suppress out of
   # office responses to them
-  def set_auto_generated_headers(opts = {})
-    headers({
+  def set_auto_generated_headers(_opts = {})
+    headers(
       'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-      'X-Auto-Response-Suppress' => 'OOF',
-    })
+      'X-Auto-Response-Suppress' => 'OOF'
+    )
   end
 
   # Set Return-Path and Reply-To headers
@@ -81,5 +81,4 @@ class ApplicationMailer < ActionMailer::Base
 
   # Site-wide access to configuration settings
   include ConfigHelper
-
 end

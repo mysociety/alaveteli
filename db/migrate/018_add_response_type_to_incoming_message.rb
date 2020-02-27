@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 class AddResponseTypeToIncomingMessage < ActiveRecord::Migration[4.2] # 1.2
   def self.up
-    add_column :incoming_messages, :user_classified, :boolean, :default => false
-    add_column :incoming_messages, :contains_information, :boolean, :default => false
+    add_column :incoming_messages, :user_classified, :boolean, default: false
+    add_column :incoming_messages, :contains_information, :boolean, default: false
 
     create_table :rejection_reasons do |t|
       t.column :incoming_message_id, :integer

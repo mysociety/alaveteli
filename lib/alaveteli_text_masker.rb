@@ -1,27 +1,27 @@
 # -*- encoding : utf-8 -*-
 module AlaveteliTextMasker
   extend self
-  DoNotBinaryMask = [ 'image/tiff',
-                      'image/gif',
-                      'image/jpeg',
-                      'image/png',
-                      'image/bmp',
-                      'application/zip' ]
+  DoNotBinaryMask = ['image/tiff',
+                     'image/gif',
+                     'image/jpeg',
+                     'image/png',
+                     'image/bmp',
+                     'application/zip']
 
-  TextMask = [ 'text/css',
-               'text/csv',
-               'text/html',
-               'text/plain',
-               'text/rfc822-headers',
-               'text/rtf',
-               'text/tab-separated-values',
-               'text/x-c',
-               'text/x-diff',
-               'text/x-fortran',
-               'text/x-mail',
-               'text/xml',
-               'text/x-pascal',
-               'text/x-vcard' ]
+  TextMask = ['text/css',
+              'text/csv',
+              'text/html',
+              'text/plain',
+              'text/rfc822-headers',
+              'text/rtf',
+              'text/tab-separated-values',
+              'text/x-c',
+              'text/x-diff',
+              'text/x-fortran',
+              'text/x-mail',
+              'text/xml',
+              'text/x-pascal',
+              'text/x-vcard']
 
   # Replaces all email addresses in (possibly binary) data
   # Also applies custom masks and censor items
@@ -46,11 +46,11 @@ module AlaveteliTextMasker
   private
 
   def uncompress_pdf(text)
-    AlaveteliExternalCommand.run("pdftk", "-", "output", "-", "uncompress", :stdin_string => text)
+    AlaveteliExternalCommand.run("pdftk", "-", "output", "-", "uncompress", stdin_string: text)
   end
 
   def compress_pdf(text)
-    if AlaveteliConfiguration::use_ghostscript_compression
+    if AlaveteliConfiguration.use_ghostscript_compression
       command = ["gs",
                  "-sDEVICE=pdfwrite",
                  "-dCompatibilityLevel=1.4",
@@ -63,7 +63,7 @@ module AlaveteliTextMasker
     else
       command = ["pdftk", "-", "output", "-", "compress"]
     end
-    AlaveteliExternalCommand.run(*(command + [ :stdin_string => text ]))
+    AlaveteliExternalCommand.run(*(command + [stdin_string: text]))
   end
 
   def apply_pdf_masks(text, options = {})
@@ -98,7 +98,6 @@ module AlaveteliTextMasker
       end
     end
   end
-
 
   def apply_binary_masks(text, options = {})
     # Keep original size, so can check haven't resized it
@@ -138,13 +137,13 @@ module AlaveteliTextMasker
 
   # Remove any email addresses, login links and mobile phone numbers
   def default_text_masks
-    [{ :to_replace => MySociety::Validate.email_find_regexp,
-       :replacement => "[#{_("email address")}]" },
-     { :to_replace => /(Mobile|Mob)([\s\/]*(Fax|Tel))*\s*:?[\s\d]*\d/,
-       :replacement => "[#{_("mobile number")}]" },
-     { :to_replace => /https?:\/\/#{AlaveteliConfiguration::domain}\/c\/[^\s]+/,
-       :replacement => "[#{_("{{site_name}} login link",
-                             :site_name => AlaveteliConfiguration::site_name)}]" }]
+    [{ to_replace: MySociety::Validate.email_find_regexp,
+       replacement: "[#{_("email address")}]" },
+     { to_replace: /(Mobile|Mob)([\s\/]*(Fax|Tel))*\s*:?[\s\d]*\d/,
+       replacement: "[#{_("mobile number")}]" },
+     { to_replace: /https?:\/\/#{AlaveteliConfiguration.domain}\/c\/[^\s]+/,
+       replacement: "[#{_("{{site_name}} login link",
+                          site_name: AlaveteliConfiguration.site_name)}]" }]
   end
 
   def apply_text_masks(text, options = {})
@@ -158,5 +157,4 @@ module AlaveteliTextMasker
 
     censor_rules.reduce(text) { |text, rule| rule.apply_to_text(text) }
   end
-
 end

@@ -7,11 +7,11 @@ class InfoRequest
       end
 
       def call
-        @relation.where(described_state: ['not_held',
-                                          'rejected',
-                                          'successful',
-                                          'partially_successful',
-                                          'user_withdrawn'],
+        @relation.where(described_state: %w[not_held
+                                            rejected
+                                            successful
+                                            partially_successful
+                                            user_withdrawn],
                         awaiting_description: false)
       end
     end

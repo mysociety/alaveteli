@@ -25,7 +25,7 @@ describe 'reports/new.html.erb' do
   context "reporting a comment" do
 
     let(:comment) do
-      FactoryBot.build(:comment, :info_request => info_request)
+      FactoryBot.build(:comment, info_request: info_request)
     end
 
     before :each do

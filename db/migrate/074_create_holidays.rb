@@ -61,9 +61,8 @@ class CreateHolidays < ActiveRecord::Migration[4.2] # 2.1
     }
 
     holidays.sort.each { |date, desc|
-      Holiday.create :day => date, :description => desc
+      Holiday.create day: date, description: desc
     }
-
   end
 
   def self.down

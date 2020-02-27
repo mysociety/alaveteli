@@ -2,16 +2,16 @@
 class AddComments < ActiveRecord::Migration[4.2] # 2.0
   def self.up
     create_table :comments do |t|
-      t.column :user_id, :integer, :null => false
-      t.column :comment_type, :string, :null => false, :default => "internal_error"
+      t.column :user_id, :integer, null: false
+      t.column :comment_type, :string, null: false, default: "internal_error"
 
       t.column :info_request_id, :integer
 
-      t.column :body, :text, :null => false
-      t.column :visible, :boolean, :default => true, :null => false
+      t.column :body, :text, null: false
+      t.column :visible, :boolean, default: true, null: false
 
-      t.column :created_at, :datetime, :null => false
-      t.column :updated_at, :datetime, :null => false
+      t.column :created_at, :datetime, null: false
+      t.column :updated_at, :datetime, null: false
     end
 
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"

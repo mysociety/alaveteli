@@ -16,10 +16,12 @@ describe AlaveteliPro::AccountRequestController do
   end
 
   describe "#create" do
-    let(:account_request_params) { { email: 'test@localhost',
-                                    reason: 'Have a look around',
-                                    marketing_emails: 'yes',
-                                    training_emails: 'no' } }
+    let(:account_request_params) {
+  { email: 'test@localhost',
+    reason: 'Have a look around',
+    marketing_emails: 'yes',
+    training_emails: 'no' }
+}
 
     it 'sets the pro livery' do
       post :create, params: { account_request: account_request_params }
@@ -47,7 +49,7 @@ describe AlaveteliPro::AccountRequestController do
         post :create, params: { account_request: account_request_params }
         expect(ActionMailer::Base.deliveries.size).to eq 1
         mail = ActionMailer::Base.deliveries.first
-        expect(mail.to.first).to eq AlaveteliConfiguration::pro_contact_email
+        expect(mail.to.first).to eq AlaveteliConfiguration.pro_contact_email
       end
 
     end

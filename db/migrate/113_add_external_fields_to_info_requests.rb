@@ -2,8 +2,8 @@
 class AddExternalFieldsToInfoRequests < ActiveRecord::Migration[4.2] # 2.3
   def self.up
     change_column_null :info_requests, :user_id, true
-    add_column :info_requests, :external_user_name, :string, :null => true
-    add_column :info_requests, :external_url, :string, :null => true
+    add_column :info_requests, :external_user_name, :string, null: true
+    add_column :info_requests, :external_url, :string, null: true
 
     # NB This is corrected in 20120822145640
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"

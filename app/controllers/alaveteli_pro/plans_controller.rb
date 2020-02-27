@@ -32,7 +32,8 @@ class AlaveteliPro::PlansController < AlaveteliPro::BaseController
       email: _('Then you can activate your {{site_name}} account',
                site_name: AlaveteliConfiguration.pro_site_name),
       email_subject: _('Confirm your account on {{site_name}}',
-                       site_name: AlaveteliConfiguration.pro_site_name) }
+                       site_name: AlaveteliConfiguration.pro_site_name)
+    }
 
     pro_authenticated?(post_redirect_params)
   end

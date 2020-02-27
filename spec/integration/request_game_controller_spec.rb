@@ -1,4 +1,4 @@
-  # -*- encoding : utf-8 -*-
+# -*- encoding : utf-8 -*-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
@@ -10,7 +10,7 @@ describe RequestGameController do
 
     it 'displays a thank you message on completion' do
       request = FactoryBot.create(:old_unclassified_request,
-                                  :title => "Awkward > Title")
+                                  title: "Awkward > Title")
       using_session(login(user)) do
         visit categorise_play_path
         click_link(request.title)
@@ -23,7 +23,7 @@ describe RequestGameController do
                   "'#{request.title}'. There are some more requests below " \
                   "for you to classify."
 
-        expect(page).to have_link(request.title, :href => request_path(request))
+        expect(page).to have_link(request.title, href: request_path(request))
         expect(page).to have_content(message)
       end
     end

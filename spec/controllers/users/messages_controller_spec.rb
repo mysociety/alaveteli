@@ -40,13 +40,13 @@ describe Users::MessagesController do
 
     it 'shows an error if not given a subject line' do
       post :contact, params: {
-                       url_name: recipient.url_name,
-                       contact: {
-                         subject: '',
-                         message: 'Gah'
-                       },
-                       submitted_contact_form: 1
-                     }
+        url_name: recipient.url_name,
+        contact: {
+          subject: '',
+          message: 'Gah'
+        },
+        submitted_contact_form: 1
+      }
       expect(response).to render_template('contact')
     end
 
@@ -59,13 +59,13 @@ describe Users::MessagesController do
 
       it 'does not send the message without the recaptcha being completed' do
          post :contact, params: {
-                          url_name: recipient.url_name,
-                          contact: {
-                            subject: 'Have some spam',
-                            message: 'Spam, spam, spam'
-                          },
-                          submitted_contact_form: 1
-                        }
+           url_name: recipient.url_name,
+           contact: {
+             subject: 'Have some spam',
+             message: 'Spam, spam, spam'
+           },
+           submitted_contact_form: 1
+         }
 
          deliveries = ActionMailer::Base.deliveries
          expect(deliveries.size).to eq(0)
@@ -76,13 +76,13 @@ describe Users::MessagesController do
 
     it 'sends the message' do
       post :contact, params: {
-                       url_name: recipient.url_name,
-                       contact: {
-                         subject: 'Dearest you',
-                         message: 'Just a test!'
-                       },
-                       submitted_contact_form: 1
-                     }
+        url_name: recipient.url_name,
+        contact: {
+          subject: 'Dearest you',
+          message: 'Just a test!'
+        },
+        submitted_contact_form: 1
+      }
       expect(response).to redirect_to(user_url(recipient))
 
       deliveries = ActionMailer::Base.deliveries

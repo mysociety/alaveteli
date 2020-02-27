@@ -21,8 +21,7 @@ module AlaveteliPro
 
       mail(from: pro_contact_from_name_and_email,
            to: pro_contact_from_name_and_email,
-           subject: subject
-          )
+           subject: subject)
     end
   end
 end

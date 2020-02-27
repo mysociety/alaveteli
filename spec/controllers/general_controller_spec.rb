@@ -16,35 +16,35 @@ describe GeneralController do
       # Create some constant God models for other factories
       user = FactoryBot.create(:user)
       body = FactoryBot.create(:public_body)
-      banned_user = FactoryBot.create(:user, :ban_text => 'banned')
+      banned_user = FactoryBot.create(:user, ban_text: 'banned')
       info_request = FactoryBot.create(:info_request,
-                                       :user => user, :public_body => body)
-      default_args = { :info_request => info_request,
-                       :public_body => body,
-                       :user => user }
+                                       user: user, public_body: body)
+      default_args = { info_request: info_request,
+                       public_body: body,
+                       user: user }
 
       # Create the other data we're checking
-      FactoryBot.create(:info_request, :user => user,
-                                       :public_body => body,
-                                       :prominence => 'hidden')
-      FactoryBot.create(:user, :email_confirmed => false)
+      FactoryBot.create(:info_request, user: user,
+                                       public_body: body,
+                                       prominence: 'hidden')
+      FactoryBot.create(:user, email_confirmed: false)
       FactoryBot.create(:visible_comment,
                         default_args.dup.slice!(:public_body))
       FactoryBot.create(:hidden_comment,
                         default_args.dup.slice!(:public_body))
-      FactoryBot.create(:search_track, :tracking_user => user)
+      FactoryBot.create(:search_track, tracking_user: user)
       FactoryBot.create(:widget_vote,
                         default_args.dup.slice!(:user, :public_body))
       FactoryBot.create(:internal_review_request,
                         default_args.dup.slice!(:user, :public_body))
       FactoryBot.create(:internal_review_request,
-                        :info_request => info_request, :prominence => 'hidden')
+                        info_request: info_request, prominence: 'hidden')
       FactoryBot.create(:add_body_request,
                         default_args.dup.slice!(:info_request))
       event = FactoryBot.create(:info_request_event,
                                 default_args.dup.slice!(:user, :public_body))
-      FactoryBot.create(:request_classification, :user => user,
-                                                 :info_request_event => event)
+      FactoryBot.create(:request_classification, user: user,
+                                                 info_request_event: event)
 
       mock_git_commit = Digest::SHA1.hexdigest(Time.now.to_s)
 
@@ -52,20 +52,20 @@ describe GeneralController do
         to receive(:alaveteli_git_commit).
           and_return(mock_git_commit)
 
-      expected = { :alaveteli_git_commit => mock_git_commit,
-                   :alaveteli_version => ALAVETELI_VERSION,
-                   :ruby_version => RUBY_VERSION,
-                   :visible_public_body_count => 1,
-                   :visible_request_count => 1,
-                   :confirmed_user_count => 1,
-                   :visible_comment_count => 1,
-                   :track_thing_count => 1,
-                   :widget_vote_count => 1,
-                   :public_body_change_request_count => 1,
-                   :request_classification_count => 1,
-                   :visible_followup_message_count => 1 }
+      expected = { alaveteli_git_commit: mock_git_commit,
+                   alaveteli_version: ALAVETELI_VERSION,
+                   ruby_version: RUBY_VERSION,
+                   visible_public_body_count: 1,
+                   visible_request_count: 1,
+                   confirmed_user_count: 1,
+                   visible_comment_count: 1,
+                   track_thing_count: 1,
+                   widget_vote_count: 1,
+                   public_body_change_request_count: 1,
+                   request_classification_count: 1,
+                   visible_followup_message_count: 1 }
 
-      get :version, params: { :format => :json }
+      get :version, params: { format: :json }
 
       parsed_body = JSON.parse(response.body).symbolize_keys
       expect(parsed_body).to eq(expected)
@@ -143,16 +143,16 @@ describe GeneralController, "when showing the frontpage" do
   render_views
 
   before do
-    public_body = mock_model(PublicBody, :name => "Example Public Body",
-                             :url_name => 'example_public_body')
-    info_request = mock_model(InfoRequest, :public_body => public_body,
-                              :title => 'Example Request',
-                              :url_title => 'example_request')
-    info_request_event = mock_model(InfoRequestEvent, :created_at => Time.zone.now,
-                                    :info_request => info_request,
-                                    :described_at => Time.zone.now,
-                                    :search_text_main => 'example text')
-    xapian_result = double('xapian result', :results => [{:model => info_request_event}])
+    public_body = mock_model(PublicBody, name: "Example Public Body",
+                                         url_name: 'example_public_body')
+    info_request = mock_model(InfoRequest, public_body: public_body,
+                                           title: 'Example Request',
+                                           url_title: 'example_request')
+    info_request_event = mock_model(InfoRequestEvent, created_at: Time.zone.now,
+                                                      info_request: info_request,
+                                                      described_at: Time.zone.now,
+                                                      search_text_main: 'example text')
+    xapian_result = double('xapian result', results: [{ model: info_request_event }])
     allow(controller).to receive(:perform_search).and_return(xapian_result)
   end
 
@@ -179,7 +179,6 @@ describe GeneralController, "when showing the frontpage" do
     successful_request_feed = assigns[:feed_autodetect].first
     expect(successful_request_feed[:title]).to eq('Successful requests')
   end
-
 
   it "should render the front page with default language and ignore the browser setting" do
     config = MySociety::Config.load_default
@@ -211,7 +210,7 @@ describe GeneralController, "when showing the frontpage" do
   describe 'when using locales' do
 
     it "should use our test PO files rather than the application one" do
-      get :frontpage, params: { :locale => 'es' }
+      get :frontpage, params: { locale: 'es' }
       expect(response.body).to match /XOXO/
     end
 
@@ -245,7 +244,7 @@ describe GeneralController, "when showing the frontpage" do
 
     it "should render the front page successfully with post_redirect if post_params is not set" do
       session[:post_redirect_token] = 'orphaned_token'
-      get :frontpage, params: { :post_redirect => 1 }
+      get :frontpage, params: { post_redirect: 1 }
       expect(response).to be_successful
       expect(response).to have_http_status(200)
     end
@@ -267,7 +266,6 @@ describe GeneralController, "when showing the frontpage" do
 
 end
 
-
 describe GeneralController, 'when using xapian search' do
 
   render_views
@@ -279,22 +277,22 @@ describe GeneralController, 'when using xapian search' do
   end
 
   it "should redirect from search query URL to pretty URL" do
-    post :search_redirect, params: { :query => "mouse" } # query hidden in POST parameters
-    expect(response).to redirect_to(:action => 'search', :combined => "mouse", :view => "all") # URL /search/:query/all
+    post :search_redirect, params: { query: "mouse" } # query hidden in POST parameters
+    expect(response).to redirect_to(action: 'search', combined: "mouse", view: "all") # URL /search/:query/all
   end
 
   it "should find info request when searching for '\"fancy dog\"'" do
-    get :search, params: { :combined => '"fancy dog"' }
+    get :search, params: { combined: '"fancy dog"' }
     expect(response).to render_template('search')
     expect(assigns[:xapian_requests].matches_estimated).to eq(1)
     expect(assigns[:xapian_requests].results.size).to eq(1)
     expect(assigns[:xapian_requests].results[0][:model]).to eq(info_request_events(:useless_outgoing_message_event))
 
-    assigns[:xapian_requests].words_to_highlight == ["fancy", "dog"]
+    assigns[:xapian_requests].words_to_highlight == %w[fancy dog]
   end
 
   it "should find public body and incoming message when searching for 'geraldine quango'" do
-    get :search, params: { :combined => 'geraldine quango' }
+    get :search, params: { combined: 'geraldine quango' }
     expect(response).to render_template('search')
 
     expect(assigns[:xapian_requests].matches_estimated).to eq(1)
@@ -307,52 +305,52 @@ describe GeneralController, 'when using xapian search' do
   end
 
   it "should filter results based on end of URL being 'all'" do
-    get :search, params: { :combined => "bob/all" }
+    get :search, params: { combined: "bob/all" }
     expect(assigns[:xapian_requests].results.map { |x| x[:model] }).to match_array([
-      info_request_events(:useless_outgoing_message_event),
-      info_request_events(:silly_outgoing_message_event),
-      info_request_events(:useful_incoming_message_event),
-      info_request_events(:another_useful_incoming_message_event),
-    ])
+                                                                                     info_request_events(:useless_outgoing_message_event),
+                                                                                     info_request_events(:silly_outgoing_message_event),
+                                                                                     info_request_events(:useful_incoming_message_event),
+                                                                                     info_request_events(:another_useful_incoming_message_event)
+                                                                                   ])
     expect(assigns[:xapian_users].results.map { |x| x[:model] }).to eq([users(:bob_smith_user)])
     expect(assigns[:xapian_bodies].results).to eq([])
   end
 
   it "should filter results based on end of URL being 'users'" do
-    get :search, params: { :combined => "bob/users" }
+    get :search, params: { combined: "bob/users" }
     expect(assigns[:xapian_requests]).to eq(nil)
     expect(assigns[:xapian_users].results.map { |x| x[:model] }).to eq([users(:bob_smith_user)])
     expect(assigns[:xapian_bodies]).to eq(nil)
   end
 
   it 'should highlight words for a user-only request' do
-    get :search, params: { :combined => "bob/users" }
+    get :search, params: { combined: "bob/users" }
     expect(assigns[:highlight_words]).to eq([/\b(bob)\w*\b/iu, /\b(bob)\b/iu])
   end
 
   it 'should show spelling corrections for a user-only request' do
-    get :search, params: { :combined => "rob/users" }
+    get :search, params: { combined: "rob/users" }
     expect(assigns[:spelling_correction]).to eq('bob')
     expect(response.body).to include('did_you_mean')
   end
 
   it "should filter results based on end of URL being 'requests'" do
-    get :search, params: { :combined => "bob/requests" }
-    expect(assigns[:xapian_requests].results.map { |x|x[:model] }).to match_array([
-      info_request_events(:useless_outgoing_message_event),
-      info_request_events(:silly_outgoing_message_event),
-      info_request_events(:useful_incoming_message_event),
-      info_request_events(:another_useful_incoming_message_event),
-    ])
+    get :search, params: { combined: "bob/requests" }
+    expect(assigns[:xapian_requests].results.map { |x| x[:model] }).to match_array([
+                                                                                     info_request_events(:useless_outgoing_message_event),
+                                                                                     info_request_events(:silly_outgoing_message_event),
+                                                                                     info_request_events(:useful_incoming_message_event),
+                                                                                     info_request_events(:another_useful_incoming_message_event)
+                                                                                   ])
     expect(assigns[:xapian_users]).to eq(nil)
     expect(assigns[:xapian_bodies]).to eq(nil)
   end
 
   it "should filter results based on end of URL being 'bodies'" do
-    get :search, params: { :combined => "quango/bodies" }
+    get :search, params: { combined: "quango/bodies" }
     expect(assigns[:xapian_requests]).to eq(nil)
     expect(assigns[:xapian_users]).to eq(nil)
-    expect(assigns[:xapian_bodies].results.map { |x|x[:model] }).to eq([public_bodies(:geraldine_public_body)])
+    expect(assigns[:xapian_bodies].results.map { |x| x[:model] }).to eq([public_bodies(:geraldine_public_body)])
   end
 
   it 'should prioritise direct matches of public body names' do
@@ -378,21 +376,21 @@ describe GeneralController, 'when using xapian search' do
   end
 
   it 'should show "Browse all" link if there are no results for a search restricted to bodies' do
-    get :search, params: { :combined => "noresultsshouldbefound/bodies" }
+    get :search, params: { combined: "noresultsshouldbefound/bodies" }
     expect(response.body).to include('Browse all')
   end
 
   it "should show help when searching for nothing" do
-    get :search_redirect, params: { :query => nil }
+    get :search_redirect, params: { query: nil }
     expect(response).to render_template('search')
     expect(assigns[:total_hits]).to be_nil
     expect(assigns[:query]).to be_nil
   end
 
   it "should not show unconfirmed users" do
-    get :search, params: { :combined => "unconfirmed/users" }
+    get :search, params: { combined: "unconfirmed/users" }
     expect(response).to render_template('search')
-    expect(assigns[:xapian_users].results.map { |x|x[:model] }).to eq([])
+    expect(assigns[:xapian_users].results.map { |x| x[:model] }).to eq([])
   end
 
   it "should show newly-confirmed users" do
@@ -401,45 +399,45 @@ describe GeneralController, 'when using xapian search' do
     u.save!
     update_xapian_index
 
-    get :search, params: { :combined => "unconfirmed/users" }
+    get :search, params: { combined: "unconfirmed/users" }
     expect(response).to render_template('search')
-    expect(assigns[:xapian_users].results.map { |x|x[:model] }).to eq([u])
+    expect(assigns[:xapian_users].results.map { |x| x[:model] }).to eq([u])
   end
 
   it "should show tracking links for requests-only searches" do
-    get :search, params: { :combined => "bob/requests" }
+    get :search, params: { combined: "bob/requests" }
     expect(response.body).to include('Track this search')
   end
 
   it 'should not show high page offsets as these are extremely slow to generate' do
     expect {
-      get :search, params: { :combined => 'bob/all', :page => 25 }
+      get :search, params: { combined: 'bob/all', page: 25 }
     }.to raise_error(ActiveRecord::RecordNotFound)
   end
 
   it 'should pass xapian error messages to flash and redirect to a blank search page' do
     error_text = "Your query was not quite right. QueryParserError: Syntax: <expression> AND <expression>"
-    get :search, params: { :combined => "test AND" }
+    get :search, params: { combined: "test AND" }
     expect(flash[:error]).to eq(error_text)
-    expect(response).to redirect_to(:action => 'search', :combined => "")
+    expect(response).to redirect_to(action: 'search', combined: "")
   end
 
   context "when passed a non-HTML request" do
 
     it "responds with a 404" do
-      get :search, params: { :combined => '"fancy dog"', :format => :json }
+      get :search, params: { combined: '"fancy dog"', format: :json }
       expect(response.status).to eq(404)
     end
 
     it "treats invalid formats as html" do
-      get :search, params: { :combined => '"fancy dog"',
-                             :format => "invalid format" }
+      get :search, params: { combined: '"fancy dog"',
+                             format: "invalid format" }
       expect(response.status).to eq(200)
     end
 
     it "does not call the search" do
       expect(controller).not_to receive(:perform_search)
-      get :search, params: { :combined => '"fancy dog"', :format => :json }
+      get :search, params: { combined: '"fancy dog"', format: :json }
     end
 
   end

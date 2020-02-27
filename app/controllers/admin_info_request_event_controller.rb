@@ -6,8 +6,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminInfoRequestEventController < AdminController
-
-  before_action :set_info_request_event, :only => [:update]
+  before_action :set_info_request_event, only: [:update]
 
   # used so due dates get fixed
   def update
@@ -30,5 +29,4 @@ class AdminInfoRequestEventController < AdminController
   def set_info_request_event
     @info_request_event = InfoRequestEvent.find(params[:id])
   end
-
 end

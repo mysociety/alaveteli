@@ -6,12 +6,11 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class HelpController < ApplicationController
-
   # we don't even have a control subroutine for most help pages, just see their templates
 
   before_action :long_cache
-  before_action :catch_spam, :only => [:contact]
-  before_action :set_recaptcha_required, :only => [:contact]
+  before_action :catch_spam, only: [:contact]
+  before_action :set_recaptcha_required, only: [:contact]
 
   def index
     redirect_to help_about_path
@@ -21,16 +20,16 @@ class HelpController < ApplicationController
     @country_code = AlaveteliConfiguration.iso_country_code
     @info_request = nil
     if params[:url_title]
-      @info_request = InfoRequest
-        .not_embargoed
-          .find_by_url_title!(params[:url_title])
+      @info_request = InfoRequest.
+        not_embargoed.
+          find_by_url_title!(params[:url_title])
     end
   end
 
   def contact
-    @contact_email = AlaveteliConfiguration::contact_email
+    @contact_email = AlaveteliConfiguration.contact_email
     if feature_enabled?(:alaveteli_pro) && @user && @user.is_pro?
-      @contact_email = AlaveteliConfiguration::pro_contact_email
+      @contact_email = AlaveteliConfiguration.pro_contact_email
     end
 
     # if they clicked remove for link to request/body, remove it
@@ -54,9 +53,9 @@ class HelpController < ApplicationController
       end
       @contact = ContactValidator.new(params[:contact])
 
-      if (@recaptcha_required &&
-          !params[:remove] &&
-          !verify_recaptcha)
+      if @recaptcha_required &&
+         !params[:remove] &&
+         !verify_recaptcha
         flash.now[:error] = _('There was an error with the reCAPTCHA. ' \
                               'Please try again.')
       elsif @contact.valid? && !params[:remove]
@@ -73,11 +72,8 @@ class HelpController < ApplicationController
         return
       end
 
-      if params[:remove]
-        @contact.errors.clear
-      end
+      @contact.errors.clear if params[:remove]
     end
-
   end
 
   private
@@ -93,5 +89,4 @@ class HelpController < ApplicationController
   def set_recaptcha_required
     @recaptcha_required = AlaveteliConfiguration.contact_form_recaptcha
   end
-
 end

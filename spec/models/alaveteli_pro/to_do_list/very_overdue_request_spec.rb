@@ -23,7 +23,7 @@ describe AlaveteliPro::ToDoList::VeryOverdueRequest do
 
     it 'gives a description for multiple responses' do
       request = time_travel_to(Time.zone.parse('2015-11-01')) do
-        FactoryBot.create(:info_request, :user => user)
+        FactoryBot.create(:info_request, user: user)
       end
       time_travel_to(Time.zone.parse('2016-01-01')) do
         AlaveteliPro::RequestSummary.create_or_update_from(request)
@@ -59,13 +59,13 @@ describe AlaveteliPro::ToDoList::VeryOverdueRequest do
 
       it 'returns a link to the info request list with a "very_overdue" filter' do
         request = time_travel_to(Time.zone.parse('2015-11-01')) do
-          FactoryBot.create(:info_request, :user => user)
+          FactoryBot.create(:info_request, user: user)
         end
         time_travel_to(Time.zone.parse('2016-01-01')) do
           AlaveteliPro::RequestSummary.create_or_update_from(info_request)
           AlaveteliPro::RequestSummary.create_or_update_from(request)
-          expect(@very_overdue_request.url)
-            .to eq alaveteli_pro_info_requests_path('alaveteli_pro_request_filter[filter]' =>
+          expect(@very_overdue_request.url).
+            to eq alaveteli_pro_info_requests_path('alaveteli_pro_request_filter[filter]' =>
                                                       'very_overdue')
         end
       end
@@ -80,8 +80,8 @@ describe AlaveteliPro::ToDoList::VeryOverdueRequest do
 
       it 'returns an appropriate text' do
         time_travel_to(Time.zone.parse('2016-01-01')) do
-          expect(@very_overdue_request.call_to_action)
-            .to eq 'Request an internal review (or send another followup).'
+          expect(@very_overdue_request.call_to_action).
+            to eq 'Request an internal review (or send another followup).'
         end
       end
 
@@ -92,12 +92,12 @@ describe AlaveteliPro::ToDoList::VeryOverdueRequest do
       it 'returns an appropriate text' do
 
         request = time_travel_to(Time.zone.parse('2015-11-01')) do
-          FactoryBot.create(:info_request, :user => user)
+          FactoryBot.create(:info_request, user: user)
         end
         time_travel_to(Time.zone.parse('2016-01-01')) do
           AlaveteliPro::RequestSummary.create_or_update_from(request)
-          expect(@very_overdue_request.call_to_action)
-            .to eq 'Request internal reviews (or send other followups).'
+          expect(@very_overdue_request.call_to_action).
+            to eq 'Request internal reviews (or send other followups).'
         end
       end
 

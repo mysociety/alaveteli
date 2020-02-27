@@ -50,7 +50,9 @@ class AlaveteliPro::InfoRequestBatchesController < AlaveteliPro::BaseController
         AlaveteliRateLimiter::Rule.new(
           :pro_batch_creation,
           5,
-          AlaveteliRateLimiter::Window.new(1, :day)))
+          AlaveteliRateLimiter::Window.new(1, :day)
+        )
+      )
   end
 
   def rate_monitor_limit?(user_id)

@@ -38,10 +38,9 @@ describe AlaveteliPro::EmbargoExtensionsController do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = pro_user.id
             post :create, params: { alaveteli_pro_embargo_extension: {
-                                      embargo_id: embargo.id,
-                                      extension_duration: "3_months"
-                                    }
-                                  }
+              embargo_id: embargo.id,
+              extension_duration: "3_months"
+            } }
           end
         end
 
@@ -60,7 +59,8 @@ describe AlaveteliPro::EmbargoExtensionsController do
         it "redirects to the request show page" do
           expect(response).
             to redirect_to show_alaveteli_pro_request_path(
-              url_title: info_request.url_title)
+              url_title: info_request.url_title
+            )
         end
 
       end
@@ -70,10 +70,9 @@ describe AlaveteliPro::EmbargoExtensionsController do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = admin.id
             post :create, params: { alaveteli_pro_embargo_extension: {
-                                      embargo_id: embargo.id,
-                                      extension_duration: "3_months"
-                                    }
-                                  }
+              embargo_id: embargo.id,
+              extension_duration: "3_months"
+            } }
           end
         end
 
@@ -92,7 +91,8 @@ describe AlaveteliPro::EmbargoExtensionsController do
         it "redirects to the request show page" do
           expect(response).
             to redirect_to show_alaveteli_pro_request_path(
-              url_title: info_request.url_title)
+              url_title: info_request.url_title
+            )
         end
 
       end
@@ -107,10 +107,9 @@ describe AlaveteliPro::EmbargoExtensionsController do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = other_user.id
             post :create, params: { alaveteli_pro_embargo_extension: {
-                                      embargo_id: embargo.id,
-                                      extension_duration: "3_months"
-                                    }
-                                  }
+              embargo_id: embargo.id,
+              extension_duration: "3_months"
+            } }
           end
         end.to raise_error(CanCan::AccessDenied)
       end
@@ -125,10 +124,9 @@ describe AlaveteliPro::EmbargoExtensionsController do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = pro_user.id
             post :create, params: { alaveteli_pro_embargo_extension: {
-                                      embargo_id: embargo.id,
-                                      extension_duration: "3_months"
-                                    }
-                                  }
+              embargo_id: embargo.id,
+              extension_duration: "3_months"
+            } }
             expect(response).to redirect_to frontpage_path
           end
         end
@@ -149,10 +147,9 @@ describe AlaveteliPro::EmbargoExtensionsController do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = pro_user.id
             post :create, params: { alaveteli_pro_embargo_extension: {
-                                      embargo_id: embargo.id,
-                                      extension_duration: "3_months"
-                                    }
-                                  }
+              embargo_id: embargo.id,
+              extension_duration: "3_months"
+            } }
           end
         end.to raise_error(ApplicationController::PermissionDenied)
       end
@@ -162,10 +159,9 @@ describe AlaveteliPro::EmbargoExtensionsController do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = admin.id
             post :create, params: { alaveteli_pro_embargo_extension: {
-                                      embargo_id: embargo.id,
-                                      extension_duration: "3_months"
-                                    }
-                                  }
+              embargo_id: embargo.id,
+              extension_duration: "3_months"
+            } }
           end
         end.to raise_error(ApplicationController::PermissionDenied)
       end
@@ -185,10 +181,9 @@ describe AlaveteliPro::EmbargoExtensionsController do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = pro_user.id
             post :create, params: { alaveteli_pro_embargo_extension: {
-                                      embargo_id: embargo.id,
-                                      extension_duration: "3_months"
-                                    }
-                                  }
+              embargo_id: embargo.id,
+              extension_duration: "3_months"
+            } }
           end
         end.to raise_error(ApplicationController::PermissionDenied)
       end
@@ -199,9 +194,8 @@ describe AlaveteliPro::EmbargoExtensionsController do
         with_feature_enabled(:alaveteli_pro) do
           session[:user_id] = pro_user.id
           post :create, params: { alaveteli_pro_embargo_extension: {
-                                    embargo_id: embargo.id
-                                  }
-                                }
+            embargo_id: embargo.id
+          } }
         end
       end
 
@@ -220,7 +214,8 @@ describe AlaveteliPro::EmbargoExtensionsController do
         :info_request_batch,
         embargo_duration: "3_months",
         user: pro_user,
-        public_bodies: FactoryBot.create_list(:public_body, 2))
+        public_bodies: FactoryBot.create_list(:public_body, 2)
+      )
       batch.create_batch!
       batch
     end
@@ -231,9 +226,9 @@ describe AlaveteliPro::EmbargoExtensionsController do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = pro_user.id
             post :create_batch, params: {
-                                  info_request_batch_id: info_request_batch.id,
-                                  extension_duration: "3_months"
-                                }
+              info_request_batch_id: info_request_batch.id,
+              extension_duration: "3_months"
+            }
           end
         end
 
@@ -246,13 +241,14 @@ describe AlaveteliPro::EmbargoExtensionsController do
 
         it "redirects to the batch page" do
           expected_path = show_alaveteli_pro_batch_request_path(
-            info_request_batch)
+            info_request_batch
+          )
           expect(response).to redirect_to expected_path
         end
 
         it "sets a flash message" do
           six_months_from_now = AlaveteliPro::Embargo.six_months_from_now
-          expiry_date = "#{six_months_from_now.strftime('%d %B %Y')}"
+          expiry_date = six_months_from_now.strftime('%d %B %Y').to_s
           expected_message = "Your requests will now be private " \
                              "until #{expiry_date}."
           expect(flash[:notice]).to eq expected_message
@@ -264,9 +260,9 @@ describe AlaveteliPro::EmbargoExtensionsController do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = admin.id
             post :create_batch, params: {
-                                  info_request_batch_id: info_request_batch.id,
-                                  extension_duration: "3_months"
-                                }
+              info_request_batch_id: info_request_batch.id,
+              extension_duration: "3_months"
+            }
           end
         end
 
@@ -279,13 +275,14 @@ describe AlaveteliPro::EmbargoExtensionsController do
 
         it "redirects to the batch page" do
           expected_path = show_alaveteli_pro_batch_request_path(
-            info_request_batch)
+            info_request_batch
+          )
           expect(response).to redirect_to expected_path
         end
 
         it "sets a flash message" do
           six_months_from_now = AlaveteliPro::Embargo.six_months_from_now
-          expiry_date = "#{six_months_from_now.strftime('%d %B %Y')}"
+          expiry_date = six_months_from_now.strftime('%d %B %Y').to_s
           expected_message = "Your requests will now be private " \
                              "until #{expiry_date}."
           expect(flash[:notice]).to eq expected_message
@@ -301,9 +298,9 @@ describe AlaveteliPro::EmbargoExtensionsController do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = other_user.id
             post :create_batch, params: {
-                                  info_request_batch_id: info_request_batch.id,
-                                  extension_duration: "3_months"
-                                }
+              info_request_batch_id: info_request_batch.id,
+              extension_duration: "3_months"
+            }
           end
         end.to raise_error(CanCan::AccessDenied)
       end
@@ -314,8 +311,8 @@ describe AlaveteliPro::EmbargoExtensionsController do
         with_feature_enabled(:alaveteli_pro) do
           session[:user_id] = pro_user.id
           post :create_batch, params: {
-                                info_request_batch_id: info_request_batch.id
-                              }
+            info_request_batch_id: info_request_batch.id
+          }
         end
       end
 
@@ -340,7 +337,8 @@ describe AlaveteliPro::EmbargoExtensionsController do
 
       it "redirects to that request, not the batch" do
         expected_path = show_alaveteli_pro_request_path(
-            url_title: info_request_batch.info_requests.first.url_title)
+          url_title: info_request_batch.info_requests.first.url_title
+        )
         expect(response).to redirect_to(expected_path)
       end
     end

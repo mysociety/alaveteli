@@ -49,7 +49,7 @@ describe RequestGameController do
 
       render_views
 
-      let(:test_url) { help_credits_path(:anchor => "helpus") }
+      let(:test_url) { help_credits_path(anchor: "helpus") }
       let(:site_name) { AlaveteliConfiguration.site_name }
 
       it 'shows the game homepage' do
@@ -61,10 +61,10 @@ describe RequestGameController do
         get :play
         expect(flash.now[:notice][:partial]).
           to eq("request_game/game_over.html.erb")
-        expect(flash.now[:notice][:locals]).to include({
-          :helpus_url => test_url,
-          :site_name => site_name
-        })
+        expect(flash.now[:notice][:locals]).to include(
+          helpus_url: test_url,
+          site_name: site_name
+        )
       end
 
       it 'displays the flash message' do
@@ -73,7 +73,7 @@ describe RequestGameController do
         expect(response.body).
           to have_content('All done! Thank you very much for your help')
         expect(response.body).
-          to have_link('more things you can do', :href => test_url)
+          to have_link('more things you can do', href: test_url)
       end
 
     end

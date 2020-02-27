@@ -23,9 +23,7 @@ module AlaveteliExternalCommand
       # TODO: calling code should be able to specify error stream - may want to log it or
       # otherwise act upon it.
       opts = {}
-      if !args.empty? && args.last.is_a?(Hash)
-        opts = args.last
-      end
+      opts = args.last if !args.empty? && args.last.is_a?(Hash)
 
       program_path = find_program(program_name)
       xc = ExternalCommand.new(program_path, *args)
@@ -52,7 +50,7 @@ module AlaveteliExternalCommand
         $stderr.print(xc.err)
         return nil
       else
-        if opts.has_key? :append_to
+        if opts.key? :append_to
           opts[:append_to] << "\n\n"
         else
 
@@ -63,12 +61,12 @@ module AlaveteliExternalCommand
 
     def find_program(program_name)
       if program_name =~ %r(^/)
-        return program_name
+        program_name
       else
-        search_path = AlaveteliConfiguration::utility_search_path
+        search_path = AlaveteliConfiguration.utility_search_path
         search_path.each do |d|
           program_path = File.join(d, program_name)
-          return program_path if File.file? program_path and File.executable? program_path
+          return program_path if File.file?(program_path) && File.executable?(program_path)
         end
         raise "Could not find #{program_name} in any of #{search_path.join(', ')}"
       end

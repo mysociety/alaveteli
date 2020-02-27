@@ -76,7 +76,6 @@ describe 'when displaying actions that can be taken with regard to a request' do
     end
   end
 
-
   it 'displays the link to download the entire request' do
     render partial: 'request/after_actions', locals: locals
 

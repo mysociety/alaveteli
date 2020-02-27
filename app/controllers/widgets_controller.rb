@@ -6,7 +6,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class WidgetsController < ApplicationController
-
   before_action :check_widget_config, :find_info_request, :check_prominence
 
   def show
@@ -18,19 +17,17 @@ class WidgetsController < ApplicationController
     @user_owns_request = @info_request.user && @info_request.user == @user
 
     @existing_track =
-      if @user
-        TrackThing.find_existing(@user, @track_thing)
-      end
+      (TrackThing.find_existing(@user, @track_thing) if @user)
 
     @existing_vote =
       unless @existing_track
         @info_request.
           widget_votes.
-            where(:cookie => cookies[:widget_vote]).
+            where(cookie: cookies[:widget_vote]).
               any?
       end
 
-    render :action => 'show', :layout => false
+    render action: 'show', layout: false
   end
 
   def new
@@ -40,8 +37,8 @@ class WidgetsController < ApplicationController
   private
 
   def check_widget_config
-    unless AlaveteliConfiguration::enable_widgets
-      raise ActiveRecord::RecordNotFound.new("Page not enabled")
+    unless AlaveteliConfiguration.enable_widgets
+      raise ActiveRecord::RecordNotFound, "Page not enabled"
     end
   end
 
@@ -50,9 +47,8 @@ class WidgetsController < ApplicationController
   end
 
   def check_prominence
-    unless @info_request.prominence(:decorate => true).is_searchable?
+    unless @info_request.prominence(decorate: true).is_searchable?
       head :forbidden
     end
   end
-
 end

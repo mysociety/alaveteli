@@ -32,18 +32,18 @@ describe AlaveteliPro::ToDoList::List do
 
     it 'returns items whose count is greater than zero' do
       user = FactoryBot.create(:user)
-      new_response = double('new_response', :count => 1)
-      expiring_embargo = double('expiring_embargo', :count => 0)
-      overdue_request = double('overdue_request', :count => 2)
-      allow(AlaveteliPro::ToDoList::NewResponse).to receive(:new)
-        .and_return(new_response)
-      allow(AlaveteliPro::ToDoList::ExpiringEmbargo).to receive(:new)
-        .and_return(expiring_embargo)
-      allow(AlaveteliPro::ToDoList::OverdueRequest).to receive(:new)
-        .and_return(overdue_request)
+      new_response = double('new_response', count: 1)
+      expiring_embargo = double('expiring_embargo', count: 0)
+      overdue_request = double('overdue_request', count: 2)
+      allow(AlaveteliPro::ToDoList::NewResponse).to receive(:new).
+        and_return(new_response)
+      allow(AlaveteliPro::ToDoList::ExpiringEmbargo).to receive(:new).
+        and_return(expiring_embargo)
+      allow(AlaveteliPro::ToDoList::OverdueRequest).to receive(:new).
+        and_return(overdue_request)
 
-      expect(described_class.new(user).active_items)
-        .to eq([new_response, overdue_request])
+      expect(described_class.new(user).active_items).
+        to eq([new_response, overdue_request])
     end
 
   end

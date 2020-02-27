@@ -29,7 +29,8 @@ def gettext_interpolate(string, values)
   # $1, $2 don't work with SafeBuffer so casting to string as workaround
   safe = string.html_safe?
   string = string.to_str.gsub(MATCH) do
-    pattern, key = $1, $1.to_sym
+    pattern = $1
+    key = $1.to_sym
 
     if !values.include?(key)
       raise I18n::MissingInterpolationArgument.new(pattern, string, values)
@@ -45,14 +46,13 @@ def gettext_interpolate(string, values)
   safe ? string.html_safe : string
 end
 
-
 # this monkeypatch corrects inconsistency with gettext_i18n_rails
 # where the latter deals with strings but rails i18n deals with
 # symbols for locales
 module GettextI18nRails
   class Backend
     def available_locales
-      FastGettext.available_locales.map { |l| l.to_sym } || []
+      FastGettext.available_locales.map(&:to_sym) || []
     end
   end
 end

@@ -1,11 +1,10 @@
 # -*- encoding : utf-8 -*-
 ::SecureHeaders::Configuration.default do |config|
-
   # https://tools.ietf.org/html/rfc6797
-  if AlaveteliConfiguration::force_ssl
+  if AlaveteliConfiguration.force_ssl
     config.hsts = "max-age=#{20.years.to_i}; includeSubdomains"
   else
-    config.hsts = SecureHeaders::OPT_OUT #don't send on non https sites
+    config.hsts = SecureHeaders::OPT_OUT # don't send on non https sites
   end
 
   # https://tools.ietf.org/html/draft-ietf-websec-x-frame-options-02
@@ -34,7 +33,7 @@
   }
 end
 
- # Allow individual actions to allow frames
+# Allow individual actions to allow frames
 ::SecureHeaders::Configuration.override(:allow_frames) do |config|
   config.x_frame_options = SecureHeaders::OPT_OUT
 end

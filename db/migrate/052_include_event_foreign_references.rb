@@ -5,11 +5,11 @@ class IncludeEventForeignReferences < ActiveRecord::Migration[4.2] # 2.0
     add_column :info_request_events, :outgoing_message_id, :integer
     InfoRequestEvent.find_each do |event|
       incoming_message = event.incoming_message_via_params
-      if not incoming_message.nil?
+      unless incoming_message.nil?
         event.incoming_message_id = incoming_message.id
       end
       outgoing_message = event.outgoing_message_via_params
-      if not outgoing_message.nil?
+      unless outgoing_message.nil?
         event.outgoing_message_id = outgoing_message.id
       end
       event.save!

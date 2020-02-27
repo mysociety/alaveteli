@@ -10,9 +10,9 @@ module AlaveteliPro::BatchRequest
   def mode
     valid_modes = %w(search browse)
     @mode ||= if valid_modes.include?(params[:mode])
-        params[:mode]
-      else
-        valid_modes.first
+                params[:mode]
+              else
+                valid_modes.first
       end
   end
 

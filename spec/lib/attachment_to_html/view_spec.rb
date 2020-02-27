@@ -5,9 +5,9 @@ describe AttachmentToHTML::View do
 
   let(:adapter) do
     double(:adapter,
-           :body => '<p>hello</p>',
-           :title => 'An attachment.txt',
-           :success? => true)
+           body: '<p>hello</p>',
+           title: 'An attachment.txt',
+           success?: true)
   end
 
   let(:view) { AttachmentToHTML::View.new(adapter) }
@@ -58,7 +58,7 @@ describe AttachmentToHTML::View do
 
     it 'allows a template to be set through an option' do
       template = file_fixture_name('attachment_to_html/alternative_template.html.erb')
-      opts = { :template => template }
+      opts = { template: template }
       view = AttachmentToHTML::View.new(adapter, opts)
       expect(view.template).to eq(template)
     end

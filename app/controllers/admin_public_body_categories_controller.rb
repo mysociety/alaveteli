@@ -1,9 +1,8 @@
 # -*- encoding : utf-8 -*-
 class AdminPublicBodyCategoriesController < AdminController
-
   include TranslatableParams
 
-  before_action :set_public_body_category, :only => [:edit, :update, :destroy]
+  before_action :set_public_body_category, only: [:edit, :update, :destroy]
 
   def index
     @locale = AlaveteliLocalization.locale
@@ -31,7 +30,7 @@ class AdminPublicBodyCategoriesController < AdminController
         redirect_to admin_categories_path
       else
         @public_body_category.build_all_translations
-        render :action => 'new'
+        render action: 'new'
       end
     end
   end
@@ -49,7 +48,7 @@ class AdminPublicBodyCategoriesController < AdminController
     AlaveteliLocalization.with_locale(AlaveteliLocalization.default_locale) do
       if params[:public_body_category][:category_tag] && PublicBody.find_by_tag(@public_body_category.category_tag).count > 0 && @public_body_category.category_tag != params[:public_body_category][:category_tag]
         flash[:error] = "There are authorities associated with this category, so the tag can't be renamed"
-        render :action => 'edit'
+        render action: 'edit'
       else
         if params[:headings]
           heading_ids = params[:headings].values
@@ -59,12 +58,12 @@ class AdminPublicBodyCategoriesController < AdminController
           unless removed_headings.empty?
             # remove the link objects
             deleted_links = PublicBodyCategoryLink.where(
-              :public_body_category_id => @public_body_category.id,
-              :public_body_heading_id => [removed_headings].flatten
+              public_body_category_id: @public_body_category.id,
+              public_body_heading_id: [removed_headings].flatten
             )
             deleted_links.delete_all
 
-            #fix the category object
+            # fix the category object
             @public_body_category.public_body_heading_ids = heading_ids
           end
 
@@ -80,7 +79,7 @@ class AdminPublicBodyCategoriesController < AdminController
           redirect_to edit_admin_category_path(@public_body_category)
         else
           @public_body_category.build_all_translations
-          render :action => 'edit'
+          render action: 'edit'
         end
       end
     end
@@ -96,16 +95,15 @@ class AdminPublicBodyCategoriesController < AdminController
 
   def public_body_category_params
     if public_body_category_params = params[:public_body_category]
-      keys = { :translated_keys => [:locale, :title, :description],
-               :general_keys => [:category_tag] }
+      keys = { translated_keys: [:locale, :title, :description],
+               general_keys: [:category_tag] }
       translatable_params(keys, public_body_category_params)
     else
-     {}
+      {}
     end
   end
 
   def set_public_body_category
     @public_body_category = PublicBodyCategory.find(params[:id])
   end
-
 end

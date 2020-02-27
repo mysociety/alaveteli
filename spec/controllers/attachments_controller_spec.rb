@@ -34,7 +34,7 @@ RSpec.describe AttachmentsController, type: :controller do
 
       # create a new cache file and check the file permissions
       show
-      octal_stat = sprintf("%o", File.stat(key_path).mode)[-4..-1]
+      octal_stat = format("%o", File.stat(key_path).mode)[-4..-1]
       expect(octal_stat).to eq('0644')
     end
 
@@ -50,21 +50,21 @@ RSpec.describe AttachmentsController, type: :controller do
     # https://github.com/mysociety/alaveteli/issues/351
     it "should return 404 for ugly URLs containing a request id that isn't an integer" do
       ugly_id = "55195"
-      expect { show(:id => ugly_id) }
-        .to raise_error(ActiveRecord::RecordNotFound)
+      expect { show(id: ugly_id) }.
+        to raise_error(ActiveRecord::RecordNotFound)
     end
 
     it "should return 404 when incoming message and request ids
         don't match" do
-      expect { show(:id => info_request.id + 1) }
-        .to raise_error(ActiveRecord::RecordNotFound)
+      expect { show(id: info_request.id + 1) }.
+        to raise_error(ActiveRecord::RecordNotFound)
     end
 
     it "should return 404 for ugly URLs contain a request id that isn't an
         integer, even if the integer prefix refers to an actual request" do
       ugly_id = "#{FactoryBot.create(:info_request).id}95"
-      expect { show(:id => ugly_id) }
-        .to raise_error(ActiveRecord::RecordNotFound)
+      expect { show(id: ugly_id) }.
+        to raise_error(ActiveRecord::RecordNotFound)
     end
 
     it "should redirect to the incoming message if there's a wrong part number
@@ -77,36 +77,36 @@ RSpec.describe AttachmentsController, type: :controller do
           'interesting.pdf'
         )
       expect(attachment).to be_nil
-      show(:part => 5)
+      show(part: 5)
       expect(response.status).to eq(303)
       new_location = response.header['Location']
-      expect(new_location)
-        .to match incoming_message_path(incoming_message)
+      expect(new_location).
+        to match incoming_message_path(incoming_message)
     end
 
     it "should find a uniquely named filename even if the URL part number was wrong" do
       info_request = FactoryBot.create(:info_request_with_html_attachment)
       get :show,
-           params: {
-             :incoming_message_id => info_request.incoming_messages.first.id,
-             :id => info_request.id,
-             :part => 5,
-             :file_name => 'interesting.html',
-             :skip_cache => 1
-           }
+          params: {
+            incoming_message_id: info_request.incoming_messages.first.id,
+            id: info_request.id,
+            part: 5,
+            file_name: 'interesting.html',
+            skip_cache: 1
+          }
       expect(response.body).to match('dull')
     end
 
     it "should not download attachments with wrong file name" do
       info_request = FactoryBot.create(:info_request_with_html_attachment)
       get :show,
-           params: {
-             :incoming_message_id => info_request.incoming_messages.first.id,
-             :id => info_request.id,
-             :part => 2,
-             :file_name => 'http://trying.to.hack',
-             :skip_cache => 1
-           }
+          params: {
+            incoming_message_id: info_request.incoming_messages.first.id,
+            id: info_request.id,
+            part: 2,
+            file_name: 'http://trying.to.hack',
+            skip_cache: 1
+          }
       expect(response.status).to eq(303)
     end
 
@@ -114,11 +114,11 @@ RSpec.describe AttachmentsController, type: :controller do
       info_request = FactoryBot.create(:info_request_with_html_attachment)
       get :show,
           params: {
-            :incoming_message_id => info_request.incoming_messages.first.id,
-            :id => info_request.id,
-            :part => 2,
-            :file_name => 'interesting.html',
-            :skip_cache => 1
+            incoming_message_id: info_request.incoming_messages.first.id,
+            id: info_request.id,
+            part: 2,
+            file_name: 'interesting.html',
+            skip_cache: 1
           }
 
       # Nokogiri adds the meta tag; see
@@ -139,17 +139,17 @@ RSpec.describe AttachmentsController, type: :controller do
 
     it "censors attachments downloaded directly" do
       info_request = FactoryBot.create(:info_request_with_html_attachment)
-      info_request.censor_rules.create!(:text => 'dull',
-                                       :replacement => "Mouse",
-                                       :last_edit_editor => 'unknown',
-                                       :last_edit_comment => 'none')
+      info_request.censor_rules.create!(text: 'dull',
+                                        replacement: "Mouse",
+                                        last_edit_editor: 'unknown',
+                                        last_edit_comment: 'none')
       get :show,
           params: {
-            :incoming_message_id => info_request.incoming_messages.first.id,
-            :id => info_request.id,
-            :part => 2,
-            :file_name => 'interesting.html',
-            :skip_cache => 1
+            incoming_message_id: info_request.incoming_messages.first.id,
+            id: info_request.id,
+            part: 2,
+            file_name: 'interesting.html',
+            skip_cache: 1
           }
       expect(response.content_type).to eq("text/html")
       expect(response.body).to have_content "Mouse"
@@ -157,17 +157,17 @@ RSpec.describe AttachmentsController, type: :controller do
 
     it "should censor with rules on the user (rather than the request)" do
       info_request = FactoryBot.create(:info_request_with_html_attachment)
-      info_request.user.censor_rules.create!(:text => 'dull',
-                                       :replacement => "Mouse",
-                                       :last_edit_editor => 'unknown',
-                                       :last_edit_comment => 'none')
+      info_request.user.censor_rules.create!(text: 'dull',
+                                             replacement: "Mouse",
+                                             last_edit_editor: 'unknown',
+                                             last_edit_comment: 'none')
       get :show,
           params: {
-            :incoming_message_id => info_request.incoming_messages.first.id,
-            :id => info_request.id,
-            :part => 2,
-            :file_name => 'interesting.html',
-            :skip_cache => 1
+            incoming_message_id: info_request.incoming_messages.first.id,
+            id: info_request.id,
+            part: 2,
+            file_name: 'interesting.html',
+            skip_cache: 1
           }
       expect(response.content_type).to eq("text/html")
       expect(response.body).to have_content "Mouse"
@@ -178,11 +178,11 @@ RSpec.describe AttachmentsController, type: :controller do
       expect {
         get :show,
             params: {
-              :incoming_message_id => info_request.incoming_messages.first.id,
-              :id => info_request.id,
-              :part => 2,
-              :file_name => 'interesting.pdf',
-              :skip_cache => 1
+              incoming_message_id: info_request.incoming_messages.first.id,
+              id: info_request.id,
+              part: 2,
+              file_name: 'interesting.pdf',
+              skip_cache: 1
             }
       }.to raise_error ActiveRecord::RecordNotFound
     end
@@ -192,25 +192,24 @@ RSpec.describe AttachmentsController, type: :controller do
     let(:info_request) { FactoryBot.create(:info_request_with_incoming_attachments) }
 
     def get_html_attachment(params = {})
-      default_params = { :incoming_message_id =>
-                           info_request.incoming_messages.first.id,
-                         :id => info_request.id,
-                         :part => 2,
-                         :file_name => 'interesting.pdf.html' }
+      default_params = { incoming_message_id: info_request.incoming_messages.first.id,
+                         id: info_request.id,
+                         part: 2,
+                         file_name: 'interesting.pdf.html' }
       get :show_as_html, params: default_params.merge(params)
     end
 
     it "should return 404 for ugly URLs containing a request id that isn't an integer" do
       ugly_id = "55195"
-      expect { get_html_attachment(:id => ugly_id) }
-        .to raise_error(ActiveRecord::RecordNotFound)
+      expect { get_html_attachment(id: ugly_id) }.
+        to raise_error(ActiveRecord::RecordNotFound)
     end
 
     it "should return 404 for ugly URLs contain a request id that isn't an
         integer, even if the integer prefix refers to an actual request" do
       ugly_id = "#{FactoryBot.create(:info_request).id}95"
-      expect { get_html_attachment(:id => ugly_id) }
-        .to raise_error(ActiveRecord::RecordNotFound)
+      expect { get_html_attachment(id: ugly_id) }.
+        to raise_error(ActiveRecord::RecordNotFound)
     end
 
     it 'returns an ActiveRecord::RecordNotFound error for an embargoed request' do
@@ -218,10 +217,10 @@ RSpec.describe AttachmentsController, type: :controller do
       expect {
         get :show_as_html,
             params: {
-              :incoming_message_id => info_request.incoming_messages.first.id,
-              :id => info_request.id,
-              :part => 2,
-              :file_name => 'interesting.pdf.html'
+              incoming_message_id: info_request.incoming_messages.first.id,
+              id: info_request.id,
+              part: 2,
+              file_name: 'interesting.pdf.html'
             }
       }.to raise_error ActiveRecord::RecordNotFound
     end
@@ -231,7 +230,7 @@ RSpec.describe AttachmentsController, type: :controller do
 end
 
 RSpec.describe AttachmentsController, "when handling prominence",
-    type: :controller do
+               type: :controller do
 
   def expect_hidden(hidden_template)
     expect(response.content_type).to eq("text/html")
@@ -243,18 +242,18 @@ RSpec.describe AttachmentsController, "when handling prominence",
 
     before(:each) do
       @info_request = FactoryBot.create(:info_request_with_incoming_attachments,
-                                        :prominence => 'hidden')
+                                        prominence: 'hidden')
     end
 
     it "should not download attachments" do
       incoming_message = @info_request.incoming_messages.first
       get :show,
           params: {
-            :incoming_message_id => incoming_message.id,
-            :id => @info_request.id,
-            :part => 2,
-            :file_name => 'interesting.pdf',
-            :skip_cache => 1
+            incoming_message_id: incoming_message.id,
+            id: @info_request.id,
+            part: 2,
+            file_name: 'interesting.pdf',
+            skip_cache: 1
           }
       expect_hidden('request/hidden')
     end
@@ -266,10 +265,10 @@ RSpec.describe AttachmentsController, "when handling prominence",
       expect do
         get :show_as_html,
             params: {
-              :incoming_message_id => incoming_message.id,
-              :id => @info_request.id,
-              :part => 2,
-              :file_name => 'interesting.pdf'
+              incoming_message_id: incoming_message.id,
+              id: @info_request.id,
+              part: 2,
+              file_name: 'interesting.pdf'
             }
       end.to raise_error(ActiveRecord::RecordNotFound)
     end
@@ -280,7 +279,7 @@ RSpec.describe AttachmentsController, "when handling prominence",
 
     before(:each) do
       @info_request = FactoryBot.create(:info_request_with_incoming_attachments,
-                                        :prominence => 'requester_only')
+                                        prominence: 'requester_only')
     end
 
     it 'should not cache an attachment when showing an attachment to the requester' do
@@ -289,10 +288,10 @@ RSpec.describe AttachmentsController, "when handling prominence",
       expect(@controller).not_to receive(:foi_fragment_cache_write)
       get :show,
           params: {
-            :incoming_message_id => incoming_message.id,
-            :id => @info_request.id,
-            :part => 2,
-            :file_name => 'interesting.pdf'
+            incoming_message_id: incoming_message.id,
+            id: @info_request.id,
+            part: 2,
+            file_name: 'interesting.pdf'
           }
     end
 
@@ -302,10 +301,10 @@ RSpec.describe AttachmentsController, "when handling prominence",
       expect(@controller).not_to receive(:foi_fragment_cache_write)
       get :show,
           params: {
-            :incoming_message_id => incoming_message.id,
-            :id => @info_request.id,
-            :part => 2,
-            :file_name => 'interesting.pdf'
+            incoming_message_id: incoming_message.id,
+            id: @info_request.id,
+            part: 2,
+            file_name: 'interesting.pdf'
           }
     end
   end
@@ -314,18 +313,18 @@ RSpec.describe AttachmentsController, "when handling prominence",
 
     before(:each) do
       @incoming_message = FactoryBot.create(:incoming_message_with_attachments,
-                                            :prominence => 'hidden')
+                                            prominence: 'hidden')
       @info_request = @incoming_message.info_request
     end
 
     it "should not download attachments for a non-logged in user" do
       get :show,
           params: {
-            :incoming_message_id => @incoming_message.id,
-            :id => @info_request.id,
-            :part => 2,
-            :file_name => 'interesting.pdf',
-            :skip_cache => 1
+            incoming_message_id: @incoming_message.id,
+            id: @info_request.id,
+            part: 2,
+            file_name: 'interesting.pdf',
+            skip_cache: 1
           }
       expect_hidden('request/hidden_correspondence')
     end
@@ -334,11 +333,11 @@ RSpec.describe AttachmentsController, "when handling prominence",
       session[:user_id] = @info_request.user.id
       get :show,
           params: {
-            :incoming_message_id => @incoming_message.id,
-            :id => @info_request.id,
-            :part => 2,
-            :file_name => 'interesting.pdf',
-            :skip_cache => 1
+            incoming_message_id: @incoming_message.id,
+            id: @info_request.id,
+            part: 2,
+            file_name: 'interesting.pdf',
+            skip_cache: 1
           }
       expect_hidden('request/hidden_correspondence')
     end
@@ -347,11 +346,11 @@ RSpec.describe AttachmentsController, "when handling prominence",
       session[:user_id] = FactoryBot.create(:admin_user).id
       get :show,
           params: {
-            :incoming_message_id => @incoming_message.id,
-            :id => @info_request.id,
-            :part => 2,
-            :file_name => 'interesting.pdf',
-            :skip_cache => 1
+            incoming_message_id: @incoming_message.id,
+            id: @info_request.id,
+            part: 2,
+            file_name: 'interesting.pdf',
+            skip_cache: 1
           }
       expect(response.content_type).to eq('application/pdf')
       expect(response).to be_successful
@@ -363,11 +362,11 @@ RSpec.describe AttachmentsController, "when handling prominence",
       expect do
         get :show_as_html,
             params: {
-              :incoming_message_id => @incoming_message.id,
-              :id => @info_request.id,
-              :part => 2,
-              :file_name => 'interesting.pdf',
-              :skip_cache => 1
+              incoming_message_id: @incoming_message.id,
+              id: @info_request.id,
+              part: 2,
+              file_name: 'interesting.pdf',
+              skip_cache: 1
             }
       end.to raise_error(ActiveRecord::RecordNotFound)
     end
@@ -377,10 +376,10 @@ RSpec.describe AttachmentsController, "when handling prominence",
       expect(@controller).not_to receive(:foi_fragment_cache_write)
       get :show,
           params: {
-            :incoming_message_id => @incoming_message.id,
-            :id => @info_request.id,
-            :part => 2,
-            :file_name => 'interesting.pdf'
+            incoming_message_id: @incoming_message.id,
+            id: @info_request.id,
+            part: 2,
+            file_name: 'interesting.pdf'
           }
     end
 
@@ -390,18 +389,18 @@ RSpec.describe AttachmentsController, "when handling prominence",
 
     before(:each) do
       @incoming_message = FactoryBot.create(:incoming_message_with_attachments,
-                                            :prominence => 'requester_only')
+                                            prominence: 'requester_only')
       @info_request = @incoming_message.info_request
     end
 
     it "should not download attachments for a non-logged in user" do
       get :show,
           params: {
-            :incoming_message_id => @incoming_message.id,
-            :id => @info_request.id,
-            :part => 2,
-            :file_name => 'interesting.pdf',
-            :skip_cache => 1
+            incoming_message_id: @incoming_message.id,
+            id: @info_request.id,
+            part: 2,
+            file_name: 'interesting.pdf',
+            skip_cache: 1
           }
       expect_hidden('request/hidden_correspondence')
     end
@@ -410,11 +409,11 @@ RSpec.describe AttachmentsController, "when handling prominence",
       session[:user_id] = @info_request.user.id
       get :show,
           params: {
-            :incoming_message_id => @incoming_message.id,
-            :id => @info_request.id,
-            :part => 2,
-            :file_name => 'interesting.pdf',
-            :skip_cache => 1
+            incoming_message_id: @incoming_message.id,
+            id: @info_request.id,
+            part: 2,
+            file_name: 'interesting.pdf',
+            skip_cache: 1
           }
       expect(response.content_type).to eq('application/pdf')
       expect(response).to be_successful
@@ -424,11 +423,11 @@ RSpec.describe AttachmentsController, "when handling prominence",
       session[:user_id] = FactoryBot.create(:admin_user).id
       get :show,
           params: {
-            :incoming_message_id => @incoming_message.id,
-            :id => @info_request.id,
-            :part => 2,
-            :file_name => 'interesting.pdf',
-            :skip_cache => 1
+            incoming_message_id: @incoming_message.id,
+            id: @info_request.id,
+            part: 2,
+            file_name: 'interesting.pdf',
+            skip_cache: 1
           }
       expect(response.content_type).to eq('application/pdf')
       expect(response).to be_successful
@@ -440,11 +439,11 @@ RSpec.describe AttachmentsController, "when handling prominence",
       expect do
         get :show_as_html,
             params: {
-              :incoming_message_id => @incoming_message.id,
-              :id => @info_request.id,
-              :part => 2,
-              :file_name => 'interesting.pdf',
-              :skip_cache => 1
+              incoming_message_id: @incoming_message.id,
+              id: @info_request.id,
+              part: 2,
+              file_name: 'interesting.pdf',
+              skip_cache: 1
             }
       end.to raise_error(ActiveRecord::RecordNotFound)
     end
@@ -454,7 +453,7 @@ RSpec.describe AttachmentsController, "when handling prominence",
 end
 
 RSpec.describe AttachmentsController, "when caching fragments",
-    type: :controller do
+               type: :controller do
 
   let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
   let(:incoming_message) { info_request.incoming_messages.first }

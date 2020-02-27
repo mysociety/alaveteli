@@ -12,12 +12,12 @@ describe OutgoingMessage::Template::InitialRequest do
 
     it 'returns the expected template text' do
       expected = "Dear A body,\n\n\n\nYours faithfully,\n\n"
-      expect(subject.body(:public_body_name => 'A body')).to eq(expected)
+      expect(subject.body(public_body_name: 'A body')).to eq(expected)
     end
 
     it 'allows a custom message letter' do
-      opts = { :public_body_name => 'A body',
-               :letter => 'A custom letter' }
+      opts = { public_body_name: 'A body',
+               letter: 'A custom letter' }
       expected = "Dear A body,\n\nA custom letter\n\n\n\nYours faithfully,\n\n"
       expect(subject.body(opts)).to eq(expected)
     end
@@ -28,7 +28,7 @@ describe OutgoingMessage::Template::InitialRequest do
 
     context 'when a public_body_name is given' do
       it 'returns the salutation' do
-        expect(subject.salutation(:public_body_name => 'A body')).
+        expect(subject.salutation(public_body_name: 'A body')).
           to eq('Dear A body,')
       end
     end
@@ -48,7 +48,7 @@ describe OutgoingMessage::Template::InitialRequest do
     end
 
     it 'returns a custom letter' do
-      expect(subject.letter(:letter => 'custom')).to eq("\n\ncustom")
+      expect(subject.letter(letter: 'custom')).to eq("\n\ncustom")
     end
 
   end

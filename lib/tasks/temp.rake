@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 namespace :temp do
-
   desc 'Convert serialized params_yaml from PostgreSQL::OID::Integer to ActiveModel::Type::Integer'
-  task :update_params_yaml => :environment do
+  task update_params_yaml: :environment do
     InfoRequestEvent.where("params_yaml LIKE '%OID::Integer%'").find_each do |event|
       new_params =
         event.params_yaml.gsub('!ruby/object:ActiveRecord::ConnectionAdapters::PostgreSQL::OID::Integer',
@@ -12,7 +11,7 @@ namespace :temp do
   end
 
   desc 'Populate missing timestamp columns'
-  task :populate_missing_timestamps => :environment do
+  task populate_missing_timestamps: :environment do
     puts 'Populating FoiAttachment created_at, updated_at'
     FoiAttachment.where(created_at: nil, updated_at: nil).find_each do |foi_attachment|
       value = foi_attachment.try(:incoming_message).try(:last_parsed)
@@ -82,10 +81,10 @@ namespace :temp do
   end
 
   desc 'Populate any missing FoiAttachment files'
-  task :populate_missing_attachment_files => :environment do
+  task populate_missing_attachment_files: :environment do
     verbose = ENV['VERBOSE'] == '1'
     offset = (ENV['OFFSET'] || 0).to_i
-    IncomingMessage.find_each(:start => offset) do |incoming_message|
+    IncomingMessage.find_each(start: offset) do |incoming_message|
       id = incoming_message.id
       begin
         puts id if verbose
@@ -95,42 +94,38 @@ namespace :temp do
         puts "Reparsing" if verbose
         incoming_message.parse_raw_email!(true)
       rescue ArgumentError, Encoding::InvalidByteSequenceError => e
-        if verbose
-          STDERR.puts "ERROR: #{id} #{e.class}: #{e.message}"
-        end
+        STDERR.puts "ERROR: #{id} #{e.class}: #{e.message}" if verbose
       rescue StandardError => e
-        if verbose
-          STDERR.puts "UNKNOWN ERROR: #{id} #{e.class}: #{e.message}"
-        end
+        STDERR.puts "UNKNOWN ERROR: #{id} #{e.class}: #{e.message}" if verbose
       end
     end
   end
 
   desc 'Populate last_event_time column of InfoRequest'
-  task :populate_last_event_time => :environment do
+  task populate_last_event_time: :environment do
     InfoRequest.
       where('last_event_time IS NULL').
           includes(:info_request_events).
             find_each do |info_request|
       info_request.update_column(:last_event_time,
-        info_request.info_request_events.last.created_at)
+                                 info_request.info_request_events.last.created_at)
     end
   end
 
   desc 'Remove cached zip download files'
-  task :remove_cached_zip_downloads => :environment do
+  task remove_cached_zip_downloads: :environment do
     FileUtils.rm_rf(InfoRequest.download_zip_dir)
   end
 
   desc 'Audit cached zip download files with censor rules'
-  task :audit_cached_zip_downloads_with_censor_rules => :environment do
+  task audit_cached_zip_downloads_with_censor_rules: :environment do
     puts [
-           "Info Request ID",
-           "URL Title",
-           "Censor rule IDs",
-           "Censor rule patterns",
-           "Cached file types"
-         ].join("\t")
+      "Info Request ID",
+      "URL Title",
+      "Censor rule IDs",
+      "Censor rule patterns",
+      "Cached file types"
+    ].join("\t")
     requests_with_censor_rules.each do |info_request|
       find_cached_zip_downloads(info_request)
     end
@@ -167,12 +162,12 @@ namespace :temp do
         end
       end
       puts [
-             info_request.id,
-             info_request.url_title,
-             info_request.applicable_censor_rules.map { |rule| rule.id }.join(","),
-             info_request.applicable_censor_rules.map { |rule| rule.text }.join(","),
-             cached_types.uniq.join(",")
-           ].join("\t")
+        info_request.id,
+        info_request.url_title,
+        info_request.applicable_censor_rules.map(&:id).join(","),
+        info_request.applicable_censor_rules.map(&:text).join(","),
+        cached_types.uniq.join(",")
+      ].join("\t")
     end
   end
 
@@ -180,7 +175,7 @@ namespace :temp do
         date_initial_request_last_sent_at,
         date_response_required_by and date_very_overdue_after
         fields for all requests'
-  task :populate_request_due_dates => :environment do
+  task populate_request_due_dates: :environment do
     ActiveRecord::Base.record_timestamps = false
     begin
       InfoRequest.
@@ -191,7 +186,7 @@ namespace :temp do
         info_request.date_initial_request_last_sent_at = sent_event.created_at.to_date
         info_request.date_response_required_by = info_request.calculate_date_response_required_by
         info_request.date_very_overdue_after = info_request.calculate_date_very_overdue_after
-        info_request.save(:validate => false)
+        info_request.save(validate: false)
       end
     ensure
       ActiveRecord::Base.record_timestamps = true
@@ -202,7 +197,7 @@ namespace :temp do
     UserInfoRequestSentAlert.
       where(['alert_type = ?
               AND info_request_event_id IS NOT NULL',
-              "#{event_type}_1"]).
+             "#{event_type}_1"]).
         find_each do |overdue_alert|
 
       event_forming_request = InfoRequestEvent.find(overdue_alert.info_request_event_id)
@@ -227,8 +222,8 @@ namespace :temp do
                                               event_forming_request.created_at)
       if existing_event.empty?
         overdue_alert.info_request.log_event(event_type,
-          { :event_created_at => Time.zone.now },
-          { :created_at => created_at })
+                                             { event_created_at: Time.zone.now },
+                                             created_at: created_at)
 
         if verbose
           puts "Logging #{event_type} for #{overdue_alert.info_request.id}"
@@ -238,20 +233,20 @@ namespace :temp do
   end
 
   desc 'Backload overdue InfoRequestEvents'
-  task :backload_overdue_info_request_events => :environment do
+  task backload_overdue_info_request_events: :environment do
     verbose = ENV['VERBOSE'] == '1'
     backload_overdue('overdue', verbose)
   end
 
   desc 'Backload very overdue InfoRequestEvents'
-  task :backload_very_overdue_info_request_events => :environment do
+  task backload_very_overdue_info_request_events: :environment do
     verbose = ENV['VERBOSE'] == '1'
     backload_overdue('very_overdue', verbose)
   end
 
   desc 'Update EventType when only editing prominence to hide'
-  task :update_hide_event_type => :environment do
-    InfoRequestEvent.where(:event_type => 'edit').find_each do |event|
+  task update_hide_event_type: :environment do
+    InfoRequestEvent.where(event_type: 'edit').find_each do |event|
       if event.only_editing_prominence_to_hide?
         event.update_attributes!(event_type: "hide")
       end
@@ -259,20 +254,20 @@ namespace :temp do
   end
 
   desc 'Cache the delivery status of mail server logs'
-  task :cache_delivery_status => :environment do
+  task cache_delivery_status: :environment do
     mta_agnostic_statuses =
       MailServerLog::DeliveryStatus::TranslatedConstants.
         humanized.keys.map(&:to_s)
-    MailServerLog.where.not(:delivery_status => mta_agnostic_statuses).find_each do |mail_log|
-      mail_log.update_attributes!(:delivery_status => mail_log.delivery_status)
+    MailServerLog.where.not(delivery_status: mta_agnostic_statuses).find_each do |mail_log|
+      mail_log.update_attributes!(delivery_status: mail_log.delivery_status)
       puts "Cached MailServerLog#delivery_status of id: #{ mail_log.id }"
     end
   end
 
   desc 'Analyse rails log specified by LOG_FILE to produce a list of request volume'
-  task :request_volume => :environment do
+  task request_volume: :environment do
     example = 'rake log_analysis:request_volume LOG_FILE=log/access_log OUTPUT_FILE=/tmp/log_analysis.csv'
-    check_for_env_vars(['LOG_FILE', 'OUTPUT_FILE'],example)
+    check_for_env_vars(%w[LOG_FILE OUTPUT_FILE], example)
     log_file_path = ENV['LOG_FILE']
     output_file_path = ENV['OUTPUT_FILE']
     is_gz = log_file_path.include?(".gz")
@@ -292,8 +287,8 @@ namespace :temp do
     CSV.open(output_file_path, "wb") do |csv|
       csv << ['URL', 'Number of visits']
       url_counts.sort_by(&:last).each do |url, count|
-        num_requests_visited_n_times[count] +=1
-        csv << [url,"#{count}"]
+        num_requests_visited_n_times[count] += 1
+        csv << [url, count.to_s]
       end
       csv << ['Number of visits', 'Number of URLs']
       num_requests_visited_n_times.to_a.sort.each do |number_of_times, number_of_requests|
@@ -302,17 +297,12 @@ namespace :temp do
       csv << ['Total number of visits']
       csv << [processed]
     end
-
   end
 
   desc 'Look for and fix invalid UTF-8 text in various models. Should be run under ruby 1.9 or above'
-  task :fix_invalid_utf8 => :environment do
-
+  task fix_invalid_utf8: :environment do
     dryrun = ENV['DRYRUN'] != '0'
-    if dryrun
-      $stderr.puts "This is a dryrun - nothing will be changed"
-    end
-
+    $stderr.puts "This is a dryrun - nothing will be changed" if dryrun
 
     PublicBody.find_each do |public_body|
       unless public_body.name.valid_encoding?
@@ -344,7 +334,6 @@ namespace :temp do
         end
       end
       PublicBody::Version.record_timestamps = true
-
     end
 
     IncomingMessage.find_each do |incoming_message|
@@ -355,9 +344,7 @@ namespace :temp do
          (incoming_message.cached_main_body_text_unfolded &&
           !incoming_message.cached_main_body_text_unfolded.valid_encoding?)
         puts "Bad encoding in IncomingMessage cached fields, :id #{incoming_message.id} "
-        unless dryrun
-          incoming_message.clear_in_database_caches!
-        end
+        incoming_message.clear_in_database_caches! unless dryrun
       end
     end
 
@@ -398,11 +385,10 @@ namespace :temp do
         end
       end
     end
-
   end
 
   desc 'Set reject_incoming_at_mta on a list of requests identified by request address'
-  task :set_reject_incoming_at_mta_from_list => :environment do
+  task set_reject_incoming_at_mta_from_list: :environment do
     example = 'rake temp:set_reject_incoming_at_mta_from_list FILE=/tmp/rejection_list.txt'
     check_for_env_vars(['FILE'], example)
     f = File.read(ENV['FILE'])
@@ -414,36 +400,28 @@ namespace :temp do
   end
 
   desc 'Look for a fix requests with line breaks in titles'
-  task :remove_line_breaks_from_request_titles => :environment do
+  task remove_line_breaks_from_request_titles: :environment do
     InfoRequest.where("title LIKE ? OR title LIKE ?", "%\n%", "%\r%").
-                each { |request| request.save! }
+                each(&:save!)
   end
 
   desc "Generate request summaries for every user"
-  task :generate_request_summaries => :environment do
+  task generate_request_summaries: :environment do
     User.find_each do |user|
-      user.info_requests.each do |request|
-        request.create_or_update_request_summary
-      end
-      user.draft_info_requests.each do |request|
-        request.create_or_update_request_summary
-      end
-      user.info_request_batches.each do |request|
-        request.create_or_update_request_summary
-      end
-      user.draft_info_request_batches.each do |request|
-        request.create_or_update_request_summary
-      end
+      user.info_requests.each(&:create_or_update_request_summary)
+      user.draft_info_requests.each(&:create_or_update_request_summary)
+      user.info_request_batches.each(&:create_or_update_request_summary)
+      user.draft_info_request_batches.each(&:create_or_update_request_summary)
     end
   end
 
   desc 'Set use_notifications to false on all existing requests'
-  task :set_use_notifications => :environment do
+  task set_use_notifications: :environment do
     InfoRequest.update_all use_notifications: false
   end
 
   desc 'Set a default time for users daily summary notifications'
-  task :set_daily_summary_times => :environment do
+  task set_daily_summary_times: :environment do
     query = "UPDATE users " \
             "SET daily_summary_hour = floor(random() * 24), " \
             "daily_summary_minute = floor(random() * 60)"
@@ -451,7 +429,7 @@ namespace :temp do
   end
 
   desc 'Remove notifications_tester role'
-  task :remove_notifications_tester_role => :environment do
+  task remove_notifications_tester_role: :environment do
     if Role.where(name: 'notifications_tester').exists?
       Role.where(name: 'notifications_tester').destroy_all
     end

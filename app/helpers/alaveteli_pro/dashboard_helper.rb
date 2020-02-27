@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 module AlaveteliPro::DashboardHelper
-
   def activity_item_description(activity_item)
     _(activity_item.description, description_urls(activity_item))
   end
@@ -12,4 +11,3 @@ module AlaveteliPro::DashboardHelper
     end
   end
 end
-

@@ -10,7 +10,7 @@ describe "When searching" do
   end
 
   it "should not strip quotes from quoted query" do
-    get "/search", params: { :query => '"mouse stilton"' }
+    get "/search", params: { query: '"mouse stilton"' }
     follow_redirect!
     expect(response.body).to include("&quot;mouse stilton&quot;")
   end
@@ -21,7 +21,7 @@ describe "When searching" do
   end
 
   it "should correctly execute simple search" do
-    get "/search", params: { :query => 'bob' }
+    get "/search", params: { query: 'bob' }
     follow_redirect!
     expect(response.body).to include("FOI requests")
   end
@@ -32,7 +32,7 @@ describe "When searching" do
       user_session = login(user)
       using_session(user_session) do
         visit frontpage_path
-        fill_in "navigation_search_button", :with => 'test'
+        fill_in "navigation_search_button", with: 'test'
         click_button "Search"
         expect(page.body).to include(user.name)
       end
@@ -61,9 +61,9 @@ describe "When searching" do
 
   it "should correctly filter searches for successful requests" do
     get "/search/requests", params: {
-                              :query => "bob",
-                              :latest_status => ['successful']
-                            }
+      query: "bob",
+      latest_status: ['successful']
+    }
     n = 2 # The number of *successful* requests that contain the word "bob" somewhere
     # in the email text. At present this is:
     # - boring_request
@@ -73,15 +73,15 @@ describe "When searching" do
 
   it "should correctly filter searches for comments" do
     get "/search/requests", params: {
-                              :query => "daftest",
-                              :request_variety => ['comments']
-                            }
+      query: "daftest",
+      request_variety: ['comments']
+    }
     expect(response.body).to include("One FOI request found")
 
     get "/search/requests", params: {
-                              :query => "daftest",
-                              :request_variety => ['response', 'sent']
-                            }
+      query: "daftest",
+      request_variety: %w[response sent]
+    }
     expect(response.body).to include("no results matching your query")
   end
 
@@ -89,7 +89,7 @@ describe "When searching" do
 
     it 'should return JSON formatted results' do
       get '/feed/search/chicken.json'
-      response_data = JSON.parse(response.body, :symbolize_names => true)
+      response_data = JSON.parse(response.body, symbolize_names: true)
 
       expect(response.content_type).to eq('application/json')
       expect(response_data.size).to eql(1)
@@ -101,8 +101,8 @@ describe "When searching" do
 
   it "should search for requests made to a tagged set of public authorities" do
     get "/search/requests", params: {
-                              :query => "request_public_body_tag:popular_agency"
-                            }
+      query: "request_public_body_tag:popular_agency"
+    }
     # In the fixtures there are 2 public bodies with the popular_agency tag:
     # - geraldine_public_body
     # - humpadink_public_body

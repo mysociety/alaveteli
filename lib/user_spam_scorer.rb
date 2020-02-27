@@ -1,21 +1,21 @@
 # -*- encoding : utf-8 -*-
 class UserSpamScorer
   DEFAULT_SCORE_MAPPINGS = {
-    :name_is_all_lowercase? => 1,
-    :name_is_one_word? => 1,
-    :name_includes_non_alpha_characters? => 3,
-    :name_is_garbled? => 5,
-    :email_from_suspicious_domain? => 5,
-    :email_from_spam_domain? => 8,
-    :email_from_spam_tld? => 3,
-    :name_is_spam_format? => 5,
-    :about_me_includes_currency_symbol? => 2,
-    :about_me_is_link_only? => 3,
-    :about_me_is_spam_format? => 1,
-    :about_me_includes_anchor_tag? => 1,
-    :about_me_already_exists? => 4,
-    :user_agent_is_suspicious? => 5,
-    :ip_range_is_suspicious? => 5
+    name_is_all_lowercase?: 1,
+    name_is_one_word?: 1,
+    name_includes_non_alpha_characters?: 3,
+    name_is_garbled?: 5,
+    email_from_suspicious_domain?: 5,
+    email_from_spam_domain?: 8,
+    email_from_spam_tld?: 3,
+    name_is_spam_format?: 5,
+    about_me_includes_currency_symbol?: 2,
+    about_me_is_link_only?: 3,
+    about_me_is_spam_format?: 1,
+    about_me_includes_anchor_tag?: 1,
+    about_me_already_exists?: 4,
+    user_agent_is_suspicious?: 5,
+    ip_range_is_suspicious?: 5
   }.freeze
 
   DEFAULT_CURRENCY_SYMBOLS = %w(£ $ € ¥ ¢).freeze

@@ -3,7 +3,7 @@ module Translatable
   extend ActiveSupport::Concern
 
   included do
-    accepts_nested_attributes_for :translations, :reject_if => :empty_translation_in_params?
+    accepts_nested_attributes_for :translations, reject_if: :empty_translation_in_params?
   end
 
   def find_translation_by_locale(locale)
@@ -25,7 +25,7 @@ module Translatable
   def build_all_translations
     AlaveteliLocalization.available_locales.each do |locale|
       if translations.none? { |translation| translation.locale.to_s == locale }
-        translations.build(:locale => locale)
+        translations.build(locale: locale)
       end
     end
   end

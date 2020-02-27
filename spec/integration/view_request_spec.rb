@@ -21,9 +21,9 @@ describe "When viewing requests" do
       browse_request("#{@info_request.url_title}?unfold=1")
       expected_link = "/en/request/#{@info_request.url_title}.json?unfold=1"
       expect(page).to have_css("head link[href='#{expected_link}']",
-                                  :visible => false)
+                               visible: false)
       expect(page).not_to have_css("head link[href='#{expected_link}.json']",
-                                      :visible => false)
+                                   visible: false)
     end
   end
 
@@ -110,7 +110,7 @@ describe "When viewing requests" do
         expect(page).to have_content("This message has been hidden.")
         expect(page).to have_content("It is too irritating.")
         expect(page).not_to have_content("sign in</a> to view the message.")
-        expect( page).not_to have_content("hereisthetext")
+        expect(page).not_to have_content("hereisthetext")
       end
 
       # requester

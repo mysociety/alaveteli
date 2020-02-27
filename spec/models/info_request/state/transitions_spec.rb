@@ -418,8 +418,8 @@ describe InfoRequest::State::Transitions do
     end
 
     it "returns a hash of labelled states" do
-      actual = subject.labelled_hash(['successful'], {is_owning_user: true})
-      expected = {"successful" => "I've received <strong>all the information</strong>"}
+      actual = subject.labelled_hash(['successful'], is_owning_user: true)
+      expected = { "successful" => "I've received <strong>all the information</strong>" }
       expect(expected).to eq(actual)
     end
   end

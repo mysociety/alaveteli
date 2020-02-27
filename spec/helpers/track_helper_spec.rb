@@ -23,7 +23,7 @@ describe TrackHelper do
     end
 
     it 'should create a following subscription notice' do
-      expected = %Q(You are now <a href="#{show_user_wall_path(:url_name => @track_thing.tracking_user.url_name)}">following</a> updates about <a href="/search/Example%20Query/newest/advanced">this search</a>.)
+      expected = %Q(You are now <a href="#{show_user_wall_path(url_name: @track_thing.tracking_user.url_name)}">following</a> updates about <a href="/search/Example%20Query/newest/advanced">this search</a>.)
       expect(subscribe_follow_notice(@track_thing)).to eq(expected)
     end
 
@@ -56,7 +56,7 @@ describe TrackHelper do
     end
 
     it 'should create a following subscription notice' do
-      expected = %Q(You are now <a href="#{show_user_wall_path(:url_name => @track_thing.tracking_user.url_name)}">following</a> updates about '#{user_link(@track_thing.tracked_user)}', a person.)
+      expected = %Q(You are now <a href="#{show_user_wall_path(url_name: @track_thing.tracking_user.url_name)}">following</a> updates about '#{user_link(@track_thing.tracked_user)}', a person.)
       expect(subscribe_follow_notice(@track_thing)).to eq(expected)
     end
 
@@ -89,7 +89,7 @@ describe TrackHelper do
     end
 
     it 'should create a following subscription notice' do
-      expected = %Q(You are now <a href="#{show_user_wall_path(:url_name => @track_thing.tracking_user.url_name)}">following</a> updates about '#{public_body_link(@track_thing.public_body)}', a public authority.)
+      expected = %Q(You are now <a href="#{show_user_wall_path(url_name: @track_thing.tracking_user.url_name)}">following</a> updates about '#{public_body_link(@track_thing.public_body)}', a public authority.)
       expect(subscribe_follow_notice(@track_thing)).to eq(expected)
     end
 
@@ -121,7 +121,7 @@ describe TrackHelper do
     end
 
     it 'should create a following subscription notice' do
-      expected = %Q(You are now <a href="#{show_user_wall_path(:url_name => @track_thing.tracking_user.url_name)}">following</a> updates about <a href="/list/successful">successful requests</a>.)
+      expected = %Q(You are now <a href="#{show_user_wall_path(url_name: @track_thing.tracking_user.url_name)}">following</a> updates about <a href="/list/successful">successful requests</a>.)
       expect(subscribe_follow_notice(@track_thing)).to eq(expected)
     end
 
@@ -153,7 +153,7 @@ describe TrackHelper do
     end
 
     it 'should create a following subscription notice' do
-      expected = %Q(You are now <a href="#{show_user_wall_path(:url_name => @track_thing.tracking_user.url_name)}">following</a> updates about <a href="/list">new requests</a>.)
+      expected = %Q(You are now <a href="#{show_user_wall_path(url_name: @track_thing.tracking_user.url_name)}">following</a> updates about <a href="/list">new requests</a>.)
       expect(subscribe_follow_notice(@track_thing)).to eq(expected)
     end
 
@@ -186,7 +186,7 @@ describe TrackHelper do
     end
 
     it 'should create a following subscription notice' do
-      expected = %Q(You are now <a href="#{show_user_wall_path(:url_name => @track_thing.tracking_user.url_name)}">following</a> updates about '#{request_link(@track_thing.info_request)}', a request.)
+      expected = %Q(You are now <a href="#{show_user_wall_path(url_name: @track_thing.tracking_user.url_name)}">following</a> updates about '#{request_link(@track_thing.info_request)}', a request.)
       expect(subscribe_follow_notice(@track_thing)).to eq(expected)
     end
 

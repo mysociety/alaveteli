@@ -17,7 +17,7 @@ set :use_sudo, false
 set :rails_env, configuration['rails_env']
 set :daemon_name, configuration.fetch('daemon_name', 'alaveteli')
 
-server configuration['server'], :app, :web, :db, :primary => true
+server configuration['server'], :app, :web, :db, primary: true
 
 set(:rbenv_ruby_version) do
   command = "cat #{shared_path}/rbenv-version 2>/dev/null || true"
@@ -28,9 +28,8 @@ end
 if rbenv_ruby_version
   set(:rbenv_path) { capture("echo $HOME/.rbenv").strip }
   set(:rbenv_shims_path) { File.join(rbenv_path, 'shims') }
-  set :default_environment, {
-    'PATH' => [rbenv_shims_path, '$PATH'].join(':')
-  }
+  set :default_environment,
+      'PATH' => [rbenv_shims_path, '$PATH'].join(':')
 end
 
 namespace :themes do
@@ -38,7 +37,6 @@ namespace :themes do
     run "cd #{latest_release} && bundle exec rake themes:install RAILS_ENV=#{rails_env}"
   end
 end
-
 
 # Not in the rake namespace because we're also specifying app-specific arguments here
 namespace :xapian do
@@ -49,10 +47,9 @@ namespace :xapian do
 end
 
 namespace :deploy do
-
   [:start, :stop, :restart].each do |t|
     desc "#{t.to_s.capitalize} Alaveteli service defined in /etc/init.d/"
-    task t, :roles => :app, :except => { :no_release => true } do
+    task t, roles: :app, except: { no_release: true } do
       run "/etc/init.d/#{ daemon_name } #{ t }"
     end
   end
@@ -73,7 +70,7 @@ namespace :deploy do
       "#{release_path}/log" => "#{shared_path}/log",
       "#{release_path}/tmp/pids" => "#{shared_path}/tmp/pids",
       "#{release_path}/lib/acts_as_xapian/xapiandbs" => "#{shared_path}/xapiandbs",
-      "#{release_path}/lib/themes" => "#{shared_path}/themes",
+      "#{release_path}/lib/themes" => "#{shared_path}/themes"
     }
 
     if rbenv_ruby_version

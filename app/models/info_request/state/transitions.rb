@@ -53,38 +53,38 @@ class InfoRequest
       def self.labelled_hash(states, opts = {})
         hash = {}
         states.each do |state|
-          hash[state] = self.transition_label(state, opts)
+          hash[state] = transition_label(state, opts)
         end
         hash
       end
 
       private
 
-      def self.owner_waiting_response_transition_label(opts = {})
+      def self.owner_waiting_response_transition_label(_opts = {})
         _("I'm still <strong>waiting</strong> for my information <small>(maybe you got an acknowledgement)</small>")
       end
 
-      def self.owner_not_held_transition_label(opts = {})
+      def self.owner_not_held_transition_label(_opts = {})
         _("They do <strong>not have</strong> the information <small>(maybe they say who does)</small>")
       end
 
-      def self.owner_rejected_transition_label(opts = {})
+      def self.owner_rejected_transition_label(_opts = {})
         _("My request has been <strong>refused</strong>")
       end
 
-      def self.owner_partially_successful_transition_label(opts = {})
+      def self.owner_partially_successful_transition_label(_opts = {})
         _("I've received <strong>some of the information</strong>")
       end
 
-      def self.owner_successful_transition_label(opts = {})
+      def self.owner_successful_transition_label(_opts = {})
         _("I've received <strong>all the information</strong>")
       end
 
-      def self.owner_waiting_clarification_transition_label(opts = {})
+      def self.owner_waiting_clarification_transition_label(_opts = {})
         _("I've been asked to <strong>clarify</strong> my request")
       end
 
-      def self.owner_gone_postal_transition_label(opts = {})
+      def self.owner_gone_postal_transition_label(_opts = {})
         _("They are going to reply <strong>by postal mail</strong>")
       end
 
@@ -96,48 +96,48 @@ class InfoRequest
         end
       end
 
-      def self.owner_error_message_transition_label(opts = {})
+      def self.owner_error_message_transition_label(_opts = {})
         _("I've received an <strong>error message</strong>")
       end
 
-      def self.owner_requires_admin_transition_label(opts = {})
+      def self.owner_requires_admin_transition_label(_opts = {})
         _("This request <strong>requires administrator attention</strong>")
       end
 
-      def self.owner_user_withdrawn_transition_label(opts = {})
+      def self.owner_user_withdrawn_transition_label(_opts = {})
         _("I would like to <strong>withdraw this request</strong>")
       end
 
-      def self.other_user_waiting_response_transition_label(opts = {})
+      def self.other_user_waiting_response_transition_label(_opts = {})
         _("<strong>No response</strong> has been received <small>(maybe " \
           "there's just an acknowledgement)</small>")
       end
 
-      def self.other_user_not_held_transition_label(opts = {})
+      def self.other_user_not_held_transition_label(_opts = {})
         _("The authority do <strong>not have</strong> the information " \
           "<small>(maybe they say who does)</small>")
       end
 
-      def self.other_user_rejected_transition_label(opts = {})
+      def self.other_user_rejected_transition_label(_opts = {})
         _("The request has been <strong>refused</strong>")
       end
 
-      def self.other_user_partially_successful_transition_label(opts = {})
+      def self.other_user_partially_successful_transition_label(_opts = {})
         # TODO: - trailing space copied from
         # views/request/_other_describe_state.html.erb, will it break
         # translations if I fix it?
         _("<strong>Some of the information</strong> has been sent ")
       end
 
-      def self.other_user_successful_transition_label(opts = {})
+      def self.other_user_successful_transition_label(_opts = {})
         _("<strong>All the information</strong> has been sent")
       end
 
-      def self.other_user_waiting_clarification_transition_label(opts = {})
+      def self.other_user_waiting_clarification_transition_label(_opts = {})
         _("<strong>Clarification</strong> has been requested")
       end
 
-      def self.other_user_gone_postal_transition_label(opts = {})
+      def self.other_user_gone_postal_transition_label(_opts = {})
         _("A response will be sent <strong>by postal mail</strong>")
       end
 
@@ -151,51 +151,51 @@ class InfoRequest
         end
       end
 
-      def self.other_user_error_message_transition_label(opts = {})
+      def self.other_user_error_message_transition_label(_opts = {})
         _("An <strong>error message</strong> has been received")
       end
 
-      def self.pro_waiting_response_transition_label(opts = {})
+      def self.pro_waiting_response_transition_label(_opts = {})
         State.short_description('waiting_response')
       end
 
-      def self.pro_not_held_transition_label(opts = {})
+      def self.pro_not_held_transition_label(_opts = {})
         State.short_description('not_held')
       end
 
-      def self.pro_rejected_transition_label(opts = {})
+      def self.pro_rejected_transition_label(_opts = {})
         State.short_description('rejected')
       end
 
-      def self.pro_partially_successful_transition_label(opts = {})
+      def self.pro_partially_successful_transition_label(_opts = {})
         State.short_description('partially_successful')
       end
 
-      def self.pro_successful_transition_label(opts = {})
+      def self.pro_successful_transition_label(_opts = {})
         State.short_description('successful')
       end
 
-      def self.pro_waiting_clarification_transition_label(opts = {})
+      def self.pro_waiting_clarification_transition_label(_opts = {})
         State.short_description('waiting_clarification')
       end
 
-      def self.pro_gone_postal_transition_label(opts = {})
+      def self.pro_gone_postal_transition_label(_opts = {})
         State.short_description('gone_postal')
       end
 
-      def self.pro_internal_review_transition_label(opts = {})
+      def self.pro_internal_review_transition_label(_opts = {})
         State.short_description('internal_review')
       end
 
-      def self.pro_error_message_transition_label(opts = {})
+      def self.pro_error_message_transition_label(_opts = {})
         State.short_description('error_message')
       end
 
-      def self.pro_requires_admin_transition_label(opts = {})
+      def self.pro_requires_admin_transition_label(_opts = {})
         State.short_description('requires_admin')
       end
 
-      def self.pro_user_withdrawn_transition_label(opts = {})
+      def self.pro_user_withdrawn_transition_label(_opts = {})
         State.short_description('user_withdrawn')
       end
     end

@@ -12,7 +12,7 @@ describe HealthChecks::Checks::DaysAgoCheck do
   end
 
   it 'accepts a custom number of days' do
-    check = HealthChecks::Checks::DaysAgoCheck.new(:days => 4)
+    check = HealthChecks::Checks::DaysAgoCheck.new(days: 4)
     expect(check.days).to eq(4)
   end
 
@@ -39,7 +39,7 @@ describe HealthChecks::Checks::DaysAgoCheck do
     end
 
     it 'includes the check subject in a custom message' do
-      params = { :failure_message => 'This check failed' }
+      params = { failure_message: 'This check failed' }
       subject = 2.days.ago
       check = HealthChecks::Checks::DaysAgoCheck.new(params) { subject }
       expect(check.failure_message).to include(subject.to_s)
@@ -56,7 +56,7 @@ describe HealthChecks::Checks::DaysAgoCheck do
     end
 
     it 'includes the check subject in a custom message' do
-      params = { :success_message => 'This check succeeded' }
+      params = { success_message: 'This check succeeded' }
       subject = Time.zone.now
       check = HealthChecks::Checks::DaysAgoCheck.new(params) { subject }
       expect(check.success_message).to include(subject.to_s)

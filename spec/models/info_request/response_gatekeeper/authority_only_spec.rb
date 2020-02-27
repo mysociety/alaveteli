@@ -8,7 +8,6 @@ describe InfoRequest::ResponseGatekeeper::AuthorityOnly do
       to eq(InfoRequest::ResponseGatekeeper::Base)
   end
 
-
   describe '#allow?' do
 
     it 'requires an email' do
@@ -126,7 +125,6 @@ describe InfoRequest::ResponseGatekeeper::AuthorityOnly do
 
         expect(gatekeeper.allow?(email)).to eq(true)
       end
-
 
       it 'sets the reason to nil' do
         raw = <<-EOF.strip_heredoc

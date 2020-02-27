@@ -6,14 +6,14 @@ class AddCensorTable < ActiveRecord::Migration[4.2] # 2.1
       t.column :user_id, :integer
       t.column :public_body_id, :integer
 
-      t.column :text, :text, :null => false
-      t.column :replacement, :text, :null => false
+      t.column :text, :text, null: false
+      t.column :replacement, :text, null: false
 
-      t.column :last_edit_editor, :string, :null => false
-      t.column :last_edit_comment, :text, :null => false
+      t.column :last_edit_editor, :string, null: false
+      t.column :last_edit_comment, :text, null: false
 
-      t.column :created_at, :datetime, :null => false
-      t.column :updated_at, :datetime, :null => false
+      t.column :created_at, :datetime, null: false
+      t.column :updated_at, :datetime, null: false
     end
 
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"

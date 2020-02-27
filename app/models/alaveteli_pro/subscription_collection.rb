@@ -40,7 +40,7 @@ module AlaveteliPro
     # enumerable
     def each(&block)
       if block_given?
-        wrapped_block = -> (subscription) do
+        wrapped_block = lambda do |subscription|
           block.call(AlaveteliPro::Subscription.new(subscription))
         end
 

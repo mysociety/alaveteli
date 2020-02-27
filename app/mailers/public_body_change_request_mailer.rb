@@ -21,11 +21,13 @@ class PublicBodyChangeRequestMailer < ApplicationMailer
     # refused
     from_address = MailHandler.address_from_name_and_email(
       @change_request.get_user_name,
-      blackhole_email)
+      blackhole_email
+    )
 
     reply_to_address = MailHandler.address_from_name_and_email(
       @change_request.get_user_name,
-      @change_request.get_user_email)
+      @change_request.get_user_email
+    )
 
     set_reply_to_headers(nil, 'Reply-To' => reply_to_address)
 

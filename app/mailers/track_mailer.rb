@@ -6,17 +6,17 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class TrackMailer < ApplicationMailer
-
-  before_action :set_footer_template, :only => :event_digest
+  before_action :set_footer_template, only: :event_digest
 
   # Note that this is different from all the other mailers, as tracks are
   # sent from a different email address and have different bounce handling.
   def contact_from_name_and_email
-    "#{AlaveteliConfiguration::track_sender_name} <#{AlaveteliConfiguration::track_sender_email}>"
+    "#{AlaveteliConfiguration.track_sender_name} <#{AlaveteliConfiguration.track_sender_email}>"
   end
 
   def event_digest(user, email_about_things)
-    @user, @email_about_things = user, email_about_things
+    @user = user
+    @email_about_things = email_about_things
 
     @unsubscribe_url =
       signin_url(r: user_url(user,
@@ -38,10 +38,10 @@ class TrackMailer < ApplicationMailer
     # (We let it return bounces for now, so we can manually kill the tracks that bounce so Yahoo
     # etc. don't decide we are spammers.)
 
-    mail(:from => contact_from_name_and_email,
-         :to => user.name_and_email,
-         :subject => _("Your {{site_name}} email alert",
-                       :site_name => site_name.html_safe))
+    mail(from: contact_from_name_and_email,
+         to: user.name_and_email,
+         subject: _("Your {{site_name}} email alert",
+                    site_name: site_name.html_safe))
   end
 
   # Send email alerts for tracked things.  Never more than one email
@@ -55,13 +55,13 @@ class TrackMailer < ApplicationMailer
     done_something = false
     now = Time.zone.now
     one_week_ago = now - 7.days
-    User.where(["last_daily_track_email < ?", now - 1.day ]).find_each do |user|
+    User.where(["last_daily_track_email < ?", now - 1.day]).find_each do |user|
       next if !user.should_be_emailed? || !user.receive_email_alerts
 
       email_about_things = []
-      track_things = TrackThing.where(:tracking_user_id => user.id,
-                                      :track_medium => 'email_daily')
-      for track_thing in track_things
+      track_things = TrackThing.where(tracking_user_id: user.id,
+                                      track_medium: 'email_daily')
+      track_things.each do |track_thing|
         # What have we alerted on already?
         #
         # We only use track_things_sent_emails records which are less than 14 days old.
@@ -71,8 +71,8 @@ class TrackMailer < ApplicationMailer
         # for a whole week, then they will miss some items. Tough.
         done_info_request_events = {}
         tt_sent = track_thing.track_things_sent_emails.where('created_at > ?', now - 14.days)
-        for t in tt_sent
-          if not t.info_request_event_id.nil?
+        tt_sent.each do |t|
+          unless t.info_request_event_id.nil?
             done_info_request_events[t.info_request_event_id] = 1
           end
         end
@@ -81,13 +81,13 @@ class TrackMailer < ApplicationMailer
         # ordering, so we catch anything new (before described), or
         # anything whose new status has been described.
         xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], track_thing.track_query,
-                                                 :sort_by_prefix => 'described_at',
-                                                 :sort_by_ascending => true,
-                                                 :collapse_by_prefix => nil,
-                                                 :limit => 100)
+                                                 sort_by_prefix: 'described_at',
+                                                 sort_by_ascending: true,
+                                                 collapse_by_prefix: nil,
+                                                 limit: 100)
         # Go through looking for unalerted things
         alert_results = []
-        for result in xapian_object.results
+        xapian_object.results.each do |result|
           if result[:model].class.to_s != "InfoRequestEvent"
             raise "need to add other types to TrackMailer.alert_tracks (unalerted)"
           end
@@ -100,13 +100,13 @@ class TrackMailer < ApplicationMailer
           alert_results.push(result)
         end
         # If there were more alerts for this track, then store them
-        if alert_results.size > 0
+        unless alert_results.empty?
           email_about_things.push([track_thing, alert_results, xapian_object])
         end
       end
 
       # If we have anything to send, then send everything for the user in one mail
-      if email_about_things.size > 0
+      unless email_about_things.empty?
         # Send the email
 
         AlaveteliLocalization.with_locale(user.locale) do
@@ -115,8 +115,8 @@ class TrackMailer < ApplicationMailer
       end
 
       # Record that we've now sent those alerts to that user
-      for track_thing, alert_results in email_about_things
-        for result in alert_results
+      email_about_things.each do |track_thing, alert_results|
+        alert_results.each do |result|
           track_things_sent_email = TrackThingsSentEmail.new
           track_things_sent_email.track_thing_id = track_thing.id
           if result[:model].class.to_s == "InfoRequestEvent"
@@ -132,14 +132,14 @@ class TrackMailer < ApplicationMailer
       user.save!(touch: false)
       done_something = true
     end
-    return done_something
+    done_something
   end
 
   def self.alert_tracks_loop
     # Run alert_tracks in an endless loop, sleeping when there is nothing to do
-    while true
+    loop do
       sleep_seconds = 1
-      while !alert_tracks
+      until alert_tracks
         sleep sleep_seconds
         sleep_seconds *= 2
         sleep_seconds = 300 if sleep_seconds > 300
@@ -152,5 +152,4 @@ class TrackMailer < ApplicationMailer
   def set_footer_template
     @footer_template = 'default'
   end
-
 end

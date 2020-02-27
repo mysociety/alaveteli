@@ -9,7 +9,7 @@ class OutgoingMessage
 
       def self.placeholder_salutation
         _('Dear {{placeholder_body_name}},',
-          placeholder_body_name: self.placeholder_body_name)
+          placeholder_body_name: placeholder_body_name)
       end
 
       # Separate so that it can be referred to directly elsewhere (e.g. to
@@ -50,7 +50,7 @@ class OutgoingMessage
 
       def assert_required_keys(hash, *required_keys)
         required_keys.each do |required_key|
-          unless hash.has_key?(required_key)
+          unless hash.key?(required_key)
             raise ArgumentError, "Missing required key: #{required_key}"
           end
         end

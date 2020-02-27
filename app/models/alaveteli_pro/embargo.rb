@@ -15,17 +15,17 @@
 module AlaveteliPro
   class Embargo < ApplicationRecord
     belongs_to :info_request,
-               :inverse_of => :embargo
+               inverse_of: :embargo
     has_many :embargo_extensions,
-             :inverse_of => :embargo
+             inverse_of: :embargo
     has_one :user,
-            :inverse_of => :embargoes,
-            :through => :info_request
+            inverse_of: :embargoes,
+            through: :info_request
 
     validates_presence_of :info_request
     validates_presence_of :publish_at
     validates_inclusion_of :embargo_duration,
-                           in: lambda { |e| e.allowed_durations },
+                           in: ->(e) { e.allowed_durations },
                            allow_nil: true
     after_initialize :set_default_duration,
                      :set_publish_at_from_duration,
@@ -43,9 +43,9 @@ module AlaveteliPro
     TWELVE_MONTHS = 364.days
 
     DURATIONS = {
-      "3_months" => Proc.new { THREE_MONTHS },
-      "6_months" => Proc.new { SIX_MONTHS },
-      "12_months" => Proc.new { TWELVE_MONTHS }
+      "3_months" => proc { THREE_MONTHS },
+      "6_months" => proc { SIX_MONTHS },
+      "12_months" => proc { TWELVE_MONTHS }
     }.freeze
 
     scope :expiring, -> { where("publish_at <= ?", expiring_soon_time) }
@@ -128,24 +128,21 @@ module AlaveteliPro
         info_request = embargo.info_request
         event = info_request.log_event(
           'embargo_expiring',
-          { :event_created_at => Time.zone.now },
-          { :created_at => embargo.expiring_notification_at })
-        if info_request.use_notifications?
-          info_request.user.notify(event)
-        end
+          { event_created_at: Time.zone.now },
+          created_at: embargo.expiring_notification_at
+        )
+        info_request.user.notify(event) if info_request.use_notifications?
       end
     end
 
     private
 
     def add_set_embargo_event
-      publish_at_changed = self.publish_at_changed?
+      publish_at_changed = publish_at_changed?
       yield
       if publish_at_changed
-        params = { :embargo_id => self.id }
-        if extension
-          params[:embargo_extension_id] = extension.id
-        end
+        params = { embargo_id: id }
+        params[:embargo_extension_id] = extension.id if extension
         info_request.log_event('set_embargo', params)
       end
     end
@@ -157,7 +154,7 @@ module AlaveteliPro
     end
 
     def set_expiring_notification_at
-      unless self.expiring_notification_at.present?
+      unless expiring_notification_at.present?
         self.expiring_notification_at = calculate_expiring_notification_at
       end
     end

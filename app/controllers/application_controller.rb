@@ -15,16 +15,16 @@ class ApplicationController < ActionController::Base
   class RouteNotFound < StandardError
   end
   before_action :collect_locales
-  protect_from_forgery :if => :user?, :with => :exception
-  skip_before_action :verify_authenticity_token, :unless => :user?
+  protect_from_forgery if: :user?, with: :exception
+  skip_before_action :verify_authenticity_token, unless: :user?
 
   # Deal with access denied errors from CanCan
-  rescue_from CanCan::AccessDenied do |exception|
+  rescue_from CanCan::AccessDenied do |_exception|
     raise PermissionDenied
   end
 
   # assign our own handler method for non-local exceptions
-  rescue_from Exception, :with => :render_exception
+  rescue_from Exception, with: :render_exception
 
   # Standard headers, footers and navigation for whole site
   layout "default"
@@ -103,7 +103,7 @@ class ApplicationController < ActionController::Base
   # egrep "CONSUME MEMORY: [0-9]{7} KB" production.log
   around_action :record_memory
   def record_memory
-    record_memory = AlaveteliConfiguration::debug_record_memory
+    record_memory = AlaveteliConfiguration.debug_record_memory
     if record_memory
       logger.info "Processing request for #{request.url} with Rails process #{Process.pid}"
       File.read("/proc/#{Process.pid}/status").match(/VmRSS:\s+(\d+)/)
@@ -159,9 +159,7 @@ class ApplicationController < ActionController::Base
   def render_exception(exception)
     # In development let Rails handle the exception with its stack trace
     # templates.
-    if Rails.application.config.consider_all_requests_local
-      raise exception
-    end
+    raise exception if Rails.application.config.consider_all_requests_local
 
     @exception_backtrace = exception.backtrace.join("\n")
     @exception_class = exception.class.to_s
@@ -180,23 +178,23 @@ class ApplicationController < ActionController::Base
       message << "  " << backtrace.join("\n  ")
       Rails.logger.fatal("#{message}\n\n")
       if send_exception_notifications?
-        ExceptionNotifier.notify_exception(exception, :env => request.env)
+        ExceptionNotifier.notify_exception(exception, env: request.env)
       end
       @status = 500
     end
     respond_to do |format|
-      format.html { render :template => "general/exception_caught", :status => @status }
+      format.html { render template: "general/exception_caught", status: @status }
       format.any { head @status }
     end
   end
 
-  def render_hidden(template='request/hidden', opts = {})
+  def render_hidden(template = 'request/hidden', opts = {})
     # An embargoed is totally hidden - no indication that anything exists there
     # to see
     raise ActiveRecord::RecordNotFound if @info_request && @info_request.embargo
 
     response_code = opts.delete(:response_code) { 403 } # forbidden
-    options = { :template => template, :status => response_code }.merge(opts)
+    options = { template: template, status: response_code }.merge(opts)
 
     respond_to do |format|
       format.html { render(options) }
@@ -229,8 +227,8 @@ class ApplicationController < ActionController::Base
   # Check the user is logged in
   def authenticated?(reason_params)
     unless session[:user_id]
-      post_redirect = PostRedirect.new(:uri => request.fullpath, :post_params => params,
-                                       :reason_params => reason_params)
+      post_redirect = PostRedirect.new(uri: request.fullpath, post_params: params,
+                                       reason_params: reason_params)
       post_redirect.save!
       # Make sure this redirect does not get cached - it only applies to this user.
       # HTTP 1.1
@@ -241,15 +239,15 @@ class ApplicationController < ActionController::Base
       headers['Expires'] = '0'
       # 'modal' controls whether the sign-in form will be displayed in the typical full-blown
       # page or on its own, useful for pop-ups
-      redirect_to signin_url(:token => post_redirect.token, :modal => params[:modal])
+      redirect_to signin_url(token: post_redirect.token, modal: params[:modal])
       return false
     end
-    return true
+    true
   end
 
   def authenticated_as_user?(user, reason_params)
     reason_params[:user_name] = user.name
-    reason_params[:user_url] = show_user_url(:url_name => user.url_name)
+    reason_params[:user_url] = show_user_url(url_name: user.url_name)
     if session[:user_id]
       if session[:user_id] == user.id
         # They are logged in as the right user
@@ -257,18 +255,18 @@ class ApplicationController < ActionController::Base
       else
         # They are already logged in, but as the wrong user
         @reason_params = reason_params
-        render :template => 'user/wrong_user'
+        render template: 'user/wrong_user'
         return
       end
     end
     # They are not logged in at all
-    return authenticated?(reason_params)
+    authenticated?(reason_params)
   end
 
   # Return logged in user
   def authenticated_user
     if session[:user_id].nil?
-      return nil
+      nil
     else
       begin
         return User.find(session[:user_id])
@@ -279,13 +277,13 @@ class ApplicationController < ActionController::Base
   end
 
   # For CanCanCan and other libs which need a Devise-like current_user method
-  alias_method :current_user, :authenticated_user
+  alias current_user authenticated_user
   helper_method :current_user
 
   # Do a POST redirect. This is a nasty hack - we store the posted values in
   # the session, and when the GET redirect with "?post_redirect=1" happens,
   # load them in.
-  def do_post_redirect(post_redirect, user=nil)
+  def do_post_redirect(post_redirect, user = nil)
     uri = SafeRedirect.new(post_redirect.uri).path
     if feature_enabled?(:alaveteli_pro) &&
        user &&
@@ -319,7 +317,7 @@ class ApplicationController < ActionController::Base
         uri += "?post_redirect=1"
       end
     end
-    return uri
+    uri
   end
 
   # If we are in a faked redirect to POST request, then set post params.
@@ -345,46 +343,43 @@ class ApplicationController < ActionController::Base
 
   # Default layout shows user in corner, so needs access to it
   def authentication_check
-    if session[:user_id]
-      @user = authenticated_user
-    end
+    @user = authenticated_user if session[:user_id]
   end
 
   #
   def check_read_only
-    if !AlaveteliConfiguration::read_only.empty?
+    unless AlaveteliConfiguration.read_only.empty?
       if feature_enabled?(:annotations)
         flash[:notice] = {
-          :partial => "general/read_only_annotations.html.erb",
-          :locals => {
-            :site_name => site_name,
-            :read_only => AlaveteliConfiguration.read_only
+          partial: "general/read_only_annotations.html.erb",
+          locals: {
+            site_name: site_name,
+            read_only: AlaveteliConfiguration.read_only
           }
         }
       else
         flash[:notice] = {
-          :partial => "general/read_only.html.erb",
-          :locals => {
-            :site_name => site_name,
-            :read_only => AlaveteliConfiguration.read_only
+          partial: "general/read_only.html.erb",
+          locals: {
+            site_name: site_name,
+            read_only: AlaveteliConfiguration.read_only
           }
         }
       end
       redirect_to frontpage_url
     end
-
   end
 
   # Convert URL name for sort by order, to Xapian query
   def order_to_sort_by(sortby)
     if sortby.nil?
-      return [nil, nil]
+      [nil, nil]
     elsif sortby == 'newest'
-      return ['created_at', true]
+      ['created_at', true]
     elsif sortby == 'described'
-      return ['described_at', true] # use this for some RSS
+      ['described_at', true] # use this for some RSS
     elsif sortby == 'relevant'
-      return [nil, nil]
+      [nil, nil]
     else
       raise "Unknown sort order " + @sortby
     end
@@ -403,41 +398,41 @@ class ApplicationController < ActionController::Base
     @page = this_page || get_search_page_from_params
 
     result = ActsAsXapian::Search.new(models, @query,
-                                      :offset => (@page - 1) * @per_page,
-                                      :limit => @per_page,
-                                      :sort_by_prefix => order,
-                                      :sort_by_ascending => ascending,
-                                      :collapse_by_prefix => collapse
-                                      )
+                                      offset: (@page - 1) * @per_page,
+                                      limit: @per_page,
+                                      sort_by_prefix: order,
+                                      sort_by_ascending: ascending,
+                                      collapse_by_prefix: collapse)
     result.results # Touch the results to load them, otherwise accessing them from the view
     # might fail later if the database has subsequently been reopened.
-    return result
+    result
   end
 
   def get_search_page_from_params
     page = (params[:page] || "1").to_i
     page = 1 if page < 1
-    return page
+    page
   end
 
   def typeahead_search(query, options)
     @page = get_search_page_from_params
     @per_page = options[:per_page] || 25
-    options.merge!( :page => @page,
-                    :per_page => @per_page )
+    options[:page] = @page
+    options[:per_page] = @per_page
     typeahead_search = TypeaheadSearch.new(query, options)
     typeahead_search.xapian_search
   end
 
   # Store last visited pages, for contact form; but only for logged in users, as otherwise this breaks caching
   def set_last_request(info_request)
-    if !session[:user_id].nil?
+    unless session[:user_id].nil?
       cookies["last_request_id"] = info_request.id
       cookies["last_body_id"] = nil
     end
   end
+
   def set_last_body(public_body)
-    if !session[:user_id].nil?
+    unless session[:user_id].nil?
       cookies["last_request_id"] = nil
       cookies["last_body_id"] = public_body.id
     end
@@ -445,15 +440,13 @@ class ApplicationController < ActionController::Base
 
   def country_from_ip
     return AlaveteliGeoIP.country_code_from_ip(user_ip) if user_ip
-    AlaveteliConfiguration::iso_country_code
+    AlaveteliConfiguration.iso_country_code
   end
 
   def user_ip
-    begin
-      request.remote_ip
-    rescue ActionDispatch::RemoteIp::IpSpoofAttackError
-      nil
-    end
+    request.remote_ip
+  rescue ActionDispatch::RemoteIp::IpSpoofAttackError
+    nil
   end
 
   def alaveteli_git_commit
@@ -466,14 +459,14 @@ class ApplicationController < ActionController::Base
   #
   # Returns a Hash
   def sanitize_path(params)
-    params.merge!(:path => Rack::Utils.escape(params[:path])) if params.key?(:path)
+    params.merge!(path: Rack::Utils.escape(params[:path])) if params.key?(:path)
   end
 
   # Collect the current and available locales for the locale switcher
   #
   # Returns a Hash
   def collect_locales
-    @locales = { :current => AlaveteliLocalization.locale, :available => [] }
+    @locales = { current: AlaveteliLocalization.locale, available: [] }
     AlaveteliLocalization.available_locales.each do |possible_locale|
       if possible_locale == AlaveteliLocalization.locale
         @locales[:current] = possible_locale

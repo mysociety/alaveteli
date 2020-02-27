@@ -41,7 +41,7 @@ class AlaveteliPro::DraftInfoRequestBatchesController < ApplicationController
 
   private
 
-  def respond_or_redirect(draft)
+  def respond_or_redirect(_draft)
     @query = params[:authority_query]
     @page = params[:page]
     if request.xhr?
@@ -86,12 +86,12 @@ class AlaveteliPro::DraftInfoRequestBatchesController < ApplicationController
   # different params.
   def draft_params
     params.require(:alaveteli_pro_draft_info_request_batch).
-      permit(:title, :body, :embargo_duration, :public_body_ids, )
+      permit(:title, :body, :embargo_duration, :public_body_ids)
   end
 
   def draft_params_multiple_bodies
     params.require(:alaveteli_pro_draft_info_request_batch).
-      permit(:title, :body, :embargo_duration, :public_body_ids => [])
+      permit(:title, :body, :embargo_duration, public_body_ids: [])
   end
 
   def update_bodies_params

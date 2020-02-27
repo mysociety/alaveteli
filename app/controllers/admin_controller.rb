@@ -16,7 +16,7 @@ class AdminController < ApplicationController
 
   # For administration interface, return display name of authenticated user
   def admin_current_user
-    if AlaveteliConfiguration::skip_admin_auth
+    if AlaveteliConfiguration.skip_admin_auth
       admin_http_auth_user
     else
       session[:admin_name]
@@ -30,26 +30,27 @@ class AdminController < ApplicationController
     # Hence the second clause which reads X-Forwarded-User header if available.
     # See the rewrite rules in conf/httpd.conf which set X-Forwarded-User
     if request.env["REMOTE_USER"]
-      return request.env["REMOTE_USER"]
+      request.env["REMOTE_USER"]
     elsif request.env["HTTP_X_FORWARDED_USER"]
-      return request.env["HTTP_X_FORWARDED_USER"]
+      request.env["HTTP_X_FORWARDED_USER"]
     else
-      return "*unknown*";
+      "*unknown*"
     end
   end
 
   def authenticate
-    if AlaveteliConfiguration::skip_admin_auth
+    if AlaveteliConfiguration.skip_admin_auth
       session[:using_admin] = 1
-      return
+      nil
     else
       if session[:using_admin].nil? || session[:admin_name].nil?
-        if params[:emergency].nil? || AlaveteliConfiguration::disable_emergency_user
+        if params[:emergency].nil? || AlaveteliConfiguration.disable_emergency_user
           if authenticated?(
-              :web => _("To log into the administrative interface"),
-              :email => _("Then you can log into the administrative interface"),
-              :email_subject => _("Log into the admin interface"),
-            :user_name => "a superuser")
+            web: _("To log into the administrative interface"),
+            email: _("Then you can log into the administrative interface"),
+            email_subject: _("Log into the admin interface"),
+            user_name: "a superuser"
+          )
             if !@user.nil? && @user.is_admin?
               session[:using_admin] = 1
               session[:admin_name] = @user.url_name
@@ -57,12 +58,12 @@ class AdminController < ApplicationController
               session[:using_admin] = nil
               session[:user_id] = nil
               session[:admin_name] = nil
-              self.authenticate
+              authenticate
             end
           end
         else
           authenticate_or_request_with_http_basic do |user_name, password|
-            if user_name == AlaveteliConfiguration::admin_username && password == AlaveteliConfiguration::admin_password
+            if user_name == AlaveteliConfiguration.admin_username && password == AlaveteliConfiguration.admin_password
               session[:using_admin] = 1
               session[:admin_name] = user_name
             else

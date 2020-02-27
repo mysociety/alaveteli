@@ -16,7 +16,7 @@ describe 'when showing the form for describing the state of a request' do
   end
 
   def do_render
-    render :partial => 'request/describe_state', :locals => {:id_suffix => '1'}
+    render partial: 'request/describe_state', locals: { id_suffix: '1' }
   end
 
   before do
@@ -29,18 +29,19 @@ describe 'when showing the form for describing the state of a request' do
       assign :is_owning_user, false
       assign :state_transitions, info_request.state.transitions(
         is_owning_user: false,
-        user_asked_to_update_status: false)
+        user_asked_to_update_status: false
+      )
     end
 
     describe 'if the request is not old and unclassified' do
       it 'should not show the form' do
         do_render
-        expect(response.body).not_to have_css('h2', :text => 'What best describes the status of this request now?')
+        expect(response.body).not_to have_css('h2', text: 'What best describes the status of this request now?')
       end
 
       it 'should give a link to login' do
         do_render
-        expect(response.body).to have_css('a', :text => 'sign in')
+        expect(response.body).to have_css('a', text: 'sign in')
       end
     end
 
@@ -51,17 +52,17 @@ describe 'when showing the form for describing the state of a request' do
 
       it 'should not show the form' do
         do_render
-        expect(response.body).not_to have_css('h2', :text => 'What best describes the status of this request now?')
+        expect(response.body).not_to have_css('h2', text: 'What best describes the status of this request now?')
       end
 
       it 'should show the form for someone else to classify the request' do
         do_render
-        expect(response.body).to have_css('h2', :text => 'We need your help')
+        expect(response.body).to have_css('h2', text: 'We need your help')
       end
 
       it 'should not give a link to login' do
         do_render
-        expect(response.body).not_to have_css('a', :text => 'sign in')
+        expect(response.body).not_to have_css('a', text: 'sign in')
       end
     end
   end
@@ -71,7 +72,8 @@ describe 'when showing the form for describing the state of a request' do
       assign :is_owning_user, true
       assign :state_transitions, info_request.state.transitions(
         is_owning_user: true,
-        user_asked_to_update_status: false)
+        user_asked_to_update_status: false
+      )
     end
 
     describe 'when the request is not in internal review' do
@@ -79,7 +81,8 @@ describe 'when showing the form for describing the state of a request' do
         info_request.set_described_state('waiting_response')
         assign :state_transitions, info_request.state.transitions(
           is_owning_user: true,
-          user_asked_to_update_status: false)
+          user_asked_to_update_status: false
+        )
       end
 
       it 'should show a radio button to set the status to "waiting response"' do
@@ -100,7 +103,8 @@ describe 'when showing the form for describing the state of a request' do
         assign :update_status, true
         assign :state_transitions, info_request.state.transitions(
           is_owning_user: true,
-          user_asked_to_update_status: true)
+          user_asked_to_update_status: true
+        )
       end
 
       it 'should show a radio button to set the status to "internal_review"' do
@@ -121,7 +125,8 @@ describe 'when showing the form for describing the state of a request' do
         info_request.set_described_state('internal_review')
         assign :state_transitions, info_request.state.transitions(
           is_owning_user: true,
-          user_asked_to_update_status: false)
+          user_asked_to_update_status: false
+        )
       end
 
       it 'should show a radio button to set the status to "internal review"' do
@@ -130,7 +135,7 @@ describe 'when showing the form for describing the state of a request' do
 
       it 'should show the text "The review has finished and overall:"' do
         do_render
-        expect(response).to have_css('p', :text => 'The review has finished and overall:')
+        expect(response).to have_css('p', text: 'The review has finished and overall:')
       end
     end
 

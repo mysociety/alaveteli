@@ -7,7 +7,7 @@ class InfoRequest
       end
 
       def call
-        @relation.where(prominence: ['normal', 'backpage']).not_embargoed
+        @relation.where(prominence: %w[normal backpage]).not_embargoed
       end
     end
   end

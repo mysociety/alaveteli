@@ -40,7 +40,7 @@ class IncomingMessage < ApplicationRecord
   include AdminColumn
   include MessageProminence
 
-  MAX_ATTACHMENT_TEXT_CLIPPED = 1000000 # 1Mb ish
+  MAX_ATTACHMENT_TEXT_CLIPPED = 1_000_000 # 1Mb ish
 
   belongs_to :info_request,
              inverse_of: :incoming_messages,
@@ -51,22 +51,22 @@ class IncomingMessage < ApplicationRecord
   validates_presence_of :raw_email
 
   has_many :outgoing_message_followups,
-           :inverse_of => :incoming_message_followup,
-           :foreign_key => 'incoming_message_followup_id',
-           :class_name => 'OutgoingMessage',
-           :dependent => :nullify
+           inverse_of: :incoming_message_followup,
+           foreign_key: 'incoming_message_followup_id',
+           class_name: 'OutgoingMessage',
+           dependent: :nullify
   has_many :foi_attachments,
            -> { order('id') },
-           :inverse_of => :incoming_message,
-           :dependent => :destroy
+           inverse_of: :incoming_message,
+           dependent: :destroy
   # never really has many info_request_events, but could in theory
   has_many :info_request_events,
-           :dependent => :destroy,
-           :inverse_of => :incoming_message
+           dependent: :destroy,
+           inverse_of: :incoming_message
 
   belongs_to :raw_email,
-             :inverse_of => :incoming_message,
-             :dependent => :destroy
+             inverse_of: :incoming_message,
+             dependent: :destroy
 
   after_destroy :update_request
   after_update :update_request
@@ -83,20 +83,18 @@ class IncomingMessage < ApplicationRecord
   # Given that there are in theory many info request events, a convenience method for
   # getting the response event
   def response_event
-    self.info_request_events.detect { |e| e.event_type == 'response' }
+    info_request_events.detect { |e| e.event_type == 'response' }
   end
 
   def parse_raw_email!(force = nil)
     # The following fields may be absent; we treat them as cached
     # values in case we want to regenerate them (due to mail
     # parsing bugs, etc).
-    if self.raw_email.nil?
-      raise "Incoming message id=#{id} has no raw_email"
-    end
-    if (!force.nil? || self.last_parsed.nil?)
+    raise "Incoming message id=#{id} has no raw_email" if raw_email.nil?
+    if !force.nil? || last_parsed.nil?
       ActiveRecord::Base.transaction do
-        self.extract_attachments!
-        write_attribute(:sent_at, raw_email.date || self.created_at)
+        extract_attachments!
+        write_attribute(:sent_at, raw_email.date || created_at)
         write_attribute(:subject, raw_email.subject)
         write_attribute(:mail_from, raw_email.from_name)
         if from_email
@@ -107,8 +105,8 @@ class IncomingMessage < ApplicationRecord
         end
         write_attribute(:valid_to_reply_to, raw_email.valid_to_reply_to?)
         self.last_parsed = Time.zone.now
-        self.foi_attachments.reload
-        self.save!
+        foi_attachments.reload
+        save!
       end
     end
   end
@@ -129,7 +127,7 @@ class IncomingMessage < ApplicationRecord
     super
   end
 
-  alias_method :valid_to_reply_to?, :valid_to_reply_to
+  alias valid_to_reply_to? valid_to_reply_to
 
   # Public: The date and time the email was sent. Uses the Date header if
   # present in the email, otherwise uses the record's created_at attribute.
@@ -194,9 +192,7 @@ class IncomingMessage < ApplicationRecord
   #
   # Returns a String
   def safe_mail_from
-    if mail_from
-      info_request.apply_censor_rules_to_text(mail_from)
-    end
+    info_request.apply_censor_rules_to_text(mail_from) if mail_from
   end
 
   # Public: The domain part of the email address in the From header.
@@ -252,11 +248,7 @@ class IncomingMessage < ApplicationRecord
       attachments_by_filename = attachments.select { |a|
         a.display_filename == display_filename
       }
-      if attachments_by_filename.length == 1
-        attachments_by_filename[0]
-      else
-        nil
-      end
+      attachments_by_filename[0] if attachments_by_filename.length == 1
     end
   end
 
@@ -286,16 +278,16 @@ class IncomingMessage < ApplicationRecord
   end
 
   def apply_masks(text, content_type)
-    mask_options = { :censor_rules => info_request.applicable_censor_rules,
-                     :masks => info_request.masks }
+    mask_options = { censor_rules: info_request.applicable_censor_rules,
+                     masks: info_request.masks }
     AlaveteliTextMasker.apply_masks(text, content_type, mask_options)
   end
 
   # Lotus notes quoting yeuch!
   def remove_lotus_quoting(text, replacement = "FOLDED_QUOTED_SECTION")
     text = text.dup
-    return text if self.info_request.user_name.nil?
-    name = Regexp.escape(self.info_request.user_name)
+    return text if info_request.user_name.nil?
+    name = Regexp.escape(info_request.user_name)
 
     # To end of message sections
     text.gsub!(/^\s?#{name}[^\n]+\n([^\n]+\n)?\s?Sent by:[^\n]+\n.*/im, "\n\n" + replacement)
@@ -303,15 +295,11 @@ class IncomingMessage < ApplicationRecord
     # Some other sort of forwarding quoting
     text.gsub!(/^\s?#{name}\s+To\s+FOI requests at.*/im, "\n\n" + replacement)
 
-
     # http://www.whatdotheyknow.com/request/229/response/809
     text.gsub!(/^\s?From: [^\n]+\n\s?Sent: [^\n]+\n\s?To:\s+['"]?#{name}['"]?\n\s?Subject:.*/im, "\n\n" + replacement)
 
-
-    return text
-
+    text
   end
-
 
   # Remove quoted sections from emails (eventually the aim would be for this
   # to do as good a job as GMail does) TODO: bet it needs a proper parser
@@ -366,28 +354,26 @@ class IncomingMessage < ApplicationRecord
                     Further\s+communication\s+will\s+signify\s+your\s+consent\s+to\s+this\.
                     /imx, replacement)
 
-
     # To end of message sections
     # http://www.whatdotheyknow.com/request/123/response/192
     # http://www.whatdotheyknow.com/request/235/response/513
     # http://www.whatdotheyknow.com/request/445/response/743
     original_message =
-      '(' + '''----* This is a copy of the message, including all the headers. ----*''' +
-      '|' + '''----*\s*Original Message\s*----*''' +
-      '|' + '''----*\s*Forwarded message.+----*''' +
-      '|' + '''----*\s*Forwarded by.+----*''' +
+      '(' + '''----* This is a copy of the message, including all the headers. ----*''' \
+      '|' + '''----*\s*Original Message\s*----*''' \
+      '|' + '''----*\s*Forwarded message.+----*''' \
+      '|' + '''----*\s*Forwarded by.+----*''' \
       ')'
     # Could have a ^ at start here, but see messed up formatting here:
     # http://www.whatdotheyknow.com/request/refuse_and_recycling_collection#incoming-842
     text.gsub!(/(#{original_message}\n.*)$/mi, replacement)
-
 
     # Some silly Microsoft XML gets into parts marked as plain text.
     # e.g. http://www.whatdotheyknow.com/request/are_traffic_wardens_paid_commiss#incoming-401
     # Don't replace with "replacement" as it's pretty messy
     text.gsub!(/<\?xml:namespace[^>]*\/>/, " ")
 
-    return text
+    text
   end
 
   # Removes anything cached about the object in the database, and saves
@@ -395,19 +381,19 @@ class IncomingMessage < ApplicationRecord
     self.cached_attachment_text_clipped = nil
     self.cached_main_body_text_unfolded = nil
     self.cached_main_body_text_folded = nil
-    self.save!
+    save!
   end
 
   # Internal function to cache two sorts of main body text.
   # Cached as loading raw_email can be quite huge, and need this for just
   # search results
   def _cache_main_body_text
-    text = self.get_main_body_text_internal
+    text = get_main_body_text_internal
     # Strip the uudecode parts from main text
     # - this also effectively does a .dup as well, so text mods don't alter original
     text = text.split(/^begin.+^`\n^end\n/m).join(" ")
 
-    if text.size > 1000000 # 1 MB ish
+    if text.size > 1_000_000 # 1 MB ish
       raise "main body text more than 1 MB, need to implement clipping like for attachment text, or there is some other MIME decoding problem or similar"
     end
 
@@ -415,34 +401,33 @@ class IncomingMessage < ApplicationRecord
     text = apply_masks(text, 'text/html')
 
     # Remove existing quoted sections
-    folded_quoted_text = self.remove_lotus_quoting(text, 'FOLDED_QUOTED_SECTION')
+    folded_quoted_text = remove_lotus_quoting(text, 'FOLDED_QUOTED_SECTION')
     folded_quoted_text = IncomingMessage.remove_quoted_sections(folded_quoted_text, "FOLDED_QUOTED_SECTION")
 
     self.cached_main_body_text_unfolded = text.delete("\0")
     self.cached_main_body_text_folded = folded_quoted_text.delete("\0")
-    self.save!
+    save!
   end
+
   # Returns body text from main text part of email, converted to UTF-8, with uudecode removed,
   # emails and privacy sensitive things remove, censored, and folded to remove excess quoted text
   # (marked with FOLDED_QUOTED_SECTION)
   # TODO: returns a .dup of the text, so calling functions can in place modify it
   def get_main_body_text_folded
-    if self.cached_main_body_text_folded.nil?
-      self._cache_main_body_text
-    end
-    return self.cached_main_body_text_folded
+    _cache_main_body_text if cached_main_body_text_folded.nil?
+    cached_main_body_text_folded
   end
+
   def get_main_body_text_unfolded
-    if self.cached_main_body_text_unfolded.nil?
-      self._cache_main_body_text
-    end
-    return self.cached_main_body_text_unfolded
+    _cache_main_body_text if cached_main_body_text_unfolded.nil?
+    cached_main_body_text_unfolded
   end
+
   # Returns body text from main text part of email, converted to UTF-8
   def get_main_body_text_internal
     parse_raw_email!
     main_part = get_main_body_text_part
-    return _convert_part_body_to_text(main_part)
+    _convert_part_body_to_text(main_part)
   end
 
   # Given a main text part, converts it to text
@@ -464,7 +449,7 @@ class IncomingMessage < ApplicationRecord
     # Add an annotation if the text had to be scrubbed
     if part && part.body_as_text.scrubbed?
       text += _("\n\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]",
-                :site_name => AlaveteliConfiguration.site_name)
+                site_name: AlaveteliConfiguration.site_name)
     end
     # Fix DOS style linefeeds to Unix style ones (or other later regexps won't work)
     text = text.gsub(/\r\n/, "\n")
@@ -474,14 +459,14 @@ class IncomingMessage < ApplicationRecord
     # http://www.whatdotheyknow.com/request/spending_on_consultants
     text = text.gsub(/ +/, " ")
 
-    return text
+    text
   end
 
   # Returns part which contains main body text, or nil if there isn't one,
   # from a set of foi_attachments. If the leaves parameter is empty or not
   # supplied, uses its own foi_attachments.
-  def get_main_body_text_part(leaves=[])
-    leaves = self.foi_attachments if leaves.empty?
+  def get_main_body_text_part(leaves = [])
+    leaves = foi_attachments if leaves.empty?
 
     # Find first part which is text/plain or text/html
     # (We have to include HTML, as increasingly there are mail clients that
@@ -489,16 +474,14 @@ class IncomingMessage < ApplicationRecord
     # instead use the first text attachment
     # e.g. http://www.whatdotheyknow.com/request/list_of_public_authorties)
     leaves.each do |p|
-      if p.content_type == 'text/plain' or p.content_type == 'text/html'
+      if (p.content_type == 'text/plain') || (p.content_type == 'text/html')
         return p
       end
     end
 
     # Otherwise first part which is any sort of text
     leaves.each do |p|
-      if p.content_type.match(/^text/)
-        return p
-      end
+      return p if p.content_type.match(/^text/)
     end
 
     # ... or if none, consider first part
@@ -513,7 +496,7 @@ class IncomingMessage < ApplicationRecord
     # like binary/octet-stream, or the like, which are really text - TODO: if
     # you find an example, put URL here - perhaps we should be always returning
     # nil in this case)
-    return p
+    p
   end
 
   # Returns attachments that are uuencoded in main body part
@@ -534,10 +517,10 @@ class IncomingMessage < ApplicationRecord
         content_type = 'application/octet-stream'
       end
       hexdigest = Digest::MD5.hexdigest(content)
-      attachment = foi_attachments.find_or_create_by(:hexdigest => hexdigest)
-      attachment.update_attributes(:filename => filename,
-                                   :content_type => content_type,
-                                   :body => content)
+      attachment = foi_attachments.find_or_create_by(hexdigest: hexdigest)
+      attachment.update_attributes(filename: filename,
+                                   content_type: content_type,
+                                   body: content)
       attachment.save!
       attachments << attachment
     end
@@ -549,10 +532,10 @@ class IncomingMessage < ApplicationRecord
     # return what user would consider attachments, i.e. not the main body
     main_part = get_main_body_text_part
     attachments = []
-    for attachment in self.foi_attachments
+    foi_attachments.each do |attachment|
       attachments << attachment if attachment != main_part
     end
-    return attachments
+    attachments
   end
 
   def extract_attachments!
@@ -561,14 +544,14 @@ class IncomingMessage < ApplicationRecord
     attachment_attributes = MailHandler.get_attachment_attributes(_mail)
     attachments = []
     attachment_attributes.each do |attrs|
-      attachment = self.foi_attachments.find_or_create_by(:hexdigest => attrs[:hexdigest])
+      attachment = foi_attachments.find_or_create_by(hexdigest: attrs[:hexdigest])
       attachment.update_attributes(attrs)
       attachment.save!
       attachments << attachment
     end
 
     # Reload to refresh newly created foi_attachments
-    self.reload
+    reload
 
     # get the main body part from the set of attachments we just created,
     # not from the self.foi_attachments association - some of the total set
@@ -579,10 +562,10 @@ class IncomingMessage < ApplicationRecord
     # we don't use get_main_body_text_internal, as we want to avoid charset
     # conversions, since _uudecode_and_save_attachments needs to deal with those.
     # e.g. for https://secure.mysociety.org/admin/foi/request/show_raw_email/24550
-    if !main_part.nil?
+    unless main_part.nil?
       uudecoded_attachments = _uudecode_and_save_attachments(main_part.body)
       c = _mail.count_first_uudecode_count
-      for uudecode_attachment in uudecoded_attachments
+      uudecoded_attachments.each do |uudecode_attachment|
         c += 1
         uudecode_attachment.url_part_number = c
         uudecode_attachment.save!
@@ -590,13 +573,13 @@ class IncomingMessage < ApplicationRecord
       end
     end
 
-    attachment_ids = attachments.map { |attachment| attachment.id }
+    attachment_ids = attachments.map(&:id)
     # now get rid of any attachments we no longer have
     FoiAttachment.
       where(
         ["id NOT IN (?) AND incoming_message_id = ?",
          attachment_ids,
-         self.id]
+         id]
       ).destroy_all
   end
 
@@ -611,12 +594,10 @@ class IncomingMessage < ApplicationRecord
     # links, without escaping them. Rather than using some proper parser
     # making a tree structure (I don't know of one that is to hand, that
     # works well in this kind of situation, such as with regexps).
-    if collapse_quoted_sections
-      text = folded_quoted_text
-    end
+    text = folded_quoted_text if collapse_quoted_sections
     text = MySociety::Format.simplify_angle_bracketed_urls(text)
     text = CGI.escapeHTML(text)
-    text = MySociety::Format.make_clickable(text, :contract => 1)
+    text = MySociety::Format.make_clickable(text, contract: 1)
 
     # add a helpful link to email addresses and mobile numbers removed
     # by apply_masks
@@ -630,13 +611,13 @@ class IncomingMessage < ApplicationRecord
       text.strip!
       # if there is nothing but quoted stuff, then show the subject
       if text == "FOLDED_QUOTED_SECTION"
-        text = "[Subject only] " + CGI.escapeHTML(self.subject || '') + text
+        text = "[Subject only] " + CGI.escapeHTML(subject || '') + text
       end
       # and display link for quoted stuff
-      text = text.gsub(/FOLDED_QUOTED_SECTION/, "\n\n" + '<span class="unfold_link"><a href="?unfold=1#incoming-'+self.id.to_s+'">'+_("show quoted sections")+'</a></span>' + "\n\n")
+      text = text.gsub(/FOLDED_QUOTED_SECTION/, "\n\n" + '<span class="unfold_link"><a href="?unfold=1#incoming-' + id.to_s + '">' + _("show quoted sections") + '</a></span>' + "\n\n")
     else
       if folded_quoted_text.include?('FOLDED_QUOTED_SECTION')
-        text = text + "\n\n" + '<span class="unfold_link"><a href="?#incoming-'+self.id.to_s+'">'+_("hide quoted sections")+'</a></span>'
+        text = text + "\n\n" + '<span class="unfold_link"><a href="?#incoming-' + id.to_s + '">' + _("hide quoted sections") + '</a></span>'
       end
     end
     text.strip!
@@ -645,7 +626,6 @@ class IncomingMessage < ApplicationRecord
     text.html_safe
   end
 
-
   # Returns text of email for using in quoted section when replying
   def get_body_for_quoting
     # Get the body text with emails and quoted sections removed
@@ -653,41 +633,42 @@ class IncomingMessage < ApplicationRecord
     text.gsub!("FOLDED_QUOTED_SECTION", " ")
     text.strip!
     raise "internal error" if text.nil?
-    return text
+    text
   end
 
   # Returns text version of attachment text
   def get_attachment_text_full
-    text = self._get_attachment_text_internal
+    text = _get_attachment_text_internal
     text = apply_masks(text, 'text/html')
 
     # This can be useful for memory debugging
-    #STDOUT.puts 'xxx '+ MySociety::DebugHelpers::allocated_string_size_around_gc
+    # STDOUT.puts 'xxx '+ MySociety::DebugHelpers::allocated_string_size_around_gc
 
     # Save clipped version for snippets
-    if self.cached_attachment_text_clipped.nil?
+    if cached_attachment_text_clipped.nil?
       clipped = text.mb_chars[0..MAX_ATTACHMENT_TEXT_CLIPPED].delete("\0")
       self.cached_attachment_text_clipped = clipped
       save!
     end
 
-    return text
+    text
   end
+
   # Returns a version reduced to a sensible maximum size - this
   # is for performance reasons when showing snippets in search results.
   def get_attachment_text_clipped
-    if self.cached_attachment_text_clipped.nil?
+    if cached_attachment_text_clipped.nil?
       # As side effect, get_attachment_text_full makes snippet text
-      attachment_text = self.get_attachment_text_full
-      raise "internal error" if self.cached_attachment_text_clipped.nil?
+      attachment_text = get_attachment_text_full
+      raise "internal error" if cached_attachment_text_clipped.nil?
     end
 
-    return self.cached_attachment_text_clipped
+    cached_attachment_text_clipped
   end
 
   def _extract_text
     # Extract text from each attachment
-    self.get_attachments_for_display.reduce('') { |memo, attachment|
+    get_attachments_for_display.reduce('') { |memo, attachment|
       memo += MailHandler.get_attachment_text_one_file(attachment.content_type,
                                                        attachment.default_body,
                                                        attachment.charset)
@@ -700,46 +681,48 @@ class IncomingMessage < ApplicationRecord
 
   # Returns text for indexing
   def get_text_for_indexing_full
-    return get_body_for_quoting + "\n\n" + get_attachment_text_full
+    get_body_for_quoting + "\n\n" + get_attachment_text_full
   end
+
   # Used for excerpts in search results, when loading full text would be too slow
   def get_text_for_indexing_clipped
-    return get_body_for_quoting + "\n\n" + get_attachment_text_clipped
+    get_body_for_quoting + "\n\n" + get_attachment_text_clipped
   end
 
   # Has message arrived "recently"?
   def recently_arrived
-    (Time.zone.now - self.created_at) <= 3.days
+    (Time.zone.now - created_at) <= 3.days
   end
 
   # Search all info requests for
   def self.find_all_unknown_mime_types
     IncomingMessage.find_each do |incoming_message|
-      for attachment in incoming_message.get_attachments_for_display
+      incoming_message.get_attachments_for_display.each do |attachment|
         raise "internal error incoming_message " + incoming_message.id.to_s if attachment.content_type.nil?
         if AlaveteliFileTypes.mimetype_to_extension(attachment.content_type).nil?
-          $stderr.puts "Unknown type for /request/" + incoming_message.info_request.id.to_s + "#incoming-"+incoming_message.id.to_s
+          $stderr.puts "Unknown type for /request/" + incoming_message.info_request.id.to_s + "#incoming-" + incoming_message.id.to_s
           $stderr.puts " " + attachment.filename.to_s + " " + attachment.content_type.to_s
         end
       end
     end
 
-    return nil
+    nil
   end
 
   # Returns space separated list of file extensions of attachments to this message. Defaults to
   # the normal extension for known mime type, otherwise uses other extensions.
   def get_present_file_extensions
     ret = {}
-    for attachment in self.get_attachments_for_display
+    get_attachments_for_display.each do |attachment|
       ext = AlaveteliFileTypes.mimetype_to_extension(attachment.content_type)
       ext = File.extname(attachment.filename).gsub(/^[.]/, "") if ext.nil? && !attachment.filename.nil?
-      ret[ext] = 1 if !ext.nil?
+      ret[ext] = 1 unless ext.nil?
     end
-    return ret.keys.join(" ")
+    ret.keys.join(" ")
   end
+
   # Return space separated list of all file extensions known
   def self.get_all_file_extensions
-    return AlaveteliFileTypes.all_extensions.join(" ")
+    AlaveteliFileTypes.all_extensions.join(" ")
   end
 end

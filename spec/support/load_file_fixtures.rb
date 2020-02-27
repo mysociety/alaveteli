@@ -5,7 +5,7 @@ end
 
 def load_file_fixture(file_name, mode = 'rb')
   file_name = file_fixture_name(file_name)
-  File.open(file_name, mode) { |f| f.read } if File.exist?(file_name)
+  File.open(file_name, mode, &:read) if File.exist?(file_name)
 end
 
 def read_described_class_fixture(fixture)

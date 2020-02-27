@@ -21,7 +21,7 @@ require 'spec_helper'
 RSpec.describe AlaveteliPro::RequestSummary, type: :model do
   let(:public_bodies) { FactoryBot.create_list(:public_body, 3) }
   let(:public_body_names) do
-    public_bodies.sort { |x,y| x.name <=> y.name }.map(&:name).join(" ")
+    public_bodies.sort { |x, y| x.name <=> y.name }.map(&:name).join(" ")
   end
 
   it "requires a summarisable" do
@@ -209,7 +209,6 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
       end
     end
 
-
     describe "setting categories" do
       context "when the request is a draft request" do
         let(:draft) { FactoryBot.create(:draft_info_request) }
@@ -316,17 +315,20 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
           first_request = batch.info_requests.first
           incoming_message = FactoryBot.create(
             :incoming_message,
-            info_request: first_request)
+            info_request: first_request
+          )
           first_request.log_event(
             "response",
-            incoming_message_id: incoming_message.id)
+            incoming_message_id: incoming_message.id
+          )
           first_request.awaiting_description = true
           first_request.save!
 
           second_request = batch.info_requests.second
           incoming_message = FactoryBot.create(
             :incoming_message,
-            info_request: second_request)
+            info_request: second_request
+          )
           second_request.set_described_state('successful')
 
           batch.reload

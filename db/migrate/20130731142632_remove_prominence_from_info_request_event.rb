@@ -5,6 +5,6 @@ class RemoveProminenceFromInfoRequestEvent < ActiveRecord::Migration[4.2] # 3.1
   end
 
   def down
-    add_column :info_request_events, :prominence, :string, :null => false, :default => 'normal'
+    add_column :info_request_events, :prominence, :string, null: false, default: 'normal'
   end
 end

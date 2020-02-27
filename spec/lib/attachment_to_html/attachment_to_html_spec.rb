@@ -20,12 +20,12 @@ describe AttachmentToHTML do
     end
 
     it 'passes content injections options when rendering the result' do
-      html = to_html(attachment, :content_for => { :body_prefix => '<p>prefix</p>' })
+      html = to_html(attachment, content_for: { body_prefix: '<p>prefix</p>' })
       expect(html).to include('<p>prefix</p>')
     end
 
     it 'accepts a hash of options to pass to the adapter' do
-      options = { :wrapper => 'wrap' }
+      options = { wrapper: 'wrap' }
       expect(AttachmentToHTML::Adapters::Text).to receive(:new).with(attachment, options).and_call_original
       to_html(attachment, options)
     end
@@ -39,13 +39,13 @@ describe AttachmentToHTML do
     end
 
     it 'converts an attachment that doesnt have an adapter, but has a google viewer' do
-      attachment = FactoryBot.build(:body_text, :content_type => 'application/vnd.ms-word')
+      attachment = FactoryBot.build(:body_text, content_type: 'application/vnd.ms-word')
       expect(AttachmentToHTML::Adapters::GoogleDocsViewer).to receive(:new).with(attachment, {}).and_call_original
       to_html(attachment)
     end
 
     it 'converts an attachment that has no adapter or google viewer' do
-      attachment = FactoryBot.build(:body_text, :content_type => 'application/json')
+      attachment = FactoryBot.build(:body_text, content_type: 'application/json')
       expect(AttachmentToHTML::Adapters::CouldNotConvert).to receive(:new).with(attachment, {}).and_call_original
       to_html(attachment)
     end

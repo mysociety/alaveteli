@@ -5,8 +5,8 @@ describe AlaveteliPro::ActivityList::Comment do
   include Rails.application.routes.url_helpers
 
   let!(:user) { FactoryBot.create(:user) }
-  let!(:comment) { FactoryBot.create(:comment, :user => user) }
-  let!(:event) { FactoryBot.create(:comment_event, :comment => comment) }
+  let!(:comment) { FactoryBot.create(:comment, user: user) }
+  let!(:event) { FactoryBot.create(:comment_event, comment: comment) }
   let!(:activity) { described_class.new(event) }
 
   describe '#description' do
@@ -16,7 +16,6 @@ describe AlaveteliPro::ActivityList::Comment do
         to eq '{{commenter_name}} added a new annotation on your request to ' \
               '{{public_body_name}} "{{info_request_title}}."'
     end
-
 
     it 'gives an appropriate description for a comment from the requester' do
       info_request = event.info_request
@@ -34,15 +33,12 @@ describe AlaveteliPro::ActivityList::Comment do
         :info_request_title' do
       expected_urls =
         {
-         :commenter_name =>
-            { :text => user.name,
-              :url => user_path(user) },
-          :public_body_name =>
-            { :text => event.info_request.public_body.name,
-              :url => public_body_path(event.info_request.public_body) },
-          :info_request_title =>
-            { :text => event.info_request.title,
-              :url => request_path(event.info_request) }
+          commenter_name: { text: user.name,
+                            url: user_path(user) },
+          public_body_name: { text: event.info_request.public_body.name,
+                              url: public_body_path(event.info_request.public_body) },
+          info_request_title: { text: event.info_request.title,
+                                url: request_path(event.info_request) }
         }
       expect(activity.description_urls).
         to eq expected_urls

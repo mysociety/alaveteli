@@ -11,9 +11,9 @@ Dir.chdir(alaveteli_dir) do
 
     # If the environment variable LOGFILE is present,
     # redirect STDERR and STDOUT to that file.
-    if ENV.has_key? "LOGFILE"
+    if ENV.key? "LOGFILE"
       STDERR.reopen(STDOUT.reopen(ENV["LOGFILE"], "a"))
-      STDOUT.sync=true
+      STDOUT.sync = true
       puts "Daemon starting at #{Time.new}"
     end
 
@@ -26,7 +26,7 @@ Dir.chdir(alaveteli_dir) do
     # If the environment variable PIDFILE is present,
     # write the pid of the daemon process to that file.
 
-    if ENV.has_key? "PIDFILE"
+    if ENV.key? "PIDFILE"
       File.open(ENV["PIDFILE"], 'w') do |fh|
         fh.puts pid
       end

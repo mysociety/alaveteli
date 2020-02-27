@@ -6,8 +6,8 @@ describe InfoRequest::State do
   describe :all do
 
     it 'includes "waiting_response"' do
-      expect(InfoRequest::State.all.include?("waiting_response"))
-        .to be true
+      expect(InfoRequest::State.all.include?("waiting_response")).
+        to be true
     end
 
   end
@@ -33,8 +33,8 @@ describe InfoRequest::State do
     end
 
     it 'includes a hash with name "Complete" and scope :complete' do
-      expect(InfoRequest::State.phases.include?({ name: _('Complete'),
-                                                  scope: :complete }))
+      expect(InfoRequest::State.phases.include?(name: _('Complete'),
+                                                scope: :complete))
     end
 
   end
@@ -42,13 +42,13 @@ describe InfoRequest::State do
   describe :short_description do
 
     it 'returns a short description for a valid state' do
-      expect(InfoRequest::State.short_description('attention_requested'))
-        .to eq 'Reported'
+      expect(InfoRequest::State.short_description('attention_requested')).
+        to eq 'Reported'
     end
 
     it 'raises an error for an unknown state' do
-      expect { InfoRequest::State.short_description('meow') }
-        .to raise_error 'unknown status meow'
+      expect { InfoRequest::State.short_description('meow') }.
+        to raise_error 'unknown status meow'
     end
 
     context 'when a theme is in use' do
@@ -60,13 +60,13 @@ describe InfoRequest::State do
       end
 
       it 'returns a short description for a theme state' do
-        expect(InfoRequest::State.short_description('deadline_extended'))
-          .to eq 'Deadline extended'
+        expect(InfoRequest::State.short_description('deadline_extended')).
+          to eq 'Deadline extended'
       end
 
       it 'raises an error for an unknown state' do
-        expect { InfoRequest::State.short_description('meow') }
-          .to raise_error 'unknown status meow'
+        expect { InfoRequest::State.short_description('meow') }.
+          to raise_error 'unknown status meow'
       end
 
     end
@@ -76,14 +76,14 @@ describe InfoRequest::State do
   describe :phase_params do
 
     it 'returns hyphenised versions of the phases' do
-      expect(InfoRequest::State.phase_params)
-        .to eq({ :awaiting_response => "awaiting-response",
-                 :overdue => "overdue",
-                 :very_overdue => "very-overdue",
-                 :response_received => "response-received",
-                 :clarification_needed => "clarification-needed",
-                 :complete => "complete",
-                 :other => "other" })
+      expect(InfoRequest::State.phase_params).
+        to eq(awaiting_response: "awaiting-response",
+              overdue: "overdue",
+              very_overdue: "very-overdue",
+              response_received: "response-received",
+              clarification_needed: "clarification-needed",
+              complete: "complete",
+              other: "other")
     end
   end
 

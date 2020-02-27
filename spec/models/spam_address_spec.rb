@@ -17,12 +17,12 @@ describe SpamAddress do
 
     it 'requres an email address' do
       expect(SpamAddress.new).not_to be_valid
-      expect(SpamAddress.new(:email => 'spam@example.org')).to be_valid
+      expect(SpamAddress.new(email: 'spam@example.org')).to be_valid
     end
 
     it 'must have a unique email address' do
       existing = FactoryBot.create(:spam_address)
-      expect(SpamAddress.new(:email => existing.email)).not_to be_valid
+      expect(SpamAddress.new(email: existing.email)).not_to be_valid
     end
 
   end

@@ -5,8 +5,8 @@ describe AlaveteliPro::ActivityList::EmbargoExpiry do
   include Rails.application.routes.url_helpers
 
   let!(:user) { FactoryBot.create(:user) }
-  let!(:info_request) { FactoryBot.create(:info_request, :user => user) }
-  let!(:event) { FactoryBot.create(:expire_embargo_event, :info_request => info_request) }
+  let!(:info_request) { FactoryBot.create(:info_request, user: user) }
+  let!(:event) { FactoryBot.create(:expire_embargo_event, info_request: info_request) }
   let!(:activity) { described_class.new(event) }
 
   describe '#description' do

@@ -6,10 +6,9 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminPublicBodyController < AdminController
-
   include TranslatableParams
 
-  before_action :set_public_body, :only => [:edit, :update, :destroy]
+  before_action :set_public_body, only: [:edit, :update, :destroy]
 
   def index
     lookup_query
@@ -23,8 +22,8 @@ class AdminPublicBodyController < AdminController
       if cannot? :admin, AlaveteliPro::Embargo
         info_requests = info_requests.not_embargoed
       end
-      @info_requests = info_requests.paginate(:page => params[:page],
-                                              :per_page => 100)
+      @info_requests = info_requests.paginate(page: params[:page],
+                                              per_page: 100)
       @versions = @public_body.versions.order('version DESC')
       render
     end
@@ -38,13 +37,13 @@ class AdminPublicBodyController < AdminController
       @change_request = PublicBodyChangeRequest.find(params[:change_request_id])
     end
     if @change_request
-      @change_request_user_response = render_to_string(:template => "admin_public_body_change_requests/add_accepted",
-                                                       :formats => [:txt])
+      @change_request_user_response = render_to_string(template: "admin_public_body_change_requests/add_accepted",
+                                                       formats: [:txt])
       @public_body.name = @change_request.public_body_name
       @public_body.request_email = @change_request.public_body_email
       @public_body.last_edit_comment = @change_request.comment_for_public_body
     end
-    render :formats => [:html]
+    render formats: [:html]
   end
 
   def create
@@ -57,7 +56,7 @@ class AdminPublicBodyController < AdminController
       if @public_body.save
         if @change_request
           response_text = params[:response].gsub(_("[Authority URL will be inserted here]"),
-                                                 public_body_url(@public_body, :only_path => false))
+                                                 public_body_url(@public_body, only_path: false))
           @change_request.close!
           @change_request.send_response(params[:subject], response_text)
         end
@@ -65,7 +64,7 @@ class AdminPublicBodyController < AdminController
         redirect_to admin_body_url(@public_body)
       else
         @public_body.build_all_translations
-        render :action => 'new'
+        render action: 'new'
       end
     end
   end
@@ -82,7 +81,8 @@ class AdminPublicBodyController < AdminController
       @change_request_user_response =
         render_to_string(
           template: 'admin_public_body_change_requests/update_accepted',
-          formats: [:txt])
+          formats: [:txt]
+        )
       @public_body.request_email = @change_request.public_body_email
       @public_body.last_edit_comment = @change_request.comment_for_public_body
     else
@@ -107,7 +107,7 @@ class AdminPublicBodyController < AdminController
         redirect_to admin_body_url(@public_body)
       else
         @public_body.build_all_translations
-        render :action => 'edit'
+        render action: 'edit'
       end
     end
   end
@@ -128,7 +128,7 @@ class AdminPublicBodyController < AdminController
   def mass_tag_add
     lookup_query
 
-    if params[:new_tag] and params[:new_tag] != ""
+    if params[:new_tag] && (params[:new_tag] != "")
       if params[:table_name] == 'exact'
         bodies = @public_bodies_by_tag
       elsif params[:table_name] == 'substring'
@@ -136,13 +136,13 @@ class AdminPublicBodyController < AdminController
       else
         raise "Unknown table_name #{params[:table_name]}"
       end
-      for body in bodies
+      bodies.each do |body|
         body.add_tag_if_not_already_present(params[:new_tag])
       end
       flash[:notice] = "Added tag to table of bodies."
     end
 
-    redirect_to admin_bodies_url(:query => @query, :page => @page)
+    redirect_to admin_bodies_url(query: @query, page: @page)
   end
 
   def missing_scheme
@@ -178,7 +178,7 @@ class AdminPublicBodyController < AdminController
         csv_contents = retrieve_csv_data(params[:temporary_csv_file])
         @original_csv_file = params[:original_csv_file]
       end
-      if !csv_contents.nil?
+      unless csv_contents.nil?
         # Try with dry run first
         errors, notes = PublicBody.
                           import_csv(csv_contents,
@@ -188,7 +188,7 @@ class AdminPublicBodyController < AdminController
                                      admin_current_user,
                                      AlaveteliLocalization.available_locales)
 
-        if errors.size == 0
+        if errors.empty?
           if dry_run_only
             notes.push("Dry run was successful, real run would do as above.")
             # Store the csv file for ease of performing the real run
@@ -203,9 +203,7 @@ class AdminPublicBodyController < AdminController
                                          admin_current_user,
                                          AlaveteliLocalization.
                                            available_locales)
-            if errors.size != 0
-              raise "dry run mismatched real run"
-            end
+            raise "dry run mismatched real run" unless errors.empty?
             notes.push("Import was successful.")
           end
         end
@@ -220,43 +218,39 @@ class AdminPublicBodyController < AdminController
   # Save the contents to a temporary file - not using Tempfile as we need
   # the file to persist between requests. Return the name of the file.
   def store_csv_data(csv_contents)
-    tempfile_name = "csv_upload-#{Time.zone.now.strftime("%Y%m%d")}-#{SecureRandom.random_number(10000)}"
-    tempfile = File.new(File.join(Dir::tmpdir, tempfile_name), 'w')
+    tempfile_name = "csv_upload-#{Time.zone.now.strftime("%Y%m%d")}-#{SecureRandom.random_number(10_000)}"
+    tempfile = File.new(File.join(Dir.tmpdir, tempfile_name), 'w')
     tempfile.write(csv_contents)
     tempfile.close
-    return tempfile_name
+    tempfile_name
   end
 
   # Get csv contents from the file whose name is passed, as long as the
   # name is of the expected form.
   # Delete the file, return the contents.
   def retrieve_csv_data(tempfile_name)
-    if not /csv_upload-\d{8}-\d{1,5}/.match(tempfile_name)
+    unless /csv_upload-\d{8}-\d{1,5}/.match(tempfile_name)
       raise "Invalid filename in upload_csv: #{tempfile_name}"
     end
     tempfile_path = File.join(Dir.tmpdir, tempfile_name)
-    if !File.exist?(tempfile_path)
+    unless File.exist?(tempfile_path)
       raise "Missing file in upload_csv: #{tempfile_name}"
     end
     csv_contents = File.read(tempfile_path)
     File.delete(tempfile_path)
-    return csv_contents
+    csv_contents
   end
 
   def lookup_query
     @locale = AlaveteliLocalization.locale
     AlaveteliLocalization.with_locale(@locale) do
       @query = params[:query]
-      if @query == ""
-        @query = nil
-      end
+      @query = nil if @query == ""
       @page = params[:page]
-      if @page == ""
-        @page = nil
-      end
+      @page = nil if @page == ""
 
       query = if @query
-        query_str = <<-EOF.strip_heredoc
+                query_str = <<-EOF.strip_heredoc
         (lower(public_body_translations.name)
          LIKE lower('%'||?||'%')
          OR lower(public_body_translations.short_name)
@@ -266,9 +260,9 @@ class AdminPublicBodyController < AdminController
          AND (public_body_translations.locale = '#{@locale}')
         EOF
 
-        [query_str, @query, @query, @query]
-      else
-        <<-EOF.strip_heredoc
+                [query_str, @query, @query, @query]
+              else
+                <<-EOF.strip_heredoc
         public_body_translations.locale = '#{@locale}'
         EOF
       end
@@ -278,7 +272,7 @@ class AdminPublicBodyController < AdminController
           joins(:translations).
             where(query).
               order('public_body_translations.name').
-                paginate(:page => @page, :per_page => 100)
+                paginate(page: @page, per_page: 100)
     end
 
     @public_bodies_by_tag = PublicBody.find_by_tag(@query)
@@ -286,17 +280,17 @@ class AdminPublicBodyController < AdminController
 
   def public_body_params
     if public_body_params = params[:public_body]
-      keys = { :translated_keys => [:locale,
-                                    :name,
-                                    :short_name,
-                                    :request_email,
-                                    :publication_scheme,
-                                    :notes],
-               :general_keys => [:tag_string,
-                                 :home_page,
-                                 :disclosure_log,
-                                 :last_edit_comment,
-                                 :last_edit_editor] }
+      keys = { translated_keys: [:locale,
+                                 :name,
+                                 :short_name,
+                                 :request_email,
+                                 :publication_scheme,
+                                 :notes],
+               general_keys: [:tag_string,
+                              :home_page,
+                              :disclosure_log,
+                              :last_edit_comment,
+                              :last_edit_editor] }
       translatable_params(keys, public_body_params)
     else
       {}
@@ -306,5 +300,4 @@ class AdminPublicBodyController < AdminController
   def set_public_body
     @public_body = PublicBody.find(params[:id])
   end
-
 end

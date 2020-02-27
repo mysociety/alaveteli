@@ -6,14 +6,14 @@ describe 'user/sign' do
     before do
       html_title = "test's \"title\" of many HTML tags &c"
       @rendered_title = 'test&#39;s &quot;title&quot; of many HTML tags &amp;c'
-      request = FactoryBot.create(:info_request, :title => html_title)
+      request = FactoryBot.create(:info_request, title: html_title)
       tracker = FactoryBot.create(:request_update_track,
-                                  :info_request => request,
-                                  :track_medium => 'email_daily',
-                                  :track_query => 'test')
-      redirect = PostRedirect.create(:uri => '/request/test',
-                                     :post_params => {},
-                                     :reason_params => tracker.params)
+                                  info_request: request,
+                                  track_medium: 'email_daily',
+                                  track_query: 'test')
+      redirect = PostRedirect.create(uri: '/request/test',
+                                     post_params: {},
+                                     reason_params: tracker.params)
       assign :post_redirect, redirect
     end
 
@@ -26,11 +26,11 @@ describe 'user/sign' do
   describe 'when the requested URI is for an admin page and an emergency user exists' do
 
     before do
-      redirect = PostRedirect.create(:uri => 'http://bad.place.com/admin',
-                                     :post_params => {'controller' => 'admin_general'},
-                                     :reason_params => {:web => '',
-                                                        :user_name => 'Admin user',
-                                                        :user_url => 'users/admin_user'})
+      redirect = PostRedirect.create(uri: 'http://bad.place.com/admin',
+                                     post_params: { 'controller' => 'admin_general' },
+                                     reason_params: { web: '',
+                                                      user_name: 'Admin user',
+                                                      user_url: 'users/admin_user' })
       receive(:disable_emergency_user).and_return(false)
       assign :post_redirect, redirect
     end

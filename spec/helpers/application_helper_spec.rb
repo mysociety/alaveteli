@@ -51,7 +51,7 @@ describe ApplicationHelper do
 
   describe '#theme_installed?' do
 
-    let(:paths) { ['theme_path', 'app_path'] }
+    let(:paths) { %w[theme_path app_path] }
 
     let(:view_paths) { double(ActionView::PathSet, paths: paths) }
 
@@ -107,7 +107,7 @@ describe ApplicationHelper do
 
     context 'without a theme installed' do
 
-      let(:paths) { [ app_view_path ] }
+      let(:paths) { [app_view_path] }
 
       it 'looks in the core app file path' do
         expected_path = app_view_path.gsub('/app/views', '/app/assets')

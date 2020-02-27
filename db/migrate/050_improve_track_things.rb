@@ -2,7 +2,7 @@
 class ImproveTrackThings < ActiveRecord::Migration[4.2] # 2.0
   def self.up
     # SQLite at least needs a default for this
-    add_column :track_things, :track_type, :string, :null => false, :default => "internal_error"
+    add_column :track_things, :track_type, :string, null: false, default: "internal_error"
 
     add_column :track_things, :created_at, :datetime
     add_column :track_things, :updated_at, :datetime
@@ -11,7 +11,7 @@ class ImproveTrackThings < ActiveRecord::Migration[4.2] # 2.0
 
     add_column :users, :last_daily_track_email, :datetime
     User.update_all "last_daily_track_email = '2000-01-01'"
-    change_column :users, :last_daily_track_email, :datetime, :default => "2000-01-01"
+    change_column :users, :last_daily_track_email, :datetime, default: "2000-01-01"
   end
 
   def self.down

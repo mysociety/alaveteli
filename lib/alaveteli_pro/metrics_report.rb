@@ -46,11 +46,11 @@ module AlaveteliPro
           trialing_users: stripe_data[:trialing],
           past_due_users: {
             count: stripe_data[:past_due],
-            subs:  stripe_data[:past_due_users]
+            subs: stripe_data[:past_due_users]
           },
           pending_cancellations: {
             count: stripe_data[:canceled],
-            subs:  stripe_data[:canceled_users]
+            subs: stripe_data[:canceled_users]
           },
           unknown_users: stripe_data[:unknown]
         }

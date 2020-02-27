@@ -9,8 +9,8 @@ class ReminderMailer < ApplicationMailer
       'Reply-To' => MailHandler.address_from_name_and_email(name, email)
     )
 
-    mail(:from => MailHandler.address_from_name_and_email(name, email),
-         :to => MailHandler.address_from_name_and_email(name, email),
-         :subject => subject)
+    mail(from: MailHandler.address_from_name_and_email(name, email),
+         to: MailHandler.address_from_name_and_email(name, email),
+         subject: subject)
   end
 end

@@ -25,7 +25,7 @@ describe MailServerLog::EximLine do
     let(:lines) { %w(A C B).map { |s| described_class.new(s) } }
 
     it { expect(lines.sort.map(&:to_s)).to eq(%w(A B C)) }
-    it { expect(lines.sort { |a,b| b <=> a }.map(&:to_s)).to eq(%w(C B A)) }
+    it { expect(lines.sort { |a, b| b <=> a }.map(&:to_s)).to eq(%w(C B A)) }
 
     let(:a) { described_class.new('A') }
     let(:b) { described_class.new('B') }
@@ -42,7 +42,7 @@ describe MailServerLog::EximLine do
 
     it 'returns the default format' do
       subject = described_class.new('log line')
-      obj_id = "0x00%x" % (subject.object_id << 1)
+      obj_id = format("0x00%x", (subject.object_id << 1))
       expected =
         %Q(#<#{described_class}:#{obj_id} @line="log line">)
       expect(subject.inspect).to eq(expected)

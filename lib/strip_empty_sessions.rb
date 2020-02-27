@@ -2,7 +2,7 @@
 class StripEmptySessions
   ENV_SESSION_KEY = "rack.session".freeze
   HTTP_SET_COOKIE = "Set-Cookie".freeze
-  STRIPPABLE_KEYS = ['session_id', '_csrf_token', 'locale']
+  STRIPPABLE_KEYS = %w[session_id _csrf_token locale]
 
   def initialize(app, options = {})
     @app = app
@@ -18,7 +18,7 @@ class StripEmptySessions
         if set_cookie.is_a? Array
           set_cookie.reject! { |c| c.match(/^\n?#{@options[:key]}=/) }
         elsif set_cookie.is_a? String
-          headers[HTTP_SET_COOKIE].gsub!( /(^|\n)#{@options[:key]}=.*?(\n|$)/, "" )
+          headers[HTTP_SET_COOKIE].gsub!(/(^|\n)#{@options[:key]}=.*?(\n|$)/, "")
         end
       end
     end

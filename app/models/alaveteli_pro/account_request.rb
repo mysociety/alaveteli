@@ -13,10 +13,10 @@ class AlaveteliPro::AccountRequest
                 :marketing_emails,
                 :training_emails
 
-  validates_presence_of :email, :message => N_("Please enter your email address")
-  validates_presence_of :reason, :message => N_("Please enter the reason why you want access")
-  validates_presence_of :marketing_emails, :message => N_("Please tell us if you want to get updates")
-  validates_presence_of :training_emails, :message => N_("Please tell us if you're interested in training and seminars")
+  validates_presence_of :email, message: N_("Please enter your email address")
+  validates_presence_of :reason, message: N_("Please enter the reason why you want access")
+  validates_presence_of :marketing_emails, message: N_("Please tell us if you want to get updates")
+  validates_presence_of :training_emails, message: N_("Please tell us if you're interested in training and seminars")
 
   validate :email_format
 

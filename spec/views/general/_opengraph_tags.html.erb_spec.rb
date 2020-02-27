@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'general/_opengraph_tags.html.erb' do
 
   def render_view
-    render :partial => 'general/opengraph_tags'
+    render partial: 'general/opengraph_tags'
   end
 
   describe 'displaying the opengraph logo', feature: :alaveteli_pro do

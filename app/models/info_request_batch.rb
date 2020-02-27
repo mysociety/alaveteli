@@ -18,22 +18,22 @@ class InfoRequestBatch < ApplicationRecord
   include AlaveteliFeatures::Helpers
 
   has_many :info_requests,
-           :inverse_of => :info_request_batch
+           inverse_of: :info_request_batch
   belongs_to :user,
-             :inverse_of => :info_request_batches,
-             :counter_cache => true
+             inverse_of: :info_request_batches,
+             counter_cache: true
   has_many :citations,
            -> (batch) { unscope(:where).for_batch(batch) },
            as: :citable,
            inverse_of: :citable,
            dependent: :destroy
 
-  has_and_belongs_to_many :public_bodies, -> {
+  has_and_belongs_to_many :public_bodies, lambda {
     AlaveteliLocalization.with_locale(AlaveteliLocalization.locale) do
       includes(:translations).
         reorder('public_body_translations.name asc')
     end
-  }, :inverse_of => :info_request_batches
+  }, inverse_of: :info_request_batches
 
   validates_presence_of :user
   validates_presence_of :title
@@ -59,11 +59,11 @@ class InfoRequestBatch < ApplicationRecord
   #  When constructing a new batch, use this to check user hasn't double submitted.
   def self.find_existing(user, title, body, public_body_ids)
     conditions = {
-      :user_id => user,
-      :title => title,
-      :body => body,
-      :info_request_batches_public_bodies => {
-        :public_body_id => public_body_ids
+      user_id: user,
+      title: title,
+      body: body,
+      info_request_batches_public_bodies: {
+        public_body_id: public_body_ids
       }
     }
 
@@ -72,11 +72,11 @@ class InfoRequestBatch < ApplicationRecord
 
   # Create a new batch from the supplied draft version
   def self.from_draft(draft)
-    self.new(:user => draft.user,
-             :public_bodies => draft.public_bodies,
-             :title => draft.title,
-             :body => draft.body,
-             :embargo_duration => draft.embargo_duration)
+    new(user: draft.user,
+        public_bodies: draft.public_bodies,
+        title: draft.title,
+        body: draft.body,
+        embargo_duration: draft.embargo_duration)
   end
 
   # Create a batch of information requests and sends them to public bodies
@@ -127,7 +127,8 @@ class InfoRequestBatch < ApplicationRecord
     ).deliver_now
     outgoing_message.record_email_delivery(
       mail_message.to_addrs.join(', '),
-      mail_message.message_id)
+      mail_message.message_id
+    )
   end
 
   # Do we consider the InfoRequestBatch to be sent to all authorities?
@@ -139,17 +140,17 @@ class InfoRequestBatch < ApplicationRecord
 
   # Build an InfoRequest object which is an example of this batch.
   def example_request
-    public_body = self.public_bodies.first
+    public_body = public_bodies.first
     body = OutgoingMessage.fill_in_salutation(self.body, public_body)
     info_request = InfoRequest.create_from_attributes(
-      { :title => self.title, :public_body => public_body },
-      { :body => body },
-      self.user
+      { title: title, public_body: public_body },
+      { body: body },
+      user
     )
-    unless self.embargo_duration.blank?
+    unless embargo_duration.blank?
       info_request.embargo = AlaveteliPro::Embargo.new(
-        :info_request => info_request,
-        :embargo_duration => self.embargo_duration
+        info_request: info_request,
+        embargo_duration: embargo_duration
       )
     end
     info_request
@@ -191,43 +192,43 @@ class InfoRequestBatch < ApplicationRecord
   # Returns hash of string group names mapped to an integer
   def request_phases_summary
     {
-      :in_progress => {
-        :label => _('In progress'),
-        :count => self.info_requests.in_progress.count
+      in_progress: {
+        label: _('In progress'),
+        count: info_requests.in_progress.count
       },
-      :action_needed => {
-        :label => _('Action needed'),
-        :count => self.info_requests.action_needed.count
+      action_needed: {
+        label: _('Action needed'),
+        count: info_requests.action_needed.count
       },
-      :complete => {
-        :label => _('Complete'),
-        :count => self.info_requests.complete.count
+      complete: {
+        label: _('Complete'),
+        count: info_requests.complete.count
       },
-      :other => {
-        :label => _('Other'),
-        :count => self.info_requests.other.count
+      other: {
+        label: _('Other'),
+        count: info_requests.other.count
       }
     }
   end
 
   # @see RequestSummaries#request_summary_body
   def request_summary_body
-    self.body
+    body
   end
 
   # @see RequestSummaries#request_summary_public_body_names
   def request_summary_public_body_names
-    self.public_bodies.pluck(:name).join(" ")
+    public_bodies.pluck(:name).join(" ")
   end
 
   # @see RequestSummaries#request_summary_categories
   def request_summary_categories
     categories = []
-    if self.embargo_expiring?
+    if embargo_expiring?
       categories << AlaveteliPro::RequestSummaryCategory.embargo_expiring
     end
-    if self.sent_at
-      phase_slugs = self.request_phases.map(&:to_s).uniq
+    if sent_at
+      phase_slugs = request_phases.map(&:to_s).uniq
       phases = AlaveteliPro::RequestSummaryCategory.where(slug: phase_slugs)
       categories.concat phases
     else

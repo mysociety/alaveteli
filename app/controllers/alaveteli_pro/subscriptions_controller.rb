@@ -75,7 +75,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
           _('Coupon code has expired.')
         else
           if send_exception_notifications?
-            ExceptionNotifier.notify_exception(e, :env => request.env)
+            ExceptionNotifier.notify_exception(e, env: request.env)
           end
 
           _('There was a problem submitting your payment. You ' \
@@ -91,59 +91,57 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
   end
 
   def authorise
-    begin
-      @subscription = current_user.pro_account.subscriptions.
-        retrieve(params.require(:id))
+    @subscription = current_user.pro_account.subscriptions.
+      retrieve(params.require(:id))
 
-      if !@subscription
-        head :not_found
+    if !@subscription
+      head :not_found
 
-      elsif @subscription.require_authorisation?
-        respond_to do |format|
-          format.json do
-            render json: {
-              payment_intent: @subscription.payment_intent.client_secret,
-              callback_url: authorise_subscription_path(@subscription.id)
-            }
-          end
+    elsif @subscription.require_authorisation?
+      respond_to do |format|
+        format.json do
+          render json: {
+            payment_intent: @subscription.payment_intent.client_secret,
+            callback_url: authorise_subscription_path(@subscription.id)
+          }
         end
-
-      elsif @subscription.invoice_open?
-        flash[:error] = _('There was a problem authorising your payment. You ' \
-                          'have not been charged. Please try again.')
-
-        json_redirect_to plan_path(
-          remove_stripe_namespace(@subscription.plan.id)
-        )
-
-      elsif @subscription.active?
-        current_user.add_role(:pro)
-
-        flash[:notice] = {
-          partial: 'alaveteli_pro/subscriptions/signup_message.html.erb'
-        }
-        flash[:new_pro_user] = true
-
-        json_redirect_to alaveteli_pro_dashboard_path
-
-      else
-        head :ok
       end
 
-    rescue Stripe::RateLimitError,
-           Stripe::InvalidRequestError,
-           Stripe::AuthenticationError,
-           Stripe::APIConnectionError,
-           Stripe::StripeError => e
-      if send_exception_notifications?
-        ExceptionNotifier.notify_exception(e, env: request.env)
-      end
+    elsif @subscription.invoice_open?
+      flash[:error] = _('There was a problem authorising your payment. You ' \
+                        'have not been charged. Please try again.')
 
-      flash[:error] = _('There was a problem submitting your payment. You ' \
-        'have not been charged. Please try again later.')
+      json_redirect_to plan_path(
+        remove_stripe_namespace(@subscription.plan.id)
+      )
 
-      json_redirect_to plan_path('pro')
+    elsif @subscription.active?
+      current_user.add_role(:pro)
+
+      flash[:notice] = {
+        partial: 'alaveteli_pro/subscriptions/signup_message.html.erb'
+      }
+      flash[:new_pro_user] = true
+
+      json_redirect_to alaveteli_pro_dashboard_path
+
+    else
+      head :ok
     end
+
+  rescue Stripe::RateLimitError,
+         Stripe::InvalidRequestError,
+         Stripe::AuthenticationError,
+         Stripe::APIConnectionError,
+         Stripe::StripeError => e
+    if send_exception_notifications?
+      ExceptionNotifier.notify_exception(e, env: request.env)
+    end
+
+    flash[:error] = _('There was a problem submitting your payment. You ' \
+      'have not been charged. Please try again later.')
+
+    json_redirect_to plan_path('pro')
   end
 
   def destroy
@@ -169,7 +167,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
            Stripe::APIConnectionError,
            Stripe::StripeError => e
       if send_exception_notifications?
-        ExceptionNotifier.notify_exception(e, :env => request.env)
+        ExceptionNotifier.notify_exception(e, env: request.env)
       end
 
       flash[:error] = _('There was a problem cancelling your account. Please ' \
@@ -183,9 +181,10 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
 
   def authenticate
     post_redirect_params = {
-      :web => _('To upgrade your account'),
-      :email => _('Then you can upgrade your account'),
-      :email_subject => _('To upgrade your account') }
+      web: _('To upgrade your account'),
+      email: _('Then you can upgrade your account'),
+      email_subject: _('To upgrade your account')
+    }
     authenticated?(post_redirect_params)
   end
 

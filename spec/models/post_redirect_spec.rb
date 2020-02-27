@@ -22,7 +22,7 @@ describe PostRedirect do
   describe '#valid?' do
 
     it 'is false if an invalid circumstance is provided' do
-      pr = PostRedirect.new(:circumstance => 'invalid')
+      pr = PostRedirect.new(circumstance: 'invalid')
       expect(pr).to_not be_valid
     end
 
@@ -57,12 +57,12 @@ describe PostRedirect, " when constructing" do
 
   it "should generate a URL friendly token" do
     pr = PostRedirect.new
-    expect(pr.token).to match(/[a-z0-9]+/);
+    expect(pr.token).to match(/[a-z0-9]+/)
   end
 
   it "should generate an email friendly email token" do
     pr = PostRedirect.new
-    expect(pr.email_token).to match(/[a-z0-9]+/);
+    expect(pr.email_token).to match(/[a-z0-9]+/)
   end
 end
 
@@ -72,7 +72,7 @@ describe PostRedirect, " when accessing values" do
 
   it "should convert post parameters into YAML and back successfully" do
     pr = PostRedirect.new
-    example_post_params = { :foo => 'this is stuff', :bar => 83, :humbug => "yikes!!!" }
+    example_post_params = { foo: 'this is stuff', bar: 83, humbug: "yikes!!!" }
     pr.post_params = example_post_params
     expect(pr.post_params_yaml).to eq(example_post_params.to_yaml)
     expect(pr.post_params).to eq(example_post_params)
@@ -80,7 +80,7 @@ describe PostRedirect, " when accessing values" do
 
   it "should convert reason parameters into YAML and back successfully" do
     pr = PostRedirect.new
-    example_reason_params = { :foo => 'this is stuff', :bar => 83, :humbug => "yikes!!!" }
+    example_reason_params = { foo: 'this is stuff', bar: 83, humbug: "yikes!!!" }
     pr.reason_params = example_reason_params
     expect(pr.reason_params_yaml).to eq(example_reason_params.to_yaml)
     expect(pr.reason_params).to eq(example_reason_params)

@@ -6,62 +6,55 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminCommentController < AdminController
-
-  before_action :set_comment, :only => [:edit, :update]
+  before_action :set_comment, only: [:edit, :update]
 
   def index
     @title = 'Listing comments'
     @query = params[:query]
 
     comments = if @query
-      Comment.where(["lower(body) LIKE lower('%'||?||'%')", @query]).
-        order('created_at DESC')
-    else
-      Comment.order('created_at DESC')
+                 Comment.where(["lower(body) LIKE lower('%'||?||'%')", @query]).
+                   order('created_at DESC')
+               else
+                 Comment.order('created_at DESC')
     end
 
-    if cannot? :admin, AlaveteliPro::Embargo
-      comments = comments.not_embargoed
-    end
+    comments = comments.not_embargoed if cannot? :admin, AlaveteliPro::Embargo
 
-    @comments = comments.paginate :page => params[:page], :per_page => 100
+    @comments = comments.paginate page: params[:page], per_page: 100
   end
 
   def edit
-    if cannot? :admin, @comment
-      raise ActiveRecord::RecordNotFound
-    end
+    raise ActiveRecord::RecordNotFound if cannot? :admin, @comment
   end
 
   def update
-    if cannot? :admin, @comment
-      raise ActiveRecord::RecordNotFound
-    end
+    raise ActiveRecord::RecordNotFound if cannot? :admin, @comment
     old_body = @comment.body.dup
     old_visible = @comment.visible
     old_attention = @comment.attention_requested
 
     if @comment.update_attributes(comment_params)
       update_type = if comment_hidden?(old_visible, old_body)
-        "hide_comment"
-      else
-        "edit_comment"
+                      "hide_comment"
+                    else
+                      "edit_comment"
       end
       @comment.
         info_request.
           log_event(update_type,
-                    { :comment_id => @comment.id,
-                      :editor => admin_current_user,
-                      :old_body => old_body,
-                      :body => @comment.body,
-                      :old_visible => old_visible,
-                      :visible => @comment.visible,
-                      :old_attention_requested => old_attention,
-                      :attention_requested => @comment.attention_requested })
+                    comment_id: @comment.id,
+                    editor: admin_current_user,
+                    old_body: old_body,
+                    body: @comment.body,
+                    old_visible: old_visible,
+                    visible: @comment.visible,
+                    old_attention_requested: old_attention,
+                    attention_requested: @comment.attention_requested)
       flash[:notice] = 'Comment successfully updated.'
       redirect_to admin_request_url(@comment.info_request)
     else
-      render :action => 'edit'
+      render action: 'edit'
     end
   end
 
@@ -82,5 +75,4 @@ class AdminCommentController < AdminController
   def comment_hidden?(old_visibility, old_body)
     !@comment.visible && old_visibility && old_body == @comment.body
   end
-
 end

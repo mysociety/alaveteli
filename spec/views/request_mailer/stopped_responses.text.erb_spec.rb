@@ -2,13 +2,13 @@
 require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
 
 describe "request_mailer/stopped_responses" do
-  let(:user) { FactoryBot.create(:user, :name => "Test Us'r") }
-  let(:body) { FactoryBot.create(:public_body, :name => "Apostrophe's") }
+  let(:user) { FactoryBot.create(:user, name: "Test Us'r") }
+  let(:body) { FactoryBot.create(:public_body, name: "Apostrophe's") }
   let(:request) do
     FactoryBot.create(:info_request,
-                      :public_body => body,
-                      :user => user,
-                      :title => "Request apostrophe's data")
+                      public_body: body,
+                      user: user,
+                      title: "Request apostrophe's data")
   end
 
   before do

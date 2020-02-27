@@ -18,7 +18,6 @@ require 'csv'
 #        Ministry of Silly Walks,http://www.localhost
 #        Department of Loneliness,http://localhost
 class PublicBodyCSV
-
   def self.default_fields
     [:name,
      :short_name,
@@ -57,7 +56,7 @@ class PublicBodyCSV
   end
 
   def <<(public_body)
-      rows << CSV.generate_line(collect_public_body_attributes(public_body), :row_sep => '')
+    rows << CSV.generate_line(collect_public_body_attributes(public_body), row_sep: '')
   end
 
   # TODO: Just use CSV.generate
@@ -82,5 +81,4 @@ class PublicBodyCSV
       end
     end
   end
-
 end

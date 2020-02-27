@@ -4,15 +4,15 @@ require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
 describe "general/frontpage" do
   before do
     @pb = mock_model(PublicBody,
-      :name => 'Test Quango',
-      :short_name => 'tq',
-      :url_name => 'testquango',
-      :notes_without_html => '',
-      :created_at => Time.now.utc,
-      :tags => [],
-      :special_not_requestable_reason? => false,
-      :eir_only? => nil,
-      :publication_scheme => '')
+                     name: 'Test Quango',
+                     short_name: 'tq',
+                     url_name: 'testquango',
+                     notes_without_html: '',
+                     created_at: Time.now.utc,
+                     tags: [],
+                     special_not_requestable_reason?: false,
+                     eir_only?: nil,
+                     publication_scheme: '')
     pb_info_requests = [1, 2, 3, 4]
     allow(pb_info_requests).to receive(:visible).and_return([2, 3, 4])
 
@@ -40,7 +40,7 @@ describe "general/frontpage" do
 
   it "should show the body's name" do
     render
-    expect(response).to have_css('a', :text => "Test Quango")
+    expect(response).to have_css('a', text: "Test Quango")
   end
 
   it "should show total number visible of requests" do

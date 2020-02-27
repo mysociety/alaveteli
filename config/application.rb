@@ -61,24 +61,24 @@ module Alaveteli
     # Note that having set a zone, the Active Record
     # time_zone_aware_attributes flag is on, so times from models
     # will be in this time zone
-    config.time_zone = ::AlaveteliConfiguration::time_zone
+    config.time_zone = ::AlaveteliConfiguration.time_zone
 
     # Set the cache to use a memcached backend
     config.cache_store = :mem_cache_store,
-      { :namespace => "#{AlaveteliConfiguration::domain}_#{RUBY_VERSION}" }
+                         { namespace: "#{AlaveteliConfiguration.domain}_#{RUBY_VERSION}" }
     config.action_dispatch.rack_cache = nil
 
     config.after_initialize do |app|
       # Add a catch-all route to force routing errors to be handled by the application,
       # rather than by middleware.
-      app.routes.append { match '*path', :to => 'general#not_found', :via => [:get, :post] }
+      app.routes.append { match '*path', to: 'general#not_found', via: [:get, :post] }
     end
 
-    config.autoload_paths << "#{Rails.root.to_s}/app/controllers/concerns"
-    config.autoload_paths << "#{Rails.root.to_s}/app/models/concerns"
-    config.autoload_paths << "#{Rails.root.to_s}/lib/mail_handler"
-    config.autoload_paths << "#{Rails.root.to_s}/lib/attachment_to_html"
-    config.autoload_paths << "#{Rails.root.to_s}/lib/health_checks"
+    config.autoload_paths << "#{Rails.root}/app/controllers/concerns"
+    config.autoload_paths << "#{Rails.root}/app/models/concerns"
+    config.autoload_paths << "#{Rails.root}/lib/mail_handler"
+    config.autoload_paths << "#{Rails.root}/lib/attachment_to_html"
+    config.autoload_paths << "#{Rails.root}/lib/health_checks"
 
     config.enable_dependency_loading = true
 
@@ -88,16 +88,15 @@ module Alaveteli
 
     # Insert a bit of middleware code to prevent uneeded cookie setting.
     require "#{Rails.root}/lib/strip_empty_sessions"
-    config.middleware.insert_before ::ActionDispatch::Cookies, StripEmptySessions, :key => '_wdtk_cookie_session', :path => "/", :httponly => true
+    config.middleware.insert_before ::ActionDispatch::Cookies, StripEmptySessions, key: '_wdtk_cookie_session', path: "/", httponly: true
 
     # Strip non-UTF-8 request parameters
     config.middleware.insert 0, Rack::UTF8Sanitizer
 
     # Allow the generation of full URLs in emails
-    config.action_mailer.default_url_options = { :host => AlaveteliConfiguration::domain }
-    if AlaveteliConfiguration::force_ssl
+    config.action_mailer.default_url_options = { host: AlaveteliConfiguration.domain }
+    if AlaveteliConfiguration.force_ssl
       config.action_mailer.default_url_options[:protocol] = "https"
     end
-
   end
 end

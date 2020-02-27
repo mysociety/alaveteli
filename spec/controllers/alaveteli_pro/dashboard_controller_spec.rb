@@ -31,12 +31,12 @@ describe AlaveteliPro::DashboardController do
     context 'if a page param is passed' do
 
       it 'assigns @page a numerical page param' do
-        get :index, params: { :page => 2 }
+        get :index, params: { page: 2 }
         expect(assigns[:page]).to eq 2
       end
 
       it 'does not assign a non-numerical page param' do
-        get :index, params: { :page => 'foo' }
+        get :index, params: { page: 'foo' }
         expect(assigns[:page]).to eq 1
       end
     end

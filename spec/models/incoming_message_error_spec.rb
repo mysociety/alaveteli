@@ -19,7 +19,7 @@ describe IncomingMessageError do
 
     it 'requres a unique ID' do
       expect(IncomingMessageError.new).not_to be_valid
-      expect(IncomingMessageError.new(:unique_id => 'xxx')).to be_valid
+      expect(IncomingMessageError.new(unique_id: 'xxx')).to be_valid
     end
   end
 

@@ -72,9 +72,9 @@ class AlaveteliSpamTermChecker
 
   def initialize(terms = nil)
     @spam_terms = if terms
-      build_terms(terms)
-    else
-      self.class.default_spam_terms
+                    build_terms(terms)
+                  else
+                    self.class.default_spam_terms
     end
   end
 

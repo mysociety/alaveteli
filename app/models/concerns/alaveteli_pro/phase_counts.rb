@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 module AlaveteliPro
   module PhaseCounts
-
     extend ActiveSupport::Concern
 
     def phase_counts
@@ -24,7 +23,5 @@ module AlaveteliPro
       @phase_counts =
         hash_with_default.merge(raw_counts).with_indifferent_access
     end
-
   end
-
 end

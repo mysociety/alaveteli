@@ -7,8 +7,8 @@ describe InfoRequest::Prominence::PublicQuery do
 
     it 'returns only results with a normal or backpaged prominence' do
       normal_request = FactoryBot.create(:info_request)
-      backpaged_request = FactoryBot.create(:info_request, :prominence => 'backpage')
-      hidden_request = FactoryBot.create(:info_request, :prominence => 'hidden')
+      backpaged_request = FactoryBot.create(:info_request, prominence: 'backpage')
+      hidden_request = FactoryBot.create(:info_request, prominence: 'hidden')
       requests = described_class.new.call
       expect(requests).to include(normal_request)
       expect(requests).to include(backpaged_request)

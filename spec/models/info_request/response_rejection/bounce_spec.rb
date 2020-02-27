@@ -25,7 +25,7 @@ describe InfoRequest::ResponseRejection::Bounce do
     it 'does nothing and returns true if the mail is from the ' \
        'request address' do
       info_request = object_double(InfoRequest.new,
-                                   :incoming_email => 'request-333-xxx@example.com')
+                                   incoming_email: 'request-333-xxx@example.com')
       raw_email = <<-EOF.strip_heredoc
       To: Requester <request-333-xxx@example.com>
       From: Bad person <request-333-xxx@example.com>
@@ -41,7 +41,7 @@ describe InfoRequest::ResponseRejection::Bounce do
     it 'does nothing and returns true if the mail is from the ' \
        'request address regardless of case' do
       info_request = object_double(InfoRequest.new,
-                                   :incoming_email => 'request-333-xxx@example.com')
+                                   incoming_email: 'request-333-xxx@example.com')
       raw_email = <<-EOF.strip_heredoc
       To: Requester <Request-333-xxx@example.com>
       From: Bad person <Request-333-xxx@example.com>
@@ -56,8 +56,8 @@ describe InfoRequest::ResponseRejection::Bounce do
 
     it 'does nothing and returns true if the info_request is external' do
       info_request = object_double(InfoRequest.new,
-                                   :is_external? => true,
-                                   :incoming_email => 'request-333-xxx@example.com')
+                                   is_external?: true,
+                                   incoming_email: 'request-333-xxx@example.com')
       raw_email = <<-EOF.strip_heredoc
       From: sender@example.com
       To: Requester <request-333-xxx@example.com>

@@ -58,74 +58,74 @@ class InfoRequestEvent < ApplicationRecord
   ].freeze
 
   belongs_to :info_request,
-             :inverse_of => :info_request_events
+             inverse_of: :info_request_events
 
   validates_presence_of :info_request
 
   belongs_to :outgoing_message,
-             :inverse_of => :info_request_events
+             inverse_of: :info_request_events
   belongs_to :incoming_message,
-             :inverse_of => :info_request_events
+             inverse_of: :info_request_events
   belongs_to :comment,
-             :inverse_of => :info_request_events
+             inverse_of: :info_request_events
 
   has_one :request_classification,
-          :inverse_of => :info_request_event
+          inverse_of: :info_request_event
 
   has_many :user_info_request_sent_alerts,
-           :inverse_of => :info_request_event,
-           :dependent => :destroy
+           inverse_of: :info_request_event,
+           dependent: :destroy
   has_many :track_things_sent_emails,
-           :inverse_of => :info_request_event,
-           :dependent => :destroy
+           inverse_of: :info_request_event,
+           dependent: :destroy
   has_many :notifications,
-           :inverse_of => :info_request_event,
-           :dependent => :destroy
+           inverse_of: :info_request_event,
+           dependent: :destroy
 
   validates_presence_of :event_type
 
-  before_save(:if => :only_editing_prominence_to_hide?) do
+  before_save(if: :only_editing_prominence_to_hide?) do
     self.event_type = "hide"
   end
-  after_create :update_request, :if => :response?
+  after_create :update_request, if: :response?
 
-  after_commit -> { self.info_request.create_or_update_request_summary },
-                  :on => [:create]
+  after_commit -> { info_request.create_or_update_request_summary },
+               on: [:create]
 
-  validates_inclusion_of :event_type, :in => EVENT_TYPES
+  validates_inclusion_of :event_type, in: EVENT_TYPES
 
   # user described state (also update in info_request)
   validate :must_be_valid_state
 
   def must_be_valid_state
-    if described_state and !InfoRequest::State.all.include?(described_state)
+    if described_state && !InfoRequest::State.all.include?(described_state)
       errors.add(:described_state, "is not a valid state")
     end
   end
 
   # Full text search indexing
-  acts_as_xapian :texts => [ :search_text_main, :title ],
-                 :values => [
-                   [ :created_at, 0, "range_search", :date ], # for QueryParser range searches e.g. 01/01/2008..14/01/2008
-                   [ :created_at_numeric, 1, "created_at", :number ], # for sorting
-                   [ :described_at_numeric, 2, "described_at", :number ], # TODO: using :number for lack of :datetime support in Xapian values
-                   [ :request, 3, "request_collapse", :string ],
-                   [ :request_title_collapse, 4, "request_title_collapse", :string ],
+  acts_as_xapian texts: [:search_text_main, :title],
+                 values: [
+                   [:created_at, 0, "range_search", :date], # for QueryParser range searches e.g. 01/01/2008..14/01/2008
+                   [:created_at_numeric, 1, "created_at", :number], # for sorting
+                   [:described_at_numeric, 2, "described_at", :number], # TODO: using :number for lack of :datetime support in Xapian values
+                   [:request, 3, "request_collapse", :string],
+                   [:request_title_collapse, 4, "request_title_collapse", :string]
                  ],
-                 :terms => [ [ :calculated_state, 'S', "status" ],
-                             [ :requested_by, 'B', "requested_by" ],
-                             [ :requested_from, 'F', "requested_from" ],
-                             [ :commented_by, 'C', "commented_by" ],
-                             [ :request, 'R', "request" ],
-                             [ :variety, 'V', "variety" ],
-                             [ :latest_variety, 'K', "latest_variety" ],
-                             [ :latest_status, 'L', "latest_status" ],
-                             [ :waiting_classification, 'W', "waiting_classification" ],
-                             [ :filetype, 'T', "filetype" ],
-                             [ :tags, 'U', "tag" ],
-                             [ :request_public_body_tags, 'X', "request_public_body_tag" ] ],
-                 :if => :indexed_by_search?,
-                 :eager_load => [ :outgoing_message, :comment, { :info_request => [ :user, :public_body, :censor_rules ] } ]
+                 terms: [[:calculated_state, 'S', "status"],
+                         [:requested_by, 'B', "requested_by"],
+                         [:requested_from, 'F', "requested_from"],
+                         [:commented_by, 'C', "commented_by"],
+                         [:request, 'R', "request"],
+                         [:variety, 'V', "variety"],
+                         [:latest_variety, 'K', "latest_variety"],
+                         [:latest_status, 'L', "latest_status"],
+                         [:waiting_classification, 'W', "waiting_classification"],
+                         [:filetype, 'T', "filetype"],
+                         [:tags, 'U', "tag"],
+                         [:request_public_body_tags, 'X', "request_public_body_tag"]],
+                 if: :indexed_by_search?,
+                 eager_load: [:outgoing_message, :comment, { info_request: [:user, :public_body, :censor_rules] }]
 
   def self.count_of_hides_by_week
     where(event_type: "hide").group("date(date_trunc('week', created_at))").count.sort
@@ -141,7 +141,7 @@ class InfoRequestEvent < ApplicationRecord
     # although it relies on a translated field in PublicBody. Hence, we need to
     # manually add all the localized values to the index (Xapian can handle a list
     # of values in a term, btw)
-    info_request.public_body.translations.map { |t| t.url_name }
+    info_request.public_body.translations.map(&:url_name)
   end
 
   def commented_by
@@ -157,18 +157,14 @@ class InfoRequestEvent < ApplicationRecord
   end
 
   def latest_variety
-    sibling_events(:reverse => true).each do |event|
-      unless event.variety.blank?
-        return event.variety
-      end
+    sibling_events(reverse: true).each do |event|
+      return event.variety unless event.variety.blank?
     end
   end
 
   def latest_status
-    sibling_events(:reverse => true).each do |event|
-      unless event.calculated_state.blank?
-        return event.calculated_state
-      end
+    sibling_events(reverse: true).each do |event|
+      return event.calculated_state unless event.calculated_state.blank?
     end
   end
 
@@ -177,7 +173,7 @@ class InfoRequestEvent < ApplicationRecord
   end
 
   def request_title_collapse
-    info_request.url_title(:collapse => true)
+    info_request.url_title(collapse: true)
   end
 
   def described_at
@@ -204,9 +200,7 @@ class InfoRequestEvent < ApplicationRecord
       where('info_request_events.id = ?', id)
 
     message = message[0]
-    if message
-      message.info_request = InfoRequest.find(message.info_request_id)
-    end
+    message.info_request = InfoRequest.find(message.info_request_id) if message
     message
   end
 
@@ -240,14 +234,12 @@ class InfoRequestEvent < ApplicationRecord
       text = text + outgoing_message.get_text_for_indexing + "\n\n"
     elsif event_type == 'response'
       if clipped
-        text = text + get_clipped_response_efficiently
+        text += get_clipped_response_efficiently
       else
         text = text + incoming_message.get_text_for_indexing_full + "\n\n"
       end
     elsif event_type == 'comment'
       text = text + comment.body + "\n\n"
-    else
-      # nothing
     end
     text
   end
@@ -282,19 +274,15 @@ class InfoRequestEvent < ApplicationRecord
   end
 
   def indexed_by_search?
-    if ['sent', 'followup_sent', 'response', 'comment'].include?(event_type)
-      if !info_request.indexed_by_search?
-        return false
-      end
+    if %w[sent followup_sent response comment].include?(event_type)
+      return false unless info_request.indexed_by_search?
       if event_type == 'response' && !incoming_message.indexed_by_search?
         return false
       end
-      if ['sent', 'followup_sent'].include?(event_type) && !outgoing_message.indexed_by_search?
+      if %w[sent followup_sent].include?(event_type) && !outgoing_message.indexed_by_search?
         return false
       end
-      if event_type == 'comment' && !comment.visible
-        return false
-      end
+      return false if event_type == 'comment' && !comment.visible
       return true
     end
     false
@@ -322,9 +310,7 @@ class InfoRequestEvent < ApplicationRecord
     if params[:outgoing_message_id]
       self.outgoing_message_id = params[:outgoing_message_id]
     end
-    if params[:comment_id]
-      self.comment_id = params[:comment_id]
-    end
+    self.comment_id = params[:comment_id] if params[:comment_id]
     self.params_yaml = params.to_yaml
   end
 
@@ -342,7 +328,7 @@ class InfoRequestEvent < ApplicationRecord
     new_params = {}
     other_params = {}
     ignore = {}
-    for key, value in params
+    params.each do |key, value|
       key = key.to_s
       value = value.url_name if value.is_a?(User)
       if key.match(/^old_(.*)$/)
@@ -357,30 +343,30 @@ class InfoRequestEvent < ApplicationRecord
         other_params[key.to_sym] = value.to_s.strip
       end
     end
-    new_params.delete_if { |key, value| ignore.keys.include?(key) }
-    {:new => new_params, :old => old_params, :other => other_params}
+    new_params.delete_if { |key, _value| ignore.keys.include?(key) }
+    { new: new_params, old: old_params, other: other_params }
   end
 
   def is_incoming_message?
-    incoming_message_id? or (incoming_message if new_record?)
+    incoming_message_id? || (incoming_message if new_record?)
   end
 
   def is_outgoing_message?
-    outgoing_message_id? or (outgoing_message if new_record?)
+    outgoing_message_id? || (outgoing_message if new_record?)
   end
 
   def is_comment?
-    comment_id? or (comment if new_record?)
+    comment_id? || (comment if new_record?)
   end
 
   def resets_due_dates?
-     is_request_sending? || is_clarification?
+    is_request_sending? || is_clarification?
   end
 
   def is_request_sending?
-    ['sent', 'resent'].include?(event_type) ||
-    (event_type == 'send_error' &&
-     outgoing_message.message_type == 'initial_request')
+    %w[sent resent].include?(event_type) ||
+      (event_type == 'send_error' &&
+       outgoing_message.message_type == 'initial_request')
   end
 
   def is_clarification?
@@ -388,14 +374,12 @@ class InfoRequestEvent < ApplicationRecord
     # A follow up is a clarification only if it's the first
     # follow up when the request is in a state of
     # waiting for clarification
-    previous_events(:reverse => true).each do |event|
+    previous_events(reverse: true).each do |event|
       if event.described_state == 'waiting_clarification'
         waiting_clarification = true
         break
       end
-      if event.event_type == 'followup_sent'
-        break
-      end
+      break if event.event_type == 'followup_sent'
     end
     waiting_clarification && event_type == 'followup_sent'
   end
@@ -404,9 +388,7 @@ class InfoRequestEvent < ApplicationRecord
   # on the request and resets them if so
   def recheck_due_dates
     subsequent_events.each do |event|
-      if event.resets_due_dates?
-        info_request.set_due_dates(event)
-      end
+      info_request.set_due_dates(event) if event.resets_due_dates?
     end
   end
 
@@ -420,13 +402,9 @@ class InfoRequestEvent < ApplicationRecord
     if is_outgoing_message?
       status = calculated_state
       if status
-        if status == 'internal_review'
-          return _("Internal review request")
-        end
-        if status == 'waiting_response'
-          return _("Clarification")
-        end
-        raise _("unknown status {{status}}", :status => status)
+        return _("Internal review request") if status == 'internal_review'
+        return _("Clarification") if status == 'waiting_response'
+        raise _("unknown status {{status}}", status: status)
       end
       # TRANSLATORS: "Follow up" in this context means a further
       # message sent by the requester to the authority after
@@ -438,15 +416,15 @@ class InfoRequestEvent < ApplicationRecord
   end
 
   def is_sent_sort?
-    ['sent', 'resent'].include?(event_type)
+    %w[sent resent].include?(event_type)
   end
 
   def is_followup_sort?
-    ['followup_sent', 'followup_resent'].include?(event_type)
+    %w[followup_sent followup_resent].include?(event_type)
   end
 
   def outgoing?
-    ['sent', 'followup_sent'].include?(event_type)
+    %w[sent followup_sent].include?(event_type)
   end
 
   def response?
@@ -470,27 +448,23 @@ class InfoRequestEvent < ApplicationRecord
   def same_email_as_previous_send?
     prev_addr = info_request.get_previous_email_sent_to(self)
     curr_addr = params[:email]
-    if prev_addr.nil? && curr_addr.nil?
-      return true
-    end
-    if prev_addr.nil? || curr_addr.nil?
-      return false
-    end
+    return true if prev_addr.nil? && curr_addr.nil?
+    return false if prev_addr.nil? || curr_addr.nil?
     MailHandler.address_from_string(prev_addr) == MailHandler.address_from_string(curr_addr)
   end
 
   def json_for_api(deep, snippet_highlight_proc = nil)
     ret = {
-      :id => id,
-      :event_type => event_type,
+      id: id,
+      event_type: event_type,
       # params_yaml has possibly sensitive data in it, don't include it
-      :created_at => created_at,
-      :described_state => described_state,
-      :calculated_state => calculated_state,
-      :last_described_at => last_described_at,
-      :incoming_message_id => incoming_message_id,
-      :outgoing_message_id => outgoing_message_id,
-      :comment_id => comment_id,
+      created_at: created_at,
+      described_state: described_state,
+      calculated_state: calculated_state,
+      last_described_at: last_described_at,
+      incoming_message_id: incoming_message_id,
+      outgoing_message_id: outgoing_message_id,
+      comment_id: comment_id
 
       # TODO: would be nice to add links here, but alas the
       # code to make them is in views only. See views/request/details.html.erb
@@ -528,24 +502,22 @@ class InfoRequestEvent < ApplicationRecord
     order = opts[:reverse] ? 'created_at DESC' : 'created_at'
     events = self.
                class.
-                 where(:info_request_id => info_request_id).
-                   where('created_at < ?', self.created_at).
+                 where(info_request_id: info_request_id).
+                   where('created_at < ?', created_at).
                      order(order)
-
   end
 
   def subsequent_events(opts = {})
     order = opts[:reverse] ? 'created_at DESC' : 'created_at'
     events = self.
                class.
-                 where(:info_request_id => info_request_id).
-                   where('created_at > ?', self.created_at).
+                 where(info_request_id: info_request_id).
+                   where('created_at > ?', created_at).
                      order(order)
   end
 
   def sibling_events(opts = {})
     order = opts[:reverse] ? 'created_at DESC' : 'created_at'
-    events = self.class.where(:info_request_id => info_request_id).order(order)
+    events = self.class.where(info_request_id: info_request_id).order(order)
   end
-
 end

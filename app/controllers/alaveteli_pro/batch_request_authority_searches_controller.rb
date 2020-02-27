@@ -68,7 +68,7 @@ class AlaveteliPro::BatchRequestAuthoritySearchesController < AlaveteliPro::Base
   def check_page_limit!(page, per_page)
     # Later pages are very expensive to load
     if page > MAX_RESULTS / per_page
-      raise ActiveRecord::RecordNotFound.new("Sorry. No pages after #{MAX_RESULTS / per_page}.")
+      raise ActiveRecord::RecordNotFound, "Sorry. No pages after #{MAX_RESULTS / per_page}."
     end
   end
 
@@ -76,7 +76,7 @@ class AlaveteliPro::BatchRequestAuthoritySearchesController < AlaveteliPro::Base
     unless feature_enabled? :pro_batch_access, current_user
       redirect_to new_alaveteli_pro_info_request_path
     end
-    return true
+    true
   end
 
   def find_or_initialise_draft

@@ -13,7 +13,7 @@ $alaveteli_route_extensions.each do |f|
 end
 
 Rails.application.routes.draw do
-  admin_constraint = lambda { |request| request.session[:using_admin] }
+  admin_constraint = ->(request) { request.session[:using_admin] }
 
   root to: 'general#frontpage'
 
@@ -146,7 +146,6 @@ Rails.application.routes.draw do
     end
     ####
   end
-
 
   #### Followups controller
   match '/request/:request_id/followups/new' => 'followups#new',
@@ -447,14 +446,14 @@ Rails.application.routes.draw do
   #### AdminPublicBody controller
   scope '/admin', :as => 'admin' do
     resources :bodies,
-    :controller => 'admin_public_body' do
+              :controller => 'admin_public_body' do
       get 'missing_scheme', :on => :collection
       post 'mass_tag_add', :on => :collection
       get 'import_csv', :on => :collection
       post 'import_csv', :on => :collection
       resources :censor_rules,
-        :controller => 'admin_censor_rule',
-        :only => [:new, :create]
+                :controller => 'admin_censor_rule',
+                :only => [:new, :create]
     end
   end
   ####
@@ -462,15 +461,15 @@ Rails.application.routes.draw do
   #### AdminPublicBodyCategory controller
   scope '/admin', :as => 'admin' do
     resources :categories,
-      :controller => 'admin_public_body_categories'
+              :controller => 'admin_public_body_categories'
   end
   ####
 
   #### AdminPublicBodyHeading controller
   scope '/admin', :as => 'admin' do
     resources :headings,
-      :controller => 'admin_public_body_headings',
-    :except => [:index] do
+              :controller => 'admin_public_body_headings',
+              :except => [:index] do
       post 'reorder', :on => :collection
       post 'reorder_categories', :on => :member
     end
@@ -480,23 +479,23 @@ Rails.application.routes.draw do
   #### AdminHoliday controller
   scope '/admin', :as => 'admin' do
     resources :holidays,
-      :controller => 'admin_holidays'
+              :controller => 'admin_holidays'
   end
   ####
 
   #### AdminHolidayImports controller
   scope '/admin', :as => 'admin' do
     resources :holiday_imports,
-      :controller => 'admin_holiday_imports',
-      :only => [:new, :create]
+              :controller => 'admin_holiday_imports',
+              :only => [:new, :create]
   end
   ####
 
   #### AdminPublicBodyChangeRequest controller
   scope '/admin', :as => 'admin' do
     resources :change_requests,
-      :controller => 'admin_public_body_change_requests',
-      :only => [:edit, :update]
+              :controller => 'admin_public_body_change_requests',
+              :only => [:edit, :update]
   end
   ####
 
@@ -518,14 +517,14 @@ Rails.application.routes.draw do
   #### AdminRequest controller
   scope '/admin', :as => 'admin' do
     resources :requests,
-      :controller => 'admin_request',
-    :except => [:new, :create] do
+              :controller => 'admin_request',
+              :except => [:new, :create] do
       post 'move', :on => :member
       post 'generate_upload_url', :on => :member
       post 'hide', :on => :member
       resources :censor_rules,
-        :controller => 'admin_censor_rule',
-        :only => [:new, :create]
+                :controller => 'admin_censor_rule',
+                :only => [:new, :create]
     end
   end
   ####
@@ -533,36 +532,36 @@ Rails.application.routes.draw do
   #### AdminComment controller
   scope '/admin', :as => 'admin' do
     resources :comments,
-      :controller => 'admin_comment',
-      :only => [:index, :edit, :update]
+              :controller => 'admin_comment',
+              :only => [:index, :edit, :update]
   end
   ####
 
   #### AdminRawEmail controller
   scope '/admin', :as => 'admin' do
     resources :raw_emails,
-      :controller => 'admin_raw_email',
-      :only => [:show]
+              :controller => 'admin_raw_email',
+              :only => [:show]
   end
   ####
 
   #### AdminInfoRequestEvent controller
   scope '/admin', :as => 'admin' do
     resources :info_request_events,
-      :controller => 'admin_info_request_event',
-      :only => [:update]
+              :controller => 'admin_info_request_event',
+              :only => [:update]
   end
 
   #### AdminIncomingMessage controller
   scope '/admin', :as => 'admin' do
     resources :incoming_messages,
-      :controller => 'admin_incoming_message',
-    :only => [:edit, :update, :destroy] do
+              :controller => 'admin_incoming_message',
+              :only => [:edit, :update, :destroy] do
       post 'redeliver', :on => :member
     end
     resource :incoming_messages,
-      :controller => 'admin_incoming_message',
-      :only => [:bulk_destroy] do
+             :controller => 'admin_incoming_message',
+             :only => [:bulk_destroy] do
         post 'bulk_destroy'
       end
   end
@@ -571,8 +570,8 @@ Rails.application.routes.draw do
   #### AdminOutgoingMessage controller
   scope '/admin', :as => 'admin' do
     resources :outgoing_messages,
-      :controller => 'admin_outgoing_message',
-    :only => [:edit, :update, :destroy] do
+              :controller => 'admin_outgoing_message',
+              :only => [:edit, :update, :destroy] do
       post 'resend', :on => :member
     end
   end
@@ -581,16 +580,16 @@ Rails.application.routes.draw do
   #### AdminUser controller
   scope '/admin', :as => 'admin' do
     resources :users,
-      :controller => 'admin_user',
-    :except => [:new, :create, :destroy] do
-      get 'banned', :on => :collection
-      get 'show_bounce_message', :on => :member
-      post 'clear_bounce', :on => :member
-      post 'clear_profile_photo', :on => :member
-      post 'modify_comment_visibility', :on => :collection
-      resources :censor_rules,
-        :controller => 'admin_censor_rule',
-        :only => [:new, :create]
+              :controller => 'admin_user',
+              :except => [:new, :create, :destroy] do
+        get 'banned', :on => :collection
+        get 'show_bounce_message', :on => :member
+        post 'clear_bounce', :on => :member
+        post 'clear_profile_photo', :on => :member
+        post 'modify_comment_visibility', :on => :collection
+        resources :censor_rules,
+                  :controller => 'admin_censor_rule',
+                  :only => [:new, :create]
       end
   end
   ####
@@ -598,38 +597,38 @@ Rails.application.routes.draw do
   #### AdminUsersAccountSuspensions controller
   scope '/admin', :as => 'admin' do
     resources :users_account_suspensions,
-      :controller => 'admin_users_account_suspensions',
-      :only => [:create]
+              :controller => 'admin_users_account_suspensions',
+              :only => [:create]
   end
   ####
 
   #### AdminUsersSessions controller
   scope '/admin', :as => 'admin' do
     resources :users_sessions,
-      :controller => 'admin_users_sessions',
-      :only => [:create]
+              :controller => 'admin_users_sessions',
+              :only => [:create]
   end
   ####
 
   #### AdminTrack controller
   scope '/admin', :as => 'admin' do
     resources :tracks,
-      :controller => 'admin_track',
-      :only => [:index, :destroy]
+              :controller => 'admin_track',
+              :only => [:index, :destroy]
   end
   ####
 
   #### AdminCensorRule controller
   scope '/admin', :as => 'admin' do
     resources :censor_rules,
-      :controller => 'admin_censor_rule'
+              :controller => 'admin_censor_rule'
   end
 
   #### AdminSpamAddresses controller
   scope '/admin', :as => 'admin' do
     resources :spam_addresses,
-      :controller => 'admin_spam_addresses',
-      :only => [:index, :create, :destroy]
+              :controller => 'admin_spam_addresses',
+              :only => [:index, :create, :destroy]
   end
   ####
 
@@ -669,7 +668,6 @@ Rails.application.routes.draw do
 
   #### Pro Pricing
   constraints FeatureConstraint.new(:pro_pricing) do
-
     namespace :alaveteli_pro, path: :pro, as: :pro do
       resources :plans, only: [:index], path: :pricing
     end
@@ -691,12 +689,10 @@ Rails.application.routes.draw do
       match '/pro/subscriptions/stripe-webhook' => 'stripe_webhooks#receive',
             :via => :post
     end
-
   end
 
   #### Alaveteli Pro
   constraints FeatureConstraint.new(:alaveteli_pro) do
-
     scope module: :alaveteli_pro do
       resources :account_request, :only => [:index, :create], path: :pro do
         collection do
@@ -761,7 +757,6 @@ Rails.application.routes.draw do
             :via => :get,
             :defaults => { :pro => '1' }
     end
-
   end
   ####
 

@@ -3,7 +3,6 @@ require 'active_record/fixtures'
 
 module ActiveRecord
   class FixtureSet
-
     # WIP test a monkeypatch for Ruby 2.3.x
     # Applies https://github.com/rails/rails/commit/d6d63767795dd5c47a57d37d075
     #
@@ -17,7 +16,7 @@ module ActiveRecord
       fixtures.delete('DEFAULTS')
 
       # track any join tables we need to insert later
-      rows = Hash.new { |h,table| h[table] = [] }
+      rows = Hash.new { |h, table| h[table] = [] }
 
       rows[table_name] = fixtures.map do |label, fixture|
         row = fixture.to_hash
@@ -71,7 +70,7 @@ module ActiveRecord
                 targets = targets.is_a?(Array) ? targets : targets.split(/\s*,\s*/)
                 table_name = association.join_table
                 rows[table_name].concat targets.map { |target|
-                  { association.foreign_key             => row[primary_key_name],
+                  { association.foreign_key => row[primary_key_name],
                     association.association_foreign_key => ActiveRecord::FixtureSet.identify(target) }
                 }
               end

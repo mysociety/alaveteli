@@ -47,7 +47,6 @@ describe HasTagString::HasTagStringTag do
         t.string :name
         t.timestamps null: false
       end
-
     end
 
     def self.down

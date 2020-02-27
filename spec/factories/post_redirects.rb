@@ -34,11 +34,11 @@ FactoryBot.define do
         {
           "outgoing_message" => {
             "body" => "Dear Ministry of Defence,\r\n\r\nThis is my test\r\n\r\n\r\nYours faithfully,\r\n\r\nSteve Day",
-            "what_doing"=>"normal_sort"
+            "what_doing" => "normal_sort"
           },
           "info_request" => {
             "title" => "Testing the post redirect to pro things",
-            "public_body_id" => "#{public_body.id}"
+            "public_body_id" => public_body.id.to_s
           },
           "submitted_new_request" => "1",
           "preview" => "0",

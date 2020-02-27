@@ -28,7 +28,7 @@ class PublicBodyCategory::CategoryCollection
   end
 
   def singular_by_tag
-    Hash[*with_description.map { |a| [a[0],a[2]] }.flatten]
+    Hash[*with_description.map { |a| [a[0], a[2]] }.flatten]
   end
 
   def by_heading
@@ -48,9 +48,7 @@ class PublicBodyCategory::CategoryCollection
   def headings
     output = []
     @categories.each do |row|
-      unless row.is_a?(Array)
-        output << row
-      end
+      output << row unless row.is_a?(Array)
     end
     output
   end

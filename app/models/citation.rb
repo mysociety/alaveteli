@@ -31,15 +31,15 @@ class Citation < ApplicationRecord
   validates :type, inclusion: { in: %w(news_story academic_paper other),
                                 message: _('Please select a type') }
 
-  scope :for_request, ->(info_request) do
+  scope :for_request, lambda { |info_request|
     where(citable: info_request).
       or(where(citable: info_request.info_request_batch))
-  end
+  }
 
-  scope :for_batch, ->(info_request_batch) do
+  scope :for_batch, lambda { |info_request_batch|
     where(citable: info_request_batch).
       or(where(citable: info_request_batch.info_requests))
-  end
+  }
 
   def applies_to_batch_request?
     citable.is_a?(InfoRequestBatch)

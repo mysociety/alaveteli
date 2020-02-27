@@ -6,10 +6,10 @@ class InfoRequest
     end
 
     def call
-      @relation
-        .includes(:user => :roles)
-          .where(:roles => {:name => 'pro'})
-            .references(:roles)
+      @relation.
+        includes(user: :roles).
+          where(roles: { name: 'pro' }).
+            references(:roles)
     end
   end
 end

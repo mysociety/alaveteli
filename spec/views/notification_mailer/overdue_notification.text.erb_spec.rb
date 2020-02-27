@@ -2,11 +2,11 @@
 require 'spec_helper'
 
 describe "notification_mailer/overdue_notification.text.erb" do
-  let(:body) { FactoryBot.create(:public_body, :name => "Apostrophe's") }
+  let(:body) { FactoryBot.create(:public_body, name: "Apostrophe's") }
   let(:request) do
     FactoryBot.create(:info_request,
-                      :public_body => body,
-                      :title => "Request apostrophe's data")
+                      public_body: body,
+                      title: "Request apostrophe's data")
   end
 
   before do

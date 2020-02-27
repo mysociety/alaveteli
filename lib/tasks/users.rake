@@ -1,11 +1,10 @@
 # -*- encoding : utf-8 -*-
 namespace :users do
-
   desc "Lists email domains, most popular first"
-  task :count_per_domain => :environment do
+  task count_per_domain: :environment do
     from = ENV["START_DATE"]
 
-    results = UserStats.list_user_domains(:start_date => from)
+    results = UserStats.list_user_domains(start_date: from)
 
     column1_width = results.map { |x| x["domain"].length }.sort.last
 
@@ -17,11 +16,10 @@ namespace :users do
     results.each do |result|
       p " #{result["domain"].ljust(column1_width, " ")}  |  #{result["count"]}"
     end
-
   end
 
   desc "Lists per domain stats"
-  task :stats_by_domain => :environment do
+  task stats_by_domain: :environment do
     raise "must supply a DOMAIN value" unless ENV["DOMAIN"]
     domain = ENV["DOMAIN"]
     from = ENV["START_DATE"]
@@ -33,17 +31,17 @@ namespace :users do
     banned = users.banned.count
 
     banned_percent = if total_users == 0
-      0
-    else
-      (banned.to_f / total_users * 100).round(2)
+                       0
+                     else
+                       (banned.to_f / total_users * 100).round(2)
     end
 
     dormant = UserStats.count_dormant_users(domain, from)
 
     dormant_percent = if total_users == 0
-      0
-    else
-      (dormant.to_f / total_users * 100).round(2)
+                        0
+                      else
+                        (dormant.to_f / total_users * 100).round(2)
     end
 
     p "Since #{from}..." if from
@@ -53,7 +51,7 @@ namespace :users do
   end
 
   desc "Bans all users for a specific domain"
-  task :ban_by_domain => :environment do
+  task ban_by_domain: :environment do
     raise "must supply a DOMAIN value" unless ENV["DOMAIN"]
     domain = ENV["DOMAIN"]
     from = ENV["START_DATE"]
@@ -71,7 +69,7 @@ namespace :users do
     if input.downcase == "y"
       to_ban = UserStats.unbanned_by_domain(domain, from)
       count = to_ban.
-        update_all(:ban_text => "Banned for spamming")
+        update_all(ban_text: "Banned for spamming")
       p "#{count} accounts banned"
     else
       p "No action taken"
@@ -86,7 +84,7 @@ namespace :users do
   FIELDS: A CSV list of User attributes to print
           (default: "id,name,email,activity")
   EOF
-  task :pro_activity => :environment do
+  task pro_activity: :environment do
     fields =
       if ENV['FIELDS']
         ENV['FIELDS'].split(',').map(&:strip)
@@ -100,9 +98,7 @@ namespace :users do
       end
 
     end_date =
-      if ENV['END_DATE']
-        Time.zone.parse(ENV['END_DATE']).at_end_of_day
-      end
+      (Time.zone.parse(ENV['END_DATE']).at_end_of_day if ENV['END_DATE'])
 
     # Only auto-calculate missing dates if one has been provided without the
     # other

@@ -27,7 +27,7 @@ module AlaveteliRateLimiter
       @rule = find_rule(rule)
       path =
         Pathname.new(Rails.root + "tmp/#{@rule.name}_ip_rate_limiter.pstore")
-      @backend = opts[:backend] || Backends::PStoreDatabase.new(:path => path)
+      @backend = opts[:backend] || Backends::PStoreDatabase.new(path: path)
       @whitelist = opts[:whitelist] || self.class.defaults.whitelist
     end
 
@@ -62,7 +62,7 @@ module AlaveteliRateLimiter
       case rule
       when Symbol
         rules = self.class.defaults.event_rules.fetch(rule)
-        Rule.from_hash(rules.merge(:name => rule))
+        Rule.from_hash(rules.merge(name: rule))
       when Rule
         rule
       else

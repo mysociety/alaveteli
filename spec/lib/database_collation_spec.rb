@@ -30,13 +30,13 @@ describe DatabaseCollation do
 
     it 'does not support collation if the database is not postgresql' do
       database = DatabaseCollation.
-                 new(mock_connection(:adapter_name => 'MySQL'))
+                 new(mock_connection(adapter_name: 'MySQL'))
       expect(database.supports?('en_GB')).to be false
     end
 
     it 'does not support collation if the postgresql version is too old' do
       database = DatabaseCollation.
-                 new(mock_connection(:postgresql_version => 90111))
+                 new(mock_connection(postgresql_version: 90_111))
       expect(database.supports?('en_GB')).to be false
     end
 
@@ -66,15 +66,15 @@ end
 
 def mock_connection(connection_double_opts = {})
   # Connection must be PostgreSQL 90112 or greater
-  default_double_opts = { :adapter_name => 'PostgreSQL',
-                          :postgresql_version => 90112 }
+  default_double_opts = { adapter_name: 'PostgreSQL',
+                          postgresql_version: 90_112 }
 
   connection_double_opts = default_double_opts.merge(connection_double_opts)
 
   connection = double('ActiveRecord::FakeConnection', connection_double_opts)
 
   installed_collations = [
-    { "collname" => "default", "collencoding" => "-1"},
+    { "collname" => "default", "collencoding" => "-1" },
     { "collname" => "C", "collencoding" => "-1" },
     { "collname" => "POSIX", "collencoding" => "-1" },
     { "collname" => "C.UTF-8", "collencoding" => "6" },

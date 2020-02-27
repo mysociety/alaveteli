@@ -12,11 +12,11 @@ describe "Site statistics" do
       public_body = FactoryBot.create(:public_body)
       FactoryBot.create(:info_request, public_body: public_body)
       FactoryBot.create(:info_request,
-                         public_body: public_body,
-                         prominence: "requester_only")
+                        public_body: public_body,
+                        prominence: "requester_only")
       FactoryBot.create(:info_request,
-                         public_body: public_body,
-                         described_state: "successful")
+                        public_body: public_body,
+                        described_state: "successful")
 
       visit "/body_statistics"
       # Find the right table cell

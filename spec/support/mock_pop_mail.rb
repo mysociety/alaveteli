@@ -10,9 +10,7 @@ class MockPopMail
     @rfc2822
   end
 
-  def number
-    @number
-  end
+  attr_reader :number
 
   def to_s
     "#{number}: #{pop}"

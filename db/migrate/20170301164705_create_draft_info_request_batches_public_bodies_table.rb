@@ -2,7 +2,7 @@
 class CreateDraftInfoRequestBatchesPublicBodiesTable < ActiveRecord::Migration[4.2] # 4.0
   def change
     create_table :draft_info_request_batches_public_bodies,
-                 :id => false do |t|
+                 id: false do |t|
       t.references :draft_info_request_batch
       t.references :public_body
     end

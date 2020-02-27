@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 module PublicBodyHelper
-
   # Public: The reasons a request can't be made to a PublicBody
   # The returned reasons are ordered by priority. For example, if the body no
   # longer exists there is no reason to ask for its contact details if we don't
@@ -24,8 +23,8 @@ module PublicBodyHelper
       # Make the authority appear requestable to encourage users to help find
       # the authority's email address
       msg = link_to _("Make a request to this authority"),
-        new_request_to_body_path(:url_name => public_body.url_name),
-        :class => "link_button_green"
+                    new_request_to_body_path(url_name: public_body.url_name),
+                    class: "link_button_green"
 
       reasons.push(msg)
     end
@@ -44,17 +43,14 @@ module PublicBodyHelper
 
     types = categories.each_with_index.map do |category, index|
       desc = category.description
-      if index.zero?
-        desc = desc.sub(/\S/) { |m| Unicode.upcase(m) }
-      end
+      desc = desc.sub(/\S/) { |m| Unicode.upcase(m) } if index.zero?
       link_to(desc, list_public_bodies_by_tag_path(category.category_tag))
     end
 
     if types.any?
-      types.to_sentence(:last_word_connector => ' and ').html_safe
+      types.to_sentence(last_word_connector: ' and ').html_safe
     else
       _("A public authority")
     end
   end
-
 end

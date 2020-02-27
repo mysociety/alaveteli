@@ -11,15 +11,15 @@ describe AlaveteliTextMasker do
 
       before do
         @cheese_censor_rule = FactoryBot.build(:censor_rule,
-                                               :text => 'Stilton',
-                                               :replacement => 'Jarlsberg')
+                                               text: 'Stilton',
+                                               replacement: 'Jarlsberg')
         @colour_censor_rule = FactoryBot.build(:censor_rule,
-                                               :text => 'blue',
-                                               :replacement => 'yellow')
+                                               text: 'blue',
+                                               replacement: 'yellow')
         @regex_censor_rule = FactoryBot.build(:censor_rule,
-                                              :text => 'm[a-z][a-z][a-z]e',
-                                              :replacement => 'cat',
-                                              :regexp => true)
+                                              text: 'm[a-z][a-z][a-z]e',
+                                              replacement: 'cat',
+                                              regexp: true)
         @censor_rules = [@cheese_censor_rule,
                          @colour_censor_rule,
                          @regex_censor_rule]
@@ -30,7 +30,7 @@ describe AlaveteliTextMasker do
 
         result = class_instance.apply_masks(data,
                                             "image/jpeg",
-                                            :censor_rules => @censor_rules)
+                                            censor_rules: @censor_rules)
 
         expect(result).
           to eq("There was a mouse called Stilton, he wished that he was blue.")
@@ -40,7 +40,7 @@ describe AlaveteliTextMasker do
         data = "There was a mouse called Stilton, he wished that he was blue."
         result = class_instance.apply_masks(data,
                                             "application/vnd.ms-word",
-                                            :censor_rules => @censor_rules)
+                                            censor_rules: @censor_rules)
         expect(result).
           to eq("There was a xxxxx called xxxxxxx, he wished that he was xxxx.")
       end
@@ -50,7 +50,7 @@ describe AlaveteliTextMasker do
         @regex_censor_rule.text = 'á'
         result = class_instance.apply_masks(data,
                                             "application/octet-stream",
-                                            :censor_rules => @censor_rules)
+                                            censor_rules: @censor_rules)
         expect(result).to eq('xx mouse')
       end
 
@@ -58,7 +58,7 @@ describe AlaveteliTextMasker do
         data = "There was a mouse called Stilton, he wished that he was blue."
         result = class_instance.apply_masks(data,
                                             'text/html',
-                                            :censor_rules => @censor_rules)
+                                            censor_rules: @censor_rules)
         expect(result).
           to eq("There was a cat called Jarlsberg, he wished that he was yellow.")
       end
@@ -72,7 +72,6 @@ describe AlaveteliTextMasker do
         result = class_instance.apply_masks(data, "application/vnd.ms-word")
         expect(result).to eq("His email was xxx@xxx.xxx")
       end
-
 
       it "replaces UCS-2 addresses in Word documents" do
         data = "His email was f\000o\000o\000@\000b\000a\000r\000.\000c\000o\000m\000, indeed"
@@ -198,20 +197,20 @@ describe AlaveteliTextMasker do
         expected = "here is a cat"
 
         censor_rule = FactoryBot.build(:censor_rule,
-                                       :text => 'mouse',
-                                       :replacement => 'cat')
+                                       text: 'mouse',
+                                       replacement: 'cat')
 
         result = class_instance.apply_masks(data,
                                             'text/html',
-                                            :censor_rules => [censor_rule])
+                                            censor_rules: [censor_rule])
         expect(result).to eq(expected)
       end
 
       it 'applies extra masks to text' do
         data = "here is a mouse"
         expected = "here is a cat"
-        mask = { :to_replace => 'mouse', :replacement => 'cat'}
-        result = class_instance.apply_masks(data, 'text/html', :masks => [mask])
+        mask = { to_replace: 'mouse', replacement: 'cat' }
+        result = class_instance.apply_masks(data, 'text/html', masks: [mask])
         expect(result).to eq(expected)
       end
 

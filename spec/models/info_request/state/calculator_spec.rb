@@ -57,14 +57,15 @@ describe InfoRequest::State::Calculator do
         }
       end
 
-      let(:admin_states) { ['not_foi', 'vexatious'] }
+      let(:admin_states) { %w[not_foi vexatious] }
 
       it "always returns an empty hash" do
         admin_states.each do |state|
           info_request.set_described_state(state)
           transitions = calculator.transitions(
             is_owning_user: true,
-            user_asked_to_update_status: true)
+            user_asked_to_update_status: true
+          )
           expect(transitions).to(eq(empty_hash))
         end
       end
@@ -73,41 +74,41 @@ describe InfoRequest::State::Calculator do
     shared_examples_for "#transitions for an owner" do |states|
       let(:expected_when_asked_to_update) do
         {
-          pending:  {
-            "waiting_response"      => "I'm still <strong>waiting</strong> for my information <small>(maybe you got an acknowledgement)</small>",
+          pending: {
+            "waiting_response" => "I'm still <strong>waiting</strong> for my information <small>(maybe you got an acknowledgement)</small>",
             "waiting_clarification" => "I've been asked to <strong>clarify</strong> my request",
-            "internal_review"       => "I'm waiting for an <strong>internal review</strong> response",
-            "gone_postal"           => "They are going to reply <strong>by postal mail</strong>"
+            "internal_review" => "I'm waiting for an <strong>internal review</strong> response",
+            "gone_postal" => "They are going to reply <strong>by postal mail</strong>"
           },
           complete: {
-            "not_held"              => "They do <strong>not have</strong> the information <small>(maybe they say who does)</small>",
-            "partially_successful"  => "I've received <strong>some of the information</strong>",
-            "successful"            => "I've received <strong>all the information</strong>",
-            "rejected"              => "My request has been <strong>refused</strong>"
+            "not_held" => "They do <strong>not have</strong> the information <small>(maybe they say who does)</small>",
+            "partially_successful" => "I've received <strong>some of the information</strong>",
+            "successful" => "I've received <strong>all the information</strong>",
+            "rejected" => "My request has been <strong>refused</strong>"
           },
           other: {
-            "error_message"         => "I've received an <strong>error message</strong>",
-            "requires_admin"        => "This request <strong>requires administrator attention</strong>",
-            "user_withdrawn"        => "I would like to <strong>withdraw this request</strong>"
+            "error_message" => "I've received an <strong>error message</strong>",
+            "requires_admin" => "This request <strong>requires administrator attention</strong>",
+            "user_withdrawn" => "I would like to <strong>withdraw this request</strong>"
           }
         }
       end
 
       let(:expected_when_not_asked_to_update) do
         {
-          pending:  {
-            "waiting_response"      => "I'm still <strong>waiting</strong> for my information <small>(maybe you got an acknowledgement)</small>",
+          pending: {
+            "waiting_response" => "I'm still <strong>waiting</strong> for my information <small>(maybe you got an acknowledgement)</small>",
             "waiting_clarification" => "I've been asked to <strong>clarify</strong> my request",
-            "gone_postal"           => "They are going to reply <strong>by postal mail</strong>"
+            "gone_postal" => "They are going to reply <strong>by postal mail</strong>"
           },
           complete: {
-            "not_held"              => "They do <strong>not have</strong> the information <small>(maybe they say who does)</small>",
-            "partially_successful"  => "I've received <strong>some of the information</strong>",
-            "successful"            => "I've received <strong>all the information</strong>",
-            "rejected"              => "My request has been <strong>refused</strong>"
+            "not_held" => "They do <strong>not have</strong> the information <small>(maybe they say who does)</small>",
+            "partially_successful" => "I've received <strong>some of the information</strong>",
+            "successful" => "I've received <strong>all the information</strong>",
+            "rejected" => "My request has been <strong>refused</strong>"
           },
           other: {
-            "error_message"  => "I've received an <strong>error message</strong>",
+            "error_message" => "I've received an <strong>error message</strong>"
           }
         }
       end
@@ -118,7 +119,8 @@ describe InfoRequest::State::Calculator do
               info_request.set_described_state(state)
               transitions = calculator.transitions(
                 is_owning_user: true,
-                user_asked_to_update_status: true)
+                user_asked_to_update_status: true
+              )
               expect(transitions).to eq expected_when_asked_to_update
             end
           end
@@ -128,7 +130,8 @@ describe InfoRequest::State::Calculator do
               info_request.set_described_state(state)
               transitions = calculator.transitions(
                 is_owning_user: true,
-                user_asked_to_update_status: false)
+                user_asked_to_update_status: false
+              )
               expect(transitions).to eq expected_when_not_asked_to_update
             end
           end
@@ -139,19 +142,19 @@ describe InfoRequest::State::Calculator do
     shared_examples "#transitions for some other user" do |states|
       let(:expected) do
         {
-          pending:  {
-            "waiting_response"      => "<strong>No response</strong> has been received <small>(maybe there's just an acknowledgement)</small>",
+          pending: {
+            "waiting_response" => "<strong>No response</strong> has been received <small>(maybe there's just an acknowledgement)</small>",
             "waiting_clarification" => "<strong>Clarification</strong> has been requested",
-            "gone_postal"           => "A response will be sent <strong>by postal mail</strong>"
+            "gone_postal" => "A response will be sent <strong>by postal mail</strong>"
           },
           complete: {
-            "not_held"              => "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>",
-            "partially_successful"  => "<strong>Some of the information</strong> has been sent ",
-            "successful"            => "<strong>All the information</strong> has been sent",
-            "rejected"              => "The request has been <strong>refused</strong>"
+            "not_held" => "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>",
+            "partially_successful" => "<strong>Some of the information</strong> has been sent ",
+            "successful" => "<strong>All the information</strong> has been sent",
+            "rejected" => "The request has been <strong>refused</strong>"
           },
           other: {
-            "error_message"  => "An <strong>error message</strong> has been received"
+            "error_message" => "An <strong>error message</strong> has been received"
           }
         }
       end
@@ -161,7 +164,8 @@ describe InfoRequest::State::Calculator do
             info_request.set_described_state(state)
             transitions = calculator.transitions(
               is_owning_user: false,
-              user_asked_to_update_status: false)
+              user_asked_to_update_status: false
+            )
             expect(transitions).to eq expected
           end
         end
@@ -172,13 +176,15 @@ describe InfoRequest::State::Calculator do
       context "and the user is the owner" do
         it_behaves_like(
           "#transitions for an owner",
-          ['waiting_response', 'waiting_clarification', 'gone_postal'])
+          %w[waiting_response waiting_clarification gone_postal]
+        )
       end
 
       context "and the user is some other user" do
         it_behaves_like(
           "#transitions for some other user",
-          ['waiting_response', 'waiting_clarification', 'gone_postal'])
+          %w[waiting_response waiting_clarification gone_postal]
+        )
       end
     end
 
@@ -186,13 +192,15 @@ describe InfoRequest::State::Calculator do
       context "and the user is the owner" do
         it_behaves_like(
           "#transitions for an owner",
-          ['not_held', 'partially_successful', 'successful', 'rejected'])
+          %w[not_held partially_successful successful rejected]
+        )
       end
 
       context "and the user is some other user" do
         it_behaves_like(
           "#transitions for some other user",
-          ['not_held', 'partially_successful', 'successful', 'rejected'])
+          %w[not_held partially_successful successful rejected]
+        )
       end
     end
 
@@ -205,15 +213,17 @@ describe InfoRequest::State::Calculator do
         it "returns only two pending states" do
           transitions = calculator.transitions(
             is_owning_user: true,
-            user_asked_to_update_status: false)
-          expected = ["internal_review", "gone_postal"]
+            user_asked_to_update_status: false
+          )
+          expected = %w[internal_review gone_postal]
           expect(transitions[:pending].keys).to eq(expected)
         end
 
         it "returns a different label for the internal_review status" do
           transitions = calculator.transitions(
             is_owning_user: true,
-            user_asked_to_update_status: false)
+            user_asked_to_update_status: false
+          )
           expected = "I'm still <strong>waiting</strong> for the internal review"
           expect(transitions[:pending]["internal_review"]).to eq expected
         end
@@ -223,15 +233,17 @@ describe InfoRequest::State::Calculator do
         it "returns only two pending states" do
           transitions = calculator.transitions(
             is_owning_user: false,
-            user_asked_to_update_status: false)
-          expected = ["internal_review", "gone_postal"]
+            user_asked_to_update_status: false
+          )
+          expected = %w[internal_review gone_postal]
           expect(transitions[:pending].keys).to eq(expected)
         end
 
         it "returns a different label for the internal_review status" do
           transitions = calculator.transitions(
             is_owning_user: false,
-            user_asked_to_update_status: false)
+            user_asked_to_update_status: false
+          )
           expected = "Still awaiting an <strong>internal review</strong>"
           expect(transitions[:pending]["internal_review"]).to eq expected
         end
@@ -242,13 +254,15 @@ describe InfoRequest::State::Calculator do
       context "and the user is the owner" do
         it_behaves_like(
           "#transitions for an owner",
-          ['waiting_response', 'waiting_clarification', 'gone_postal'])
+          %w[waiting_response waiting_clarification gone_postal]
+        )
       end
 
       context "and the user is some other user" do
         it_behaves_like(
           "#transitions for some other user",
-          ['waiting_response', 'waiting_clarification', 'gone_postal'])
+          %w[waiting_response waiting_clarification gone_postal]
+        )
       end
     end
   end

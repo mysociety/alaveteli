@@ -1,10 +1,9 @@
 # -*- encoding : utf-8 -*-
 namespace :submodules do
-
   desc "Check the status of the project's submodules"
-  task :check => :environment do
+  task check: :environment do
     commit_info = `git submodule status commonlib`
-    case commit_info[0,1]
+    case commit_info[0, 1]
     when '+'
       $stderr.puts "Error: Currently checked out submodule commit for commonlib"
       $stderr.puts "does not match the commit expected by this version of Alaveteli."
@@ -21,8 +20,7 @@ namespace :submodules do
     when ' '
       exit(0)
     else
-      raise "Unexpected status character in response to 'git submodule status commonlib': #{commit_info[0,1]}"
+      raise "Unexpected status character in response to 'git submodule status commonlib': #{commit_info[0, 1]}"
     end
   end
-
 end

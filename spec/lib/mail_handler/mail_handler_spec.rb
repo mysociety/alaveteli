@@ -11,8 +11,8 @@ describe 'when creating a mail object from raw data' do
 
   it "should be able to parse a large email without raising an exception" do
     m = Mail.new
-    m.add_file(:filename => "attachment.data", :content => "a" * (8 * 1024 * 1024))
-    raw_email = "From jamis_buck@byu.edu Mon May  2 16:07:05 2005\r\n#{m.to_s}"
+    m.add_file(filename: "attachment.data", content: "a" * (8 * 1024 * 1024))
+    raw_email = "From jamis_buck@byu.edu Mon May  2 16:07:05 2005\r\n#{m}"
     expect { Mail::Message.new(raw_email) }.not_to raise_error
   end
 
@@ -56,7 +56,6 @@ describe 'when creating a mail object from raw data' do
     mail = get_fixture_mail('subject-bad-utf-8-trailing-quoted-printable.email')
     expect(mail.subject).to eq('hello')
   end
-
 
   it 'should handle a UTF-7 subject' do
     mail = get_fixture_mail('utf-7-subject.email')
@@ -103,7 +102,7 @@ describe 'when asked for the from name' do
     expect(MailHandler.get_from_name(mail)).to eq('Public Authority')
   end
 
-  it 'should return nil from a "From" field that is just a name'do
+  it 'should return nil from a "From" field that is just a name' do
     mail = get_fixture_mail('track-response-webshield-bounce.email')
     expect(MailHandler.get_from_name(mail)).to eq(nil)
   end
@@ -148,8 +147,8 @@ describe 'when asked for all the addresses a mail has been sent to' do
                     'Cc: request-3333-xxxxxxxx@whatdotheyknow.com')
     mail = MailHandler.mail_from_raw_email(mail_data)
     expect(MailHandler.get_all_addresses(mail)).to eq(['request-5335-xxxxxxxx@whatdotheyknow.com',
-                                                   'request-3333-xxxxxxxx@whatdotheyknow.com',
-                                                   'request-5555-xxxxxxxx@whatdotheyknow.com'])
+                                                       'request-3333-xxxxxxxx@whatdotheyknow.com',
+                                                       'request-5555-xxxxxxxx@whatdotheyknow.com'])
   end
 
   it 'should only return unique values' do
@@ -173,7 +172,6 @@ describe 'when asked for all the addresses a mail has been sent to' do
     mail = MailHandler.mail_from_raw_email(mail_data)
     expect(MailHandler.get_all_addresses(mail)).to eq([])
   end
-
 
 end
 
@@ -254,7 +252,6 @@ describe 'when deriving a name, email and formatted address from a message from 
                                 '"FOI @ Person" <foiperson@localhost>'])
   end
 
-
   it 'should quote a name with quotes in it' do
     should_render_from_address('"FOI \" Person" <foiperson@localhost>',
                                ['FOI " Person',
@@ -331,7 +328,7 @@ end
 
 describe "when getting the attachment text" do
   it "should not raise an error if the expansion of a zip file raises an error" do
-    mock_entry = double('Zip::File entry', :file? => true)
+    mock_entry = double('Zip::File entry', file?: true)
     mock_entries = [mock_entry]
     allow(mock_entries).to receive(:close)
     allow(mock_entry).to receive(:get_input_stream).and_raise("invalid distance too far back")
@@ -480,73 +477,73 @@ describe 'when getting attachment attributes' do
     mail = get_fixture_mail('many-attachments-date-header.email')
     attributes = MailHandler.get_attachment_attributes(mail)
 
-    expected_attributes = [ { :content_type=>"text/plain",
-                              :url_part_number=>1,
-                              :within_rfc822_subject=>nil,
-                              :filename=>nil},
-                            { :content_type=>"text/plain",
-                              :url_part_number=>2,
-                              :within_rfc822_subject=>"Re: xxx",
-                              :filename=>nil},
-                            { :content_type=>"text/html",
-                              :url_part_number=>4,
-                              :within_rfc822_subject=>"example",
-                              :filename=>nil},
-                            { :content_type=>"image/gif", :url_part_number=>5,
-                              :within_rfc822_subject=>"example",
-                              :filename=>"image001.gif"},
-                            { :content_type=>"application/vnd.ms-excel",
-                              :url_part_number=>6,
-                              :within_rfc822_subject=>"example",
-                              :filename=>"particpant list.xls"},
-                            { :content_type=>"text/plain",
-                              :url_part_number=>7,
-                              :within_rfc822_subject=>"RE: example",
-                              :filename=>nil},
-                            { :content_type=>"text/html",
-                              :url_part_number=>9,
-                              :within_rfc822_subject=>"As promised - Masterclass info (example)",
-                              :filename=>nil},
-                            { :content_type=>"image/gif",
-                              :url_part_number=>10,
-                              :within_rfc822_subject=>"As promised - Masterclass info (example)",
-                              :filename=>"image001.gif"},
-                            { :content_type=>"application/vnd.ms-word",
-                              :url_part_number=>11,
-                              :within_rfc822_subject=>"As promised - Masterclass info (example)",
-                              :filename=>"Participant List.doc"},
-                            { :content_type=>"application/vnd.ms-word",
-                              :url_part_number=>12,
-                              :within_rfc822_subject=>"As promised - Masterclass info (example)",
-                              :filename=>"Information & Booking Form.doc"},
-                            { :content_type=>"text/plain",
-                              :url_part_number=>13,
-                              :within_rfc822_subject=>"Re: As promised - info (example)",
-                              :filename=>nil},
-                            { :content_type=>"text/html",
-                              :url_part_number=>15,
-                              :within_rfc822_subject=>"Thank you from example",
-                              :filename=>nil},
-                            { :content_type=>"image/gif",
-                              :url_part_number=>16,
-                              :within_rfc822_subject=>"Thank you from example",
-                              :filename=>"image001.gif"},
-                            { :content_type=>"text/plain",
-                              :url_part_number=>17,
-                              :within_rfc822_subject=>"example - Meeting - Tuesday 2nd March",
-                              :filename=>nil},
-                            { :content_type=>"text/plain",
-                              :url_part_number=>18,
-                              :within_rfc822_subject=>"example - Help needed",
-                              :filename=>nil},
-                            { :content_type=>"application/pdf",
-                              :url_part_number=>19,
-                              :within_rfc822_subject=>"example - Help needed",
-                              :filename=>"Information Pack.pdf"},
-                            { :content_type=>"text/plain",
-                              :url_part_number=>20,
-                              :within_rfc822_subject=>"Re: As promised - info (example)",
-                              :filename=>nil} ]
+    expected_attributes = [{ content_type: "text/plain",
+                             url_part_number: 1,
+                             within_rfc822_subject: nil,
+                             filename: nil },
+                           { content_type: "text/plain",
+                             url_part_number: 2,
+                             within_rfc822_subject: "Re: xxx",
+                             filename: nil },
+                           { content_type: "text/html",
+                             url_part_number: 4,
+                             within_rfc822_subject: "example",
+                             filename: nil },
+                           { content_type: "image/gif", url_part_number: 5,
+                             within_rfc822_subject: "example",
+                             filename: "image001.gif" },
+                           { content_type: "application/vnd.ms-excel",
+                             url_part_number: 6,
+                             within_rfc822_subject: "example",
+                             filename: "particpant list.xls" },
+                           { content_type: "text/plain",
+                             url_part_number: 7,
+                             within_rfc822_subject: "RE: example",
+                             filename: nil },
+                           { content_type: "text/html",
+                             url_part_number: 9,
+                             within_rfc822_subject: "As promised - Masterclass info (example)",
+                             filename: nil },
+                           { content_type: "image/gif",
+                             url_part_number: 10,
+                             within_rfc822_subject: "As promised - Masterclass info (example)",
+                             filename: "image001.gif" },
+                           { content_type: "application/vnd.ms-word",
+                             url_part_number: 11,
+                             within_rfc822_subject: "As promised - Masterclass info (example)",
+                             filename: "Participant List.doc" },
+                           { content_type: "application/vnd.ms-word",
+                             url_part_number: 12,
+                             within_rfc822_subject: "As promised - Masterclass info (example)",
+                             filename: "Information & Booking Form.doc" },
+                           { content_type: "text/plain",
+                             url_part_number: 13,
+                             within_rfc822_subject: "Re: As promised - info (example)",
+                             filename: nil },
+                           { content_type: "text/html",
+                             url_part_number: 15,
+                             within_rfc822_subject: "Thank you from example",
+                             filename: nil },
+                           { content_type: "image/gif",
+                             url_part_number: 16,
+                             within_rfc822_subject: "Thank you from example",
+                             filename: "image001.gif" },
+                           { content_type: "text/plain",
+                             url_part_number: 17,
+                             within_rfc822_subject: "example - Meeting - Tuesday 2nd March",
+                             filename: nil },
+                           { content_type: "text/plain",
+                             url_part_number: 18,
+                             within_rfc822_subject: "example - Help needed",
+                             filename: nil },
+                           { content_type: "application/pdf",
+                             url_part_number: 19,
+                             within_rfc822_subject: "example - Help needed",
+                             filename: "Information Pack.pdf" },
+                           { content_type: "text/plain",
+                             url_part_number: 20,
+                             within_rfc822_subject: "Re: As promised - info (example)",
+                             filename: nil }]
 
     attributes.each_with_index do |attr, index|
       attr.delete(:charset)

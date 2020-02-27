@@ -3,7 +3,6 @@
 require 'tmpdir'
 
 module MailHandler
-
   require 'mail'
   require 'backends/mail_extensions'
   require 'backends/mail_backend'
@@ -21,38 +20,34 @@ module MailHandler
       IO.popen("tnef -K -C #{dir} 2> /dev/null", "wb") do |f|
         f.write(content)
         f.close
-        if $?.signaled?
-          raise IOError, "tnef exited with signal #{$?.termsig}"
-        end
-        if $?.exited? && $?.exitstatus != 0
-          raise TNEFParsingError, "tnef exited with status #{$?.exitstatus}"
+        raise IOError, "tnef exited with signal #{$CHILD_STATUS.termsig}" if $CHILD_STATUS.signaled?
+        if $CHILD_STATUS.exited? && $CHILD_STATUS.exitstatus != 0
+          raise TNEFParsingError, "tnef exited with status #{$CHILD_STATUS.exitstatus}"
         end
       end
       found = 0
       Dir.new(dir).sort.each do |file| # sort for deterministic behaviour
         if file != "." && file != ".."
           file_content = File.open("#{dir}/#{file}", "rb").read
-          attachments << { :content => file_content,
-                           :filename => file }
+          attachments << { content: file_content,
+                           filename: file }
           found += 1
         end
       end
-      if found == 0
-        raise TNEFParsingError, "tnef produced no attachments"
-      end
+      raise TNEFParsingError, "tnef produced no attachments" if found == 0
     end
     attachments
   end
 
   def normalise_content_type(content_type)
     # e.g. http://www.whatdotheyknow.com/request/93/response/250
-    if content_type == 'application/excel' or content_type == 'application/msexcel' or content_type == 'application/x-ms-excel'
+    if (content_type == 'application/excel') || (content_type == 'application/msexcel') || (content_type == 'application/x-ms-excel')
       content_type = 'application/vnd.ms-excel'
     end
-    if content_type == 'application/mspowerpoint' or content_type == 'application/x-ms-powerpoint'
+    if (content_type == 'application/mspowerpoint') || (content_type == 'application/x-ms-powerpoint')
       content_type = 'application/vnd.ms-powerpoint'
     end
-    if content_type == 'application/msword' or content_type == 'application/x-ms-word'
+    if (content_type == 'application/msword') || (content_type == 'application/x-ms-word')
       content_type = 'application/vnd.ms-word'
     end
     if content_type == 'application/x-zip-compressed'
@@ -60,11 +55,11 @@ module MailHandler
     end
 
     # e.g. http://www.whatdotheyknow.com/request/copy_of_current_swessex_scr_opt#incoming-9928
-    if content_type == 'application/acrobat' or content_type == 'document/pdf'
+    if (content_type == 'application/acrobat') || (content_type == 'document/pdf')
       content_type = 'application/pdf'
     end
 
-    return content_type
+    content_type
   end
 
   def get_attachment_text_one_file(content_type, body, charset = 'utf-8')
@@ -79,14 +74,14 @@ module MailHandler
       tempfile.binmode
       tempfile.print body
       tempfile.flush
-      default_params = { :append_to => text,
-                         :binary_output => false,
-                         :timeout => 1200 }
+      default_params = { append_to: text,
+                         binary_output: false,
+                         timeout: 1200 }
       if content_type == 'application/vnd.ms-word'
         AlaveteliExternalCommand.run("wvText", tempfile.path, tempfile.path + ".txt",
-                                     { :memory_limit => 536870912, :timeout => 120 } )
+                                     memory_limit: 536_870_912, timeout: 120)
         # Try catdoc if we get into trouble (e.g. for InfoRequestEvent 2701)
-        if not File.exist?(tempfile.path + ".txt")
+        if !File.exist?(tempfile.path + ".txt")
           AlaveteliExternalCommand.run("catdoc", tempfile.path, default_params)
         else
           text += File.read(tempfile.path + ".txt") + "\n\n"
@@ -104,7 +99,7 @@ module MailHandler
                                      "-dump-charset", "utf-8",
                                      "-force-html", "-dump",
                                      tempfile.path,
-                                     default_params.merge(:env => {"LANG" => "C"}))
+                                     default_params.merge(env: { "LANG" => "C" }))
       elsif content_type == 'application/vnd.ms-excel'
         # Bit crazy using /usr/bin/strings - but xls2csv, xlhtml and
         # py_xls2txt only extract text from cells, not from floating
@@ -124,10 +119,10 @@ module MailHandler
                                            "-c",
                                            tempfile.path,
                                            "word/document.xml",
-                                           {:binary_output => false})
-        if !xml.nil?
+                                           binary_output: false)
+        unless xml.nil?
           doc = REXML::Document.new(xml)
-          text += doc.each_element( './/text()' ) {}.join(" ")
+          text += doc.each_element('.//text()') {}.join(" ")
         end
       elsif content_type == 'application/zip'
         # recurse into zip files
@@ -136,18 +131,18 @@ module MailHandler
           text += get_attachment_text_from_zip_file(zip_file)
           zip_file.close
         rescue
-          $stderr.puts("Error processing zip file: #{$!.inspect}")
+          $stderr.puts("Error processing zip file: #{$ERROR_INFO.inspect}")
         end
       end
       tempfile.close
     end
 
-    return text
+    text
   end
-  def get_attachment_text_from_zip_file(zip_file)
 
+  def get_attachment_text_from_zip_file(zip_file)
     text = ""
-    for entry in zip_file
+    zip_file.each do |entry|
       if entry.file?
         filename = entry.to_s
         begin
@@ -170,10 +165,9 @@ module MailHandler
         text += get_attachment_text_one_file(content_type, body)
       end
     end
-    return text
+    text
   end
 
   # Turn instance methods into class methods
   extend self
-
 end

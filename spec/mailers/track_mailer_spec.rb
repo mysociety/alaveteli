@@ -28,7 +28,7 @@ describe TrackMailer do
     end
 
     it 'asks for all the users whose last daily track email was sent more than a day ago' do
-      expected_conditions = [ "last_daily_track_email < ?", Time.utc(2007, 11, 11, 23, 59)]
+      expected_conditions = ["last_daily_track_email < ?", Time.utc(2007, 11, 11, 23, 59)]
       expect(User).
         to receive(:where).with(expected_conditions).and_call_original
       subject
@@ -75,31 +75,31 @@ describe TrackMailer do
         before do
           @track_things_sent_emails_array = []
           allow(@track_things_sent_emails_array).to receive(:where).and_return([]) # this is for the date range find (created in last 14 days)
-          @track_thing = mock_model(TrackThing, :track_query => 'test query',
-                                    :track_things_sent_emails => @track_things_sent_emails_array,
-                                    :created_at => Time.utc(2007, 11, 9, 23, 59))
+          @track_thing = mock_model(TrackThing, track_query: 'test query',
+                                                track_things_sent_emails: @track_things_sent_emails_array,
+                                                created_at: Time.utc(2007, 11, 9, 23, 59))
           allow(TrackThing).to receive(:where).and_return([@track_thing])
           @track_things_sent_email = mock_model(TrackThingsSentEmail, :save! => true,
-                                                :track_thing_id= => true,
-                                                :info_request_event_id= => true)
+                                                                      :track_thing_id= => true,
+                                                                      :info_request_event_id= => true)
           allow(TrackThingsSentEmail).to receive(:new).and_return(@track_things_sent_email)
-          @xapian_search = double('xapian search', :results => [])
-          @found_event = mock_model(InfoRequestEvent, :described_at => @track_thing.created_at + 1.day)
-          @search_result = {:model => @found_event}
+          @xapian_search = double('xapian search', results: [])
+          @found_event = mock_model(InfoRequestEvent, described_at: @track_thing.created_at + 1.day)
+          @search_result = { model: @found_event }
           allow(ActsAsXapian::Search).to receive(:new).and_return(@xapian_search)
         end
 
         it 'should ask for the events returned by the tracking query' do
           expect(ActsAsXapian::Search).to receive(:new).with([InfoRequestEvent], 'test query',
-                                                         :sort_by_prefix => 'described_at',
-                                                         :sort_by_ascending => true,
-                                                         :collapse_by_prefix => nil,
-                                                         :limit => 100).and_return(@xapian_search)
+                                                             sort_by_prefix: 'described_at',
+                                                             sort_by_ascending: true,
+                                                             collapse_by_prefix: nil,
+                                                             limit: 100).and_return(@xapian_search)
           TrackMailer.alert_tracks
         end
 
         it 'should not include in the email any events that the user has already been sent a tracking email about' do
-          sent_email = mock_model(TrackThingsSentEmail, :info_request_event_id => @found_event.id)
+          sent_email = mock_model(TrackThingsSentEmail, info_request_event_id: @found_event.id)
           allow(@track_things_sent_emails_array).to receive(:where).and_return([sent_email]) # this is for the date range find (created in last 14 days)
           allow(@xapian_search).to receive(:results).and_return([@search_result])
           expect(TrackMailer).not_to receive(:event_digest)
@@ -121,7 +121,7 @@ describe TrackMailer do
         end
 
         it 'should raise an error if a non-event class is returned by the tracking query' do
-          allow(@xapian_search).to receive(:results).and_return([{:model => 'string class'}])
+          allow(@xapian_search).to receive(:results).and_return([{ model: 'string class' }])
           expect { TrackMailer.alert_tracks }.to raise_error('need to add other types to TrackMailer.alert_tracks (unalerted)')
         end
 
@@ -187,14 +187,13 @@ describe TrackMailer do
     before :each do
       allow(AlaveteliConfiguration).to receive(:site_name).
         and_return("L'information")
-      @post_redirect = mock_model(PostRedirect, :save! => true,
-                                  :email_token => "token")
+      @post_redirect = mock_model(PostRedirect, save!: true,
+                                                email_token: "token")
       allow(PostRedirect).to receive(:new).and_return(@post_redirect)
       ActionMailer::Base.deliveries = []
       @user = mock_model(User,
-                         :name_and_email => MailHandler.address_from_name_and_email('Tippy Test', 'tippy@localhost'),
-                         :url_name => 'tippy_test'
-                         )
+                         name_and_email: MailHandler.address_from_name_and_email('Tippy Test', 'tippy@localhost'),
+                         url_name: 'tippy_test')
       TrackMailer.event_digest(@user, []).deliver_now # no items in it email for minimal test
     end
 
@@ -228,15 +227,18 @@ describe TrackMailer do
       info_request = FactoryBot.create(:embargoed_request)
       user = FactoryBot.create(
         :user,
-        last_daily_track_email: Time.zone.now - 2.days)
+        last_daily_track_email: Time.zone.now - 2.days
+      )
       track_thing = FactoryBot.create(
         :public_body_track,
         public_body: info_request.public_body,
-        tracking_user: user)
+        tracking_user: user
+      )
       info_request.log_event(
         'sent',
-        :outgoing_message_id => info_request.outgoing_messages.first.id,
-        :email => info_request.public_body.request_email)
+        outgoing_message_id: info_request.outgoing_messages.first.id,
+        email: info_request.public_body.request_email
+      )
 
       ActionMailer::Base.deliveries.clear
       update_xapian_index

@@ -1,9 +1,9 @@
 # -*- encoding : utf-8 -*-
 def load_raw_emails_data
   raw_emails_yml = File.join(RSpec.configuration.fixture_path, "raw_emails.yml")
-  for raw_email_id in YAML::load_file(raw_emails_yml).map { |k,v| v["id"] } do
+  YAML.load_file(raw_emails_yml).map { |_k, v| v["id"] }.each do |raw_email_id|
     raw_email = RawEmail.find(raw_email_id)
-    raw_email.data = load_file_fixture("raw_emails/%d.email" % [raw_email_id])
+    raw_email.data = load_file_fixture(format("raw_emails/%d.email", raw_email_id))
   end
 end
 
@@ -19,11 +19,11 @@ def get_fixture_mail(filename, email_to = nil, email_from = nil)
 end
 
 def parse_all_incoming_messages
-  IncomingMessage.find_each { |message| message.parse_raw_email! }
+  IncomingMessage.find_each(&:parse_raw_email!)
 end
 
 def load_mail_server_logs(log)
-  batch = MailServerLogDone.create(:filename => 'spec', :last_stat => Time.zone.now)
+  batch = MailServerLogDone.create(filename: 'spec', last_stat: Time.zone.now)
   mta_log_type = AlaveteliConfiguration.mta_log_type.to_sym
   io_stream = StringIO.new(log)
   case mta_log_type
@@ -34,7 +34,6 @@ def load_mail_server_logs(log)
   else
     raise "Unexpected MTA type: #{ mta_log_type }"
   end
-
 end
 
 def gsub_addresses(content, email_to, email_from)

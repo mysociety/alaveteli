@@ -14,7 +14,7 @@ describe 'Adding a Public Body' do
     AlaveteliLocalization.set_locales('en_GB es', 'en_GB')
     using_session(@admin) do
       visit new_admin_body_path
-      fill_in 'public_body_name', :with => 'New Public Body en_GB'
+      fill_in 'public_body_name', with: 'New Public Body en_GB'
       click_button 'Create'
 
       expect(page).to have_content('successfully created')

@@ -38,9 +38,9 @@ describe AlaveteliPro::ActivityList::List do
     it "returns the user's info_request_events if
         included in the event types" do
       user = FactoryBot.create(:user)
-      info_request = FactoryBot.create(:info_request, :user => user)
+      info_request = FactoryBot.create(:info_request, user: user)
       edit_event = FactoryBot.create(:edit_event,
-                                     :info_request => info_request)
+                                     info_request: info_request)
       list = described_class.new(user, 1, 10)
       expect(list.events).
         to eq([info_request.last_event_forming_initial_request])
@@ -52,13 +52,13 @@ describe AlaveteliPro::ActivityList::List do
 
     it 'returns an array of items representing the current page of events' do
       user = FactoryBot.create(:user)
-      info_request = FactoryBot.create(:info_request, :user => user)
+      info_request = FactoryBot.create(:info_request, user: user)
       response_event = FactoryBot.create(:response_event,
-                                         :info_request => info_request)
+                                         info_request: info_request)
       comment_event = FactoryBot.create(:comment_event,
-                                        :info_request => info_request)
+                                        info_request: info_request)
       resent_event = FactoryBot.create(:resent_event,
-                                       :info_request => info_request)
+                                       info_request: info_request)
       list = described_class.new(user, 1, 2)
       expect(list.current_items.first).
         to be_a(AlaveteliPro::ActivityList::RequestResent)

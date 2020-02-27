@@ -143,8 +143,8 @@ describe MailServerLog do
         # things go wrong.
         fixture_path = file_fixture_name('exim-bad-utf8-exim-log')
         log = File.open(fixture_path, 'r')
-        done = MailServerLogDone.new(:filename => "foo",
-                                     :last_stat => DateTime.new(2012, 10, 10))
+        done = MailServerLogDone.new(filename: "foo",
+                                     last_stat: DateTime.new(2012, 10, 10))
 
         expect(ir.mail_server_logs.count).to eq 0
         # This will error if we don't sanitize the lines
@@ -179,7 +179,7 @@ describe MailServerLog do
         info_request = FactoryBot.create(:info_request)
         allow(info_request).to receive(:incoming_email).
           and_return('foi+request-331612-13811a2b@example.com')
-        info_request.mail_server_logs.create!(:line => line, :order => 1)
+        info_request.mail_server_logs.create!(line: line, order: 1)
         expect(MailServerLog.request_exim_sent?(info_request)).to be true
       end
 
@@ -195,7 +195,7 @@ describe MailServerLog do
         info_request = FactoryBot.create(:info_request)
         allow(info_request).to receive(:incoming_email).
           and_return('foi+request-331612-13811a2b@example.com')
-        info_request.mail_server_logs.create!(:line => line, :order => 1)
+        info_request.mail_server_logs.create!(line: line, order: 1)
         expect(MailServerLog.request_exim_sent?(info_request)).to be false
       end
 
@@ -208,15 +208,17 @@ describe MailServerLog do
   end
 
   context "Postfix" do
-    let(:log) { [
-      "Oct  3 16:39:35 host postfix/pickup[2257]: CB55836EE58C: uid=1003 from=<foi+request-14-e0e09f97@example.com>",
-      "Oct  3 16:39:35 host postfix/cleanup[7674]: CB55836EE58C: message-id=<ogm-15+506bdda7a4551-20ee@example.com>",
-      "Oct  3 16:39:35 host postfix/qmgr[1673]: 9634B16F7F7: from=<foi+request-10-1234@example.com>, size=368, nrcpt=1 (queue active)",
-      "Oct  3 16:39:35 host postfix/qmgr[15615]: CB55836EE58C: from=<foi+request-14-e0e09f97@example.com>, size=1695, nrcpt=1 (queue active)",
-      "Oct  3 16:39:38 host postfix/smtp[7676]: CB55836EE58C: to=<foi@some.gov.au>, relay=aspmx.l.google.com[74.125.25.27]:25, delay=2.5, delays=0.13/0.02/1.7/0.59, dsn=2.0.0, status=sent (250 2.0.0 OK 1349246383 j9si1676296paw.328)",
-      "Oct  3 16:39:38 host postfix/smtp[1681]: 9634B16F7F7: to=<kdent@example.com>, relay=none, delay=46, status=deferred (connect to 216.150.150.131[216.150.150.131]: No route to host)",
-      "Oct  3 16:39:38 host postfix/qmgr[15615]: CB55836EE58C: removed",
-    ]}
+    let(:log) {
+  [
+    "Oct  3 16:39:35 host postfix/pickup[2257]: CB55836EE58C: uid=1003 from=<foi+request-14-e0e09f97@example.com>",
+    "Oct  3 16:39:35 host postfix/cleanup[7674]: CB55836EE58C: message-id=<ogm-15+506bdda7a4551-20ee@example.com>",
+    "Oct  3 16:39:35 host postfix/qmgr[1673]: 9634B16F7F7: from=<foi+request-10-1234@example.com>, size=368, nrcpt=1 (queue active)",
+    "Oct  3 16:39:35 host postfix/qmgr[15615]: CB55836EE58C: from=<foi+request-14-e0e09f97@example.com>, size=1695, nrcpt=1 (queue active)",
+    "Oct  3 16:39:38 host postfix/smtp[7676]: CB55836EE58C: to=<foi@some.gov.au>, relay=aspmx.l.google.com[74.125.25.27]:25, delay=2.5, delays=0.13/0.02/1.7/0.59, dsn=2.0.0, status=sent (250 2.0.0 OK 1349246383 j9si1676296paw.328)",
+    "Oct  3 16:39:38 host postfix/smtp[1681]: 9634B16F7F7: to=<kdent@example.com>, relay=none, delay=46, status=deferred (connect to 216.150.150.131[216.150.150.131]: No route to host)",
+    "Oct  3 16:39:38 host postfix/qmgr[15615]: CB55836EE58C: removed"
+  ]
+}
 
     describe ".load_postfix_log_data" do
       # Postfix logs for a single email go over multiple lines. They are all tied together with the Queue ID.
@@ -229,7 +231,7 @@ describe MailServerLog do
         ir2 = info_requests(:naughty_chicken_request)
         allow(InfoRequest).to receive(:find_by_incoming_email).with("foi+request-14-e0e09f97@example.com").and_return(ir1)
         allow(InfoRequest).to receive(:find_by_incoming_email).with("foi+request-10-1234@example.com").and_return(ir2)
-        MailServerLog.load_postfix_log_data(log, MailServerLogDone.new(:filename => "foo", :last_stat => Time.zone.now))
+        MailServerLog.load_postfix_log_data(log, MailServerLogDone.new(filename: "foo", last_stat: Time.zone.now))
         # TODO: Check that each log line is attached to the correct request
         expect(ir1.mail_server_logs.count).to eq(5)
         expect(ir1.mail_server_logs[0].order).to eq(1)
@@ -253,10 +255,10 @@ describe MailServerLog do
     describe ".scan_for_postfix_queue_ids" do
       it "returns the queue ids of interest with the connected email addresses" do
         allow(AlaveteliConfiguration).to receive(:incoming_email_domain).and_return("example.com")
-        expect(MailServerLog.scan_for_postfix_queue_ids(log)).to eq({
+        expect(MailServerLog.scan_for_postfix_queue_ids(log)).to eq(
           "CB55836EE58C" => ["request-14-e0e09f97@example.com"],
           "9634B16F7F7" => ["request-10-1234@example.com"]
-        })
+        )
       end
     end
 
@@ -269,13 +271,13 @@ describe MailServerLog do
     describe ".request_postfix_sent?" do
       it "returns true when the logs say the message was sent" do
         ir = info_requests(:fancy_dog_request)
-        ir.mail_server_logs.create!(:line => "Oct 10 16:58:38 kedumba postfix/smtp[26358]: A664436F218D: to=<contact@openaustraliafoundation.org.au>, relay=aspmx.l.google.com[74.125.25.26]:25, delay=2.7, delays=0.16/0.02/1.8/0.67, dsn=2.0.0, status=sent (250 2.0.0 OK 1349848723 e6si653316paw.346)", :order => 1)
+        ir.mail_server_logs.create!(line: "Oct 10 16:58:38 kedumba postfix/smtp[26358]: A664436F218D: to=<contact@openaustraliafoundation.org.au>, relay=aspmx.l.google.com[74.125.25.26]:25, delay=2.7, delays=0.16/0.02/1.8/0.67, dsn=2.0.0, status=sent (250 2.0.0 OK 1349848723 e6si653316paw.346)", order: 1)
         expect(MailServerLog.request_postfix_sent?(ir)).to be true
       end
 
       it "returns false when the logs say the message hasn't been sent" do
         ir = info_requests(:fancy_dog_request)
-        ir.mail_server_logs.create!(:line => "Oct 10 13:22:49 kedumba postfix/smtp[11876]: 6FB9036F1307: to=<foo@example.com>, relay=mta7.am0.yahoodns.net[74.6.136.244]:25, delay=1.5, delays=0.03/0/0.48/1, dsn=5.0.0, status=bounced (host mta7.am0.yahoodns.net[74.6.136.244] said: 554 delivery error: dd Sorry your message to foo@example.com cannot be delivered. This account has been disabled or discontinued [#102]. - mta1272.mail.sk1.yahoo.com (in reply to end of DATA command))", :order => 1)
+        ir.mail_server_logs.create!(line: "Oct 10 13:22:49 kedumba postfix/smtp[11876]: 6FB9036F1307: to=<foo@example.com>, relay=mta7.am0.yahoodns.net[74.6.136.244]:25, delay=1.5, delays=0.03/0/0.48/1, dsn=5.0.0, status=bounced (host mta7.am0.yahoodns.net[74.6.136.244] said: 554 delivery error: dd Sorry your message to foo@example.com cannot be delivered. This account has been disabled or discontinued [#102]. - mta1272.mail.sk1.yahoo.com (in reply to end of DATA command))", order: 1)
         expect(MailServerLog.request_postfix_sent?(ir)).to be false
       end
     end
@@ -284,7 +286,7 @@ describe MailServerLog do
   describe '#line' do
 
     it 'returns the line attribute' do
-      log = MailServerLog.new(:line => 'log line')
+      log = MailServerLog.new(line: 'log line')
       expect(log.line).to eq('log line')
     end
 
@@ -293,8 +295,8 @@ describe MailServerLog do
       context 'using the :exim MTA' do
 
         it 'returns an EximLine containing the line attribute' do
-          log = MailServerLog.new(:line => 'log line')
-          expect(log.line(:decorate => true)).
+          log = MailServerLog.new(line: 'log line')
+          expect(log.line(decorate: true)).
             to eq(MailServerLog::EximLine.new('log line'))
         end
 
@@ -307,8 +309,8 @@ describe MailServerLog do
         end
 
         it 'returns a PostfixLine containing the line attribute' do
-          log = MailServerLog.new(:line => 'log line')
-          expect(log.line(:decorate => true)).
+          log = MailServerLog.new(line: 'log line')
+          expect(log.line(decorate: true)).
             to eq(MailServerLog::PostfixLine.new('log line'))
         end
 
@@ -322,62 +324,62 @@ describe MailServerLog do
         log = FactoryBot.create(:mail_server_log)
         line = log.line += " #{ log.info_request.incoming_email }"
         idhash = log.info_request.idhash
-        log.update_attributes!(:line => line)
-        expect(log.line(:redact => true)).to_not include(idhash)
+        log.update_attributes!(line: line)
+        expect(log.line(redact: true)).to_not include(idhash)
       end
 
       it 'redacts the info request id when decorated' do
         log = FactoryBot.create(:mail_server_log)
         line = log.line += " #{ log.info_request.incoming_email }"
         idhash = log.info_request.idhash
-        log.update_attributes!(:line => line)
-        expect(log.line(:redact => true, :decorate => true).to_s).
+        log.update_attributes!(line: line)
+        expect(log.line(redact: true, decorate: true).to_s).
           to_not include(idhash)
       end
 
       it 'handles not having an associated info request' do
-        log = MailServerLog.new(:line => 'log line')
-        expect(log.line(:redact => true)).to eq('log line')
+        log = MailServerLog.new(line: 'log line')
+        expect(log.line(redact: true)).to eq('log line')
       end
 
       it 'handles the info request not having an idhash' do
         request = FactoryBot.build(:info_request)
-        log = MailServerLog.new(:line => 'log line', :info_request => request)
-        expect(log.line(:redact => true)).to eq('log line')
+        log = MailServerLog.new(line: 'log line', info_request: request)
+        expect(log.line(redact: true)).to eq('log line')
       end
 
       it 'redacts the hostname if the router is sent_to_smarthost' do
-        log = MailServerLog.new(:line => <<-EOF.squish)
+        log = MailServerLog.new(line: <<-EOF.squish)
         R=send_to_smarthost
         H=secret.ukcod.org.uk [127.0.0.1]:25
         EOF
-        redacted = log.line(:redact => true)
+        redacted = log.line(redact: true)
         expect(redacted).to match(/H\=\[REDACTED\]/)
         expect(redacted).to_not include('secret.ukcod.org.uk [127.0.0.1]:25')
       end
 
       it 'does not redact the hostname unless the router is sent_to_smarthost' do
-        log = MailServerLog.new(:line => <<-EOF.squish)
+        log = MailServerLog.new(line: <<-EOF.squish)
         R=dnslookup_returnpath_dkim
         H=notsecret.ukcod.org.uk [127.0.0.1]:25
         EOF
-        redacted = log.line(:redact => true)
+        redacted = log.line(redact: true)
         expect(redacted).to include('secret.ukcod.org.uk [127.0.0.1]:25')
       end
 
       it 'strips syslog prefixes' do
-        log = MailServerLog.new(:line => <<-EOF.squish)
+        log = MailServerLog.new(line: <<-EOF.squish)
         Jan  1 16:26:57 secret exim[15407]: 2017-01-01 16:26:57
         [15407] 1cNiyG-00040U-Ls => body@example.com…
         EOF
 
-        expect(log.line(:redact => true)).to eq(<<-EOF.squish)
+        expect(log.line(redact: true)).to eq(<<-EOF.squish)
         2017-01-01 16:26:57 [15407] 1cNiyG-00040U-Ls => body@example.com…
         EOF
       end
 
       it 'strips syslog prefixes when the line ends in a newline' do
-        log = MailServerLog.new(:line => <<-EOF.squish)
+        log = MailServerLog.new(line: <<-EOF.squish)
         Jan  1 16:26:57 secret exim[15407]: 2017-01-01 16:26:57
         [15407] 1cNiyG-00040U-Ls => body@example.com…
         EOF
@@ -387,7 +389,7 @@ describe MailServerLog do
         expected =
           "2017-01-01 16:26:57 [15407] 1cNiyG-00040U-Ls => body@example.com…\n"
 
-        expect(log.line(:redact => true)).to eq(expected)
+        expect(log.line(redact: true)).to eq(expected)
       end
     end
   end
@@ -396,7 +398,7 @@ describe MailServerLog do
 
     context 'if there is a stored value' do
       let(:log) do
-        FactoryBot.create(:mail_server_log, :line => "log text **")
+        FactoryBot.create(:mail_server_log, line: "log text **")
       end
 
       it 'returns the stored value' do
@@ -425,7 +427,7 @@ describe MailServerLog do
     # statuses
     context 'if there is a stored value from an MTA-specific status' do
       let(:log) do
-        FactoryBot.create(:mail_server_log, :line => "log text <=")
+        FactoryBot.create(:mail_server_log, line: "log text <=")
       end
 
       it 'recalculates the value' do
@@ -459,7 +461,7 @@ describe MailServerLog do
     context 'there is not a stored value' do
 
       it 'parses the line text' do
-        log = MailServerLog.new(:line => "…<=…")
+        log = MailServerLog.new(line: "…<=…")
         expect(log.delivery_status).
           to eq(MailServerLog::DeliveryStatus.new(:sent))
       end
@@ -476,7 +478,7 @@ describe MailServerLog do
         end
 
         it 'returns a delivery status for the log line' do
-          log = MailServerLog.new(:line => line)
+          log = MailServerLog.new(line: line)
           status = MailServerLog::DeliveryStatus.new(:sent)
           expect(log.delivery_status).to eq(status)
         end
@@ -498,7 +500,7 @@ describe MailServerLog do
         end
 
         it 'returns a delivery status for the log line' do
-          log = MailServerLog.new(:line => line)
+          log = MailServerLog.new(line: line)
           status = MailServerLog::DeliveryStatus.new(:delivered)
           expect(log.delivery_status).to eq(status)
         end
@@ -513,14 +515,14 @@ describe MailServerLog do
 
     it 'returns true if the user is the owning user of the info request' do
       log = FactoryBot.build(:mail_server_log)
-      request = mock_model(InfoRequest, :is_owning_user? => true)
+      request = mock_model(InfoRequest, is_owning_user?: true)
       allow(log).to receive(:info_request).and_return(request)
       expect(log.is_owning_user?(double(:user))).to eq(true)
     end
 
     it 'returns false if the user is not the owning user of the info request' do
       log = FactoryBot.build(:mail_server_log)
-      request = mock_model(InfoRequest, :is_owning_user? => false)
+      request = mock_model(InfoRequest, is_owning_user?: false)
       allow(log).to receive(:info_request).and_return(request)
       expect(log.is_owning_user?(double(:user))).to eq(false)
     end
@@ -533,7 +535,7 @@ describe MailServerLog do
 
       it 'returns true' do
         info_request = FactoryBot.create(:info_request,
-                                         :created_at => Time.zone.now - 5.days)
+                                         created_at: Time.zone.now - 5.days)
         allow(MailServerLog).to receive(:request_sent?).with(info_request).
           and_return(true)
         expect(MailServerLog.check_recent_requests_have_been_sent).to eq(true)
@@ -545,7 +547,7 @@ describe MailServerLog do
 
       it 'returns false' do
         info_request = FactoryBot.create(:info_request,
-                                         :created_at => Time.zone.now - 5.days)
+                                         created_at: Time.zone.now - 5.days)
         allow(MailServerLog).to receive(:request_sent?).with(info_request).
           and_return(false)
         allow($stderr).to receive(:puts)
@@ -554,7 +556,7 @@ describe MailServerLog do
 
       it 'outputs a message to stderr' do
         info_request = FactoryBot.create(:info_request,
-                                         :created_at => Time.zone.now - 5.days)
+                                         created_at: Time.zone.now - 5.days)
         allow(MailServerLog).to receive(:request_sent?).with(info_request).
           and_return(false)
         expected_message = "failed to find request sending in MTA logs for request " \

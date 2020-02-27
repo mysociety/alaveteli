@@ -89,8 +89,8 @@ gem 'rails', rails_upgrade? ? '~> 5.2.4' : '5.1.7'
 gem 'pg', '~> 0.20.0'
 
 # New gem releases aren't being done. master is newer and supports Rails > 3.0
-gem 'acts_as_versioned', :git => 'https://github.com/technoweenie/acts_as_versioned.git', :ref => '63b1fc8529d028'
-gem 'active_model_otp', :git => 'https://github.com/heapsource/active_model_otp.git', :ref => '55d93a3979'
+gem 'acts_as_versioned', git: 'https://github.com/technoweenie/acts_as_versioned.git', ref: '63b1fc8529d028'
+gem 'active_model_otp', git: 'https://github.com/heapsource/active_model_otp.git', ref: '55d93a3979'
 gem 'bcrypt', '~> 3.1.13'
 gem 'cancancan', '~> 1.17.0', '< 2.0.0'
 gem 'charlock_holmes', '~> 0.7.7'
@@ -115,21 +115,21 @@ gem 'open4', '~> 1.3.0'
 gem 'rack', '~> 2.0.8'
 gem 'rack-ssl', '~> 1.4.0'
 gem 'rack-utf8_sanitizer', '~> 1.3.0'
-gem 'recaptcha', '~> 4.9.0', '< 4.10.0', :require => 'recaptcha/rails'
+gem 'recaptcha', '~> 4.9.0', '< 4.10.0', require: 'recaptcha/rails'
 gem 'rmagick', '~> 2.16.0'
 gem 'rolify', '~> 5.2.0'
-gem 'ruby-msg', '~> 1.5.0', :git => 'https://github.com/mysociety/ruby-msg.git', :branch => 'ascii-encoding'
+gem 'ruby-msg', '~> 1.5.0', git: 'https://github.com/mysociety/ruby-msg.git', branch: 'ascii-encoding'
 gem 'rubyzip', '~> 1.3.0', '< 2.0.0'
 gem 'secure_headers', '~> 3.9.0'
 gem 'statistics2', '~> 0.54'
-gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :ref => 'c1c14da'
+gem 'strip_attributes', git: 'https://github.com/mysociety/strip_attributes.git', ref: 'c1c14da'
 gem 'stripe', '~> 3.29.0'
 gem 'syslog_protocol', '~> 0.9.0'
 gem 'thin', '~> 1.5.0', '< 1.6.0'
 gem 'vpim', '~> 13.11.11'
 gem 'will_paginate', '~> 3.1.8'
 gem 'xapian-full-alaveteli', '~> 1.2.21.1'
-gem 'xml-simple', '~> 1.1.0', :require => 'xmlsimple'
+gem 'xml-simple', '~> 1.1.0', require: 'xmlsimple'
 gem 'zip_tricks', '~> 5.0.0'
 
 # Gems only used by the research export task
@@ -160,11 +160,11 @@ gem 'uglifier', '~> 3.2.0'
 gem 'therubyracer', '~> 0.12.0'
 
 # Feature flags
-gem 'alaveteli_features', :path => 'gems/alaveteli_features'
+gem 'alaveteli_features', path: 'gems/alaveteli_features'
 
 group :test do
   gem 'webmock', '~> 3.5.1'
-  gem 'coveralls', '~> 0.8.0', :require => false
+  gem 'coveralls', '~> 0.8.0', require: false
   gem 'capybara', '~> 3.5.0'
   gem 'delorean', '~> 2.1.0'
   gem 'stripe-ruby-mock', git: 'https://github.com/gbp/stripe-ruby-mock',

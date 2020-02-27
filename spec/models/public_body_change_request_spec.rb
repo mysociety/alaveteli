@@ -47,34 +47,34 @@ describe PublicBodyChangeRequest, 'when validating' do
   end
 
   it 'should not be valid without a user name if there is no user' do
-    change_request = PublicBodyChangeRequest.new(:public_body_name => 'New Body')
+    change_request = PublicBodyChangeRequest.new(public_body_name: 'New Body')
     expect(change_request.valid?).to be false
     expect(change_request.errors[:user_name]).to eq(['Please enter your name'])
   end
 
   it 'should not be valid without a user email address if there is no user' do
-    change_request = PublicBodyChangeRequest.new(:public_body_name => 'New Body')
+    change_request = PublicBodyChangeRequest.new(public_body_name: 'New Body')
     expect(change_request.valid?).to be false
     expect(change_request.errors[:user_email]).to eq(['Please enter your email address'])
   end
 
   it 'should be valid with a user and no name or email address' do
     user = FactoryBot.build(:user)
-    change_request = PublicBodyChangeRequest.new(:user => user,
-                                                 :public_body_name => 'New Body')
+    change_request = PublicBodyChangeRequest.new(user: user,
+                                                 public_body_name: 'New Body')
     expect(change_request.valid?).to be true
   end
 
   it 'should validate the format of a user email address entered' do
-    change_request = PublicBodyChangeRequest.new(:public_body_name => 'New Body',
-                                                 :user_email => '@example.com')
+    change_request = PublicBodyChangeRequest.new(public_body_name: 'New Body',
+                                                 user_email: '@example.com')
     expect(change_request.valid?).to be false
     expect(change_request.errors[:user_email]).to eq(["Your email doesn't look like a valid address"])
   end
 
   it 'should validate the format of a public body email address entered' do
-    change_request = PublicBodyChangeRequest.new(:public_body_name => 'New Body',
-                                                 :public_body_email => '@example.com')
+    change_request = PublicBodyChangeRequest.new(public_body_name: 'New Body',
+                                                 public_body_email: '@example.com')
     expect(change_request.valid?).to be false
     expect(change_request.errors[:public_body_email]).to eq(["The authority email doesn't look like a valid address"])
   end
@@ -84,29 +84,28 @@ end
 describe PublicBodyChangeRequest, 'get_user_name' do
 
   it 'should return the user_name field if there is no user association' do
-    change_request = PublicBodyChangeRequest.new(:user_name => 'Test User')
+    change_request = PublicBodyChangeRequest.new(user_name: 'Test User')
     expect(change_request.get_user_name).to eq('Test User')
   end
 
   it 'should return the name of the associated user if there is one' do
     user = FactoryBot.build(:user)
-    change_request = PublicBodyChangeRequest.new(:user => user)
+    change_request = PublicBodyChangeRequest.new(user: user)
     expect(change_request.get_user_name).to eq(user.name)
   end
 
 end
 
-
 describe PublicBodyChangeRequest, 'get_user_email' do
 
   it 'should return the user_email field if there is no user association' do
-    change_request = PublicBodyChangeRequest.new(:user_email => 'user@example.com')
+    change_request = PublicBodyChangeRequest.new(user_email: 'user@example.com')
     expect(change_request.get_user_email).to eq('user@example.com')
   end
 
   it 'should return the email of the associated user if there is one' do
     user = FactoryBot.build(:user)
-    change_request = PublicBodyChangeRequest.new(:user => user)
+    change_request = PublicBodyChangeRequest.new(user: user)
     expect(change_request.get_user_email).to eq(user.email)
   end
 
@@ -133,11 +132,11 @@ end
 
 describe PublicBodyChangeRequest, '.open' do
   let(:open_request) do
-    FactoryBot.create(:update_body_request, :is_open => true)
+    FactoryBot.create(:update_body_request, is_open: true)
   end
 
   let(:closed_request) do
-    FactoryBot.create(:update_body_request, :is_open => false)
+    FactoryBot.create(:update_body_request, is_open: false)
   end
 
   it "returns requests where the is_open is true" do
@@ -148,13 +147,13 @@ end
 describe PublicBodyChangeRequest, 'get_public_body_name' do
 
   it 'should return the public_body_name field if there is no public body association' do
-    change_request = PublicBodyChangeRequest.new(:public_body_name => 'Test Authority')
+    change_request = PublicBodyChangeRequest.new(public_body_name: 'Test Authority')
     expect(change_request.get_public_body_name).to eq('Test Authority')
   end
 
   it 'should return the name of the associated public body if there is one' do
     public_body = FactoryBot.build(:public_body)
-    change_request = PublicBodyChangeRequest.new(:public_body => public_body)
+    change_request = PublicBodyChangeRequest.new(public_body: public_body)
     expect(change_request.get_public_body_name).to eq(public_body.name)
   end
 
@@ -163,10 +162,10 @@ end
 describe PublicBodyChangeRequest, 'when creating a comment for the associated public body' do
 
   it 'should include requesting user, source_url and notes' do
-    change_request = PublicBodyChangeRequest.new(:user_name => 'Test User',
-                                                 :user_email => 'test@example.com',
-                                                 :source_url => 'http://www.example.com',
-                                                 :notes => 'Some notes')
+    change_request = PublicBodyChangeRequest.new(user_name: 'Test User',
+                                                 user_email: 'test@example.com',
+                                                 source_url: 'http://www.example.com',
+                                                 notes: 'Some notes')
     expected = "Requested by: Test User (test@example.com)\nSource URL: http://www.example.com\nNotes: Some notes"
     expect(change_request.comment_for_public_body).to eq(expected)
   end
@@ -178,21 +177,21 @@ describe PublicBodyChangeRequest, '#request_subject' do
   context 'requesting a new authority' do
 
     it 'returns an appropriate subject line' do
-      change_request = PublicBodyChangeRequest.new(:public_body_name => 'Test')
+      change_request = PublicBodyChangeRequest.new(public_body_name: 'Test')
       expect(change_request.request_subject).
         to eq('Add authority - Test')
     end
 
     it 'does not HTML escape the authority name' do
       change_request =
-        PublicBodyChangeRequest.new(:public_body_name => "Test's")
+        PublicBodyChangeRequest.new(public_body_name: "Test's")
       expect(change_request.request_subject).
         to eq('Add authority - Test\'s')
     end
 
     it 'does not mark subject line with unescaped text as html_safe' do
       change_request =
-        PublicBodyChangeRequest.new(:public_body_name => "Test's")
+        PublicBodyChangeRequest.new(public_body_name: "Test's")
       expect(change_request.request_subject.html_safe?).to eq(false)
     end
 
@@ -202,14 +201,14 @@ describe PublicBodyChangeRequest, '#request_subject' do
 
     it 'returns an appropriate subject line' do
       public_body = FactoryBot.build(:public_body)
-      change_request = PublicBodyChangeRequest.new(:public_body => public_body)
+      change_request = PublicBodyChangeRequest.new(public_body: public_body)
       expect(change_request.request_subject).
         to eq("Update email address - #{public_body.name}")
     end
 
     it 'does not HTML escape the authority name' do
       public_body = FactoryBot.build(:public_body, name: "Test's")
-      change_request = PublicBodyChangeRequest.new(:public_body => public_body)
+      change_request = PublicBodyChangeRequest.new(public_body: public_body)
       expect(change_request.request_subject).
         to eq('Update email address - Test\'s')
     end
@@ -222,12 +221,12 @@ describe PublicBodyChangeRequest, '#add_body_request?' do
 
   it 'returns false if there is an associated public_body' do
     public_body = FactoryBot.build(:public_body)
-    change_request = PublicBodyChangeRequest.new(:public_body => public_body)
+    change_request = PublicBodyChangeRequest.new(public_body: public_body)
     expect(change_request.add_body_request?).to eq(false)
   end
 
   it 'returns true if there is no associated public_body' do
-    change_request = PublicBodyChangeRequest.new(:public_body_name => 'Test')
+    change_request = PublicBodyChangeRequest.new(public_body_name: 'Test')
     expect(change_request.add_body_request?).to eq(true)
   end
 
@@ -236,14 +235,14 @@ end
 describe PublicBodyChangeRequest, 'when creating a default subject for a response email' do
 
   it 'should create an appropriate subject for a request to add a body' do
-    change_request = PublicBodyChangeRequest.new(:public_body_name => 'Test Body')
+    change_request = PublicBodyChangeRequest.new(public_body_name: 'Test Body')
     expect(change_request.default_response_subject).
       to eq('Re: Add authority - Test Body')
   end
 
   it 'should create an appropriate subject for a request to update an email address' do
     public_body = FactoryBot.build(:public_body)
-    change_request = PublicBodyChangeRequest.new(:public_body => public_body)
+    change_request = PublicBodyChangeRequest.new(public_body: public_body)
     expect(change_request.default_response_subject).
       to eq("Re: Update email address - #{public_body.name}")
   end

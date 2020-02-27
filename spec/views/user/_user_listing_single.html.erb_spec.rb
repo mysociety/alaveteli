@@ -10,24 +10,24 @@ describe 'when displaying user listings' do
   end
 
   def render_view
-    render :partial => 'user/user_listing_single',
-           :locals => { :display_user => user }
+    render partial: 'user/user_listing_single',
+           locals: { display_user: user }
   end
 
   it 'displays a normal request' do
-    FactoryBot.create(:info_request, :user => user)
+    FactoryBot.create(:info_request, user: user)
     render_view
     expect(rendered).to have_text '1 request made'
   end
 
   it 'does not display an embargoed request' do
-    FactoryBot.create(:embargoed_request, :user => user)
+    FactoryBot.create(:embargoed_request, user: user)
     render_view
     expect(rendered).to have_text '0 requests made'
   end
 
   it 'does not display a hidden request' do
-    FactoryBot.create(:hidden_request, :user => user)
+    FactoryBot.create(:hidden_request, user: user)
     render_view
     expect(rendered).to have_text '0 requests made'
   end

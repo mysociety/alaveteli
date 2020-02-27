@@ -14,9 +14,9 @@ describe 'Adding a Public Body Category' do
     AlaveteliLocalization.set_locales('en_GB es', 'en_GB')
     using_session(@admin) do
       visit new_admin_category_path
-      fill_in 'public_body_category_title', :with => 'New Category en_GB'
-      fill_in 'public_body_category_description', :with => 'Test'
-      fill_in 'public_body_category_category_tag', :with => 'test'
+      fill_in 'public_body_category_title', with: 'New Category en_GB'
+      fill_in 'public_body_category_description', with: 'Test'
+      fill_in 'public_body_category_category_tag', with: 'test'
       click_button 'Create'
 
       expect(page).to have_content('successfully created')

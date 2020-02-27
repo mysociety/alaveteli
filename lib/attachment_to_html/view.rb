@@ -1,13 +1,12 @@
 # -*- encoding : utf-8 -*-
 module AttachmentToHTML
   class View < ERB
-
     def self.template
       @template || "#{ File.dirname(__FILE__) }/template.html.erb"
     end
 
-    def self.template=(path)
-      @template = path
+    class << self
+      attr_writer :template
     end
 
     attr_accessor :title, :body, :template, :wrapper
@@ -35,6 +34,5 @@ module AttachmentToHTML
       instance_variable_set("@#{ area }".to_sym, block.call)
       self.class.send(:attr_accessor, area)
     end
-
   end
 end

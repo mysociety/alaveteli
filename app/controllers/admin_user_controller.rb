@@ -6,17 +6,16 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminUserController < AdminController
-
-  before_action :set_admin_user, :only => [ :show,
-                                            :edit,
-                                            :update,
-                                            :show_bounce_message,
-                                            :clear_bounce,
-                                            :clear_profile_photo ]
+  before_action :set_admin_user, only: [:show,
+                                        :edit,
+                                        :update,
+                                        :show_bounce_message,
+                                        :clear_bounce,
+                                        :clear_profile_photo]
 
   before_action :clear_roles,
                 :check_role_authorisation,
-                :check_role_requirements, :only => [ :update ]
+                :check_role_requirements, only: [:update]
 
   def index
     @query = params[:query].try(:strip)
@@ -28,26 +27,26 @@ class AdminUserController < AdminController
       @sort_options.key?(params[:sort_order]) ? params[:sort_order] : 'name_asc'
 
     users = if @query.present?
-      User.where(
-        "lower(users.name) LIKE lower('%'||:query||'%') OR " \
-        "lower(users.email) LIKE lower('%'||:query||'%') OR " \
-        "lower(users.about_me) LIKE lower('%'||:query||'%')",
-        query: @query
-      )
-    else
-      User
+              User.where(
+                "lower(users.name) LIKE lower('%'||:query||'%') OR " \
+                "lower(users.email) LIKE lower('%'||:query||'%') OR " \
+                "lower(users.about_me) LIKE lower('%'||:query||'%')",
+                query: @query
+              )
+            else
+              User
     end
 
     # with_all_roles returns an array as it takes multiple queries
     # so we need to requery in order to paginate
-    if !@roles.empty?
+    unless @roles.empty?
       users = users.with_any_role(*@roles)
-      users = User.where(:id => users.map { |user| user.id })
+      users = User.where(id: users.map(&:id))
     end
 
     @admin_users =
       users.order(@sort_options[@sort_order]).
-        paginate(:page => params[:page], :per_page => 100)
+        paginate(page: params[:page], per_page: 100)
   end
 
   def show
@@ -57,8 +56,8 @@ class AdminUserController < AdminController
       @info_requests = @info_requests.not_embargoed
       @comments = @admin_user.comments.not_embargoed
     end
-    @info_requests = @info_requests.paginate(:page => params[:page],
-                                             :per_page => 100)
+    @info_requests = @info_requests.paginate(page: params[:page],
+                                             per_page: 100)
   end
 
   def edit
@@ -82,7 +81,7 @@ class AdminUserController < AdminController
         redirect_to admin_user_url(@admin_user)
       end
     else
-      render :action => 'edit'
+      render action: 'edit'
     end
   end
 
@@ -90,7 +89,7 @@ class AdminUserController < AdminController
     @banned_users =
       User.banned.
         order('name ASC').
-          paginate(:page => params[:page], :per_page => 100)
+          paginate(page: params[:page], per_page: 100)
   end
 
   def show_bounce_message
@@ -104,17 +103,15 @@ class AdminUserController < AdminController
   end
 
   def clear_profile_photo
-    if @admin_user.profile_photo
-      @admin_user.profile_photo.destroy
-    end
+    @admin_user.profile_photo.destroy if @admin_user.profile_photo
 
     flash[:notice] = "Profile photo cleared"
     redirect_to admin_user_url(@admin_user)
   end
 
   def modify_comment_visibility
-    Comment.where(:id => params[:comment_ids]).
-      update_all(:visible => !params[:hide_selected])
+    Comment.where(id: params[:comment_ids]).
+      update_all(visible: !params[:hide_selected])
     redirect_back(fallback_location: admin_users_url)
   end
 
@@ -124,7 +121,7 @@ class AdminUserController < AdminController
     if params[:admin_user]
       params.require(:admin_user).permit(:name,
                                          :email,
-                                         {:role_ids => []},
+                                         { role_ids: [] },
                                          :ban_text,
                                          :about_me,
                                          :no_limit,
@@ -144,25 +141,25 @@ class AdminUserController < AdminController
   # and requirements are met
   def check_role_authorisation
     all_allowed = changed_role_ids.all? do |role_id|
-      role = Role.where(:id => role_id).first
+      role = Role.where(id: role_id).first
       role && @user.can_admin_role?(role.name.to_sym)
     end
     unless all_allowed
       flash[:error] = "Not permitted to change roles"
-      render :action => 'edit' and return false
+      render(action: 'edit') && (return false)
     end
   end
 
   def changed_role_ids
-    params[:admin_user][:role_ids].map! { |role_id| role_id.to_i }
+    params[:admin_user][:role_ids].map!(&:to_i)
     (params[:admin_user][:role_ids] - @admin_user.role_ids) |
       (@admin_user.role_ids - params[:admin_user][:role_ids])
   end
 
   def check_role_requirements
     role_names = Role.
-                   where(:id => params[:admin_user][:role_ids]).
-                     pluck(:name).map { |role| role.to_sym }
+                   where(id: params[:admin_user][:role_ids]).
+                     pluck(:name).map(&:to_sym)
     missing_required = Hash.new { |h, k| h[k] = [] }
     role_names.each do |role_name|
       Role.requires(role_name).each do |required_role_name|
@@ -176,9 +173,8 @@ class AdminUserController < AdminController
       missing_required.each do |key, value|
         flash[:error] += " #{key} requires #{value.to_sentence}"
       end
-      render :action => 'edit' and return false
+      render(action: 'edit') && (return false)
     end
-
   end
 
   def set_admin_user

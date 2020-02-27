@@ -6,9 +6,9 @@ describe AdminHolidaysController do
   describe 'GET index' do
 
     before do
-      @holiday_one = FactoryBot.create(:holiday, :day => Date.new(2010, 1, 1))
-      @holiday_two = FactoryBot.create(:holiday, :day => Date.new(2011, 2, 2))
-      @holiday_three = FactoryBot.create(:holiday, :day => Date.new(2011, 3, 3))
+      @holiday_one = FactoryBot.create(:holiday, day: Date.new(2010, 1, 1))
+      @holiday_two = FactoryBot.create(:holiday, day: Date.new(2011, 2, 2))
+      @holiday_three = FactoryBot.create(:holiday, day: Date.new(2011, 3, 3))
     end
 
     it 'gets a hash of holidays keyed by year' do
@@ -33,7 +33,6 @@ describe AdminHolidaysController do
 
   describe 'GET new' do
 
-
     describe 'when not using ajax' do
 
       it 'renders the new template' do
@@ -47,7 +46,7 @@ describe AdminHolidaysController do
 
       it 'renders the new form partial' do
         get :new, xhr: true
-        expect(response).to render_template(:partial => '_new_form')
+        expect(response).to render_template(partial: '_new_form')
       end
     end
 
@@ -65,7 +64,7 @@ describe AdminHolidaysController do
                           'day(1i)' => '2010',
                           'day(2i)' => '1',
                           'day(3i)' => '1' }
-      post :create, params: { :holiday => @holiday_params }
+      post :create, params: { holiday: @holiday_params }
     end
 
     it 'creates a new holiday' do
@@ -86,7 +85,7 @@ describe AdminHolidaysController do
 
       before do
         allow_any_instance_of(Holiday).to receive(:save).and_return(false)
-        post :create, params: { :holiday => @holiday_params }
+        post :create, params: { holiday: @holiday_params }
       end
 
       it 'renders the new template' do
@@ -105,7 +104,7 @@ describe AdminHolidaysController do
     describe 'when not using ajax' do
 
       it 'renders the edit template' do
-        get :edit, params: { :id => @holiday.id }
+        get :edit, params: { id: @holiday.id }
         expect(response).to render_template('edit')
       end
 
@@ -114,14 +113,14 @@ describe AdminHolidaysController do
     describe 'when using ajax' do
 
       it 'renders the edit form partial' do
-        get :edit, xhr: true, params: { :id => @holiday.id }
-        expect(response).to render_template(:partial => '_edit_form')
+        get :edit, xhr: true, params: { id: @holiday.id }
+        expect(response).to render_template(partial: '_edit_form')
       end
 
     end
 
     it 'gets the holiday in the id param' do
-      get :edit, params: { :id => @holiday.id }
+      get :edit, params: { id: @holiday.id }
       expect(assigns[:holiday]).to eq(@holiday)
     end
 
@@ -130,12 +129,12 @@ describe AdminHolidaysController do
   describe 'PUT update' do
 
     before do
-      @holiday = FactoryBot.create(:holiday, :day => Date.new(2010, 1, 1),
-                                   :description => "Test Holiday")
+      @holiday = FactoryBot.create(:holiday, day: Date.new(2010, 1, 1),
+                                             description: "Test Holiday")
       put :update, params: {
-                     :id => @holiday.id,
-                     :holiday => { :description => 'New Test Holiday' }
-                   }
+        id: @holiday.id,
+        holiday: { description: 'New Test Holiday' }
+      }
     end
 
     it 'gets the holiday in the id param' do
@@ -159,9 +158,9 @@ describe AdminHolidaysController do
       before do
         allow_any_instance_of(Holiday).to receive(:update_attributes).and_return(false)
         put :update, params: {
-                       :id => @holiday.id,
-                       :holiday => { :description => 'New Test Holiday' }
-                     }
+          id: @holiday.id,
+          holiday: { description: 'New Test Holiday' }
+        }
       end
 
       it 'renders the edit template' do
@@ -175,7 +174,7 @@ describe AdminHolidaysController do
 
     before(:each) do
       @holiday = FactoryBot.create(:holiday)
-      delete :destroy, params: { :id => @holiday.id }
+      delete :destroy, params: { id: @holiday.id }
     end
 
     it 'finds the holiday to destroy' do

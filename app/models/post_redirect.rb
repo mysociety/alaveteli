@@ -33,9 +33,9 @@ class PostRedirect < ApplicationRecord
 
   # Optional, does a login confirm before redirect for use in email links.
   belongs_to :user,
-             :inverse_of => :post_redirects
+             inverse_of: :post_redirects
 
-  validates :circumstance, :inclusion => CIRCUMSTANCES
+  validates :circumstance, inclusion: CIRCUMSTANCES
 
   after_initialize :generate_token
   after_initialize :generate_email_token

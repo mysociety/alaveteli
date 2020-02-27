@@ -9,7 +9,7 @@ class UniqueUserUrls < ActiveRecord::Migration[4.2] # 2.0
     # MySQL cannot index text blobs like this
     if ActiveRecord::Base.connection.adapter_name != "MySQL"
       remove_index :users, :url_name
-      add_index :users, :url_name, :unique => true
+      add_index :users, :url_name, unique: true
     end
   end
 
@@ -17,8 +17,7 @@ class UniqueUserUrls < ActiveRecord::Migration[4.2] # 2.0
     # MySQL cannot index text blobs like this
     if ActiveRecord::Base.connection.adapter_name != "MySQL"
       remove_index :users, :url_name
-      add_index :users, :url_name, :unique => false
+      add_index :users, :url_name, unique: false
     end
   end
-
 end

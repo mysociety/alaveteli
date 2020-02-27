@@ -14,7 +14,7 @@
 
 require 'spec_helper'
 
-describe AlaveteliPro::Embargo, :type => :model do
+describe AlaveteliPro::Embargo, type: :model do
   let(:embargo) { FactoryBot.create(:embargo) }
 
   it 'belongs to an info_request' do
@@ -62,14 +62,14 @@ describe AlaveteliPro::Embargo, :type => :model do
 
     it 'sets publish_at from duration during creation' do
       embargo = AlaveteliPro::Embargo.create(info_request: info_request,
-                               embargo_duration: "3_months")
+                                             embargo_duration: "3_months")
       expect(embargo.publish_at).to eq AlaveteliPro::Embargo.three_months_from_now
     end
 
     it "doesn't set publish_at from duration if its already set" do
       embargo = AlaveteliPro::Embargo.create(info_request: info_request,
-                               publish_at: Time.zone.now.beginning_of_day,
-                               embargo_duration: "3_months")
+                                             publish_at: Time.zone.now.beginning_of_day,
+                                             embargo_duration: "3_months")
       expect(embargo.publish_at).to eq Time.zone.today
     end
   end
@@ -90,7 +90,8 @@ describe AlaveteliPro::Embargo, :type => :model do
       embargo = AlaveteliPro::Embargo.create(
         info_request: info_request,
         embargo_duration: "3_months",
-        expiring_notification_at: Time.zone.now.beginning_of_day)
+        expiring_notification_at: Time.zone.now.beginning_of_day
+      )
       expect(embargo.expiring_notification_at).to eq Time.zone.today
     end
   end
@@ -141,12 +142,12 @@ describe AlaveteliPro::Embargo, :type => :model do
   describe 'expiring scope' do
 
     it 'includes embargoes expiring in less than a week' do
-      embargo = FactoryBot.create(:embargo, :publish_at => Time.now + 6.days)
+      embargo = FactoryBot.create(:embargo, publish_at: Time.now + 6.days)
       expect(AlaveteliPro::Embargo.expiring.include?(embargo)).to be true
     end
 
     it 'excludes embargoes expiring in more than a week' do
-      embargo = FactoryBot.create(:embargo, :publish_at => Time.now + 8.days)
+      embargo = FactoryBot.create(:embargo, publish_at: Time.now + 8.days)
       expect(AlaveteliPro::Embargo.expiring.include?(embargo)).to be false
     end
 
@@ -156,25 +157,25 @@ describe AlaveteliPro::Embargo, :type => :model do
 
     it 'returns true if the embargo expires in less than a week' do
       embargo = FactoryBot.build(:embargo,
-                                 :publish_at => Time.zone.now + 6.days)
+                                 publish_at: Time.zone.now + 6.days)
       expect(embargo.expiring_soon?).to be true
     end
 
     it 'returns true if the embargo expires in a week' do
       embargo = FactoryBot.build(:embargo,
-                                 :publish_at => Time.zone.now + 7.days)
+                                 publish_at: Time.zone.now + 7.days)
       expect(embargo.expiring_soon?).to be true
     end
 
     it 'returns false if the embargo expires in more than a week' do
       embargo = FactoryBot.build(:embargo,
-                                 :publish_at => Time.zone.now + 8.days)
+                                 publish_at: Time.zone.now + 8.days)
       expect(embargo.expiring_soon?).to be false
     end
 
     it 'returns false if the embargo has already expired' do
       embargo = FactoryBot.build(:embargo,
-                                 :publish_at => Time.zone.now.beginning_of_day)
+                                 publish_at: Time.zone.now.beginning_of_day)
       expect(embargo.expiring_soon?).to be false
     end
 
@@ -184,18 +185,18 @@ describe AlaveteliPro::Embargo, :type => :model do
 
     it 'returns false if the publication date is in the future' do
       embargo = FactoryBot.build(:embargo,
-                                 :publish_at => Time.zone.now + 1.day)
+                                 publish_at: Time.zone.now + 1.day)
       expect(embargo.expired?).to be false
     end
 
     it 'returns true if the publication date is in the past' do
       embargo = FactoryBot.build(:embargo,
-                                 :publish_at => Time.zone.now - 1.day)
+                                 publish_at: Time.zone.now - 1.day)
       expect(embargo.expired?).to be true
     end
 
     it 'returns true on the publication date' do
-      embargo = FactoryBot.build(:embargo, :publish_at => Time.zone.now)
+      embargo = FactoryBot.build(:embargo, publish_at: Time.zone.now)
       expect(embargo.expired?).to be true
     end
 
@@ -215,7 +216,7 @@ describe AlaveteliPro::Embargo, :type => :model do
         expiry_events = info_request.
                           reload.
                             info_request_events.
-                              where(:event_type => 'expire_embargo')
+                              where(event_type: 'expire_embargo')
         expect(expiry_events.size).to eq 1
       end
 
@@ -375,7 +376,8 @@ describe AlaveteliPro::Embargo, :type => :model do
       log_expiring_events
       events = InfoRequestEvent.where(
         event_type: 'embargo_expiring',
-        info_request_id: expiring_later_embargo.info_request_id)
+        info_request_id: expiring_later_embargo.info_request_id
+      )
       expect(events).to be_empty
     end
 
@@ -388,7 +390,8 @@ describe AlaveteliPro::Embargo, :type => :model do
         log_expiring_events
         events = InfoRequestEvent.where(
           event_type: 'embargo_expiring',
-          info_request_id: expired_embargo.info_request_id)
+          info_request_id: expired_embargo.info_request_id
+        )
         expect(events).to exist
         expect(events.count).to eq 1
         expected_created_at = expired_embargo.expiring_notification_at

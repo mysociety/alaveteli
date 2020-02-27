@@ -9,7 +9,6 @@
 require 'open-uri'
 
 class GeneralController < ApplicationController
-
   MAX_RESULTS = 500
 
   before_action :redirect_pros_to_dashboard, only: :frontpage
@@ -18,22 +17,22 @@ class GeneralController < ApplicationController
   def frontpage
     medium_cache
     @locale = AlaveteliLocalization.locale
-    successful_query = InfoRequestEvent.make_query_from_params( :latest_status => ['successful'] )
+    successful_query = InfoRequestEvent.make_query_from_params(latest_status: ['successful'])
     @request_events, @request_events_all_successful = InfoRequest.recent_requests
     @track_thing = TrackThing.create_track_for_search_query(successful_query)
     @number_of_requests = InfoRequest.is_searchable.count
     @number_of_authorities = PublicBody.visible.count
-    @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'),
-                           :title => _('Successful requests'),
-                           :has_json => true } ]
+    @feed_autodetect = [{ url: do_track_url(@track_thing, 'feed'),
+                          title: _('Successful requests'),
+                          has_json: true }]
 
     respond_to :html
   end
 
   # Display blog entries
   def blog
-    if AlaveteliConfiguration::blog_feed.empty?
-      raise ActiveRecord::RecordNotFound.new("Page not enabled")
+    if AlaveteliConfiguration.blog_feed.empty?
+      raise ActiveRecord::RecordNotFound, "Page not enabled"
     end
 
     medium_cache
@@ -45,23 +44,23 @@ class GeneralController < ApplicationController
 
   def get_blog_content
     @feed_autodetect = []
-    @feed_url = AlaveteliConfiguration::blog_feed
+    @feed_url = AlaveteliConfiguration.blog_feed
     separator = @feed_url.include?('?') ? '&' : '?'
     @feed_url = "#{ @feed_url }#{ separator }lang=" \
                 "#{ AlaveteliLocalization.html_lang }"
     @blog_items = []
-    if not @feed_url.empty?
+    unless @feed_url.empty?
       timeout = if AlaveteliConfiguration.blog_timeout.blank?
-        60
-      else
-        AlaveteliConfiguration.blog_timeout
+                  60
+                else
+                  AlaveteliConfiguration.blog_timeout
       end
       content = quietly_try_to_open(@feed_url, timeout)
-      if !content.empty?
+      unless content.empty?
         @data = XmlSimple.xml_in(content)
         @channel = @data['channel'][0]
         @blog_items = @channel.fetch('item') { [] }
-        @feed_autodetect = [{:url => @feed_url, :title => "#{site_name} blog"}]
+        @feed_autodetect = [{ url: @feed_url, title: "#{site_name} blog" }]
       end
     end
     @twitter_user = AlaveteliConfiguration.twitter_username
@@ -75,10 +74,10 @@ class GeneralController < ApplicationController
       @query = nil
       @page = 1
       @advanced = !params[:advanced].nil?
-      render :action => "search"
+      render action: "search"
     else
       query_parts = @query.split("/")
-      if !['bodies', 'requests', 'users', 'all'].include?(query_parts[-1])
+      if !%w[bodies requests users all].include?(query_parts[-1])
         redirect_to search_url([@query, "all"], params)
       else
         redirect_to search_url(@query, params)
@@ -103,7 +102,7 @@ class GeneralController < ApplicationController
     combined = params[:combined].split("/")
     @sortby = nil
     @bodies = @requests = @users = true
-    if combined.size > 0 && (['advanced'].include?(combined[-1]))
+    if !combined.empty? && ['advanced'].include?(combined[-1])
       combined.pop
       @advanced = true
     else
@@ -111,14 +110,12 @@ class GeneralController < ApplicationController
     end
     # TODO: currently /described isn't linked to anywhere, just used in RSS and for /list/successful
     # This is because it's confusingly different from /newest - but still useful for power users.
-    if combined.size > 0 && (['newest', 'described', 'relevant'].include?(combined[-1]))
+    if !combined.empty? && %w[newest described relevant].include?(combined[-1])
       @sort_postfix = combined.pop
       @sortby = @sort_postfix
     end
-    if !params[:view].nil?
-      combined += [params[:view]]
-    end
-    if combined.size > 0 && (['bodies', 'requests', 'users', 'all'].include?(combined[-1]))
+    combined += [params[:view]] unless params[:view].nil?
+    if !combined.empty? && %w[bodies requests users all].include?(combined[-1])
       @variety_postfix = combined.pop
       case @variety_postfix
       when 'bodies'
@@ -138,9 +135,7 @@ class GeneralController < ApplicationController
       end
     end
     @query = combined.join("/")
-    if params[:query].nil?
-      params[:query] = @query
-    end
+    params[:query] = @query if params[:query].nil?
     if @variety_postfix != "all" && @requests
       @query = InfoRequestEvent.make_query_from_params(params)
     end
@@ -150,7 +145,7 @@ class GeneralController < ApplicationController
       # structured query which should show newest first, rather than a free text search
       # where we want most relevant as default.
       begin
-        dummy_query = ActsAsXapian::Search.new([InfoRequestEvent], @query, :limit => 1)
+        dummy_query = ActsAsXapian::Search.new([InfoRequestEvent], @query, limit: 1)
       rescue => e
         flash[:error] = "Your query was not quite right. #{e.message}"
         redirect_to search_url("")
@@ -172,7 +167,7 @@ class GeneralController < ApplicationController
 
     # Later pages are very expensive to load
     if @page > MAX_RESULTS / requests_per_page
-      raise ActiveRecord::RecordNotFound.new("Sorry. No pages after #{MAX_RESULTS / requests_per_page}.")
+      raise ActiveRecord::RecordNotFound, "Sorry. No pages after #{MAX_RESULTS / requests_per_page}."
     end
 
     @total_hits = @xapian_requests_hits = @xapian_bodies_hits = @xapian_users_hits = 0
@@ -205,13 +200,13 @@ class GeneralController < ApplicationController
     end
 
     # Spelling and highight words are same for all three queries
-    @highlight_words = @request_for_spelling.words_to_highlight(:regex => true, :include_original => true)
-    if !(@request_for_spelling.spelling_correction =~ /[a-z]+:/)
+    @highlight_words = @request_for_spelling.words_to_highlight(regex: true, include_original: true)
+    unless @request_for_spelling.spelling_correction =~ /[a-z]+:/
       @spelling_correction = @request_for_spelling.spelling_correction
     end
 
     @track_thing = TrackThing.create_track_for_search_query(@query, @variety_postfix)
-    @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
+    @feed_autodetect = [{ url: do_track_url(@track_thing, 'feed'), title: @track_thing.params[:title_in_rss], has_json: true }]
   end
 
   # Handle requests for non-existent URLs - will be handled by ApplicationController::render_exception
@@ -222,23 +217,23 @@ class GeneralController < ApplicationController
   def version
     respond_to do |format|
       format.json {
-        render :json => {
-          :alaveteli_git_commit => alaveteli_git_commit,
-          :alaveteli_version => ALAVETELI_VERSION,
-          :ruby_version => RUBY_VERSION,
-          :visible_public_body_count => PublicBody.visible.count,
-          :visible_request_count => InfoRequest.is_searchable.count,
-          :confirmed_user_count => User.active.
-                                     where(:email_confirmed => true).count,
-          :visible_comment_count => Comment.visible.count,
-          :track_thing_count => TrackThing.count,
-          :widget_vote_count => WidgetVote.count,
-          :public_body_change_request_count => PublicBodyChangeRequest.count,
-          :request_classification_count => RequestClassification.count,
-          :visible_followup_message_count =>
-            OutgoingMessage.where(:prominence => 'normal',
-                                  :message_type => 'followup').count
-      }}
+  render json: {
+    alaveteli_git_commit: alaveteli_git_commit,
+    alaveteli_version: ALAVETELI_VERSION,
+    ruby_version: RUBY_VERSION,
+    visible_public_body_count: PublicBody.visible.count,
+    visible_request_count: InfoRequest.is_searchable.count,
+    confirmed_user_count: User.active.
+                               where(email_confirmed: true).count,
+    visible_comment_count: Comment.visible.count,
+    track_thing_count: TrackThing.count,
+    widget_vote_count: WidgetVote.count,
+    public_body_change_request_count: PublicBodyChangeRequest.count,
+    request_classification_count: RequestClassification.count,
+    visible_followup_message_count: OutgoingMessage.where(prominence: 'normal',
+                                                          message_type: 'followup').count
+  }
+}
     end
   end
 

@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class AddLastEventIdToAlertTable < ActiveRecord::Migration[4.2] # 2.0
   def self.up
-    add_column :user_info_request_sent_alerts, :info_request_event_id, :integer, :default => nil
+    add_column :user_info_request_sent_alerts, :info_request_event_id, :integer, default: nil
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
       execute "ALTER TABLE user_info_request_sent_alerts ADD CONSTRAINT fk_user_info_request_sent_alert_info_request_event FOREIGN KEY (info_request_event_id) REFERENCES info_request_events(id)"
       # The coalesce is because null values are considered not equal in SQL, and we want them

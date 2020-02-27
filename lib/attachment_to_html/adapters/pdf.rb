@@ -58,8 +58,8 @@ module AttachmentToHTML
                                               "-enc", "UTF-8",
                                               "-noframes",
                                               "./#{File.basename(tempfile.path)}",
-                                              :timeout => 30,
-                                              :binary_output => false)
+                                              timeout: 30,
+                                              binary_output: false)
 
           cleanup_tempfile(tempfile)
           html

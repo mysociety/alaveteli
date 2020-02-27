@@ -2,39 +2,38 @@
 class InfoRequest
   module State
     class Calculator
-
       def initialize(info_request)
         @info_request = info_request
       end
 
-      def phase(cached_value_ok=false)
+      def phase(cached_value_ok = false)
         if @info_request.awaiting_description?
           :response_received
         else
           state = @info_request.calculate_status(cached_value_ok)
           case state
-            when 'not_held',
+          when 'not_held',
                  'rejected',
                  'successful',
                  'partially_successful',
                  'user_withdrawn'
-              :complete
-            when 'waiting_clarification'
-              :clarification_needed
-            when 'waiting_response'
-              :awaiting_response
-            when 'waiting_response_overdue'
-              :overdue
-            when 'waiting_response_very_overdue'
-              :very_overdue
-            when 'gone_postal',
+            :complete
+          when 'waiting_clarification'
+            :clarification_needed
+          when 'waiting_response'
+            :awaiting_response
+          when 'waiting_response_overdue'
+            :overdue
+          when 'waiting_response_very_overdue'
+            :very_overdue
+          when 'gone_postal',
                  'internal_review',
                  'error_message',
                  'requires_admin',
                  'attention_requested',
                  'vexatious',
                  'not_foi'
-              :other
+            :other
           end
         end
       end
@@ -94,25 +93,25 @@ class InfoRequest
             other: {}
           }
         end
-        opts.merge!(in_internal_review: state == 'internal_review')
+        opts[:in_internal_review] = state == 'internal_review'
         build_transitions_hash(opts)
       end
 
       # A summarised version of #phase, grouping the phases down into 3 groups
-      def summarised_phase(cached_value_ok=false)
+      def summarised_phase(cached_value_ok = false)
         phase = phase(cached_value_ok)
         case phase
-          when :awaiting_response
-            :in_progress
-          when :complete
-            :complete
-          when :other
-            :other
-          when :response_received,
+        when :awaiting_response
+          :in_progress
+        when :complete
+          :complete
+        when :other
+          :other
+        when :response_received,
                :clarification_needed,
                :overdue,
                :very_overdue
-            :action_needed
+          :action_needed
         end
       end
 
@@ -131,12 +130,12 @@ class InfoRequest
       def pending_states(opts)
         # Which pending states can we transition into
         if opts.fetch(:in_internal_review, false)
-          states = ['internal_review', 'gone_postal']
+          states = %w[internal_review gone_postal]
         else
-          states = [
-            'waiting_response',
-            'waiting_clarification',
-            'gone_postal'
+          states = %w[
+            waiting_response
+            waiting_clarification
+            gone_postal
           ]
           if opts.fetch(:user_asked_to_update_status, false)
             states += ['internal_review']
@@ -145,20 +144,20 @@ class InfoRequest
         states
       end
 
-      def complete_states(opts = {})
+      def complete_states(_opts = {})
         # States from which a request can go no further, because it's complete
-        [
-          'not_held',
-          'partially_successful',
-          'successful',
-          'rejected'
+        %w[
+          not_held
+          partially_successful
+          successful
+          rejected
         ]
       end
 
-      def admin_states(opts = {})
+      def admin_states(_opts = {})
         # States which only an admin can put a request into, and from which
         # a normal user can't get the request out again
-        ['not_foi', 'vexatious']
+        %w[not_foi vexatious]
       end
 
       def other_states(opts = {})
@@ -166,7 +165,7 @@ class InfoRequest
         user_asked_to_update_status = opts.fetch(:user_asked_to_update_status, false)
         states = ['error_message']
         if user_asked_to_update_status && is_owning_user
-          states += ['requires_admin', 'user_withdrawn']
+          states += %w[requires_admin user_withdrawn]
         end
         states
       end

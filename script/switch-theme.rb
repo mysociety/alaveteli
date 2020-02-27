@@ -72,7 +72,7 @@ end
 if ARGV.length == 1
   requested_theme = ARGV[0]
 else
-  STDERR.puts "Usage: #{$0} <THEME-NAME>"
+  STDERR.puts "Usage: #{$PROGRAM_NAME} <THEME-NAME>"
   show_themes
   exit 1
 end
@@ -90,7 +90,7 @@ config_directory = File.join alaveteli_directory, 'config'
 general_filename = File.join config_directory, "general.yml"
 theme_filename = File.join config_directory, "general-#{requested_theme}.yml"
 
-if File.exist?(general_filename) && ! (File.symlink? general_filename)
+if File.exist?(general_filename) && !(File.symlink? general_filename)
   STDERR.puts "'#{general_filename}' exists, but isn't a symlink"
   exit 1
 end
@@ -100,7 +100,7 @@ unless File.exist? theme_filename
   exit 1
 end
 
-def symlink target, link_directory, link_name
+def symlink(target, link_directory, link_name)
   tmp = Tempfile.new link_name, link_directory
   if system("ln", "-sfn", target, tmp.path)
     full_link_name = File.join(link_directory, link_name)

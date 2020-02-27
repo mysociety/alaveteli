@@ -1,6 +1,5 @@
 module AlaveteliPro
   module PostRedirectHandler
-
     # A hook for us to override certain post redirects for pro users, e.g.
     # if they start making a request, then we realise they're a pro when they
     # log in, so we want to send them into the pro system
@@ -14,7 +13,8 @@ module AlaveteliPro
           user: user,
           title: params["info_request"]["title"],
           body: params["outgoing_message"]["body"],
-          public_body_id: params["info_request"]["public_body_id"])
+          public_body_id: params["info_request"]["public_body_id"]
+        )
         # Clear out the post_redirect, so that we don't get a lot of other
         # params put into our URL later on
         post_redirect.post_params = {}
@@ -26,8 +26,7 @@ module AlaveteliPro
                            "using the form below.")
         return "#{new_alaveteli_pro_info_request_path}?draft_id=#{draft.id}"
       end
-      return uri
+      uri
     end
-
   end
 end

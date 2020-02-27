@@ -10,9 +10,9 @@ class AddUrlName < ActiveRecord::Migration[4.2] # 2.0
     end
     # MySQL cannot index text blobs like this
     if ActiveRecord::Base.connection.adapter_name != "MySQL"
-      add_index :public_bodies, :url_name, :unique => true
+      add_index :public_bodies, :url_name, unique: true
     end
-    change_column :public_bodies, :url_name, :text, :null => false
+    change_column :public_bodies, :url_name, :text, null: false
   end
 
   def self.down

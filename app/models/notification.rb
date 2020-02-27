@@ -16,13 +16,13 @@
 
 class Notification < ApplicationRecord
   belongs_to :info_request_event,
-             :inverse_of => :notifications
+             inverse_of: :notifications
   belongs_to :user,
-             :inverse_of => :notifications
+             inverse_of: :notifications
 
   INSTANTLY = :instantly
   DAILY = :daily
-  enum frequency: [ INSTANTLY, DAILY ]
+  enum frequency: [INSTANTLY, DAILY]
 
   validates_presence_of :info_request_event, :user, :frequency, :send_after
 
@@ -32,9 +32,9 @@ class Notification < ApplicationRecord
 
   # Set the send_at timestamp based on the chosen frequency
   def calculate_send_after
-    unless self.persisted? || self.send_after.present?
-      if self.daily?
-        self.send_after = self.user.next_daily_summary_time
+    unless persisted? || send_after.present?
+      if daily?
+        self.send_after = user.next_daily_summary_time
       else
         self.send_after = Time.zone.now
       end
@@ -73,8 +73,8 @@ class Notification < ApplicationRecord
   def embargo_expiring_expired
     # If someone has changed the embargo date on the request, or published it,
     # they might not need this notification any more.
-    if (info_request_event.info_request.embargo_expiring? ||
-        info_request_event.info_request.embargo_pending_expiry?)
+    if info_request_event.info_request.embargo_expiring? ||
+       info_request_event.info_request.embargo_pending_expiry?
       false
     else
       true
@@ -88,14 +88,14 @@ class Notification < ApplicationRecord
   end
 
   def overdue_expired
-    info_request = self.info_request_event.info_request
+    info_request = info_request_event.info_request
     user = info_request.user
     status = info_request.calculate_status
     !(user.can_make_followup? && status == 'waiting_response_overdue')
   end
 
   def very_overdue_expired
-    info_request = self.info_request_event.info_request
+    info_request = info_request_event.info_request
     user = info_request.user
     status = info_request.calculate_status
     !(user.can_make_followup? && status == 'waiting_response_very_overdue')

@@ -6,10 +6,9 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminCensorRuleController < AdminController
-
-  before_action :set_editor, :only => [:create, :update]
-  before_action :set_censor_rule, :only => [:edit, :update, :destroy]
-  before_action :set_subject_and_censor_rule_and_form_url, :only => [:new, :create]
+  before_action :set_editor, only: [:create, :update]
+  before_action :set_censor_rule, only: [:edit, :update, :destroy]
+  before_action :set_subject_and_censor_rule_and_form_url, only: [:new, :create]
 
   def index
     @censor_rules = CensorRule.global
@@ -23,7 +22,7 @@ class AdminCensorRuleController < AdminController
       flash[:notice] = 'Censor rule was successfully created.'
       expire_requests_and_redirect
     else
-      render :action => 'new'
+      render action: 'new'
     end
   end
 
@@ -35,7 +34,7 @@ class AdminCensorRuleController < AdminController
       flash[:notice] = 'Censor rule was successfully updated.'
       expire_requests_and_redirect
     else
-      render :action => 'edit'
+      render action: 'edit'
     end
   end
 

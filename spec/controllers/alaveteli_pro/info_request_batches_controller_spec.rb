@@ -114,7 +114,7 @@ describe AlaveteliPro::InfoRequestBatchesController do
                       public_bodies: bodies,
                       user: user)
   end
-  let(:params) { {draft_id: draft.id} }
+  let(:params) { { draft_id: draft.id } }
 
   before do
     session[:user_id] = user.id
@@ -173,9 +173,8 @@ describe AlaveteliPro::InfoRequestBatchesController do
     end
   end
 
-
   describe "#create" do
-    let(:params) { {draft_id: draft.id} }
+    let(:params) { { draft_id: draft.id } }
     let(:action) { post :create, params: params }
 
     it_behaves_like "an info_request_batch action"

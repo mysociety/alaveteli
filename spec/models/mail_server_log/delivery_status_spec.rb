@@ -57,7 +57,7 @@ describe MailServerLog::DeliveryStatus do
 
     it 'returns the default format' do
       subject = described_class.new(:delivered)
-      obj_id = "0x00%x" % (subject.object_id << 1)
+      obj_id = format("0x00%x", (subject.object_id << 1))
       expected =
         %Q(#<#{described_class}:#{obj_id} @status=:delivered>)
       expect(subject.inspect).to eq(expected)
@@ -68,10 +68,10 @@ describe MailServerLog::DeliveryStatus do
   describe '#<=>' do
 
     let(:statuses) do
-      [:delivered,
-       :unknown,
-       :failed,
-       :sent].map { |s| described_class.new(s) }
+       [:delivered,
+        :unknown,
+        :failed,
+        :sent].map { |s| described_class.new(s) }
      end
 
     let(:sorted) do
@@ -82,7 +82,7 @@ describe MailServerLog::DeliveryStatus do
     end
 
     it { expect(statuses.sort.map(&:to_sym)).to eq(sorted) }
-    it { expect(statuses.sort { |a,b| b <=> a }.map(&:to_sym)).to eq(sorted.reverse) }
+    it { expect(statuses.sort { |a, b| b <=> a }.map(&:to_sym)).to eq(sorted.reverse) }
 
     let(:a) { described_class.new(:sent) }
     let(:b) { described_class.new(:delivered) }

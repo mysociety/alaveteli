@@ -4,9 +4,9 @@ class AlaveteliPro::PublicBodiesController < AlaveteliPro::BaseController
 
   def index
     query = params[:query] || ""
-    xapian_results = typeahead_search(query, :model => PublicBody,
-                                             :exclude_tags => [ 'defunct',
-                                                                'not_apply' ])
+    xapian_results = typeahead_search(query, model: PublicBody,
+                                             exclude_tags: %w[defunct
+                                                              not_apply])
     results = xapian_results.present? ? xapian_results.results : []
     # Exclude any bodies we can't make a request to (in addition to the ones
     # we've already filtered out by the excluded tags above)
@@ -15,8 +15,8 @@ class AlaveteliPro::PublicBodiesController < AlaveteliPro::BaseController
     # request email and api_key, so we map these results into a simpler object
     # with only some whitelisted attributes.
     results.map! do |result|
-      public_body_search_attributes(result[:model])
-        .merge(weight: result[:weight])
+      public_body_search_attributes(result[:model]).
+        merge(weight: result[:weight])
     end
 
     render json: results

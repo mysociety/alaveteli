@@ -52,7 +52,7 @@ module ApplicationHelper
     error_messages = "".html_safe
 
     objects.each do |object|
-      object.errors.each do |attr, message|
+      object.errors.each do |_attr, message|
         error_messages << content_tag(:li, h(message))
       end
     end
@@ -61,7 +61,7 @@ module ApplicationHelper
   end
 
   def locale_name(locale)
-    return LanguageNames::get_language_name(locale)
+    LanguageNames.get_language_name(locale)
   end
 
   def admin_value(v)
@@ -75,9 +75,9 @@ module ApplicationHelper
   end
 
   def admin_date(date)
-    ago_text = _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(date))
-    exact_date = I18n.l(date, :format => "%e %B %Y %H:%M:%S")
-    return "#{exact_date} (#{ago_text})"
+    ago_text = _('{{length_of_time}} ago', length_of_time: time_ago_in_words(date))
+    exact_date = I18n.l(date, format: "%e %B %Y %H:%M:%S")
+    "#{exact_date} (#{ago_text})"
   end
 
   def read_asset_file(asset_name)
@@ -120,11 +120,11 @@ module ApplicationHelper
   # rely on a sesssion being shared between the front end and admin interface,
   # so need to check the status of the user.
   def is_admin?
-    return !session[:using_admin].nil? || (!@user.nil? && @user.is_admin?)
+    !session[:using_admin].nil? || (!@user.nil? && @user.is_admin?)
   end
 
-  def cache_if_caching_fragments(*args, &block)
-    if AlaveteliConfiguration::cache_fragments
+  def cache_if_caching_fragments(*args)
+    if AlaveteliConfiguration.cache_fragments
       cache(*args) { yield }
     else
       yield
@@ -132,7 +132,7 @@ module ApplicationHelper
   end
 
   def render_flash(flash)
-    flash = { :plain => flash } if flash.is_a?(String)
+    flash = { plain: flash } if flash.is_a?(String)
     render flash.with_indifferent_access
   end
 
@@ -141,11 +141,9 @@ module ApplicationHelper
   # or anything except the first page of results, just the first page of the default
   # views
   def request_list_cache_key
-    cacheable_param_list = ['controller', 'action', 'locale', 'view']
+    cacheable_param_list = %w[controller action locale view]
     if params.keys.all? { |key| cacheable_param_list.include?(key) }
       "request-list-#{@view}-#{@locale}"
-    else
-      nil
     end
   end
 
@@ -156,38 +154,38 @@ module ApplicationHelper
     case event.event_type
     when 'sent'
       _('Request sent to {{public_body_name}} by {{info_request_user}} on {{date}}.',
-        :public_body_name => body_link,
-        :info_request_user => user_link,
-        :date => date)
+        public_body_name: body_link,
+        info_request_user: user_link,
+        date: date)
     when 'followup_sent'
       case event.calculated_state
       when 'internal_review'
         _('Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}.',
-          :public_body_name => body_link,
-          :info_request_user => user_link,
-          :date => date)
+          public_body_name: body_link,
+          info_request_user: user_link,
+          date: date)
       when 'waiting_response'
         _('Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}.',
-          :public_body_name => body_link,
-          :info_request_user => user_link,
-          :date => date)
+          public_body_name: body_link,
+          info_request_user: user_link,
+          date: date)
       else
         _('Follow up sent to {{public_body_name}} by {{info_request_user}} on {{date}}.',
-          :public_body_name => body_link,
-          :info_request_user => user_link,
-          :date => date)
+          public_body_name: body_link,
+          info_request_user: user_link,
+          date: date)
       end
     when 'response'
       _('Response by {{public_body_name}} to {{info_request_user}} on {{date}}.',
-        :public_body_name => body_link,
-        :info_request_user => user_link,
-        :date => date)
+        public_body_name: body_link,
+        info_request_user: user_link,
+        date: date)
     when 'comment'
       _('Request to {{public_body_name}} by {{info_request_user}}. Annotated by {{event_comment_user}} on {{date}}.',
-        :public_body_name => body_link,
-        :info_request_user => user_link,
-        :event_comment_user => user_link_absolute(event.comment.user),
-        :date => date)
+        public_body_name: body_link,
+        info_request_user: user_link,
+        event_comment_user: user_link_absolute(event.comment.user),
+        date: date)
     end
   end
 

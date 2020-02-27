@@ -8,7 +8,7 @@ describe "receiving responses to requests in alaveteli_pro" do
     let!(:pro_user_session) { login(pro_user) }
     let!(:info_request) do
       FactoryBot.create(:embargo_expiring_request,
-                        :user => pro_user)
+                        user: pro_user)
     end
 
     it "appears in the request list as having received a response" do

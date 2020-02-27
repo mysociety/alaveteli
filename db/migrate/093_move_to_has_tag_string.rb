@@ -11,7 +11,7 @@ class MoveToHasTagString < ActiveRecord::Migration[4.2] # 2.3
     # the model needs a default value, so build in stages:
     add_column :has_tag_string_tags, :model, :string
     HasTagString::HasTagStringTag.update_all "model = 'PublicBody'"
-    change_column :has_tag_string_tags, :model, :string, :null => false
+    change_column :has_tag_string_tags, :model, :string, null: false
     # just use this for a fresh project:
     # add_column :has_tag_string_tags, :model, :string, :null => false
 

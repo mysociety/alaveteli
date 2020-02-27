@@ -1,5 +1,4 @@
 class TypeaheadSearch
-
   attr_accessor :query, :model, :page, :per_page, :wildcard, :run_search
 
   def initialize(query, opts = {})
@@ -34,13 +33,13 @@ class TypeaheadSearch
 
   def options
     {
-      :offset => (@page - 1) * @per_page,
-      :limit => @per_page,
-      :sort_by_prefix => nil,
-      :sort_by_ascending => true,
-      :collapse_by_prefix => collapse?,
-      :wildcard => @wildcard,
-      :model => @model
+      offset: (@page - 1) * @per_page,
+      limit: @per_page,
+      sort_by_prefix: nil,
+      sort_by_ascending: true,
+      collapse_by_prefix: collapse?,
+      wildcard: @wildcard,
+      model: @model
     }
   end
 
@@ -57,10 +56,7 @@ class TypeaheadSearch
     end
 
     # don't run a search if there's no query
-    if @query.blank?
-      @run_search = false
-    end
-
+    @run_search = false if @query.blank?
   end
 
   def run_query
@@ -85,9 +81,9 @@ class TypeaheadSearch
     # Since acts_as_xapian doesn't support the Partial match flag, we work around it
     # by making the last word a wildcard, which is quite the same
     query = if @wildcard
-      "#{@query.strip}*"
-    else
-      @query
+              "#{@query.strip}*"
+            else
+              @query
     end
     if @exclude_tags
       tag_string = @exclude_tags.map { |tag| "-tag:#{tag}" }.join(" ")
@@ -103,5 +99,4 @@ class TypeaheadSearch
       'request_collapse'
     end
   end
-
 end

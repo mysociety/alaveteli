@@ -15,7 +15,7 @@ class InfoRequest
         else
           holding_pen.receive(email,
                               raw_email_data,
-                              { :rejected_reason => reason })
+                              rejected_reason: reason)
         end
       end
     end

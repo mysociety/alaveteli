@@ -6,7 +6,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AlaveteliPro::BaseController < ApplicationController
-
   before_action :pro_user_authenticated?
   before_action :set_in_pro_area
 
@@ -34,7 +33,7 @@ class AlaveteliPro::BaseController < ApplicationController
       end
       return true
     end
-    return false
+    false
   end
 
   # A pro-specific version of authenticated? that sets the `pro: true` param
@@ -50,5 +49,4 @@ class AlaveteliPro::BaseController < ApplicationController
   def set_in_pro_area
     @in_pro_area = true
   end
-
 end

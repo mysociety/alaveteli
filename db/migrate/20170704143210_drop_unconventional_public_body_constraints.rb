@@ -1,11 +1,11 @@
 # -*- encoding : utf-8 -*-
 class DropUnconventionalPublicBodyConstraints < ActiveRecord::Migration[4.2] # 4.1
-  DATA = { PublicBody =>          [:short_name,
-                                   :home_page,
-                                   :notes,
-                                   :publication_scheme,
-                                   :disclosure_log,
-                                   :last_edit_comment],
+  DATA = { PublicBody => [:short_name,
+                          :home_page,
+                          :notes,
+                          :publication_scheme,
+                          :disclosure_log,
+                          :last_edit_comment],
            PublicBody::Version => [:publication_scheme,
                                    :disclosure_log,
                                    :charity_number] }.freeze

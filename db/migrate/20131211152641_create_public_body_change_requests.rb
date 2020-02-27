@@ -10,8 +10,8 @@ class CreatePublicBodyChangeRequests < ActiveRecord::Migration[4.2] # 3.2
       t.column :public_body_email, :string
       t.column :source_url, :text
       t.column :notes, :text
-      t.column :is_open, :boolean, :null => false, :default => true
-      t.timestamps :null => false
+      t.column :is_open, :boolean, null: false, default: true
+      t.timestamps null: false
     end
   end
 

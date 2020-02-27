@@ -5,7 +5,6 @@ require 'mapi/convert'
 
 module Mail
   class Message
-
     # The behaviour of the 'to' and 'cc' methods have changed
     # between TMail and Mail; this monkey-patching restores the
     # TMail behaviour.  The key difference is that when there's an
@@ -13,29 +12,27 @@ module Mail
     # string as an ActiveSupport::Multibyte::Chars, whereas
     # previously TMail would return nil.
 
-    alias_method :old_to, :to
-    alias_method :old_cc, :cc
+    alias old_to to
+    alias old_cc cc
 
     def clean_addresses(old_method, val)
-      old_result = self.send(old_method, val)
+      old_result = send(old_method, val)
       old_result.class == Mail::AddressContainer ? old_result : nil
     end
 
     def to(val = nil)
-      self.clean_addresses :old_to, val
+      clean_addresses :old_to, val
     end
 
     def cc(val = nil)
-      self.clean_addresses :old_cc, val
+      clean_addresses :old_cc, val
     end
-
   end
 end
 
 module MailHandler
   module Backends
     module MailBackend
-
       def backend
         'Mail'
       end
@@ -64,9 +61,7 @@ module MailHandler
 
       def get_subject(mail)
         subject = mail.subject
-        if subject
-          convert_string_to_utf8(subject).string
-        end
+        convert_string_to_utf8(subject).string if subject
       end
 
       # Return a copy of the file name for the mail part
@@ -99,8 +94,6 @@ module MailHandler
           rescue
             return mail[:from].value
           end
-        else
-          nil
         end
       end
 
@@ -145,7 +138,7 @@ module MailHandler
       def empty_return_path?(mail)
         return false if mail['return-path'].nil?
         return true if mail['return-path'].value.blank?
-        return false
+        false
       end
 
       def get_auto_submitted(mail)
@@ -167,7 +160,7 @@ module MailHandler
         if filename && AlaveteliFileTypes.filename_to_mimetype(filename) == 'application/vnd.ms-outlook'
           return true
         end
-        return false
+        false
       end
 
       # Convert a mail part which is an attached mail in one of
@@ -231,17 +224,13 @@ module MailHandler
             part_body = get_part_body(part)
             calc_mime = AlaveteliFileTypes.filename_and_content_to_mimetype(part_filename,
                                                                             part_body)
-            if calc_mime
-              part.content_type = calc_mime
-            end
+            part.content_type = calc_mime if calc_mime
           end
 
           # Use standard content types for Word documents etc.
           part.content_type = normalise_content_type(get_content_type(part))
           decode_attached_part(part, parent_mail)
-          if original_charset
-            part.charset = original_charset
-          end
+          part.charset = original_charset if original_charset
         end
       end
 
@@ -264,9 +253,7 @@ module MailHandler
 
       # Choose the best part from alternatives
       def choose_best_alternative(mail)
-        if mail.parts.any?(&:multipart?)
-          return mail.parts.detect(&:multipart?)
-        end
+        return mail.parts.detect(&:multipart?) if mail.parts.any?(&:multipart?)
         if mail.html_part
           return mail.html_part
         elsif mail.text_part
@@ -285,7 +272,7 @@ module MailHandler
         leaves = _get_attachment_leaves_recursive(mail, nil, mail)
         mail.count_parts_count = 0
         count_parts(mail, mail)
-        return leaves
+        leaves
       end
 
       # Recurse through a mail part, selecting the best part wherever there is
@@ -293,7 +280,7 @@ module MailHandler
       def _get_attachment_leaves_recursive(part, within_rfc822_attachment, parent_mail)
         leaves_found = []
         if part.multipart?
-          if part.parts.size == 0
+          if part.parts.empty?
             # This is typically caused by a missing final
             # MIME boundary, in which case the text of the
             # message (including the opening MIME
@@ -326,7 +313,7 @@ module MailHandler
             leaves_found += [part]
           end
         end
-        return leaves_found
+        leaves_found
       end
 
       # Add selected useful headers from an attached message to its body
@@ -336,9 +323,9 @@ module MailHandler
         # RFC822 message and it is text, if so add headers.
         if leaf.within_rfc822_attachment == leaf && get_content_type(leaf) == 'text/plain'
           headers = ""
-          [ 'Date', 'Subject', 'From', 'To', 'Cc' ].each do |header|
+          %w[Date Subject From To Cc].each do |header|
             if header_value = get_header_string(header, leaf.within_rfc822_attachment)
-              if !header_value.blank?
+              unless header_value.blank?
                 headers = headers + header + ": " + header_value.to_s + "\n"
               end
             end
@@ -354,32 +341,30 @@ module MailHandler
       def get_attachment_attributes(mail)
         leaves = get_attachment_leaves(mail)
         attachments = []
-        for leaf in leaves
+        leaves.each do |leaf|
           body = get_part_body(leaf)
           if leaf.within_rfc822_attachment
             within_rfc822_subject = leaf.within_rfc822_attachment.subject
             body = extract_attached_message_headers(leaf)
           end
-          leaf_attributes = { :url_part_number => leaf.url_part_number,
-                              :content_type => get_content_type(leaf),
-                              :filename => get_part_file_name(leaf),
-                              :charset => leaf.charset,
-                              :within_rfc822_subject => within_rfc822_subject,
-                              :body => body,
-                              :hexdigest => Digest::MD5.hexdigest(body) }
+          leaf_attributes = { url_part_number: leaf.url_part_number,
+                              content_type: get_content_type(leaf),
+                              filename: get_part_file_name(leaf),
+                              charset: leaf.charset,
+                              within_rfc822_subject: within_rfc822_subject,
+                              body: body,
+                              hexdigest: Digest::MD5.hexdigest(body) }
           attachments << leaf_attributes
         end
-        return attachments
+        attachments
       end
 
       # Format
       def address_from_name_and_email(name, email)
-        if !MySociety::Validate.is_valid_email(email)
+        unless MySociety::Validate.is_valid_email(email)
           raise "invalid email " + email + " passed to address_from_name_and_email"
         end
-        if name.nil?
-          return Mail::Address.new(email.dup).to_s
-        end
+        return Mail::Address.new(email.dup).to_s if name.nil?
         address = Mail::Address.new
         address.display_name = name.dup
         address.address = email.dup

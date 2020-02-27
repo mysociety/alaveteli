@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 class AdminHolidayImportsController < AdminController
-
   def new
     @holiday_import = HolidayImport.new(holiday_import_params)
     @holiday_import.populate if @holiday_import.valid?
@@ -10,7 +9,7 @@ class AdminHolidayImportsController < AdminController
     @holiday_import = HolidayImport.new(holiday_import_params)
     if @holiday_import.save
       notice = "Holidays successfully imported"
-      redirect_to admin_holidays_path, :notice => notice
+      redirect_to admin_holidays_path, notice: notice
     else
       render :new
     end
@@ -31,5 +30,4 @@ class AdminHolidayImportsController < AdminController
       {}
     end
   end
-
 end

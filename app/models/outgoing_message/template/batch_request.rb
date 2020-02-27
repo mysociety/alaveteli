@@ -10,7 +10,7 @@ class OutgoingMessage
         template_string(opts)
       end
 
-      def salutation(replacements = {})
+      def salutation(_replacements = {})
         self.class.placeholder_salutation
       end
 
@@ -35,7 +35,6 @@ class OutgoingMessage
         msg += signoff(replacements)
         msg += "\n\n"
       end
-
     end
   end
 end

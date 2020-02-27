@@ -22,11 +22,11 @@ describe AlaveteliPro::EmbargoesController do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = pro_user.id
             post :create, params: {
-                            alaveteli_pro_embargo: {
-                              info_request_id: info_request,
-                              embargo_duration: '3_months'
-                            }
-                          }
+              alaveteli_pro_embargo: {
+                info_request_id: info_request,
+                embargo_duration: '3_months'
+              }
+            }
           end
         end
 
@@ -45,11 +45,11 @@ describe AlaveteliPro::EmbargoesController do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = admin.id
             post :create, params: {
-                            alaveteli_pro_embargo: {
-                              info_request_id: info_request,
-                              embargo_duration: '3_months'
-                            }
-                          }
+              alaveteli_pro_embargo: {
+                info_request_id: info_request,
+                embargo_duration: '3_months'
+              }
+            }
           end
         end
 
@@ -73,11 +73,11 @@ describe AlaveteliPro::EmbargoesController do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = other_user.id
             post :create, params: {
-                            alaveteli_pro_embargo: {
-                              info_request_id: info_request,
-                              embargo_duration: '3_months'
-                            }
-                          }
+              alaveteli_pro_embargo: {
+                info_request_id: info_request,
+                embargo_duration: '3_months'
+              }
+            }
           end
         end.to raise_error(CanCan::AccessDenied)
       end
@@ -97,11 +97,11 @@ describe AlaveteliPro::EmbargoesController do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = pro_user.id
             post :create, params: {
-                            alaveteli_pro_embargo: {
-                              info_request_id: info_request,
-                              embargo_duration: '3_months'
-                            }
-                          }
+              alaveteli_pro_embargo: {
+                info_request_id: info_request,
+                embargo_duration: '3_months'
+              }
+            }
           end
         end.to raise_error(CanCan::AccessDenied)
       end
@@ -205,7 +205,8 @@ describe AlaveteliPro::EmbargoesController do
         :info_request_batch,
         embargo_duration: "3_months",
         user: pro_user,
-        public_bodies: FactoryBot.create_list(:public_body, 2))
+        public_bodies: FactoryBot.create_list(:public_body, 2)
+      )
       batch.create_batch!
       batch
     end
@@ -216,8 +217,8 @@ describe AlaveteliPro::EmbargoesController do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = pro_user.id
             post :destroy_batch, params: {
-                                   info_request_batch_id: info_request_batch.id
-                                 }
+              info_request_batch_id: info_request_batch.id
+            }
           end
         end
 
@@ -245,7 +246,8 @@ describe AlaveteliPro::EmbargoesController do
 
         it "redirects to the batch request page" do
           expected_path = show_alaveteli_pro_batch_request_path(
-            info_request_batch)
+            info_request_batch
+          )
           expect(response).to redirect_to(expected_path)
         end
       end
@@ -255,8 +257,8 @@ describe AlaveteliPro::EmbargoesController do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = admin.id
             post :destroy_batch, params: {
-                                   info_request_batch_id: info_request_batch.id
-                                 }
+              info_request_batch_id: info_request_batch.id
+            }
           end
         end
 
@@ -284,7 +286,8 @@ describe AlaveteliPro::EmbargoesController do
 
         it "redirects to the batch request page" do
           expected_path = show_alaveteli_pro_batch_request_path(
-            info_request_batch)
+            info_request_batch
+          )
           expect(response).to redirect_to(expected_path)
         end
       end
@@ -298,8 +301,8 @@ describe AlaveteliPro::EmbargoesController do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = other_user.id
             post :destroy_batch, params: {
-                                   info_request_batch_id: info_request_batch.id
-                                 }
+              info_request_batch_id: info_request_batch.id
+            }
           end
         end.to raise_error(CanCan::AccessDenied)
       end
@@ -319,7 +322,8 @@ describe AlaveteliPro::EmbargoesController do
 
       it "redirects to that request, not the batch" do
         expected_path = show_alaveteli_pro_request_path(
-            url_title: info_request_batch.info_requests.first.url_title)
+          url_title: info_request_batch.info_requests.first.url_title
+        )
         expect(response).to redirect_to(expected_path)
       end
     end

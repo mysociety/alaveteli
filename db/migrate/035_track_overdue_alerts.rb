@@ -2,10 +2,10 @@
 class TrackOverdueAlerts < ActiveRecord::Migration[4.2] # 2.0
   def self.up
     create_table :user_info_request_sent_alerts do |t|
-      t.column :user_id, :integer, :null => false
-      t.column :info_request_id, :integer, :null => false
+      t.column :user_id, :integer, null: false
+      t.column :info_request_id, :integer, null: false
 
-      t.column :alert_type, :string, :null => false
+      t.column :alert_type, :string, null: false
     end
 
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"

@@ -25,7 +25,6 @@ end
 
 module ActiveRecord
   class FixtureSet
-
     def self.create_fixtures(fixtures_directory, fixture_set_names, class_names = {}, config = ActiveRecord::Base)
       fixture_set_names = Array(fixture_set_names).map(&:to_s)
       class_names = ClassCache.new class_names, config
@@ -48,12 +47,13 @@ module ActiveRecord
               conn,
               fs_name,
               klass,
-              ::File.join(fixtures_directory, fs_name))
+              ::File.join(fixtures_directory, fs_name)
+            )
           end
 
           update_all_loaded_fixtures fixtures_map
 
-          connection.transaction(:requires_new => true) do
+          connection.transaction(requires_new: true) do
             # Patch - replace this...
             # ***
             # fixture_sets.each do |fs|
@@ -89,7 +89,7 @@ module ActiveRecord
             fixture_sets.each do |fs|
               conn = fs.model_class.respond_to?(:connection) ? fs.model_class.connection : connection
               table_rows = fs.table_rows
-              table_rows.each do |table_name,rows|
+              table_rows.each do |table_name, rows|
                 rows.each do |row|
                   conn.insert_fixture(row, table_name)
                 end
@@ -108,6 +108,5 @@ module ActiveRecord
       end
       cached_fixtures(connection, fixture_set_names)
     end
-
   end
 end

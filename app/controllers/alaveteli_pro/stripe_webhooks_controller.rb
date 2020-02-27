@@ -16,7 +16,7 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
     render json: { error: exception.message }, status: 401
   end
 
-  rescue_from UnknownPlanStripeWebhookError do |exception|
+  rescue_from UnknownPlanStripeWebhookError do |_exception|
     # accept it so it doesn't get resent but don't process it
     # (and don't generate an exception email for it)
     render json: { message: 'Does not appear to be one of our plans' },
@@ -96,7 +96,7 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
   def check_for_event_type
     unless @stripe_event.respond_to?(:type)
       msg = "undefined method `type' for #{ @stripe_event.inspect }"
-      raise MissingTypeStripeWebhookError.new(msg)
+      raise MissingTypeStripeWebhookError, msg
     end
   end
 

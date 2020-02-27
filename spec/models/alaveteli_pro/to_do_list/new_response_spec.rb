@@ -20,7 +20,7 @@ describe AlaveteliPro::ToDoList::NewResponse do
     end
 
     it 'gives a description for multiple responses' do
-      request = FactoryBot.create(:old_unclassified_request, :user => user)
+      request = FactoryBot.create(:old_unclassified_request, user: user)
       AlaveteliPro::RequestSummary.create_or_update_from(request)
       expect(@new_response.description).
         to eq "2 requests have received a response."
@@ -49,10 +49,10 @@ describe AlaveteliPro::ToDoList::NewResponse do
     context 'when there is more than one item' do
 
       it 'returns a link to the info request list with a "response_received" filter' do
-        request = FactoryBot.create(:old_unclassified_request, :user => user)
+        request = FactoryBot.create(:old_unclassified_request, user: user)
         AlaveteliPro::RequestSummary.create_or_update_from(request)
-        expect(@new_response.url)
-          .to eq alaveteli_pro_info_requests_path('alaveteli_pro_request_filter[filter]' =>
+        expect(@new_response.url).
+          to eq alaveteli_pro_info_requests_path('alaveteli_pro_request_filter[filter]' =>
                                                     'response_received')
       end
 
@@ -73,7 +73,7 @@ describe AlaveteliPro::ToDoList::NewResponse do
     context 'when there is more than one item' do
 
       it 'returns an appropriate text' do
-        request = FactoryBot.create(:old_unclassified_request, :user => user)
+        request = FactoryBot.create(:old_unclassified_request, user: user)
         AlaveteliPro::RequestSummary.create_or_update_from(request)
         expect(@new_response.call_to_action).to eq 'Update statuses.'
       end

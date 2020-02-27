@@ -19,9 +19,9 @@ describe RequestClassification do
     before do
       @user_one = FactoryBot.create(:user)
       @user_two = FactoryBot.create(:user)
-      FactoryBot.create(:request_classification, :user => @user_one)
-      FactoryBot.create(:request_classification, :user => @user_one)
-      FactoryBot.create(:request_classification, :user => @user_two)
+      FactoryBot.create(:request_classification, user: @user_one)
+      FactoryBot.create(:request_classification, user: @user_one)
+      FactoryBot.create(:request_classification, user: @user_two)
     end
 
     it "returns a list of users' classifications with counts in descending order" do

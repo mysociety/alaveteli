@@ -26,7 +26,7 @@ module HealthChecks
   end
 
   def ok?
-    all.all? { |check| check.ok? }
+    all.all?(&:ok?)
   end
 
   private
@@ -34,5 +34,4 @@ module HealthChecks
   def assert_valid_check(check)
     check.respond_to?(:ok?)
   end
-
 end

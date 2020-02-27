@@ -18,7 +18,7 @@ describe AlaveteliRateLimiter::IPRateLimiter do
       whitelist = double
 
       defaults = AlaveteliRateLimiter::IPRateLimiter::Defaults.
-        new(:whitelist => whitelist)
+        new(whitelist: whitelist)
 
       described_class.set_defaults do |defaults|
         defaults.whitelist = whitelist
@@ -42,14 +42,14 @@ describe AlaveteliRateLimiter::IPRateLimiter do
     end
 
     it 'looks up a Symbol rule from the configured defaults' do
-      rule_attrs = { :count => 3, :window => { :value => 1, :unit => :hour } }
+      rule_attrs = { count: 3, window: { value: 1, unit: :hour } }
 
       described_class.set_defaults do |defaults|
-        defaults.event_rules = { :signup => rule_attrs }
+        defaults.event_rules = { signup: rule_attrs }
       end
 
       rule =
-        AlaveteliRateLimiter::Rule.from_hash(rule_attrs.merge(:name => :signup))
+        AlaveteliRateLimiter::Rule.from_hash(rule_attrs.merge(name: :signup))
 
       expect(described_class.new(:signup).rule).to eq(rule)
     end
@@ -69,14 +69,14 @@ describe AlaveteliRateLimiter::IPRateLimiter do
           new(Rails.root + "tmp/#{ subject.rule.name }_ip_rate_limiter.pstore")
 
       expected =
-        AlaveteliRateLimiter::Backends::PStoreDatabase.new(:path => path)
+        AlaveteliRateLimiter::Backends::PStoreDatabase.new(path: path)
 
       expect(subject.backend).to eq(expected)
     end
 
     it 'allows a custom backend' do
       backend = double
-      subject = described_class.new(:signup, :backend => backend)
+      subject = described_class.new(:signup, backend: backend)
       expect(subject.backend).to eq(backend)
     end
 
@@ -87,7 +87,7 @@ describe AlaveteliRateLimiter::IPRateLimiter do
 
     it 'allows a custom whitelist' do
       whitelist = double
-      subject = described_class.new(:signup, :whitelist => whitelist)
+      subject = described_class.new(:signup, whitelist: whitelist)
       expect(subject.whitelist).to eq(whitelist)
     end
 
@@ -106,7 +106,7 @@ describe AlaveteliRateLimiter::IPRateLimiter do
 
     it 'returns the whitelist attribute' do
       whitelist = double
-      subject = described_class.new(:signup, :whitelist => whitelist)
+      subject = described_class.new(:signup, whitelist: whitelist)
       expect(subject.whitelist).to eq(whitelist)
     end
 
@@ -116,7 +116,7 @@ describe AlaveteliRateLimiter::IPRateLimiter do
 
     it 'returns the backend attribute' do
       backend = double
-      subject = described_class.new(:signup, :backend => backend)
+      subject = described_class.new(:signup, backend: backend)
       expect(subject.backend).to eq(backend)
     end
 
@@ -129,7 +129,7 @@ describe AlaveteliRateLimiter::IPRateLimiter do
       backend = double
       records = [10.days.ago, 1.day.ago].map(&:to_datetime)
       allow(backend).to receive(:get).with(ip).and_return(records)
-      subject = described_class.new(:signup, :backend => backend)
+      subject = described_class.new(:signup, backend: backend)
       expect(subject.records(ip)).to eq(records)
     end
 
@@ -139,21 +139,21 @@ describe AlaveteliRateLimiter::IPRateLimiter do
 
     it 'records an event for the IP in the backend' do
       backend = double
-      subject = described_class.new(:signup, :backend => backend)
+      subject = described_class.new(:signup, backend: backend)
       expect(backend).to receive(:record).with('127.0.0.1')
       subject.record('127.0.0.1')
     end
 
     it 'converts an IPAddr to a String key' do
       backend = double
-      subject = described_class.new(:signup, :backend => backend)
+      subject = described_class.new(:signup, backend: backend)
       expect(backend).to receive(:record).with('127.0.0.1')
       subject.record(IPAddr.new('127.0.0.1'))
     end
 
     it 'cleans a poorly formatted IP' do
       backend = double
-      subject = described_class.new(:signup, :backend => backend)
+      subject = described_class.new(:signup, backend: backend)
       expect(backend).to receive(:record).with('127.0.0.1')
       subject.record("  127.0.0.1\n")
     end
@@ -168,9 +168,9 @@ describe AlaveteliRateLimiter::IPRateLimiter do
   describe '#record!' do
 
     it 'purges old records before recording the new event' do
-      attrs = { :name => :test,
-                :count => 20,
-                :window => { :value => 1, :unit => :day } }
+      attrs = { name: :test,
+                count: 20,
+                window: { value: 1, unit: :day } }
 
       rule = AlaveteliRateLimiter::Rule.from_hash(attrs)
 
@@ -179,10 +179,9 @@ describe AlaveteliRateLimiter::IPRateLimiter do
           new(Rails.root + "tmp/#{ rule.name }_ip_rate_limiter.pstore")
 
       backend =
-        AlaveteliRateLimiter::Backends::PStoreDatabase.new(:path => path)
+        AlaveteliRateLimiter::Backends::PStoreDatabase.new(path: path)
 
-
-      subject = described_class.new(rule, :backend => backend)
+      subject = described_class.new(rule, backend: backend)
 
       ip = '127.0.0.1'
 
@@ -207,7 +206,7 @@ describe AlaveteliRateLimiter::IPRateLimiter do
 
     it 'returns false if the IP is in the whitelist' do
       whitelist = AlaveteliRateLimiter::IPRateLimiter::Whitelist.new(%(0.0.0.0))
-      subject = described_class.new(:signup, :whitelist => whitelist)
+      subject = described_class.new(:signup, whitelist: whitelist)
       expect(subject.limit?('0.0.0.0')).to eq(false)
     end
 

@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 module AlaveteliPro
   module ToDoList
-
     class List
       attr_accessor :user
 
@@ -20,12 +19,11 @@ module AlaveteliPro
       private
 
       def self.item_types
-        [ ToDoList::NewResponse,
-          ToDoList::ExpiringEmbargo,
-          ToDoList::OverdueRequest,
-          ToDoList::VeryOverdueRequest ]
+        [ToDoList::NewResponse,
+         ToDoList::ExpiringEmbargo,
+         ToDoList::OverdueRequest,
+         ToDoList::VeryOverdueRequest]
       end
-
     end
   end
 end

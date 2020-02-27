@@ -23,7 +23,6 @@ module HealthChecks
       def ok?
         subject.call >= days.days.ago
       end
-
     end
   end
 end

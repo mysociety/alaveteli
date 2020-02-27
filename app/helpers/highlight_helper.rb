@@ -27,20 +27,18 @@ module HighlightHelper
   # Highlight words, also escapes HTML (other than spans that we add)
   def highlight_words(t, words, html = true)
     if html
-      highlight_matches(h(t), words, :highlighter => '<span class="highlight">\1</span>').html_safe
+      highlight_matches(h(t), words, highlighter: '<span class="highlight">\1</span>').html_safe
     else
-      highlight_matches(t, words, :highlighter => '*\1*')
+      highlight_matches(t, words, highlighter: '*\1*')
     end
   end
 
   def highlight_and_excerpt(t, words, excount, html = true)
-    newt = excerpt(t, words[0], :radius => excount)
-    if not newt
-      newt = excerpt(t, '', :radius => excount)
-    end
+    newt = excerpt(t, words[0], radius: excount)
+    newt = excerpt(t, '', radius: excount) unless newt
     t = newt
     t = highlight_words(t, words, html)
-    return t
+    t
   end
 
   def excerpt(text, phrase, options = {})
@@ -88,12 +86,12 @@ module HighlightHelper
     affix = part.size > radius ? omission : ""
 
     part = if part_position == :first
-      drop_index = [part.length - radius, 0].max
-      part.drop(drop_index)
-    else
-      part.first(radius)
+             drop_index = [part.length - radius, 0].max
+             part.drop(drop_index)
+           else
+             part.first(radius)
     end
 
-    return affix, part.join(separator)
+    [affix, part.join(separator)]
   end
 end

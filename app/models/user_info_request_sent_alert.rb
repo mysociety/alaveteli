@@ -33,15 +33,15 @@ class UserInfoRequestSentAlert < ApplicationRecord
     # request
     'comment_1', # tell user that info request has a new comment
     'embargo_expiring_1', # tell user that their embargo is expiring
-    'embargo_expired_1', # tell user that their embargo has expired
+    'embargo_expired_1' # tell user that their embargo has expired
   ]
 
   belongs_to :user,
-             :inverse_of => :user_info_request_sent_alerts
+             inverse_of: :user_info_request_sent_alerts
   belongs_to :info_request,
-             :inverse_of => :user_info_request_sent_alerts
+             inverse_of: :user_info_request_sent_alerts
   belongs_to :info_request_event,
-             :inverse_of => :user_info_request_sent_alerts
+             inverse_of: :user_info_request_sent_alerts
 
-  validates_inclusion_of :alert_type, :in => ALERT_TYPES
+  validates_inclusion_of :alert_type, in: ALERT_TYPES
 end

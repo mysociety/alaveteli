@@ -12,7 +12,7 @@ class CreateInfoRequestEvents < ActiveRecord::Migration[4.2] # 2.0
     InfoRequest.find_each do |info_request|
       info_request_event = InfoRequestEvent.new
       info_request_event.event_type = 'sent'
-      info_request_event.params = { :email => info_request.recipient_email, :outgoing_message_id => info_request.outgoing_messages[0].id }
+      info_request_event.params = { email: info_request.recipient_email, outgoing_message_id: info_request.outgoing_messages[0].id }
       info_request_event.info_request = info_request
       info_request_event.created_at = info_request.outgoing_messages[0].sent_at
       info_request_event.save!

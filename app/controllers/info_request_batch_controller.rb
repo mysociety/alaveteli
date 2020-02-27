@@ -1,9 +1,9 @@
 # -*- encoding : utf-8 -*-
 class InfoRequestBatchController < ApplicationController
-  before_action :set_in_pro_area, :only => [:show]
-  before_action :load_and_authorise_resource, :only => [:show]
-  before_action :redirect_embargoed_requests_for_pro_users, :only => [:show]
-  before_action :redirect_public_requests_from_pro_context, :only => [:show]
+  before_action :set_in_pro_area, only: [:show]
+  before_action :load_and_authorise_resource, only: [:show]
+  before_action :redirect_embargoed_requests_for_pro_users, only: [:show]
+  before_action :redirect_public_requests_from_pro_context, only: [:show]
 
   def show
     @per_page = 25
@@ -21,9 +21,7 @@ class InfoRequestBatchController < ApplicationController
 
   def load_and_authorise_resource
     @info_request_batch = InfoRequestBatch.find(params[:id])
-    if cannot?(:read, @info_request_batch)
-      raise ActiveRecord::RecordNotFound
-    end
+    raise ActiveRecord::RecordNotFound if cannot?(:read, @info_request_batch)
   end
 
   def redirect_embargoed_requests_for_pro_users

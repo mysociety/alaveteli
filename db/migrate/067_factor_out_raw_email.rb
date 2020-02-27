@@ -2,17 +2,17 @@
 class FactorOutRawEmail < ActiveRecord::Migration[4.2] # 2.1
   def self.up
     create_table :raw_emails do |t|
-      t.column :data, :text, :null => false
+      t.column :data, :text, null: false
     end
 
-    add_column :incoming_messages, :raw_email_id, :integer, :null => true
-    change_column :incoming_messages, :raw_data, :text, :null => true
+    add_column :incoming_messages, :raw_email_id, :integer, null: true
+    change_column :incoming_messages, :raw_data, :text, null: true
 
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
       execute "ALTER TABLE incoming_messages ADD CONSTRAINT fk_incoming_messages_raw_email FOREIGN KEY (raw_email_id) REFERENCES raw_emails(id)"
     end
 
-    IncomingMessage.find_each(:batch_size => 10) do |incoming_message|
+    IncomingMessage.find_each(batch_size: 10) do |incoming_message|
       if incoming_message.raw_email_id.nil?
         STDERR.puts "doing incoming_message id #{incoming_message.id}"
         ActiveRecord::Base.transaction do
@@ -26,7 +26,7 @@ class FactorOutRawEmail < ActiveRecord::Migration[4.2] # 2.1
       end
     end
 
-    change_column :incoming_messages, :raw_email_id, :integer, :null => false
+    change_column :incoming_messages, :raw_email_id, :integer, null: false
     remove_column :incoming_messages, :raw_data
   end
 

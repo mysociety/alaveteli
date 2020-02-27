@@ -12,7 +12,7 @@ describe AdminCommentsHelper do
     end
 
     it 'adds a hidden label if the comment is hidden' do
-      comment = Comment.new(:visible => false)
+      comment = Comment.new(visible: false)
       html = %q(<span class="label label-warning">hidden</span>)
       expect(comment_labels(comment)).to eq(html)
     end

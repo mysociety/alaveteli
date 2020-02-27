@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 module AlaveteliPro
   class RequestFilter
-
     extend ActiveModel::Naming
     include ActiveModel::Conversion
 
@@ -36,13 +35,13 @@ module AlaveteliPro
     def results(user)
       request_summaries = user.request_summaries
       request_summaries =
-        request_summaries
-          .includes(:request_summary_categories)
-            .where("title ILIKE :q
+        request_summaries.
+          includes(:request_summary_categories).
+            where("title ILIKE :q
                    OR body ILIKE :q
                    OR public_body_names ILIKE :q",
-                   q: "%#{ search }%")
-              .references(:request_summary_categories)
+                  q: "%#{ search }%").
+              references(:request_summary_categories)
       request_summaries = filter_results(request_summaries)
       request_summaries.reorder("request_summaries.#{order_value}")
     end
@@ -67,18 +66,18 @@ module AlaveteliPro
 
     def order_attributes
       [
-       { :param => 'updated_at_desc',
-         :value => 'request_updated_at DESC',
-         :label => _('last updated'),
-         :capital_label => _('Last updated') },
-       { :param => 'created_at_asc',
-         :value => 'request_created_at ASC',
-         :label => _('first created'),
-         :capital_label => _('First created') },
-       { :param => 'title_asc',
-         :value => 'title ASC',
-         :label => _('title (A-Z)'),
-         :capital_label => _('Title (A-Z)') }
+        { param: 'updated_at_desc',
+          value: 'request_updated_at DESC',
+          label: _('last updated'),
+          capital_label: _('Last updated') },
+        { param: 'created_at_asc',
+          value: 'request_created_at ASC',
+          label: _('first created'),
+          capital_label: _('First created') },
+        { param: 'title_asc',
+          value: 'title ASC',
+          label: _('title (A-Z)'),
+          capital_label: _('Title (A-Z)') }
       ]
     end
 
@@ -87,15 +86,15 @@ module AlaveteliPro
     end
 
     def order_values
-      Hash[order_attributes.map { |atts| [ atts[:param], atts[:value] ] }]
+      Hash[order_attributes.map { |atts| [atts[:param], atts[:value]] }]
     end
 
     def order_capital_labels
-      Hash[ order_options ].invert
+      Hash[order_options].invert
     end
 
     def order_labels
-      Hash[ order_attributes.map { |atts| [atts[:param], atts[:label]] } ]
+      Hash[order_attributes.map { |atts| [atts[:param], atts[:label]] }]
     end
 
     def order_value
@@ -104,27 +103,28 @@ module AlaveteliPro
 
     def default_filters
       [
-        { :param => nil,
-          :value => nil,
-          :label => _('all requests'),
-          :capital_label => _('All requests') },
-        { :param => 'draft',
-          :value => :draft,
-          :label => _('drafts'),
-          :capital_label => _('Drafts') },
-        { :param => 'embargoes_expiring',
-          :value => :embargo_expiring,
-          :label => _('requests that will be made public soon'),
-          :capital_label => _('Requests that will be made public soon')
-        }
+        { param: nil,
+          value: nil,
+          label: _('all requests'),
+          capital_label: _('All requests') },
+        { param: 'draft',
+          value: :draft,
+          label: _('drafts'),
+          capital_label: _('Drafts') },
+        { param: 'embargoes_expiring',
+          value: :embargo_expiring,
+          label: _('requests that will be made public soon'),
+          capital_label: _('Requests that will be made public soon') }
       ]
     end
 
     def phase_filters
-      InfoRequest::State.phases.map { |phase| { :param => phase[:scope].to_s,
-                                               :value => phase[:scope],
-                                               :label => phase[:label],
-                                               :capital_label => phase[:capital_label] } }
+      InfoRequest::State.phases.map { |phase|
+  { param: phase[:scope].to_s,
+    value: phase[:scope],
+    label: phase[:label],
+    capital_label: phase[:capital_label] }
+}
     end
 
     def filter_attributes
@@ -136,7 +136,7 @@ module AlaveteliPro
     end
 
     def filter_capital_labels
-      Hash[ filter_options ].invert
+      Hash[filter_options].invert
     end
 
     def filter_params
@@ -144,16 +144,15 @@ module AlaveteliPro
     end
 
     def filter_values
-      Hash[ filter_attributes.map { |atts| [ atts[:param], atts[:value] ] } ]
+      Hash[filter_attributes.map { |atts| [atts[:param], atts[:value]] }]
     end
 
     def filter_labels
-      Hash[ filter_attributes.map { |atts| [atts[:param], atts[:label]] } ]
+      Hash[filter_attributes.map { |atts| [atts[:param], atts[:label]] }]
     end
 
     def filter_value
       filter_params.include?(@filter) ? filter_values[@filter] : filter_values[nil]
     end
-
   end
 end

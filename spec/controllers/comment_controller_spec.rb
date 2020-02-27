@@ -15,12 +15,12 @@ describe CommentController, "when commenting on a request" do
       it 'returns a 404 when the info request is embargoed' do
         expect {
           post :new, params: {
-                       :url_title => embargoed_request.url_title,
-                       :comment => { :body => "Some content" },
-                       :type => 'request',
-                       :submitted_comment => 1,
-                       :preview => 1
-                     }
+            url_title: embargoed_request.url_title,
+            comment: { body: "Some content" },
+            type: 'request',
+            submitted_comment: 1,
+            preview: 1
+          }
         }.to raise_error ActiveRecord::RecordNotFound
       end
     end
@@ -33,12 +33,12 @@ describe CommentController, "when commenting on a request" do
       it 'returns a 404 when the info request is embargoed' do
         expect {
           post :new, params: {
-                       :url_title => embargoed_request.url_title,
-                       :comment => { :body => "Some content" },
-                       :type => 'request',
-                       :submitted_comment => 1,
-                       :preview => 1
-                     }
+            url_title: embargoed_request.url_title,
+            comment: { body: "Some content" },
+            type: 'request',
+            submitted_comment: 1,
+            preview: 1
+          }
         }.to raise_error ActiveRecord::RecordNotFound
       end
     end
@@ -50,12 +50,12 @@ describe CommentController, "when commenting on a request" do
 
       it 'allows them to comment' do
         post :new, params: {
-                     :url_title => embargoed_request.url_title,
-                     :comment => { :body => "Some content" },
-                     :type => 'request',
-                     :submitted_comment => 1,
-                     :preview => 1
-                   }
+          url_title: embargoed_request.url_title,
+          comment: { body: "Some content" },
+          type: 'request',
+          submitted_comment: 1,
+          preview: 1
+        }
         expect(response).to be_successful
       end
     end
@@ -64,11 +64,11 @@ describe CommentController, "when commenting on a request" do
   it "should give an error and render 'new' template when body text is just some whitespace" do
     post :new,
          params: {
-           :url_title => info_requests(:naughty_chicken_request).url_title,
-           :comment => { :body => "   " },
-           :type => 'request',
-           :submitted_comment => 1,
-           :preview => 1
+           url_title: info_requests(:naughty_chicken_request).url_title,
+           comment: { body: "   " },
+           type: 'request',
+           submitted_comment: 1,
+           preview: 1
          }
     expect(assigns[:comment].errors[:body]).not_to be_nil
     expect(response).to render_template('new')
@@ -77,27 +77,25 @@ describe CommentController, "when commenting on a request" do
   it "should show preview when input is good" do
     post :new,
          params: {
-           :url_title => info_requests(:naughty_chicken_request).url_title,
-           :comment => {
-             :body =>
-                "A good question, but why not also ask about nice chickens?"
-           }, :type => 'request',
-           :submitted_comment => 1,
-           :preview => 1
+           url_title: info_requests(:naughty_chicken_request).url_title,
+           comment: {
+             body: "A good question, but why not also ask about nice chickens?"
+           }, type: 'request',
+           submitted_comment: 1,
+           preview: 1
          }
     expect(response).to render_template('preview')
   end
 
   it "should redirect to sign in page when input is good and nobody is logged in" do
-    params = { :url_title => info_requests(:naughty_chicken_request).url_title,
-               :comment => { :body => "A good question, but why not also ask about nice chickens?" },
-               :type => 'request',
-               :submitted_comment => 1,
-               :preview => 0
-              }
+    params = { url_title: info_requests(:naughty_chicken_request).url_title,
+               comment: { body: "A good question, but why not also ask about nice chickens?" },
+               type: 'request',
+               submitted_comment: 1,
+               preview: 0 }
     post :new, params: params
     expect(response).
-      to redirect_to(signin_path(:token => get_last_post_redirect.token))
+      to redirect_to(signin_path(token: get_last_post_redirect.token))
     # post_redirect.post_params.should == params # TODO: get this working. there's a : vs '' problem amongst others
   end
 
@@ -106,36 +104,35 @@ describe CommentController, "when commenting on a request" do
 
     post :new,
          params: {
-           :url_title => info_requests(:naughty_chicken_request).url_title,
-           :comment => {
-             :body =>
-               "A good question, but why not also ask about nice chickens?"
+           url_title: info_requests(:naughty_chicken_request).url_title,
+           comment: {
+             body: "A good question, but why not also ask about nice chickens?"
            },
-           :type => 'request',
-           :submitted_comment => 1,
-           :preview => 0
+           type: 'request',
+           submitted_comment: 1,
+           preview: 0
          }
 
-    comment_array = Comment.where(:body => "A good question, but why not " \
+    comment_array = Comment.where(body: "A good question, but why not " \
                                            "also ask about nice chickens?")
     expect(comment_array.size).to eq(1)
     comment = comment_array[0]
 
     expect(ActionMailer::Base.deliveries.size).to eq(0)
 
-    expect(response).to redirect_to(:controller => 'request', :action => 'show', :url_title => info_requests(:naughty_chicken_request).url_title)
+    expect(response).to redirect_to(controller: 'request', action: 'show', url_title: info_requests(:naughty_chicken_request).url_title)
   end
 
   it "should give an error if the same request is submitted twice" do
     session[:user_id] = users(:silly_name_user).id
 
     post :new, params: {
-                 :url_title => info_requests(:fancy_dog_request).url_title,
-                 :comment => { :body => comments(:silly_comment).body },
-                 :type => 'request',
-                 :submitted_comment => 1,
-                 :preview => 0
-               }
+      url_title: info_requests(:fancy_dog_request).url_title,
+      comment: { body: comments(:silly_comment).body },
+      type: 'request',
+      submitted_comment: 1,
+      preview: 0
+    }
 
     expect(response).to render_template('new')
   end
@@ -145,12 +142,12 @@ describe CommentController, "when commenting on a request" do
     info_request = info_requests(:spam_1_request)
 
     post :new, params: {
-                 :url_title => info_request.url_title,
-                 :comment => { :body => "I demand to be heard!" },
-                 :type => 'request',
-                 :submitted_comment => 1,
-                 :preview => 0
-               }
+      url_title: info_request.url_title,
+      comment: { body: "I demand to be heard!" },
+      type: 'request',
+      submitted_comment: 1,
+      preview: 0
+    }
 
     expect(response).to redirect_to(show_request_path(info_request.url_title))
     expect(flash[:notice]).to eq('Comments are not allowed on this request')
@@ -162,12 +159,12 @@ describe CommentController, "when commenting on a request" do
     info_request = info_requests(:fancy_dog_request)
 
     post :new, params: {
-                 :url_title => info_request.url_title,
-                 :comment => { :body => "I demand to be heard!" },
-                 :type => 'request',
-                 :submitted_comment => 1,
-                 :preview => 0
-               }
+      url_title: info_request.url_title,
+      comment: { body: "I demand to be heard!" },
+      type: 'request',
+      submitted_comment: 1,
+      preview: 0
+    }
 
     expect(response).to redirect_to(show_request_path(info_request.url_title))
     expect(flash[:notice]).to eq('Comments are not allowed on this request')
@@ -177,11 +174,11 @@ describe CommentController, "when commenting on a request" do
     expected = "Updated text"
     post :new,
          params: {
-           :url_title => info_requests(:naughty_chicken_request).url_title,
-           :comment => { :body => expected },
-           :type => 'request',
-           :submitted_comment => 1,
-           :reedit => 1
+           url_title: info_requests(:naughty_chicken_request).url_title,
+           comment: { body: expected },
+           type: 'request',
+           submitted_comment: 1,
+           reedit: 1
          }
     expect(assigns[:comment].body).to eq(expected)
     expect(response).to render_template('new')
@@ -194,22 +191,24 @@ describe CommentController, "when commenting on a request" do
     session[:user_id] = user.id
 
     post :new, params: {
-                 :url_title => info_requests(:fancy_dog_request).url_title,
-                 :comment => { :body => comments(:silly_comment).body },
-                 :type => 'request',
-                 :submitted_comment => 1,
-                 :preview => 0
-               }
+      url_title: info_requests(:fancy_dog_request).url_title,
+      comment: { body: comments(:silly_comment).body },
+      type: 'request',
+      submitted_comment: 1,
+      preview: 0
+    }
 
     expect(response).to render_template('user/banned')
   end
 
   describe 'when handling a comment that looks like spam' do
 
-    let(:user) { FactoryBot.create(:user,
-                                :locale => 'en',
-                                :name => 'bob',
-                                :confirmed_not_spam => false) }
+    let(:user) {
+  FactoryBot.create(:user,
+                    locale: 'en',
+                    name: 'bob',
+                    confirmed_not_spam: false)
+}
     let(:body) { FactoryBot.create(:public_body) }
     let(:request) { FactoryBot.create(:info_request) }
 
@@ -223,13 +222,13 @@ describe CommentController, "when commenting on a request" do
         session[:user_id] = user.id
         post :new,
              params: {
-               :url_title => request.url_title,
-               :comment => {
-                 :body => "[HD] Watch Jason Bourne Online free MOVIE Full-HD"
+               url_title: request.url_title,
+               comment: {
+                 body: "[HD] Watch Jason Bourne Online free MOVIE Full-HD"
                },
-               :type => 'request',
-               :submitted_comment => 1,
-               :preview => 0
+               type: 'request',
+               submitted_comment: 1,
+               preview: 0
              }
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to match(/spam annotation from user #{ user.id }/)
@@ -239,29 +238,29 @@ describe CommentController, "when commenting on a request" do
         session[:user_id] = user.id
         post :new,
              params: {
-               :url_title => request.url_title,
-               :comment => {
-                 :body => "[HD] Watch Jason Bourne Online free MOVIE Full-HD"
+               url_title: request.url_title,
+               comment: {
+                 body: "[HD] Watch Jason Bourne Online free MOVIE Full-HD"
                },
-               :type => 'request',
-               :submitted_comment => 1,
-               :preview => 0
+               type: 'request',
+               submitted_comment: 1,
+               preview: 0
              }
-        expect(flash[:error])
-          .to eq("Sorry, we're currently unable to add your annotation. Please try again later.")
+        expect(flash[:error]).
+          to eq("Sorry, we're currently unable to add your annotation. Please try again later.")
       end
 
       it 'renders the compose interface' do
         session[:user_id] = user.id
         post :new,
              params: {
-               :url_title => request.url_title,
-               :comment => {
-                 :body => "[HD] Watch Jason Bourne Online free MOVIE Full-HD"
+               url_title: request.url_title,
+               comment: {
+                 body: "[HD] Watch Jason Bourne Online free MOVIE Full-HD"
                },
-               :type => 'request',
-               :submitted_comment => 1,
-               :preview => 0
+               type: 'request',
+               submitted_comment: 1,
+               preview: 0
              }
         expect(response).to render_template('new')
       end
@@ -272,13 +271,13 @@ describe CommentController, "when commenting on a request" do
         session[:user_id] = user.id
         post :new,
              params: {
-               :url_title => request.url_title,
-               :comment => {
-                 :body => "[HD] Watch Jason Bourne Online free MOVIE Full-HD"
+               url_title: request.url_title,
+               comment: {
+                 body: "[HD] Watch Jason Bourne Online free MOVIE Full-HD"
                },
-               :type => 'request',
-               :submitted_comment => 1,
-               :preview => 0
+               type: 'request',
+               submitted_comment: 1,
+               preview: 0
              }
         expect(response).to redirect_to show_request_path(request.url_title)
       end
@@ -295,13 +294,13 @@ describe CommentController, "when commenting on a request" do
         session[:user_id] = user.id
         post :new,
              params: {
-               :url_title => request.url_title,
-               :comment => {
-                 :body => "[HD] Watch Jason Bourne Online free MOVIE Full-HD"
+               url_title: request.url_title,
+               comment: {
+                 body: "[HD] Watch Jason Bourne Online free MOVIE Full-HD"
                },
-               :type => 'request',
-               :submitted_comment => 1,
-               :preview => 0
+               type: 'request',
+               submitted_comment: 1,
+               preview: 0
              }
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to match(/spam annotation from user #{ user.id }/)
@@ -311,13 +310,13 @@ describe CommentController, "when commenting on a request" do
         session[:user_id] = user.id
         post :new,
              params: {
-               :url_title => request.url_title,
-               :comment => {
-                 :body => "[HD] Watch Jason Bourne Online free MOVIE Full-HD"
+               url_title: request.url_title,
+               comment: {
+                 body: "[HD] Watch Jason Bourne Online free MOVIE Full-HD"
                },
-               :type => 'request',
-               :submitted_comment => 1,
-               :preview => 0
+               type: 'request',
+               submitted_comment: 1,
+               preview: 0
              }
         expect(response).to redirect_to show_request_path(request.url_title)
       end
@@ -337,8 +336,8 @@ describe CommentController, "when commenting on a request" do
       end
 
       it 'should be successful' do
-        get :new, params: { :url_title => @external_request.url_title,
-                            :type => 'request' }
+        get :new, params: { url_title: @external_request.url_title,
+                            type: 'request' }
         expect(response).to be_successful
       end
 
@@ -355,8 +354,8 @@ describe CommentController, "when commenting on a request" do
     it "sets @in_pro_area" do
       session[:user_id] = pro_user.id
       with_feature_enabled(:alaveteli_pro) do
-        get :new, params: { :url_title => embargoed_request.url_title,
-                            :type => 'request' }
+        get :new, params: { url_title: embargoed_request.url_title,
+                            type: 'request' }
         expect(assigns[:in_pro_area]).to eq true
       end
     end

@@ -14,7 +14,7 @@ module StripeMock
     # set_custom_status_from_metatdata method to set the status
     # from the stored info in the subscription metatdata when the
     # subscription is retrieved (including calling #refresh)
-    def retrieve_subscription(route, method_url, params, headers)
+    def retrieve_subscription(route, method_url, _params, _headers)
       route =~ method_url
 
       set_custom_status_from_metadata(subscriptions[$1]) if subscriptions[$1]
@@ -25,7 +25,7 @@ module StripeMock
     # set_custom_status_from_metatdata method to set the status
     # from the stored info in the subscription metatdata when multiple
     # subscriptions are retrieved (including from `Subscription::List`)
-    def retrieve_subscriptions(route, method_url, params, headers)
+    def retrieve_subscriptions(route, method_url, params, _headers)
       route =~ method_url
 
       subscriptions.values.each do |subscription|

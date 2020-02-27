@@ -9,7 +9,7 @@ describe "user_mailer/already_registered" do
   end
 
   it "does not add HTMLEntities to the site name" do
-    assign(:reasons, { :email => "mailto:nospam@example.com" } )
+    assign(:reasons, email: "mailto:nospam@example.com")
     render
     expect(response).to match("the l'Information team")
     expect(response).to match("You just tried to sign up to l'Information")

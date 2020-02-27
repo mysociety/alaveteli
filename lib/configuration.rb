@@ -14,7 +14,7 @@ MySociety::Config.load_default
 # TODO: Make this return different values depending on the current rails environment
 
 module AlaveteliConfiguration
-  if !const_defined?(:DEFAULTS)
+  unless const_defined?(:DEFAULTS)
 
     # rubocop:disable Metrics/LineLength
     DEFAULTS = {
@@ -138,7 +138,7 @@ module AlaveteliConfiguration
 
   def self.method_missing(name)
     key = name.to_s.upcase
-    if DEFAULTS.has_key?(key.to_sym)
+    if DEFAULTS.key?(key.to_sym)
       MySociety::Config.get(key, DEFAULTS[key.to_sym])
     else
       super

@@ -4,11 +4,9 @@ require 'tempfile'
 
 namespace :import do
   desc 'Import public bodies from CSV provided on standard input'
-  task :import_csv => :environment do
+  task import_csv: :environment do
     dryrun = ENV['DRYRUN'] != '0'
-    if dryrun
-      STDERR.puts 'Only a dry run; public bodies will not be created'
-    end
+    STDERR.puts 'Only a dry run; public bodies will not be created' if dryrun
 
     tmp_csv = nil
     Tempfile.open('alaveteli') do |f|
@@ -40,7 +38,7 @@ namespace :import do
     non_unique_error = false
 
     [[name_count, 'name'],
-    [url_part_count, 'url_part']].each do |counter, field|
+     [url_part_count, 'url_part']].each do |counter, field|
       counter.sort.map do |name, count|
         if count > 1
           non_unique_error = true
@@ -62,13 +60,13 @@ namespace :import do
     import_args = [tmp_csv.path, tag, tag_behaviour, dryrun, editor, locales]
 
     errors, notes =
-      PublicBody.import_csv_from_file(*import_args) do |row_number, fields|
+      PublicBody.import_csv_from_file(*import_args) do |row_number, _fields|
         percent_complete = (100 * row_number.to_f / number_of_rows).to_i
         STDERR.print "#{row_number} out of #{number_of_rows} "
         STDERR.puts "(#{percent_complete}% complete)"
       end
 
-    if errors.length > 0
+    if !errors.empty?
       STDERR.puts 'Import failed, with the following errors:'
 
       errors.each do |error|

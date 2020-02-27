@@ -18,7 +18,7 @@ describe InfoRequestBatchMailer do
     end
 
     it "does not add HTMLEntities to the subject line" do
-      batch = FactoryBot.create(:info_request_batch, :title => "Apostrophe's")
+      batch = FactoryBot.create(:info_request_batch, title: "Apostrophe's")
       mail = InfoRequestBatchMailer.batch_sent(batch, @unrequestable, @user)
       expect(mail.subject).
         to eq('Your batch request "Apostrophe\'s" has been sent')

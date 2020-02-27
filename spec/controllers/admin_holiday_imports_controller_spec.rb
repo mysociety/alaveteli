@@ -18,8 +18,8 @@ describe AdminHolidayImportsController do
     describe 'if the import is valid' do
 
       it 'populates the import' do
-        mock_import = double(HolidayImport, :valid? => true,
-                           :populate => nil)
+        mock_import = double(HolidayImport, valid?: true,
+                                            populate: nil)
         allow(HolidayImport).to receive(:new).and_return(mock_import)
         expect(mock_import).to receive(:populate)
         get :new
@@ -71,7 +71,7 @@ describe AdminHolidayImportsController do
     describe 'if the import can be saved' do
 
       before do
-        mock_import = double(HolidayImport, :save => true)
+        mock_import = double(HolidayImport, save: true)
         allow(HolidayImport).to receive(:new).and_return(mock_import)
         post :create
       end
@@ -89,7 +89,7 @@ describe AdminHolidayImportsController do
     describe 'if the import cannot be saved' do
 
       before do
-        mock_import = double(HolidayImport, :save => false)
+        mock_import = double(HolidayImport, save: false)
         allow(HolidayImport).to receive(:new).and_return(mock_import)
         post :create
       end
@@ -101,6 +101,5 @@ describe AdminHolidayImportsController do
     end
 
   end
-
 
 end

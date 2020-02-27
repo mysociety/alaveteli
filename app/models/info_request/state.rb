@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 class InfoRequest
   module State
-
     def self.all
       states = [
         'waiting_response',
@@ -31,30 +30,30 @@ class InfoRequest
 
     def self.short_description(state)
       descriptions = {
-            'waiting_classification'        => _("Needs status update"),
-            'waiting_response'              => _("Awaiting response"),
-            'waiting_response_overdue'      => _("Delayed"),
-            'waiting_response_very_overdue' => _("Long overdue"),
-            'not_held'                      => _("Information not held"),
-            'rejected'                      => _("Refused"),
-            'partially_successful'          => _("Partially successful"),
-            'successful'                    => _("Successful"),
-            'waiting_clarification'         => _("Awaiting clarification"),
-            'gone_postal'                   => _("Handled by postal mail"),
-            'internal_review'               => _("Awaiting internal review"),
-            'error_message'                 => _("Delivery error"),
-            'requires_admin'                => _("Requires admin attention"),
-            'attention_requested'           => _("Reported"),
-            'user_withdrawn'                => _("Withdrawn"),
-            'vexatious'                     => _("Vexatious"),
-            'not_foi'                       => _("Not an FOI request"),
-          }
+        'waiting_classification' => _("Needs status update"),
+        'waiting_response' => _("Awaiting response"),
+        'waiting_response_overdue' => _("Delayed"),
+        'waiting_response_very_overdue' => _("Long overdue"),
+        'not_held' => _("Information not held"),
+        'rejected' => _("Refused"),
+        'partially_successful' => _("Partially successful"),
+        'successful' => _("Successful"),
+        'waiting_clarification' => _("Awaiting clarification"),
+        'gone_postal' => _("Handled by postal mail"),
+        'internal_review' => _("Awaiting internal review"),
+        'error_message' => _("Delivery error"),
+        'requires_admin' => _("Requires admin attention"),
+        'attention_requested' => _("Reported"),
+        'user_withdrawn' => _("Withdrawn"),
+        'vexatious' => _("Vexatious"),
+        'not_foi' => _("Not an FOI request")
+      }
       if descriptions[state]
         descriptions[state]
       elsif InfoRequest.respond_to?(:theme_short_description)
         InfoRequest.theme_short_description(state)
       else
-        raise _("unknown status {{state}}", :state => state)
+        raise _("unknown status {{state}}", state: state)
       end
     end
 
@@ -88,11 +87,11 @@ class InfoRequest
           label: _('other'),
           scope: :other,
           param: 'other' }
-        ]
+      ]
     end
 
     def self.phase_params
-      Hash[phases.map { |atts| [ atts[:scope], atts[:param] ] }]
+      Hash[phases.map { |atts| [atts[:scope], atts[:param]] }]
     end
   end
 end

@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 module AlaveteliDsl
-
   def browse_request(url_title)
     visit "/request/#{url_title}"
   end
@@ -12,14 +11,14 @@ module AlaveteliDsl
   def create_request(public_body)
     visit select_authority_path
     within(:css, '#search_form') do
-      fill_in 'query', :with => public_body.name
+      fill_in 'query', with: public_body.name
       find_button('Search').click
     end
     within(:css, '.body_listing') do
       find_link('Make a request').click
     end
-    fill_in 'Summary', :with => "Why is your quango called Geraldine?"
-    fill_in 'Your request', :with => "This is a silly letter. It is too short to be interesting."
+    fill_in 'Summary', with: "Why is your quango called Geraldine?"
+    fill_in 'Your request', with: "This is a silly letter. It is too short to be interesting."
 
     find_button('Preview your public request').click
     find_button('Send and publish request').click
@@ -32,12 +31,12 @@ module AlaveteliDsl
     using_session(without_login) do
       create_request(public_body)
       # Now log in as an unconfirmed user.
-      visit signin_path :token => get_last_post_redirect.token
+      visit signin_path token: get_last_post_redirect.token
       within '#signup_form' do
-        fill_in "Your name:", :with => user.name
-        fill_in "Your e-mail:", :with => user.email
-        fill_in "Password:", :with => 'jonespassword'
-        fill_in "Confirm password:", :with => 'jonespassword'
+        fill_in "Your name:", with: user.name
+        fill_in "Your e-mail:", with: user.email
+        fill_in "Password:", with: 'jonespassword'
+        fill_in "Confirm password:", with: 'jonespassword'
         click_button "Sign up"
       end
       expect(page).to have_content('Now check your email!')
@@ -74,21 +73,21 @@ end
 
 def hide_incoming_message(incoming_message, prominence, reason)
   visit edit_admin_incoming_message_path(incoming_message)
-  select prominence, :from => 'Prominence'
-  fill_in 'Reason for prominence', :with => reason
+  select prominence, from: 'Prominence'
+  fill_in 'Reason for prominence', with: reason
   find_button('Save').click
 end
 
 def hide_outgoing_message(outgoing_message, prominence, reason)
   visit edit_admin_outgoing_message_path(outgoing_message)
-  select prominence, :from => 'Prominence'
-  fill_in 'Reason for prominence', :with => reason
+  select prominence, from: 'Prominence'
+  fill_in 'Reason for prominence', with: reason
   find_button('Save').click
 end
 
 def classify_request(request, chosen_option)
-  visit show_request_path :url_title => request.url_title,
-                          :update_status => 1
+  visit show_request_path url_title: request.url_title,
+                          update_status: 1
   choose(chosen_option)
   click_button('Submit status')
 end
@@ -113,8 +112,8 @@ def login(user)
   alaveteli_session(u.id) do
     visit 'en/profile/sign_in'
     within '#signin_form' do
-      fill_in "Your e-mail:", :with => u.email
-      fill_in "Password:", :with => "jonespassword"
+      fill_in "Your e-mail:", with: u.email
+      fill_in "Password:", with: "jonespassword"
       click_button "Sign in"
     end
   end

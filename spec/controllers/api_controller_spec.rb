@@ -16,7 +16,7 @@ describe ApiController, "when using the API" do
 
     it 'should check that an API key is given as a param' do
       expect {
-        post :create_request, params: { :request_json => @request_data.to_json }
+        post :create_request, params: { request_json: @request_data.to_json }
       }.to raise_error ApplicationController::PermissionDenied
       expect(InfoRequest.count).to eq(@number_of_requests)
     end
@@ -24,9 +24,9 @@ describe ApiController, "when using the API" do
     it 'should check the API key' do
       expect {
         post :create_request, params: {
-                                :k => 'This is not really an API key',
-                                :request_json => @request_data.to_json
-                              }
+          k: 'This is not really an API key',
+          request_json: @request_data.to_json
+        }
       }.to raise_error ApplicationController::PermissionDenied
       expect(InfoRequest.count).to eq(@number_of_requests)
     end
@@ -35,8 +35,8 @@ describe ApiController, "when using the API" do
   def _create_request
     post :create_request,
          params: {
-           :k => public_bodies(:geraldine_public_body).api_key,
-           :request_json => {
+           k: public_bodies(:geraldine_public_body).api_key,
+           request_json: {
              'title' => 'Tell me about your chickens',
              'body' => "Dear Sir,\n\nI should like to know about your " \
                        "chickens.\n\nYours in faith,\nBob\n",
@@ -53,20 +53,20 @@ describe ApiController, "when using the API" do
     it 'should create a new request from a POST' do
       number_of_requests =
         InfoRequest.
-          where(:public_body_id => public_bodies(:geraldine_public_body).id).
+          where(public_body_id: public_bodies(:geraldine_public_body).id).
             count
 
       request_data = {
         'title' => 'Tell me about your chickens',
         'body' => "Dear Sir,\n\nI should like to know about your chickens.\n\nYours in faith,\nBob\n",
         'external_url' => 'http://www.example.gov.uk/foi/chickens_23',
-        'external_user_name' => 'Bob Smith',
+        'external_user_name' => 'Bob Smith'
       }
 
       post :create_request,
            params: {
-             :k => public_bodies(:geraldine_public_body).api_key,
-             :request_json => request_data.to_json
+             k: public_bodies(:geraldine_public_body).api_key,
+             request_json: request_data.to_json
            }
       expect(response).to be_successful
 
@@ -77,7 +77,7 @@ describe ApiController, "when using the API" do
 
       updated_count =
         InfoRequest.
-          where(:public_body_id => public_bodies(:geraldine_public_body).id).
+          where(public_body_id: public_bodies(:geraldine_public_body).id).
             count
       expect(updated_count).to eq(number_of_requests + 1)
 
@@ -104,7 +104,7 @@ describe ApiController, "when using the API" do
 
       # Initially it has no incoming messages
       initial_count =
-        IncomingMessage.where(:info_request_id => request_id).count
+        IncomingMessage.where(info_request_id: request_id).count
       expect(initial_count).to eq(0)
 
       # Now add one
@@ -112,19 +112,19 @@ describe ApiController, "when using the API" do
       response_body = "Thank you for your request for information, which we are handling in accordance with the Freedom of Information Act 2000. You will receive a response within 20 working days or before the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn Gandermulch,\nExample Council FOI Officer\n"
       post :add_correspondence,
            params: {
-             :k => public_bodies(:geraldine_public_body).api_key,
-             :id => request_id,
-             :correspondence_json => {
-                'direction' => 'response',
-                'sent_at' => sent_at,
-                'body' => response_body
+             k: public_bodies(:geraldine_public_body).api_key,
+             id: request_id,
+             correspondence_json: {
+               'direction' => 'response',
+               'sent_at' => sent_at,
+               'body' => response_body
              }.to_json
            }
 
       # And make sure it worked
       expect(response).to be_successful
       incoming_messages =
-        IncomingMessage.where(:info_request_id => request_id)
+        IncomingMessage.where(info_request_id: request_id)
       expect(incoming_messages.count).to eq(1)
       incoming_message = incoming_messages[0]
 
@@ -138,7 +138,7 @@ describe ApiController, "when using the API" do
 
       # Initially it has one outgoing message
       outgoing_messages =
-        OutgoingMessage.where(:info_request_id => request_id).count
+        OutgoingMessage.where(info_request_id: request_id).count
       expect(outgoing_messages).to eq(1)
 
       # Add another, as a followup
@@ -146,9 +146,9 @@ describe ApiController, "when using the API" do
       followup_body = "Pls answer ASAP.\nkthxbye\n"
       post :add_correspondence,
            params: {
-             :k => public_bodies(:geraldine_public_body).api_key,
-             :id => request_id,
-             :correspondence_json => {
+             k: public_bodies(:geraldine_public_body).api_key,
+             id: request_id,
+             correspondence_json: {
                'direction' => 'request',
                'sent_at' => sent_at,
                'body' => followup_body
@@ -159,8 +159,8 @@ describe ApiController, "when using the API" do
       expect(response).to be_successful
 
       followup_messages =
-        OutgoingMessage.where(:info_request_id => request_id,
-                              :message_type => 'followup')
+        OutgoingMessage.where(info_request_id: request_id,
+                              message_type: 'followup')
       expect(followup_messages.size).to eq(1)
 
       followup_message = followup_messages[0]
@@ -174,7 +174,7 @@ describe ApiController, "when using the API" do
       request_id = info_requests(:external_request).id
 
       # Initially it has no incoming messages
-      actual1 = IncomingMessage.where(:info_request_id => request_id).count
+      actual1 = IncomingMessage.where(info_request_id: request_id).count
       expect(actual1).to eq(0)
 
       # Now add one
@@ -182,10 +182,10 @@ describe ApiController, "when using the API" do
       response_body = "Thank you for your request for information, which we are handling in accordance with the Freedom of Information Act 2000. You will receive a response within 20 working days or before the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn Gandermulch,\nExample Council FOI Officer\n"
       post :add_correspondence,
            params: {
-             :k => public_bodies(:geraldine_public_body).api_key,
-             :id => request_id,
-             :state => 'successful',
-             :correspondence_json => {
+             k: public_bodies(:geraldine_public_body).api_key,
+             id: request_id,
+             state: 'successful',
+             correspondence_json: {
                'direction' => 'response',
                'sent_at' => sent_at,
                'body' => response_body
@@ -195,7 +195,7 @@ describe ApiController, "when using the API" do
       # And make sure it worked
       expect(response).to be_successful
 
-      actual2 = IncomingMessage.where(:info_request_id => request_id).count
+      actual2 = IncomingMessage.where(info_request_id: request_id).count
       expect(actual2).to eq(1)
 
       request = InfoRequest.find_by_id(request_id)
@@ -208,7 +208,7 @@ describe ApiController, "when using the API" do
 
       # Initially it has no incoming messages
       initial_count =
-        IncomingMessage.where(:info_request_id => request_id).count
+        IncomingMessage.where(info_request_id: request_id).count
       expect(initial_count).to eq(0)
 
       # Now add one
@@ -216,10 +216,10 @@ describe ApiController, "when using the API" do
       response_body = "Thank you for your request for information, which we are handling in accordance with the Freedom of Information Act 2000. You will receive a response within 20 working days or before the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn Gandermulch,\nExample Council FOI Officer\n"
       post :add_correspondence,
            params: {
-             :k => public_bodies(:geraldine_public_body).api_key,
-             :id => request_id,
-             :state => 'random_string',
-             :correspondence_json => {
+             k: public_bodies(:geraldine_public_body).api_key,
+             id: request_id,
+             state: 'random_string',
+             correspondence_json: {
                'direction' => 'response',
                'sent_at' => sent_at,
                'body' => response_body
@@ -229,11 +229,11 @@ describe ApiController, "when using the API" do
       # And make sure it worked
       expect(response.status).to eq(500)
       expect(ActiveSupport::JSON.decode(response.body)['errors']).to eq([
-        "'random_string' is not a valid request state"
-      ])
+                                                                          "'random_string' is not a valid request state"
+                                                                        ])
 
       incoming_messages =
-        IncomingMessage.where(:info_request_id => request_id)
+        IncomingMessage.where(info_request_id: request_id)
       expect(incoming_messages.count).to eq(0)
       request = InfoRequest.find_by_id(request_id)
       expect(request.described_state).to eq('waiting_response')
@@ -246,9 +246,9 @@ describe ApiController, "when using the API" do
       request_id = info_requests(:naughty_chicken_request).id
       post :add_correspondence,
            params: {
-             :k => public_bodies(:geraldine_public_body).api_key,
-             :id => request_id,
-             :correspondence_json => {
+             k: public_bodies(:geraldine_public_body).api_key,
+             id: request_id,
+             correspondence_json: {
                'direction' => 'request',
                'sent_at' => Time.zone.now.iso8601,
                'body' => 'xxx'
@@ -257,8 +257,8 @@ describe ApiController, "when using the API" do
 
       expect(response.status).to eq(403)
       expect(ActiveSupport::JSON.decode(response.body)['errors']).to eq([
-        "Request #{request_id} cannot be updated using the API"
-      ])
+                                                                          "Request #{request_id} cannot be updated using the API"
+                                                                        ])
 
       expect(IncomingMessage.count).to eq(n_incoming_messages)
       expect(OutgoingMessage.count).to eq(n_outgoing_messages)
@@ -271,9 +271,9 @@ describe ApiController, "when using the API" do
 
       post :add_correspondence,
            params: {
-             :k => public_bodies(:humpadink_public_body).api_key,
-             :id => request_id,
-             :correspondence_json => {
+             k: public_bodies(:humpadink_public_body).api_key,
+             id: request_id,
+             correspondence_json: {
                'direction' => 'request',
                'sent_at' => Time.zone.now.iso8601,
                'body' => 'xxx'
@@ -282,8 +282,8 @@ describe ApiController, "when using the API" do
 
       expect(response.status).to eq(403)
       expect(ActiveSupport::JSON.decode(response.body)['errors']).to eq([
-        "You do not own request #{request_id}"
-      ])
+                                                                          "You do not own request #{request_id}"
+                                                                        ])
 
       expect(IncomingMessage.count).to eq(n_incoming_messages)
       expect(OutgoingMessage.count).to eq(n_outgoing_messages)
@@ -296,9 +296,9 @@ describe ApiController, "when using the API" do
       response_body = "Thank you for your request for information, which we are handling in accordance with the Freedom of Information Act 2000. You will receive a response within 20 working days or before the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn Gandermulch,\nExample Council FOI Officer\n"
       post :add_correspondence,
            params: {
-             :k => public_bodies(:geraldine_public_body).api_key,
-             :id => request_id,
-             :correspondence_json => {
+             k: public_bodies(:geraldine_public_body).api_key,
+             id: request_id,
+             correspondence_json: {
                'direction' => 'response',
                'sent_at' => sent_at,
                'body' => response_body
@@ -314,9 +314,9 @@ describe ApiController, "when using the API" do
       response_body = "Thank you for your request for information, which we are handling in accordance with the Freedom of Information Act 2000. You will receive a response within 20 working days or before the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn Gandermulch,\nExample Council FOI Officer\n"
       post :add_correspondence,
            params: {
-             :k => public_bodies(:geraldine_public_body).api_key,
-             :id => request_id,
-             :correspondence_json => {
+             k: public_bodies(:geraldine_public_body).api_key,
+             id: request_id,
+             correspondence_json: {
                'direction' => 'response',
                'sent_at' => sent_at,
                'body' => response_body
@@ -329,14 +329,14 @@ describe ApiController, "when using the API" do
     it 'should not allow files to be attached to a followup' do
       post :add_correspondence,
            params: {
-             :k => public_bodies(:geraldine_public_body).api_key,
-             :id => info_requests(:external_request).id,
-             :correspondence_json => {
+             k: public_bodies(:geraldine_public_body).api_key,
+             id: info_requests(:external_request).id,
+             correspondence_json: {
                'direction' => 'request',
                'sent_at' => Time.zone.now.iso8601,
                'body' => 'Are you joking, or are you serious?'
              }.to_json,
-             :attachments => [fixture_file_upload('/files/tfl.pdf')]
+             attachments: [fixture_file_upload('/files/tfl.pdf')]
            }
 
       # Make sure it worked
@@ -350,7 +350,7 @@ describe ApiController, "when using the API" do
       request_id = info_requests(:external_request).id
 
       # Initially it has no incoming messages
-      actual1 = IncomingMessage.where(:info_request_id => request_id).count
+      actual1 = IncomingMessage.where(info_request_id: request_id).count
       expect(actual1).to eq(0)
 
       # Now add one
@@ -358,20 +358,20 @@ describe ApiController, "when using the API" do
       response_body = "Thank you for your request for information, which we are handling in accordance with the Freedom of Information Act 2000. You will receive a response within 20 working days or before the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn Gandermulch,\nExample Council FOI Officer\n"
       post :add_correspondence,
            params: {
-             :k => public_bodies(:geraldine_public_body).api_key,
-             :id => request_id,
-             :correspondence_json => {
+             k: public_bodies(:geraldine_public_body).api_key,
+             id: request_id,
+             correspondence_json: {
                'direction' => 'response',
                'sent_at' => sent_at,
                'body' => response_body
              }.to_json,
-             :attachments => [fixture_file_upload('/files/tfl.pdf')]
+             attachments: [fixture_file_upload('/files/tfl.pdf')]
            }
 
       # And make sure it worked
       expect(response).to be_successful
 
-      incoming_messages = IncomingMessage.where(:info_request_id => request_id)
+      incoming_messages = IncomingMessage.where(info_request_id: request_id)
       expect(incoming_messages.count).to eq(1)
 
       incoming_message = incoming_messages[0]
@@ -399,10 +399,10 @@ describe ApiController, "when using the API" do
 
       # Now accept an update
       post :update_state, params: {
-                            :k => public_bodies(:geraldine_public_body).api_key,
-                            :id => request_id,
-                            :state => 'partially_successful'
-                          }
+        k: public_bodies(:geraldine_public_body).api_key,
+        id: request_id,
+        state: 'partially_successful'
+      }
 
       # It should have updated the status
       request = InfoRequest.find_by_id(request_id)
@@ -425,10 +425,10 @@ describe ApiController, "when using the API" do
 
       # Now post an invalid update
       post :update_state, params: {
-                            :k => public_bodies(:geraldine_public_body).api_key,
-                            :id => request_id,
-                            :state => 'random_string'
-                          }
+        k: public_bodies(:geraldine_public_body).api_key,
+        id: request_id,
+        state: 'random_string'
+      }
 
       # Check that the error has been raised...
       expect(response.status).to eq(500)
@@ -444,9 +444,9 @@ describe ApiController, "when using the API" do
       allow(InfoRequest).to receive(:find_by_id).with(request_id).and_return(nil)
 
       post :update_state, params: {
-                            :k => public_bodies(:geraldine_public_body).api_key,
-                            :id => request_id, :state => "successful"
-                          }
+        k: public_bodies(:geraldine_public_body).api_key,
+        id: request_id, state: "successful"
+      }
 
       expect(response.status).to eq(404)
       expect(ActiveSupport::JSON.decode(response.body)['errors']).to eq(['Could not find request 123459876'])
@@ -456,9 +456,9 @@ describe ApiController, "when using the API" do
       request_id = info_requests(:naughty_chicken_request).id
 
       post :update_state, params: {
-                            :k => public_bodies(:geraldine_public_body).api_key,
-                            :id => request_id, :state => 'successful'
-                          }
+        k: public_bodies(:geraldine_public_body).api_key,
+        id: request_id, state: 'successful'
+      }
 
       expect(response.status).to eq(403)
       expect(ActiveSupport::JSON.decode(response.body)['errors']).to eq(["Request #{request_id} cannot be updated using the API"])
@@ -471,9 +471,9 @@ describe ApiController, "when using the API" do
       info_request = info_requests(:naughty_chicken_request)
 
       get :show_request, params: {
-                           :k => public_bodies(:geraldine_public_body).api_key,
-                           :id => info_request.id
-                         }
+        k: public_bodies(:geraldine_public_body).api_key,
+        id: info_request.id
+      }
 
       expect(response).to be_successful
       expect(assigns[:request].id).to eq(info_request.id)
@@ -489,9 +489,9 @@ describe ApiController, "when using the API" do
     it 'should show information about an external request' do
       info_request = info_requests(:external_request)
       get :show_request, params: {
-                           :k => public_bodies(:geraldine_public_body).api_key,
-                           :id => info_request.id
-                         }
+        k: public_bodies(:geraldine_public_body).api_key,
+        id: info_request.id
+      }
 
       expect(response).to be_successful
       expect(assigns[:request].id).to eq(info_request.id)
@@ -505,9 +505,9 @@ describe ApiController, "when using the API" do
     it 'should show an Atom feed of new request events' do
       get :body_request_events,
           params: {
-            :id => public_bodies(:geraldine_public_body).id,
-            :k => public_bodies(:geraldine_public_body).api_key,
-            :feed_type => 'atom'
+            id: public_bodies(:geraldine_public_body).id,
+            k: public_bodies(:geraldine_public_body).api_key,
+            feed_type: 'atom'
           }
 
       expect(response).to be_successful
@@ -516,16 +516,16 @@ describe ApiController, "when using the API" do
       assigns[:events].each do |event|
         expect(event.info_request.public_body).to eq(public_bodies(:geraldine_public_body))
         expect(event.outgoing_message).not_to be_nil
-        expect(event.event_type).to satisfy { |x| ['sent', 'followup_sent', 'resent', 'followup_resent'].include?(x) }
+        expect(event.event_type).to satisfy { |x| %w[sent followup_sent resent followup_resent].include?(x) }
       end
     end
 
     it 'should show a JSON feed of new request events' do
       get :body_request_events,
           params: {
-            :id => public_bodies(:geraldine_public_body).id,
-            :k => public_bodies(:geraldine_public_body).api_key,
-            :feed_type => 'json'
+            id: public_bodies(:geraldine_public_body).id,
+            k: public_bodies(:geraldine_public_body).api_key,
+            feed_type: 'json'
           }
 
       expect(response).to be_successful
@@ -533,21 +533,21 @@ describe ApiController, "when using the API" do
       assigns[:events].each do |event|
         expect(event.info_request.public_body).to eq(public_bodies(:geraldine_public_body))
         expect(event.outgoing_message).not_to be_nil
-        expect(event.event_type).to satisfy { |x| ['sent', 'followup_sent', 'resent', 'followup_resent'].include?(x) }
+        expect(event.event_type).to satisfy { |x| %w[sent followup_sent resent followup_resent].include?(x) }
       end
 
       expect(assigns[:event_data].size).to eq(assigns[:events].size)
       assigns[:event_data].each do |event_record|
-        expect(event_record[:event_type]).to satisfy { |x| ['sent', 'followup_sent', 'resent', 'followup_resent'].include?(x) }
+        expect(event_record[:event_type]).to satisfy { |x| %w[sent followup_sent resent followup_resent].include?(x) }
       end
     end
 
     it 'should honour the since_event_id parameter' do
       get :body_request_events,
           params: {
-            :id => public_bodies(:geraldine_public_body).id,
-            :k => public_bodies(:geraldine_public_body).api_key,
-            :feed_type => 'json'
+            id: public_bodies(:geraldine_public_body).id,
+            k: public_bodies(:geraldine_public_body).api_key,
+            feed_type: 'json'
           }
 
       expect(response).to be_successful
@@ -556,10 +556,10 @@ describe ApiController, "when using the API" do
 
       get :body_request_events,
           params: {
-            :id => public_bodies(:geraldine_public_body).id,
-            :k => public_bodies(:geraldine_public_body).api_key,
-            :feed_type => 'json',
-            :since_event_id => second_event_id
+            id: public_bodies(:geraldine_public_body).id,
+            k: public_bodies(:geraldine_public_body).api_key,
+            feed_type: 'json',
+            since_event_id: second_event_id
           }
       expect(response).to be_successful
       expect(assigns[:event_data]).to eq([first_event])
@@ -568,10 +568,10 @@ describe ApiController, "when using the API" do
     it 'should honour the since_date parameter' do
       get :body_request_events,
           params: {
-            :id => public_bodies(:humpadink_public_body).id,
-            :k => public_bodies(:humpadink_public_body).api_key,
-            :since_date => '2010-01-01',
-            :feed_type => 'atom'
+            id: public_bodies(:humpadink_public_body).id,
+            k: public_bodies(:humpadink_public_body).api_key,
+            since_date: '2010-01-01',
+            feed_type: 'atom'
           }
 
       expect(response).to be_successful
@@ -583,10 +583,10 @@ describe ApiController, "when using the API" do
 
       get :body_request_events,
           params: {
-            :id => public_bodies(:humpadink_public_body).id,
-            :k => public_bodies(:humpadink_public_body).api_key,
-            :since_date => '2010-01-01',
-            :feed_type => 'json'
+            id: public_bodies(:humpadink_public_body).id,
+            k: public_bodies(:humpadink_public_body).api_key,
+            since_date: '2010-01-01',
+            feed_type: 'json'
           }
       assigns[:events].each do |event|
         expect(event.created_at).to be >= Date.new(2010, 1, 1)
@@ -602,9 +602,9 @@ describe ApiController, "when using the API" do
       before do
         get :body_request_events,
             params: {
-              :id => public_bodies(:humpadink_public_body).id,
-              :k => public_bodies(:humpadink_public_body).api_key,
-              :feed_type => 'atom'
+              id: public_bodies(:humpadink_public_body).id,
+              k: public_bodies(:humpadink_public_body).api_key,
+              feed_type: 'atom'
             }
       end
 
@@ -621,10 +621,10 @@ describe ApiController, "when using the API" do
         # from the fixtures
         get :body_request_events,
             params: {
-              :id => public_bodies(:humpadink_public_body).id,
-              :k => public_bodies(:humpadink_public_body).api_key,
-              :since_date => '2018-01-01',
-              :feed_type => 'atom'
+              id: public_bodies(:humpadink_public_body).id,
+              k: public_bodies(:humpadink_public_body).api_key,
+              since_date: '2018-01-01',
+              feed_type: 'atom'
             }
       end
 

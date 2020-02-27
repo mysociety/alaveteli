@@ -41,69 +41,72 @@ FactoryBot.define do
     public_body
     user
 
-    after(:create) do |info_request, evaluator|
-      initial_request = create(:initial_request, :info_request => info_request,
-                                                 :created_at => info_request.created_at)
+    after(:create) do |info_request, _evaluator|
+      initial_request = create(:initial_request, info_request: info_request,
+                                                 created_at: info_request.created_at)
       initial_request.last_sent_at = info_request.created_at
       initial_request.save
     end
 
     factory :info_request_with_incoming do
-      after(:create) do |info_request, evaluator|
-        incoming_message = create(:incoming_message, :info_request => info_request)
-        info_request.log_event("response", {:incoming_message_id => incoming_message.id})
+      after(:create) do |info_request, _evaluator|
+        incoming_message = create(:incoming_message, info_request: info_request)
+        info_request.log_event("response", incoming_message_id: incoming_message.id)
       end
 
       factory :waiting_clarification_info_request do
-        after(:create) do |info_request, evaluator|
+        after(:create) do |info_request, _evaluator|
           info_request.set_described_state('waiting_clarification')
         end
       end
 
       factory :successful_request do
-        after(:create) do |info_request, evaluator|
+        after(:create) do |info_request, _evaluator|
           info_request.set_described_state('successful')
         end
       end
 
       factory :requires_admin_request do
-        after(:create) do |info_request, evaluator|
+        after(:create) do |info_request, _evaluator|
           info_request.log_event(
             'status_update',
             user_id: info_request.user.id,
             old_described_state: info_request.described_state,
             described_state: 'requires_admin',
-            message: 'Useful info')
+            message: 'Useful info'
+          )
           info_request.set_described_state('requires_admin')
         end
       end
 
       factory :error_message_request do
-        after(:create) do |info_request, evaluator|
+        after(:create) do |info_request, _evaluator|
           info_request.log_event(
             'status_update',
             user_id: info_request.user.id,
             old_described_state: info_request.described_state,
             described_state: 'error_message',
-            message: 'Useful info')
+            message: 'Useful info'
+          )
           info_request.set_described_state('error_message')
         end
       end
 
       factory :blank_message_request do
-        after(:create) do |info_request, evaluator|
+        after(:create) do |info_request, _evaluator|
           info_request.log_event(
             'status_update',
             user_id: info_request.user.id,
             old_described_state: info_request.described_state,
             described_state: 'error_message',
-            message: '')
+            message: ''
+          )
           info_request.set_described_state('error_message')
         end
       end
 
       factory :attention_requested_request do
-        after(:create) do |info_request, evaluator|
+        after(:create) do |info_request, _evaluator|
           info_request.log_event('report_request',
                                  request_id: info_request.id,
                                  editor: info_request.user,
@@ -116,7 +119,7 @@ FactoryBot.define do
       end
 
       factory :not_held_request do
-        after(:create) do |info_request, evaluator|
+        after(:create) do |info_request, _evaluator|
           info_request.set_described_state('not_held')
         end
       end
@@ -124,58 +127,58 @@ FactoryBot.define do
     end
 
     factory :info_request_with_plain_incoming do
-      after(:create) do |info_request, evaluator|
-        incoming_message = create(:plain_incoming_message, :info_request => info_request)
-        info_request.log_event("response", {:incoming_message_id => incoming_message.id})
+      after(:create) do |info_request, _evaluator|
+        incoming_message = create(:plain_incoming_message, info_request: info_request)
+        info_request.log_event("response", incoming_message_id: incoming_message.id)
       end
     end
 
     factory :info_request_with_html_attachment do
-      after(:create) do |info_request, evaluator|
-        incoming_message = create(:incoming_message_with_html_attachment, :info_request => info_request)
-        info_request.log_event("response", {:incoming_message_id => incoming_message.id})
+      after(:create) do |info_request, _evaluator|
+        incoming_message = create(:incoming_message_with_html_attachment, info_request: info_request)
+        info_request.log_event("response", incoming_message_id: incoming_message.id)
       end
     end
 
     factory :info_request_with_incoming_attachments do
-      after(:create) do |info_request, evaluator|
-        incoming_message = create(:incoming_message_with_attachments, :info_request => info_request)
-        info_request.log_event("response", {:incoming_message_id => incoming_message.id})
+      after(:create) do |info_request, _evaluator|
+        incoming_message = create(:incoming_message_with_attachments, info_request: info_request)
+        info_request.log_event("response", incoming_message_id: incoming_message.id)
       end
     end
 
     factory :info_request_with_internal_review_request do
-      after(:create) do |info_request, evaluator|
-        outgoing_message = create(:internal_review_request, :info_request => info_request)
+      after(:create) do |info_request, _evaluator|
+        outgoing_message = create(:internal_review_request, info_request: info_request)
       end
     end
 
     factory :embargoed_request do
-      after(:create) do |info_request, evaluator|
-        create(:embargo, :info_request => info_request)
+      after(:create) do |info_request, _evaluator|
+        create(:embargo, info_request: info_request)
         info_request.reload
-        incoming_message = create(:incoming_message_with_attachments, :info_request => info_request)
-        info_request.log_event("response", {:incoming_message_id => incoming_message.id})
+        incoming_message = create(:incoming_message_with_attachments, info_request: info_request)
+        info_request.log_event("response", incoming_message_id: incoming_message.id)
       end
     end
 
     factory :embargo_expiring_request do
-      after(:create) do |info_request, evaluator|
-        create(:expiring_embargo, :info_request => info_request)
+      after(:create) do |info_request, _evaluator|
+        create(:expiring_embargo, info_request: info_request)
         info_request.reload
       end
     end
 
     factory :re_embargoed_request do
-      after(:create) do |info_request, evaluator|
+      after(:create) do |info_request, _evaluator|
         info_request.log_event('expire_embargo', {})
-        create(:embargo, :info_request => info_request)
+        create(:embargo, info_request: info_request)
         info_request
       end
     end
 
     factory :embargo_expired_request do
-      after(:create) do |info_request, evaluator|
+      after(:create) do |info_request, _evaluator|
         info_request.log_event("expire_embargo", info_request: info_request)
         info_request.reload
       end
@@ -188,19 +191,19 @@ FactoryBot.define do
     end
 
     factory :old_unclassified_request do
-      after(:create) do |info_request, evaluator|
+      after(:create) do |info_request, _evaluator|
         incoming_message = FactoryBot.create(
           :incoming_message,
-          :info_request => info_request,
-          :created_at => Time.zone.now - 31.days
+          info_request: info_request,
+          created_at: Time.zone.now - 31.days
         )
         info_request.info_request_events = [
           FactoryBot.create(
             :info_request_event,
-            :info_request => info_request,
-            :event_type => "response",
-            :incoming_message_id => incoming_message.id,
-            :created_at => Time.zone.now - 31.days
+            info_request: info_request,
+            event_type: "response",
+            incoming_message_id: incoming_message.id,
+            created_at: Time.zone.now - 31.days
           )
         ]
         info_request.last_public_response_at = Time.zone.now - 31.days
@@ -211,7 +214,7 @@ FactoryBot.define do
 
     factory :awaiting_description do
       awaiting_description { true }
-      after(:create) do |info_request, evaluator|
+      after(:create) do |info_request, _evaluator|
         info_request.awaiting_description = true
         info_request.save!
       end
@@ -227,7 +230,7 @@ FactoryBot.define do
 
     factory :overdue_request do
       date_response_required_by { Time.zone.now - 1.day }
-      after(:create) do |info_request, evaluator|
+      after(:create) do |info_request, _evaluator|
         info_request.date_response_required_by = Time.zone.now - 1.day
         info_request.save!
       end
@@ -236,7 +239,7 @@ FactoryBot.define do
     factory :very_overdue_request do
       date_response_required_by { Time.zone.now - 21.days }
       date_very_overdue_after { Time.zone.now - 1.days }
-      after(:create) do |info_request, evaluator|
+      after(:create) do |info_request, _evaluator|
         info_request.date_response_required_by = Time.zone.now - 21.days
         info_request.date_very_overdue_after = Time.zone.now - 1.day
         info_request.save!

@@ -8,11 +8,11 @@
 class PasswordChangesController < ApplicationController
   before_action :set_pretoken
   before_action :set_pretoken_hash
-  before_action :set_user_from_token, :only => [:edit, :update]
+  before_action :set_user_from_token, only: [:edit, :update]
 
   def new
     @email_field_options =
-      @user ? { :disabled => true, :value => @user.email } : {}
+      @user ? { disabled: true, value: @user.email } : {}
   end
 
   def create
@@ -28,7 +28,7 @@ class PasswordChangesController < ApplicationController
       flash[:error] = _("That doesn't look like a valid email address. " \
                         "Please check you have typed it correctly.")
       @email_field_options =
-        @user ? { :disabled => true, :value => email } : {}
+        @user ? { disabled: true, value: email } : {}
       render :new
       return
     end
@@ -37,21 +37,20 @@ class PasswordChangesController < ApplicationController
 
     if @password_change_user
       post_redirect_attrs =
-        { :post_params => {},
-          :reason_params =>
-            { :web => '',
-              :email => _('Then you can change your password on {{site_name}}',
-                          :site_name => site_name),
-              :email_subject => _('Change your password on {{site_name}}',
-                                  :site_name => site_name) },
-          :circumstance => 'change_password',
-          :user => @password_change_user }
+        { post_params: {},
+          reason_params: { web: '',
+                           email: _('Then you can change your password on {{site_name}}',
+                                    site_name: site_name),
+                           email_subject: _('Change your password on {{site_name}}',
+                                            site_name: site_name) },
+          circumstance: 'change_password',
+          user: @password_change_user }
       post_redirect = PostRedirect.new(post_redirect_attrs)
       post_redirect.uri = edit_password_change_url(post_redirect.token,
                                                    @pretoken_hash)
       post_redirect.save!
 
-      url = confirm_url(:email_token => post_redirect.email_token)
+      url = confirm_url(email_token: post_redirect.email_token)
       UserMailer.
         confirm_login(@password_change_user, post_redirect.reason_params, url).
           deliver_now
@@ -70,9 +69,7 @@ class PasswordChangesController < ApplicationController
   end
 
   def update
-    if @pretoken
-      @pretoken_redirect = PostRedirect.find_by(:token => @pretoken)
-    end
+    @pretoken_redirect = PostRedirect.find_by(token: @pretoken) if @pretoken
 
     if @password_change_user
       @password_change_user.password = params[:password_change_user][:password]
@@ -80,9 +77,9 @@ class PasswordChangesController < ApplicationController
         params[:password_change_user][:password_confirmation]
 
       if otp_enabled?(@password_change_user)
-            @password_change_user.entered_otp_code =
-              params[:password_change_user][:otp_code]
-            @password_change_user.require_otp = true
+        @password_change_user.entered_otp_code =
+          params[:password_change_user][:otp_code]
+        @password_change_user.require_otp = true
       end
 
       if @password_change_user.save
@@ -90,24 +87,24 @@ class PasswordChangesController < ApplicationController
 
         if @pretoken_redirect
           if otp_enabled?(@password_change_user)
-                msg = _("Your password has been changed. " \
-                        "You also have a new one time passcode which you'll " \
-                        "need next time you want to change your password")
-                redirect_to one_time_password_path, :notice => msg
+            msg = _("Your password has been changed. " \
+                    "You also have a new one time passcode which you'll " \
+                    "need next time you want to change your password")
+            redirect_to one_time_password_path, notice: msg
           else
             redirect_to SafeRedirect.new(@pretoken_redirect.uri).path,
                         notice: _('Your password has been changed.')
           end
         else
           if otp_enabled?(@password_change_user)
-                msg = _("Your password has been changed. " \
-                        "You also have a new one time passcode which you'll " \
-                        "need next time you want to change your password")
-                redirect_to one_time_password_path, :notice => msg
+            msg = _("Your password has been changed. " \
+                    "You also have a new one time passcode which you'll " \
+                    "need next time you want to change your password")
+            redirect_to one_time_password_path, notice: msg
           else
             msg = _('Your password has been changed.')
             redirect_to show_user_profile_path(@password_change_user.url_name),
-                        :notice => msg
+                        notice: msg
           end
         end
       else
@@ -125,7 +122,7 @@ class PasswordChangesController < ApplicationController
   end
 
   def set_pretoken_hash
-    @pretoken_hash = @pretoken ? { :pretoken => @pretoken } : {}
+    @pretoken_hash = @pretoken ? { pretoken: @pretoken } : {}
   end
 
   def set_user_from_token

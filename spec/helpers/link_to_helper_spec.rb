@@ -14,7 +14,7 @@ describe LinkToHelper do
 
     it 'should return a path including any extra parameters passed' do
       expected = "/request/#{info_request.url_title}?update_status=1"
-      actual = request_path(info_request, {:update_status => 1})
+      actual = request_path(info_request, update_status: 1)
       expect(actual).to eq(expected)
     end
   end
@@ -40,7 +40,7 @@ describe LinkToHelper do
       end
 
       it 'includes a cache busting parameter if set' do
-        url = incoming_message_url(incoming_message, :cachebust => true)
+        url = incoming_message_url(incoming_message, cachebust: true)
         expect(url).to include("nocache=incoming-#{incoming_message.id}")
       end
 
@@ -66,8 +66,8 @@ describe LinkToHelper do
       end
 
       it 'creates a sign in url to the cachebusted incoming message url' do
-        msg_url = incoming_message_url(incoming_message, :cachebust => true)
-        expected = signin_url(:r => msg_url)
+        msg_url = incoming_message_url(incoming_message, cachebust: true)
+        expected = signin_url(r: msg_url)
         actual = new_response_url(info_request, incoming_message)
         expect(actual).to eq(expected)
       end
@@ -78,7 +78,7 @@ describe LinkToHelper do
       let(:info_request) { incoming_message.info_request }
 
       it 'creates a cachbusted incoming message url' do
-        expected = incoming_message_url(incoming_message, :cachebust => true)
+        expected = incoming_message_url(incoming_message, cachebust: true)
         actual = new_response_url(info_request, incoming_message)
         expect(actual).to eq(expected)
       end
@@ -106,7 +106,7 @@ describe LinkToHelper do
       end
 
       it 'includes a cache busting parameter if set' do
-        url = outgoing_message_url(outgoing_message, :cachebust => true)
+        url = outgoing_message_url(outgoing_message, cachebust: true)
         expect(url).to include("nocache=outgoing-#{outgoing_message.id}")
       end
     end
@@ -123,7 +123,7 @@ describe LinkToHelper do
   describe 'when displaying a user link for a request' do
     context "for external requests" do
       let(:info_request) do
-        FactoryBot.create(:external_request, :external_user_name => nil)
+        FactoryBot.create(:external_request, external_user_name: nil)
       end
 
       it 'should return the text "Anonymous user" with a link to the privacy
@@ -164,7 +164,7 @@ describe LinkToHelper do
 
   describe 'when displaying a user admin link for a request' do
     let(:info_request) do
-      FactoryBot.create(:external_request, :external_user_name => nil)
+      FactoryBot.create(:external_request, external_user_name: nil)
     end
 
     it 'should return the text "An anonymous user (external)" in the case

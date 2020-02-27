@@ -65,32 +65,32 @@ describe AlaveteliPro::EmbargoMailer do
 
     it 'creates UserInfoRequestSentAlert records for each expiring request' do
       expect(UserInfoRequestSentAlert.where(
-        info_request_id: expiring_1.id,
-        user_id: pro_user.id)
-      ).not_to exist
+               info_request_id: expiring_1.id,
+               user_id: pro_user.id
+             )).not_to exist
       expect(UserInfoRequestSentAlert.where(
-        info_request_id: expiring_2.id,
-        user_id: pro_user.id)
-      ).not_to exist
+               info_request_id: expiring_2.id,
+               user_id: pro_user.id
+             )).not_to exist
       expect(UserInfoRequestSentAlert.where(
-        info_request_id: expiring_3.id,
-        user_id: pro_user_2.id)
-      ).not_to exist
+               info_request_id: expiring_3.id,
+               user_id: pro_user_2.id
+             )).not_to exist
 
       AlaveteliPro::EmbargoMailer.alert_expiring
 
       expect(UserInfoRequestSentAlert.where(
-        info_request_id: expiring_1.id,
-        user_id: pro_user.id)
-      ).to exist
+               info_request_id: expiring_1.id,
+               user_id: pro_user.id
+             )).to exist
       expect(UserInfoRequestSentAlert.where(
-        info_request_id: expiring_2.id,
-        user_id: pro_user.id)
-      ).to exist
+               info_request_id: expiring_2.id,
+               user_id: pro_user.id
+             )).to exist
       expect(UserInfoRequestSentAlert.where(
-        info_request_id: expiring_3.id,
-        user_id: pro_user_2.id)
-      ).to exist
+               info_request_id: expiring_3.id,
+               user_id: pro_user_2.id
+             )).to exist
     end
 
     it "doesn't include requests with use_notifications: true" do
@@ -186,36 +186,36 @@ describe AlaveteliPro::EmbargoMailer do
 
     it 'creates UserInfoRequestSentAlert records for each expired request' do
       expect(UserInfoRequestSentAlert.where(
-        info_request_id: expired_1.id,
-        user_id: pro_user.id)
-      ).not_to exist
+               info_request_id: expired_1.id,
+               user_id: pro_user.id
+             )).not_to exist
 
       expect(UserInfoRequestSentAlert.where(
-        info_request_id: expired_2.id,
-        user_id: pro_user.id)
-      ).not_to exist
+               info_request_id: expired_2.id,
+               user_id: pro_user.id
+             )).not_to exist
 
       expect(UserInfoRequestSentAlert.where(
-        info_request_id: expired_3.id,
-        user_id: pro_user_2.id)
-      ).not_to exist
+               info_request_id: expired_3.id,
+               user_id: pro_user_2.id
+             )).not_to exist
 
       AlaveteliPro::EmbargoMailer.alert_expired
 
       expect(UserInfoRequestSentAlert.where(
-        info_request_id: expired_1.id,
-        user_id: pro_user.id)
-      ).to exist
+               info_request_id: expired_1.id,
+               user_id: pro_user.id
+             )).to exist
 
       expect(UserInfoRequestSentAlert.where(
-        info_request_id: expired_2.id,
-        user_id: pro_user.id)
-      ).to exist
+               info_request_id: expired_2.id,
+               user_id: pro_user.id
+             )).to exist
 
       expect(UserInfoRequestSentAlert.where(
-        info_request_id: expired_3.id,
-        user_id: pro_user_2.id)
-      ).to exist
+               info_request_id: expired_3.id,
+               user_id: pro_user_2.id
+             )).to exist
     end
 
     it "doesn't include requests with use_notifications: true" do

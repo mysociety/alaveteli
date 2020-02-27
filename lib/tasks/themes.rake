@@ -2,12 +2,11 @@
 require Rails.root.join('commonlib', 'rblib', 'git')
 
 namespace :themes do
-
   # Alias the module so we don't need the MySociety prefix here
   Git = MySociety::Git
 
   def all_themes_dir
-    File.join(Rails.root,"lib","themes")
+    File.join(Rails.root, "lib", "themes")
   end
 
   def theme_dir(theme_name)
@@ -30,15 +29,13 @@ namespace :themes do
     "use-with-alaveteli-#{version}"
   end
 
-  def uninstall(theme_name, verbose=false)
+  def uninstall(theme_name, verbose = false)
     possible_theme_dirs(theme_name).each do |dir|
-      if File.directory?(dir)
-        run_hook(theme_name, 'uninstall', verbose)
-      end
+      run_hook(theme_name, 'uninstall', verbose) if File.directory?(dir)
     end
   end
 
-  def run_hook(theme_name, hook_name, verbose=false)
+  def run_hook(theme_name, hook_name, verbose = false)
     directory = theme_dir(theme_name)
     hook_file = File.join(directory, "#{hook_name}.rb")
     if File.exist? hook_file
@@ -64,7 +61,7 @@ namespace :themes do
 
   def committishes_to_try
     result = []
-    theme_branch = AlaveteliConfiguration::theme_branch
+    theme_branch = AlaveteliConfiguration.theme_branch
     result.push "origin/#{theme_branch}" if theme_branch
     result.push usage_tag(ALAVETELI_VERSION)
     hotfix_match = /^(\d+\.\d+\.\d+)(\.\d+)+/.match(ALAVETELI_VERSION)
@@ -87,10 +84,10 @@ namespace :themes do
         puts "Failed to find #{committish}; skipping..." if verbose
       end
     end
-    puts "Falling to using HEAD instead" if all_failed and verbose
+    puts "Falling to using HEAD instead" if all_failed && verbose
   end
 
-  def install_theme(theme_url, verbose, deprecated=false)
+  def install_theme(theme_url, verbose, deprecated = false)
     FileUtils.mkdir_p all_themes_dir
     deprecation_string = deprecated ? " using deprecated THEME_URL" : ""
     theme_name = theme_url_to_theme_name theme_url
@@ -136,23 +133,22 @@ namespace :themes do
   end
 
   desc "Install themes specified in the config file's THEME_URLS"
-  task :install => :environment do
+  task install: :environment do
     verbose = true
     theme_urls.each do |theme_url|
       install_theme(theme_url, verbose)
     end
     # Old version of the above, for backwards compatibility
     unless AlaveteliConfiguration.theme_url.blank?
-      install_theme(AlaveteliConfiguration.theme_url, verbose, deprecated=true)
+      install_theme(AlaveteliConfiguration.theme_url, verbose, deprecated = true)
     end
   end
 
-
   def locale_extensions(locale)
     locale_extensions = if AlaveteliLocalization.default_locale?(locale)
-      ['']
-    else
-      [".#{locale}"]
+                          ['']
+                        else
+                          [".#{locale}"]
     end
     if !AlaveteliLocalization.default_locale?(locale) &&
        locale.to_s.include?('_')
@@ -165,9 +161,7 @@ namespace :themes do
     locale_extensions(locale).each do |locale_extension|
       filename = "#{template_name}#{locale_extension}.html.erb"
       filepath = "lib/themes/#{theme_name}/lib/views/help/#{filename}"
-      if File.exist?(filepath)
-        return filepath
-      end
+      return filepath if File.exist?(filepath)
     end
     nil
   end
@@ -182,7 +176,7 @@ namespace :themes do
     else
       contents = File.read(template_file)
       help_template_info[:sections].each do |section|
-        if !contents.include?("##{section}")
+        unless contents.include?("##{section}")
           missing_sections << section
           puts "Missing section: #{section} in template #{help_template_info[:name]}"
         end
@@ -196,8 +190,7 @@ namespace :themes do
   end
 
   desc "Check that all help sections referred to in the application are present in theme"
-  task :check_help_sections => :environment do
-
+  task check_help_sections: :environment do
     intro_message = <<-EOF
 
 Checking that all help templates linked to from Alaveteli are present in the theme,
@@ -217,36 +210,36 @@ EOF
       theme_url_to_theme_name(theme_url)
     end
 
-    help_templates_info = [{:name => 'about',
-                            :sections => ['whybother_them',
-                                          'reporting',
-                                          'reporting_unavailable']},
-                           {:name => 'alaveteli',
-                            :sections => []},
-                           {:name => 'api',
-                            :sections => []},
-                           {:name => 'contact',
-                            :sections => []},
-                           {:name => 'credits',
-                            :sections => ['helpus']},
-                           {:name => 'officers',
-                            :sections => ['copyright']},
-                           {:name => 'privacy',
-                            :sections => ['email_address',
-                                          'full_address',
-                                          'postal_answer',
-                                          'public_request',
-                                          'real_name']},
-                           {:name => 'requesting',
-                            :sections => ['focused',
-                                          'data_protection',
-                                          'missing_body',
-                                          'quickly_response',]},
-                           {:name => 'unhappy',
-                            :sections => ['internal_review',
-                                          'other_means']},
-                           {:name => '_why_they_should_reply_by_email',
-                            :sections => []}]
+    help_templates_info = [{ name: 'about',
+                             sections: %w[whybother_them
+                                          reporting
+                                          reporting_unavailable] },
+                           { name: 'alaveteli',
+                             sections: [] },
+                           { name: 'api',
+                             sections: [] },
+                           { name: 'contact',
+                             sections: [] },
+                           { name: 'credits',
+                             sections: ['helpus'] },
+                           { name: 'officers',
+                             sections: ['copyright'] },
+                           { name: 'privacy',
+                             sections: %w[email_address
+                                          full_address
+                                          postal_answer
+                                          public_request
+                                          real_name] },
+                           { name: 'requesting',
+                             sections: %w[focused
+                                          data_protection
+                                          missing_body
+                                          quickly_response] },
+                           { name: 'unhappy',
+                             sections: %w[internal_review
+                                          other_means] },
+                           { name: '_why_they_should_reply_by_email',
+                             sections: [] }]
 
     theme_names.each do |theme_name|
       AlaveteliLocalization.available_locales.each do |locale|
@@ -259,12 +252,8 @@ EOF
             missing = true
           end
         end
-        if !missing
-          puts "No missing templates or sections"
-        end
+        puts "No missing templates or sections" unless missing
       end
     end
-
   end
-
 end

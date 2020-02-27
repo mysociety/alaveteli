@@ -84,12 +84,12 @@ describe TrackThing, "destroy" do
 
   it "should destroy the track_thing" do
     track_thing.destroy
-    expect(TrackThing.where(:id => track_thing.id)).to be_empty
+    expect(TrackThing.where(id: track_thing.id)).to be_empty
   end
 
   it "should destroy related track_things_sent_emails" do
-    TrackThingsSentEmail.create(:track_thing => track_thing)
+    TrackThingsSentEmail.create(track_thing: track_thing)
     track_thing.destroy
-    expect(TrackThingsSentEmail.where(:track_thing_id => track_thing.id)).to be_empty
+    expect(TrackThingsSentEmail.where(track_thing_id: track_thing.id)).to be_empty
   end
 end

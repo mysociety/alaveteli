@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 module HealthChecks
   module HealthCheckable
-
     attr_accessor :failure_message, :success_message
 
     def initialize(args = {})
@@ -20,6 +19,5 @@ module HealthChecks
     def message
       ok? ? success_message : failure_message
     end
-
   end
 end

@@ -7,8 +7,8 @@ class CacheOnlyMarkedBodyText < ActiveRecord::Migration[4.2] # 2.3
   end
 
   def self.down
-    #add_column :incoming_messages, :cached_main_body_text, :text
-    #remove_column :incoming_messages, :cached_main_body_text_marked
+    # add_column :incoming_messages, :cached_main_body_text, :text
+    # remove_column :incoming_messages, :cached_main_body_text_marked
     raise "safer not to have reverse migration scripts, and we never use them"
   end
 end

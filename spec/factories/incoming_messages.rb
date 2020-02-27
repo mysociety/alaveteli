@@ -29,7 +29,7 @@ FactoryBot.define do
     last_parsed { 1.week.ago }
     sent_at { 1.week.ago }
 
-    after(:build) do |incoming_message, evaluator|
+    after(:build) do |incoming_message, _evaluator|
       incoming_message.foi_attachments << build(
         :body_text,
         incoming_message: incoming_message,
@@ -53,7 +53,7 @@ FactoryBot.define do
       last_parsed { nil }
       sent_at { nil }
 
-      after(:create) do |incoming_message, evaluator|
+      after(:create) do |incoming_message, _evaluator|
         data = load_file_fixture('incoming-request-plain.email')
         data.gsub!('EMAIL_FROM', 'Bob Responder <bob@example.com>')
         incoming_message.raw_email.data = data
@@ -62,7 +62,7 @@ FactoryBot.define do
     end
 
     factory :incoming_message_with_html_attachment do
-      after(:build) do |incoming_message, evaluator|
+      after(:build) do |incoming_message, _evaluator|
         incoming_message.foi_attachments << build(
           :html_attachment,
           incoming_message: incoming_message,

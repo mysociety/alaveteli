@@ -20,7 +20,6 @@ module AdminColumn
               self.class.content_columns +
               self.class.additional_admin_columns
 
-
     reject_non_admin_columns(columns).each do |column|
       yield(column.name.humanize,
             send(column.name),
@@ -44,5 +43,4 @@ module AdminColumn
       []
     end
   end
-
 end

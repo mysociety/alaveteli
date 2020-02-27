@@ -26,7 +26,7 @@ describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
 
       it 'redirects to the login form' do
         expect(response).
-          to redirect_to(signin_path(:token => PostRedirect.last.token))
+          to redirect_to(signin_path(token: PostRedirect.last.token))
       end
 
     end

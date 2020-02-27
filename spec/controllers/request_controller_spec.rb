@@ -8,33 +8,33 @@ describe RequestController, "when listing recent requests" do
   end
 
   it "should be successful" do
-    get :list, params: { :view => 'all' }
+    get :list, params: { view: 'all' }
     expect(response).to be_successful
   end
 
   it "should render with 'list' template" do
-    get :list, params: { :view => 'all' }
+    get :list, params: { view: 'all' }
     expect(response).to render_template('list')
   end
 
   it "should return 404 for pages we don't want to serve up" do
     xap_results = double(ActsAsXapian::Search,
-                       :results => (1..25).to_a.map { |m| { :model => m } },
-                       :matches_estimated => 1000000)
+                         results: (1..25).to_a.map { |m| { model: m } },
+                         matches_estimated: 1_000_000)
     expect {
-      get :list, params: { :view => 'all', :page => 100 }
+      get :list, params: { view: 'all', page: 100 }
     }.to raise_error(ActiveRecord::RecordNotFound)
   end
 
   it "returns 404 for non html requests" do
-    get :list, params: { :view => "all", :format => :json }
+    get :list, params: { view: "all", format: :json }
     expect(response.status).to eq(404)
   end
 
   it 'should not raise an error for a page param of less than zero, but should treat it as
         a param of 1' do
     expect {
-      get :list, params: { :view => 'all', :page => "-1" }
+      get :list, params: { view: 'all', page: "-1" }
     }.not_to raise_error
     expect(assigns[:page]).to eq(1)
   end
@@ -49,28 +49,28 @@ describe RequestController, "when showing one request" do
   end
 
   it "should be successful" do
-    get :show, params: { :url_title => 'why_do_you_have_such_a_fancy_dog' }
+    get :show, params: { url_title: 'why_do_you_have_such_a_fancy_dog' }
     expect(response).to be_successful
   end
 
   it "should render with 'show' template" do
-    get :show, params: { :url_title => 'why_do_you_have_such_a_fancy_dog' }
+    get :show, params: { url_title: 'why_do_you_have_such_a_fancy_dog' }
     expect(response).to render_template('show')
   end
 
   it "should assign the request" do
-    get :show, params: { :url_title => 'why_do_you_have_such_a_fancy_dog' }
+    get :show, params: { url_title: 'why_do_you_have_such_a_fancy_dog' }
     expect(assigns[:info_request]).to eq(info_requests(:fancy_dog_request))
   end
 
   it "should redirect from a numeric URL to pretty one" do
-    get :show, params: { :url_title => info_requests(:naughty_chicken_request).id.to_s }
-    expect(response).to redirect_to(:action => 'show', :url_title => info_requests(:naughty_chicken_request).url_title)
+    get :show, params: { url_title: info_requests(:naughty_chicken_request).id.to_s }
+    expect(response).to redirect_to(action: 'show', url_title: info_requests(:naughty_chicken_request).url_title)
   end
 
   it 'should return a 404 for GET requests to a malformed request URL' do
     expect {
-      get :show, params: { :url_title => '228%85' }
+      get :show, params: { url_title: '228%85' }
     }.to raise_error(ActiveRecord::RecordNotFound)
   end
 
@@ -135,7 +135,8 @@ describe RequestController, "when showing one request" do
             session[:user_id] = pro_user.id
             get :show, params: { url_title: info_request.url_title }
             expect(response).to redirect_to show_alaveteli_pro_request_path(
-              url_title: info_request.url_title)
+              url_title: info_request.url_title
+            )
           end
         end
       end
@@ -170,7 +171,8 @@ describe RequestController, "when showing one request" do
           session[:user_id] = pro_user.id
           get :show, params: { url_title: info_request.url_title }
           expect(response).to redirect_to show_alaveteli_pro_request_path(
-            url_title: info_request.url_title)
+            url_title: info_request.url_title
+          )
         end
       end
 
@@ -198,14 +200,14 @@ describe RequestController, "when showing one request" do
     it 'raises ActiveRecord::RecordNotFound' do
       embargoed_request = FactoryBot.create(:embargoed_request)
       expect {
-        get :show, params: { :url_title => embargoed_request.url_title }
+        get :show, params: { url_title: embargoed_request.url_title }
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
 
     it "doesn't even redirect from a numeric id" do
       embargoed_request = FactoryBot.create(:embargoed_request)
       expect {
-        get :show, params: { :url_title => embargoed_request.id }
+        get :show, params: { url_title: embargoed_request.id }
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
@@ -213,16 +215,16 @@ describe RequestController, "when showing one request" do
   describe 'when showing an external request' do
     describe 'when viewing anonymously' do
       it 'should be successful' do
-        get :show, params: { :url_title => 'balalas' },
-                   session: { :user_id => nil }
+        get :show, params: { url_title: 'balalas' },
+                   session: { user_id: nil }
         expect(response).to be_successful
       end
     end
 
     describe 'when the request is being viewed by an admin' do
       def make_request
-        get :show, params: { :url_title => 'balalas' },
-                   session: { :user_id => users(:admin_user).id }
+        get :show, params: { url_title: 'balalas' },
+                   session: { user_id: users(:admin_user).id }
       end
 
       it 'should be successful' do
@@ -237,12 +239,12 @@ describe RequestController, "when showing one request" do
     describe 'when the request is external' do
 
       it 'should assign the "update status" flag to the view as falsey if the parameter is present' do
-        get :show, params: { :url_title => 'balalas', :update_status => 1 }
+        get :show, params: { url_title: 'balalas', update_status: 1 }
         expect(assigns[:update_status]).to be_falsey
       end
 
       it 'should assign the "update status" flag to the view as falsey if the parameter is not present' do
-        get :show, params: { :url_title => 'balalas' }
+        get :show, params: { url_title: 'balalas' }
         expect(assigns[:update_status]).to be_falsey
       end
 
@@ -250,51 +252,51 @@ describe RequestController, "when showing one request" do
 
     it 'should assign the "update status" flag to the view as truthy if the parameter is present' do
       get :show, params: {
-                   :url_title => 'why_do_you_have_such_a_fancy_dog',
-                   :update_status => 1
-                 }
+        url_title: 'why_do_you_have_such_a_fancy_dog',
+        update_status: 1
+      }
       expect(assigns[:update_status]).to be_truthy
     end
 
     it 'should assign the "update status" flag to the view as falsey if the parameter is not present' do
-      get :show, params: { :url_title => 'why_do_you_have_such_a_fancy_dog' }
+      get :show, params: { url_title: 'why_do_you_have_such_a_fancy_dog' }
       expect(assigns[:update_status]).to be_falsey
     end
 
     it 'should require login' do
       session[:user_id] = nil
       get :show, params: {
-                   :url_title => 'why_do_you_have_such_a_fancy_dog',
-                   :update_status => 1
-                 }
+        url_title: 'why_do_you_have_such_a_fancy_dog',
+        update_status: 1
+      }
       expect(response).
-        to redirect_to(signin_path(:token => get_last_post_redirect.token))
+        to redirect_to(signin_path(token: get_last_post_redirect.token))
     end
 
     it 'should work if logged in as the requester' do
       session[:user_id] = users(:bob_smith_user).id
       get :show, params: {
-                   :url_title => 'why_do_you_have_such_a_fancy_dog',
-                   :update_status => 1
-                 }
+        url_title: 'why_do_you_have_such_a_fancy_dog',
+        update_status: 1
+      }
       expect(response).to render_template "request/show"
     end
 
     it 'should not work if logged in as not the requester' do
       session[:user_id] = users(:silly_name_user).id
       get :show, params: {
-                   :url_title => 'why_do_you_have_such_a_fancy_dog',
-                   :update_status => 1
-                 }
+        url_title: 'why_do_you_have_such_a_fancy_dog',
+        update_status: 1
+      }
       expect(response).to render_template "user/wrong_user"
     end
 
     it 'should work if logged in as an admin user' do
       session[:user_id] = users(:admin_user).id
       get :show, params: {
-                   :url_title => 'why_do_you_have_such_a_fancy_dog',
-                   :update_status => 1
-                 }
+        url_title: 'why_do_you_have_such_a_fancy_dog',
+        update_status: 1
+      }
       expect(response).to render_template "request/show"
     end
   end
@@ -305,9 +307,9 @@ describe RequestController, "when showing one request" do
     before :each do
       session[:user_id] = pro_user.id
       get :show, params: {
-                   :url_title => 'why_do_you_have_such_a_fancy_dog',
-                   pro: "1"
-                 }
+        url_title: 'why_do_you_have_such_a_fancy_dog',
+        pro: "1"
+      }
     end
 
     it "should set @in_pro_area to true" do
@@ -316,13 +318,13 @@ describe RequestController, "when showing one request" do
 
     it "should set @sidebar_template to the pro sidebar" do
       expect(assigns[:sidebar_template]).
-        to eq ("alaveteli_pro/info_requests/sidebar")
+        to eq "alaveteli_pro/info_requests/sidebar"
     end
   end
 
   describe 'when params[:pro] is not set' do
     before :each do
-      get :show, params: { :url_title => 'why_do_you_have_such_a_fancy_dog' }
+      get :show, params: { url_title: 'why_do_you_have_such_a_fancy_dog' }
     end
 
     it "should set @in_pro_area to false" do
@@ -330,7 +332,7 @@ describe RequestController, "when showing one request" do
     end
 
     it "should set @sidebar_template to the normal sidebar" do
-      expect(assigns[:sidebar_template]).to eq ("sidebar")
+      expect(assigns[:sidebar_template]).to eq "sidebar"
     end
   end
 
@@ -343,10 +345,10 @@ describe RequestController, "when showing one request" do
         with_feature_enabled(:alaveteli_pro) do
           session[:user_id] = pro_user.id
           get :show, params: {
-                       :url_title => pro_request.url_title,
-                       :pro => "1",
-                       :update_status => "1"
-                     }
+            url_title: pro_request.url_title,
+            pro: "1",
+            update_status: "1"
+          }
           expect(assigns[:show_top_describe_state_form]).to be false
         end
       end
@@ -357,15 +359,15 @@ describe RequestController, "when showing one request" do
         it "is false" do
           info_request = info_requests(:naughty_chicken_request)
           expect(info_request.awaiting_description).to be false
-          get :show, params: { :url_title => info_request.url_title }
+          get :show, params: { url_title: info_request.url_title }
           expect(assigns[:show_top_describe_state_form]).to be false
         end
 
         context "but the request is awaiting_description" do
           it "is true" do
             get :show, params: {
-                         :url_title => 'why_do_you_have_such_a_fancy_dog'
-                       }
+              url_title: 'why_do_you_have_such_a_fancy_dog'
+            }
             expect(assigns[:show_top_describe_state_form]).to be true
           end
         end
@@ -377,18 +379,18 @@ describe RequestController, "when showing one request" do
           info_request = info_requests(:naughty_chicken_request)
           expect(info_request.awaiting_description).to be false
           get :show, params: {
-                       :url_title => info_request.url_title,
-                       :update_status => "1"
-                     }
+            url_title: info_request.url_title,
+            update_status: "1"
+          }
           expect(assigns[:show_top_describe_state_form]).to be true
         end
 
         context "and the request is awaiting_description" do
           it "is true" do
             get :show, params: {
-                         :url_title => 'why_do_you_have_such_a_fancy_dog',
-                         :update_status => "1"
-                       }
+              url_title: 'why_do_you_have_such_a_fancy_dog',
+              update_status: "1"
+            }
             expect(assigns[:show_top_describe_state_form]).to be true
           end
         end
@@ -399,7 +401,7 @@ describe RequestController, "when showing one request" do
       it "is false" do
         info_request = FactoryBot.create(:info_request)
         info_request.set_described_state('not_foi')
-        get :show, params: { :url_title => info_request.url_title }
+        get :show, params: { url_title: info_request.url_title }
         expect(assigns[:show_top_describe_state_form]).to be false
       end
     end
@@ -414,9 +416,9 @@ describe RequestController, "when showing one request" do
         with_feature_enabled(:alaveteli_pro) do
           session[:user_id] = pro_user.id
           get :show, params: {
-                       :url_title => pro_request.url_title,
-                       :pro => "1"
-                     }
+            url_title: pro_request.url_title,
+            pro: "1"
+          }
           expect(assigns[:show_bottom_describe_state_form]).to be false
         end
       end
@@ -425,7 +427,7 @@ describe RequestController, "when showing one request" do
     context "when @in_pro_area is false" do
       context "and the request is awaiting_description" do
         it "is true" do
-          get :show, params: { :url_title => 'why_do_you_have_such_a_fancy_dog' }
+          get :show, params: { url_title: 'why_do_you_have_such_a_fancy_dog' }
           expect(assigns[:show_bottom_describe_state_form]).to be true
         end
       end
@@ -434,7 +436,7 @@ describe RequestController, "when showing one request" do
         it "is false" do
           info_request = info_requests(:naughty_chicken_request)
           expect(info_request.awaiting_description).to be false
-          get :show, params: { :url_title => info_request.url_title }
+          get :show, params: { url_title: info_request.url_title }
           expect(assigns[:show_bottom_describe_state_form]).to be false
         end
       end
@@ -444,7 +446,7 @@ describe RequestController, "when showing one request" do
       it "is false" do
         info_request = FactoryBot.create(:info_request)
         info_request.set_described_state('not_foi')
-        get :show, params: { :url_title => info_request.url_title }
+        get :show, params: { url_title: info_request.url_title }
         expect(assigns[:show_bottom_describe_state_form]).to be false
       end
     end
@@ -453,22 +455,22 @@ describe RequestController, "when showing one request" do
   it "should set @state_transitions for the request" do
     info_request = FactoryBot.create(:info_request)
     expected_transitions = {
-      :pending => {
-        "waiting_response"      => "<strong>No response</strong> has been received <small>(maybe there's just an acknowledgement)</small>",
+      pending: {
+        "waiting_response" => "<strong>No response</strong> has been received <small>(maybe there's just an acknowledgement)</small>",
         "waiting_clarification" => "<strong>Clarification</strong> has been requested",
-        "gone_postal"           => "A response will be sent <strong>by postal mail</strong>"
+        "gone_postal" => "A response will be sent <strong>by postal mail</strong>"
       },
-      :complete => {
-        "not_held"              => "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>",
-        "partially_successful"  => "<strong>Some of the information</strong> has been sent ",
-        "successful"            => "<strong>All the information</strong> has been sent",
-        "rejected"              => "The request has been <strong>refused</strong>"
+      complete: {
+        "not_held" => "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>",
+        "partially_successful" => "<strong>Some of the information</strong> has been sent ",
+        "successful" => "<strong>All the information</strong> has been sent",
+        "rejected" => "The request has been <strong>refused</strong>"
       },
-      :other => {
-        "error_message"         => "An <strong>error message</strong> has been received"
+      other: {
+        "error_message" => "An <strong>error message</strong> has been received"
       }
     }
-    get :show, params: { :url_title => info_request.url_title }
+    get :show, params: { url_title: info_request.url_title }
     expect(assigns(:state_transitions)).to eq(expected_transitions)
   end
 
@@ -484,13 +486,13 @@ describe RequestController, "when showing one request" do
 
       it "@show_owner_update_status_action should be false" do
         expect(info_request.is_old_unclassified?).to be true
-        get :show, params: { :url_title => info_request.url_title }
+        get :show, params: { url_title: info_request.url_title }
         expect(assigns[:show_owner_update_status_action]).to be false
       end
 
       it "@show_other_user_update_status_action should be true" do
         expect(info_request.is_old_unclassified?).to be true
-        get :show, params: { :url_title => info_request.url_title }
+        get :show, params: { url_title: info_request.url_title }
         expect(assigns[:show_other_user_update_status_action]).to be true
       end
     end
@@ -499,12 +501,12 @@ describe RequestController, "when showing one request" do
       let(:info_request) { FactoryBot.create(:info_request) }
 
       it "@show_owner_update_status_action should be true" do
-        get :show, params: { :url_title => info_request.url_title }
+        get :show, params: { url_title: info_request.url_title }
         expect(assigns[:show_owner_update_status_action]).to be true
       end
 
       it "@show_other_user_update_status_action should be false" do
-        get :show, params: { :url_title => info_request.url_title }
+        get :show, params: { url_title: info_request.url_title }
         expect(assigns[:show_other_user_update_status_action]).to be false
       end
     end
@@ -517,7 +519,7 @@ describe RequestController, "when showing one request" do
       end
 
       it "should hide all status update options" do
-        get :show, params: { :url_title => info_request.url_title }
+        get :show, params: { url_title: info_request.url_title }
         expect(assigns[:show_owner_update_status_action]).to be false
         expect(assigns[:show_other_user_update_status_action]).to be false
       end
@@ -551,32 +553,32 @@ describe RequestController, "when handling prominence" do
 
     before(:each) do
       @info_request = FactoryBot.create(:info_request_with_incoming_attachments,
-                                        :prominence => 'hidden')
+                                        prominence: 'hidden')
     end
 
     it "should not show request if you're not logged in" do
-      get :show, params: { :url_title => @info_request.url_title }
+      get :show, params: { url_title: @info_request.url_title }
       expect_hidden('hidden')
     end
 
     it "should not show request even if logged in as their owner" do
       session[:user_id] = @info_request.user.id
-      get :show, params: { :url_title => @info_request.url_title }
+      get :show, params: { url_title: @info_request.url_title }
       expect_hidden('hidden')
     end
 
     it 'should not show request if requested using json' do
       session[:user_id] = @info_request.user.id
       get :show, params: {
-                   :url_title => @info_request.url_title,
-                   :format => 'json'
-                 }
+        url_title: @info_request.url_title,
+        format: 'json'
+      }
       expect(response.code).to eq('403')
     end
 
     it "should show request if logged in as super user" do
       session[:user_id] = FactoryBot.create(:admin_user).id
-      get :show, params: { :url_title => @info_request.url_title }
+      get :show, params: { url_title: @info_request.url_title }
       expect(response).to render_template('show')
     end
 
@@ -586,29 +588,29 @@ describe RequestController, "when handling prominence" do
 
     before(:each) do
       @info_request = FactoryBot.create(:info_request_with_incoming_attachments,
-                                        :prominence => 'requester_only')
+                                        prominence: 'requester_only')
     end
 
     it "should not show request if you're not logged in" do
-      get :show, params: { :url_title => @info_request.url_title }
+      get :show, params: { url_title: @info_request.url_title }
       expect_hidden('hidden')
     end
 
     it "should not show request if logged in but not the requester" do
       session[:user_id] = FactoryBot.create(:user).id
-      get :show, params: { :url_title => @info_request.url_title }
+      get :show, params: { url_title: @info_request.url_title }
       expect_hidden('hidden')
     end
 
     it "should show request to requester" do
       session[:user_id] = @info_request.user.id
-      get :show, params: { :url_title => @info_request.url_title }
+      get :show, params: { url_title: @info_request.url_title }
       expect(response).to render_template('show')
     end
 
     it "shouild show request to admin" do
       session[:user_id] = FactoryBot.create(:admin_user).id
-      get :show, params: { :url_title => @info_request.url_title }
+      get :show, params: { url_title: @info_request.url_title }
       expect(response).to render_template('show')
     end
   end
@@ -630,7 +632,7 @@ describe RequestController, "when searching for an authority" do
 
   it "should return matching bodies" do
     session[:user_id] = @user.id
-    get :select_authority, params: { :query => "Quango" }
+    get :select_authority, params: { query: "Quango" }
 
     expect(response).to render_template('select_authority')
     assigns[:xapian_requests].results.size == 1
@@ -640,8 +642,8 @@ describe RequestController, "when searching for an authority" do
   it "remembers the search params" do
     session[:user_id] = @user.id
     search_params = {
-      'query'  => 'Quango',
-      'page'   => '1',
+      'query' => 'Quango',
+      'page' => '1',
       'bodies' => '1'
     }
 
@@ -721,19 +723,19 @@ describe RequestController, "when creating a new request" do
 
   it "should redirect to front page if no public body specified" do
     get :new
-    expect(response).to redirect_to(:controller => 'general', :action => 'frontpage')
+    expect(response).to redirect_to(controller: 'general', action: 'frontpage')
   end
 
   it "should redirect to front page if no public body specified, when logged in" do
     session[:user_id] = @user.id
     get :new
-    expect(response).to redirect_to(:controller => 'general', :action => 'frontpage')
+    expect(response).to redirect_to(controller: 'general', action: 'frontpage')
   end
 
   it "should redirect 'bad request' page when a body has no email address" do
     @body.request_email = ""
     @body.save!
-    get :new, params: { :public_body_id => @body.id }
+    get :new, params: { public_body_id: @body.id }
     expect(response).to render_template('new_bad_contact')
   end
 
@@ -743,14 +745,14 @@ describe RequestController, "when creating a new request" do
 
       it "displays a flash error message without escaping the HTML" do
         post :new, params: {
-                     :info_request => {
-                       :public_body_id => @body.id,
-                       :title => "Test Request"
-                     },
-                     :outgoing_message => { :body => "me@here.com" },
-                     :submitted_new_request => 1,
-                     :preview => 1
-                   }
+          info_request: {
+            public_body_id: @body.id,
+            title: "Test Request"
+          },
+          outgoing_message: { body: "me@here.com" },
+          submitted_new_request: 1,
+          preview: 1
+        }
 
         expect(response.body).to have_css('div#error p')
         expect(response.body).to_not have_content('<p>')
@@ -765,13 +767,14 @@ describe RequestController, "when creating a new request" do
       it "displays a flash error message without escaping the HTML" do
         session[:user_id] = @user.id
         post :new, params: {
-                     :info_request => {
-                       :public_body_id => @body.id,
-                       :title => "Test Request" },
-                     :outgoing_message => { :body => "me@here.com" },
-                     :submitted_new_request => 1,
-                     :preview => 1
-                   }
+          info_request: {
+            public_body_id: @body.id,
+            title: "Test Request"
+          },
+          outgoing_message: { body: "me@here.com" },
+          submitted_new_request: 1,
+          preview: 1
+        }
 
         expect(response.body).to have_css('div#error p')
         expect(response.body).to_not have_content('<p>')
@@ -787,14 +790,14 @@ describe RequestController, "when creating a new request" do
 
     it 'displays an error message warning about the postcode' do
       post :new, params: {
-                   :info_request => {
-                     :public_body_id => @body.id,
-                     :title => "Test Request"
-                   },
-                   :outgoing_message => { :body => "SW1A 1AA" },
-                   :submitted_new_request => 1,
-                   :preview => 1
-                 }
+        info_request: {
+          public_body_id: @body.id,
+          title: "Test Request"
+        },
+        outgoing_message: { body: "SW1A 1AA" },
+        submitted_new_request: 1,
+        preview: 1
+      }
 
       expect(response.body).to have_content('Your request contains a postcode')
     end
@@ -806,17 +809,17 @@ describe RequestController, "when creating a new request" do
     def send_request
       session[:user_id] = @user.id
       post :new, params: {
-                 info_request: {
-                   public_body_id: @body.id,
-                   title: 'Test request',
-                   tag_string: ''
-                 },
-                 outgoing_message: {
-                   body: 'This is a silly letter.'
-                 },
-                 submitted_new_request: 1,
-                 preview: 0
-               }
+        info_request: {
+          public_body_id: @body.id,
+          title: 'Test request',
+          tag_string: ''
+        },
+        outgoing_message: {
+          body: 'This is a silly letter.'
+        },
+        submitted_new_request: 1,
+        preview: 0
+      }
     end
 
     let(:request) { assigns[:info_request] }
@@ -831,21 +834,22 @@ describe RequestController, "when creating a new request" do
       pro_user = FactoryBot.create(:pro_user)
       public_body = FactoryBot.create(:public_body)
       session[:user_id] = pro_user.id
-      get :new, params: { :url_name => public_body.url_name }
+      get :new, params: { url_name: public_body.url_name }
       expected_url = new_alaveteli_pro_info_request_url(
-        public_body: public_body.url_name)
+        public_body: public_body.url_name
+      )
       expect(response).to redirect_to(expected_url)
     end
   end
 
   it "should accept a public body parameter" do
-    get :new, params: { :public_body_id => @body.id }
+    get :new, params: { public_body_id: @body.id }
     expect(assigns[:info_request].public_body).to eq(@body)
     expect(response).to render_template('new')
   end
 
   it 'assigns a default text for the request' do
-    get :new, params: { :public_body_id => @body.id }
+    get :new, params: { public_body_id: @body.id }
     expect(assigns[:info_request].public_body).to eq(@body)
     expect(response).to render_template('new')
     default_message = <<-EOF.strip_heredoc
@@ -857,7 +861,7 @@ describe RequestController, "when creating a new request" do
   end
 
   it 'allows the default text to be set via the default_letter param' do
-    get :new, params: { :url_name => @body.url_name, :default_letter => "test" }
+    get :new, params: { url_name: @body.url_name, default_letter: "test" }
     default_message = <<-EOF.strip_heredoc
     Dear Geraldine Quango,
 
@@ -870,11 +874,11 @@ describe RequestController, "when creating a new request" do
 
   it 'should display one meaningful error message when no message body is added' do
     post :new, params: {
-                 :info_request => { :public_body_id => @body.id },
-                 :outgoing_message => { :body => "" },
-                 :submitted_new_request => 1,
-                 :preview => 1
-               }
+      info_request: { public_body_id: @body.id },
+      outgoing_message: { body: "" },
+      submitted_new_request: 1,
+      preview: 1
+    }
     expect(assigns[:info_request].errors.full_messages).not_to include('Outgoing messages is invalid')
     expect(assigns[:outgoing_message].errors.full_messages).to include('Body Please enter your letter requesting information')
   end
@@ -882,93 +886,91 @@ describe RequestController, "when creating a new request" do
   it "should give an error and render 'new' template when a summary isn't given" do
     post :new,
          params: {
-           :info_request => { :public_body_id => @body.id },
-           :outgoing_message => {
-             :body =>
-               "This is a silly letter. It is too short to be interesting."
+           info_request: { public_body_id: @body.id },
+           outgoing_message: {
+             body: "This is a silly letter. It is too short to be interesting."
            },
-           :submitted_new_request => 1,
-           :preview => 1
+           submitted_new_request: 1,
+           preview: 1
          }
     expect(assigns[:info_request].errors[:title]).not_to be_nil
     expect(response).to render_template('new')
   end
 
   it "should redirect to sign in page when input is good and nobody is logged in" do
-    params = { :info_request => { :public_body_id => @body.id,
-                                  :title => "Why is your quango called Geraldine?", :tag_string => "" },
-               :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
-               :submitted_new_request => 1, :preview => 0
-               }
+    params = { info_request: { public_body_id: @body.id,
+                               title: "Why is your quango called Geraldine?", tag_string: "" },
+               outgoing_message: { body: "This is a silly letter. It is too short to be interesting." },
+               submitted_new_request: 1, preview: 0 }
     post :new, params: params
     expect(response).
-      to redirect_to(signin_path(:token => get_last_post_redirect.token))
+      to redirect_to(signin_path(token: get_last_post_redirect.token))
     # post_redirect.post_params.should == params # TODO: get this working. there's a : vs '' problem amongst others
   end
 
   it 'redirects to the frontpage if the action is sent the invalid
         public_body param' do
     post :new, params: {
-                 :info_request => {
-                   :public_body => @body.id,
-                   :title => 'Why Geraldine?',
-                   :tag_string => ''
-                 },
-                 :outgoing_message => { :body => 'This is a silly letter.'},
-                 :submitted_new_request => 1,
-                 :preview => 1
-               }
+      info_request: {
+        public_body: @body.id,
+        title: 'Why Geraldine?',
+        tag_string: ''
+      },
+      outgoing_message: { body: 'This is a silly letter.' },
+      submitted_new_request: 1,
+      preview: 1
+    }
     expect(response).to redirect_to frontpage_url
   end
 
   it "should show preview when input is good" do
     session[:user_id] = @user.id
     post :new, params: {
-                 :info_request => {
-                   :public_body_id => @body.id,
-                   :title => "Why is your quango called Geraldine?",
-                   :tag_string => ""
-                 },
-                 :outgoing_message => {
-                  :body => "This is a silly letter. It is too short to be interesting."
-                 },
-                 :submitted_new_request => 1,
-                 :preview => 1
-               }
+      info_request: {
+        public_body_id: @body.id,
+        title: "Why is your quango called Geraldine?",
+        tag_string: ""
+      },
+      outgoing_message: {
+        body: "This is a silly letter. It is too short to be interesting."
+      },
+      submitted_new_request: 1,
+      preview: 1
+    }
     expect(response).to render_template('preview')
   end
 
   it "should allow re-editing of a request" do
     post :new, params: {
-                 :info_request => {
-                   :public_body_id => @body.id,
-                   :title => "Why is your quango called Geraldine?",
-                   :tag_string => ""
-                 },
-                 :outgoing_message => {
-                   :body => "This is a silly letter. It is too short to be interesting."
-                 },
-                 :submitted_new_request => 1,
-                 :preview => 0,
-                 :reedit => "Re-edit this request"
-               }
+      info_request: {
+        public_body_id: @body.id,
+        title: "Why is your quango called Geraldine?",
+        tag_string: ""
+      },
+      outgoing_message: {
+        body: "This is a silly letter. It is too short to be interesting."
+      },
+      submitted_new_request: 1,
+      preview: 0,
+      reedit: "Re-edit this request"
+    }
     expect(response).to render_template('new')
   end
 
   it "re-editing preserves the message body" do
     post :new, params: {
-                 :info_request => {
-                   :public_body_id => @body.id,
-                   :title => "Why is your quango called Geraldine?",
-                   :tag_string => ""
-                 },
-                 :outgoing_message => {
-                   :body => "This is a silly letter. It is too short to be interesting."
-                 },
-                 :submitted_new_request => 1,
-                 :preview => 0,
-                 :reedit => "Re-edit this request"
-               }
+      info_request: {
+        public_body_id: @body.id,
+        title: "Why is your quango called Geraldine?",
+        tag_string: ""
+      },
+      outgoing_message: {
+        body: "This is a silly letter. It is too short to be interesting."
+      },
+      submitted_new_request: 1,
+      preview: 0,
+      reedit: "Re-edit this request"
+    }
     expect(assigns[:outgoing_message].body).
       to include('This is a silly letter. It is too short to be interesting.')
   end
@@ -976,19 +978,19 @@ describe RequestController, "when creating a new request" do
   it "should create the request and outgoing message, and send the outgoing message by email, and redirect to request page when input is good and somebody is logged in" do
     session[:user_id] = @user.id
     post :new, params: {
-                 :info_request => {
-                   :public_body_id => @body.id,
-                   :title => "Why is your quango called Geraldine?",
-                   :tag_string => ""
-                 },
-                 :outgoing_message => {
-                   :body => "This is a silly letter. It is too short to be interesting."
-                 },
-                 :submitted_new_request => 1,
-                 :preview => 0
-               }
+      info_request: {
+        public_body_id: @body.id,
+        title: "Why is your quango called Geraldine?",
+        tag_string: ""
+      },
+      outgoing_message: {
+        body: "This is a silly letter. It is too short to be interesting."
+      },
+      submitted_new_request: 1,
+      preview: 0
+    }
 
-    ir_array = InfoRequest.where(:title => "Why is your quango called Geraldine?")
+    ir_array = InfoRequest.where(title: "Why is your quango called Geraldine?")
     expect(ir_array.size).to eq(1)
     ir = ir_array[0]
     expect(ir.outgoing_messages.size).to eq(1)
@@ -1000,23 +1002,23 @@ describe RequestController, "when creating a new request" do
     mail = deliveries[0]
     expect(mail.body).to match(/This is a silly letter. It is too short to be interesting./)
 
-    expect(response).to redirect_to show_request_url(:url_title => ir.url_title)
+    expect(response).to redirect_to show_request_url(url_title: ir.url_title)
   end
 
   it "sets the request_sent flash to true if successful" do
     session[:user_id] = @user.id
     post :new, params: {
-                 :info_request => {
-                   :public_body_id => @body.id,
-                   :title => "Why is your quango called Geraldine?",
-                   :tag_string => ""
-                 },
-                 :outgoing_message => {
-                   :body => "This is a silly letter. It is too short to be interesting."
-                 },
-                 :submitted_new_request => 1,
-                 :preview => 0
-               }
+      info_request: {
+        public_body_id: @body.id,
+        title: "Why is your quango called Geraldine?",
+        tag_string: ""
+      },
+      outgoing_message: {
+        body: "This is a silly letter. It is too short to be interesting."
+      },
+      submitted_new_request: 1,
+      preview: 0
+    }
 
     expect(flash[:request_sent]).to be true
   end
@@ -1027,16 +1029,16 @@ describe RequestController, "when creating a new request" do
     # We use raw_body here, so white space is the same
     post :new,
          params: {
-           :info_request => {
-             :public_body_id => info_requests(:fancy_dog_request).public_body_id,
-             :title => info_requests(:fancy_dog_request).title
+           info_request: {
+             public_body_id: info_requests(:fancy_dog_request).public_body_id,
+             title: info_requests(:fancy_dog_request).title
            },
-           :outgoing_message => {
-             :body => info_requests(:fancy_dog_request).outgoing_messages[0].raw_body
+           outgoing_message: {
+             body: info_requests(:fancy_dog_request).outgoing_messages[0].raw_body
            },
-           :submitted_new_request => 1,
-           :preview => 0,
-           :mouse_house => 1
+           submitted_new_request: 1,
+           preview: 0,
+           mouse_house: 1
          }
     expect(response).to render_template('new')
   end
@@ -1046,34 +1048,33 @@ describe RequestController, "when creating a new request" do
 
     post :new,
          params: {
-           :info_request => {
-             :public_body_id => @body.id,
-             :title => "Why is your quango called Geraldine?",
-             :tag_string => ""
+           info_request: {
+             public_body_id: @body.id,
+             title: "Why is your quango called Geraldine?",
+             tag_string: ""
            },
-           :outgoing_message => {
-             :body =>
-               "This is a silly letter. It is too short to be interesting."
+           outgoing_message: {
+             body: "This is a silly letter. It is too short to be interesting."
            },
-           :submitted_new_request => 1,
-           :preview => 0
+           submitted_new_request: 1,
+           preview: 0
          }
 
     post :new,
          params: {
-           :info_request => {
-             :public_body_id => @body.id,
-             :title => "Why is your quango called Geraldine?",
-             :tag_string => ""
+           info_request: {
+             public_body_id: @body.id,
+             title: "Why is your quango called Geraldine?",
+             tag_string: ""
            },
-           :outgoing_message => {
-             :body => "This is a sensible letter. It is too long to be boring."
+           outgoing_message: {
+             body: "This is a sensible letter. It is too long to be boring."
            },
-           :submitted_new_request => 1,
-           :preview => 0
+           submitted_new_request: 1,
+           preview: 0
          }
 
-    ir_array = InfoRequest.where(:title => "Why is your quango called Geraldine?").
+    ir_array = InfoRequest.where(title: "Why is your quango called Geraldine?").
                             order("id")
     expect(ir_array.size).to eq(2)
 
@@ -1082,7 +1083,7 @@ describe RequestController, "when creating a new request" do
 
     expect(ir.url_title).not_to eq(ir2.url_title)
 
-    expect(response).to redirect_to show_request_url(:url_title => ir2.url_title)
+    expect(response).to redirect_to show_request_url(url_title: ir2.url_title)
   end
 
   it 'should respect the rate limit' do
@@ -1091,48 +1092,47 @@ describe RequestController, "when creating a new request" do
     session[:user_id] = users(:robin_user).id
 
     post :new, params: {
-                 :info_request => {
-                   :public_body_id => @body.id,
-                   :title => "What is the answer to the ultimate question?",
-                   :tag_string => ""
-                 },
-                 :outgoing_message => {
-                   :body => "Please supply the answer from your files."
-                 },
-                 :submitted_new_request => 1,
-                 :preview => 0
-               }
-    expect(response).to redirect_to show_request_url(:url_title => 'what_is_the_answer_to_the_ultima')
-
+      info_request: {
+        public_body_id: @body.id,
+        title: "What is the answer to the ultimate question?",
+        tag_string: ""
+      },
+      outgoing_message: {
+        body: "Please supply the answer from your files."
+      },
+      submitted_new_request: 1,
+      preview: 0
+    }
+    expect(response).to redirect_to show_request_url(url_title: 'what_is_the_answer_to_the_ultima')
 
     post :new,
          params: {
-           :info_request => {
-             :public_body_id => @body.id,
-             :title => "Why did the chicken cross the road?",
-             :tag_string => ""
+           info_request: {
+             public_body_id: @body.id,
+             title: "Why did the chicken cross the road?",
+             tag_string: ""
            },
-           :outgoing_message => {
-             :body => "Please send me all the relevant documents you hold."
+           outgoing_message: {
+             body: "Please send me all the relevant documents you hold."
            },
-           :submitted_new_request => 1,
-           :preview => 0
+           submitted_new_request: 1,
+           preview: 0
          }
-    expect(response).to redirect_to show_request_url(:url_title => 'why_did_the_chicken_cross_the_ro')
+    expect(response).to redirect_to show_request_url(url_title: 'why_did_the_chicken_cross_the_ro')
 
     post :new,
          params: {
-           :info_request => {
-             :public_body_id => @body.id,
-             :title => "What's black and white and red all over?",
-             :tag_string => ""
+           info_request: {
+             public_body_id: @body.id,
+             title: "What's black and white and red all over?",
+             tag_string: ""
            },
-           :outgoing_message => {
-             :body => "Please send all minutes of meetings and email records " \
+           outgoing_message: {
+             body: "Please send all minutes of meetings and email records " \
                       "that address this question."
            },
-           :submitted_new_request => 1,
-           :preview => 0
+           submitted_new_request: 1,
+           preview: 0
          }
     expect(response).to render_template('user/rate_limited')
   end
@@ -1145,50 +1145,49 @@ describe RequestController, "when creating a new request" do
     users(:robin_user).save!
 
     post :new, params: {
-                 :info_request => {
-                   :public_body_id => @body.id,
-                   :title => "What is the answer to the ultimate question?",
-                   :tag_string => ""
-                 },
-                 :outgoing_message => {
-                   :body => "Please supply the answer from your files."
-                 },
-                 :submitted_new_request => 1,
-                 :preview => 0
-               }
-    expect(response).to redirect_to show_request_url(:url_title => 'what_is_the_answer_to_the_ultima')
-
+      info_request: {
+        public_body_id: @body.id,
+        title: "What is the answer to the ultimate question?",
+        tag_string: ""
+      },
+      outgoing_message: {
+        body: "Please supply the answer from your files."
+      },
+      submitted_new_request: 1,
+      preview: 0
+    }
+    expect(response).to redirect_to show_request_url(url_title: 'what_is_the_answer_to_the_ultima')
 
     post :new,
          params: {
-           :info_request => {
-             :public_body_id => @body.id,
-             :title => "Why did the chicken cross the road?",
-             :tag_string => ""
+           info_request: {
+             public_body_id: @body.id,
+             title: "Why did the chicken cross the road?",
+             tag_string: ""
            },
-           :outgoing_message => {
-             :body => "Please send me all the relevant documents you hold."
+           outgoing_message: {
+             body: "Please send me all the relevant documents you hold."
            },
-           :submitted_new_request => 1,
-           :preview => 0
+           submitted_new_request: 1,
+           preview: 0
          }
-    expect(response).to redirect_to show_request_url(:url_title => 'why_did_the_chicken_cross_the_ro')
+    expect(response).to redirect_to show_request_url(url_title: 'why_did_the_chicken_cross_the_ro')
 
     post :new,
          params: {
-           :info_request => {
-             :public_body_id => @body.id,
-             :title => "What's black and white and red all over?",
-             :tag_string => ""
+           info_request: {
+             public_body_id: @body.id,
+             title: "What's black and white and red all over?",
+             tag_string: ""
            },
-           :outgoing_message => {
-             :body => "Please send all minutes of meetings and email records " \
+           outgoing_message: {
+             body: "Please send all minutes of meetings and email records " \
                       "that address this question."
            },
-           :submitted_new_request => 1,
-           :preview => 0
+           submitted_new_request: 1,
+           preview: 0
          }
-    expect(response).to redirect_to show_request_url(:url_title => 'whats_black_and_white_and_red_al')
+    expect(response).to redirect_to show_request_url(url_title: 'whats_black_and_white_and_red_al')
   end
 
   describe 'when rendering a reCAPTCHA' do
@@ -1196,21 +1195,21 @@ describe RequestController, "when creating a new request" do
     context 'when new_request_recaptcha disabled' do
 
       before do
-        allow(AlaveteliConfiguration).to receive(:new_request_recaptcha)
-          .and_return(false)
+        allow(AlaveteliConfiguration).to receive(:new_request_recaptcha).
+          and_return(false)
       end
 
       it 'sets render_recaptcha to false' do
         post :new, params: {
-                     :info_request => {
-                       :public_body_id => @body.id,
-                       :title => "What's black and white and red all over?",
-                       :tag_string => ""
-                     },
-                     :outgoing_message => { :body => "Please send info" },
-                     :submitted_new_request => 1,
-                     :preview => 0
-                   }
+          info_request: {
+            public_body_id: @body.id,
+            title: "What's black and white and red all over?",
+            tag_string: ""
+          },
+          outgoing_message: { body: "Please send info" },
+          submitted_new_request: 1,
+          preview: 0
+        }
         expect(assigns[:render_recaptcha]).to eq(false)
       end
     end
@@ -1218,55 +1217,55 @@ describe RequestController, "when creating a new request" do
     context 'when new_request_recaptcha is enabled' do
 
       before do
-        allow(AlaveteliConfiguration).to receive(:new_request_recaptcha)
-          .and_return(true)
+        allow(AlaveteliConfiguration).to receive(:new_request_recaptcha).
+          and_return(true)
       end
 
       it 'sets render_recaptcha to true if there is no logged in user' do
         post :new, params: {
-                     :info_request => {
-                       :public_body_id => @body.id,
-                       :title => "What's black and white and red all over?",
-                       :tag_string => ""
-                     },
-                     :outgoing_message => { :body => "Please send info" },
-                     :submitted_new_request => 1,
-                     :preview => 0
-                   }
+          info_request: {
+            public_body_id: @body.id,
+            title: "What's black and white and red all over?",
+            tag_string: ""
+          },
+          outgoing_message: { body: "Please send info" },
+          submitted_new_request: 1,
+          preview: 0
+        }
         expect(assigns[:render_recaptcha]).to eq(true)
       end
 
       it 'sets render_recaptcha to true if there is a logged in user who is not
             confirmed as not spam' do
         session[:user_id] =
-          FactoryBot.create(:user, :confirmed_not_spam => false).id
+          FactoryBot.create(:user, confirmed_not_spam: false).id
         post :new, params: {
-                     :info_request => {
-                       :public_body_id => @body.id,
-                       :title => "What's black and white and red all over?",
-                       :tag_string => ""
-                     },
-                     :outgoing_message => { :body => "Please send info" },
-                     :submitted_new_request => 1,
-                     :preview => 0
-                   }
+          info_request: {
+            public_body_id: @body.id,
+            title: "What's black and white and red all over?",
+            tag_string: ""
+          },
+          outgoing_message: { body: "Please send info" },
+          submitted_new_request: 1,
+          preview: 0
+        }
         expect(assigns[:render_recaptcha]).to eq(true)
       end
 
       it 'sets render_recaptcha to false if there is a logged in user who is
             confirmed as not spam' do
         session[:user_id] = FactoryBot.create(:user,
-                                              :confirmed_not_spam => true).id
+                                              confirmed_not_spam: true).id
         post :new, params: {
-                     :info_request => {
-                        :public_body_id => @body.id,
-                        :title => "What's black and white and red all over?",
-                        :tag_string => ""
-                      },
-                      :outgoing_message => { :body => "Please send info" },
-                      :submitted_new_request => 1,
-                      :preview => 0
-                    }
+          info_request: {
+            public_body_id: @body.id,
+            title: "What's black and white and red all over?",
+            tag_string: ""
+          },
+          outgoing_message: { body: "Please send info" },
+          submitted_new_request: 1,
+          preview: 0
+        }
         expect(assigns[:render_recaptcha]).to eq(false)
       end
 
@@ -1276,42 +1275,44 @@ describe RequestController, "when creating a new request" do
           allow(controller).to receive(:verify_recaptcha).and_return(false)
         end
 
-        let(:user) { FactoryBot.create(:user,
-                                      :confirmed_not_spam => false) }
+        let(:user) {
+  FactoryBot.create(:user,
+                    confirmed_not_spam: false)
+}
         let(:body) { FactoryBot.create(:public_body) }
 
         it 'shows an error message' do
           session[:user_id] = user.id
           post :new, params: {
-                       :info_request => {
-                         :public_body_id => body.id,
-                         :title => "Some request text",
-                         :tag_string => ""
-                        },
-                        :outgoing_message => {
-                          :body => "Please supply the answer from your files."
-                        },
-                        :submitted_new_request => 1,
-                        :preview => 0
-                     }
-          expect(flash[:error])
-            .to eq('There was an error with the reCAPTCHA. Please try again.')
+            info_request: {
+              public_body_id: body.id,
+              title: "Some request text",
+              tag_string: ""
+            },
+            outgoing_message: {
+              body: "Please supply the answer from your files."
+            },
+            submitted_new_request: 1,
+            preview: 0
+          }
+          expect(flash[:error]).
+            to eq('There was an error with the reCAPTCHA. Please try again.')
         end
 
         it 'renders the compose interface' do
           session[:user_id] = user.id
           post :new, params: {
-                       :info_request => {
-                         :public_body_id => body.id,
-                         :title => "Some request text",
-                         :tag_string => ""
-                       },
-                       :outgoing_message => {
-                         :body => "Please supply the answer from your files."
-                       },
-                       :submitted_new_request => 1,
-                       :preview => 0
-                     }
+            info_request: {
+              public_body_id: body.id,
+              title: "Some request text",
+              tag_string: ""
+            },
+            outgoing_message: {
+              body: "Please supply the answer from your files."
+            },
+            submitted_new_request: 1,
+            preview: 0
+          }
           expect(response).to render_template("new")
         end
 
@@ -1320,19 +1321,19 @@ describe RequestController, "when creating a new request" do
           user.save!
           session[:user_id] = user.id
           post :new, params: {
-                       :info_request => {
-                         :public_body_id => body.id,
-                         :title => "Some request text",
-                         :tag_string => ""
-                       },
-                       :outgoing_message => {
-                         :body => "Please supply the answer from your files."
-                       },
-                       :submitted_new_request => 1,
-                       :preview => 0
-                     }
-          expect(response)
-            .to redirect_to show_request_path(:url_title => 'some_request_text')
+            info_request: {
+              public_body_id: body.id,
+              title: "Some request text",
+              tag_string: ""
+            },
+            outgoing_message: {
+              body: "Please supply the answer from your files."
+            },
+            submitted_new_request: 1,
+            preview: 0
+          }
+          expect(response).
+            to redirect_to show_request_path(url_title: 'some_request_text')
         end
 
       end
@@ -1343,10 +1344,11 @@ describe RequestController, "when creating a new request" do
 
   context 'when the request subject line looks like spam' do
 
-    let(:user) { FactoryBot.create(:user,
-                                   :confirmed_not_spam => false) }
+    let(:user) {
+  FactoryBot.create(:user,
+                    confirmed_not_spam: false)
+}
     let(:body) { FactoryBot.create(:public_body) }
-
 
     context 'when given a string containing unicode characters' do
 
@@ -1356,17 +1358,17 @@ describe RequestController, "when creating a new request" do
         session[:user_id] = user.id
         title = "▩█ -Free Ɓrazzers Password Hăck Premium Account List 2017 ᒬᒬ"
         post :new, params: {
-                     :info_request => {
-                       :public_body_id => body.id,
-                       :title => title,
-                       :tag_string => ""
-                     },
-                     :outgoing_message => {
-                       :body => "Please supply the answer."
-                     },
-                     :submitted_new_request => 1,
-                     :preview => 0
-                   }
+          info_request: {
+            public_body_id: body.id,
+            title: title,
+            tag_string: ""
+          },
+          outgoing_message: {
+            body: "Please supply the answer."
+          },
+          submitted_new_request: 1,
+          preview: 0
+        }
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to match(/Spam request from user #{ user.id }/)
       end
@@ -1386,16 +1388,16 @@ describe RequestController, "when creating a new request" do
         session[:user_id] = user.id
         post :new,
              params: {
-               :info_request => {
-                 :public_body_id => body.id,
-                 :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD",
-                 :tag_string => ""
+               info_request: {
+                 public_body_id: body.id,
+                 title: "[HD] Watch Jason Bourne Online free MOVIE Full-HD",
+                 tag_string: ""
                },
-               :outgoing_message => {
-                 :body => "Please supply the answer."
+               outgoing_message: {
+                 body: "Please supply the answer."
                },
-               :submitted_new_request => 1,
-               :preview => 0
+               submitted_new_request: 1,
+               preview: 0
              }
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to match(/Spam request from user #{ user.id }/)
@@ -1413,16 +1415,16 @@ describe RequestController, "when creating a new request" do
         session[:user_id] = user.id
         post :new,
              params: {
-               :info_request => {
-                 :public_body_id => body.id,
-                 :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD",
-                 :tag_string => ""
+               info_request: {
+                 public_body_id: body.id,
+                 title: "[HD] Watch Jason Bourne Online free MOVIE Full-HD",
+                 tag_string: ""
                },
-               :outgoing_message => {
-                 :body => "Please supply the answer from your files."
+               outgoing_message: {
+                 body: "Please supply the answer from your files."
                },
-               :submitted_new_request => 1,
-               :preview => 0
+               submitted_new_request: 1,
+               preview: 0
              }
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to match(/Spam request from user #{ user.id }/)
@@ -1432,36 +1434,36 @@ describe RequestController, "when creating a new request" do
         session[:user_id] = user.id
         post :new,
              params: {
-               :info_request => {
-                 :public_body_id => body.id,
-                 :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD",
-                 :tag_string => ""
+               info_request: {
+                 public_body_id: body.id,
+                 title: "[HD] Watch Jason Bourne Online free MOVIE Full-HD",
+                 tag_string: ""
                },
-               :outgoing_message => {
-                 :body => "Please supply the answer from your files."
+               outgoing_message: {
+                 body: "Please supply the answer from your files."
                },
-               :submitted_new_request => 1,
-               :preview => 0
+               submitted_new_request: 1,
+               preview: 0
              }
-        expect(flash[:error])
-          .to eq("Sorry, we're currently unable to send your request. Please try again later.")
+        expect(flash[:error]).
+          to eq("Sorry, we're currently unable to send your request. Please try again later.")
       end
 
       it 'renders the compose interface' do
         session[:user_id] = user.id
         post :new,
-               params: {
-                 :info_request => {
-                   :public_body_id => body.id,
-                   :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD",
-                   :tag_string => ""
-                 },
-                 :outgoing_message => {
-                   :body => "Please supply the answer from your files."
-                 },
-                 :submitted_new_request => 1,
-                 :preview => 0
-               }
+             params: {
+               info_request: {
+                 public_body_id: body.id,
+                 title: "[HD] Watch Jason Bourne Online free MOVIE Full-HD",
+                 tag_string: ""
+               },
+               outgoing_message: {
+                 body: "Please supply the answer from your files."
+               },
+               submitted_new_request: 1,
+               preview: 0
+             }
         expect(response).to render_template("new")
       end
 
@@ -1471,19 +1473,19 @@ describe RequestController, "when creating a new request" do
         session[:user_id] = user.id
         post :new,
              params: {
-               :info_request => {
-                 :public_body_id => body.id,
-                 :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD",
-                 :tag_string => ""
+               info_request: {
+                 public_body_id: body.id,
+                 title: "[HD] Watch Jason Bourne Online free MOVIE Full-HD",
+                 tag_string: ""
                },
-               :outgoing_message => {
-                 :body => "Please supply the answer from your files."
+               outgoing_message: {
+                 body: "Please supply the answer from your files."
                },
-               :submitted_new_request => 1,
-               :preview => 0
+               submitted_new_request: 1,
+               preview: 0
              }
-        expect(response)
-          .to redirect_to show_request_path(:url_title => 'hd_watch_jason_bourne_online_fre')
+        expect(response).
+          to redirect_to show_request_path(url_title: 'hd_watch_jason_bourne_online_fre')
       end
 
     end
@@ -1498,16 +1500,16 @@ describe RequestController, "when creating a new request" do
         session[:user_id] = user.id
         post :new,
              params: {
-               :info_request => {
-                 :public_body_id => body.id,
-                 :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD",
-                 :tag_string => ""
+               info_request: {
+                 public_body_id: body.id,
+                 title: "[HD] Watch Jason Bourne Online free MOVIE Full-HD",
+                 tag_string: ""
                },
-               :outgoing_message => {
-                 :body => "Please supply the answer from your files."
+               outgoing_message: {
+                 body: "Please supply the answer from your files."
                },
-               :submitted_new_request => 1,
-               :preview => 0
+               submitted_new_request: 1,
+               preview: 0
              }
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to match(/Spam request from user #{ user.id }/)
@@ -1517,19 +1519,19 @@ describe RequestController, "when creating a new request" do
         session[:user_id] = user.id
         post :new,
              params: {
-               :info_request => {
-                 :public_body_id => body.id,
-                 :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD",
-                 :tag_string => ""
+               info_request: {
+                 public_body_id: body.id,
+                 title: "[HD] Watch Jason Bourne Online free MOVIE Full-HD",
+                 tag_string: ""
                },
-               :outgoing_message => {
-                 :body => "Please supply the answer from your files."
+               outgoing_message: {
+                 body: "Please supply the answer from your files."
                },
-               :submitted_new_request => 1,
-               :preview => 0
+               submitted_new_request: 1,
+               preview: 0
              }
-        expect(response)
-          .to redirect_to show_request_path(:url_title => 'hd_watch_jason_bourne_online_fre')
+        expect(response).
+          to redirect_to show_request_path(url_title: 'hd_watch_jason_bourne_online_fre')
       end
 
     end
@@ -1538,8 +1540,10 @@ describe RequestController, "when creating a new request" do
 
   describe 'when the request is from an IP address in a blocked country' do
 
-    let(:user) { FactoryBot.create(:user,
-                                   :confirmed_not_spam => false) }
+    let(:user) {
+  FactoryBot.create(:user,
+                    confirmed_not_spam: false)
+}
     let(:body) { FactoryBot.create(:public_body) }
 
     before do
@@ -1557,17 +1561,17 @@ describe RequestController, "when creating a new request" do
       it 'sends an exception notification' do
         session[:user_id] = user.id
         post :new, params: {
-                     :info_request => {
-                       :public_body_id => body.id,
-                       :title => "Some request content",
-                       :tag_string => ""
-                     },
-                     :outgoing_message => {
-                       :body => "Please supply the answer from your files."
-                     },
-                     :submitted_new_request => 1,
-                     :preview => 0
-                   }
+          info_request: {
+            public_body_id: body.id,
+            title: "Some request content",
+            tag_string: ""
+          },
+          outgoing_message: {
+            body: "Please supply the answer from your files."
+          },
+          submitted_new_request: 1,
+          preview: 0
+        }
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to match(/\(ip_in_blocklist\) from #{ user.id }/)
       end
@@ -1575,35 +1579,35 @@ describe RequestController, "when creating a new request" do
       it 'shows an error message' do
         session[:user_id] = user.id
         post :new, params: {
-                     :info_request => {
-                       :public_body_id => body.id,
-                       :title => "Some request content",
-                       :tag_string => ""
-                     },
-                     :outgoing_message => {
-                       :body => "Please supply the answer from your files."
-                     },
-                     :submitted_new_request => 1,
-                     :preview => 0
-                   }
-        expect(flash[:error])
-          .to eq("Sorry, we're currently unable to send your request. Please try again later.")
+          info_request: {
+            public_body_id: body.id,
+            title: "Some request content",
+            tag_string: ""
+          },
+          outgoing_message: {
+            body: "Please supply the answer from your files."
+          },
+          submitted_new_request: 1,
+          preview: 0
+        }
+        expect(flash[:error]).
+          to eq("Sorry, we're currently unable to send your request. Please try again later.")
       end
 
       it 'renders the compose interface' do
         session[:user_id] = user.id
         post :new, params: {
-                     :info_request => {
-                       :public_body_id => body.id,
-                       :title => "Some request content",
-                       :tag_string => ""
-                     },
-                     :outgoing_message => {
-                       :body => "Please supply the answer from your files."
-                     },
-                     :submitted_new_request => 1,
-                     :preview => 0
-                   }
+          info_request: {
+            public_body_id: body.id,
+            title: "Some request content",
+            tag_string: ""
+          },
+          outgoing_message: {
+            body: "Please supply the answer from your files."
+          },
+          submitted_new_request: 1,
+          preview: 0
+        }
         expect(response).to render_template("new")
       end
 
@@ -1612,19 +1616,19 @@ describe RequestController, "when creating a new request" do
         user.save!
         session[:user_id] = user.id
         post :new, params: {
-                     :info_request => {
-                       :public_body_id => body.id,
-                       :title => "Some request content",
-                       :tag_string => ""
-                     },
-                     :outgoing_message => {
-                       :body => "Please supply the answer from your files."
-                     },
-                     :submitted_new_request => 1,
-                     :preview => 0
-                   }
-        expect(response)
-          .to redirect_to show_request_path(:url_title => 'some_request_content')
+          info_request: {
+            public_body_id: body.id,
+            title: "Some request content",
+            tag_string: ""
+          },
+          outgoing_message: {
+            body: "Please supply the answer from your files."
+          },
+          submitted_new_request: 1,
+          preview: 0
+        }
+        expect(response).
+          to redirect_to show_request_path(url_title: 'some_request_content')
       end
 
     end
@@ -1639,17 +1643,17 @@ describe RequestController, "when creating a new request" do
       it 'sends an exception notification' do
         session[:user_id] = user.id
         post :new, params: {
-                     :info_request => {
-                       :public_body_id => body.id,
-                       :title => "Some request content",
-                       :tag_string => ""
-                     },
-                     :outgoing_message => {
-                       :body => "Please supply the answer from your files."
-                     },
-                     :submitted_new_request => 1,
-                     :preview => 0
-                   }
+          info_request: {
+            public_body_id: body.id,
+            title: "Some request content",
+            tag_string: ""
+          },
+          outgoing_message: {
+            body: "Please supply the answer from your files."
+          },
+          submitted_new_request: 1,
+          preview: 0
+        }
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to match(/\(ip_in_blocklist\) from #{ user.id }/)
       end
@@ -1657,19 +1661,19 @@ describe RequestController, "when creating a new request" do
       it 'allows the request' do
         session[:user_id] = user.id
         post :new, params: {
-                     :info_request => {
-                       :public_body_id => body.id,
-                       :title => "Some request content",
-                       :tag_string => ""
-                     },
-                     :outgoing_message => {
-                       :body => "Please supply the answer from your files."
-                     },
-                     :submitted_new_request => 1,
-                     :preview => 0
-                   }
-        expect(response)
-          .to redirect_to show_request_path(:url_title => 'some_request_content')
+          info_request: {
+            public_body_id: body.id,
+            title: "Some request content",
+            tag_string: ""
+          },
+          outgoing_message: {
+            body: "Please supply the answer from your files."
+          },
+          submitted_new_request: 1,
+          preview: 0
+        }
+        expect(response).
+          to redirect_to show_request_path(url_title: 'some_request_content')
       end
 
     end
@@ -1688,20 +1692,20 @@ describe RequestController, "when making a new request" do
     allow(@user).to receive(:can_file_requests?).and_return(true)
     allow(@user).to receive(:locale).and_return("en")
     allow(User).to receive(:find).and_return(@user)
-    @body = FactoryBot.create(:public_body, :name => 'Test Quango')
+    @body = FactoryBot.create(:public_body, name: 'Test Quango')
   end
 
   it "should allow you to have one undescribed request" do
-    allow(@user).to receive(:get_undescribed_requests).and_return([ 1 ])
+    allow(@user).to receive(:get_undescribed_requests).and_return([1])
     session[:user_id] = @user.id
-    get :new, params: { :public_body_id => @body.id }
+    get :new, params: { public_body_id: @body.id }
     expect(response).to render_template('new')
   end
 
   it "should fail if more than one request undescribed" do
-    allow(@user).to receive(:get_undescribed_requests).and_return([ 1, 2 ])
+    allow(@user).to receive(:get_undescribed_requests).and_return([1, 2])
     session[:user_id] = @user.id
-    get :new, params: { :public_body_id => @body.id }
+    get :new, params: { public_body_id: @body.id }
     expect(response).to render_template('new_please_describe')
   end
 
@@ -1710,7 +1714,7 @@ describe RequestController, "when making a new request" do
     allow(@user).to receive(:exceeded_limit?).and_return(false)
     expect(@user).to receive(:can_fail_html).and_return('FAIL!')
     session[:user_id] = @user.id
-    get :new, params: { :public_body_id => @body.id }
+    get :new, params: { public_body_id: @body.id }
     expect(response).to render_template('user/banned')
   end
 
@@ -1724,7 +1728,7 @@ describe RequestController, "when viewing comments" do
 
   it "should link to the user who submitted it" do
     session[:user_id] = users(:bob_smith_user).id
-    get :show, params: { :url_title => 'why_do_you_have_such_a_fancy_dog' }
+    get :show, params: { url_title: 'why_do_you_have_such_a_fancy_dog' }
     expect(response.body).to have_css("div#comment-1 h2") do |s|
       expect(s).to contain /Silly.*left an annotation/m
       expect(s).not_to contain /You.*left an annotation/m
@@ -1733,7 +1737,7 @@ describe RequestController, "when viewing comments" do
 
   it "should link to the user who submitted to it, even if it is you" do
     session[:user_id] = users(:silly_name_user).id
-    get :show, params: { :url_title => 'why_do_you_have_such_a_fancy_dog' }
+    get :show, params: { url_title: 'why_do_you_have_such_a_fancy_dog' }
     expect(response.body).to have_css("div#comment-1 h2") do |s|
       expect(s).to contain /Silly.*left an annotation/m
       expect(s).not_to contain /You.*left an annotation/m
@@ -1742,18 +1746,17 @@ describe RequestController, "when viewing comments" do
 
 end
 
-
 describe RequestController, "authority uploads a response from the web interface" do
 
   before(:each) do
     # domain after the @ is used for authentication of FOI officers, so to test it
     # we need a user which isn't at localhost.
-    @normal_user = User.new(:name => "Mr. Normal", :email => "normal-user@flourish.org",
-                            :password => PostRedirect.generate_random_token)
+    @normal_user = User.new(name: "Mr. Normal", email: "normal-user@flourish.org",
+                            password: PostRedirect.generate_random_token)
     @normal_user.save!
 
-    @foi_officer_user = User.new(:name => "The Geraldine Quango", :email => "geraldine-requests@localhost",
-                                 :password => PostRedirect.generate_random_token)
+    @foi_officer_user = User.new(name: "The Geraldine Quango", email: "geraldine-requests@localhost",
+                                 password: PostRedirect.generate_random_token)
     @foi_officer_user.save!
   end
 
@@ -1762,7 +1765,7 @@ describe RequestController, "authority uploads a response from the web interface
 
     it 'raises an ActiveRecord::RecordNotFound error' do
       expect {
-        get :upload_response, params: { :url_title => embargoed_request.url_title }
+        get :upload_response, params: { url_title: embargoed_request.url_title }
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
 
@@ -1773,7 +1776,7 @@ describe RequestController, "authority uploads a response from the web interface
     expect(@ir.public_body.is_foi_officer?(@normal_user)).to eq(false)
     session[:user_id] = @normal_user.id
 
-    get :upload_response, params: { :url_title => 'why_do_you_have_such_a_fancy_dog' }
+    get :upload_response, params: { url_title: 'why_do_you_have_such_a_fancy_dog' }
     expect(response).to render_template('user/wrong_user')
   end
 
@@ -1782,7 +1785,7 @@ describe RequestController, "authority uploads a response from the web interface
     expect(@ir.public_body.is_foi_officer?(@foi_officer_user)).to eq(true)
     session[:user_id] = @foi_officer_user.id
 
-    get :upload_response, params: { :url_title => 'why_do_you_have_such_a_fancy_dog' }
+    get :upload_response, params: { url_title: 'why_do_you_have_such_a_fancy_dog' }
     expect(response).to render_template('request/upload_response')
   end
 
@@ -1792,27 +1795,27 @@ describe RequestController, "authority uploads a response from the web interface
     session[:user_id] = @normal_user.id
 
     # post up a photo of the parrot
-    parrot_upload = fixture_file_upload('/files/parrot.png','image/png')
+    parrot_upload = fixture_file_upload('/files/parrot.png', 'image/png')
     post :upload_response, params: {
-                             :url_title => 'why_do_you_have_such_a_fancy_dog',
-                             :body => "Find attached a picture of a parrot",
-                             :file_1 => parrot_upload,
-                             :submitted_upload_response => 1
-                           }
+      url_title: 'why_do_you_have_such_a_fancy_dog',
+      body: "Find attached a picture of a parrot",
+      file_1: parrot_upload,
+      submitted_upload_response: 1
+    }
     expect(response).to render_template('user/wrong_user')
   end
 
   it "should prevent entirely blank uploads" do
     session[:user_id] = @foi_officer_user.id
 
-    post :upload_response, params: { :url_title => 'why_do_you_have_such_a_fancy_dog', :body => "", :submitted_upload_response => 1 }
+    post :upload_response, params: { url_title: 'why_do_you_have_such_a_fancy_dog', body: "", submitted_upload_response: 1 }
     expect(response).to render_template('request/upload_response')
     expect(flash[:error]).to match(/Please type a message/)
   end
 
   it 'should 404 for non existent requests' do
     expect {
-      post :upload_response, params: { :url_title => 'i_dont_exist' }
+      post :upload_response, params: { url_title: 'i_dont_exist' }
     }.to raise_error(ActiveRecord::RecordNotFound)
   end
 
@@ -1824,15 +1827,15 @@ describe RequestController, "authority uploads a response from the web interface
     session[:user_id] = @foi_officer_user.id
 
     # post up a photo of the parrot
-    parrot_upload = fixture_file_upload('/files/parrot.png','image/png')
+    parrot_upload = fixture_file_upload('/files/parrot.png', 'image/png')
     post :upload_response, params: {
-                             :url_title => 'why_do_you_have_such_a_fancy_dog',
-                             :body => "Find attached a picture of a parrot",
-                             :file_1 => parrot_upload,
-                             :submitted_upload_response => 1
-                           }
+      url_title: 'why_do_you_have_such_a_fancy_dog',
+      body: "Find attached a picture of a parrot",
+      file_1: parrot_upload,
+      submitted_upload_response: 1
+    }
 
-    expect(response).to redirect_to(:action => 'show', :url_title => 'why_do_you_have_such_a_fancy_dog')
+    expect(response).to redirect_to(action: 'show', url_title: 'why_do_you_have_such_a_fancy_dog')
     expect(flash[:notice]).to match(/Thank you for responding to this FOI request/)
 
     # check there is a new attachment
@@ -1856,7 +1859,7 @@ describe RequestController, "when showing JSON version for API" do
   end
 
   it "should return data in JSON form" do
-    get :show, params: { :url_title => 'why_do_you_have_such_a_fancy_dog', :format => 'json' }
+    get :show, params: { url_title: 'why_do_you_have_such_a_fancy_dog', format: 'json' }
 
     ir = JSON.parse(response.body)
     expect(ir.class.to_s).to eq('Hash')
@@ -1875,17 +1878,17 @@ describe RequestController, "when doing type ahead searches" do
   end
 
   it 'can filter search results by public body' do
-    get :search_typeahead, params: { :q => 'boring', :requested_from => 'dfh' }
+    get :search_typeahead, params: { q: 'boring', requested_from: 'dfh' }
     expect(assigns[:query]).to eq('requested_from:dfh boring')
   end
 
   it 'defaults to 25 results per page' do
-    get :search_typeahead, params: { :q => 'boring' }
+    get :search_typeahead, params: { q: 'boring' }
     expect(assigns[:per_page]).to eq(25)
   end
 
   it 'can limit the number of searches returned' do
-    get :search_typeahead, params: { :q => 'boring', :per_page => '1' }
+    get :search_typeahead, params: { q: 'boring', per_page: '1' }
     expect(assigns[:per_page]).to eq(1)
     expect(assigns[:xapian_requests].results.size).to eq(1)
   end
@@ -1903,33 +1906,33 @@ describe RequestController, "when showing similar requests" do
 
   it "renders the 'similar' template" do
     get :similar, params: {
-                    :url_title => info_requests(:badger_request).url_title
-                  }
+      url_title: info_requests(:badger_request).url_title
+    }
     expect(response).to render_template("request/similar")
   end
 
   it 'assigns the request' do
     get :similar, params: {
-                    :url_title => info_requests(:badger_request).url_title
-                  }
+      url_title: info_requests(:badger_request).url_title
+    }
     expect(assigns[:info_request]).to eq(info_requests(:badger_request))
   end
 
   it "assigns a xapian object with similar requests" do
-    get :similar, params: { :url_title => badger_request.url_title }
+    get :similar, params: { url_title: badger_request.url_title }
 
     # Xapian seems to think *all* the requests are similar
     results = assigns[:xapian_object].results
     expected = InfoRequest.all.reject { |request| request == badger_request }
-    expect(results.map { |result| result[:model].info_request })
-      .to match_array(expected)
+    expect(results.map { |result| result[:model].info_request }).
+      to match_array(expected)
   end
 
   it "raises ActiveRecord::RecordNotFound for non-existent paths" do
     expect {
       get :similar, params: {
-                      :url_title => "there_is_really_no_such_path_owNAFkHR"
-                    }
+        url_title: "there_is_really_no_such_path_owNAFkHR"
+      }
     }.to raise_error(ActiveRecord::RecordNotFound)
   end
 
@@ -1937,16 +1940,16 @@ describe RequestController, "when showing similar requests" do
       page we want to show" do
     expect {
       get :similar, params: {
-                      :url_title => badger_request.url_title,
-                      :page => 100
-                    }
+        url_title: badger_request.url_title,
+        page: 100
+      }
     }.to raise_error(ActiveRecord::RecordNotFound)
   end
 
   it 'raises ActiveRecord::RecordNotFound if the request is embargoed' do
-    badger_request.create_embargo(:publish_at => Time.zone.now + 3.days)
+    badger_request.create_embargo(publish_at: Time.zone.now + 3.days)
     expect {
-      get :similar, params: { :url_title => badger_request.url_title }
+      get :similar, params: { url_title: badger_request.url_title }
     }.to raise_error(ActiveRecord::RecordNotFound)
   end
 
@@ -1963,60 +1966,60 @@ describe RequestController, "#new_batch" do
     context "when the current user can make batch requests" do
 
       before do
-        @user = FactoryBot.create(:user, :can_make_batch_requests => true)
+        @user = FactoryBot.create(:user, can_make_batch_requests: true)
         @public_body = FactoryBot.create(:public_body)
         @other_public_body = FactoryBot.create(:public_body)
         @public_body_ids = [@public_body.id, @other_public_body.id]
-        @default_post_params = { :info_request => { :title => "What does it all mean?",
-                                                    :tag_string => "" },
-                                 :public_body_ids => @public_body_ids,
-                                 :outgoing_message => { :body => "This is a silly letter." },
-                                 :submitted_new_request => 1,
-                                 :preview => 1 }
+        @default_post_params = { info_request: { title: "What does it all mean?",
+                                                 tag_string: "" },
+                                 public_body_ids: @public_body_ids,
+                                 outgoing_message: { body: "This is a silly letter." },
+                                 submitted_new_request: 1,
+                                 preview: 1 }
       end
 
       it 'should be successful' do
-        get :new_batch, params: { :public_body_ids => @public_body_ids },
-                        session: { :user_id => @user.id }
+        get :new_batch, params: { public_body_ids: @public_body_ids },
+                        session: { user_id: @user.id }
         expect(response).to be_successful
       end
 
       it 'should render the "new" template' do
-        get :new_batch, params: { :public_body_ids => @public_body_ids },
-                        session: { :user_id => @user.id }
+        get :new_batch, params: { public_body_ids: @public_body_ids },
+                        session: { user_id: @user.id }
         expect(response).to render_template('request/new')
       end
 
       it 'should redirect to "select_authorities" if no public_body_ids param is passed' do
-        get :new_batch, session: { :user_id => @user.id }
+        get :new_batch, session: { user_id: @user.id }
         expect(response).to redirect_to select_authorities_path
       end
 
       it "should render 'preview' when given a good title and body" do
         post :new_batch, params: @default_post_params,
-                         session: { :user_id => @user.id }
+                         session: { user_id: @user.id }
         expect(response).to render_template('preview')
       end
 
       it "should give an error and render 'new' template when a summary isn't given" do
         @default_post_params[:info_request].delete(:title)
         post :new_batch, params: @default_post_params,
-                         session: { :user_id => @user.id }
+                         session: { user_id: @user.id }
         expect(assigns[:info_request].errors[:title]).to eq(['Please enter a summary of your request'])
         expect(response).to render_template('new')
       end
 
       it "should allow re-editing of a request" do
-        params = @default_post_params.merge(:preview => 0, :reedit => 1)
+        params = @default_post_params.merge(preview: 0, reedit: 1)
         post :new_batch, params: params,
-                         session: { :user_id => @user.id }
+                         session: { user_id: @user.id }
         expect(response).to render_template('new')
       end
 
       it "re-editing preserves the message body" do
-        params = @default_post_params.merge(:preview => 0, :reedit => 1)
+        params = @default_post_params.merge(preview: 0, reedit: 1)
         post :new_batch, params: params,
-                         session: { :user_id => @user.id }
+                         session: { user_id: @user.id }
         expect(assigns[:outgoing_message].body).
           to include('This is a silly letter.')
       end
@@ -2024,9 +2027,9 @@ describe RequestController, "#new_batch" do
       context "on success" do
 
         def make_request
-          @params = @default_post_params.merge(:preview => 0)
+          @params = @default_post_params.merge(preview: 0)
           post :new_batch, params: @params,
-                           session: { :user_id => @user.id }
+                           session: { user_id: @user.id }
         end
 
         it 'should create an info request batch and redirect to the new batch on success' do
@@ -2039,7 +2042,7 @@ describe RequestController, "#new_batch" do
         it 'should prevent double submission of a batch request' do
           make_request
           post :new_batch, params: @params,
-                           session: { :user_id => @user.id }
+                           session: { user_id: @user.id }
           expect(response).to render_template('new')
           expect(assigns[:existing_batch]).not_to be_nil
         end
@@ -2060,7 +2063,7 @@ describe RequestController, "#new_batch" do
 
         it 'should show the "banned" template' do
           post :new_batch, params: @default_post_params,
-                           session: { :user_id => @user.id }
+                           session: { user_id: @user.id }
           expect(response).to render_template('user/banned')
           expect(assigns[:details]).to eq('bad behaviour')
         end
@@ -2078,7 +2081,7 @@ describe RequestController, "#new_batch" do
       end
 
       it 'should return a 403 with an appropriate message' do
-        get :new_batch, session: { :user_id => @user.id }
+        get :new_batch, session: { user_id: @user.id }
         expect(response.code).to eq('403')
         expect(response.body).to match("Users cannot usually make batch requests to multiple authorities at once")
       end
@@ -2090,10 +2093,9 @@ describe RequestController, "#new_batch" do
       it 'should return a redirect to the login page' do
         get :new_batch
         expect(response).
-          to redirect_to(signin_path(:token => get_last_post_redirect.token))
+          to redirect_to(signin_path(token: get_last_post_redirect.token))
       end
     end
-
 
   end
 
@@ -2122,34 +2124,34 @@ describe RequestController, "#select_authorities" do
     context "when the current user can make batch requests" do
 
       before do
-        @user = FactoryBot.create(:user, :can_make_batch_requests => true)
+        @user = FactoryBot.create(:user, can_make_batch_requests: true)
       end
 
       context 'when asked for HTML' do
 
         it 'should be successful' do
-          get :select_authorities, session: { :user_id => @user.id }
+          get :select_authorities, session: { user_id: @user.id }
           expect(response).to be_successful
         end
 
         it 'recognizes a GET request' do
-          expect(:get => '/select_authorities').
-            to route_to(:controller => 'request', :action => 'select_authorities')
+          expect(get: '/select_authorities').
+            to route_to(controller: 'request', action: 'select_authorities')
         end
 
         it 'recognizes a POST request' do
-          expect(:post => '/select_authorities').
-            to route_to(:controller => 'request', :action => 'select_authorities')
+          expect(post: '/select_authorities').
+            to route_to(controller: 'request', action: 'select_authorities')
         end
 
         it 'should render the "select_authorities" template' do
-          get :select_authorities, session: { :user_id => @user.id }
+          get :select_authorities, session: { user_id: @user.id }
           expect(response).to render_template('request/select_authorities')
         end
 
         it 'should assign a list of search results to the view if passed a query' do
-          get :select_authorities, params: { :public_body_query => "Quango" },
-                                   session: { :user_id => @user.id }
+          get :select_authorities, params: { public_body_query: "Quango" },
+                                   session: { user_id: @user.id }
           expect(assigns[:search_bodies].results.size).to eq(1)
           expect(assigns[:search_bodies].results[0][:model].name).to eq(public_bodies(:geraldine_public_body).name)
         end
@@ -2157,9 +2159,9 @@ describe RequestController, "#select_authorities" do
         it 'should assign a list of public bodies to the view if passed a list of ids' do
           get :select_authorities,
               params: {
-                :public_body_ids => [public_bodies(:humpadink_public_body).id]
+                public_body_ids: [public_bodies(:humpadink_public_body).id]
               },
-              session: { :user_id => @user.id }
+              session: { user_id: @user.id }
           expect(assigns[:public_bodies].size).to eq(1)
           expect(assigns[:public_bodies][0].name).to eq(public_bodies(:humpadink_public_body).name)
         end
@@ -2168,15 +2170,15 @@ describe RequestController, "#select_authorities" do
                     the view' do
           get :select_authorities,
               params: {
-                :public_body_ids => [
+                public_body_ids: [
                   public_bodies(:humpadink_public_body).id,
                   public_bodies(:geraldine_public_body).id
                 ],
-                :remove_public_body_ids => [
+                remove_public_body_ids: [
                   public_bodies(:geraldine_public_body).id
                 ]
               },
-              session: { :user_id => @user.id }
+              session: { user_id: @user.id }
           expect(assigns[:public_bodies].size).to eq(1)
           expect(assigns[:public_bodies][0].name).to eq(public_bodies(:humpadink_public_body).name)
         end
@@ -2186,31 +2188,31 @@ describe RequestController, "#select_authorities" do
       context 'when asked for JSON' do
 
         it 'should be successful' do
-          get :select_authorities, params: { :public_body_query => "Quan",
-                                             :format => 'json' },
-                                   session: { :user_id => @user.id }
+          get :select_authorities, params: { public_body_query: "Quan",
+                                             format: 'json' },
+                                   session: { user_id: @user.id }
           expect(response).to be_successful
         end
 
         it 'should return a list of public body names and ids' do
-          get :select_authorities, params: { :public_body_query => "Quan",
-                                             :format => 'json' },
-                                   session: { :user_id => @user.id }
+          get :select_authorities, params: { public_body_query: "Quan",
+                                             format: 'json' },
+                                   session: { user_id: @user.id }
 
           expect(JSON(response.body)).to eq([{ 'id' => public_bodies(:geraldine_public_body).id,
-                                           'name' => public_bodies(:geraldine_public_body).name }])
+                                               'name' => public_bodies(:geraldine_public_body).name }])
         end
 
         it 'should return an empty list if no search is passed' do
-          get :select_authorities, params: { :format => 'json' },
-                                   session: { :user_id => @user.id }
+          get :select_authorities, params: { format: 'json' },
+                                   session: { user_id: @user.id }
           expect(JSON(response.body)).to eq([])
         end
 
         it 'should return an empty list if there are no bodies' do
-          get :select_authorities, params: { :public_body_query => 'fknkskalnr',
-                                             :format => 'json' },
-                                   session: { :user_id => @user.id }
+          get :select_authorities, params: { public_body_query: 'fknkskalnr',
+                                             format: 'json' },
+                                   session: { user_id: @user.id }
           expect(JSON(response.body)).to eq([])
         end
 
@@ -2227,7 +2229,7 @@ describe RequestController, "#select_authorities" do
       end
 
       it 'should return a 403 with an appropriate message' do
-        get :select_authorities, session: { :user_id => @user.id }
+        get :select_authorities, session: { user_id: @user.id }
         expect(response.code).to eq('403')
         expect(response.body).to match("Users cannot usually make batch requests to multiple authorities at once")
       end
@@ -2239,10 +2241,9 @@ describe RequestController, "#select_authorities" do
       it 'should return a redirect to the login page' do
         get :select_authorities
         expect(response).
-          to redirect_to(signin_path(:token => get_last_post_redirect.token))
+          to redirect_to(signin_path(token: get_last_post_redirect.token))
       end
     end
-
 
   end
 
@@ -2293,23 +2294,23 @@ describe RequestController do
     let(:info_request) { FactoryBot.create(:info_request) }
 
     it 'renders the details template' do
-      get :details, params: { :url_title => info_request.url_title }
+      get :details, params: { url_title: info_request.url_title }
       expect(response).to render_template('details')
     end
 
     it 'assigns the info_request' do
-      get :details, params: { :url_title => info_request.url_title }
+      get :details, params: { url_title: info_request.url_title }
       expect(assigns[:info_request]).to eq(info_request)
     end
 
     it 'assigns columns' do
-      get :details, params: { :url_title => info_request.url_title }
-      expected_columns = ['id',
-                          'event_type',
-                          'created_at',
-                          'described_state',
-                          'last_described_at',
-                          'calculated_state' ]
+      get :details, params: { url_title: info_request.url_title }
+      expected_columns = %w[id
+                            event_type
+                            created_at
+                            described_state
+                            last_described_at
+                            calculated_state]
       expect(assigns[:columns]).to eq expected_columns
     end
 
@@ -2321,12 +2322,12 @@ describe RequestController do
       end
 
       it 'returns a 403' do
-        get :details, params: { :url_title => info_request.url_title }
+        get :details, params: { url_title: info_request.url_title }
         expect(response.code).to eq("403")
       end
 
       it 'shows the hidden request template' do
-        get :details, params: { :url_title => info_request.url_title }
+        get :details, params: { url_title: info_request.url_title }
         expect(response).to render_template("request/hidden")
       end
 
@@ -2335,16 +2336,15 @@ describe RequestController do
     context 'when the request is embargoed' do
 
       before do
-        info_request.create_embargo(:publish_at => Time.zone.now + 3.days)
+        info_request.create_embargo(publish_at: Time.zone.now + 3.days)
       end
 
       it 'raises an ActiveRecord::RecordNotFound error' do
         expect {
-          get :details, params: { :url_title => info_request.url_title }
+          get :details, params: { url_title: info_request.url_title }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
-
 
   end
 
@@ -2364,7 +2364,7 @@ describe RequestController do
         it 'raises ActiveRecord::RecordNotFound' do
           expect {
             get :download_entire_request,
-                params: { :url_title => info_request.url_title }
+                params: { url_title: info_request.url_title }
           }.to raise_error(ActiveRecord::RecordNotFound)
         end
       end
@@ -2377,7 +2377,7 @@ describe RequestController do
         it 'raises ActiveRecord::RecordNotFound' do
           expect {
             get :download_entire_request,
-                params: { :url_title => info_request.url_title }
+                params: { url_title: info_request.url_title }
           }.to raise_error(ActiveRecord::RecordNotFound)
         end
       end
@@ -2389,7 +2389,7 @@ describe RequestController do
 
         it 'allows the download' do
           get :download_entire_request,
-              params: { :url_title => info_request.url_title }
+              params: { url_title: info_request.url_title }
           expect(response).to be_successful
         end
       end
@@ -2399,10 +2399,10 @@ describe RequestController do
 
       it 'does not render the describe state form' do
         info_request = FactoryBot.create(:info_request)
-        info_request.update_attributes(:awaiting_description => true)
+        info_request.update_attributes(awaiting_description: true)
         info_request.expire
         session[:user_id] = info_request.user_id
-        get :download_entire_request, params: { :url_title => info_request.url_title }
+        get :download_entire_request, params: { url_title: info_request.url_title }
         expect(assigns[:show_top_describe_state_form]).to eq(false)
         expect(assigns[:show_bottom_describe_state_form]).to eq(false)
         expect(assigns[:show_owner_update_status_action]).to eq(false)
@@ -2422,20 +2422,20 @@ describe RequestController do
       let(:event) { FactoryBot.create(:response_event) }
 
       it 'returns a 301 status' do
-        get :show_request_event, params: { :info_request_event_id => event.id }
+        get :show_request_event, params: { info_request_event_id: event.id }
         expect(response.status).to eq(301)
       end
 
       it 'redirects to the incoming message path' do
-        get :show_request_event, params: { :info_request_event_id => event.id }
-        expect(response)
-          .to redirect_to(incoming_message_path(event.incoming_message))
+        get :show_request_event, params: { info_request_event_id: event.id }
+        expect(response).
+          to redirect_to(incoming_message_path(event.incoming_message))
       end
 
       it 'raises ActiveRecord::RecordNotFound when the request is embargoed' do
-        event.info_request.create_embargo(:publish_at => Time.zone.now + 1.day)
+        event.info_request.create_embargo(publish_at: Time.zone.now + 1.day)
         expect {
-          get :show_request_event, params: { :info_request_event_id => event.id }
+          get :show_request_event, params: { info_request_event_id: event.id }
         }.to raise_error ActiveRecord::RecordNotFound
       end
     end
@@ -2444,20 +2444,20 @@ describe RequestController do
       let(:event) { FactoryBot.create(:sent_event) }
 
       it 'returns a 301 status' do
-        get :show_request_event, params: { :info_request_event_id => event.id }
+        get :show_request_event, params: { info_request_event_id: event.id }
         expect(response.status).to eq(301)
       end
 
       it 'redirects to the outgoing message path' do
-        get :show_request_event, params: { :info_request_event_id => event.id }
-        expect(response)
-          .to redirect_to(outgoing_message_path(event.outgoing_message))
+        get :show_request_event, params: { info_request_event_id: event.id }
+        expect(response).
+          to redirect_to(outgoing_message_path(event.outgoing_message))
       end
 
       it 'raises ActiveRecord::RecordNotFound when the request is embargoed' do
-        event.info_request.create_embargo(:publish_at => Time.zone.now + 1.day)
+        event.info_request.create_embargo(publish_at: Time.zone.now + 1.day)
         expect {
-          get :show_request_event, params: { :info_request_event_id => event.id }
+          get :show_request_event, params: { info_request_event_id: event.id }
         }.to raise_error ActiveRecord::RecordNotFound
       end
     end
@@ -2466,20 +2466,20 @@ describe RequestController do
       let(:event) { FactoryBot.create(:info_request_event) }
 
       it 'returns a 301 status' do
-        get :show_request_event, params: { :info_request_event_id => event.id }
+        get :show_request_event, params: { info_request_event_id: event.id }
         expect(response.status).to eq(301)
       end
 
       it 'redirects to the request path' do
-        get :show_request_event, params: { :info_request_event_id => event.id }
-        expect(response)
-          .to redirect_to(show_request_path(event.info_request.url_title))
+        get :show_request_event, params: { info_request_event_id: event.id }
+        expect(response).
+          to redirect_to(show_request_path(event.info_request.url_title))
       end
 
       it 'raises ActiveRecord::RecordNotFound when the request is embargoed' do
-        event.info_request.create_embargo(:publish_at => Time.zone.now + 1.day)
+        event.info_request.create_embargo(publish_at: Time.zone.now + 1.day)
         expect {
-          get :show_request_event, params: { :info_request_event_id => event.id }
+          get :show_request_event, params: { info_request_event_id: event.id }
         }.to raise_error ActiveRecord::RecordNotFound
       end
     end

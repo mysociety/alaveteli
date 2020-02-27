@@ -9,7 +9,7 @@ def mailin_test(email_filename)
     ir = info_requests(:other_request)
     mail.gsub!('EMAIL_TO', ir.incoming_email)
     mail.gsub!('EMAIL_FROM', 'responder@localhost')
-    xc = ExternalCommand.new("script/mailin", :stdin_string => mail).run
+    xc = ExternalCommand.new("script/mailin", stdin_string: mail).run
     expect(xc.err).to eq("")
     return xc
   end

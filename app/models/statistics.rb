@@ -2,7 +2,7 @@ class Statistics
   class << self
     def public_bodies
       per_graph = 10
-      minimum_requests = AlaveteliConfiguration::minimum_requests_for_statistics
+      minimum_requests = AlaveteliConfiguration.minimum_requests_for_statistics
       # Make sure minimum_requests is > 0 to avoid division-by-zero
       minimum_requests = [minimum_requests, 1].max
       total_column = 'info_requests_count'
@@ -12,32 +12,32 @@ class Statistics
       [
         [
           total_column,
-          [{:title => _('Public bodies with the most requests'),
-            :y_axis => _('Number of requests'),
-            :highest => true}]
+          [{ title: _('Public bodies with the most requests'),
+             y_axis: _('Number of requests'),
+             highest: true }]
         ],
         [
           'info_requests_successful_count',
           [
-            {:title => _('Public bodies with the most successful requests'),
-             :y_axis => _('Percentage of total requests'),
-             :highest => true},
-            {:title => _('Public bodies with the fewest successful requests'),
-             :y_axis => _('Percentage of total requests'),
-             :highest => false}
+            { title: _('Public bodies with the most successful requests'),
+              y_axis: _('Percentage of total requests'),
+              highest: true },
+            { title: _('Public bodies with the fewest successful requests'),
+              y_axis: _('Percentage of total requests'),
+              highest: false }
           ]
         ],
         [
           'info_requests_overdue_count',
-          [{:title => _('Public bodies with most overdue requests'),
-            :y_axis => _('Percentage of requests that are overdue'),
-            :highest => true}]
+          [{ title: _('Public bodies with most overdue requests'),
+             y_axis: _('Percentage of requests that are overdue'),
+             highest: true }]
         ],
         [
           'info_requests_not_held_count',
-          [{:title => _('Public bodies that most frequently replied with "Not Held"'),
-            :y_axis => _('Percentage of total requests'),
-            :highest => true}]
+          [{ title: _('Public bodies that most frequently replied with "Not Held"'),
+             y_axis: _('Percentage of total requests'),
+             highest: true }]
         ]
       ].each do |column, graphs_properties|
         graphs_properties.each do |graph_properties|
@@ -57,10 +57,10 @@ class Statistics
           end
 
           if data
-            graph_list.push self.simplify_stats_for_graphs(data,
-                                                           column,
-                                                           percentages,
-                                                           graph_properties)
+            graph_list.push simplify_stats_for_graphs(data,
+                                                      column,
+                                                      percentages,
+                                                      graph_properties)
           end
         end
       end
@@ -77,12 +77,12 @@ class Statistics
                                   graph_properties)
       # Copy the data, only taking known-to-be-safe keys:
       result = Hash.new { |h, k| h[k] = [] }
-      result.update Hash[data.select do |key, value|
-        ['y_values',
-         'y_max',
-         'totals',
-         'cis_below',
-         'cis_above'].include? key
+      result.update Hash[data.select do |key, _value|
+        %w[y_values
+           y_max
+           totals
+           cis_below
+           cis_above].include? key
       end]
 
       # Extract data about the public bodies for the x-axis,
@@ -101,13 +101,13 @@ class Statistics
       # Set graph metadata properties, like the title, axis labels, etc.
       graph_id = "#{column}-"
       graph_id += graph_properties[:highest] ? 'highest' : 'lowest'
-      result.update({
+      result.update(
         'id' => graph_id,
         'x_axis' => _('Public Bodies'),
         'y_axis' => graph_properties[:y_axis],
         'errorbars' => percentages,
         'title' => graph_properties[:title]
-      })
+      )
     end
 
     def users
@@ -120,8 +120,8 @@ class Statistics
     end
 
     def user_json_for_api(user_statistics)
-      user_statistics.each do |k,v|
-        user_statistics[k] = v.map { |u,c| { user: u.json_for_api, count: c } }
+      user_statistics.each do |k, v|
+        user_statistics[k] = v.map { |u, c| { user: u.json_for_api, count: c } }
       end
     end
 

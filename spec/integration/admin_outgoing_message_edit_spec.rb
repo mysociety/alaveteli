@@ -17,7 +17,7 @@ describe 'Editing the OutgoingMessage body' do
   it 'saves the updated text' do
     using_session(@admin) do
       visit edit_admin_outgoing_message_path(ogm)
-      fill_in 'outgoing_message_body', :with => 'Updated text'
+      fill_in 'outgoing_message_body', with: 'Updated text'
       click_button 'Save'
     end
 
@@ -44,7 +44,7 @@ describe 'Editing the OutgoingMessage body' do
       using_session(@admin) do
         visit edit_admin_outgoing_message_path(ogm)
         fill_in 'outgoing_message_body',
-                :with => 'Some information please. And a biscuit.'
+                with: 'Some information please. And a biscuit.'
         click_button 'Save'
       end
 

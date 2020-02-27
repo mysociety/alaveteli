@@ -828,40 +828,40 @@ describe Ability do
 
     context 'when the user is a pro' do
 
-     it 'does not allow an admin user to login as them' do
-        with_feature_enabled(:alaveteli_pro) do
-          ability = Ability.new(admin_user)
-          expect(ability).not_to be_able_to(:login_as, pro_user)
-        end
-      end
-
-     it 'does not allow a pro user to login as them' do
-        with_feature_enabled(:alaveteli_pro) do
-          ability = Ability.new(FactoryBot.create(:pro_user))
-          expect(ability).not_to be_able_to(:login_as, pro_user)
-        end
-      end
-
-     it 'does not allow them to login as themselves' do
-       with_feature_enabled(:alaveteli_pro) do
-         ability = Ability.new(pro_user)
-         expect(ability).not_to be_able_to(:login_as, pro_user)
+      it 'does not allow an admin user to login as them' do
+         with_feature_enabled(:alaveteli_pro) do
+           ability = Ability.new(admin_user)
+           expect(ability).not_to be_able_to(:login_as, pro_user)
+         end
        end
-     end
 
-     it 'does not allow user with no roles to login as them' do
+      it 'does not allow a pro user to login as them' do
+         with_feature_enabled(:alaveteli_pro) do
+           ability = Ability.new(FactoryBot.create(:pro_user))
+           expect(ability).not_to be_able_to(:login_as, pro_user)
+         end
+       end
+
+      it 'does not allow them to login as themselves' do
         with_feature_enabled(:alaveteli_pro) do
-          ability = Ability.new(user)
+          ability = Ability.new(pro_user)
           expect(ability).not_to be_able_to(:login_as, pro_user)
         end
       end
 
-     it 'allows a pro admin user to login as them' do
-        with_feature_enabled(:alaveteli_pro) do
-          ability = Ability.new(pro_admin_user)
-          expect(ability).to be_able_to(:login_as, pro_user)
-        end
-      end
+      it 'does not allow user with no roles to login as them' do
+         with_feature_enabled(:alaveteli_pro) do
+           ability = Ability.new(user)
+           expect(ability).not_to be_able_to(:login_as, pro_user)
+         end
+       end
+
+      it 'allows a pro admin user to login as them' do
+         with_feature_enabled(:alaveteli_pro) do
+           ability = Ability.new(pro_admin_user)
+           expect(ability).to be_able_to(:login_as, pro_user)
+         end
+       end
 
     end
 
@@ -999,8 +999,10 @@ describe Ability do
 
     context "when the comment's request is embargoed" do
       let(:info_request) { FactoryBot.create(:embargoed_request) }
-      let(:comment) { FactoryBot.create(:comment,
-                                       :info_request => info_request) }
+      let(:comment) {
+  FactoryBot.create(:comment,
+                    info_request: info_request)
+}
 
       it 'allows a pro admin user to administer' do
         with_feature_enabled(:alaveteli_pro) do
@@ -1041,8 +1043,10 @@ describe Ability do
 
     context 'when the request is not embargoed' do
       let(:info_request) { FactoryBot.create(:info_request) }
-      let(:comment) { FactoryBot.create(:comment,
-                                       :info_request => info_request) }
+      let(:comment) {
+  FactoryBot.create(:comment,
+                    info_request: info_request)
+}
 
       it 'allows a pro admin user to administer' do
         with_feature_enabled(:alaveteli_pro) do

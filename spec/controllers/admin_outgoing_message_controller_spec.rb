@@ -9,19 +9,19 @@ describe AdminOutgoingMessageController do
     let(:outgoing) { info_request.outgoing_messages.first }
 
     it 'should be successful' do
-      get :edit, params: { :id => outgoing.id }
+      get :edit, params: { id: outgoing.id }
       expect(response).to be_successful
     end
 
     it 'should assign the outgoing message to the view' do
-      get :edit, params: { :id => outgoing.id }
+      get :edit, params: { id: outgoing.id }
       expect(assigns[:outgoing_message]).to eq(outgoing)
     end
 
     context 'when the message is the initial outgoing message' do
 
       it 'sets is_initial_message to true' do
-        get :edit, params: { :id => outgoing.id }
+        get :edit, params: { id: outgoing.id }
         expect(assigns[:is_initial_message]).to eq(true)
       end
 
@@ -31,8 +31,8 @@ describe AdminOutgoingMessageController do
 
       it 'sets is_initial_message to false' do
         outgoing = FactoryBot.create(:new_information_followup,
-                                     :info_request => info_request)
-        get :edit, params: { :id => outgoing.id }
+                                     info_request: info_request)
+        get :edit, params: { id: outgoing.id }
         expect(assigns[:is_initial_message]).to eq(false)
       end
 
@@ -45,34 +45,34 @@ describe AdminOutgoingMessageController do
     let(:info_request) { FactoryBot.create(:info_request) }
     let(:outgoing) do
       FactoryBot.create(:new_information_followup,
-                        :info_request => info_request)
+                        info_request: info_request)
     end
 
     it 'finds the outgoing message' do
-      delete :destroy, params: { :id => outgoing.id }
+      delete :destroy, params: { id: outgoing.id }
       expect(assigns[:outgoing_message]).to eq(outgoing)
     end
 
     context 'successfully destroying the message' do
 
       it 'destroys the message' do
-        delete :destroy, params: { :id => outgoing.id }
+        delete :destroy, params: { id: outgoing.id }
         expect(assigns[:outgoing_message]).to_not be_persisted
       end
 
       it 'logs an event on the info request' do
-        delete :destroy, params: { :id => outgoing.id }
+        delete :destroy, params: { id: outgoing.id }
         expect(info_request.reload.last_event.event_type).
           to eq('destroy_outgoing')
       end
 
       it 'informs the user' do
-        delete :destroy, params: { :id => outgoing.id }
+        delete :destroy, params: { id: outgoing.id }
         expect(flash[:notice]).to eq('Outgoing message successfully destroyed.')
       end
 
       it 'redirects to the admin request page' do
-        delete :destroy, params: { :id => outgoing.id }
+        delete :destroy, params: { id: outgoing.id }
         expect(response).to redirect_to(admin_request_url(info_request))
       end
 
@@ -85,17 +85,17 @@ describe AdminOutgoingMessageController do
       end
 
       it 'does not destroy the message' do
-        delete :destroy, params: { :id => outgoing.id }
+        delete :destroy, params: { id: outgoing.id }
         expect(assigns[:outgoing_message]).to be_persisted
       end
 
       it 'informs the user' do
-        delete :destroy, params: { :id => outgoing.id }
+        delete :destroy, params: { id: outgoing.id }
         expect(flash[:error]).to eq('Could not destroy the outgoing message.')
       end
 
       it 'redirects to the outgoing message edit page' do
-        delete :destroy, params: { :id => outgoing.id }
+        delete :destroy, params: { id: outgoing.id }
         expect(response).
           to redirect_to(edit_admin_outgoing_message_path(outgoing))
       end
@@ -106,13 +106,13 @@ describe AdminOutgoingMessageController do
 
       it 'sets is_initial_message to true' do
         outgoing = FactoryBot.create(:initial_request)
-        delete :destroy, params: { :id => outgoing.id }
+        delete :destroy, params: { id: outgoing.id }
         expect(assigns[:is_initial_message]).to eq(true)
       end
 
       it 'prevents the destruction of the message' do
         outgoing = FactoryBot.create(:initial_request)
-        delete :destroy, params: { :id => outgoing.id }
+        delete :destroy, params: { id: outgoing.id }
         expect(assigns[:outgoing_message]).to be_persisted
       end
 
@@ -121,12 +121,12 @@ describe AdminOutgoingMessageController do
     context 'when the message is not initial outgoing message' do
 
       it 'sets is_initial_message to false' do
-        delete :destroy, params: { :id => outgoing.id }
+        delete :destroy, params: { id: outgoing.id }
         expect(assigns[:is_initial_message]).to eq(false)
       end
 
       it 'allows the destruction of the message' do
-        delete :destroy, params: { :id => outgoing.id }
+        delete :destroy, params: { id: outgoing.id }
         expect(assigns[:outgoing_message]).to_not be_persisted
       end
 
@@ -139,10 +139,10 @@ describe AdminOutgoingMessageController do
     let(:info_request) { FactoryBot.create(:info_request) }
     let(:outgoing) { info_request.outgoing_messages.first }
     let(:default_params) do
-      { :id => outgoing.id,
-        :outgoing_message => { :prominence => 'hidden',
-                               :prominence_reason => 'dull',
-                               :body => 'changed body' } }
+      { id: outgoing.id,
+        outgoing_message: { prominence: 'hidden',
+                            prominence_reason: 'dull',
+                            body: 'changed body' } }
     end
 
     def make_request(params = default_params)
@@ -174,21 +174,21 @@ describe AdminOutgoingMessageController do
       last_event = info_request.info_request_events.last
       expect(last_event.event_type).to eq('edit_outgoing')
       expect(last_event.params).
-        to eq({ outgoing_message_id: outgoing.id,
-                editor: 'Admin user',
-                old_prominence: 'normal',
-                prominence: 'hidden',
-                old_prominence_reason: nil,
-                old_body: 'Some information please',
-                body: 'changed body',
-                prominence_reason: 'dull' })
+        to eq(outgoing_message_id: outgoing.id,
+              editor: 'Admin user',
+              old_prominence: 'normal',
+              prominence: 'hidden',
+              old_prominence_reason: nil,
+              old_body: 'Some information please',
+              body: 'changed body',
+              prominence_reason: 'dull')
     end
 
     it 'should expire the file cache for the info request' do
       info_request = FactoryBot.create(:info_request)
       allow_any_instance_of(OutgoingMessage).to receive(:info_request) { info_request }
 
-      outgoing = FactoryBot.create(:initial_request, :info_request => info_request)
+      outgoing = FactoryBot.create(:initial_request, info_request: info_request)
 
       expect(info_request).to receive(:expire)
 
@@ -214,10 +214,10 @@ describe AdminOutgoingMessageController do
     context 'if the incoming message is not valid' do
 
       it 'should render the edit template' do
-        make_request({:id => outgoing.id,
-                      :outgoing_message => {:prominence => 'fantastic',
-                                            :prominence_reason => 'dull',
-                                            :body => 'Some information please'}})
+        make_request(id: outgoing.id,
+                     outgoing_message: { prominence: 'fantastic',
+                                         prominence_reason: 'dull',
+                                         body: 'Some information please' })
         expect(response).to render_template("edit")
       end
 

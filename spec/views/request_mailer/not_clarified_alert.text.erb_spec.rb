@@ -2,8 +2,8 @@
 require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
 
 describe "request_mailer/not_clarified_alert" do
-  let(:body) { FactoryBot.create(:public_body, :name => "Apostrophe's") }
-  let(:request) { FactoryBot.create(:info_request, :public_body => body) }
+  let(:body) { FactoryBot.create(:public_body, name: "Apostrophe's") }
+  let(:request) { FactoryBot.create(:info_request, public_body: body) }
 
   before do
     allow(AlaveteliConfiguration).to receive(:site_name).

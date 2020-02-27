@@ -50,16 +50,16 @@ class DataExport
       where("incoming_messages.updated_at < ?", cut_off_date)
   end
 
-  #Tries to pick up gender from the first name
+  # Tries to pick up gender from the first name
   def self.detects_gender(name)
     gender_d = GenderDetector.new # gender detector
     parts = name.split(" ")
-    first_name = parts[0] #assumption!
+    first_name = parts[0] # assumption!
     gender_d.get_gender(first_name, :great_britain).to_s
   end
 
   def self.gender_lambda
-    lambda { |x| detects_gender(x.name) }
+    ->(x) { detects_gender(x.name) }
   end
 
   # Remove all instances of user's name (if there is a user), otherwise
@@ -111,7 +111,7 @@ class DataExport
   # override - pass in lambdas to modify a given column based on values in the row
   #
   # Returns a String
-  def self.csv_export(model, to_run, query=nil, header=nil, override={}, header_map={})
+  def self.csv_export(model, to_run, query = nil, header = nil, override = {}, header_map = {})
     return unless is_required?(model.name, to_run)
     # set query and header to default values unless supplied
     query  ||= model
@@ -122,10 +122,10 @@ class DataExport
     FileUtils.mkdir_p('exports')
     puts "exporting to: #{filename}"
 
-    #allow header names to be changed if we're transforming them enough they're a diff column
+    # allow header names to be changed if we're transforming them enough they're a diff column
     display_header = []
     header.each do |h|
-      if header_map.key?(h) #do we have an override for this column name?
+      if header_map.key?(h) # do we have an override for this column name?
         display_header.append(header_map[h])
       else
         display_header.append(h)
@@ -135,7 +135,6 @@ class DataExport
     process_data(filename, display_header, header, override, query)
   end
 
-
   def self.process_data(filename, display_header, column_data, overrides, query)
     CSV.open(filename, "wb") do |csv|
       csv << display_header
@@ -143,9 +142,9 @@ class DataExport
         line = []
         # iterate over columns to create an array of data to make a line of csv
         column_data.each do |attribute|
-          if overrides.key?(attribute) #do we have an override for this column?
+          if overrides.key?(attribute) # do we have an override for this column?
             begin
-              line << overrides[attribute][model_instance] #if so send to lambda
+              line << overrides[attribute][model_instance] # if so send to lambda
             rescue Exception => err
               handle_error(err, line)
               next # something went wrong, stop processing this data row
@@ -178,5 +177,4 @@ class DataExport
     puts data.inspect
     p ""
   end
-
 end

@@ -8,7 +8,7 @@ describe ActsAsXapian do
   describe '.update_index' do
 
     it 'processes jobs that were queued after a job that errors' do
-      job1, job2 = Array.new(2) do |i|
+      job1, job2 = Array.new(2) do |_i|
         body = FactoryBot.create(:public_body)
         body.xapian_mark_needs_index
         ActsAsXapian::ActsAsXapianJob.
@@ -180,7 +180,7 @@ describe ActsAsXapian::Search do
     end
 
     before do
-      @alice = FactoryBot.create(:public_body, :name => 'alice')
+      @alice = FactoryBot.create(:public_body, name: 'alice')
       update_xapian_index
     end
 
@@ -190,47 +190,47 @@ describe ActsAsXapian::Search do
     end
 
     it "should return a list of words used in the search" do
-      s = ActsAsXapian::Search.new([PublicBody], "albatross words", :limit => 100)
-      expect(s.words_to_highlight).to eq(["albatross", "word"])
+      s = ActsAsXapian::Search.new([PublicBody], "albatross words", limit: 100)
+      expect(s.words_to_highlight).to eq(%w[albatross word])
     end
 
     it "should remove any operators" do
-      s = ActsAsXapian::Search.new([PublicBody], "albatross words tag:mice", :limit => 100)
-      expect(s.words_to_highlight).to eq(["albatross", "word"])
+      s = ActsAsXapian::Search.new([PublicBody], "albatross words tag:mice", limit: 100)
+      expect(s.words_to_highlight).to eq(%w[albatross word])
     end
 
     it "should separate punctuation" do
-      s = ActsAsXapian::Search.new([PublicBody], "The doctor's patient", :limit => 100)
-      expect(s.words_to_highlight).to eq(["the", "doctor", "patient"].sort)
+      s = ActsAsXapian::Search.new([PublicBody], "The doctor's patient", limit: 100)
+      expect(s.words_to_highlight).to eq(%w[the doctor patient].sort)
     end
 
     it "should handle non-ascii characters" do
-      s = ActsAsXapian::Search.new([PublicBody], "adatigénylés words tag:mice", :limit => 100)
-      expect(s.words_to_highlight).to eq(["adatigénylé", "word"])
+      s = ActsAsXapian::Search.new([PublicBody], "adatigénylés words tag:mice", limit: 100)
+      expect(s.words_to_highlight).to eq(%w[adatigénylé word])
     end
 
     it "should ignore stopwords" do
-      s = ActsAsXapian::Search.new([PublicBody], "department of humpadinking", :limit => 100)
+      s = ActsAsXapian::Search.new([PublicBody], "department of humpadinking", limit: 100)
       expect(s.words_to_highlight).not_to include('of')
     end
 
     it "uses stemming" do
-      s = ActsAsXapian::Search.new([PublicBody], 'department of humpadinking', :limit => 100)
-      expect(s.words_to_highlight).to eq(["depart", "humpadink"])
+      s = ActsAsXapian::Search.new([PublicBody], 'department of humpadinking', limit: 100)
+      expect(s.words_to_highlight).to eq(%w[depart humpadink])
     end
 
     it "doesn't stem proper nouns" do
-      s = ActsAsXapian::Search.new([PublicBody], 'department of Humpadinking', :limit => 1)
-      expect(s.words_to_highlight).to eq(["depart", "humpadinking"])
+      s = ActsAsXapian::Search.new([PublicBody], 'department of Humpadinking', limit: 1)
+      expect(s.words_to_highlight).to eq(%w[depart humpadinking])
     end
 
     it "includes the original search terms if requested" do
-      s = ActsAsXapian::Search.new([PublicBody], 'boring', :limit => 1)
-      expect(s.words_to_highlight(:include_original => true)).to eq(['bore', 'boring'])
+      s = ActsAsXapian::Search.new([PublicBody], 'boring', limit: 1)
+      expect(s.words_to_highlight(include_original: true)).to eq(%w[bore boring])
     end
 
     it "does not return duplicate terms" do
-      s = ActsAsXapian::Search.new([PublicBody], 'boring boring', :limit => 1)
+      s = ActsAsXapian::Search.new([PublicBody], 'boring boring', limit: 1)
       expect(s.words_to_highlight).to eq(['bore'])
     end
 
@@ -238,14 +238,14 @@ describe ActsAsXapian::Search do
 
       it 'wraps each words in a regex that matches the full word' do
         expected = [/\b(albatross)\b/iu]
-        s = ActsAsXapian::Search.new([PublicBody], 'Albatross', :limit => 1)
-        expect(s.words_to_highlight(:regex => true)).to eq(expected)
+        s = ActsAsXapian::Search.new([PublicBody], 'Albatross', limit: 1)
+        expect(s.words_to_highlight(regex: true)).to eq(expected)
       end
 
       it 'wraps each stem in a regex' do
         expected = [/\b(depart)\w*\b/iu]
-        s = ActsAsXapian::Search.new([PublicBody], 'department', :limit => 1)
-        expect(s.words_to_highlight(:regex => true)).to eq(expected)
+        s = ActsAsXapian::Search.new([PublicBody], 'department', limit: 1)
+        expect(s.words_to_highlight(regex: true)).to eq(expected)
       end
 
     end
@@ -259,8 +259,8 @@ describe ActsAsXapian::Search do
     end
 
     before do
-      @alice = FactoryBot.create(:public_body, :name => 'alice')
-      @bob = FactoryBot.create(:public_body, :name => 'bôbby')
+      @alice = FactoryBot.create(:public_body, name: 'alice')
+      @bob = FactoryBot.create(:public_body, name: 'bôbby')
       update_xapian_index
     end
 
@@ -271,7 +271,7 @@ describe ActsAsXapian::Search do
     end
 
     it 'returns a UTF-8 encoded string' do
-      s = ActsAsXapian::Search.new([PublicBody], "alece", :limit => 100)
+      s = ActsAsXapian::Search.new([PublicBody], "alece", limit: 100)
       expect(s.spelling_correction).to eq("alice")
       if s.spelling_correction.respond_to? :encoding
         expect(s.spelling_correction.encoding.to_s).to eq('UTF-8')
@@ -279,7 +279,7 @@ describe ActsAsXapian::Search do
     end
 
     it 'handles non-ASCII characters' do
-      s = ActsAsXapian::Search.new([PublicBody], "bobby", :limit => 100)
+      s = ActsAsXapian::Search.new([PublicBody], "bobby", limit: 100)
       expect(s.spelling_correction).to eq("bôbby")
     end
 

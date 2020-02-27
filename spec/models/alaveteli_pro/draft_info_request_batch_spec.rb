@@ -29,13 +29,13 @@ describe AlaveteliPro::DraftInfoRequestBatch do
   end
 
   it "it imposes an alphabetical sort order on associated public bodies" do
-    public_body1 = FactoryBot.create(:public_body, :name => "Body 1")
-    public_body2 = FactoryBot.create(:public_body, :name => "A Public Body")
+    public_body1 = FactoryBot.create(:public_body, name: "Body 1")
+    public_body2 = FactoryBot.create(:public_body, name: "A Public Body")
     draft = FactoryBot.create(:draft_info_request_batch,
-                              :public_bodies => [public_body1, public_body2],
-                              :user => pro_user)
+                              public_bodies: [public_body1, public_body2],
+                              user: pro_user)
     draft.reload
-    expect(draft.public_bodies).to eq ([public_body2, public_body1])
+    expect(draft.public_bodies).to eq [public_body2, public_body1]
   end
 
   it_behaves_like "RequestSummaries"

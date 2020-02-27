@@ -46,8 +46,8 @@ class AddApiKeyToPublicBodies < ActiveRecord::Migration[4.2] # 2.3
       SQL
     else
       PublicBody.find_each do |pb|
-          pb.api_key = SecureRandom.base64(33)
-          pb.save!
+        pb.api_key = SecureRandom.base64(33)
+        pb.save!
       end
     end
 

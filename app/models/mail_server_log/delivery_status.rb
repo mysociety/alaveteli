@@ -63,7 +63,7 @@ class MailServerLog::DeliveryStatus
   end
 
   def inspect
-    obj_id = "0x00%x" % (object_id << 1)
+    obj_id = format("0x00%x", (object_id << 1))
     %Q(#<#{self.class}:#{obj_id} @status=:#{ status }>)
   end
 

@@ -6,9 +6,9 @@ describe AlaveteliRateLimiter::Rule do
   describe '.from_hash' do
 
     it 'constructs a Rule with associated Window from a Hash' do
-      attrs =  { :name => :test,
-                 :count => 2,
-                 :window => { :value => 1, :unit => :hour } }
+      attrs =  { name: :test,
+                 count: 2,
+                 window: { value: 1, unit: :hour } }
       window = AlaveteliRateLimiter::Window.new(1, :hour)
       expected = described_class.new(:test, 2, window)
       expect(described_class.from_hash(attrs)).to eq(expected)
@@ -19,22 +19,22 @@ describe AlaveteliRateLimiter::Rule do
     end
 
     it 'requires a :count key' do
-      expect { described_class.from_hash(:name => :test) }.
+      expect { described_class.from_hash(name: :test) }.
         to raise_error(KeyError)
     end
 
     it 'requires a :window key' do
-      expect { described_class.from_hash(:name => :test, :count => 1) }.
+      expect { described_class.from_hash(name: :test, count: 1) }.
         to raise_error(KeyError)
     end
 
     it 'requires a :window hash with a :value key' do
-      attrs = { :name => :test, :count => 1, :window => { :unit => :hour } }
+      attrs = { name: :test, count: 1, window: { unit: :hour } }
       expect { described_class.from_hash(attrs) }.to raise_error(KeyError)
     end
 
     it 'requires a :window hash with a :unit key' do
-      attrs = { :name => :test, :count => 1, :window => { :value => 1 } }
+      attrs = { name: :test, count: 1, window: { value: 1 } }
       expect { described_class.from_hash(attrs) }.to raise_error(KeyError)
     end
 
@@ -73,35 +73,35 @@ describe AlaveteliRateLimiter::Rule do
 
     it 'returns true if the given records are over the limit' do
       records = [10, 5, 1].map { |i| i.minutes.ago }
-      attrs = { :name => :test,
-                :count => 2,
-                :window => { :value => 1, :unit => :hour } }
+      attrs = { name: :test,
+                count: 2,
+                window: { value: 1, unit: :hour } }
       subject = described_class.from_hash(attrs)
       expect(subject.limit?(records)).to eq(true)
     end
 
     it 'returns false if the given records are under the limit' do
       records = [10, 5, 1].map { |i| i.minutes.ago }
-      attrs = { :name => :test,
-                :count => 20,
-                :window => { :value => 1, :unit => :hour } }
+      attrs = { name: :test,
+                count: 20,
+                window: { value: 1, unit: :hour } }
       subject = described_class.from_hash(attrs)
       expect(subject.limit?(records)).to eq(false)
     end
 
     it 'does not matter if the records are in a different order' do
       records = [5, 10, 1].map { |i| i.minutes.ago }
-      attrs = { :name => :test,
-                :count => 2,
-                :window => { :value => 1, :unit => :hour } }
+      attrs = { name: :test,
+                count: 2,
+                window: { value: 1, unit: :hour } }
       subject = described_class.from_hash(attrs)
       expect(subject.limit?(records.shuffle)).to eq(true)
     end
 
     it 'returns false if no records are given' do
-      attrs = { :name => :test,
-                :count => 20,
-                :window => { :value => 1, :unit => :hour } }
+      attrs = { name: :test,
+                count: 20,
+                window: { value: 1, unit: :hour } }
       subject = described_class.from_hash(attrs)
       expect(subject.limit?([])).to eq(false)
     end
@@ -112,9 +112,9 @@ describe AlaveteliRateLimiter::Rule do
 
     it 'returns records in the window' do
       records = [1, 5, 10].map { |i| i.days.ago }
-      attrs = { :name => :test,
-                :count => 20,
-                :window => { :value => 7, :unit => :day } }
+      attrs = { name: :test,
+                count: 20,
+                window: { value: 7, unit: :day } }
       subject = described_class.from_hash(attrs)
       expected = records[0..1]
       expect(subject.records_in_window(records)).to eq(expected)

@@ -58,7 +58,7 @@ describe InfoRequest::ResponseGatekeeper::Base do
 
     it 'delegates to the info_request' do
       info_request = FactoryBot.
-        build(:info_request, :handle_rejected_responses => 'holding_pen')
+        build(:info_request, handle_rejected_responses: 'holding_pen')
       gatekeeper = described_class.new(info_request)
       expect(gatekeeper.rejection_action).to eq('holding_pen')
     end

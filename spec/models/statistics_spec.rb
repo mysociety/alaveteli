@@ -7,76 +7,76 @@ describe Statistics do
 
   describe ".simplify_stats_for_graphs" do
     let(:raw_count_data) do
-      PublicBody.get_request_totals(n=3, highest=true, minimum_requests=1)
+      PublicBody.get_request_totals(n = 3, highest = true, minimum_requests = 1)
     end
 
     let(:percentages_data) do
       PublicBody.get_request_percentages(
-        column='info_requests_successful_count',
-        n=3,
-        highest=false,
-        minimum_requests=1
+        column = 'info_requests_successful_count',
+        n = 3,
+        highest = false,
+        minimum_requests = 1
       )
     end
 
     it "should not include the real public body model instance" do
       to_draw = Statistics.simplify_stats_for_graphs(raw_count_data,
-                                                     column='blah_blah',
-                                                     percentages=false,
-                                                     {} )
+                                                     column = 'blah_blah',
+                                                     percentages = false,
+                                                     {})
       expect(to_draw['public_bodies'][0].class).to eq(Hash)
-      expect(to_draw['public_bodies'][0].has_key?('request_email')).to be false
+      expect(to_draw['public_bodies'][0].key?('request_email')).to be false
     end
 
     it "should generate the expected id" do
       to_draw = Statistics.simplify_stats_for_graphs(raw_count_data,
-                                                     column='blah_blah',
-                                                     percentages=false,
-                                                     {:highest => true} )
+                                                     column = 'blah_blah',
+                                                     percentages = false,
+                                                     highest: true)
       expect(to_draw['id']).to eq("blah_blah-highest")
       to_draw = Statistics.simplify_stats_for_graphs(raw_count_data,
-                                                     column='blah_blah',
-                                                     percentages=false,
-                                                     {:highest => false} )
+                                                     column = 'blah_blah',
+                                                     percentages = false,
+                                                     highest: false)
       expect(to_draw['id']).to eq("blah_blah-lowest")
     end
 
     it "should have exactly the expected keys" do
       to_draw = Statistics.simplify_stats_for_graphs(raw_count_data,
-                                                     column='blah_blah',
-                                                     percentages=false,
-                                                     {} )
-      expect(to_draw.keys.sort).to eq(["errorbars", "id", "public_bodies",
-                                       "title", "tooltips", "totals",
-                                       "x_axis", "x_ticks", "x_values",
-                                       "y_axis", "y_max", "y_values"])
+                                                     column = 'blah_blah',
+                                                     percentages = false,
+                                                     {})
+      expect(to_draw.keys.sort).to eq(%w[errorbars id public_bodies
+                                         title tooltips totals
+                                         x_axis x_ticks x_values
+                                         y_axis y_max y_values])
 
       to_draw = Statistics.simplify_stats_for_graphs(percentages_data,
-                                                     column='whatever',
-                                                     percentages=true,
+                                                     column = 'whatever',
+                                                     percentages = true,
                                                      {})
-      expect(to_draw.keys.sort).to eq(["cis_above", "cis_below",
-                                       "errorbars", "id", "public_bodies",
-                                       "title", "tooltips", "totals",
-                                       "x_axis", "x_ticks", "x_values",
-                                       "y_axis", "y_max", "y_values"])
+      expect(to_draw.keys.sort).to eq(%w[cis_above cis_below
+                                         errorbars id public_bodies
+                                         title tooltips totals
+                                         x_axis x_ticks x_values
+                                         y_axis y_max y_values])
     end
 
     it "should have values of the expected class and length" do
       [Statistics.simplify_stats_for_graphs(raw_count_data,
-                                            column='blah_blah',
-                                            percentages=false,
+                                            column = 'blah_blah',
+                                            percentages = false,
                                             {}),
        Statistics.simplify_stats_for_graphs(percentages_data,
-                                            column='whatever',
-                                            percentages=true,
-      {})].each do |to_draw|
-        per_pb_keys = ["cis_above", "cis_below", "public_bodies",
-                       "tooltips", "totals", "x_ticks", "x_values",
-                       "y_values"]
+                                            column = 'whatever',
+                                            percentages = true,
+                                            {})].each do |to_draw|
+        per_pb_keys = %w[cis_above cis_below public_bodies
+                         tooltips totals x_ticks x_values
+                         y_values]
         # These should be all be arrays with one element per public body:
         per_pb_keys.each do |key|
-          if to_draw.has_key? key
+          if to_draw.key? key
             expect(to_draw[key].class).to eq(Array)
             expect(to_draw[key].length).to eq(3), "for key #{key}"
           end
@@ -99,12 +99,10 @@ describe Statistics do
       allow(User).to receive(:last_28_day_commenters).and_return([])
 
       expect(Statistics.users).to eql(
-        {
-          all_time_requesters: [],
-          last_28_day_requesters: [],
-          all_time_commenters: [],
-          last_28_day_commenters: []
-        }
+        all_time_requesters: [],
+        last_28_day_requesters: [],
+        all_time_commenters: [],
+        last_28_day_commenters: []
       )
     end
   end
@@ -115,7 +113,7 @@ describe Statistics do
       test_data = { a_test_key: { user => 123 } }
 
       expect(Statistics.user_json_for_api(test_data)).to eql(
-        { a_test_key: [{ user: user.json_for_api, count: 123 }] }
+        a_test_key: [{ user: user.json_for_api, count: 123 }]
       )
     end
   end

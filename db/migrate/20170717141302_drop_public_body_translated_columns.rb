@@ -6,14 +6,14 @@ class DropPublicBodyTranslatedColumns < ActiveRecord::Migration[4.2] # 4.1
         translation =
           record.translation_for(AlaveteliLocalization.default_locale) ||
           record.translations.build(
-            :locale => AlaveteliLocalization.default_locale
+            locale: AlaveteliLocalization.default_locale
           )
 
         if translation.new_record?
           fields = record.translated_attribute_names
           fields.each do |attribute_name|
             translation[attribute_name] =
-              record.read_attribute(attribute_name, :translated => false)
+              record.read_attribute(attribute_name, translated: false)
           end
 
           if translation.save
@@ -60,8 +60,8 @@ class DropPublicBodyTranslatedColumns < ActiveRecord::Migration[4.2] # 4.1
 
         # Create a hash containing the translated column names and their values
         attr_names = record.translated_attribute_names
-        attr_names.inject(fields_to_update={}) do |f, name|
-          f.update({name.to_sym => translated[name.to_s]})
+        attr_names.inject(fields_to_update = {}) do |f, name|
+          f.update(name.to_sym => translated[name.to_s])
         end
 
         # Now, update the actual model's record with the hash (using the
@@ -69,15 +69,15 @@ class DropPublicBodyTranslatedColumns < ActiveRecord::Migration[4.2] # 4.1
         # UPDATE statement rather than record.update_attributes which will
         # use the overridden attribute setters and update translations instead)
         puts "Migrating default locale translation to public body #{record.id}"
-        PublicBody.where(:id => record.id).update_all(fields_to_update)
+        PublicBody.where(id: record.id).update_all(fields_to_update)
       end
     end
 
     # Re-add the constraints
     change_column :public_bodies,
-                  :name, :text, :null => false
-    change_column :public_bodies, :request_email, :text, :null => false
-    change_column :public_bodies, :url_name, :text, :null => false
-    change_column :public_bodies, :first_letter, :string, :null => false
+                  :name, :text, null: false
+    change_column :public_bodies, :request_email, :text, null: false
+    change_column :public_bodies, :url_name, :text, null: false
+    change_column :public_bodies, :first_letter, :string, null: false
   end
 end

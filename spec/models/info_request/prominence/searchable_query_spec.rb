@@ -7,7 +7,7 @@ describe InfoRequest::Prominence::SearchableQuery do
 
     it 'returns only results with a normal prominence' do
       normal_request = FactoryBot.create(:info_request)
-      hidden_request = FactoryBot.create(:info_request, :prominence => 'hidden')
+      hidden_request = FactoryBot.create(:info_request, prominence: 'hidden')
       expect(described_class.new.call).to include(normal_request)
       expect(described_class.new.call).not_to include(hidden_request)
     end

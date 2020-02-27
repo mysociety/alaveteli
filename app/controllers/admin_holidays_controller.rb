@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 class AdminHolidaysController < AdminController
-
-  before_action :set_holiday, :only => [:edit, :update, :destroy]
+  before_action :set_holiday, only: [:edit, :update, :destroy]
 
   def index
     get_all_holidays
@@ -10,9 +9,9 @@ class AdminHolidaysController < AdminController
   def new
     @holiday = Holiday.new
     if request.xhr?
-      render :partial => 'new_form', :locals => { :holiday => @holiday }
+      render partial: 'new_form', locals: { holiday: @holiday }
     else
-      render :action => 'new'
+      render action: 'new'
     end
   end
 
@@ -20,7 +19,7 @@ class AdminHolidaysController < AdminController
     @holiday = Holiday.new(holiday_params)
     if @holiday.save
       notice = "Holiday successfully created."
-      redirect_to admin_holidays_path, :notice => notice
+      redirect_to admin_holidays_path, notice: notice
     else
       render :new
     end
@@ -28,9 +27,9 @@ class AdminHolidaysController < AdminController
 
   def edit
     if request.xhr?
-      render :partial => 'edit_form'
+      render partial: 'edit_form'
     else
-      render :action => 'edit'
+      render action: 'edit'
     end
   end
 
@@ -46,7 +45,7 @@ class AdminHolidaysController < AdminController
   def destroy
     @holiday.destroy
     notice = "Holiday successfully destroyed"
-    redirect_to admin_holidays_path, :notice => notice
+    redirect_to admin_holidays_path, notice: notice
   end
 
   private
@@ -68,5 +67,4 @@ class AdminHolidaysController < AdminController
   def set_holiday
     @holiday = Holiday.find(params[:id])
   end
-
 end

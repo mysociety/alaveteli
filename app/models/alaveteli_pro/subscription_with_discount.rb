@@ -28,7 +28,7 @@ class AlaveteliPro::SubscriptionWithDiscount < SimpleDelegator
 
   def amount
     net = BigDecimal((original_amount * 0.01), 0).round(2)
-    net = net - reduction(net)
+    net -= reduction(net)
     (net * 100).floor
   end
 

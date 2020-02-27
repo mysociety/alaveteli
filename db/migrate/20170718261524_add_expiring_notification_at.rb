@@ -15,9 +15,7 @@ class AddExpiringNotificationAt < ActiveRecord::Migration[4.2] # 4.1
   private
 
   def column_exists?(table, column)
-    if data_source_exists?(table)
-      connection.column_exists?(table, column)
-    end
+    connection.column_exists?(table, column) if data_source_exists?(table)
   end
 
   def data_source_exists?(table)

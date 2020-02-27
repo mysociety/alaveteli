@@ -25,7 +25,7 @@ class ProfilePhoto < ApplicationRecord
   MAX_DRAFT = 500 # keep even pre-cropped images reasonably small
 
   belongs_to :user,
-             :inverse_of => :profile_photo
+             inverse_of: :profile_photo
 
   validate :data_and_draft_checks
 
@@ -42,16 +42,14 @@ class ProfilePhoto < ApplicationRecord
     # convert to PNG if it isn't, and to right size
     altered = false
     if image.format != 'PNG'
-      self.image.format = 'PNG'
+      image.format = 'PNG'
       altered = true
     end
 
     # draft images are before the user has cropped them
     if !draft && (image.columns != WIDTH || image.rows != HEIGHT)
       # do any exact cropping (taken from Jcrop interface)
-      if w && h
-        image.crop!(x.to_i, y.to_i, w.to_i, h.to_i)
-      end
+      image.crop!(x.to_i, y.to_i, w.to_i, h.to_i) if w && h
       # do any further cropping
       image.resize_to_fill!(WIDTH, HEIGHT)
       altered = true
@@ -62,9 +60,7 @@ class ProfilePhoto < ApplicationRecord
       altered = true
     end
 
-    if altered
-      write_attribute(:data, image.to_blob)
-    end
+    write_attribute(:data, image.to_blob) if altered
   end
 
   private
@@ -86,19 +82,17 @@ class ProfilePhoto < ApplicationRecord
 
     if !draft && (image.columns != WIDTH || image.rows != HEIGHT)
       errors.add(:data, _("Failed to convert image to the correct size: at {{cols}}x{{rows}}, need {{width}}x{{height}}",
-                          :cols => image.columns,
-                          :rows => image.rows,
-                          :width => WIDTH,
-                          :height => HEIGHT))
+                          cols: image.columns,
+                          rows: image.rows,
+                          width: WIDTH,
+                          height: HEIGHT))
     end
 
     if draft && user_id
       raise "Internal error, draft pictures must not have a user"
     end
 
-    if !draft && !user_id
-      raise "Internal error, real pictures must have a user"
-    end
+    raise "Internal error, real pictures must have a user" if !draft && !user_id
   end
 
   # Convert binary data blob into ImageMagick image when assigned

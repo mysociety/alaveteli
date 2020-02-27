@@ -95,7 +95,7 @@ class User
     def range_total_count(range)
       transaction_associations.
         reduce(0) do |accum, assoc|
-          accum += user.send(assoc).where(:created_at => range).count
+          accum += user.send(assoc).where(created_at: range).count
         end
     end
 

@@ -23,7 +23,8 @@ class AlaveteliPro::EmbargoesController < AlaveteliPro::BaseController
                          "{{site_name}} until {{expiry_date}}.",
                          site_name: AlaveteliConfiguration.site_name,
                          expiry_date: I18n.l(
-                           @embargo.publish_at, format: '%d %B %Y'))
+                           @embargo.publish_at, format: '%d %B %Y'
+                         ))
     else
       flash[:error] = _("Sorry, something went wrong updating your " \
                         "request's privacy settings, please try again.")
@@ -37,9 +38,7 @@ class AlaveteliPro::EmbargoesController < AlaveteliPro::BaseController
     authorize! :destroy, @embargo
     @info_request = @embargo.info_request
     # Embargoes cannot be updated individually on batch requests
-    if @info_request.info_request_batch_id
-      raise PermissionDenied
-    end
+    raise PermissionDenied if @info_request.info_request_batch_id
     if @embargo.destroy
       @info_request.log_event('expire_embargo', {})
       flash[:notice] = _("Your request is now public!")
@@ -47,12 +46,13 @@ class AlaveteliPro::EmbargoesController < AlaveteliPro::BaseController
       flash[:error] = _("Sorry, something went wrong publishing your " \
                         "request, please try again.")
     end
-    return redirect_to request_url(@info_request)
+    redirect_to request_url(@info_request)
   end
 
   def destroy_batch
     @info_request_batch = InfoRequestBatch.find(
-      params[:info_request_batch_id])
+      params[:info_request_batch_id]
+    )
     authorize! :destroy_embargo, @info_request_batch
     info_request_ids = @info_request_batch.info_requests.pluck(:id)
     embargoes = AlaveteliPro::Embargo.where(info_request_id: info_request_ids)
@@ -68,7 +68,8 @@ class AlaveteliPro::EmbargoesController < AlaveteliPro::BaseController
     if params[:info_request_id]
       @info_request = InfoRequest.find(params[:info_request_id])
       redirect_to show_alaveteli_pro_request_path(
-        url_title: @info_request.url_title)
+        url_title: @info_request.url_title
+      )
     else
       redirect_to show_alaveteli_pro_batch_request_path(@info_request_batch)
     end

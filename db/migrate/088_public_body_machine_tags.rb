@@ -12,7 +12,7 @@ class PublicBodyMachineTags < ActiveRecord::Migration[4.2] # 2.3
 
   def self.down
     raise "No reverse migration"
-    #remove_column :public_body_tags, :value
-    #remove_index :public_body_tags, :name
+    # remove_column :public_body_tags, :value
+    # remove_index :public_body_tags, :name
   end
 end

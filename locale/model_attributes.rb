@@ -1,4 +1,4 @@
-#DO NOT MODIFY! AUTOMATICALLY GENERATED FILE!
+# DO NOT MODIFY! AUTOMATICALLY GENERATED FILE!
 _('Acts as xapian/acts as xapian job')
 _('ActsAsXapian::ActsAsXapianJob|Action')
 _('ActsAsXapian::ActsAsXapianJob|Model')
@@ -178,4 +178,4 @@ _('PublicBodyCategoryTranslation|Title')
 _('Public body heading translation')
 _('PublicBodyHeadingTranslation|Locale')
 _('PublicBodyHeadingTranslation|Name')
-#DO NOT MODIFY! AUTOMATICALLY GENERATED FILE!
+# DO NOT MODIFY! AUTOMATICALLY GENERATED FILE!

@@ -19,9 +19,8 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
     request_summaries = @request_filter.results(current_user)
     @page = params[:page] || 1
     @per_page = 10
-    @request_summaries = request_summaries.paginate :page => @page,
-                                                    :per_page => @per_page
-
+    @request_summaries = request_summaries.paginate page: @page,
+                                                    per_page: @per_page
   end
 
   def new
@@ -49,7 +48,8 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
       send_initial_message(@outgoing_message)
       destroy_draft
       redirect_to show_alaveteli_pro_request_path(
-        url_title: @info_request.url_title)
+        url_title: @info_request.url_title
+      )
     else
       show_errors
     end
@@ -63,7 +63,6 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
     @info_request.errors.delete(:outgoing_messages)
     render "new"
   end
-
 
   def all_models_valid?
     @info_request.valid? && @outgoing_message.valid? && \

@@ -20,9 +20,9 @@ class ReportsController < ApplicationController
     else
       @reportable.report!(@reason, @message, @user)
       flash[:notice] = if @comment
-        _("This annotation has been reported for administrator attention")
-      else
-        _("This request has been reported for administrator attention")
+                         _("This annotation has been reported for administrator attention")
+                       else
+                         _("This request has been reported for administrator attention")
       end
     end
     redirect_to request_url(@info_request)
@@ -30,31 +30,32 @@ class ReportsController < ApplicationController
 
   def new
     @title = if @comment
-      _("Report annotation on request: {{title}}",
-        :title => @info_request.title)
-    else
-      _("Report request: {{title}}", :title => @info_request.title)
+               _("Report annotation on request: {{title}}",
+                 title: @info_request.title)
+             else
+               _("Report request: {{title}}", title: @info_request.title)
     end
 
     if authenticated?(
-      :web => _("To report this request"),
-      :email => _("Then you can report the request '{{title}}'", :title => @info_request.title),
-      :email_subject => _("Report an offensive or unsuitable request"),
-      :comment_id => params[:comment_id])
+      web: _("To report this request"),
+      email: _("Then you can report the request '{{title}}'", title: @info_request.title),
+      email_subject: _("Report an offensive or unsuitable request"),
+      comment_id: params[:comment_id]
+    )
     end
   end
 
   private
 
   def set_info_request
-    @info_request = InfoRequest
-                      .not_embargoed
-                        .find_by_url_title!(params[:request_id])
+    @info_request = InfoRequest.
+                      not_embargoed.
+                        find_by_url_title!(params[:request_id])
   end
 
   def set_comment
     @comment = unless params[:comment_id].blank?
-      @info_request.comments.where(:id => params[:comment_id]).first!
+                 @info_request.comments.where(id: params[:comment_id]).first!
     end
   end
 

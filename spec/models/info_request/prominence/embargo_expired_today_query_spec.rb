@@ -8,7 +8,7 @@ describe InfoRequest::Prominence::EmbargoExpiredTodayQuery do
 
     it 'excludes requests that are currently under embargo' do
       embargo = FactoryBot.create(:embargo,
-                                  :publish_at => Time.now + 4.days)
+                                  publish_at: Time.now + 4.days)
 
       expect(described_class.new.call).not_to include embargo.info_request
     end

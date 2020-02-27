@@ -17,7 +17,7 @@ class ProAccount < ApplicationRecord
   attr_writer :source
 
   belongs_to :user,
-             :inverse_of => :pro_account
+             inverse_of: :pro_account
 
   validates :user, presence: true
 

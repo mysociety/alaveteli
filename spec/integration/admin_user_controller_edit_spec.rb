@@ -10,8 +10,8 @@ describe 'Editing a User' do
     @admin = login(:admin_user)
 
     @user = FactoryBot.create(:user,
-                              :name => 'nasty user 123',
-                              :ban_text => 'You are banned')
+                              name: 'nasty user 123',
+                              ban_text: 'You are banned')
   end
 
   context 'when a user is banned' do
@@ -19,7 +19,7 @@ describe 'Editing a User' do
     it 're-editing does not change their url_name' do
       using_session(@admin) do
         visit edit_admin_user_path(@user)
-        fill_in 'admin_user_ban_text', :with => 'You are really banned'
+        fill_in 'admin_user_ban_text', with: 'You are really banned'
         click_button 'Save'
       end
 

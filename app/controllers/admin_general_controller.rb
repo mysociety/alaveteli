@@ -6,7 +6,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminGeneralController < AdminController
-
   def index
     # Tasks to do
     @requires_admin_requests = InfoRequest.
@@ -22,15 +21,15 @@ class AdminGeneralController < AdminController
                                       limit(20).
                                         is_searchable
     @holding_pen_messages = InfoRequest.
-      includes(:incoming_messages => :raw_email).
+      includes(incoming_messages: :raw_email).
         holding_pen_request.
           incoming_messages
-    @public_request_tasks = [ @holding_pen_messages,
-                              @error_message_requests,
-                              @attention_requests,
-                              @requires_admin_requests,
-                              @old_unclassified ].
-      any? { |to_do_list| ! to_do_list.empty? }
+    @public_request_tasks = [@holding_pen_messages,
+                             @error_message_requests,
+                             @attention_requests,
+                             @requires_admin_requests,
+                             @old_unclassified].
+      any? { |to_do_list| !to_do_list.empty? }
 
     @blank_contact_count = PublicBody.without_request_email.count
     @blank_contacts = PublicBody.without_request_email.limit(20)
@@ -44,17 +43,17 @@ class AdminGeneralController < AdminController
         body_update_requests.
           open
 
-    @authority_tasks = [ @blank_contacts,
-                         @new_body_requests,
-                         @body_update_requests ].
-      any? { |to_do_list| ! to_do_list.empty? }
+    @authority_tasks = [@blank_contacts,
+                        @new_body_requests,
+                        @body_update_requests].
+      any? { |to_do_list| !to_do_list.empty? }
 
     # HACK: Running this query through ActiveRecord freezes…
     @attention_comments = Comment.
       find_by_sql(Comment.where(attention_requested: true).not_embargoed.to_sql)
 
-    @comment_tasks = [ @attention_comments ].
-      any? { |to_do_list| ! to_do_list.empty? }
+    @comment_tasks = [@attention_comments].
+      any? { |to_do_list| !to_do_list.empty? }
 
     @nothing_to_do = !@public_request_tasks &&
                      !@authority_tasks &&
@@ -78,16 +77,16 @@ class AdminGeneralController < AdminController
       @embargoed_request_tasks = [
         @embargoed_requires_admin_requests,
         @embargoed_error_message_requests,
-        @embargoed_attention_requests,
-      ].any? { |to_do_list| ! to_do_list.empty? }
+        @embargoed_attention_requests
+      ].any? { |to_do_list| !to_do_list.empty? }
 
       @embargoed_attention_comments = Comment.
-                                        where(:attention_requested => true).
+                                        where(attention_requested: true).
                                           embargoed
 
       @embargoed_comment_tasks = [
-                                   @embargoed_attention_comments
-                                 ].any? { |to_do_list| ! to_do_list.empty? }
+        @embargoed_attention_comments
+      ].any? { |to_do_list| !to_do_list.empty? }
       @nothing_to_do = @nothing_to_do &&
                        !@embargoed_request_tasks &&
                        !@embargoed_comment_tasks
@@ -98,8 +97,7 @@ class AdminGeneralController < AdminController
     # Recent events
     @events_title = get_events_title
 
-
-    @events = WillPaginate::Collection.create((params[:page] or 1), 100) do |pager|
+    @events = WillPaginate::Collection.create((params[:page] || 1), 100) do |pager|
       # create a hash for each model type being returned
       info_request_event_ids = {}
       public_body_version_ids = {}
@@ -116,7 +114,7 @@ class AdminGeneralController < AdminController
       end
       # get all the models in the slice, eagerly loading the associations we use in the view
       public_body_versions = PublicBody.versioned_class.
-        includes(:public_body => :translations).
+        includes(public_body: :translations).
           find(public_body_version_ids.keys)
       info_request_events = InfoRequestEvent.
         includes(:info_request).
@@ -136,7 +134,6 @@ class AdminGeneralController < AdminController
       # set the total entries for the page to the overall number of results
       pager.total_entries = timestamps.size
     end
-
   end
 
   def stats
@@ -169,17 +166,17 @@ class AdminGeneralController < AdminController
 
   def get_date_back_to_utc
     date_back_to = if params[:hour]
-      Time.zone.now - 1.hour
-    elsif params[:day]
-      Time.zone.now - 1.day
-    elsif params[:week]
-      Time.zone.now - 1.week
-    elsif params[:month]
-      Time.zone.now - 1.month
-    elsif params[:all]
-      Time.zone.now - 1000.years
-    else
-      Time.zone.now - 2.days
+                     Time.zone.now - 1.hour
+                   elsif params[:day]
+                     Time.zone.now - 1.day
+                   elsif params[:week]
+                     Time.zone.now - 1.week
+                   elsif params[:month]
+                     Time.zone.now - 1.month
+                   elsif params[:all]
+                     Time.zone.now - 1000.years
+                   else
+                     Time.zone.now - 2.days
     end
     date_back_to.getutc
   end
@@ -196,17 +193,17 @@ class AdminGeneralController < AdminController
 
   def get_events_title
     title = if params[:hour]
-      "#{get_event_type} in last hour"
-    elsif params[:day]
-      "#{get_event_type} in last day"
-    elsif params[:week]
-      "#{get_event_type} in last week"
-    elsif params[:month]
-      "#{get_event_type} in last month"
-    elsif params[:all]
-      "#{get_event_type}, all time"
-    else
-      "#{get_event_type} in last two days"
+              "#{get_event_type} in last hour"
+            elsif params[:day]
+              "#{get_event_type} in last day"
+            elsif params[:week]
+              "#{get_event_type} in last week"
+            elsif params[:month]
+              "#{get_event_type} in last month"
+            elsif params[:all]
+              "#{get_event_type}, all time"
+            else
+              "#{get_event_type} in last two days"
     end
   end
 
@@ -227,16 +224,16 @@ class AdminGeneralController < AdminController
                                  WHERE created_at > '#{get_date_back_to_utc}'"
 
     timestamps = if params[:event_type] == 'authority_change'
-      connection.select_rows("#{authority_change_clause}
-                              ORDER by timestamp desc")
-    elsif params[:event_type] == 'info_request_event'
-      connection.select_rows("#{info_request_event_clause}
-                              ORDER by timestamp desc")
-    else
-      connection.select_rows("#{info_request_event_clause}
-                              UNION
-                              #{authority_change_clause}
-                              ORDER by timestamp desc")
+                   connection.select_rows("#{authority_change_clause}
+                                           ORDER by timestamp desc")
+                 elsif params[:event_type] == 'info_request_event'
+                   connection.select_rows("#{info_request_event_clause}
+                                           ORDER by timestamp desc")
+                 else
+                   connection.select_rows("#{info_request_event_clause}
+                                           UNION
+                                           #{authority_change_clause}
+                                           ORDER by timestamp desc")
     end
   end
 end

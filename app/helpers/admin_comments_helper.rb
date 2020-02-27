@@ -10,6 +10,6 @@ module AdminCommentsHelper
   private
 
   def hidden_label
-    content_tag(:span, 'hidden', :class => 'label label-warning')
+    content_tag(:span, 'hidden', class: 'label label-warning')
   end
 end

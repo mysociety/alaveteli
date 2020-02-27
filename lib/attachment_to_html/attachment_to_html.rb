@@ -21,7 +21,7 @@ module AttachmentToHTML
     view.wrapper = 'wrapper_google_embed' if adapter.is_a?(Adapters::GoogleDocsViewer)
 
     view.render do
-      opts.fetch(:content_for, []).each do |k,v|
+      opts.fetch(:content_for, []).each do |k, v|
         inject_content(k) { v }
       end
     end

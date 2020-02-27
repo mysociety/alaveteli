@@ -3,25 +3,25 @@ require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
 
 describe "request/show" do
 
-  let(:mock_body) { FactoryBot.create(:public_body, :name => "test body") }
+  let(:mock_body) { FactoryBot.create(:public_body, name: "test body") }
 
   let(:mock_user) do
-    FactoryBot.create(:user, :name => "test user",
-                             :url_name => "test_user",
-                             :profile_photo => nil)
+    FactoryBot.create(:user, name: "test user",
+                             url_name: "test_user",
+                             profile_photo: nil)
   end
 
   let(:admin_user) { FactoryBot.create(:admin_user) }
 
   let(:mock_request) do
-    FactoryBot.create(:info_request, :title => "Test request",
-                                     :public_body => mock_body,
-                                     :user => mock_user)
+    FactoryBot.create(:info_request, title: "Test request",
+                                     public_body: mock_body,
+                                     user: mock_user)
   end
 
   let(:mock_track) do
-    mock_model(TrackThing, :track_type => 'request_updates',
-                           :info_request => mock_request)
+    mock_model(TrackThing, track_type: 'request_updates',
+                           info_request: mock_request)
   end
 
   def request_page
@@ -42,7 +42,7 @@ describe "request/show" do
 
   it "should show the request" do
     request_page
-    expect(rendered).to have_css("h1",:text => "Test request")
+    expect(rendered).to have_css("h1", text: "Test request")
   end
 
   describe "when told to show the top describe state form" do
@@ -87,12 +87,14 @@ describe "request/show" do
             and_return(mock_response)
           request_page
           expected_url = new_request_incoming_followup_path(
-                          :request_id => mock_request.id,
-                          :incoming_message_id => mock_response.id)
+            request_id: mock_request.id,
+            incoming_message_id: mock_response.id
+          )
           expect(response.body).
             to have_css(
               "a[href='#{expected_url}#followup']",
-              :text => "send a follow up message")
+              text: "send a follow up message"
+            )
         end
       end
 
@@ -103,11 +105,12 @@ describe "request/show" do
 
         it "should show a link to follow up the request without reference to a specific response" do
           request_page
-          expected_url = new_request_followup_path(:request_id => mock_request.id)
+          expected_url = new_request_followup_path(request_id: mock_request.id)
           expect(response.body).
             to have_css(
               "a[href='#{expected_url}#followup']",
-              :text => "send a follow up message")
+              text: "send a follow up message"
+            )
         end
       end
     end
@@ -131,7 +134,8 @@ describe "request/show" do
       it "should give a link to requesting an internal review" do
         expect(response.body).to have_css(
           "div#request_status",
-          :text => "requesting an internal review")
+          text: "requesting an internal review"
+        )
       end
     end
 
@@ -145,7 +149,8 @@ describe "request/show" do
       it "should give a link to make a followup" do
         expect(response.body).to have_css(
           "div#request_status a",
-          :text => "send a follow up message")
+          text: "send a follow up message"
+        )
       end
     end
   end
@@ -180,7 +185,8 @@ describe "request/show" do
         it 'should not give a link to requesting an internal review' do
           expect(rendered).not_to have_css(
             'p#request_status',
-            :text => "requesting an internal review")
+            text: "requesting an internal review"
+          )
         end
       end
 
@@ -194,13 +200,15 @@ describe "request/show" do
         it 'should not give a link to make a followup' do
           expect(rendered).not_to have_css(
             'p#request_status a',
-            :text => "send a follow up message")
+            text: "send a follow up message"
+          )
         end
 
         it 'should not give a link to sign in (in the request status <p>)' do
           expect(rendered).not_to have_css(
             'p#request_status a',
-            :text => "sign in")
+            text: "sign in"
+          )
         end
       end
     end
@@ -275,10 +283,11 @@ describe "request/show" do
     context "when there is a censor rule" do
       it "should replace the attachment name" do
         request_with_attachment.censor_rules.create!(
-          :text => "interesting.pdf",
-          :replacement => "Mouse.pdf",
-          :last_edit_editor => "unknown",
-          :last_edit_comment => "none")
+          text: "interesting.pdf",
+          replacement: "Mouse.pdf",
+          last_edit_editor: "unknown",
+          last_edit_comment: "none"
+        )
         assign :info_request, request_with_attachment
         assign :info_request_events, request_with_attachment.info_request_events
         assign :status, request_with_attachment.calculate_status

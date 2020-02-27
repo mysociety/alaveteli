@@ -1,14 +1,13 @@
 # -*- encoding : utf-8 -*-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-
 describe ApplicationMailer do
 
   context 'when using plugins' do
 
     def set_base_views
       ApplicationMailer.class_eval do
-        @previous_view_paths = self.view_paths.dup
+        @previous_view_paths = view_paths.dup
         self.view_paths = [File.join(Rails.root, 'spec', 'fixtures', 'theme_views', 'core')]
       end
     end
@@ -55,7 +54,7 @@ describe ApplicationMailer do
 
     before do
       set_base_views
-      add_mail_methods(['simple', 'theme_only', 'core_only', 'neither'])
+      add_mail_methods(%w[simple theme_only core_only neither])
     end
 
     describe 'when a plugin prepends its mail templates to the view paths' do
@@ -154,7 +153,7 @@ describe ApplicationMailer do
 
     after do
       reset_views
-      remove_mail_methods(['simple', 'theme_only', 'core_only', 'neither', 'multipart'])
+      remove_mail_methods(%w[simple theme_only core_only neither multipart])
     end
   end
 

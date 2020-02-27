@@ -13,8 +13,8 @@ describe InfoRequest::State::ResponseReceivedQuery do
     end
 
     it 'excludes those that are not waiting for description' do
-      expect(described_class.new.call.include?(info_request))
-        .to be false
+      expect(described_class.new.call.include?(info_request)).
+        to be false
     end
 
   end

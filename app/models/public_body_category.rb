@@ -11,17 +11,17 @@
 
 class PublicBodyCategory < ApplicationRecord
   has_many :public_body_category_links,
-           :inverse_of => :public_body_category,
-           :dependent => :destroy
+           inverse_of: :public_body_category,
+           dependent: :destroy
   has_many :public_body_headings,
-           :through => :public_body_category_links
+           through: :public_body_category_links
 
   translates :title, :description
 
-  validates_uniqueness_of :category_tag, :message => 'Tag is already taken'
-  validates_presence_of :title, :message => "Title can't be blank"
-  validates_presence_of :category_tag, :message => "Tag can't be blank"
-  validates_presence_of :description, :message => "Description can't be blank"
+  validates_uniqueness_of :category_tag, message: 'Tag is already taken'
+  validates_presence_of :title, message: "Title can't be blank"
+  validates_presence_of :category_tag, message: "Tag can't be blank"
+  validates_presence_of :description, message: "Description can't be blank"
 
   include Translatable
 
@@ -55,9 +55,9 @@ class PublicBodyCategory < ApplicationRecord
 end
 
 PublicBodyCategory::Translation.class_eval do
-  with_options :if => lambda { |t| !t.default_locale? && t.required_attribute_submitted? } do |required|
-    required.validates :title, :presence => { :message => "Title can't be blank" }
-    required.validates :description, :presence => { :message => "Description can't be blank" }
+  with_options if: ->(t) { !t.default_locale? && t.required_attribute_submitted? } do |required|
+    required.validates :title, presence: { message: "Title can't be blank" }
+    required.validates :description, presence: { message: "Description can't be blank" }
   end
 
   def default_locale?
@@ -69,5 +69,4 @@ PublicBodyCategory::Translation.class_eval do
       !read_attribute(attribute).blank?
     end
   end
-
 end

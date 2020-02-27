@@ -5,6 +5,6 @@ class RemoveAdminLevel < ActiveRecord::Migration[4.2]
   end
 
   def self.down
-    add_column :users, :admin_level, :string, :null => false, :default => 'none'
+    add_column :users, :admin_level, :string, null: false, default: 'none'
   end
 end

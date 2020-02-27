@@ -19,7 +19,7 @@ describe "administering requests" do
     context 'when the user being administered is not a pro' do
       let!(:public_body) do
         FactoryBot.create(:public_body,
-                          :name => 'example')
+                          name: 'example')
       end
 
       before do
@@ -31,7 +31,7 @@ describe "administering requests" do
           post_redirect = create_request_and_user(public_body)
 
           using_pro_session(pro_admin_user_session) do
-            visit confirm_path(:email_token => post_redirect.email_token)
+            visit confirm_path(email_token: post_redirect.email_token)
             expect(current_url).to match(%r(/request/(.+)))
             current_url =~ %r(/request/(.+))
             url_title = $1

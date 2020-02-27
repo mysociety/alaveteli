@@ -76,12 +76,10 @@ class Webhook < ApplicationRecord
   def coupon_state
     if previous['discount'].nil? && object['discount']
       _('Coupon code "{{code}}" applied',
-        code: object['discount']['coupon']['id']
-       )
+        code: object['discount']['coupon']['id'])
     elsif previous['discount'] && object['discount'].nil?
       _('Coupon code "{{code}}" revoked',
-        code: previous['discount']['coupon']['id']
-       )
+        code: previous['discount']['coupon']['id'])
     end
   end
 
@@ -89,8 +87,7 @@ class Webhook < ApplicationRecord
     if previous['plan'] && previous['plan'] != object['plan']
       _('Plan changed from "{{from}}" to "{{to}}"',
         from: previous['plan']['name'],
-        to: object['plan']['name']
-       )
+        to: object['plan']['name'])
     end
   end
 

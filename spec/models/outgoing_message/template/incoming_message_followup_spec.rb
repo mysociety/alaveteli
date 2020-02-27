@@ -12,12 +12,12 @@ describe OutgoingMessage::Template::IncomingMessageFollowup do
 
     it 'returns the expected template text' do
       expected = "Dear A body,\n\n\n\nYours sincerely,\n\n"
-      expect(subject.body(:public_body_name => 'A body')).to eq(expected)
+      expect(subject.body(public_body_name: 'A body')).to eq(expected)
     end
 
     it 'allows a custom message letter' do
-      opts = { :public_body_name => 'A body',
-               :letter => 'A custom letter' }
+      opts = { public_body_name: 'A body',
+               letter: 'A custom letter' }
       expected = "Dear A body,\n\nA custom letter\n\n\n\nYours sincerely,\n\n"
       expect(subject.body(opts)).to eq(expected)
     end
@@ -27,7 +27,7 @@ describe OutgoingMessage::Template::IncomingMessageFollowup do
   describe '#salutation' do
 
     it 'returns the salutation' do
-      expect(subject.salutation(:public_body_name => 'A body')).
+      expect(subject.salutation(public_body_name: 'A body')).
         to eq('Dear A body,')
     end
 
@@ -40,7 +40,7 @@ describe OutgoingMessage::Template::IncomingMessageFollowup do
     end
 
     it 'returns a custom letter' do
-      expect(subject.letter(:letter => 'custom')).to eq("\n\ncustom")
+      expect(subject.letter(letter: 'custom')).to eq("\n\ncustom")
     end
 
   end

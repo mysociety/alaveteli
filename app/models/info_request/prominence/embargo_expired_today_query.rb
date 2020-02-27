@@ -12,9 +12,9 @@ class InfoRequest
           joins(:info_request_events).
           where('embargoes.info_request_id IS NULL').
           where([
-            'info_request_events.created_at >= ?',
-            Time.zone.now.beginning_of_day
-          ]).
+                  'info_request_events.created_at >= ?',
+                  Time.zone.now.beginning_of_day
+                ]).
           where(info_request_events: { event_type: 'expire_embargo' }).
           references(:embargoes, :info_request_events)
       end

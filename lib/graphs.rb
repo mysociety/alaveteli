@@ -2,24 +2,23 @@
 require 'gnuplot'
 
 module Graphs
-
   # the colour references given here are for the default palette
   # as provided by our basic gnuplot configuration, do not rely on them
   # if you have altered the gnuplot install
   COLOURS = {
-    :darkblue => 8,
-    :lightblue => 3,
-    :yellow => 9,
-    :red => 6,
-    :lightgreen => 2,
-    :darkgreen => 10,
-    :cyan => 5,
-    :darkyellow => 7,
-    :mauve => 4,
-    :redbrown => 12, # previously "darky reddy brown"
-    :pink => 13,
-    :bluemauve => 11,
-    :limegreen => 14
+    darkblue: 8,
+    lightblue: 3,
+    yellow: 9,
+    red: 6,
+    lightgreen: 2,
+    darkgreen: 10,
+    cyan: 5,
+    darkyellow: 7,
+    mauve: 4,
+    redbrown: 12, # previously "darky reddy brown"
+    pink: 13,
+    bluemauve: 11,
+    limegreen: 14
   }.freeze
   COLORS = COLOURS
 
@@ -47,11 +46,11 @@ module Graphs
   # for outputting the graph
   # returns the resulting Gnuplot::DataSet
   def create_dataset(data, options)
-    default = {:using => "1:2"} #in most cases, we just want the first 2 columns
+    default = { using: "1:2" } # in most cases, we just want the first 2 columns
     options = default.merge(options)
     Gnuplot::DataSet.new(data) do |ds|
       options.keys.each do |option|
-        ds.send("#{option}=", options[option])
+         ds.send("#{option}=", options[option])
        end
     end
   end

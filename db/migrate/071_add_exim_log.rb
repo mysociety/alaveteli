@@ -5,19 +5,19 @@ class AddEximLog < ActiveRecord::Migration[4.2] # 2.1
       t.column :exim_log_done_id, :integer
       t.column :info_request_id, :integer
 
-      t.column :order, :integer, :null => false
-      t.column :line, :text, :null => false
+      t.column :order, :integer, null: false
+      t.column :line, :text, null: false
 
-      t.column :created_at, :datetime, :null => false
-      t.column :updated_at, :datetime, :null => false
+      t.column :created_at, :datetime, null: false
+      t.column :updated_at, :datetime, null: false
     end
 
     create_table :exim_log_dones do |t|
-      t.column :filename, :text, :null => false, :unique => true
-      t.column :last_stat, :datetime, :null => false
+      t.column :filename, :text, null: false, unique: true
+      t.column :last_stat, :datetime, null: false
 
-      t.column :created_at, :datetime, :null => false
-      t.column :updated_at, :datetime, :null => false
+      t.column :created_at, :datetime, null: false
+      t.column :updated_at, :datetime, null: false
     end
     add_index :exim_log_dones, :last_stat
 

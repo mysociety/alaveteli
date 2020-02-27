@@ -9,7 +9,8 @@ describe 'public_body_change_request_mailer/update_public_body' do
     FactoryBot.create(
       :update_body_request,
       public_body: public_body,
-      user: user)
+      user: user
+    )
   end
 
   before do

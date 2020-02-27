@@ -4,7 +4,7 @@
 # a given language. Prefer the class method .supports? rather than creating a
 # new instance.
 class DatabaseCollation
-  MINIMUM_POSTGRESQL_VERSION = 90112
+  MINIMUM_POSTGRESQL_VERSION = 90_112
 
   attr_reader :connection
 

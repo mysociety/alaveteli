@@ -29,7 +29,7 @@ describe HashableParams do
       let(:raw_params) { ActionController::Parameters.new(params_hash) }
 
       it 'does not strip unpermitted keys' do
-        expect(subject.keys).to match_array(['foo', 'bar'])
+        expect(subject.keys).to match_array(%w[foo bar])
       end
 
       it 'returns a hash' do

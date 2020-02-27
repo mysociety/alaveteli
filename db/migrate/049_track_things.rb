@@ -2,15 +2,15 @@
 class TrackThings < ActiveRecord::Migration[4.2] # 2.0
   def self.up
     create_table :track_things do |t|
-      t.column :tracking_user_id, :integer, :null => false
-      t.column :track_query, :string, :null => false
+      t.column :tracking_user_id, :integer, null: false
+      t.column :track_query, :string, null: false
 
       # optional foreign key links, for displaying people who are tracking this on pages
-      t.column :info_request_id, :integer, :default => nil
-      t.column :tracked_user_id, :integer, :default => nil
-      t.column :public_body_id, :integer, :default => nil
+      t.column :info_request_id, :integer, default: nil
+      t.column :tracked_user_id, :integer, default: nil
+      t.column :public_body_id, :integer, default: nil
 
-      t.column :track_medium, :string, :null => false
+      t.column :track_medium, :string, null: false
     end
 
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
@@ -21,11 +21,11 @@ class TrackThings < ActiveRecord::Migration[4.2] # 2.0
     end
 
     create_table :track_things_sent_emails do |t|
-      t.column :track_thing_id, :integer, :null => false
+      t.column :track_thing_id, :integer, null: false
 
-      t.column :info_request_event_id, :integer, :default => nil
-      t.column :user_id, :integer, :default => nil
-      t.column :public_body_id, :integer, :default => nil
+      t.column :info_request_event_id, :integer, default: nil
+      t.column :user_id, :integer, default: nil
+      t.column :public_body_id, :integer, default: nil
     end
 
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"

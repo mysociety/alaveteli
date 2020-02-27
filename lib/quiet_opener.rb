@@ -1,9 +1,9 @@
 # -*- encoding : utf-8 -*-
 require 'open-uri'
 
-def quietly_try_to_open(url, timeout=60)
+def quietly_try_to_open(url, timeout = 60)
   begin
-    result = open(url, :read_timeout => timeout).read.strip
+    result = open(url, read_timeout: timeout).read.strip
   rescue OpenURI::HTTPError,
          SocketError,
          Errno::ETIMEDOUT,
@@ -19,10 +19,10 @@ def quietly_try_to_open(url, timeout=60)
     if !AlaveteliConfiguration.exception_notifications_from.blank? &&
        !AlaveteliConfiguration.exception_notifications_to.blank? &&
        defined?(request)
-      ExceptionNotifier.notify_exception(e, :env => request.env)
+      ExceptionNotifier.notify_exception(e, env: request.env)
     end
     Rails.logger.warn(e.message)
     result = ""
   end
-  return result
+  result
 end

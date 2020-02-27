@@ -19,27 +19,27 @@
 
 class PublicBodyChangeRequest < ApplicationRecord
   belongs_to :user,
-             :inverse_of => :public_body_change_requests,
-             :counter_cache => true
+             inverse_of: :public_body_change_requests,
+             counter_cache: true
   belongs_to :public_body,
-             :inverse_of => :public_body_change_requests
+             inverse_of: :public_body_change_requests
 
   validates_presence_of :public_body_name,
-                        :message => N_("Please enter the name of the authority"),
-                        :unless => proc { |change_request| change_request.public_body }
+                        message: N_("Please enter the name of the authority"),
+                        unless: proc { |change_request| change_request.public_body }
   validates_presence_of :user_name,
-                        :message => N_("Please enter your name"),
-                        :unless => proc { |change_request| change_request.user }
+                        message: N_("Please enter your name"),
+                        unless: proc { |change_request| change_request.user }
   validates_presence_of :user_email,
-                        :message => N_("Please enter your email address"),
-                        :unless => proc { |change_request| change_request.user }
-  validate :user_email_format, :unless => proc { |change_request| change_request.user_email.blank? }
-  validate :body_email_format, :unless => proc { |change_request| change_request.public_body_email.blank? }
+                        message: N_("Please enter your email address"),
+                        unless: proc { |change_request| change_request.user }
+  validate :user_email_format, unless: proc { |change_request| change_request.user_email.blank? }
+  validate :body_email_format, unless: proc { |change_request| change_request.public_body_email.blank? }
 
-  scope :new_body_requests, -> {
+  scope :new_body_requests, lambda {
     where(public_body_id: nil).order("created_at")
   }
-  scope :body_update_requests, -> {
+  scope :body_update_requests, lambda {
     where("public_body_id IS NOT NULL").order("created_at")
   }
   scope :open, -> { where(is_open: true) }
@@ -99,7 +99,7 @@ class PublicBodyChangeRequest < ApplicationRecord
       _("Your request to update the address for {{public_body_name}} has " \
         "been sent. Thank you for getting in touch! We'll get back to you " \
         "soon.",
-        :public_body_name => get_public_body_name)
+        public_body_name: get_public_body_name)
     end
   end
 
@@ -112,22 +112,18 @@ class PublicBodyChangeRequest < ApplicationRecord
 
   def comment_for_public_body
     comments = ["Requested by: #{get_user_name} (#{get_user_email})"]
-    if !source_url.blank?
-      comments << "Source URL: #{source_url}"
-    end
-    if !notes.blank?
-      comments << "Notes: #{notes}"
-    end
+    comments << "Source URL: #{source_url}" unless source_url.blank?
+    comments << "Notes: #{notes}" unless notes.blank?
     comments.join("\n")
   end
 
   def request_subject
     if add_body_request?
       _("Add authority - {{public_body_name}}",
-        :public_body_name => public_body_name.html_safe).to_str
+        public_body_name: public_body_name.html_safe).to_str
     else
       _("Update email address - {{public_body_name}}",
-        :public_body_name => public_body.name.html_safe).to_str
+        public_body_name: public_body.name.html_safe).to_str
     end
   end
 
@@ -137,19 +133,19 @@ class PublicBodyChangeRequest < ApplicationRecord
 
   def close!
     self.is_open = false
-    self.save!
+    save!
   end
 
   private
 
   def body_email_format
-    unless MySociety::Validate.is_valid_email(self.public_body_email)
+    unless MySociety::Validate.is_valid_email(public_body_email)
       errors.add(:public_body_email, _("The authority email doesn't look like a valid address"))
     end
   end
 
   def user_email_format
-    unless MySociety::Validate.is_valid_email(self.user_email)
+    unless MySociety::Validate.is_valid_email(user_email)
       errors.add(:user_email, _("Your email doesn't look like a valid address"))
     end
   end

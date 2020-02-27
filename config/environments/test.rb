@@ -51,9 +51,9 @@ Rails.application.configure do
 
   if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
     middleware.use ExceptionNotification::Rack,
-      :email => {
-        :sender_address => AlaveteliConfiguration.exception_notifications_from,
-        :exception_recipients => AlaveteliConfiguration.exception_notifications_to
-      }
+                   email: {
+                     sender_address: AlaveteliConfiguration.exception_notifications_from,
+                     exception_recipients: AlaveteliConfiguration.exception_notifications_to
+                   }
   end
 end

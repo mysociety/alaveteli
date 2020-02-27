@@ -61,7 +61,6 @@ describe FoiAttachment do
       end
     end
 
-
     it 'returns a binary encoded string when saved' do
       foi_attachment = FactoryBot.create(:body_text)
       foi_attachment = FoiAttachment.find(foi_attachment.id)
@@ -90,7 +89,6 @@ describe FoiAttachment do
         expect(foi_attachment.body_as_text.string.valid_encoding?).to be true
       end
     end
-
 
     it 'has a true scrubbed? value if the body has been coerced to valid UTF-8' do
       foi_attachment = FactoryBot.create(:body_text)

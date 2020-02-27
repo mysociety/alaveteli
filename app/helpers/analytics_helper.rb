@@ -1,11 +1,9 @@
 # -*- encoding : utf-8 -*-
 module AnalyticsHelper
-
   # helpers for embedding Google Analytics code
   #
   # Event categories and actions should be drawn from the list in the
   # lib/analytics_events.rb file (add your own there when making new ones)
-
 
   # Public: Constructs a String consisting of a Google Analytics (GA) tracking
   # event function call with the (mandatory) event category and action params
@@ -47,12 +45,12 @@ module AnalyticsHelper
   #   # => "if (ga) { ga('send','event','test','Embedded',window.location.href,1) };"
   #
   # Returns a string of a GA JavaScript function to drop into an :onclick handler
-  def track_analytics_event(event_category, event_action, options={})
+  def track_analytics_event(event_category, event_action, options = {})
     begin
       value = if options[:value].nil?
-        1
-      else
-        Integer(options[:value])
+                1
+              else
+                Integer(options[:value])
       end
     rescue ArgumentError
       raise ArgumentError, %Q(:value option must be an Integer: "#{ options[:value] }")
@@ -90,12 +88,11 @@ module AnalyticsHelper
   # Returns the label String with or without containing single quotes,
   # depending on the value of the is_script param default behaviour:
   #   is_script is evaluated as false, string returned wrapped in single quotes)
-  def format_event_label(label, is_script=false)
+  def format_event_label(label, is_script = false)
     if is_script
       label
     else
       "'#{label}'"
     end
   end
-
 end

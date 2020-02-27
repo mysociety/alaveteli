@@ -25,20 +25,20 @@
 class CensorRule < ApplicationRecord
   include AdminColumn
   belongs_to :info_request,
-             :inverse_of => :censor_rules
+             inverse_of: :censor_rules
   belongs_to :user,
-             :inverse_of => :censor_rules
+             inverse_of: :censor_rules
   belongs_to :public_body,
-             :inverse_of => :censor_rules
+             inverse_of: :censor_rules
 
-  validate :require_valid_regexp, :if => proc { |rule| rule.regexp? == true }
+  validate :require_valid_regexp, if: proc { |rule| rule.regexp? == true }
 
   validates_presence_of :text,
                         :replacement,
                         :last_edit_comment,
                         :last_edit_editor
 
-  scope :global, -> {
+  scope :global, lambda {
     where(info_request_id: nil,
           user_id: nil,
           public_body_id: nil)
@@ -67,7 +67,7 @@ class CensorRule < ApplicationRecord
       public_body.expire_requests
     else # global rule
       InfoRequest.find_in_batches do |group|
-        group.each { |request| request.expire }
+        group.each(&:expire)
       end
     end
   end
@@ -83,11 +83,9 @@ class CensorRule < ApplicationRecord
   end
 
   def require_valid_regexp
-    begin
-      make_regexp('UTF-8')
-    rescue RegexpError => e
-      errors.add(:text, e.message)
-    end
+    make_regexp('UTF-8')
+  rescue RegexpError => e
+    errors.add(:text, e.message)
   end
 
   def to_replace(encoding)
@@ -101,5 +99,4 @@ class CensorRule < ApplicationRecord
   def make_regexp(encoding)
     Regexp.new(encoded_text(encoding), Regexp::MULTILINE)
   end
-
 end

@@ -23,8 +23,8 @@ describe "alaveteli_pro/info_requests/new.html.erb" do
       notes: public_body.notes,
       info_requests_visible_count: public_body.info_requests_visible_count
     }
-    expect(view).to receive(:public_body_search_attributes)
-      .and_return(expected_data)
+    expect(view).to receive(:public_body_search_attributes).
+      and_return(expected_data)
 
     assign_variables
     render

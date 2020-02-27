@@ -23,5 +23,4 @@ class MailServerLog::DeliveryStatusSerializer
     return unless value
     value.to_s
   end
-
 end

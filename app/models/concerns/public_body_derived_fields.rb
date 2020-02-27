@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 module PublicBodyDerivedFields
-
   extend ActiveSupport::Concern
 
   included do
@@ -16,7 +15,6 @@ module PublicBodyDerivedFields
       write_attribute(:name, value)
       update_url_name
     end
-
   end
 
   # Return the short name if present, or else long name
@@ -33,9 +31,7 @@ module PublicBodyDerivedFields
     unless name.blank?
       # we use a regex to ensure it works with utf-8/multi-byte
       new_first_letter = Unicode.upcase name.scan(/^./mu)[0]
-      if new_first_letter != first_letter
-        self.first_letter = new_first_letter
-      end
+      self.first_letter = new_first_letter if new_first_letter != first_letter
     end
   end
 
@@ -45,5 +41,4 @@ module PublicBodyDerivedFields
                         simplify_url_part(short_or_long_name, 'body')
     end
   end
-
 end

@@ -10,10 +10,10 @@ class ContactValidator
 
   attr_accessor :name, :email, :subject, :message, :comment
 
-  validates_presence_of :name, :message => N_("Please enter your name")
-  validates_presence_of :email, :message => N_("Please enter your email address")
-  validates_presence_of :subject, :message => N_("Please enter a subject")
-  validates_presence_of :message, :message => N_("Please enter the message you want to send")
+  validates_presence_of :name, message: N_("Please enter your name")
+  validates_presence_of :email, message: N_("Please enter your email address")
+  validates_presence_of :subject, message: N_("Please enter a subject")
+  validates_presence_of :message, message: N_("Please enter the message you want to send")
   validate :email_format
 
   def initialize(attributes = {})

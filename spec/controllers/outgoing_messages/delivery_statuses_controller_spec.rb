@@ -11,76 +11,76 @@ describe OutgoingMessages::DeliveryStatusesController do
     2015-11-22 00:37:00 [17619] 1a0IeK-0004aB-Na <= request@example.com U=alaveteli P=local S=3973 id=ogm-jh217mwec@example.com@localhost T="RE: An FOI Request about Potatoes 15" from <request@example.com> for body@example.com body@example.com\n
     EOF
     @logs = lines.map do |line|
-      mock_model(MailServerLog, :line => line, :is_owning_user? => true)
+      mock_model(MailServerLog, line: line, is_owning_user?: true)
     end
     @status = MailServerLog::DeliveryStatus.new(:delivered)
   end
 
   def visible_info_request
-    mock_model(InfoRequest, { :prominence => 'normal',
-                              :embargo => nil })
+    mock_model(InfoRequest,  prominence: 'normal',
+                             embargo: nil)
   end
 
   describe 'GET show' do
 
     it 'assigns the outgoing message' do
       session[:user_id] = FactoryBot.create(:user).id
-      attrs = { :id => '1',
-                :prominence => 'normal',
-                :info_request => visible_info_request,
-                :is_owning_user? => true,
-                :mail_server_logs => @logs,
-                :delivery_status => @status }
+      attrs = { id: '1',
+                prominence: 'normal',
+                info_request: visible_info_request,
+                is_owning_user?: true,
+                mail_server_logs: @logs,
+                delivery_status: @status }
       message = mock_model(OutgoingMessage, attrs)
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
-      get :show, params: { :outgoing_message_id => message.id }
+      get :show, params: { outgoing_message_id: message.id }
       expect(assigns[:outgoing_message]).to eq(message)
     end
 
     it 'renders hidden when the message cannot be viewed' do
       session[:user_id] = FactoryBot.create(:user).id
-      attrs = { :id => '1',
-                :prominence => 'hidden',
-                :info_request => visible_info_request,
-                :is_owning_user? => false,
-                :mail_server_logs => @logs,
-                :delivery_status => @status }
+      attrs = { id: '1',
+                prominence: 'hidden',
+                info_request: visible_info_request,
+                is_owning_user?: false,
+                mail_server_logs: @logs,
+                delivery_status: @status }
       message = mock_model(OutgoingMessage, attrs)
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
-      get :show, params: { :outgoing_message_id => message.id }
+      get :show, params: { outgoing_message_id: message.id }
       expect(response).to render_template('request/_hidden_correspondence')
     end
 
     it 'renders hidden when the request cannot be viewed' do
       session[:user_id] = FactoryBot.create(:user).id
-      attrs = { :id => '1',
-                :prominence => 'normal',
-                :info_request => mock_model(InfoRequest, { :prominence => 'hidden',
-                                                           :embargo => nil }),
-                :is_owning_user? => false,
-                :mail_server_logs => @logs,
-                :delivery_status => @status }
+      attrs = { id: '1',
+                prominence: 'normal',
+                info_request: mock_model(InfoRequest, prominence: 'hidden',
+                                                      embargo: nil),
+                is_owning_user?: false,
+                mail_server_logs: @logs,
+                delivery_status: @status }
       message = mock_model(OutgoingMessage, attrs)
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
-      get :show, params: { :outgoing_message_id => message.id }
+      get :show, params: { outgoing_message_id: message.id }
       expect(response).to render_template('request/_hidden_correspondence')
     end
 
     it 'sets the title' do
       session[:user_id] = FactoryBot.create(:user).id
-      attrs = { :id => '1',
-                :prominence => 'normal',
-                :info_request => visible_info_request,
-                :is_owning_user? => true,
-                :mail_server_logs => @logs,
-                :delivery_status => @status }
+      attrs = { id: '1',
+                prominence: 'normal',
+                info_request: visible_info_request,
+                is_owning_user?: true,
+                mail_server_logs: @logs,
+                delivery_status: @status }
       message = mock_model(OutgoingMessage, attrs)
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
-      get :show, params: { :outgoing_message_id => message.id }
+      get :show, params: { outgoing_message_id: message.id }
       expected = 'Delivery Status for Outgoing Message #1'
       expect(assigns[:title]).to eq(expected)
     end
@@ -88,119 +88,119 @@ describe OutgoingMessages::DeliveryStatusesController do
     it 'assigns the delivery status of the message' do
       @logs.each do |log|
         expect(log).
-          to receive(:line).with(:redact => false).and_return(log.line)
+          to receive(:line).with(redact: false).and_return(log.line)
       end
 
       session[:user_id] = FactoryBot.create(:admin_user).id
-      attrs = { :id => '1',
-                :prominence => 'normal',
-                :info_request => visible_info_request,
-                :is_owning_user? => true,
-                :mail_server_logs => @logs,
-                :delivery_status => @status }
+      attrs = { id: '1',
+                prominence: 'normal',
+                info_request: visible_info_request,
+                is_owning_user?: true,
+                mail_server_logs: @logs,
+                delivery_status: @status }
       message = mock_model(OutgoingMessage, attrs)
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
-      get :show, params: { :outgoing_message_id => message.id }
+      get :show, params: { outgoing_message_id: message.id }
       expect(assigns[:delivery_status]).to eq(@status)
     end
 
     it 'sets show_mail_server_logs to true if the user is an owner' do
       session[:user_id] = FactoryBot.create(:user).id
-      attrs = { :id => '1',
-                :prominence => 'normal',
-                :info_request => visible_info_request,
-                :is_owning_user? => true,
-                :mail_server_logs => @logs,
-                :delivery_status => @status }
+      attrs = { id: '1',
+                prominence: 'normal',
+                info_request: visible_info_request,
+                is_owning_user?: true,
+                mail_server_logs: @logs,
+                delivery_status: @status }
       message = mock_model(OutgoingMessage, attrs)
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
-      get :show, params: { :outgoing_message_id => message.id }
+      get :show, params: { outgoing_message_id: message.id }
       expect(assigns[:show_mail_server_logs]).to eq(true)
     end
 
     it 'sets show_mail_server_logs to false if the user is not an owner' do
       session[:user_id] = FactoryBot.create(:user).id
-      attrs = { :id => '1',
-                :prominence => 'normal',
-                :info_request => visible_info_request,
-                :is_owning_user? => false,
-                :mail_server_logs => @logs,
-                :delivery_status => @status }
+      attrs = { id: '1',
+                prominence: 'normal',
+                info_request: visible_info_request,
+                is_owning_user?: false,
+                mail_server_logs: @logs,
+                delivery_status: @status }
       message = mock_model(OutgoingMessage, attrs)
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
-      get :show, params: { :outgoing_message_id => message.id }
+      get :show, params: { outgoing_message_id: message.id }
       expect(assigns[:show_mail_server_logs]).to eq(false)
     end
 
     it 'assigns the redacted mail server log lines for the request owner' do
       @logs.each do |log|
         expect(log).
-          to receive(:line).with(:redact => true).and_return(log.line)
+          to receive(:line).with(redact: true).and_return(log.line)
       end
 
       session[:user_id] = FactoryBot.create(:user).id
-      attrs = { :id => '1',
-                :prominence => 'normal',
-                :info_request => visible_info_request,
-                :is_owning_user? => true,
-                :mail_server_logs => @logs,
-                :delivery_status => @status }
+      attrs = { id: '1',
+                prominence: 'normal',
+                info_request: visible_info_request,
+                is_owning_user?: true,
+                mail_server_logs: @logs,
+                delivery_status: @status }
       message = mock_model(OutgoingMessage, attrs)
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
-      get :show, params: { :outgoing_message_id => message.id }
+      get :show, params: { outgoing_message_id: message.id }
       expect(assigns[:mail_server_logs]).to eq(@logs.map(&:line))
     end
 
     it 'assigns the unredacted mail server log lines for an admin' do
       @logs.each do |log|
         expect(log).
-          to receive(:line).with(:redact => false).and_return(log.line)
+          to receive(:line).with(redact: false).and_return(log.line)
       end
 
       session[:user_id] = FactoryBot.create(:admin_user).id
-      attrs = { :id => '1',
-                :prominence => 'normal',
-                :info_request => visible_info_request,
-                :is_owning_user? => true,
-                :mail_server_logs => @logs,
-                :delivery_status => @status }
+      attrs = { id: '1',
+                prominence: 'normal',
+                info_request: visible_info_request,
+                is_owning_user?: true,
+                mail_server_logs: @logs,
+                delivery_status: @status }
       message = mock_model(OutgoingMessage, attrs)
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
-      get :show, params: { :outgoing_message_id => message.id }
+      get :show, params: { outgoing_message_id: message.id }
       expect(assigns[:mail_server_logs]).to eq(@logs.map(&:line))
     end
 
     it 'does not assign mail server logs for a regular user' do
-      attrs = { :id => '1',
-                :prominence => 'normal',
-                :info_request => visible_info_request,
-                :is_owning_user? => false,
-                :mail_server_logs => @logs,
-                :delivery_status => @status }
+      attrs = { id: '1',
+                prominence: 'normal',
+                info_request: visible_info_request,
+                is_owning_user?: false,
+                mail_server_logs: @logs,
+                delivery_status: @status }
       message = mock_model(OutgoingMessage, attrs)
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
-      get :show, params: { :outgoing_message_id => message.id }
+      get :show, params: { outgoing_message_id: message.id }
       expect(assigns[:mail_server_logs]).to eq(nil)
     end
 
     it 'renders the show template' do
       session[:user_id] = FactoryBot.create(:user).id
-      attrs = { :id => '1',
-                :prominence => 'normal',
-                :info_request => visible_info_request,
-                :is_owning_user? => true,
-                :mail_server_logs => @logs,
-                :delivery_status => @status }
+      attrs = { id: '1',
+                prominence: 'normal',
+                info_request: visible_info_request,
+                is_owning_user?: true,
+                mail_server_logs: @logs,
+                delivery_status: @status }
       message = mock_model(OutgoingMessage, attrs)
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
-      get :show, params: { :outgoing_message_id => message.id }
+      get :show, params: { outgoing_message_id: message.id }
       expect(response).to render_template('show')
     end
 

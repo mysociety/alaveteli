@@ -53,14 +53,14 @@ FactoryBot.define do
 
     factory :admin_user do
       sequence(:name) { |n| "Admin User #{n}" }
-      after(:create) do |user, evaluator|
+      after(:create) do |user, _evaluator|
         user.add_role :admin
       end
     end
 
     factory :pro_user do
       sequence(:name) { |n| "Pro User #{n}" }
-      after(:create) do |user, evaluator|
+      after(:create) do |user, _evaluator|
         user.add_role :pro
         create(:pro_account, user: user)
       end
@@ -68,14 +68,14 @@ FactoryBot.define do
 
     factory :pro_admin_user do
       name { 'Pro Admin User' }
-      after(:create) do |user, evaluator|
+      after(:create) do |user, _evaluator|
         user.add_role :admin
         user.add_role :pro_admin
       end
     end
 
     trait :enable_otp do
-      after(:build) { |object| object.enable_otp }
+      after(:build, &:enable_otp)
     end
   end
 

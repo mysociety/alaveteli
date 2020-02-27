@@ -4,9 +4,9 @@ module AlaveteliRateLimiter
   class IPRateLimiter
     class Defaults
       EVENT_RULES = {
-        :signup => { :count => 3, :window => { :value => 1, :unit => :hour } },
-        :request => { :count => 3, :window => { :value => 1, :unit => :hour } },
-        :comment => { :count => 20, :window => { :value => 1, :unit => :hour } }
+        signup: { count: 3, window: { value: 1, unit: :hour } },
+        request: { count: 3, window: { value: 1, unit: :hour } },
+        comment: { count: 20, window: { value: 1, unit: :hour } }
       }
 
       attr_accessor :whitelist

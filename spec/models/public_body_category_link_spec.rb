@@ -18,8 +18,8 @@ describe PublicBodyHeading, 'when validating' do
   it 'should set a default display order based on the next available display order' do
     heading = FactoryBot.create(:public_body_heading)
     category = FactoryBot.create(:public_body_category)
-    category_link = PublicBodyCategoryLink.new(:public_body_heading => heading,
-                                               :public_body_category => category)
+    category_link = PublicBodyCategoryLink.new(public_body_heading: heading,
+                                               public_body_category: category)
     category_link.valid?
     expect(category_link.category_display_order).to eq(PublicBodyCategoryLink.next_display_order(heading))
   end
@@ -48,8 +48,8 @@ describe PublicBodyCategoryLink, 'when setting a category display order' do
   it 'should return one more than the highest display order if there are public body headings' do
     heading = FactoryBot.create(:public_body_heading)
     category = FactoryBot.create(:public_body_category)
-    category_link = PublicBodyCategoryLink.create(:public_body_heading_id => heading.id,
-                                                  :public_body_category_id => category.id)
+    category_link = PublicBodyCategoryLink.create(public_body_heading_id: heading.id,
+                                                  public_body_category_id: category.id)
 
     expect(PublicBodyCategoryLink.next_display_order(heading)).to eq(1)
   end

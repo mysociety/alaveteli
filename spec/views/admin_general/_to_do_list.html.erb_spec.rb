@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'admin_general/_to_do_list.html.erb' do
 
   describe 'handling requests in an admin_required state' do
-    let(:items) { [ request ] }
+    let(:items) { [request] }
 
     def render_errors(items)
       render template: 'admin_general/_to_do_list',
@@ -82,7 +82,7 @@ describe 'admin_general/_to_do_list.html.erb' do
                           info_request: request)
       end
 
-      let(:items) { [ comment ] }
+      let(:items) { [comment] }
 
       it_behaves_like 'showing requests in an error state'
 

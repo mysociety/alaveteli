@@ -23,7 +23,8 @@ describe "pro request list" do
       :info_request_batch,
       5,
       user: pro_user,
-      public_bodies: public_bodies)
+      public_bodies: public_bodies
+    )
   end
 
   before do

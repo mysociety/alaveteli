@@ -7,17 +7,17 @@ describe AlaveteliRateLimiter::Window do
 
     it 'creates a Window from a Hash' do
       expected = described_class.new(3, :day)
-      hash = { :value => 3, :unit => :day }
+      hash = { value: 3, unit: :day }
       expect(described_class.from_hash(hash)).to eq(expected)
     end
 
     it 'requires a :value key' do
-      hash = { :unit => :day }
+      hash = { unit: :day }
       expect { described_class.from_hash(hash) }.to raise_error(KeyError)
     end
 
     it 'requires a :unit key' do
-      hash = { :value => 3 }
+      hash = { value: 3 }
       expect { described_class.from_hash(hash) }.to raise_error(KeyError)
     end
 

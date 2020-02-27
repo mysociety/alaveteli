@@ -14,10 +14,10 @@
 # We want to avoid loading rails unless we need it, so we start by just loading the
 # config file ourselves.
 $alaveteli_dir = File.expand_path(File.join(File.dirname(__FILE__), '..'))
-$:.push(File.join($alaveteli_dir, "commonlib", "rblib"))
+$LOAD_PATH.push(File.join($alaveteli_dir, "commonlib", "rblib"))
 load 'config.rb'
-$:.push(File.join($alaveteli_dir, "lib"))
-$:.push(File.join($alaveteli_dir, "lib", "mail_handler"))
+$LOAD_PATH.push(File.join($alaveteli_dir, "lib"))
+$LOAD_PATH.push(File.join($alaveteli_dir, "lib", "mail_handler"))
 load 'configuration.rb'
 MySociety::Config.set_file(File.join($alaveteli_dir, 'config', 'general'), true)
 MySociety::Config.load_default
@@ -41,7 +41,7 @@ def main(in_test_mode)
     end
 
     pfas = MailHandler::ReplyHandler.permanently_failed_addresses(message)
-    if !pfas.empty?
+    unless pfas.empty?
       if in_test_mode
         puts pfas
       else
@@ -56,9 +56,7 @@ def main(in_test_mode)
     # If we are still here, there are no permanent failures,
     # so if the message is a multipart/report then it must be
     # reporting a temporary failure. In this case we discard it
-    if content_type == "multipart/report"
-      return 1
-    end
+    return 1 if content_type == "multipart/report"
 
     # Another style of temporary failure message
     subject = MailHandler.get_header_string("Subject", message)

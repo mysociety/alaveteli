@@ -13,7 +13,7 @@ describe AttachmentToHTML::Adapters::PDF do
     end
 
     it 'allows a tmpdir to be specified to store the converted document' do
-      adapter = AttachmentToHTML::Adapters::PDF.new(attachment, :tmpdir => '/tmp')
+      adapter = AttachmentToHTML::Adapters::PDF.new(attachment, tmpdir: '/tmp')
       expect(adapter.tmpdir).to eq('/tmp')
     end
 
@@ -29,7 +29,6 @@ describe AttachmentToHTML::Adapters::PDF do
       expect(adapter.title.encoding).to eq(Encoding.find('UTF-8'))
     end
 
-
   end
 
   describe :body do
@@ -39,7 +38,7 @@ describe AttachmentToHTML::Adapters::PDF do
     end
 
     it 'operates in the context of the supplied tmpdir' do
-      adapter = AttachmentToHTML::Adapters::PDF.new(attachment, :tmpdir => '/tmp')
+      adapter = AttachmentToHTML::Adapters::PDF.new(attachment, tmpdir: '/tmp')
       expect(Dir).to receive(:chdir).with('/tmp').and_call_original
       adapter.body
     end
@@ -55,7 +54,6 @@ describe AttachmentToHTML::Adapters::PDF do
     end
 
   end
-
 
   describe :success? do
 

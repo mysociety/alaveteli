@@ -5,7 +5,7 @@ require_relative 'config/application'
 
 Rails.application.load_tasks
 if Rails.env == 'test'
-  Dir[Rails.root.join('commonlib','rblib','tests','*.rake')].each { |file| load(file) }
+  Dir[Rails.root.join('commonlib', 'rblib', 'tests', '*.rake')].each { |file| load(file) }
 end
 # Make sure the the acts_as_xapian tasks are also loaded:
-Dir[Rails.root.join('lib','acts_as_xapian','tasks','*.rake')].each { |file| load(file) }
+Dir[Rails.root.join('lib', 'acts_as_xapian', 'tasks', '*.rake')].each { |file| load(file) }

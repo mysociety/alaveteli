@@ -24,9 +24,9 @@ describe AlaveteliPro::AccountMailer do
     it 'sends the email from the blackhole email address' do
       expect(@message.from).
         to eq [
-                "#{AlaveteliConfiguration.blackhole_prefix}@" \
-                "#{AlaveteliConfiguration.incoming_email_domain}"
-              ]
+          "#{AlaveteliConfiguration.blackhole_prefix}@" \
+          "#{AlaveteliConfiguration.incoming_email_domain}"
+        ]
     end
 
     it 'has a subject including "account request"' do

@@ -66,7 +66,7 @@ describe Holiday do
       end
 
       it "handles Time objects" do
-        expect(Holiday.due_date_from_working_days(Time.utc(2009, 03, 16, 12, 0, 0), 20).strftime('%F')).to eq('2009-04-16')
+        expect(Holiday.due_date_from_working_days(Time.utc(2009, 0o3, 16, 12, 0, 0), 20).strftime('%F')).to eq('2009-04-16')
       end
     end
 
@@ -102,7 +102,7 @@ describe Holiday do
       end
 
       it "handles Time objects" do
-        expect(Holiday.due_date_from_calendar_days(Time.utc(2009, 03, 17, 12, 0, 0), 20)).to eq(Date.new(2009, 4, 6))
+        expect(Holiday.due_date_from_calendar_days(Time.utc(2009, 0o3, 17, 12, 0, 0), 20)).to eq(Date.new(2009, 4, 6))
       end
     end
   end

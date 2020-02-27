@@ -9,5 +9,4 @@ module HashableParams
     return {} if input_params.blank?
     input_params.to_unsafe_h
   end
-
 end

@@ -16,7 +16,7 @@ describe 'Updating your user profile' do
                 "profile.\nNext... You can " \
                 "upload a profile photograph too."
           visit edit_profile_about_me_path
-          fill_in :user_about_me, :with => "I am a researcher"
+          fill_in :user_about_me, with: "I am a researcher"
           click_button "Save"
 
           expect(page).to have_content(msg)
@@ -28,14 +28,14 @@ describe 'Updating your user profile' do
     context "with profile picture set" do
 
       before do
-        user.create_profile_photo!(:data => load_file_fixture('parrot.png'))
+        user.create_profile_photo!(data: load_file_fixture('parrot.png'))
       end
 
       it "displays a thank you message without upload photo nudge" do
         using_session(login(user)) do
           msg = "You have now changed the text about you on your profile."
           visit edit_profile_about_me_path
-          fill_in :user_about_me, :with => "I am a researcher"
+          fill_in :user_about_me, with: "I am a researcher"
           click_button "Save"
 
           expect(page).to have_content(msg)
@@ -60,14 +60,14 @@ describe 'Updating your user profile' do
           # post the form to work around the Next button being drawn
           # by JavaScript
           profile_photo = ProfilePhoto.
-                            create(:data => load_file_fixture("parrot.png"),
-                                   :user => user)
+                            create(data: load_file_fixture("parrot.png"),
+                                   user: user)
 
           page.driver.post set_profile_photo_path,
-               :id => user.id,
-               :file => photo_file,
-               :submitted_crop_profile_photo => 1,
-               :draft_profile_photo_id => profile_photo.id
+                           id: user.id,
+                           file: photo_file,
+                           submitted_crop_profile_photo: 1,
+                           draft_profile_photo_id: profile_photo.id
 
           visit page.driver.response.location
           expect(page).to have_content(msg)

@@ -47,7 +47,7 @@ Rails.application.configure do
   config.log_level = :info
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different logger for distributed setups.
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
@@ -91,13 +91,13 @@ Rails.application.configure do
 
   if AlaveteliConfiguration.production_mailer_delivery_method.to_sym == :smtp
     config.action_mailer.smtp_settings = {
-      :address => AlaveteliConfiguration.smtp_mailer_address,
-      :port => AlaveteliConfiguration.smtp_mailer_port,
-      :domain => AlaveteliConfiguration.smtp_mailer_domain,
-      :user_name => AlaveteliConfiguration.smtp_mailer_user_name,
-      :password => AlaveteliConfiguration.smtp_mailer_password,
-      :authentication => AlaveteliConfiguration.smtp_mailer_authentication,
-      :enable_starttls_auto => AlaveteliConfiguration.smtp_mailer_enable_starttls_auto
+      address: AlaveteliConfiguration.smtp_mailer_address,
+      port: AlaveteliConfiguration.smtp_mailer_port,
+      domain: AlaveteliConfiguration.smtp_mailer_domain,
+      user_name: AlaveteliConfiguration.smtp_mailer_user_name,
+      password: AlaveteliConfiguration.smtp_mailer_password,
+      authentication: AlaveteliConfiguration.smtp_mailer_authentication,
+      enable_starttls_auto: AlaveteliConfiguration.smtp_mailer_enable_starttls_auto
     }
   end
 
@@ -108,12 +108,12 @@ Rails.application.configure do
 
   if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
     middleware.use ExceptionNotification::Rack,
-      :ignore_exceptions => ['ActionController::BadRequest'] + ExceptionNotifier.ignored_exceptions,
-      :email => {
-        :email_prefix => exception_notifier_prefix,
-        :sender_address => AlaveteliConfiguration.exception_notifications_from,
-        :exception_recipients => AlaveteliConfiguration.exception_notifications_to
-      }
+                   ignore_exceptions: ['ActionController::BadRequest'] + ExceptionNotifier.ignored_exceptions,
+                   email: {
+                     email_prefix: exception_notifier_prefix,
+                     sender_address: AlaveteliConfiguration.exception_notifications_from,
+                     exception_recipients: AlaveteliConfiguration.exception_notifications_to
+                   }
   end
 
   require 'rack/ssl'

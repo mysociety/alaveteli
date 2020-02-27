@@ -27,13 +27,13 @@ require 'digest'
 
 class FoiAttachment < ApplicationRecord
   belongs_to :incoming_message,
-             :inverse_of => :foi_attachments
+             inverse_of: :foi_attachments
 
   validates_presence_of :content_type
   validates_presence_of :filename
   validates_presence_of :display_size
 
-  before_validation :ensure_filename!, :only => [:filename]
+  before_validation :ensure_filename!, only: [:filename]
   before_destroy :delete_cached_file!
 
   BODY_MAX_TRIES = 3
@@ -41,27 +41,23 @@ class FoiAttachment < ApplicationRecord
 
   def directory
     base_dir = File.expand_path(File.join(File.dirname(__FILE__), "../../cache", "attachments_#{Rails.env}"))
-    return File.join(base_dir, self.hexdigest[0..2])
+    File.join(base_dir, hexdigest[0..2])
   end
 
   def filepath
-    File.join(self.directory, self.hexdigest)
+    File.join(directory, hexdigest)
   end
 
   def delete_cached_file!
-    begin
-      @cached_body = nil
-      File.delete(self.filepath)
-    rescue
-    end
+    @cached_body = nil
+    File.delete(filepath)
+  rescue
   end
 
   def body=(d)
     self.hexdigest = Digest::MD5.hexdigest(d)
-    if !File.exist?(self.directory)
-      FileUtils.mkdir_p self.directory
-    end
-    File.open(self.filepath, "wb") { |file|
+    FileUtils.mkdir_p directory unless File.exist?(directory)
+    File.open(filepath, "wb") { |file|
       file.write d
     }
     update_display_size!
@@ -77,7 +73,7 @@ class FoiAttachment < ApplicationRecord
       tries = 0
       delay = 1
       begin
-        @cached_body = File.open(filepath, "rb" ) { |file| file.read }
+        @cached_body = File.open(filepath, "rb", &:read)
       rescue Errno::ENOENT
         # we've lost our cached attachments for some reason.  Reparse them.
         if tries > BODY_MAX_TRIES
@@ -89,11 +85,11 @@ class FoiAttachment < ApplicationRecord
         delay *= 2
         delay = BODY_MAX_DELAY if delay > BODY_MAX_DELAY
         force = true
-        self.incoming_message.parse_raw_email!(force)
+        incoming_message.parse_raw_email!(force)
         retry
       end
     end
-    return @cached_body
+    @cached_body
   end
 
   # body as UTF-8 text, with scrubbing of invalid chars if needed
@@ -164,9 +160,7 @@ class FoiAttachment < ApplicationRecord
     # For delivery status notification attachments, extract the status and
     # look up what it means in the DSN table.
     if @content_type == 'message/delivery-status'
-      if !@body.match(/Status:\s+([0-9]+\.([0-9]+\.[0-9]+))\s+/)
-        return ""
-      end
+      return "" unless @body.match(/Status:\s+([0-9]+\.([0-9]+\.[0-9]+))\s+/)
       dsn = $1
       dsn_part = 'X.' + $2
 
@@ -177,7 +171,7 @@ class FoiAttachment < ApplicationRecord
 
       return "<br><em>DSN: " + dsn + dsn_message + "</em>"
     end
-    return ""
+    ""
   end
 
   # Called by controller so old filenames still work
@@ -189,14 +183,14 @@ class FoiAttachment < ApplicationRecord
     # Remove slashes, they mess with URLs
     filename = filename.gsub(/\//, "-")
 
-    return filename
+    filename
   end
 
   # TODO: changing this will break existing URLs, so have a care - maybe
   # make another old_display_filename see above
   def display_filename
     filename = self.filename
-    if !self.incoming_message.nil?
+    unless incoming_message.nil?
       filename = incoming_message.info_request.apply_censor_rules_to_text(filename)
     end
     # Sometimes filenames have e.g. %20 in - no point butchering that
@@ -213,18 +207,15 @@ class FoiAttachment < ApplicationRecord
     filename = filename.gsub(/\s+/, " ")
     filename = filename.strip
 
-    return filename
+    filename
   end
 
-
   def ensure_filename!
-    if self.filename.blank?
-      calc_ext = AlaveteliFileTypes.mimetype_to_extension(self.content_type)
-      if !calc_ext
-        calc_ext = "bin"
-      end
-      if !self.within_rfc822_subject.nil?
-        computed = self.within_rfc822_subject + "." + calc_ext
+    if filename.blank?
+      calc_ext = AlaveteliFileTypes.mimetype_to_extension(content_type)
+      calc_ext = "bin" unless calc_ext
+      if !within_rfc822_subject.nil?
+        computed = within_rfc822_subject + "." + calc_ext
       else
         computed = "attachment." + calc_ext
       end
@@ -234,7 +225,7 @@ class FoiAttachment < ApplicationRecord
 
   def filename=(filename)
     filename.try(:delete!, "\0")
-    calc_ext = AlaveteliFileTypes.mimetype_to_extension(self.content_type)
+    calc_ext = AlaveteliFileTypes.mimetype_to_extension(content_type)
     # Put right extension on if missing
     if !filename.nil? && !filename.match(/\.#{calc_ext}$/) && calc_ext
       computed = filename + "." + calc_ext
@@ -246,10 +237,10 @@ class FoiAttachment < ApplicationRecord
 
   # Size to show next to the download link for the attachment
   def update_display_size!
-    s = self.body.size
+    s = body.size
 
     if s > 1024 * 1024
-      self.display_size = sprintf("%.1f", s.to_f / 1024 / 1024) + 'M'
+      self.display_size = format("%.1f", s.to_f / 1024 / 1024) + 'M'
     else
       self.display_size = (s / 1024).to_s + 'K'
     end
@@ -270,7 +261,7 @@ class FoiAttachment < ApplicationRecord
       "application/vnd.openxmlformats-officedocument.presentationml.presentation", # .pptx
 
       "application/vnd.ms-excel", # .xls
-      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", # .xlsx
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" # .xlsx
     ].include?(content_type)
   end
 
@@ -278,7 +269,7 @@ class FoiAttachment < ApplicationRecord
   def has_body_as_html?
     [
       "text/plain",
-      "application/rtf",
+      "application/rtf"
     ].include?(content_type) || has_google_docs_viewer?
   end
 
@@ -298,14 +289,14 @@ class FoiAttachment < ApplicationRecord
       'application/vnd.openxmlformats-officedocument.presentationml.presentation' => "PowerPoint presentation",
 
       'application/vnd.ms-excel' => "Excel spreadsheet",
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => "Excel spreadsheet",
-    }[self.content_type]
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => "Excel spreadsheet"
+    }[content_type]
   end
 
   # For "View as HTML" of attachment
   def body_as_html(dir, opts = {})
     attachment_url = opts.fetch(:attachment_url, nil)
-    to_html_opts = opts.merge(:tmpdir => dir, :attachment_url => attachment_url)
+    to_html_opts = opts.merge(tmpdir: dir, attachment_url: attachment_url)
     AttachmentToHTML.to_html(self, to_html_opts)
   end
 
@@ -314,5 +305,4 @@ class FoiAttachment < ApplicationRecord
   def text_type?
     AlaveteliTextMasker::TextMask.include?(content_type)
   end
-
 end

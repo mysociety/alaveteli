@@ -49,8 +49,8 @@ describe 'Signing in with a redirect parameter' do
     it 'redirects to an embargoed request that you own' do
       embargoed_request = FactoryBot.create(:embargoed_request, user: user)
       get signin_path, params: {
-                         r: show_request_path(embargoed_request.url_title)
-                       }
+        r: show_request_path(embargoed_request.url_title)
+      }
       follow_redirect!
       expect(response.status).to eq(200)
     end
@@ -58,8 +58,8 @@ describe 'Signing in with a redirect parameter' do
     it 'renders a 404 when redirecting to an embargoed request that is not yours' do
       embargoed_request = FactoryBot.create(:embargoed_request)
       get signin_path, params: {
-                         r: show_request_path(embargoed_request.url_title)
-                       }
+        r: show_request_path(embargoed_request.url_title)
+      }
       follow_redirect!
       expect(response.status).to eq(404)
     end

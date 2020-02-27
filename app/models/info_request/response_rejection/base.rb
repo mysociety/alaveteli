@@ -10,7 +10,7 @@ class InfoRequest
         @raw_email_data = raw_email_data
       end
 
-      def reject(reason = nil)
+      def reject(_reason = nil)
         true
       end
     end

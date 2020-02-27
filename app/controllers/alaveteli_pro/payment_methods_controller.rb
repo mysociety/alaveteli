@@ -22,7 +22,7 @@ class AlaveteliPro::PaymentMethodsController < AlaveteliPro::BaseController
            Stripe::StripeError => e
 
       if send_exception_notifications?
-        ExceptionNotifier.notify_exception(e, :env => request.env)
+        ExceptionNotifier.notify_exception(e, env: request.env)
       end
 
       flash[:error] = _('There was a problem updating your payment details. ' \
@@ -36,10 +36,10 @@ class AlaveteliPro::PaymentMethodsController < AlaveteliPro::BaseController
 
   def authenticate
     post_redirect_params = {
-      :web => _('To update your payment details'),
-      :email => _('Then you can update your payment details'),
-      :email_subject => _('To update your payment details') }
+      web: _('To update your payment details'),
+      email: _('Then you can update your payment details'),
+      email_subject: _('To update your payment details')
+    }
     authenticated?(post_redirect_params)
   end
-
 end

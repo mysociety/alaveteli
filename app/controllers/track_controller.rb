@@ -11,18 +11,18 @@ class TrackController < ApplicationController
 
   # Track all updates to a particular request
   def track_request
-    @info_request = InfoRequest
-                      .not_embargoed
-                        .find_by_url_title!(params[:url_title])
+    @info_request = InfoRequest.
+                      not_embargoed.
+                        find_by_url_title!(params[:url_title])
     @track_thing = TrackThing.create_track_for_request(@info_request)
 
     return atom_feed_internal if params[:feed] == 'feed'
 
-    if self.track_set
+    if track_set
       if AlaveteliConfiguration.enable_widgets && cookies[:widget_vote]
         @info_request.
           widget_votes.
-            where(:cookie => cookies[:widget_vote]).
+            where(cookie: cookies[:widget_vote]).
               destroy_all
       end
 
@@ -44,18 +44,18 @@ class TrackController < ApplicationController
 
     return atom_feed_internal if params[:feed] == 'feed'
 
-    if self.track_set || @track_thing.errors.any?
-      redirect_to request_list_url(:view => @view)
+    if track_set || @track_thing.errors.any?
+      redirect_to request_list_url(view: @view)
     end
   end
 
   # Track all updates to a particular public body
   def track_public_body
     @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
-    raise ActiveRecord::RecordNotFound.new("None found") if @public_body.nil?
+    raise ActiveRecord::RecordNotFound, "None found" if @public_body.nil?
     # If found by historic name, or alternate locale name, redirect to new name
     if @public_body.url_name != params[:url_name]
-      redirect_to track_public_body_url(:url_name => @public_body.url_name, :feed => params[:feed], :event_type => params[:event_type])
+      redirect_to track_public_body_url(url_name: @public_body.url_name, feed: params[:feed], event_type: params[:event_type])
       return
     end
 
@@ -67,7 +67,7 @@ class TrackController < ApplicationController
 
     return atom_feed_internal if params[:feed] == 'feed'
 
-    if self.track_set || @track_thing.errors.any?
+    if track_set || @track_thing.errors.any?
       redirect_to public_body_url(@public_body)
     end
   end
@@ -75,14 +75,12 @@ class TrackController < ApplicationController
   # Track a user
   def track_user
     @track_user = User.find_by_url_name(params[:url_name])
-    raise ActiveRecord::RecordNotFound.new("No such user") if @track_user.nil?
+    raise ActiveRecord::RecordNotFound, "No such user" if @track_user.nil?
     @track_thing = TrackThing.create_track_for_user(@track_user)
 
     return atom_feed_internal if params[:feed] == 'feed'
 
-    if self.track_set || @track_thing.errors.any?
-      redirect_to user_url(@track_user)
-    end
+    redirect_to user_url(@track_user) if track_set || @track_thing.errors.any?
   end
 
   # Track a search term
@@ -99,7 +97,7 @@ class TrackController < ApplicationController
 
     return atom_feed_internal if params[:feed] == 'feed'
 
-    if self.track_set || @track_thing.errors.any?
+    if track_set || @track_thing.errors.any?
       if @query.scan("variety").length == 1
         # we're making a track for a simple filter, for which
         # there's an expression in the UI (rather than relying
@@ -126,25 +124,24 @@ class TrackController < ApplicationController
       @existing_track = TrackThing.find_existing(@user, @track_thing)
       if @existing_track
         flash[:notice] =
-          { :partial => 'track/already_tracking',
-            :locals => { :track_thing_id => @existing_track.id } }
+          { partial: 'track/already_tracking',
+            locals: { track_thing_id: @existing_track.id } }
         return true
       end
     end
 
-    if not authenticated?(@track_thing.params)
-      return false
-    end
+    return false unless authenticated?(@track_thing.params)
 
     @track_thing.track_medium = 'email_daily'
     @track_thing.tracking_user_id = @user.id
     if @track_thing.save
       flash[:notice] =
-        { :partial => 'track/track_set',
-          :locals => {
-            :user_receive_email_alerts => @user.receive_email_alerts,
-            :user_url_name => @user.url_name,
-            :track_thing_id => @track_thing.id } }
+        { partial: 'track/track_set',
+          locals: {
+            user_receive_email_alerts: @user.receive_email_alerts,
+            user_url_name: @user.url_name,
+            track_thing_id: @track_thing.id
+          } }
       return true
     else
       # this will most likely be tripped by a single error - probably track_query length
@@ -163,7 +160,7 @@ class TrackController < ApplicationController
     if @track_thing.track_medium != 'feed'
       raise "can only view feeds for feed tracks, not email ones"
     end
-    redirect_to do_track_url(@track_thing, 'feed'), :status => :moved_permanently
+    redirect_to do_track_url(@track_thing, 'feed'), status: :moved_permanently
   end
 
   def atom_feed_internal
@@ -172,21 +169,27 @@ class TrackController < ApplicationController
     # so set that as the default, regardless of content negotiation
     request.format = params[:format] || 'xml'
     respond_to do |format|
-      format.json { render :json => @xapian_object.results.map { |r| r[:model].json_for_api(true,
-                                                                                            lambda do |t|
-                                                                                              view_context.highlight_and_excerpt(
-                                                                                                t,
-                                                                                                @xapian_object.words_to_highlight(
-                                                                                                  :regex => true,
-                                                                                                :include_original => true),
-                                                                                                150
-                                                                                              )
-                                                                                            end
-                                                                                            ) } }
-      format.any { render :template => 'track/atom_feed',
-                   :formats => ['atom'],
-                   :layout => false,
-                   :content_type => 'application/atom+xml' }
+      format.json {
+  render json: @xapian_object.results.map { |r|
+  r[:model].json_for_api(true,
+                         lambda do |t|
+                                 view_context.highlight_and_excerpt(
+                                   t,
+                                   @xapian_object.words_to_highlight(
+                                     regex: true,
+                                     include_original: true
+                                   ),
+                                   150
+                                 )
+                               end)
+}
+}
+      format.any {
+  render template: 'track/atom_feed',
+         formats: ['atom'],
+         layout: false,
+         content_type: 'application/atom+xml'
+}
     end
   end
 
@@ -194,11 +197,10 @@ class TrackController < ApplicationController
   def update
     track_thing = TrackThing.find(params[:track_id].to_i)
 
-    if not authenticated_as_user?(track_thing.tracking_user,
-                                  :web => _("To cancel this alert"),
-                                  :email => _("Then you can cancel the alert."),
-                                  :email_subject => _("Cancel a {{site_name}} alert",:site_name=>site_name)
-                                  )
+    unless authenticated_as_user?(track_thing.tracking_user,
+                                  web: _("To cancel this alert"),
+                                  email: _("Then you can cancel the alert."),
+                                  email_subject: _("Cancel a {{site_name}} alert", site_name: site_name))
       # do nothing - as "authenticated?" has done the redirect to signin page for us
       return
     end
@@ -224,11 +226,10 @@ class TrackController < ApplicationController
   def delete_all_type
     user_id = User.find(params[:user].to_i)
 
-    if not authenticated_as_user?(user_id,
-                                  :web => _("To cancel these alerts"),
-                                  :email => _("Then you can cancel the alerts."),
-                                  :email_subject => _("Cancel some {{site_name}} alerts",:site_name=>site_name)
-                                  )
+    unless authenticated_as_user?(user_id,
+                                  web: _("To cancel these alerts"),
+                                  email: _("Then you can cancel the alerts."),
+                                  email_subject: _("Cancel some {{site_name}} alerts", site_name: site_name))
       # do nothing - as "authenticated?" has done the redirect to signin page for us
       return
     end
@@ -237,9 +238,8 @@ class TrackController < ApplicationController
 
     flash[:notice] = _("You will no longer be emailed updates for those alerts")
     TrackThing.
-      where(:track_type => track_type, :tracking_user_id => user_id).
+      where(track_type: track_type, tracking_user_id: user_id).
         destroy_all
     redirect_to SafeRedirect.new(params[:r]).path
   end
-
 end

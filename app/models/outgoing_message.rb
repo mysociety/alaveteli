@@ -41,52 +41,50 @@ class OutgoingMessage < ApplicationRecord
   attr_accessor :default_letter
 
   validates_presence_of :info_request
-  validates_inclusion_of :status, :in => STATUS_TYPES
-  validates_inclusion_of :message_type, :in => MESSAGE_TYPES
+  validates_inclusion_of :status, in: STATUS_TYPES
+  validates_inclusion_of :message_type, in: MESSAGE_TYPES
   validate :template_changed
   validate :body_uses_mixed_capitals
   validate :body_has_signature
   validate :what_doing_value
 
   belongs_to :info_request,
-             :inverse_of => :outgoing_messages
+             inverse_of: :outgoing_messages
   belongs_to :incoming_message_followup,
-             :inverse_of => :outgoing_message_followups,
-             :foreign_key => 'incoming_message_followup_id',
-             :class_name => 'IncomingMessage'
+             inverse_of: :outgoing_message_followups,
+             foreign_key: 'incoming_message_followup_id',
+             class_name: 'IncomingMessage'
 
   # can have many events, for items which were resent by site admin e.g. if
   # contact address changed
   has_many :info_request_events,
-           :inverse_of => :outgoing_message,
-           :dependent => :destroy
+           inverse_of: :outgoing_message,
+           dependent: :destroy
 
   after_initialize :set_default_letter
   # reindex if body text is edited (e.g. by admin interface)
   after_update :xapian_reindex_after_update
 
-  strip_attributes :allow_empty => true
+  strip_attributes allow_empty: true
 
-  self.default_url_options[:host] = AlaveteliConfiguration.domain
+  default_url_options[:host] = AlaveteliConfiguration.domain
 
   # https links in emails if forcing SSL
-  if AlaveteliConfiguration::force_ssl
-    self.default_url_options[:protocol] = "https"
-  end
+  default_url_options[:protocol] = "https" if AlaveteliConfiguration.force_ssl
 
   def self.expected_send_errors
-    [ EOFError,
-      IOError,
-      Timeout::Error,
-      Errno::ECONNRESET,
-      Errno::ECONNABORTED,
-      Errno::EPIPE,
-      Errno::ETIMEDOUT,
-      Net::SMTPAuthenticationError,
-      Net::SMTPServerBusy,
-      Net::SMTPSyntaxError,
-      Net::SMTPUnknownError,
-      OpenSSL::SSL::SSLError ].concat(additional_send_errors)
+    [EOFError,
+     IOError,
+     Timeout::Error,
+     Errno::ECONNRESET,
+     Errno::ECONNABORTED,
+     Errno::EPIPE,
+     Errno::ETIMEDOUT,
+     Net::SMTPAuthenticationError,
+     Net::SMTPServerBusy,
+     Net::SMTPSyntaxError,
+     Net::SMTPUnknownError,
+     OpenSSL::SSL::SSLError].concat(additional_send_errors)
   end
 
   def self.additional_send_errors
@@ -94,7 +92,7 @@ class OutgoingMessage < ApplicationRecord
   end
 
   def self.default_salutation(public_body)
-    _("Dear {{public_body_name}},", :public_body_name => public_body.name)
+    _("Dear {{public_body_name}},", public_body_name: public_body.name)
   end
 
   def self.fill_in_salutation(text, public_body)
@@ -125,9 +123,7 @@ class OutgoingMessage < ApplicationRecord
   def set_signature_name(name)
     # We compare against raw_body as body strips linebreaks and applies
     # censor rules
-    if raw_body == get_default_message
-      self.body = get_default_message + name
-    end
+    self.body = get_default_message + name if raw_body == get_default_message
   end
 
   # Public: The value to be used in the From: header of an OutgoingMailer
@@ -159,14 +155,14 @@ class OutgoingMessage < ApplicationRecord
     if message_type == 'followup'
       if what_doing == 'internal_review'
         _("Internal review of {{email_subject}}",
-          :email_subject => info_request.email_subject_request(:html => false))
+          email_subject: info_request.email_subject_request(html: false))
       else
         info_request.
-          email_subject_followup(:incoming_message => incoming_message_followup,
-                                 :html => false)
+          email_subject_followup(incoming_message: incoming_message_followup,
+                                 html: false)
       end
     else
-      info_request.email_subject_request(:html => false)
+      info_request.email_subject_request(html: false)
     end
   end
 
@@ -188,7 +184,7 @@ class OutgoingMessage < ApplicationRecord
     # Use the given censor_rules; otherwise fetch them from the associated
     # info_request
     censor_rules = options.fetch(:censor_rules) do
-      info_request.try(:applicable_censor_rules) or []
+      info_request.try(:applicable_censor_rules) || []
     end
 
     censor_rules.reduce(text) { |text, rule| rule.apply_to_text(text) }
@@ -234,18 +230,18 @@ class OutgoingMessage < ApplicationRecord
 
     log_event_type = "followup_#{ log_event_type }" if message_type == 'followup'
 
-    info_request.log_event(log_event_type, { :email => to_addrs,
-                                             :outgoing_message_id => id,
-                                             :smtp_message_id => message_id })
+    info_request.log_event(log_event_type, email: to_addrs,
+                                           outgoing_message_id: id,
+                                           smtp_message_id: message_id)
     set_info_request_described_state
   end
 
   def sendable?
     if status == 'ready'
       if message_type == 'initial_request'
-        return true
+        true
       elsif message_type == 'followup'
-        return true
+        true
       else
         raise "Message id #{id} has type '#{message_type}' which cannot be sent"
       end
@@ -312,7 +308,7 @@ class OutgoingMessage < ApplicationRecord
   # An admin function
   def prepare_message_for_resend
     if MESSAGE_TYPES.include?(message_type) &&
-         (status == 'sent' || status == 'failed')
+       (status == 'sent' || status == 'failed')
       self.status = 'ready'
     else
       raise "Message id #{id} has type '#{message_type}' status " \
@@ -348,7 +344,7 @@ class OutgoingMessage < ApplicationRecord
     text.sub!(/Dear .+,/, "") if strip_salutation
 
     # Remove email addresses from display/index etc.
-    self.remove_privacy_sensitive_things!(text)
+    remove_privacy_sensitive_things!(text)
 
     text
   end
@@ -356,9 +352,9 @@ class OutgoingMessage < ApplicationRecord
   # Return body for display as HTML
   def get_body_for_html_display
     text = body.strip
-    self.remove_privacy_sensitive_things!(text)
+    remove_privacy_sensitive_things!(text)
     text = CGI.escapeHTML(text)
-    text = MySociety::Format.make_clickable(text, { :contract => 1, :nofollow => true })
+    text = MySociety::Format.make_clickable(text, contract: 1, nofollow: true)
     text.gsub!(/\[(email address|mobile number)\]/, '[<a href="/help/officers#mobiles">\1</a>]')
     text = ActionController::Base.helpers.simple_format(text)
     text.html_safe
@@ -366,13 +362,13 @@ class OutgoingMessage < ApplicationRecord
 
   # Return body for display as text
   def get_body_for_text_display
-    get_text_for_indexing(strip_salutation=false)
+    get_text_for_indexing(strip_salutation = false)
   end
 
   def xapian_reindex_after_update
     return unless saved_change_to_attribute?(:body)
 
-    info_request_events.find_each { |event| event.xapian_mark_needs_index }
+    info_request_events.find_each(&:xapian_mark_needs_index)
   end
 
   def default_letter=(text)
@@ -472,7 +468,7 @@ class OutgoingMessage < ApplicationRecord
 
   def body_has_signature
     if raw_body =~ /#{template_regex(letter_template.signoff(default_message_replacements))}\s*\Z/m
-      errors.add(:body, _("Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature", :signoff => letter_template.signoff(default_message_replacements)))
+      errors.add(:body, _("Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature", signoff: letter_template.signoff(default_message_replacements)))
     end
   end
 
@@ -509,7 +505,7 @@ class OutgoingMessage < ApplicationRecord
     end
 
     smarthost_mta_ids = logs.flat_map do |log|
-      line = log.line(:decorate => true)
+      line = log.line(decorate: true)
       if line.delivery_status.try(:delivered?)
         match = line.to_s.match(/C=".*?id=(?<message_id>\w+-\w+-\w+).*"/)
         match[:message_id] if match

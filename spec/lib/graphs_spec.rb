@@ -55,32 +55,32 @@ describe Graphs do
     end
 
     it "uses the supplied column references via the 'using' option" do
-      result = dummy_class.create_dataset(test_data, {:using => "1:3"})
+      result = dummy_class.create_dataset(test_data, using: "1:3")
       expect(result.using).to eq "1:3"
     end
 
     it "sets the key title" do
-      result = dummy_class.create_dataset(test_data, {:title => "Dataset Title"})
+      result = dummy_class.create_dataset(test_data, title: "Dataset Title")
       expect(result.title).to eq "Dataset Title"
     end
 
     it "sets the plot type for the dataset via the 'with' option" do
-      result = dummy_class.create_dataset(test_data, {:with => "lines"})
+      result = dummy_class.create_dataset(test_data, with: "lines")
       expect(result.with).to eq "lines"
     end
 
     it "sets the line colour via the 'linecolor' option" do
-      result = dummy_class.create_dataset(test_data, {:linecolor => 2})
+      result = dummy_class.create_dataset(test_data, linecolor: 2)
       expect(result.linecolor).to eq 2
     end
 
     it "sets the line width via the 'linewidth' option" do
-      result = dummy_class.create_dataset(test_data, {:linewidth => 10})
+      result = dummy_class.create_dataset(test_data, linewidth: 10)
       expect(result.linewidth).to eq 10
     end
 
     it "sets the axes width via the 'axes' option" do
-      result = dummy_class.create_dataset(test_data, {:axes => "x1y1"})
+      result = dummy_class.create_dataset(test_data, axes: "x1y1")
       expect(result.axes).to eq "x1y1"
     end
   end
@@ -153,19 +153,19 @@ describe Graphs do
     let(:graph_def_1) do
       Graphs::GraphParams.new(
         "SELECT DATE(created_at), COUNT(*) FROM users GROUP BY DATE(created_at)",
-        { :title => "test 1",
-          :with => "lines",
-          :linecolor => Graphs::COLOURS[:mauve] }
+        title: "test 1",
+        with: "lines",
+        linecolor: Graphs::COLOURS[:mauve]
       )
     end
 
     let(:graph_def_2) do
-      Graphs::GraphParams.new(
-        "SELECT DATE(created_at), COUNT(*) FROM info_requests GROUP BY DATE(created_at)",
-        { :title => "test 2",
-          :with => "lines",
-          :linecolor => Graphs::COLOURS[:red] }
-      )
+       Graphs::GraphParams.new(
+         "SELECT DATE(created_at), COUNT(*) FROM info_requests GROUP BY DATE(created_at)",
+         title: "test 2",
+         with: "lines",
+         linecolor: Graphs::COLOURS[:red]
+       )
      end
 
     it "passes the sql and options for a set of params to plot_data_from_sql" do

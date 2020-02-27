@@ -40,9 +40,9 @@ RSpec.describe AlaveteliPro::WebhookMailer do
   describe '#digest' do
     let(:webhooks) do
       [
-        MockWebhook.new(Time.new(2019, 01, 02), 'cus_123', 'state_b'),
-        MockWebhook.new(Time.new(2019, 01, 01), 'cus_123', 'state_a'),
-        MockWebhook.new(Time.new(2019, 01, 01), 'cus_456', 'state_a')
+        MockWebhook.new(Time.new(2019, 0o1, 0o2), 'cus_123', 'state_b'),
+        MockWebhook.new(Time.new(2019, 0o1, 0o1), 'cus_123', 'state_a'),
+        MockWebhook.new(Time.new(2019, 0o1, 0o1), 'cus_456', 'state_a')
       ]
     end
 

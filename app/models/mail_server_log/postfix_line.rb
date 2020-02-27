@@ -3,10 +3,10 @@ class MailServerLog::PostfixLine
   include Comparable
 
   LOG_LINE_FLAGS = {
-    'status=sent' =>        :sent,
-    'status=deferred' =>    :deferred,
-    'status=bounced' =>     :bounced,
-    'status=expired' =>     :expired
+    'status=sent' => :sent,
+    'status=deferred' => :deferred,
+    'status=bounced' => :bounced,
+    'status=expired' => :expired
   }.freeze
 
   DELIVERED_FLAGS = [
@@ -56,7 +56,7 @@ class MailServerLog::PostfixLine
   end
 
   def inspect
-    %Q(#<#{self.class}:#{"0x00%x" % (object_id << 1)} @line="#{ line }">)
+    %Q(#<#{self.class}:#{format("0x00%x", (object_id << 1))} @line="#{ line }">)
   end
 
   private
