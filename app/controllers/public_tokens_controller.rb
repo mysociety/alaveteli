@@ -8,9 +8,10 @@ class PublicTokensController < ApplicationController
 
   before_action :find_info_request_by_public_token, only: :show
   before_action :can_view_info_request, only: :show
+  before_action :assign_variables_for_show_template, only: :show
 
   def show
-    render plain: 'Success'
+    render template: 'request/show'
   end
 
   def create
@@ -65,4 +66,25 @@ class PublicTokensController < ApplicationController
   def current_ability
     @current_ability ||= Ability.new(current_user, public_token: true)
   end
+
+  # rubocop:disable all
+  def assign_variables_for_show_template
+    # taken from RequestController#assign_variables_for_show_template
+
+    @show_profile_photo = !!(
+      !@info_request.is_external? &&
+      @info_request.user.show_profile_photo? &&
+      !@render_to_file
+    )
+
+    @old_unclassified =
+      @info_request.is_old_unclassified? && !authenticated_user.nil?
+    @is_owning_user = @info_request.is_owning_user?(authenticated_user)
+    @new_responses_count =
+      @info_request.
+      events_needing_description.
+      select { |event| event.event_type == 'response' }.
+      size
+  end
+  # rubocop:enable all
 end

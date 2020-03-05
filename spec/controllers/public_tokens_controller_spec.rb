@@ -31,9 +31,9 @@ RSpec.describe PublicTokensController, type: :controller do
         expect(response).to be_successful
       end
 
-      it 'returns plain message' do
+      it 'returns request show template' do
         get :show, params: { id: 'TOKEN' }
-        expect(response.body).to eq 'Success'
+        expect(response.body).to render_template('request/show')
       end
     end
 
