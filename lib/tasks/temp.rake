@@ -1,6 +1,14 @@
 # -*- coding: utf-8 -*-
 namespace :temp do
 
+  desc 'Populate public_token column of InfoRequest'
+  task populate_public_token: :environment do
+    InfoRequest.where('public_token IS NULL').find_each do |info_request|
+      public_token = InfoRequest.public_token_from_id(info_request.id)
+      info_request.update_column(:public_token, public_token)
+    end
+  end
+
   desc 'Convert serialized params_yaml from PostgreSQL::OID::Integer to ActiveModel::Type::Integer'
   task :update_params_yaml => :environment do
     InfoRequestEvent.where("params_yaml LIKE '%OID::Integer%'").find_each do |event|
