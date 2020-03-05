@@ -729,7 +729,6 @@ class RequestController < ApplicationController
 
   def assign_variables_for_show_template(info_request)
     @info_request = info_request
-    @info_request_events = info_request.info_request_events
     @status = info_request.calculate_status
     @old_unclassified =
       info_request.is_old_unclassified? && !authenticated_user.nil?
