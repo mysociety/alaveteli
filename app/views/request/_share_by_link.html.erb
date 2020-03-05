@@ -1,0 +1,18 @@
+<% if can? :share, info_request %>
+  <div class="sidebar__section share-private-url">
+    <h2>Share with private link</h2>
+
+    <% if info_request.public_token? %>
+      <%= text_field_tag 'share_by_link',
+        public_token_url(id: info_request.public_token, locale: false) %>
+
+      <%= button_to _('Disable'), public_tokens_path, method: :delete %>
+    <% else %>
+      <%= button_to _('Enable'), public_tokens_path %>
+    <% end %>
+
+    <p class="sidebar__note">
+      <%= _('Anyone with the link will be able to view this request.') %>
+    </p>
+  </div>
+<% end %>
