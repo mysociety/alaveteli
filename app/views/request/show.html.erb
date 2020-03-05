@@ -2,17 +2,17 @@
               :title => h(@info_request.title),
               :public_body => (@info_request.public_body.name)) %>
 
-<%= render :partial => 'request_meta_tags' %>
+<%= render :partial => 'request/request_meta_tags' %>
 
 <% if flash[:request_sent] %><%= render :partial => 'request_sent' %><% end %>
 
-<%= render :partial => 'ga_events' %>
+<%= render :partial => 'request/ga_events' %>
 
-<%= render :partial => 'hidden_request_messages' %>
+<%= render :partial => 'request/hidden_request_messages' %>
 
 <% if @show_top_describe_state_form %>
   <div class="describe_state_form box" id="describe_state_form_1">
-    <%= render :partial => 'describe_state', :locals => { :id_suffix => "1" } %>
+    <%= render :partial => 'request/describe_state', :locals => { :id_suffix => "1" } %>
   </div>
 <% end %>
 
@@ -29,14 +29,14 @@
           </div>
         <% end %>
         <p class="request-header__subtitle <% if @show_profile_photo %>request-header__subtitle--narrow<% end %>">
-          <%= render :partial => 'request_subtitle' %>
+          <%= render :partial => 'request/request_subtitle' %>
         </p>
         <% unless @render_to_file %>
           <div class="request-header__action-bar__actions <% if @show_profile_photo %>request-header__action-bar__actions--narrow<% end %>">
             <% if @in_pro_area %>
               <%= render :partial => 'alaveteli_pro/info_requests/after_actions' %>
             <% else %>
-              <%= render :partial => 'after_actions' %>
+              <%= render :partial => 'request/after_actions' %>
               <%= render :partial => 'track/tracking_links_simple',
                          :locals => {
                             :track_thing => @track_thing,
@@ -67,13 +67,13 @@
 
   <% @info_request.info_request_events.each do |info_request_event| %>
     <% if info_request_event.visible %>
-      <%= render :partial => 'correspondence', :locals => { :info_request_event => info_request_event } %>
+      <%= render :partial => 'request/correspondence', :locals => { :info_request_event => info_request_event } %>
     <% end %>
   <% end %>
 
   <% if @show_bottom_describe_state_form %>
     <div class="describe_state_form box" id="describe_state_form_2">
-      <%= render :partial => 'describe_state', :locals => { :id_suffix => "2" } %>
+      <%= render :partial => 'request/describe_state', :locals => { :id_suffix => "2" } %>
     </div>
   <% end %>
 
@@ -83,7 +83,7 @@
         <% if @in_pro_area %>
           <%= render :partial => 'alaveteli_pro/info_requests/after_actions' %>
         <% else %>
-          <%= render :partial => 'after_actions' %>
+          <%= render :partial => 'request/after_actions' %>
           <%= render :partial => 'track/tracking_links_simple',
                      :locals => { :track_thing => @track_thing,
                                   :own_request => @info_request.user && @info_request.user == @user,
