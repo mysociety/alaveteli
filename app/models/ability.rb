@@ -125,6 +125,14 @@ class Ability
       user && (user.is_admin? || user.is_pro? || info_request.user == user)
     end
 
+    can :share, InfoRequest do |info_request|
+      if info_request.embargo
+        user && (user.is_pro_admin? || info_request.user == user)
+      else
+        user && (user.is_admin? || info_request.user == user)
+      end
+    end
+
     can :admin, Comment do |comment|
       if comment.info_request.embargo
         user && user.is_pro_admin?

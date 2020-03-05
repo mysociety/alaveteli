@@ -220,6 +220,78 @@ describe Ability do
 
   end
 
+  describe 'sharing InfoRequests' do
+    let(:request) { FactoryBot.build(:info_request) }
+
+    context 'when logged out' do
+      let(:ability) { Ability.new(nil) }
+
+      it 'should return false' do
+        expect(ability).not_to be_able_to(:share, request)
+      end
+    end
+
+    context 'when logged in but not owner of request' do
+      let(:user) { FactoryBot.create(:user) }
+      let(:ability) { Ability.new(user) }
+
+      it 'should return false' do
+        expect(ability).not_to be_able_to(:share, request)
+      end
+    end
+
+    context 'when owner of request' do
+      let(:user) { request.user }
+      let(:ability) { Ability.new(user) }
+
+      it 'should return true' do
+        expect(ability).to be_able_to(:share, request)
+      end
+    end
+
+    context 'when the request is embargoed' do
+      let(:request) { FactoryBot.create(:embargoed_request) }
+
+      context 'as an Pro admin' do
+        let(:user) { FactoryBot.create(:pro_admin_user) }
+        let(:ability) { Ability.new(user) }
+
+        it 'should return true' do
+          expect(ability).to be_able_to(:share, request)
+        end
+      end
+
+      context 'as an admin' do
+        let(:user) { FactoryBot.create(:admin_user) }
+        let(:ability) { Ability.new(user) }
+
+        it 'should return false' do
+          expect(ability).not_to be_able_to(:share, request)
+        end
+      end
+    end
+
+    context 'when the request is public' do
+      context 'as an Pro admin' do
+        let(:user) { FactoryBot.create(:pro_admin_user) }
+        let(:ability) { Ability.new(user) }
+
+        it 'should return true' do
+          expect(ability).to be_able_to(:share, request)
+        end
+      end
+
+      context 'as an admin' do
+        let(:user) { FactoryBot.create(:admin_user) }
+        let(:ability) { Ability.new(user) }
+
+        it 'should return true' do
+          expect(ability).to be_able_to(:share, request)
+        end
+      end
+    end
+  end
+
   describe "updating request state of InfoRequests" do
     context "given an old and unclassified request" do
       let(:request) { FactoryBot.create(:old_unclassified_request) }
