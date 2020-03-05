@@ -137,6 +137,15 @@ Rails.application.routes.draw do
         :via => :get
   ####
 
+  #### Public Tokens controller
+  resources :public_tokens, only: [:show], path: 'r'
+
+  scope path: 'request/:url_title' do
+    post :public_tokens, to: 'public_tokens#create'
+    delete :public_tokens, to: 'public_tokens#destroy'
+  end
+  ####
+
   scope path: 'request/:url_title' do
     #### Citations controller
     resources :citations, only: [:new, :create]
