@@ -31,6 +31,9 @@
                locals: { citations: citations, info_request: info_request } %>
   </div>
 
+  <%= render partial: 'request/share_by_link',
+             locals: { info_request: info_request } %>
+
   <% if similar_requests.any? %>
     <%= render partial: 'request/similar',
                locals: { info_request: info_request,
