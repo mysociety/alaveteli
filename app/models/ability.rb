@@ -33,19 +33,19 @@ class Ability
 
     # Updating request status
     can :update_request_state, InfoRequest do |request|
-      self.class.can_update_request_state?(user, request)
+      can_update_request_state?(user, request)
     end
 
     # Viewing messages with prominence
     can :read, [IncomingMessage, OutgoingMessage] do |msg|
-      self.class.can_view_with_prominence?(msg.prominence,
-                                           msg.info_request,
-                                           user)
+      can_view_with_prominence?(msg.prominence,
+                                msg.info_request,
+                                user)
     end
 
     # Viewing requests with prominence
     can :read, InfoRequest do |request|
-      self.class.can_view_with_prominence?(request.prominence, request, user)
+      can_view_with_prominence?(request.prominence, request, user)
     end
 
     # Viewing batch requests
@@ -68,7 +68,7 @@ class Ability
         user && (user.is_pro_admin? ||
                  (user == batch_request.user && user.is_pro?))
       else
-        user && self.class.requester_or_admin?(user, batch_request)
+        user && requester_or_admin?(user, batch_request)
       end
     end
 
@@ -77,7 +77,7 @@ class Ability
       if batch_request.embargo_duration
         user && (user == batch_request.user || user.is_pro_admin?)
       else
-        user && self.class.requester_or_admin?(user, batch_request)
+        user && requester_or_admin?(user, batch_request)
       end
     end
 
@@ -154,15 +154,15 @@ class Ability
 
   private
 
-  def self.can_update_request_state?(user, request)
+  def can_update_request_state?(user, request)
     (user && request.is_old_unclassified?) || request.is_owning_user?(user)
   end
 
-  def self.requester_or_admin?(user, request)
+  def requester_or_admin?(user, request)
     user == request.user || user.is_admin?
   end
 
-  def self.can_view_with_prominence?(prominence, info_request, user)
+  def can_view_with_prominence?(prominence, info_request, user)
     if info_request.embargo
       case prominence
       when 'hidden'
