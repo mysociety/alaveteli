@@ -35,7 +35,7 @@
           <div class="request-header__action-bar__actions <% if @show_profile_photo %>request-header__action-bar__actions--narrow<% end %>">
             <% if @in_pro_area %>
               <%= render :partial => 'alaveteli_pro/info_requests/after_actions' %>
-            <% else %>
+            <% elsif @show_action_menu %>
               <%= render :partial => 'request/after_actions' %>
               <%= render :partial => 'track/tracking_links_simple',
                          :locals => {
@@ -82,7 +82,7 @@
       <div class="request-footer__action-bar__actions">
         <% if @in_pro_area %>
           <%= render :partial => 'alaveteli_pro/info_requests/after_actions' %>
-        <% else %>
+        <% elsif @show_action_menu %>
           <%= render :partial => 'request/after_actions' %>
           <%= render :partial => 'track/tracking_links_simple',
                      :locals => { :track_thing => @track_thing,

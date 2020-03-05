@@ -26,14 +26,19 @@ RSpec.describe PublicTokensController, type: :controller do
         expect(assigns(:info_request)).to eq info_request
       end
 
+      it 'adds noindex header' do
+        get :show, params: { id: 'TOKEN' }
+        expect(response.headers['X-Robots-Tag']).to eq 'noindex'
+      end
+
       it 'returns http success' do
         get :show, params: { id: 'TOKEN' }
         expect(response).to be_successful
       end
 
-      it 'returns plain message' do
+      it 'returns request show template' do
         get :show, params: { id: 'TOKEN' }
-        expect(response.body).to eq 'Success'
+        expect(response.body).to render_template('request/show')
       end
     end
 

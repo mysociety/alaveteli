@@ -3,10 +3,13 @@
 #
 class PublicTokensController < ApplicationController
   before_action :find_info_request, :can_view_info_request
+  before_action :assign_variables_for_show_template
 
   def show
+    headers['X-Robots-Tag'] = 'noindex'
+
     respond_to do |format|
-      format.html { render plain: 'Success' }
+      format.html { render template: 'request/show' }
     end
   end
 
@@ -31,4 +34,25 @@ class PublicTokensController < ApplicationController
   def current_ability
     @current_ability ||= Ability.new(current_user, public_token: true)
   end
+
+  # rubocop:disable all
+  def assign_variables_for_show_template
+    # taken from RequestController#assign_variables_for_show_template
+
+    @show_profile_photo = !!(
+      !@info_request.is_external? &&
+      @info_request.user.show_profile_photo? &&
+      !@render_to_file
+    )
+
+    @old_unclassified =
+      @info_request.is_old_unclassified? && !authenticated_user.nil?
+    @is_owning_user = @info_request.is_owning_user?(authenticated_user)
+    @new_responses_count =
+      @info_request.
+      events_needing_description.
+      select { |event| event.event_type == 'response' }.
+      size
+  end
+  # rubocop:enable all
 end
