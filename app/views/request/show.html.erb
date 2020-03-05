@@ -65,7 +65,7 @@
 
 <div id="left_column" class="left_column">
 
-  <% for info_request_event in @info_request_events %>
+  <% @info_request.info_request_events.each do |info_request_event| %>
     <% if info_request_event.visible %>
       <%= render :partial => 'correspondence', :locals => { :info_request_event => info_request_event } %>
     <% end %>
