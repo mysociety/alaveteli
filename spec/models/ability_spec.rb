@@ -185,6 +185,32 @@ describe Ability do
 
         end
 
+        context 'with public token' do
+          let(:admin_ability) do
+            Ability.new(FactoryBot.create(:admin_user), public_token: true)
+          end
+
+          let(:pro_admin_ability) do
+            Ability.new(FactoryBot.create(:pro_admin_user), public_token: true)
+          end
+
+          let(:other_user_ability) do
+            Ability.new(FactoryBot.create(:user), public_token: true)
+          end
+
+          it 'should return true for an admin user' do
+            expect(admin_ability).to be_able_to(:read, resource)
+          end
+
+          it 'should return true for a pro admin user' do
+            expect(pro_admin_ability).to be_able_to(:read, resource)
+          end
+
+          it 'should return true for a non-admin user' do
+            expect(other_user_ability).to be_able_to(:read, resource)
+          end
+        end
+
         it 'should return true if the user owns the right resource' do
           expect(owner_ability).to be_able_to(:read, resource)
         end

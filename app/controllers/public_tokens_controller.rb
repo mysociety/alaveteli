@@ -19,4 +19,8 @@ class PublicTokensController < ApplicationController
   def can_view_info_request
     render_hidden if cannot?(:read, @info_request)
   end
+
+  def current_ability
+    @current_ability ||= Ability.new(current_user, public_token: true)
+  end
 end

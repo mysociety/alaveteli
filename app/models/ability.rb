@@ -3,9 +3,9 @@ class Ability
   include CanCan::Ability
   include AlaveteliFeatures::Helpers
 
-  attr_reader :user
+  attr_reader :user, :public_token
 
-  def initialize(user)
+  def initialize(user, public_token: false)
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)
@@ -34,6 +34,7 @@ class Ability
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
 
     @user = user
+    @public_token = public_token
 
     # Updating request status
     can :update_request_state, InfoRequest do |request|
@@ -172,7 +173,9 @@ class Ability
       when 'requester_only'
         info_request.is_actual_owning_user?(user) || User.view_hidden_and_embargoed?(user)
       else
-        info_request.is_actual_owning_user?(user) || User.view_embargoed?(user)
+        info_request.is_actual_owning_user?(user) ||
+          User.view_embargoed?(user) ||
+          public_token
       end
     else
       case prominence
