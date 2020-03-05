@@ -61,4 +61,8 @@ class PublicTokensController < ApplicationController
   def guest
     @guest ||= Ability.new(nil)
   end
+
+  def current_ability
+    @current_ability ||= Ability.new(current_user, public_token: true)
+  end
 end
