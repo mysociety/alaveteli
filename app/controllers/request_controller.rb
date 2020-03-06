@@ -772,6 +772,8 @@ class RequestController < ApplicationController
 
     @show_action_menu = true
 
+    @show_correspondence_footer = @info_request.embargo.nil?
+
     @similar_requests, @similar_more = @info_request.similar_requests
 
     @citations = @info_request.citations.limit(3)
