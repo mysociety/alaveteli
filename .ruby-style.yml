@@ -1,4 +1,8 @@
 ---
+require:
+  - rubocop-performance
+  - rubocop-rails
+
 AllCops:
   TargetRubyVersion: 2.3
   RubyInterpreters:
