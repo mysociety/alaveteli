@@ -549,7 +549,7 @@ class RequestController < ApplicationController
           return render_hidden
         end
         cache_file_path = @info_request.make_zip_cache_path(@user)
-        if !File.exists?(cache_file_path)
+        if !File.exist?(cache_file_path)
           FileUtils.mkdir_p(File.dirname(cache_file_path))
           make_request_zip(@info_request, cache_file_path)
           File.chmod(0644, cache_file_path)
@@ -675,7 +675,7 @@ class RequestController < ApplicationController
     convert_command = AlaveteliConfiguration::html_to_pdf_command
     @render_to_file = true
     assign_variables_for_show_template(info_request)
-    if !convert_command.blank? && File.exists?(convert_command)
+    if !convert_command.blank? && File.exist?(convert_command)
       html_output = render_to_string(:template => 'request/show')
       tmp_input = Tempfile.new(['foihtml2pdf-input', '.html'])
       tmp_input.write(html_output)

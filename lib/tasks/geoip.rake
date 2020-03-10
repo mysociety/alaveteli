@@ -29,7 +29,7 @@ namespace :geoip do
 
       `tar -xzf #{downloaded_location} -C #{tmp_dir}`
 
-      unless File.exists?(target_dir)
+      unless File.exist?(target_dir)
         FileUtils.mkdir target_dir
       end
 

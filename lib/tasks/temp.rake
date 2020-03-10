@@ -153,7 +153,7 @@ namespace :temp do
   end
 
   def find_cached_zip_downloads(info_request)
-    if File.exists?(info_request.download_zip_dir)
+    if File.exist?(info_request.download_zip_dir)
       cached_types = []
       cached_zips = Dir.glob(File.join(info_request.download_zip_dir, "**", "*.zip"))
       cached_zips.each do |zip|

@@ -3,7 +3,7 @@ require 'user_spam_scorer'
 
 path = Rails.root.join('config/user_spam_scorer.yml')
 
-if File.exists?(path)
+if File.exist?(path)
   settings = YAML.load(File.read(path))['user_spam_scorer']
   settings.each do |key, value|
     case key

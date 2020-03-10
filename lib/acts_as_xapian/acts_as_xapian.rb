@@ -108,7 +108,7 @@ module ActsAsXapian
 
     # check for a config file
     config_file = Rails.root.join("config","xapian.yml")
-    @@config = File.exists?(config_file) ? YAML.load_file(config_file)[environment] : {}
+    @@config = File.exist?(config_file) ? YAML.load_file(config_file)[environment] : {}
 
     # figure out where the DBs should go
     if config['base_db_path']
@@ -118,7 +118,7 @@ module ActsAsXapian
     end
 
     # make the directory for the xapian databases to go in
-    Dir.mkdir(db_parent_path) unless File.exists?(db_parent_path)
+    Dir.mkdir(db_parent_path) unless File.exist?(db_parent_path)
 
     @@db_path = File.join(db_parent_path, environment)
 
