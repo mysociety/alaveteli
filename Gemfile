@@ -191,5 +191,7 @@ group :development do
   gem 'launchy', '~> 2.4.0'
   gem 'listen', '~> 3.0.5'
   gem 'web-console', '>= 3.3.0'
-  gem 'rubocop', '~> 0.63.1'
+  gem 'rubocop', '~> 0.80.1', require: false
+  gem 'rubocop-performance', require: false
+  gem 'rubocop-rails', require: false
 end

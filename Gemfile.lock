@@ -209,7 +209,7 @@ GEM
       concurrent-ruby (~> 1.0)
     icalendar (2.4.1)
     iso_country_codes (0.7.8)
-    jaro_winkler (1.5.2)
+    jaro_winkler (1.5.4)
     jquery-rails (4.3.5)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
@@ -255,11 +255,10 @@ GEM
       activerecord
       hodel_3000_compliant_logger
     open4 (1.3.4)
-    parallel (1.13.0)
-    parser (2.6.0.0)
+    parallel (1.19.1)
+    parser (2.7.1.2)
       ast (~> 2.4.0)
     pg (0.20.0)
-    powerpack (0.1.2)
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -314,6 +313,7 @@ GEM
     ref (2.0.0)
     request_store (1.4.1)
       rack (>= 1.4)
+    rexml (3.2.4)
     rmagick (2.16.0)
     rolify (5.2.0)
     rotp (3.3.0)
@@ -341,16 +341,22 @@ GEM
       rspec-mocks (~> 3.7.0)
       rspec-support (~> 3.7.0)
     rspec-support (3.7.1)
-    rubocop (0.63.1)
+    rubocop (0.80.1)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
-      parser (>= 2.5, != 2.5.1.1)
-      powerpack (~> 0.1)
+      parser (>= 2.7.0.1)
       rainbow (>= 2.2.2, < 4.0)
+      rexml
       ruby-progressbar (~> 1.7)
-      unicode-display_width (~> 1.4.0)
+      unicode-display_width (>= 1.4.0, < 1.7)
+    rubocop-performance (1.6.0)
+      rubocop (>= 0.71.0)
+    rubocop-rails (2.5.2)
+      activesupport
+      rack (>= 1.1)
+      rubocop (>= 0.72.0)
     ruby-ole (1.2.12.1)
-    ruby-progressbar (1.10.0)
+    ruby-progressbar (1.10.1)
     rubyzip (1.3.0)
     safe_yaml (1.0.4)
     sass (3.4.25)
@@ -397,7 +403,7 @@ GEM
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
     unicode (0.4.4.4)
-    unicode-display_width (1.4.1)
+    unicode-display_width (1.6.1)
     unidecoder (1.1.2)
     uniform_notifier (1.11.0)
     useragent (0.16.10)
@@ -489,7 +495,9 @@ DEPENDENCIES
   routing-filter (~> 0.6.2)
   rspec-activemodel-mocks (~> 1.1.0)
   rspec-rails (~> 3.7.2)
-  rubocop (~> 0.63.1)
+  rubocop (~> 0.80.1)
+  rubocop-performance
+  rubocop-rails
   ruby-msg (~> 1.5.0)!
   rubyzip (~> 1.3.0, < 2.0.0)
   sass-rails (~> 5.0.7)
@@ -511,3 +519,6 @@ DEPENDENCIES
   xapian-full-alaveteli (~> 1.2.21.1)
   xml-simple (~> 1.1.0)
   zip_tricks (~> 5.0.0)
+
+BUNDLED WITH
+   1.17.2
