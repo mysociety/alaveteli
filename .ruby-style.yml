@@ -33,13 +33,10 @@ AllCops:
 Layout/AccessModifierIndentation:
   Enabled: true
 
-Layout/AlignArray:
+Layout/ArrayAlignment:
   Enabled: true
 
-Layout/AlignHash:
-  Enabled: true
-
-Layout/AlignParameters:
+Layout/AssignmentIndentation:
   Enabled: true
 
 Layout/BlockAlignment:
@@ -102,16 +99,16 @@ Layout/EndOfLine:
 Layout/ExtraSpacing:
   Enabled: true
 
-Layout/FirstParameterIndentation:
+Layout/FirstArgumentIndentation:
   Enabled: true
 
-Layout/IndentArray:
+Layout/FirstArrayElementIndentation:
   Enabled: true
 
-Layout/IndentAssignment:
+Layout/FirstHashElementIndentation:
   Enabled: true
 
-Layout/IndentHash:
+Layout/HashAlignment:
   Enabled: true
 
 Layout/IndentationConsistency:
@@ -127,6 +124,15 @@ Layout/InitialIndentation:
 
 Layout/LeadingCommentSpace:
   Enabled: true
+
+Layout/LineLength:
+  Enabled: true
+  IgnoreCopDirectives: false
+  IgnoredPatterns:
+    - "^\\s*it\\s+.*do$"
+    - "^\\s*context\\s+.*do$"
+    - "^\\s*describe\\s+.*do$"
+    - "^\\s*class\\s+[A-Z].*<.*"
 
 Layout/MultilineArrayBraceLayout:
   Enabled: true
@@ -147,6 +153,9 @@ Layout/MultilineMethodDefinitionBraceLayout:
   Enabled: true
 
 Layout/MultilineOperationIndentation:
+  Enabled: true
+
+Layout/ParameterAlignment:
   Enabled: true
 
 Layout/RescueEnsureAlignment:
@@ -224,7 +233,7 @@ Layout/SpaceInsideStringInterpolation:
 Layout/Tab:
   Enabled: true
 
-Layout/TrailingBlankLines:
+Layout/TrailingEmptyLines:
   Enabled: true
 
 Layout/TrailingWhitespace:
@@ -250,10 +259,10 @@ Lint/Debugger:
 Lint/DeprecatedClassMethods:
   Enabled: true
 
-Lint/DuplicateMethods:
+Lint/DuplicateHashKey:
   Enabled: true
 
-Lint/DuplicatedKey:
+Lint/DuplicateMethods:
   Enabled: true
 
 Lint/EachWithObjectArgument:
@@ -281,9 +290,6 @@ Lint/FloatOutOfRange:
   Enabled: true
 
 Lint/FormatParameterMismatch:
-  Enabled: true
-
-Lint/HandleExceptions:
   Enabled: true
 
 Lint/ImplicitStringConcatenation:
@@ -325,6 +331,15 @@ Lint/PercentSymbolArray:
 Lint/RandOne:
   Enabled: true
 
+Lint/RedundantCopDisableDirective:
+  Enabled: true
+
+Lint/RedundantSplatExpansion:
+  Enabled: true
+
+Lint/RedundantStringCoercion:
+  Enabled: true
+
 Lint/RequireParentheses:
   Enabled: true
 
@@ -337,16 +352,10 @@ Lint/ShadowedException:
 Lint/ShadowingOuterLocalVariable:
   Enabled: true
 
-Lint/StringConversionInInterpolation:
+Lint/SuppressedException:
   Enabled: true
 
 Lint/UnderscorePrefixedVariableName:
-  Enabled: true
-
-Lint/UnneededCopDisableDirective:
-  Enabled: true
-
-Lint/UnneededSplatExpansion:
   Enabled: true
 
 Lint/UnreachableCode:
@@ -389,15 +398,6 @@ Metrics/ClassLength:
 
 Metrics/CyclomaticComplexity:
   Enabled: false
-
-Metrics/LineLength:
-  Enabled: true
-  IgnoreCopDirectives: false
-  IgnoredPatterns:
-    - "^\\s*it\\s+.*do$"
-    - "^\\s*context\\s+.*do$"
-    - "^\\s*describe\\s+.*do$"
-    - "^\\s*class\\s+[A-Z].*<.*"
 
 Metrics/MethodLength:
   Enabled: false
@@ -466,10 +466,6 @@ Performance/FixedSize:
 Performance/FlatMap:
   Enabled: false
 
-Performance/LstripRstrip:
-  Description: Use `strip` instead of `lstrip.rstrip`.
-  Enabled: false
-
 Performance/RangeInclude:
   Enabled: false
 
@@ -482,13 +478,7 @@ Performance/RedundantMatch:
 Performance/RedundantMerge:
   Enabled: true
 
-Performance/RedundantSortBy:
-  Enabled: false
-
 Performance/ReverseEach:
-  Enabled: false
-
-Performance/Sample:
   Enabled: false
 
 Performance/Size:
@@ -588,11 +578,6 @@ Style/BlockDelimiters:
   Enabled: false
   Exclude:
     - spec/**/*
-
-Style/BracesAroundHashParameters:
-  Description: Enforce braces style around hash parameters.
-  Enabled: true
-  EnforcedStyle: no_braces
 
 Style/CaseEquality:
   Enabled: true
@@ -796,14 +781,23 @@ Style/RaiseArgs:
 Style/RedundantBegin:
   Enabled: true
 
+Style/RedundantCapitalW:
+  Enabled: true
+
 Style/RedundantException:
   Enabled: true
 
 Style/RedundantFreeze:
   Enabled: true
 
+Style/RedundantInterpolation:
+  Enabled: true
+
 Style/RedundantParentheses:
   Enabled: true
+
+Style/RedundantPercentQ:
+  Enabled: false
 
 Style/RedundantReturn:
   Enabled: true
@@ -811,11 +805,17 @@ Style/RedundantReturn:
 Style/RedundantSelf:
   Enabled: true
 
+Style/RedundantSortBy:
+  Enabled: false
+
 Style/RegexpLiteral:
   Enabled: false
 
 Style/RescueModifier:
   Enabled: true
+
+Style/Sample:
+  Enabled: false
 
 Style/SelfAssignment:
   Enabled: true
@@ -871,15 +871,6 @@ Style/TrivialAccessors:
 
 Style/UnlessElse:
   Enabled: true
-
-Style/UnneededCapitalW:
-  Enabled: true
-
-Style/UnneededInterpolation:
-  Enabled: true
-
-Style/UnneededPercentQ:
-  Enabled: false
 
 Style/VariableInterpolation:
   Enabled: true
