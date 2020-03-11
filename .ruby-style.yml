@@ -445,11 +445,9 @@ Performance/Casecmp:
   Enabled: false
 
 Performance/Count:
-  SafeMode: true
   Enabled: false
 
 Performance/Detect:
-  SafeMode: true
   Enabled: false
 
 Performance/DoubleStartEndWith:
