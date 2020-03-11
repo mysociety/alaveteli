@@ -683,11 +683,9 @@ Performance/CompareWithBlock:
   Enabled: false
 
 Performance/Count:
-  SafeAutoCorrect: true
   Enabled: false
 
 Performance/Detect:
-  SafeAutoCorrect: true
   Enabled: false
 
 Performance/DoubleStartEndWith:
