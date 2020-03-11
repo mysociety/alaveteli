@@ -16,6 +16,7 @@ MySociety::Config.load_default
 module AlaveteliConfiguration
   if !const_defined?(:DEFAULTS)
 
+    # rubocop:disable Style/HashSyntax
     DEFAULTS = {
       :ADMIN_PASSWORD => '',
       :ADMIN_USERNAME => '',
@@ -51,6 +52,7 @@ module AlaveteliConfiguration
       :ENABLE_TWO_FACTOR_AUTH => false,
       :ENABLE_WIDGETS => false,
       :ENABLE_ALAVETELI_PRO => false,
+      :ENABLE_PROJECTS => false,
       :ENABLE_PRO_PRICING => false,
       :ENABLE_PRO_SELF_SERVE => false,
       :EXCEPTION_NOTIFICATIONS_FROM => 'errors@localhost',
@@ -131,6 +133,7 @@ module AlaveteliConfiguration
       :USE_BULLET_IN_DEVELOPMENT => false,
       :EXTERNAL_REVIEWERS => ''
     }
+    # rubocop:enable Style/HashSyntax
   end
 
   def self.method_missing(name)
