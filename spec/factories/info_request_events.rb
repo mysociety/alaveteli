@@ -26,15 +26,25 @@ FactoryBot.define do
 
     factory :sent_event do
       event_type { 'sent' }
-      association :outgoing_message, :factory => :initial_request
-      info_request { outgoing_message.info_request }
+
+      after(:build) do |event|
+        event.outgoing_message ||= build(
+          :initial_request, info_request: event.info_request
+        )
+        event.info_request = event.outgoing_message.info_request
+      end
     end
 
     factory :failed_sent_request_event do
       event_type { 'send_error' }
-      association :outgoing_message, factory: :initial_request
       params_yaml { "---\n:reason: Connection timed out" }
-      info_request { outgoing_message.info_request.reload }
+
+      after(:build) do |event|
+        event.outgoing_message ||= build(
+          :initial_request, info_request: event.info_request
+        )
+        event.info_request = event.outgoing_message.info_request
+      end
 
       after(:create) do |evnt, evaluator|
         evnt.params_yaml += "\noutgoing_message_id: #{evnt.outgoing_message.id}"
@@ -45,27 +55,47 @@ FactoryBot.define do
 
     factory :response_event do
       event_type { 'response' }
-      incoming_message
-      info_request { incoming_message.info_request }
+
+      after(:build) do |event|
+        event.incoming_message ||= build(
+          :incoming_message, info_request: event.info_request
+        )
+        event.info_request = event.incoming_message.info_request
+      end
     end
 
     factory :followup_sent_event do
       event_type { 'followup_sent' }
-      association :outgoing_message, :factory => :new_information_followup
-      info_request { outgoing_message.info_request }
+
+      after(:build) do |event|
+        event.outgoing_message ||= build(
+          :new_information_followup, info_request: event.info_request
+        )
+        event.info_request = event.outgoing_message.info_request
+      end
     end
 
     factory :followup_resent_event do
       event_type { 'followup_resent' }
-      association :outgoing_message, :factory => :new_information_followup
-      info_request { outgoing_message.info_request }
+
+      after(:build) do |event|
+        event.outgoing_message ||= build(
+          :new_information_followup, info_request: event.info_request
+        )
+        event.info_request = event.outgoing_message.info_request
+      end
     end
 
     factory :failed_sent_followup_event do
       event_type { 'send_error' }
-      association :outgoing_message, factory: :new_information_followup
       params_yaml { "---\n:reason: Connection timed out" }
-      info_request { outgoing_message.info_request.reload }
+
+      after(:build) do |event|
+        event.outgoing_message ||= build(
+          :new_information_followup, info_request: event.info_request
+        )
+        event.info_request = event.outgoing_message.info_request
+      end
 
       after(:create) do |evnt, evaluator|
         evnt.params_yaml += "\noutgoing_message_id: #{evnt.outgoing_message.id}"
@@ -76,8 +106,11 @@ FactoryBot.define do
 
     factory :comment_event do
       event_type { 'comment' }
-      association :comment
-      info_request { comment.info_request }
+
+      after(:build) do |event|
+        event.comment ||= build(:comment, info_request: event.info_request)
+        event.info_request = event.comment.info_request
+      end
     end
 
     factory :edit_event do
@@ -90,8 +123,13 @@ FactoryBot.define do
 
     factory :resent_event do
       event_type { 'resent' }
-      association :outgoing_message, :factory => :initial_request
-      info_request { outgoing_message.info_request }
+
+      after(:build) do |event|
+        event.outgoing_message ||= build(
+          :initial_request, info_request: event.info_request
+        )
+        event.info_request = event.outgoing_message.info_request
+      end
     end
 
     factory :overdue_event do

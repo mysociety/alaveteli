@@ -44,7 +44,9 @@ FactoryBot.define do
                                          user: batch.user)
 
         batch.info_requests.each do |request|
-          request.info_request_events = [build(:sent_event)]
+          request.info_request_events = [
+            build(:sent_event, info_request: request)
+          ]
         end
 
         batch.public_bodies = batch.info_requests.map(&:public_body)
