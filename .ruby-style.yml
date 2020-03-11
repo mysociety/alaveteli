@@ -1114,7 +1114,7 @@ Style/GuardClause:
   Enabled: true
 
 Style/HashEachMethods:
-  Enabled: pending
+  Enabled: false
 
 Style/HashSyntax:
   Enabled: true
@@ -1123,10 +1123,10 @@ Style/HashSyntax:
     - config/routes.rb
 
 Style/HashTransformKeys:
-  Enabled: pending
+  Enabled: false
 
 Style/HashTransformValues:
-  Enabled: pending
+  Enabled: false
 
 Style/IdenticalConditionalBranches:
   Enabled: true
