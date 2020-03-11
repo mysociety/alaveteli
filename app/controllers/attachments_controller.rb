@@ -59,6 +59,8 @@ class AttachmentsController < ApplicationController
     render :html => html.html_safe
   end
 
+  private
+
   def render_hidden(template='request/hidden', opts = {})
     # An embargoed is totally hidden - no indication that anything exists there
     # to see

@@ -30,7 +30,7 @@ RSpec.describe AttachmentsController, type: :controller do
 
       param =
         ActionController::Parameters.new(default_params.merge(only_path: true))
-      key_path = @controller.foi_fragment_cache_path(param)
+      key_path = @controller.send(:foi_fragment_cache_path, param)
 
       # remove the pre-existing cached file
       File.delete(key_path)
