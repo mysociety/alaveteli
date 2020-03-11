@@ -29,7 +29,6 @@ class ApplicationController < ActionController::Base
   # Standard headers, footers and navigation for whole site
   layout "default"
 
-  include FragmentCachable
   include FastGettext::Translation # make functions like _, n_, N_ etc available)
   include AlaveteliPro::PostRedirectHandler
 

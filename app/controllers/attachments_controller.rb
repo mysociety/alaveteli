@@ -1,4 +1,6 @@
 class AttachmentsController < ApplicationController
+  include FragmentCachable
+
   before_action :authenticate_attachment
   around_action :cache_attachments
 
