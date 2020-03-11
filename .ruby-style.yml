@@ -130,13 +130,11 @@ Layout/EmptyLinesAroundBeginBody:
 
 Layout/EmptyLinesAroundBlockBody:
   Enabled: true
-  EnforcedStyle: no_empty_lines
   Exclude:
     - spec/**/*
 
 Layout/EmptyLinesAroundClassBody:
   Enabled: true
-  EnforcedStyle: no_empty_lines
 
 Layout/EmptyLinesAroundExceptionHandlingKeywords:
   Enabled: false
@@ -146,7 +144,6 @@ Layout/EmptyLinesAroundMethodBody:
 
 Layout/EmptyLinesAroundModuleBody:
   Enabled: true
-  EnforcedStyle: no_empty_lines
 
 Layout/EndAlignment:
   Enabled: true
@@ -209,12 +206,6 @@ Layout/LeadingEmptyLines:
 
 Layout/LineLength:
   Enabled: true
-  Max: 80
-  AllowHeredoc: true
-  AllowURI: true
-  URISchemes:
-    - http
-    - https
   IgnoreCopDirectives: false
   IgnoredPatterns:
     - "^\\s*it\\s+.*do$"
@@ -236,7 +227,6 @@ Layout/MultilineBlockLayout:
 
 Layout/MultilineHashBraceLayout:
   Enabled: true
-  EnforcedStyle: symmetrical
 
 Layout/MultilineHashKeyLineBreaks:
   Enabled: false
@@ -318,8 +308,6 @@ Layout/SpaceInsideBlockBraces:
 
 Layout/SpaceInsideHashLiteralBraces:
   Enabled: true
-  EnforcedStyle: space
-  EnforcedStyleForEmptyBraces: no_space
 
 Layout/SpaceInsideParens:
   Enabled: true
@@ -713,7 +701,6 @@ Performance/FixedSize:
 
 Performance/FlatMap:
   Enabled: false
-  EnabledForFlattenWithoutParams: false
 
 Performance/InefficientHashSearch:
   Enabled: false
@@ -1436,13 +1423,11 @@ Style/TrailingCommaInArrayLiteral:
 
 Style/TrailingCommaInHashLiteral:
   Enabled: true
-  EnforcedStyleForMultiline: no_comma
 
 Style/TrailingMethodEndStatement:
   Enabled: false
 
 Style/TrailingUnderscoreVariable:
-  AllowNamedUnderscoreVariables: true
   Enabled: true
 
 Style/TrivialAccessors:
