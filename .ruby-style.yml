@@ -537,7 +537,7 @@ Lint/SuppressedException:
   Enabled: true
 
 Lint/Syntax:
-  Enabled: false
+  Enabled: true
 
 Lint/ToJSON:
   Enabled: false
