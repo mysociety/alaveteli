@@ -1,27 +1,30 @@
+---
 AllCops:
   TargetRubyVersion: 2.3
   RubyInterpreters:
     - ruby
     - rake
   Include:
-    - '**/*.rb'
-    - '**/*.gemfile'
-    - '**/*.gemspec'
-    - '**/*.rake'
-    - '**/*.ru'
-    - '**/*.spec'
-    - '**/Gemfile'
-    - '**/Rakefile'
-    - '**/Vagrantfile'
+    - "**/*.rb"
+    - "**/*.gemfile"
+    - "**/*.gemspec"
+    - "**/*.rake"
+    - "**/*.ru"
+    - "**/*.spec"
+    - "**/Gemfile"
+    - "**/Rakefile"
+    - "**/Vagrantfile"
   Exclude:
-    - 'commonlib/**/*'
-    - 'db/schema.rb'
-    - 'node_modules/**/*'
-    - 'vendor/**/*'
-    - '.git/**/*'
+    - commonlib/**/*
+    - db/schema.rb
+    - node_modules/**/*
+    - vendor/**/*
+    - ".git/**/*"
   DisplayCopNames: false
   StyleGuideCopsOnly: false
   DisabledByDefault: true
+
+#################### Layout ####################
 
 Layout/AccessModifierIndentation:
   Enabled: true
@@ -35,6 +38,9 @@ Layout/AlignHash:
 Layout/AlignParameters:
   Enabled: true
 
+Layout/BlockAlignment:
+  Enabled: false
+
 Layout/BlockEndNewline:
   Enabled: true
 
@@ -47,9 +53,15 @@ Layout/ClosingParenthesisIndentation:
 Layout/CommentIndentation:
   Enabled: true
 
+Layout/ConditionPosition:
+  Enabled: true
+
+Layout/DefEndAlignment:
+  Enabled: true
+
 Layout/DotPosition:
   Enabled: true
-  EnforcedStyle: 'trailing'
+  EnforcedStyle: trailing
 
 Layout/ElseAlignment:
   Enabled: true
@@ -67,17 +79,20 @@ Layout/EmptyLinesAroundBlockBody:
   Enabled: true
   EnforcedStyle: no_empty_lines
   Exclude:
-    - 'spec/**/*'
+    - spec/**/*
 
 Layout/EmptyLinesAroundClassBody:
   Enabled: true
   EnforcedStyle: no_empty_lines
 
+Layout/EmptyLinesAroundMethodBody:
+  Enabled: true
+
 Layout/EmptyLinesAroundModuleBody:
   Enabled: true
   EnforcedStyle: no_empty_lines
 
-Layout/EmptyLinesAroundMethodBody:
+Layout/EndAlignment:
   Enabled: true
 
 Layout/EndOfLine:
@@ -86,10 +101,16 @@ Layout/EndOfLine:
 Layout/ExtraSpacing:
   Enabled: true
 
-Layout/InitialIndentation:
+Layout/FirstParameterIndentation:
   Enabled: true
 
-Layout/FirstParameterIndentation:
+Layout/IndentArray:
+  Enabled: true
+
+Layout/IndentAssignment:
+  Enabled: true
+
+Layout/IndentHash:
   Enabled: true
 
 Layout/IndentationConsistency:
@@ -100,13 +121,7 @@ Layout/IndentationConsistency:
 Layout/IndentationWidth:
   Enabled: true
 
-Layout/IndentArray:
-  Enabled: true
-
-Layout/IndentAssignment:
-  Enabled: true
-
-Layout/IndentHash:
+Layout/InitialIndentation:
   Enabled: true
 
 Layout/LeadingCommentSpace:
@@ -137,9 +152,6 @@ Layout/MultilineOperationIndentation:
 Layout/RescueEnsureAlignment:
   Enabled: true
 
-Layout/SpaceBeforeFirstArg:
-  Enabled: true
-
 Layout/SpaceAfterColon:
   Enabled: true
 
@@ -155,21 +167,6 @@ Layout/SpaceAfterNot:
 Layout/SpaceAfterSemicolon:
   Enabled: true
 
-Layout/SpaceBeforeBlockBraces:
-  Enabled: true
-
-Layout/SpaceBeforeComma:
-  Enabled: true
-
-Layout/SpaceBeforeComment:
-  Enabled: true
-
-Layout/SpaceBeforeSemicolon:
-  Enabled: true
-
-Layout/SpaceInsideBlockBraces:
-  Enabled: true
-
 Layout/SpaceAroundBlockParameters:
   Enabled: true
 
@@ -182,16 +179,28 @@ Layout/SpaceAroundKeyword:
 Layout/SpaceAroundOperators:
   Enabled: true
 
-Layout/SpaceInsideArrayPercentLiteral:
+Layout/SpaceBeforeBlockBraces:
   Enabled: true
 
-Layout/SpaceInsidePercentLiteralDelimiters:
+Layout/SpaceBeforeComma:
+  Enabled: true
+
+Layout/SpaceBeforeComment:
+  Enabled: true
+
+Layout/SpaceBeforeFirstArg:
+  Enabled: true
+
+Layout/SpaceBeforeSemicolon:
   Enabled: true
 
 Layout/SpaceInsideArrayLiteralBrackets:
   Enabled: true
 
-Layout/SpaceInsideReferenceBrackets:
+Layout/SpaceInsideArrayPercentLiteral:
+  Enabled: true
+
+Layout/SpaceInsideBlockBraces:
   Enabled: true
 
 Layout/SpaceInsideHashLiteralBraces:
@@ -202,7 +211,13 @@ Layout/SpaceInsideHashLiteralBraces:
 Layout/SpaceInsideParens:
   Enabled: true
 
+Layout/SpaceInsidePercentLiteralDelimiters:
+  Enabled: true
+
 Layout/SpaceInsideRangeLiteral:
+  Enabled: true
+
+Layout/SpaceInsideReferenceBrackets:
   Enabled: true
 
 Layout/SpaceInsideStringInterpolation:
@@ -217,17 +232,344 @@ Layout/TrailingBlankLines:
 Layout/TrailingWhitespace:
   Enabled: true
 
-Layout/BlockAlignment:
+#################### Lint ####################
+
+Lint/AmbiguousOperator:
+  Enabled: true
+
+Lint/AmbiguousRegexpLiteral:
+  Enabled: true
+
+Lint/AssignmentInCondition:
+  Enabled: true
+
+Lint/CircularArgumentReference:
+  Enabled: true
+
+Lint/Debugger:
+  Enabled: true
+
+Lint/DeprecatedClassMethods:
+  Enabled: true
+
+Lint/DuplicateMethods:
+  Enabled: true
+
+Lint/DuplicatedKey:
+  Enabled: true
+
+Lint/EachWithObjectArgument:
+  Enabled: true
+
+Lint/ElseLayout:
+  Enabled: true
+
+Lint/EmptyEnsure:
+  Enabled: true
+
+Lint/EmptyInterpolation:
+  Enabled: true
+
+Lint/EndInMethod:
+  Enabled: true
+
+Lint/EnsureReturn:
+  Enabled: true
+
+Lint/FlipFlop:
+  Enabled: true
+
+Lint/FloatOutOfRange:
+  Enabled: true
+
+Lint/FormatParameterMismatch:
+  Enabled: true
+
+Lint/HandleExceptions:
+  Enabled: true
+
+Lint/ImplicitStringConcatenation:
+  Enabled: true
+
+Lint/IneffectiveAccessModifier:
+  Enabled: true
+
+Lint/InheritException:
+  Enabled: true
+
+Lint/LiteralAsCondition:
+  Enabled: true
+
+Lint/LiteralInInterpolation:
+  Enabled: true
+
+Lint/Loop:
+  Enabled: true
+
+Lint/NestedMethodDefinition:
+  Enabled: true
+
+Lint/NextWithoutAccumulator:
+  Enabled: true
+
+Lint/NonLocalExitFromIterator:
+  Enabled: true
+
+Lint/ParenthesesAsGroupedExpression:
+  Enabled: true
+
+Lint/PercentStringArray:
+  Enabled: true
+
+Lint/PercentSymbolArray:
+  Enabled: true
+
+Lint/RandOne:
+  Enabled: true
+
+Lint/RequireParentheses:
+  Enabled: true
+
+Lint/RescueException:
+  Enabled: true
+
+Lint/ShadowedException:
+  Enabled: true
+
+Lint/ShadowingOuterLocalVariable:
+  Enabled: true
+
+Lint/StringConversionInInterpolation:
+  Enabled: true
+
+Lint/UnderscorePrefixedVariableName:
+  Enabled: true
+
+Lint/UnneededCopDisableDirective:
+  Enabled: true
+
+Lint/UnneededSplatExpansion:
+  Enabled: true
+
+Lint/UnreachableCode:
+  Enabled: true
+
+Lint/UnusedBlockArgument:
+  Enabled: true
+
+Lint/UnusedMethodArgument:
+  Enabled: true
+
+Lint/UselessAccessModifier:
+  Enabled: true
+
+Lint/UselessAssignment:
   Enabled: false
 
-Layout/ConditionPosition:
+Lint/UselessComparison:
+  Enabled: false
+
+Lint/UselessElseWithoutRescue:
+  Enabled: false
+
+Lint/UselessSetterCall:
+  Enabled: false
+
+Lint/Void:
+  Enabled: false
+
+#################### Metrics ####################
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/BlockNesting:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/LineLength:
+  Enabled: true
+  Max: 80
+  AllowHeredoc: true
+  AllowURI: true
+  URISchemes:
+    - http
+    - https
+  IgnoreCopDirectives: false
+  IgnoredPatterns:
+    - "^\\s*it\\s+.*do$"
+    - "^\\s*context\\s+.*do$"
+    - "^\\s*describe\\s+.*do$"
+    - "^\\s*class\\s+[A-Z].*<.*"
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Enabled: false
+
+Metrics/ParameterLists:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+#################### Naming ####################
+
+Naming/AccessorMethodName:
   Enabled: true
 
-Layout/DefEndAlignment:
+Naming/AsciiIdentifiers:
   Enabled: true
 
-Layout/EndAlignment:
+Naming/BinaryOperatorParameterName:
+  Enabled: false
+
+Naming/ClassAndModuleCamelCase:
   Enabled: true
+
+Naming/ConstantName:
+  Enabled: true
+
+Naming/FileName:
+  Enabled: true
+
+Naming/MethodName:
+  Enabled: true
+
+Naming/PredicateName:
+  Enabled: true
+
+Naming/VariableName:
+  Enabled: true
+
+#################### Performance ####################
+
+Performance/CaseWhenSplat:
+  Enabled: false
+
+Performance/Casecmp:
+  Enabled: false
+
+Performance/Count:
+  SafeMode: true
+  Enabled: false
+
+Performance/Detect:
+  SafeMode: true
+  Enabled: false
+
+Performance/DoubleStartEndWith:
+  Enabled: false
+
+Performance/EndWith:
+  Enabled: false
+
+Performance/FixedSize:
+  Enabled: false
+
+Performance/FlatMap:
+  Enabled: false
+  EnabledForFlattenWithoutParams: false
+
+Performance/LstripRstrip:
+  Description: Use `strip` instead of `lstrip.rstrip`.
+  Enabled: false
+
+Performance/RangeInclude:
+  Enabled: false
+
+Performance/RedundantBlockCall:
+  Enabled: false
+
+Performance/RedundantMatch:
+  Enabled: false
+
+Performance/RedundantMerge:
+  Enabled: true
+
+Performance/RedundantSortBy:
+  Enabled: false
+
+Performance/ReverseEach:
+  Enabled: false
+
+Performance/Sample:
+  Enabled: false
+
+Performance/Size:
+  Enabled: false
+
+Performance/StartWith:
+  Enabled: false
+
+Performance/StringReplacement:
+  Enabled: false
+
+Performance/TimesMap:
+  Enabled: false
+
+#################### Rails ####################
+
+Rails/ActionFilter:
+  Enabled: false
+
+Rails/Date:
+  Enabled: false
+
+Rails/Delegate:
+  Enabled: false
+
+Rails/Exit:
+  Enabled: false
+
+Rails/FindBy:
+  Enabled: false
+
+Rails/FindEach:
+  Enabled: false
+
+Rails/HasAndBelongsToMany:
+  Enabled: false
+
+Rails/Output:
+  Enabled: false
+
+Rails/OutputSafety:
+  Enabled: false
+
+Rails/PluralizationGrammar:
+  Enabled: false
+
+Rails/ReadWriteAttribute:
+  Enabled: false
+
+Rails/RequestReferer:
+  Enabled: false
+
+Rails/ScopeArgs:
+  Enabled: false
+
+Rails/TimeZone:
+  Enabled: false
+
+Rails/UniqBeforePluck:
+  Enabled: false
+
+Rails/Validation:
+  Enabled: false
+
+#################### Security ####################
+
+Security/Eval:
+  Enabled: false
+
+#################### Style ####################
 
 Style/Alias:
   Enabled: true
@@ -244,11 +586,11 @@ Style/AsciiComments:
 Style/Attr:
   Enabled: true
 
-Style/BeginBlock:
-  Enabled: true
-
 Style/BarePercentLiterals:
   Enabled: false
+
+Style/BeginBlock:
+  Enabled: true
 
 Style/BlockComments:
   Enabled: true
@@ -256,10 +598,10 @@ Style/BlockComments:
 Style/BlockDelimiters:
   Enabled: false
   Exclude:
-    - 'spec/**/*'
+    - spec/**/*
 
 Style/BracesAroundHashParameters:
-  Description: 'Enforce braces style around hash parameters.'
+  Description: Enforce braces style around hash parameters.
   Enabled: true
   EnforcedStyle: no_braces
 
@@ -296,15 +638,12 @@ Style/ConditionalAssignment:
 Style/DefWithParentheses:
   Enabled: true
 
-Style/PreferredHashMethods:
-  Enabled: true
-
 Style/Documentation:
   Enabled: true
   Exclude:
-    - 'db/migrate/*'
-    - 'spec/**/*'
-    - 'test/**/*'
+    - db/migrate/*
+    - spec/**/*
+    - test/**/*
 
 Style/DoubleNegation:
   Enabled: true
@@ -315,10 +654,10 @@ Style/EachForSimpleLoop:
 Style/EachWithObject:
   Enabled: false
 
-Style/EmptyElse:
+Style/EmptyCaseCondition:
   Enabled: true
 
-Style/EmptyCaseCondition:
+Style/EmptyElse:
   Enabled: true
 
 Style/EmptyLiteral:
@@ -333,17 +672,14 @@ Style/EndBlock:
 Style/EvenOdd:
   Enabled: true
 
-Style/FrozenStringLiteralComment:
-  Enabled: false
-
-Lint/FlipFlop:
-  Enabled: true
-
 Style/For:
   Enabled: true
 
 Style/FormatString:
   Enabled: true
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
 
 Style/GlobalVars:
   Enabled: true
@@ -357,6 +693,9 @@ Style/HashSyntax:
   Exclude:
     - config/routes.rb
 
+Style/IdenticalConditionalBranches:
+  Enabled: true
+
 Style/IfInsideElse:
   Enabled: true
 
@@ -367,9 +706,6 @@ Style/IfUnlessModifierOfIfUnless:
   Enabled: true
 
 Style/IfWithSemicolon:
-  Enabled: true
-
-Style/IdenticalConditionalBranches:
   Enabled: true
 
 Style/InfiniteLoop:
@@ -432,10 +768,10 @@ Style/NonNilCheck:
 Style/Not:
   Enabled: true
 
-Style/NumericLiterals:
+Style/NumericLiteralPrefix:
   Enabled: true
 
-Style/NumericLiteralPrefix:
+Style/NumericLiterals:
   Enabled: true
 
 Style/OneLineConditional:
@@ -458,6 +794,9 @@ Style/PercentQLiterals:
 
 Style/PerlBackrefs:
   Enabled: false
+
+Style/PreferredHashMethods:
+  Enabled: true
 
 Style/Proc:
   Enabled: true
@@ -536,6 +875,10 @@ Style/TrailingCommaInHashLiteral:
   Enabled: true
   EnforcedStyleForMultiline: no_comma
 
+Style/TrailingUnderscoreVariable:
+  AllowNamedUnderscoreVariables: true
+  Enabled: true
+
 Style/TrivialAccessors:
   Enabled: true
 
@@ -550,10 +893,6 @@ Style/UnneededInterpolation:
 
 Style/UnneededPercentQ:
   Enabled: false
-
-Style/TrailingUnderscoreVariable:
-  AllowNamedUnderscoreVariables: true
-  Enabled: true
 
 Style/VariableInterpolation:
   Enabled: true
@@ -572,344 +911,3 @@ Style/WordArray:
 
 Style/ZeroLengthPredicate:
   Enabled: true
-
-#################### Naming #################################
-
-Naming/AccessorMethodName:
-  Enabled: true
-
-Naming/AsciiIdentifiers:
-  Enabled: true
-
-Naming/ClassAndModuleCamelCase:
-  Enabled: true
-
-Naming/ConstantName:
-  Enabled: true
-
-Naming/FileName:
-  Enabled: true
-
-Naming/MethodName:
-  Enabled: true
-
-Naming/BinaryOperatorParameterName:
-  Enabled: false
-
-Naming/PredicateName:
-  Enabled: true
-
-Naming/VariableName:
-  Enabled: true
-
-#################### Metrics ################################
-
-Metrics/AbcSize:
-  Enabled: false
-
-Metrics/BlockNesting:
-  Enabled: false
-
-Metrics/ClassLength:
-  Enabled: false
-
-Metrics/ModuleLength:
-  Enabled: false
-
-Metrics/CyclomaticComplexity:
-  Enabled: false
-
-Metrics/LineLength:
-  Enabled: true
-  Max: 80
-  AllowHeredoc: true
-  AllowURI: true
-  URISchemes:
-    - http
-    - https
-  IgnoreCopDirectives: false
-  IgnoredPatterns:
-    - '^\s*it\s+.*do$'
-    - '^\s*context\s+.*do$'
-    - '^\s*describe\s+.*do$'
-    - '^\s*class\s+[A-Z].*<.*'
-
-Metrics/MethodLength:
-  Enabled: false
-
-Metrics/ParameterLists:
-  Enabled: false
-
-Metrics/PerceivedComplexity:
-  Enabled: false
-
-#################### Lint ################################
-### Warnings
-
-Lint/AmbiguousOperator:
-  Enabled: true
-
-Lint/AmbiguousRegexpLiteral:
-  Enabled: true
-
-Lint/AssignmentInCondition:
-  Enabled: true
-
-Lint/CircularArgumentReference:
-  Enabled: true
-
-Lint/Debugger:
-  Enabled: true
-
-Lint/DeprecatedClassMethods:
-  Enabled: true
-
-Lint/DuplicateMethods:
-  Enabled: true
-
-Lint/DuplicatedKey:
-  Enabled: true
-
-Lint/EachWithObjectArgument:
-  Enabled: true
-
-Lint/ElseLayout:
-  Enabled: true
-
-Lint/EmptyEnsure:
-  Enabled: true
-
-Lint/EmptyInterpolation:
-  Enabled: true
-
-Lint/EndInMethod:
-  Enabled: true
-
-Lint/EnsureReturn:
-  Enabled: true
-
-Lint/FloatOutOfRange:
-  Enabled: true
-
-Lint/FormatParameterMismatch:
-  Enabled: true
-
-Lint/HandleExceptions:
-  Enabled: true
-
-Lint/ImplicitStringConcatenation:
-  Enabled: true
-
-Lint/IneffectiveAccessModifier:
-  Enabled: true
-
-Lint/InheritException:
-  Enabled: true
-
-Lint/LiteralAsCondition:
-  Enabled: true
-
-Lint/LiteralInInterpolation:
-  Enabled: true
-
-Lint/Loop:
-  Enabled: true
-
-Lint/NestedMethodDefinition:
-  Enabled: true
-
-Lint/NextWithoutAccumulator:
-  Enabled: true
-
-Lint/NonLocalExitFromIterator:
-  Enabled: true
-
-Lint/ParenthesesAsGroupedExpression:
-  Enabled: true
-
-Lint/PercentStringArray:
-  Enabled: true
-
-Lint/PercentSymbolArray:
-  Enabled: true
-
-Lint/RandOne:
-  Enabled: true
-
-Lint/RequireParentheses:
-  Enabled: true
-
-Lint/RescueException:
-  Enabled: true
-
-Lint/ShadowedException:
-  Enabled: true
-
-Lint/ShadowingOuterLocalVariable:
-  Enabled: true
-
-Lint/StringConversionInInterpolation:
-  Enabled: true
-
-Lint/UnderscorePrefixedVariableName:
-  Enabled: true
-
-Lint/UnneededCopDisableDirective:
-  Enabled: true
-
-Lint/UnusedBlockArgument:
-  Enabled: true
-
-Lint/UnusedMethodArgument:
-  Enabled: true
-
-Lint/UnreachableCode:
-  Enabled: true
-
-Lint/UselessAccessModifier:
-  Enabled: true
-
-Lint/UnneededSplatExpansion:
-  Enabled: true
-
-Lint/UselessAssignment:
-  Enabled: false
-
-Lint/UselessComparison:
-  Enabled: false
-
-Lint/UselessElseWithoutRescue:
-  Enabled: false
-
-Lint/UselessSetterCall:
-  Enabled: false
-
-Lint/Void:
-  Enabled: false
-
-##################### Performance #############################
-
-Performance/Casecmp:
-  Enabled: false
-
-Performance/CaseWhenSplat:
-  Enabled: false
-
-Performance/Count:
-  # This cop has known compatibility issues with `ActiveRecord` and other
-  # frameworks. ActiveRecord's `count` ignores the block that is passed to it.
-  # For more information, see the documentation in the cop itself.
-  # If you understand the known risk, you can disable `SafeMode`.
-  SafeMode: true
-  Enabled: false
-
-Performance/Detect:
-  # This cop has known compatibility issues with `ActiveRecord` and other
-  # frameworks. `ActiveRecord` does not implement a `detect` method and `find`
-  # has its own meaning. Correcting `ActiveRecord` methods with this cop
-  # should be considered unsafe.
-  SafeMode: true
-  Enabled: false
-
-Performance/DoubleStartEndWith:
-  Enabled: false
-
-Performance/EndWith:
-  Enabled: false
-
-Performance/FixedSize:
-  Enabled: false
-
-Performance/FlatMap:
-  Enabled: false
-  EnabledForFlattenWithoutParams: false
-
-Performance/LstripRstrip:
-  Description: 'Use `strip` instead of `lstrip.rstrip`.'
-  Enabled: false
-
-Performance/RangeInclude:
-  Enabled: false
-
-Performance/RedundantBlockCall:
-  Enabled: false
-
-Performance/RedundantMatch:
-  Enabled: false
-
-Performance/RedundantMerge:
-  Enabled: true
-
-Performance/RedundantSortBy:
-  Enabled: false
-
-Performance/ReverseEach:
-  Enabled: false
-
-Performance/Sample:
-  Enabled: false
-
-Performance/Size:
-  Enabled: false
-
-Performance/StartWith:
-  Enabled: false
-
-Performance/StringReplacement:
-  Enabled: false
-
-Performance/TimesMap:
-  Enabled: false
-
-##################### Rails ##################################
-
-Rails/ActionFilter:
-  Enabled: false
-
-Rails/Date:
-  Enabled: false
-
-Rails/Delegate:
-  Enabled: false
-
-Rails/Exit:
-  Enabled: false
-
-Rails/FindBy:
-  Enabled: false
-
-Rails/FindEach:
-  Enabled: false
-
-Rails/HasAndBelongsToMany:
-  Enabled: false
-
-Rails/Output:
-  Enabled: false
-
-Rails/OutputSafety:
-  Enabled: false
-
-Rails/PluralizationGrammar:
-  Enabled: false
-
-Rails/ReadWriteAttribute:
-  Enabled: false
-
-Rails/RequestReferer:
-  Enabled: false
-
-Rails/ScopeArgs:
-  Enabled: false
-
-Rails/TimeZone:
-  Enabled: false
-
-Rails/UniqBeforePluck:
-  Enabled: false
-
-Rails/Validation:
-  Enabled: false
-
-Security/Eval:
-  Enabled: false
