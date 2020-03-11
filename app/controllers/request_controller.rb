@@ -708,16 +708,6 @@ class RequestController < ApplicationController
 
   private
 
-  def render_hidden(template='request/hidden', opts = {})
-    # An embargoed is totally hidden - no indication that anything exists there
-    # to see
-    if @info_request && @info_request.embargo
-      raise ActiveRecord::RecordNotFound
-    else
-      return super(template, opts)
-    end
-  end
-
   def info_request_params(batch = false)
     if batch
       unless params[:info_request].nil? || params[:info_request].empty?

@@ -191,6 +191,10 @@ class ApplicationController < ActionController::Base
   end
 
   def render_hidden(template='request/hidden', opts = {})
+    # An embargoed is totally hidden - no indication that anything exists there
+    # to see
+    raise ActiveRecord::RecordNotFound if @info_request && @info_request.embargo
+
     response_code = opts.delete(:response_code) { 403 } # forbidden
     options = { :template => template, :status => response_code }.merge(opts)
 

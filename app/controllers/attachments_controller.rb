@@ -63,16 +63,6 @@ class AttachmentsController < ApplicationController
 
   private
 
-  def render_hidden(template='request/hidden', opts = {})
-    # An embargoed is totally hidden - no indication that anything exists there
-    # to see
-    if @info_request && @info_request.embargo
-      raise ActiveRecord::RecordNotFound
-    else
-      return super(template, opts)
-    end
-  end
-
   def authenticate_attachment
     # Test for hidden
     incoming_message = IncomingMessage.find(params[:incoming_message_id])
