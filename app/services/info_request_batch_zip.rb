@@ -40,7 +40,7 @@ class InfoRequestBatchZip
 
   private
 
-  def each(&block)
+  def each(&_block)
     to_enum(:each) unless block_given?
 
     yield prepare_dashboard_metrics
