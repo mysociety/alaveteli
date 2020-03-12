@@ -43,7 +43,11 @@ module ActiveRecord
           # If STI is used, find the correct subclass for association reflection
           reflection_class =
             if row.include?(inheritance_column_name)
-              row[inheritance_column_name].constantize rescue model_class
+              begin
+                row[inheritance_column_name].constantize
+              rescue
+                model_class
+              end
             else
               model_class
             end
