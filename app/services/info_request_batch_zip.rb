@@ -57,7 +57,7 @@ class InfoRequestBatchZip
         message = prepare_incoming_message(event.incoming_message)
         yield message if message
 
-        event.incoming_message.foi_attachments.each do |attachment|
+        event.incoming_message.get_attachments_for_display.each do |attachment|
           attachment = prepare_foi_attachment(attachment)
           yield attachment if attachment
         end

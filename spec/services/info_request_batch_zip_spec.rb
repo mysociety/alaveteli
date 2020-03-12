@@ -107,7 +107,7 @@ RSpec.describe InfoRequestBatchZip do
       end
 
       let(:message) { event.incoming_message }
-      let(:attachment) { message.foi_attachments.first }
+      let(:attachment) { message.get_attachments_for_display.first }
 
       context 'can read message' do
         before { ability.can :read, message }
