@@ -114,7 +114,8 @@ RSpec.describe InfoRequestBatchZip do
 
         it 'includes attachments' do
           expect(paths).to include(
-            "#{base_path}/2019-11-11-103000/attachments/#{attachment.filename}"
+            "#{base_path}/2019-11-11-103000/attachments-#{message.id}/" \
+              "#{attachment.filename}"
           )
         end
       end
@@ -124,7 +125,8 @@ RSpec.describe InfoRequestBatchZip do
 
         it 'does not include attachments' do
           expect(paths).not_to include(
-            "#{base_path}/2019-11-11-103000/attachments/#{attachment.filename}"
+            "#{base_path}/2019-11-11-103000/attachments-#{message.id}/" \
+              "#{attachment.filename}"
           )
         end
       end

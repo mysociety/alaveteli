@@ -106,7 +106,7 @@ class InfoRequestBatchZip
     path = [
       base_path(message.info_request),
       sent_at,
-      'attachments',
+      "attachments-#{message.id}",
       attachment.filename
     ].join('/')
 
