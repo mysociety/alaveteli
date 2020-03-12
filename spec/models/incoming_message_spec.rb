@@ -329,6 +329,7 @@ describe IncomingMessage do
       message = FactoryBot.create(:incoming_message)
       FactoryBot.
         create(:body_text, :body => "hi\u0000", :incoming_message => message)
+      message.reload
       expect(message.get_attachment_text_clipped).to eq("hi\n\n")
     end
 
