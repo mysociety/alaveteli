@@ -8,10 +8,11 @@ class InfoRequestBatchZip
 
   ZippableFile = Struct.new(:path, :body)
 
-  attr_reader :info_request_batch
+  attr_reader :info_request_batch, :ability
 
-  def initialize(info_request_batch)
+  def initialize(info_request_batch, ability:)
     @info_request_batch = info_request_batch
+    @ability = ability
   end
 
   def files

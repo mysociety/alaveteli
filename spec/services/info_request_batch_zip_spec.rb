@@ -6,10 +6,23 @@ RSpec.describe InfoRequestBatchZip do
   let(:batch) do
     FactoryBot.create(:info_request_batch, info_requests: [request])
   end
+  let(:ability) { double(:ability) }
   let(:request) { FactoryBot.build(:info_request) }
 
+  let(:instance) { described_class.new(batch, ability: ability) }
+
+  describe 'initialisation' do
+    it 'stores info_request_batch' do
+      expect(instance.info_request_batch).to eq batch
+    end
+
+    it 'stores ability' do
+      expect(instance.ability).to eq ability
+    end
+  end
+
   describe '#files' do
-    subject(:files) { described_class.new(batch).files }
+    subject(:files) { instance.files }
     let(:paths) { files.map(&:path) }
 
     let(:base_path) do
@@ -78,7 +91,7 @@ RSpec.describe InfoRequestBatchZip do
 
   describe '#name' do
     let(:batch) { double(:info_request_batch, id: 1, title: 'Batch Request') }
-    subject(:name) { described_class.new(batch).name }
+    subject(:name) { instance.name }
 
     it 'returns a useful filename' do
       time_travel_to Time.utc(2019, 11, 18, 10, 30)

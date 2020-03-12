@@ -78,7 +78,8 @@ RSpec.describe AlaveteliPro::BatchDownloadsController, type: :controller do
         context 'when ZIP format' do
           before do
             # stub service calls - testing stream content is hard :(
-            allow(InfoRequestBatchZip).to receive(:new).with(batch).
+            allow(InfoRequestBatchZip).to receive(:new).
+              with(batch, ability: controller.current_ability).
               and_return(double(:zip, name: 'NAME', stream: []))
 
             show(format: 'zip')
