@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-10 16:08+0000\n"
+"POT-Creation-Date: 2020-02-21 11:27+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
 "Language-Team: Sinhala (https://www.transifex.com/mysociety/teams/33529/si/)\n"
 "Language: si\n"
@@ -60,6 +60,9 @@ msgstr ""
 msgid "<span class=\"price-label__amount\">{{monthly_price}}</span> per user, per month"
 msgstr ""
 
+msgid "<span class=\"price-label__amount\">{{yearly_price}}</span> per user, per year"
+msgstr ""
+
 msgid "<strong class=\"marketing-highlight\">Action alerts</strong>: know when it’s time to take the next step"
 msgstr ""
 
@@ -90,7 +93,7 @@ msgstr ""
 msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
 msgstr ""
 
-msgid "<strong>Easy</strong> One monthly fee covers all Pro features, with no complex tiers or options to worry about."
+msgid "<strong>Easy</strong> One fee covers all Pro features, with no complex tiers or options to worry about."
 msgstr ""
 
 msgid "<strong>Flexible</strong> You can cancel at any time, with no lengthy tie-ins and no notice required."

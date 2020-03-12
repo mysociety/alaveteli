@@ -86,15 +86,18 @@ describe AlaveteliGeoIP do
   end
 
   describe '#country_code_from_ip' do
+    let(:current_code) { 'GB' }
+
     subject { described_class.new.country_code_from_ip(ip_address) }
 
-    context 'when the Gaze service is configured and is in different states' do
-      let(:current_code) { 'GB' }
+    before(:each) do
+      allow(AlaveteliConfiguration).
+        to receive(:iso_country_code).and_return current_code
+    end
 
+    context 'when the Gaze service is configured and is in different states' do
       before(:each) do
         allow(AlaveteliConfiguration).to receive(:geoip_database).and_return ''
-        allow(AlaveteliConfiguration).
-          to receive(:iso_country_code).and_return current_code
       end
 
       context 'the service returns a country code' do
@@ -173,6 +176,19 @@ describe AlaveteliGeoIP do
         end
 
         it { is_expected.to eq('XR') }
+      end
+
+      context 'the IP is an anonymous proxy' do
+        before do
+          allow(geoip).to receive(:get).and_return(
+            'registered_country' => { 'iso_code' => 'US' },
+            'traits' => { 'is_anonymous_proxy' => true }
+          )
+        end
+
+        it 'ignores registered country, returning the default ISO code' do
+          is_expected.to eq(current_code)
+        end
       end
     end
   end

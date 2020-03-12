@@ -20,8 +20,10 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Aida Martinez <amartinez@antai.gob.pa>, 2016
 # fabrizioscrollini <fabrizio.scrollini@gmail.com>, 2012
+# gaba <gaba@torproject.org>, 2012,2014
 # gaba <gaba@torproject.org>, 2012,2014
 # Gareth Rees <gareth@mysociety.org>, 2016
 # Liz Conlan <liz@mysociety.org>, 2018
@@ -38,7 +40,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-10 15:57+0000\n"
+"POT-Creation-Date: 2020-02-21 11:26+0000\n"
 "PO-Revision-Date: 2020-02-10 15:36+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Spanish (Panama) (http://www.transifex.com/mysociety/alaveteli/language/es_PA/)\n"

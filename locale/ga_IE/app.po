@@ -20,12 +20,13 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Niall Ó Tuathail <niall@niallotuathail.ie>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-10 15:57+0000\n"
+"POT-Creation-Date: 2020-02-21 11:26+0000\n"
 "PO-Revision-Date: 2020-02-10 15:36+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Irish (Ireland) (http://www.transifex.com/mysociety/alaveteli/language/ga_IE/)\n"

@@ -20,6 +20,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Antonella <anapolitano@gmail.com>, 2014-2015
 # Claudio Cesarano <claudio@dirittodisapere.it>, 2015-2016
 # Giancarlo <pinet@pinet.it>, 2015
@@ -32,7 +33,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-10 15:57+0000\n"
+"POT-Creation-Date: 2020-02-21 11:26+0000\n"
 "PO-Revision-Date: 2020-02-10 15:36+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Italian (http://www.transifex.com/mysociety/alaveteli/language/it/)\n"

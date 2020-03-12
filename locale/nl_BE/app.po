@@ -20,6 +20,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Christophe Van Gheluwe <info@vg-webdesign.be>, 2017
 # claude transparencia <audit.citoyen.quartier@gmail.com>, 2017-2018
 # Edwin Bosveld <edwin@inwy.nl>, 2013,2016
@@ -32,7 +33,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-10 15:57+0000\n"
+"POT-Creation-Date: 2020-02-21 11:26+0000\n"
 "PO-Revision-Date: 2020-02-10 15:36+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Dutch (Belgium) (http://www.transifex.com/mysociety/alaveteli/language/nl_BE/)\n"
