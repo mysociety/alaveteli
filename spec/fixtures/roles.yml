@@ -19,3 +19,9 @@ pro:
 pro_admin:
   id: 3
   name: pro_admin
+project_owner:
+  id: 4
+  name: project_owner
+project_contributor:
+  id: 5
+  name: project_contributor
