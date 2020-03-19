@@ -5,7 +5,11 @@ RSpec.describe Project, type: :model, feature: :projects do
 
   describe 'associations' do
     subject(:project) do
-      FactoryBot.create(:project, owner: owner, contributors_count: 2)
+      FactoryBot.create(
+        :project,
+        owner: owner,
+        contributors_count: 2, requests_count: 2, batches_count: 2
+      )
     end
 
     let(:owner) { FactoryBot.build(:pro_user) }
@@ -25,6 +29,21 @@ RSpec.describe Project, type: :model, feature: :projects do
       expect(project.contributors).to all be_a(User)
       expect(project.contributors).not_to include owner
       expect(project.contributors.count).to eq 2
+    end
+
+    it 'has many resources' do
+      expect(project.resources).to all be_a(ProjectResource)
+      expect(project.resources.count).to eq 4
+    end
+
+    it 'has many requests' do
+      expect(project.requests).to all be_a(InfoRequest)
+      expect(project.requests.count).to eq 2
+    end
+
+    it 'has many contributors' do
+      expect(project.batches).to all be_a(InfoRequestBatch)
+      expect(project.batches.count).to eq 2
     end
   end
 

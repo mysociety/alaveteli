@@ -15,5 +15,15 @@ class Project < ApplicationRecord
   has_one  :owner, through: :owner_membership, source: :user
   has_many :contributors, through: :contributor_memberships, source: :user
 
+  has_many :resources, class_name: 'ProjectResource'
+  has_many :requests,
+           through: :resources,
+           source: :resource,
+           source_type: 'InfoRequest'
+  has_many :batches,
+           through: :resources,
+           source: :resource,
+           source_type: 'InfoRequestBatch'
+
   validates :title, :owner, presence: true
 end

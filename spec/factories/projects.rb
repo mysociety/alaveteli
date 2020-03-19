@@ -7,11 +7,28 @@ FactoryBot.define do
 
     transient do
       contributors_count { 0 }
+      requests_count { 0 }
+      batches_count { 0 }
     end
 
     after(:build) do |project, evaluator|
       evaluator.contributors_count.times do
         project.contributors.build(attributes_for(:user))
+      end
+
+      evaluator.requests_count.times do
+        project.requests.build(
+          attributes_for(:info_request).merge(
+            user: project.owner,
+            public_body: build(:public_body)
+          )
+        )
+      end
+
+      evaluator.batches_count.times do
+        project.batches.build(
+          attributes_for(:info_request_batch).merge(user: project.owner)
+        )
       end
     end
   end
