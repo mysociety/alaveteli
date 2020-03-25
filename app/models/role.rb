@@ -51,6 +51,16 @@ class Role < ApplicationRecord
   end
 
   # Public: Returns an array of symbols of the names of the roles
+  # which can be granted or revoked
+  #
+  # Returns an Array
+  def self.grantable_roles
+    allowed_roles.flat_map do |role|
+      grants_and_revokes(role.to_sym)
+    end.compact.uniq
+  end
+
+  # Public: Returns an array of symbols of the names of the roles
   # this role can grant and revoke
   #
   # role - the name of the role as a symbol
