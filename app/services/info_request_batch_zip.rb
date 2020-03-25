@@ -34,7 +34,10 @@ class InfoRequestBatchZip
   def stream(&chunks)
     block_writer = ZipTricks::BlockWrite.new(&chunks)
 
-    ZipTricks::Streamer.open(block_writer) do |zip|
+    ZipTricks::Streamer.open(
+      block_writer,
+      auto_rename_duplicate_filenames: true
+    ) do |zip|
       each do |file|
         zip.write_deflated_file(file.path) { |writer| writer << file.body }
       end
