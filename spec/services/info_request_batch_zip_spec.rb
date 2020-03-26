@@ -6,10 +6,23 @@ RSpec.describe InfoRequestBatchZip do
   let(:batch) do
     FactoryBot.create(:info_request_batch, info_requests: [request])
   end
+  let(:ability) { Object.new.extend(CanCan::Ability) }
   let(:request) { FactoryBot.build(:info_request) }
 
+  let(:instance) { described_class.new(batch, ability: ability) }
+
+  describe 'initialisation' do
+    it 'stores info_request_batch' do
+      expect(instance.info_request_batch).to eq batch
+    end
+
+    it 'stores ability' do
+      expect(instance.ability).to eq ability
+    end
+  end
+
   describe '#files' do
-    subject(:files) { described_class.new(batch).files }
+    subject(:files) { instance.files }
     let(:paths) { files.map(&:path) }
 
     let(:base_path) do
@@ -38,23 +51,51 @@ RSpec.describe InfoRequestBatchZip do
 
     context 'when batch info request has been sent' do
       let(:event) { FactoryBot.create(:sent_event, info_request: request) }
-      let!(:message) { event.outgoing_message }
+      let(:message) { event.outgoing_message }
 
-      it 'includes outgoing message' do
-        expect(paths).to include(
-          "#{base_path}/2019-11-04-103000/outgoing_#{message.id}.txt"
-        )
+      context 'can read message' do
+        before { ability.can :read, message }
+
+        it 'includes outgoing message' do
+          expect(paths).to include(
+            "#{base_path}/2019-11-04-103000/outgoing_#{message.id}.txt"
+          )
+        end
+      end
+
+      context 'cannot read message' do
+        before { ability.cannot :read, message }
+
+        it 'does not include outgoing message' do
+          expect(paths).not_to include(
+            "#{base_path}/2019-11-04-103000/outgoing_#{message.id}.txt"
+          )
+        end
       end
     end
 
     context 'when batch info request has responses' do
       let(:event) { FactoryBot.create(:response_event, info_request: request) }
-      let!(:message) { event.incoming_message }
+      let(:message) { event.incoming_message }
 
-      it 'includes incoming message' do
-        expect(paths).to include(
-          "#{base_path}/2019-11-11-103000/incoming_#{message.id}.txt"
-        )
+      context 'can read message' do
+        before { ability.can :read, message }
+
+        it 'includes incoming message' do
+          expect(paths).to include(
+            "#{base_path}/2019-11-11-103000/incoming_#{message.id}.txt"
+          )
+        end
+      end
+
+      context 'cannot read message' do
+        before { ability.cannot :read, message }
+
+        it 'does not include incoming message' do
+          expect(paths).not_to include(
+            "#{base_path}/2019-11-11-103000/incoming_#{message.id}.txt"
+          )
+        end
       end
     end
 
@@ -66,19 +107,35 @@ RSpec.describe InfoRequestBatchZip do
       end
 
       let(:message) { event.incoming_message }
-      let!(:attachment) { message.foi_attachments.first }
+      let(:attachment) { message.get_attachments_for_display.first }
 
-      it 'includes attachments' do
-        expect(paths).to include(
-          "#{base_path}/2019-11-11-103000/attachments/#{attachment.filename}"
-        )
+      context 'can read message' do
+        before { ability.can :read, message }
+
+        it 'includes attachments' do
+          expect(paths).to include(
+            "#{base_path}/2019-11-11-103000/attachments-#{message.id}/" \
+              "#{attachment.filename}"
+          )
+        end
+      end
+
+      context 'cannot read message' do
+        before { ability.cannot :read, message }
+
+        it 'does not include attachments' do
+          expect(paths).not_to include(
+            "#{base_path}/2019-11-11-103000/attachments-#{message.id}/" \
+              "#{attachment.filename}"
+          )
+        end
       end
     end
   end
 
   describe '#name' do
     let(:batch) { double(:info_request_batch, id: 1, title: 'Batch Request') }
-    subject(:name) { described_class.new(batch).name }
+    subject(:name) { instance.name }
 
     it 'returns a useful filename' do
       time_travel_to Time.utc(2019, 11, 18, 10, 30)
