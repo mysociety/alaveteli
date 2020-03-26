@@ -1,3 +1,9 @@
+# 0.37.0.1
+
+## Highlighted Features
+
+* Support plans with a yearly billing interval (Gareth Rees)
+
 # 0.37.0.0
 
 ## Highlighted Features
@@ -22,10 +28,6 @@
 * Add CSV download for batch requests (Graeme Porteous)
 * Add targeted Pro marketing pages (Myfanwy Nixon, Martin Wright, Gareth Rees)
 * Fix embargoed requests email response notification (Graeme Porteous)
-
-## Highlighted Features
-
-* Support plans with a yearly billing interval (Gareth Rees)
 
 ## Upgrade Notes
 
