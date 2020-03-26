@@ -8,10 +8,13 @@ class InfoRequestBatchZip
 
   ZippableFile = Struct.new(:path, :body)
 
-  attr_reader :info_request_batch
+  attr_reader :info_request_batch, :ability
 
-  def initialize(info_request_batch)
+  delegate :cannot?, to: :ability
+
+  def initialize(info_request_batch, ability:)
     @info_request_batch = info_request_batch
+    @ability = ability
   end
 
   def files
@@ -31,7 +34,10 @@ class InfoRequestBatchZip
   def stream(&chunks)
     block_writer = ZipTricks::BlockWrite.new(&chunks)
 
-    ZipTricks::Streamer.open(block_writer) do |zip|
+    ZipTricks::Streamer.open(
+      block_writer,
+      auto_rename_duplicate_filenames: true
+    ) do |zip|
       each do |file|
         zip.write_deflated_file(file.path) { |writer| writer << file.body }
       end
@@ -40,19 +46,23 @@ class InfoRequestBatchZip
 
   private
 
-  def each(&block)
+  def each(&_block)
     to_enum(:each) unless block_given?
 
     yield prepare_dashboard_metrics
 
     info_request_events.each do |event|
       if event.outgoing?
-        yield prepare_outgoing_message(event.outgoing_message)
-      elsif event.response?
-        yield prepare_incoming_message(event.incoming_message)
+        message = prepare_outgoing_message(event.outgoing_message)
+        yield message if message
 
-        event.incoming_message.foi_attachments.each do |attachment|
-          yield prepare_foi_attachment(attachment)
+      elsif event.response?
+        message = prepare_incoming_message(event.incoming_message)
+        yield message if message
+
+        event.incoming_message.get_attachments_for_display.each do |attachment|
+          attachment = prepare_foi_attachment(attachment)
+          yield attachment if attachment
         end
       end
     end
@@ -71,6 +81,8 @@ class InfoRequestBatchZip
   end
 
   def prepare_outgoing_message(message)
+    return if cannot?(:read, message)
+
     sent_at = message.last_sent_at.to_formatted_s(:filename)
     name = "outgoing_#{message.id}.txt"
     path = [base_path(message.info_request), sent_at, name].join('/')
@@ -79,6 +91,8 @@ class InfoRequestBatchZip
   end
 
   def prepare_incoming_message(message)
+    return if cannot?(:read, message)
+
     sent_at = message.sent_at.to_formatted_s(:filename)
     name = "incoming_#{message.id}.txt"
     path = [base_path(message.info_request), sent_at, name].join('/')
@@ -88,12 +102,14 @@ class InfoRequestBatchZip
 
   def prepare_foi_attachment(attachment)
     message = attachment.incoming_message
+    return if cannot?(:read, message)
+
     sent_at = message.sent_at.to_formatted_s(:filename)
 
     path = [
       base_path(message.info_request),
       sent_at,
-      'attachments',
+      "attachments-#{message.id}",
       attachment.filename
     ].join('/')
 

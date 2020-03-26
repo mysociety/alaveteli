@@ -26,7 +26,7 @@ class AlaveteliPro::BatchDownloadsController < AlaveteliPro::BaseController
   end
 
   def download_zip
-    zip = InfoRequestBatchZip.new(info_request_batch)
+    zip = InfoRequestBatchZip.new(info_request_batch, ability: current_ability)
     send_file_headers!(
       type: 'application/zip',
       disposition: 'attachment',
