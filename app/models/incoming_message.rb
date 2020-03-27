@@ -239,11 +239,13 @@ class IncomingMessage < ApplicationRecord
   # TODO: relies on extract_attachments calling MailHandler.ensure_parts_counted
   # The filename here is passed from the URL parameter, so it's the
   # display_filename rather than the real filename.
-  def self.get_attachment_by_url_part_number_and_filename(attachments, found_url_part_number, display_filename)
+  def self.get_attachment_by_url_part_number_and_filename!(
+    attachments, found_url_part_number, display_filename
+  )
     attachment_by_part_number = attachments.detect { |a| a.url_part_number == found_url_part_number }
     if attachment_by_part_number && attachment_by_part_number.display_filename == display_filename
       # Then the filename matches, which is fine:
-      attachment_by_part_number
+      attachment = attachment_by_part_number
     else
       # Otherwise if the URL part number and filename don't
       # match - this is probably due to a reparsing of the
@@ -253,11 +255,26 @@ class IncomingMessage < ApplicationRecord
         a.display_filename == display_filename
       }
       if attachments_by_filename.length == 1
-        attachments_by_filename[0]
-      else
-        nil
+        attachment = attachments_by_filename[0]
       end
     end
+
+    return unless attachment
+
+    # check filename in URL matches that in database (use a censor rule if you
+    # want to change a filename)
+    if attachment.display_filename != display_filename &&
+       attachment.old_display_filename != display_filename
+      msg = 'please use same filename as original file has, display: '
+      msg += "'#{ attachment.display_filename }' "
+      msg += 'old_display: '
+      msg += "'#{ attachment.old_display_filename }' "
+      msg += 'original: '
+      msg += "'#{ display_filename }'"
+      raise ActiveRecord::RecordNotFound, msg
+    end
+
+    attachment
   end
 
   def apply_masks(text, content_type)

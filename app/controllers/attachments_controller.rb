@@ -158,7 +158,7 @@ class AttachmentsController < ApplicationController
     incoming_message.parse_raw_email!
 
     @attachment = IncomingMessage.
-      get_attachment_by_url_part_number_and_filename(
+      get_attachment_by_url_part_number_and_filename!(
         incoming_message.get_attachments_for_display,
         part_number,
         original_filename
@@ -166,19 +166,6 @@ class AttachmentsController < ApplicationController
     # If we can't find the right attachment, redirect to the incoming message:
     unless @attachment
       return redirect_to incoming_message_url(incoming_message), status: 303
-    end
-
-    # check filename in URL matches that in database (use a censor rule if you
-    # want to change a filename)
-    if @attachment.display_filename != original_filename &&
-       @attachment.old_display_filename != original_filename
-      msg = 'please use same filename as original file has, display: '
-      msg += "'#{ @attachment.display_filename }' "
-      msg += 'old_display: '
-      msg += "'#{ @attachment.old_display_filename }' "
-      msg += 'original: '
-      msg += "'#{ original_filename }'"
-      raise ActiveRecord::RecordNotFound, msg
     end
   end
 

@@ -76,10 +76,12 @@ describe 'when handling incoming mail' do
     receive_incoming_mail('incoming-request-two-same-name.email',
                           info_request.incoming_email)
     incoming_message = info_request.incoming_messages.first
-    attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(
-                   incoming_message.get_attachments_for_display,
-                   2,
-                   'hello world.txt')
+    attachment = IncomingMessage.
+                   get_attachment_by_url_part_number_and_filename!(
+                     incoming_message.get_attachments_for_display,
+                     2,
+                     'hello world.txt'
+                   )
     expect(attachment.body).to match "Second hello"
 
     # change the raw_email associated with the message; this should only be
@@ -96,10 +98,12 @@ describe 'when handling incoming mail' do
       :skip_cache => 1
     )
 
-    attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(
-                  incoming_message.get_attachments_for_display,
-                  2,
-                  'hello world.txt')
+    attachment = IncomingMessage.
+                   get_attachment_by_url_part_number_and_filename!(
+                     incoming_message.get_attachments_for_display,
+                     2,
+                     'hello world.txt'
+                   )
     expect(attachment.body).to match "Second hello"
 
     # ...nor should asking for it by its correct filename...
@@ -115,10 +119,12 @@ describe 'when handling incoming mail' do
     # ...but if we explicitly ask for attachments to be extracted, then they should be
     force = true
     incoming_message.parse_raw_email!(force)
-    attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(
-                 incoming_message.get_attachments_for_display,
-                 2,
-                 'hello world.txt')
+    attachment = IncomingMessage.
+                   get_attachment_by_url_part_number_and_filename!(
+                     incoming_message.get_attachments_for_display,
+                     2,
+                     'hello world.txt'
+                   )
     expect(attachment.body).to match "Third hello"
     visit get_attachment_as_html_path(
       :incoming_message_id => incoming_message.id,
