@@ -7,6 +7,8 @@ class AttachmentsController < ApplicationController
   before_action :authenticate_attachment
   around_action :cache_attachments
 
+  helper_method :incoming_message
+
   def show
     get_attachment_internal(false)
     return unless @attachment
@@ -19,7 +21,7 @@ class AttachmentsController < ApplicationController
 
     # Prevent spam to magic request address. Note that the binary
     # subsitution method used depends on the content type
-    body = @incoming_message.apply_masks(
+    body = incoming_message.apply_masks(
       @attachment.default_body,
       @attachment.content_type
     )
@@ -66,16 +68,23 @@ class AttachmentsController < ApplicationController
       }
     )
 
-    html = @incoming_message.apply_masks(html, response.content_type)
+    html = incoming_message.apply_masks(html, response.content_type)
 
     render html: html.html_safe
   end
 
   private
 
+  def info_request
+    @info_request ||= InfoRequest.find(params[:id])
+  end
+
+  def incoming_message
+    @incoming_message ||= IncomingMessage.find(params[:incoming_message_id])
+  end
+
   def authenticate_attachment
     # Test for hidden
-    incoming_message = IncomingMessage.find(params[:incoming_message_id])
     if incoming_message.nil?
       raise ActiveRecord::RecordNotFound, "Message not found"
     end
@@ -85,7 +94,6 @@ class AttachmentsController < ApplicationController
       return render_hidden
     end
     if cannot?(:read, incoming_message)
-      @incoming_message = incoming_message # used by view
       request.format = :html
       return render_hidden('request/hidden_correspondence')
     end
@@ -136,16 +144,13 @@ class AttachmentsController < ApplicationController
   end
 
   def get_attachment_internal(html_conversion)
-    @incoming_message = IncomingMessage.find(params[:incoming_message_id])
-    @requested_request = InfoRequest.find(params[:id])
-    @incoming_message.parse_raw_email!
-    @info_request = @incoming_message.info_request
-    if @incoming_message.info_request_id != params[:id].to_i
+    incoming_message.parse_raw_email!
+    if incoming_message.info_request_id != params[:id].to_i
       # Note that params[:id] might not be an integer, though
       # if we’ve got this far then it must begin with an integer
       # and that integer must be the id number of an actual request.
       message = format("Incoming message %d does not belong to request '%s'",
-                       @incoming_message.info_request_id, params[:id])
+                       incoming_message.info_request_id, params[:id])
       raise ActiveRecord::RecordNotFound, message
     end
     @part_number = params[:part].to_i
@@ -157,18 +162,18 @@ class AttachmentsController < ApplicationController
     end
 
     # check permissions
-    if cannot?(:read, @info_request)
+    if cannot?(:read, info_request)
       raise "internal error, pre-auth filter should have caught this"
     end
     @attachment = IncomingMessage.
       get_attachment_by_url_part_number_and_filename(
-        @incoming_message.get_attachments_for_display,
+        incoming_message.get_attachments_for_display,
         @part_number,
         @original_filename
       )
     # If we can't find the right attachment, redirect to the incoming message:
     unless @attachment
-      return redirect_to incoming_message_url(@incoming_message), status: 303
+      return redirect_to incoming_message_url(incoming_message), status: 303
     end
 
     # check filename in URL matches that in database (use a censor rule if you
@@ -185,8 +190,8 @@ class AttachmentsController < ApplicationController
     end
 
     @attachment_url = get_attachment_url(
-      id: @incoming_message.info_request_id,
-      incoming_message_id: @incoming_message.id,
+      id: incoming_message.info_request_id,
+      incoming_message_id: incoming_message.id,
       part: @part_number,
       file_name: @original_filename
     )
