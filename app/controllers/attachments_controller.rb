@@ -4,6 +4,7 @@
 class AttachmentsController < ApplicationController
   include FragmentCachable
 
+  before_action :find_info_request, :find_incoming_message
   before_action :authenticate_attachment
   around_action :cache_attachments
 
@@ -73,26 +74,31 @@ class AttachmentsController < ApplicationController
 
   private
 
+  def find_info_request
+    @info_request = InfoRequest.find(params[:id])
+  end
+
+  def find_incoming_message
+    @incoming_message = IncomingMessage.find(params[:incoming_message_id])
+  end
+
   def authenticate_attachment
     # Test for hidden
-    incoming_message = IncomingMessage.find(params[:incoming_message_id])
-    if incoming_message.nil?
+    if @incoming_message.nil?
       raise ActiveRecord::RecordNotFound, "Message not found"
     end
-    if cannot?(:read, incoming_message.info_request)
-      @info_request = incoming_message.info_request # used by view
+    if cannot?(:read, @incoming_message.info_request)
       request.format = :html
       return render_hidden
     end
-    if cannot?(:read, incoming_message)
-      @incoming_message = incoming_message # used by view
+    if cannot?(:read, @incoming_message)
       request.format = :html
       return render_hidden('request/hidden_correspondence')
     end
     # Is this a completely public request that we can cache attachments for
     # to be served up without authentication?
-    if incoming_message.info_request.prominence(decorate: true).is_public? &&
-       incoming_message.is_public?
+    if @incoming_message.info_request.prominence(decorate: true).is_public? &&
+       @incoming_message.is_public?
       @files_can_be_cached = true
     end
   end
@@ -136,10 +142,7 @@ class AttachmentsController < ApplicationController
   end
 
   def get_attachment_internal(html_conversion)
-    @incoming_message = IncomingMessage.find(params[:incoming_message_id])
-    @requested_request = InfoRequest.find(params[:id])
     @incoming_message.parse_raw_email!
-    @info_request = @incoming_message.info_request
     if @incoming_message.info_request_id != params[:id].to_i
       # Note that params[:id] might not be an integer, though
       # if we’ve got this far then it must begin with an integer
