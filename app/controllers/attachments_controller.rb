@@ -7,13 +7,12 @@ class AttachmentsController < ApplicationController
   before_action :authenticate_attachment
   around_action :cache_attachments
 
-  helper_method :info_request, :incoming_message, :attachment_url
+  helper_method :info_request, :incoming_message, :attachment, :attachment_url
 
   def show
-    get_attachment_internal
-    return unless @attachment
+    return unless attachment
 
-    # we don't use @attachment.content_type here, as we want same mime type
+    # we don't use attachment.content_type here, as we want same mime type
     # when cached in cache_attachments above
     content_type =
       AlaveteliFileTypes.filename_to_mimetype(params[:file_name]) ||
@@ -22,8 +21,8 @@ class AttachmentsController < ApplicationController
     # Prevent spam to magic request address. Note that the binary
     # subsitution method used depends on the content type
     body = incoming_message.apply_masks(
-      @attachment.default_body,
-      @attachment.content_type
+      attachment.default_body,
+      attachment.content_type
     )
 
     if content_type == 'text/html'
@@ -43,8 +42,7 @@ class AttachmentsController < ApplicationController
     if @files_can_be_cached != true
       raise ActiveRecord::RecordNotFound, 'Attachment HTML not found.'
     end
-    get_attachment_internal
-    return unless @attachment
+    return unless attachment
 
     # images made during conversion (e.g. images in PDF files) are put in the
     # cache directory, so the same cache code in cache_attachments above will
@@ -54,7 +52,7 @@ class AttachmentsController < ApplicationController
     image_dir = File.dirname(key_path)
     FileUtils.mkdir_p(image_dir)
 
-    html = @attachment.body_as_html(
+    html = attachment.body_as_html(
       image_dir,
       attachment_url: Rack::Utils.escape(attachment_url),
       content_for: {
@@ -83,6 +81,10 @@ class AttachmentsController < ApplicationController
     @incoming_message ||= info_request.incoming_messages.find(
       params[:incoming_message_id]
     )
+  end
+
+  def attachment
+    @attachment ||= get_attachment_internal
   end
 
   def authenticate_attachment
@@ -157,16 +159,16 @@ class AttachmentsController < ApplicationController
   def get_attachment_internal # rubocop:disable Naming/AccessorMethodName
     incoming_message.parse_raw_email!
 
-    @attachment = IncomingMessage.
+    attachment = IncomingMessage.
       get_attachment_by_url_part_number_and_filename!(
         incoming_message.get_attachments_for_display,
         part_number,
         original_filename
       )
+    return attachment if attachment
     # If we can't find the right attachment, redirect to the incoming message:
-    unless @attachment
-      return redirect_to incoming_message_url(incoming_message), status: 303
-    end
+    redirect_to incoming_message_url(incoming_message), status: 303
+    false
   end
 
   def attachment_url
