@@ -10,7 +10,7 @@ class AttachmentsController < ApplicationController
   helper_method :info_request, :incoming_message
 
   def show
-    get_attachment_internal(false)
+    get_attachment_internal
     return unless @attachment
 
     # we don't use @attachment.content_type here, as we want same mime type
@@ -43,7 +43,7 @@ class AttachmentsController < ApplicationController
     if @files_can_be_cached != true
       raise ActiveRecord::RecordNotFound, 'Attachment HTML not found.'
     end
-    get_attachment_internal(true)
+    get_attachment_internal
     return unless @attachment
 
     # images made during conversion (e.g. images in PDF files) are put in the
@@ -141,11 +141,11 @@ class AttachmentsController < ApplicationController
     end
   end
 
-  def get_attachment_internal(html_conversion)
+  def get_attachment_internal # rubocop:disable Naming/AccessorMethodName
     incoming_message.parse_raw_email!
     @part_number = params[:part].to_i
     @filename = params[:file_name]
-    if html_conversion
+    if action_name == 'show_as_html'
       @original_filename = @filename.gsub(/\.html$/, '')
     else
       @original_filename = @filename
