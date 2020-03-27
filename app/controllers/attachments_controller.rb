@@ -87,9 +87,6 @@ class AttachmentsController < ApplicationController
 
   def authenticate_attachment
     # Test for hidden
-    if incoming_message.nil?
-      raise ActiveRecord::RecordNotFound, "Message not found"
-    end
     if cannot?(:read, info_request)
       request.format = :html
       return render_hidden
@@ -146,14 +143,6 @@ class AttachmentsController < ApplicationController
 
   def get_attachment_internal(html_conversion)
     incoming_message.parse_raw_email!
-    if incoming_message.info_request_id != params[:id].to_i
-      # Note that params[:id] might not be an integer, though
-      # if we’ve got this far then it must begin with an integer
-      # and that integer must be the id number of an actual request.
-      message = format("Incoming message %d does not belong to request '%s'",
-                       incoming_message.info_request_id, params[:id])
-      raise ActiveRecord::RecordNotFound, message
-    end
     @part_number = params[:part].to_i
     @filename = params[:file_name]
     if html_conversion
