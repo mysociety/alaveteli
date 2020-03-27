@@ -7,7 +7,7 @@ class AttachmentsController < ApplicationController
   before_action :authenticate_attachment
   around_action :cache_attachments
 
-  helper_method :incoming_message
+  helper_method :info_request, :incoming_message
 
   def show
     get_attachment_internal(false)
@@ -80,7 +80,9 @@ class AttachmentsController < ApplicationController
   end
 
   def incoming_message
-    @incoming_message ||= IncomingMessage.find(params[:incoming_message_id])
+    @incoming_message ||= info_request.incoming_messages.find(
+      params[:incoming_message_id]
+    )
   end
 
   def authenticate_attachment
@@ -88,8 +90,7 @@ class AttachmentsController < ApplicationController
     if incoming_message.nil?
       raise ActiveRecord::RecordNotFound, "Message not found"
     end
-    if cannot?(:read, incoming_message.info_request)
-      @info_request = incoming_message.info_request # used by view
+    if cannot?(:read, info_request)
       request.format = :html
       return render_hidden
     end
