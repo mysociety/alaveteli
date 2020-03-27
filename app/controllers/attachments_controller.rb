@@ -140,21 +140,27 @@ class AttachmentsController < ApplicationController
     end
   end
 
+  def part_number
+    params[:part].to_i
+  end
+
+  def original_filename
+    filename = params[:file_name]
+    if action_name == 'show_as_html'
+      filename.gsub(/\.html$/, '')
+    else
+      filename
+    end
+  end
+
   def get_attachment_internal # rubocop:disable Naming/AccessorMethodName
     @incoming_message.parse_raw_email!
-    @part_number = params[:part].to_i
-    @filename = params[:file_name]
-    if action_name == 'show_as_html'
-      @original_filename = @filename.gsub(/\.html$/, '')
-    else
-      @original_filename = @filename
-    end
 
     @attachment = IncomingMessage.
       get_attachment_by_url_part_number_and_filename(
         @incoming_message.get_attachments_for_display,
-        @part_number,
-        @original_filename
+        part_number,
+        original_filename
       )
     # If we can't find the right attachment, redirect to the incoming message:
     unless @attachment
@@ -163,22 +169,22 @@ class AttachmentsController < ApplicationController
 
     # check filename in URL matches that in database (use a censor rule if you
     # want to change a filename)
-    if @attachment.display_filename != @original_filename &&
-       @attachment.old_display_filename != @original_filename
+    if @attachment.display_filename != original_filename &&
+       @attachment.old_display_filename != original_filename
       msg = 'please use same filename as original file has, display: '
       msg += "'#{ @attachment.display_filename }' "
       msg += 'old_display: '
       msg += "'#{ @attachment.old_display_filename }' "
       msg += 'original: '
-      msg += "'#{ @original_filename }'"
+      msg += "'#{ original_filename }'"
       raise ActiveRecord::RecordNotFound, msg
     end
 
     @attachment_url = get_attachment_url(
       id: @incoming_message.info_request_id,
       incoming_message_id: @incoming_message.id,
-      part: @part_number,
-      file_name: @original_filename
+      part: part_number,
+      file_name: original_filename
     )
   end
 end
