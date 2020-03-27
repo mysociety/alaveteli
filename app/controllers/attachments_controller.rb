@@ -150,10 +150,6 @@ class AttachmentsController < ApplicationController
       @original_filename = @filename
     end
 
-    # check permissions
-    if cannot?(:read, @info_request)
-      raise "internal error, pre-auth filter should have caught this"
-    end
     @attachment = IncomingMessage.
       get_attachment_by_url_part_number_and_filename(
         @incoming_message.get_attachments_for_display,
