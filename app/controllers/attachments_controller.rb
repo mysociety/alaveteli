@@ -5,6 +5,7 @@ class AttachmentsController < ApplicationController
   include FragmentCachable
 
   before_action :find_info_request, :find_incoming_message
+  before_action :generate_attachment_url
   before_action :authenticate_attachment
   around_action :cache_attachments
 
@@ -179,7 +180,9 @@ class AttachmentsController < ApplicationController
       msg += "'#{ original_filename }'"
       raise ActiveRecord::RecordNotFound, msg
     end
+  end
 
+  def generate_attachment_url
     @attachment_url = get_attachment_url(
       id: @incoming_message.info_request_id,
       incoming_message_id: @incoming_message.id,
