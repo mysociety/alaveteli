@@ -7,7 +7,7 @@ class AttachmentsController < ApplicationController
   before_action :authenticate_attachment
   around_action :cache_attachments
 
-  helper_method :info_request, :incoming_message
+  helper_method :info_request, :incoming_message, :attachment_url
 
   def show
     get_attachment_internal
@@ -56,7 +56,7 @@ class AttachmentsController < ApplicationController
 
     html = @attachment.body_as_html(
       image_dir,
-      attachment_url: Rack::Utils.escape(@attachment_url),
+      attachment_url: Rack::Utils.escape(attachment_url),
       content_for: {
         head_suffix: render_to_string(
           partial: 'request/view_html_stylesheet',
@@ -180,8 +180,10 @@ class AttachmentsController < ApplicationController
       msg += "'#{ original_filename }'"
       raise ActiveRecord::RecordNotFound, msg
     end
+  end
 
-    @attachment_url = get_attachment_url(
+  def attachment_url
+    get_attachment_url(
       id: incoming_message.info_request_id,
       incoming_message_id: incoming_message.id,
       part: part_number,
