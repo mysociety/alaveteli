@@ -79,7 +79,9 @@ class AttachmentsController < ApplicationController
   end
 
   def find_incoming_message
-    @incoming_message = IncomingMessage.find(params[:incoming_message_id])
+    @incoming_message = @info_request.incoming_messages.find(
+      params[:incoming_message_id]
+    )
   end
 
   def authenticate_attachment
@@ -87,7 +89,7 @@ class AttachmentsController < ApplicationController
     if @incoming_message.nil?
       raise ActiveRecord::RecordNotFound, "Message not found"
     end
-    if cannot?(:read, @incoming_message.info_request)
+    if cannot?(:read, @info_request)
       request.format = :html
       return render_hidden
     end
