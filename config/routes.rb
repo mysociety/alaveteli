@@ -120,11 +120,11 @@ Rails.application.routes.draw do
   match '/request/:url_title/describe/:described_state' => 'request#describe_state_message',
         :as => :describe_state_message,
         :via => :get
-  match '/request/:id/response/:incoming_message_id/attach/html/:part/*file_name' => 'request#get_attachment_as_html',
+  match '/request/:id/response/:incoming_message_id/attach/html/:part/*file_name' => 'attachments#show_as_html',
         :format => false,
         :as => :get_attachment_as_html,
         :via => :get
-  match '/request/:id/response/:incoming_message_id/attach/:part(/*file_name)' => 'request#get_attachment',
+  match '/request/:id/response/:incoming_message_id/attach/:part(/*file_name)' => 'attachments#show',
         :format => false,
         :as => :get_attachment,
         :via => :get
