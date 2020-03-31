@@ -6,6 +6,7 @@ class AttachmentsController < ApplicationController
 
   around_action :cache_attachments
   before_action :authenticate_attachment
+  before_action :authenticate_attachment_as_html, only: :show_as_html
 
   helper_method :info_request, :incoming_message, :attachment, :attachment_url
 
@@ -28,13 +29,6 @@ class AttachmentsController < ApplicationController
   end
 
   def show_as_html
-    # The conversion process can generate files in the cache directory that can
-    # be served up directly by the webserver according to httpd.conf, so don't
-    # allow it unless that's OK.
-    if @files_can_be_cached != true
-      raise ActiveRecord::RecordNotFound, 'Attachment HTML not found.'
-    end
-
     # images made during conversion (e.g. images in PDF files) are put in the
     # cache directory, so the same cache code in cache_attachments above will
     # display them.
@@ -107,6 +101,15 @@ class AttachmentsController < ApplicationController
 
     # If we can't find the right attachment, redirect to the incoming message:
     redirect_to incoming_message_url(incoming_message), status: 303
+  end
+
+  def authenticate_attachment_as_html
+    # The conversion process can generate files in the cache directory that can
+    # be served up directly by the webserver according to httpd.conf, so don't
+    # allow it unless that's OK.
+    return if @files_can_be_cached
+
+    raise ActiveRecord::RecordNotFound, 'Attachment HTML not found.'
   end
 
   # special caching code so mime types are handled right
