@@ -90,12 +90,6 @@ class AttachmentsController < ApplicationController
       request.format = :html
       return render_hidden('request/hidden_correspondence')
     end
-    # Is this a completely public request that we can cache attachments for
-    # to be served up without authentication?
-    if incoming_message.info_request.prominence(decorate: true).is_public? &&
-       incoming_message.is_public?
-      @files_can_be_cached = true
-    end
 
     return if attachment
 
@@ -107,7 +101,7 @@ class AttachmentsController < ApplicationController
     # The conversion process can generate files in the cache directory that can
     # be served up directly by the webserver according to httpd.conf, so don't
     # allow it unless that's OK.
-    return if @files_can_be_cached
+    return if files_can_be_cached?
 
     raise ActiveRecord::RecordNotFound, 'Attachment HTML not found.'
   end
@@ -138,7 +132,7 @@ class AttachmentsController < ApplicationController
         # various fragment cache functions using Ruby Marshall to write the file
         # which adds a header, so isnt compatible with images that have been
         # extracted elsewhere from PDFs)
-        if @files_can_be_cached == true
+        if files_can_be_cached?
           logger.info("Writing cache for #{key_path}")
           foi_fragment_cache_write(key_path, response.body)
         end
@@ -173,5 +167,12 @@ class AttachmentsController < ApplicationController
     # when cached in cache_attachments above
     AlaveteliFileTypes.filename_to_mimetype(params[:file_name]) ||
       'application/octet-stream'
+  end
+
+  def files_can_be_cached?
+    # Is this a completely public request that we can cache attachments for
+    # to be served up without authentication?
+    incoming_message.info_request.prominence(decorate: true).is_public? &&
+      incoming_message.is_public?
   end
 end
