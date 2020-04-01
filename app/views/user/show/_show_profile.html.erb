@@ -17,7 +17,7 @@
 
   <div id="header_left" class="header_left">
     <p id="user_photo_on_profile" class="user_photo_on_profile">
-      <% if @display_user.profile_photo %>
+      <% if @display_user.active? && @display_user.profile_photo %>
         <% if @is_you %>
           <a href="<%= set_profile_photo_url %>">
         <% end %>

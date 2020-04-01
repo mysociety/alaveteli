@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Don't show profile photos of banned users (Gareth Rees)
 * Link to change request form when asking users contact us about request email
   updates (Gareth Rees)
 
