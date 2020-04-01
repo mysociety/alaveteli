@@ -747,8 +747,7 @@ class RequestController < ApplicationController
 
     @show_profile_photo = !!(
       !@info_request.is_external? &&
-      @info_request.user.active? &&
-      @info_request.user.profile_photo &&
+      @info_request.user.show_profile_photo? &&
       !@render_to_file
     )
 
