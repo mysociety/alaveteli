@@ -392,9 +392,6 @@ Lint/EmptyInterpolation:
 Lint/EmptyWhen:
   Enabled: false
 
-Lint/EndInMethod:
-  Enabled: true
-
 Lint/EnsureReturn:
   Enabled: true
 
@@ -532,6 +529,9 @@ Lint/ShadowedException:
 
 Lint/ShadowingOuterLocalVariable:
   Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: false
 
 Lint/SuppressedException:
   Enabled: true
@@ -1418,6 +1418,9 @@ Style/TrailingCommaInArguments:
 
 Style/TrailingCommaInArrayLiteral:
   Enabled: true
+
+Style/TrailingCommaInBlockArgs:
+  Enabled: false
 
 Style/TrailingCommaInHashLiteral:
   Enabled: true
