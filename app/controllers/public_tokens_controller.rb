@@ -3,6 +3,8 @@
 # any InfoRequest by its public token
 #
 class PublicTokensController < ApplicationController
+  include PublicTokenable
+
   before_action :find_info_request, only: %i[create destroy]
   before_action :can_share_info_request, only: %i[create destroy]
 
@@ -48,7 +50,7 @@ class PublicTokensController < ApplicationController
   end
 
   def find_info_request_by_public_token
-    @info_request = InfoRequest.find_by!(public_token: params[:id])
+    @info_request = InfoRequest.find_by!(public_token: public_token)
   end
 
   def can_view_info_request
@@ -61,10 +63,6 @@ class PublicTokensController < ApplicationController
 
   def guest
     @guest ||= Ability.new(nil)
-  end
-
-  def current_ability
-    @current_ability ||= Ability.new(current_user, public_token: true)
   end
 
   # rubocop:disable all

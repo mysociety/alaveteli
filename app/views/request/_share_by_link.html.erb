@@ -4,7 +4,7 @@
 
     <% if info_request.public_token? %>
       <%= text_field_tag 'share_by_link',
-        public_token_url(id: info_request.public_token, locale: false) %>
+        public_token_url(info_request.public_token, locale: false) %>
 
       <%= button_to _('Disable'), public_tokens_path, method: :delete %>
     <% else %>
