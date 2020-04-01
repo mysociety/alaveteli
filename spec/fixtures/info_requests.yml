@@ -31,6 +31,7 @@
 #  use_notifications                     :boolean
 #  last_event_time                       :datetime
 #  incoming_messages_count               :integer          default(0)
+#  public_token                          :string
 #
 
 fancy_dog_request:
@@ -47,6 +48,7 @@ fancy_dog_request:
     last_public_response_at: 2007-11-13 18:09:20.042061
     idhash: 50929748
     use_notifications: false
+    public_token: 29b7a01edf7769e47eaf3b51f8490476
 naughty_chicken_request:
     id: 103
     title: How much public money is wasted on breeding naughty chickens?
@@ -60,6 +62,7 @@ naughty_chicken_request:
     comments_allowed: true
     idhash: e8d18c84
     use_notifications: false
+    public_token: f58f72063837971d37db2f18cea76e96
 badger_request:
     id: 104
     title: Are you really a badger?
@@ -73,6 +76,7 @@ badger_request:
     comments_allowed: true
     idhash: e8d18c85
     use_notifications: false
+    public_token: 51861866817a8c003a7ab2aa3addaa93
 boring_request:
     id: 105
     title: The cost of boring
@@ -87,6 +91,7 @@ boring_request:
     last_public_response_at: 2007-11-13 18:00:20
     idhash: 173fd003
     use_notifications: false
+    public_token: 0e0b07c8b42aeb25d5006ed0cb8b2a45
 another_boring_request:
     id: 106
     title: The cost of boring
@@ -101,6 +106,7 @@ another_boring_request:
     last_public_response_at: 2007-11-13 18:09:20.042061
     idhash: 173fd004
     use_notifications: false
+    public_token: b66d509ee8cd53bdad89eda215f5ea6a
 
 # A pair of identical requests (with url_title differing only in the numeric suffix)
 # used to test the request de-duplication features.
@@ -118,6 +124,7 @@ spam_1_request:
     last_public_response_at: 2001-01-03 01:23:45.6789100
     idhash: 173fd005
     use_notifications: false
+    public_token: e131340ed2d898ce7b60ac2f65c5457d
 spam_2_request:
     id: 108
     title: Cheap v1agra
@@ -131,6 +138,7 @@ spam_2_request:
     comments_allowed: true
     idhash: 173fd006
     use_notifications: false
+    public_token: 1f4630ea2057c37ed9ff1cc906b8194a
 external_request:
     id: 109
     title: Balalas
@@ -146,6 +154,7 @@ external_request:
     last_public_response_at: 2001-01-03 02:23:45.6789100
     idhash: a1234567
     use_notifications: false
+    public_token: 625af3fd2081f7b5f2882ae59cdb1807
 anonymous_external_request:
     id: 110
     title: Anonymous request
@@ -160,6 +169,7 @@ anonymous_external_request:
     created_at: 2010-01-01 01:23:45.6789100
     updated_at: 2010-01-01 01:23:45.6789100
     use_notifications: false
+    public_token: e9f248d8f3a23cef125fecd675a2dcbb
 other_request:
     id: 111
     title: Another request
@@ -173,3 +183,4 @@ other_request:
     comments_allowed: true
     idhash: b234567a
     use_notifications: false
+    public_token: beac520dbf4467c6fbb039bc240383fa

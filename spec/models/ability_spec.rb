@@ -185,6 +185,32 @@ describe Ability do
 
         end
 
+        context 'with public token' do
+          let(:admin_ability) do
+            Ability.new(FactoryBot.create(:admin_user), public_token: true)
+          end
+
+          let(:pro_admin_ability) do
+            Ability.new(FactoryBot.create(:pro_admin_user), public_token: true)
+          end
+
+          let(:other_user_ability) do
+            Ability.new(FactoryBot.create(:user), public_token: true)
+          end
+
+          it 'should return true for an admin user' do
+            expect(admin_ability).to be_able_to(:read, resource)
+          end
+
+          it 'should return true for a pro admin user' do
+            expect(pro_admin_ability).to be_able_to(:read, resource)
+          end
+
+          it 'should return true for a non-admin user' do
+            expect(other_user_ability).to be_able_to(:read, resource)
+          end
+        end
+
         it 'should return true if the user owns the right resource' do
           expect(owner_ability).to be_able_to(:read, resource)
         end
@@ -192,6 +218,78 @@ describe Ability do
 
     end
 
+  end
+
+  describe 'sharing InfoRequests' do
+    let(:request) { FactoryBot.build(:info_request) }
+
+    context 'when logged out' do
+      let(:ability) { Ability.new(nil) }
+
+      it 'should return false' do
+        expect(ability).not_to be_able_to(:share, request)
+      end
+    end
+
+    context 'when logged in but not owner of request' do
+      let(:user) { FactoryBot.create(:user) }
+      let(:ability) { Ability.new(user) }
+
+      it 'should return false' do
+        expect(ability).not_to be_able_to(:share, request)
+      end
+    end
+
+    context 'when owner of request' do
+      let(:user) { request.user }
+      let(:ability) { Ability.new(user) }
+
+      it 'should return true' do
+        expect(ability).to be_able_to(:share, request)
+      end
+    end
+
+    context 'when the request is embargoed' do
+      let(:request) { FactoryBot.create(:embargoed_request) }
+
+      context 'as an Pro admin' do
+        let(:user) { FactoryBot.create(:pro_admin_user) }
+        let(:ability) { Ability.new(user) }
+
+        it 'should return true' do
+          expect(ability).to be_able_to(:share, request)
+        end
+      end
+
+      context 'as an admin' do
+        let(:user) { FactoryBot.create(:admin_user) }
+        let(:ability) { Ability.new(user) }
+
+        it 'should return false' do
+          expect(ability).not_to be_able_to(:share, request)
+        end
+      end
+    end
+
+    context 'when the request is public' do
+      context 'as an Pro admin' do
+        let(:user) { FactoryBot.create(:pro_admin_user) }
+        let(:ability) { Ability.new(user) }
+
+        it 'should return true' do
+          expect(ability).to be_able_to(:share, request)
+        end
+      end
+
+      context 'as an admin' do
+        let(:user) { FactoryBot.create(:admin_user) }
+        let(:ability) { Ability.new(user) }
+
+        it 'should return true' do
+          expect(ability).to be_able_to(:share, request)
+        end
+      end
+    end
   end
 
   describe "updating request state of InfoRequests" do
@@ -572,17 +670,17 @@ describe Ability do
       let(:info_request) { FactoryBot.build(:external_request) }
 
       it 'prevents user from adding an embargo' do
-        ability = Ability.new(FactoryBot.build(:user))
+        ability = Ability.new(FactoryBot.create(:user))
         expect(ability).not_to be_able_to(:create_embargo, info_request)
       end
 
       it 'prevents admin from adding an embargo' do
-        ability = Ability.new(FactoryBot.build(:admin_user))
+        ability = Ability.new(FactoryBot.create(:admin_user))
         expect(ability).not_to be_able_to(:create_embargo, info_request)
       end
 
       it 'prevents pro admin from adding an embargo' do
-        ability = Ability.new(FactoryBot.build(:pro_admin_user))
+        ability = Ability.new(FactoryBot.create(:pro_admin_user))
         expect(ability).not_to be_able_to(:create_embargo, info_request)
       end
 
