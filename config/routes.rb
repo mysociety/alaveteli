@@ -142,7 +142,7 @@ Rails.application.routes.draw do
   ####
 
   #### Public Tokens controller
-  resources :public_tokens, only: [:show], path: 'r'
+  resources :public_tokens, only: [:show], path: 'r', param: :public_token
   ####
 
   #### Citations controller
