@@ -2,6 +2,8 @@
 # Controller responsible for rendering any InfoRequest by its public token
 #
 class PublicTokensController < ApplicationController
+  include PublicTokenable
+
   before_action :find_info_request, :can_view_info_request
   before_action :assign_variables_for_show_template
 
@@ -16,7 +18,7 @@ class PublicTokensController < ApplicationController
   private
 
   def find_info_request
-    @info_request = InfoRequest.find_by!(public_token: params[:id])
+    @info_request = InfoRequest.find_by!(public_token: public_token)
   end
 
   def can_view_info_request
