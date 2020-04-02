@@ -295,7 +295,7 @@ module InfoRequestHelper
     attach_params = {
       incoming_message_id: attachment.incoming_message_id,
       part: attachment.url_part_number,
-      file_name: attachment.display_filename,
+      file_name: attachment.display_filename
     }
     if public_token?
       attach_params[:public_token] = public_token
