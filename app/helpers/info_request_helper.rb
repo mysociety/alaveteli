@@ -269,7 +269,7 @@ module InfoRequestHelper
   end
 
   def attachment_url(attachment, options = {})
-    attach_params = attachment_params(attachment, options)
+    attach_params = attachment_params(attachment, options).merge(locale: false)
     if options[:html]
       get_attachment_as_html_path(attach_params)
     else

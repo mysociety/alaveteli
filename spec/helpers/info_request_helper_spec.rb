@@ -618,6 +618,8 @@ describe InfoRequestHelper do
                              :url_part_number => 1)
                          }
 
+    before { RoutingFilter.active = true }
+
     context 'when given no format options' do
 
       it 'returns the path to the attachment with a cookie cookie_passthrough
