@@ -4,6 +4,7 @@
 class AttachmentsController < ApplicationController
   include FragmentCachable
   include InfoRequestHelper
+  include PublicTokenable
 
   skip_before_action :html_response
 
@@ -65,7 +66,12 @@ class AttachmentsController < ApplicationController
   private
 
   def find_info_request
-    @info_request = InfoRequest.find(params[:id])
+    @info_request =
+      if public_token?
+        InfoRequest.find_by!(public_token: public_token)
+      else
+        InfoRequest.find(params[:id])
+      end
   end
 
   def find_incoming_message
@@ -193,7 +199,9 @@ class AttachmentsController < ApplicationController
   end
 
   def current_ability
-    @current_ability ||= Ability.new(current_user, project: @project)
+    @current_ability ||= Ability.new(
+      current_user, project: @project, public_token: public_token?
+    )
   end
 
   def prominence

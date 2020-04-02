@@ -144,6 +144,15 @@ Rails.application.routes.draw do
     post :public_tokens, to: 'public_tokens#create'
     delete :public_tokens, to: 'public_tokens#destroy'
   end
+
+  scope 'r/:public_token/response/:incoming_message_id' do
+    get 'attach/html/:part/*file_name' => 'attachments#show_as_html',
+        as: :share_attachment_as_html,
+        format: false
+    get 'attach/:part(/*file_name)' => 'attachments#show',
+        as: :share_attachment,
+        format: false
+  end
   ####
 
   scope path: 'request/:url_title' do
