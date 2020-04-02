@@ -261,11 +261,15 @@ module InfoRequestHelper
 
     link_to image_tag(image, :class => "attachment__image",
                              :alt => "Attachment"),
-            attachment_path(incoming_message, attachment)
+            attachment_path(attachment)
   end
 
-  def attachment_path(incoming_message, attachment, options = {})
-    attach_params = attachment_params(incoming_message, attachment, options)
+  def attachment_path(attachment, options = {})
+    attachment_url(attachment, options.merge(path_only: true))
+  end
+
+  def attachment_url(attachment, options = {})
+    attach_params = attachment_params(attachment, options)
     if options[:html]
       get_attachment_as_html_path(attach_params)
     else
@@ -281,12 +285,12 @@ module InfoRequestHelper
 
   private
 
-  def attachment_params(incoming_message, attachment, options = {})
+  def attachment_params(attachment, options = {})
     attach_params = {
-      :id => incoming_message.info_request_id,
-      :incoming_message_id => incoming_message.id,
-      :part => attachment.url_part_number,
-      :file_name => attachment.display_filename
+      id: attachment.incoming_message.info_request_id,
+      incoming_message_id: attachment.incoming_message_id,
+      part: attachment.url_part_number,
+      file_name: attachment.display_filename,
     }
     if options[:html]
       attach_params[:file_name] = "#{attachment.display_filename}.html"
