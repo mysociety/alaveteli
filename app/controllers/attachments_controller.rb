@@ -4,6 +4,7 @@
 class AttachmentsController < ApplicationController
   include FragmentCachable
   include InfoRequestHelper
+  include PublicTokenable
 
   before_action :find_info_request, :find_incoming_message, :find_attachment
   around_action :cache_attachments
@@ -58,7 +59,11 @@ class AttachmentsController < ApplicationController
   private
 
   def find_info_request
-    @info_request = InfoRequest.find(params[:id])
+    if public_token
+      @info_request = InfoRequest.find_by!(public_token: public_token)
+    else
+      @info_request = InfoRequest.find(params[:id])
+    end
   end
 
   def find_incoming_message

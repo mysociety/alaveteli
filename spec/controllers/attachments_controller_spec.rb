@@ -19,6 +19,16 @@ RSpec.describe AttachmentsController, type: :controller do
       get :show, params: default_params.merge(params)
     end
 
+    it 'should be able to find the request using public token' do
+      token = info_request.public_token
+      expect(InfoRequest).to receive(:find_by!).with(public_token: token).
+        and_return(info_request)
+
+      show(public_token: token, id: nil)
+
+      expect(assigns(:info_request)).to eq(info_request)
+    end
+
     it 'should cache an attachment on a request with normal prominence' do
       expect(@controller).to receive(:foi_fragment_cache_write)
       show
@@ -198,6 +208,16 @@ RSpec.describe AttachmentsController, type: :controller do
                          :part => 2,
                          :file_name => 'interesting.pdf.html' }
       get :show_as_html, params: default_params.merge(params)
+    end
+
+    it 'should be able to find the request using public token' do
+      token = info_request.public_token
+      expect(InfoRequest).to receive(:find_by!).with(public_token: token).
+        and_return(info_request)
+
+      get_html_attachment(public_token: token, id: nil)
+
+      expect(assigns(:info_request)).to eq(info_request)
     end
 
     it "should return 404 for ugly URLs containing a request id that isn't an integer" do

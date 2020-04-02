@@ -143,6 +143,15 @@ Rails.application.routes.draw do
 
   #### Public Tokens controller
   resources :public_tokens, only: [:show], path: 'r', param: :public_token
+
+  scope 'r/:public_token/response/:incoming_message_id' do
+    get 'attach/html/:part/*file_name' => 'attachments#show_as_html',
+        as: :share_attachment_as_html,
+        format: false
+    get 'attach/:part(/*file_name)' => 'attachments#show',
+        as: :share_attachment,
+        format: false
+  end
   ####
 
   #### Citations controller
