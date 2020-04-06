@@ -523,6 +523,20 @@ describe RequestController, "when showing one request" do
       end
     end
   end
+
+  context 'when the request author is banned' do
+    let(:user) { FactoryBot.create(:user, :banned) }
+    let(:info_request) { FactoryBot.create(:info_request, user: user) }
+
+    before do
+      user.create_profile_photo!(data: load_file_fixture('parrot.png'))
+    end
+
+    it 'does not show the profile_photo' do
+      get :show, params: { url_title: info_request.url_title }
+      expect(assigns[:show_profile_photo]).to eq(false)
+    end
+  end
 end
 
 describe RequestController, "when handling prominence" do
@@ -3094,7 +3108,6 @@ describe RequestController do
       end
 
     end
-
   end
 end
 
