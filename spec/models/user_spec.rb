@@ -1785,4 +1785,32 @@ describe User do
 
   end
 
+  describe '#show_profile_photo?' do
+    subject { user.show_profile_photo? }
+
+    context 'with a profile_photo' do
+      let(:user) { FactoryBot.create(:user) }
+
+      before do
+        user.create_profile_photo!(data: load_file_fixture('parrot.png'))
+      end
+
+      it { is_expected.to be_truthy }
+    end
+
+    context 'with a profile photo and banned' do
+      let(:user) { FactoryBot.create(:user, :banned) }
+
+      before do
+        user.create_profile_photo!(data: load_file_fixture('parrot.png'))
+      end
+
+      it { is_expected.to be_falsey }
+    end
+
+    context 'without a profile_photo' do
+      let(:user) { FactoryBot.build(:user) }
+      it { is_expected.to be_falsey }
+    end
+  end
 end

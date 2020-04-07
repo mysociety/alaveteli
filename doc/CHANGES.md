@@ -1,3 +1,11 @@
+# develop
+
+## Highlighted Features
+
+* Don't show profile photos of banned users (Gareth Rees)
+* Link to change request form when asking users contact us about request email
+  updates (Gareth Rees)
+
 # 0.37.0.1
 
 ## Highlighted Features

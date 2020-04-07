@@ -79,4 +79,7 @@ FactoryBot.define do
     end
   end
 
+  trait :banned do
+    ban_text { 'Banned' }
+  end
 end
