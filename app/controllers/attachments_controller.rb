@@ -13,7 +13,7 @@ class AttachmentsController < ApplicationController
 
   def show
     # Prevent spam to magic request address. Note that the binary
-    # subsitution method used depends on the content type
+    # substitution method used depends on the content type
     body = @incoming_message.apply_masks(
       @attachment.default_body,
       @attachment.content_type
@@ -129,9 +129,9 @@ class AttachmentsController < ApplicationController
       yield
 
       if params[:skip_cache].nil? && response.status == 200
-        # write it to the fileystem ourselves, so is just a plain file. (The
+        # write it to the filesystem ourselves, so is just a plain file. (The
         # various fragment cache functions using Ruby Marshall to write the file
-        # which adds a header, so isnt compatible with images that have been
+        # which adds a header, so isn't compatible with images that have been
         # extracted elsewhere from PDFs)
         if message_is_public?
           logger.info("Writing cache for #{key_path}")
