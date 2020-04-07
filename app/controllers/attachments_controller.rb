@@ -11,12 +11,6 @@ class AttachmentsController < ApplicationController
   before_action :authenticate_attachment
 
   def show
-    # we don't use @attachment.content_type here, as we want same mime type
-    # when cached in cache_attachments above
-    content_type =
-      AlaveteliFileTypes.filename_to_mimetype(params[:file_name]) ||
-      'application/octet-stream'
-
     # Prevent spam to magic request address. Note that the binary
     # subsitution method used depends on the content type
     body = @incoming_message.apply_masks(
@@ -129,10 +123,6 @@ class AttachmentsController < ApplicationController
         if File.directory?(key_path)
           render plain: 'Directory listing not allowed', status: 403
         else
-          content_type =
-            AlaveteliFileTypes.filename_to_mimetype(params[:file_name]) ||
-            'application/octet-stream'
-
           render body: foi_fragment_cache_read(key_path),
                  content_type: content_type
         end
@@ -174,5 +164,12 @@ class AttachmentsController < ApplicationController
       part: part_number,
       file_name: original_filename
     )
+  end
+
+  def content_type
+    # we don't use @attachment.content_type here, as we want same mime type
+    # when cached in cache_attachments above
+    AlaveteliFileTypes.filename_to_mimetype(params[:file_name]) ||
+      'application/octet-stream'
   end
 end
