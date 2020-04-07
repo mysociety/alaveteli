@@ -9,6 +9,7 @@ class AttachmentsController < ApplicationController
   before_action :find_info_request, :find_incoming_message, :find_attachment
   before_action :generate_attachment_url
   before_action :authenticate_attachment
+  before_action :authenticate_attachment_as_html, only: :show_as_html
 
   def show
     # Prevent spam to magic request address. Note that the binary
@@ -29,13 +30,6 @@ class AttachmentsController < ApplicationController
   end
 
   def show_as_html
-    # The conversion process can generate files in the cache directory that can
-    # be served up directly by the webserver according to httpd.conf, so don't
-    # allow it unless that's OK.
-    if @files_can_be_cached != true
-      raise ActiveRecord::RecordNotFound, 'Attachment HTML not found.'
-    end
-
     # images made during conversion (e.g. images in PDF files) are put in the
     # cache directory, so the same cache code in cache_attachments above will
     # display them.
@@ -101,13 +95,22 @@ class AttachmentsController < ApplicationController
     # to be served up without authentication?
     if @incoming_message.info_request.prominence(decorate: true).is_public? &&
        @incoming_message.is_public?
-      @files_can_be_cached = true
+      @message_is_public = true
     end
 
     return if @attachment
 
     # If we can't find the right attachment, redirect to the incoming message:
     redirect_to incoming_message_url(@incoming_message), status: 303
+  end
+
+  def authenticate_attachment_as_html
+    # The conversion process can generate files in the cache directory that can
+    # be served up directly by the webserver according to httpd.conf, so don't
+    # allow it unless that's OK.
+    return if @message_is_public
+
+    raise ActiveRecord::RecordNotFound, 'Attachment HTML not found.'
   end
 
   # special caching code so mime types are handled right
@@ -136,7 +139,7 @@ class AttachmentsController < ApplicationController
         # various fragment cache functions using Ruby Marshall to write the file
         # which adds a header, so isnt compatible with images that have been
         # extracted elsewhere from PDFs)
-        if @files_can_be_cached == true
+        if @message_is_public == true
           logger.info("Writing cache for #{key_path}")
           foi_fragment_cache_write(key_path, response.body)
         end
