@@ -6,7 +6,7 @@ class AttachmentsController < ApplicationController
 
   around_action :cache_attachments
 
-  before_action :find_info_request, :find_incoming_message
+  before_action :find_info_request, :find_incoming_message, :find_attachment
   before_action :generate_attachment_url
   before_action :authenticate_attachment
 
@@ -81,6 +81,18 @@ class AttachmentsController < ApplicationController
     )
   end
 
+  def find_attachment
+    @attachment = (
+      @incoming_message.parse_raw_email!
+
+      IncomingMessage.get_attachment_by_url_part_number_and_filename!(
+        @incoming_message.get_attachments_for_display,
+        part_number,
+        original_filename
+      )
+    )
+  end
+
   def authenticate_attachment
     # Test for hidden
     if cannot?(:read, @info_request)
@@ -98,7 +110,6 @@ class AttachmentsController < ApplicationController
       @files_can_be_cached = true
     end
 
-    get_attachment_internal
     return if @attachment
 
     # If we can't find the right attachment, redirect to the incoming message:
@@ -154,17 +165,6 @@ class AttachmentsController < ApplicationController
     else
       filename
     end
-  end
-
-  def get_attachment_internal # rubocop:disable Naming/AccessorMethodName
-    @incoming_message.parse_raw_email!
-
-    @attachment = IncomingMessage.
-      get_attachment_by_url_part_number_and_filename!(
-        @incoming_message.get_attachments_for_display,
-        part_number,
-        original_filename
-      )
   end
 
   def generate_attachment_url
