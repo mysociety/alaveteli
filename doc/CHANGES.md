@@ -5,6 +5,19 @@
 * Don't show profile photos of banned users (Gareth Rees)
 * Link to change request form when asking users contact us about request email
   updates (Gareth Rees)
+* Configure Google Analytics to anonymise their IP address and disable storing
+  browser cookies. (Graeme Porteous)
+
+# Upgrade Notes
+
+* The Google Analytics code has been extracted into
+  `views/application/_ga_code.html.erb`, and to avoid the GDPR requirement to
+  show cookie opt-in notices, now sets cookie-less tracking. Additionally, we
+  are instructing Google to anonymise visitors IP address using the
+  `anonymizeIp` option. This means that visitors are no longer individually
+  profiled. If you wish to continue individually targeting users, you'll need
+  to override `app/views/application/_ga_code.html.erb` in your theme and set
+  appropriate options.
 
 # 0.37.0.1
 
