@@ -4,15 +4,13 @@
 class AttachmentsController < ApplicationController
   include FragmentCachable
 
+  around_action :cache_attachments
+
   before_action :find_info_request, :find_incoming_message
   before_action :generate_attachment_url
   before_action :authenticate_attachment
-  around_action :cache_attachments
 
   def show
-    get_attachment_internal
-    return unless @attachment
-
     # we don't use @attachment.content_type here, as we want same mime type
     # when cached in cache_attachments above
     content_type =
@@ -43,8 +41,6 @@ class AttachmentsController < ApplicationController
     if @files_can_be_cached != true
       raise ActiveRecord::RecordNotFound, 'Attachment HTML not found.'
     end
-    get_attachment_internal
-    return unless @attachment
 
     # images made during conversion (e.g. images in PDF files) are put in the
     # cache directory, so the same cache code in cache_attachments above will
@@ -101,6 +97,12 @@ class AttachmentsController < ApplicationController
        @incoming_message.is_public?
       @files_can_be_cached = true
     end
+
+    get_attachment_internal
+    return if @attachment
+
+    # If we can't find the right attachment, redirect to the incoming message:
+    redirect_to incoming_message_url(@incoming_message), status: 303
   end
 
   # special caching code so mime types are handled right
@@ -163,10 +165,6 @@ class AttachmentsController < ApplicationController
         part_number,
         original_filename
       )
-    # If we can't find the right attachment, redirect to the incoming message:
-    unless @attachment
-      return redirect_to incoming_message_url(@incoming_message), status: 303
-    end
   end
 
   def generate_attachment_url
