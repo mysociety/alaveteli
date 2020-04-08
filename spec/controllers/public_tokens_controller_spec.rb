@@ -66,19 +66,10 @@ RSpec.describe PublicTokensController, type: :controller do
         ability.cannot :read, info_request
       end
 
-      it 'finds Info Request by public token' do
-        expect(InfoRequest).to receive(:find_by!).with(public_token: 'TOKEN')
-        get :show, params: { id: 'TOKEN' }
-      end
-
-      it 'assigns info_request' do
-        get :show, params: { id: 'TOKEN' }
-        expect(assigns(:info_request)).to eq info_request
-      end
-
-      it 'renders hidden request template' do
-        get :show, params: { id: 'TOKEN' }
-        expect(response).to render_template('request/hidden')
+      it 'raises not found error' do
+        expect { get :show, params: { id: 'TOKEN' } }.to(
+          raise_error(ActiveRecord::RecordNotFound)
+        )
       end
     end
 
