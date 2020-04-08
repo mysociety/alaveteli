@@ -126,7 +126,7 @@ class Ability
     end
 
     can :share, InfoRequest do |info_request|
-      if info_request.embargo
+      if info_request.embargo && info_request.public_token
         user && (user.is_pro_admin? || info_request.user == user)
       else
         false

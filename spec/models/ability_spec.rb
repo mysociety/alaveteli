@@ -235,6 +235,19 @@ describe Ability do
       let(:request) { FactoryBot.create(:embargoed_request) }
       let(:ability) { Ability.new(user) }
 
+      context 'as request owner' do
+        let(:user) { request.user }
+
+        it 'should return true' do
+          expect(ability).to be_able_to(:share, request)
+        end
+
+        it 'without a public_token, should return false' do
+          request.public_token = nil
+          expect(ability).not_to be_able_to(:share, request)
+        end
+      end
+
       context 'as another user' do
         let(:user) { FactoryBot.create(:user) }
 
@@ -263,6 +276,22 @@ describe Ability do
     context 'when the request is public' do
       let(:ability) { Ability.new(user) }
 
+      context 'as request owner' do
+        let(:user) { request.user }
+
+        it 'should return false' do
+          expect(ability).not_to be_able_to(:share, request)
+        end
+      end
+
+      context 'as another user' do
+        let(:user) { FactoryBot.create(:user) }
+
+        it 'should return false' do
+          expect(ability).not_to be_able_to(:share, request)
+        end
+      end
+
       context 'as an Pro admin' do
         let(:user) { FactoryBot.create(:pro_admin_user) }
 
@@ -273,14 +302,6 @@ describe Ability do
 
       context 'as an admin' do
         let(:user) { FactoryBot.create(:admin_user) }
-
-        it 'should return false' do
-          expect(ability).not_to be_able_to(:share, request)
-        end
-      end
-
-      context 'as request owner' do
-        let(:user) { request.user }
 
         it 'should return false' do
           expect(ability).not_to be_able_to(:share, request)
