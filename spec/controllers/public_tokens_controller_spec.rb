@@ -26,11 +26,6 @@ RSpec.describe PublicTokensController, type: :controller do
         expect(assigns(:info_request)).to eq info_request
       end
 
-      it 'assigns public_token_view' do
-        get :show, params: { id: 'TOKEN' }
-        expect(assigns(:public_token_view)).to eq true
-      end
-
       it 'adds noindex header' do
         get :show, params: { id: 'TOKEN' }
         expect(response.headers['X-Robots-Tag']).to eq 'noindex'

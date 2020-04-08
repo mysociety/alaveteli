@@ -5,8 +5,6 @@ class PublicTokensController < ApplicationController
   before_action :find_info_request, :can_view_info_request
 
   def show
-    @public_token_view = true
-
     headers['X-Robots-Tag'] = 'noindex'
 
     respond_to do |format|

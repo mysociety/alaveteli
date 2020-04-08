@@ -297,8 +297,16 @@ describe "request/show" do
   end
 
   describe "follow links" do
+    context "when the request being shown by public token" do
+      it "should not show a follow link" do
+        request_page
+        expect(rendered).to_not have_css("a", text: "Follow")
+      end
+    end
+
     context "when the request is a normal request" do
-      it "should show a follow link" do
+      it "should show a follow link in action menu" do
+        assign :show_action_menu, true
         request_page
         expect(rendered).to have_css("a", text: "Follow")
       end
