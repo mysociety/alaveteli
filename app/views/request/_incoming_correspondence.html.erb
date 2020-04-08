@@ -29,7 +29,7 @@
       <% end %>
     </p>
 
-    <% unless @public_token_view || @info_request.embargo %>
+    <% if @show_correspondence_footer %>
       <div class="correspondence__footer">
         <div class="correspondence__footer__cplink">
           <input type="text" id="cplink__field" class="cplink__field" value="<%= incoming_message_url(incoming_message) %>">
