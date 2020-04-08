@@ -15,21 +15,20 @@ class Role < ApplicationRecord
   extend AlaveteliFeatures::Helpers
 
   has_and_belongs_to_many :users,
-                          :join_table => :users_roles,
-                          :inverse_of => :roles
+                          join_table: :users_roles,
+                          inverse_of: :roles
 
   belongs_to :resource,
-             :polymorphic => true
+             polymorphic: true
 
   validates :resource_type,
-            :inclusion => { :in => Rolify.resource_types },
-            :allow_nil => true
+            inclusion: { in: Rolify.resource_types },
+            allow_nil: true
 
   scopify
 
-
-  ROLES = ['admin'].freeze
-  PRO_ROLES = ['pro', 'pro_admin'].freeze
+  ROLES = %w[admin].freeze
+  PRO_ROLES = %w[pro pro_admin].freeze
 
   def self.allowed_roles
     if feature_enabled? :alaveteli_pro
@@ -40,8 +39,8 @@ class Role < ApplicationRecord
   end
 
   validates :name,
-            :inclusion => { :in => lambda { |role| Role.allowed_roles } },
-            :uniqueness => { :scope => :resource_type }
+            inclusion: { in: -> (_name) { Role.allowed_roles } },
+            uniqueness: { scope: :resource_type }
 
   def self.admin_role
     Role.find_by(name: 'admin')
@@ -52,6 +51,16 @@ class Role < ApplicationRecord
   end
 
   # Public: Returns an array of symbols of the names of the roles
+  # which can be granted or revoked
+  #
+  # Returns an Array
+  def self.grantable_roles
+    allowed_roles.flat_map do |role|
+      grants_and_revokes(role.to_sym)
+    end.compact.uniq
+  end
+
+  # Public: Returns an array of symbols of the names of the roles
   # this role can grant and revoke
   #
   # role - the name of the role as a symbol
@@ -59,8 +68,8 @@ class Role < ApplicationRecord
   # Returns an Array
   def self.grants_and_revokes(role)
     grants_and_revokes = {
-      :admin => [:admin],
-      :pro_admin => [:pro, :admin, :pro_admin]
+      admin: [:admin],
+      pro_admin: [:pro, :admin, :pro_admin]
     }
     grants_and_revokes[role] || []
   end
@@ -72,7 +81,6 @@ class Role < ApplicationRecord
   #
   # Returns an Array
   def self.requires(role)
-    { :pro_admin => [:admin] }[role] || []
+    { pro_admin: [:admin] }[role] || []
   end
-
 end
