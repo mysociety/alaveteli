@@ -419,6 +419,7 @@ GEM
     xml-simple (1.1.5)
     xpath (3.1.0)
       nokogiri (~> 1.8)
+    zip_tricks (5.0.0)
 
 PLATFORMS
   ruby
@@ -509,3 +510,4 @@ DEPENDENCIES
   will_paginate (~> 3.1.8)
   xapian-full-alaveteli (~> 1.2.21.1)
   xml-simple (~> 1.1.0)
+  zip_tricks (~> 5.0.0)

@@ -84,7 +84,7 @@ def rails_upgrade?
   %w[1 true].include?(ENV['RAILS_UPGRADE'])
 end
 
-gem 'rails', rails_upgrade? ? '5.2.3' : '5.1.7'
+gem 'rails', rails_upgrade? ? '~> 5.2.4' : '5.1.7'
 
 gem 'pg', '~> 0.20.0'
 
@@ -130,6 +130,7 @@ gem 'vpim', '~> 13.11.11'
 gem 'will_paginate', '~> 3.1.8'
 gem 'xapian-full-alaveteli', '~> 1.2.21.1'
 gem 'xml-simple', '~> 1.1.0', :require => 'xmlsimple'
+gem 'zip_tricks', '~> 5.0.0'
 
 # Gems only used by the research export task
 gem 'gender_detector', '~> 1.0.0'

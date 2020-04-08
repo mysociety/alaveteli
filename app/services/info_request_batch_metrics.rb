@@ -2,8 +2,12 @@
 # This service returns basic metric information for a given info request batch.
 #
 class InfoRequestBatchMetrics
+  include DownloadHelper
+
   include Rails.application.routes.url_helpers
   default_url_options[:host] = AlaveteliConfiguration.domain
+
+  attr_reader :info_request_batch
 
   def initialize(info_request_batch)
     @info_request_batch = info_request_batch
@@ -26,13 +30,13 @@ class InfoRequestBatchMetrics
   end
 
   def name
-    id = @info_request_batch.id
-    url_title = MySociety::Format.simplify_url_part(
-      @info_request_batch.title, 'batch', 32
+    generate_download_filename(
+      resource: 'batch',
+      id: info_request_batch.id,
+      title: info_request_batch.title,
+      type: 'dashboard',
+      ext: 'csv'
     )
-    timestamp = Time.zone.now.to_formatted_s(:iso8601)
-
-    "batch-#{id}-#{url_title}-dashboard-#{timestamp}.csv"
   end
 
   def to_csv

@@ -69,6 +69,15 @@
 
   <div class="request__download">
 
+    <% if feature_enabled?(:info_request_batch_zip_download, current_user) %>
+    <%= link_to alaveteli_pro_info_request_batch_batch_download_path(
+                  info_request_batch_id: info_request_batch,
+                  format: :zip) do %>
+        <i class="download-icon"></i>
+        <%= _('ZIP') %>
+    <% end %>
+    <% end %>
+
     <%= link_to alaveteli_pro_info_request_batch_batch_download_path(
                   info_request_batch_id: info_request_batch,
                   format: :csv) do %>
