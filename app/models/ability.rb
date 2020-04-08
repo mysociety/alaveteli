@@ -129,7 +129,7 @@ class Ability
       if info_request.embargo
         user && (user.is_pro_admin? || info_request.user == user)
       else
-        user && (user.is_admin? || info_request.user == user)
+        false
       end
     end
 
