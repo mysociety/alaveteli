@@ -19,10 +19,18 @@ class PublicTokensController < ApplicationController
   end
 
   def can_view_info_request
-    render_hidden if cannot?(:read, @info_request)
+    if guest.can?(:read, @info_request)
+      redirect_to show_request_path(@info_request.url_title)
+    elsif cannot?(:read, @info_request)
+      render_hidden
+    end
   end
 
   def current_ability
     @current_ability ||= Ability.new(current_user, public_token: true)
+  end
+
+  def guest
+    @guest ||= Ability.new(nil)
   end
 end
