@@ -1,4 +1,0 @@
-#!/bin/bash
-
-cd `dirname $0`
-bundle exec rake --silent incoming_messages:parse_unparsed_pro
