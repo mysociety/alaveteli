@@ -75,10 +75,6 @@ source "$BASHRC"
 # Speed up the installation of gems:
 echo 'gem: --no-ri --no-rdoc' > "$HOME/.gemrc"
 
-# Not in the Gemfile due to conflicts
-# See: https://github.com/sj26/mailcatcher/blob/3079a00/README.md#bundler
-gem install mailcatcher
-
 # Write sensible values into the config file:
 
 function random_alphanumerics() {
