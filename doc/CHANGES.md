@@ -1,3 +1,19 @@
+# 0.37.1.0
+
+## Highlighted Features
+
+* Fix broken Ubuntu install steps (Gareth Rees)
+
+## Upgrade Notes
+
+* Remove the cosmic preferences in `/etc/apt/preferences` before installing:
+
+```
+Package: *
+Pin: release n=cosmic
+Pin-Priority: 50
+```
+
 # 0.37.0.1
 
 ## Highlighted Features
