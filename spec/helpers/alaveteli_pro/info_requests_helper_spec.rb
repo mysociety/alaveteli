@@ -43,5 +43,30 @@ RSpec.describe AlaveteliPro::InfoRequestsHelper, type: :helper do
         )
       end
     end
+
+    context 'without embargo' do
+      let(:embargo) { nil }
+
+      around do |example|
+        time_travel_to Time.utc(2020, 1, 2)
+        example.call
+        back_to_the_present
+      end
+
+      it 'returns a list of expiry dates 3, 6 and 12 months into the future' do
+        is_expected.to match_array(
+          [
+            ['Choose a duration', ''],
+            ['3 Months', '3_months',
+             { 'data-expiry-date' => '02 April 2020' }],
+            ['6 Months', '6_months',
+             { 'data-expiry-date' => '02 July 2020' }],
+            ['12 Months', '12_months', {
+              'data-expiry-date' => '31 December 2020'
+            }]
+          ]
+        )
+      end
+    end
   end
 end
