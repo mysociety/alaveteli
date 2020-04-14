@@ -28,11 +28,8 @@ RSpec.describe AttachmentsController, type: :controller do
       # ensure the cache directory exists
       show
 
-      param =
-        ActionController::Parameters.new(default_params.merge(only_path: true))
-      key_path = @controller.send(:foi_fragment_cache_path, param)
-
       # remove the pre-existing cached file
+      key_path = @controller.send(:cache_key_path)
       File.delete(key_path)
 
       # create a new cache file and check the file permissions

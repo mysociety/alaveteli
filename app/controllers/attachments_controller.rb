@@ -33,9 +33,7 @@ class AttachmentsController < ApplicationController
     # images made during conversion (e.g. images in PDF files) are put in the
     # cache directory, so the same cache code in cache_attachments above will
     # display them.
-    key = params.merge(only_path: true)
-    key_path = foi_fragment_cache_path(key)
-    image_dir = File.dirname(key_path)
+    image_dir = File.dirname(cache_key_path)
     FileUtils.mkdir_p(image_dir)
 
     html = @attachment.body_as_html(
@@ -112,15 +110,13 @@ class AttachmentsController < ApplicationController
     if !params[:skip_cache].nil?
       yield
     else
-      key = params.merge(only_path: true)
-      key_path = foi_fragment_cache_path(key)
-      if foi_fragment_cache_exists?(key_path)
-        logger.info("Reading cache for #{key_path}")
+      if foi_fragment_cache_exists?(cache_key_path)
+        logger.info("Reading cache for #{cache_key_path}")
 
-        if File.directory?(key_path)
+        if File.directory?(cache_key_path)
           render plain: 'Directory listing not allowed', status: 403
         else
-          render body: foi_fragment_cache_read(key_path),
+          render body: foi_fragment_cache_read(cache_key_path),
                  content_type: content_type
         end
         return
@@ -134,8 +130,8 @@ class AttachmentsController < ApplicationController
         # which adds a header, so isn't compatible with images that have been
         # extracted elsewhere from PDFs)
         if message_is_public?
-          logger.info("Writing cache for #{key_path}")
-          foi_fragment_cache_write(key_path, response.body)
+          logger.info("Writing cache for #{cache_key_path}")
+          foi_fragment_cache_write(cache_key_path, response.body)
         end
       end
     end
@@ -166,5 +162,10 @@ class AttachmentsController < ApplicationController
     # to be served up without authentication?
     @incoming_message.info_request.prominence(decorate: true).is_public? &&
       @incoming_message.is_public?
+  end
+
+  def cache_key_path
+    key = params.merge(only_path: true)
+    foi_fragment_cache_path(key)
   end
 end
