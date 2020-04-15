@@ -1,7 +1,8 @@
 <%= form_for(
-      [AlaveteliPro::EmbargoExtension.new(embargo: info_request.embargo)],
+      :alaveteli_pro_embargo_extension,
+      url: alaveteli_pro_embargo_extensions_path,
       html: {class: 'js-embargo-form'}) do |f| %>
-  <%= f.hidden_field :embargo_id %>
+  <%= f.hidden_field :embargo_id, value: info_request.embargo.id %>
 
   <% if info_request.embargo.expiring_soon? %>
     <p>

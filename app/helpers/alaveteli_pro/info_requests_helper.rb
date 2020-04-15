@@ -16,7 +16,7 @@ module AlaveteliPro::InfoRequestsHelper
   end
 
   def embargo_extension_options(embargo)
-    options = embargo_options_from_date(embargo.publish_at)
+    options = embargo_options_from_date(embargo&.publish_at || Date.today)
     options.unshift([_('Choose a duration'), ''])
   end
 
