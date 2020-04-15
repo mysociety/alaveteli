@@ -12,7 +12,7 @@
   <div class="houdini-target extend-embargo-sidebar">
   <% if info_request.embargo && can?(:update, info_request.embargo) %>
     <%= render partial: 'alaveteli_pro/info_requests/embargo_extension_form',
-               locals: { info_request: info_request } %>
+               locals: { embargo: info_request.embargo } %>
     <%= button_to _("Publish request"),
                   alaveteli_pro_embargo_path(info_request.embargo),
                   method: :delete,
