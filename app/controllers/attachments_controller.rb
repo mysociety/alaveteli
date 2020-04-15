@@ -5,9 +5,9 @@ class AttachmentsController < ApplicationController
   include FragmentCachable
   include InfoRequestHelper
 
+  before_action :find_info_request, :find_incoming_message, :find_attachment
   around_action :cache_attachments
 
-  before_action :find_info_request, :find_incoming_message, :find_attachment
   before_action :authenticate_attachment
   before_action :authenticate_attachment_as_html, only: :show_as_html
 
@@ -165,7 +165,12 @@ class AttachmentsController < ApplicationController
   end
 
   def cache_key_path
-    key = params.merge(only_path: true)
-    foi_fragment_cache_path(key)
+    foi_fragment_cache_path(
+      id: @info_request.id,
+      incoming_message_id: @incoming_message.id,
+      part: part_number,
+      file_name: original_filename,
+      locale: false
+    )
   end
 end
