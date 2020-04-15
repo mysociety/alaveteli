@@ -1,21 +1,23 @@
 <%= form_for(
       :alaveteli_pro_embargo,
       url: alaveteli_pro_embargoes_path,
-      html: {class: 'js-embargo-form'}) do |f| %>
+      html: { class: 'js-embargo-form' }) do |f| %>
   <%= f.hidden_field :info_request_id, value: info_request.id %>
 
   <p>
-    <label class="form_label"
-           for="alaveteli_pro_embargo_duration">
+    <label class="form_label" for="alaveteli_pro_embargo_duration">
       <%= _('Keep private for:') %>
     </label>
+
     <%= f.select :embargo_duration,
                  options_for_select(
-                   embargo_extension_options(info_request.embargo)),
+                   embargo_extension_options(info_request.embargo)
+                 ),
                  {},
-                 { class: 'js-embargo-duration' } %>
+                 class: 'js-embargo-duration' %>
+
     <input type="submit"
-           value="<%= _("Update") %>"
+           value="<%= _('Update') %>"
            class="embargo__submit js-embargo-submit">
   </p>
 <% end %>
