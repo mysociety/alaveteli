@@ -1,7 +1,5 @@
-<%= form_for(
-      :alaveteli_pro_embargo,
-      url: alaveteli_pro_embargoes_path,
-      html: { class: 'js-embargo-form' }) do |f| %>
+<%= form_for(AlaveteliPro::Embargo.new,
+             html: { class: 'js-embargo-form' }) do |f| %>
   <%= f.hidden_field :info_request_id, value: info_request.id %>
 
   <p>
