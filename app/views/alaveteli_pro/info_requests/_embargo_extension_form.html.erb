@@ -1,7 +1,7 @@
 <%= form_for(
       :alaveteli_pro_embargo_extension,
       url: alaveteli_pro_embargo_extensions_path,
-      html: {class: 'js-embargo-form'}) do |f| %>
+      html: { class: 'js-embargo-form' }) do |f| %>
   <%= f.hidden_field :embargo_id, value: info_request.embargo.id %>
 
   <% if info_request.embargo.expiring_soon? %>
@@ -10,19 +10,22 @@
              for="alaveteli_pro_embargo_extension_extension_duration">
         <%= _('Keep private for a further:') %>
       </label>
+
       <%= f.select :extension_duration,
                    options_for_select(
-                     embargo_extension_options(info_request.embargo)),
+                     embargo_extension_options(info_request.embargo)
+                   ),
                    {},
-                   { class: 'js-embargo-duration' } %>
+                   class: 'js-embargo-duration' %>
+
       <input type="submit"
-             value="<%= _("Update") %>"
+             value="<%= _('Update') %>"
              class="embargo__submit js-embargo-submit">
     </p>
   <% else %>
     <p>
-      <%= _("You will be able to extend this privacy period from " \
-            "{{embargo_extend_from}}.",
+      <%= _('You will be able to extend this privacy period from ' \
+            '{{embargo_extend_from}}.',
             embargo_extend_from: embargo_extend_from(info_request.embargo)) %>
     </p>
   <% end %>
