@@ -10,9 +10,7 @@
     </label>
 
     <%= f.select :embargo_duration,
-                 options_for_select(
-                   embargo_extension_options(info_request.embargo)
-                 ),
+                 options_for_select(embargo_extension_options),
                  {},
                  class: 'js-embargo-duration' %>
 
