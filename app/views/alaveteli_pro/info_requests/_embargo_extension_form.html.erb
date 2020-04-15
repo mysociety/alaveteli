@@ -6,19 +6,17 @@
 
   <% if embargo.expiring_soon? %>
     <p>
-      <label class="form_label"
-             for="alaveteli_pro_embargo_extension_extension_duration">
+
+      <%= f.label :extension_duration, class: 'form_label' do %>
         <%= _('Keep private for a further:') %>
-      </label>
+      <% end %>
 
       <%= f.select :extension_duration,
                    options_for_select(embargo_extension_options(embargo)),
                    {},
                    class: 'js-embargo-duration' %>
 
-      <input type="submit"
-             value="<%= _('Update') %>"
-             class="embargo__submit js-embargo-submit">
+      <%= f.submit _('Update'), class: 'embargo__submit js-embargo-submit' %>
     </p>
   <% else %>
     <p>
