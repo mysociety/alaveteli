@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :project do
     title { 'Important FOI Project' }
-    briefing { 'Please help analyse these info requests' }
+    briefing { '<p>Please help analyse these info requests</p>' }
 
     association :owner, factory: :pro_user
 
