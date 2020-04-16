@@ -41,4 +41,8 @@ class Project < ApplicationRecord
       ).
       where("r1.project_id = :id OR r2.project_id = :id", id: id)
   end
+
+  def member?(user)
+    members.include?(user)
+  end
 end

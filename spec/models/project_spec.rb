@@ -94,4 +94,33 @@ RSpec.describe Project, type: :model, feature: :projects do
       is_expected.not_to include(*other_batch.info_requests)
     end
   end
+
+  describe '#member?' do
+    subject { project.member?(user) }
+
+    let(:owner) { FactoryBot.create(:user) }
+    let(:contributor) { FactoryBot.create(:user) }
+    let(:non_member) { FactoryBot.create(:user) }
+
+    let(:project) do
+      project = FactoryBot.create(:project, owner: owner)
+      project.contributors << contributor
+      project
+    end
+
+    context 'given an owner' do
+      let(:user) { owner }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'given a contributor' do
+      let(:user) { contributor }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'given a non-member' do
+      let(:user) { non_member }
+      it { is_expected.to eq(false) }
+    end
+  end
 end
