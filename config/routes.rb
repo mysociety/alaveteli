@@ -162,6 +162,14 @@ Rails.application.routes.draw do
         :via => :post
   ####
 
+  #### Projects
+  constraints FeatureConstraint.new(:projects) do
+    scope module: :projects do
+      resources :projects, only: [:show]
+    end
+  end
+  ####
+
   resources :health_checks, :only => [:index]
 
   resources :request, :only => [] do
