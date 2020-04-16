@@ -11,8 +11,8 @@
   <input class="houdini-input" type="checkbox" id="input1">
   <div class="houdini-target extend-embargo-sidebar">
   <% if info_request.embargo && can?(:update, info_request.embargo) %>
-    <%= render partial: "alaveteli_pro/info_requests/embargo_extension_form",
-               locals: {info_request: info_request} %>
+    <%= render partial: 'alaveteli_pro/info_requests/embargo_extension_form',
+               locals: { embargo: info_request.embargo } %>
     <%= button_to _("Publish request"),
                   alaveteli_pro_embargo_path(info_request.embargo),
                   method: :delete,
