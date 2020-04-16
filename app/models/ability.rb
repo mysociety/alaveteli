@@ -150,6 +150,11 @@ class Ability
       end
     end
 
+    if feature_enabled? :projects
+      can :read, Project do |project|
+        user && (user.is_pro_admin? || project.member?(user))
+      end
+    end
   end
 
   private
