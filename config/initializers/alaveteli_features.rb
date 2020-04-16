@@ -11,6 +11,7 @@
 features = %i[
   annotations
   alaveteli_pro
+  projects
   pro_pricing
   pro_self_serve
 ]
