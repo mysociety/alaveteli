@@ -709,7 +709,7 @@ class PublicBody < ApplicationRecord
   end
 
   def expire_requests
-    info_requests.each { |request| request.expire }
+    info_requests.find_each(&:expire)
   end
 
   def self.where_clause_for_stats(minimum_requests, total_column)
