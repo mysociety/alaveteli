@@ -41,7 +41,7 @@ RSpec.describe Project, type: :model, feature: :projects do
       expect(project.requests.count).to eq 2
     end
 
-    it 'has many contributors' do
+    it 'has many batches' do
       expect(project.batches).to all be_a(InfoRequestBatch)
       expect(project.batches.count).to eq 2
     end
