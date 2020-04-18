@@ -3,32 +3,14 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe "When errors occur" do
 
-  def set_consider_all_requests_local(value, example)
-    app = Rails.application
-    config = app.config
-    env_config = app.env_config
-
-    show_exceptions = env_config['action_dispatch.show_exceptions']
-    consider_all_requests_local = config.consider_all_requests_local
-
-    env_config['action_dispatch.show_exceptions'] = true
-    config.consider_all_requests_local = value
-
-    example.run
-
-    config.consider_all_requests_local = consider_all_requests_local
-    env_config['action_dispatch.show_exceptions'] = show_exceptions
-  end
-
   before(:each) do
     # This should happen automatically before each test but doesn't with these integration
     # tests for some reason.
     ActionMailer::Base.deliveries = []
   end
 
-  context 'when considering all requests local (by default all in development)' do
-
-    around(:each) { |example| set_consider_all_requests_local(true, example) }
+  context 'when considering all requests local (by default all in development)',
+          local_requests: true do
 
     it 'should show a full trace for general errors' do
       allow(InfoRequest).to receive(:find_by_url_title!).and_raise("An example error")
@@ -39,9 +21,7 @@ describe "When errors occur" do
 
   end
 
-  context 'when not considering all requests local' do
-
-    around(:each) { |example| set_consider_all_requests_local(false, example) }
+  context 'when not considering all requests local', local_requests: false do
 
     it "should render a 404 for unrouteable URLs using the general/exception_caught template" do
       get "/frobsnasm"
