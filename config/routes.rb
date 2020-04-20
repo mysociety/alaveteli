@@ -114,7 +114,7 @@ Rails.application.routes.draw do
         :as => :similar_request,
         :via => :get
 
-  match '/request/:id/describe' => 'request#describe_state',
+  match '/request/:url_title/describe' => 'request#describe_state',
         :as => :describe_state,
         :via => [:patch, :put, :post]
   match '/request/:url_title/describe/:described_state' => 'request#describe_state_message',

@@ -1722,7 +1722,7 @@ describe RequestController do
       let(:external_request) { FactoryBot.create(:external_request) }
 
       it 'should redirect to the request page' do
-        patch :describe_state, params: { id: external_request.id }
+        patch :describe_state, params: { url_title: external_request.url_title }
         expect(response).to redirect_to(
           show_request_path(external_request.url_title)
         )
@@ -1737,7 +1737,7 @@ describe RequestController do
           incoming_message: {
             described_state: status
           },
-          id: info_request.id,
+          url_title: info_request.url_title,
           last_info_request_event_id: info_request.
             last_event_id_needing_description
         }
@@ -1850,7 +1850,7 @@ describe RequestController do
                   described_state: 'requires_admin',
                   message: 'a message'
                 },
-                id: info_request.id,
+                url_title: info_request.url_title,
                 incoming_message_id: info_request.incoming_messages.last,
                 last_info_request_event_id: info_request.
                   last_event_id_needing_description
@@ -1876,7 +1876,7 @@ describe RequestController do
                   incoming_message: {
                     described_state: 'requires_admin'
                   },
-                  id: info_request.id,
+                  url_title: info_request.url_title,
                   incoming_message_id: info_request.incoming_messages.last,
                   last_info_request_event_id: info_request.
                     last_event_id_needing_description
@@ -2002,7 +2002,7 @@ describe RequestController do
 
         it 'should let you know when you forget to select a status' do
           patch :describe_state, params: {
-            id: info_request.id,
+            url_title: info_request.url_title,
             last_info_request_event_id: info_request.
               last_event_id_needing_description
           }
@@ -2019,7 +2019,7 @@ describe RequestController do
            'viewing it' do
           patch :describe_state, params: {
             incoming_message: { described_state: 'rejected' },
-            id: info_request.id,
+            url_title: info_request.url_title,
             last_info_request_event_id: 1
           }
           expect(response).to redirect_to(
@@ -2065,7 +2065,7 @@ describe RequestController do
            'classified as requires_admin' do
           patch :describe_state, params: {
             incoming_message: { described_state: 'requires_admin' },
-            id: info_request.id,
+            url_title: info_request.url_title,
             incoming_message_id: info_request.incoming_messages.last,
             last_info_request_event_id: info_request.
               last_event_id_needing_description
@@ -2087,7 +2087,7 @@ describe RequestController do
                 described_state: 'requires_admin',
                 message: 'Something weird happened'
               },
-              id: info_request.id,
+              url_title: info_request.url_title,
               last_info_request_event_id: info_request.
                 last_event_id_needing_description
             }
@@ -2297,7 +2297,7 @@ describe RequestController do
                 described_state: 'requires_admin',
                 message: 'A message'
               },
-              id: info_request.id,
+              url_title: info_request.url_title,
               last_info_request_event_id: info_request.
                 last_event_id_needing_description
             }
@@ -2317,7 +2317,7 @@ describe RequestController do
                 described_state: 'error_message',
                 message: 'A message'
               },
-              id: info_request.id,
+              url_title: info_request.url_title,
               last_info_request_event_id: info_request.
                 last_event_id_needing_description
             }
@@ -2335,7 +2335,7 @@ describe RequestController do
                 incoming_message: {
                   described_state: 'error_message'
                 },
-                id: info_request.id,
+                url_title: info_request.url_title,
                 incoming_message_id: info_request.incoming_messages.last,
                 last_info_request_event_id: info_request.
                   last_event_id_needing_description

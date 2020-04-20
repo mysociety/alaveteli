@@ -445,7 +445,9 @@ class RequestController < ApplicationController
 
   # Submitted to the describing state of messages form
   def describe_state
-    info_request = InfoRequest.not_embargoed.find(params[:id].to_i)
+    info_request = InfoRequest.not_embargoed.find_by!(
+      url_title: params[:url_title]
+    )
     set_last_request(info_request)
 
     # If this is an external request, go to the request page - we don't allow
