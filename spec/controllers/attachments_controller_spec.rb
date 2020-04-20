@@ -73,11 +73,12 @@ RSpec.describe AttachmentsController, type: :controller do
     it "should redirect to the incoming message if there's a wrong part number
         and an ambiguous filename" do
       incoming_message = info_request.incoming_messages.first
-      attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(
-        incoming_message.get_attachments_for_display,
-        5,
-        'interesting.pdf'
-      )
+      attachment = IncomingMessage.
+        get_attachment_by_url_part_number_and_filename!(
+          incoming_message.get_attachments_for_display,
+          5,
+          'interesting.pdf'
+        )
       expect(attachment).to be_nil
       show(:part => 5)
       expect(response.status).to eq(303)

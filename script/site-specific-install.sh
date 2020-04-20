@@ -68,17 +68,20 @@ update_mysociety_apt_sources
 # Ubuntu Bionic Fixes
 if [ x"$DISTRIBUTION" = x"ubuntu" ] && [ x"$DISTVERSION" = x"bionic" ]
 then
-  # Add cosmic repo to get pdftk-java
-  cat > /etc/apt/sources.list.d/ubuntu-cosmic.list <<EOF
-deb http://archive.ubuntu.com/ubuntu/ cosmic universe
-deb-src http://archive.ubuntu.com/ubuntu/ cosmic universe
+  # Remove old cosmic repo that's no longer available
+  rm --force /etc/apt/sources.list.d/ubuntu-cosmic.list
+
+  # Add focal repo to get pdftk-java
+  cat > /etc/apt/sources.list.d/ubuntu-focal.list <<EOF
+deb http://archive.ubuntu.com/ubuntu/ focal universe
+deb-src http://archive.ubuntu.com/ubuntu/ focal universe
 EOF
 
-  # De-prioritise all packages from cosmic. We only add the repo to install
+  # De-prioritise all packages from focal. We only add the repo to install
   # pdftk-java, as pdftk is not available in bionic.
-  cat >> /etc/apt/preferences <<EOF
+  cat > /etc/apt/preferences.d/ubuntu-focal.pref <<EOF
 Package: *
-Pin: release n=cosmic
+Pin: release n=focal
 Pin-Priority: 50
 EOF
 
@@ -266,6 +269,14 @@ fi
 # Set up root's crontab:
 
 cd "$REPOSITORY"
+
+
+if [ "$DEVELOPMENT_INSTALL" = true ]; then
+  # Not in the Gemfile due to conflicts
+  # See: https://github.com/sj26/mailcatcher/blob/3079a00/README.md#bundler
+  gem install mailcatcher
+fi
+
 
 echo -n "Creating /etc/cron.d/alaveteli... "
 (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_crontab DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' RUBY_VERSION='$RUBY_VERSION' CRONTAB=config/crontab-example" "$UNIX_USER") > /etc/cron.d/alaveteli

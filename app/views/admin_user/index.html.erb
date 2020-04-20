@@ -19,7 +19,7 @@
     <div class="span12">
       <div class="input-group role-filter">
         Filter by role:
-        <% Role.where(:name => Role.allowed_roles).order(:name).each do |role| %>
+        <% Role.where(name: Role.grantable_roles).order(:name).each do |role| %>
             <label class="checkbox-inline">
               <%= check_box_tag "roles[]",
                                 role.name,

@@ -23,6 +23,12 @@ if feature_enabled?(:alaveteli_pro)
   end
 end
 
+if feature_enabled?(:projects)
+  %w[project_owner project_contributor].each do |role_name|
+    Role.create(name: role_name) if Role.where(name: role_name).empty?
+  end
+end
+
 %w[
   draft complete clarification_needed awaiting_response
   response_received overdue very_overdue other embargo_expiring
