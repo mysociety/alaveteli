@@ -707,7 +707,7 @@ Rails.application.routes.draw do
     namespace :alaveteli_pro do
       root to: 'dashboard#index', :as => :dashboard, :via => :get
       resources :draft_info_requests, :only => [:create, :update]
-      resources :info_requests, :only => [:new, :create, :update, :index] do
+      resources :info_requests, only: [:new, :create, :update, :index] do
         get :preview, on: :new # /info_request/new/preview
       end
       resources :embargoes, :only => [:destroy, :create] do

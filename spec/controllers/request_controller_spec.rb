@@ -1717,74 +1717,68 @@ describe RequestController, "when making a new request" do
 end
 
 describe RequestController do
-  describe "POST describe_state" do
+  describe 'POST describe_state' do
     describe 'if the request is external' do
-
       let(:external_request) { FactoryBot.create(:external_request) }
 
       it 'should redirect to the request page' do
-        patch :describe_state, params: { :id => external_request.id }
-        expect(response)
-          .to redirect_to(show_request_path(external_request.url_title))
+        patch :describe_state, params: { id: external_request.id }
+        expect(response).to redirect_to(
+          show_request_path(external_request.url_title)
+        )
       end
-
     end
 
     describe 'when the request is internal' do
-
       let(:info_request) { FactoryBot.create(:info_request) }
 
       def post_status(status, info_request)
-        patch :describe_state,
-              params: {
-                :incoming_message => {
-                  :described_state => status
-                },
-                :id => info_request.id,
-                :last_info_request_event_id =>
-                  info_request.last_event_id_needing_description
-              }
+        patch :describe_state, params: {
+          incoming_message: {
+            described_state: status
+          },
+          id: info_request.id,
+          last_info_request_event_id: info_request.
+            last_event_id_needing_description
+        }
       end
 
       context 'when the request is embargoed' do
-
         let(:info_request) { FactoryBot.create(:embargoed_request) }
 
         it 'should raise ActiveRecord::NotFound' do
-          expect { post_status('rejected', info_request) }
-            .to raise_error ActiveRecord::RecordNotFound
+          expect { post_status('rejected', info_request) }.
+            to raise_error ActiveRecord::RecordNotFound
         end
       end
 
-      it "should require login" do
+      it 'should require login' do
         post_status('rejected', info_request)
-        expect(response).
-          to redirect_to(signin_path(:token => get_last_post_redirect.token))
+        expect(response).to redirect_to(
+          signin_path(token: get_last_post_redirect.token)
+        )
       end
 
-      it "should not classify the request if logged in as the wrong user" do
+      it 'should not classify the request if logged in as the wrong user' do
         session[:user_id] = FactoryBot.create(:user).id
         post_status('rejected', info_request)
         expect(response).to render_template('user/wrong_user')
       end
 
       describe 'when the request is old and unclassified' do
-
         let(:info_request) { FactoryBot.create(:old_unclassified_request) }
 
         describe 'when the user is not logged in' do
-
           it 'should require login' do
             session[:user_id] = nil
             post_status('rejected', info_request)
-            expect(response)
-              .to redirect_to(signin_path(:token => get_last_post_redirect.token))
+            expect(response).to redirect_to(
+              signin_path(token: get_last_post_redirect.token)
+            )
           end
-
         end
 
         describe 'when the user is logged in as a different user' do
-
           let(:other_user) { FactoryBot.create(:user) }
 
           before do
@@ -1797,9 +1791,9 @@ describe RequestController do
           end
 
           it 'should log a status update event' do
-            expected_params = {:user_id => other_user.id,
-                               :old_described_state => 'waiting_response',
-                               :described_state => 'rejected'}
+            expected_params = { user_id: other_user.id,
+                                old_described_state: 'waiting_response',
+                                described_state: 'rejected' }
             post_status('rejected', info_request)
             last_event = info_request.reload.info_request_events.last
             expect(last_event.params).to eq expected_params
@@ -1810,13 +1804,15 @@ describe RequestController do
             post_status('rejected', info_request)
             deliveries = ActionMailer::Base.deliveries
             expect(deliveries.size).to eq(1)
-            expect(deliveries.first.subject)
-              .to match("Someone has updated the status of your request")
+            expect(deliveries.first.subject).
+              to match('Someone has updated the status of your request')
           end
 
           it 'should redirect to the request page' do
             post_status('rejected', info_request)
-            expect(response).to redirect_to(show_request_path(info_request.url_title))
+            expect(response).to redirect_to(
+              show_request_path(info_request.url_title)
+            )
           end
 
           it 'should show a message thanking the user for a good deed' do
@@ -1824,81 +1820,80 @@ describe RequestController do
             expect(flash[:notice]).to eq('Thank you for updating this request!')
           end
 
-          context "playing the classification game" do
+          context 'playing the classification game' do
             before :each do
               session[:request_game] = true
             end
 
-            it "should continue the game after classifying a request" do
-              post_status("rejected", info_request)
-              expect(response).to redirect_to categorise_play_url
+            it 'should continue the game after classifying a request' do
+              post_status('rejected', info_request)
+              expect(response).to redirect_to(categorise_play_url)
             end
 
             it 'shows a message thanking the user for a good deed' do
               post_status('rejected', info_request)
-              expect(flash[:notice][:partial]).
-                to eq("request_game/thank_you.html.erb")
-              expect(flash[:notice][:locals]).
-                to include(:info_request_title => info_request.title)
+              expect(flash[:notice][:partial]).to eq(
+                'request_game/thank_you.html.erb'
+              )
+              expect(flash[:notice][:locals]).to include(
+                info_request_title: info_request.title
+              )
             end
           end
 
           context 'when the new status is "requires_admin"' do
-            it "should send a mail to admins saying that the response requires admin
-               and one to the requester noting the status change" do
-              patch :describe_state,
-                    params: {
-                      :incoming_message => {
-                        :described_state => "requires_admin",
-                        :message => "a message"
-                      },
-                      :id => info_request.id,
-                      :incoming_message_id => info_request.incoming_messages.last,
-                      :last_info_request_event_id =>
-                        info_request.last_event_id_needing_description
-                    }
+            it 'should send a mail to admins saying that the response ' \
+               'requires admin and one to the requester noting the status ' \
+               'change' do
+              patch :describe_state, params: {
+                incoming_message: {
+                  described_state: 'requires_admin',
+                  message: 'a message'
+                },
+                id: info_request.id,
+                incoming_message_id: info_request.incoming_messages.last,
+                last_info_request_event_id: info_request.
+                  last_event_id_needing_description
+              }
 
               deliveries = ActionMailer::Base.deliveries
               expect(deliveries.size).to eq(2)
               requires_admin_mail = deliveries.first
               status_update_mail = deliveries.second
-              expect(requires_admin_mail.subject)
-                .to match(/FOI response requires admin/)
-              expect(requires_admin_mail.to)
-                .to match([AlaveteliConfiguration::contact_email])
-              expect(status_update_mail.subject)
-                .to match('Someone has updated the status of your request')
-              expect(status_update_mail.to)
-                .to match([info_request.user.email])
+              expect(requires_admin_mail.subject).
+                to match(/FOI response requires admin/)
+              expect(requires_admin_mail.to).
+                to match([AlaveteliConfiguration.contact_email])
+              expect(status_update_mail.subject).
+                to match('Someone has updated the status of your request')
+              expect(status_update_mail.to).
+                to match([info_request.user.email])
             end
 
             context "if the params don't include a message" do
-
               it 'redirects to the message url' do
-                patch :describe_state,
-                      params: {
-                        :incoming_message => {
-                          :described_state => "requires_admin"
-                        },
-                        :id => info_request.id,
-                        :incoming_message_id =>
-                          info_request.incoming_messages.last,
-                        :last_info_request_event_id =>
-                          info_request.last_event_id_needing_description
-                      }
+                patch :describe_state, params: {
+                  incoming_message: {
+                    described_state: 'requires_admin'
+                  },
+                  id: info_request.id,
+                  incoming_message_id: info_request.incoming_messages.last,
+                  last_info_request_event_id: info_request.
+                    last_event_id_needing_description
+                }
                 expected_url = describe_state_message_url(
-                                 :url_title => info_request.url_title,
-                                 :described_state => 'requires_admin')
+                  url_title: info_request.url_title,
+                  described_state: 'requires_admin'
+                )
                 expect(response).to redirect_to(expected_url)
               end
-
             end
           end
         end
       end
 
-      describe 'when logged in as an admin user who is not the actual requester' do
-
+      describe 'when logged in as an admin user who is not the actual ' \
+               'requester' do
         let(:admin_user) { FactoryBot.create(:admin_user) }
         let(:info_request) { FactoryBot.create(:info_request) }
 
@@ -1912,9 +1907,9 @@ describe RequestController do
         end
 
         it 'should log a status update event' do
-          expected_params = {:user_id => admin_user.id,
-                             :old_described_state => 'waiting_response',
-                             :described_state => 'rejected'}
+          expected_params = { user_id: admin_user.id,
+                              old_described_state: 'waiting_response',
+                              described_state: 'rejected' }
           post_status('rejected', info_request)
           last_event = info_request.reload.info_request_events.last
           expect(last_event.params).to eq expected_params
@@ -1930,16 +1925,18 @@ describe RequestController do
 
         it 'should send an email to the requester letting them know someone has
             updated the status of their request' do
-          mail_mock = double("mail")
+          mail_mock = double('mail')
           allow(mail_mock).to receive :deliver_now
-          expect(RequestMailer).to receive(:old_unclassified_updated).and_return(mail_mock)
+          expect(RequestMailer).to receive(:old_unclassified_updated).
+            and_return(mail_mock)
           post_status('rejected', info_request)
         end
 
         it 'should redirect to the request page' do
           post_status('rejected', info_request)
-          expect(response)
-            .to redirect_to(show_request_path(info_request.url_title))
+          expect(response).to redirect_to(
+            show_request_path(info_request.url_title)
+          )
         end
 
         it 'should show a message thanking the user for a good deed' do
@@ -1948,10 +1945,12 @@ describe RequestController do
         end
       end
 
-      describe 'when logged in as an admin user who is also the actual requester' do
-
+      describe 'when logged in as an admin user who is also the actual ' \
+               'requester' do
         let(:admin_user) { FactoryBot.create(:admin_user) }
-        let(:info_request) { FactoryBot.create(:info_request, :user => admin_user) }
+        let(:info_request) do
+          FactoryBot.create(:info_request, user: admin_user)
+        end
 
         before do
           session[:user_id] = admin_user.id
@@ -1963,84 +1962,94 @@ describe RequestController do
         end
 
         it 'should log a status update event' do
-          expected_params = { :user_id => admin_user.id,
-                              :old_described_state => 'waiting_response',
-                              :described_state => 'rejected' }
+          expected_params = { user_id: admin_user.id,
+                              old_described_state: 'waiting_response',
+                              described_state: 'rejected' }
           post_status('rejected', info_request)
           last_event = info_request.reload.info_request_events.last
           expect(last_event.params).to eq expected_params
         end
 
-        it 'should not send an email to the requester letting them know someone
-            has updated the status of their request' do
+        it 'should not send an email to the requester letting them know ' \
+           'someone has updated the status of their request' do
           expect(RequestMailer).not_to receive(:old_unclassified_updated)
           post_status('rejected', info_request)
         end
 
         it 'should show advice for the new state' do
           post_status('rejected', info_request)
-          expect(flash[:notice][:partial]).
-            to eq('request/describe_notices/rejected')
+          expect(flash[:notice][:partial]).to eq(
+            'request/describe_notices/rejected'
+          )
         end
 
         it 'should redirect to the unhappy page' do
           post_status('rejected', info_request)
-          expect(response)
-            .to redirect_to(help_unhappy_path(info_request.url_title))
+          expect(response).to redirect_to(
+            help_unhappy_path(info_request.url_title)
+          )
         end
-
       end
 
       describe 'when logged in as the requestor' do
-
         let(:info_request) do
-          FactoryBot.create(:info_request, :awaiting_description => true)
+          FactoryBot.create(:info_request, awaiting_description: true)
         end
 
         before do
           session[:user_id] = info_request.user_id
         end
 
-        it "should let you know when you forget to select a status" do
-          patch :describe_state,
-                params: {
-                  :id => info_request.id,
-                  :last_info_request_event_id =>
-                    info_request.last_event_id_needing_description
-                }
-          expect(response).to redirect_to show_request_url(:url_title => info_request.url_title)
-          expect(flash[:error])
-            .to eq("Please choose whether or not you got some of the information that you wanted.")
+        it 'should let you know when you forget to select a status' do
+          patch :describe_state, params: {
+            id: info_request.id,
+            last_info_request_event_id: info_request.
+              last_event_id_needing_description
+          }
+          expect(response).to redirect_to(
+            show_request_url(url_title: info_request.url_title)
+          )
+          expect(flash[:error]).to eq(
+            'Please choose whether or not you got some of the information ' \
+            'that you wanted.'
+          )
         end
 
-        it "should not change the status if the request has changed while viewing it" do
-          patch :describe_state,
-                params: {
-                  :incoming_message => { :described_state => "rejected" },
-                  :id => info_request.id,
-                  :last_info_request_event_id => 1
-                }
-          expect(response)
-            .to redirect_to show_request_url(:url_title => info_request.url_title)
-          expect(flash[:error])
-            .to match(/The request has been updated since you originally loaded this page/)
+        it 'should not change the status if the request has changed while ' \
+           'viewing it' do
+          patch :describe_state, params: {
+            incoming_message: { described_state: 'rejected' },
+            id: info_request.id,
+            last_info_request_event_id: 1
+          }
+          expect(response).to redirect_to(
+            show_request_url(url_title: info_request.url_title)
+          )
+          expect(flash[:error]).to match(
+            /The request has been updated since you originally loaded this page/
+          )
         end
 
-        it "should successfully classify response" do
+        it 'should successfully classify response' do
           post_status('rejected', info_request)
-          expect(response)
-            .to redirect_to(help_unhappy_path(info_request.url_title))
+          expect(response).to redirect_to(
+            help_unhappy_path(info_request.url_title)
+          )
           info_request.reload
           expect(info_request.awaiting_description).to eq(false)
           expect(info_request.described_state).to eq('rejected')
-          expect(info_request.info_request_events.last.event_type).to eq("status_update")
-          expect(info_request.info_request_events.last.calculated_state).to eq('rejected')
+          expect(info_request.info_request_events.last.event_type).to eq(
+            'status_update'
+          )
+          expect(info_request.info_request_events.last.calculated_state).to eq(
+            'rejected'
+          )
         end
 
         it 'should log a status update event' do
-          expected_params = {:user_id => info_request.user_id,
-                             :old_described_state => 'waiting_response',
-                             :described_state => 'rejected'}
+          expected_params = { user_id: info_request.user_id,
+                              old_described_state: 'waiting_response',
+                              described_state: 'rejected' }
           post_status('rejected', info_request)
           last_event = info_request.reload.info_request_events.last
           expect(last_event.params).to eq expected_params
@@ -2052,37 +2061,36 @@ describe RequestController do
           post_status('rejected', info_request)
         end
 
-        it "should go to the page asking for more information when classified
-            as requires_admin" do
-          patch :describe_state,
-                params: {
-                  :incoming_message => { :described_state => "requires_admin" },
-                  :id => info_request.id,
-                  :incoming_message_id => info_request.incoming_messages.last,
-                  :last_info_request_event_id =>
-                    info_request.last_event_id_needing_description
-                }
-          expect(response)
-            .to redirect_to describe_state_message_url(:url_title => info_request.url_title,
-                                                       :described_state => "requires_admin")
+        it 'should go to the page asking for more information when ' \
+           'classified as requires_admin' do
+          patch :describe_state, params: {
+            incoming_message: { described_state: 'requires_admin' },
+            id: info_request.id,
+            incoming_message_id: info_request.incoming_messages.last,
+            last_info_request_event_id: info_request.
+              last_event_id_needing_description
+          }
+          expect(response).to redirect_to(
+            describe_state_message_url(url_title: info_request.url_title,
+                                       described_state: 'requires_admin')
+          )
 
           info_request.reload
           expect(info_request.described_state).not_to eq('requires_admin')
           expect(ActionMailer::Base.deliveries).to be_empty
         end
 
-        context "message is included when classifying as requires_admin" do
-          it "should send an email including the message" do
-            patch :describe_state,
-                  params: {
-                    :incoming_message => {
-                      :described_state => "requires_admin",
-                      :message => "Something weird happened"
-                    },
-                    :id => info_request.id,
-                    :last_info_request_event_id =>
-                      info_request.last_event_id_needing_description
-                  }
+        context 'message is included when classifying as requires_admin' do
+          it 'should send an email including the message' do
+            patch :describe_state, params: {
+              incoming_message: {
+                described_state: 'requires_admin',
+                message: 'Something weird happened'
+              },
+              id: info_request.id,
+              last_info_request_event_id: info_request.
+                last_event_id_needing_description
+            }
 
             deliveries = ActionMailer::Base.deliveries
             expect(deliveries.size).to eq(1)
@@ -2094,30 +2102,36 @@ describe RequestController do
 
         it 'should show advice for the new state' do
           post_status('rejected', info_request)
-          expect(flash[:notice][:partial]).
-            to eq('request/describe_notices/rejected')
+          expect(flash[:notice][:partial]).to eq(
+            'request/describe_notices/rejected'
+          )
         end
 
         it 'should redirect to the unhappy page' do
           post_status('rejected', info_request)
-          expect(response).to redirect_to(help_unhappy_path(info_request.url_title))
+          expect(response).to redirect_to(
+            help_unhappy_path(info_request.url_title)
+          )
         end
 
-        it "knows about extended states" do
-          InfoRequest.send(:require, File.expand_path(File.join(File.dirname(__FILE__), '..', 'models', 'customstates')))
+        it 'knows about extended states' do
+          custom_states = Rails.root.join('spec', 'models', 'customstates')
+          InfoRequest.send(:require, custom_states)
           InfoRequest.send(:include, InfoRequestCustomStates)
           InfoRequest.class_eval('@@custom_states_loaded = true')
-          RequestController.send(:require, File.expand_path(File.join(File.dirname(__FILE__), '..', 'models', 'customstates')))
+          RequestController.send(:require, custom_states)
           RequestController.send(:include, RequestControllerCustomStates)
           RequestController.class_eval('@@custom_states_loaded = true')
-          allow(Time).to receive(:now).and_return(Time.utc(2007, 11, 10, 00, 01))
+          allow(Time).to receive(:now).
+            and_return(Time.utc(2007, 11, 10, 0o0, 0o1))
           post_status('deadline_extended', info_request)
-          expect(flash[:notice]).to eq('Authority has requested extension of the deadline.')
+          expect(flash[:notice]).to eq(
+            'Authority has requested extension of the deadline.'
+          )
         end
       end
 
       describe 'after a successful status update by the request owner' do
-
         render_views
 
         let(:info_request) { FactoryBot.create(:info_request) }
@@ -2128,233 +2142,228 @@ describe RequestController do
 
         def expect_redirect(status, redirect_path)
           post_status(status, info_request)
-          expect(response).
-            to redirect_to("http://" + "test.host/#{redirect_path}".squeeze("/"))
+          expect(response).to redirect_to(
+            'http://' + "test.host/#{redirect_path}".squeeze('/')
+          )
         end
 
         context 'when status is updated to "waiting_response"' do
-
-          it 'should redirect to the "request url" with a message in the right tense when
-              the response is not overdue' do
-            expect_redirect("waiting_response",
-                            show_request_path(info_request.url_title))
-            expect(flash[:notice][:partial]).
-                to eq('request/describe_notices/waiting_response')
+          it 'should redirect to the "request url" with a message in the ' \
+             'right tense when the response is not overdue' do
+            expect_redirect(
+              'waiting_response', show_request_path(info_request.url_title)
+            )
+            expect(flash[:notice][:partial]).to eq(
+              'request/describe_notices/waiting_response'
+            )
           end
 
-          it 'should redirect to the "request url" with a message in the right tense when
-              the response is overdue' do
+          it 'should redirect to the "request url" with a message in the ' \
+             'right tense when the response is overdue' do
             # Create the request with today's date
             info_request
             time_travel_to(info_request.date_response_required_by + 2.days) do
-              expect_redirect('waiting_response',
-                              show_request_path(info_request.url_title))
-              expect(flash[:notice][:partial]).
-                to eq('request/describe_notices/waiting_response_overdue')
+              expect_redirect(
+                'waiting_response', show_request_path(info_request.url_title)
+              )
+              expect(flash[:notice][:partial]).to eq(
+                'request/describe_notices/waiting_response_overdue'
+              )
             end
           end
 
-          it 'should redirect to the "request url" with a message in the right tense when
-              response is very overdue' do
+          it 'should redirect to the "request url" with a message in the ' \
+             'right tense when response is very overdue' do
             # Create the request with today's date
             info_request
             time_travel_to(info_request.date_very_overdue_after + 2.days) do
-              expect_redirect('waiting_response',
-                              help_unhappy_path(info_request.url_title))
-              expect(flash[:notice][:partial]).
-                to eq('request/describe_notices/waiting_response_very_overdue')
+              expect_redirect(
+                'waiting_response', help_unhappy_path(info_request.url_title)
+              )
+              expect(flash[:notice][:partial]).to eq(
+                'request/describe_notices/waiting_response_very_overdue'
+              )
             end
           end
         end
 
         context 'when status is updated to "not held"' do
-
           it 'should redirect to the "request url"' do
-            expect_redirect('not_held',
-                            show_request_path(info_request.url_title))
-            expect(flash[:notice][:partial]).
-                to eq('request/describe_notices/not_held')
+            expect_redirect(
+              'not_held', show_request_path(info_request.url_title)
+            )
+            expect(flash[:notice][:partial]).to eq(
+              'request/describe_notices/not_held'
+            )
           end
-
         end
 
         context 'when status is updated to "successful"' do
-
           it 'should redirect to the "request url"' do
-            expect_redirect('successful',
-                            show_request_path(info_request.url_title))
+            expect_redirect(
+              'successful', show_request_path(info_request.url_title)
+            )
           end
 
           it 'should show a message' do
             post_status('successful', info_request)
-            expect(flash[:notice][:partial]).
-                to eq('request/describe_notices/successful')
+            expect(flash[:notice][:partial]).to eq(
+              'request/describe_notices/successful'
+            )
           end
-
         end
 
         context 'when status is updated to "waiting clarification"' do
-
           context 'when there is a last response' do
-
-            let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
+            let(:info_request) do
+              FactoryBot.create(:info_request_with_incoming)
+            end
 
             it 'should redirect to the "response url"' do
               session[:user_id] = info_request.user_id
               expected_url = new_request_incoming_followup_path(
-                              :request_id => info_request.id,
-                              :incoming_message_id =>
-                                info_request.get_last_public_response.id)
+                request_id: info_request.id,
+                incoming_message_id: info_request.get_last_public_response.id
+              )
               expect_redirect('waiting_clarification', expected_url)
-              expect(flash[:notice][:partial]).
-                to eq('request/describe_notices/waiting_clarification')
+              expect(flash[:notice][:partial]).to eq(
+                'request/describe_notices/waiting_clarification'
+              )
             end
-
           end
 
           context 'when there are no events needing description' do
             it 'should redirect to the "followup no incoming url"' do
               expected_url = new_request_followup_path(
-                              :request_id => info_request.id,
-                              :incoming_message_id => nil)
+                request_id: info_request.id,
+                incoming_message_id: nil
+              )
               expect_redirect('waiting_clarification', expected_url)
             end
           end
-
         end
 
         context 'when status is updated to "rejected"' do
-
           it 'should redirect to the "unhappy url"' do
-            expect_redirect('rejected',
-              help_unhappy_path(info_request.url_title))
-            expect(flash[:notice][:partial]).
-                to eq('request/describe_notices/rejected')
+            expect_redirect(
+              'rejected', help_unhappy_path(info_request.url_title)
+            )
+            expect(flash[:notice][:partial]).to eq(
+              'request/describe_notices/rejected'
+            )
           end
-
         end
 
         context 'when status is updated to "partially successful"' do
-
           it 'should redirect to the "unhappy url"' do
-            expect_redirect('partially_successful',
-                            help_unhappy_path(info_request.url_title))
-            expect(flash[:notice][:partial]).
-                to eq('request/describe_notices/partially_successful')
+            expect_redirect(
+              'partially_successful', help_unhappy_path(info_request.url_title)
+            )
+            expect(flash[:notice][:partial]).to eq(
+              'request/describe_notices/partially_successful'
+            )
           end
-
         end
 
         context 'when status is updated to "gone postal"' do
-
           let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
 
           it 'should redirect to the "respond to last" url' do
             session[:user_id] = info_request.user_id
             expected_url = new_request_incoming_followup_path(
-                            :request_id => info_request.id,
-                            :incoming_message_id =>
-                              info_request.get_last_public_response.id,
-                            :gone_postal => 1)
+              request_id: info_request.id,
+              incoming_message_id: info_request.get_last_public_response.id,
+              gone_postal: 1
+            )
             expect_redirect('gone_postal', expected_url)
           end
-
         end
 
         context 'when status updated to "internal review"' do
-
           it 'should redirect to the "request url"' do
-            expect_redirect('internal_review',
-                            show_request_path(info_request.url_title))
-            expect(flash[:notice][:partial]).
-                to eq('request/describe_notices/internal_review')
+            expect_redirect(
+              'internal_review', show_request_path(info_request.url_title)
+            )
+            expect(flash[:notice][:partial]).to eq(
+              'request/describe_notices/internal_review'
+            )
           end
-
         end
 
         context 'when status is updated to "requires admin"' do
-
           it 'should redirect to the "request url"' do
-            patch :describe_state,
-                  params: {
-                    :incoming_message => {
-                      :described_state => 'requires_admin',
-                      :message => "A message"
-                    },
-                    :id => info_request.id,
-                    :last_info_request_event_id =>
-                      info_request.last_event_id_needing_description
-                  }
-            expect(response)
-              .to redirect_to show_request_url(:url_title => info_request.url_title)
-            expect(flash[:notice][:partial]).
-                to eq('request/describe_notices/requires_admin')
+            patch :describe_state, params: {
+              incoming_message: {
+                described_state: 'requires_admin',
+                message: 'A message'
+              },
+              id: info_request.id,
+              last_info_request_event_id: info_request.
+                last_event_id_needing_description
+            }
+            expect(response).to redirect_to(
+              show_request_url(url_title: info_request.url_title)
+            )
+            expect(flash[:notice][:partial]).to eq(
+              'request/describe_notices/requires_admin'
+            )
           end
-
         end
 
         context 'when status is updated to "error message"' do
-
           it 'should redirect to the "request url"' do
-            patch :describe_state,
-                  params: {
-                    :incoming_message => {
-                      :described_state => 'error_message',
-                      :message => "A message"
-                    },
-                    :id => info_request.id,
-                    :last_info_request_event_id =>
-                      info_request.last_event_id_needing_description
-                  }
-            expect(response)
-              .to redirect_to(
-                    show_request_url(:url_title => info_request.url_title)
-                  )
-            expect(flash[:notice][:partial]).
-                to eq('request/describe_notices/error_message')
+            patch :describe_state, params: {
+              incoming_message: {
+                described_state: 'error_message',
+                message: 'A message'
+              },
+              id: info_request.id,
+              last_info_request_event_id: info_request.
+                last_event_id_needing_description
+            }
+            expect(response).to redirect_to(
+              show_request_url(url_title: info_request.url_title)
+            )
+            expect(flash[:notice][:partial]).to eq(
+              'request/describe_notices/error_message'
+            )
           end
 
           context "if the params don't include a message" do
-
             it 'redirects to the message url' do
-              patch :describe_state,
-                    params: {
-                      :incoming_message => {
-                        :described_state => "error_message"
-                      },
-                      :id => info_request.id,
-                      :incoming_message_id =>
-                        info_request.incoming_messages.last,
-                      :last_info_request_event_id =>
-                        info_request.last_event_id_needing_description
-                    }
+              patch :describe_state, params: {
+                incoming_message: {
+                  described_state: 'error_message'
+                },
+                id: info_request.id,
+                incoming_message_id: info_request.incoming_messages.last,
+                last_info_request_event_id: info_request.
+                  last_event_id_needing_description
+              }
               expected_url = describe_state_message_url(
-                               :url_title => info_request.url_title,
-                               :described_state => 'error_message')
+                url_title: info_request.url_title,
+                described_state: 'error_message'
+              )
               expect(response).to redirect_to(expected_url)
             end
-
           end
-
         end
 
         context 'when status is updated to "user_withdrawn"' do
-
           let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
 
           it 'should redirect to the "respond to last" url' do
             session[:user_id] = info_request.user_id
             expected_url = new_request_incoming_followup_path(
-                            :request_id => info_request.id,
-                            :incoming_message_id =>
-                              info_request.get_last_public_response.id)
+              request_id: info_request.id,
+              incoming_message_id: info_request.get_last_public_response.id
+            )
             expect_redirect('user_withdrawn', expected_url)
-            expect(flash[:notice][:partial]).
-                to eq('request/describe_notices/user_withdrawn')
+            expect(flash[:notice][:partial]).to eq(
+              'request/describe_notices/user_withdrawn'
+            )
           end
-
         end
-
       end
     end
   end
@@ -3000,34 +3009,35 @@ describe RequestController do
 
     it 'assigns the info_request to the view' do
       get :describe_state_message, params: {
-                                     :url_title => info_request.url_title,
-                                     :described_state => 'error_message'
-                                   }
+        url_title: info_request.url_title,
+        described_state: 'error_message'
+      }
       expect(assigns[:info_request]).to eq info_request
     end
 
     it 'assigns the described state to the view' do
       get :describe_state_message, params: {
-                                     :url_title => info_request.url_title,
-                                     :described_state => 'error_message'
-                                   }
+        url_title: info_request.url_title,
+        described_state: 'error_message'
+      }
       expect(assigns[:described_state]).to eq 'error_message'
     end
 
     it 'assigns the last info request event id to the view' do
       get :describe_state_message, params: {
-                                     :url_title => info_request.url_title,
-                                     :described_state => 'error_message'
-                                   }
-      expect(assigns[:last_info_request_event_id])
-        .to eq info_request.last_event_id_needing_description
+        url_title: info_request.url_title,
+        described_state: 'error_message'
+      }
+      expect(assigns[:last_info_request_event_id]).to eq(
+        info_request.last_event_id_needing_description
+      )
     end
 
     it 'assigns the title to the view' do
       get :describe_state_message, params: {
-                                     :url_title => info_request.url_title,
-                                     :described_state => 'error_message'
-                                   }
+        url_title: info_request.url_title,
+        described_state: 'error_message'
+      }
       expect(assigns[:title]).to eq "I've received an error message"
     end
 
@@ -3037,12 +3047,11 @@ describe RequestController do
       it 'raises ActiveRecord::RecordNotFound' do
         expect {
           get :describe_state_message, params: {
-                                         :url_title => info_request.url_title,
-                                         :described_state => 'error_message'
-                                       }
+            url_title: info_request.url_title,
+            described_state: 'error_message'
+          }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
-
     end
   end
 end

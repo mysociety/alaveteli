@@ -10,7 +10,9 @@
   <% end %>
 </p>
 
-<%= form_for :incoming_message, :url => describe_state_url(:id => @info_request.id), :method => :patch do |f| %>
+<%= form_for :incoming_message, 
+             url: describe_state_url(id: @info_request.id), 
+             method: :patch do |f| %>
   <p>
     <label class="form_label" for="incoming_message_message">
       <%= _('Please tell us more:') %>
