@@ -118,9 +118,9 @@ module AlaveteliConfiguration
       :STRIPE_TAX_RATE => '0.20',
       :STRIPE_WEBHOOK_SECRET => '',
       :THEME_BRANCH => false,
-      :THEME_URL => "",
+      :THEME_URL => '',
       :THEME_URLS => [],
-      :TIME_ZONE => "UTC",
+      :TIME_ZONE => 'UTC',
       :TRACK_SENDER_EMAIL => 'contact@localhost',
       :TRACK_SENDER_NAME => 'Alaveteli',
       :TWITTER_USERNAME => '',
@@ -130,7 +130,7 @@ module AlaveteliConfiguration
       :USE_DEFAULT_BROWSER_LANGUAGE => true,
       :USE_GHOSTSCRIPT_COMPRESSION => false,
       :USE_MAILCATCHER_IN_DEVELOPMENT => true,
-      :UTILITY_SEARCH_PATH => ["/usr/bin", "/usr/local/bin"],
+      :UTILITY_SEARCH_PATH => ['/usr/bin', '/usr/local/bin'],
       :WORKING_OR_CALENDAR_DAYS => 'working'
     }
     # rubocop:enable Style/HashSyntax
