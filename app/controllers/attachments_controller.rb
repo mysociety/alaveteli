@@ -3,11 +3,11 @@
 #
 class AttachmentsController < ApplicationController
   include FragmentCachable
+  include InfoRequestHelper
 
   around_action :cache_attachments
 
   before_action :find_info_request, :find_incoming_message, :find_attachment
-  before_action :generate_attachment_url
   before_action :authenticate_attachment
   before_action :authenticate_attachment_as_html, only: :show_as_html
 
@@ -40,7 +40,7 @@ class AttachmentsController < ApplicationController
 
     html = @attachment.body_as_html(
       image_dir,
-      attachment_url: Rack::Utils.escape(@attachment_url),
+      attachment_url: Rack::Utils.escape(attachment_url(@attachment)),
       content_for: {
         head_suffix: render_to_string(
           partial: 'request/view_html_stylesheet',
@@ -152,15 +152,6 @@ class AttachmentsController < ApplicationController
     else
       filename
     end
-  end
-
-  def generate_attachment_url
-    @attachment_url = get_attachment_url(
-      id: @incoming_message.info_request_id,
-      incoming_message_id: @incoming_message.id,
-      part: part_number,
-      file_name: original_filename
-    )
   end
 
   def content_type
