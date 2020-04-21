@@ -11,8 +11,8 @@
 </p>
 
 <%= form_for :incoming_message, 
-             url: describe_state_url(url_title: @info_request.url_title), 
-             method: :patch do |f| %>
+             url: classifications_path(url_title: @info_request.url_title), 
+             method: :post do |f| %>
   <p>
     <label class="form_label" for="incoming_message_message">
       <%= _('Please tell us more:') %>

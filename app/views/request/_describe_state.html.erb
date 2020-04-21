@@ -1,7 +1,8 @@
 <% if @is_owning_user || @old_unclassified %>
   <%= form_for(@info_request,
                as: :incoming_message,
-               url: describe_state_url(url_title: @info_request.url_title),
+               url: classifications_url(url_title: @info_request.url_title),
+               method: :post,
                html: { id: "describe_form_#{id_suffix}" }) do |f| %>
 
     <% if @is_owning_user %>

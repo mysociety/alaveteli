@@ -52,8 +52,10 @@ describe 'classifying a request' do
 
       it 'sends an email including the message' do
         using_session(login(user)) do
-          visit describe_state_message_path(url_title: info_request.url_title,
-                                            described_state: 'requires_admin')
+          visit message_classification_path(
+            url_title: info_request.url_title,
+            described_state: 'requires_admin'
+          )
           fill_in 'Please tell us more:',
                   with: "Okay. I don't quite understand."
           click_button 'Submit status and send message'
