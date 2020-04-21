@@ -12,7 +12,7 @@ RSpec.describe AlaveteliPro::ClassificationsController, type: :controller do
         expect do
           post :create, params: {
             url_title: info_request.url_title,
-            info_request: { described_state: 'successful' }
+            classification: { described_state: 'successful' }
           }
         end.to raise_error(CanCan::AccessDenied)
       end

@@ -18,7 +18,7 @@ RSpec.describe ClassificationsController, type: :controller do
 
       def post_status(status, info_request)
         post :create, params: {
-          incoming_message: {
+          classification: {
             described_state: status
           },
           url_title: info_request.url_title,
@@ -130,7 +130,7 @@ RSpec.describe ClassificationsController, type: :controller do
                'requires admin and one to the requester noting the status ' \
                'change' do
               post :create, params: {
-                incoming_message: {
+                classification: {
                   described_state: 'requires_admin',
                   message: 'a message'
                 },
@@ -157,7 +157,7 @@ RSpec.describe ClassificationsController, type: :controller do
             context "if the params don't include a message" do
               it 'redirects to the message url' do
                 post :create, params: {
-                  incoming_message: {
+                  classification: {
                     described_state: 'requires_admin'
                   },
                   url_title: info_request.url_title,
@@ -302,7 +302,7 @@ RSpec.describe ClassificationsController, type: :controller do
         it 'should not change the status if the request has changed while ' \
            'viewing it' do
           post :create, params: {
-            incoming_message: { described_state: 'rejected' },
+            classification: { described_state: 'rejected' },
             url_title: info_request.url_title,
             last_info_request_event_id: 1
           }
@@ -348,7 +348,7 @@ RSpec.describe ClassificationsController, type: :controller do
         it 'should go to the page asking for more information when ' \
            'classified as requires_admin' do
           post :create, params: {
-            incoming_message: { described_state: 'requires_admin' },
+            classification: { described_state: 'requires_admin' },
             url_title: info_request.url_title,
             incoming_message_id: info_request.incoming_messages.last,
             last_info_request_event_id: info_request.
@@ -367,7 +367,7 @@ RSpec.describe ClassificationsController, type: :controller do
         context 'message is included when classifying as requires_admin' do
           it 'should send an email including the message' do
             post :create, params: {
-              incoming_message: {
+              classification: {
                 described_state: 'requires_admin',
                 message: 'Something weird happened'
               },
@@ -577,7 +577,7 @@ RSpec.describe ClassificationsController, type: :controller do
         context 'when status is updated to "requires admin"' do
           it 'should redirect to the "request url"' do
             post :create, params: {
-              incoming_message: {
+              classification: {
                 described_state: 'requires_admin',
                 message: 'A message'
               },
@@ -597,7 +597,7 @@ RSpec.describe ClassificationsController, type: :controller do
         context 'when status is updated to "error message"' do
           it 'should redirect to the "request url"' do
             post :create, params: {
-              incoming_message: {
+              classification: {
                 described_state: 'error_message',
                 message: 'A message'
               },
@@ -616,7 +616,7 @@ RSpec.describe ClassificationsController, type: :controller do
           context "if the params don't include a message" do
             it 'redirects to the message url' do
               post :create, params: {
-                incoming_message: {
+                classification: {
                   described_state: 'error_message'
                 },
                 url_title: info_request.url_title,

@@ -5,7 +5,7 @@ class AlaveteliPro::ClassificationsController < AlaveteliPro::BaseController
   include Classifiable
 
   def create
-    new_status = info_request_params[:described_state]
+    new_status = classification_params[:described_state]
     @info_request.set_described_state(new_status, current_user)
     flash[:notice] = _('Your request has been updated!')
     redirect_to_info_request
@@ -27,7 +27,7 @@ class AlaveteliPro::ClassificationsController < AlaveteliPro::BaseController
     )
   end
 
-  def info_request_params
-    params.require(:info_request).permit(:described_state)
+  def classification_params
+    params.require(:classification).permit(:described_state)
   end
 end

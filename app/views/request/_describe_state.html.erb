@@ -1,6 +1,5 @@
 <% if @is_owning_user || @old_unclassified %>
-  <%= form_for(@info_request,
-               as: :incoming_message,
+  <%= form_for(:classification,
                url: classifications_url(url_title: @info_request.url_title),
                method: :post,
                html: { id: "describe_form_#{id_suffix}" }) do |f| %>
@@ -20,7 +19,7 @@
     <h3><%= _('This request is still in progress:') %></h3>
     <% @state_transitions[:pending].each do |state, label| %>
       <div>
-        <%= radio_button "incoming_message",
+        <%= radio_button "classification",
                          "described_state",
                          state,
                          :id => state + id_suffix %>
@@ -40,7 +39,7 @@
 
     <% @state_transitions[:complete].each do |state, label| %>
       <div>
-        <%= radio_button "incoming_message",
+        <%= radio_button "classification",
                          "described_state",
                          state,
                          :id => state + id_suffix %>
@@ -57,7 +56,7 @@
 
       <% @state_transitions[:other].each do |state, label| %>
         <div>
-          <%= radio_button "incoming_message",
+          <%= radio_button "classification",
                            "described_state",
                            state,
                            :id => state + id_suffix %>

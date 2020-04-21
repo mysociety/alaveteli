@@ -18,15 +18,14 @@ class ClassificationsController < ApplicationController
     )
   end
 
+  rescue_from ActionController::ParameterMissing do
+    flash[:error] = _('Please choose whether or not you got some of the ' \
+                      'information that you wanted.')
+    redirect_to_info_request
+  end
+
   def create
     set_last_request(@info_request)
-
-    unless params[:incoming_message]
-      flash[:error] = _('Please choose whether or not you got some of the ' \
-                        'information that you wanted.')
-      redirect_to_info_request
-      return
-    end
 
     if params[:last_info_request_event_id].to_i != @info_request.
         last_event_id_needing_description
@@ -37,8 +36,8 @@ class ClassificationsController < ApplicationController
       return
     end
 
-    described_state = params[:incoming_message][:described_state]
-    message = params[:incoming_message][:message]
+    described_state = classification_params[:described_state]
+    message = classification_params[:message]
 
     log_params = {
       user_id: authenticated_user.id,
@@ -150,6 +149,10 @@ class ClassificationsController < ApplicationController
     else
       authorize! :update_request_state, @info_request
     end
+  end
+
+  def classification_params
+    params.require(:classification).permit(:described_state, :message)
   end
 
   def redirect_to_info_request
