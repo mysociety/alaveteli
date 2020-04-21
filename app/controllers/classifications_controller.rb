@@ -4,36 +4,22 @@
 class ClassificationsController < ApplicationController
   include Classifiable
 
-  before_action :check_read_only, only: :create
+  prepend_before_action :check_read_only, only: :create
+
+  rescue_from CanCan::AccessDenied do
+    authenticated_as_user?(
+      @info_request.user,
+      web: _('To classify the response to this FOI request'),
+      email: _('Then you can classify the FOI response you have got from ' \
+               '{{authority_name}}.',
+               authority_name: @info_request.public_body.name),
+      email_subject: _('Classify an FOI response from {{authority_name}}',
+                       authority_name: @info_request.public_body.name)
+    )
+  end
 
   def create
-    @info_request = InfoRequest.not_embargoed.find_by!(
-      url_title: params[:url_title]
-    )
     set_last_request(@info_request)
-
-    # If this is an external request, go to the request page - we don't allow
-    # state change from the front end interface.
-    if @info_request.is_external?
-      redirect_to request_url(@info_request)
-      return
-    end
-
-    # Check authenticated, and parameters set.
-    unless can?(:update_request_state, @info_request)
-      authenticated_as_user?(
-        @info_request.user,
-        web: _('To classify the response to this FOI request'),
-        email: _('Then you can classify the FOI response you have got from ' \
-                 '{{authority_name}}.',
-                 authority_name: @info_request.public_body.name),
-        email_subject: _('Classify an FOI response from {{authority_name}}',
-                         authority_name: @info_request.public_body.name)
-      )
-      # do nothing - as 'authenticated?' has done the redirect to signin page
-      # for us
-      return
-    end
 
     unless params[:incoming_message]
       flash[:error] = _('Please choose whether or not you got some of the ' \
@@ -135,9 +121,6 @@ class ClassificationsController < ApplicationController
   end
 
   def message
-    @info_request = InfoRequest.not_embargoed.find_by!(
-      url_title: params[:url_title]
-    )
     @described_state = params[:described_state]
     @last_info_request_event_id = @info_request.
       last_event_id_needing_description
@@ -149,5 +132,23 @@ class ClassificationsController < ApplicationController
              else
                raise 'Unsupported state'
              end
+  end
+
+  private
+
+  def find_info_request
+    @info_request = InfoRequest.not_embargoed.find_by!(
+      url_title: params[:url_title]
+    )
+  end
+
+  def authorise_info_request
+    # If this is an external request, go to the request page - we don't allow
+    # state change from the front end interface.
+    if @info_request.is_external?
+      redirect_to request_url(@info_request)
+    else
+      authorize! :update_request_state, @info_request
+    end
   end
 end

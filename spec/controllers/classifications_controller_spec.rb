@@ -655,6 +655,10 @@ RSpec.describe ClassificationsController, type: :controller do
   describe 'GET #message' do
     let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
 
+    before do
+      session[:user_id] = info_request.user_id
+    end
+
     it 'assigns the info_request to the view' do
       get :message, params: {
         url_title: info_request.url_title,
