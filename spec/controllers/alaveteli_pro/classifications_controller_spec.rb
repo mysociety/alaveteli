@@ -71,5 +71,72 @@ RSpec.describe AlaveteliPro::ClassificationsController, type: :controller do
         )
       end
     end
+
+    context 'user sets the request as error_message without a message' do
+      include_context 'user can classify request'
+
+      it 'should redirect the add message action' do
+        post_status('error_message')
+        expect(response).to redirect_to(
+          message_alaveteli_pro_classification_path(
+            url_title: info_request.url_title,
+            described_state: 'error_message'
+          )
+        )
+      end
+    end
+
+    context 'user sets the request as error_message with a message' do
+      include_context 'user can classify request'
+
+      it 'should call set_described_state on the request' do
+        expect(info_request).to receive(:set_described_state)
+        post_status('error_message', message: 'A message')
+      end
+
+      it 'should redirect back to the request' do
+        post_status('error_message', message: 'A message')
+        expect(response).to redirect_to(
+          show_alaveteli_pro_request_path(url_title: info_request.url_title)
+        )
+      end
+    end
+
+    context 'user sets the request as requires_admin without a message' do
+      include_context 'user can classify request'
+
+      it 'should redirect the add message action' do
+        post_status('requires_admin')
+        expect(response).to redirect_to(
+          message_alaveteli_pro_classification_path(
+            url_title: info_request.url_title,
+            described_state: 'requires_admin'
+          )
+        )
+      end
+    end
+
+    context 'user sets the request as requires_admin without a message' do
+      include_context 'user can classify request'
+
+      it 'should call set_described_state on the request' do
+        expect(info_request).to receive(:set_described_state)
+        post_status('requires_admin', message: 'A message')
+      end
+
+      it 'should redirect back to the request' do
+        post_status('requires_admin', message: 'A message')
+        expect(response).to redirect_to(
+          show_alaveteli_pro_request_path(url_title: info_request.url_title)
+        )
+      end
+    end
+  end
+
+  describe '#message' do
+    include_examples 'adding classification message action'
+
+    let(:user) { FactoryBot.create(:pro_user) }
+    let(:info_request) { FactoryBot.create(:info_request, user: user) }
   end
 end

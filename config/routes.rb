@@ -712,7 +712,9 @@ Rails.application.routes.draw do
         get :preview, on: :new # /info_request/new/preview
       end
       scope path: 'info_requests/:url_title' do
-        resources :classifications, only: :create
+        resources :classifications, only: :create, param: :described_state do
+          get :message, on: :member
+        end
       end
       resources :embargoes, :only => [:destroy, :create] do
         collection do

@@ -45,20 +45,7 @@ class ClassificationsController < ApplicationController
       described_state: described_state
     }
 
-    # For requires_admin and error_message states we ask for an extra message to
-    # send to the administrators.
-    # If this message hasn't been included then ask for it. If it has, log it.
-    if %w[error_message requires_admin].include?(described_state)
-      if message.nil?
-        redirect_to message_classification_path(
-          url_title: @info_request.url_title,
-          described_state: described_state
-        )
-        return
-      else
-        log_params[:message] = message
-      end
-    end
+    log_params[:message] = message if message
 
     # Make the state change
     event = @info_request.log_event('status_update', log_params)
@@ -119,20 +106,6 @@ class ClassificationsController < ApplicationController
     end
   end
 
-  def message
-    @described_state = params[:described_state]
-    @last_info_request_event_id = @info_request.
-      last_event_id_needing_description
-    @title = case @described_state
-             when 'error_message'
-               _("I've received an error message")
-             when 'requires_admin'
-               _('This request requires administrator attention')
-             else
-               raise 'Unsupported state'
-             end
-  end
-
   private
 
   def find_info_request
@@ -149,10 +122,6 @@ class ClassificationsController < ApplicationController
     else
       authorize! :update_request_state, @info_request
     end
-  end
-
-  def classification_params
-    params.require(:classification).permit(:described_state, :message)
   end
 
   def redirect_to_info_request
