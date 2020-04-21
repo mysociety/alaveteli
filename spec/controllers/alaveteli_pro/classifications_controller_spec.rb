@@ -59,6 +59,17 @@ RSpec.describe AlaveteliPro::ClassificationsController, type: :controller do
     context 'user is allowed to update the request' do
       include_context 'user can classify request'
 
+      it 'should create status_update log' do
+        post_status('successful')
+
+        event = assigns(:status_update_event)
+        expect(event).to be_a InfoRequestEvent
+        expect(event.event_type).to eq 'status_update'
+        expect(event.params[:described_state]).to eq 'successful'
+        expect(event.params[:old_described_state]).to eq 'waiting_response'
+        expect(event.params[:user_id]).to eq info_request.user_id
+      end
+
       it 'should call set_described_state on the request' do
         expect(info_request).to receive(:set_described_state)
         post_status('successful')
@@ -89,6 +100,18 @@ RSpec.describe AlaveteliPro::ClassificationsController, type: :controller do
     context 'user sets the request as error_message with a message' do
       include_context 'user can classify request'
 
+      it 'should create status_update log' do
+        post_status('error_message', message: 'A message')
+
+        event = assigns(:status_update_event)
+        expect(event).to be_a InfoRequestEvent
+        expect(event.event_type).to eq 'status_update'
+        expect(event.params[:described_state]).to eq 'error_message'
+        expect(event.params[:old_described_state]).to eq 'waiting_response'
+        expect(event.params[:message]).to eq 'A message'
+        expect(event.params[:user_id]).to eq info_request.user_id
+      end
+
       it 'should call set_described_state on the request' do
         expect(info_request).to receive(:set_described_state)
         post_status('error_message', message: 'A message')
@@ -118,6 +141,18 @@ RSpec.describe AlaveteliPro::ClassificationsController, type: :controller do
 
     context 'user sets the request as requires_admin without a message' do
       include_context 'user can classify request'
+
+      it 'should create status_update log' do
+        post_status('requires_admin', message: 'A message')
+
+        event = assigns(:status_update_event)
+        expect(event).to be_a InfoRequestEvent
+        expect(event.event_type).to eq 'status_update'
+        expect(event.params[:described_state]).to eq 'requires_admin'
+        expect(event.params[:old_described_state]).to eq 'waiting_response'
+        expect(event.params[:message]).to eq 'A message'
+        expect(event.params[:user_id]).to eq info_request.user_id
+      end
 
       it 'should call set_described_state on the request' do
         expect(info_request).to receive(:set_described_state)

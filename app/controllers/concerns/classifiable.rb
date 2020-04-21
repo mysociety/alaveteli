@@ -69,4 +69,21 @@ module Classifiable
       classification_params[:described_state]
     )
   end
+
+  def set_described_state
+    described_state = classification_params[:described_state]
+    message = classification_params[:message]
+
+    log_params = {
+      user_id: current_user.id,
+      old_described_state: @info_request.described_state,
+      described_state: described_state
+    }
+
+    log_params[:message] = message if message
+
+    # Make the state change
+    @status_update_event = @info_request.log_event('status_update', log_params)
+    @info_request.set_described_state(described_state, current_user, message)
+  end
 end

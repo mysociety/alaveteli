@@ -5,10 +5,7 @@ class AlaveteliPro::ClassificationsController < AlaveteliPro::BaseController
   include Classifiable
 
   def create
-    described_state = classification_params[:described_state]
-    message = classification_params[:message]
-
-    @info_request.set_described_state(described_state, current_user, message)
+    set_described_state
 
     flash[:notice] = _('Your request has been updated!')
     redirect_to_info_request

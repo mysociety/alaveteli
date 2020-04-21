@@ -36,29 +36,17 @@ class ClassificationsController < ApplicationController
       return
     end
 
-    described_state = classification_params[:described_state]
-    message = classification_params[:message]
-
-    log_params = {
-      user_id: authenticated_user.id,
-      old_described_state: @info_request.described_state,
-      described_state: described_state
-    }
-
-    log_params[:message] = message if message
-
-    # Make the state change
-    event = @info_request.log_event('status_update', log_params)
-    @info_request.
-      set_described_state(described_state, authenticated_user, message)
+    set_described_state
 
     # If you're not the *actual* requester. e.g. you are playing the
     # classification game, or you're doing this just because you are an
     # admin user (not because you also own the request).
-    unless @info_request.is_actual_owning_user?(authenticated_user)
+    unless @info_request.is_actual_owning_user?(current_user)
       # Create a classification event for league tables
-      RequestClassification.create!(user_id: authenticated_user.id,
-                                    info_request_event_id: event.id)
+      RequestClassification.create!(
+        user_id: current_user.id,
+        info_request_event_id: @status_update_event.id
+      )
 
       # Don't give advice on what to do next, as it isn't their request
       if session[:request_game]
