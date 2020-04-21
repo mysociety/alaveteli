@@ -24,7 +24,7 @@ class ClassificationsController < ApplicationController
     unless params[:incoming_message]
       flash[:error] = _('Please choose whether or not you got some of the ' \
                         'information that you wanted.')
-      redirect_to request_url(@info_request)
+      redirect_to_info_request
       return
     end
 
@@ -33,7 +33,7 @@ class ClassificationsController < ApplicationController
       flash[:error] = _('The request has been updated since you originally ' \
                         'loaded this page. Please check for any new incoming ' \
                         'messages below, and try again.')
-      redirect_to request_url(@info_request)
+      redirect_to_info_request
       return
     end
 
@@ -84,7 +84,7 @@ class ClassificationsController < ApplicationController
         redirect_to categorise_play_url
       else
         flash[:notice] = _('Thank you for updating this request!')
-        redirect_to request_url(@info_request)
+        redirect_to_info_request
       end
       return
     end
@@ -106,7 +106,7 @@ class ClassificationsController < ApplicationController
     case calculated_status
     when 'waiting_response', 'waiting_response_overdue', 'not_held',
       'successful', 'internal_review', 'error_message', 'requires_admin'
-      redirect_to request_url(@info_request)
+      redirect_to_info_request
     when 'waiting_response_very_overdue', 'rejected', 'partially_successful'
       redirect_to unhappy_url(@info_request)
     when 'waiting_clarification', 'user_withdrawn'
@@ -146,9 +146,13 @@ class ClassificationsController < ApplicationController
     # If this is an external request, go to the request page - we don't allow
     # state change from the front end interface.
     if @info_request.is_external?
-      redirect_to request_url(@info_request)
+      redirect_to_info_request
     else
       authorize! :update_request_state, @info_request
     end
+  end
+
+  def redirect_to_info_request
+    redirect_to request_path(@info_request)
   end
 end

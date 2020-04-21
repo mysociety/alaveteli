@@ -27,4 +27,8 @@ module Classifiable
   def authorise_info_request
     raise NotImplementedError
   end
+
+  def redirect_to_info_request
+    raise NotImplementedError
+  end
 end
