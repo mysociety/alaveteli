@@ -4,5 +4,9 @@
 
     <%= text_field_tag 'share_by_link',
       public_token_url(info_request.public_token, locale: false) %>
+
+    <p class="sidebar__note">
+      <%= _('Anyone with the link will be able to view this request.') %>
+    </p>
   </div>
 <% end %>
