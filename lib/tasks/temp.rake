@@ -5,7 +5,14 @@ namespace :temp do
   task populate_public_token: :environment do
     InfoRequest.where('public_token IS NULL').find_each do |info_request|
       public_token = InfoRequest.public_token_from_id(info_request.id)
-      info_request.update_column(:public_token, public_token)
+
+      begin
+        info_request.update_column(:public_token, public_token)
+        puts "INFO added public_token to InfoRequest #{ info_request.id }"
+      rescue => e
+        warn "ERROR updating InfoRequest #{ info_request.id }"
+        warn e
+      end
     end
   end
 
