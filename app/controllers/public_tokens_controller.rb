@@ -8,8 +8,6 @@ class PublicTokensController < ApplicationController
   before_action :assign_variables_for_show_template
 
   def show
-    headers['X-Robots-Tag'] = 'noindex'
-
     respond_to do |format|
       format.html { render template: 'request/show' }
     end

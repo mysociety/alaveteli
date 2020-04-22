@@ -27,7 +27,6 @@ class AttachmentsController < ApplicationController
         try(:html_safe)
     end
 
-    headers['X-Robots-Tag'] = 'noindex' if public_token
     render body: body, content_type: content_type
   end
 
@@ -54,7 +53,6 @@ class AttachmentsController < ApplicationController
 
     html = @incoming_message.apply_masks(html, response.content_type)
 
-    headers['X-Robots-Tag'] = 'noindex' if public_token
     render html: html.html_safe
   end
 
