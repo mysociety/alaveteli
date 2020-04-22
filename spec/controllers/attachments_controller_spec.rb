@@ -29,6 +29,16 @@ RSpec.describe AttachmentsController, type: :controller do
       expect(assigns(:info_request)).to eq(info_request)
     end
 
+    it 'adds noindex header when using public token' do
+      token = info_request.public_token
+      expect(InfoRequest).to receive(:find_by!).with(public_token: token).
+        and_return(info_request)
+
+      show(public_token: token, id: nil)
+
+      expect(response.headers['X-Robots-Tag']).to eq 'noindex'
+    end
+
     it 'should cache an attachment on a request with normal prominence' do
       expect(@controller).to receive(:foi_fragment_cache_write)
       show
@@ -218,6 +228,16 @@ RSpec.describe AttachmentsController, type: :controller do
       get_html_attachment(public_token: token, id: nil)
 
       expect(assigns(:info_request)).to eq(info_request)
+    end
+
+    it 'adds noindex header when using public token' do
+      token = info_request.public_token
+      expect(InfoRequest).to receive(:find_by!).with(public_token: token).
+        and_return(info_request)
+
+      get_html_attachment(public_token: token, id: nil)
+
+      expect(response.headers['X-Robots-Tag']).to eq 'noindex'
     end
 
     it "should return 404 for ugly URLs containing a request id that isn't an integer" do
