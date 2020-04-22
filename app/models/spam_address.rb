@@ -14,7 +14,7 @@ class SpamAddress < ApplicationRecord
   validates_uniqueness_of :email, :message => 'This address is already marked as spam'
 
   def self.spam?(email_address)
-    exists?(:email => email_address)
+    Array(email_address).any? { |email| exists?(['email ILIKE ?', email]) }
   end
 
 end

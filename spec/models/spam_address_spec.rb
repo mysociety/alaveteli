@@ -37,6 +37,10 @@ describe SpamAddress do
       expect(SpamAddress.spam?(@spam_address.email)).to be true
     end
 
+    it 'is case insensitive' do
+      expect(SpamAddress.spam?(@spam_address.email.swapcase)).to be true
+    end
+
     it 'is not a spam address if the adress is not stored' do
       expect(SpamAddress.spam?('genuine-email@example.com')).to be false
     end
@@ -44,7 +48,7 @@ describe SpamAddress do
     describe 'when accepting an array of emails' do
 
       it 'is spam if any of the emails are stored' do
-        emails = ['genuine-email@example.com', @spam_address.email]
+        emails = ['genuine-email@example.com', @spam_address.email.swapcase]
         expect(SpamAddress.spam?(emails)).to be true
       end
 
