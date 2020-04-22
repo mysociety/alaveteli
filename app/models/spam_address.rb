@@ -10,11 +10,13 @@
 #
 
 class SpamAddress < ApplicationRecord
-  validates_presence_of :email, :message => 'Please enter the email address to mark as spam'
-  validates_uniqueness_of :email, :message => 'This address is already marked as spam'
+  validates_presence_of :email,
+                        message: 'Enter the email address to mark as spam'
+
+  validates_uniqueness_of :email,
+                          message: 'This address is already marked as spam'
 
   def self.spam?(email_address)
     Array(email_address).any? { |email| exists?(['email ILIKE ?', email]) }
   end
-
 end
