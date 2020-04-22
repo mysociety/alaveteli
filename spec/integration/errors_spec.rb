@@ -118,16 +118,25 @@ describe "When errors occur" do
       expect(response.body).to match('Lo sentimos, hubo un problema procesando esta página')
     end
 
-    it "should render a 403 with text body for attempts at directory listing for attachments" do
+    it 'should render a 403 with text body for attempts at directory listing for attachments' do
+      info_request = FactoryBot.create(:info_request_with_incoming_attachments)
+      id = info_request.id
+      prefix = id.to_s[0..2]
+      msg_id = info_request.incoming_messages.first.id
+
       # make a fake cache
-      foi_cache_path = File.expand_path(File.join(File.dirname(__FILE__), '../../cache'))
-      FileUtils.mkdir_p(File.join(foi_cache_path, "views/en/request/101/101/response/1/attach/html/1"))
-      get "/request/101/response/1/attach/html/1/"
-      expect(response.body).to include("Directory listing not allowed")
-      expect(response.code).to eq("403")
-      get "/request/101/response/1/attach/html"
-      expect(response.body).to include("Directory listing not allowed")
-      expect(response.code).to eq("403")
+      cache_key_path = Rails.root.join(
+        "cache/views/request/#{prefix}/#{id}/response/#{msg_id}/attach/0/1"
+      )
+      FileUtils.mkdir_p(cache_key_path)
+
+      get "/request/#{id}/response/#{msg_id}/attach/html/1/"
+      expect(response.body).to include('Directory listing not allowed')
+      expect(response.code).to eq('403')
+
+      get "/request/#{id}/response/#{msg_id}/attach/html"
+      expect(response.body).to include('Directory listing not allowed')
+      expect(response.code).to eq('403')
     end
 
     it "return a 403 for a JSON PermissionDenied error" do
