@@ -45,6 +45,40 @@ RSpec.describe Project, type: :model, feature: :projects do
       expect(project.batches).to all be_a(InfoRequestBatch)
       expect(project.batches.count).to eq 2
     end
+
+    context 'has many info_requests' do
+      let(:project) do
+        FactoryBot.create(:project, requests: [request], batches: [batch])
+      end
+
+      let(:request) { FactoryBot.build(:info_request) }
+      let(:batch) { FactoryBot.build(:info_request_batch, :sent) }
+
+      let!(:other_request) { FactoryBot.create(:info_request) }
+      let!(:other_batch) { FactoryBot.create(:info_request_batch, :sent) }
+
+      subject { project.info_requests }
+
+      it 'returns array of InfoRequest' do
+        is_expected.to all be_an(InfoRequest)
+      end
+
+      it 'includes requests' do
+        is_expected.to include request
+      end
+
+      it 'excludes other requests' do
+        is_expected.not_to include other_request
+      end
+
+      it 'includes batch requests' do
+        is_expected.to include(*batch.info_requests)
+      end
+
+      it 'excludes other batch requests' do
+        is_expected.not_to include(*other_batch.info_requests)
+      end
+    end
   end
 
   describe 'validations' do
@@ -58,40 +92,6 @@ RSpec.describe Project, type: :model, feature: :projects do
     it 'requires owner' do
       project.owner = nil
       is_expected.not_to be_valid
-    end
-  end
-
-  describe '#info_requests' do
-    let(:project) do
-      FactoryBot.create(:project, requests: [request], batches: [batch])
-    end
-
-    let(:request) { FactoryBot.build(:info_request) }
-    let(:batch) { FactoryBot.build(:info_request_batch, :sent) }
-
-    let!(:other_request) { FactoryBot.create(:info_request) }
-    let!(:other_batch) { FactoryBot.create(:info_request_batch, :sent) }
-
-    subject { project.info_requests }
-
-    it 'returns array of InfoRequest' do
-      is_expected.to all be_an(InfoRequest)
-    end
-
-    it 'includes requests' do
-      is_expected.to include request
-    end
-
-    it 'excludes other requests' do
-      is_expected.not_to include other_request
-    end
-
-    it 'includes batch requests' do
-      is_expected.to include(*batch.info_requests)
-    end
-
-    it 'excludes other batch requests' do
-      is_expected.not_to include(*other_batch.info_requests)
     end
   end
 
