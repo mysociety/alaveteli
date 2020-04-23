@@ -69,16 +69,5 @@ RSpec.describe Projects::ProjectsController, spec_meta do
         )
       end
     end
-
-    context 'if the projects feature is disabled' do
-      it 'raises an ActiveRecord::RecordNotFound error' do
-        expect {
-          with_feature_disabled(:projects) do
-            session[:user_id] = project.owner.id
-            get :show, params: { id: project.id }
-          end
-        }.to raise_error(ActiveRecord::RecordNotFound)
-      end
-    end
   end
 end
