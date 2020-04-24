@@ -37,7 +37,12 @@
       <label class="houdini-label" for="input2"><%= _("Change status") %></label>
       <input class="houdini-input" type="checkbox" id="input2">
       <div class="status-picker houdini-target">
-        <%= form_for([:alaveteli_pro, @info_request], html: {class: 'js-status-picker-form'}) do |f| %>
+        <%= form_for(:classification,
+                     url: alaveteli_pro_classifications_path(
+                       url_title: @info_request.url_title
+                     ),
+                     method: :post,
+                     html: { class: 'js-status-picker-form' }) do |f| %>
           <ul class="status-picker__options">
             <% @state_transitions.each do |group, transitions| %>
               <% transitions.each do |state, label| %>
