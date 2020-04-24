@@ -46,10 +46,6 @@ module Classifiable
     raise NotImplementedError
   end
 
-  def redirect_to_info_request
-    raise NotImplementedError
-  end
-
   def classification_params
     params.require(:classification).permit(:described_state, :message)
   end
