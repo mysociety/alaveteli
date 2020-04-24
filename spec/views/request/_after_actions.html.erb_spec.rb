@@ -16,7 +16,7 @@ describe 'when displaying actions that can be taken with regard to a request' do
   end
 
   context 'if @show_owner_update_status_action is true' do
-    before { assign :show_owner_update_status_action, false }
+    before { assign :show_owner_update_status_action, true }
 
     it 'displays a link for the request owner to update the status of the request' do
       render partial: 'request/after_actions'
@@ -41,7 +41,7 @@ describe 'when displaying actions that can be taken with regard to a request' do
   end
 
   context 'if @show_other_user_update_status_action is true' do
-    before { assign :show_other_user_update_status_action, false }
+    before { assign :show_other_user_update_status_action, true }
 
     it 'displays a link for anyone to update the status of the request' do
       render partial: 'request/after_actions'
