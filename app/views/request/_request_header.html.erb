@@ -11,7 +11,9 @@
         <% end %>
 
         <p class="request-header__subtitle <% if show_profile_photo %>request-header__subtitle--narrow<% end %>">
-          <%= render partial: 'request/request_subtitle' %>
+          <%= render partial: 'request/request_subtitle',
+                     locals: { info_request: info_request,
+                               user: user } %>
         </p>
 
         <% unless render_to_file %>
