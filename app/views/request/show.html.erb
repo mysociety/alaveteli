@@ -18,7 +18,16 @@
   </div>
 <% end %>
 
-<%= render partial: 'request/request_header' %>
+<%= render partial: 'request/request_header',
+           locals: { info_request: @info_request,
+                     user: @user,
+                     in_pro_area: @in_pro_area,
+                     track_thing: @track_thing,
+                     show_profile_photo: @show_profile_photo,
+                     new_responses_count: @new_responses_count,
+                     is_owning_user: @is_owning_user,
+                     render_to_file: @render_to_file,
+                     old_unclassified: @old_unclassified } %>
 
 <div id="left_column" class="left_column">
   <% @info_request.info_request_events.each do |info_request_event| %>
