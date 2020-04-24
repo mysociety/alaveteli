@@ -24,6 +24,8 @@
               <%= render partial: 'request/after_actions' %>
               <%= render partial: 'track/tracking_links_simple',
                          locals: { track_thing: track_thing,
+                                   user: user,
+                                   follower_count: follower_count,
                                    own_request: info_request.user && \
                                                 info_request.user == user,
                                    location: 'toolbar' } %>
