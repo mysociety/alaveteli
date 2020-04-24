@@ -6,12 +6,13 @@ describe 'when displaying actions that can be taken with regard to a pro request
   let(:pro_user) { info_request.pro_user }
   let(:admin_user) { FactoryBot.create('admin_user') }
 
-  before do
-    assign :info_request, info_request
+  let(:locals) do
+    { info_request: info_request,
+      last_response: nil }
   end
 
   def render_view
-    render partial: 'alaveteli_pro/info_requests/after_actions'
+    render partial: 'alaveteli_pro/info_requests/after_actions', locals: locals
   end
 
   it 'displays a link to request a review' do
@@ -62,8 +63,10 @@ describe 'when displaying actions that can be taken with regard to a pro request
     let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
 
     before do
-      assign :info_request, info_request
-      assign :last_response, info_request.get_last_public_response
+      locals.merge(
+        info_request: info_request,
+        last_response: info_request.get_last_public_response
+      )
     end
 
     it 'displays a link to reply' do
@@ -75,9 +78,7 @@ describe 'when displaying actions that can be taken with regard to a pro request
   end
 
   context 'when there is no response' do
-    before do
-      assign :last_response, nil
-    end
+    before { locals.merge(last_response: nil) }
 
     it 'should display a link to send a follow up' do
       render_view

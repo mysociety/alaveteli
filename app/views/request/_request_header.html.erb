@@ -19,7 +19,9 @@
         <% unless render_to_file %>
           <div class="request-header__action-bar__actions <% if show_profile_photo %>request-header__action-bar__actions--narrow<% end %>">
             <% if in_pro_area %>
-              <%= render partial: 'alaveteli_pro/info_requests/after_actions' %>
+              <%= render partial: 'alaveteli_pro/info_requests/after_actions',
+                         locals: { info_request: info_request,
+                                   last_response: last_response } %>
             <% else %>
               <%= render partial: 'request/after_actions',
                          locals: { info_request: info_request,

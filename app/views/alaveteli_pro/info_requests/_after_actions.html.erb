@@ -7,24 +7,24 @@
         <li class="action-menu__menu__item">
           <ul class="action-menu__menu__submenu">
             <li>
-              <% if @last_response.nil? %>
-                <%= link_to _("Send a followup"), new_request_followup_path(:request_id => @info_request.id, :anchor => 'followup') %>
+              <% if last_response.nil? %>
+                <%= link_to _("Send a followup"), new_request_followup_path(:request_id => info_request.id, :anchor => 'followup') %>
               <% else %>
-                <%= link_to _("Write a reply"), new_request_incoming_followup_path(:request_id => @info_request.id, :incoming_message_id => @last_response.id, :anchor => 'followup') %>
+                <%= link_to _("Write a reply"), new_request_incoming_followup_path(:request_id => info_request.id, :incoming_message_id => last_response.id, :anchor => 'followup') %>
               <% end %>
             </li>
 
             <li>
-              <%= link_to _("Request an internal review"), new_request_followup_path(:request_id => @info_request.id, :internal_review => '1', :anchor => 'followup') %>
+              <%= link_to _("Request an internal review"), new_request_followup_path(:request_id => info_request.id, :internal_review => '1', :anchor => 'followup') %>
             </li>
 
             <li>
-              <%= link_to _("Download a zip file of all correspondence"), download_entire_request_path(:url_title => @info_request.url_title) %>
+              <%= link_to _("Download a zip file of all correspondence"), download_entire_request_path(:url_title => info_request.url_title) %>
             </li>
 
-            <% if feature_enabled?(:annotations) && @info_request.comments_allowed? %>
+            <% if feature_enabled?(:annotations) && info_request.comments_allowed? %>
               <li>
-                <%= link_to _('Add an annotation'), new_comment_path(:url_title => @info_request.url_title) %>
+                <%= link_to _('Add an annotation'), new_comment_path(:url_title => info_request.url_title) %>
               </li>
             <% end %>
 
