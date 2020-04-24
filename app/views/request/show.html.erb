@@ -28,6 +28,9 @@
                      new_responses_count: @new_responses_count,
                      is_owning_user: @is_owning_user,
                      render_to_file: @render_to_file,
+                     show_owner_update_status_action: @show_owner_update_status_action,
+                     show_other_user_update_status_action: @show_other_user_update_status_action,
+                     last_response: @last_response,
                      old_unclassified: @old_unclassified } %>
 
 <div id="left_column" class="left_column">
@@ -51,7 +54,13 @@
         <% if @in_pro_area %>
           <%= render partial: 'alaveteli_pro/info_requests/after_actions' %>
         <% else %>
-          <%= render partial: 'request/after_actions' %>
+          <%= render partial: 'request/after_actions',
+                     locals: { info_request: @info_request,
+                               track_thing: @track_thing,
+                               show_owner_update_status_action: @show_owner_update_status_action,
+                               show_other_user_update_status_action: @show_other_user_update_status_action,
+                               last_response: @last_response } %>
+
           <%= render partial: 'track/tracking_links_simple',
                      locals: { track_thing: @track_thing,
                                user: @user,
