@@ -42,6 +42,10 @@ class Project < ApplicationRecord
 
   validates :title, :owner, presence: true
 
+  def info_request?(info_request)
+    info_requests.include?(info_request)
+  end
+
   def member?(user)
     members.include?(user)
   end
