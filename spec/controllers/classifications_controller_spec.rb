@@ -16,11 +16,12 @@ RSpec.describe ClassificationsController, type: :controller do
     describe 'when the request is internal' do
       let(:info_request) { FactoryBot.create(:info_request) }
 
-      def post_status(status, info_request)
+      def post_status(status, message: nil)
+        classification = { described_state: status }
+        classification[:message] = message if message
+
         post :create, params: {
-          classification: {
-            described_state: status
-          },
+          classification: classification,
           url_title: info_request.url_title,
           last_info_request_event_id: info_request.
             last_event_id_needing_description
@@ -31,13 +32,13 @@ RSpec.describe ClassificationsController, type: :controller do
         let(:info_request) { FactoryBot.create(:embargoed_request) }
 
         it 'should raise ActiveRecord::NotFound' do
-          expect { post_status('rejected', info_request) }.
+          expect { post_status('rejected') }.
             to raise_error ActiveRecord::RecordNotFound
         end
       end
 
       it 'should require login' do
-        post_status('rejected', info_request)
+        post_status('rejected')
         expect(response).to redirect_to(
           signin_path(token: get_last_post_redirect.token)
         )
@@ -45,7 +46,7 @@ RSpec.describe ClassificationsController, type: :controller do
 
       it 'should not classify the request if logged in as the wrong user' do
         session[:user_id] = FactoryBot.create(:user).id
-        post_status('rejected', info_request)
+        post_status('rejected')
         expect(response).to render_template('user/wrong_user')
       end
 
@@ -53,9 +54,12 @@ RSpec.describe ClassificationsController, type: :controller do
         let(:info_request) { FactoryBot.create(:old_unclassified_request) }
 
         describe 'when the user is not logged in' do
-          it 'should require login' do
+          before do
             session[:user_id] = nil
-            post_status('rejected', info_request)
+          end
+
+          it 'should require login' do
+            post_status('rejected')
             expect(response).to redirect_to(
               signin_path(token: get_last_post_redirect.token)
             )
@@ -70,7 +74,7 @@ RSpec.describe ClassificationsController, type: :controller do
           end
 
           it 'should classify the request' do
-            post_status('rejected', info_request)
+            post_status('rejected')
             expect(info_request.reload.described_state).to eq('rejected')
           end
 
@@ -78,14 +82,14 @@ RSpec.describe ClassificationsController, type: :controller do
             expected_params = { user_id: other_user.id,
                                 old_described_state: 'waiting_response',
                                 described_state: 'rejected' }
-            post_status('rejected', info_request)
+            post_status('rejected')
             last_event = info_request.reload.info_request_events.last
             expect(last_event.params).to eq expected_params
           end
 
           it 'should send an email to the requester letting them know someone
               has updated the status of their request' do
-            post_status('rejected', info_request)
+            post_status('rejected')
             deliveries = ActionMailer::Base.deliveries
             expect(deliveries.size).to eq(1)
             expect(deliveries.first.subject).
@@ -93,14 +97,14 @@ RSpec.describe ClassificationsController, type: :controller do
           end
 
           it 'should redirect to the request page' do
-            post_status('rejected', info_request)
+            post_status('rejected')
             expect(response).to redirect_to(
               show_request_path(info_request.url_title)
             )
           end
 
           it 'should show a message thanking the user for a good deed' do
-            post_status('rejected', info_request)
+            post_status('rejected')
             expect(flash[:notice]).to eq('Thank you for updating this request!')
           end
 
@@ -110,12 +114,12 @@ RSpec.describe ClassificationsController, type: :controller do
             end
 
             it 'should continue the game after classifying a request' do
-              post_status('rejected', info_request)
+              post_status('rejected')
               expect(response).to redirect_to(categorise_play_url)
             end
 
             it 'shows a message thanking the user for a good deed' do
-              post_status('rejected', info_request)
+              post_status('rejected')
               expect(flash[:notice][:partial]).to eq(
                 'request_game/thank_you.html.erb'
               )
@@ -129,17 +133,7 @@ RSpec.describe ClassificationsController, type: :controller do
             it 'should send a mail to admins saying that the response ' \
                'requires admin and one to the requester noting the status ' \
                'change' do
-              post :create, params: {
-                classification: {
-                  described_state: 'requires_admin',
-                  message: 'a message'
-                },
-                url_title: info_request.url_title,
-                incoming_message_id: info_request.incoming_messages.last,
-                last_info_request_event_id: info_request.
-                  last_event_id_needing_description
-              }
-
+              post_status('requires_admin', message: 'a message')
               deliveries = ActionMailer::Base.deliveries
               expect(deliveries.size).to eq(2)
               requires_admin_mail = deliveries.first
@@ -156,20 +150,13 @@ RSpec.describe ClassificationsController, type: :controller do
 
             context "if the params don't include a message" do
               it 'redirects to the message url' do
-                post :create, params: {
-                  classification: {
+                post_status('requires_admin')
+                expect(response).to redirect_to(
+                  message_classification_url(
+                    url_title: info_request.url_title,
                     described_state: 'requires_admin'
-                  },
-                  url_title: info_request.url_title,
-                  incoming_message_id: info_request.incoming_messages.last,
-                  last_info_request_event_id: info_request.
-                    last_event_id_needing_description
-                }
-                expected_url = message_classification_url(
-                  url_title: info_request.url_title,
-                  described_state: 'requires_admin'
+                  )
                 )
-                expect(response).to redirect_to(expected_url)
               end
             end
           end
@@ -186,7 +173,7 @@ RSpec.describe ClassificationsController, type: :controller do
         end
 
         it 'should update the status of the request' do
-          post_status('rejected', info_request)
+          post_status('rejected')
           expect(info_request.reload.described_state).to eq('rejected')
         end
 
@@ -194,13 +181,13 @@ RSpec.describe ClassificationsController, type: :controller do
           expected_params = { user_id: admin_user.id,
                               old_described_state: 'waiting_response',
                               described_state: 'rejected' }
-          post_status('rejected', info_request)
+          post_status('rejected')
           last_event = info_request.reload.info_request_events.last
           expect(last_event.params).to eq expected_params
         end
 
         it 'should record a classification' do
-          post_status('rejected', info_request)
+          post_status('rejected')
           last_event = info_request.reload.info_request_events.last
           classification = RequestClassification.order('created_at DESC').last
           expect(classification.user_id).to eq(admin_user.id)
@@ -213,18 +200,18 @@ RSpec.describe ClassificationsController, type: :controller do
           allow(mail_mock).to receive :deliver_now
           expect(RequestMailer).to receive(:old_unclassified_updated).
             and_return(mail_mock)
-          post_status('rejected', info_request)
+          post_status('rejected')
         end
 
         it 'should redirect to the request page' do
-          post_status('rejected', info_request)
+          post_status('rejected')
           expect(response).to redirect_to(
             show_request_path(info_request.url_title)
           )
         end
 
         it 'should show a message thanking the user for a good deed' do
-          post_status('rejected', info_request)
+          post_status('rejected')
           expect(flash[:notice]).to eq('Thank you for updating this request!')
         end
       end
@@ -241,7 +228,7 @@ RSpec.describe ClassificationsController, type: :controller do
         end
 
         it 'should update the status of the request' do
-          post_status('rejected', info_request)
+          post_status('rejected')
           expect(info_request.reload.described_state).to eq('rejected')
         end
 
@@ -249,7 +236,7 @@ RSpec.describe ClassificationsController, type: :controller do
           expected_params = { user_id: admin_user.id,
                               old_described_state: 'waiting_response',
                               described_state: 'rejected' }
-          post_status('rejected', info_request)
+          post_status('rejected')
           last_event = info_request.reload.info_request_events.last
           expect(last_event.params).to eq expected_params
         end
@@ -257,18 +244,18 @@ RSpec.describe ClassificationsController, type: :controller do
         it 'should not send an email to the requester letting them know ' \
            'someone has updated the status of their request' do
           expect(RequestMailer).not_to receive(:old_unclassified_updated)
-          post_status('rejected', info_request)
+          post_status('rejected')
         end
 
         it 'should show advice for the new state' do
-          post_status('rejected', info_request)
+          post_status('rejected')
           expect(flash[:notice][:partial]).to eq(
             'request/describe_notices/rejected'
           )
         end
 
         it 'should redirect to the unhappy page' do
-          post_status('rejected', info_request)
+          post_status('rejected')
           expect(response).to redirect_to(
             help_unhappy_path(info_request.url_title)
           )
@@ -315,7 +302,7 @@ RSpec.describe ClassificationsController, type: :controller do
         end
 
         it 'should successfully classify response' do
-          post_status('rejected', info_request)
+          post_status('rejected')
           expect(response).to redirect_to(
             help_unhappy_path(info_request.url_title)
           )
@@ -334,7 +321,7 @@ RSpec.describe ClassificationsController, type: :controller do
           expected_params = { user_id: info_request.user_id,
                               old_described_state: 'waiting_response',
                               described_state: 'rejected' }
-          post_status('rejected', info_request)
+          post_status('rejected')
           last_event = info_request.reload.info_request_events.last
           expect(last_event.params).to eq expected_params
         end
@@ -342,18 +329,12 @@ RSpec.describe ClassificationsController, type: :controller do
         it 'should not send an email to the requester letting them know someone
             has updated the status of their request' do
           expect(RequestMailer).not_to receive(:old_unclassified_updated)
-          post_status('rejected', info_request)
+          post_status('rejected')
         end
 
         it 'should go to the page asking for more information when ' \
            'classified as requires_admin' do
-          post :create, params: {
-            classification: { described_state: 'requires_admin' },
-            url_title: info_request.url_title,
-            incoming_message_id: info_request.incoming_messages.last,
-            last_info_request_event_id: info_request.
-              last_event_id_needing_description
-          }
+          post_status('requires_admin')
           expect(response).to redirect_to(
             message_classification_url(url_title: info_request.url_title,
                                        described_state: 'requires_admin')
@@ -366,16 +347,7 @@ RSpec.describe ClassificationsController, type: :controller do
 
         context 'message is included when classifying as requires_admin' do
           it 'should send an email including the message' do
-            post :create, params: {
-              classification: {
-                described_state: 'requires_admin',
-                message: 'Something weird happened'
-              },
-              url_title: info_request.url_title,
-              last_info_request_event_id: info_request.
-                last_event_id_needing_description
-            }
-
+            post_status('requires_admin', message: 'Something weird happened')
             deliveries = ActionMailer::Base.deliveries
             expect(deliveries.size).to eq(1)
             mail = deliveries[0]
@@ -385,14 +357,14 @@ RSpec.describe ClassificationsController, type: :controller do
         end
 
         it 'should show advice for the new state' do
-          post_status('rejected', info_request)
+          post_status('rejected')
           expect(flash[:notice][:partial]).to eq(
             'request/describe_notices/rejected'
           )
         end
 
         it 'should redirect to the unhappy page' do
-          post_status('rejected', info_request)
+          post_status('rejected')
           expect(response).to redirect_to(
             help_unhappy_path(info_request.url_title)
           )
@@ -408,7 +380,7 @@ RSpec.describe ClassificationsController, type: :controller do
           described_class.class_eval('@@custom_states_loaded = true')
           allow(Time).to receive(:now).
             and_return(Time.utc(2007, 11, 10, 0o0, 0o1))
-          post_status('deadline_extended', info_request)
+          post_status('deadline_extended')
           expect(flash[:notice]).to eq(
             'Authority has requested extension of the deadline.'
           )
@@ -424,58 +396,69 @@ RSpec.describe ClassificationsController, type: :controller do
           session[:user_id] = info_request.user_id
         end
 
-        def expect_redirect(status, redirect_path)
-          post_status(status, info_request)
-          expect(response).to redirect_to(
-            'http://' + "test.host/#{redirect_path}".squeeze('/')
-          )
-        end
-
         context 'when status is updated to "waiting_response"' do
-          it 'should redirect to the "request url" with a message in the ' \
-             'right tense when the response is not overdue' do
-            expect_redirect(
-              'waiting_response', show_request_path(info_request.url_title)
+          it 'should redirect to the "request url"' do
+            post_status('waiting_response')
+            expect(response).to redirect_to(
+              show_request_path(info_request.url_title)
             )
+          end
+
+          it 'should show a message' do
+            post_status('waiting_response')
             expect(flash[:notice][:partial]).to eq(
               'request/describe_notices/waiting_response'
             )
           end
+        end
 
-          it 'should redirect to the "request url" with a message in the ' \
-             'right tense when the response is overdue' do
-            # Create the request with today's date
-            info_request
-            time_travel_to(info_request.date_response_required_by + 2.days) do
-              expect_redirect(
-                'waiting_response', show_request_path(info_request.url_title)
-              )
-              expect(flash[:notice][:partial]).to eq(
-                'request/describe_notices/waiting_response_overdue'
-              )
-            end
+        context 'when status is updated to "waiting_response" and overdue' do
+          let(:info_request) { FactoryBot.create(:overdue_request) }
+
+          it 'should redirect to the "request url"' do
+            post_status('waiting_response')
+            expect(response).to redirect_to(
+              show_request_path(info_request.url_title)
+            )
           end
 
-          it 'should redirect to the "request url" with a message in the ' \
-             'right tense when response is very overdue' do
-            # Create the request with today's date
-            info_request
-            time_travel_to(info_request.date_very_overdue_after + 2.days) do
-              expect_redirect(
-                'waiting_response', help_unhappy_path(info_request.url_title)
-              )
-              expect(flash[:notice][:partial]).to eq(
-                'request/describe_notices/waiting_response_very_overdue'
-              )
-            end
+          it 'should show a message' do
+            post_status('waiting_response')
+            expect(flash[:notice][:partial]).to eq(
+              'request/describe_notices/waiting_response_overdue'
+            )
+          end
+        end
+
+        context 'when status is updated to "waiting_response" and very ' \
+                'overdue' do
+          let(:info_request) { FactoryBot.create(:very_overdue_request) }
+
+          it 'should redirect to the "request url"' do
+            post_status('waiting_response')
+            expect(response).to redirect_to(
+              help_unhappy_path(info_request.url_title)
+            )
+          end
+
+          it 'should show a message' do
+            post_status('waiting_response')
+            expect(flash[:notice][:partial]).to eq(
+              'request/describe_notices/waiting_response_very_overdue'
+            )
           end
         end
 
         context 'when status is updated to "not held"' do
           it 'should redirect to the "request url"' do
-            expect_redirect(
-              'not_held', show_request_path(info_request.url_title)
+            post_status('not_held')
+            expect(response).to redirect_to(
+              show_request_path(info_request.url_title)
             )
+          end
+
+          it 'should show a message' do
+            post_status('not_held')
             expect(flash[:notice][:partial]).to eq(
               'request/describe_notices/not_held'
             )
@@ -484,13 +467,14 @@ RSpec.describe ClassificationsController, type: :controller do
 
         context 'when status is updated to "successful"' do
           it 'should redirect to the "request url"' do
-            expect_redirect(
-              'successful', show_request_path(info_request.url_title)
+            post_status('successful')
+            expect(response).to redirect_to(
+              show_request_path(info_request.url_title)
             )
           end
 
           it 'should show a message' do
-            post_status('successful', info_request)
+            post_status('successful')
             expect(flash[:notice][:partial]).to eq(
               'request/describe_notices/successful'
             )
@@ -504,12 +488,17 @@ RSpec.describe ClassificationsController, type: :controller do
             end
 
             it 'should redirect to the "response url"' do
-              session[:user_id] = info_request.user_id
-              expected_url = new_request_incoming_followup_path(
-                request_id: info_request.id,
-                incoming_message_id: info_request.get_last_public_response.id
+              post_status('waiting_clarification')
+              expect(response).to redirect_to(
+                new_request_incoming_followup_path(
+                  request_id: info_request.id,
+                  incoming_message_id: info_request.get_last_public_response.id
+                )
               )
-              expect_redirect('waiting_clarification', expected_url)
+            end
+
+            it 'should show a message' do
+              post_status('waiting_clarification')
               expect(flash[:notice][:partial]).to eq(
                 'request/describe_notices/waiting_clarification'
               )
@@ -518,20 +507,34 @@ RSpec.describe ClassificationsController, type: :controller do
 
           context 'when there are no events needing description' do
             it 'should redirect to the "followup no incoming url"' do
-              expected_url = new_request_followup_path(
-                request_id: info_request.id,
-                incoming_message_id: nil
+              post_status('waiting_clarification')
+              expect(response).to redirect_to(
+                new_request_followup_path(
+                  request_id: info_request.id,
+                  incoming_message_id: nil
+                )
               )
-              expect_redirect('waiting_clarification', expected_url)
+            end
+
+            it 'should show a message' do
+              post_status('waiting_clarification')
+              expect(flash[:notice][:partial]).to eq(
+                'request/describe_notices/waiting_clarification'
+              )
             end
           end
         end
 
         context 'when status is updated to "rejected"' do
           it 'should redirect to the "unhappy url"' do
-            expect_redirect(
-              'rejected', help_unhappy_path(info_request.url_title)
+            post_status('rejected')
+            expect(response).to redirect_to(
+              help_unhappy_path(info_request.url_title)
             )
+          end
+
+          it 'should show a message' do
+            post_status('rejected')
             expect(flash[:notice][:partial]).to eq(
               'request/describe_notices/rejected'
             )
@@ -540,9 +543,14 @@ RSpec.describe ClassificationsController, type: :controller do
 
         context 'when status is updated to "partially successful"' do
           it 'should redirect to the "unhappy url"' do
-            expect_redirect(
-              'partially_successful', help_unhappy_path(info_request.url_title)
+            post_status('partially_successful')
+            expect(response).to redirect_to(
+              help_unhappy_path(info_request.url_title)
             )
+          end
+
+          it 'should show a message' do
+            post_status('partially_successful')
             expect(flash[:notice][:partial]).to eq(
               'request/describe_notices/partially_successful'
             )
@@ -553,21 +561,32 @@ RSpec.describe ClassificationsController, type: :controller do
           let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
 
           it 'should redirect to the "respond to last" url' do
-            session[:user_id] = info_request.user_id
-            expected_url = new_request_incoming_followup_path(
-              request_id: info_request.id,
-              incoming_message_id: info_request.get_last_public_response.id,
-              gone_postal: 1
+            post_status('gone_postal')
+            expect(response).to redirect_to(
+              new_request_incoming_followup_path(
+                request_id: info_request.id,
+                incoming_message_id: info_request.get_last_public_response.id,
+                gone_postal: 1
+              )
             )
-            expect_redirect('gone_postal', expected_url)
+          end
+
+          it 'should not show a message' do
+            post_status('gone_postal')
+            expect(flash[:notice]).to be_nil
           end
         end
 
         context 'when status updated to "internal review"' do
           it 'should redirect to the "request url"' do
-            expect_redirect(
-              'internal_review', show_request_path(info_request.url_title)
+            post_status('internal_review')
+            expect(response).to redirect_to(
+              show_request_path(info_request.url_title)
             )
+          end
+
+          it 'should show a message' do
+            post_status('internal_review')
             expect(flash[:notice][:partial]).to eq(
               'request/describe_notices/internal_review'
             )
@@ -576,59 +595,66 @@ RSpec.describe ClassificationsController, type: :controller do
 
         context 'when status is updated to "requires admin"' do
           it 'should redirect to the "request url"' do
-            post :create, params: {
-              classification: {
-                described_state: 'requires_admin',
-                message: 'A message'
-              },
-              url_title: info_request.url_title,
-              last_info_request_event_id: info_request.
-                last_event_id_needing_description
-            }
+            post_status('requires_admin', message: 'A message')
             expect(response).to redirect_to(
               show_request_url(url_title: info_request.url_title)
             )
+          end
+
+          it 'should show a message' do
+            post_status('requires_admin', message: 'A message')
             expect(flash[:notice][:partial]).to eq(
               'request/describe_notices/requires_admin'
             )
+          end
+
+          context "if the params don't include a message" do
+            it 'redirects to the classification message action' do
+              post_status('requires_admin')
+              expect(response).to redirect_to(
+                message_classification_url(
+                  url_title: info_request.url_title,
+                  described_state: 'requires_admin'
+                )
+              )
+            end
+
+            it 'should not show a message' do
+              post_status('gone_postal')
+              expect(flash[:notice]).to be_nil
+            end
           end
         end
 
         context 'when status is updated to "error message"' do
           it 'should redirect to the "request url"' do
-            post :create, params: {
-              classification: {
-                described_state: 'error_message',
-                message: 'A message'
-              },
-              url_title: info_request.url_title,
-              last_info_request_event_id: info_request.
-                last_event_id_needing_description
-            }
+            post_status('error_message', message: 'A message')
             expect(response).to redirect_to(
               show_request_url(url_title: info_request.url_title)
             )
+          end
+
+          it 'should show a message' do
+            post_status('error_message', message: 'A message')
             expect(flash[:notice][:partial]).to eq(
               'request/describe_notices/error_message'
             )
           end
 
           context "if the params don't include a message" do
-            it 'redirects to the message url' do
-              post :create, params: {
-                classification: {
+            it 'redirects to the classification message action' do
+              post_status('error_message')
+              expect(response).to redirect_to(
+                message_classification_url(
+                  url_title: info_request.url_title,
                   described_state: 'error_message'
-                },
-                url_title: info_request.url_title,
-                incoming_message_id: info_request.incoming_messages.last,
-                last_info_request_event_id: info_request.
-                  last_event_id_needing_description
-              }
-              expected_url = message_classification_url(
-                url_title: info_request.url_title,
-                described_state: 'error_message'
+                )
               )
-              expect(response).to redirect_to(expected_url)
+            end
+
+            it 'should not show a message' do
+              post_status('gone_postal')
+              expect(flash[:notice]).to be_nil
             end
           end
         end
@@ -637,12 +663,17 @@ RSpec.describe ClassificationsController, type: :controller do
           let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
 
           it 'should redirect to the "respond to last" url' do
-            session[:user_id] = info_request.user_id
-            expected_url = new_request_incoming_followup_path(
-              request_id: info_request.id,
-              incoming_message_id: info_request.get_last_public_response.id
+            post_status('user_withdrawn')
+            expect(response).to redirect_to(
+              new_request_incoming_followup_path(
+                request_id: info_request.id,
+                incoming_message_id: info_request.get_last_public_response.id
+              )
             )
-            expect_redirect('user_withdrawn', expected_url)
+          end
+
+          it 'should show a message' do
+            post_status('user_withdrawn')
             expect(flash[:notice][:partial]).to eq(
               'request/describe_notices/user_withdrawn'
             )
@@ -653,27 +684,9 @@ RSpec.describe ClassificationsController, type: :controller do
   end
 
   describe 'GET #message' do
+    include_examples 'adding classification message action'
+
     let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
-
-    before do
-      session[:user_id] = info_request.user_id
-    end
-
-    it 'assigns the info_request to the view' do
-      get :message, params: {
-        url_title: info_request.url_title,
-        described_state: 'error_message'
-      }
-      expect(assigns[:info_request]).to eq info_request
-    end
-
-    it 'assigns the described state to the view' do
-      get :message, params: {
-        url_title: info_request.url_title,
-        described_state: 'error_message'
-      }
-      expect(assigns[:described_state]).to eq 'error_message'
-    end
 
     it 'assigns the last info request event id to the view' do
       get :message, params: {
@@ -683,14 +696,6 @@ RSpec.describe ClassificationsController, type: :controller do
       expect(assigns[:last_info_request_event_id]).to eq(
         info_request.last_event_id_needing_description
       )
-    end
-
-    it 'assigns the title to the view' do
-      get :message, params: {
-        url_title: info_request.url_title,
-        described_state: 'error_message'
-      }
-      expect(assigns[:title]).to eq "I've received an error message"
     end
 
     context 'when the request is embargoed' do

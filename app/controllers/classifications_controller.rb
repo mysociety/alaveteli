@@ -36,42 +36,17 @@ class ClassificationsController < ApplicationController
       return
     end
 
-    described_state = classification_params[:described_state]
-    message = classification_params[:message]
-
-    log_params = {
-      user_id: authenticated_user.id,
-      old_described_state: @info_request.described_state,
-      described_state: described_state
-    }
-
-    # For requires_admin and error_message states we ask for an extra message to
-    # send to the administrators.
-    # If this message hasn't been included then ask for it. If it has, log it.
-    if %w[error_message requires_admin].include?(described_state)
-      if message.nil?
-        redirect_to message_classification_path(
-          url_title: @info_request.url_title,
-          described_state: described_state
-        )
-        return
-      else
-        log_params[:message] = message
-      end
-    end
-
-    # Make the state change
-    event = @info_request.log_event('status_update', log_params)
-    @info_request.
-      set_described_state(described_state, authenticated_user, message)
+    set_described_state
 
     # If you're not the *actual* requester. e.g. you are playing the
     # classification game, or you're doing this just because you are an
     # admin user (not because you also own the request).
-    unless @info_request.is_actual_owning_user?(authenticated_user)
+    unless @info_request.is_actual_owning_user?(current_user)
       # Create a classification event for league tables
-      RequestClassification.create!(user_id: authenticated_user.id,
-                                    info_request_event_id: event.id)
+      RequestClassification.create!(
+        user_id: current_user.id,
+        info_request_event_id: @status_update_event.id
+      )
 
       # Don't give advice on what to do next, as it isn't their request
       if session[:request_game]
@@ -119,20 +94,6 @@ class ClassificationsController < ApplicationController
     end
   end
 
-  def message
-    @described_state = params[:described_state]
-    @last_info_request_event_id = @info_request.
-      last_event_id_needing_description
-    @title = case @described_state
-             when 'error_message'
-               _("I've received an error message")
-             when 'requires_admin'
-               _('This request requires administrator attention')
-             else
-               raise 'Unsupported state'
-             end
-  end
-
   private
 
   def find_info_request
@@ -149,10 +110,6 @@ class ClassificationsController < ApplicationController
     else
       authorize! :update_request_state, @info_request
     end
-  end
-
-  def classification_params
-    params.require(:classification).permit(:described_state, :message)
   end
 
   def redirect_to_info_request

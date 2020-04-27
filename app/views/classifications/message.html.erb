@@ -10,9 +10,7 @@
   <% end %>
 </p>
 
-<%= form_for :classification,
-             url: classifications_path(url_title: @info_request.url_title),
-             method: :post do |f| %>
+<%= form_for :classification, url: url_for(action: :create) do |f| %>
   <p>
     <label class="form_label" for="classification_message">
       <%= _('Please tell us more:') %>
