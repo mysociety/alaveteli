@@ -45,6 +45,40 @@ RSpec.describe Project, type: :model, feature: :projects do
       expect(project.batches).to all be_a(InfoRequestBatch)
       expect(project.batches.count).to eq 2
     end
+
+    context 'has many info_requests' do
+      let(:project) do
+        FactoryBot.create(:project, requests: [request], batches: [batch])
+      end
+
+      let(:request) { FactoryBot.build(:info_request) }
+      let(:batch) { FactoryBot.build(:info_request_batch, :sent) }
+
+      let!(:other_request) { FactoryBot.create(:info_request) }
+      let!(:other_batch) { FactoryBot.create(:info_request_batch, :sent) }
+
+      subject { project.info_requests }
+
+      it 'returns array of InfoRequest' do
+        is_expected.to all be_an(InfoRequest)
+      end
+
+      it 'includes requests' do
+        is_expected.to include request
+      end
+
+      it 'excludes other requests' do
+        is_expected.not_to include other_request
+      end
+
+      it 'includes batch requests' do
+        is_expected.to include(*batch.info_requests)
+      end
+
+      it 'excludes other batch requests' do
+        is_expected.not_to include(*other_batch.info_requests)
+      end
+    end
   end
 
   describe 'validations' do
@@ -61,37 +95,32 @@ RSpec.describe Project, type: :model, feature: :projects do
     end
   end
 
-  describe '#info_requests' do
+  describe '#member?' do
+    subject { project.member?(user) }
+
+    let(:owner) { FactoryBot.create(:user) }
+    let(:contributor) { FactoryBot.create(:user) }
+    let(:non_member) { FactoryBot.create(:user) }
+
     let(:project) do
-      FactoryBot.create(:project, requests: [request], batches: [batch])
+      project = FactoryBot.create(:project, owner: owner)
+      project.contributors << contributor
+      project
     end
 
-    let(:request) { FactoryBot.build(:info_request) }
-    let(:batch) { FactoryBot.build(:info_request_batch, :sent) }
-
-    let!(:other_request) { FactoryBot.create(:info_request) }
-    let!(:other_batch) { FactoryBot.create(:info_request_batch, :sent) }
-
-    subject { project.info_requests }
-
-    it 'returns array of InfoRequest' do
-      is_expected.to all be_an(InfoRequest)
+    context 'given an owner' do
+      let(:user) { owner }
+      it { is_expected.to eq(true) }
     end
 
-    it 'includes requests' do
-      is_expected.to include request
+    context 'given a contributor' do
+      let(:user) { contributor }
+      it { is_expected.to eq(true) }
     end
 
-    it 'excludes other requests' do
-      is_expected.not_to include other_request
-    end
-
-    it 'includes batch requests' do
-      is_expected.to include(*batch.info_requests)
-    end
-
-    it 'excludes other batch requests' do
-      is_expected.not_to include(*other_batch.info_requests)
+    context 'given a non-member' do
+      let(:user) { non_member }
+      it { is_expected.to eq(false) }
     end
   end
 end

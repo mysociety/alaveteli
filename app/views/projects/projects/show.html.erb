@@ -1,0 +1,21 @@
+<h1><%= @project.title %></h1>
+
+<div>
+  <%= sanitize @project.briefing %>
+</div>
+
+<aside>
+  <h1><%= @project.owner.name %></h1>
+
+  <% if @project.owner.show_profile_photo? %>
+    <%= image_tag get_profile_photo_url(url_name: @project.owner.url_name) %>
+  <% end %>
+
+  <p><%= @project.owner.about_me %></p>
+
+  <div>
+    <%= link_to contact_user_path(url_name: @project.owner.url_name) do %>
+      <%= _('Contact {{recipient}}', recipient: @project.owner.name) %>
+    <% end %>
+  </div>
+</aside>

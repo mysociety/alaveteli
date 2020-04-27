@@ -3,6 +3,8 @@ class Ability
   include CanCan::Ability
   include AlaveteliFeatures::Helpers
 
+  attr_reader :user
+
   def initialize(user)
     # Define abilities for the passed in user here. For example:
     #
@@ -31,21 +33,21 @@ class Ability
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
 
+    @user = user
+
     # Updating request status
     can :update_request_state, InfoRequest do |request|
-      self.class.can_update_request_state?(user, request)
+      can_update_request_state?(request)
     end
 
     # Viewing messages with prominence
     can :read, [IncomingMessage, OutgoingMessage] do |msg|
-      self.class.can_view_with_prominence?(msg.prominence,
-                                           msg.info_request,
-                                           user)
+      can_view_with_prominence?(msg.prominence, msg.info_request)
     end
 
     # Viewing requests with prominence
     can :read, InfoRequest do |request|
-      self.class.can_view_with_prominence?(request.prominence, request, user)
+      can_view_with_prominence?(request.prominence, request)
     end
 
     # Viewing batch requests
@@ -68,7 +70,7 @@ class Ability
         user && (user.is_pro_admin? ||
                  (user == batch_request.user && user.is_pro?))
       else
-        user && self.class.requester_or_admin?(user, batch_request)
+        user && requester_or_admin?(batch_request)
       end
     end
 
@@ -77,7 +79,7 @@ class Ability
       if batch_request.embargo_duration
         user && (user == batch_request.user || user.is_pro_admin?)
       else
-        user && self.class.requester_or_admin?(user, batch_request)
+        user && requester_or_admin?(batch_request)
       end
     end
 
@@ -150,19 +152,24 @@ class Ability
       end
     end
 
+    if feature_enabled? :projects
+      can :read, Project do |project|
+        user && (user.is_pro_admin? || project.member?(user))
+      end
+    end
   end
 
   private
 
-  def self.can_update_request_state?(user, request)
+  def can_update_request_state?(request)
     (user && request.is_old_unclassified?) || request.is_owning_user?(user)
   end
 
-  def self.requester_or_admin?(user, request)
+  def requester_or_admin?(request)
     user == request.user || user.is_admin?
   end
 
-  def self.can_view_with_prominence?(prominence, info_request, user)
+  def can_view_with_prominence?(prominence, info_request)
     if info_request.embargo
       case prominence
       when 'hidden'

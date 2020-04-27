@@ -623,7 +623,7 @@ describe InfoRequestHelper do
       it 'returns the path to the attachment with a cookie cookie_passthrough
           param' do
 
-        expect(attachment_path(incoming_message, jpeg_attachment)).
+        expect(attachment_path(jpeg_attachment)).
           to eq("/request/#{incoming_message.info_request_id}" \
                 "/response/#{incoming_message.id}/" \
                 "attach/#{jpeg_attachment.url_part_number}" \
@@ -635,8 +635,7 @@ describe InfoRequestHelper do
     context 'when given an html format option' do
 
       it 'returns the path to the HTML version of the attachment' do
-        expect(attachment_path(incoming_message,
-                               jpeg_attachment,
+        expect(attachment_path(jpeg_attachment,
                                :html => true)).
           to eq("/request/#{incoming_message.info_request_id}" \
                 "/response/#{incoming_message.id}" \

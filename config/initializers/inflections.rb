@@ -9,8 +9,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
 #   inflect.singular /^(ox)en/i, '\1'
 #   inflect.irregular 'person', 'people'
 #   inflect.uncountable %w( fish sheep )
-  inflect.plural /^(embargo)$/i, '\1es'
-  inflect.singular /^(embargo)es/i, '\1'
+  inflect.irregular 'embargo', 'embargoes'
 end
 
 # These inflection rules are supported but not enabled by default:

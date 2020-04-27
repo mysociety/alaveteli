@@ -52,8 +52,10 @@ describe 'classifying a request' do
 
       it 'sends an email including the message' do
         using_session(login(user)) do
-          visit describe_state_message_path(url_title: info_request.url_title,
-                                            described_state: 'requires_admin')
+          visit message_classification_path(
+            url_title: info_request.url_title,
+            described_state: 'requires_admin'
+          )
           fill_in 'Please tell us more:',
                   with: "Okay. I don't quite understand."
           click_button 'Submit status and send message'
@@ -79,7 +81,7 @@ describe 'classifying a request' do
         classify_request(info_request, classification)
 
         # fill in form on the next page to supply more info about the error
-        fill_in 'incoming_message_message', with: 'test data'
+        fill_in 'classification_message', with: 'test data'
         click_button('Submit status and send message')
 
         message = "Thank you! We'll look into what happened " \
@@ -94,7 +96,7 @@ describe 'classifying a request' do
         classify_request(info_request, classification)
 
         # fill in form on the next page to supply more info about the error
-        fill_in 'incoming_message_message', with: 'test data'
+        fill_in 'classification_message', with: 'test data'
         click_button('Submit status and send message')
 
         last_event = info_request.reload.last_event
@@ -189,7 +191,7 @@ describe 'classifying a request' do
         classify_request(info_request, classification)
 
         # fill in form on the next page to supply more info about the error
-        fill_in 'incoming_message_message', with: 'test data'
+        fill_in 'classification_message', with: 'test data'
         click_button('Submit status and send message')
 
         message = "Thank you! We'll look into what happened and try " \
@@ -204,7 +206,7 @@ describe 'classifying a request' do
         classify_request(info_request, classification)
 
         # fill in form on the next page to supply more info about the error
-        fill_in 'incoming_message_message', with: 'test data'
+        fill_in 'classification_message', with: 'test data'
         click_button('Submit status and send message')
 
         last_event = info_request.reload.last_event

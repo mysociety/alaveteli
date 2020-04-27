@@ -7,9 +7,7 @@ module FragmentCachable
   # URL using the first three digits of the info request id, because we can't
   # have more than 32,000 entries in one directory on an ext3 filesystem.
   def foi_fragment_cache_part_path(param)
-    param = param.permit(:incoming_message_id, :part, :file_name, :id,
-                         :only_path, :locale, :skip_cache)
-    path = url_for(param)
+    path = url_for(param.merge(only_path: true))
     id = param['id'] || param[:id]
     first_three_digits = id.to_s[0..2]
     path = path.sub("/request/", "/request/" + first_three_digits + "/")
