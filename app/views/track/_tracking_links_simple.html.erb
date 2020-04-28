@@ -1,6 +1,6 @@
 <%
   existing_track = local_assigns.fetch(:existing_track) do
-    TrackThing.find_existing(@user, track_thing) if @user
+    TrackThing.find_existing(user, track_thing) if user
   end
 %>
 <% if !own_request %>
@@ -17,8 +17,8 @@
     <div class="action-bar__follower-count">
       <%= n_("{{count}} follower",
              "{{count}} followers",
-             @follower_count,
-             :count => content_tag(:span, @follower_count, :id => "follow_count")) %>
+             follower_count,
+             :count => content_tag(:span, follower_count, :id => "follow_count")) %>
     </div>
   </div>
 <% end %>
