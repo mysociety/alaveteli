@@ -1,0 +1,122 @@
+.projects-nav {
+  @include grid-column($columns:12);
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  margin: 2em 0 -1em;
+}
+
+.projects-nav__menu {
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    position: relative;
+    top: -3px;
+  }
+}
+
+.projects-nav__title {
+ h1 {
+   font-size: 1rem;
+   margin-top: 0;
+ }
+}
+
+.project-body {
+  @include grid-column($columns:12);
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    @include grid-column($columns:8);
+      @include ie8 {
+        padding-right: 0.9375em;
+      }
+      @include lte-ie7 {
+        width: 36.813em;
+      }
+  }
+}
+
+.project-aside {
+  @include grid-column($columns:12);
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    @include grid-column($columns:4);
+    @include ie8 {
+      padding-left: 0.9375em;
+    }
+    @include lte-ie7 {
+      width: 17.438em;
+    }
+  }
+}
+
+.project-meta {
+  font-size: 0.875em;
+  color: #666;
+}
+
+.project-aside {
+  h2 {
+    font-size: 1.2em;
+  }
+}
+
+.project-access-status {
+  margin-top: 2em;
+}
+
+.project-owner__photo {
+  max-width: 125px;
+  max-height: 250px;
+  margin-left: 1em;
+  float: right;
+  position: relative;
+  top: -2em;
+}
+
+.project-owner__name {
+  font-size: 1em;
+}
+
+.project-task {
+  .button {
+    margin-top: 1em;
+  }
+}
+
+.project-task-meta-information {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  :first-child.project-meta {
+    margin-right: 0.5em;
+  }
+}
+
+.project-workload {
+  margin: 1em 0;
+}
+
+.project-workload-title {
+  font-size: 1em;
+}
+
+.project-workload-diagram {
+  display: flex;
+  flex-flow: row no-wrap;
+}
+
+.project-workload-indicator {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+
+  vertical-align: middle;
+  width: 100%;
+  height: 0.55em; // ~10px
+  margin-top: 0.425em; // make it sit in the centre, vertically
+  margin-right: 0.5em;
+  border: 0;
+
+}
+
+.project-workload-value {
+  width: 4em;
+  text-align: right;
+}
