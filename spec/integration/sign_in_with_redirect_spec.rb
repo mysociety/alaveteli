@@ -2,10 +2,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
-describe 'Signing in with a redirect parameter' do
-
-  before { set_consider_all_requests_local(true) }
-  after { restore_consider_all_requests_local }
+describe 'Signing in with a redirect parameter', local_requests: false do
 
   context 'when not logged in' do
     let(:user) { FactoryBot.create(:user) }
@@ -79,20 +76,4 @@ def login!(user, params = {})
     merge(params)
   post signin_path, params: params
   follow_redirect!
-end
-
-def set_consider_all_requests_local(value)
-  method = Rails.application.method(:env_config)
-  allow(Rails.application).to receive(:env_config).with(no_args) do
-    method.call.merge(
-      'action_dispatch.show_exceptions' => true,
-      'consider_all_requests_local' => value
-    )
-  end
-  @requests_local = Rails.application.config.consider_all_requests_local
-  Rails.application.config.consider_all_requests_local = value
-end
-
-def restore_consider_all_requests_local
-  Rails.application.config.consider_all_requests_local = @requests_local
 end
