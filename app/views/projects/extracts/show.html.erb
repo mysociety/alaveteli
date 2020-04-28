@@ -1,0 +1,21 @@
+<%= render partial: 'request/request_header',
+           locals: { info_request: @info_request,
+                     user: @user,
+                     follower_count: @follower_count,
+                     in_pro_area: @in_pro_area,
+                     track_thing: @track_thing,
+                     show_profile_photo: @show_profile_photo,
+                     new_responses_count: @new_responses_count,
+                     is_owning_user: @is_owning_user,
+                     render_to_file: @render_to_file,
+                     show_owner_update_status_action: @show_owner_update_status_action,
+                     show_other_user_update_status_action: @show_other_user_update_status_action,
+                     last_response: @last_response,
+                     old_unclassified: @old_unclassified } %>
+
+<% @info_request.info_request_events.each do |info_request_event| %>
+  <% if info_request_event.visible %>
+    <%= render partial: 'request/correspondence',
+               locals: { info_request_event: info_request_event } %>
+  <% end %>
+<% end %>

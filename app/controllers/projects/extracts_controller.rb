@@ -5,6 +5,9 @@ class Projects::ExtractsController < Projects::BaseController
   def show
     @project = Project.find(params[:project_id])
     authorize! :read, @project
+
+    # HACK: Temporarily just find a random request to render
+    @info_request = @project.info_requests.sample
   end
 
   private
