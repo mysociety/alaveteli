@@ -12,6 +12,8 @@ features = %i[
   annotations
   alaveteli_pro
   projects
+  pro_batch_access
+  pro_batch_category_ui
   pro_pricing
   pro_self_serve
 ]

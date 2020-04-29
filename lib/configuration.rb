@@ -46,6 +46,8 @@ module AlaveteliConfiguration
       ENABLE_ANNOTATIONS: true,
       ENABLE_ANTI_SPAM: false,
       ENABLE_PROJECTS: false,
+      ENABLE_PRO_BATCH_ACCESS: false,
+      ENABLE_PRO_BATCH_CATEGORY_UI: false,
       ENABLE_PRO_PRICING: false,
       ENABLE_PRO_SELF_SERVE: false,
       ENABLE_TWO_FACTOR_AUTH: false,
