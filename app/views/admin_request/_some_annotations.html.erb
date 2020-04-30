@@ -18,7 +18,7 @@
           <%= comment_visibility(comment) %>
 
           <blockquote class="incoming-message">
-            <%= truncate(comment.body, :length => 400) %>
+            <%= truncate(comment.body, length: 400) %>
           </blockquote>
           </div>
 
@@ -52,8 +52,8 @@
       <% end %>
     </div>
 
-    <%= submit_tag 'Hide selected', :name => 'hide_selected' %>
-    <%= submit_tag 'Unhide selected', :name => 'unhide_selected' %>
+    <%= submit_tag 'Hide selected', name: 'hide_selected' %>
+    <%= submit_tag 'Unhide selected', name: 'unhide_selected' %>
 
   <% end %>
 <% else %>

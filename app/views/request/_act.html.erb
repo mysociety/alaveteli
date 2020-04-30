@@ -3,41 +3,44 @@
 <div class="act_link">
   <i class="act-link-icon act-link-icon--twitter"></i>
   <% tweet_link = "https://twitter.com/share?" << {
-    :url => request.url,
-    :via => AlaveteliConfiguration.twitter_username,
-    :text => "'#{ info_request.title }'",
-    :related => _('mySociety:Helping people set up sites like {{site_name}} all over the world', :site_name => site_name)
-    }.to_query %>
+       url: request.url,
+       via: AlaveteliConfiguration.twitter_username,
+       text: "'#{ info_request.title }'",
+       related: _('mySociety:Helping people set up sites like {{site_name}} all over the world', site_name: site_name)
+     }.to_query %>
 
   <%= link_to _("Tweet this request"),
               tweet_link,
-              :onclick => track_analytics_event(
+              onclick: track_analytics_event(
                 AnalyticsEvent::Category::OUTBOUND,
                 AnalyticsEvent::Action::TWITTER_EXIT,
-                :label => "Request sidebar") %>
+                label: "Request sidebar"
+              ) %>
 </div>
 
 <div class="act_link">
   <% share_link = "https://www.facebook.com/sharer/sharer.php?" << {
-        :u => request.url
-      }.to_query %>
+       u: request.url
+     }.to_query %>
   <i class="act-link-icon act-link-icon--facebook"></i>
   <%= link_to _("Share on Facebook"),
               share_link,
-              :onclick => track_analytics_event(
+              onclick: track_analytics_event(
                 AnalyticsEvent::Category::OUTBOUND,
                 AnalyticsEvent::Action::FACEBOOK_EXIT,
-                :label => "Request sidebar") %>
+                label: "Request sidebar"
+              ) %>
 </div>
 
 <div class="act_link">
   <i class="act-link-icon act-link-icon--medium"></i>
   <%= link_to _("Write about this on Medium"),
               "http://medium.com/",
-              :onclick => track_analytics_event(
+              onclick: track_analytics_event(
                 AnalyticsEvent::Category::OUTBOUND,
                 AnalyticsEvent::Action::MEDIUM_EXIT,
-                :label => "Request sidebar") %>
+                label: "Request sidebar"
+              ) %>
 </div>
 
 <% if AlaveteliConfiguration::enable_widgets %>

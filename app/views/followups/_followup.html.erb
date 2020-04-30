@@ -51,8 +51,9 @@
               'public authority, you have the right to complain ' \
               '(<a href="{{url}}">details</a>).',
               url: help_unhappy_path(
-                     anchor: 'internal_review',
-                     url_title: @info_request.url_title)) %>
+                anchor: 'internal_review',
+                url_title: @info_request.url_title
+              )) %>
       </p>
     <% end %>
 
@@ -63,7 +64,8 @@
           'href="{{new_request_link}}">file a new request</a>.',
           request_link: request_link(@info_request),
           new_request_link: new_request_to_body_url(
-                              url_name: @info_request.public_body.url_name)) %>
+            url_name: @info_request.public_body.url_name
+          )) %>
     </p>
 
     <% status = @info_request.calculate_status %>
@@ -115,7 +117,8 @@
          else
            preview_request_followups_url(
              request_id: @info_request.id,
-             incoming_message_id: incoming_message.id)
+             incoming_message_id: incoming_message.id
+           )
          end -%>
     <%= form_for @outgoing_message,
                  html: { id: 'followup_form' },
@@ -181,7 +184,7 @@
       <p>
         <%= hidden_field_tag 'submitted_followup', 1 %>
         <% if @internal_review %>
-          <%= hidden_field_tag(:internal_review, 1 ) %>
+          <%= hidden_field_tag(:internal_review, 1) %>
         <% end %>
         <%= submit_tag _('Preview your message') %>
       </p>

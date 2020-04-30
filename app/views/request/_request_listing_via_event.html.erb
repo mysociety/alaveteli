@@ -1,6 +1,4 @@
-<% if @highlight_words.nil?
-     @highlight_words = []
-end %>
+<% @highlight_words = [] if @highlight_words.nil? %>
 
 <div class="request_listing">
   <div class="request_left">
@@ -23,7 +21,7 @@ end %>
     <p>
       <i class="icon-standalone icon_<%= event.info_request.calculate_status %>"></i>
       <strong>
-        <%= event.info_request.display_status(cached_value_ok=true) %>
+        <%= event.info_request.display_status(cached_value_ok = true) %>
       </strong>
     </p>
     </span>

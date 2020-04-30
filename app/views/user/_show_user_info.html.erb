@@ -1,6 +1,6 @@
 <% if (@display_user.active? && !@display_user.get_about_me_for_html_display.empty?) || @is_you %>
   <div class="user_about_me">
-    <%= image_tag "quote-marks.png", :class => "comment_quote" %>
+    <%= image_tag "quote-marks.png", class: "comment_quote" %>
     <%= @display_user.get_about_me_for_html_display %>
     <% if @is_you %>
       (<%= link_to _("edit text about you"), edit_profile_about_me_path %>)

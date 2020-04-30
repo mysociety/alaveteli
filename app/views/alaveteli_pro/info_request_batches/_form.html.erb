@@ -1,7 +1,7 @@
 <%= form_tag(@draft_info_request_batch,
-             :method => :put,
-             :id => 'write_form',
-             :class => 'new_info_request') do %>
+             method: :put,
+             id: 'write_form',
+             class: 'new_info_request') do %>
 
   <%= fields_for @draft_info_request_batch do |f| %>
 
@@ -14,7 +14,7 @@
         <label class="form_label" for="alaveteli_pro_draft_info_request_batch_title">
           <%= _('Subject') %>
         </label>
-        <%= f.text_field :title, :size => 50 %>
+        <%= f.text_field :title, size: 50 %>
       </p>
       <div class="form_item_note">
         <%= _("A one line summary of the information you are requesting, e.g.") %>
@@ -26,7 +26,7 @@
       <label class="form_label" for="alaveteli_pro_draft_info_request_batch_body">
         <%= _('Your request') %>
       </label>
-      <%= f.text_area :body, :rows => 20, :cols => 60 %>
+      <%= f.text_area :body, rows: 20, cols: 60 %>
     </p>
 
     <div class="request_embargo">
@@ -37,10 +37,10 @@
         <%= f.select :embargo_duration,
                      options_for_select(
                        publish_at_options,
-                       :selected => @embargo ? @embargo.embargo_duration : ''
+                       selected: @embargo ? @embargo.embargo_duration : ''
                      ),
                      {},
-                     { class: 'js-embargo-duration' } %>
+                     class: 'js-embargo-duration' %>
       </p>
       <div class="form_item_note">
         <%= render partial: "alaveteli_pro/info_request_batches/embargo_info",

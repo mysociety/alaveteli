@@ -6,7 +6,7 @@
   <% if display_user.show_profile_photo? %>
     <div class="user_photo_on_search">
       <a href="<%= user_path(display_user) %>">
-        <img src="<%= get_profile_photo_url(:url_name => display_user.url_name) %>" alt="">
+        <img src="<%= get_profile_photo_url(url_name: display_user.url_name) %>" alt="">
       </a>
     </div>
   <% end %>
@@ -20,15 +20,15 @@
     <%= n_('{{count}} request made.',
            '{{count}} requests made.',
            request_count,
-           :count => request_count) %>
+           count: request_count) %>
     <% if feature_enabled?(:annotations) %>
       <% annotation_count = display_user.comments.visible.size %>
       <%= n_('{{count}} annotation made.',
              '{{count}} annotations made.',
              annotation_count,
-             :count => annotation_count) %>
+             count: annotation_count) %>
     <% end %>
 
-    <%= _('Joined in {{year}}.', :year => display_user.created_at.year) %>
+    <%= _('Joined in {{year}}.', year: display_user.created_at.year) %>
   </span>
 </div>

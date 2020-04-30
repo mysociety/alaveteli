@@ -29,13 +29,13 @@
   <% if [ 'requires_admin' ].include?(@info_request.described_state) %>
     <li> <%= _("Your thoughts on what the {{site_name}} " \
                   "<strong>administrators</strong> should do about the request.",
-               :site_name=>site_name) %> </li>
+               site_name: site_name) %> </li>
   <% end %>
 </ul>
 <% content_for :public_warning do %>
   <%= _('When your request is made public on {{site_name}}, any ' \
         'annotations you add will also be public. However, they are ' \
         '<strong>not</strong> sent to {{public_body_name}}.',
-        :site_name => AlaveteliConfiguration.site_name,
-        :public_body_name => h(@info_request.public_body.name)) %>
+        site_name: AlaveteliConfiguration.site_name,
+        public_body_name: h(@info_request.public_body.name)) %>
 <% end %>

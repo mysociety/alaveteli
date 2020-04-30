@@ -147,7 +147,7 @@
     <%= javascript_include_tag "time_series" %>
     <script type="text/javascript">
       if (typeof d3TimeSeries == 'function') {
-        d3.json("<%= statistics_url(:format => 'json') %>", function(data) {
+        d3.json("<%= statistics_url(format: 'json') %>", function(data) {
           d3TimeSeries(
             "#request-hide-events-data",
             data["requests"]["hides_by_week"],

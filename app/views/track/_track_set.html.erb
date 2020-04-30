@@ -3,7 +3,7 @@
 <% if user_receive_email_alerts %>
   <%= subscribe_email_notice(track_thing) %>
   <%= link_to _('Prefer not to receive emails?'),
-              show_user_wall_path(:url_name => user_url_name) %>
+              show_user_wall_path(url_name: user_url_name) %>
 <% else %>
   <%= subscribe_follow_notice(track_thing) %>
 <% end %>

@@ -22,13 +22,13 @@
         <%= radio_button "classification",
                          "described_state",
                          state,
-                         :id => state + id_suffix %>
+                         id: state + id_suffix %>
         <label for="<%= state + id_suffix %>"><%= label %></label>
       </div>
     <% end %>
 
-    <%= render :partial => 'general/custom_state_transitions_pending',
-               :locals => {:id_suffix => id_suffix } %>
+    <%= render partial: 'general/custom_state_transitions_pending',
+               locals: { id_suffix: id_suffix } %>
 
     <hr>
     <h3><%= _('This particular request is finished:') %></h3>
@@ -42,13 +42,13 @@
         <%= radio_button "classification",
                          "described_state",
                          state,
-                         :id => state + id_suffix %>
+                         id: state + id_suffix %>
         <label for="<%= state + id_suffix %>"><%= label %></label>
       </div>
     <% end %>
 
-    <%= render :partial => 'general/custom_state_transitions_complete',
-               :locals => {:id_suffix => id_suffix } %>
+    <%= render partial: 'general/custom_state_transitions_complete',
+               locals: { id_suffix: id_suffix } %>
 
     <% if @is_owning_user %>
       <hr>
@@ -59,7 +59,7 @@
           <%= radio_button "classification",
                            "described_state",
                            state,
-                           :id => state + id_suffix %>
+                           id: state + id_suffix %>
           <label for="<%= state + id_suffix %>"><%= label %></label>
         </div>
       <% end %>
@@ -70,7 +70,7 @@
     <p>
       <%= hidden_field_tag 'last_info_request_event_id',
                            @last_info_request_event_id,
-                           :id => 'last_info_request_event_id' + id_suffix %>
+                           id: 'last_info_request_event_id' + id_suffix %>
       <%= submit_tag _("Submit status") %>
       (<%= _('and we\'ll suggest <strong>what to do next</strong>') %>)
     </p>
@@ -80,7 +80,7 @@
     <%= _("We don't know whether the most recent response to this request " \
            "contains information or not &ndash; if you are {{user_link}} " \
            "please <a href=\"{{url}}\">sign in</a> and let everyone know.",
-           :user_link => user_link(@info_request.user),
-           :url => signin_url(:r => request.fullpath)) %>
+          user_link: user_link(@info_request.user),
+          url: signin_url(r: request.fullpath)) %>
   <% end %>
 <% end %>

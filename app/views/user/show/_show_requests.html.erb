@@ -1,5 +1,5 @@
 <div id="user_profile_search" class="user_profile_search">
-  <%= form_tag(show_user_url, :method => "get", :id=>"search_form") do %>
+  <%= form_tag(show_user_url, method: "get", id: "search_form") do %>
     <div>
       <%= text_field_tag :user_query,
                          params[:user_query],
@@ -10,7 +10,8 @@
              @request_states,
              'value',
              'text',
-             params[:request_latest_status]) %>
+             params[:request_latest_status]
+           ) %>
 
       <%= select_tag :request_latest_status,
                      filter_options,
@@ -55,13 +56,13 @@
                  'Your Freedom of Information requests ' \
                  '(approximately {{count}})',
                  @xapian_requests.matches_estimated,
-                 :count => @xapian_requests.matches_estimated) %>
+                 count: @xapian_requests.matches_estimated) %>
         <% else %>
           <%= n_("This person's Freedom of Information request",
                  "This person's Freedom of Information requests " \
                  "(approximately {{count}})",
                  @xapian_requests.matches_estimated,
-                 :count => @xapian_requests.matches_estimated) %>
+                 count: @xapian_requests.matches_estimated) %>
         <% end %>
 
         <!-- matches_estimated <%= @xapian_requests.matches_estimated %> -->
@@ -137,12 +138,12 @@
             <%= n_('Your {{count}} annotation',
                    'Your {{count}} annotations',
                    @display_user.comments.visible.size,
-                   :count => @display_user.comments.visible.size) %>
+                   count: @display_user.comments.visible.size) %>
           <% else %>
             <%= n_("This person's {{count}} annotation",
                    "This person's {{count}} annotations",
                    @display_user.comments.visible.size,
-                   :count => @display_user.comments.visible.size) %>
+                   count: @display_user.comments.visible.size) %>
           <% end %>
 
         <!-- matches_estimated <%= @xapian_comments.matches_estimated %> -->

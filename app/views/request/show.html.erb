@@ -1,6 +1,6 @@
 <% @title = _('{{title}} - a Freedom of Information request to {{public_body}}',
               title: h(@info_request.title),
-              public_body: (@info_request.public_body.name)) %>
+              public_body: @info_request.public_body.name) %>
 
 <%= render partial: 'request/request_meta_tags' %>
 

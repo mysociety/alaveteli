@@ -7,7 +7,8 @@
     <% if !incoming_message.cached_main_body_text_folded.nil? %>
       <%= truncate(
             incoming_message.cached_main_body_text_folded.
-              gsub('FOLDED_QUOTED_SECTION', ''), :length => 400) %>
+              gsub('FOLDED_QUOTED_SECTION', ''), length: 400
+            ) %>
     <% end %>
   </blockquote>
 <% end %>
@@ -17,7 +18,7 @@ Delete these messages?
   <%= hidden_field_tag(:ids, params[:ids]) %>
   <%= hidden_field_tag(:request_id, params[:request_id]) %>
   <%= submit_tag("Yes",
-                 { :class => "btn btn-danger",
-                   :data => { :confirm => 'Are you sure?' } }) %>
-  <%= submit_tag("No", { :class => "btn btn-button" }) %>
+                 class: "btn btn-danger",
+                 data: { confirm: 'Are you sure?' }) %>
+  <%= submit_tag("No", class: "btn btn-button") %>
 <% end %>

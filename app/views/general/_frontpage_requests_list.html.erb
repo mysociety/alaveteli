@@ -9,10 +9,10 @@
 
   <h4>
     <%= n_("{{site_name}} users have made {{number_of_requests}} request, including:",
-        "{{site_name}} users have made {{number_of_requests}} requests, including:",
-        @number_of_requests,
-        :site_name => site_name,
-        :number_of_requests => number_with_delimiter(@number_of_requests)) %>
+           "{{site_name}} users have made {{number_of_requests}} requests, including:",
+           @number_of_requests,
+           site_name: site_name,
+           number_of_requests: number_with_delimiter(@number_of_requests)) %>
   </h4>
 
   <ul>
@@ -23,10 +23,10 @@
           <p>
             <% if @request_events_all_successful %>
               <%= _("{{public_body_link}} answered a request about",
-                    :public_body_link => public_body_link(event.info_request.public_body)) %>
+                    public_body_link: public_body_link(event.info_request.public_body)) %>
             <% else %>
               <%= _("{{public_body_link}} was sent a request about",
-                    :public_body_link => public_body_link(event.info_request.public_body)) %>
+                    public_body_link: public_body_link(event.info_request.public_body)) %>
             <% end %>
 
             <%= link_to h(event.info_request.title), request_path(event.info_request) %>
@@ -34,12 +34,12 @@
 
           <p class="request-body__time-ago">
             <%= _('{{length_of_time}} ago',
-                  :length_of_time => time_ago_in_words(event.described_at)) %>
+                  length_of_time: time_ago_in_words(event.described_at)) %>
           </p>
         </div>
       </li>
     <% end %>
   </ul>
 
-  <%= link_to _("Browse all requests &rarr;"), request_list_all_path, :class => 'button-secondary' %>
+  <%= link_to _("Browse all requests &rarr;"), request_list_all_path, class: 'button-secondary' %>
 </div>

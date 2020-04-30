@@ -2,8 +2,8 @@
   <div id="header_right" class="sidebar header_right">
     <% if @track_thing %>
       <h2><%= _('Track this person') %></h2>
-      <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'sidebar' } %>
-      <%= render :partial => 'track/rss_feed', :locals => { :track_thing => @track_thing, :location => 'sidebar' } %>
+      <%= render partial: 'track/tracking_links', locals: { track_thing: @track_thing, own_request: false, location: 'sidebar' } %>
+      <%= render partial: 'track/rss_feed', locals: { track_thing: @track_thing, location: 'sidebar' } %>
     <% end %>
 
     <% if @xapian_requests %>
@@ -41,8 +41,8 @@
 
     <p class="subtitle">
       <%= _('Joined {{site_name}} in {{year}}',
-            :site_name => site_name,
-            :year => @display_user.created_at.year) %>
+            site_name: site_name,
+            year: @display_user.created_at.year) %>
       <% if @user && @user.admin_page_links? %>
         (<%= link_to "admin", admin_user_path(@display_user) %>)
       <% end %>
@@ -65,7 +65,7 @@
         <p>
           <strong>
             <%= _('This user has been suspended from {{site_name}} ',
-                  :site_name=>site_name) %>
+                  site_name: site_name) %>
           </strong>
         </p>
 
@@ -79,14 +79,14 @@
       </div>
     <% end %>
 
-    <%= render :partial => 'user/show_user_info' %>
+    <%= render partial: 'user/show_user_info' %>
 
     <% unless @is_you %>
       <p id="user_not_logged_in" class="user_not_logged_in">
         <%= _('<a href="{{url}}">Sign in</a> to change password, ' \
                  'subscriptions and more ({{user_name}} only)',
-              :user_name => h(@display_user.name),
-              :url => signin_url(:r => request.fullpath).html_safe) %>
+              user_name: h(@display_user.name),
+              url: signin_url(r: request.fullpath).html_safe) %>
       </p>
     <% end %>
   </div>

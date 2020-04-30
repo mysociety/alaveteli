@@ -3,18 +3,18 @@
 <div class="row">
   <div class="span8">
     <div id="public_body_form">
-      <%= form_for @public_body, :url => admin_body_path(@public_body),  :method => 'put', :html => { :class => "form form-horizontal" } do |f| %>
-        <%= render :partial => 'form', :locals => {:f => f} %>
+      <%= form_for @public_body, url: admin_body_path(@public_body), method: 'put', html: { class: "form form-horizontal" } do |f| %>
+        <%= render partial: 'form', locals: { f: f } %>
         <div class="form-actions">
-          <%= f.submit 'Save', :accesskey => 's', :class => "btn btn-success" %></p>
+          <%= f.submit 'Save', accesskey: 's', class: "btn btn-success" %></p>
         </div>
       <% end %>
 
       <div class="row">
         <div class="span8">
           <div class="well">
-            <%= link_to 'Show', admin_body_path(@public_body), :class => "btn" %>
-            <%= link_to 'List all', admin_bodies_path, :class => "btn" %>
+            <%= link_to 'Show', admin_body_path(@public_body), class: "btn" %>
+            <%= link_to 'List all', admin_bodies_path, class: "btn" %>
           </div>
         </div>
       </div>
@@ -24,11 +24,11 @@
                    method: 'delete' do %>
         <% button_opts = { class: 'btn btn-danger' } %>
           <% if @hide_destroy_button
-             button_opts[:disabled] = true
-             button_opts[:title] =
-               "This authority has #{@public_body.info_requests.count} " \
-               "requests (may be embargoed)"
-          end %>
+               button_opts[:disabled] = true
+               button_opts[:title] =
+                 "This authority has #{@public_body.info_requests.count} " \
+                 "requests (may be embargoed)"
+             end %>
         <%= submit_tag "Destroy #{@public_body.name}", button_opts %>
         (this is permanent!)
       <% end %>
@@ -36,6 +36,6 @@
 
   </div>
   <div class="span4">
-    <%= render :partial => 'tag_help' %>
+    <%= render partial: 'tag_help' %>
   </div>
 </div>

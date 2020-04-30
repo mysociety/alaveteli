@@ -13,7 +13,8 @@
   <div class="houdini-target extend-embargo-sidebar">
     <%= form_tag(
           create_batch_alaveteli_pro_embargo_extensions_path,
-          class: 'js-embargo-form' ) do |f| %>
+          class: 'js-embargo-form'
+        ) do |f| %>
       <%= hidden_field_tag :info_request_batch_id, info_request_batch.id %>
       <% if local_assigns[:info_request] %>
         <%= hidden_field_tag :info_request_id, info_request.id %>
@@ -27,14 +28,15 @@
           </label>
           <%= select_tag :extension_duration,
                          options_for_select(
-                           embargo_extension_options(example_embargo)),
+                           embargo_extension_options(example_embargo)
+                         ),
                          class: 'js-embargo-duration' %>
           <%= submit_tag _("Update"),
                          class: "embargo__submit js-embargo-submit",
                          data: {
-                         confirm: _("This will update the privacy for all " \
-                                    "of the requests in this batch. " \
-                                    "Are you sure?")
+                           confirm: _("This will update the privacy for all " \
+                                      "of the requests in this batch. " \
+                                      "Are you sure?")
                          } %>
         <% else %>
           <%= _("You will be able to extend this privacy period from " \
@@ -48,7 +50,8 @@
     <% if info_request_batch.can_change_embargo? %>
       <%= button_to _("Publish requests"),
                     destroy_batch_alaveteli_pro_embargoes_path(
-                      info_request_batch_id: info_request_batch.id),
+                      info_request_batch_id: info_request_batch.id
+                    ),
                     method: :post,
                     data: {
                       confirm: _("This will publish all of the requests in " \
@@ -57,7 +60,8 @@
     <% else %>
       <%= button_to _("Publish requests"),
                     destroy_batch_alaveteli_pro_embargoes_path(
-                      info_request_batch_id: info_request_batch.id),
+                      info_request_batch_id: info_request_batch.id
+                    ),
                     method: :post,
                     disabled: true,
                     title: _('Disabled while sending remaining requests.') %>

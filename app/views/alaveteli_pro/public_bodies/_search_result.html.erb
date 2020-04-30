@@ -3,7 +3,7 @@
   <p class="description">
     <% if !result[:short_name].blank? %>
     <%= _("Also called {{other_name}}.",
-          :other_name => result[:short_name]) %>
+          other_name: result[:short_name]) %>
     <% end %>
     <%= truncate(strip_tags(result[:notes]), length: 150) %>
   </p>
@@ -11,6 +11,6 @@
     <%= n_("{{count}} request made",
            "{{count}} requests made",
            result[:info_requests_visible_count],
-           :count => result[:info_requests_visible_count]) %>
+           count: result[:info_requests_visible_count]) %>
   </p>
 </div>

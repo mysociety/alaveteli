@@ -11,7 +11,7 @@
         <%= link_to("(#{ h(user.email) })", "mailto:#{ h(user.email) }") %>
       </span>
       <span class="item-metadata">
-        updated <%= I18n.l(user.updated_at, :format => "%e %B %Y %H:%M:%S") %>
+        updated <%= I18n.l(user.updated_at, format: "%e %B %Y %H:%M:%S") %>
     </span>
     </div>
     <div id="user_<%= user.id %>" class="accordion-body collapse">
@@ -29,8 +29,8 @@
               <td><b><%= h name %></b></td>
               <td>
                 <% if type == 'datetime' %>
-                  <%= I18n.l(value, :format => "%e %B %Y %H:%M:%S") %>
-                  (<%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(value)) %>)
+                  <%= I18n.l(value, format: "%e %B %Y %H:%M:%S") %>
+                  (<%= _('{{length_of_time}} ago', length_of_time: time_ago_in_words(value)) %>)
                 <% else %>
                   <%= h value %>
                 <% end %>
@@ -54,4 +54,4 @@
 <% end %>
 </div>
 
-<%= will_paginate(users, :class => "paginator") %>
+<%= will_paginate(users, class: "paginator") %>

@@ -6,7 +6,7 @@
         <%= _("Private") %>
       </span>
     <% end %>
-    <%= _( info_request_batch.title) %>
+    <%= _(info_request_batch.title) %>
     <i class="icon icon--downarrow"></i>
   </label>
   <input class="houdini-input"
@@ -18,7 +18,7 @@
                  collection: info_request_batch.public_bodies %>
     <% else %>
       <%= render partial: 'alaveteli_pro/info_request_batches/info_request',
-                collection: info_request_batch.info_requests %>
+                 collection: info_request_batch.info_requests %>
     <% end %>
     <div class="show-all-batch-link">
       <%= link_to n_('Show {{count}} request in detail</span>',
@@ -26,7 +26,7 @@
                      info_request_batch.public_bodies.count,
                      batch_request_title: info_request_batch.title,
                      count: info_request_batch.public_bodies.count),
-                            info_request_batch_path(info_request_batch) %>
+                  info_request_batch_path(info_request_batch) %>
     </div>
   </div>
   <%= render partial: 'alaveteli_pro/info_request_batches/progress_bar',
@@ -71,16 +71,18 @@
 
     <% if feature_enabled?(:info_request_batch_zip_download, current_user) %>
     <%= link_to alaveteli_pro_info_request_batch_batch_download_path(
-                  info_request_batch_id: info_request_batch,
-                  format: :zip) do %>
+          info_request_batch_id: info_request_batch,
+          format: :zip
+        ) do %>
         <i class="download-icon"></i>
         <%= _('ZIP') %>
     <% end %>
     <% end %>
 
     <%= link_to alaveteli_pro_info_request_batch_batch_download_path(
-                  info_request_batch_id: info_request_batch,
-                  format: :csv) do %>
+          info_request_batch_id: info_request_batch,
+          format: :csv
+        ) do %>
         <i class="download-icon"></i>
         <%= _('CSV') %>
     <% end %>

@@ -1,10 +1,10 @@
 <%= form_for(
-    @comment,
-    :url => new_comment_path(:type => "request", :url_title => @info_request.url_title),
-    :html => { :id => 'comment_form' }
-  ) do |f| %>
+      @comment,
+      url: new_comment_path(type: "request", url_title: @info_request.url_title),
+      html: { id: 'comment_form' }
+    ) do |f| %>
   <p>
-    <%= f.text_area :body, :rows => 10, :cols => 55 %>
+    <%= f.text_area :body, rows: 10, cols: 55 %>
   </p>
 
   <% if !TrackThing.find_existing(@user, track_thing) && (!@user || @info_request.user != @user) %>
@@ -17,6 +17,6 @@
     <%= hidden_field_tag 'submitted_comment', 1 %>
     <%= hidden_field_tag 'preview', 1 %>
     <%= submit_tag _('Preview your annotation') %>
-    <%= _(' (<strong>no ranty</strong> politics, read our <a href="{{url}}">moderation policy</a>)', :url => (help_requesting_path+'#moderation').html_safe) %>
+    <%= _(' (<strong>no ranty</strong> politics, read our <a href="{{url}}">moderation policy</a>)', url: (help_requesting_path + '#moderation').html_safe) %>
   </p>
 <% end %>

@@ -4,8 +4,8 @@
   <% @title = _("Preview new batch request") %>
 <% else %>
   <% @title = _("Preview new {{law_used_short}} request to '{{public_body_name}}'",
-                :law_used_short => h(@info_request.law_used_human(:short)),
-                :public_body_name => h(@info_request.public_body.name)) %>
+                law_used_short: h(@info_request.law_used_human(:short)),
+                public_body_name: h(@info_request.public_body.name)) %>
 <% end %>
 <div class="inner-canvas">
   <div class="inner-canvas-header">
@@ -22,11 +22,13 @@
               <% if batch_request %>
                 <%= render(
                       partial: "alaveteli_pro/info_request_batches/embargo_info",
-                      locals: { embargo: @embargo, tense: :future }) %>
+                      locals: { embargo: @embargo, tense: :future }
+                    ) %>
               <% else %>
                 <%= render(
                       partial: "alaveteli_pro/info_requests/embargo_info",
-                      locals: { embargo: @embargo, tense: :future }) %>
+                      locals: { embargo: @embargo, tense: :future }
+                    ) %>
               <% end %>
             </div>
           </div>
@@ -35,16 +37,16 @@
             <% if batch_request %>
               <%= render partial: 'alaveteli_pro/info_request_batches/message_preview',
                          locals: {
-                            batch: @info_request_batch,
-                            draft: @draft_info_request_batch,
-                            outgoing_message: @outgoing_message
+                           batch: @info_request_batch,
+                           draft: @draft_info_request_batch,
+                           outgoing_message: @outgoing_message
                          } %>
             <% else %>
               <%= render partial: 'alaveteli_pro/info_requests/message_preview',
                          locals: {
-                            info_request: @info_request,
-                            draft_info_request: @draft_info_request,
-                            outgoing_message: @outgoing_message
+                           info_request: @info_request,
+                           draft_info_request: @draft_info_request,
+                           outgoing_message: @outgoing_message
                          } %>
             <% end %>
           </div>

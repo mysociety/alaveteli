@@ -52,7 +52,7 @@
       <b>Requested on</b>
     </td>
     <td>
-      <%= I18n.l(@change_request.created_at, :format => "%e %B %Y %H:%M:%S") %>
+      <%= I18n.l(@change_request.created_at, format: "%e %B %Y %H:%M:%S") %>
       (<%= "#{time_ago_in_words(@change_request.created_at)} ago" %>)
     </td>
   </tr>

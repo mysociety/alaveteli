@@ -4,14 +4,14 @@
   <h1 class="span12"><%= @title %></h1>
 </div>
 
-<%= form_tag({}, :method => "get", :class => "form form-search") do %>
+<%= form_tag({}, method: "get", class: "form form-search") do %>
 
   <div class="row">
     <div class="span12">
-      <%= text_field_tag 'query', params[:query], { :size => 30, :class => "input-large search-query"} %>
+      <%= text_field_tag 'query', params[:query], size: 30, class: "input-large search-query" %>
       <%= hidden_field_tag 'sort_order', @sort_order %>
-      <%= submit_tag "Search", :class => "btn" %> (substring search, names, emails and about me)
-      <%= link_to 'Banned users', banned_admin_users_path, :class => "btn btn-info" %>
+      <%= submit_tag "Search", class: "btn" %> (substring search, names, emails and about me)
+      <%= link_to 'Banned users', banned_admin_users_path, class: "btn btn-info" %>
     </div>
   </div>
 
@@ -37,8 +37,8 @@
   <div class="span12 btn-group sort-order">
     <% @sort_options.keys.each do |sort_order| %>
       <%=
-        link_to_unless(@sort_order == sort_order, sort_order_humanized(sort_order), admin_users_path(:sort_order => sort_order, :query => @query), :class => 'btn') do
-          link_to sort_order_humanized(sort_order), '#', :class => 'btn disabled'
+        link_to_unless(@sort_order == sort_order, sort_order_humanized(sort_order), admin_users_path(sort_order: sort_order, query: @query), class: 'btn') do
+          link_to sort_order_humanized(sort_order), '#', class: 'btn disabled'
         end
       %>
     <% end %>
@@ -47,5 +47,5 @@
 
 <div class="row">
   <div class="span12"
-    <%= render :partial => 'user_table', :locals => { :users => @admin_users, :banned_column => false } %>>
+    <%= render partial: 'user_table', locals: { users: @admin_users, banned_column: false } %>>
 </div>

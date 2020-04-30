@@ -1,17 +1,17 @@
 <% @title = _("Change profile photo") %>
 
-<% raise "internal error" if not @user %>
+<% raise "internal error" unless @user %>
 
 <h2><%= _("Choose your profile photo") %></h2>
 
 <%= foi_error_messages_for :draft_profile_photo %>
 
 <div id="set_draft_profile_photo" class="set_draft_profile_photo">
-  <%= form_tag 'set_photo', :id => 'set_draft_profile_photo_form', :multipart => true do %>
+  <%= form_tag 'set_photo', id: 'set_draft_profile_photo_form', multipart: true do %>
     <p>
       <label class="form_label" for="file_1"><%= _('Photo of you:') %></label>
-      <% file_opts = { :size => 35, :id => 'file_1' } %>
-      <% file_opts.merge!({ :disabled => true }) if @user.suspended? %>
+      <% file_opts = { size: 35, id: 'file_1' } %>
+      <% file_opts[:disabled] = true if @user.suspended? %>
       <%= file_field_tag :file, file_opts %>
     </p>
 
@@ -19,7 +19,7 @@
       <li>
         <%= _('Your photo will be shown in public <strong>on the Internet' \
               '</strong>, wherever you do something on {{site_name}}.',
-              :site_name => site_name) %>
+              site_name: site_name) %>
       </li>
 
       <li>
@@ -47,7 +47,7 @@
   <% if @user.profile_photo %>
     <h2><%= _('OR remove the existing photo') %></h2>
 
-    <%= form_tag 'clear_photo', :id => 'clear_profile_photo_form', :multipart => true do %>
+    <%= form_tag 'clear_photo', id: 'clear_profile_photo_form', multipart: true do %>
       <%= submit_tag _("Clear photo") %>
     <% end %>
   <% end %>

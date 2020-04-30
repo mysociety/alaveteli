@@ -21,10 +21,10 @@
     <%= submit_tag n_('Send {{count}} requests',
                       'Send {{count}} requests',
                       batch.public_bodies.size,
-                      :count => batch.public_bodies.size),
-                   :data => { :disable_with => _("Sending...") },
-                   :id => 'submit_button' %>
+                      count: batch.public_bodies.size),
+                   data: { disable_with: _("Sending...") },
+                   id: 'submit_button' %>
     <%= link_to _("Edit your request"),
-                new_alaveteli_pro_info_request_batch_path(:draft_id => draft.id) %>
+                new_alaveteli_pro_info_request_batch_path(draft_id: draft.id) %>
   <% end %>
 </p>

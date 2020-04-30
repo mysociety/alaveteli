@@ -7,9 +7,9 @@
 
   <div class="controls">
     <%= text_field_tag 'subject',
-      (params[:subject] || @change_request.default_response_subject),
-      id: 'change_request_user_subject_field',
-      class: 'span6' %>
+                       (params[:subject] || @change_request.default_response_subject),
+                       id: 'change_request_user_subject_field',
+                       class: 'span6' %>
   </div>
 </div>
 
@@ -20,9 +20,9 @@
 
   <div class="controls">
     <%= text_area_tag 'response',
-      (params[:response] || h(@change_request_user_response)),
-      id: 'change_request_user_response_field',
-      rows: 10,
-      class: 'span6' %>
+                      (params[:response] || h(@change_request_user_response)),
+                      id: 'change_request_user_response_field',
+                      rows: 10,
+                      class: 'span6' %>
   </div>
 </div>

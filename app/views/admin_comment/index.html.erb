@@ -1,8 +1,8 @@
 <h1><%= @title %></h1>
 
-<%= form_tag({}, :method => :get, :class => 'form form-search') do %>
-  <%= text_field_tag 'query', params[:query], { :size => 30, :class => 'input-large search-query' } %>
-  <%= submit_tag 'Search', :class => 'btn' %> (substring search, body)
+<%= form_tag({}, method: :get, class: 'form form-search') do %>
+  <%= text_field_tag 'query', params[:query], size: 30, class: 'input-large search-query' %>
+  <%= submit_tag 'Search', class: 'btn' %> (substring search, body)
 <% end %>
 
 <div class="accordion" id="users">
@@ -14,11 +14,11 @@
         <span class="comment-labels">
           <%= comment_labels(comment) %>
         </span>
-        <%= link_to "#{ h(truncate(comment.body, :length => 100)) }",
+        <%= link_to h(truncate(comment.body, length: 100)).to_s,
                     edit_admin_comment_path(comment) %>
       </span>
       <span class="item-metadata">
-        created <%= I18n.l(comment.created_at, :format => "%e %B %Y %H:%M:%S") %>
+        created <%= I18n.l(comment.created_at, format: "%e %B %Y %H:%M:%S") %>
     </span>
     </div>
 
@@ -30,8 +30,8 @@
               <td><b><%= h name %></b></td>
               <td>
                 <% if type == 'datetime' %>
-                  <%= I18n.l(value, :format => "%e %B %Y %H:%M:%S") %>
-                  (<%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(value)) %>)
+                  <%= I18n.l(value, format: "%e %B %Y %H:%M:%S") %>
+                  (<%= _('{{length_of_time}} ago', length_of_time: time_ago_in_words(value)) %>)
                 <% else %>
                   <%= h value %>
                 <% end %>
@@ -45,4 +45,4 @@
 <% end %>
 </div>
 
-<%= will_paginate(@comments, :class => "paginator") %>
+<%= will_paginate(@comments, class: "paginator") %>

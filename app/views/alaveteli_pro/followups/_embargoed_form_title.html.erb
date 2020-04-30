@@ -1,19 +1,19 @@
 <% if @internal_review %>
   <h1><%= _('Request an internal review from {{person_or_body}}',
-            :person_or_body => name_for_followup) %></h1>
+            person_or_body: name_for_followup) %></h1>
 <% elsif incoming_message.nil? || !incoming_message.valid_to_reply_to? %>
   <h2><%= _('Send a follow up message to {{person_or_body}}',
-            :person_or_body => name_for_followup) %>
+            person_or_body: name_for_followup) %>
   </h2>
 <% else %>
   <h2><%= _('Send a reply to {{person_or_body}}',
-          :person_or_body => name_for_followup) %>
+            person_or_body: name_for_followup) %>
   </h2>
 <% end %>
 <p>
   <strong>
     <%= _("Note: When this request is made public on {{site_name}}, this " \
           "message will also be made public.",
-          :site_name => AlaveteliConfiguration.site_name) %>
+          site_name: AlaveteliConfiguration.site_name) %>
   </strong>
 </p>

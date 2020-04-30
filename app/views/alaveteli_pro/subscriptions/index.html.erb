@@ -28,13 +28,13 @@
       <div class="settings-left-column">
       <ul class="vertical-navigation-menu">
         <li class="vertical-navigation-menu__item vertical-navigation-menu__item--current-item">
-          <%= link_to _("Account"), subscriptions_path, :class => "vertical-navigation-menu__link" %>
+          <%= link_to _("Account"), subscriptions_path, class: "vertical-navigation-menu__link" %>
         </li>
         <li class="vertical-navigation-menu__item">
-          <%= link_to _("Profile"), show_user_path(:url_name => @user.url_name), :class => "vertical-navigation-menu__link" %>
+          <%= link_to _("Profile"), show_user_path(url_name: @user.url_name), class: "vertical-navigation-menu__link" %>
         </li>
         <li class="vertical-navigation-menu__item">
-          <%= link_to _("Wall"), show_user_wall_path(:url_name => @user.url_name), :class => "vertical-navigation-menu__link" %>
+          <%= link_to _("Wall"), show_user_wall_path(url_name: @user.url_name), class: "vertical-navigation-menu__link" %>
         </li>
       </ul>
       </div>

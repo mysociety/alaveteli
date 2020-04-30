@@ -1,4 +1,4 @@
-<%= render :partial => 'admin_incoming_message/intro', :locals => { :incoming_message => @raw_email.incoming_message } %>
+<%= render partial: 'admin_incoming_message/intro', locals: { incoming_message: @raw_email.incoming_message } %>
 
 <% if @holding_pen %>
   <br>
@@ -73,12 +73,12 @@
 <% end %>
 
 <div>
-  <%= render :partial => 'admin_incoming_message/actions', :locals => { :incoming_message => @raw_email.incoming_message } %>
+  <%= render partial: 'admin_incoming_message/actions', locals: { incoming_message: @raw_email.incoming_message } %>
 </div>
 
 <h2>Raw email</h2>
 
-<p><%= link_to "Download",  admin_raw_email_path(@raw_email, :format => 'eml'), :class => 'btn' %></p>
+<p><%= link_to "Download", admin_raw_email_path(@raw_email, format: 'eml'), class: 'btn' %></p>
 
 <h2>Preview</h2>
 

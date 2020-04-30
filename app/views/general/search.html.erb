@@ -1,13 +1,13 @@
 <% @show_tips = @xapian_requests.nil? || (@total_hits == 0) %>
 
-<%= render :partial => 'localised_datepicker' %>
+<%= render partial: 'localised_datepicker' %>
 
 <% if @query.nil? %>
   <% @title = _("Search Freedom of Information requests, public authorities and users") %>
 <% elsif @total_hits == 0 %>
   <% @title = _('There were no results matching your query.') %>
 <% else %>
-  <% @title = _("Results page {{page_number}}", :page_number => @page.to_s) %>
+  <% @title = _("Results page {{page_number}}", page_number: @page.to_s) %>
 <% end %>
 
 <div id="header_left" class="header_left">
@@ -20,9 +20,9 @@
   <% if @advanced %>
     <div id="advanced-search" class="advanced-search">
       <p><%= _('To use the advanced search, combine phrases and labels as described in the search tips below.') %></p>
-      <%= form_tag(advanced_search_url, :method => "get") do %>
+      <%= form_tag(advanced_search_url, method: "get") do %>
         <p>
-          <%= text_field_tag :query, @query, { :size => 60 } %>
+          <%= text_field_tag :query, @query, size: 60 %>
           <%= hidden_field_tag 'sortby', @inputted_sortby %>
           <% if @bodies %>
             <%= hidden_field_tag 'bodies', 1 %>
@@ -34,15 +34,15 @@
     </div>
   <% else %>
 
-    <%= form_tag(search_redirect_path, {:method => "get", :id => "search_form"}) do %>
+    <%= form_tag(search_redirect_path, method: "get", id: "search_form") do %>
       <p>
-        <%= text_field_tag 'query', params[:query], { :size => 40, :title => "type your search term here" } %>
+        <%= text_field_tag 'query', params[:query], size: 40, title: "type your search term here" %>
 
         <%= submit_tag _("Search") %>
         <%= link_to(_("Advanced search"), advanced_search_path) %>
       </p>
     <% end %>
-    <%= form_tag(request.url, {:method => "get", :id => "filter_form"}) do %>
+    <%= form_tag(request.url, method: "get", id: "filter_form") do %>
       <p>
         <%= hidden_field_tag 'sortby', @inputted_sortby %>
         <% if @bodies %>
@@ -56,10 +56,11 @@
           <h3 class="title"><%= _("Showing") %></h3>
           <ul>
           <% labels = [
-            ["requests", _("requests")],
-            ["users", _("users")],
-            ["bodies", _("authorities")],
-            ["all", _("everything")]] %>
+               ["requests", _("requests")],
+               ["users", _("users")],
+               ["bodies", _("authorities")],
+               ["all", _("everything")]
+             ] %>
           <% for variety, label in labels %>
             <li>
               <% if @variety_postfix != variety %>
@@ -85,7 +86,7 @@
                 ["internal_review", _("internal reviews")]].each_with_index do |item, index|
                   status, title = item %>
 
-                <%= check_box_tag "latest_status[]", status, params[:latest_status].nil? ? false : params[:latest_status].include?(status), :id => "latest_status_#{index}" %>
+                <%= check_box_tag "latest_status[]", status, params[:latest_status].nil? ? false : params[:latest_status].include?(status), id: "latest_status_#{index}" %>
                 <%= label_tag("latest_status_#{index}", title) %> <br>
               <% end %>
           </div>
@@ -93,27 +94,27 @@
           <div>
             <h3 class="title"><%= _("Search in") %></h3>
             <% filters = if feature_enabled?(:annotations)
-                 [["sent", _("messages from users")],
-                  ["response", _("messages from authorities")],
-                  ["comment", _("comments")]]
-               else
-                 [["sent", _("messages from users")],
-                  ["response", _("messages from authorities")]]
-               end %>
+                           [["sent", _("messages from users")],
+                            ["response", _("messages from authorities")],
+                            ["comment", _("comments")]]
+                         else
+                           [["sent", _("messages from users")],
+                            ["response", _("messages from authorities")]]
+                         end %>
 
             <% filters.each_with_index do |item, index| %>
               <% variety, title = item %>
 
-              <%= check_box_tag "request_variety[]", variety, params[:request_variety].nil? ? true : params[:request_variety].include?(variety), :id => "request_variety_#{index}" %>
+              <%= check_box_tag "request_variety[]", variety, params[:request_variety].nil? ? true : params[:request_variety].include?(variety), id: "request_variety_#{index}" %>
               <%= label_tag("request_variety_#{index}", title) %> <br>
             <% end %>
           </div>
 
           <div id="date_range" class="date_range">
             <label class="form_label title" for="query"><%= _("Made between") %></label>
-            <%= text_field_tag(:request_date_after, params[:request_date_after], {:class => "use-datepicker", :size => 10}) %>
+            <%= text_field_tag(:request_date_after, params[:request_date_after], class: "use-datepicker", size: 10) %>
             <label class="form_label" for="query">&nbsp;<%= _("and") %></label>
-            <%= text_field_tag(:request_date_before, params[:request_date_before], {:class => "use-datepicker", :size => 10}) %>
+            <%= text_field_tag(:request_date_before, params[:request_date_before], class: "use-datepicker", size: 10) %>
           </div>
         </div>
       <% end %>
@@ -139,8 +140,8 @@
 <% if !@track_thing.nil? %>
   <div id="header_right" class="header_right">
     <h2><%= _('Track this search') %></h2>
-    <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'main' } %>
-    <%= render :partial => 'track/rss_feed', :locals => { :track_thing => @track_thing, :location => 'main' } %>
+    <%= render partial: 'track/tracking_links', locals: { track_thing: @track_thing, own_request: false, location: 'main' } %>
+    <%= render partial: 'track/rss_feed', locals: { track_thing: @track_thing, location: 'main' } %>
   </div>
 <% end %>
 
@@ -149,7 +150,7 @@
   <div class="results_section">
     <h2><%= @title %></h2>
     <% if @spelling_correction %>
-      <p id="did_you_mean"><%= _('Did you mean: {{correction}}', :correction => search_link(@spelling_correction)) %></p>
+      <p id="did_you_mean"><%= _('Did you mean: {{correction}}', correction: search_link(@spelling_correction)) %></p>
     <% end %>
   </div>
 <% end %>
@@ -161,21 +162,21 @@
       <% if @xapian_bodies_hits == 1 && @page == 1 %>
         <h2 class="publicbody_results"><%= _('One public authority found') %></h2>
       <% else %>
-        <h2 class="publicbody_results"><%= _('Public authorities {{start_count}} to {{end_count}} of {{total_count}}', :start_count => ((@page-1)*@bodies_per_page+1).to_s, :end_count => [@page*@bodies_per_page, @xapian_bodies.matches_estimated].min.to_s, :total_count => @xapian_bodies.matches_estimated.to_s) %></h2>
+        <h2 class="publicbody_results"><%= _('Public authorities {{start_count}} to {{end_count}} of {{total_count}}', start_count: ((@page - 1) * @bodies_per_page + 1).to_s, end_count: [@page * @bodies_per_page, @xapian_bodies.matches_estimated].min.to_s, total_count: @xapian_bodies.matches_estimated.to_s) %></h2>
       <% end %>
 
       <div class="results_block">
         <% for result in @xapian_bodies.results %>
-          <%= render :partial => 'public_body/body_listing_single',
-            :locals => { :public_body => result[:model],
-                         :request_link => true } %>
+          <%= render partial: 'public_body/body_listing_single',
+                     locals: { public_body: result[:model],
+                               request_link: true } %>
                      <% end %>
       </div>
 
       <%= will_paginate WillPaginate::Collection.new(@page, @bodies_per_page, @max_bodies) %>
     </div>
   <% elsif @variety_postfix == 'bodies' %>
-    <p><%= raw(_('<a href="{{browse_url}}">Browse all</a> or <a href="{{add_url}}">ask us to add one</a>.', :browse_url => list_public_bodies_default_path.html_safe, :add_url => help_requesting_path(:anchor => 'missing_body').html_safe)) %></p>
+    <p><%= raw(_('<a href="{{browse_url}}">Browse all</a> or <a href="{{add_url}}">ask us to add one</a>.', browse_url: list_public_bodies_default_path.html_safe, add_url: help_requesting_path(anchor: 'missing_body').html_safe)) %></p>
   <% end %>
 
   <% if @xapian_users_hits > 0 %>
@@ -183,12 +184,12 @@
       <% if @xapian_users_hits == 1 && @page == 1 %>
         <h2 class="person_results"><%= _("One person found") %></h2>
       <% else %>
-        <h2 class="person_results"><%= _("People {{start_count}} to {{end_count}} of {{total_count}}", :start_count => ((@page-1)*@users_per_page+1).to_s, :end_count =>  [@page*@users_per_page, @xapian_users.matches_estimated].min.to_s, :total_count =>  @xapian_users.matches_estimated.to_s) %></h2>
+        <h2 class="person_results"><%= _("People {{start_count}} to {{end_count}} of {{total_count}}", start_count: ((@page - 1) * @users_per_page + 1).to_s, end_count: [@page * @users_per_page, @xapian_users.matches_estimated].min.to_s, total_count: @xapian_users.matches_estimated.to_s) %></h2>
       <% end %>
 
       <div class="results_block">
         <% for result in @xapian_users.results %>
-          <%= render :partial => 'user/user_listing_single', :locals => { :display_user => result[:model] } %>
+          <%= render partial: 'user/user_listing_single', locals: { display_user: result[:model] } %>
         <% end %>
       </div>
       <%= will_paginate WillPaginate::Collection.new(@page, @users_per_page, @max_users) %>
@@ -201,12 +202,12 @@
       <% if @xapian_requests_hits == 1 && @page == 1 %>
         <h2 class="foi_results"><%= _("One FOI request found") %></h2>
       <% else %>
-        <h2 class="foi_results"><%= _("FOI requests {{start_count}} to {{end_count}} of about {{total_count}}", :start_count => ((@page-1)*@requests_per_page+1).to_s, :end_count => [@page*@requests_per_page, @xapian_requests.matches_estimated].min.to_s, :total_count =>  @xapian_requests.matches_estimated.to_s) %></h2>
+        <h2 class="foi_results"><%= _("FOI requests {{start_count}} to {{end_count}} of about {{total_count}}", start_count: ((@page - 1) * @requests_per_page + 1).to_s, end_count: [@page * @requests_per_page, @xapian_requests.matches_estimated].min.to_s, total_count: @xapian_requests.matches_estimated.to_s) %></h2>
       <% end %>
 
       <div class="results_block">
         <% for result in @xapian_requests.results %>
-          <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model] } %>
+          <%= render partial: 'request/request_listing_via_event', locals: { event: result[:model] } %>
         <% end %>
       </div>
 
@@ -216,5 +217,5 @@
 <% end %>
 
 <% if @advanced %>
-  <%= render :partial => 'general/advanced_search_tips' %>
+  <%= render partial: 'general/advanced_search_tips' %>
 <% end %>

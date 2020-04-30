@@ -3,7 +3,7 @@
   <%= _('None found.') %>
 <% else %>
   <% info_requests.each do |info_request| %>
-    <%= render :partial => 'request/request_listing_single',
-               :locals => { :info_request => info_request } %>
+    <%= render partial: 'request/request_listing_single',
+               locals: { info_request: info_request } %>
   <% end %>
 <% end %>

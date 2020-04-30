@@ -2,9 +2,8 @@
 <p class="js-embargo-active embargo-status">
   <i class="embargo-indicator embargo-status--icon"
       title="<%= _('Private until {{date}}',
-                  :date => simple_date(embargo.publish_at,
-                                        :format => :text)
-                  ) %>"></i>
+                   date: simple_date(embargo.publish_at,
+                                     format: :text)) %>"></i>
   <% if tense == :future %>
   <span class="embargo-status--content">
     <%= _('This request will be private until ' \

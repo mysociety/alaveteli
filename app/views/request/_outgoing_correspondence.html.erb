@@ -1,8 +1,8 @@
 <div class="outgoing correspondence js-collapsable" id="outgoing-<%= outgoing_message.id %>">
   <%- if cannot?(:read, outgoing_message) %>
-    <%= render :partial => 'request/hidden_correspondence', :locals => { :message => outgoing_message } %>
+    <%= render partial: 'request/hidden_correspondence', locals: { message: outgoing_message } %>
   <%- else %>
-    <%= render :partial => 'request/restricted_correspondence', :locals => {:message => outgoing_message } %>
+    <%= render partial: 'request/restricted_correspondence', locals: { message: outgoing_message } %>
 
     <% delivery_status = outgoing_message.delivery_status %>
 
@@ -11,13 +11,13 @@
         <%= @info_request.user_name %>
       </span>
 
-      <%= link_to outgoing_message_path(outgoing_message), :class => 'correspondence__header__date' do %>
+      <%= link_to outgoing_message_path(outgoing_message), class: 'correspondence__header__date' do %>
           <%= simple_date(info_request_event.created_at) %>
       <% end %>
 
       <% if delivery_status %>
         <div class="correspondence__header__delivery-status">
-          <%= link_to outgoing_message_delivery_status_path(outgoing_message), :class => "toggle-delivery-log toggle-delivery-log--#{outgoing_message.delivery_status.simple} js-toggle-delivery-log", :'data-delivery-status' => outgoing_message.delivery_status.simple do -%>
+          <%= link_to outgoing_message_delivery_status_path(outgoing_message), class: "toggle-delivery-log toggle-delivery-log--#{outgoing_message.delivery_status.simple} js-toggle-delivery-log", 'data-delivery-status': outgoing_message.delivery_status.simple do -%>
             <%= outgoing_message.delivery_status.simple.to_s.humanize -%>
           <% end -%>
         </div>
@@ -26,10 +26,10 @@
 
     <div class="js-delivery-log-ajax-error" hidden aria-hidden="true" style="display: none; visibility: hidden;">
       <p><%= _('We couldn’t load the mail server logs for this message.') %></p>
-      <p><%= link_to _('Try opening the logs in a new window.'), outgoing_message_delivery_status_path(outgoing_message), :target => '_blank' %></p>
+      <p><%= link_to _('Try opening the logs in a new window.'), outgoing_message_delivery_status_path(outgoing_message), target: '_blank' %></p>
     </div>
 
-    <%= render :partial => 'request/bubble', :locals => { :body => outgoing_message.get_body_for_html_display(), :attachments => nil } %>
+    <%= render partial: 'request/bubble', locals: { body: outgoing_message.get_body_for_html_display, attachments: nil } %>
 
     <p class="event_actions">
       <% if outgoing_message.status == 'ready' && !@info_request.is_external? %>

@@ -7,7 +7,7 @@
           <span class="badge"><%= heading.public_body_categories.size %></span>
           <%= chevron_right %>
         </a>
-        <strong><%= link_to(heading.name, edit_admin_heading_path(heading), :title => "view full details") %></strong>
+        <strong><%= link_to(heading.name, edit_admin_heading_path(heading), title: "view full details") %></strong>
       </span>
     </div>
 
@@ -15,7 +15,7 @@
       <div class="well">
         <div class="span12" id="heading_<%= heading.id %>_category_list" class="category-list">
           <% heading.public_body_categories.each do |category| %>
-            <%= render :partial => 'category_list_item', :locals => { :category => category, :heading => heading } %>
+            <%= render partial: 'category_list_item', locals: { category: category, heading: heading } %>
           <% end %>
         </div>
 

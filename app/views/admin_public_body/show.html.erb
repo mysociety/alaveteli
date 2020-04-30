@@ -1,4 +1,4 @@
-<% @title = _("Public authority – {{name}}", :name => h(@public_body.name)) %>
+<% @title = _("Public authority – {{name}}", name: h(@public_body.name)) %>
 
 <h1><%= @title %></h1>
 
@@ -18,7 +18,7 @@
             <% elsif column_name == 'request_email' %>
               <%= link_to(h(value), "mailto:#{value}") %>
               <% unless @public_body.is_requestable? %>
-                <%= _("not requestable due to: {{reason}}", :reason => h(@public_body.not_requestable_reason)) %><% if @public_body.is_followupable? %>; <%= _("but followupable") %><% end %>
+                <%= _("not requestable due to: {{reason}}", reason: h(@public_body.not_requestable_reason)) %><% if @public_body.is_followupable? %>; <%= _("but followupable") %><% end %>
               <% end %>
             <% else %>
               <%= h value %>
@@ -44,14 +44,14 @@
         <b><%= _("Tags") %></b>
       </td>
       <td>
-        <%= render :partial => 'tags', :locals => { :body => @public_body} %>
+        <%= render partial: 'tags', locals: { body: @public_body } %>
       </td>
     </tr>
   </tbody>
 </table>
-<%= link_to _("Edit"), edit_admin_body_path(@public_body), :class => "btn btn-primary" %>
+<%= link_to _("Edit"), edit_admin_body_path(@public_body), class: "btn btn-primary" %>
 <% unless @public_body.url_name.nil? %>
-  <%= link_to _("Public page"), public_body_path(@public_body), :class => "btn" %>
+  <%= link_to _("Public page"), public_body_path(@public_body), class: "btn" %>
 <% else %>
   <%= _("Public page not available") %>
 <% end %>
@@ -61,12 +61,12 @@
   <div class="row">
     <div class="span2">
       <b>
-        <%= _("Version {{version}}", :version => version.version) %>
+        <%= _("Version {{version}}", version: version.version) %>
       </b>
     </div>
     <div class="span4">
-      <%= I18n.l(version.updated_at, :format => "%e %B %Y %H:%M:%S") %>
-      (<%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(version.updated_at)) %>)
+      <%= I18n.l(version.updated_at, format: "%e %B %Y %H:%M:%S") %>
+      (<%= _('{{length_of_time}} ago', length_of_time: time_ago_in_words(version.updated_at)) %>)
     </div>
     <% if i == @versions.length - 1 %>
       <div class="span6">
@@ -79,12 +79,12 @@
       <div class="span6">
         <p>“<%= h(version.last_edit_comment) %>”</p>
         <ul>
-          <% version.compare(@versions[i+1]) do |change| %>
+          <% version.compare(@versions[i + 1]) do |change| %>
             <li>
               <%= _("{{thing_changed}} was changed from <code>{{from_value}}</code> to <code>{{to_value}}</code>",
-                :thing_changed => change[:name],
-                :from_value => (change[:from] or "-"),
-                :to_value => (change[:to] or "-")) %>
+                    thing_changed: change[:name],
+                    from_value: (change[:from] || "-"),
+                    to_value: (change[:to] || "-")) %>
             </li>
           <% end %>
         </ul>
@@ -94,14 +94,14 @@
 <% end %>
 <hr>
 <h2>Requests</h2>
-<%= render :partial => 'admin_request/some_requests', :locals => { :info_requests => @info_requests } %>
+<%= render partial: 'admin_request/some_requests', locals: { info_requests: @info_requests } %>
 
 <hr>
 
 <h2>Track things</h2>
-<%= render :partial => 'admin_track/some_tracks', :locals => { :track_things => @public_body.track_things, :include_destroy => true } %>
+<%= render partial: 'admin_track/some_tracks', locals: { track_things: @public_body.track_things, include_destroy: true } %>
 
 <hr>
 
 <h2>Censor rules</h2>
-<%= render :partial => 'admin_censor_rule/show', :locals => { :censor_rules => @public_body.censor_rules, :public_body => @public_body } %>
+<%= render partial: 'admin_censor_rule/show', locals: { censor_rules: @public_body.censor_rules, public_body: @public_body } %>

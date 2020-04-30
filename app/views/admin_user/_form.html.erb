@@ -5,7 +5,7 @@
 <div class="control-group">
   <label for="admin_user_name" class="control-label">Name</label>
   <div class="controls">
-    <%= text_field 'admin_user', 'name', :class => "span3" %>
+    <%= text_field 'admin_user', 'name', class: "span3" %>
     <div class="help-block">
       will change URL name and break URLs; unlike authorities, there is no history; you will need to rebuild the search index afterwards
     </div>
@@ -15,7 +15,7 @@
 <div class="control-group">
   <label for="admin_user_email" class="control-label">Email</label>
   <div class="controls">
-    <%= text_field 'admin_user', 'email', :class => "span3" %>
+    <%= text_field 'admin_user', 'email', class: "span3" %>
     <div class="help-block">
       <strong>you must</strong> first validate this
     </div>
@@ -31,7 +31,7 @@
           <%= check_box_tag "admin_user[role_ids][]",
                             role.id,
                             @admin_user.roles.include?(role),
-                            :disabled => !@user.can_admin_role?(role.name.to_sym) %>
+                            disabled: !@user.can_admin_role?(role.name.to_sym) %>
           <% if !@user.can_admin_role?(role.name.to_sym) &&
              @admin_user.roles.include?(role) %>
             <%= hidden_field_tag "admin_user[role_ids][]",
@@ -54,7 +54,7 @@
 <div class="control-group">
   <label for="ban_text" class="control-label">Ban text</label>
   <div class="controls">
-    <%= text_area 'admin_user', 'ban_text', :class => "span6", :rows => 3 %>
+    <%= text_area 'admin_user', 'ban_text', class: "span6", rows: 3 %>
     <div class="help-block">
       if not blank will stop the
       user from filing new requests, making annotations or messaging other users;
@@ -68,7 +68,7 @@
 <div class="control-group">
   <label for="about_me" class="control-label">About me</label>
   <div class="controls">
-    <%= text_area 'admin_user', 'about_me', :class => "span6", :rows => 3 %>
+    <%= text_area 'admin_user', 'about_me', class: "span6", rows: 3 %>
     <div class="help-block">
       user's own text on their profile, format like comments
     </div>

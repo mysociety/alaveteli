@@ -7,7 +7,7 @@
     <div class="alaveteli-widget__top">
       <div class="alaveteli-widget__left">
         <div class="alaveteli-widget__title">
-          <%= link_to @info_request.title, request_path(@info_request), :target => "_top" %>
+          <%= link_to @info_request.title, request_path(@info_request), target: "_top" %>
         </div>
         <div class="alaveteli-widget__status <%= @status %>">
           <p class="alaveteli-widget__status__status-label"><%= _("Status") %></p>
@@ -17,7 +17,7 @@
       <div class="alaveteli-widget__people-count">
         <%= n_('<div class="alaveteli-widget__count">{{count}}</div> person wants to know',
                '<div class="alaveteli-widget__count">{{count}}</div> people want to know',
-               @count, :count => @count) %>
+               @count, count: @count) %>
       </div>
     </div>
 
@@ -27,45 +27,49 @@
           <%= _('This is your request') %>
         </span>
       <% elsif @existing_track %>
-        <%= link_to update_url(:track_id => @existing_track.id, :track_medium => "delete", :r => show_user_profile_url(:url_name => @user.url_name)), :target => '_top',
-          :class => 'alaveteli-widget__bottom__action alaveteli-widget__button--unsubscribe',
-          :onclick => track_analytics_event(
-                        AnalyticsEvent::Category::WIDGET_CLICK,
-                        AnalyticsEvent::Action::WIDGET_UNSUB,
-                        :label => "window.top.location.href",
-                        :label_is_script => true) do %>
+        <%= link_to update_url(track_id: @existing_track.id, track_medium: "delete", r: show_user_profile_url(url_name: @user.url_name)), target: '_top',
+                                                                                                                                          class: 'alaveteli-widget__bottom__action alaveteli-widget__button--unsubscribe',
+                                                                                                                                          onclick: track_analytics_event(
+                                                                                                                                            AnalyticsEvent::Category::WIDGET_CLICK,
+                                                                                                                                            AnalyticsEvent::Action::WIDGET_UNSUB,
+                                                                                                                                            label: "window.top.location.href",
+                                                                                                                                            label_is_script: true
+                                                                                                                                          ) do %>
             <%= _('Unsubscribe') %>
         <% end %>
       <% elsif @existing_vote %>
-        <%= link_to track_request_url(:url_title => @info_request.url_title, :feed => 'track'), :target => '_top',
-          :class => 'alaveteli-widget__bottom__action alaveteli-widget__button--sign-in-to-track',
-          :onclick => track_analytics_event(
-                        AnalyticsEvent::Category::WIDGET_CLICK,
-                        AnalyticsEvent::Action::WIDGET_SIGNIN,
-                        :label => "window.top.location.href",
-                        :label_is_script => true) do %>
+        <%= link_to track_request_url(url_title: @info_request.url_title, feed: 'track'), target: '_top',
+                                                                                          class: 'alaveteli-widget__bottom__action alaveteli-widget__button--sign-in-to-track',
+                                                                                          onclick: track_analytics_event(
+                                                                                            AnalyticsEvent::Category::WIDGET_CLICK,
+                                                                                            AnalyticsEvent::Action::WIDGET_SIGNIN,
+                                                                                            label: "window.top.location.href",
+                                                                                            label_is_script: true
+                                                                                          ) do %>
           <%= _('Sign in to track this request') %>
         <% end %>
       <% elsif @user %>
-        <%= link_to do_track_path(@track_thing), :target => '_top',
-              :class => 'alaveteli-widget__bottom__action alaveteli-widget__button--create-track',
-              :onclick => track_analytics_event(
-                            AnalyticsEvent::Category::WIDGET_CLICK,
-                            AnalyticsEvent::Action::WIDGET_VOTE,
-                            :label => "window.top.location.href",
-                            :label_is_script => true) do %>
+        <%= link_to do_track_path(@track_thing), target: '_top',
+                                                 class: 'alaveteli-widget__bottom__action alaveteli-widget__button--create-track',
+                                                 onclick: track_analytics_event(
+                                                   AnalyticsEvent::Category::WIDGET_CLICK,
+                                                   AnalyticsEvent::Action::WIDGET_VOTE,
+                                                   label: "window.top.location.href",
+                                                   label_is_script: true
+                                                 ) do %>
           <%= _('I also want to know!') %>
         <% end %>
       <% else %>
         <%= form_tag request_widget_votes_url(@info_request),
-              :method => 'post', :target => '_top' do %>
+                     method: 'post', target: '_top' do %>
           <%= submit_tag _('I also want to know!'),
-                :class => 'alaveteli-widget__bottom__action alaveteli-widget__button--create-vote',
-                :onclick => track_analytics_event(
-                              AnalyticsEvent::Category::WIDGET_CLICK,
-                              AnalyticsEvent::Action::WIDGET_VOTE,
-                              :label => "window.top.location.href",
-                              :label_is_script => true) %>
+                         class: 'alaveteli-widget__bottom__action alaveteli-widget__button--create-vote',
+                         onclick: track_analytics_event(
+                           AnalyticsEvent::Category::WIDGET_CLICK,
+                           AnalyticsEvent::Action::WIDGET_VOTE,
+                           label: "window.top.location.href",
+                           label_is_script: true
+                         ) %>
         <% end %>
       <% end %>
     </div>

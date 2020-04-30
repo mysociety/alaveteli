@@ -1,4 +1,4 @@
-<% @title = _("{{site_name}} blog and tweets", :site_name => site_name) %>
+<% @title = _("{{site_name}} blog and tweets", site_name: site_name) %>
 
 <div id="left_column" class="left_column">
   <h1><%= @title %></h1>
@@ -7,22 +7,23 @@
     <% @blog_items.each do |item| %>
       <div class="blog_post">
         <h2 id="<%= Time.zone.parse(item['pubDate'][0]).to_i %>"><a href="<%= item['link'][0] %>"><%= h item['title'][0] %></a></h2>
-        <p class="subtitle"><%= _("Posted on {{date}} by {{author}}", :date=>simple_date(Time.parse(item['pubDate'][0])), :author=> item['creator'] ? item['creator'][0] : item['author'][0]) %></p>
+        <p class="subtitle"><%= _("Posted on {{date}} by {{author}}", date: simple_date(Time.parse(item['pubDate'][0])), author: item['creator'] ? item['creator'][0] : item['author'][0]) %></p>
         <div>
           <% if item['encoded'] %>
-            <%= sanitize(raw item['encoded'][0]) %>
+            <%= sanitize(raw(item['encoded'][0])) %>
           <% elsif item['description'] %>
-            <%= sanitize(raw item['description'][0]) %>
+            <%= sanitize(raw(item['description'][0])) %>
           <% end %>
         </div>
         <p>
           <em>
             <% if item['comments'] %>
               <a href="<%= item['comments'][0] %>"><%= n_(
-                "{{number_of_comments}} comment",
-                "{{number_of_comments}} comments",
-                item['comments'][1],
-                :number_of_comments=>item['comments'][1]) %></a>
+                                                         "{{number_of_comments}} comment",
+                                                         "{{number_of_comments}} comments",
+                                                         item['comments'][1],
+                                                         number_of_comments: item['comments'][1]
+                                                       ) %></a>
             <% end %>
           </em>
         </p>
@@ -56,7 +57,7 @@
   <% if !@twitter_user.empty? %>
     <% if AlaveteliConfiguration::twitter_widget_id %>
       <div id="twitter" class="twitter">
-        <a class="twitter-timeline" data-dnt=true href="https://twitter.com/<%= AlaveteliConfiguration::twitter_username %>" data-widget-id="<%= AlaveteliConfiguration::twitter_widget_id %>">Tweets by @<%= AlaveteliConfiguration::twitter_username %></a>
+        <a class="twitter-timeline" data-dnt=true href="https://twitter.com/<%= AlaveteliConfiguration.twitter_username %>" data-widget-id="<%= AlaveteliConfiguration.twitter_widget_id %>">Tweets by @<%= AlaveteliConfiguration.twitter_username %></a>
         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
       </div>
     <% end %>

@@ -9,9 +9,9 @@
         <li>
           <% if params[:view] != status %>
             <% if controller?("public_body") %>
-              <%= link_to label, url_for(:controller => "public_body", :action => "show", :view => status, :url_name => @public_body.url_name) + "?" + request.query_string + '#results' %>
+              <%= link_to label, url_for(controller: "public_body", action: "show", view: status, url_name: @public_body.url_name) + "?" + request.query_string + '#results' %>
             <% else %>
-              <%= link_to label, url_for(:controller => "request", :action => "list", :view => status) + "?" + request.query_string + '#results' %>
+              <%= link_to label, url_for(controller: "request", action: "list", view: status) + "?" + request.query_string + '#results' %>
             <% end %>
           <% else %>
             <span><%= label %></span>

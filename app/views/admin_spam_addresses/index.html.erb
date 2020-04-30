@@ -16,10 +16,10 @@
 
 <div class="row">
   <div class="span12">
-    <%= form_for(@spam_address, :url => admin_spam_addresses_path, :html => { :class => 'form-inline' }) do |f| -%>
+    <%= form_for(@spam_address, url: admin_spam_addresses_path, html: { class: 'form-inline' }) do |f| -%>
       <%= error_messages_for @spam_address %>
-      <%= f.text_field :email, :class => 'input-xxlarge', :placeholder => 'Enter email' %>
-      <%= f.submit 'Add Spam Address', :class => 'btn btn-warning' %>
+      <%= f.text_field :email, class: 'input-xxlarge', placeholder: 'Enter email' %>
+      <%= f.submit 'Add Spam Address', class: 'btn btn-warning' %>
     <% end -%>
   </div>
 </div>
@@ -40,9 +40,9 @@
           <tr>
             <td><%= spam.email %></td>
             <td><%= link_to 'Remove', admin_spam_address_path(spam),
-              :method => :delete,
-              :data => { :confirm => 'This is permanent! Are you sure?' },
-              :class => 'btn btn-mini btn-danger' %></td>
+                            method: :delete,
+                            data: { confirm: 'This is permanent! Are you sure?' },
+                            class: 'btn btn-mini btn-danger' %></td>
           </tr>
         <% end %>
       </tbody>

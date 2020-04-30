@@ -1,6 +1,6 @@
 <div id="logged_in_bar" class="logged_in_bar account-link-menu-item">
 <% if @user %>
-  <a href="<%= show_user_profile_path(:url_name => @user.url_name) %>" class="account-link js-account-link <% if can?(:access, :alaveteli_pro) %>account-link--with-pro-pill<% end %>">
+  <a href="<%= show_user_profile_path(url_name: @user.url_name) %>" class="account-link js-account-link <% if can?(:access, :alaveteli_pro) %>account-link--with-pro-pill<% end %>">
     <%= @user.name.split.first %>
     <% if can?(:access, :alaveteli_pro) %>
       <span class="pro-pill">pro</span>
@@ -10,7 +10,7 @@
     <div class="profile-summary">
 
         <% if @user.profile_photo %>
-          <img src="<%= get_profile_photo_url(:url_name => @user.url_name) %>" class="profile-summary__image">
+          <img src="<%= get_profile_photo_url(url_name: @user.url_name) %>" class="profile-summary__image">
         <% end %>
         <span class="profile-summary__name"><%= @user.name %>
         </span>
@@ -23,23 +23,23 @@
     </div>
     <ul class="logged-in-menu__links">
       <% if can?(:access, :alaveteli_pro) %>
-        <%= render :partial => 'alaveteli_pro/general/log_in_bar_links' %>
+        <%= render partial: 'alaveteli_pro/general/log_in_bar_links' %>
       <% else %>
-        <li><%= link_to _("My requests"), show_user_requests_path(:url_name => @user.url_name) %></li>
-        <li><%= link_to _("My profile"), show_user_profile_path(:url_name => @user.url_name) %></li>
-        <li><%= link_to _("My wall"), show_user_wall_path(:url_name => @user.url_name) %></li>
+        <li><%= link_to _("My requests"), show_user_requests_path(url_name: @user.url_name) %></li>
+        <li><%= link_to _("My profile"), show_user_profile_path(url_name: @user.url_name) %></li>
+        <li><%= link_to _("My wall"), show_user_wall_path(url_name: @user.url_name) %></li>
       <% end %>
       <li class="logged-in-menu__signout-link">
         <% if @in_pro_area && can?(:access, :alaveteli_pro) %>
           <%# Signed out users won't be able to visit the current path %>
           <%= link_to _("Sign out"), signout_path %>
         <% else %>
-          <%= link_to _("Sign out"), signout_path(:r => request.fullpath) %>
+          <%= link_to _("Sign out"), signout_path(r: request.fullpath) %>
         <% end %>
       </li>
     </ul>
     </div>
 <% else %>
-  <%= link_to _("Sign in or sign up"), signin_path(:r => request.fullpath), :class => "sign_in_link" %>
+  <%= link_to _("Sign in or sign up"), signin_path(r: request.fullpath), class: "sign_in_link" %>
 <% end %>
 </div>

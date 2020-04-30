@@ -1,20 +1,20 @@
 <%- if @page > 1 %>
   <%- @title = _("Requests similar to '{{request_title}}' (page {{page}})",
-                 :page => @page,
-                 :request_title => @info_request.title) %>
+                 page: @page,
+                 request_title: @info_request.title) %>
 <%- else %>
   <%- @title = _("Requests similar to '{{request_title}}'",
-                 :request_title => @info_request.title) %>
+                 request_title: @info_request.title) %>
 <%- end %>
 
 <h1>
   <%- if @page > 1 %>
     <%= _("Requests similar to '{{request_title}}' (page {{page}})",
-          :page => @page,
-          :request_title => request_link(@info_request)) %>
+          page: @page,
+          request_title: request_link(@info_request)) %>
   <%- else %>
     <%= _("Requests similar to '{{request_title}}'",
-          :request_title => request_link(@info_request)) %>
+          request_title: request_link(@info_request)) %>
   <%- end %>
 </h1>
 
@@ -28,10 +28,10 @@
   -->
   <% for result in @xapian_object.results %>
     <% if result[:model].class.to_s == 'InfoRequestEvent' %>
-      <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model] } %>
+      <%= render partial: 'request/request_listing_via_event', locals: { event: result[:model] } %>
     <% else %>
       <p><strong><%= _('Unexpected search result type {{result_type}}',
-                       :result_type => result[:model].class.to_s) %></strong></p>
+                       result_type: result[:model].class.to_s) %></strong></p>
     <% end %>
   <% end %>
 <% end %>

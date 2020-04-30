@@ -5,7 +5,7 @@
   <%= _("You should get a response within {{late_number_of_days}} days, " \
         "or be told if it will take longer (<a href=\"{{review_url}}\">" \
         "details</a>).",
-        :late_number_of_days => AlaveteliConfiguration.reply_late_after_days,
-        :review_url => unhappy_url(InfoRequest.find(info_request_id),
-                                   :anchor => 'internal_review')) %>
+        late_number_of_days: AlaveteliConfiguration.reply_late_after_days,
+        review_url: unhappy_url(InfoRequest.find(info_request_id),
+                                anchor: 'internal_review')) %>
 </p>

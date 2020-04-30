@@ -5,7 +5,7 @@
   <div id="banner_inner" class="banner_inner">
     <div id="banner_content" class="banner_content">
       <div class="banner_site-title">
-        <h1><%= link_to site_name, frontpage_path, :id => 'logo', :class => 'site-title__logo' %></h1>
+        <h1><%= link_to site_name, frontpage_path, id: 'logo', class: 'site-title__logo' %></h1>
       </div>
 
       <div class="rsp_menu_button">
@@ -13,7 +13,7 @@
         <a href="#" class="close"> <i class="icon-menu"></i> Close </a>
       </div>
 
-      <%= render :partial => 'general/locale_switcher' %>
+      <%= render partial: 'general/locale_switcher' %>
       <% if ! (controller.action_name == 'signin' or controller.action_name == 'signup' or controller.action_name == 'login') %>
         <%= render partial: 'general/log_in_bar' %>
       <% end %>
@@ -22,7 +22,7 @@
           <label class="visually-hidden" for="navigation_search_button">
             <%= _("Search") %>
           </label>
-          <%= text_field_tag 'query', params[:query], { :class => "navigation_search_button", :id => "navigation_search_button", :type => "search", :placeholder => _("Search"), :title => _("type your search term here") } %>
+          <%= text_field_tag 'query', params[:query], class: "navigation_search_button", id: "navigation_search_button", type: "search", placeholder: _("Search"), title: _("type your search term here") %>
           <button type="submit">
             <span class="visually-hidden">
               <%= _("Submit Search") %>
@@ -32,7 +32,7 @@
       </div>
     </div>
 
-    <%= render :partial => 'general/responsive_topnav' %>
+    <%= render partial: 'general/responsive_topnav' %>
   </div>
 </div>
 
@@ -48,5 +48,5 @@
     </div>
   </div>
 
-  <%= render :partial => "frontpage_hero" %>
+  <%= render partial: "frontpage_hero" %>
 <% end %>

@@ -2,18 +2,20 @@
   <div class="comment_content">
     <% if comment.user && comment.user.show_profile_photo? && !@render_to_file %>
       <div class="user_photo_on_comment">
-        <img src="<%= get_profile_photo_url(:url_name => comment.user.url_name) %>" alt="">
+        <img src="<%= get_profile_photo_url(url_name: comment.user.url_name) %>" alt="">
       </div>
     <% end %>
 
     <h2>
       <%# When not logged in, but mid-comment-leaving, there'll be no comment.user %>
-      <%= comment.user ?
-        _("{{user_name}} left an annotation ({{date}})",
-            :user_name => user_link(comment.user),
-            :date => simple_date(comment.created_at || Time.zone.now)) :
-        _("You left an annotation ({{date}})",
-            :date => simple_date(comment.created_at || Time.zone.now)) %>
+      <% if comment.user %>
+        <%= _("{{user_name}} left an annotation ({{date}})",
+              user_name: user_link(comment.user),
+              date: simple_date(comment.created_at || Time.zone.now)) %>
+      <% else %>
+        <%= _("You left an annotation ({{date}})",
+              date: simple_date(comment.created_at || Time.zone.now)) %>
+      <% end %>
     </h2>
 
     <div class="comment_in_request_text">

@@ -9,19 +9,19 @@
       <% end %>
     </span>
 
-    <%= link_to incoming_message_path(incoming_message), :class => 'correspondence__header__date' do %>
+    <%= link_to incoming_message_path(incoming_message), class: 'correspondence__header__date' do %>
       <%= simple_date(incoming_message.sent_at) %>
     <% end %>
   </div>
 
   <%- if cannot?(:read, incoming_message) %>
-    <%= render :partial => 'request/hidden_correspondence', :locals => { :message => incoming_message } %>
+    <%= render partial: 'request/hidden_correspondence', locals: { message: incoming_message } %>
   <%- else %>
-    <%= render :partial => 'request/restricted_correspondence', :locals => {:message => incoming_message } %>
-    <%= render :partial => 'request/bubble',
-               :locals => { :incoming_message => incoming_message,
-                            :body => incoming_message.get_body_for_html_display(@collapse_quotes),
-                            :attachments => incoming_message.get_attachments_for_display } %>
+    <%= render partial: 'request/restricted_correspondence', locals: { message: incoming_message } %>
+    <%= render partial: 'request/bubble',
+               locals: { incoming_message: incoming_message,
+                         body: incoming_message.get_body_for_html_display(@collapse_quotes),
+                         attachments: incoming_message.get_attachments_for_display } %>
 
     <p class="event_actions">
       <% if !@user.nil? && @user.admin_page_links? %>

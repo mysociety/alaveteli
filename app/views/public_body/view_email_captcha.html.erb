@@ -1,11 +1,11 @@
-<% @title = _("View FOI email address for '{{public_body_name}}'",:public_body_name => h(@public_body.name)) %>
+<% @title = _("View FOI email address for '{{public_body_name}}'", public_body_name: h(@public_body.name)) %>
 
-<h1><%= _('View FOI email address for {{public_body_name}}',:public_body_name=>public_body_link(@public_body)) %></h1>
+<h1><%= _('View FOI email address for {{public_body_name}}', public_body_name: public_body_link(@public_body)) %></h1>
 
 <%= form_for :contact do |f| %>
   <%= recaptcha_tags %>
 
-  <%= hidden_field_tag(:submitted_view_email, { :value => 1 } ) %>
+  <%= hidden_field_tag(:submitted_view_email, value: 1) %>
 
   <p><%= submit_tag _("View email") %></p>
 <% end %>

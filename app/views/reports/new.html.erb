@@ -11,14 +11,14 @@
     </p>
     <p><%= _("Why specifically do you consider this request unsuitable?") %></p>
 
-    <%= form_tag request_report_path(:request_id => @info_request.url_title) do %>
+    <%= form_tag request_report_path(request_id: @info_request.url_title) do %>
       <p>
         <label class="form_label" for="reason"><%= _('Reason:') %></label>
-        <%= select_tag :reason, options_for_select(@report_reasons, @reason), :prompt => _("Choose a reason") %>
+        <%= select_tag :reason, options_for_select(@report_reasons, @reason), prompt: _("Choose a reason") %>
       </p>
       <p>
         <label class="form_label" for="message"><%= _("Please tell us more:") %></label>
-        <%= text_area_tag :message, @message, :rows => 10, :cols => 60 %>
+        <%= text_area_tag :message, @message, rows: 10, cols: 60 %>
       </p>
 
       <%= hidden_field_tag :comment_id, params[:comment_id] %>

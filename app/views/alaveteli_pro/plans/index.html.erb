@@ -11,14 +11,16 @@
           <%= _('<span class="price-label__amount">{{monthly_price}}</span> ' \
                 'per user, per month',
                 monthly_price: format_currency(
-                                 @plan.amount_with_tax,
-                                 no_cents_if_whole: true)) %>
+                  @plan.amount_with_tax,
+                  no_cents_if_whole: true
+                )) %>
         <% elsif @plan.interval == 'year' %>
           <%= _('<span class="price-label__amount">{{yearly_price}}</span> ' \
                 'per user, per year',
                 yearly_price: format_currency(
-                                @plan.amount_with_tax,
-                                no_cents_if_whole: true)) %>
+                  @plan.amount_with_tax,
+                  no_cents_if_whole: true
+                )) %>
         <% end %>
       </p>
       <p class="pricing__tier__subhead pricing__tier__subhead--intro_pricing"><%= _('Introductory Pricing') %></p>
@@ -32,7 +34,7 @@
         <li><%= _('Dashboard and workflow features') %></li>
         <li><%= _('Friendly support') %></li>
       </ul>
-      <%= link_to _('Sign up'), plan_path('pro'), :class => 'button button-pop' %>
+      <%= link_to _('Sign up'), plan_path('pro'), class: 'button button-pop' %>
     </div>
 
   </div>
@@ -65,8 +67,8 @@
       </ul>
 
       <ul class="marketing__section__feature-list">
-        <li><a href="<%= image_path("alaveteli-pro/screenshot-dashboard.jpg") %>"><%= image_tag("alaveteli-pro/screenshot-dashboard.jpg", :alt => _('Pro brings a new dashboard view')) %></a></li>
-        <li><a href="<%= image_path("alaveteli-pro/screenshot-requests.jpg") %>"><%= image_tag("alaveteli-pro/screenshot-requests.jpg", :alt => _('Pro features a new request list view')) %></a></li>
+        <li><a href="<%= image_path("alaveteli-pro/screenshot-dashboard.jpg") %>"><%= image_tag("alaveteli-pro/screenshot-dashboard.jpg", alt: _('Pro brings a new dashboard view')) %></a></li>
+        <li><a href="<%= image_path("alaveteli-pro/screenshot-requests.jpg") %>"><%= image_tag("alaveteli-pro/screenshot-requests.jpg", alt: _('Pro features a new request list view')) %></a></li>
       </ul>
     </div>
   </div>
@@ -106,11 +108,11 @@
       </ul>
 
       <ul class="marketing__section__feature-list">
-        <li><a href="<%= image_path("alaveteli-pro/screenshot-batch-selection.jpg") %>"><%= image_tag("alaveteli-pro/screenshot-batch-selection.jpg", :alt => _('Batch requests allow multiple recipients of a single request')) %></a></li>
-        <li><a href="<%= image_path("alaveteli-pro/screenshot-batch-list.jpg") %>"><%= image_tag("alaveteli-pro/screenshot-batch-list.jpg", :alt => _('Batch requests are part of a new workflow')) %></a></li>
+        <li><a href="<%= image_path("alaveteli-pro/screenshot-batch-selection.jpg") %>"><%= image_tag("alaveteli-pro/screenshot-batch-selection.jpg", alt: _('Batch requests allow multiple recipients of a single request')) %></a></li>
+        <li><a href="<%= image_path("alaveteli-pro/screenshot-batch-list.jpg") %>"><%= image_tag("alaveteli-pro/screenshot-batch-list.jpg", alt: _('Batch requests are part of a new workflow')) %></a></li>
       </ul>
 
-      <%= link_to _('Sign up'), plan_path('pro'), :class => 'button' %>
+      <%= link_to _('Sign up'), plan_path('pro'), class: 'button' %>
     </div>
   </div>
 </div>

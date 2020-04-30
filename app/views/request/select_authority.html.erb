@@ -22,7 +22,7 @@
 
 <div id="authority_selection" class="authority_selection">
   <%# This view is rendered from multiple urls, hence why the form action is blank %>
-  <%= form_tag "", { :id => 'search_form', :method => 'get' } do %>
+  <%= form_tag "", id: 'search_form', method: 'get' do %>
     <div>
       <p>
         <%= _("First, type in the <strong>name of the public authority" \
@@ -30,14 +30,14 @@
         <% if AlaveteliConfiguration.authority_must_respond %>
           <%= _('<strong>By law, they have to respond</strong> ' \
                   '(<a href="{{url}}">why?</a>).',
-                :url => (help_about_path(:anchor => 'whybother_them')).html_safe) %>
+                url: help_about_path(anchor: 'whybother_them').html_safe) %>
         <% end %>
       </p>
       <label for="query" class="visually-hidden"><%= _('Authority name') %></label>
-      <%= text_field_tag :query, params[:query], { :size => 30,
-                                                   :title => _('type your search term here'),
-                                                   :required => true,
-                                                   :placeholder => _('e.g. Ministry of Defence') } %>
+      <%= text_field_tag :query, params[:query], size: 30,
+                                                 title: _('type your search term here'),
+                                                 required: true,
+                                                 placeholder: _('e.g. Ministry of Defence') %>
       <%= hidden_field_tag :bodies, 1 %>
       <%= submit_tag _('Search') %>
     </div>
@@ -47,17 +47,17 @@
         <p>
           <%= _('Or make a <a href="{{url}}">batch request</a> to ' \
                    '<strong>multiple authorities</strong> at once.',
-                :url => select_authorities_path) %>
+                url: select_authorities_path) %>
         </p>
       </div>
     <% end %>
   <% end %>
 
   <div id="typeahead_response" class="typeahead_response">
-    <%= render :partial => 'public_body/search_ahead' %>
+    <%= render partial: 'public_body/search_ahead' %>
   </div>
 </div>
 
 <div id="select_authority_help" class="select_authority_help">
-  <%= render :partial => 'request/select_authority_help' %>
+  <%= render partial: 'request/select_authority_help' %>
 </div>

@@ -1,12 +1,12 @@
 <div id="request_subject" class="request_subject">
   <p>
     <label class="form_label" for="typeahead_search"><%= _('Summary') %></label>
-    <%= f.text_field :title, :size => 50, :id =>"typeahead_search" %>
+    <%= f.text_field :title, size: 50, id: "typeahead_search" %>
   </p>
 
   <div class="form_item_note">
     <%= _("A one line summary of the information you are requesting, e.g.") %>
-    <%= render :partial => "summary_suggestion" %>
+    <%= render partial: "summary_suggestion" %>
   </div>
 </div>
 
@@ -17,7 +17,7 @@
   <p>
     <label class="form_label" for="outgoing_message_body">
       <%= _('Your request') %></label>
-    <%= o.text_area :body, :rows => 20, :cols => 60 %>
+    <%= o.text_area :body, rows: 20, cols: 60 %>
   </p>
 <% end %>
 
@@ -29,17 +29,17 @@
       <%= hidden_field_tag("public_body_ids[]", public_body_id) %>
     <% end %>
   <% else %>
-    <%= f.hidden_field(:public_body_id, { :value => @info_request.public_body_id } ) %>
+    <%= f.hidden_field(:public_body_id, value: @info_request.public_body_id) %>
   <% end %>
-  <%= hidden_field_tag(:submitted_new_request, 1 ) %>
-  <%= hidden_field_tag(:preview, 1 ) %>
+  <%= hidden_field_tag(:submitted_new_request, 1) %>
+  <%= hidden_field_tag(:preview, 1) %>
   <%= submit_tag _("Preview your public request") %>
 </div>
 
 <% if !@info_request.tag_string.empty? %>
   <p class="form_note">
     <!-- <label class="form_label" for="info_request_tag_string"><%= _("Tags (separated by a space):") %></label>
-      <%= f.text_field :tag_string, :size => 50 %> -->
+      <%= f.text_field :tag_string, size: 50 %> -->
 
       <%= f.hidden_field(:tag_string) %>
       <strong>Tags:</strong> <%= h @info_request.tag_string %>

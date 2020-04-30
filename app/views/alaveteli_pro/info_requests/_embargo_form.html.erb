@@ -5,7 +5,7 @@
   </h2>
 
   <%= render partial: "alaveteli_pro/info_requests/embargo_info",
-             locals: {embargo: info_request.embargo, tense: :present} %>
+             locals: { embargo: info_request.embargo, tense: :present } %>
 
   <label class="houdini-label" for="input1"><%= _("Change privacy") %></label>
   <input class="houdini-input" type="checkbox" id="input1">
@@ -18,10 +18,11 @@
                   method: :delete,
                   data: {
                     confirm: _("Are you sure you want to publish " \
-                               "this request?") } %>
+                               "this request?")
+                  } %>
   <% elsif can?(:create_embargo, info_request) %>
     <%= render partial: "alaveteli_pro/info_requests/embargo_create_form",
-               locals: {info_request: info_request} %>
+               locals: { info_request: info_request } %>
   <% else %>
     <% if info_request.embargo && can?(:destroy, info_request.embargo) %>
       <%= button_to _("Publish request"),
@@ -29,7 +30,8 @@
                     method: :delete,
                     data: {
                       confirm: _("Are you sure you want to publish " \
-                                 "this request?") } %>
+                                 "this request?")
+                    } %>
     <% end %>
   <% end %>
   </div>

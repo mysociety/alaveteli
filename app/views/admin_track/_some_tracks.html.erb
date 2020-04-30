@@ -1,4 +1,4 @@
-<% include_destroy = include_destroy || false %>
+<% include_destroy ||= false %>
 <% if track_things.empty? %>
   <div class="row">
     <div class="span12">
@@ -32,9 +32,9 @@
               <% if include_destroy %>
                 <tr>
                   <td colspan="2">
-                    <%= form_tag admin_track_path(track_thing), :method => 'delete', :class => "form form-inline admin-table-form" do %>
+                    <%= form_tag admin_track_path(track_thing), method: 'delete', class: "form form-inline admin-table-form" do %>
                       <div>
-                        <%= submit_tag "Destroy track", :class => "btn btn-warning" %>
+                        <%= submit_tag "Destroy track", class: "btn btn-warning" %>
                       </div>
                     <% end %>
                   </td>
@@ -48,10 +48,10 @@
                   </td>
                   <td>
                     <% if column.type.to_s == 'datetime' %>
-                      <%= I18n.l(track_thing.send(column.name), :format => "%e %B %Y %H:%M:%S") %>
-                      (<%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(track_thing.send(column.name))) %>)
+                      <%= I18n.l(track_thing.send(column.name), format: "%e %B %Y %H:%M:%S") %>
+                      (<%= _('{{length_of_time}} ago', length_of_time: time_ago_in_words(track_thing.send(column.name))) %>)
                     <% elsif column.name == 'track_medium' and track_thing.track_medium == 'feed' %>
-                      <%= link_to track_thing.track_medium, atom_feed_path(:track_id => track_thing.id) %>
+                      <%= link_to track_thing.track_medium, atom_feed_path(track_id: track_thing.id) %>
                     <% else %>
                       <%= h track_thing.send(column.name) %>
                     <% end %>

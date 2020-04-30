@@ -2,7 +2,7 @@
   <div class="request-sent-message" id="notice">
     <h1>
       <%= _("Your {{law_used_full}} request has been sent",
-            :law_used_full => @info_request.law_used_human(:full)) %>
+            law_used_full: @info_request.law_used_human(:full)) %>
     </h1>
 
     <div class="request-sent-message__row">
@@ -11,40 +11,42 @@
           <%= _("<strong>We will email you</strong> when there is a response, or after " \
                 "{{late_number_of_days}} working days if the authority still hasn't " \
                 "replied by then.",
-                :late_number_of_days => AlaveteliConfiguration.reply_late_after_days) %>
+                late_number_of_days: AlaveteliConfiguration.reply_late_after_days) %>
         </p>
 
         <h2><%= _("Share your request") %></h2>
 
         <%= link_to image_tag("next-step-twitter.png",
-                              :alt => _("Tweet it"),
-                              :width => "120",
-                              :height => "37"),
-                              "https://twitter.com/intent/tweet?" << {
-                                :url => request.url,
-                                :via => AlaveteliConfiguration.twitter_username,
-                                :text => "'#{ @info_request.title }'",
-                                :related => _('mySociety:Helping people set ' \
+                              alt: _("Tweet it"),
+                              width: "120",
+                              height: "37"),
+                    "https://twitter.com/intent/tweet?" << {
+                      url: request.url,
+                      via: AlaveteliConfiguration.twitter_username,
+                      text: "'#{ @info_request.title }'",
+                      related: _('mySociety:Helping people set ' \
                                                 'up sites like {{site_name}} ' \
                                                 'all over the world',
-                                              :site_name => site_name),
-                              }.to_query, :class => 'share-link',
-                                          :onclick => track_analytics_event(
-                                            AnalyticsEvent::Category::OUTBOUND,
-                                            AnalyticsEvent::Action::TWITTER_EXIT,
-                                            :label => "Share Request") %>
+                                 site_name: site_name)
+                    }.to_query, class: 'share-link',
+                                onclick: track_analytics_event(
+                                  AnalyticsEvent::Category::OUTBOUND,
+                                  AnalyticsEvent::Action::TWITTER_EXIT,
+                                  label: "Share Request"
+                                ) %>
 
         <%= link_to image_tag("next-step-facebook.png",
-                              :alt => _("Share on Facebook"),
-                              :width => "120",
-                              :height => "37"),
-                              "https://www.facebook.com/sharer/sharer.php?" << {
-                                :u => request.url
-                              }.to_query, :class => 'share-link',
-                                          :onclick => track_analytics_event(
-                                            AnalyticsEvent::Category::OUTBOUND,
-                                            AnalyticsEvent::Action::FACEBOOK_EXIT,
-                                            :label => "Share Request") %>
+                              alt: _("Share on Facebook"),
+                              width: "120",
+                              height: "37"),
+                    "https://www.facebook.com/sharer/sharer.php?" << {
+                      u: request.url
+                    }.to_query, class: 'share-link',
+                                onclick: track_analytics_event(
+                                  AnalyticsEvent::Category::OUTBOUND,
+                                  AnalyticsEvent::Action::FACEBOOK_EXIT,
+                                  label: "Share Request"
+                                ) %>
 
         <h2><%= _("Keep your request up to date") %></h2>
 
@@ -55,7 +57,7 @@
                   'please link to this page, and <a href="{{url}}">add an ' \
                   'annotation</a> below telling people ' \
                   'about your writing.',
-                  :url => new_comment_url(:url_title => @info_request.url_title).html_safe) %>
+                  url: new_comment_url(url_title: @info_request.url_title).html_safe) %>
           </p>
         <% else %>
           <p class="request-sent-message__para">
@@ -72,7 +74,7 @@
 
           <ul class="what-next__list">
             <li>
-              <%= link_to _("View other requests to {{public_body}}", :public_body => @info_request.public_body.name), public_body_path(@info_request.public_body) %>
+              <%= link_to _("View other requests to {{public_body}}", public_body: @info_request.public_body.name), public_body_path(@info_request.public_body) %>
             </li>
             <li>
               <%= link_to _("Help us classify requests that haven't " \

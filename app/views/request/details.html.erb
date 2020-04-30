@@ -1,9 +1,9 @@
 <% @title = _("Details of request &ldquo;{{request_title}}&rdquo;",
-              :request_title => h(@info_request.title)) %>
+              request_title: h(@info_request.title)) %>
 
 <h1>
   <%= _("Details of request &ldquo;{{request_title}}&rdquo;",
-        :request_title => request_link(@info_request)) %>
+        request_title: request_link(@info_request)) %>
 </h1>
 
 <h2><%= _('Event history') %></h2>
@@ -12,7 +12,7 @@
          'happened to this request on {{site_name}}. This could be used to ' \
          'generate information about the speed with which authorities ' \
          'respond to requests, the number of requests which require a ' \
-         'postal response and much more.', :site_name => site_name) %>
+         'postal response and much more.', site_name: site_name) %>
 </p>
 
 <p><%= _('<strong>Caveat emptor!</strong> To use this data in an honourable ' \
@@ -22,10 +22,10 @@
          'You will also need to understand FOI law, and the way authorities ' \
          'use it. Plus you\'ll need to be an elite statistician.  Please ' \
          '<a href="{{contact_path}}">contact us</a> with questions.',
-          :site_name => site_name, :contact_path => help_contact_path) %>
+         site_name: site_name, contact_path: help_contact_path) %>
 </p>
 
-<% columns = ['id', 'event_type', 'created_at', 'described_state', 'calculated_state', 'last_described_at' ] %>
+<% columns = %w[id event_type created_at described_state calculated_state last_described_at] %>
 
 <table>
   <thead>
@@ -64,7 +64,7 @@
       '{{site_name}} for intermediate events, which weren\'t given an ' \
       'explicit description by a user. See the <a href="{{search_path}}">' \
       'search tips</a> for description of the states.',
-      :site_name => site_name, :search_path => advanced_search_path) %>
+      site_name: site_name, search_path: advanced_search_path) %>
 </p>
 
 <p>

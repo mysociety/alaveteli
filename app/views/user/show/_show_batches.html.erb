@@ -3,8 +3,8 @@
     <%= n_('Your {{count}} batch request',
            'Your {{count}} batch requests',
            @display_user.info_request_batches.size,
-           :count => @display_user.info_request_batches.size) %>
+           count: @display_user.info_request_batches.size) %>
   </h2>
 
-  <%= render :partial => 'info_request_batch/info_request_batch', :collection => @display_user.info_request_batches %>
+  <%= render partial: 'info_request_batch/info_request_batch', collection: @display_user.info_request_batches %>
 <% end %>

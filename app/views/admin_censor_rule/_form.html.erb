@@ -29,7 +29,7 @@
 <div class="control-group">
   <label for="censor_rule_text" class="control-label">Text</label>
   <div class="controls">
-    <%= text_field 'censor_rule', 'text', :class => "span3" %>
+    <%= text_field 'censor_rule', 'text', class: "span3" %>
     <div class="help-block">
       that you want to remove, case sensitive
     </div>
@@ -39,7 +39,7 @@
 <div class="control-group">
   <label for="censor_rule_replacement" class="control-label">Replacement</label>
   <div class="controls">
-    <%= text_field 'censor_rule', 'replacement', :class => "span3" %>
+    <%= text_field 'censor_rule', 'replacement', class: "span3" %>
     <div class="help-block">
       put it in <strong>[square brackets]</strong>, e.g. [personal information removed]. applies to text in emails and HTML conversions of binaries; binaries themselves must stay the same length and the replacement is just a bunch of 'x's
     </div>
@@ -49,7 +49,7 @@
 <div class="control-group">
   <label for="censor_rule_last_edit_comment" class="control-label">Comment for this edit</label>
   <div class="controls">
-    <%= text_area 'censor_rule', 'last_edit_comment', :value => '', :rows => 2, :class => "span6" %>
+    <%= text_area 'censor_rule', 'last_edit_comment', value: '', rows: 2, class: "span6" %>
     <div class="help-block">
       put purpose of the rule, and why the change
     </div>

@@ -2,7 +2,7 @@
 
 <%= error_messages_for 'outgoing_message' %>
 
-<%= form_tag admin_outgoing_message_path(@outgoing_message), :method => 'put' do %>
+<%= form_tag admin_outgoing_message_path(@outgoing_message), method: 'put' do %>
   <div class="control-group">
     <label class="control-label" for="outgoing_message_prominence"> Prominence</label>
     <div class="controls">
@@ -13,7 +13,7 @@
   <div class="control-group">
     <label class="control-label" for="outgoing_message_prominence_reason">Reason for prominence</label>
     <div class="controls">
-      <%= text_area "outgoing_message", "prominence_reason", :rows => 5, :class => "span6" %>
+      <%= text_area "outgoing_message", "prominence_reason", rows: 5, class: "span6" %>
     </div>
   </div>
 
@@ -35,11 +35,11 @@
       only the edited version will be shown on the public page if you do that.</p>
 
     <div class="form-actions">
-      <%= submit_tag 'Save', :accesskey => 's', :class => 'btn btn-primary' %>
+      <%= submit_tag 'Save', accesskey: 's', class: 'btn btn-primary' %>
       <%= link_to resend_admin_outgoing_message_path(@outgoing_message),
-                  :class => 'btn btn-warning',
-                  :method => :post,
-                  :data => { :confirm => "Are you sure you want to resend " \
+                  class: 'btn btn-warning',
+                  method: :post,
+                  data: { confirm: "Are you sure you want to resend " \
                                          "this message to the " \
                                          "authority?" } do %>
         Resend
@@ -53,24 +53,26 @@
   <%= link_to 'List all', admin_requests_path %>
 </p>
 
-<%= form_tag admin_outgoing_message_path(@outgoing_message), :method => 'delete' do %>
+<%= form_tag admin_outgoing_message_path(@outgoing_message), method: 'delete' do %>
   <div class="control-group">
     <div class="controls">
       <% if @is_initial_message %>
         <%= submit_tag "Destroy outgoing message",
-                       :class => "btn btn-danger",
-                       :disabled => true,
-                       :data => {
-                         :confirm => "This is permanent! Are you sure?" } %>
+                       class: "btn btn-danger",
+                       disabled: true,
+                       data: {
+                         confirm: "This is permanent! Are you sure?"
+                       } %>
         <span class="help-inline">
           The initial outgoing message cannot be destroyed. You can set the
           prominence to <tt>hidden</tt> instead.
         </span>
         <% else %>
           <%= submit_tag "Destroy outgoing message",
-                         :class => "btn btn-danger",
-                         :data => {
-                           :confirm => "This is permanent! Are you sure?" } %>
+                         class: "btn btn-danger",
+                         data: {
+                           confirm: "This is permanent! Are you sure?"
+                         } %>
         <% end %>
     </div>
   </div>

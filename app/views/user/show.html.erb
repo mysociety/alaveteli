@@ -1,9 +1,9 @@
 <% if @show_requests %>
-  <% @title =  _("{{user_name}} - Freedom of Information requests",
-                 :user_name => h(@display_user.name)) %>
+  <% @title = _("{{user_name}} - Freedom of Information requests",
+                user_name: h(@display_user.name)) %>
 <% else %>
   <% @title = _("{{user_name}} - user profile",
-                :user_name => h(@display_user.name)) %>
+                user_name: h(@display_user.name)) %>
 <% end %>
 
 <% if @same_name_users.size >= 1 %>
@@ -31,7 +31,7 @@
     <%= _("Things you're following") %>
   </h2>
 
-  <%= render :partial => 'change_receive_email' %>
+  <%= render partial: 'change_receive_email' %>
 
   <br>
 

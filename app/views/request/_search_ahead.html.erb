@@ -4,9 +4,9 @@
       <span class="close-button">X</span>
       <h2><%= _("Possible related requests") %></h2>
       <% @xapian_requests.results.each do |result| %>
-        <%= render :partial => 'request/request_listing_short_via_event',
-                   :locals => { :event => result[:model],
-                                :info_request => result[:model].info_request } %>
+        <%= render partial: 'request/request_listing_short_via_event',
+                   locals: { event: result[:model],
+                             info_request: result[:model].info_request } %>
       <% end %>
 
       <p>

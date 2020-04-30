@@ -1,12 +1,12 @@
 <% @title = "Timeline" %>
 <div class="btn-toolbar">
   <div class="btn-group">
-    <%= link_to "Hour", admin_timeline_path(:hour => 1), :class => "btn" %>
-    <%= link_to "Day", admin_timeline_path(:day => 1), :class => "btn" %>
-    <%= link_to "2 days", admin_timeline_path, :class => "btn" %>
-    <%= link_to "Week", admin_timeline_path(:week => 1), :class => "btn" %>
-    <%= link_to "Month", admin_timeline_path(:month => 1), :class => "btn" %>
-    <%= link_to "All time", admin_timeline_path(:all => 1), :class => "btn" %>
+    <%= link_to "Hour", admin_timeline_path(hour: 1), class: "btn" %>
+    <%= link_to "Day", admin_timeline_path(day: 1), class: "btn" %>
+    <%= link_to "2 days", admin_timeline_path, class: "btn" %>
+    <%= link_to "Week", admin_timeline_path(week: 1), class: "btn" %>
+    <%= link_to "Month", admin_timeline_path(month: 1), class: "btn" %>
+    <%= link_to "All time", admin_timeline_path(all: 1), class: "btn" %>
   </div>
   <div class="btn-group">
     <%= link_to 'Authority changes',
@@ -53,7 +53,7 @@
       <% end %>
 
       <% if lookup_context.template_exists?(event.event_type, ['admin_general'], true) %>
-      <%= render :partial => event.event_type, :locals => { :event => event } %>
+      <%= render partial: event.event_type, locals: { event: event } %>
       <% else %>
       had '<%= event.event_type %>' done to it, parameters <%= event.params_yaml %>.
       <% end %>
@@ -64,7 +64,7 @@
       was updated by administrator <strong><%= event.last_edit_editor %></strong>.
       Changed fields:
         <strong>
-          <%= event.compare(event.previous).map{ |change| change[:name] }.to_sentence %>
+          <%= event.compare(event.previous).map { |change| change[:name] }.to_sentence %>
         </strong>
       <% else %>
       was created by administrator <strong><%= event.last_edit_editor %></strong>.
@@ -72,7 +72,7 @@
     <% end %>
 <% end %>
 
-<%= will_paginate(@events, :class => 'paginator') %>
+<%= will_paginate(@events, class: 'paginator') %>
 
 <% if not @events.empty? %>
   </p>

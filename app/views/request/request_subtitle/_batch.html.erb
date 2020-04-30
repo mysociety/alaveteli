@@ -15,7 +15,7 @@
 <% else %>
   <%= _('{{user}} made this {{law_used_full}} request to {{public_body}} as ' \
         'part of <a href="{{url}}">a batch sent to {{count}} authorities</a>',
-        :user=>request_user_link(info_request, _('An anonymous user')),
+        user: request_user_link(info_request, _('An anonymous user')),
         law_used_full: h(info_request.law_used_human(:full)),
         public_body: public_body_link(info_request.public_body),
         url: info_request_batch_path(info_request.info_request_batch),

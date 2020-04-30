@@ -2,24 +2,24 @@
 
 <%= error_messages_for 'comment' %>
 
-<%= form_tag admin_comment_path(@comment), :method => 'put' do %>
+<%= form_tag admin_comment_path(@comment), method: 'put' do %>
 
   <p><label for="comment_body">Body of annotation</label><br>
-    <%= text_area 'comment', 'body', :rows => 10, :cols => 60 %></p>
+    <%= text_area 'comment', 'body', rows: 10, cols: 60 %></p>
 
   <p><label for="comment_visible">Visible</label>
-    <%= select('comment', "visible", [["Yes – show comment",true],["No – hide comment",false]]) %>
+    <%= select('comment', "visible", [["Yes – show comment", true], ["No – hide comment", false]]) %>
   </p>
 
   <p><label for="comment_attention_requested">Admin attention requested</label>
     <%= select('comment', "attention_requested",
                [
-                  ["Yes – flag for further attention", true],
-                  ["No – clear flag", false]
-                ]) %>
+                 ["Yes – flag for further attention", true],
+                 ["No – clear flag", false]
+               ]) %>
   </p>
 
-  <p><%= submit_tag 'Save', :accesskey => 's' %></p>
+  <p><%= submit_tag 'Save', accesskey: 's' %></p>
 <% end %>
 
 <p>
@@ -35,7 +35,7 @@
       <div class="accordion-heading">
         <span class="item-title">
           <a href="#event_<%= info_request_event.id %>" data-toggle="collapse" data-parent="#events"><%= chevron_right %></a>
-          <%= _("Event {{id}}", :id => info_request_event.id) %>:
+          <%= _("Event {{id}}", id: info_request_event.id) %>:
           <strong>
             <%= h info_request_event.event_type.humanize %><% if !info_request_event.calculated_state.nil? %>; state: <%= info_request_event.calculated_state %><% end %>
           </strong>
@@ -50,8 +50,8 @@
             <tr>
               <td>
                 <% if info_request_event.described_state != 'waiting_clarification' and info_request_event.event_type == 'response' %>
-                  <%= form_tag admin_info_request_event_path(info_request_event), :method => 'put', :class => "form form-inline admin-table-form admin-inline-form" do %>
-                    <%= submit_tag "Was clarification request", :class => "btn btn-mini btn-primary" %>
+                  <%= form_tag admin_info_request_event_path(info_request_event), method: 'put', class: "form form-inline admin-table-form admin-inline-form" do %>
+                    <%= submit_tag "Was clarification request", class: "btn btn-mini btn-primary" %>
                   <% end %>
                 <% end %>
               </td>
@@ -66,9 +66,9 @@
                 </td>
                 <td>
                   <% if column_name == 'params_yaml' %>
-                    <%= render :partial => 'params',
-                               :locals => {
-                                  :params => info_request_event.params_diff
+                    <%= render partial: 'params',
+                               locals: {
+                                 params: info_request_event.params_diff
                                } %>
                   <% elsif value.nil? %>
                     nil

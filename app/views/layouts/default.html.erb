@@ -12,11 +12,11 @@
       <% end %>
     </title>
 
-    <%= render :partial => 'layouts/favicon' %>
+    <%= render partial: 'layouts/favicon' %>
 
-    <%= render :partial => 'general/stylesheet_includes' %>
+    <%= render partial: 'general/stylesheet_includes' %>
     <% if is_admin? %>
-      <%= stylesheet_link_tag "admin", :title => "Main", :rel => "stylesheet" %>
+      <%= stylesheet_link_tag "admin", title: "Main", rel: "stylesheet" %>
     <% end %>
 
     <% if @feed_autodetect %>
@@ -35,8 +35,8 @@
     <% end %>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%= render :partial => 'general/opengraph_tags' %>
-    <%= render :partial => 'general/before_head_end' %>
+    <%= render partial: 'general/opengraph_tags' %>
+    <%= render partial: 'general/before_head_end' %>
     <!-- Replace the html tag's no-js class with js -->
     <script>
       (function(H){
@@ -47,7 +47,7 @@
   </head>
   <body class="<%= 'front' if params[:action] == 'frontpage' %> <% if @in_pro_area %>alaveteli-pro<% end %>">
     <% if is_admin? %>
-      <%= render :partial => 'admin_general/admin_navbar' %>
+      <%= render partial: 'admin_general/admin_navbar' %>
     <% end %>
     <div class="entirebody">
 
@@ -58,7 +58,7 @@
         </div>
       <!-- end popups -->
 
-      <%= render :partial => 'general/responsive_header' %>
+      <%= render partial: 'general/responsive_header' %>
 
       <div id="wrapper">
         <div id="content" role="main">
@@ -78,7 +78,7 @@
         </div>
       </div>
 
-      <%= render :partial => 'general/responsive_footer' %>
+      <%= render partial: 'general/responsive_footer' %>
     </div>
 
     <%= render partial: 'ga_code' unless @user&.is_admin? %>
@@ -110,7 +110,7 @@
     <% end %>
     <%= content_for :javascript %>
 
-    <%= render :partial => 'general/before_body_end' %>
+    <%= render partial: 'general/before_body_end' %>
 
     <a href="#content" class="show-with-keyboard-focus-only skip-to-link">
       <%= _('Back to content') %>

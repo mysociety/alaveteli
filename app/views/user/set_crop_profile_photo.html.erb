@@ -4,22 +4,22 @@
   <%= stylesheet_link_tag "jquery.Jcrop.min.css" %>
 <% end %>
 
-<% raise "internal error" if not @user %>
+<% raise "internal error" unless @user %>
 
 <h2><%= _('Crop your profile photo') %></h2>
 
 <%= foi_error_messages_for :set_profile_photo %>
 
 <div id="set_crop_profile_photo" class="set_crop_profile_photo">
-  <%= form_tag 'set_photo', :id => 'set_crop_profile_photo_form', :multipart => true do %>
+  <%= form_tag 'set_photo', id: 'set_crop_profile_photo_form', multipart: true do %>
     <table>
       <tr>
         <td>
-          <img src="<%= get_draft_profile_photo_url(:id => @draft_profile_photo.id) %>" id="profile_photo_cropbox">
+          <img src="<%= get_draft_profile_photo_url(id: @draft_profile_photo.id) %>" id="profile_photo_cropbox">
         </td>
         <td>
           <div style="width:96px;height:96px;overflow:hidden;">
-            <img src="<%= get_draft_profile_photo_url(:id => @draft_profile_photo.id) %>" id="profile_photo_preview" class="jcrop-preview">
+            <img src="<%= get_draft_profile_photo_url(id: @draft_profile_photo.id) %>" id="profile_photo_preview" class="jcrop-preview">
           </div>
         </td>
       </tr>
@@ -35,7 +35,7 @@
     <p>
       <%= _('<strong>Privacy note:</strong> Your photo will be shown in ' \
             'public on the Internet, wherever you do something on {{site_name}}.',
-            :site_name => site_name) %>
+            site_name: site_name) %>
     </p>
 
     <p>

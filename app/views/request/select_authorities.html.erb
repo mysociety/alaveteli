@@ -6,11 +6,11 @@
 </p>
 
 <div>
-  <%= form_tag(select_authorities_path, {:method => 'get', :id => 'body_search_form', :remote => true, "data-type" => 'json'}) do %>
-    <%= text_field_tag 'public_body_query', params[:public_body_query], { :size => 30, :title => "type your search term here" } %>
+  <%= form_tag(select_authorities_path, :method => 'get', :id => 'body_search_form', :remote => true, "data-type" => 'json') do %>
+    <%= text_field_tag 'public_body_query', params[:public_body_query], size: 30, title: "type your search term here" %>
     <% if !@public_bodies.blank? %>
       <%- @public_bodies.each do |public_body| %>
-        <%= hidden_field_tag "public_body_ids[]", public_body.id, {:id => nil} %>
+        <%= hidden_field_tag "public_body_ids[]", public_body.id, id: nil %>
       <%- end %>
     <% end %>
   <% end %>
@@ -19,13 +19,13 @@
 <div id="body_selection" class="body_selection">
   <div id="body_lists" class="body_lists">
     <div id="body_candidates" class="body_list">
-      <%= form_tag(select_authorities_path, {:id => "body_select_form"}) do %>
-        <%= submit_tag _(' >> '), :id => 'body_select_all_button', :class => 'select_all_button' %>
-        <%= submit_tag _(' > '), :id => 'body_select_button' %>
-        <%= hidden_field_tag "public_body_query", params[:public_body_query], { :id => 'public_body_select_query' } %>
+      <%= form_tag(select_authorities_path, id: "body_select_form") do %>
+        <%= submit_tag _(' >> '), id: 'body_select_all_button', class: 'select_all_button' %>
+        <%= submit_tag _(' > '), id: 'body_select_button' %>
+        <%= hidden_field_tag "public_body_query", params[:public_body_query], id: 'public_body_select_query' %>
         <% if !@public_bodies.blank? %>
           <% @public_bodies.each do |public_body| %>
-            <%= hidden_field_tag "public_body_ids[]", public_body.id, {:id => nil} %>
+            <%= hidden_field_tag "public_body_ids[]", public_body.id, id: nil %>
           <% end %>
         <% end %>
         <select multiple name="public_body_ids[]" id="select_body_candidates" class="body_select" size="15">
@@ -41,14 +41,14 @@
     </div>
 
     <div id="body_selections" class="body_list body_selections">
-      <%= form_tag(select_authorities_path, {:id => "body_deselect_form"}) do %>
+      <%= form_tag(select_authorities_path, id: "body_deselect_form") do %>
 
-        <%= submit_tag _(' < '), :id => 'body_deselect_button' %>
-        <%= submit_tag _(' << '), :id => 'body_deselect_all_button', :class => 'select_all_button' %>
-        <%= hidden_field_tag "public_body_query", params[:public_body_query], { :id => 'public_body_deselect_query' } %>
+        <%= submit_tag _(' < '), id: 'body_deselect_button' %>
+        <%= submit_tag _(' << '), id: 'body_deselect_all_button', class: 'select_all_button' %>
+        <%= hidden_field_tag "public_body_query", params[:public_body_query], id: 'public_body_deselect_query' %>
         <% if @public_bodies %>
           <% @public_bodies.each do |public_body| %>
-            <%= hidden_field_tag "public_body_ids[]", public_body.id, {:id => nil} %>
+            <%= hidden_field_tag "public_body_ids[]", public_body.id, id: nil %>
           <% end %>
         <% end %>
         <select multiple name="remove_public_body_ids[]" id="select_body_selections" class="body_select" size="15">
@@ -61,13 +61,13 @@
       <% end %>
 
       <div id="body_submission" class="body_submission">
-        <%= form_tag(new_batch_path, {:id => "body_submit_form"}) do %>
+        <%= form_tag(new_batch_path, id: "body_submit_form") do %>
           <% if @public_bodies %>
             <% @public_bodies.each do |public_body| %>
-              <%= hidden_field_tag "public_body_ids[]", public_body.id , {:id => nil} %>
+              <%= hidden_field_tag "public_body_ids[]", public_body.id, id: nil %>
             <% end %>
           <% end %>
-          <%= submit_tag _('Make a request to these authorities'), :id => 'body_submit_button' %>
+          <%= submit_tag _('Make a request to these authorities'), id: 'body_submit_button' %>
         <% end %>
       </div>
 

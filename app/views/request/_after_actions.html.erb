@@ -8,26 +8,26 @@
           <li class="action-menu__menu__item">
             <span class="action-menu__menu__heading">
               <%= _('{{info_request_user_name}}',
-                    :info_request_user_name => h(info_request.user_name)) %>
+                    info_request_user_name: h(info_request.user_name)) %>
             </span>
 
             <ul class="action-menu__menu__submenu owner_actions">
               <li>
                 <% if last_response.nil? %>
-                  <%= link_to _("Send a followup"), new_request_followup_path(:request_id => info_request.id, :anchor => 'followup') %>
+                  <%= link_to _("Send a followup"), new_request_followup_path(request_id: info_request.id, anchor: 'followup') %>
                 <% else %>
-                  <%= link_to _("Write a reply"), new_request_incoming_followup_path(:request_id => info_request.id, :incoming_message_id => last_response.id, :anchor => 'followup') %>
+                  <%= link_to _("Write a reply"), new_request_incoming_followup_path(request_id: info_request.id, incoming_message_id: last_response.id, anchor: 'followup') %>
                 <% end %>
               </li>
 
               <% if show_owner_update_status_action %>
                 <li>
-                  <%= link_to _("Update the status of this request"), request_path(info_request, :update_status => 1) %>
+                  <%= link_to _("Update the status of this request"), request_path(info_request, update_status: 1) %>
                 </li>
               <% end %>
 
               <li>
-                <%= link_to _("Request an internal review"), new_request_followup_path(:request_id => info_request.id, :internal_review => '1', :anchor => 'followup') %>
+                <%= link_to _("Request an internal review"), new_request_followup_path(request_id: info_request.id, internal_review: '1', anchor: 'followup') %>
               </li>
             </ul>
           </li>
@@ -36,12 +36,12 @@
         <li class="action-menu__menu__item">
           <span class="action-menu__menu__heading">
             <%= _('{{public_body_name}}',
-                  :public_body_name => h(info_request.public_body.name)) %>
+                  public_body_name: h(info_request.public_body.name)) %>
           </span>
 
           <ul class="action-menu__menu__submenu public_body_actions">
             <li>
-              <%= link_to _("Respond to request"), upload_response_path(:url_title => info_request.url_title) %>
+              <%= link_to _("Respond to request"), upload_response_path(url_title: info_request.url_title) %>
             </li>
           </ul>
         </li>
@@ -54,20 +54,20 @@
               <li>
                 <%= _("Report this request") %>
                 <span class="action-menu__info-link">
-                  <%= link_to _("Unavailable"), help_about_path(:anchor => "reporting_unavailable") %>
+                  <%= link_to _("Unavailable"), help_about_path(anchor: "reporting_unavailable") %>
                 </span>
               </li>
             <% else %>
               <li>
-               <%= link_to _("Report this request"), new_request_report_path(:request_id => info_request.url_title) %><span class="action-menu__info-link">
-                <%= link_to _("Help"), help_about_path(:anchor => "reporting") %>
+               <%= link_to _("Report this request"), new_request_report_path(request_id: info_request.url_title) %><span class="action-menu__info-link">
+                <%= link_to _("Help"), help_about_path(anchor: "reporting") %>
               </span>
               </li>
             <% end %>
 
             <% if feature_enabled?(:annotations) && info_request.comments_allowed? %>
               <li>
-                <%= link_to _('Add an annotation'), new_comment_path(:url_title => info_request.url_title) %>
+                <%= link_to _('Add an annotation'), new_comment_path(url_title: info_request.url_title) %>
               </li>
             <% end %>
 
@@ -78,7 +78,7 @@
             <% end %>
 
             <li>
-              <%= link_to _("Download a zip file of all correspondence"), download_entire_request_path(:url_title => info_request.url_title) %>
+              <%= link_to _("Download a zip file of all correspondence"), download_entire_request_path(url_title: info_request.url_title) %>
             </li>
 
             <li>
@@ -90,9 +90,9 @@
             </li>
 
             <li>
-              <%= render :partial => 'track/rss_feed',
-                         :locals => { :track_thing => track_thing,
-                                      :location => 'action-menu' } %>
+              <%= render partial: 'track/rss_feed',
+                         locals: { track_thing: track_thing,
+                                   location: 'action-menu' } %>
             </li>
           </ul>
         </li>

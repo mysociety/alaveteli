@@ -1,9 +1,9 @@
 <% @title = "Create holidays from suggestions or iCal feed" %>
 <h1><%= @title %></h1>
 
-<%= form_for( @holiday_import, :as => 'holiday_import', :url => '', :method => 'get', :html => { :class => 'form-horizontal form-inline' }) do |f| %>
+<%= form_for(@holiday_import, as: 'holiday_import', url: '', method: 'get', html: { class: 'form-horizontal form-inline' }) do |f| %>
   <% if @holiday_import.holidays.empty? %>
-    <%= error_messages_for 'holiday_import', :header_message => 'There was a problem with these import settings' %>
+    <%= error_messages_for 'holiday_import', header_message: 'There was a problem with these import settings' %>
   <% end %>
   <legend>Import settings</legend>
   <div>
@@ -57,7 +57,7 @@
               Sorry, we couldn't find any holidays in that iCal feed.
             <% end %>
           <% else %>
-            <%= form_for( @holiday_import, :as => 'holiday_import', :url => admin_holiday_imports_path, :html => { :class => 'form-inline' } ) do |f| -%>
+            <%= form_for(@holiday_import, as: 'holiday_import', url: admin_holiday_imports_path, html: { class: 'form-inline' }) do |f| -%>
               <%= error_messages_for 'holiday_import' %>
               <legend>
                 <% if @holiday_import.source == 'suggestions' %>
@@ -68,10 +68,10 @@
               </legend>
               <%= f.fields_for :holidays do |holiday_fields| %>
                 <div class="import-holiday-info">
-                  <%= render :partial => 'admin_holidays/form', :locals => {:f => holiday_fields, :context => :import, :holiday => holiday_fields.object } %>
+                  <%= render partial: 'admin_holidays/form', locals: { f: holiday_fields, context: :import, holiday: holiday_fields.object } %>
                 </div>
               <% end %>
-              <%= f.submit "Import", :class => 'btn btn-warning' %>
+              <%= f.submit "Import", class: 'btn btn-warning' %>
             <% end %>
           <% end %>
         </td>

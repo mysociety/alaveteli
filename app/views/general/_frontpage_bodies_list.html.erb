@@ -4,21 +4,21 @@
     <h3><%= _("Who can I request information from?") %></h3>
 
     <h4><%= n_("{{site_name}} covers requests to {{number_of_authorities}} authority, including:",
-          "{{site_name}} covers requests to {{number_of_authorities}} authorities, including:",
-          PublicBody.visible.count,
-          :site_name => site_name,
-          :number_of_authorities => number_with_delimiter(PublicBody.visible.count)) %></h4>
+               "{{site_name}} covers requests to {{number_of_authorities}} authorities, including:",
+               PublicBody.visible.count,
+               site_name: site_name,
+               number_of_authorities: number_with_delimiter(PublicBody.visible.count)) %></h4>
 
     <ul>
       <% popular_bodies.each do |popular_body| %>
         <li><%= public_body_link(popular_body) %>
           <%= n_('{{count}} request', '{{count}} requests',
                  popular_body.info_requests_visible_count,
-                 :count => popular_body.info_requests_visible_count) %>
+                 count: popular_body.info_requests_visible_count) %>
         </li>
       <% end %>
     </ul>
 
-    <%= link_to _('Browse all authorities &rarr;'), list_public_bodies_default_path, :class => 'button-secondary' %>
+    <%= link_to _('Browse all authorities &rarr;'), list_public_bodies_default_path, class: 'button-secondary' %>
   </div>
 <% end %>

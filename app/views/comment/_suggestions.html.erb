@@ -22,10 +22,12 @@
     <li><%= _(" Say how you\'ve <strong>used the information</strong>, with " \
                 "links if possible.") %> </li>
     <li>
-      <%= @info_request.user_name ?
-        _("<strong>Thank</strong> the public authority or {{user_name}}.",
-              :user_name => h(@info_request.user_name)) :
-        _("<strong>Thank</strong> the public authority or the requester.") %>
+      <% if @info_request.user_name %>
+        <%= _("<strong>Thank</strong> the public authority or {{user_name}}.",
+              user_name: h(@info_request.user_name)) %>
+      <% else %>
+        <%= _("<strong>Thank</strong> the public authority or the requester.") %>
+      <% end %>
     </li>
   <% end %>
 
@@ -67,11 +69,11 @@
   <% if [ 'requires_admin' ].include?(@info_request.described_state) %>
     <li> <%= _("Your thoughts on what the {{site_name}} " \
                   "<strong>administrators</strong> should do about the request.",
-               :site_name=>site_name) %> </li>
+               site_name: site_name) %> </li>
   <% end %>
 </ul>
 <% content_for :public_warning do %>
   <%= _('Annotations will be posted publicly here, and are ' \
               '<strong>not</strong> sent to {{public_body_name}}.',
-              :public_body_name => h(@info_request.public_body.name)) %>
+        public_body_name: h(@info_request.public_body.name)) %>
 <% end %>

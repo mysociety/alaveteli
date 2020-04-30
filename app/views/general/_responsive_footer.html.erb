@@ -2,7 +2,7 @@
   <div class="row">
     <div class="footer__about">
       <h2><%= site_name %></h2>
-      <%= render :partial => 'general/responsive_credits' %>
+      <%= render partial: 'general/responsive_credits' %>
       <ul class="about__contact-links">
         <li>
           <%= link_to _('Contact us'), help_contact_path %>
@@ -20,7 +20,7 @@
         <li>
           <%= link_to _('{{pro_site_name}} Terms',
                         pro_site_name: AlaveteliConfiguration.pro_site_name),
-                        pro_page_path(:id => 'legal') %>
+                      pro_page_path(id: 'legal') %>
         </li>
         <% end %>
       </ul>
@@ -32,12 +32,12 @@
         <ul>
           <% unless AlaveteliConfiguration::twitter_username.blank? %>
           <li>
-            <a href="https://twitter.com/<%= AlaveteliConfiguration::twitter_username %>" class="social-link social-link--twitter" onclick="<%= track_analytics_event(AnalyticsEvent::Category::OUTBOUND, AnalyticsEvent::Action::TWITTER_EXIT, :label => "Footer link") %>">@<%= AlaveteliConfiguration::twitter_username %></a>
+            <a href="https://twitter.com/<%= AlaveteliConfiguration.twitter_username %>" class="social-link social-link--twitter" onclick="<%= track_analytics_event(AnalyticsEvent::Category::OUTBOUND, AnalyticsEvent::Action::TWITTER_EXIT, label: "Footer link") %>">@<%= AlaveteliConfiguration.twitter_username %></a>
           </li>
           <% end %>
           <% unless AlaveteliConfiguration::facebook_username.blank? %>
           <li>
-            <a href="https://facebook.com/<%= AlaveteliConfiguration::facebook_username %>" class="social-link social-link--facebook" onclick="<%= track_analytics_event(AnalyticsEvent::Category::OUTBOUND, AnalyticsEvent::Action::FACEBOOK_EXIT, :label => "Footer link") %>">/<%= AlaveteliConfiguration::facebook_username %></a>
+            <a href="https://facebook.com/<%= AlaveteliConfiguration.facebook_username %>" class="social-link social-link--facebook" onclick="<%= track_analytics_event(AnalyticsEvent::Category::OUTBOUND, AnalyticsEvent::Action::FACEBOOK_EXIT, label: "Footer link") %>">/<%= AlaveteliConfiguration.facebook_username %></a>
           </li>
           <% end %>
         </ul>

@@ -1,7 +1,7 @@
 <div class="dashboard-activity__item">
   <div class="dashboard-activity__item__time">
     <% if activity_list_item.event_time >= Time.zone.now - 1.day %>
-      <%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(activity_list_item.event_time)) %>
+      <%= _('{{length_of_time}} ago', length_of_time: time_ago_in_words(activity_list_item.event_time)) %>
     <% else %>
       <%= I18n.l(activity_list_item.event_time, format: '%d %B %Y') %>
     <% end %>

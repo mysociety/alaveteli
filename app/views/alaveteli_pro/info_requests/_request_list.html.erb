@@ -6,9 +6,9 @@
     </div>
     <div class="requests__header">
 
-      <%= form_for( @request_filter, :url => '', :method => 'get', :html => { :class => 'requests__filter_form' }) do |f| %>
+      <%= form_for(@request_filter, url: '', method: 'get', html: { class: 'requests__filter_form' }) do |f| %>
         <div class="requests__search">
-          <%= f.text_field :search, :placeholder => _('Search') %>
+          <%= f.text_field :search, placeholder: _('Search') %>
           <button type="submit" class="requests__search__button">
             <span class="visually-hidden">
               <%= _("Submit Search") %>
@@ -30,22 +30,22 @@
               "{{filter_description}}</strong> sorted by <strong>" \
               "{{order_description}}</strong> <a href=\"{{reset_url}}\"" \
               " class=\"clear-icon\">clear</a>",
-              :reset_url => alaveteli_pro_info_requests_path,
-              :search_term => @request_filter.search,
-              :filter_description => @request_filter.filter_label,
-              :order_description => @request_filter.order_label) %>
+              reset_url: alaveteli_pro_info_requests_path,
+              search_term: @request_filter.search,
+              filter_description: @request_filter.filter_label,
+              order_description: @request_filter.order_label) %>
       <% elsif @request_filter.filter.present? %>
         <%= _("<strong>{{filter_description}}</strong> sorted by <strong>" \
               "{{order_description}}</strong> <a href=\"{{reset_url}}\"" \
               " class=\"clear-icon\">clear</a>",
-              :reset_url => alaveteli_pro_info_requests_path,
-              :filter_description => @request_filter.filter_capital_label,
-              :order_description => @request_filter.order_label) %>
+              reset_url: alaveteli_pro_info_requests_path,
+              filter_description: @request_filter.filter_capital_label,
+              order_description: @request_filter.order_label) %>
       <% elsif @request_filter.order && @request_filter.order != @request_filter.default_order %>
         <%= _("Sorted by <strong>{{order_description}}</strong>" \
               " <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>",
-              :reset_url => alaveteli_pro_info_requests_path,
-              :order_description => @request_filter.order_label) %>
+              reset_url: alaveteli_pro_info_requests_path,
+              order_description: @request_filter.order_label) %>
       <% end %>
       </p>
     </div>

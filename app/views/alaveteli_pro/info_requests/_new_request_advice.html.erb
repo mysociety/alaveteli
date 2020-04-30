@@ -1,7 +1,7 @@
 <p>
   <%= _("<strong>Can I request information about myself?</strong> " \
         "<a href=\"{{url}}\">No!</a>",
-        :url => help_requesting_path(:anchor => "data_protection").html_safe) %>
+        url: help_requesting_path(anchor: "data_protection").html_safe) %>
 </p>
 <p>
   <strong>
@@ -17,13 +17,11 @@
   <% if AlaveteliConfiguration::working_or_calendar_days == 'working' %>
       <%= _("Remember, public authorities have {{late_number_of_days}} " \
             "working days to respond to FOI requests.",
-            late_number_of_days: AlaveteliConfiguration::reply_late_after_days
-            ) %>
+            late_number_of_days: AlaveteliConfiguration.reply_late_after_days) %>
   <% else %>
       <%= _("Remember, public authorities have {{late_number_of_days}} " \
             "calendar days to respond to FOI requests.",
-            late_number_of_days: AlaveteliConfiguration::reply_late_after_days,
-            ) %>
+            late_number_of_days: AlaveteliConfiguration.reply_late_after_days) %>
   <% end %>
   </strong>
 </p>
@@ -32,5 +30,5 @@
         'this page, including <strong>your name</strong>, will be ' \
         '<strong><a href="{{url}}">displayed publicly</a></strong> on this ' \
         'website.',
-        :url => help_privacy_path(:anchor => "public_request").html_safe) %>
+        url: help_privacy_path(anchor: "public_request").html_safe) %>
 </p>

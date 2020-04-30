@@ -2,7 +2,7 @@
 
 <% if @delivery_status %>
   <h2><%= @delivery_status.humanize %></h2>
-  <%= render :partial => @delivery_status.simple.to_s %>
+  <%= render partial: @delivery_status.simple.to_s %>
 <% end %>
 
 <% if @show_mail_server_logs %>
@@ -12,8 +12,8 @@
             "our {{mta_type}} mail server. You can send these logs to an " \
             "authority to help them diagnose problems receiving email from " \
             "{{site_name}}.",
-            :mta_type => AlaveteliConfiguration.mta_log_type.capitalize,
-            :site_name => AlaveteliConfiguration.site_name) %>
+            mta_type: AlaveteliConfiguration.mta_log_type.capitalize,
+            site_name: AlaveteliConfiguration.site_name) %>
     </p>
 
     <pre><%= @mail_server_logs.join %></pre>

@@ -1,10 +1,10 @@
 <div id="signup" class="signup">
-  <%= form_tag(signup_path, {:id => "signup_form"}) do %>
+  <%= form_tag(signup_path, id: "signup_form") do %>
     <%= foi_error_messages_for :user_signup %>
 
     <p>
       <label class="form_label" for="user_signup_name"> <%= _('Your name:') %></label>
-      <%= text_field 'user_signup', 'name', { :size => 20, :tabindex => 10, :autocomplete => "off" } %>
+      <%= text_field 'user_signup', 'name', size: 20, tabindex: 10, autocomplete: "off" %>
     </p>
 
     <div class="form_item_note">
@@ -12,24 +12,24 @@
             '(<a href="{{why_url}}">why?</a>) on this website and in search ' \
             'engines. <a href="{{help_url}}">Thinking of using a ' \
             'pseudonym?</a>',
-            :why_url => help_privacy_path(:anchor => "public_request").html_safe,
-            :help_url => help_privacy_path(:anchor => "real_name").html_safe) %>
+            why_url: help_privacy_path(anchor: "public_request").html_safe,
+            help_url: help_privacy_path(anchor: "real_name").html_safe) %>
     </div>
 
     <p>
       <label class="form_label" for="user_signup_email"><%= _('Your e-mail:') %></label>
-      <%= text_field 'user_signup', 'email', { :size => 20, :tabindex => 20 } %>
+      <%= text_field 'user_signup', 'email', size: 20, tabindex: 20 %>
     </p>
 
     <div class="form_item_note">
       <%= _('We will not reveal your email address to anybody unless ' \
             '<a href="{{url}}">you or the law tell us to</a>.',
-            :url => help_privacy_path) %>
+            url: help_privacy_path) %>
     </div>
 
     <p>
       <label class="form_label" for="user_signup_password"> <%= _('Password:') %></label>
-      <%= password_field 'user_signup', 'password', { :size => 15, :tabindex => 30, :autocomplete => "off" } %>
+      <%= password_field 'user_signup', 'password', size: 15, tabindex: 30, autocomplete: "off" %>
     </p>
 
     <div class="form_item_note">
@@ -38,7 +38,7 @@
 
     <p>
       <label class="form_label" for="user_signup_password_confirmation"> <%= _('Confirm password:') %></label>
-      <%= password_field 'user_signup', 'password_confirmation', { :size => 15, :tabindex => 40, :autocomplete => "off" } %>
+      <%= password_field 'user_signup', 'password_confirmation', size: 15, tabindex: 40, autocomplete: "off" %>
     </p>
 
     <% if @request_from_foreign_country %>
@@ -46,11 +46,11 @@
     <% end %>
 
     <div class="form_button">
-      <%= hidden_field_tag 'token', params[:token], {:id => 'signup_token' } %>
-      <%= hidden_field_tag :modal, params[:modal], {:id => 'signup_modal' } %>
+      <%= hidden_field_tag 'token', params[:token], id: 'signup_token' %>
+      <%= hidden_field_tag :modal, params[:modal], id: 'signup_modal' %>
       <%= submit_tag _('Sign up'),
-                     :tabindex => 50,
-                     :data => { :disable_with => _("Sending...") } %>
+                     tabindex: 50,
+                     data: { disable_with: _("Sending...") } %>
     </div>
   <% end %>
 </div>

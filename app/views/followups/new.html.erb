@@ -1,9 +1,9 @@
 <% if @incoming_message.nil? %>
-  <% @title = _("Send follow up to '{{title}}'", :title => h(@info_request.title)) %>
+  <% @title = _("Send follow up to '{{title}}'", title: h(@info_request.title)) %>
 <% elsif @incoming_message.recently_arrived %>
-  <% @title = _("New response to '{{title}}'", :title => h(@info_request.title)) %>
+  <% @title = _("New response to '{{title}}'", title: h(@info_request.title)) %>
 <% else %>
-  <% @title = _("Response to '{{title}}'", :title => h(@info_request.title)) %>
+  <% @title = _("Response to '{{title}}'", title: h(@info_request.title)) %>
 <% end %>
 
 <%= foi_error_messages_for :incoming_message, :outgoing_message %>
@@ -18,7 +18,7 @@
                  '</strong>, not just an email, for it to be a valid FOI request') %>
       </dt>
       <dd>
-        <%= render :partial => 'help/why_they_should_reply_by_email', :locals => {:help_page_url =>  help_privacy_path } %>
+        <%= render partial: 'help/why_they_should_reply_by_email', locals: { help_page_url: help_privacy_path } %>
       </dd>
 
       <dt>
@@ -28,7 +28,7 @@
       <dd>
         <%= _('At the bottom of this page, write a reply to them trying to ' \
                  'persuade them to scan it in (<a href="{{url}}">more details</a>).',
-            :url => help_privacy_path(:anchor => 'postal_answer').html_safe) %>
+              url: help_privacy_path(anchor: 'postal_answer').html_safe) %>
       </dd>
 
       <dt>
@@ -40,8 +40,8 @@
                   '{{postal_email_link}} containing your postal address, ' \
                   'and asking them to reply to this request. Or you could ' \
                   'phone them.',
-              :postal_email => h(@postal_email_name),
-              :postal_email_link => "<#{mail_to h(@postal_email)}>".html_safe) %>
+              postal_email: h(@postal_email_name),
+              postal_email_link: "<#{mail_to h(@postal_email)}>".html_safe) %>
 
         <%= _('When you receive the paper response, please help others find ' \
                  'out what it says:') %>
@@ -69,17 +69,17 @@
     <% else %>
       <% if @incoming_message.recently_arrived %>
         <h2><%= _('New response to {{law_used_short}} request',
-                  :law_used_short => h(@info_request.law_used_human(:short))) %>
+                  law_used_short: h(@info_request.law_used_human(:short))) %>
             '<%= request_link @info_request %>'</h2>
       <% else %>
         <h2><%= _('Response to {{law_used_short}} request',
-                  :law_used_short => h(@info_request.law_used_human(:short))) %>
+                  law_used_short: h(@info_request.law_used_human(:short))) %>
             '<%= request_link @info_request %>'</h2>
       <% end %>
     <% end %>
 
-    <%= render :partial => 'request/correspondence', :locals => { :info_request_event => @incoming_message.response_event } %>
+    <%= render partial: 'request/correspondence', locals: { info_request_event: @incoming_message.response_event } %>
   <% end %>
 
-  <%= render :partial => 'followup', :locals => { :incoming_message => @incoming_message } %>
+  <%= render partial: 'followup', locals: { incoming_message: @incoming_message } %>
 </div>

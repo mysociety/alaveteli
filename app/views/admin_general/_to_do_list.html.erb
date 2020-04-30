@@ -21,7 +21,7 @@
                     <%= link_to "(no body)", admin_raw_email_path(item.raw_email_id) %>
                   <% else %>
                     <%= link_to admin_raw_email_path(item.raw_email_id) do %>
-                      <%= excerpt(item.get_body_for_quoting, "", :radius => 60) %>
+                      <%= excerpt(item.get_body_for_quoting, "", radius: 60) %>
                     <% end %>
                   <% end %>
                 <% elsif item.is_a? InfoRequest %>

@@ -1,5 +1,5 @@
 <% @title = _('Change your password on {{site_name}}',
-            :site_name => site_name) %>
+              site_name: site_name) %>
 
 <div id="change_password" class="password_change_new">
   <%= form_tag password_changes_path do %>
@@ -14,7 +14,7 @@
       </label>
       <%= email_field 'password_change_user',
                       'email',
-                      @email_field_options.merge(:size => 20) %>
+                      @email_field_options.merge(size: 20) %>
     </p>
 
     <p class="form_note">

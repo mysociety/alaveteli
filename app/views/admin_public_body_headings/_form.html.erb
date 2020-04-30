@@ -35,11 +35,11 @@
     <% @public_body_heading.ordered_translations.each do |translation| %>
        <% if AlaveteliLocalization.default_locale?(translation.locale) %>
         <%= fields_for('public_body_heading', @public_body_heading) do |t| %>
-          <%= render :partial => 'locale_fields', :locals => { :t => t, :locale => translation.locale } %>
+          <%= render partial: 'locale_fields', locals: { t: t, locale: translation.locale } %>
         <% end %>
       <% else %>
-        <%= f.fields_for(:translations, translation, :child_index => translation.locale) do |t| %>
-          <%= render :partial => 'locale_fields', :locals => { :t => t, :locale => translation.locale } %>
+        <%= f.fields_for(:translations, translation, child_index: translation.locale) do |t| %>
+          <%= render partial: 'locale_fields', locals: { t: t, locale: translation.locale } %>
         <% end %>
       <% end %>
     <% end %>

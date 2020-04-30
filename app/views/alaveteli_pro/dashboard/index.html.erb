@@ -1,4 +1,4 @@
-<%= render :partial => 'ga_events' %>
+<%= render partial: 'ga_events' %>
 
 <div class="inner-canvas">
 
@@ -31,7 +31,7 @@
 
         <div class="dashboard-activity">
           <h2 class="dashboard-activity__title"><%= _("Activity") %></h2>
-          <%= render partial: 'activity_list_item', :collection => @activity_list.current_items %>
+          <%= render partial: 'activity_list_item', collection: @activity_list.current_items %>
           <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @activity_list.events.count) %>
 
         </div> <!-- .dashboard-activity -->

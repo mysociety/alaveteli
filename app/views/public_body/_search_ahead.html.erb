@@ -3,18 +3,18 @@
     <p><%= n_('{{count}} matching authority',
               '{{count}} matching authorities',
               @xapian_requests.results.size,
-              :count => @xapian_requests.results.size) %></p>
+              count: @xapian_requests.results.size) %></p>
   <% else %>
     <p><%= _('No results found.') %></p>
   <% end %>
   <div class="authority_search_ahead_results_container">
     <div id="authority_search_ahead_results">
       <% for result in @xapian_requests.results %>
-        <%= render :partial => 'public_body/body_listing_single',
-          :locals => { :public_body => result[:model],
-                       :request_link => true } %>
+        <%= render partial: 'public_body/body_listing_single',
+                   locals: { public_body: result[:model],
+                             request_link: true } %>
       <% end %>
     </div>
-    <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @xapian_requests.matches_estimated), :params => {:controller=>"request", :action => "select_authority", :pro => @in_pro_area ? "1" : "0"} %>
+    <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @xapian_requests.matches_estimated), params: { controller: "request", action: "select_authority", pro: @in_pro_area ? "1" : "0" } %>
   </div>
 <% end %>

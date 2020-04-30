@@ -15,7 +15,7 @@
 
         <% if subscription.discounted? %>
           <%= _('(with <b>{{discount_name}}</b> discount applied)',
-                :discount_name => subscription.discount_name) %>
+                discount_name: subscription.discount_name) %>
         <% end %>
       </span>
     </span>
@@ -33,7 +33,7 @@
       <td>
         <%= _('{{date}}',
               date: simple_date(Time.zone.at(subscription.created),
-                                :format => :text)) %>
+                                format: :text)) %>
       </td>
     </tr>
 
@@ -45,7 +45,7 @@
         <td>
           <%= _('{{date}}',
                 date: simple_date(Time.zone.at(subscription.current_period_end),
-                                  :format => :text)) %>
+                                  format: :text)) %>
         </td>
       </tr>
     <% else %>
@@ -56,7 +56,7 @@
         <td>
           <%= _('{{date}}',
                 date: simple_date(Time.zone.at(subscription.current_period_end),
-                                  :format => :text)) %>
+                                  format: :text)) %>
         </td>
       </tr>
     <% end %>

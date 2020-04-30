@@ -6,7 +6,7 @@
           <%= n_('{{count}} Attachment',
                  '{{count}} Attachments',
                  attachments.size,
-                 :count => attachments.size) %>
+                 count: attachments.size) %>
         </h3>
       </div>
 
@@ -23,7 +23,7 @@
               <%= a.display_size %>
               <%= link_to "Download", attachment_path(a) %>
               <% if a.has_body_as_html? && incoming_message.info_request.prominence(:decorate => true).is_public? %>
-                <%= link_to "View as HTML", attachment_path(a, :html => true) %>
+                <%= link_to "View as HTML", attachment_path(a, html: true) %>
               <% end %>
               <%= a.extra_note %>
             </p>

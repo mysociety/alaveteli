@@ -20,8 +20,8 @@
     <% end %>
   <% else %>
     <p>
-      <%= ('Has this request been referenced in a news article or academic ' \
-           'paper?') %>
+      <%= 'Has this request been referenced in a news article or academic ' \
+           'paper?' %>
     </p>
 
     <%= link_to new_citation_path(url_title: info_request.url_title), class: 'citations-new' do %>

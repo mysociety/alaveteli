@@ -3,18 +3,18 @@
 </div>
 
 <div class="row">
-  <%= form_tag admin_user_path(@admin_user), :method => 'put', :class => "span12 form form-horizontal" do %>
-    <%= render :partial => 'form' %>
+  <%= form_tag admin_user_path(@admin_user), method: 'put', class: "span12 form form-horizontal" do %>
+    <%= render partial: 'form' %>
     <div class="form-actions">
-      <%= submit_tag 'Save', :accesskey => 's', :class => "btn btn-primary" %>
+      <%= submit_tag 'Save', accesskey: 's', class: "btn btn-primary" %>
     </div>
   <% end %>
 </div>
 
 <div class="row">
   <div class="span12">
-    <%= link_to 'Show', admin_user_path(@admin_user), :class => "btn" %>
-    <%= link_to 'List all', admin_users_path, :class => "btn" %>
+    <%= link_to 'Show', admin_user_path(@admin_user), class: "btn" %>
+    <%= link_to 'List all', admin_users_path, class: "btn" %>
   </div>
 </div>
 
@@ -62,9 +62,9 @@
         <% submit_class = %w(btn btn-danger) %>
         <% submit_class << 'disabled' if disabled %>
         <%= submit_tag 'Close and anonymise',
-          class: submit_class,
-          disabled: disabled,
-          data: { confirm: 'Are you sure? This is irreversible.' } %>
+                       class: submit_class,
+                       disabled: disabled,
+                       data: { confirm: 'Are you sure? This is irreversible.' } %>
       <% end %>
     </div>
   </div>

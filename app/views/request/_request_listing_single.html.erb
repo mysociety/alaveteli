@@ -1,6 +1,4 @@
-<% if @highlight_words.nil?
-     @highlight_words = []
-end %>
+<% @highlight_words = [] if @highlight_words.nil? %>
 
 <div class="request_listing">
   <div class="request_left">
@@ -8,7 +6,7 @@ end %>
       <%
         path =
           if @play_urls
-            categorise_request_path(:url_title => info_request.url_title)
+            categorise_request_path(url_title: info_request.url_title)
           else
             request_path(info_request)
           end
@@ -18,15 +16,15 @@ end %>
 
     <div class="requester">
       <%= _('Requested from {{public_body_name}} by {{info_request_user}} on {{date}}',
-            :public_body_name => public_body_link(info_request.public_body),
-            :info_request_user => user_link(info_request.user),
-            :date => simple_date(info_request.created_at)) %>
+            public_body_name: public_body_link(info_request.public_body),
+            info_request_user: user_link(info_request.user),
+            date: simple_date(info_request.created_at)) %>
     </div>
 
     <p>
       <i class="icon-standalone icon_<%= info_request.calculate_status %>"></i>
       <strong>
-        <%= info_request.display_status(cached_value_ok=true) %>
+        <%= info_request.display_status(cached_value_ok = true) %>
       </strong>
     </p>
   </div>

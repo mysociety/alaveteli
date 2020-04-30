@@ -7,13 +7,13 @@
     <%= _("Although the authority is not legally obliged to reply, " \
           "you should get a response promptly, and normally " \
           "before the end of <strong>{{date_response_required_by}}</strong>.",
-          :date_response_required_by => simple_date(
+          date_response_required_by: simple_date(
             info_request.date_response_required_by
           )) %>
   <% else %>
     <%= _("By law, you should get a response promptly, and normally " \
           "before the end of <strong>{{date_response_required_by}}</strong>.",
-          :date_response_required_by => simple_date(
+          date_response_required_by: simple_date(
             info_request.date_response_required_by
           )) %>
   <% end %>
