@@ -1,10 +1,13 @@
-# View and manage Projects
-class Projects::ProjectsController < ApplicationController
+# Extract data from a Project
+class Projects::ExtractsController < Projects::BaseController
   before_action :authenticate
 
   def show
-    @project = Project.find(params[:id])
+    @project = Project.find(params[:project_id])
     authorize! :read, @project
+
+    # HACK: Temporarily just find a random request to render
+    @info_request = @project.info_requests.sample
   end
 
   private
