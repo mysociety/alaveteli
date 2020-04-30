@@ -1,6 +1,6 @@
 <% @results = InfoRequest.request_list(@filters, @page, @per_page, @max_results) %>
 <% if @results[:results].empty? %>
-  <p> <%= _('No requests of this sort yet.')%></p>
+  <p> <%= _('No requests of this sort yet.') %></p>
 <% else %>
   <h2 class="foi_results">
     <%= _('About {{count}} FOI requests found',

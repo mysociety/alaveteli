@@ -22,9 +22,9 @@
       <br>
       <% if public_body.special_not_requestable_reason? %>
         <% if public_body.not_requestable_reason == 'not_apply' %>
-          <%= _('FOI law does not apply to this authority.')%>
+          <%= _('FOI law does not apply to this authority.') %>
         <% elsif public_body.not_requestable_reason == 'defunct' %>
-          <%= _('Defunct.')%>
+          <%= _('Defunct.') %>
         <% end %>
       <% end %>
     <% end %>

@@ -1,16 +1,16 @@
 <p>
   <%= _("Annotations allow you to add extra notes on a request, which will " \
-          "eventually be made public. For example:")%>
+          "eventually be made public. For example:") %>
 </p>
 
 <ul>
   <% if [ 'successful', 'partially_successful' ].include?(@info_request.described_state) %>
-    <li><%= _(' <strong>Summarising</strong> the content of any information returned. ')%></li>
+    <li><%= _(' <strong>Summarising</strong> the content of any information returned. ') %></li>
     <li><%= _(" Say how you\'ve <strong>used the information</strong>, with " \
-                "links if possible.")%> </li>
+                "links if possible.") %> </li>
     <li><%= _("<strong>Thank</strong> the public authority.") %></li>
     <li> <%= _("Point to <strong>related information</strong>, campaigns or " \
-                 "forums which may be useful.")%></li>
+                 "forums which may be useful.") %></li>
   <% else %>
     <li><%= _("Provide extra context on the request and your reasons for " \
                 "making it.") %></li>
@@ -18,12 +18,12 @@
 
   <% if [ 'gone_postal' ].include?(@info_request.described_state) %>
     <li> <%= _("A <strong>summary</strong> of the response if you have " \
-                  "received it by postal mail. ")%></li>
+                  "received it by postal mail. ") %></li>
   <% end %>
 
   <% if [ 'error_message' ].include?(@info_request.described_state) %>
     <li> <%= _("You know what caused the error, and can <strong>suggest a " \
-                  "solution</strong>, such as a working email address.")%> </li>
+                  "solution</strong>, such as a working email address.") %> </li>
   <% end %>
 
   <% if [ 'requires_admin' ].include?(@info_request.described_state) %>

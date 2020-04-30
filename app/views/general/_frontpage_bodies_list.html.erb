@@ -11,7 +11,7 @@
 
     <ul>
       <% popular_bodies.each do |popular_body| %>
-        <li><%=public_body_link(popular_body)%>
+        <li><%= public_body_link(popular_body) %>
           <%= n_('{{count}} request', '{{count}} requests',
                  popular_body.info_requests_visible_count,
                  :count => popular_body.info_requests_visible_count) %>

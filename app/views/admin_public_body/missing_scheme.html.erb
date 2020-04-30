@@ -1,6 +1,6 @@
 <% @title = 'Popular authorities without Publication Scheme' %>
 
-<h1><%=@title%></h1>
+<h1><%= @title %></h1>
 <p><%= @stats["entered"] %> of <%= @stats["total"] %> entered</p>
 
 <ol>
@@ -8,4 +8,3 @@
     <li><%= public_body_both_links(public_body) %></li>
   <% end %>
 </ol>
-

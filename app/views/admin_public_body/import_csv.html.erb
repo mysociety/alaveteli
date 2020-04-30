@@ -1,12 +1,12 @@
 <% @title = "Upload CSV of public authorities" %>
 
-<h1><%=@title%></h1>
+<h1><%= @title %></h1>
 
 <% if not @notes.empty? %>
-  <pre id="notice"><%=@notes %></pre>
+  <pre id="notice"><%= @notes %></pre>
 <% end %>
 <% if not @errors.empty? %>
-  <pre id="error"><%=@errors %></pre>
+  <pre id="error"><%= @errors %></pre>
 <% end %>
 
 <%= form_tag 'import_csv', :multipart => true do %>
@@ -32,8 +32,7 @@
     <label for="tag_behaviour">What to do with existing tags?</label>
     <%= select_tag 'tag_behaviour',
       raw("<option value='add' selected>Add new tags to existing ones</option>
-         <option value='replace'>Replace existing tags with new ones</option>")
-       %>
+         <option value='replace'>Replace existing tags with new ones</option>") %>
 </p>
 
 <div class="form-actions">
@@ -53,7 +52,7 @@
         of fields, starting with <code>#</code>. The fields <code>name</code> and
         <code>request_email</code> are required; additionally, translated values are
         supported by adding the locale name to the field name,
-        e.g. <code>name.es</code>, <code>name.de</code>&hellip;<br />
+        e.g. <code>name.es</code>, <code>name.de</code>&hellip;<br>
         <strong>Example:</strong>
       </p>
 
@@ -130,7 +129,7 @@ Another One,another@example.com,Otro organismo,a_tag
         The import tag feature does not work for existing bodies without tags.
       </p>
 
-      <hr />
+      <hr>
 
       <p>Read more about <%= link_to 'uploading Public Authorities on alaveteli.org',
         'http://alaveteli.org/docs/running/admin_manual/#creating-changing-and-uploading-public-authority-data', :target => '_blank' %>.

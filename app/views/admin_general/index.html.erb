@@ -90,7 +90,7 @@
 
         <div id="new-authorities" class="accordion-body collapse">
           <% for @change_request in @new_body_requests %>
-            <%= render :partial => 'change_request_summary'%>
+            <%= render :partial => 'change_request_summary' %>
 
             <%= form_tag admin_change_request_path(@change_request),
               :method => 'put',
@@ -184,7 +184,6 @@
                          items: @embargoed_attention_requests,
                          label: 'Review requests reported by users as
                                  requiring administrator attention' } %>
-
 
     <%= render partial: 'to_do_list',
                locals: { id: 'embargoed-requires-admin',

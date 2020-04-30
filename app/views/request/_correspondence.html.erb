@@ -3,9 +3,9 @@
 <% when 'response' %>
   <%= render :partial => 'request/incoming_correspondence', :locals => { :incoming_message => info_request_event.incoming_message } %>
 <% when 'sent', 'followup_sent', 'send_error' %>
-  <%= render :partial => 'request/outgoing_correspondence', :locals => { :outgoing_message => info_request_event.outgoing_message, :info_request_event => info_request_event }%>
+  <%= render :partial => 'request/outgoing_correspondence', :locals => { :outgoing_message => info_request_event.outgoing_message, :info_request_event => info_request_event } %>
 <% when 'resent', 'followup_resent' %>
-  <%= render :partial => 'request/resent_outgoing_correspondence', :locals => { :outgoing_message => info_request_event.outgoing_message, :info_request_event => info_request_event }%>
+  <%= render :partial => 'request/resent_outgoing_correspondence', :locals => { :outgoing_message => info_request_event.outgoing_message, :info_request_event => info_request_event } %>
 <% when 'comment' %>
   <%= render :partial => 'comment/single_comment', :locals => { :comment => info_request_event.comment } %>
 <% end %>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en-gb">
   <head>
-    <meta http-equiv="content-type" content="text/html;charset=UTF-8" >
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8">
     <%= csrf_meta_tags %>
 
-    <title><%= site_name %> admin<%= @title ? ":" : "" %> <%=@title%></title>
+    <title><%= site_name %> admin<%= @title ? ":" : "" %> <%= @title %></title>
 
     <%= javascript_include_tag "admin" %>
     <%= stylesheet_link_tag "admin", :title => "Main", :rel => "stylesheet" %>
@@ -35,7 +35,7 @@
         </div>
       <% end %>
 
-      <%= yield  %>
+      <%= yield %>
     </div>
 
     <div class="admin-footer">

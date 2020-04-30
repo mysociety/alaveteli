@@ -2,7 +2,7 @@
 <% if track_things.empty? %>
   <div class="row">
     <div class="span12">
-      <%=_("No tracked things found.")%>
+      <%= _("No tracked things found.") %>
     </div>
   </div>
 <% else %>
@@ -10,8 +10,8 @@
     <% for track_thing in track_things %>
       <div class="accordion-group">
         <div class="accordion-heading">
-          <a href="#track_<%=track_thing.id%>" data-toggle="collapse" data-parent="requests"><%= chevron_right %></a>
-          <%=track_thing.id%>:
+          <a href="#track_<%= track_thing.id %>" data-toggle="collapse" data-parent="requests"><%= chevron_right %></a>
+          <%= track_thing.id %>:
           <% if track_thing.public_body_id %>
             <%= link_to "<code>#{h track_thing.track_query}</code>".html_safe, public_body_path(track_thing.public_body) %>
           <% elsif track_thing.info_request_id %>
@@ -19,14 +19,14 @@
           <% elsif track_thing.tracked_user_id %>
             <%= link_to "<code>#{h track_thing.track_query}</code>".html_safe, user_path(track_thing.tracked_user) %>
           <% else %>
-            <code><%=h track_thing.track_query%></code>
+            <code><%= h track_thing.track_query %></code>
           <% end %>
           <% if @admin_user.nil? %>
             <%# Do not show this on the list of tracks on the user page, because it’s rather repetitive there %>
             tracked by <%= user_both_links track_thing.tracking_user %>
         <% end %>
         </div>
-        <div id="track_<%=track_thing.id%>" class="accordion-body collapse">
+        <div id="track_<%= track_thing.id %>" class="accordion-body collapse">
           <table class="table table-striped table-condensed">
             <tbody>
               <% if include_destroy %>
@@ -44,7 +44,7 @@
               <% TrackThing.content_columns.each do |column| %>
                 <tr>
                   <td>
-                    <b><%=column.name.humanize%></b>
+                    <b><%= column.name.humanize %></b>
                   </td>
                   <td>
                     <% if column.type.to_s == 'datetime' %>
@@ -53,13 +53,13 @@
                     <% elsif column.name == 'track_medium' and track_thing.track_medium == 'feed' %>
                       <%= link_to track_thing.track_medium, atom_feed_path(:track_id => track_thing.id) %>
                     <% else %>
-                      <%= h track_thing.send(column.name)%>
+                      <%= h track_thing.send(column.name) %>
                     <% end %>
                   </td>
                 </tr>
               <% end %>
               <tr>
-                <td><b><%=_("Items sent in last month")%></b></td>
+                <td><b><%= _("Items sent in last month") %></b></td>
                 <td><%= track_thing.track_things_sent_emails.size %></td>
               </tr>
             </tbody>
@@ -70,4 +70,3 @@
   </div>
 <% end %>
 </table>
-

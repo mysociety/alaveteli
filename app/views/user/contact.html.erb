@@ -29,15 +29,15 @@
   <p class="form_note">
     <% if @user == @recipient_user %>
       <%= _("<strong>Note:</strong> You're sending a message to yourself, " \
-            "presumably to try out how it works.")%>
+            "presumably to try out how it works.") %>
     <% else %>
       <%= _(' <strong>Privacy note:</strong> Your email address will be given to') %>
-      <%= user_link(@recipient_user) %><%= _(' when you send this message.')%>
+      <%= user_link(@recipient_user) %><%= _(' when you send this message.') %>
     <% end %>
   </p>
 
   <% if @recaptcha_required %>
-    <%= recaptcha_tags %><br />
+    <%= recaptcha_tags %><br>
   <% end %>
 
   <div class="form_button">

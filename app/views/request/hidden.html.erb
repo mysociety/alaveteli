@@ -1,6 +1,6 @@
 <% @title = _("Request has been removed") %>
 
-<h1><%=@title%></h1>
+<h1><%= @title %></h1>
 
 <p><%= @details %></p>
 
@@ -14,7 +14,7 @@
 <% if @info_request.prominence(:decorate => true).is_requester_only? %>
   <p>
     <%= _('If you are the requester, then you may <a href="{{url}}">sign in</a> ' \
-    	     'to view the request.',
+           'to view the request.',
           :url => signin_url(:r => request.fullpath).html_safe) %>
   </p>
 <% end %>

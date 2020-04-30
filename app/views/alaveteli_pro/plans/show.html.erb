@@ -3,10 +3,14 @@
 <% end %>
 
 <% content_for :javascript do %>
-  <%= javascript_tag do %>
+  <script>
+//<![CDATA[
+
     AlaveteliPro.stripe_publishable_key = '<%= AlaveteliConfiguration.stripe_publishable_key %>';
     AlaveteliPro.stripe_local = '<%= stripe_locale %>';
-  <% end %>
+
+//]]>
+</script>
 
   <%= javascript_include_tag 'alaveteli_pro/stripe' %>
 <% end %>
@@ -62,7 +66,7 @@
           </div>
           <div class="settings__terms__accept">
             <label for="js-pro-signup-terms">
-              <input type="checkbox" id="js-pro-signup-terms" required />
+              <input type="checkbox" id="js-pro-signup-terms" required>
                <%= _('I have read and accepted these terms and conditions') %>
              </label>
            </div>

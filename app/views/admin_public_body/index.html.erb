@@ -4,7 +4,7 @@
   <% @title = _("Listing public authorities matching '{{query}}'", :query => @query ) %>
 <% end %>
 
-<h1><%=@title%></h1>
+<h1><%= @title %></h1>
 
 <div class="btn-toolbar">
   <div class="btn-group">
@@ -23,7 +23,6 @@
   <% end %><br>
   (substring search in names and emails; exact match of tags)
 <% end %>
-
 
 <% if @public_bodies_by_tag.size > 0 %>
   <h2>Exact tag matches (<%= @public_bodies_by_tag.size %> total)</h2>

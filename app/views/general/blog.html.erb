@@ -1,12 +1,12 @@
 <% @title = _("{{site_name}} blog and tweets", :site_name => site_name) %>
 
 <div id="left_column" class="left_column">
-  <h1><%=@title %></h1>
+  <h1><%= @title %></h1>
 
   <div id="blog" class="blog">
     <% @blog_items.each do |item| %>
       <div class="blog_post">
-        <h2 id="<%= Time.zone.parse(item['pubDate'][0]).to_i %>"><a href="<%=item['link'][0]%>"><%=h item['title'][0] %></a></h2>
+        <h2 id="<%= Time.zone.parse(item['pubDate'][0]).to_i %>"><a href="<%= item['link'][0] %>"><%= h item['title'][0] %></a></h2>
         <p class="subtitle"><%= _("Posted on {{date}} by {{author}}", :date=>simple_date(Time.parse(item['pubDate'][0])), :author=> item['creator'] ? item['creator'][0] : item['author'][0]) %></p>
         <div>
           <% if item['encoded'] %>
@@ -18,7 +18,7 @@
         <p>
           <em>
             <% if item['comments'] %>
-              <a href="<%=item['comments'][0]%>"><%= n_(
+              <a href="<%= item['comments'][0] %>"><%= n_(
                 "{{number_of_comments}} comment",
                 "{{number_of_comments}} comments",
                 item['comments'][1],

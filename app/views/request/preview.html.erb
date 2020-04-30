@@ -31,9 +31,9 @@
           <p class="preview_to">
             <strong><%= _('To') %></strong>
             <% if @batch %>
-              <%= _("Your selected authorities")%>
+              <%= _("Your selected authorities") %>
             <% else %>
-              <%=h(@info_request.public_body.name)%>
+              <%= h(@info_request.public_body.name) %>
             <% end %>
 
           </p>
@@ -60,7 +60,7 @@
         <%= f.hidden_field(:title) %>
         <% if @batch %>
           <% params[:public_body_ids].each do |public_body_id| %>
-            <%= hidden_field_tag("public_body_ids[]", public_body_id)%>
+            <%= hidden_field_tag("public_body_ids[]", public_body_id) %>
           <% end %>
         <% else %>
           <%= f.hidden_field(:public_body_id, { :value => @info_request.public_body_id } ) %>
@@ -75,7 +75,7 @@
       </p>
 
       <% if !@info_request.tag_string.empty? %>
-        <p><strong><%= _('Tags:') %></strong> <%=h @info_request.tag_string %></p>
+        <p><strong><%= _('Tags:') %></strong> <%= h @info_request.tag_string %></p>
       <% end %>
     </div>
   </div>

@@ -40,8 +40,7 @@
         <% @holidays_by_year[year].sort_by(&:day).each do |holiday| %>
           <% tag_opts = { class: 'holiday',
                           id: dom_id(holiday),
-                          data: { target: edit_admin_holiday_path(holiday) } }
-          %>
+                          data: { target: edit_admin_holiday_path(holiday) } } %>
 
           <%= content_tag :tr, holiday, tag_opts do %>
             <%= render partial: 'holiday', locals: { holiday: holiday } %>

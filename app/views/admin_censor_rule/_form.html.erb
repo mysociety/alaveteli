@@ -1,7 +1,7 @@
 <%= error_messages_for 'censor_rule' %>
 
 <div class="well">
-  <%=_("Applies to")%>
+  <%= _("Applies to") %>
   <% unless info_request.nil? %>
     <%= request_both_links(info_request) %>
   <% end %>
@@ -39,7 +39,7 @@
 <div class="control-group">
   <label for="censor_rule_replacement" class="control-label">Replacement</label>
   <div class="controls">
-    <%= text_field 'censor_rule', 'replacement', :class => "span3"  %>
+    <%= text_field 'censor_rule', 'replacement', :class => "span3" %>
     <div class="help-block">
       put it in <strong>[square brackets]</strong>, e.g. [personal information removed]. applies to text in emails and HTML conversions of binaries; binaries themselves must stay the same length and the replacement is just a bunch of 'x's
     </div>

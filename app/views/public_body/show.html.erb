@@ -99,10 +99,10 @@
       <% if @public_body.is_requestable? or @public_body.not_requestable_reason != 'defunct' %>
         <% if @public_body.eir_only? %>
           <h2><%= _('Environmental Information Regulations requests made using this site') %></h2>
-          <p>Nobody has made any Environmental Information Regulations requests to <%=h(@public_body.name)%> using this site yet.</p>
+          <p>Nobody has made any Environmental Information Regulations requests to <%= h(@public_body.name) %> using this site yet.</p>
         <% else %>
-          <h2><%= _('Freedom of Information requests made using this site')%></h2>
-          <p><%= _('Nobody has made any Freedom of Information requests to {{public_body_name}} using this site yet.', :public_body_name => h(@public_body.name))%></p>
+          <h2><%= _('Freedom of Information requests made using this site') %></h2>
+          <p><%= _('Nobody has made any Freedom of Information requests to {{public_body_name}} using this site yet.', :public_body_name => h(@public_body.name)) %></p>
         <% end %>
       <% end %>
     <% else %>
@@ -139,7 +139,7 @@
       <% if @public_body.eir_only? %>
         <h2><%= _('Environmental Information Regulations requests made') %></h2>
       <% else %>
-        <h2> <%= _('Freedom of Information requests made')%></h2>
+        <h2> <%= _('Freedom of Information requests made') %></h2>
       <% end %>
       <p> <%= _('The search index is currently offline, so we can\'t show ' \
                   'the Freedom of Information requests that have been made ' \
@@ -147,7 +147,7 @@
     <% end %>
   </div>
 
-  <div class="authority__body__sidebar"role="complementary">
+  <div class="authority__body__sidebar" role="complementary">
     <% if @number_of_visible_requests > 4 %>
       <%= render :partial => 'request/request_search_form' %>
     <% end %>

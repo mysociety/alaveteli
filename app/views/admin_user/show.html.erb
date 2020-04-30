@@ -1,6 +1,6 @@
 <% @title = _("User – {{name}}", :name => h(@admin_user.name)) %>
 
-<h1><%=@title%></h1>
+<h1><%= @title %></h1>
 
 <% if @admin_user.profile_photo %>
   <div class="user_photo_on_admin">
@@ -16,26 +16,26 @@
   <tbody>
     <tr>
       <td>
-        <b><%=_("Id")%></b>
+        <b><%= _("Id") %></b>
       </td>
       <td>
-        <%=@admin_user.id%>
+        <%= @admin_user.id %>
       </td>
     </tr>
     <% @admin_user.for_admin_column(:complete => true) do |name, value, type, column_name| %>
       <tr>
         <td>
-          <b><%=_(name)%></b>
+          <b><%= _(name) %></b>
         </td>
         <td>
           <% if column_name == 'email' %>
-            <%=link_to @admin_user.email, "mailto:#{h @admin_user.email}"%>
+            <%= link_to @admin_user.email, "mailto:#{h @admin_user.email}" %>
           <% elsif column_name == 'email_bounce_message' %>
             <% unless @admin_user.email_bounce_message.empty? %>
               <%= link_to _("See bounce message"), show_bounce_message_admin_user_path(@admin_user) %>
             <% end %>
           <% else %>
-            <%=h admin_value(value)%>
+            <%= h admin_value(value) %>
           <% end %>
           <% if column_name == 'email_bounced_at' && !@admin_user.email_bounced_at.nil? %>
             <%= form_tag clear_bounce_admin_user_path(@admin_user), :class => "form form-inline" do %>
@@ -100,12 +100,12 @@
 
     <% @admin_user.post_redirects.each do |post_redirect| %>
       <tr class="<%= cycle('odd', 'even') %>">
-        <td><%=h post_redirect.id %></td>
+        <td><%= h post_redirect.id %></td>
         <% for column in PostRedirect.content_columns.map { |c| c.name } %>
           <% if column == 'email_token' %>
-            <td><%=link_to post_redirect.send(column), confirm_path(:email_token => post_redirect.send(column)) %></td>
+            <td><%= link_to post_redirect.send(column), confirm_path(:email_token => post_redirect.send(column)) %></td>
           <% else %>
-            <td><%=h post_redirect.send(column) %></td>
+            <td><%= h post_redirect.send(column) %></td>
           <% end %>
         <% end %>
       </tr>
@@ -128,4 +128,3 @@
 
 <h2>Censor rules</h2>
 <%= render :partial => 'admin_censor_rule/show', :locals => { :censor_rules => @admin_user.censor_rules, :user => @admin_user } %>
-

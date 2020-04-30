@@ -1,9 +1,9 @@
 <% @title = "Statistics" %>
 <div class="hero-unit">
-  <h2><%=@public_body_count%> public authorities</h2>
-  <h2><%=@info_request_count%> requests, <%=@outgoing_message_count%> outgoing messages, <%=@incoming_message_count%> incoming messages</h2>
-  <h2><%=@user_count%> users, <%=@track_thing_count%> tracked things</h2>
-  <h2><%=@comment_count%> annotations</h2>
+  <h2><%= @public_body_count %> public authorities</h2>
+  <h2><%= @info_request_count %> requests, <%= @outgoing_message_count %> outgoing messages, <%= @incoming_message_count %> incoming messages</h2>
+  <h2><%= @user_count %> users, <%= @track_thing_count %> tracked things</h2>
+  <h2><%= @comment_count %> annotations</h2>
 </div>
 
 <div class="row">
@@ -24,10 +24,10 @@
       <% for state, count in @request_by_state %>
         <div class="row">
           <div class="span1">
-            <span class="label label-info"><%=count%></span>
+            <span class="label label-info"><%= count %></span>
           </div>
           <div class="span4">
-            <%=state%>
+            <%= state %>
           </div>
         </div>
       <% end %>
@@ -51,10 +51,10 @@
       <% for state, count in @tracks_by_type %>
         <div class="row">
           <div class="span1">
-            <span class="label label-info"><%=count%></span>
+            <span class="label label-info"><%= count %></span>
           </div>
           <div class="span4">
-            <%=state%>
+            <%= state %>
           </div>
         </div>
       <% end %>

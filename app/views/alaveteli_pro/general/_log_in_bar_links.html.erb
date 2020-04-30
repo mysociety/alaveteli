@@ -1,6 +1,5 @@
 <% if feature_enabled?(:pro_pricing) %>
     <li><%= link_to _("My subscription"), subscriptions_path %></li>
 <% end %>
-<li><%= link_to _("My profile"), show_user_path(:url_name => @user.url_name)
-%></li>
+<li><%= link_to _("My profile"), show_user_path(:url_name => @user.url_name) %></li>
 <li><%= link_to _("My wall"), show_user_wall_path(:url_name => @user.url_name) %></li>

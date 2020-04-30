@@ -4,13 +4,13 @@
   <% if row.instance_of?(Array) %>
     <% if row[0] != 'other' %>
       <strong><%= row[0] %></strong>=<%= row[1] %>
-      <br/>
+      <br>
     <% end %>
   <% elsif row != 'Miscellaneous' %>
     <% if not first_row %>
     <% else %>
       <% first_row = false %>
     <% end %>
-    <h3><%=h row%></h3>
+    <h3><%= h row %></h3>
   <% end %>
 <% end %>

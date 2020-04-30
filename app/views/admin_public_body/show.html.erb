@@ -1,6 +1,6 @@
 <% @title = _("Public authority – {{name}}", :name => h(@public_body.name)) %>
 
-<h1><%=@title%></h1>
+<h1><%= @title %></h1>
 
 <table class="table table-striped table-condensed">
   <tbody>
@@ -8,20 +8,20 @@
       <% unless (column_name == 'api_key' && cannot?(:read, :api_key)) %>
         <tr>
           <td>
-            <b><%=name%></b>
+            <b><%= name %></b>
           </td>
           <td>
             <% if ['home_page', 'publication_scheme', 'disclosure_log'].include? column_name %>
               <% if value %>
-                <%= link_to h(value), value  %>
+                <%= link_to h(value), value %>
               <% end %>
             <% elsif column_name == 'request_email' %>
-              <%= link_to(h(value), "mailto:#{value}")  %>
+              <%= link_to(h(value), "mailto:#{value}") %>
               <% unless @public_body.is_requestable? %>
-                <%=_("not requestable due to: {{reason}}", :reason => h(@public_body.not_requestable_reason))%><% if @public_body.is_followupable? %>; <%=_("but followupable")%><% end %>
+                <%= _("not requestable due to: {{reason}}", :reason => h(@public_body.not_requestable_reason)) %><% if @public_body.is_followupable? %>; <%= _("but followupable") %><% end %>
               <% end %>
             <% else %>
-              <%=h value %>
+              <%= h value %>
             <% end %>
           </td>
         </tr>
@@ -29,19 +29,19 @@
     <% end %>
     <tr>
       <td>
-        <b><%=_("Calculated home page")%></b>
+        <b><%= _("Calculated home page") %></b>
       </td>
       <td>
         <% unless @public_body.calculated_home_page.nil? %>
           <%= link_to(h(@public_body.calculated_home_page), @public_body.calculated_home_page) %>
         <% else %>
-          <%=_("*unknown*")%>
+          <%= _("*unknown*") %>
         <% end %>
       </td>
     </tr>
     <tr>
       <td>
-        <b><%=_("Tags")%></b>
+        <b><%= _("Tags") %></b>
       </td>
       <td>
         <%= render :partial => 'tags', :locals => { :body => @public_body} %>
@@ -51,9 +51,9 @@
 </table>
 <%= link_to _("Edit"), edit_admin_body_path(@public_body), :class => "btn btn-primary" %>
 <% unless @public_body.url_name.nil? %>
-  <%=link_to _("Public page"), public_body_path(@public_body), :class => "btn" %>
+  <%= link_to _("Public page"), public_body_path(@public_body), :class => "btn" %>
 <% else %>
-  <%=_("Public page not available")%>
+  <%= _("Public page not available") %>
 <% end %>
 <hr>
 <h2>History</h2>
@@ -61,7 +61,7 @@
   <div class="row">
     <div class="span2">
       <b>
-        <%= _("Version {{version}}", :version => version.version)%>
+        <%= _("Version {{version}}", :version => version.version) %>
       </b>
     </div>
     <div class="span4">
@@ -72,7 +72,7 @@
       <div class="span6">
         <p>“<%= h(version.last_edit_comment) %>”</p>
         <ul>
-          <li><%=_("This is the first version.")%></li>
+          <li><%= _("This is the first version.") %></li>
         </ul>
       </div>
     <% else %>

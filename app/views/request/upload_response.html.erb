@@ -1,7 +1,6 @@
 <% @title = _("Respond to the FOI request '{{request}}' made by {{user}}",
               :request => h(@info_request.title),
-              :user => h(@info_request.user_name))
-         %>
+              :user => h(@info_request.user_name)) %>
 
 <% if @info_request.is_external? %>
   <h1><%= _('This request was not made via {{site_name}}',
@@ -24,20 +23,20 @@
               :url => help_officers_path.html_safe)) %>
   </p>
 
-  <h2><%= _('Respond by email')%></h2>
+  <h2><%= _('Respond by email') %></h2>
 
   <p>
     <%= _('You should have received a copy of the request by email, and you ' \
           'can respond by <strong>simply replying</strong> to that email. ' \
           'For your convenience, here is the address:') %>
-    <a href="mailto:<%=h @info_request.incoming_email %>">
-      <%=h @info_request.incoming_email %>
+    <a href="mailto:<%= h @info_request.incoming_email %>">
+      <%= h @info_request.incoming_email %>
     </a>.
     <%= _('You may <strong>include attachments</strong>. If you would like ' \
           'to attach a file too large for email, use the form below.') %>
   </p>
 
-  <h2><%= _('Respond using the web')%></h2>
+  <h2><%= _('Respond using the web') %></h2>
 
   <p>
     <%= raw(_('Enter your response below. You may attach one file (use ' \

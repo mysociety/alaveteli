@@ -1,53 +1,52 @@
 <p>
   <%= _("Annotations are so anyone, including you, can help the requester " \
-          "with their request. For example:")%>
+          "with their request. For example:") %>
 </p>
 
 <ul>
   <% if [ 'waiting_clarification' ].include?(@info_request.described_state) %>
-    <li><%= _(' Advise on how to <strong>best clarify</strong> the request.')%></li>
+    <li><%= _(' Advise on how to <strong>best clarify</strong> the request.') %></li>
   <% end %>
 
   <% if not [ 'successful', 'partially_successful' ].include?(@info_request.described_state) %>
     <li><%= _(" Link to the information requested, if it is <strong>already " \
-                "available</strong> on the Internet. ")%></li>
+                "available</strong> on the Internet. ") %></li>
     <li><%= _(" Suggest <strong>where else</strong> the requester might find " \
-                "the information. ")%></li>
+                "the information. ") %></li>
     <li><%= _(" Offer better ways of <strong>wording the request</strong> " \
-                "to get the information. ")%></li>
+                "to get the information. ") %></li>
   <% end %>
 
   <% if [ 'successful', 'partially_successful' ].include?(@info_request.described_state) %>
-    <li><%= _(' <strong>Summarise</strong> the content of any information returned. ')%></li>
+    <li><%= _(' <strong>Summarise</strong> the content of any information returned. ') %></li>
     <li><%= _(" Say how you\'ve <strong>used the information</strong>, with " \
-                "links if possible.")%> </li>
+                "links if possible.") %> </li>
     <li>
       <%= @info_request.user_name ?
         _("<strong>Thank</strong> the public authority or {{user_name}}.",
               :user_name => h(@info_request.user_name)) :
-        _("<strong>Thank</strong> the public authority or the requester.")
-      %>
+        _("<strong>Thank</strong> the public authority or the requester.") %>
     </li>
   <% end %>
 
   <% if [ 'partially_successful' ].include?(@info_request.described_state) %>
     <li> <%= _("Suggest how the requester can find the <strong>rest of the " \
-                  "information</strong>.")%></li>
+                  "information</strong>.") %></li>
   <% end %>
 
   <% if [ 'successful', 'partially_successful' ].include?(@info_request.described_state) %>
     <li> <%= _("Point to <strong>related information</strong>, campaigns or " \
-                 "forums which may be useful.")%></li>
+                 "forums which may be useful.") %></li>
   <% end %>
 
   <% if [ 'gone_postal' ].include?(@info_request.described_state) %>
     <li> <%= _("A <strong>summary</strong> of the response if you have " \
-                  "received it by postal mail. ")%></li>
+                  "received it by postal mail. ") %></li>
   <% end %>
 
   <% if [ 'not_held' ].include?(@info_request.described_state) %>
     <li><%= _(" Ideas on what <strong>other documents to request</strong> " \
-                "which the authority may hold. ")%></li>
+                "which the authority may hold. ") %></li>
   <% end %>
 
   <% if [ 'rejected' ].include?(@info_request.described_state) %>
@@ -62,7 +61,7 @@
 
   <% if [ 'error_message' ].include?(@info_request.described_state) %>
     <li> <%= _("You know what caused the error, and can <strong>suggest a " \
-                  "solution</strong>, such as a working email address.")%> </li>
+                  "solution</strong>, such as a working email address.") %> </li>
   <% end %>
 
   <% if [ 'requires_admin' ].include?(@info_request.described_state) %>

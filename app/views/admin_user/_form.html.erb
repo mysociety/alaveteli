@@ -15,13 +15,12 @@
 <div class="control-group">
   <label for="admin_user_email" class="control-label">Email</label>
   <div class="controls">
-    <%= text_field 'admin_user', 'email', :class => "span3"  %>
+    <%= text_field 'admin_user', 'email', :class => "span3" %>
     <div class="help-block">
       <strong>you must</strong> first validate this
     </div>
   </div>
 </div>
-
 
 <div class="control-group">
   <div class="control-label">Roles</div>
@@ -43,10 +42,10 @@
       </div>
     <% end %>
     <div class="help-block">
-     An <strong>admin</strong> has access to this interface and can see hidden requests<br/>
+     An <strong>admin</strong> has access to this interface and can see hidden requests<br>
     <% if feature_enabled? :alaveteli_pro %>
-       A <strong>pro</strong> can access the pro service<br/>
-       A <strong>pro_admin</strong> can see and administer embargoed requests<br/>
+       A <strong>pro</strong> can access the pro service<br>
+       A <strong>pro_admin</strong> can see and administer embargoed requests<br>
     <% end %>
     </div>
   </div>
@@ -55,7 +54,7 @@
 <div class="control-group">
   <label for="ban_text" class="control-label">Ban text</label>
   <div class="controls">
-    <%= text_area 'admin_user', 'ban_text', :class => "span6", :rows => 3  %>
+    <%= text_area 'admin_user', 'ban_text', :class => "span6", :rows => 3 %>
     <div class="help-block">
       if not blank will stop the
       user from filing new requests, making annotations or messaging other users;
@@ -69,7 +68,7 @@
 <div class="control-group">
   <label for="about_me" class="control-label">About me</label>
   <div class="controls">
-    <%= text_area 'admin_user', 'about_me', :class => "span6", :rows => 3  %>
+    <%= text_area 'admin_user', 'about_me', :class => "span6", :rows => 3 %>
     <div class="help-block">
       user's own text on their profile, format like comments
     </div>

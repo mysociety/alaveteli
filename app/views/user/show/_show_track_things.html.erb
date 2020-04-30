@@ -4,7 +4,7 @@
   <% if @track_things_grouped.size == 1 %>
     <%= form_tag({:controller => 'track', :action => 'delete_all_type'}, :class => "feed_form") do %>
       <h3>
-        <%=TrackThing.track_type_description(@track_things[0].track_type)%>
+        <%= TrackThing.track_type_description(@track_things[0].track_type) %>
         <%= hidden_field_tag 'track_type', @track_things[0].track_type %>
         <%= hidden_field_tag 'user', @display_user.id %>
         <%= hidden_field_tag 'r', request.fullpath %>
@@ -19,12 +19,12 @@
     <% if @track_things_grouped.size > 1 %>
       <%= form_tag({:controller => 'track', :action => 'delete_all_type'}, :class => "feed_form") do %>
         <h3>
-          <%=TrackThing.track_type_description(track_type)%>
+          <%= TrackThing.track_type_description(track_type) %>
           <%= hidden_field_tag 'track_type', track_type %>
           <%= hidden_field_tag 'user', @display_user.id %>
           <%= hidden_field_tag 'r', request.fullpath %>
           <% if track_things.size > 1 %>
-            <%= submit_tag _('unsubscribe all')%>
+            <%= submit_tag _('unsubscribe all') %>
           <% end %>
         </h3>
       <% end %>
@@ -37,7 +37,7 @@
             <div>
               <%= track_description(track_thing) %>
               <%= hidden_field_tag 'track_medium', "delete", { :id => 'track_medium_' + track_thing.id.to_s } %>
-              <%= hidden_field_tag 'r', request.fullpath, { :id => 'r_' + track_thing.id.to_s }  %>
+              <%= hidden_field_tag 'r', request.fullpath, { :id => 'r_' + track_thing.id.to_s } %>
               <%= submit_tag _('unsubscribe') %>
             </div>
           <% end %>

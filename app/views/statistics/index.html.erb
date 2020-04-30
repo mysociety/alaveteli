@@ -51,7 +51,7 @@
              "so thanks are due to him.") %></p>
 
   <% @public_bodies.each do |graph_data| %>
-    <h3 class="public-body-ranking-title"><%= graph_data['title']%></h3>
+    <h3 class="public-body-ranking-title"><%= graph_data['title'] %></h3>
     <div class="public-body-ranking" id="<%= graph_data['id'] %>">
       <% if graph_data['x_values'] %>
         <table border=0>

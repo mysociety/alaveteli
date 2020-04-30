@@ -5,7 +5,7 @@
 <div class="user_listing">
   <% if display_user.show_profile_photo? %>
     <div class="user_photo_on_search">
-      <a href="<%=user_path(display_user)%>">
+      <a href="<%= user_path(display_user) %>">
         <img src="<%= get_profile_photo_url(:url_name => display_user.url_name) %>" alt="">
       </a>
     </div>

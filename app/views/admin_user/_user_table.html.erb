@@ -24,7 +24,7 @@
             </tr>
           <% end %>
 
-          <% user.for_admin_column do |name, value, type|%>
+          <% user.for_admin_column do |name, value, type| %>
             <tr>
               <td><b><%= h name %></b></td>
               <td>
@@ -55,4 +55,3 @@
 </div>
 
 <%= will_paginate(users, :class => "paginator") %>
-

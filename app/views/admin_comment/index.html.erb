@@ -18,14 +18,14 @@
                     edit_admin_comment_path(comment) %>
       </span>
       <span class="item-metadata">
-        created <%=I18n.l(comment.created_at, :format => "%e %B %Y %H:%M:%S")%>
+        created <%= I18n.l(comment.created_at, :format => "%e %B %Y %H:%M:%S") %>
     </span>
     </div>
 
     <div id="comment_<%= comment.id %>" class="accordion-body collapse">
       <table class="table table-striped table-condensed">
         <tbody>
-          <% comment.for_admin_column do |name, value, type|%>
+          <% comment.for_admin_column do |name, value, type| %>
             <tr>
               <td><b><%= h name %></b></td>
               <td>

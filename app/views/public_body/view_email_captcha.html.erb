@@ -1,6 +1,6 @@
 <% @title = _("View FOI email address for '{{public_body_name}}'",:public_body_name => h(@public_body.name)) %>
 
-<h1><%= _('View FOI email address for {{public_body_name}}',:public_body_name=>public_body_link(@public_body))%></h1>
+<h1><%= _('View FOI email address for {{public_body_name}}',:public_body_name=>public_body_link(@public_body)) %></h1>
 
 <%= form_for :contact do |f| %>
   <%= recaptcha_tags %>

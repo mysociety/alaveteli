@@ -21,7 +21,7 @@
   <div class="controls">
     <%= form_tag generate_upload_url_admin_request_path(incoming_message.info_request), :class => "form form-inline" do %>
       <%= hidden_field_tag 'incoming_message_id', incoming_message.id, :id => nil %>
-      <%= submit_tag "Generate and take me there", :class => "btn"  %>
+      <%= submit_tag "Generate and take me there", :class => "btn" %>
     <% end %>
   </div>
 </div>
@@ -61,8 +61,6 @@
     </div>
   </div>
 
-
 <% end %>
-
 
 </fieldset>

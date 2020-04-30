@@ -11,7 +11,7 @@
   </label>
   <input class="houdini-input"
          type="checkbox"
-         id="houdini-batch-expand-<%= info_request_batch.id %>"/>
+         id="houdini-batch-expand-<%= info_request_batch.id %>">
   <div class="houdini-target batch-request__requests">
     <% if info_request_batch.info_requests.empty? %>
       <%= render partial: 'alaveteli_pro/info_request_batches/public_body',

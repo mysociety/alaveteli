@@ -30,7 +30,7 @@
 <table>
   <thead>
   <tr scope="col">
-  <% for column in @columns%>
+  <% for column in @columns %>
     <th><%= column %></th>
   <% end %>
   <th scope="col">link</th>
@@ -41,7 +41,7 @@
     <tr class="<%= cycle('odd', 'even') %>">
     <% for column in @columns %>
       <td data-label="<%= column %>">
-        <%=h info_request_event.send(column) %>&nbsp;
+        <%= h info_request_event.send(column) %>&nbsp;
       </td>
     <% end %>
     <td data-label="link">

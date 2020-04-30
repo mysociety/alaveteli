@@ -19,14 +19,13 @@
   <% end %>
 <% end %>
 
-
 <!--[form:public_body_heading]-->
 
 <div id="div-locales">
   <ul class="locales nav nav-tabs">
     <% @public_body_heading.ordered_translations.each do |translation| %>
       <li>
-        <a href="#div-locale-<%= translation.locale.to_s %>" data-toggle="tab" >
+        <a href="#div-locale-<%= translation.locale.to_s %>" data-toggle="tab">
           <%= locale_name(translation.locale.to_s) || translation.locale.to_s %>
         </a>
       </li>

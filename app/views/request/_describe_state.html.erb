@@ -77,11 +77,10 @@
   <% end %>
 <% else %>
   <% if !@info_request.is_external? && !@old_unclassified %>
-    <%=  _("We don't know whether the most recent response to this request " \
+    <%= _("We don't know whether the most recent response to this request " \
            "contains information or not &ndash; if you are {{user_link}} " \
            "please <a href=\"{{url}}\">sign in</a> and let everyone know.",
            :user_link => user_link(@info_request.user),
            :url => signin_url(:r => request.fullpath)) %>
   <% end %>
 <% end %>
-

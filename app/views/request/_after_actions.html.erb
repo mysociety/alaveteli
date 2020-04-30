@@ -52,7 +52,7 @@
             <% if info_request.attention_requested %>
               <%# The request has already been reported %>
               <li>
-                <%=  _("Report this request") %>
+                <%= _("Report this request") %>
                 <span class="action-menu__info-link">
                   <%= link_to _("Unavailable"), help_about_path(:anchor => "reporting_unavailable") %>
                 </span>

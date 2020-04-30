@@ -1,6 +1,6 @@
 <% @show_tips = @xapian_requests.nil? || (@total_hits == 0) %>
 
-<%= render :partial => 'localised_datepicker'  %>
+<%= render :partial => 'localised_datepicker' %>
 
 <% if @query.nil? %>
   <% @title = _("Search Freedom of Information requests, public authorities and users") %>
@@ -8,14 +8,14 @@
   <% @title = _('There were no results matching your query.') %>
 <% else %>
   <% @title = _("Results page {{page_number}}", :page_number => @page.to_s) %>
-<% end%>
+<% end %>
 
 <div id="header_left" class="header_left">
   <% if @query.nil? %>
     <h1><%= _("Search") %></h1>
   <% else %>
     <h1><%= _("Search results") %></h1>
-  <% end%>
+  <% end %>
 
   <% if @advanced %>
     <div id="advanced-search" class="advanced-search">
@@ -33,7 +33,6 @@
     <% end %>
     </div>
   <% else %>
-
 
     <%= form_tag(search_redirect_path, {:method => "get", :id => "search_form"}) do %>
       <p>
@@ -60,11 +59,11 @@
             ["requests", _("requests")],
             ["users", _("users")],
             ["bodies", _("authorities")],
-            ["all", _("everything")]]%>
+            ["all", _("everything")]] %>
           <% for variety, label in labels %>
             <li>
               <% if @variety_postfix != variety %>
-                <%=  link_to label, search_path([params[:query], variety, @sort_postfix]) %>
+                <%= link_to label, search_path([params[:query], variety, @sort_postfix]) %>
               <% else %>
                 <span>
                   <%= label %>
@@ -87,7 +86,7 @@
                   status, title = item %>
 
                 <%= check_box_tag "latest_status[]", status, params[:latest_status].nil? ? false : params[:latest_status].include?(status), :id => "latest_status_#{index}" %>
-                <%= label_tag("latest_status_#{index}", title) %> <br/>
+                <%= label_tag("latest_status_#{index}", title) %> <br>
               <% end %>
           </div>
 
@@ -106,7 +105,7 @@
               <% variety, title = item %>
 
               <%= check_box_tag "request_variety[]", variety, params[:request_variety].nil? ? true : params[:request_variety].include?(variety), :id => "request_variety_#{index}" %>
-              <%= label_tag("request_variety_#{index}", title) %> <br/>
+              <%= label_tag("request_variety_#{index}", title) %> <br>
             <% end %>
           </div>
 
@@ -120,17 +119,17 @@
       <% end %>
 
       <div>
-        <%= submit_tag _("Filter") if @variety_postfix == "requests"%>
+        <%= submit_tag _("Filter") if @variety_postfix == "requests" %>
       </div>
-      <% end # Search form%>
+      <% end # Search form %>
 
       <% end # if @advanced %>
 
       <% if !@query.nil? && @total_hits > 0 %>
         <p id="search_controls" class="search_controls">
-          <%=link_to_unless @sortby == 'relevant', _("Show most relevant results first"), search_path([params[:query], @variety_postfix, 'relevant'], params) %>
+          <%= link_to_unless @sortby == 'relevant', _("Show most relevant results first"), search_path([params[:query], @variety_postfix, 'relevant'], params) %>
           |
-          <%=link_to_unless @sortby == 'newest', _("Newest results first"), search_path([params[:query], @variety_postfix, 'newest'], params) %>
+          <%= link_to_unless @sortby == 'newest', _("Newest results first"), search_path([params[:query], @variety_postfix, 'newest'], params) %>
           <% if @sortby == 'described' %>
             | <%= _('Recently described results first') %>
         <% end %>
@@ -139,7 +138,7 @@
 </div>  <!-- header left -->
 <% if !@track_thing.nil? %>
   <div id="header_right" class="header_right">
-    <h2><%= _('Track this search')%></h2>
+    <h2><%= _('Track this search') %></h2>
     <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'main' } %>
     <%= render :partial => 'track/rss_feed', :locals => { :track_thing => @track_thing, :location => 'main' } %>
   </div>
@@ -148,7 +147,7 @@
 <div style="clear:both;"></div>
 <% if @total_hits == 0 %>
   <div class="results_section">
-    <h2><%=@title %></h2>
+    <h2><%= @title %></h2>
     <% if @spelling_correction %>
       <p id="did_you_mean"><%= _('Did you mean: {{correction}}', :correction => search_link(@spelling_correction)) %></p>
     <% end %>
@@ -169,7 +168,7 @@
         <% for result in @xapian_bodies.results %>
           <%= render :partial => 'public_body/body_listing_single',
             :locals => { :public_body => result[:model],
-                         :request_link => true }  %>
+                         :request_link => true } %>
                      <% end %>
       </div>
 
@@ -196,7 +195,6 @@
 
     </div>
   <% end %>
-
 
   <% if @xapian_requests_hits > 0 %>
     <div class="results_section">

@@ -6,7 +6,7 @@
 
     <title>
       <% if @title %>
-        <%=@title%> - <%= site_name %>
+        <%= @title %> - <%= site_name %>
       <% else %>
         <%= site_name %> - <%= _('Make and browse Freedom of Information (FOI) requests') %>
       <% end %>
@@ -21,9 +21,9 @@
 
     <% if @feed_autodetect %>
       <% for feed in @feed_autodetect %>
-        <link rel="alternate" type="application/atom+xml" title="<%=h feed[:title] %>" href="<%=h feed[:url]%>">
+        <link rel="alternate" type="application/atom+xml" title="<%= h feed[:title] %>" href="<%= h feed[:url] %>">
         <% if feed[:has_json] %>
-          <link rel="alternate" type="application/json" title="JSON version of <%=h feed[:title] %>" href="<%=h feed[:url]%>.json">
+          <link rel="alternate" type="application/json" title="JSON version of <%= h feed[:title] %>" href="<%= h feed[:url] %>.json">
         <% end %>
       <% end %>
     <% end %>
@@ -34,7 +34,7 @@
       <meta name="robots" content="noindex, nofollow">
     <% end %>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= render :partial => 'general/opengraph_tags' %>
     <%= render :partial => 'general/before_head_end' %>
     <!-- Replace the html tag's no-js class with js -->

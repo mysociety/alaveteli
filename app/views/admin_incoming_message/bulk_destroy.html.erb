@@ -2,7 +2,7 @@
 
 <% @incoming_messages.each do |incoming_message| %>
   <b><%= h(incoming_message.mail_from) %></b>
-  at <%=admin_value(incoming_message.sent_at)%>
+  at <%= admin_value(incoming_message.sent_at) %>
   <blockquote class="incoming-message">
     <% if !incoming_message.cached_main_body_text_folded.nil? %>
       <%= truncate(

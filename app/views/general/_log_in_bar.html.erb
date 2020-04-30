@@ -17,7 +17,7 @@
         <% if can?(:access, :alaveteli_pro) %>
           <span class="pro-pill">pro</span>
         <% end %>
-        <br/>
+        <br>
         <span class="profile-summary__email"><%= @user.email %></span>
 
     </div>
@@ -40,6 +40,6 @@
     </ul>
     </div>
 <% else %>
-  <%= link_to _("Sign in or sign up"), signin_path(:r => request.fullpath), :class => "sign_in_link"  %>
+  <%= link_to _("Sign in or sign up"), signin_path(:r => request.fullpath), :class => "sign_in_link" %>
 <% end %>
 </div>

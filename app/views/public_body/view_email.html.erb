@@ -1,13 +1,13 @@
 <% @title = _("FOI email address for {{public_body}}", :public_body => h(@public_body.name)) %>
 
-<h1><%= _('FOI email address for {{public_body}}',:public_body=> public_body_link(@public_body))%></h1>
+<h1><%= _('FOI email address for {{public_body}}',:public_body=> public_body_link(@public_body)) %></h1>
 
 <p>
   <% if @public_body.is_requestable? %>
     <%= _('{{site_name}} sends new requests to <strong>{{request_email}}</strong> ' \
              'for this authority.',
           :site_name => site_name,
-          :request_email => h(@public_body.request_email))%>
+          :request_email => h(@public_body.request_email)) %>
   <% else %>
     <% if @public_body.not_requestable_reason == 'not_apply' %>
       <p><%= _('Freedom of Information law no longer applies to this ' \
@@ -16,14 +16,14 @@
                :authority_email => h(@public_body.request_email)) %>
       </p>
     <% elsif @public_body.not_requestable_reason == 'defunct' %>
-      <p><%=h @public_body.name %> no longer exists.
+      <p><%= h @public_body.name %> no longer exists.
         <%= _('Follow up messages to existing requests are sent to ' \
                  '<strong>{{authority_email}}</strong>.',
               :authority_email => h(@public_body.request_email)) %>
       </p>
     <% elsif @public_body.not_requestable_reason == 'bad_contact' %>
       <p><%= _('We do not have a working request email address for this ' \
-                  'authority.')%>
+                  'authority.') %>
     </p>
     <% else %>
       <% raise _("unknown reason" + @reason) %>

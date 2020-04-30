@@ -1,7 +1,7 @@
 <label class="houdini-label input-account-request-button button" for="input-account-request">
   <%= _('Request access to {{pro_site_name}}', pro_site_name: pro_site_name) %>
 </label>
-<input class="houdini-input" type="checkbox" id="input-account-request" <% if params[:account_request].present? %>checked="true"<% end %>>
+<input class="houdini-input" type="checkbox" id="input-account-request" <% if params[:account_request].present? %> checked="true"<% end %>>
 <%= form_for :account_request,
   url: "#{account_request_index_path}#input-account-request",
   html: {class: 'houdini-target form account-request-signup-form'} do |f| %>
@@ -61,5 +61,5 @@
       </label>
     </div>
   </div>
-  <input type="submit" value="Send your request" />
+  <input type="submit" value="Send your request">
 <% end %>

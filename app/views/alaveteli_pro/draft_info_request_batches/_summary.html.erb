@@ -1,7 +1,7 @@
 <div class="js-draft-batch-request-summary"
   <% if draft && draft.persisted? %>
      data-draft-id="<%= draft.id %>"
-  <%end %>>
+  <% end %>>
   <% if draft && draft.public_bodies.present? %>
     <ul class="batch-builder__list">
     <% draft.public_bodies.each do |authority| %>

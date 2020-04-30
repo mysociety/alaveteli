@@ -1,4 +1,4 @@
-<div class="comment_in_request box" id="comment-<%=comment.id.to_s%>">
+<div class="comment_in_request box" id="comment-<%= comment.id.to_s %>">
   <div class="comment_content">
     <% if comment.user && comment.user.show_profile_photo? && !@render_to_file %>
       <div class="user_photo_on_comment">

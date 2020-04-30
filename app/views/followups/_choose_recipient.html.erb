@@ -5,7 +5,7 @@
 
   <ul>
     <% @info_request.
-         who_can_followup_to(incoming_message).each do |name, email, id|  %>
+         who_can_followup_to(incoming_message).each do |name, email, id| %>
       <% if id.nil? && incoming_message.valid_to_reply_to? %>
         <li>
           <%= link_to(_('the main FOI contact address for {{public_body}}',

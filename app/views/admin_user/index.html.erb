@@ -40,14 +40,12 @@
         link_to_unless(@sort_order == sort_order, sort_order_humanized(sort_order), admin_users_path(:sort_order => sort_order, :query => @query), :class => 'btn') do
           link_to sort_order_humanized(sort_order), '#', :class => 'btn disabled'
         end
-       %>
+      %>
     <% end %>
   </div>
 </div>
 
 <div class="row">
   <div class="span12"
-    <%= render :partial => 'user_table', :locals => { :users => @admin_users, :banned_column => false } %>
-  </div>
+    <%= render :partial => 'user_table', :locals => { :users => @admin_users, :banned_column => false } %>>
 </div>
-

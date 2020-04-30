@@ -4,8 +4,8 @@
 
 <%= form_tag admin_comment_path(@comment), :method => 'put' do %>
 
-  <p><label for="comment_body">Body of annotation</label><br/>
-    <%= text_area 'comment', 'body', :rows => 10, :cols => 60  %></p>
+  <p><label for="comment_body">Body of annotation</label><br>
+    <%= text_area 'comment', 'body', :rows => 10, :cols => 60 %></p>
 
   <p><label for="comment_visible">Visible</label>
     <%= select('comment', "visible", [["Yes – show comment",true],["No – hide comment",false]]) %>
@@ -34,17 +34,17 @@
     <div class="accordion-group">
       <div class="accordion-heading">
         <span class="item-title">
-          <a href="#event_<%=info_request_event.id%>" data-toggle="collapse" data-parent="#events"><%= chevron_right %></a>
+          <a href="#event_<%= info_request_event.id %>" data-toggle="collapse" data-parent="#events"><%= chevron_right %></a>
           <%= _("Event {{id}}", :id => info_request_event.id) %>:
           <strong>
-            <%=h info_request_event.event_type.humanize %><% if !info_request_event.calculated_state.nil? %>; state: <%= info_request_event.calculated_state %><% end %>
+            <%= h info_request_event.event_type.humanize %><% if !info_request_event.calculated_state.nil? %>; state: <%= info_request_event.calculated_state %><% end %>
           </strong>
           <em>
-            <%= info_request_event.created_at%>
+            <%= info_request_event.created_at %>
           </em>
         </span>
       </div>
-      <div id="event_<%=info_request_event.id%>" class="accordion-body collapse">
+      <div id="event_<%= info_request_event.id %>" class="accordion-body collapse">
         <table class="table table-striped table-condensed">
           <tbody>
             <tr>
@@ -62,7 +62,7 @@
                  |name, value, type, column_name| %>
               <tr>
                 <td>
-                  <b><%=h name%></b>
+                  <b><%= h name %></b>
                 </td>
                 <td>
                   <% if column_name == 'params_yaml' %>
@@ -73,10 +73,10 @@
                   <% elsif value.nil? %>
                     nil
                   <% elsif %w(text string).include?(type) %>
-                    <%=h value.humanize %>
+                    <%= h value.humanize %>
                   <% elsif type == 'datetime' %>
                     <%= admin_date value %>
-                    <%=h value %>
+                    <%= h value %>
                   <% end %>
                 </td>
               </tr>

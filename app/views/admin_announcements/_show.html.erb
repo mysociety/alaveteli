@@ -18,11 +18,11 @@
 
       <% announcements.each do |announcement| %>
         <tr class="<%= cycle('odd', 'even') %>">
-          <td class="id"><%=h announcement.id %></td>
-          <td class="announcement"><%=h announcement.title.present? ? announcement.title : truncate(announcement.content) %></td>
-          <td class="visibility"><%=h announcement.visibility %></td>
-          <td class="created_at"><%=h announcement.created_at %></td>
-          <td class="last_updated_by"><%=h announcement.user.name %></td>
+          <td class="id"><%= h announcement.id %></td>
+          <td class="announcement"><%= h announcement.title.present? ? announcement.title : truncate(announcement.content) %></td>
+          <td class="visibility"><%= h announcement.visibility %></td>
+          <td class="created_at"><%= h announcement.created_at %></td>
+          <td class="last_updated_by"><%= h announcement.user.name %></td>
           <td>
             <%= link_to 'Edit', edit_admin_announcement_path(announcement) %>
           </td>
