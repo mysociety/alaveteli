@@ -215,7 +215,7 @@ describe RawEmail do
 
     it 'should delete the directory' do
       raw_email.destroy_file_representation!
-      expect(File.exists?(raw_email.filepath)).to eq(false)
+      expect(File.exist?(raw_email.filepath)).to eq(false)
     end
 
     it 'should only delete the directory if it exists' do

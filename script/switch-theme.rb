@@ -41,7 +41,7 @@ unless theme_directory
                                                'alaveteli-themes')
 end
 
-unless File.exists? theme_directory
+unless File.exist? theme_directory
   STDERR.puts "The theme directory '#{theme_directory}' didn't exist."
   exit 1
 end
@@ -90,12 +90,12 @@ config_directory = File.join alaveteli_directory, 'config'
 general_filename = File.join config_directory, "general.yml"
 theme_filename = File.join config_directory, "general-#{requested_theme}.yml"
 
-if File.exists?(general_filename) && ! (File.symlink? general_filename)
+if File.exist?(general_filename) && ! (File.symlink? general_filename)
   STDERR.puts "'#{general_filename}' exists, but isn't a symlink"
   exit 1
 end
 
-unless File.exists? theme_filename
+unless File.exist? theme_filename
   STDERR.puts "'#{theme_filename}' didn't exist"
   exit 1
 end

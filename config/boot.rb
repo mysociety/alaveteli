@@ -9,6 +9,6 @@ require 'bundler/setup' # Set up gems listed in the Gemfile.
 # it exists. Put just a line like this in there:
 #   ENV['RAILS_ENV'] = 'production'
 rails_env_file = File.expand_path(File.join(File.dirname(__FILE__), 'rails_env.rb'))
-if File.exists?(rails_env_file)
+if File.exist?(rails_env_file)
   require rails_env_file
 end

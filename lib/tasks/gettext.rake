@@ -126,7 +126,7 @@ namespace :gettext do
       puts "Usage: Specify a csv file mapping old to new strings with MAPPING_FILE=[file name]"
       exit(1)
     end
-    unless File.exists?(file)
+    unless File.exist?(file)
       puts "Error: MAPPING_FILE #{file} not found"
       exit(1)
     end
