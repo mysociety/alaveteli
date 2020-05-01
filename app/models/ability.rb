@@ -157,6 +157,11 @@ class Ability
       can :read, Project do |project|
         user && (user.is_pro_admin? || project.member?(user))
       end
+
+      can :remove_contributor, User do |contributor|
+        user && project.contributor?(contributor) &&
+          (project.owner?(user) || user == contributor)
+      end
     end
   end
 
