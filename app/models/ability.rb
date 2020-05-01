@@ -163,7 +163,8 @@ class Ability
   private
 
   def can_update_request_state?(request)
-    (user && request.is_old_unclassified?) || request.is_owning_user?(user)
+    (user && request.is_old_unclassified?) || request.is_owning_user?(user) ||
+      (project && project.info_request?(request) && project.member?(user))
   end
 
   def requester_or_admin?(request)
