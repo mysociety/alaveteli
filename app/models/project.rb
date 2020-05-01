@@ -56,6 +56,10 @@ class Project < ApplicationRecord
     members.include?(user)
   end
 
+  def contributor?(user)
+    contributors.include?(user)
+  end
+
   def classifiable_requests
     info_requests.where(awaiting_description: true)
   end
