@@ -688,11 +688,15 @@ RSpec.describe ClassificationsController, type: :controller do
 
     let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
 
-    it 'assigns the last info request event id to the view' do
+    def run_action
       get :message, params: {
         url_title: info_request.url_title,
         described_state: 'error_message'
       }
+    end
+
+    it 'assigns the last info request event id to the view' do
+      run_action
       expect(assigns[:last_info_request_event_id]).to eq(
         info_request.last_event_id_needing_description
       )
@@ -702,12 +706,7 @@ RSpec.describe ClassificationsController, type: :controller do
       let(:info_request) { FactoryBot.create(:embargoed_request) }
 
       it 'raises ActiveRecord::RecordNotFound' do
-        expect {
-          get :message, params: {
-            url_title: info_request.url_title,
-            described_state: 'error_message'
-          }
-        }.to raise_error(ActiveRecord::RecordNotFound)
+        expect { run_action }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end
