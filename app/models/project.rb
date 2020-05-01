@@ -48,6 +48,10 @@ class Project < ApplicationRecord
     info_requests.include?(info_request)
   end
 
+  def owner?(user)
+    user == owner
+  end
+
   def member?(user)
     members.include?(user)
   end
