@@ -3,9 +3,9 @@ class Ability
   include CanCan::Ability
   include AlaveteliFeatures::Helpers
 
-  attr_reader :user
+  attr_reader :user, :project
 
-  def initialize(user)
+  def initialize(user, project: nil)
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)
@@ -34,6 +34,7 @@ class Ability
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
 
     @user = user
+    @project = project
 
     # Updating request status
     can :update_request_state, InfoRequest do |request|

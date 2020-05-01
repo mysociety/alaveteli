@@ -12,14 +12,18 @@ RSpec.describe Projects::BaseController, spec_meta do
     end
   end
 
+  shared_context 'project can be found' do
+    let(:project) { instance_double('Project', id: 1) }
+
+    before do
+      allow(Project).to receive(:find).with(project.id.to_s).
+        and_return(project)
+    end
+  end
+
   describe 'GET index' do
     context 'when projects are enabled' do
-      let(:project) { double(:project, id: 1) }
-
-      before do
-        allow(Project).to receive(:find).with(project.id.to_s).
-          and_return(project)
-      end
+      include_context 'project can be found'
 
       it 'assigns the project' do
         get :index, params: { project_id: project.id }
@@ -48,6 +52,17 @@ RSpec.describe Projects::BaseController, spec_meta do
           end
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
+    end
+  end
+
+  describe '#current_ability' do
+    include_context 'project can be found'
+
+    it 'initialise with project' do
+      get :index, params: { project_id: project.id }
+      expect(Ability).to receive(:new).
+        with(nil, hash_including(project: project))
+      controller.send(:current_ability)
     end
   end
 end

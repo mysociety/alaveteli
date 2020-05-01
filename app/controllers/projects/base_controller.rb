@@ -17,4 +17,8 @@ class Projects::BaseController < ApplicationController
   def set_in_pro_area
     @in_pro_area = true
   end
+
+  def current_ability
+    @current_ability ||= Ability.new(current_user, project: @project)
+  end
 end
