@@ -40,6 +40,8 @@ class Project < ApplicationRecord
     where("r1.project_id = :id OR r2.project_id = :id", id: project.id)
   }
 
+  has_one :key_set, class_name: 'Dataset::KeySet', as: :resource
+
   validates :title, :owner, presence: true
 
   def info_request?(info_request)
