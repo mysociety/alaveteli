@@ -113,7 +113,7 @@ module ApplicationHelper
         view_paths.paths.first.to_s.
           gsub("/app/views", "/app/assets/#{asset_path}")
       end
-    File.exists?(file_path)
+    File.exist?(file_path)
   end
 
   # Note that if the admin interface is proxied via another server, we can't

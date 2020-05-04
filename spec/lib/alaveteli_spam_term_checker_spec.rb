@@ -58,7 +58,7 @@ describe AlaveteliSpamTermChecker do
   describe '.new' do
 
     it 'sets the default terms if none are given' do
-      expect(subject.spam_terms).to eq(described_class.default_spam_terms)      
+      expect(subject.spam_terms).to eq(described_class.default_spam_terms)
     end
 
     it 'sets the custom default spam terms if none are given' do

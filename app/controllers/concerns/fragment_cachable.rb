@@ -23,7 +23,7 @@ module FragmentCachable
   end
 
   def foi_fragment_cache_exists?(key_path)
-    return File.exists?(key_path)
+    return File.exist?(key_path)
   end
 
   def foi_fragment_cache_read(key_path)

@@ -46,7 +46,7 @@ describe OutgoingMessage::Template::InternalReview do
 
 
 
-       [ GIVE DETAILS ABOUT YOUR COMPLAINT HERE ] 
+       [ GIVE DETAILS ABOUT YOUR COMPLAINT HERE ]
 
 
 
@@ -96,7 +96,7 @@ describe OutgoingMessage::Template::InternalReview do
 
 
 
-       [ GIVE DETAILS ABOUT YOUR COMPLAINT HERE ] 
+       [ GIVE DETAILS ABOUT YOUR COMPLAINT HERE ]
 
 
 

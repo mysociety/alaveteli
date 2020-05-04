@@ -4,7 +4,7 @@ require "securerandom"
 class AddApiKeyToPublicBodies < ActiveRecord::Migration[4.2] # 2.3
   def self.up
     add_column :public_bodies, :api_key, :string
-    
+
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
       execute <<-SQL
       update public_bodies
@@ -50,7 +50,7 @@ class AddApiKeyToPublicBodies < ActiveRecord::Migration[4.2] # 2.3
           pb.save!
       end
     end
-    
+
     change_column_null :public_bodies, :api_key, false
   end
 

@@ -262,6 +262,72 @@ describe Ability do
         end
       end
     end
+
+    context 'given a project info request' do
+      let(:project) do
+        FactoryBot.create(:project, requests_count: 1, contributors_count: 1)
+      end
+
+      let(:request) { project.info_requests.first }
+
+      context 'when logged out' do
+        let(:ability) { Ability.new(nil, project: project) }
+
+        it 'should return false' do
+          expect(ability).not_to be_able_to(:update_request_state, request)
+        end
+      end
+
+      context 'when logged in' do
+        context 'as owner of the project' do
+          let(:ability) { Ability.new(project.owner, project: project) }
+
+          it "should return true" do
+            expect(ability).to be_able_to(:update_request_state, request)
+          end
+        end
+
+        context 'as contributor to the project' do
+          let(:ability) do
+            Ability.new(project.contributors.first, project: project)
+          end
+
+          it 'should return true' do
+            expect(ability).to be_able_to(:update_request_state, request)
+          end
+        end
+
+        context 'as an pro admin' do
+          let(:ability) do
+            Ability.new(FactoryBot.create(:pro_admin_user), project: project)
+          end
+
+          it 'should return true' do
+            expect(ability).to be_able_to(:update_request_state, request)
+          end
+        end
+
+        context 'as an admin' do
+          let(:ability) do
+            Ability.new(FactoryBot.create(:admin_user), project: project)
+          end
+
+          it 'should return true' do
+            expect(ability).to be_able_to(:update_request_state, request)
+          end
+        end
+
+        context 'but not owner of request' do
+          let(:ability) do
+            Ability.new(FactoryBot.create(:user), project: project)
+          end
+
+          it 'should return false' do
+            expect(ability).not_to be_able_to(:update_request_state, request)
+          end
+        end
+      end
+    end
   end
 
   describe "reading InfoRequestBatches" do

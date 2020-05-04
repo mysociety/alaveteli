@@ -95,7 +95,7 @@ class RawEmail < ApplicationRecord
   end
 
   def data=(d)
-    FileUtils.mkdir_p(directory) unless File.exists?(directory)
+    FileUtils.mkdir_p(directory) unless File.exist?(directory)
     File.atomic_write(filepath) do |file|
       file.binmode
       file.write(d)
@@ -119,7 +119,7 @@ class RawEmail < ApplicationRecord
   end
 
   def destroy_file_representation!
-    File.delete(filepath) if File.exists?(filepath)
+    File.delete(filepath) if File.exist?(filepath)
   end
 
   def from_name

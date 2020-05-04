@@ -3,6 +3,20 @@ require 'spec_helper'
 RSpec.describe Project, type: :model, feature: :projects do
   subject(:project) { FactoryBot.build_stubbed(:project) }
 
+  shared_context 'project with resources' do
+    let(:project) do
+      FactoryBot.create(:project, requests: [request], batches: [batch])
+    end
+
+    let(:request) { FactoryBot.build(:info_request) }
+    let(:batch) { FactoryBot.build(:info_request_batch, :sent) }
+  end
+
+  shared_context 'non-project resources' do
+    let!(:other_request) { FactoryBot.create(:info_request) }
+    let!(:other_batch) { FactoryBot.create(:info_request_batch, :sent) }
+  end
+
   describe 'associations' do
     subject(:project) do
       FactoryBot.create(
@@ -47,15 +61,8 @@ RSpec.describe Project, type: :model, feature: :projects do
     end
 
     context 'has many info_requests' do
-      let(:project) do
-        FactoryBot.create(:project, requests: [request], batches: [batch])
-      end
-
-      let(:request) { FactoryBot.build(:info_request) }
-      let(:batch) { FactoryBot.build(:info_request_batch, :sent) }
-
-      let!(:other_request) { FactoryBot.create(:info_request) }
-      let!(:other_batch) { FactoryBot.create(:info_request_batch, :sent) }
+      include_context 'project with resources'
+      include_context 'non-project resources'
 
       subject { project.info_requests }
 
@@ -67,7 +74,7 @@ RSpec.describe Project, type: :model, feature: :projects do
         is_expected.to include request
       end
 
-      it 'excludes other requests' do
+      it 'excludes non-project requests' do
         is_expected.not_to include other_request
       end
 
@@ -75,7 +82,7 @@ RSpec.describe Project, type: :model, feature: :projects do
         is_expected.to include(*batch.info_requests)
       end
 
-      it 'excludes other batch requests' do
+      it 'excludes non-project batch requests' do
         is_expected.not_to include(*other_batch.info_requests)
       end
     end
@@ -92,6 +99,33 @@ RSpec.describe Project, type: :model, feature: :projects do
     it 'requires owner' do
       project.owner = nil
       is_expected.not_to be_valid
+    end
+  end
+
+  describe '#info_request?' do
+    include_context 'project with resources'
+    include_context 'non-project resources'
+
+    subject { project.info_request?(resource) }
+
+    context 'given an project info request' do
+      let(:resource) { request }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'given an project batch info request' do
+      let(:resource) { batch.info_requests.first }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'given an non-project info request' do
+      let(:resource) { other_request }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'given an non-project batch info request' do
+      let(:resource) { other_batch.info_requests.first }
+      it { is_expected.to eq(false) }
     end
   end
 

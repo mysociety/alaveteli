@@ -102,7 +102,7 @@ namespace :config_files do
 
     # gsub the RAILS_ENV in to the generated template if its not set by the
     # hard coded config file
-    unless File.exists?("#{ Rails.root }/config/rails_env.rb")
+    unless File.exist?("#{ Rails.root }/config/rails_env.rb")
       converted.each do |line|
         line.gsub!(/^#\s*RAILS_ENV=your_rails_env/, "RAILS_ENV=#{Rails.env}")
         line.gsub!(/^#\s*export RAILS_ENV/, "export RAILS_ENV")
@@ -165,7 +165,7 @@ namespace :config_files do
 
     # gsub the RAILS_ENV in to the generated template if its not set by the
     # hard coded config file
-    unless File.exists?("#{ Rails.root }/config/rails_env.rb")
+    unless File.exist?("#{ Rails.root }/config/rails_env.rb")
       converted.each do |line|
         line.gsub!(/^#\s*RAILS_ENV=your_rails_env/, "RAILS_ENV=#{Rails.env}")
         line.gsub!(/^#\s*export RAILS_ENV/, "export RAILS_ENV")

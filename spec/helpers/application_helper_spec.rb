@@ -90,10 +90,10 @@ describe ApplicationHelper do
 
     it 'looks in the theme file path' do
       expected_path = theme_view_path.gsub('/lib/views', '/app/assets')
-      allow(File).to receive(:exists?).and_call_original
+      allow(File).to receive(:exist?).and_call_original
 
       theme_asset_exists?('images/logo.png')
-      expect(File).to have_received(:exists?).
+      expect(File).to have_received(:exist?).
         with(expected_path + "/images/logo.png")
     end
 
@@ -111,10 +111,10 @@ describe ApplicationHelper do
 
       it 'looks in the core app file path' do
         expected_path = app_view_path.gsub('/app/views', '/app/assets')
-        allow(File).to receive(:exists?).and_call_original
+        allow(File).to receive(:exist?).and_call_original
 
         theme_asset_exists?('images/logo.png')
-        expect(File).to have_received(:exists?).
+        expect(File).to have_received(:exist?).
           with(expected_path + "/images/logo.png")
       end
 

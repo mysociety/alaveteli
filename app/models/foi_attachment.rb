@@ -58,7 +58,7 @@ class FoiAttachment < ApplicationRecord
 
   def body=(d)
     self.hexdigest = Digest::MD5.hexdigest(d)
-    if !File.exists?(self.directory)
+    if !File.exist?(self.directory)
       FileUtils.mkdir_p self.directory
     end
     File.open(self.filepath, "wb") { |file|
