@@ -583,4 +583,31 @@ describe InfoRequestBatch do
       info_request_batch.log_event(arguments)
     end
   end
+
+
+  describe '#is_owning_user?' do
+    subject { info_request_batch.is_owning_user?(user) }
+
+    let(:info_request_batch) { FactoryBot.create(:info_request_batch) }
+
+    context 'with no user' do
+      let(:user) { nil }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'with the batch owner' do
+      let(:user) { info_request_batch.user }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'with an admin' do
+      let(:user) { mock_model(User, owns_every_request?: true) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'with a non-owner user' do
+      let(:user) { mock_model(User, owns_every_request?: false) }
+      it { is_expected.to eq(false) }
+    end
+  end
 end
