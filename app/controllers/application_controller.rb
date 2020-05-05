@@ -227,12 +227,12 @@ class ApplicationController < ActionController::Base
   end
 
   # Check the user is logged in
-  def authenticated?(reason_params)
+  def authenticated?(reason_params, post_redirect: nil)
     return true if session[:user_id]
 
-    post_redirect = PostRedirect.new(uri: request.fullpath,
-                                     post_params: params,
-                                     reason_params: reason_params)
+    post_redirect ||= PostRedirect.new(uri: request.fullpath,
+                                       post_params: params,
+                                       reason_params: reason_params)
     post_redirect.save!
 
     # Make sure this redirect does not get cached - it only applies to this user
