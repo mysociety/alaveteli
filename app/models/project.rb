@@ -3,6 +3,8 @@
 # info requests.
 #
 class Project < ApplicationRecord
+  EXTRACTABLE_STATES = %w(successful partially_successful).freeze
+
   has_many :memberships, class_name: 'ProjectMembership'
   has_one  :owner_membership,
            -> { where(role: Role.project_owner_role) },
@@ -52,5 +54,12 @@ class Project < ApplicationRecord
 
   def classifiable_requests
     info_requests.where(awaiting_description: true)
+  end
+
+  def extractable_requests
+    info_requests.where(
+      awaiting_description: false,
+      described_state: EXTRACTABLE_STATES
+    )
   end
 end
