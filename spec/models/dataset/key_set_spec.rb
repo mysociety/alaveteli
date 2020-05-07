@@ -5,7 +5,7 @@ RSpec.describe Dataset::KeySet, type: :model do
 
   describe 'associations' do
     subject(:key_set) do
-      FactoryBot.create(:dataset_key_set, key_count: 2)
+      FactoryBot.create(:dataset_key_set, key_count: 2, value_set_count: 2)
     end
 
     context 'when project key set' do
@@ -37,6 +37,11 @@ RSpec.describe Dataset::KeySet, type: :model do
     it 'has many keys' do
       expect(key_set.keys).to all be_a(Dataset::Key)
       expect(key_set.keys.count).to eq 2
+    end
+
+    it 'has many value sets' do
+      expect(key_set.value_sets).to all be_a(Dataset::ValueSet)
+      expect(key_set.value_sets.count).to eq 2
     end
   end
 

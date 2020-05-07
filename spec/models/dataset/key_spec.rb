@@ -4,8 +4,17 @@ RSpec.describe Dataset::Key, type: :model do
   subject(:key) { FactoryBot.build(:dataset_key) }
 
   describe 'associations' do
+    subject(:key) do
+      FactoryBot.create(:dataset_key, value_count: 2)
+    end
+
     it 'belongs to a key set' do
       expect(key.key_set).to be_a Dataset::KeySet
+    end
+
+    it 'has many values' do
+      expect(key.values).to all be_a(Dataset::Value)
+      expect(key.values.count).to eq 2
     end
   end
 
@@ -60,6 +69,25 @@ RSpec.describe Dataset::Key, type: :model do
       key.key_set = FactoryBot.build(:dataset_key_set)
       key.order = other_key.order
       is_expected.to be_valid
+    end
+  end
+
+  describe '#format_regexp' do
+    subject { key.format_regexp }
+
+    context 'text format' do
+      let(:key) { FactoryBot.build(:dataset_key, :text) }
+      it { is_expected.to eq described_class::FORMATS[:text] }
+    end
+
+    context 'numeric format' do
+      let(:key) { FactoryBot.build(:dataset_key, :numeric) }
+      it { is_expected.to eq described_class::FORMATS[:numeric] }
+    end
+
+    context 'boolean format' do
+      let(:key) { FactoryBot.build(:dataset_key, :boolean) }
+      it { is_expected.to eq described_class::FORMATS[:boolean] }
     end
   end
 end

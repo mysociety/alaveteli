@@ -31,5 +31,13 @@ FactoryBot.define do
     trait :boolean do
       format { 'boolean' }
     end
+
+    transient do
+      value_count { 0 }
+    end
+
+    after(:create) do |key, evaluator|
+      create_list(:dataset_value, evaluator.value_count, key: key)
+    end
   end
 end

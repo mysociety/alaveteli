@@ -16,6 +16,7 @@
 class Dataset::KeySet < ApplicationRecord
   belongs_to :resource, polymorphic: true
   has_many :keys, foreign_key: 'dataset_key_set_id', inverse_of: :key_set
+  has_many :value_sets, foreign_key: 'dataset_key_set_id', inverse_of: :key_set
 
   RESOURCE_TYPES = %w[
     Project

@@ -28,12 +28,18 @@ FactoryBot.define do
 
     transient do
       key_count { 0 }
+      value_set_count { 0 }
     end
 
     after(:create) do |key_set, evaluator|
       create_list(
         :dataset_key,
         evaluator.key_count,
+        key_set: key_set
+      )
+      create_list(
+        :dataset_value_set,
+        evaluator.value_set_count,
         key_set: key_set
       )
     end
