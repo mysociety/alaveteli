@@ -78,8 +78,12 @@ module Classifiable
 
     log_params[:message] = message if message
 
+    # InfoRequest#set_described_state requires this event to be created first
+    event = @info_request.log_event('status_update', log_params)
+
     # Make the state change
-    @status_update_event = @info_request.log_event('status_update', log_params)
     @info_request.set_described_state(described_state, current_user, message)
+
+    event
   end
 end

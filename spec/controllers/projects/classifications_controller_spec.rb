@@ -104,8 +104,7 @@ RSpec.describe Projects::ClassificationsController, spec_meta do
       it 'create status_update log' do
         post_status('successful')
 
-        event = assigns(:status_update_event)
-        expect(event).to be_a InfoRequestEvent
+        event = InfoRequestEvent.last
         expect(event.event_type).to eq 'status_update'
         expect(event.params[:described_state]).to eq 'successful'
         expect(event.params[:old_described_state]).to eq 'waiting_response'
@@ -144,8 +143,7 @@ RSpec.describe Projects::ClassificationsController, spec_meta do
       it 'create status_update log' do
         post_status('error_message', message: 'A message')
 
-        event = assigns(:status_update_event)
-        expect(event).to be_a InfoRequestEvent
+        event = InfoRequestEvent.last
         expect(event.event_type).to eq 'status_update'
         expect(event.params[:described_state]).to eq 'error_message'
         expect(event.params[:old_described_state]).to eq 'waiting_response'
@@ -185,8 +183,7 @@ RSpec.describe Projects::ClassificationsController, spec_meta do
       it 'create status_update log' do
         post_status('requires_admin', message: 'A message')
 
-        event = assigns(:status_update_event)
-        expect(event).to be_a InfoRequestEvent
+        event = InfoRequestEvent.last
         expect(event.event_type).to eq 'status_update'
         expect(event.params[:described_state]).to eq 'requires_admin'
         expect(event.params[:old_described_state]).to eq 'waiting_response'
