@@ -42,6 +42,8 @@ class Project < ApplicationRecord
 
   has_one :key_set, class_name: 'Dataset::KeySet', as: :resource
 
+  has_many :submissions, class_name: 'Project::Submission'
+
   validates :title, :owner, presence: true
 
   def info_request?(info_request)
