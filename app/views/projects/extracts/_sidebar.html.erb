@@ -1,10 +1,13 @@
-<div class="extract-right-column sticky-column">
+<div class="extract-right-column sidebar sidebar--sticky">
   <div class="extract-request-controls">
-    <%= form_for Dataset::ValueSet.new,
-                 url: project_extract_path,
-                 as: :extract do |f| %>
-      <%= render @project.key_set, f: f %>
-      <%= f.submit %>
-    <% end %>
+    <div class="js-request-navigation request-navigation"
+      data-next-text="<%= _("Next message") %>"
+      data-prev-text="<%= _("Previous message") %>"
+      data-status-text="<%= _("Message {{current_message}} of {{total_messages}}",
+                              current_message: '[[x]]',
+                              total_messages: '[[y]]') %>">
+    </div>
+
+    <%= render partial: 'form', locals: { project: @project } %>
   </div>
 </div>
