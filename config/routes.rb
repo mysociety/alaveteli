@@ -165,6 +165,10 @@ Rails.application.routes.draw do
 
   #### Projects
   constraints FeatureConstraint.new(:projects) do
+    match '/p/:token' => 'projects/invites#create',
+          as: :project_invite,
+          via: :get
+
     scope module: :projects do
       resources :projects, only: [:show] do
         resource :extract, only: [:show]
