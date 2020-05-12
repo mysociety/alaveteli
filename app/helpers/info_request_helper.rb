@@ -271,9 +271,9 @@ module InfoRequestHelper
   def attachment_url(attachment, options = {})
     attach_params = attachment_params(attachment, options)
     if options[:html]
-      get_attachment_as_html_path(attach_params)
+      get_attachment_as_html_url(attach_params)
     else
-      get_attachment_path(attach_params)
+      get_attachment_url(attach_params)
     end
   end
 
