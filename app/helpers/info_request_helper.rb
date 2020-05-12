@@ -265,7 +265,7 @@ module InfoRequestHelper
   end
 
   def attachment_path(attachment, options = {})
-    attachment_url(attachment, options.merge(path_only: true))
+    attachment_url(attachment, options.merge(only_path: true))
   end
 
   def attachment_url(attachment, options = {})
@@ -290,7 +290,8 @@ module InfoRequestHelper
       id: attachment.incoming_message.info_request_id,
       incoming_message_id: attachment.incoming_message_id,
       part: attachment.url_part_number,
-      file_name: attachment.display_filename
+      file_name: attachment.display_filename,
+      only_path: options.fetch(:only_path, false)
     }
     if options[:html]
       attach_params[:file_name] = "#{attachment.display_filename}.html"
