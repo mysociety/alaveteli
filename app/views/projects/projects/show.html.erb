@@ -1,21 +1,98 @@
-<h1><%= @project.title %></h1>
+<%= render partial: 'project_nav', locals: { project: @project } %>
 
-<div>
-  <%= sanitize @project.briefing %>
-</div>
-
-<aside>
-  <h1><%= @project.owner.name %></h1>
-
-  <% if @project.owner.show_profile_photo? %>
-    <%= image_tag get_profile_photo_url(url_name: @project.owner.url_name) %>
-  <% end %>
-
-  <p><%= @project.owner.about_me %></p>
-
-  <div>
-    <%= link_to contact_user_path(url_name: @project.owner.url_name) do %>
-      <%= _('Contact {{recipient}}', recipient: @project.owner.name) %>
-    <% end %>
+<div class="inner-canvas">
+  <div class="inner-canvas-header">
+   <div class="row">
+      <h1><%= @project.title %></h1>
+    </div>
   </div>
-</aside>
+
+  <div class="inner-canvas-body">
+    <div class="row">
+      <div class="project-body">
+        <div class="project-briefing">
+          <%= sanitize @project.briefing %>
+
+          <p class="project-meta">
+            <%= _('{{contributor_count}} contributors',
+                  contributor_count: @project.contributors.count) %>
+          </p>
+
+          <div class="project-workload">
+            <h3 class="project-workload-title">
+              <%= _('Workload') %>
+            </h3>
+
+            <div class="project-workload-diagram">
+              <progress max="100" value="56" class="project-workload-indicator"></progress>
+              <span class="project-workload-value">56%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-task-list" id="tasks">
+          <h2>
+            <%= _('Contribute') %>
+          </h2>
+
+          <div class="project-task">
+            <h3><%= _('Extract data') %></h3>
+
+            <div class="project-task-meta-information">
+              <p class="project-meta"><%= _('Spreadsheets') %> / <%= _('Data interpretation') %></p>
+              <p class="project-meta"><%= _('60 minutes+') %> / <%= _('Laptop or desktop') %></p>
+            </div>
+
+            <p>
+              <%= _('Extract relevant information from each successful ' \
+                    'freedom of information request and enter it into the ' \
+                    'provided fields. This will populate the data file for ' \
+                    'this project.') %>
+            </p>
+
+            <div class="project-workload">
+              <h4 class="project-workload-title"><%= _('Workload') %></h4>
+
+              <div class="project-workload-diagram">
+                <progress max="100" value="10" class="project-workload-indicator"></progress>
+                <span class="project-workload-value">10%</span>
+              </div>
+            </div>
+
+            <a href="#" class="button"><%= _('Start extracting') %></a>
+          </div>
+        </div>
+      </div>
+
+      <aside class="project-aside">
+        <div class="project-owner">
+          <h2><%= _('Project owner') %></h2>
+
+          <% if @project.owner.show_profile_photo? %>
+            <%= image_tag get_profile_photo_url(url_name: @project.owner.url_name),
+                class: 'project-owner__photo' %>
+          <% end %>
+
+          <h3 class="project-owner__name"><%= @project.owner.name %></h3>
+
+          <% if @project.owner.about_me.present? %>
+            <p><%= @project.owner.about_me %></p>
+          <% end %>
+
+           <%= link_to contact_user_path(url_name: @project.owner.url_name),
+               class: 'button-secondary' do %>
+            <%= _('Contact {{recipient}}', recipient: @project.owner.name) %>
+          <% end %>
+        </div>
+
+        <div class="project-access-status">
+          <p>
+            <%= _('You are a <strong>contributor</strong> on this project') %>
+          </p>
+
+          <a href="#" class="button-secondary"><%= _('Leave project') %></a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
