@@ -21,6 +21,7 @@ RSpec.describe Project, type: :model, feature: :projects do
     subject(:project) do
       FactoryBot.create(
         :project,
+        :with_key_set,
         owner: owner,
         contributors_count: 2, requests_count: 2, batches_count: 2
       )
@@ -85,6 +86,10 @@ RSpec.describe Project, type: :model, feature: :projects do
       it 'excludes non-project batch requests' do
         is_expected.not_to include(*other_batch.info_requests)
       end
+    end
+
+    it 'has one key set' do
+      expect(project.key_set).to be_a(Dataset::KeySet)
     end
   end
 

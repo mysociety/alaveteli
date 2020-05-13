@@ -1,0 +1,10 @@
+<div id="right_column" class="sidebar right_column" role="complementary">
+  <div class="sidebar__section">
+    <%= form_for Dataset::ValueSet.new,
+                 url: project_extract_path,
+                 as: :extract do |f| %>
+      <%= render @project.key_set, f: f %>
+      <%= f.submit %>
+    <% end %>
+  </div>
+</div>
