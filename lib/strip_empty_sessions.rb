@@ -13,18 +13,11 @@ class StripEmptySessions
 
   def call(env)
     status, headers, body = @app.call(env)
-    session_data = env[ENV_SESSION_KEY]
-    set_cookie = headers[HTTP_SET_COOKIE]
 
-    if session_data
-      if (session_data.keys - STRIPPABLE_KEYS).empty?
-        if set_cookie.is_a? Array
-          set_cookie.reject! { |c| c.match(/^\n?#{@options[:key]}=/) }
-        elsif set_cookie.is_a? String
-          headers[HTTP_SET_COOKIE].
-            gsub!(/(^|\n)#{@options[:key]}=.*?(\n|$)/, '')
-        end
-      end
+    session_data = env[ENV_SESSION_KEY]
+
+    if session_data && (session_data.keys - STRIPPABLE_KEYS).empty?
+      headers[HTTP_SET_COOKIE]&.gsub!(/(^|\n)#{@options[:key]}=.*?(\n|$)/, '')
     end
 
     [status, headers, body]

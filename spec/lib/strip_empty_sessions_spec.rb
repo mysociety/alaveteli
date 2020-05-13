@@ -9,7 +9,8 @@ describe StripEmptySessions do
     end
 
     app = StripEmptySessions.new(app, key: 'mykey', path: '', httponly: true)
-    Rack::MockRequest.new(app).get('/', 'HTTP_ACCEPT' => 'text/html')
+
+    Rack::MockRequest.new(app).get('/', HTTP_ACCEPT: 'text/html', lint: true)
   end
 
   let(:application_response_headers) do
@@ -17,10 +18,14 @@ describe StripEmptySessions do
       'Set-Cookie' => 'mykey=f274c61a35320c52d45; path=/; HttpOnly' }
   end
 
+  let(:no_set_cookie_header) do
+    { 'Content-Type' => 'text/html' }
+  end
+
   let(:several_set_cookie_headers) do
     { 'Content-Type' => 'text/html',
       'Set-Cookie' => ['mykey=f274c61a35320c52d45; path=/; HttpOnly',
-                       'other=mydata'] }
+                       'other=mydata'].join("\n") }
   end
 
   context 'there is meaningful data in the session' do
@@ -70,7 +75,12 @@ describe StripEmptySessions do
 
     it 'strips only the session cookie setting header if there are several' do
       response = make_response(session_data, several_set_cookie_headers)
-      expect(response.headers['Set-Cookie']).to eq(['other=mydata'])
+      expect(response.headers['Set-Cookie']).to eq('other=mydata')
+    end
+
+    it 'does not add a set-cookie header if the application does not set it' do
+      response = make_response(session_data, no_set_cookie_header)
+      expect(response.headers['Set-Cookie']).to eq(nil)
     end
   end
 end
