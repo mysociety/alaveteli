@@ -12,27 +12,30 @@ describe StripEmptySessions do
     Rack::MockRequest.new(app).get('/', 'HTTP_ACCEPT' => 'text/html')
   end
 
-  it 'does not prevent a cookie being set if there is data in the session' do
-    session_data = { 'some_real_data' => 'important',
-                     'session_id' => 'my_session_id',
-                     '_csrf_token' => 'hi_there' }
+  context 'there is meaningful data in the session' do
+    let(:session_data) do
+      { 'some_real_data' => 'important',
+        'session_id' => 'my_session_id',
+        '_csrf_token' => 'hi_there' }
+    end
 
-    application_response_headers = {
-      'Content-Type' => 'text/html',
-      'Set-Cookie' => 'mykey=f274c61a35320c52d45; path=/; HttpOnly'
-    }
+    it 'does not prevent a cookie being set' do
+      application_response_headers = {
+        'Content-Type' => 'text/html',
+        'Set-Cookie' => 'mykey=f274c61a35320c52d45; path=/; HttpOnly'
+      }
 
-    response = make_response(session_data, application_response_headers)
+      response = make_response(session_data, application_response_headers)
 
-    expect(response.headers['Set-Cookie']).
-      to eq('mykey=f274c61a35320c52d45; path=/; HttpOnly')
+      expect(response.headers['Set-Cookie']).
+        to eq('mykey=f274c61a35320c52d45; path=/; HttpOnly')
+    end
   end
 
-  describe 'if there is no meaningful data in the session' do
-
-    before do
-      @session_data = { 'session_id' => 'my_session_id',
-                        '_csrf_token' => 'hi_there' }
+  context 'there is no meaningful data in the session' do
+    let(:session_data) do
+      { 'session_id' => 'my_session_id',
+        '_csrf_token' => 'hi_there' }
     end
 
     it 'does not strip any other header' do
@@ -41,7 +44,7 @@ describe StripEmptySessions do
         'Set-Cookie' => 'mykey=f274c61a35320c52d45; path=/; HttpOnly'
       }
 
-      response = make_response(@session_data, application_response_headers)
+      response = make_response(session_data, application_response_headers)
 
       expect(response.headers['Content-Type']).to eq('text/html')
     end
@@ -52,33 +55,33 @@ describe StripEmptySessions do
         'Set-Cookie' => 'mykey=f274c61a35320c52d45; path=/; HttpOnly'
       }
 
-      response = make_response(@session_data, application_response_headers)
+      response = make_response(session_data, application_response_headers)
 
       expect(response.headers['Set-Cookie']).to eq('')
     end
 
     it 'strips the session cookie setting header even with a locale' do
-      @session_data['locale'] = 'en'
+      session_data['locale'] = 'en'
 
       application_response_headers = {
         'Content-Type' => 'text/html',
         'Set-Cookie' => 'mykey=f274c61a35320c52d45; path=/; HttpOnly'
       }
 
-      response = make_response(@session_data, application_response_headers)
+      response = make_response(session_data, application_response_headers)
 
       expect(response.headers['Set-Cookie']).to eq('')
     end
 
     it 'does not strip the session cookie setting for admins' do
-      @session_data['using_admin'] = 1
+      session_data['using_admin'] = 1
 
       application_response_headers = {
         'Content-Type' => 'text/html',
         'Set-Cookie' => 'mykey=f274c61a35320c52d45; path=/; HttpOnly'
       }
 
-      response = make_response(@session_data, application_response_headers)
+      response = make_response(session_data, application_response_headers)
 
       expect(response.headers['Set-Cookie']).
         to eq('mykey=f274c61a35320c52d45; path=/; HttpOnly')
@@ -93,7 +96,7 @@ describe StripEmptySessions do
         ]
       }
 
-      response = make_response(@session_data, application_response_headers)
+      response = make_response(session_data, application_response_headers)
 
       expect(response.headers['Set-Cookie']).to eq(['other=mydata'])
     end
