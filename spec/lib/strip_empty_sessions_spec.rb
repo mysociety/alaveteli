@@ -19,13 +19,13 @@ describe StripEmptySessions do
 
     application_response_headers = {
       'Content-Type' => 'text/html',
-      'Set-Cookie' => 'mykey=f274c61a35320c52d45e9f8d7d4e2649; path=/; HttpOnly'
+      'Set-Cookie' => 'mykey=f274c61a35320c52d45; path=/; HttpOnly'
     }
 
     response = make_response(session_data, application_response_headers)
 
     expect(response.headers['Set-Cookie']).
-      to eq('mykey=f274c61a35320c52d45e9f8d7d4e2649; path=/; HttpOnly')
+      to eq('mykey=f274c61a35320c52d45; path=/; HttpOnly')
   end
 
   describe 'if there is no meaningful data in the session' do
@@ -38,7 +38,7 @@ describe StripEmptySessions do
     it 'does not strip any other header' do
       application_response_headers = {
         'Content-Type' => 'text/html',
-        'Set-Cookie' => 'mykey=f274c61a35320c52d45e9f8d7d4e2649; path=/; HttpOnly'
+        'Set-Cookie' => 'mykey=f274c61a35320c52d45; path=/; HttpOnly'
       }
 
       response = make_response(@session_data, application_response_headers)
@@ -49,7 +49,7 @@ describe StripEmptySessions do
     it 'strips the session cookie setting header ' do
       application_response_headers = {
         'Content-Type' => 'text/html',
-        'Set-Cookie' => 'mykey=f274c61a35320c52d45e9f8d7d4e2649; path=/; HttpOnly'
+        'Set-Cookie' => 'mykey=f274c61a35320c52d45; path=/; HttpOnly'
       }
 
       response = make_response(@session_data, application_response_headers)
@@ -62,7 +62,7 @@ describe StripEmptySessions do
 
       application_response_headers = {
         'Content-Type' => 'text/html',
-        'Set-Cookie' => 'mykey=f274c61a35320c52d45e9f8d7d4e2649; path=/; HttpOnly'
+        'Set-Cookie' => 'mykey=f274c61a35320c52d45; path=/; HttpOnly'
       }
 
       response = make_response(@session_data, application_response_headers)
@@ -75,20 +75,20 @@ describe StripEmptySessions do
 
       application_response_headers = {
         'Content-Type' => 'text/html',
-        'Set-Cookie' => 'mykey=f274c61a35320c52d45e9f8d7d4e2649; path=/; HttpOnly'
+        'Set-Cookie' => 'mykey=f274c61a35320c52d45; path=/; HttpOnly'
       }
 
       response = make_response(@session_data, application_response_headers)
 
       expect(response.headers['Set-Cookie']).
-        to eq('mykey=f274c61a35320c52d45e9f8d7d4e2649; path=/; HttpOnly')
+        to eq('mykey=f274c61a35320c52d45; path=/; HttpOnly')
     end
 
     it 'strips only the session cookie setting header if there are several' do
       application_response_headers = {
         'Content-Type' => 'text/html',
         'Set-Cookie' => [
-          'mykey=f274c61a35320c52d45e9f8d7d4e2649; path=/; HttpOnly',
+          'mykey=f274c61a35320c52d45; path=/; HttpOnly',
           'other=mydata'
         ]
       }
