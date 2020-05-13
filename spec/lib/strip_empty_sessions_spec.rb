@@ -15,7 +15,7 @@ describe StripEmptySessions do
 
   let(:application_response_headers) do
     { 'Content-Type' => 'text/html',
-      'Set-Cookie' => 'mykey=f274c61a35320c52d45; path=/; HttpOnly' }
+      'Set-Cookie' => 'mykey=f274c61a35320c52d45; path=/; HttpOnly'.freeze }
   end
 
   let(:no_set_cookie_header) do
@@ -25,7 +25,7 @@ describe StripEmptySessions do
   let(:several_set_cookie_headers) do
     { 'Content-Type' => 'text/html',
       'Set-Cookie' => ['mykey=f274c61a35320c52d45; path=/; HttpOnly',
-                       'other=mydata'].join("\n") }
+                       'other=mydata'].join("\n").freeze }
   end
 
   context 'there is meaningful data in the session' do

@@ -15,9 +15,12 @@ class StripEmptySessions
     status, headers, body = @app.call(env)
 
     session_data = env[ENV_SESSION_KEY]
+    session_cookie = headers[HTTP_SET_COOKIE]
+    strippable = (session_data.keys - STRIPPABLE_KEYS).empty?
 
-    if session_data && (session_data.keys - STRIPPABLE_KEYS).empty?
-      headers[HTTP_SET_COOKIE]&.gsub!(/(^|\n)#{@options[:key]}=.*?(\n|$)/, '')
+    if session_data && session_cookie && strippable
+      headers[HTTP_SET_COOKIE] =
+        session_cookie.gsub(/(^|\n)#{@options[:key]}=.*?(\n|$)/, '')
     end
 
     [status, headers, body]
