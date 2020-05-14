@@ -26,4 +26,22 @@ describe ClassificationsHelper do
       it { is_expected.to match('id="successful3"') }
     end
   end
+
+  describe '#classification_label' do
+    subject { classification_label(state, text, id_suffix: id_suffix) }
+
+    let(:state) { 'successful' }
+    let(:text) { 'All the information was sent' }
+    let(:id_suffix) { nil }
+
+    it 'builds a label for the given field' do
+      html = %q(<label for="successful">All the information was sent</label>)
+      expect(subject).to eq(html)
+    end
+
+    context 'with an id_suffix' do
+      let(:id_suffix) { 3 }
+      it { is_expected.to match('for="successful3"') }
+    end
+  end
 end
