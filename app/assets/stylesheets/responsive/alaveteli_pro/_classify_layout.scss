@@ -17,4 +17,36 @@
 
 .classify-request-controls {
   margin-top: 2em;
+
+  .input-label-aligned + .input-label-aligned {
+    margin-top: 1em;
+  }
+
+  h3 {
+    font-weight: normal;
+    font-size: 1em;
+  }
+
+  input[name="commit"] {
+    @extend .button--full-width;
+  }
+
+  hr {
+    border-top-color: #d3cec5;
+    margin-top: 1em;
+  }
+}
+
+.input-label-aligned {
+  display: flex;
+  align-items: flex-start;
+
+  input[type="checkbox"],
+  input[type="radio"] {
+    margin-top: 3px;
+  }
+
+  label {
+    flex: 1;
+  }
 }

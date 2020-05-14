@@ -7,5 +7,10 @@
                               current_message: '[[x]]',
                               total_messages: '[[y]]') %>">
     </div>
+
+    <%= render partial: 'describe_state',
+               locals: { info_request: info_request,
+                         project: project,
+                         state_transitions: state_transitions } %>
   </div>
 </div>
