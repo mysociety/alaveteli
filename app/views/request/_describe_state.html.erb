@@ -17,12 +17,10 @@
 
     <hr>
     <h3><%= _('This request is still in progress:') %></h3>
-    <% @state_transitions[:pending].each do |state, text| %>
-      <div>
-        <%= classification_radio_button(state, id_suffix: id_suffix) %>
-        <%= classification_label(state, text, id_suffix: id_suffix) %>
-      </div>
-    <% end %>
+
+    <%= render partial: 'request/state_transition',
+               collection: @state_transitions[:pending],
+               locals: { id_suffix: id_suffix } %>
 
     <%= render :partial => 'general/custom_state_transitions_pending',
                :locals => {:id_suffix => id_suffix } %>
@@ -34,12 +32,9 @@
       <p><%= _('The <strong>review has finished</strong> and overall:') %></p>
     <% end %>
 
-    <% @state_transitions[:complete].each do |state, text| %>
-      <div>
-        <%= classification_radio_button(state, id_suffix: id_suffix) %>
-        <%= classification_label(state, text, id_suffix: id_suffix) %>
-      </div>
-    <% end %>
+    <%= render partial: 'request/state_transition',
+               collection: @state_transitions[:complete],
+               locals: { id_suffix: id_suffix } %>
 
     <%= render :partial => 'general/custom_state_transitions_complete',
                :locals => {:id_suffix => id_suffix } %>
@@ -48,12 +43,9 @@
       <hr>
       <h3><%= _('Other:') %></h3>
 
-      <% @state_transitions[:other].each do |state, text| %>
-        <div>
-          <%= classification_radio_button(state, id_suffix: id_suffix) %>
-          <%= classification_label(state, text, id_suffix: id_suffix) %>
-        </div>
-      <% end %>
+    <%= render partial: 'request/state_transition',
+               collection: @state_transitions[:other],
+               locals: { id_suffix: id_suffix } %>
     <% end %>
 
     <hr>
