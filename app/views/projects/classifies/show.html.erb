@@ -28,5 +28,8 @@
     </div>
   </div>
 
-  <%= render partial: 'sidebar', locals: { project: @project } %>
+  <%= render partial: 'sidebar',
+             locals: { project: @project,
+                       info_request: @info_request,
+                       state_transitions: @state_transitions } %>
 </div>

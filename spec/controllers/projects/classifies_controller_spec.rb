@@ -16,6 +16,7 @@ RSpec.describe Projects::ClassifiesController, spec_meta do
 
     before do
       allow(controller).to receive(:current_ability).and_return(ability)
+      project.requests << FactoryBot.create(:awaiting_description)
     end
 
     context 'with a logged in user who can read the project' do
