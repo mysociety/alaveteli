@@ -8,7 +8,7 @@ spec_meta = {
 RSpec.describe Projects::BaseController, spec_meta do
   controller(Projects::BaseController) do
     def index
-      head :index
+      head :ok
     end
   end
 
