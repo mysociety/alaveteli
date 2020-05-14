@@ -19,10 +19,7 @@
     <h3><%= _('This request is still in progress:') %></h3>
     <% @state_transitions[:pending].each do |state, label| %>
       <div>
-        <%= radio_button "classification",
-                         "described_state",
-                         state,
-                         :id => state + id_suffix %>
+        <%= classification_radio_button(state, id_suffix: id_suffix) %>
         <label for="<%= state + id_suffix %>"><%= label %></label>
       </div>
     <% end %>
@@ -39,10 +36,7 @@
 
     <% @state_transitions[:complete].each do |state, label| %>
       <div>
-        <%= radio_button "classification",
-                         "described_state",
-                         state,
-                         :id => state + id_suffix %>
+        <%= classification_radio_button(state, id_suffix: id_suffix) %>
         <label for="<%= state + id_suffix %>"><%= label %></label>
       </div>
     <% end %>
@@ -56,10 +50,7 @@
 
       <% @state_transitions[:other].each do |state, label| %>
         <div>
-          <%= radio_button "classification",
-                           "described_state",
-                           state,
-                           :id => state + id_suffix %>
+          <%= classification_radio_button(state, id_suffix: id_suffix) %>
           <label for="<%= state + id_suffix %>"><%= label %></label>
         </div>
       <% end %>
