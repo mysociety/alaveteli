@@ -27,7 +27,7 @@ RSpec.describe Projects::ClassificationsController, spec_meta do
     end
   end
 
-  describe '#create' do
+  describe 'POST #create' do
     let(:user) { FactoryBot.create(:pro_user) }
     let(:ability) { Object.new.extend(CanCan::Ability) }
 
