@@ -8,6 +8,11 @@ class Projects::ClassifiesController < Projects::BaseController
     @info_request =
       @project.info_requests.where(awaiting_description: true).sample
 
+    unless @info_request
+      msg = _('There are no requests to classify right now. Great job!')
+      redirect_to @project, notice: msg
+    end
+
     @state_transitions = @info_request.state.transitions(
       is_pro_user: false,
       is_owning_user: false,
