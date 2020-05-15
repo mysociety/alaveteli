@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe ProjectResource, type: :model, feature: :projects do
+RSpec.describe Project::Resource, type: :model, feature: :projects do
   subject(:project_resource) { FactoryBot.build_stubbed(:project_resource) }
 
   describe 'associations' do

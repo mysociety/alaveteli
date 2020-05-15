@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :project_resource do
+  factory :project_resource, class: 'Project::Resource' do
     project
     association :resource, factory: :info_request
 

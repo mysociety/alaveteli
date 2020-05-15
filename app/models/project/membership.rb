@@ -2,7 +2,7 @@
 # A model to represent user membership to a project. Able to assign different
 # roles for owners and contributors.
 #
-class ProjectMembership < ApplicationRecord
+class Project::Membership < ApplicationRecord
   belongs_to :project
   belongs_to :user
   belongs_to :role
