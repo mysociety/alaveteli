@@ -1,0 +1,10 @@
+<div class="extract-answer-form">
+  <%= form_for Dataset::ValueSet.new,
+               url: project_extract_path,
+               as: :extract do |f| %>
+
+    <%= render project.key_set, f: f %>
+
+    <%= f.submit _('Submit data') %>
+  <% end %>
+</div>

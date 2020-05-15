@@ -1,0 +1,48 @@
+.extract-left-column {
+  @include grid-column(12);
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    @include grid-column(9);
+  }
+}
+
+.extract-right-column {
+  @include grid-column(12);
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    @include grid-column(3);
+
+    &.sidebar--sticky {
+      max-height: none;;
+    }
+  }
+}
+
+.extract-request-controls {
+  margin-top: 2em;
+
+  input[type="text"],
+  input[type="date"],
+  input[type="email"],
+  input[type="url"],
+  input[type="time"],
+  input[type="number"],
+  textarea {
+    width: 100%;
+  }
+
+  .button {
+    margin-bottom: 1em;
+  }
+}
+
+.boolean-checkbox {
+  display: flex;
+  align-items: flex-start;
+
+  input[type="checkbox"] {
+    margin-top: 3px;
+  }
+
+  label {
+    flex: 1;
+  }
+}
