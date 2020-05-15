@@ -18,6 +18,20 @@ module InfoRequestHelper
     end
   end
 
+  def js_correspondence_navigation
+    css_class = 'js-request-navigation request-navigation'
+
+    data_attrs = {
+      next_text: _('Next message'),
+      prev_text: _('Previous message'),
+      status_text: _('Message {{current_message}} of {{total_messages}}',
+                     current_message: '[[x]]',
+                     total_messages: '[[y]]')
+    }
+
+    tag.div class: css_class, data: data_attrs
+  end
+
   private
 
   def status_text_awaiting_description(info_request, opts = {})
