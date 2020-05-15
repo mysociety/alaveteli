@@ -11,6 +11,7 @@ class Projects::ClassifiesController < Projects::BaseController
     unless @info_request
       msg = _('There are no requests to classify right now. Great job!')
       redirect_to @project, notice: msg
+      return
     end
 
     @state_transitions = @info_request.state.transitions(

@@ -107,9 +107,9 @@ RSpec.describe Projects::ClassificationsController, spec_meta do
         post_status('successful')
       end
 
-      it 'redirect back to the project' do
+      it 'redirects the user to another request to classify' do
         post_status('successful')
-        expect(response).to redirect_to(project_path(project))
+        expect(response).to redirect_to(project_classify_path(project))
       end
     end
 
@@ -150,7 +150,7 @@ RSpec.describe Projects::ClassificationsController, spec_meta do
 
       it 'redirect back to the project' do
         post_status('error_message', message: 'A message')
-        expect(response).to redirect_to(project_path(project))
+        expect(response).to redirect_to(project_classify_path(project))
       end
     end
 
@@ -191,7 +191,7 @@ RSpec.describe Projects::ClassificationsController, spec_meta do
 
       it 'redirect back to the project' do
         post_status('requires_admin', message: 'A message')
-        expect(response).to redirect_to(project_path(project))
+        expect(response).to redirect_to(project_classify_path(project))
       end
     end
   end
