@@ -2,6 +2,7 @@
   <div class="extract-request-controls">
     <%= js_correspondence_navigation %>
 
-    <%= render partial: 'form', locals: { project: @project } %>
+    <%= render partial: 'form', locals: { project: project,
+                                          info_request: info_request } %>
   </div>
 </div>
