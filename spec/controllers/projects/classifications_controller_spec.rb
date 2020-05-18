@@ -98,8 +98,19 @@ RSpec.describe Projects::ClassificationsController, spec_meta do
       before { ability.can :update_request_state, info_request }
     end
 
-    context 'user is allowed to update the request' do
+    shared_context 'classification can be submitted' do
       include_context 'user can classify request'
+
+      let(:submissions) { double(:submissions_collection) }
+
+      before do
+        allow(project).to receive(:submissions).and_return(submissions)
+        allow(submissions).to receive(:create)
+      end
+    end
+
+    context 'user is allowed to update the request' do
+      include_context 'classification can be submitted'
 
       it 'create status_update log' do
         post_status('successful')
@@ -113,6 +124,15 @@ RSpec.describe Projects::ClassificationsController, spec_meta do
 
       it 'call set_described_state on the request' do
         expect(info_request).to receive(:set_described_state)
+        post_status('successful')
+      end
+
+      it 'creates project submission' do
+        event = instance_double(InfoRequestEvent)
+        allow(controller).to receive(:set_described_state).and_return(event)
+        expect(submissions).to receive(:create).with(
+          user: user, resource: event
+        )
         post_status('successful')
       end
 
