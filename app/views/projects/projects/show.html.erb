@@ -36,6 +36,35 @@
           </h2>
 
           <div class="project-task">
+            <h3><%= _('Classify responses') %></h3>
+
+            <div class="project-task-meta-information">
+              <p class="project-meta"><%= _('Quick') %> / <%= _('Non-expert') %></p>
+              <p class="project-meta"><%= _('5 minutes+') %> / <%= _('Any device') %></p>
+            </div>
+
+            <p>
+              <%= _('Read through authority responses and choose if their ' \
+                    'answer satisfies the intention of the original request, ' \
+                    'flag any problems and show the project owner if they ' \
+                    'need to intervene to keep the project movng forward.') %>
+            </p>
+
+            <div class="project-workload">
+              <h4 class="project-workload-title"><%= _('Workload') %></h4>
+
+              <div class="project-workload-diagram">
+                <progress max="100" value="10" class="project-workload-indicator"></progress>
+                <span class="project-workload-value">10%</span>
+              </div>
+            </div>
+
+            <%= link_to project_classify_path(@project), class: 'button' do %>
+              <%= _('Start classifying') %>
+            <% end %>
+          </div>
+
+          <div class="project-task">
             <h3><%= _('Extract data') %></h3>
 
             <div class="project-task-meta-information">
