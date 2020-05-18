@@ -11,7 +11,7 @@
     @include grid-column(3);
 
     &.sidebar--sticky {
-      max-height: none;;
+      max-height: none;
     }
   }
 }
@@ -45,4 +45,8 @@
   label {
     flex: 1;
   }
+}
+
+.form__skip-button {
+  margin-top: 1em;
 }
