@@ -192,4 +192,17 @@ RSpec.describe Project, type: :model, feature: :projects do
 
     it { is_expected.to match_array([classified_request]) }
   end
+
+  describe '#classification_progress' do
+    subject { project.classification_progress }
+
+    let(:project) do
+      project = FactoryBot.create(:project)
+      1.times { project.requests << FactoryBot.create(:awaiting_description) }
+      2.times { project.requests << FactoryBot.create(:successful_request) }
+      project
+    end
+
+    it { is_expected.to eq(66) }
+  end
 end

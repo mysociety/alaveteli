@@ -59,4 +59,8 @@ class Project < ApplicationRecord
   def classified_requests
     info_requests.where(awaiting_description: false)
   end
+
+  def classification_progress
+    ((classified_requests.count / info_requests.count.to_f) * 100).floor
+  end
 end
