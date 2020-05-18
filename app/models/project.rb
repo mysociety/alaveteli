@@ -55,4 +55,8 @@ class Project < ApplicationRecord
   def classifiable_requests
     info_requests.where(awaiting_description: true)
   end
+
+  def classified_requests
+    info_requests.where(awaiting_description: false)
+  end
 end
