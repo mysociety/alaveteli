@@ -10,7 +10,7 @@ class Projects::ClassificationsController < Projects::BaseController
     set_described_state
 
     flash[:notice] = _('Thank you for updating this request!')
-    redirect_to project_path(@project)
+    redirect_to project_classify_path(@project)
   end
 
   private
