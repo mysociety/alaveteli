@@ -17,17 +17,6 @@
             <%= _('{{contributor_count}} contributors',
                   contributor_count: @project.contributors.count) %>
           </p>
-
-          <div class="project-workload">
-            <h3 class="project-workload-title">
-              <%= _('Workload') %>
-            </h3>
-
-            <div class="project-workload-diagram">
-              <progress max="100" value="56" class="project-workload-indicator"></progress>
-              <span class="project-workload-value">56%</span>
-            </div>
-          </div>
         </div>
 
         <div class="project-task-list" id="tasks">
