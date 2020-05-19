@@ -1,11 +1,6 @@
 <div id="right_column" class="sidebar sidebar--sticky right_column" role="complementary">
-  <div class="js-request-navigation request-navigation"
-       data-next-text="<%= _("Next message") %>"
-       data-prev-text="<%= _("Previous message") %>"
-       data-status-text="<%= _("Message {{current_message}} of {{total_messages}}",
-                               current_message: '[[x]]',
-                               total_messages: '[[y]]') %>">
-  </div>
+  <%= js_correspondence_navigation %>
+
   <% if @info_request.info_request_batch_id %>
     <%= render partial: "alaveteli_pro/info_request_batches/embargo_form",
                locals: {
