@@ -17,11 +17,15 @@ class Projects::ClassificationsController < Projects::BaseController
 
   def find_info_request
     @info_request = @project.info_requests.find_by!(
-      url_title: params[:url_title]
+      url_title: url_title
     )
   end
 
   def authorise_info_request
     authorize! :update_request_state, @info_request
+  end
+
+  def url_title
+    params.require(:url_title)
   end
 end

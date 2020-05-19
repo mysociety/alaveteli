@@ -39,7 +39,7 @@ RSpec.describe Projects::ClassificationsController, spec_meta do
     end
 
     context 'project to be classified can not be found' do
-      it'raises a ActiveRecord::RecordNotFound error' do
+      it 'raises a ActiveRecord::RecordNotFound error' do
         expect {
           post :create, params: { project_id: 'invalid' }
         }.to raise_error(ActiveRecord::RecordNotFound)
@@ -49,10 +49,20 @@ RSpec.describe Projects::ClassificationsController, spec_meta do
     context 'request to be classified can not be found' do
       include_context 'project can be found'
 
-      it'raises a ActiveRecord::RecordNotFound error' do
+      it 'raises a ActiveRecord::RecordNotFound error' do
         expect {
           post :create, params: { project_id: project.id, url_title: 'invalid' }
         }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    context 'url_title param not submitted' do
+      include_context 'project can be found'
+
+      it 'raises an ActionController::ParameterMissing error' do
+        expect {
+          post :create, params: { project_id: project.id }
+        }.to raise_error(ActionController::ParameterMissing)
       end
     end
 
