@@ -20,7 +20,8 @@ matrix:
       rvm: 2.3.3 # Debian Stretch
     - if: type != pull_request
       rvm: ruby-head
-    - if: head_branch =~ /^rails\b/
+    - if: head_branch =~ /^rails/
+      rvm: 2.6
       gemfile: Gemfile.rails_next
   allow_failures:
     - rvm: 2.7
