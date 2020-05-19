@@ -32,6 +32,10 @@ FactoryBot.define do
       end
     end
 
+    trait :with_invite_token do
+      invite_token { SecureRandom.uuid }
+    end
+
     trait :with_key_set do
       association :key_set, factory: :dataset_key_set
     end
