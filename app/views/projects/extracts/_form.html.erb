@@ -6,5 +6,9 @@
     <%= render project.key_set, f: f %>
 
     <%= f.submit _('Submit data') %>
+
+    <a class="button-tertiary button--full-width form__skip-button js-project-skip-button" style="display:none" href="#">
+      <%= _('Skip') %>
+    </a>
   <% end %>
 </div>
