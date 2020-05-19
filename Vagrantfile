@@ -84,6 +84,7 @@ end
 DEFAULTS = {
   'fqdn' => 'alaveteli.10.10.10.30.nip.io',
   'ip' => '10.10.10.30',
+  'public_network' => false,
   'memory' => 1536,
   'themes_dir' => '../alaveteli-themes',
   'os' => 'stretch64',
@@ -142,6 +143,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define SETTINGS['name']
   config.vm.box_url = os[:box_url]
   config.vm.hostname = "alaveteli-#{ SETTINGS['os'] }"
+
+  if SETTINGS['public_network']
+    config.vm.network :public_network
+  end
+
   config.vm.network :private_network, ip: SETTINGS['ip']
 
   config.vm.synced_folder '.', '/vagrant', disabled: true
