@@ -36,7 +36,7 @@ class ClassificationsController < ApplicationController
       return
     end
 
-    set_described_state
+    event = set_described_state
 
     # If you're not the *actual* requester. e.g. you are playing the
     # classification game, or you're doing this just because you are an
@@ -45,7 +45,7 @@ class ClassificationsController < ApplicationController
       # Create a classification event for league tables
       RequestClassification.create!(
         user_id: current_user.id,
-        info_request_event_id: @status_update_event.id
+        info_request_event_id: event.id
       )
 
       # Don't give advice on what to do next, as it isn't their request

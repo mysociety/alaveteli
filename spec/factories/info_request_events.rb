@@ -156,6 +156,10 @@ FactoryBot.define do
       event_type { 'embargo_expiring' }
     end
 
+    factory :status_update_event do
+      event_type { 'status_update' }
+    end
+
   end
 
 end

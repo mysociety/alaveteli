@@ -7,7 +7,7 @@ class Projects::ClassificationsController < Projects::BaseController
   include Classifiable
 
   def create
-    set_described_state
+    @project.submissions.create(submission_params)
 
     flash[:notice] = _('Thank you for updating this request!')
     redirect_to project_classify_path(@project)
@@ -27,5 +27,9 @@ class Projects::ClassificationsController < Projects::BaseController
 
   def url_title
     params.require(:url_title)
+  end
+
+  def submission_params
+    { user: current_user, resource: set_described_state }
   end
 end
