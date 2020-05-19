@@ -56,6 +56,16 @@ RSpec.describe Projects::ClassificationsController, spec_meta do
       end
     end
 
+    context 'url_title param not submitted' do
+      include_context 'project can be found'
+
+      it 'raises an ActionController::ParameterMissing error' do
+        expect {
+          post :create, params: { project_id: project.id }
+        }.to raise_error(ActionController::ParameterMissing)
+      end
+    end
+
     shared_context 'request to be classified can be found' do
       include_context 'request can be found'
 
