@@ -177,6 +177,8 @@ Rails.application.routes.draw do
         resources :classifications, only: :create, param: :described_state do
           get :message, on: :member
         end
+
+        resources :contributors, only: [:destroy]
       end
     end
   end

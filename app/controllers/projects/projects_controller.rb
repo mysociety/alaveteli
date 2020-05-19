@@ -1,13 +1,16 @@
 # View and manage Projects
-class Projects::ProjectsController < ApplicationController
+class Projects::ProjectsController < Projects::BaseController
   before_action :authenticate
 
   def show
-    @project = Project.find(params[:id])
     authorize! :read, @project
   end
 
   private
+
+  def find_project
+    @project = Project.find(params[:id])
+  end
 
   def authenticate
     authenticated?(
