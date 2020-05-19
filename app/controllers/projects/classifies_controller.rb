@@ -7,6 +7,13 @@ class Projects::ClassifiesController < Projects::BaseController
 
     @info_request =
       @project.info_requests.where(awaiting_description: true).sample
+
+    @state_transitions = @info_request.state.transitions(
+      is_pro_user: false,
+      is_owning_user: false,
+      in_internal_review: @info_request.described_state == 'internal_review',
+      user_asked_to_update_status: false
+    )
   end
 
   private
