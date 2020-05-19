@@ -73,7 +73,9 @@
               </div>
             </div>
 
-            <a href="#" class="button"><%= _('Start extracting') %></a>
+            <%= link_to project_extract_path(@project), class: 'button' do %>
+              <%= _('Start extracting') %>
+            <% end %>
           </div>
         </div>
       </div>
