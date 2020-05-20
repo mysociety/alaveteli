@@ -12,6 +12,10 @@ RSpec.describe Project::Submission, type: :model do
       expect(submission.user).to be_an User
     end
 
+    it 'belongs to an info request' do
+      expect(submission.info_request).to be_an InfoRequest
+    end
+
     context 'when classification submission' do
       let(:submission) do
         FactoryBot.build(:project_submission, :for_classification)
@@ -43,6 +47,11 @@ RSpec.describe Project::Submission, type: :model do
 
     it 'requires user' do
       submission.user = nil
+      is_expected.not_to be_valid
+    end
+
+    it 'requires info request' do
+      submission.info_request = nil
       is_expected.not_to be_valid
     end
 

@@ -30,6 +30,10 @@ class Projects::ClassificationsController < Projects::BaseController
   end
 
   def submission_params
-    { user: current_user, resource: set_described_state }
+    {
+      user: current_user,
+      info_request: @info_request,
+      resource: set_described_state
+    }
   end
 end

@@ -47,6 +47,10 @@ class Projects::ExtractsController < Projects::BaseController
   end
 
   def submission_params
-    { user: current_user, resource: Dataset::ValueSet.new(extract_params) }
+    {
+      user: current_user,
+      info_request: @info_request,
+      resource: Dataset::ValueSet.new(extract_params)
+    }
   end
 end

@@ -131,7 +131,7 @@ RSpec.describe Projects::ClassificationsController, spec_meta do
         event = instance_double(InfoRequestEvent)
         allow(controller).to receive(:set_described_state).and_return(event)
         expect(submissions).to receive(:create).with(
-          user: user, resource: event
+          user: user, info_request: info_request, resource: event
         )
         post_status('successful')
       end

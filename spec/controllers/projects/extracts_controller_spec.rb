@@ -173,7 +173,7 @@ RSpec.describe Projects::ExtractsController, spec_meta do
         value_set = instance_double(Dataset::ValueSet)
         allow(Dataset::ValueSet).to receive(:new).and_return(value_set)
         expect(submissions).to receive(:create).with(
-          user: user, resource: value_set
+          user: user, info_request: info_request, resource: value_set
         )
         post_extract
       end
