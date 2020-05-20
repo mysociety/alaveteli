@@ -1,3 +1,16 @@
+# == Schema Information
+# Schema version: 20200520073810
+#
+# Table name: projects
+#
+#  id           :integer          not null, primary key
+#  title        :string
+#  briefing     :text
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  invite_token :string
+#
+
 FactoryBot.define do
   factory :project do
     title { 'Important FOI Project' }
@@ -30,6 +43,14 @@ FactoryBot.define do
           attributes_for(:info_request_batch).merge(user: project.owner)
         )
       end
+    end
+
+    trait :with_invite_token do
+      invite_token { SecureRandom.uuid }
+    end
+
+    trait :with_key_set do
+      association :key_set, factory: :dataset_key_set
     end
   end
 end

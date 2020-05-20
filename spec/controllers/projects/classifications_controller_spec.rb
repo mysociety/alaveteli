@@ -27,7 +27,7 @@ RSpec.describe Projects::ClassificationsController, spec_meta do
     end
   end
 
-  describe '#create' do
+  describe 'POST #create' do
     let(:user) { FactoryBot.create(:pro_user) }
     let(:ability) { Object.new.extend(CanCan::Ability) }
 
@@ -39,7 +39,7 @@ RSpec.describe Projects::ClassificationsController, spec_meta do
     end
 
     context 'project to be classified can not be found' do
-      it'raises a ActiveRecord::RecordNotFound error' do
+      it 'raises a ActiveRecord::RecordNotFound error' do
         expect {
           post :create, params: { project_id: 'invalid' }
         }.to raise_error(ActiveRecord::RecordNotFound)
@@ -49,10 +49,20 @@ RSpec.describe Projects::ClassificationsController, spec_meta do
     context 'request to be classified can not be found' do
       include_context 'project can be found'
 
-      it'raises a ActiveRecord::RecordNotFound error' do
+      it 'raises a ActiveRecord::RecordNotFound error' do
         expect {
           post :create, params: { project_id: project.id, url_title: 'invalid' }
         }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    context 'url_title param not submitted' do
+      include_context 'project can be found'
+
+      it 'raises an ActionController::ParameterMissing error' do
+        expect {
+          post :create, params: { project_id: project.id }
+        }.to raise_error(ActionController::ParameterMissing)
       end
     end
 
@@ -88,14 +98,24 @@ RSpec.describe Projects::ClassificationsController, spec_meta do
       before { ability.can :update_request_state, info_request }
     end
 
-    context 'user is allowed to update the request' do
+    shared_context 'classification can be submitted' do
       include_context 'user can classify request'
+
+      let(:submissions) { double(:submissions_collection) }
+
+      before do
+        allow(project).to receive(:submissions).and_return(submissions)
+        allow(submissions).to receive(:create)
+      end
+    end
+
+    context 'user is allowed to update the request' do
+      include_context 'classification can be submitted'
 
       it 'create status_update log' do
         post_status('successful')
 
-        event = assigns(:status_update_event)
-        expect(event).to be_a InfoRequestEvent
+        event = InfoRequestEvent.last
         expect(event.event_type).to eq 'status_update'
         expect(event.params[:described_state]).to eq 'successful'
         expect(event.params[:old_described_state]).to eq 'waiting_response'
@@ -107,9 +127,18 @@ RSpec.describe Projects::ClassificationsController, spec_meta do
         post_status('successful')
       end
 
-      it 'redirect back to the project' do
+      it 'creates project submission' do
+        event = instance_double(InfoRequestEvent)
+        allow(controller).to receive(:set_described_state).and_return(event)
+        expect(submissions).to receive(:create).with(
+          user: user, resource: event
+        )
         post_status('successful')
-        expect(response).to redirect_to(project_path(project))
+      end
+
+      it 'redirects the user to another request to classify' do
+        post_status('successful')
+        expect(response).to redirect_to(project_classify_path(project))
       end
     end
 
@@ -134,8 +163,7 @@ RSpec.describe Projects::ClassificationsController, spec_meta do
       it 'create status_update log' do
         post_status('error_message', message: 'A message')
 
-        event = assigns(:status_update_event)
-        expect(event).to be_a InfoRequestEvent
+        event = InfoRequestEvent.last
         expect(event.event_type).to eq 'status_update'
         expect(event.params[:described_state]).to eq 'error_message'
         expect(event.params[:old_described_state]).to eq 'waiting_response'
@@ -150,7 +178,7 @@ RSpec.describe Projects::ClassificationsController, spec_meta do
 
       it 'redirect back to the project' do
         post_status('error_message', message: 'A message')
-        expect(response).to redirect_to(project_path(project))
+        expect(response).to redirect_to(project_classify_path(project))
       end
     end
 
@@ -175,8 +203,7 @@ RSpec.describe Projects::ClassificationsController, spec_meta do
       it 'create status_update log' do
         post_status('requires_admin', message: 'A message')
 
-        event = assigns(:status_update_event)
-        expect(event).to be_a InfoRequestEvent
+        event = InfoRequestEvent.last
         expect(event.event_type).to eq 'status_update'
         expect(event.params[:described_state]).to eq 'requires_admin'
         expect(event.params[:old_described_state]).to eq 'waiting_response'
@@ -191,7 +218,7 @@ RSpec.describe Projects::ClassificationsController, spec_meta do
 
       it 'redirect back to the project' do
         post_status('requires_admin', message: 'A message')
-        expect(response).to redirect_to(project_path(project))
+        expect(response).to redirect_to(project_classify_path(project))
       end
     end
   end

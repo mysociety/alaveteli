@@ -21,6 +21,7 @@ RSpec.describe Project, type: :model, feature: :projects do
     subject(:project) do
       FactoryBot.create(
         :project,
+        :with_key_set,
         owner: owner,
         contributors_count: 2, requests_count: 2, batches_count: 2
       )
@@ -46,7 +47,7 @@ RSpec.describe Project, type: :model, feature: :projects do
     end
 
     it 'has many resources' do
-      expect(project.resources).to all be_a(ProjectResource)
+      expect(project.resources).to all be_a(Project::Resource)
       expect(project.resources.count).to eq 4
     end
 
@@ -85,6 +86,10 @@ RSpec.describe Project, type: :model, feature: :projects do
       it 'excludes non-project batch requests' do
         is_expected.not_to include(*other_batch.info_requests)
       end
+    end
+
+    it 'has one key set' do
+      expect(project.key_set).to be_a(Dataset::KeySet)
     end
   end
 
@@ -129,6 +134,35 @@ RSpec.describe Project, type: :model, feature: :projects do
     end
   end
 
+  describe '#owner?' do
+    subject { project.owner?(user) }
+
+    let(:owner) { FactoryBot.create(:user) }
+    let(:contributor) { FactoryBot.create(:user) }
+    let(:non_member) { FactoryBot.create(:user) }
+
+    let(:project) do
+      project = FactoryBot.create(:project, owner: owner)
+      project.contributors << contributor
+      project
+    end
+
+    context 'given an owner' do
+      let(:user) { owner }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'given a contributor' do
+      let(:user) { contributor }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'given a non-member' do
+      let(:user) { non_member }
+      it { is_expected.to eq(false) }
+    end
+  end
+
   describe '#member?' do
     subject { project.member?(user) }
 
@@ -156,5 +190,77 @@ RSpec.describe Project, type: :model, feature: :projects do
       let(:user) { non_member }
       it { is_expected.to eq(false) }
     end
+  end
+
+  describe '#contributor?' do
+    subject { project.contributor?(user) }
+
+    let(:owner) { FactoryBot.create(:user) }
+    let(:contributor) { FactoryBot.create(:user) }
+    let(:non_member) { FactoryBot.create(:user) }
+
+    let(:project) do
+      project = FactoryBot.create(:project, owner: owner)
+      project.contributors << contributor
+      project
+    end
+
+    context 'given an owner' do
+      let(:user) { owner }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'given a contributor' do
+      let(:user) { contributor }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'given a non-member' do
+      let(:user) { non_member }
+      it { is_expected.to eq(false) }
+    end
+  end
+
+  describe '#classifiable_requests' do
+    subject { project.classifiable_requests }
+
+    let(:classifiable_request) { FactoryBot.create(:awaiting_description) }
+    let(:non_classifiable_request) { FactoryBot.create(:successful_request) }
+
+    let(:project) do
+      project = FactoryBot.create(:project)
+      project.requests << [classifiable_request, non_classifiable_request]
+      project
+    end
+
+    it { is_expected.to match_array([classifiable_request]) }
+  end
+
+  describe '#classified_requests' do
+    subject { project.classified_requests }
+
+    let(:classifiable_request) { FactoryBot.create(:awaiting_description) }
+    let(:classified_request) { FactoryBot.create(:successful_request) }
+
+    let(:project) do
+      project = FactoryBot.create(:project)
+      project.requests << [classifiable_request, classified_request]
+      project
+    end
+
+    it { is_expected.to match_array([classified_request]) }
+  end
+
+  describe '#classification_progress' do
+    subject { project.classification_progress }
+
+    let(:project) do
+      project = FactoryBot.create(:project)
+      1.times { project.requests << FactoryBot.create(:awaiting_description) }
+      2.times { project.requests << FactoryBot.create(:successful_request) }
+      project
+    end
+
+    it { is_expected.to eq(66) }
   end
 end

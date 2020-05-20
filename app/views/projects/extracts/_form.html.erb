@@ -1,0 +1,15 @@
+<div class="extract-answer-form">
+  <%= form_for Dataset::ValueSet.new,
+               url: project_extract_path,
+               as: :extract do |f| %>
+
+    <%= hidden_field_tag :url_title, info_request.url_title %>
+    <%= render project.key_set, f: f %>
+
+    <%= f.submit _('Submit data') %>
+
+    <a class="button-tertiary button--full-width form__skip-button js-project-skip-button" style="display:none" href="#">
+      <%= _('Skip') %>
+    </a>
+  <% end %>
+</div>

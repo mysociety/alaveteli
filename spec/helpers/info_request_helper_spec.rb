@@ -579,6 +579,17 @@ describe InfoRequestHelper do
 
   end
 
+  describe '#js_correspondence_navigation' do
+    subject { js_correspondence_navigation }
+
+    it { is_expected.to eq(<<~HTML.squish) }
+    <div class="js-request-navigation request-navigation"
+      data-next-text="Next message"
+      data-prev-text="Previous message"
+      data-status-text="Message [[x]] of [[y]]"></div>
+    HTML
+  end
+
   describe '#attachment_link' do
     let(:incoming_message) { FactoryBot.create(:incoming_message) }
 

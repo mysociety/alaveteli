@@ -1330,4 +1330,57 @@ describe Ability do
       end
     end
   end
+
+  describe 'remove_contributor from projects', feature: :projects do
+    let(:ability) { Ability.new(user, project: project) }
+
+    let(:owner) { FactoryBot.create(:user) }
+    let(:contributor_a) { FactoryBot.create(:user) }
+    let(:contributor_b) { FactoryBot.create(:user) }
+
+    let(:project) do
+      project = FactoryBot.create(:project, owner: owner)
+      project.contributors << contributor_a
+      project.contributors << contributor_b
+      project
+    end
+
+    context 'when the user is a project owner' do
+      let(:user) { owner }
+
+      it 'they can remove a contributor from the project' do
+        expect(ability).to be_able_to(:remove_contributor, contributor_a)
+      end
+
+      it 'they cannot remove themselves from the project' do
+        expect(ability).not_to be_able_to(:remove_contributor, owner)
+      end
+
+      it 'they cannot remove non-members from the project' do
+        expect(ability).
+          not_to be_able_to(:remove_contributor, FactoryBot.create(:user))
+      end
+    end
+
+    context 'when the user is a project contributor' do
+      let(:user) { contributor_a }
+
+      it 'they can remove themselves from the project' do
+        expect(ability).to be_able_to(:remove_contributor, user)
+      end
+
+      it 'they cannot remove owners from the project' do
+        expect(ability).not_to be_able_to(:remove_contributor, owner)
+      end
+
+      it 'they cannot remove other contributors from the project' do
+        expect(ability).not_to be_able_to(:remove_contributor, contributor_b)
+      end
+
+      it 'they cannot remove non-members from the project' do
+        expect(ability).
+          not_to be_able_to(:remove_contributor, FactoryBot.create(:user))
+      end
+    end
+  end
 end

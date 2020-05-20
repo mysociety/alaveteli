@@ -17,23 +17,39 @@
             <%= _('{{contributor_count}} contributors',
                   contributor_count: @project.contributors.count) %>
           </p>
-
-          <div class="project-workload">
-            <h3 class="project-workload-title">
-              <%= _('Workload') %>
-            </h3>
-
-            <div class="project-workload-diagram">
-              <progress max="100" value="56" class="project-workload-indicator"></progress>
-              <span class="project-workload-value">56%</span>
-            </div>
-          </div>
         </div>
 
         <div class="project-task-list" id="tasks">
           <h2>
             <%= _('Contribute') %>
           </h2>
+
+          <div class="project-task">
+            <h3><%= _('Classify responses') %></h3>
+
+            <div class="project-task-meta-information">
+              <p class="project-meta"><%= _('Quick') %> / <%= _('Non-expert') %></p>
+              <p class="project-meta"><%= _('5 minutes+') %> / <%= _('Any device') %></p>
+            </div>
+
+            <p>
+              <%= _('Read through authority responses and choose if their ' \
+                    'answer satisfies the intention of the original request, ' \
+                    'flag any problems and show the project owner if they ' \
+                    'need to intervene to keep the project movng forward.') %>
+            </p>
+
+            <div class="project-workload">
+              <div class="project-workload-diagram">
+                <progress max="100" value="<%= @project.classification_progress %>" class="project-workload-indicator"></progress>
+                <span class="project-workload-value"><%= @project.classification_progress %>%</span>
+              </div>
+            </div>
+
+            <%= link_to project_classify_path(@project), class: 'button' do %>
+              <%= _('Start classifying') %>
+            <% end %>
+          </div>
 
           <div class="project-task">
             <h3><%= _('Extract data') %></h3>
@@ -51,15 +67,15 @@
             </p>
 
             <div class="project-workload">
-              <h4 class="project-workload-title"><%= _('Workload') %></h4>
-
               <div class="project-workload-diagram">
                 <progress max="100" value="10" class="project-workload-indicator"></progress>
                 <span class="project-workload-value">10%</span>
               </div>
             </div>
 
-            <a href="#" class="button"><%= _('Start extracting') %></a>
+            <%= link_to project_extract_path(@project), class: 'button' do %>
+              <%= _('Start extracting') %>
+            <% end %>
           </div>
         </div>
       </div>
@@ -85,13 +101,19 @@
           <% end %>
         </div>
 
-        <div class="project-access-status">
-          <p>
-            <%= _('You are a <strong>contributor</strong> on this project') %>
-          </p>
+        <% if can? :remove_contributor, current_user %>
+          <div class="project-access-status">
+            <p>
+              <%= _('You are a <strong>contributor</strong> on this project') %>
+            </p>
 
-          <a href="#" class="button-secondary"><%= _('Leave project') %></a>
-        </div>
+            <%= link_to _('Leave project'),
+                  project_contributor_path(@project, current_user),
+                  method: :delete,
+                  data: { confirm: 'Are you sure?' },
+                  class: 'button-secondary' %>
+          </div>
+        <% end %>
       </aside>
     </div>
   </div>
