@@ -47,7 +47,7 @@ RSpec.describe Project, type: :model, feature: :projects do
     end
 
     it 'has many resources' do
-      expect(project.resources).to all be_a(ProjectResource)
+      expect(project.resources).to all be_a(Project::Resource)
       expect(project.resources.count).to eq 4
     end
 
