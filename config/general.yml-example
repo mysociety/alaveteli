@@ -1287,3 +1287,10 @@ ENABLE_PRO_PRICING: false
 #
 # ---
 ENABLE_PRO_SELF_SERVE: false
+
+# **WARNING** Projects is not ready for re-use.
+#
+# ENABLE_PROJECTS – Boolean (default: false)
+#
+# ---
+ENABLE_PROJECTS: false
