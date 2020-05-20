@@ -10,17 +10,17 @@ class Project
     end
 
     def call(project)
-      @relation.joins(
-        "LEFT JOIN project_resources r1 ON " \
-        "r1.resource_id = info_requests.id AND " \
-        "r1.resource_type = 'InfoRequest'"
-      ).
-      joins(
-        "LEFT JOIN project_resources r2 ON " \
-        "r2.resource_id = info_requests.info_request_batch_id AND " \
-        "r2.resource_type = 'InfoRequestBatch'"
-      ).
-      where("r1.project_id = :id OR r2.project_id = :id", id: project.id)
+      table = Project::Resource.table_name
+
+      @relation.joins(<<~JOIN).where(table => { project_id: project })
+        INNER JOIN #{table} ON (
+          #{table}.resource_id = info_requests.id AND
+          #{table}.resource_type = 'InfoRequest'
+        ) OR (
+          #{table}.resource_id = info_requests.info_request_batch_id AND
+          #{table}.resource_type = 'InfoRequestBatch'
+        )
+      JOIN
     end
   end
 end
