@@ -37,6 +37,24 @@ RSpec.describe Project::Submission, type: :model do
     end
   end
 
+  describe 'scopes' do
+    let!(:classification) do
+      FactoryBot.create(:project_submission, :for_classification)
+    end
+
+    let!(:extraction) do
+      FactoryBot.create(:project_submission, :for_extraction)
+    end
+
+    it 'can scope to classification submissions' do
+      expect(described_class.classification).to match_array([classification])
+    end
+
+    it 'can scope to extraction submissions' do
+      expect(described_class.extraction).to match_array([extraction])
+    end
+  end
+
   describe 'validations' do
     it { is_expected.to be_valid }
 

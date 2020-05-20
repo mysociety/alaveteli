@@ -23,6 +23,9 @@ class Project::Submission < ApplicationRecord
   belongs_to :info_request
   belongs_to :resource, polymorphic: true
 
+  scope :classification, -> { where(resource_type: 'InfoRequestEvent') }
+  scope :extraction, -> { where(resource_type: 'Dataset::ValueSet') }
+
   RESOURCE_TYPES = %w[
     InfoRequestEvent
     Dataset::ValueSet
