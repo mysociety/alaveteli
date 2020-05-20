@@ -36,8 +36,8 @@ GIT
 
 GIT
   remote: https://github.com/mysociety/xapian-full
-  revision: 8e044da12649b9c3d38092a963cf6ed89100956d
-  branch: xapian-1.4.11
+  revision: a4b03dcb5bab5c75be8ca3342a5db6934f65c9b3
+  branch: xapian-1.4.11.1
   specs:
     xapian-full-alaveteli (1.4.11.1)
 
