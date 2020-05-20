@@ -156,6 +156,8 @@ class InfoRequest < ApplicationRecord
   scope :overdue, State::OverdueQuery.new
   scope :very_overdue, State::VeryOverdueQuery.new
 
+  scope :for_project, Project::InfoRequestQuery.new
+
   class << self
     alias_method :in_progress, :awaiting_response
   end

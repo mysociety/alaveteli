@@ -38,20 +38,8 @@ class Project < ApplicationRecord
            source: :resource,
            source_type: 'InfoRequestBatch'
 
-  has_many :info_requests, lambda { |project|
-    unscope(:where).
-    joins(
-      "LEFT JOIN project_resources r1 ON " \
-      "r1.resource_id = info_requests.id AND " \
-      "r1.resource_type = 'InfoRequest'"
-    ).
-    joins(
-      "LEFT JOIN project_resources r2 ON " \
-      "r2.resource_id = info_requests.info_request_batch_id AND " \
-      "r2.resource_type = 'InfoRequestBatch'"
-    ).
-    where("r1.project_id = :id OR r2.project_id = :id", id: project.id)
-  }
+  has_many :info_requests,
+           ->(project) { unscope(:where).for_project(project) }
 
   has_one :key_set, class_name: 'Dataset::KeySet', as: :resource
 
