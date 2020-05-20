@@ -162,9 +162,7 @@ RSpec.describe Projects::ExtractsController, spec_meta do
           ]
         }
         expect(Dataset::ValueSet).to receive(:new).with(
-          ActionController::Parameters.new(params).permit!.merge(
-            resource: info_request
-          )
+          ActionController::Parameters.new(params).permit!
         )
         post_extract(params)
       end

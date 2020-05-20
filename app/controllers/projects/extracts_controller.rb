@@ -41,8 +41,6 @@ class Projects::ExtractsController < Projects::BaseController
   def extract_params
     params.require(:extract).permit(
       :dataset_key_set_id, values_attributes: [:dataset_key_id, :value]
-    ).merge(
-      resource: @info_request
     )
   end
 
