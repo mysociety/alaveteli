@@ -35,13 +35,6 @@ GIT
       activemodel (>= 3.0, < 6.0)
 
 GIT
-  remote: https://github.com/mysociety/xapian-full
-  revision: 8e044da12649b9c3d38092a963cf6ed89100956d
-  branch: xapian-1.4.11
-  specs:
-    xapian-full-alaveteli (1.4.11.1)
-
-GIT
   remote: https://github.com/technoweenie/acts_as_versioned.git
   revision: 63b1fc8529d028fae632fe80ec0cb25df56cd76b
   ref: 63b1fc8529d028
@@ -430,6 +423,7 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
     will_paginate (3.1.8)
+    xapian-full-alaveteli (1.4.11.1)
     xml-simple (1.1.5)
     xpath (3.1.0)
       nokogiri (~> 1.8)
@@ -522,6 +516,6 @@ DEPENDENCIES
   web-console (>= 3.3.0)
   webmock (~> 3.5.1)
   will_paginate (~> 3.1.8)
-  xapian-full-alaveteli!
+  xapian-full-alaveteli (~> 1.4.11)
   xml-simple (~> 1.1.0)
   zip_tricks (~> 5.0.0)
