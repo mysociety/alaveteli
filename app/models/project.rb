@@ -1,3 +1,16 @@
+# == Schema Information
+# Schema version: 20200520073810
+#
+# Table name: projects
+#
+#  id           :integer          not null, primary key
+#  title        :string
+#  briefing     :text
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  invite_token :string
+#
+
 ##
 # A model to represent a FOI project which many contributors work on multiple
 # info requests.
