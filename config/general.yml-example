@@ -1284,9 +1284,22 @@ PRO_REFERRAL_COUPON: ''
 # ---
 ENABLE_PRO_PRICING: false
 
+# This option is only used when ENABLE_PRO_PRICING is set to false.
+#
+# If ENABLE_PRO_SELF_SERVE is set to true, Alaveteli will let users upgrade
+# their accounts to Pro without needing to enter payment details.
+#
+# If ENABLE_PRO_SELF_SERVE is set to false, admins will receive an account
+# request email and has to assign the role in the Alaveteli admin interface.
+#
+# ENABLE_PRO_SELF_SERVE – Boolean (default: false)
+#
+# ---
+ENABLE_PRO_SELF_SERVE: false
+
 # **WARNING** Projects is not ready for re-use.
 #
 # ENABLE_PROJECTS – Boolean (default: false)
 #
 # ---
-# ENABLE_PROJECTS: false
+ENABLE_PROJECTS: false
