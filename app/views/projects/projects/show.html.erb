@@ -1,5 +1,3 @@
-<%= render partial: 'project_nav', locals: { project: @project } %>
-
 <div class="inner-canvas">
   <div class="inner-canvas-header">
    <div class="row">
@@ -68,8 +66,8 @@
 
             <div class="project-workload">
               <div class="project-workload-diagram">
-                <progress max="100" value="10" class="project-workload-indicator"></progress>
-                <span class="project-workload-value">10%</span>
+                <progress max="100" value="<%= @project.extraction_progress %>" class="project-workload-indicator"></progress>
+                <span class="project-workload-value"><%= @project.extraction_progress %>%</span>
               </div>
             </div>
 
@@ -110,8 +108,8 @@
             <%= link_to _('Leave project'),
                   project_contributor_path(@project, current_user),
                   method: :delete,
-                  data: { confirm: 'Are you sure?' },
-                  class: 'button-secondary' %>
+                  data: { confirm: _('Are you sure?') },
+                  class: 'button-tertiary' %>
           </div>
         <% end %>
       </aside>

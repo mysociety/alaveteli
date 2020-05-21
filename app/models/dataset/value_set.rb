@@ -29,7 +29,7 @@ class Dataset::ValueSet < ApplicationRecord
     FoiAttachment
   ].freeze
 
-  validates :resource, :key_set, presence: true
-  validates :resource_type, inclusion: { in: RESOURCE_TYPES }
+  validates :key_set, presence: true
+  validates :resource_type, inclusion: { in: RESOURCE_TYPES }, if: :resource
   validates_associated :values
 end

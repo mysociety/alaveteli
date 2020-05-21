@@ -4,6 +4,12 @@ class Projects::ExtractsController < Projects::BaseController
 
   def show
     authorize! :read, @project
+
+    unless @info_request
+      msg = _('There are no requests to extract right now. Great job!')
+      redirect_to @project, notice: msg
+      return
+    end
   end
 
   def create
@@ -29,24 +35,25 @@ class Projects::ExtractsController < Projects::BaseController
 
   def find_info_request
     if params[:url_title]
-      @info_request = @project.info_requests.find_by!(
+      @info_request = @project.info_requests.extractable.find_by!(
         url_title: params[:url_title]
       )
     else
-      # HACK: Temporarily just find a random request to render
-      @info_request = @project.info_requests.sample
+      @info_request = @project.info_requests.extractable.sample
     end
   end
 
   def extract_params
     params.require(:extract).permit(
       :dataset_key_set_id, values_attributes: [:dataset_key_id, :value]
-    ).merge(
-      resource: @info_request
     )
   end
 
   def submission_params
-    { user: current_user, resource: Dataset::ValueSet.new(extract_params) }
+    {
+      user: current_user,
+      info_request: @info_request,
+      resource: Dataset::ValueSet.new(extract_params)
+    }
   end
 end
