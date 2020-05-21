@@ -16,7 +16,7 @@ class Projects::ClassificationsController < Projects::BaseController
   private
 
   def find_info_request
-    @info_request = @project.info_requests.find_by!(
+    @info_request = @project.info_requests.classifiable.find_by!(
       url_title: url_title
     )
   end

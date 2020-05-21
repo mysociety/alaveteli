@@ -5,8 +5,7 @@ class Projects::ClassifiesController < Projects::BaseController
   def show
     authorize! :read, @project
 
-    @info_request =
-      @project.info_requests.where(awaiting_description: true).sample
+    @info_request = @project.info_requests.classifiable.sample
 
     unless @info_request
       msg = _('There are no requests to classify right now. Great job!')
