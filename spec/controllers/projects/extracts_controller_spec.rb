@@ -87,6 +87,7 @@ RSpec.describe Projects::ExtractsController, spec_meta do
     before do
       info_requests = double(:info_requests_collection)
       allow(project).to receive(:info_requests).and_return(info_requests)
+      allow(info_requests).to receive(:extractable).and_return(info_requests)
       allow(info_requests).to receive(:find_by!).
         with(url_title: info_request.url_title).and_return(info_request)
     end

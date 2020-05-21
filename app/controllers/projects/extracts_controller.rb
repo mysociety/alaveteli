@@ -29,12 +29,11 @@ class Projects::ExtractsController < Projects::BaseController
 
   def find_info_request
     if params[:url_title]
-      @info_request = @project.info_requests.find_by!(
+      @info_request = @project.info_requests.extractable.find_by!(
         url_title: params[:url_title]
       )
     else
-      # HACK: Temporarily just find a random request to render
-      @info_request = @project.info_requests.sample
+      @info_request = @project.info_requests.extractable.sample
     end
   end
 
