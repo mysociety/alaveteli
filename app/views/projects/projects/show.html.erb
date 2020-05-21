@@ -110,7 +110,7 @@
             <%= link_to _('Leave project'),
                   project_contributor_path(@project, current_user),
                   method: :delete,
-                  data: { confirm: 'Are you sure?' },
+                  data: { confirm: _('Are you sure?') },
                   class: 'button-tertiary' %>
           </div>
         <% end %>
