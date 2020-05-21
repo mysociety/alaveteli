@@ -29,7 +29,7 @@
       <% end %>
     </p>
 
-    <% unless @info_request.embargo %>
+    <% if show_correspondence_footer %>
       <% link_to_this_url = incoming_message_url(incoming_message) %>
 
       <% report_path =

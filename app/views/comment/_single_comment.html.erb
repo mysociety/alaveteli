@@ -31,7 +31,7 @@
     </p>
   </div>
 
-  <% if comment.id && !@info_request.embargo %>
+  <% if comment.id && show_correspondence_footer %>
     <% link_to_this_url = comment_url(comment) %>
 
     <% report_path =
