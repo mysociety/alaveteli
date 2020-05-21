@@ -17,6 +17,37 @@ RSpec.describe Project, type: :model, feature: :projects do
     let!(:other_batch) { FactoryBot.create(:info_request_batch, :sent) }
   end
 
+  shared_context 'project with submitted requests' do
+    let(:project) do
+      FactoryBot.create(
+        :project, requests: [
+          unclassified_request, classified_request, extracted_request
+        ]
+      )
+    end
+
+    let(:unclassified_request) { FactoryBot.build(:info_request) }
+    let(:classified_request) do
+      FactoryBot.build(
+        :info_request,
+        awaiting_description: false,
+        described_state: 'successful'
+      )
+    end
+    let(:extracted_request) { FactoryBot.build(:info_request) }
+
+    before do
+      FactoryBot.create(
+        :project_submission, :for_classification,
+        project: project, info_request: classified_request
+      )
+      FactoryBot.create(
+        :project_submission, :for_extraction,
+        project: project, info_request: extracted_request
+      )
+    end
+  end
+
   describe 'associations' do
     subject(:project) do
       FactoryBot.create(
@@ -262,5 +293,49 @@ RSpec.describe Project, type: :model, feature: :projects do
     end
 
     it { is_expected.to eq(66) }
+  end
+
+  describe '#info_requests.extractable' do
+    include_context 'project with submitted requests'
+
+    subject { project.info_requests.extractable }
+
+    it 'returns array of InfoRequest' do
+      is_expected.to all be_an(InfoRequest)
+    end
+
+    it 'excludes unclassified_request requests' do
+      is_expected.not_to include unclassified_request
+    end
+
+    it 'includes extractable requests' do
+      is_expected.to include classified_request
+    end
+
+    it 'excludes extracted requests' do
+      is_expected.not_to include extracted_request
+    end
+  end
+
+  describe '#info_requests.extracted' do
+    include_context 'project with submitted requests'
+
+    subject { project.info_requests.extracted }
+
+    it 'returns array of InfoRequest' do
+      is_expected.to all be_an(InfoRequest)
+    end
+
+    it 'excludes unclassified_request requests' do
+      is_expected.not_to include unclassified_request
+    end
+
+    it 'excludes classified requests' do
+      is_expected.not_to include classified_request
+    end
+
+    it 'includes extracted requests' do
+      is_expected.to include extracted_request
+    end
   end
 end
