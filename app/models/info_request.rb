@@ -133,6 +133,14 @@ class InfoRequest < ApplicationRecord
           :class_name => 'AlaveteliPro::Embargo',
           :dependent => :destroy
 
+  has_many :project_submissions, class_name: 'Project::Submission'
+  has_many :classification_project_submissions,
+           -> { classification },
+           class_name: 'Project::Submission'
+  has_many :extraction_project_submissions,
+           -> { extraction },
+           class_name: 'Project::Submission'
+
   attr_accessor :is_batch_request_template
   attr_reader :followup_bad_reason
 
@@ -155,6 +163,8 @@ class InfoRequest < ApplicationRecord
   scope :other, State::OtherQuery.new
   scope :overdue, State::OverdueQuery.new
   scope :very_overdue, State::VeryOverdueQuery.new
+
+  scope :for_project, Project::InfoRequestQuery.new
 
   class << self
     alias_method :in_progress, :awaiting_response

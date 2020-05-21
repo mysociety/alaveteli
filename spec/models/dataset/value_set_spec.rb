@@ -51,9 +51,9 @@ RSpec.describe Dataset::ValueSet, type: :model do
   describe 'validations' do
     it { is_expected.to be_valid }
 
-    it 'requires resource' do
+    it 'does not require resource' do
       value_set.resource = nil
-      is_expected.not_to be_valid
+      is_expected.to be_valid
     end
 
     it 'requires resource to be a InfoRequest, IncomingMessage or FoiAttachment' do

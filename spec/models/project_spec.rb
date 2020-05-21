@@ -17,6 +17,37 @@ RSpec.describe Project, type: :model, feature: :projects do
     let!(:other_batch) { FactoryBot.create(:info_request_batch, :sent) }
   end
 
+  shared_context 'project with submitted requests' do
+    let(:project) do
+      FactoryBot.create(
+        :project, requests: [
+          unclassified_request, classified_request, extracted_request
+        ]
+      )
+    end
+
+    let(:unclassified_request) { FactoryBot.build(:info_request) }
+    let(:classified_request) do
+      FactoryBot.build(
+        :info_request,
+        awaiting_description: false,
+        described_state: 'successful'
+      )
+    end
+    let(:extracted_request) { FactoryBot.build(:info_request) }
+
+    before do
+      FactoryBot.create(
+        :project_submission, :for_classification,
+        project: project, info_request: classified_request
+      )
+      FactoryBot.create(
+        :project_submission, :for_extraction,
+        project: project, info_request: extracted_request
+      )
+    end
+  end
+
   describe 'associations' do
     subject(:project) do
       FactoryBot.create(
@@ -221,8 +252,8 @@ RSpec.describe Project, type: :model, feature: :projects do
     end
   end
 
-  describe '#classifiable_requests' do
-    subject { project.classifiable_requests }
+  describe '#info_requests.classifiable' do
+    subject { project.info_requests.classifiable }
 
     let(:classifiable_request) { FactoryBot.create(:awaiting_description) }
     let(:non_classifiable_request) { FactoryBot.create(:successful_request) }
@@ -236,8 +267,8 @@ RSpec.describe Project, type: :model, feature: :projects do
     it { is_expected.to match_array([classifiable_request]) }
   end
 
-  describe '#classified_requests' do
-    subject { project.classified_requests }
+  describe '#info_requests.classified' do
+    subject { project.info_requests.classified }
 
     let(:classifiable_request) { FactoryBot.create(:awaiting_description) }
     let(:classified_request) { FactoryBot.create(:successful_request) }
@@ -254,13 +285,86 @@ RSpec.describe Project, type: :model, feature: :projects do
   describe '#classification_progress' do
     subject { project.classification_progress }
 
-    let(:project) do
-      project = FactoryBot.create(:project)
-      1.times { project.requests << FactoryBot.create(:awaiting_description) }
-      2.times { project.requests << FactoryBot.create(:successful_request) }
-      project
+    before do
+      allow(project).to receive(:info_requests).and_return(
+        double(count: 3, classified: double(count: 2))
+      )
     end
 
     it { is_expected.to eq(66) }
+
+    context 'when there are no requests' do
+      before do
+        allow(project).to receive(:info_requests).and_return(double(count: 0))
+      end
+
+      it { is_expected.to eq(0) }
+    end
+  end
+
+  describe '#info_requests.extractable' do
+    include_context 'project with submitted requests'
+
+    subject { project.info_requests.extractable }
+
+    it 'returns array of InfoRequest' do
+      is_expected.to all be_an(InfoRequest)
+    end
+
+    it 'excludes unclassified_request requests' do
+      is_expected.not_to include unclassified_request
+    end
+
+    it 'includes extractable requests' do
+      is_expected.to include classified_request
+    end
+
+    it 'excludes extracted requests' do
+      is_expected.not_to include extracted_request
+    end
+  end
+
+  describe '#info_requests.extracted' do
+    include_context 'project with submitted requests'
+
+    subject { project.info_requests.extracted }
+
+    it 'returns array of InfoRequest' do
+      is_expected.to all be_an(InfoRequest)
+    end
+
+    it 'excludes unclassified_request requests' do
+      is_expected.not_to include unclassified_request
+    end
+
+    it 'excludes classified requests' do
+      is_expected.not_to include classified_request
+    end
+
+    it 'includes extracted requests' do
+      is_expected.to include extracted_request
+    end
+  end
+
+  describe '#extraction_progress' do
+    subject { project.extraction_progress }
+
+    before do
+      allow(project).to receive(:info_requests).and_return(
+        double(extractable: double(count: 1), extracted: double(count: 2))
+      )
+    end
+
+    it { is_expected.to eq(66) }
+
+    context 'when there are no extractable or extracted requests' do
+      before do
+        allow(project).to receive(:info_requests).and_return(
+          double(extractable: double(count: 0), extracted: double(count: 0))
+        )
+      end
+
+      it { is_expected.to eq(0) }
+    end
   end
 end

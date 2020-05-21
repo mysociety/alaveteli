@@ -24,6 +24,7 @@ RSpec.describe Projects::ExtractsController, spec_meta do
       before do
         session[:user_id] = user.id
         ability.can :read, project
+        project.requests << FactoryBot.create(:successful_request)
         get :show, params: { project_id: project.id }
       end
 
@@ -33,6 +34,26 @@ RSpec.describe Projects::ExtractsController, spec_meta do
 
       it 'renders the project template' do
         expect(response).to render_template('projects/extracts/show')
+      end
+    end
+
+    context 'when there are no requests to extract' do
+      let(:user) { FactoryBot.create(:user) }
+
+      before do
+        session[:user_id] = user.id
+        ability.can :read, project
+        project.info_requests.update_all(awaiting_description: false)
+        get :show, params: { project_id: project.id }
+      end
+
+      it 'tells the user there are no requests to extract at the moment' do
+        msg = 'There are no requests to extract right now. Great job!'
+        expect(flash[:notice]).to eq(msg)
+      end
+
+      it 'edirects back to the project homepage' do
+        expect(response).to redirect_to(project)
       end
     end
 
@@ -87,6 +108,7 @@ RSpec.describe Projects::ExtractsController, spec_meta do
     before do
       info_requests = double(:info_requests_collection)
       allow(project).to receive(:info_requests).and_return(info_requests)
+      allow(info_requests).to receive(:extractable).and_return(info_requests)
       allow(info_requests).to receive(:find_by!).
         with(url_title: info_request.url_title).and_return(info_request)
     end
@@ -162,9 +184,7 @@ RSpec.describe Projects::ExtractsController, spec_meta do
           ]
         }
         expect(Dataset::ValueSet).to receive(:new).with(
-          ActionController::Parameters.new(params).permit!.merge(
-            resource: info_request
-          )
+          ActionController::Parameters.new(params).permit!
         )
         post_extract(params)
       end
@@ -173,7 +193,7 @@ RSpec.describe Projects::ExtractsController, spec_meta do
         value_set = instance_double(Dataset::ValueSet)
         allow(Dataset::ValueSet).to receive(:new).and_return(value_set)
         expect(submissions).to receive(:create).with(
-          user: user, resource: value_set
+          user: user, info_request: info_request, resource: value_set
         )
         post_extract
       end

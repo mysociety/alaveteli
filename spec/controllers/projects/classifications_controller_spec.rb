@@ -22,6 +22,7 @@ RSpec.describe Projects::ClassificationsController, spec_meta do
     before do
       info_requests = double(:info_requests_collection)
       allow(project).to receive(:info_requests).and_return(info_requests)
+      allow(info_requests).to receive(:classifiable).and_return(info_requests)
       allow(info_requests).to receive(:find_by!).
         with(url_title: info_request.url_title).and_return(info_request)
     end
@@ -131,7 +132,7 @@ RSpec.describe Projects::ClassificationsController, spec_meta do
         event = instance_double(InfoRequestEvent)
         allow(controller).to receive(:set_described_state).and_return(event)
         expect(submissions).to receive(:create).with(
-          user: user, resource: event
+          user: user, info_request: info_request, resource: event
         )
         post_status('successful')
       end
@@ -176,7 +177,7 @@ RSpec.describe Projects::ClassificationsController, spec_meta do
         post_status('error_message', message: 'A message')
       end
 
-      it 'redirect back to the project' do
+      it 'redirects the user to another request to classify' do
         post_status('error_message', message: 'A message')
         expect(response).to redirect_to(project_classify_path(project))
       end
@@ -216,7 +217,7 @@ RSpec.describe Projects::ClassificationsController, spec_meta do
         post_status('requires_admin', message: 'A message')
       end
 
-      it 'redirect back to the project' do
+      it 'redirects the user to another request to classify' do
         post_status('requires_admin', message: 'A message')
         expect(response).to redirect_to(project_classify_path(project))
       end
