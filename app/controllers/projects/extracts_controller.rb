@@ -4,6 +4,12 @@ class Projects::ExtractsController < Projects::BaseController
 
   def show
     authorize! :read, @project
+
+    unless @info_request
+      msg = _('There are no requests to extract right now. Great job!')
+      redirect_to @project, notice: msg
+      return
+    end
   end
 
   def create

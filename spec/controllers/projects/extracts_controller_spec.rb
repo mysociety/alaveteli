@@ -24,6 +24,7 @@ RSpec.describe Projects::ExtractsController, spec_meta do
       before do
         session[:user_id] = user.id
         ability.can :read, project
+        project.requests << FactoryBot.create(:successful_request)
         get :show, params: { project_id: project.id }
       end
 
@@ -33,6 +34,26 @@ RSpec.describe Projects::ExtractsController, spec_meta do
 
       it 'renders the project template' do
         expect(response).to render_template('projects/extracts/show')
+      end
+    end
+
+    context 'when there are no requests to extract' do
+      let(:user) { FactoryBot.create(:user) }
+
+      before do
+        session[:user_id] = user.id
+        ability.can :read, project
+        project.info_requests.update_all(awaiting_description: false)
+        get :show, params: { project_id: project.id }
+      end
+
+      it 'tells the user there are no requests to extract at the moment' do
+        msg = 'There are no requests to extract right now. Great job!'
+        expect(flash[:notice]).to eq(msg)
+      end
+
+      it 'edirects back to the project homepage' do
+        expect(response).to redirect_to(project)
       end
     end
 
