@@ -65,6 +65,17 @@ class Project < ApplicationRecord
   end
 
   def classification_progress
+    total = info_requests.count
+    return 0 if total.zero?
+
     ((info_requests.classified.count / total.to_f) * 100).floor
+  end
+
+  def extraction_progress
+    extracted_count = info_requests.extracted.count
+    total = extracted_count + info_requests.extractable.count
+    return 0 if total.zero?
+
+    ((extracted_count / total.to_f) * 100).floor
   end
 end

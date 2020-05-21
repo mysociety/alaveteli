@@ -66,8 +66,8 @@
 
             <div class="project-workload">
               <div class="project-workload-diagram">
-                <progress max="100" value="0" class="project-workload-indicator"></progress>
-                <span class="project-workload-value">0%</span>
+                <progress max="100" value="<%= @project.extraction_progress %>" class="project-workload-indicator"></progress>
+                <span class="project-workload-value"><%= @project.extraction_progress %>%</span>
               </div>
             </div>
 

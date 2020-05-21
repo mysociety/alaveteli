@@ -285,14 +285,21 @@ RSpec.describe Project, type: :model, feature: :projects do
   describe '#classification_progress' do
     subject { project.classification_progress }
 
-    let(:project) do
-      project = FactoryBot.create(:project)
-      1.times { project.requests << FactoryBot.create(:awaiting_description) }
-      2.times { project.requests << FactoryBot.create(:successful_request) }
-      project
+    before do
+      allow(project).to receive(:info_requests).and_return(
+        double(count: 3, classified: double(count: 2))
+      )
     end
 
     it { is_expected.to eq(66) }
+
+    context 'when there are no requests' do
+      before do
+        allow(project).to receive(:info_requests).and_return(double(count: 0))
+      end
+
+      it { is_expected.to eq(0) }
+    end
   end
 
   describe '#info_requests.extractable' do
@@ -336,6 +343,28 @@ RSpec.describe Project, type: :model, feature: :projects do
 
     it 'includes extracted requests' do
       is_expected.to include extracted_request
+    end
+  end
+
+  describe '#extraction_progress' do
+    subject { project.extraction_progress }
+
+    before do
+      allow(project).to receive(:info_requests).and_return(
+        double(extractable: double(count: 1), extracted: double(count: 2))
+      )
+    end
+
+    it { is_expected.to eq(66) }
+
+    context 'when there are no extractable or extracted requests' do
+      before do
+        allow(project).to receive(:info_requests).and_return(
+          double(extractable: double(count: 0), extracted: double(count: 0))
+        )
+      end
+
+      it { is_expected.to eq(0) }
     end
   end
 end
