@@ -184,7 +184,9 @@ class Ability
       when 'requester_only'
         info_request.is_actual_owning_user?(user) || User.view_hidden_and_embargoed?(user)
       else
-        info_request.is_actual_owning_user?(user) || User.view_embargoed?(user)
+        info_request.is_actual_owning_user?(user) ||
+          User.view_embargoed?(user) ||
+          project&.member?(user)
       end
     else
       case prominence

@@ -185,6 +185,58 @@ describe Ability do
 
         end
 
+        context 'with project' do
+          let(:owner) { FactoryBot.create(:user) }
+          let(:contributor) { FactoryBot.create(:user) }
+
+          let(:project) do
+            project = FactoryBot.create(:project, owner: owner)
+            project.requests << resource
+            project.contributors << contributor
+            project
+          end
+
+          let(:admin_ability) do
+            Ability.new(FactoryBot.create(:admin_user), project: project)
+          end
+
+          let(:pro_admin_ability) do
+            Ability.new(FactoryBot.create(:pro_admin_user), project: project)
+          end
+
+          let(:project_owner_ability) do
+            Ability.new(owner, project: project)
+          end
+
+          let(:project_contributor_ability) do
+            Ability.new(contributor, project: project)
+          end
+
+          let(:other_user_ability) do
+            Ability.new(FactoryBot.create(:user), project: project)
+          end
+
+          it 'should return false for an admin user' do
+            expect(admin_ability).not_to be_able_to(:read, resource)
+          end
+
+          it 'should return true for a pro admin user' do
+            expect(pro_admin_ability).to be_able_to(:read, resource)
+          end
+
+          it 'should return true for a project owner' do
+            expect(project_owner_ability).to be_able_to(:read, resource)
+          end
+
+          it 'should return true for a project contributor' do
+            expect(project_contributor_ability).to be_able_to(:read, resource)
+          end
+
+          it 'should return false for an another user' do
+            expect(other_user_ability).not_to be_able_to(:read, resource)
+          end
+        end
+
         it 'should return true if the user owns the right resource' do
           expect(owner_ability).to be_able_to(:read, resource)
         end
