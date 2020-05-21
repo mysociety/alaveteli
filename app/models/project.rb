@@ -39,7 +39,8 @@ class Project < ApplicationRecord
            source_type: 'InfoRequestBatch'
 
   has_many :info_requests,
-           ->(project) { unscope(:where).for_project(project) }
+           ->(project) { unscope(:where).for_project(project) },
+           extend: Project::InfoRequestExtension
 
   has_one :key_set, class_name: 'Dataset::KeySet', as: :resource
 
@@ -63,15 +64,7 @@ class Project < ApplicationRecord
     contributors.include?(user)
   end
 
-  def classifiable_requests
-    info_requests.where(awaiting_description: true)
-  end
-
-  def classified_requests
-    info_requests.where(awaiting_description: false)
-  end
-
   def classification_progress
-    ((classified_requests.count / info_requests.count.to_f) * 100).floor
+    ((info_requests.classified.count / total.to_f) * 100).floor
   end
 end

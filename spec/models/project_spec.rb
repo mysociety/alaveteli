@@ -221,8 +221,8 @@ RSpec.describe Project, type: :model, feature: :projects do
     end
   end
 
-  describe '#classifiable_requests' do
-    subject { project.classifiable_requests }
+  describe '#info_requests.classifiable' do
+    subject { project.info_requests.classifiable }
 
     let(:classifiable_request) { FactoryBot.create(:awaiting_description) }
     let(:non_classifiable_request) { FactoryBot.create(:successful_request) }
@@ -236,8 +236,8 @@ RSpec.describe Project, type: :model, feature: :projects do
     it { is_expected.to match_array([classifiable_request]) }
   end
 
-  describe '#classified_requests' do
-    subject { project.classified_requests }
+  describe '#info_requests.classified' do
+    subject { project.info_requests.classified }
 
     let(:classifiable_request) { FactoryBot.create(:awaiting_description) }
     let(:classified_request) { FactoryBot.create(:successful_request) }
