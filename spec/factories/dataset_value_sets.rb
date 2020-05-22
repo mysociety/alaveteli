@@ -30,11 +30,14 @@ FactoryBot.define do
     end
 
     transient do
-      value_count { 0 }
+      value_count { 1 }
     end
 
-    after(:create) do |value_set, evaluator|
-      create_list(:dataset_value, evaluator.value_count, value_set: value_set)
+    after(:build) do |value_set, evaluator|
+      next if value_set.values.count > 0 || evaluator.value_count.zero?
+      value_set.values = build_list(
+        :dataset_value, evaluator.value_count, value_set: value_set
+      )
     end
   end
 end
