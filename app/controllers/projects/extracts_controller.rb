@@ -15,7 +15,9 @@ class Projects::ExtractsController < Projects::BaseController
   def create
     authorize! :read, @project
 
-    if @project.submissions.create(submission_params)
+    submission = @project.submissions.new(submission_params)
+
+    if submission.save
       redirect_to project_extract_path
     else
       render :show
