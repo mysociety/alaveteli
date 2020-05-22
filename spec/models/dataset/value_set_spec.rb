@@ -48,6 +48,21 @@ RSpec.describe Dataset::ValueSet, type: :model do
     end
   end
 
+  describe 'nested attibutes' do
+    it 'accpets attributes for values' do
+      key = FactoryBot.create(:dataset_key)
+      value_set = FactoryBot.create(
+        :dataset_value_set,
+        value_count: 0,
+        values_attributes: [{ dataset_key_id: key.id, value: '1' }]
+      )
+      value = value_set.values.first
+      expect(value).to be_a Dataset::Value
+      expect(value.key).to eq key
+      expect(value.value).to eq '1'
+    end
+  end
+
   describe 'validations' do
     it { is_expected.to be_valid }
 
@@ -70,6 +85,16 @@ RSpec.describe Dataset::ValueSet, type: :model do
     it 'requires key set' do
       value_set.key_set = nil
       is_expected.not_to be_valid
+    end
+
+    it 'requires values' do
+      value_set.values = []
+      is_expected.not_to be_valid
+    end
+
+    it 'requires at least one value to be present' do
+      value_set.values.each { |v| v.value = '' }
+      is_expected.to_not be_valid
     end
   end
 end

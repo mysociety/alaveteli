@@ -32,6 +32,10 @@ RSpec.describe Projects::ExtractsController, spec_meta do
         expect(assigns[:project]).to eq(project)
       end
 
+      it 'assigns the value set' do
+        expect(assigns[:value_set]).to be_a(Dataset::ValueSet)
+      end
+
       it 'renders the project template' do
         expect(response).to render_template('projects/extracts/show')
       end
@@ -165,13 +169,18 @@ RSpec.describe Projects::ExtractsController, spec_meta do
       include_context 'with a logged in user who can read the project'
 
       let(:submissions) { double(:submissions_collection) }
-      before { allow(project).to receive(:submissions).and_return(submissions) }
+      let(:submission) { instance_double(Project::Submission) }
+
+      before do
+        allow(project).to receive(:submissions).and_return(submissions)
+        allow(submissions).to receive(:new).and_return(submission)
+      end
     end
 
     context 'submission created' do
       include_context 'extraction can be submitted'
 
-      before { allow(submissions).to receive(:create).and_return(true) }
+      before { allow(submission).to receive(:save).and_return(true) }
 
       it 'initialises new value set with request' do
         params = {
@@ -192,9 +201,10 @@ RSpec.describe Projects::ExtractsController, spec_meta do
       it 'creates project submission' do
         value_set = instance_double(Dataset::ValueSet)
         allow(Dataset::ValueSet).to receive(:new).and_return(value_set)
-        expect(submissions).to receive(:create).with(
+        expect(submissions).to receive(:new).with(
           user: user, info_request: info_request, resource: value_set
-        )
+        ).and_return(submission)
+        expect(submission).to receive(:save)
         post_extract
       end
 
@@ -207,7 +217,7 @@ RSpec.describe Projects::ExtractsController, spec_meta do
     context 'submission validation fails' do
       include_context 'extraction can be submitted'
 
-      before { expect(submissions).to receive(:create).and_return(false) }
+      before { expect(submission).to receive(:save).and_return(false) }
 
       it 'assigns the project' do
         post_extract
@@ -217,6 +227,16 @@ RSpec.describe Projects::ExtractsController, spec_meta do
       it 'assigns the info request' do
         post_extract
         expect(assigns[:info_request]).to eq(info_request)
+      end
+
+      it 'assigns the value set' do
+        post_extract
+        expect(assigns[:value_set]).to be_a(Dataset::ValueSet)
+      end
+
+      it 'sets flash now error' do
+        post_extract
+        expect(flash.now[:error]).to eq("Extraction couldn't be saved.")
       end
 
       it 'renders show template' do

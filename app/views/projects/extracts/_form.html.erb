@@ -1,8 +1,5 @@
 <div class="extract-answer-form">
-  <%= form_for Dataset::ValueSet.new,
-               url: project_extract_path,
-               as: :extract do |f| %>
-
+  <%= form_for value_set, url: project_extract_path, as: :extract do |f| %>
     <%= hidden_field_tag :url_title, info_request.url_title %>
     <%= render project.key_set, f: f %>
 

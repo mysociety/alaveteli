@@ -39,6 +39,7 @@ RSpec.describe Dataset::Value, type: :model do
 
       it 'checks text values' do
         value.key = FactoryBot.build(:dataset_key, :text)
+        valid('')
         valid('A string')
         valid('1234')
         valid('1')
@@ -47,6 +48,7 @@ RSpec.describe Dataset::Value, type: :model do
 
       it 'checks numeric values' do
         value.key = FactoryBot.build(:dataset_key, :numeric)
+        valid('')
         invalid('A string')
         valid('1234')
         valid('1')
@@ -55,6 +57,7 @@ RSpec.describe Dataset::Value, type: :model do
 
       it 'checks boolean values' do
         value.key = FactoryBot.build(:dataset_key, :boolean)
+        valid('')
         invalid('A string')
         invalid('1234')
         valid('1')

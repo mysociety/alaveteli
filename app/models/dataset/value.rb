@@ -19,6 +19,8 @@ class Dataset::Value < ApplicationRecord
   belongs_to :value_set, foreign_key: 'dataset_value_set_id'
   belongs_to :key, foreign_key: 'dataset_key_id'
 
-  validates :value_set, :key, :value, presence: true
-  validates :value, format: { with: -> (value) { value.key&.format_regexp } }
+  validates :value_set, :key, presence: true
+  validates :value,
+            format: { with: -> (value) { value.key&.format_regexp } },
+            allow_blank: true
 end

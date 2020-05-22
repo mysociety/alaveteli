@@ -1,4 +1,5 @@
-<%= f.fields_for :values, Dataset::Value.new do |nested_form| %>
+<% value = f.object.values.find { |v| v.key.order == key.order } %>
+<%= f.fields_for :values, value || Dataset::Value.new do |nested_form| %>
   <%= render partial: "projects/dataset/keys/#{key.format}_key",
              locals: { f: nested_form, key: key } %>
   <%= nested_form.hidden_field :dataset_key_id, value: key.to_param %>
