@@ -10,11 +10,14 @@ class Projects::ExtractsController < Projects::BaseController
       redirect_to @project, notice: msg
       return
     end
+
+    @value_set = Dataset::ValueSet.new
   end
 
   def create
     authorize! :read, @project
 
+    @value_set = Dataset::ValueSet.new(extract_params)
     submission = @project.submissions.new(submission_params)
 
     if submission.save
@@ -56,7 +59,7 @@ class Projects::ExtractsController < Projects::BaseController
     {
       user: current_user,
       info_request: @info_request,
-      resource: Dataset::ValueSet.new(extract_params)
+      resource: @value_set
     }
   end
 end
