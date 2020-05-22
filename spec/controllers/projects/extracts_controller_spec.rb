@@ -225,6 +225,11 @@ RSpec.describe Projects::ExtractsController, spec_meta do
         expect(assigns[:info_request]).to eq(info_request)
       end
 
+      it 'sets flash now error' do
+        post_extract
+        expect(flash.now[:error]).to eq("Extraction couldn't be saved.")
+      end
+
       it 'renders show template' do
         post_extract
         expect(response).to render_template('show')

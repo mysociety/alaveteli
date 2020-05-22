@@ -20,6 +20,7 @@ class Projects::ExtractsController < Projects::BaseController
     if submission.save
       redirect_to project_extract_path
     else
+      flash.now[:error] = _("Extraction couldn't be saved.")
       render :show
     end
   end
