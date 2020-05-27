@@ -13,6 +13,7 @@ rvm:
   - 2.7 # Latest official 2.7.x
 gemfile:
   - Gemfile
+  - Gemfile.rails_next
 matrix:
   fast_finish: true
   include:
@@ -20,9 +21,6 @@ matrix:
       rvm: 2.3.3 # Debian Stretch
     - if: type != pull_request
       rvm: ruby-head
-    - if: head_branch =~ /^rails/
-      rvm: 2.6
-      gemfile: Gemfile.rails_next
   allow_failures:
     - rvm: 2.7
     - rvm: ruby-head
