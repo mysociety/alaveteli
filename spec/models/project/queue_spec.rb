@@ -16,6 +16,21 @@ RSpec.shared_context 'Project::Queue context' do
 end
 
 RSpec.shared_examples 'Project::Queue' do
+  describe '#skip' do
+    subject { queue.skip(info_request) }
+
+    context 'when the skipped list is empty' do
+      let(:info_request) { double(id: 1) }
+      it { is_expected.to match_array(%w(1)) }
+    end
+
+    context 'when adding to the skipped list' do
+      let(:info_request) { double(id: 1) }
+      before { queue.skip(double(id: 2)) }
+      it { is_expected.to match_array(%w(2 1)) }
+    end
+  end
+
   describe '#==' do
     subject { queue == other_queue }
 
