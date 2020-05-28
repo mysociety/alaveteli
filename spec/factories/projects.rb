@@ -21,6 +21,8 @@ FactoryBot.define do
     transient do
       contributors_count { 0 }
       requests_count { 0 }
+      classifiable_requests_count { 0 }
+      extractable_requests_count { 0 }
       batches_count { 0 }
     end
 
@@ -32,6 +34,24 @@ FactoryBot.define do
       evaluator.requests_count.times do
         project.requests.build(
           attributes_for(:info_request).merge(
+            user: project.owner,
+            public_body: build(:public_body)
+          )
+        )
+      end
+
+      evaluator.classifiable_requests_count.times do
+        project.requests.build(
+          attributes_for(:awaiting_description).merge(
+            user: project.owner,
+            public_body: build(:public_body)
+          )
+        )
+      end
+
+      evaluator.extractable_requests_count.times do
+        project.requests.build(
+          attributes_for(:successful_request).merge(
             user: project.owner,
             public_body: build(:public_body)
           )
