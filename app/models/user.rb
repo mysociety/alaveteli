@@ -124,7 +124,7 @@ class User < ApplicationRecord
   has_many :announcement_dismissals,
            :inverse_of => :user,
            :dependent => :destroy
-  has_many :memberships, class_name: 'ProjectMembership'
+  has_many :memberships, class_name: 'Project::Membership'
   has_many :projects, through: :memberships
 
   scope :active, -> { not_banned.not_closed }

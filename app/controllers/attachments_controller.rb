@@ -6,6 +6,7 @@ class AttachmentsController < ApplicationController
   include InfoRequestHelper
 
   before_action :find_info_request, :find_incoming_message, :find_attachment
+  before_action :find_project
   around_action :cache_attachments
 
   before_action :authenticate_attachment
@@ -77,6 +78,12 @@ class AttachmentsController < ApplicationController
         original_filename
       )
     )
+  end
+
+  def find_project
+    return unless current_user && params[:project_id]
+
+    @project = current_user.projects.find_by(id: params[:project_id])
   end
 
   def authenticate_attachment
@@ -172,5 +179,9 @@ class AttachmentsController < ApplicationController
       file_name: original_filename,
       locale: false
     )
+  end
+
+  def current_ability
+    @current_ability ||= Ability.new(current_user, project: @project)
   end
 end
