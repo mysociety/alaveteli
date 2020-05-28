@@ -10,6 +10,7 @@ class Project::Queue
   end
 
   def current(info_request_id)
+    Rails.logger.debug "#{self.class}|#{queue_key}#current:#{info_request_id}"
     queue['current'] = info_request_id
   end
 
@@ -34,11 +35,18 @@ class Project::Queue
   private
 
   def find_current
+    Rails.logger.debug "#{self.class}|#{queue_key}#find_current"
+    Rails.logger.debug "#{self.class}|#{queue_key}#current? #{queue['current']}"
     info_requests.find_by(id: queue['current']) if queue['current']
   end
 
   def sample
+    Rails.logger.debug "#{self.class}|#{queue_key}#sample"
     info_requests.sample
+  end
+
+  def queue_key
+    "projects/#{project.id}/#{queue_name}"
   end
 
   def queue
@@ -51,10 +59,12 @@ class Project::Queue
   end
 
   def prime_session!
+    Rails.logger.debug "#{self.class}|#{queue_key}#prime_session!1 #{session['projects']}"
     session['projects'] ||= {}
     session['projects'][project.id.to_s] ||= {}
     session['projects'][project.id.to_s][queue_name] ||= {}
     session['projects'][project.id.to_s][queue_name]['current'] ||= nil
+    Rails.logger.debug "#{self.class}|#{queue_key}#prime_session!2 #{session['projects']}"
     true
   end
 
