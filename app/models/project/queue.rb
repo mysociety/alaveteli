@@ -14,10 +14,6 @@ class Project::Queue
     queue['current'] = info_request_id
   end
 
-  def clear_current
-    queue['current'] = nil
-  end
-
   def include?(info_request)
     info_requests.include?(info_request)
   end

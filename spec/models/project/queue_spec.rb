@@ -45,9 +45,4 @@ RSpec.shared_examples 'Project::Queue' do
     subject { queue.current(1) }
     it { is_expected.to eq(1) }
   end
-
-  describe '#clear_current' do
-    subject { queue.clear_current }
-    it { is_expected.to be_nil }
-  end
 end
