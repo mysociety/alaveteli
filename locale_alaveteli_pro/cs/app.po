@@ -6,6 +6,7 @@
 # Translators:
 # louisecrow <louise@mysociety.org>, 2018
 # Hana Hunt <hana@hana-hunt.cz>, 2019
+# trendspotter <j.podhorecky@volny.cz>, 2020
 #
 msgid ""
 msgstr ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-02-21 11:27+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: Hana Hunt <hana@hana-hunt.cz>, 2019\n"
+"Last-Translator: trendspotter <j.podhorecky@volny.cz>, 2020\n"
 "Language-Team: Czech (https://www.transifex.com/mysociety/teams/33529/cs/)\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -728,7 +729,7 @@ msgid "Privacy"
 msgstr "Soukromí"
 
 msgid "Private"
-msgstr ""
+msgstr "Soukromý"
 
 msgid "Private FOI requests"
 msgstr ""

@@ -24,8 +24,8 @@
 # 03992e16f8df6e39b9d1cc0ff635887e, 2016
 # Elenor Weijmar <ellelingh@hotmail.se>, 2018-2020
 # Elenor Weijmar <ellelingh@hotmail.se>, 2018
-# Kristoffer Grundström <hamnisdude@gmail.com>, 2015
-# Kristoffer Grundström <hamnisdude@gmail.com>, 2015
+# Kristoffer Grundström <lovaren@gmail.com>, 2015
+# Kristoffer Grundström <lovaren@gmail.com>, 2015
 # Liz Conlan <liz@mysociety.org>, 2018
 # Lord Cobol, 2016
 # 03992e16f8df6e39b9d1cc0ff635887e, 2016
@@ -33,7 +33,7 @@
 # louisecrow <louise@mysociety.org>, 2016
 # Mattias A, 2015
 # Mattias Axell <mattias@libertador.es>, 2015-2017
-# Mattias Axell <mattias@libertador.es>, 2015,2019
+# Mattias Axell <mattias@libertador.es>, 2015,2019-2020
 # Mattias Axell <mattias@libertador.es>, 2015,2017-2018
 # Mattias OKFSE, 2015
 # Mattias Axell <mattias@libertador.es>, 2015
@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-02-21 11:26+0000\n"
-"PO-Revision-Date: 2020-02-20 14:30+0000\n"
+"PO-Revision-Date: 2020-03-05 18:46+0000\n"
 "Last-Translator: Elenor Weijmar <ellelingh@hotmail.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/mysociety/alaveteli/language/sv/)\n"
 "Language: sv\n"
@@ -1988,7 +1988,7 @@ msgid "Made between"
 msgstr "Gjord mellan"
 
 msgid "Make a batch request"
-msgstr "Gör en massförfrågan"
+msgstr "Gör en serieförfrågan"
 
 msgid "Make a request"
 msgstr "Gör en begäran"
@@ -2847,7 +2847,7 @@ msgid "Share on Facebook"
 msgstr "Dela på Facebook"
 
 msgid "Share your batch request"
-msgstr "Dela din massförfrågan"
+msgstr "Dela din serieförfrågan"
 
 msgid "Share your request"
 msgstr "Dela din begäran"
@@ -3255,7 +3255,7 @@ msgid "Then you can log into the administrative interface"
 msgstr "Sedan kan du logga in till det administrativa gränssnittet"
 
 msgid "Then you can make a batch request"
-msgstr "Sedan kan du göra en massförfrågning"
+msgstr "Sedan kan du göra en serieförfrågan"
 
 msgid "Then you can play the request categorisation game."
 msgstr "Sedan kan du spela förfrågningarnas kategoriseringsspel"
@@ -3586,7 +3586,7 @@ msgid "To log into the administrative interface"
 msgstr "För att logga in till det administrativa gränssnittet"
 
 msgid "To make a batch request"
-msgstr "För att göra en massförfrågan"
+msgstr "För att göra en serieförfrågan"
 
 msgid "To play the request categorisation game"
 msgstr "För att spela kategoriseringsspelet av förfrågningar"
@@ -3769,7 +3769,7 @@ msgid "User – {{name}}"
 msgstr "Användare – {{name}}"
 
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
-msgstr "Användare brukar vanligtvis inte kunna göra massbegäran till flera myndigheter på en gång eftersom vi vill att myndigheterna inte bombarderas med ett stort antal olämpliga förfrågningar. Vänligen <a href=\"{{url}}\">kontakta oss</a> om du tror att du har goda skäl att skicka samma begäran till flera myndigheter på en och samma gång."
+msgstr "Användare brukar vanligtvis inte kunna göra serieförfrågan till flera myndigheter på en gång eftersom vi vill att myndigheterna inte bombarderas med ett stort antal olämpliga förfrågningar. Vänligen <a href=\"{{url}}\">kontakta oss</a> om du tror att du har goda skäl att skicka samma begäran till flera myndigheter på en och samma gång."
 
 msgid "Version {{version}}"
 msgstr "Version {{version}}"
@@ -4228,7 +4228,7 @@ msgid "Your annotations"
 msgstr "Dina anteckningar"
 
 msgid "Your batch request \"{{title}}\" has been sent"
-msgstr "Din massbegäran \"{{title}}\" har skickats"
+msgstr "Din serieförfrågan \"{{title}}\" har skickats"
 
 msgid "Your current one time passcode:"
 msgstr "Ditt nuvarande engångslösenord:"
@@ -4324,7 +4324,7 @@ msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"{{u
 msgstr "Ditt svar kommer <strong>att synas på Internet</strong>, <a href=\"{{url}}\">läs varför</a> och svar på andra frågor."
 
 msgid "Your right to know"
-msgstr "Din rätt att veta"
+msgstr "Information för bättre beslut"
 
 msgid "Your selected authorities"
 msgstr "Dina valda myndigheter"
@@ -4339,8 +4339,8 @@ msgstr[1] "Dina {{count}} anteckningar"
 
 msgid "Your {{count}} batch request"
 msgid_plural "Your {{count}} batch requests"
-msgstr[0] "Din {{count}} massbegäran"
-msgstr[1] "Dina {{count}} massförfrågningar"
+msgstr[0] "Din {{count}} serieförfrågan"
+msgstr[1] "Dina {{count}} serieförfrågningar"
 
 msgid "Your {{count}} private Freedom of Information request"
 msgid_plural "Your {{count}} private Freedom of Information requests"
