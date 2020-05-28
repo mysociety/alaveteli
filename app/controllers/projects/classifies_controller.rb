@@ -5,13 +5,16 @@ class Projects::ClassifiesController < Projects::BaseController
   def show
     authorize! :read, @project
 
-    @info_request = @project.info_requests.classifiable.sample
+    @queue = Project::Queue::Classifiable.new(@project, current_user, session)
+    @info_request = @queue.next
 
     unless @info_request
       msg = _('There are no requests to classify right now. Great job!')
       redirect_to @project, notice: msg
       return
     end
+
+    @queue.current(@info_request.id)
 
     @state_transitions = @info_request.state.transitions(
       is_pro_user: false,
