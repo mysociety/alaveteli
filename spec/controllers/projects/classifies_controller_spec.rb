@@ -109,4 +109,88 @@ RSpec.describe Projects::ClassifiesController, spec_meta do
       end
     end
   end
+
+  describe 'PATCH #update' do
+    let(:project) { FactoryBot.create(:project, requests_count: 1) }
+    let(:ability) { Object.new.extend(CanCan::Ability) }
+
+    before do
+      allow(controller).to receive(:current_ability).and_return(ability)
+      project.requests << FactoryBot.create(:awaiting_description)
+    end
+
+    context 'with a logged in user who can read the project' do
+      let(:user) { FactoryBot.create(:user) }
+      let(:skipped_request) { FactoryBot.create(:awaiting_description) }
+
+      before do
+        session[:user_id] = user.id
+        ability.can :read, project
+        project.requests << skipped_request
+        patch :update, params: { project_id: project.id,
+                                 url_title: skipped_request.url_title }
+      end
+
+      it 'assigns the project' do
+        expect(assigns[:project]).to eq(project)
+      end
+
+      it 'skips the current request' do
+        skipped_requests =
+          session['projects'][project.to_param]['classifiable']['skipped']
+
+        expect(skipped_requests).to include(skipped_request.to_param)
+      end
+
+      it 'confirms that the request has been skipped' do
+        expect(flash[:notice]).to eq('Skipped!')
+      end
+
+      it 'redirects to another request to classify' do
+        expect(response).to redirect_to(project_classify_path(project))
+      end
+
+      it "raises an ActiveRecord::RecordNotFound when the request can't be found" do
+        expect {
+          patch :update, params: { project_id: project.id, url_title: 'foo' }
+        }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    context 'with a logged in user who cannot read the project' do
+      let(:user) { FactoryBot.create(:user) }
+
+      before do
+        session[:user_id] = user.id
+        ability.cannot :read, project
+      end
+
+      it 'raises an CanCan::AccessDenied error' do
+        expect {
+          patch :update, params: { project_id: project.id, url_title: 'foo' }
+        }.to raise_error(CanCan::AccessDenied)
+      end
+    end
+
+    context 'logged out' do
+      before do
+        patch :update, params: { project_id: project.id, url_title: 'foo' }
+      end
+
+      it 'redirects to sign in form' do
+        expect(response.status).to eq 302
+      end
+
+      it 'saves a post redirect' do
+        post_redirect = get_last_post_redirect
+
+        expect(post_redirect.uri).to eq project_classify_path(project)
+        expect(post_redirect.reason_params).to eq(
+          web: 'To join this project',
+          email: 'Then you can join this project',
+          email_subject: 'Confirm your account on SITE'
+        )
+      end
+    end
+  end
 end
