@@ -14,8 +14,6 @@ class Projects::ClassifiesController < Projects::BaseController
       return
     end
 
-    @queue.current(@info_request.id)
-
     @state_transitions = @info_request.state.transitions(
       is_pro_user: false,
       is_owning_user: false,
