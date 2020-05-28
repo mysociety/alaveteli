@@ -75,6 +75,41 @@ RSpec.describe Projects::ClassifiesController, spec_meta do
       end
     end
 
+    context 'when there are only skipped requests to classify' do
+      let(:user) { FactoryBot.create(:user) }
+
+      before do
+        session[:user_id] = user.id
+
+        queue = Project::Queue::Classifiable.new(project, session)
+
+        project.info_requests.classifiable.each do |info_request|
+          queue.skip(info_request)
+        end
+
+        ability.can :read, project
+        get :show, params: { project_id: project.id }
+      end
+
+      it 'clears the skipped queue' do
+        skipped_requests =
+          session['projects'][project.to_param]['classifiable']['skipped']
+
+        expect(skipped_requests).to be_empty
+      end
+
+      it 'asks the user to have another go at the skipped requests' do
+        msg = 'Nice work! How about having another try at the requests you ' \
+              'skipped?'
+
+        expect(flash[:notice]).to eq(msg)
+      end
+
+      it 'redirects back to the project homepage' do
+        expect(response).to redirect_to(project)
+      end
+    end
+
     context 'with a logged in user who cannot read the project' do
       let(:user) { FactoryBot.create(:user) }
 

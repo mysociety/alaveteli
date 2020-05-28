@@ -17,6 +17,10 @@ module Project::Queue
       skipped << info_request.to_param
     end
 
+    def clear_skipped
+      skipped.clear
+    end
+
     def include?(info_request)
       info_requests.include?(info_request)
     end
