@@ -650,6 +650,17 @@ describe InfoRequestHelper do
         )
       end
     end
+
+    context 'when project is not nil' do
+      before { instance_variable_set(:@project, double(id: 1)) }
+
+      it 'returns the URL with project_id param' do
+        url = attachment_path(jpeg_attachment)
+        expect(URI(url).query).to include('project_id=1')
+        url = attachment_path(jpeg_attachment, html: true)
+        expect(URI(url).query).to include('project_id=1')
+      end
+    end
   end
 
   describe '#attachment_url' do
@@ -680,6 +691,17 @@ describe InfoRequestHelper do
           "/attach/html/#{jpeg_attachment.url_part_number}" \
           "/interesting.jpg.html"
         )
+      end
+    end
+
+    context 'when project is not nil' do
+      before { instance_variable_set(:@project, double(id: 1)) }
+
+      it 'returns the URL with project_id param' do
+        url = attachment_url(jpeg_attachment)
+        expect(URI(url).query).to include('project_id=1')
+        url = attachment_url(jpeg_attachment, html: true)
+        expect(URI(url).query).to include('project_id=1')
       end
     end
   end
