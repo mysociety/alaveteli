@@ -31,6 +31,11 @@ RSpec.shared_examples 'Project::Queue' do
     end
   end
 
+  describe '#clear_skipped' do
+    subject { queue.clear_skipped }
+    it { is_expected.to be_empty }
+  end
+
   describe '#==' do
     subject { queue == other_queue }
 

@@ -68,6 +68,18 @@ RSpec.describe Project::Queue::Classifiable do
       it { is_expected.to be_nil }
     end
 
+    context 'after clearing skipped requests' do
+      before do
+        project.info_requests.classifiable.each do |info_request|
+          queue.skip(info_request)
+        end
+
+        queue.clear_skipped
+      end
+
+      it { is_expected.to be_a(InfoRequest) }
+    end
+
     context 'when there are no requests left in the queue' do
       before { 2.times { queue.next.update(awaiting_description: false) } }
       it { is_expected.to be_nil }

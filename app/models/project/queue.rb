@@ -17,6 +17,10 @@ class Project::Queue
     skipped << info_request.id.to_s
   end
 
+  def clear_skipped
+    skipped.clear
+  end
+
   def include?(info_request)
     info_requests.include?(info_request)
   end
