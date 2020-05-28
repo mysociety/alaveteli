@@ -30,8 +30,8 @@
 # Harald Fykse <haraldfykse@gmail.com>, 2015
 # Kevin Brubeck Unhammer <unhammer+dill@mm.st>, 2015
 # Kjetil Torgrim Homme <kjetilho@ifi.uio.no>, 2015
-# Knut Arne Bjørndal <inactive+bobkare@transifex.com>, 2015
-# Knut Arne Bjørndal <inactive+bobkare@transifex.com>, 2015
+# b99f4c81950a40007b4adaea695ecb99_1c02644 <ed6c5c9e95edf158e92faab246523c32_310134>, 2015
+# b99f4c81950a40007b4adaea695ecb99_1c02644 <ed6c5c9e95edf158e92faab246523c32_310134>, 2015
 # Liz Conlan <liz@mysociety.org>, 2018
 # louisecrow <louise@mysociety.org>, 2014
 # velmont <odin.omdal@gmail.com>, 2015

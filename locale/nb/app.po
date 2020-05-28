@@ -25,15 +25,15 @@
 # Hans-Petter Fjeld <atluxity@1kb.no>, 2014
 # Ben W <bwng@openmailbox.org>, 2016
 # Carl Petter F. Sky <carl.sky@gmail.com>, 2015
-# Fredrik Lindseth <beta@0v.no>, 2017
+# 2b81488fecf64b01474cdd73adee6da4_f428fa4 <168fddc5dd8708c6cc0c28446af80acb_220254>, 2017
 # Gareth Rees <gareth@mysociety.org>, 2016
 # gorm <gormer@gmail.com>, 2015,2017
 # gorm eriksen <team@mimesbronn.no>, 2015
 # gorm <gormer@gmail.com>, 2013,2015,2017
 # Hans-Petter Fjeld <atluxity@1kb.no>, 2014
 # Kjetil Torgrim Homme <kjetilho@ifi.uio.no>, 2015
-# Knut Arne Bjørndal <inactive+bobkare@transifex.com>, 2015
-# Knut Arne Bjørndal <inactive+bobkare@transifex.com>, 2015
+# b99f4c81950a40007b4adaea695ecb99_1c02644 <ed6c5c9e95edf158e92faab246523c32_310134>, 2015
+# b99f4c81950a40007b4adaea695ecb99_1c02644 <ed6c5c9e95edf158e92faab246523c32_310134>, 2015
 # Liz Conlan <liz@mysociety.org>, 2018
 # louisecrow <louise@mysociety.org>, 2014
 # Ole-Erik Yrvin <oeyrvin@gmail.com>, 2014
