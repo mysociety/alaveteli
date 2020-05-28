@@ -7,6 +7,8 @@
                          project: project,
                          state_transitions: state_transitions } %>
 
+    <%= link_to _('Skip'), project_classify_path(project, url_title: info_request.url_title), method: :patch, class: 'button-tertiary button--full-width form__skip-button' %>
+
     <a class="button-tertiary button--full-width form__skip-button js-project-skip-button" style="display:none" href="#">
       <%= _('Skip') %>
     </a>

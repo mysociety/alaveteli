@@ -22,6 +22,19 @@ class Projects::ClassifiesController < Projects::BaseController
     )
   end
 
+  # Skip a request
+  def update
+    authorize! :read, @project
+
+    info_request =
+      @project.info_requests.find_by!(url_title: params.require(:url_title))
+
+    queue = Project::Queue::Classifiable.new(@project, current_user, session)
+    queue.skip(info_request)
+
+    redirect_to project_classify_path(@project), notice: _('Skipped!')
+  end
+
   private
 
   def authenticate
