@@ -6,25 +6,35 @@ RSpec.describe Project::Queue::Classifiable do
 
   it_behaves_like 'Project::Queue'
 
+  shared_context 'with a current request' do
+    let(:session) do
+      {
+        'projects' => {
+          project.id.to_s => {
+            'classifiable' => {
+              'current' => current_request.id.to_s }
+            }
+        }
+      }
+    end
+  end
+
   describe '#next' do
     subject { queue.next }
 
-    context 'with a current request' do
+    context 'with a current request that can be classified' do
+      include_context 'with a current request'
       let(:current_request) { project.info_requests.classifiable.last }
-      before { queue.current(current_request.id) }
       it { is_expected.to eq(current_request) }
     end
 
     context 'with a current request that gets classified elsewhere' do
-      let(:info_request) { project.info_requests.classifiable.last }
-
-      before do
-        queue.current(info_request.id)
-        info_request.update(awaiting_description: false)
-      end
+      include_context 'with a current request'
+      let(:current_request) { project.info_requests.classifiable.last }
+      before { current_request.update(awaiting_description: false) }
 
       it { is_expected.to be_a(InfoRequest) }
-      it { is_expected.not_to eq(info_request) }
+      it { is_expected.not_to eq(current_request) }
     end
 
     context 'without a current request' do
@@ -33,23 +43,21 @@ RSpec.describe Project::Queue::Classifiable do
     end
 
     context 'when there are no requests left in the queue' do
-      before do
-        2.times do
-          queue.next.update(awaiting_description: false)
-        end
-      end
-
+      before { 2.times { queue.next.update(awaiting_description: false) } }
       it { is_expected.to be_nil }
     end
 
     it 'only includes classifiable requests' do
-      queued_requests = project.info_requests.map do |info_request|
-        queue.current(info_request.id)
-        queue.next
+      classifiable = project.info_requests.classifiable.to_a
+
+      requests = classifiable.size.times.map do
+        request = queue.next
+        request.update(awaiting_description: false)
+        request
       end
 
-      expect(queued_requests.compact.uniq).
-        to match_array(project.info_requests.classifiable)
+      expect(queue.next).to be_nil
+      expect(requests).to match_array(classifiable)
     end
   end
 
