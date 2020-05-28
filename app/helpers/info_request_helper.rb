@@ -316,6 +316,8 @@ module InfoRequestHelper
       attach_params[:cookie_passthrough] = 1
     end
 
+    attach_params[:project_id] = @project.id if @project
+
     attach_params
   end
 

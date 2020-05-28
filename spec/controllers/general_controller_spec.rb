@@ -247,7 +247,6 @@ describe GeneralController, "when showing the frontpage" do
       session[:post_redirect_token] = 'orphaned_token'
       get :frontpage, params: { :post_redirect => 1 }
       expect(response).to be_successful
-      expect(response).to have_http_status(200)
     end
 
   end

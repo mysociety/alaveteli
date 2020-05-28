@@ -22,7 +22,7 @@ describe AlaveteliPro::PlansController do
     end
 
     it 'returns http success' do
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
 
     it 'sets in_pro_area' do
@@ -79,7 +79,7 @@ describe AlaveteliPro::PlansController do
         end
 
         it 'returns http success' do
-          expect(response).to have_http_status(:success)
+          expect(response).to be_successful
         end
 
       end
@@ -101,7 +101,7 @@ describe AlaveteliPro::PlansController do
         end
 
         it 'returns http success' do
-          expect(response).to have_http_status(:success)
+          expect(response).to be_successful
         end
 
       end
@@ -150,7 +150,7 @@ describe AlaveteliPro::PlansController do
         end
 
         it 'returns http success' do
-          expect(response).to have_http_status(:success)
+          expect(response).to be_successful
         end
 
       end

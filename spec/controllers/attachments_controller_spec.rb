@@ -186,6 +186,48 @@ RSpec.describe AttachmentsController, type: :controller do
             }
       }.to raise_error ActiveRecord::RecordNotFound
     end
+
+    context 'with project_id params and logged in project member' do
+      let(:user) { project.owner }
+      let(:project) { FactoryBot.create(:project) }
+
+      before do
+        session[:user_id] = user.id
+        allow(controller).to receive(:current_user).and_return(user)
+      end
+
+      it 'assigns project' do
+        show(project_id: project.id)
+        expect(assigns(:project)).to eq project
+      end
+
+      it 'passes project to current ability' do
+        expect(Ability).to receive(:new).with(user, project: project).
+          and_call_original
+        show(project_id: project.id)
+      end
+    end
+
+    context 'with project_id params and logged in non project member' do
+      let(:user) { FactoryBot.create(:user) }
+      let(:project) { FactoryBot.create(:project) }
+
+      before do
+        session[:user_id] = user.id
+        allow(controller).to receive(:current_user).and_return(user)
+      end
+
+      it 'does not assigns project' do
+        show(project_id: project.id)
+        expect(assigns(:project)).to eq nil
+      end
+
+      it 'does not pass project to current ability' do
+        expect(Ability).to receive(:new).with(user, project: nil).
+          and_call_original
+        show(project_id: project.id)
+      end
+    end
   end
 
   describe 'GET show_as_html' do
