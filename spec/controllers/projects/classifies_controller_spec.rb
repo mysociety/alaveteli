@@ -33,6 +33,23 @@ RSpec.describe Projects::ClassifiesController, spec_meta do
         expect(assigns[:project]).to eq(project)
       end
 
+      it 'assigns a queue for the current project and user' do
+        queue = Project::Queue::Classifiable.new(project, user, session)
+        expect(assigns[:queue]).to eq(queue)
+      end
+
+      it 'assigns an info_request from the queue' do
+        queue = Project::Queue::Classifiable.new(project, user, session)
+        expect(queue).to include(assigns[:info_request])
+      end
+
+      it 'remembers the current request' do
+        current_request_id =
+          session['projects'][project.id.to_s]['classifiable']['current']
+
+        expect(current_request_id).to eq(assigns[:info_request].id.to_s)
+      end
+
       it 'renders the project template' do
         expect(response).to render_template('projects/classifies/show')
       end
