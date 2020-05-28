@@ -47,7 +47,7 @@ RSpec.describe Projects::ClassifiesController, spec_meta do
         current_request_id =
           session['projects'][project.id.to_s]['classifiable']['current']
 
-        expect(current_request_id).to eq(assigns[:info_request].id)
+        expect(current_request_id).to eq(assigns[:info_request].id.to_s)
       end
 
       it 'renders the project template' do
