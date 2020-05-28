@@ -40,9 +40,4 @@ RSpec.shared_examples 'Project::Queue' do
       it { is_expected.to eq(false) }
     end
   end
-
-  describe '#current' do
-    subject { queue.current(1) }
-    it { is_expected.to eq(1) }
-  end
 end

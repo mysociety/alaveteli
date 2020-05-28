@@ -6,12 +6,10 @@ class Project::Queue
   end
 
   def next
-    find_current || sample
-  end
-
-  def current(info_request_id)
-    Rails.logger.debug "#{self.class}|#{queue_key}#current:#{info_request_id}"
-    queue['current'] = info_request_id
+    request = find_next
+    return unless request
+    current(request.id)
+    request
   end
 
   def include?(info_request)
@@ -30,6 +28,10 @@ class Project::Queue
 
   private
 
+  def find_next
+    find_current || sample
+  end
+
   def find_current
     Rails.logger.debug "#{self.class}|#{queue_key}#find_current"
     Rails.logger.debug "#{self.class}|#{queue_key}#current? #{queue['current']}"
@@ -39,6 +41,11 @@ class Project::Queue
   def sample
     Rails.logger.debug "#{self.class}|#{queue_key}#sample"
     info_requests.sample
+  end
+
+  def current(info_request_id)
+    Rails.logger.debug "#{self.class}|#{queue_key}#current:#{info_request_id}"
+    queue['current'] = info_request_id.to_s
   end
 
   def queue_key

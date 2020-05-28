@@ -22,6 +22,11 @@ RSpec.describe Project::Queue::Classifiable do
   describe '#next' do
     subject { queue.next }
 
+    context 'without a current request' do
+      it { is_expected.to be_a(InfoRequest) }
+      it { is_expected.to eq(queue.next) }
+    end
+
     context 'with a current request that can be classified' do
       include_context 'with a current request'
       let(:current_request) { project.info_requests.classifiable.last }
@@ -35,11 +40,6 @@ RSpec.describe Project::Queue::Classifiable do
 
       it { is_expected.to be_a(InfoRequest) }
       it { is_expected.not_to eq(current_request) }
-    end
-
-    context 'without a current request' do
-      before { queue.clear_current }
-      it { is_expected.to be_a(InfoRequest) }
     end
 
     context 'when there are no requests left in the queue' do
