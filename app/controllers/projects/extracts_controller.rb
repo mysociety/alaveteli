@@ -1,3 +1,5 @@
+require_dependency 'project/queue/classifiable'
+
 # Extract data from a Project
 class Projects::ExtractsController < Projects::BaseController
   before_action :authenticate, :find_info_request
@@ -45,7 +47,8 @@ class Projects::ExtractsController < Projects::BaseController
         url_title: params[:url_title]
       )
     else
-      @info_request = @project.info_requests.extractable.sample
+      @queue = Project::Queue::Extractable.new(@project, session)
+      @info_request = @queue.next
     end
   end
 
