@@ -13,6 +13,10 @@ module Project::Queue
       find_and_remember_next
     end
 
+    def skip(info_request)
+      skipped << info_request.to_param
+    end
+
     def include?(info_request)
       info_requests.include?(info_request)
     end
@@ -38,11 +42,11 @@ module Project::Queue
     end
 
     def find_current
-      info_requests.find_by(id: current) if current
+      unskipped_requests.find_by(id: current) if current
     end
 
     def sample
-      info_requests.sample
+      unskipped_requests.sample
     end
 
     def remember_current(info_request)
@@ -52,6 +56,10 @@ module Project::Queue
 
     def current
       queue['current']
+    end
+
+    def skipped
+      queue['skipped']
     end
 
     def queue
@@ -68,12 +76,17 @@ module Project::Queue
       session['projects'][project.to_param] ||= {}
       session['projects'][project.to_param][queue_name] ||= {}
       session['projects'][project.to_param][queue_name]['current'] ||= nil
+      session['projects'][project.to_param][queue_name]['skipped'] ||= []
       true
     end
 
     # e.g: Project::Queue::Classifiable => "classifiable"
     def queue_name
       self.class.to_s.demodulize.underscore
+    end
+
+    def unskipped_requests
+      info_requests.where.not(id: skipped)
     end
 
     def info_requests

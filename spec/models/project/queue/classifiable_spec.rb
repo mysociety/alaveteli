@@ -43,6 +43,31 @@ RSpec.describe Project::Queue::Classifiable do
       it { is_expected.not_to eq(current_request) }
     end
 
+    context 'when the request gets skipped' do
+      let(:skipped_request) { queue.next }
+      before { queue.skip(skipped_request) }
+      it { is_expected.to be_a(InfoRequest) }
+      it { is_expected.not_to eq(skipped_request) }
+    end
+
+    context 'when the remembered request gets skipped' do
+      include_context 'with a current request'
+      let(:current_request) { project.info_requests.classifiable.last }
+      before { queue.skip(current_request) }
+      it { is_expected.to be_a(InfoRequest) }
+      it { is_expected.not_to eq(current_request) }
+    end
+
+    context 'when all requests get skipped' do
+      before do
+        project.info_requests.classifiable.each do |info_request|
+          queue.skip(info_request)
+        end
+      end
+
+      it { is_expected.to be_nil }
+    end
+
     context 'when there are no requests left in the queue' do
       before { 2.times { queue.next.update(awaiting_description: false) } }
       it { is_expected.to be_nil }
