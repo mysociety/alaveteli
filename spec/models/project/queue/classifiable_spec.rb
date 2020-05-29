@@ -1,4 +1,5 @@
 require 'spec_helper'
+require_dependency 'project/queue/classifiable'
 
 RSpec.describe Project::Queue::Classifiable do
   include_context 'Project::Queue context'

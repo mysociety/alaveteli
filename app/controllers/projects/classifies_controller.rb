@@ -1,3 +1,5 @@
+require_dependency 'project/queue/classifiable'
+
 # Classify a request in a Project
 class Projects::ClassifiesController < Projects::BaseController
   before_action :authenticate
