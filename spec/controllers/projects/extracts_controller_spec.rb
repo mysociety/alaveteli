@@ -11,11 +11,20 @@ RSpec.describe Projects::ExtractsController, spec_meta do
   end
 
   describe 'GET show' do
-    let(:project) { FactoryBot.create(:project, requests_count: 1) }
+    let(:project) { FactoryBot.create(:project, extractable_requests_count: 1) }
     let(:ability) { Object.new.extend(CanCan::Ability) }
 
     before do
       allow(controller).to receive(:current_ability).and_return(ability)
+
+      # HACK: extractable_requests_count uses attributes_for. The factory it
+      # relies on uses an after_create callback to call set_described_state to
+      # create an event and update the state, meaning our
+      # extractable_requests_count doesn't actually work.
+      project.info_requests.each do |info_request|
+        info_request.update(awaiting_description: false,
+                            described_state: 'successful')
+      end
     end
 
     context 'with a logged in user who can read the project' do
@@ -24,7 +33,6 @@ RSpec.describe Projects::ExtractsController, spec_meta do
       before do
         session[:user_id] = user.id
         ability.can :read, project
-        project.requests << FactoryBot.create(:successful_request)
         get :show, params: { project_id: project.id }
       end
 
@@ -64,7 +72,13 @@ RSpec.describe Projects::ExtractsController, spec_meta do
       before do
         session[:user_id] = user.id
         ability.can :read, project
-        project.info_requests.update_all(awaiting_description: false)
+
+        project.info_requests.each do |info_request|
+          FactoryBot.create(:project_submission,
+                            :for_extraction,
+                            info_request: info_request)
+        end
+
         get :show, params: { project_id: project.id }
       end
 
