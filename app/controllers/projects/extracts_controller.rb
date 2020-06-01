@@ -8,7 +8,14 @@ class Projects::ExtractsController < Projects::BaseController
     authorize! :read, @project
 
     unless @info_request
-      msg = _('There are no requests to extract right now. Great job!')
+      if @project.info_requests.extractable.any?
+        msg = _('Nice work! How about having another try at the requests you ' \
+                'skipped?')
+        @queue.clear_skipped
+      else
+        msg = _('There are no requests to extract right now. Great job!')
+      end
+
       redirect_to @project, notice: msg
       return
     end
