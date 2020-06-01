@@ -1,3 +1,5 @@
+require_dependency 'project/queue/classifiable'
+
 # Classify a request in a Project
 class Projects::ClassifiesController < Projects::BaseController
   before_action :authenticate
@@ -5,10 +7,18 @@ class Projects::ClassifiesController < Projects::BaseController
   def show
     authorize! :read, @project
 
-    @info_request = @project.info_requests.classifiable.sample
+    @queue = Project::Queue::Classifiable.new(@project, session)
+    @info_request = @queue.next
 
     unless @info_request
-      msg = _('There are no requests to classify right now. Great job!')
+      if @project.info_requests.classifiable.any?
+        msg = _('Nice work! How about having another try at the requests you ' \
+                'skipped?')
+        @queue.clear_skipped
+      else
+        msg = _('There are no requests to classify right now. Great job!')
+      end
+
       redirect_to @project, notice: msg
       return
     end
@@ -19,6 +29,19 @@ class Projects::ClassifiesController < Projects::BaseController
       in_internal_review: @info_request.described_state == 'internal_review',
       user_asked_to_update_status: false
     )
+  end
+
+  # Skip a request
+  def update
+    authorize! :read, @project
+
+    info_request =
+      @project.info_requests.find_by!(url_title: params.require(:url_title))
+
+    queue = Project::Queue::Classifiable.new(@project, session)
+    queue.skip(info_request)
+
+    redirect_to project_classify_path(@project), notice: _('Skipped!')
   end
 
   private
