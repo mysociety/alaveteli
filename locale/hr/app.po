@@ -29,8 +29,8 @@
 # Kristina Kalanj, 2019
 # Lana Podgoršek <lana@codeforcroatia.org>, 2019
 # Liz Conlan <liz@mysociety.org>, 2018
-# Marina Ninić <inactive+mninic5@transifex.com>, 2015
-# Marina Ninić <inactive+mninic5@transifex.com>, 2015
+# ae792aa766bbca91f3f4821acaa19518_a48216f <924a924c26027fc002ca6fada3386ff5_247255>, 2015
+# ae792aa766bbca91f3f4821acaa19518_a48216f <924a924c26027fc002ca6fada3386ff5_247255>, 2015
 # Mateja Fabijanić <mateja.fabijanic@gmail.com>, 2015
 # Mihovil Nakić <mnakicvo@hotmail.com>, 2015
 # Mirna Basic <mirnabasic@outlook.com>, 2015
