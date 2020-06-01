@@ -152,15 +152,3 @@ $(document).ready(function() {
 $(".js-control-cancel-subscription__message").click(function(){
   $(".js-cancel-subscription__message").slideToggle( 150 );
 });
-
-// Project skip button
-$(document).ready(function() {
-  //only show if we have JS enabled
-  $('.js-project-skip-button').toggle();
-});
-
-
-$('.js-project-skip-button').click(function(){
-  window.location.reload(false); 
-  return false;
-});
