@@ -4,21 +4,20 @@ module Project::Queue
   #
   # Subclasses must implement #info_requests.
   class Base
-    def initialize(project, session)
+    extend Forwardable
+    def_delegator :backend, :skip
+
+    def initialize(project, backend)
       @project = project
-      @session = session
+      @backend = backend
     end
 
     def next
       find_and_remember_next
     end
 
-    def skip(info_request)
-      skipped << info_request.to_param
-    end
-
     def clear_skipped
-      skipped.clear
+      backend.clear_skipped
     end
 
     def include?(info_request)
@@ -26,12 +25,12 @@ module Project::Queue
     end
 
     def ==(other)
-      project == other.project && session == other.session
+      project == other.project && backend == other.backend
     end
 
     protected
 
-    attr_reader :project, :session
+    attr_reader :project, :backend
 
     private
 
@@ -46,7 +45,8 @@ module Project::Queue
     end
 
     def find_current
-      unskipped_requests.find_by(id: current) if current
+      id = backend.current
+      unskipped_requests.find_by(id: id) if id
     end
 
     def sample
@@ -54,43 +54,12 @@ module Project::Queue
     end
 
     def remember_current(info_request)
-      return queue['current'] = nil unless info_request
-      queue['current'] = info_request.to_param
-    end
-
-    def current
-      queue['current']
-    end
-
-    def skipped
-      queue['skipped']
-    end
-
-    def queue
-      prime_session
-      session['projects'][project.to_param][queue_name]
-    end
-
-    def prime_session
-      @prime_session ||= prime_session!
-    end
-
-    def prime_session!
-      session['projects'] ||= {}
-      session['projects'][project.to_param] ||= {}
-      session['projects'][project.to_param][queue_name] ||= {}
-      session['projects'][project.to_param][queue_name]['current'] ||= nil
-      session['projects'][project.to_param][queue_name]['skipped'] ||= []
-      true
-    end
-
-    # e.g: Project::Queue::Classifiable => "classifiable"
-    def queue_name
-      self.class.to_s.demodulize.underscore
+      return backend.clear_current unless info_request
+      backend.current = info_request
     end
 
     def unskipped_requests
-      info_requests.where.not(id: skipped)
+      info_requests.where.not(id: backend.skipped)
     end
 
     def info_requests

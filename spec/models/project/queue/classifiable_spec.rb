@@ -7,16 +7,11 @@ RSpec.describe Project::Queue::Classifiable do
   it_behaves_like 'Project::Queue'
 
   shared_context 'with a current request' do
-    let(:session) do
-      {
-        'projects' => {
-          project.to_param => {
-            'classifiable' => {
-              'current' => current_request.to_param
-            }
-          }
-        }
-      }
+    let(:backend) do
+      backend =
+        Project::Queue::SessionBackend.primed({}, project, :classifiable)
+      backend.current = current_request.to_param
+      backend
     end
   end
 

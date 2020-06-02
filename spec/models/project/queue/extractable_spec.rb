@@ -7,16 +7,10 @@ RSpec.describe Project::Queue::Extractable do
   it_behaves_like 'Project::Queue'
 
   shared_context 'with a current request' do
-    let(:session) do
-      {
-        'projects' => {
-          project.to_param => {
-            'extractable' => {
-              'current' => current_request.to_param
-            }
-          }
-        }
-      }
+    let(:backend) do
+      backend = Project::Queue::SessionBackend.primed({}, project, :extractable)
+      backend.current = current_request.to_param
+      backend
     end
   end
 

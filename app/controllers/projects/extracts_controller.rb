@@ -27,7 +27,9 @@ class Projects::ExtractsController < Projects::BaseController
   def update
     authorize! :read, @project
 
-    queue = Project::Queue::Extractable.new(@project, session)
+    backend =
+      Project::Queue::SessionBackend.primed(session, @project, :extractable)
+    queue = Project::Queue::Extractable.new(@project, backend)
     queue.skip(@info_request)
 
     redirect_to project_extract_path(@project), notice: _('Skipped!')
@@ -64,7 +66,9 @@ class Projects::ExtractsController < Projects::BaseController
         url_title: params[:url_title]
       )
     else
-      @queue = Project::Queue::Extractable.new(@project, session)
+      backend =
+        Project::Queue::SessionBackend.primed(session, @project, :extractable)
+      @queue = Project::Queue::Extractable.new(@project, backend)
       @info_request = @queue.next
     end
   end

@@ -18,7 +18,10 @@ RSpec.shared_context 'Project::Queue context' do
 
   let(:current_user) { project.contributors.last }
 
-  let(:session) { { user_id: current_user.id } }
+  let(:backend) do
+    queue_name = described_class.to_s.demodulize.underscore
+    Project::Queue::SessionBackend.primed({}, project, queue_name)
+  end
 
-  let(:queue) { described_class.new(project, session) }
+  let(:queue) { described_class.new(project, backend) }
 end

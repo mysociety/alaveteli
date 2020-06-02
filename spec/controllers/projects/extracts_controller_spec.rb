@@ -12,6 +12,13 @@ RSpec.describe Projects::ExtractsController, spec_meta do
 
   describe 'GET show' do
     let(:project) { FactoryBot.create(:project, extractable_requests_count: 1) }
+
+    let(:queue) do
+      backend =
+        Project::Queue::SessionBackend.primed(session, project, :extractable)
+      Project::Queue::Extractable.new(project, backend)
+    end
+
     let(:ability) { Object.new.extend(CanCan::Ability) }
 
     before do
@@ -41,12 +48,10 @@ RSpec.describe Projects::ExtractsController, spec_meta do
       end
 
       it 'assigns a queue for the current project and user' do
-        queue = Project::Queue::Extractable.new(project, session)
         expect(assigns[:queue]).to eq(queue)
       end
 
       it 'assigns an info_request from the queue' do
-        queue = Project::Queue::Extractable.new(project, session)
         expect(queue).to include(assigns[:info_request])
       end
 
@@ -97,8 +102,6 @@ RSpec.describe Projects::ExtractsController, spec_meta do
 
       before do
         session[:user_id] = user.id
-
-        queue = Project::Queue::Extractable.new(project, session)
 
         project.info_requests.extractable.each do |info_request|
           queue.skip(info_request)

@@ -23,17 +23,17 @@ RSpec.shared_examples 'Project::Queue' do
     subject { queue == other_queue }
 
     context 'when the queue is the same' do
-      let(:other_queue) { described_class.new(project, session) }
+      let(:other_queue) { described_class.new(project, backend) }
       it { is_expected.to eq(true) }
     end
 
     context 'with a different project' do
-      let(:other_queue) { described_class.new(double, session) }
+      let(:other_queue) { described_class.new(double, backend) }
       it { is_expected.to eq(false) }
     end
 
-    context 'with a different session' do
-      let(:other_queue) { described_class.new(project, double) }
+    context 'with a different backend' do
+      let(:other_queue) { described_class.new(project, double.as_null_object) }
       it { is_expected.to eq(false) }
     end
   end
