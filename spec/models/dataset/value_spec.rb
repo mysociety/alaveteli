@@ -41,6 +41,8 @@ RSpec.describe Dataset::Value, type: :model do
         value.key = FactoryBot.build(:dataset_key, :text)
         valid('')
         valid('A string')
+        valid("A\nstring")
+        valid("A\r\nstring")
         valid('1234')
         valid('1')
         valid('0')
