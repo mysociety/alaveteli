@@ -1,5 +1,7 @@
 require 'spec_helper'
 
+require_dependency 'project/queue'
+
 spec_meta = {
   type: :controller,
   feature: :projects
@@ -13,11 +15,7 @@ RSpec.describe Projects::ExtractsController, spec_meta do
   describe 'GET show' do
     let(:project) { FactoryBot.create(:project, extractable_requests_count: 1) }
 
-    let(:queue) do
-      backend =
-        Project::Queue::SessionBackend.primed(session, project, :extractable)
-      Project::Queue::Extractable.new(project.info_requests, backend)
-    end
+    let(:queue) { Project::Queue.extractable(project, session) }
 
     let(:ability) { Object.new.extend(CanCan::Ability) }
 

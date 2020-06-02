@@ -1,5 +1,7 @@
 require 'spec_helper'
 
+require_dependency 'project/queue'
+
 RSpec.describe Project::Queue::SessionBackend do
   let(:primed_session) do
     {

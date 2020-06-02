@@ -1,4 +1,4 @@
-require_dependency 'project/queue/classifiable'
+require_dependency 'project/queue'
 
 # Classify a request in a Project
 class Projects::ClassifiesController < Projects::BaseController
@@ -7,10 +7,7 @@ class Projects::ClassifiesController < Projects::BaseController
   def show
     authorize! :read, @project
 
-    backend =
-      Project::Queue::SessionBackend.primed(session, @project, :classifiable)
-    @queue = Project::Queue::Classifiable.new(@project.info_requests, backend)
-
+    @queue = Project::Queue.classifiable(@project, session)
     @info_request = @queue.next
 
     unless @info_request
@@ -41,10 +38,7 @@ class Projects::ClassifiesController < Projects::BaseController
     info_request =
       @project.info_requests.find_by!(url_title: params.require(:url_title))
 
-    backend =
-      Project::Queue::SessionBackend.primed(session, @project, :classifiable)
-    queue = Project::Queue::Classifiable.new(@project.info_requests, backend)
-
+    queue = Project::Queue.classifiable(@project, session)
     queue.skip(info_request)
 
     redirect_to project_classify_path(@project), notice: _('Skipped!')

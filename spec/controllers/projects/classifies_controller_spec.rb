@@ -1,5 +1,7 @@
 require 'spec_helper'
 
+require_dependency 'project/queue'
+
 spec_meta = {
   type: :controller,
   feature: :projects
@@ -13,11 +15,7 @@ RSpec.describe Projects::ClassifiesController, spec_meta do
   describe 'GET #show' do
     let(:project) { FactoryBot.create(:project, requests_count: 1) }
 
-    let(:queue) do
-      backend =
-        Project::Queue::SessionBackend.primed(session, project, :classifiable)
-      Project::Queue::Classifiable.new(project.info_requests, backend)
-    end
+    let(:queue) { Project::Queue.classifiable(project, session) }
 
     let(:ability) { Object.new.extend(CanCan::Ability) }
 

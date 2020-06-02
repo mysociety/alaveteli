@@ -1,4 +1,6 @@
-module Project::Queue
+require_dependency 'project/queue'
+
+class Project::Queue
   # Stores state for a Project::Queue in the session
   class SessionBackend
     def self.primed(session, project, queue_name)
@@ -61,4 +63,3 @@ module Project::Queue
     end
   end
 end
-
