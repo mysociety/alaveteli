@@ -31,7 +31,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-02-21 11:26+0000\n"
-"PO-Revision-Date: 2020-05-28 14:25+0000\n"
+"PO-Revision-Date: 2020-06-02 08:51+0000\n"
 "Last-Translator: Liset Hamming <elhamming@gmail.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/mysociety/alaveteli/language/nl/)\n"
 "Language: nl\n"
@@ -208,7 +208,7 @@ msgid "<strong><code>request:</code></strong> to restrict to a specific request,
 msgstr "<strong><code>request: </code></strong> om je zoekactie te beperken tot een specifiek Wob-verzoek. Typ de titel zoals in de URL."
 
 msgid "<strong><code>request_public_body_tag:charity</code></strong> to find requests to public authorities with a given tag."
-msgstr "<strong><code>request_public_body_tag:charity</code></strong> om alle verzoeken aan overheidsinstanties met dezelfde 'tag' te vinden."
+msgstr "<strong><code>request_public_body_tag:charity</code></strong> om alle verzoeken aan overheidsinstanties met dezelfde label te vinden."
 
 msgid "<strong><code>requested_by:julian_todd</code></strong> to search requests made by Julian Todd, typing the name as in the URL."
 msgstr "<strong><code>requested_by:julian_todd</code></strong> om alle verzoeken door een specifieke gebruiker van de site te zoeken typ je de naam zoals in de URL."
@@ -673,10 +673,10 @@ msgid "ApplicationRecord|Info requests successful count"
 msgstr "ApplicationRecord|Info aantal succesvolle verzoeken"
 
 msgid "ApplicationRecord|Info requests visible classified count"
-msgstr "ApplicationRecord|Info aantal zichtbare gelabelde verzoeken"
+msgstr "ApplicationRecord|Info aantal (zichtbare) gelabelde Wob-verzoeken"
 
 msgid "ApplicationRecord|Info requests visible count"
-msgstr "ApplicationRecord|Info aantal zichtbare verzoeken"
+msgstr "ApplicationRecord|Info aantal (zichtbare) Wob-verzoeken"
 
 msgid "ApplicationRecord|Is open"
 msgstr "ApplicationRecord|Is open"
@@ -997,7 +997,7 @@ msgid "Browse all authorities &rarr;"
 msgstr "Bekijk de lijst met alle overheidsinstanties &rarr;"
 
 msgid "Browse all requests &rarr;"
-msgstr "Doorzoek alle Wob-verzoeken op Wob-Knop.nl &rarr;"
+msgstr "Doorzoek alle Wob-verzoeken op de Wob-Knop &rarr;"
 
 msgid "Browse and search requests"
 msgstr "Bekijk en doorzoek de lijst met Wob-verzoeken"
@@ -1345,7 +1345,7 @@ msgid "Event {{id}}"
 msgstr "Event {{id}}"
 
 msgid "Every citizen has the right to access information held by public authorities."
-msgstr "Iedereen in Nederland heeft het recht om bij overheidsinstantie overheidsinformatie op te vragen."
+msgstr "Iedereen in Nederland heeft het recht om bij een overheidsinstantie informatie op te vragen."
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
 msgstr "Alles wat je op deze pagina invult, ook <strong>je naam</strong>, \\n verschijnt <strong>voor iedereen zichtbaar</strong> op\\n deze site, <a href=\"{{url}}\">voor onbepaalde tijd</a>."
@@ -1806,7 +1806,7 @@ msgid "If you know the address to use, then please <a href=\"{{url}}\">send it t
 msgstr "Als je het e-mailadres kent, gelieve het <a href=\"{{url}}\">ons door te geven</a>.\\n Je kunt het e-mailadres vinden op de website van de overheidsinstantie of telefonisch opvragen."
 
 msgid "If you reply to this message it will go directly to {{user_name}}, who will learn your email address. Only reply if that is okay."
-msgstr "Als je antwoordt op dit bericht, zal je antwoord direct verstuurd worden aan {{user_name}}, waarbij je e-mailadres zichtbaar is. Antwoord dus niet als dit een probleem voor je is."
+msgstr "Als je antwoordt op dit bericht zal je antwoord direct verstuurd worden aan {{user_name}}, waarbij je e-mailadres zichtbaar wordt. Antwoord dus niet als dit een probleem voor je is."
 
 msgid "If you use web-based email or have \"junk mail\" filters, also check your bulk/spam mail folders. Sometimes, our messages are marked that way."
 msgstr "Als je een e-mailprovider zoals Gmail, Yahoo of Outlook of een spamfilter gebruikt, vergeet dan niet om ook de map ‘ongewenste e-mail’ te bekijken."
@@ -2756,7 +2756,7 @@ msgid "Save"
 msgstr "Bewaar"
 
 msgid "Search"
-msgstr "Zoek"
+msgstr "Zoek Wob-verzoek"
 
 msgid "Search Freedom of Information requests, public authorities and users"
 msgstr "Zoek naar Wob-verzoeken, overheidsinstanties en gebruikers"
@@ -2783,7 +2783,7 @@ msgid "Search results"
 msgstr "Zoekresultaten "
 
 msgid "Search the site to find what you were looking for."
-msgstr "Doorzoek de site om te vinden wat je zoekt."
+msgstr "Doorzoek de Wob-Knop om te vinden wat je zoekt."
 
 msgid "Search your contributions"
 msgstr "Doorzoek je bijdragen"
@@ -3729,7 +3729,7 @@ msgid "Unfortunately, we do not have a working address for {{public_body_names}}
 msgstr "Helaas beschikt de Wob-Knop niet over een werkend e-mailadres voor {{public_body_names}}."
 
 msgid "Unfortunately, we do not have a working {{info_request_law_used_full}} address for"
-msgstr "Helaas beschikt de Wob-Knop niet over een werkend {{info_request_law_used_full}} \\ne-mailadres voor"
+msgstr "Helaas beschikt de Wob-Knop niet over een ({{info_request_law_used_full}}) \\ne-mailadres voor"
 
 msgid "Unknown"
 msgstr "Ongekend"
@@ -4129,7 +4129,7 @@ msgid "You may <strong>include attachments</strong>. If you would like to attach
 msgstr "Je kunt <strong>bijlagen toevoegen</strong>. Als je een te groot<n bestand voor e-mail wil bijvoegen, gebruik dan het formulier hieronder."
 
 msgid "You may be able to find one on their website, or by phoning them up and asking. If you manage to find one, then please <a href=\"{{help_url}}\">send it to us</a>."
-msgstr "Misschien is er inmiddels een e-mailadres te vinden op hun website \\n. Maar de kans is groot dat deze overheidsinstantie op haar website slechts een online formulier (met Digid) beschikbaar stelt of zelfs verplicht stelt voor Wob-verzoeken. Als je erin slaagt toch een e-mailadres te vinden, <a href=\"{{help_url}}\">stuur dat dan ajb ook aan ons</a>. Meestal kan je daarnaast je Wob-verzoek per post versturen (en soms wordt deze route door de overheidsinstantie verplicht gesteld)."
+msgstr "Misschien is er inmiddels een e-mailadres te vinden op hun website. Maar de kans is groot dat deze overheidsinstantie op haar website slechts een online formulier (met Digid) beschikbaar of zelfs verplicht stelt voor Wob-verzoeken. Als je erin slaagt toch een e-mailadres te vinden, <a href=\"{{help_url}}\">stuur dat dan ajb ook aan ons</a>. Meestal kan je (ook) je Wob-verzoek per post versturen en soms wordt die route door de overheidsinstantie verplicht gesteld."
 
 msgid "You may be able to find one on their website, or by phoning them up and asking. If you manage to find one, then please send it to us:"
 msgstr "Je kunt het misschien vinden op hun website of door ze te bellen. Als je erin slaagt er een te vinden, stuur het ook naar ons:"
@@ -4153,7 +4153,7 @@ msgid "You need to be logged in to report a request for administrator attention"
 msgstr "Je moet ingelogd zijn om een verzoek te melden aan de beheerders"
 
 msgid "You only have a right in law to access information about the environment from this authority"
-msgstr "Je hebt alleen een wettelijk recht op informatie over het milieu van deze overheidsinstantie"
+msgstr "Je hebt alleen het recht om informatie over het milieu op te vragen bij deze overheidsinstantie"
 
 msgid "You previously submitted that exact follow up message for this request."
 msgstr "Je hebt eerder al hetzelde follow-up bericht verstuurd over dit verzoek."
@@ -4242,7 +4242,7 @@ msgid "Your daily request summary from {{pro_site_name}}"
 msgstr "Je dagsamenvatting van Wob-verzoeken aan {{pro_site_name}}"
 
 msgid "Your details, including your email address, have not been given to anyone."
-msgstr "Je gegevens, zijn aan niemand medegedeeld, ook je mailadres niet."
+msgstr "Je gegevens zijn aan niemand medegedeeld, ook je mailadres niet."
 
 msgid "Your e-mail:"
 msgstr "Je e-mailadres:"
@@ -4832,7 +4832,7 @@ msgid "{{user_name}} has reported an {{law_used}} response as needing administra
 msgstr "{{user_name}} heeft een antwoord gemeld in het kader van {{law_used}} dat aandacht vereist van de beheerders. Bekijk het even en beantwoord deze \\n e-mail om hen te laten weten welk gevolg je eraan zal geven."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
-msgstr "{{user_name}} heeft {{site_name}} gebruikt om je het bericht hieronder te sturen."
+msgstr "{{user_name}} heeft {{site_name}} gebruikt om onderstaand bericht te sturen."
 
 msgid "{{user_name}} left an annotation ({{date}})"
 msgstr "{{user_name}} heeft een opmerking geplaatst ({{date}})"
