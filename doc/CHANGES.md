@@ -19,6 +19,18 @@
   to override `app/views/application/_ga_code.html.erb` in your theme and set
   appropriate options.
 
+# 0.37.1.2
+
+## Highlighted Features
+
+* Updated translations from Transifex (Graeme Porteous)
+
+# 0.37.1.1
+
+## Highlighted Features
+
+* Updated translations from Transifex (Graeme Porteous)
+
 # 0.37.1.0
 
 ## Highlighted Features
