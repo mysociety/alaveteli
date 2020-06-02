@@ -46,6 +46,12 @@ class Project::Queue
       skipped.clear
     end
 
+    def reset
+      clear_current
+      clear_skipped
+      true
+    end
+
     def ==(other)
       session == other.session &&
         project_id == other.project_id &&

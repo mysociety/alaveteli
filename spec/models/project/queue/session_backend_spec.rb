@@ -103,6 +103,27 @@ RSpec.describe Project::Queue::SessionBackend do
     end
   end
 
+  describe '#reset' do
+    subject { backend.reset }
+
+    before do
+      backend.current = 1
+      backend.skip(2)
+    end
+
+    it { is_expected.to eq(true) }
+
+    it 'clears current' do
+      subject
+      expect(backend.current).to be_nil
+    end
+
+    it 'clears skipped' do
+      subject
+      expect(backend.skipped).to be_empty
+    end
+  end
+
   describe '#==' do
     subject { backend == other }
 

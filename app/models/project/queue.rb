@@ -14,7 +14,7 @@ class Project::Queue
     new(project.info_requests.extractable, backend)
   end
 
-  def_delegator :backend, :skip
+  def_delegators :backend, :skip, :reset
 
   def initialize(info_requests, backend)
     @info_requests = info_requests
@@ -23,10 +23,6 @@ class Project::Queue
 
   def next
     find_and_remember_next
-  end
-
-  def clear_skipped
-    backend.clear_skipped
   end
 
   def include?(info_request)

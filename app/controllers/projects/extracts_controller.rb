@@ -11,7 +11,7 @@ class Projects::ExtractsController < Projects::BaseController
       if @project.info_requests.extractable.any?
         msg = _('Nice work! How about having another try at the requests you ' \
                 'skipped?')
-        @queue.clear_skipped
+        @queue.reset
       else
         msg = _('There are no requests to extract right now. Great job!')
       end

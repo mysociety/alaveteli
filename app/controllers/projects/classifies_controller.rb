@@ -14,7 +14,7 @@ class Projects::ClassifiesController < Projects::BaseController
       if @project.info_requests.classifiable.any?
         msg = _('Nice work! How about having another try at the requests you ' \
                 'skipped?')
-        @queue.clear_skipped
+        @queue.reset
       else
         msg = _('There are no requests to classify right now. Great job!')
       end
