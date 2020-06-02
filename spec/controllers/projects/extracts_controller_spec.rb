@@ -16,7 +16,7 @@ RSpec.describe Projects::ExtractsController, spec_meta do
     let(:queue) do
       backend =
         Project::Queue::SessionBackend.primed(session, project, :extractable)
-      Project::Queue::Extractable.new(project, backend)
+      Project::Queue::Extractable.new(project.info_requests, backend)
     end
 
     let(:ability) { Object.new.extend(CanCan::Ability) }

@@ -29,7 +29,7 @@ class Projects::ExtractsController < Projects::BaseController
 
     backend =
       Project::Queue::SessionBackend.primed(session, @project, :extractable)
-    queue = Project::Queue::Extractable.new(@project, backend)
+    queue = Project::Queue::Extractable.new(@project.info_requests, backend)
     queue.skip(@info_request)
 
     redirect_to project_extract_path(@project), notice: _('Skipped!')
@@ -68,7 +68,7 @@ class Projects::ExtractsController < Projects::BaseController
     else
       backend =
         Project::Queue::SessionBackend.primed(session, @project, :extractable)
-      @queue = Project::Queue::Extractable.new(@project, backend)
+      @queue = Project::Queue::Extractable.new(@project.info_requests, backend)
       @info_request = @queue.next
     end
   end

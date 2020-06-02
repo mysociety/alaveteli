@@ -9,7 +9,7 @@ class Projects::ClassifiesController < Projects::BaseController
 
     backend =
       Project::Queue::SessionBackend.primed(session, @project, :classifiable)
-    @queue = Project::Queue::Classifiable.new(@project, backend)
+    @queue = Project::Queue::Classifiable.new(@project.info_requests, backend)
 
     @info_request = @queue.next
 
@@ -43,7 +43,7 @@ class Projects::ClassifiesController < Projects::BaseController
 
     backend =
       Project::Queue::SessionBackend.primed(session, @project, :classifiable)
-    queue = Project::Queue::Classifiable.new(@project, backend)
+    queue = Project::Queue::Classifiable.new(@project.info_requests, backend)
 
     queue.skip(info_request)
 

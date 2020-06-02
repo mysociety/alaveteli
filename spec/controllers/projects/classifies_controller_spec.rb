@@ -16,7 +16,7 @@ RSpec.describe Projects::ClassifiesController, spec_meta do
     let(:queue) do
       backend =
         Project::Queue::SessionBackend.primed(session, project, :classifiable)
-      Project::Queue::Classifiable.new(project, backend)
+      Project::Queue::Classifiable.new(project.info_requests, backend)
     end
 
     let(:ability) { Object.new.extend(CanCan::Ability) }

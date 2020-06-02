@@ -23,5 +23,7 @@ RSpec.shared_context 'Project::Queue context' do
     Project::Queue::SessionBackend.primed({}, project, queue_name)
   end
 
-  let(:queue) { described_class.new(project, backend) }
+  let(:info_requests) { project.info_requests }
+
+  let(:queue) { described_class.new(info_requests, backend) }
 end
