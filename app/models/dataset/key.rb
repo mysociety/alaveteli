@@ -23,7 +23,7 @@ class Dataset::Key < ApplicationRecord
   default_scope -> { order(:order) }
 
   FORMATS = {
-    text: /\A.*\z/,
+    text: /\A.*\z/m,
     numeric: /\A[0-9,%\+\-\s]*\z/,
     boolean: /\A(0|1)\z/
   }.freeze
