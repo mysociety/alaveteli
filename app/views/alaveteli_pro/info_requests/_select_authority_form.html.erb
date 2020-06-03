@@ -20,11 +20,9 @@
            value="<%= _('Search') %>"
            class="js-authority-select-submit public-body-query__submit">
 
-    <% if feature_enabled? :pro_batch_access, @user %>
-      <%= link_to _("or start a batch request"),
-                  alaveteli_pro_batch_request_authority_searches_path,
-                  class: 'pro_batch_link' %>
-    <% end %>
+    <%= link_to _('or start a batch request'),
+                alaveteli_pro_batch_request_authority_searches_path,
+                class: 'pro_batch_link' %>
   </p>
 </form>
 

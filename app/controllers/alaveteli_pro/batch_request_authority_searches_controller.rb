@@ -4,8 +4,6 @@ class AlaveteliPro::BatchRequestAuthoritySearchesController < AlaveteliPro::Base
 
   MAX_RESULTS = 500
 
-  before_action :check_user_has_batch_access
-
   def index
     @draft_batch_request = find_or_initialise_draft
     @body_ids_added = @draft_batch_request.public_body_ids
@@ -70,13 +68,6 @@ class AlaveteliPro::BatchRequestAuthoritySearchesController < AlaveteliPro::Base
     if page > MAX_RESULTS / per_page
       raise ActiveRecord::RecordNotFound.new("Sorry. No pages after #{MAX_RESULTS / per_page}.")
     end
-  end
-
-  def check_user_has_batch_access
-    unless feature_enabled? :pro_batch_access, current_user
-      redirect_to new_alaveteli_pro_info_request_path
-    end
-    return true
   end
 
   def find_or_initialise_draft
