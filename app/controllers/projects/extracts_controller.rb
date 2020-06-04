@@ -1,4 +1,4 @@
-require_dependency 'project/queue/classifiable'
+require_dependency 'project/queue/extractable'
 
 # Extract data from a Project
 class Projects::ExtractsController < Projects::BaseController
