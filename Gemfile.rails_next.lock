@@ -172,9 +172,9 @@ GEM
     dynamic_form (1.1.4)
     erubi (1.9.0)
     eventmachine (1.2.7)
-    exception_notification (4.1.1)
-      actionmailer (>= 3.0.4)
-      activesupport (>= 3.0.4)
+    exception_notification (4.4.0)
+      actionmailer (>= 4.0, < 7)
+      activesupport (>= 4.0, < 7)
     execjs (2.7.0)
     factory_bot (4.10.0)
       activesupport (>= 3.0.0)
@@ -242,7 +242,7 @@ GEM
     mimemagic (0.3.4)
     mini_mime (1.0.1)
     mini_portile2 (2.4.0)
-    minitest (5.14.0)
+    minitest (5.14.1)
     money (6.13.6)
       i18n (>= 0.6.4, <= 2)
     multi_json (1.13.1)
@@ -450,7 +450,7 @@ DEPENDENCIES
   dalli (~> 2.7.0)
   delorean (~> 2.1.0)
   dynamic_form (~> 1.1.0)
-  exception_notification (~> 4.1.0, < 4.1.2)
+  exception_notification (~> 4.4.0)
   factory_bot_rails (~> 4.10.0)
   fancybox-rails (~> 0.3.0)
   fast_gettext (< 1.2.0)
@@ -519,3 +519,6 @@ DEPENDENCIES
   xapian-full-alaveteli (~> 1.2.21.1)
   xml-simple (~> 1.1.0)
   zip_tricks (~> 5.0.0)
+
+BUNDLED WITH
+   1.16.1
