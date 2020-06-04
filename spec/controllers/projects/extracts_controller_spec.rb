@@ -87,7 +87,7 @@ RSpec.describe Projects::ExtractsController, spec_meta do
         expect(flash[:notice]).to eq(msg)
       end
 
-      it 'edirects back to the project homepage' do
+      it 'redirects back to the project homepage' do
         expect(response).to redirect_to(project)
       end
     end
@@ -220,7 +220,7 @@ RSpec.describe Projects::ExtractsController, spec_meta do
         expect(flash[:notice]).to eq('Skipped!')
       end
 
-      it 'redirects to another request to classify' do
+      it 'redirects to another request to extract' do
         expect(response).to redirect_to(project_extract_path(project))
       end
 
