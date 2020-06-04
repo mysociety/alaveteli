@@ -96,7 +96,7 @@ gem 'cancancan', '~> 1.17.0', '< 2.0.0'
 gem 'charlock_holmes', '~> 0.7.7'
 gem 'dalli', '~> 2.7.0'
 gem 'dynamic_form', '~> 1.1.0'
-gem 'exception_notification', ['~> 4.1.0', '< 4.1.2']
+gem 'exception_notification', '~> 4.4.0'
 gem 'fancybox-rails', '~> 0.3.0'
 gem 'gnuplot', '~> 2.6.0'
 gem 'htmlentities', '~> 4.3.0'
