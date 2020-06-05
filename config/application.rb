@@ -97,9 +97,6 @@ module Alaveteli
     require "#{Rails.root}/lib/deeply_nested_params"
     config.middleware.insert Rack::Head, DeeplyNestedParams
 
-    # Strip non-UTF-8 request parameters
-    config.middleware.insert 0, Rack::UTF8Sanitizer
-
     # Allow the generation of full URLs in emails
     config.action_mailer.default_url_options = { :host => AlaveteliConfiguration::domain }
     if AlaveteliConfiguration::force_ssl
