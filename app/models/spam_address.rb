@@ -16,6 +16,8 @@ class SpamAddress < ApplicationRecord
   validates_uniqueness_of :email,
                           message: 'This address is already marked as spam'
 
+  strip_attributes
+
   before_save :downcase_email
 
   def self.spam?(email_address)
