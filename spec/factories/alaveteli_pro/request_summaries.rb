@@ -21,7 +21,7 @@ FactoryBot.define do
     sequence(:title) { |n| "Example Title #{n}" }
     sequence(:body) { |n| "Example request #{n}" }
     public_body_names { 'Example Public Body' }
-    association :summarisable, :factory => :info_request
+    association :summarisable, factory: :info_request, strategy: :create
     user :factory => :pro_user
 
     transient do

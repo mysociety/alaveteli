@@ -901,8 +901,8 @@ describe OutgoingMessage do
     end
 
     it 'returns false if the user is not the owning user of the info request' do
-      user = FactoryBot.build(:user)
-      request = FactoryBot.build(:info_request)
+      user = FactoryBot.create(:user)
+      request = FactoryBot.create(:info_request)
       message = FactoryBot.build(:initial_request, :info_request => request)
       expect(message.is_owning_user?(user)).to eq(false)
     end
