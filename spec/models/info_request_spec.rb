@@ -2527,20 +2527,20 @@ describe InfoRequest do
       dog_request = info_requests(:fancy_dog_request)
       old_unclassified =
         InfoRequest.where_old_unclassified.
-          where(:prominence => 'normal').limit(1).order('random()')
+          where(:prominence => 'normal').limit(1).order(Arel.sql('random()'))
       expect(old_unclassified.length).to eq(1)
       expect(old_unclassified.first).to eq(dog_request)
       dog_request.prominence = 'requester_only'
       dog_request.save!
       old_unclassified =
         InfoRequest.where_old_unclassified.
-          where(:prominence => 'normal').limit(1).order('random()')
+          where(:prominence => 'normal').limit(1).order(Arel.sql('random()'))
       expect(old_unclassified.length).to eq(0)
       dog_request.prominence = 'hidden'
       dog_request.save!
       old_unclassified =
         InfoRequest.where_old_unclassified.
-          where(:prominence => 'normal').limit(1).order('random()')
+          where(:prominence => 'normal').limit(1).order(Arel.sql('random()'))
       expect(old_unclassified.length).to eq(0)
     end
 
@@ -3478,7 +3478,7 @@ describe InfoRequest do
        DESC
       EOF
       expect(apply_filters(:latest_status => 'all')).
-        to eq(InfoRequest.all.order(order_sql))
+        to eq(InfoRequest.all.order(Arel.sql(order_sql)))
 
       conditions = <<-EOF.strip_heredoc
       id in (
