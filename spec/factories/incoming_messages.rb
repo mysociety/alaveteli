@@ -25,7 +25,7 @@ FactoryBot.define do
 
   factory :incoming_message do
     info_request
-    raw_email
+    association :raw_email, strategy: :create
     last_parsed { 1.week.ago }
     sent_at { 1.week.ago }
 
