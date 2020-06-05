@@ -191,7 +191,7 @@ GEM
     flipper-active_record (0.10.2)
       activerecord (>= 3.2, < 6)
       flipper (~> 0.10.2)
-    gender_detector (1.0.0)
+    gender_detector (2.0.0)
     gettext (2.3.9)
       locale
       text
@@ -456,7 +456,7 @@ DEPENDENCIES
   factory_bot_rails (~> 5.1.1)
   fancybox-rails (~> 0.3.0)
   fast_gettext (< 1.2.0)
-  gender_detector (~> 1.0.0)
+  gender_detector (~> 2.0.0)
   gettext (~> 2.3.0)
   gettext_i18n_rails (~> 0.10.1)
   globalize (~> 5.2.0)

@@ -133,7 +133,7 @@ gem 'xml-simple', '~> 1.1.0', :require => 'xmlsimple'
 gem 'zip_tricks', '~> 5.0.0'
 
 # Gems only used by the research export task
-gem 'gender_detector', '~> 1.0.0'
+gem 'gender_detector', '~> 2.0.0'
 
 # Gems related to internationalisation
 gem 'i18n', ['~> 0.9.0', '< 0.9.3']
