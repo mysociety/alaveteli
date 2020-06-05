@@ -415,7 +415,7 @@ GEM
       hashdiff
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
-    websocket-extensions (0.1.4)
+    websocket-extensions (0.1.5)
     will_paginate (3.3.0)
     xapian-full-alaveteli (1.2.21.1)
     xml-simple (1.1.5)
