@@ -46,13 +46,8 @@ describe TrackController do
                             :url_title => info_request.url_title,
                             :feed => 'track'
                           }
-      if rails_upgrade?
-        expect(response.headers["Cache-Control"]).
-          to eq('no-cache, no-store')
-      else
-        expect(response.headers["Cache-Control"]).
-          to eq('no-cache, no-store, max-age=0, must-revalidate')
-      end
+      expect(response.headers["Cache-Control"]).
+        to eq('no-cache, no-store')
       expect(response.headers['Pragma']).to eq('no-cache')
       expect(response.headers['Expires']).to eq('0')
     end

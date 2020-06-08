@@ -23,11 +23,7 @@ class YAMLCompatibility
   end
 
   # :nodoc:
-  class LazyAttributeHash < if rails_upgrade?
-                              ActiveModel::LazyAttributeHash
-                            else
-                              ActiveRecord::LazyAttributeHash
-                            end
+  class LazyAttributeHash < ActiveModel::LazyAttributeHash
     def key?(key)
       delegate_hash.key?(key) ||
         (values && values.key?(key)) ||
