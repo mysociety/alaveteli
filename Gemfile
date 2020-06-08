@@ -188,7 +188,7 @@ group :development do
   gem 'capistrano', '~> 2.15.0', '< 3.0.0'
     gem 'net-ssh', ['~> 2.9.0', '< 3.0.0']
       gem 'net-ssh-gateway', ['>= 1.1.0', '< 2.0.0']
-  gem 'launchy', '~> 2.4.0'
+  gem 'launchy', '~> 2.5.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'web-console', '>= 3.3.0'
   gem 'rubocop', '~> 0.63.1'
