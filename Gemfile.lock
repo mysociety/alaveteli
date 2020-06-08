@@ -315,7 +315,7 @@ GEM
     ref (2.0.0)
     request_store (1.4.1)
       rack (>= 1.4)
-    rmagick (2.16.0)
+    rmagick (4.1.2)
     rolify (5.2.0)
     rotp (3.3.0)
     routing-filter (0.6.3)
@@ -486,7 +486,7 @@ DEPENDENCIES
   rails-controller-testing
   rails-i18n (~> 5.1.0)
   recaptcha (~> 4.9.0, < 4.10.0)
-  rmagick (~> 2.16.0)
+  rmagick (~> 4.1.2)
   rolify (~> 5.2.0)
   routing-filter (~> 0.6.2)
   rspec-activemodel-mocks (~> 1.1.0)
