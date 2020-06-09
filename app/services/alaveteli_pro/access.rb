@@ -28,6 +28,5 @@ class AlaveteliPro::Access
     end
 
     enable_actor(:notifications, user)
-    enable_actor(:pro_batch_access, user)
   end
 end
