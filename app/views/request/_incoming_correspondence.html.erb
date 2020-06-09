@@ -29,19 +29,16 @@
       <% end %>
     </p>
 
-    <div class="correspondence__footer">
-      <% unless @info_request.embargo %>
-        <div class="correspondence__footer__cplink">
-          <input type="text" id="cplink__field" class="cplink__field" value="<%= incoming_message_url(incoming_message) %>">
-          <a class="cplink__button"><%= _('Link to this') %></a>
+    <% if show_correspondence_footer %>
+      <% link_to_this_url = incoming_message_url(incoming_message) %>
 
-          <% report_path =
-               new_request_report_path(request_id: @info_request.url_title,
-                                       incoming_message_id: incoming_message.id) %>
-          <%= link_to _('Report'), report_path, class: 'cplink__button' %>
-        </div>
-      <% end %>
-    </div>
+      <% report_path =
+           new_request_report_path(request_id: @info_request.url_title,
+                                   incoming_message_id: incoming_message.id) %>
 
+      <%= render partial: 'request/correspondence_footer',
+                 locals: { link_to_this_url: link_to_this_url,
+                           report_path: report_path } %>
+    <% end %>
   <%- end %>
 </div>

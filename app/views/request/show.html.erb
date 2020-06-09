@@ -38,7 +38,8 @@
   <% @info_request.info_request_events.each do |info_request_event| %>
     <% if info_request_event.visible %>
       <%= render partial: 'request/correspondence',
-                 locals: { info_request_event: info_request_event } %>
+                 locals: { info_request_event: info_request_event,
+                           show_correspondence_footer: !@info_request.embargo } %>
     <% end %>
   <% end %>
 
