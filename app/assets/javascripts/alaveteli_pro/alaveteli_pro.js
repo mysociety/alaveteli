@@ -24,3 +24,4 @@
 //= require alaveteli_pro/batch_authority_search/result
 
 //= require alaveteli_pro/request_navigation
+//= require alaveteli_pro/project_queue

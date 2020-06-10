@@ -1,7 +1,7 @@
 <% form_url =
   project_classifications_path(project, url_title: info_request.url_title) %>
 
-<%= form_for(:classification, url: form_url, method: :post) do |f| %>
+<%= form_for(:classification, url: form_url, method: :post, html: { class: 'js-project-queue-form' } ) do |f| %>
   <h2><%= _('What best describes the status of this request now?') %></h2>
 
   <h3><%= _('This request is still in progress:') %></h3>

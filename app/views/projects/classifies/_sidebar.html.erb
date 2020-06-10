@@ -8,7 +8,7 @@
                          state_transitions: state_transitions } %>
 
     <% skip_path = project_classify_path(project, url_title: info_request.url_title) %>
-    <% skip_css = 'button-tertiary button--full-width form__skip-button' %>
+    <% skip_css = 'button-tertiary button--full-width form__skip-button js-project-queue-skip-button' %>
     <%= link_to skip_path, method: :patch, class: skip_css do %>
       <%= _('Skip') %>
     <% end %>
