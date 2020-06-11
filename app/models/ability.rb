@@ -154,13 +154,17 @@ class Ability
     end
 
     if feature_enabled? :projects
-      can :read, Project do |project|
-        user && (user.is_pro_admin? || project.member?(user))
+      can :read, Project do |target_project|
+        user && (user.is_pro_admin? || target_project.member?(user))
       end
 
       can :remove_contributor, User do |contributor|
         user && project.contributor?(contributor) &&
           (project.owner?(user) || user == contributor)
+      end
+
+      can :download, Project do |target_project|
+        user && (user.is_pro_admin? || target_project.owner?(user))
       end
     end
   end
