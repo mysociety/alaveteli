@@ -26,4 +26,32 @@ RSpec.describe Project::Export do
       is_expected.to match_array [{ header: 'DATA A' }, { header: 'DATA B' }]
     end
   end
+
+  describe '#name' do
+    let(:project) { instance_double('Project', id: 1, title: 'Test Project') }
+    subject { instance.name }
+
+    it 'returns a useful filename' do
+      time_travel_to Time.utc(2019, 11, 18, 10, 30)
+      is_expected.to(
+        eq 'project-1-test_project-2019-11-18-103000.csv'
+      )
+      back_to_the_present
+    end
+  end
+
+  describe '#to_csv' do
+    subject { instance.to_csv }
+
+    it 'returns CSV string from metrics' do
+      allow(instance).to receive(:data).and_return(
+        [{ foo: 'Foo', bar: 'Bar' }]
+      )
+
+      is_expected.to eq <<~CSV
+        foo,bar
+        Foo,Bar
+      CSV
+    end
+  end
 end

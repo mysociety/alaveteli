@@ -8,7 +8,8 @@ class Projects::DownloadsController < Projects::BaseController
     respond_to do |format|
       format.html { head :bad_request }
       format.csv do
-        send_data 'CSV_DATA', type: 'text/csv'
+        export = Project::Export.new(@project)
+        send_data export.to_csv, filename: export.name, type: 'text/csv'
       end
     end
   end

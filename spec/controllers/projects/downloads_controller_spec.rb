@@ -43,7 +43,12 @@ RSpec.describe Projects::DownloadsController, spec_meta do
     context 'when CSV format' do
       include_context 'when authorised to download project'
 
-      before { show }
+      before do
+        allow(Project::Export).to receive(:new).with(project).and_return(
+          double(to_csv: 'CSV_DATA', name: 'NAME')
+        )
+        show
+      end
 
       it 'is a successful request' do
         expect(response).to be_successful
@@ -54,7 +59,9 @@ RSpec.describe Projects::DownloadsController, spec_meta do
       end
 
       it 'returns content disposition' do
-        expect(response.header['Content-Disposition']).to eq 'attachment'
+        expect(response.header['Content-Disposition']).to(
+          eq 'attachment; filename="NAME"'
+        )
       end
 
       it 'returns CSV content type' do
