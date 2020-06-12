@@ -21,7 +21,7 @@ FactoryBot.define do
     embargo_duration { '3_months' }
 
     factory :draft_with_no_duration do
-      embargo_duration nil
+      embargo_duration { nil }
     end
   end
 end

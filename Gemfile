@@ -96,14 +96,14 @@ gem 'cancancan', '~> 1.17.0', '< 2.0.0'
 gem 'charlock_holmes', '~> 0.7.7'
 gem 'dalli', '~> 2.7.0'
 gem 'dynamic_form', '~> 1.1.0'
-gem 'exception_notification', ['~> 4.1.0', '< 4.1.2']
+gem 'exception_notification', '~> 4.4.0'
 gem 'fancybox-rails', '~> 0.3.0'
 gem 'gnuplot', '~> 2.6.0'
 gem 'htmlentities', '~> 4.3.0'
 gem 'icalendar', '~> 2.4.0'
 gem 'jquery-rails', '~> 4.3.5'
 gem 'jquery-ui-rails', '~> 6.0.0'
-gem 'json', ['~> 1.8.0', '< 2.0.0']
+gem 'json', '~> 2.3.0'
 gem 'holidays', '~> 4.7.0', '< 5.0.0'
 gem 'iso_country_codes', '~> 0.7.8'
 gem 'mail', '~> 2.6.6'
@@ -112,9 +112,9 @@ gem 'mahoro', '~> 0.4'
 gem 'newrelic_rpm'
 gem 'nokogiri', '~> 1.10.8'
 gem 'open4', '~> 1.3.0'
-gem 'rack', '~> 2.0.8'
+gem 'rack', '~> 2.2.2'
 gem 'rack-ssl', '~> 1.4.0'
-gem 'rack-utf8_sanitizer', '~> 1.3.0'
+gem 'rack-utf8_sanitizer', '~> 1.7.0'
 gem 'recaptcha', '~> 4.9.0', '< 4.10.0', :require => 'recaptcha/rails'
 gem 'rmagick', '~> 2.16.0'
 gem 'rolify', '~> 5.2.0'
@@ -127,13 +127,13 @@ gem 'stripe', '~> 3.29.0'
 gem 'syslog_protocol', '~> 0.9.0'
 gem 'thin', '~> 1.5.0', '< 1.6.0'
 gem 'vpim', '~> 13.11.11'
-gem 'will_paginate', '~> 3.1.8'
+gem 'will_paginate', '~> 3.3.0'
 gem 'xapian-full-alaveteli', '~> 1.2.21.1'
 gem 'xml-simple', '~> 1.1.0', :require => 'xmlsimple'
 gem 'zip_tricks', '~> 5.0.0'
 
 # Gems only used by the research export task
-gem 'gender_detector', '~> 1.0.0'
+gem 'gender_detector', '~> 2.0.0'
 
 # Gems related to internationalisation
 gem 'i18n', ['~> 0.9.0', '< 0.9.3']
@@ -174,7 +174,7 @@ end
 
 group :test, :development do
   gem 'bullet', '~> 5.7.6'
-  gem 'factory_bot_rails', '~> 4.10.0'
+  gem 'factory_bot_rails', '~> 5.1.1'
   gem 'oink', '~> 0.10.1'
   gem 'rspec-activemodel-mocks', '~> 1.1.0'
   gem 'rspec-rails', '~> 3.7.2'
@@ -189,7 +189,7 @@ group :development do
     gem 'net-ssh', ['~> 2.9.0', '< 3.0.0']
       gem 'net-ssh-gateway', ['>= 1.1.0', '< 2.0.0']
   gem 'launchy', '~> 2.4.0'
-  gem 'listen', '~> 3.0.5'
+  gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'web-console', '>= 3.3.0'
   gem 'rubocop', '~> 0.63.1'
 end

@@ -697,7 +697,7 @@ module ActsAsXapian
     # Before calling writable_init we have to make sure every model class has been initialized.
     # i.e. has had its class code loaded, so acts_as_xapian has been called inside it, and
     # we have the info from acts_as_xapian.
-    model_classes = ActsAsXapianJob.pluck("DISTINCT model").map { |a| a.constantize }
+    model_classes = ActsAsXapianJob.distinct.pluck(:model).map { |a| a.constantize }
     # If there are no models in the queue, then nothing to do
     return if model_classes.empty?
 

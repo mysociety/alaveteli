@@ -26,10 +26,8 @@
   <%= render partial: 'request/batch',
              locals: { info_request: info_request } %>
 
-  <div class="sidebar__section citations">
-    <%= render partial: 'request/citations',
-               locals: { citations: citations, info_request: info_request } %>
-  </div>
+  <%= render partial: 'request/citations',
+             locals: { citations: citations, info_request: info_request } %>
 
   <% if similar_requests.any? %>
     <%= render partial: 'request/similar',

@@ -52,12 +52,6 @@ RSpec.describe AlaveteliPro::Access do
       }.to(true)
     end
 
-    it 'enables batch for the user' do
-      expect { instance.grant }.to change {
-        feature_enabled?(:pro_batch_access, user)
-      }.to(true)
-    end
-
     context 'when pop polling is enabled' do
 
       before do

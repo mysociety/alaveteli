@@ -266,7 +266,8 @@ class PublicBody < ApplicationRecord
     # public bodies in it
     old = PublicBody::Version.
       where(:url_name => name).
-      pluck('DISTINCT public_body_id')
+      distinct.
+      pluck(:public_body_id)
 
     # Maybe return the first one, so we show something relevant,
     # rather than throwing an error?
@@ -874,7 +875,7 @@ class PublicBody < ApplicationRecord
       if DatabaseCollation.supports?(underscore_locale)
         where(where_condition, where_parameters).
           joins(:translations).
-          order(%Q(public_body_translations.name COLLATE "#{underscore_locale}"))
+          order(Arel.sql(%Q(public_body_translations.name COLLATE "#{underscore_locale}")))
       else
         where(where_condition, where_parameters).
           joins(:translations).

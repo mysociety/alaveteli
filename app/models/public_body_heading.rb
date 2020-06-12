@@ -11,7 +11,7 @@
 
 class PublicBodyHeading < ApplicationRecord
   has_many :public_body_category_links,
-           :inverse_of => :public_body_category,
+           :inverse_of => :public_body_heading,
            :dependent => :destroy
   has_many :public_body_categories,
            -> { order('public_body_category_links.category_display_order') },
