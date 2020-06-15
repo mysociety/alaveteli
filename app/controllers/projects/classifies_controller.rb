@@ -1,4 +1,4 @@
-require_dependency 'project/queue/classifiable'
+require_dependency 'project/queue'
 
 # Classify a request in a Project
 class Projects::ClassifiesController < Projects::BaseController
@@ -7,14 +7,14 @@ class Projects::ClassifiesController < Projects::BaseController
   def show
     authorize! :read, @project
 
-    @queue = Project::Queue::Classifiable.new(@project, session)
+    @queue = Project::Queue.classifiable(@project, session)
     @info_request = @queue.next
 
     unless @info_request
       if @project.info_requests.classifiable.any?
         msg = _('Nice work! How about having another try at the requests you ' \
                 'skipped?')
-        @queue.clear_skipped
+        @queue.reset
       else
         msg = _('There are no requests to classify right now. Great job!')
       end
@@ -38,7 +38,7 @@ class Projects::ClassifiesController < Projects::BaseController
     info_request =
       @project.info_requests.find_by!(url_title: params.require(:url_title))
 
-    queue = Project::Queue::Classifiable.new(@project, session)
+    queue = Project::Queue.classifiable(@project, session)
     queue.skip(info_request)
 
     redirect_to project_classify_path(@project), notice: _('Skipped!')
