@@ -164,7 +164,7 @@ gem 'alaveteli_features', :path => 'gems/alaveteli_features'
 
 group :test do
   gem 'webmock', '~> 3.5.1'
-  gem 'coveralls', '~> 0.8.0', :require => false
+  gem 'coveralls', '~> 0.8.23', require: false
   gem 'capybara', '~> 3.5.0'
   gem 'delorean', '~> 2.1.0'
   gem 'stripe-ruby-mock', git: 'https://github.com/gbp/stripe-ruby-mock',
