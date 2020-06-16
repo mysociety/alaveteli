@@ -42,7 +42,7 @@ describe SpamAddress do
       expect(SpamAddress.spam?(@spam_address.email.swapcase)).to be true
     end
 
-    it 'is not a spam address if the adress is not stored' do
+    it 'is not a spam address if the address is not stored' do
       expect(SpamAddress.spam?('genuine-email@example.com')).to be false
     end
 
