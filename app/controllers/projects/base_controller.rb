@@ -3,6 +3,7 @@ class Projects::BaseController < ApplicationController
   before_action :check_feature_enabled
   before_action :set_in_pro_area
   before_action :find_project
+  before_action :set_title
 
   private
 
@@ -16,6 +17,10 @@ class Projects::BaseController < ApplicationController
 
   def set_in_pro_area
     @in_pro_area = true
+  end
+
+  def set_title
+    @title = @project.title
   end
 
   def current_ability
