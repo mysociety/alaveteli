@@ -1,4 +1,4 @@
 <div class="dataset-key">
   <%= f.label :value, key.title %>
-  <%= f.text_field :value, rows: 5 %>
+  <%= f.text_field :value, pattern: '[+-,\.\d]+' %>
 </div>
