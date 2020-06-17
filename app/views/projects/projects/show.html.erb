@@ -89,8 +89,10 @@
           <% end %>
 
           <p class="project-meta">
-            <%= _('{{contributor_count}} contributors',
-                  contributor_count: @project.contributors.count) %>
+            <%= n_('{{contributor_count}} contributor',
+                   '{{contributor_count}} contributors',
+                   @project.contributors.count,
+                   contributor_count: @project.contributors.count) %>
           </p>
 
           <% if can? :contact_owner, @project %>
