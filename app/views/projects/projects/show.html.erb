@@ -10,11 +10,6 @@
       <div class="project-body">
         <div class="project-briefing">
           <%= sanitize @project.briefing %>
-
-          <p class="project-meta">
-            <%= _('{{contributor_count}} contributors',
-                  contributor_count: @project.contributors.count) %>
-          </p>
         </div>
 
         <div class="project-contribute-list" id="contribute">
@@ -92,6 +87,11 @@
           <% if @project.owner.about_me.present? %>
             <p><%= @project.owner.about_me %></p>
           <% end %>
+
+          <p class="project-meta">
+            <%= _('{{contributor_count}} contributors',
+                  contributor_count: @project.contributors.count) %>
+          </p>
 
           <% if can? :contact_owner, @project %>
             <%= link_to contact_user_path(url_name: @project.owner.url_name),
