@@ -158,6 +158,10 @@ class Ability
         user && (user.is_pro_admin? || project.member?(user))
       end
 
+      can :contact_owner, Project do |target_project|
+        user && (user.is_pro_admin? || target_project.contributor?(user))
+      end
+
       can :remove_contributor, User do |contributor|
         user && project.contributor?(contributor) &&
           (project.owner?(user) || user == contributor)

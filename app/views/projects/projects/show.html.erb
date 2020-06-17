@@ -93,9 +93,11 @@
             <p><%= @project.owner.about_me %></p>
           <% end %>
 
-           <%= link_to contact_user_path(url_name: @project.owner.url_name),
-               class: 'button-secondary' do %>
-            <%= _('Contact {{recipient}}', recipient: @project.owner.name) %>
+          <% if can? :contact_owner, @project %>
+            <%= link_to contact_user_path(url_name: @project.owner.url_name),
+                class: 'button-secondary' do %>
+              <%= _('Contact {{recipient}}', recipient: @project.owner.name) %>
+            <% end %>
           <% end %>
         </div>
 

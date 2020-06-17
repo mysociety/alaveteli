@@ -1383,6 +1383,77 @@ describe Ability do
     end
   end
 
+  describe 'contact project owner', feature: :projects do
+    let(:ability) { Ability.new(user, project: project) }
+
+    let(:owner) { FactoryBot.create(:user) }
+    let(:contributor) { FactoryBot.create(:user) }
+
+    let(:project) do
+      project = FactoryBot.create(:project, owner: owner)
+      project.contributors << contributor
+      project
+    end
+
+    context 'when the user is a project owner' do
+      let(:user) { owner }
+
+      it 'they cannot contact themselves' do
+        expect(ability).not_to be_able_to(:contact_owner, project)
+      end
+    end
+
+    context 'when the user is a project contributor' do
+      let(:user) { contributor }
+
+      it 'they can contact project owner' do
+        expect(ability).to be_able_to(:contact_owner, project)
+      end
+    end
+
+    context 'when the user is a pro_admin' do
+      let(:user) { FactoryBot.create(:pro_admin_user) }
+
+      it 'they can contact project owner' do
+        expect(ability).to be_able_to(:contact_owner, project)
+      end
+    end
+
+    context 'when the user is an admin' do
+      let(:user) { FactoryBot.create(:admin_user) }
+
+      it 'they cannot contact project owner' do
+        expect(ability).not_to be_able_to(:contact_owner, project)
+      end
+    end
+
+    context 'when the user is not a project member' do
+      let(:user) { FactoryBot.create(:user) }
+
+      it 'they cannot contact project owner' do
+        expect(ability).not_to be_able_to(:contact_owner, project)
+      end
+    end
+
+    context 'when there is no user' do
+      let(:user) { nil }
+
+      it 'they cannot contact project owner' do
+        expect(ability).not_to be_able_to(:contact_owner, project)
+      end
+    end
+
+    context 'with the feature disabled' do
+      let(:user) { contributor }
+
+      it 'they cannot contact project owner' do
+        with_feature_disabled(:projects) do
+          expect(ability).not_to be_able_to(:contact_owner, project)
+        end
+      end
+    end
+  end
+
   describe 'remove_contributor from projects', feature: :projects do
     let(:ability) { Ability.new(user, project: project) }
 
