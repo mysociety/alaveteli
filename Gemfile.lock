@@ -432,7 +432,7 @@ DEPENDENCIES
   active_model_otp!
   acts_as_versioned!
   alaveteli_features!
-  annotate (~> 2.7.0)
+  annotate (< 3.1.1)
   bcrypt (~> 3.1.13)
   bootstrap-sass (~> 2.3.2.2)
   bullet (~> 6.1.0)
