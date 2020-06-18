@@ -180,7 +180,7 @@ group :test, :development do
   gem 'rspec-rails', '~> 3.7.2'
   gem 'pry', '~> 0.12.2'
   gem 'pry-byebug', '~> 3.7.0'
-    gem 'public_suffix', '~> 2.0.0', '< 3.0.0'
+    gem 'public_suffix', '~> 4.0.5'
 end
 
 group :development do
