@@ -41,27 +41,27 @@ describe ProfilePhoto, "when constructing a new photo" do
     data = load_file_fixture("parrot.png")
     profile_photo = ProfilePhoto.new(:data => data, :user => @mock_user)
     expect(profile_photo.valid?).to eq(true)
-    expect(profile_photo.image.format).to eq('PNG')
-    expect(profile_photo.image.columns).to eq(96)
-    expect(profile_photo.image.rows).to eq(96)
+    expect(profile_photo.image.type).to eq('PNG')
+    expect(profile_photo.image.width).to eq(96)
+    expect(profile_photo.image.height).to eq(96)
   end
 
   it 'should accept and convert a JPEG to right format and size' do
     data = load_file_fixture("parrot.jpg")
     profile_photo = ProfilePhoto.new(:data => data, :user => @mock_user)
     expect(profile_photo.valid?).to eq(true)
-    expect(profile_photo.image.format).to eq('PNG')
-    expect(profile_photo.image.columns).to eq(96)
-    expect(profile_photo.image.rows).to eq(96)
+    expect(profile_photo.image.type).to eq('PNG')
+    expect(profile_photo.image.width).to eq(96)
+    expect(profile_photo.image.height).to eq(96)
   end
 
   it 'should accept a draft PNG and not resize it' do
     data = load_file_fixture("parrot.png")
     profile_photo = ProfilePhoto.new(:data => data, :draft => true)
     expect(profile_photo.valid?).to eq(true)
-    expect(profile_photo.image.format).to eq('PNG')
-    expect(profile_photo.image.columns).to eq(198)
-    expect(profile_photo.image.rows).to eq(289)
+    expect(profile_photo.image.type).to eq('PNG')
+    expect(profile_photo.image.width).to eq(198)
+    expect(profile_photo.image.height).to eq(289)
   end
 
 
