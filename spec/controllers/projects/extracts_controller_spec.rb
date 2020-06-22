@@ -1,5 +1,7 @@
 require 'spec_helper'
 
+require_dependency 'project/queue'
+
 spec_meta = {
   type: :controller,
   feature: :projects
@@ -12,6 +14,9 @@ RSpec.describe Projects::ExtractsController, spec_meta do
 
   describe 'GET show' do
     let(:project) { FactoryBot.create(:project, extractable_requests_count: 1) }
+
+    let(:queue) { Project::Queue.extractable(project, session) }
+
     let(:ability) { Object.new.extend(CanCan::Ability) }
 
     before do
@@ -41,12 +46,10 @@ RSpec.describe Projects::ExtractsController, spec_meta do
       end
 
       it 'assigns a queue for the current project and user' do
-        queue = Project::Queue::Extractable.new(project, session)
         expect(assigns[:queue]).to eq(queue)
       end
 
       it 'assigns an info_request from the queue' do
-        queue = Project::Queue::Extractable.new(project, session)
         expect(queue).to include(assigns[:info_request])
       end
 
@@ -87,7 +90,7 @@ RSpec.describe Projects::ExtractsController, spec_meta do
         expect(flash[:notice]).to eq(msg)
       end
 
-      it 'edirects back to the project homepage' do
+      it 'redirects back to the project homepage' do
         expect(response).to redirect_to(project)
       end
     end
@@ -97,8 +100,6 @@ RSpec.describe Projects::ExtractsController, spec_meta do
 
       before do
         session[:user_id] = user.id
-
-        queue = Project::Queue::Extractable.new(project, session)
 
         project.info_requests.extractable.each do |info_request|
           queue.skip(info_request)
@@ -220,7 +221,7 @@ RSpec.describe Projects::ExtractsController, spec_meta do
         expect(flash[:notice]).to eq('Skipped!')
       end
 
-      it 'redirects to another request to classify' do
+      it 'redirects to another request to extract' do
         expect(response).to redirect_to(project_extract_path(project))
       end
 

@@ -110,9 +110,9 @@ gem 'mail', '~> 2.6.6'
 gem 'maxmind-db', '~> 1.0.0'
 gem 'mahoro', '~> 0.4'
 gem 'newrelic_rpm'
-gem 'nokogiri', '~> 1.10.8'
+gem 'nokogiri', '~> 1.10.9'
 gem 'open4', '~> 1.3.0'
-gem 'rack', '~> 2.2.2'
+gem 'rack', '~> 2.2.3'
 gem 'rack-ssl', '~> 1.4.0'
 gem 'rack-utf8_sanitizer', '~> 1.7.0'
 gem 'recaptcha', '~> 4.9.0', '< 4.10.0', :require => 'recaptcha/rails'
@@ -146,7 +146,7 @@ gem 'locale', '~> 2.0.0', '< 2.1.0'
 gem 'routing-filter', '~> 0.6.2'
 gem 'unicode', '~> 0.4.4'
 gem 'unidecoder', '~> 1.1.0'
-gem 'money', '~> 6.13.6'
+gem 'money', '~> 6.13.7'
 
 # mime-types 3.0.0 requires Ruby 2.0.0, and _something_ is trying to update it
 gem 'mime-types', '< 3.0.0', require: false
@@ -164,7 +164,7 @@ gem 'alaveteli_features', :path => 'gems/alaveteli_features'
 
 group :test do
   gem 'webmock', '~> 3.5.1'
-  gem 'coveralls', '~> 0.8.0', :require => false
+  gem 'coveralls', '~> 0.8.23', require: false
   gem 'capybara', '~> 3.5.0'
   gem 'delorean', '~> 2.1.0'
   gem 'stripe-ruby-mock', git: 'https://github.com/gbp/stripe-ruby-mock',
@@ -173,7 +173,7 @@ group :test do
 end
 
 group :test, :development do
-  gem 'bullet', '~> 5.7.6'
+  gem 'bullet', '~> 6.1.0'
   gem 'factory_bot_rails', '~> 5.1.1'
   gem 'oink', '~> 0.10.1'
   gem 'rspec-activemodel-mocks', '~> 1.1.0'
@@ -184,11 +184,11 @@ group :test, :development do
 end
 
 group :development do
-  gem 'annotate', '~> 2.7.0'
+  gem 'annotate', '< 3.1.1'
   gem 'capistrano', '~> 2.15.0', '< 3.0.0'
     gem 'net-ssh', ['~> 2.9.0', '< 3.0.0']
       gem 'net-ssh-gateway', ['>= 1.1.0', '< 2.0.0']
-  gem 'launchy', '~> 2.4.0'
+  gem 'launchy', '< 2.5.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'web-console', '>= 3.3.0'
   gem 'rubocop', '~> 0.63.1'

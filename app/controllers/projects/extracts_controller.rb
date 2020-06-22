@@ -1,4 +1,4 @@
-require_dependency 'project/queue/extractable'
+require_dependency 'project/queue'
 
 # Extract data from a Project
 class Projects::ExtractsController < Projects::BaseController
@@ -11,7 +11,7 @@ class Projects::ExtractsController < Projects::BaseController
       if @project.info_requests.extractable.any?
         msg = _('Nice work! How about having another try at the requests you ' \
                 'skipped?')
-        @queue.clear_skipped
+        @queue.reset
       else
         msg = _('There are no requests to extract right now. Great job!')
       end
@@ -27,7 +27,7 @@ class Projects::ExtractsController < Projects::BaseController
   def update
     authorize! :read, @project
 
-    queue = Project::Queue::Extractable.new(@project, session)
+    queue = Project::Queue.extractable(@project, session)
     queue.skip(@info_request)
 
     redirect_to project_extract_path(@project), notice: _('Skipped!')
@@ -64,7 +64,7 @@ class Projects::ExtractsController < Projects::BaseController
         url_title: params[:url_title]
       )
     else
-      @queue = Project::Queue::Extractable.new(@project, session)
+      @queue = Project::Queue.extractable(@project, session)
       @info_request = @queue.next
     end
   end
