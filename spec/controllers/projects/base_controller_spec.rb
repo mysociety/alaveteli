@@ -13,7 +13,7 @@ RSpec.describe Projects::BaseController, spec_meta do
   end
 
   shared_context 'project can be found' do
-    let(:project) { instance_double('Project', id: 1) }
+    let(:project) { instance_double('Project', id: 1, title: 'Project title') }
 
     before do
       allow(Project).to receive(:find).with(project.id.to_s).
