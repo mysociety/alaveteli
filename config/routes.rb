@@ -178,6 +178,8 @@ Rails.application.routes.draw do
         end
 
         resources :contributors, only: [:destroy]
+
+        resource :download, only: [:show], format: true
       end
     end
   end
