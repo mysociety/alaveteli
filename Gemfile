@@ -84,7 +84,7 @@ def rails_upgrade?
   %w[1 true].include?(ENV['RAILS_UPGRADE'])
 end
 
-gem 'rails', rails_upgrade? ? '~> 5.2.4' : '5.1.7'
+gem 'rails', rails_upgrade? ? '~> 6.0.3' : '~> 5.2.4'
 
 gem 'pg', '~> 0.20.0'
 
@@ -106,7 +106,7 @@ gem 'jquery-ui-rails', '~> 6.0.0'
 gem 'json', '~> 2.3.0'
 gem 'holidays', '~> 4.7.0', '< 5.0.0'
 gem 'iso_country_codes', '~> 0.7.8'
-gem 'mail', '~> 2.6.6'
+gem 'mail', rails_upgrade? ? '~> 2.7.1' : '~> 2.6.6'
 gem 'maxmind-db', '~> 1.0.0'
 gem 'mahoro', '~> 0.4'
 gem 'nokogiri', '~> 1.10.9'
@@ -121,7 +121,7 @@ gem 'ruby-msg', '~> 1.5.0', :git => 'https://github.com/mysociety/ruby-msg.git',
 gem 'rubyzip', '~> 1.3.0', '< 2.0.0'
 gem 'secure_headers', '~> 3.9.0'
 gem 'statistics2', '~> 0.54'
-gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :ref => 'c1c14da'
+gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :branch => 'globalize3-rails5.2'
 gem 'stripe', '~> 3.29.0'
 gem 'syslog_protocol', '~> 0.9.0'
 gem 'thin', '~> 1.5.0', '< 1.6.0'
@@ -136,11 +136,11 @@ gem 'gender_detector', '~> 2.0.0'
 
 # Gems related to internationalisation
 gem 'i18n', ['~> 0.9.0', '< 0.9.3']
-gem 'rails-i18n', '~> 5.1.0'
+gem 'rails-i18n', rails_upgrade? ? '~> 6.0.0' : '~> 5.1.0'
 gem 'gettext_i18n_rails', '~> 0.10.1'
   gem 'fast_gettext', '< 1.2.0'
 gem 'gettext', '~> 2.3.0'
-gem 'globalize', '~> 5.2.0'
+gem 'globalize', rails_upgrade? ? '~> 5.3.0' : '~> 5.2.0'
 gem 'locale', '~> 2.0.0', '< 2.1.0'
 gem 'routing-filter', '~> 0.6.2'
 gem 'unicode', '~> 0.4.4'
