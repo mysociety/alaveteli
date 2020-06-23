@@ -41,24 +41,31 @@ class ProfilePhoto < ApplicationRecord
 
     # convert to PNG if it isn't, and to right size
     altered = false
-    if image.format != 'PNG'
-      self.image.format = 'PNG'
+    if image.type != 'PNG'
+      self.image.format('PNG')
       altered = true
     end
 
     # draft images are before the user has cropped them
-    if !draft && (image.columns != WIDTH || image.rows != HEIGHT)
+    if !draft && (image.width != WIDTH || image.height != HEIGHT)
       # do any exact cropping (taken from Jcrop interface)
       if w && h
-        image.crop!(x.to_i, y.to_i, w.to_i, h.to_i)
+        image.crop("#{ w }x#{ h }+#{ x }+#{ y }")
       end
       # do any further cropping
-      image.resize_to_fill!(WIDTH, HEIGHT)
+      # resize_to_fill!
+      image.combine_options do |c|
+        c.thumbnail("#{ WIDTH }x#{ HEIGHT }^")
+        c.gravity 'center'
+        c.extent("#{ WIDTH }x#{ HEIGHT }")
+      end
+
       altered = true
     end
 
-    if draft && (image.columns > MAX_DRAFT || image.rows > MAX_DRAFT)
-      image.resize_to_fit!(MAX_DRAFT, MAX_DRAFT)
+    if draft && (image.width > MAX_DRAFT || image.height > MAX_DRAFT)
+      # resize_to_fit!
+      image.resize("#{ MAX_DRAFT }x#{ MAX_DRAFT }")
       altered = true
     end
 
@@ -80,14 +87,14 @@ class ProfilePhoto < ApplicationRecord
       return
     end
 
-    if image.format != 'PNG'
+    if image.type != 'PNG'
       errors.add(:data, _("Failed to convert image to a PNG"))
     end
 
-    if !draft && (image.columns != WIDTH || image.rows != HEIGHT)
+    if !draft && (image.width != WIDTH || image.height != HEIGHT)
       errors.add(:data, _("Failed to convert image to the correct size: at {{cols}}x{{rows}}, need {{width}}x{{height}}",
-                          :cols => image.columns,
-                          :rows => image.rows,
+                          :cols => image.width,
+                          :rows => image.height,
                           :width => WIDTH,
                           :height => HEIGHT))
     end
@@ -108,18 +115,16 @@ class ProfilePhoto < ApplicationRecord
       return
     end
 
-    image_list = Magick::ImageList.new
-
     begin
-      image_list.from_blob(data)
-    rescue Magick::ImageMagickError
+      converted = MiniMagick::Image.read(data)
+    rescue MiniMagick::Invalid
       self.image = nil
       return
     end
 
     # TODO: perhaps take largest image or somesuch if there were multiple
     # in the file?
-    self.image = image_list[0]
+    self.image = converted
     convert_image
   end
 end

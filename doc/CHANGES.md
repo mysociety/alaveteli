@@ -7,6 +7,7 @@
   updates (Gareth Rees)
 * Configure Google Analytics to anonymise their IP address and disable storing
   browser cookies. (Graeme Porteous)
+* Removed New Relic support (Graeme Porteous)
 
 # Upgrade Notes
 

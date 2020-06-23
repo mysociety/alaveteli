@@ -99,6 +99,18 @@
           <% end %>
         </div>
 
+        <% if can? :download, @project %>
+          <div class="project-download-data">
+            <p>
+              <%= _('You are an <strong>owner</strong> on this project') %>
+            </p>
+
+            <%= link_to _('Download Data'),
+                  project_download_path(@project, format: :csv),
+                  class: 'button-tertiary' %>
+          </div>
+        <% end %>
+
         <% if can? :remove_contributor, current_user %>
           <div class="project-access-status">
             <p>
