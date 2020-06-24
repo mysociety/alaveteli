@@ -3,23 +3,21 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe "When errors occur" do
 
-  def set_consider_all_requests_local(value)
+  def set_consider_all_requests_local(value, example)
     app = Rails.application
     config = app.config
     env_config = app.env_config
 
-    @exceptions = env_config['action_dispatch.show_exceptions']
-    @requests_local = config.consider_all_requests_local
+    show_exceptions = env_config['action_dispatch.show_exceptions']
+    consider_all_requests_local = config.consider_all_requests_local
 
     env_config['action_dispatch.show_exceptions'] = true
     config.consider_all_requests_local = value
-  end
 
-  def restore_consider_all_requests_local
-    app = Rails.application
+    example.run
 
-    app.config.consider_all_requests_local = @requests_local
-    app.env_config['action_dispatch.show_exceptions'] = @exceptions
+    config.consider_all_requests_local = consider_all_requests_local
+    env_config['action_dispatch.show_exceptions'] = show_exceptions
   end
 
   before(:each) do
@@ -28,13 +26,9 @@ describe "When errors occur" do
     ActionMailer::Base.deliveries = []
   end
 
-  after(:each) do
-    restore_consider_all_requests_local
-  end
-
   context 'when considering all requests local (by default all in development)' do
 
-    before(:each) { set_consider_all_requests_local(true) }
+    around(:each) { |example| set_consider_all_requests_local(true, example) }
 
     it 'should show a full trace for general errors' do
       allow(InfoRequest).to receive(:find_by_url_title!).and_raise("An example error")
@@ -47,7 +41,7 @@ describe "When errors occur" do
 
   context 'when not considering all requests local' do
 
-    before(:each) { set_consider_all_requests_local(false) }
+    around(:each) { |example| set_consider_all_requests_local(false, example) }
 
     it "should render a 404 for unrouteable URLs using the general/exception_caught template" do
       get "/frobsnasm"
