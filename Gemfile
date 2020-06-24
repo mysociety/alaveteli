@@ -162,7 +162,7 @@ gem 'therubyracer', '~> 0.12.0'
 gem 'alaveteli_features', :path => 'gems/alaveteli_features'
 
 group :test do
-  gem 'webmock', '~> 3.5.1'
+  gem 'webmock', '~> 3.8.3'
   gem 'coveralls', '~> 0.8.23', require: false
   gem 'capybara', '~> 3.5.0'
   gem 'delorean', '~> 2.1.0'
