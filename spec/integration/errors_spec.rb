@@ -8,18 +8,18 @@ describe "When errors occur" do
     config = app.config
     env_config = app.env_config
 
-    allow(app).to receive(:env_config).with(no_args) do
-      env_config.merge(
-        'action_dispatch.show_exceptions' => true,
-        'consider_all_requests_local' => value
-      )
-    end
+    @exceptions = env_config['action_dispatch.show_exceptions']
     @requests_local = config.consider_all_requests_local
+
+    env_config['action_dispatch.show_exceptions'] = true
     config.consider_all_requests_local = value
   end
 
   def restore_consider_all_requests_local
-    Rails.application.config.consider_all_requests_local = @requests_local
+    app = Rails.application
+
+    app.config.consider_all_requests_local = @requests_local
+    app.env_config['action_dispatch.show_exceptions'] = @exceptions
   end
 
   before(:each) do
