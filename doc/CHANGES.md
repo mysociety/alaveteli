@@ -3,6 +3,7 @@
 ## Highlighted Features
 
 * Upgrade to Rails 5.2 (Graeme Porteous)
+* Upgrade to Xapian to 1.4.11 (Sam Pearson, Graeme Porteous)
 * Don't show profile photos of banned users (Gareth Rees)
 * Link to change request form when asking users contact us about request email
   updates (Gareth Rees)
@@ -12,6 +13,9 @@
 
 # Upgrade Notes
 
+* **IMPORTANT! We now depend on Xapian 1.4**, which means you may need to
+  [convert your flint database to a chert database](https://getting-started-with-xapian.readthedocs.io/en/latest/advanced/admin_notes.html#converting-a-flint-database-to-a-chert-database)
+  prior to upgrading Alaveteli.
 * The Google Analytics code has been extracted into
   `views/application/_ga_code.html.erb`, and to avoid the GDPR requirement to
   show cookie opt-in notices, now sets cookie-less tracking. Additionally, we
