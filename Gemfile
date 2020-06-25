@@ -86,7 +86,7 @@ end
 
 gem 'rails', rails_upgrade? ? '~> 6.0.3' : '~> 5.2.4'
 
-gem 'pg', '~> 0.20.0'
+gem 'pg', '~> 1.2.3'
 
 # New gem releases aren't being done. master is newer and supports Rails > 3.0
 gem 'acts_as_versioned', :git => 'https://github.com/technoweenie/acts_as_versioned.git', :ref => '63b1fc8529d028'
