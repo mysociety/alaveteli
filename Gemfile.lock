@@ -1,14 +1,4 @@
 GIT
-  remote: https://github.com/gbp/stripe-ruby-mock
-  revision: a9bc69707925dc7e7d091d02939791bd87e7ba98
-  branch: develop
-  specs:
-    stripe-ruby-mock (2.5.6)
-      dante (>= 0.2.0)
-      multi_json (~> 1.0)
-      stripe (>= 2.0.3)
-
-GIT
   remote: https://github.com/heapsource/active_model_otp.git
   revision: 55d93a3979907d8382c83c9b0f3e94e3186167fc
   ref: 55d93a3979
@@ -33,6 +23,16 @@ GIT
   specs:
     strip_attributes (1.11.0)
       activemodel (>= 3.0, < 7.0)
+
+GIT
+  remote: https://github.com/stripe-ruby-mock/stripe-ruby-mock
+  revision: 2c925fd8cb568e3d0cfebffbe1babb490793f150
+  ref: 2c925fd
+  specs:
+    stripe-ruby-mock (3.0.1)
+      dante (>= 0.2.0)
+      multi_json (~> 1.0)
+      stripe (> 5, < 6)
 
 GIT
   remote: https://github.com/technoweenie/acts_as_versioned.git

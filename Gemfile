@@ -164,8 +164,8 @@ group :test do
   gem 'coveralls', '~> 0.8.23', require: false
   gem 'capybara', '~> 3.15.1'
   gem 'delorean', '~> 2.1.0'
-  gem 'stripe-ruby-mock', git: 'https://github.com/gbp/stripe-ruby-mock',
-                          branch: 'develop'
+  gem 'stripe-ruby-mock', git: 'https://github.com/stripe-ruby-mock/stripe-ruby-mock',
+                          ref: '2c925fd'
   gem('rails-controller-testing')
 end
 
