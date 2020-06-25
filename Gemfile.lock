@@ -487,7 +487,6 @@ DEPENDENCIES
   pg (~> 1.2.3)
   pry (~> 0.12.2)
   pry-byebug (~> 3.7.0)
-  public_suffix (~> 2.0.0, < 3.0.0)
   rack (~> 2.2.3)
   rack-ssl (~> 1.4.0)
   rack-utf8_sanitizer (~> 1.7.0)
