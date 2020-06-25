@@ -5,6 +5,7 @@ require 'coveralls'
 require 'webmock/rspec'
 require 'stripe_mock_patch'
 require "alaveteli_features/spec_helpers"
+require 'strip_attributes/matchers'
 
 cov_formats = [Coveralls::SimpleCov::Formatter]
 cov_formats << SimpleCov::Formatter::HTMLFormatter if ENV['COVERAGE'] == 'local'
@@ -55,6 +56,7 @@ RSpec.configure do |config|
   config.include Capybara::DSL, :type => :request
   config.include Delorean
   config.include LinkToHelper
+  config.include StripAttributes::Matchers
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
