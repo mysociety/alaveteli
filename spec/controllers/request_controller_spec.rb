@@ -2099,8 +2099,7 @@ describe RequestController, "#new_batch" do
 
   context "when batch requests is not enabled" do
 
-    it 'should return a 404' do
-      allow(Rails.application.config).to receive(:consider_all_requests_local).and_return(false)
+    it 'should return a 404', local_requests: false do
       get :new_batch
       expect(response.code).to eq('404')
     end
@@ -2248,8 +2247,7 @@ describe RequestController, "#select_authorities" do
 
   context "when batch requests is not enabled" do
 
-    it 'should return a 404' do
-      allow(Rails.application.config).to receive(:consider_all_requests_local).and_return(false)
+    it 'should return a 404', local_requests: false do
       get :select_authorities
       expect(response.code).to eq('404')
     end
