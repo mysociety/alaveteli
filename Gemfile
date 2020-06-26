@@ -155,7 +155,7 @@ gem 'bootstrap-sass', '~> 2.3.2.2'
 gem 'sass-rails', '~> 5.0.7'
 gem 'compass-rails', '~> 3.1.0'
 gem 'coffee-rails', '~> 4.2.0'
-gem 'uglifier', '~> 3.2.0'
+gem 'uglifier', '~> 4.2.0'
 gem 'therubyracer', '~> 0.12.0'
 
 # Feature flags

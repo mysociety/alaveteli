@@ -420,7 +420,7 @@ GEM
       sync
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
-    uglifier (3.2.0)
+    uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
     unicode (0.4.4.4)
     unicode-display_width (1.4.1)
@@ -526,7 +526,7 @@ DEPENDENCIES
   syslog_protocol (~> 0.9.0)
   therubyracer (~> 0.12.0)
   thin (~> 1.5.0, < 1.6.0)
-  uglifier (~> 3.2.0)
+  uglifier (~> 4.2.0)
   unicode (~> 0.4.4)
   unidecoder (~> 1.1.0)
   vpim (~> 13.11.11)
