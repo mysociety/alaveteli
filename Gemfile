@@ -86,7 +86,7 @@ end
 
 gem 'rails', rails_upgrade? ? '~> 6.0.3' : '~> 5.2.4'
 
-gem 'pg', '~> 0.20.0'
+gem 'pg', '~> 1.2.3'
 
 # New gem releases aren't being done. master is newer and supports Rails > 3.0
 gem 'acts_as_versioned', :git => 'https://github.com/technoweenie/acts_as_versioned.git', :ref => '63b1fc8529d028'
@@ -108,7 +108,7 @@ gem 'holidays', '~> 4.7.0', '< 5.0.0'
 gem 'iso_country_codes', '~> 0.7.8'
 gem 'mail', rails_upgrade? ? '~> 2.7.1' : '~> 2.6.6'
 gem 'maxmind-db', '~> 1.0.0'
-gem 'mahoro', '~> 0.4'
+gem 'mahoro', '~> 0.5'
 gem 'nokogiri', '~> 1.10.9'
 gem 'open4', '~> 1.3.0'
 gem 'rack', '~> 2.2.3'
@@ -127,7 +127,7 @@ gem 'syslog_protocol', '~> 0.9.0'
 gem 'thin', '~> 1.5.0', '< 1.6.0'
 gem 'vpim', '~> 13.11.11'
 gem 'will_paginate', '~> 3.3.0'
-gem 'xapian-full-alaveteli', '~> 1.2.21.1'
+gem 'xapian-full-alaveteli', '~> 1.4.11.1'
 gem 'xml-simple', '~> 1.1.0', :require => 'xmlsimple'
 gem 'zip_tricks', '~> 5.0.0'
 
@@ -137,9 +137,9 @@ gem 'gender_detector', '~> 2.0.0'
 # Gems related to internationalisation
 gem 'i18n', ['~> 0.9.0', '< 0.9.3']
 gem 'rails-i18n', rails_upgrade? ? '~> 6.0.0' : '~> 5.1.0'
-gem 'gettext_i18n_rails', '~> 0.10.1'
-  gem 'fast_gettext', '< 1.2.0'
-gem 'gettext', '~> 2.3.0'
+gem 'gettext_i18n_rails', '~> 1.8.1'
+  gem 'fast_gettext', '< 2.0.3'
+gem 'gettext', '< 3.3.0'
 gem 'globalize', rails_upgrade? ? '~> 5.3.0' : '~> 5.2.0'
 gem 'locale', '~> 2.0.0', '< 2.1.0'
 gem 'routing-filter', '~> 0.6.2'
@@ -162,7 +162,7 @@ gem 'therubyracer', '~> 0.12.0'
 gem 'alaveteli_features', :path => 'gems/alaveteli_features'
 
 group :test do
-  gem 'webmock', '~> 3.5.1'
+  gem 'webmock', '~> 3.8.3'
   gem 'coveralls', '~> 0.8.23', require: false
   gem 'capybara', '~> 3.5.0'
   gem 'delorean', '~> 2.1.0'
@@ -179,7 +179,6 @@ group :test, :development do
   gem 'rspec-rails', '~> 3.7.2'
   gem 'pry', '~> 0.12.2'
   gem 'pry-byebug', '~> 3.7.0'
-    gem 'public_suffix', '~> 2.0.0', '< 3.0.0'
 end
 
 group :development do
