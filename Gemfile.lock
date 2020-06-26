@@ -318,7 +318,7 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    recaptcha (4.9.0)
+    recaptcha (5.5.0)
       json
     ref (2.0.0)
     request_store (1.4.1)
@@ -493,7 +493,7 @@ DEPENDENCIES
   rails (~> 5.2.4)
   rails-controller-testing
   rails-i18n (~> 5.1.0)
-  recaptcha (~> 4.9.0, < 4.10.0)
+  recaptcha (~> 5.5.0)
   rolify (~> 5.3.0)
   routing-filter (~> 0.6.2)
   rspec-activemodel-mocks (~> 1.1.0)
