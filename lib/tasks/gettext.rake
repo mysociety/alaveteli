@@ -33,8 +33,7 @@ namespace :gettext do
 
   desc 'Rewrite theme .po files into a consistent msgmerge format'
   task :clean_theme do
-    theme = find_theme(ENV['THEME'])
-    clean(root: theme_locale_path(theme))
+    clean(root: theme_locale_path)
   end
 
   def xgettext(pot_file, *files)
@@ -70,15 +69,14 @@ namespace :gettext do
     find(files: files_to_translate, root: locale_path)
   end
 
-  desc "Update pot/po files for a theme."
-  task :find_theme => :environment do
-    theme = find_theme(ENV['THEME'])
-    find(files: theme_files_to_translate(theme), root: theme_locale_path(theme))
-  end
-
   desc "Update pot/po files for Alaveteli Pro."
   task :find_alaveteli_pro => :environment do
     find(files: pro_files_to_translate, root: pro_locale_path)
+  end
+
+  desc "Update pot/po files for a theme."
+  task :find_theme => :environment do
+    find(files: theme_files_to_translate, root: theme_locale_path)
   end
 
   desc 'Remove fuzzy translations'
@@ -138,14 +136,6 @@ namespace :gettext do
     data
   end
 
-  def find_theme(theme)
-    unless theme
-      puts "Usage: Specify an Alaveteli-theme with THEME=[theme directory name]"
-      exit(1)
-    end
-    theme
-  end
-
   def find_mapping_file(file)
     unless file
       puts "Usage: Specify a csv file mapping old to new strings with MAPPING_FILE=[file name]"
@@ -177,12 +167,21 @@ namespace :gettext do
     Rails.root.join "locale_alaveteli_pro"
   end
 
-  def theme_files_to_translate(theme)
+  def find_theme(theme)
+    unless theme
+      puts "Usage: Specify an Alaveteli-theme with THEME=[theme directory name]"
+      exit(1)
+    end
+    theme
+  end
+
+  def theme_files_to_translate
+    theme = find_theme(ENV['THEME'])
     Dir.glob("{lib/themes/#{theme}/lib}/**/*.{rb,erb}")
   end
 
-  def theme_locale_path(theme)
+  def theme_locale_path
+    theme = find_theme(ENV['THEME'])
     Rails.root.join "lib", "themes", theme, "locale-theme"
   end
-
 end
