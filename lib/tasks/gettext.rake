@@ -6,9 +6,16 @@ namespace :gettext do
   end
 
   def clean_dir(dir)
-    Dir.glob("#{dir}/*/app.po") do |po_file|
-      GetText::msgmerge(po_file, po_file, 'alaveteli',
-                        :msgmerge => [:sort_output, :no_location, :no_wrap])
+    Dir.glob("#{dir}/*/#{text_domain}.po") do |po_file|
+      po_temp = Tempfile.new(po_file)
+      GetText::Tools::MsgMerge.run(
+        *msgmerge, '--output', po_temp.path, po_file, po_file
+      )
+      content = po_temp.read
+      po_temp.close!
+
+      content.sub!(/(Project-Id-Version\:).*$/, '\\1 alaveteli\\n"')
+      File.open(po_file, 'w') { |f| f.write(content) }
     end
   end
 
