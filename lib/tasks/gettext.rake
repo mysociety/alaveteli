@@ -31,21 +31,26 @@ namespace :gettext do
     clean_dir('locale_alaveteli_pro')
   end
 
-  def find(files:, root:)
-    pot_file = File.join(root, "#{text_domain}.pot")
-
-    pot_temp = Tempfile.new(pot_file)
-    pot_temp_path = pot_temp.path
+  def xgettext(pot_file, *files)
+    output = Tempfile.new(pot_file)
+    output_path = output.path
 
     # find new strings and write to temp file
     GetText::Tools::XGetText.run(
-      '--add-comments=TRANSLATORS', '--output', pot_temp_path, *files
+      '--add-comments=TRANSLATORS', '--output', output_path, *files
     )
 
     # merge new string temp file with POT file
-    msgmerge(pot_file, pot_temp_path)
+    msgmerge(pot_file, output_path)
 
-    pot_temp.close!
+    output.close!
+  end
+
+  def find(files:, root:)
+    pot_file = File.join(root, "#{text_domain}.pot")
+
+    # extract new strings from files and update POT file
+    xgettext(pot_file, *files)
 
     Dir.glob("#{root}/*/#{text_domain}.po") do |po_file|
       # merge POT file with localised PO files
