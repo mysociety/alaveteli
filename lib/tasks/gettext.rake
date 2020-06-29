@@ -1,21 +1,23 @@
 # -*- encoding : utf-8 -*-
 namespace :gettext do
-  def msgmerge
-    Rails.application.config.gettext_i18n_rails.msgmerge ||
-      %w[--sort-output --no-location --no-wrap]
+  def msgmerge(*files)
+    destination = files.first
+    options = %w[--sort-output --no-location --no-wrap --no-obsolete-entries]
+
+    output = Tempfile.new(destination)
+
+    GetText::Tools::MsgMerge.run(*options, '--output', output.path, *files)
+    content = output.read
+    content.sub!(/(Project-Id-Version\:).*$/, '\\1 alaveteli\\n"')
+    File.open(destination, 'w') { |file| file.write(content) }
+
+    output.close!
   end
 
   def clean_dir(dir)
     Dir.glob("#{dir}/*/#{text_domain}.po") do |po_file|
-      po_temp = Tempfile.new(po_file)
-      GetText::Tools::MsgMerge.run(
-        *msgmerge, '--output', po_temp.path, po_file, po_file
-      )
-      content = po_temp.read
-      po_temp.close!
-
-      content.sub!(/(Project-Id-Version\:).*$/, '\\1 alaveteli\\n"')
-      File.open(po_file, 'w') { |f| f.write(content) }
+      # merge PO file with themselves - using msgmerge options above to clean
+      msgmerge(po_file, po_file)
     end
   end
 
@@ -33,32 +35,21 @@ namespace :gettext do
     pot_file = File.join(root, "#{text_domain}.pot")
 
     pot_temp = Tempfile.new(pot_file)
+    pot_temp_path = pot_temp.path
+
+    # find new strings and write to temp file
     GetText::Tools::XGetText.run(
-      '--add-comments=TRANSLATORS', '--output', output_path, *files
+      '--add-comments=TRANSLATORS', '--output', pot_temp_path, *files
     )
 
-    po_temp = Tempfile.new(pot_file)
-    GetText::Tools::MsgMerge.run(
-      *msgmerge, '--output', po_temp.path, pot_file, pot_temp.path
-    )
-    content = po_temp.read
-    po_temp.close!
-
-    content.sub!(/(Project-Id-Version\:).*$/, '\\1 version 0.0.1\\n"')
-    File.open(pot_file, 'w') { |f| f.write(content) }
+    # merge new string temp file with POT file
+    msgmerge(pot_file, pot_temp_path)
 
     pot_temp.close!
 
     Dir.glob("#{root}/*/#{text_domain}.po") do |po_file|
-      po_temp = Tempfile.new(po_file)
-      GetText::Tools::MsgMerge.run(
-        *msgmerge, '--output', po_temp.path, po_file, pot_file
-      )
-      content = po_temp.read
-      po_temp.close!
-
-      content.sub!(/(Project-Id-Version\:).*$/, '\\1 alaveteli\\n"')
-      File.open(po_file, 'w') { |f| f.write(content) }
+      # merge POT file with localised PO files
+      msgmerge(po_file, pot_file)
     end
   end
 
