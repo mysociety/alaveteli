@@ -29,39 +29,31 @@ namespace :gettext do
     clean_dir('locale_alaveteli_pro')
   end
 
+  def find(files:, root:)
+    GetText.update_pofiles_org(
+      text_domain,
+      files,
+      "version 0.0.1",
+      :po_root => root,
+      :msgmerge => msgmerge
+    )
+  end
+
   Rake::Task['find'].clear
   desc "Update pot/po files."
   task :find => :environment do
-    GetText.update_pofiles_org(
-      text_domain,
-      files_to_translate,
-      "version 0.0.1",
-      :po_root => locale_path,
-      :msgmerge => msgmerge
-    )
+    find(files: files_to_translate, root: locale_path)
   end
 
   desc "Update pot/po files for a theme."
   task :find_theme => :environment do
     theme = find_theme(ENV['THEME'])
-    GetText.update_pofiles_org(
-      text_domain,
-      theme_files_to_translate(theme),
-      "version 0.0.1",
-      :po_root => theme_locale_path(theme),
-      :msgmerge => msgmerge
-    )
+    find(files: theme_files_to_translate(theme), root: theme_locale_path(theme))
   end
 
   desc "Update pot/po files for Alaveteli Pro."
   task :find_alaveteli_pro => :environment do
-    GetText.update_pofiles_org(
-      text_domain,
-      pro_files_to_translate,
-      "version 0.0.1",
-      :po_root => pro_locale_path,
-      :msgmerge => msgmerge
-    )
+    find(files: pro_files_to_translate, root: pro_locale_path)
   end
 
   desc 'Rewrite theme .po files into a consistent msgmerge format'
