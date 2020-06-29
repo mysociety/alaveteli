@@ -29,6 +29,18 @@ namespace :gettext do
     clean_dir('locale_alaveteli_pro')
   end
 
+  Rake::Task['find'].clear
+  desc "Update pot/po files."
+  task :find => :environment do
+    GetText.update_pofiles_org(
+      text_domain,
+      files_to_translate,
+      "version 0.0.1",
+      :po_root => locale_path,
+      :msgmerge => msgmerge
+    )
+  end
+
   desc "Update pot/po files for a theme."
   task :find_theme => :environment do
     theme = find_theme(ENV['THEME'])
