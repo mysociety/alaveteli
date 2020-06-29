@@ -1,5 +1,9 @@
 # -*- encoding : utf-8 -*-
 namespace :gettext do
+  def msgmerge
+    Rails.application.config.gettext_i18n_rails.msgmerge ||
+      %w[--sort-output --no-location --no-wrap]
+  end
 
   def clean_dir(dir)
     Dir.glob("#{dir}/*/app.po") do |po_file|
@@ -21,8 +25,6 @@ namespace :gettext do
   desc "Update pot/po files for a theme."
   task :find_theme => :environment do
     theme = find_theme(ENV['THEME'])
-    msgmerge = Rails.application.config.gettext_i18n_rails.msgmerge
-    msgmerge ||= %w[--sort-output --no-location --no-wrap]
     GetText.update_pofiles_org(
       text_domain,
       theme_files_to_translate(theme),
@@ -34,8 +36,6 @@ namespace :gettext do
 
   desc "Update pot/po files for Alaveteli Pro."
   task :find_alaveteli_pro => :environment do
-    msgmerge = Rails.application.config.gettext_i18n_rails.msgmerge
-    msgmerge ||= %w[--sort-output --no-location --no-wrap]
     GetText.update_pofiles_org(
       text_domain,
       pro_files_to_translate,
