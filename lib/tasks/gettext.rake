@@ -30,13 +30,36 @@ namespace :gettext do
   end
 
   def find(files:, root:)
-    GetText.update_pofiles_org(
-      text_domain,
-      files,
-      "version 0.0.1",
-      :po_root => root,
-      :msgmerge => msgmerge
+    pot_file = File.join(root, "#{text_domain}.pot")
+
+    pot_temp = Tempfile.new(pot_file)
+    GetText::Tools::XGetText.run(
+      '--add-comments=TRANSLATORS', '--output', output_path, *files
     )
+
+    po_temp = Tempfile.new(pot_file)
+    GetText::Tools::MsgMerge.run(
+      *msgmerge, '--output', po_temp.path, pot_file, pot_temp.path
+    )
+    content = po_temp.read
+    po_temp.close!
+
+    content.sub!(/(Project-Id-Version\:).*$/, '\\1 version 0.0.1\\n"')
+    File.open(pot_file, 'w') { |f| f.write(content) }
+
+    pot_temp.close!
+
+    Dir.glob("#{root}/*/#{text_domain}.po") do |po_file|
+      po_temp = Tempfile.new(po_file)
+      GetText::Tools::MsgMerge.run(
+        *msgmerge, '--output', po_temp.path, po_file, pot_file
+      )
+      content = po_temp.read
+      po_temp.close!
+
+      content.sub!(/(Project-Id-Version\:).*$/, '\\1 alaveteli\\n"')
+      File.open(po_file, 'w') { |f| f.write(content) }
+    end
   end
 
   Rake::Task['find'].clear
