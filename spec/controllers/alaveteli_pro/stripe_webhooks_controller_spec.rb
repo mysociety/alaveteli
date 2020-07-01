@@ -10,18 +10,18 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
     let(:signing_secret) { config_secret }
     let(:stripe_helper) { StripeMock.create_test_helper }
 
+    let(:product) { stripe_helper.create_product }
+
     let(:stripe_customer) do
       Stripe::Customer.create(source: stripe_helper.generate_card_token,
                               currency: 'gbp')
     end
 
     let(:stripe_plan) do
-      Stripe::Plan.create(id: 'test',
-                          name: 'Test',
-                          product: { id: 'pr_0000', name: 'Test' },
-                          amount: 10,
-                          currency: 'gbp',
-                          interval: 'monthly')
+      stripe_helper.create_plan(
+        id: 'test', name: 'Test', product: product.id,
+        amount: 10, currency: 'gbp'
+      )
     end
 
     let(:stripe_subscription) do
@@ -218,12 +218,10 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
 
       context 'the webhook is for a matching namespaced plan' do
         let(:stripe_plan) do
-          Stripe::Plan.create(id: 'WDTK-test',
-                              name: 'Test',
-                              product: { id: 'pr_0000', name: 'Test' },
-                              amount: 10,
-                              currency: 'gbp',
-                              interval: 'monthly')
+          stripe_helper.create_plan(
+            id: 'WDTK-test', name: 'Test', product: product.id,
+            amount: 10, currency: 'gbp'
+          )
         end
 
         let(:stripe_event) do

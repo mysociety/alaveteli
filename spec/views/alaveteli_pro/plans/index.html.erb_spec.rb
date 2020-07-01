@@ -4,11 +4,15 @@ describe 'alaveteli_pro/plans/index.html.erb' do
   before { StripeMock.start }
   after { StripeMock.stop }
   let(:stripe_helper) { StripeMock.create_test_helper }
+  let(:product) { stripe_helper.create_product }
+
   let(:plan_with_tax) { AlaveteliPro::WithTax.new(stripe_plan) }
   let(:cents_price) { 880 }
 
   let(:stripe_plan) do
-    stripe_helper.create_plan(id: 'pro', amount: cents_price)
+    stripe_helper.create_plan(
+      id: 'pro', product: product.id, amount: cents_price
+    )
   end
 
   before do

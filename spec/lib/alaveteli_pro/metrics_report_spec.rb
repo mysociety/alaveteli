@@ -5,10 +5,19 @@ describe AlaveteliPro::MetricsReport do
   before { StripeMock.start }
   after { StripeMock.stop }
   let(:stripe_helper) { StripeMock.create_test_helper }
-  let!(:pro_plan) { stripe_helper.create_plan(id: 'pro', amount: 10) }
+
+  let(:product) { stripe_helper.create_product }
+
+  let!(:pro_plan) {
+    stripe_helper.create_plan(
+      id: 'pro', product: product.id, amount: 10
+    )
+  }
 
   let!(:pro_annual_plan) do
-    stripe_helper.create_plan(id: 'pro-annual-billing', amount: 100)
+    stripe_helper.create_plan(
+      id: 'pro-annual-billing', product: product.id, amount: 100
+    )
   end
 
   describe '#includes_pricing_data?' do
@@ -204,8 +213,16 @@ describe AlaveteliPro::MetricsReport do
       end
 
       describe 'returning cancelled user data' do
+        let(:unrelated_product) do
+          stripe_helper.create_product(
+            id: 'not_ours'
+          )
+        end
+
         let(:unrelated_plan) do
-          stripe_helper.create_plan(id: 'not_ours', amount: 4)
+          stripe_helper.create_plan(
+            id: 'not_ours', product: unrelated_product.id, amount: 4
+          )
         end
 
         before do
