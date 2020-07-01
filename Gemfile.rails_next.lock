@@ -446,7 +446,7 @@ GEM
     xpath (3.1.0)
       nokogiri (~> 1.8)
     zeitwerk (2.3.0)
-    zip_tricks (5.0.0)
+    zip_tricks (5.3.1)
 
 PLATFORMS
   ruby
@@ -535,4 +535,4 @@ DEPENDENCIES
   will_paginate (~> 3.3.0)
   xapian-full-alaveteli (~> 1.4.11.1)
   xml-simple (~> 1.1.0)
-  zip_tricks (~> 5.0.0)
+  zip_tricks (~> 5.3.1)
