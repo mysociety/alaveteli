@@ -35,7 +35,7 @@ class AdminHolidaysController < AdminController
   end
 
   def update
-    if @holiday.update_attributes(holiday_params)
+    if @holiday.update(holiday_params)
       flash[:notice] = 'Holiday successfully updated.'
       redirect_to admin_holidays_path
     else

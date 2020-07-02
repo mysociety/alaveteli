@@ -29,7 +29,7 @@ class AdminPublicBodyHeadingsController < AdminController
 
   def update
     AlaveteliLocalization.with_locale(AlaveteliLocalization.default_locale) do
-      if @public_body_heading.update_attributes(public_body_heading_params)
+      if @public_body_heading.update(public_body_heading_params)
         flash[:notice] = 'Heading was successfully updated.'
         redirect_to edit_admin_heading_path(@public_body_heading)
       else

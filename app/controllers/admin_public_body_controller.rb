@@ -98,7 +98,7 @@ class AdminPublicBodyController < AdminController
     end
     AlaveteliLocalization.with_locale(AlaveteliLocalization.default_locale) do
       params[:public_body][:last_edit_editor] = admin_current_user
-      if @public_body.update_attributes(public_body_params)
+      if @public_body.update(public_body_params)
         if @change_request
           @change_request.close!
           @change_request.send_response(params[:subject], params[:response])

@@ -27,7 +27,7 @@ class AdminOutgoingMessageController < AdminController
     old_body = @outgoing_message.raw_body
     old_prominence = @outgoing_message.prominence
     old_prominence_reason = @outgoing_message.prominence_reason
-    if @outgoing_message.update_attributes(outgoing_message_params)
+    if @outgoing_message.update(outgoing_message_params)
       @outgoing_message.
         info_request.
           log_event("edit_outgoing",

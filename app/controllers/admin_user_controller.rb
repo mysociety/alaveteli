@@ -70,7 +70,7 @@ class AdminUserController < AdminController
   end
 
   def update
-    if @admin_user.update_attributes(user_params)
+    if @admin_user.update(user_params)
       if @admin_user == @user && !@admin_user.is_admin?
         flash[:notice] = 'User successfully updated - ' \
                          'you are no longer an admin.'

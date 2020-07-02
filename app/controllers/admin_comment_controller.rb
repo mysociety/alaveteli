@@ -41,7 +41,7 @@ class AdminCommentController < AdminController
     old_visible = @comment.visible
     old_attention = @comment.attention_requested
 
-    if @comment.update_attributes(comment_params)
+    if @comment.update(comment_params)
       update_type = if comment_hidden?(old_visible, old_body)
         "hide_comment"
       else

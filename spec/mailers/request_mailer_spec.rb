@@ -835,7 +835,7 @@ describe RequestMailer do
 
       im = ir.incoming_messages.last
       old_prominence = im.prominence
-      im.update_attributes(prominence: 'hidden')
+      im.update(prominence: 'hidden')
       im.info_request.log_event('edit_incoming',
                                 incoming_message_id: im.id,
                                 editor: FactoryBot.create(:admin_user).id,

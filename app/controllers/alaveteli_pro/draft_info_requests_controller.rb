@@ -13,7 +13,7 @@ class AlaveteliPro::DraftInfoRequestsController < AlaveteliPro::BaseController
 
   def update
     @draft = current_user.draft_info_requests.find(params[:id])
-    @draft.update_attributes(draft_params)
+    @draft.update(draft_params)
     redirect_after_create_or_update
   end
 
