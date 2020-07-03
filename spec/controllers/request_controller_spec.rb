@@ -2397,7 +2397,7 @@ describe RequestController do
 
       it 'does not render the describe state form' do
         info_request = FactoryBot.create(:info_request)
-        info_request.update_attributes(:awaiting_description => true)
+        info_request.update(:awaiting_description => true)
         info_request.expire
         session[:user_id] = info_request.user_id
         get :download_entire_request, params: { :url_title => info_request.url_title }

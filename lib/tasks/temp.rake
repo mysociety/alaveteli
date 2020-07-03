@@ -253,7 +253,7 @@ namespace :temp do
   task :update_hide_event_type => :environment do
     InfoRequestEvent.where(:event_type => 'edit').find_each do |event|
       if event.only_editing_prominence_to_hide?
-        event.update_attributes!(event_type: "hide")
+        event.update!(event_type: "hide")
       end
     end
   end
@@ -264,7 +264,7 @@ namespace :temp do
       MailServerLog::DeliveryStatus::TranslatedConstants.
         humanized.keys.map(&:to_s)
     MailServerLog.where.not(:delivery_status => mta_agnostic_statuses).find_each do |mail_log|
-      mail_log.update_attributes!(:delivery_status => mail_log.delivery_status)
+      mail_log.update!(:delivery_status => mail_log.delivery_status)
       puts "Cached MailServerLog#delivery_status of id: #{ mail_log.id }"
     end
   end

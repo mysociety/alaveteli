@@ -1626,7 +1626,7 @@ class InfoRequest < ApplicationRecord
       })
     end
 
-    return_val = if update_attributes(attrs)
+    return_val = if update(attrs)
       log_event('move_request',
                 :editor => editor,
                 :public_body_url_name => public_body.url_name,
@@ -1651,7 +1651,7 @@ class InfoRequest < ApplicationRecord
     old_user = user
     editor = opts.fetch(:editor)
 
-    return_val = if update_attributes(:user => destination_user)
+    return_val = if update(:user => destination_user)
       log_event('move_request',
                 :editor => editor,
                 :user_url_name => user.url_name,

@@ -14,7 +14,7 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
   def index
     @request_filter = AlaveteliPro::RequestFilter.new
     if params[:alaveteli_pro_request_filter]
-      @request_filter.update_attributes(request_filter_params)
+      @request_filter.update(request_filter_params)
     end
     request_summaries = @request_filter.results(current_user)
     @page = params[:page] || 1

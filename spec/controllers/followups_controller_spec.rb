@@ -455,7 +455,7 @@ describe FollowupsController do
     context 'the request is no longer open to "anybody"' do
 
       before do
-        request.update_attributes(
+        request.update(
           allow_new_responses_from: 'authority_only',
           reject_incoming_at_mta: true
         )

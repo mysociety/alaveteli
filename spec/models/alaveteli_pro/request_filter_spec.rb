@@ -3,29 +3,29 @@ require 'spec_helper'
 
 describe AlaveteliPro::RequestFilter do
 
-  describe '#update_attributes' do
+  describe '#update' do
 
     it 'assigns the filter' do
       request_filter = described_class.new
-      request_filter.update_attributes(:filter => 'awaiting_response')
+      request_filter.update(:filter => 'awaiting_response')
       expect(request_filter.filter).to eq 'awaiting_response'
     end
 
     it 'assigns the search' do
       request_filter = described_class.new
-      request_filter.update_attributes(:search => 'lazy dog')
+      request_filter.update(:search => 'lazy dog')
       expect(request_filter.search).to eq 'lazy dog'
     end
 
     it 'assigns the order' do
       request_filter = described_class.new
-      request_filter.update_attributes(:order => 'created_at_asc')
+      request_filter.update(:order => 'created_at_asc')
       expect(request_filter.order).to eq 'created_at_asc'
     end
 
     it 'does not assign an empty filter' do
       request_filter = described_class.new
-      request_filter.update_attributes(:filter => '')
+      request_filter.update(:filter => '')
       expect(request_filter.filter).to be nil
     end
 
@@ -35,7 +35,7 @@ describe AlaveteliPro::RequestFilter do
 
     def expect_label(label, filter)
       request_filter = described_class.new
-      request_filter.update_attributes(:filter => filter)
+      request_filter.update(:filter => filter)
       expect(request_filter.filter_capital_label).to eq label
     end
 
@@ -77,7 +77,7 @@ describe AlaveteliPro::RequestFilter do
 
     def expect_label(label, filter)
       request_filter = described_class.new
-      request_filter.update_attributes(:filter => filter)
+      request_filter.update(:filter => filter)
       expect(request_filter.filter_label).to eq label
     end
 
@@ -154,7 +154,7 @@ describe AlaveteliPro::RequestFilter do
       second_request = FactoryBot.create(:info_request, user: user)
 
       request_filter = described_class.new
-      request_filter.update_attributes(order: 'created_at_asc')
+      request_filter.update(order: 'created_at_asc')
       expected = [first_request.request_summary,
                   second_request.request_summary]
       expect(request_filter.results(user)).to eq(expected)
@@ -166,7 +166,7 @@ describe AlaveteliPro::RequestFilter do
       incomplete_request = FactoryBot.create(:info_request,
                                              user: user)
       request_filter = described_class.new
-      request_filter.update_attributes(filter: 'complete')
+      request_filter.update(filter: 'complete')
       expect(request_filter.results(user)).
         to eq([complete_request.request_summary])
     end
@@ -179,7 +179,7 @@ describe AlaveteliPro::RequestFilter do
                                       title: 'Where is my cat?',
                                       user: user)
       request_filter = described_class.new
-      request_filter.update_attributes(search: 'CAT')
+      request_filter.update(search: 'CAT')
       expect(request_filter.results(user)).
         to eq([cat_request.request_summary])
     end
@@ -190,7 +190,7 @@ describe AlaveteliPro::RequestFilter do
         draft_request = FactoryBot.create(:draft_info_request,
                                           user: user)
         request_filter = described_class.new
-        request_filter.update_attributes(filter: 'draft')
+        request_filter.update(filter: 'draft')
         expect(request_filter.results(user)).
           to eq([draft_request.request_summary])
       end
@@ -203,8 +203,7 @@ describe AlaveteliPro::RequestFilter do
                                         title: 'Where is my cat?',
                                         user: user)
         request_filter = described_class.new
-        request_filter.update_attributes(search: 'CAT',
-                                         filter: 'draft')
+        request_filter.update(search: 'CAT', filter: 'draft')
         expect(request_filter.results(user)).
           to eq([cat_request.request_summary])
       end
@@ -216,8 +215,7 @@ describe AlaveteliPro::RequestFilter do
                                            user: user)
 
         request_filter = described_class.new
-        request_filter.update_attributes(order: 'created_at_asc',
-                                         filter: 'draft')
+        request_filter.update(order: 'created_at_asc', filter: 'draft')
         expected = [first_request.request_summary,
                     second_request.request_summary]
         expect(request_filter.results(user)).to eq(expected)

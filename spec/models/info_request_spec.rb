@@ -52,7 +52,7 @@ describe InfoRequest do
     it 'does not try to set the law used for existing requests' do
       info_request = FactoryBot.create(:info_request)
       body = FactoryBot.create(:public_body, :tag_string => 'eir_only')
-      info_request.update_attributes(:public_body_id => body.id)
+      info_request.update(:public_body_id => body.id)
       expect_any_instance_of(InfoRequest).not_to receive(:law_used=).and_call_original
       InfoRequest.find(info_request.id)
     end
@@ -251,9 +251,9 @@ describe InfoRequest do
 
     before do
       @request = FactoryBot.create(:info_request)
-      @request.update_attributes(:updated_at => 6.months.ago,
-                                :rejected_incoming_count => 3,
-                                :allow_new_responses_from => 'nobody')
+      @request.update(:updated_at => 6.months.ago,
+                      :rejected_incoming_count => 3,
+                      :allow_new_responses_from => 'nobody')
       @options = {:rejection_threshold => 2,
                   :age_in_months => 5,
                   :dryrun => true}
@@ -786,8 +786,8 @@ describe InfoRequest do
 
     it "uses instance-specific spam handling first" do
       info_request = FactoryBot.create(:info_request)
-      info_request.update_attributes!(:handle_rejected_responses => 'bounce',
-                                      :allow_new_responses_from => 'nobody')
+      info_request.update!(:handle_rejected_responses => 'bounce',
+                           :allow_new_responses_from => 'nobody')
       allow(AlaveteliConfiguration).
         to receive(:incoming_email_spam_action).and_return('holding_pen')
       allow(AlaveteliConfiguration).
@@ -1056,42 +1056,42 @@ describe InfoRequest do
         end
 
         it "increments the new authority's info_requests_successful_count " do
-          request.update_attributes!(:described_state => 'successful')
+          request.update!(:described_state => 'successful')
           expect { request.move_to_public_body(new_body, :editor => editor) }.
             to change { new_body.reload.info_requests_successful_count }.
               from(nil).to(1)
         end
 
         it "decrements the old authority's info_requests_successful_count " do
-          request.update_attributes!(:described_state => 'successful')
+          request.update!(:described_state => 'successful')
           expect { request.move_to_public_body(new_body, :editor => editor) }.
             to change { old_body.reload.info_requests_successful_count }.
               from(1).to(0)
         end
 
         it "increments the new authority's info_requests_not_held_count " do
-          request.update_attributes!(:described_state => 'not_held')
+          request.update!(:described_state => 'not_held')
           expect { request.move_to_public_body(new_body, :editor => editor) }.
             to change { new_body.reload.info_requests_not_held_count }.
               from(nil).to(1)
         end
 
         it "decrements the old authority's info_requests_not_held_count " do
-          request.update_attributes!(:described_state => 'not_held')
+          request.update!(:described_state => 'not_held')
           expect { request.move_to_public_body(new_body, :editor => editor) }.
             to change { old_body.reload.info_requests_not_held_count }.
               from(1).to(0)
         end
 
         it "increments the new authority's info_requests_visible_classified_count " do
-          request.update_attributes!(:awaiting_description => false)
+          request.update!(:awaiting_description => false)
           expect { request.move_to_public_body(new_body, :editor => editor) }.
             to change { new_body.reload.info_requests_visible_classified_count }.
               from(nil).to(1)
         end
 
         it "decrements the old authority's info_requests_visible_classified_count " do
-          request.update_attributes!(:awaiting_description => false)
+          request.update!(:awaiting_description => false)
           expect { request.move_to_public_body(new_body, :editor => editor) }.
             to change { old_body.reload.info_requests_visible_classified_count }.
               from(1).to(0)
@@ -2039,12 +2039,12 @@ describe InfoRequest do
     end
 
     it 'updates url_title when the title is changed' do
-      request.update_attributes(title: 'Something new')
+      request.update(title: 'Something new')
       expect(request.url_title).to eq('something_new')
     end
 
     it 'does not update url_title when the same title is assigned' do
-      request.update_attributes(title: request.title.dup)
+      request.update(title: request.title.dup)
       expect(request.url_title).to eq('url_test_2')
     end
 
@@ -2808,7 +2808,7 @@ describe InfoRequest do
                                              :incoming_message => message,
                                              :event_type => 'response')
 
-      message.update_attributes(:prominence => 'hidden')
+      message.update(:prominence => 'hidden')
 
       expect(request.last_public_response_at).to be_nil
     end
@@ -2837,7 +2837,7 @@ describe InfoRequest do
       expect(request.last_public_response_at).
         to be_within(1.second).of(event2.created_at)
 
-      message2.update_attributes(:prominence => 'hidden')
+      message2.update(:prominence => 'hidden')
 
       expect(request.last_public_response_at).
         to be_within(1.second).of(event1.created_at)
@@ -2895,7 +2895,7 @@ describe InfoRequest do
                                                :event_type => 'response')
       back_to_the_present
 
-      message.update_attributes(:prominence => 'normal')
+      message.update(:prominence => 'normal')
 
       expect(request.last_public_response_at).
         to be_within(1.second).of(event.created_at)

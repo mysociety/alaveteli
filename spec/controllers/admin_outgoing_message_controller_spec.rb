@@ -254,7 +254,7 @@ describe AdminOutgoingMessageController do
     end
 
     it 'reopens closed requests to new responses' do
-      info_request.update_attributes(
+      info_request.update(
         allow_new_responses_from: 'nobody',
         reject_incoming_at_mta: true
       )

@@ -157,7 +157,7 @@ describe AdminHolidaysController do
     context 'when there are errors' do
 
       before do
-        allow_any_instance_of(Holiday).to receive(:update_attributes).and_return(false)
+        allow_any_instance_of(Holiday).to receive(:update).and_return(false)
         put :update, params: {
                        :id => @holiday.id,
                        :holiday => { :description => 'New Test Holiday' }

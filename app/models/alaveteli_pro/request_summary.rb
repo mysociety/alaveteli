@@ -66,7 +66,7 @@ class AlaveteliPro::RequestSummary < ApplicationRecord
   end
 
   def update_from(request)
-    update_attributes(self.class.attributes_from_request(request))
+    update(self.class.attributes_from_request(request))
   end
 
   private

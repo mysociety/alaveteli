@@ -322,7 +322,7 @@ describe MailServerLog do
         log = FactoryBot.create(:mail_server_log)
         line = log.line += " #{ log.info_request.incoming_email }"
         idhash = log.info_request.idhash
-        log.update_attributes!(:line => line)
+        log.update!(:line => line)
         expect(log.line(:redact => true)).to_not include(idhash)
       end
 
@@ -330,7 +330,7 @@ describe MailServerLog do
         log = FactoryBot.create(:mail_server_log)
         line = log.line += " #{ log.info_request.incoming_email }"
         idhash = log.info_request.idhash
-        log.update_attributes!(:line => line)
+        log.update!(:line => line)
         expect(log.line(:redact => true, :decorate => true).to_s).
           to_not include(idhash)
       end

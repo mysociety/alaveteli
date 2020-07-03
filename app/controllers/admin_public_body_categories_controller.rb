@@ -75,7 +75,7 @@ class AdminPublicBodyCategoriesController < AdminController
           end
         end
 
-        if @public_body_category.update_attributes(public_body_category_params)
+        if @public_body_category.update(public_body_category_params)
           flash[:notice] = 'Category was successfully updated.'
           redirect_to edit_admin_category_path(@public_body_category)
         else

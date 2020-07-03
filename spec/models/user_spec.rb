@@ -62,13 +62,13 @@ describe User, "banning the user" do
 
   it 'does not change the URL name' do
     user = FactoryBot.create(:user, :name => 'nasty user 123')
-    user.update_attributes(:ban_text => 'You are banned')
+    user.update(:ban_text => 'You are banned')
     expect(user.url_name).to eq('nasty_user_123')
   end
 
   it 'does not change the stored name' do
     user = FactoryBot.create(:user, :name => 'nasty user 123')
-    user.update_attributes(:ban_text => 'You are banned')
+    user.update(:ban_text => 'You are banned')
     expect(user.read_attribute(:name)).to eq('nasty user 123')
   end
 

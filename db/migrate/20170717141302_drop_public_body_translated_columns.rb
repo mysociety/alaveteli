@@ -66,7 +66,7 @@ class DropPublicBodyTranslatedColumns < ActiveRecord::Migration[4.2] # 4.1
 
         # Now, update the actual model's record with the hash (using the
         # ActiveRecord::Relation method update_all to force the use of an
-        # UPDATE statement rather than record.update_attributes which will
+        # UPDATE statement rather than record.update which will
         # use the overridden attribute setters and update translations instead)
         puts "Migrating default locale translation to public body #{record.id}"
         PublicBody.where(:id => record.id).update_all(fields_to_update)

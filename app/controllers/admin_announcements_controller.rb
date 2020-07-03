@@ -32,7 +32,7 @@ class AdminAnnouncementsController < AdminController
   end
 
   def update
-    if @announcement.update_attributes(announcement_params)
+    if @announcement.update(announcement_params)
       notice = 'Announcement successfully updated.'
       redirect_to admin_announcements_path, notice: notice
     else

@@ -535,9 +535,9 @@ class IncomingMessage < ApplicationRecord
       end
       hexdigest = Digest::MD5.hexdigest(content)
       attachment = foi_attachments.find_or_create_by(:hexdigest => hexdigest)
-      attachment.update_attributes(:filename => filename,
-                                   :content_type => content_type,
-                                   :body => content)
+      attachment.update(:filename => filename,
+                        :content_type => content_type,
+                        :body => content)
       attachment.save!
       attachments << attachment
     end
@@ -562,7 +562,7 @@ class IncomingMessage < ApplicationRecord
     attachments = []
     attachment_attributes.each do |attrs|
       attachment = self.foi_attachments.find_or_create_by(:hexdigest => attrs[:hexdigest])
-      attachment.update_attributes(attrs)
+      attachment.update(attrs)
       attachment.save!
       attachments << attachment
     end
