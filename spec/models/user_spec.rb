@@ -670,7 +670,7 @@ describe User do
       user2 = FactoryBot.create(:user)
       user3 = FactoryBot.create(:user)
 
-      time_travel_to(6.months.ago) do
+      travel_to(6.months.ago) do
         5.times { FactoryBot.create(:info_request, user: user1) }
         2.times { FactoryBot.create(:info_request, user: user2) }
         FactoryBot.create(:info_request, user: user3)
@@ -1621,7 +1621,7 @@ describe User do
       let(:expected_time) { Time.zone.now.change(hour: 7, min: 56) }
 
       it "returns today's date with the daily summary time set" do
-        time_travel_to(expected_time - 1.minute) do
+        travel_to(expected_time - 1.minute) do
           expect(user.next_daily_summary_time).
             to be_within(1.second).of(expected_time)
         end
@@ -1632,7 +1632,7 @@ describe User do
       let(:expected_time) { Time.zone.now.change(hour: 7, min: 56) + 1.day }
 
       it "returns tomorrow's date with the daily summary time set" do
-        time_travel_to(Time.zone.now.change(hour: 7, min: 57)) do
+        travel_to(Time.zone.now.change(hour: 7, min: 57)) do
           expect(user.next_daily_summary_time).
             to be_within(1.second).of(expected_time)
         end

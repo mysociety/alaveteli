@@ -32,12 +32,12 @@ describe AlaveteliPro::MetricsReport do
 
     before do
       # created before the report and shouldn't be included
-      time_travel_to(2.week.ago) {
+      travel_to(2.week.ago) {
         FactoryBot.create(:embargoed_request, user: other_pro_user)
       }
 
       # created the week of the report and should be included
-      time_travel_to(1.week.ago) {
+      travel_to(1.week.ago) {
         2.times { FactoryBot.create(:info_request, user: user) }
         3.times { FactoryBot.create(:info_request, user: pro_user) }
         FactoryBot.create(:info_request_batch,

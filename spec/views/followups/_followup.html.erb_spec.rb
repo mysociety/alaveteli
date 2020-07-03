@@ -35,7 +35,7 @@ describe "followups/_followup.html.erb" do
     context 'the authority is subject to FOI law' do
 
       it 'tells the user the authority should have responded by law' do
-        time_travel_to(info_request.date_response_required_by + 2.days) do
+        travel_to(info_request.date_response_required_by + 2.days) do
           render partial: "followups/followup",
                  locals: { incoming_message: nil }
           expect(rendered).
@@ -50,7 +50,7 @@ describe "followups/_followup.html.erb" do
 
       it 'tells the user the authority should have responded by law' do
         info_request.public_body.add_tag_if_not_already_present('foi_no')
-        time_travel_to(info_request.date_response_required_by + 2.days) do
+        travel_to(info_request.date_response_required_by + 2.days) do
           render partial: "followups/followup",
                  locals: { incoming_message: nil }
           expect(rendered).
@@ -68,7 +68,7 @@ describe "followups/_followup.html.erb" do
     context 'the authority is subject to FOI law' do
 
       it 'tells the user the authority should have responded by law' do
-        time_travel_to(info_request.date_very_overdue_after + 2.days) do
+        travel_to(info_request.date_very_overdue_after + 2.days) do
           render partial: "followups/followup",
                  locals: { incoming_message: nil }
           expect(rendered).
@@ -84,7 +84,7 @@ describe "followups/_followup.html.erb" do
 
       it 'tells the user the authority should have responded by law' do
         info_request.public_body.add_tag_if_not_already_present('foi_no')
-        time_travel_to(info_request.date_very_overdue_after + 2.days) do
+        travel_to(info_request.date_very_overdue_after + 2.days) do
           render partial: "followups/followup",
                  locals: { incoming_message: nil }
           expect(rendered).

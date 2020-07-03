@@ -53,14 +53,14 @@ describe AlaveteliRateLimiter::Window do
   describe '#include?' do
 
     it 'returns true if an event is inside the window' do
-      time_travel_to(Time.zone.parse('2016-10-21')) do
+      travel_to(Time.zone.parse('2016-10-21')) do
         subject = described_class.new(1, :day)
         expect(subject.include?(10.minutes.ago)).to eq(true)
       end
     end
 
     it 'returns false if the event is not inside the window' do
-      time_travel_to(Time.zone.parse('2016-10-21')) do
+      travel_to(Time.zone.parse('2016-10-21')) do
         subject = described_class.new(1, :day)
         expect(subject.include?(2.days.ago)).to eq(false)
       end
@@ -72,7 +72,7 @@ describe AlaveteliRateLimiter::Window do
 
     it 'calculates the end of the window based on the attributes' do
       time = Time.zone.parse('2016-10-21')
-      time_travel_to(time) do
+      travel_to(time) do
         subject = described_class.new(1, :hour)
         expect(subject.cutoff).to be_within(1.second).of(time - 1.hour)
       end

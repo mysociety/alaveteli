@@ -14,18 +14,18 @@ describe InfoRequest::Prominence::EmbargoExpiredTodayQuery do
     end
 
     it 'excludes requests where the embargo expired the day before' do
-      time_travel_to(4.days.ago) do
+      travel_to(4.days.ago) do
         embargo = FactoryBot.create(:embargo,
                                     info_request: info_request,
                                     publish_at: Time.zone.now + 2.days)
       end
-      time_travel_to(1.day.ago) { AlaveteliPro::Embargo.expire_publishable }
+      travel_to(1.day.ago) { AlaveteliPro::Embargo.expire_publishable }
 
       expect(described_class.new.call).not_to include info_request
     end
 
     it 'includes requests that have expired since the start of the day' do
-      time_travel_to(4.days.ago) do
+      travel_to(4.days.ago) do
         embargo = FactoryBot.create(:embargo,
                                     info_request: info_request,
                                     publish_at: Time.zone.now + 3.days)

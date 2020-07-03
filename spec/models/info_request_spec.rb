@@ -353,7 +353,7 @@ describe InfoRequest do
     subject { info_request.reopen_to_new_responses }
 
     let(:info_request) do
-      time_travel_to(8.months.ago) do
+      travel_to(8.months.ago) do
         FactoryBot.create(:info_request, allow_new_responses_from: 'nobody',
                                          reject_incoming_at_mta: true)
       end
@@ -372,7 +372,7 @@ describe InfoRequest do
     it 'changes the updated_at timestamp' do
       expect { subject }.
         to change { info_request.reload.updated_at.to_date }.
-          from(8.months.ago.to_date).to(now.to_date)
+        from(8.months.ago.to_date).to(Time.zone.now.to_date)
     end
 
   end
@@ -574,13 +574,13 @@ describe InfoRequest do
     context 'allowing new responses' do
 
       it 'from nobody' do
-        time_travel_to(5.days.ago)
+        travel_to(5.days.ago)
 
         attrs = { :allow_new_responses_from => 'nobody',
                   :handle_rejected_responses => 'holding_pen' }
         info_request = FactoryBot.create(:info_request, attrs)
 
-        back_to_the_present
+        travel_back
 
         updated_at = info_request.updated_at
         email, raw_email = email_and_raw_email
@@ -617,13 +617,13 @@ describe InfoRequest do
       end
 
       it 'from authority_only rejects if there is no from address' do
-        time_travel_to(5.days.ago)
+        travel_to(5.days.ago)
 
         attrs = { :allow_new_responses_from => 'authority_only',
                   :handle_rejected_responses => 'holding_pen' }
         info_request = FactoryBot.create(:info_request, attrs)
 
-        back_to_the_present
+        travel_back
 
         updated_at = info_request.updated_at
         email, raw_email = email_and_raw_email(:from => '')
@@ -641,13 +641,13 @@ describe InfoRequest do
       end
 
       it 'from authority_only rejects if the mail is not from the authority' do
-        time_travel_to(5.days.ago)
+        travel_to(5.days.ago)
 
         attrs = { :allow_new_responses_from => 'authority_only',
                   :handle_rejected_responses => 'holding_pen' }
         info_request = FactoryBot.create(:info_request, attrs)
 
-        back_to_the_present
+        travel_back
 
         updated_at = info_request.updated_at
         email, raw_email = email_and_raw_email(:from => 'spam@example.net')
@@ -2214,7 +2214,7 @@ describe InfoRequest do
   describe "when calculating the status" do
 
     before do
-      time_travel_to Time.utc(2007, 10, 14, 23, 59) do
+      travel_to Time.utc(2007, 10, 14, 23, 59) do
         @info_request = FactoryBot.create(:info_request)
       end
     end
@@ -2239,25 +2239,25 @@ describe InfoRequest do
     end
 
     it "isn't overdue on due date (20 working days after request sent)" do
-      time_travel_to(Time.utc(2007, 11, 9, 23, 59)) do
+      travel_to(Time.utc(2007, 11, 9, 23, 59)) do
         expect(@info_request.calculate_status).to eq('waiting_response')
       end
     end
 
     it "is overdue a day after due date (20 working days after request sent)" do
-      time_travel_to(Time.utc(2007, 11, 10, 00, 01)) do
+      travel_to(Time.utc(2007, 11, 10, 00, 01)) do
         expect(@info_request.calculate_status).to eq('waiting_response_overdue')
       end
     end
 
     it "is still overdue 40 working days after request sent" do
-      time_travel_to(Time.utc(2007, 12, 10, 23, 59)) do
+      travel_to(Time.utc(2007, 12, 10, 23, 59)) do
         expect(@info_request.calculate_status).to eq('waiting_response_overdue')
       end
     end
 
     it "is very overdue the day after 40 working days after request sent" do
-      time_travel_to(Time.utc(2007, 12, 11, 00, 01)) do
+      travel_to(Time.utc(2007, 12, 11, 00, 01)) do
         expect(@info_request.
                  calculate_status).to eq('waiting_response_very_overdue')
       end
@@ -2269,7 +2269,7 @@ describe InfoRequest do
         @default_zone = Time.zone
         zone = ActiveSupport::TimeZone["Australia/Sydney"]
         Time.zone = zone
-        time_travel_to zone.parse("2007-10-14 23:59") do
+        travel_to zone.parse("2007-10-14 23:59") do
           @info_request = FactoryBot.create(:info_request)
         end
       end
@@ -2298,25 +2298,25 @@ describe InfoRequest do
       end
 
       it "isn't overdue on due date (20 working days after request sent)" do
-        time_travel_to(ActiveSupport::TimeZone["Sydney"].parse("2007-11-09 23:59")) do
+        travel_to(ActiveSupport::TimeZone["Sydney"].parse("2007-11-09 23:59")) do
           expect(@info_request.calculate_status).to eq('waiting_response')
         end
       end
 
       it "is overdue a day after due date (20 working days after request sent)" do
-        time_travel_to(ActiveSupport::TimeZone["Sydney"].parse("2007-11-10 00:01")) do
+        travel_to(ActiveSupport::TimeZone["Sydney"].parse("2007-11-10 00:01")) do
           expect(@info_request.calculate_status).to eq('waiting_response_overdue')
         end
       end
 
       it "is still overdue 40 working days after request sent" do
-        time_travel_to(ActiveSupport::TimeZone["Sydney"].parse("2007-12-10 23:59")) do
+        travel_to(ActiveSupport::TimeZone["Sydney"].parse("2007-12-10 23:59")) do
           expect(@info_request.calculate_status).to eq('waiting_response_overdue')
         end
       end
 
       it "is very overdue the day after 40 working days after request sent" do
-        time_travel_to(ActiveSupport::TimeZone["Sydney"].parse("2007-12-11 00:01")) do
+        travel_to(ActiveSupport::TimeZone["Sydney"].parse("2007-12-11 00:01")) do
           expect(@info_request.
                    calculate_status).to eq('waiting_response_very_overdue')
         end
@@ -2814,7 +2814,7 @@ describe InfoRequest do
     end
 
     it 'reverts last_public_response_at when the latest response is hidden' do
-      time_travel_to(21.days.ago)
+      travel_to(21.days.ago)
 
       request = FactoryBot.create(:info_request, :user => user)
       message1 = FactoryBot.create(:incoming_message, :info_request => request)
@@ -2823,8 +2823,8 @@ describe InfoRequest do
                                                :incoming_message => message1,
                                                :event_type => 'response')
 
-      back_to_the_present
-      time_travel_to(2.days.ago)
+      travel_back
+      travel_to(2.days.ago)
 
       message2 = FactoryBot.create(:incoming_message, :info_request => request)
       event2 =
@@ -2832,7 +2832,7 @@ describe InfoRequest do
                                                :incoming_message => message2,
                                                :event_type => 'response')
 
-      back_to_the_present
+      travel_back
 
       expect(request.last_public_response_at).
         to be_within(1.second).of(event2.created_at)
@@ -2854,7 +2854,7 @@ describe InfoRequest do
     end
 
     it 'reverts last_public_response_at when the latest response is destroyed' do
-      time_travel_to(21.days.ago)
+      travel_to(21.days.ago)
 
       request = FactoryBot.create(:info_request, :user => user)
       message1 = FactoryBot.create(:incoming_message, :info_request => request)
@@ -2863,8 +2863,8 @@ describe InfoRequest do
                                                :incoming_message => message1,
                                                :event_type => 'response')
 
-      back_to_the_present
-      time_travel_to(2.days.ago)
+      travel_back
+      travel_to(2.days.ago)
 
       message2 = FactoryBot.create(:incoming_message, :info_request => request)
       event2 =
@@ -2872,7 +2872,7 @@ describe InfoRequest do
                                                :incoming_message => message2,
                                                :event_type => 'response')
 
-      back_to_the_present
+      travel_back
 
       expect(request.last_public_response_at).
         to be_within(1.second).of(event2.created_at)
@@ -2884,7 +2884,7 @@ describe InfoRequest do
     end
 
     it 'sets last_public_response_at when a hidden response is unhidden' do
-      time_travel_to(21.days.ago)
+      travel_to(21.days.ago)
 
       request = FactoryBot.create(:info_request, :user => user)
       message = FactoryBot.create(:incoming_message, :info_request => request,
@@ -2893,7 +2893,7 @@ describe InfoRequest do
         FactoryBot.create(:info_request_event, :info_request => request,
                                                :incoming_message => message,
                                                :event_type => 'response')
-      back_to_the_present
+      travel_back
 
       message.update(:prominence => 'normal')
 
@@ -3811,8 +3811,8 @@ describe InfoRequest do
         # We want to make the info_request in the past, then effectively
         # jump forward to a point where it's delayed and we would be calling
         # log_overdue_events to mark it as overdue
-        time_travel_to(Time.zone.parse('2014-12-31')) { info_request }
-        time_travel_to(Time.zone.parse('2015-01-30')) do
+        travel_to(Time.zone.parse('2014-12-31')) { info_request }
+        travel_to(Time.zone.parse('2015-01-30')) do
           request_summary = info_request.request_summary
           expect(request_summary.request_summary_categories).
             to match_array([awaiting])
@@ -3834,8 +3834,8 @@ describe InfoRequest do
         # We want to make the info_request in the past, then effectively
         # jump forward to a point where it's delayed and we would be calling
         # log_overdue_events to mark it as overdue
-        time_travel_to(Time.zone.parse('2014-12-31')) { info_request }
-        time_travel_to(Time.zone.parse('2015-02-28')) do
+        travel_to(Time.zone.parse('2014-12-31')) { info_request }
+        travel_to(Time.zone.parse('2015-02-28')) do
           request_summary = info_request.request_summary
           expect(request_summary.request_summary_categories).
             to match_array([awaiting])
@@ -3937,13 +3937,13 @@ describe InfoRequest do
       end
 
       it 'returns false on publication day' do
-        time_travel_to(embargo.publish_at) do
+        travel_to(embargo.publish_at) do
           expect(info_request.reload.embargo_expiring?).to be false
         end
       end
 
       it 'returns false after publication day' do
-        time_travel_to(embargo.publish_at + 1.day) do
+        travel_to(embargo.publish_at + 1.day) do
           expect(info_request.reload.embargo_expiring?).to be false
         end
       end
@@ -3991,13 +3991,13 @@ describe InfoRequest do
       end
 
       it 'returns true on publication day' do
-        time_travel_to(embargo.publish_at) do
+        travel_to(embargo.publish_at) do
           expect(info_request.reload.embargo_pending_expiry?).to be true
         end
       end
 
       it 'returns true after publication day' do
-        time_travel_to(embargo.publish_at + 1.day) do
+        travel_to(embargo.publish_at + 1.day) do
           expect(info_request.reload.embargo_pending_expiry?).to be true
         end
       end
@@ -4166,7 +4166,7 @@ describe InfoRequest do
     context 'when there is a value stored in the database' do
 
       it 'returns the date a response is required by' do
-        time_travel_to(Time.zone.parse('2014-12-31')) do
+        travel_to(Time.zone.parse('2014-12-31')) do
           expect(info_request.date_response_required_by)
             .to eq Time.zone.parse('2015-01-28')
         end
@@ -4177,7 +4177,7 @@ describe InfoRequest do
     context 'when there is no value stored in the database' do
 
       it 'returns the date a response is required by' do
-        time_travel_to(Time.zone.parse('2014-12-31')) do
+        travel_to(Time.zone.parse('2014-12-31')) do
           info_request.send(:write_attribute, :date_response_required_by, nil)
           expect(info_request)
             .to receive(:calculate_date_response_required_by)
@@ -4195,7 +4195,7 @@ describe InfoRequest do
     let(:info_request) { FactoryBot.create(:info_request) }
 
     it 'returns the date a response is required by' do
-      time_travel_to(Time.zone.parse('2014-12-31')) do
+      travel_to(Time.zone.parse('2014-12-31')) do
         expect(info_request.calculate_date_response_required_by)
           .to eq Time.zone.parse('2015-01-28')
       end
@@ -4209,7 +4209,7 @@ describe InfoRequest do
     context 'when there is a value stored in the database' do
 
       it 'returns the date a response is very overdue after' do
-        time_travel_to(Time.zone.parse('2014-12-31')) do
+        travel_to(Time.zone.parse('2014-12-31')) do
           expect(info_request.date_very_overdue_after)
             .to eq Time.zone.parse('2015-02-25')
         end
@@ -4220,7 +4220,7 @@ describe InfoRequest do
     context 'when there is no value stored in the database' do
 
       it 'returns the date a response is very overdue after' do
-        time_travel_to(Time.zone.parse('2014-12-31')) do
+        travel_to(Time.zone.parse('2014-12-31')) do
           info_request.send(:write_attribute, :date_very_overdue_after, nil)
           expect(info_request)
             .to receive(:calculate_date_very_overdue_after)
@@ -4238,7 +4238,7 @@ describe InfoRequest do
     let(:info_request) { FactoryBot.create(:info_request) }
 
     it 'returns the date a response is required by' do
-      time_travel_to(Time.zone.parse('2014-12-31')) do
+      travel_to(Time.zone.parse('2014-12-31')) do
         expect(info_request.calculate_date_very_overdue_after)
           .to eq Time.zone.parse('2015-02-25')
       end
@@ -4270,9 +4270,9 @@ describe InfoRequest do
 
       it 'sets the due dates for the request' do
         # initial request sent
-        time_travel_to(Time.zone.parse('2014-12-31')) { info_request }
+        travel_to(Time.zone.parse('2014-12-31')) { info_request }
 
-        time_travel_to(Time.zone.parse('2015-01-01')) do
+        travel_to(Time.zone.parse('2015-01-01')) do
           event = info_request.log_event("resent", :param => 'value')
           expect(info_request.last_event_forming_initial_request_id)
             .to eq event.id
@@ -4324,9 +4324,9 @@ describe InfoRequest do
 
     before do
       # initial request sent
-      time_travel_to(Time.zone.parse('2014-12-31')) { info_request }
+      travel_to(Time.zone.parse('2014-12-31')) { info_request }
       # due dates updated based on new event
-      time_travel_to(Time.zone.parse('2015-01-01')) do
+      travel_to(Time.zone.parse('2015-01-01')) do
         @event = FactoryBot.create(:sent_event)
         info_request.set_due_dates(@event)
       end
@@ -4364,8 +4364,8 @@ describe InfoRequest do
     context 'when an InfoRequest is not overdue' do
 
       it 'does not create an event' do
-        time_travel_to(Time.zone.parse('2014-12-31')) { info_request }
-        time_travel_to(Time.zone.parse('2015-01-15')) do
+        travel_to(Time.zone.parse('2014-12-31')) { info_request }
+        travel_to(Time.zone.parse('2015-01-15')) do
           InfoRequest.log_overdue_events
           overdue_events = info_request.
                              info_request_events.reload.
@@ -4380,9 +4380,9 @@ describe InfoRequest do
 
       it "creates an overdue event at the beginning of the first day
           after the request's due date" do
-        time_travel_to(Time.zone.parse('2014-12-31')) { info_request }
+        travel_to(Time.zone.parse('2014-12-31')) { info_request }
 
-        time_travel_to(Time.zone.parse('2015-01-30')) do
+        travel_to(Time.zone.parse('2015-01-30')) do
           InfoRequest.log_overdue_events
           overdue_events = info_request.
                              info_request_events.reload.
@@ -4395,9 +4395,9 @@ describe InfoRequest do
 
       context "when the request has use_notifications: false" do
         it "does not notify the user of the event" do
-          time_travel_to(Time.zone.parse('2014-12-31')) { info_request }
+          travel_to(Time.zone.parse('2014-12-31')) { info_request }
 
-          time_travel_to(Time.zone.parse('2015-01-30')) do
+          travel_to(Time.zone.parse('2015-01-30')) do
             expect { InfoRequest.log_overdue_events }.
               not_to change { Notification.count }
           end
@@ -4406,11 +4406,11 @@ describe InfoRequest do
 
       context "when the request has use_notifications: true" do
         it "notifies the user of the event" do
-          time_travel_to(Time.zone.parse('2014-12-31')) do
+          travel_to(Time.zone.parse('2014-12-31')) do
             use_notifications_request
           end
 
-          time_travel_to(Time.zone.parse('2015-01-30')) do
+          travel_to(Time.zone.parse('2015-01-30')) do
             expect { InfoRequest.log_overdue_events }.
               to change { Notification.count }.by(1)
           end
@@ -4423,17 +4423,17 @@ describe InfoRequest do
 
       it "creates an overdue event at the beginning of the first day
           after the request's due date" do
-        time_travel_to(Time.zone.parse('2014-12-31')) { info_request }
+        travel_to(Time.zone.parse('2014-12-31')) { info_request }
 
-        time_travel_to(Time.zone.parse('2015-01-30')) do
+        travel_to(Time.zone.parse('2015-01-30')) do
           InfoRequest.log_overdue_events
         end
 
-        time_travel_to(Time.zone.parse('2015-02-01')) do
+        travel_to(Time.zone.parse('2015-02-01')) do
           info_request.log_event('resent', {})
         end
 
-        time_travel_to(Time.zone.parse('2015-03-01')) do
+        travel_to(Time.zone.parse('2015-03-01')) do
           InfoRequest.log_overdue_events
           overdue_events = info_request.
                              info_request_events.reload.
@@ -4464,9 +4464,9 @@ describe InfoRequest do
 
       it 'should not create an event' do
 
-        time_travel_to(Time.zone.parse('2014-12-31')) { info_request }
+        travel_to(Time.zone.parse('2014-12-31')) { info_request }
 
-        time_travel_to(Time.zone.parse('2015-01-30')) do
+        travel_to(Time.zone.parse('2015-01-30')) do
           InfoRequest.log_very_overdue_events
           very_overdue_events = info_request.
                                   info_request_events.reload.
@@ -4480,9 +4480,9 @@ describe InfoRequest do
 
       it "creates an overdue event at the beginning of the first day
           after the request's date_very_overdue_after" do
-        time_travel_to(Time.zone.parse('2014-12-31')) { info_request }
+        travel_to(Time.zone.parse('2014-12-31')) { info_request }
 
-        time_travel_to(Time.zone.parse('2015-02-28')) do
+        travel_to(Time.zone.parse('2015-02-28')) do
           InfoRequest.log_very_overdue_events
           very_overdue_events = info_request.
                                   info_request_events.reload.
@@ -4496,9 +4496,9 @@ describe InfoRequest do
 
       context "when the request has use_notifications: false" do
         it "does not notify the user of the event" do
-          time_travel_to(Time.zone.parse('2014-12-31')) { info_request }
+          travel_to(Time.zone.parse('2014-12-31')) { info_request }
 
-          time_travel_to(Time.zone.parse('2015-02-28')) do
+          travel_to(Time.zone.parse('2015-02-28')) do
             expect { InfoRequest.log_overdue_events }.
               not_to change { Notification.count }
           end
@@ -4507,11 +4507,11 @@ describe InfoRequest do
 
       context "when the request has use_notifications: true" do
         it "notifies the user of the event" do
-          time_travel_to(Time.zone.parse('2014-12-31')) do
+          travel_to(Time.zone.parse('2014-12-31')) do
             use_notifications_request
           end
 
-          time_travel_to(Time.zone.parse('2015-02-28')) do
+          travel_to(Time.zone.parse('2015-02-28')) do
             expect { InfoRequest.log_overdue_events }.
               to change { Notification.count }.by(1)
           end
@@ -4524,17 +4524,17 @@ describe InfoRequest do
 
       it "creates a very_overdue event at the beginning of the first day
           after the request's date_very_overdue_after" do
-        time_travel_to(Time.zone.parse('2014-12-31')) { info_request }
+        travel_to(Time.zone.parse('2014-12-31')) { info_request }
 
-        time_travel_to(Time.zone.parse('2015-02-28')) do
+        travel_to(Time.zone.parse('2015-02-28')) do
           InfoRequest.log_very_overdue_events
         end
 
-        time_travel_to(Time.zone.parse('2015-03-01')) do
+        travel_to(Time.zone.parse('2015-03-01')) do
           info_request.log_event('resent', {})
         end
 
-        time_travel_to(Time.zone.parse('2015-04-30')) do
+        travel_to(Time.zone.parse('2015-04-30')) do
           InfoRequest.log_very_overdue_events
           very_overdue_events = info_request.
                                   info_request_events.reload.
@@ -4610,7 +4610,7 @@ describe InfoRequest do
       end
 
       it 'returns the last "expire_embargo" event' do
-        time_travel_to embargo.publish_at + 1.day do
+        travel_to embargo.publish_at + 1.day do
           AlaveteliPro::Embargo.expire_publishable
         end
         last_embargo_set_event = info_request.reload.last_embargo_expire_event

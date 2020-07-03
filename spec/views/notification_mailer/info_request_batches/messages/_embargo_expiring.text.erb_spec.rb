@@ -6,7 +6,7 @@ describe("notification_mailer/info_request_batches/messages/_embargo_expiring.te
   let!(:public_body_2) { FactoryBot.create(:public_body) }
   let(:public_bodies) { [public_body_1, public_body_2] }
   let!(:batch_request) do
-    time_travel_to(3.months.ago - 1.week) do
+    travel_to(3.months.ago - 1.week) do
       batch = FactoryBot.create(:info_request_batch, :embargoed,
                                 public_bodies: public_bodies)
       batch.create_batch!

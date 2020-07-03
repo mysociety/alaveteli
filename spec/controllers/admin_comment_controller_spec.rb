@@ -14,9 +14,9 @@ describe AdminCommentController do
 
     it 'collects comments by creation date' do
       Comment.destroy_all
-      time_travel_to(1.month.ago)
+      travel_to(1.month.ago)
       comment_1 = FactoryBot.create(:comment)
-      back_to_the_present
+      travel_back
       comment_2 = FactoryBot.create(:comment)
       get :index, session: { :user_id => admin_user.id }
       expect(assigns[:comments]).to eq([comment_2, comment_1])
