@@ -50,7 +50,7 @@ RSpec.describe InfoRequestBatchMetrics do
       is_expected.to(
         eq 'batch-1-batch_request-dashboard-2019-11-18-103000.csv'
       )
-      back_to_the_present
+      travel_back
     end
   end
 

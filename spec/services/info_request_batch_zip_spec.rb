@@ -38,7 +38,7 @@ RSpec.describe InfoRequestBatchZip do
     around do |example|
       time_travel_to Time.utc(2019, 11, 18, 10, 30)
       example.call
-      back_to_the_present
+      travel_back
     end
 
     it 'generates list of zippable files' do
@@ -142,7 +142,7 @@ RSpec.describe InfoRequestBatchZip do
       is_expected.to(
         eq 'batch-1-batch_request-export-2019-11-18-103000.zip'
       )
-      back_to_the_present
+      travel_back
     end
   end
 end

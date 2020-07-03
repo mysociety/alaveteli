@@ -55,7 +55,7 @@ describe InfoRequestHelper do
 
         expect(status_text(info_request)).to eq(expected)
 
-        back_to_the_present
+        travel_back
       end
 
       context 'the body is not subject to foi' do
@@ -100,7 +100,7 @@ describe InfoRequestHelper do
 
         expect(status_text(info_request)).to eq(expected)
 
-        back_to_the_present
+        travel_back
       end
 
       context 'the body is not subject to foi' do
@@ -128,7 +128,7 @@ describe InfoRequestHelper do
 
           expect(status_text(info_request)).to eq(expected)
 
-          back_to_the_present
+          travel_back
         end
 
       end
@@ -163,7 +163,7 @@ describe InfoRequestHelper do
 
         expect(status_text(info_request)).to eq(expected)
 
-        back_to_the_present
+        travel_back
       end
 
       context 'the body is not subject to foi' do
@@ -196,7 +196,7 @@ describe InfoRequestHelper do
 
           expect(status_text(info_request)).to eq(expected)
 
-          back_to_the_present
+          travel_back
         end
 
       end
@@ -222,7 +222,7 @@ describe InfoRequestHelper do
 
         expect(status_text(info_request)).to eq(expected)
 
-        back_to_the_present
+        travel_back
       end
 
     end

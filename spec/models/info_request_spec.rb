@@ -372,7 +372,7 @@ describe InfoRequest do
     it 'changes the updated_at timestamp' do
       expect { subject }.
         to change { info_request.reload.updated_at.to_date }.
-          from(8.months.ago.to_date).to(now.to_date)
+        from(8.months.ago.to_date).to(Time.zone.now.to_date)
     end
 
   end
@@ -580,7 +580,7 @@ describe InfoRequest do
                   :handle_rejected_responses => 'holding_pen' }
         info_request = FactoryBot.create(:info_request, attrs)
 
-        back_to_the_present
+        travel_back
 
         updated_at = info_request.updated_at
         email, raw_email = email_and_raw_email
@@ -623,7 +623,7 @@ describe InfoRequest do
                   :handle_rejected_responses => 'holding_pen' }
         info_request = FactoryBot.create(:info_request, attrs)
 
-        back_to_the_present
+        travel_back
 
         updated_at = info_request.updated_at
         email, raw_email = email_and_raw_email(:from => '')
@@ -647,7 +647,7 @@ describe InfoRequest do
                   :handle_rejected_responses => 'holding_pen' }
         info_request = FactoryBot.create(:info_request, attrs)
 
-        back_to_the_present
+        travel_back
 
         updated_at = info_request.updated_at
         email, raw_email = email_and_raw_email(:from => 'spam@example.net')
@@ -2823,7 +2823,7 @@ describe InfoRequest do
                                                :incoming_message => message1,
                                                :event_type => 'response')
 
-      back_to_the_present
+      travel_back
       time_travel_to(2.days.ago)
 
       message2 = FactoryBot.create(:incoming_message, :info_request => request)
@@ -2832,7 +2832,7 @@ describe InfoRequest do
                                                :incoming_message => message2,
                                                :event_type => 'response')
 
-      back_to_the_present
+      travel_back
 
       expect(request.last_public_response_at).
         to be_within(1.second).of(event2.created_at)
@@ -2863,7 +2863,7 @@ describe InfoRequest do
                                                :incoming_message => message1,
                                                :event_type => 'response')
 
-      back_to_the_present
+      travel_back
       time_travel_to(2.days.ago)
 
       message2 = FactoryBot.create(:incoming_message, :info_request => request)
@@ -2872,7 +2872,7 @@ describe InfoRequest do
                                                :incoming_message => message2,
                                                :event_type => 'response')
 
-      back_to_the_present
+      travel_back
 
       expect(request.last_public_response_at).
         to be_within(1.second).of(event2.created_at)
@@ -2893,7 +2893,7 @@ describe InfoRequest do
         FactoryBot.create(:info_request_event, :info_request => request,
                                                :incoming_message => message,
                                                :event_type => 'response')
-      back_to_the_present
+      travel_back
 
       message.update(:prominence => 'normal')
 

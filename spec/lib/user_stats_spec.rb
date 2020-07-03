@@ -33,9 +33,9 @@ describe UserStats do
     context "when passed a start date" do
 
       before do
-        Delorean.time_travel_to "1 week ago"
+        time_travel_to 1.week.ago
         FactoryBot.create(:user, :email => "test@example.com")
-        Delorean.back_to_the_present
+        travel_back
       end
 
       it "only returns data for signups created since the start date" do
@@ -69,7 +69,7 @@ describe UserStats do
 
   describe ".count_dormant_users" do
     before do
-      Delorean.time_travel_to(2.weeks.ago) do
+      time_travel_to(2.weeks.ago) do
         requester = FactoryBot.create(:user, :email => "active@example.com")
         commenter = FactoryBot.create(:user, :email => "commenter@example.com")
         tracker = FactoryBot.create(:user, :email => "tracker@example.com")
@@ -103,7 +103,7 @@ describe UserStats do
 
   describe ".unbanned_by_domain" do
     before do
-      Delorean.time_travel_to(1.month.ago) do
+      time_travel_to(1.month.ago) do
         @user1 = FactoryBot.create(:user, :email => "test@example.com")
         @banned = FactoryBot.create(:user,
                                     :email => "banned@example.com",

@@ -334,7 +334,7 @@ describe 'classifying a request' do
     end
 
     after do
-      back_to_the_present
+      travel_back
     end
 
     it 'displays a thank you message post redirect' do
@@ -361,7 +361,7 @@ describe 'classifying a request' do
     end
 
     after do
-      back_to_the_present
+      travel_back
     end
 
     it 'displays a thank you message post redirect' do

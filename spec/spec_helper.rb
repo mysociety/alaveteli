@@ -54,9 +54,9 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   config.include Capybara::DSL, :type => :request
-  config.include Delorean
   config.include LinkToHelper
   config.include StripAttributes::Matchers
+  config.include Alaveteli::TimeHelpers
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"

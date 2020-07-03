@@ -174,7 +174,7 @@ describe User::TransactionCalculator do
     it 'returns the average transactions per month' do
       time_travel_to(Time.zone.parse('2016-01-01'))
       user = FactoryBot.create(:user)
-      back_to_the_present
+      travel_back
 
       time_travel_to(Time.zone.parse('2016-02-01')) do
         3.times { FactoryBot.create(:comment, :user => user) }

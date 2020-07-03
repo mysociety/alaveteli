@@ -36,7 +36,7 @@ RSpec.describe Project::Export do
       is_expected.to(
         eq 'project-1-test_project-2019-11-18-103000.csv'
       )
-      back_to_the_present
+      travel_back
     end
   end
 
