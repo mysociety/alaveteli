@@ -9,15 +9,6 @@ GIT
       stripe (>= 2.0.3)
 
 GIT
-  remote: https://github.com/heapsource/active_model_otp.git
-  revision: 55d93a3979907d8382c83c9b0f3e94e3186167fc
-  ref: 55d93a3979
-  specs:
-    active_model_otp (1.2.0)
-      activemodel
-      rotp
-
-GIT
   remote: https://github.com/mysociety/ruby-msg.git
   revision: fae72e547299ab1f8b23239a79f5a1d353426b40
   branch: ascii-encoding
@@ -90,6 +81,9 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
+    active_model_otp (2.0.1)
+      activemodel
+      rotp (~> 5.0.0)
     activejob (6.0.3.2)
       activesupport (= 6.0.3.2)
       globalid (>= 0.3.6)
@@ -319,7 +313,8 @@ GEM
     request_store (1.5.0)
       rack (>= 1.4)
     rolify (5.3.0)
-    rotp (3.3.1)
+    rotp (5.0.0)
+      addressable (~> 2.5)
     routing-filter (0.6.3)
       actionpack (>= 4.2)
       activesupport (>= 4.2)
@@ -430,7 +425,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_model_otp!
+  active_model_otp
   acts_as_versioned!
   alaveteli_features!
   annotate (< 3.1.1)
