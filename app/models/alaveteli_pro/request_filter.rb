@@ -7,7 +7,7 @@ module AlaveteliPro
 
     attr_accessor :filter, :order, :search
 
-    def update_attributes(attributes = {})
+    def update(attributes = {})
       self.attributes = attributes
     end
 

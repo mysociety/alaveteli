@@ -9,7 +9,7 @@ class AlaveteliPro::DraftInfoRequestBatchesController < ApplicationController
 
   def update
     @draft = current_user.draft_info_request_batches.find(params[:id])
-    @draft.update_attributes(draft_params_multiple_bodies)
+    @draft.update(draft_params_multiple_bodies)
     if params[:preview]
       redirect_to preview_new_alaveteli_pro_info_request_batch_path(draft_id: @draft.id)
     else

@@ -46,10 +46,10 @@ namespace :cleanup do
         case input
         when 'Y'
           puts "Banning #{ user.id }\n\n"
-          user.update_attributes!(:ban_text => 'Banned for spamming')
+          user.update!(:ban_text => 'Banned for spamming')
         when 'n'
           puts "Marking #{ user.id } as genuine\n\n"
-          user.update_attributes!(:confirmed_not_spam => true)
+          user.update!(:confirmed_not_spam => true)
         when 's'
           puts "Skipping #{ user.id }\n\n"
         end

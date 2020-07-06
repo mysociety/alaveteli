@@ -926,14 +926,13 @@ describe OutgoingMessage do
         message.
           info_request_events.
             first.
-              update_attributes(:params => {
-                                  :smtp_message_id => old_format_smtp_id })
+              update(:params => { :smtp_message_id => old_format_smtp_id })
         expect(message.smtp_message_ids).to eq([smtp_id])
       end
 
       it 'returns an empty array if the smtp_message_id was not logged' do
         message = FactoryBot.create(:initial_request)
-        message.info_request_events.first.update_attributes(:params => {})
+        message.info_request_events.first.update(:params => {})
         expect(message.smtp_message_ids).to be_empty
       end
 
