@@ -33,6 +33,11 @@ updates:
         versions:
         - ">= 0.82.0"
 
+      # pry-byebug requires Ruby >= 2.4.0
+      - dependency-name: pry
+        versions:
+        - ">= 0.13.0"
+
       # requires Ruby >= 2.4
       - dependency-name: rubyzip
         versions:
@@ -52,9 +57,11 @@ updates:
       - dependency-name: capybara
         versions:
         - ">= 3.33.0"
-      - dependency-name: factory_bot_rails
-        versions:
-        - ">= 6.0.0"
       - dependency-name: gettext
         versions:
         - ">= 3.3.0"
+
+      # factory_bot requires Ruby >= 2.5.0
+      - dependency-name: factory_bot_rails
+        versions:
+        - ">= 6.0.0"
