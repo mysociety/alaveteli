@@ -151,7 +151,7 @@ gem 'money', '~> 6.13.8'
 gem 'mime-types', '< 3.0.0', require: false
 
 # Assets
-gem 'bootstrap-sass', '~> 2.3.2.2'
+gem 'bootstrap-sass', '~> 3.4.1'
 gem 'sass-rails', '~> 5.0.7'
 gem 'uglifier', '~> 4.2.0'
 gem 'therubyracer', '~> 0.12.0'
