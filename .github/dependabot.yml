@@ -32,6 +32,9 @@ updates:
       - dependency-name: rubocop
         versions:
         - ">= 0.82.0"
+      - dependency-name: sass-rails
+        versions:
+        - ">= 5.0.8"
 
       # pry-byebug requires Ruby >= 2.4.0
       - dependency-name: pry
@@ -63,5 +66,10 @@ updates:
 
       # factory_bot requires Ruby >= 2.5.0
       - dependency-name: factory_bot_rails
+        versions:
+        - ">= 6.0.0"
+
+      # sprockets requires Ruby >= 2.5.0
+      - dependency-name: sass-rails
         versions:
         - ">= 6.0.0"
