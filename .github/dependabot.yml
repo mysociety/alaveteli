@@ -6,3 +6,55 @@ updates:
       interval: weekly
     open-pull-requests-limit: 99
     rebase-strategy: "disabled"
+    ignore:
+      # requires Ruby >= 2.4.0
+      - dependency-name: annotate
+        versions:
+        - ">= 3.1.1"
+      - dependency-name: capybara
+        versions:
+        - ">= 3.16.0"
+      - dependency-name: fast_gettext
+        versions:
+        - ">= 2.0.3"
+      - dependency-name: icalendar
+        versions:
+        - ">= 2.6.0"
+      - dependency-name: launchy
+        versions:
+        - ">= 2.5.0"
+      - dependency-name: maxmind-db
+        versions:
+        - ">= 1.1.0"
+      - dependency-name: pry-byebug
+        versions:
+        - ">= 2.8.0"
+      - dependency-name: rubocop
+        versions:
+        - ">= 0.82.0"
+
+      # requires Ruby >= 2.4
+      - dependency-name: rubyzip
+        versions:
+        - ">= 2.0.0"
+
+      # requires Ruby ~> 2.4
+      - dependency-name: holidays
+        versions:
+        - ">= 8.0.0"
+
+      # requires Ruby >= 2.4.6
+      - dependency-name: globalize
+        versions:
+        - ">= 5.3.0"
+
+      # requires Ruby >= 2.5.0
+      - dependency-name: capybara
+        versions:
+        - ">= 3.33.0"
+      - dependency-name: factory_bot
+        versions:
+        - ">= 6.0.0"
+      - dependency-name: gettext
+        versions:
+        - ">= 3.3.0"
