@@ -86,9 +86,9 @@ FactoryBot.define do
     trait :enable_otp do
       after(:build) { |object| object.enable_otp }
     end
-  end
 
-  trait :banned do
-    ban_text { 'Banned' }
+    trait :banned do
+      ban_text { 'Banned' }
+    end
   end
 end
