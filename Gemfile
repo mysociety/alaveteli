@@ -176,7 +176,7 @@ group :test, :development do
   gem 'rspec-activemodel-mocks', '~> 1.1.0'
   gem 'rspec-rails', '~> 4.0.1'
   gem 'pry', '~> 0.12.2'
-  gem 'pry-byebug', '~> 3.7.0'
+  gem 'pry-byebug', '~> 3.8.0'
 end
 
 group :development do
