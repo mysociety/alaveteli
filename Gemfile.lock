@@ -97,9 +97,9 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
-    annotate (2.7.2)
-      activerecord (>= 3.2, < 6.0)
-      rake (>= 10.4, < 13.0)
+    annotate (3.1.1)
+      activerecord (>= 3.2, < 7.0)
+      rake (>= 10.4, < 14.0)
     arel (9.0.0)
     ast (2.4.0)
     bcrypt (3.1.13)
@@ -290,7 +290,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.19.0, < 2.0)
     rainbow (3.0.0)
-    rake (12.3.3)
+    rake (13.0.1)
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
@@ -413,7 +413,7 @@ DEPENDENCIES
   active_model_otp!
   acts_as_versioned!
   alaveteli_features!
-  annotate (< 3.1.1)
+  annotate (< 3.1.2)
   bcrypt (~> 3.1.13)
   bootstrap-sass (~> 2.3.2.2)
   bullet (~> 6.1.0)
