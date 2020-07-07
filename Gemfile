@@ -187,5 +187,5 @@ group :development do
   gem 'launchy', '< 2.5.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'web-console', '>= 3.3.0'
-  gem 'rubocop', '~> 0.63.1'
+  gem 'rubocop', '~> 0.87.0'
 end
