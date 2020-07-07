@@ -4,22 +4,10 @@ require 'spec_helper'
 describe AlaveteliPro::EmbargoExtensionsController do
   let(:pro_user) { FactoryBot.create(:pro_user) }
   let(:admin) { FactoryBot.create(:pro_admin_user, :pro) }
-
-  let(:info_request) do
-    # so that embargoes are near expiry
-    time_travel_to(88.days.ago) do
-      FactoryBot.create(:info_request, user: pro_user)
-    end
-  end
+  let(:info_request) { FactoryBot.create(:info_request, user: pro_user) }
 
   let(:embargo) do
-    # so that embargoes are near expiry
-    time_travel_to(88.days.ago) do
-      embargo = FactoryBot.create(:embargo, info_request: info_request)
-      embargo.
-        update_attribute(:publish_at, embargo.expiring_notification_at + 7.days)
-      embargo
-    end
+    FactoryBot.create(:expiring_embargo, info_request: info_request)
   end
 
   let(:embargo_expiry) { embargo.publish_at }
@@ -42,7 +30,8 @@ describe AlaveteliPro::EmbargoExtensionsController do
 
         it 'updates the embargo' do
           expected_date = embargo_expiry + AlaveteliPro::Embargo::THREE_MONTHS
-          expect(embargo.reload.publish_at).to eq expected_date
+          expect(embargo.reload.publish_at).
+            to be_within(1.second).of(expected_date)
         end
 
         it 'sets a flash message' do
@@ -74,7 +63,8 @@ describe AlaveteliPro::EmbargoExtensionsController do
 
         it 'updates the embargo' do
           expected_date = embargo_expiry + AlaveteliPro::Embargo::THREE_MONTHS
-          expect(embargo.reload.publish_at).to eq expected_date
+          expect(embargo.reload.publish_at).
+            to be_within(1.second).of(expected_date)
         end
 
         it 'sets a flash message' do
