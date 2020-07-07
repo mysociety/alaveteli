@@ -52,7 +52,7 @@ updates:
       - dependency-name: capybara
         versions:
         - ">= 3.33.0"
-      - dependency-name: factory_bot
+      - dependency-name: factory_bot_rails
         versions:
         - ">= 6.0.0"
       - dependency-name: gettext
