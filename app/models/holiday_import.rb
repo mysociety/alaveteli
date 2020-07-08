@@ -96,7 +96,7 @@ class HolidayImport
         holidays << Holiday.new(:description => holiday_info_hash[:name],
                                 :day => holiday_info_hash[:date])
       end
-    rescue Holidays::UnknownRegionError
+    rescue Holidays::InvalidRegion
       []
     end
   end
