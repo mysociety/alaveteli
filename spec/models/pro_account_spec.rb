@@ -19,7 +19,13 @@ describe ProAccount, feature: :pro_pricing do
   around { |example| StripeMock.mock(&example) }
 
   let(:stripe_helper) { StripeMock.create_test_helper }
-  let(:plan) { stripe_helper.create_plan(id: 'pro', amount: 1000) }
+  let(:product) { stripe_helper.create_product }
+
+  let(:plan) do
+    stripe_helper.create_plan(
+      id: 'pro', product: product.id, amount: 1000
+    )
+  end
 
   let(:customer) do
     Stripe::Customer.create(source: stripe_helper.generate_card_token)

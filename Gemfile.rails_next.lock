@@ -1,14 +1,4 @@
 GIT
-  remote: https://github.com/gbp/stripe-ruby-mock
-  revision: a9bc69707925dc7e7d091d02939791bd87e7ba98
-  branch: develop
-  specs:
-    stripe-ruby-mock (2.5.6)
-      dante (>= 0.2.0)
-      multi_json (~> 1.0)
-      stripe (>= 2.0.3)
-
-GIT
   remote: https://github.com/heapsource/active_model_otp.git
   revision: 55d93a3979907d8382c83c9b0f3e94e3186167fc
   ref: 55d93a3979
@@ -33,6 +23,16 @@ GIT
   specs:
     strip_attributes (1.11.0)
       activemodel (>= 3.0, < 7.0)
+
+GIT
+  remote: https://github.com/stripe-ruby-mock/stripe-ruby-mock
+  revision: 2c925fd8cb568e3d0cfebffbe1babb490793f150
+  ref: 2c925fd
+  specs:
+    stripe-ruby-mock (3.0.1)
+      dante (>= 0.2.0)
+      multi_json (~> 1.0)
+      stripe (> 5, < 6)
 
 GIT
   remote: https://github.com/technoweenie/acts_as_versioned.git
@@ -173,8 +173,6 @@ GEM
       railties (>= 4.2.0)
     fancybox-rails (0.3.1)
       railties (>= 3.1.0)
-    faraday (0.15.4)
-      multipart-post (>= 1.2, < 3)
     fast_gettext (2.0.2)
     ffi (1.13.0)
     flipper (0.17.2)
@@ -240,7 +238,6 @@ GEM
     money (6.13.8)
       i18n (>= 0.6.4, <= 2)
     multi_json (1.13.1)
-    multipart-post (2.1.1)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
@@ -378,8 +375,7 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     statistics2 (0.54)
-    stripe (3.29.0)
-      faraday (~> 0.10)
+    stripe (5.22.0)
     sync (0.5.0)
     syslog_protocol (0.9.2)
     term-ansicolor (1.7.1)
@@ -497,7 +493,7 @@ DEPENDENCIES
   secure_headers (~> 6.3.1)
   statistics2 (~> 0.54)
   strip_attributes!
-  stripe (~> 3.29.0)
+  stripe (~> 5.22.0)
   stripe-ruby-mock!
   syslog_protocol (~> 0.9.0)
   therubyracer (~> 0.12.0)

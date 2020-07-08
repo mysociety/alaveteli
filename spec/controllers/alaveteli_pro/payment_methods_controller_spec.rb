@@ -7,9 +7,15 @@ describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
   let(:user_token) { stripe_helper.generate_card_token }
   let(:new_token) { stripe_helper.generate_card_token }
 
+  let(:product) { stripe_helper.create_product }
+  let(:plan) do
+    stripe_helper.create_plan(
+      id: 'pro', product: product.id, amount: 1000
+    )
+  end
+
   before do
     StripeMock.start
-    stripe_helper.create_plan(id: 'pro', amount: 1000)
   end
 
   after do
