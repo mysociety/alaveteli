@@ -1005,7 +1005,7 @@ describe User do
     it 'regenerates the otp_secret_key' do
       user = User.new(:otp_secret_key => '123')
       user.enable_otp
-      expect(user.otp_secret_key.length).to eq(16)
+      expect(user.otp_secret_key.length).to eq(32)
     end
 
     it 'sets otp_enabled to true' do
@@ -1096,13 +1096,13 @@ describe User do
   describe '#otp_secret_key' do
 
     it 'can be set on initialization' do
-      key = ROTP::Base32.random_base32
+      key = User.otp_random_secret
       user = User.new(:otp_secret_key => key)
       expect(user.otp_secret_key).to eq(key)
     end
 
     it 'can be set after initialization' do
-      key = ROTP::Base32.random_base32
+      key = User.otp_random_secret
       user = User.new
       user.otp_secret_key = key
       expect(user.otp_secret_key).to eq(key)
