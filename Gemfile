@@ -90,7 +90,7 @@ gem 'pg', '~> 1.2.3'
 
 # New gem releases aren't being done. master is newer and supports Rails > 3.0
 gem 'acts_as_versioned', :git => 'https://github.com/technoweenie/acts_as_versioned.git', :ref => '63b1fc8529d028'
-gem 'active_model_otp', :git => 'https://github.com/heapsource/active_model_otp.git', :ref => '55d93a3979'
+gem 'active_model_otp'
 gem 'bcrypt', '~> 3.1.13'
 gem 'cancancan', '~> 3.1.0'
 gem 'charlock_holmes', '~> 0.7.7'
@@ -104,7 +104,7 @@ gem 'icalendar', '~> 2.5.3'
 gem 'jquery-rails', '~> 4.4.0'
 gem 'jquery-ui-rails', '~> 6.0.0'
 gem 'json', '~> 2.3.1'
-gem 'holidays', '~> 4.7.0', '< 5.0.0'
+gem 'holidays', '~> 7.1.0'
 gem 'iso_country_codes', '~> 0.7.8'
 gem 'mail', rails_upgrade? ? '~> 2.7.1' : '~> 2.6.6'
 gem 'maxmind-db', '~> 1.0.0'
@@ -122,7 +122,7 @@ gem 'rubyzip', '~> 1.3.0', '< 2.0.0'
 gem 'secure_headers', '~> 6.3.1'
 gem 'statistics2', '~> 0.54'
 gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :branch => 'globalize3-rails5.2'
-gem 'stripe', '~> 3.29.0'
+gem 'stripe', '~> 5.22.0'
 gem 'syslog_protocol', '~> 0.9.0'
 gem 'thin', '~> 1.7.2'
 gem 'vpim', '~> 13.11.11'
@@ -164,8 +164,8 @@ group :test do
   gem 'coveralls', '~> 0.8.23', require: false
   gem 'capybara', '~> 3.15.1'
   gem 'delorean', '~> 2.1.0'
-  gem 'stripe-ruby-mock', git: 'https://github.com/gbp/stripe-ruby-mock',
-                          branch: 'develop'
+  gem 'stripe-ruby-mock', git: 'https://github.com/stripe-ruby-mock/stripe-ruby-mock',
+                          ref: '2c925fd'
   gem('rails-controller-testing')
 end
 
@@ -185,7 +185,7 @@ group :development do
     gem 'net-ssh', ['~> 2.9.0', '< 3.0.0']
       gem 'net-ssh-gateway', ['>= 1.1.0', '< 2.0.0']
   gem 'launchy', '< 2.5.0'
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'listen', '>= 3.0.5', '< 3.3'
   gem 'web-console', '>= 3.3.0'
   gem 'rubocop', '~> 0.63.1'
 end
