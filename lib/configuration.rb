@@ -16,7 +16,7 @@ MySociety::Config.load_default
 module AlaveteliConfiguration
   if !const_defined?(:DEFAULTS)
 
-    # rubocop:disable Metrics/LineLength
+    # rubocop:disable Layout/LineLength
     DEFAULTS = {
       ADMIN_PASSWORD: '',
       ADMIN_USERNAME: '',
@@ -133,7 +133,7 @@ module AlaveteliConfiguration
       UTILITY_SEARCH_PATH: ['/usr/bin', '/usr/local/bin'],
       WORKING_OR_CALENDAR_DAYS: 'working'
     }
-    # rubocop:enable Metrics/LineLength
+    # rubocop:enable Layout/LineLength
   end
 
   def self.method_missing(name)
