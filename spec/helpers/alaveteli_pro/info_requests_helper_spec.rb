@@ -50,9 +50,9 @@ RSpec.describe AlaveteliPro::InfoRequestsHelper, type: :helper do
       subject { embargo_extension_options }
 
       around do |example|
-        time_travel_to Time.utc(2020, 1, 2)
+        travel_to Time.utc(2020, 1, 2)
         example.call
-        back_to_the_present
+        travel_back
       end
 
       it 'returns a list of expiry dates 3, 6 and 12 months into the future' do

@@ -36,7 +36,7 @@ describe InfoRequestHelper do
     context 'waiting_response' do
 
       it 'returns a description' do
-        time_travel_to(Time.zone.parse('2014-12-31'))
+        travel_to(Time.zone.parse('2014-12-31'))
 
         body_link = %Q(<a href="/body/#{ body.url_name }">#{ body.name }</a>)
 
@@ -55,7 +55,7 @@ describe InfoRequestHelper do
 
         expect(status_text(info_request)).to eq(expected)
 
-        back_to_the_present
+        travel_back
       end
 
       context 'the body is not subject to foi' do
@@ -83,7 +83,7 @@ describe InfoRequestHelper do
       end
 
       it 'returns a description' do
-        time_travel_to(Time.zone.parse('2014-12-31'))
+        travel_to(Time.zone.parse('2014-12-31'))
 
         allow(info_request).to receive(:calculate_status).and_return("waiting_response_overdue")
         allow(info_request).to receive(:date_response_required_by).and_return(Time.zone.now)
@@ -100,7 +100,7 @@ describe InfoRequestHelper do
 
         expect(status_text(info_request)).to eq(expected)
 
-        back_to_the_present
+        travel_back
       end
 
       context 'the body is not subject to foi' do
@@ -108,7 +108,7 @@ describe InfoRequestHelper do
         it 'the description does not describe a legal obligation to reply' do
           body.add_tag_if_not_already_present('foi_no')
 
-          time_travel_to(Time.zone.parse('2014-12-31'))
+          travel_to(Time.zone.parse('2014-12-31'))
 
           allow(info_request).
             to receive(:calculate_status).and_return("waiting_response_overdue")
@@ -128,7 +128,7 @@ describe InfoRequestHelper do
 
           expect(status_text(info_request)).to eq(expected)
 
-          back_to_the_present
+          travel_back
         end
 
       end
@@ -143,7 +143,7 @@ describe InfoRequestHelper do
       end
 
       it 'returns a description for an internal request' do
-        time_travel_to(Time.zone.parse('2014-12-31'))
+        travel_to(Time.zone.parse('2014-12-31'))
 
         allow(info_request).to receive(:calculate_status).and_return("waiting_response_very_overdue")
         allow(info_request).to receive(:date_response_required_by).and_return(Time.zone.now)
@@ -163,7 +163,7 @@ describe InfoRequestHelper do
 
         expect(status_text(info_request)).to eq(expected)
 
-        back_to_the_present
+        travel_back
       end
 
       context 'the body is not subject to foi' do
@@ -171,7 +171,7 @@ describe InfoRequestHelper do
         it 'the description does not describe a legal obligation to reply' do
           body.add_tag_if_not_already_present('foi_no')
 
-          time_travel_to(Time.zone.parse('2014-12-31'))
+          travel_to(Time.zone.parse('2014-12-31'))
 
           allow(info_request).
             to receive(:calculate_status).
@@ -196,13 +196,13 @@ describe InfoRequestHelper do
 
           expect(status_text(info_request)).to eq(expected)
 
-          back_to_the_present
+          travel_back
         end
 
       end
 
       it 'does not add a followup link for external requests' do
-        time_travel_to(Time.zone.parse('2014-12-31'))
+        travel_to(Time.zone.parse('2014-12-31'))
 
         body_link = %Q(<a href="/body/#{ body.url_name }">#{ body.name }</a>)
 
@@ -222,7 +222,7 @@ describe InfoRequestHelper do
 
         expect(status_text(info_request)).to eq(expected)
 
-        back_to_the_present
+        travel_back
       end
 
     end

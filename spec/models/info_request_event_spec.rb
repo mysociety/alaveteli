@@ -807,7 +807,7 @@ describe InfoRequestEvent do
              a clarification request' do
       let(:response_event) do
         response = nil
-        time_travel_to(1.month.ago) do
+        travel_to(1.month.ago) do
           response = FactoryBot.create(:response_event)
         end
         response.described_state = 'waiting_clarification'

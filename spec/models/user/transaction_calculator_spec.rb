@@ -58,12 +58,12 @@ describe User::TransactionCalculator do
     context 'with a Range argument' do
 
       it 'sums the total transactions made by the user during the range' do
-        time_travel_to(1.year.ago) do
+        travel_to(1.year.ago) do
           FactoryBot.create(:comment, :user => user)
           FactoryBot.create(:info_request, :user => user)
         end
 
-        time_travel_to(3.days.ago) do
+        travel_to(3.days.ago) do
           FactoryBot.create(:comment, :user => user)
           FactoryBot.create(:info_request, :user => user)
         end
@@ -78,15 +78,15 @@ describe User::TransactionCalculator do
     context 'with a Symbol argument' do
 
       it ':last_7_days sums the total transactions made by the user in the last 7 days' do
-        time_travel_to(8.days.ago) do
+        travel_to(8.days.ago) do
           FactoryBot.create(:comment, :user => user)
         end
 
-        time_travel_to(7.days.ago) do
+        travel_to(7.days.ago) do
           FactoryBot.create(:comment, :user => user)
         end
 
-        time_travel_to(6.days.ago) do
+        travel_to(6.days.ago) do
           FactoryBot.create(:comment, :user => user)
         end
 
@@ -94,15 +94,15 @@ describe User::TransactionCalculator do
       end
 
       it ':last_30_days sums the total transactions made by the user in the last 30 days' do
-        time_travel_to(31.days.ago) do
+        travel_to(31.days.ago) do
           FactoryBot.create(:comment, :user => user)
         end
 
-        time_travel_to(30.days.ago) do
+        travel_to(30.days.ago) do
           FactoryBot.create(:comment, :user => user)
         end
 
-        time_travel_to(29.days.ago) do
+        travel_to(29.days.ago) do
           FactoryBot.create(:comment, :user => user)
         end
 
@@ -110,23 +110,23 @@ describe User::TransactionCalculator do
       end
 
       it ':last_quarter sums the total transactions made by the user in the last quarter' do
-        time_travel_to(Time.zone.parse('2014-12-31')) do
+        travel_to(Time.zone.parse('2014-12-31')) do
           FactoryBot.create(:comment, :user => user)
         end
 
-        time_travel_to(Time.zone.parse('2015-01-01')) do
+        travel_to(Time.zone.parse('2015-01-01')) do
           FactoryBot.create(:comment, :user => user)
         end
 
-        time_travel_to(Time.zone.parse('2015-03-31')) do
+        travel_to(Time.zone.parse('2015-03-31')) do
           FactoryBot.create(:comment, :user => user)
         end
 
-        time_travel_to(Time.zone.parse('2015-04-01')) do
+        travel_to(Time.zone.parse('2015-04-01')) do
           FactoryBot.create(:comment, :user => user)
         end
 
-        time_travel_to(Time.zone.parse('2015-04-01')) do
+        travel_to(Time.zone.parse('2015-04-01')) do
           expect(subject.total(:last_quarter)).to eq(2)
         end
       end
@@ -147,19 +147,19 @@ describe User::TransactionCalculator do
   describe '#total_per_month' do
 
     it 'returns a hash containing the total transactions grouped by month' do
-      time_travel_to(Time.zone.parse('2016-01-05')) do
+      travel_to(Time.zone.parse('2016-01-05')) do
         FactoryBot.create(:comment, :user => user)
       end
 
-      time_travel_to(Time.zone.parse('2016-01-05')) do
+      travel_to(Time.zone.parse('2016-01-05')) do
         FactoryBot.create(:info_request, :user => user)
       end
 
-      time_travel_to(Time.zone.parse('2016-01-05') + 1.hour) do
+      travel_to(Time.zone.parse('2016-01-05') + 1.hour) do
         FactoryBot.create(:info_request, :user => user)
       end
 
-      time_travel_to(Time.zone.parse('2016-03-06')) do
+      travel_to(Time.zone.parse('2016-03-06')) do
         FactoryBot.create(:comment, :user => user)
       end
 
@@ -172,21 +172,21 @@ describe User::TransactionCalculator do
   describe '#average_per_month' do
 
     it 'returns the average transactions per month' do
-      time_travel_to(Time.zone.parse('2016-01-01'))
+      travel_to(Time.zone.parse('2016-01-01'))
       user = FactoryBot.create(:user)
-      back_to_the_present
+      travel_back
 
-      time_travel_to(Time.zone.parse('2016-02-01')) do
+      travel_to(Time.zone.parse('2016-02-01')) do
         3.times { FactoryBot.create(:comment, :user => user) }
       end
 
-      time_travel_to(Time.zone.parse('2016-04-01')) do
+      travel_to(Time.zone.parse('2016-04-01')) do
         3.times { FactoryBot.create(:comment, :user => user) }
       end
 
       subject = described_class.new(user)
 
-      time_travel_to(Time.zone.parse('2016-04-30')) do
+      travel_to(Time.zone.parse('2016-04-30')) do
         expect(subject.average_per_month).to eq(1.5)
       end
     end

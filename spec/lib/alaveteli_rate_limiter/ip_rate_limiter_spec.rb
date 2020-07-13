@@ -187,13 +187,13 @@ describe AlaveteliRateLimiter::IPRateLimiter do
       ip = '127.0.0.1'
 
       purged = 10.days.ago
-      time_travel_to(purged) do
+      travel_to(purged) do
         subject.record(ip)
       end
 
       time = Time.zone.now.to_datetime
 
-      time_travel_to(time) do
+      travel_to(time) do
         subject.record!(ip)
         expect(subject.records(ip)).not_to include(purged)
       end

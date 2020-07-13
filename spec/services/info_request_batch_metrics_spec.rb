@@ -46,11 +46,11 @@ RSpec.describe InfoRequestBatchMetrics do
     subject(:name) { described_class.new(batch).name }
 
     it 'returns a useful filename' do
-      time_travel_to Time.utc(2019, 11, 18, 10, 30)
+      travel_to Time.utc(2019, 11, 18, 10, 30)
       is_expected.to(
         eq 'batch-1-batch_request-dashboard-2019-11-18-103000.csv'
       )
-      back_to_the_present
+      travel_back
     end
   end
 

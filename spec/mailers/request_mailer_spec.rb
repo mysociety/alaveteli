@@ -611,7 +611,7 @@ describe RequestMailer do
     end
 
     it "sends an overdue alert mail to request creators" do
-      time_travel_to(31.days.from_now) do
+      travel_to(31.days.from_now) do
         RequestMailer.alert_overdue_requests
 
         expect(kitten_mails.size).to eq(1)
@@ -629,7 +629,7 @@ describe RequestMailer do
     end
 
     it "does not send the alert if the user is banned but records it as sent" do
-      time_travel_to(31.days.from_now) do
+      travel_to(31.days.from_now) do
         user = @kitten_request.user
         user.ban_text = 'Banned'
         user.save!
@@ -642,7 +642,7 @@ describe RequestMailer do
     end
 
     it "does not resend alerts to people who've already received them" do
-      time_travel_to(31.days.from_now) do
+      travel_to(31.days.from_now) do
         RequestMailer.alert_overdue_requests
         expect(kitten_mails.size).to eq(1)
         ActionMailer::Base.deliveries.clear
@@ -678,7 +678,7 @@ describe RequestMailer do
       kitten_request = InfoRequest.find(@kitten_request.id)
       expect(kitten_request.last_event_forming_initial_request.event_type).to eq('followup_sent')
 
-      time_travel_to(31.days.from_now) do
+      travel_to(31.days.from_now) do
         RequestMailer.alert_overdue_requests
         expect(kitten_mails.size).to eq(1)
         ActionMailer::Base.deliveries.clear
@@ -688,7 +688,7 @@ describe RequestMailer do
     it "sends alerts for embargoed requests" do
       info_request = FactoryBot.create(:embargoed_request)
 
-      time_travel_to(31.days.from_now) do
+      travel_to(31.days.from_now) do
         RequestMailer.alert_overdue_requests
 
         mails = ActionMailer::Base.deliveries.select do |mail|
@@ -702,7 +702,7 @@ describe RequestMailer do
     it "does not send alerts for requests with use_notifications set to true" do
       info_request = FactoryBot.create(:use_notifications_request)
 
-      time_travel_to(31.days.from_now) do
+      travel_to(31.days.from_now) do
         RequestMailer.alert_overdue_requests
 
         mails = ActionMailer::Base.deliveries.select do |mail|
@@ -724,7 +724,7 @@ describe RequestMailer do
       end
 
       it "sends a very overdue alert mail to creators of very overdue requests" do
-        time_travel_to(Time.now + 61.days) do
+        travel_to(Time.now + 61.days) do
           RequestMailer.alert_overdue_requests
           expect(kitten_mails.size).to eq(1)
           mail = kitten_mails[0]
@@ -743,7 +743,7 @@ describe RequestMailer do
       it "sends very overdue alerts for embargoed requests" do
         info_request = FactoryBot.create(:embargoed_request)
 
-        time_travel_to(61.days.from_now) do
+        travel_to(61.days.from_now) do
           RequestMailer.alert_overdue_requests
           mails = ActionMailer::Base.deliveries.select do |mail|
             mail.body =~ /#{info_request.title}/
@@ -758,7 +758,7 @@ describe RequestMailer do
       it "does not send alerts for requests with use_notifications set to true" do
         info_request = FactoryBot.create(:use_notifications_request)
 
-        time_travel_to(61.days.from_now) do
+        travel_to(61.days.from_now) do
           RequestMailer.alert_overdue_requests
 
           mails = ActionMailer::Base.deliveries.select do |mail|

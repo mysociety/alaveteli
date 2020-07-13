@@ -88,7 +88,7 @@ describe AlaveteliRateLimiter::Backends::PStoreDatabase do
       subject = described_class.new(:path => test_path)
       time = Time.zone.now.to_datetime
 
-      time_travel_to(time) do
+      travel_to(time) do
         subject.record('key')
         expect(subject.get('key').last).to be_within(1.second).of(time)
       end

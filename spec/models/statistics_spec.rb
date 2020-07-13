@@ -129,7 +129,7 @@ describe Statistics do
       date_from = Date.new(2015, 12, 28)
       fake_current_date = Date.new(2016, 1, 31)
 
-      time_travel_to(fake_current_date) do
+      travel_to(fake_current_date) do
         expect(Statistics.by_week_to_today_with_noughts(data, date_from)).to eql(
           [
             ["2015-12-28", 0],

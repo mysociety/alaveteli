@@ -247,10 +247,10 @@ describe AdminOutgoingMessageController do
     end
 
     it 'changes info_request#updated_at' do
-      time_travel_to(1.day.ago) { info_request }
+      travel_to(1.day.ago) { info_request }
       expect { post :resend, params: { id: outgoing.id } }.
         to change { info_request.reload.updated_at.to_date }.
-          from(1.day.ago.to_date).to(now.to_date)
+          from(1.day.ago.to_date).to(Time.zone.now.to_date)
     end
 
     it 'reopens closed requests to new responses' do
