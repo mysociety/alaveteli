@@ -46,7 +46,8 @@ class AttachmentsController < ApplicationController
           formats: [:html]
         ),
         body_prefix: render_to_string(
-          partial: 'request/view_html_prefix'
+          partial: 'request/view_html_prefix',
+          formats: [:html]
         )
       }
     )

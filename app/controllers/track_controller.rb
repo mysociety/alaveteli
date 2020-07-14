@@ -184,7 +184,7 @@ class TrackController < ApplicationController
                                                                                             end
                                                                                             ) } }
       format.any { render :template => 'track/atom_feed',
-                   :formats => ['atom'],
+                   :formats => [:atom],
                    :layout => false,
                    :content_type => 'application/atom+xml' }
     end
