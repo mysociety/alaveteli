@@ -91,7 +91,11 @@ describe "When searching" do
       get '/feed/search/chicken.json'
       response_data = JSON.parse(response.body, :symbolize_names => true)
 
-      expect(response.content_type).to eq('application/json')
+      if rails_upgrade?
+        expect(response.media_type).to eq('application/json')
+      else
+        expect(response.content_type).to eq('application/json')
+      end
       expect(response_data.size).to eql(1)
       expect(response_data.first[:info_request][:title]).
         to eq('How much public money is wasted on breeding naughty chickens?')

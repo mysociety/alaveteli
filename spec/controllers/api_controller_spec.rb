@@ -44,7 +44,11 @@ describe ApiController, "when using the API" do
              'external_user_name' => 'Bob Smith'
            }.to_json
          }
-    expect(response.content_type).to eq('application/json')
+    if rails_upgrade?
+      expect(response.media_type).to eq('application/json')
+    else
+      expect(response.content_type).to eq('application/json')
+    end
     ActiveSupport::JSON.decode(response.body)['id']
   end
 
@@ -70,7 +74,11 @@ describe ApiController, "when using the API" do
            }
       expect(response).to be_successful
 
-      expect(response.content_type).to eq('application/json')
+      if rails_upgrade?
+        expect(response.media_type).to eq('application/json')
+      else
+        expect(response.content_type).to eq('application/json')
+      end
       response_body = ActiveSupport::JSON.decode(response.body)
       expect(response_body['errors']).to be_nil
       expect(response_body['url']).to match(/^http/)
