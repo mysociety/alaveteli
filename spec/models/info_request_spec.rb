@@ -37,6 +37,22 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe InfoRequest do
+  describe '#foi_attachments' do
+    subject { info_request.foi_attachments }
+
+    context 'when there are incoming messages with attachments' do
+      let(:info_request) do
+        FactoryBot.create(:info_request_with_incoming_attachments)
+      end
+
+      it { is_expected.to be_many }
+    end
+
+    context 'when there are no incoming messages' do
+      let(:info_request) { FactoryBot.create(:info_request) }
+      it { is_expected.to be_empty }
+    end
+  end
 
   describe 'creating a new request' do
 
