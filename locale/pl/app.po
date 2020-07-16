@@ -21,6 +21,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Ewa Modrzejewska <ewa.modrzejewska@art61.pl>, 2013
 # Ewa Modrzejewska <ewa.modrzejewska@art61.pl>, 2013
 msgid ""
@@ -28,7 +29,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-02-21 11:26+0000\n"
-"PO-Revision-Date: 2020-02-10 15:36+0000\n"
+"PO-Revision-Date: 2020-07-16 14:50+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Polish (http://www.transifex.com/mysociety/alaveteli/language/pl/)\n"
 "Language: pl\n"
@@ -1813,7 +1814,7 @@ msgid "If you reply to this message it will go directly to {{user_name}}, who wi
 msgstr ""
 
 msgid "If you use web-based email or have \"junk mail\" filters, also check your bulk/spam mail folders. Sometimes, our messages are marked that way."
-msgstr "Jeśli korzystasz z poczty przez przeglądarkę lub masz filtry antyspamowe, sprawdź skrzynkę spamu. Zdarza się, że nasze wiadomości tak są oznaczane."
+msgstr ""
 
 msgid "If you want to try and get the rest of the information, here's what to do now."
 msgstr ""
@@ -3907,13 +3908,13 @@ msgid "We've received a delivery status notification from the mailserver belongi
 msgstr ""
 
 msgid "We've sent an email to your new email address. You'll need to click the link in it before your email address will be changed."
-msgstr "Wysłaliśmy Ci e-mail z linkiem na Twój nowy adres. Aby Twój adres e-mailowy się zmienił, musisz na niego kliknąć."
+msgstr ""
 
 msgid "We've sent this message but we have not received a confirmation of receipt from the authority's mailserver. This can take some time."
 msgstr ""
 
 msgid "We've sent you an email, and you'll need to click the link in it before you can continue."
-msgstr "Wysłaliśmy Ci e-mail z linkiem. Kliknij na niego, by kontynuować rejestrację."
+msgstr ""
 
 msgid "We've sent you an email, click the link in it, then you can change your password."
 msgstr ""

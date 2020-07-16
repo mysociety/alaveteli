@@ -5,6 +5,7 @@
 #
 # Translators:
 # gensitu <pstew892@protonmail.com>, 2020
+# Hailey Zhang <s1132151@s.eduhk.hk>, 2020
 #
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-02-21 11:27+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: gensitu <pstew892@protonmail.com>, 2020\n"
+"Last-Translator: Hailey Zhang <s1132151@s.eduhk.hk>, 2020\n"
 "Language-Team: Chinese (Hong Kong) (https://www.transifex.com/mysociety/teams/33529/zh_HK/)\n"
 "Language: zh_HK\n"
 "MIME-Version: 1.0\n"
@@ -43,10 +44,10 @@ msgid "12 Months"
 msgstr "12個月"
 
 msgid "29 April 2019"
-msgstr ""
+msgstr "2019年4月29日"
 
 msgid "3 July 2017"
-msgstr ""
+msgstr "2017年7月3日"
 
 msgid "3 Months"
 msgstr "3個月"
@@ -58,19 +59,19 @@ msgid "<a href=\"{{story_url}}\">Sold From Under You</a> — the Bureau of inves
 msgstr ""
 
 msgid "<span class=\"current-page\">{{current_page}}</span> of <span class=\"total-pages\">{{total_pages}}</span>"
-msgstr ""
+msgstr "<span class=\"current-page\">{{當前頁數}}</span><span class=\"total-pages\">{{總頁數}}</span>"
 
 msgid "<span class=\"price-label__amount\">{{monthly_price}}</span> per user, per month"
-msgstr ""
+msgstr "每個用戶一個月<span class=\"price-label__amount\">{{一個月的價格}}</span>"
 
 msgid "<span class=\"price-label__amount\">{{yearly_price}}</span> per user, per year"
-msgstr ""
+msgstr "每個用戶一年<span class=\"price-label__amount\">{{一年的價格}}</span>"
 
 msgid "<strong class=\"marketing-highlight\">Action alerts</strong>: know when it’s time to take the next step"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">提醒</strong>：知道何時該採取下一步措施"
 
 msgid "<strong class=\"marketing-highlight\">Daily summary emails</strong> to keep your inbox clean"
-msgstr ""
+msgstr "每日整理郵件以保持收件箱整潔"
 
 msgid "<strong class=\"marketing-highlight\">Delivery verification</strong> for proof of receipt"
 msgstr ""
@@ -79,37 +80,37 @@ msgid "<strong class=\"marketing-highlight\">Delivery verification</strong> for 
 msgstr ""
 
 msgid "<strong class=\"marketing-highlight\">Get regular updates</strong> as the responses come in — without overwhelming your inbox"
-msgstr ""
+msgstr "收到您的回應後，我們將<strong class=\"marketing-highlight\">定期發送新資訊</strong>給您-不會過量而使您的收件箱混亂"
 
 msgid "<strong class=\"marketing-highlight\">Make a request to multiple authorities</strong>: select authorities at the click of a button"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">向多個政府部門提出索取資料要求</strong>：單擊按鈕選擇政府部門"
 
 msgid "<strong class=\"marketing-highlight\">Manage large volumes of responses</strong>: easily keep track of the status of each request"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">管理大量的回覆</strong>：輕鬆跟踪每個請求的狀態"
 
 msgid "<strong class=\"marketing-highlight\">Save as draft</strong> to get back to it later"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">保存為草稿</strong>方便稍後編輯"
 
 msgid "<strong class=\"marketing-highlight\">Streamlined process</strong> for requesting internal reviews"
-msgstr ""
+msgstr "簡化了要求內部審查的流程"
 
 msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
 msgstr "<strong>我可以要求披露我的個人資料嗎？</strong><a href=\"{{url}}\">不可以！</a>"
 
 msgid "<strong>Easy</strong> One fee covers all Pro features, with no complex tiers or options to worry about."
-msgstr ""
+msgstr "<strong>簡單</strong>一筆費用涵蓋了所有專業功能，不需要擔心複雜的選項。"
 
 msgid "<strong>Flexible</strong> You can cancel at any time, with no lengthy tie-ins and no notice required."
-msgstr ""
+msgstr "<strong>彈性</strong>您可以隨時取消，沒有複雜的程序，也不需要另行通知。"
 
 msgid "<strong>Reasonable</strong> We know that campaigners are likely to be on a limited budget, so we’ve kept the subscription affordable."
-msgstr ""
+msgstr "<strong>合理</strong>我們知道倡議者的預算很可能有限，所以我們將訂閱的價格保持適中。"
 
 msgid "<strong>Reasonable</strong> We know that journalists can be on a limited budget, so we’ve kept the subscription affordable."
-msgstr ""
+msgstr "<strong>合理</strong>我們知道記者的預算很可能有限，所以我們將訂閱的價格保持適中。"
 
 msgid "<strong>Reasonable</strong> We know that researchers can be on a limited budget, so we’ve kept the subscription affordable."
-msgstr ""
+msgstr "<strong>合理</strong>我們知道研究人員的預算很可能有限，所以我們將訂閱的價格保持適中。"
 
 msgid "<strong>Thank</strong> the public authority."
 msgstr "<strong>感謝</strong>該公共機構。"
@@ -121,22 +122,22 @@ msgid "<strong>{{filter_description}}</strong> sorted by <strong>{{order_descrip
 msgstr ""
 
 msgid "<strong>{{pro_site_name}}</strong> runs on the UK’s best-known FOI service"
-msgstr ""
+msgstr "<strong>{{pro_site_name}}</strong>使用英國最知名的資訊詢問自由權（FOI）服務"
 
 msgid "A  powerful, fully-featured toolset that solves problems for campaigners managing multiple requests or in-depth FOI investigations"
 msgstr ""
 
 msgid "A <strong class=\"marketing-highlight\">searchable archive</strong> of Freedom of Information requests"
-msgstr ""
+msgstr "一個為資訊詢問自由權（FOI）而設的、<strong class=\"marketing-highlight\">可供搜索的檔案庫</strong>"
 
 msgid "A <strong>summary</strong> of the response if you have received it by postal mail. "
-msgstr ""
+msgstr "<strong>概括</strong>您郵箱所收到的回复"
 
 msgid "A one line summary of the information you are requesting, e.g."
-msgstr ""
+msgstr "簡單概括您所索取的信息，例如"
 
 msgid "A permanent, searchable, <strong class=\"marketing-highlight\">public record</strong> of your request and the responses"
-msgstr ""
+msgstr "一個可供搜索，且永久保存詢問資料的<strong class=\"marketing-highlight\">公共檔案</strong>"
 
 msgid "A powerful <strong class=\"marketing-highlight\">private dashboard</strong>: track and manage your FOI projects"
 msgstr ""
@@ -148,16 +149,16 @@ msgid "A powerful, fully-featured toolset that solves problems for researchers a
 msgstr ""
 
 msgid "A super-smart <strong class=\"marketing-highlight\">to-do list</strong>: follow the progress of your requests"
-msgstr ""
+msgstr "智能的<strong class=\"marketing-highlight\">待辦事項清單</strong>：跟進您的請求進度"
 
 msgid "About {{public_body_name}}"
-msgstr ""
+msgstr "有關 {{public_body_name}}"
 
 msgid "Account"
 msgstr "賬户"
 
 msgid "Activist Doug Paulley uncovered councils across the UK who, through inaction, are allowing legal discrimination against wheelchair users. <a href=\"{{story_url}}\">See the whole story</a>"
-msgstr ""
+msgstr "活動家道格·保利（Doug Paulley）揭露了英國各地議會的不作為，以及允許對輪椅使用者的歧視法律。 <a href=\"{{story_url}}\">點擊閱讀全文</a>"
 
 msgid "Activity"
 msgstr "活動"
@@ -166,7 +167,7 @@ msgid "Add"
 msgstr "加入"
 
 msgid "Add Card Details"
-msgstr ""
+msgstr "新增銀行卡"
 
 msgid "Add all"
 msgstr "加入全部"
@@ -178,22 +179,22 @@ msgid "Add annotation"
 msgstr "加入備註"
 
 msgid "Add authorities to your batch"
-msgstr ""
+msgstr "添加政府部門或公營機構到你的列表"
 
 msgid "Add credibility"
-msgstr ""
+msgstr "增加可信度"
 
 msgid "Added"
 msgstr "已加入"
 
 msgid "Adding your payment card requires your browser to have JavaScript enabled."
-msgstr ""
+msgstr "添加付款卡需要您的瀏覽器啟用JavaScript。"
 
 msgid "All requests"
 msgstr "所有索取資料要求"
 
 msgid "All requests within this batch will remain private for the same duration. When an individual request is made public all other requests in this batch will also be published on {{site_name}}."
-msgstr ""
+msgstr "該組內的所有請求將同一時間內保持私密狀態。 單個請求公開後，該組內的所有其他請求也將在{{site_name}}上公開。"
 
 msgid "Also called {{other_name}}."
 msgstr "亦稱為{{other_name}}"
@@ -214,10 +215,10 @@ msgid "Are you sure you want to publish this request?"
 msgstr "你確定要發表此索取資料要求嗎？"
 
 msgid "Are you sure?"
-msgstr "你肯定？"
+msgstr "你確定嗎？"
 
 msgid "Automate FOI request management"
-msgstr ""
+msgstr "自動化資訊詢問自由權（FOI）的管理"
 
 msgid "Batch"
 msgstr ""
@@ -280,7 +281,7 @@ msgid "Cancel your subscription"
 msgstr "取消訂閲"
 
 msgid "Cancelled subscriptions:"
-msgstr ""
+msgstr "已取消的訂閱"
 
 msgid "Card details"
 msgstr ""
@@ -292,7 +293,7 @@ msgid "Change status"
 msgstr "更改狀態"
 
 msgid "Check the authority’s responses on {{site_name}} or conduct a quick Internet search."
-msgstr ""
+msgstr "在{{site_name}}上查看政府部門的回复，或進行快速的網絡搜索。"
 
 msgid "Check you haven't included any <strong>personal information</strong>."
 msgstr "請確保你沒有加入任何<strong>個人資料</strong>。"
@@ -304,7 +305,7 @@ msgid "Collapse all correspondence"
 msgstr ""
 
 msgid "Confirm your account on {{site_name}}"
-msgstr ""
+msgstr "在{{site_name}}上確認您的帳戶"
 
 msgid "Continuing with checkout requires your browser to have JavaScript enabled."
 msgstr "要繼續付款，請先啟用JavaScript。"
@@ -346,7 +347,7 @@ msgid "Do you have a coupon code?"
 msgstr "你有優惠碼嗎？"
 
 msgid "Don’t worry – <a href=\"{{signup_link}}\">our free accounts</a> are still available and always will be."
-msgstr ""
+msgstr "請不用擔心，我們將一直提供<a href=\"{{signup_link}}\">免費帳戶</a>。"
 
 msgid "Download a zip file of all correspondence"
 msgstr "下載含全部回覆的壓縮檔案"
@@ -367,7 +368,7 @@ msgid "Email doesn't look like a valid address"
 msgstr "電郵地址無效"
 
 msgid "Estimated total number of Pro requests:"
-msgstr ""
+msgstr "預計Pro請求的數量"
 
 msgid "Everything you need to keep on top of complex FOI-driven stories."
 msgstr ""
@@ -424,10 +425,10 @@ msgid "First created"
 msgstr ""
 
 msgid "For journalists, academics and power users"
-msgstr ""
+msgstr "面向記者，學者和專業用戶"
 
 msgid "Friendly support"
-msgstr ""
+msgstr "人性化的支持"
 
 msgid "From this screen you can get a helpful overview of your requests, and use quick actions to keep them up to date. Why not start your first one now?"
 msgstr ""
@@ -448,22 +449,22 @@ msgid "Get started with your first request"
 msgstr ""
 
 msgid "Got questions?"
-msgstr ""
+msgstr "遇到問題了嗎？"
 
 msgid "Hard to keep track of your many requests?"
-msgstr ""
+msgstr "很難同時跟進所有的請求？"
 
 msgid "Help"
 msgstr "幫助"
 
 msgid "Helping startups find the best location for their business"
-msgstr ""
+msgstr "幫助初創公司找到最適合他們創業的地點"
 
 msgid "How campaigners are using Pro"
 msgstr ""
 
 msgid "How it works"
-msgstr ""
+msgstr "這是怎麼進行的？"
 
 msgid "How journalists are using Pro"
 msgstr ""
@@ -490,7 +491,7 @@ msgid "Image credits:"
 msgstr ""
 
 msgid "Important info about requests to this authority"
-msgstr ""
+msgstr "關於向該公共機構請求的重要信息"
 
 msgid "Introductory Pricing"
 msgstr ""
@@ -502,19 +503,19 @@ msgid "Investigative journalist Jenna Corderoy has made good use of Pro’s priv
 msgstr ""
 
 msgid "I’m a campaigner"
-msgstr ""
+msgstr "我是活動領導人"
 
 msgid "I’m a journalist"
-msgstr ""
+msgstr "我是記者"
 
 msgid "I’m a researcher"
-msgstr ""
+msgstr "我是學者"
 
 msgid "Join {{pro_site_name}}"
 msgstr ""
 
 msgid "Journalists"
-msgstr ""
+msgstr "記者"
 
 msgid "Keep <strong class=\"marketing-highlight\">requests and responses private</strong> while you work on your story"
 msgstr ""
@@ -526,7 +527,7 @@ msgid "Keep private for:"
 msgstr ""
 
 msgid "Keep track of FOI requests"
-msgstr ""
+msgstr "跟進你提出的資訊詢問自由權（FOI）申請"
 
 msgid "Last updated"
 msgstr "最後更新"
@@ -568,16 +569,16 @@ msgid "My wall"
 msgstr "我的動態"
 
 msgid "Need a helping hand with your FOI requests?"
-msgstr ""
+msgstr "在申請資訊詢問自由權（FOI）過程中需要幫助？"
 
 msgid "Need to keep things under wraps?"
-msgstr ""
+msgstr "需要保密嗎？"
 
 msgid "Need to keep your requests private?"
-msgstr ""
+msgstr "需要將你的申請保密嗎？"
 
 msgid "Need to protect your research?"
-msgstr ""
+msgstr "需要將你的搜索紀錄保密嗎？"
 
 msgid "Need to protect your scoop?"
 msgstr ""
@@ -613,10 +614,10 @@ msgid "No more authorities can be added to this batch request."
 msgstr "不可再加入公共機構。"
 
 msgid "No more copy and paste emails: our Batch Request tool helps you create one request and send it to many authorities at once."
-msgstr ""
+msgstr "不再需要構思電子郵件的用詞：我們的批量申請工具可幫助您快速創建索取資料的請求，並將其一次性發送給多個機構。"
 
 msgid "No need to check: we’ll send an email alert telling you when you need to take action."
-msgstr ""
+msgstr "無需檢查：我們將發送電子郵件提醒，告訴您何時需要採取行動。"
 
 msgid "No results found"
 msgstr "無結果"
@@ -625,16 +626,16 @@ msgid "No title"
 msgstr "無標題"
 
 msgid "Not enough hours in the day?"
-msgstr ""
+msgstr "時間不夠？"
 
 msgid "Note: When this request is made public on {{site_name}}, this message will also be made public."
-msgstr ""
+msgstr "注意：當此請求在{{site_name}}上公開時，此消息也將公開。"
 
 msgid "Note: When this request is made public on {{site_name}}, your name and annotation will appear in <strong>search engines</strong>."
-msgstr ""
+msgstr "注意：在{{site_name}}上公開此請求後，您的姓名和註釋將出現在<strong>搜索引擎</strong>中。"
 
 msgid "Number of Pro accounts active this week:"
-msgstr ""
+msgstr "本週活躍的Pro帳戶數量："
 
 msgid "Number of discounted users:"
 msgstr ""
@@ -643,10 +644,10 @@ msgid "Number of expired embargoes this week:"
 msgstr ""
 
 msgid "Number of free trial users:"
-msgstr ""
+msgstr "免費試用用戶數："
 
 msgid "Number of paying users:"
-msgstr ""
+msgstr "付費用戶數："
 
 msgid "Once the privacy period ends, everything that you enter on this page, including <strong>your name</strong>, will be <strong><a href=\"{{url}}\">displayed publicly</a></strong> on this website."
 msgstr ""
