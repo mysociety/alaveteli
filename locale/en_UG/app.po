@@ -178,7 +178,7 @@ msgid "<p>Thanks for updating your profile photo.</p><p><strong>Next...</strong>
 msgstr ""
 
 msgid "<p>We recommend that you edit your request and remove the email address. If you leave it, the email address will be sent to the authority, but will not be displayed on the site.</p>"
-msgstr ""
+msgstr "<p>We recommend that you edit your request and remove the email address.\\n                If you leave it, the email address will be sent to the agency, but will not be displayed on the site.</p>"
 
 msgid "<p>You do not need to include your email in the request in order to get a reply (<a href=\"{{url}}\">details</a>).</p>"
 msgstr ""
@@ -217,7 +217,7 @@ msgid "<strong><code>status:</code></strong> to select based on the status or hi
 msgstr ""
 
 msgid "<strong><code>tag:charity</code></strong> to find all public authorities or requests with a given tag. You can include multiple tags, and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags can be present, you have to put <code>AND</code> explicitly if you only want results them all present."
-msgstr ""
+msgstr "<strong><code>tag:charity</code></strong> to find all public agencies or requests with a given tag. You can include multiple tags, \\n    and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags\\n    can be present, you have to put <code>AND</code> explicitly if you only want results them all present."
 
 msgid "<strong><code>variety:</code></strong> to select type of thing to search for, see the <a href=\"{{varieties_url}}\">table of varieties</a> below."
 msgstr ""
@@ -238,7 +238,7 @@ msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}
 msgstr ""
 
 msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, you will need a good internal knowledge of user behaviour on {{site_name}}. How, why and by whom requests are categorised is not straightforward, and there will be user error and ambiguity. You will also need to understand FOI law, and the way authorities use it. Plus you'll need to be an elite statistician.  Please <a href=\"{{contact_path}}\">contact us</a> with questions."
-msgstr ""
+msgstr "<strong>Caveat emptor!</strong> To use this data in an honourable way, you will need \\na good internal knowledge of user behaviour on {{site_name}}. How, \\nwhy and by whom requests are categorised is not straightforward, and there will\\nbe user error and ambiguity. You will also need to understand ATI law, and the\\nway agencies use it. Plus you'll need to be an elite statistician.  Please\\n<a href=\"{{contact_path}}\">contact us</a> with questions."
 
 msgid "<strong>Clarification</strong> has been requested"
 msgstr ""
@@ -1402,7 +1402,7 @@ msgid "First, did your other requests succeed?"
 msgstr ""
 
 msgid "First, type in the <strong>name of the public authority</strong> you'd like information from."
-msgstr ""
+msgstr "First, search the <strong>name of the Ugandan public agency </strong> you would\\n           like information from. "
 
 msgid "Flipper/adapters/active record/feature"
 msgstr ""
@@ -1761,7 +1761,7 @@ msgid "If this is incorrect, or you would like to send a late response to the re
 msgstr ""
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
-msgstr ""
+msgstr "If you are dissatisfied by the response you got from\\n            the public agency, you have the right to\\n            complain (<a href=\"{{url}}\">details</a>)."
 
 msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 msgstr ""
@@ -2768,7 +2768,7 @@ msgid "Search in their website for this information &rarr;"
 msgstr ""
 
 msgid "Search over<br/><strong>{{number_of_requests}} requests</strong> <span>and</span><br/><strong>{{number_of_authorities}} authorities</strong>"
-msgstr ""
+msgstr "Search over<br/>\\n  <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>\\n  <strong>{{number_of_authorities}} agencies </strong>"
 
 msgid "Search queries"
 msgstr ""
@@ -3109,7 +3109,7 @@ msgid "The authority only has a <strong>paper copy</strong> of the information."
 msgstr "The agency only has a <strong>paper copy</strong> of the information."
 
 msgid "The authority say that they <strong>need a postal address</strong>, not just an email, for it to be a valid FOI request"
-msgstr ""
+msgstr "The agency say that they <strong>need a postal\\n            address</strong>, not just an email, for it to be a valid ATI request"
 
 msgid "The authority would like to / has <strong>responded by postal mail</strong> to this request."
 msgstr ""
@@ -3196,13 +3196,13 @@ msgid "The response to your request has been <strong>delayed</strong>. Although 
 msgstr ""
 
 msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and by <strong>{{date}}</strong>"
-msgstr ""
+msgstr "The response to your request has been <strong>delayed</strong>. You can say that, by law, the agency should normally have responded <strong>promptly</strong> and by <strong>{{date}}</strong>"
 
 msgid "The response to your request is <strong>long overdue</strong>. Although the authority has no legal obligation to reply, they should have responded by now"
 msgstr ""
 
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
-msgstr ""
+msgstr "The response to your request is <strong>long overdue</strong>.   You can say that, by\\n            law, under all circumstances, the agency should have responded\\n            by now"
 
 msgid "The search index is currently offline, so we can't show the Freedom of Information requests that have been made to this authority."
 msgstr "The search index is currently offline, so we can't show the Access to Information requests that have been made to this agency."
@@ -3500,7 +3500,7 @@ msgid "This section on public body statistics is currently experimental, so ther
 msgstr ""
 
 msgid "This table shows the technical details of the internal events that happened to this request on {{site_name}}. This could be used to generate information about the speed with which authorities respond to requests, the number of requests which require a postal response and much more."
-msgstr ""
+msgstr "This table shows the technical details of the internal events that happened\\nto this request on {{site_name}}. This could be used to generate information about\\nthe speed with which agencies respond to requests, the number of requests\\nwhich require a postal response and much more."
 
 msgid "This user has been suspended from {{site_name}} "
 msgstr ""
@@ -4758,7 +4758,7 @@ msgid "{{reason}}, please sign in as {{user_name}}."
 msgstr ""
 
 msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
-msgstr ""
+msgstr "{{reason}}. Unfortunately we don't know the ATI\\nemail address for that agency, so we can't validate this.\\nPlease <a href=\"{{url}}\">contact us</a> to sort it out."
 
 msgid "{{search_results}} matching '{{query}}'"
 msgstr ""

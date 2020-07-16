@@ -268,7 +268,7 @@ msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the 
 msgstr ""
 
 msgid "<strong>Privacy warning:</strong> Your message, and any response to it, will be displayed publicly on this website."
-msgstr ""
+msgstr " <strong>Huomio:</strong> Sinun sähköpostiosoitteesi annetaan"
 
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr ""
