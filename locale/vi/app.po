@@ -21,6 +21,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Anh Phan <ppanhh@gmail.com>, 2013
 # Anh Phan <vietnamesel10n@gmail.com>, 2013
 # Anh Phan <vietnamesel10n@gmail.com>, 2013
@@ -31,7 +32,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-02-21 11:26+0000\n"
-"PO-Revision-Date: 2020-02-10 15:36+0000\n"
+"PO-Revision-Date: 2020-07-16 14:50+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/mysociety/alaveteli/language/vi/)\n"
 "Language: vi\n"
@@ -267,7 +268,7 @@ msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the 
 msgstr ""
 
 msgid "<strong>Privacy warning:</strong> Your message, and any response to it, will be displayed publicly on this website."
-msgstr " <strong>Ghi chú về quyền riêng tư:</strong> Địa chỉ email của bạn phải được chuyển đến"
+msgstr ""
 
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr ""
@@ -3503,7 +3504,7 @@ msgid "This was not possible because there is already an account using the email
 msgstr ""
 
 msgid "This will appear on your {{site_name}} profile, to make it easier for others to get involved with what you're doing."
-msgstr "  Phần này sẽ xuất hiện trên trang hồ sơ {{site_name}} , để làm trang này trở nên\\n            dễ tham gia vào các tiến trình bạn đang thực hiện."
+msgstr ""
 
 msgid "To"
 msgstr ""
