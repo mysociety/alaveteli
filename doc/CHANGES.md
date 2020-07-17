@@ -1,8 +1,15 @@
+# 0.37.1.4
+
+## Highlighted Features
+
+* Fix missing translations in 0.37.1.3 (Graeme Porteous)
+
 # 0.37.1.3
 
 ## Highlighted Features
 
 * Updated translations from Transifex (Graeme Porteous)
+
 # 0.37.1.2
 
 ## Highlighted Features
