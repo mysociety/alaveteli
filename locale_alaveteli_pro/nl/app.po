@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-21 11:27+0000\n"
+"POT-Creation-Date: 2020-07-17 13:03+0100\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
 "Last-Translator: Liset Hamming <elhamming@gmail.com>, 2020\n"
 "Language-Team: Dutch (https://www.transifex.com/mysociety/teams/33529/nl/)\n"
@@ -557,9 +557,6 @@ msgstr ""
 msgid "Make an {{law_used_short}} request"
 msgstr "Doe een {{law_used_short}}-verzoek"
 
-msgid "Message {{current_message}} of {{total_messages}}"
-msgstr ""
-
 msgid "My profile"
 msgstr "Mijn profielpagina"
 
@@ -597,9 +594,6 @@ msgid "New batches made this week:"
 msgstr ""
 
 msgid "New to Professional – Batch"
-msgstr ""
-
-msgid "Next message"
 msgstr ""
 
 msgid "Next payment"
@@ -715,9 +709,6 @@ msgstr "Controleer je nieuwe bulkverzoek"
 
 msgid "Preview new {{law_used_short}} request to '{{public_body_name}}'"
 msgstr "Controleer je nieuwe {{law_used_short}}-verzoek aan '{{public_body_name}}'"
-
-msgid "Previous message"
-msgstr ""
 
 msgid "Pricing"
 msgstr ""
@@ -1326,6 +1317,9 @@ msgid "You’re busy fixing the world. Let us take care of your FOI requests."
 msgstr ""
 
 msgid "You’ve got plenty of other things to think about, so you don’t want to be checking up on every single one of your requests to see if it needs attention. Instead, Pro keeps an eye on them for you, sending you a daily email digest."
+msgstr ""
+
+msgid "ZIP"
 msgstr ""
 
 msgid "all requests"

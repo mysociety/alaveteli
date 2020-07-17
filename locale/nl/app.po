@@ -31,15 +31,25 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-16 16:34+0100\n"
+"POT-Creation-Date: 2020-07-17 13:02+0100\n"
 "PO-Revision-Date: 2020-07-16 16:35+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
-"Language-Team: Dutch (http://www.transifex.com/mysociety/alaveteli/language/nl/)\n"
+"Language-Team: Dutch (http://www.transifex.com/mysociety/alaveteli/language/nl"
+"/)\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid ""
+"\n"
+"\n"
+"[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
+msgstr ""
+"\n"
+"\n"
+"[{{site_name}} Opmerking: de tekst hieronder is slecht gecodeerd en vreemde tekens zijn verwijderd.]"
 
 msgid " (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation policy</a>)"
 msgstr "(<strong>geen garantie</strong> op publicatie, lees ons <a href=\"{{url}}\">moderatiebeleid</a>)"
@@ -134,11 +144,31 @@ msgstr "(toon)"
 msgid "*unknown*"
 msgstr "*onbekend*"
 
-msgid ",\\n\\n\\n\\nYours,\\n\\n{{user_name}}"
-msgstr ",\\n\\n\\n\\nHoogachtend,\\n\\n{{user_name}}"
+msgid ""
+",\n"
+"\n"
+"\n"
+"\n"
+"Yours,\n"
+"\n"
+"{{user_name}}"
+msgstr ""
+",\n"
+"\n"
+"\n"
+"\n"
+"Hoogachtend,\n"
+"\n"
+"{{user_name}}"
 
 msgid "12 characters minimum. 72 characters maximum."
 msgstr "minimaal 12 tekens, maximaal 72 tekens"
+
+msgid "5 minutes+"
+msgstr ""
+
+msgid "60 minutes+"
+msgstr ""
 
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
 msgstr "<a href=\"{{browse_url}}\">Bekijk alle overheidsinstanties</a> of <a href=\"{{add_url}}\">vraag ons er één toe te voegen</a>."
@@ -176,13 +206,19 @@ msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\
 msgstr "<p>Klaar! Hartelijk dank voor je hulp.</p><p>Er zijn <a href=\"{{helpus_url}}\">meer dingen die je kunt doen</a> om {{site_name}} te helpen.</p>"
 
 msgid "<p>Thanks for changing the text about you on your profile.</p><p><strong>Next...</strong> You can upload a profile photograph too.</p>"
-msgstr "<p>Bedankt voor het wijzigen van de tekst op je profielpagina</p>\\n <p><strong>Volgende stap...</strong> Je kunt ook een profielfoto uploaden.</p>"
+msgstr ""
+"<p>Bedankt voor het wijzigen van de tekst op je profielpagina</p>\n"
+" <p><strong>Volgende stap...</strong> Je kunt ook een profielfoto uploaden.</p>"
 
 msgid "<p>Thanks for updating your profile photo.</p><p><strong>Next...</strong> You can put some text about you and your research on your profile.</p>"
-msgstr "<p>Bedankt voor het updaten van je profielfoto.</p>\\n <p><strong>Volgende stap...</strong> Je kunt wat uitleg over jezelf en je onderzoek in je profiel opnemen</p>"
+msgstr ""
+"<p>Bedankt voor het updaten van je profielfoto.</p>\n"
+" <p><strong>Volgende stap...</strong> Je kunt wat uitleg over jezelf en je onderzoek in je profiel opnemen</p>"
 
 msgid "<p>We recommend that you edit your request and remove the email address. If you leave it, the email address will be sent to the authority, but will not be displayed on the site.</p>"
-msgstr "<p>Wij raden je aan om je verzoek te wijzigen en je e-mailadres te verwijderen.\\n Als je het laat staan, wordt het meegestuurd naar de overheidsinstantie, maar niet op de site getoond.</p>"
+msgstr ""
+"<p>Wij raden je aan om je verzoek te wijzigen en je e-mailadres te verwijderen.\n"
+" Als je het laat staan, wordt het meegestuurd naar de overheidsinstantie, maar niet op de site getoond.</p>"
 
 msgid "<p>You do not need to include your email in the request in order to get a reply (<a href=\"{{url}}\">details</a>).</p>"
 msgstr "<p>Je hoeft geen e-mailadres in je verzoek te zetten om een reactie te krijgen (<a href=\"{{url}}\">details</a>).</p>"
@@ -221,7 +257,10 @@ msgid "<strong><code>status:</code></strong> to select based on the status or hi
 msgstr "<strong><code>status:</code></strong> om te zoeken op basis van de status, of de historische status van een verzoek, zie de <a href=\"{{statuses_url}}\">tabel met statussen</a> verderop."
 
 msgid "<strong><code>tag:charity</code></strong> to find all public authorities or requests with a given tag. You can include multiple tags, and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags can be present, you have to put <code>AND</code> explicitly if you only want results them all present."
-msgstr "<strong><code>tag:charity</code></strong> om alle overheidsinstanties of verzoeken met een bepaalde tag te tonen. Je kunt meerdere tags, \\n en tagwaardes meegeven, bijvoorbeeld <code>tag:openlylocal EN tag:financial_transaction:335633</code>. Let op dat standaard elke tag\\n aanwezig kan zijn. Je moet expliciet <code>EN</code> toevoegen als je alleen resultaten die aan alle tags voldoen wilt zien."
+msgstr ""
+"<strong><code>tag:charity</code></strong> om alle overheidsinstanties of verzoeken met een bepaalde tag te tonen. Je kunt meerdere tags, \n"
+" en tagwaardes meegeven, bijvoorbeeld <code>tag:openlylocal EN tag:financial_transaction:335633</code>. Let op dat standaard elke tag\n"
+" aanwezig kan zijn. Je moet expliciet <code>EN</code> toevoegen als je alleen resultaten die aan alle tags voldoen wilt zien."
 
 msgid "<strong><code>variety:</code></strong> to select type of thing to search for, see the <a href=\"{{varieties_url}}\">table of varieties</a> below."
 msgstr "<strong><code>variety:</code></strong> om bepaalde elementen die je wil zoeken te selecteren, zie de <a href=\"{{varieties_url}}\">tabel met variaties</a> verderop."
@@ -239,10 +278,14 @@ msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</
 msgstr "<strong>Overheidsinstanties zijn bij wet verplicht om je Wob-verzoek in behandeling te nemen</strong> (<a href=\"{{url}}\">waarom?</a>)."
 
 msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
-msgstr "<strong> Kan ik informatie over mezelf opvragen?</strong>\\n <a href=\"{{url}}\">Nee!</a>"
+msgstr ""
+"<strong> Kan ik informatie over mezelf opvragen?</strong>\n"
+" <a href=\"{{url}}\">Nee!</a>"
 
 msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, you will need a good internal knowledge of user behaviour on {{site_name}}. How, why and by whom requests are categorised is not straightforward, and there will be user error and ambiguity. You will also need to understand FOI law, and the way authorities use it. Plus you'll need to be an elite statistician.  Please <a href=\"{{contact_path}}\">contact us</a> with questions."
-msgstr "<strong>Caveat emptor!</strong> Om deze data op een aanvaardbare manier te gebruiken moet je goede kennis hebben van het gebruikersgedrag op {{site_name}}. Begrijpen hoe, waarom en door wie verzoeken zijn gecategoriseerd is niet eenvoudig. Er kan sprake zijn van fouten en dubbelzinnigheden die door de gebruiker veroorzaakt zijn. Je moet ook verstand hebben van de Wet openbaarheid van bestuur en de manier waarop overheidsinstanties deze wet gebruiken. Bovendien moet je vertrouwd zijn met statistiek. Neem ajb\\n <a href=\"{{contact_path}}\">contact met ons op</a> als je vragen hebt."
+msgstr ""
+"<strong>Caveat emptor!</strong> Om deze data op een aanvaardbare manier te gebruiken moet je goede kennis hebben van het gebruikersgedrag op {{site_name}}. Begrijpen hoe, waarom en door wie verzoeken zijn gecategoriseerd is niet eenvoudig. Er kan sprake zijn van fouten en dubbelzinnigheden die door de gebruiker veroorzaakt zijn. Je moet ook verstand hebben van de Wet openbaarheid van bestuur en de manier waarop overheidsinstanties deze wet gebruiken. Bovendien moet je vertrouwd zijn met statistiek. Neem ajb\n"
+" <a href=\"{{contact_path}}\">contact met ons op</a> als je vragen hebt."
 
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong>Opheldering</strong>is om verzocht"
@@ -251,25 +294,36 @@ msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is
 msgstr "<strong>Ben je journalist?</strong> {{pro_site_link}} biedt de mogelijkheid om bulkverzoeken te doen en je Wob-verzoek(en) af te schermen."
 
 msgid "<strong>No response</strong> has been received <small>(maybe there's just an acknowledgement)</small>"
-msgstr "<strong>Geen antwoord</strong> ontvangen\\n <small>(misschien is er alleen een ontvangstbevestiging)</small>"
+msgstr ""
+"<strong>Geen antwoord</strong> ontvangen\n"
+" <small>(misschien is er alleen een ontvangstbevestiging)</small>"
 
 msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
 msgstr "<strong>Let op:</strong> Omdat we aan het testen zijn, worden verzoeken verstuurd naar {{email}} en niet naar de werkelijke overheidsinstantie."
 
 msgid "<strong>Note:</strong> We will send an email to your new email address. Follow the instructions in it to confirm changing your email."
-msgstr "<strong>Let op:</strong>\\n We sturen een mail naar je nieuwe e-mailadres. Volg de\\n instructies in de mail om je wijzigingen door te voeren."
+msgstr ""
+"<strong>Let op:</strong>\n"
+" We sturen een mail naar je nieuwe e-mailadres. Volg de\n"
+" instructies in de mail om je wijzigingen door te voeren."
 
 msgid "<strong>Note:</strong> We will send you an email to confirm you are the owner of this account. Follow the instructions in it to change your password."
 msgstr "<strong>Let op:</strong> We zullen je een mail sturen om te bevestigen dat je de eigenaar van dit account bent. Volg de instructies in de mail om je wachtwoord te wijzigen."
 
 msgid "<strong>Note:</strong> You're sending a message to yourself, presumably to try out how it works."
-msgstr "<strong>Let op:</strong> Je stuurt nu een bericht naar jezelf. Waarschijnlijk\\n om te testen hoe dit werkt."
+msgstr ""
+"<strong>Let op:</strong> Je stuurt nu een bericht naar jezelf. Waarschijnlijk\n"
+" om te testen hoe dit werkt."
 
 msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet, wherever you do something on {{site_name}}."
-msgstr "<strong>Privacy waarschuwing:</strong> Je foto wordt publiekelijk getoond op het internet, \\n elke keer als je iets op {{site_name}} doet."
+msgstr ""
+"<strong>Privacy waarschuwing:</strong> Je foto wordt publiekelijk getoond op het internet, \n"
+" elke keer als je iets op {{site_name}} doet."
 
 msgid "<strong>Privacy warning:</strong> Your message, and any response to it, will be displayed publicly on this website."
-msgstr "<strong>Privacy opmerking:</strong> Je bericht en alle antwoorden\\n worden op de site gepubliceerd.</strong>"
+msgstr ""
+"<strong>Privacy opmerking:</strong> Je bericht en alle antwoorden\n"
+" worden op de site gepubliceerd.</strong>"
 
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr "<strong>Een deel van de informatie</strong> is verzonden"
@@ -374,7 +428,9 @@ msgid "Add an annotation to &ldquo;{{request_title}}&rdquo;"
 msgstr "Plaats een opmerking bij &ldquo;{{request_title}}&rdquo;"
 
 msgid "Add an annotation to your request with choice quotes, or a <strong>summary of the response</strong>."
-msgstr "Plaats een opmerking bij je verzoek met daarin citaten of\\n een <strong>samenvatting van de reactie</strong>."
+msgstr ""
+"Plaats een opmerking bij je verzoek met daarin citaten of\n"
+" een <strong>samenvatting van de reactie</strong>."
 
 msgid "Add authority - {{public_body_name}}"
 msgstr "Voeg overheidsinstantie - {{public_body_name}} toe"
@@ -425,7 +481,9 @@ msgid "Alter your subscription"
 msgstr "Wijzig je aanmelding"
 
 msgid "Although all responses are automatically published, we depend on you, the original requester, to evaluate them."
-msgstr "Hoewel alle antwoorden  automatisch gepubliceerd worden, rekenen we op\\n de verzoeker om ze te beoordelen."
+msgstr ""
+"Hoewel alle antwoorden  automatisch gepubliceerd worden, rekenen we op\n"
+" de verzoeker om ze te beoordelen."
 
 msgid "Although not legally required to do so, we would have expected {{public_body_link}} to have responded by "
 msgstr "Hoewel dat juridisch niet verplicht is, lag het in de rede dat {{public_body_link}} zou hebben geantwoord op"
@@ -474,6 +532,9 @@ msgstr "Opmerkingen verschijnen wel hier op de site, maar worden <strong>niet</s
 
 msgid "Anonymous user"
 msgstr "Anonieme gebruiker"
+
+msgid "Any device"
+msgstr ""
 
 msgid "Application record"
 msgstr "Application record"
@@ -913,6 +974,9 @@ msgstr "Verzoek je om persoonlijke informatie over jezelf of anderen?"
 msgid "Are you sure you want to disable two factor authentication?"
 msgstr "Weet je zeker dat je tweevoudige authenticatie wil uitschakelen?"
 
+msgid "Are you sure?"
+msgstr ""
+
 msgid "Are you sure? If you regenerate your one time passcode you will need to update your password manager or re-print it."
 msgstr "Weet je het zeker? Als je je unieke toegangscode opnieuw instelt, moet je je passwordbeheerder updaten of het opnieuw afdrukken."
 
@@ -935,7 +999,9 @@ msgid "Ask us to update the email address for {{public_body_name}}"
 msgstr "Vraag ons om het e-mailadres van {{public_body_name}} te updaten"
 
 msgid "At the bottom of this page, write a reply to them trying to persuade them to scan it in (<a href=\"{{url}}\">more details</a>)."
-msgstr "Schrijf onderaan deze pagina een antwoord waarin je voorstelt het in te scannen\\n (<a href=\"{{url}}\">meer details</a>)."
+msgstr ""
+"Schrijf onderaan deze pagina een antwoord waarin je voorstelt het in te scannen\n"
+" (<a href=\"{{url}}\">meer details</a>)."
 
 msgid "Attachment (optional):"
 msgstr "Bijlage (optioneel):"
@@ -1024,6 +1090,9 @@ msgstr "Volgens de wet had je zo spoedig mogelijk en in ieder geval binnen vier 
 msgid "By law, {{public_body_link}} should normally have responded <strong>promptly</strong> and"
 msgstr "Volgens de wet had {{public_body_link}}  <strong>zo spoedig mogelijk </strong> en in ieder geval binnen vier weken een beslissing moeten nemen en"
 
+msgid "CSV"
+msgstr ""
+
 msgid "Calculated home page"
 msgstr "Calculated home page"
 
@@ -1090,11 +1159,16 @@ msgstr "Licht je Wob-verzoek toe - {{request_title}}"
 msgid "Classify an FOI response from {{authority_name}}"
 msgstr "Label een reactie van {{authority_name}} op een Wob-verzoek"
 
+msgid "Classify responses"
+msgstr ""
+
 msgid "Clear photo"
 msgstr "Foto verwijderen"
 
 msgid "Click on the link below to send a message to {{public_body_name}} telling them to reply to your request. You might like to ask for an internal review, asking them to find out why response to the request has been so slow."
-msgstr "Klik op de link hieronder om een bericht naar {{public_body_name}} te sturen met de vraag om te reageren op je verzoek. Je wilt hen mogelijk vragen om intern\\n na te gaan waarom hun besluit op het verzoek zo lang uitblijft."
+msgstr ""
+"Klik op de link hieronder om een bericht naar {{public_body_name}} te sturen met de vraag om te reageren op je verzoek. Je wilt hen mogelijk vragen om intern\n"
+" na te gaan waarom hun besluit op het verzoek zo lang uitblijft."
 
 msgid "Click on the link below to send a message to {{public_body_name}} telling them to reply to your request. You might like to ask for an internal review, asking them to find out why their response to the request has been so slow."
 msgstr ""
@@ -1170,6 +1244,9 @@ msgstr "Bevat lasterlijke inhoud"
 msgid "Contains personal information"
 msgstr "Bevat persoonlijke informatie"
 
+msgid "Contribute"
+msgstr ""
+
 msgid "Cookies not enabled"
 msgstr "Cookies niet geactiveerd"
 
@@ -1204,10 +1281,15 @@ msgid "Crop your profile photo"
 msgstr "Snij je profielfoto bij"
 
 msgid "Cultural sites and built structures (as they may be affected by the environmental factors listed above)"
-msgstr "Culturele sites en gebouwen (als ze beïnvloed kunnen worden\\n door de hierboven opgesomde milieufactoren)"
+msgstr ""
+"Culturele sites en gebouwen (als ze beïnvloed kunnen worden\n"
+" door de hierboven opgesomde milieufactoren)"
 
 msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they should respond promptly and"
 msgstr "In <strong>afwachting van een antwoord</strong> van {{public_body_link}}, ze zouden zo spoedig mogelijk moeten besluiten en"
+
+msgid "Data interpretation"
+msgstr ""
 
 msgid "Date:"
 msgstr "Datum:"
@@ -1281,11 +1363,17 @@ msgstr "Klaar"
 msgid "Done &gt;&gt;"
 msgstr "Klaar &gt;&gt;"
 
+msgid "Download Data"
+msgstr ""
+
 msgid "Download a zip file of all correspondence"
 msgstr "Download zip-bestand van alle correspondentie"
 
 msgid "Download original attachment"
 msgstr "Download de bijlage"
+
+msgid "Downloads"
+msgstr ""
 
 msgid "EIR"
 msgstr "Verzoek om milieu-informatie"
@@ -1294,7 +1382,9 @@ msgid "Edit"
 msgstr "Wijzig"
 
 msgid "Edit and add <strong>more details</strong> to the message above, explaining why you are dissatisfied with their response."
-msgstr "Wijzig en voeg <strong>meer details</strong> toe aan het bericht hierboven,\\n waarin je uitlegt waarom je niet tevreden bent met het antwoord."
+msgstr ""
+"Wijzig en voeg <strong>meer details</strong> toe aan het bericht hierboven,\n"
+" waarin je uitlegt waarom je niet tevreden bent met het antwoord."
 
 msgid "Edit text about you"
 msgstr "Wijzig je profieltekst."
@@ -1330,7 +1420,9 @@ msgid "Enter words that you want to find separated by spaces, e.g. <strong>climb
 msgstr "Voer zoektermen in, gescheiden door spaties, bv. <strong>'stijgende weg'</strong>"
 
 msgid "Enter your response below. You may attach one file (use email, or <a href=\"{{url}}\">contact us</a> if you need more)."
-msgstr "Schrijf hieronder je antwoord. Je kunt een bestand toevoegen (via e-mail of\\n <a href=\"{{url}}\">neem contact met ons op</a> voor meerdere bestanden)."
+msgstr ""
+"Schrijf hieronder je antwoord. Je kunt een bestand toevoegen (via e-mail of\n"
+" <a href=\"{{url}}\">neem contact met ons op</a> voor meerdere bestanden)."
 
 msgid "Environmental Information Regulations"
 msgstr "Regels voor verzoeken om milieu-informatie"
@@ -1351,10 +1443,22 @@ msgid "Every citizen has the right to access information held by public authorit
 msgstr "Iedereen in Nederland heeft het recht om bij een overheidsinstantie informatie op te vragen."
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
-msgstr "Alles wat je op deze pagina invult, ook <strong>je naam</strong>, \\n verschijnt <strong>voor iedereen zichtbaar</strong> op\\n deze site, <a href=\"{{url}}\">voor onbepaalde tijd</a>."
+msgstr ""
+"Alles wat je op deze pagina invult, ook <strong>je naam</strong>, \n"
+" verschijnt <strong>voor iedereen zichtbaar</strong> op\n"
+" deze site, <a href=\"{{url}}\">voor onbepaalde tijd</a>."
 
 msgid "Expand all correspondence"
 msgstr "Klap alle correspondentie uit"
+
+msgid "Extract data"
+msgstr ""
+
+msgid "Extract relevant information from each successful freedom of information request and enter it into the provided fields. This will populate the data file for this project."
+msgstr ""
+
+msgid "Extraction couldn't be saved."
+msgstr ""
 
 msgid "FOI"
 msgstr "Wet openbaarheid van bestuur (Wob)"
@@ -1463,13 +1567,13 @@ msgstr "Volg deze persoon"
 msgid "Follow this request"
 msgstr "Volg dit verzoek"
 
-#. "Follow up" in this context means a further
+#. TRANSLATORS: "Follow up" in this context means a further
 #. message sent by the requester to the authority after
 #. the initial request
 msgid "Follow up"
 msgstr "Follow-up"
 
-#. "Follow up message" in this context means a
+#. TRANSLATORS: "Follow up message" in this context means a
 #. further message sent by the requester to the authority after
 #. the initial request
 msgid "Follow up message sent by requester"
@@ -1481,7 +1585,7 @@ msgstr "Follow-up berichten voor bestaande verzoeken worden verstuurd naar <stro
 msgid "Follow up sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Een follow-up bericht werd verstuurd aan {{public_body_name}} door {{info_request_user}} op {{date}}."
 
-#. "Follow ups" in this context means further
+#. TRANSLATORS: "Follow ups" in this context means further
 #. messages sent by the requester to the authority after
 #. the initial request
 msgid "Follow ups and new responses to this request have been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and need to send a follow up."
@@ -1553,7 +1657,10 @@ msgid "From"
 msgstr "Van"
 
 msgid "From the request page, try replying to a particular message, rather than sending a general followup. If you need to make a general followup, and know an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
-msgstr "Antwoord waar mogelijk op een specifiek bericht in plaats\\n van een algemeen bericht naar de overheidsinstantie te versturen. Als je een algemeen bericht naar de overheidsinstantie wilt sturen en je weet\\n het juiste e-mailadres, </a>stuur dat dan naar ons door</a>."
+msgstr ""
+"Antwoord waar mogelijk op een specifiek bericht in plaats\n"
+" van een algemeen bericht naar de overheidsinstantie te versturen. Als je een algemeen bericht naar de overheidsinstantie wilt sturen en je weet\n"
+" het juiste e-mailadres, </a>stuur dat dan naar ons door</a>."
 
 msgid "From time to time requests need to be hidden on {{site_name}}. This can happen for a number of reasons. For example, the request could be about someone’s personal information that shouldn’t be public or the contents could be abusive."
 msgstr "Soms worden verzoeken verborgen op {{site_name}}. Dit gebeurt om verschillende redenen, waaronder als het verzoek een verzoek om persoonlijke informatie is of als de inhoud van het verzoek beledigende woorden bevat."
@@ -1667,7 +1774,11 @@ msgid "Help us classify requests that haven't been updated"
 msgstr "Help ons om verzoeken die niet of niet goed ge-update zijn correct te labelen."
 
 msgid "Here <strong>described</strong> means when a user selected a status for the request, and the most recent event had its status updated to that value. <strong>calculated</strong> is then inferred by {{site_name}} for intermediate events, which weren't given an explicit description by a user. See the <a href=\"{{search_path}}\">search tips</a> for description of the states."
-msgstr "Het woord <strong>described</strong> betekent hier dat een gebruiker een bepaalde status van het verzoek heeft geselecteerd en\\n dat de status van de meest recente update gebruikt werd. <strong>calculated</strong> werd afgeleid door\\n {{site_name}} voor tussentijdse gebeurtenissen die geen expliciete omschrijving\\n door een gebruiker hebben gekregen. Zie ook de <a href=\"{{search_path}}\">zoektips</a> voor de beschrijving van de statussen."
+msgstr ""
+"Het woord <strong>described</strong> betekent hier dat een gebruiker een bepaalde status van het verzoek heeft geselecteerd en\n"
+" dat de status van de meest recente update gebruikt werd. <strong>calculated</strong> werd afgeleid door\n"
+" {{site_name}} voor tussentijdse gebeurtenissen die geen expliciete omschrijving\n"
+" door een gebruiker hebben gekregen. Zie ook de <a href=\"{{search_path}}\">zoektips</a> voor de beschrijving van de statussen."
 
 msgid "Here is the message you wrote, in case you would like to copy the text and save it for later."
 msgstr "Dit is het bericht dat je schreef, voor het geval je de tekst wilt kopiëren en opslaan voor later."
@@ -1682,7 +1793,9 @@ msgid "Here's your daily request summary from {{site_name}}"
 msgstr "Hier is de dagelijkse samenvatting van je verzoeken via  {{site_name}}"
 
 msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? Thanks."
-msgstr "Hallo! Wij hebben je hulp nodig. De gebruiker die dit verzoek heeft verstuurd heeft ons niet laten weten of hij/zij een nuttig antwoord heeft ontvangen. Kan je ons\\n enkele minuten helpen door het antwoord te lezen en het verzoek in de juiste categorie te zetten? Bedankt!"
+msgstr ""
+"Hallo! Wij hebben je hulp nodig. De gebruiker die dit verzoek heeft verstuurd heeft ons niet laten weten of hij/zij een nuttig antwoord heeft ontvangen. Kan je ons\n"
+" enkele minuten helpen door het antwoord te lezen en het verzoek in de juiste categorie te zetten? Bedankt!"
 
 msgid "Hidden"
 msgstr "Verborgen"
@@ -1733,7 +1846,9 @@ msgid "I would like to <strong>withdraw this request</strong>"
 msgstr "Ik wil <strong>dit verzoek annuleren</strong>"
 
 msgid "I'm still <strong>waiting</strong> for my information <small>(maybe you got an acknowledgement)</small>"
-msgstr "Ik <strong>wacht nog op </strong> een antwoord\\n <small>(misschien heb je een ontvangbevestiging ontvangen)</small>"
+msgstr ""
+"Ik <strong>wacht nog op </strong> een antwoord\n"
+" <small>(misschien heb je een ontvangbevestiging ontvangen)</small>"
 
 msgid "I'm still <strong>waiting</strong> for the internal review"
 msgstr "Ik <strong>wacht nog</strong> op de beslissing op bezwaar "
@@ -1772,7 +1887,9 @@ msgid "If this is incorrect, or you would like to send a late response to the re
 msgstr "Als dit onjuist is, of je wil een late reactie op het verzoek of een bericht over een ander onderwerp sturen aan {{user}}, dan kan je een e-mail sturen naar {{contact_email}} om ons te vragen het verzoek opnieuw te openen. Je kunt dan het bericht opnieuw verzenden."
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
-msgstr "Als je niet tevreden bent met het antwoord \\n dat je hebt ontvangen van de overheidsinstantie heb je het recht om bezwaar te maken (<a href=\"{{url}}\">gegevens</a>)."
+msgstr ""
+"Als je niet tevreden bent met het antwoord \n"
+" dat je hebt ontvangen van de overheidsinstantie heb je het recht om bezwaar te maken (<a href=\"{{url}}\">gegevens</a>)."
 
 msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Als je nog steeds problemen ondervindt, gelieve <a href=\"{{url}}\">ons te contacteren</a>."
@@ -1790,7 +1907,9 @@ msgid "If you believe this request is not suitable, you can report it for attent
 msgstr "Als je denkt dat dit verzoek ongepast is, kan je dat melden bij de beheerders van de website via dit formulier."
 
 msgid "If you can't click on it in the email, you'll have to <strong>select and copy it</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place you would type the address of any other webpage."
-msgstr "Als je er niet op kan klikken in het bericht, dien je te<strong> selecteren en kopiëren\\n<strong> vanuit het bericht. <strong>Kopieer vervolgens de link in de adresbalk van uw internetbrowser</strong>."
+msgstr ""
+"Als je er niet op kan klikken in het bericht, dien je te<strong> selecteren en kopiëren\n"
+"<strong> vanuit het bericht. <strong>Kopieer vervolgens de link in de adresbalk van uw internetbrowser</strong>."
 
 msgid "If you can, scan in or photograph the response, and <strong>send us a copy to upload</strong>."
 msgstr "Indien mogelijk, neem een foto van het antwoord of scan het in en <strong> stuur ons een kopie zodat wij het antwoord kunnen toevoegen</strong>."
@@ -1808,7 +1927,9 @@ msgid "If you have not done so already, please write a message below telling the
 msgstr "Als je het nog niet gedaan hebt, gelieve een bericht te versturen naar de overheidsinstantie waar je je verzoek hebt ingediend waarbij je mededeelt dat je je verzoek hebt ingetrokken. Anders zijn zij hier niet van op de hoogte."
 
 msgid "If you know the address to use, then please <a href=\"{{url}}\">send it to us</a>. You may be able to find the address on their website, or by phoning them up and asking."
-msgstr "Als je het e-mailadres kent, gelieve het <a href=\"{{url}}\">ons door te geven</a>.\\n Je kunt het e-mailadres vinden op de website van de overheidsinstantie of telefonisch opvragen."
+msgstr ""
+"Als je het e-mailadres kent, gelieve het <a href=\"{{url}}\">ons door te geven</a>.\n"
+" Je kunt het e-mailadres vinden op de website van de overheidsinstantie of telefonisch opvragen."
 
 msgid "If you reply to this message it will go directly to {{user_name}}, who will learn your email address. Only reply if that is okay."
 msgstr "Als je antwoordt op dit bericht zal je antwoord direct verstuurd worden aan {{user_name}}, waarbij je e-mailadres zichtbaar wordt. Antwoord dus niet als dit een probleem voor je is."
@@ -1823,7 +1944,8 @@ msgid "If you would like to contest the authority's claim that they do not hold 
 msgstr "Als je wilt betwisten dat de overheidsinstantie niet over de informatie beschikt, kijk hier voor informatie over <a href=\"{{complain_url}}\">hoe je bezwaar kunt maken</a>."
 
 msgid "If you would like us to lift this ban, then you may politely<a href=\"/help/contact\">contact us</a> giving reasons."
-msgstr "Als je wilt dat deze beperking opgeheven wordt, gelieve <a href=\"/help/contact\">ons te contacteren</a> met toelichting.\\n"
+msgstr ""
+"Als je wilt dat deze beperking opgeheven wordt, gelieve <a href=\"/help/contact\">ons te contacteren</a> met toelichting.\n"
 
 msgid "If you write about these requests (for example in a forum or a blog) please link to this page."
 msgstr "Als je ergens anders schrijft over de Wob-verzoeken via deze website (bijvoorbeeld op een forum, een blog, sociale media), gelieve een link toe te voegen naar deze pagina."
@@ -1835,7 +1957,9 @@ msgid "If you write about this request (for example in a forum or a blog) please
 msgstr "Als je ergens anders schrijft over dit Wob-verzoek (bv. op een forum, een blog, sociale media), gelieve een link toe te voegen naar deze pagina. Bedankt!"
 
 msgid "If your browser is set to accept cookies and you are seeing this message, then there is probably a fault with our server."
-msgstr "Als je browser cookies accepteert en je dit bericht ziet,\\n is de foutmelding waarschijnlijk te wijten aan onze server."
+msgstr ""
+"Als je browser cookies accepteert en je dit bericht ziet,\n"
+" is de foutmelding waarschijnlijk te wijten aan onze server."
 
 msgid "Improve your account security"
 msgstr "Verbeter de veiligheid van je account"
@@ -1892,7 +2016,10 @@ msgid "It looks like something has gone wrong when sending this message. It coul
 msgstr "Er lijkt iets te zijn misgegaan tijdens het versturen van dit bericht. Het kan een technisch probleem zijn of een probleem met het e-mailadres waarover we beschikken voor deze overheidsinstantie."
 
 msgid "It may be that your browser is not set to accept a thing called \"cookies\", or cannot do so.  If you can, please enable cookies, or try using a different browser.  Then press refresh to have another go."
-msgstr "Het is mogelijk dat je browser geen cookies accepteert.\\n Gelieve cookies toe te staan of probeer een andere browser\\n. Klik vervolgens op 'refresh' om opnieuw te beginnen."
+msgstr ""
+"Het is mogelijk dat je browser geen cookies accepteert.\n"
+" Gelieve cookies toe te staan of probeer een andere browser\n"
+". Klik vervolgens op 'refresh' om opnieuw te beginnen."
 
 msgid "Items matching the following conditions are currently displayed on your wall."
 msgstr "Items die overeenkomen met de volgende voorwaarden worden weergegeven op je overzichtspagina."
@@ -1924,6 +2051,9 @@ msgstr "Houd je verzoeken up-to-date"
 msgid "Keywords"
 msgstr "Sleutelwoorden"
 
+msgid "Laptop or desktop"
+msgstr ""
+
 msgid "Last 28 days"
 msgstr "De afgelopen 28 dagen"
 
@@ -1942,11 +2072,16 @@ msgstr "Laatst bekeken verzoek: {{request_url}}"
 msgid "Learn more &rarr;"
 msgstr "Meer weten &rarr;"
 
+msgid "Leave project"
+msgstr ""
+
 msgid "Let us know"
 msgstr ""
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
-msgstr "Laat ons weten wat je deed als dit bericht\\n verschijnt, welke browser en welk type plus versie besturingssysteem je gebruikt. Bedankt!"
+msgstr ""
+"Laat ons weten wat je deed als dit bericht\n"
+" verschijnt, welke browser en welk type plus versie besturingssysteem je gebruikt. Bedankt!"
 
 msgid "Link to this"
 msgstr "Link naar"
@@ -2022,6 +2157,9 @@ msgstr "Het bericht is verwijderd"
 
 msgid "Message sent using {{site_name}} contact form, "
 msgstr "Het bericht is verstuurd via het contactformulier van {{site_name}}"
+
+msgid "Message {{current_message}} of {{total_messages}}"
+msgstr ""
 
 msgid "Missing contact details for '{{authority_name}}'"
 msgstr "De contactgegevens van '{{authority_name}}' ontbreken"
@@ -2107,8 +2245,17 @@ msgstr ""
 msgid "Next"
 msgstr "Volgende"
 
+msgid "Next message"
+msgstr ""
+
 msgid "Next, crop your photo &gt;&gt;"
 msgstr "Snijd vervolgens je foto bij &gt;&gt;"
+
+msgid "Nice work! How about having another try at the requests you skipped?"
+msgstr ""
+
+msgid "No"
+msgstr ""
 
 msgid "No requests of this sort yet."
 msgstr "Nog geen Wob-verzoek van dit type"
@@ -2124,6 +2271,9 @@ msgstr "Geen follow-up gevonden."
 
 msgid "Nobody has made any Freedom of Information requests to {{public_body_name}} using this site yet."
 msgstr "Er is nog geen Wob-verzoek ​​bij {{public_body_name}} ingediend via deze website."
+
+msgid "Non-expert"
+msgstr ""
 
 msgid "None found."
 msgstr "Geen resultaat."
@@ -2282,7 +2432,9 @@ msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "<a href=\"{{url}}\">Neem contact met ons op</a> zodat wij dit kunnen verbeteren."
 
 msgid "Please <strong>go to the following requests</strong>, and let us know if there was information in the recent responses to them."
-msgstr "<strong>Ga naar de volgende verzoeken</strong> en laat ons\\n weten of er in de recente antwoorden nuttige informatie staat."
+msgstr ""
+"<strong>Ga naar de volgende verzoeken</strong> en laat ons\n"
+" weten of er in de recente antwoorden nuttige informatie staat."
 
 msgid "Please <strong>only</strong> write messages directly relating to your request {{request_link}}. If you would like to ask for information that was not in your original request, then <a href=\"{{new_request_link}}\">file a new request</a>."
 msgstr "Verstuur <strong>uitsluitend</strong> berichten die rechtstreeks verband houden met je Wob-verzoek {{request_link}}. Als je informatie wil opvragen die geen deel uitmaakt van je oorspronkelijke Wob-verzoek, schrijf dan <a href=\"{{new_request_link}}\">een nieuw Wob-verzoek</a>."
@@ -2324,7 +2476,9 @@ msgid "Please describe more what the request is about in the subject. There is n
 msgstr "Geef ajb in de onderwerpregel een nauwkeurigere beschrijving van je Wob-verzoek. Je hoeft niet te vermelden dat het om een Wob-verzoek gaat. Dat gebeurt automatisch."
 
 msgid "Please don't upload offensive pictures. We will take down images that we consider inappropriate."
-msgstr "Voeg ajb geen aanstootgevende beelden toe. Ongepast materiaal \\n zal door ons worden verwijderd,"
+msgstr ""
+"Voeg ajb geen aanstootgevende beelden toe. Ongepast materiaal \n"
+" zal door ons worden verwijderd,"
 
 msgid "Please enable \"cookies\" to carry on"
 msgstr "Sta ajb het gebruik van cookies toe om verder te kunnen gaan."
@@ -2490,6 +2644,9 @@ msgstr "Bekijk een preview van je Wob-verzoek"
 msgid "Preview your request"
 msgstr "Bekijk een preview van je Wob-verzoek "
 
+msgid "Previous message"
+msgstr ""
+
 msgid "Print your one time passcode"
 msgstr "Print je eenmalige toegangscode"
 
@@ -2498,6 +2655,9 @@ msgstr "Privacy en cookies"
 
 msgid "Profile image for {{user_name}}"
 msgstr "Profielfoto van {{user_name}}"
+
+msgid "Project owner"
+msgstr ""
 
 msgid "Public Bodies"
 msgstr "Overheidsinstanties"
@@ -2571,6 +2731,9 @@ msgstr "Het veld met het Wob-verzoek mag niet leeg zijn "
 msgid "Query is too long"
 msgstr "Je Wob-verzoek is te lang"
 
+msgid "Quick"
+msgstr ""
+
 msgid "RSS feed"
 msgstr "RSS feed"
 
@@ -2585,6 +2748,9 @@ msgstr "Lees meer over<a href=\"{{advanced_search_url}}\">advanced search operat
 
 msgid "Read blog"
 msgstr "Lees het blog"
+
+msgid "Read through authority responses and choose if their answer satisfies the intention of the original request, flag any problems and show the project owner if they need to intervene to keep the project movng forward."
+msgstr ""
 
 msgid "Reason:"
 msgstr "Reden:"
@@ -2643,8 +2809,8 @@ msgstr "Gemeld aan de beheerders"
 msgid "Reporting a request notifies the site administrators. They will respond as soon as possible."
 msgstr "Het melden van een Wob-verzoek wordt doorgestuurd aan de beheerders van de website. Ze zullen je zo spoedig mogelijk antwoorden."
 
-msgid "Request '{{request_title}}':"
-msgstr "Wob-verzoek '{{request_title}}':"
+msgid "Request '{{request_title}}' to {{public_body_name}}:"
+msgstr ""
 
 msgid "Request an internal review"
 msgstr "Maak bezwaar"
@@ -2779,7 +2945,10 @@ msgid "Search in their website for this information &rarr;"
 msgstr "Zoek op hun website voor deze informatie &rarr;"
 
 msgid "Search over<br/><strong>{{number_of_requests}} requests</strong> <span>and</span><br/><strong>{{number_of_authorities}} authorities</strong>"
-msgstr "Doorzoek meer dan <br/>\\n<strong>{{number_of_requests}} Wob-verzoeken </strong> <span> en </span><br/>\\n<strong>{{number_of_authorities}} overheidsinstanties</strong>"
+msgstr ""
+"Doorzoek meer dan <br/>\n"
+"<strong>{{number_of_requests}} Wob-verzoeken </strong> <span> en </span><br/>\n"
+"<strong>{{number_of_authorities}} overheidsinstanties</strong>"
 
 msgid "Search queries"
 msgstr "Zoekopdrachten"
@@ -2891,6 +3060,12 @@ msgstr "Schrijf je in"
 msgid "Simple search"
 msgstr "Eenvoudig zoeken"
 
+msgid "Skip"
+msgstr ""
+
+msgid "Skipped!"
+msgstr ""
+
 msgid "Some notes have been added to your FOI request - {{request_title}}"
 msgstr "Er zijn opmerkingen toegevoegd aan je Wob-verzoek inzake {{request_title}}"
 
@@ -2898,7 +3073,11 @@ msgid "Some of the information requested has been received"
 msgstr "Je Wob-verzoek is deels beantwoord"
 
 msgid "Some people who've made requests haven't let us know whether they were successful or not.  We need <strong>your</strong> help &ndash; choose one of these requests, read it, and let everyone know whether or not the information has been provided. Everyone'll be exceedingly grateful."
-msgstr "Sommige personen die Wob-verzoeken indienden hebben ons niet laten weten of ze beantwoord \\n werden of niet. We hebben<strong>je hulp</strong>nodig &ndash;\\n kies een van deze Wob-verzoeken, lees ze, en laat iedereen weten of de gevraagde informatie\\n is gegeven of niet. Je hulp wordt zeer gewaardeerd!"
+msgstr ""
+"Sommige personen die Wob-verzoeken indienden hebben ons niet laten weten of ze beantwoord \n"
+" werden of niet. We hebben<strong>je hulp</strong>nodig &ndash;\n"
+" kies een van deze Wob-verzoeken, lees ze, en laat iedereen weten of de gevraagde informatie\n"
+" is gegeven of niet. Je hulp wordt zeer gewaardeerd!"
 
 msgid "Somebody added a note to your FOI request - {{request_title}}"
 msgstr "Iemand schreef een notitie bij jouw Wob-verzoek inzake {{request_title}}"
@@ -2942,6 +3121,15 @@ msgstr "URL-bron:"
 msgid "Source:"
 msgstr "Bron:"
 
+msgid "Spreadsheets"
+msgstr ""
+
+msgid "Start classifying"
+msgstr ""
+
+msgid "Start extracting"
+msgstr ""
+
 msgid "Start your own request"
 msgstr "Verstuur je eigen Wob-verzoek"
 
@@ -2968,6 +3156,9 @@ msgstr ""
 
 msgid "Submit Search"
 msgstr "Verstuur je zoekopdracht"
+
+msgid "Submit data"
+msgstr ""
 
 msgid "Submit request"
 msgstr "Verstuur je Wob-verzoek"
@@ -3041,6 +3232,9 @@ msgstr "Tags (door een spatie gescheiden):"
 msgid "Tags:"
 msgstr "Tags:"
 
+msgid "Tasks"
+msgstr ""
+
 msgid "Thank you for helping us keep the site tidy!"
 msgstr "Dank voor je hulp om samen deze website op orde te houden!"
 
@@ -3075,7 +3269,9 @@ msgid "Thank you! Your request is long overdue, by more than {{very_late_number_
 msgstr "Dank je! Je Wob-verzoek had al ruimschoots beantwoord moeten worden, al meer dan {{very_late_number_of_days}} dagen. Verzoeken worden verondersteld beantwoord te zijn binnen {{late_number_of_days}} dagen. Wil je een klacht hierover indienen, zie dan hieronder."
 
 msgid "Thanks for helping - your work will make it easier for everyone to find successful responses, and maybe even let us make league tables..."
-msgstr "Dank je voor je hulp - je bijdrage zal het iedereen makkelijker maken om succesvolle\\n antwoorden te vinden; en zal het misschien zelfs mogelijk maken om league tabellen toe te voegen..."
+msgstr ""
+"Dank je voor je hulp - je bijdrage zal het iedereen makkelijker maken om succesvolle\n"
+" antwoorden te vinden; en zal het misschien zelfs mogelijk maken om league tabellen toe te voegen..."
 
 msgid "Thanks for your suggestion to add {{public_body_name}}. It's been added to the site here:"
 msgstr "Bedankt voor je suggestie om {{public_body_name}} toe te voegen. Hier staat-ie:"
@@ -3087,7 +3283,9 @@ msgid "Thanks very much - this will help others find useful stuff. We'll also, i
 msgstr "Hartelijk dank - dit zal iedereen helpen nieuwe informatie te vinden. We zullen ook, als je dat wil, advies geven over wat je nu verder kan doen wat betreft je Wob-verzoek."
 
 msgid "Thanks very much for helping keep everything <strong>neat and organised</strong>. We'll also, if you need it, give you advice on what to do next about each of your requests."
-msgstr "Dank je zeer voor het helpen alles <strong>op orde </strong>te houden. \\n We zullen ook, als je dat wilt, advies geven over wat je nu verder kan doen."
+msgstr ""
+"Dank je zeer voor het helpen alles <strong>op orde </strong>te houden. \n"
+" We zullen ook, als je dat wilt, advies geven over wat je nu verder kan doen."
 
 msgid "That doesn't look like a valid email address. Please check you have typed it correctly."
 msgstr "Dit lijkt niet op een juist e-mailadres. Bekijk ajb of je het juiste e-mailadres hebt opgegeven."
@@ -3120,7 +3318,9 @@ msgid "The authority only has a <strong>paper copy</strong> of the information."
 msgstr "De overheidsinstantie heeft alleen een <strong>papieren versie</strong> van deze informatie."
 
 msgid "The authority say that they <strong>need a postal address</strong>, not just an email, for it to be a valid FOI request"
-msgstr "De overheidsinstantie zegt dat ze een <strong>postadres nodig hebben</strong>,\\n niet enkel een e-mailadres, om het als een geldig Wob-verzoek te kunnen behandelen."
+msgstr ""
+"De overheidsinstantie zegt dat ze een <strong>postadres nodig hebben</strong>,\n"
+" niet enkel een e-mailadres, om het als een geldig Wob-verzoek te kunnen behandelen."
 
 msgid "The authority would like to / has <strong>responded by postal mail</strong> to this request."
 msgstr "De overheidsinstantie wil dit verzoek <strong>per post beantwoorden</strong> of heeft dat al gedaan."
@@ -3207,13 +3407,17 @@ msgid "The response to your request has been <strong>delayed</strong>. Although 
 msgstr "Het antwoord op je verzoek is <strong>te laat</strong>. De overheidsinstantie had binnen vier weken, dus uiterlijk <strong>{{date}}</strong>, op je Wob-verzoek moeten beslissen. Overheidsinstanties mogen deze termijn met maximaal vier weken verlengen, dat wordt 'verdaging' genoemd. Verdaging moet formeel gezien aan je worden medegedeeld en voordat de eerste termijn van vier weken verlopen is."
 
 msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and by <strong>{{date}}</strong>"
-msgstr "Het antwoord op je Wob-verzoek is <strong>uitgesteld</strong>. Je zou kunnen antwoorden dat, wettelijk gezien\\n, de overheidsinstantie <strong> zo spoedig mogelijk</strong> had moeten beslissen maar in ieder geval binnen vier weken en"
+msgstr ""
+"Het antwoord op je Wob-verzoek is <strong>uitgesteld</strong>. Je zou kunnen antwoorden dat, wettelijk gezien\n"
+", de overheidsinstantie <strong> zo spoedig mogelijk</strong> had moeten beslissen maar in ieder geval binnen vier weken en"
 
 msgid "The response to your request is <strong>long overdue</strong>. Although the authority has no legal obligation to reply, they should have responded by now"
 msgstr "De termijn voor een beslissing op je verzoek is <strong>ruimschoots overschreden</strong>. De overheidsinstantie is verplicht om binnen deze termijn een besluit te nemen"
 
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
-msgstr "De termijn voor het beantwoorden van je Wob-verzoek is <strong> ruimschoots verstreken</strong>. Volgens de wet\\n had de overheidsinstantie inmiddels een besluit over je verzoek moeten nemen"
+msgstr ""
+"De termijn voor het beantwoorden van je Wob-verzoek is <strong> ruimschoots verstreken</strong>. Volgens de wet\n"
+" had de overheidsinstantie inmiddels een besluit over je verzoek moeten nemen"
 
 msgid "The search index is currently offline, so we can't show the Freedom of Information requests that have been made to this authority."
 msgstr "De zoekfunctie is momenteel niet beschikbaar. Daardoor kunnen we de Wob-verzoeken die zijn ingediend bij deze overheidsinstantie niet tonen."
@@ -3247,6 +3451,12 @@ msgstr "Dan kun je het Wob-besluit dat je van {{authority_name}} ontvangen hebt 
 
 msgid "Then you can download a zip file of {{info_request_title}}."
 msgstr "Dan kan je een zipbestand downloaden van {{info_request_title}}."
+
+msgid "Then you can join this project"
+msgstr ""
+
+msgid "Then you can leave this project"
+msgstr ""
 
 msgid "Then you can log into the administrative interface"
 msgstr "Dan kun je inloggen in de beheederrsinterface."
@@ -3304,6 +3514,12 @@ msgstr "Dan zal je Wob-verzoek aan {{public_body_name}} verzonden en gepubliceer
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
 msgstr "Dan zal je opmerking bij {{info_request_title}} geplaatst worden."
+
+msgid "There are no requests to classify right now. Great job!"
+msgstr ""
+
+msgid "There are no requests to extract right now. Great job!"
+msgstr ""
 
 msgid "There are {{count}} new annotations on your {{info_request}} request. Follow this link to see what they wrote."
 msgstr "Er zijn {{count}} nieuwe opmerkingen bij je verzoek inzake {{info_request}}. Klik op deze link om ze te lezen."
@@ -3372,7 +3588,9 @@ msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Deze overheidsinstantie bestaat niet meer, je kunt er dus geen verzoek meer aan sturen."
 
 msgid "This covers a very wide spectrum of information about the state of the <strong>natural and built environment</strong>, such as:"
-msgstr "Dit bestrijkt een heel breed spectrum aan informatie over \\n de <strong> natuurlijke en bebouwde omgeving</strong> zoals bijvoorbeeld:"
+msgstr ""
+"Dit bestrijkt een heel breed spectrum aan informatie over \n"
+" de <strong> natuurlijke en bebouwde omgeving</strong> zoals bijvoorbeeld:"
 
 msgid "This email is already in use"
 msgstr "Dit e-mailadres is al in gebruik"
@@ -3390,7 +3608,9 @@ msgid "This is an HTML version of an attachment to the Freedom of Information re
 msgstr "Dit is een bijlage die opent in hetzelfde venster"
 
 msgid "This is because {{title}} is an old request that has been marked to no longer receive responses."
-msgstr "Dit is omdat {{title}} een oud verzoek is \\n dat gemarkeerd is om niet langer berichten te ontvangen."
+msgstr ""
+"Dit is omdat {{title}} een oud verzoek is \n"
+" dat gemarkeerd is om niet langer berichten te ontvangen."
 
 msgid "This is the first version."
 msgstr "Dit is de eerste versie."
@@ -3463,7 +3683,9 @@ msgid "This request has been <strong>reported</strong> as needing administrator 
 msgstr "Dit verzoek is <strong>gemeld </strong> aan de beheerders (misschien omdat het ongepast of aanstootgevend was of omdat het ging om een verzoek om persoonlijke informatie)"
 
 msgid "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
-msgstr "Dit verzoek is <strong>ingetrokken</strong> door de gebruiker die het gedaan heeft. \\n Er staat mogelijk een uitleg in de onderstaande correspondentie."
+msgstr ""
+"Dit verzoek is <strong>ingetrokken</strong> door de gebruiker die het gedaan heeft. \n"
+" Er staat mogelijk een uitleg in de onderstaande correspondentie."
 
 msgid "This request has been made public on {{site_name}}."
 msgstr "Dit verzoek is openbaar gemaakt op {{site_name}}."
@@ -3490,7 +3712,9 @@ msgid "This request has prominence 'hidden'. You can only see it because you are
 msgstr "Dit verzoek heeft de status “verborgen”. Je kunt het alleen zien omdat je\\ ingelogd bent als supergebruiker."
 
 msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
-msgstr "Dit verzoek is verborgen, zodat alleen jij als verzoeker het kan zien. Gelieve\\n <a href=\"{{url}}\">ons te contacteren </a>  indien je niet goed weet waarom."
+msgstr ""
+"Dit verzoek is verborgen, zodat alleen jij als verzoeker het kan zien. Gelieve\n"
+" <a href=\"{{url}}\">ons te contacteren </a>  indien je niet goed weet waarom."
 
 msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
 msgstr "Dit Wob-verzoek maakt deel uit van <a href=\"{{url}}\">een bulkverzoek verzonden aan {{count}} overheidsinstanties</a>"
@@ -3511,16 +3735,22 @@ msgid "This section on public body statistics is currently experimental, so ther
 msgstr "Dit onderdeel met statistieken over overheidinstanties is nog in een experimentele fase, houd er dus rekening mee dat:"
 
 msgid "This table shows the technical details of the internal events that happened to this request on {{site_name}}. This could be used to generate information about the speed with which authorities respond to requests, the number of requests which require a postal response and much more."
-msgstr "Deze tabel toont de technische details van de interne gebeurtenissen m.b.t. dit verzoek op {{site_name}}. Deze gegevens zouden gebruikt kunnen worden om informatie te verzamelen over de \\n snelheid waarmee overheidsinstanties besluiten op verzoeken, het aantal verzoeken die per post beantwoord moeten worden, enzovoort."
+msgstr ""
+"Deze tabel toont de technische details van de interne gebeurtenissen m.b.t. dit verzoek op {{site_name}}. Deze gegevens zouden gebruikt kunnen worden om informatie te verzamelen over de \n"
+" snelheid waarmee overheidsinstanties besluiten op verzoeken, het aantal verzoeken die per post beantwoord moeten worden, enzovoort."
 
 msgid "This user has been suspended from {{site_name}} "
 msgstr "Deze gebruiker wordt tijdelijk geweerd van {{site_name}} "
 
 msgid "This was not possible because there is already an account using the email address {{email}}."
-msgstr "Dit is niet mogelijk omdat er al een account bestaat \\n dat {{email}} als e-mailadres gebruikt."
+msgstr ""
+"Dit is niet mogelijk omdat er al een account bestaat \n"
+" dat {{email}} als e-mailadres gebruikt."
 
 msgid "This will appear on your {{site_name}} profile, to make it easier for others to get involved with what you're doing."
-msgstr "Dit zal verschijnen op je profiel op {{site_name}} zodat \\n anderen bij je activiteiten op de site betrokken kunnen worden."
+msgstr ""
+"Dit zal verschijnen op je profiel op {{site_name}} zodat \n"
+" anderen bij je activiteiten op de site betrokken kunnen worden."
 
 msgid "To"
 msgstr "Aan"
@@ -3547,7 +3777,9 @@ msgid "To classify the response to this FOI request"
 msgstr "Om het antwoord op dit Wob-verzoek te labelen"
 
 msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
-msgstr "Om dit te doen, stuur vanaf je eigen e-mailadres een e-mail aan {{postal_email}} {{postal_email_link}} met je postcode, met de vraag om op het verzoek te beslissen.\\n  Je kunt hen ook telefonisch benaderen."
+msgstr ""
+"Om dit te doen, stuur vanaf je eigen e-mailadres een e-mail aan {{postal_email}} {{postal_email_link}} met je postcode, met de vraag om op het verzoek te beslissen.\n"
+"  Je kunt hen ook telefonisch benaderen."
 
 msgid "To do this, first click on the link below."
 msgstr "Om dit te doen, klik op onderstaande link."
@@ -3575,6 +3807,12 @@ msgstr "Om verzoek '{{request_title}}' op te volgen"
 
 msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request {{title}} that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
 msgstr "Om ons te helpen deze website te onderhouden, heeft iemand anders de status van {{law_used_full}} verzoek {{title}} gericht aan {{public_body}} geupdate tot \"{{display_status}}\". Als je het niet eens bent met deze indeling, verander de status dan opnieuw in degene die jij het meest vindt kloppen."
+
+msgid "To join this project"
+msgstr ""
+
+msgid "To leave this project"
+msgstr ""
 
 msgid "To let everyone know, follow this link and then select the appropriate box."
 msgstr "Om dit iedereen te laten weten, volg deze link en selecteer het juiste keuzevakje."
@@ -3734,7 +3972,9 @@ msgid "Unfortunately, we do not have a working address for {{public_body_names}}
 msgstr "Helaas beschikt de Wob-Knop niet over een werkend e-mailadres voor {{public_body_names}}."
 
 msgid "Unfortunately, we do not have a working {{info_request_law_used_full}} address for"
-msgstr "Helaas beschikt de Wob-Knop niet over een ({{info_request_law_used_full}}) \\ne-mailadres voor"
+msgstr ""
+"Helaas beschikt de Wob-Knop niet over een ({{info_request_law_used_full}}) \n"
+"e-mailadres voor"
 
 msgid "Unknown"
 msgstr "Ongekend"
@@ -3863,7 +4103,10 @@ msgid "We don't know the delivery status for this message."
 msgstr "De afleveringstatus van dit bericht is onbekend."
 
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
-msgstr "Het is niet bekend of het meest recente antwoord op dit verzoek al dan niet de gevraagde informatie bevat\\n &ndash;\\n als je {{user_link}} bent, gelieve <a href=\"{{url}}\">in te loggen</a> en het voor iedereen zichtbaar te maken."
+msgstr ""
+"Het is niet bekend of het meest recente antwoord op dit verzoek al dan niet de gevraagde informatie bevat\n"
+" &ndash;\n"
+" als je {{user_link}} bent, gelieve <a href=\"{{url}}\">in te loggen</a> en het voor iedereen zichtbaar te maken."
 
 msgid "We have <a href=\"{{other_means_url}}\">suggestions</a> on other means to answer your question."
 msgstr "Er zijn <a href=\"{{other_means_url}}\">suggesties</a> voor andere manieren om antwoord op je vragen te krijgen."
@@ -3872,7 +4115,9 @@ msgid "We publish it all online. Great! Now you have your answer, and everybody 
 msgstr "De site zet alles online. Op die manier heb jij je antwoord én heeft iedereen er toegang toe."
 
 msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or the law tell us to</a>."
-msgstr "Wij zullen je e-mailadres niet aan derden doorgeven tenzij <a href=\"{{url}}\">jij of \\n de wet ons dit opdraagt</a>."
+msgstr ""
+"Wij zullen je e-mailadres niet aan derden doorgeven tenzij <a href=\"{{url}}\">jij of \n"
+" de wet ons dit opdraagt</a>."
 
 msgid "We will not reveal your email address to anybody unless you or the law tell us to."
 msgstr "Wij zullen je e-mailadres niet aan derden doorgeven tenzij jij\\of de wet ons dit opdragen."
@@ -3915,13 +4160,18 @@ msgid "We've sent this message but we have not received a confirmation of receip
 msgstr "De Wob-Knop heeft het bericht verstuurd maar er is nog geen ontvangstbevestiging ontvangen. Dit kan even duren."
 
 msgid "We've sent you an email, and you'll need to click the link in it before you can continue."
-msgstr "De Wob-Knop heeft je een e-mail gestuurd. Klik op de link om\\n verder te gaan."
+msgstr ""
+"De Wob-Knop heeft je een e-mail gestuurd. Klik op de link om\n"
+" verder te gaan."
 
 msgid "We've sent you an email, click the link in it, then you can change your password."
 msgstr "We hebben je een mail gestuurd. Klik op de link in de mail om je wachtwoord te wijzigen."
 
 msgid "Week starting"
 msgstr "De week die begint op"
+
+msgid "Welcome to the project!"
+msgstr ""
 
 msgid "What are you doing?"
 msgstr "Wat doe je?"
@@ -3951,7 +4201,9 @@ msgid "When you get there, please update the status to say if the response conta
 msgstr "Als het zover is, pas dan de status van het verzoek aan om duidelijk te maken of het antwoord nuttige informatie bevatte."
 
 msgid "When you receive the paper response, please help others find out what it says:"
-msgstr "Zodra je het antwoord op papier ontvangt, kun je anderen op de site\\n helpen door aan te geven wat er in staat:"
+msgstr ""
+"Zodra je het antwoord op papier ontvangt, kun je anderen op de site\n"
+" helpen door aan te geven wat er in staat:"
 
 msgid "When you want to change your account password, you will also need to enter your two factor one time passcode. Your one time passcode can only be used once, so a new one will be generated after you've successfully changed your password. You'll need to update your password manager or print the new passcode."
 msgstr "Wanneer je je wachtwoord wilt wijzigen, moet je ook je eenmalige toegangscode voor tweevoudige authenticatie geven. Deze eenmalige toegangscode kan maar een keer gebruikt worden, dus zodra wachtwoord gewijzigd is, zal een nieuwe toegangscode aangemaakt worden. Je zult dan je wachtwoordmanager moeten updaten of de nieuwe toegangscode uitprinten."
@@ -3992,8 +4244,17 @@ msgstr "Formuleer een follow-up bericht over je Wob-verzoek aan {{authority_name
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Formuleer je verzoek <strong>eenvoudig en nauwkeurig</strong>."
 
+msgid "Yes"
+msgstr ""
+
 msgid "You already created the same batch of requests on {{date}}. You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
 msgstr "Je hebt dit zelfde bulkverzoek al eerder opgesteld op {{date}}. Je kunt<a href=\"{{existing_batch}}\">de bestaande verzoeken </a> bekijken, of wijzigingen doen om een vergelijkbaar bulkverzoek te doen."
+
+msgid "You are a <strong>contributor</strong> on this project"
+msgstr ""
+
+msgid "You are already a member of this project"
+msgstr ""
 
 msgid "You are already following new requests"
 msgstr "Je volgt nieuwe verzoeken al."
@@ -4024,6 +4285,9 @@ msgstr "Je hebt je al geabonneerd op alle <a href=\"{{new_requests_url}}\">nieuw
 
 msgid "You are already subscribed to any <a href=\"{{successful_requests_url}}\">successful requests</a>."
 msgstr "Je hebt je al geabonneerd op alle <a href=\"{{successful_requests_url}}\">succesvol afgeronde verzoeken</a>."
+
+msgid "You are an <strong>owner</strong> on this project"
+msgstr ""
 
 msgid "You are currently receiving notification of new activity on your wall by email."
 msgstr "Je ontvangt op dit moment per mail meldingen van nieuwe activiteiten op je overzichtspagina."
@@ -4108,6 +4372,9 @@ msgstr "Je hebt een technisch probleem vastgesteld. Neem <a href=\"{{contact_url
 
 msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
 msgstr "Je hebt het maximaal toegestane aantal verzoeken verstuurd. Het aantal verzoeken is beperkt tot {{max_requests_per_user_per_day}} per 24u. Je kunt weer een nieuw verzoek doen op {{can_make_another_request}}."
+
+msgid "You have left the project."
+msgstr ""
 
 msgid "You have made no Freedom of Information requests using this site."
 msgstr "Je hebt nog geen Wob-verzoeken verstuurd via deze site."
@@ -4203,7 +4470,9 @@ msgid "You will now be emailed updates about any <a href=\"{{new_requests_url}}\
 msgstr "Je ontvangt vanaf nu per e-mail updates over alle <a href=\"{{new_requests_url}}\">nieuwe Wob-verzoeken</a>."
 
 msgid "You will only get an answer to your request if you follow up with the clarification."
-msgstr "Je kan slechts antwoord op je Wob-verzoek ontvangen als je \\n een verduidelijking stuurt."
+msgstr ""
+"Je kan slechts antwoord op je Wob-verzoek ontvangen als je \n"
+" een verduidelijking stuurt."
 
 msgid "You will still be able to view it while logged in to the site. Please reply to this email if you would like to discuss this decision further."
 msgstr "Je zal in staat zijn dit te blijven zien als je ingelogd bent op de site. Antwoord op deze mail als je meer wilt weten over deze beslissing."
@@ -4304,7 +4573,9 @@ msgid "Your password:"
 msgstr "Je wachtwoord:"
 
 msgid "Your photo will be shown in public <strong>on the Internet</strong>, wherever you do something on {{site_name}}."
-msgstr "Je foto zal openbaar zijn <strong>op het internet</strong>, \\n telkens je iets doet op {{site_name}}."
+msgstr ""
+"Je foto zal openbaar zijn <strong>op het internet</strong>, \n"
+" telkens je iets doet op {{site_name}}."
 
 msgid "Your request"
 msgstr "Je Wob-verzoek"
@@ -4372,6 +4643,9 @@ msgstr "Hoogachtend,"
 msgid "Yours,"
 msgstr "Met vriendelijke groet,"
 
+msgid "ZIP"
+msgstr ""
+
 msgid "[Authority URL will be inserted here]"
 msgstr "[de URL van de overheidsintantie zal hier worden ingevoegd]"
 
@@ -4392,9 +4666,6 @@ msgstr " [{{public_body}} vraag e-mailadres]"
 
 msgid "[{{site_name}} contact email]"
 msgstr " [{{site_name}} contact e-mailadres]"
-
-msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
-msgstr "\\n\\n[{{site_name}} Opmerking: de tekst hieronder is slecht gecodeerd en vreemde tekens zijn verwijderd.]"
 
 msgid "admin"
 msgstr "admin"
@@ -4579,7 +4850,7 @@ msgstr "wat je deed om"
 msgid "the main FOI contact address for {{public_body}}"
 msgstr "het adres voor Wob-verzoeken bij {{public_body}}"
 
-#. This phrase completes the following sentences:
+#. TRANSLATORS: This phrase completes the following sentences:
 #. Request an internal review from...
 #. Send a public follow up message to...
 #. Send a public reply to...
@@ -4637,6 +4908,9 @@ msgstr "{{authority_name}} <strong>heeft niet</strong> de gevraagde informatie."
 
 msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
 msgstr "{{authority_name}} wacht <strong>op je verduidelijking</strong>."
+
+msgid "{{contributor_count}} contributors"
+msgstr ""
 
 msgid "{{count}} Attachment"
 msgid_plural "{{count}} Attachments"
@@ -4699,7 +4973,9 @@ msgstr[0] "{{count}} vraag."
 msgstr[1] "{{count}} Wob-verzoeken."
 
 msgid "{{existing_request_user}} already created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>, or edit the details below to make a new but similar request."
-msgstr "{{existing_request_user}} \\n heeft al ditzelfde Wob-verzoek ingediend op {{date}}. Je kan 'm bekijken op <a href=\"{{existing_request}}\">bestaand Wob-verzoek</a>, of hieronder details wijzigen om een nieuwe, andere maar gelijkaardige vraag te stellen."
+msgstr ""
+"{{existing_request_user}} \n"
+" heeft al ditzelfde Wob-verzoek ingediend op {{date}}. Je kan 'm bekijken op <a href=\"{{existing_request}}\">bestaand Wob-verzoek</a>, of hieronder details wijzigen om een nieuwe, andere maar gelijkaardige vraag te stellen."
 
 msgid "{{foi_law}} requests to '{{public_body_name}}'"
 msgstr "{{foi_law}} Wob-verzoeken aan '{{public_body_name}}'"
@@ -4710,7 +4986,7 @@ msgstr ""
 msgid "{{law_used_full}} request - {{title}}"
 msgstr " {{law_used_full}} Wob-verzoek inzake {{title}}"
 
-#. Please don't use double quotes (") in this translation
+#. TRANSLATORS: Please don't use double quotes (") in this translation
 #. or it will break the site's ability to send emails to authorities!
 msgid "{{law_used}} requests at {{public_body}}"
 msgstr "{{law_used}} Wob-verzoeken aan {{public_body}}"
@@ -4834,7 +5110,9 @@ msgid "{{user_name}} has annotated your {{law_used_short}} request. Follow this 
 msgstr "{{user_name}} heeft je {{law_used_short}} Wob-verzoek geannoteerd. Volg de link om de opmerking te zien."
 
 msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
-msgstr "{{user_name}} heeft een antwoord gemeld in het kader van {{law_used}} dat aandacht vereist van de beheerders. Bekijk het even en beantwoord deze \\n e-mail om hen te laten weten welk gevolg je eraan zal geven."
+msgstr ""
+"{{user_name}} heeft een antwoord gemeld in het kader van {{law_used}} dat aandacht vereist van de beheerders. Bekijk het even en beantwoord deze \n"
+" e-mail om hen te laten weten welk gevolg je eraan zal geven."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "{{user_name}} heeft {{site_name}} gebruikt om onderstaand bericht te sturen."

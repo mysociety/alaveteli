@@ -11,10 +11,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-21 11:27+0000\n"
+"POT-Creation-Date: 2020-07-17 13:03+0100\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: claude transparencia <audit.citoyen.quartier@gmail.com>, 2020\n"
-"Language-Team: Dutch (Belgium) (https://www.transifex.com/mysociety/teams/33529/nl_BE/)\n"
+"Last-Translator: claude transparencia <audit.citoyen.quartier@gmail.com>, 2020"
+"\n"
+"Language-Team: Dutch (Belgium) (https://www.transifex.com/mysociety/teams/3352"
+"9/nl_BE/)\n"
 "Language: nl_BE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -559,9 +561,6 @@ msgstr ""
 msgid "Make an {{law_used_short}} request"
 msgstr "Doe een {{law_used_short}} aanvraag"
 
-msgid "Message {{current_message}} of {{total_messages}}"
-msgstr "Boodschap {{current_message}} uit {{total_messages}}"
-
 msgid "My profile"
 msgstr "Mijn profiel"
 
@@ -600,9 +599,6 @@ msgstr ""
 
 msgid "New to Professional – Batch"
 msgstr ""
-
-msgid "Next message"
-msgstr "volgende boodschap"
 
 msgid "Next payment"
 msgstr "Volgende betaling"
@@ -717,9 +713,6 @@ msgstr "Preview uw nieuwe batch-aanvraag"
 
 msgid "Preview new {{law_used_short}} request to '{{public_body_name}}'"
 msgstr "Preview uw nieuwe {{law_used_short}} vraag aan '{{public_body_name}}'"
-
-msgid "Previous message"
-msgstr "Vorige boodschap"
 
 msgid "Pricing"
 msgstr ""
@@ -1328,6 +1321,9 @@ msgid "You’re busy fixing the world. Let us take care of your FOI requests."
 msgstr ""
 
 msgid "You’ve got plenty of other things to think about, so you don’t want to be checking up on every single one of your requests to see if it needs attention. Instead, Pro keeps an eye on them for you, sending you a daily email digest."
+msgstr ""
+
+msgid "ZIP"
 msgstr ""
 
 msgid "all requests"

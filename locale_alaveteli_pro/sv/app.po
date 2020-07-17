@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-21 11:27+0000\n"
+"POT-Creation-Date: 2020-07-17 13:03+0100\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
 "Last-Translator: Elenor Weijmar <ellelingh@hotmail.se>, 2020\n"
 "Language-Team: Swedish (https://www.transifex.com/mysociety/teams/33529/sv/)\n"
@@ -559,9 +559,6 @@ msgstr "Gör en förfrågan till flera myndigheter och hantera svaren."
 msgid "Make an {{law_used_short}} request"
 msgstr "Gör en begäran enligt {{law_used_short}}"
 
-msgid "Message {{current_message}} of {{total_messages}}"
-msgstr "Meddelande {{current_message}} av {{total_messages}}"
-
 msgid "My profile"
 msgstr "Min profil"
 
@@ -600,9 +597,6 @@ msgstr "Nya serier gjorda den här veckan:"
 
 msgid "New to Professional – Batch"
 msgstr "Nytt för Pro - Serier"
-
-msgid "Next message"
-msgstr "Nästa meddelande"
 
 msgid "Next payment"
 msgstr "Nästa betalning"
@@ -717,9 +711,6 @@ msgstr "Förhandsvisa ny serieförfrågan"
 
 msgid "Preview new {{law_used_short}} request to '{{public_body_name}}'"
 msgstr "Förhandsgranska ny begäran enligt {{law_used_short}} till '{{public_body_name}}'"
-
-msgid "Previous message"
-msgstr "Föregående meddelande"
 
 msgid "Pricing"
 msgstr "Priser"
@@ -1327,6 +1318,9 @@ msgstr "Du är upptagen med att förändra världen. Låt oss ta hand om dina al
 
 msgid "You’ve got plenty of other things to think about, so you don’t want to be checking up on every single one of your requests to see if it needs attention. Instead, Pro keeps an eye on them for you, sending you a daily email digest."
 msgstr "Du har många andra saker att tänka på, så du vill inte kontrollera varje enskild förfrågan för att se om det behövs åtgärder. Istället håller Pro ett öga på dem åt dig och skickar en daglig sammanfattning via e-post."
+
+msgid "ZIP"
+msgstr ""
 
 msgid "all requests"
 msgstr "alla förfrågningar"
