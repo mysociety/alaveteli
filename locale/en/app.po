@@ -21,19 +21,21 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-17 13:02+0100\n"
-"PO-Revision-Date: 2020-02-10 15:36+0000\n"
+"POT-Creation-Date: 2020-07-16 16:34+0100\n"
+"PO-Revision-Date: 2020-07-16 16:12+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: English (http://www.transifex.com/mysociety/alaveteli/language/"
 "en/)\n"
-"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
@@ -159,10 +161,10 @@ msgid "12 characters minimum. 72 characters maximum."
 msgstr "12 characters minimum. 72 characters maximum."
 
 msgid "5 minutes+"
-msgstr ""
+msgstr "5 minutes+"
 
 msgid "60 minutes+"
-msgstr ""
+msgstr "60 minutes+"
 
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
 msgstr "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
@@ -500,7 +502,7 @@ msgid "Anonymous user"
 msgstr "Anonymous user"
 
 msgid "Any device"
-msgstr ""
+msgstr "Any device"
 
 msgid "Application record"
 msgstr "Application record"
@@ -941,7 +943,7 @@ msgid "Are you sure you want to disable two factor authentication?"
 msgstr "Are you sure you want to disable two factor authentication?"
 
 msgid "Are you sure?"
-msgstr ""
+msgstr "Are you sure?"
 
 msgid "Are you sure? If you regenerate your one time passcode you will need to update your password manager or re-print it."
 msgstr "Are you sure? If you regenerate your one time passcode you will need to update your password manager or re-print it."
@@ -1055,7 +1057,7 @@ msgid "By law, {{public_body_link}} should normally have responded <strong>promp
 msgstr "By law, {{public_body_link}} should normally have responded <strong>promptly</strong> and"
 
 msgid "CSV"
-msgstr ""
+msgstr "CSV"
 
 msgid "Calculated home page"
 msgstr "Calculated home page"
@@ -1124,7 +1126,7 @@ msgid "Classify an FOI response from {{authority_name}}"
 msgstr "Classify an FOI response from {{authority_name}}"
 
 msgid "Classify responses"
-msgstr ""
+msgstr "Classify responses"
 
 msgid "Clear photo"
 msgstr "Clear photo"
@@ -1205,7 +1207,7 @@ msgid "Contains personal information"
 msgstr "Contains personal information"
 
 msgid "Contribute"
-msgstr ""
+msgstr "Contribute"
 
 msgid "Cookies not enabled"
 msgstr "Cookies not enabled"
@@ -1247,7 +1249,7 @@ msgid "Currently <strong>waiting for a response</strong> from {{public_body_link
 msgstr "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they should respond promptly and"
 
 msgid "Data interpretation"
-msgstr ""
+msgstr "Data interpretation"
 
 msgid "Date:"
 msgstr "Date:"
@@ -1322,7 +1324,7 @@ msgid "Done &gt;&gt;"
 msgstr "Done &gt;&gt;"
 
 msgid "Download Data"
-msgstr ""
+msgstr "Download Data"
 
 msgid "Download a zip file of all correspondence"
 msgstr "Download a zip file of all correspondence"
@@ -1331,7 +1333,7 @@ msgid "Download original attachment"
 msgstr "Download original attachment"
 
 msgid "Downloads"
-msgstr ""
+msgstr "Downloads"
 
 msgid "EIR"
 msgstr "EIR"
@@ -1403,13 +1405,13 @@ msgid "Expand all correspondence"
 msgstr "Expand all correspondence"
 
 msgid "Extract data"
-msgstr ""
+msgstr "Extract data"
 
 msgid "Extract relevant information from each successful freedom of information request and enter it into the provided fields. This will populate the data file for this project."
-msgstr ""
+msgstr "Extract relevant information from each successful freedom of information request and enter it into the provided fields. This will populate the data file for this project."
 
 msgid "Extraction couldn't be saved."
-msgstr ""
+msgstr "Extraction couldn't be saved."
 
 msgid "FOI"
 msgstr "FOI"
@@ -1975,7 +1977,7 @@ msgid "Keywords"
 msgstr "Keywords"
 
 msgid "Laptop or desktop"
-msgstr ""
+msgstr "Laptop or desktop"
 
 msgid "Last 28 days"
 msgstr "Last 28 days"
@@ -1996,7 +1998,7 @@ msgid "Learn more &rarr;"
 msgstr "Learn more &rarr;"
 
 msgid "Leave project"
-msgstr ""
+msgstr "Leave project"
 
 msgid "Let us know"
 msgstr "Let us know"
@@ -2080,7 +2082,7 @@ msgid "Message sent using {{site_name}} contact form, "
 msgstr "Message sent using {{site_name}} contact form, "
 
 msgid "Message {{current_message}} of {{total_messages}}"
-msgstr ""
+msgstr "Message {{current_message}} of {{total_messages}}"
 
 msgid "Missing contact details for '{{authority_name}}'"
 msgstr "Missing contact details for '{{authority_name}}'"
@@ -2167,16 +2169,16 @@ msgid "Next"
 msgstr "Next"
 
 msgid "Next message"
-msgstr ""
+msgstr "Next message"
 
 msgid "Next, crop your photo &gt;&gt;"
 msgstr "Next, crop your photo &gt;&gt;"
 
 msgid "Nice work! How about having another try at the requests you skipped?"
-msgstr ""
+msgstr "Nice work! How about having another try at the requests you skipped?"
 
 msgid "No"
-msgstr ""
+msgstr "No"
 
 msgid "No requests of this sort yet."
 msgstr "No requests of this sort yet."
@@ -2194,7 +2196,7 @@ msgid "Nobody has made any Freedom of Information requests to {{public_body_name
 msgstr "Nobody has made any Freedom of Information requests to {{public_body_name}} using this site yet."
 
 msgid "Non-expert"
-msgstr ""
+msgstr "Non-expert"
 
 msgid "None found."
 msgstr "None found."
@@ -2562,7 +2564,7 @@ msgid "Preview your request"
 msgstr "Preview your request"
 
 msgid "Previous message"
-msgstr ""
+msgstr "Previous message"
 
 msgid "Print your one time passcode"
 msgstr "Print your one time passcode"
@@ -2574,7 +2576,7 @@ msgid "Profile image for {{user_name}}"
 msgstr "Profile image for {{user_name}}"
 
 msgid "Project owner"
-msgstr ""
+msgstr "Project owner"
 
 msgid "Public Bodies"
 msgstr "Public Bodies"
@@ -2649,7 +2651,7 @@ msgid "Query is too long"
 msgstr "Query is too long"
 
 msgid "Quick"
-msgstr ""
+msgstr "Quick"
 
 msgid "RSS feed"
 msgstr "RSS feed"
@@ -2667,7 +2669,7 @@ msgid "Read blog"
 msgstr "Read blog"
 
 msgid "Read through authority responses and choose if their answer satisfies the intention of the original request, flag any problems and show the project owner if they need to intervene to keep the project movng forward."
-msgstr ""
+msgstr "Read through authority responses and choose if their answer satisfies the intention of the original request, flag any problems and show the project owner if they need to intervene to keep the project movng forward."
 
 msgid "Reason:"
 msgstr "Reason:"
@@ -2727,7 +2729,7 @@ msgid "Reporting a request notifies the site administrators. They will respond a
 msgstr "Reporting a request notifies the site administrators. They will respond as soon as possible."
 
 msgid "Request '{{request_title}}' to {{public_body_name}}:"
-msgstr ""
+msgstr "Request '{{request_title}}' to {{public_body_name}}:"
 
 msgid "Request an internal review"
 msgstr "Request an internal review"
@@ -2975,10 +2977,10 @@ msgid "Simple search"
 msgstr "Simple search"
 
 msgid "Skip"
-msgstr ""
+msgstr "Skip"
 
 msgid "Skipped!"
-msgstr ""
+msgstr "Skipped!"
 
 msgid "Some notes have been added to your FOI request - {{request_title}}"
 msgstr "Some notes have been added to your FOI request - {{request_title}}"
@@ -3032,13 +3034,13 @@ msgid "Source:"
 msgstr "Source:"
 
 msgid "Spreadsheets"
-msgstr ""
+msgstr "Spreadsheets"
 
 msgid "Start classifying"
-msgstr ""
+msgstr "Start classifying"
 
 msgid "Start extracting"
-msgstr ""
+msgstr "Start extracting"
 
 msgid "Start your own request"
 msgstr "Start your own request"
@@ -3068,7 +3070,7 @@ msgid "Submit Search"
 msgstr "Submit Search"
 
 msgid "Submit data"
-msgstr ""
+msgstr "Submit data"
 
 msgid "Submit request"
 msgstr "Submit request"
@@ -3143,7 +3145,7 @@ msgid "Tags:"
 msgstr "Tags:"
 
 msgid "Tasks"
-msgstr ""
+msgstr "Tasks"
 
 msgid "Thank you for helping us keep the site tidy!"
 msgstr "Thank you for helping us keep the site tidy!"
@@ -3353,10 +3355,10 @@ msgid "Then you can download a zip file of {{info_request_title}}."
 msgstr "Then you can download a zip file of {{info_request_title}}."
 
 msgid "Then you can join this project"
-msgstr ""
+msgstr "Then you can join this project"
 
 msgid "Then you can leave this project"
-msgstr ""
+msgstr "Then you can leave this project"
 
 msgid "Then you can log into the administrative interface"
 msgstr "Then you can log into the administrative interface"
@@ -3416,10 +3418,10 @@ msgid "Then your annotation to {{info_request_title}} will be posted."
 msgstr "Then your annotation to {{info_request_title}} will be posted."
 
 msgid "There are no requests to classify right now. Great job!"
-msgstr ""
+msgstr "There are no requests to classify right now. Great job!"
 
 msgid "There are no requests to extract right now. Great job!"
-msgstr ""
+msgstr "There are no requests to extract right now. Great job!"
 
 msgid "There are {{count}} new annotations on your {{info_request}} request. Follow this link to see what they wrote."
 msgstr "There are {{count}} new annotations on your {{info_request}} request. Follow this link to see what they wrote."
@@ -3693,10 +3695,10 @@ msgid "To help us keep the site tidy, someone else has updated the status of the
 msgstr "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request {{title}} that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
 
 msgid "To join this project"
-msgstr ""
+msgstr "To join this project"
 
 msgid "To leave this project"
-msgstr ""
+msgstr "To leave this project"
 
 msgid "To let everyone know, follow this link and then select the appropriate box."
 msgstr "To let everyone know, follow this link and then select the appropriate box."
@@ -4033,7 +4035,7 @@ msgid "Week starting"
 msgstr "Week starting"
 
 msgid "Welcome to the project!"
-msgstr ""
+msgstr "Welcome to the project!"
 
 msgid "What are you doing?"
 msgstr "What are you doing?"
@@ -4105,16 +4107,16 @@ msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Write your request in <strong>simple, precise language</strong>."
 
 msgid "Yes"
-msgstr ""
+msgstr "Yes"
 
 msgid "You already created the same batch of requests on {{date}}. You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
 msgstr "You already created the same batch of requests on {{date}}. You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
 
 msgid "You are a <strong>contributor</strong> on this project"
-msgstr ""
+msgstr "You are a <strong>contributor</strong> on this project"
 
 msgid "You are already a member of this project"
-msgstr ""
+msgstr "You are already a member of this project"
 
 msgid "You are already following new requests"
 msgstr "You are already following new requests"
@@ -4147,7 +4149,7 @@ msgid "You are already subscribed to any <a href=\"{{successful_requests_url}}\"
 msgstr "You are already subscribed to any <a href=\"{{successful_requests_url}}\">successful requests</a>."
 
 msgid "You are an <strong>owner</strong> on this project"
-msgstr ""
+msgstr "You are an <strong>owner</strong> on this project"
 
 msgid "You are currently receiving notification of new activity on your wall by email."
 msgstr "You are currently receiving notification of new activity on your wall by email."
@@ -4234,7 +4236,7 @@ msgid "You have hit the rate limit on new requests. Users are ordinarily limited
 msgstr "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
 
 msgid "You have left the project."
-msgstr ""
+msgstr "You have left the project."
 
 msgid "You have made no Freedom of Information requests using this site."
 msgstr "You have made no Freedom of Information requests using this site."
@@ -4500,7 +4502,7 @@ msgid "Yours,"
 msgstr "Yours,"
 
 msgid "ZIP"
-msgstr ""
+msgstr "ZIP"
 
 msgid "[Authority URL will be inserted here]"
 msgstr "[Authority URL will be inserted here]"
@@ -4766,7 +4768,7 @@ msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
 msgstr "{{authority_name}} is <strong>waiting for your clarification</strong>."
 
 msgid "{{contributor_count}} contributors"
-msgstr ""
+msgstr "{{contributor_count}} contributors"
 
 msgid "{{count}} Attachment"
 msgid_plural "{{count}} Attachments"

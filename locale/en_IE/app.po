@@ -22,6 +22,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # John Cross <mrjohncross@googlemail.com>, 2012
 # handelaar <john@handelaar.org>, 2011
 # John Cross <mrjohncross@googlemail.com>, 2012
@@ -31,15 +32,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-17 13:02+0100\n"
-"PO-Revision-Date: 2020-07-16 14:50+0000\n"
+"POT-Creation-Date: 2020-07-16 16:34+0100\n"
+"PO-Revision-Date: 2020-07-16 16:12+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: English (Ireland) (http://www.transifex.com/mysociety/alaveteli"
 "/language/en_IE/)\n"
-"Language: en_IE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: en_IE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""

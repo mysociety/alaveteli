@@ -22,8 +22,11 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# 2b81488fecf64b01474cdd73adee6da4_f428fa4 <168fddc5dd8708c6cc0c28446af80acb_220254>, 2017
 # andreli <andre@lindhjem.net>, 2013
 # Hans-Petter Fjeld <atluxity@1kb.no>, 2014
+# b99f4c81950a40007b4adaea695ecb99_1c02644 <ed6c5c9e95edf158e92faab246523c32_310134>, 2015
 # Ben W <bwng@openmailbox.org>, 2016
 # Carl Petter F. Sky <carl.sky@gmail.com>, 2015
 # 2b81488fecf64b01474cdd73adee6da4_f428fa4 <168fddc5dd8708c6cc0c28446af80acb_220254>, 2017
@@ -45,15 +48,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-17 13:02+0100\n"
-"PO-Revision-Date: 2020-07-16 14:50+0000\n"
+"POT-Creation-Date: 2020-07-16 16:34+0100\n"
+"PO-Revision-Date: 2020-07-17 13:16+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/mysociety/alaveteli/"
 "language/nb/)\n"
-"Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
