@@ -25,6 +25,12 @@
   to override `app/views/application/_ga_code.html.erb` in your theme and set
   appropriate options.
 
+# 0.37.1.4
+
+## Highlighted Features
+
+* Fix missing translations in 0.37.1.3 (Graeme Porteous)
+
 # 0.37.1.3
 
 ## Highlighted Features
