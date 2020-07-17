@@ -39,9 +39,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-21 11:26+0000\n"
-"PO-Revision-Date: 2020-07-16 14:50+0000\n"
-"Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
+"POT-Creation-Date: 2020-07-16 16:34+0100\n"
+"PO-Revision-Date: 2020-07-17 05:43+0000\n"
+"Last-Translator: Hailey Zhang <s1132151@s.eduhk.hk>\n"
 "Language-Team: Chinese (Hong Kong) (http://www.transifex.com/mysociety/alaveteli/language/zh_HK/)\n"
 "Language: zh_HK\n"
 "MIME-Version: 1.0\n"
@@ -183,19 +183,19 @@ msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\
 msgstr "<p>已完成，感謝你！</p><p>{{site_name}}<a href=\"{{helpus_url}}\">在其他方面還需要你的幫助</a>。</p>"
 
 msgid "<p>Thanks for changing the text about you on your profile.</p><p><strong>Next...</strong> You can upload a profile photograph too.</p>"
-msgstr ""
+msgstr "<p>感謝你更改個人簡介。</p>\\n            <p><strong>下一步……</strong>你可以上載頭像。</p>"
 
 msgid "<p>Thanks for updating your profile photo.</p><p><strong>Next...</strong> You can put some text about you and your research on your profile.</p>"
-msgstr ""
+msgstr "<p>感謝你上載頭像。</p>\\n                <p><strong>下一步……</strong>你可以加入個人簡介。</p>"
 
 msgid "<p>We recommend that you edit your request and remove the email address. If you leave it, the email address will be sent to the authority, but will not be displayed on the site.</p>"
-msgstr ""
+msgstr "<p>我們建議您編輯請求並刪除電子郵件地址。\\n如果您將其保留，該電子郵件地址將發送給公共機構，但不會顯示在網站上。</p>"
 
 msgid "<p>You do not need to include your email in the request in order to get a reply (<a href=\"{{url}}\">details</a>).</p>"
 msgstr "<p>你不加入自己的電郵地址也可獲回覆（<a href=\"{{url}}\">詳情</a>）。</p>"
 
 msgid "<p>You do not need to include your email in the request in order to get a reply, as we will ask for it on the next screen (<a href=\"{{url}}\">details</a>).</p>"
-msgstr ""
+msgstr "<p>您無需在索取資料請求中輸入您的電子郵件即可獲得回复，因為我們將在下一個頁面保存您電子郵件（<a href=\"{{url}}\">詳情</a>）。</p>"
 
 msgid "<p>Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.</p>"
 msgstr "<p>你的索取資料要求附有<strong>郵區編號</strong>，除非編號與索取的資料有關，請移除編號，因為編號將會在<strong>網上公開</strong>。</p>"
@@ -246,7 +246,7 @@ msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</
 msgstr "<strong>根據《公開資料守則》，公共機構必須作出回應</strong>（<a href=\"{{url}}\">為甚麼？</a>）。"
 
 msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
-msgstr ""
+msgstr "<strong>我可以索取關於我的資料嗎？</strong>\\n\t\t\t<a href=\"{{url}}\">不可以！</a>"
 
 msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, you will need a good internal knowledge of user behaviour on {{site_name}}. How, why and by whom requests are categorised is not straightforward, and there will be user error and ambiguity. You will also need to understand FOI law, and the way authorities use it. Plus you'll need to be an elite statistician.  Please <a href=\"{{contact_path}}\">contact us</a> with questions."
 msgstr ""
@@ -258,25 +258,25 @@ msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is
 msgstr ""
 
 msgid "<strong>No response</strong> has been received <small>(maybe there's just an acknowledgement)</small>"
-msgstr ""
+msgstr "機構<strong>尚未作出回應</strong>\\n                <small>（你可能只收到機構確認收件的訊息）</small>"
 
 msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
 msgstr "<strong>注意：</strong>由於我們正在進行測試，索取資料的要求將寄往{{email}}，而非真正的公共機構。"
 
 msgid "<strong>Note:</strong> We will send an email to your new email address. Follow the instructions in it to confirm changing your email."
-msgstr ""
+msgstr "<strong>注意：</strong>\\n    我們將會向新電郵地址發出電郵，請按照該電郵的指示更改密碼。"
 
 msgid "<strong>Note:</strong> We will send you an email to confirm you are the owner of this account. Follow the instructions in it to change your password."
 msgstr "<strong>註：</strong>我們將發出一封電郵，確認你擁有此賬户。請跟從電郵中的指示更換密碼。"
 
 msgid "<strong>Note:</strong> You're sending a message to yourself, presumably to try out how it works."
-msgstr ""
+msgstr "<strong>請留意</strong>，你正在向自己發送訊息，可能在測試訊息發送功能。"
 
 msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet, wherever you do something on {{site_name}}."
 msgstr ""
 
 msgid "<strong>Privacy warning:</strong> Your message, and any response to it, will be displayed publicly on this website."
-msgstr ""
+msgstr "<strong>注意：</strong>你的訊息及其回覆會在本站公開發表。"
 
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr "已提供<strong>部分資料</strong>"
@@ -432,7 +432,7 @@ msgid "Alter your subscription"
 msgstr "更改你的訂閱"
 
 msgid "Although all responses are automatically published, we depend on you, the original requester, to evaluate them."
-msgstr ""
+msgstr "雖然所有回應都會自動公開，但我們需要申請人（即是你）去作出分類。"
 
 msgid "Although not legally required to do so, we would have expected {{public_body_link}} to have responded by "
 msgstr ""
@@ -1356,7 +1356,7 @@ msgid "Every citizen has the right to access information held by public authorit
 msgstr "每一位市民都有權向公共機構索取資料。"
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
-msgstr ""
+msgstr "你在本頁輸入的所有資料（包括<strong>你的姓名</strong>），將會在本站<a href=\"{{url}}\">永久</a><strong>公開顯示</strong>。"
 
 msgid "Expand all correspondence"
 msgstr "展開所有回覆"
@@ -1413,7 +1413,7 @@ msgid "First, did your other requests succeed?"
 msgstr ""
 
 msgid "First, type in the <strong>name of the public authority</strong> you'd like information from."
-msgstr ""
+msgstr "請先輸入你想披露資料的<strong>公共機構</strong>。"
 
 msgid "Flipper/adapters/active record/feature"
 msgstr ""
@@ -1729,7 +1729,7 @@ msgid "I would like to <strong>withdraw this request</strong>"
 msgstr "本人希望<strong>撤回這項索取資料要求</strong>"
 
 msgid "I'm still <strong>waiting</strong> for my information <small>(maybe you got an acknowledgement)</small>"
-msgstr ""
+msgstr "我仍在<strong>等待</strong>我要索取的資料<small>（可能你只收到一封確認書）</small>"
 
 msgid "I'm still <strong>waiting</strong> for the internal review"
 msgstr "我仍在<strong>等候</strong>覆檢結果"
@@ -1768,7 +1768,7 @@ msgid "If this is incorrect, or you would like to send a late response to the re
 msgstr ""
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
-msgstr ""
+msgstr "如果你不滿公共機構的回應，你有權投訴（<a href=\"{{url}}\">詳情</a>）。"
 
 msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 msgstr ""
@@ -1942,7 +1942,7 @@ msgid "Let us know"
 msgstr ""
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
-msgstr ""
+msgstr "請告訴我們，你用的瀏覽器、作業系統版本，以及訊息彈出前你在做甚麼、"
 
 msgid "Link to this"
 msgstr "連結至此"
@@ -2320,7 +2320,7 @@ msgid "Please describe more what the request is about in the subject. There is n
 msgstr ""
 
 msgid "Please don't upload offensive pictures. We will take down images that we consider inappropriate."
-msgstr ""
+msgstr "切勿上載令人反感的圖片。我們將刪除我們認為是不當的圖片。"
 
 msgid "Please enable \"cookies\" to carry on"
 msgstr "請先啟用「cookies」"
@@ -2774,7 +2774,7 @@ msgid "Search in their website for this information &rarr;"
 msgstr "在它們的網頁搜尋此項資料 &rarr;"
 
 msgid "Search over<br/><strong>{{number_of_requests}} requests</strong> <span>and</span><br/><strong>{{number_of_authorities}} authorities</strong>"
-msgstr ""
+msgstr "搜尋<br/>\\n <strong>{{number_of_requests}}項要求</strong><span>及</span><br/>\\n <strong>{{number_of_authorities}}個公共機構的</strong>公開資料"
 
 msgid "Search queries"
 msgstr "搜尋內容"
@@ -2892,7 +2892,7 @@ msgid "Some of the information requested has been received"
 msgstr ""
 
 msgid "Some people who've made requests haven't let us know whether they were successful or not.  We need <strong>your</strong> help &ndash; choose one of these requests, read it, and let everyone know whether or not the information has been provided. Everyone'll be exceedingly grateful."
-msgstr ""
+msgstr "有些用户提出索取資料要求後，沒有通知我們那些要求是否成功。我們需要<strong>你的幫助</strong>：請按下一項要求，細讀內容，並讓大家知道公共機構最後有否披露索取的資料。大家將感激你的貢獻。"
 
 msgid "Somebody added a note to your FOI request - {{request_title}}"
 msgstr "有人在你的索取資料要求「{{request_title}}」加入了備註 "
@@ -2901,7 +2901,7 @@ msgid "Someone has updated the status of your request"
 msgstr "有人更新了你的索取資料要求的狀態"
 
 msgid "Someone, perhaps you, just tried to change their email address on {{site_name}} from {{old_email}} to {{new_email}}."
-msgstr ""
+msgstr "有人（或是你）剛剛將{{site_name}}上的電郵地址由{{old_email}}換為{{new_email}}。"
 
 msgid "Sorry - you cannot respond to this request via {{site_name}}, because this is a copy of the request originally at {{link_to_original_request}}."
 msgstr ""
@@ -3512,7 +3512,7 @@ msgid "This was not possible because there is already an account using the email
 msgstr ""
 
 msgid "This will appear on your {{site_name}} profile, to make it easier for others to get involved with what you're doing."
-msgstr ""
+msgstr "這會在{{site_name}}上的個人簡介出現，令其他用户更容易與你合作。"
 
 msgid "To"
 msgstr ""

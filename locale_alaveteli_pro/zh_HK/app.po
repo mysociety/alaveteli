@@ -215,7 +215,7 @@ msgid "Are you sure you want to publish this request?"
 msgstr "你確定要發表此索取資料要求嗎？"
 
 msgid "Are you sure?"
-msgstr "你確定嗎？"
+msgstr "你肯定？"
 
 msgid "Automate FOI request management"
 msgstr "自動化資訊詢問自由權（FOI）的管理"

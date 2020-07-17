@@ -268,7 +268,7 @@ msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the 
 msgstr ""
 
 msgid "<strong>Privacy warning:</strong> Your message, and any response to it, will be displayed publicly on this website."
-msgstr ""
+msgstr " <strong>Ghi chú về quyền riêng tư:</strong> Địa chỉ email của bạn phải được chuyển đến"
 
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr ""
@@ -3504,7 +3504,7 @@ msgid "This was not possible because there is already an account using the email
 msgstr ""
 
 msgid "This will appear on your {{site_name}} profile, to make it easier for others to get involved with what you're doing."
-msgstr ""
+msgstr "  Phần này sẽ xuất hiện trên trang hồ sơ {{site_name}} , để làm trang này trở nên\\n            dễ tham gia vào các tiến trình bạn đang thực hiện."
 
 msgid "To"
 msgstr ""
