@@ -76,7 +76,15 @@ describe CensorRule do
       text = 'Some secret text'
       original_text = text.dup
       redacted = rule.apply_to_binary(text)
-      expect(redacted.size).to eq(original_text.size)
+      expect(redacted.bytesize).to eq(original_text.bytesize)
+    end
+
+    it 'does not modify the size of UTF-8 string' do
+      rule = FactoryBot.build(:censor_rule, text: 'sécret')
+      text = 'Some sécret text'
+      original_text = text.dup
+      redacted = rule.apply_to_binary(text)
+      expect(redacted.bytesize).to eq(original_text.bytesize)
     end
 
     it 'does not mutate the input' do
@@ -90,6 +98,13 @@ describe CensorRule do
       rule = FactoryBot.build(:censor_rule, :text => 'secret')
       text = 'Some text'
       expect(rule.apply_to_binary(text)).to eq('Some text')
+    end
+
+    it 'handles UTF-8 text' do
+      rule = FactoryBot.build(:censor_rule, text: 'sécret')
+      text = 'Some sécret text'
+      text.force_encoding('UTF-8') if String.method_defined?(:encode)
+      expect(rule.apply_to_binary(text)).to eq("Some xxxxxxx text")
     end
 
     it 'handles a UTF-8 rule and ASCII-8BIT text' do
