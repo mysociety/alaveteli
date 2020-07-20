@@ -133,6 +133,8 @@ class InfoRequest < ApplicationRecord
           :class_name => 'AlaveteliPro::Embargo',
           :dependent => :destroy
 
+  has_many :foi_attachments, through: :incoming_messages
+
   has_many :project_submissions, class_name: 'Project::Submission'
   has_many :classification_project_submissions,
            -> { classification },

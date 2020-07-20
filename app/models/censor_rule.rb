@@ -75,6 +75,20 @@ class CensorRule < ApplicationRecord
     end
   end
 
+  def censorable_requests
+    if info_request
+      # Prefer a chainable query instead of wrapping in Array for similar API
+      # between CensorRule types
+      InfoRequest.where(id: info_request_id)
+    elsif user
+      user.info_requests
+    elsif public_body
+      public_body.info_requests
+    else
+      InfoRequest.unscoped
+    end
+  end
+
   private
 
   def single_char_regexp

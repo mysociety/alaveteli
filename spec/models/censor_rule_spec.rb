@@ -196,6 +196,38 @@ describe CensorRule do
 
   end
 
+  describe '#censorable_requests' do
+    subject { censor_rule.censorable_requests }
+
+    context 'with an info_request censor rule' do
+      let(:censor_rule) { FactoryBot.create(:info_request_censor_rule) }
+      let(:requests) { censorable.info_requests }
+      it { is_expected.to match_array([censor_rule.info_request]) }
+    end
+
+    context 'with a public_body censor rule' do
+      let(:censor_rule) { FactoryBot.create(:public_body_censor_rule) }
+      let(:censorable) { censor_rule.public_body }
+
+      before { FactoryBot.create(:info_request, public_body: censorable) }
+
+      it { is_expected.to match_array(censorable.info_requests) }
+    end
+
+    context 'with a user censor rule' do
+      let(:censor_rule) { FactoryBot.create(:user_censor_rule) }
+      let(:censorable) { censor_rule.user }
+
+      before { FactoryBot.create(:info_request, user: censorable) }
+
+      it { is_expected.to match_array(censorable.info_requests) }
+    end
+
+    context 'with a global censor rule' do
+      let(:censor_rule) { FactoryBot.create(:global_censor_rule) }
+      it { is_expected.to eq(InfoRequest.unscoped) }
+    end
+  end
 end
 
 describe 'when validating rules' do
