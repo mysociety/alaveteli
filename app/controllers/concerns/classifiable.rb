@@ -9,7 +9,7 @@ module Classifiable
     before_action :ensure_message, if: :message_required_for_state?,
                                    only: :create
 
-    # rubocop:disable Style/ClassVars, Lint/HandleExceptions
+    # rubocop:disable Style/ClassVars, Lint/SuppressedException
     @@custom_states_loaded = false
     begin
       require 'customstates'
@@ -17,7 +17,7 @@ module Classifiable
       @@custom_states_loaded = true
     rescue LoadError, NameError
     end
-    # rubocop:enable Style/ClassVars, Lint/HandleExceptions
+    # rubocop:enable Style/ClassVars, Lint/SuppressedException
   end
 
   def message

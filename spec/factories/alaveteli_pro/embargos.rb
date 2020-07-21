@@ -19,7 +19,7 @@ FactoryBot.define do
     embargo_duration { '3_months' }
 
     factory :expiring_embargo do
-      publish_at { Time.zone.now + 3.days }
+      publish_at { 3.days.from_now.beginning_of_day }
     end
   end
 end

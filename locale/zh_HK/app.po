@@ -21,10 +21,12 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # beckymak <makpowan@gmail.com>, 2015
 # caxekis <caxekis@gmail.com>, 2013
 # caxekis <caxekis@gmail.com>, 2013
 # gensitu <pstew892@protonmail.com>, 2018,2020
+# Hailey Zhang <s1132151@s.eduhk.hk>, 2020
 # Liz Conlan <liz@mysociety.org>, 2018
 # beckymak <makpowan@gmail.com>, 2015
 # gensitu <pstew892@protonmail.com>, 2018,2020
@@ -37,9 +39,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-21 11:26+0000\n"
-"PO-Revision-Date: 2020-02-10 15:36+0000\n"
-"Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
+"POT-Creation-Date: 2020-07-16 16:34+0100\n"
+"PO-Revision-Date: 2020-07-17 05:43+0000\n"
+"Last-Translator: Hailey Zhang <s1132151@s.eduhk.hk>\n"
 "Language-Team: Chinese (Hong Kong) (http://www.transifex.com/mysociety/alaveteli/language/zh_HK/)\n"
 "Language: zh_HK\n"
 "MIME-Version: 1.0\n"
@@ -156,7 +158,7 @@ msgid "<a href=\"{{new_request_link}}\">Make a new FOI request</a> to {{public_b
 msgstr "向{{public_body_name}}索取資料"
 
 msgid "<a href=\"{{sign_in_link}}\">Sign in</a> to get updates on things you follow or re-enable email alerts."
-msgstr ""
+msgstr "<a href=\"{{sign_in_link}}\">登錄</a>以獲取您關注的資訊的更新，您也可以重新啟用電子郵件的提醒功能。"
 
 msgid "<a href=\"{{url}}\">Do you want to request private information about yourself?</a>"
 msgstr "<a href=\"{{url}}\">你是否希望查詢有關你的個人私隱資料？</a>"
@@ -171,7 +173,7 @@ msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>"
 msgstr "<a href=\"{{url}}\">想用化名索取資料？</a>"
 
 msgid "<a href=\"{{wall_link}}\">Visit your Wall</a> to get updates on things you follow or re-enable email alerts."
-msgstr ""
+msgstr "<a href=\"{{wall_link}}\">訪問您的動態</a>以獲取您所關注資訊的更新，您也可以重新啟用電子郵件的提醒功能。"
 
 msgid "<div class=\"alaveteli-widget__count\">{{count}}</div> person wants to know"
 msgid_plural "<div class=\"alaveteli-widget__count\">{{count}}</div> people want to know"
@@ -187,13 +189,13 @@ msgid "<p>Thanks for updating your profile photo.</p><p><strong>Next...</strong>
 msgstr "<p>感謝你上載頭像。</p>\\n                <p><strong>下一步……</strong>你可以加入個人簡介。</p>"
 
 msgid "<p>We recommend that you edit your request and remove the email address. If you leave it, the email address will be sent to the authority, but will not be displayed on the site.</p>"
-msgstr "<p>我們建議你移除電郵地址。\\n                如果你依然選擇寫下電郵地址，電郵地址將傳送至公共機構，但不會在網站顯示。</p>"
+msgstr "<p>我們建議您編輯請求並刪除電子郵件地址。\\n如果您將其保留，該電子郵件地址將發送給公共機構，但不會顯示在網站上。</p>"
 
 msgid "<p>You do not need to include your email in the request in order to get a reply (<a href=\"{{url}}\">details</a>).</p>"
 msgstr "<p>你不加入自己的電郵地址也可獲回覆（<a href=\"{{url}}\">詳情</a>）。</p>"
 
 msgid "<p>You do not need to include your email in the request in order to get a reply, as we will ask for it on the next screen (<a href=\"{{url}}\">details</a>).</p>"
-msgstr ""
+msgstr "<p>您無需在索取資料請求中輸入您的電子郵件即可獲得回复，因為我們將在下一個頁面保存您電子郵件（<a href=\"{{url}}\">詳情</a>）。</p>"
 
 msgid "<p>Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.</p>"
 msgstr "<p>你的索取資料要求附有<strong>郵區編號</strong>，除非編號與索取的資料有關，請移除編號，因為編號將會在<strong>網上公開</strong>。</p>"

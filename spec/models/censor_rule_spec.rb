@@ -76,7 +76,15 @@ describe CensorRule do
       text = 'Some secret text'
       original_text = text.dup
       redacted = rule.apply_to_binary(text)
-      expect(redacted.size).to eq(original_text.size)
+      expect(redacted.bytesize).to eq(original_text.bytesize)
+    end
+
+    it 'does not modify the size of UTF-8 string' do
+      rule = FactoryBot.build(:censor_rule, text: 'sécret')
+      text = 'Some sécret text'
+      original_text = text.dup
+      redacted = rule.apply_to_binary(text)
+      expect(redacted.bytesize).to eq(original_text.bytesize)
     end
 
     it 'does not mutate the input' do
@@ -90,6 +98,13 @@ describe CensorRule do
       rule = FactoryBot.build(:censor_rule, :text => 'secret')
       text = 'Some text'
       expect(rule.apply_to_binary(text)).to eq('Some text')
+    end
+
+    it 'handles UTF-8 text' do
+      rule = FactoryBot.build(:censor_rule, text: 'sécret')
+      text = 'Some sécret text'
+      text.force_encoding('UTF-8') if String.method_defined?(:encode)
+      expect(rule.apply_to_binary(text)).to eq("Some xxxxxxx text")
     end
 
     it 'handles a UTF-8 rule and ASCII-8BIT text' do
@@ -181,6 +196,38 @@ describe CensorRule do
 
   end
 
+  describe '#censorable_requests' do
+    subject { censor_rule.censorable_requests }
+
+    context 'with an info_request censor rule' do
+      let(:censor_rule) { FactoryBot.create(:info_request_censor_rule) }
+      let(:requests) { censorable.info_requests }
+      it { is_expected.to match_array([censor_rule.info_request]) }
+    end
+
+    context 'with a public_body censor rule' do
+      let(:censor_rule) { FactoryBot.create(:public_body_censor_rule) }
+      let(:censorable) { censor_rule.public_body }
+
+      before { FactoryBot.create(:info_request, public_body: censorable) }
+
+      it { is_expected.to match_array(censorable.info_requests) }
+    end
+
+    context 'with a user censor rule' do
+      let(:censor_rule) { FactoryBot.create(:user_censor_rule) }
+      let(:censorable) { censor_rule.user }
+
+      before { FactoryBot.create(:info_request, user: censorable) }
+
+      it { is_expected.to match_array(censorable.info_requests) }
+    end
+
+    context 'with a global censor rule' do
+      let(:censor_rule) { FactoryBot.create(:global_censor_rule) }
+      it { is_expected.to eq(InfoRequest.unscoped) }
+    end
+  end
 end
 
 describe 'when validating rules' do

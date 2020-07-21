@@ -114,7 +114,7 @@ gem 'open4', '~> 1.3.0'
 gem 'rack', '~> 2.2.3'
 gem 'rack-ssl', '~> 1.4.0'
 gem 'rack-utf8_sanitizer', '~> 1.7.0'
-gem 'recaptcha', '~> 4.9.0', '< 4.10.0', :require => 'recaptcha/rails'
+gem 'recaptcha', '~> 5.5.0', require: 'recaptcha/rails'
 gem 'mini_magick', '~> 4.10.0'
 gem 'rolify', '~> 5.3.0'
 gem 'ruby-msg', '~> 1.5.0', :git => 'https://github.com/mysociety/ruby-msg.git', :branch => 'ascii-encoding'
@@ -135,7 +135,7 @@ gem 'zip_tricks', '~> 5.3.1'
 gem 'gender_detector', '~> 2.0.0'
 
 # Gems related to internationalisation
-gem 'i18n', ['~> 0.9.0', '< 0.9.3']
+gem 'i18n', '~> 1.8.3'
 gem 'rails-i18n', rails_upgrade? ? '~> 6.0.0' : '~> 5.1.0'
 gem 'gettext_i18n_rails', '~> 1.8.1'
   gem 'fast_gettext', '< 2.0.3'
@@ -163,7 +163,6 @@ group :test do
   gem 'webmock', '~> 3.8.3'
   gem 'coveralls', '~> 0.8.23', require: false
   gem 'capybara', '~> 3.15.1'
-  gem 'delorean', '~> 2.1.0'
   gem 'stripe-ruby-mock', git: 'https://github.com/stripe-ruby-mock/stripe-ruby-mock',
                           ref: '2c925fd'
   gem('rails-controller-testing')
@@ -187,5 +186,7 @@ group :development do
   gem 'launchy', '< 2.5.0'
   gem 'listen', '>= 3.0.5', '< 3.3'
   gem 'web-console', '>= 3.3.0'
-  gem 'rubocop', '~> 0.63.1'
+  gem 'rubocop', '~> 0.81.0', require: false
+  gem 'rubocop-performance', '~> 1.5.2', require: false
+  gem 'rubocop-rails', require: false
 end

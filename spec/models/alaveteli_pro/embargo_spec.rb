@@ -277,7 +277,7 @@ describe AlaveteliPro::Embargo, :type => :model do
       it 'does not expire the embargo' do
         embargo = FactoryBot.create(:embargo)
         info_request = embargo.info_request
-        time_travel_to(AlaveteliPro::Embargo.three_months_from_now) do
+        travel_to(AlaveteliPro::Embargo.three_months_from_now) do
           AlaveteliPro::Embargo.expire_publishable
           info_request = InfoRequest.find(info_request.id)
           expect(info_request.embargo).not_to be_nil
@@ -411,7 +411,7 @@ describe AlaveteliPro::Embargo, :type => :model do
         it 'logs events for both expiries' do
           expect { log_expiring_events }.to change { event_count }.by(1)
           expiring_soon_embargo.extend(embargo_extension)
-          time_travel_to(expiring_soon_embargo.publish_at - 6.days) do
+          travel_to(expiring_soon_embargo.publish_at - 6.days) do
             expect { log_expiring_events }.to change { event_count }.by(1)
           end
         end
@@ -420,7 +420,7 @@ describe AlaveteliPro::Embargo, :type => :model do
       context "if it's run just once after the extension" do
         it "only logs an event for the later expiry" do
           expiring_soon_embargo.extend(embargo_extension)
-          time_travel_to(expiring_soon_embargo.publish_at - 6.days) do
+          travel_to(expiring_soon_embargo.publish_at - 6.days) do
             expect { log_expiring_events }.to change { event_count }.by(1)
           end
         end

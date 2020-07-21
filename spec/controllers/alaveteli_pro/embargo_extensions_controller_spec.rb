@@ -10,21 +10,10 @@ describe AlaveteliPro::EmbargoExtensionsController do
     user
   end
 
-  let(:info_request) do
-    # so that embargoes are near expiry
-    time_travel_to(88.days.ago) do
-      FactoryBot.create(:info_request, user: pro_user)
-    end
-  end
+  let(:info_request) { FactoryBot.create(:info_request, user: pro_user) }
 
   let(:embargo) do
-    # so that embargoes are near expiry
-    time_travel_to(88.days.ago) do
-      embargo = FactoryBot.create(:embargo, info_request: info_request)
-      embargo.
-        update_attribute(:publish_at, embargo.expiring_notification_at + 7.days)
-      embargo
-    end
+    FactoryBot.create(:expiring_embargo, info_request: info_request)
   end
 
   let(:embargo_expiry) { embargo.publish_at }

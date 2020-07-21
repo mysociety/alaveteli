@@ -51,7 +51,10 @@ class CensorRule < ApplicationRecord
 
   def apply_to_binary(binary_to_censor)
     return nil if binary_to_censor.nil?
-    binary_to_censor.gsub(to_replace('ASCII-8BIT')) { |match| match.gsub(single_char_regexp, 'x') }
+
+    binary_to_censor.gsub(to_replace(binary_to_censor.encoding)) do |match|
+      match.gsub(single_char_regexp) { |m| 'x' * m.bytesize }
+    end
   end
 
   def is_global?
@@ -69,6 +72,20 @@ class CensorRule < ApplicationRecord
       InfoRequest.find_in_batches do |group|
         group.each { |request| request.expire }
       end
+    end
+  end
+
+  def censorable_requests
+    if info_request
+      # Prefer a chainable query instead of wrapping in Array for similar API
+      # between CensorRule types
+      InfoRequest.where(id: info_request_id)
+    elsif user
+      user.info_requests
+    elsif public_body
+      public_body.info_requests
+    else
+      InfoRequest.unscoped
     end
   end
 

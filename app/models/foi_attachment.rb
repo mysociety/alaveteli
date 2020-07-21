@@ -36,6 +36,8 @@ class FoiAttachment < ApplicationRecord
   before_validation :ensure_filename!, :only => [:filename]
   before_destroy :delete_cached_file!
 
+  scope :binary, -> { where.not(content_type: AlaveteliTextMasker::TextMask) }
+
   BODY_MAX_TRIES = 3
   BODY_MAX_DELAY = 5
 

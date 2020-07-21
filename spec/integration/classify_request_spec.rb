@@ -330,11 +330,11 @@ describe 'classifying a request' do
     let(:classification) { 'waiting_response1' }
 
     before do
-      time_travel_to(info_request.date_response_required_by + 2.days)
+      travel_to(info_request.date_response_required_by + 2.days)
     end
 
     after do
-      back_to_the_present
+      travel_back
     end
 
     it 'displays a thank you message post redirect' do
@@ -357,11 +357,11 @@ describe 'classifying a request' do
     let(:classification) { 'waiting_response1' }
 
     before do
-      time_travel_to(info_request.date_very_overdue_after + 2.days)
+      travel_to(info_request.date_very_overdue_after + 2.days)
     end
 
     after do
-      back_to_the_present
+      travel_back
     end
 
     it 'displays a thank you message post redirect' do

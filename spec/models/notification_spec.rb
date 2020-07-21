@@ -167,13 +167,13 @@ RSpec.describe Notification do
       context 'and the expiry of the embargo is pending' do
 
         it 'returns false when the publication date has been reached' do
-          time_travel_to(embargo_expiring_request.embargo.publish_at) do
+          travel_to(embargo_expiring_request.embargo.publish_at) do
             expect(notification.expired).to be false
           end
         end
 
         it 'returns false when the publication date has passed' do
-          time_travel_to(embargo_expiring_request.embargo.publish_at + 1.day) do
+          travel_to(embargo_expiring_request.embargo.publish_at + 1.day) do
             expect(notification.expired).to be false
           end
         end

@@ -55,7 +55,7 @@ describe AlaveteliPro::EmbargoMailer do
 
       ActionMailer::Base.deliveries.clear
       expiring_3.embargo.extend(embargo_extension)
-      time_travel_to(AlaveteliPro::Embargo.three_months_from_now - 3.days) do
+      travel_to(AlaveteliPro::Embargo.three_months_from_now - 3.days) do
         AlaveteliPro::EmbargoMailer.alert_expiring
         mails = ActionMailer::Base.deliveries
         expect(mails.detect { |mail| mail.to == [pro_user_2.email] }).

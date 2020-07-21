@@ -13,7 +13,7 @@ describe StatisticsController do
     it "uses the date of the first public request as the start_date" do
       InfoRequest.destroy_all
 
-      time_travel_to(1.week.ago) do
+      travel_to(1.week.ago) do
         FactoryBot.create(:embargoed_request)
         FactoryBot.create(:hidden_request)
       end
