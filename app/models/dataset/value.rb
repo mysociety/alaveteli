@@ -21,6 +21,7 @@ class Dataset::Value < ApplicationRecord
 
   validates :value_set, :key, presence: true
   validates :value,
-            format: { with: -> (value) { value.key&.format_regexp } },
-            allow_blank: true
+            format: { with: -> (value) { value.key.format_regexp } },
+            allow_blank: true,
+            if: -> (value) { value.key }
 end
