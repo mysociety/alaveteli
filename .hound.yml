@@ -1,8 +1,0 @@
-eslint:
-  enabled: false
-
-rubocop:
-  version: 0.80.0
-
-scss:
-  enabled: false
