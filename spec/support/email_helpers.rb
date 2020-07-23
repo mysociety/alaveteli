@@ -8,14 +8,17 @@ def load_raw_emails_data
 end
 
 def receive_incoming_mail(email_name_or_string, email_to, email_from = 'geraldinequango@localhost')
-  content = load_file_fixture(email_name_or_string)
-  content ||= email_name_or_string
-  RequestMailer.receive(gsub_addresses(content, email_to, email_from))
+  content = load_file_fixture(email_name_or_string) || email_name_or_string
+  content = gsub_addresses(content, email_to, email_from)
+  content = ::Mail::Utilities.binary_unsafe_to_crlf(content)
+  RequestMailer.receive(content)
 end
 
 def get_fixture_mail(filename, email_to = nil, email_from = nil)
   content = load_file_fixture(filename)
-  MailHandler.mail_from_raw_email(gsub_addresses(content, email_to, email_from))
+  content = gsub_addresses(content, email_to, email_from)
+  content = ::Mail::Utilities.binary_unsafe_to_crlf(content)
+  MailHandler.mail_from_raw_email(content)
 end
 
 def parse_all_incoming_messages

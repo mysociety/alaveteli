@@ -16,8 +16,10 @@ describe AlaveteliPro::SubscriptionMailer, feature: [:alaveteli_pro] do
     end
 
     it 'renders the body correctly' do
-      expect(subject.body.to_s).
-        to eq(read_described_class_fixture('payment_failed'))
+      content = ::Mail::Utilities.to_crlf(
+        read_described_class_fixture('payment_failed')
+      )
+      expect(subject.body.to_s).to eq(content)
     end
 
     context 'with non-html-safe characters in the site name' do
