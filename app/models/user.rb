@@ -365,12 +365,6 @@ class User < ApplicationRecord
     (super || AlaveteliLocalization.locale).to_s
   end
 
-  def get_locale
-    warn %q([DEPRECATION] User#get_locale will be removed in 0.38.
-            It has been replaced by User#locale).squish
-    locale
-  end
-
   def name
     _name = read_attribute(:name)
     if suspended?
