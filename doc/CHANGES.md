@@ -21,7 +21,7 @@
   requests and batches together (Gareth Rees, Graeme Porteous)
   See: https://www.mysociety.org/2020/07/24/whatdotheyknow-projects/
 
-# Upgrade Notes
+## Upgrade Notes
 
 * **IMPORTANT! We now depend on Xapian 1.4**, which means you may need to
   convert your flint database to a chert database prior to upgrading Alaveteli.
