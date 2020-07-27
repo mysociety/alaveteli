@@ -46,12 +46,17 @@ class AttachmentsController < ApplicationController
           formats: [:html]
         ),
         body_prefix: render_to_string(
-          partial: 'request/view_html_prefix'
+          partial: 'request/view_html_prefix',
+          formats: [:html]
         )
       }
     )
 
-    html = @incoming_message.apply_masks(html, response.content_type)
+    html = if rails_upgrade?
+             @incoming_message.apply_masks(html, response.media_type)
+           else
+             @incoming_message.apply_masks(html, response.content_type)
+           end
 
     render html: html.html_safe
   end
