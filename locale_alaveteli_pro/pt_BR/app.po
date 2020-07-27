@@ -7,13 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-21 11:27+0000\n"
+"POT-Creation-Date: 2020-07-16 16:34+0100\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Language-Team: Portuguese (Brazil) (https://www.transifex.com/mysociety/teams/33529/pt_BR/)\n"
-"Language: pt_BR\n"
+"Language-Team: Portuguese (Brazil) (https://www.transifex.com/mysociety/teams/"
+"33529/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid " <strong>Summarising</strong> the content of any information returned. "
@@ -552,9 +553,6 @@ msgstr ""
 msgid "Make an {{law_used_short}} request"
 msgstr ""
 
-msgid "Message {{current_message}} of {{total_messages}}"
-msgstr ""
-
 msgid "My profile"
 msgstr ""
 
@@ -592,9 +590,6 @@ msgid "New batches made this week:"
 msgstr ""
 
 msgid "New to Professional – Batch"
-msgstr ""
-
-msgid "Next message"
 msgstr ""
 
 msgid "Next payment"
@@ -709,9 +704,6 @@ msgid "Preview new batch request"
 msgstr ""
 
 msgid "Preview new {{law_used_short}} request to '{{public_body_name}}'"
-msgstr ""
-
-msgid "Previous message"
 msgstr ""
 
 msgid "Pricing"
@@ -1319,6 +1311,9 @@ msgid "You’re busy fixing the world. Let us take care of your FOI requests."
 msgstr ""
 
 msgid "You’ve got plenty of other things to think about, so you don’t want to be checking up on every single one of your requests to see if it needs attention. Instead, Pro keeps an eye on them for you, sending you a daily email digest."
+msgstr ""
+
+msgid "ZIP"
 msgstr ""
 
 msgid "all requests"
