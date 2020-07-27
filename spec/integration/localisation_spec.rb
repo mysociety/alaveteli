@@ -13,9 +13,7 @@ describe "when generating urls" do
     expect(response.body).to match /href="\/en_GB\//
   end
 
-  it "returns a 404 error if passed the locale with a hyphen instead of an underscore" do
-    allow(Rails.application.config).to receive(:consider_all_requests_local).
-      and_return(false)
+  it "returns a 404 error if passed the locale with a hyphen instead of an underscore", local_requests: false do
     get '/en-GB'
     expect(response.status).to eq(404)
   end

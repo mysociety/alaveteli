@@ -177,12 +177,14 @@ describe ActsAsXapian::Search do
 
     before :all do
       get_fixtures_xapian_index
-      # make sure an index exists
+    end
+
+    before do
       @alice = FactoryBot.create(:public_body, :name => 'alice')
       update_xapian_index
     end
 
-    after :all do
+    after do
       @alice.destroy
       update_xapian_index
     end
@@ -254,12 +256,15 @@ describe ActsAsXapian::Search do
     before :all do
       load_raw_emails_data
       get_fixtures_xapian_index
+    end
+
+    before do
       @alice = FactoryBot.create(:public_body, :name => 'alice')
       @bob = FactoryBot.create(:public_body, :name => 'bôbby')
       update_xapian_index
     end
 
-    after :all do
+    after do
       @alice.destroy
       @bob.destroy
       update_xapian_index

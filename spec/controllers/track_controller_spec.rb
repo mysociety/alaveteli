@@ -47,7 +47,7 @@ describe TrackController do
                             :feed => 'track'
                           }
       expect(response.headers["Cache-Control"]).
-        to eq('no-cache, no-store, max-age=0, must-revalidate')
+        to eq('no-cache, no-store')
       expect(response.headers['Pragma']).to eq('no-cache')
       expect(response.headers['Expires']).to eq('0')
     end

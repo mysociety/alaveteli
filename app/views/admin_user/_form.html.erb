@@ -26,7 +26,7 @@
 <div class="control-group">
   <div class="control-label">Roles</div>
   <div class="controls">
-    <% Role.where(:name => Role.allowed_roles).order(:name).each do |role| %>
+    <% Role.where(name: Role.grantable_roles).order(:name).each do |role| %>
       <div>
         <label class="checkbox-inline">
           <%= check_box_tag "admin_user[role_ids][]",

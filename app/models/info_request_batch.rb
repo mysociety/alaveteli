@@ -280,4 +280,9 @@ class InfoRequestBatch < ApplicationRecord
   def log_event(*args)
     info_requests.map { |request| request.log_event(*args) }
   end
+
+  def is_owning_user?(user)
+    return false unless user
+    user.id == user_id || user.owns_every_request?
+  end
 end

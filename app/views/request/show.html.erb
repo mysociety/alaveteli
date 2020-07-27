@@ -1,79 +1,52 @@
-<% @title = _("{{title}} - a Freedom of Information request to {{public_body}}",
-              :title => h(@info_request.title),
-              :public_body => (@info_request.public_body.name)) %>
+<% @title = _('{{title}} - a Freedom of Information request to {{public_body}}',
+              title: h(@info_request.title),
+              public_body: (@info_request.public_body.name)) %>
 
-<%= render :partial => 'request_meta_tags' %>
+<%= render partial: 'request/request_meta_tags' %>
 
-<% if flash[:request_sent] %><%= render :partial => 'request_sent' %><% end %>
+<% if flash[:request_sent] %>
+  <%= render partial: 'request_sent' %>
+<% end %>
 
-<%= render :partial => 'ga_events' %>
+<%= render partial: 'request/ga_events' %>
 
-<%= render :partial => 'hidden_request_messages' %>
+<%= render partial: 'request/hidden_request_messages' %>
 
 <% if @show_top_describe_state_form %>
   <div class="describe_state_form box" id="describe_state_form_1">
-    <%= render :partial => 'describe_state', :locals => { :id_suffix => "1" } %>
+    <%= render partial: 'request/describe_state', locals: { id_suffix: '1' } %>
   </div>
 <% end %>
 
-<div class="request-header">
-  <div class="row">
-
-    <h1><%=h(@info_request.title)%></h1>
-
-    <div class="request-header__action-bar-container">
-      <div class="request-header__action-bar">
-        <% if @show_profile_photo %>
-          <div class=" request-header__profile-photo user_photo_on_request">
-            <img src="<%= get_profile_photo_url(:url_name => @info_request.user.url_name) %>" alt="">
-          </div>
-        <% end %>
-        <p class="request-header__subtitle <% if @show_profile_photo %>request-header__subtitle--narrow<% end %>">
-          <%= render :partial => 'request_subtitle' %>
-        </p>
-        <% unless @render_to_file %>
-          <div class="request-header__action-bar__actions <% if @show_profile_photo %>request-header__action-bar__actions--narrow<% end %>">
-            <% if @in_pro_area %>
-              <%= render :partial => 'alaveteli_pro/info_requests/after_actions' %>
-            <% else %>
-              <%= render :partial => 'after_actions' %>
-              <%= render :partial => 'track/tracking_links_simple',
-                         :locals => {
-                            :track_thing => @track_thing,
-                            :own_request => @info_request.user && \
-                                            @info_request.user == @user,
-                            :location => 'toolbar ' } %>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
-    </div>
-    <div class="request-status">
-      <div id="request_status" class="request-status-message request-status-message--<%= @info_request.calculate_status %>">
-        <i class="icon-standalone icon_<%= @info_request.calculate_status %>"></i>
-        <p><%= status_text(@info_request,
-                        :new_responses_count => @new_responses_count,
-                        :is_owning_user => @is_owning_user,
-                        :render_to_file => @render_to_file,
-                        :old_unclassified => @old_unclassified,
-                        :redirect_to => request.fullpath) %>
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
+<%= render partial: 'request/request_header',
+           locals: { info_request: @info_request,
+                     user: @user,
+                     follower_count: @follower_count,
+                     in_pro_area: @in_pro_area,
+                     track_thing: @track_thing,
+                     show_profile_photo: @show_profile_photo,
+                     show_action_menu: !@render_to_file,
+                     new_responses_count: @new_responses_count,
+                     is_owning_user: @is_owning_user,
+                     render_to_file: @render_to_file,
+                     show_owner_update_status_action: @show_owner_update_status_action,
+                     show_other_user_update_status_action: @show_other_user_update_status_action,
+                     last_response: @last_response,
+                     old_unclassified: @old_unclassified } %>
 
 <div id="left_column" class="left_column">
-
-  <% for info_request_event in @info_request_events %>
+  <% @info_request.info_request_events.each do |info_request_event| %>
     <% if info_request_event.visible %>
-      <%= render :partial => 'correspondence', :locals => { :info_request_event => info_request_event } %>
+      <%= render partial: 'request/correspondence',
+                 locals: { info_request_event: info_request_event,
+                           show_correspondence_footer: !@info_request.embargo } %>
     <% end %>
   <% end %>
 
   <% if @show_bottom_describe_state_form %>
     <div class="describe_state_form box" id="describe_state_form_2">
-      <%= render :partial => 'describe_state', :locals => { :id_suffix => "2" } %>
+      <%= render partial: 'request/describe_state',
+                 locals: { id_suffix: '2' } %>
     </div>
   <% end %>
 
@@ -81,18 +54,28 @@
     <div class="request-footer__action-bar-container">
       <div class="request-footer__action-bar__actions">
         <% if @in_pro_area %>
-          <%= render :partial => 'alaveteli_pro/info_requests/after_actions' %>
+          <%= render partial: 'alaveteli_pro/info_requests/after_actions',
+                     locals: { info_request: @info_request,
+                               last_response: @last_response } %>
         <% else %>
-          <%= render :partial => 'after_actions' %>
-          <%= render :partial => 'track/tracking_links_simple',
-                     :locals => { :track_thing => @track_thing,
-                                  :own_request => @info_request.user && @info_request.user == @user,
-                                  :location => 'toolbar' } %>
+          <%= render partial: 'request/after_actions',
+                     locals: { info_request: @info_request,
+                               track_thing: @track_thing,
+                               show_owner_update_status_action: @show_owner_update_status_action,
+                               show_other_user_update_status_action: @show_other_user_update_status_action,
+                               last_response: @last_response } %>
+
+          <%= render partial: 'track/tracking_links_simple',
+                     locals: { track_thing: @track_thing,
+                               user: @user,
+                               follower_count: @follower_count,
+                               own_request: @info_request.user && \
+                                            @info_request.user == @user,
+                               location: 'toolbar' } %>
         <% end %>
       </div>
     </div>
   <% end %>
-
 </div>
 
 <%- if @sidebar %>

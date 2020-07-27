@@ -28,6 +28,7 @@ class ApplicationController < ActionController::Base
 
   # Standard headers, footers and navigation for whole site
   layout "default"
+
   include FastGettext::Translation # make functions like _, n_, N_ etc available)
   include AlaveteliPro::PostRedirectHandler
 
@@ -190,6 +191,10 @@ class ApplicationController < ActionController::Base
   end
 
   def render_hidden(template='request/hidden', opts = {})
+    # An embargoed is totally hidden - no indication that anything exists there
+    # to see
+    raise ActiveRecord::RecordNotFound if @info_request && @info_request.embargo
+
     response_code = opts.delete(:response_code) { 403 } # forbidden
     options = { :template => template, :status => response_code }.merge(opts)
 
@@ -198,45 +203,6 @@ class ApplicationController < ActionController::Base
       format.any { head response_code }
     end
     false
-  end
-
-  # Used to work out where to cache fragments. We add an extra path to the
-  # URL using the first three digits of the info request id, because we can't
-  # have more than 32,000 entries in one directory on an ext3 filesystem.
-  def foi_fragment_cache_part_path(param)
-    param = param.permit(:incoming_message_id, :part, :file_name, :id,
-                         :only_path, :locale, :skip_cache)
-    path = url_for(param)
-    id = param['id'] || param[:id]
-    first_three_digits = id.to_s[0..2]
-    path = path.sub("/request/", "/request/" + first_three_digits + "/")
-    return path
-  end
-
-  def foi_fragment_cache_path(param)
-    path = File.join(Rails.root, 'cache', 'views', foi_fragment_cache_part_path(param))
-    max_file_length = 255 - 35 # we subtract 35 because tempfile
-    # adds on a variable number of
-    # characters
-    return File.join(File.split(path).map { |x| x[0...max_file_length] })
-  end
-
-  def foi_fragment_cache_exists?(key_path)
-    return File.exists?(key_path)
-  end
-
-  def foi_fragment_cache_read(key_path)
-    logger.info "Reading from fragment cache #{key_path}"
-    return File.read(key_path)
-  end
-
-  def foi_fragment_cache_write(key_path, content)
-    FileUtils.mkdir_p(File.dirname(key_path))
-    logger.info "Writing to fragment cache #{key_path}"
-    File.atomic_write(key_path) do |f|
-      f.write(content)
-    end
-    FileUtils.chmod 0644, key_path
   end
 
   # A helper method to set @in_pro_area, for controller actions which are
@@ -261,24 +227,26 @@ class ApplicationController < ActionController::Base
   end
 
   # Check the user is logged in
-  def authenticated?(reason_params)
-    unless session[:user_id]
-      post_redirect = PostRedirect.new(:uri => request.fullpath, :post_params => params,
-                                       :reason_params => reason_params)
-      post_redirect.save!
-      # Make sure this redirect does not get cached - it only applies to this user.
-      # HTTP 1.1
-      headers['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate'
-      # HTTP 1.0
-      headers['Pragma'] = 'no-cache'
-      # Proxies
-      headers['Expires'] = '0'
-      # 'modal' controls whether the sign-in form will be displayed in the typical full-blown
-      # page or on its own, useful for pop-ups
-      redirect_to signin_url(:token => post_redirect.token, :modal => params[:modal])
-      return false
-    end
-    return true
+  def authenticated?(reason_params, post_redirect: nil)
+    return true if session[:user_id]
+
+    post_redirect ||= PostRedirect.new(uri: request.fullpath,
+                                       post_params: params,
+                                       reason_params: reason_params)
+    post_redirect.save!
+
+    # Make sure this redirect does not get cached - it only applies to this user
+    # HTTP 1.1
+    headers['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate'
+    # HTTP 1.0
+    headers['Pragma'] = 'no-cache'
+    # Proxies
+    headers['Expires'] = '0'
+
+    # 'modal' controls whether the sign-in form will be displayed in the typical
+    # full-blown page or on its own, useful for pop-ups
+    redirect_to signin_url(token: post_redirect.token, modal: params[:modal])
+    return false
   end
 
   def authenticated_as_user?(user, reason_params)

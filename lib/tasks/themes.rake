@@ -165,7 +165,7 @@ namespace :themes do
     locale_extensions(locale).each do |locale_extension|
       filename = "#{template_name}#{locale_extension}.html.erb"
       filepath = "lib/themes/#{theme_name}/lib/views/help/#{filename}"
-      if File.exists?(filepath)
+      if File.exist?(filepath)
         return filepath
       end
     end

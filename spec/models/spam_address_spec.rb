@@ -12,6 +12,7 @@
 require 'spec_helper'
 
 describe SpamAddress do
+  it { is_expected.to strip_attribute(:email) }
 
   describe '.new' do
 
@@ -37,14 +38,22 @@ describe SpamAddress do
       expect(SpamAddress.spam?(@spam_address.email)).to be true
     end
 
-    it 'is not a spam address if the adress is not stored' do
+    it 'is case insensitive' do
+      expect(SpamAddress.spam?(@spam_address.email.swapcase)).to be true
+    end
+
+    it 'is not a spam address if the address is not stored' do
       expect(SpamAddress.spam?('genuine-email@example.com')).to be false
+    end
+
+    it 'is not a spam address if the address is empty' do
+      expect(SpamAddress.spam?(nil)).to be false
     end
 
     describe 'when accepting an array of emails' do
 
       it 'is spam if any of the emails are stored' do
-        emails = ['genuine-email@example.com', @spam_address.email]
+        emails = ['genuine-email@example.com', @spam_address.email.swapcase]
         expect(SpamAddress.spam?(emails)).to be true
       end
 
@@ -57,4 +66,16 @@ describe SpamAddress do
 
   end
 
+  describe '#save' do
+    subject { spam_address.save }
+
+    context 'with a mixed-case email' do
+      let(:spam_address) { described_class.new(email: 'FoO@eXaMpLe.OrG') }
+
+      it 'downcases the email' do
+        subject
+        expect(spam_address.email).to eq('foo@example.org')
+      end
+    end
+  end
 end

@@ -1,0 +1,15 @@
+<div class="extract-answer-form">
+  <%= form_for value_set, url: project_extract_path, as: :extract do |f| %>
+    <%= hidden_field_tag :url_title, info_request.url_title %>
+    <%= render project.key_set, f: f %>
+
+    <%= f.submit _('Submit data') %>
+
+    <% skip_path =
+         project_extract_path(project, url_title: info_request.url_title) %>
+    <% skip_css = 'button-tertiary button--full-width form__skip-button' %>
+    <%= link_to skip_path, method: :patch, class: skip_css do %>
+      <%= _('Skip') %>
+    <% end %>
+  <% end %>
+</div>

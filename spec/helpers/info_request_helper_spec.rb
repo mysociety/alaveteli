@@ -36,7 +36,7 @@ describe InfoRequestHelper do
     context 'waiting_response' do
 
       it 'returns a description' do
-        time_travel_to(Time.zone.parse('2014-12-31'))
+        travel_to(Time.zone.parse('2014-12-31'))
 
         body_link = %Q(<a href="/body/#{ body.url_name }">#{ body.name }</a>)
 
@@ -55,7 +55,7 @@ describe InfoRequestHelper do
 
         expect(status_text(info_request)).to eq(expected)
 
-        back_to_the_present
+        travel_back
       end
 
       context 'the body is not subject to foi' do
@@ -83,7 +83,7 @@ describe InfoRequestHelper do
       end
 
       it 'returns a description' do
-        time_travel_to(Time.zone.parse('2014-12-31'))
+        travel_to(Time.zone.parse('2014-12-31'))
 
         allow(info_request).to receive(:calculate_status).and_return("waiting_response_overdue")
         allow(info_request).to receive(:date_response_required_by).and_return(Time.zone.now)
@@ -100,7 +100,7 @@ describe InfoRequestHelper do
 
         expect(status_text(info_request)).to eq(expected)
 
-        back_to_the_present
+        travel_back
       end
 
       context 'the body is not subject to foi' do
@@ -108,7 +108,7 @@ describe InfoRequestHelper do
         it 'the description does not describe a legal obligation to reply' do
           body.add_tag_if_not_already_present('foi_no')
 
-          time_travel_to(Time.zone.parse('2014-12-31'))
+          travel_to(Time.zone.parse('2014-12-31'))
 
           allow(info_request).
             to receive(:calculate_status).and_return("waiting_response_overdue")
@@ -128,7 +128,7 @@ describe InfoRequestHelper do
 
           expect(status_text(info_request)).to eq(expected)
 
-          back_to_the_present
+          travel_back
         end
 
       end
@@ -143,7 +143,7 @@ describe InfoRequestHelper do
       end
 
       it 'returns a description for an internal request' do
-        time_travel_to(Time.zone.parse('2014-12-31'))
+        travel_to(Time.zone.parse('2014-12-31'))
 
         allow(info_request).to receive(:calculate_status).and_return("waiting_response_very_overdue")
         allow(info_request).to receive(:date_response_required_by).and_return(Time.zone.now)
@@ -163,7 +163,7 @@ describe InfoRequestHelper do
 
         expect(status_text(info_request)).to eq(expected)
 
-        back_to_the_present
+        travel_back
       end
 
       context 'the body is not subject to foi' do
@@ -171,7 +171,7 @@ describe InfoRequestHelper do
         it 'the description does not describe a legal obligation to reply' do
           body.add_tag_if_not_already_present('foi_no')
 
-          time_travel_to(Time.zone.parse('2014-12-31'))
+          travel_to(Time.zone.parse('2014-12-31'))
 
           allow(info_request).
             to receive(:calculate_status).
@@ -196,13 +196,13 @@ describe InfoRequestHelper do
 
           expect(status_text(info_request)).to eq(expected)
 
-          back_to_the_present
+          travel_back
         end
 
       end
 
       it 'does not add a followup link for external requests' do
-        time_travel_to(Time.zone.parse('2014-12-31'))
+        travel_to(Time.zone.parse('2014-12-31'))
 
         body_link = %Q(<a href="/body/#{ body.url_name }">#{ body.name }</a>)
 
@@ -222,7 +222,7 @@ describe InfoRequestHelper do
 
         expect(status_text(info_request)).to eq(expected)
 
-        back_to_the_present
+        travel_back
       end
 
     end
@@ -579,6 +579,17 @@ describe InfoRequestHelper do
 
   end
 
+  describe '#js_correspondence_navigation' do
+    subject { js_correspondence_navigation }
+
+    it { is_expected.to eq(<<~HTML.squish) }
+    <div class="js-request-navigation request-navigation"
+      data-next-text="Next message"
+      data-prev-text="Previous message"
+      data-status-text="Message [[x]] of [[y]]"></div>
+    HTML
+  end
+
   describe '#attachment_link' do
     let(:incoming_message) { FactoryBot.create(:incoming_message) }
 
@@ -613,39 +624,86 @@ describe InfoRequestHelper do
 
   describe '#attachment_path' do
     let(:incoming_message) { FactoryBot.create(:incoming_message) }
-    let(:jpeg_attachment) { FactoryBot.create(:jpeg_attachment,
-                             :incoming_message => incoming_message,
-                             :url_part_number => 1)
-                         }
+    let(:jpeg_attachment) do
+      FactoryBot.create(:jpeg_attachment, incoming_message: incoming_message,
+                                          url_part_number: 1)
+    end
 
     context 'when given no format options' do
-
-      it 'returns the path to the attachment with a cookie cookie_passthrough
-          param' do
-
-        expect(attachment_path(incoming_message, jpeg_attachment)).
-          to eq("/request/#{incoming_message.info_request_id}" \
-                "/response/#{incoming_message.id}/" \
-                "attach/#{jpeg_attachment.url_part_number}" \
-                "/interesting.jpg?cookie_passthrough=1")
+      it 'returns the path to the attachment with a cookie cookie_passthrough param' do
+        expect(attachment_path(jpeg_attachment)).to eq(
+          "/request/#{incoming_message.info_request_id}" \
+          "/response/#{incoming_message.id}/" \
+          "attach/#{jpeg_attachment.url_part_number}" \
+          "/interesting.jpg?cookie_passthrough=1"
+        )
       end
-
     end
 
     context 'when given an html format option' do
-
       it 'returns the path to the HTML version of the attachment' do
-        expect(attachment_path(incoming_message,
-                               jpeg_attachment,
-                               :html => true)).
-          to eq("/request/#{incoming_message.info_request_id}" \
-                "/response/#{incoming_message.id}" \
-                "/attach/html/#{jpeg_attachment.url_part_number}" \
-                "/interesting.jpg.html")
+        expect(attachment_path(jpeg_attachment, html: true)).to eq(
+          "/request/#{incoming_message.info_request_id}" \
+          "/response/#{incoming_message.id}" \
+          "/attach/html/#{jpeg_attachment.url_part_number}" \
+          "/interesting.jpg.html"
+        )
       end
-
     end
 
+    context 'when project is not nil' do
+      before { instance_variable_set(:@project, double(id: 1)) }
+
+      it 'returns the URL with project_id param' do
+        url = attachment_path(jpeg_attachment)
+        expect(URI(url).query).to include('project_id=1')
+        url = attachment_path(jpeg_attachment, html: true)
+        expect(URI(url).query).to include('project_id=1')
+      end
+    end
+  end
+
+  describe '#attachment_url' do
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+    let(:jpeg_attachment) do
+      FactoryBot.create(:jpeg_attachment, incoming_message: incoming_message,
+                                          url_part_number: 1)
+    end
+
+    context 'when given no format options' do
+      it 'returns the URL to the attachment with a cookie cookie_passthrough param' do
+        expect(attachment_url(jpeg_attachment)).to eq(
+          "http://test.host" \
+          "/request/#{incoming_message.info_request_id}" \
+          "/response/#{incoming_message.id}" \
+          "/attach/#{jpeg_attachment.url_part_number}" \
+          "/interesting.jpg?cookie_passthrough=1"
+        )
+      end
+    end
+
+    context 'when given an html format option' do
+      it 'returns the URL to the HTML version of the attachment' do
+        expect(attachment_url(jpeg_attachment, html: true)).to eq(
+          "http://test.host" \
+          "/request/#{incoming_message.info_request_id}" \
+          "/response/#{incoming_message.id}" \
+          "/attach/html/#{jpeg_attachment.url_part_number}" \
+          "/interesting.jpg.html"
+        )
+      end
+    end
+
+    context 'when project is not nil' do
+      before { instance_variable_set(:@project, double(id: 1)) }
+
+      it 'returns the URL with project_id param' do
+        url = attachment_url(jpeg_attachment)
+        expect(URI(url).query).to include('project_id=1')
+        url = attachment_url(jpeg_attachment, html: true)
+        expect(URI(url).query).to include('project_id=1')
+      end
+    end
   end
 
 end

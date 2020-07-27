@@ -6,9 +6,18 @@ describe AlaveteliPro::PlansController do
   before { StripeMock.start }
   after { StripeMock.stop }
   let(:stripe_helper) { StripeMock.create_test_helper }
-  let!(:pro_plan) { stripe_helper.create_plan(id: 'pro', amount: 1000) }
+  let(:product) { stripe_helper.create_product }
+
+  let!(:pro_plan) do
+    stripe_helper.create_plan(
+      id: 'pro', product: product.id, amount: 1000
+    )
+  end
+
   let!(:alaveteli_pro_plan) do
-    stripe_helper.create_plan(id: 'alaveteli-pro', amount: 1000)
+    stripe_helper.create_plan(
+      id: 'alaveteli-pro', product: product.id, amount: 1000
+    )
   end
 
   describe 'GET #index' do
@@ -22,7 +31,7 @@ describe AlaveteliPro::PlansController do
     end
 
     it 'returns http success' do
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
 
     it 'sets in_pro_area' do
@@ -79,7 +88,7 @@ describe AlaveteliPro::PlansController do
         end
 
         it 'returns http success' do
-          expect(response).to have_http_status(:success)
+          expect(response).to be_successful
         end
 
       end
@@ -101,7 +110,7 @@ describe AlaveteliPro::PlansController do
         end
 
         it 'returns http success' do
-          expect(response).to have_http_status(:success)
+          expect(response).to be_successful
         end
 
       end
@@ -150,7 +159,7 @@ describe AlaveteliPro::PlansController do
         end
 
         it 'returns http success' do
-          expect(response).to have_http_status(:success)
+          expect(response).to be_successful
         end
 
       end

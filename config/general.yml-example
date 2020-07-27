@@ -835,7 +835,6 @@ SHARED_FILES:
   - config/database.yml
   - config/general.yml
   - config/rails_env.rb
-  - config/newrelic.yml
   - config/httpd.conf
   - public/foi-live-creation.png
   - public/foi-user-use.png
@@ -1287,3 +1286,10 @@ ENABLE_PRO_PRICING: false
 #
 # ---
 ENABLE_PRO_SELF_SERVE: false
+
+# **WARNING** Projects is not ready for re-use.
+#
+# ENABLE_PROJECTS – Boolean (default: false)
+#
+# ---
+ENABLE_PROJECTS: false

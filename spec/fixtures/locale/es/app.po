@@ -4522,3 +4522,15 @@ msgstr "{{user}} hizo esta solicitud de {{law_used_full}}"
 
 msgid "sent"
 msgstr "expedido"
+
+msgid "Choose a duration"
+msgstr "Elija una duración"
+
+msgid "3 Months"
+msgstr "3 Meses"
+
+msgid "6 Months"
+msgstr "6 Meses"
+
+msgid "12 Months"
+msgstr "12 Meses"

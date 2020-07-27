@@ -17,12 +17,12 @@
 
   <div id="header_left" class="header_left">
     <p id="user_photo_on_profile" class="user_photo_on_profile">
-      <% if @display_user.profile_photo %>
+      <% if @display_user.show_profile_photo? %>
         <% if @is_you %>
           <a href="<%= set_profile_photo_url %>">
         <% end %>
 
-        <img src="<%= get_profile_photo_url(:url_name => @display_user.url_name) %>" alt="">
+        <%= image_tag get_profile_photo_url(url_name: @display_user.url_name) %>
 
         <% if @is_you %>
           </a>

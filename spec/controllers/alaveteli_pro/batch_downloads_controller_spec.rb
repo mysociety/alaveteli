@@ -3,7 +3,7 @@ require 'cancan/matchers'
 
 RSpec.describe AlaveteliPro::BatchDownloadsController, type: :controller do
   describe 'GET #show' do
-    def show(id: '1', format: 'csv')
+    def show(id: '1', format: 'abc')
       get :show, params: { info_request_batch_id: id, format: format }
     end
 
@@ -64,10 +64,6 @@ RSpec.describe AlaveteliPro::BatchDownloadsController, type: :controller do
             receive_message_chain(:info_request_batches, :find).
               and_return(batch)
           )
-
-          # stub service calls
-          allow(InfoRequestBatchMetrics).to receive(:new).with(batch).
-            and_return(double(:metrics, to_csv: 'CSV_DATA', name: 'NAME'))
         end
 
         it { is_expected.to be_able_to(:download, batch) }
@@ -79,8 +75,44 @@ RSpec.describe AlaveteliPro::BatchDownloadsController, type: :controller do
           end
         end
 
+        context 'when ZIP format' do
+          before do
+            # stub service calls - testing stream content is hard :(
+            allow(InfoRequestBatchZip).to receive(:new).
+              with(batch, ability: controller.current_ability).
+              and_return(double(:zip, name: 'NAME', stream: []))
+
+            show(format: 'zip')
+          end
+
+          it 'is a successful request' do
+            expect(response).to be_successful
+          end
+
+          it 'returns content disposition' do
+            expect(response.header['Content-Disposition']).to(
+              eq 'attachment; filename="NAME"'
+            )
+          end
+
+          it 'returns CSV content type' do
+            expect(response.header['Content-Type']).to include 'application/zip'
+          end
+
+          it 'sets other headers' do
+            expect(response.header['Last-Modified']).to_not be_nil
+            expect(response.header['X-Accel-Buffering']).to eq 'no'
+          end
+        end
+
         context 'when CSV format' do
-          before { show }
+          before do
+            # stub service calls
+            allow(InfoRequestBatchMetrics).to receive(:new).with(batch).
+              and_return(double(:metrics, to_csv: 'CSV_DATA', name: 'NAME'))
+
+            show(format: 'csv')
+          end
 
           it 'is a successful request' do
             expect(response).to be_successful
@@ -97,7 +129,7 @@ RSpec.describe AlaveteliPro::BatchDownloadsController, type: :controller do
           end
 
           it 'returns CSV content type' do
-            expect(response.header['Content-Type']).to eq 'text/csv'
+            expect(response.header['Content-Type']).to include 'text/csv'
           end
         end
       end

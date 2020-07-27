@@ -1,11 +1,6 @@
 <div id="right_column" class="sidebar sidebar--sticky right_column" role="complementary">
-  <div class="js-request-navigation request-navigation"
-       data-next-text="<%= _("Next message") %>"
-       data-prev-text="<%= _("Previous message") %>"
-       data-status-text="<%= _("Message {{current_message}} of {{total_messages}}",
-                               current_message: '[[x]]',
-                               total_messages: '[[y]]') %>">
-  </div>
+  <%= js_correspondence_navigation %>
+
   <% if @info_request.info_request_batch_id %>
     <%= render partial: "alaveteli_pro/info_request_batches/embargo_form",
                locals: {
@@ -20,10 +15,8 @@
   <%= render partial: "alaveteli_pro/info_requests/batch",
              locals: { info_request: @info_request } %>
 
-  <div class="sidebar__section citations">
-    <%= render partial: 'request/citations',
-               locals: { citations: @citations, info_request: @info_request } %>
-  </div>
+  <%= render partial: 'request/citations',
+             locals: { citations: @citations, info_request: @info_request } %>
 
   <% unless state_transitions_empty?(@state_transitions) %>
     <div class="sidebar__section update-status">
@@ -37,7 +30,12 @@
       <label class="houdini-label" for="input2"><%= _("Change status") %></label>
       <input class="houdini-input" type="checkbox" id="input2">
       <div class="status-picker houdini-target">
-        <%= form_for([:alaveteli_pro, @info_request], html: {class: 'js-status-picker-form'}) do |f| %>
+        <%= form_for(:classification,
+                     url: alaveteli_pro_classifications_path(
+                       url_title: @info_request.url_title
+                     ),
+                     method: :post,
+                     html: { class: 'js-status-picker-form' }) do |f| %>
           <ul class="status-picker__options">
             <% @state_transitions.each do |group, transitions| %>
               <% transitions.each do |state, label| %>

@@ -26,7 +26,7 @@ describe AdminInfoRequestEventController do
           subsequent follow up' do
         # create a follow up
         info_request = info_request_event.info_request
-        time_travel_to(info_request.date_response_required_by) do
+        travel_to(info_request.date_response_required_by) do
           outgoing_message =
             OutgoingMessage.new(:status => 'ready',
                                 :message_type => 'followup',

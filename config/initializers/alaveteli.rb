@@ -11,7 +11,7 @@ load "debug_helpers.rb"
 load "util.rb"
 
 # Application version
-ALAVETELI_VERSION = '0.37.1.4'
+ALAVETELI_VERSION = '0.38.0.0'
 
 # Add new inflection rules using the following format
 # (all these examples are active by default):
@@ -69,8 +69,6 @@ require 'alaveteli_pro/webhook_endpoints'
 
 AlaveteliLocalization.set_locales(AlaveteliConfiguration::available_locales,
                                   AlaveteliConfiguration::default_locale)
-
-require 'fixture_set_table_rows_patch'
 
 # Allow tests to be run under a non-superuser database account if required
 if Rails.env == 'test' and ActiveRecord::Base.configurations['test']['constraint_disabling'] == false

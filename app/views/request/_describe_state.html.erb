@@ -1,68 +1,54 @@
 <% if @is_owning_user || @old_unclassified %>
-  <%= form_for(@info_request,
-               :as => :incoming_message,
-               :url => describe_state_url(:id => @info_request.id),
-               :html => {:id => "describe_form_#{id_suffix}"}) do |f| %>
+  <%= form_for(:classification,
+               url: classifications_url(url_title: @info_request.url_title),
+               method: :post,
+               html: { id: "describe_form_#{id_suffix}" }) do |f| %>
 
     <% if @is_owning_user %>
       <h2><%= _('What best describes the status of this request now?') %></h2>
     <% else %>
       <h2>
-        <%= _("Hi! We need your help. The person who made the following request " \
-              "hasn't told us whether or not it was successful. Would you mind " \
-              "taking a moment to read it and help us keep the place tidy for " \
-              "everyone? Thanks.") %>
+        <%= _("Hi! We need your help. The person who made the following " \
+              "request hasn't told us whether or not it was successful. " \
+              "Would you mind taking a moment to read it and help us keep " \
+              "the place tidy for everyone? Thanks.") %>
       </h2>
     <% end %>
 
     <hr>
-    <h3><%= _('This request is still in progress:') %></h3>
-    <% @state_transitions[:pending].each do |state, label| %>
-      <div>
-        <%= radio_button "incoming_message",
-                         "described_state",
-                         state,
-                         :id => state + id_suffix %>
-        <label for="<%= state + id_suffix %>"><%= label %></label>
-      </div>
-    <% end %>
 
-    <%= render :partial => 'general/custom_state_transitions_pending',
-               :locals => {:id_suffix => id_suffix } %>
+    <h3><%= _('This request is still in progress:') %></h3>
+
+    <%= render partial: 'request/state_transition',
+               collection: @state_transitions[:pending],
+               locals: { id_suffix: id_suffix } %>
+
+    <%= render partial: 'general/custom_state_transitions_pending',
+               locals: { id_suffix: id_suffix } %>
 
     <hr>
+
     <h3><%= _('This particular request is finished:') %></h3>
 
     <% if @info_request.described_state == 'internal_review' %>
       <p><%= _('The <strong>review has finished</strong> and overall:') %></p>
     <% end %>
 
-    <% @state_transitions[:complete].each do |state, label| %>
-      <div>
-        <%= radio_button "incoming_message",
-                         "described_state",
-                         state,
-                         :id => state + id_suffix %>
-        <label for="<%= state + id_suffix %>"><%= label %></label>
-      </div>
-    <% end %>
+    <%= render partial: 'request/state_transition',
+               collection: @state_transitions[:complete],
+               locals: { id_suffix: id_suffix } %>
 
-    <%= render :partial => 'general/custom_state_transitions_complete',
-               :locals => {:id_suffix => id_suffix } %>
+    <%= render partial: 'general/custom_state_transitions_complete',
+               locals: { id_suffix: id_suffix } %>
 
     <% if @is_owning_user %>
       <hr>
+
       <h3><%= _('Other:') %></h3>
 
-      <% @state_transitions[:other].each do |state, label| %>
-        <div>
-          <%= radio_button "incoming_message",
-                           "described_state",
-                           state,
-                           :id => state + id_suffix %>
-          <label for="<%= state + id_suffix %>"><%= label %></label>
-        </div>
-      <% end %>
+      <%= render partial: 'request/state_transition',
+                 collection: @state_transitions[:other],
+                 locals: { id_suffix: id_suffix } %>
     <% end %>
 
     <hr>
@@ -70,9 +56,11 @@
     <p>
       <%= hidden_field_tag 'last_info_request_event_id',
                            @last_info_request_event_id,
-                           :id => 'last_info_request_event_id' + id_suffix %>
-      <%= submit_tag _("Submit status") %>
-      (<%= _('and we\'ll suggest <strong>what to do next</strong>') %>)
+                           id: "last_info_request_event_id#{ id_suffix }" %>
+
+      <%= submit_tag _('Submit status') %>
+
+      (<%= _("and we'll suggest <strong>what to do next</strong>") %>)
     </p>
   <% end %>
 <% else %>
@@ -80,8 +68,7 @@
     <%=  _("We don't know whether the most recent response to this request " \
            "contains information or not &ndash; if you are {{user_link}} " \
            "please <a href=\"{{url}}\">sign in</a> and let everyone know.",
-           :user_link => user_link(@info_request.user),
-           :url => signin_url(:r => request.fullpath)) %>
+           user_link: user_link(@info_request.user),
+           url: signin_url(r: request.fullpath)) %>
   <% end %>
 <% end %>
-

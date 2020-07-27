@@ -48,4 +48,9 @@
     <%= render partial: "alaveteli_pro/info_request_batches/embargo_form",
                locals: { info_request_batch: @info_request_batch } %>
   <% end %>
+
+  <% if @info_request_batch.is_owning_user?(current_user) %>
+    <%= render partial: 'downloads',
+               locals: { info_request_batch: @info_request_batch } %>
+  <% end %>
 </div>

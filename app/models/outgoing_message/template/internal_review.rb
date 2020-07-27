@@ -27,7 +27,7 @@ class OutgoingMessage
                    "'{{info_request_title}}'.",
                    replacements)
           msg += "\n\n\n\n"
-          msg += " [ #{ self.class.details_placeholder } ] "
+          msg += " [ #{ self.class.details_placeholder } ]"
 
           unless replacements[:embargo]
             msg += "\n\n\n\n"

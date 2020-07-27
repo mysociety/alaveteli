@@ -19,6 +19,23 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe FoiAttachment do
+  describe '.binary' do
+    subject { described_class.binary }
+
+    before do
+      FactoryBot.create(:body_text)
+      FactoryBot.create(:html_attachment)
+    end
+
+    let(:binary_attachments) do
+      [FactoryBot.create(:pdf_attachment),
+       FactoryBot.create(:rtf_attachment),
+       FactoryBot.create(:jpeg_attachment),
+       FactoryBot.create(:unknown_attachment)]
+    end
+
+    it { is_expected.to match_array(binary_attachments) }
+  end
 
   describe '#body=' do
 

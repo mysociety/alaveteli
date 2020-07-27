@@ -62,13 +62,13 @@ describe User, "banning the user" do
 
   it 'does not change the URL name' do
     user = FactoryBot.create(:user, :name => 'nasty user 123')
-    user.update_attributes(:ban_text => 'You are banned')
+    user.update(:ban_text => 'You are banned')
     expect(user.url_name).to eq('nasty_user_123')
   end
 
   it 'does not change the stored name' do
     user = FactoryBot.create(:user, :name => 'nasty user 123')
-    user.update_attributes(:ban_text => 'You are banned')
+    user.update(:ban_text => 'You are banned')
     expect(user.read_attribute(:name)).to eq('nasty user 123')
   end
 
@@ -670,7 +670,7 @@ describe User do
       user2 = FactoryBot.create(:user)
       user3 = FactoryBot.create(:user)
 
-      time_travel_to(6.months.ago) do
+      travel_to(6.months.ago) do
         5.times { FactoryBot.create(:info_request, user: user1) }
         2.times { FactoryBot.create(:info_request, user: user2) }
         FactoryBot.create(:info_request, user: user3)
@@ -1005,7 +1005,7 @@ describe User do
     it 'regenerates the otp_secret_key' do
       user = User.new(:otp_secret_key => '123')
       user.enable_otp
-      expect(user.otp_secret_key.length).to eq(16)
+      expect(user.otp_secret_key.length).to eq(32)
     end
 
     it 'sets otp_enabled to true' do
@@ -1096,13 +1096,13 @@ describe User do
   describe '#otp_secret_key' do
 
     it 'can be set on initialization' do
-      key = ROTP::Base32.random_base32
+      key = User.otp_random_secret
       user = User.new(:otp_secret_key => key)
       expect(user.otp_secret_key).to eq(key)
     end
 
     it 'can be set after initialization' do
-      key = ROTP::Base32.random_base32
+      key = User.otp_random_secret
       user = User.new
       user.otp_secret_key = key
       expect(user.otp_secret_key).to eq(key)
@@ -1621,7 +1621,7 @@ describe User do
       let(:expected_time) { Time.zone.now.change(hour: 7, min: 56) }
 
       it "returns today's date with the daily summary time set" do
-        time_travel_to(expected_time - 1.minute) do
+        travel_to(expected_time - 1.minute) do
           expect(user.next_daily_summary_time).
             to be_within(1.second).of(expected_time)
         end
@@ -1632,7 +1632,7 @@ describe User do
       let(:expected_time) { Time.zone.now.change(hour: 7, min: 56) + 1.day }
 
       it "returns tomorrow's date with the daily summary time set" do
-        time_travel_to(Time.zone.now.change(hour: 7, min: 57)) do
+        travel_to(Time.zone.now.change(hour: 7, min: 57)) do
           expect(user.next_daily_summary_time).
             to be_within(1.second).of(expected_time)
         end
@@ -1785,4 +1785,32 @@ describe User do
 
   end
 
+  describe '#show_profile_photo?' do
+    subject { user.show_profile_photo? }
+
+    context 'with a profile_photo' do
+      let(:user) { FactoryBot.create(:user) }
+
+      before do
+        user.create_profile_photo!(data: load_file_fixture('parrot.png'))
+      end
+
+      it { is_expected.to be_truthy }
+    end
+
+    context 'with a profile photo and banned' do
+      let(:user) { FactoryBot.create(:user, :banned) }
+
+      before do
+        user.create_profile_photo!(data: load_file_fixture('parrot.png'))
+      end
+
+      it { is_expected.to be_falsey }
+    end
+
+    context 'without a profile_photo' do
+      let(:user) { FactoryBot.build(:user) }
+      it { is_expected.to be_falsey }
+    end
+  end
 end

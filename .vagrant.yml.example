@@ -1,5 +1,7 @@
 fqdn: alaveteli.10.10.10.30.nip.io
 ip: 10.10.10.30
+# Only use this on networks you trust
+public_network: false
 memory: 1536
 themes_dir: ../alaveteli-themes
 os: stretch64

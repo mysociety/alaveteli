@@ -31,7 +31,7 @@ describe PublicBody do
 
     it 'create without translated name' do
       body = FactoryBot.build(:public_body)
-      expect(body.update_attributes('name' => nil)).to eq(false)
+      expect(body.update('name' => nil)).to eq(false)
       expect(body).not_to be_valid
     end
 
@@ -39,14 +39,14 @@ describe PublicBody do
       body = FactoryBot.build(:public_body)
       AlaveteliLocalization.with_locale(:es) { body.name = 'hola' }
 
-      expect(body.update_attributes('name' => nil)).to eq(false)
+      expect(body.update('name' => nil)).to eq(false)
       expect(body).not_to be_valid
     end
     it 'update without translated name' do
       body = FactoryBot.create(:public_body)
       body.reload
 
-      expect(body.update_attributes('name' => nil)).to eq(false)
+      expect(body.update('name' => nil)).to eq(false)
       expect(body).not_to be_valid
     end
 
@@ -55,13 +55,13 @@ describe PublicBody do
       AlaveteliLocalization.with_locale(:es) { body.name = 'hola'; body.save }
       body.reload
 
-      expect(body.update_attributes('name' => nil)).to eq(false)
+      expect(body.update('name' => nil)).to eq(false)
       expect(body).not_to be_valid
     end
 
     it 'blank string create without translated name' do
       body = FactoryBot.build(:public_body)
-      expect(body.update_attributes('name' => '')).to eq(false)
+      expect(body.update('name' => '')).to eq(false)
       expect(body).not_to be_valid
     end
 
@@ -69,14 +69,14 @@ describe PublicBody do
       body = FactoryBot.build(:public_body)
       AlaveteliLocalization.with_locale(:es) { body.name = 'hola' }
 
-      expect(body.update_attributes('name' => '')).to eq(false)
+      expect(body.update('name' => '')).to eq(false)
       expect(body).not_to be_valid
     end
     it 'blank string update without translated name' do
       body = FactoryBot.create(:public_body)
       body.reload
 
-      expect(body.update_attributes('name' => '')).to eq(false)
+      expect(body.update('name' => '')).to eq(false)
       expect(body).not_to be_valid
     end
 
@@ -85,7 +85,7 @@ describe PublicBody do
       AlaveteliLocalization.with_locale(:es) { body.name = 'hola'; body.save }
       body.reload
 
-      expect(body.update_attributes('name' => '')).to eq(false)
+      expect(body.update('name' => '')).to eq(false)
       expect(body).not_to be_valid
     end
   end
@@ -1100,7 +1100,7 @@ describe PublicBody, " when saving" do
   it 'should create a url_name for a translation' do
     existing = FactoryBot.create(:public_body, :first_letter => 'T', :short_name => 'Test body')
     AlaveteliLocalization.with_locale(:es) do
-      existing.update_attributes :short_name => 'Prueba', :name => 'Prueba body'
+      existing.update :short_name => 'Prueba', :name => 'Prueba body'
       expect(existing.url_name).to eq('prueba')
     end
   end

@@ -3,11 +3,19 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 require 'stripe_mock'
 
 describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
+  before { StripeMock.start }
+  after { StripeMock.stop }
   let(:stripe_helper) { StripeMock.create_test_helper }
 
+  let(:product) { stripe_helper.create_product }
+
+  let!(:plan) do
+    stripe_helper.create_plan(
+      id: 'pro', product: product.id, amount: 1000
+    )
+  end
+
   before do
-    StripeMock.start
-    stripe_helper.create_plan(id: 'pro', amount: 1000)
     stripe_helper.create_coupon(
       id: 'COUPON_CODE',
       amount_off: 1000,
@@ -20,10 +28,6 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
     )
     allow(AlaveteliConfiguration).
       to receive(:stripe_tax_rate).and_return('0.25')
-  end
-
-  after do
-    StripeMock.stop
   end
 
   describe 'POST #create' do
@@ -774,7 +778,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
       let(:user) { FactoryBot.create(:pro_user) }
 
       let!(:customer) do
-        stripe_helper.create_plan(id: 'test')
+        stripe_helper.create_plan(id: 'test', product: product.id)
         customer = Stripe::Customer.create({
           email: user.email,
           source: stripe_helper.generate_card_token,
@@ -905,7 +909,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
       let(:user) { FactoryBot.create(:pro_user) }
 
-      let(:plan) { stripe_helper.create_plan(id: 'test') }
+      let(:plan) { stripe_helper.create_plan(id: 'test', product: product.id) }
 
       let(:customer) do
         customer = Stripe::Customer.create({

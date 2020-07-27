@@ -1,0 +1,130 @@
+<div class="inner-canvas">
+  <div class="inner-canvas-header">
+   <div class="row">
+      <h1><%= @project.title %></h1>
+    </div>
+  </div>
+
+  <div class="inner-canvas-body">
+    <div class="row">
+      <div class="project-body">
+        <div class="project-briefing">
+          <%= sanitize @project.briefing %>
+
+          <p class="project-meta">
+            <%= _('{{contributor_count}} contributors',
+                  contributor_count: @project.contributors.count) %>
+          </p>
+        </div>
+
+        <div class="project-task-list" id="tasks">
+          <h2>
+            <%= _('Contribute') %>
+          </h2>
+
+          <div class="project-task">
+            <h3><%= _('Classify responses') %></h3>
+
+            <div class="project-task-meta-information">
+              <p class="project-meta"><%= _('Quick') %> / <%= _('Non-expert') %></p>
+              <p class="project-meta"><%= _('5 minutes+') %> / <%= _('Any device') %></p>
+            </div>
+
+            <p>
+              <%= _('Read through authority responses and choose if their ' \
+                    'answer satisfies the intention of the original request, ' \
+                    'flag any problems and show the project owner if they ' \
+                    'need to intervene to keep the project movng forward.') %>
+            </p>
+
+            <div class="project-workload">
+              <div class="project-workload-diagram">
+                <progress max="100" value="<%= @project.classification_progress %>" class="project-workload-indicator"></progress>
+                <span class="project-workload-value"><%= @project.classification_progress %>%</span>
+              </div>
+            </div>
+
+            <%= link_to project_classify_path(@project), class: 'button' do %>
+              <%= _('Start classifying') %>
+            <% end %>
+          </div>
+
+          <div class="project-task">
+            <h3><%= _('Extract data') %></h3>
+
+            <div class="project-task-meta-information">
+              <p class="project-meta"><%= _('Spreadsheets') %> / <%= _('Data interpretation') %></p>
+              <p class="project-meta"><%= _('60 minutes+') %> / <%= _('Laptop or desktop') %></p>
+            </div>
+
+            <p>
+              <%= _('Extract relevant information from each successful ' \
+                    'freedom of information request and enter it into the ' \
+                    'provided fields. This will populate the data file for ' \
+                    'this project.') %>
+            </p>
+
+            <div class="project-workload">
+              <div class="project-workload-diagram">
+                <progress max="100" value="<%= @project.extraction_progress %>" class="project-workload-indicator"></progress>
+                <span class="project-workload-value"><%= @project.extraction_progress %>%</span>
+              </div>
+            </div>
+
+            <%= link_to project_extract_path(@project), class: 'button' do %>
+              <%= _('Start extracting') %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <aside class="project-aside">
+        <div class="project-owner">
+          <h2><%= _('Project owner') %></h2>
+
+          <% if @project.owner.show_profile_photo? %>
+            <%= image_tag get_profile_photo_url(url_name: @project.owner.url_name),
+                class: 'project-owner__photo' %>
+          <% end %>
+
+          <h3 class="project-owner__name"><%= @project.owner.name %></h3>
+
+          <% if @project.owner.about_me.present? %>
+            <p><%= @project.owner.about_me %></p>
+          <% end %>
+
+           <%= link_to contact_user_path(url_name: @project.owner.url_name),
+               class: 'button-secondary' do %>
+            <%= _('Contact {{recipient}}', recipient: @project.owner.name) %>
+          <% end %>
+        </div>
+
+        <% if can? :download, @project %>
+          <div class="project-download-data">
+            <p>
+              <%= _('You are an <strong>owner</strong> on this project') %>
+            </p>
+
+            <%= link_to _('Download Data'),
+                  project_download_path(@project, format: :csv),
+                  class: 'button-tertiary' %>
+          </div>
+        <% end %>
+
+        <% if can? :remove_contributor, current_user %>
+          <div class="project-access-status">
+            <p>
+              <%= _('You are a <strong>contributor</strong> on this project') %>
+            </p>
+
+            <%= link_to _('Leave project'),
+                  project_contributor_path(@project, current_user),
+                  method: :delete,
+                  data: { confirm: _('Are you sure?') },
+                  class: 'button-tertiary' %>
+          </div>
+        <% end %>
+      </aside>
+    </div>
+  </div>
+</div>

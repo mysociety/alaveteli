@@ -33,14 +33,16 @@
 
 <p>
   <% if @public_body.has_request_email? %>
-    <%=  raw(_('If the address is wrong, or you know a better address, ' \
-                  'please <a href="{{url}}">contact us</a>.',
-               :url => help_contact_path.html_safe)) %>
+    <%= raw(_('If the address is wrong, or you know a better address, ' \
+              'please <a href="{{url}}">contact us</a>.',
+              url: new_change_request_body_path(body: @public_body.url_name).
+                html_safe)) %>
   <% else %>
     <%= raw(_('If you know the address to use, then please <a href="{{url}}">' \
               'send it to us</a>. You may be able to find the address on ' \
               'their website, or by phoning them up and asking.',
-              :url =>help_contact_path.html_safe)) %>
+              url: new_change_request_body_path(body: @public_body.url_name).
+                html_safe)) %>
   <% end %>
 </p>
 

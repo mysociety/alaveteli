@@ -107,13 +107,13 @@ describe AlaveteliRateLimiter::RateLimiter do
       id = '1'
 
       purged = 10.days.ago
-      time_travel_to(purged) do
+      travel_to(purged) do
         subject.record(id)
       end
 
       time = Time.zone.now.to_datetime
 
-      time_travel_to(time) do
+      travel_to(time) do
         subject.record!(id)
         expect(subject.records(id)).not_to include(purged)
       end

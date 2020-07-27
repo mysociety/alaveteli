@@ -379,7 +379,8 @@ describe InfoRequestEvent do
     end
 
     it "calls the request's create_or_update_request_summary on create" do
-      event = FactoryBot.build(:info_request_event)
+      info_request = FactoryBot.create(:info_request)
+      event = FactoryBot.build(:info_request_event, info_request: info_request)
       expect(event.info_request).to receive(:create_or_update_request_summary)
       event.save
     end
@@ -806,7 +807,7 @@ describe InfoRequestEvent do
              a clarification request' do
       let(:response_event) do
         response = nil
-        time_travel_to(1.month.ago) do
+        travel_to(1.month.ago) do
           response = FactoryBot.create(:response_event)
         end
         response.described_state = 'waiting_clarification'

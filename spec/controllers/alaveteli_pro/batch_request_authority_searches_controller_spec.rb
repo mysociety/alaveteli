@@ -141,24 +141,6 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
-
-    context "the user does not have pro batch access" do
-
-      before do
-        AlaveteliFeatures.backend.disable_actor(:pro_batch_access, pro_user)
-      end
-
-      let(:pro_user) { FactoryBot.create(:pro_user) }
-
-      it 'redirects them to the standard request form' do
-        with_feature_enabled(:alaveteli_pro) do
-          get :index
-          expect(response).to redirect_to(new_alaveteli_pro_info_request_path)
-        end
-      end
-
-    end
-
   end
 
   describe '#new' do
@@ -173,24 +155,6 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
         '/alaveteli_pro/batch_request_authority_searches'
       )
     end
-
-    context "the user does not have pro batch access" do
-
-      before do
-        AlaveteliFeatures.backend.disable_actor(:pro_batch_access, pro_user)
-      end
-
-      let(:pro_user) { FactoryBot.create(:pro_user) }
-
-      it 'redirects them to the standard request form' do
-        with_feature_enabled(:alaveteli_pro) do
-          get :new
-          expect(response).to redirect_to(new_alaveteli_pro_info_request_path)
-        end
-      end
-
-    end
-
   end
 
 end

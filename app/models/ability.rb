@@ -3,7 +3,9 @@ class Ability
   include CanCan::Ability
   include AlaveteliFeatures::Helpers
 
-  def initialize(user)
+  attr_reader :user, :project
+
+  def initialize(user, project: nil)
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)
@@ -31,21 +33,22 @@ class Ability
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
 
+    @user = user
+    @project = project
+
     # Updating request status
     can :update_request_state, InfoRequest do |request|
-      self.class.can_update_request_state?(user, request)
+      can_update_request_state?(request)
     end
 
     # Viewing messages with prominence
     can :read, [IncomingMessage, OutgoingMessage] do |msg|
-      self.class.can_view_with_prominence?(msg.prominence,
-                                           msg.info_request,
-                                           user)
+      can_view_with_prominence?(msg.prominence, msg.info_request)
     end
 
     # Viewing requests with prominence
     can :read, InfoRequest do |request|
-      self.class.can_view_with_prominence?(request.prominence, request, user)
+      can_view_with_prominence?(request.prominence, request)
     end
 
     # Viewing batch requests
@@ -68,7 +71,7 @@ class Ability
         user && (user.is_pro_admin? ||
                  (user == batch_request.user && user.is_pro?))
       else
-        user && self.class.requester_or_admin?(user, batch_request)
+        user && requester_or_admin?(batch_request)
       end
     end
 
@@ -77,7 +80,7 @@ class Ability
       if batch_request.embargo_duration
         user && (user == batch_request.user || user.is_pro_admin?)
       else
-        user && self.class.requester_or_admin?(user, batch_request)
+        user && requester_or_admin?(batch_request)
       end
     end
 
@@ -150,19 +153,34 @@ class Ability
       end
     end
 
+    if feature_enabled? :projects
+      can :read, Project do |target_project|
+        user && (user.is_pro_admin? || target_project.member?(user))
+      end
+
+      can :remove_contributor, User do |contributor|
+        user && project.contributor?(contributor) &&
+          (project.owner?(user) || user == contributor)
+      end
+
+      can :download, Project do |target_project|
+        user && (user.is_pro_admin? || target_project.owner?(user))
+      end
+    end
   end
 
   private
 
-  def self.can_update_request_state?(user, request)
-    (user && request.is_old_unclassified?) || request.is_owning_user?(user)
+  def can_update_request_state?(request)
+    (user && request.is_old_unclassified?) || request.is_owning_user?(user) ||
+      (project && project.info_request?(request) && project.member?(user))
   end
 
-  def self.requester_or_admin?(user, request)
+  def requester_or_admin?(request)
     user == request.user || user.is_admin?
   end
 
-  def self.can_view_with_prominence?(prominence, info_request, user)
+  def can_view_with_prominence?(prominence, info_request)
     if info_request.embargo
       case prominence
       when 'hidden'
@@ -170,7 +188,9 @@ class Ability
       when 'requester_only'
         info_request.is_actual_owning_user?(user) || User.view_hidden_and_embargoed?(user)
       else
-        info_request.is_actual_owning_user?(user) || User.view_embargoed?(user)
+        info_request.is_actual_owning_user?(user) ||
+          User.view_embargoed?(user) ||
+          project&.member?(user)
       end
     else
       case prominence

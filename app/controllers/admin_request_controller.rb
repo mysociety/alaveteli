@@ -51,7 +51,7 @@ class AdminRequestController < AdminController
     old_comments_allowed = @info_request.comments_allowed
 
 
-    if @info_request.update_attributes(info_request_params)
+    if @info_request.update(info_request_params)
       @info_request.log_event("edit",
                               { :editor => admin_current_user,
                                 :old_title => old_title, :title => @info_request.title,

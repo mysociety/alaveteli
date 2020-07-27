@@ -31,7 +31,7 @@ class AdminCensorRuleController < AdminController
   end
 
   def update
-    if @censor_rule.update_attributes(censor_rule_params)
+    if @censor_rule.update(censor_rule_params)
       flash[:notice] = 'Censor rule was successfully updated.'
       expire_requests_and_redirect
     else

@@ -22,6 +22,7 @@ FactoryBot.define do
   factory :outgoing_message do
     info_request
     prominence { 'normal' }
+    last_sent_at { 2.weeks.ago }
 
     factory :initial_request do
       transient do

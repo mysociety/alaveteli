@@ -9,7 +9,7 @@ require 'zip'
 require 'open-uri'
 
 class RequestController < ApplicationController
-  before_action :check_read_only, :only => [ :new, :describe_state, :upload_response ]
+  before_action :check_read_only, only: [:new, :upload_response]
   before_action :check_batch_requests_and_user_allowed, :only => [ :select_authorities, :new_batch ]
   before_action :set_render_recaptcha, :only => [ :new ]
   before_action :redirect_numeric_id_to_url_title, :only => [:show]
@@ -21,14 +21,6 @@ class RequestController < ApplicationController
 
   MAX_RESULTS = 500
   PER_PAGE = 25
-
-  @@custom_states_loaded = false
-  begin
-    require 'customstates'
-    include RequestControllerCustomStates
-    @@custom_states_loaded = true
-  rescue LoadError, NameError
-  end
 
   def select_authority
     # Check whether we force the user to sign in right at the start, or we allow her
@@ -440,145 +432,6 @@ class RequestController < ApplicationController
     redirect_to show_request_path(:url_title => @info_request.url_title)
   end
 
-  # Submitted to the describing state of messages form
-  def describe_state
-    info_request = InfoRequest.not_embargoed.find(params[:id].to_i)
-    set_last_request(info_request)
-
-    # If this is an external request, go to the request page - we don't allow
-    # state change from the front end interface.
-    if info_request.is_external?
-      redirect_to request_url(info_request)
-      return
-    end
-
-    # Check authenticated, and parameters set.
-    unless can?(:update_request_state, info_request)
-      authenticated_as_user?(
-        info_request.user,
-        :web => _("To classify the response to this FOI request"),
-        :email => _("Then you can classify the FOI response you have got " \
-                      "from {{authority_name}}.",
-                    :authority_name => info_request.public_body.name),
-        :email_subject => _("Classify an FOI response from {{authority_name}}",
-                            :authority_name => info_request.public_body.name))
-      # do nothing - as "authenticated?" has done the redirect to signin page for us
-      return
-    end
-
-    if !params[:incoming_message]
-      flash[:error] = _("Please choose whether or not you got some of the information that you wanted.")
-      redirect_to request_url(info_request)
-      return
-    end
-
-    if params[:last_info_request_event_id].to_i != info_request.last_event_id_needing_description
-      flash[:error] = _("The request has been updated since you originally loaded this page. " \
-                        "Please check for any new incoming messages below, and try again.")
-      redirect_to request_url(info_request)
-      return
-    end
-
-    described_state = params[:incoming_message][:described_state]
-    message = params[:incoming_message][:message]
-
-    log_params = {
-      user_id: authenticated_user.id,
-      old_described_state: info_request.described_state,
-      described_state: described_state
-    }
-
-    # For requires_admin and error_message states we ask for an extra message to
-    # send to the administrators.
-    # If this message hasn't been included then ask for it. If it has, log it.
-    if ["error_message", "requires_admin"].include?(described_state)
-      if message.nil?
-        redirect_to describe_state_message_url(
-                      url_title: info_request.url_title,
-                      described_state: described_state)
-        return
-      else
-        log_params[:message] = message
-      end
-    end
-
-    # Make the state change
-    event = info_request.log_event("status_update", log_params)
-    info_request.
-      set_described_state(described_state, authenticated_user, message)
-
-    # If you're not the *actual* requester. e.g. you are playing the
-    # classification game, or you're doing this just because you are an
-    # admin user (not because you also own the request).
-    if !info_request.is_actual_owning_user?(authenticated_user)
-      # Create a classification event for league tables
-      RequestClassification.create!(:user_id => authenticated_user.id,
-                                    :info_request_event_id => event.id)
-
-      # Don't give advice on what to do next, as it isn't their request
-      if session[:request_game]
-        flash[:notice] = { :partial => "request_game/thank_you.html.erb",
-                           :locals => {
-                             :info_request_title => info_request.title,
-                             :url => request_path(info_request)
-                           }
-                         }
-        redirect_to categorise_play_url
-      else
-        flash[:notice] = _('Thank you for updating this request!')
-        redirect_to request_url(info_request)
-      end
-      return
-    end
-
-    # Display advice for requester on what to do next, as appropriate
-    calculated_status = info_request.calculate_status
-    partial_path = 'request/describe_notices'
-    if template_exists?(calculated_status, [partial_path], true)
-      flash[:notice] =
-        {
-          :partial => "#{partial_path}/#{calculated_status}",
-          :locals => {
-            :info_request_id => info_request.id,
-            :annotations_enabled => feature_enabled?(:annotations),
-          }
-        }
-    end
-
-    case calculated_status
-    when 'waiting_response', 'waiting_response_overdue', 'not_held', 'successful',
-        'internal_review', 'error_message', 'requires_admin'
-      redirect_to request_url(info_request)
-    when 'waiting_response_very_overdue', 'rejected', 'partially_successful'
-      redirect_to unhappy_url(info_request)
-    when 'waiting_clarification', 'user_withdrawn'
-      redirect_to respond_to_last_url(info_request)
-    when 'gone_postal'
-      redirect_to respond_to_last_url(info_request) + "?gone_postal=1"
-    else
-      if @@custom_states_loaded
-        return self.theme_describe_state(info_request)
-      else
-        raise "unknown calculate_status #{info_request.calculate_status}"
-      end
-    end
-  end
-
-  # Collect a message to include with the change of state
-  def describe_state_message
-    @info_request = InfoRequest.not_embargoed.find_by_url_title!(params[:url_title])
-    @described_state = params[:described_state]
-    @last_info_request_event_id = @info_request.last_event_id_needing_description
-    @title = case @described_state
-    when "error_message"
-      _("I've received an error message")
-    when "requires_admin"
-      _("This request requires administrator attention")
-    else
-      raise "Unsupported state"
-    end
-  end
-
   # Used for links from polymorphic URLs e.g. in Atom feeds - just redirect to
   # proper URL for the message the event refers to
   def show_request_event
@@ -594,170 +447,6 @@ class RequestController < ApplicationController
       # TODO: maybe there are better URLs for some events than this
       redirect_to request_url(@info_request_event.info_request), :status => :moved_permanently
     end
-  end
-
-  before_action :authenticate_attachment, :only => [ :get_attachment, :get_attachment_as_html ]
-  def authenticate_attachment
-    # Test for hidden
-    incoming_message = IncomingMessage.find(params[:incoming_message_id])
-    raise ActiveRecord::RecordNotFound.new("Message not found") if incoming_message.nil?
-    if cannot?(:read, incoming_message.info_request)
-      @info_request = incoming_message.info_request # used by view
-      request.format = :html
-      return render_hidden
-    end
-    if cannot?(:read, incoming_message)
-      @incoming_message = incoming_message # used by view
-      request.format = :html
-      return render_hidden('request/hidden_correspondence')
-    end
-    # Is this a completely public request that we can cache attachments for
-    # to be served up without authentication?
-    if incoming_message.info_request.prominence(:decorate => true).is_public? &&
-       incoming_message.is_public?
-      @files_can_be_cached = true
-    end
-  end
-
-  # special caching code so mime types are handled right
-  around_action :cache_attachments, :only => [ :get_attachment, :get_attachment_as_html ]
-  def cache_attachments
-    if !params[:skip_cache].nil?
-      yield
-    else
-      key = params.merge(:only_path => true)
-      key_path = foi_fragment_cache_path(key)
-      if foi_fragment_cache_exists?(key_path)
-        logger.info("Reading cache for #{key_path}")
-
-        if File.directory?(key_path)
-          render :plain => "Directory listing not allowed", :status => 403
-        else
-          content_type =
-            AlaveteliFileTypes.filename_to_mimetype(params[:file_name]) ||
-            'application/octet-stream'
-
-          render :body => foi_fragment_cache_read(key_path),
-                 :content_type => content_type
-        end
-        return
-      end
-
-      yield
-
-      if params[:skip_cache].nil? && response.status == 200
-        # write it to the fileystem ourselves, so is just a plain file. (The
-        # various fragment cache functions using Ruby Marshall to write the file
-        # which adds a header, so isnt compatible with images that have been
-        # extracted elsewhere from PDFs)
-        if @files_can_be_cached == true
-          logger.info("Writing cache for #{key_path}")
-          foi_fragment_cache_write(key_path, response.body)
-        end
-      end
-    end
-  end
-
-  def get_attachment
-    get_attachment_internal(false)
-    return unless @attachment
-
-
-    # we don't use @attachment.content_type here, as we want same mime type when cached in cache_attachments above
-    content_type =
-      AlaveteliFileTypes.filename_to_mimetype(params[:file_name]) ||
-      'application/octet-stream'
-
-    # Prevent spam to magic request address. Note that the binary
-    # subsitution method used depends on the content type
-    body = @incoming_message.
-            apply_masks(@attachment.default_body, @attachment.content_type)
-
-    if content_type == 'text/html'
-      body =
-        Loofah.scrub_document(body, :prune).
-        to_html(encoding: 'UTF-8').
-        try(:html_safe)
-    end
-
-    render :body => body, :content_type => content_type
-  end
-
-  def get_attachment_as_html
-    # The conversion process can generate files in the cache directory that can be served up
-    # directly by the webserver according to httpd.conf, so don't allow it unless that's OK.
-    if @files_can_be_cached != true
-      raise ActiveRecord::RecordNotFound.new("Attachment HTML not found.")
-    end
-    get_attachment_internal(true)
-    return unless @attachment
-
-    # images made during conversion (e.g. images in PDF files) are put in the cache directory, so
-    # the same cache code in cache_attachments above will display them.
-    key = params.merge(:only_path => true)
-    key_path = foi_fragment_cache_path(key)
-    image_dir = File.dirname(key_path)
-    FileUtils.mkdir_p(image_dir)
-
-    html = @attachment.body_as_html(
-             image_dir,
-             attachment_url: Rack::Utils.escape(@attachment_url),
-             content_for: {
-               head_suffix: render_to_string(
-                              partial: 'request/view_html_stylesheet',
-                              formats: [:html]),
-               body_prefix: render_to_string(
-                              partial: 'request/view_html_prefix')
-             })
-
-    html = @incoming_message.apply_masks(html, response.content_type)
-
-    render :html => html.html_safe
-  end
-
-  # Internal function
-  def get_attachment_internal(html_conversion)
-    @incoming_message = IncomingMessage.find(params[:incoming_message_id])
-    @requested_request = InfoRequest.find(params[:id])
-    @incoming_message.parse_raw_email!
-    @info_request = @incoming_message.info_request
-    if @incoming_message.info_request_id != params[:id].to_i
-      # Note that params[:id] might not be an integer, though
-      # if we’ve got this far then it must begin with an integer
-      # and that integer must be the id number of an actual request.
-      message = "Incoming message %d does not belong to request '%s'" % [@incoming_message.info_request_id, params[:id]]
-      raise ActiveRecord::RecordNotFound.new(message)
-    end
-    @part_number = params[:part].to_i
-    @filename = params[:file_name]
-    if html_conversion
-      @original_filename = @filename.gsub(/\.html$/, "")
-    else
-      @original_filename = @filename
-    end
-
-    # check permissions
-    raise "internal error, pre-auth filter should have caught this" if cannot?(:read, @info_request)
-    @attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(@incoming_message.get_attachments_for_display, @part_number, @original_filename)
-    # If we can't find the right attachment, redirect to the incoming message:
-    unless @attachment
-      return redirect_to incoming_message_url(@incoming_message), :status => 303
-    end
-
-    # check filename in URL matches that in database (use a censor rule if you want to change a filename)
-    if @attachment.display_filename != @original_filename && @attachment.old_display_filename != @original_filename
-      msg = 'please use same filename as original file has, display: '
-      msg += "'#{ @attachment.display_filename }' "
-      msg += 'old_display: '
-      msg += "'#{ @attachment.old_display_filename }' "
-      msg += 'original: '
-      msg += "'#{ @original_filename }'"
-      raise ActiveRecord::RecordNotFound.new(msg)
-    end
-
-    @attachment_url = get_attachment_url(:id => @incoming_message.info_request_id,
-                                         :incoming_message_id => @incoming_message.id, :part => @part_number,
-                                         :file_name => @original_filename )
   end
 
   # FOI officers can upload a response
@@ -860,7 +549,7 @@ class RequestController < ApplicationController
           return render_hidden
         end
         cache_file_path = @info_request.make_zip_cache_path(@user)
-        if !File.exists?(cache_file_path)
+        if !File.exist?(cache_file_path)
           FileUtils.mkdir_p(File.dirname(cache_file_path))
           make_request_zip(@info_request, cache_file_path)
           File.chmod(0644, cache_file_path)
@@ -871,16 +560,6 @@ class RequestController < ApplicationController
   end
 
   private
-
-  def render_hidden(template='request/hidden', opts = {})
-    # An embargoed is totally hidden - no indication that anything exists there
-    # to see
-    if @info_request && @info_request.embargo
-      raise ActiveRecord::RecordNotFound
-    else
-      return super(template, opts)
-    end
-  end
 
   def info_request_params(batch = false)
     if batch
@@ -903,7 +582,6 @@ class RequestController < ApplicationController
 
   def assign_variables_for_show_template(info_request)
     @info_request = info_request
-    @info_request_events = info_request.info_request_events
     @status = info_request.calculate_status
     @old_unclassified =
       info_request.is_old_unclassified? && !authenticated_user.nil?
@@ -921,7 +599,7 @@ class RequestController < ApplicationController
 
     @show_profile_photo = !!(
       !@info_request.is_external? &&
-      @info_request.user.profile_photo &&
+      @info_request.user.show_profile_photo? &&
       !@render_to_file
     )
 
@@ -997,7 +675,7 @@ class RequestController < ApplicationController
     convert_command = AlaveteliConfiguration::html_to_pdf_command
     @render_to_file = true
     assign_variables_for_show_template(info_request)
-    if !convert_command.blank? && File.exists?(convert_command)
+    if !convert_command.blank? && File.exist?(convert_command)
       html_output = render_to_string(:template => 'request/show')
       tmp_input = Tempfile.new(['foihtml2pdf-input', '.html'])
       tmp_input.write(html_output)

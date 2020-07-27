@@ -16,9 +16,9 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
 
     it "destroys the raw email file" do
       raw_email = @im.raw_email.filepath
-      assert_equal File.exists?(raw_email), true
+      assert_equal File.exist?(raw_email), true
       post :destroy, params: { :id => @im.id }
-      assert_equal File.exists?(raw_email), false
+      assert_equal File.exist?(raw_email), false
     end
 
     it 'asks the incoming message to destroy itself' do

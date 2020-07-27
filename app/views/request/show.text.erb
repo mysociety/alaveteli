@@ -4,7 +4,7 @@
       :request_title => @info_request.title,
       :full_url => "http://#{AlaveteliConfiguration::domain}#{show_request_path(:url_title=>@info_request.url_title)}") %>.
 
-<% @info_request_events.each do |info_request_event| %>
+<% @info_request.info_request_events.each do |info_request_event| %>
   <% if info_request_event.visible %>
     <% case info_request_event.event_type %>
     <% when 'response' %>

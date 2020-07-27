@@ -12,17 +12,7 @@ describe "creating requests in alaveteli_pro" do
       update_xapian_index
     end
 
-    it "doesn't show the link to the batch request form to standard users" do
-      AlaveteliFeatures.backend.disable_actor(:pro_batch_access, pro_user)
-
-      using_pro_session(pro_user_session) do
-        # New request form
-        create_pro_request(public_body)
-        expect(page).not_to have_content("start a batch request")
-      end
-    end
-
-    it "shows the link to the batch request form to pro batch users" do
+    it 'shows the link to the batch request form to pro users' do
       using_pro_session(pro_user_session) do
         # New request form
         create_pro_request(public_body)

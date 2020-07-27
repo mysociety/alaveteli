@@ -2,44 +2,54 @@
     add citations %>
 
 <% if can? :create_citation, info_request %>
-  <h2><%= _('In the News') %></h2>
+  <div class="sidebar__section citations">
+    <h2><%= _('In the News') %></h2>
 
-  <% if citations.any? %>
-    <ul class="citations-list">
-      <% citations.each do |citation| %>
-        <li class="citations-list__citation">
-          <%= MySociety::Format.
-            make_clickable(citation.source_url, contract: true, nofollow: true).
-            html_safe %>
-        </li>
+    <% if citations.any? %>
+      <ul class="citations-list">
+        <% citations.each do |citation| %>
+          <li class="citations-list__citation">
+            <%=
+              MySociety::Format.make_clickable(
+                citation.source_url, contract: true, nofollow: true
+              ).html_safe
+            %>
+          </li>
+        <% end %>
+      </ul>
+
+      <%= link_to new_citation_path(url_title: info_request.url_title),
+            class: 'citations-new' do %>
+        <%= _('New Citation') %>
       <% end %>
-    </ul>
+    <% else %>
+      <p>
+        <%= ('Has this request been referenced in a news article or academic ' \
+             'paper?') %>
+      </p>
 
-    <%= link_to new_citation_path(url_title: info_request.url_title), class: 'citations-new' do %>
-      <%= _('New Citation') %>
+      <%= link_to new_citation_path(url_title: info_request.url_title),
+            class: 'citations-new' do %>
+        <%= _('Let us know') %>
+      <% end %>
     <% end %>
-  <% else %>
-    <p>
-      <%= ('Has this request been referenced in a news article or academic ' \
-           'paper?') %>
-    </p>
-
-    <%= link_to new_citation_path(url_title: info_request.url_title), class: 'citations-new' do %>
-      <%= _('Let us know') %>
-    <% end %>
-  <% end %>
+  </div>
 <% elsif citations.any? %>
-  <h2><%= _('In the News') %></h2>
+  <div class="sidebar__section citations">
+    <h2><%= _('In the News') %></h2>
 
-  <% if citations.any? %>
-    <ul class="citations-list">
-      <% citations.each do |citation| %>
-        <li class="citations-list__citation">
-          <%= MySociety::Format.
-            make_clickable(citation.source_url, contract: true, nofollow: true).
-            html_safe %>
-        </li>
-      <% end %>
-    </ul>
-  <% end %>
+    <% if citations.any? %>
+      <ul class="citations-list">
+        <% citations.each do |citation| %>
+          <li class="citations-list__citation">
+            <%=
+              MySociety::Format.make_clickable(
+                citation.source_url, contract: true, nofollow: true
+              ).html_safe
+            %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
 <% end %>

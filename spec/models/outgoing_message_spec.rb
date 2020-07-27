@@ -799,7 +799,7 @@ describe OutgoingMessage do
 
 
 
-         [ GIVE DETAILS ABOUT YOUR COMPLAINT HERE ] 
+         [ GIVE DETAILS ABOUT YOUR COMPLAINT HERE ]
 
 
 
@@ -901,8 +901,8 @@ describe OutgoingMessage do
     end
 
     it 'returns false if the user is not the owning user of the info request' do
-      user = FactoryBot.build(:user)
-      request = FactoryBot.build(:info_request)
+      user = FactoryBot.create(:user)
+      request = FactoryBot.create(:info_request)
       message = FactoryBot.build(:initial_request, :info_request => request)
       expect(message.is_owning_user?(user)).to eq(false)
     end
@@ -926,14 +926,13 @@ describe OutgoingMessage do
         message.
           info_request_events.
             first.
-              update_attributes(:params => {
-                                  :smtp_message_id => old_format_smtp_id })
+              update(:params => { :smtp_message_id => old_format_smtp_id })
         expect(message.smtp_message_ids).to eq([smtp_id])
       end
 
       it 'returns an empty array if the smtp_message_id was not logged' do
         message = FactoryBot.create(:initial_request)
-        message.info_request_events.first.update_attributes(:params => {})
+        message.info_request_events.first.update(:params => {})
         expect(message.smtp_message_ids).to be_empty
       end
 
@@ -1904,7 +1903,7 @@ describe OutgoingMessage, " when making an outgoing message" do
                                              :what_doing => 'internal_review',
                                              :info_request => info_request
     })
-    expected_text = "Dear A test public body,\n\nPlease pass this on to the person who conducts Freedom of Information reviews.\n\nI am writing to request an internal review of A test public body's handling of my FOI request 'A test title'.\n\n[ GIVE DETAILS ABOUT YOUR COMPLAINT HERE ] \n\nA full history of my FOI request and all correspondence is available on the Internet at this address: http://test.host/request/a_test_title\n\nYours faithfully,"
+    expected_text = "Dear A test public body,\n\nPlease pass this on to the person who conducts Freedom of Information reviews.\n\nI am writing to request an internal review of A test public body's handling of my FOI request 'A test title'.\n\n[ GIVE DETAILS ABOUT YOUR COMPLAINT HERE ]\n\nA full history of my FOI request and all correspondence is available on the Internet at this address: http://test.host/request/a_test_title\n\nYours faithfully,"
     expect(outgoing_message.body).to eq(expected_text)
   end
 

@@ -16,8 +16,8 @@ FactoryBot.define do
   factory :citation do
     user
     association :citable, factory: :info_request
-    source_url 'http://example.com'
-    type 'other'
+    source_url { 'http://example.com' }
+    type { 'other' }
 
     trait :for_info_request do
       association :citable, factory: :info_request

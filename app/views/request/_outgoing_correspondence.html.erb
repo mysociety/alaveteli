@@ -40,21 +40,18 @@
       <% if !@user.nil? && @user.admin_page_links? %>
         <%= link_to "Admin", edit_admin_outgoing_message_path(outgoing_message.id) %>
       <% end %>
-      </p>
+    </p>
 
-      <div class="correspondence__footer">
-        <% unless @info_request.embargo %>
-          <div class="correspondence__footer__cplink">
-            <input type="text" id="cplink__field" class="cplink__field" value="<%= outgoing_message_url(outgoing_message) %>">
-            <a class="cplink__button"><%= _('Link to this') %></a>
+    <% if show_correspondence_footer %>
+      <% link_to_this_url = outgoing_message_url(outgoing_message) %>
 
-            <% report_path =
-                 new_request_report_path(request_id: @info_request.url_title,
-                                         outgoing_message_id: outgoing_message.id) %>
-            <%= link_to _('Report'), report_path, class: 'cplink__button' %>
-          </div>
-        <% end %>
-      </div>
+      <% report_path =
+           new_request_report_path(request_id: @info_request.url_title,
+                                   outgoing_message_id: outgoing_message.id) %>
 
+      <%= render partial: 'request/correspondence_footer',
+                 locals: { link_to_this_url: link_to_this_url,
+                           report_path: report_path } %>
+    <% end %>
   <%- end %>
 </div>

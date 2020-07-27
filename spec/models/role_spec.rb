@@ -45,6 +45,26 @@ describe Role do
 
   end
 
+  describe '.grantable_roles' do
+
+    context 'when alaveteli_pro feature is disabled' do
+
+      it 'returns an array [:admin]' do
+        expect(Role.grantable_roles).to match_array %i[admin]
+      end
+
+    end
+
+    context 'when alaveteli_pro feature is enabled', feature: :alaveteli_pro do
+
+      it 'returns an array [:admin, :pro, :pro_admin]' do
+        expect(Role.grantable_roles).to match_array %i[pro admin pro_admin]
+      end
+
+    end
+
+  end
+
   describe '.grants_and_revokes' do
 
     it 'returns an array [:admin] when passed :admin' do

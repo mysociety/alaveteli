@@ -9,7 +9,7 @@ class AdminIncomingMessageController < AdminController
   def update
     old_prominence = @incoming_message.prominence
     old_prominence_reason = @incoming_message.prominence_reason
-    if @incoming_message.update_attributes(incoming_message_params)
+    if @incoming_message.update(incoming_message_params)
       @incoming_message.info_request.log_event('edit_incoming',
                                                :incoming_message_id => @incoming_message.id,
                                                :editor => admin_current_user,

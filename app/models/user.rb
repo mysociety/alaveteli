@@ -124,6 +124,8 @@ class User < ApplicationRecord
   has_many :announcement_dismissals,
            :inverse_of => :user,
            :dependent => :destroy
+  has_many :memberships, class_name: 'Project::Membership'
+  has_many :projects, through: :memberships
 
   scope :active, -> { not_banned.not_closed }
   scope :banned, -> { where.not(ban_text: "") }
@@ -363,12 +365,6 @@ class User < ApplicationRecord
     (super || AlaveteliLocalization.locale).to_s
   end
 
-  def get_locale
-    warn %q([DEPRECATION] User#get_locale will be removed in 0.38.
-            It has been replaced by User#locale).squish
-    locale
-  end
-
   def name
     _name = read_attribute(:name)
     if suspended?
@@ -567,6 +563,10 @@ class User < ApplicationRecord
       self.profile_photo = new_profile_photo
       save
     end
+  end
+
+  def show_profile_photo?
+    active? && profile_photo
   end
 
   def about_me_already_exists?

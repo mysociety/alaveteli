@@ -3,7 +3,7 @@
     <a href="/"><img src="/assets/navimg/logo-trans-small.png" alt="<%= site_name %>"></a>
   </div>
   <div class="view_html_download_link">
-    <%=link_to _("Download original attachment"), @attachment_url %>
+    <%=link_to _("Download original attachment"), attachment_path(@attachment) %>
     <br>(<%=h @attachment.name_of_content_type %>)
   </div>
   <p class="view_html_description">

@@ -3,7 +3,7 @@
   <% users_with_counts.each do |user, count| %>
     <li class="leaderboard-person">
       <%= link_to user, class: "leaderboard-person-details" do %>
-        <% if user.profile_photo %>
+        <% if user.show_profile_photo? %>
           <%= image_tag get_profile_photo_url(url_name: user.url_name), alt: _("Profile image for {{user_name}}", user_name: user.name) %>
         <% else %>
           <span class="leaderboard-person-initial"><%= user.name.first.upcase %></span>

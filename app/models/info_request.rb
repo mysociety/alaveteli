@@ -125,13 +125,23 @@ class InfoRequest < ApplicationRecord
            :inverse_of => :info_request,
            :dependent => :destroy
   has_many :mail_server_logs,
-           -> { order('mail_server_log_done_id, "order"') },
+           -> { order(:mail_server_log_done_id, :order) },
            :inverse_of => :info_request,
            :dependent => :destroy
   has_one :embargo,
           :inverse_of => :info_request,
           :class_name => 'AlaveteliPro::Embargo',
           :dependent => :destroy
+
+  has_many :foi_attachments, through: :incoming_messages
+
+  has_many :project_submissions, class_name: 'Project::Submission'
+  has_many :classification_project_submissions,
+           -> { classification },
+           class_name: 'Project::Submission'
+  has_many :extraction_project_submissions,
+           -> { extraction },
+           class_name: 'Project::Submission'
 
   attr_accessor :is_batch_request_template
   attr_reader :followup_bad_reason
@@ -155,6 +165,8 @@ class InfoRequest < ApplicationRecord
   scope :other, State::OtherQuery.new
   scope :overdue, State::OverdueQuery.new
   scope :very_overdue, State::VeryOverdueQuery.new
+
+  scope :for_project, Project::InfoRequestQuery.new
 
   class << self
     alias_method :in_progress, :awaiting_response
@@ -1616,7 +1628,7 @@ class InfoRequest < ApplicationRecord
       })
     end
 
-    return_val = if update_attributes(attrs)
+    return_val = if update(attrs)
       log_event('move_request',
                 :editor => editor,
                 :public_body_url_name => public_body.url_name,
@@ -1641,7 +1653,7 @@ class InfoRequest < ApplicationRecord
     old_user = user
     editor = opts.fetch(:editor)
 
-    return_val = if update_attributes(:user => destination_user)
+    return_val = if update(:user => destination_user)
       log_event('move_request',
                 :editor => editor,
                 :user_url_name => user.url_name,

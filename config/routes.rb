@@ -114,17 +114,11 @@ Rails.application.routes.draw do
         :as => :similar_request,
         :via => :get
 
-  match '/request/:id/describe' => 'request#describe_state',
-        :as => :describe_state,
-        :via => [:patch, :put, :post]
-  match '/request/:url_title/describe/:described_state' => 'request#describe_state_message',
-        :as => :describe_state_message,
-        :via => :get
-  match '/request/:id/response/:incoming_message_id/attach/html/:part/*file_name' => 'request#get_attachment_as_html',
+  match '/request/:id/response/:incoming_message_id/attach/html/:part/*file_name' => 'attachments#show_as_html',
         :format => false,
         :as => :get_attachment_as_html,
         :via => :get
-  match '/request/:id/response/:incoming_message_id/attach/:part(/*file_name)' => 'request#get_attachment',
+  match '/request/:id/response/:incoming_message_id/attach/:part(/*file_name)' => 'attachments#show',
         :format => false,
         :as => :get_attachment,
         :via => :get
@@ -141,11 +135,18 @@ Rails.application.routes.draw do
         :via => :get
   ####
 
-  #### Citations controller
   scope path: 'request/:url_title' do
+    #### Citations controller
     resources :citations, only: [:new, :create]
+    ####
+
+    #### Classifications controller
+    resources :classifications, only: [:create], param: :described_state do
+      get :message, on: :member
+    end
+    ####
   end
-  ####
+
 
   #### Followups controller
   match '/request/:request_id/followups/new' => 'followups#new',
@@ -160,6 +161,28 @@ Rails.application.routes.draw do
   match '/request/:request_id/followups' => 'followups#create',
         :as => :request_followups,
         :via => :post
+  ####
+
+  #### Projects
+  constraints FeatureConstraint.new(:projects) do
+    match '/p/:token' => 'projects/invites#create',
+          as: :project_invite,
+          via: :get
+
+    scope module: :projects do
+      resources :projects, only: [:show] do
+        resource :extract, only: [:show, :update, :create]
+        resource :classify, only: [:show, :update]
+        resources :classifications, only: :create, param: :described_state do
+          get :message, on: :member
+        end
+
+        resources :contributors, only: [:destroy]
+
+        resource :download, only: [:show], format: true
+      end
+    end
+  end
   ####
 
   resources :health_checks, :only => [:index]
@@ -699,8 +722,13 @@ Rails.application.routes.draw do
     namespace :alaveteli_pro do
       root to: 'dashboard#index', :as => :dashboard, :via => :get
       resources :draft_info_requests, :only => [:create, :update]
-      resources :info_requests, :only => [:new, :create, :update, :index] do
+      resources :info_requests, only: [:new, :create, :index] do
         get :preview, on: :new # /info_request/new/preview
+      end
+      scope path: 'info_requests/:url_title' do
+        resources :classifications, only: :create, param: :described_state do
+          get :message, on: :member
+        end
       end
       resources :embargoes, :only => [:destroy, :create] do
         collection do

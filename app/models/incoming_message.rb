@@ -260,6 +260,31 @@ class IncomingMessage < ApplicationRecord
     end
   end
 
+  def self.get_attachment_by_url_part_number_and_filename!(
+    attachments, found_url_part_number, display_filename
+  )
+    attachment = get_attachment_by_url_part_number_and_filename(
+      attachments, found_url_part_number, display_filename
+    )
+
+    return unless attachment
+
+    # check filename in URL matches that in database (use a censor rule if you
+    # want to change a filename)
+    if attachment.display_filename != display_filename &&
+       attachment.old_display_filename != display_filename
+      msg = 'please use same filename as original file has, display: '
+      msg += "'#{ attachment.display_filename }' "
+      msg += 'old_display: '
+      msg += "'#{ attachment.old_display_filename }' "
+      msg += 'original: '
+      msg += "'#{ display_filename }'"
+      raise ActiveRecord::RecordNotFound, msg
+    end
+
+    attachment
+  end
+
   def apply_masks(text, content_type)
     mask_options = { :censor_rules => info_request.applicable_censor_rules,
                      :masks => info_request.masks }
@@ -510,9 +535,9 @@ class IncomingMessage < ApplicationRecord
       end
       hexdigest = Digest::MD5.hexdigest(content)
       attachment = foi_attachments.find_or_create_by(:hexdigest => hexdigest)
-      attachment.update_attributes(:filename => filename,
-                                   :content_type => content_type,
-                                   :body => content)
+      attachment.update(:filename => filename,
+                        :content_type => content_type,
+                        :body => content)
       attachment.save!
       attachments << attachment
     end
@@ -537,7 +562,7 @@ class IncomingMessage < ApplicationRecord
     attachments = []
     attachment_attributes.each do |attrs|
       attachment = self.foi_attachments.find_or_create_by(:hexdigest => attrs[:hexdigest])
-      attachment.update_attributes(attrs)
+      attachment.update(attrs)
       attachment.save!
       attachments << attachment
     end

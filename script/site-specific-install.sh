@@ -270,6 +270,14 @@ fi
 
 cd "$REPOSITORY"
 
+
+if [ "$DEVELOPMENT_INSTALL" = true ]; then
+  # Not in the Gemfile due to conflicts
+  # See: https://github.com/sj26/mailcatcher/blob/3079a00/README.md#bundler
+  gem install mailcatcher
+fi
+
+
 echo -n "Creating /etc/cron.d/alaveteli... "
 (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_crontab DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' RUBY_VERSION='$RUBY_VERSION' CRONTAB=config/crontab-example" "$UNIX_USER") > /etc/cron.d/alaveteli
 # There are some other parts to rewrite, so just do them with sed:
