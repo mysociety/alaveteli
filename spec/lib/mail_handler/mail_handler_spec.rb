@@ -22,11 +22,6 @@ describe 'when creating a mail object from raw data' do
     expect(mail.multipart?).to eq(true)
   end
 
-  it "should not fail on invalid byte sequence in content-disposition header" do
-    part = Mail::Part.new("Content-Disposition: inline; filename=a\xB8z\r\n\r\nThis is the body text.")
-    expect { part.inline? }.not_to raise_error
-  end
-
   it 'should parse multiple to addresses with unqoted display names' do
     mail = get_fixture_mail('multiple-unquoted-display-names.email')
     expect(mail.to).to eq(["request-66666-caa77777@whatdotheyknow.com", "foi@example.com"])
