@@ -49,12 +49,12 @@ describe 'when creating a mail object from raw data' do
     #   printf "hello\360" | base64
     # ... and wrapping the result in '=?UTF-8?B?' and '?='
     mail = get_fixture_mail('subject-bad-utf-8-trailing-base64.email')
-    expect(mail.subject).to eq('hello')
+    expect(mail.subject).to eq('hello�')
     # The quoted printable subject line was generated with:
     #   printf "hello\360" | qprint -b -e
     # ... and wrapping the result in '=?UTF-8?Q?' and '?='
     mail = get_fixture_mail('subject-bad-utf-8-trailing-quoted-printable.email')
-    expect(mail.subject).to eq('hello')
+    expect(mail.subject).to eq('hello�')
   end
 
 
