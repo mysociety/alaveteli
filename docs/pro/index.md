@@ -26,6 +26,7 @@ tabs.
 <br> <code><a href="#pro_contact_email">PRO_CONTACT_EMAIL</a></code>
 <br> <code><a href="#pro_batch_authority_limit">PRO_BATCH_AUTHORITY_LIMIT</a></code>
 <br> <code><a href="#forward_pro_nonbounce_responsed_to">FORWARD_PRO_NONBOUNCE_RESPONSES_TO</a></code>
+<br> <code><a href="#enable_pro_self_serve">ENABLE_PRO_SELF_SERVE</a></code>
 
 ---
 
@@ -122,6 +123,29 @@ tabs.
       <p>Example:</p>
       <ul class="examples">
         <li><code>FORWARD_PRO_NONBOUNCE_RESPONSES_TO: pro-support@example.com</code></li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="enable_pro_self_serve"><code>ENABLE_PRO_SELF_SERVE</code></a>
+  </dt>
+  <dd>
+    This option is only used when <code>ENABLE_PRO_PRICING</code> is set to
+    <code>false</code>.
+
+    If <code>ENABLE_PRO_SELF_SERVE</code> is set to <code>true</code>, Alaveteli
+    will let users upgrade their accounts to Pro without needing to enter
+    payment details.
+
+    If <code>ENABLE_PRO_SELF_SERVE</code> is set to <code>false</code>, admins
+    will receive an account request email and has to assign the role in the
+    Alaveteli admin interface.
+
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li><code>ENABLE_PRO_SELF_SERVE: true</code></li>
       </ul>
     </div>
   </dd>
