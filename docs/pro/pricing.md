@@ -185,6 +185,7 @@ tabs.
 <br> <code><a href="#stripe_namespace">STRIPE_NAMESPACE</a></code>
 <br> <code><a href="#stripe_webhook_secret">STRIPE_WEBHOOK_SECRET</a></code>
 <br> <code><a href="#pro_referral_coupon">PRO_REFERRAL_COUPON</a></code>
+<br> <code><a href="#iso_currency_code">ISO_CURRENCY_CODE</a></code>
 
 ---
 
@@ -271,6 +272,25 @@ tabs.
       <p>Example:</p>
       <ul class="examples">
         <li><code>PRO_REFERRAL_COUPON: PROREFERRAL</code></li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="iso_currency_code"><code>ISO_CURRENCY_CODE</code></a>
+  </dt>
+  <dd>
+    <a href="https://en.wikipedia.org/wiki/ISO_4217#Active_codes">ISO currency
+    code</a> of the currency Alaveteli Professional cost should be displayed in.
+
+    Doesn't affect what currency the plans are setup in so this should match what
+    is <a href="https://stripe.com/docs/currencies">configured</a> at
+    Stripe.com.
+
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li><code>ISO_CURRENCY_CODE: GBP</code></li>
       </ul>
     </div>
   </dd>
