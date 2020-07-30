@@ -186,6 +186,7 @@ tabs.
 <br> <code><a href="#stripe_webhook_secret">STRIPE_WEBHOOK_SECRET</a></code>
 <br> <code><a href="#pro_referral_coupon">PRO_REFERRAL_COUPON</a></code>
 <br> <code><a href="#iso_currency_code">ISO_CURRENCY_CODE</a></code>
+<br> <code><a href="#stripe_tax_rate">STRIPE_TAX_RATE</a></code>
 
 ---
 
@@ -291,6 +292,22 @@ tabs.
       <p>Example:</p>
       <ul class="examples">
         <li><code>ISO_CURRENCY_CODE: GBP</code></li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="stripe_tax_rate"><code>STRIPE_TAX_RATE</code></a>
+  </dt>
+  <dd>
+    The rate of Tax / VAT to add to Pro subscriptions. Note that the Price per
+    unit of your Stripe Product Plan must be created without tax. Alaveteli will
+    automatically calculate the gross amount to charge.
+
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li><code>STRIPE_TAX_RATE: "0.20"</code></li>
       </ul>
     </div>
   </dd>
