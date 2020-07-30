@@ -11,6 +11,57 @@ title: Alaveteli Professional
     investigations.
 </p>
 
+## Signup options
+
+There are three possibilities for allowing users to access a Pro account.
+
+<table class="table">
+  <tr>
+    <th>Option</th>
+    <th>Description</th>
+    <th>Configuration</th>
+  </tr>
+
+  <tr>
+    <td>Invite-only</td>
+    <td>Admins approve or deny access requests.</td>
+    <td>
+      <ul>
+        <li><code>ENABLE_ALAVETELI_PRO: true</code></li>
+        <li><code>ENABLE_PRO_SELF_SERVE: false</code></li>
+        <li><code>ENABLE_PRO_PRICING: false</code></li>
+      </ul>
+    </td>
+  </tr>
+
+  <tr>
+    <td>Self-service</td>
+    <td>Users can add Pro to their account themselves with no intervention.</td>
+    <td>
+      <ul>
+        <li><code>ENABLE_ALAVETELI_PRO: true</code></li>
+        <li><code>ENABLE_PRO_SELF_SERVE: true</code></li>
+        <li><code>ENABLE_PRO_PRICING: false</code></li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>Paid Subscriptions</td>
+    <td>
+      Users are charged a recurring subscription for access to Pro. See the
+      <a href="{{ page.baseurl }}/docs/pro/pricing/">pricing documentation</a>
+      for more details.
+    </td>
+    <td>
+      <ul>
+        <li><code>ENABLE_ALAVETELI_PRO: true</code></li>
+        <li><code>ENABLE_PRO_SELF_SERVE: false</code></li>
+        <li><code>ENABLE_PRO_PRICING: true</code></li>
+      </ul>
+    </td>
+  </tr>
+</table>
+
 ## Configuration settings
 
 The following are all the configuration settings that you can change in
