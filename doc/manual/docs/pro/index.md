@@ -29,6 +29,12 @@ tabs.
 
 ## Translations
 
+Alaveteli Pro’s translations must be translated through
+[Transifex]({{ page.baseurl }}/docs/customising/translation/). The Pro-specific
+translations are presented as an
+[independent resource](https://www.transifex.com/mysociety/alaveteli/alaveteli-pro/)
+to translate.
+
 Enabling Alaveteli Pro also enables [a new help page](https://git.io/JJodZ) that
 you’ll need to translate in the
 [usual way]({{ page.baseurl }}/docs/customising/translation/).
