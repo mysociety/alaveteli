@@ -28,7 +28,7 @@ you must
     As <a href="{{ page.baseurl }}/docs/installing/vagrant/">Vagrant</a> now
     seems to be the most popular way to try out Alaveteli, we are no longer 
     updating the AMI with every release so the AMI is not guaranteed to include 
-    the latest version of Alaveteli. However, we will be happy to update the AMI 
+    the latest version of Alaveteli. However, we may be able to update the AMI 
     on request, <a href="{{ page.baseurl }}/community/">just get in touch!</a>
   </p>
 </div>
