@@ -170,6 +170,14 @@ irb(main):001:0> user = User.find_by(email: 'YOUR_EMAIL_ADDRESS')
 irb(main):002:0> AlaveteliFeatures.backend.enable(:pro_pricing, user)
 </code></pre>
 
+## Translations
+
+Enabling Pricing also enables [a “legal” page](https://git.io/JJoFI) and
+[counterpart sidebar](https://git.io/JJoFq) that you’ll need to translate in the
+[same way as help pages]({{ page.baseurl }}/docs/customising/translation/). In
+this case you must locate the templates in `lib/views/alaveteli_pro/pages` in
+your theme.
+
 ## Configuration settings
 
 The following are all the configuration settings that you can change in
