@@ -35,5 +35,5 @@ exclude:
 plugins:
   - jekyll-redirect-from
 jurisdictions: "25"
-requests: "315,000"
+requests: "800,000"
 languages: "20"
