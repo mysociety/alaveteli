@@ -27,6 +27,18 @@ tabs.
 <br> <code><a href="#pro_batch_authority_limit">PRO_BATCH_AUTHORITY_LIMIT</a></code>
 <br> <code><a href="#forward_pro_nonbounce_responsed_to">FORWARD_PRO_NONBOUNCE_RESPONSES_TO</a></code>
 
+## Translations
+
+Alaveteli Pro’s translations must be translated through
+[Transifex]({{ page.baseurl }}/docs/customising/translation/). The Pro-specific
+translations are presented as an
+[independent resource](https://www.transifex.com/mysociety/alaveteli/alaveteli-pro/)
+to translate.
+
+Enabling Alaveteli Pro also enables [a new help page](https://git.io/JJodZ) that
+you’ll need to translate in the
+[usual way]({{ page.baseurl }}/docs/customising/translation/).
+
 ---
 
 ## All the Alaveteli Professional settings
