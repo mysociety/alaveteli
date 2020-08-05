@@ -466,7 +466,7 @@ msgid "How campaigners are using Pro"
 msgstr ""
 
 msgid "How it works"
-msgstr "這是怎麼進行的？"
+msgstr "我們的運作"
 
 msgid "How journalists are using Pro"
 msgstr ""

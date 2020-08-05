@@ -1,3 +1,10 @@
+# 0.38.1.0
+
+## Highlighted Features
+
+* Fixes i18n string loading for locales with country specific subtags (Graeme
+  Porteous)
+
 # 0.38.0.0
 
 ## Highlighted Features
@@ -30,6 +37,8 @@
   before upgrading Alaveteli. See: https://www.postgresql.org/docs/9.6/release-9-6.html
 * **NOTE:** This release will be the last to support Ruby 2.3 and 2.4. Please
   consider upgrading to either 2.6. See: https://www.ruby-lang.org/en/news/2020/03/31/ruby-2-6-6-released/
+* CoffeeScript support has been dropped. You may find issues when pre-compiling
+  assets. If so please delete `./tmp/cache/assets` and try again.
 * Run `bundle exec rake temp:identify_broken_binary_censor_rules` to generate
   a list of requests which should be manually checked to ensure censor rules are
   applied correctly.
