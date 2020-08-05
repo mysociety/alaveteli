@@ -234,7 +234,7 @@ class ApiController < ApplicationController
 
 
     if feed_type == "atom"
-      render :template => "api/request_events", :formats => ['atom'], :layout => false
+      render :template => "api/request_events", :formats => [:atom], :layout => false
     elsif feed_type == "json"
       @event_data = []
       @events.each do |event|

@@ -34,8 +34,11 @@ describe AlaveteliLocalization do
 
       context 'when enforce_available_locales is true' do
 
-        before do
+        around do |example|
+          enforce_available_locales = I18n.config.enforce_available_locales
           I18n.config.enforce_available_locales = true
+          example.run
+          I18n.config.enforce_available_locales = enforce_available_locales
         end
 
         it 'allows a new locale to be set as the default' do
@@ -54,7 +57,35 @@ describe AlaveteliLocalization do
       end
 
       it 'sets I18n.available_locales' do
-        expect(I18n.available_locales).to eq([:"en-GB", :es])
+        expect(I18n.available_locales).to eq([:"en-GB", :en, :es])
+      end
+
+    end
+
+    context 'when translating' do
+
+      it 'can correct translate 2 letter language locale' do
+        AlaveteliLocalization.set_locales('cy', 'cy')
+        expect(I18n.translate('date.abbr_month_names')).to include(
+          'Ion', 'Chw', 'Maw', 'Ebr', 'Mai', 'Meh', 'Gor', 'Awst', 'Med', 'Hyd',
+          'Tach', 'Rha'
+        )
+      end
+
+      it 'can correct translate underscore language locale' do
+        AlaveteliLocalization.set_locales('is_IS', 'is_IS')
+        expect(I18n.translate('date.abbr_month_names')).to include(
+          'jan', 'feb', 'mar', 'apr', 'maí', 'jún', 'júl', 'ágú', 'sep', 'okt',
+          'nóv', 'des'
+        )
+      end
+
+      it 'can correct translate hyphenated language locale' do
+        AlaveteliLocalization.set_locales('fr-BE', 'fr-BE')
+        expect(I18n.translate('date.abbr_month_names')).to include(
+          'jan.', 'fév.', 'mar.', 'avr.', 'mai', 'juin', 'juil.', 'août',
+          'sept.', 'oct.', 'nov.', 'déc.'
+        )
       end
 
     end

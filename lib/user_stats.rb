@@ -23,7 +23,11 @@ class UserStats
     end
     sql = "#{sql} LIMIT #{params[:limit]}" if params[:limit]
 
-    User.connection.select_all(sql).to_hash
+    if rails_upgrade?
+      User.connection.select_all(sql).to_a
+    else
+      User.connection.select_all(sql).to_hash
+    end
   end
 
   # Returns the number of domant users for the given domain
