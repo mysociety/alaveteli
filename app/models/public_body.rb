@@ -385,7 +385,7 @@ class PublicBody < ApplicationRecord
   def self.internal_admin_body
     matching_pbs = AlaveteliLocalization.
       with_locale(AlaveteliLocalization.default_locale) do
-      PublicBody.where(url_name: 'internal_admin_authority')
+      default_scoped.where(url_name: 'internal_admin_authority')
     end
 
     if matching_pbs.empty?
@@ -403,7 +403,7 @@ class PublicBody < ApplicationRecord
       else
         AlaveteliLocalization.
           with_locale(AlaveteliLocalization.default_locale) do
-          PublicBody.
+          default_scoped.
             create!(:name => 'Internal admin authority',
                     :short_name => "",
                     :request_email => AlaveteliConfiguration.contact_email,

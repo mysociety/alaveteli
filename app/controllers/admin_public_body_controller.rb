@@ -39,7 +39,7 @@ class AdminPublicBodyController < AdminController
     end
     if @change_request
       @change_request_user_response = render_to_string(:template => "admin_public_body_change_requests/add_accepted",
-                                                       :formats => [:txt])
+                                                       :formats => [:text])
       @public_body.name = @change_request.public_body_name
       @public_body.request_email = @change_request.public_body_email
       @public_body.last_edit_comment = @change_request.comment_for_public_body
@@ -82,7 +82,7 @@ class AdminPublicBodyController < AdminController
       @change_request_user_response =
         render_to_string(
           template: 'admin_public_body_change_requests/update_accepted',
-          formats: [:txt])
+          formats: [:text])
       @public_body.request_email = @change_request.public_body_email
       @public_body.last_edit_comment = @change_request.comment_for_public_body
     else

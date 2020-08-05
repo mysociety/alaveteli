@@ -5,8 +5,8 @@
 #
 # Translators:
 # louisecrow <louise@mysociety.org>, 2018
-# Hana Hunt <hana@hana-hunt.cz>, 2019
 # trendspotter <j.podhorecky@volny.cz>, 2020
+# Hana Hunt <hana@hana-hunt.cz>, 2020
 #
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-16 16:34+0100\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: trendspotter <j.podhorecky@volny.cz>, 2020\n"
+"Last-Translator: Hana Hunt <hana@hana-hunt.cz>, 2020\n"
 "Language-Team: Czech (https://www.transifex.com/mysociety/teams/33529/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,33 +24,35 @@ msgstr ""
 "4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
 msgid " <strong>Summarising</strong> the content of any information returned. "
-msgstr " <strong>Shrňte</strong> obsah jakékoliv informace, kterou jste získali. "
+msgstr " <strong>Shrňte</strong> obsah všech informací, které jste získali. "
 
 msgid " Say how you've <strong>used the information</strong>, with links if possible."
 msgstr "Napište <strong>jak jste využili získané informace</strong> a pokud je to možné, přidejte odkazy."
 
 msgid "'Crime statistics by ward level for Wales'"
-msgstr ""
+msgstr "Statistiky kriminality ve Walesu, podle oddělení "
 
 msgid "(includes {{count}} returning subscriber)"
 msgid_plural "(includes {{count}} returning subscribers)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "(zahrnuje {{count}} vracejícího se předplatitele)"
+msgstr[1] "(zahrnuje {{count}} vracející se předplatitele)"
+msgstr[2] "(zahrnuje {{count}} vracejících se předplatitelů)"
+msgstr[3] "(zahrnuje {{count}} vracejících se předplatitelů)"
 
 msgid "(no title)"
 msgstr "(bez názvu)"
 
 msgid "(with <b>{{discount_name}}</b> discount applied)"
-msgstr ""
+msgstr "(s <b>{{discount_name}}</b> sleva uplatněna)"
 
 msgid "12 Months"
 msgstr "12 měsíců"
 
 msgid "29 April 2019"
-msgstr ""
+msgstr "29. dubna 2019"
 
 msgid "3 July 2017"
-msgstr ""
+msgstr "3. července 2017"
 
 msgid "3 Months"
 msgstr "3 měsíce"
@@ -59,100 +61,100 @@ msgid "6 Months"
 msgstr "6 měsíců"
 
 msgid "<a href=\"{{story_url}}\">Sold From Under You</a> — the Bureau of investigative Journalism used Pro to send requests to councils up and down the county to build a nationwide picture of the public properties being sold off by councils in the face of austerity."
-msgstr ""
+msgstr "<a href=\"{{story_url}}\">Sold From Under You</a> — organizace Bureau of investigative Journalism využila systém Pro k rozeslání žádostí na úřady v jednotlivých regionech a zmapovala tak celostátní obrázek o prodeji obecních nemovitostí v době nutných úspor."
 
 msgid "<span class=\"current-page\">{{current_page}}</span> of <span class=\"total-pages\">{{total_pages}}</span>"
-msgstr ""
+msgstr "<span class=\"current-page\">{{current_page}}</span> z <span class=\"total-pages\">{{total_pages}}</span>"
 
 msgid "<span class=\"price-label__amount\">{{monthly_price}}</span> per user, per month"
-msgstr ""
+msgstr "<span class=\"price-label__amount\">{{monthly_price}}</span> za uživatele, za měsíc"
 
 msgid "<span class=\"price-label__amount\">{{yearly_price}}</span> per user, per year"
-msgstr ""
+msgstr "<span class=\"price-label__amount\">{{yearly_price}}</span> za uživatele, za rok"
 
 msgid "<strong class=\"marketing-highlight\">Action alerts</strong>: know when it’s time to take the next step"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">Upozornění</strong>: dozvíte se kdy je čas učinit další krok"
 
 msgid "<strong class=\"marketing-highlight\">Daily summary emails</strong> to keep your inbox clean"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">Denní souhrn e-mailů</strong> pro váš čistý inbox"
 
 msgid "<strong class=\"marketing-highlight\">Delivery verification</strong> for proof of receipt"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">Oznámení o doručení </strong> jako důkaz o přijetí"
 
 msgid "<strong class=\"marketing-highlight\">Delivery verification</strong> for proof of receipt</strong>"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">Oznámení o doručení</strong> jako důkaz o přijetí</strong>"
 
 msgid "<strong class=\"marketing-highlight\">Get regular updates</strong> as the responses come in — without overwhelming your inbox"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">Získejte pravidelné aktualizace</strong> jak přicházejí odpovědi - bez zahlcení svého inboxu"
 
 msgid "<strong class=\"marketing-highlight\">Make a request to multiple authorities</strong>: select authorities at the click of a button"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">Vzneste dotaz na více institucí najednou</strong>: vyberte instituci kliknutím na tlačítko"
 
 msgid "<strong class=\"marketing-highlight\">Manage large volumes of responses</strong>: easily keep track of the status of each request"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">Spravujte velké objemy odpovědí</strong>: jednoduše sledujte status každého dotazu"
 
 msgid "<strong class=\"marketing-highlight\">Save as draft</strong> to get back to it later"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">Uložit jako návrh</strong> a vrátit se k tomu později"
 
 msgid "<strong class=\"marketing-highlight\">Streamlined process</strong> for requesting internal reviews"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">Zjednodušený proces</strong> pro požadavek na interní přezkum"
 
 msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
-msgstr ""
+msgstr "<strong>Mohu si vyžádat informace o sobě?</strong> <a href=\"{{url}}\">Ne!</a>"
 
 msgid "<strong>Easy</strong> One fee covers all Pro features, with no complex tiers or options to worry about."
-msgstr ""
+msgstr "<strong>Je to jednoduché</strong> Jeden poplatek pokryje všechny výhody Pro systému, bez složitých úrovní či možností"
 
 msgid "<strong>Flexible</strong> You can cancel at any time, with no lengthy tie-ins and no notice required."
-msgstr ""
+msgstr "<strong>Flexibilní</strong> Můžete vše kdykoliv zrušit, bez zdlouhavých podmínek a bez vypovídací lhůty"
 
 msgid "<strong>Reasonable</strong> We know that campaigners are likely to be on a limited budget, so we’ve kept the subscription affordable."
-msgstr ""
+msgstr "<strong>Rozumné</strong> Víme, že aktivisté mají spíše omezené rozpočty, proto je naše předplatné cenově dostupné. "
 
 msgid "<strong>Reasonable</strong> We know that journalists can be on a limited budget, so we’ve kept the subscription affordable."
-msgstr ""
+msgstr "<strong>Rozumné</strong> Víme, že novináři mají spíše omezené rozpočty, proto je naše předplatné cenově dostupné. "
 
 msgid "<strong>Reasonable</strong> We know that researchers can be on a limited budget, so we’ve kept the subscription affordable."
-msgstr ""
+msgstr "<strong>Rozumné</strong> Víme, že analytici mají spíše omezené rozpočty, proto je naše předplatné cenově dostupné. "
 
 msgid "<strong>Thank</strong> the public authority."
 msgstr "<strong>Poděkujte</strong> veřejné instituci. "
 
 msgid "<strong>{{brand}}</strong> ending in {{last4}}, expiry {{exp_month}}/{{exp_year}}"
-msgstr ""
+msgstr "<strong>{{brand}}</strong> končící na {{last4}}, platnost vyprší {{exp_month}}/{{exp_year}}"
 
 msgid "<strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 msgstr "<strong>{{filter_description}}</strong> seřazeno podle <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">vymazat</a>"
 
 msgid "<strong>{{pro_site_name}}</strong> runs on the UK’s best-known FOI service"
-msgstr ""
+msgstr "<strong>{{pro_site_name}}</strong> provozuje platforma Informace pro všechny"
 
 msgid "A  powerful, fully-featured toolset that solves problems for campaigners managing multiple requests or in-depth FOI investigations"
-msgstr ""
+msgstr "Výkonný, plně vybavený soubor nástrojů, který řeší problémy pro koordinátory kampaně spravující více dotazů nebo složité kauzy využívající intenzivně zákon o svobodném přístupu k informacím. "
 
 msgid "A <strong class=\"marketing-highlight\">searchable archive</strong> of Freedom of Information requests"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">Prohledávatelný archiv</strong> dotazů vnesených na základě zákona o svobodném přístupu k informacím. "
 
 msgid "A <strong>summary</strong> of the response if you have received it by postal mail. "
-msgstr ""
+msgstr "<strong>Shrnutí</strong> odpovědi pokud jste ji obrdrželi poštou. "
 
 msgid "A one line summary of the information you are requesting, e.g."
 msgstr "Shrnutí vašeho dotazu na jeden řádek. Například:"
 
 msgid "A permanent, searchable, <strong class=\"marketing-highlight\">public record</strong> of your request and the responses"
-msgstr ""
+msgstr "Trvalý, vyhledatelný <strong class=\"marketing-highlight\">veřejný záznam</strong> vašich dotazů a odpovědí na ně"
 
 msgid "A powerful <strong class=\"marketing-highlight\">private dashboard</strong>: track and manage your FOI projects"
-msgstr ""
+msgstr "Výkonný <strong class=\"marketing-highlight\">soukromý řídicí panel</strong>: sledujte a spravujte své projekty svobodného přístupu k informacím"
 
 msgid "A powerful, fully-featured toolset that solves problems for journalists managing multiple requests or in-depth FOI investigations"
-msgstr ""
+msgstr "Výkonný, plně vybavený soubor nástrojů, který řeší problémy novinářů spravující více dotazů nebo složité kauzy využívající intenzivně zákon o svobodném přístupu k informacím. "
 
 msgid "A powerful, fully-featured toolset that solves problems for researchers and academics managing multiple requests or in-depth FOI investigations"
-msgstr ""
+msgstr "Výkonný, plně vybavený soubor nástrojů, který řeší problémy výzkumníků a analytiků spravující více dotazů nebo složité kauzy využívající intenzivně zákon o svobodném přístupu k informacím. "
 
 msgid "A super-smart <strong class=\"marketing-highlight\">to-do list</strong>: follow the progress of your requests"
-msgstr ""
+msgstr "Super chytrý <strong class=\"marketing-highlight\">seznam úkolů</strong>:  sledujte průběh vašich požadavků"
 
 msgid "About {{public_body_name}}"
 msgstr "Více informací o {{public_body_name}}"
@@ -161,16 +163,16 @@ msgid "Account"
 msgstr "Účet"
 
 msgid "Activist Doug Paulley uncovered councils across the UK who, through inaction, are allowing legal discrimination against wheelchair users. <a href=\"{{story_url}}\">See the whole story</a>"
-msgstr ""
+msgstr "Aktivista Doug Paulley odhalil městská zastupitelstva, která dovolovala nezákonnou diskriminaci uživatelů invalidních vozíků<a href=\"{{story_url}}\">Přečtete si celý příběh</a>"
 
 msgid "Activity"
 msgstr "Aktivita"
 
 msgid "Add"
-msgstr ""
+msgstr "Přidat"
 
 msgid "Add Card Details"
-msgstr ""
+msgstr "Přidat podrobnosti"
 
 msgid "Add all"
 msgstr "Přidat vše"
@@ -185,31 +187,31 @@ msgid "Add authorities to your batch"
 msgstr "Přidejte instituce do svého hromadného dotazu"
 
 msgid "Add credibility"
-msgstr ""
+msgstr "Přidat kredibilitu"
 
 msgid "Added"
 msgstr "Přidáno"
 
 msgid "Adding your payment card requires your browser to have JavaScript enabled."
-msgstr ""
+msgstr "Pro přidání informací o platební kartě je třeba, aby váš prohlížeč měl povolený JavaScript. "
 
 msgid "All requests"
 msgstr "Všechny žádosti"
 
 msgid "All requests within this batch will remain private for the same duration. When an individual request is made public all other requests in this batch will also be published on {{site_name}}."
-msgstr ""
+msgstr "Všechny dotazy v tomto hromadném dotazu zůstanou po stejnou dobu soukromé. Pokud bude jeden z dotazů uveřejněn, všechny ostatní dotazy v této skupině budou také publikovány na {{site_name}}."
 
 msgid "Also called {{other_name}}."
 msgstr "Také jako {{other_name}}"
 
 msgid "An all-in-one FOI toolkit for journalists, activists and campaigners"
-msgstr ""
+msgstr "Sada nástrojů vše v jednom pro novináře a aktivitsty. "
 
 msgid "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
 msgstr "Poznámky vám umožní přidat další komentář k žádosti a budou časem zveřejněny. Například:"
 
 msgid "Are you interested in free training, seminars and workshops about {{pro_site_name}}?"
-msgstr ""
+msgstr "Máte zájem o bezplatné školení, semináře a workshopy o {{pro_site_name}}?"
 
 msgid "Are you sure the information you’re after isn’t available elsewhere?"
 msgstr "Ujistěte se, že informace, o kterou žádáte, není již uveřejněna."
@@ -221,28 +223,28 @@ msgid "Are you sure?"
 msgstr "Jste si jistá/ý?"
 
 msgid "Automate FOI request management"
-msgstr ""
+msgstr "Automatizujte správu dotazu"
 
 msgid "Batch"
 msgstr "Hromadný dotaz"
 
 msgid "Batch FOI requests"
-msgstr ""
+msgstr "Hromadné dotazy s využitím zákona o svobodném přístupu k informacím"
 
 msgid "Batch request"
-msgstr ""
+msgstr "Hromadný dotaz"
 
 msgid "Batch requests"
-msgstr ""
+msgstr "Hromadné dotazy"
 
 msgid "Batch requests allow multiple recipients of a single request"
-msgstr ""
+msgstr "Hromadné dotazy umožňují rozeslat stejný dotaz na více institucí"
 
 msgid "Batch requests are part of a new workflow"
-msgstr ""
+msgstr "Hromadné dotazy jsou součástí nového pracovního postupu"
 
 msgid "Because we’ve streamlined the request-writing process, Pro saves you a lot of back and forth. Search our database of authorities, pick which one — or many — you want to contact, and compose your request right there."
-msgstr ""
+msgstr "Protože jsme proces zpracování dotazů zefektivnili, systém Pro vám ušetří spoustu přeskakování tam a zpět. Prohledejte naši databázi úřadů, vyberte, který z nich - nebo více - chcete kontaktovat, a sestavte si požadavek přímo zde."
 
 msgid "Billed: Annually"
 msgstr "Fakturováno: ročně"
@@ -260,7 +262,7 @@ msgid "Billing"
 msgstr "Fakturace"
 
 msgid "Bringing facts about campagin overspending to light with the privacy features"
-msgstr ""
+msgstr "Přinášíme fakta o zbytečném utrácení za kampaň a zároveň chráníme soukromí"
 
 msgid "Browse by category"
 msgstr "Prohledávej kategorii"
@@ -269,10 +271,10 @@ msgid "Browse public requests"
 msgstr "Zobrazit veřejné dotazy"
 
 msgid "CSV"
-msgstr ""
+msgstr "CSV"
 
 msgid "Campaigning for better wheelchair accessibility"
-msgstr ""
+msgstr "Kampaň za lepší přístupnost pro vozíčkáře"
 
 msgid "Cancel"
 msgstr "Zrušit"
@@ -284,10 +286,10 @@ msgid "Cancel your subscription"
 msgstr "Zrušit své předplatné"
 
 msgid "Cancelled subscriptions:"
-msgstr ""
+msgstr "Zrušené předplatné:"
 
 msgid "Card details"
-msgstr ""
+msgstr "Podrobnosti o kartě:"
 
 msgid "Change privacy"
 msgstr "Změnit nastavení soukromí"
@@ -311,7 +313,7 @@ msgid "Confirm your account on {{site_name}}"
 msgstr "Potvrďte svůj účet na {{site_name}}"
 
 msgid "Continuing with checkout requires your browser to have JavaScript enabled."
-msgstr ""
+msgstr "Pokračování k pokladně vyžaduje, aby váš prohlížeč povolil JavaScript."
 
 msgid "Coupon code has expired."
 msgstr "Platnost kupónu vypršela"
@@ -326,22 +328,22 @@ msgid "Dashboard"
 msgstr "Nástěnka"
 
 msgid "Dashboard and workflow features"
-msgstr ""
+msgstr "Funkce řídícího panelu a pracovního postupu"
 
 msgid "Dear {{user_name}},"
-msgstr ""
+msgstr "Vážený {{user_name}},"
 
 msgid "Debt Resistance UK uncovered <a href=\"{{story_url}}\">which councils are paying exorbitant LOBO loans</a>, in some cases meaning that a large proportion of council tax income is being channelled directly into interest payments."
-msgstr ""
+msgstr "Organizace Debt Resistance UK zjistila <a href=\"{{story_url}}\">které městské rady platí horentní půjčky </a>, v některých případech to znamená, že velká část daňových příjmů místní samosprávy financuje pouze úroky. "
 
 msgid "Debt Resistance UK uncovered which councils are paying exorbitant LOBO loans, in some cases meaning that a large proportion of council tax income is being channelled directly into interest payments."
-msgstr ""
+msgstr "Organizace Debt Resistance UK zjistila které městské rady platí horentní půjčky, v některých případech to znamená, že velká část daňových příjmů místní samosprávy financuje pouze úroky. "
 
 msgid "Details"
 msgstr "Podrobnosti"
 
 msgid "Disabled while sending remaining requests."
-msgstr ""
+msgstr "Zakázáno při odesílání zbývajících požadavků"
 
 msgid "Dismiss"
 msgstr "Zrušit"
@@ -350,7 +352,7 @@ msgid "Do you have a coupon code?"
 msgstr "Máte kupón s kódem?"
 
 msgid "Don’t worry – <a href=\"{{signup_link}}\">our free accounts</a> are still available and always will be."
-msgstr ""
+msgstr "Nebojte se – <a href=\"{{signup_link}}\">naše bezplatné účty </a> jsou vám stále k dispozici. "
 
 msgid "Download a zip file of all correspondence"
 msgstr "Stáhnout zazipovaný soubor celé korespondence"
@@ -371,7 +373,7 @@ msgid "Email doesn't look like a valid address"
 msgstr "E-mail nevypadá jako platná adresa"
 
 msgid "Estimated total number of Pro requests:"
-msgstr ""
+msgstr "Odhadovaný celkový počet žádostí Pro:"
 
 msgid "Everything you need to keep on top of complex FOI-driven stories."
 msgstr ""

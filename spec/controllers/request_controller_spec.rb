@@ -542,7 +542,11 @@ end
 describe RequestController, "when handling prominence" do
 
   def expect_hidden(hidden_template)
-    expect(response.content_type).to eq("text/html")
+    if rails_upgrade?
+      expect(response.media_type).to eq('text/html')
+    else
+      expect(response.content_type).to eq('text/html')
+    end
     expect(response).to render_template(hidden_template)
     expect(response.code).to eq('403')
   end

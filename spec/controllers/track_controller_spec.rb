@@ -98,7 +98,11 @@ describe TrackController do
                               :url_title => track_thing.info_request.url_title
                             }
         expect(response).to render_template('track/atom_feed')
-        expect(response.content_type).to eq('application/atom+xml')
+        if rails_upgrade?
+          expect(response.media_type).to eq('application/atom+xml')
+        else
+          expect(response.content_type).to eq('application/atom+xml')
+        end
         # TODO: should check it is an atom.builder type being rendered,
         # not sure how to
         expect(assigns[:xapian_object].matches_estimated).to eq(3)
@@ -160,7 +164,11 @@ describe TrackController do
                               :url_title => track_thing.info_request.url_title
                             }
         expect(response).to render_template('track/atom_feed')
-        expect(response.content_type).to eq('application/atom+xml')
+        if rails_upgrade?
+          expect(response.media_type).to eq('application/atom+xml')
+        else
+          expect(response.content_type).to eq('application/atom+xml')
+        end
       end
     end
 
