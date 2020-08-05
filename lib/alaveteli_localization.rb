@@ -7,9 +7,12 @@ class AlaveteliLocalization
                             split(/ /).map { |locale| canonicalize(locale) }
       FastGettext.
         default_available_locales = available_locales.map { |x| x.to_sym }
-      I18n.available_locales = available_locales.map do |locale_name|
-        to_hyphen(locale_name)
+
+      all_locales = available_locales.each_with_object([]) do |locale, memo|
+        memo.concat(self_and_parents(to_hyphen(locale)))
       end
+      I18n.available_locales = all_locales.uniq
+
       I18n.locale = I18n.default_locale = to_hyphen(default_locale)
       FastGettext.default_locale = canonicalize(default_locale)
       RoutingFilter::Conditionallyprependlocale.locales = available_locales
@@ -72,6 +75,10 @@ class AlaveteliLocalization
 
     def to_hyphen(locale)
       locale.to_s.gsub('_', '-')
+    end
+
+    def self_and_parents(locale)
+      I18n::Locale::Tag::Simple.new(locale).self_and_parents.map(&:to_s)
     end
   end
 end
