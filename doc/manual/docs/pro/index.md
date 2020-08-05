@@ -62,6 +62,29 @@ There are three possibilities for allowing users to access a Pro account.
   </tr>
 </table>
 
+## Assigning your first Pro admin
+
+Alaveteli Pro introduces a new user role of `pro_admin`. After enabling
+Alaveteli Pro, you’ll need to assign the first `pro_admin` through the Rails
+console.
+
+```
+$ cd /var/www/www.example.com/alaveteli
+$ bundle exec rails console
+```
+
+Within the Rails console, find the user you want to upgrade and add the
+`pro_admin` role.
+
+```ruby
+user = User.find_by(email: 'admin@example.com')
+user.add_role(:pro_admin)
+```
+
+This user will now be able to manage private requests and assign `pro_admin` to
+other users through the admin web interface. Note that `pro_admin` users should
+_also_ have the `admin` role.
+
 ## Configuration settings
 
 The following are all the configuration settings that you can change in
