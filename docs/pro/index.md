@@ -11,6 +11,57 @@ title: Alaveteli Professional
     investigations.
 </p>
 
+## Signup options
+
+There are three possibilities for allowing users to access a Pro account.
+
+<table class="table">
+  <tr>
+    <th>Option</th>
+    <th>Description</th>
+    <th>Configuration</th>
+  </tr>
+
+  <tr>
+    <td>Invite-only</td>
+    <td>Admins approve or deny access requests.</td>
+    <td>
+      <ul>
+        <li><code>ENABLE_ALAVETELI_PRO: true</code></li>
+        <li><code>ENABLE_PRO_SELF_SERVE: false</code></li>
+        <li><code>ENABLE_PRO_PRICING: false</code></li>
+      </ul>
+    </td>
+  </tr>
+
+  <tr>
+    <td>Self-service</td>
+    <td>Users can add Pro to their account themselves with no intervention.</td>
+    <td>
+      <ul>
+        <li><code>ENABLE_ALAVETELI_PRO: true</code></li>
+        <li><code>ENABLE_PRO_SELF_SERVE: true</code></li>
+        <li><code>ENABLE_PRO_PRICING: false</code></li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>Paid Subscriptions</td>
+    <td>
+      Users are charged a recurring subscription for access to Pro. See the
+      <a href="{{ page.baseurl }}/docs/pro/pricing/">pricing documentation</a>
+      for more details.
+    </td>
+    <td>
+      <ul>
+        <li><code>ENABLE_ALAVETELI_PRO: true</code></li>
+        <li><code>ENABLE_PRO_SELF_SERVE: false</code></li>
+        <li><code>ENABLE_PRO_PRICING: true</code></li>
+      </ul>
+    </td>
+  </tr>
+</table>
+
 ## Configuration settings
 
 The following are all the configuration settings that you can change in
@@ -26,6 +77,7 @@ tabs.
 <br> <code><a href="#pro_contact_email">PRO_CONTACT_EMAIL</a></code>
 <br> <code><a href="#pro_batch_authority_limit">PRO_BATCH_AUTHORITY_LIMIT</a></code>
 <br> <code><a href="#forward_pro_nonbounce_responsed_to">FORWARD_PRO_NONBOUNCE_RESPONSES_TO</a></code>
+<br> <code><a href="#enable_pro_self_serve">ENABLE_PRO_SELF_SERVE</a></code>
 
 ## Translations
 
@@ -134,6 +186,29 @@ you’ll need to translate in the
       <p>Example:</p>
       <ul class="examples">
         <li><code>FORWARD_PRO_NONBOUNCE_RESPONSES_TO: pro-support@example.com</code></li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="enable_pro_self_serve"><code>ENABLE_PRO_SELF_SERVE</code></a>
+  </dt>
+  <dd>
+    This option is only used when <code>ENABLE_PRO_PRICING</code> is set to
+    <code>false</code>.
+
+    If <code>ENABLE_PRO_SELF_SERVE</code> is set to <code>true</code>, Alaveteli
+    will let users upgrade their accounts to Pro without needing to enter
+    payment details.
+
+    If <code>ENABLE_PRO_SELF_SERVE</code> is set to <code>false</code>, admins
+    will receive an account request email and has to assign the role in the
+    Alaveteli admin interface.
+
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li><code>ENABLE_PRO_SELF_SERVE: true</code></li>
       </ul>
     </div>
   </dd>
