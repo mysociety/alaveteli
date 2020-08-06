@@ -76,3 +76,8 @@ updates:
       - dependency-name: sass-rails
         versions:
         - ">= 6.0.0"
+
+      # capistrano 3 is a major API change that we're unlikely to support
+      - dependency-name: capistrano
+        versions:
+        - ">= 3.0.0"
