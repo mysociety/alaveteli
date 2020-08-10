@@ -44,7 +44,7 @@ tabs.
   Alaveteli Pro enables the interface for Pro users to make
   <a href="{{ page.baseurl }}/docs/running/admin_manual/#batch-requests">batch
   requests</a>. For this reason we <strong>strongly recommend</strong> using the
-  <a href="{{ page.baseurl }}/docs/installing/manual_install/#generate-mail-poller-daemon-optional">
+  <a href="{{ page.baseurl }}/docs/installing/cron_and_daemons/#generate-mail-poller-daemon-optional">
   POP polling mail retriever method</a>.  Without the POP poller batch sending
   is throttled to prevent overloading of the application as it ingests any
   auto-acknowledgement messages. This means that further batches are blocked
