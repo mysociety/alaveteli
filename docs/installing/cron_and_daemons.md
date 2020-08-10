@@ -16,7 +16,7 @@ templating format used by mySociety.
 The `ugly` format uses simple variable substitution. A variable looks like
 `!!(*= $this *)!!`.
 
-### Generate crontab
+## Generate crontab
 
 `config/crontab-example` contains the cron jobs that run on
 Alaveteli. Rewrite the example file to replace the variables,
@@ -58,12 +58,12 @@ of the daemon file:
 
     5,15,25,35,45,55 * * * * alaveteli /etc/init.d/DAEMON_NAME check
 
-### Generate application daemon
+## Generate application daemon
 
 Generate a daemon based on the application server you installed. This allows you
 to use the native `service` command to stop, start and restart the application.
 
-#### Passenger
+### Passenger
 
 **Template Variables:**
 
@@ -93,7 +93,7 @@ Start the application:
 
     service alaveteli start
 
-#### Thin
+### Thin
 
 **Template Variables:**
 
@@ -126,7 +126,7 @@ Start the application:
 
     service alaveteli start
 
-### Generate alert daemon
+## Generate alert daemon
 
 One of the cron jobs refers to a script at `/etc/init.d/alaveteli-alert-tracks`. This
 is an init script, which can be generated from the
@@ -164,7 +164,7 @@ Start the alert tracks daemon:
 
     service alaveteli-alert-tracks start
 
-### Generate mail poller daemon (optional)
+## Generate mail poller daemon (optional)
 
 `config/poll-for-incoming-debian.example` is another init script, which is optional
 and not required unless you want to have Alaveteli poll a POP3 mailbox for incoming
