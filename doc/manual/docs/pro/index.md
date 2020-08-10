@@ -40,6 +40,19 @@ tabs.
 <br> <code><a href="#forward_pro_nonbounce_responsed_to">FORWARD_PRO_NONBOUNCE_RESPONSES_TO</a></code>
 <br> <code><a href="#enable_pro_self_serve">ENABLE_PRO_SELF_SERVE</a></code>
 
+<div class="attention-box">
+  Alaveteli Pro enables the interface for Pro users to make
+  <a href="{{ page.baseurl }}/docs/running/admin_manual/#batch-requests">batch
+  requests</a>. For this reason we <strong>strongly recommend</strong> using the
+  <a href="{{ page.baseurl }}/docs/installing/manual_install/#generate-mail-poller-daemon-optional">
+  POP polling mail retriever method</a>.  Without the POP poller batch sending
+  is throttled to prevent overloading of the application as it ingests any
+  auto-acknowledgement messages. This means that further batches are blocked
+  from sending until the process exits. With a batch size of 500 authorities
+  the process would take <em>8 hours</em> to complete, preventing other users'
+  batches getting sent and preventing the user navigating around their batch.
+</div>
+
 ## Signup options
 
 There are three possibilities for allowing users to access a Pro account.
