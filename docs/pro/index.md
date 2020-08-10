@@ -11,6 +11,35 @@ title: Alaveteli Professional
     investigations.
 </p>
 
+## Translations
+
+Alaveteli Pro’s translations must be translated through
+[Transifex]({{ page.baseurl }}/docs/customising/translation/). The Pro-specific
+translations are presented as an
+[independent resource](https://www.transifex.com/mysociety/alaveteli/alaveteli-pro/)
+to translate.
+
+Enabling Alaveteli Pro also enables [a new help page](https://git.io/JJodZ) that
+you’ll need to translate in the
+[usual way]({{ page.baseurl }}/docs/customising/translation/).
+
+## Configuration settings
+
+The following are all the configuration settings that you can change in
+`config/general.yml`. When you edit this file, remember it must be in the <a
+href="http://yaml.org">YAML syntax</a>. It's not complicated but &mdash;
+especially if you're editing a list &mdash; be careful to get the indentation
+correct. If in doubt, look at the examples already in the file, and don't use
+tabs.
+
+<code><a href="#enable_alaveteli_pro">ENABLE_ALAVETELI_PRO</a></code>
+<br> <code><a href="#pro_site_name">PRO_SITE_NAME</a></code>
+<br> <code><a href="#pro_contact_name">PRO_CONTACT_NAME</a></code>
+<br> <code><a href="#pro_contact_email">PRO_CONTACT_EMAIL</a></code>
+<br> <code><a href="#pro_batch_authority_limit">PRO_BATCH_AUTHORITY_LIMIT</a></code>
+<br> <code><a href="#forward_pro_nonbounce_responsed_to">FORWARD_PRO_NONBOUNCE_RESPONSES_TO</a></code>
+<br> <code><a href="#enable_pro_self_serve">ENABLE_PRO_SELF_SERVE</a></code>
+
 ## Signup options
 
 There are three possibilities for allowing users to access a Pro account.
@@ -64,7 +93,14 @@ There are three possibilities for allowing users to access a Pro account.
 
 ## Assigning your first Pro admin
 
-Alaveteli Pro introduces a new user role of `pro_admin`. After enabling
+<div class="attention-box">
+  <strong>Note:</strong> You need to
+  <a href="{{ page.baseurl }}/docs/installing/deploy/">deploy</a> Alaveteli
+  with Pro enabled before this step so that the database is seeded with the Pro
+  user roles.
+</div>
+
+Alaveteli Pro introduces a new user role of `pro_admin`. **After** enabling
 Alaveteli Pro, you’ll need to assign the first `pro_admin` through the Rails
 console.
 
@@ -84,35 +120,6 @@ user.add_role(:pro_admin)
 This user will now be able to manage private requests and assign `pro_admin` to
 other users through the admin web interface. Note that `pro_admin` users should
 _also_ have the `admin` role.
-
-## Configuration settings
-
-The following are all the configuration settings that you can change in
-`config/general.yml`. When you edit this file, remember it must be in the <a
-href="http://yaml.org">YAML syntax</a>. It's not complicated but &mdash;
-especially if you're editing a list &mdash; be careful to get the indentation
-correct. If in doubt, look at the examples already in the file, and don't use
-tabs.
-
-<code><a href="#enable_alaveteli_pro">ENABLE_ALAVETELI_PRO</a></code>
-<br> <code><a href="#pro_site_name">PRO_SITE_NAME</a></code>
-<br> <code><a href="#pro_contact_name">PRO_CONTACT_NAME</a></code>
-<br> <code><a href="#pro_contact_email">PRO_CONTACT_EMAIL</a></code>
-<br> <code><a href="#pro_batch_authority_limit">PRO_BATCH_AUTHORITY_LIMIT</a></code>
-<br> <code><a href="#forward_pro_nonbounce_responsed_to">FORWARD_PRO_NONBOUNCE_RESPONSES_TO</a></code>
-<br> <code><a href="#enable_pro_self_serve">ENABLE_PRO_SELF_SERVE</a></code>
-
-## Translations
-
-Alaveteli Pro’s translations must be translated through
-[Transifex]({{ page.baseurl }}/docs/customising/translation/). The Pro-specific
-translations are presented as an
-[independent resource](https://www.transifex.com/mysociety/alaveteli/alaveteli-pro/)
-to translate.
-
-Enabling Alaveteli Pro also enables [a new help page](https://git.io/JJodZ) that
-you’ll need to translate in the
-[usual way]({{ page.baseurl }}/docs/customising/translation/).
 
 ---
 
