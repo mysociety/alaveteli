@@ -206,3 +206,40 @@ Start the polling daemon:
 
     service alaveteli-poll-for-incoming start
 
+## Generate notifications daemon (optional)
+
+`config/send-notifications-debian.example` is the mechanism for sending digest
+notifications to Pro users. You should only enable this if you have enabled
+[Alaveteli Pro]({{ page.baseurl }}/docs/pro).
+
+**Template Variables:**
+
+* `daemon_name`: The name of the daemon. This is set by the rake task.
+* `vhost_dir`: the full path to the directory where Alaveteli is checked out.
+  e.g. If your checkout is at `/var/www/alaveteli` then set this to `/var/www`
+* `vcspath`: the name of the directory that contains the Alaveteli code.
+  e.g. `alaveteli`
+* `site`: a string to identify your Alaveteli instance
+* `user`: the user that the software runs as
+* `ruby_version`: The version of ruby that was used to install `bundler` as a gem,
+  if that was neccessary. This will be used to add the user's local
+  gem directory to the `PATH` used in the daemon file
+
+There is a rake task that will help to rewrite this file into one that is
+useful to you. Change the variables to suit your installation.
+
+    pushd /var/www/alaveteli
+    bundle exec rake RAILS_ENV=production config_files:convert_init_script \
+      DEPLOY_USER=alaveteli \
+      VHOST_DIR=/var/www \
+      VCSPATH=alaveteli \
+      SITE=alaveteli \
+      SCRIPT_FILE=/var/www/alaveteli/config/send-notifications-debian.example > /etc/init.d/alaveteli-send-notifications
+    popd
+
+    chown root:alaveteli /etc/init.d/alaveteli-send-notifications
+    chmod 754 /etc/init.d/alaveteli-send-notifications
+
+Start the notifications daemon:
+
+    service alaveteli-send-notifications start
