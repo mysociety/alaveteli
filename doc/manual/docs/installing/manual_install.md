@@ -530,43 +530,6 @@ Start the alert tracks daemon:
 
     service alaveteli-alert-tracks start
 
-### Generate varnish purge daemon (optional)
-
-`config/purge-varnish-debian.example` is a similar init script, which is optional
-and not required if you choose not to run your site behind Varnish (see below). It notifies Varnish of cached pages that need to be purged from Varnish's cache. It will not run if Varnish is not installed.
-
-**Template Variables:**
-
-* `daemon_name`: The name of the daemon. This is set by the rake task.
-* `vhost_dir`: the full path to the directory where Alaveteli is checked out.
-  e.g. If your checkout is at `/var/www/alaveteli` then set this to `/var/www`
-* `vcspath`: the name of the directory that contains the Alaveteli code.
-  e.g. `alaveteli`
-* `site`: a string to identify your Alaveteli instance
-* `user`: the user that the software runs as
-* `ruby_version`: The version of ruby that was used to install `bundler` as a gem,
-  if that was neccessary. This will be used to add the user's local
-  gem directory to the `PATH` used in the daemon file
-
-There is a rake task that will help to rewrite this file into one that is
-useful to you. Change the variables to suit your installation.
-
-    pushd /var/www/alaveteli
-    bundle exec rake RAILS_ENV=production config_files:convert_init_script \
-      DEPLOY_USER=alaveteli \
-      VHOST_DIR=/var/www \
-      VCSPATH=alaveteli \
-      SITE=alaveteli \
-      SCRIPT_FILE=/var/www/alaveteli/config/purge-varnish-debian.example > /etc/init.d/alaveteli-purge-varnish
-    popd
-
-    chown root:alaveteli /etc/init.d/alaveteli-purge-varnish
-    chmod 754 /etc/init.d/alaveteli-purge-varnish
-
-Start the varnish purge daemon:
-
-    service alaveteli-purge-varnish start
-
 ### Generate mail poller daemon (optional)
 
 `config/poll-for-incoming-debian.example` is another init script, which is optional
