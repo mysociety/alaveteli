@@ -1081,7 +1081,6 @@ SHARED_FILES:
  - config/database.yml
  - config/general.yml
  - config/rails_env.rb
- - config/newrelic.yml
  - config/httpd.conf
  - public/foi-live-creation.png
  - public/foi-user-use.png
@@ -1169,11 +1168,5 @@ que puede copiar en su correspondiente ubicación.
   </dt>
   <dd>
     sugerencias de configuración de Apache y Nginx
-  </dd>
-  <dt>
-    <strong>newrelic.yml</strong>
-  </dt>
-  <dd>
-    configuración de análisis
   </dd>
 </dl>

@@ -39,7 +39,6 @@ Definitions
   <li><a href="#holiday">holiday</a></li>
   <li><a href="#i18n">internationalisation</a></li>
   <li><a href="#mta">Mail Transfer Agent</a></li>
-  <li><a href="#newrelic">New Relic</a></li>
   <li><a href="#po">.po files</a></li>
   <li><a href="#production">production site</a></li>
   <li><a href="#publication-scheme">publication scheme</a></li>
@@ -675,34 +674,6 @@ Definitions
         <li>
           see these instructions for <a href="{{ page.baseurl }}/docs/installing/email/">configuring your MTA</a>
           (examples are for exim4 and postfix, two of the most common)
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-  <dt>
-    <a name="newrelic">New Relic</a>
-  </dt>
-  <dd>
-    Alaveteli can use <strong>New Relic</strong>'s application monitoring tool to track the
-    performance of your <a href="#production" class="glossary__link">production site</a>. If enabled,
-    data from your application is gathered on the New Relic website, which you can inspect with
-    their visual tools. Basic use is free.
-    <div class="more-info">
-      <p>More information:</p>
-      <ul>
-        <li>
-          use the <code>agent_enabled:</code> setting in the
-          the <code>newrelic.yml</code> config file to enable the New Relic analytics.
-          See the <a href="{{ page.baseurl }}/docs/installing/manual_install/">manual installation</a> instructions.
-        </li>
-        <li>
-          see also the New Relic Ruby Agent <a href="https://github.com/newrelic/rpm">github repo</a> and
-          <a href="https://docs.newrelic.com/docs/ruby/">documentation</a>
-        </li>
-        <li>
-          the <a href="http://newrelic.com">New Relic website</a>: if you've enabled the service,
-          you can log in to inspect the performance analytics
         </li>
       </ul>
     </div>

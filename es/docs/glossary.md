@@ -26,7 +26,6 @@ Definiciones
   <li><a href="#foi">información pública</a></li>
   <li><a href="#git">git</a></li>
   <li><a href="#holding_pen">sala de espera</a></li>
-  <li><a href="#newrelic">New Relic</a></li>
   <li><a href="#mta">MTA</a></li>
   <li><a href="#po">archivos .po</a></li>
   <li><a href="#production">servidor de producción</a></li>
@@ -353,34 +352,6 @@ Definiciones
         <li>
           Consulte estas instrucciones para <a href="{{ page.baseurl }}/docs/installing/email/">configurar su MTA</a>
           (incluye ejemplos para exim4 y postfix, dos de los más comunes)
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-  <dt>
-    <a name="newrelic">New Relic</a>
-  </dt>
-  <dd>
-    Alaveteli puede utilizar la herramienta de monitorización de aplicaciones de <strong>New Relic</strong> para revisar el
-    rendimiento de su <a href="#production" class="glossary__link">servidor de producción</a>. Si se halla activado,
-    el sitio web de New Relic recopila datos sobre su aplicación, que puede inspeccionar gracias a
-    sus herramientas visuales. Sus funcionalidades básicas son gratuitas.
-    <div class="more-info">
-      <p>Más información:</p>
-      <ul>
-        <li>
-          Utilice la opción <code>agent_enabled:</code> del
-          archivo de configuración <code>newrelic.yml</code> para activar el análisis de New Relic.
-          Consulte las instrucciones de <a href="{{ page.baseurl }}/docs/installing/manual_install/">instalación manual</a>.
-        </li>
-        <li>
-          Consulte también el <a href="https://github.com/newrelic/rpm">repositorio de github</a> y la
-          <a href="https://docs.newrelic.com/docs/ruby/">documentación</a> sobre el agente Ruby de New Relic.
-        </li>
-        <li>
-          <a href="http://newrelic.com">Sitio web de New Relic</a>: si tiene este servicio activado,
-          puede iniciar sesión para revisar los análisis de rendimiento.
         </li>
       </ul>
     </div>
