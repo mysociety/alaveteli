@@ -40,6 +40,10 @@ tabs.
 <br> <code><a href="#forward_pro_nonbounce_responsed_to">FORWARD_PRO_NONBOUNCE_RESPONSES_TO</a></code>
 <br> <code><a href="#enable_pro_self_serve">ENABLE_PRO_SELF_SERVE</a></code>
 
+Alaveteli Pro adds digest notifications for Pro users to help them manage their
+FOI requests. You must enable the [Notifications Daemon]({{ page.baseurl }}/docs/installing/cron_and_daemons/#generate-notifications-daemon-optional)
+when enabling Alaveteli Pro.
+
 <div class="attention-box">
   Alaveteli Pro enables the interface for Pro users to make
   <a href="{{ page.baseurl }}/docs/running/admin_manual/#batch-requests">batch
