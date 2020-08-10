@@ -538,41 +538,6 @@ Inicie el demonio de tracks de alerta:
 
     service alaveteli-alert-tracks start
 
-### Genere el demonio de purga de Varnish
-
-`config/purge-varnish-debian.example` es un script init similar, que es opcional
-e innecesario si elige no ejecutar su sitio con Varnish (más información a continuación). Notifica a Varnish sobre páginas en caché que necesitan ser purgadas de la caché de Varnish. No funcionará si Varnish no está instalado.
-
-**Variables de la plantilla:**
-
-* `daemon_name`: nombre del demonio, establecido por la tarea rake.
-* `vhost_dir`: ruta completa del directorio destino de Alaveteli.
-  Por ejemplo, si la salida se halla en `/var/www/alaveteli`, indique `/var/www`.
-* `vcspath`: nombre del directorio que contiene el código de Alaveteli.
-  Por ejemplo, `alaveteli`.
-* `site`: cadena de texto que identifica su implementación de Alaveteli.
-* `user`: usuario con el que se ejecuta el software.
-
-Existe una tarea rake que le ayudará a escribir de nuevo este archivo para que le resulte útil. 
-Este ejemplo envía la salida cron al usuario local `alaveteli`. Modifique las variables para adaptarlas a su instalación.
-
-    pushd /var/www/alaveteli
-    bundle exec rake RAILS_ENV=production config_files:convert_init_script \
-      DEPLOY_USER=alaveteli \
-      VHOST_DIR=/var/www \
-      VCSPATH=alaveteli \
-      SITE=alaveteli \
-      SCRIPT_FILE=/var/www/alaveteli/config/purge-varnish-debian.example > /etc/init.d/alaveteli-purge-varnish
-    popd
-
-    chown root:alaveteli /etc/init.d/alaveteli-purge-varnish
-    chmod 754 /etc/init.d/alaveteli-purge-varnish
-
-Inicie el demonio de tracks de alerta:
-
-    service alaveteli-purge-varnish start
-
-
 ## Configure el servidor web
 
 En casi todos los escenarios recomendamos ejecutar la aplicación en Rails de Alaveteli
