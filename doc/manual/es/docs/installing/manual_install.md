@@ -282,15 +282,13 @@ Alaveteli tiene tres archivos principales de configuración:
 
   - `config/database.yml`: configuración de la comunicación entre Alaveteli y la base de datos.
   - `config/general.yml`: ajustes generales de la aplicación de Alaveteli.
-  - `config/newrelic.yml`: configuración del servicio de monitorización de [NewRelic](http://newrelic.com).
 
 Copie los archivos de configuración y actualice sus permisos:
 
     cp /var/www/alaveteli/config/database.yml-example /var/www/alaveteli/config/database.yml
     cp /var/www/alaveteli/config/general.yml-example /var/www/alaveteli/config/general.yml
-    cp /var/www/alaveteli/config/newrelic.yml-example /var/www/alaveteli/config/newrelic.yml
-    chown alaveteli:alaveteli /var/www/alaveteli/config/{database,general,newrelic}.yml
-    chmod 640 /var/www/alaveteli/config/{database,general,newrelic}.yml
+    chown alaveteli:alaveteli /var/www/alaveteli/config/{database,general}.yml
+    chmod 640 /var/www/alaveteli/config/{database,general}.yml
 
 ### database.yml
 
@@ -329,13 +327,6 @@ Los ajustes predeterminados para los ejemplos de páginas frontales están dise�
 los datos de muestra incluidos en Alaveteli; una vez disponga de datos reales, deberá editar estos ajustes.
 
 El tema por defecto es el [tema «Alaveteli»](https://github.com/mysociety/alavetelitheme). Al ejecutar `rails-post-deploy` (consulte la información siguiente), este tema se instala automáticamente.
-
-### newrelic.yml
-
-Este archivo contiene información de configuración para el sistema de gestión
-de mantenimiento de New Relic. La gestión es desactivada por defecto mediante la opción
-`agent_enabled: false`. Consulte las instrucciones de [análisis de rendimiento remoto](https://github.com/newrelic/rpm) de New Relic para activarlo
-para análisis locales y remotos.
 
 ## Implementación
 

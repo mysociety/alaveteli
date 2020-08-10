@@ -253,15 +253,13 @@ Alaveteli has three main configuration files:
 
   - `config/database.yml`: Configures Alaveteli to communicate with the database
   - `config/general.yml`: The general Alaveteli application settings
-  - `config/newrelic.yml`: Configuration for the [NewRelic](http://newrelic.com) monitoring service
 
 Copy the configuration files and update their permissions:
 
     cp /var/www/alaveteli/config/database.yml-example /var/www/alaveteli/config/database.yml
     cp /var/www/alaveteli/config/general.yml-example /var/www/alaveteli/config/general.yml
-    cp /var/www/alaveteli/config/newrelic.yml-example /var/www/alaveteli/config/newrelic.yml
-    chown alaveteli:alaveteli /var/www/alaveteli/config/{database,general,newrelic}.yml
-    chmod 640 /var/www/alaveteli/config/{database,general,newrelic}.yml
+    chown alaveteli:alaveteli /var/www/alaveteli/config/{database,general}.yml
+    chmod 640 /var/www/alaveteli/config/{database,general}.yml
 
 ### database.yml
 
@@ -306,13 +304,6 @@ the dummy data shipped with Alaveteli; once you have real data, you should
 certainly edit these.
 
 The default theme is the ["Alaveteli" theme](https://github.com/mysociety/alavetelitheme). When you run `rails-post-deploy` (see below), that theme gets installed automatically.
-
-### newrelic.yml
-
-This file contains configuration information for the New Relic performance
-management system. By default, monitoring is switched off by the
-`agent_enabled: false` setting. See New Relic's [remote performance analysis](https://github.com/newrelic/rpm) instructions for switching it on
-for both local and remote analysis.
 
 ## Deployment
 

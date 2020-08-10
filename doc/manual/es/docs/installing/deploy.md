@@ -117,7 +117,6 @@ De vuelta en el servidor:
    * `general.yml`
    * `database.yml`
    * `rails_env.rb`
-   * `newrelic.yml`
    * `aliases` &larr; si está utilizando Exim como MTA
 * Si utiliza Exim como MTA, edite el archivo de alias `aliases` que acaba de copiar
   para que la ruta hacia Alaveteli incluya el elemento `current`. Si es, por ejemplo,
