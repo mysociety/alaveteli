@@ -71,7 +71,7 @@ describe AlaveteliMailPoller do
           poller.poll_for_incoming
           notification = ActionMailer::Base.deliveries.first
           expect(notification.subject).
-            to eq('[ERROR] (Net::POPError) "Error code"')
+            to eq('[ERROR]  (Net::POPError) "Error code"')
         end
 
       end
@@ -88,7 +88,7 @@ describe AlaveteliMailPoller do
           poller.poll_for_incoming
           notification = ActionMailer::Base.deliveries.first
           expect(notification.subject).
-            to eq('[ERROR] (Net::POPError) "Error code"')
+            to eq('[ERROR]  (Net::POPError) "Error code"')
         end
 
         context 'if there is already an error for this mail' do
@@ -152,7 +152,7 @@ describe AlaveteliMailPoller do
           poller.poll_for_incoming
           notification = ActionMailer::Base.deliveries.first
           expect(notification.subject).
-            to eq('[ERROR] (ActiveRecord::StatementInvalid) "Deadlock"')
+            to eq('[ERROR]  (ActiveRecord::StatementInvalid) "Deadlock"')
         end
 
         it 'returns false' do
@@ -189,7 +189,7 @@ describe AlaveteliMailPoller do
           poller.poll_for_incoming
           exception_notification = ActionMailer::Base.deliveries.first
           expect(exception_notification.subject).
-            to eq('[ERROR] (Net::POPError) "Error code"')
+            to eq('[ERROR]  (Net::POPError) "Error code"')
         end
 
         it 'returns true' do
@@ -273,7 +273,7 @@ describe AlaveteliMailPoller do
         expect { poller.poll_for_incoming }.to_not raise_error
         notification = ActionMailer::Base.deliveries.first
         expect(notification.subject).
-          to eq('[ERROR] (Timeout::Error) "execution expired"')
+          to eq('[ERROR]  (Timeout::Error) "execution expired"')
       end
 
     end
