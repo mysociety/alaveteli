@@ -486,7 +486,7 @@ describe RequestMailer do
 
     it 'should send normal users a direct link' do
       mail = RequestMailer.new_response(info_request, incoming_message)
-      mail.body.to_s =~ /(http:\/\/.*)/
+      mail.body.to_s =~ /(http:\/\/\S*)/
       mail_url = $1
       expected_url = incoming_message_url(incoming_message, :cachebust => true)
       expect(mail_url).to eq expected_url
