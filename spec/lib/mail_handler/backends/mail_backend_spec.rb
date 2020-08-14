@@ -15,10 +15,52 @@ describe MailHandler::Backends::MailBackend do
 
   describe :mail_from_raw_email do
 
-    it 'returns a new mail instance of the email' do
-      raw_mail = load_file_fixture('raw_emails/1.email')
-      expected = Mail.read_from_string(raw_mail)
-      expect(mail_from_raw_email(raw_mail)).to eq(expected)
+    subject { mail_from_raw_email(raw_email) }
+
+    context 'when passed a binary string' do
+      # Read fixture file using 'rb' mode so we end up with a ASCII-8BIT string
+      let(:raw_email) { load_file_fixture('raw_emails/1.email', 'rb') }
+
+      it 'does not raise error' do
+        expect { subject }.to_not raise_error
+      end
+
+      it 'returns a new mail instance of the email' do
+        is_expected.to eq Mail.read_from_string(raw_email)
+      end
+    end
+
+    context 'when passed an UTF-8 string' do
+      let(:raw_email) do
+        # Read fixture file using 'r' mode so we end up with a UTF-8 string
+        load_file_fixture('iso8859_1_with_extended_character_set.email', 'r')
+      end
+
+      it 'does not raise error' do
+        expect { subject }.to_not raise_error
+      end
+
+      it 'returns a new mail with binary body' do
+        expect(subject.body.to_s).to eq(
+          "Information Governance\xA0Unit".force_encoding(Encoding::BINARY)
+        )
+      end
+    end
+
+    context 'when passed a mail' do
+      let(:raw_email) do
+        Mail.new(
+          load_file_fixture('incoming-request-attach-attachments.email')
+        ).body
+      end
+
+      it 'does not raise error' do
+        expect { subject }.to_not raise_error
+      end
+
+      it 'returns a new mail instance of the email' do
+        is_expected.to eq Mail.read_from_string(raw_email)
+      end
     end
 
   end
