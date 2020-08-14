@@ -93,6 +93,7 @@ manually, you need to
 The other install methods will do this for you.
 
 * [Installing the MTA]({{ page.baseurl }}/docs/installing/email/)
+* [Configure Cron jobs and Daemons]({{ page.baseurl }}/docs/installing/cron_and_daemons/)
 
 ## Deployment
 
