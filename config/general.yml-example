@@ -231,7 +231,7 @@ WORKING_OR_CALENDAR_DAYS: working
 # set to 'authority_only'. After RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS
 # * 4, allow_new_responses_from is set to 'nobody'.
 #
-# WORKING_OR_CALENDAR_DAYS - Integer (default: 6)
+# RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS - Integer (default: 6)
 #
 # Examples:
 #
