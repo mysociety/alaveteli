@@ -380,8 +380,8 @@ class UserController < ApplicationController
   end
 
   def normalize_url_name
-    unless MySociety::Format.simplify_url_part(params[:url_name], 'user') == params[:url_name]
-      redirect_to :url_name => MySociety::Format.simplify_url_part(params[:url_name], 'user'), :status => :moved_permanently
+    unless Alaveteli::Format.simplify_url_part(params[:url_name], 'user') == params[:url_name]
+      redirect_to :url_name => Alaveteli::Format.simplify_url_part(params[:url_name], 'user'), :status => :moved_permanently
     end
   end
 

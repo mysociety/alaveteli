@@ -35,7 +35,7 @@ module InfoRequest::Sluggable
   def update_url_title
     return unless title
 
-    url_title = MySociety::Format.simplify_url_part(title, 'request', 32)
+    url_title = Alaveteli::Format.simplify_url_part(title, 'request', 32)
     suffix = suffix_number(url_title)
     unique_url_title = suffix ? "#{url_title}_#{suffix}" : url_title
 
