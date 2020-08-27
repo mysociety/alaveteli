@@ -21,8 +21,8 @@ class PublicBodyController < ApplicationController
       raise ActiveRecord::RecordNotFound.new("Sorry. No pages after #{MAX_RESULTS / requests_per_page}.")
     end
 
-    if MySociety::Format.simplify_url_part(params[:url_name], 'body') != params[:url_name]
-      redirect_to :url_name => MySociety::Format.simplify_url_part(params[:url_name], 'body'), :status => :moved_permanently
+    if Alaveteli::Format.simplify_url_part(params[:url_name], 'body') != params[:url_name]
+      redirect_to :url_name => Alaveteli::Format.simplify_url_part(params[:url_name], 'body'), :status => :moved_permanently
       return
     end
 

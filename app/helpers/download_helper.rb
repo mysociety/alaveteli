@@ -3,7 +3,7 @@
 #
 module DownloadHelper
   def generate_download_filename(resource:, id:, title:, type: nil, ext:)
-    url_title = MySociety::Format.simplify_url_part(
+    url_title = Alaveteli::Format.simplify_url_part(
       title, resource, 32
     )
     url_title += "-#{type}" if type

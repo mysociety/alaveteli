@@ -766,7 +766,7 @@ class InfoRequest < ApplicationRecord
       if external_user_name.nil?
         fake_slug = "anonymous"
       else
-        fake_slug = MySociety::Format.simplify_url_part(external_user_name, 'external_user', 32)
+        fake_slug = Alaveteli::Format.simplify_url_part(external_user_name, 'external_user', 32)
       end
       (public_body.url_name || "") + "_" + fake_slug
     else

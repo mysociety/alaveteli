@@ -31,7 +31,7 @@ namespace :import do
     reader.each do |row_array|
       row = Hash[headers.zip row_array]
       name = row['name']
-      url_part = MySociety::Format.simplify_url_part(name, 'body')
+      url_part = Alaveteli::Format.simplify_url_part(name, 'body')
       name_count[name] += 1
       url_part_count[url_part] += 1
       number_of_rows += 1
