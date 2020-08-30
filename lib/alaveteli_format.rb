@@ -1,4 +1,3 @@
-require 'unicode'
 require 'unidecoder'
 
 module Alaveteli
@@ -6,7 +5,7 @@ module Alaveteli
     # Simplified a name to something usable in a URL
     def self.simplify_url_part(text, default_name, max_len = nil)
       text = text.downcase # this also clones the string, if we use downcase! we modify the original
-      text = Unicode.normalize_KD(text)
+      text = text.unicode_normalize(:nfkd)
       text = text.to_ascii.downcase
 
       text.gsub!(/(\s|-|_)/, "_")
