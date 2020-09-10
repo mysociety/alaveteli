@@ -143,7 +143,6 @@ gem 'gettext', '< 3.3.0'
 gem 'globalize', rails_upgrade? ? '~> 5.3.0' : '~> 5.2.0'
 gem 'locale', '~> 2.1.3'
 gem 'routing-filter', '~> 0.6.2'
-gem 'unicode', '~> 0.4.4'
 gem 'unidecoder', '~> 1.1.0'
 gem 'money', '~> 6.13.8'
 
