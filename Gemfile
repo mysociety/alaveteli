@@ -85,6 +85,7 @@ def rails_upgrade?
 end
 
 gem 'rails', rails_upgrade? ? '~> 6.0.3' : '~> 5.2.4'
+  gem 'nio4r', rails_upgrade? ? nil : '< 2.5.3'
 
 gem 'pg', '~> 1.2.3'
 
