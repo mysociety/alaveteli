@@ -23,14 +23,15 @@
             embargo_extend_from: embargo_extend_from(info_request.embargo)) %>
     </p>
   <% end %>
-    <% if can?(:destroy, info_request.embargo) %>
-      <%= button_to _("Publish request"),
-                    alaveteli_pro_embargo_path(info_request.embargo),
-                    method: :delete,
-                    data: {
-                      confirm: _("Are you sure you want to publish " \
-                                 "this request?") } %>
-    <% end %>
+
+  <% if can?(:destroy, info_request.embargo) %>
+    <%= button_to _("Publish request"),
+                  alaveteli_pro_embargo_path(info_request.embargo),
+                  method: :delete,
+                  data: {
+                    confirm: _("Are you sure you want to publish " \
+                               "this request?") } %>
+  <% end %>
   </div>
 </div>
 <% end %>

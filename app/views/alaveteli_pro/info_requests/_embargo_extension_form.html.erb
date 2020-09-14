@@ -2,17 +2,16 @@
              html: { class: 'js-embargo-form' }) do |f| %>
   <%= f.hidden_field :embargo_id, value: embargo.id %>
 
-    <p>
+  <p>
+    <%= f.label :extension_duration, class: 'form_label' do %>
+      <%= _('Keep private for a further:') %>
+    <% end %>
 
-      <%= f.label :extension_duration, class: 'form_label' do %>
-        <%= _('Keep private for a further:') %>
-      <% end %>
+    <%= f.select :extension_duration,
+                 options_for_select(embargo_extension_options(embargo)),
+                 {},
+                 class: 'js-embargo-duration' %>
 
-      <%= f.select :extension_duration,
-                   options_for_select(embargo_extension_options(embargo)),
-                   {},
-                   class: 'js-embargo-duration' %>
-
-      <%= f.submit _('Update'), class: 'embargo__submit js-embargo-submit' %>
-    </p>
+    <%= f.submit _('Update'), class: 'embargo__submit js-embargo-submit' %>
+  </p>
 <% end %>
