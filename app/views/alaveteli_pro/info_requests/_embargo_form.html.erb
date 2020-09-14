@@ -13,16 +13,10 @@
   <% if can?(:update, info_request.embargo) %>
     <%= render partial: 'alaveteli_pro/info_requests/embargo_extension_form',
                locals: { embargo: info_request.embargo } %>
-    <%= button_to _("Publish request"),
-                  alaveteli_pro_embargo_path(info_request.embargo),
-                  method: :delete,
-                  data: {
-                    confirm: _("Are you sure you want to publish " \
-                               "this request?") } %>
   <% elsif can?(:create_embargo, info_request) %>
     <%= render partial: "alaveteli_pro/info_requests/embargo_create_form",
                locals: {info_request: info_request} %>
-  <% else %>
+  <% end %>
     <% if can?(:destroy, info_request.embargo) %>
       <%= button_to _("Publish request"),
                     alaveteli_pro_embargo_path(info_request.embargo),
@@ -31,7 +25,6 @@
                       confirm: _("Are you sure you want to publish " \
                                  "this request?") } %>
     <% end %>
-  <% end %>
   </div>
 </div>
 <% end %>
