@@ -101,7 +101,7 @@ class Ability
 
       # Extending embargoes
       can :update, AlaveteliPro::Embargo do |embargo|
-        user && (
+        embargo && user && (
           user.is_pro_admin? || (
             user == embargo.info_request.user &&
             user.is_pro?
@@ -111,7 +111,7 @@ class Ability
 
       # Removing embargoes
       can :destroy, AlaveteliPro::Embargo do |embargo|
-        user && (
+        embargo && user && (
           user == embargo.info_request.user || user.is_pro_admin?
         )
       end
