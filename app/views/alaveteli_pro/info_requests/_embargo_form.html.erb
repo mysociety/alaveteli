@@ -16,6 +16,12 @@
   <% elsif can?(:create_embargo, info_request) %>
     <%= render partial: "alaveteli_pro/info_requests/embargo_create_form",
                locals: {info_request: info_request} %>
+  <% else %>
+    <p>
+      <%= _('You will be able to extend this privacy period from ' \
+            '{{embargo_extend_from}}.',
+            embargo_extend_from: embargo_extend_from(info_request.embargo)) %>
+    </p>
   <% end %>
     <% if can?(:destroy, info_request.embargo) %>
       <%= button_to _("Publish request"),
