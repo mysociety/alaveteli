@@ -92,7 +92,7 @@ gem 'pg', '~> 1.2.3'
 # New gem releases aren't being done. master is newer and supports Rails > 3.0
 gem 'acts_as_versioned', :git => 'https://github.com/technoweenie/acts_as_versioned.git', :ref => '63b1fc8529d028'
 gem 'active_model_otp'
-gem 'bcrypt', '~> 3.1.15'
+gem 'bcrypt', '~> 3.1.16'
 gem 'cancancan', '~> 3.1.0'
 gem 'charlock_holmes', '~> 0.7.7'
 gem 'dalli', '~> 2.7.0'
