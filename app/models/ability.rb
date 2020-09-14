@@ -101,8 +101,9 @@ class Ability
 
       # Extending embargoes
       can :update, AlaveteliPro::Embargo do |embargo|
-        embargo && user && embargo.expiring_soon? && (
+        embargo && user && (
           user.is_pro_admin? || (
+            embargo.expiring_soon? &&
             user == embargo.info_request.user &&
             user.is_pro?
           )
