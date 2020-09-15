@@ -77,9 +77,13 @@ enough information to get started. If this applies to you, please add to the
 documentation!
 
 On a live server, you should also consider the following, to increase the
-deliverability of your email:
+deliverability of your email, particularly if you are using the batch request feature
+that might generate higher than usual volumes:
 
-* Set up [SPF records](http://www.openspf.org/) for your domain
+* Set up [SPF records](http://www.open-spf.org/) for your domain
+* [DKIM sign](http://dkim.org/) messages
+* Set up [DMARC](https://dmarc.org/)
+* Consider the source IP and ensure that it isn't being used for lots of other things that might cloud your reputation - eg relaying through a service can cause problems
 * Set up <a
   href="http://wiki.asrg.sp.am/wiki/Feedback_loop_links_for_some_email_providers">feedback loops</a> with the main email providers
   (Hotmail and Yahoo! are recommended)
