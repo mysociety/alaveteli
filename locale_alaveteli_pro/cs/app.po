@@ -376,7 +376,7 @@ msgid "Estimated total number of Pro requests:"
 msgstr "Odhadovaný celkový počet žádostí Pro:"
 
 msgid "Everything you need to keep on top of complex FOI-driven stories."
-msgstr ""
+msgstr "Vše, co potřebujete k tomu, abyste si udrželi přehled v komplikovaných kauzách rozplétaných pomocí infozákona"
 
 msgid "Expand all correspondence"
 msgstr "Rozbal všechnu korespondenci"
@@ -385,55 +385,55 @@ msgid "Expires soon"
 msgstr "Brzy vyprší"
 
 msgid "FOI Management Tools for journalists, campaigners and researchers"
-msgstr ""
+msgstr "Nástroje na řízení dotazování podle infozákona, pro novináře, aktivisty a analytiky"
 
 msgid "FOI Management for Campaigners"
-msgstr ""
+msgstr "Řízení dotazování podle infozákona pro aktivisty"
 
 msgid "FOI Management for Journalists"
-msgstr ""
+msgstr "Rízení dotazování podle infozákona pro novináře"
 
 msgid "FOI Management for Researchers"
-msgstr ""
+msgstr "Rízení dotazování podle infozákona pro analytiky"
 
 msgid "FOI address book"
-msgstr ""
+msgstr "Adresář pro dotazování pomocí infozákona"
 
 msgid "FOI for campaigners"
-msgstr ""
+msgstr "Infozákon pro aktivisty"
 
 msgid "FOI for journalists"
-msgstr ""
+msgstr "Infozákon pro novináře"
 
 msgid "FOI for researchers"
-msgstr ""
+msgstr "Infozákon pro analytiky"
 
 msgid "FOI is an invaluable tool for researchers, helping you collect information that hasn’t previously been available as a single dataset, and understand the wider picture. Pro takes the slog out of sending multiple requests with the Batch feature: easily pick the authorities you want, then send one request to all of them."
-msgstr ""
+msgstr "Zákon o svobodném přístupu k informacím je neocenitelným nástrojem pro analytiky. Pomůže vám se sběrem informace, které dříve nebyly k dispozici v jediném datasetu, díky tomu si můžete udělat širší obrázek o zkoumané problematice. PRO vám výrazně ulehčí odesílání většího množství požadavků pomocí funkce Dávka: snadno si vyberte požadované instituce a poté pošlete jednu žádost všem."
 
 msgid "FOI is an invaluable tool in campaigns, helping you collect information that hasn’t previously been available as a single dataset so that you and your supporters can understand the wider picture. Pro takes the slog out of sending multiple requests with the Batch feature: easily pick the authorities you want, then send one request to all of them."
-msgstr ""
+msgstr "Zákon o svobodném přístupu k informacím je neocenitelným nástrojem pro aktivisty. Pomůže vám se sběrem informací, které dříve nebyly k dispozici v jediném datasetu. Díky tomu si můžete udělat širší obrázek o zkoumané problematice. PRO vám výrazně ulehčí odesílání většího množství požadavků pomocí funkce Dávka: snadno si vyberte požadované instituce a poté pošlete jednu žádost všem."
 
 msgid "FOI is an invaluable tool in investigations, helping you collect information that hasn’t previously been available as a single dataset so that you and your readers can understand the wider picture. Pro takes the slog out of sending multiple requests with the Batch feature: easily pick the authorities you want, then send one request to all of them."
-msgstr ""
+msgstr "Zákon o svobodném přístupu k informacím je neocenitelným nástrojem pro obsáhlé zjišťování. Pomůže vám se sběrem informací, které dříve nebyly k dispozici v jediném datasetu. Díky tomu si můžete udělat širší obrázek o zkoumané problematice. PRO vám výrazně ulehčí odesílání většího množství požadavků pomocí funkce Dávka: snadno si vyberte požadované instituce a poté pošlete jednu žádost všem."
 
 msgid "Featuring"
-msgstr ""
+msgstr "Představovat"
 
 msgid "Find out how {{pro_site_name}} can take the hard work out of FOI investigations"
-msgstr ""
+msgstr "Zjistěte jak vám {{pro_site_name}} pomůže ulehčit zjišťování informací podle infozákona"
 
 msgid "Finding it hard to keep on top of your FOI requests?"
-msgstr ""
+msgstr "Je pro vás těžké efektivně spravovat své dotazy využívající infozákona? "
 
 msgid "First created"
 msgstr "Datum vytvoření"
 
 msgid "For journalists, academics and power users"
-msgstr ""
+msgstr "Pro novináře, akademiky a pokročilé uživatele"
 
 msgid "Friendly support"
-msgstr ""
+msgstr "Přátelská podpora"
 
 msgid "From this screen you can get a helpful overview of your requests, and use quick actions to keep them up to date. Why not start your first one now?"
 msgstr "Tato stránka vám poskytne užitečný přehled vašich dotazů a pomůže vám vše pohlídat pomocí šikovných nástrojů. Co takhle vznést první dotaz?"
@@ -448,13 +448,13 @@ msgid "Get email updates about {{pro_site_name}}?"
 msgstr ""
 
 msgid "Get in touch"
-msgstr ""
+msgstr "Kontaktujte nás"
 
 msgid "Get started with your first request"
 msgstr "Vzneste svůj první dotaz"
 
 msgid "Got questions?"
-msgstr ""
+msgstr "Máte otázky?"
 
 msgid "Hard to keep track of your many requests?"
 msgstr ""
@@ -466,16 +466,16 @@ msgid "Helping startups find the best location for their business"
 msgstr ""
 
 msgid "How campaigners are using Pro"
-msgstr ""
+msgstr "Jak aktivisté používají PRO"
 
 msgid "How it works"
-msgstr ""
+msgstr "Jak to funguje"
 
 msgid "How journalists are using Pro"
-msgstr ""
+msgstr "Jak novináři používají PRO"
 
 msgid "How researchers are using Pro"
-msgstr ""
+msgstr "Jak analytici používají PRO"
 
 msgid "I have read and accepted these terms and conditions"
 msgstr ""
@@ -496,10 +496,10 @@ msgid "Image credits:"
 msgstr ""
 
 msgid "Important info about requests to this authority"
-msgstr ""
+msgstr "Důležité informace o dotazu pro tuto instituci"
 
 msgid "Introductory Pricing"
-msgstr ""
+msgstr "Zaváděcí ceny"
 
 msgid "Investigating asbestos use in shcools"
 msgstr ""
@@ -508,19 +508,19 @@ msgid "Investigative journalist Jenna Corderoy has made good use of Pro’s priv
 msgstr ""
 
 msgid "I’m a campaigner"
-msgstr ""
+msgstr "Jsem aktivista"
 
 msgid "I’m a journalist"
-msgstr ""
+msgstr "Jsem novínář"
 
 msgid "I’m a researcher"
-msgstr ""
+msgstr "Jsem analytik"
 
 msgid "Join {{pro_site_name}}"
 msgstr ""
 
 msgid "Journalists"
-msgstr ""
+msgstr "Novináři"
 
 msgid "Keep <strong class=\"marketing-highlight\">requests and responses private</strong> while you work on your story"
 msgstr ""
@@ -643,10 +643,10 @@ msgid "Number of expired embargoes this week:"
 msgstr ""
 
 msgid "Number of free trial users:"
-msgstr ""
+msgstr "Počet uživatelů zkušební verze zdarma:"
 
 msgid "Number of paying users:"
-msgstr ""
+msgstr "Počet platících uživatelů:"
 
 msgid "Once the privacy period ends, everything that you enter on this page, including <strong>your name</strong>, will be <strong><a href=\"{{url}}\">displayed publicly</a></strong> on this website."
 msgstr ""
@@ -670,19 +670,19 @@ msgid "Once you’re ready, publishing the data behind your investigation lends 
 msgstr ""
 
 msgid "Overflowing inbox?"
-msgstr ""
+msgstr "Přetékající doručená pošta?"
 
 msgid "Payments past due:"
 msgstr ""
 
 msgid "Pending"
-msgstr ""
+msgstr "Čekající"
 
 msgid "Pending cancellations:"
-msgstr ""
+msgstr "Čekající na zrušení:"
 
 msgid "Plans and pricing"
-msgstr ""
+msgstr "Plány a ceny"
 
 msgid "Please enter the reason why you want access"
 msgstr ""
@@ -748,10 +748,10 @@ msgid "Pro gives you all of the ease of {{site_name}}, without the worry of rele
 msgstr ""
 
 msgid "Professional"
-msgstr ""
+msgstr "Profesionální"
 
 msgid "Profile"
-msgstr ""
+msgstr "Profil"
 
 msgid "Provide extra context on the request and your reasons for making it."
 msgstr "Doplňte více informací o tomto dotazu a vysvětlete důvody, které vás vedly k jeho vznesení. "
@@ -766,7 +766,7 @@ msgid "Publish request"
 msgstr "Uveřejněte dotaz"
 
 msgid "Publish requests"
-msgstr ""
+msgstr "Publikujte dotazy veřejně"
 
 msgid "Publish this request or keep it private for longer."
 msgid_plural "Publish these requests or keep them private for longer."
@@ -779,7 +779,7 @@ msgid "Read blog"
 msgstr "Čtěte blog"
 
 msgid "Ready to go public"
-msgstr ""
+msgstr "Připraveno k veřejnému publikování "
 
 msgid "Refer a friend"
 msgstr ""
@@ -791,13 +791,13 @@ msgid "Remember, public authorities have {{late_number_of_days}} working days to
 msgstr "Pamatujte, že instituce mají na odpověď {{late_number_of_days}} dnů. "
 
 msgid "Reminders"
-msgstr ""
+msgstr "Připomínky"
 
 msgid "Remove"
-msgstr ""
+msgstr "Odstranit"
 
 msgid "Replies"
-msgstr ""
+msgstr "Odpovědi"
 
 msgid "Request access to {{pro_site_name}}"
 msgstr ""
