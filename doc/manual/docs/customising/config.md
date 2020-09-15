@@ -990,20 +990,27 @@ href="#smtp_mailer_enable_starttls_auto">SMTP_MAILER_ENABLE_STARTTLS_AUTO</a>.
           Introduced in Alaveteli 0.30.0.0
         </p>
       </div>
-      What retrieval method is being
-      used for incoming emails in production? The default value is
-      <code>passive</code> - incoming emails must be piped into the
+      <p>What retrieval method is being used for incoming emails in production?</p>
+      <p>
+      The default value is <code>passive</code> - incoming emails must be piped into the
       application via the <code>mailin</code> script. There is
       experimental support for polling a <code>POP3</code> server for messages,
       if <code>PRODUCTION_MAILER_RETRIEVER_METHOD</code> is set to <code>pop</code>.
-      If you want to use an external POP3 server to receive email, then you will
-      also need to include POP configuration settings:
+      </p>
+      <p>For some guidance on considerations and setup for running a POP
+      service, see <a href="{{ page.baseurl }}/docs/installing/email#how-alaveteli-handles-email">
+      how Alaveteli handles email</a>.
+      </p>
+      <p>
+      If you want to use an external POP3 server to receive email, then you
+      will also need to include POP configuration settings:
 
       <a href="#pop_mailer_address">POP_MAILER_ADDRESS</a>,
       <a href="#pop_mailer_port">POP_MAILER_PORT</a>,
       <a href="#pop_mailer_user_name">POP_MAILER_USER_NAME</a>,
       <a href="#pop_mailer_password">POP_MAILER_PASSWORD</a> and
       <a href="#pop_mailer_enable_ssl">POP_MAILER_ENABLE_SSL</a>.
+      </p>
 
     <div class="more-info">
       <p>Example:</p>

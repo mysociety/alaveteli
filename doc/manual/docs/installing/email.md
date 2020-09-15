@@ -18,12 +18,18 @@ title: Installing MTA
 When someone makes a Freedom of Information request to an authority through
 Alaveteli, the application sends an email containing the request to the authority.
 
-The email's `reply-to` address is a special one so that any replies to it
+The email's `reply-to` address is a special one (known as a
+"[subaddress](https://tools.ietf.org/html/rfc5233)") so that any replies to it
 can be automatically directed back to Alaveteli, and so that Alaveteli
 can tell which request the reply needs to be shown with. This requires
-some configuration of the MTA on the server that is running Alaveteli,
-so that it will pipe all emails to these special addresses to Alaveteli
-to handle, via its `script/mailin` script. The special addresses are of
+some configuration of the MTA on the server that is running Alaveteli.
+
+The default approach is to pipe all emails to these special addresses to Alaveteli
+to handle, via its `script/mailin` script. Email can also be
+delivered to a mailbox accessible over POP and then fetched by the Mail Poller -
+this is usually used alongside the pipe script method for users sending batch requests.
+
+The special addresses are of
 the form:
 
     <foi+request-3-691c8388@example.com>
@@ -72,8 +78,37 @@ See the MTA-specific instructions for how to do this for [exim]({{ page.baseurl 
 
 _Note:_ Bounce handling is not applied to [request emails]({{ page.baseurl }}/docs/installing/email#request-mail). Bounce messages from authorities get added to the request page so that the user can see what has happened. Users can ask site admins for help redelivering the request if necessary.
 
+### Using a POP server
+
+You can use an email address that delivers to a POP service, either hosted by a third party or you could run one yourself using software like [Dovecot](https://www.dovecot.org/). There are many options available.
+
+There are a range of configuration options that can be used to configure connectivity to the POP service:
+```
+PRODUCTION_MAILER_RETRIEVER_METHOD: "pop"
+POP_MAILER_ADDRESS: 'my.pop-service.com'
+POP_MAILER_PORT: 995
+POP_MAILER_USER_NAME: 'foi'
+POP_MAILER_PASSWORD: 'supersecretpassword'
+POP_MAILER_ENABLE_SSL: true
+```
+You will need to ensure that request emails are delivered to the POP service as well as the pipe script.
+
+This could be directly, although the service will need to support special
+addresses via subaddressing as outlined above.
+
+Alternatively, you can still use your own MTA and configure that to
+copy email to a local user with a POP mailbox. We have provided some suggestions on how to achieve this below.
+
+#### POP Server Configuration 
+You may decide to run your own POP server. If you do, consider the following:
+* Use Maildir rather than mbox format for the mailboxes. This avoids file locking race conditions between the POP server itself and the MTA delivering new mail.
+* For security, restrict access to the POP server to the server hosting your Alaveteli. You could install the POP service on the same host and limit access to localhost connections.
+* If you are running a local POP server on the same host as the Alaveteli installation, the default settings are likely to be close to what you need.
+* If you are running the POP server on a separate host, ensure you are using TLS.
+* Even with restricted access to the POP server, be aware that if you are using local UNIX users ensure that these users have strong passwords and cannot access the server on other channels, such as SSH.
 
 ---
+## Configuration Examples
 
 <div class="attention-box">
  <ul>
@@ -155,26 +190,35 @@ at the start of this section):
 
 The `@example.com` domain should be set to your actual domain.
 
-#### Backup request mail
+#### Copying request mail to a POP box and a backup user
+
+This section outlines one possible method for sending on copies of request mail to either or both a POP mailbox and a backup user.
+
+First, add the following line to `/etc/postfix/main.cf`
+
+    recipient_bcc_maps = regexp:/etc/postfix/recipient_bcc
+
+Second, configure mail sent to an `foi+` prefixed address to be sent to a local redirect user. The `foiredirect` alias will be defined in the `/etc/aliases` file when we set up recipient groups [below](#set-up-contact-email-recipient-groups):
+
+    cat > /etc/postfix/recipient_bcc <<EOF
+    /^foi\+.*@example.com$/                foiredirect
+    EOF
+
+Again, the `@example.com` domain should be set to your actual domain.
 
 You can copy all incoming mail to Alaveteli to a backup account to a separate mailbox, just in case.
 
 Create a UNIX user `backupfoi`
 
-    adduser --quiet --disabled-password \
+    adduser --quiet --disabled-password --shell "/usr/sbin/nologin" \
       --gecos "Alaveteli Mail Backup" backupfoi
 
-Add the following line to `/etc/postfix/main.cf`
+If you are running the POP server on the same host as your installation, you may need a dedicated UNIX user to send the email to. Similar to the backup user, this can be created as follows, but may need a password:
 
-    recipient_bcc_maps = regexp:/etc/postfix/recipient_bcc
+    adduser --quiet --shell "/usr/sbin/nologin" \
+      --gecos "Alaveteli POP User" popfoi
 
-Configure mail sent to an `foi+` prefixed address to be sent to the backup user:
-
-    cat > /etc/postfix/recipient_bcc <<EOF
-    /^foi\+.*@example.com$/                backupfoi
-    EOF
-
-Again, the `@example.com` domain should be set to your actual domain.
+Or just make a note of the email address to be used if different.
 
 #### Define the valid recipients for your domain
 
@@ -197,12 +241,17 @@ The `@example.com` domain is set in the `mydestination` as above. This should be
 
 #### Set up contact email recipient groups
 
-To set up recipient groups for the `postmaster@`, `team@` and `user-support@` email addresses at your domain, add alias records for them in `/etc/aliases`:
+To set up recipient groups for the `postmaster@`, `team@` and `user-support@` email addresses at your domain, add alias records for them in `/etc/aliases`; this also contains the alias used for the POP and Backup users:
 
     cat >> /etc/aliases <<EOF
     team: user@example.com, otheruser@example.com
     user-support: team
+    foiredirect: popfoi, backupfoi
     EOF
+
+Note that if you are using an external POP service you should use the full email address, for example:
+
+    foiredirect: user@popbox.example.com, backupfoi
 
 #### Discard unwanted incoming email
 
@@ -412,12 +461,17 @@ and add the alaveteli user:
 
 In this section, we'll add config to pipe incoming mail for special
 Alaveteli addresses into Alaveteli, and also send them to a local backup
-mailbox.
+mailbox and possibly a POP mailbox.
 
 Create the `backupfoi` UNIX user
 
     adduser --quiet --disabled-password \
       --gecos "Alaveteli Mail Backup" backupfoi
+
+If using a local POP mailbox, ensure the UNIX user is created
+
+    adduser --quiet --shell "/usr/sbin/nologin" \
+      --gecos "Alaveteli POP User" popfoi
 
 Specify an exim `router` for special Alaveteli addresses, which will route messages into Alaveteli using a local pipe transport:
 
@@ -446,13 +500,19 @@ Create `/etc/exim4/conf.d/transport/04_alaveteli`, which sets the properties of 
   This guide assumes you have set <a href="/docs/customising/config/#incoming_email_prefix"><code>INCOMING_EMAIL_PREFIX</code></a> to <code>foi+</code> in <code>config/general.yml</code>
 </div>
 
-Create the `config/aliases` file that the `alaveteli_request` exim `router` sources. This pipes mail from the special address to `script/mailin` and the `backupfoi` user.
+Create the `config/aliases` file that the `alaveteli_request` exim `router` sources. This pipes mail from the special address to `script/mailin`, the `backupfoi` user and the POP user:
 
     cat > /var/www/alaveteli/config/aliases <<'EOF'
-    ^foi\\+.*: "|/var/www/alaveteli/script/mailin", backupfoi
+    ^foi\\+.*: "|/var/www/alaveteli/script/mailin", backupfoi, popfoi
     EOF
 
 _Note:_ Replace `/var/www/alaveteli` with the correct path to Alaveteli if required.
+
+_Note:_ If you are using an external POP service you should use the full email address, for example:
+
+    cat > /var/www/alaveteli/config/aliases <<'EOF'
+    ^foi\\+.*: "|/var/www/alaveteli/script/mailin", backupfoi, user@popbox.example.com
+    EOF
 
 #### Set up your contact email recipient groups
 
