@@ -23,16 +23,18 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Finnur Magnusson <gommit@gmail.com>, 2015
 # Liz Conlan <liz@mysociety.org>, 2018
 # Ölvir Gíslason <olvirg@gmail.com>, 2016
+# Páll Hilmarsson <pallih@kaninka.net>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-16 16:34+0100\n"
-"PO-Revision-Date: 2020-08-05 08:31+0000\n"
-"Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
+"PO-Revision-Date: 2020-08-09 14:30+0000\n"
+"Last-Translator: Páll Hilmarsson <pallih@kaninka.net>\n"
 "Language-Team: Icelandic (http://www.transifex.com/mysociety/alaveteli/languag"
 "e/is/)\n"
 "MIME-Version: 1.0\n"
@@ -2550,7 +2552,7 @@ msgid "Please type a message and/or choose a file containing your response."
 msgstr "Sláðu inn skilaboð og/eða veldu skrá með svarinu þínu."
 
 msgid "Please update the status of your request"
-msgstr ""
+msgstr "Vinsamlegast uppfærðu stöðu upplýsingabeiðninnar þinnar"
 
 msgid "Please use this email address for all replies to this request:"
 msgstr "Vinsamlegast notaðu þetta netfang fyrir öll svör við þessari beiðni:"
@@ -3772,7 +3774,7 @@ msgid "To leave this project"
 msgstr ""
 
 msgid "To let everyone know, follow this link and then select the appropriate box."
-msgstr "Fylgdu þessum tengli og hakaðu við viðeigandi reit til að láta alla vita."
+msgstr "Fylgdu þessum tengli og hakaðu við viðeigandi reit."
 
 msgid "To log into the administrative interface"
 msgstr "Til að skrá þig inn í stjórnborðið"
@@ -4533,7 +4535,7 @@ msgid "Your request to update the address for {{public_body_name}} has been sent
 msgstr "Beiðni þín um að uppfæra netfangið fyrir {{public_body_name}} var send. akk fyrir að hafa samband! Við heyrum í þér fljótlega."
 
 msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
-msgstr "Beiðnin þín var nefnd {{info_request}}. Ef þú lætur vita hvort þú fékkst upplýsingarnar hjálpar það okkur að fylgjast með gangi mála"
+msgstr "Beiðnin þín var nefnd {{info_request}}. Ef þú lætur vita hvort þú fékkst upplýsingarnar, eða ekki, hjálpar okkur að fylgjast með gangi mála hjá "
 
 msgid "Your requests will be <strong>sent</strong> shortly!"
 msgstr "Upplýsingabeiðnin þín verður <strong>send</strong> fljótlega!"

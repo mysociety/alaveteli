@@ -9,6 +9,7 @@
 # a270031086f2a0d3514bc0cb507b48f6, 2019
 # pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2019
 # Pascal Romain <aka.keronos@gmail.com>, 2020
+# Laurent S, 2020
 #
 msgid ""
 msgstr ""
@@ -16,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-16 16:34+0100\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: Pascal Romain <aka.keronos@gmail.com>, 2020\n"
+"Last-Translator: Laurent S, 2020\n"
 "Language-Team: French (France) (https://www.transifex.com/mysociety/teams/3352"
 "9/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -36,8 +37,8 @@ msgstr "'Liste des logements potentiellement indignes par commune de France'"
 
 msgid "(includes {{count}} returning subscriber)"
 msgid_plural "(includes {{count}} returning subscribers)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "(incluant [[count]] anciens souscripteurs)"
+msgstr[1] "(incluant {{count}} anciens souscripteurs)"
 
 msgid "(no title)"
 msgstr "(sans titre)"
@@ -49,10 +50,10 @@ msgid "12 Months"
 msgstr "12 mois"
 
 msgid "29 April 2019"
-msgstr ""
+msgstr "29 avril 2019"
 
 msgid "3 July 2017"
-msgstr ""
+msgstr "3 juillet 2017"
 
 msgid "3 Months"
 msgstr "3 mois"
@@ -61,61 +62,61 @@ msgid "6 Months"
 msgstr "6 mois"
 
 msgid "<a href=\"{{story_url}}\">Sold From Under You</a> — the Bureau of investigative Journalism used Pro to send requests to councils up and down the county to build a nationwide picture of the public properties being sold off by councils in the face of austerity."
-msgstr ""
+msgstr "<a href=\"{{story_url}}\">Sold From Under You</a> — en Angleterre le bureau du journalisme d'investigation a utilisé les fonctionnalités avancées pour envoyer des requêtes aux autorités locales dans tous le pays afin de construire une vision nationale des propriétés publiques vendues par les autorités locales pour faire face à l'austérité. "
 
 msgid "<span class=\"current-page\">{{current_page}}</span> of <span class=\"total-pages\">{{total_pages}}</span>"
 msgstr "<span class=\"current-page\">{{current_page}}</span> de <span class=\"total-pages\">{{total_pages}}</span>"
 
 msgid "<span class=\"price-label__amount\">{{monthly_price}}</span> per user, per month"
-msgstr ""
+msgstr "<span class=\"price-label__amount\">{{monthly_price}}</span> par utilisateur.rice, par mois"
 
 msgid "<span class=\"price-label__amount\">{{yearly_price}}</span> per user, per year"
-msgstr ""
+msgstr "<span class=\"price-label__amount\">{{yearly_price}}</span> par utilisateur.rice, par an."
 
 msgid "<strong class=\"marketing-highlight\">Action alerts</strong>: know when it’s time to take the next step"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">Action alerts</strong>: être informé quand une action est requise de votre part"
 
 msgid "<strong class=\"marketing-highlight\">Daily summary emails</strong> to keep your inbox clean"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">Daily summary emails</strong> afin de garder votre boîte email propre"
 
 msgid "<strong class=\"marketing-highlight\">Delivery verification</strong> for proof of receipt"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">vérification de livraison</strong> comme accusé de réception"
 
 msgid "<strong class=\"marketing-highlight\">Delivery verification</strong> for proof of receipt</strong>"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">vérification de livraison</strong> comme accusé de répcetion</strong>"
 
 msgid "<strong class=\"marketing-highlight\">Get regular updates</strong> as the responses come in — without overwhelming your inbox"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">Obtenez des mises à jour régulières</strong> lors de la réception de réponses — sans surcharger votre boîte mail"
 
 msgid "<strong class=\"marketing-highlight\">Make a request to multiple authorities</strong>: select authorities at the click of a button"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">Faites une requête à destination de plusieurs autorités</strong>: selectionnez les autorités en cliquant sur le bouton"
 
 msgid "<strong class=\"marketing-highlight\">Manage large volumes of responses</strong>: easily keep track of the status of each request"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">Gérer des volumes importants de réponses</strong>: gardez facilement une vue d'ensemble sur le statut de chaque requête"
 
 msgid "<strong class=\"marketing-highlight\">Save as draft</strong> to get back to it later"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">Enregistre un brouillon</strong> afin d'y revenir plus tard"
 
 msgid "<strong class=\"marketing-highlight\">Streamlined process</strong> for requesting internal reviews"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">Processus fluidifié </strong> pour faire une demande de reconsidération"
 
 msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
 msgstr "<strong>Puis-je effectuer une demande d'informations me concernant ?</strong><a href=\"{{url}}\">Non !</a>"
 
 msgid "<strong>Easy</strong> One fee covers all Pro features, with no complex tiers or options to worry about."
-msgstr ""
+msgstr "<strong>Simple</strong> Un seul tarif couvre l'ensemble des fonctionnalités avancées, sans options complexes à s'occuper"
 
 msgid "<strong>Flexible</strong> You can cancel at any time, with no lengthy tie-ins and no notice required."
-msgstr ""
+msgstr "<strong>Flexible</strong> Vous pouvez annuler à n'importe quel moment, sans engagement à long terme ou préavis requis."
 
 msgid "<strong>Reasonable</strong> We know that campaigners are likely to be on a limited budget, so we’ve kept the subscription affordable."
-msgstr ""
+msgstr "<strong>Raisonnable</strong> Nous savons que les activistes ont souvent des ressources financières limitées, donc nous avons maintenu le prix de souscription le plus bas possible."
 
 msgid "<strong>Reasonable</strong> We know that journalists can be on a limited budget, so we’ve kept the subscription affordable."
-msgstr ""
+msgstr "<strong>Raisonnable</strong> Nous savons que les journalistes peuvent disposer d'un budget limité, donc nous avons maintenu le prix de souscription le plus bas possible."
 
 msgid "<strong>Reasonable</strong> We know that researchers can be on a limited budget, so we’ve kept the subscription affordable."
-msgstr ""
+msgstr "<strong>Raisonnable</strong> Nous savons que les chercheurs peuvent disposer d'un budget limité, donc nous avons maintenu le prix de souscription le plus bas possible."
 
 msgid "<strong>Thank</strong> the public authority."
 msgstr "<strong>Remercier</strong> l'autorité publique."
@@ -127,13 +128,13 @@ msgid "<strong>{{filter_description}}</strong> sorted by <strong>{{order_descrip
 msgstr "<strong>{{filter_description}}</strong> classé par <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">réinitialiser</a>"
 
 msgid "<strong>{{pro_site_name}}</strong> runs on the UK’s best-known FOI service"
-msgstr ""
+msgstr "<strong>{{pro_site_name}}</strong> s'appuie sur le droit d'accès aux documents administratifs"
 
 msgid "A  powerful, fully-featured toolset that solves problems for campaigners managing multiple requests or in-depth FOI investigations"
-msgstr ""
+msgstr "Une boîte à outils puissante qui contribue à résoudre les problèmes rencontrés par les activistes cherchant à suivre plusieurs requêtes ou ayant entamé des investigations poussées impliquant l'obtention de documents administratifs"
 
 msgid "A <strong class=\"marketing-highlight\">searchable archive</strong> of Freedom of Information requests"
-msgstr ""
+msgstr "Une <strong class=\"marketing-highlight\"> archive explorable</strong> des requêtes d'accès à l'information"
 
 msgid "A <strong>summary</strong> of the response if you have received it by postal mail. "
 msgstr "Un <strong>résumé</strong> de la réponse si vous l'avez reçue par courrier postal."
@@ -142,19 +143,19 @@ msgid "A one line summary of the information you are requesting, e.g."
 msgstr "Une ligne de résumé de l'information que vous avez demandée, par exemple."
 
 msgid "A permanent, searchable, <strong class=\"marketing-highlight\">public record</strong> of your request and the responses"
-msgstr ""
+msgstr "Un <strong class=\"marketing-highlight\">enregistrement public</strong> permanent et explorable de votre requête et des réponses associées"
 
 msgid "A powerful <strong class=\"marketing-highlight\">private dashboard</strong>: track and manage your FOI projects"
-msgstr ""
+msgstr "Un puissant <strong class=\"marketing-highlight\">tableau de bord privé</strong>: suivez et gérez vos demandes d'accès à l'information"
 
 msgid "A powerful, fully-featured toolset that solves problems for journalists managing multiple requests or in-depth FOI investigations"
-msgstr ""
+msgstr "Une boîte à outils puissante qui contribue à résoudre les problèmes rencontrés par les journalistes cherchant à suivre plusieurs requêtes ou ayant entamé des investigations poussées impliquant l'obtention de documents administratifs"
 
 msgid "A powerful, fully-featured toolset that solves problems for researchers and academics managing multiple requests or in-depth FOI investigations"
-msgstr ""
+msgstr "Une boîte à outils puissante qui contribue à résoudre les problèmes rencontrés par les chercheurs et universitaires cherchant à suivre plusieurs requêtes ou ayant entamé des investigations poussées impliquant l'obtention de documents administratifs"
 
 msgid "A super-smart <strong class=\"marketing-highlight\">to-do list</strong>: follow the progress of your requests"
-msgstr ""
+msgstr "Une <strong class=\"marketing-highlight\">liste de tâches à faire</strong> super efficace: suivez l'état d'avancement de vos requêtes"
 
 msgid "About {{public_body_name}}"
 msgstr "A propos de {{public_body_name}}"
@@ -163,7 +164,7 @@ msgid "Account"
 msgstr "Compte"
 
 msgid "Activist Doug Paulley uncovered councils across the UK who, through inaction, are allowing legal discrimination against wheelchair users. <a href=\"{{story_url}}\">See the whole story</a>"
-msgstr ""
+msgstr "L'activiste Doug Paulley a mis en lumière les autorités locales à travers le Royaume-Uni qui, au travers de leur inaction, ont autorisé des discriminations légales au détriment des personnes à mobilité réduite. <a href=\"{{story_url}}\">Voir ce cas d'usage</a>"
 
 msgid "Activity"
 msgstr "Activité"
@@ -172,7 +173,7 @@ msgid "Add"
 msgstr "Ajouter"
 
 msgid "Add Card Details"
-msgstr ""
+msgstr "Ajouter vos informations de carte bancaire"
 
 msgid "Add all"
 msgstr "Ajouter tout"
@@ -187,19 +188,19 @@ msgid "Add authorities to your batch"
 msgstr "Ajouter des autorités à votre groupe"
 
 msgid "Add credibility"
-msgstr ""
+msgstr "Ajouter de la crédibiité"
 
 msgid "Added"
 msgstr "Ajouté"
 
 msgid "Adding your payment card requires your browser to have JavaScript enabled."
-msgstr ""
+msgstr "Ajouter votre moyen de paiement exige que Javascript soit activé sur votre navigateur Internet."
 
 msgid "All requests"
 msgstr "Toutes les demandes"
 
 msgid "All requests within this batch will remain private for the same duration. When an individual request is made public all other requests in this batch will also be published on {{site_name}}."
-msgstr "Toutes vos demandes de ce paquet resteront privées durant la même période. Lorsqu'une seule des demandes du paquet est publiée, toutes les autres seront également publiées sur {{site_name}}."
+msgstr "Toutes vos demandes de ce lot resteront privées durant la même période. Lorsqu'une seule des demandes du lot est publiée, toutes les autres seront également publiées sur {{site_name}}."
 
 msgid "Also called {{other_name}}."
 msgstr "Aussi appelé {{other_name}}"
@@ -211,7 +212,7 @@ msgid "Annotations allow you to add extra notes on a request, which will eventua
 msgstr "Les commentaires vous permettent d'ajouter des remarques complémentaires à une demande, ils pourront éventuellement être rendus publics. Par exemple :"
 
 msgid "Are you interested in free training, seminars and workshops about {{pro_site_name}}?"
-msgstr ""
+msgstr "Seriez-vous intéressé.e.s pour un cours, séminaire ou atelier gratuit à propos de {{pro_site_name}}?"
 
 msgid "Are you sure the information you’re after isn’t available elsewhere?"
 msgstr "Etes-vous certain que l'information que vous recherchez n'est pas disponible quelque part ?"
@@ -223,31 +224,31 @@ msgid "Are you sure?"
 msgstr "Etês-vous certain ?"
 
 msgid "Automate FOI request management"
-msgstr ""
+msgstr "Automatisez la gestion de vos demandes d'accès à l'information"
 
 msgid "Batch"
-msgstr "Groupe"
+msgstr "Lot"
 
 msgid "Batch FOI requests"
-msgstr ""
+msgstr "Requêtes par lot d'accès à l'information"
 
 msgid "Batch request"
-msgstr "Paquet de demandes"
+msgstr "Lot de demandes"
 
 msgid "Batch requests"
-msgstr ""
+msgstr "Lots de requêtes"
 
 msgid "Batch requests allow multiple recipients of a single request"
-msgstr "Les demandes groupées permettent d'envoyer la même requête à de multiples destinataires"
+msgstr "Les demandes en lot permettent d'envoyer la même requête à de multiples destinataires"
 
 msgid "Batch requests are part of a new workflow"
-msgstr "Les demandes groupées font partie d'un nouveau mode de travail"
+msgstr "Les demandes en lot font partie d'un nouveau processus"
 
 msgid "Because we’ve streamlined the request-writing process, Pro saves you a lot of back and forth. Search our database of authorities, pick which one — or many — you want to contact, and compose your request right there."
-msgstr ""
+msgstr "Comme nous avons simplifié le processus d'écriture des requêtes, le mode avancé vous permet d'économiser la charge des allers-retours administratifs. Recherchez dans la base de données des autorités publiques. Choisissez celles que vous souhaitez contacter et rédigez votre requête à partir d'ici."
 
 msgid "Billed: Annually"
-msgstr "Facturation: Annuelle"
+msgstr "Facturation: annuelle"
 
 msgid "Billed: Daily"
 msgstr "Facturation: quotidienne"
@@ -262,7 +263,7 @@ msgid "Billing"
 msgstr "Facturation"
 
 msgid "Bringing facts about campagin overspending to light with the privacy features"
-msgstr ""
+msgstr "Apportant des faits au sujet des dépenses excessives des campagnes d'accès à l'information pour mettre en lumière les fonctionnalités avancées"
 
 msgid "Browse by category"
 msgstr "Chercher par catégorie"
@@ -271,10 +272,10 @@ msgid "Browse public requests"
 msgstr "Consulter les demandes publiques"
 
 msgid "CSV"
-msgstr ""
+msgstr "CSV"
 
 msgid "Campaigning for better wheelchair accessibility"
-msgstr ""
+msgstr "Campagne en faveur d'une meilleure accessibilité pour les personnes à mobilité réduite"
 
 msgid "Cancel"
 msgstr "Annuler"
@@ -286,10 +287,10 @@ msgid "Cancel your subscription"
 msgstr "Annuler votre abonnement"
 
 msgid "Cancelled subscriptions:"
-msgstr ""
+msgstr "Annulez vos abonnements:"
 
 msgid "Card details"
-msgstr ""
+msgstr "Détails de votre carte de paiement"
 
 msgid "Change privacy"
 msgstr "Changer la confidentialité"
@@ -307,13 +308,13 @@ msgid "Choose a duration"
 msgstr "Choisissez une durée"
 
 msgid "Collapse all correspondence"
-msgstr "Éffondrer toute la correspondance"
+msgstr "Masquer toute la correspondance"
 
 msgid "Confirm your account on {{site_name}}"
 msgstr "Confirmer votre compte sur {{site_name}}"
 
 msgid "Continuing with checkout requires your browser to have JavaScript enabled."
-msgstr "Pour continuer le checkout, votre navigateur doit avoir l'option Javascript activée."
+msgstr "Pour valider cette action, votre navigateur doit avoir l'option Javascript activée."
 
 msgid "Coupon code has expired."
 msgstr "Le code du coupon a expiré."
@@ -328,16 +329,16 @@ msgid "Dashboard"
 msgstr "Tableau de bord"
 
 msgid "Dashboard and workflow features"
-msgstr ""
+msgstr "Fonctionnalités de tableau de bord et de workflow "
 
 msgid "Dear {{user_name}},"
 msgstr "Cher/Chère {{user_name}},"
 
 msgid "Debt Resistance UK uncovered <a href=\"{{story_url}}\">which councils are paying exorbitant LOBO loans</a>, in some cases meaning that a large proportion of council tax income is being channelled directly into interest payments."
-msgstr ""
+msgstr "Debt Resistance UK a mis en lumière <a href=\"{{story_url}}\">les autorités locales qui payent des emprunts toxiques</a>, dans certains cas impliquant qu'une proportion importante des taxes locales sert uniquement à financer les intérêts de ces emprunts."
 
 msgid "Debt Resistance UK uncovered which councils are paying exorbitant LOBO loans, in some cases meaning that a large proportion of council tax income is being channelled directly into interest payments."
-msgstr ""
+msgstr "Debt Resistance UK a mis en lumière les autorités locales qui payent des emprunts toxiques, dans certains cas impliquant qu'une proportion importante des taxes locales sert uniquement à financer les intérêts de ces emprunts."
 
 msgid "Details"
 msgstr "Détails"
@@ -349,10 +350,10 @@ msgid "Dismiss"
 msgstr "Ignorer"
 
 msgid "Do you have a coupon code?"
-msgstr "Avez vous un code de coupon ?"
+msgstr "Avez vous un coupon de promotion ?"
 
 msgid "Don’t worry – <a href=\"{{signup_link}}\">our free accounts</a> are still available and always will be."
-msgstr ""
+msgstr "Ne vous inquiétez pas – <a href=\"{{signup_link}}\">nos comptes gratuits</a> sont toujours disponibles et le seront toujours."
 
 msgid "Download a zip file of all correspondence"
 msgstr "Téléchargez un fichier zip de toute la correspondance"
@@ -373,7 +374,7 @@ msgid "Email doesn't look like a valid address"
 msgstr "Cet email ne semble pas valide"
 
 msgid "Estimated total number of Pro requests:"
-msgstr ""
+msgstr "Total estimé de requêtes effectué avec les fonctionnalités avancées:"
 
 msgid "Everything you need to keep on top of complex FOI-driven stories."
 msgstr "Tout ce que vous avez besoin pour mettre en évidence des récits d'accès à des documents publics complexes"
@@ -385,55 +386,55 @@ msgid "Expires soon"
 msgstr "Expire bientôt"
 
 msgid "FOI Management Tools for journalists, campaigners and researchers"
-msgstr ""
+msgstr "Outils de gestion des demandes d'accès à l'information pour les journalistes, activistes et universitaires"
 
 msgid "FOI Management for Campaigners"
-msgstr ""
+msgstr "Outils de gestion des demandes d'accès à l'information pour les activistes"
 
 msgid "FOI Management for Journalists"
-msgstr ""
+msgstr "Outils de gestion des demandes d'accès à l'information pour les journalistes"
 
 msgid "FOI Management for Researchers"
-msgstr ""
+msgstr "Outils de gestion des demandes d'accès à l'information pour les universitaires"
 
 msgid "FOI address book"
-msgstr ""
+msgstr "Carnet d'adresse des demandes d'accès à l'information"
 
 msgid "FOI for campaigners"
-msgstr ""
+msgstr "Demandes d'accès à l'information pour les activistes"
 
 msgid "FOI for journalists"
-msgstr ""
+msgstr "Demandes d'accès à l'information pour les journalistes"
 
 msgid "FOI for researchers"
-msgstr ""
+msgstr "Demandes d'accès à l'information pour les universitaires"
 
 msgid "FOI is an invaluable tool for researchers, helping you collect information that hasn’t previously been available as a single dataset, and understand the wider picture. Pro takes the slog out of sending multiple requests with the Batch feature: easily pick the authorities you want, then send one request to all of them."
-msgstr ""
+msgstr "Le droit d'accès à l'information publique est un outil inestimable pour les universitaires. vous aidant à accéder à des données ou documents jusqu'ici non rendus publics dans un format réutilisable, à large échelle. Les fonctionnalités avancées de Mada vous permettent d'envoyer la même requête à une sélection d'autorités publiques de votre choix : sélectionnez les simplement dans le liste et transmettez leur votre requête. "
 
 msgid "FOI is an invaluable tool in campaigns, helping you collect information that hasn’t previously been available as a single dataset so that you and your supporters can understand the wider picture. Pro takes the slog out of sending multiple requests with the Batch feature: easily pick the authorities you want, then send one request to all of them."
-msgstr ""
+msgstr "Le droit d'accès à l'information publique est un outil inestimable pour les activistes. La communication de données ou documents publics aux citoyens est un gage de capacité à rendre compte de ses actions et de transparence. Les fonctionnalités avancées de Mada vous permettent d'envoyer la même requête à une sélection d'autorités publiques de votre choix : sélectionnez les simplement dans le liste et transmettez leur votre requête. "
 
 msgid "FOI is an invaluable tool in investigations, helping you collect information that hasn’t previously been available as a single dataset so that you and your readers can understand the wider picture. Pro takes the slog out of sending multiple requests with the Batch feature: easily pick the authorities you want, then send one request to all of them."
-msgstr ""
+msgstr "Le droit d'accès à l'information publique est un outil inestimable pour les journalistes d'investigation, vous aidant à accéder à des données ou documents jusqu'ici non rendus publics dans un format réutilisable. Les fonctionnalités avancées de Mada vous permettent d'envoyer la même requête à une sélection d'autorités publiques de votre choix et de conserver la confidentialité de votre travail d'investigation le temps de votre enquête. Sélectionnez les dans la liste et transmettez leur d'un seul clic votre requếte"
 
 msgid "Featuring"
-msgstr ""
+msgstr "Avec"
 
 msgid "Find out how {{pro_site_name}} can take the hard work out of FOI investigations"
-msgstr ""
+msgstr "Découvrez comment {{pro_site_name}} peut vous faciliter vos démarches de demande d'accès à l'information"
 
 msgid "Finding it hard to keep on top of your FOI requests?"
-msgstr ""
+msgstr "Découragés par l'énergie nécessaire à suivre vos demandes d'accès à l'information ?"
 
 msgid "First created"
 msgstr "Créé en premier"
 
 msgid "For journalists, academics and power users"
-msgstr ""
+msgstr "Pour les journalistes, universitaires et utilisateur.rice.s avec pouvoir."
 
 msgid "Friendly support"
-msgstr ""
+msgstr "Assistance amicale"
 
 msgid "From this screen you can get a helpful overview of your requests, and use quick actions to keep them up to date. Why not start your first one now?"
 msgstr "Depuis cet écran vous pouvez voir une vue d'ensemble de vos demandes et effectuer des actions rapides pour les garder à jour. Pourquoi ne pas lancer votre première action dès maintenant ?"
@@ -442,40 +443,40 @@ msgid "From this screen you can see what you need to do next to keep your reques
 msgstr "Depuis cet écran vous pouvez voir ce dont vous avez besoin de faire pour faire avancer vos demandes. Pourquoi ne pas lancer une nouvelle demande dès maintenant ?"
 
 msgid "Gavin Chait surveyed 350 local authorities to find out <a href=\"{{story_url}}\">which commercial premises were empty</a>, in order to give a helping hand to start-up businesses."
-msgstr ""
+msgstr "Gavin Chait a interrogé 350 autorités publiques pour trouver <a href=\"{{story_url}}\">la liste des centres commerciaux vides</a>, dans le but de fournir une aide au développement de start-up"
 
 msgid "Get email updates about {{pro_site_name}}?"
-msgstr ""
+msgstr "Recevoir des nouvelles à propos de {{pro_site_name}}?"
 
 msgid "Get in touch"
-msgstr ""
+msgstr "Entrez en contact"
 
 msgid "Get started with your first request"
 msgstr "Commencez votre première demande"
 
 msgid "Got questions?"
-msgstr ""
+msgstr "Avez-vous des questions ?"
 
 msgid "Hard to keep track of your many requests?"
-msgstr ""
+msgstr "Difficile de suivre le fil avec vos multiples demandes d'accès à l'information?"
 
 msgid "Help"
 msgstr "Aide"
 
 msgid "Helping startups find the best location for their business"
-msgstr ""
+msgstr "Aider des entreprises locales à trouver le meilleur endroit pour développer leur idées"
 
 msgid "How campaigners are using Pro"
-msgstr ""
+msgstr "Comment les activistes utilisent les fonctions avancées"
 
 msgid "How it works"
-msgstr ""
+msgstr "Comment cela fonctionne"
 
 msgid "How journalists are using Pro"
-msgstr ""
+msgstr "Comment les journalistes utilisent les fonctionnalités avancées"
 
 msgid "How researchers are using Pro"
-msgstr ""
+msgstr "Comment les chercheurs utilisent les fonctionnalités avancées"
 
 msgid "I have read and accepted these terms and conditions"
 msgstr "J'ai lu et accepté ces termes et condtions"
@@ -490,40 +491,40 @@ msgid "If you wish to preserve your access to {{pro_site_name}}, please could yo
 msgstr "Si vous souhaitez conserver votre accès à {{pro_site_name}}, veuillez vérifier que votre carte dispose de fonds suffisants et que les détails de la carte sont corrects sur votre page d'abonnement:{{subscriptions_page_url}}"
 
 msgid "If your request bounces back, we source the new address for that authority."
-msgstr ""
+msgstr "Si votre requête n'aboutit pas, nous mettons à jour la nouvelle adresse pour cette autorité"
 
 msgid "Image credits:"
-msgstr ""
+msgstr "Crédits photos"
 
 msgid "Important info about requests to this authority"
 msgstr "Info importante concernant les demandes à cette autorité"
 
 msgid "Introductory Pricing"
-msgstr ""
+msgstr "Prix de lancement"
 
 msgid "Investigating asbestos use in shcools"
-msgstr ""
+msgstr "Enquêter sur l'utilisation de l'amiante dans les écoles"
 
 msgid "Investigative journalist Jenna Corderoy has made good use of Pro’s privacy features, keeping her extensive Brexit-related investigations private until her stories broke, bringing facts about <a href=\"{{story_url_1}}\">campaign overspending</a> and <a href=\"{{story_url_2}}\">ERG</a> research to the public, among several other important stories."
-msgstr ""
+msgstr "La journaliste d'investigation Jenna Corderoy a fait usage des fonctionnalité avancées d'Alaveteli, gardant ses investigations sur le Brexit confidentielles jusqu'à ce que son reportage soit publié, apportant des faits sur <a href=\"{{story_url_1}}\">les dépenses excessives de campagnes</a> et <a href=\"{{story_url_2}}\">ERG</a> au public, parmi plusieurs autres reportages."
 
 msgid "I’m a campaigner"
-msgstr ""
+msgstr "Je suis un activiste"
 
 msgid "I’m a journalist"
-msgstr ""
+msgstr "Je suis un journaliste"
 
 msgid "I’m a researcher"
-msgstr ""
+msgstr "Je suis un chercheur"
 
 msgid "Join {{pro_site_name}}"
-msgstr ""
+msgstr "Rejoignez {{pro_site_name}}"
 
 msgid "Journalists"
-msgstr ""
+msgstr "Journalistes"
 
 msgid "Keep <strong class=\"marketing-highlight\">requests and responses private</strong> while you work on your story"
-msgstr ""
+msgstr "Conservez <strong class=\"marketing-highlight\">requêtes et réponses privées</strong> le temps de votre travail d'enquête"
 
 msgid "Keep private for a further:"
 msgstr "Garder privé pour une période : "
@@ -532,31 +533,31 @@ msgid "Keep private for:"
 msgstr "Restez privé pour:"
 
 msgid "Keep track of FOI requests"
-msgstr ""
+msgstr "Gardez un œil sur vos requêtes d'accès à l'information"
 
 msgid "Last updated"
 msgstr "Dernière mise à jour"
 
 msgid "Learn more about {{pro_site_name}} for campaigners"
-msgstr ""
+msgstr "Découvrez en plus sur {{pro_site_name}} pour les activistes"
 
 msgid "Learn more about {{pro_site_name}} for journalists"
-msgstr ""
+msgstr "Découvrez en plus sur {{pro_site_name}} pour les journalistes"
 
 msgid "Learn more about {{pro_site_name}} for researchers"
-msgstr ""
+msgstr "Découvrez en plus sur {{pro_site_name}} pour les chercheurs"
 
 msgid "Lucie Stephens, prompted by the death of someone she cared about, requested information about asbestos in schools from more than 200 LEAs. <a href=\"{{story_url}}\">Read about her campaign</a>"
-msgstr ""
+msgstr "Lucie Stephens, concernée par la mort d'un.e proche a demandé des informations au sujet de la présence d'amiante dans les écoles auprès de plus de 200 autorités publiques. <a href=\"{{story_url}}\">Découvrez sa campagne d'investigation</a>"
 
 msgid "Make a batch request"
-msgstr "Faire un paquet de demandes"
+msgstr "Faire un lot de demandes"
 
 msgid "Make a request"
 msgstr "Faire une demande"
 
 msgid "Make a request to multiple authorities and manage the responses."
-msgstr ""
+msgstr "Faites une requête auprès de plusieurs autorités et suivez les réponses"
 
 msgid "Make an {{law_used_short}} request"
 msgstr "Faire une demande de {{law_used_short}}"
@@ -571,34 +572,34 @@ msgid "My wall"
 msgstr "Mon mur"
 
 msgid "Need a helping hand with your FOI requests?"
-msgstr ""
+msgstr "Avez-vous besoin d'un coup de main avec vos demandes d'accès à l'information ?"
 
 msgid "Need to keep things under wraps?"
-msgstr ""
+msgstr "Besoin de garder vos recherches secrètes ?"
 
 msgid "Need to keep your requests private?"
-msgstr ""
+msgstr "Besoin de garder votre requêtes secrètes ?"
 
 msgid "Need to protect your research?"
-msgstr ""
+msgstr "Besoin de protéger vos recherches ?"
 
 msgid "Need to protect your scoop?"
-msgstr ""
+msgstr "Besoin de protéger votre scoop ?"
 
 msgid "New Pro accounts this week:"
-msgstr ""
+msgstr "Nouveaux comptes pro cette semaine :"
 
 msgid "New Pro requests this week:"
-msgstr ""
+msgstr "Requêtes pro cette semaine : "
 
 msgid "New Pro subscriptions this week:"
-msgstr ""
+msgstr "Souscription aux fonctionnalités avancées cette semaine :"
 
 msgid "New batches made this week:"
-msgstr ""
+msgstr "Nouveaux lots postés cette semaine :"
 
 msgid "New to Professional – Batch"
-msgstr ""
+msgstr "Débutant dans les fonctionnalités avancées - envoi par lot"
 
 msgid "Next payment"
 msgstr "Paiement suivant"
@@ -613,10 +614,10 @@ msgid "No more authorities can be added to this batch request."
 msgstr "Plus d'autorités ne peuvent être ajoutées dans cette demande de groupe"
 
 msgid "No more copy and paste emails: our Batch Request tool helps you create one request and send it to many authorities at once."
-msgstr ""
+msgstr "Fini le copier - coller des emails: notre outil d'envoi en lot des requêtes vous aide à créer une seule demande et à l'envoyer à plusieurs autorités publiques d'un seul clic."
 
 msgid "No need to check: we’ll send an email alert telling you when you need to take action."
-msgstr ""
+msgstr "Pas besoin de vérifier : nous vous envoyons une alerte par mail lorsque vous avez besoin de faire une action"
 
 msgid "No results found"
 msgstr "Aucun résultat trouvé"
@@ -625,7 +626,7 @@ msgid "No title"
 msgstr "Sans titre"
 
 msgid "Not enough hours in the day?"
-msgstr ""
+msgstr "Pas assez d'heures dans la journée ?"
 
 msgid "Note: When this request is made public on {{site_name}}, this message will also be made public."
 msgstr "Remarque : Lorsque cette demande est faite publiquement sur {{site_name}}, ce message sera également rendu public."
@@ -634,52 +635,52 @@ msgid "Note: When this request is made public on {{site_name}}, your name and an
 msgstr "Note : Lorsque cette demande est rendue publique sur {{site_name}}, votre nom et votre commentaire apparaîtront dans les <strong>moteurs de recherches</strong>"
 
 msgid "Number of Pro accounts active this week:"
-msgstr ""
+msgstr "Nombre de comptes pros actifs cette semaine : "
 
 msgid "Number of discounted users:"
-msgstr ""
+msgstr "Nombre d'utilisateurs à prix réduit :"
 
 msgid "Number of expired embargoes this week:"
-msgstr ""
+msgstr "Nombre d'embargos expirés cette semaine : "
 
 msgid "Number of free trial users:"
-msgstr ""
+msgstr "Nombre d'utilisateur.rice.s en période d'essai gratuit"
 
 msgid "Number of paying users:"
-msgstr ""
+msgstr "Nombre d'utilisateur.rice.s payant.e.s"
 
 msgid "Once the privacy period ends, everything that you enter on this page, including <strong>your name</strong>, will be <strong><a href=\"{{url}}\">displayed publicly</a></strong> on this website."
 msgstr "Une fois la période d'embargo terminée, tout ce que vous indiquez dans cette page, y compris <strong>votre nom</strong>, sera <strong><a href=\"{{url}}\">publié</a></strong> sur ce site."
 
 msgid "Once you launch your campaign, there’s every reason to put your requests and responses into the public domain. They’ll lend credence to your campaign, and make the data available for others who might want to research a different angle."
-msgstr ""
+msgstr "Dès le lancement de votre campagne, il y a toutes les raisons pour mettre vos requêtes et vos réponses dans le domaine public. Elles donneront du crédit à votre campagne, et rendront les données disponibles pour d'autres qui veulent effectuer des recherches sous un angle différent."
 
 msgid "Once your research is out there, it’s a great idea to put your requests and responses into the public domain. They’ll lend credence to your work, and make the data available for others who might want to research a different angle."
-msgstr ""
+msgstr "A partir du moment où votre recherche est rendue publique, c'est une bonne idée de publier vos requêtes dans le domaine public. Cela donnera de la crédibilité à votre travail et rendra les données obtenues accessibles à d'autres qui pourraient les utiliser pour faire à leur tour des recherches complémentaires"
 
 msgid "Once your story’s been published, there’s every reason to put your requests and responses into the public domain. They’ll lend credence to your investigation, and make the data available for others who might want to research a different angle."
-msgstr ""
+msgstr "A partir du moment où votre enquête est rendue publique, c'est une bonne idée de publier vos requêtes dans le domaine public. Cela donnera de la crédibilité à votre travail et rendra les données obtenues accessibles à d'autres qui pourraient les utiliser pour faire à leur tour des recherches complémentaires"
 
 msgid "Once you’re happy with your request, click preview and send."
 msgstr "Si vous êtes satisfait de cette demande, cliquez sur prévisualiser et envoyer."
 
 msgid "Once you’re ready, publishing the data behind your investigation lends it extra credibility, and opens it to a wider community."
-msgstr ""
+msgstr "Dès que vous êtes prêt.e, publier la source des données sur lesquelles s'appuie votre travail d'enquête vous permettra d'accroître votre crédibilité et de vous ouvrir à d'autres communautés"
 
 msgid "Once you’re ready, publishing the data behind your investigation lends it extra credibility."
-msgstr ""
+msgstr "Dès que vous êtes prêt.e, publier les données qui ont servi de source à votre travail d'investigation contribue à améliorer votre crédibilité"
 
 msgid "Overflowing inbox?"
-msgstr ""
+msgstr "Boîte mail surchargée ?"
 
 msgid "Payments past due:"
-msgstr ""
+msgstr "Paiements en attente : "
 
 msgid "Pending"
 msgstr "En attente..."
 
 msgid "Pending cancellations:"
-msgstr ""
+msgstr "Annulations en attente : "
 
 msgid "Plans and pricing"
 msgstr "Plans et tarifs"
@@ -700,7 +701,7 @@ msgid "Please tell us if you're interested in training and seminars"
 msgstr "Merci de nous indiquer si vous êtes intéressé par des formations et des séminaires"
 
 msgid "Plus, all the power of {{site_name}}"
-msgstr "Plus, tout le pouvoir de {{site_name}}"
+msgstr "Plus, toute la puissance de {{site_name}}"
 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
 msgstr "Indiquez des <strong>informations connexes</strong>, campagnes ou forums qui peuvent être utiles."
@@ -715,7 +716,7 @@ msgid "Preview new {{law_used_short}} request to '{{public_body_name}}'"
 msgstr "Prévisualiser la nouvelle demande {{law_used_short}} adressée à '{{public_body_name}}'"
 
 msgid "Pricing"
-msgstr ""
+msgstr "Tarifs"
 
 msgid "Privacy"
 msgstr "Confidentialité"
@@ -724,31 +725,31 @@ msgid "Private"
 msgstr "Privé"
 
 msgid "Private FOI requests"
-msgstr ""
+msgstr "Requêtes privées d'accès à l'information"
 
 msgid "Private Requests"
-msgstr ""
+msgstr "Requêtes privées"
 
 msgid "Private requests for information"
-msgstr ""
+msgstr "Requêtes privées de demandes d'information"
 
 msgid "Private until {{date}}"
 msgstr "Privé jusqu'au {{date}}"
 
 msgid "Pro brings a new dashboard view"
-msgstr "Pro vous apport une vue nouvelle gràce au tableau de bord"
+msgstr "Les fonctionnalités avancées vous fournissent un nouveau tableau de bord"
 
 msgid "Pro features a new request list view"
 msgstr "Pro vous offre une vue de la liste de vos demandes"
 
 msgid "Pro gives you all of the ease of {{site_name}}, without the worry of others snatching your scoop before it’s ready."
-msgstr ""
+msgstr "Les fonctionnalités avancées vous facilitent l'usage de {{site_name}}, sans craindre que d'autres dévoilent votre scoop avant qu'il soit publié."
 
 msgid "Pro gives you all of the ease of {{site_name}}, without the worry of releasing all your work before you’re ready for the world to see it."
-msgstr ""
+msgstr "Les fonctionnalités avancées vous facilitent l'usage de {{site_name}}, sans craindre que d'autres dévoilent votre scoop avant qu'il soit publié."
 
 msgid "Professional"
-msgstr ""
+msgstr "Professionel"
 
 msgid "Profile"
 msgstr "Profil"
@@ -757,7 +758,7 @@ msgid "Provide extra context on the request and your reasons for making it."
 msgstr "Fournissez un contexte supplémentaire à propos de la demande et les raisons pour laquelle vous l'avez faite."
 
 msgid "Public requests for information"
-msgstr ""
+msgstr "Requêtes d'information publiques"
 
 msgid "Publish immediately"
 msgstr "Publiez immédiatement"
@@ -777,7 +778,7 @@ msgid "Read blog"
 msgstr "Lire le blog"
 
 msgid "Ready to go public"
-msgstr ""
+msgstr "Prêt.e à rendre public"
 
 msgid "Refer a friend"
 msgstr "Parrainer un ami"
@@ -789,7 +790,7 @@ msgid "Remember, public authorities have {{late_number_of_days}} working days to
 msgstr "Pour rappel, les autorités publiques ont {{late_number_of_days}} jours pour répondre aux demandes d'accès aux documents publics."
 
 msgid "Reminders"
-msgstr ""
+msgstr "Rappels"
 
 msgid "Remove"
 msgstr "Éliminer"
@@ -798,7 +799,7 @@ msgid "Replies"
 msgstr "Réponses"
 
 msgid "Request access to {{pro_site_name}}"
-msgstr ""
+msgstr "Demandez l'accès à {{pro_site_name}}"
 
 msgid "Request an internal review"
 msgstr "Effectuer un recours"
@@ -818,19 +819,19 @@ msgid "Requests"
 msgstr "Demandes"
 
 msgid "Requests can stay completely private until you’re ready to go public with your story."
-msgstr ""
+msgstr "Les requêtes peuvent rester complètement privées jusqu'à ce que vous décidiez de la rendre publique."
 
 msgid "Requests can stay completely private until you’re ready to go public."
-msgstr ""
+msgstr "Les requêtes peuvent rester complètement privées jusqu'à ce que vous soyez prêt.e à les rendre publiques"
 
 msgid "Requests can stay completely private until you’re ready to publish your research."
-msgstr ""
+msgstr "Les requêtes peuvent rester complètement privées jusqu'à ce que vous décidiez de rendre publiques vos recherches."
 
 msgid "Requests in this batch are private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
 msgstr "Les demandes dans ce groupe sont privées jusqu' au <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
 
 msgid "Requests in this batch are public"
-msgstr "Les demandes de ce paquet de demandes sont publiques"
+msgstr "Les demandes dans ce lot sont publiques"
 
 msgid "Requests in this batch will be private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
 msgstr "Les demandes dans ce groupe seront privées jusqu'au <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
@@ -839,7 +840,7 @@ msgid "Requests that will be made public soon"
 msgstr "Demandes qui seront bientôt rendues publiques"
 
 msgid "Researchers"
-msgstr ""
+msgstr "Chercheurs"
 
 msgid "Response due"
 msgstr "Réponse due"
@@ -848,7 +849,7 @@ msgid "Save draft"
 msgstr "Sauver le brouillon"
 
 msgid "Save time managing FOI requests"
-msgstr ""
+msgstr "Gagnez du temps en gérant vos requêtes d'accès à l'information"
 
 msgid "Search"
 msgstr "Chercher"
@@ -866,10 +867,10 @@ msgid "Searching for <strong>{{search_term}}</strong> in <strong>{{filter_descri
 msgstr "Rechercher pour <strong>{{search_term}}</strong> dans <strong>{{filter_description}}</strong> classé par <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">réinitialiser</a>"
 
 msgid "Searching for the right email address for every FOI contact?"
-msgstr ""
+msgstr "A la recherche de la bonne adresse email pour chaque PRADA ?"
 
 msgid "Selected plan"
-msgstr ""
+msgstr "Formule choisie"
 
 msgid "Send a follow up"
 msgstr "Envoyer un message de suivi"
@@ -900,7 +901,7 @@ msgstr[0] "Envoyer {{count}} demande"
 msgstr[1] "Envoyer {{count}} demandes"
 
 msgid "Sending to multiple authorities at once?"
-msgstr ""
+msgstr "Transmettre à plusieurs autorités publiques d'un coup ?"
 
 msgid "Sending..."
 msgstr "En cours d'envoi..."
@@ -923,7 +924,7 @@ msgid "Sign up"
 msgstr "Déconnectez-vous"
 
 msgid "Simple, affordable pricing"
-msgstr ""
+msgstr "Un prix simple et abordable"
 
 msgid "Sorry, no authorities matched that search"
 msgstr "Désolé, aucune autorité ne correspond à cette recherche"
@@ -965,7 +966,7 @@ msgid "Submit Search"
 msgstr "Soumettre la recherche"
 
 msgid "Subscribe"
-msgstr ""
+msgstr "Souscription"
 
 msgid "Subscription began"
 msgstr "L'abonnement à commencé"
@@ -977,7 +978,7 @@ msgid "Subscription ends"
 msgstr "L'abonnement se termine"
 
 msgid "Terms and conditions"
-msgstr ""
+msgstr "Conditions d'utilisation"
 
 msgid "Thank you for your interest in {{pro_site_name}}."
 msgstr "Merci de votre intérêt pour {{pro_site_name}}."
@@ -989,13 +990,13 @@ msgid "Thanks for your interest in {{pro_site_name}}, we'll get back to you soon
 msgstr "Merci pour votre intérêt pour {{pro_site_name}}, nous reviendrons vers vous bientôt !"
 
 msgid "The Bureau of investigative Journalism used Pro to send requests to councils up and down the county, and build a nationwide picture of the public properties being sold off by councils in the face of austerity."
-msgstr ""
+msgstr "Le \"Bureau of investigative Journalism\" a utilisé les fonctionnalités avancées d'Alaveteli Pro pour transmettre une série de requêtes à un grand nombre d'autorités publiques. Il en ont produit un rapport national sur l'ampleur des ventes de propriétés publiques pour faire face à la crise financière."
 
 msgid "The Wales Governance Centre sent FOI requests through Pro to discover the prison populations across Wales and England for their report ‘<a href=\"{{story_url}}\">Sentencing and Imprisonment in Wales</a>’."
-msgstr ""
+msgstr "Le centre de gouvernance du Pays de Galles a transmis ses requêtes en utilisant les fonctionnalités avancées d'Alaveteli Pro et a découvert les chiffres d'emprisonnement au Pays de Galles et en Angleterre pour leur rapport :  ‘<a href=\"{{story_url}}\">Sentencing and Imprisonment in Wales</a>’."
 
 msgid "The Wales Governance Centre sent FOI requests through Pro to discover the prison populations across Wales and England for their report ‘Sentencing and Imprisonment in Wales’."
-msgstr ""
+msgstr "Le centre de gouvernance du Pays de Galles a transmis ses requêtes en utilisant les fonctionnalités avancées d'Alaveteli Pro et a découvert les chiffres d'emprisonnement au Pays de Galles et en Angleterre pour leur rapport : \"Sentencing and Imprisonment in Wales\"."
 
 msgid "The following request has been made public on {{site_name}} this week."
 msgid_plural "The following requests have been made public on {{site_name}} this week."
@@ -1008,7 +1009,7 @@ msgstr[0] "La demande suivante sera rendue publique sur {{site_name}} la semaine
 msgstr[1] "Les demandes suivantes seront rendues publiques sur {{site_name}} la semaine prochaine. Si vous ne souhaitez qu'aucunes de ces demandes ne soient rendues publiques, merci de cliquer sur le lien ci-dessous pour les garder confidentielles plus longtemps."
 
 msgid "The ‘Data Scores as Governance’ project used Pro to help examine the <a href=\"{{story_url}}\">use of data-driven scores in categorising citizens</a>, allocating services, and predicting behaviour."
-msgstr ""
+msgstr "Le projet ‘Data Scores as Governance’ a utilisé les fonctionnalités avancées d'Alaveteli Pro pour examiner <a href=\"{{story_url}}\">l'utilisation de notations sociales basées sur des données dans le but de catégoriser les citoyen.nes.s</a>, de leur allouer des services et d'anticiper leurs comportements."
 
 msgid "Then you can access {{pro_site_name}}"
 msgstr "Ensuite vous pouvez accéder à {{pro_site_name}}"
@@ -1023,7 +1024,7 @@ msgid "Then you can upgrade your account"
 msgstr "Vous pouvez maintenant mettre votre compte à jour"
 
 msgid "There was a problem authorising your payment. You have not been charged. Please try again."
-msgstr ""
+msgstr "Nous avons rencontré un problème au moment d'autoriser votre paiement. Vous n'avez donc pas été débité. Pouvez-vous essayer à nouveau ?"
 
 msgid "There was a problem cancelling your account. Please try again later."
 msgstr "Un problème est survenu lors de la suppression de votre compte. Veuillez essayer plus tard."
@@ -1062,13 +1063,13 @@ msgid "This will update the privacy for all of the requests in this batch. Are y
 msgstr "Cela actualisera les paramètres de confidentialité de toutes les demandes du paquet de demandes. Etes-vous certain ?"
 
 msgid "Time is precious in newsrooms, so your dashboard just presents the information you need to know: which requests have received responses; which haven’t and need chasing up; and which require input from you. Search, filter or sort by status to quickly find the request you’re looking for."
-msgstr ""
+msgstr "Ce tableau de bord vous fournit l'essentiel des informations dont vous avez besoin : les requêtes qui ont reçues des réponses ; celles qui n'ont reçu de réponse et qu'il faut relancer ; celles qui nécessitent un retour de votre part. Naviguez, filtrer ou triez par statut afin de trouver rapidement la requête que vous recherchez.."
 
 msgid "Time is precious, so your dashboard just presents the information you need to know: which requests have received responses; which haven’t and need chasing up; and which require input from you. Search, filter or sort by status to quickly find the request you’re looking for."
-msgstr ""
+msgstr "Ce tableau de bord vous fournit l'essentiel des informations dont vous avez besoin : les requêtes qui ont reçues des réponses ; celles qui n'ont reçu de réponse et qu'il faut relancer ; celles qui nécessitent un retour de votre part. Naviguez, filtrer ou triez par statut afin de trouver rapidement la requête que vous recherchez.."
 
 msgid "Tired of the fiddly details that add time to your investigation?"
-msgstr ""
+msgstr "Fatigué.e.s de la somme des petits détails qui alourdissent vos démarches d'investigation ?"
 
 msgid "Title (A-Z)"
 msgstr "Titre (A-Z)"
@@ -1089,10 +1090,10 @@ msgid "To upgrade your account"
 msgstr "Pour mettre votre compte à niveau"
 
 msgid "Total number of Pro accounts:"
-msgstr ""
+msgstr "Nombre total de compte pro"
 
 msgid "Uncovering which UK councils are paying exorbitant LOBO loans"
-msgstr ""
+msgstr "Révélant le détail des municipalités qui ont contractées des emprunts toxiques"
 
 msgid "Unless you choose a privacy option, requests in this batch will be public on {{site_name}} immediately."
 msgstr "A moins que vous ne sélectionnez une option de confidentialité, les demandes du paquet de demandes seront immédiatement rendues publiques sur {{site_name}}."
@@ -1104,7 +1105,7 @@ msgid "Until that date you will continue to have full access to {{pro_site_name}
 msgstr "Jusqu'à cette date vous continuirez à avoir plein accès sur {{pro_site_name}}. "
 
 msgid "Up-to-date database of <strong class=\"marketing-highlight\">contact details</strong> for {{authority_count}} authorities"
-msgstr ""
+msgstr "Base de données à jour de <strong class=\"marketing-highlight\">la liste des PRADA</strong> pour {{authority_count}} ces autorités publiques sur le site Madada"
 
 msgid "Update"
 msgstr "Mettre à jour"
@@ -1127,7 +1128,7 @@ msgid "Upgrade account"
 msgstr "Mettre à niveau le compte"
 
 msgid "Using Pro to build a nationwide picture of the public properties being sold off by councils"
-msgstr ""
+msgstr "Utilisant les fonctionnalités avancées pour donner une vue nationale au phénomène de vente des propriétés publiques par les autorités publiques"
 
 msgid "View"
 msgstr "Voir"
@@ -1139,16 +1140,16 @@ msgid "Wall"
 msgstr "Mur"
 
 msgid "Want to add weight to your campaign?"
-msgstr ""
+msgstr "Voulez-vous ajouter du soutien à votre campagne d'information?"
 
 msgid "Want to add weight to your research?"
-msgstr ""
+msgstr "Voulez-vous ajouter du soutien à votre recherche d'information?"
 
 msgid "Want to add weight to your story?"
-msgstr ""
+msgstr "Voulez-vous ajouter du soutien à votre reportage d'investigation ?"
 
 msgid "Want to add weight to your work?"
-msgstr ""
+msgstr "Voulez-vous ajouter du soutien à vos demandes d'accès à l'information publique?"
 
 msgid "We are processing your payment. You can access your subscription settings and account information from the \"My subscription\" link in your user menu (accessed from the dropdown next to your name, above)."
 msgstr "Nous traitons votre paiement.  Vous pouvez accéder aux paramètres de votre abonnement et de votre compte via le lien \"Mon abonnement\" dans votre menu d'utilisateur (accessible via le menu déroulant à côté de de votre nom, au-dessus)."
@@ -1157,7 +1158,7 @@ msgid "We will remind you by email and on the site when the request is going be 
 msgstr "Nous vous rappellerons par email et sur le site lorsque le demande va être rendue public, et, si vous le souhaitez, vous aurez la possibilité de la garder confidentielle pour une plus longue période. Vous pouvez étendre cette durée de confidentialité indéfiniment ou rendre la requête publique à tout moment."
 
 msgid "Weekly Pro Metrics report for {{start_date}} - {{end_date}}"
-msgstr ""
+msgstr "Indicateurs mensuels d'usage des fonctionnalités avancées pour la période  {{start_date}} - {{end_date}}"
 
 msgid "Welcome to {{pro_site_name}}!"
 msgstr "Bienvenu sur {{pro_site_name}}! "
@@ -1199,19 +1200,19 @@ msgid "You are already subscribed to this plan"
 msgstr "Vous êtes déja abonné à ce plan"
 
 msgid "You can choose to keep your requests private for up to a year, not visible to anyone but you. We’ll make sure you know when that time’s about to run out, and you can always extend it further if your campaign’s not live yet."
-msgstr ""
+msgstr "Vous pouvez choisir de conserver vos requêtes privées sur le site pendant un an, uniquement visible par vous. Nous vous informerons quand ce délai sera sur le point de se terminer et vous aurez toujours la possibilité de rallonger ce délai si votre enquête ne peut pas encore être rendue publique."
 
 msgid "You can choose to keep your requests private on the site for up to a year, not visible to anyone but you. We’ll make sure you know when that time’s about to run out, and you can always extend it further if your research hasn’t been published yet."
-msgstr ""
+msgstr "Vous pouvez choisir de conserver vos requêtes privées sur le site pendant un an, uniquement visible par vous. Nous vous informerons quand ce délai sera sur le point de se terminer et vous aurez toujours la possibilité de rallonger ce délai si votre enquête ne peut pas encore être rendue publique."
 
 msgid "You can choose to keep your requests private on the site for up to a year, not visible to anyone but you. We’ll make sure you know when that time’s about to run out, and you can always extend it further if your story’s not published yet."
-msgstr ""
+msgstr "Vous pouvez choisir de conserver vos requêtes privées sur le site pendant un an, uniquement visible par vous. Nous vous informerons quand ce délai sera sur le point de se terminer et vous aurez toujours la possibilité de rallonger ce délai si votre enquête ne peut pas encore être rendue publique."
 
 msgid "You can re-subscribe at any time and full access to these features will be restored."
 msgstr "Vous pouvez vous ré-abonner à n'importe quel moment et votre accès complet à ces fonctionnalités sera rétabli."
 
 msgid "You don't currently have a Pro subscription"
-msgstr ""
+msgstr "Vous n'avez actuellement pas accès aux fonctionnalités avancées"
 
 msgid "You have successfully cancelled your subscription to {{pro_site_name}}"
 msgstr "L'annullation de votre abonnement à {{pro_site_name}} a réussi"
@@ -1247,7 +1248,7 @@ msgid "You'll lose access to any requests you still have in draft."
 msgstr "Vous allez perdre tous vos brouillons de demandes"
 
 msgid "Your Batch Request has been saved!"
-msgstr "Votre paquet de demandes a été sauvé !"
+msgstr "Votre lot de demandes a été enregistré !"
 
 msgid "Your clarification to {{public_body_name}} for \"{{info_request_title}}\" was resent."
 msgstr "Votre précision à l'autorité publique {{public_body_name}} au sujet de la demande \"{{info_request_title}}\" a été renvoyée."
@@ -1259,7 +1260,7 @@ msgid "Your dashboard"
 msgstr "Votre tableau de bord"
 
 msgid "Your draft has been saved!"
-msgstr "Votre brouillon a été sauvé !"
+msgstr "Votre brouillon a été enregistré !"
 
 msgid "Your follow up to {{public_body_name}} on \"{{info_request_title}}\" was resent."
 msgstr "Votre message de suivi à l'autorité publique {{public_body_name}} au sujet de la demande \"{{info_request_title}}\" a été renvoyée."
@@ -1313,16 +1314,16 @@ msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> s
 msgstr "Vous avez une idée de ce que les <strong>administrateurs</strong> de {{site_name}} devraient faire au sujet de la demande."
 
 msgid "You’ll have access to our address book of {{authority_count}} authorities that are subject to FOI."
-msgstr ""
+msgstr "Vous aurez accès à notre liste de contact pour ces {{authority_count}} autorités publiques sont soumises au droit d'accès à l'information."
 
 msgid "You’re busy fixing the world. Let us take care of your FOI requests."
-msgstr ""
+msgstr "Vous êtes occupé.e à sauver le monde. Laissez-nous nous occuper des détails de vos démarches d'accès à l'information publique !"
 
 msgid "You’ve got plenty of other things to think about, so you don’t want to be checking up on every single one of your requests to see if it needs attention. Instead, Pro keeps an eye on them for you, sending you a daily email digest."
-msgstr ""
+msgstr "Vous avez déjà plein de choses à vous occuper et vous n'avez pas envie d'avoir à suivre individuellement chacune de vos demandes d'accès à de l'information publique afin de voir si l'une d'entre elles requière votre attention. A la place, grâce aux fonctionnalités avancées d'Alaveteli Pro, tout est pris en charge. Vous recevez simplement un résumé quotidien d'activité."
 
 msgid "ZIP"
-msgstr ""
+msgstr "Code postal"
 
 msgid "all requests"
 msgstr "Toutes les demandes"
@@ -1410,28 +1411,28 @@ msgid "{{length_of_time}} ago"
 msgstr "Il y a {{length_of_time}}"
 
 msgid "{{pro_site_name}} does all the heavy lifting, leaving you with more time to focus on your campaigning."
-msgstr ""
+msgstr "{{pro_site_name}} prend en charge le poids du suivi administratif afin de vous permettre de vous concentrer sur les objectifs de votre campagne d'information."
 
 msgid "{{pro_site_name}} does all the heavy lifting, leaving you with more time to focus on your investigation."
-msgstr ""
+msgstr "{{pro_site_name}} prend en charge le poids du suivi administratif afin de vous permettre de vous concentrer sur les objectifs de votre reportage d'investigation."
 
 msgid "{{pro_site_name}} does all the heavy lifting, leaving you with more time to focus on your research."
-msgstr ""
+msgstr "{{pro_site_name}} prend en charge le poids du suivi administratif afin de vous permettre de vous concentrer sur les objectifs de vos recherches."
 
 msgid "{{pro_site_name}} does all the heavy lifting, leaving you with more time to focus on your story."
-msgstr ""
+msgstr "{{pro_site_name}} prend en charge le poids du suivi administratif afin de vous permettre de vous concentrer sur les objectifs de l'histoire que vous voulez raconter."
 
 msgid "{{pro_site_name}} does the hard work for you"
-msgstr ""
+msgstr "{{pro_site_name}} prends en charge le poids du suivi administratif"
 
 msgid "{{pro_site_name}} is a powerful, fully-featured <strong class=\"marketing-highlight\">FOI toolkit</strong> for journalists, campaigners and researchers"
-msgstr ""
+msgstr "{{pro_site_name}} est <strong class=\"marketing-highlight\">une boîte à outils pour les démarches de demande d'accès à l'information publiques</strong> complète et puissante pour des journalistes, activistes, citoyen.ne.s ou chercheurs"
 
 msgid "{{pro_site_name}} is here to help"
-msgstr ""
+msgstr "{{pro_site_name}} est là pour vous aider"
 
 msgid "{{pro_site_name}} moves request handling out of your email and onto a dedicated dashboard, keeping everything organised."
-msgstr ""
+msgstr "{{pro_site_name}} déplace la gestion des requêtes de votre boîte email vers un tableau de bord dédié et organisé."
 
 msgid "{{public_body_name}} are delayed in responding to your request \"{{info_request_title}}\"."
 msgstr "{{public_body_name}} est en retard pour répondre à votre demande \"{{info_request_title}}\"."
