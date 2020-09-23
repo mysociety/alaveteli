@@ -8,20 +8,9 @@ class AlaveteliLocalization
     def set_locales(available_locales, default_locale)
       available, default = parse_locales(available_locales, default_locale)
 
-      FastGettext.default_available_locales =
-        available_locales.map { |locale| locale.canonicalize.to_sym }
-
-      i18n_locales = available_locales.each_with_object([]) do |locale, memo|
-        memo.concat(locale.self_and_parents)
-      end
-
-      I18n.available_locales = i18n_locales.map(&:to_s).uniq
-      I18n.locale = I18n.default_locale = default_locale.hyphenate.to_s
-
-      FastGettext.default_locale = default_locale.canonicalize.to_s
-
-      RoutingFilter::Conditionallyprependlocale.locales =
-        available_locales.map(&:to_s)
+      set_fast_gettext_locales(available, default)
+      set_i18n_locales(available, default)
+      set_conditionally_prepend_locale_locales(available, default)
     end
 
     def set_default_text_domain(name, repos)
@@ -79,14 +68,30 @@ class AlaveteliLocalization
 
     private
 
+    def set_fast_gettext_locales(available, default)
+      FastGettext.default_available_locales =
+        available.map { |locale| locale.canonicalize.to_sym }
+
+      FastGettext.default_locale = default.canonicalize.to_s
+    end
+
+    def set_i18n_locales(available, default)
+      i18n_locales = available.each_with_object([]) do |locale, memo|
+        memo.concat(locale.self_and_parents)
+      end
+
+      I18n.available_locales = i18n_locales.map(&:to_s).uniq
+      I18n.locale = I18n.default_locale = default.hyphenate.to_s
+    end
+
+    def set_conditionally_prepend_locale_locales(available, _default)
+      RoutingFilter::Conditionallyprependlocale.locales = available.map(&:to_s)
+    end
+
     # Parse String locales to Locale instances
     def parse_locales(available_locales, default_locale)
-      available_locales =
-        available_locales.to_s.split(/ /).map { |locale| Locale.parse(locale) }
-
-      default_locale = Locale.parse(default_locale)
-
-      [available_locales, default_locale]
+      [available_locales.to_s.split(/ /).map { |locale| Locale.parse(locale) },
+       Locale.parse(default_locale)]
     end
   end
 end
