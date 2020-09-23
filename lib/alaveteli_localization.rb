@@ -6,11 +6,7 @@ require 'alaveteli_localization/underscorred_locale'
 class AlaveteliLocalization
   class << self
     def set_locales(available_locales, default_locale)
-      # Parse default and available locales
-      available_locales =
-        available_locales.to_s.split(/ /).map { |locale| Locale.parse(locale) }
-
-      default_locale = Locale.parse(default_locale)
+      available, default = parse_locales(available_locales, default_locale)
 
       FastGettext.default_available_locales =
         available_locales.map { |locale| locale.canonicalize.to_sym }
@@ -79,6 +75,18 @@ class AlaveteliLocalization
 
     def html_lang
       Locale.parse(locale).hyphenate
+    end
+
+    private
+
+    # Parse String locales to Locale instances
+    def parse_locales(available_locales, default_locale)
+      available_locales =
+        available_locales.to_s.split(/ /).map { |locale| Locale.parse(locale) }
+
+      default_locale = Locale.parse(default_locale)
+
+      [available_locales, default_locale]
     end
   end
 end
