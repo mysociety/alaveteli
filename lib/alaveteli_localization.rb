@@ -28,14 +28,8 @@ class AlaveteliLocalization
         available_locales.map(&:to_s)
     end
 
-    def set_default_locale(locale)
-      locale = Locale.parse(locale)
-      I18n.default_locale = locale.hyphenate.to_s
-      FastGettext.default_locale = locale.canonicalize.to_s
-    end
-
     def set_default_text_domain(name, repos)
-      FastGettext.add_text_domain name, :type => :chain, :chain => repos
+      FastGettext.add_text_domain name, type: :chain, chain: repos
       FastGettext.default_text_domain = name
     end
 
@@ -44,8 +38,14 @@ class AlaveteliLocalization
         include_default_locale = include_default_locale_in_urls
     end
 
+    def set_default_locale(locale)
+      locale = Locale.parse(locale)
+      I18n.default_locale = locale.hyphenate.to_s
+      FastGettext.default_locale = locale.canonicalize.to_s
+    end
+
     def set_session_locale(*args)
-      requested = args.compact.delete_if { |x| x.empty? }.first
+      requested = args.compact.delete_if(&:empty?).first
       new_locale = FastGettext.best_locale_in(requested) || default_locale
       locale = Locale.parse(new_locale)
 
@@ -60,8 +60,8 @@ class AlaveteliLocalization
       I18n.with_locale(tmp_locale, &block)
     end
 
-    def locale
-      FastGettext.locale
+    def available_locales
+      FastGettext.available_locales
     end
 
     def default_locale
@@ -73,8 +73,8 @@ class AlaveteliLocalization
       default_locale == other.to_s
     end
 
-    def available_locales
-      FastGettext.available_locales
+    def locale
+      FastGettext.locale
     end
 
     def html_lang
