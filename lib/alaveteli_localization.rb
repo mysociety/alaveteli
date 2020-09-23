@@ -6,25 +6,32 @@ require 'alaveteli_localization/underscorred_locale'
 class AlaveteliLocalization
   class << self
     def set_locales(available_locales, default_locale)
-      # fallback locale and available locales
-      available_locales = available_locales.to_s.
-                            split(/ /).map { |locale| canonicalize(locale) }
-      FastGettext.
-        default_available_locales = available_locales.map { |x| x.to_sym }
+      # Parse default and available locales
+      available_locales =
+        available_locales.to_s.split(/ /).map { |locale| Locale.parse(locale) }
 
-      all_locales = available_locales.each_with_object([]) do |locale, memo|
-        memo.concat(self_and_parents(to_hyphen(locale)))
+      default_locale = Locale.parse(default_locale)
+
+      FastGettext.default_available_locales =
+        available_locales.map { |locale| locale.canonicalize.to_sym }
+
+      i18n_locales = available_locales.each_with_object([]) do |locale, memo|
+        memo.concat(locale.self_and_parents)
       end
-      I18n.available_locales = all_locales.uniq
 
-      I18n.locale = I18n.default_locale = to_hyphen(default_locale).to_s
-      FastGettext.default_locale = canonicalize(default_locale)
-      RoutingFilter::Conditionallyprependlocale.locales = available_locales
+      I18n.available_locales = i18n_locales.map(&:to_s).uniq
+      I18n.locale = I18n.default_locale = default_locale.hyphenate.to_s
+
+      FastGettext.default_locale = default_locale.canonicalize.to_s
+
+      RoutingFilter::Conditionallyprependlocale.locales =
+        available_locales.map(&:to_s)
     end
 
     def set_default_locale(locale)
-      I18n.default_locale = to_hyphen(locale)
-      FastGettext.default_locale = canonicalize(locale)
+      locale = Locale.parse(locale)
+      I18n.default_locale = locale.hyphenate.to_s
+      FastGettext.default_locale = locale.canonicalize.to_s
     end
 
     def set_default_text_domain(name, repos)
@@ -39,14 +46,17 @@ class AlaveteliLocalization
 
     def set_session_locale(*args)
       requested = args.compact.delete_if { |x| x.empty? }.first
-
       new_locale = FastGettext.best_locale_in(requested) || default_locale
-      I18n.locale = to_hyphen(new_locale)
-      FastGettext.locale = canonicalize(new_locale)
+      locale = Locale.parse(new_locale)
+
+      I18n.locale = Locale.parse(new_locale).hyphenate
+      FastGettext.locale = Locale.parse(new_locale).canonicalize
+
+      locale.canonicalize.to_s
     end
 
     def with_locale(tmp_locale = nil, &block)
-      tmp_locale = to_hyphen(tmp_locale) if tmp_locale
+      tmp_locale = Locale.parse(tmp_locale).hyphenate if tmp_locale
       I18n.with_locale(tmp_locale, &block)
     end
 
@@ -68,21 +78,7 @@ class AlaveteliLocalization
     end
 
     def html_lang
-      to_hyphen(locale)
-    end
-
-    private
-
-    def canonicalize(locale)
-      Locale.parse(locale).canonicalize
-    end
-
-    def to_hyphen(locale)
       Locale.parse(locale).hyphenate
-    end
-
-    def self_and_parents(locale)
-      Locale.parse(locale).self_and_parents
     end
   end
 end
