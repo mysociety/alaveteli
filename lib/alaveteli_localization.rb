@@ -1,4 +1,8 @@
 # -*- encoding : utf-8 -*-
+require 'alaveteli_localization/locale'
+require 'alaveteli_localization/hyphenated_locale'
+require 'alaveteli_localization/underscorred_locale'
+
 class AlaveteliLocalization
   class << self
     def set_locales(available_locales, default_locale)
@@ -13,7 +17,7 @@ class AlaveteliLocalization
       end
       I18n.available_locales = all_locales.uniq
 
-      I18n.locale = I18n.default_locale = to_hyphen(default_locale)
+      I18n.locale = I18n.default_locale = to_hyphen(default_locale).to_s
       FastGettext.default_locale = canonicalize(default_locale)
       RoutingFilter::Conditionallyprependlocale.locales = available_locales
     end
@@ -70,15 +74,15 @@ class AlaveteliLocalization
     private
 
     def canonicalize(locale)
-      locale.to_s.gsub('-', '_')
+      Locale.parse(locale).canonicalize
     end
 
     def to_hyphen(locale)
-      locale.to_s.gsub('_', '-')
+      Locale.parse(locale).hyphenate
     end
 
     def self_and_parents(locale)
-      I18n::Locale::Tag::Simple.new(locale).self_and_parents.map(&:to_s)
+      Locale.parse(locale).self_and_parents
     end
   end
 end
