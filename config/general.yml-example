@@ -446,7 +446,7 @@ TRACK_SENDER_NAME: 'Alaveteli'
 # ---
 RAW_EMAILS_LOCATION: 'files/raw_emails'
 
-# Rails 4.0 introduces ActiveSupport::KeyGenerator and uses this as a base from
+# Rails 4.0 introduces ActiveSupport::KeyGenerator and uses this as a base from
 # which to generate and verify signed cookies (among other things). You can
 # generate a key with `rake secret`.
 #
