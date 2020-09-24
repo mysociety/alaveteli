@@ -23,12 +23,15 @@ class AlaveteliLocalization
         include_default_locale = include_default_locale_in_urls
     end
 
+    # rubocop:disable Naming/AccessorMethodName
     def set_default_locale(locale)
       locale = Locale.parse(locale)
       I18n.default_locale = locale.hyphenate.to_s
       FastGettext.default_locale = locale.canonicalize.to_s
     end
+    # rubocop:enable Naming/AccessorMethodName
 
+    # rubocop:disable Naming/AccessorMethodName
     def set_session_locale(*args)
       requested = args.compact.delete_if(&:empty?).first
       new_locale = FastGettext.best_locale_in(requested) || default_locale
@@ -39,6 +42,7 @@ class AlaveteliLocalization
 
       locale.canonicalize.to_s
     end
+    # rubocop:enable Naming/AccessorMethodName
 
     def with_locale(tmp_locale = nil, &block)
       tmp_locale = Locale.parse(tmp_locale).hyphenate if tmp_locale
