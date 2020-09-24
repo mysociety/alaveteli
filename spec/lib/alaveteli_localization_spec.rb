@@ -49,15 +49,15 @@ describe AlaveteliLocalization do
       end
 
       it 'sets I18n.locale' do
-        expect(I18n.locale).to eq(:"en-GB")
+        expect(I18n.locale).to eq(:'en-GB')
       end
 
       it 'sets I18n.default_locale' do
-        expect(I18n.default_locale).to eq(:"en-GB")
+        expect(I18n.default_locale).to eq(:'en-GB')
       end
 
       it 'sets I18n.available_locales' do
-        expect(I18n.available_locales).to eq([:"en-GB", :en, :es])
+        expect(I18n.available_locales).to eq(%i[en-GB en es])
       end
 
     end

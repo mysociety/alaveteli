@@ -26,7 +26,7 @@ class AlaveteliLocalization
     # rubocop:disable Naming/AccessorMethodName
     def set_default_locale(locale)
       locale = Locale.parse(locale)
-      I18n.default_locale = locale.hyphenate.to_s
+      I18n.default_locale = locale.hyphenate.to_sym
       FastGettext.default_locale = locale.canonicalize.to_s
     end
     # rubocop:enable Naming/AccessorMethodName
@@ -37,7 +37,7 @@ class AlaveteliLocalization
       new_locale = FastGettext.best_locale_in(requested) || default_locale
       locale = Locale.parse(new_locale)
 
-      I18n.locale = Locale.parse(new_locale).hyphenate
+      I18n.locale = Locale.parse(new_locale).hyphenate.to_sym
       FastGettext.locale = Locale.parse(new_locale).canonicalize
 
       locale.canonicalize.to_s
@@ -45,7 +45,7 @@ class AlaveteliLocalization
     # rubocop:enable Naming/AccessorMethodName
 
     def with_locale(tmp_locale = nil, &block)
-      tmp_locale = Locale.parse(tmp_locale).hyphenate if tmp_locale
+      tmp_locale = Locale.parse(tmp_locale).hyphenate.to_sym if tmp_locale
       I18n.with_locale(tmp_locale, &block)
     end
 
@@ -84,8 +84,8 @@ class AlaveteliLocalization
         memo.concat(locale.self_and_parents)
       end
 
-      I18n.available_locales = i18n_locales.map(&:to_s).uniq
-      I18n.locale = I18n.default_locale = default.hyphenate.to_s
+      I18n.available_locales = i18n_locales.map(&:to_sym).uniq
+      I18n.locale = I18n.default_locale = default.hyphenate.to_sym
     end
 
     def set_conditionally_prepend_locale_locales(available, _default)
