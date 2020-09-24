@@ -1,25 +1,26 @@
 # -*- encoding : utf-8 -*-
 class AlaveteliLocalization
+  autoload :HyphenatedLocale, 'alaveteli_localization/hyphenated_locale'
+  autoload :UnderscorredLocale, 'alaveteli_localization/underscorred_locale'
+
   # Handle transformations of a Locale identifier.
   class Locale
     include Comparable
+
+    # rubocop:disable Layout/LineLength
+    PARSERS = {
+      /\A[a-z]{2,3}-[A-Z]{2,3}\z/ => AlaveteliLocalization::HyphenatedLocale,
+      /\A[a-z]{2,3}_[A-Z1-9]{2,3}\z/ => AlaveteliLocalization::UnderscorredLocale,
+      /\A[a-z]{2,3}\z/ => AlaveteliLocalization::Locale
+    }.freeze
+    # rubocop:enable Layout/LineLength
 
     def self.parse(identifier)
       return identifier if identifier.is_a?(Locale)
 
       identifier = identifier.to_s
-
-      klass =
-        case identifier
-        when /\A[a-z]{2,3}-[A-Z]{2,3}\z/
-          AlaveteliLocalization::HyphenatedLocale
-        when /\A[a-z]{2,3}_[A-Z1-9]{2,3}\z/
-          AlaveteliLocalization::UnderscorredLocale
-        when /\A[a-z]{2,3}\z/
-          AlaveteliLocalization::Locale
-        else
-          raise ArgumentError, 'invalid identifier'
-        end
+      ifnone = -> { raise ArgumentError, 'invalid identifier' }
+      _, klass = PARSERS.find(ifnone) { |regexp, _| identifier.match(regexp) }
 
       klass.new(identifier)
     end
