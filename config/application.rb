@@ -101,5 +101,11 @@ module Alaveteli
       config.action_mailer.default_url_options[:protocol] = "https"
     end
 
+    config.after_initialize do
+      AlaveteliLocalization.set_locales(
+        AlaveteliConfiguration.available_locales,
+        AlaveteliConfiguration.default_locale
+      )
+    end
   end
 end
