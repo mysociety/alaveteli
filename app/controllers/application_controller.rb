@@ -14,7 +14,10 @@ class ApplicationController < ActionController::Base
   end
   class RouteNotFound < StandardError
   end
+
+  before_action :set_gettext_locale
   before_action :collect_locales
+
   protect_from_forgery :if => :user?, :with => :exception
   skip_before_action :verify_authenticity_token, :unless => :user?
 
@@ -34,7 +37,6 @@ class ApplicationController < ActionController::Base
 
   # Note: a filter stops the chain if it redirects or renders something
   before_action :authentication_check
-  before_action :set_gettext_locale
   before_action :check_in_post_redirect
   before_action :session_remember_me
   before_action :set_vary_header
