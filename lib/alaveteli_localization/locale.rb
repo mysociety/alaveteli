@@ -49,11 +49,16 @@ class AlaveteliLocalization
       self.class.parse(split.join('-'))
     end
 
-    # Note that self_and_parents only uses hyphenated locales
     def self_and_parents
       I18n::Locale::Tag::Simple.new(hyphenate).
         self_and_parents.
         map { |tag| self.class.parse(tag) }
+    end
+
+    def i18n_fallbacks(default = nil)
+      default = self.class.parse(default) if default
+      (self_and_parents | Array(default&.i18n_fallbacks)).
+        compact.map(&:to_sym).uniq
     end
 
     def to_s

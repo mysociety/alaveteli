@@ -80,9 +80,16 @@ class AlaveteliLocalization
     end
 
     def set_i18n_locales(available, default)
+      # Make all locales and their fallbacks available
       I18n.available_locales =
-        available.flat_map(&:self_and_parents).map(&:to_sym).uniq
+        available.flat_map(&:i18n_fallbacks).map(&:to_sym).uniq
 
+      # Configure the specific fallbacks for each locale
+      available.each do |locale|
+        I18n.fallbacks[locale.to_sym] = locale.i18n_fallbacks(default)
+      end
+
+      # Set the current locale as the default locale
       I18n.locale = I18n.default_locale = default.hyphenate.to_sym
     end
 
