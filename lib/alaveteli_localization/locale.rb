@@ -5,6 +5,8 @@ class AlaveteliLocalization
     include Comparable
 
     def self.parse(identifier)
+      return identifier if identifier.is_a?(Locale)
+
       identifier = identifier.to_s
 
       klass =
