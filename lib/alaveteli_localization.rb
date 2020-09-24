@@ -80,11 +80,9 @@ class AlaveteliLocalization
     end
 
     def set_i18n_locales(available, default)
-      i18n_locales = available.each_with_object([]) do |locale, memo|
-        memo.concat(locale.self_and_parents)
-      end
+      I18n.available_locales =
+        available.flat_map(&:self_and_parents).map(&:to_sym).uniq
 
-      I18n.available_locales = i18n_locales.map(&:to_sym).uniq
       I18n.locale = I18n.default_locale = default.hyphenate.to_sym
     end
 
