@@ -1,30 +1,20 @@
 # -*- encoding : utf-8 -*-
+require 'alaveteli_localization/locale'
+require 'alaveteli_localization/hyphenated_locale'
+require 'alaveteli_localization/underscorred_locale'
+
 class AlaveteliLocalization
   class << self
     def set_locales(available_locales, default_locale)
-      # fallback locale and available locales
-      available_locales = available_locales.to_s.
-                            split(/ /).map { |locale| canonicalize(locale) }
-      FastGettext.
-        default_available_locales = available_locales.map { |x| x.to_sym }
+      available, default = parse_locales(available_locales, default_locale)
 
-      all_locales = available_locales.each_with_object([]) do |locale, memo|
-        memo.concat(self_and_parents(to_hyphen(locale)))
-      end
-      I18n.available_locales = all_locales.uniq
-
-      I18n.locale = I18n.default_locale = to_hyphen(default_locale)
-      FastGettext.default_locale = canonicalize(default_locale)
-      RoutingFilter::Conditionallyprependlocale.locales = available_locales
-    end
-
-    def set_default_locale(locale)
-      I18n.default_locale = to_hyphen(locale)
-      FastGettext.default_locale = canonicalize(locale)
+      set_fast_gettext_locales(available, default)
+      set_i18n_locales(available, default)
+      set_conditionally_prepend_locale_locales(available, default)
     end
 
     def set_default_text_domain(name, repos)
-      FastGettext.add_text_domain name, :type => :chain, :chain => repos
+      FastGettext.add_text_domain name, type: :chain, chain: repos
       FastGettext.default_text_domain = name
     end
 
@@ -33,21 +23,34 @@ class AlaveteliLocalization
         include_default_locale = include_default_locale_in_urls
     end
 
-    def set_session_locale(*args)
-      requested = args.compact.delete_if { |x| x.empty? }.first
-
-      new_locale = FastGettext.best_locale_in(requested) || default_locale
-      I18n.locale = to_hyphen(new_locale)
-      FastGettext.locale = canonicalize(new_locale)
+    # rubocop:disable Naming/AccessorMethodName
+    def set_default_locale(locale)
+      locale = Locale.parse(locale)
+      I18n.default_locale = locale.hyphenate.to_s
+      FastGettext.default_locale = locale.canonicalize.to_s
     end
+    # rubocop:enable Naming/AccessorMethodName
+
+    # rubocop:disable Naming/AccessorMethodName
+    def set_session_locale(*args)
+      requested = args.compact.delete_if(&:empty?).first
+      new_locale = FastGettext.best_locale_in(requested) || default_locale
+      locale = Locale.parse(new_locale)
+
+      I18n.locale = Locale.parse(new_locale).hyphenate
+      FastGettext.locale = Locale.parse(new_locale).canonicalize
+
+      locale.canonicalize.to_s
+    end
+    # rubocop:enable Naming/AccessorMethodName
 
     def with_locale(tmp_locale = nil, &block)
-      tmp_locale = to_hyphen(tmp_locale) if tmp_locale
+      tmp_locale = Locale.parse(tmp_locale).hyphenate if tmp_locale
       I18n.with_locale(tmp_locale, &block)
     end
 
-    def locale
-      FastGettext.locale
+    def available_locales
+      FastGettext.available_locales
     end
 
     def default_locale
@@ -59,26 +62,40 @@ class AlaveteliLocalization
       default_locale == other.to_s
     end
 
-    def available_locales
-      FastGettext.available_locales
+    def locale
+      FastGettext.locale
     end
 
     def html_lang
-      to_hyphen(locale)
+      Locale.parse(locale).hyphenate
     end
 
     private
 
-    def canonicalize(locale)
-      locale.to_s.gsub('-', '_')
+    def set_fast_gettext_locales(available, default)
+      FastGettext.default_available_locales =
+        available.map { |locale| locale.canonicalize.to_sym }
+
+      FastGettext.default_locale = default.canonicalize.to_s
     end
 
-    def to_hyphen(locale)
-      locale.to_s.gsub('_', '-')
+    def set_i18n_locales(available, default)
+      i18n_locales = available.each_with_object([]) do |locale, memo|
+        memo.concat(locale.self_and_parents)
+      end
+
+      I18n.available_locales = i18n_locales.map(&:to_s).uniq
+      I18n.locale = I18n.default_locale = default.hyphenate.to_s
     end
 
-    def self_and_parents(locale)
-      I18n::Locale::Tag::Simple.new(locale).self_and_parents.map(&:to_s)
+    def set_conditionally_prepend_locale_locales(available, _default)
+      RoutingFilter::Conditionallyprependlocale.locales = available.map(&:to_s)
+    end
+
+    # Parse String locales to Locale instances
+    def parse_locales(available_locales, default_locale)
+      [available_locales.to_s.split(/ /).map { |locale| Locale.parse(locale) },
+       Locale.parse(default_locale)]
     end
   end
 end
