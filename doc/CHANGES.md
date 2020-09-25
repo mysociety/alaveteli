@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Remove translation markup from admin interface (Gareth Rees)
 * Improve handling of pluralised translations for locales with multiple
   pluralisation rules (Graeme Porteous)
 * Allow setting log level through the environment (Gareth Rees)

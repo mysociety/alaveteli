@@ -1,4 +1,4 @@
-<% @title = _("User – {{name}}", :name => h(@admin_user.name)) %>
+<% @title = "User – #{ @admin_user.name }" %>
 
 <h1><%=@title%></h1>
 
@@ -16,7 +16,7 @@
   <tbody>
     <tr>
       <td>
-        <b><%=_("Id")%></b>
+        <b>Id</b>
       </td>
       <td>
         <%=@admin_user.id%>
@@ -25,14 +25,14 @@
     <% @admin_user.for_admin_column(:complete => true) do |name, value, type, column_name| %>
       <tr>
         <td>
-          <b><%=_(name)%></b>
+          <b><%= name %></b>
         </td>
         <td>
           <% if column_name == 'email' %>
             <%=link_to @admin_user.email, "mailto:#{h @admin_user.email}"%>
           <% elsif column_name == 'email_bounce_message' %>
             <% unless @admin_user.email_bounce_message.empty? %>
-              <%= link_to _("See bounce message"), show_bounce_message_admin_user_path(@admin_user) %>
+              <%= link_to 'See bounce message', show_bounce_message_admin_user_path(@admin_user) %>
             <% end %>
           <% else %>
             <%=h admin_value(value)%>
