@@ -49,17 +49,63 @@ describe AlaveteliLocalization do
       end
 
       it 'sets I18n.locale' do
-        expect(I18n.locale).to eq(:"en-GB")
+        expect(I18n.locale).to eq(:'en-GB')
       end
 
       it 'sets I18n.default_locale' do
-        expect(I18n.default_locale).to eq(:"en-GB")
+        expect(I18n.default_locale).to eq(:'en-GB')
       end
 
       it 'sets I18n.available_locales' do
-        expect(I18n.available_locales).to eq([:"en-GB", :en, :es])
+        expect(I18n.available_locales).to eq(%i[en_GB en-GB en es])
       end
 
+      it 'sets correct fallbacks when using an underscore default locale' do
+        AlaveteliLocalization.set_locales('en_RW rw', 'en_RW')
+        expect(I18n.fallbacks[:en_RW]).to eq(%i[en_RW en-RW en])
+        expect(I18n.fallbacks[:rw]).to eq(%i[rw en_RW en-RW en])
+      end
+    end
+
+    context 'when dealing with Globalize' do
+      it 'sets correct fallbacks when using an underscore default locale' do
+        AlaveteliLocalization.set_locales('en_RW rw', 'en_RW')
+        expect(Globalize.fallbacks(:en_RW)).to eq(%i[en_RW en-RW en])
+        expect(Globalize.fallbacks(:rw)).to eq(%i[rw en_RW en-RW en])
+      end
+    end
+
+    context 'Globalize model attributes fallbacks' do
+      before do
+        AlaveteliLocalization.set_locales('en_RW rw', 'en_RW')
+      end
+
+      let(:body_with_default_locale) do
+        AlaveteliLocalization.with_locale('en_RW') do
+          FactoryBot.create(:public_body, url_name: 'default')
+        end
+      end
+
+      let(:body_with_non_default_locale) do
+        AlaveteliLocalization.with_locale('rw') do
+          FactoryBot.create(:public_body, url_name: 'non_default')
+        end
+      end
+
+      context 'when using non-default locale' do
+        it 'falls back to the default locale attribute' do
+          AlaveteliLocalization.with_locale('rw') do
+            expect(body_with_default_locale.url_name).to eq 'default'
+          end
+        end
+
+        it 'returns the translated non-default locale attribute' do
+          AlaveteliLocalization.with_locale('rw') do
+            expect(body_with_non_default_locale.url_name).to eq 'non_default'
+          end
+        end
+
+      end
     end
 
     context 'when translating' do

@@ -33,7 +33,7 @@ class PublicBodyController < ApplicationController
       raise ActiveRecord::RecordNotFound.new("None found") if @public_body.nil?
 
       if @public_body.url_name.nil?
-        redirect_to :back
+        redirect_back(fallback_location: root_path)
         return
       end
 

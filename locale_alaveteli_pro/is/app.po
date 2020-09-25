@@ -3,12 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# Translators:
+# Graeme Porteous <graeme@mysociety.org>, 2020
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-16 16:34+0100\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
+"Last-Translator: Graeme Porteous <graeme@mysociety.org>, 2020\n"
 "Language-Team: Icelandic (https://www.transifex.com/mysociety/teams/33529/is/)"
 "\n"
 "MIME-Version: 1.0\n"
