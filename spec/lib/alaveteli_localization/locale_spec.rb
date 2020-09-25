@@ -66,6 +66,33 @@ describe AlaveteliLocalization::Locale do
     it { is_expected.to eq(%w[en]) }
   end
 
+  describe '#i18n_fallbacks' do
+    context 'without a default_locale' do
+      subject { described_class.new('en').i18n_fallbacks }
+      it { is_expected.to eq(%i[en]) }
+    end
+
+    context 'with a default_locale' do
+      subject { described_class.new('en').i18n_fallbacks('fr') }
+      it { is_expected.to eq(%i[en fr]) }
+    end
+
+    context 'with the default locale given to default_locale' do
+      subject { described_class.new('en').i18n_fallbacks('en') }
+      it { is_expected.to eq(%i[en]) }
+    end
+
+    context 'with a hyphenated default_locale' do
+      subject { described_class.new('en').i18n_fallbacks('fr-BE') }
+      it { is_expected.to eq(%i[en fr-BE fr_BE fr]) }
+    end
+
+    context 'with an underscorred default_locale' do
+      subject { described_class.new('en').i18n_fallbacks('fr_BE') }
+      it { is_expected.to eq(%i[en fr_BE fr-BE fr]) }
+    end
+  end
+
   describe '#to_s' do
     subject { described_class.new('en').to_s }
     it { is_expected.to eq('en') }

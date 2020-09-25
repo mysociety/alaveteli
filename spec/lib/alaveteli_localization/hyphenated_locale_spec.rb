@@ -28,7 +28,34 @@ describe AlaveteliLocalization::HyphenatedLocale do
 
   describe '#self_and_parents' do
     subject { described_class.new(identifier).self_and_parents }
-    it { is_expected.to eq(%w[en-GB en]) }
+    it { is_expected.to eq(%w[en-GB en_GB en]) }
+  end
+
+  describe '#i18n_fallbacks' do
+    context 'without a default_locale' do
+      subject { described_class.new(identifier).i18n_fallbacks }
+      it { is_expected.to eq(%i[en-GB en_GB en]) }
+    end
+
+    context 'with a default_locale' do
+      subject { described_class.new(identifier).i18n_fallbacks('fr') }
+      it { is_expected.to eq(%i[en-GB en_GB en fr]) }
+    end
+
+    context 'with the default locale given to default_locale' do
+      subject { described_class.new(identifier).i18n_fallbacks(identifier) }
+      it { is_expected.to eq(%i[en-GB en_GB en]) }
+    end
+
+    context 'with a hyphenated default_locale' do
+      subject { described_class.new(identifier).i18n_fallbacks('fr-BE') }
+      it { is_expected.to eq(%i[en-GB en_GB en fr-BE fr_BE fr]) }
+    end
+
+    context 'with an underscorred default_locale' do
+      subject { described_class.new(identifier).i18n_fallbacks('fr_BE') }
+      it { is_expected.to eq(%i[en-GB en_GB en fr_BE fr-BE fr]) }
+    end
   end
 
   describe '#to_s' do
