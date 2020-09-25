@@ -41,6 +41,7 @@ module MailHandler
       end
 
       def mail_from_raw_email(data)
+        data = data.force_encoding(Encoding::BINARY) if data.is_a? String
         Mail.new(data)
       end
 

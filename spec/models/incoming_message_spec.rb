@@ -231,6 +231,48 @@ describe IncomingMessage do
 
   end
 
+  describe '#specific_from_name?' do
+    subject { incoming_message.specific_from_name? }
+
+    let(:body) { FactoryBot.build(:public_body, name: 'Foo') }
+    let(:request) { FactoryBot.build(:info_request, public_body: body) }
+
+    context 'when mail_from is nil' do
+      let(:incoming_message) do
+        FactoryBot.build(:incoming_message, mail_from: nil)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when safe_mail_from is the same as the body name' do
+      let(:incoming_message) do
+        FactoryBot.
+          build(:incoming_message, info_request: request, mail_from: 'Foo')
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when safe_mail_from differs from the body name' do
+      let(:incoming_message) do
+        FactoryBot.
+          build(:incoming_message, info_request: request, mail_from: 'Bar')
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'a censor rule masks mail_from' do
+      let(:incoming_message) do
+        FactoryBot.create(:global_censor_rule, text: 'Bar')
+        FactoryBot.build(:incoming_message, mail_from: 'Bar')
+      end
+
+      it { is_expected.to eq(true) }
+    end
+  end
+
   describe '#apply_masks' do
 
     before(:each) do

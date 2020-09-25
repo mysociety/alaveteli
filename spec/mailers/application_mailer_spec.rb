@@ -49,7 +49,7 @@ describe ApplicationMailer do
     def create_multipart_method(method_name)
       ApplicationMailer.send(:define_method, method_name) do
         attachments['original.eml'] = 'xxx'
-        mail
+        mail(content_type: 'multipart/mixed')
       end
     end
 

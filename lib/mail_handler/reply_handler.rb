@@ -47,7 +47,8 @@ module MailHandler
       # Then look for the style we’ve seen in WebShield bounces
       # (These do not have a return path of <> in the cases I have seen.)
       if subject == "Returned Mail: Error During Delivery"
-        if MailHandler.get_part_body(message) =~ /^\s*---- Failed Recipients ----\s*((?:<[^>]+>\n)+)/
+        if MailHandler.get_part_body(message) =~
+           /^\s*---- Failed Recipients ----\s*((?:<[^>]+>\r?\n)+)/
           return $1.scan(/<([^>]+)>/).flatten
         end
       end
