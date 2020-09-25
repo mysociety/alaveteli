@@ -1,3 +1,22 @@
+# 0.38.2.0
+
+## Highlighted Features
+
+* Fix locale fallback issue (Gareth Rees)
+* Fix issue where locale switcher wouldn't update (Graeme Porteous)
+* Updated translations from Transifex (Graeme Porteous)
+* Dependencies upgrades (Gareth Rees, Graeme Porteous)
+
+### Changed Templates
+
+The following templates have been changed. Please update overrides in your theme
+to match the new templates.
+
+    app/views/alaveteli_pro/account_request/_marketing_batch_features.html.erb
+    app/views/alaveteli_pro/pages/marketing_roles/campaigners/_marketing_testimonials.html.erb
+    app/views/alaveteli_pro/pages/marketing_roles/journalists/_marketing_testimonials.html.erb
+    app/views/alaveteli_pro/pages/marketing_roles/researchers/_marketing_testimonials.html.erb
+
 # 0.38.1.1
 
 ## Highlighted Features
