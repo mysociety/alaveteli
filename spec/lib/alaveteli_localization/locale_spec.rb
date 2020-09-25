@@ -32,6 +32,11 @@ describe AlaveteliLocalization::Locale do
       it { is_expected.to eq(underscorred_locale('es_419')) }
     end
 
+    context 'with an already parsed identifier' do
+      let(:identifier) { described_class.parse('en_GB') }
+      it { is_expected.to equal(identifier) }
+    end
+
     context 'with an invalid identifier' do
       let(:identifier) { 'foobarbaz' }
 
