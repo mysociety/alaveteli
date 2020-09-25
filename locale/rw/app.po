@@ -26,6 +26,7 @@
 # Translators:
 # Clarisse Umutesi Mwitegereze <clarisse@mediae.org>, 2014-2015
 # Gareth Rees <gareth@mysociety.org>, 2015
+# Graeme Porteous <graeme@mysociety.org>, 2020
 # Jean Pierre <afadhalipierre@gmail.com>, 2017
 # Jean Pierre <afadhalipierre@gmail.com>, 2017
 # Liz Conlan <liz@mysociety.org>, 2018
@@ -36,7 +37,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-16 16:34+0100\n"
-"PO-Revision-Date: 2020-07-17 13:17+0000\n"
+"PO-Revision-Date: 2020-09-23 09:08+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Kinyarwanda (http://www.transifex.com/mysociety/alaveteli/langu"
 "age/rw/)\n"
@@ -1619,7 +1620,7 @@ msgstr "Wibagiwe ijambobanga ryawe?"
 
 msgid "Found {{count}} public authority"
 msgid_plural "Found {{count}} public authorities"
-msgstr[0] "Habonetse {{count}} ibigo bya leta bitangirwa na‘{{first_letter}}’"
+msgstr[0] "Habonetse {{count}} ibigo bya leta"
 msgstr[1] "Habonetse {{count}} ibigo bya leta"
 
 msgid "Found {{count}} public authority beginning with ‘{{first_letter}}’"
