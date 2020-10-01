@@ -90,6 +90,43 @@ describe PublicBody do
     end
   end
 
+  describe '.with_domain' do
+    subject { described_class.with_domain(domain) }
+
+    let(:public_body_1) do
+      FactoryBot.create(:public_body, name: 'B',
+                                      request_email: 'B@example.org')
+    end
+
+    let(:public_body_2) do
+      FactoryBot.create(:public_body, request_email: 'foo@example.com')
+    end
+
+    let(:public_body_3) do
+      FactoryBot.create(:public_body, name: 'A',
+                                      request_email: 'A@example.org')
+    end
+
+    context 'when a public body has the domain' do
+      let(:domain) { 'example.org' }
+
+      it { is_expected.to match_array([public_body_3, public_body_1]) }
+      it { is_expected.not_to include(public_body_2) }
+    end
+
+    context 'when the domain is given with a different case' do
+      let(:domain) { 'EXAMPLE.ORG' }
+
+      it { is_expected.to match_array([public_body_3, public_body_1]) }
+      it { is_expected.not_to include(public_body_2) }
+    end
+
+    context 'when domain is nil' do
+      let(:domain) { nil }
+      it { is_expected.to be_empty }
+    end
+  end
+
   describe '.with_tag' do
 
     it 'should returns all authorities' do

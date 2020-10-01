@@ -17,8 +17,7 @@ class AdminRawEmailController < AdminController
         if @holding_pen
           # 1. Use domain of email to try and guess which public body it
           # is associated with, so we can display that.
-          @public_bodies =
-            public_bodies_from_domain(@raw_email.from_email_domain)
+          @public_bodies = PublicBody.with_domain(@raw_email.from_email_domain)
 
           # 2. Match the email address in the message without matching the hash
           guess_addresses = @raw_email.addresses(include_invalid: true)
@@ -52,18 +51,6 @@ class AdminRawEmailController < AdminController
   def in_holding_pen?(raw_email)
     raw_email.incoming_message.info_request.holding_pen_request? &&
       !raw_email.empty_from_field?
-  end
-
-  def public_bodies_from_domain(domain)
-    if domain.nil?
-      []
-    else
-      PublicBody.
-        with_translations(AlaveteliLocalization.locale).
-          where("lower(public_body_translations.request_email) " \
-                "like lower('%'||?||'%')", domain).
-            order('public_body_translations.name')
-    end
   end
 
   def rejected_reason(raw_email)

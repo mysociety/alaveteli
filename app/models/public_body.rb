@@ -235,6 +235,15 @@ class PublicBody < ApplicationRecord
       uniq
   end
 
+  def self.with_domain(domain)
+    return none unless domain
+
+    with_translations(AlaveteliLocalization.locale).
+      where("lower(public_body_translations.request_email) " \
+            "like lower('%'||?||'%')", domain).
+        order('public_body_translations.name')
+  end
+
   def set_api_key
     set_api_key! if api_key.nil?
   end
