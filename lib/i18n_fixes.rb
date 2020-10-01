@@ -12,13 +12,13 @@ def _(key, options = {})
 end
 
 def n_(*keys)
-  # The last parameter should be the values to do the interpolation with
-  if keys.count > 3
-    options = keys.pop
-  else
-    options = {}
-  end
-  translation = FastGettext.n_(*keys).html_safe
+  # The last parameter could be the values to do the interpolation with
+  options = keys.extract_options!
+
+  # The last key needs to be the pluralisation count and should be a integer
+  count = keys.pop.to_i
+
+  translation = FastGettext.n_(*keys, count).html_safe
   gettext_interpolate(translation, options)
 end
 
