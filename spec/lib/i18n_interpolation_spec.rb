@@ -15,32 +15,41 @@ describe "when using i18n" do
   end
 end
 
-describe "n_" do
-  it "should return the translated singular" do
-    expect(FastGettext).to receive(:n_).with("Apple", "Apples", 1).and_return("Apfel")
-    expect(n_("Apple", "Apples", 1)).to eq("Apfel")
+describe 'n_' do
+  before { AlaveteliLocalization.set_locales('de en', 'en') }
+
+  it 'returns the translated singular' do
+    AlaveteliLocalization.with_locale('de') do
+      expect(n_('Apple', 'Apples', 1)).to eq('Apfel')
+    end
   end
 
-  it "should return the translated plural" do
-    expect(FastGettext).to receive(:n_).with("Apple", "Apples", 3).and_return("Äpfel")
-    expect(n_("Apple", "Apples", 3)).to eq("Äpfel")
+  it 'returns the translated plural' do
+    AlaveteliLocalization.with_locale('de') do
+      expect(n_('Apple', 'Apples', 3)).to eq('Äpfel')
+    end
   end
 
-  it "should return the translated singular interpolated" do
-    expect(FastGettext).to receive(:n_).with("I eat {{count}} apple", "I eat {{count}} apples", 1).
-      and_return("Ich esse {{count}} Apfel")
-    expect(n_("I eat {{count}} apple", "I eat {{count}} apples", 1, :count => 1)).to eq("Ich esse 1 Apfel")
+  it 'returns the translated singular interpolated' do
+    AlaveteliLocalization.with_locale('de') do
+      expect(
+        n_('I eat {{count}} apple', 'I eat {{count}} apples', 1, count: 1)
+      ).to eq('Ich esse 1 Apfel')
+    end
   end
 
-  it "should return the translated plural interpolated" do
-    expect(FastGettext).to receive(:n_).with("I eat {{count}} apple", "I eat {{count}} apples", 3).
-      and_return("Ich esse {{count}} Äpfel")
-    expect(n_("I eat {{count}} apple", "I eat {{count}} apples", 3, :count => 3)).to eq("Ich esse 3 Äpfel")
+  it 'returns the translated plural interpolated' do
+    AlaveteliLocalization.with_locale('de') do
+      expect(
+        n_('I eat {{count}} apple', 'I eat {{count}} apples', 3, count: 3)
+      ).to eq('Ich esse 3 Äpfel')
+    end
   end
 
-  it "should always be html safe when there is no interpolation" do
-    expect(FastGettext).to receive(:n_).with("Apple", "Apples", 1).and_return("Apfel")
-    expect(n_("Apple", "Apples", 1)).to be_html_safe
+  it 'returns html safe string when there is no interpolation' do
+    AlaveteliLocalization.with_locale('de') do
+      expect(n_('Apple', 'Apples', 1)).to be_html_safe
+    end
   end
 end
 
