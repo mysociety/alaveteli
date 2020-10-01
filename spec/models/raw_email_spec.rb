@@ -226,4 +226,18 @@ describe RawEmail do
 
   end
 
+  describe '#from_email_domain' do
+    subject { raw_email.from_email_domain }
+
+    let(:raw_email) do
+      mail =
+        get_fixture_mail('incoming-request-plain.email', nil, 'b@example.net')
+      raw_email = FactoryBot.create(:raw_email)
+      FactoryBot.create(:incoming_message, raw_email: raw_email)
+      raw_email.update!(data: mail)
+      raw_email
+    end
+
+    it { is_expected.to eq('example.net') }
+  end
 end

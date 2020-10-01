@@ -17,8 +17,8 @@ class AdminRawEmailController < AdminController
         if @holding_pen
           # 1. Use domain of email to try and guess which public body it
           # is associated with, so we can display that.
-          domain = domain_from_email(@raw_email)
-          @public_bodies = public_bodies_from_domain(domain)
+          @public_bodies =
+            public_bodies_from_domain(@raw_email.from_email_domain)
 
           # 2. Match the email address in the message without matching the hash
           guess_addresses = @raw_email.addresses(include_invalid: true)
@@ -52,11 +52,6 @@ class AdminRawEmailController < AdminController
   def in_holding_pen?(raw_email)
     raw_email.incoming_message.info_request.holding_pen_request? &&
       !raw_email.empty_from_field?
-  end
-
-  def domain_from_email(raw_email)
-    email = raw_email.incoming_message.from_email
-    PublicBody.extract_domain_from_email(email)
   end
 
   def public_bodies_from_domain(domain)
