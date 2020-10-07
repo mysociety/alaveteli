@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Truncate search queries that are too long (Gareth Rees)
 * Remove translation markup from admin interface (Gareth Rees)
 * Improve handling of pluralised translations for locales with multiple
   pluralisation rules (Graeme Porteous)
