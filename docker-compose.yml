@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    environment:
+      - BUNDLE_PATH=/bundle/vendor
+      - DATABASE_URL=postgres://postgres:password@db/
+    ports:
+      - 3000:3000
+    volumes:
+      - ./:/alaveteli
+      - ../alaveteli-themes:/alaveteli-themes
+      - bundle:/bundle
+    depends_on:
+      - db
+
+  db:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile-postgres
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=password
+
+volumes:
+  bundle: {}
+  postgres: {}
