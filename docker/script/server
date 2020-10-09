@@ -1,0 +1,4 @@
+if [[ -z "$DOCKER" ]]; then
+  docker compose -f docker/development.yml -p alaveteli up
+  exit
+fi

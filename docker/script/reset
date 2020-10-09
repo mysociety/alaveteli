@@ -1,0 +1,7 @@
+postgres_containers=$(docker container ls -a | grep alaveteli_db | awk '{print $1}')
+docker container stop $postgres_containers
+docker container rm $postgres_containers
+docker volume rm alaveteli_postgres
+
+docker compose -f docker/development.yml -p alaveteli build
+./docker/script/setup

@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    entrypoint: 'wait-for-it db:5432 --strict --'
+    command: bash -c 'bundle exec rails server -b "0.0.0.0"'
+    environment:
+      - BUNDLE_PATH=/bundle/vendor
+    ports:
+      - '3000:3000'
+    volumes:
+      - ../:/alaveteli
+      - ../../alaveteli-themes:/alaveteli-themes
+      - bundle:/bundle
+    depends_on:
+      - db
+
+  db:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile-postgres
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_PASSWORD=password
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - '1025:1025'
+      - '1080:8025' # 1080 is the same as mailcatcher
+
+volumes:
+  bundle: {}
+  postgres: {}
