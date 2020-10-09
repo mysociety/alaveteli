@@ -5,7 +5,6 @@ set -e
 cd "$(dirname "$0")/.."
 
 if [ -z "$DOCKER" ]; then
-  ./docker/bootstrap
   docker compose run --rm app ./docker/setup
   exit
 fi
