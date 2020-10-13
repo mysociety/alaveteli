@@ -25,6 +25,9 @@ MySociety::Config.load_default
 $:.push(File.join($alaveteli_dir, 'lib'))
 load 'configuration.rb'
 
+$:.push(File.join($alaveteli_dir, 'app', 'helpers'))
+require 'config_helper'
+
 $:.push(File.join($alaveteli_dir, 'lib', 'mail_handler'))
 require 'mail_handler'
 require 'reply_handler'

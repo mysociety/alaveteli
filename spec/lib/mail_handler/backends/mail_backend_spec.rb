@@ -286,5 +286,11 @@ when it really should be application/pdf.\n
 
   end
 
-
+  describe '#decode_attached_part' do
+    it 'does not error if mapi cannot parse a part' do
+      allow(Mapi::Msg).to receive(:open).and_raise(Encoding::CompatibilityError)
+      mail = get_fixture_mail('incoming-request-oft-attachments.email')
+      expect { decode_attached_part(mail.parts.last, mail) }.not_to raise_error
+    end
+  end
 end

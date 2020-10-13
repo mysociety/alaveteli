@@ -35,6 +35,7 @@ end
 module MailHandler
   module Backends
     module MailBackend
+      include ConfigHelper
 
       def backend
         'Mail'
@@ -186,7 +187,18 @@ module MailHandler
             part.content_type = 'text/plain'
           end
         elsif is_outlook?(part)
-          part.rfc822_attachment = mail_from_outlook(part.body.decoded)
+          begin
+            part.rfc822_attachment = mail_from_outlook(part.body.decoded)
+          rescue Encoding::CompatibilityError => e
+            if send_exception_notifications?
+              data = { message: 'Exception while parsing outlook attachment.',
+                       parent_mail: parent_mail.inspect }
+              ExceptionNotifier.notify_exception(e, data: data)
+            end
+
+            part.rfc822_attachment = nil
+          end
+
           if part.rfc822_attachment.nil?
             # Attached mail didn't parse, so treat as binary
             part.content_type = 'application/octet-stream'
