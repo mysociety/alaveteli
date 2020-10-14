@@ -35,7 +35,7 @@
       <div class="accordion-heading">
         <span class="item-title">
           <a href="#event_<%=info_request_event.id%>" data-toggle="collapse" data-parent="#events"><%= chevron_right %></a>
-          <%= _("Event {{id}}", :id => info_request_event.id) %>:
+          <%= "Event #{ info_request_event.id }" %>:
           <strong>
             <%=h info_request_event.event_type.humanize %><% if !info_request_event.calculated_state.nil? %>; state: <%= info_request_event.calculated_state %><% end %>
           </strong>
