@@ -13,16 +13,19 @@
 
 # We want to avoid loading rails unless we need it, so we start by just loading the
 # config file ourselves.
+require 'active_support/all'
+
 $alaveteli_dir = File.expand_path(File.join(File.dirname(__FILE__), '..'))
-$:.push(File.join($alaveteli_dir, "commonlib", "rblib"))
+
+$:.push(File.join($alaveteli_dir, 'commonlib', 'rblib'))
 load 'config.rb'
-$:.push(File.join($alaveteli_dir, "lib"))
-$:.push(File.join($alaveteli_dir, "lib", "mail_handler"))
-load 'configuration.rb'
 MySociety::Config.set_file(File.join($alaveteli_dir, 'config', 'general'), true)
 MySociety::Config.load_default
 
-require 'active_support/all'
+$:.push(File.join($alaveteli_dir, 'lib'))
+load 'configuration.rb'
+
+$:.push(File.join($alaveteli_dir, 'lib', 'mail_handler'))
 require 'mail_handler'
 require 'reply_handler'
 
