@@ -142,6 +142,12 @@ describe TypeaheadSearch do
       expect(TypeaheadSearch.new("a", options).xapian_search).to be_nil
     end
 
+    it 'truncates the query string when it is too long' do
+      search = TypeaheadSearch.new('a' * 500, options)
+      search.xapian_search
+      expect(search.query.bytesize).to eq(252)
+    end
+
     it "returns a search with matches for complete words followed by a space" do
       search = TypeaheadSearch.new("chicken ", options).xapian_search
       expect(search_info_requests(search)).
