@@ -185,7 +185,9 @@ body.admin {
   /* Censor Rules */
   .censor-rule-list td.text,
   .censor-rule-list td.replacement {
+    font-family: monospace;
     max-width: 380px;
+    overflow-wrap: break-word;
   }
 
   /* Holidays */
