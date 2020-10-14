@@ -7,6 +7,8 @@
 * Updated translations from Transifex (Graeme Porteous)
 * Dependencies upgrades (Gareth Rees, Graeme Porteous)
 
+## Upgrade Notes
+
 ### Changed Templates
 
 The following templates have been changed. Please update overrides in your theme
