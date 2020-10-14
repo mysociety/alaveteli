@@ -14,3 +14,4 @@ jobs:
         github_token: ${{ secrets.github_token }}
         rubocop_version: 0.81.0
         rubocop_extensions: rubocop-performance:1.5.2 rubocop-rails:2.5.2
+        level: warning
