@@ -46,7 +46,7 @@ describe "creating batch requests in alaveteli_pro" do
   let!(:pro_user_session) { login(pro_user) }
   let!(:authorities) { FactoryBot.create_list(:public_body, 26) }
 
-  before :all do
+  before do
     get_fixtures_xapian_index
   end
 
