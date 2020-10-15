@@ -32,7 +32,11 @@ module PublicBodyDerivedFields
   def set_first_letter
     unless name.blank?
       # we use a regex to ensure it works with utf-8/multi-byte
-      new_first_letter = Unicode.upcase name.scan(/^./mu)[0]
+      if RUBY_VERSION < '2.4'
+        new_first_letter = Unicode.upcase(name.scan(/^./mu)[0])
+      else
+        new_first_letter = name.scan(/^./mu)[0]&.upcase
+      end
       if new_first_letter != first_letter
         self.first_letter = new_first_letter
       end
