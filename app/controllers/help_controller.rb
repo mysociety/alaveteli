@@ -6,6 +6,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class HelpController < ApplicationController
+  include RefusalsHelper
 
   # we don't even have a control subroutine for most help pages, just see their templates
 
@@ -20,6 +21,10 @@ class HelpController < ApplicationController
   def unhappy
     @country_code = AlaveteliConfiguration.iso_country_code
     @info_request = nil
+
+    @refusal_advice =
+      YAML.load(File.read('./tmp/refusals.yml')).deep_symbolize_keys
+
     if params[:url_title]
       @info_request = InfoRequest
         .not_embargoed
