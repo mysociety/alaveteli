@@ -2,7 +2,7 @@
 <% if track_things.empty? %>
   <div class="row">
     <div class="span12">
-      <%=_("No tracked things found.")%>
+      No tracked things found.
     </div>
   </div>
 <% else %>
@@ -48,8 +48,8 @@
                   </td>
                   <td>
                     <% if column.type.to_s == 'datetime' %>
-                      <%= I18n.l(track_thing.send(column.name), :format => "%e %B %Y %H:%M:%S") %>
-                      (<%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(track_thing.send(column.name))) %>)
+                      <%= track_thing.send(column.name).to_s(:db) %>
+                      (<%= time_ago_in_words(track_thing.send(column.name)) %> ago)
                     <% elsif column.name == 'track_medium' and track_thing.track_medium == 'feed' %>
                       <%= link_to track_thing.track_medium, atom_feed_path(:track_id => track_thing.id) %>
                     <% else %>
@@ -59,7 +59,7 @@
                 </tr>
               <% end %>
               <tr>
-                <td><b><%=_("Items sent in last month")%></b></td>
+                <td><b>Items sent in last month</b></td>
                 <td><%= track_thing.track_things_sent_emails.size %></td>
               </tr>
             </tbody>

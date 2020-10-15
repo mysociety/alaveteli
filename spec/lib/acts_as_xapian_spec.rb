@@ -175,7 +175,7 @@ describe ActsAsXapian::Search do
 
   describe "#words_to_highlight" do
 
-    before :all do
+    before do
       get_fixtures_xapian_index
     end
 
@@ -253,7 +253,7 @@ describe ActsAsXapian::Search do
 
   describe '#spelling_correction' do
 
-    before :all do
+    before do
       load_raw_emails_data
       get_fixtures_xapian_index
     end

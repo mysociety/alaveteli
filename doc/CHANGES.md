@@ -1,3 +1,18 @@
+# develop
+
+## Highlighted Features
+
+* Prevent overflowing of long censor rules in admin interface (Gareth Rees)
+* Truncate search queries that are too long (Gareth Rees)
+* Remove translation markup from admin interface (Gareth Rees)
+* Improve handling of pluralised translations for locales with multiple
+  pluralisation rules (Graeme Porteous)
+* Allow setting log level through the environment (Gareth Rees)
+
+## Upgrade Notes
+
+### Changed Templates
+
 # 0.38.2.0
 
 ## Highlighted Features
@@ -6,6 +21,8 @@
 * Fix issue where locale switcher wouldn't update (Graeme Porteous)
 * Updated translations from Transifex (Graeme Porteous)
 * Dependencies upgrades (Gareth Rees, Graeme Porteous)
+
+## Upgrade Notes
 
 ### Changed Templates
 

@@ -35,7 +35,7 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
     let(:authority_2) { FactoryBot.build(:public_body) }
     let(:authority_3) { FactoryBot.build(:public_body) }
 
-    before :all do
+    before do
       get_fixtures_xapian_index
     end
 

@@ -9,6 +9,10 @@ Rails.application.configure do
   # Use a different logger for distributed setups
   # config.logger = SyslogLogger.new
 
+  # Set LOG_LEVEL in the environment to a valid log level to temporarily run the
+  # application with a non-default setting.
+  config.log_level = ENV.fetch('LOG_LEVEL', :info)
+
   # Full error reports are disabled and caching is turned on
   config.action_controller.consider_all_requests_local = false
   config.action_controller.perform_caching             = true

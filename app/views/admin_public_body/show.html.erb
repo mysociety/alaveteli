@@ -1,4 +1,4 @@
-<% @title = _("Public authority – {{name}}", :name => h(@public_body.name)) %>
+<% @title = "Public authority – #{ @public_body.name }" %>
 
 <h1><%=@title%></h1>
 
@@ -18,7 +18,7 @@
             <% elsif column_name == 'request_email' %>
               <%= link_to(h(value), "mailto:#{value}")  %>
               <% unless @public_body.is_requestable? %>
-                <%=_("not requestable due to: {{reason}}", :reason => h(@public_body.not_requestable_reason))%><% if @public_body.is_followupable? %>; <%=_("but followupable")%><% end %>
+                <%= "not requestable due to: #{ @public_body.not_requestable_reason }" %><% if @public_body.is_followupable? %>; but followupable<% end %>
               <% end %>
             <% else %>
               <%=h value %>
@@ -29,19 +29,19 @@
     <% end %>
     <tr>
       <td>
-        <b><%=_("Calculated home page")%></b>
+        <b>Calculated home page</b>
       </td>
       <td>
         <% unless @public_body.calculated_home_page.nil? %>
           <%= link_to(h(@public_body.calculated_home_page), @public_body.calculated_home_page) %>
         <% else %>
-          <%=_("*unknown*")%>
+          *unknown*
         <% end %>
       </td>
     </tr>
     <tr>
       <td>
-        <b><%=_("Tags")%></b>
+        <b>Tags</b>
       </td>
       <td>
         <%= render :partial => 'tags', :locals => { :body => @public_body} %>
@@ -49,11 +49,11 @@
     </tr>
   </tbody>
 </table>
-<%= link_to _("Edit"), edit_admin_body_path(@public_body), :class => "btn btn-primary" %>
+<%= link_to 'Edit', edit_admin_body_path(@public_body), class: 'btn btn-primary' %>
 <% unless @public_body.url_name.nil? %>
-  <%=link_to _("Public page"), public_body_path(@public_body), :class => "btn" %>
+  <%= link_to 'Public page', public_body_path(@public_body), class: 'btn' %>
 <% else %>
-  <%=_("Public page not available")%>
+  Public page not available
 <% end %>
 <hr>
 <h2>History</h2>
@@ -61,18 +61,18 @@
   <div class="row">
     <div class="span2">
       <b>
-        <%= _("Version {{version}}", :version => version.version)%>
+        <%= "Version #{ version.version }" %>
       </b>
     </div>
     <div class="span4">
-      <%= I18n.l(version.updated_at, :format => "%e %B %Y %H:%M:%S") %>
-      (<%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(version.updated_at)) %>)
+      <%= version.updated_at.to_s(:db) %>
+      (<%= time_ago_in_words(version.updated_at) %> ago)
     </div>
     <% if i == @versions.length - 1 %>
       <div class="span6">
         <p>“<%= h(version.last_edit_comment) %>”</p>
         <ul>
-          <li><%=_("This is the first version.")%></li>
+          <li>This is the first version.</li>
         </ul>
       </div>
     <% else %>
@@ -81,10 +81,9 @@
         <ul>
           <% version.compare(@versions[i+1]) do |change| %>
             <li>
-              <%= _("{{thing_changed}} was changed from <code>{{from_value}}</code> to <code>{{to_value}}</code>",
-                :thing_changed => change[:name],
-                :from_value => (change[:from] or "-"),
-                :to_value => (change[:to] or "-")) %>
+              <%= "#{change[:name]} was changed from " \
+                  "<code>#{ change.fetch(:from, '-') }</code> to " \
+                  "<code>#{ change.fetch(:to, '-') }</code>" %>
             </li>
           <% end %>
         </ul>

@@ -29,8 +29,8 @@
               <td><b><%= h name %></b></td>
               <td>
                 <% if type == 'datetime' %>
-                  <%= I18n.l(value, :format => "%e %B %Y %H:%M:%S") %>
-                  (<%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(value)) %>)
+                  <%= value.to_s(:db) %>
+                  (<%= time_ago_in_words(value) %> ago)
                 <% else %>
                   <%= h value %>
                 <% end %>

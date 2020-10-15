@@ -1,4 +1,4 @@
-<% @title = _("FOI request – {{title}}", :title => h(@info_request.title)) %>
+<% @title = "FOI request – #{ @info_request.title }" %>
 
 <h1>
   <%= @title %>
@@ -58,8 +58,8 @@
                 </td>
                 <td>
                   <% if type == 'datetime' && value %>
-                    <%= I18n.l(value, :format => "%e %B %Y %H:%M:%S") %>
-                    (<%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(value)) %>)
+                    <%= value.to_s(:db) %>
+                    (<%= time_ago_in_words(value) %> ago)
                   <% elsif column_name == 'prominence' %>
                     <%= h highlight_prominence(value) %>
                   <% elsif column_name == 'allow_new_responses_from' %>
@@ -87,10 +87,10 @@
               <td>
                 <% if @info_request.is_external? %>
                   <%= link_to(eye, @info_request.external_url, :title => "view URL of original request on external website") %>
-                  <%= @info_request.public_body.name %> on behalf of <%= (@info_request.user_name || _('an anonymous user'))%> (using API)
+                  <%= @info_request.public_body.name %> on behalf of <%= (@info_request.user_name || 'an anonymous user') %> (using API)
                 <% else %>
                   <%= user_both_links(@info_request.user) %>
-                  <%= link_to _("move..."), "#", :class => "btn btn-mini btn-warning toggle-hidden" %>
+                  <%= link_to 'move...', '#', class: 'btn btn-mini btn-warning toggle-hidden' %>
                   <div style="display:none;">
                     <strong>url_name of new user:</strong>
                     <%= text_field_tag 'user_url_name', "", { :size => 20 } %>
@@ -127,7 +127,7 @@
 
             <tr>
               <td>
-                <b><%=_("Incoming email address")%></b>
+                <b>Incoming email address</b>
               </td>
               <td>
                 <%= link_to h(@info_request.incoming_email), "mailto:#{@info_request.incoming_email}" %>
@@ -135,7 +135,7 @@
             </tr>
             <tr>
               <td>
-                <b><%=_("Tags")%></b>
+                <b>Tags</b>
               </td>
               <td>
                 <%= render :partial => 'tags', :locals => { :info_request => @info_request} %>
@@ -203,7 +203,7 @@
 
       <% end %>
       <div class="form-actions" id="request_hide_button">
-        <%= submit_tag _("Hide request"), :class => "btn" %>
+        <%= submit_tag 'Hide request', class: 'btn' %>
       </div>
     <% end %>
   <% end %>
@@ -217,7 +217,7 @@
       <div class="accordion-heading">
         <span class="item-title">
           <a href="#event_<%=info_request_event.id%>" data-toggle="collapse" data-parent="#events"><%= chevron_right %></a>
-          <%= _("Event {{id}}", :id => info_request_event.id) %>:
+          <%= "Event #{info_request_event.id}" %>:
           <strong>
             <%=h info_request_event.event_type.humanize %><% if !info_request_event.calculated_state.nil? %>; state: <%= info_request_event.calculated_state %><% end %>
           </strong>
@@ -340,7 +340,7 @@
           <%=incoming_message.id%>
           --
           <%= h(incoming_message.mail_from) %>
-          <%=_("at")%> <%=admin_value(incoming_message.sent_at)%>
+          at <%=admin_value(incoming_message.sent_at) %>
         <% end %>
         <blockquote class="incoming-message">
           <% if !incoming_message.cached_main_body_text_folded.nil? %>
