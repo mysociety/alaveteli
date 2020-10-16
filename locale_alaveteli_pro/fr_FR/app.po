@@ -8,8 +8,8 @@
 # 1bb8f5eb4bc72723d4109decfd20c765, 2019
 # a270031086f2a0d3514bc0cb507b48f6, 2019
 # pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2019
-# Pascal Romain <aka.keronos@gmail.com>, 2020
 # Laurent S, 2020
+# Pascal Romain <aka.keronos@gmail.com>, 2020
 #
 msgid ""
 msgstr ""
@@ -17,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-16 16:34+0100\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: Laurent S, 2020\n"
+"Last-Translator: Pascal Romain <aka.keronos@gmail.com>, 2020\n"
 "Language-Team: French (France) (https://www.transifex.com/mysociety/teams/3352"
 "9/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -410,13 +410,13 @@ msgid "FOI for researchers"
 msgstr "Demandes d'accès à l'information pour les universitaires"
 
 msgid "FOI is an invaluable tool for researchers, helping you collect information that hasn’t previously been available as a single dataset, and understand the wider picture. Pro takes the slog out of sending multiple requests with the Batch feature: easily pick the authorities you want, then send one request to all of them."
-msgstr "Le droit d'accès à l'information publique est un outil inestimable pour les universitaires. vous aidant à accéder à des données ou documents jusqu'ici non rendus publics dans un format réutilisable, à large échelle. Les fonctionnalités avancées de Mada vous permettent d'envoyer la même requête à une sélection d'autorités publiques de votre choix : sélectionnez les simplement dans le liste et transmettez leur votre requête. "
+msgstr "Le droit d'accès à l'information publique est un outil inestimable pour les universitaires. vous aidant à accéder à des données ou documents jusqu'ici non rendus publics dans un format réutilisable, à large échelle. Les fonctionnalités avancées de Mada ++ vous permettent d'envoyer la même requête à une sélection d'autorités publiques de votre choix : sélectionnez les simplement dans le liste et transmettez leur votre requête. "
 
 msgid "FOI is an invaluable tool in campaigns, helping you collect information that hasn’t previously been available as a single dataset so that you and your supporters can understand the wider picture. Pro takes the slog out of sending multiple requests with the Batch feature: easily pick the authorities you want, then send one request to all of them."
-msgstr "Le droit d'accès à l'information publique est un outil inestimable pour les activistes. La communication de données ou documents publics aux citoyens est un gage de capacité à rendre compte de ses actions et de transparence. Les fonctionnalités avancées de Mada vous permettent d'envoyer la même requête à une sélection d'autorités publiques de votre choix : sélectionnez les simplement dans le liste et transmettez leur votre requête. "
+msgstr "Le droit d'accès à l'information publique est un outil inestimable pour les activistes. La communication de données ou documents publics aux citoyens est un gage de capacité à rendre compte de ses actions et de transparence. Les fonctionnalités avancées de Mada ++ vous permettent d'envoyer la même requête à une sélection d'autorités publiques de votre choix : sélectionnez les simplement dans le liste et transmettez leur votre requête. "
 
 msgid "FOI is an invaluable tool in investigations, helping you collect information that hasn’t previously been available as a single dataset so that you and your readers can understand the wider picture. Pro takes the slog out of sending multiple requests with the Batch feature: easily pick the authorities you want, then send one request to all of them."
-msgstr "Le droit d'accès à l'information publique est un outil inestimable pour les journalistes d'investigation, vous aidant à accéder à des données ou documents jusqu'ici non rendus publics dans un format réutilisable. Les fonctionnalités avancées de Mada vous permettent d'envoyer la même requête à une sélection d'autorités publiques de votre choix et de conserver la confidentialité de votre travail d'investigation le temps de votre enquête. Sélectionnez les dans la liste et transmettez leur d'un seul clic votre requếte"
+msgstr "Le droit d'accès à l'information publique est un outil inestimable pour les journalistes d'investigation, vous aidant à accéder à des données ou documents jusqu'ici non rendus publics dans un format réutilisable. Mada ++ vous permettent d'envoyer la même requête à une sélection d'autorités publiques de votre choix et de conserver la confidentialité de votre travail d'investigation le temps de votre enquête. Sélectionnez les dans la liste et transmettez leur d'un seul clic votre requếte"
 
 msgid "Featuring"
 msgstr "Avec"
@@ -467,16 +467,16 @@ msgid "Helping startups find the best location for their business"
 msgstr "Aider des entreprises locales à trouver le meilleur endroit pour développer leur idées"
 
 msgid "How campaigners are using Pro"
-msgstr "Comment les activistes utilisent les fonctions avancées"
+msgstr "Comment les activistes utilisent Madada ++"
 
 msgid "How it works"
 msgstr "Comment cela fonctionne"
 
 msgid "How journalists are using Pro"
-msgstr "Comment les journalistes utilisent les fonctionnalités avancées"
+msgstr "Comment les journalistes utilisent Madada ++"
 
 msgid "How researchers are using Pro"
-msgstr "Comment les chercheurs utilisent les fonctionnalités avancées"
+msgstr "Comment les chercheurs utilisent Madada ++"
 
 msgid "I have read and accepted these terms and conditions"
 msgstr "J'ai lu et accepté ces termes et condtions"
@@ -587,19 +587,19 @@ msgid "Need to protect your scoop?"
 msgstr "Besoin de protéger votre scoop ?"
 
 msgid "New Pro accounts this week:"
-msgstr "Nouveaux comptes pro cette semaine :"
+msgstr "Nouveaux comptes Madada ++ cette semaine :"
 
 msgid "New Pro requests this week:"
-msgstr "Requêtes pro cette semaine : "
+msgstr "Requêtes Madada ++ cette semaine : "
 
 msgid "New Pro subscriptions this week:"
-msgstr "Souscription aux fonctionnalités avancées cette semaine :"
+msgstr "Souscription à Madada ++ cette semaine :"
 
 msgid "New batches made this week:"
 msgstr "Nouveaux lots postés cette semaine :"
 
 msgid "New to Professional – Batch"
-msgstr "Débutant dans les fonctionnalités avancées - envoi par lot"
+msgstr "Débutant dans Madada ++ - envoi par lot"
 
 msgid "Next payment"
 msgstr "Paiement suivant"
@@ -635,7 +635,7 @@ msgid "Note: When this request is made public on {{site_name}}, your name and an
 msgstr "Note : Lorsque cette demande est rendue publique sur {{site_name}}, votre nom et votre commentaire apparaîtront dans les <strong>moteurs de recherches</strong>"
 
 msgid "Number of Pro accounts active this week:"
-msgstr "Nombre de comptes pros actifs cette semaine : "
+msgstr "Nombre de comptes Madada ++ actifs cette semaine : "
 
 msgid "Number of discounted users:"
 msgstr "Nombre d'utilisateurs à prix réduit :"
@@ -737,13 +737,13 @@ msgid "Private until {{date}}"
 msgstr "Privé jusqu'au {{date}}"
 
 msgid "Pro brings a new dashboard view"
-msgstr "Les fonctionnalités avancées vous fournissent un nouveau tableau de bord"
+msgstr "Madada ++ vous fournit un nouveau tableau de bord"
 
 msgid "Pro features a new request list view"
-msgstr "Pro vous offre une vue de la liste de vos demandes"
+msgstr "Madada ++ vous offre une vue de la liste de vos demandes"
 
 msgid "Pro gives you all of the ease of {{site_name}}, without the worry of others snatching your scoop before it’s ready."
-msgstr "Les fonctionnalités avancées vous facilitent l'usage de {{site_name}}, sans craindre que d'autres dévoilent votre scoop avant qu'il soit publié."
+msgstr "Madada ++ vous facilite l'usage de {{site_name}}, sans craindre que d'autres dévoilent votre scoop avant qu'il soit publié."
 
 msgid "Pro gives you all of the ease of {{site_name}}, without the worry of releasing all your work before you’re ready for the world to see it."
 msgstr "Les fonctionnalités avancées vous facilitent l'usage de {{site_name}}, sans craindre que d'autres dévoilent votre scoop avant qu'il soit publié."
@@ -1158,7 +1158,7 @@ msgid "We will remind you by email and on the site when the request is going be 
 msgstr "Nous vous rappellerons par email et sur le site lorsque le demande va être rendue public, et, si vous le souhaitez, vous aurez la possibilité de la garder confidentielle pour une plus longue période. Vous pouvez étendre cette durée de confidentialité indéfiniment ou rendre la requête publique à tout moment."
 
 msgid "Weekly Pro Metrics report for {{start_date}} - {{end_date}}"
-msgstr "Indicateurs mensuels d'usage des fonctionnalités avancées pour la période  {{start_date}} - {{end_date}}"
+msgstr "Indicateurs mensuels d'usage de Madada ++ pour la période  {{start_date}} - {{end_date}}"
 
 msgid "Welcome to {{pro_site_name}}!"
 msgstr "Bienvenu sur {{pro_site_name}}! "
@@ -1212,7 +1212,7 @@ msgid "You can re-subscribe at any time and full access to these features will b
 msgstr "Vous pouvez vous ré-abonner à n'importe quel moment et votre accès complet à ces fonctionnalités sera rétabli."
 
 msgid "You don't currently have a Pro subscription"
-msgstr "Vous n'avez actuellement pas accès aux fonctionnalités avancées"
+msgstr "Vous n'avez actuellement pas accès à Madada ++"
 
 msgid "You have successfully cancelled your subscription to {{pro_site_name}}"
 msgstr "L'annullation de votre abonnement à {{pro_site_name}} a réussi"
@@ -1320,7 +1320,7 @@ msgid "You’re busy fixing the world. Let us take care of your FOI requests."
 msgstr "Vous êtes occupé.e à sauver le monde. Laissez-nous nous occuper des détails de vos démarches d'accès à l'information publique !"
 
 msgid "You’ve got plenty of other things to think about, so you don’t want to be checking up on every single one of your requests to see if it needs attention. Instead, Pro keeps an eye on them for you, sending you a daily email digest."
-msgstr "Vous avez déjà plein de choses à vous occuper et vous n'avez pas envie d'avoir à suivre individuellement chacune de vos demandes d'accès à de l'information publique afin de voir si l'une d'entre elles requière votre attention. A la place, grâce aux fonctionnalités avancées d'Alaveteli Pro, tout est pris en charge. Vous recevez simplement un résumé quotidien d'activité."
+msgstr "Vous avez déjà plein de choses à vous occuper et vous n'avez pas envie d'avoir à suivre individuellement chacune de vos demandes d'accès à de l'information publique afin de voir si l'une d'entre elles requière votre attention. A la place, grâce à Madada ++, tout est pris en charge. Vous recevez simplement un résumé quotidien d'activité."
 
 msgid "ZIP"
 msgstr "Code postal"
