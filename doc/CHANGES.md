@@ -1,4 +1,4 @@
-# develop
+# 0.38.3.0
 
 ## Highlighted Features
 
@@ -8,10 +8,9 @@
 * Improve handling of pluralised translations for locales with multiple
   pluralisation rules (Graeme Porteous)
 * Allow setting log level through the environment (Gareth Rees)
-
-## Upgrade Notes
-
-### Changed Templates
+* Fixes errors when attempting to parse some Outlook emails (Gareth Rees)
+* Remove unicode dependency when running later Ruby versions (Graeme Porteous)
+* Dependencies upgrades (Graeme Porteous)
 
 # 0.38.2.0
 
@@ -21,8 +20,6 @@
 * Fix issue where locale switcher wouldn't update (Graeme Porteous)
 * Updated translations from Transifex (Graeme Porteous)
 * Dependencies upgrades (Gareth Rees, Graeme Porteous)
-
-## Upgrade Notes
 
 ### Changed Templates
 
