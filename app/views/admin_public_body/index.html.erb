@@ -1,7 +1,7 @@
 <% if @query.nil? %>
-  <% @title = _('Listing public authorities') %>
+  <% @title = 'Listing public authorities' %>
 <% else %>
-  <% @title = _("Listing public authorities matching '{{query}}'", :query => @query ) %>
+  <% @title = "Listing public authorities matching '#{@query}'" %>
 <% end %>
 
 <h1><%=@title%></h1>

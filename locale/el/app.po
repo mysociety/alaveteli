@@ -29,8 +29,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-16 16:34+0100\n"
-"PO-Revision-Date: 2020-07-17 13:15+0000\n"
+"POT-Creation-Date: 2020-10-16 10:35+0100\n"
+"PO-Revision-Date: 2020-10-16 11:44+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Greek (http://www.transifex.com/mysociety/alaveteli/language/el"
 "/)\n"
@@ -135,9 +135,6 @@ msgstr "(ή <a href=\"{{url}}\">σύνδεση</a>)"
 
 msgid "(show)"
 msgstr "(εμφάνιση)"
-
-msgid "*unknown*"
-msgstr "*άγνωστο*"
 
 msgid ""
 ",\n"
@@ -962,9 +959,6 @@ msgstr ""
 msgid "ApplicationRecord|Within rfc822 subject"
 msgstr ""
 
-msgid "Applies to"
-msgstr "Εφαρμόζεται στα"
-
 msgid "Are we missing a public authority?"
 msgstr "Μας λείπει κάποια δημόσια αρχή;"
 
@@ -1089,9 +1083,6 @@ msgid "By law, {{public_body_link}} should normally have responded <strong>promp
 msgstr ""
 
 msgid "CSV"
-msgstr ""
-
-msgid "Calculated home page"
 msgstr ""
 
 msgid "Can't find the one you want?"
@@ -1336,9 +1327,6 @@ msgstr ""
 msgid "Disclosure log"
 msgstr "Disclosure log"
 
-msgid "Disclosure log URL"
-msgstr ""
-
 msgid "Do not fill in this field"
 msgstr "Μην συμπληρώσετε αυτό το πεδίο"
 
@@ -1371,9 +1359,6 @@ msgstr ""
 
 msgid "EIR"
 msgstr ""
-
-msgid "Edit"
-msgstr "Επεξεργασία"
 
 msgid "Edit and add <strong>more details</strong> to the message above, explaining why you are dissatisfied with their response."
 msgstr ""
@@ -1428,9 +1413,6 @@ msgstr ""
 msgid "Event history"
 msgstr "Ιστορικό συμβάντων"
 
-msgid "Event {{id}}"
-msgstr "Συμβάνt {{id}}"
-
 msgid "Every citizen has the right to access information held by public authorities."
 msgstr "Κάθε πολίτης έχει δικαίωμα να αποκτήσει πληροφορίες από δημόσιους οργανισμούς."
 
@@ -1460,9 +1442,6 @@ msgstr "ΔΓΔΕ διεύθυνση email για το {{public_body}}"
 
 msgid "FOI law does not apply to this authority."
 msgstr "Ο νόμος ΔΓΔΕ δεν καλύπτει αυτή την αρχή."
-
-msgid "FOI request – {{title}}"
-msgstr "Αίτηση ΔΓΔΕ – {{title}}"
 
 msgid "FOI requests"
 msgstr "Αιτήσεις ΔΓΔΕ"
@@ -1786,12 +1765,6 @@ msgstr "Κρυφό"
 msgid "Hidden requests are not counted. Unclassified requests do not count towards the percentages."
 msgstr "Κρυφές αιτήσεις δεν μετράνε. Αταξινόμητες αιτήσεις δεν μετράνε στα ποσοστά."
 
-msgid "Hide request"
-msgstr "Απόκρυψη αίτησης"
-
-msgid "Home page"
-msgstr "Αρχική σελίδα"
-
 msgid "Home page of authority"
 msgstr "Αρχική σελίδα οργανισμού"
 
@@ -1855,9 +1828,6 @@ msgstr "Έχω λάβει <strong>μήνυμα σφάλματος</strong>"
 
 msgid "I've received an error message"
 msgstr "Έχω λάβη ένα μήνυμα λάθους"
-
-msgid "Id"
-msgstr "Id"
 
 msgid "If the address is wrong, or you know a better address, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Εαν η διεύθυνση είναι λάθος, ή γνωρίζετε μια καλύτερη διεύθνση, παρακαλούμε <a href=\"{{url}}\">επικοινωνήστε μαζί μας</a>."
@@ -1955,9 +1925,6 @@ msgstr ""
 " λογαριασμό twitter. Θα μετατραπούν σε κουμπιά  \n"
 " π.χ."
 
-msgid "Incoming email address"
-msgstr "Εισερχόμενη διεύθυνση email"
-
 msgid "Incoming message has a spam score above the configured threshold ({{spam_threshold}})."
 msgstr "Το εισερχόμενο μήνυμα έχει σκορ spam παραπάνω από το όριο που ρυθμίστηκε ({{spam_threshold}})."
 
@@ -2003,9 +1970,6 @@ msgid "It may be that your browser is not set to accept a thing called \"cookies
 msgstr ""
 
 msgid "Items matching the following conditions are currently displayed on your wall."
-msgstr ""
-
-msgid "Items sent in last month"
 msgstr ""
 
 msgid "Joined in {{year}}"
@@ -2067,21 +2031,6 @@ msgstr "Σύνδεση με αυτό"
 
 msgid "List of all authorities (CSV)"
 msgstr ""
-
-msgid "Listing FOI requests"
-msgstr "Λίστα με αιτήσεις ΔΓΔΕ"
-
-msgid "Listing public authorities"
-msgstr "Λίστα με δημόσιες αρχές"
-
-msgid "Listing public authorities matching '{{query}}'"
-msgstr "Λίστα με δημόσιες αρχές που ταιριάζουν στην '{{query}}'"
-
-msgid "Listing tracks"
-msgstr "Λίστα με tracks"
-
-msgid "Listing users"
-msgstr "Λίστα χρηστών"
 
 msgid "Log in to download a zip file of {{info_request_title}}"
 msgstr ""
@@ -2245,9 +2194,6 @@ msgstr "Δεν βρέθηκαν αποτελέσματα."
 msgid "No similar requests found."
 msgstr "Δεν βρέθηκαν παρόμοια αποτελέσματα."
 
-msgid "No tracked things found."
-msgstr "Δεν βρέθηκε τίποτα που να παρακολουθείτε."
-
 msgid "Nobody has made any Freedom of Information requests to {{public_body_name}} using this site yet."
 msgstr "Κανείς δεν έχει κάνει καμία αίτηση Δικαίωματος γνώσης διοικητικών εγγράφων στο {{public_body_name}} μέσω αυτού του site ακόμα."
 
@@ -2325,9 +2271,6 @@ msgstr "Ένα άτομο βρέθηκε"
 
 msgid "One public authority found"
 msgstr "Μια δημόσια αρχή βρέθηκε"
-
-msgid "Only put in abbreviations which are really used, otherwise leave blank. Short or long name is used in the URL – don't worry about breaking URLs through renaming, as the history is used to redirect"
-msgstr ""
 
 msgid "Only requests made using {{site_name}} are shown."
 msgstr ""
@@ -2654,9 +2597,6 @@ msgstr "Δημόσιες υπηρεσίες {{start_count}} εως {{end_count}}
 msgid "Public authority statistics"
 msgstr "Δημόσιες υπηρεσίες - στατιστικά"
 
-msgid "Public authority – {{name}}"
-msgstr "Δημόσια υπηρεσία – {{name}}"
-
 msgid "Public bodies that most frequently replied with \"Not Held\""
 msgstr ""
 
@@ -2677,12 +2617,6 @@ msgstr ""
 
 msgid "Public body heading translation"
 msgstr ""
-
-msgid "Public page"
-msgstr "Δημόσια σελίδα"
-
-msgid "Public page not available"
-msgstr "Δημόσια σελίδα μη διαθέσιμη"
 
 msgid "PublicBodyCategoryTranslation|Description"
 msgstr ""
@@ -2934,9 +2868,6 @@ msgid "Search the site to find what you were looking for."
 msgstr ""
 
 msgid "Search your contributions"
-msgstr ""
-
-msgid "See bounce message"
 msgstr ""
 
 msgid "Send a followup"
@@ -3192,9 +3123,6 @@ msgstr ""
 
 msgid "Table of varieties"
 msgstr ""
-
-msgid "Tags"
-msgstr "Ταμπέλες"
 
 msgid "Tags (separated by a space):"
 msgstr "Ταμπέλες (χωρισμένες με κενά):"
@@ -3569,9 +3497,6 @@ msgstr ""
 
 msgid "This is because {{title}} is an old request that has been marked to no longer receive responses."
 msgstr ""
-
-msgid "This is the first version."
-msgstr "Αυτή είναι η πρώτη έκδοση"
 
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Αυτή είναι η δική σας αίτηση, θα σας σταλεί email αυτόματα όταν ληφθούν νέες απαντήσεις."
@@ -3948,13 +3873,7 @@ msgstr ""
 msgid "Use this site to make your request for information – we'll show you how."
 msgstr ""
 
-msgid "User – {{name}}"
-msgstr "Χρήστης – {{name}}"
-
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
-msgstr ""
-
-msgid "Version {{version}}"
 msgstr ""
 
 msgid "Very long – shorter requests are more successful"
@@ -4606,9 +4525,6 @@ msgstr "όλες οι αιτήσεις ή σχόλια όμοιες με '{{quer
 msgid "also called {{public_body_short_name}}"
 msgstr "που επίσης λέγεται {{public_body_short_name}}"
 
-msgid "an anonymous user"
-msgstr "ένας ανώνυμος χρήστης"
-
 msgid "and"
 msgstr "και"
 
@@ -4621,17 +4537,11 @@ msgstr "οτιδήποτε ταιριάζει με το κείμενο '{{query}
 msgid "are long overdue."
 msgstr "είναι πολύ εκπρόθεσμες."
 
-msgid "at"
-msgstr "στο"
-
 msgid "authorities"
 msgstr "οργανισμοί"
 
 msgid "awaiting response"
 msgstr "αναμένει απάντηση"
-
-msgid "but followupable"
-msgstr "αλλά μπορεί να γίνει followup"
 
 msgid "by"
 msgstr "από"
@@ -4702,9 +4612,6 @@ msgstr "μηνύματα από χρήστες"
 msgid "mobile number"
 msgstr "αριθμός κινητού"
 
-msgid "move..."
-msgstr "μετακίνηση..."
-
 msgid "mySociety:Helping people set up sites like {{site_name}} all over the world"
 msgstr ""
 
@@ -4719,9 +4626,6 @@ msgstr "κανονικά"
 
 msgid "not logged in"
 msgstr "δεν έχει συνδεθεί"
-
-msgid "not requestable due to: {{reason}}"
-msgstr "δεν γίνεται να αιτηθεί λόγω: {{reason}}"
 
 msgid "other"
 msgstr "άλλο"
@@ -4751,9 +4655,6 @@ msgid "send a follow up message"
 msgstr "στείλτε ένα μήνυμα follow up "
 
 msgid "sent"
-msgstr ""
-
-msgid "set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA"
 msgstr ""
 
 msgid "show quoted sections"
@@ -5000,9 +4901,6 @@ msgid "{{site_name}} users have made {{number_of_requests}} request, including:"
 msgid_plural "{{site_name}} users have made {{number_of_requests}} requests, including:"
 msgstr[0] ""
 msgstr[1] ""
-
-msgid "{{thing_changed}} was changed from <code>{{from_value}}</code> to <code>{{to_value}}</code>"
-msgstr ""
 
 msgid "{{title}} - a Freedom of Information request to {{public_body}}"
 msgstr ""

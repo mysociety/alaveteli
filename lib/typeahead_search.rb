@@ -47,7 +47,8 @@ class TypeaheadSearch
   private
 
   def check_query
-    @query = @query.strip
+    # Maximum length of a key is 252 bytes
+    @query = @query.mb_chars.limit(252).strip
     # don't wildcard search a short end word
     query_words = @query.split
     if query_words.last && query_words.last.strip.length < 3

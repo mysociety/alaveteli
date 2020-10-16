@@ -13,7 +13,9 @@
     <div class="controls">
       <%= t.text_field :short_name, :class => "span2"  %>
       <p class="help-block">
-        <%=_("Only put in abbreviations which are really used, otherwise leave blank. Short or long name is used in the URL – don't worry about breaking URLs through renaming, as the history is used to redirect")%>
+        Only put in abbreviations which are really used, otherwise leave blank.
+        Short or long name is used in the URL – don't worry about breaking URLs
+        through renaming, as the history is used to redirect.
       </p>
     </div>
   </div>
@@ -23,7 +25,9 @@
     <div class="controls">
       <%= t.text_field :request_email, :class => "span3" %>
       <p class="help-block">
-        <%=_("set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA")%>
+        Set to <strong>blank</strong> (empty string) if can't find an address;
+        these emails are <strong>public</strong> as anyone can view with a
+        reCAPTCHA.
       </p>
 
       <% if @public_body.ordered_translations.many? %>
