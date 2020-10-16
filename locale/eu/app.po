@@ -34,8 +34,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-16 16:34+0100\n"
-"PO-Revision-Date: 2020-07-17 13:17+0000\n"
+"POT-Creation-Date: 2020-10-16 10:35+0100\n"
+"PO-Revision-Date: 2020-10-16 11:44+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Basque (http://www.transifex.com/mysociety/alaveteli/language/e"
 "u/)\n"
@@ -142,9 +142,6 @@ msgid "(or <a href=\"{{url}}\">sign in</a>)"
 msgstr ""
 
 msgid "(show)"
-msgstr ""
-
-msgid "*unknown*"
 msgstr ""
 
 msgid ""
@@ -951,9 +948,6 @@ msgstr ""
 msgid "ApplicationRecord|Within rfc822 subject"
 msgstr ""
 
-msgid "Applies to"
-msgstr ""
-
 msgid "Are we missing a public authority?"
 msgstr ""
 
@@ -1078,9 +1072,6 @@ msgid "By law, {{public_body_link}} should normally have responded <strong>promp
 msgstr "Legearen arabera, {{public_body_link}}k jada erantzun behar izango zukeen  <strong>laster</strong> eta"
 
 msgid "CSV"
-msgstr ""
-
-msgid "Calculated home page"
 msgstr ""
 
 msgid "Can't find the one you want?"
@@ -1323,9 +1314,6 @@ msgstr "Kontuz: mezu hau eta egingo duzun edozein erantzun Interneten argitaratu
 msgid "Disclosure log"
 msgstr ""
 
-msgid "Disclosure log URL"
-msgstr ""
-
 msgid "Do not fill in this field"
 msgstr ""
 
@@ -1358,9 +1346,6 @@ msgstr ""
 
 msgid "EIR"
 msgstr "EIR"
-
-msgid "Edit"
-msgstr ""
 
 msgid "Edit and add <strong>more details</strong> to the message above, explaining why you are dissatisfied with their response."
 msgstr "Editatu eta gehitu <strong>xehetasun gehiago</strong> aurreko mezuari, zergatik ez zauden erantzunarekin pozik azalduz."
@@ -1413,9 +1398,6 @@ msgstr "Web honetan egin diren inguruneari buruzko eskabideak"
 msgid "Event history"
 msgstr "Gertaera historia"
 
-msgid "Event {{id}}"
-msgstr ""
-
 msgid "Every citizen has the right to access information held by public authorities."
 msgstr ""
 
@@ -1444,9 +1426,6 @@ msgid "FOI email address for {{public_body}}"
 msgstr " {{public_body}}-rako posta helbidea"
 
 msgid "FOI law does not apply to this authority."
-msgstr ""
-
-msgid "FOI request – {{title}}"
 msgstr ""
 
 msgid "FOI requests"
@@ -1769,12 +1748,6 @@ msgstr ""
 msgid "Hidden requests are not counted. Unclassified requests do not count towards the percentages."
 msgstr ""
 
-msgid "Hide request"
-msgstr ""
-
-msgid "Home page"
-msgstr ""
-
 msgid "Home page of authority"
 msgstr "Erakundearen webgunea"
 
@@ -1835,9 +1808,6 @@ msgid "I've received an <strong>error message</strong>"
 msgstr "<strong>Errore mezua</strong> jaso dut"
 
 msgid "I've received an error message"
-msgstr ""
-
-msgid "Id"
 msgstr ""
 
 msgid "If the address is wrong, or you know a better address, please <a href=\"{{url}}\">contact us</a>."
@@ -1933,9 +1903,6 @@ msgstr ""
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr " Sar itzazu esteka adierazgarriak, hala nola informazio orrialdea, zure bloga edo twitter kontua. Automatikoki esteka bihurtuko dira. Adibidez:"
 
-msgid "Incoming email address"
-msgstr ""
-
 msgid "Incoming message has a spam score above the configured threshold ({{spam_threshold}})."
 msgstr ""
 
@@ -1979,9 +1946,6 @@ msgid "It may be that your browser is not set to accept a thing called \"cookies
 msgstr "Agian zure nabigatzailea \"cookiak\" ez onartzeko konfiguratuta dago, edo ezin ditu onartu. Baldin badakizu nola, mesedez baimendu itzazu \"cookiak\" edo erabil ezazu beste nabigatzailea bat. Orduan itzul zaitez orrialde honetara eta saia zaitez berriro."
 
 msgid "Items matching the following conditions are currently displayed on your wall."
-msgstr ""
-
-msgid "Items sent in last month"
 msgstr ""
 
 msgid "Joined in {{year}}"
@@ -2043,21 +2007,6 @@ msgstr "Esteka"
 
 msgid "List of all authorities (CSV)"
 msgstr "Erakunde guztien zerrenda (CSV)"
-
-msgid "Listing FOI requests"
-msgstr ""
-
-msgid "Listing public authorities"
-msgstr ""
-
-msgid "Listing public authorities matching '{{query}}'"
-msgstr ""
-
-msgid "Listing tracks"
-msgstr ""
-
-msgid "Listing users"
-msgstr ""
 
 msgid "Log in to download a zip file of {{info_request_title}}"
 msgstr "Ireki ezazu saio bat {{info_request_title}}-eko ZIP fitxategia deskargatzeko"
@@ -2221,9 +2170,6 @@ msgstr "Ez da emaitzik aurkitu."
 msgid "No similar requests found."
 msgstr "Ez da antzeko eskabiderik aurkitu."
 
-msgid "No tracked things found."
-msgstr ""
-
 msgid "Nobody has made any Freedom of Information requests to {{public_body_name}} using this site yet."
 msgstr "Oraindik inork ez dio {{public_body_name}}-ri informazio eskabiderik egin web honen bidez."
 
@@ -2301,9 +2247,6 @@ msgstr "Pertsona bat aurkitu dugu"
 
 msgid "One public authority found"
 msgstr "Erakunde bat aurkitu dugu"
-
-msgid "Only put in abbreviations which are really used, otherwise leave blank. Short or long name is used in the URL – don't worry about breaking URLs through renaming, as the history is used to redirect"
-msgstr ""
 
 msgid "Only requests made using {{site_name}} are shown."
 msgstr "{{site_name}}-ren bidez egindako eskabideak baino ez da erakusten."
@@ -2630,9 +2573,6 @@ msgstr "Erakunde publikoak {{start_count}}-etik {{end_count}}-era, guztira {{tot
 msgid "Public authority statistics"
 msgstr ""
 
-msgid "Public authority – {{name}}"
-msgstr ""
-
 msgid "Public bodies that most frequently replied with \"Not Held\""
 msgstr ""
 
@@ -2652,12 +2592,6 @@ msgid "Public body category translation"
 msgstr ""
 
 msgid "Public body heading translation"
-msgstr ""
-
-msgid "Public page"
-msgstr ""
-
-msgid "Public page not available"
 msgstr ""
 
 msgid "PublicBodyCategoryTranslation|Description"
@@ -2915,9 +2849,6 @@ msgstr "Bilatu web honetan bilatzen ari zarena aurkitzeko."
 msgid "Search your contributions"
 msgstr "Bilatu zure ekarpenak"
 
-msgid "See bounce message"
-msgstr ""
-
 msgid "Send a followup"
 msgstr "Bidali erantzuna"
 
@@ -3173,9 +3104,6 @@ msgstr "Egoeren taula"
 
 msgid "Table of varieties"
 msgstr "Objektu desberdinen taula"
-
-msgid "Tags"
-msgstr ""
 
 msgid "Tags (separated by a space):"
 msgstr "Hitz gakoak (espazio batez bananduak):"
@@ -3557,9 +3485,6 @@ msgstr "Hau informaziorako sarbidearen eskabide baten ondoko fitxategi baten HTM
 msgid "This is because {{title}} is an old request that has been marked to no longer receive responses."
 msgstr "Hau gertatzen da {{title}} eskabide zaharra delako, erantzun gehiago jaso ez dezan markatuta."
 
-msgid "This is the first version."
-msgstr ""
-
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Hauxe da zure eskabidea, horregatik erantzun berriak heltzen direnean automatikoki emailak jasoko dituzu."
 
@@ -3937,13 +3862,7 @@ msgstr "Erabil itzazu komatxoak esaldi zehatza bilatu nahi duzunean, adibidez <s
 msgid "Use this site to make your request for information – we'll show you how."
 msgstr ""
 
-msgid "User – {{name}}"
-msgstr ""
-
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
-msgstr ""
-
-msgid "Version {{version}}"
 msgstr ""
 
 msgid "Very long – shorter requests are more successful"
@@ -4602,9 +4521,6 @@ msgstr ""
 msgid "also called {{public_body_short_name}}"
 msgstr "{{public_body_short_name}} izenez ere ezaguna."
 
-msgid "an anonymous user"
-msgstr ""
-
 msgid "and"
 msgstr "eta"
 
@@ -4617,16 +4533,10 @@ msgstr ""
 msgid "are long overdue."
 msgstr "oso atzeratuta daude."
 
-msgid "at"
-msgstr ""
-
 msgid "authorities"
 msgstr "erakundeak"
 
 msgid "awaiting response"
-msgstr ""
-
-msgid "but followupable"
 msgstr ""
 
 msgid "by"
@@ -4698,9 +4608,6 @@ msgstr "erabiltzaileen mezuak"
 msgid "mobile number"
 msgstr ""
 
-msgid "move..."
-msgstr ""
-
 msgid "mySociety:Helping people set up sites like {{site_name}} all over the world"
 msgstr ""
 
@@ -4714,9 +4621,6 @@ msgid "normally"
 msgstr "normalean"
 
 msgid "not logged in"
-msgstr ""
-
-msgid "not requestable due to: {{reason}}"
 msgstr ""
 
 msgid "other"
@@ -4747,9 +4651,6 @@ msgid "send a follow up message"
 msgstr "Bidal ezazu jarraipen mezu bat"
 
 msgid "sent"
-msgstr ""
-
-msgid "set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA"
 msgstr ""
 
 msgid "show quoted sections"
@@ -4998,9 +4899,6 @@ msgid "{{site_name}} users have made {{number_of_requests}} request, including:"
 msgid_plural "{{site_name}} users have made {{number_of_requests}} requests, including:"
 msgstr[0] ""
 msgstr[1] ""
-
-msgid "{{thing_changed}} was changed from <code>{{from_value}}</code> to <code>{{to_value}}</code>"
-msgstr ""
 
 msgid "{{title}} - a Freedom of Information request to {{public_body}}"
 msgstr ""

@@ -49,8 +49,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-16 16:34+0100\n"
-"PO-Revision-Date: 2020-07-17 13:16+0000\n"
+"POT-Creation-Date: 2020-10-16 10:35+0100\n"
+"PO-Revision-Date: 2020-10-16 11:44+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/mysociety/alaveteli/"
 "language/nb/)\n"
@@ -158,9 +158,6 @@ msgstr "(eller <a href=\"{{url}}\">logg på</a>)"
 
 msgid "(show)"
 msgstr "(vis)"
-
-msgid "*unknown*"
-msgstr "*ukjent*"
 
 msgid ""
 ",\n"
@@ -988,9 +985,6 @@ msgstr ""
 msgid "ApplicationRecord|Within rfc822 subject"
 msgstr ""
 
-msgid "Applies to"
-msgstr "Gjelder for"
-
 msgid "Are we missing a public authority?"
 msgstr "Skal vi legge til flere myndigheter?"
 
@@ -1118,9 +1112,6 @@ msgstr "I følge loven, så burde {{public_body_link}} normal ha svart <strong>r
 
 msgid "CSV"
 msgstr ""
-
-msgid "Calculated home page"
-msgstr "Beregnet hjemmeside"
 
 msgid "Can't find the one you want?"
 msgstr "Vil du kontakte en myndighet som ikke er her?"
@@ -1362,9 +1353,6 @@ msgstr "Merk: Innholdet i denne innsynsforespørselen og alle dine svar vil bli 
 msgid "Disclosure log"
 msgstr "Utleveringslogg"
 
-msgid "Disclosure log URL"
-msgstr "URL til utleveringslogg"
-
 msgid "Do not fill in this field"
 msgstr "Ikke fyll inn dette feltet"
 
@@ -1397,9 +1385,6 @@ msgstr ""
 
 msgid "EIR"
 msgstr "miljøinformasjonslov"
-
-msgid "Edit"
-msgstr "Rediger"
 
 msgid "Edit and add <strong>more details</strong> to the message above, explaining why you are dissatisfied with their response."
 msgstr ""
@@ -1456,9 +1441,6 @@ msgstr "Miljøinformasjonslovhenvendelser gjort ved hjelp av dette nettstedet"
 msgid "Event history"
 msgstr "Hendelseshistorikk"
 
-msgid "Event {{id}}"
-msgstr "Hendelse {{id}}"
-
 msgid "Every citizen has the right to access information held by public authorities."
 msgstr "Alle mennesker kan be om å få se myndighetene i kortene."
 
@@ -1488,9 +1470,6 @@ msgstr "Postmottaket hos {{public_body}}"
 
 msgid "FOI law does not apply to this authority."
 msgstr "Offentlighetslova gjelder ikke for denne myndigheten."
-
-msgid "FOI request – {{title}}"
-msgstr "Innsynshenvendelse – {{title}}"
 
 msgid "FOI requests"
 msgstr "Innsynshenvendelse"
@@ -1819,12 +1798,6 @@ msgstr "Skjult"
 msgid "Hidden requests are not counted. Unclassified requests do not count towards the percentages."
 msgstr "Skjulte forespørsler er telles ikke. Uklassifiserte forespørsler teller ikke med i utregning av prosentene."
 
-msgid "Hide request"
-msgstr "Skjul henvendelse"
-
-msgid "Home page"
-msgstr "Hjemmeside"
-
 msgid "Home page of authority"
 msgstr "Hjemmesida til myndigheten"
 
@@ -1886,9 +1859,6 @@ msgstr "Jeg har fått en <strong>feilmelding</strong>"
 
 msgid "I've received an error message"
 msgstr "Jeg har fått en feilmelding"
-
-msgid "Id"
-msgstr "Id"
 
 msgid "If the address is wrong, or you know a better address, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Hvis adressen er feil, eller du vet om en bedre adresse, vær så snill å <a href=\"{{url}}\">ta kontakt</a>."
@@ -1994,9 +1964,6 @@ msgstr ""
 "Inkluder relevante lenker, som f.eks. din kampanjeside, blogg, Twitter-konto o.l. De vil vises som lenker her. \n"
 " f.eks."
 
-msgid "Incoming email address"
-msgstr "Inngående e-postadresse"
-
 msgid "Incoming message has a spam score above the configured threshold ({{spam_threshold}})."
 msgstr "Innkommende melding har spam-verdi over den oppsatte grenseverdien ({{spam_threshold}})."
 
@@ -2046,9 +2013,6 @@ msgstr ""
 
 msgid "Items matching the following conditions are currently displayed on your wall."
 msgstr "Ting som oppfyller disse kriteriene vises nå på veggen din."
-
-msgid "Items sent in last month"
-msgstr "Oppføringer sendt siste måned"
 
 msgid "Joined in {{year}}"
 msgstr "Ble med i {{year}}"
@@ -2109,21 +2073,6 @@ msgstr "Lenke til denne"
 
 msgid "List of all authorities (CSV)"
 msgstr "Liste over alle registrerte myndigheter (CSV)"
-
-msgid "Listing FOI requests"
-msgstr "Lister innsynshenvendelser"
-
-msgid "Listing public authorities"
-msgstr "Lister opp offentlige myndigheter"
-
-msgid "Listing public authorities matching '{{query}}'"
-msgstr "Lister opp offentlige myndigheter som stemmer med '{{query}}'"
-
-msgid "Listing tracks"
-msgstr "Lister opp spor"
-
-msgid "Listing users"
-msgstr "Lister opp brukere"
 
 msgid "Log in to download a zip file of {{info_request_title}}"
 msgstr "Logg inn for å laste ned en zip-fil med {{info_request_title}}"
@@ -2287,9 +2236,6 @@ msgstr "Ingen resultater."
 msgid "No similar requests found."
 msgstr "Ingen lignende henvendelser funnet."
 
-msgid "No tracked things found."
-msgstr "Ingen sporede ting ble funnet."
-
 msgid "Nobody has made any Freedom of Information requests to {{public_body_name}} using this site yet."
 msgstr "Ingen har så langt bedt om innsyn hos {{public_body_name}} ved hjelp av dette nettstedet."
 
@@ -2367,9 +2313,6 @@ msgstr "En person funnet"
 
 msgid "One public authority found"
 msgstr "En myndighet funnet"
-
-msgid "Only put in abbreviations which are really used, otherwise leave blank. Short or long name is used in the URL – don't worry about breaking URLs through renaming, as the history is used to redirect"
-msgstr "Skriv kun in forkortelser som faktisk er i bruk, og la det ellers være blank.  Kort eller langt navn brukes i URL-en – ikke bekymre deg om å knekke URL-er ved å bytte navn, da historien brukes til omdirigering"
 
 msgid "Only requests made using {{site_name}} are shown."
 msgstr "Bare henvendelser som er gjort med {{site_name}} vises"
@@ -2707,9 +2650,6 @@ msgstr "Offentlige myndigheter {{start_count}} til {{end_count}} av totalt {{tot
 msgid "Public authority statistics"
 msgstr "Statistikk for offentlig myndighet"
 
-msgid "Public authority – {{name}}"
-msgstr "Offentlig myndighet – {{name}}"
-
 msgid "Public bodies that most frequently replied with \"Not Held\""
 msgstr "Offentlige instanser som oftest svarte med «Det har vi ikke»"
 
@@ -2730,12 +2670,6 @@ msgstr ""
 
 msgid "Public body heading translation"
 msgstr ""
-
-msgid "Public page"
-msgstr "Offentlig side"
-
-msgid "Public page not available"
-msgstr "Offentlig side er ikke tilgjengelig"
 
 msgid "PublicBodyCategoryTranslation|Description"
 msgstr ""
@@ -2991,9 +2925,6 @@ msgstr "Søk siden for å finne det du leter etter."
 
 msgid "Search your contributions"
 msgstr "Søk i dine bidrag"
-
-msgid "See bounce message"
-msgstr "See sprett (bounce) melding"
 
 msgid "Send a followup"
 msgstr "Send en oppfølgning"
@@ -3254,9 +3185,6 @@ msgstr "Tabell over statuser"
 
 msgid "Table of varieties"
 msgstr "Tabell over typer"
-
-msgid "Tags"
-msgstr "Tagger"
 
 msgid "Tags (separated by a space):"
 msgstr "Tagger (space separert):"
@@ -3653,9 +3581,6 @@ msgstr ""
 "Dette er på grunn av at {{title}} er en gammel henvendelse\n"
 " som har blitt markert til å ikke lenger motta svar."
 
-msgid "This is the first version."
-msgstr "Dette er den første versjonen."
-
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Dette er din egen henvendelse, så du vil automatisk få e-post når nye svar kommer inn."
 
@@ -4039,14 +3964,8 @@ msgstr "Bruk anførselstegn der du vil søke etter et nøyaktig uttrykk, for eks
 msgid "Use this site to make your request for information – we'll show you how."
 msgstr "Bruk dette nettstedet til å gjøre innsynshenvendelser - vi skal vise deg."
 
-msgid "User – {{name}}"
-msgstr "Bruker – {{name}}"
-
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
 msgstr "Brukere kan normalt ikke lage bunthenvendelser til flere myndigheter på en gang, da vi ikke ønsker at offentlige myndigheter blir bombardert med et stort antall malplasserte henvendelser. <a href=\"{{url}}\">Ta kontakt med oss</a> hvis du tror du har en god grunn til å sende samme henvendelse til flere myndigheter på en gang."
-
-msgid "Version {{version}}"
-msgstr "Versjon {{version}}"
 
 msgid "Very long – shorter requests are more successful"
 msgstr ""
@@ -4731,9 +4650,6 @@ msgstr "alle henvendelser eller kommentarer som stemmer med teksten «{{query}}�
 msgid "also called {{public_body_short_name}}"
 msgstr "også kalt {{public_body_short_name}}"
 
-msgid "an anonymous user"
-msgstr "en anonym bruker"
-
 msgid "and"
 msgstr "og"
 
@@ -4746,17 +4662,11 @@ msgstr "alt som treffer for teksten «{{query}}»"
 msgid "are long overdue."
 msgstr "er svært forsinket."
 
-msgid "at"
-msgstr "ved"
-
 msgid "authorities"
 msgstr "myndigheter"
 
 msgid "awaiting response"
 msgstr "venter på svar"
-
-msgid "but followupable"
-msgstr "men oppfølgbar"
 
 msgid "by"
 msgstr "av"
@@ -4827,9 +4737,6 @@ msgstr "meldinger fra brukere"
 msgid "mobile number"
 msgstr "mobilnummer"
 
-msgid "move..."
-msgstr "flytt..."
-
 msgid "mySociety:Helping people set up sites like {{site_name}} all over the world"
 msgstr "mySocietyIntl:Hjelper folk med å sette opp tjenester som {{site_name}} over hele verden"
 
@@ -4844,9 +4751,6 @@ msgstr "vanligvis"
 
 msgid "not logged in"
 msgstr "ikke logget inn"
-
-msgid "not requestable due to: {{reason}}"
-msgstr "kan ikke be om fordi: {{reason}}"
 
 msgid "other"
 msgstr "annet"
@@ -4877,9 +4781,6 @@ msgstr "send en oppfølgningsmelding"
 
 msgid "sent"
 msgstr ""
-
-msgid "set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA"
-msgstr "sett til <strong>blank</strong> (tom streng) hvis ingen adresse kunne finnes.  Disse e-postadressene er <strong>offentlige</strong> da enhver kan se dem ved hjelp av en CAPTCHA"
 
 msgid "show quoted sections"
 msgstr "vis sitert seksjon"
@@ -5128,9 +5029,6 @@ msgid "{{site_name}} users have made {{number_of_requests}} request, including:"
 msgid_plural "{{site_name}} users have made {{number_of_requests}} requests, including:"
 msgstr[0] ""
 msgstr[1] ""
-
-msgid "{{thing_changed}} was changed from <code>{{from_value}}</code> to <code>{{to_value}}</code>"
-msgstr "{{thing_changed}} ble forandret fra <code>{{from_value}}</code> til <code>{{to_value}}</code>"
 
 msgid "{{title}} - a Freedom of Information request to {{public_body}}"
 msgstr "{{title}} - en innsynshenvendelse etter Offentlighetslova til {{public_body}}"

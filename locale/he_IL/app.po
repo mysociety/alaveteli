@@ -45,8 +45,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-16 16:34+0100\n"
-"PO-Revision-Date: 2020-07-17 13:15+0000\n"
+"POT-Creation-Date: 2020-10-16 10:35+0100\n"
+"PO-Revision-Date: 2020-10-16 11:44+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/mysociety/alaveteli/l"
 "anguage/he_IL/)\n"
@@ -155,9 +155,6 @@ msgstr "(או <a href=\"{{url}}\">התחברו</a>)"
 
 msgid "(show)"
 msgstr "(הצג)"
-
-msgid "*unknown*"
-msgstr "\"לא ידוע\""
 
 msgid ""
 ",\n"
@@ -983,9 +980,6 @@ msgstr ""
 msgid "ApplicationRecord|Within rfc822 subject"
 msgstr ""
 
-msgid "Applies to"
-msgstr "תקף ל- "
-
 msgid "Are we missing a public authority?"
 msgstr "האם חסר לנו גוף ציבורי?"
 
@@ -1115,9 +1109,6 @@ msgstr "על-פי החוק, {{public_body_link}} היה/היתה צריך/צרי
 
 msgid "CSV"
 msgstr ""
-
-msgid "Calculated home page"
-msgstr "דף בית מחושב"
 
 msgid "Can't find the one you want?"
 msgstr "לא מצאתם את מה שחיפשתם?"
@@ -1366,9 +1357,6 @@ msgstr "כתב ויתור: הודעה זו וכל הודעה הקשורה אלי
 msgid "Disclosure log"
 msgstr "יומן גילוי נאות"
 
-msgid "Disclosure log URL"
-msgstr "כתובת יומן גילוי נאות"
-
 msgid "Do not fill in this field"
 msgstr "אין למלא שדה  זה"
 
@@ -1401,9 +1389,6 @@ msgstr ""
 
 msgid "EIR"
 msgstr "דוח מידע תקנות סביבתיות"
-
-msgid "Edit"
-msgstr "ערכו"
 
 msgid "Edit and add <strong>more details</strong> to the message above, explaining why you are dissatisfied with their response."
 msgstr "ערכו והוסיפו <strong>פרטים נוספים</strong> להודעה למעלה, /n המסבירים מדוע אתם לא מרוצים מהתגובה שלהם"
@@ -1458,9 +1443,6 @@ msgstr "בקשה למידע על תקנות סביבה, שהוגשה באמצע�
 msgid "Event history"
 msgstr "היסטוריית אירועים"
 
-msgid "Event {{id}}"
-msgstr "אירוע {{id}}"
-
 msgid "Every citizen has the right to access information held by public authorities."
 msgstr ""
 
@@ -1487,9 +1469,6 @@ msgstr "כתובת לפניות עבור {{public_body}}"
 
 msgid "FOI law does not apply to this authority."
 msgstr "חוק חופש המידע אינו ישים לרשות זו."
-
-msgid "FOI request – {{title}}"
-msgstr "בקשת מידע - {{title}}"
 
 msgid "FOI requests"
 msgstr "בקשות"
@@ -1816,12 +1795,6 @@ msgstr ""
 msgid "Hidden requests are not counted. Unclassified requests do not count towards the percentages."
 msgstr ""
 
-msgid "Hide request"
-msgstr "הסתרת בקשה"
-
-msgid "Home page"
-msgstr "עמוד הבית"
-
 msgid "Home page of authority"
 msgstr "עמוד הבית של הרשות"
 
@@ -1881,9 +1854,6 @@ msgstr "קיבלנו <strong>הודעת שגיאה</strong>"
 
 msgid "I've received an error message"
 msgstr "קיבלנו <strong>הודעת שגיאה</strong>"
-
-msgid "Id"
-msgstr "מזהה"
 
 msgid "If the address is wrong, or you know a better address, please <a href=\"{{url}}\">contact us</a>."
 msgstr "אם הכתובת שגוייה, או יש לכם כתובת אחרת, נא <a href=\"{{url}}\">צרו איתנו קשר</a>."
@@ -1982,9 +1952,6 @@ msgstr ""
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr "הוסיפו קישורים מתאימים כמו למשל לדף הקמפיין, לבלוג שלכם או לטוויטר. יהיה ניתן להקליק עליהם n\\. למשל"
 
-msgid "Incoming email address"
-msgstr "כתובת לקבלת דואר אלקטרוני"
-
 msgid "Incoming message has a spam score above the configured threshold ({{spam_threshold}})."
 msgstr ""
 
@@ -2034,9 +2001,6 @@ msgstr ""
 
 msgid "Items matching the following conditions are currently displayed on your wall."
 msgstr "פריטים המתאימים לתנאים הבאים מוצגים כעת על הקיר שלך."
-
-msgid "Items sent in last month"
-msgstr "פריטים שנשלחו בחודש שעבר"
 
 msgid "Joined in {{year}}"
 msgstr ""
@@ -2099,21 +2063,6 @@ msgstr "קישור לכאן"
 
 msgid "List of all authorities (CSV)"
 msgstr "רשימת כל הרשויות (CSV)"
-
-msgid "Listing FOI requests"
-msgstr "רשימת בקשות מידע"
-
-msgid "Listing public authorities"
-msgstr "רשימת רשויות ציבוריות"
-
-msgid "Listing public authorities matching '{{query}}'"
-msgstr "מציג גופים ציבורים הכוללים את  '{{query}}'"
-
-msgid "Listing tracks"
-msgstr "רשימת מעקב"
-
-msgid "Listing users"
-msgstr "רשימת משתמשים"
 
 msgid "Log in to download a zip file of {{info_request_title}}"
 msgstr "יש להיכנס למערכת כדי להוריד קובץ זיפ של {{info_request_title}}"
@@ -2277,9 +2226,6 @@ msgstr "אין תוצאות."
 msgid "No similar requests found."
 msgstr "לא נמצאות בקשות דומות."
 
-msgid "No tracked things found."
-msgstr "לא נמצאו דברים במעקב"
-
 msgid "Nobody has made any Freedom of Information requests to {{public_body_name}} using this site yet."
 msgstr "אף אחד עדיין לא שלח בקשת מידע ל{{public_body_name}} דרך האתר."
 
@@ -2357,9 +2303,6 @@ msgstr "אדם אחד נמצא"
 
 msgid "One public authority found"
 msgstr "נמצאה רשות ציבורית אחת"
-
-msgid "Only put in abbreviations which are really used, otherwise leave blank. Short or long name is used in the URL – don't worry about breaking URLs through renaming, as the history is used to redirect"
-msgstr "השתמשו רק בקיצורים שבאמת נמצאים בשימוש, אחרת השאירו ריק. השם הקצר והארוך ישמשו לבניית ה URL - אל תדאגו בקשר לשבירת קישורים ישנים בגלל שינוי השם. המידע ההיסטורי ישמש כדי להפנות לקישור החדש."
 
 msgid "Only requests made using {{site_name}} are shown."
 msgstr "מוצגות רק בקשות שהוגשו באמצעות האתר {{site_name}}."
@@ -2695,9 +2638,6 @@ msgstr "רשויות ציבוריות {{start_count}} עד {{end_count}} מתו�
 msgid "Public authority statistics"
 msgstr ""
 
-msgid "Public authority – {{name}}"
-msgstr "רשות ציבורית – {{name}}"
-
 msgid "Public bodies that most frequently replied with \"Not Held\""
 msgstr ""
 
@@ -2718,12 +2658,6 @@ msgstr ""
 
 msgid "Public body heading translation"
 msgstr ""
-
-msgid "Public page"
-msgstr "דף ציבורי"
-
-msgid "Public page not available"
-msgstr "הדף הציבורי לא זמין"
 
 msgid "PublicBodyCategoryTranslation|Description"
 msgstr ""
@@ -2978,9 +2912,6 @@ msgstr "חפש באתר"
 
 msgid "Search your contributions"
 msgstr "חפש בין התוספות שלך"
-
-msgid "See bounce message"
-msgstr "ראו הודעת תגובה"
 
 msgid "Send a followup"
 msgstr "לשלוח הודעת המשך"
@@ -3241,9 +3172,6 @@ msgstr "טבלת סטטוסים"
 
 msgid "Table of varieties"
 msgstr "טבלת משתנים"
-
-msgid "Tags"
-msgstr "תגיות"
 
 msgid "Tags (separated by a space):"
 msgstr "תגיות (רווח בין תגית לתגית)"
@@ -3639,9 +3567,6 @@ msgstr ""
 "מצב זה קורה מכיוון ש{{title}} היא בקשה ישנה\n"
 " שלא מקבלת תגובות יותר."
 
-msgid "This is the first version."
-msgstr "זוהי הגרסה הראשונה"
-
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "זו בקשה שלכם, כך שתקבלו דוא\"ל מייד כשיגיעו תגובות חדשות."
 
@@ -4033,14 +3958,8 @@ msgstr "השתמשו במרכאות כדי לחפש את הביטוי המדוי
 msgid "Use this site to make your request for information – we'll show you how."
 msgstr ""
 
-msgid "User – {{name}}"
-msgstr "משתמש – {{name}}"
-
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
 msgstr ""
-
-msgid "Version {{version}}"
-msgstr "גירסה {{version}}"
 
 msgid "Very long – shorter requests are more successful"
 msgstr ""
@@ -4738,9 +4657,6 @@ msgstr ""
 msgid "also called {{public_body_short_name}}"
 msgstr "הנקרא גם {{public_body_short_name}}"
 
-msgid "an anonymous user"
-msgstr "משתמש אנונימי"
-
 msgid "and"
 msgstr "וְ"
 
@@ -4753,17 +4669,11 @@ msgstr ""
 msgid "are long overdue."
 msgstr "מתעכבים מאוד."
 
-msgid "at"
-msgstr "ב- "
-
 msgid "authorities"
 msgstr "רשויות"
 
 msgid "awaiting response"
 msgstr ""
-
-msgid "but followupable"
-msgstr "אבל ניתן לעקוב אחריהם"
 
 msgid "by"
 msgstr "עד תאריך"
@@ -4834,9 +4744,6 @@ msgstr "הודעות ממשתמשים"
 msgid "mobile number"
 msgstr ""
 
-msgid "move..."
-msgstr "להעביר..."
-
 msgid "mySociety:Helping people set up sites like {{site_name}} all over the world"
 msgstr ""
 
@@ -4851,9 +4758,6 @@ msgstr "לרוב"
 
 msgid "not logged in"
 msgstr ""
-
-msgid "not requestable due to: {{reason}}"
-msgstr "לא ניתן לבקש בגלל: {{reason}}"
 
 msgid "other"
 msgstr ""
@@ -4884,9 +4788,6 @@ msgstr "שלח הודעת מעקב"
 
 msgid "sent"
 msgstr ""
-
-msgid "set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA"
-msgstr "קבע ל<strong>ריק</strong> (מחרוזת ריקה) אם לא ניתן למצוא כתובת; הכתובות האלה <strong>פתוחות לציבור</strong> מכוון שכל אחד יכול לצפות בהן אחרי הזנת CAPTCHA"
 
 msgid "show quoted sections"
 msgstr "הצג פסקאות מצוטטות"
@@ -5139,9 +5040,6 @@ msgid "{{site_name}} users have made {{number_of_requests}} request, including:"
 msgid_plural "{{site_name}} users have made {{number_of_requests}} requests, including:"
 msgstr[0] ""
 msgstr[1] ""
-
-msgid "{{thing_changed}} was changed from <code>{{from_value}}</code> to <code>{{to_value}}</code>"
-msgstr "{{thing_changed}} השתנה מ- <code>{{from_value}}</code> אל <code>{{to_value}}</code>"
 
 msgid "{{title}} - a Freedom of Information request to {{public_body}}"
 msgstr "{{title}} - בקשת מידע עבור {{public_body}}"

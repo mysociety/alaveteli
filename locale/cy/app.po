@@ -47,8 +47,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-16 16:34+0100\n"
-"PO-Revision-Date: 2020-07-17 13:17+0000\n"
+"POT-Creation-Date: 2020-10-16 10:35+0100\n"
+"PO-Revision-Date: 2020-10-16 11:44+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Welsh (http://www.transifex.com/mysociety/alaveteli/language/cy"
 "/)\n"
@@ -154,9 +154,6 @@ msgstr "(neu <a href=\"{{url}}\">mewngofnodwch</a>)"
 
 msgid "(show)"
 msgstr "(dangos)"
-
-msgid "*unknown*"
-msgstr "* Anhysbys *"
 
 msgid ""
 ",\n"
@@ -948,9 +945,6 @@ msgstr ""
 msgid "ApplicationRecord|Within rfc822 subject"
 msgstr ""
 
-msgid "Applies to"
-msgstr "Yn berthnasol i"
-
 msgid "Are we missing a public authority?"
 msgstr "A oes awdurdod cyhoeddus ar goll gennym?"
 
@@ -1076,9 +1070,6 @@ msgstr "Yn ôl y gyfraith, dylai {{public_body_link}} fel arfer wedi ymateb <str
 
 msgid "CSV"
 msgstr ""
-
-msgid "Calculated home page"
-msgstr "Hafan wedi ei chyfrifo"
 
 msgid "Can't find the one you want?"
 msgstr "Methu dod o hyd i'r un sy eisiau arnoch?"
@@ -1320,9 +1311,6 @@ msgstr "Ymwadiad: Caiff y neges hon ac unrhyw ateb a roddwch eu cyhoeddi ar y rh
 msgid "Disclosure log"
 msgstr "Log datgelu"
 
-msgid "Disclosure log URL"
-msgstr "URL log datgelu"
-
 msgid "Do not fill in this field"
 msgstr "Peidiwch â llenwi'r maes hwn"
 
@@ -1355,9 +1343,6 @@ msgstr ""
 
 msgid "EIR"
 msgstr "Rheoliadau Gwybodaeth Amgylcheddol"
-
-msgid "Edit"
-msgstr "Golygu"
 
 msgid "Edit and add <strong>more details</strong> to the message above, explaining why you are dissatisfied with their response."
 msgstr "Golygu ac ychwanegu <strong>mwy o fanylion</strong> at y neges uchod, yn esbonio pam eich bod yn anfodlon ar eu hymateb."
@@ -1410,9 +1395,6 @@ msgstr "Ceisiadau Rheoliadau Amgylcheddol Gwybodaeth a wnaed gan ddefnyddio'r we
 msgid "Event history"
 msgstr "Hanes y digwyddiad"
 
-msgid "Event {{id}}"
-msgstr "Digwyddiad {{id}}"
-
 msgid "Every citizen has the right to access information held by public authorities."
 msgstr ""
 
@@ -1439,9 +1421,6 @@ msgstr "Cyfeiriad e-bost Rhyddid Gwybodaeth ar gyfer {{public_body}} "
 
 msgid "FOI law does not apply to this authority."
 msgstr ""
-
-msgid "FOI request – {{title}}"
-msgstr "Cais Rhyddid Gwybodaeth - {{title}}"
 
 msgid "FOI requests"
 msgstr "Ceisiadau Rhyddid Gwybodaeth"
@@ -1768,12 +1747,6 @@ msgstr ""
 msgid "Hidden requests are not counted. Unclassified requests do not count towards the percentages."
 msgstr ""
 
-msgid "Hide request"
-msgstr "Cuddio cais"
-
-msgid "Home page"
-msgstr "Tudalen hafan"
-
 msgid "Home page of authority"
 msgstr "Tudalen hafan yr awdurdod"
 
@@ -1833,9 +1806,6 @@ msgstr "Rwyf wedi derbyn <strong>neges gwall</strong>"
 
 msgid "I've received an error message"
 msgstr "Rwyf wedi derbyn neges gwall"
-
-msgid "Id"
-msgstr "Id"
 
 msgid "If the address is wrong, or you know a better address, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Os yw'r cyfeiriad yn anghywir, neu os ydych yn gwybod am gyfeiriad gwell, <a href=\"{{url}}\">cysylltwch â ni</a> os gwelwch yn dda."
@@ -1927,9 +1897,6 @@ msgstr ""
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr " Cynhwyswch gysylltiadau perthnasol, megis i dudalen yr ymgyrch, eich blog neu gyfrif Twitter. Byddant yn cael eu gwneud yn gliciadwy. ee"
 
-msgid "Incoming email address"
-msgstr "Cyfeiriad e-bost sy'n dod i mewn"
-
 msgid "Incoming message has a spam score above the configured threshold ({{spam_threshold}})."
 msgstr ""
 
@@ -1974,9 +1941,6 @@ msgstr "Efallai nad yw eich porwr wedi ei osod i dderbyn peth a elwir yn \"gwcis
 
 msgid "Items matching the following conditions are currently displayed on your wall."
 msgstr "Mae eitemau sy'n cyfateb i'r amodau canlynol yn cael eu harddangos ar hyn o bryd ar eich wal."
-
-msgid "Items sent in last month"
-msgstr "Eitemau a anfonwyd yn y mis diwethaf"
 
 msgid "Joined in {{year}}"
 msgstr "Ymunodd yn {{year}}"
@@ -2037,21 +2001,6 @@ msgstr "Cysylltwch â hwn"
 
 msgid "List of all authorities (CSV)"
 msgstr "Rhestr o'r holl awdurdodau (CSV)"
-
-msgid "Listing FOI requests"
-msgstr "Yn rhestru ceisiadau Rhyddid Gwybodaeth"
-
-msgid "Listing public authorities"
-msgstr "Yn rhestru awdurdodau cyhoeddus"
-
-msgid "Listing public authorities matching '{{query}}'"
-msgstr "Yn rhestru awdurdodau cyhoeddus sy'n cyfateb i '{{query}}'"
-
-msgid "Listing tracks"
-msgstr "Yn rhestru traciau "
-
-msgid "Listing users"
-msgstr "Yn rhestru defnyddwyr"
 
 msgid "Log in to download a zip file of {{info_request_title}}"
 msgstr "Mewngofnodi i lawrlwytho ffeil zip o {{info_request_title}} "
@@ -2215,9 +2164,6 @@ msgstr "Heb ddod o hyd i ganlyniadau."
 msgid "No similar requests found."
 msgstr "Heb ddod o hyd i geisiadau tebyg."
 
-msgid "No tracked things found."
-msgstr "Dim wedi dod o hyd i bethau wedi eu tracio."
-
 msgid "Nobody has made any Freedom of Information requests to {{public_body_name}} using this site yet."
 msgstr "Nid oes neb wedi gwneud unrhyw geisiadau Rhyddid Gwybodaeth i {{public_body_name}} drwy ddefnyddio'r wefan hon eto."
 
@@ -2295,9 +2241,6 @@ msgstr "Daethwpyd o hyd i un person"
 
 msgid "One public authority found"
 msgstr "Daethwpyd o hyd i un awdurdod cyhoeddus"
-
-msgid "Only put in abbreviations which are really used, otherwise leave blank. Short or long name is used in the URL – don't worry about breaking URLs through renaming, as the history is used to redirect"
-msgstr "Peidiwch â rhoi byrfoddau heblaw am rai a ddefnyddir mewn gwirionedd, fel arall gadewch yn wag. Defnyddir enw byr neu hir yn y URL - peidiwch â phoeni am dorri URLs drwy ailenwi, gan fod yr hanes yn cael ei ddefnyddio i ailgyfeirio"
 
 msgid "Only requests made using {{site_name}} are shown."
 msgstr "Dim ond ceisiadau a wnaed gan ddefnyddio {{site_name}} a ddangosir."
@@ -2622,9 +2565,6 @@ msgstr "Awdurdodau cyhoeddus {{start_count}} i {{end_count}} o {{total_count}}"
 msgid "Public authority statistics"
 msgstr "Ystadegau awdurdodau cyhoeddus"
 
-msgid "Public authority – {{name}}"
-msgstr "Awdurdod cyhoeddus – {{name}}"
-
 msgid "Public bodies that most frequently replied with \"Not Held\""
 msgstr "Cyrff cyhoeddus sy'n ateb amlaf â \"Nis cedwir\""
 
@@ -2645,12 +2585,6 @@ msgstr ""
 
 msgid "Public body heading translation"
 msgstr ""
-
-msgid "Public page"
-msgstr "Tudalen gyhoeddus"
-
-msgid "Public page not available"
-msgstr "Tudalen gyhoeddus ddim ar gael"
 
 msgid "PublicBodyCategoryTranslation|Description"
 msgstr ""
@@ -2903,9 +2837,6 @@ msgstr "Chwilio'r safle i ddod o hyd i'r hyn roeddech yn chwilio amdano."
 
 msgid "Search your contributions"
 msgstr "Chwilio eich cyfraniadau"
-
-msgid "See bounce message"
-msgstr "Gweler neges bownsio"
 
 msgid "Send a followup"
 msgstr "Anfon neges ddilynol"
@@ -3162,9 +3093,6 @@ msgstr "Tabl o statws"
 
 msgid "Table of varieties"
 msgstr "Tabl o fathau"
-
-msgid "Tags"
-msgstr "Tagiau"
 
 msgid "Tags (separated by a space):"
 msgstr "Tagiau (wedi eu gwahanu gan fwlch):"
@@ -3537,9 +3465,6 @@ msgstr "Mae hwn yn fersiwn HTML o atodiad i'r cais Rhyddid Gwybodaeth"
 
 msgid "This is because {{title}} is an old request that has been marked to no longer receive responses."
 msgstr "Mae hyn oherwydd bod {{title}} yn hen gais sydd wedi ei nodi i beidio â derbyn ymatebion mwyach."
-
-msgid "This is the first version."
-msgstr "Dyma'r fersiwn gyntaf."
 
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Dyma'ch eich cais eich hun, felly byddwch yn cael e-bost yn awtomatig pan fydd ymatebion newydd yn cyrraedd."
@@ -3916,14 +3841,8 @@ msgstr "Defnyddiwch ddyfynodau pan fyddwch am ddod o hyd i'r union ymadrodd, ee 
 msgid "Use this site to make your request for information – we'll show you how."
 msgstr ""
 
-msgid "User – {{name}}"
-msgstr "Defnyddiwr - {{name}}"
-
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
 msgstr "Ni all defnyddwyr fel arfer wneud ceisiadau swp i awdurdodau lluosog yr un pryd oherwydd nad ydym am i awdurdodau cyhoeddus gael eu peledu â niferoedd mawr o geisiadau amhriodol. Cysylltwch <a href=\"{{url}}\">â ni</a> os ydych yn meddwl bod gennych reswm da i anfon yr un cais i lawer o awdurdodau lluosog ar yr un pryd."
-
-msgid "Version {{version}}"
-msgstr "Fersiwn {{version}}"
 
 msgid "Very long – shorter requests are more successful"
 msgstr ""
@@ -4574,9 +4493,6 @@ msgstr "pob cais neu sylw sy'n matsio testun '{{query}}'"
 msgid "also called {{public_body_short_name}}"
 msgstr "a elwir hefyd yn {{public_body_short_name}} "
 
-msgid "an anonymous user"
-msgstr "defnyddiwr dienw"
-
 msgid "and"
 msgstr "a"
 
@@ -4589,17 +4505,11 @@ msgstr "testun yn cyfateb unrhyw beth '{{query}}'"
 msgid "are long overdue."
 msgstr "yn ddyledus ers tro"
 
-msgid "at"
-msgstr "yn"
-
 msgid "authorities"
 msgstr "awdurdodau"
 
 msgid "awaiting response"
 msgstr "yn disgwyl am ateb"
-
-msgid "but followupable"
-msgstr "ond â modd mynd ar ei ôl"
 
 msgid "by"
 msgstr "erbyn"
@@ -4670,9 +4580,6 @@ msgstr "negeseuon gan ddefnyddwyr"
 msgid "mobile number"
 msgstr "rhif symudol"
 
-msgid "move..."
-msgstr "symud ..."
-
 msgid "mySociety:Helping people set up sites like {{site_name}} all over the world"
 msgstr ""
 
@@ -4687,9 +4594,6 @@ msgstr "fel arfer"
 
 msgid "not logged in"
 msgstr ""
-
-msgid "not requestable due to: {{reason}}"
-msgstr "dim modd gwneud cais o achos i: {{reason}}"
 
 msgid "other"
 msgstr ""
@@ -4720,9 +4624,6 @@ msgstr "anfon neges ddilynol"
 
 msgid "sent"
 msgstr "anfonwyd"
-
-msgid "set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA"
-msgstr "gosodir yn <strong>wag</strong> (llinyn gwag) os na ellir dod o hyd i gyfeiriad; mae'r  e-byst hyn yn <strong>gyhoeddus</strong> gan y gall unrhyw eu gweld gyda CAPTCHA"
 
 msgid "show quoted sections"
 msgstr "dangos adrannau a ddyfynnir "
@@ -4982,9 +4883,6 @@ msgid "{{site_name}} users have made {{number_of_requests}} request, including:"
 msgid_plural "{{site_name}} users have made {{number_of_requests}} requests, including:"
 msgstr[0] ""
 msgstr[1] ""
-
-msgid "{{thing_changed}} was changed from <code>{{from_value}}</code> to <code>{{to_value}}</code>"
-msgstr "Newidiwyd {{thing_changed}} o <code>{{from_value}}"
 
 msgid "{{title}} - a Freedom of Information request to {{public_body}}"
 msgstr "{{title}} - cais Rhyddid Gwybodaeth i {{public_body}} "

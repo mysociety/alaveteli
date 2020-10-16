@@ -58,8 +58,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-16 16:34+0100\n"
-"PO-Revision-Date: 2020-07-17 13:16+0000\n"
+"POT-Creation-Date: 2020-10-16 10:35+0100\n"
+"PO-Revision-Date: 2020-10-16 11:44+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Nepali (http://www.transifex.com/mysociety/alaveteli/language/n"
 "e/)\n"
@@ -167,9 +167,6 @@ msgstr "(अथवा <a href=\"{{url}}\">साइन इन गर्नुह
 
 msgid "(show)"
 msgstr "(देखाउनुहोस्)"
-
-msgid "*unknown*"
-msgstr "*अज्ञात*"
 
 msgid ""
 ",\n"
@@ -982,9 +979,6 @@ msgstr ""
 msgid "ApplicationRecord|Within rfc822 subject"
 msgstr ""
 
-msgid "Applies to"
-msgstr "लागू हुने"
-
 msgid "Are we missing a public authority?"
 msgstr "के हामीले सार्वजनिक निकाय छुटाएका छौँ?"
 
@@ -1110,9 +1104,6 @@ msgstr "कानुनतः, {{public_body_link}} ले <strong>सिघ्�
 
 msgid "CSV"
 msgstr ""
-
-msgid "Calculated home page"
-msgstr "अन्दाजी होमपेज"
 
 msgid "Can't find the one you want?"
 msgstr "चाहनु भएको कुरा भेट्नु भएन?"
@@ -1358,9 +1349,6 @@ msgstr "सूचना : यो सन्देश र यसमा दिइ�
 msgid "Disclosure log"
 msgstr "प्रकाशन लग"
 
-msgid "Disclosure log URL"
-msgstr "प्रकाशन लग URL"
-
 msgid "Do not fill in this field"
 msgstr "यो ठाउँमा नभर्नुहोस्"
 
@@ -1393,9 +1381,6 @@ msgstr ""
 
 msgid "EIR"
 msgstr "EIR"
-
-msgid "Edit"
-msgstr "सम्पादन"
 
 msgid "Edit and add <strong>more details</strong> to the message above, explaining why you are dissatisfied with their response."
 msgstr ""
@@ -1452,9 +1437,6 @@ msgstr "यस वेबसाइट प्रयोग गरी वाता�
 msgid "Event history"
 msgstr "इभेन्ट इतिहास"
 
-msgid "Event {{id}}"
-msgstr "इभेन्ट {{id}}"
-
 msgid "Every citizen has the right to access information held by public authorities."
 msgstr "हरेक नागरिकलाई साधारण अधिकारीहरूद्वारा राखिएको सूचनाको पहुँचको हक छ "
 
@@ -1483,9 +1465,6 @@ msgstr "{{public_body}} को लागि FOI इमेल ठेगाना"
 
 msgid "FOI law does not apply to this authority."
 msgstr "FOI कानुन यो निकायको लागि लागू हुँदैन।"
-
-msgid "FOI request – {{title}}"
-msgstr "FOI अनुरोध – {{title}}"
 
 msgid "FOI requests"
 msgstr "FOI अनुरोधहरू"
@@ -1810,12 +1789,6 @@ msgstr "लुकाइएको"
 msgid "Hidden requests are not counted. Unclassified requests do not count towards the percentages."
 msgstr "लुकाइएका अनुरोधहरू गनिएको छैन। Unclassified requests do not count towards the percentages."
 
-msgid "Hide request"
-msgstr "अनुरोध लुकाउनुहोस्"
-
-msgid "Home page"
-msgstr "गृह पृष्ठ"
-
 msgid "Home page of authority"
 msgstr "निकायको  गृहपृष्ठ"
 
@@ -1879,9 +1852,6 @@ msgstr "मैले एउटा <strong>त्रुटि सन्देस<
 
 msgid "I've received an error message"
 msgstr "मैले एउटा त्रुटि सन्देस पाए"
-
-msgid "Id"
-msgstr "Id"
 
 msgid "If the address is wrong, or you know a better address, please <a href=\"{{url}}\">contact us</a>."
 msgstr "यदि ठेगाना गलत छ भने, वा तपाइलाइ अझ राम्रो ठेगाना थाहा छ भने, कृपया <a href=\"{{url}}\">हामीलाइ सम्पर्क गर्नुहोला</a>।"
@@ -1988,9 +1958,6 @@ msgstr ""
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. उदाहरण."
 
-msgid "Incoming email address"
-msgstr "आगन्तुक इमेल ठेगाना"
-
 msgid "Incoming message has a spam score above the configured threshold ({{spam_threshold}})."
 msgstr "आएका सन्देशहरुमा न्युनतमअंकभन्दा धेरै  स्पाम अंक रहेको छ| ({{spam_threshold}})."
 
@@ -2037,9 +2004,6 @@ msgstr "शायद तपाईं को  ब्राउजर \"cookies स
 
 msgid "Items matching the following conditions are currently displayed on your wall."
 msgstr "निम्न अवस्थामा मिल्ने वस्तुहरू हाल आफ्नो पर्खाल प्रदर्शित छन्।"
-
-msgid "Items sent in last month"
-msgstr "अगिल्लो महिना पठाइएका सामाग्रीहरु"
 
 msgid "Joined in {{year}}"
 msgstr "{{year}} मा सामेल भएको"
@@ -2100,21 +2064,6 @@ msgstr "यसको लिङ्क"
 
 msgid "List of all authorities (CSV)"
 msgstr "सबै अधिकारहरूको तालिका (CSV)"
-
-msgid "Listing FOI requests"
-msgstr "FOI अनुरोधको  सूचीकरण"
-
-msgid "Listing public authorities"
-msgstr "सार्वजनिक निकायहरू उल्लेख गर्दै"
-
-msgid "Listing public authorities matching '{{query}}'"
-msgstr "मिल्दो सार्वजनिक अधिकारीहरु सूची '{{query}}'"
-
-msgid "Listing tracks"
-msgstr "बाटो उल्लेख गर्दै"
-
-msgid "Listing users"
-msgstr "प्रयोगकर्ताहरु लाई उल्लेख गर्देे"
 
 msgid "Log in to download a zip file of {{info_request_title}}"
 msgstr "{{info_request_title}} को जिप फाइल डाउनलोड गर्न लग इन मा जानुहोस "
@@ -2278,9 +2227,6 @@ msgstr "कुनै पनि नतिजा भेटिएन"
 msgid "No similar requests found."
 msgstr "कुनै पनि मिल्दो अनुरोध भेटिएन।"
 
-msgid "No tracked things found."
-msgstr "चिनो लगाएको कुनै पनि सामग्री भेटिएन"
-
 msgid "Nobody has made any Freedom of Information requests to {{public_body_name}} using this site yet."
 msgstr "कसैले पनि यस वेबसाइट प्रयोग गरि  {{public_body_name}} लाई कुनै सूचना प्रति को स्वतन्त्रता को अनुरॊध गरेको छैन"
 
@@ -2358,9 +2304,6 @@ msgstr "एक व्यक्ति भेटियो"
 
 msgid "One public authority found"
 msgstr "एक सार्वजनिक निकाय भेटियो"
-
-msgid "Only put in abbreviations which are really used, otherwise leave blank. Short or long name is used in the URL – don't worry about breaking URLs through renaming, as the history is used to redirect"
-msgstr "संक्षिप्त प्रयोग हुन्छन् भने मात्रै राख्ने, नत्र खाली छोडिदिने | URL मा छोटो अथवा लामो  नाममात्र प्रयोग गरिन्छ | URL नाम परिवर्तन गर्दा चिन्ता नगर्नु होस,"
 
 msgid "Only requests made using {{site_name}} are shown."
 msgstr "प्रयोग गरेर  मात्र अनुरोध {{site_name}} देखाइएको छ।"
@@ -2687,9 +2630,6 @@ msgstr "सार्वजनिक निकायहरू {{start_count}} द
 msgid "Public authority statistics"
 msgstr "सार्वजनिक निकाय तथ्याङ्क"
 
-msgid "Public authority – {{name}}"
-msgstr "सार्वजनिक निकाय – {{name}}"
-
 msgid "Public bodies that most frequently replied with \"Not Held\""
 msgstr "धेरै पटक \"जानकारी छैन\" भनेर जवाफ दिने सार्वजनिक निकायहरू "
 
@@ -2710,12 +2650,6 @@ msgstr ""
 
 msgid "Public body heading translation"
 msgstr ""
-
-msgid "Public page"
-msgstr "सार्वजनिक पृष्ठ"
-
-msgid "Public page not available"
-msgstr "सार्वजनिक पृष्ठ उपलब्ध छैन"
 
 msgid "PublicBodyCategoryTranslation|Description"
 msgstr ""
@@ -2971,9 +2905,6 @@ msgstr "साइट खोज गरि तपाइलाइ चाइएक�
 
 msgid "Search your contributions"
 msgstr "तपाईंको योगदान खोज"
-
-msgid "See bounce message"
-msgstr "फर्किेएका सन्देश हेर्नुहोस् ।"
 
 msgid "Send a followup"
 msgstr "फलोअप पठाउनुहोस्"
@@ -3234,9 +3165,6 @@ msgstr "स्थितीको सूची"
 
 msgid "Table of varieties"
 msgstr "प्रकारहरूको सूची"
-
-msgid "Tags"
-msgstr "ट्यागहरू"
 
 msgid "Tags (separated by a space):"
 msgstr "ट्यागहरू (बिचमा स्पेसले छुट्याउने):"
@@ -3619,9 +3547,6 @@ msgid "This is because {{title}} is an old request that has been marked to no lo
 msgstr ""
 "{{title}} पुरानो अनुरोध भएकाले\n"
 "नया प्रतिक्रिया लिन नमिल्ने भनेर चिनाइएको छ"
-
-msgid "This is the first version."
-msgstr "यो पहिलो संस्करण हो|"
 
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "यो तपाइको आफ्नै अनुरोध हो, त्यसैले जब नया प्रतिक्रिया आउछ तपाइलाई स्वोचालित रुपमा इमेल गरिनेछ |"
@@ -4013,14 +3938,8 @@ msgstr "जब तपाईं एक सटीक वाक्यांश प�
 msgid "Use this site to make your request for information – we'll show you how."
 msgstr "जानकारीको लागि आफ्नो अनुरोध गर्न यो साइट प्रयोग गर्नुहोस् - हामी तपाईंलाई देखाउने छौँ कसरी।"
 
-msgid "User – {{name}}"
-msgstr "प्रयोगकर्ता – {{name}}"
-
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
 msgstr "प्रयोगकर्ता छैन सामान्यतया हामी सार्वजनिक अधिकारीहरु अनुपयुक्त अनुरोध को ठूलो संख्या संग bombarded गर्न चाहँदैनन् किनभने एकैचोटि धेरै अधिकारीहरु गर्न ब्याच अनुरोध गर्न सक्छन्। कृपया तपाईं एकैचोटि धेरै अधिकारीहरु गर्न नै अनुरोध पठाउन असल कारण छ लाग्छ भने हामीलाई सम्पर्क <a href=\"{{url}}\">गर्नुहोला</a> |"
-
-msgid "Version {{version}}"
-msgstr "संस्करण {{version}}"
 
 msgid "Very long – shorter requests are more successful"
 msgstr ""
@@ -4689,9 +4608,6 @@ msgstr "'{{query}}' सँग मिल्दो अनुरोधहरू र
 msgid "also called {{public_body_short_name}}"
 msgstr "{{public_body_short_name}} पनि भनिने"
 
-msgid "an anonymous user"
-msgstr "एक अज्ञात प्रयोगकर्ता"
-
 msgid "and"
 msgstr "र"
 
@@ -4704,17 +4620,11 @@ msgstr "'{{query}}' सँग मिल्दो सबै कुरा"
 msgid "are long overdue."
 msgstr "धेरै थाँती रहेका कामहरू।"
 
-msgid "at"
-msgstr "मा"
-
 msgid "authorities"
 msgstr "निकायहरू"
 
 msgid "awaiting response"
 msgstr "प्रतिक्रिया पर्खदै"
-
-msgid "but followupable"
-msgstr "तर पुनः ताकेता गर्न  मिल्ने"
 
 msgid "by"
 msgstr "द्वारा"
@@ -4785,9 +4695,6 @@ msgstr "प्रयोगकर्ताहरूबाट सन्देश�
 msgid "mobile number"
 msgstr "मोबाइल नम्बर"
 
-msgid "move..."
-msgstr "सार्ने..."
-
 msgid "mySociety:Helping people set up sites like {{site_name}} all over the world"
 msgstr "mySociety:मानिसहरूलाई {{site_name}} जस्तै साइटहरू संसारभर स्थापना गर्न  सहयोग गर्दै ।"
 
@@ -4802,9 +4709,6 @@ msgstr "साधारणतया"
 
 msgid "not logged in"
 msgstr "प्रवेश (लग ईन) नगरिएकोप्रवेश (लग ईन) नगरिएको"
-
-msgid "not requestable due to: {{reason}}"
-msgstr "अनुरोध गर्न  असमर्थताको कारण: {{reason}}"
 
 msgid "other"
 msgstr "अन्य"
@@ -4835,9 +4739,6 @@ msgstr "ताकेता सन्देश पठाउनुहोस्"
 
 msgid "sent"
 msgstr "पठाइयो"
-
-msgid "set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA"
-msgstr "यदि ठेगाना फेला पार्न सक्नुहुन्न भने <strong> खाली </strong> (खाली स्ट्रिङ) राख्नसक्नुहुन्छ; यी इमेलहरु <strong> सार्वजनिक </strong> हुन र CAPTCHA को सहायताले जसले पनि हेर्न सक्छ"
 
 msgid "show quoted sections"
 msgstr "उद्वरित खण्डहरू लुकाउनेउद्वरित खण्डहरू देखाउने"
@@ -5083,9 +4984,6 @@ msgid "{{site_name}} users have made {{number_of_requests}} request, including:"
 msgid_plural "{{site_name}} users have made {{number_of_requests}} requests, including:"
 msgstr[0] ""
 msgstr[1] ""
-
-msgid "{{thing_changed}} was changed from <code>{{from_value}}</code> to <code>{{to_value}}</code>"
-msgstr "{{thing_changed}} <code>{{from_value}}</code>बाट <code>{{to_value}}</code>मा बदलिएको थियो"
 
 msgid "{{title}} - a Freedom of Information request to {{public_body}}"
 msgstr "{{title}}को  {{public_body}}को लागि -सूचना हकको अनुरोध ।"

@@ -47,9 +47,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-16 16:34+0100\n"
-"PO-Revision-Date: 2020-08-23 19:40+0000\n"
-"Last-Translator: Hana Hunt <hana@hana-hunt.cz>\n"
+"POT-Creation-Date: 2020-10-16 10:35+0100\n"
+"PO-Revision-Date: 2020-10-16 11:44+0000\n"
+"Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Czech (http://www.transifex.com/mysociety/alaveteli/language/cs"
 "/)\n"
 "MIME-Version: 1.0\n"
@@ -157,9 +157,6 @@ msgstr "(nebo <a href=\"{{url}}\">přihlašte se</a>)"
 
 msgid "(show)"
 msgstr "(ukázat)"
-
-msgid "*unknown*"
-msgstr "*neznámá data*"
 
 msgid ""
 ",\n"
@@ -976,9 +973,6 @@ msgstr "ZáznamAplikace|Co dělá "
 msgid "ApplicationRecord|Within rfc822 subject"
 msgstr "ZáznamAplikace|V rámci subjektu rfc822 "
 
-msgid "Applies to"
-msgstr "Týká se"
-
 msgid "Are we missing a public authority?"
 msgstr "Chybí nám nějaká instituce?"
 
@@ -1104,9 +1098,6 @@ msgstr "Podle zákona by měla instituce {{public_body_link}} odpovědět okamž
 
 msgid "CSV"
 msgstr "CSV"
-
-msgid "Calculated home page"
-msgstr "Domů"
 
 msgid "Can't find the one you want?"
 msgstr "Nemůžete najít to, co hledáte?"
@@ -1358,9 +1349,6 @@ msgstr "Vyloučení odpovědnosti: Tato zpráva a jakékoliv odpovědi na ni bud
 msgid "Disclosure log"
 msgstr "Disclosure log"
 
-msgid "Disclosure log URL"
-msgstr "Disclosure log URL"
-
 msgid "Do not fill in this field"
 msgstr "Toto pole nevyplňujte"
 
@@ -1393,9 +1381,6 @@ msgstr "Stahování"
 
 msgid "EIR"
 msgstr "Informace o životním prostředí"
-
-msgid "Edit"
-msgstr "Editovat"
 
 msgid "Edit and add <strong>more details</strong> to the message above, explaining why you are dissatisfied with their response."
 msgstr ""
@@ -1450,9 +1435,6 @@ msgstr "Dotaz vznesený za pomocí těchto stránek podle zákona č. 114/1992 S
 msgid "Event history"
 msgstr "Historie případu"
 
-msgid "Event {{id}}"
-msgstr "Aktivita {{id}}"
-
 msgid "Every citizen has the right to access information held by public authorities."
 msgstr "Každý občan má právo na přístup k informacím veřejných institucí"
 
@@ -1479,9 +1461,6 @@ msgstr "E-mailová adresa podatelny instituce {{public_body}}"
 
 msgid "FOI law does not apply to this authority."
 msgstr "Na tento úřad se FOI zákon se nevztahuje."
-
-msgid "FOI request – {{title}}"
-msgstr "Dotaz – {{title}}"
 
 msgid "FOI requests"
 msgstr "Dotazy"
@@ -1811,12 +1790,6 @@ msgstr "Skryto"
 msgid "Hidden requests are not counted. Unclassified requests do not count towards the percentages."
 msgstr "Skryté žádosti dotazy. Dotazy, které nebyly zařazeny do kategorií nejsou zahrnuty do procentického výpočtu. "
 
-msgid "Hide request"
-msgstr "Skrýt dotaz"
-
-msgid "Home page"
-msgstr "Domovská stránka"
-
 msgid "Home page of authority"
 msgstr "Domovská stránka instituce"
 
@@ -1878,9 +1851,6 @@ msgstr "Obdržel jsem <strong>chybovou zprávu</strong>"
 
 msgid "I've received an error message"
 msgstr "Obdržel/a jsem chybovou zprávu"
-
-msgid "Id"
-msgstr "ID"
 
 msgid "If the address is wrong, or you know a better address, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Pokud je adresa nesprávná, nebo víte o lepší adrese, prosíme <a href=\"{{url}}\">kontaktujte nás</a>."
@@ -1979,9 +1949,6 @@ msgstr "Ve zprávách"
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr "Vložte i konkrétní odkazy vztahující se k dotazu, například k vaší kampani, blogu, nebo k účtu Twitter. Bude na ně možné kliknout, např. "
 
-msgid "Incoming email address"
-msgstr "Adresa pro příchozí e-maily"
-
 msgid "Incoming message has a spam score above the configured threshold ({{spam_threshold}})."
 msgstr "Příchozí zpráva překročila nastavený práh pro spam ({{spam_threshold}})."
 
@@ -2029,9 +1996,6 @@ msgstr ""
 
 msgid "Items matching the following conditions are currently displayed on your wall."
 msgstr "Na nástěnce se zobrazují témata, která odpovídají vámi vybraným podmínkám. "
-
-msgid "Items sent in last month"
-msgstr "Odesláno poslední měsíc"
 
 msgid "Joined in {{year}}"
 msgstr "Registrován/a od {{year}}"
@@ -2094,21 +2058,6 @@ msgstr "Odkaz"
 
 msgid "List of all authorities (CSV)"
 msgstr "Vytvořit seznam všech institucí (CSV)"
-
-msgid "Listing FOI requests"
-msgstr "Výpis dotazů"
-
-msgid "Listing public authorities"
-msgstr "Výpis institucí"
-
-msgid "Listing public authorities matching '{{query}}'"
-msgstr "Výpis institucí odpovídajících zadanému vyhledávání '{{query}}'"
-
-msgid "Listing tracks"
-msgstr "Generování seznamu"
-
-msgid "Listing users"
-msgstr "Výpis uživatelů"
 
 msgid "Log in to download a zip file of {{info_request_title}}"
 msgstr "Přihlaste se ke stažení komprimovaného souboru {{info_request_title}}"
@@ -2272,9 +2221,6 @@ msgstr "Nic jsme nenašli"
 msgid "No similar requests found."
 msgstr "Žádné podobné dotazy nebyly nalezeny. "
 
-msgid "No tracked things found."
-msgstr "Nic jsme nenašli. "
-
 msgid "Nobody has made any Freedom of Information requests to {{public_body_name}} using this site yet."
 msgstr "Ještě nikdo na {{public_body_name}} dotaz v rámci stránek Informace pro všechny nevznesl. "
 
@@ -2352,9 +2298,6 @@ msgstr "Nalezena jedna osoba"
 
 msgid "One public authority found"
 msgstr "Nalezena jedna instituce"
-
-msgid "Only put in abbreviations which are really used, otherwise leave blank. Short or long name is used in the URL – don't worry about breaking URLs through renaming, as the history is used to redirect"
-msgstr "Vložte pouze zkratky, které jsou opravdu používány, nebo nevyplňujte. Krátké nebo dlouhé jméno se používá v URL - nemusíte se obávat porušení pravidel pojmenovávání URL, bude použito přesměrování"
 
 msgid "Only requests made using {{site_name}} are shown."
 msgstr "Zobrazí se pouze dotazy vznesené prostřednictvím stránek {{site_name}}"
@@ -2688,9 +2631,6 @@ msgstr "Instituce od {{start_count}} do {{end_count}} z {{total_count}}"
 msgid "Public authority statistics"
 msgstr "Statistiky veřejných institucí"
 
-msgid "Public authority – {{name}}"
-msgstr "Veřejná instituce – {{name}}"
-
 msgid "Public bodies that most frequently replied with \"Not Held\""
 msgstr "Veřejné instituce, s častou odpovědí:  \"Nemohu poskytnout požadovanou informaci\""
 
@@ -2711,12 +2651,6 @@ msgstr "Instituce kategorie překlad"
 
 msgid "Public body heading translation"
 msgstr "Instituce název překlad"
-
-msgid "Public page"
-msgstr "Stránka (viditelná pro všechny)"
-
-msgid "Public page not available"
-msgstr "Stránku nelze načíst"
 
 msgid "PublicBodyCategoryTranslation|Description"
 msgstr "Instituce kategorie překlad popis"
@@ -2972,9 +2906,6 @@ msgstr "Zkuste prohledat stránky IPV."
 
 msgid "Search your contributions"
 msgstr "Prohledávat vlastní příspěvky"
-
-msgid "See bounce message"
-msgstr "Prohlédněte si odmítnutou zprávu"
 
 msgid "Send a followup"
 msgstr "Odpovědět"
@@ -3236,9 +3167,6 @@ msgstr "Tabulka stavů"
 
 msgid "Table of varieties"
 msgstr "Tabulka možností"
-
-msgid "Tags"
-msgstr "Tagy"
 
 msgid "Tags (separated by a space):"
 msgstr "Tagy (oddělené mezerou):"
@@ -3631,9 +3559,6 @@ msgstr "Toto je HTML verze přílohy k vznesenému dotazu. "
 msgid "This is because {{title}} is an old request that has been marked to no longer receive responses."
 msgstr "Důvodem je, že dotaz s názvem {{title}} je staršího data a byl uzavřen, tudíž, na něj již nelze odpovědět."
 
-msgid "This is the first version."
-msgstr "Toto je první verze."
-
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Toto je váš vlastní dotaz, proto budete odpovědi dostávat e-mailem automaticky."
 
@@ -4021,14 +3946,8 @@ msgstr "Použijte uvozovky pokud chcete vyhledat přesnou frázi, např. <strong
 msgid "Use this site to make your request for information – we'll show you how."
 msgstr "Použijte tyto stránky k vznesení dotazu podle zákona o svobodném přístupu k informacím - ukážeme vám jak"
 
-msgid "User – {{name}}"
-msgstr "Uživatel – {{name}}"
-
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
 msgstr "Uživatelé nemohou obvykle vznášet hromadné dotazy na více institucí najednou. Nechceme, aby byly instituce bombardovány obrovským množstvím nevhodných žádostí. Prosím <a href=\"{{url}}\">contact us</a> pokud si myslíte, že máte dobrý důvod vznést stejný dotaz na více institucí najednou. "
-
-msgid "Version {{version}}"
-msgstr "Version {{version}}"
 
 msgid "Very long – shorter requests are more successful"
 msgstr "Velmi dlouhé - kratší dotazy jsou úspěšnější"
@@ -4730,9 +4649,6 @@ msgstr "všechny dotazy či komentáře odpovídající '{{query}}'"
 msgid "also called {{public_body_short_name}}"
 msgstr "také se nazývá {{public_body_short_name}}"
 
-msgid "an anonymous user"
-msgstr "anonymní uživatel"
-
 msgid "and"
 msgstr "a"
 
@@ -4745,17 +4661,11 @@ msgstr "shody s  '{{query}}'"
 msgid "are long overdue."
 msgstr "– tato instituce výrazně překročila zákonem daný termín."
 
-msgid "at"
-msgstr "na"
-
 msgid "authorities"
 msgstr "instituce"
 
 msgid "awaiting response"
 msgstr "čeká se na odpověď"
-
-msgid "but followupable"
-msgstr "ale "
 
 msgid "by"
 msgstr "od"
@@ -4826,9 +4736,6 @@ msgstr "zprávy od uživatelů"
 msgid "mobile number"
 msgstr "mobilní číslo"
 
-msgid "move..."
-msgstr "přesunout..."
-
 msgid "mySociety:Helping people set up sites like {{site_name}} all over the world"
 msgstr "mySociety: Pomáhá lidem založit stránky jako je {{site_name}} po celém světě"
 
@@ -4843,9 +4750,6 @@ msgstr "to"
 
 msgid "not logged in"
 msgstr "nepřihlášen"
-
-msgid "not requestable due to: {{reason}}"
-msgstr "nelze žádat kvůli {{reason}}"
 
 msgid "other"
 msgstr "jiné"
@@ -4876,9 +4780,6 @@ msgstr "poslat odpověď"
 
 msgid "sent"
 msgstr "odesláno"
-
-msgid "set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA"
-msgstr "nastaveno <strong>jako prázdné </strong> (empty string) pokud nelze nalézt adresu; tyto e-maily jsou <strong>veřejné</strong> a kdokoliv je může vidět pomocí CAPTCHA"
 
 msgid "show quoted sections"
 msgstr "ukázat citované pasáže"
@@ -5163,9 +5064,6 @@ msgstr[0] "Uživatelé {{site_name}} vznesli {{number_of_requests}} dotaz, včet
 msgstr[1] "Uživatelé {{site_name}} vznesli {{number_of_requests}} dotazy, včetně:"
 msgstr[2] "Uživatelé {{site_name}} vznesli {{number_of_requests}} dotazů, včetně:"
 msgstr[3] "Uživatelé {{site_name}} vznesli {{number_of_requests}} dotazů, včetně:"
-
-msgid "{{thing_changed}} was changed from <code>{{from_value}}</code> to <code>{{to_value}}</code>"
-msgstr "{{thing_changed}} je změněno z <code>{{from_value}}</code> na <code>{{to_value}}</code>"
 
 msgid "{{title}} - a Freedom of Information request to {{public_body}}"
 msgstr "{{title}} - dotaz vznesený podle zákona 106/1999 Sb., o svobodném přístupu k informacím na instituci {{public_body}}"

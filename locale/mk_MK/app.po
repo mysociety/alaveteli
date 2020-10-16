@@ -31,8 +31,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-16 16:34+0100\n"
-"PO-Revision-Date: 2020-07-17 13:15+0000\n"
+"POT-Creation-Date: 2020-10-16 10:35+0100\n"
+"PO-Revision-Date: 2020-10-16 11:44+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Macedonian (Macedonia) (http://www.transifex.com/mysociety/alav"
 "eteli/language/mk_MK/)\n"
@@ -140,9 +140,6 @@ msgstr ""
 
 msgid "(show)"
 msgstr ""
-
-msgid "*unknown*"
-msgstr "*непознат*"
 
 msgid ""
 ",\n"
@@ -974,9 +971,6 @@ msgstr ""
 msgid "ApplicationRecord|Within rfc822 subject"
 msgstr ""
 
-msgid "Applies to"
-msgstr "Се однесува на"
-
 msgid "Are we missing a public authority?"
 msgstr "Дали недостасува некој имател?"
 
@@ -1104,9 +1098,6 @@ msgstr "Според закон, {{public_body_link}} требало да одг
 
 msgid "CSV"
 msgstr ""
-
-msgid "Calculated home page"
-msgstr "Пресметана почетна страна"
 
 msgid "Can't find the one you want?"
 msgstr "Не може да го најдете она што го барате?"
@@ -1358,9 +1349,6 @@ msgstr "Оградување: Оваа порака како и секој од�
 msgid "Disclosure log"
 msgstr "Дневник на објави"
 
-msgid "Disclosure log URL"
-msgstr "URL на дневник на објави"
-
 msgid "Do not fill in this field"
 msgstr ""
 
@@ -1393,9 +1381,6 @@ msgstr ""
 
 msgid "EIR"
 msgstr "EIR"
-
-msgid "Edit"
-msgstr "Уреди"
 
 msgid "Edit and add <strong>more details</strong> to the message above, explaining why you are dissatisfied with their response."
 msgstr ""
@@ -1452,9 +1437,6 @@ msgstr "Преку оваа страна, направени се барања �
 msgid "Event history"
 msgstr "Историја на настани"
 
-msgid "Event {{id}}"
-msgstr "Настан {{id}}"
-
 msgid "Every citizen has the right to access information held by public authorities."
 msgstr ""
 
@@ -1484,9 +1466,6 @@ msgstr "Адреса за е-пошта за слободен пристап д�
 
 msgid "FOI law does not apply to this authority."
 msgstr ""
-
-msgid "FOI request – {{title}}"
-msgstr "Барање за слободен пристап до информации – {{title}}"
 
 msgid "FOI requests"
 msgstr "Барања за слободен пристап до информации од јавен карактер"
@@ -1818,12 +1797,6 @@ msgstr ""
 msgid "Hidden requests are not counted. Unclassified requests do not count towards the percentages."
 msgstr ""
 
-msgid "Hide request"
-msgstr "Сокриј барање"
-
-msgid "Home page"
-msgstr "Почетна страна"
-
 msgid "Home page of authority"
 msgstr "Почетна страна на имателот"
 
@@ -1887,9 +1860,6 @@ msgstr "Добив <strong>порака за грешка</strong>"
 
 msgid "I've received an error message"
 msgstr "Добив порака за грешка"
-
-msgid "Id"
-msgstr "Идентификациски број"
 
 msgid "If the address is wrong, or you know a better address, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Ако адресата е грешна или имате подобра адреса, Ве молиме <a href=\"{{url}}\">контактирајте не</a>."
@@ -2002,9 +1972,6 @@ msgstr ""
 "            Твитер профил. Истите ќе бидат линкови. \n"
 "            на пр."
 
-msgid "Incoming email address"
-msgstr "Адреса за е-пошта"
-
 msgid "Incoming message has a spam score above the configured threshold ({{spam_threshold}})."
 msgstr ""
 
@@ -2054,9 +2021,6 @@ msgstr ""
 
 msgid "Items matching the following conditions are currently displayed on your wall."
 msgstr "Во моментов на вашиот ѕид се прикажани ставките кои одговараат на наведените услови."
-
-msgid "Items sent in last month"
-msgstr "Случаи кои се испратени последниов месец"
 
 msgid "Joined in {{year}}"
 msgstr ""
@@ -2119,21 +2083,6 @@ msgstr "Врска до ова"
 
 msgid "List of all authorities (CSV)"
 msgstr "Листа од сите иматели (CSV)"
-
-msgid "Listing FOI requests"
-msgstr "Листање на барања за слободен пристап"
-
-msgid "Listing public authorities"
-msgstr "Листање на иматели"
-
-msgid "Listing public authorities matching '{{query}}'"
-msgstr "Листање на иматели кои одговараат на '{{query}}'"
-
-msgid "Listing tracks"
-msgstr "Листање на патеки"
-
-msgid "Listing users"
-msgstr "Листање на корисници"
 
 msgid "Log in to download a zip file of {{info_request_title}}"
 msgstr "Најавете се за да преземете zip датотека од {{info_request_title}}"
@@ -2297,9 +2246,6 @@ msgstr "Нема резултати."
 msgid "No similar requests found."
 msgstr "Нема слични барања."
 
-msgid "No tracked things found."
-msgstr "Не се најдени работи кои се следат."
-
 msgid "Nobody has made any Freedom of Information requests to {{public_body_name}} using this site yet."
 msgstr "Никој нема направено барање за слободен пристап до информации до {{public_body_name}} преку оваа страна."
 
@@ -2377,9 +2323,6 @@ msgstr "Најдена е една личност"
 
 msgid "One public authority found"
 msgstr "Најден е еден имател"
-
-msgid "Only put in abbreviations which are really used, otherwise leave blank. Short or long name is used in the URL – don't worry about breaking URLs through renaming, as the history is used to redirect"
-msgstr "Внесете само кратенки кои реално се употребуваат, во спротивно оставете празно. Кратко или долго име се користи во URL – не се грижете за кршење на URL-ата преку реименување, бидејќи историјата се користи за пренасочување"
 
 msgid "Only requests made using {{site_name}} are shown."
 msgstr "Прикажани се само барањата кои се направени преку {{site_name}}."
@@ -2717,9 +2660,6 @@ msgstr "Јавни надлежни органи {{start_count}} до {{end_coun
 msgid "Public authority statistics"
 msgstr ""
 
-msgid "Public authority – {{name}}"
-msgstr "Јавен надлежен орган – {{name}}"
-
 msgid "Public bodies that most frequently replied with \"Not Held\""
 msgstr "Јавни институции кои најчесто одговараат со \"Not Held\""
 
@@ -2740,12 +2680,6 @@ msgstr ""
 
 msgid "Public body heading translation"
 msgstr ""
-
-msgid "Public page"
-msgstr "Јавна страна"
-
-msgid "Public page not available"
-msgstr "Јавната страна не е достапна"
 
 msgid "PublicBodyCategoryTranslation|Description"
 msgstr ""
@@ -3001,9 +2935,6 @@ msgstr "Пребарајте го сајтот за да го најдете т�
 
 msgid "Search your contributions"
 msgstr "Пребарајте ги вашите придонеси"
-
-msgid "See bounce message"
-msgstr "Видете ја одбиената порака"
 
 msgid "Send a followup"
 msgstr "Испратете реакција"
@@ -3264,9 +3195,6 @@ msgstr "Табела од статуси"
 
 msgid "Table of varieties"
 msgstr "Табела од разноличности"
-
-msgid "Tags"
-msgstr "Тагови"
 
 msgid "Tags (separated by a space):"
 msgstr "Тагови (одвоени со празно место):"
@@ -3665,9 +3593,6 @@ msgstr ""
 "Ова е бидејќи {{title}} е старо барање кое било\n"
 "маркирано повеќе да не добива одговори."
 
-msgid "This is the first version."
-msgstr "Ова е првата верзија."
-
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Ова е ваше сопствено барање, затоа автоматски ќе ви биде испратена е-пошта кога ќе пристигне нов одговор."
 
@@ -4063,14 +3988,8 @@ msgstr "Користете наводници кога сакате да про�
 msgid "Use this site to make your request for information – we'll show you how."
 msgstr ""
 
-msgid "User – {{name}}"
-msgstr "Корисник – {{name}}"
-
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
 msgstr ""
-
-msgid "Version {{version}}"
-msgstr "Верзија {{version}}"
 
 msgid "Very long – shorter requests are more successful"
 msgstr ""
@@ -4761,9 +4680,6 @@ msgstr ""
 msgid "also called {{public_body_short_name}}"
 msgstr "исто така познат како {{public_body_short_name}}"
 
-msgid "an anonymous user"
-msgstr "анонимен корисник"
-
 msgid "and"
 msgstr "и"
 
@@ -4776,17 +4692,11 @@ msgstr ""
 msgid "are long overdue."
 msgstr "значително доцнат."
 
-msgid "at"
-msgstr "на"
-
 msgid "authorities"
 msgstr "иматели"
 
 msgid "awaiting response"
 msgstr ""
-
-msgid "but followupable"
-msgstr "но може да постои реакција"
 
 msgid "by"
 msgstr "од"
@@ -4857,9 +4767,6 @@ msgstr "пораки од корисниците"
 msgid "mobile number"
 msgstr ""
 
-msgid "move..."
-msgstr "помести..."
-
 msgid "mySociety:Helping people set up sites like {{site_name}} all over the world"
 msgstr ""
 
@@ -4874,9 +4781,6 @@ msgstr "вообичаено"
 
 msgid "not logged in"
 msgstr ""
-
-msgid "not requestable due to: {{reason}}"
-msgstr "барањето не е возможно бидејќи: {{reason}}"
 
 msgid "other"
 msgstr ""
@@ -4907,9 +4811,6 @@ msgstr "испратете реакција"
 
 msgid "sent"
 msgstr ""
-
-msgid "set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA"
-msgstr "има вредност <strong>blank</strong> (празен стринг) ако не може да се најде адреса; овие е-пораки се <strong>јавни</strong> бидејчи секој може да ги види ако внесе CAPTCHA"
 
 msgid "show quoted sections"
 msgstr "прикажи ги наведените секции"
@@ -5161,9 +5062,6 @@ msgid "{{site_name}} users have made {{number_of_requests}} request, including:"
 msgid_plural "{{site_name}} users have made {{number_of_requests}} requests, including:"
 msgstr[0] ""
 msgstr[1] ""
-
-msgid "{{thing_changed}} was changed from <code>{{from_value}}</code> to <code>{{to_value}}</code>"
-msgstr "{{thing_changed}} се променети од <code>{{from_value}}</code> на <code>{{to_value}}</code>"
 
 msgid "{{title}} - a Freedom of Information request to {{public_body}}"
 msgstr "{{title}} - барање за слободен пристап до информации од јавен карактер за {{public_body}}"
