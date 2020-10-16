@@ -42,9 +42,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-16 16:34+0100\n"
-"PO-Revision-Date: 2020-07-30 11:32+0000\n"
-"Last-Translator: Hailey Zhang <s1132151@s.eduhk.hk>\n"
+"POT-Creation-Date: 2020-10-16 10:35+0100\n"
+"PO-Revision-Date: 2020-10-16 11:44+0000\n"
+"Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Chinese (Hong Kong) (http://www.transifex.com/mysociety/alavete"
 "li/language/zh_HK/)\n"
 "MIME-Version: 1.0\n"
@@ -148,9 +148,6 @@ msgstr "（或<a href=\"{{url}}\">登入</a>）"
 
 msgid "(show)"
 msgstr "（顯示）"
-
-msgid "*unknown*"
-msgstr "*未知*"
 
 msgid ""
 ",\n"
@@ -946,9 +943,6 @@ msgstr ""
 msgid "ApplicationRecord|Within rfc822 subject"
 msgstr ""
 
-msgid "Applies to"
-msgstr "適用於"
-
 msgid "Are we missing a public authority?"
 msgstr "我們是否沒有包括某個公共機構？"
 
@@ -1073,9 +1067,6 @@ msgid "By law, {{public_body_link}} should normally have responded <strong>promp
 msgstr "根據《公開資料守則》，{{public_body_link}}在一般情況下，應該<strong>盡快</strong>回應索取資料的要求。"
 
 msgid "CSV"
-msgstr ""
-
-msgid "Calculated home page"
 msgstr ""
 
 msgid "Can't find the one you want?"
@@ -1318,9 +1309,6 @@ msgstr "免責聲明：本訊息及其後的回應將會在網上公開。以下
 msgid "Disclosure log"
 msgstr ""
 
-msgid "Disclosure log URL"
-msgstr ""
-
 msgid "Do not fill in this field"
 msgstr "不要填寫此欄"
 
@@ -1353,9 +1341,6 @@ msgstr ""
 
 msgid "EIR"
 msgstr ""
-
-msgid "Edit"
-msgstr "編輯"
 
 msgid "Edit and add <strong>more details</strong> to the message above, explaining why you are dissatisfied with their response."
 msgstr ""
@@ -1408,9 +1393,6 @@ msgstr ""
 msgid "Event history"
 msgstr "過往活動"
 
-msgid "Event {{id}}"
-msgstr "{{id}}號活動"
-
 msgid "Every citizen has the right to access information held by public authorities."
 msgstr "每一位市民都有權向公共機構索取資料。"
 
@@ -1437,9 +1419,6 @@ msgstr "{{public_body}}的公開資料電郵"
 
 msgid "FOI law does not apply to this authority."
 msgstr "《公開資料守則》不包含此公共機構。"
-
-msgid "FOI request – {{title}}"
-msgstr "索取資料要求 – {{title}}"
 
 msgid "FOI requests"
 msgstr "索取資料的要求"
@@ -1758,12 +1737,6 @@ msgstr ""
 msgid "Hidden requests are not counted. Unclassified requests do not count towards the percentages."
 msgstr ""
 
-msgid "Hide request"
-msgstr "隱藏索取資料要求"
-
-msgid "Home page"
-msgstr "主頁"
-
 msgid "Home page of authority"
 msgstr "公共機構的主頁"
 
@@ -1823,9 +1796,6 @@ msgstr "我收到<strong>錯誤訊息</strong>"
 
 msgid "I've received an error message"
 msgstr "我收到錯誤訊息"
-
-msgid "Id"
-msgstr "編號"
 
 msgid "If the address is wrong, or you know a better address, please <a href=\"{{url}}\">contact us</a>."
 msgstr ""
@@ -1919,9 +1889,6 @@ msgstr ""
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr ""
 
-msgid "Incoming email address"
-msgstr ""
-
 msgid "Incoming message has a spam score above the configured threshold ({{spam_threshold}})."
 msgstr ""
 
@@ -1966,9 +1933,6 @@ msgstr ""
 
 msgid "Items matching the following conditions are currently displayed on your wall."
 msgstr ""
-
-msgid "Items sent in last month"
-msgstr "上個月發出的項目"
 
 msgid "Joined in {{year}}"
 msgstr "{{year}}年加入"
@@ -2029,21 +1993,6 @@ msgstr "連結至此"
 
 msgid "List of all authorities (CSV)"
 msgstr "公共機構一覽（CSV）"
-
-msgid "Listing FOI requests"
-msgstr ""
-
-msgid "Listing public authorities"
-msgstr ""
-
-msgid "Listing public authorities matching '{{query}}'"
-msgstr ""
-
-msgid "Listing tracks"
-msgstr ""
-
-msgid "Listing users"
-msgstr ""
 
 msgid "Log in to download a zip file of {{info_request_title}}"
 msgstr "登錄以下載{{info_request_title}}的zip文件"
@@ -2207,9 +2156,6 @@ msgstr "找不到相關結果。"
 msgid "No similar requests found."
 msgstr "沒有類似要求。"
 
-msgid "No tracked things found."
-msgstr ""
-
 msgid "Nobody has made any Freedom of Information requests to {{public_body_name}} using this site yet."
 msgstr "尚沒有人使用本網站要求{{public_body_name}}披露資料。"
 
@@ -2287,9 +2233,6 @@ msgstr "找到一個人"
 
 msgid "One public authority found"
 msgstr "找到一個公共機構"
-
-msgid "Only put in abbreviations which are really used, otherwise leave blank. Short or long name is used in the URL – don't worry about breaking URLs through renaming, as the history is used to redirect"
-msgstr ""
 
 msgid "Only requests made using {{site_name}} are shown."
 msgstr "僅顯示使用{{site_name}}發出的請求。"
@@ -2613,9 +2556,6 @@ msgstr "{{total_count}}的公共機構{{start_count}}至{{end_count}}"
 msgid "Public authority statistics"
 msgstr "公共機構統計"
 
-msgid "Public authority – {{name}}"
-msgstr "公共機構 – {{name}}"
-
 msgid "Public bodies that most frequently replied with \"Not Held\""
 msgstr "最多表示沒有所要資料的公共機構"
 
@@ -2635,12 +2575,6 @@ msgid "Public body category translation"
 msgstr "公共機構分類翻譯"
 
 msgid "Public body heading translation"
-msgstr ""
-
-msgid "Public page"
-msgstr ""
-
-msgid "Public page not available"
 msgstr ""
 
 msgid "PublicBodyCategoryTranslation|Description"
@@ -2898,9 +2832,6 @@ msgstr "在本站搜尋你想要的資料"
 msgid "Search your contributions"
 msgstr "搜尋你的貢獻"
 
-msgid "See bounce message"
-msgstr "查看退回訊息"
-
 msgid "Send a followup"
 msgstr "跟進要求"
 
@@ -3153,9 +3084,6 @@ msgstr "狀態一覽"
 
 msgid "Table of varieties"
 msgstr ""
-
-msgid "Tags"
-msgstr "標籤"
 
 msgid "Tags (separated by a space):"
 msgstr "標籤（以空格分隔）："
@@ -3529,9 +3457,6 @@ msgstr ""
 msgid "This is because {{title}} is an old request that has been marked to no longer receive responses."
 msgstr ""
 
-msgid "This is the first version."
-msgstr ""
-
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr ""
 
@@ -3903,14 +3828,8 @@ msgstr "使用引號以搜尋一連字串，例如：<strong><code>\"Wong Tai Si
 msgid "Use this site to make your request for information – we'll show you how."
 msgstr "使用此網站提出信息請求-我們將向您展示如何使用。"
 
-msgid "User – {{name}}"
-msgstr "用户 － {{name}}"
-
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
 msgstr "用户不能同時向多個公共機構提出索取資料要求，因為我們不希望公共機構被大量索取資料要求影響其正常運作。如果你認為有充分理由，須要要求多個公共機構索取相同資料，請 <a href=\"{{url}}\">聯絡我們</a>。"
-
-msgid "Version {{version}}"
-msgstr "版本 {{version}}"
 
 msgid "Very long – shorter requests are more successful"
 msgstr ""
@@ -4555,9 +4474,6 @@ msgstr "所有符合「{{query}}」的索取資料要求或留言"
 msgid "also called {{public_body_short_name}}"
 msgstr "簡稱{{public_body_short_name}}"
 
-msgid "an anonymous user"
-msgstr "一名匿名用户"
-
 msgid "and"
 msgstr "至"
 
@@ -4570,17 +4486,11 @@ msgstr "任何符合「{{query}}」的文字"
 msgid "are long overdue."
 msgstr "已經超過時限。"
 
-msgid "at"
-msgstr "於"
-
 msgid "authorities"
 msgstr "公共機構"
 
 msgid "awaiting response"
 msgstr "正等待回應"
-
-msgid "but followupable"
-msgstr "但可以跟進"
 
 msgid "by"
 msgstr "由"
@@ -4651,9 +4561,6 @@ msgstr "來自用户的訊息"
 msgid "mobile number"
 msgstr "手提電話"
 
-msgid "move..."
-msgstr "移動……"
-
 msgid "mySociety:Helping people set up sites like {{site_name}} all over the world"
 msgstr ""
 
@@ -4668,9 +4575,6 @@ msgstr "正常地"
 
 msgid "not logged in"
 msgstr "未登入"
-
-msgid "not requestable due to: {{reason}}"
-msgstr ""
 
 msgid "other"
 msgstr "其他"
@@ -4700,9 +4604,6 @@ msgid "send a follow up message"
 msgstr "要求公共機構跟進索取資料要求"
 
 msgid "sent"
-msgstr ""
-
-msgid "set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA"
 msgstr ""
 
 msgid "show quoted sections"
@@ -4940,9 +4841,6 @@ msgstr ""
 msgid "{{site_name}} users have made {{number_of_requests}} request, including:"
 msgid_plural "{{site_name}} users have made {{number_of_requests}} requests, including:"
 msgstr[0] "{{site_name}}的用户提出了{{number_of_requests}}項索取資料的要求，其中包括："
-
-msgid "{{thing_changed}} was changed from <code>{{from_value}}</code> to <code>{{to_value}}</code>"
-msgstr ""
 
 msgid "{{title}} - a Freedom of Information request to {{public_body}}"
 msgstr ""

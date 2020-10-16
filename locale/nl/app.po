@@ -34,9 +34,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-16 16:34+0100\n"
-"PO-Revision-Date: 2020-08-17 08:46+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2020-10-16 10:35+0100\n"
+"PO-Revision-Date: 2020-10-16 11:44+0000\n"
+"Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Dutch (http://www.transifex.com/mysociety/alaveteli/language/nl"
 "/)\n"
 "MIME-Version: 1.0\n"
@@ -143,9 +143,6 @@ msgstr "(of <a href=\"{{url}}\">log in </a>)"
 
 msgid "(show)"
 msgstr "(toon)"
-
-msgid "*unknown*"
-msgstr "*onbekend*"
 
 msgid ""
 ",\n"
@@ -965,9 +962,6 @@ msgstr "ApplicationRecord|What doing"
 msgid "ApplicationRecord|Within rfc822 subject"
 msgstr "ApplicationRecord|Within rfc822 subject"
 
-msgid "Applies to"
-msgstr "Is van toepassing op"
-
 msgid "Are we missing a public authority?"
 msgstr "Zijn we een overheidsinstantie vergeten?"
 
@@ -1095,9 +1089,6 @@ msgstr "Volgens de wet had {{public_body_link}}  <strong>zo spoedig mogelijk </s
 
 msgid "CSV"
 msgstr ""
-
-msgid "Calculated home page"
-msgstr "Calculated home page"
 
 msgid "Can't find the one you want?"
 msgstr "Staat de instantie die je zoekt er niet tussen?"
@@ -1345,9 +1336,6 @@ msgstr "Disclaimer: dit bericht en alle latere follow-up berichten worden vrij t
 msgid "Disclosure log"
 msgstr "Lijst van openbaargemaakte documenten"
 
-msgid "Disclosure log URL"
-msgstr "URL van lijst met openbaargemaakte documenten"
-
 msgid "Do not fill in this field"
 msgstr "Dit veld niet invullen"
 
@@ -1380,9 +1368,6 @@ msgstr ""
 
 msgid "EIR"
 msgstr "Verzoek om milieu-informatie"
-
-msgid "Edit"
-msgstr "Wijzig"
 
 msgid "Edit and add <strong>more details</strong> to the message above, explaining why you are dissatisfied with their response."
 msgstr ""
@@ -1439,9 +1424,6 @@ msgstr "Via deze site verstuurde verzoeken om milieu-informatie"
 msgid "Event history"
 msgstr "Overzicht van gebeurtenissen"
 
-msgid "Event {{id}}"
-msgstr "Event {{id}}"
-
 msgid "Every citizen has the right to access information held by public authorities."
 msgstr "Iedereen in Nederland heeft het recht om bij een overheidsinstantie informatie op te vragen."
 
@@ -1473,9 +1455,6 @@ msgid "FOI law does not apply to this authority."
 msgstr ""
 "De wet openbaarheid van bestuur (Wob) is niet van toepassing\n"
 " op deze overheidsinstantie."
-
-msgid "FOI request – {{title}}"
-msgstr "Wob-verzoek – {{title}}"
 
 msgid "FOI requests"
 msgstr "Wob-verzoeken"
@@ -1806,12 +1785,6 @@ msgstr "Verborgen"
 msgid "Hidden requests are not counted. Unclassified requests do not count towards the percentages."
 msgstr "Verborgen verzoeken worden niet meegeteld. Ongelabelde verzoeken tellen niet mee in de percentages."
 
-msgid "Hide request"
-msgstr "Verberg het verzoek"
-
-msgid "Home page"
-msgstr "Startpagina"
-
 msgid "Home page of authority"
 msgstr "Startpagina van deze overheidsinstantie"
 
@@ -1873,9 +1846,6 @@ msgstr "Ik heb een <strong>foutmelding</strong> ontvangen"
 
 msgid "I've received an error message"
 msgstr "Ik heb een foutmelding ontvangen"
-
-msgid "Id"
-msgstr "Id"
 
 msgid "If the address is wrong, or you know a better address, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Als het e-mailadres verkeerd is of je weet een beter e-mailadres, <a href=\"{{url}}\">geef dat dan ajb aan ons door</a>."
@@ -1976,9 +1946,6 @@ msgstr ""
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr "Voeg nuttige links toe, zoals een link naar je campagne, blog of Twitter-account. Deze links zullen aanklikbaar zijn, zoals"
 
-msgid "Incoming email address"
-msgstr "E-mailadres van inkomende mail"
-
 msgid "Incoming message has a spam score above the configured threshold ({{spam_threshold}})."
 msgstr "De inkomende mail heeft een spam-score die hoger ligt dan de toegestane grens ({{spam_threshold}})."
 
@@ -2026,9 +1993,6 @@ msgstr ""
 
 msgid "Items matching the following conditions are currently displayed on your wall."
 msgstr "Items die overeenkomen met de volgende voorwaarden worden weergegeven op je overzichtspagina."
-
-msgid "Items sent in last month"
-msgstr "Items verstuurd in de afgelopen maand"
 
 msgid "Joined in {{year}}"
 msgstr "Ingeschreven sinds {{year}}"
@@ -2091,21 +2055,6 @@ msgstr "Link naar"
 
 msgid "List of all authorities (CSV)"
 msgstr "Lijst van overheidsinstanties (CSV)"
-
-msgid "Listing FOI requests"
-msgstr "Lijst van alle Wob-verzoeken"
-
-msgid "Listing public authorities"
-msgstr "Lijst van overheidsinstanties"
-
-msgid "Listing public authorities matching '{{query}}'"
-msgstr "Lijst van overheidsinstanties die overeenkomen met '{{query}}'"
-
-msgid "Listing tracks"
-msgstr "Lijst van follow-ups"
-
-msgid "Listing users"
-msgstr "Lijst van gebruikers"
 
 msgid "Log in to download a zip file of {{info_request_title}}"
 msgstr "Log in om een zip-bestand te downloaden van  {{info_request_title}}"
@@ -2269,9 +2218,6 @@ msgstr "Geen resultaat gevonden."
 msgid "No similar requests found."
 msgstr "Geen soortgelijke Wob-verzoeken gevonden."
 
-msgid "No tracked things found."
-msgstr "Geen follow-up gevonden."
-
 msgid "Nobody has made any Freedom of Information requests to {{public_body_name}} using this site yet."
 msgstr "Er is nog geen Wob-verzoek ​​bij {{public_body_name}} ingediend via deze website."
 
@@ -2349,9 +2295,6 @@ msgstr "Er is 1 persoon gevonden"
 
 msgid "One public authority found"
 msgstr "Er is 1 overheidsinstantie gevonden"
-
-msgid "Only put in abbreviations which are really used, otherwise leave blank. Short or long name is used in the URL – don't worry about breaking URLs through renaming, as the history is used to redirect"
-msgstr "Gelieve enkel veelgebruikte afkortingen te gebruiken, of dit leeg laten. Korte of lange namen worden gebruikt in de url - Wees niet bezorgd om de url aan te passen door de naam veranderen, aangezien doorverwijzingen op basis van de historie gebeuren."
 
 msgid "Only requests made using {{site_name}} are shown."
 msgstr "Alleen de Wob-verzoeken verstuurd via {{site_name}} zijn zichtbaar"
@@ -2680,9 +2623,6 @@ msgstr "Overheidsinstanties {{start_count}} tot en met {{end_count}} van {{total
 msgid "Public authority statistics"
 msgstr "Statistische gegevens over de overheidsinstantie"
 
-msgid "Public authority – {{name}}"
-msgstr "Overheidsinstantie – {{name}}"
-
 msgid "Public bodies that most frequently replied with \"Not Held\""
 msgstr "Overheidsinstanties die antwoorden met 'niet in ons bezit'"
 
@@ -2703,12 +2643,6 @@ msgstr "Public body category translation"
 
 msgid "Public body heading translation"
 msgstr "Public body heading translation"
-
-msgid "Public page"
-msgstr "Openbare pagina"
-
-msgid "Public page not available"
-msgstr "Openbare pagina niet beschikbaar"
 
 msgid "PublicBodyCategoryTranslation|Description"
 msgstr "PublicBodyCategoryTranslation|Omschrijving"
@@ -2964,9 +2898,6 @@ msgstr "Doorzoek de Wob-Knop om te vinden wat je zoekt."
 
 msgid "Search your contributions"
 msgstr "Doorzoek je bijdragen"
-
-msgid "See bounce message"
-msgstr "Zie afwijzingsbericht"
 
 msgid "Send a followup"
 msgstr "Stuur een follow-up bericht"
@@ -3225,9 +3156,6 @@ msgstr "Tabel met de statussen"
 
 msgid "Table of varieties"
 msgstr "Tabel van de veschillende soorten"
-
-msgid "Tags"
-msgstr "Tags"
 
 msgid "Tags (separated by a space):"
 msgstr "Tags (door een spatie gescheiden):"
@@ -3614,9 +3542,6 @@ msgid "This is because {{title}} is an old request that has been marked to no lo
 msgstr ""
 "Dit is omdat {{title}} een oud verzoek is \n"
 " dat gemarkeerd is om niet langer berichten te ontvangen."
-
-msgid "This is the first version."
-msgstr "Dit is de eerste versie."
 
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Dit is een verzoek van jou zelf, dus je ontvangt automatisch een e-mail zodra er een nieuwe reactie is."
@@ -4018,14 +3943,8 @@ msgstr "Gebruik aanhalingstekens als je een exacte woordvolgorde zoekt, bv. <str
 msgid "Use this site to make your request for information – we'll show you how."
 msgstr "Gebruik deze site om een Wob-verzoek te doen - Wij zullen je leren hoe makkelijk het is!"
 
-msgid "User – {{name}}"
-msgstr "Gebruiker -  {{name}}"
-
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
 msgstr "Gebruikers kunnen niet zo maar bulkverzoeken doen aan verschillende overheidsinstanties tegelijk, omdat we niet willen dat ambtenaren overstelpt worden met grote aantallen ongepaste verzoeken. <a href=\"{{url}}\">Neem contact op</a> als je een goede reden denkt te hebben om dezelfde vraag aan meerdere overheden tegelijk te verzenden."
-
-msgid "Version {{version}}"
-msgstr "Versie {{version}}"
 
 msgid "Very long – shorter requests are more successful"
 msgstr "Erg lang - kortere verzoeken zijn kansrijker"
@@ -4685,9 +4604,6 @@ msgstr "Alle Wob-verzoeken of opmerkingen overeenkomend met de tekst '{{query}}'
 msgid "also called {{public_body_short_name}}"
 msgstr "ook genaamd {{public_body_short_name}}"
 
-msgid "an anonymous user"
-msgstr "een anonieme gebruiker"
-
 msgid "and"
 msgstr "en"
 
@@ -4700,17 +4616,11 @@ msgstr "alles wat beantwoord aan de tekst '{{query}}'"
 msgid "are long overdue."
 msgstr "zijn ruimschoots te laat."
 
-msgid "at"
-msgstr "aan"
-
 msgid "authorities"
 msgstr "overheidsinstanties"
 
 msgid "awaiting response"
 msgstr "in afwachting van antwoord"
-
-msgid "but followupable"
-msgstr "maar opvolgbaar"
 
 msgid "by"
 msgstr "door"
@@ -4781,9 +4691,6 @@ msgstr "berichten van gebruikers"
 msgid "mobile number"
 msgstr "Mobiel nummer"
 
-msgid "move..."
-msgstr "verplaatsen…"
-
 msgid "mySociety:Helping people set up sites like {{site_name}} all over the world"
 msgstr "mySociety: Help deze mensen om sites zoals {{site_name}} over heel de wereld op te zetten"
 
@@ -4798,9 +4705,6 @@ msgstr "normaal gesproken"
 
 msgid "not logged in"
 msgstr "Niet ingelogd"
-
-msgid "not requestable due to: {{reason}}"
-msgstr "niet opvraagbaar wegens: {{reason}}"
 
 msgid "other"
 msgstr "anders"
@@ -4831,9 +4735,6 @@ msgstr "Stuur follow-up bericht "
 
 msgid "sent"
 msgstr "verzonden"
-
-msgid "set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA"
-msgstr "Laat <strong>leeg</strong> (leeg vakje) als je geen adres vindt. Deze mails zijn openbaar, iedereen kan ze zien door middel van een CAPTCHA."
 
 msgid "show quoted sections"
 msgstr "De tekst tussen aanhalingstekens tonen"
@@ -5081,9 +4982,6 @@ msgid "{{site_name}} users have made {{number_of_requests}} request, including:"
 msgid_plural "{{site_name}} users have made {{number_of_requests}} requests, including:"
 msgstr[0] "{{site_name}} Gebruikers hebben {{number_of_requests}} aanvraag gemaakt, waaronder:"
 msgstr[1] "{{site_name}}  gebruikers hebben {{number_of_requests}} Wob-verzoeken verstuurd, waaronder:"
-
-msgid "{{thing_changed}} was changed from <code>{{from_value}}</code> to <code>{{to_value}}</code>"
-msgstr "{{thing_changed}} is veranderd van <code>{{from_value}}</code> naar <code>{{to_value}}</code>"
 
 msgid "{{title}} - a Freedom of Information request to {{public_body}}"
 msgstr "{{title}} - een Wob-verzoek aan {{public_body}}"

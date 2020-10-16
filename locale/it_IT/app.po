@@ -32,8 +32,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-16 16:34+0100\n"
-"PO-Revision-Date: 2020-07-17 13:15+0000\n"
+"POT-Creation-Date: 2020-10-16 10:35+0100\n"
+"PO-Revision-Date: 2020-10-16 11:44+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/mysociety/alaveteli/l"
 "anguage/it_IT/)\n"
@@ -142,9 +142,6 @@ msgstr "(o <a href=\"{{url}}\">accedi</a>)"
 
 msgid "(show)"
 msgstr "(mostra)"
-
-msgid "*unknown*"
-msgstr "*sconosciuto*"
 
 msgid ""
 ",\n"
@@ -947,9 +944,6 @@ msgstr ""
 msgid "ApplicationRecord|Within rfc822 subject"
 msgstr ""
 
-msgid "Applies to"
-msgstr "Si applica a"
-
 msgid "Are we missing a public authority?"
 msgstr "Non abbiamo inserito una pubblica amministrazione?"
 
@@ -1075,9 +1069,6 @@ msgstr "Per legge, l'amministrazione {{public_body_link}} dovrebbe aver risposto
 
 msgid "CSV"
 msgstr ""
-
-msgid "Calculated home page"
-msgstr "Home page"
 
 msgid "Can't find the one you want?"
 msgstr "Non trovi quella che cerchi?"
@@ -1319,9 +1310,6 @@ msgstr "Disclaimer: Questo messaggio e le eventuali risposte che invierai sarann
 msgid "Disclosure log"
 msgstr "Disclosure log"
 
-msgid "Disclosure log URL"
-msgstr "Disclosure log URL"
-
 msgid "Do not fill in this field"
 msgstr "Non scrivere qui"
 
@@ -1354,9 +1342,6 @@ msgstr ""
 
 msgid "EIR"
 msgstr "EIR"
-
-msgid "Edit"
-msgstr "Modifica"
 
 msgid "Edit and add <strong>more details</strong> to the message above, explaining why you are dissatisfied with their response."
 msgstr "Modifica e aggiungi <strong>maggiori dettagli</strong> al messaggio, spiegando perché non sei soddisfatto della loro risposta."
@@ -1409,9 +1394,6 @@ msgstr "Inviate richieste di accesso a informazioni ambientali"
 msgid "Event history"
 msgstr "Cronologia"
 
-msgid "Event {{id}}"
-msgstr "Evento {{id}}"
-
 msgid "Every citizen has the right to access information held by public authorities."
 msgstr "Ogni cittadino ha diritto di accedere alle informazioni possedute dalle pubbliche amministrazioni."
 
@@ -1438,9 +1420,6 @@ msgstr "Indirizzo email per le richieste di accesso a \"{{public_body}}\""
 
 msgid "FOI law does not apply to this authority."
 msgstr "Il Decreto Trasparenza non si applica a questa amministrazione"
-
-msgid "FOI request – {{title}}"
-msgstr "Richiesta di accesso - {{title}}"
 
 msgid "FOI requests"
 msgstr "Richieste di accesso"
@@ -1764,12 +1743,6 @@ msgstr ""
 msgid "Hidden requests are not counted. Unclassified requests do not count towards the percentages."
 msgstr ""
 
-msgid "Hide request"
-msgstr "Nascondi richiesta"
-
-msgid "Home page"
-msgstr "Homepage"
-
 msgid "Home page of authority"
 msgstr "Homepage dell'amministrazione"
 
@@ -1831,9 +1804,6 @@ msgstr "Ho ricevuto un <strong>messaggio di errore</strong>"
 
 msgid "I've received an error message"
 msgstr "È apparso un messaggio di errore"
-
-msgid "Id"
-msgstr "N."
 
 msgid "If the address is wrong, or you know a better address, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Se l'indirizzo è sbagliato o se ne conosci uno più specifico per le richieste di accesso, per favore, <a href=\"{{url}}\">contattaci</a>."
@@ -1931,9 +1901,6 @@ msgstr ""
 "Includi link pertinenti, per esempio alla pagina di una campagna, al tuo blog o al tuo account Twitter. I link diventeranno attivi \n"
 " ad esempio"
 
-msgid "Incoming email address"
-msgstr "Indirizzo dell'email in entrata"
-
 msgid "Incoming message has a spam score above the configured threshold ({{spam_threshold}})."
 msgstr "Il messaggio in arrivo ha un punteggio di spam al di sopra della soglia configurata ({{spam_threshold}})."
 
@@ -1978,9 +1945,6 @@ msgstr "Può essere che il tuo browser non sia impostato per accettare una cosa 
 
 msgid "Items matching the following conditions are currently displayed on your wall."
 msgstr "Gli elementi che rispondono alle seguenti condizioni sono visibili sulla tua bacheca."
-
-msgid "Items sent in last month"
-msgstr "Elementi inviati lo scorso mese"
 
 msgid "Joined in {{year}}"
 msgstr ""
@@ -2041,21 +2005,6 @@ msgstr "Inserisci un collegamento a questo"
 
 msgid "List of all authorities (CSV)"
 msgstr "Elenco di tutte le amministrazioni inserite (CSV)"
-
-msgid "Listing FOI requests"
-msgstr "Elenco delle richieste di accesso"
-
-msgid "Listing public authorities"
-msgstr "Elenco delle amministrazioni"
-
-msgid "Listing public authorities matching '{{query}}'"
-msgstr "Lista delle amministrazioni che rispondono a '{{query}}'"
-
-msgid "Listing tracks"
-msgstr "Listing tracks"
-
-msgid "Listing users"
-msgstr "Elenco degli utenti"
 
 msgid "Log in to download a zip file of {{info_request_title}}"
 msgstr "Accedi per scaricare un file compresso di {{info_request_title}}"
@@ -2219,9 +2168,6 @@ msgstr "Nessun risultato trovato"
 msgid "No similar requests found."
 msgstr "Nessuna richiesta simile trovata."
 
-msgid "No tracked things found."
-msgstr "Nessun elemento trovato."
-
 msgid "Nobody has made any Freedom of Information requests to {{public_body_name}} using this site yet."
 msgstr "Nessuno ha ancora inviato una richiesta di accesso a \"{{public_body_name}}\" usando questo sito."
 
@@ -2299,9 +2245,6 @@ msgstr "Una persona trovata"
 
 msgid "One public authority found"
 msgstr "Una pubblica amministrazione trovata"
-
-msgid "Only put in abbreviations which are really used, otherwise leave blank. Short or long name is used in the URL – don't worry about breaking URLs through renaming, as the history is used to redirect"
-msgstr "Inserisci solo abbreviazioni di uso corrente, altrimenti lascia il campo vuoto. Nella URL può essere usato un nome lungo o corto - non preoccuparti di spezzare il link rinominandolo."
 
 msgid "Only requests made using {{site_name}} are shown."
 msgstr "Vengono mostrate solo le richieste fatte usando {{site_name}}."
@@ -2629,9 +2572,6 @@ msgstr "Amministrazioni da {{start_count}} a {{end_count}} su un totale di {{tot
 msgid "Public authority statistics"
 msgstr "Statistiche dell'amministrazione"
 
-msgid "Public authority – {{name}}"
-msgstr "Pubblica amministrazione – {{name}}"
-
 msgid "Public bodies that most frequently replied with \"Not Held\""
 msgstr "Amministrazioni che hanno più frequentemente risposto \"Non in possesso dell'informazione\""
 
@@ -2652,12 +2592,6 @@ msgstr ""
 
 msgid "Public body heading translation"
 msgstr ""
-
-msgid "Public page"
-msgstr "Pagina pubblica"
-
-msgid "Public page not available"
-msgstr "Pagina pubblica non disponibile"
 
 msgid "PublicBodyCategoryTranslation|Description"
 msgstr ""
@@ -2914,9 +2848,6 @@ msgstr "Fai una ricerca nel sito per trovare quello che ti interessa."
 msgid "Search your contributions"
 msgstr "Cerca i tuoi contributi"
 
-msgid "See bounce message"
-msgstr "Visualizza messaggio di errore"
-
 msgid "Send a followup"
 msgstr "Invia un messaggio di risposta"
 
@@ -3172,9 +3103,6 @@ msgstr "Elenco dei possibili risultati"
 
 msgid "Table of varieties"
 msgstr "Elenco delle variabili"
-
-msgid "Tags"
-msgstr "Tag"
 
 msgid "Tags (separated by a space):"
 msgstr "Tag (separati da uno spazio):"
@@ -3554,9 +3482,6 @@ msgstr "Questa è una versione HTML dell'allegato alla richiesta di accesso"
 msgid "This is because {{title}} is an old request that has been marked to no longer receive responses."
 msgstr "{{title}} è stat classificata come una vecchia richiesta e per questo non riceve più risposte."
 
-msgid "This is the first version."
-msgstr "Questa è la prima versione."
-
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Questa è la tua richiesta, riceverai automaticamente un messaggio quando arriverà una nuova risposta."
 
@@ -3930,14 +3855,8 @@ msgstr "Usa le virgolette quando vuoi trovare un'espressione precisa, ad esempio
 msgid "Use this site to make your request for information – we'll show you how."
 msgstr "Usa questo sito per inviare richieste di accesso – ti guideremo nel processo."
 
-msgid "User – {{name}}"
-msgstr "User – {{name}}"
-
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
 msgstr "Gli utenti non possono inviare gruppi di richieste a più amministrazioni contemporaneamente, perché non vogliamo che queste vengano bombardate con una quantità di richieste, magari non opportune. Se però pensi ci sia un buon motivo per fare un'eccezione <a href=\"{{url}}\">non esitare a contattarci</a>."
-
-msgid "Version {{version}}"
-msgstr "Versione {{version}}"
 
 msgid "Very long – shorter requests are more successful"
 msgstr ""
@@ -4593,9 +4512,6 @@ msgstr "tutte le richieste o i commenti che rispondono a '{{query}}'"
 msgid "also called {{public_body_short_name}}"
 msgstr "o {{public_body_short_name}}"
 
-msgid "an anonymous user"
-msgstr "un utente anonimo"
-
 msgid "and"
 msgstr "e il"
 
@@ -4608,17 +4524,11 @@ msgstr "tutto quello che corrisponde a '{{query}}'"
 msgid "are long overdue."
 msgstr "sono in forte ritardo."
 
-msgid "at"
-msgstr "a"
-
 msgid "authorities"
 msgstr "amministrazioni"
 
 msgid "awaiting response"
 msgstr ""
-
-msgid "but followupable"
-msgstr "ma può essere seguito da un messaggio di risposta"
 
 msgid "by"
 msgstr "da"
@@ -4689,9 +4599,6 @@ msgstr "messaggi dagli utenti"
 msgid "mobile number"
 msgstr "numero di cellulare"
 
-msgid "move..."
-msgstr "sposta..."
-
 msgid "mySociety:Helping people set up sites like {{site_name}} all over the world"
 msgstr "mySociety:Aiuta la gente a creare siti come {{site_name}} in tutto il mondo"
 
@@ -4706,9 +4613,6 @@ msgstr "di solito"
 
 msgid "not logged in"
 msgstr "accesso non effettuato"
-
-msgid "not requestable due to: {{reason}}"
-msgstr "non si può richiedere per il seguente motivo: {{reason}}"
 
 msgid "other"
 msgstr ""
@@ -4739,9 +4643,6 @@ msgstr "spedisci un ulteriore messaggio"
 
 msgid "sent"
 msgstr ""
-
-msgid "set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA"
-msgstr "imposta su <strong>vuoto</strong> (stringa vuota) se non riesce a trovare un indirizzo; queste email sono <strong>pubbliche</strong> poiché chiunque può vederle con un CAPTCHA"
 
 msgid "show quoted sections"
 msgstr "mostra sezioni citate"
@@ -4989,9 +4890,6 @@ msgid "{{site_name}} users have made {{number_of_requests}} request, including:"
 msgid_plural "{{site_name}} users have made {{number_of_requests}} requests, including:"
 msgstr[0] ""
 msgstr[1] ""
-
-msgid "{{thing_changed}} was changed from <code>{{from_value}}</code> to <code>{{to_value}}</code>"
-msgstr "{{thing_changed}} è stato modificato da <code>{{from_value}}</code> a <code>{{to_value}}</code>"
 
 msgid "{{title}} - a Freedom of Information request to {{public_body}}"
 msgstr "{{title}} - una richiesta di accesso a \"{{public_body}}\""
