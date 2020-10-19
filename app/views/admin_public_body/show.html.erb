@@ -81,9 +81,9 @@
         <ul>
           <% version.compare(@versions[i+1]) do |change| %>
             <li>
-              <%= "#{change[:name]} was changed from " \
-                  "<code>#{ change.fetch(:from, '-') }</code> to " \
-                  "<code>#{ change.fetch(:to, '-') }</code>" %>
+              <%= change[:name] %> was changed from
+              <code><%= change.fetch(:from, '-') %></code> to
+              <code><%= change.fetch(:to, '-') %></code>
             </li>
           <% end %>
         </ul>
