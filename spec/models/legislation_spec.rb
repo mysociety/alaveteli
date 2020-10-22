@@ -155,4 +155,44 @@ RSpec.describe Legislation do
       end
     end
   end
+
+  describe '#find_references' do
+    include_context :legislation_instance
+
+    let(:text) { 'Lorem Ipsum' }
+
+    it 'initialises a reference collection with self' do
+      expect(Legislation::ReferenceCollection).to receive(:new).
+        with(legislation: legislation).and_return(double.as_null_object)
+      legislation.find_references(text)
+    end
+
+    it 'delegates to reference collection #match' do
+      collection = double(:reference_collection)
+      result = double(:return_value)
+      allow(Legislation::ReferenceCollection).to receive(:new).
+        and_return(collection)
+      expect(collection).to receive(:match).with(text).and_return(result)
+      expect(legislation.find_references(text)).to eq result
+    end
+  end
+
+  describe '#refusals' do
+    let(:legislation) do
+      Legislation.new(key: 'key', refusals: ['s 12', 's 14'])
+    end
+
+    subject(:refusals) { legislation.refusals }
+
+    it 'returns array of references' do
+      is_expected.to be_an(Array)
+      is_expected.to all(be_a(Legislation::Reference))
+    end
+
+    it 'includes the correct references' do
+      refusals_as_strings = refusals.map(&:to_s)
+      expect(refusals_as_strings).to include('Section 12')
+      expect(refusals_as_strings).to include('Section 14')
+    end
+  end
 end

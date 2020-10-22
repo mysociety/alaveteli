@@ -55,6 +55,7 @@ class Legislation
 
   def initialize(key:, **variants)
     @key = key
+    @refusals = variants.fetch(:refusals, [])
     @variants = variants
   end
 
@@ -64,5 +65,15 @@ class Legislation
     raise UnknownLegislationVariant.new(
       "Unknown variant #{variant} in legislation #{key}."
     )
+  end
+
+  def find_references(text)
+    Legislation::ReferenceCollection.new(legislation: self).match(text)
+  end
+
+  def refusals
+    @refusals.map do |reference|
+      Legislation::Reference.new(legislation: self, reference: reference)
+    end
   end
 end

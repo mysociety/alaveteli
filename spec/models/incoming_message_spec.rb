@@ -399,6 +399,47 @@ describe IncomingMessage do
 
   end
 
+  describe '#legislation' do
+    let(:info_request) { FactoryBot.build(:info_request) }
+
+    let(:message) do
+      FactoryBot.build(:incoming_message, info_request: info_request)
+    end
+
+    it 'delegates to the info request' do
+      legislation = double(:legislation)
+      expect(info_request).to receive(:legislation).and_return(legislation)
+      expect(message.legislation).to eq legislation
+    end
+  end
+
+  describe '#refusals' do
+    let(:message) { FactoryBot.build(:incoming_message) }
+    let(:legislation) { double(:legislation) }
+
+    before do
+      allow(message).to receive(:get_main_body_text_folded).and_return('TEXT')
+      allow(message).to receive(:legislation).and_return(legislation)
+    end
+
+    it 'finds references' do
+      expect(legislation).to receive(:find_references).with('TEXT').
+        and_return([])
+      message.refusals
+    end
+
+    it 'returns references which are refusals' do
+      refusal_1 = double(:refusals, refusal?: true)
+      refusal_2 = double(:refusals, refusal?: true)
+      other = double(:refusals, refusal?: false)
+
+      allow(legislation).to receive(:find_references).and_return(
+        [refusal_1, refusal_2, other]
+      )
+      expect(message.refusals).to match_array([refusal_1, refusal_2])
+    end
+  end
+
 end
 
 describe IncomingMessage, 'when validating' do

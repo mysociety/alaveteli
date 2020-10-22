@@ -58,4 +58,50 @@ RSpec.describe Legislation::Reference do
       end
     end
   end
+
+  describe '#cover?' do
+    let(:parent) do
+      Legislation::Reference.new(legislation: foi, reference: 's 1')
+    end
+
+    let(:child) do
+      Legislation::Reference.new(legislation: foi, reference: 's 1(a)')
+    end
+
+    it 'returns true if other reference is a subreference' do
+      expect(parent.cover?(child)).to eq true
+    end
+
+    it 'returns false if other reference is not a subreference' do
+      expect(child.cover?(parent)).to eq false
+    end
+
+    it 'returns false if other reference belongs to a different legislation' do
+      eir = Legislation::Reference.new(legislation: eir, reference: 's 1(a)')
+      expect(parent.cover?(eir)).to eq false
+    end
+
+    it 'returns false if other reference is a different type' do
+      art = Legislation::Reference.new(legislation: foi, reference: 'art 1(a)')
+      expect(parent.cover?(art)).to eq false
+    end
+  end
+
+  describe '#refusal?' do
+    let(:reference) do
+      Legislation::Reference.new(legislation: foi, reference: 'Section 12(1)')
+    end
+
+    subject { reference.refusal? }
+
+    context 'legislation has refusal covering reference' do
+      before { allow(foi).to receive(:refusals).and_return([reference]) }
+      it { is_expected.to eq true }
+    end
+
+    context 'legislation does not have refusal covering reference' do
+      before { allow(foi).to receive(:refusals).and_return([]) }
+      it { is_expected.to eq false }
+    end
+  end
 end

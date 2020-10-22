@@ -33,6 +33,15 @@ class Legislation
       base + "(#{sub_elements.join(')(')})"
     end
 
+    def cover?(other)
+      legislation == other.legislation && type == other.type &&
+        elements == other.elements[0...elements.count]
+    end
+
+    def refusal?
+      legislation.refusals.any? { |reference| reference.cover?(self) }
+    end
+
     private
 
     def main_element

@@ -79,6 +79,7 @@ class IncomingMessage < ApplicationRecord
   delegate :message_id, to: :raw_email
   delegate :multipart?, to: :raw_email
   delegate :parts, to: :raw_email
+  delegate :legislation, to: :info_request
 
   # Given that there are in theory many info request events, a convenience method for
   # getting the response event
@@ -741,5 +742,15 @@ class IncomingMessage < ApplicationRecord
   # Return space separated list of all file extensions known
   def self.get_all_file_extensions
     return AlaveteliFileTypes.all_extensions.join(" ")
+  end
+
+  def refusals
+    legislation_references.select(&:refusal?)
+  end
+
+  private
+
+  def legislation_references
+    legislation.find_references(get_main_body_text_folded)
   end
 end
