@@ -43,7 +43,7 @@ module MailHandler
 
       def mail_from_raw_email(data)
         data = data.force_encoding(Encoding::BINARY) if data.is_a? String
-        Mail.new(data)
+        Mail.new Mail::Utilities.binary_unsafe_to_crlf(data.to_s)
       end
 
       # Extracts all attachments from the given TNEF file as a Mail object
