@@ -75,17 +75,15 @@
                 'to reply, they should normally have responded by ' \
                 '<strong>{{date}}</strong>',
                 date: simple_date(@info_request.date_response_required_by)) %>
-
-          (<%= details_help_link(@info_request.public_body) %>).
         <% else %>
           <%= _('The response to your request has been <strong>delayed' \
                 '</strong>. You can say that, by law, the authority should ' \
                 'normally have responded <strong>promptly</strong> and by ' \
                 '<strong>{{date}}</strong>',
                 date: simple_date(@info_request.date_response_required_by)) %>
+        <% end %>
 
-          (<%= details_help_link(@info_request.public_body) %>).
-       <% end %>
+        (<%= details_help_link(@info_request.public_body) %>).
       </p>
     <% elsif status == 'waiting_response_very_overdue' %>
       <p>
@@ -93,15 +91,13 @@
           <%= _('The response to your request is <strong>long overdue' \
                 '</strong>. Although the authority has no legal obligation ' \
                 'to reply, they should have responded by now') %>
-
-          (<%= details_help_link(@info_request.public_body) %>).
         <% else %>
           <%= _('The response to your request is <strong>long overdue' \
                 '</strong>. You can say that, by law, under all ' \
                 'circumstances, the authority should have responded by now') %>
-
-          (<%= details_help_link(@info_request.public_body) %>).
         <% end %>
+
+        (<%= details_help_link(@info_request.public_body) %>).
       </p>
     <% end %>
 
