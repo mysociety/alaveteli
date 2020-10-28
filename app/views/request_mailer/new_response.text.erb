@@ -1,5 +1,5 @@
 <%= _('You have a new response to the {{law_used_full}} request',
-      law_used_full: @info_request.law_used_human(:full).html_safe) %>
+      law_used_full: @info_request.legislation.to_s(:full).html_safe) %>
 '<%= @info_request.title %>' <%=_('that you made to') %>
 <%= @info_request.public_body.name %>.
 

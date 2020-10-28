@@ -865,7 +865,7 @@ class InfoRequest < ApplicationRecord
   def email_subject_request(opts = {})
     html = opts.fetch(:html, true)
     _('{{law_used_full}} request - {{title}}',
-      law_used_full: law_used_human(:full),
+      law_used_full: legislation.to_s(:full),
       title: (html ? title : title.html_safe))
   end
 
@@ -889,6 +889,8 @@ class InfoRequest < ApplicationRecord
   end
 
   def law_used_human(key = :full)
+    warn %q([DEPRECATION] InfoRequest#law_used_human will be replaced with
+          InfoRequest#legislation as of 0.40).squish
     legislation.to_s(key)
   end
 
@@ -1257,7 +1259,7 @@ class InfoRequest < ApplicationRecord
       # TRANSLATORS: Please don't use double quotes (") in this translation
       # or it will break the site's ability to send emails to authorities!
       _("{{law_used_short}} requests at {{public_body}}",
-        law_used_short: law_used_human(:short),
+        law_used_short: legislation,
         public_body: public_body.short_or_long_name),
         recipient_email)
   end

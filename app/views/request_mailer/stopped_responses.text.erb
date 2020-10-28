@@ -4,7 +4,7 @@
       public_body: @info_request.public_body.name.html_safe,
       user: @info_request.user.name.html_safe,
       incoming_email: @info_request.incoming_email,
-      law_used_short: @info_request.law_used_human(:short).html_safe) %>
+      law_used_short: @info_request.legislation.to_s.html_safe) %>
 
 <%= _('This is because {{title}} is an old request that has been ' \
       'marked to no longer receive responses.',

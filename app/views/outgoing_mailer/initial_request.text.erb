@@ -8,7 +8,7 @@
 <%= _('Is {{email_address}} the wrong address for {{law_used_full}} requests ' \
       'to {{public_body_name}}? If so, please contact us using this form:',
       email_address: @info_request.public_body.request_email.html_safe,
-      law_used_full: @info_request.law_used_human(:full).html_safe,
+      law_used_full: @info_request.legislation.to_s(:full).html_safe,
       public_body_name: @info_request.public_body.name.html_safe) %>
 <%= new_change_request_url(:body => @info_request.public_body.url_name) %>
 

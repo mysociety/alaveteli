@@ -2,7 +2,7 @@
       'request {{title}} promptly, as normally required by law. ' \
       'Click on the link below to remind them to reply.',
       public_body_name: info_request.public_body.name.html_safe,
-      law_used_short: info_request.law_used_human(:short).html_safe,
+      law_used_short: info_request.legislation.to_s.html_safe,
       title: info_request.title.html_safe) %>
 
 <% target = respond_to_last_path(info_request, anchor: 'followup') %>
