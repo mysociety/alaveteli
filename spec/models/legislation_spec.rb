@@ -112,7 +112,7 @@ RSpec.describe Legislation do
 
   shared_context :legislation_instance do
     let(:legislation) do
-      Legislation.new(key: 'key', short: 'short')
+      Legislation.new(key: 'key', short: 'short', full: 'full')
     end
   end
 
@@ -125,7 +125,7 @@ RSpec.describe Legislation do
 
     it 'assigns others attributes as variants' do
       expect(legislation.variants).to eq(
-        short: 'short'
+        short: 'short', full: 'full'
       )
     end
   end
@@ -142,6 +142,7 @@ RSpec.describe Legislation do
     context 'with valid string variant' do
       it 'returns given variant' do
         expect(legislation.to_s(:short)).to eq 'short'
+        expect(legislation.to_s(:full)).to eq 'full'
       end
     end
 

@@ -9,11 +9,17 @@ class Legislation
     [
       new(
         key: 'foi',
-        short: _('FOI')
+        short: _('FOI'),
+        full: _('Freedom of Information'),
+        with_a: _('A Freedom of Information request'),
+        act: _('Freedom of Information Act')
       ),
       new(
         key: 'eir',
-        short: _('EIR')
+        short: _('EIR'),
+        full: _('Environmental Information Regulations'),
+        with_a: _('An Environmental Information request'),
+        act: _('Environmental Information Regulations')
       )
     ]
   end

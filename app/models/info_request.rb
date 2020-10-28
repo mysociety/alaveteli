@@ -889,11 +889,7 @@ class InfoRequest < ApplicationRecord
   end
 
   def law_used_human(key = :full)
-    begin
-      applicable_law.fetch(key)
-    rescue KeyError
-      raise "Unknown key '#{key}' for '#{law_used}'"
-    end
+    legislation.to_s(key)
   end
 
   def find_existing_outgoing_message(body)
@@ -1884,14 +1880,6 @@ class InfoRequest < ApplicationRecord
                                info_request_batch_id.present?
     end
     return true
-  end
-
-  def applicable_law
-    begin
-      TranslatedConstants.law_used_readable_data.fetch(law_used.to_sym)
-    rescue KeyError
-      raise "Unknown law used '#{law_used}'"
-    end
   end
 
   def title_formatting
