@@ -178,10 +178,7 @@ class InfoRequest < ApplicationRecord
   validate :must_be_valid_state
   validates_inclusion_of :prominence, :in => Prominence::VALUES
 
-  validates_inclusion_of :law_used, in: [
-    'foi', # Freedom of Information Act
-    'eir', # Environmental Information Regulations
-  ]
+  validates_inclusion_of :law_used, in: Legislation.keys
 
   # who can send new responses
   validates_inclusion_of :allow_new_responses_from, :in => [
@@ -884,6 +881,11 @@ class InfoRequest < ApplicationRecord
         'Re: ' + incoming_message.subject
       end
     end
+  end
+
+  def legislation
+    return Legislation.find!(law_used) if law_used
+    public_body&.legislation || Legislation.default
   end
 
   def law_used_human(key = :full)
@@ -1623,7 +1625,7 @@ class InfoRequest < ApplicationRecord
     attrs = { :public_body => destination_public_body }
 
     if destination_public_body
-      attrs[:law_used] = destination_public_body.law_only_short.downcase
+      attrs[:law_used] = destination_public_body.legislation.key
     end
 
     return_val = if update(attrs)
@@ -1873,10 +1875,7 @@ class InfoRequest < ApplicationRecord
       # See http://www.tatvartha.com/2011/03/activerecordmissingattributeerror-missing-attribute-a-bug-or-a-features/
     end
 
-    # FOI or EIR?
-    if new_record? && public_body && public_body.eir_only?
-      self.law_used = 'eir'
-    end
+    self.law_used ||= legislation.key if new_record?
   end
 
   def set_use_notifications

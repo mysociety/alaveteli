@@ -230,10 +230,10 @@ class TrackThing < ApplicationRecord
       verb_on_page_already: _("Following"),
       # Email
       title_in_email: _("{{law_used_short}} requests to '{{public_body_name}}'",
-                        law_used_short: public_body.law_only_short,
+                        law_used_short: public_body.legislation,
                         public_body_name: public_body.name),
       title_in_rss: _("{{law_used_short}} requests to '{{public_body_name}}'",
-                      law_used_short: public_body.law_only_short,
+                      law_used_short: public_body.legislation,
                       public_body_name: public_body.name),
       # Authentication
       web: _("To follow requests made using {{site_name}} to the public " \

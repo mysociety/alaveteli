@@ -60,17 +60,18 @@ describe InfoRequest do
       expect(InfoRequest.new.law_used).to eq('foi')
     end
 
-    it 'sets the default law used if a body is eir-only' do
-      body = FactoryBot.create(:public_body, :tag_string => 'eir_only')
-      expect(body.info_requests.build.law_used).to eq('eir')
+    it 'sets the default law used to the legislation key' do
+      legislation = FactoryBot.build(:legislation, key: 'eir')
+      allow_any_instance_of(InfoRequest).to receive(:legislation).
+        and_return(legislation)
+      expect(InfoRequest.new(law_used: nil).law_used).to eq('eir')
     end
 
-    it 'does not try to set the law used for existing requests' do
-      info_request = FactoryBot.create(:info_request)
-      body = FactoryBot.create(:public_body, :tag_string => 'eir_only')
-      info_request.update(:public_body_id => body.id)
-      expect_any_instance_of(InfoRequest).not_to receive(:law_used=).and_call_original
-      InfoRequest.find(info_request.id)
+    it 'does not try to overwrite the existing law used' do
+      legislation = FactoryBot.build(:legislation, key: 'eir')
+      allow_any_instance_of(InfoRequest).to receive(:legislation).
+        and_return(legislation)
+      expect(InfoRequest.new(law_used: 'foi').law_used).to eq('foi')
     end
 
     it "sets the url_title from the supplied title" do
@@ -984,13 +985,17 @@ describe InfoRequest do
         expect(event.params[:old_public_body_url_name]).to eq(old_body.url_name)
       end
 
-      it 'updates the law_used to the new body law' do
-        request = FactoryBot.create(:info_request)
-        new_body = FactoryBot.create(:public_body, :tag_string => 'eir_only')
-        editor = FactoryBot.create(:user)
-        request.move_to_public_body(new_body, :editor => editor)
-        request.reload
-        expect(request.law_used).to eq('eir')
+      it 'updates the law_used to the new legislation key' do
+        request = FactoryBot.create(:info_request, law_used: 'foi')
+        new_body = FactoryBot.create(:public_body)
+        allow(new_body).to receive(:legislation).and_return(
+          FactoryBot.build(:legislation, key: 'eir')
+        )
+
+        expect {
+          editor = FactoryBot.create(:user)
+          request.move_to_public_body(new_body, editor: editor)
+        }.to change(request, :law_used).from('foi').to('eir')
       end
 
       it 'returns the new public body' do
@@ -1543,6 +1548,65 @@ describe InfoRequest do
           old_attention_requested: false,
           attention_requested: true
         )
+    end
+
+  end
+
+  describe '#legislation' do
+
+    let(:legislation) { Legislation.new(key: 'abc') }
+
+    context 'with valid law_used' do
+      let(:info_request) do
+        FactoryBot.build(:info_request, law_used: 'abc')
+      end
+
+      it 'finds and returns legislation matching key' do
+        allow(Legislation).to receive(:find!).with('abc').
+          and_return(legislation)
+        expect(info_request.legislation).to eq legislation
+      end
+    end
+
+    context 'with invalid law_used' do
+      let(:info_request) do
+        FactoryBot.build(:info_request, law_used: '123')
+      end
+
+      it 'raises unknown legislation exception' do
+        allow(Legislation).to receive(:find!).with('123').and_call_original
+        expect { info_request.legislation }.to raise_error(
+          Legislation::UnknownLegislation,
+          'Unknown legislation 123.'
+        )
+      end
+    end
+
+    context 'without law_used, with public body present' do
+
+      let(:public_body) { FactoryBot.build(:public_body) }
+      let(:info_request) do
+        FactoryBot.build(:info_request, law_used: nil, public_body: public_body)
+      end
+
+      it 'delegates to public body' do
+        allow(public_body).to receive(:legislation).and_return(legislation)
+        expect(info_request.legislation).to eq legislation
+      end
+
+    end
+
+    context 'without law_used or public body present' do
+
+      let(:info_request) do
+        FactoryBot.build(:info_request, law_used: nil, public_body: nil)
+      end
+
+      it 'returns default legislation' do
+        allow(Legislation).to receive(:default).and_return(legislation)
+        expect(info_request.legislation).to eq legislation
+      end
+
     end
 
   end
