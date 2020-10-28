@@ -1999,8 +1999,8 @@ msgstr ""
 msgid "Invalid token"
 msgstr ""
 
-msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
-msgstr "Est-ce que {{email_address}} est la mauvaise adresse pour les demandes de {{type_of_request}} à {{public_body_name}}? Si c'est le cas, veuillez nous l'indiquer en complétant ce formulaire:"
+msgid "Is {{email_address}} the wrong address for {{law_used_full}} requests to {{public_body_name}}? If so, please contact us using this form:"
+msgstr "Est-ce que {{email_address}} est la mauvaise adresse pour les demandes de {{law_used_full}} à {{public_body_name}}? Si c'est le cas, veuillez nous l'indiquer en complétant ce formulaire:"
 
 msgid "It looks like something has gone wrong when sending this message. It could be a technical issue, or an issue with the email address we have for the authority."
 msgstr ""
@@ -3471,8 +3471,8 @@ msgstr ""
 msgid "There are no requests to extract right now. Great job!"
 msgstr ""
 
-msgid "There are {{count}} new annotations on your {{info_request}} request. Follow this link to see what they wrote."
-msgstr "Il y a {{count}} nouvelles annotations à votre demande {{info_request}}. Suivez ce lien pour voir ce qu'il y est écrit."
+msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
+msgstr "Il y a {{count}} nouvelles annotations à votre demande {{law_used_short}}. Suivez ce lien pour voir ce qu'il y est écrit."
 
 msgid "There is <strong>more than one person</strong> who uses this site and has this name. One of them is shown below, you may mean a different one:"
 msgstr ""
@@ -3911,8 +3911,8 @@ msgstr ""
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr ""
 
-msgid "Unfortunately, we do not have a working {{info_request_law_used_full}} address for"
-msgstr "Malheureusement, nous n'avons pas d'adresse {{info_request_law_used_full}}  pour"
+msgid "Unfortunately, we do not have a working {{law_used_full}} address for"
+msgstr "Malheureusement, nous n'avons pas d'adresse {{law_used_full}}  pour"
 
 msgid "Unknown"
 msgstr ""
@@ -4923,9 +4923,6 @@ msgstr ""
 "{{existing_request_user}} a déjà effectué la même demande le {{date}}. Vous pouvez soit voir la <a href=\"{{existing_request}}\">demande existante </a>\n"
 " ou modifier les détails ci-dessous pour faire une demande différente, mais similaire."
 
-msgid "{{foi_law}} requests to '{{public_body_name}}'"
-msgstr ""
-
 msgid "{{info_request_user_name}}"
 msgstr ""
 
@@ -4934,8 +4931,11 @@ msgstr "{{law_used_full}} - {{title}}"
 
 #. TRANSLATORS: Please don't use double quotes (") in this translation
 #. or it will break the site's ability to send emails to authorities!
-msgid "{{law_used}} requests at {{public_body}}"
-msgstr "{{law_used}} pour {{public_body}}"
+msgid "{{law_used_short}} requests at {{public_body}}"
+msgstr "{{law_used_short}} pour {{public_body}}"
+
+msgid "{{law_used_short}} requests to '{{public_body_name}}'"
+msgstr ""
 
 msgid "{{length_of_time}} ago"
 msgstr "depuis {{length_of_time}}"
@@ -4991,8 +4991,8 @@ msgstr ""
 msgid "{{public_body_name}}: {{response_url}}"
 msgstr ""
 
-msgid "{{public_body}} has asked you to explain part of your {{law_used}} request."
-msgstr "{{public_body}} vous a demandé de clarifier une partie de votre {{law_used}} demande."
+msgid "{{public_body}} has asked you to explain part of your {{law_used_short}} request."
+msgstr "{{public_body}} vous a demandé de clarifier une partie de votre {{law_used_short}} demande."
 
 msgid "{{public_body}} sent a response to {{user_name}}"
 msgstr "{{public_body}} a répondu à {{user_name}}"
@@ -5056,9 +5056,9 @@ msgstr ""
 "{{user_name}} a commenté votre demande {{law_used_short}} \n"
 ". Suivez ce lien pour voir ce qu'il a écrit."
 
-msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
+msgid "{{user_name}} has reported an {{law_used_short}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
 msgstr ""
-"{{user_name}} a reporté un {{law_used}} réponse qui nécessite l'attention de l'administrateur. Jetez-y un oeil et répondez à ce \n"
+"{{user_name}} a reporté un {{law_used_short}} réponse qui nécessite l'attention de l'administrateur. Jetez-y un oeil et répondez à ce \n"
 "courriel pour leur faire savoir ce que vous allez faire à ce sujet."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."

@@ -1900,7 +1900,7 @@ msgstr ""
 msgid "Invalid token"
 msgstr ""
 
-msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
+msgid "Is {{email_address}} the wrong address for {{law_used_full}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr ""
 
 msgid "It looks like something has gone wrong when sending this message. It could be a technical issue, or an issue with the email address we have for the authority."
@@ -3347,7 +3347,7 @@ msgstr ""
 msgid "There are no requests to extract right now. Great job!"
 msgstr ""
 
-msgid "There are {{count}} new annotations on your {{info_request}} request. Follow this link to see what they wrote."
+msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr ""
 
 msgid "There is <strong>more than one person</strong> who uses this site and has this name. One of them is shown below, you may mean a different one:"
@@ -3767,7 +3767,7 @@ msgstr ""
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr ""
 
-msgid "Unfortunately, we do not have a working {{info_request_law_used_full}} address for"
+msgid "Unfortunately, we do not have a working {{law_used_full}} address for"
 msgstr ""
 
 msgid "Unknown"
@@ -4732,9 +4732,6 @@ msgstr[1] ""
 msgid "{{existing_request_user}} already created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>, or edit the details below to make a new but similar request."
 msgstr ""
 
-msgid "{{foi_law}} requests to '{{public_body_name}}'"
-msgstr ""
-
 msgid "{{info_request_user_name}}"
 msgstr ""
 
@@ -4743,7 +4740,10 @@ msgstr ""
 
 #. TRANSLATORS: Please don't use double quotes (") in this translation
 #. or it will break the site's ability to send emails to authorities!
-msgid "{{law_used}} requests at {{public_body}}"
+msgid "{{law_used_short}} requests at {{public_body}}"
+msgstr ""
+
+msgid "{{law_used_short}} requests to '{{public_body_name}}'"
 msgstr ""
 
 msgid "{{length_of_time}} ago"
@@ -4800,7 +4800,7 @@ msgstr ""
 msgid "{{public_body_name}}: {{response_url}}"
 msgstr ""
 
-msgid "{{public_body}} has asked you to explain part of your {{law_used}} request."
+msgid "{{public_body}} has asked you to explain part of your {{law_used_short}} request."
 msgstr ""
 
 msgid "{{public_body}} sent a response to {{user_name}}"
@@ -4861,7 +4861,7 @@ msgstr ""
 msgid "{{user_name}} has annotated your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr ""
 
-msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
+msgid "{{user_name}} has reported an {{law_used_short}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
 msgstr ""
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."

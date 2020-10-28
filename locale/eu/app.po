@@ -1936,8 +1936,8 @@ msgstr ""
 msgid "Invalid token"
 msgstr ""
 
-msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
-msgstr " {{email_address}} ba al da {{type_of_request}} eskabideak {{public_body_name}}-ri egiteko helbide okerra? Hala bada, mesedez, jar zaitez gurekin harremanetan ondoko inprimakia erabiliz:"
+msgid "Is {{email_address}} the wrong address for {{law_used_full}} requests to {{public_body_name}}? If so, please contact us using this form:"
+msgstr " {{email_address}} ba al da {{law_used_full}} eskabideak {{public_body_name}}-ri egiteko helbide okerra? Hala bada, mesedez, jar zaitez gurekin harremanetan ondoko inprimakia erabiliz:"
 
 msgid "It looks like something has gone wrong when sending this message. It could be a technical issue, or an issue with the email address we have for the authority."
 msgstr ""
@@ -3398,8 +3398,8 @@ msgstr ""
 msgid "There are no requests to extract right now. Great job!"
 msgstr ""
 
-msgid "There are {{count}} new annotations on your {{info_request}} request. Follow this link to see what they wrote."
-msgstr "Badaude {{count}} iruzkin zure {{info_request}} eskabidean. Jarraitu esteka honi esaten dutena irakurtzeko."
+msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
+msgstr "Badaude {{count}} iruzkin zure {{law_used_short}} eskabidean. Jarraitu esteka honi esaten dutena irakurtzeko."
 
 msgid "There is <strong>more than one person</strong> who uses this site and has this name. One of them is shown below, you may mean a different one:"
 msgstr ""
@@ -3820,8 +3820,8 @@ msgstr ""
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr ""
 
-msgid "Unfortunately, we do not have a working {{info_request_law_used_full}} address for"
-msgstr "Zoritxarrez ez dugu posta helbide baliagarria honentzat: {{info_request_law_used_full}}"
+msgid "Unfortunately, we do not have a working {{law_used_full}} address for"
+msgstr "Zoritxarrez ez dugu posta helbide baliagarria honentzat: {{law_used_full}}"
 
 msgid "Unknown"
 msgstr ""
@@ -4798,9 +4798,6 @@ msgstr ""
 "{{existing_request_user}}-k eskabide bera bidali du {{date}} egunean. <a href=\"{{existing_request}}\">dagoen eskabidea</a> ikus dezakezu,\n"
 "      edo jarraian zurea editatu ahal duzu, aurrekoaren antzeko eskabide bat bidaltzeko."
 
-msgid "{{foi_law}} requests to '{{public_body_name}}'"
-msgstr ""
-
 msgid "{{info_request_user_name}}"
 msgstr ""
 
@@ -4809,7 +4806,10 @@ msgstr "{{law_used_full}} eskabidea - {{title}}"
 
 #. TRANSLATORS: Please don't use double quotes (") in this translation
 #. or it will break the site's ability to send emails to authorities!
-msgid "{{law_used}} requests at {{public_body}}"
+msgid "{{law_used_short}} requests at {{public_body}}"
+msgstr ""
+
+msgid "{{law_used_short}} requests to '{{public_body_name}}'"
 msgstr ""
 
 msgid "{{length_of_time}} ago"
@@ -4866,7 +4866,7 @@ msgstr ""
 msgid "{{public_body_name}}: {{response_url}}"
 msgstr ""
 
-msgid "{{public_body}} has asked you to explain part of your {{law_used}} request."
+msgid "{{public_body}} has asked you to explain part of your {{law_used_short}} request."
 msgstr ""
 
 msgid "{{public_body}} sent a response to {{user_name}}"
@@ -4929,8 +4929,8 @@ msgstr ""
 "{{user_name}}-k zure {{law_used_short}} eskabidearen iruzkina egin du. \n"
 "Jarraitu esteka honi idatzi duena ikusteko."
 
-msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
-msgstr "{{user_name}} _______ bat salatu du. {{law_used}} erantzunak administratzailearen parte hartzea behar du. Berrikusi eta erantzun iezaiozu email honi adierazteko honen inguruan zer egingo duzun."
+msgid "{{user_name}} has reported an {{law_used_short}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
+msgstr "{{user_name}} _______ bat salatu du. {{law_used_short}} erantzunak administratzailearen parte hartzea behar du. Berrikusi eta erantzun iezaiozu email honi adierazteko honen inguruan zer egingo duzun."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "{{user_name}}-k {{site_name}} erabili du ondoko mezua bidaltzeko."

@@ -1998,8 +1998,8 @@ msgstr "Feil eingongspasskode"
 msgid "Invalid token"
 msgstr ""
 
-msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
-msgstr "Er  {{email_address}} feil adresse for førespurnader om {{type_of_request}} til {{public_body_name}}? I såg fall, ver så snill å ta kontakt med oss ved å bruka dette skjemaet:"
+msgid "Is {{email_address}} the wrong address for {{law_used_full}} requests to {{public_body_name}}? If so, please contact us using this form:"
+msgstr "Er  {{email_address}} feil adresse for førespurnader om {{law_used_full}} til {{public_body_name}}? I såg fall, ver så snill å ta kontakt med oss ved å bruka dette skjemaet:"
 
 msgid "It looks like something has gone wrong when sending this message. It could be a technical issue, or an issue with the email address we have for the authority."
 msgstr ""
@@ -3487,8 +3487,8 @@ msgstr ""
 msgid "There are no requests to extract right now. Great job!"
 msgstr ""
 
-msgid "There are {{count}} new annotations on your {{info_request}} request. Follow this link to see what they wrote."
-msgstr "Det er {{count}} nye merknader på din førespurnad {{info_request}}. Følg denne lenkja for å sjå kva dei har skrive."
+msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
+msgstr "Det er {{count}} nye merknader på din førespurnad {{law_used_short}}. Følg denne lenkja for å sjå kva dei har skrive."
 
 msgid "There is <strong>more than one person</strong> who uses this site and has this name. One of them is shown below, you may mean a different one:"
 msgstr ""
@@ -3922,8 +3922,8 @@ msgstr ""
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr "Desverre har vi ikkje ei fungerande adresse for "
 
-msgid "Unfortunately, we do not have a working {{info_request_law_used_full}} address for"
-msgstr "Beklagelegvis har vi ikkje ein fungerande  {{info_request_law_used_full}}-adresse for"
+msgid "Unfortunately, we do not have a working {{law_used_full}} address for"
+msgstr "Beklagelegvis har vi ikkje ein fungerande  {{law_used_full}}-adresse for"
 
 msgid "Unknown"
 msgstr "Ukjend"
@@ -4921,9 +4921,6 @@ msgstr[1] ""
 msgid "{{existing_request_user}} already created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>, or edit the details below to make a new but similar request."
 msgstr "{{existing_request_user}} har allereie laga same førespurnad den {{date}}. Du kan anten sjå på henne <a href=\"{{existing_request}}\">eksisterande førespurnaden</a>, eller redigera detaljane under for å lage ein ny men liknande førespurnad."
 
-msgid "{{foi_law}} requests to '{{public_body_name}}'"
-msgstr "{{foi_law}} førespurnader til '{{public_body_name}}'"
-
 msgid "{{info_request_user_name}}"
 msgstr ""
 
@@ -4932,8 +4929,11 @@ msgstr "{{law_used_full}} - {{title}}"
 
 #. TRANSLATORS: Please don't use double quotes (") in this translation
 #. or it will break the site's ability to send emails to authorities!
-msgid "{{law_used}} requests at {{public_body}}"
-msgstr "{{law_used}} til {{public_body}}"
+msgid "{{law_used_short}} requests at {{public_body}}"
+msgstr "{{law_used_short}} til {{public_body}}"
+
+msgid "{{law_used_short}} requests to '{{public_body_name}}'"
+msgstr "{{law_used_short}} førespurnader til '{{public_body_name}}'"
 
 msgid "{{length_of_time}} ago"
 msgstr "for {{length_of_time}} sidan"
@@ -4989,8 +4989,8 @@ msgstr ""
 msgid "{{public_body_name}}: {{response_url}}"
 msgstr ""
 
-msgid "{{public_body}} has asked you to explain part of your {{law_used}} request."
-msgstr "{{public_body}} vert hatt spurt deg om å forklara deler av {{law_used}} førespurnaden"
+msgid "{{public_body}} has asked you to explain part of your {{law_used_short}} request."
+msgstr "{{public_body}} vert hatt spurt deg om å forklara deler av {{law_used_short}} førespurnaden"
 
 msgid "{{public_body}} sent a response to {{user_name}}"
 msgstr "{{public_body}} sende eit svar til {{user_name}}"
@@ -5055,9 +5055,9 @@ msgstr ""
 "{{user_name}} har skrive ein merknad på din {{law_used_short}} \n"
 "førespurnad. Følg lenkja nedanfor for å sjå kva dei skreiv."
 
-msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
+msgid "{{user_name}} has reported an {{law_used_short}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
 msgstr ""
-"{{user_name}} har rapportert ein {{law_used}} respons som treng merksemd frå ein administrator.  Ta ein titt, og svar\n"
+"{{user_name}} har rapportert ein {{law_used_short}} respons som treng merksemd frå ein administrator.  Ta ein titt, og svar\n"
 "på denne e-posten for å la dei vita kva du kjem til å gjera med det."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."

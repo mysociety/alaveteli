@@ -1957,7 +1957,7 @@ msgstr "Fjalekalim njeperdorimsh i pasakte"
 msgid "Invalid token"
 msgstr ""
 
-msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
+msgid "Is {{email_address}} the wrong address for {{law_used_full}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr "A është {{email_address}} adresë e gabuar  për {{public_body_name}}? Nëse po, të lutem na kontakto nëpermjet ketij formulari:"
 
 msgid "It looks like something has gone wrong when sending this message. It could be a technical issue, or an issue with the email address we have for the authority."
@@ -3424,8 +3424,8 @@ msgstr ""
 msgid "There are no requests to extract right now. Great job!"
 msgstr ""
 
-msgid "There are {{count}} new annotations on your {{info_request}} request. Follow this link to see what they wrote."
-msgstr "Ka {{count}} shënime të reja në kërkesën tuaj  {{info_request}}. Ndiqni këtë lidhje për t'i parë ato."
+msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
+msgstr "Ka {{count}} shënime të reja në kërkesën tuaj  {{law_used_short}}. Ndiqni këtë lidhje për t'i parë ato."
 
 msgid "There is <strong>more than one person</strong> who uses this site and has this name. One of them is shown below, you may mean a different one:"
 msgstr "Ka <strong>me shume se nje person </strong> i cili perdor kete faqe dhe ka kete emer. Njeri prej tyre shfaqet si me poshte, ndoshta ju kerkoni dike tjeter:"
@@ -3851,8 +3851,8 @@ msgstr ""
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr "Per fat te keq, nuk kemi adresen funksionale te {{public_body_names}}."
 
-msgid "Unfortunately, we do not have a working {{info_request_law_used_full}} address for"
-msgstr "Për fat të keq, nuk kemi një adresë funksionale {{info_request_law_used_full}} për"
+msgid "Unfortunately, we do not have a working {{law_used_full}} address for"
+msgstr "Për fat të keq, nuk kemi një adresë funksionale {{law_used_full}} për"
 
 msgid "Unknown"
 msgstr "E panjohur"
@@ -4840,9 +4840,6 @@ msgstr ""
 "     ka krijuar të njëjtën kërkesë me {{date}}. Mund ta shohësh <a href=\"{{existing_request}}\">kërkesën ekzistuese</a>,\n"
 "     apo të redaktosh të dhënat e mëposhtme për të bërë një kërkesë të re, por të ngjashme."
 
-msgid "{{foi_law}} requests to '{{public_body_name}}'"
-msgstr "Kerkesat {{foi_law}} per'{{public_body_name}}'"
-
 msgid "{{info_request_user_name}}"
 msgstr ""
 
@@ -4851,8 +4848,11 @@ msgstr "Kërkesë për {{law_used_full}} - {{title}}"
 
 #. TRANSLATORS: Please don't use double quotes (") in this translation
 #. or it will break the site's ability to send emails to authorities!
-msgid "{{law_used}} requests at {{public_body}}"
-msgstr "kerkesa {{law_used}} tek {{public_body}}"
+msgid "{{law_used_short}} requests at {{public_body}}"
+msgstr "kerkesa {{law_used_short}} tek {{public_body}}"
+
+msgid "{{law_used_short}} requests to '{{public_body_name}}'"
+msgstr "Kerkesat {{law_used_short}} per'{{public_body_name}}'"
 
 msgid "{{length_of_time}} ago"
 msgstr "{{length_of_time}} më parë"
@@ -4908,8 +4908,8 @@ msgstr ""
 msgid "{{public_body_name}}: {{response_url}}"
 msgstr ""
 
-msgid "{{public_body}} has asked you to explain part of your {{law_used}} request."
-msgstr "{{public_body}} ka kërkuar sqarim për kërkesën mbi {{law_used}}."
+msgid "{{public_body}} has asked you to explain part of your {{law_used_short}} request."
+msgstr "{{public_body}} ka kërkuar sqarim për kërkesën mbi {{law_used_short}}."
 
 msgid "{{public_body}} sent a response to {{user_name}}"
 msgstr "{{public_body}} dërgoi një përgjigje për {{user_name}}"
@@ -4969,8 +4969,8 @@ msgstr "{{user_name}} shtoi një shënim"
 msgid "{{user_name}} has annotated your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "{{user_name}} ka lënë shënim në kërkesën tënde. Ndiqni këtë lidhje për të parë se çfarë kane shkruar."
 
-msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
-msgstr "{{user_name}} ka raportuar një {{law_used}} përgjigje që ka nevojë për vëmendjen e administratorit. Hidhni një sy, dhe përgjigju ketij mesazhi, për t'i njoftuar se çfarë do të bëni lidhur me të."
+msgid "{{user_name}} has reported an {{law_used_short}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
+msgstr "{{user_name}} ka raportuar një {{law_used_short}} përgjigje që ka nevojë për vëmendjen e administratorit. Hidhni një sy, dhe përgjigju ketij mesazhi, për t'i njoftuar se çfarë do të bëni lidhur me të."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "{{user_name}} ka përdorur {{site_name}} për të dërguar mesazhin e posht shënuar."
