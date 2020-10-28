@@ -19,8 +19,7 @@
     <br>
     <%= _('This authority is not subject to FOI law, so is not ' \
           'legally obliged to respond') %>
-    (<%= link_to _('details'),
-                 help_requesting_path(anchor: 'authorities') %>).
+    (<%= details_help_link(info_request.public_body) %>).
     </span>
 <% end %>
 

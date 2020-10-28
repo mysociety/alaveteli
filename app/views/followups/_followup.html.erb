@@ -76,8 +76,7 @@
                 '<strong>{{date}}</strong>',
                 date: simple_date(@info_request.date_response_required_by)) %>
 
-          (<%= link_to _('details'),
-                       help_requesting_path(anchor: 'authorities') %>).
+          (<%= details_help_link(@info_request.public_body) %>).
         <% else %>
           <%= _('The response to your request has been <strong>delayed' \
                 '</strong>. You can say that, by law, the authority should ' \
@@ -85,8 +84,7 @@
                 '<strong>{{date}}</strong>',
                 date: simple_date(@info_request.date_response_required_by)) %>
 
-          (<%= link_to _('details'),
-                       help_requesting_path(anchor: 'quickly_response') %>).
+          (<%= details_help_link(@info_request.public_body) %>).
        <% end %>
       </p>
     <% elsif status == 'waiting_response_very_overdue' %>
@@ -96,15 +94,13 @@
                 '</strong>. Although the authority has no legal obligation ' \
                 'to reply, they should have responded by now') %>
 
-          (<%= link_to _('details'),
-                       help_requesting_path(anchor: 'authorities') %>).
+          (<%= details_help_link(@info_request.public_body) %>).
         <% else %>
           <%= _('The response to your request is <strong>long overdue' \
                 '</strong>. You can say that, by law, under all ' \
                 'circumstances, the authority should have responded by now') %>
 
-          (<%= link_to _('details'),
-                       help_requesting_path(anchor: 'quickly_response') %>).
+          (<%= details_help_link(@info_request.public_body) %>).
         <% end %>
       </p>
     <% end %>
