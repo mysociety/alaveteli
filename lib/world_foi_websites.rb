@@ -147,6 +147,10 @@ class WorldFOIWebsites
         :country_name => 'Moldova',
         :country_iso_code => 'MD',
         :url => "https://www.vreauinfo.md/" },
+      { :name => 'Derecho al Dato',
+        :country_name => 'Argentina',
+        :country_iso_code => 'AR',
+        :url => 'https://derechoaldato.com.ar/' },
     ]
     return world_foi_websites
   end
