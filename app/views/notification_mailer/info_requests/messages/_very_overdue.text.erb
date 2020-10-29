@@ -3,9 +3,9 @@
       'Click on the link below to tell them to reply. ' \
       'You might like to ask for an internal review, asking them to find ' \
       'out why their response to the request has been so slow.',
-      :public_body_name => info_request.public_body.name.html_safe,
-      :law_used_short => info_request.law_used_human(:short).html_safe,
-      :title => info_request.title.html_safe) %>
+      public_body_name: info_request.public_body.name.html_safe,
+      law_used_short: info_request.law_used_human(:short).html_safe,
+      title: info_request.title.html_safe) %>
 
 <% target = respond_to_last_path(info_request, anchor: 'followup') %>
 <%= signin_url(r: target) %>

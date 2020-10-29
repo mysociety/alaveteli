@@ -178,7 +178,7 @@ class InfoRequest < ApplicationRecord
   validate :must_be_valid_state
   validates_inclusion_of :prominence, :in => Prominence::VALUES
 
-  validates_inclusion_of :law_used, :in => [
+  validates_inclusion_of :law_used, in: [
     'foi', # Freedom of Information Act
     'eir', # Environmental Information Regulations
   ]
@@ -868,8 +868,8 @@ class InfoRequest < ApplicationRecord
   def email_subject_request(opts = {})
     html = opts.fetch(:html, true)
     _('{{law_used_full}} request - {{title}}',
-      :law_used_full => law_used_human(:full),
-      :title => (html ? title : title.html_safe))
+      law_used_full: law_used_human(:full),
+      title: (html ? title : title.html_safe))
   end
 
   def email_subject_followup(opts = {})
@@ -1259,8 +1259,8 @@ class InfoRequest < ApplicationRecord
       # TRANSLATORS: Please don't use double quotes (") in this translation
       # or it will break the site's ability to send emails to authorities!
       _("{{law_used}} requests at {{public_body}}",
-        :law_used => law_used_human(:short),
-        :public_body => public_body.short_or_long_name),
+        law_used: law_used_human(:short),
+        public_body: public_body.short_or_long_name),
         recipient_email)
   end
 
@@ -1623,9 +1623,7 @@ class InfoRequest < ApplicationRecord
     attrs = { :public_body => destination_public_body }
 
     if destination_public_body
-      attrs.merge!({
-        :law_used => destination_public_body.law_only_short.downcase
-      })
+      attrs[:law_used] = destination_public_body.law_only_short.downcase
     end
 
     return_val = if update(attrs)
