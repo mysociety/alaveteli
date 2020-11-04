@@ -17,6 +17,12 @@ def require_theme(theme_name)
   return unless File.exist?(theme_main_include)
 
   require theme_main_include
+
+  Rails.configuration.paths.add(
+    'config/refusal_advice',
+     with: root.join('config/refusal_advice'),
+     glob: '*.yml'
+  )
 end
 
 if Rails.env == "test"
