@@ -9,4 +9,8 @@ class RefusalAdvice::Suggestion < RefusalAdvice::Block
   def response_template
     data[:response_template]
   end
+
+  def to_partial_path
+    'help/refusal_advice/suggestion'
+  end
 end

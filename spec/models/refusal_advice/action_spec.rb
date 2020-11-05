@@ -26,4 +26,9 @@ RSpec.describe RefusalAdvice::Action do
       )
     end
   end
+
+  describe '#to_partial_path' do
+    subject { action.to_partial_path }
+    it { is_expected.to eq 'help/refusal_advice/action' }
+  end
 end

@@ -9,4 +9,8 @@ class RefusalAdvice::Question < RefusalAdvice::Block
   def options
     collection(data[:options])
   end
+
+  def to_partial_path
+    'help/refusal_advice/question'
+  end
 end

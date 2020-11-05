@@ -7,7 +7,7 @@ RSpec.describe RefusalAdvice do
   end
 
   describe '.default' do
-    subject { described_class.default }
+    subject { described_class.default(info_request) }
 
     before do
       Rails.configuration.paths.add(
@@ -17,21 +17,43 @@ RSpec.describe RefusalAdvice do
       )
     end
 
-    it { is_expected.to eq(described_class.new(data)) }
+    context 'with info request' do
+      let(:info_request) { FactoryBot.build(:info_request) }
+      it do
+        is_expected.to eq(
+          described_class.new(data, info_request: info_request)
+        )
+      end
+    end
+
+    context 'without info request' do
+      let(:info_request) { nil }
+      it { is_expected.to eq(described_class.new(data)) }
+    end
   end
 
   describe '#legislation' do
-    let(:instance) { described_class.new(data) }
+    let(:instance) { described_class.new(data, info_request: info_request) }
     subject { instance.legislation }
 
     let(:legislation) { double(:legislation) }
 
-    before do
-      allow(Legislation).to receive(:default).and_return(legislation)
+    context 'with info request' do
+      let(:info_request) { FactoryBot.build(:info_request) }
+
+      it 'returns info request legislation' do
+        allow(info_request).to receive(:legislation).and_return(legislation)
+        is_expected.to eq legislation
+      end
     end
 
-    it 'returns default legislation' do
-      is_expected.to eq legislation
+    context 'without info request' do
+      let(:info_request) { nil }
+
+      it 'returns default legislation' do
+        allow(Legislation).to receive(:default).and_return(legislation)
+        is_expected.to eq legislation
+      end
     end
   end
 

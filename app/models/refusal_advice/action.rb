@@ -19,4 +19,8 @@ class RefusalAdvice::Action < RefusalAdvice::Block
     data[:suggestions]&.
       map { |suggestion| RefusalAdvice::Suggestion.new(suggestion) }
   end
+
+  def to_partial_path
+    'help/refusal_advice/action'
+  end
 end
