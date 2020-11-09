@@ -1498,7 +1498,13 @@ SHARED_DIRECTORIES:
     <a name="blog_feed"><code>BLOG_FEED</code></a>
   </dt>
   <dd>
-    These feeds are displayed accordingly on the Alaveteli "blog" page: <!-- TODO -->
+    <p>These feeds are displayed accordingly on the Alaveteli "blog" page.</p>
+
+    <p>
+      Currently WordPress is the only "officially supported" external blog
+      feed, but other feeds may work if they use the same data format.
+    </p>
+
     <div class="more-info">
       <p>Example:</p>
       <ul class="examples">
