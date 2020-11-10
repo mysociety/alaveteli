@@ -270,6 +270,22 @@ in any language, and within any legislation</p>
                         <p class="deployment__country">France</p>
                         <p class="deployment__link"><a href="https://madada.fr/">https://madada.fr/</a></p>
                     </div>
+                </div><!--
+                --><div class="deployments__unit--minor">
+                    <div class="deployment--minor">
+                        <img src="/assets/img/de-wob-knop.jpg" class="deployment__screenshot" alt=""/>
+                        <h3 class="deployment__title">de Wob-Knop</h3>
+                        <p class="deployment__country">Netherlands</p>
+                        <p class="deployment__link"><a href="https://www.wob-knop.nl/">https://www.wob-knop.nl/</a></p>
+                    </div>
+                </div><!--
+                --><div class="deployments__unit--minor">
+                    <div class="deployment--minor">
+                        <img src="/assets/img/derecho-al-dato.jpg" class="deployment__screenshot" alt=""/>
+                        <h3 class="deployment__title">Derecho al Dato</h3>
+                        <p class="deployment__country">Argentina</p>
+                        <p class="deployment__link"><a href="https://derechoaldato.com.ar/">https://derechoaldato.com.ar/</a></p>
+                    </div>
                 </div>
             </div>
         </div>
