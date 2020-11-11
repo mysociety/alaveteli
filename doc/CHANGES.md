@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Tweak change request button colours in admin interface (Gareth Rees)
+
 ## Upgrade Notes
 
 * The `InfoRequest` method `law_used_human` has been deprecated and will be
