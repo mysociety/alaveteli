@@ -283,6 +283,20 @@ describe 'when validating rules' do
 
     end
 
+    describe 'if a regexp contains unescaped characters' do
+      before { @censor_rule.text = 'foo]' }
+
+      it 'does not output a warning' do
+        expect { @censor_rule.valid? }.not_to output.to_stderr
+      end
+
+      it 'adds an error message to the text field' do
+        msg = "regular expression has ']' without escape: /foo]/"
+        @censor_rule.valid?
+        expect(@censor_rule.errors[:text]).to eq([msg])
+      end
+    end
+
     describe 'if no regexp error is produced' do
 
       it 'should not add any error message to the text field' do

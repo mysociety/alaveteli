@@ -36,6 +36,8 @@ end
 
 
 # Load monkey patches and other things from lib/
+require 'core_ext/warning'
+
 require 'use_spans_for_errors.rb'
 require 'i18n_fixes.rb'
 require 'world_foi_websites.rb'

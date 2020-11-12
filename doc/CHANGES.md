@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Prevent saving of unescaped characters in regexp Censor Rules (Gareth Rees)
 * Allow author to be an optional blog feed attribute (Gareth Rees)
 * Handle UTF8 characters in RFC822 attachment subject lines (Gareth Rees)
 * Backpaged content tells external search engines not to index it (Gareth Rees)
