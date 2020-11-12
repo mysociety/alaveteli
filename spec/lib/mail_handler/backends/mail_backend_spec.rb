@@ -63,6 +63,20 @@ describe MailHandler::Backends::MailBackend do
       end
     end
 
+    it 'correctly parses mails with unix line endings' do
+      filename = 'incoming-pdf-attachment-unix-line-endings.eml'
+      file = Rails.root.join('spec/fixtures/files', filename)
+
+      expected = ["text/plain; charset=utf-8; format=flowed",
+                  "application/pdf; name=\"20200819 - Aerial Images.pdf\""]
+
+      parts =
+        MailHandler.mail_from_raw_email(File.open(file, 'rb') { |f| f.read }).
+        parts.
+        map { |part| part.content_type.to_s }.to_a
+
+      expect(parts).to eq(expected)
+    end
   end
 
   describe :get_part_file_name do
