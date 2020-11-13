@@ -18,6 +18,10 @@
     <%= render :partial => 'request/hidden_correspondence', :locals => { :message => incoming_message } %>
   <%- else %>
     <%= render :partial => 'request/restricted_correspondence', :locals => {:message => incoming_message } %>
+
+    <%= render partial: 'request/incoming_refusals',
+               locals: { incoming_message: incoming_message } %>
+
     <%= render :partial => 'request/bubble',
                :locals => { :incoming_message => incoming_message,
                             :body => incoming_message.get_body_for_html_display(@collapse_quotes),
