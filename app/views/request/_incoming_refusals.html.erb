@@ -1,0 +1,23 @@
+<% if can?(:update_request_state, @info_request) && incoming_message.refusals? %>
+  <div class="correspondence__suggestion">
+    <h2><%= _('Request refused?') %></h2>
+
+    <p>
+      <%= _('It looks like {{authority_name}} may have ' \
+            'refused all or part of your request under ' \
+            '<strong>{{exemptions}}</strong>.',
+            authority_name: @info_request.public_body.name,
+            exemptions: incoming_message.refusals.to_sentence) %>
+
+      <% if @info_request.awaiting_description? && @show_bottom_describe_state_form %>
+        <%= link_to '#describe_state_form_2' do %>
+          <%= _('Let us know and we’ll help you challenge it.') %>
+        <% end %>
+      <% elsif @info_request.reason_to_be_unhappy? %>
+        <%= link_to help_unhappy_path do %>
+          <%= _('Get help to challenge it.') %>
+        <% end %>
+      <% end %>
+    </p>
+  </div>
+<% end %>
