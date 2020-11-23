@@ -24,6 +24,7 @@ describe GeneralController do
                        :user => user }
 
       # Create the other data we're checking
+      FactoryBot.create(:embargoed_request, user: user, public_body: body)
       FactoryBot.create(:info_request, :user => user,
                                        :public_body => body,
                                        :prominence => 'hidden')
@@ -57,6 +58,7 @@ describe GeneralController do
                    ruby_version: RUBY_VERSION,
                    visible_public_body_count: 1,
                    visible_request_count: 1,
+                   private_request_count: 1,
                    confirmed_user_count: 1,
                    visible_comment_count: 1,
                    track_thing_count: 1,

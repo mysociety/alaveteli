@@ -228,6 +228,7 @@ class GeneralController < ApplicationController
           ruby_version: RUBY_VERSION,
           visible_public_body_count: PublicBody.visible.count,
           visible_request_count: InfoRequest.is_searchable.count,
+          private_request_count: InfoRequest.embargoed.count,
           confirmed_user_count: User.active.where(email_confirmed: true).count,
           visible_comment_count: Comment.visible.count,
           track_thing_count: TrackThing.count,
