@@ -317,16 +317,19 @@ class InfoRequest < ApplicationRecord
 
     # try to find a match on InfoRequest#title
     reply_format = InfoRequest.new(title: '').email_subject_followup
-    requests = where(title: subject_line.gsub(/#{reply_format}/i, '').strip)
+    requests_by_title = InfoRequest.left_joins(:incoming_messages).
+      where(title: subject_line.gsub(/#{reply_format}/i, '').strip)
 
     # try to find a match on IncomingMessage#subject
-    requests +=
-      IncomingMessage.
-        includes(:info_request).
-          where(subject: [subject_line.gsub(/^Re: /i, ''), subject_line]).
-            map(&:info_request).uniq
+    requests_by_subject = InfoRequest.left_joins(:incoming_messages).
+      where(incoming_messages: {
+              subject: [subject_line.gsub(/^Re: /i, ''), subject_line].uniq
+            })
 
-    requests.delete_if(&:holding_pen_request?)
+    requests = requests_by_title.or(requests_by_subject).
+      distinct.
+      where.not(url_title: 'holding_pen')
+
     guesses = requests.each.reduce([]) do |memo, request|
       memo << Guess.new(request, subject_line, :subject)
     end
