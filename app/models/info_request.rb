@@ -325,7 +325,8 @@ class InfoRequest < ApplicationRecord
 
     requests = requests_by_title.or(requests_by_subject).
       distinct.
-      where.not(url_title: 'holding_pen')
+      where.not(url_title: 'holding_pen').
+      limit(25)
 
     guesses = requests.each.reduce([]) do |memo, request|
       memo << Guess.new(request, subject_line, :subject)
