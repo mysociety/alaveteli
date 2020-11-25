@@ -14,38 +14,6 @@
       <p>Alaveteli cobró vida con <a href="https://www.whatdotheyknow.com">WhatDoTheyKnow</a>, un sitio web producido por <a href="https://mysociety.org/">mySociety</a> para realizar solicitudes de información pública en el Reino Unido.</p>
       <p>A través de WhatDoTheyKnow.com se llevan a cabo entre un 15% y un 20% de las solicitudes recibidas por el gobierno central de Reino Unido.</p>
 
-- title: Ki Mit Tud
-  url: https://kimittud.atlatszo.hu
-  image: ki-mit-tud.jpg
-  featured: true
-  pro: false
-  country:
-    en: Hungary
-    es: Hungría
-  description:
-    en: |
-      <p>Hungarians have a right, enshrined in their law, to demand information from any tax-funded body. Ki Mit Tud (“Who Knows What?”) radically simplifies that process for the citizen.</p>
-      <p>Using the Alaveteli platform, Ki Mit Tud was launched in May 2012, and within its first year had processed over 1,000 freedom of information requests.</p>
-    es: |
-      <p>Las leyes de Hungría reconocen el derecho de la población húngara a exigir información a cualquier organismo financiado con impuestos. Ki Mit Tud («¿Quién sabe qué?») simplifica radicalmente este proceso para los ciudadanos.</p>
-      <p>Ki Mit Tud se lanzó utilizando la plataforma Alaveteli en mayo de 2012 y durante su primer año procesó más de 1.000 solicitudes de información pública.</p>
-
-- title: FYI
-  url: https://fyi.org.nz
-  image: fyi.jpg
-  featured: true
-  pro: false
-  country:
-    en: New Zealand
-    es: Nueva Zelanda
-  description:
-    en: |
-      <p>New Zealand’s public sector is reportedly among the least corrupt in the world. Nonetheless, Open New Zealand, the organisation behind FYI, believe that a Freedom of Information site can bring benefits.</p>
-      <p>Like all Alaveteli installs, FYI simplifies the whole process of submitting a request - and publishes requests and their responses online, for all to see. </p>
-    es: |
-      <p>El sector público neozelandés se halla dentro de los menos corruptos a nivel mundial. Sin embargo, Open New Zealand, la organización que se halla detrás de FYI, considera que un sitio web de información pública puede proporcionar ciertos beneficios.</p>
-      <p>FYI, al igual que todas las implementaciones de Alaveteli, simplifica el proceso total de envío de solicitudes y las publica junto con sus respuestas en línea, a la vista de todo el mundo. </p>
-
 - title: Ask the EU
   url: https://www.asktheeu.org
   image: ask-the-eu.jpg
@@ -57,26 +25,10 @@
   description:
     en: |
       <p>AskTheEU doesn’t just cover one country: in theory, it serves over 500 million people: the whole of Europe.</p>
-      <p>AskTheEU processes requests for any of the European Union bodies, and the site is translated into several languages. It is run by Access Info Europe, in Madrid.</p>
+      <p>AskTheEU processes requests for any of the European Union bodies, and the site is translated into several languages. It is run by <a href="https://www.access-info.org/">Access Info Europe</a>, in Madrid.</p>
     es: |
       <p>AskTheEU no da soporte a un solo país, sino que ofrece sus servicios a más de 500 millones de personas: a toda Europa.</p>
-      <p>AskTheEU procesa solicitudes para todos los organismos que forman parte de la Unión Europea y está traducido a diversos idiomas. Access Info Europe (Madrid) se encarga de su gestión.</p>
-
-- title: Доступ до правди
-  url: https://dostup.pravda.com.ua
-  image: ukraine.jpg
-  featured: true
-  pro: false
-  country:
-    en: Ukraine
-    es: Ucrania
-  description:
-    en: |
-      <p>The NGO <a href="http://centreua.org/en/">CentreUA</a> launched Ukraine’s dostup.pravda in 2014, against the background of revolution and severe unrest in the country.</p>
-      <p>It very quickly amassed thousands of requests, providing a source of information for citizens in uncertain times. Under such circumstances, Alaveteli really comes into its own.</p>
-    es: |
-      <p>The NGO <a href="http://centreua.org/en/">CentreUA</a> launched Ukraine’s dostup.pravda in 2014, against the background of revolution and severe unrest in the country.</p>
-      <p>It very quickly amassed thousands of requests, providing a source of information for citizens in uncertain times. Under such circumstances, Alaveteli really comes into its own.</p>
+      <p>AskTheEU procesa solicitudes para todos los organismos que forman parte de la Unión Europea y está traducido a diversos idiomas. <a href="https://www.access-info.org/">Access Info Europe</a> (Madrid) se encarga de su gestión.</p>
 
 - title: Info Pro Všechny
   url: https://www.infoprovsechny.cz
@@ -94,37 +46,98 @@
       <p>Infoprovsechny gives citizens of the Czech Republic easy access to their rights under the country's 1999 Freedom of Information Act.</p>
       <p>Giving access to nearly 12,000 public authorities, the site has been instrumental in several high-profile TV news stories. It was started in 2012 with a grant from the Open Society Foundation.</p>
 
+- title: MaDada
+  url: https://madada.fr
+  image: ma-dada.jpg
+  featured: true
+  pro: true
+  country:
+    en: France
+    es: Francia
+  description:
+    en: |
+      <p>France has had access to information since 1978, thanks to their Freedom of Information Act — but it wasn't until the launch of MaDada in 2020 that citizens were given a simple way to exercise this right.</p>
+      <p>The site is run by a group of dedicated volunteers, as well as members of OpenKnowledge France.</p>
+    es: |
+      <p>France has had access to information since 1978, thanks to their Freedom of Information Act — but it wasn't until the launch of MaDada in 2020 that citizens were given a simple way to exercise this right.</p>
+      <p>The site is run by a group of dedicated volunteers, as well as members of OpenKnowledge France.</p>
+
+- title: Handlingar
+  url: https://handlingar.se
+  image: handlingar.jpg
+  featured: true
+  pro: true
+  country:
+    en: Sweden
+    es: Suecia
+  description:
+    en: |
+      <p>Sweden is the country where <i>offentlighetsprincipen</i>, the Principle of Public Access — the first FOI legislation as we know it today — was born.</p>
+      <p>More than 250 years later, a group of volunteers are continuing to push the boundaries to information access, with Handlingar.</p>
+    es: |
+      <p>Sweden is the country where <i>offentlighetsprincipen</i>, the Principle of Public Access — the first FOI legislation as we know it today — was born.</p>
+      <p>More than 250 years later, a group of volunteers are continuing to push the boundaries to information access, with Handlingar.</p>
+
+- title: de Wob-Knop
+  url: https://www.wob-knop.nl
+  image: de-wob-knop.jpg
+  featured: true
+  pro: true
+  country:
+    en: Netherlands
+    es: Países Bajos
+  description:
+    en: |
+      <p>It took just one enterprising journalist to set up and run de Wob-Knop  — with valuable support from <a href="https://www.vvoj.org/">Vereniging van Onderzoeksjournalisten</a>.</p>
+      <p>The underlying aim is to encourage more online FOI requesting in the Netherlands, using a request generator which will eventually link into the platform.</p>
+    es: |
+      <p>It took just one enterprising journalist to set up and run de Wob-Knop  — with valuable support from <a href="https://www.vvoj.org/">Vereniging van Onderzoeksjournalisten</a>.</p>
+      <p>The underlying aim is to encourage more online FOI requesting in the Netherlands, using a request generator which will eventually link into the platform.</p>
+
+- title: FYI
+  url: https://fyi.org.nz
+  image: fyi.jpg
+  featured: false
+  pro: false
+  country:
+    en: New Zealand
+    es: Nueva Zelanda
+
 - title: Imamo pravo znati
   url: https://imamopravoznati.org
   image: imamo-pravo-znati.jpg
-  featured: true
+  featured: false
   pro: false
   country:
     en: Croatia
     es: Croacia
-  description:
-    en: |
-      <p>Imamo pravo znati (We Have A Right To Know) represents the 20th installation of Alaveteli.</p>
-      <p> Now thanks to <a href="http://codeforcroatia.org">Code for Croatia</a>, an HrOpen expert group and <a href="http://gong.hr">GONG</a>, Croatians have an easier path to free public information from nearly 6,000 public authorities.</p>
-    es: |
-      <p>Imamo pravo znati (We Have A Right To Know) represents the 20th installation of Alaveteli.</p>
-      <p> Now thanks to <a href="http://codeforcroatia.org">Code for Croatia</a>, an HrOpen expert group and <a href="http://gong.hr">GONG</a>, Croatians have an easier path to free public information from nearly 6,000 public authorities.</p>
 
 - title: Right To Know
   url: https://www.righttoknow.org.au
   image: right-to-know.jpg
-  featured: true
+  featured: false
   pro: false
   country:
     en: Australia
     es: Australia
-  description:
-    en: |
-      <p>Australia has had a Freedom of Information Act since 1982, which allows anyone, anywhere in the world to ask Australian public authorities for information in their custody.</p>
-      <p>In 2012 the <a href="https://www.openaustraliafoundation.org.au/">OpenAustralia Foundation</a> launched Right To Know to make the process of obtaining information under the Act easier, as historically the process has been too difficult and time consuming for ordinary citizens. </p>
-    es: |
-      <p>Australia has had a Freedom of Information Act since 1982, which allows anyone, anywhere in the world to ask Australian public authorities for information in their custody.</p>
-      <p>In 2012 the <a href="https://www.openaustraliafoundation.org.au/">OpenAustralia Foundation</a> launched Right To Know to make the process of obtaining information under the Act easier, as historically the process has been too difficult and time consuming for ordinary citizens. </p>
+
+- title: Ki Mit Tud
+  url: https://kimittud.atlatszo.hu
+  image: ki-mit-tud.jpg
+  featured: false
+  pro: false
+  country:
+    en: Hungary
+    es: Hungría
+
+- title: Доступ до правди
+  url: https://dostup.pravda.com.ua
+  image: ukraine.jpg
+  featured: false
+  pro: false
+  country:
+    en: Ukraine
+    es: Ucrania
 
 - title: Qué Sabés
   url: https://quesabes.org
@@ -270,15 +283,6 @@
     en: Tunisia
     es: Túnez
 
-- title: Handlingar
-  url: https://handlingar.se
-  image: handlingar.jpg
-  featured: false
-  pro: true
-  country:
-    en: Sweden
-    es: Suecia
-
 - title: VreauInfo
   url: https://www.vreauinfo.md
   image: vreauinfo.jpg
@@ -287,24 +291,6 @@
   country:
     en: Moldova
     es: Moldavia
-
-- title: MaDada
-  url: https://madada.fr
-  image: ma-dada.jpg
-  featured: false
-  pro: false
-  country:
-    en: France
-    es: Francia
-
-- title: de Wob-Knop
-  url: Netherlands
-  image: de-wob-knop.jpg
-  featured: false
-  pro: true
-  country:
-    en: Netherlands
-    es: Países Bajos
 
 - title: Derecho al Dato
   url: https://derechoaldato.com.ar
