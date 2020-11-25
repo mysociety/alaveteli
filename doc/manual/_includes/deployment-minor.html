@@ -3,4 +3,7 @@
     <h3 class="deployment__title">{{ include.title }}</h3>
     <p class="deployment__country">{{ include.country }}</p>
     <p class="deployment__link"><a href="{{ include.url }}">{{ include.url | remove: "http://" | remove: "https://" }}</a></p>
+  {% if include.pro %}
+    <p class="deployment__pro"><a href="{{ include.url | append: '/pro' }}">Alaveteli Pro</a></p>
+  {% endif %}
 </div>
