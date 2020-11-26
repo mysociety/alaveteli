@@ -135,7 +135,8 @@ module HasTagString
 
     # Adds a new tag to the model, if it isn't already there
     def add_tag_if_not_already_present(tag_as_string)
-      self.tag_string = self.tag_string + " " + tag_as_string
+      return tag_string if has_tag?(tag_as_string)
+      self.tag_string = tag_string + ' ' + tag_as_string
     end
   end
 

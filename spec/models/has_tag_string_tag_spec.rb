@@ -139,6 +139,26 @@ describe HasTagString::HasTagStringTag do
 
   end
 
+  describe '#add_tag_if_not_already_present' do
+    subject { model.add_tag_if_not_already_present(tag) }
+
+    let!(:model) { ModelWithTag.create(tag_string: 'foo testing') }
+
+    context 'when the tag is already present' do
+      let(:tag) { 'foo' }
+      it { is_expected.to eq('foo testing') }
+    end
+
+    context 'when a similar tag is already present' do
+      let(:tag) { 'test' }
+      it { is_expected.to eq('foo testing test') }
+    end
+
+    context 'when the tag is not present' do
+      let(:tag) { 'bar' }
+      it { is_expected.to eq('foo testing bar') }
+    end
+  end
 end
 
 describe HasTagString::HasTagStringTag, " when fiddling with tag strings" do
