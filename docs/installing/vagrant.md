@@ -58,6 +58,13 @@ provision it with the software packages and setup needed. The supplied
 scripts will create you a Vagrant VM based on the server edition of
 Debian Wheezy that contains everything you need to work on Alaveteli.
 
+1. Install a vagrant plugin (if you don't already have it) that
+   automatically install guest additions:
+
+            # on your machine
+            $ vagrant plugin install vagrant-vbguest
+            $ vagrant vbguest
+            
 1.  Get a copy of Alaveteli from
     <a href="{{ page.baseurl }}/docs/glossary/#git" class="glossary__link">GitHub</a>:
 
