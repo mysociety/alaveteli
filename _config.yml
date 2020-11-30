@@ -34,6 +34,6 @@ exclude:
   - vendor
 plugins:
   - jekyll-redirect-from
-jurisdictions: "25"
-requests: "800,000"
-languages: "20"
+jurisdictions: "25+"
+requests: "800,000+"
+languages: "20+"
