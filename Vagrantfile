@@ -6,6 +6,13 @@ require 'yaml'
 # Usage
 # =====
 #
+# Install a vagrant plugin (if you don't already have it) that
+# automatically install guest additions
+#
+#   # Host
+#   $ vagrant plugin install vagrant-vbguest
+#   $ vagrant vbguest
+#
 # Get a copy of Alaveteli from GitHub and create the Vagrant instance
 #
 #   # Host
