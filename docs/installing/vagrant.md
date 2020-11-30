@@ -64,8 +64,8 @@ Debian Wheezy that contains everything you need to work on Alaveteli.
             # on your machine
             $ vagrant plugin install vagrant-vbguest
             $ vagrant vbguest
-            
-1.  Get a copy of Alaveteli from
+
+2.  Get a copy of Alaveteli from
     <a href="{{ page.baseurl }}/docs/glossary/#git" class="glossary__link">GitHub</a>:
 
             # on your machine
@@ -73,7 +73,7 @@ Debian Wheezy that contains everything you need to work on Alaveteli.
             $ cd alaveteli
             $ git submodule update --init
 
-2.  Create the Vagrant VM. This will provision the system and can take some time
+3.  Create the Vagrant VM. This will provision the system and can take some time
     — sometimes as long as 20 minutes. Vagrant will download the files it
     needs, so the first time you do this, you must be online for this to work.
 
@@ -81,8 +81,8 @@ Debian Wheezy that contains everything you need to work on Alaveteli.
 
     When the VM is ready, you'll see a message like `Machine booted and ready`,
     and control will be back at your command prompt.
-    
-3.  Once the machine is up, you can log in to it by doing <code>vagrant&nbsp;ssh</code>
+
+4.  Once the machine is up, you can log in to it by doing <code>vagrant&nbsp;ssh</code>
     (from the same directory that contains the `Vagrantfile`, so if you've
     just run `up` you're already in the right place). This will log you into
     the VM as the `vagrant` user. Immediately change to the `alaveteli`
@@ -94,7 +94,7 @@ Debian Wheezy that contains everything you need to work on Alaveteli.
             # You are now in a terminal on the virtual machine
             $ cd alaveteli
 
-4. To start Alaveteli, run the rails server:
+5. To start Alaveteli, run the rails server:
 
             # in the virtual machine terminal
             bundle exec rails server -b 0.0.0.0
