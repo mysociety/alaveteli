@@ -117,6 +117,20 @@ namespace :temp do
     end
   end
 
+  desc 'Migrate admins and pro users to role-based backend'
+  task :migrate_admins_and_pros_to_roles => :environment do
+    User.where(:admin_level => 'super').each do |admin|
+      admin.add_role :admin
+    end
+    pro_users = User.
+      includes(:pro_account).
+        where("pro_accounts.id IS NOT NULL").
+          references(:pro_accounts)
+    pro_users.each do |pro_user|
+      pro_user.add_role :pro
+    end
+  end
+
   desc 'Remove cached zip download files'
   task :remove_cached_zip_downloads => :environment do
     FileUtils.rm_rf(InfoRequest.download_zip_dir)
