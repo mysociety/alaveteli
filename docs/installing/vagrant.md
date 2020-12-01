@@ -56,7 +56,7 @@ create your own <a href="{{ page.baseurl }}/docs/glossary/#theme" class="glossar
 The basic process is to create a base virtual machine (VM), and then
 provision it with the software packages and setup needed. The supplied
 scripts will create you a Vagrant VM based on the server edition of
-Debian Wheezy that contains everything you need to work on Alaveteli.
+Debian that contains everything you need to work on Alaveteli.
 
 1. Install a vagrant plugin (if you don't already have it) that
    automatically installs guest additions:
