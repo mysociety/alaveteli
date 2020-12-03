@@ -199,6 +199,21 @@ namespace :config_files do
     puts "Updated #{updated_count} info requests"
   end
 
+  desc 'Set reject_incoming_at_mta on a list of requests identified by ' \
+       'request address'
+  task set_reject_incoming_at_mta_from_list: :environment do
+    example = 'rake temp:set_reject_incoming_at_mta_from_list ' \
+              'FILE=/tmp/rejection_list.txt'
+
+    check_for_env_vars(['FILE'], example)
+
+    File.read(ENV['FILE']).each_line do |line|
+      info_request = InfoRequest.find_by_incoming_email(line.strip)
+      info_request.reject_incoming_at_mta = true
+      info_request.save!
+    end
+  end
+
   desc 'Unset reject_incoming_at_mta on a request'
   task :unset_reject_incoming_at_mta => :environment do
     example = 'rake config_files:unset_reject_incoming_at_mta REQUEST_ID=4'
