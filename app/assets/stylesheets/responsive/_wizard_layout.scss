@@ -43,6 +43,40 @@
   grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
 }
 
+.wizard__progress {
+  display: flex;
+  align-items: center;
+
+  button {
+    margin-right: auto;
+    margin-bottom: 0;
+  }
+
+  p {
+    color: #666;
+    margin: 0 1rem;
+  }
+}
+
+.progress {
+  display: flex;
+  height: 0.75rem;
+  border-radius: 0.75rem;
+  min-width: 15em;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.progress-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #008CBA;
+  transition: width 0.6s ease;
+}
+
 .wizard__suggestion {
   display: none;
 
@@ -65,4 +99,8 @@
   &.wizard__next-step--active {
     display: none;
   }
+}
+
+.js-wizard-generic-suggestions-header {
+    display: none;
 }

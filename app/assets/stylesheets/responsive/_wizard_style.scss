@@ -16,6 +16,19 @@
   }
 }
 
+.wizard__progress {
+  p {
+    color: #666;
+  }
+}
+
+.wizard-prototype-hint {
+  display: inline-block;
+  padding: 0 0.3em;
+  margin: 0 -0.3em;
+  background-color: rgba(255, 255, 0, 0.2);
+}
+
 .wizard__next-steps {
   padding: 0;
 }

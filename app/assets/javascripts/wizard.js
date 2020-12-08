@@ -25,7 +25,11 @@
       actionActiveClass: "wizard__action--active",
 
       nextStepClass: "wizard__next-step",
-      nextStepActiveClass: "wizard__next-step--active"
+      nextStepActiveClass: "wizard__next-step--active",
+
+      remainingMessageClass: "js-wizard-remaining",
+      progressBarClass: "js-wizard-progress",
+      nextButtonClass: "js-wizard-next"
     };
 
     this.options = $.extend(true, defaults, options);
@@ -54,6 +58,7 @@
     wizard._setupQuestions();
 
     wizard._update();
+    wizard._updateProgress();
   };
 
   RefusalWizard.prototype._setupBlocks = function() {
@@ -95,6 +100,7 @@
 
     wizard.$questions.on("change", function() {
       wizard._update($(this));
+      wizard._updateProgress();
     });
   };
 
@@ -236,6 +242,39 @@
     var $options = $question.find("input, option");
     $options.prop("checked", false);
     $options.prop("selected", false);
+  };
+
+  RefusalWizard.prototype._updateProgress = function() {
+    var wizard = this;
+    var totalAnswered = wizard.$el.find(
+      "." + wizard.options.questionAnsweredClass
+    ).length;
+    var totalAnswerable = wizard.$el.find(
+      "." + wizard.options.questionAnswerableClass
+    ).length;
+    var totalQuestions = totalAnswered + totalAnswerable;
+
+    var remainingString =
+      "" +
+      totalAnswerable +
+      " question" +
+      (totalAnswerable === 1 ? "" : "s") +
+      " remaining";
+    var progressPercent =
+      ((totalQuestions - totalAnswerable) / totalQuestions) * 100;
+
+    wizard.$el
+      .find("." + wizard.options.remainingMessageClass)
+      .text(remainingString);
+    wizard.$el
+      .find("." + wizard.options.progressBarClass)
+      .css({
+        width: "" + progressPercent + "%"
+      })
+      .attr({
+        "aria-valuenow": totalQuestions - totalAnswerable,
+        "aria-valuemax": totalQuestions
+      });
   };
 
   RefusalWizard.prototype.log = function() {
