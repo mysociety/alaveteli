@@ -380,7 +380,7 @@ class User < ApplicationRecord
   end
 
   def update_url_name
-    url_name = Alaveteli::Format.simplify_url_part(read_attribute(:name), 'user', 32)
+    url_name = MySociety::Format.simplify_url_part(read_attribute(:name), 'user', 32)
     # For user with same name as others, add on arbitary numeric identifier
     unique_url_name = url_name
     suffix_num = 2 # as there's already one without numeric suffix

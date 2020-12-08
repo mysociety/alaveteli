@@ -66,7 +66,6 @@ require 'alaveteli_mail_poller'
 require 'safe_redirect'
 require 'alaveteli_pro/metrics_report'
 require 'alaveteli_pro/webhook_endpoints'
-require 'alaveteli_format'
 
 # Allow tests to be run under a non-superuser database account if required
 if Rails.env == 'test' and ActiveRecord::Base.configurations['test']['constraint_disabling'] == false

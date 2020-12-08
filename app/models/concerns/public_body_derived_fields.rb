@@ -45,7 +45,7 @@ module PublicBodyDerivedFields
 
   def update_url_name
     if changed.include?('name') || changed.include?('short_name')
-      self.url_name = Alaveteli::Format.
+      self.url_name = MySociety::Format.
                         simplify_url_part(short_or_long_name, 'body')
     end
   end
