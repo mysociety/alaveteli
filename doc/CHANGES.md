@@ -1,3 +1,19 @@
+# develop
+
+## Highlighted Features
+
+* Tweak change request button colours in admin interface (Gareth Rees)
+
+## Upgrade Notes
+
+* The `InfoRequest` method `law_used_human` has been deprecated and will be
+  removed in a future release. The new method `legislation` has been supplied
+  instead which is a Legislation instance with a `#to_s` method equivalent to
+  the original method, e.g. `law_used_human(:full)` can now be replaced with
+  `legislation.to_s(:full)`.
+
+### Changed Templates
+
 # 0.38.3.0
 
 ## Highlighted Features
@@ -20,6 +36,8 @@
 * Fix issue where locale switcher wouldn't update (Graeme Porteous)
 * Updated translations from Transifex (Graeme Porteous)
 * Dependencies upgrades (Gareth Rees, Graeme Porteous)
+
+## Upgrade Notes
 
 ### Changed Templates
 

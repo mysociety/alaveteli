@@ -89,7 +89,9 @@ ISO_CURRENCY_CODE: GBP
 # ---
 TIME_ZONE: UTC
 
-# These feeds are displayed accordingly on the Alaveteli "blog" page:
+# These feeds are displayed accordingly on the Alaveteli "blog" page. Currently
+# WordPress is the only "officially supported" external blog feed, but other
+# feeds may work if they use the same data format.
 #
 # BLOG_FEED - String url to the blog feed (default: nil)
 #

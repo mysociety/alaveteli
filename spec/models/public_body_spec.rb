@@ -1846,6 +1846,31 @@ CSV
   end
 end
 
+RSpec.describe PublicBody do
+  let(:public_body) { FactoryBot.build(:public_body) }
+  let(:legislation) { double(:legislation) }
+  let(:legislations) { [legislation] }
+
+  describe '#legislations' do
+    subject { public_body.legislations }
+
+    it 'pass self to Legislation.for_public_body' do
+      expect(Legislation).to receive(:for_public_body).with(public_body).
+        and_return(legislations)
+      is_expected.to eq legislations
+    end
+  end
+
+  describe '#legislation' do
+    subject { public_body.legislation }
+
+    it 'returns first legislations' do
+      allow(public_body).to receive(:legislations).and_return(legislations)
+      is_expected.to eq legislation
+    end
+  end
+end
+
 describe PublicBody do
 
   describe "calculated home page" do

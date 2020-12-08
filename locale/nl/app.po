@@ -1979,8 +1979,8 @@ msgstr "Het eenmalige wachtwoord is niet juist"
 msgid "Invalid token"
 msgstr "Ongeldige token"
 
-msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
-msgstr "Is {{email_address}} het verkeerde e-mailadres voor {{type_of_request}} Wob-verzoeken aan {{public_body_name}}? Als dat het geval is, gelieve ons dan te contacteren via dit formulier:"
+msgid "Is {{email_address}} the wrong address for {{law_used_full}} requests to {{public_body_name}}? If so, please contact us using this form:"
+msgstr "Is {{email_address}} het verkeerde e-mailadres voor {{law_used_full}} Wob-verzoeken aan {{public_body_name}}? Als dat het geval is, gelieve ons dan te contacteren via dit formulier:"
 
 msgid "It looks like something has gone wrong when sending this message. It could be a technical issue, or an issue with the email address we have for the authority."
 msgstr "Er lijkt iets te zijn misgegaan tijdens het versturen van dit bericht. Het kan een technisch probleem zijn of een probleem met het e-mailadres waarover we beschikken voor deze overheidsinstantie."
@@ -3452,8 +3452,8 @@ msgstr ""
 msgid "There are no requests to extract right now. Great job!"
 msgstr ""
 
-msgid "There are {{count}} new annotations on your {{info_request}} request. Follow this link to see what they wrote."
-msgstr "Er zijn {{count}} nieuwe opmerkingen bij je verzoek inzake {{info_request}}. Klik op deze link om ze te lezen."
+msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
+msgstr "Er zijn {{count}} nieuwe opmerkingen bij je verzoek inzake {{law_used_short}}. Klik op deze link om ze te lezen."
 
 msgid "There is <strong>more than one person</strong> who uses this site and has this name. One of them is shown below, you may mean a different one:"
 msgstr "Er is <strong>meer dan één gebruiker</strong> van deze site met deze gebruikersnaam. Een van deze gebruikers wordt hieronder getoond, maar misschien zoek je iemand anders:"
@@ -3899,9 +3899,9 @@ msgstr "Stop met volgen van"
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr "Helaas beschikt de Wob-Knop niet over een werkend e-mailadres voor {{public_body_names}}."
 
-msgid "Unfortunately, we do not have a working {{info_request_law_used_full}} address for"
+msgid "Unfortunately, we do not have a working {{law_used_full}} address for"
 msgstr ""
-"Helaas beschikt de Wob-Knop niet over een ({{info_request_law_used_full}}) \n"
+"Helaas beschikt de Wob-Knop niet over een ({{law_used_full}}) \n"
 "e-mailadres voor"
 
 msgid "Unknown"
@@ -4881,9 +4881,6 @@ msgstr ""
 "{{existing_request_user}} \n"
 " heeft al ditzelfde Wob-verzoek ingediend op {{date}}. Je kan 'm bekijken op <a href=\"{{existing_request}}\">bestaand Wob-verzoek</a>, of hieronder details wijzigen om een nieuwe, andere maar gelijkaardige vraag te stellen."
 
-msgid "{{foi_law}} requests to '{{public_body_name}}'"
-msgstr "{{foi_law}} Wob-verzoeken aan '{{public_body_name}}'"
-
 msgid "{{info_request_user_name}}"
 msgstr ""
 
@@ -4892,8 +4889,11 @@ msgstr " {{law_used_full}} Wob-verzoek inzake {{title}}"
 
 #. TRANSLATORS: Please don't use double quotes (") in this translation
 #. or it will break the site's ability to send emails to authorities!
-msgid "{{law_used}} requests at {{public_body}}"
-msgstr "{{law_used}} Wob-verzoeken aan {{public_body}}"
+msgid "{{law_used_short}} requests at {{public_body}}"
+msgstr "{{law_used_short}} Wob-verzoeken aan {{public_body}}"
+
+msgid "{{law_used_short}} requests to '{{public_body_name}}'"
+msgstr "{{law_used_short}} Wob-verzoeken aan '{{public_body_name}}'"
 
 msgid "{{length_of_time}} ago"
 msgstr "sinds {{length_of_time}}"
@@ -4949,8 +4949,8 @@ msgstr ""
 msgid "{{public_body_name}}: {{response_url}}"
 msgstr ""
 
-msgid "{{public_body}} has asked you to explain part of your {{law_used}} request."
-msgstr "{{public_body}} heeft je gevraagd om een deel van je Wob-verzoek te verduidelijken {{law_used}}."
+msgid "{{public_body}} has asked you to explain part of your {{law_used_short}} request."
+msgstr "{{public_body}} heeft je gevraagd om een deel van je Wob-verzoek te verduidelijken {{law_used_short}}."
 
 msgid "{{public_body}} sent a response to {{user_name}}"
 msgstr "{{public_body}} heeft geantwoord aan {{user_name}}"
@@ -5010,9 +5010,9 @@ msgstr "{{user_name}} heeft een opmerking toegevoegd"
 msgid "{{user_name}} has annotated your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "{{user_name}} heeft je {{law_used_short}} Wob-verzoek geannoteerd. Volg de link om de opmerking te zien."
 
-msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
+msgid "{{user_name}} has reported an {{law_used_short}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
 msgstr ""
-"{{user_name}} heeft een antwoord gemeld in het kader van {{law_used}} dat aandacht vereist van de beheerders. Bekijk het even en beantwoord deze \n"
+"{{user_name}} heeft een antwoord gemeld in het kader van {{law_used_short}} dat aandacht vereist van de beheerders. Bekijk het even en beantwoord deze \n"
 " e-mail om hen te laten weten welk gevolg je eraan zal geven."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."

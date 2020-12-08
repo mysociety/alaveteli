@@ -2008,8 +2008,8 @@ msgstr "Ijambo ry’ibanga rikora rimwe ritariryo"
 msgid "Invalid token"
 msgstr ""
 
-msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
-msgstr "Iyi imeli {{email_address}} ntabwo ariyo yakoreshwa mu gutanga ibibazo bijyanye na {{type_of_request}} kuri {{public_body_name}}? Niba atariyo, tubwire wuzuza iyi fishi:"
+msgid "Is {{email_address}} the wrong address for {{law_used_full}} requests to {{public_body_name}}? If so, please contact us using this form:"
+msgstr "Iyi imeli {{email_address}} ntabwo ariyo yakoreshwa mu gutanga ibibazo bijyanye na {{law_used_full}} kuri {{public_body_name}}? Niba atariyo, tubwire wuzuza iyi fishi:"
 
 msgid "It looks like something has gone wrong when sending this message. It could be a technical issue, or an issue with the email address we have for the authority."
 msgstr "Birasa nkaho harimo ikibazo iyo umuntu yohereje ubutumwa.Bishobora kuba ari ikibazo cya ketinike,cyangwa  dufite imeli y’ikigo itariyo."
@@ -3501,8 +3501,8 @@ msgstr ""
 msgid "There are no requests to extract right now. Great job!"
 msgstr ""
 
-msgid "There are {{count}} new annotations on your {{info_request}} request. Follow this link to see what they wrote."
-msgstr "Hari ibisobanuro {{count}} bishya ku kibazo cyawe {{info_request}}. Kurikira iri huza urebe ibyo banditse."
+msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
+msgstr "Hari ibisobanuro {{count}} bishya ku kibazo cyawe {{law_used_short}}. Kurikira iri huza urebe ibyo banditse."
 
 msgid "There is <strong>more than one person</strong> who uses this site and has this name. One of them is shown below, you may mean a different one:"
 msgstr ""
@@ -3945,9 +3945,9 @@ msgstr "Yihorere"
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr "Ku bw'amahirwe make, ntabwo dufite imeli ikora ya {{public_body_names}}."
 
-msgid "Unfortunately, we do not have a working {{info_request_law_used_full}} address for"
+msgid "Unfortunately, we do not have a working {{law_used_full}} address for"
 msgstr ""
-"Ku bw'amahirwe make, ntabwo dufite {{info_request_law_used_full}}\n"
+"Ku bw'amahirwe make, ntabwo dufite {{law_used_full}}\n"
 "aderesi ikora ya"
 
 msgid "Unknown"
@@ -4960,9 +4960,6 @@ msgstr ""
 "      gutanga icyo kibazo kuwa {{date}}. Ushobora kureba <a href=\"{{existing_request}}\">ikibazo gisanzwe</a>,\n"
 "      cyangwa se ugahindura ibisobanuro bikurikira ugatanga ikindi ikibazo gisa na cyakindi."
 
-msgid "{{foi_law}} requests to '{{public_body_name}}'"
-msgstr "{{foi_law}} ibibazo byabajijwe '{{public_body_name}}'"
-
 msgid "{{info_request_user_name}}"
 msgstr "{{info_request_user_name}}"
 
@@ -4971,8 +4968,11 @@ msgstr "{{law_used_full}} ikibazo - {{title}}"
 
 #. TRANSLATORS: Please don't use double quotes (") in this translation
 #. or it will break the site's ability to send emails to authorities!
-msgid "{{law_used}} requests at {{public_body}}"
-msgstr "{{law_used}} ibibazo byabajijwe {{public_body}}"
+msgid "{{law_used_short}} requests at {{public_body}}"
+msgstr "{{law_used_short}} ibibazo byabajijwe {{public_body}}"
+
+msgid "{{law_used_short}} requests to '{{public_body_name}}'"
+msgstr "{{law_used_short}} ibibazo byabajijwe '{{public_body_name}}'"
 
 msgid "{{length_of_time}} ago"
 msgstr "{{length_of_time}} ishize"
@@ -5031,8 +5031,8 @@ msgstr ""
 msgid "{{public_body_name}}: {{response_url}}"
 msgstr ""
 
-msgid "{{public_body}} has asked you to explain part of your {{law_used}} request."
-msgstr "{{public_body}} yagusabye gusobanura igice {{law_used}} cy'ikibazo cyawe."
+msgid "{{public_body}} has asked you to explain part of your {{law_used_short}} request."
+msgstr "{{public_body}} yagusabye gusobanura igice {{law_used_short}} cy'ikibazo cyawe."
 
 msgid "{{public_body}} sent a response to {{user_name}}"
 msgstr "{{public_body}} yoherereje igisubizo {{user_name}}"
@@ -5097,9 +5097,9 @@ msgstr ""
 "{{user_name}} yatanze ibisobanuro {{law_used_short}} \n"
 "ku kibazo cyawe. Kurikira aka kayoboro urebe ibyo banditse."
 
-msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
+msgid "{{user_name}} has reported an {{law_used_short}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
 msgstr ""
-"{{user_name}} yagaragaje {{law_used}} subiza ko gikenewe kurebwa n'abayobozi b'urubuga. Gisome, hanyuma usubize iyi\n"
+"{{user_name}} yagaragaje {{law_used_short}} subiza ko gikenewe kurebwa n'abayobozi b'urubuga. Gisome, hanyuma usubize iyi\n"
 "imeli ubabwire icyo ugiye kubikoraho."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."

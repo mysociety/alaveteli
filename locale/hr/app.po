@@ -2014,8 +2014,8 @@ msgstr "Neispravna jednokratna lozinka"
 msgid "Invalid token"
 msgstr "Neispravan token"
 
-msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
-msgstr "Je li {{email_address}} pogrešna adresa za {{type_of_request}} zahtjeve za {{public_body_name}}? Ako da, molimo kontaktirajte nas koristeći ovaj obrazac:"
+msgid "Is {{email_address}} the wrong address for {{law_used_full}} requests to {{public_body_name}}? If so, please contact us using this form:"
+msgstr "Je li {{email_address}} pogrešna adresa za {{law_used_full}} zahtjeve za {{public_body_name}}? Ako da, molimo kontaktirajte nas koristeći ovaj obrazac:"
 
 msgid "It looks like something has gone wrong when sending this message. It could be a technical issue, or an issue with the email address we have for the authority."
 msgstr "Izgleda da je došlo do pogreške prilikom slanja ove poruke. To bi mogao biti tehnički problem ili problem s adresom e-pošte koju imamo za tijelo javne vlasti."
@@ -3504,8 +3504,8 @@ msgstr ""
 msgid "There are no requests to extract right now. Great job!"
 msgstr ""
 
-msgid "There are {{count}} new annotations on your {{info_request}} request. Follow this link to see what they wrote."
-msgstr "Postoje {{count}} nove bilješke na Vašem {{info_request}} zahtjevu. Pratite ovu poveznicu da pogledate što je napisano."
+msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
+msgstr "Postoje {{count}} nove bilješke na Vašem {{law_used_short}} zahtjevu. Pratite ovu poveznicu da pogledate što je napisano."
 
 msgid "There is <strong>more than one person</strong> who uses this site and has this name. One of them is shown below, you may mean a different one:"
 msgstr ""
@@ -3946,9 +3946,9 @@ msgstr "Prestani pratiti"
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr "Nažalost, nemamo važeću adresu za {{public_body_names}}."
 
-msgid "Unfortunately, we do not have a working {{info_request_law_used_full}} address for"
+msgid "Unfortunately, we do not have a working {{law_used_full}} address for"
 msgstr ""
-"Nažalost, ne posjedujemo ispravnu {{info_request_law_used_full}}\n"
+"Nažalost, ne posjedujemo ispravnu {{law_used_full}}\n"
 "adresu za"
 
 msgid "Unknown"
@@ -4978,9 +4978,6 @@ msgstr ""
 " izradio jednak zahtjev dana {{date}}. Možete vidjeti <a href=\"{{existing_request}}\">postojeći zahtjev</a>,\n"
 " ili urediti detalje ispod kako biste napravili novi, ali sličan zahtjev."
 
-msgid "{{foi_law}} requests to '{{public_body_name}}'"
-msgstr "{{foi_law}} zahtjeva prema '{{public_body_name}}'"
-
 msgid "{{info_request_user_name}}"
 msgstr "{{info_request_user_name}}"
 
@@ -4989,8 +4986,11 @@ msgstr "Zahtjev za {{law_used_full}} - {{title}}"
 
 #. TRANSLATORS: Please don't use double quotes (") in this translation
 #. or it will break the site's ability to send emails to authorities!
-msgid "{{law_used}} requests at {{public_body}}"
-msgstr "Zahtjevi za {{law_used}} upućeni prema {{public_body}}"
+msgid "{{law_used_short}} requests at {{public_body}}"
+msgstr "Zahtjevi za {{law_used_short}} upućeni prema {{public_body}}"
+
+msgid "{{law_used_short}} requests to '{{public_body_name}}'"
+msgstr "{{law_used_short}} zahtjeva prema '{{public_body_name}}'"
 
 msgid "{{length_of_time}} ago"
 msgstr "prije {{length_of_time}}"
@@ -5052,8 +5052,8 @@ msgstr "{{public_body_name}}: {{request_url}}"
 msgid "{{public_body_name}}: {{response_url}}"
 msgstr "{{public_body_name}}: {{response_url}}"
 
-msgid "{{public_body}} has asked you to explain part of your {{law_used}} request."
-msgstr "{{public_body}} je zatražilo da pojasnite dio svog zahtjeva za {{law_used}}."
+msgid "{{public_body}} has asked you to explain part of your {{law_used_short}} request."
+msgstr "{{public_body}} je zatražilo da pojasnite dio svog zahtjeva za {{law_used_short}}."
 
 msgid "{{public_body}} sent a response to {{user_name}}"
 msgstr "{{public_body}} je poslao/la poruku za {{user_name}}"
@@ -5120,9 +5120,9 @@ msgstr ""
 "{{user_name}} je komentirao/la Vaš zahtjev za {{law_used_short}}.\n"
 " Pratite ovu poveznicu kako biste vidjeli što je napisao/la."
 
-msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
+msgid "{{user_name}} has reported an {{law_used_short}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
 msgstr ""
-"{{user_name}} je prijavio/la {{law_used}} te treba pažnju administratora. Pogledajte i odgovorite na ovu\n"
+"{{user_name}} je prijavio/la {{law_used_short}} te treba pažnju administratora. Pogledajte i odgovorite na ovu\n"
 "e-poštu da biste im dali do znanja što ćete napraviti u svezi s tim."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."

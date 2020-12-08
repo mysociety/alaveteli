@@ -373,8 +373,12 @@ class PublicBody < ApplicationRecord
     "authority"
   end
 
-  def law_only_short
-    eir_only? ? 'EIR' : 'FOI'
+  def legislations
+    @legislations ||= Legislation.for_public_body(self)
+  end
+
+  def legislation
+    legislations.first
   end
 
   # Guess home page from the request email, or use explicit override, or nil

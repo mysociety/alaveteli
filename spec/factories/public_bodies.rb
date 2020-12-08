@@ -37,6 +37,10 @@ FactoryBot.define do
       tag_string { 'not_apply' }
     end
 
+    trait :eir_only do
+      tag_string { 'eir_only' }
+    end
+
     factory :blank_email_public_body do
       request_email { '' }
     end

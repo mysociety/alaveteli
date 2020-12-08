@@ -1934,8 +1934,8 @@ msgstr "Ogiltigt engångslösenord"
 msgid "Invalid token"
 msgstr "Ogiltigt token"
 
-msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
-msgstr "Är {{email_address}} fel adress för {{type_of_request}} förfrågningar till {{public_body_name}}? Om så är fallet, vänligen kontakta oss genom detta formulär:"
+msgid "Is {{email_address}} the wrong address for {{law_used_full}} requests to {{public_body_name}}? If so, please contact us using this form:"
+msgstr "Är {{email_address}} fel adress för {{law_used_full}} förfrågningar till {{public_body_name}}? Om så är fallet, vänligen kontakta oss genom detta formulär:"
 
 msgid "It looks like something has gone wrong when sending this message. It could be a technical issue, or an issue with the email address we have for the authority."
 msgstr "Det ser ut som att någonting har gått fel när meddelanden skickades. Det kan vara ett tekniskt problem, eller ett problem med e-postadressen vi har till myndigheten."
@@ -3381,8 +3381,8 @@ msgstr "Det finns inga förfrågningar att klassificera just nu. Bra jobbat!"
 msgid "There are no requests to extract right now. Great job!"
 msgstr "Det finns inga förfrågningar att extrahera just nu. Bra jobbat!"
 
-msgid "There are {{count}} new annotations on your {{info_request}} request. Follow this link to see what they wrote."
-msgstr "Det finns {{count}} nya anteckningar på din {{info_request}} begäran. Följ länken för att se vad de skrev."
+msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
+msgstr "Det finns {{count}} nya anteckningar på din {{law_used_short}} begäran. Följ länken för att se vad de skrev."
 
 msgid "There is <strong>more than one person</strong> who uses this site and has this name. One of them is shown below, you may mean a different one:"
 msgstr "Det är <strong>mer än en person</strong> som använder denna webbplats med detta namn. En av dem visas nedan, du kan avse en annan person:"
@@ -3799,8 +3799,8 @@ msgstr "Sluta följa"
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr "Tyvärr har vi inte har en fungerande adress för {{public_body_names}}."
 
-msgid "Unfortunately, we do not have a working {{info_request_law_used_full}} address for"
-msgstr "Tyvärr har vi inte har en fungerande {{info_request_law_used_full}} adress för"
+msgid "Unfortunately, we do not have a working {{law_used_full}} address for"
+msgstr "Tyvärr har vi inte har en fungerande {{law_used_full}} adress för"
 
 msgid "Unknown"
 msgstr "Okänd"
@@ -4764,9 +4764,6 @@ msgstr[1] "{{count}} förfrågningar."
 msgid "{{existing_request_user}} already created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>, or edit the details below to make a new but similar request."
 msgstr "{{existing_request_user}} har redan gjort samma begäran den {{date}}. Du kan antingen se <a href=\"{{existing_request}}\">den existerande begäran</a>, eller redigera detaljerna nedan för att göra en ny men liknande begäran."
 
-msgid "{{foi_law}} requests to '{{public_body_name}}'"
-msgstr "{{foi_law}} förfrågningar till '{{public_body_name}}'"
-
 msgid "{{info_request_user_name}}"
 msgstr "{{info_request_user_name}}"
 
@@ -4775,8 +4772,11 @@ msgstr "begäran enligt {{law_used_full}} - {{title}}"
 
 #. TRANSLATORS: Please don't use double quotes (") in this translation
 #. or it will break the site's ability to send emails to authorities!
-msgid "{{law_used}} requests at {{public_body}}"
-msgstr "{{law_used}} förfrågningar vid {{public_body}}"
+msgid "{{law_used_short}} requests at {{public_body}}"
+msgstr "{{law_used_short}} förfrågningar vid {{public_body}}"
+
+msgid "{{law_used_short}} requests to '{{public_body_name}}'"
+msgstr "{{law_used_short}} förfrågningar till '{{public_body_name}}'"
 
 msgid "{{length_of_time}} ago"
 msgstr "{{length_of_time}} sedan"
@@ -4832,8 +4832,8 @@ msgstr "{{public_body_name}}: {{request_url}}"
 msgid "{{public_body_name}}: {{response_url}}"
 msgstr "{{public_body_name}}: {{response_url}}"
 
-msgid "{{public_body}} has asked you to explain part of your {{law_used}} request."
-msgstr "{{public_body}} har bett dig att förklara en del av din begäran enligt {{law_used}}."
+msgid "{{public_body}} has asked you to explain part of your {{law_used_short}} request."
+msgstr "{{public_body}} har bett dig att förklara en del av din begäran enligt {{law_used_short}}."
 
 msgid "{{public_body}} sent a response to {{user_name}}"
 msgstr "{{public_body}} skickade ett svar till {{user_name}}"
@@ -4893,8 +4893,8 @@ msgstr "{{user_name}} lade till en anteckning"
 msgid "{{user_name}} has annotated your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "{{user_name}} har kommenterat din begäran enligt {{law_used_short}}. Följ denna länk för att se vad de skrev."
 
-msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
-msgstr "{{user_name}} har rapporterat en {{law_used}} svar som är i behov av en administratörs uppmärksamhet. Ta en titt och svara på detta e-postmeddelande för att låta dem veta vad du kommer att göra åt det."
+msgid "{{user_name}} has reported an {{law_used_short}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
+msgstr "{{user_name}} har rapporterat en {{law_used_short}} svar som är i behov av en administratörs uppmärksamhet. Ta en titt och svara på detta e-postmeddelande för att låta dem veta vad du kommer att göra åt det."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "{{user_name}} har använt {{site_name}} för att skicka meddelandet du ser nedan"

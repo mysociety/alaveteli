@@ -1982,8 +1982,8 @@ msgstr "Neplatné jednorázové heslo"
 msgid "Invalid token"
 msgstr "Neplatný symbol"
 
-msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
-msgstr "Je {{email_address}} chybná adresa pro {{type_of_request}} dotazy vznesené na instituci {{public_body_name}}? Pokud ano, prosíme kontaktujte nás vyplněním tohoto formuláře:"
+msgid "Is {{email_address}} the wrong address for {{law_used_full}} requests to {{public_body_name}}? If so, please contact us using this form:"
+msgstr "Je {{email_address}} chybná adresa pro {{law_used_full}} dotazy vznesené na instituci {{public_body_name}}? Pokud ano, prosíme kontaktujte nás vyplněním tohoto formuláře:"
 
 msgid "It looks like something has gone wrong when sending this message. It could be a technical issue, or an issue with the email address we have for the authority."
 msgstr "Vypadá to, že se něco pokazilo při posílání této zprávy. Může to být technický problém, nebo e-mailová adresa instituce není správná. "
@@ -3470,7 +3470,7 @@ msgstr "Teď tu nejsou žádné projekty ke klasifikaci. Dobrá práce!"
 msgid "There are no requests to extract right now. Great job!"
 msgstr "Teď tu nejsou žádné dotazy k vypsání. Dobrá práce!"
 
-msgid "There are {{count}} new annotations on your {{info_request}} request. Follow this link to see what they wrote."
+msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "Jsou tu {{count}} nové anotace, vztahující se ka vašemu dotazu. Pro jejich přečtení použijte tento odkaz."
 
 msgid "There is <strong>more than one person</strong> who uses this site and has this name. One of them is shown below, you may mean a different one:"
@@ -3904,8 +3904,8 @@ msgstr "Zrušit sledování"
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr "Bohužel nemáme správnou e-mailovou adresu pro {{public_body_names}}."
 
-msgid "Unfortunately, we do not have a working {{info_request_law_used_full}} address for"
-msgstr "Bohužel nemáme funkční adresu pro zaslání {{info_request_law_used_full}}"
+msgid "Unfortunately, we do not have a working {{law_used_full}} address for"
+msgstr "Bohužel nemáme funkční adresu pro zaslání {{law_used_full}}"
 
 msgid "Unknown"
 msgstr "Neznámá data"
@@ -4948,9 +4948,6 @@ msgstr[3] "{{count}} dotazů."
 msgid "{{existing_request_user}} already created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>, or edit the details below to make a new but similar request."
 msgstr "{{existing_request_user}} již vznesl stejný dotaz dne {{date}}. Můžete si <a href=\"{{existing_request}}\">tento dotaz</a> přečíst, nebo vzneste podobný, ale podle svých potřeb upravený dotaz."
 
-msgid "{{foi_law}} requests to '{{public_body_name}}'"
-msgstr "{{foi_law}}  dotaz '{{public_body_name}}'"
-
 msgid "{{info_request_user_name}}"
 msgstr "{{info_request_user_name}}"
 
@@ -4959,8 +4956,11 @@ msgstr "Žádost o informace podle {{law_used_full}} - {{title}}"
 
 #. TRANSLATORS: Please don't use double quotes (") in this translation
 #. or it will break the site's ability to send emails to authorities!
-msgid "{{law_used}} requests at {{public_body}}"
-msgstr "{{law_used}} dotazy vznesené na instituci {{public_body}}"
+msgid "{{law_used_short}} requests at {{public_body}}"
+msgstr "{{law_used_short}} dotazy vznesené na instituci {{public_body}}"
+
+msgid "{{law_used_short}} requests to '{{public_body_name}}'"
+msgstr "{{law_used_short}}  dotaz '{{public_body_name}}'"
 
 msgid "{{length_of_time}} ago"
 msgstr "před {{length_of_time}}"
@@ -5024,7 +5024,7 @@ msgstr "{{public_body_name}}: {{request_url}}"
 msgid "{{public_body_name}}: {{response_url}}"
 msgstr "{{public_body_name}}: {{response_url}}"
 
-msgid "{{public_body}} has asked you to explain part of your {{law_used}} request."
+msgid "{{public_body}} has asked you to explain part of your {{law_used_short}} request."
 msgstr "Instituce {{public_body}} vás žádá o doplnění vzneseného dotazu."
 
 msgid "{{public_body}} sent a response to {{user_name}}"
@@ -5094,8 +5094,8 @@ msgstr ""
 "Uživatel {{user_name}} uložil poznámku k vašemu dotazu. \n"
 "Kliknutím na dotaz si ji přečtete."
 
-msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
-msgstr "{{user_name}} nahlásil/a {{law_used}} administrátorovi. Podívejte se prosím na vznesený dotaz i odpověď. Až uděláte nezbytné kroky, odpovězte na tento e-mail a stručně je popište."
+msgid "{{user_name}} has reported an {{law_used_short}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
+msgstr "{{user_name}} nahlásil/a {{law_used_short}} administrátorovi. Podívejte se prosím na vznesený dotaz i odpověď. Až uděláte nezbytné kroky, odpovězte na tento e-mail a stručně je popište."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "Uživatel/ka {{user_name}} využil/a stránek {{site_name}} pro zaslání níže uvedené zprávy."

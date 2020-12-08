@@ -96,15 +96,15 @@
               :method => 'put',
               :class => "form form-horizontal" do %>
 
-              <%= submit_tag 'Close', :class => "btn btn-danger" %>
+              <%= submit_tag 'Close', class: 'btn' %>
 
-              <%= link_to "Close and respond",
-                edit_admin_change_request_path(@change_request),
-                :class => 'btn' %>
+              <%= link_to 'Close and respond',
+                          edit_admin_change_request_path(@change_request),
+                          class: 'btn btn-primary' %>
 
-              <%= link_to "Add authority",
-                new_admin_body_path(:change_request_id => @change_request.id),
-                :class => 'btn btn-primary' %>
+              <%= link_to 'Add authority',
+                new_admin_body_path(change_request_id: @change_request.id),
+                class: 'btn btn-success' %>
             <% end %>
           <% end %>
         </div>
@@ -130,16 +130,16 @@
               :class => "form form-horizontal",
               :method => 'put' do %>
 
-              <%= submit_tag 'Close', :class => "btn btn-danger" %>
+              <%= submit_tag 'Close', class: 'btn' %>
 
-              <%= link_to "Close and respond",
-                edit_admin_change_request_path(@change_request),
-                :class => 'btn' %>
+              <%= link_to 'Close and respond',
+                          edit_admin_change_request_path(@change_request),
+                          class: 'btn btn-primary' %>
 
-              <%= link_to "Make update",
+              <%= link_to 'Make update',
                 edit_admin_body_path(@change_request.public_body,
-                                     :change_request_id => @change_request.id),
-                                     :class => 'btn btn-primary' %>
+                                     change_request_id: @change_request.id),
+                                     class: 'btn btn-success' %>
              <% end %>
            <% end %>
         </div>

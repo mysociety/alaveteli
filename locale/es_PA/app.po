@@ -2002,8 +2002,8 @@ msgstr "Contraseña de solo una vez inválida "
 msgid "Invalid token"
 msgstr ""
 
-msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
-msgstr "¿Es {{email_address}} la dirección correcta para solicitudes {{type_of_request}} a {{public_body_name}}? Si es así, por favor contáctenos usando el siguiente formulario:"
+msgid "Is {{email_address}} the wrong address for {{law_used_full}} requests to {{public_body_name}}? If so, please contact us using this form:"
+msgstr "¿Es {{email_address}} la dirección correcta para solicitudes {{law_used_full}} a {{public_body_name}}? Si es así, por favor contáctenos usando el siguiente formulario:"
 
 msgid "It looks like something has gone wrong when sending this message. It could be a technical issue, or an issue with the email address we have for the authority."
 msgstr "Parece que algo salió mal al enviar este mensaje. Podría ser un problema técnico, o un problema con la dirección de correo eléctronico que tenemos para la institución pública."
@@ -3487,8 +3487,8 @@ msgstr ""
 msgid "There are no requests to extract right now. Great job!"
 msgstr ""
 
-msgid "There are {{count}} new annotations on your {{info_request}} request. Follow this link to see what they wrote."
-msgstr "Hay {{count}} comentarios en su solicitud {{info_request}}. Siga este enlace para leer lo que dicen."
+msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
+msgstr "Hay {{count}} comentarios en su solicitud {{law_used_short}}. Siga este enlace para leer lo que dicen."
 
 msgid "There is <strong>more than one person</strong> who uses this site and has this name. One of them is shown below, you may mean a different one:"
 msgstr "Hay <strong>más de una persona</strong> que utiliza esta plataforma y tiene este nombre. Una de ellas se muestra a continuación, puede que se refiera a una distinta:"
@@ -3920,9 +3920,9 @@ msgstr ""
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr "Lamentablemente, no tenemos una dirección que funcione para {{public_body_names}}."
 
-msgid "Unfortunately, we do not have a working {{info_request_law_used_full}} address for"
+msgid "Unfortunately, we do not have a working {{law_used_full}} address for"
 msgstr ""
-"Lamentablemente, no tenemos una dirección de correo válida {{info_request_law_used_full}}\n"
+"Lamentablemente, no tenemos una dirección de correo válida {{law_used_full}}\n"
 " para"
 
 msgid "Unknown"
@@ -4924,9 +4924,6 @@ msgstr ""
 " ha creado la misma solicitud el {{date}}. Puede ver<a href=\"{{existing_request}}\">la solicitud existente</a>,\n"
 " o editar la su creada por usted a continuación para crear una solicitud similar a la anterior."
 
-msgid "{{foi_law}} requests to '{{public_body_name}}'"
-msgstr "{{foi_law}} le solicita a '{{public_body_name}}'"
-
 msgid "{{info_request_user_name}}"
 msgstr ""
 
@@ -4935,8 +4932,11 @@ msgstr "solicitud de {{law_used_full}} - {{title}}"
 
 #. TRANSLATORS: Please don't use double quotes (") in this translation
 #. or it will break the site's ability to send emails to authorities!
-msgid "{{law_used}} requests at {{public_body}}"
-msgstr "{{law_used}} a {{public_body}}"
+msgid "{{law_used_short}} requests at {{public_body}}"
+msgstr "{{law_used_short}} a {{public_body}}"
+
+msgid "{{law_used_short}} requests to '{{public_body_name}}'"
+msgstr "{{law_used_short}} le solicita a '{{public_body_name}}'"
 
 msgid "{{length_of_time}} ago"
 msgstr "hace {{length_of_time}}"
@@ -4992,8 +4992,8 @@ msgstr ""
 msgid "{{public_body_name}}: {{response_url}}"
 msgstr ""
 
-msgid "{{public_body}} has asked you to explain part of your {{law_used}} request."
-msgstr "{{public_body}} desea que le explique parte de su solicitud de {{law_used}}."
+msgid "{{public_body}} has asked you to explain part of your {{law_used_short}} request."
+msgstr "{{public_body}} desea que le explique parte de su solicitud de {{law_used_short}}."
 
 msgid "{{public_body}} sent a response to {{user_name}}"
 msgstr "{{public_body}} respondió a {{user_name}}"
@@ -5058,9 +5058,9 @@ msgstr ""
 "{{user_name}} ha comentado es su solicitud {{law_used_short}}.\n"
 " Siga este enlace para ver lo que ha escrito."
 
-msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
+msgid "{{user_name}} has reported an {{law_used_short}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
 msgstr ""
-"{{user_name}} ha denunciado un {{law_used}} respuesta necesita intervención del administrador. Revísela, y conteste a este\n"
+"{{user_name}} ha denunciado un {{law_used_short}} respuesta necesita intervención del administrador. Revísela, y conteste a este\n"
 " correo para indicarles qué hacer al respecto."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."

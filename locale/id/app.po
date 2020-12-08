@@ -2005,8 +2005,8 @@ msgstr ""
 msgid "Invalid token"
 msgstr ""
 
-msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
-msgstr "Apakah {{email_address}} adalah alamat yang salah untuk {{type_of_request}} permintaan kepada {{public_body_name}}? Jika demikian, silakan hubungi kami menggunakan formulir ini:"
+msgid "Is {{email_address}} the wrong address for {{law_used_full}} requests to {{public_body_name}}? If so, please contact us using this form:"
+msgstr "Apakah {{email_address}} adalah alamat yang salah untuk {{law_used_full}} permintaan kepada {{public_body_name}}? Jika demikian, silakan hubungi kami menggunakan formulir ini:"
 
 msgid "It looks like something has gone wrong when sending this message. It could be a technical issue, or an issue with the email address we have for the authority."
 msgstr ""
@@ -3496,8 +3496,8 @@ msgstr ""
 msgid "There are no requests to extract right now. Great job!"
 msgstr ""
 
-msgid "There are {{count}} new annotations on your {{info_request}} request. Follow this link to see what they wrote."
-msgstr "Ada {{count}} anotasi baru pada permintaan {{info_request}} Anda. Ikuti tautan ini untuk melihat apa yang mereka tulis."
+msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
+msgstr "Ada {{count}} anotasi baru pada permintaan {{law_used_short}} Anda. Ikuti tautan ini untuk melihat apa yang mereka tulis."
 
 msgid "There is <strong>more than one person</strong> who uses this site and has this name. One of them is shown below, you may mean a different one:"
 msgstr ""
@@ -3939,9 +3939,9 @@ msgstr ""
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr ""
 
-msgid "Unfortunately, we do not have a working {{info_request_law_used_full}} address for"
+msgid "Unfortunately, we do not have a working {{law_used_full}} address for"
 msgstr ""
-"Sayangnya, kami tidak memiliki alamat {{info_request_law_used_full}}\n"
+"Sayangnya, kami tidak memiliki alamat {{law_used_full}}\n"
 "kerja untuk"
 
 msgid "Unknown"
@@ -4950,9 +4950,6 @@ msgstr ""
 "      menciptakan permintaan yang sama pada {{date}}. Anda dapat menampilkan <a href=\"{{existing_request}}\">permintaan yang sudah ada</a>,\n"
 "      atau merubah rincian di bawah untuk membuat permintaan baru tetapi serupa."
 
-msgid "{{foi_law}} requests to '{{public_body_name}}'"
-msgstr ""
-
 msgid "{{info_request_user_name}}"
 msgstr ""
 
@@ -4961,8 +4958,11 @@ msgstr "{{law_used_full}} permintaan - {{title}}"
 
 #. TRANSLATORS: Please don't use double quotes (") in this translation
 #. or it will break the site's ability to send emails to authorities!
-msgid "{{law_used}} requests at {{public_body}}"
-msgstr "{{law_used}} permintaan di {{public_body}}"
+msgid "{{law_used_short}} requests at {{public_body}}"
+msgstr "{{law_used_short}} permintaan di {{public_body}}"
+
+msgid "{{law_used_short}} requests to '{{public_body_name}}'"
+msgstr ""
 
 msgid "{{length_of_time}} ago"
 msgstr "{{length_of_time}} yang lalu"
@@ -5018,8 +5018,8 @@ msgstr ""
 msgid "{{public_body_name}}: {{response_url}}"
 msgstr ""
 
-msgid "{{public_body}} has asked you to explain part of your {{law_used}} request."
-msgstr "{{public_body}} bertanya kepada Anda untuk menjelaskan bagian permintaan {{law_used}} Anda."
+msgid "{{public_body}} has asked you to explain part of your {{law_used_short}} request."
+msgstr "{{public_body}} bertanya kepada Anda untuk menjelaskan bagian permintaan {{law_used_short}} Anda."
 
 msgid "{{public_body}} sent a response to {{user_name}}"
 msgstr "{{public_body}} mengirimkan respon kepada {{user_name}}"
@@ -5084,9 +5084,9 @@ msgstr ""
 "{{user_name}} telah menganotasi permintaan {{law_used_short}} \n"
 "Anda. Ikuti tatutan ini untuk melihat apa yang mereka tulis."
 
-msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
+msgid "{{user_name}} has reported an {{law_used_short}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
 msgstr ""
-"{{user_name}} telah melaporkan {{law_used}} permintaan membutuhkan perhatian Administrator. Lihat dan balas ke\n"
+"{{user_name}} telah melaporkan {{law_used_short}} permintaan membutuhkan perhatian Administrator. Lihat dan balas ke\n"
 "surat elektronik untuk memberitahu mereka apa yang akan anda lakukan."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."

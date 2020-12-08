@@ -24,6 +24,7 @@ describe GeneralController do
                        :user => user }
 
       # Create the other data we're checking
+      FactoryBot.create(:embargoed_request, user: user, public_body: body)
       FactoryBot.create(:info_request, :user => user,
                                        :public_body => body,
                                        :prominence => 'hidden')
@@ -52,18 +53,19 @@ describe GeneralController do
         to receive(:alaveteli_git_commit).
           and_return(mock_git_commit)
 
-      expected = { :alaveteli_git_commit => mock_git_commit,
-                   :alaveteli_version => ALAVETELI_VERSION,
-                   :ruby_version => RUBY_VERSION,
-                   :visible_public_body_count => 1,
-                   :visible_request_count => 1,
-                   :confirmed_user_count => 1,
-                   :visible_comment_count => 1,
-                   :track_thing_count => 1,
-                   :widget_vote_count => 1,
-                   :public_body_change_request_count => 1,
-                   :request_classification_count => 1,
-                   :visible_followup_message_count => 1 }
+      expected = { alaveteli_git_commit: mock_git_commit,
+                   alaveteli_version: ALAVETELI_VERSION,
+                   ruby_version: RUBY_VERSION,
+                   visible_public_body_count: 1,
+                   visible_request_count: 1,
+                   private_request_count: 1,
+                   confirmed_user_count: 1,
+                   visible_comment_count: 1,
+                   track_thing_count: 1,
+                   widget_vote_count: 1,
+                   public_body_change_request_count: 1,
+                   request_classification_count: 1,
+                   visible_followup_message_count: 1 }
 
       get :version, params: { :format => :json }
 

@@ -1938,7 +1938,7 @@ msgstr "Password monouso non valida"
 msgid "Invalid token"
 msgstr ""
 
-msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
+msgid "Is {{email_address}} the wrong address for {{law_used_full}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr "{{email_address}} è l'indirizzo sbagliato per le richieste di accesso a \"{{public_body_name}}\"? Se sì, scrivici usando questo modulo:"
 
 msgid "It looks like something has gone wrong when sending this message. It could be a technical issue, or an issue with the email address we have for the authority."
@@ -3395,7 +3395,7 @@ msgstr ""
 msgid "There are no requests to extract right now. Great job!"
 msgstr ""
 
-msgid "There are {{count}} new annotations on your {{info_request}} request. Follow this link to see what they wrote."
+msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr ""
 "Ci sono {{count}} nuove annotazioni alla tua richiesta {{info_request}}.\n"
 "Clicca su questo link per leggerle."
@@ -3817,8 +3817,8 @@ msgstr "Smetti di seguire"
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr "Non abbiamo un indirizzo valido per {{public_body_names}}."
 
-msgid "Unfortunately, we do not have a working {{info_request_law_used_full}} address for"
-msgstr "Non abbiamo un indirizzo valido per {{info_request_law_used_full}}"
+msgid "Unfortunately, we do not have a working {{law_used_full}} address for"
+msgstr "Non abbiamo un indirizzo valido per {{law_used_full}}"
 
 msgid "Unknown"
 msgstr "Sconosciuto"
@@ -4793,9 +4793,6 @@ msgstr ""
 "{{existing_request_user}} ha già inviato la stessa richiesta lo scorso {{date}}. Puoi vedere <a href=\"{{existing_request}}\">la richiesta già esistente</a>,\n"
 " o modificare i dettagli qui sotto per inviarne una simile, ma nuova."
 
-msgid "{{foi_law}} requests to '{{public_body_name}}'"
-msgstr "Richieste secondo il {{foi_law}} a \"{{public_body_name}}"
-
 msgid "{{info_request_user_name}}"
 msgstr "{{info_request_user_name}}"
 
@@ -4804,8 +4801,11 @@ msgstr "Richiesta di accesso secondo il {{law_used_full}}  - {{title}}"
 
 #. TRANSLATORS: Please don't use double quotes (") in this translation
 #. or it will break the site's ability to send emails to authorities!
-msgid "{{law_used}} requests at {{public_body}}"
-msgstr "Destinatario delle richieste di {{law_used}} o generalizzato indirizzate a '{{public_body}}'"
+msgid "{{law_used_short}} requests at {{public_body}}"
+msgstr "Destinatario delle richieste di {{law_used_short}} o generalizzato indirizzate a '{{public_body}}'"
+
+msgid "{{law_used_short}} requests to '{{public_body_name}}'"
+msgstr "Richieste secondo il {{law_used_short}} a \"{{public_body_name}}"
 
 msgid "{{length_of_time}} ago"
 msgstr "{{length_of_time}} fa"
@@ -4861,8 +4861,8 @@ msgstr ""
 msgid "{{public_body_name}}: {{response_url}}"
 msgstr ""
 
-msgid "{{public_body}} has asked you to explain part of your {{law_used}} request."
-msgstr "\"{{public_body}}\" ti richiede di spiegare la tua richiesta in base al {{law_used}}."
+msgid "{{public_body}} has asked you to explain part of your {{law_used_short}} request."
+msgstr "\"{{public_body}}\" ti richiede di spiegare la tua richiesta in base al {{law_used_short}}."
 
 msgid "{{public_body}} sent a response to {{user_name}}"
 msgstr "{{public_body}} ha spedito una risposta a {{user_name}}"
@@ -4924,8 +4924,8 @@ msgstr ""
 "{{user_name}} ha aggiunto un'annotazione alla tua richiesta di {{law_used_short}}. \n"
 "Clicca sul link per vedere cosa ha scritto."
 
-msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
-msgstr "{{user_name}} ha segnalato un  risposta in base al {{law_used}} che necessita dell'attenzione dell'amministratore. Dai un'occhiata e rispondi a questa email per far sapere loro cosa farai a riguardo."
+msgid "{{user_name}} has reported an {{law_used_short}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
+msgstr "{{user_name}} ha segnalato un  risposta in base al {{law_used_short}} che necessita dell'attenzione dell'amministratore. Dai un'occhiata e rispondi a questa email per far sapere loro cosa farai a riguardo."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "{{user_name}} ha usato {{site_name}} per inviare il messaggio qui sotto."

@@ -178,10 +178,7 @@ class InfoRequest < ApplicationRecord
   validate :must_be_valid_state
   validates_inclusion_of :prominence, :in => Prominence::VALUES
 
-  validates_inclusion_of :law_used, :in => [
-    'foi', # Freedom of Information Act
-    'eir', # Environmental Information Regulations
-  ]
+  validates_inclusion_of :law_used, in: Legislation.keys
 
   # who can send new responses
   validates_inclusion_of :allow_new_responses_from, :in => [
@@ -872,8 +869,8 @@ class InfoRequest < ApplicationRecord
   def email_subject_request(opts = {})
     html = opts.fetch(:html, true)
     _('{{law_used_full}} request - {{title}}',
-      :law_used_full => law_used_human(:full),
-      :title => (html ? title : title.html_safe))
+      law_used_full: legislation.to_s(:full),
+      title: (html ? title : title.html_safe))
   end
 
   def email_subject_followup(opts = {})
@@ -890,12 +887,15 @@ class InfoRequest < ApplicationRecord
     end
   end
 
+  def legislation
+    return Legislation.find!(law_used) if law_used
+    public_body&.legislation || Legislation.default
+  end
+
   def law_used_human(key = :full)
-    begin
-      applicable_law.fetch(key)
-    rescue KeyError
-      raise "Unknown key '#{key}' for '#{law_used}'"
-    end
+    warn %q([DEPRECATION] InfoRequest#law_used_human will be replaced with
+          InfoRequest#legislation as of 0.40).squish
+    legislation.to_s(key)
   end
 
   def find_existing_outgoing_message(body)
@@ -1262,9 +1262,9 @@ class InfoRequest < ApplicationRecord
     MailHandler.address_from_name_and_email(
       # TRANSLATORS: Please don't use double quotes (") in this translation
       # or it will break the site's ability to send emails to authorities!
-      _("{{law_used}} requests at {{public_body}}",
-        :law_used => law_used_human(:short),
-        :public_body => public_body.short_or_long_name),
+      _("{{law_used_short}} requests at {{public_body}}",
+        law_used_short: legislation,
+        public_body: public_body.short_or_long_name),
         recipient_email)
   end
 
@@ -1627,9 +1627,7 @@ class InfoRequest < ApplicationRecord
     attrs = { :public_body => destination_public_body }
 
     if destination_public_body
-      attrs.merge!({
-        :law_used => destination_public_body.law_only_short.downcase
-      })
+      attrs[:law_used] = destination_public_body.legislation.key
     end
 
     return_val = if update(attrs)
@@ -1879,10 +1877,7 @@ class InfoRequest < ApplicationRecord
       # See http://www.tatvartha.com/2011/03/activerecordmissingattributeerror-missing-attribute-a-bug-or-a-features/
     end
 
-    # FOI or EIR?
-    if new_record? && public_body && public_body.eir_only?
-      self.law_used = 'eir'
-    end
+    self.law_used ||= legislation.key if new_record?
   end
 
   def set_use_notifications
@@ -1891,14 +1886,6 @@ class InfoRequest < ApplicationRecord
                                info_request_batch_id.present?
     end
     return true
-  end
-
-  def applicable_law
-    begin
-      TranslatedConstants.law_used_readable_data.fetch(law_used.to_sym)
-    rescue KeyError
-      raise "Unknown law used '#{law_used}'"
-    end
   end
 
   def title_formatting

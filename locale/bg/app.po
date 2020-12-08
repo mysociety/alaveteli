@@ -1992,8 +1992,8 @@ msgstr ""
 msgid "Invalid token"
 msgstr ""
 
-msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
-msgstr "Грешен ли е адресът {{email_address}} за {{type_of_request}} заявления към {{public_body_name}}? Ако да, моля свържете се с нас, използвайки тази форма:"
+msgid "Is {{email_address}} the wrong address for {{law_used_full}} requests to {{public_body_name}}? If so, please contact us using this form:"
+msgstr "Грешен ли е адресът {{email_address}} за {{law_used_full}} заявления към {{public_body_name}}? Ако да, моля свържете се с нас, използвайки тази форма:"
 
 msgid "It looks like something has gone wrong when sending this message. It could be a technical issue, or an issue with the email address we have for the authority."
 msgstr ""
@@ -3485,8 +3485,8 @@ msgstr ""
 msgid "There are no requests to extract right now. Great job!"
 msgstr ""
 
-msgid "There are {{count}} new annotations on your {{info_request}} request. Follow this link to see what they wrote."
-msgstr "Има {{count}} нови коментари по заявлението Ви {{info_request}}. Последвайте тази връзка за да видите какво са написали."
+msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
+msgstr "Има {{count}} нови коментари по заявлението Ви {{law_used_short}}. Последвайте тази връзка за да видите какво са написали."
 
 msgid "There is <strong>more than one person</strong> who uses this site and has this name. One of them is shown below, you may mean a different one:"
 msgstr ""
@@ -3929,9 +3929,9 @@ msgstr ""
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr "За съжаление, ние не разполагаме с работещ адрес за {{public_body_names}}."
 
-msgid "Unfortunately, we do not have a working {{info_request_law_used_full}} address for"
+msgid "Unfortunately, we do not have a working {{law_used_full}} address for"
 msgstr ""
-"За съжаление, ние не разполагаме с работещ {{info_request_law_used_full}}\n"
+"За съжаление, ние не разполагаме с работещ {{law_used_full}}\n"
 "адрес за"
 
 msgid "Unknown"
@@ -4943,9 +4943,6 @@ msgstr ""
 " отправи същото заявление на {{date}}. Вие можете да разгледате <a href=\"{{existing_request}}\">съществуващото Заявление</a>,\n"
 " или да редактирате детайли по-долу за да направите ново подобно Заявление."
 
-msgid "{{foi_law}} requests to '{{public_body_name}}'"
-msgstr "{{foi_law}} заявления до '{{public_body_name}}'"
-
 msgid "{{info_request_user_name}}"
 msgstr ""
 
@@ -4954,8 +4951,11 @@ msgstr "{{law_used_full}} заявление - {{title}}"
 
 #. TRANSLATORS: Please don't use double quotes (") in this translation
 #. or it will break the site's ability to send emails to authorities!
-msgid "{{law_used}} requests at {{public_body}}"
-msgstr "{{law_used}} заявления до {{public_body}}"
+msgid "{{law_used_short}} requests at {{public_body}}"
+msgstr "{{law_used_short}} заявления до {{public_body}}"
+
+msgid "{{law_used_short}} requests to '{{public_body_name}}'"
+msgstr "{{law_used_short}} заявления до '{{public_body_name}}'"
 
 msgid "{{length_of_time}} ago"
 msgstr "преди {{length_of_time}}"
@@ -5011,8 +5011,8 @@ msgstr ""
 msgid "{{public_body_name}}: {{response_url}}"
 msgstr ""
 
-msgid "{{public_body}} has asked you to explain part of your {{law_used}} request."
-msgstr "{{public_body}} поиска да поясните част от Вашето {{law_used}} Заявление."
+msgid "{{public_body}} has asked you to explain part of your {{law_used_short}} request."
+msgstr "{{public_body}} поиска да поясните част от Вашето {{law_used_short}} Заявление."
 
 msgid "{{public_body}} sent a response to {{user_name}}"
 msgstr "{{public_body}} изпрати отговор до {{user_name}}"
@@ -5077,9 +5077,9 @@ msgstr ""
 "{{user_name}} коментира Вашето Заявление за {{law_used_short}} \n"
 ". Последвайте тази връзка за да видите какво е написал."
 
-msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
+msgid "{{user_name}} has reported an {{law_used_short}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
 msgstr ""
-"{{user_name}} беше докладван {{law_used}} отговор като нуждаещ се от вниманието на администратор. Прегледайте го и отговорете\n"
+"{{user_name}} беше докладван {{law_used_short}} отговор като нуждаещ се от вниманието на администратор. Прегледайте го и отговорете\n"
 "на този имейл за да ги уведомите какво смятате да направите."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
