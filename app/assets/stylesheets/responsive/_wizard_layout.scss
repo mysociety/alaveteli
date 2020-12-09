@@ -1,0 +1,68 @@
+.wizard {
+  margin: 2rem 0;
+}
+
+// Hide questions by default.
+.wizard__question, {
+  display: none;
+}
+
+// Show answerable and answered questions...
+.wizard__question--answerable,
+.wizard__question--answered {
+  display: block;
+}
+
+// ...but only show the *first* answerable question.
+.wizard__question--answerable ~ .wizard__question--answerable {
+  display: none;
+}
+
+.wizard__options {
+  margin-top: -1rem;
+
+  & > div {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+  }
+
+  input {
+    position: absolute;
+    margin: 0.4em 0 0 -1.5em;
+  }
+
+  label {
+    margin: 0;
+    color: inherit;
+  }
+}
+
+.wizard__options--grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
+}
+
+.wizard__suggestion {
+  display: none;
+
+  &.wizard__suggestion--active {
+    display: block;
+  }
+}
+
+.wizard__action {
+  display: none;
+
+  &.wizard__action--active {
+    display: block;
+  }
+}
+
+.wizard__next-step {
+  display: block;
+
+  &.wizard__next-step--active {
+    display: none;
+  }
+}

@@ -1,0 +1,9 @@
+<div class="wizard__action" data-block="<%= action.id %>">
+  <h2><%= action.header %></h2>
+
+  <%= render action.suggestions %>
+
+  <button type="submit" class="button" value="<%= action.id %>">
+    <%= action.button %>
+  </button>
+</div>

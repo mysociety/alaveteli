@@ -1,0 +1,55 @@
+.wizard__question {
+  fieldset {
+    border-color: rgba(#000, 0.1);
+  }
+}
+
+.wizard__question--answered {
+  color: #666;
+
+  fieldset {
+    border-color: rgba(#000, 0.05);
+  }
+
+  legend {
+    font-weight: inherit;
+  }
+}
+
+.wizard__next-steps {
+  padding: 0;
+}
+
+.wizard__next-step,
+.wizard__suggestion {
+  margin: 1em 0;
+  padding-left: 20px;
+  background: transparent url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 16 16" fill="rgba(0,0,0,0.5)"><path d="M0 8a1 1 0 011-1h11.585L8.29 2.71a1.001 1.001 0 111.416-1.417l6 6a1 1 0 010 1.415l-6 6a1.001 1.001 0 11-1.416-1.416L12.585 9H1a1 1 0 01-1-1z"></path></svg>') 0 0.35em no-repeat;
+  background-size: 12px 12px;
+}
+
+.wizard__next-step {
+  a {
+    display: block;
+  }
+}
+
+.wizard__action {
+  padding: 1em;
+  margin: 2em 0;
+  border-radius: 0.5em;
+  border: 1px solid rgba(#000, 0.1);
+  background-color: #fff;
+
+  @media #{$large-up} {
+    padding: 2em;
+  }
+
+  h2 {
+    margin: 0 0 0.5em 0;
+  }
+
+  button {
+    margin: 0.5em 0 0 0;
+  }
+}

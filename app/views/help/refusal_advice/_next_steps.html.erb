@@ -1,0 +1,9 @@
+<h2>Next steps</h2>
+
+<ul class="wizard__next-steps">
+  <% actions.each do |action| %>
+  <li class="wizard__next-step" data-block="<%= action.id %>">
+    <a href="#"><%= action.title %></a>
+  </li>
+  <% end %>
+</ul>
