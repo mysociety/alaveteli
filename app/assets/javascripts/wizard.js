@@ -125,7 +125,9 @@
         return true;
       }
 
-      for (var showIf of showIfArray) {
+      for (var i = 0, len = showIfArray.length; i < len; i++) {
+        var showIf = showIfArray[i];
+
         // can't be a dependent if showIf is for a different question ID
         // check showIf operator
         if (
@@ -185,7 +187,7 @@
     return $(dependents);
   };
 
-  RefusalWizard.prototype._update = function($current_question = null) {
+  RefusalWizard.prototype._update = function($current_question) {
     var wizard = this;
     var $next_question = wizard._nextQuestion();
 
