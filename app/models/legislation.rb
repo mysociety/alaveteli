@@ -5,21 +5,37 @@ class Legislation
   UnknownLegislation = Class.new(StandardError)
   UnknownLegislationVariant = Class.new(StandardError)
 
+  def self.refusals=(hash)
+    @refusals = hash&.with_indifferent_access
+    all!
+    @refusals
+  end
+
+  def self.refusals
+    @refusals ||= {}.with_indifferent_access
+  end
+
   def self.all
-    @all ||= [
+    @all ||= all!
+  end
+
+  def self.all!
+    @all = [
       new(
         key: 'foi',
         short: _('FOI'),
         full: _('Freedom of Information'),
         with_a: _('A Freedom of Information request'),
-        act: _('Freedom of Information Act')
+        act: _('Freedom of Information Act'),
+        refusals: refusals['foi']
       ),
       new(
         key: 'eir',
         short: _('EIR'),
         full: _('Environmental Information Regulations'),
         with_a: _('An Environmental Information request'),
-        act: _('Environmental Information Regulations')
+        act: _('Environmental Information Regulations'),
+        refusals: refusals['eir']
       )
     ]
   end
