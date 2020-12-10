@@ -229,5 +229,10 @@ RSpec.describe Legislation do
       expect(refusals_as_strings).to include('Section 12')
       expect(refusals_as_strings).to include('Section 14')
     end
+
+    context 'when refusals is set to nil' do
+      let(:legislation) { Legislation.new(key: 'key', refusals: nil) }
+      it { is_expected.to be_empty }
+    end
   end
 end

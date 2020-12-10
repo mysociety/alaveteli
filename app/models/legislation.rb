@@ -55,7 +55,7 @@ class Legislation
 
   def initialize(key:, **variants)
     @key = key
-    @refusals = variants.fetch(:refusals, [])
+    @refusals = variants.fetch(:refusals, []) || []
     @variants = variants
   end
 
