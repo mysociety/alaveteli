@@ -7,7 +7,7 @@ require 'yaml'
 class RefusalAdvice::Store
   def self.from_yaml(files)
     yamls = files.sort.inject([]) do |memo, file|
-      yaml = YAML.load(File.read(file))
+      yaml = ActiveSupport::ConfigurationFile.parse(file)
       memo << yaml if yaml
       memo
     end

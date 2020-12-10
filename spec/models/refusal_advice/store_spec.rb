@@ -29,12 +29,46 @@ RSpec.describe RefusalAdvice::Store do
   end
 
   describe '.from_yaml' do
-    let(:glob) do
-      Dir.glob(Rails.root + 'spec/fixtures/refusal_advice/data/*.yml')
-    end
     subject { described_class.from_yaml(glob) }
 
-    it { is_expected.to eq(described_class.new(fixture_data)) }
+    context 'with plain YAML' do
+      let(:glob) do
+        Dir.glob(Rails.root + 'spec/fixtures/refusal_advice/data/*.yml')
+      end
+
+      it { is_expected.to eq(described_class.new(fixture_data)) }
+    end
+
+    context 'with ERB YAML' do
+      let(:fixture_data) do
+        {
+          foi: {
+            group: [
+              { id: _('FOI requests') }
+            ]
+          }
+        }
+      end
+
+      let(:glob) do
+        Dir.glob(Rails.root + 'spec/fixtures/refusal_advice/data/*.yml.erb')
+      end
+
+      context 'in the default locale' do
+        it 'recognises translations' do
+          expect(subject.to_h[:foi][:group].first).to eq(id: 'FOI requests')
+        end
+      end
+
+      context 'in a different locale' do
+        it 'recognises translations' do
+          AlaveteliLocalization.with_locale(:es) do
+            expect(subject.to_h[:foi][:group].first).
+              to eq(id: 'Solicitudes de información')
+          end
+        end
+      end
+    end
   end
 
   describe '#[]' do
