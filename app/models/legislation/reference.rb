@@ -32,6 +32,10 @@ class Legislation
       parent_reference + "(#{sub_elements.join(')(')})"
     end
 
+    def parent
+      self.class.new(legislation: legislation, reference: parent_reference)
+    end
+
     def cover?(other)
       legislation == other.legislation && type == other.type &&
         elements == other.elements[0...elements.count]

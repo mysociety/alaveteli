@@ -59,6 +59,32 @@ RSpec.describe Legislation::Reference do
     end
   end
 
+  describe '#parent' do
+    subject { legislation.parent }
+
+    context 'without sub elements' do
+      let(:legislation) do
+        Legislation::Reference.new(legislation: foi, reference: 's 1')
+      end
+
+      it 'returns reference matching legislation' do
+        is_expected.to eq legislation
+      end
+    end
+
+    context 'with sub elements' do
+      let(:legislation) do
+        Legislation::Reference.new(legislation: foi, reference: 's 1(a)')
+      end
+
+      it 'returns reference with parent legislation' do
+        is_expected.to eq Legislation::Reference.new(
+          legislation: foi, reference: 's 1'
+        )
+      end
+    end
+  end
+
   describe '#cover?' do
     let(:parent) do
       Legislation::Reference.new(legislation: foi, reference: 's 1')
