@@ -41,6 +41,11 @@ class Legislation
       legislation.refusals.any? { |reference| reference.cover?(self) }
     end
 
+    def ==(other)
+      legislation == other.legislation && type == other.type &&
+        elements == other.elements
+    end
+
     private
 
     def parent_reference

@@ -104,4 +104,41 @@ RSpec.describe Legislation::Reference do
       it { is_expected.to eq false }
     end
   end
+
+  describe '#==' do
+    let(:reference) do
+      Legislation::Reference.new(legislation: foi, reference: 'Section 12(1)')
+    end
+
+    subject { reference == other }
+
+    context 'other reference has matching elements' do
+      let(:other) do
+        Legislation::Reference.new(legislation: foi, reference: 'Section 12(1)')
+      end
+
+      it { is_expected.to eq true }
+    end
+
+    context 'other reference has different elements' do
+      let(:other) do
+        Legislation::Reference.new(legislation: foi, reference: 'Section 12(2)')
+      end
+      it { is_expected.to eq false }
+    end
+
+    context 'other reference has different type' do
+      let(:other) do
+        Legislation::Reference.new(legislation: foi, reference: 'Article 12(1)')
+      end
+      it { is_expected.to eq false }
+    end
+
+    context 'other reference has different legislation' do
+      let(:other) do
+        Legislation::Reference.new(legislation: eir, reference: 'Section 12(1)')
+      end
+      it { is_expected.to eq false }
+    end
+  end
 end
