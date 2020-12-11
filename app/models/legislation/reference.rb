@@ -28,9 +28,8 @@ class Legislation
     end
 
     def to_s
-      base = "#{type} #{main_element}"
-      return base if sub_elements.empty?
-      base + "(#{sub_elements.join(')(')})"
+      return parent_reference if sub_elements.empty?
+      parent_reference + "(#{sub_elements.join(')(')})"
     end
 
     def cover?(other)
@@ -44,7 +43,11 @@ class Legislation
 
     private
 
-    def main_element
+    def parent_reference
+      "#{type} #{parent_element}"
+    end
+
+    def parent_element
       elements[0]
     end
 

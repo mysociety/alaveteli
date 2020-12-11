@@ -43,7 +43,7 @@ RSpec.describe Legislation::Reference do
         Legislation::Reference.new(legislation: foi, reference: 's 1')
       end
 
-      it 'returns reference type and main element' do
+      it 'returns reference type and parent element' do
         is_expected.to eq 'Section 1'
       end
     end
