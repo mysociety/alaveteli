@@ -9,12 +9,14 @@ RSpec.describe RefusalAdvice do
   describe '.default' do
     subject { described_class.default(info_request) }
 
+    let(:path) { Rails.root.join('spec/fixtures/refusal_advice') }
+
     before do
-      Rails.configuration.paths.add(
-        'config/refusal_advice',
-         with: Rails.root.join('spec/fixtures/refusal_advice'),
-         glob: '*.yml'
-      )
+      Rails.configuration.paths['config/refusal_advice'].push(path)
+    end
+
+    after do
+      Rails.configuration.paths['config/refusal_advice'].unshift(path)
     end
 
     context 'with info request' do
