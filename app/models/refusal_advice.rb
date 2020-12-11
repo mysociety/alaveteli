@@ -2,7 +2,7 @@
 # A collection of Questions that help users challenge refusals.
 #
 class RefusalAdvice
-  def self.default(info_request)
+  def self.default(info_request = nil)
     files = Rails.configuration.paths['config/refusal_advice'].existent
     new(Store.from_yaml(files), info_request: info_request)
   end
