@@ -7,18 +7,22 @@ RSpec.describe RefusalAdvice do
   end
 
   describe '.default' do
-    subject { described_class.default(info_request) }
+    subject { described_class.default }
+
+    let(:path) { Rails.root.join('spec/fixtures/refusal_advice') }
 
     before do
-      Rails.configuration.paths.add(
-        'config/refusal_advice',
-         with: Rails.root.join('spec/fixtures/refusal_advice'),
-         glob: '*.yml'
-      )
+      Rails.configuration.paths['config/refusal_advice'].push(path)
+    end
+
+    after do
+      Rails.configuration.paths['config/refusal_advice'].unshift(path)
     end
 
     context 'with info request' do
+      subject { described_class.default(info_request) }
       let(:info_request) { FactoryBot.build(:info_request) }
+
       it do
         is_expected.to eq(
           described_class.new(data, info_request: info_request)
@@ -27,7 +31,6 @@ RSpec.describe RefusalAdvice do
     end
 
     context 'without info request' do
-      let(:info_request) { nil }
       it { is_expected.to eq(described_class.new(data)) }
     end
   end
