@@ -17,12 +17,12 @@ class RefusalAdvice
   end
 
   def questions
-    data[legislation.key.to_sym][:questions].
+    data[legislation.to_sym][:questions].
       map { |question| Question.new(question) }
   end
 
   def actions
-    data[legislation.key.to_sym][:actions].
+    data[legislation.to_sym][:actions].
       map { |action| Action.new(action) }
   end
 

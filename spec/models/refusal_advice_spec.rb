@@ -67,7 +67,7 @@ RSpec.describe RefusalAdvice do
     context 'for the FOI legislation' do
       before do
         allow(instance).to receive(:legislation).and_return(
-          double(:legislation, key: :foi)
+          double(:legislation, to_sym: :foi)
         )
       end
 
@@ -82,7 +82,7 @@ RSpec.describe RefusalAdvice do
     context 'for the EIR legislation' do
       before do
         allow(instance).to receive(:legislation).and_return(
-          double(:legislation, key: :eir)
+          double(:legislation, to_sym: :eir)
         )
       end
 
@@ -101,7 +101,7 @@ RSpec.describe RefusalAdvice do
     context 'for the FOI legislation' do
       before do
         allow(instance).to receive(:legislation).and_return(
-          double(:legislation, key: :foi)
+          double(:legislation, to_sym: :foi)
         )
       end
 
@@ -119,7 +119,7 @@ RSpec.describe RefusalAdvice do
     context 'for the EIR legislation' do
       before do
         allow(instance).to receive(:legislation).and_return(
-          double(:legislation, key: :eir)
+          double(:legislation, to_sym: :eir)
         )
       end
 

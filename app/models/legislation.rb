@@ -59,6 +59,10 @@ class Legislation
     @variants = variants
   end
 
+  def to_sym
+    key.to_sym
+  end
+
   def to_s(variant = :short)
     @variants.fetch(variant)
   rescue KeyError
