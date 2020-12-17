@@ -745,7 +745,7 @@ class IncomingMessage < ApplicationRecord
   end
 
   def refusals
-    legislation_references.select(&:refusal?)
+    legislation_references.select(&:refusal?).map(&:parent).uniq
   end
 
   private

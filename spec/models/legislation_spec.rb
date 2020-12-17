@@ -130,6 +130,14 @@ RSpec.describe Legislation do
     end
   end
 
+  describe '#to_sym' do
+    include_context :legislation_instance
+
+    it 'returns the key as a symbol' do
+      expect(legislation.to_sym).to eq :key
+    end
+  end
+
   describe '#to_s' do
     include_context :legislation_instance
 

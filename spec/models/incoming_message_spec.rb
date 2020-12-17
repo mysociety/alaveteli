@@ -429,14 +429,25 @@ describe IncomingMessage do
     end
 
     it 'returns references which are refusals' do
-      refusal_1 = double(:refusals, refusal?: true)
-      refusal_2 = double(:refusals, refusal?: true)
+      refusal_1 = double(:refusals, refusal?: true).as_null_object
+      refusal_2 = double(:refusals, refusal?: true).as_null_object
       other = double(:refusals, refusal?: false)
 
       allow(legislation).to receive(:find_references).and_return(
         [refusal_1, refusal_2, other]
       )
       expect(message.refusals).to match_array([refusal_1, refusal_2])
+    end
+
+    it 'returns unique parent references' do
+      parent = double(:refusals)
+      refusal_1 = double(:refusals, refusal?: true, parent: parent)
+      refusal_2 = double(:refusals, refusal?: true, parent: parent)
+
+      allow(legislation).to receive(:find_references).and_return(
+        [refusal_1, refusal_2]
+      )
+      expect(message.refusals).to match_array([parent])
     end
   end
 

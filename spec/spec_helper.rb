@@ -113,14 +113,6 @@ RSpec.configure do |config|
     ActionMailer::Base.deliveries = []
   end
 
-  # For integration tests, make sure the app renders exceptions rather
-  # than passing them to the test itself.
-  config.before(:each) do |example|
-    if [:request].include? example.metadata[:type]
-      Rails.application.config.action_dispatch.show_exceptions = true
-    end
-  end
-
   config.before(:suite) do
     if ENV['ALAVETELI_USE_OINK']
       oink_log = Rails.root + 'log/oink.log'

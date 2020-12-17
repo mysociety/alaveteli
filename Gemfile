@@ -93,7 +93,7 @@ gem 'pg', '~> 1.2.3'
 gem 'acts_as_versioned', :git => 'https://github.com/technoweenie/acts_as_versioned.git', :ref => '63b1fc8529d028'
 gem 'active_model_otp'
 gem 'bcrypt', '~> 3.1.16'
-gem 'cancancan', '~> 3.1.0'
+gem 'cancancan', '~> 3.2.0'
 gem 'charlock_holmes', '~> 0.7.7'
 gem 'dalli', '~> 2.7.11'
 gem 'dynamic_form', '~> 1.1.0'
@@ -125,12 +125,12 @@ gem 'statistics2', '~> 0.54'
 gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :branch => 'globalize3-rails5.2'
 gem 'stripe', '~> 5.28.0'
 gem 'syslog_protocol', '~> 0.9.0'
-gem 'thin', '~> 1.7.2'
+gem 'thin', '~> 1.8.0'
 gem 'vpim', '~> 13.11.11'
 gem 'will_paginate', '~> 3.3.0'
 gem 'xapian-full-alaveteli', '~> 1.4.11.1'
 gem 'xml-simple', '~> 1.1.0', :require => 'xmlsimple'
-gem 'zip_tricks', '~> 5.3.1'
+gem 'zip_tricks', '~> 5.5.0'
 
 # Gems only used by the research export task
 gem 'gender_detector', '~> 2.0.0'
@@ -170,7 +170,7 @@ group :test do
 end
 
 group :test, :development do
-  gem 'bullet', '~> 6.1.0'
+  gem 'bullet', '~> 6.1.2'
   gem 'factory_bot_rails', '~> 5.2.0'
   gem 'oink', '~> 0.10.1'
   gem 'rspec-activemodel-mocks', '~> 1.1.0'
@@ -185,7 +185,7 @@ group :development do
     gem 'net-ssh', '~> 6.1.0'
       gem 'net-ssh-gateway', '>= 1.1.0', '< 3.0.0'
   gem 'launchy', '< 2.5.0'
-  gem 'listen', '>= 3.0.5', '< 3.3'
+  gem 'listen', '>= 3.0.5', '< 3.4'
   gem 'web-console', '>= 3.3.0'
   gem 'rubocop', '~> 0.81.0', require: false
   gem 'rubocop-performance', '~> 1.5.2', require: false

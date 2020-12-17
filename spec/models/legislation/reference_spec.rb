@@ -43,7 +43,7 @@ RSpec.describe Legislation::Reference do
         Legislation::Reference.new(legislation: foi, reference: 's 1')
       end
 
-      it 'returns reference type and main element' do
+      it 'returns reference type and parent element' do
         is_expected.to eq 'Section 1'
       end
     end
@@ -55,6 +55,32 @@ RSpec.describe Legislation::Reference do
 
       it 'returns reference with bracketed sub elements' do
         is_expected.to eq 'Section 1(a)'
+      end
+    end
+  end
+
+  describe '#parent' do
+    subject { legislation.parent }
+
+    context 'without sub elements' do
+      let(:legislation) do
+        Legislation::Reference.new(legislation: foi, reference: 's 1')
+      end
+
+      it 'returns reference matching legislation' do
+        is_expected.to eq legislation
+      end
+    end
+
+    context 'with sub elements' do
+      let(:legislation) do
+        Legislation::Reference.new(legislation: foi, reference: 's 1(a)')
+      end
+
+      it 'returns reference with parent legislation' do
+        is_expected.to eq Legislation::Reference.new(
+          legislation: foi, reference: 's 1'
+        )
       end
     end
   end
@@ -101,6 +127,43 @@ RSpec.describe Legislation::Reference do
 
     context 'legislation does not have refusal covering reference' do
       before { allow(foi).to receive(:refusals).and_return([]) }
+      it { is_expected.to eq false }
+    end
+  end
+
+  describe '#==' do
+    let(:reference) do
+      Legislation::Reference.new(legislation: foi, reference: 'Section 12(1)')
+    end
+
+    subject { reference == other }
+
+    context 'other reference has matching elements' do
+      let(:other) do
+        Legislation::Reference.new(legislation: foi, reference: 'Section 12(1)')
+      end
+
+      it { is_expected.to eq true }
+    end
+
+    context 'other reference has different elements' do
+      let(:other) do
+        Legislation::Reference.new(legislation: foi, reference: 'Section 12(2)')
+      end
+      it { is_expected.to eq false }
+    end
+
+    context 'other reference has different type' do
+      let(:other) do
+        Legislation::Reference.new(legislation: foi, reference: 'Article 12(1)')
+      end
+      it { is_expected.to eq false }
+    end
+
+    context 'other reference has different legislation' do
+      let(:other) do
+        Legislation::Reference.new(legislation: eir, reference: 'Section 12(1)')
+      end
       it { is_expected.to eq false }
     end
   end
