@@ -5,7 +5,7 @@ require 'stripe_mock_patch'
 require "alaveteli_features/spec_helpers"
 require 'strip_attributes/matchers'
 
-require_relative 'spec_coverage'
+require_relative 'spec_coverage' if ENV['COVERAGE'] == 'local' || ENV['CI']
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
