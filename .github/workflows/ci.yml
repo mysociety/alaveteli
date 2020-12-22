@@ -90,3 +90,22 @@ jobs:
     - name: Run tests
       run: |
         bundle exec rspec --format Fivemat
+
+    - name: Coveralls Parallel
+      uses: coverallsapp/github-action@master
+      continue-on-error: true
+      with:
+        github-token: ${{ secrets.github_token }}
+        flag-name: run-${{ matrix.ruby }}-${{ matrix.gemfile || 'Gemfile' }}
+        parallel: true
+
+  coveralls:
+    name: Coveralls
+    needs: rspec
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Coveralls Finished
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.github_token }}
+          parallel-finished: true

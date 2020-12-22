@@ -1,13 +1,17 @@
 require 'simplecov'
-require 'coveralls'
+require 'simplecov-lcov'
 
-cov_formats = [Coveralls::SimpleCov::Formatter]
-cov_formats << SimpleCov::Formatter::HTMLFormatter if ENV['COVERAGE'] == 'local'
+if ENV['COVERAGE'] == 'local'
+  SimpleCov.formatter = SimpleCov::Formatter::HTMLFormatter
 
-# Generate coverage in coveralls.io and locally if requested
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
-  [*cov_formats]
-)
+else
+  SimpleCov::Formatter::LcovFormatter.config do |c|
+    c.report_with_single_file = true
+    c.single_report_path = 'coverage/lcov.info'
+  end
+
+  SimpleCov.formatter = SimpleCov::Formatter::LcovFormatter
+end
 
 SimpleCov.start('rails') do
   add_filter  'commonlib'
