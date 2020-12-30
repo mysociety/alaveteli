@@ -46,7 +46,7 @@ module AlaveteliTextMasker
   private
 
   def uncompress_pdf(text)
-    AlaveteliExternalCommand.run("pdftk", "-", "output", "-", "uncompress", :stdin_string => text)
+    AlaveteliExternalCommand.run("pdftk", "-", "output", "-", "uncompress", :stdin_string => text, :timeout => 300)
   end
 
   def compress_pdf(text)
@@ -63,7 +63,7 @@ module AlaveteliTextMasker
     else
       command = ["pdftk", "-", "output", "-", "compress"]
     end
-    AlaveteliExternalCommand.run(*(command + [ :stdin_string => text ]))
+    AlaveteliExternalCommand.run(*(command + [ :stdin_string => text, :timeout => 300 ]))
   end
 
   def apply_pdf_masks(text, options = {})
