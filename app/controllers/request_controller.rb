@@ -13,10 +13,12 @@ class RequestController < ApplicationController
   before_action :check_batch_requests_and_user_allowed, :only => [ :select_authorities, :new_batch ]
   before_action :set_render_recaptcha, :only => [ :new ]
   before_action :redirect_numeric_id_to_url_title, :only => [:show]
+  before_action :set_info_request, only: [:show]
   before_action :redirect_embargoed_requests_for_pro_users, :only => [:show]
   before_action :redirect_public_requests_from_pro_context, :only => [:show]
   before_action :redirect_new_form_to_pro_version, :only => [:select_authority, :new]
   before_action :set_in_pro_area, :only => [:select_authority, :show]
+
   helper_method :state_transitions_empty?
 
   MAX_RESULTS = 500
@@ -71,11 +73,7 @@ class RequestController < ApplicationController
 
   def show
     medium_cache
-    @locale = AlaveteliLocalization.locale
-    AlaveteliLocalization.with_locale(@locale) do
-      # Look up by new style text names
-      @info_request = InfoRequest.find_by_url_title!(params[:url_title])
-
+    AlaveteliLocalization.with_locale(locale) do
       # Test for whole request being hidden
       if cannot?(:read, @info_request)
         return render_hidden
@@ -176,7 +174,6 @@ class RequestController < ApplicationController
 
     medium_cache
     @view = params[:view]
-    @locale = AlaveteliLocalization.locale
     @page = get_search_page_from_params if !@page # used in cache case, as perform_search sets @page as side effect
     @per_page = PER_PAGE
     @max_results = MAX_RESULTS
@@ -221,7 +218,7 @@ class RequestController < ApplicationController
 
     @batch = true
 
-    AlaveteliLocalization.with_locale(@locale) do
+    AlaveteliLocalization.with_locale(locale) do
       @public_bodies =
         PublicBody.
           where(:id => params[:public_body_ids]).
@@ -451,8 +448,7 @@ class RequestController < ApplicationController
 
   # FOI officers can upload a response
   def upload_response
-    @locale = AlaveteliLocalization.locale
-    AlaveteliLocalization.with_locale(@locale) do
+    AlaveteliLocalization.with_locale(locale) do
       @info_request = InfoRequest.not_embargoed.find_by_url_title!(params[:url_title])
 
       @reason_params = {
@@ -529,8 +525,7 @@ class RequestController < ApplicationController
   end
 
   def download_entire_request
-    @locale = AlaveteliLocalization.locale
-    AlaveteliLocalization.with_locale(@locale) do
+    AlaveteliLocalization.with_locale(locale) do
       @info_request = InfoRequest.find_by_url_title!(params[:url_title])
       # Check for access and hide emargoed requests immediately, so that we
       # don't leak any info to people who can't access them
@@ -939,4 +934,13 @@ class RequestController < ApplicationController
     end
   end
 
+  def set_info_request
+    AlaveteliLocalization.with_locale(locale) do
+      @info_request ||= InfoRequest.find_by_url_title!(params[:url_title])
+    end
+  end
+
+  def locale
+    @locale ||= AlaveteliLocalization.locale
+  end
 end
