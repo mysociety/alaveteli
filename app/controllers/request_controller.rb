@@ -21,6 +21,8 @@ class RequestController < ApplicationController
 
   helper_method :state_transitions_empty?
 
+  include ProminenceHeaders
+
   MAX_RESULTS = 500
   PER_PAGE = 25
 
@@ -942,5 +944,9 @@ class RequestController < ApplicationController
 
   def locale
     @locale ||= AlaveteliLocalization.locale
+  end
+
+  def with_prominence
+    @info_request
   end
 end

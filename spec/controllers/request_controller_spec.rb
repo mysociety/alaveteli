@@ -608,6 +608,20 @@ describe RequestController, 'when handling prominence' do
       expect(response).to render_template('show')
     end
   end
+
+  context 'when the request is backpage' do
+    let(:prominence) { 'backpage' }
+
+    it 'shows the request if not logged in' do
+      get :show, params: { url_title: info_request.url_title }
+      expect(response).to render_template('show')
+    end
+
+    it 'sets a noindex header' do
+      get :show, params: { url_title: info_request.url_title }
+      expect(response.headers['X-Robots-Tag']).to eq 'noindex'
+    end
+  end
 end
 
 # TODO: do this for invalid ids

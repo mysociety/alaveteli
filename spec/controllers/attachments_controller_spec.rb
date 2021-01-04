@@ -363,6 +363,57 @@ RSpec.describe AttachmentsController, 'when handling prominence',
     end
   end
 
+  context 'when the request is backpage' do
+    let(:prominence) { 'backpage' }
+    let(:incoming_message) { info_request.incoming_messages.first }
+
+    it 'sets a noindex header when viewing' do
+      get :show,
+          params: {
+            incoming_message_id: incoming_message.id,
+            id: info_request.id,
+            part: 2,
+            file_name: 'interesting.pdf',
+            skip_cache: 1
+          }
+      expect(response.headers['X-Robots-Tag']).to eq 'noindex'
+    end
+
+    it 'sets a noindex header when viewing a cached copy' do
+      get :show,
+          params: {
+            incoming_message_id: incoming_message.id,
+            id: info_request.id,
+            part: 2,
+            file_name: 'interesting.pdf'
+          }
+      expect(response.headers['X-Robots-Tag']).to eq 'noindex'
+    end
+
+    it 'sets a noindex header when viewing a HTML version' do
+      get :show_as_html,
+          params: {
+            incoming_message_id: incoming_message.id,
+            id: info_request.id,
+            part: 2,
+            file_name: 'interesting.pdf',
+            skip_cache: 1
+          }
+      expect(response.headers['X-Robots-Tag']).to eq 'noindex'
+    end
+
+    it 'sets a noindex header when viewing a cached HTML version' do
+      get :show_as_html,
+          params: {
+            incoming_message_id: incoming_message.id,
+            id: info_request.id,
+            part: 2,
+            file_name: 'interesting.pdf'
+          }
+      expect(response.headers['X-Robots-Tag']).to eq 'noindex'
+    end
+  end
+
   context 'when the incoming message has prominence hidden' do
     let(:prominence) { 'hidden' }
     let(:info_request) { incoming_message.info_request }
