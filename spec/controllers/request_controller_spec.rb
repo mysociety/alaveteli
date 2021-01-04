@@ -550,62 +550,61 @@ describe RequestController, 'when handling prominence' do
     expect(response.code).to eq('403')
   end
 
+  let(:info_request) do
+    FactoryBot.
+      create(:info_request_with_incoming_attachments, prominence: prominence)
+  end
+
   context 'when the request is hidden' do
-    before(:each) do
-      @info_request = FactoryBot.create(:info_request_with_incoming_attachments,
-                                        prominence: 'hidden')
-    end
+    let(:prominence) { 'hidden' }
 
     it 'does not show the request if not logged in' do
-      get :show, params: { url_title: @info_request.url_title }
+      get :show, params: { url_title: info_request.url_title }
       expect_hidden('hidden')
     end
 
     it 'does not show the request even if logged in as their owner' do
-      session[:user_id] = @info_request.user.id
-      get :show, params: { url_title: @info_request.url_title }
+      session[:user_id] = info_request.user.id
+      get :show, params: { url_title: info_request.url_title }
       expect_hidden('hidden')
     end
 
     it 'does not show the request if requested using json' do
-      session[:user_id] = @info_request.user.id
-      get :show, params: { url_title: @info_request.url_title, format: 'json' }
+      session[:user_id] = info_request.user.id
+      get :show, params: { url_title: info_request.url_title, format: 'json' }
       expect(response.code).to eq('403')
     end
 
     it 'shows the request if logged in as super user' do
       session[:user_id] = FactoryBot.create(:admin_user).id
-      get :show, params: { url_title: @info_request.url_title }
+      get :show, params: { url_title: info_request.url_title }
       expect(response).to render_template('show')
     end
   end
 
   context 'when the request is requester_only' do
-    before(:each) do
-      @info_request = FactoryBot.create(:info_request_with_incoming_attachments,
-                                        prominence: 'requester_only')
-    end
+    let(:prominence) { 'requester_only' }
 
     it 'does not show the request if not logged in' do
-      get :show, params: { url_title: @info_request.url_title }
+      get :show, params: { url_title: info_request.url_title }
       expect_hidden('hidden')
     end
 
     it 'does not show the request if logged in but not the requester' do
       session[:user_id] = FactoryBot.create(:user).id
-      get :show, params: { url_title: @info_request.url_title }
+      get :show, params: { url_title: info_request.url_title }
       expect_hidden('hidden')
     end
 
     it 'shows the request to the requester' do
-      session[:user_id] = @info_request.user.id
-      get :show, params: { url_title: @info_request.url_title }
+      session[:user_id] = info_request.user.id
+      get :show, params: { url_title: info_request.url_title }
       expect(response).to render_template('show')
     end
 
     it 'shows the request to an admin' do
       session[:user_id] = FactoryBot.create(:admin_user).id
-      get :show, params: { url_title: @info_request.url_title }
+      get :show, params: { url_title: info_request.url_title }
       expect(response).to render_template('show')
     end
   end

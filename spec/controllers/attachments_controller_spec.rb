@@ -293,19 +293,25 @@ RSpec.describe AttachmentsController, 'when handling prominence',
     expect(response.code).to eq('403')
   end
 
-  context 'when the request is hidden' do
+  let(:info_request) do
+    FactoryBot.
+      create(:info_request_with_incoming_attachments, prominence: prominence)
+  end
 
-    before(:each) do
-      @info_request = FactoryBot.create(:info_request_with_incoming_attachments,
-                                        prominence: 'hidden')
-    end
+  let(:incoming_message) do
+    FactoryBot.create(:incoming_message_with_attachments,
+                      prominence: prominence)
+  end
+
+  context 'when the request is hidden' do
+    let(:prominence) { 'hidden' }
+    let(:incoming_message) { info_request.incoming_messages.first }
 
     it 'does not download attachments' do
-      incoming_message = @info_request.incoming_messages.first
       get :show,
           params: {
             incoming_message_id: incoming_message.id,
-            id: @info_request.id,
+            id: info_request.id,
             part: 2,
             file_name: 'interesting.pdf',
             skip_cache: 1
@@ -315,12 +321,11 @@ RSpec.describe AttachmentsController, 'when handling prominence',
 
     it 'does not generate an HTML version of an attachment for a request whose prominence is hidden even for an admin but should return a 404' do
       session[:user_id] = FactoryBot.create(:admin_user).id
-      incoming_message = @info_request.incoming_messages.first
       expect do
         get :show_as_html,
             params: {
               incoming_message_id: incoming_message.id,
-              id: @info_request.id,
+              id: info_request.id,
               part: 2,
               file_name: 'interesting.pdf'
             }
@@ -330,20 +335,16 @@ RSpec.describe AttachmentsController, 'when handling prominence',
   end
 
   context 'when the request is requester_only' do
-
-    before(:each) do
-      @info_request = FactoryBot.create(:info_request_with_incoming_attachments,
-                                        prominence: 'requester_only')
-    end
+    let(:prominence) { 'requester_only' }
+    let(:incoming_message) { info_request.incoming_messages.first }
 
     it 'does not cache an attachment when showing an attachment to the requester' do
-      session[:user_id] = @info_request.user.id
-      incoming_message = @info_request.incoming_messages.first
+      session[:user_id] = info_request.user.id
       expect(@controller).not_to receive(:foi_fragment_cache_write)
       get :show,
           params: {
             incoming_message_id: incoming_message.id,
-            id: @info_request.id,
+            id: info_request.id,
             part: 2,
             file_name: 'interesting.pdf'
           }
@@ -351,12 +352,11 @@ RSpec.describe AttachmentsController, 'when handling prominence',
 
     it 'does not cache an attachment when showing an attachment to the admin' do
       session[:user_id] = FactoryBot.create(:admin_user).id
-      incoming_message = @info_request.incoming_messages.first
       expect(@controller).not_to receive(:foi_fragment_cache_write)
       get :show,
           params: {
             incoming_message_id: incoming_message.id,
-            id: @info_request.id,
+            id: info_request.id,
             part: 2,
             file_name: 'interesting.pdf'
           }
@@ -364,17 +364,14 @@ RSpec.describe AttachmentsController, 'when handling prominence',
   end
 
   context 'when the incoming message has prominence hidden' do
-    before(:each) do
-      @incoming_message = FactoryBot.create(:incoming_message_with_attachments,
-                                            prominence: 'hidden')
-      @info_request = @incoming_message.info_request
-    end
+    let(:prominence) { 'hidden' }
+    let(:info_request) { incoming_message.info_request }
 
     it 'does not download attachments for a non-logged in user' do
       get :show,
           params: {
-            incoming_message_id: @incoming_message.id,
-            id: @info_request.id,
+            incoming_message_id: incoming_message.id,
+            id: info_request.id,
             part: 2,
             file_name: 'interesting.pdf',
             skip_cache: 1
@@ -383,11 +380,11 @@ RSpec.describe AttachmentsController, 'when handling prominence',
     end
 
     it 'does not download attachments for the request owner' do
-      session[:user_id] = @info_request.user.id
+      session[:user_id] = info_request.user.id
       get :show,
           params: {
-            incoming_message_id: @incoming_message.id,
-            id: @info_request.id,
+            incoming_message_id: incoming_message.id,
+            id: info_request.id,
             part: 2,
             file_name: 'interesting.pdf',
             skip_cache: 1
@@ -399,8 +396,8 @@ RSpec.describe AttachmentsController, 'when handling prominence',
       session[:user_id] = FactoryBot.create(:admin_user).id
       get :show,
           params: {
-            incoming_message_id: @incoming_message.id,
-            id: @info_request.id,
+            incoming_message_id: incoming_message.id,
+            id: info_request.id,
             part: 2,
             file_name: 'interesting.pdf',
             skip_cache: 1
@@ -418,8 +415,8 @@ RSpec.describe AttachmentsController, 'when handling prominence',
       expect do
         get :show_as_html,
             params: {
-              incoming_message_id: @incoming_message.id,
-              id: @info_request.id,
+              incoming_message_id: incoming_message.id,
+              id: info_request.id,
               part: 2,
               file_name: 'interesting.pdf',
               skip_cache: 1
@@ -428,12 +425,12 @@ RSpec.describe AttachmentsController, 'when handling prominence',
     end
 
     it 'does not cache an attachment when showing an attachment to the requester or admin' do
-      session[:user_id] = @info_request.user.id
+      session[:user_id] = info_request.user.id
       expect(@controller).not_to receive(:foi_fragment_cache_write)
       get :show,
           params: {
-            incoming_message_id: @incoming_message.id,
-            id: @info_request.id,
+            incoming_message_id: incoming_message.id,
+            id: info_request.id,
             part: 2,
             file_name: 'interesting.pdf'
           }
@@ -441,17 +438,14 @@ RSpec.describe AttachmentsController, 'when handling prominence',
   end
 
   context 'when the incoming message has prominence requester_only' do
-    before(:each) do
-      @incoming_message = FactoryBot.create(:incoming_message_with_attachments,
-                                            prominence: 'requester_only')
-      @info_request = @incoming_message.info_request
-    end
+    let(:prominence) { 'requester_only' }
+    let(:info_request) { incoming_message.info_request }
 
     it 'does not download attachments for a non-logged in user' do
       get :show,
           params: {
-            incoming_message_id: @incoming_message.id,
-            id: @info_request.id,
+            incoming_message_id: incoming_message.id,
+            id: info_request.id,
             part: 2,
             file_name: 'interesting.pdf',
             skip_cache: 1
@@ -460,11 +454,11 @@ RSpec.describe AttachmentsController, 'when handling prominence',
     end
 
     it 'downloads attachments for the request owner' do
-      session[:user_id] = @info_request.user.id
+      session[:user_id] = info_request.user.id
       get :show,
           params: {
-            incoming_message_id: @incoming_message.id,
-            id: @info_request.id,
+            incoming_message_id: incoming_message.id,
+            id: info_request.id,
             part: 2,
             file_name: 'interesting.pdf',
             skip_cache: 1
@@ -481,8 +475,8 @@ RSpec.describe AttachmentsController, 'when handling prominence',
       session[:user_id] = FactoryBot.create(:admin_user).id
       get :show,
           params: {
-            incoming_message_id: @incoming_message.id,
-            id: @info_request.id,
+            incoming_message_id: incoming_message.id,
+            id: info_request.id,
             part: 2,
             file_name: 'interesting.pdf',
             skip_cache: 1
@@ -500,8 +494,8 @@ RSpec.describe AttachmentsController, 'when handling prominence',
       expect do
         get :show_as_html,
             params: {
-              incoming_message_id: @incoming_message.id,
-              id: @info_request.id,
+              incoming_message_id: incoming_message.id,
+              id: info_request.id,
               part: 2,
               file_name: 'interesting.pdf',
               skip_cache: 1
