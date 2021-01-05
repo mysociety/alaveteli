@@ -21,7 +21,6 @@ pdftk
 poppler-utils
 postgresql
 postgresql-client
-python-yaml
 rake
 ruby
 ruby-dev

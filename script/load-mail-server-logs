@@ -3,8 +3,6 @@
 LOC=`dirname "$0"`
 
 cd "$LOC"/..
-source commonlib/shlib/deployfns
-[ -e config/general.yml ] && read_conf config/general.yml
 
 # Specific file if specified
 if [ x$1 != x ]
@@ -20,7 +18,7 @@ fi
 
 # Load in last three days worth of logs (if they've been modified)
 cd "$LOC"
-LATEST=$( ls $OPTION_MTA_LOG_PATH 2>/dev/null | sort | tail -3 )
+LATEST=$( ls $(bin/config MTA_LOG_PATH) 2>/dev/null | sort | tail -3 )
 for X in $LATEST
 do
     bundle exec rails runner 'MailServerLog.load_file("'$X'")'
