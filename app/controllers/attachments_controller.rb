@@ -7,6 +7,9 @@ class AttachmentsController < ApplicationController
 
   before_action :find_info_request, :find_incoming_message, :find_attachment
   before_action :find_project
+
+  include ProminenceHeaders
+
   around_action :cache_attachments
 
   before_action :authenticate_attachment
@@ -188,5 +191,9 @@ class AttachmentsController < ApplicationController
 
   def current_ability
     @current_ability ||= Ability.new(current_user, project: @project)
+  end
+
+  def with_prominence
+    @info_request
   end
 end

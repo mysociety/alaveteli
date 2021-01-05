@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Backpaged content tells external search engines not to index it (Gareth Rees)
 * Tweak change request button colours in admin interface (Gareth Rees)
 
 ## Upgrade Notes
