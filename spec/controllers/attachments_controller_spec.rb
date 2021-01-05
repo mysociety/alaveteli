@@ -412,6 +412,18 @@ RSpec.describe AttachmentsController, 'when handling prominence',
           }
       expect(response.headers['X-Robots-Tag']).to eq 'noindex'
     end
+
+    skip 'does not cache an attachment' do
+      session[:user_id] = info_request.user.id
+      expect(@controller).not_to receive(:foi_fragment_cache_write)
+      get :show,
+          params: {
+            incoming_message_id: incoming_message.id,
+            id: info_request.id,
+            part: 2,
+            file_name: 'interesting.pdf'
+          }
+    end
   end
 
   context 'when the incoming message has prominence hidden' do
