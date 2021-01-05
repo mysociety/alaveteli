@@ -115,7 +115,7 @@ class AttachmentsController < ApplicationController
     # The conversion process can generate files in the cache directory that can
     # be served up directly by the webserver according to httpd.conf, so don't
     # allow it unless that's OK.
-    return if message_is_public?
+    return if message_is_cacheable?
 
     raise ActiveRecord::RecordNotFound, 'Attachment HTML not found.'
   end
@@ -144,7 +144,7 @@ class AttachmentsController < ApplicationController
         # various fragment cache functions using Ruby Marshall to write the file
         # which adds a header, so isn't compatible with images that have been
         # extracted elsewhere from PDFs)
-        if message_is_public?
+        if message_is_cacheable?
           logger.info("Writing cache for #{cache_key_path}")
           foi_fragment_cache_write(cache_key_path, response.body)
         end
@@ -172,10 +172,10 @@ class AttachmentsController < ApplicationController
       'application/octet-stream'
   end
 
-  def message_is_public?
+  def message_is_cacheable?
     # Is this a completely public request that we can cache attachments for
     # to be served up without authentication?
-    @incoming_message.info_request.prominence(decorate: true).is_public? &&
+    @incoming_message.info_request.prominence(decorate: true).is_searchable? &&
       @incoming_message.is_public?
   end
 
