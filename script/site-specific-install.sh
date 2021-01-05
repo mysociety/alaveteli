@@ -182,23 +182,20 @@ postfix reload
 
 install_website_packages
 
-# use ruby 2.3.3, 2.1.5 if it's already the default
-# (i.e. 'stretch', 'jessie')
-if ruby --version | grep -q 'ruby 2.3.3' > /dev/null
-then
-  echo 'using ruby 2.3.3'
-  RUBY_VERSION='2.3.3'
-elif ruby --version | grep -q 'ruby 2.1.5' > /dev/null
-then
-  echo 'using ruby 2.1.5'
-  RUBY_VERSION='2.1.5'
-elif ruby --version | grep -q 'ruby 1.9.3' > /dev/null
-then
-  # Set ruby version to 2.1.x
-  update-alternatives --set ruby /usr/bin/ruby2.1
-  update-alternatives --set gem /usr/bin/gem2.1
-  echo 'using ruby 2.1.5'
-  RUBY_VERSION='2.1.5'
+# Ensure we have required Ruby version from the current distribution package, if
+# not then install using rbenv
+required_ruby="$(cat $REPOSITORY/.ruby-version.example)"
+current_ruby="$(ruby --version | awk 'match($0, /[0-9\.]+/) {print substr($0,RSTART,RLENGTH)}')"
+if [ "$(printf '%s\n' "$required_ruby" "$current_ruby" | sort -V | head -n1)" = "$required_ruby" ]; then
+  echo "Current Ruby (${current_ruby}) is greater than or equal to required version (${required_ruby})"
+  RUBY_VERSION=$current_ruby
+  USE_RBENV=false
+else
+  echo "Current Ruby (${current_ruby}) is less than required version (${required_ruby})"
+  echo "Installing packages required for ruby-build..."
+  xargs -a "$REPOSITORY/config/packages.ruby-build" apt-get -qq -y install >/dev/null
+  RUBY_VERSION=$required_ruby
+  USE_RBENV=true
 fi
 
 # Give the unix user membership of the adm group so that they can read the mail log files
@@ -224,7 +221,7 @@ EOF
 echo $DONE_MSG
 
 export DEVELOPMENT_INSTALL
-su -l -c "$BIN_DIRECTORY/install-as-user '$UNIX_USER' '$HOST' '$DIRECTORY' '$RUBY_VERSION'" "$UNIX_USER"
+su -l -c "$BIN_DIRECTORY/install-as-user '$UNIX_USER' '$HOST' '$DIRECTORY' '$RUBY_VERSION' '$USE_RBENV'" "$UNIX_USER"
 
 # Now that the install-as-user script has loaded the sample data, we
 # no longer need the PostgreSQL user to be a superuser:
