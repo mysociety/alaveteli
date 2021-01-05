@@ -175,7 +175,7 @@ class AttachmentsController < ApplicationController
   def message_is_cacheable?
     # Is this a completely public request that we can cache attachments for
     # to be served up without authentication?
-    @incoming_message.info_request.prominence(decorate: true).is_public? &&
+    @incoming_message.info_request.prominence(decorate: true).is_searchable? &&
       @incoming_message.is_public?
   end
 
