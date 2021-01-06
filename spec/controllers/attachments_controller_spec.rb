@@ -413,7 +413,7 @@ RSpec.describe AttachmentsController, 'when handling prominence',
       expect(response.headers['X-Robots-Tag']).to eq 'noindex'
     end
 
-    skip 'does not cache an attachment' do
+    it 'does not cache an attachment' do
       session[:user_id] = info_request.user.id
       expect(@controller).not_to receive(:foi_fragment_cache_write)
       get :show,
