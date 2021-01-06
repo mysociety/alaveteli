@@ -153,9 +153,9 @@ gem 'mime-types', '< 3.0.0', require: false
 
 # Assets
 gem 'bootstrap-sass', '~> 2.3.2.2'
+gem 'mini_racer', '~> 0.3.1'
 gem 'sass-rails', '~> 5.0.7'
 gem 'uglifier', '~> 4.2.0'
-gem 'therubyracer', '~> 0.12.0'
 
 # Feature flags
 gem 'alaveteli_features', :path => 'gems/alaveteli_features'
