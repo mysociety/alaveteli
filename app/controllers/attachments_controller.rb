@@ -115,7 +115,7 @@ class AttachmentsController < ApplicationController
     # The conversion process can generate files in the cache directory that can
     # be served up directly by the webserver according to httpd.conf, so don't
     # allow it unless that's OK.
-    return if message_is_cacheable?
+    return if message_is_public?
 
     raise ActiveRecord::RecordNotFound, 'Attachment HTML not found.'
   end
@@ -172,11 +172,16 @@ class AttachmentsController < ApplicationController
       'application/octet-stream'
   end
 
+  def message_is_public?
+    # If this a request and message public then it can be served up without
+    # authentication
+    prominence.is_public? && @incoming_message.is_public?
+  end
+
   def message_is_cacheable?
-    # Is this a completely public request that we can cache attachments for
-    # to be served up without authentication?
-    @incoming_message.info_request.prominence(decorate: true).is_searchable? &&
-      @incoming_message.is_public?
+    # If this a request searchable and message public then we can cache any
+    # attachments as there are no custom response headers (EG X-Robots-Tag)
+    prominence.is_searchable? && message_is_public?
   end
 
   def cache_key_path
@@ -191,6 +196,10 @@ class AttachmentsController < ApplicationController
 
   def current_ability
     @current_ability ||= Ability.new(current_user, project: @project)
+  end
+
+  def prominence
+    @info_request.prominence(decorate: true)
   end
 
   def with_prominence
