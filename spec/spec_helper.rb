@@ -1,29 +1,11 @@
 # -*- encoding : utf-8 -*-
 require 'rubygems'
-require 'simplecov'
-require 'coveralls'
 require 'webmock/rspec'
 require 'stripe_mock_patch'
 require "alaveteli_features/spec_helpers"
 require 'strip_attributes/matchers'
 
-cov_formats = [Coveralls::SimpleCov::Formatter]
-cov_formats << SimpleCov::Formatter::HTMLFormatter if ENV['COVERAGE'] == 'local'
-
-# Generate coverage in coveralls.io and locally if requested
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
-  [*cov_formats]
-)
-
-SimpleCov.start('rails') do
-  add_filter  'commonlib'
-  add_filter  'vendor/plugins'
-  add_filter  'lib/attachment_to_html'
-  add_filter  'lib/has_tag_string'
-  add_filter  'lib/acts_as_xapian'
-  add_filter  'lib/themes'
-  add_filter  '.bundle'
-end
+require_relative 'spec_coverage' if ENV['COVERAGE'] == 'local' || ENV['CI']
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
