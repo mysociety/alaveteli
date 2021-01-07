@@ -103,7 +103,7 @@ then
         -e "s,^( *TRACK_SENDER_EMAIL:).*,\\1 'postmaster@$HOST'," \
         -e "s,^( *SECRET_KEY_BASE:).*,\\1 '$RANDOM_COOKIE_SECRET'," \
         -e "s,^( *FORWARD_NONBOUNCE_RESPONSES_TO:).*,\\1 'user-support@$HOST'," \
-        -e "s,^( *HTML_TO_PDF_COMMAND:).*,\\1 '/usr/bin/wkhtmltopdf-static'," \
+        -e "s,^( *HTML_TO_PDF_COMMAND:).*,\\1 '/usr/local/bin/wkhtmltopdf'," \
         -e "s,^( *EXCEPTION_NOTIFICATIONS_FROM:).*,\\1 'do-not-reply-to-this-address@$HOST'," \
         -e "/EXCEPTION_NOTIFICATIONS_TO:/,/^$/c EXCEPTION_NOTIFICATIONS_TO:\n - team@$HOST\n" \
         -e "s,^( *MTA_LOG_PATH:).*,\\1 '/var/log/mail/mail.log-*'," \
