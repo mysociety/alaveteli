@@ -101,6 +101,8 @@
       </p>
     <% end %>
 
+    <%= render :partial => 'snippets' %>
+
     <% form_url =
          if incoming_message.nil?
            preview_request_followups_url(request_id: @info_request.id)
