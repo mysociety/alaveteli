@@ -1,0 +1,111 @@
+name: CI
+
+on:
+  push:
+    branches: [master, develop]
+  pull_request:
+
+jobs:
+  rspec:
+    name: Ruby ${{ matrix.ruby }} / ${{ matrix.gemfile || 'Gemfile' }}
+    runs-on: ubuntu-20.04
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - { ruby: 2.3 }
+        - { ruby: 2.4 }
+        - { ruby: 2.5 }
+        - { ruby: 2.6 }
+        - { ruby: 2.6, gemfile: 'Gemfile.rails_next' }
+
+    services:
+      postgres:
+        image: fixmystreet/postgres:latest
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports:
+        - '5432:5432'
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      BUNDLE_GEMFILE: ${{ matrix.gemfile || 'Gemfile' }}
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/alaveteli_test
+      RAILS_ENV: test
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        submodules: true
+
+    - name: Install packages
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        sudo apt-get -y install exim4-daemon-light
+        sudo apt-get -y install `cut -d " " -f 1 config/packages.ubuntu-bionic | egrep -v "(^#|wkhtml|bundler|^ruby|^rake)"`
+
+    - name: Install Ruby ${{ matrix.ruby }}
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby }}
+
+    - name: Cache RubyGems
+      uses: actions/cache@v2
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-${{ matrix.ruby }}-gems-unit-${{ hashFiles(format('{0}.lock', matrix.gemfile || 'Gemfile')) }}
+        restore-keys: |
+          ${{ runner.os }}-${{ matrix.ruby }}-gems-unit-
+
+    - name: Install RubyGems
+      run: |
+        bundle config path vendor/bundle
+        bundle config build.libv8 --with-system-v8
+        bundle install --jobs $(nproc) --retry 3
+
+    - name: Setup database
+      run: |
+        psql postgres://postgres:postgres@localhost:5432 <<-EOSQL
+          CREATE DATABASE template_utf8 TEMPLATE template0 ENCODING "UTF-8";
+          UPDATE pg_database SET datistemplate=true WHERE datname='template_utf8';
+          CREATE DATABASE alaveteli_test TEMPLATE template_utf8;
+        EOSQL
+
+    - name: Install theme
+      run: |
+        cp config/general.yml-example config/general.yml
+        bundle exec rake themes:install
+
+    - name: Migrate database
+      run: |
+        bundle exec rails db:migrate
+
+    - name: Run tests
+      run: |
+        bundle exec rspec --format Fivemat
+
+    - name: Coveralls Parallel
+      uses: coverallsapp/github-action@master
+      continue-on-error: true
+      with:
+        github-token: ${{ secrets.github_token }}
+        flag-name: run-${{ matrix.ruby }}-${{ matrix.gemfile || 'Gemfile' }}
+        parallel: true
+
+  coveralls:
+    name: Coveralls
+    needs: rspec
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Coveralls Finished
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.github_token }}
+          parallel-finished: true
