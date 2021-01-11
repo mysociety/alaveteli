@@ -1,0 +1,46 @@
+.snippet-library {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.snippet-library__filters {
+  padding: 0.5em 1em;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.snippet {
+  padding: 1em;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.snippet__preview {
+  h3 {
+    font-size: 1em;
+    line-height: 1.2em;
+    margin: 0;
+  }
+
+  p {
+    font-size: 0.875em;
+    line-height: 1.3;
+    font-style: italic;
+    margin: 0.5em 0 0 0;
+  }
+
+  summary {
+    display: block;
+    cursor: pointer;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+  }
+}
+
+.snippet__preview__more strong {
+  font-style: normal;
+}
+
+.snippet__preview__less {
+  font-weight: bold;
+  font-style: normal !important; // override `.snippet__preview p`
+}
