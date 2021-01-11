@@ -71,6 +71,13 @@ module MailHandler
         end
       end
 
+      def get_within_rfc822_subject(leaf)
+        within_rfc822_subject = leaf.within_rfc822_attachment.subject
+        return unless within_rfc822_subject
+
+        convert_string_to_utf8(within_rfc822_subject).string
+      end
+
       # Return a copy of the file name for the mail part
       def get_part_file_name(part)
         part_file_name = part.filename
@@ -370,7 +377,7 @@ module MailHandler
           body = get_part_body(leaf)
 
           if leaf.within_rfc822_attachment
-            within_rfc822_subject = leaf.within_rfc822_attachment.subject
+            within_rfc822_subject = get_within_rfc822_subject(leaf)
             body = extract_attached_message_headers(leaf)
           end
 
