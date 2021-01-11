@@ -1,0 +1,22 @@
+<!-- TODO: Translations -->
+
+<!-- TODO: Check whether they came via wizard -->
+<% if true %>
+  <p>Here are some snippets that may help you <strong>challenge a refusal</strong>:</p>
+<% else %>
+  <p><strong>Challenging a refusal?</strong> Here are some snippets that may help:</p>
+<% end %>
+
+<div class="snippet-library js-snippet-library">
+  <div class="snippet-library__filters">
+    <!-- TODO: Non-JavaScript fallback? -->
+    <label for="snippet-relation">Snippets related to</label>
+    <select id="snippet-relation">
+      <option value="all">any section</option>
+      <%= options_for_select(@refusal_advice.filter_options) %>
+    </select>
+  </div>
+  <div class="snippet-library__snippets">
+    <%= render @refusal_advice.snippets %>
+  </div>
+</div>

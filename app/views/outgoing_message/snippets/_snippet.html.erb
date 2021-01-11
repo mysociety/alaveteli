@@ -1,0 +1,12 @@
+<div class="snippet" data-tags="<%= snippet.tag_string %>">
+  <div class="snippet__preview js-snippet-preview">
+    <h3><%= snippet.name %></h3>
+    <details>
+      <summary>
+        <p class="snippet__preview__more"><%= truncate snippet.body, length: 150  %><strong>Read more</strong></p>
+        <p class="snippet__preview__less">Close preview</p>
+      </summary>
+      <%= simple_format snippet.body %>
+    </details>
+  </div>
+</div>
