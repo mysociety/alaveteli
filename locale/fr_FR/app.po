@@ -37,7 +37,7 @@
 # a270031086f2a0d3514bc0cb507b48f6, 2019
 # Gareth Rees <gareth@mysociety.org>, 2016
 # Laurent S, 2019
-# Laurent S, 2019
+# Laurent S, 2019-2020
 # louisecrow <louise@mysociety.org>, 2013,2017
 # mySociety <transifex@mysociety.org>, 2016
 # Pascal Romain <aka.keronos@gmail.com>, 2019-2020
@@ -53,8 +53,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-16 10:35+0100\n"
-"PO-Revision-Date: 2020-10-16 11:44+0000\n"
-"Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
+"PO-Revision-Date: 2020-11-21 22:46+0000\n"
+"Last-Translator: Pascal Romain <aka.keronos@gmail.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/mysociety/alaveteli/l"
 "anguage/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -1294,13 +1294,29 @@ msgid "Date:"
 msgstr "Date :"
 
 msgid "Dear [Authority name],"
-msgstr "Cher/Chère [Authority name],"
+msgstr ""
+"Cher/Chère [Authority name],\n"
+"\n"
+"En application de la loi n° 78-575 du 17 juillet 1978 relative aux documents administratifs, je souhaite recevoir communication des documents administratifs suivants:\n"
+"-\n"
+"-\n"
+"\n"
+"Je souhaite recevoir ces documents dans un format numérique, ouvert et réutilisable. Pour ce faire, veuillez m’indiquer leur adresse de téléchargement ou me les envoyer en pièce jointe.\n"
+"Comme le livre III du code des relations entre le public et l’administration le prévoit lorsque le demandeur a mal identifié la personne qui est susceptible de répondre à sa requête, je vous prie de bien vouloir transmettre ma demande au service qui détient les documents demandés si tel est le cas."
 
 msgid "Dear {{name}},"
 msgstr "Cher/Chère {{name}},"
 
 msgid "Dear {{placeholder_body_name}},"
-msgstr "Cher/Chère {{placeholder_body_name}},"
+msgstr ""
+"Cher/Chère {{placeholder_body_name}},\n"
+"\n"
+"En application de la loi n° 78-575 du 17 juillet 1978 relative aux documents administratifs, je souhaite recevoir communication des documents administratifs suivants:\n"
+"-\n"
+"-\n"
+"\n"
+"Je souhaite recevoir ces documents dans un format numérique, ouvert et réutilisable. Pour ce faire, veuillez m’indiquer leur adresse de téléchargement ou me les envoyer en pièce jointe.\n"
+"Comme le livre III du code des relations entre le public et l’administration le prévoit lorsque le demandeur a mal identifié la personne qui est susceptible de répondre à sa requête, je vous prie de bien vouloir transmettre ma demande au service qui détient les documents demandés si tel est le cas."
 
 msgid "Dear {{public_body_name}},"
 msgstr ""
@@ -1309,7 +1325,9 @@ msgstr ""
 "En application de la loi n° 78-575 du 17 juillet 1978 relative aux documents administratifs, je souhaite recevoir communication des documents administratifs suivants: \n"
 "\n"
 "\n"
-"Je souhaite recevoir ces documents dans un format numérique, ouvert et réutilisable. Pour ce faire, veuillez m’indiquer leur adresse de téléchargement ou me les envoyer en pièce jointe."
+"Je souhaite recevoir ces documents dans un format numérique, ouvert et réutilisable. Pour ce faire, veuillez m’indiquer leur adresse de téléchargement ou me les envoyer en pièce jointe.\n"
+"\n"
+"Comme le livre III du code des relations entre le public et l’administration le prévoit lorsque le demandeur a mal identifié celui qui est susceptible de répondre à sa requête, je vous prie de bien vouloir transmettre ma demande au service qui détient les documents demandés si tel est le cas."
 
 msgid "Dear {{user_name}},"
 msgstr "Cher/Chère {{user_name}},"
@@ -1921,7 +1939,7 @@ msgid "In progress"
 msgstr "En cours"
 
 msgid "In the News"
-msgstr ""
+msgstr "Dans les médias"
 
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr ""
@@ -2024,7 +2042,7 @@ msgid "Leave project"
 msgstr ""
 
 msgid "Let us know"
-msgstr ""
+msgstr "Faites le nous savoir"
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
 msgstr "Dites-nous ce que vous faisiez lorsque ce message est apparu ainsi que votre navigateur et le type et la version de votre système d'exploitation."
@@ -2776,7 +2794,7 @@ msgid "Requests for personal information and vexatious requests are not consider
 msgstr "Les demandes de renseignements personnels et les demandes offensantes/inappropriée ne sont pas considérées comme des demandes valides (<a href=\"/help/about\">Lire plus</a>)."
 
 msgid "Requests like this"
-msgstr "Demandes identiques"
+msgstr "Demandes similaires"
 
 msgid "Requests or responses matching your saved search"
 msgstr "Les demandes ou les réponses correspondant à votre recherche sauvegardée"
