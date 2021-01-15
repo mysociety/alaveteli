@@ -79,6 +79,10 @@ describe 'when creating a mail object from raw data' do
     expect { mail.subject }.not_to raise_error
   end
 
+  it 'identifies parts in multipart emails with utf8 and unix line endings' do
+    mail = get_fixture_mail('multipart-unicode-unix-endings.eml')
+    expect(mail.parts.map(&:content_type)).to eq(%w(text/plain text/html))
+  end
 end
 
 describe 'when asked for the from name' do

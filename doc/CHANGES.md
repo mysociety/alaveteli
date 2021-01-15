@@ -1,3 +1,17 @@
+# 0.38.4.0
+
+## Highlighted Features
+
+* Updated translations from Transifex (Gareth Rees)
+* Force mail data to have CRLF line endings to fix mail gem upgrade regression
+  (Graeme Porteous, Matthew Somerville, Gareth Rees)
+
+## Upgrade Notes
+
+* You can run `bundle exec rake temp:reparse_multipart_incoming_with_unicode` to
+  re-parse any incoming messages which may have been affected by
+  https://github.com/mysociety/alaveteli/issues/5905.
+
 # 0.38.3.0
 
 ## Highlighted Features

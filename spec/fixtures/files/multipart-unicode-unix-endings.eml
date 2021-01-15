@@ -1,0 +1,16 @@
+Content-Type: multipart/alternative; boundary="----_=_0000000214994"
+
+This is a multi-part message in MIME format.
+
+------_=_0000000214994
+Content-Type: text/plain
+
+The elipsis is unicode…
+
+------_=_0000000214994
+Content-Type: text/html
+
+<body>No unicode here</body>
+
+------_=_0000000214994--
+
