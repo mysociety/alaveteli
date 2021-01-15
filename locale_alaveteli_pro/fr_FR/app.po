@@ -8,8 +8,8 @@
 # 1bb8f5eb4bc72723d4109decfd20c765, 2019
 # a270031086f2a0d3514bc0cb507b48f6, 2019
 # pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2019
-# Laurent S, 2020
 # Pascal Romain <aka.keronos@gmail.com>, 2020
+# Laurent S, 2021
 #
 msgid ""
 msgstr ""
@@ -17,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-16 16:34+0100\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: Pascal Romain <aka.keronos@gmail.com>, 2020\n"
+"Last-Translator: Laurent S, 2021\n"
 "Language-Team: French (France) (https://www.transifex.com/mysociety/teams/3352"
 "9/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -332,7 +332,15 @@ msgid "Dashboard and workflow features"
 msgstr "Fonctionnalités de tableau de bord et de workflow "
 
 msgid "Dear {{user_name}},"
-msgstr "Cher/Chère {{user_name}},"
+msgstr ""
+"Madame, Monsieur,\n"
+"\n"
+"En application de la loi n° 78-575 du 17 juillet 1978 relative aux documents administratifs, je souhaiterai recevoir communication de ces documents administratifs :\n"
+"\n"
+"\n"
+"Je souhaite recevoir ces documents dans un format numérique, ouvert et réutilisable. Pour ce faire, veuillez m’indiquer leur adresse de téléchargement ou me les envoyer en pièce jointe.\n"
+"\n"
+"Comme le livre III du code des relations entre le public et l’administration le prévoit lorsque le demandeur a mal identifié celui qui est susceptible de répondre à sa requête, je vous prie de bien vouloir transmettre ma demande au service qui détient les documents demandés si tel est le cas."
 
 msgid "Debt Resistance UK uncovered <a href=\"{{story_url}}\">which councils are paying exorbitant LOBO loans</a>, in some cases meaning that a large proportion of council tax income is being channelled directly into interest payments."
 msgstr "Debt Resistance UK a mis en lumière <a href=\"{{story_url}}\">les autorités locales qui payent des emprunts toxiques</a>, dans certains cas impliquant qu'une proportion importante des taxes locales sert uniquement à financer les intérêts de ces emprunts."
@@ -921,7 +929,7 @@ msgstr[0] "Montrer les détails de {{count}} demande"
 msgstr[1] "Montrer les détails de {{count}} demandes"
 
 msgid "Sign up"
-msgstr "Déconnectez-vous"
+msgstr "Inscrivez-vous"
 
 msgid "Simple, affordable pricing"
 msgstr "Un prix simple et abordable"
@@ -1155,7 +1163,7 @@ msgid "We are processing your payment. You can access your subscription settings
 msgstr "Nous traitons votre paiement.  Vous pouvez accéder aux paramètres de votre abonnement et de votre compte via le lien \"Mon abonnement\" dans votre menu d'utilisateur (accessible via le menu déroulant à côté de de votre nom, au-dessus)."
 
 msgid "We will remind you by email and on the site when the request is going be made public, and you'll have the option to keep it private for longer if you want to. You can extend this time indefinitely, or make the request public at any time."
-msgstr "Nous vous rappellerons par email et sur le site lorsque le demande va être rendue public, et, si vous le souhaitez, vous aurez la possibilité de la garder confidentielle pour une plus longue période. Vous pouvez étendre cette durée de confidentialité indéfiniment ou rendre la requête publique à tout moment."
+msgstr "Nous vous rappellerons par email et sur le site lorsque votre demande va être rendue publique, et, si vous le souhaitez, vous aurez la possibilité de la garder confidentielle pour une plus longue période. Vous pouvez étendre cette durée de confidentialité indéfiniment ou rendre la requête publique à tout moment."
 
 msgid "Weekly Pro Metrics report for {{start_date}} - {{end_date}}"
 msgstr "Indicateurs mensuels d'usage de Madada ++ pour la période  {{start_date}} - {{end_date}}"
@@ -1170,7 +1178,7 @@ msgid "We’ve tried to bill your card but the charge was unsuccessful."
 msgstr "Nous avons essayé de facturer votre carte, mais le paiement a échoué."
 
 msgid "When a request is private we guarantee that it will only be visible on {{site_name}} for the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
-msgstr "Lorsqu'une demande est confidentielle nous garantissons qu'elle sera uniquement visible sur {{site_name}} pour la période que vous sélectionnez. Les administrateurs de {{pro_site_name}} pourront également voir votre demande mais ils ne le feront qu'au cas où ils doivent régler un problème avec votre demande (par exemple une erreur de délivrabilité à l'autorité publique). Ils ne révéleront à personne le contenu de votre demande ou de toute réponse obtenue. Il est toutefois possible que l'autorité publie votre demande dans un registre."
+msgstr "Lorsqu'une demande est confidentielle nous garantissons qu'elle sera uniquement visible sur {{site_name}} à l'issue de la période que vous sélectionnez. Les administrateurs de {{pro_site_name}} pourront également voir votre demande mais ils ne le feront qu'au cas où ils doivent régler un problème avec votre demande (par exemple une erreur d'adressage à l'autorité publique). Ils ne révéleront à personne le contenu de votre demande ou de toute réponse obtenue. Il est toutefois possible que l'autorité publie votre demande dans un registre."
 
 msgid "When the current billing period ends:"
 msgstr "Lorsque la période de facturation se termine:"
@@ -1323,7 +1331,7 @@ msgid "You’ve got plenty of other things to think about, so you don’t want t
 msgstr "Vous avez déjà plein de choses à vous occuper et vous n'avez pas envie d'avoir à suivre individuellement chacune de vos demandes d'accès à de l'information publique afin de voir si l'une d'entre elles requière votre attention. A la place, grâce à Madada ++, tout est pris en charge. Vous recevez simplement un résumé quotidien d'activité."
 
 msgid "ZIP"
-msgstr "Code postal"
+msgstr "ZIP"
 
 msgid "all requests"
 msgstr "Toutes les demandes"

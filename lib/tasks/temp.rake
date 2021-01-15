@@ -12,6 +12,18 @@ namespace :temp do
       end
   end
 
+  desc 'Re-parse attachments affected by mysociety/alaveteli#5905'
+  task reparse_multipart_incoming_with_unicode: :environment do
+    since = ENV.fetch('FROM_DATE', Date.parse('2020-08-10'))
+
+    IncomingMessage.
+      where('created_at > ?', since).
+      where("cached_main_body_text_folded ILIKE '%Content-Type%'").
+      find_each do |message|
+        message.clear_in_database_caches! && message.parse_raw_email!(true)
+      end
+  end
+
   desc 'Identify broken binary censor rules'
   task identify_broken_binary_censor_rules: :environment do
     helper = ApplicationController.helpers
