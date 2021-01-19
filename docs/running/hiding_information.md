@@ -127,7 +127,10 @@ messages, including responses associated with it), or any individual message.
       search results on the site.
       <br>
       This discourages people from finding a request, but they can access it if
-      they have the URL (which external search engines may be linking to).
+      they have the URL.
+      <br>
+      It also sets an <code>X-Robots-Tag: noindex</code> header to prevent the
+      request being indexed by external search engines.
       <br>
       Messages <em>within</em> this page can themselves be hidden.
     </td>
