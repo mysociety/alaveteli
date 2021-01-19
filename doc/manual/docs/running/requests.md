@@ -131,7 +131,9 @@ Click the **Edit metadata** button.
         <li><code>normal</code></li>
         <li>
           <code>backpage</code>: request can be seen by anyone (by visiting
-          its URL, for example) but does not appear in lists, or search results
+          its URL, for example) but does not appear in lists, or search results.
+          It also sets an <code>X-Robots-Tag: noindex</code> header to prevent
+          the request being indexed by external search engines.
         </li>
         <li>
           <code>requester_only</code>: request only visible to the person who
