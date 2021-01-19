@@ -15,6 +15,11 @@ RSpec.describe Legislation do
     it 'contains EIR legislation' do
       is_expected.to include(have_attributes(key: 'eir'))
     end
+
+    it 'memoises' do
+      expect(subject.map(&:object_id)).
+        to eq(described_class.all.map(&:object_id))
+    end
   end
 
   shared_context :stub_all_legislations do

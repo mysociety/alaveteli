@@ -6,7 +6,7 @@ class Legislation
   UnknownLegislationVariant = Class.new(StandardError)
 
   def self.all
-    [
+    @all ||= [
       new(
         key: 'foi',
         short: _('FOI'),
