@@ -71,6 +71,10 @@ class Legislation
     )
   end
 
+  def ==(other)
+    other&.to_sym == to_sym
+  end
+
   def find_references(text)
     Legislation::ReferenceCollection.new(legislation: self).match(text)
   end
