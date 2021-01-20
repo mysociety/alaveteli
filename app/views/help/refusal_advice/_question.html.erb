@@ -7,7 +7,9 @@
 
     <div class="wizard__options <%= wizard_option_class(question.options) %>">
       <% question.options.each do |option| %>
-        <%= refusal_advice_question(question, option) %>
+        <%= f.fields_for 'questions[]', question do |f| %>
+          <%= refusal_advice_question(question, option, f: f) %>
+        <% end %>
       <% end %>
     </div>
   </fieldset>

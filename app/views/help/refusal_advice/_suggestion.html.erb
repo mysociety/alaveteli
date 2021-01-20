@@ -1,3 +1,4 @@
 <div class="wizard__suggestion" data-block="<%= suggestion.id %>" data-show-if="<%= suggestion.show_if.to_json %>">
+  <%= hidden_field_tag "#{f.object_name}[#{suggestion.id}]" if @info_request %>
   <p><%= render suggestion.advice %></p>
 </div>

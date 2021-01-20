@@ -1,4 +1,6 @@
 <div class="wizard js-wizard">
-  <%= render @refusal_advice.questions %>
-  <%= render partial: 'help/refusal_advice/next_steps', locals: { actions: @refusal_advice.actions } %>
+  <%= form_for :refusal_advice, url: refusal_advice_path do |f| %>
+    <%= render @refusal_advice.questions, f: f %>
+    <%= render partial: 'help/refusal_advice/next_steps', locals: { actions: @refusal_advice.actions, f: f } %>
+  <% end %>
 </div>
