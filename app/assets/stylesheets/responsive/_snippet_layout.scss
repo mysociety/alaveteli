@@ -18,16 +18,28 @@
   }
 }
 
+.snippet-library__snippets {
+  max-height: 20em;
+  overflow: auto;
+}
+
 .snippet {
   @media (min-width: 30em) {
     display: flex;
     align-items: center;
   }
+
+  &[aria-hidden="hidden"] {
+    display: none;
+  }
 }
 
 .snippet__preview {
+  margin-bottom: 1em;
+
   @media (min-width: 30em) {
     margin-right: 2em;
+    margin-bottom: 0;
     flex: 1 1 auto;
   }
 
