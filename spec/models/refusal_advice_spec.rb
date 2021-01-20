@@ -153,4 +153,38 @@ RSpec.describe RefusalAdvice do
       it { is_expected.to eq(false) }
     end
   end
+
+  context '#snippets' do
+    subject { instance.snippets }
+
+    let(:scope) { double(:outgoing_message_snippet_scope) }
+    let(:snippets) { [FactoryBot.build(:outgoing_message_snippet)] }
+
+    before do
+      allow(OutgoingMessage::Snippet).to receive(:with_tag).
+        with('refusal_advice').and_return(scope)
+    end
+
+    context 'when sending a follow up message' do
+      let(:instance) { described_class.new(data, internal_review: false) }
+
+      it 'assigns refusal advice snippets' do
+        expect(scope).to receive(:without_tag).with('internal_review').
+          and_return(snippets)
+
+        is_expected.to eq snippets
+      end
+    end
+
+    context 'when sending an internal review' do
+      let(:instance) { described_class.new(data, internal_review: true) }
+
+      it 'assigns refusal advice snippets' do
+        expect(scope).to receive(:with_tag).with('internal_review').
+          and_return(snippets)
+
+        is_expected.to eq snippets
+      end
+    end
+  end
 end

@@ -22,35 +22,6 @@
     </select>
   </div>
   <div class="snippet-library__snippets">
-    <div class="snippet">
-      <div class="snippet__preview">
-        <h3>The authority has not included a calculation or explanation of the costs involved in providing the information</h3>
-        <details>
-          <summary>
-            <p class="snippet__preview__more">I note that a calculation or explanation of the costs involved in providing the information has not been included. It would be useful if… <strong>Read more</strong></p>
-            <p class="snippet__preview__less">Close preview</p>
-          </summary>
-          <p>I note that a calculation or explanation of the costs involved in providing the information has not been included. It would be useful if you could do so, to allow me to understand how best to reframe my request and not exceed the cost limit.</p>
-          <p>As I am sure you are aware, the FOI Act states that it is “the duty of a public authority to provide advice and assistance, so far as it would be reasonable to expect the authority to do so”, and the ICO consider it best practice to provide “arguments or evidence”.</p>
-        </details>
-      </div>
-      <!-- TODO: Click handler to actually insert the snippet into the user’s message -->
-      <button class="snippet__insert button">Insert</button>
-    </div>
-    <div class="snippet">
-      <div class="snippet__preview js-snippet-preview">
-        <h3>Your requests have been aggregated even though they are all on demonstrably different subjects</h3>
-        <details>
-          <summary>
-            <p class="snippet__preview__more">I note that you have aggregated my requests, which authorities are permitted to do under the FOI Act — but as you may be aware… <strong>Read more</strong></p>
-            <p class="snippet__preview__less">Close preview</p>
-          </summary>
-          <p>I note that you have aggregated my requests, which authorities are permitted to do under the FOI Act — but as you may be aware, ICO guidance (https://ico.org.uk/media/for-organisations/documents/1199/costs_of_compliance_exceeds_appropriate_limit.pdf) states that requests may only be aggregated if they relate “to any extent” to the same or similar information.</p>
-          <p>In fact, my requests concern demonstrably different pieces of information: [list the details].</p>
-        </details>
-      </div>
-      <!-- TODO: Click handler to actually insert the snippet into the user’s message -->
-      <button class="snippet__insert button">Insert</button>
-    </div>
+    <%= render @refusal_advice.snippets %>
   </div>
 </div>
