@@ -2,9 +2,11 @@
   <h2><%= action.header %></h2>
   <div><%= render action.body %></div>
 
-  <%= render action.suggestions %>
+  <%= f.fields_for 'actions[]', action, include_id: false do |f| %>
+    <%= render action.suggestions, f: f %>
+  <% end %>
 
-  <button type="submit" class="button" value="<%= action.id %>">
+  <%= f.button name: "#{f.object_name}[id]", value: action.id, class: 'button' do %>
     <%= action.button %>
-  </button>
+  <% end %>
 </div>
