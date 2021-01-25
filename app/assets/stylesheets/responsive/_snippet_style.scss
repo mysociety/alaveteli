@@ -44,3 +44,13 @@
   font-weight: bold;
   font-style: normal !important; // override `.snippet__preview p`
 }
+
+.snippet__action {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    margin-right: 0.4em;
+  }
+}
