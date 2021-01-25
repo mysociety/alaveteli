@@ -27,4 +27,18 @@
     });
   });
 
+  var clipboard = new ClipboardJS('[data-clipboard-text]');
+
+  clipboard.on('success', function(e) {
+    var $btn = $(e.trigger);
+    if ( e.action === 'copy' && $btn.attr('data-clipboard-success') ) {
+      var btnOriginalHTML = $btn.html();
+      $btn.html( $btn.attr('data-clipboard-success') );
+      setTimeout(function(){
+        $btn.html( btnOriginalHTML );
+      }, 3000);
+    }
+    e.clearSelection();
+  });
+
 })(window.jQuery);
