@@ -6,7 +6,7 @@ class Legislation
   UnknownLegislationVariant = Class.new(StandardError)
 
   def self.all
-    [
+    @all ||= [
       new(
         key: 'foi',
         short: _('FOI'),
@@ -69,6 +69,10 @@ class Legislation
     raise UnknownLegislationVariant.new(
       "Unknown variant #{variant} in legislation #{key}."
     )
+  end
+
+  def ==(other)
+    other&.to_sym == to_sym
   end
 
   def find_references(text)

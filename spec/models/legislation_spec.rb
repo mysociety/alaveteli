@@ -9,11 +9,16 @@ RSpec.describe Legislation do
     end
 
     it 'contains FOI legislation' do
-      is_expected.to include(have_attributes(key: 'foi'))
+      is_expected.to include(described_class.find('foi'))
     end
 
     it 'contains EIR legislation' do
-      is_expected.to include(have_attributes(key: 'eir'))
+      is_expected.to include(described_class.find('eir'))
+    end
+
+    it 'memoises' do
+      expect(subject.map(&:object_id)).
+        to eq(described_class.all.map(&:object_id))
     end
   end
 
@@ -85,11 +90,11 @@ RSpec.describe Legislation do
       end
 
       it 'does not contains FOI legislation' do
-        is_expected.to_not include(have_attributes(key: 'foi'))
+        is_expected.to_not include(described_class.find('foi'))
       end
 
       it 'contains EIR legislation' do
-        is_expected.to include(have_attributes(key: 'eir'))
+        is_expected.to include(described_class.find('eir'))
       end
     end
 
@@ -101,11 +106,11 @@ RSpec.describe Legislation do
       end
 
       it 'contains FOI legislation' do
-        is_expected.to include(have_attributes(key: 'foi'))
+        is_expected.to include(described_class.find('foi'))
       end
 
       it 'contains EIR legislation' do
-        is_expected.to include(have_attributes(key: 'eir'))
+        is_expected.to include(described_class.find('eir'))
       end
     end
   end
@@ -161,6 +166,28 @@ RSpec.describe Legislation do
           'Unknown variant invalid in legislation key.'
         )
       end
+    end
+  end
+
+  describe '#==' do
+    include_context :legislation_instance
+
+    subject { legislation == other }
+
+    context 'when the key is the same' do
+      let(:other) do
+        described_class.new(key: 'key', short: 'short', full: 'full')
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the key is different' do
+      let(:other) do
+        described_class.new(key: 'bar', short: 'short', full: 'full')
+      end
+
+      it { is_expected.to eq(false) }
     end
   end
 
