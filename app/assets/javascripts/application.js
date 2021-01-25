@@ -13,4 +13,5 @@
 //= require alaveteli_pro/alaveteli_pro
 //= require carousel
 //= require wizard
+//= require clipboard.min
 //= require snippets
