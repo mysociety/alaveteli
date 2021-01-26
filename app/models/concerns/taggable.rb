@@ -8,26 +8,15 @@ module Taggable
     has_tag_string
 
     def self.with_tag(tag)
-      if tag.include?(':')
-        tag, value = HasTagString::HasTagStringTag.
-          split_tag_into_name_value(tag)
-        where("EXISTS(#{tag_search_sql(tag, value)})")
-      else
-        where("EXISTS(#{tag_search_sql(tag)})")
-      end
+      where("EXISTS(#{tag_search_sql(tag)})")
     end
 
     def self.without_tag(tag)
-      if tag.include?(':')
-        tag, value = HasTagString::HasTagStringTag.
-          split_tag_into_name_value(tag)
-        where.not("EXISTS(#{tag_search_sql(tag, value)})")
-      else
-        where.not("EXISTS(#{tag_search_sql(tag)})")
-      end
+      where.not("EXISTS(#{tag_search_sql(tag)})")
     end
 
-    def self.tag_search_sql(name, value = nil)
+    def self.tag_search_sql(tag)
+      name, value = HasTagString::HasTagStringTag.split_tag_into_name_value(tag)
       scope = HasTagString::HasTagStringTag.
         select(1).
         where("has_tag_string_tags.model_id = #{quoted_table_name}." \
