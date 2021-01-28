@@ -748,6 +748,10 @@ class IncomingMessage < ApplicationRecord
     legislation_references.select(&:refusal?).map(&:parent).uniq
   end
 
+  def refusals?
+    refusals.any?
+  end
+
   private
 
   def legislation_references
