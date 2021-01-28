@@ -48,6 +48,7 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
+        sudo apt-get -y update
         sudo apt-get -y install exim4-daemon-light
         sudo apt-get -y install `cut -d " " -f 1 config/packages.ubuntu-bionic | egrep -v "(^#|wkhtml|bundler|^ruby|^rake)"`
 
