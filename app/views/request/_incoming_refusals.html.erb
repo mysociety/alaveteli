@@ -1,11 +1,8 @@
 <% if can?(:update_request_state, @info_request) && incoming_message.refusals? %>
   <div class="correspondence__suggestion">
-    <h2><%= _('Request refused?') %></h2>
-
     <p>
-      <%= _('It looks like {{authority_name}} may have ' \
-            'refused all or part of your request under ' \
-            '<strong>{{exemptions}}</strong>.',
+      <%= _('{{authority_name}} may have refused all or part of your request ' \
+            'under <strong>{{exemptions}}</strong>.',
             authority_name: @info_request.public_body.name,
             exemptions: incoming_message.refusals.to_sentence) %>
 
