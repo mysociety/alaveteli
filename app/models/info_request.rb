@@ -1452,6 +1452,10 @@ class InfoRequest < ApplicationRecord
     end
   end
 
+  def reason_to_be_unhappy?
+    classified? && State.unhappy.include?(calculate_status)
+  end
+
   def classified?
     !awaiting_description?
   end
