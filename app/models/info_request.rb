@@ -1452,6 +1452,10 @@ class InfoRequest < ApplicationRecord
     end
   end
 
+  def classified?
+    !awaiting_description?
+  end
+
   def is_old_unclassified?
     !is_external? && awaiting_description && url_title != 'holding_pen' && get_last_public_response_event &&
       Time.zone.now > get_last_public_response_event.created_at + OLD_AGE_IN_DAYS

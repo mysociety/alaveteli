@@ -4776,4 +4776,20 @@ describe InfoRequest do
       end
     end
   end
+
+  describe '#classified?' do
+    subject { info_request.classified? }
+
+    let(:info_request) { FactoryBot.build(:info_request) }
+
+    context 'the request has been classified' do
+      before { info_request.awaiting_description = false }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'the request is waiting classification' do
+      before { info_request.awaiting_description = true }
+      it { is_expected.to eq(false) }
+    end
+  end
 end
