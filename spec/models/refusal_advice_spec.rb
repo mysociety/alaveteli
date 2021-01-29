@@ -188,6 +188,29 @@ RSpec.describe RefusalAdvice do
     end
   end
 
+  context '#answers' do
+    subject { instance.answers }
+
+    let(:user) { FactoryBot.build(:user) }
+    let(:info_request) { FactoryBot.create(:info_request, user: user) }
+
+    let(:instance) do
+      described_class.new(data, info_request: info_request, user: user)
+    end
+
+    context 'when info request event has been stored' do
+      let!(:event) do
+        FactoryBot.create(:refusal_advice_event, info_request: info_request)
+      end
+
+      it { is_expected.to match_array(['refusal_advice:action_3']) }
+    end
+
+    context 'when there is no info request event stored' do
+      it { is_expected.to be_nil }
+    end
+  end
+
   context '#filter_options' do
     subject { instance.filter_options }
 

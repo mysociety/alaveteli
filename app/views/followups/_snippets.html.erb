@@ -1,7 +1,6 @@
 <!-- TODO: Translations -->
 
-<!-- TODO: Check whether they came via wizard -->
-<% if true %>
+<% if @refusal_advice.answers %>
   <p>Here are some snippets that may help you <strong>challenge a refusal</strong>:</p>
 <% else %>
   <p><strong>Challenging a refusal?</strong> Here are some snippets that may help:</p>
@@ -12,6 +11,9 @@
     <!-- TODO: Non-JavaScript fallback? -->
     <label for="snippet-relation">Snippets related to</label>
     <select id="snippet-relation">
+      <% if @refusal_advice.answers %>
+        <option value="<%= @refusal_advice.answers.join(' ') %>">my previous answers</option>
+      <% end %>
       <option value="all">any section</option>
       <%= options_for_select(@refusal_advice.filter_options) %>
     </select>

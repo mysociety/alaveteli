@@ -160,6 +160,29 @@ FactoryBot.define do
       event_type { 'status_update' }
     end
 
+    factory :refusal_advice_event do
+      event_type { 'refusal_advice' }
+      params do
+        {
+          questions: {
+            exemption: 'section-12', question_1: 'no', question_2: 'yes'
+          },
+          actions: {
+            internal_review: { action_1: false, action_2: true },
+            clarification: { action_3: true, action_4: false },
+            new_request: { action_5: false }
+          },
+          button: 'clarification'
+        }
+      end
+
+      after(:build) do |event|
+        event.params = event.params.merge(
+          user: event.info_request.user.to_param
+        )
+      end
+    end
+
   end
 
 end
