@@ -27,5 +27,10 @@ module Taggable
       scope.to_sql
     end
     private_class_method :tag_search_sql
+
+    def self.tags
+      HasTagString::HasTagStringTag.where(model_id: all, model: to_s).
+        map(&:name_and_value)
+    end
   end
 end

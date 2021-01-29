@@ -112,5 +112,13 @@ RSpec.describe OutgoingMessage::Snippet, type: :model do
       expect(snippets).to_not include(old_tagged_snippet)
       expect(snippets).to include(tagged_snippet)
     end
+
+    describe '.tags' do
+      subject { described_class.tags }
+
+      it 'returns all tags used for the given model' do
+        is_expected.to match_array(['exemption:s_12', 'tagged', 'foo', 'bar'])
+      end
+    end
   end
 end
