@@ -61,6 +61,20 @@ class RefusalAdvice
     end
   end
 
+  ##
+  # Return a Array of arrays which can be used with options_for_select to show
+  # legislation references options which have refusal advice snippets.
+  #
+  def filter_options
+    tags = snippets.tags
+    legislation.refusals.
+      inject([]) do |memo, r|
+        tag = "refusal:#{r.to_param}"
+        memo << [r.to_s, tag] if tags.include?(tag)
+        memo
+      end
+  end
+
   def ==(other)
     data == other.data
   end

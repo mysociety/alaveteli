@@ -15,10 +15,7 @@
         <option value="<%= @refusal_advice.answers.join(' ') %>">my previous answers</option>
       <% end %>
       <option value="all">any section</option>
-      <!-- TODO: Actual list of sections -->
-      <option>Section 12</option>
-      <option>Section 14</option>
-      <option>Section 16</option>
+      <%= options_for_select(@refusal_advice.filter_options) %>
     </select>
   </div>
   <div class="snippet-library__snippets">
