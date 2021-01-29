@@ -192,6 +192,30 @@ describe FollowupsController do
       end
     end
 
+    context 'setting refusal advice' do
+      before { session[:user_id] = request.user.id }
+
+      it 'initialise without internal_review option' do
+        expect(RefusalAdvice).to receive(:default).with(
+          request, internal_review: false
+        ).and_call_original
+
+        get :new, params: { request_id: request.id }
+      end
+
+      it 'initialise with internal_review option' do
+        expect(RefusalAdvice).to receive(:default).with(
+          request, internal_review: true
+        ).and_call_original
+
+        get :new, params: { request_id: request.id, internal_review: 1 }
+      end
+
+      it 'assigns @refusal_advice' do
+        get :new, params: { request_id: request.id }
+        expect(assigns[:refusal_advice]).to be_a(RefusalAdvice)
+      end
+    end
   end
 
   describe "POST #preview" do
