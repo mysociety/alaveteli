@@ -3,31 +3,42 @@ require 'spec_helper'
 describe RefusalAdviceHelper do
   include RefusalAdviceHelper
 
-  describe '#refusal_advice_radio' do
-    subject { refusal_advice_radio(question, option) }
+  describe '#refusal_advice_question' do
+    subject { refusal_advice_question(question, option) }
 
-    let(:question) { double(id: 'confirm-or-deny') }
+    let(:question) { double(id: 'confirm-or-deny', options: options) }
+    let(:options) { [option] }
     let(:option) { double(value: 'yes', label: 'Yes') }
 
-    it { is_expected.to match(/radio/) }
     it { is_expected.to match(/name="confirm-or-deny"/) }
     it { is_expected.to match(/id="confirm-or-deny_yes"/) }
     it { is_expected.to match(/value="yes"/) }
     it { is_expected.to match(/for="confirm-or-deny_yes"/) }
     it { is_expected.to match(/Yes/) }
+
+    context 'two or fewer options' do
+      let(:options) { [option, option] }
+      it { is_expected.to match(/radio/) }
+    end
+
+    context 'more than two options' do
+      let(:options) { [option, option, option] }
+      it { is_expected.to match(/checkbox/) }
+    end
   end
 
-  describe '#refusal_advice_checkbox' do
-    subject { refusal_advice_checkbox(question, option) }
+  describe '#wizard_option_class' do
+    subject { wizard_option_class(options) }
+    let(:option) { double(value: 'yes', label: 'Yes') }
 
-    let(:question) { double(id: 'refusal-reasons') }
-    let(:option) { double(value: 'section-1', label: 'Section 1') }
+    context 'two or fewer options' do
+      let(:options) { [option, option] }
+      it { is_expected.to eq 'wizard__options--list' }
+    end
 
-    it { is_expected.to match(/checkbox/) }
-    it { is_expected.to match(/name="refusal-reasons"/) }
-    it { is_expected.to match(/id="refusal-reasons_section-1"/) }
-    it { is_expected.to match(/value="section-1"/) }
-    it { is_expected.to match(/for="refusal-reasons_section-1"/) }
-    it { is_expected.to match(/Section 1/) }
+    context 'more than two options' do
+      let(:options) { [option, option, option] }
+      it { is_expected.to eq 'wizard__options--grid' }
+    end
   end
 end
