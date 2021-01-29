@@ -197,7 +197,7 @@ describe FollowupsController do
 
       it 'initialise without internal_review option' do
         expect(RefusalAdvice).to receive(:default).with(
-          request, internal_review: false
+          request, internal_review: false, user: request.user
         ).and_call_original
 
         get :new, params: { request_id: request.id }
@@ -205,7 +205,7 @@ describe FollowupsController do
 
       it 'initialise with internal_review option' do
         expect(RefusalAdvice).to receive(:default).with(
-          request, internal_review: true
+          request, internal_review: true, user: request.user
         ).and_call_original
 
         get :new, params: { request_id: request.id, internal_review: 1 }

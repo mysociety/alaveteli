@@ -212,7 +212,8 @@ class FollowupsController < ApplicationController
   def set_refusal_advice
     @refusal_advice = RefusalAdvice.default(
       @info_request,
-      internal_review: @internal_review
+      internal_review: @internal_review,
+      user: current_user
     )
   end
 
