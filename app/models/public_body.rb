@@ -27,6 +27,7 @@ require 'confidence_intervals'
 
 class PublicBody < ApplicationRecord
   include AdminColumn
+  include Taggable
 
   class ImportCSVDryRun < StandardError; end
 
@@ -118,7 +119,6 @@ class PublicBody < ApplicationRecord
                    [:tag_array_for_search, 'U', "tag"]
                  ],
                  :eager_load => [:translations]
-  has_tag_string
 
   strip_attributes :allow_empty => false, :except => [:request_email]
   strip_attributes :allow_empty => true, :only => [:request_email]
@@ -810,16 +810,9 @@ class PublicBody < ApplicationRecord
     return bodies
   end
 
-  def self.tag_search_sql(name, value = nil)
-    scope = HasTagString::HasTagStringTag.
-      select(1).
-      where("has_tag_string_tags.model_id = public_bodies.id").
-      where("has_tag_string_tags.model = 'PublicBody'").
-      where(name: name)
-    scope = scope.where(value: value) if value
-    scope.to_sql
+  class << self
+    alias original_with_tag with_tag
   end
-  private_class_method :tag_search_sql
 
   def self.with_tag(tag)
     return all if tag.size == 1 || tag.nil? || tag == 'all'
@@ -827,20 +820,8 @@ class PublicBody < ApplicationRecord
     if tag == 'other'
       tags = PublicBodyCategory.get.tags - ['other']
       where.not("EXISTS(#{tag_search_sql(tags)})")
-    elsif tag.include?(':')
-      tag, value = HasTagString::HasTagStringTag.split_tag_into_name_value(tag)
-      where("EXISTS(#{tag_search_sql(tag, value)})")
     else
-      where("EXISTS(#{tag_search_sql(tag)})")
-    end
-  end
-
-  def self.without_tag(tag)
-    if tag.include?(':')
-      tag, value = HasTagString::HasTagStringTag.split_tag_into_name_value(tag)
-      where.not("EXISTS(#{tag_search_sql(tag, value)})")
-    else
-      where.not("EXISTS(#{tag_search_sql(tag)})")
+      original_with_tag(tag)
     end
   end
 
