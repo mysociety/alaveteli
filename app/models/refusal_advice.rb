@@ -38,6 +38,29 @@ class RefusalAdvice
     scope.without_tag('internal_review')
   end
 
+  ##
+  # Retrieve the previous answers provided by the refusal advice wizard for a
+  # given InfoRequest and user.
+  #
+  def answers
+    wizard_answer = @info_request.info_request_events.where(
+      event_type: 'refusal_advice'
+    ).order(created_at: :desc).find do |event|
+      # FIXME: InfoRequestEvent needs an user association
+      event.params[:user] == @options[:user].to_param
+    end
+
+    return unless wizard_answer
+
+    action = wizard_answer.params[:button]
+    suggestions = wizard_answer.params[:actions][action.to_sym]
+
+    suggestions.inject([]) do |memo, (k, v)|
+      memo << "refusal_advice:#{k}" if v
+      memo
+    end
+  end
+
   def ==(other)
     data == other.data
   end
