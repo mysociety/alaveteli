@@ -59,6 +59,30 @@ RSpec.describe Legislation::Reference do
     end
   end
 
+  describe '#to_param' do
+    subject { legislation.to_param }
+
+    context 'without sub elements' do
+      let(:legislation) do
+        Legislation::Reference.new(legislation: foi, reference: 's 1')
+      end
+
+      it 'returns reference downcase and without spaces' do
+        is_expected.to eq 'section-1'
+      end
+    end
+
+    context 'with sub elements' do
+      let(:legislation) do
+        Legislation::Reference.new(legislation: foi, reference: 's 1(a)')
+      end
+
+      it 'returns reference without bracketed sub elements' do
+        is_expected.to eq 'section-1-a'
+      end
+    end
+  end
+
   describe '#parent' do
     subject { legislation.parent }
 
