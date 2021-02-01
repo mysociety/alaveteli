@@ -129,7 +129,7 @@ gem 'thin', '~> 1.8.0'
 gem 'vpim', '~> 13.11.11'
 gem 'will_paginate', '~> 3.3.0'
 gem 'xapian-full-alaveteli', '~> 1.4.11.1'
-gem 'xml-simple', '~> 1.1.7', :require => 'xmlsimple'
+gem 'xml-simple', '~> 1.1.8', :require => 'xmlsimple'
 gem 'zip_tricks', '~> 5.5.0'
 
 # Gems only used by the research export task
