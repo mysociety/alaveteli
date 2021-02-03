@@ -709,11 +709,13 @@ class User < ApplicationRecord
   end
 
   def verify_otp_code
-    opts = { :auto_increment => true }
-    if entered_otp_code.nil? || !authenticate_otp(entered_otp_code, opts)
+    if entered_otp_code.nil? || !authenticate_otp(entered_otp_code)
       msg = _('Invalid one time password')
       errors.add(:otp_code, msg)
+      return false
     end
+
+    self.otp_counter += 1
     self.entered_otp_code = nil
   end
 
