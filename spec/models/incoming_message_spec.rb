@@ -451,6 +451,21 @@ describe IncomingMessage do
     end
   end
 
+  describe '#refusals?' do
+    subject { message.refusals? }
+
+    let(:message) { FactoryBot.build(:incoming_message) }
+
+    context 'if there are refusals' do
+      before { allow(message).to receive(:refusals).and_return([double]) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'if there are no refusals' do
+      before { allow(message).to receive(:refusals).and_return([]) }
+      it { is_expected.to eq(false) }
+    end
+  end
 end
 
 describe IncomingMessage, 'when validating' do

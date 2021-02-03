@@ -81,7 +81,7 @@ class ClassificationsController < ApplicationController
     when 'waiting_response', 'waiting_response_overdue', 'not_held',
       'successful', 'internal_review', 'error_message', 'requires_admin'
       redirect_to_info_request
-    when 'waiting_response_very_overdue', 'rejected', 'partially_successful'
+    when *InfoRequest::State.unhappy
       redirect_to unhappy_url(@info_request)
     when 'waiting_clarification', 'user_withdrawn'
       redirect_to respond_to_last_url(@info_request)

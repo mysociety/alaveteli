@@ -12,6 +12,16 @@ describe InfoRequest::State do
 
   end
 
+  describe '.unhappy' do
+    subject { described_class.unhappy }
+
+    let(:unhappy_states) do
+      %w(partially_successful rejected waiting_response_very_overdue)
+    end
+
+    it { is_expected.to match_array(unhappy_states) }
+  end
+
   describe '.valid?' do
     subject { described_class.valid?(state) }
 
