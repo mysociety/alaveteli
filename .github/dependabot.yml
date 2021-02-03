@@ -38,11 +38,19 @@ updates:
       - dependency-name: sass-rails
         versions:
         - ">= 5.0.8"
+      - dependency-name: simplecov
+        versions:
+        - ">= 0.18.0"
 
       # pry-byebug requires Ruby >= 2.4.0
       - dependency-name: pry
         versions:
         - ">= 0.13.0"
+
+      # simplecov requires Ruby >= 2.4.0
+      - dependency-name: simplecov-lcov
+        versions:
+        - ">= 0.8.0"
 
       # requires Ruby >= 2.4
       - dependency-name: rubyzip
