@@ -32,6 +32,10 @@ class Legislation
       parent_reference + "(#{sub_elements.join(')(')})"
     end
 
+    def to_param
+      to_s.parameterize
+    end
+
     def parent
       self.class.new(legislation: legislation, reference: parent_reference)
     end

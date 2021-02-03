@@ -153,4 +153,62 @@ RSpec.describe RefusalAdvice do
       it { is_expected.to eq(false) }
     end
   end
+
+  context '#snippets' do
+    subject { instance.snippets }
+
+    let(:scope) { double(:outgoing_message_snippet_scope) }
+    let(:snippets) { [FactoryBot.build(:outgoing_message_snippet)] }
+
+    before do
+      allow(OutgoingMessage::Snippet).to receive(:with_tag).
+        with('refusal_advice').and_return(scope)
+    end
+
+    context 'when sending a follow up message' do
+      let(:instance) { described_class.new(data, internal_review: false) }
+
+      it 'assigns refusal advice snippets' do
+        expect(scope).to receive(:without_tag).with('internal_review').
+          and_return(snippets)
+
+        is_expected.to eq snippets
+      end
+    end
+
+    context 'when sending an internal review' do
+      let(:instance) { described_class.new(data, internal_review: true) }
+
+      it 'assigns refusal advice snippets' do
+        expect(scope).to receive(:with_tag).with('internal_review').
+          and_return(snippets)
+
+        is_expected.to eq snippets
+      end
+    end
+  end
+
+  context '#filter_options' do
+    subject { instance.filter_options }
+
+    let(:info_request) { FactoryBot.create(:info_request) }
+
+    let(:instance) do
+      described_class.new(data, info_request: info_request)
+    end
+
+    before do
+      allow(instance).to receive(:legislation).and_return(
+        FactoryBot.build(:legislation, refusals: ['s 11', 's 12'])
+      )
+      allow(instance).to receive(:snippets).and_return(
+        double(:outgoing_message_snippet_scope,
+               tags: 'refusal:section-12 refusal:section-14')
+      )
+    end
+
+    it 'returns options array of legislation refusals tags which are active' do
+      is_expected.to match_array([['Section 12', 'refusal:section-12']])
+    end
+  end
 end
