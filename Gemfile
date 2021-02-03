@@ -163,7 +163,7 @@ gem 'alaveteli_features', :path => 'gems/alaveteli_features'
 group :test do
   gem 'fivemat', '~> 1.3.7'
   gem 'webmock', '~> 3.11.0'
-  gem 'simplecov', '~> 0.16.1'
+  gem 'simplecov', '~> 0.17.1'
   gem 'simplecov-lcov', '~> 0.7.0'
   gem 'capybara', '~> 3.15.1'
   gem 'stripe-ruby-mock', git: 'https://github.com/stripe-ruby-mock/stripe-ruby-mock',
