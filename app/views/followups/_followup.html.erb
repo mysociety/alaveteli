@@ -101,8 +101,10 @@
       </p>
     <% end %>
 
-    <% if @info_request.reason_to_be_unhappy? %>
-      <%= render partial: 'snippets' %>
+    <% if feature_enabled?(:refusal_snippets) %>
+      <% if @info_request.reason_to_be_unhappy? %>
+        <%= render partial: 'snippets' %>
+      <% end %>
     <% end %>
 
     <% form_url =
