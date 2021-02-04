@@ -1,20 +1,30 @@
 # Helpers for rendering help page refusal advice
 module RefusalAdviceHelper
-  def refusal_advice_radio(question, option)
+  def refusal_advice_question(question, option)
     tag.div do
-      id = "#{ question.id }_#{ option.value }"
+      id = "#{question.id}_#{option.value}"
 
-      radio_button_tag(question.id, option.value, false, id: id) +
-        label_tag(id, option.label)
+      if refusal_advice_grid?(question.options)
+        input = check_box_tag(question.id, option.value, false, id: id)
+      else
+        input = radio_button_tag(question.id, option.value, false, id: id)
+      end
+
+      input + label_tag(id, option.label)
     end
   end
 
-  def refusal_advice_checkbox(question, option)
-    tag.div do
-      id = "#{ question.id }_#{ option.value }"
-
-      check_box_tag(question.id, option.value, false, id: id) +
-        label_tag(id, option.label)
+  def wizard_option_class(options)
+    if refusal_advice_grid?(options)
+      'wizard__options--grid'
+    else
+      'wizard__options--list'
     end
+  end
+
+  private
+
+  def refusal_advice_grid?(options)
+    options.size > 2
   end
 end
