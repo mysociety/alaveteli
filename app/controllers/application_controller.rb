@@ -229,9 +229,10 @@ class ApplicationController < ActionController::Base
   end
 
   # Check the user is logged in
-  def authenticated?(reason_params, post_redirect: nil)
+  def authenticated?(reason_params = {})
     return true if session[:user_id]
 
+    post_redirect = reason_params.delete(:post_redirect)
     post_redirect ||= PostRedirect.new(uri: request.fullpath,
                                        post_params: params,
                                        reason_params: reason_params)
