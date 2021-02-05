@@ -102,6 +102,7 @@ if [ $USE_RBENV = true ]; then
   # Compile and install Ruby and set as global default for this user
   rbenv install -s $RUBY_VERSION
   rbenv global $RUBY_VERSION
+  gem install bundler
 fi
 
 # Speed up the installation of gems:
