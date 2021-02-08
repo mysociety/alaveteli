@@ -3,7 +3,8 @@ require 'spec_helper'
 RSpec.describe RefusalAdvice::Action do
   let(:data) do
     {
-      title: 'It looks like you have grounds for a review:',
+      title: 'Ask for an internal review',
+      header: 'It looks like you have grounds for a review!',
       suggestions: [
         { id: 'confirmation-not-too-costly' }
       ]
@@ -14,7 +15,12 @@ RSpec.describe RefusalAdvice::Action do
 
   describe '#title' do
     subject { action.title }
-    it { is_expected.to eq('It looks like you have grounds for a review:') }
+    it { is_expected.to eq('Ask for an internal review') }
+  end
+
+  describe '#header' do
+    subject { action.header }
+    it { is_expected.to eq('It looks like you have grounds for a review!') }
   end
 
   describe '#suggestions' do
