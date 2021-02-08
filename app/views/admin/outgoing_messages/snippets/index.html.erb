@@ -1,0 +1,49 @@
+<h1><%= @title %></h1>
+
+<% if @snippets.empty? %>
+  <div class="row">
+    <div class="span12">
+      No snippets found.
+    </div>
+  </div>
+<% else %>
+  <div class="accordion" id="snippets">
+    <% @snippets.each do |snippet| %>
+      <div class="accordion-group">
+        <div class="accordion-heading accordion-toggle row">
+          <span class="item-title span6">
+            <a href="#snippet_<%= snippet.id %>" data-toggle="collapse" data-parent="snippets">
+              <%= chevron_right %>
+            </a>
+            <%= snippet.name %>
+          </span>
+
+          <span class="item-metadata span6">
+            <%= render_tags snippet.tags %>
+          </span>
+        </div>
+
+        <div id="snippet_<%= snippet.id %>" class="item-detail accordion-body collapse row">
+          <% snippet.for_admin_column do |name, value, type| %>
+            <div>
+              <span class="span6">
+                <b><%= name %></b>
+              </span>
+
+              <span class="span6">
+                <% if type == 'datetime' %>
+                  <%= value.to_s(:db) %>
+                  (<%= time_ago_in_words(value) %> ago)
+                <% else %>
+                  <%= h value %>
+                <% end %>
+              </span>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <%= will_paginate(@snippets) %>
+  </div>
+<% end %>

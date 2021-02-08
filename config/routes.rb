@@ -657,6 +657,14 @@ Rails.application.routes.draw do
   end
   ####
 
+  #### Admin::Snippets controller
+  namespace :admin do
+    scope module: :outgoing_messages do
+      resources :snippets, except: [:show]
+    end
+  end
+  ####
+
   #### Api controller
   match '/api/v2/request.json' => 'api#create_request',
         :as => :api_create_request,
