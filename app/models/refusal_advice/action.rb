@@ -8,7 +8,7 @@ class RefusalAdvice::Action < RefusalAdvice::Block
   end
 
   def header
-    data[:header]
+    data[:header] || title
   end
 
   def button
