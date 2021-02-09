@@ -4,6 +4,7 @@
   <% actions.each do |action| %>
   <li class="wizard__next-step" data-block="<%= action.id %>">
     <a href="#"><%= action.title %></a>
+    <%= render action %>
   </li>
   <% end %>
 </ul>
