@@ -76,6 +76,11 @@ RSpec.describe RefusalAdvice::Action do
     context 'when set' do
       it { is_expected.to eq('Help me send an internal review') }
     end
+
+    context 'when not set' do
+      before { data.delete(:button) }
+      it { is_expected.to eq('Ask for an internal review') }
+    end
   end
 
   describe '#suggestions' do

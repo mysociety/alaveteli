@@ -16,7 +16,7 @@ class RefusalAdvice::Action < RefusalAdvice::Block
   end
 
   def button
-    data[:button]
+    data[:button] || title
   end
 
   def suggestions
