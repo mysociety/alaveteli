@@ -10,13 +10,13 @@
       questionAnsweredClass: "wizard__question--answered",
 
       suggestionClass: "wizard__suggestion",
-      suggestionActiveClass: "wizard__suggestion--active",
+      suggestionSuggestedClass: "wizard__suggestion--suggested",
 
       actionClass: "wizard__action",
-      actionActiveClass: "wizard__action--active",
+      actionSuggestedClass: "wizard__action--suggested",
 
       nextStepClass: "wizard__next-step",
-      nextStepActiveClass: "wizard__next-step--active"
+      nextStepSuggestedClass: "wizard__next-step--suggested"
     };
 
     this.options = $.extend(true, defaults, options);
@@ -204,20 +204,20 @@
     // Load valid suggestions after wizard._resetQuestion has been called
     var $suggestions = wizard._validSuggestions();
 
-    wizard.$actions.removeClass(wizard.options.actionActiveClass);
-    wizard.$suggestions.removeClass(wizard.options.suggestionActiveClass);
-    wizard.$next_steps.removeClass(wizard.options.nextStepActiveClass);
+    wizard.$actions.removeClass(wizard.options.actionSuggestedClass);
+    wizard.$suggestions.removeClass(wizard.options.suggestionSuggestedClass);
+    wizard.$next_steps.removeClass(wizard.options.nextStepSuggestedClass);
 
-    $suggestions.addClass(wizard.options.suggestionActiveClass);
+    $suggestions.addClass(wizard.options.suggestionSuggestedClass);
     var $active_actions = wizard.$actions.filter(
-      ":has(." + wizard.options.suggestionActiveClass + ")"
+      ":has(." + wizard.options.suggestionSuggestedClass + ")"
     );
 
-    $active_actions.addClass(wizard.options.actionActiveClass);
+    $active_actions.addClass(wizard.options.actionSuggestedClass);
     $active_actions.each(function() {
       wizard.$next_steps
         .filter('[data-block="' + $(this).data("block") + '"]')
-        .addClass(wizard.options.nextStepActiveClass);
+        .addClass(wizard.options.nextStepSuggestedClass);
     });
   };
 
