@@ -61,15 +61,12 @@ RSpec.describe RefusalAdvice do
   end
 
   describe '#questions' do
-    let(:instance) { described_class.new(data) }
+    let(:instance) { described_class.new(data, info_request: info_request) }
+
     subject { instance.questions }
 
     context 'for the FOI legislation' do
-      before do
-        allow(instance).to receive(:legislation).and_return(
-          double(:legislation, to_sym: :foi)
-        )
-      end
+      let(:info_request) { double(legislation: double(to_sym: :foi)) }
 
       let(:foi_questions) do
         [RefusalAdvice::Question.new(id: 'foo'),
@@ -80,11 +77,7 @@ RSpec.describe RefusalAdvice do
     end
 
     context 'for the EIR legislation' do
-      before do
-        allow(instance).to receive(:legislation).and_return(
-          double(:legislation, to_sym: :eir)
-        )
-      end
+      let(:info_request) { double(legislation: double(to_sym: :eir)) }
 
       let(:eir_questions) do
         [RefusalAdvice::Question.new(id: 'baz')]
@@ -92,18 +85,23 @@ RSpec.describe RefusalAdvice do
 
       it { is_expected.to eq(eir_questions) }
     end
+
+    context 'when no questions are defined for the legislation' do
+      let(:data) { { eir: {} } }
+      let(:info_request) { double(legislation: double(to_sym: :eir)) }
+
+      it { is_expected.to be_an(Array) }
+      it { is_expected.to be_empty }
+    end
   end
 
   describe '#actions' do
-    let(:instance) { described_class.new(data) }
+    let(:instance) { described_class.new(data, info_request: info_request) }
+
     subject { instance.actions }
 
     context 'for the FOI legislation' do
-      before do
-        allow(instance).to receive(:legislation).and_return(
-          double(:legislation, to_sym: :foi)
-        )
-      end
+      let(:info_request) { double(legislation: double(to_sym: :foi)) }
 
       let(:foi_actions) do
         [
@@ -117,11 +115,7 @@ RSpec.describe RefusalAdvice do
     end
 
     context 'for the EIR legislation' do
-      before do
-        allow(instance).to receive(:legislation).and_return(
-          double(:legislation, to_sym: :eir)
-        )
-      end
+      let(:info_request) { double(legislation: double(to_sym: :eir)) }
 
       let(:eir_actions) do
         [
