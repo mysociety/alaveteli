@@ -1,13 +1,4 @@
 (function($) {
-  // TODO: Needed:
-  // Questions remaining text
-  // x Suggestion markup
-  // x Combining suggestions - group by suggestion.action
-  // TODO: Nice to have:
-  // x Initial state on reload
-  // Local storage ?
-  // x Other actions always visible - dynamically remove if suggested
-
   var RefusalWizard = function(target, options) {
     this.$el = $(target);
 

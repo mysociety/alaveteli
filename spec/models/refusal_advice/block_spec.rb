@@ -2,7 +2,8 @@ require 'spec_helper'
 
 RSpec.describe RefusalAdvice::Block do
   let(:data) do
-    { id: 'yes-they-have-provided-information',
+    {
+      id: 'yes-they-have-provided-information',
       label: {
         plain: 'Refusing a request on cost grounds...'
       },
@@ -13,7 +14,8 @@ RSpec.describe RefusalAdvice::Block do
         { id: 'section_12',
           operator: 'include',
           value: 'no' }
-      ] }
+      ]
+    }
   end
 
   let(:block) { described_class.new(data) }

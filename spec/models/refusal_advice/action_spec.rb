@@ -33,8 +33,10 @@ RSpec.describe RefusalAdvice::Action do
 
   describe '#suggestions' do
     subject { action.suggestions }
+
     it { is_expected.to all(be_a(RefusalAdvice::Suggestion)) }
-    it do
+
+    it 'returns an array including expected suggestion' do
       is_expected.to match_array(
         RefusalAdvice::Suggestion.new(id: 'confirmation-not-too-costly')
       )
