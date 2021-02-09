@@ -13,10 +13,12 @@
       suggestionSuggestedClass: "wizard__suggestion--suggested",
 
       actionClass: "wizard__action",
+      actionActiveClass: "wizard__action--active",
       actionSuggestedClass: "wizard__action--suggested",
 
       nextStepClass: "wizard__next-step",
-      nextStepSuggestedClass: "wizard__next-step--suggested"
+      nextStepSuggestedClass: "wizard__next-step--suggested",
+      nextStepTitleClass: "wizard__next-step__title"
     };
 
     this.options = $.extend(true, defaults, options);
@@ -43,6 +45,7 @@
 
     wizard._setupBlocks();
     wizard._setupQuestions();
+    wizard._setupNextSteps();
 
     wizard._update();
   };
@@ -86,6 +89,21 @@
 
     wizard.$questions.on("change", function() {
       wizard._update($(this));
+    });
+  };
+
+  RefusalWizard.prototype._setupNextSteps = function() {
+    var wizard = this;
+    var $titles = wizard.$el.find("." + wizard.options.nextStepTitleClass);
+
+    $titles.on("click", function(event) {
+      event.preventDefault();
+
+      var $action = $(this).siblings("." + wizard.options.actionClass);
+      var active = $action.hasClass(wizard.options.actionActiveClass);
+
+      wizard.$actions.removeClass(wizard.options.actionActiveClass);
+      if (!active) $action.addClass(wizard.options.actionActiveClass);
     });
   };
 

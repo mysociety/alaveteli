@@ -54,6 +54,7 @@
 .wizard__action {
   display: none;
 
+  &.wizard__action--active,
   &.wizard__action--suggested {
     display: block;
   }
