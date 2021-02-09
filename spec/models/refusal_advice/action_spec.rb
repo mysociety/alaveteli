@@ -41,6 +41,12 @@ RSpec.describe RefusalAdvice::Action do
         RefusalAdvice::Suggestion.new(id: 'confirmation-not-too-costly')
       )
     end
+
+    context 'when no suggestions are defined' do
+      before { data.delete(:suggestions) }
+      it { is_expected.to be_empty }
+      it { is_expected.to be_an(Array) }
+    end
   end
 
   describe '#to_partial_path' do

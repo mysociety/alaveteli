@@ -16,7 +16,7 @@ class RefusalAdvice::Action < RefusalAdvice::Block
   end
 
   def suggestions
-    data[:suggestions]&.
+    Array(data[:suggestions]).
       map { |suggestion| RefusalAdvice::Suggestion.new(suggestion) }
   end
 
