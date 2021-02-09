@@ -11,6 +11,10 @@ class RefusalAdvice::Action < RefusalAdvice::Block
     data[:header] || title
   end
 
+  def body
+    renderable_object(data[:body])
+  end
+
   def button
     data[:button]
   end

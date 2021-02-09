@@ -5,6 +5,7 @@ RSpec.describe RefusalAdvice::Action do
     {
       title: 'Ask for an internal review',
       header: 'It looks like you have grounds for a review!',
+      body: { plain: 'Refusing a request on cost grounds...' },
       suggestions: [
         { id: 'confirmation-not-too-costly' }
       ]
@@ -28,6 +29,35 @@ RSpec.describe RefusalAdvice::Action do
     context 'when not set' do
       before { data.delete(:header) }
       it { is_expected.to eq('Ask for an internal review') }
+    end
+  end
+
+  describe '#body' do
+    subject { action.body }
+
+    it 'returns hash with valid render options' do
+      is_expected.
+        to eq('plain' => 'Refusing a request on cost grounds...')
+    end
+
+    context 'with HTML render option' do
+      let(:data) { { body: { html: '<h1>Hello World</h1>' } } }
+
+      it 'marks HTML as being safe' do
+        is_expected.to eq('html' => '<h1>Hello World</h1>')
+        expect(action.body['html']).to be_html_safe
+      end
+    end
+
+    context 'with invalid render option' do
+      let(:data) { { body: { invalid: 'Boom' } } }
+
+      it 'raises unpermitted parameter error' do
+        expect { action.body }.to raise_error(
+          ActionController::UnpermittedParameters,
+          'found unpermitted parameter: :invalid'
+        )
+      end
     end
   end
 
