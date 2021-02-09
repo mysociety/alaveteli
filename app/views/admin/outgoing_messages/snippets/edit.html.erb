@@ -1,0 +1,16 @@
+<h1><%= @title %></h1>
+
+<div class="row">
+  <div class="span8">
+    <div id="admin_snippet_form">
+      <%= translated_form_for @snippet, url: admin_snippet_path(@snippet), method: :put, html: { class: 'form form-horizontal' } do |f| %>
+        <%= render partial: 'form', locals: { f: f } %>
+
+        <div class="form-actions">
+          <%= f.submit 'Save', accesskey: 's', class: 'btn btn-success' %>
+          <%= link_to 'List all', admin_snippets_path, class: 'btn' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

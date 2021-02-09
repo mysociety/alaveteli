@@ -15,7 +15,7 @@
             <a href="#snippet_<%= snippet.id %>" data-toggle="collapse" data-parent="snippets">
               <%= chevron_right %>
             </a>
-            <%= snippet.name %>
+            <%= link_to snippet.name, edit_admin_snippet_path(snippet) %>
           </span>
 
           <span class="item-metadata span6">

@@ -12,3 +12,19 @@ class OutgoingMessage::Snippet < ApplicationRecord
 
   validates :name, :body, presence: true
 end
+
+OutgoingMessage::Snippet::Translation.class_eval do
+  with_options if: lambda { |t| !t.default_locale? && t.required_attribute_submitted? } do |required|
+    required.validates :name, :body, presence: true
+  end
+
+  def default_locale?
+    AlaveteliLocalization.default_locale?(locale)
+  end
+
+  def required_attribute_submitted?
+    OutgoingMessage::Snippet.translated_attribute_names.compact.any? do |attribute|
+      !read_attribute(attribute).blank?
+    end
+  end
+end
