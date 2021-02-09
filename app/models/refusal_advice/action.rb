@@ -11,12 +11,16 @@ class RefusalAdvice::Action < RefusalAdvice::Block
     data[:header] || title
   end
 
+  def body
+    renderable_object(data[:body])
+  end
+
   def button
-    data[:button]
+    data[:button] || title
   end
 
   def suggestions
-    data[:suggestions]&.
+    Array(data[:suggestions]).
       map { |suggestion| RefusalAdvice::Suggestion.new(suggestion) }
   end
 

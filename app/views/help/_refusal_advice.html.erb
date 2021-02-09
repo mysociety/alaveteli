@@ -1,5 +1,4 @@
 <div class="wizard js-wizard">
   <%= render @refusal_advice.questions %>
-  <%= render @refusal_advice.actions.select(&:suggestions) %>
   <%= render partial: 'help/refusal_advice/next_steps', locals: { actions: @refusal_advice.actions } %>
 </div>

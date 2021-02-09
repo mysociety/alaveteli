@@ -2,7 +2,7 @@
   <fieldset>
     <legend>
       <%= render question.label %>
-      <%= render question.hint if question.hint %>
+      <%= render question.hint %>
     </legend>
 
     <div class="wizard__options <%= wizard_option_class(question.options) %>">

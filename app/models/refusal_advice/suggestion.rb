@@ -6,6 +6,10 @@ class RefusalAdvice::Suggestion < RefusalAdvice::Block
     data[:action]
   end
 
+  def advice
+    renderable_object(data[:advice])
+  end
+
   def response_template
     data[:response_template]
   end
