@@ -6,6 +6,7 @@ RSpec.describe RefusalAdvice::Action do
       title: 'Ask for an internal review',
       header: 'It looks like you have grounds for a review!',
       body: { plain: 'Refusing a request on cost grounds...' },
+      button: 'Help me send an internal review',
       suggestions: [
         { id: 'confirmation-not-too-costly' }
       ]
@@ -66,6 +67,14 @@ RSpec.describe RefusalAdvice::Action do
       it 'renders an empty string' do
         is_expected.to eq(plain: '')
       end
+    end
+  end
+
+  describe '#button' do
+    subject { action.button }
+
+    context 'when set' do
+      it { is_expected.to eq('Help me send an internal review') }
     end
   end
 
