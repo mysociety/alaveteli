@@ -45,14 +45,21 @@ RSpec.describe RefusalAdvice::Question do
         )
       end
     end
+
+    context 'without render options' do
+      before { data.delete(:label) }
+
+      it 'renders an empty string' do
+        is_expected.to eq(plain: '')
+      end
+    end
   end
 
   describe '#hint' do
     subject { question.hint }
 
     it 'returns hash with valid render options' do
-      is_expected.
-        to eq('plain' => 'Note that...')
+      is_expected.to eq('plain' => 'Note that...')
     end
 
     context 'with HTML render option' do
@@ -72,6 +79,14 @@ RSpec.describe RefusalAdvice::Question do
           ActionController::UnpermittedParameters,
           'found unpermitted parameter: :invalid'
         )
+      end
+    end
+
+    context 'without render options' do
+      before { data.delete(:hint) }
+
+      it 'renders an empty string' do
+        is_expected.to eq(plain: '')
       end
     end
   end

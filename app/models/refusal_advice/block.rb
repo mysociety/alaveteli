@@ -36,7 +36,7 @@ class RefusalAdvice::Block
   end
 
   def renderable_object(value)
-    return unless value
+    return { plain: '' } unless value
 
     params = ActionController::Parameters.new(value).permit(
       :partial, :plain, :html

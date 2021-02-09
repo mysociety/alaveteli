@@ -43,6 +43,14 @@ RSpec.describe RefusalAdvice::Suggestion do
         )
       end
     end
+
+    context 'without render options' do
+      before { data.delete(:advice) }
+
+      it 'renders an empty string' do
+        is_expected.to eq(plain: '')
+      end
+    end
   end
 
   describe '#response_template' do
