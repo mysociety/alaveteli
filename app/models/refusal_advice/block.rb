@@ -13,10 +13,6 @@ class RefusalAdvice::Block
     data[:id]
   end
 
-  def label
-    renderable_object(data[:label])
-  end
-
   def show_if
     data[:show_if]
   end

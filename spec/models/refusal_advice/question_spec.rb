@@ -3,6 +3,9 @@ require 'spec_helper'
 RSpec.describe RefusalAdvice::Question do
   let(:data) do
     {
+      label: {
+        plain: 'Refusing a request on cost grounds...'
+      },
       hint: {
         plain: 'Note that...'
       },
@@ -14,6 +17,35 @@ RSpec.describe RefusalAdvice::Question do
   end
 
   let(:question) { described_class.new(data) }
+
+  describe '#label' do
+    subject { question.label }
+
+    it 'returns hash with valid render options' do
+      is_expected.
+        to eq('plain' => 'Refusing a request on cost grounds...')
+    end
+
+    context 'with HTML render option' do
+      let(:data) { { label: { html: '<h1>Hello World</h1>' } } }
+
+      it 'marks HTML as being safe' do
+        is_expected.to eq('html' => '<h1>Hello World</h1>')
+        expect(question.label['html']).to be_html_safe
+      end
+    end
+
+    context 'with invalid render option' do
+      let(:data) { { label: { invalid: 'Boom' } } }
+
+      it 'raises unpermitted parameter error' do
+        expect { question.label }.to raise_error(
+          ActionController::UnpermittedParameters,
+          'found unpermitted parameter: :invalid'
+        )
+      end
+    end
+  end
 
   describe '#hint' do
     subject { question.hint }
