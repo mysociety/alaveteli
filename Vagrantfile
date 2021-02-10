@@ -36,6 +36,17 @@ require 'yaml'
 #   # Guest
 #   bundle exec rails server -b 0.0.0.0
 #
+#
+# Log-in to the Vagrant instance
+# ================================
+# Once the application is running, you can login with the global account details below:
+#     Username: annie@localhost
+#     Password: jonespassword
+# This account has full access to do anything in the application
+#
+# All other accounts created by default will have the same password.
+#
+#
 # Customizing the Vagrant instance
 # ================================
 #
