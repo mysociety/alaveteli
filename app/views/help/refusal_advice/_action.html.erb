@@ -6,7 +6,9 @@
     <%= render action.suggestions, f: f %>
   <% end %>
 
-  <%= f.button name: "#{f.object_name}[id]", value: action.id, class: 'button' do %>
-    <%= action.button %>
+  <% if refusal_advice_actionable?(action, info_request: @info_request) %>
+    <%= f.button name: "#{f.object_name}[id]", value: action.id, class: 'button' do %>
+      <%= action.button %>
+    <% end %>
   <% end %>
 </div>
