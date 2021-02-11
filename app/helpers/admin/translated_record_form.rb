@@ -34,6 +34,13 @@ class Admin::TranslatedRecordForm < ActionView::Helpers::FormBuilder
     @template.concat(fields)
   end
 
+  def error_messages
+    @template.tag.div class: 'error-mesages' do
+      default_locale_error_messages
+      translation_error_messages
+    end
+  end
+
   private
 
   def locale_tabs
@@ -63,6 +70,39 @@ class Admin::TranslatedRecordForm < ActionView::Helpers::FormBuilder
   def locale_fields(t, locale)
     @template.concat t.hidden_field :locale, value: locale
     yield
+  end
+
+  def default_locale_error_messages
+    default_locale_errors =
+      object.errors.reject { |attr, _| attr.to_s.starts_with?('translation') }
+
+    @template.concat(errors_for(default_locale, default_locale_errors))
+  end
+
+  def translation_error_messages
+    object.ordered_translations.each do |translation|
+      @template.concat(errors_for(translation.locale, translation.errors))
+    end
+  end
+
+  def errors_for(locale, errors)
+    return if errors.empty?
+
+    @template.tag.div do
+      @template.concat(locale_name(locale))
+
+      ul = @template.tag.ul do
+        errors.each do |attr, message|
+          content = @template.tag.li do
+            "#{ attr } #{ message }".html_safe
+          end
+
+          @template.concat(content)
+        end
+      end
+
+      @template.concat(ul)
+    end
   end
 
   # TODO: Also defined in ApplicationHelper; extract to LocaleHelper and include

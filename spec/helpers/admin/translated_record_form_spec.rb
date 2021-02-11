@@ -4,15 +4,15 @@ describe Admin::TranslatedRecordForm do
   let(:builder) { described_class.new(:mock, resource, template, {}) }
   let(:template) { self }
 
-  let(:resource) do
-    AlaveteliLocalization.with_default_locale do
-      FactoryBot.create(:public_body_heading, name: 'Foo')
-    end
-  end
-
   describe '#translated_fields' do
     subject do
       builder.translated_fields { |t| template.concat(t.text_field(:name)) }
+    end
+
+    let(:resource) do
+      AlaveteliLocalization.with_default_locale do
+        FactoryBot.create(:public_body_heading, name: 'Foo')
+      end
     end
 
     context 'with a single locale' do
@@ -61,6 +61,85 @@ describe Admin::TranslatedRecordForm do
               <input type="text" value="El Foo" name="mock[translations_attributes][es][name]" id="mock_translations_attributes_es_name" />
               <input type="hidden" value="#{@translation_id}" name="mock[translations_attributes][es][id]" id="mock_translations_attributes_es_id" />
             </div>
+          </div>
+        </div>
+        HTML
+      end
+
+      it { is_expected.to eq(html) }
+    end
+  end
+
+  describe '#error_messages' do
+    subject { builder.error_messages }
+
+    before { resource.valid?  }
+
+    context 'when the default locale has errors' do
+      let(:resource) do
+        FactoryBot.build(:public_body_category, title: nil)
+      end
+
+      let(:html) do
+        <<~HTML.gsub(/\n\s*/, '').strip
+        <div class="error-mesages">
+          <div>
+            English
+            <ul>
+              <li>title Title can't be blank</li>
+            </ul>
+          </div>
+        </div>
+        HTML
+      end
+
+      it { is_expected.to eq(html) }
+    end
+
+    context 'when a non-default locale has errors' do
+      let(:resource) do
+        resource = FactoryBot.build(:public_body_category)
+        resource.translations.build(locale: :es, description: 'No title')
+        resource
+      end
+
+      let(:html) do
+        <<~HTML.gsub(/\n\s*/, '').strip
+        <div class="error-mesages">
+          <div>
+            español
+            <ul>
+              <li>title Title can't be blank</li>
+            </ul>
+          </div>
+        </div>
+        HTML
+      end
+
+      it { is_expected.to eq(html) }
+    end
+
+    context 'when multiple locales have errors' do
+      let(:resource) do
+        resource = FactoryBot.build(:public_body_category, title: nil)
+        resource.translations.build(locale: :es, description: 'No title')
+        resource
+      end
+
+      let(:html) do
+        <<~HTML.gsub(/\n\s*/, '').strip
+        <div class="error-mesages">
+          <div>
+            English
+            <ul>
+              <li>title Title can't be blank</li>
+            </ul>
+          </div>
+          <div>
+            español
+            <ul>
+              <li>title Title can't be blank</li>
+            </ul>
           </div>
         </div>
         HTML
