@@ -161,6 +161,7 @@ gem 'uglifier', '~> 4.2.0'
 gem 'alaveteli_features', :path => 'gems/alaveteli_features'
 
 group :test do
+  gem 'database_cleaner-active_record', '~> 2.0.0'
   gem 'fivemat', '~> 1.3.7'
   gem 'webmock', '~> 3.11.0'
   gem 'simplecov', '~> 0.16.1'
