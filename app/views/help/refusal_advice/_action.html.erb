@@ -2,9 +2,13 @@
   <h2><%= action.header %></h2>
   <div><%= render action.body %></div>
 
-  <%= render action.suggestions %>
+  <%= f.fields_for 'actions[]', action, include_id: false do |f| %>
+    <%= render action.suggestions, f: f %>
+  <% end %>
 
-  <button type="submit" class="button" value="<%= action.id %>">
-    <%= action.button %>
-  </button>
+  <% if refusal_advice_actionable?(action, info_request: @info_request) %>
+    <%= f.button name: "#{f.object_name}[id]", value: action.id, class: 'button' do %>
+      <%= action.button %>
+    <% end %>
+  <% end %>
 </div>

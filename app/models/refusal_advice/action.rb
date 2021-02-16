@@ -3,6 +3,8 @@
 # to # help them challenge refusals
 #
 class RefusalAdvice::Action < RefusalAdvice::Block
+  RedirectionError = Class.new(StandardError)
+
   def title
     data[:title]
   end
@@ -22,6 +24,10 @@ class RefusalAdvice::Action < RefusalAdvice::Block
   def suggestions
     Array(data[:suggestions]).
       map { |suggestion| RefusalAdvice::Suggestion.new(suggestion) }
+  end
+
+  def target
+    data[:target] || {}
   end
 
   def to_partial_path

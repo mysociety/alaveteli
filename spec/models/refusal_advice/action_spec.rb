@@ -9,7 +9,8 @@ RSpec.describe RefusalAdvice::Action do
       button: 'Help me send an internal review',
       suggestions: [
         { id: 'confirmation-not-too-costly' }
-      ]
+      ],
+      target: { internal: 'followup' }
     }
   end
 
@@ -98,6 +99,19 @@ RSpec.describe RefusalAdvice::Action do
       before { data.delete(:suggestions) }
       it { is_expected.to be_empty }
       it { is_expected.to be_an(Array) }
+    end
+  end
+
+  describe '#target' do
+    subject { action.target }
+
+    context 'when set' do
+      it { is_expected.to eq(internal: 'followup') }
+    end
+
+    context 'when not set' do
+      before { data.delete(:target) }
+      it { is_expected.to eq({}) }
     end
   end
 

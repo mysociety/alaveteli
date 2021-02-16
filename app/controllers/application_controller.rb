@@ -252,7 +252,7 @@ class ApplicationController < ActionController::Base
     return false
   end
 
-  def authenticated_as_user?(user, reason_params)
+  def authenticated_as_user?(user, reason_params = {})
     reason_params[:user_name] = user.name
     reason_params[:user_url] = show_user_url(:url_name => user.url_name)
     if session[:user_id]

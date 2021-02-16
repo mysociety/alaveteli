@@ -1,13 +1,14 @@
 # Helpers for rendering help page refusal advice
 module RefusalAdviceHelper
-  def refusal_advice_question(question, option)
+  def refusal_advice_question(question, option, f: nil)
     tag.div do
+      name = f ? f.object_name : question.id
       id = "#{question.id}_#{option.value}"
 
       if refusal_advice_grid?(question.options)
-        input = check_box_tag(question.id, option.value, false, id: id)
+        input = check_box_tag(name, option.value, false, id: id)
       else
-        input = radio_button_tag(question.id, option.value, false, id: id)
+        input = radio_button_tag(name, option.value, false, id: id)
       end
 
       input + label_tag(id, option.label)
@@ -20,6 +21,11 @@ module RefusalAdviceHelper
     else
       'wizard__options--list'
     end
+  end
+
+  def refusal_advice_actionable?(action, info_request:)
+    return true unless action.target.key?(:internal)
+    current_user && current_user == info_request&.user
   end
 
   private

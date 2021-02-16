@@ -237,6 +237,9 @@
         .filter('[data-block="' + $(this).data("block") + '"]')
         .addClass(wizard.options.nextStepSuggestedClass);
     });
+
+    wizard.$actions.find('input[name^="refusal_advice"]').val(false);
+    $suggestions.find('input[name^="refusal_advice"]').val(true);
   };
 
   RefusalWizard.prototype._resetQuestion = function($question) {
