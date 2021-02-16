@@ -13,10 +13,6 @@ class RefusalAdvice::Block
     data[:id]
   end
 
-  def label
-    renderable_object(data[:label])
-  end
-
   def show_if
     data[:show_if]
   end
@@ -40,7 +36,7 @@ class RefusalAdvice::Block
   end
 
   def renderable_object(value)
-    return unless value
+    return { plain: '' } unless value
 
     params = ActionController::Parameters.new(value).permit(
       :partial, :plain, :html

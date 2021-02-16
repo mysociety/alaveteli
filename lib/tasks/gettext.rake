@@ -177,7 +177,7 @@ namespace :gettext do
 
   def theme_files_to_translate
     theme = find_theme(ENV['THEME'])
-    Dir.glob("{lib/themes/#{theme}/lib}/**/*.{rb,erb}")
+    Dir.glob("{lib/themes/#{theme}/{app,config,lib}}/**/*.{rb,erb,yml.erb}")
   end
 
   def theme_locale_path

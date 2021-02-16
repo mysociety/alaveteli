@@ -229,9 +229,10 @@ class ApplicationController < ActionController::Base
   end
 
   # Check the user is logged in
-  def authenticated?(reason_params, post_redirect: nil)
+  def authenticated?(reason_params = {})
     return true if session[:user_id]
 
+    post_redirect = reason_params.delete(:post_redirect)
     post_redirect ||= PostRedirect.new(uri: request.fullpath,
                                        post_params: params,
                                        reason_params: reason_params)
@@ -251,7 +252,7 @@ class ApplicationController < ActionController::Base
     return false
   end
 
-  def authenticated_as_user?(user, reason_params)
+  def authenticated_as_user?(user, reason_params = {})
     reason_params[:user_name] = user.name
     reason_params[:user_url] = show_user_url(:url_name => user.url_name)
     if session[:user_id]

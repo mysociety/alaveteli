@@ -102,7 +102,7 @@ BUNDLE_PATH="${OPTION_BUNDLE_PATH:-vendor/bundle}"
 
 bundle_install_options="--path $BUNDLE_PATH"
 
-if [ "$TRAVIS" = "true" ]
+if [ "$CI" = "true" ]
 then
     bundle_install_options="$bundle_install_options --deployment"
 elif [ "$OPTION_STAGING_SITE" = "0" ]
@@ -119,7 +119,7 @@ bundle exec rake submodules:check
 
 bundle exec rake themes:install
 
-if ! [ "$TRAVIS" = "true" ]
+if ! [ "$CI" = "true" ]
 then
   bundle exec rake geoip:download_data
 fi

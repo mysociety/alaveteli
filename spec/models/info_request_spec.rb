@@ -4776,4 +4776,58 @@ describe InfoRequest do
       end
     end
   end
+
+  describe '#reason_to_be_unhappy?' do
+    subject { info_request.reason_to_be_unhappy? }
+
+    let(:info_request) { FactoryBot.build(:info_request) }
+
+    context 'the request has been classified as rejected' do
+      before do
+        info_request.awaiting_description = false
+        info_request.described_state = 'rejected'
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'the request has been classified as partially_successful' do
+      before do
+        info_request.awaiting_description = false
+        info_request.described_state = 'partially_successful'
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'the request has been classified as waiting_response_very_overdue' do
+      before do
+        info_request.awaiting_description = false
+        info_request.described_state = 'waiting_response_very_overdue'
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'the request is waiting classification' do
+      before { info_request.awaiting_description = true }
+      it { is_expected.to eq(false) }
+    end
+  end
+
+  describe '#classified?' do
+    subject { info_request.classified? }
+
+    let(:info_request) { FactoryBot.build(:info_request) }
+
+    context 'the request has been classified' do
+      before { info_request.awaiting_description = false }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'the request is waiting classification' do
+      before { info_request.awaiting_description = true }
+      it { is_expected.to eq(false) }
+    end
+  end
 end

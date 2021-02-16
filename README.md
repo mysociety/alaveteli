@@ -1,6 +1,6 @@
 # Welcome to Alaveteli!
 
-[![CI](https://img.shields.io/travis/mysociety/alaveteli?label=CI)](http://travis.org/mysociety/alaveteli)
+[![CI](https://img.shields.io/github/workflow/status/mysociety/alaveteli/CI?label=CI)](http://github.com/mysociety/alaveteli/actions?query=workflow%3ACI)
 [![RuboCop](https://img.shields.io/github/workflow/status/mysociety/alaveteli/RuboCop?label=RuboCop)](https://github.com/mysociety/alaveteli/actions?query=workflow%3ARuboCop)
 [![Coverage Status](https://img.shields.io/coveralls/github/mysociety/alaveteli/develop)](https://coveralls.io/r/mysociety/alaveteli)
 [![Code Climate](https://img.shields.io/codeclimate/maintainability-percentage/mysociety/alaveteli)](https://codeclimate.com/github/mysociety/alaveteli)
@@ -35,7 +35,7 @@ see [the project website](http://alaveteli.org) for instructions on installing A
 
 ## Compatibility
 
-Every Alaveteli commit is tested by Travis on the [following Ruby platforms](https://github.com/mysociety/alaveteli/blob/master/.travis.yml#L7)
+Every Alaveteli commit is tested by GitHub Actions on the [following Ruby platforms](https://github.com/mysociety/alaveteli/blob/develop/.github/workflows/ci.yml#L15)
 
 * ruby-2.3.0
 * ruby-2.4.0

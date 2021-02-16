@@ -101,6 +101,12 @@
       </p>
     <% end %>
 
+    <% if feature_enabled?(:refusal_snippets) %>
+      <% if @info_request.reason_to_be_unhappy? %>
+        <%= render partial: 'snippets' %>
+      <% end %>
+    <% end %>
+
     <% form_url =
          if incoming_message.nil?
            preview_request_followups_url(request_id: @info_request.id)

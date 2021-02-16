@@ -393,6 +393,10 @@ Rails.application.routes.draw do
         :via => :get
   ####
 
+  #### Refusal Advice controller
+  resource :refusal_advice, only: [:create], controller: 'refusal_advice'
+  ####
+
   #### Help controller
   match '/help/unhappy(/:url_title)' => 'help#unhappy',
         :as => :help_unhappy,

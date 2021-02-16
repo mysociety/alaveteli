@@ -3,7 +3,8 @@
 <ul class="wizard__next-steps">
   <% actions.each do |action| %>
   <li class="wizard__next-step" data-block="<%= action.id %>">
-    <a href="#"><%= action.title %></a>
+    <a class="wizard__next-step__title" href="#"><%= action.title %></a>
+    <%= render action, f: f %>
   </li>
   <% end %>
 </ul>

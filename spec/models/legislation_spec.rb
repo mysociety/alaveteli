@@ -1,19 +1,96 @@
 require 'spec_helper'
 
 RSpec.describe Legislation do
+  describe '.refusals=' do
+    subject { described_class.refusals = refusals }
+
+    after { described_class.refusals = nil }
+
+    context 'when configured with refusals' do
+      let(:refusals) { double.as_null_object }
+      it { is_expected.to eq(refusals) }
+    end
+
+    context 'when configured after instances have been cached' do
+      let(:refusals) { double.as_null_object }
+      let!(:previous_instances) { described_class.all.map(&:object_id) }
+
+      it 're-caches instances' do
+        subject
+        expect(described_class.all.map(&:object_id)).
+          not_to eq(previous_instances)
+      end
+    end
+  end
+
+  describe '.refusals' do
+    subject { described_class.refusals }
+
+    before { described_class.refusals = refusals }
+    after { described_class.refusals = nil }
+
+    context 'when configured with a hash of refusals' do
+      let(:refusals) do
+        # rubocop:disable Style/HashSyntax
+        # Explicitly tests indifferent access for keys
+        { 'foi' => ['s 12', 's 14'], eir: ['s 1'] }
+        # rubocop:enable Style/HashSyntax
+      end
+
+      it { is_expected.to eq(refusals.with_indifferent_access) }
+
+      it 'has indifferent access' do
+        expect(subject['eir']).to eq(['s 1'])
+      end
+    end
+  end
+
   describe '.all' do
     subject { described_class.all }
+
+    it 'memoises .all!' do
+      expect(described_class.all!.map(&:object_id)).
+        to eq(subject.map(&:object_id))
+    end
+
+    context 'when refusals have been configured' do
+      before do
+        described_class.refusals = { foi: ['s 12'] }
+        # Re-memoize instances:
+        described_class.all!
+      end
+
+      after { described_class.refusals = nil }
+
+      context 'when the legislation has refusals' do
+        it 'includes them in instance creation' do
+          refusals_as_strings = described_class.find('foi').refusals.map(&:to_s)
+          expect(refusals_as_strings).to include('Section 12')
+        end
+      end
+
+      context 'when the legislation does not have refusals' do
+        it 'sets them as empty instance creation' do
+          refusals_as_strings = described_class.find('eir').refusals.map(&:to_s)
+          expect(refusals_as_strings).to be_empty
+        end
+      end
+    end
+  end
+
+  describe '.all!' do
+    subject { described_class.all! }
 
     it 'returns array of legislations objects' do
       is_expected.to all(be_a Legislation)
     end
 
     it 'contains FOI legislation' do
-      is_expected.to include(have_attributes(key: 'foi'))
+      is_expected.to include(described_class.find('foi'))
     end
 
     it 'contains EIR legislation' do
-      is_expected.to include(have_attributes(key: 'eir'))
+      is_expected.to include(described_class.find('eir'))
     end
   end
 
@@ -85,11 +162,11 @@ RSpec.describe Legislation do
       end
 
       it 'does not contains FOI legislation' do
-        is_expected.to_not include(have_attributes(key: 'foi'))
+        is_expected.to_not include(described_class.find('foi'))
       end
 
       it 'contains EIR legislation' do
-        is_expected.to include(have_attributes(key: 'eir'))
+        is_expected.to include(described_class.find('eir'))
       end
     end
 
@@ -101,11 +178,11 @@ RSpec.describe Legislation do
       end
 
       it 'contains FOI legislation' do
-        is_expected.to include(have_attributes(key: 'foi'))
+        is_expected.to include(described_class.find('foi'))
       end
 
       it 'contains EIR legislation' do
-        is_expected.to include(have_attributes(key: 'eir'))
+        is_expected.to include(described_class.find('eir'))
       end
     end
   end
@@ -164,6 +241,28 @@ RSpec.describe Legislation do
     end
   end
 
+  describe '#==' do
+    include_context :legislation_instance
+
+    subject { legislation == other }
+
+    context 'when the key is the same' do
+      let(:other) do
+        described_class.new(key: 'key', short: 'short', full: 'full')
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the key is different' do
+      let(:other) do
+        described_class.new(key: 'bar', short: 'short', full: 'full')
+      end
+
+      it { is_expected.to eq(false) }
+    end
+  end
+
   describe '#find_references' do
     include_context :legislation_instance
 
@@ -201,6 +300,11 @@ RSpec.describe Legislation do
       refusals_as_strings = refusals.map(&:to_s)
       expect(refusals_as_strings).to include('Section 12')
       expect(refusals_as_strings).to include('Section 14')
+    end
+
+    context 'when refusals is set to nil' do
+      let(:legislation) { Legislation.new(key: 'key', refusals: nil) }
+      it { is_expected.to be_empty }
     end
   end
 end

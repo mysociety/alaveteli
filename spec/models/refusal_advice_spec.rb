@@ -61,15 +61,12 @@ RSpec.describe RefusalAdvice do
   end
 
   describe '#questions' do
-    let(:instance) { described_class.new(data) }
+    let(:instance) { described_class.new(data, info_request: info_request) }
+
     subject { instance.questions }
 
     context 'for the FOI legislation' do
-      before do
-        allow(instance).to receive(:legislation).and_return(
-          double(:legislation, to_sym: :foi)
-        )
-      end
+      let(:info_request) { double(legislation: double(to_sym: :foi)) }
 
       let(:foi_questions) do
         [RefusalAdvice::Question.new(id: 'foo'),
@@ -80,11 +77,7 @@ RSpec.describe RefusalAdvice do
     end
 
     context 'for the EIR legislation' do
-      before do
-        allow(instance).to receive(:legislation).and_return(
-          double(:legislation, to_sym: :eir)
-        )
-      end
+      let(:info_request) { double(legislation: double(to_sym: :eir)) }
 
       let(:eir_questions) do
         [RefusalAdvice::Question.new(id: 'baz')]
@@ -92,18 +85,23 @@ RSpec.describe RefusalAdvice do
 
       it { is_expected.to eq(eir_questions) }
     end
+
+    context 'when no questions are defined for the legislation' do
+      let(:data) { { eir: {} } }
+      let(:info_request) { double(legislation: double(to_sym: :eir)) }
+
+      it { is_expected.to be_an(Array) }
+      it { is_expected.to be_empty }
+    end
   end
 
   describe '#actions' do
-    let(:instance) { described_class.new(data) }
+    let(:instance) { described_class.new(data, info_request: info_request) }
+
     subject { instance.actions }
 
     context 'for the FOI legislation' do
-      before do
-        allow(instance).to receive(:legislation).and_return(
-          double(:legislation, to_sym: :foi)
-        )
-      end
+      let(:info_request) { double(legislation: double(to_sym: :foi)) }
 
       let(:foi_actions) do
         [
@@ -117,11 +115,7 @@ RSpec.describe RefusalAdvice do
     end
 
     context 'for the EIR legislation' do
-      before do
-        allow(instance).to receive(:legislation).and_return(
-          double(:legislation, to_sym: :eir)
-        )
-      end
+      let(:info_request) { double(legislation: double(to_sym: :eir)) }
 
       let(:eir_actions) do
         [
@@ -151,6 +145,64 @@ RSpec.describe RefusalAdvice do
       let(:a) { described_class.new(data_a) }
       let(:b) { described_class.new(data_b) }
       it { is_expected.to eq(false) }
+    end
+  end
+
+  context '#snippets' do
+    subject { instance.snippets }
+
+    let(:scope) { double(:outgoing_message_snippet_scope) }
+    let(:snippets) { [FactoryBot.build(:outgoing_message_snippet)] }
+
+    before do
+      allow(OutgoingMessage::Snippet).to receive(:with_tag).
+        with('refusal_advice').and_return(scope)
+    end
+
+    context 'when sending a follow up message' do
+      let(:instance) { described_class.new(data, internal_review: false) }
+
+      it 'assigns refusal advice snippets' do
+        expect(scope).to receive(:without_tag).with('internal_review').
+          and_return(snippets)
+
+        is_expected.to eq snippets
+      end
+    end
+
+    context 'when sending an internal review' do
+      let(:instance) { described_class.new(data, internal_review: true) }
+
+      it 'assigns refusal advice snippets' do
+        expect(scope).to receive(:with_tag).with('internal_review').
+          and_return(snippets)
+
+        is_expected.to eq snippets
+      end
+    end
+  end
+
+  context '#filter_options' do
+    subject { instance.filter_options }
+
+    let(:info_request) { FactoryBot.create(:info_request) }
+
+    let(:instance) do
+      described_class.new(data, info_request: info_request)
+    end
+
+    before do
+      allow(instance).to receive(:legislation).and_return(
+        FactoryBot.build(:legislation, refusals: ['s 11', 's 12'])
+      )
+      allow(instance).to receive(:snippets).and_return(
+        double(:outgoing_message_snippet_scope,
+               tags: 'refusal:section-12 refusal:section-14')
+      )
+    end
+
+    it 'returns options array of legislation refusals tags which are active' do
+      is_expected.to match_array([['Section 12', 'refusal:section-12']])
     end
   end
 end

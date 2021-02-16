@@ -3,7 +3,7 @@
 }
 
 // Hide questions by default.
-.wizard__question, {
+.wizard__question {
   display: none;
 }
 
@@ -46,7 +46,7 @@
 .wizard__suggestion {
   display: none;
 
-  &.wizard__suggestion--active {
+  &.wizard__suggestion--suggested {
     display: block;
   }
 }
@@ -54,15 +54,12 @@
 .wizard__action {
   display: none;
 
-  &.wizard__action--active {
+  &.wizard__action--active,
+  &.wizard__action--suggested {
     display: block;
   }
 }
 
 .wizard__next-step {
   display: block;
-
-  &.wizard__next-step--active {
-    display: none;
-  }
 }

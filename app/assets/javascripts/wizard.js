@@ -1,13 +1,4 @@
 (function($) {
-  // TODO: Needed:
-  // Questions remaining text
-  // x Suggestion markup
-  // x Combining suggestions - group by suggestion.action
-  // TODO: Nice to have:
-  // x Initial state on reload
-  // Local storage ?
-  // x Other actions always visible - dynamically remove if suggested
-
   var RefusalWizard = function(target, options) {
     this.$el = $(target);
 
@@ -19,13 +10,15 @@
       questionAnsweredClass: "wizard__question--answered",
 
       suggestionClass: "wizard__suggestion",
-      suggestionActiveClass: "wizard__suggestion--active",
+      suggestionSuggestedClass: "wizard__suggestion--suggested",
 
       actionClass: "wizard__action",
       actionActiveClass: "wizard__action--active",
+      actionSuggestedClass: "wizard__action--suggested",
 
       nextStepClass: "wizard__next-step",
-      nextStepActiveClass: "wizard__next-step--active"
+      nextStepSuggestedClass: "wizard__next-step--suggested",
+      nextStepTitleClass: "wizard__next-step__title"
     };
 
     this.options = $.extend(true, defaults, options);
@@ -52,6 +45,7 @@
 
     wizard._setupBlocks();
     wizard._setupQuestions();
+    wizard._setupNextSteps();
 
     wizard._update();
   };
@@ -95,6 +89,21 @@
 
     wizard.$questions.on("change", function() {
       wizard._update($(this));
+    });
+  };
+
+  RefusalWizard.prototype._setupNextSteps = function() {
+    var wizard = this;
+    var $titles = wizard.$el.find("." + wizard.options.nextStepTitleClass);
+
+    $titles.on("click", function(event) {
+      event.preventDefault();
+
+      var $action = $(this).siblings("." + wizard.options.actionClass);
+      var active = $action.hasClass(wizard.options.actionActiveClass);
+
+      wizard.$actions.removeClass(wizard.options.actionActiveClass);
+      if (!active) $action.addClass(wizard.options.actionActiveClass);
     });
   };
 
@@ -213,21 +222,24 @@
     // Load valid suggestions after wizard._resetQuestion has been called
     var $suggestions = wizard._validSuggestions();
 
-    wizard.$actions.removeClass(wizard.options.actionActiveClass);
-    wizard.$suggestions.removeClass(wizard.options.suggestionActiveClass);
-    wizard.$next_steps.removeClass(wizard.options.nextStepActiveClass);
+    wizard.$actions.removeClass(wizard.options.actionSuggestedClass);
+    wizard.$suggestions.removeClass(wizard.options.suggestionSuggestedClass);
+    wizard.$next_steps.removeClass(wizard.options.nextStepSuggestedClass);
 
-    $suggestions.addClass(wizard.options.suggestionActiveClass);
+    $suggestions.addClass(wizard.options.suggestionSuggestedClass);
     var $active_actions = wizard.$actions.filter(
-      ":has(." + wizard.options.suggestionActiveClass + ")"
+      ":has(." + wizard.options.suggestionSuggestedClass + ")"
     );
 
-    $active_actions.addClass(wizard.options.actionActiveClass);
+    $active_actions.addClass(wizard.options.actionSuggestedClass);
     $active_actions.each(function() {
       wizard.$next_steps
         .filter('[data-block="' + $(this).data("block") + '"]')
-        .addClass(wizard.options.nextStepActiveClass);
+        .addClass(wizard.options.nextStepSuggestedClass);
     });
+
+    wizard.$actions.find('input[name^="refusal_advice"]').val(false);
+    $suggestions.find('input[name^="refusal_advice"]').val(true);
   };
 
   RefusalWizard.prototype._resetQuestion = function($question) {

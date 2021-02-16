@@ -2,6 +2,10 @@
 # A single question that we present to users to help them challenge refusals.
 #
 class RefusalAdvice::Question < RefusalAdvice::Block
+  def label
+    renderable_object(data[:label])
+  end
+
   def hint
     renderable_object(data[:hint])
   end

@@ -4,8 +4,15 @@
 
 <%= form_tag admin_request_path(@info_request), :method => :put do %>
 
-  <p><label for="info_request_title"><strong>Title</strong></label> (warning: editing this will break URLs right now)<br/>
-    <%= text_field 'info_request', 'title', :size => 50  %></p>
+  <p>
+    <label for="info_request_title"><strong>Title</strong></label>
+
+    <span class="help-block">
+     (warning: editing this will break URLs right now)<br/>
+    </span>
+
+    <%= text_field 'info_request', 'title', size: 50  %>
+  </p>
 
   <p>
     <% if @info_request.reject_incoming_at_mta? %>
@@ -33,8 +40,13 @@
                 [ "bounce", "holding_pen", "blackhole" ],
                 {},
                 { :disabled => new_response_options_disabled } ) %>
-    <br>
-    ('authority_only' means email From: domain of authority request email or any domain that has previously sent a response; 'nobody' also stops requester making followups; take care when using 'blackhole' which just drops mail)
+
+    <span class="help-block">
+      ('authority_only' means email From: domain of authority request email or
+      any domain that has previously sent a response; 'nobody' also stops
+      requester making followups; take care when using 'blackhole' which just
+      drops mail)
+    </span>
 
   </p>
 
@@ -44,15 +56,25 @@
                { data:
                  { toggle: "tooltip", placement: "right", trigger: "manual" }
                } ) %>
-    (backpage means hidden from lists/search; hidden means completely hidden; super users can see anything)
+
+    <span class="help-block">
+      (backpage means hidden from internal and external search engines;
+      hidden means completely hidden;
+      super users can see anything)
+    </span>
   </p>
 
   <p><label for="info_request_described_state"><strong>Described state</strong></label>
     <%= select( 'info_request', "described_state", InfoRequest::State.all) %>
     <label for="info_request_awaiting_description"><strong>Awaiting description</strong></label>
     <%= select('info_request', "awaiting_description", [["Yes – needs state updating",true],["No – state is up to date",false]]) %>
-    <br/>(don't forget to change 'awaiting description' when you set described state)<br/>
+
+    <span class="help-block">
+      (don't forget to change 'awaiting description' when you set described
+      state)
+    </span>
   </p>
+
   <p><label for="info_request_comments_allowed"><strong>Are comments allowed?</strong></label>
     <%= select('info_request', "comments_allowed", [["Yes – comments allowed", true], ["No – comments disabled", false]]) %>
   </p>

@@ -2,21 +2,15 @@
   <fieldset>
     <legend>
       <%= render question.label %>
-      <%= render question.hint if question.hint %>
+      <%= render question.hint %>
     </legend>
 
-    <% if question.options.size > 2 %>
-      <div class="wizard__options wizard__options--grid">
-        <% question.options.each do |option| %>
-          <%= refusal_advice_checkbox(question, option) %>
+    <div class="wizard__options <%= wizard_option_class(question.options) %>">
+      <% question.options.each do |option| %>
+        <%= f.fields_for 'questions[]', question do |f| %>
+          <%= refusal_advice_question(question, option, f: f) %>
         <% end %>
-      </div>
-    <% else %>
-      <div class="wizard__options wizard__options--list">
-        <% question.options.each do |option| %>
-          <%= refusal_advice_radio(question, option) %>
-        <% end %>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </fieldset>
 </div>

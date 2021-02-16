@@ -3,21 +3,31 @@
 # to # help them challenge refusals
 #
 class RefusalAdvice::Action < RefusalAdvice::Block
+  RedirectionError = Class.new(StandardError)
+
   def title
     data[:title]
   end
 
   def header
-    data[:header]
+    data[:header] || title
+  end
+
+  def body
+    renderable_object(data[:body])
   end
 
   def button
-    data[:button]
+    data[:button] || title
   end
 
   def suggestions
-    data[:suggestions]&.
+    Array(data[:suggestions]).
       map { |suggestion| RefusalAdvice::Suggestion.new(suggestion) }
+  end
+
+  def target
+    data[:target] || {}
   end
 
   def to_partial_path
