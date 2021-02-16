@@ -1,5 +1,7 @@
 class TypeaheadSearch
 
+  include ConfigHelper
+
   attr_accessor :query, :model, :page, :per_page, :wildcard, :run_search
 
   def initialize(query, opts = {})
@@ -22,7 +24,12 @@ class TypeaheadSearch
       xapian_search = run_query
     rescue ActsAsXapian::UnhandledRuntimeError => e
       # Wildcard expands to too many terms
-      Rails.logger.info "Wildcard query '#{query}' caused: #{e.message.force_encoding('UTF-8')}"
+      Rails.logger.warn "Wildcard query '#{query}' caused: #{e.message.force_encoding('UTF-8')}"
+
+      if send_exception_notifications?
+        ExceptionNotifier.notify_exception(e, env: options)
+      end
+
       @wildcard = false
       xapian_search = run_query
     end
