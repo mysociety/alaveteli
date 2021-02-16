@@ -20,13 +20,11 @@ class TypeaheadSearch
     ActsAsXapian.query_parser.default_op = Xapian::Query::OP_OR
     begin
       xapian_search = run_query
-    rescue RuntimeError => e
-      if e.message =~ /^QueryParserError: Wildcard/
-        # Wildcard expands to too many terms
-        Rails.logger.info "Wildcard query '#{query}' caused: #{e.message.force_encoding('UTF-8')}"
-        @wildcard = false
-        xapian_search = run_query
-      end
+    rescue ActsAsXapian::UnhandledRuntimeError => e
+      # Wildcard expands to too many terms
+      Rails.logger.info "Wildcard query '#{query}' caused: #{e.message.force_encoding('UTF-8')}"
+      @wildcard = false
+      xapian_search = run_query
     end
     ActsAsXapian.query_parser.default_op = old_default_op
     xapian_search
