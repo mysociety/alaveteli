@@ -42,8 +42,8 @@ module ActsAsXapian
   def self.bindings_available
     $acts_as_xapian_bindings_available
   end
-  class NoXapianRubyBindingsError < StandardError
-  end
+  NoXapianRubyBindingsError = Class.new(StandardError)
+  UnhandledRuntimeError = Class.new(StandardError)
 
   @@db = nil
   @@db_path = nil
@@ -351,6 +351,8 @@ module ActsAsXapian
           else
             raise
           end
+        rescue RuntimeError => ex
+          raise UnhandledRuntimeError, ex.message
         end
         self.cached_results = nil
       }
