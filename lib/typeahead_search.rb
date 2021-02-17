@@ -25,8 +25,6 @@ class TypeaheadSearch
     rescue ActsAsXapian::UnhandledRuntimeError => e
       # Wildcard expands to too many terms
       Rails.logger.warn "Wildcard query '#{query}' caused: #{e.message.force_encoding('UTF-8')}"
-      send_exception_notification(e)
-
       @wildcard = false
       xapian_search = run_query
     end
@@ -47,15 +45,6 @@ class TypeaheadSearch
   end
 
   private
-
-  def send_exception_notification(e)
-    return unless send_exception_notifications?
-
-    exception_data = options
-    exception_data[:model] = exception_data[:model].to_s
-    exception_data[:query] = query.to_s
-    ExceptionNotifier.notify_exception(e, data: exception_data)
-  end
 
   def check_query
     # Maximum length of a key is 252 bytes
