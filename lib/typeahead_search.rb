@@ -25,11 +25,6 @@ class TypeaheadSearch
     rescue ActsAsXapian::UnhandledRuntimeError => e
       # Wildcard expands to too many terms
       Rails.logger.warn "Wildcard query '#{query}' caused: #{e.message.force_encoding('UTF-8')}"
-
-      if send_exception_notifications?
-        ExceptionNotifier.notify_exception(e, env: options)
-      end
-
       @wildcard = false
       xapian_search = run_query
     end
