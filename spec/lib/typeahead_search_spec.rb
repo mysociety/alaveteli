@@ -246,12 +246,6 @@ describe TypeaheadSearch do
         )
       end
 
-      it 'sends a notification' do
-        TypeaheadSearch.new('dog', options).xapian_search
-        mail = ActionMailer::Base.deliveries.first
-        expect(mail.subject).to match(/dog\* expands to more than 1 term/)
-      end
-
     end
   end
 end
