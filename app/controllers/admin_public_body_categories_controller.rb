@@ -95,13 +95,11 @@ class AdminPublicBodyCategoriesController < AdminController
   private
 
   def public_body_category_params
-    if public_body_category_params = params[:public_body_category]
-      keys = { :translated_keys => [:locale, :title, :description],
-               :general_keys => [:category_tag] }
-      translatable_params(keys, public_body_category_params)
-    else
-     {}
-    end
+    translatable_params(
+      params[:public_body_category],
+      translated_keys: [:locale, :title, :description],
+      general_keys: [:category_tag]
+    )
   end
 
   def set_public_body_category
