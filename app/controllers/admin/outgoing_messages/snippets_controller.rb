@@ -2,7 +2,7 @@
 class Admin::OutgoingMessages::SnippetsController < AdminController
   include TranslatableParams
 
-  before_action :set_snippet, only: %i[edit update]
+  before_action :set_snippet, only: %i[edit update destroy]
 
   def index
     @title = 'Listing Snippets'
@@ -23,6 +23,12 @@ class Admin::OutgoingMessages::SnippetsController < AdminController
       @snippet.build_all_translations
       render action: :edit
     end
+  end
+
+  def destroy
+    @snippet.destroy
+    notice = 'Snippet successfully destroyed.'
+    redirect_to admin_snippets_path, notice: notice
   end
 
   private

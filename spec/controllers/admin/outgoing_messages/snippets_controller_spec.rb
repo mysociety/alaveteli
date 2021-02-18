@@ -100,4 +100,24 @@ describe Admin::OutgoingMessages::SnippetsController do
       end
     end
   end
+
+  describe 'DELETE #destroy' do
+    let!(:snippet) { FactoryBot.create(:outgoing_message_snippet) }
+
+    it 'destroys the snippet' do
+      allow(OutgoingMessage::Snippet).to receive(:find).and_return(snippet)
+      expect(snippet).to receive(:destroy)
+      delete :destroy, params: { id: snippet.id }
+    end
+
+    it 'sets a notice' do
+      delete :destroy, params: { id: snippet.id }
+      expect(flash[:notice]).to eq('Snippet successfully destroyed.')
+    end
+
+    it 'redirects to the snippets index' do
+      delete :destroy, params: { id: snippet.id }
+      expect(response).to redirect_to(admin_snippets_path)
+    end
+  end
 end

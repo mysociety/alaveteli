@@ -12,5 +12,10 @@
         </div>
       <% end %>
     </div>
+
+    <%= form_tag admin_snippet_path(@snippet), class: 'form form-inline', method: 'delete' do %>
+      <%= submit_tag 'Destroy snippet', class: 'btn btn-danger' %>
+      (this is permanent!)
+    <% end %>
   </div>
 </div>
