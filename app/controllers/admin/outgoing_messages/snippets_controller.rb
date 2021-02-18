@@ -10,6 +10,24 @@ class Admin::OutgoingMessages::SnippetsController < AdminController
       paginate(page: params[:page], per_page: 25)
   end
 
+  def new
+    @title = 'New snippet'
+    @snippet = OutgoingMessage::Snippet.new
+    @snippet.build_all_translations
+  end
+
+  def create
+    @snippet = OutgoingMessage::Snippet.new(snippet_params)
+    if @snippet.save
+      redirect_to admin_snippets_path,
+                  notice: 'Snippet successfully created.'
+    else
+      @title = 'New snippet'
+      @snippet.build_all_translations
+      render :new
+    end
+  end
+
   def edit
     @title = 'Edit snippet'
     @snippet.build_all_translations

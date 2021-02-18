@@ -27,6 +27,77 @@ describe Admin::OutgoingMessages::SnippetsController do
     end
   end
 
+  describe 'GET new' do
+    before { get :new }
+
+    it 'returns a successful response' do
+      expect(response).to be_successful
+    end
+
+    it 'assigns a page title' do
+      expect(assigns[:title]).to eq('New snippet')
+    end
+
+    it 'assigns the snippet' do
+      expect(assigns[:snippet]).to be_a(OutgoingMessage::Snippet)
+    end
+
+    it 'renders the correct template' do
+      expect(response).to render_template(:new)
+    end
+  end
+
+  describe 'POST #create' do
+    before do
+      post :create, params: params
+    end
+
+    context 'on a successful update' do
+      let(:params) do
+        { outgoing_message_snippet: { name: 'New name', body: 'New body' } }
+      end
+
+      it 'assigns the snippet' do
+        expect(assigns[:snippet]).to be_a(OutgoingMessage::Snippet)
+      end
+
+      it 'creates the snippet' do
+        expect(assigns[:snippet].name).to eq('New name')
+        expect(assigns[:snippet].body).to eq('New body')
+      end
+
+      it 'sets a notice' do
+        expect(flash[:notice]).to eq('Snippet successfully created.')
+      end
+
+      it 'redirects to the snippets index' do
+        expect(response).to redirect_to(admin_snippets_path)
+      end
+    end
+
+    context 'on an unsuccessful update' do
+      let(:params) do
+        { outgoing_message_snippet: { body: '' } }
+      end
+
+      it 'assigns the snippet' do
+        expect(assigns[:snippet]).to be_a(OutgoingMessage::Snippet)
+      end
+
+      it 'does not update the snippet' do
+        expect(assigns[:snippet]).to be_new_record
+      end
+
+      it 'assigns a page title' do
+        expect(assigns[:title]).to eq('New snippet')
+      end
+
+      it 'renders the form again' do
+        expect(response).to render_template(:new)
+      end
+    end
+  end
+
   describe 'GET edit' do
     let!(:snippet) { FactoryBot.create(:outgoing_message_snippet) }
 

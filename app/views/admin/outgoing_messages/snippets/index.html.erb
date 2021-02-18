@@ -1,5 +1,11 @@
 <h1><%= @title %></h1>
 
+<div class="row">
+  <p class="span12">
+    <%= link_to 'New snippet', new_admin_snippet_path, class: 'btn btn-primary' %>
+  </p>
+</div>
+
 <% if @snippets.empty? %>
   <div class="row">
     <div class="span12">
