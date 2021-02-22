@@ -29,6 +29,9 @@ updates:
       - dependency-name: pry-byebug
         versions:
         - ">= 2.8.0"
+      - dependency-name: recaptcha
+        versions:
+        - ">= 5.7.0"
       - dependency-name: rubocop
         versions:
         - ">= 0.82.0"
