@@ -28,7 +28,7 @@ updates:
         - ">= 1.1.0"
       - dependency-name: pry-byebug
         versions:
-        - ">= 2.8.0"
+        - ">= 3.8.0"
       - dependency-name: recaptcha
         versions:
         - ">= 5.7.0"
