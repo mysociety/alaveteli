@@ -138,7 +138,7 @@
                 <b>Tags</b>
               </td>
               <td>
-                <%= render :partial => 'tags', :locals => { :info_request => @info_request} %>
+                <%= render_tags @info_request.tags %>
               </td>
             </tr>
           </tbody>
