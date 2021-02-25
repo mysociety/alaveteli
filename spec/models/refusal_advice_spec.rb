@@ -197,12 +197,12 @@ RSpec.describe RefusalAdvice do
       )
       allow(instance).to receive(:snippets).and_return(
         double(:outgoing_message_snippet_scope,
-               tags: 'refusal:section-12 refusal:section-14')
+               tags: 'refusal_advice:section-12 refusal_advice:section-14')
       )
     end
 
     it 'returns options array of legislation refusals tags which are active' do
-      is_expected.to match_array([['Section 12', 'refusal:section-12']])
+      is_expected.to match_array([['Section 12', 'refusal_advice:section-12']])
     end
   end
 end

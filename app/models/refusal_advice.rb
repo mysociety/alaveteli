@@ -48,7 +48,7 @@ class RefusalAdvice
     tags = snippets.tags
     legislation.refusals.
       inject([]) do |memo, r|
-        tag = "refusal:#{r.to_param}"
+        tag = "refusal_advice:#{r.to_param}"
         memo << [r.to_s, tag] if tags.include?(tag)
         memo
       end
