@@ -4830,4 +4830,35 @@ describe InfoRequest do
       it { is_expected.to eq(false) }
     end
   end
+
+  describe '#latest_refusals' do
+    subject { info_request.latest_refusals }
+
+    context 'when there are no incoming messages' do
+      let(:info_request) { FactoryBot.build(:info_request) }
+      it { is_expected.to be_an(Array) }
+      it { is_expected.to be_empty }
+    end
+
+    context 'when there are no refusals' do
+      let(:info_request) { FactoryBot.build(:info_request, :with_incoming) }
+      it { is_expected.to be_an(Array) }
+      it { is_expected.to be_empty }
+    end
+
+    context 'when there are refusals' do
+      let(:info_request) { FactoryBot.build(:info_request) }
+      let(:reference) { double(:reference) }
+
+      before do
+        message_1 = double(:incoming_message, refusals?: true, refusals: [reference])
+        message_2 = double(:incoming_message, refusals?: false)
+        allow(info_request).to receive(:incoming_messages).and_return(
+          [message_1, message_2]
+        )
+      end
+
+      it { is_expected.to eq([reference]) }
+    end
+  end
 end
