@@ -5,10 +5,10 @@
       <%= render question.hint %>
     </legend>
 
-    <div class="wizard__options <%= wizard_option_class(question.options) %>">
-      <% question.options.each do |option| %>
-        <%= f.fields_for 'questions[]', question do |f| %>
-          <%= refusal_advice_question(question, option, f: f) %>
+    <%= f.fields_for 'questions[]', question, builder: RefusalAdviceQuestionForm do |f| %>
+      <div class="wizard__options <%= f.wizard_options_class(question.options) %>">
+        <% question.options.each do |option| %>
+          <%= f.wizard_option(option) %>
         <% end %>
       <% end %>
     </div>
