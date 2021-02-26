@@ -32,6 +32,8 @@
   RefusalWizard.prototype._init = function(target) {
     var wizard = this;
 
+    wizard.$form = wizard.$el.find('form');
+
     wizard.$blocks = wizard.$el.find(
       "." +
         wizard.options.questionClass +
@@ -91,6 +93,8 @@
     wizard.$questions.on("change", function() {
       wizard._update($(this));
     });
+
+    wizard._checkIdentifiedRefusals();
   };
 
   RefusalWizard.prototype._setupNextSteps = function() {
@@ -251,6 +255,18 @@
 
     var $options = $question.find("input." + wizard.options.questionOptionClass);
     $options.prop("checked", false);
+  };
+
+  RefusalWizard.prototype._checkIdentifiedRefusals = function() {
+    var wizard = this;
+    var refusalsArray = wizard.$form.data('refusals');
+
+    var $inputs = wizard.$questions.find("input." + wizard.options.questionOptionClass);
+
+    for (var i = 0, len = refusalsArray.length; i < len; i++) {
+      var refusal = refusalsArray[i];
+      $inputs.filter("[value='" + refusal + "']").click();
+    }
   };
 
   RefusalWizard.prototype.log = function() {
