@@ -1,5 +1,4 @@
-<!-- TODO: Check whether they came via wizard -->
-<% if true %>
+<% if @refusal_advice.suggested_actions %>
   <p><%= _('Here are some snippets that may help you <strong>challenge a ' \
            'refusal</strong>:') %></p>
 <% else %>
@@ -12,6 +11,9 @@
     <!-- TODO: Non-JavaScript fallback? -->
     <label for="snippet-relation"><%= _('Snippets related to') %></label>
     <select id="snippet-relation">
+      <% if @refusal_advice.suggested_actions %>
+        <option value="<%= @refusal_advice.suggested_actions.join(' ') %>">my previous answers</option>
+      <% end %>
       <option value="all"><%= _('any section') %></option>
       <%= options_for_select(@refusal_advice.filter_options) %>
     </select>
