@@ -3,18 +3,11 @@ require 'spec_helper'
 RSpec.describe RefusalAdvice::Suggestion do
   let(:data) do
     {
-      action: 'reply',
-      advice: { plain: 'Refusing a request on cost grounds...' },
-      response_template: 'i-only-need-some-of-the-information'
+      advice: { plain: 'Refusing a request on cost grounds...' }
     }
   end
 
   let(:suggestion) { described_class.new(data) }
-
-  describe '#action' do
-    subject { suggestion.action }
-    it { is_expected.to eq('reply') }
-  end
 
   describe '#advice' do
     subject { suggestion.advice }
@@ -51,11 +44,6 @@ RSpec.describe RefusalAdvice::Suggestion do
         is_expected.to eq(plain: '')
       end
     end
-  end
-
-  describe '#response_template' do
-    subject { suggestion.response_template }
-    it { is_expected.to eq('i-only-need-some-of-the-information') }
   end
 
   describe '#to_partial_path' do
