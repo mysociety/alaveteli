@@ -146,7 +146,7 @@ gem 'locale', '~> 2.1.3'
 gem 'routing-filter', '~> 0.6.2'
 gem 'unicode', '~> 0.4.4'
 gem 'unidecoder', '~> 1.1.0'
-gem 'money', '~> 6.14.0'
+gem 'money', '~> 6.14.1'
 
 # mime-types 3.0.0 requires Ruby 2.0.0, and _something_ is trying to update it
 gem 'mime-types', '< 3.0.0', require: false
