@@ -162,7 +162,7 @@ gem 'alaveteli_features', :path => 'gems/alaveteli_features'
 
 group :test do
   gem 'fivemat', '~> 1.3.7'
-  gem 'webmock', '~> 3.11.2'
+  gem 'webmock', '~> 3.12.1'
   gem 'simplecov', '~> 0.17.1'
   gem 'simplecov-lcov', '~> 0.7.0'
   gem 'capybara', '~> 3.15.1'
