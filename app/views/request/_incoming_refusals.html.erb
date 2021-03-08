@@ -2,9 +2,9 @@
   <div class="correspondence__suggestion">
     <p>
       <%= _('{{authority_name}} may have refused all or part of your request ' \
-            'under <strong>{{exemptions}}</strong>.',
+            'under <strong>{{refusals}}</strong>.',
             authority_name: @info_request.public_body.name,
-            exemptions: incoming_message.refusals.to_sentence) %>
+            refusals: incoming_message.refusals.to_sentence) %>
 
       <% if @info_request.awaiting_description? && @show_bottom_describe_state_form %>
         <%= link_to '#describe_state_form_2' do %>
