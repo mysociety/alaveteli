@@ -41,6 +41,23 @@ class RefusalAdvice
   end
 
   ##
+  # Retrieve the previously suggested actions from by the refusal advice wizard
+  # for a given InfoRequest and user.
+  #
+  def suggested_actions
+    wizard_answer = refusal_advice_wizard_answers_by(@options[:user]).last
+    return unless wizard_answer
+
+    action = wizard_answer.params[:id]
+    suggestions = wizard_answer.params[:actions][action.to_sym]
+
+    suggestions.inject([]) do |memo, (k, v)|
+      memo << "refusal_advice:#{k}" if v
+      memo
+    end
+  end
+
+  ##
   # Return a Array of arrays which can be used with options_for_select to show
   # legislation references options which have refusal advice snippets.
   #
@@ -48,7 +65,7 @@ class RefusalAdvice
     tags = snippets.tags
     legislation.refusals.
       inject([]) do |memo, r|
-        tag = "refusal:#{r.to_param}"
+        tag = "refusal_advice:#{r.to_param}"
         memo << [r.to_s, tag] if tags.include?(tag)
         memo
       end
@@ -61,4 +78,16 @@ class RefusalAdvice
   protected
 
   attr_reader :data, :info_request
+
+  private
+
+  def refusal_advice_wizard_answers_by(user)
+    @info_request.info_request_events.where(
+      event_type: 'refusal_advice'
+    ).order(created_at: :desc).select do |event|
+      # TODO: Add user association to InfoRequestEvent so that we can filter by
+      # user during the SQL query to improve performance.
+      event.params[:user_id] == user.id
+    end
+  end
 end

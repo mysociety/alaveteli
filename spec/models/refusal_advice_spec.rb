@@ -182,6 +182,29 @@ RSpec.describe RefusalAdvice do
     end
   end
 
+  context '#suggested_actions' do
+    subject { instance.suggested_actions }
+
+    let(:user) { FactoryBot.build(:user) }
+    let(:info_request) { FactoryBot.create(:info_request, user: user) }
+
+    let(:instance) do
+      described_class.new(data, info_request: info_request, user: user)
+    end
+
+    context 'when info request event has been stored' do
+      let!(:event) do
+        FactoryBot.create(:refusal_advice_event, info_request: info_request)
+      end
+
+      it { is_expected.to match_array(['refusal_advice:suggestion_3']) }
+    end
+
+    context 'when there is no info request event stored' do
+      it { is_expected.to be_nil }
+    end
+  end
+
   context '#filter_options' do
     subject { instance.filter_options }
 
@@ -197,12 +220,12 @@ RSpec.describe RefusalAdvice do
       )
       allow(instance).to receive(:snippets).and_return(
         double(:outgoing_message_snippet_scope,
-               tags: 'refusal:section-12 refusal:section-14')
+               tags: 'refusal_advice:section-12 refusal_advice:section-14')
       )
     end
 
     it 'returns options array of legislation refusals tags which are active' do
-      is_expected.to match_array([['Section 12', 'refusal:section-12']])
+      is_expected.to match_array([['Section 12', 'refusal_advice:section-12']])
     end
   end
 end

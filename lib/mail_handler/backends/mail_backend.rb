@@ -71,6 +71,13 @@ module MailHandler
         end
       end
 
+      def get_within_rfc822_subject(leaf)
+        within_rfc822_subject = leaf.within_rfc822_attachment.subject
+        return unless within_rfc822_subject
+
+        convert_string_to_utf8(within_rfc822_subject).string
+      end
+
       # Return a copy of the file name for the mail part
       def get_part_file_name(part)
         part_file_name = part.filename
@@ -363,16 +370,17 @@ module MailHandler
         body
       end
 
-      # Generate a hash of the attributes associated with each significant part of a Mail object
+      # Generate a hash of the attributes associated with each significant part
+      # of a Mail object
       def get_attachment_attributes(mail)
-        leaves = get_attachment_leaves(mail)
-        attachments = []
-        for leaf in leaves
+        get_attachment_leaves(mail).map do |leaf|
           body = get_part_body(leaf)
+
           if leaf.within_rfc822_attachment
-            within_rfc822_subject = leaf.within_rfc822_attachment.subject
+            within_rfc822_subject = get_within_rfc822_subject(leaf)
             body = extract_attached_message_headers(leaf)
           end
+
           leaf_attributes = { :url_part_number => leaf.url_part_number,
                               :content_type => get_content_type(leaf),
                               :filename => get_part_file_name(leaf),
@@ -380,9 +388,7 @@ module MailHandler
                               :within_rfc822_subject => within_rfc822_subject,
                               :body => body,
                               :hexdigest => Digest::MD5.hexdigest(body) }
-          attachments << leaf_attributes
         end
-        return attachments
       end
 
       # Format

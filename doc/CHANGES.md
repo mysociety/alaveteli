@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Handle UTF8 characters in RFC822 attachment subject lines (Gareth Rees)
 * Backpaged content tells external search engines not to index it (Gareth Rees)
 * Tweak change request button colours in admin interface (Gareth Rees)
 

@@ -44,7 +44,8 @@
         <b>Tags</b>
       </td>
       <td>
-        <%= render :partial => 'tags', :locals => { :body => @public_body} %>
+        <%= render_tags @public_body.tags,
+                        search_target: list_public_bodies_path %>
       </td>
     </tr>
   </tbody>

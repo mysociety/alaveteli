@@ -51,6 +51,10 @@ class Ability
       can_view_with_prominence?(request.prominence, request)
     end
 
+    can :manage, OutgoingMessage::Snippet do |request|
+      user && user.is_admin?
+    end
+
     # Viewing batch requests
     can :read, InfoRequestBatch do |batch_request|
       if batch_request.embargo_duration
