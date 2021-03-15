@@ -45,6 +45,10 @@ We recommend you run your server behind an HTTP accelerator like
 Alaveteli ships with a
 [sample varnish VCL](https://github.com/mysociety/alaveteli/blob/master/config/varnish-alaveteli.vcl).
 
+If your hosting company supports [IPv6](https://en.wikipedia.org/wiki/IPv6)
+make sure that you've enabled this and configured [an AAAA record](https://en.wikipedia.org/wiki/List_of_DNS_record_types#AAAA)
+in your domain's DNS zone for capable clients.
+
 ## Security
 
 You _must_ change all key-related [config settings]({{ page.baseurl }}/docs/customising/config/)
