@@ -215,6 +215,18 @@ FactoryBot.define do
       end
     end
 
+    trait :partially_successful do
+      after(:create) do |info_request, evaluator|
+        info_request.set_described_state('partially_successful')
+      end
+    end
+
+    trait :refused do |variable|
+      after(:create) do |info_request, evaluator|
+        info_request.set_described_state('rejected')
+      end
+    end
+
     trait :not_held do
       after(:create) do |info_request, evaluator|
         info_request.set_described_state('not_held')
