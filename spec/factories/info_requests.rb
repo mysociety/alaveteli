@@ -49,31 +49,29 @@ FactoryBot.define do
     end
 
     trait :with_incoming do
+      transient do
+        incoming_message_factory { :incoming_message }
+      end
+
       after(:create) do |info_request, evaluator|
-        incoming_message = create(:incoming_message, :info_request => info_request)
+        incoming_message = create(evaluator.incoming_message_factory, :info_request => info_request)
         info_request.log_event("response", {:incoming_message_id => incoming_message.id})
       end
     end
 
     trait :with_plain_incoming do
-      after(:create) do |info_request, evaluator|
-        incoming_message = create(:plain_incoming_message, :info_request => info_request)
-        info_request.log_event("response", {:incoming_message_id => incoming_message.id})
-      end
+      incoming_message_factory { :plain_incoming_message }
+      with_incoming
     end
 
     trait :with_incoming_with_html_attachment do
-      after(:create) do |info_request, evaluator|
-        incoming_message = create(:incoming_message_with_html_attachment, :info_request => info_request)
-        info_request.log_event("response", {:incoming_message_id => incoming_message.id})
-      end
+      incoming_message_factory { :incoming_message_with_html_attachment }
+      with_incoming
     end
 
     trait :with_incoming_with_attachments do
-      after(:create) do |info_request, evaluator|
-        incoming_message = create(:incoming_message_with_attachments, :info_request => info_request)
-        info_request.log_event("response", {:incoming_message_id => incoming_message.id})
-      end
+      incoming_message_factory { :incoming_message_with_attachments }
+      with_incoming
     end
 
     trait :with_old_incoming do
