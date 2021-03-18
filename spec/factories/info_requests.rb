@@ -54,8 +54,10 @@ FactoryBot.define do
       end
 
       after(:create) do |info_request, evaluator|
-        incoming_message = create(evaluator.incoming_message_factory, :info_request => info_request)
-        info_request.log_event("response", {:incoming_message_id => incoming_message.id})
+        incoming_message = create(evaluator.incoming_message_factory,
+                                  info_request: info_request)
+        info_request.log_event("response",
+                               { incoming_message_id: incoming_message.id })
       end
     end
 
@@ -75,19 +77,19 @@ FactoryBot.define do
     end
 
     trait :with_old_incoming do
-      after(:create) do |info_request, evaluator|
+      after(:create) do |info_request, _evaluator|
         incoming_message = FactoryBot.create(
           :incoming_message,
-          :info_request => info_request,
-          :created_at => Time.zone.now - 31.days
+          info_request: info_request,
+          created_at: Time.zone.now - 31.days
         )
         info_request.info_request_events = [
           FactoryBot.create(
             :info_request_event,
-            :info_request => info_request,
-            :event_type => "response",
-            :incoming_message_id => incoming_message.id,
-            :created_at => Time.zone.now - 31.days
+            info_request: info_request,
+            event_type: "response",
+            incoming_message_id: incoming_message.id,
+            created_at: Time.zone.now - 31.days
           )
         ]
         info_request.last_public_response_at = Time.zone.now - 31.days
@@ -96,43 +98,46 @@ FactoryBot.define do
     end
 
     trait :requires_admin do
-      after(:create) do |info_request, evaluator|
+      after(:create) do |info_request, _evaluator|
         info_request.log_event(
           'status_update',
           user_id: info_request.user.id,
           old_described_state: info_request.described_state,
           described_state: 'requires_admin',
-          message: 'Useful info')
+          message: 'Useful info'
+        )
         info_request.set_described_state('requires_admin')
       end
     end
 
     trait :error_message do
-      after(:create) do |info_request, evaluator|
+      after(:create) do |info_request, _evaluator|
         info_request.log_event(
           'status_update',
           user_id: info_request.user.id,
           old_described_state: info_request.described_state,
           described_state: 'error_message',
-          message: 'Useful info')
+          message: 'Useful info'
+        )
         info_request.set_described_state('error_message')
       end
     end
 
     trait :error_message_blank do
-      after(:create) do |info_request, evaluator|
+      after(:create) do |info_request, _evaluator|
         info_request.log_event(
           'status_update',
           user_id: info_request.user.id,
           old_described_state: info_request.described_state,
           described_state: 'error_message',
-          message: '')
+          message: ''
+        )
         info_request.set_described_state('error_message')
       end
     end
 
     trait :attention_requested do
-      after(:create) do |info_request, evaluator|
+      after(:create) do |info_request, _evaluator|
         info_request.log_event('report_request',
                                request_id: info_request.id,
                                editor: info_request.user,
@@ -181,7 +186,7 @@ FactoryBot.define do
 
     trait :awaiting_description do
       awaiting_description { true }
-      after(:create) do |info_request, evaluator|
+      after(:create) do |info_request, _evaluator|
         info_request.awaiting_description = true
         info_request.save!
       end
@@ -214,19 +219,19 @@ FactoryBot.define do
     end
 
     trait :partially_successful do
-      after(:create) do |info_request, evaluator|
+      after(:create) do |info_request, _evaluator|
         info_request.set_described_state('partially_successful')
       end
     end
 
-    trait :refused do |variable|
-      after(:create) do |info_request, evaluator|
+    trait :refused do |_variable|
+      after(:create) do |info_request, _evaluator|
         info_request.set_described_state('rejected')
       end
     end
 
     trait :not_held do
-      after(:create) do |info_request, evaluator|
+      after(:create) do |info_request, _evaluator|
         info_request.set_described_state('not_held')
       end
     end
