@@ -242,7 +242,7 @@
   url: https://transparencia.be
   image: transparencia-be.jpg
   featured: false
-  pro: false
+  pro: true
   country:
     en: Belgium
     es: Bélgica
