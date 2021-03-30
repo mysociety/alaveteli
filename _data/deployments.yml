@@ -197,7 +197,7 @@
   url: https://www.righttoknow.org.au
   image: right-to-know.jpg
   featured: false
-  pro: false
+  pro: true
   country:
     en: Australia
     es: Australia
