@@ -94,14 +94,14 @@
       <p>It took just one enterprising journalist to set up and run de Wob-Knop  — with valuable support from <a href="https://www.vvoj.org/">Vereniging van Onderzoeksjournalisten</a>.</p>
       <p>The underlying aim is to encourage more online FOI requesting in the Netherlands, using a request generator which will eventually link into the platform.</p>
 
-- title: FYI
-  url: https://fyi.org.nz
-  image: fyi.jpg
+- title: Transparencia
+  url: https://transparencia.be
+  image: transparencia-be.jpg
   featured: false
-  pro: false
+  pro: true
   country:
-    en: New Zealand
-    es: Nueva Zelanda
+    en: Belgium
+    es: Bélgica
 
 - title: Imamo pravo znati
   url: https://imamopravoznati.org
@@ -111,15 +111,6 @@
   country:
     en: Croatia
     es: Croacia
-
-- title: Right To Know
-  url: https://www.righttoknow.org.au
-  image: right-to-know.jpg
-  featured: false
-  pro: false
-  country:
-    en: Australia
-    es: Australia
 
 - title: Ki Mit Tud
   url: https://kimittud.atlatszo.hu
@@ -139,14 +130,23 @@
     en: Ukraine
     es: Ucrania
 
-- title: Qué Sabés
-  url: https://quesabes.org
-  image: que-sabes.jpg
+- title: Mimes Brønn
+  url: https://www.mimesbronn.no
+  image: mimes-bronn.jpg
   featured: false
   pro: false
   country:
-    en: Uruguay
-    es: Uruguay
+    en: Norway
+    es: Noruega
+
+- title: Bilmehakki
+  url: http://bilmehakki.org
+  image: bilmehakki.jpg
+  featured: false
+  pro: false
+  country:
+    en: Turkey
+    es: Turquía
 
 - title: Ask Data
   url: http://askdata.org.il
@@ -156,6 +156,15 @@
   country:
     en: Israel
     es: Israel
+
+- title: Informini
+  url: https://www.informini.org
+  image: informini.jpg
+  featured: false
+  pro: false
+  country:
+    en: Tunisia
+    es: Túnez
 
 - title: Sobanukirwa
   url: https://sobanukirwa.rw
@@ -184,14 +193,32 @@
     en: Uganda
     es: Uganda
 
-- title: Mimes Brønn
-  url: https://www.mimesbronn.no
-  image: mimes-bronn.jpg
+- title: Right To Know
+  url: https://www.righttoknow.org.au
+  image: right-to-know.jpg
   featured: false
   pro: false
   country:
-    en: Norway
-    es: Noruega
+    en: Australia
+    es: Australia
+
+- title: FYI
+  url: https://fyi.org.nz
+  image: fyi.jpg
+  featured: false
+  pro: false
+  country:
+    en: New Zealand
+    es: Nueva Zelanda
+
+- title: Qué Sabés
+  url: https://quesabes.org
+  image: que-sabes.jpg
+  featured: false
+  pro: false
+  country:
+    en: Uruguay
+    es: Uruguay
 
 - title: Derecho A Preguntar
   url: https://derechoapreguntar.org
@@ -211,15 +238,6 @@
     en: Liberia
     es: Liberia
 
-- title: Transparencia
-  url: https://transparencia.be
-  image: transparencia-be.jpg
-  featured: false
-  pro: true
-  country:
-    en: Belgium
-    es: Bélgica
-
 - title: Queremosdatos
   url: https://www.queremosdatos.co
   image: queremos-datos.jpg
@@ -237,33 +255,6 @@
   country:
     en: New Jersey, USA
     es: New Jersey, Estados Unidos
-
-- title: Bilmehakki
-  url: http://bilmehakki.org
-  image: bilmehakki.jpg
-  featured: false
-  pro: false
-  country:
-    en: Turkey
-    es: Turquía
-
-- title: Informini
-  url: https://www.informini.org
-  image: informini.jpg
-  featured: false
-  pro: false
-  country:
-    en: Tunisia
-    es: Túnez
-
-- title: VreauInfo
-  url: https://www.vreauinfo.md
-  image: vreauinfo.jpg
-  featured: false
-  pro: false
-  country:
-    en: Moldova
-    es: Moldavia
 
 - title: Derecho al Dato
   url: https://derechoaldato.com.ar
