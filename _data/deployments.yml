@@ -148,15 +148,6 @@
     en: Uruguay
     es: Uruguay
 
-- title: Nu Vă Supărați
-  url: http://nuvasuparati.info
-  image: nu-va-suparati.jpg
-  featured: false
-  pro: false
-  country:
-    en: Romania
-    es: Rumanía
-
 - title: Ask Data
   url: http://askdata.org.il
   image: ask-data.jpg
@@ -166,15 +157,6 @@
     en: Israel
     es: Israel
 
-- title: Слободен пристап
-  url: http://www.slobodenpristap.mk
-  image: macedonia.jpg
-  featured: false
-  pro: false
-  country:
-    en: Macedonia
-    es: Macedonia
-
 - title: Sobanukirwa
   url: https://sobanukirwa.rw
   image: sobanukirwa.jpg
@@ -183,15 +165,6 @@
   country:
     en: Rwanda
     es: Ruanda
-
-- title: Chiedi
-  url: https://chiedi.dirittodisapere.it
-  image: diritto-di-sapere.jpg
-  featured: false
-  pro: false
-  country:
-    en: Italy
-    es: Italia
 
 - title: accessinfo.hk
   url: https://accessinfo.hk
