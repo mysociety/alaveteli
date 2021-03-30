@@ -139,6 +139,15 @@
     en: Norway
     es: Noruega
 
+- title: VreauInfo
+  url: https://www.vreauinfo.md
+  image: vreauinfo.jpg
+  featured: false
+  pro: false
+  country:
+    en: Moldova
+    es: Moldavia
+
 - title: Bilmehakki
   url: http://bilmehakki.org
   image: bilmehakki.jpg
