@@ -27,11 +27,11 @@ class AlaveteliPro::EmbargoExtensionsController < AlaveteliPro::BaseController
 
     if @embargo_extension.save
       @embargo.extend(@embargo_extension)
+      new_expiry_date = I18n.l(@embargo.publish_at, format: '%d %B %Y')
 
       flash[:notice] = _('Your request will now be private ' \
                          'until {{expiry_date}}.',
-                         expiry_date: I18n.l(
-                           @embargo.publish_at, format: '%d %B %Y'))
+                         expiry_date: new_expiry_date)
     else
       flash[:error] = _("Sorry, something went wrong updating your " \
                         "request's privacy settings, please try again.")
@@ -61,10 +61,11 @@ class AlaveteliPro::EmbargoExtensionsController < AlaveteliPro::BaseController
       end
 
       publish_at = @info_request_batch.info_requests.first.embargo.publish_at
+      new_expiry_date = I18n.l(publish_at, format: '%d %B %Y')
 
       flash[:notice] = _('Your requests will now be private ' \
                          'until {{expiry_date}}.',
-                         expiry_date: I18n.l(publish_at, format: '%d %B %Y'))
+                         expiry_date: new_expiry_date)
     rescue ActiveRecord::RecordInvalid
       flash[:error] = _("Sorry, something went wrong updating your " \
                         "requests' privacy settings, please try again.")
