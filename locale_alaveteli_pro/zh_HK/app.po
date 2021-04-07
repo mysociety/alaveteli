@@ -4,8 +4,8 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# gensitu <pstew892@protonmail.com>, 2020
 # Hailey Zhang <s1132151@s.eduhk.hk>, 2020
+# gensitu <pstew892@protonmail.com>, 2021
 #
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-16 16:34+0100\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: Hailey Zhang <s1132151@s.eduhk.hk>, 2020\n"
+"Last-Translator: gensitu <pstew892@protonmail.com>, 2021\n"
 "Language-Team: Chinese (Hong Kong) (https://www.transifex.com/mysociety/teams/"
 "33529/zh_HK/)\n"
 "MIME-Version: 1.0\n"
@@ -208,10 +208,10 @@ msgid "Annotations allow you to add extra notes on a request, which will eventua
 msgstr ""
 
 msgid "Are you interested in free training, seminars and workshops about {{pro_site_name}}?"
-msgstr ""
+msgstr "您有興趣參加{{pro_site_name}}的免費訓練、講座和工作坊嗎？"
 
 msgid "Are you sure the information you’re after isn’t available elsewhere?"
-msgstr ""
+msgstr "您確定資訊不能從其他地方取得嗎？"
 
 msgid "Are you sure you want to publish this request?"
 msgstr "你確定要發表此索取資料要求嗎？"
@@ -268,7 +268,7 @@ msgid "Browse public requests"
 msgstr "瀏覽公開的索取資料要求"
 
 msgid "CSV"
-msgstr ""
+msgstr "CSV"
 
 msgid "Campaigning for better wheelchair accessibility"
 msgstr ""
@@ -286,7 +286,7 @@ msgid "Cancelled subscriptions:"
 msgstr "已取消的訂閱"
 
 msgid "Card details"
-msgstr ""
+msgstr "付款卡詳情"
 
 msgid "Change privacy"
 msgstr "更改私隱設定"
@@ -439,7 +439,7 @@ msgid "From this screen you can see what you need to do next to keep your reques
 msgstr ""
 
 msgid "Gavin Chait surveyed 350 local authorities to find out <a href=\"{{story_url}}\">which commercial premises were empty</a>, in order to give a helping hand to start-up businesses."
-msgstr ""
+msgstr "Gavin Chait為了協助初創企業，曾向350個地方部門詢問<a href=\"{{story_url}}\">空置商業物業的地點</a>。"
 
 msgid "Get email updates about {{pro_site_name}}?"
 msgstr ""
@@ -481,7 +481,7 @@ msgid "I understand and still want to cancel"
 msgstr "我明白，但我依然希望取消"
 
 msgid "If payment continues to fail, unfortunately your account will revert back to a free account, and you’ll no longer have access to {{pro_site_name}}."
-msgstr ""
+msgstr "如果您再無法付款，您的賬户將轉成免費賬户，到時候您將無法使用{{pro_site_name}}。"
 
 msgid "If you wish to preserve your access to {{pro_site_name}}, please could you check that your card has sufficient funds, and that the card details are correct on your subscriptions page: {{subscriptions_page_url}}"
 msgstr ""
@@ -514,7 +514,7 @@ msgid "I’m a researcher"
 msgstr "我是學者"
 
 msgid "Join {{pro_site_name}}"
-msgstr ""
+msgstr "加入{{pro_site_name}}"
 
 msgid "Journalists"
 msgstr "記者"
@@ -544,7 +544,7 @@ msgid "Learn more about {{pro_site_name}} for researchers"
 msgstr ""
 
 msgid "Lucie Stephens, prompted by the death of someone she cared about, requested information about asbestos in schools from more than 200 LEAs. <a href=\"{{story_url}}\">Read about her campaign</a>"
-msgstr ""
+msgstr "Lucie Stephens在親人去世之後，向200個執法部門索取有關學校使用石棉的資訊。<a href=\"{{story_url}}\">按此參閲她計劃的詳情</a>"
 
 msgid "Make a batch request"
 msgstr "提出多項要求"
@@ -553,7 +553,7 @@ msgid "Make a request"
 msgstr "提出要求"
 
 msgid "Make a request to multiple authorities and manage the responses."
-msgstr ""
+msgstr "向多個部門索取資料和管理回覆。"
 
 msgid "Make an {{law_used_short}} request"
 msgstr "提出{{law_used_short}}要求"
@@ -580,16 +580,16 @@ msgid "Need to protect your research?"
 msgstr "需要將你的搜索紀錄保密嗎？"
 
 msgid "Need to protect your scoop?"
-msgstr ""
+msgstr "須要保護您的獨家新聞？"
 
 msgid "New Pro accounts this week:"
-msgstr ""
+msgstr "本週新增的專業版賬户："
 
 msgid "New Pro requests this week:"
-msgstr ""
+msgstr "本週來自專業版的索取資料要求："
 
 msgid "New Pro subscriptions this week:"
-msgstr ""
+msgstr "本週新增的專業版訂閲："
 
 msgid "New batches made this week:"
 msgstr ""
@@ -718,16 +718,16 @@ msgid "Privacy"
 msgstr "私隱"
 
 msgid "Private"
-msgstr ""
+msgstr "私人"
 
 msgid "Private FOI requests"
-msgstr ""
+msgstr "私人資訊自由要求"
 
 msgid "Private Requests"
-msgstr ""
+msgstr "私人要求"
 
 msgid "Private requests for information"
-msgstr ""
+msgstr "私人資料索取要求"
 
 msgid "Private until {{date}}"
 msgstr ""
@@ -835,7 +835,7 @@ msgid "Requests that will be made public soon"
 msgstr ""
 
 msgid "Researchers"
-msgstr ""
+msgstr "研究員"
 
 msgid "Response due"
 msgstr ""
@@ -865,7 +865,7 @@ msgid "Searching for the right email address for every FOI contact?"
 msgstr ""
 
 msgid "Selected plan"
-msgstr ""
+msgstr "選取的計劃"
 
 msgid "Send a follow up"
 msgstr "跟進要求"
@@ -958,19 +958,19 @@ msgid "Submit Search"
 msgstr "開始搜尋"
 
 msgid "Subscribe"
-msgstr ""
+msgstr "訂閲"
 
 msgid "Subscription began"
-msgstr ""
+msgstr "訂閲開始"
 
 msgid "Subscription cancellations are applied at the end of the current billing period (<strong>{{date}}</strong>)."
 msgstr ""
 
 msgid "Subscription ends"
-msgstr ""
+msgstr "訂閲結束"
 
 msgid "Terms and conditions"
-msgstr ""
+msgstr "條款及細則"
 
 msgid "Thank you for your interest in {{pro_site_name}}."
 msgstr ""
@@ -1100,30 +1100,29 @@ msgid "Up-to-date database of <strong class=\"marketing-highlight\">contact deta
 msgstr ""
 
 msgid "Update"
-msgstr ""
+msgstr "更新"
 
 msgid "Update Card Details"
-msgstr ""
+msgstr "更新付款卡資料"
 
 msgid "Update its status."
 msgid_plural "Update statuses."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "更新狀態。"
 
 msgid "Updated"
-msgstr ""
+msgstr "已更新"
 
 msgid "Updating your payment card requires your browser to have JavaScript enabled."
 msgstr "要更新付款卡資料，請先啟用JavaScript。"
 
 msgid "Upgrade account"
-msgstr ""
+msgstr "升級賬户"
 
 msgid "Using Pro to build a nationwide picture of the public properties being sold off by councils"
 msgstr ""
 
 msgid "View"
-msgstr ""
+msgstr "檢視"
 
 msgid "View authorities"
 msgstr ""
@@ -1177,10 +1176,10 @@ msgid "Why do you want access?"
 msgstr ""
 
 msgid "Write a reply"
-msgstr ""
+msgstr "回覆"
 
 msgid "Write request"
-msgstr ""
+msgstr "撰寫要求"
 
 msgid "Yes"
 msgstr ""
@@ -1189,7 +1188,7 @@ msgid "You added a new annotation on your request to {{public_body_name}} \"{{in
 msgstr ""
 
 msgid "You are already subscribed to this plan"
-msgstr ""
+msgstr "您已經訂閲此計劃"
 
 msgid "You can choose to keep your requests private for up to a year, not visible to anyone but you. We’ll make sure you know when that time’s about to run out, and you can always extend it further if your campaign’s not live yet."
 msgstr ""
@@ -1204,7 +1203,7 @@ msgid "You can re-subscribe at any time and full access to these features will b
 msgstr ""
 
 msgid "You don't currently have a Pro subscription"
-msgstr ""
+msgstr "您目前沒有訂閲專業版"
 
 msgid "You have successfully cancelled your subscription to {{pro_site_name}}"
 msgstr "你已取消訂閲{{pro_site_name}}"
@@ -1225,7 +1224,7 @@ msgid "You sent a request \"{{info_request_title}}\" to {{public_body_name}}."
 msgstr ""
 
 msgid "You sent an internal review request to {{public_body_name}} for \"{{info_request_title}}\"."
-msgstr ""
+msgstr "您已要求{{public_body_name}}覆檢「{{info_request_title}}」。"
 
 msgid "You will be able to extend this privacy period from {{embargo_extend_from}}."
 msgstr ""
@@ -1243,58 +1242,58 @@ msgid "Your Batch Request has been saved!"
 msgstr ""
 
 msgid "Your clarification to {{public_body_name}} for \"{{info_request_title}}\" was resent."
-msgstr ""
+msgstr "您就「{{info_request_title}}」向{{public_body_name}}要求的澄清已重新發出。"
 
 msgid "Your current subscription"
-msgstr ""
+msgstr "您的訂閲"
 
 msgid "Your dashboard"
 msgstr "概覽"
 
 msgid "Your draft has been saved!"
-msgstr ""
+msgstr "您的草稿已儲存！"
 
 msgid "Your follow up to {{public_body_name}} on \"{{info_request_title}}\" was resent."
-msgstr ""
+msgstr "您就「{{info_request_title}}」向{{public_body_name}}提出的跟進已重新發出。"
 
 msgid "Your internal review request to {{public_body_name}} for \"{{info_request_title}}\" was resent."
-msgstr ""
+msgstr "您就「{{info_request_title}}」向{{public_body_name}}提出的覆檢要求已重新發出。"
 
 msgid "Your message will be displayed publicly on this website once you publish your request."
 msgstr ""
 
 msgid "Your payment details"
-msgstr ""
+msgstr "您的付款資料"
 
 msgid "Your payment details have been updated"
-msgstr ""
+msgstr "您的付款資料已更新"
 
 msgid "Your request"
-msgstr ""
+msgstr "您的索取資料要求"
 
 msgid "Your request \"{{info_request_title}}\" to {{public_body_name}} was resent."
-msgstr ""
+msgstr "您向{{public_body_name}}提出的索取資料要求「{{info_request_title}}」已重新發出。"
 
 msgid "Your request has been updated!"
-msgstr ""
+msgstr "您的索取資料要求已更新！"
 
 msgid "Your request is now public!"
-msgstr ""
+msgstr "您的索取資料要求已公開！"
 
 msgid "Your request to {{public_body_name}} \"{{info_request_title}}\" is now public."
-msgstr ""
+msgstr "您向{{public_body_name}}提出的索取資料要求「{{info_request_title}}」已公開。"
 
 msgid "Your request to {{public_body_name}} \"{{info_request_title}}\" received a new response."
-msgstr ""
+msgstr "您向{{public_body_name}}提出的索取資料要求「{{info_request_title}}」有新回覆。"
 
 msgid "Your request will now be private on {{site_name}} until {{expiry_date}}."
-msgstr ""
+msgstr "您的索取資料要求現在開始只供在{{site_name}}私人閲覽，並將在{{expiry_date}}公開。"
 
 msgid "Your request will now be private until {{expiry_date}}."
-msgstr ""
+msgstr "您的索取資料要求將在{{expiry_date}}公開。"
 
 msgid "Your requests are now public!"
-msgstr ""
+msgstr "您的要求已公開！"
 
 msgid "Your requests will now be private until {{expiry_date}}."
 msgstr ""
@@ -1309,28 +1308,28 @@ msgid "You’ll have access to our address book of {{authority_count}} authoriti
 msgstr ""
 
 msgid "You’re busy fixing the world. Let us take care of your FOI requests."
-msgstr ""
+msgstr "您正在忙於解決世界的種種問題，請讓我們負責處理您的資訊自由要求。"
 
 msgid "You’ve got plenty of other things to think about, so you don’t want to be checking up on every single one of your requests to see if it needs attention. Instead, Pro keeps an eye on them for you, sending you a daily email digest."
 msgstr ""
 
 msgid "ZIP"
-msgstr ""
+msgstr "ZIP"
 
 msgid "all requests"
-msgstr ""
+msgstr "全部要求"
 
 msgid "drafts"
-msgstr ""
+msgstr "草稿"
 
 msgid "eg. Cabinet Office"
-msgstr ""
+msgstr "例如：行政會議"
 
 msgid "first created"
 msgstr ""
 
 msgid "last updated"
-msgstr ""
+msgstr "最新更新"
 
 msgid "or start a batch request"
 msgstr ""
@@ -1342,10 +1341,10 @@ msgid "the {{pro_site_name}} team"
 msgstr "{{pro_site_name}}團隊"
 
 msgid "the {{site_name}} team"
-msgstr ""
+msgstr "{{site_name}}團隊"
 
 msgid "title (A-Z)"
-msgstr ""
+msgstr "標題（A至Z）"
 
 msgid "{{commenter_name}} added a new annotation on your request to {{public_body_name}} \"{{info_request_title}}.\""
 msgstr ""
@@ -1365,13 +1364,11 @@ msgstr[1] ""
 
 msgid "{{count}} reply"
 msgid_plural "{{count}} replies"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}}則回覆"
 
 msgid "{{count}} request has received a response."
 msgid_plural "{{count}} requests have received a response."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}}個要求已收到回覆。"
 
 msgid "{{count}} request is delayed."
 msgid_plural "{{count}} requests are delayed."
@@ -1385,13 +1382,11 @@ msgstr[1] ""
 
 msgid "{{count}} request made"
 msgid_plural "{{count}} requests made"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "已提出{{count}}個要求"
 
 msgid "{{count}} request will be made public this week."
 msgid_plural "{{count}} requests will be made public this week."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}}個要求將在本週公開。"
 
 msgid "{{count}} {{phase}}"
 msgstr ""
@@ -1400,7 +1395,7 @@ msgid "{{date}}"
 msgstr ""
 
 msgid "{{length_of_time}} ago"
-msgstr ""
+msgstr "{{length_of_time}}前"
 
 msgid "{{pro_site_name}} does all the heavy lifting, leaving you with more time to focus on your campaigning."
 msgstr ""
@@ -1421,7 +1416,7 @@ msgid "{{pro_site_name}} is a powerful, fully-featured <strong class=\"marketing
 msgstr ""
 
 msgid "{{pro_site_name}} is here to help"
-msgstr ""
+msgstr "{{pro_site_name}}為您服務"
 
 msgid "{{pro_site_name}} moves request handling out of your email and onto a dedicated dashboard, keeping everything organised."
 msgstr ""
