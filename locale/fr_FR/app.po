@@ -35,13 +35,14 @@
 # David Cabo <david.cabo@gmail.com>, 2013
 # Doryan R, 2019
 # a270031086f2a0d3514bc0cb507b48f6, 2019
+# Eda <eda@mutu.net>, 2021
 # Gareth Rees <gareth@mysociety.org>, 2016
 # Laurent S, 2019
-# Laurent S, 2019-2020
+# Laurent S, 2019-2021
 # louisecrow <louise@mysociety.org>, 2013,2017
 # mySociety <transifex@mysociety.org>, 2016
 # Pascal Romain <aka.keronos@gmail.com>, 2019-2020
-# pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2013,2019
+# pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2013,2019,2021
 # radhouane fazai <radhouanef@gmail.com>, 2013
 # rrobert <rrobertpolson@gmail.com>, 2013
 # sebbacon <seb.bacon@gmail.com>, 2012
@@ -53,8 +54,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-16 10:35+0100\n"
-"PO-Revision-Date: 2020-11-21 22:46+0000\n"
-"Last-Translator: Pascal Romain <aka.keronos@gmail.com>\n"
+"PO-Revision-Date: 2021-03-06 14:13+0000\n"
+"Last-Translator: Laurent S\n"
 "Language-Team: French (France) (http://www.transifex.com/mysociety/alaveteli/l"
 "anguage/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -397,7 +398,7 @@ msgid "About {{count}} FOI requests found"
 msgstr "{{count}} demandes d'accès à l'information trouvées"
 
 msgid "Academic paper"
-msgstr ""
+msgstr "Article académique"
 
 msgid "Account closed at user request"
 msgstr "Compte fermé à la demande de l'utilisateur"
@@ -1450,7 +1451,7 @@ msgid "Event history"
 msgstr "Historique des événements"
 
 msgid "Every citizen has the right to access information held by public authorities."
-msgstr "Les autorités sont tenues de communiquer les documents administratifs qu'elles détiennent aux personnes qui en font la demande."
+msgstr "Ma Dada est un site associatif qui vous aide à faire des demandes d’accès aux documents administratifs communicables."
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
 msgstr "Tout ce que vous indiquez dans cette page, y compris <strong>votre nom</strong>, sera <strong>public</strong> sur ce site (<a href=\"{{url}}\">pourquoi?</a>)."
@@ -1797,7 +1798,7 @@ msgid "Home page of authority"
 msgstr "Page d'accueil de l'autorité publique"
 
 msgid "How it works"
-msgstr "Comment cela fonctionne"
+msgstr "Comment fonctionne Ma Dada ?"
 
 msgid "However, you have the right to request environmental information under a different law"
 msgstr "Cependant, vous avez le droit de demander des informations environnementales en vertu d'une loi différente."
@@ -2189,7 +2190,7 @@ msgid "Newest results first"
 msgstr "Les résultats les plus récents en premier"
 
 msgid "News story"
-msgstr ""
+msgstr "Article de presse"
 
 msgid "Next"
 msgstr "Suivant"
@@ -2525,7 +2526,7 @@ msgstr "N'oubliez pas de mettre à jour le statut de votre demande"
 
 msgid "Please use this email address for all replies to this request:"
 msgstr ""
-"Le code des relations entre le public et l’administration fixe les conditions dans lesquels les documents administratifs sont communiqués aux citoyens. En particulier, dès qu’un citoyen en fait la demande, tout document administratif doit être mis en ligne de façon à être accessible à chacun.e (article L311-9), et ce dans leur version mise à jour (article L312-1-1).\n"
+"Le code des relations entre le public et l’administration fixe les conditions dans lesquels les documents administratifs sont communiqués aux citoyens. En particulier, dès qu’un citoyen en fait la demande, tout document administratif communicable doit être mis en ligne de façon à être accessible à chacun.e (article L311-9), et ce dans leur version mise à jour (article L312-1-1).\n"
 "\n"
 "Merci d'utiliser cette adresse email pour toutes les réponses à cette demande :"
 
@@ -3218,7 +3219,7 @@ msgid "The Freedom of Information Act <strong>does not apply</strong> to"
 msgstr "Le droit d'accès à l'information <strong>ne s'applique pas</strong> à"
 
 msgid "The URL where you found the article."
-msgstr ""
+msgstr "L'URL où vous avez trouvé l'article"
 
 msgid "The URL where you found the email address. This field is optional, but it would help us a lot if you can provide a link to a specific page on the authority's website that gives this address, as it will make it much easier for us to check."
 msgstr "L'adresse URL où vous avez trouvé l'email de l'autorité. Ce champ est optionnel, mais cela nous aide beaucoup si vous nous fournissez un lien vers une page spécifique du site internet de l'autorité publique où se trouve cette adresse email, cela nous permettra de facilement la vérifier. "
@@ -3497,7 +3498,7 @@ msgid "This annotation has been reported for administrator attention"
 msgstr "Ce commentaire nécessite une attention des administrateurs"
 
 msgid "This authority is not subject to FOI law, so is not legally obliged to respond"
-msgstr "Cette autorité n'est pas soumise à la loi sur la liberté d'accès à l'information et n'est donc pas légalement obligée de répondre."
+msgstr "Cette autorité n'est pas soumise à la loi sur le droit d'accès à l'information et n'est donc pas légalement obligée de répondre."
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Cette institution n'existe plus, vous ne pouvez donc pas lui envoyer une demande."
@@ -3894,7 +3895,7 @@ msgid "Use quotes when you want to find an exact phrase, e.g. <strong><code>\"Li
 msgstr "Utilisez les guillemets pour une expression exacte, par exemple, <code><strong>\"Conseil de l'Europe\"</strong></code>"
 
 msgid "Use this site to make your request for information – we'll show you how."
-msgstr "Utilisez ce site pour faire votre demande d'informations - Nous vous montrerons comment procéder."
+msgstr "Rechercher parmi plus de 50 000 autorités publiques. Ma Dada vous aide ensuite à formuler votre demande."
 
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
 msgstr "Les utilisateurs ne peuvent pas faire un paquet de demandes à de multiples autorités parce que nous ne voulons pas que les autorités publiques soient bombardés avec un grand nombre de demandes inappropriées. Veuillez <a href=\"{{url}}\">nous contacter</a> si vous estimez avoir une bonne raison d'envoyer d'un coup la même demande à plusieurs autorités."
@@ -3987,7 +3988,7 @@ msgid "We have <a href=\"{{other_means_url}}\">suggestions</a> on other means to
 msgstr "Nous avons des <a href=\"{{other_means_url}}\">suggestions </a> sur d'autres moyens pour répondre à votre question."
 
 msgid "We publish it all online. Great! Now you have your answer, and everybody else can access it too."
-msgstr "Nous publions toutes les réponses en ligne. Ainsi, vous aurez votre réponse et tout le monde pourra y accéder. "
+msgstr "Toutes les demandes, les réponses, et les documents communiqués sont directement publiés."
 
 msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or the law tell us to</a>."
 msgstr "Nous ne communiquerons pas votre adresse email sauf si <a href=\"{{url}}\">vous nous y autorisez ou si la loi nous y oblige</a>. "
@@ -3999,7 +4000,7 @@ msgid "We will not reveal your email addresses to anybody unless you or the law 
 msgstr "Nous ne communiquerons pas vos adresses email sauf si vous nous y autorisez ou si la loi nous y oblige."
 
 msgid "We'll drop you an email as soon as your request gets a response."
-msgstr "Nous vous enverrons un email dès que votre demande aura reçu une réponse."
+msgstr "Envoyer et suivre votre demande en ligne. Les autorités ont 1 mois pour y répondre."
 
 msgid "We're glad you got all the information that you wanted."
 msgstr "Nous sommes ravis que vous ayez obtenu les informations que vous souhaitiez."
@@ -4063,7 +4064,7 @@ msgid "What next?"
 msgstr "C’est quoi la suite&nbsp;?"
 
 msgid "What type of article is it?"
-msgstr ""
+msgstr "De quel type d'article s'agit-il?"
 
 msgid "What's happened:"
 msgstr "Que s'est il passé ? "
@@ -4255,7 +4256,7 @@ msgid "You have now changed your email address used on {{site_name}}"
 msgstr "Vous avez changé votre adresse email utilisée dans {{site_name}}"
 
 msgid "You have the <strong>right</strong> to request information from any publicly-funded body, and get answers. {{site_name}} helps you make a Freedom of Information request. It also publishes all requests online."
-msgstr "Vous avez le <strong>droit</strong> de demander des informations à toutes les autorités publiques et de recevoir des réponses. {{site_name}} vous aide à effectuer une demande d'accès à l'information. Nous publions également en ligne toutes les demandes."
+msgstr "Ma Dada vise à faciliter l'accès aux documents produits ou reçus par les autorités dans le cadre de leur mission de service public. Le site n'est pas conçu pour les demandes d'accès aux documents personnels."
 
 msgid "You just tried to sign up to {{site_name}}, when you already have an account. Your name and password have been left as they previously were. Please click on the link below."
 msgstr "Vous venez d'essayer de vous inscrire sur {{site_name}}, alors que vous avez déjà un compte. Votre précédent nom et mot de passe n'ont dès lors pas été changés. Merci de cliquer sur le lien ci-dessous."
@@ -4470,7 +4471,7 @@ msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"{{u
 msgstr "Votre réponse <strong>apparaîtra sur internet</strong>, <a href=\"{{url}}\">lisez pourquoi</a> et trouvez des réponses aux autres questions."
 
 msgid "Your right to know"
-msgstr "Votre droit de savoir"
+msgstr "Vous avez le droit de savoir"
 
 msgid "Your selected authorities"
 msgstr "Les autorités que vous avez sélectionnées"
@@ -4858,7 +4859,7 @@ msgid "{{pro_site_name}} Terms"
 msgstr "Conditions de {{pro_site_name}}"
 
 msgid "{{pro_site_name}} is a powerful, fully-featured FOI toolkit for journalists."
-msgstr ""
+msgstr "{{pro_site_name}} offre des outils puissants aux journalistes (c'est gratuit!)"
 
 msgid "{{public_body_link_absolute}}"
 msgstr "{{public_body_link_absolute}}"
