@@ -7,8 +7,8 @@
 # Catia Guerreiro <CatiaGuerreiro1980@hotmail.com>, 2019
 # 1bb8f5eb4bc72723d4109decfd20c765, 2019
 # a270031086f2a0d3514bc0cb507b48f6, 2019
-# pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2019
 # Pascal Romain <aka.keronos@gmail.com>, 2020
+# pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2021
 # Laurent S, 2021
 #
 msgid ""
@@ -74,31 +74,31 @@ msgid "<span class=\"price-label__amount\">{{yearly_price}}</span> per user, per
 msgstr "<span class=\"price-label__amount\">{{yearly_price}}</span> par utilisateur.rice, par an."
 
 msgid "<strong class=\"marketing-highlight\">Action alerts</strong>: know when it’s time to take the next step"
-msgstr "<strong class=\"marketing-highlight\">Action alerts</strong>: être informé quand une action est requise de votre part"
+msgstr "Des alertes pour être informé quand une action est requise de votre part"
 
 msgid "<strong class=\"marketing-highlight\">Daily summary emails</strong> to keep your inbox clean"
-msgstr "<strong class=\"marketing-highlight\">Daily summary emails</strong> afin de garder votre boîte email propre"
+msgstr "Un email de résumé afin de garder votre boîte email propre"
 
 msgid "<strong class=\"marketing-highlight\">Delivery verification</strong> for proof of receipt"
-msgstr "<strong class=\"marketing-highlight\">vérification de livraison</strong> comme accusé de réception"
+msgstr "Un accusé de réception indiquant que votre demande a bien été reçue"
 
 msgid "<strong class=\"marketing-highlight\">Delivery verification</strong> for proof of receipt</strong>"
 msgstr "<strong class=\"marketing-highlight\">vérification de livraison</strong> comme accusé de répcetion</strong>"
 
 msgid "<strong class=\"marketing-highlight\">Get regular updates</strong> as the responses come in — without overwhelming your inbox"
-msgstr "<strong class=\"marketing-highlight\">Obtenez des mises à jour régulières</strong> lors de la réception de réponses — sans surcharger votre boîte mail"
+msgstr "Obtenez des mises à jour régulières lors de la réception de réponses — sans surcharger votre boîte mail"
 
 msgid "<strong class=\"marketing-highlight\">Make a request to multiple authorities</strong>: select authorities at the click of a button"
-msgstr "<strong class=\"marketing-highlight\">Faites une requête à destination de plusieurs autorités</strong>: selectionnez les autorités en cliquant sur le bouton"
+msgstr "Faire la même demande à plusieurs autorités en même temps"
 
 msgid "<strong class=\"marketing-highlight\">Manage large volumes of responses</strong>: easily keep track of the status of each request"
-msgstr "<strong class=\"marketing-highlight\">Gérer des volumes importants de réponses</strong>: gardez facilement une vue d'ensemble sur le statut de chaque requête"
+msgstr "Gérer les réponses et garder une vue d'ensemble sur le statut de chaque demande"
 
 msgid "<strong class=\"marketing-highlight\">Save as draft</strong> to get back to it later"
-msgstr "<strong class=\"marketing-highlight\">Enregistre un brouillon</strong> afin d'y revenir plus tard"
+msgstr "Faire un brouillon de votre demande afin d'y revenir plus tard"
 
 msgid "<strong class=\"marketing-highlight\">Streamlined process</strong> for requesting internal reviews"
-msgstr "<strong class=\"marketing-highlight\">Processus fluidifié </strong> pour faire une demande de reconsidération"
+msgstr "La possibilité de faire une demande de recours gracieux"
 
 msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
 msgstr "<strong>Puis-je effectuer une demande d'informations me concernant ?</strong><a href=\"{{url}}\">Non !</a>"
@@ -128,13 +128,13 @@ msgid "<strong>{{filter_description}}</strong> sorted by <strong>{{order_descrip
 msgstr "<strong>{{filter_description}}</strong> classé par <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">réinitialiser</a>"
 
 msgid "<strong>{{pro_site_name}}</strong> runs on the UK’s best-known FOI service"
-msgstr "<strong>{{pro_site_name}}</strong> s'appuie sur le droit d'accès aux documents administratifs"
+msgstr "{{pro_site_name}} bénéficie de toutes les fonctionnalités de Ma Dada"
 
 msgid "A  powerful, fully-featured toolset that solves problems for campaigners managing multiple requests or in-depth FOI investigations"
 msgstr "Une boîte à outils puissante qui contribue à résoudre les problèmes rencontrés par les activistes cherchant à suivre plusieurs requêtes ou ayant entamé des investigations poussées impliquant l'obtention de documents administratifs"
 
 msgid "A <strong class=\"marketing-highlight\">searchable archive</strong> of Freedom of Information requests"
-msgstr "Une <strong class=\"marketing-highlight\"> archive explorable</strong> des requêtes d'accès à l'information"
+msgstr "Toutes les demandes et réponses archivées et publiques"
 
 msgid "A <strong>summary</strong> of the response if you have received it by postal mail. "
 msgstr "Un <strong>résumé</strong> de la réponse si vous l'avez reçue par courrier postal."
@@ -143,10 +143,10 @@ msgid "A one line summary of the information you are requesting, e.g."
 msgstr "Une ligne de résumé de l'information que vous avez demandée, par exemple."
 
 msgid "A permanent, searchable, <strong class=\"marketing-highlight\">public record</strong> of your request and the responses"
-msgstr "Un <strong class=\"marketing-highlight\">enregistrement public</strong> permanent et explorable de votre requête et des réponses associées"
+msgstr "La possibilité de rechercher dans le contenu des demandes et réponses"
 
 msgid "A powerful <strong class=\"marketing-highlight\">private dashboard</strong>: track and manage your FOI projects"
-msgstr "Un puissant <strong class=\"marketing-highlight\">tableau de bord privé</strong>: suivez et gérez vos demandes d'accès à l'information"
+msgstr "Un tableau de bord pour suivre et gérer vos demandes."
 
 msgid "A powerful, fully-featured toolset that solves problems for journalists managing multiple requests or in-depth FOI investigations"
 msgstr "Une boîte à outils puissante qui contribue à résoudre les problèmes rencontrés par les journalistes cherchant à suivre plusieurs requêtes ou ayant entamé des investigations poussées impliquant l'obtention de documents administratifs"
@@ -155,7 +155,7 @@ msgid "A powerful, fully-featured toolset that solves problems for researchers a
 msgstr "Une boîte à outils puissante qui contribue à résoudre les problèmes rencontrés par les chercheurs et universitaires cherchant à suivre plusieurs requêtes ou ayant entamé des investigations poussées impliquant l'obtention de documents administratifs"
 
 msgid "A super-smart <strong class=\"marketing-highlight\">to-do list</strong>: follow the progress of your requests"
-msgstr "Une <strong class=\"marketing-highlight\">liste de tâches à faire</strong> super efficace: suivez l'état d'avancement de vos requêtes"
+msgstr "Une liste des tâches pour suivre l'état d'avancement de vos demandes et agir"
 
 msgid "About {{public_body_name}}"
 msgstr "A propos de {{public_body_name}}"
@@ -200,7 +200,7 @@ msgid "All requests"
 msgstr "Toutes les demandes"
 
 msgid "All requests within this batch will remain private for the same duration. When an individual request is made public all other requests in this batch will also be published on {{site_name}}."
-msgstr "Toutes vos demandes de ce lot resteront privées durant la même période. Lorsqu'une seule des demandes du lot est publiée, toutes les autres seront également publiées sur {{site_name}}."
+msgstr "Toutes vos demandes de la demande groupée resteront privées durant la même période. Lorsqu'une des demandes est rendue publique, toutes les autres demandes de la demande groupée sont également rendues publiques sur {{site_name}}."
 
 msgid "Also called {{other_name}}."
 msgstr "Aussi appelé {{other_name}}"
@@ -227,22 +227,22 @@ msgid "Automate FOI request management"
 msgstr "Automatisez la gestion de vos demandes d'accès à l'information"
 
 msgid "Batch"
-msgstr "Lot"
+msgstr "Demande groupée"
 
 msgid "Batch FOI requests"
-msgstr "Requêtes par lot d'accès à l'information"
+msgstr "Demande groupée"
 
 msgid "Batch request"
-msgstr "Lot de demandes"
+msgstr "Demande groupée"
 
 msgid "Batch requests"
-msgstr "Lots de requêtes"
+msgstr "Demande groupée"
 
 msgid "Batch requests allow multiple recipients of a single request"
-msgstr "Les demandes en lot permettent d'envoyer la même requête à de multiples destinataires"
+msgstr "La demande groupée permet d'envoyer la même demande à plusieurs autorités en même temps"
 
 msgid "Batch requests are part of a new workflow"
-msgstr "Les demandes en lot font partie d'un nouveau processus"
+msgstr "La demande groupée fait partie des nouvelles fonctionnalités"
 
 msgid "Because we’ve streamlined the request-writing process, Pro saves you a lot of back and forth. Search our database of authorities, pick which one — or many — you want to contact, and compose your request right there."
 msgstr "Comme nous avons simplifié le processus d'écriture des requêtes, le mode avancé vous permet d'économiser la charge des allers-retours administratifs. Recherchez dans la base de données des autorités publiques. Choisissez celles que vous souhaitez contacter et rédigez votre requête à partir d'ici."
@@ -385,7 +385,7 @@ msgid "Estimated total number of Pro requests:"
 msgstr "Total estimé de requêtes effectué avec les fonctionnalités avancées:"
 
 msgid "Everything you need to keep on top of complex FOI-driven stories."
-msgstr "Tout ce que vous avez besoin pour mettre en évidence des récits d'accès à des documents publics complexes"
+msgstr "Avec Ma Dada ++ vous pouvez faire des demandes groupées ou sous embargo."
 
 msgid "Expand all correspondence"
 msgstr "Étendre toute la correspondance"
@@ -532,7 +532,7 @@ msgid "Journalists"
 msgstr "Journalistes"
 
 msgid "Keep <strong class=\"marketing-highlight\">requests and responses private</strong> while you work on your story"
-msgstr "Conservez <strong class=\"marketing-highlight\">requêtes et réponses privées</strong> le temps de votre travail d'enquête"
+msgstr "Garder les demandes et réponses privées le temps de votre investigation ou travail de recherche."
 
 msgid "Keep private for a further:"
 msgstr "Garder privé pour une période : "
@@ -559,7 +559,7 @@ msgid "Lucie Stephens, prompted by the death of someone she cared about, request
 msgstr "Lucie Stephens, concernée par la mort d'un.e proche a demandé des informations au sujet de la présence d'amiante dans les écoles auprès de plus de 200 autorités publiques. <a href=\"{{story_url}}\">Découvrez sa campagne d'investigation</a>"
 
 msgid "Make a batch request"
-msgstr "Faire un lot de demandes"
+msgstr "Faire une demande groupée"
 
 msgid "Make a request"
 msgstr "Faire une demande"
@@ -604,10 +604,10 @@ msgid "New Pro subscriptions this week:"
 msgstr "Souscription à Madada ++ cette semaine :"
 
 msgid "New batches made this week:"
-msgstr "Nouveaux lots postés cette semaine :"
+msgstr "Nouvelles demandes groupées envoyées cette semaine :"
 
 msgid "New to Professional – Batch"
-msgstr "Débutant dans Madada ++ - envoi par lot"
+msgstr "Nouveau sur Madada ++ - Demandes groupées"
 
 msgid "Next payment"
 msgstr "Paiement suivant"
@@ -622,7 +622,7 @@ msgid "No more authorities can be added to this batch request."
 msgstr "Plus d'autorités ne peuvent être ajoutées dans cette demande de groupe"
 
 msgid "No more copy and paste emails: our Batch Request tool helps you create one request and send it to many authorities at once."
-msgstr "Fini le copier - coller des emails: notre outil d'envoi en lot des requêtes vous aide à créer une seule demande et à l'envoyer à plusieurs autorités publiques d'un seul clic."
+msgstr "Fini les copier-coller : la demande groupée vous aide à créer une seule demande et à l'envoyer à plusieurs autorités en même temps."
 
 msgid "No need to check: we’ll send an email alert telling you when you need to take action."
 msgstr "Pas besoin de vérifier : nous vous envoyons une alerte par mail lorsque vous avez besoin de faire une action"
@@ -709,7 +709,7 @@ msgid "Please tell us if you're interested in training and seminars"
 msgstr "Merci de nous indiquer si vous êtes intéressé par des formations et des séminaires"
 
 msgid "Plus, all the power of {{site_name}}"
-msgstr "Plus, toute la puissance de {{site_name}}"
+msgstr "Et tous les avantages de {{site_name}}"
 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
 msgstr "Indiquez des <strong>informations connexes</strong>, campagnes ou forums qui peuvent être utiles."
@@ -839,7 +839,7 @@ msgid "Requests in this batch are private until <strong class=\"js-embargo-expir
 msgstr "Les demandes dans ce groupe sont privées jusqu' au <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
 
 msgid "Requests in this batch are public"
-msgstr "Les demandes dans ce lot sont publiques"
+msgstr "Les demandes groupées sont publiques"
 
 msgid "Requests in this batch will be private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
 msgstr "Les demandes dans ce groupe seront privées jusqu'au <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
@@ -1044,7 +1044,7 @@ msgid "There was a problem updating your payment details. Please try again later
 msgstr "Un problème est survenu pour mettre à jour vos informations de paiement. Essayez plus tard."
 
 msgid "There's nothing to do right now. Great job!"
-msgstr "Il n'y a rien à faire maintenant. Bon boulot !"
+msgstr "Il n'y a rien à faire maintenant. Beau travail !"
 
 msgid "Things to do today"
 msgstr "Choses à faire aujourd'hui"
@@ -1053,7 +1053,7 @@ msgid "This page is only accessible to {{pro_site_name}} users"
 msgstr "Cette page est uniquement accessible aux utilisateurs de {{pro_site_name}}"
 
 msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
-msgstr "Cette demande fait partie d'un <a href=\"{{url}}\">un lot envoyé à {{count}} autorités</a>"
+msgstr "Cette demande fait partie d'une <a href=\"{{url}}\">demande groupée envoyée à {{count}} autorités</a>"
 
 msgid "This request is private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
 msgstr "Cette demande est privée jusqu' au <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
@@ -1113,7 +1113,7 @@ msgid "Until that date you will continue to have full access to {{pro_site_name}
 msgstr "Jusqu'à cette date vous continuirez à avoir plein accès sur {{pro_site_name}}. "
 
 msgid "Up-to-date database of <strong class=\"marketing-highlight\">contact details</strong> for {{authority_count}} authorities"
-msgstr "Base de données à jour de <strong class=\"marketing-highlight\">la liste des PRADA</strong> pour {{authority_count}} ces autorités publiques sur le site Madada"
+msgstr "Une base de données contenant les contacts de {{authority_count}} autorités publiques"
 
 msgid "Update"
 msgstr "Mettre à jour"
@@ -1256,7 +1256,7 @@ msgid "You'll lose access to any requests you still have in draft."
 msgstr "Vous allez perdre tous vos brouillons de demandes"
 
 msgid "Your Batch Request has been saved!"
-msgstr "Votre lot de demandes a été enregistré !"
+msgstr "Votre demande groupée a bien été enregistrée !"
 
 msgid "Your clarification to {{public_body_name}} for \"{{info_request_title}}\" was resent."
 msgstr "Votre précision à l'autorité publique {{public_body_name}} au sujet de la demande \"{{info_request_title}}\" a été renvoyée."
@@ -1434,7 +1434,7 @@ msgid "{{pro_site_name}} does the hard work for you"
 msgstr "{{pro_site_name}} prends en charge le poids du suivi administratif"
 
 msgid "{{pro_site_name}} is a powerful, fully-featured <strong class=\"marketing-highlight\">FOI toolkit</strong> for journalists, campaigners and researchers"
-msgstr "{{pro_site_name}} est <strong class=\"marketing-highlight\">une boîte à outils pour les démarches de demande d'accès à l'information publiques</strong> complète et puissante pour des journalistes, activistes, citoyen.ne.s ou chercheurs"
+msgstr "{{pro_site_name}} pour les journalistes, chercheurs et citoyens exigeants."
 
 msgid "{{pro_site_name}} is here to help"
 msgstr "{{pro_site_name}} est là pour vous aider"

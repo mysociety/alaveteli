@@ -31,7 +31,7 @@
 # Hailey Zhang <s1132151@s.eduhk.hk>, 2020
 # Liz Conlan <liz@mysociety.org>, 2018
 # beckymak <makpowan@gmail.com>, 2015
-# gensitu <pstew892@protonmail.com>, 2018,2020
+# gensitu <pstew892@protonmail.com>, 2018,2020-2021
 # spions kwong, 2015
 # spions kwong, 2015-2016
 # wen xing, 2019
@@ -43,8 +43,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-16 10:35+0100\n"
-"PO-Revision-Date: 2020-10-16 11:44+0000\n"
-"Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
+"PO-Revision-Date: 2021-02-17 17:19+0000\n"
+"Last-Translator: gensitu <pstew892@protonmail.com>\n"
 "Language-Team: Chinese (Hong Kong) (http://www.transifex.com/mysociety/alavete"
 "li/language/zh_HK/)\n"
 "MIME-Version: 1.0\n"
@@ -60,10 +60,10 @@ msgid ""
 msgstr ""
 
 msgid " (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation policy</a>)"
-msgstr "（<strong>不要謾罵或作人身攻擊</strong>，請查看我們的 <a href=\"{{url}}\">管理政策</a>）"
+msgstr "（<strong>不要謾罵或作人身攻擊</strong>，請細閲我們的 <a href=\"{{url}}\">管理政策</a>）"
 
 msgid " (<strong>patience</strong>, especially for large files, it may take a while!)"
-msgstr "（請<strong>耐心等候</strong>，上載大型檔案可能需要一段時間）"
+msgstr "（請<strong>耐心等候</strong>，上載大型檔案需要一段時間）"
 
 msgid " (you)"
 msgstr "（你）"
@@ -158,15 +158,20 @@ msgid ""
 "\n"
 "{{user_name}}"
 msgstr ""
+"，\n"
+"\n"
+"\n"
+"\n"
+"{{user_name}}謹啟"
 
 msgid "12 characters minimum. 72 characters maximum."
 msgstr "長短必為12和72個字元之間。"
 
 msgid "5 minutes+"
-msgstr ""
+msgstr "多於5分鐘"
 
 msgid "60 minutes+"
-msgstr ""
+msgstr "多於60分鐘"
 
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
 msgstr "<a href=\"{{browse_url}}\">瀏覽全部</a>或<a href=\"{{add_url}}\">建議加入公共機構</a>。"
@@ -184,7 +189,7 @@ msgid "<a href=\"{{url}}\">Do you want to request private information about your
 msgstr "<a href=\"{{url}}\">你是否希望查詢有關你的個人私隱資料？</a>"
 
 msgid "<a href=\"{{url}}\">Keep it <strong>focused</strong></a>, you'll be more likely to get what you want."
-msgstr "<a href=\"{{url}}\">請直接説明<strong>重點</strong></a>，不要拐彎抹角，你會更容易得到你想要的資料。"
+msgstr "<a href=\"{{url}}\">請直接説明<strong>重點</strong></a>，不要拐彎抹角，你會更容易取得你要的資料。"
 
 msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
 msgstr "<a href=\"{{url}}\">登入</a>後可更改密碼、訂閱選項等（只適用於{{user_name}}）"
@@ -377,7 +382,7 @@ msgid "About {{count}} FOI requests found"
 msgstr "找到約{{count}}項索取資料要求"
 
 msgid "Academic paper"
-msgstr ""
+msgstr "學術文章"
 
 msgid "Account closed at user request"
 msgstr "賬户在用户要求下停用"
@@ -1067,7 +1072,7 @@ msgid "By law, {{public_body_link}} should normally have responded <strong>promp
 msgstr "根據《公開資料守則》，{{public_body_link}}在一般情況下，應該<strong>盡快</strong>回應索取資料的要求。"
 
 msgid "CSV"
-msgstr ""
+msgstr "CSV"
 
 msgid "Can't find the one you want?"
 msgstr ""
@@ -4436,7 +4441,7 @@ msgid "Yours,"
 msgstr "市民"
 
 msgid "ZIP"
-msgstr ""
+msgstr "ZIP"
 
 msgid "[Authority URL will be inserted here]"
 msgstr "[公共機構的網址將出現在此]"
