@@ -23,6 +23,17 @@
     </span>
 <% end %>
 
+<% if info_request.allow_new_responses_from == 'authority_only' %>
+  <span class="request-header__restricted_correspondence">
+    <br><br>
+    <%= _('<strong>Automatic anti-spam measures are in place</strong> for ' \
+          'this older request. Please <a href="{{url}}">let us know</a> if a ' \
+          'further response is expected or if you are having trouble ' \
+          'responding.',
+          url: help_contact_path) %>
+  </span>
+<% end %>
+
 <% if info_request.allow_new_responses_from == 'nobody' %>
   <span class="request-header__closed_to_correspondence">
     <br><br>

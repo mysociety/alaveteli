@@ -21,7 +21,8 @@ $color-delivery-unknown: darken(#F3BD2A, 20%) !default; // yellow
 }
 
 .request-header__foi_no,
-.request-header__closed_to_correspondence {
+.request-header__closed_to_correspondence,
+.request-header__restricted_correspondence {
   font-size: 0.85em;
   color: #666;
 
