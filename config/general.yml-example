@@ -1218,11 +1218,13 @@ STRIPE_SECRET_KEY: ''
 # from other resources within Stripe. If used the Stripe resources will need IDs
 # like: '<namespace>-<id>'
 #
+# **Must be uppercase**.
+#
 # STRIPE_NAMESPACE - String (default: '')
 #
 # Examples:
 #
-# STRIPE_NAMESPACE: 'alaveteli'
+# STRIPE_NAMESPACE: 'ALAVETELI'
 #
 # ---
 STRIPE_NAMESPACE: ''
