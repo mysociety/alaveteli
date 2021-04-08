@@ -136,7 +136,7 @@ gem 'zip_tricks', '~> 5.5.0'
 gem 'gender_detector', '~> 2.0.0'
 
 # Gems related to internationalisation
-gem 'i18n', '~> 1.8.9'
+gem 'i18n', '~> 1.8.10'
 gem 'rails-i18n', rails_upgrade? ? '~> 6.0.0' : '~> 5.1.0'
 gem 'gettext_i18n_rails', '~> 1.8.1'
   gem 'fast_gettext', '< 2.0.3'
