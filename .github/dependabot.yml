@@ -23,6 +23,9 @@ updates:
       - dependency-name: launchy
         versions:
         - ">= 2.5.0"
+      - dependency-name: listen
+        versions:
+        - ">= 3.5.1"
       - dependency-name: maxmind-db
         versions:
         - ">= 1.1.0"
