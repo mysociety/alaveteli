@@ -16,6 +16,13 @@
 
 ### Changed Templates
 
+# 0.38.4.2
+
+## Highlighted Features
+
+* Upgrades to Rails 5.2.5 to resolve missing upstream dependency (Graeme
+  Porteous)
+
 # 0.38.4.1
 
 ## Highlighted Features
