@@ -236,14 +236,20 @@ tabs.
     <a name="stripe_namespace"><code>STRIPE_NAMESPACE</code></a>
   </dt>
   <dd>
-    An optional Stripe.com namespace which allows plans & coupons to be
-    separated from other resources within Stripe. If used the Stripe resources
-    will need IDs like: '&lt;namespace&gt;-&lt;id&gt;'
+    <p>
+      An optional Stripe.com namespace which allows plans & coupons to be
+      separated from other resources within Stripe. If used the Stripe resources
+      will need IDs like: '&lt;namespace&gt;-&lt;id&gt;'.
+    </p>
+
+    <p>
+      <strong>Must be uppercase.</strong>
+    </p>
 
     <div class="more-info">
       <p>Example:</p>
       <ul class="examples">
-        <li><code>STRIPE_NAMESPACE: alaveteli</code></li>
+        <li><code>STRIPE_NAMESPACE: ALAVETELI</code></li>
       </ul>
     </div>
   </dd>
