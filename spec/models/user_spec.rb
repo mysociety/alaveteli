@@ -1828,7 +1828,7 @@ describe User do
 
       before do
         allow(user).to receive(:survey).
-          and_return(double('survey', :already_done? => false))
+          and_return(double('survey', already_done?: false))
       end
 
       it { is_expected.to eq(true) }
@@ -1839,7 +1839,7 @@ describe User do
 
       before do
         allow(user).to receive(:survey).
-          and_return(double('survey', :already_done? => true))
+          and_return(double('survey', already_done?: true))
       end
 
       it { is_expected.to eq(false) }

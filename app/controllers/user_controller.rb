@@ -376,9 +376,9 @@ class UserController < ApplicationController
   # Handy for testing; not allowed in production.
   def survey_reset
     raise "Not allowed in production" if ENV["RAILS_ENV"] == "production"
-    raise "Not logged in" if !@user
+    raise "Not logged in" unless @user
     @user.survey.allow_new_survey
-    return redirect_to survey_url
+    redirect_to survey_url
   end
 
   private
