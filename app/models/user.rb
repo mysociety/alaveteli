@@ -41,6 +41,7 @@ class User < ApplicationRecord
   include AlaveteliFeatures::Helpers
   include AlaveteliPro::PhaseCounts
   include User::Authentication
+  include User::Survey
 
   rolify before_add: :setup_pro_account
   strip_attributes :allow_empty => true

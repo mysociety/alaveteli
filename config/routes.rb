@@ -261,6 +261,11 @@ Rails.application.routes.draw do
         :as => :get_draft_profile_photo,
         :via => :get
 
+  scope '/profile/survey' do
+    root :to => 'user#survey', :as => :survey
+    get '/reset' => 'user#survey_reset', :as => :survey_reset
+  end
+
   namespace :users do
     get 'email_alerts/disable/:token',
         to: 'email_alerts#destroy',

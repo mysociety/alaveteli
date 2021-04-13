@@ -6,6 +6,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 require 'set'
+require 'survey'
 
 class UserController < ApplicationController
   include UserSpamCheck
@@ -366,6 +367,18 @@ class UserController < ApplicationController
     @user.receive_email_alerts = params[:receive_email_alerts]
     @user.save!
     redirect_to SafeRedirect.new(params[:came_from]).path
+  end
+
+  def survey
+  end
+
+  # Reset the state of the survey so it can be answered again.
+  # Handy for testing; not allowed in production.
+  def survey_reset
+    raise "Not allowed in production" if ENV["RAILS_ENV"] == "production"
+    raise "Not logged in" if !@user
+    @user.survey.allow_new_survey
+    return redirect_to survey_url
   end
 
   private

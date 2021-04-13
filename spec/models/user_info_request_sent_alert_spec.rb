@@ -15,7 +15,9 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe UserInfoRequestSentAlert, " when blah" do
-  before do
+RSpec.describe UserInfoRequestSentAlert do
+  it 'should allow an alert type of "survey_1"' do
+    info_request_sent_alert = UserInfoRequestSentAlert.new(:alert_type => 'survey_1')
+    expect(info_request_sent_alert).to be_valid
   end
 end

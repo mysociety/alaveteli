@@ -35,6 +35,7 @@ class UserInfoRequestSentAlert < ApplicationRecord
     'comment_1', # tell user that info request has a new comment
     'embargo_expiring_1', # tell user that their embargo is expiring
     'embargo_expired_1', # tell user that their embargo has expired
+    'survey_1' # TODO
   ]
 
   belongs_to :user,

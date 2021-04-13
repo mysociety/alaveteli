@@ -346,6 +346,7 @@ class RequestMailer < ApplicationMailer
     AlaveteliConfiguration::new_response_reminder_after_days.each_with_index do |days, i|
       self.alert_new_response_reminders_internal(days, "new_response_reminder_#{i+1}")
     end
+    alert_survey if AlaveteliConfiguration::send_survey_mails
   end
   def self.alert_new_response_reminders_internal(days_since, type_code)
     info_requests = InfoRequest.
@@ -517,6 +518,62 @@ class RequestMailer < ApplicationMailer
         end
         store_sent.save!
       end
+    end
+  end
+
+  def survey_alert(info_request)
+    user = info_request.user
+
+    post_redirect = PostRedirect.new(
+      :uri => survey_url,
+      :user_id => user.id)
+    post_redirect.save!
+    @url = confirm_url(:email_token => post_redirect.email_token)
+
+    headers('Return-Path' => blackhole_email, 'Reply-To' => contact_from_name_and_email, # not much we can do if the user's email is broken
+            'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
+            'X-Auto-Response-Suppress' => 'OOF')
+    @info_request = info_request
+    mail(:to => user.name_and_email,
+         :from => contact_from_name_and_email,
+         :subject => "Can you help us improve WhatDoTheyKnow?")
+  end
+
+  # Send an email with a link to the survey two weeks after a request was made,
+  # if the user has not already completed the survey.
+  def self.alert_survey
+    # Exclude requests made by users who have already been alerted about the survey
+    info_requests = InfoRequest.where(
+      " created_at between now() - '2 weeks + 1 day'::interval and now() - '2 weeks'::interval" +
+      " and user_id is not null" +
+      " and not exists (" +
+      "     select *" +
+      "     from user_info_request_sent_alerts" +
+      "     where user_id = info_requests.user_id" +
+      "      and  alert_type = 'survey_1'" +
+      " )"
+    ).includes(:user)
+
+    # TODO: change the initial query to iterate over users rather
+    # than info_requests rather than using an array to check whether
+    # we're about to send multiple emails to the same user_id
+    sent_to = []
+    for info_request in info_requests
+      # Exclude users who have already completed the survey or
+      # have already been sent a survey email in this run
+      logger.debug "[alert_survey] Considering #{info_request.user.url_name}"
+      next if !info_request.user.can_send_survey? || sent_to.include?(info_request.user_id)
+
+      store_sent = UserInfoRequestSentAlert.new
+      store_sent.info_request = info_request
+      store_sent.user = info_request.user
+      store_sent.alert_type = 'survey_1'
+      store_sent.info_request_event_id = info_request.info_request_events[0].id
+
+      sent_to << info_request.user_id
+
+      RequestMailer.survey_alert(info_request).deliver_now
+      store_sent.save!
     end
   end
 
