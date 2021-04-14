@@ -39,13 +39,10 @@ require 'yaml'
 #
 # Log-in to the Vagrant instance
 # ================================
-# Once the application is running, you can login with the global account details below:
-#     Username: annie@localhost
-#     Password: jonespassword
-# This account has full access to do anything in the application
 #
-# All other accounts created by default will have the same password.
-#
+# Once the application is running, you can login with any of the sample users
+# that get created automatically. You can find more details of these users in
+# spec/fixtures/users.yml.
 #
 # Customizing the Vagrant instance
 # ================================

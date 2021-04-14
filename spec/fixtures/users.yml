@@ -35,6 +35,9 @@
 #  closed_at                         :datetime
 #
 
+# If sample data has been loaded you can log in as any of these users with their
+# email/password combination. The password for all users is jonespassword.
+# annie@localhost is often most useful, as she has all available permissions.
 bob_smith_user:
   id: "1"
   name: Bob Smith
