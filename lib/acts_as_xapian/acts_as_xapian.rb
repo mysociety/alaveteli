@@ -270,7 +270,7 @@ module ActsAsXapian
     full_path = @@db_path + suffix
 
     # for indexing
-    @@writable_db = Xapian::WritableDatabase.new(full_path, Xapian::DB_CREATE_OR_OPEN | Xapian::DB_BACKEND_CHERT)
+    @@writable_db = Xapian::WritableDatabase.new(full_path, Xapian::DB_CREATE_OR_OPEN | _xapian_backend_format(full_path))
     @@enquire = Xapian::Enquire.new(@@writable_db)
     @@term_generator = Xapian::TermGenerator.new
     @@term_generator.set_flags(Xapian::TermGenerator::FLAG_SPELLING, 0)
@@ -782,9 +782,24 @@ module ActsAsXapian
     job.destroy
   end
 
+  def self._is_xapian_chert_db(path)
+    File.exist?(File.join(path, "iamchert"))
+  end
+
+  def self._is_xapian_glass_db(path)
+    File.exist?(File.join(path, "iamglass"))
+  end
+
   def self._is_xapian_db(path)
-    is_db = File.exist?(File.join(path, "iamchert"))
-    return is_db
+    _is_xapian_chert_db(path) || _is_xapian_glass_db(path)
+  end
+
+  def self._xapian_backend_format(path)
+    if _is_xapian_chert_db(path)
+      Xapian::DB_BACKEND_CHERT
+    else
+      Xapian::DB_BACKEND_GLASS
+    end
   end
 
   # You must specify *all* the models here, this totally rebuilds the Xapian
@@ -802,7 +817,7 @@ module ActsAsXapian
     new_path = ActsAsXapian.db_path + ".new"
     old_path = ActsAsXapian.db_path
     if File.exist?(new_path)
-      raise "found existing " + new_path + " which is not Xapian chert database, please delete for me" if not ActsAsXapian._is_xapian_db(new_path)
+      raise "found existing " + new_path + " which is not Xapian chert or glass database, please delete for me" if not ActsAsXapian._is_xapian_db(new_path)
       FileUtils.rm_r(new_path)
     end
     if update_existing
@@ -832,7 +847,7 @@ module ActsAsXapian
     temp_path = old_path + ".tmp"
     if File.exist?(temp_path)
       @@db_path = old_path
-      raise "temporary database found " + temp_path + " which is not Xapian chert database, please delete for me" if not ActsAsXapian._is_xapian_db(temp_path)
+      raise "temporary database found " + temp_path + " which is not Xapian chert or glass database, please delete for me" if not ActsAsXapian._is_xapian_db(temp_path)
       FileUtils.rm_r(temp_path)
     end
     if File.exist?(old_path)
@@ -844,7 +859,7 @@ module ActsAsXapian
     if File.exist?(temp_path)
       if not ActsAsXapian._is_xapian_db(temp_path)
         @@db_path = old_path
-        raise "old database now at " + temp_path + " is not Xapian chert database, please delete for me"
+        raise "old database now at " + temp_path + " is not Xapian chert or glass database, please delete for me"
       end
       FileUtils.rm_r(temp_path)
     end
