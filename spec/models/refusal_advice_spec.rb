@@ -224,6 +224,18 @@ RSpec.describe RefusalAdvice do
       it { is_expected.to match_array(['refusal_advice:suggestion_3']) }
     end
 
+    context 'when there are no suggestions' do
+      let!(:event) do
+        e = FactoryBot.build(:refusal_advice_event, info_request: info_request)
+        params = e.params
+        params[:actions].delete(params[:id].to_sym)
+        e.params = params
+        e.save
+      end
+
+      it { is_expected.to be_empty }
+    end
+
     context 'when there is no info request event stored' do
       it { is_expected.to be_nil }
     end
