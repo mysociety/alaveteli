@@ -21,7 +21,7 @@ class AdminInfoRequestEventController < AdminController
     # Reset the due dates for the request if necessary
     @info_request_event.recheck_due_dates
 
-    flash[:notice] = "Old response marked as having been a clarification"
+    flash[:notice] = "Old response marked as having been a request for clarification"
     redirect_to admin_request_url(@info_request_event.info_request)
   end
 
