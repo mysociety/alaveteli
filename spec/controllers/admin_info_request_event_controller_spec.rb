@@ -47,7 +47,7 @@ describe AdminInfoRequestEventController do
       it 'shows a success notice' do
         put :update, params: { :id => info_request_event }
         expect(flash[:notice]).
-          to eq('Old response marked as having been a clarification')
+          to eq('Old response marked as having been a request for clarification')
       end
 
       it 'redirects to the request admin page' do
