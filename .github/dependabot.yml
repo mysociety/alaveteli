@@ -80,6 +80,9 @@ updates:
       - dependency-name: gettext
         versions:
         - ">= 3.3.0"
+      - dependency-name: rolify
+        versions:
+        - ">= 6.0.0"
 
       # factory_bot requires Ruby >= 2.5.0
       - dependency-name: factory_bot_rails
