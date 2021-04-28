@@ -6,8 +6,29 @@
   <div id="blog" class="blog">
     <% @blog_items.each do |item| %>
       <div class="blog_post">
-        <h2 id="<%= Time.zone.parse(item['pubDate'][0]).to_i %>"><a href="<%=item['link'][0]%>"><%=h item['title'][0] %></a></h2>
-        <p class="subtitle"><%= _("Posted on {{date}} by {{author}}", :date=>simple_date(Time.parse(item['pubDate'][0])), :author=> item['creator'] ? item['creator'][0] : item['author'][0]) %></p>
+        <% date = Time.zone.parse(item['pubDate'][0]) %>
+
+        <h2 id="<%= date.to_i %>">
+          <a href="<%= item['link'][0] %>">
+            <%=h item['title'][0] %>
+          </a>
+        </h2>
+
+        <% author =
+          item['creator'] ? item['creator']&.first : item['author']&.first %>
+
+        <% if author && date %>
+          <p class="subtitle">
+            <%= _('Posted on {{date}} by {{author}}',
+                  date: simple_date(date),
+                  author: author) %>
+          </p>
+        <% else %>
+          <p class="subtitle">
+            <%= _('Posted on {{date}}', date: simple_date(date)) %>
+          </p>
+        <% end %>
+
         <div>
           <% if item['encoded'] %>
             <%= sanitize(raw item['encoded'][0]) %>

@@ -36,6 +36,14 @@ require 'yaml'
 #   # Guest
 #   bundle exec rails server -b 0.0.0.0
 #
+#
+# Log-in to the Vagrant instance
+# ================================
+#
+# Once the application is running, you can login with any of the sample users
+# that get created automatically. You can find more details of these users in
+# spec/fixtures/users.yml.
+#
 # Customizing the Vagrant instance
 # ================================
 #

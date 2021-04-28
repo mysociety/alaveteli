@@ -6,7 +6,7 @@
 # Translators:
 # louisecrow <louise@mysociety.org>, 2018
 # Hana Hunt <hana@hana-hunt.cz>, 2020
-# trendspotter, 2020
+# trendspotter, 2021
 #
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-16 16:34+0100\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: trendspotter, 2020\n"
+"Last-Translator: trendspotter, 2021\n"
 "Language-Team: Czech (https://www.transifex.com/mysociety/teams/33529/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -622,7 +622,7 @@ msgid "No results found"
 msgstr ""
 
 msgid "No title"
-msgstr ""
+msgstr "Bez názvu"
 
 msgid "Not enough hours in the day?"
 msgstr ""
@@ -685,10 +685,10 @@ msgid "Plans and pricing"
 msgstr "Plány a ceny"
 
 msgid "Please enter the reason why you want access"
-msgstr ""
+msgstr "Zadejte důvod, proč chcete získat přístup"
 
 msgid "Please enter your email address"
-msgstr ""
+msgstr "Zadejte svůj e-mail"
 
 msgid "Please include links to some examples of your journalism or blogging if you can."
 msgstr ""
@@ -858,7 +858,7 @@ msgid "Search"
 msgstr "Hledat"
 
 msgid "Search by name"
-msgstr ""
+msgstr "Hledat podle názvu"
 
 msgid "Search for an authority"
 msgstr "Vyhledejte instituci"
@@ -912,10 +912,10 @@ msgid "Sending..."
 msgstr "Odesílá se..."
 
 msgid "Sent"
-msgstr ""
+msgstr "Odesláno"
 
 msgid "Settings"
-msgstr ""
+msgstr "Nastavení"
 
 msgid "Share the code {{discount_code}} with a friend to give them {{discount_terms}} on signup."
 msgstr ""
@@ -1146,7 +1146,7 @@ msgid "View authorities"
 msgstr "Zobrazit instituce"
 
 msgid "Wall"
-msgstr ""
+msgstr "Zeď"
 
 msgid "Want to add weight to your campaign?"
 msgstr ""
@@ -1200,7 +1200,7 @@ msgid "Write request"
 msgstr "Napište žádost"
 
 msgid "Yes"
-msgstr ""
+msgstr "Ano"
 
 msgid "You added a new annotation on your request to {{public_body_name}} \"{{info_request_title}}.\""
 msgstr "Byla přidána nová poznámka k vašemu dotazu vznesenému na {{public_body_name}} \"{{info_request_title}}.\" "
@@ -1368,7 +1368,7 @@ msgid "{{commenter_name}} added a new annotation on your request to {{public_bod
 msgstr "{{commenter_name}} přidal/a k vašemu dotazu pro {{public_body_name}} \"{{info_request_title}}\" novou poznámku."
 
 msgid "{{count}} Pending"
-msgstr ""
+msgstr "{{count}} probíhá"
 
 msgid "{{count}} recipient, <a href=\"{{url}}\">show</a>"
 msgid_plural "{{count}} recipients, <a href=\"{{url}}\">show all</a>"
@@ -1421,10 +1421,10 @@ msgstr[2] "{{count}} žádostí bude tento týden zveřejněno. "
 msgstr[3] "{{count}} žádostí bude tento týden zveřejněno. "
 
 msgid "{{count}} {{phase}}"
-msgstr ""
+msgstr "{{count}} {{phase}}"
 
 msgid "{{date}}"
-msgstr ""
+msgstr "{{date}}"
 
 msgid "{{length_of_time}} ago"
 msgstr "před {{length_of_time}} "

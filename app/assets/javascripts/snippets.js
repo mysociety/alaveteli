@@ -7,7 +7,13 @@
       $snippets.attr('aria-hidden', null);
     } else {
       $snippets.attr('aria-hidden', function(){
-        if ( $(this).attr('data-tags') && $(this).attr('data-tags').indexOf(val) > -1 ) {
+        if ( $(this).attr('data-tags') ) {
+          tags = $(this).attr('data-tags').split(' ')
+        } else {
+          tags = []
+        }
+
+        if ( tags.indexOf(val) > -1 ) {
           return null;
         } else {
           return "hidden";

@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Allow author to be an optional blog feed attribute (Gareth Rees)
 * Handle UTF8 characters in RFC822 attachment subject lines (Gareth Rees)
 * Backpaged content tells external search engines not to index it (Gareth Rees)
 * Tweak change request button colours in admin interface (Gareth Rees)
@@ -15,6 +16,19 @@
   `legislation.to_s(:full)`.
 
 ### Changed Templates
+
+# 0.38.4.2
+
+## Highlighted Features
+
+* Upgrades to Rails 5.2.5 to resolve missing upstream dependency (Graeme
+  Porteous)
+
+# 0.38.4.1
+
+## Highlighted Features
+
+* Updated translations from Transifex (Graeme Porteous)
 
 # 0.38.4.0
 
