@@ -979,7 +979,7 @@ describe RequestMailer do
 
   end
 
-  context 'when SEND_SURVEY_MAILS is set' do
+  describe 'survey alerts' do
 
     before do
       allow(AlaveteliConfiguration).to receive(:send_survey_mails).
@@ -999,18 +999,13 @@ describe RequestMailer do
       info_request
     end
 
-    it 'sends survey alerts' do
-      expect(RequestMailer).to receive(:alert_survey)
-      RequestMailer.alert_new_response_reminders
-    end
-
     context 'when there is a requester who has not been sent a survey alert' do
 
       it 'sends a survey alert' do
         allow_any_instance_of(User).to receive(:survey).
           and_return(double('survey', already_done?: false))
         get_surveyable_request
-        RequestMailer.alert_new_response_reminders
+        RequestMailer.alert_survey
         expect(ActionMailer::Base.deliveries.size).to eq(1)
       end
 
@@ -1018,7 +1013,7 @@ describe RequestMailer do
         allow_any_instance_of(User).to receive(:survey).
           and_return(double('survey', already_done?: false))
         info_request = get_surveyable_request
-        RequestMailer.alert_new_response_reminders
+        RequestMailer.alert_survey
         expect(info_request.user.user_info_request_sent_alerts.size).
           to eq(1)
       end
@@ -1034,7 +1029,7 @@ describe RequestMailer do
         info_request.user.user_info_request_sent_alerts.
           create(alert_type: 'survey_1',
                  info_request_id: info_request.id)
-        RequestMailer.alert_new_response_reminders
+        RequestMailer.alert_survey
         expect(ActionMailer::Base.deliveries.size).to eq(0)
       end
 
@@ -1046,7 +1041,7 @@ describe RequestMailer do
         allow_any_instance_of(User).to receive(:survey).
           and_return(double('survey', already_done?: true))
         get_surveyable_request
-        RequestMailer.alert_new_response_reminders
+        RequestMailer.alert_survey
         expect(ActionMailer::Base.deliveries.size).to eq(0)
       end
     end
@@ -1058,7 +1053,7 @@ describe RequestMailer do
           and_return(double('survey', already_done?: false))
         request = get_surveyable_request
         get_surveyable_request(request.user)
-        RequestMailer.alert_new_response_reminders
+        RequestMailer.alert_survey
         expect(ActionMailer::Base.deliveries.size).to eq(1)
       end
     end
@@ -1071,24 +1066,23 @@ describe RequestMailer do
         allow_any_instance_of(User).to receive(:active?).
           and_return(false)
         get_surveyable_request
-        RequestMailer.alert_new_response_reminders
+        RequestMailer.alert_survey
         expect(ActionMailer::Base.deliveries.size).to eq(0)
       end
 
     end
 
-  end
+    context 'when SEND_SURVEY_MAILS is not set' do
 
-  context 'when SEND_SURVEY_MAILS is not set' do
+      before do
+        allow(AlaveteliConfiguration).to receive(:send_survey_mails).
+          and_return(false)
+      end
 
-    before do
-      allow(AlaveteliConfiguration).to receive(:send_survey_mails).
-        and_return(false)
-    end
+      it 'does not send survey alerts ' do
+        expect(RequestMailer.alert_survey).to be_nil
+      end
 
-    it 'does not send survey alerts ' do
-      expect(RequestMailer).not_to receive(:alert_survey)
-      RequestMailer.alert_new_response_reminders
     end
 
   end

@@ -13,7 +13,7 @@ class RequestMailer < ApplicationMailer
                   :new_response, :overdue_alert, :very_overdue_alert,
                   :new_response_reminder_alert, :old_unclassified_updated,
                   :not_clarified_alert, :comment_on_alert,
-                  :comment_on_alert_plural
+                  :comment_on_alert_plural, :survey_alert
                 ]
 
   # Used when an FOI officer uploads a response from their web browser - this is
@@ -346,7 +346,6 @@ class RequestMailer < ApplicationMailer
     AlaveteliConfiguration::new_response_reminder_after_days.each_with_index do |days, i|
       self.alert_new_response_reminders_internal(days, "new_response_reminder_#{i+1}")
     end
-    alert_survey if AlaveteliConfiguration.send_survey_mails
   end
   def self.alert_new_response_reminders_internal(days_since, type_code)
     info_requests = InfoRequest.
@@ -549,6 +548,8 @@ class RequestMailer < ApplicationMailer
   # Send an email with a link to the survey two weeks after a request was made,
   # if the user has not already completed the survey.
   def self.alert_survey
+    return unless AlaveteliConfiguration.send_survey_mails
+
     # Exclude requests made by users who have already been alerted about the
     # survey
     info_requests = InfoRequest.where(
