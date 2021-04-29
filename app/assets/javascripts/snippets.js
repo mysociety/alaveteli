@@ -33,7 +33,13 @@
     });
   });
 
-  var clipboard = new ClipboardJS('[data-clipboard-text]');
+  var clipboard = new ClipboardJS('button', {
+    text: function(button) {
+      var txt = document.createElement('textarea');
+      txt.innerHTML = $(button).data('clipboard-text');
+      return txt.value;
+    }
+  });
 
   clipboard.on('success', function(e) {
     var $btn = $(e.trigger);
