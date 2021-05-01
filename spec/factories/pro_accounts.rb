@@ -11,8 +11,6 @@
 #  stripe_customer_id       :string
 #
 
-require 'stripe_mock'
-
 FactoryBot.define do
 
   factory :pro_account do
