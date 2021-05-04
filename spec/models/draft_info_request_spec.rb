@@ -18,12 +18,18 @@ require 'spec_helper'
 describe DraftInfoRequest do
   it_behaves_like 'RequestSummaries'
 
-  let(:draft) { FactoryBot.create(:draft_info_request) }
+  describe '#valid?' do
+    subject { record.valid? }
 
-  it "requires a user" do
-    draft_request = DraftInfoRequest.new
-    expect(draft_request.valid?).to be false
-    draft_request.user = FactoryBot.create(:user)
-    expect(draft_request.valid?).to be true
+    context 'without a user' do
+      let(:record) { described_class.new(user: nil) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'with a user' do
+      let(:record) { FactoryBot.build(:draft_info_request, user: user) }
+      let(:user) { FactoryBot.build(:user) }
+      it { is_expected.to eq(true) }
+    end
   end
 end
