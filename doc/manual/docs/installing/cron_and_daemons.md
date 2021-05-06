@@ -10,8 +10,11 @@ title: Cron jobs and Daemons
   how to generate the daemon files and get them running.
 </p>
 
-The crontab and init scripts use the `ugly` file format, which is a strange
-templating format used by mySociety.
+From Alaveteli version `0.39` the crontab and init scripts use the `erb` file
+format, which is a standard templating format used by many Ruby applications.
+
+Previously scripts use the `ugly` file format, which is a strange templating
+format used by mySociety.
 
 The `ugly` format uses simple variable substitution. A variable looks like
 `!!(*= $this *)!!`.
