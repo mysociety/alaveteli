@@ -7,11 +7,15 @@ class RefusalAdviceQuestionForm < ActionView::Helpers::FormBuilder
     @template.tag.div do
       value = option.value
       id = "#{@object.id}_#{value}"
+      options = {
+        id: id,
+        class: 'wizard__question__option'
+      }
 
       if refusal_advice_grid?(@object.options)
-        input = @template.check_box_tag(object_name, value, false, id: id)
+        input = @template.check_box_tag(object_name, value, false, options)
       else
-        input = @template.radio_button_tag(object_name, value, false, id: id)
+        input = @template.radio_button_tag(object_name, value, false, options)
       end
 
       input + @template.label_tag(id, option.label)
