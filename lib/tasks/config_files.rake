@@ -4,22 +4,25 @@ namespace :config_files do
 
   include Usage
 
-  def convert_ugly(file, replacements)
-    converted_lines = []
-    ugly_var = /\!\!\(\*= \$([^ ]+) \*\)\!\!/
-    File.open(file, 'r').each do |line|
-      line = line.gsub(ugly_var) do |match|
-        var = $1.to_sym
-        replacement = replacements[var]
-        if replacement.nil?
-          raise "Unhandled variable in example file: $#{var}"
-        else
-          replacements[var]
-        end
-      end
-      converted_lines << line
+  class ExampleERBRenderer
+    def initialize(file, **variables)
+      @template = ERB.new(File.read(file))
+      @variables = variables
     end
-    converted_lines
+
+    def lines
+      @template.result(binding).split(/\r?\n/)
+    end
+
+    def method_missing(variable, *_args)
+      @variables.fetch(variable) do
+        raise "Unhandled variable in example file: #{variable}"
+      end
+    end
+  end
+
+  def convert_erb(file, replacements)
+    ExampleERBRenderer.new(file, replacements).lines
   end
 
   def daemons(only_active = false)
@@ -65,7 +68,7 @@ namespace :config_files do
     }
 
     # Generate the template for potential further processing
-    convert_ugly(ENV['SCRIPT_FILE'], replacements).each do |line|
+    convert_erb(ENV['SCRIPT_FILE'], replacements).each do |line|
       puts line
     end
   end
@@ -98,7 +101,7 @@ namespace :config_files do
     replacements.update(:daemon_name => "#{ replacements[:site] }-#{ daemon_name }")
 
     # Generate the template for potential further processing
-    converted = convert_ugly(ENV['SCRIPT_FILE'], replacements)
+    converted = convert_erb(ENV['SCRIPT_FILE'], replacements)
 
     # gsub the RAILS_ENV in to the generated template if its not set by the
     # hard coded config file
@@ -137,7 +140,7 @@ namespace :config_files do
     }
 
     lines = []
-    convert_ugly(ENV['CRONTAB'], replacements).each do |line|
+    convert_erb(ENV['CRONTAB'], replacements).each do |line|
       lines << line
     end
 
@@ -161,7 +164,7 @@ namespace :config_files do
     }
 
     # Generate the template for potential further processing
-    converted = convert_ugly(ENV['SCRIPT_FILE'], replacements)
+    converted = convert_erb(ENV['SCRIPT_FILE'], replacements)
 
     # gsub the RAILS_ENV in to the generated template if its not set by the
     # hard coded config file
