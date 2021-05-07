@@ -132,3 +132,8 @@ something like:
     unseen deliver "backup@mybackupdomain.org"
     endif
 
+## Deployments
+
+We strongly recommend you use a
+<a href="{{ page.baseurl }}/docs/installing/deploy/">deployment mechanism</a>
+to make changes to your production site.
