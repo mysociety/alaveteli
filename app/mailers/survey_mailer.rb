@@ -39,20 +39,20 @@ class SurveyMailer < ApplicationMailer
 
     # Exclude requests made by users who have already been alerted about the
     # survey
-    info_requests = InfoRequest.where(
-      <<~SQL
+    info_requests = InfoRequest.internal.
+      where(
+        <<~SQL
         created_at BETWEEN
           NOW() - '2 weeks + 1 day'::interval AND
           NOW() - '2 weeks'::interval
-        AND user_id IS NOT NULL
         AND NOT EXISTS (
             SELECT *
             FROM user_info_request_sent_alerts
             WHERE user_id = info_requests.user_id
             AND alert_type = 'survey_1'
         )
-      SQL
-    ).includes(:user)
+        SQL
+      ).includes(:user)
 
     # TODO: change the initial query to iterate over users rather
     # than info_requests rather than using an array to check whether

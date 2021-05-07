@@ -149,6 +149,9 @@ class InfoRequest < ApplicationRecord
 
   has_tag_string
 
+  scope :internal, -> { where.not(user_id: nil) }
+  scope :external, -> { where(user_id: nil) }
+
   scope :pro, ProQuery.new
   scope :is_public, Prominence::PublicQuery.new
   scope :is_searchable, Prominence::SearchableQuery.new
