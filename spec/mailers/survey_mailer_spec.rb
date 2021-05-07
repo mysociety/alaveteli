@@ -5,8 +5,7 @@ RSpec.describe SurveyMailer do
   describe 'survey alerts' do
 
     before do
-      allow(AlaveteliConfiguration).to receive(:send_survey_mails).
-        and_return(true)
+      allow(Survey).to receive(:enabled?).and_return(true)
       InfoRequest.destroy_all
       ActionMailer::Base.deliveries = []
     end
@@ -95,11 +94,10 @@ RSpec.describe SurveyMailer do
 
     end
 
-    context 'when SEND_SURVEY_MAILS is not set' do
+    context 'when survery is not enabled' do
 
       before do
-        allow(AlaveteliConfiguration).to receive(:send_survey_mails).
-          and_return(false)
+        allow(Survey).to receive(:enabled?).and_return(false)
       end
 
       it 'does not send survey alerts ' do

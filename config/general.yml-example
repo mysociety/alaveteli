@@ -1297,11 +1297,10 @@ ENABLE_PRO_SELF_SERVE: false
 # ---
 ENABLE_PROJECTS: false
 
-# We need to add the WDTK survey variables here, or else the deployment
-# system will cry.
-SURVEY_SECRET: ''
-# Blank this out if the survey host is unavailable - people going to the
-# survey URL will get a message that the survey is unavailable
+# If SURVEY_URL is present, one month after a request has been made, Alaveteli
+# will email users with a link to a survey.
+#
+# SURVEY_URL – String (default: '')
+#
+# ---
 SURVEY_URL: ''
-# Set this to false if you don't want survey emails to be sent
-SEND_SURVEY_MAILS: true

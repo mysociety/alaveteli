@@ -1820,8 +1820,8 @@ describe User do
     subject { user.can_send_survey? }
 
     before do
-      allow(AlaveteliConfiguration).
-        to receive(:send_survey_mails).and_return(true)
+      allow(AlaveteliConfiguration).to receive(:enable_survey_emails).
+        and_return(true)
     end
 
     context 'a survey has not been sent to an active user' do
