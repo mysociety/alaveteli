@@ -1761,6 +1761,10 @@ class InfoRequest < ApplicationRecord
     self == self.class.holding_pen_request
   end
 
+  def latest_refusals
+    incoming_messages.select(&:refusals?).last&.refusals || []
+  end
+
   private
 
   def self.add_conditions_from_extra_params(params, extra_params)

@@ -8,6 +8,7 @@
       questionClass: "wizard__question",
       questionAnswerableClass: "wizard__question--answerable",
       questionAnsweredClass: "wizard__question--answered",
+      questionOptionClass: "wizard__question__option",
 
       suggestionClass: "wizard__suggestion",
       suggestionSuggestedClass: "wizard__suggestion--suggested",
@@ -30,6 +31,8 @@
 
   RefusalWizard.prototype._init = function(target) {
     var wizard = this;
+
+    wizard.$form = wizard.$el.find('form');
 
     wizard.$blocks = wizard.$el.find(
       "." +
@@ -90,6 +93,8 @@
     wizard.$questions.on("change", function() {
       wizard._update($(this));
     });
+
+    wizard._checkIdentifiedRefusals();
   };
 
   RefusalWizard.prototype._setupNextSteps = function() {
@@ -108,8 +113,10 @@
   };
 
   RefusalWizard.prototype._valuesOf = function(question) {
+    var wizard = this;
+
     return $(question)
-      .find("input:checked, option:selected")
+      .find("input." + wizard.options.questionOptionClass + ":checked")
       .map(function() {
         return $(this).val();
       })
@@ -124,8 +131,7 @@
       var showIfArray = $block.data("show-if");
 
       // can't be a dependent if already answered
-      // FIXME: this assumes suggestions won't have input/option elements
-      if ($block.find("input:checked, option:selected").length) {
+      if ($block.find("input." + wizard.options.questionOptionClass + ":checked").length) {
         return false;
       }
 
@@ -212,7 +218,7 @@
 
     if ($next_question) {
       $next_question.addClass(wizard.options.questionAnswerableClass);
-      $next_question.find("input[value=yes]").focus();
+      $next_question.find("input." + wizard.options.questionOptionClass + "[value=yes]").focus();
     }
 
     if ($current_question && $next_question) {
@@ -238,8 +244,8 @@
         .addClass(wizard.options.nextStepSuggestedClass);
     });
 
-    wizard.$actions.find('input[name^="refusal_advice"]').val(false);
-    $suggestions.find('input[name^="refusal_advice"]').val(true);
+    wizard.$actions.find('input.' + wizard.options.questionOptionClass + '[name^="refusal_advice"]').val(false);
+    $suggestions.find('input.' + wizard.options.questionOptionClass + '[name^="refusal_advice"]').val(true);
   };
 
   RefusalWizard.prototype._resetQuestion = function($question) {
@@ -247,9 +253,20 @@
     $question.removeClass(wizard.options.questionAnswerableClass);
     $question.removeClass(wizard.options.questionAnsweredClass);
 
-    var $options = $question.find("input, option");
+    var $options = $question.find("input." + wizard.options.questionOptionClass);
     $options.prop("checked", false);
-    $options.prop("selected", false);
+  };
+
+  RefusalWizard.prototype._checkIdentifiedRefusals = function() {
+    var wizard = this;
+    var refusalsArray = wizard.$form.data('refusals');
+
+    var $inputs = wizard.$questions.find("input." + wizard.options.questionOptionClass);
+
+    for (var i = 0, len = refusalsArray.length; i < len; i++) {
+      var refusal = refusalsArray[i];
+      $inputs.filter("[value='" + refusal + "']").click();
+    }
   };
 
   RefusalWizard.prototype.log = function() {
