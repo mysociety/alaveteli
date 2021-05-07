@@ -1,11 +1,15 @@
-Two weeks ago you made a Freedom of Information request to <%= @info_request.public_body.name %> using WhatDoTheyKnow.com.
+<%= _('Four weeks ago you made a Freedom of Information request to ' \
+      '{{public_body_name}} using {{site_name}}.',
+      public_body_name: @info_request.public_body.name,
+      site_name: site_name.html_safe) %>
 
-We would really like to know what you (dis)like about our site and whether it is used by a representative share of the population.
+<%= _('We would like to know more about you, and your experience making an ' \
+      '{{law_used_full}} request through the site.',
+      law_used_full: @info_request.legislation.to_s(:full)) %>
 
-If you can spare a few minutes to complete our short survey, it will help us make the site better. Just follow the link below.
+<%= _('If you can spare a few minutes to complete our short survey, it will ' \
+      'help us make the site better. Just follow the link below.') %>
 
 <%= @url %>
 
-Whether or not you are able to help, please rest assured that we won't ask you about this again.
-
--- the WhatDoTheyKnow team
+-- <%= _('the {{site_name}} team', :site_name => site_name.html_safe) %>

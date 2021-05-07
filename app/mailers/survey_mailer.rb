@@ -23,7 +23,10 @@ class SurveyMailer < ApplicationMailer
     mail(
       to: info_request.user.name_and_email,
       from: contact_from_name_and_email,
-      subject: 'Can you help us improve WhatDoTheyKnow?'
+      subject: _('A survey about your recent {{law_used_full}} request ' \
+                 '({{site_name}})',
+                 law_used_full: info_request.legislation.to_s(:full),
+                 site_name: site_name.html_safe)
     )
   end
 
