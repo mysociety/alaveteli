@@ -17,4 +17,12 @@ RSpec.describe Survey do
       it { is_expected.to eq false }
     end
   end
+
+  describe '.date_range' do
+    subject { described_class.date_range }
+
+    it { is_expected.to_not cover(2.weeks.ago - 1.day) }
+    it { is_expected.to cover(2.weeks.ago) }
+    it { is_expected.to_not cover(2.weeks.ago + 1.day) }
+  end
 end

@@ -1815,47 +1815,4 @@ describe User do
     end
   end
 
-  describe '#can_send_survey?' do
-    let(:user) { FactoryBot.create(:user) }
-    subject { user.can_send_survey? }
-
-    before do
-      allow(AlaveteliConfiguration).to receive(:enable_survey_emails).
-        and_return(true)
-    end
-
-    context 'a survey has not been sent to an active user' do
-
-      before do
-        allow(user).to receive(:survey).
-          and_return(double('survey', already_done?: false))
-      end
-
-      it { is_expected.to eq(true) }
-
-    end
-
-    context 'a survey has already been sent' do
-
-      before do
-        allow(user).to receive(:survey).
-          and_return(double('survey', already_done?: true))
-      end
-
-      it { is_expected.to eq(false) }
-
-    end
-
-    context 'the user is not active' do
-
-      before do
-        allow(user).to receive(:active?).and_return(false)
-      end
-
-      it { is_expected.to eq(false) }
-
-    end
-
-  end
-
 end

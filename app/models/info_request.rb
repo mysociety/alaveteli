@@ -172,6 +172,8 @@ class InfoRequest < ApplicationRecord
 
   scope :for_project, Project::InfoRequestQuery.new
 
+  scope :surveyable, Survey::InfoRequestQuery.new
+
   class << self
     alias_method :in_progress, :awaiting_response
   end
