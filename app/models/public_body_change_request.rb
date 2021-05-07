@@ -42,6 +42,8 @@ class PublicBodyChangeRequest < ApplicationRecord
   scope :body_update_requests, -> {
     where("public_body_id IS NOT NULL").order("created_at")
   }
+
+  singleton_class.undef_method :open # Undefine Kernel.open to avoid warning
   scope :open, -> { where(is_open: true) }
 
   def self.from_params(params, user)
