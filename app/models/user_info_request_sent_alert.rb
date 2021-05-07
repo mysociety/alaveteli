@@ -47,4 +47,6 @@ class UserInfoRequestSentAlert < ApplicationRecord
              :inverse_of => :user_info_request_sent_alerts
 
   validates_inclusion_of :alert_type, :in => ALERT_TYPES
+
+  scope :recent, -> { where(created_at: 1.year.ago.to_date..Float::INFINITY) }
 end
