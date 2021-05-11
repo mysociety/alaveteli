@@ -263,8 +263,6 @@ if [ x"$RETRIEVER_METHOD" = x"pop" ] && [ "$DEVELOPMENT_INSTALL" = true ]; then
 
 fi
 
-# Set up root's crontab:
-
 cd "$REPOSITORY"
 
 
@@ -274,7 +272,7 @@ if [ "$DEVELOPMENT_INSTALL" = true ]; then
   gem install mailcatcher
 fi
 
-
+# Set up root's crontab:
 echo -n "Creating /etc/cron.d/alaveteli... "
 (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_crontab DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' RUBY_VERSION='$RUBY_VERSION' USE_RBENV=$USE_RBENV CRONTAB=config/crontab-example" "$UNIX_USER") > /etc/cron.d/alaveteli
 # There are some other parts to rewrite, so just do them with sed:
