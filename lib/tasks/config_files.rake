@@ -105,11 +105,11 @@ namespace :config_files do
     # Generate the template for potential further processing
     converted = convert_erb(ENV['SCRIPT_FILE'], replacements)
 
-    # gsub the RAILS_ENV in to the generated template if its not set by the
+    # uncomment RAILS_ENV in to the generated template if its not set by the
     # hard coded config file
     unless File.exist?("#{ Rails.root }/config/rails_env.rb")
       converted.each do |line|
-        line.gsub!(/^#\s*RAILS_ENV=your_rails_env/, "RAILS_ENV=#{Rails.env}")
+        line.gsub!(/^#\s*RAILS_ENV=/, "RAILS_ENV=")
         line.gsub!(/^#\s*export RAILS_ENV/, "export RAILS_ENV")
       end
     end
@@ -170,11 +170,11 @@ namespace :config_files do
     # Generate the template for potential further processing
     converted = convert_erb(ENV['SCRIPT_FILE'], replacements)
 
-    # gsub the RAILS_ENV in to the generated template if its not set by the
+    # uncomment RAILS_ENV in to the generated template if its not set by the
     # hard coded config file
     unless File.exist?("#{ Rails.root }/config/rails_env.rb")
       converted.each do |line|
-        line.gsub!(/^#\s*RAILS_ENV=your_rails_env/, "RAILS_ENV=#{Rails.env}")
+        line.gsub!(/^#\s*RAILS_ENV=/, "RAILS_ENV=")
         line.gsub!(/^#\s*export RAILS_ENV/, "export RAILS_ENV")
       end
     end
