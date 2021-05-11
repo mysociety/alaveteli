@@ -34,7 +34,7 @@ clear_daemon() {
 
 install_daemon() {
   echo -n "Creating /etc/init.d/$SITE-$1... "
-  (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' RUBY_VERSION='$RUBY_VERSION' USE_RBENV=$USE_RBENV SCRIPT_FILE=config/$1-debian.example" "$UNIX_USER") > /etc/init.d/"$SITE-$1"
+  (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' RUBY_VERSION='$RUBY_VERSION' USE_RBENV=$USE_RBENV SCRIPT_FILE=config/$1-debian.example" "$UNIX_USER") > /etc/init.d/"$SITE-$1"
   chgrp "$UNIX_USER" /etc/init.d/"$SITE-$1"
   chmod 754 /etc/init.d/"$SITE-$1"
 
@@ -285,7 +285,7 @@ echo $DONE_MSG
 
 if [ ! "$DEVELOPMENT_INSTALL" = true ]; then
   echo -n "Creating /etc/init.d/$SITE... "
-  (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' USE_RBENV=$USE_RBENV SCRIPT_FILE=config/sysvinit-thin.example" "$UNIX_USER") > /etc/init.d/"$SITE"
+  (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' RUBY_VERSION='$RUBY_VERSION' USE_RBENV=$USE_RBENV SCRIPT_FILE=config/sysvinit-thin.example" "$UNIX_USER") > /etc/init.d/"$SITE"
   chgrp "$UNIX_USER" /etc/init.d/"$SITE"
   chmod 754 /etc/init.d/"$SITE"
   echo $DONE_MSG
