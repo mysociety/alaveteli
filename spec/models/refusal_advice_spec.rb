@@ -135,6 +135,22 @@ RSpec.describe RefusalAdvice do
 
       it { is_expected.to eq(eir_actions) }
     end
+
+    context 'when no actions are defined for the legislation' do
+      let(:data) { { eir: {} } }
+      let(:info_request) { double(legislation: double(to_sym: :eir)) }
+
+      it { is_expected.to be_an(Array) }
+      it { is_expected.to be_empty }
+    end
+
+    context 'when the legislation has not been configured' do
+      let(:data) { { foi: {}, eir: {} } }
+      let(:info_request) { double(legislation: double(to_sym: :not_defined)) }
+
+      it { is_expected.to be_an(Array) }
+      it { is_expected.to be_empty }
+    end
   end
 
   describe '#==' do

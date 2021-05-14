@@ -25,7 +25,7 @@ class RefusalAdvice
   end
 
   def actions
-    data[legislation.to_sym][:actions].
+    Array(data.dig(legislation.to_sym, :actions)).
       map { |action| Action.new(action) }
   end
 
