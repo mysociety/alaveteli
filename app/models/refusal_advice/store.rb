@@ -19,6 +19,10 @@ class RefusalAdvice::Store
     @data = data
   end
 
+  def dig(*keys)
+    to_h.dig(*keys)
+  end
+
   def [](key)
     to_h[key.to_sym]
   end

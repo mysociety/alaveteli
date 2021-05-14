@@ -20,7 +20,7 @@ class RefusalAdvice
   end
 
   def questions
-    Array(data[legislation.to_sym][:questions]).
+    Array(data.dig(legislation.to_sym, :questions)).
       map { |question| Question.new(question) }
   end
 
