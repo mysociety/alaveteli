@@ -608,7 +608,7 @@ FORWARD_PRO_NONBOUNCE_RESPONSES_TO: pro-user-support@localhost
 # two arguments: the URL, and a path to an output file.
 #
 # A static binary of wkhtmltopdf is recommended:
-# http://code.google.com/p/wkhtmltopdf/downloads/list
+# https://github.com/wkhtmltopdf/packaging/releases
 # If the command is not present, a text-only version will be rendered
 # instead.
 #
@@ -617,10 +617,9 @@ FORWARD_PRO_NONBOUNCE_RESPONSES_TO: pro-user-support@localhost
 # Examples:
 #
 #   HTML_TO_PDF_COMMAND: /usr/local/bin/wkhtmltopdf
-#   HTML_TO_PDF_COMMAND: /usr/local/bin/wkhtmltopdf-amd64
 #
 # ---
-HTML_TO_PDF_COMMAND: /usr/local/bin/wkhtmltopdf-amd64
+HTML_TO_PDF_COMMAND: /usr/local/bin/wkhtmltopdf
 
 # Email address used for sending exception notifications.
 #
