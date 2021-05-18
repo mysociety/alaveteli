@@ -679,7 +679,7 @@ class RequestController < ApplicationController
       tmp_input.close
       tmp_output = Tempfile.new('foihtml2pdf-output')
       output = AlaveteliExternalCommand.run(
-        convert_command, tmp_input.path, tmp_output.path
+        convert_command, '-q', tmp_input.path, tmp_output.path
       )
       if !output.nil?
         file_info = { :filename => 'correspondence.pdf',
