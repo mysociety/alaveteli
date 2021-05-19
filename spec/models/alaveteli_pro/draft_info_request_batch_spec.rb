@@ -14,8 +14,12 @@
 #
 
 require 'spec_helper'
+require 'models/concerns/info_request/draft_title_validation'
 
 describe AlaveteliPro::DraftInfoRequestBatch do
+  it_behaves_like 'concerns/info_request/draft_title_validation',
+                  FactoryBot.build(:draft_info_request_batch)
+
   let(:draft_batch) { FactoryBot.create(:draft_info_request_batch) }
   let(:pro_user) { FactoryBot.create(:pro_user) }
 

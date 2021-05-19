@@ -15,6 +15,7 @@
 
 class AlaveteliPro::DraftInfoRequestBatch < ApplicationRecord
   include AlaveteliPro::RequestSummaries
+  include InfoRequest::DraftTitleValidation
 
   belongs_to :user,
              :inverse_of => :draft_info_request_batches
