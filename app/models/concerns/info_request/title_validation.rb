@@ -1,6 +1,7 @@
 # Everything to do with validating an InfoRequest title
 module InfoRequest::TitleValidation
   extend ActiveSupport::Concern
+  include InfoRequest::DraftTitleValidation
 
   included do
     validates_presence_of :title,
@@ -10,12 +11,6 @@ module InfoRequest::TitleValidation
       with: /\A.*[[:alpha:]]+.*\z/,
       message: N_('Please write a summary with some text in it'),
       unless: proc { |record| record.title.blank? }
-
-    validates :title, length: {
-      maximum: 200,
-      message: _('Please keep the summary short, like in the subject of an ' \
-                 'email. You can use a phrase, rather than a full sentence.')
-    }
 
     validates :title, length: {
       minimum: 3,
