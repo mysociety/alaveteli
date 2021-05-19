@@ -28,19 +28,8 @@ module InfoRequest::TitleValidation
 
   def title_formatting
     return unless title
-
-    unless MySociety::Validate.uses_mixed_capitals(title, 1) ||
-           title_starts_with_number || title_is_acronym(6)
-      errors.add(:title, _('Please write the summary using a mixture of ' \
-                           'capital and lower case letters. This makes it ' \
-                           'easier for others to read.'))
-    end
-
-    if generic_foi_title
-      errors.add(:title, _('Please describe more what the request is about ' \
-                           'in the subject. There is no need to say it is an ' \
-                           'FOI request, we add that on anyway.'))
-    end
+    errors.add(:title, poorly_formed_title_msg) if poorly_formed_title?
+    errors.add(:title, generic_foi_title_msg) if generic_foi_title?
   end
 
   def title_is_acronym(max_length)
@@ -51,7 +40,29 @@ module InfoRequest::TitleValidation
     title.include?(' ') && title.split(' ').first =~ /^\d+$/
   end
 
-  def generic_foi_title
+  def poorly_formed_title?
+    !well_formed_title?
+  end
+
+  def well_formed_title?
+    MySociety::Validate.uses_mixed_capitals(title, 1) ||
+      title_starts_with_number ||
+      title_is_acronym(6)
+  end
+
+  def poorly_formed_title_msg
+    _('Please write the summary using a mixture of ' \
+      'capital and lower case letters. This makes it ' \
+      'easier for others to read.')
+  end
+
+  def generic_foi_title?
     title =~ /^(FOI|Freedom of Information)\s*requests?$/i
+  end
+
+  def generic_foi_title_msg
+    _('Please describe more what the request is about ' \
+      'in the subject. There is no need to say it is an ' \
+      'FOI request, we add that on anyway.')
   end
 end
