@@ -9,7 +9,7 @@ notice_msg() { printf "\033[33m%s\033[0m " "$*"; }
 success_msg() { printf "\033[32m%s\033[0m\n" "$*"; }
 
 notice_msg "Checking dependencies..."
-if ! which docker &>/dev/null; then
+if ! command -v docker >/dev/null 2>&1; then
   error_msg 'Docker command not found. Please install: https://docs.docker.com/get-docker/'
   exit 1
 fi
@@ -39,9 +39,8 @@ git submodule update --init
 success_msg 'done'
 
 notice_msg "Getting latest alavetelitheme commits..."
+alaveteli=`pwd`
 alavetelitheme="$themes_dir/alavetelitheme"
 [ ! -d $alavetelitheme ] && git clone https://github.com/mysociety/alavetelitheme.git $alavetelitheme >/dev/null
-pushd $alavetelitheme >/dev/null && git pull >/dev/null && popd >/dev/null
+cd $alavetelitheme && git pull && cd $alaveteli
 success_msg 'done'
-
-./docker/setup

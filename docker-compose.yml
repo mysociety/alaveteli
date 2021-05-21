@@ -3,6 +3,7 @@ version: '3.8'
 services:
   app:
     build:
+      context: .
       dockerfile: docker/Dockerfile
     environment:
       - BUNDLE_PATH=/bundle/vendor
@@ -18,6 +19,7 @@ services:
 
   db:
     build:
+      context: .
       dockerfile: docker/Dockerfile-postgres
     volumes:
       - postgres:/var/lib/postgresql/data
