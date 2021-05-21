@@ -260,6 +260,7 @@
   RefusalWizard.prototype._checkIdentifiedRefusals = function() {
     var wizard = this;
     var refusalsArray = wizard.$form.data('refusals');
+    if (!refusalsArray) return;
 
     var $inputs = wizard.$questions.find("input." + wizard.options.questionOptionClass);
 
