@@ -2034,6 +2034,25 @@ describe InfoRequest do
 
   end
 
+  describe '#title' do
+    subject { info_request.title }
+
+    let(:info_request) { FactoryBot.create(:info_request, title: 'Title test') }
+
+    it { is_expected.to eq('Title test') }
+
+    context 'when a censor rule affects the request' do
+      before do
+        FactoryBot.create(:censor_rule,
+                          info_request: info_request,
+                          text: 'test')
+        info_request.reload
+      end
+
+      it { is_expected.to eq('Title [REDACTED]') }
+    end
+  end
+
   describe '#title=' do
 
     let(:test_requests) do

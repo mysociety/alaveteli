@@ -848,10 +848,8 @@ class InfoRequest < ApplicationRecord
   # Needed for legacy reasons, even though we call strip_attributes now
   def title
     _title = read_attribute(:title)
-    if _title
-      _title.strip!
-    end
-    _title
+    _title&.strip!
+    apply_censor_rules_to_text(_title)
   end
 
   # Email which public body should use to respond to request. This is in
