@@ -61,6 +61,15 @@ describe CensorRule do
       EOF
     end
 
+    it 'returns nil if the text to censor is nil' do
+      rule = FactoryBot.build(:censor_rule)
+      expect(rule.apply_to_text(nil)).to be_nil
+    end
+
+    it 'returns the text if a replacement has not been set' do
+      rule = FactoryBot.build(:censor_rule, text: 'foo', replacement: nil)
+      expect(rule.apply_to_text('match foo')).to eq('match foo')
+    end
   end
 
   describe '#apply_to_binary' do
