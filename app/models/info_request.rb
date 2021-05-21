@@ -803,6 +803,11 @@ class InfoRequest < ApplicationRecord
     end
   end
 
+  alias_method :orig_title, :title
+  def title
+    apply_censor_rules_to_text(self.orig_title)
+  end
+
   # Force reindex when tag string changes
   alias_method :orig_tag_string=, :tag_string=
   def tag_string=(tag_string)
