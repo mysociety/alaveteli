@@ -81,7 +81,8 @@ namespace :config_files do
               'VCSPATH=alaveteli ' \
               'SITE=alaveteli ' \
               'SCRIPT_FILE=config/alert-tracks-debian.example ' \
-              'RUBY_VERSION=2.1.5 '
+              'RUBY_VERSION=2.5.8 ' \
+              'USE_RBENV=false '
     check_for_env_vars(['DEPLOY_USER',
                         'VHOST_DIR',
                         'SCRIPT_FILE'], example)
@@ -93,7 +94,8 @@ namespace :config_files do
       :site => ENV.fetch('SITE') { 'foi' },
       :cpus => ENV.fetch('CPUS') { '1' },
       :rails_env => ENV.fetch('RAILS_ENV') { 'development' },
-      :ruby_version => ENV.fetch('RUBY_VERSION') { '' }
+      :ruby_version => ENV.fetch('RUBY_VERSION') { '' },
+      :use_rbenv? => ENV['USE_RBENV'] == 'true'
     }
 
     # Use the filename for the $daemon_name ugly variable
@@ -103,11 +105,11 @@ namespace :config_files do
     # Generate the template for potential further processing
     converted = convert_erb(ENV['SCRIPT_FILE'], replacements)
 
-    # gsub the RAILS_ENV in to the generated template if its not set by the
+    # uncomment RAILS_ENV in to the generated template if its not set by the
     # hard coded config file
     unless File.exist?("#{ Rails.root }/config/rails_env.rb")
       converted.each do |line|
-        line.gsub!(/^#\s*RAILS_ENV=your_rails_env/, "RAILS_ENV=#{Rails.env}")
+        line.gsub!(/^#\s*RAILS_ENV=/, "RAILS_ENV=")
         line.gsub!(/^#\s*export RAILS_ENV/, "export RAILS_ENV")
       end
     end
@@ -124,7 +126,8 @@ namespace :config_files do
               'VHOST_DIR=/dir/above/alaveteli VCSPATH=alaveteli ' \
               'SITE=alaveteli CRONTAB=config/crontab-example ' \
               'MAILTO=cron-alaveteli@example.org ' \
-              'RUBY_VERSION=2.1.5 '
+              'RUBY_VERSION=2.5.8 '
+              'USE_RBENV=false '
     check_for_env_vars(['DEPLOY_USER',
                         'VHOST_DIR',
                         'VCSPATH',
@@ -136,7 +139,8 @@ namespace :config_files do
       :vcspath => ENV['VCSPATH'],
       :site => ENV['SITE'],
       :mailto => ENV.fetch('MAILTO') { "#{ ENV['DEPLOY_USER'] }@localhost" },
-      :ruby_version => ENV.fetch('RUBY_VERSION') { '' }
+      :ruby_version => ENV.fetch('RUBY_VERSION') { '' },
+      :use_rbenv? => ENV['USE_RBENV'] == 'true'
     }
 
     lines = []
@@ -166,11 +170,11 @@ namespace :config_files do
     # Generate the template for potential further processing
     converted = convert_erb(ENV['SCRIPT_FILE'], replacements)
 
-    # gsub the RAILS_ENV in to the generated template if its not set by the
+    # uncomment RAILS_ENV in to the generated template if its not set by the
     # hard coded config file
     unless File.exist?("#{ Rails.root }/config/rails_env.rb")
       converted.each do |line|
-        line.gsub!(/^#\s*RAILS_ENV=your_rails_env/, "RAILS_ENV=#{Rails.env}")
+        line.gsub!(/^#\s*RAILS_ENV=/, "RAILS_ENV=")
         line.gsub!(/^#\s*export RAILS_ENV/, "export RAILS_ENV")
       end
     end

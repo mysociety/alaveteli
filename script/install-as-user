@@ -3,10 +3,10 @@
 set -e
 set -x
 
-if [ $# -ne 4 ]
+if [ $# -ne 5 ]
 then
     cat >&2 <<EOUSAGE
-Usage: $0 <UNIX-USER> <HOST> <INSTALLATION-DIRECTORY> <RUBY-VERSION>
+Usage: $0 <UNIX-USER> <HOST> <INSTALLATION-DIRECTORY> <RUBY-VERSION> <USE_RBENV>
 EOUSAGE
     exit 1
 fi
@@ -15,6 +15,7 @@ UNIX_USER="$1"
 HOST="$2"
 DIRECTORY="$3"
 RUBY_VERSION="$4"
+USE_RBENV="$5"
 DB_NAME="alaveteli"
 
 # Check that the arguments we've been passed are sensible:
@@ -61,16 +62,48 @@ sed -ibackup "/$BASHRC_START/,/$BASHRC_END/d" "$BASHRC"
 # commands in the shell non-interactively.
 TMP_BASHRC="$(mktemp "$BASHRC.XXXXXXX")"
 
-cat >>$TMP_BASHRC <<EOBRC
+if [ $USE_RBENV = true ]; then
+  RBENV="$HOME/.rbenv"
+  if ! [ -d $RBENV ]; then
+    echo 'Install rbenv & ruby-build'
+    git clone https://github.com/rbenv/rbenv.git "$RBENV"
+    cd $RBENV && src/configure && make -C src
+    mkdir -p "$RBENV/plugins"
+    git clone https://github.com/rbenv/ruby-build.git "$RBENV/plugins/ruby-build"
+  else
+    echo 'Update rbenv & ruby-build'
+    cd $RBENV && git pull
+    cd $RBENV/plugins/ruby-build && git pull
+  fi
+  cd "$REPOSITORY"
+
+  cat >>$TMP_BASHRC <<EOBRC
+$BASHRC_START
+export PATH="$RBENV/bin:\$HOME/.gem/ruby/$RUBY_VERSION/bin:\$PATH"
+eval "\$(rbenv init -)"
+$BASHRC_END
+EOBRC
+
+else
+  cat >>$TMP_BASHRC <<EOBRC
 $BASHRC_START
 export PATH="\$HOME/.gem/ruby/$RUBY_VERSION/bin:\$PATH"
 $BASHRC_END
 EOBRC
+fi
 
 cat "$BASHRC" >> "$TMP_BASHRC"
 mv "$TMP_BASHRC" "$BASHRC"
 
 source "$BASHRC"
+
+if [ $USE_RBENV = true ]; then
+  echo "Installing Ruby $RUBY_VERSION"
+  # Compile and install Ruby and set as global default for this user
+  rbenv install -s $RUBY_VERSION
+  rbenv global $RUBY_VERSION
+  gem install bundler
+fi
 
 # Speed up the installation of gems:
 echo 'gem: --no-ri --no-rdoc' > "$HOME/.gemrc"
@@ -103,7 +136,7 @@ then
         -e "s,^( *TRACK_SENDER_EMAIL:).*,\\1 'postmaster@$HOST'," \
         -e "s,^( *SECRET_KEY_BASE:).*,\\1 '$RANDOM_COOKIE_SECRET'," \
         -e "s,^( *FORWARD_NONBOUNCE_RESPONSES_TO:).*,\\1 'user-support@$HOST'," \
-        -e "s,^( *HTML_TO_PDF_COMMAND:).*,\\1 '/usr/bin/wkhtmltopdf-static'," \
+        -e "s,^( *HTML_TO_PDF_COMMAND:).*,\\1 '/usr/local/bin/wkhtmltopdf'," \
         -e "s,^( *EXCEPTION_NOTIFICATIONS_FROM:).*,\\1 'do-not-reply-to-this-address@$HOST'," \
         -e "/EXCEPTION_NOTIFICATIONS_TO:/,/^$/c EXCEPTION_NOTIFICATIONS_TO:\n - team@$HOST\n" \
         -e "s,^( *MTA_LOG_PATH:).*,\\1 '/var/log/mail/mail.log-*'," \

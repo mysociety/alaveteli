@@ -110,7 +110,7 @@ gem 'iso_country_codes', '~> 0.7.8'
 gem 'mail', '~> 2.7.1'
 gem 'maxmind-db', '~> 1.0.0'
 gem 'mahoro', '~> 0.5'
-gem 'nokogiri', '~> 1.10.10'
+gem 'nokogiri', '~> 1.11.5'
 gem 'open4', '~> 1.3.0'
 gem 'rack', '~> 2.2.3'
 gem 'rack-ssl', '~> 1.4.0'
@@ -146,7 +146,7 @@ gem 'locale', '~> 2.1.3'
 gem 'routing-filter', '~> 0.6.2'
 gem 'unicode', '~> 0.4.4'
 gem 'unidecoder', '~> 1.1.0'
-gem 'money', '~> 6.14.1'
+gem 'money', '~> 6.16.0'
 
 # mime-types 3.0.0 requires Ruby 2.0.0, and _something_ is trying to update it
 gem 'mime-types', '< 3.0.0', require: false
@@ -162,7 +162,7 @@ gem 'alaveteli_features', :path => 'gems/alaveteli_features'
 
 group :test do
   gem 'fivemat', '~> 1.3.7'
-  gem 'webmock', '~> 3.12.2'
+  gem 'webmock', '~> 3.13.0'
   gem 'simplecov', '~> 0.17.1'
   gem 'simplecov-lcov', '~> 0.7.0'
   gem 'capybara', '~> 3.15.1'

@@ -12,6 +12,7 @@
 #
 # <%= daemon_name %> Start the Alaveteli incoming mail poller daemon
 
+PATH=/usr/local/bin:/usr/bin:/bin
 NAME=<%= daemon_name %>
 DAEMON=<%= vhost_dir %>/<%= vcspath %>/script/runner
 DAEMON_ARGS="--daemon AlaveteliMailPoller.poll_for_incoming_loop"
@@ -22,12 +23,16 @@ LOGFILE=$LOGDIR/<%= daemon_name %>.log
 DUSER=<%= user %>
 SITE_HOME=<%= vhost_dir %>/<%= vcspath %>
 # Set RAILS_ENV - not needed if using config/rails_env.rb
-# RAILS_ENV=your_rails_env
+# RAILS_ENV=<%= rails_env %>
 # export RAILS_ENV
-PATH=/home/<%= user %>/.gem/ruby/<%= ruby_version %>/bin:/usr/local/bin:/usr/bin:/bin
-# Uncomment the following line if running under rbenv - we want this daemon to run
-# in the context of the ruby version defined for the site
-# PATH=/home/<%= user %>/.rbenv/shims:/usr/local/bin:/usr/bin:/bin
+
+<% if use_rbenv? %>
+RBENV_ROOT="/home/<%= user %>/.rbenv"
+PATH="$RBENV_ROOT/bin:$RBENV_ROOT/shims:$PATH"
+SET_PATH="cd <%= vhost_dir %>/<%= vcspath %>; rbenv rehash; rbenv local <%= ruby_version %>"
+<% else %>
+PATH="/home/<%= user %>/.gem/ruby/<%= ruby_version %>/bin:$PATH"
+<% end %>
 
 trap "" 1
 

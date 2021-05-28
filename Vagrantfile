@@ -131,6 +131,10 @@ SUPPORTED_OPERATING_SYSTEMS = {
   'stretch64' => {
     box: 'debian/stretch64',
     box_url: 'https://app.vagrantup.com/debian/boxes/stretch64'
+  },
+  'buster64' => {
+    box: 'debian/buster64',
+    box_url: 'https://app.vagrantup.com/debian/boxes/buster64'
   }
 }
 

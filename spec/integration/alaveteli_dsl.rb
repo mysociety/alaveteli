@@ -21,7 +21,7 @@ module AlaveteliDsl
     fill_in 'Summary', :with => "Why is your quango called Geraldine?"
     fill_in 'Your request', :with => "This is a silly letter. It is too short to be interesting."
 
-    find_button('Preview your public request').click
+    find_button('Next Step: Preview your public request').click
     find_button('Send and publish request').click
     expect(page).to have_content('To send and publish your FOI request, create an account or sign in')
   end

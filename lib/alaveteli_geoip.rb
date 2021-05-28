@@ -11,7 +11,7 @@ class AlaveteliGeoIP
   attr_reader :geoip, :gaze_url, :current_code
 
   # Public: Get the country code for a given IP address
-  # Delegates to an instance configured with the geoip_database
+  # Delegates to an instance configured with the geoip_database
   # See AlaveteliGeoIP#country_code_from_ip for more documentation.
   def self.country_code_from_ip(ip)
     instance.country_code_from_ip(ip)

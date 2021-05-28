@@ -14,8 +14,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-        - { ruby: 2.3, bundler: 1.17.3 }
-        - { ruby: 2.4 }
         - { ruby: 2.5 }
         - { ruby: 2.6 }
         - { ruby: 2.6, gemfile: 'Gemfile.rails_next' }

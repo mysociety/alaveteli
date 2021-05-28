@@ -93,6 +93,14 @@ RSpec.describe RefusalAdvice do
       it { is_expected.to be_an(Array) }
       it { is_expected.to be_empty }
     end
+
+    context 'when the legislation has not been configured' do
+      let(:data) { { foi: {}, eir: {} } }
+      let(:info_request) { double(legislation: double(to_sym: :not_defined)) }
+
+      it { is_expected.to be_an(Array) }
+      it { is_expected.to be_empty }
+    end
   end
 
   describe '#actions' do
@@ -126,6 +134,22 @@ RSpec.describe RefusalAdvice do
       end
 
       it { is_expected.to eq(eir_actions) }
+    end
+
+    context 'when no actions are defined for the legislation' do
+      let(:data) { { eir: {} } }
+      let(:info_request) { double(legislation: double(to_sym: :eir)) }
+
+      it { is_expected.to be_an(Array) }
+      it { is_expected.to be_empty }
+    end
+
+    context 'when the legislation has not been configured' do
+      let(:data) { { foi: {}, eir: {} } }
+      let(:info_request) { double(legislation: double(to_sym: :not_defined)) }
+
+      it { is_expected.to be_an(Array) }
+      it { is_expected.to be_empty }
     end
   end
 
@@ -198,6 +222,18 @@ RSpec.describe RefusalAdvice do
       end
 
       it { is_expected.to match_array(['refusal_advice:suggestion_3']) }
+    end
+
+    context 'when there are no suggestions' do
+      let!(:event) do
+        e = FactoryBot.build(:refusal_advice_event, info_request: info_request)
+        params = e.params
+        params[:actions].delete(params[:id].to_sym)
+        e.params = params
+        e.save
+      end
+
+      it { is_expected.to be_empty }
     end
 
     context 'when there is no info request event stored' do

@@ -20,13 +20,11 @@ class RefusalAdvice
   end
 
   def questions
-    Array(data[legislation.to_sym][:questions]).
-      map { |question| Question.new(question) }
+    build_from_data(:questions)
   end
 
   def actions
-    data[legislation.to_sym][:actions].
-      map { |action| Action.new(action) }
+    build_from_data(:actions)
   end
 
   ##
@@ -51,7 +49,7 @@ class RefusalAdvice
     action = wizard_answer.params[:id]
     suggestions = wizard_answer.params[:actions][action.to_sym]
 
-    suggestions.inject([]) do |memo, (k, v)|
+    Array(suggestions).inject([]) do |memo, (k, v)|
       memo << "refusal_advice:#{k}" if v
       memo
     end
@@ -80,6 +78,12 @@ class RefusalAdvice
   attr_reader :data, :info_request
 
   private
+
+  def build_from_data(key)
+    Array(data.dig(legislation.to_sym, key)).map do |value|
+      "#{ self.class }::#{ key.to_s.classify }".constantize.new(value)
+    end
+  end
 
   def refusal_advice_wizard_answers_by(user)
     @info_request.info_request_events.where(

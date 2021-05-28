@@ -71,6 +71,20 @@ RSpec.describe RefusalAdvice::Store do
     end
   end
 
+  describe '#dig' do
+    subject { described_class.new(fixture_data).dig(*keys) }
+
+    context 'with a single key' do
+      let(:keys) { %i[eir] }
+      it { is_expected.to eq(group: [{ id: 'foo' }, { id: 'bar' }]) }
+    end
+
+    context 'with multiple keys' do
+      let(:keys) { %i[eir group] }
+      it { is_expected.to eq([{ id: 'foo' }, { id: 'bar' }]) }
+    end
+  end
+
   describe '#[]' do
     subject { described_class.new(fixture_data)[key] }
 
