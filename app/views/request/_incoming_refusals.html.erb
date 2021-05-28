@@ -11,7 +11,7 @@
           <%= _('Let us know and we’ll help you challenge it.') %>
         <% end %>
       <% elsif @info_request.reason_to_be_unhappy? %>
-        <%= link_to help_unhappy_path(@info_request.url_title) do %>
+        <%= link_to help_unhappy_path(@info_request.url_title, anchor: 'refusal-advice') do %>
           <%= _('Get help to challenge it.') %>
         <% end %>
       <% end %>
