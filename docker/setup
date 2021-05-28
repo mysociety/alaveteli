@@ -1,0 +1,42 @@
+#!/bin/sh
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+if [ -z "$DOCKER" ]; then
+  ./docker/bootstrap
+  docker compose run --rm app ./docker/setup
+  exit
+fi
+
+error_msg() { printf "\033[31m%s\033[0m\n" "$*"; }
+notice_msg() { printf "\033[33m%s\033[0m " "$*"; }
+success_msg() { printf "\033[32m%s\033[0m\n" "$*"; }
+
+notice_msg 'Installing Ruby gems...'
+bundle install >/dev/null
+success_msg 'done'
+
+if [ -L config/general.yml ]; then
+  theme=$(basename -s .yml $(readlink config/general.yml) | sed 's/^general-//')
+  notice_msg "Switching to $theme..."
+  bundle exec script/switch-theme.rb $theme 2>/dev/null
+  bin/rails assets:clean >/dev/null
+  success_msg 'done'
+fi
+
+notice_msg 'Migrating development and test databases...'
+bin/rails db:migrate db:seed >/dev/null
+bin/rails db:migrate RAILS_ENV=test >/dev/null
+success_msg 'done'
+
+notice_msg 'Loading sample data...'
+bundle exec script/load-sample-data > /dev/null
+success_msg 'done'
+
+notice_msg 'Rebuilding Xapian index...'
+bundle exec script/destroy-and-rebuild-xapian-index > /dev/null
+success_msg 'done'
+
+success_msg 'Setup finished'
