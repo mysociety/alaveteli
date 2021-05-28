@@ -312,4 +312,49 @@
   };
 
   $(".js-wizard").refusalWizard({ debug: false });
+
+
+  // Hide/reveal on long list of exemption checkboxes
+
+  function shouldHideCheckboxes () {
+    var checkboxCount = $('[data-block="exemption"] input[type="checkbox"]').length;
+
+    // 4 seems about right for small and large screens
+    if(checkboxCount >= 4 ) {
+      return true;
+    }
+  }
+
+  function expandFieldset() {
+    // fetch translated strings from the HTML
+    var textExpand = $('.wizard').data('expand-button-text-expand');
+    var textShrink = $('.wizard').data('expand-button-text-shrink');
+    
+    // Hide the long list now we're sure we've got JS
+    $('[data-block="exemption"]').toggleClass('expanded');
+   
+    if ($('.maximise-questions').text() == textExpand ) {
+      $('.maximise-questions').html(textShrink);
+    } else {
+      $('.maximise-questions').html(textExpand);
+    }
+  }
+
+
+  if(shouldHideCheckboxes()) {
+
+    $('[data-block="exemption"] fieldset').after("<button class='button-secondary maximise-questions'>" + $('.wizard').data('expand-button-text-expand') + "</button>");
+    
+    //if a checkbox is pre-selected, expand the list
+    if ($('[data-block="exemption"] input[type="checkbox"]').is(":checked")) {
+      expandFieldset();
+    }
+  }
+
+  $('.maximise-questions').click(function(e){
+    e.preventDefault();
+    expandFieldset();
+  });
+  
+
 })(window.jQuery);
