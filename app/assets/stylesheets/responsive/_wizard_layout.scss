@@ -63,3 +63,37 @@
 .wizard__next-step {
   display: block;
 }
+
+
+.js-wizard {
+  /*
+   * if JS is available, let's limit the height of the first question, which asks
+   * the question about which exemptions apply
+   */
+
+  [data-block="exemption"] fieldset {
+    max-height: 16em;
+    @include respond-min( 35em ) {
+      max-height: 8.3em; 
+    }
+  
+    transition: max-height 0.2s ease-out;
+    overflow: hidden;
+   }
+
+  [data-block="exemption"].expanded fieldset {
+    /*
+    * We're toggling the .expanded class with JS
+    */
+    max-height: none;
+    transition: max-height 0.2s ease-out;
+  }
+
+  .maximise-questions {
+    position: relative;
+    left: 50%;
+    top: -1.2em;
+    transform: translateX(-50%);
+    border: 0;
+  }
+}
