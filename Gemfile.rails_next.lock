@@ -81,7 +81,7 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
-    active_model_otp (2.1.1)
+    active_model_otp (2.2.0)
       activemodel
       rotp (~> 6.2.0)
     activejob (6.0.3.7)
