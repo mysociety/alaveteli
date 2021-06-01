@@ -599,95 +599,60 @@ describe UserController do
 
   end
 
-end
+  describe 'POST #signup' do
+    render_views
 
-describe UserController, "when signing up" do
-  render_views
+    before do
+      # Don't call out to external url during tests
+      allow(controller).to receive(:country_from_ip).and_return('gb')
+    end
 
-  before do
-    # Don't call out to external url during tests
-    allow(controller).to receive(:country_from_ip).and_return('gb')
-  end
-
-  it "should be an error if you type the password differently each time" do
-    post :signup, params: {
-                    :user_signup => {
-                      :email => 'new@localhost',
-                      :name => 'New Person',
-                      :password => 'sillypassword',
-                      :password_confirmation => 'sillypasswordtwo'
-                    }
-                  }
-    expect(assigns[:user_signup].errors[:password_confirmation]).
-      to eq(['Please enter the same password twice'])
-  end
-
-  it "should be an error to sign up with a misformatted email" do
-    post :signup, params: {
-                    :user_signup => {
-                      :email => 'malformed-email',
-                      :name => 'Mr Malformed',
-                      :password => 'sillypassword',
-                      :password_confirmation => 'sillypassword'
-                    }
-                  }
-    expect(assigns[:user_signup].errors[:email]).to eq(['Please enter a valid email address'])
-  end
-
-  it "should not show the 'already in use' error when trying to sign up with a duplicate email" do
-    existing_user = FactoryBot.create(:user, :email => 'in-use@localhost')
-
-    post :signup, params: {
-                    :user_signup => {
-                      :email => 'in-use@localhost',
-                      :name => 'Mr Suspected-Hacker',
-                      :password => 'sillypassword',
-                      :password_confirmation => 'mistyped'
-                    }
-                  }
-    expect(assigns[:user_signup].errors[:password_confirmation]).
-      to eq(['Please enter the same password twice'])
-    expect(assigns[:user_signup].errors[:email]).to be_empty
-  end
-
-  it "should send confirmation mail if you fill in the form right" do
-    post :signup, params: {
-                    :user_signup => {
-                      :email => 'new@localhost',
-                      :name => 'New Person',
-                      :password => 'sillypassword',
-                      :password_confirmation => 'sillypassword'
-                    }
-                  }
-    expect(response).to render_template('confirm')
-
-    deliveries = ActionMailer::Base.deliveries
-    expect(deliveries.size).to eq(1)
-    expect(deliveries[0].body).to include("not reveal your email")
-  end
-
-  it "should send confirmation mail in other languages or different locales" do
-    session[:locale] = "es"
-    post :signup, params: {
-                    :user_signup => {
-                      :email => 'new@localhost',
-                      :name => 'New Person',
-                      :password => 'sillypassword',
-                      :password_confirmation => 'sillypassword'
-                    }
-                  }
-    expect(response).to render_template('confirm')
-
-    deliveries = ActionMailer::Base.deliveries
-    expect(deliveries.size).to eq(1)
-    expect(deliveries[0].body).to include("No revelaremos")
-  end
-
-  context "filling in the form with an existing registered email" do
-    it "should send special 'already signed up' mail" do
+    it "should be an error if you type the password differently each time" do
       post :signup, params: {
                       :user_signup => {
-                        :email => 'silly@localhost',
+                        :email => 'new@localhost',
+                        :name => 'New Person',
+                        :password => 'sillypassword',
+                        :password_confirmation => 'sillypasswordtwo'
+                      }
+                    }
+      expect(assigns[:user_signup].errors[:password_confirmation]).
+        to eq(['Please enter the same password twice'])
+    end
+
+    it "should be an error to sign up with a misformatted email" do
+      post :signup, params: {
+                      :user_signup => {
+                        :email => 'malformed-email',
+                        :name => 'Mr Malformed',
+                        :password => 'sillypassword',
+                        :password_confirmation => 'sillypassword'
+                      }
+                    }
+      expect(assigns[:user_signup].errors[:email]).
+        to eq(['Please enter a valid email address'])
+    end
+
+    it "should not show the 'already in use' error when trying to sign up with a duplicate email" do
+      existing_user = FactoryBot.create(:user, :email => 'in-use@localhost')
+
+      post :signup, params: {
+                      :user_signup => {
+                        :email => 'in-use@localhost',
+                        :name => 'Mr Suspected-Hacker',
+                        :password => 'sillypassword',
+                        :password_confirmation => 'mistyped'
+                      }
+                    }
+      expect(assigns[:user_signup].errors[:password_confirmation]).
+        to eq(['Please enter the same password twice'])
+      expect(assigns[:user_signup].errors[:email]).to be_empty
+    end
+
+    it "should send confirmation mail if you fill in the form right" do
+      post :signup, params: {
+                      :user_signup => {
+                        :email => 'new@localhost',
                         :name => 'New Person',
                         :password => 'sillypassword',
                         :password_confirmation => 'sillypassword'
@@ -697,15 +662,14 @@ describe UserController, "when signing up" do
 
       deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
-
-      # This text may span a line break, depending on the length of the SITE_NAME
-      expect(deliveries[0].body).to match(/when\s+you\s+already\s+have\s+an/)
+      expect(deliveries[0].body).to include("not reveal your email")
     end
 
-    it "cope with trailing spaces in the email address" do
+    it "should send confirmation mail in other languages or different locales" do
+      session[:locale] = "es"
       post :signup, params: {
                       :user_signup => {
-                        :email => 'silly@localhost ',
+                        :email => 'new@localhost',
                         :name => 'New Person',
                         :password => 'sillypassword',
                         :password_confirmation => 'sillypassword'
@@ -715,261 +679,300 @@ describe UserController, "when signing up" do
 
       deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
-
-      # This text may span a line break, depending on the length of the SITE_NAME
-      expect(deliveries[0].body).to match(/when\s+you\s+already\s+have\s+an/)
+      expect(deliveries[0].body).to include("No revelaremos")
     end
 
-    it "should create a new PostRedirect if the old one has expired" do
-      allow(PostRedirect).to receive(:find_by_token).and_return(nil)
-      post :signup, params: {
-                      :user_signup => {
-                        :email => 'silly@localhost',
-                        :name => 'New Person',
-                        :password => 'sillypassword',
-                        :password_confirmation => 'sillypassword'
-                      }
-                    }
-      expect(response).to render_template('confirm')
-    end
-  end
-
-  it 'accepts only whitelisted parameters' do
-    expect {
-      post :signup, params: {
-                      :user_signup => {
-                        :email => 'silly@localhost',
-                        :name => 'New Person',
-                        :password => 'sillypassword',
-                        :password_confirmation => 'sillypassword',
-                        :role_ids => Role.admin_role.id
-                      }
-                    }
-    }.to raise_error(ActionController::UnpermittedParameters)
-  end
-
-  context 'when the user is already signed in' do
-    let(:user) { FactoryBot.create(:user) }
-
-    before do
-      ActionController::Base.allow_forgery_protection = true
-    end
-
-    after do
-      ActionController::Base.allow_forgery_protection = false
-    end
-
-    it "shows the confirmation page for valid credentials" do
-      post :signup, params: { :user_signup => {
-                                :email => user.email,
-                                :name => user.name,
-                                :password => 'jonespassword',
-                                :password_confirmation => 'jonespassword'
-                              }
-                            },
-                    session: { :user_id => user.id }
-      expect(response).to render_template('confirm')
-    end
-
-  end
-
-  context 'when the IP is rate limited' do
-
-    before(:each) do
-      limiter = double
-      allow(limiter).to receive(:record)
-      allow(limiter).to receive(:limit?).and_return(true)
-      allow(controller).to receive(:ip_rate_limiter).and_return(limiter)
-    end
-
-    context 'when block_rate_limited_ips? is true' do
-
-      before(:each) do
-        allow(@controller).to receive(:block_rate_limited_ips?).and_return(true)
-      end
-
-      it 'sends an exception notification' do
+    context "filling in the form with an existing registered email" do
+      it "should send special 'already signed up' mail" do
         post :signup, params: {
                         :user_signup => {
-                          :email => 'rate-limited@localhost',
+                          :email => 'silly@localhost',
                           :name => 'New Person',
                           :password => 'sillypassword',
                           :password_confirmation => 'sillypassword'
                         }
                       }
-        mail = ActionMailer::Base.deliveries.first
-        expect(mail.subject).to match(/Rate limited signup from/)
+        expect(response).to render_template('confirm')
+
+        deliveries = ActionMailer::Base.deliveries
+        expect(deliveries.size).to eq(1)
+
+        # This text may span a line break, depending on the length of the
+        # SITE_NAME
+        expect(deliveries[0].body).to match(/when\s+you\s+already\s+have\s+an/)
       end
 
-      it 'blocks the signup' do
+      it "cope with trailing spaces in the email address" do
         post :signup, params: {
                         :user_signup => {
-                          :email => 'rate-limited@localhost',
+                          :email => 'silly@localhost ',
                           :name => 'New Person',
                           :password => 'sillypassword',
                           :password_confirmation => 'sillypassword'
                         }
                       }
-        expect(User.where(:email => 'rate-limited@localhost').count).to eq(0)
+        expect(response).to render_template('confirm')
+
+        deliveries = ActionMailer::Base.deliveries
+        expect(deliveries.size).to eq(1)
+
+        # This text may span a line break, depending on the length of the
+        # SITE_NAME
+        expect(deliveries[0].body).to match(/when\s+you\s+already\s+have\s+an/)
       end
 
-      it 're-renders the form' do
+      it "should create a new PostRedirect if the old one has expired" do
+        allow(PostRedirect).to receive(:find_by_token).and_return(nil)
         post :signup, params: {
                         :user_signup => {
-                          :email => 'rate-limited@localhost',
+                          :email => 'silly@localhost',
                           :name => 'New Person',
                           :password => 'sillypassword',
                           :password_confirmation => 'sillypassword'
                         }
                       }
-        expect(response).to render_template('sign')
+        expect(response).to render_template('confirm')
       end
-
-      it 'sets a flash error' do
-        post :signup, params: {
-                        :user_signup => {
-                          :email => 'rate-limited@localhost',
-                          :name => 'New Person',
-                          :password => 'sillypassword',
-                          :password_confirmation => 'sillypassword'
-                        }
-                      }
-        expect(flash[:error]).to match(/unable to sign up new users/)
-      end
-
     end
 
-    context 'when block_rate_limited_ips? is false' do
-
-      before(:each) do
-        allow(@controller).
-          to receive(:block_rate_limited_ips?).and_return(false)
-      end
-
-      it 'sends an exception notification' do
+    it 'accepts only whitelisted parameters' do
+      expect {
         post :signup, params: {
                         :user_signup => {
-                          :email => 'rate-limited@localhost',
+                          :email => 'silly@localhost',
                           :name => 'New Person',
                           :password => 'sillypassword',
-                          :password_confirmation => 'sillypassword'
+                          :password_confirmation => 'sillypassword',
+                          :role_ids => Role.admin_role.id
                         }
                       }
-        mail = ActionMailer::Base.deliveries.first
-        expect(mail.subject).to match(/Rate limited signup from/)
-      end
-
-      it 'allows the signup' do
-        post :signup, params: {
-                        :user_signup => {
-                          :email => 'rate-limited@localhost',
-                          :name => 'New Person',
-                          :password => 'sillypassword',
-                          :password_confirmation => 'sillypassword'
-                        }
-                      }
-        expect(User.where(:email => 'rate-limited@localhost').count).to eq(1)
-      end
-
+      }.to raise_error(ActionController::UnpermittedParameters)
     end
 
-  end
-
-  context 'using a spammy name or email from a known spam domain' do
-
-    before do
-      spam_scorer = double
-      allow(spam_scorer).to receive(:spam?).and_return(true)
-      allow(UserSpamScorer).to receive(:new).and_return(spam_scorer)
-    end
-
-    context 'when spam_should_be_blocked? is true' do
+    context 'when the user is already signed in' do
+      let(:user) { FactoryBot.create(:user) }
 
       before do
-        allow(@controller).
-          to receive(:spam_should_be_blocked?).and_return(true)
+        ActionController::Base.allow_forgery_protection = true
       end
 
-      it 'logs the signup attempt' do
-        msg = "Attempted signup from suspected spammer, " \
-              "email: spammer@example.com, " \
-              "name: 'Download New Person 1080p!'"
-        allow(Rails.logger).to receive(:info)
-        expect(Rails.logger).to receive(:info).with(msg)
-
-        post :signup, params: {
-                        :user_signup => {
-                          :email => 'spammer@example.com',
-                          :name => 'Download New Person 1080p!',
-                          :password => 'sillypassword',
-                          :password_confirmation => 'sillypassword'
-                        }
-                      }
+      after do
+        ActionController::Base.allow_forgery_protection = false
       end
 
-      it 'blocks the signup' do
-        post :signup, params: {
-                        :user_signup => {
-                          :email => 'spammer@example.com',
-                          :name => 'New Person',
-                          :password => 'sillypassword',
-                          :password_confirmation => 'sillypassword'
-                        }
-                      }
-        expect(User.where(:email => 'spammer@example.com').count).to eq(0)
-      end
-
-      it 're-renders the form' do
-        post :signup, params: {
-                        :user_signup => {
-                          :email => 'spammer@example.com',
-                          :name => 'New Person',
-                          :password => 'sillypassword',
-                          :password_confirmation => 'sillypassword'
-                        }
-                      }
-        expect(response).to render_template('sign')
+      it "shows the confirmation page for valid credentials" do
+        post :signup, params: { :user_signup => {
+                                  :email => user.email,
+                                  :name => user.name,
+                                  :password => 'jonespassword',
+                                  :password_confirmation => 'jonespassword'
+                                }
+                              },
+                      session: { :user_id => user.id }
+        expect(response).to render_template('confirm')
       end
 
     end
 
-    context 'when spam_should_be_blocked? is false' do
+    context 'when the IP is rate limited' do
+
+      before(:each) do
+        limiter = double
+        allow(limiter).to receive(:record)
+        allow(limiter).to receive(:limit?).and_return(true)
+        allow(controller).to receive(:ip_rate_limiter).and_return(limiter)
+      end
+
+      context 'when block_rate_limited_ips? is true' do
+
+        before(:each) do
+          allow(@controller).
+            to receive(:block_rate_limited_ips?).and_return(true)
+        end
+
+        it 'sends an exception notification' do
+          post :signup, params: {
+                          :user_signup => {
+                            :email => 'rate-limited@localhost',
+                            :name => 'New Person',
+                            :password => 'sillypassword',
+                            :password_confirmation => 'sillypassword'
+                          }
+                        }
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail.subject).to match(/Rate limited signup from/)
+        end
+
+        it 'blocks the signup' do
+          post :signup, params: {
+                          :user_signup => {
+                            :email => 'rate-limited@localhost',
+                            :name => 'New Person',
+                            :password => 'sillypassword',
+                            :password_confirmation => 'sillypassword'
+                          }
+                        }
+          expect(User.where(:email => 'rate-limited@localhost').count).to eq(0)
+        end
+
+        it 're-renders the form' do
+          post :signup, params: {
+                          :user_signup => {
+                            :email => 'rate-limited@localhost',
+                            :name => 'New Person',
+                            :password => 'sillypassword',
+                            :password_confirmation => 'sillypassword'
+                          }
+                        }
+          expect(response).to render_template('sign')
+        end
+
+        it 'sets a flash error' do
+          post :signup, params: {
+                          :user_signup => {
+                            :email => 'rate-limited@localhost',
+                            :name => 'New Person',
+                            :password => 'sillypassword',
+                            :password_confirmation => 'sillypassword'
+                          }
+                        }
+          expect(flash[:error]).to match(/unable to sign up new users/)
+        end
+
+      end
+
+      context 'when block_rate_limited_ips? is false' do
+
+        before(:each) do
+          allow(@controller).
+            to receive(:block_rate_limited_ips?).and_return(false)
+        end
+
+        it 'sends an exception notification' do
+          post :signup, params: {
+                          :user_signup => {
+                            :email => 'rate-limited@localhost',
+                            :name => 'New Person',
+                            :password => 'sillypassword',
+                            :password_confirmation => 'sillypassword'
+                          }
+                        }
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail.subject).to match(/Rate limited signup from/)
+        end
+
+        it 'allows the signup' do
+          post :signup, params: {
+                          :user_signup => {
+                            :email => 'rate-limited@localhost',
+                            :name => 'New Person',
+                            :password => 'sillypassword',
+                            :password_confirmation => 'sillypassword'
+                          }
+                        }
+          expect(User.where(:email => 'rate-limited@localhost').count).to eq(1)
+        end
+
+      end
+
+    end
+
+    context 'using a spammy name or email from a known spam domain' do
 
       before do
-        allow(@controller).
-          to receive(:spam_should_be_blocked?).and_return(false)
+        spam_scorer = double
+        allow(spam_scorer).to receive(:spam?).and_return(true)
+        allow(UserSpamScorer).to receive(:new).and_return(spam_scorer)
       end
 
-      it 'sends an exception notification' do
-        post :signup, params: {
-                        :user_signup => {
-                          :email => 'spammer@example.com',
-                          :name => 'New Person',
-                          :password => 'sillypassword',
-                          :password_confirmation => 'sillypassword'
+      context 'when spam_should_be_blocked? is true' do
+
+        before do
+          allow(@controller).
+            to receive(:spam_should_be_blocked?).and_return(true)
+        end
+
+        it 'logs the signup attempt' do
+          msg = "Attempted signup from suspected spammer, " \
+                "email: spammer@example.com, " \
+                "name: 'Download New Person 1080p!'"
+          allow(Rails.logger).to receive(:info)
+          expect(Rails.logger).to receive(:info).with(msg)
+
+          post :signup, params: {
+                          :user_signup => {
+                            :email => 'spammer@example.com',
+                            :name => 'Download New Person 1080p!',
+                            :password => 'sillypassword',
+                            :password_confirmation => 'sillypassword'
+                          }
                         }
-                      }
-        mail = ActionMailer::Base.deliveries.first
-        expect(mail.subject).to match(/signup from suspected spammer/)
+        end
+
+        it 'blocks the signup' do
+          post :signup, params: {
+                          :user_signup => {
+                            :email => 'spammer@example.com',
+                            :name => 'New Person',
+                            :password => 'sillypassword',
+                            :password_confirmation => 'sillypassword'
+                          }
+                        }
+          expect(User.where(:email => 'spammer@example.com').count).to eq(0)
+        end
+
+        it 're-renders the form' do
+          post :signup, params: {
+                          :user_signup => {
+                            :email => 'spammer@example.com',
+                            :name => 'New Person',
+                            :password => 'sillypassword',
+                            :password_confirmation => 'sillypassword'
+                          }
+                        }
+          expect(response).to render_template('sign')
+        end
+
       end
 
-      it 'allows the signup' do
-        post :signup, params: {
-                        :user_signup => {
-                          :email => 'spammer@example.com',
-                          :name => 'New Person',
-                          :password => 'sillypassword',
-                          :password_confirmation => 'sillypassword'
+      context 'when spam_should_be_blocked? is false' do
+
+        before do
+          allow(@controller).
+            to receive(:spam_should_be_blocked?).and_return(false)
+        end
+
+        it 'sends an exception notification' do
+          post :signup, params: {
+                          :user_signup => {
+                            :email => 'spammer@example.com',
+                            :name => 'New Person',
+                            :password => 'sillypassword',
+                            :password_confirmation => 'sillypassword'
+                          }
                         }
-                      }
-        expect(User.where(:email => 'spammer@example.com').count).to eq(1)
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail.subject).to match(/signup from suspected spammer/)
+        end
+
+        it 'allows the signup' do
+          post :signup, params: {
+                          :user_signup => {
+                            :email => 'spammer@example.com',
+                            :name => 'New Person',
+                            :password => 'sillypassword',
+                            :password_confirmation => 'sillypassword'
+                          }
+                        }
+          expect(User.where(:email => 'spammer@example.com').count).to eq(1)
+        end
+
       end
 
     end
 
+    # TODO: need to do bob@localhost signup and check that sends different email
   end
-
-  # TODO: need to do bob@localhost signup and check that sends different email
 end
 
 describe UserController, "when changing email address" do
