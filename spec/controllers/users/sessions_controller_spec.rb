@@ -143,6 +143,19 @@ describe Users::SessionsController do
       expect(assigns[:post_redirect]).to eq(nil)
     end
 
+    context 'when the user_signin param is empty' do
+      # Usually automated bots that submit the form without this param
+      before { post :create, params: { foo: {} } }
+
+      it 're-renders the form' do
+        expect(response).to render_template('user/sign')
+      end
+
+      it 'renders a simple error message' do
+        expect(flash[:error]).to eq('Invalid form submission')
+      end
+    end
+
     context "checking 'remember_me'" do
       let(:user) do
         FactoryBot.create(:user,
