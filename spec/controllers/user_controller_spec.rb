@@ -749,6 +749,19 @@ describe UserController do
       }.to raise_error(ActionController::UnpermittedParameters)
     end
 
+    context 'when the user_signup param is empty' do
+      # Usually automated bots that submit the form without this param
+      before { post :signup, params: { foo: {} } }
+
+      it 're-renders the form' do
+        expect(response).to render_template(:sign)
+      end
+
+      it 'renders a simple error message' do
+        expect(flash[:error]).to eq('Invalid form submission')
+      end
+    end
+
     context 'when the user is already signed in' do
       let(:user) { FactoryBot.create(:user) }
 
