@@ -168,7 +168,7 @@ class Ability
       end
 
       can :download, Project do |target_project|
-        user && (user.is_pro_admin? || target_project.owner?(user))
+        true
       end
     end
   end
