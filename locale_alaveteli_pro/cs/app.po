@@ -5,8 +5,8 @@
 #
 # Translators:
 # louisecrow <louise@mysociety.org>, 2018
-# Hana Hunt <hana@hana-hunt.cz>, 2020
 # trendspotter, 2021
+# Hana Hunt <hana@hana-hunt.cz>, 2021
 #
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-16 16:34+0100\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: trendspotter, 2021\n"
+"Last-Translator: Hana Hunt <hana@hana-hunt.cz>, 2021\n"
 "Language-Team: Czech (https://www.transifex.com/mysociety/teams/33529/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -442,10 +442,10 @@ msgid "From this screen you can see what you need to do next to keep your reques
 msgstr "Na této stránce se dozvíte, co je potřeba udělat, aby vaše dotazy byly zodpovězeny. Co takhle vznést první dotaz?"
 
 msgid "Gavin Chait surveyed 350 local authorities to find out <a href=\"{{story_url}}\">which commercial premises were empty</a>, in order to give a helping hand to start-up businesses."
-msgstr ""
+msgstr "Pan Gavin Chait vznesl dotaz na 350 místních úřadů aby zjistil <a href=\"{{story_url}}\">které obchodní prostory byly nevyužité</a> a pomohl tak začínajícím firmám."
 
 msgid "Get email updates about {{pro_site_name}}?"
-msgstr ""
+msgstr "Dostáváte e-mailové aktualizace o {{pro_site_name}}?"
 
 msgid "Get in touch"
 msgstr "Kontaktujte nás"
@@ -457,13 +457,13 @@ msgid "Got questions?"
 msgstr "Máte otázky?"
 
 msgid "Hard to keep track of your many requests?"
-msgstr ""
+msgstr "Je pro vás těžké sledovat všechny vaše dotazy?"
 
 msgid "Help"
 msgstr "Pomoc"
 
 msgid "Helping startups find the best location for their business"
-msgstr ""
+msgstr "Pomáháme začínajícím podnikům najít nejlepší místo pro jejich podnikání"
 
 msgid "How campaigners are using Pro"
 msgstr "Jak aktivisté používají PRO"
@@ -478,22 +478,22 @@ msgid "How researchers are using Pro"
 msgstr "Jak analytici používají PRO"
 
 msgid "I have read and accepted these terms and conditions"
-msgstr ""
+msgstr "Četl/a jsem a souhlasím s těmito pravidly a podmínkami. "
 
 msgid "I understand and still want to cancel"
-msgstr ""
+msgstr "Rozumím a stále to chci zrušit"
 
 msgid "If payment continues to fail, unfortunately your account will revert back to a free account, and you’ll no longer have access to {{pro_site_name}}."
-msgstr ""
+msgstr "Pokud neproběhne platba, váš účet se bohužel vrátí zpět na bezplatný účet a vy již nebudete mít přístup na web {{pro_site_name}}."
 
 msgid "If you wish to preserve your access to {{pro_site_name}}, please could you check that your card has sufficient funds, and that the card details are correct on your subscriptions page: {{subscriptions_page_url}}"
-msgstr ""
+msgstr "Chcete-li si zachovat přístup na stránku {{pro_site_name}}, zkontrolujte prosím, zda má vaše karta dostatek finančních prostředků a zda jsou údaje o kartě na předplatitelské stránce správné: {{subscriptions_page_url}}"
 
 msgid "If your request bounces back, we source the new address for that authority."
-msgstr ""
+msgstr "Pokud se vám dotaz vrátí jako nedoručitelný, zkusíme zjistit novou adresu pro tuto instituci. "
 
 msgid "Image credits:"
-msgstr ""
+msgstr "Autor obrázku:"
 
 msgid "Important info about requests to this authority"
 msgstr "Důležité informace o dotazu pro tuto instituci"
@@ -502,10 +502,10 @@ msgid "Introductory Pricing"
 msgstr "Zaváděcí ceny"
 
 msgid "Investigating asbestos use in shcools"
-msgstr ""
+msgstr "Investigace o využití asbestu ve školách"
 
 msgid "Investigative journalist Jenna Corderoy has made good use of Pro’s privacy features, keeping her extensive Brexit-related investigations private until her stories broke, bringing facts about <a href=\"{{story_url_1}}\">campaign overspending</a> and <a href=\"{{story_url_2}}\">ERG</a> research to the public, among several other important stories."
-msgstr ""
+msgstr "Investigativní novinářka Jenna Corderoy využila možnosti skrýt své dotazy při přípravě článků týkajích se Brexitu do doby, kdy publikovala fakta o <a href=\"{{story_url_1}}\">nadměrných reklamních výdajích</a> a <a href=\"{{story_url_2}}\">ERG</a> výzkumech, mezi několika dalšími důležitými příběhy."
 
 msgid "I’m a campaigner"
 msgstr "Jsem aktivista"
@@ -517,37 +517,37 @@ msgid "I’m a researcher"
 msgstr "Jsem analytik"
 
 msgid "Join {{pro_site_name}}"
-msgstr ""
+msgstr "Připojte se ke službě {{pro_site_name}}"
 
 msgid "Journalists"
 msgstr "Novináři"
 
 msgid "Keep <strong class=\"marketing-highlight\">requests and responses private</strong> while you work on your story"
-msgstr ""
+msgstr "Ponechejte <strong class=\"marketing-highlight\">dotazy a odpovědi skryté</strong> zatímco pracujete na svém příběhu"
 
 msgid "Keep private for a further:"
 msgstr "Zachovejte zatím stále skryté."
 
 msgid "Keep private for:"
-msgstr ""
+msgstr "Zachovat skryté do:"
 
 msgid "Keep track of FOI requests"
-msgstr ""
+msgstr "Sledovat žádosti podle infozákona"
 
 msgid "Last updated"
 msgstr "Naposledy aktualizováno"
 
 msgid "Learn more about {{pro_site_name}} for campaigners"
-msgstr ""
+msgstr "Zjistěte více o {{pro_site_name}} pro aktivisty"
 
 msgid "Learn more about {{pro_site_name}} for journalists"
-msgstr ""
+msgstr "Zjistěte více o {{pro_site_name}} pro novináře"
 
 msgid "Learn more about {{pro_site_name}} for researchers"
-msgstr ""
+msgstr "Zjistěte více o {{pro_site_name}} pro analytiky"
 
 msgid "Lucie Stephens, prompted by the death of someone she cared about, requested information about asbestos in schools from more than 200 LEAs. <a href=\"{{story_url}}\">Read about her campaign</a>"
-msgstr ""
+msgstr "Lucii Stephensovou, přimělo úmrtí někoho blízkého k tomu, že požádala více než 200 úřadů LEA o informace o azbestu ve školách.  <a href=\"{{story_url}}\">Přečtěte si o její kampani</a>"
 
 msgid "Make a batch request"
 msgstr "Vzneste hromadný dotaz"
@@ -556,7 +556,7 @@ msgid "Make a request"
 msgstr "Vzneste dotaz"
 
 msgid "Make a request to multiple authorities and manage the responses."
-msgstr ""
+msgstr "Vzneste hromadný dotaz na více institucí a spravujte odpovědi"
 
 msgid "Make an {{law_used_short}} request"
 msgstr "Vzneste žádost podle zákona o svobodném přístupu k informacím "
@@ -571,34 +571,34 @@ msgid "My wall"
 msgstr "Moje nástěnka"
 
 msgid "Need a helping hand with your FOI requests?"
-msgstr ""
+msgstr "Potřebujete pomoc s vaším dotazem?"
 
 msgid "Need to keep things under wraps?"
-msgstr ""
+msgstr "Potřebujete získané informace držet pod pokličkou?"
 
 msgid "Need to keep your requests private?"
-msgstr ""
+msgstr "Potřebujete váš dotaz skrýt?"
 
 msgid "Need to protect your research?"
-msgstr ""
+msgstr "Potřebujete ochránit svůj výzkum?"
 
 msgid "Need to protect your scoop?"
-msgstr ""
+msgstr "Potřebujete ochránit svou exkluzivní investigativní kauzu?"
 
 msgid "New Pro accounts this week:"
-msgstr ""
+msgstr "Nové PRO účty v tomto týdnu:"
 
 msgid "New Pro requests this week:"
-msgstr ""
+msgstr "PRO dotazy tento týden:"
 
 msgid "New Pro subscriptions this week:"
-msgstr ""
+msgstr "Nové předplatné tento týden:"
 
 msgid "New batches made this week:"
-msgstr ""
+msgstr "Nové hromadné dotazy v tomto týdnu:"
 
 msgid "New to Professional – Batch"
-msgstr ""
+msgstr "Nové v PRO - Hromadný dotaz"
 
 msgid "Next payment"
 msgstr "Další platba"
@@ -613,34 +613,34 @@ msgid "No more authorities can be added to this batch request."
 msgstr "K tomuto hromadnému dotazu nemůže být přidána žádná další instituce"
 
 msgid "No more copy and paste emails: our Batch Request tool helps you create one request and send it to many authorities at once."
-msgstr ""
+msgstr "Nemusíte donekonečna kopírovat e-maily: naše služba Hromadný dotaz vám umožní vytvoření jednoho dotazu, který pak jednoduše rozešlete na více institucí. "
 
 msgid "No need to check: we’ll send an email alert telling you when you need to take action."
-msgstr ""
+msgstr "Není třeba nic kontrolovat: pošleme vám upozornění e-mailem, až bude třeba něco dalšího udělat. "
 
 msgid "No results found"
-msgstr ""
+msgstr "Nic nebylo nalezeno"
 
 msgid "No title"
 msgstr "Bez názvu"
 
 msgid "Not enough hours in the day?"
-msgstr ""
+msgstr "Máte málo hodin v jednom dni?"
 
 msgid "Note: When this request is made public on {{site_name}}, this message will also be made public."
 msgstr "Upozornění: Když tento dotaz uveřejníte na stránkách {{site_name}}, bude tato zpráva také uveřejněna. "
 
 msgid "Note: When this request is made public on {{site_name}}, your name and annotation will appear in <strong>search engines</strong>."
-msgstr ""
+msgstr "Upozornění: Pokud tento dotaz zveřejníte na {{site_name}}, vaše jméno a poznámky k dotazu se objeví ve  <strong>vyhledávačích</strong>."
 
 msgid "Number of Pro accounts active this week:"
-msgstr ""
+msgstr "Počet PRO účtů aktivních v tomto týdnu:"
 
 msgid "Number of discounted users:"
-msgstr ""
+msgstr "Počet uživatelů se slevou:"
 
 msgid "Number of expired embargoes this week:"
-msgstr ""
+msgstr "Počet dotazů u nichž vypršelo embargo"
 
 msgid "Number of free trial users:"
 msgstr "Počet uživatelů zkušební verze zdarma:"
@@ -649,31 +649,31 @@ msgid "Number of paying users:"
 msgstr "Počet platících uživatelů:"
 
 msgid "Once the privacy period ends, everything that you enter on this page, including <strong>your name</strong>, will be <strong><a href=\"{{url}}\">displayed publicly</a></strong> on this website."
-msgstr ""
+msgstr "Jakmile skončí období, po kterou je váš dotaz skryt, vše, co bylo napsáno k tomuto dotazu, včetně <strong>vašeho jména</strong>, bude <strong><a href=\"{{url}}\">zveřejněno</a></strong> na těchto stránkách. Vaše další osobní údaje (datum narození, adresa) jsou z odpovědí odstraněny."
 
 msgid "Once you launch your campaign, there’s every reason to put your requests and responses into the public domain. They’ll lend credence to your campaign, and make the data available for others who might want to research a different angle."
-msgstr ""
+msgstr "Existuje mnoho důvodů zveřejnit vaše dotazy a odpovědi na ně ve chvíli, když zahájíte svou veřejnou kampaň. Získáte tím větší důvěryhodnost a transparentnost a umožníte přístup k informacím dalším, kteří by chtěli problematiku uchopit jiným způsobem.  "
 
 msgid "Once your research is out there, it’s a great idea to put your requests and responses into the public domain. They’ll lend credence to your work, and make the data available for others who might want to research a different angle."
-msgstr ""
+msgstr "Jakmile bude váš výzkum publikován, je vhodné zveřejnit i své dotazy a odpovědi. Dodají vaší práci na důvěryhodnosti a zpřístupní data dalším zájemcům, kteří by chtěli problematiku zkoumat třeba z jiného úhlu. "
 
 msgid "Once your story’s been published, there’s every reason to put your requests and responses into the public domain. They’ll lend credence to your investigation, and make the data available for others who might want to research a different angle."
-msgstr ""
+msgstr "Jakmile bude váš článek publikován, je vhodné zveřejnit i své dotazy a odpovědi. Dodají vaší práci na důvěryhodnosti a zpřístupní data dalším zájemcům, kteří by chtěli problematiku zkoumat třeba z jiného úhlu. "
 
 msgid "Once you’re happy with your request, click preview and send."
 msgstr "Až budete s textem svého dotazu spokojeni, přejděte na náhled a pak jej odešlete."
 
 msgid "Once you’re ready, publishing the data behind your investigation lends it extra credibility, and opens it to a wider community."
-msgstr ""
+msgstr "Jakmile dokončíte svůj projekt, zveřejnění zjištěných dat a faktů dodá vaší práci na důvěryhodnosti a zpřístupní je širší komunitě. "
 
 msgid "Once you’re ready, publishing the data behind your investigation lends it extra credibility."
-msgstr ""
+msgstr "Až budete hotovi, zveřejnění informací a dat z vašeho projektu dodá vaší práci důvěryhodnost. "
 
 msgid "Overflowing inbox?"
 msgstr "Přetékající doručená pošta?"
 
 msgid "Payments past due:"
-msgstr ""
+msgstr "Platba po splatnosti:"
 
 msgid "Pending"
 msgstr "Čekající"
@@ -691,16 +691,16 @@ msgid "Please enter your email address"
 msgstr "Zadejte svůj e-mail"
 
 msgid "Please include links to some examples of your journalism or blogging if you can."
-msgstr ""
+msgstr "Prosím, přidejte odkazy na ukázky vaší novinářské práce, nebo třeba odkaz na váš blog."
 
 msgid "Please tell us if you want to get updates"
 msgstr "Pokud chcete dostávat aktualizace, řekněte nám"
 
 msgid "Please tell us if you're interested in training and seminars"
-msgstr ""
+msgstr "Prosím, dejte nám vědět, pokud máte zájem o školení a semináře. "
 
 msgid "Plus, all the power of {{site_name}}"
-msgstr ""
+msgstr "A navíc také všechnu sílu {{site_name}}"
 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
 msgstr "Odkažte na <strong>podobné informace</strong>, kampaně či fóra, které by mohly být užitečné."
@@ -709,13 +709,13 @@ msgid "Preview and send request"
 msgstr "Zobrazte si náhled a odešlete dotaz"
 
 msgid "Preview new batch request"
-msgstr ""
+msgstr "Náhled nového hromadného dotazu"
 
 msgid "Preview new {{law_used_short}} request to '{{public_body_name}}'"
-msgstr ""
+msgstr "Náhled nového {{law_used_short}} dotazu pro '{{public_body_name}}'"
 
 msgid "Pricing"
-msgstr ""
+msgstr "Ceník"
 
 msgid "Privacy"
 msgstr "Soukromí"
@@ -724,28 +724,28 @@ msgid "Private"
 msgstr "Soukromý"
 
 msgid "Private FOI requests"
-msgstr ""
+msgstr "Skryté dotazy podle infozákona"
 
 msgid "Private Requests"
-msgstr ""
+msgstr "Skryté dotazy"
 
 msgid "Private requests for information"
-msgstr ""
+msgstr "Skryté dotazy podle infozákona"
 
 msgid "Private until {{date}}"
-msgstr ""
+msgstr "Soukromé do {{date}}"
 
 msgid "Pro brings a new dashboard view"
-msgstr ""
+msgstr "PRO přináší přehled díky nové Nástěnce"
 
 msgid "Pro features a new request list view"
-msgstr ""
+msgstr "PRO nabízí přehled nových dotazů"
 
 msgid "Pro gives you all of the ease of {{site_name}}, without the worry of others snatching your scoop before it’s ready."
-msgstr ""
+msgstr "PRO vám umožní využívat všechny výhody {{site_name}}, ale nemusíte se obávat, že někdo využije získané informace před tím, než budou k dispozici. "
 
 msgid "Pro gives you all of the ease of {{site_name}}, without the worry of releasing all your work before you’re ready for the world to see it."
-msgstr ""
+msgstr "PRO vám umožní využívat všechny výhody {{site_name}}, bez obav z toho, že někdo využije získané informace před tím, než je vytěžíte a publikujete vy. "
 
 msgid "Professional"
 msgstr "Profesionální"
@@ -757,7 +757,7 @@ msgid "Provide extra context on the request and your reasons for making it."
 msgstr "Doplňte více informací o tomto dotazu a vysvětlete důvody, které vás vedly k jeho vznesení. "
 
 msgid "Public requests for information"
-msgstr ""
+msgstr "Veřejné dotazy podle infozákona"
 
 msgid "Publish immediately"
 msgstr "Uveřejnit okamžitě"
@@ -782,7 +782,7 @@ msgid "Ready to go public"
 msgstr "Připraveno k veřejnému publikování "
 
 msgid "Refer a friend"
-msgstr ""
+msgstr "Doporučte přítele"
 
 msgid "Remember, public authorities have {{late_number_of_days}} calendar days to respond to FOI requests."
 msgstr "Pamatujte, že instituce mají na odpověď {{late_number_of_days}} dnů. "
@@ -800,7 +800,7 @@ msgid "Replies"
 msgstr "Odpovědi"
 
 msgid "Request access to {{pro_site_name}}"
-msgstr ""
+msgstr "Požádat o přístup do {{pro_site_name}}"
 
 msgid "Request an internal review"
 msgstr "Požádejte o přezkoumání žádosti"
@@ -822,37 +822,37 @@ msgid "Requests"
 msgstr "Žádosti"
 
 msgid "Requests can stay completely private until you’re ready to go public with your story."
-msgstr ""
+msgstr "Dotazy zůstanou skryté dokud nebudete připraveni je publikovat ve svém článku. "
 
 msgid "Requests can stay completely private until you’re ready to go public."
-msgstr ""
+msgstr "Dotazy zůstanou skryty dokud nebudete připraveni je zveřejnit. "
 
 msgid "Requests can stay completely private until you’re ready to publish your research."
-msgstr ""
+msgstr "Dotazy zůstanou skryty dokud nebudete připraveni publikovat svůj výzkum. "
 
 msgid "Requests in this batch are private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
-msgstr ""
+msgstr "Dotazy v této sérii hromadných dotazů jsou skryté do <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
 
 msgid "Requests in this batch are public"
-msgstr ""
+msgstr "Tyto hromadné dotazy byly zveřejněny "
 
 msgid "Requests in this batch will be private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
-msgstr ""
+msgstr "Dotazy v této sérii hromadných dotazů budou skryté do <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
 
 msgid "Requests that will be made public soon"
 msgstr "Žádosti, které budou brzy zveřejněny"
 
 msgid "Researchers"
-msgstr ""
+msgstr "Analytici"
 
 msgid "Response due"
-msgstr ""
+msgstr "Termín odpovědi na dotaz"
 
 msgid "Save draft"
 msgstr "Uložit koncept"
 
 msgid "Save time managing FOI requests"
-msgstr ""
+msgstr "Ušetřete čas při vznášení dotazů podle infozákona"
 
 msgid "Search"
 msgstr "Hledat"
@@ -870,10 +870,10 @@ msgid "Searching for <strong>{{search_term}}</strong> in <strong>{{filter_descri
 msgstr "Hledat <strong>{{search_term}}</strong> v <strong>{{filter_description}}</strong> seřazeno podle <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">vymazat</a>"
 
 msgid "Searching for the right email address for every FOI contact?"
-msgstr ""
+msgstr "Hledáte správnou e-mailovou adresu pro vznesení dotazu na každou instituci?"
 
 msgid "Selected plan"
-msgstr ""
+msgstr "Vybraný cenový program"
 
 msgid "Send a follow up"
 msgstr "Pošlete odpověď"
@@ -902,11 +902,13 @@ msgstr "Vznést dotaz"
 
 msgid "Send {{count}} requests"
 msgid_plural "Send {{count}} requests"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Pošli {{count}} dotaz"
+msgstr[1] "Pošli {{count}} dotazy"
+msgstr[2] "Pošli {{count}} dotazů"
+msgstr[3] "Pošli {{count}} dotazů"
 
 msgid "Sending to multiple authorities at once?"
-msgstr ""
+msgstr "Pošli více institucím najednou?"
 
 msgid "Sending..."
 msgstr "Odesílá se..."
@@ -918,18 +920,20 @@ msgid "Settings"
 msgstr "Nastavení"
 
 msgid "Share the code {{discount_code}} with a friend to give them {{discount_terms}} on signup."
-msgstr ""
+msgstr "Sdílejte tento kód {{discount_code}} s přáteli či kolegy, budou moci při registraci využít {{discount_terms}}. "
 
 msgid "Show {{count}} request in detail</span>"
 msgid_plural "Show {{count}} requests in detail</span>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ukázat detail {{count}} žádosti</span>"
+msgstr[1] "Ukázat detail {{count}} žádostí</span>"
+msgstr[2] "Ukázat detail {{count}} žádostí</span>"
+msgstr[3] "Ukazát detail {{count}} žádosti</span>"
 
 msgid "Sign up"
-msgstr ""
+msgstr "Přihlaste se"
 
 msgid "Simple, affordable pricing"
-msgstr ""
+msgstr "Jednoduché a dostupné ceny"
 
 msgid "Sorry, no authorities matched that search"
 msgstr "Je nám líto, žádné instituce neodpovídají těmto parametrům,"
@@ -941,7 +945,7 @@ msgid "Sorry, something went wrong publishing your request, please try again."
 msgstr "Je nám líto, něco se stalo při uveřejňování vaší žádosti, prosím zkuste to znovu."
 
 msgid "Sorry, something went wrong publishing your requests, please try again."
-msgstr ""
+msgstr "Pardon, něco nevyšlo při publikování vašeho dotazu, prosím, zkuste to znovu. "
 
 msgid "Sorry, something went wrong updating your batch request, please try again."
 msgstr "Je nám líto, něco se stalo při úpravě vašeho hromadného dotazu, prosím zkuste to znovu."
@@ -950,7 +954,7 @@ msgid "Sorry, something went wrong updating your request's privacy settings, ple
 msgstr "Je nám líto, něco se stalo při úpravě přístupu k vašim žádostem, prosím zkuste to znovu."
 
 msgid "Sorry, something went wrong updating your requests' privacy settings, please try again."
-msgstr ""
+msgstr "Pardon, něco nevyšlo při úpravě nastavení soukromí publikace vašeho dotazu, prosím, zkuste to znovu. "
 
 msgid "Sort by"
 msgstr "Uspořádejte podle"
@@ -971,42 +975,44 @@ msgid "Submit Search"
 msgstr "Hledat"
 
 msgid "Subscribe"
-msgstr ""
+msgstr "Předplatit"
 
 msgid "Subscription began"
-msgstr ""
+msgstr "Předplatné bylo zahájeno "
 
 msgid "Subscription cancellations are applied at the end of the current billing period (<strong>{{date}}</strong>)."
-msgstr ""
+msgstr "Předplatné lze zrušit na konci fakturačního období, tedy (<strong>{{date}}</strong>)."
 
 msgid "Subscription ends"
-msgstr ""
+msgstr "Předplatné skončilo"
 
 msgid "Terms and conditions"
-msgstr ""
+msgstr "Pravidla a podmínky"
 
 msgid "Thank you for your interest in {{pro_site_name}}."
-msgstr ""
+msgstr "Děkujeme za váš zájem o {{pro_site_name}}."
 
 msgid "Thanks for logging in. We've saved your request as a draft, in case you wanted to add an embargo before sending it. You can set that (or just send it straight away) using the form below."
 msgstr "Děkujeme, že jste se přihlásili. Uložili jsme váš dotaz jako koncept pro případ, že jej budete chtít skrýt před ostatními do té doby, než bude odeslán. Úpravu možností uveřejnění či skrytí dotazu můžete provést ve formuláři pod tímto textem. "
 
 msgid "Thanks for your interest in {{pro_site_name}}, we'll get back to you soon!"
-msgstr ""
+msgstr "Děkujeme za váš zájem o {{pro_site_name}}, brzy se ozveme!"
 
 msgid "The Bureau of investigative Journalism used Pro to send requests to councils up and down the county, and build a nationwide picture of the public properties being sold off by councils in the face of austerity."
-msgstr ""
+msgstr "Organizace Bureau of Investigative Journalism (UK) využila službu PRO k rozeslání dotazů na jednotlivá zastupitelstva v okresech a z poskytnutých informací vytvořila celostátní přehled o veřejném majetku, který radnice prodávají v rámci úsporných opatření."
 
 msgid "The Wales Governance Centre sent FOI requests through Pro to discover the prison populations across Wales and England for their report ‘<a href=\"{{story_url}}\">Sentencing and Imprisonment in Wales</a>’."
-msgstr ""
+msgstr "Centrum pro správu Walesu (Wales Governance Centre) zaslalo prostřednictvím služby PRO dotazy, kterými zjistilo počty vězňů ve Walesu a Anglii pro svou zprávu <a href=\"{{story_url}}\">Odsouzení a uvěznění ve Walesu</a>’."
 
 msgid "The Wales Governance Centre sent FOI requests through Pro to discover the prison populations across Wales and England for their report ‘Sentencing and Imprisonment in Wales’."
-msgstr ""
+msgstr "Centrum pro správu Walesu (Wales Governance Centre) zaslalo prostřednictvím služby PRO dotazy, kterými zjistilo počty vězňů ve Walesu a Anglii pro svou zprávu \"Odsouzení a uvěznění ve Walesu\"."
 
 msgid "The following request has been made public on {{site_name}} this week."
 msgid_plural "The following requests have been made public on {{site_name}} this week."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Následující dotaz byl tento týden zveřejněn na {{site_name}}"
+msgstr[1] "Následující dotazy byly tento týden zveřejněny na {{site_name}}"
+msgstr[2] "Následující dotazy byly tento týden zveřejněny na {{site_name}}"
+msgstr[3] "Následující dotazy byly tento týden zveřejněny na {{site_name}}"
 
 msgid "The following request will be made public on {{site_name}} in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer."
 msgid_plural "The following requests will be made public on {{site_name}} in the next week. If you do not wish for any of these requests to go public, please click on the links below to extend them."
@@ -1016,31 +1022,31 @@ msgstr[2] "Následující dotazy budou příští týden zveřejněny na stránk
 msgstr[3] "Následující dotazy budou příští týden zveřejněny na stránkách {{site_name}}. Pokud si jejich zveřejnění nepřejete, prosím prodlužte jejich skrytí pomocí níže uvedených odkazů."
 
 msgid "The ‘Data Scores as Governance’ project used Pro to help examine the <a href=\"{{story_url}}\">use of data-driven scores in categorising citizens</a>, allocating services, and predicting behaviour."
-msgstr ""
+msgstr "Projekt ‘Data Scores as Governance’ využil službu PRO k získání dat pro analýzu, která <a href=\"{{story_url}}\">využila data ke kategorizaci občanů</a>, u kterých se tak lépe předpovídalo chování a přidělovaly se relevantní služby. "
 
 msgid "Then you can access {{pro_site_name}}"
 msgstr "Pak se můžete přihlásit na {{pro_site_name}}"
 
 msgid "Then you can activate your {{site_name}} account"
-msgstr ""
+msgstr "Poté si můžete aktivovat účet na {{site_name}} "
 
 msgid "Then you can update your payment details"
-msgstr ""
+msgstr "Poté můžete aktualizovat své platební údaje"
 
 msgid "Then you can upgrade your account"
-msgstr ""
+msgstr "Pak můžete aktualizovat svůj účet"
 
 msgid "There was a problem authorising your payment. You have not been charged. Please try again."
-msgstr ""
+msgstr "Při autorizaci vaší platby se vyskytl problém. Nebyla vám účtována žádná částka. Prosím, zkuste to znovu. "
 
 msgid "There was a problem cancelling your account. Please try again later."
-msgstr ""
+msgstr "Vyskytl se problém při rušení vašeho účtu. Prosím, zkuste to později. "
 
 msgid "There was a problem submitting your payment. You have not been charged. Please try again later."
-msgstr ""
+msgstr "Při odesílání platby došlo k potížím. Nebyla vám účtována žádná částka. Prosím, zkuste to znovu. "
 
 msgid "There was a problem updating your payment details. Please try again later."
-msgstr ""
+msgstr "Při aktualizaci vašich platebních údajů se vyskytl problém. Prosím, zkuste to později. "
 
 msgid "There's nothing to do right now. Great job!"
 msgstr "Vše je hotovo. Dobrá práce!"
@@ -1052,31 +1058,31 @@ msgid "This page is only accessible to {{pro_site_name}} users"
 msgstr "Tato stránka je dostupná pouze pro uživatele stránek {{pro_site_name}} "
 
 msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
-msgstr ""
+msgstr "Tento dotaz je součástí série <a href=\"{{url}}\"> hromadných dotazů pro {{count}} instituci</a>"
 
 msgid "This request is private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
-msgstr ""
+msgstr "Tento dotaz je skrytý do <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
 
 msgid "This request is public"
 msgstr "Tato žádost je zveřejněna"
 
 msgid "This request will be private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
-msgstr ""
+msgstr "Tento dotaz bude skryt do <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
 
 msgid "This will publish all of the requests in this batch. Are you sure?"
 msgstr "Tím se v této dávce zveřejní všechny požadavky. Jste si jist?"
 
 msgid "This will update the privacy for all of the requests in this batch. Are you sure?"
-msgstr ""
+msgstr "Tato akce změní podmínky publikace pro všechny dotazy, které jsou součástí tohoto hromadného dotazu. Je to v pořádku?"
 
 msgid "Time is precious in newsrooms, so your dashboard just presents the information you need to know: which requests have received responses; which haven’t and need chasing up; and which require input from you. Search, filter or sort by status to quickly find the request you’re looking for."
-msgstr ""
+msgstr "Čas je v redakcích drahý, proto jsou na nástěnce k dispozici pouze informace, které potřebujete vědět: na které požadavky jste již odpověděli, na které ne a je třeba je vyřešit a které vyžadují váš vstup. Vyhledávejte, filtrujte nebo tříďte podle stavu, abyste rychle našli hledaný dotaz. "
 
 msgid "Time is precious, so your dashboard just presents the information you need to know: which requests have received responses; which haven’t and need chasing up; and which require input from you. Search, filter or sort by status to quickly find the request you’re looking for."
-msgstr ""
+msgstr "Čas je drahý, proto jsou na nástěnce k dispozici pouze informace, které potřebujete vědět: na které dotazy již máte odpovědi, na které ne a které vyžadují váš vstup. Vyhledávejte, filtrujte nebo tříďte podle stavu, abyste rychle našli hledaný dotaz."
 
 msgid "Tired of the fiddly details that add time to your investigation?"
-msgstr ""
+msgstr "Už vás nebaví komplikované detaily, které vás připravují o čas při práci na projektu?"
 
 msgid "Title (A-Z)"
 msgstr "Název (A-Z)"
@@ -1088,37 +1094,37 @@ msgid "To access {{pro_site_name}}"
 msgstr "Přístup k {{pro_site_name}}"
 
 msgid "To signup to {{site_name}}"
-msgstr ""
+msgstr "Pokud se chcete zaregistrovat do {{site_name}}"
 
 msgid "To update your payment details"
-msgstr ""
+msgstr "Chcete-li aktualizovat své platební údaje"
 
 msgid "To upgrade your account"
-msgstr ""
+msgstr "Chcete-li upgradovat svůj účet"
 
 msgid "Total number of Pro accounts:"
-msgstr ""
+msgstr "Celkový počet PRO účtů:"
 
 msgid "Uncovering which UK councils are paying exorbitant LOBO loans"
-msgstr ""
+msgstr "Odhalení zastupitelstev v UK, která platí přemrštěné LOBO půjčky"
 
 msgid "Unless you choose a privacy option, requests in this batch will be public on {{site_name}} immediately."
-msgstr ""
+msgstr "Pokud své dotazy neskryjete, bude celá série těchto hromadných dotazů již teď zveřejněna na {{site_name}}. "
 
 msgid "Unless you choose a privacy option, your request will be public on {{site_name}} immediately."
 msgstr "Pokud nevyužijete možnosti svůj dotaz skrýt, bude nyní publikován na stránkách {{site_name}}."
 
 msgid "Until that date you will continue to have full access to {{pro_site_name}}."
-msgstr ""
+msgstr "Do tohoto data budete mít i nadále plný přístup k {{pro_site_name}}."
 
 msgid "Up-to-date database of <strong class=\"marketing-highlight\">contact details</strong> for {{authority_count}} authorities"
-msgstr ""
+msgstr "Aktualizovaná databáze <strong class=\"marketing-highlight\">kontaktních údaj§</strong> {{authority_count}} institucí"
 
 msgid "Update"
 msgstr "Aktualizovat"
 
 msgid "Update Card Details"
-msgstr ""
+msgstr "Aktualizujte údaje o platební kartě"
 
 msgid "Update its status."
 msgid_plural "Update statuses."
@@ -1131,13 +1137,13 @@ msgid "Updated"
 msgstr "Aktualizováno"
 
 msgid "Updating your payment card requires your browser to have JavaScript enabled."
-msgstr ""
+msgstr "Aktualizace platební karty vyžaduje, aby váš prohlížeč měl povolený JavaScript. "
 
 msgid "Upgrade account"
-msgstr ""
+msgstr "Vyšší verze účtu"
 
 msgid "Using Pro to build a nationwide picture of the public properties being sold off by councils"
-msgstr ""
+msgstr "Využití služby PRO k vytvoření celostátního přehledu o veřejném majetku prodávaném zastupitelstvy."
 
 msgid "View"
 msgstr "Zobrazit"
@@ -1149,49 +1155,49 @@ msgid "Wall"
 msgstr "Zeď"
 
 msgid "Want to add weight to your campaign?"
-msgstr ""
+msgstr "Chcete své kampani přidat na důležitosti?"
 
 msgid "Want to add weight to your research?"
-msgstr ""
+msgstr "Chcete vašemu výzkumu dodat na důležitosti?"
 
 msgid "Want to add weight to your story?"
-msgstr ""
+msgstr "Chcete vašemu příběhu dodat na důležitosti?"
 
 msgid "Want to add weight to your work?"
-msgstr ""
+msgstr "Chcete své práci dodat na důležitosti?"
 
 msgid "We are processing your payment. You can access your subscription settings and account information from the \"My subscription\" link in your user menu (accessed from the dropdown next to your name, above)."
-msgstr ""
+msgstr "Zpracováváme vaši platbu. Další možnosti nastavení předplatného a informace o účtu najdete v odkazu „Moje předplatné“ v uživatelské nabídce (přístup z rozevírací nabídky vedle vašeho jména výše)."
 
 msgid "We will remind you by email and on the site when the request is going be made public, and you'll have the option to keep it private for longer if you want to. You can extend this time indefinitely, or make the request public at any time."
 msgstr "Připomeneme vám e-mailem a na těchto stránkách, až vyprší doba, po kterou je dotaz skrytý. Pokud to bude potřeba, lze skrytí prodloužit. Můžete dotazy skrýt navždy, nebo je kdykoliv uveřejnit. "
 
 msgid "Weekly Pro Metrics report for {{start_date}} - {{end_date}}"
-msgstr ""
+msgstr "Týdenní PRO Metrics report pro  {{start_date}} - {{end_date}}"
 
 msgid "Welcome to {{pro_site_name}}!"
-msgstr ""
+msgstr "Vítejte v {{pro_site_name}}!"
 
 msgid "We’ll attempt to bill your card again over the coming days."
-msgstr ""
+msgstr "V nadcházejících dnech se pokusíme platbu z vaší karty znovu strhnout. "
 
 msgid "We’ve tried to bill your card but the charge was unsuccessful."
-msgstr ""
+msgstr "Zkusili jsme strhnout peníze z vaší karty, ale nepodařilo se to. "
 
 msgid "When a request is private we guarantee that it will only be visible on {{site_name}} for the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
 msgstr "Zaručujeme vám, že žádost bude na stránkách {{site_name}} skryta po dobou, kterou si určíte. {{pro_site_name}} administrátoři vaši žádost také vidí, ale podívají se na ni pouze v případě, že se stalo něco, co si vyžádá jejich pozornost (např. vaše žádost nebyla doručena). Obsah vaší žádosti a s ním spojenou komunikaci nebudou sdílet s nikým dalším. Instituce, na kterou jste dotaz vznesl/a však může tuto komunikaci zveřejnit svým obvyklým způsobem. "
 
 msgid "When the current billing period ends:"
-msgstr ""
+msgstr "Konec aktuálního fakturovacího období:"
 
 msgid "When you cancel your account:"
-msgstr ""
+msgstr "Když zrušíte svůj účet:"
 
 msgid "When your request is made public on {{site_name}}, any annotations you add will also be public. However, they are <strong>not</strong> sent to {{public_body_name}}."
 msgstr "Až bude vaše žádost zveřejněna na {{site_name}}, budou veřejné i vaše poznámky k této žádosti. Nebudou však <strong>v žádném případě</strong> odeslány {{public_body_name}}."
 
 msgid "Why do you want access?"
-msgstr ""
+msgstr "Proč chcete přístup?"
 
 msgid "Write a reply"
 msgstr "Napište odpověď"
@@ -1206,25 +1212,25 @@ msgid "You added a new annotation on your request to {{public_body_name}} \"{{in
 msgstr "Byla přidána nová poznámka k vašemu dotazu vznesenému na {{public_body_name}} \"{{info_request_title}}.\" "
 
 msgid "You are already subscribed to this plan"
-msgstr ""
+msgstr "Za těchto podmínek jste již přihlášeni. "
 
 msgid "You can choose to keep your requests private for up to a year, not visible to anyone but you. We’ll make sure you know when that time’s about to run out, and you can always extend it further if your campaign’s not live yet."
-msgstr ""
+msgstr "Můžete se rozhodnout ponechat své dotazy skryté až jeden rok. Budou tak viditelné jen pro vás. Až tato doba vyprší, dáme vám vědět. Vždy je možné tuto dobu prodloužit, pokud vaše pátrání ještě neskončilo a kampaň ještě nebyla spuštěna. "
 
 msgid "You can choose to keep your requests private on the site for up to a year, not visible to anyone but you. We’ll make sure you know when that time’s about to run out, and you can always extend it further if your research hasn’t been published yet."
-msgstr ""
+msgstr "Můžete se rozhodnout ponechat své dotazy skryté až jeden rok. Budou tak viditelné jen pro vás. Až tato doba vyprší, dáme vám vědět. Vždy je možné tuto dobu prodloužit, pokud vaše pátrání ještě neskončilo. "
 
 msgid "You can choose to keep your requests private on the site for up to a year, not visible to anyone but you. We’ll make sure you know when that time’s about to run out, and you can always extend it further if your story’s not published yet."
-msgstr ""
+msgstr "Můžete se rozhodnout ponechat své dotazy skryté až jeden rok. Budou tak viditelné jen pro vás. Až tato doba vyprší, dáme vám vědět. Vždy je možné tuto dobu prodloužit, pokud vaše články ještě nebyly publikovány. "
 
 msgid "You can re-subscribe at any time and full access to these features will be restored."
-msgstr ""
+msgstr "Kdykoli se můžete znovu přihlásit k odběru a plný přístup k těmto funkcím opět obnoví."
 
 msgid "You don't currently have a Pro subscription"
-msgstr ""
+msgstr "Předplatné PRO bohužel teď nemáte"
 
 msgid "You have successfully cancelled your subscription to {{pro_site_name}}"
-msgstr ""
+msgstr "Své předplatné {{pro_site_name}} jste úspěšně zrušil/a."
 
 msgid "You haven't added any authorities to your batch yet"
 msgstr "Zatím jste nepřidali žádné instituce do svého hromadného dotazu"
@@ -1245,16 +1251,16 @@ msgid "You sent an internal review request to {{public_body_name}} for \"{{info_
 msgstr "Žádost o přehodnocení odpovědi {{public_body_name}} týkající se \"{{info_request_title}}\" byla odeslána."
 
 msgid "You will be able to extend this privacy period from {{embargo_extend_from}}."
-msgstr ""
+msgstr "Dobu skrytí dotazu bude možné prodloužit od {{embargo_extend_from}}."
 
 msgid "You will still be able to see any requests which are currently private, but you won't be able to make new private requests or extend privacy durations. These requests will be published when the current privacy period ends."
-msgstr ""
+msgstr "Uvidíte všechny stávající skryté dotazy, ale nebudete moci vznést nové skryté dotazy,  nebo prodloužit dobu skrytí u těch stávajících. Tyto dotazy budou publikovány poté, co vyprší původní období soukromí. "
 
 msgid "You won't be able to access {{pro_site_name}} tools, including the dashboard and pro request management."
-msgstr ""
+msgstr "Nebudete mít přístup k nástrojům {{pro_site_name}}, včetně nástěnky a pokročilé správy korespondence týkající se dotazů. "
 
 msgid "You'll lose access to any requests you still have in draft."
-msgstr ""
+msgstr "Ztratíte přístup ke všem konceptům dotazů, které jste si uložili jako návrh. "
 
 msgid "Your Batch Request has been saved!"
 msgstr "Váš hromadný dotaz byl uložen!"
@@ -1263,7 +1269,7 @@ msgid "Your clarification to {{public_body_name}} for \"{{info_request_title}}\"
 msgstr "Upřesnění pro {{public_body_name}} týkající se \"{{info_request_title}}\" bylo znovu odesláno."
 
 msgid "Your current subscription"
-msgstr ""
+msgstr "Vaše aktuální předplatné"
 
 msgid "Your dashboard"
 msgstr "Vaše nástěnka"
@@ -1281,10 +1287,10 @@ msgid "Your message will be displayed publicly on this website once you publish 
 msgstr "Až bude váš dotaz publikován, bude vaše zpráva bude na těchto veřejně dostupná. "
 
 msgid "Your payment details"
-msgstr ""
+msgstr "Vaše platební údaje"
 
 msgid "Your payment details have been updated"
-msgstr ""
+msgstr "Vaše platební detaily byly aktualizovány"
 
 msgid "Your request"
 msgstr "Váš dotaz"
@@ -1308,31 +1314,31 @@ msgid "Your request will now be private on {{site_name}} until {{expiry_date}}."
 msgstr "Váš dotaz je na stránkách {{site_name}} skrytý do {{expiry_date}}."
 
 msgid "Your request will now be private until {{expiry_date}}."
-msgstr ""
+msgstr "Váš dotaz zůstane skrytý do {{expiry_date}}."
 
 msgid "Your requests are now public!"
-msgstr ""
+msgstr "Vaše dotazy jsou nyní zveřejněny!"
 
 msgid "Your requests will now be private until {{expiry_date}}."
-msgstr ""
+msgstr "Vaše dotazy budou skryty do {{expiry_date}}."
 
 msgid "Your subscription has been cancelled, your access to {{pro_site_name}} will end on <strong>{{date}}</strong>."
-msgstr ""
+msgstr "Vaše předplatné bylo zrušeno, váš přístup do {{pro_site_name}} končí<strong>{{date}}</strong>."
 
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr "Vaše doporučení co by <strong>administrátoři</strong> stránek {{site_name}} měli udělat s tímto dotazem."
 
 msgid "You’ll have access to our address book of {{authority_count}} authorities that are subject to FOI."
-msgstr ""
+msgstr "Budete mít přístup do adresáře {{authority_count}} institucí, které podléhají zákonu o svobodném přístupu k informacím. "
 
 msgid "You’re busy fixing the world. Let us take care of your FOI requests."
-msgstr ""
+msgstr "Jste zaneprázdněni vylepšováním světa. Nechte nás, abychom se postarali o vaše dotazy podle infozákona. "
 
 msgid "You’ve got plenty of other things to think about, so you don’t want to be checking up on every single one of your requests to see if it needs attention. Instead, Pro keeps an eye on them for you, sending you a daily email digest."
-msgstr ""
+msgstr "Máte spoustu důležitějších úkolů, než je administrativa spojená s kontrolou dotazů vznesených podle infozákona. PRO vám s administrativou pomůže a pošle vám denní shrnutí o vývoji. "
 
 msgid "ZIP"
-msgstr ""
+msgstr "ZIP"
 
 msgid "all requests"
 msgstr "všechny žádosti"
@@ -1350,13 +1356,13 @@ msgid "last updated"
 msgstr "naposledy aktualizováno"
 
 msgid "or start a batch request"
-msgstr ""
+msgstr "nebo začněte hromadný dotaz"
 
 msgid "requests that will be made public soon"
 msgstr "žádosti, které budou brzy zveřejněny"
 
 msgid "the {{pro_site_name}} team"
-msgstr ""
+msgstr "the {{pro_site_name}} tým"
 
 msgid "the {{site_name}} team"
 msgstr "tým stránek {{site_name}}"
@@ -1372,18 +1378,24 @@ msgstr "{{count}} probíhá"
 
 msgid "{{count}} recipient, <a href=\"{{url}}\">show</a>"
 msgid_plural "{{count}} recipients, <a href=\"{{url}}\">show all</a>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}} příjemce, <a href=\"{{url}}\">prohlédnout</a>"
+msgstr[1] "{{count}} příjemci, <a href=\"{{url}}\">prohlédnout</a>"
+msgstr[2] "{{count}} příjemců, <a href=\"{{url}}\">prohlédnout</a>"
+msgstr[3] "{{count}} příjemců <a href=\"{{url}}\">prohlédnout</a>"
 
 msgid "{{count}} recipient, {{first_public_body}}"
 msgid_plural "{{count}} recipients, including {{first_public_body}} and {{second_public_body}}"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}} příjemce {{first_public_body}} "
+msgstr[1] "{{count}} příjemci, včetně {{first_public_body}} a {{second_public_body}}"
+msgstr[2] "{{count}} příjemců, včetně {{first_public_body}} a {{second_public_body}}"
+msgstr[3] "{{count}} příjemců, včetně {{first_public_body}} a {{second_public_body}}"
 
 msgid "{{count}} reply"
 msgid_plural "{{count}} replies"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}} odpověď"
+msgstr[1] "{{count}} odpovědi"
+msgstr[2] "{{count}} odpovědí"
+msgstr[3] "{{count}} odpovědí"
 
 msgid "{{count}} request has received a response."
 msgid_plural "{{count}} requests have received a response."
@@ -1430,28 +1442,28 @@ msgid "{{length_of_time}} ago"
 msgstr "před {{length_of_time}} "
 
 msgid "{{pro_site_name}} does all the heavy lifting, leaving you with more time to focus on your campaigning."
-msgstr ""
+msgstr "{{pro_site_name}} za vás udělá všechnu těžkou práci a vy se tak můžete lépe soustředit na svůj projekt. "
 
 msgid "{{pro_site_name}} does all the heavy lifting, leaving you with more time to focus on your investigation."
-msgstr ""
+msgstr "{{pro_site_name}} za vás udělá všechnu těžkou práci a vy se tak můžete lépe soustředit na svůj projekt. "
 
 msgid "{{pro_site_name}} does all the heavy lifting, leaving you with more time to focus on your research."
-msgstr ""
+msgstr "{{pro_site_name}} za vás udělá všechnu těžkou práci a vy se tak můžete lépe soustředit na svůj projekt. "
 
 msgid "{{pro_site_name}} does all the heavy lifting, leaving you with more time to focus on your story."
-msgstr ""
+msgstr "{{pro_site_name}} za vás udělá všechnu těžkou práci a vy se tak můžete lépe soustředit na svůj projekt. "
 
 msgid "{{pro_site_name}} does the hard work for you"
-msgstr ""
+msgstr "{{pro_site_name}} udělá těžkou práci za vás"
 
 msgid "{{pro_site_name}} is a powerful, fully-featured <strong class=\"marketing-highlight\">FOI toolkit</strong> for journalists, campaigners and researchers"
-msgstr ""
+msgstr "{{pro_site_name}} je užitečný, plně vybavený <strong class=\"marketing-highlight\">soubor nástrojů pro vznášení dotazů podle infozákona</strong> pro novináře, aktivisty a analytiky"
 
 msgid "{{pro_site_name}} is here to help"
-msgstr ""
+msgstr "{{pro_site_name}} je tu proto, aby vám pomohl"
 
 msgid "{{pro_site_name}} moves request handling out of your email and onto a dedicated dashboard, keeping everything organised."
-msgstr ""
+msgstr "{{pro_site_name}} přesune administrativu spojenou s využitím infozákona z vaší e-mailové schránky na Nástěnku, ve které je vše přehledně uspořádáno. "
 
 msgid "{{public_body_name}} are delayed in responding to your request \"{{info_request_title}}\"."
 msgstr "{{public_body_name}} má zpoždění s odpovědí na váš dotaz \"{{info_request_title}}\"."
