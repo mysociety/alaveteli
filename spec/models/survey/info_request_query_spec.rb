@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 RSpec.describe Survey::InfoRequestQuery do
-  let(:old) { 2.weeks.ago - 1.day }
-  let(:current) { 2.weeks.ago }
-  let(:new) { 2.weeks.ago + 1.day }
+  let(:old) { 1.month.ago - 1.day }
+  let(:current) { 1.month.ago }
+  let(:new) { 1.month.ago + 1.day }
 
   let!(:old_request) do
     FactoryBot.create(:info_request, created_at: old)

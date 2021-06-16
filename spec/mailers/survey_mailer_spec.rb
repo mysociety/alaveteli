@@ -16,7 +16,7 @@ RSpec.describe SurveyMailer do
                      else
                        FactoryBot.create(:info_request)
                      end
-      info_request.created_at = Time.now - (2.weeks + 1.hour)
+      info_request.created_at = 1.month.ago
       info_request.save!
       info_request
     end
