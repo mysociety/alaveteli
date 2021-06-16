@@ -17,6 +17,15 @@ RSpec.describe Survey::InfoRequestQuery do
     FactoryBot.create(:info_request, created_at: new)
   end
 
+  let!(:backpaged_request) do
+    FactoryBot.create(:info_request, created_at: current,
+                                     prominence: 'backpage')
+  end
+
+  let!(:hidden_request) do
+    FactoryBot.create(:info_request, created_at: current, prominence: 'hidden')
+  end
+
   let!(:embargoed_request) do
     FactoryBot.create(:embargoed_request, created_at: current)
   end
@@ -44,6 +53,11 @@ RSpec.describe Survey::InfoRequestQuery do
       is_expected.not_to include(old_request)
       is_expected.to include(normal_request)
       is_expected.not_to include(new_request)
+    end
+
+    it 'does not returns requests with backpaged or hidden prominence' do
+      is_expected.not_to include(backpaged_request)
+      is_expected.not_to include(hidden_request)
     end
 
     it 'returns embargoed requests' do

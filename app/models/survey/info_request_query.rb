@@ -12,7 +12,7 @@ class Survey
       # merged and released
       @relation.from(
         InfoRequest.internal.
-          where(created_at: Survey.date_range).
+          where(prominence: 'normal', created_at: Survey.date_range).
           order(:user_id, :created_at).
           arel.distinct_on(@relation.arel_table[:user_id]).as('info_requests')
       )
