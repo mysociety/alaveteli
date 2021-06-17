@@ -1,3 +1,16 @@
+# == Schema Information
+# Schema version: 20210114161442
+#
+# Table name: outgoing_message_snippets
+#
+#  id                          :bigint           not null, primary key
+#  created_at                  :datetime         not null
+#  updated_at                  :datetime         not null
+#  outgoing_message_snippet_id :integer          not null
+#  name                        :string
+#  body                        :text
+#
+
 FactoryBot.define do
   factory :outgoing_message_snippet, class: 'OutgoingMessage::Snippet' do
     tag_string { 'exemption:s_12' }

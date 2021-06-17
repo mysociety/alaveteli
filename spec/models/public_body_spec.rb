@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: public_bodies
 #
@@ -11,13 +12,22 @@
 #  updated_at                             :datetime         not null
 #  home_page                              :text
 #  api_key                                :string           not null
-#  info_requests_count                    :integer          default(0), not null
+#  info_requests_count                    :integer          default("0"), not null
 #  disclosure_log                         :text
 #  info_requests_successful_count         :integer
 #  info_requests_not_held_count           :integer
 #  info_requests_overdue_count            :integer
 #  info_requests_visible_classified_count :integer
-#  info_requests_visible_count            :integer          default(0), not null
+#  info_requests_visible_count            :integer          default("0"), not null
+#  public_body_id                         :integer          not null
+#  name                                   :text
+#  short_name                             :text
+#  request_email                          :text
+#  url_name                               :text
+#  notes                                  :text
+#  first_letter                           :string
+#  publication_scheme                     :text
+#  disclosure_log                         :text
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')

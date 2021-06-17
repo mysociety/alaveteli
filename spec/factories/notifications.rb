@@ -1,17 +1,18 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: notifications
 #
 #  id                    :integer          not null, primary key
 #  info_request_event_id :integer          not null
 #  user_id               :integer          not null
-#  frequency             :integer          default("instantly"), not null
+#  frequency             :integer          default("0"), not null
 #  seen_at               :datetime
 #  send_after            :datetime         not null
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
-#  expired               :boolean          default(FALSE)
+#  expired               :boolean          default("false")
 #
 
 FactoryBot.define do

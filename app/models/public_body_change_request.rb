@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: public_body_change_requests
 #
@@ -12,7 +13,7 @@
 #  public_body_email :string
 #  source_url        :text
 #  notes             :text
-#  is_open           :boolean          default(TRUE), not null
+#  is_open           :boolean          default("true"), not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
