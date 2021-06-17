@@ -1,9 +1,0 @@
-#!/bin/bash
-#
-# annotates the models in app/ with schema information
-
-bundle exec annotate \
-  --show-migration \
-  --position before \
-  --models \
-  --exclude tests,fixtures
