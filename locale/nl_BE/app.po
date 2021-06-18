@@ -25,7 +25,7 @@
 # Translators:
 # Translators:
 # Christophe Van Gheluwe <info@vg-webdesign.be>, 2017
-# claude transparencia <audit.citoyen.quartier@gmail.com>, 2017-2018
+# claude transparencia <audit.citoyen.quartier@gmail.com>, 2017-2018,2021
 # Edwin Bosveld <edwin@inwy.nl>, 2013,2016
 # Gareth Rees <gareth@mysociety.org>, 2017-2018
 # Infwolf <infwolf@gmail.com>, 2014
@@ -37,8 +37,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-16 10:35+0100\n"
-"PO-Revision-Date: 2020-10-16 11:44+0000\n"
-"Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
+"PO-Revision-Date: 2021-06-15 01:50+0000\n"
+"Last-Translator: claude transparencia <audit.citoyen.quartier@gmail.com>\n"
 "Language-Team: Dutch (Belgium) (http://www.transifex.com/mysociety/alaveteli/l"
 "anguage/nl_BE/)\n"
 "MIME-Version: 1.0\n"
@@ -167,10 +167,10 @@ msgid "12 characters minimum. 72 characters maximum."
 msgstr ""
 
 msgid "5 minutes+"
-msgstr ""
+msgstr "5 minuten"
 
 msgid "60 minutes+"
-msgstr ""
+msgstr "60 minuten"
 
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
 msgstr "<a href=\"{{browse_url}}\">Bekijk alle instellingen</a> of <a href=\"{{add_url}}\">vraag ons er één toe te voegen</a>."

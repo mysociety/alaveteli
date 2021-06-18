@@ -34,7 +34,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-16 10:35+0100\n"
-"PO-Revision-Date: 2021-06-08 16:10+0000\n"
+"PO-Revision-Date: 2021-06-11 16:40+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Greek (http://www.transifex.com/mysociety/alaveteli/language/el"
 "/)\n"
@@ -1024,7 +1024,7 @@ msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word y
 msgstr "Εξερευνήστε<a href='{{url}}'> άλλα αιτήματα </a> ως παράδειγμα του πώς να εκφράσετε το αίτημά σας."
 
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
-msgstr "Εξερευνήστε <a href='{{url}}'> άλλα αιτήματα </a> στο '{{δημόσιο_όνομα}}' ως παράδειγμα του πως να εκφράσετε το αίτημά σας."
+msgstr "Εξερευνήστε <a href='{{url}}'> άλλα αιτήματα </a> στο '{{public_body_name}}' ως παράδειγμα του πως να εκφράσετε το αίτημά σας."
 
 msgid "Browse all authorities &rarr;"
 msgstr "Περιήγηση σε όλες τις αρχές &rarr;"
@@ -1916,7 +1916,7 @@ msgid "Invalid token"
 msgstr "Μη έγκυρο κουπόνι"
 
 msgid "Is {{email_address}} the wrong address for {{law_used_full}} requests to {{public_body_name}}? If so, please contact us using this form:"
-msgstr "Είναι το {{ηλεκτρονική_διεύθυνση}} η λάθος διεύθυνση για {{τύπος_αιτήματος}} αίτημα στο {{δημόσιο_όνομα}}; Αν ναι, επικοινωνήστε μαζί μας χρησιμοποιώντας αυτήν τη φόρμα:  "
+msgstr "Είναι το {{email_address}} η λάθος διεύθυνση για {{law_used_full}} αίτημα στο {{public_body_name}}; Αν ναι, επικοινωνήστε μαζί μας χρησιμοποιώντας αυτήν τη φόρμα:  "
 
 msgid "It looks like something has gone wrong when sending this message. It could be a technical issue, or an issue with the email address we have for the authority."
 msgstr "Φαίνεται ότι κάτι έχει πάει στραβά κατά την αποστολή αυτού του μηνύματος. Θα μπορούσε να είναι ένα τεχνικό ζήτημα ή ένα ζήτημα με τη διεύθυνση ηλεκτρονικού ταχυδρομείου που έχουμε για την αρχή."
@@ -2228,7 +2228,7 @@ msgid "One public authority found"
 msgstr "Μια δημόσια αρχή βρέθηκε"
 
 msgid "Only requests made using {{site_name}} are shown."
-msgstr "Μόνο τα αιτήματα που έγιναν από το {{όνομα_ιστότοπου}} εμφανίζονται."
+msgstr "Μόνο τα αιτήματα που έγιναν από το {{site_name}} εμφανίζονται."
 
 msgid "Only the authority can reply to this request, and I don't recognise the address this reply was sent from"
 msgstr "Μόνο η αρμόδια αρχή μπορεί να απαντήσει σε αυτό το αίτημα και δεν αναγνωρίζω τη διεύθυνση από την οποία εστάλη αυτή η απάντηση"
@@ -3405,7 +3405,7 @@ msgid "They have been given the following explanation:"
 msgstr "Τους έχει δοθεί η παρακάτω εξήγηση:"
 
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
-msgstr "Δεν έχουν απαντήσει στο {{law_used_short}} αίτημα {{τίτλος}} αμέσως, όπως συνήθως απαιτεί ο νόμος."
+msgstr "Δεν έχουν απαντήσει στο {{law_used_short}} αίτημα {{title}} αμέσως, όπως συνήθως απαιτεί ο νόμος."
 
 msgid "They have not replied to your {{law_used_short}} request {{title}}, as normally required by law"
 msgstr "Δεν έχουν απαντήσει στο {{law_used_short}} αίτημα σας {{title}}, όπως προβλέπει ο νόμος "
@@ -4441,7 +4441,7 @@ msgid "[Authority name]"
 msgstr "[Όνομα αρχής]"
 
 msgid "[FOI #{{request}} email]"
-msgstr "[Αιτήματα Κατάθεσης Εγγράφων και Πρόσβαση στη Δημόσια Πληροφορία #{{αίτημα}} email]"
+msgstr "[Αιτήματα Κατάθεσης Εγγράφων και Πρόσβαση στη Δημόσια Πληροφορία #{{request}} email]"
 
 msgid "[Name Removed]"
 msgstr "[Το όνομα έχει αφαιρεθεί]"
