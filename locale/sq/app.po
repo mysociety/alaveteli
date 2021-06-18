@@ -42,8 +42,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-16 13:27+0100\n"
-"PO-Revision-Date: 2020-10-16 11:44+0000\n"
+"POT-Creation-Date: 2021-06-24 16:55+0100\n"
+"PO-Revision-Date: 2021-06-18 10:07+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Albanian (http://www.transifex.com/mysociety/alaveteli/language"
 "/sq/)\n"
@@ -121,6 +121,9 @@ msgstr "filtrimi nepermjet statusit: '{{statusi}}' "
 
 msgid " when you send this message."
 msgstr " kur e dërgoni këtë mesazh."
+
+msgid "&#8592; Previous"
+msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Statistikat e krimit në nivel komune'"
@@ -278,6 +281,9 @@ msgstr "<strong>Të gjitha informatat</strong> janë dërguar"
 msgid "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
 msgstr "<strong>Diçka tjetër,</strong> p.sh. sqarim, falënderim"
 
+msgid "<strong>Automatic anti-spam measures are in place</strong> for this older request. Please <a href=\"{{url}}\">let us know</a> if a further response is expected or if you are having trouble responding."
+msgstr ""
+
 msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</a>)."
 msgstr "<strong>Sipas Ligjit ata duhet të përgjigjen</strong> (<a href=\"{{url}}\">pse?</a>)."
 
@@ -291,6 +297,9 @@ msgstr ""
 "<strong>Caveat emptor!</strong> Për të përdorur këto shenime në mënyrë të ndershme, ju duhet njohuri e brendshme e pikënisjes së përdoruesve të {{site_name}}. Si,\n"
 "pse dhe nga kush kategorizohen kërkesat nuk është diçka e vetëkuptueshme pra edhe mund të ketë gabime dhe paqartësi. Gjithashtu duhet ta kuptoni ligjin për qasje në dokumente publike, si dhe mënyrën se si institucionet (autoritetet) e zbatojnë atë. Plus duhet të jeni ekspert i statistikës.  Të lutem\n"
 "<a href=\"{{contact_path}}\"> na kontakto </a> me pyetje."
+
+msgid "<strong>Challenging a refusal?</strong> Here are some snippets that may help:"
+msgstr ""
 
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "Është kërkuar<strong>sqarim</strong> "
@@ -382,6 +391,9 @@ msgstr ""
 msgid "A strange response, required attention by the {{site_name}} team"
 msgstr ""
 
+msgid "A survey about your recent {{law_used_full}} request ({{site_name}})"
+msgstr ""
+
 msgid "A {{site_name}} user"
 msgstr "Përdorues i {{site_name}}"
 
@@ -431,9 +443,6 @@ msgstr "Shto institucionin"
 
 msgid "Add the authority:"
 msgstr "Shto nje institucion"
-
-msgid "Administration URL:"
-msgstr "URL për administrim:"
 
 msgid "Advanced search"
 msgstr "Kërkim i avancuar"
@@ -547,6 +556,9 @@ msgstr "Jeni i sigurte? Nese rigjeneroni kodekalimin e vetem nje here, atehere d
 
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "A je pronar i ndonjë të drejte autoriale komerciale në këtë faqe?"
+
+msgid "Article"
+msgstr ""
 
 msgid "Ask EU Authorities"
 msgstr "Pyet Autoritetet e BE-së"
@@ -739,6 +751,9 @@ msgstr "Kliko në vegzën e mëposhtme për t'i dërguar mesazh {{public_body}} 
 msgid "Close"
 msgstr "Mbyll"
 
+msgid "Close preview"
+msgstr ""
+
 msgid "Close the request and respond:"
 msgstr "Mbyll kerkesen dhe pergjigju:"
 
@@ -806,6 +821,12 @@ msgid "Contribute"
 msgstr ""
 
 msgid "Cookies not enabled"
+msgstr ""
+
+msgid "Copied!"
+msgstr ""
+
+msgid "Copy"
 msgstr ""
 
 msgid "Could not identify the request from the email address"
@@ -1145,6 +1166,9 @@ msgid_plural "Found {{count}} public authorities matching the tag ‘{{tag_name}
 msgstr[0] ""
 msgstr[1] ""
 
+msgid "Four weeks ago you made a Freedom of Information request to {{public_body_name}} using {{site_name}}."
+msgstr ""
+
 msgid "Freedom of Information"
 msgstr "E Drejta e Informimit "
 
@@ -1190,7 +1214,13 @@ msgstr "Nga:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "JEPI DETAJET PËR ANKESËN TËNDE KËTU"
 
+msgid "Get help to challenge it."
+msgstr ""
+
 msgid "Getting long – remember to keep it focussed"
+msgstr ""
+
+msgid "Go back to refusal advice questions"
 msgstr ""
 
 msgid "Got a {{site_name}} account?"
@@ -1203,6 +1233,12 @@ msgid "Handled by postal mail"
 msgstr ""
 
 msgid "Handled by postal mail."
+msgstr ""
+
+msgid "Has this request been referenced in a news article or academic paper?"
+msgstr ""
+
+msgid "Has this request been referenced in a news article or academic paper? Let us know:"
 msgstr ""
 
 msgid "Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}"
@@ -1231,6 +1267,9 @@ msgstr "Na ndihmoni te klasifikojme kerkesat qe nuk jane perditesuar"
 
 msgid "Here <strong>described</strong> means when a user selected a status for the request, and the most recent event had its status updated to that value. <strong>calculated</strong> is then inferred by {{site_name}} for intermediate events, which weren't given an explicit description by a user. See the <a href=\"{{search_path}}\">search tips</a> for description of the states."
 msgstr "Ketu <strong>described</strong> do te thote kur perdoruesit selektojne nje status per kerkesen dhe kur ngjarja me e re e ka statusin te perditesuar ne ate vlere. <strong> perllogaritur</strong> me pas nenkuptohet nga {site_name}} per ngjarje te ndermjetme, per te cilat perdoruesi nuk ka dhene nje pershkrim te caktuar. Shihni <a href=\"{{search_path}}\">search tips</a> per pershkrimin e statuseve."
+
+msgid "Here are some snippets that may help you <strong>challenge a refusal</strong>:"
+msgstr ""
 
 msgid "Here is the message you wrote, in case you would like to copy the text and save it for later."
 msgstr "Ketu eshte mesazhi qe ju keni shkruar, ne rast se deshironi te kopjoni tekstin dhe ta ruani ate per me vone."
@@ -1346,6 +1385,9 @@ msgstr "Nëse jeni ju{{user_link}}, të lutem"
 msgid "If you believe this request is not suitable, you can report it for attention by the site administrators using this form"
 msgstr ""
 
+msgid "If you can spare a few minutes to complete our short survey, it will help us make the site better. Just follow the link below."
+msgstr ""
+
 msgid "If you can't click on it in the email, you'll have to <strong>select and copy it</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place you would type the address of any other webpage."
 msgstr ""
 "Nëse ti nuk mund të klikosh mbi të në e-mail, duhet që ta <strong>përzgjedhësh dhe t'a kopjosh </strong>.   Pastaj <strong>e bashkangjet (paste) \n"
@@ -1435,6 +1477,9 @@ msgstr "Kërkesë për shqyrtim te brendshem"
 msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Kerkesa per shqyrtim te brendshem dergukar tek {{public_body_name}} nga {{info_request_user}} me {{date}}."
 
+msgid "Invalid form submission"
+msgstr ""
+
 msgid "Invalid one time password"
 msgstr "Fjalekalim njeperdorimsh i pasakte"
 
@@ -1502,6 +1547,9 @@ msgid "Leave project"
 msgstr ""
 
 msgid "Let us know"
+msgstr ""
+
+msgid "Let us know and we’ll help you challenge it."
 msgstr ""
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
@@ -1654,6 +1702,12 @@ msgstr ""
 msgid "Next"
 msgstr "Me pas"
 
+msgid "Next &#8594;"
+msgstr ""
+
+msgid "Next Step: Preview your public request"
+msgstr ""
+
 msgid "Next message"
 msgstr ""
 
@@ -1776,6 +1830,12 @@ msgstr "Te tjera"
 
 msgid "Other:"
 msgstr "Te Tjera:"
+
+msgid "Page {{page}}"
+msgstr ""
+
+msgid "Pagination"
+msgstr ""
 
 msgid "Partial success"
 msgstr "Sukses i pjesshem"
@@ -2014,6 +2074,9 @@ msgstr "Kërkesa të ndërlidhura:"
 msgid "Post annotation"
 msgstr "Posto shënimin"
 
+msgid "Posted on {{date}}"
+msgstr ""
+
 msgid "Posted on {{date}} by {{author}}"
 msgstr "Postuar më {{date}} nga {{author}}"
 
@@ -2043,9 +2106,6 @@ msgstr "Shih shënimin tënd"
 
 msgid "Preview your message"
 msgstr "Shih mesazhin tënd"
-
-msgid "Preview your public request"
-msgstr "Shih kërkesën tënde publike"
 
 msgid "Preview your request"
 msgstr "Shihni kerkesen tuaj"
@@ -2125,6 +2185,9 @@ msgstr "Lexo rreth <a href=\"{{advanced_search_url}}\">operatorëve të avansuar
 msgid "Read blog"
 msgstr "Lajmet"
 
+msgid "Read more"
+msgstr ""
+
 msgid "Read through authority responses and choose if their answer satisfies the intention of the original request, flag any problems and show the project owner if they need to intervene to keep the project movng forward."
 msgstr ""
 
@@ -2148,6 +2211,9 @@ msgstr "Refuzuar."
 
 msgid "Regenerate one time passcode"
 msgstr "Rigjenero kodkalimin e vetem nje here"
+
+msgid "Regulation"
+msgstr ""
 
 msgid "Rejected"
 msgstr "Refuzuar"
@@ -2338,6 +2404,9 @@ msgstr "Kërko në këtë ueb sajt për të gjetur atë që deshirion te gjesh."
 msgid "Search your contributions"
 msgstr "Kërko kontributet e tua"
 
+msgid "Section"
+msgstr ""
+
 msgid "Send a followup"
 msgstr "Dërgo mesazh vijues"
 
@@ -2400,6 +2469,12 @@ msgstr ""
 msgid "Show fewer attachments"
 msgstr ""
 
+msgid "Show less"
+msgstr ""
+
+msgid "Show more"
+msgstr ""
+
 msgid "Show most relevant results first"
 msgstr "Shfaq me pare rezultatet më te rendesishme"
 
@@ -2437,6 +2512,9 @@ msgid "Skip"
 msgstr ""
 
 msgid "Skipped!"
+msgstr ""
+
+msgid "Snippets related to"
 msgstr ""
 
 msgid "Some notes have been added to your FOI request - {{request_title}}"
@@ -2890,8 +2968,8 @@ msgstr ""
 msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "Ka {{count}} shënime të reja në kërkesën tuaj  {{law_used_short}}. Ndiqni këtë lidhje për t'i parë ato."
 
-msgid "There is <strong>more than one person</strong> who uses this site and has this name. One of them is shown below, you may mean a different one:"
-msgstr "Ka <strong>me shume se nje person </strong> i cili perdor kete faqe dhe ka kete emer. Njeri prej tyre shfaqet si me poshte, ndoshta ju kerkoni dike tjeter:"
+msgid "There is <strong>more than one person</strong> who uses this site and has this name. Search for other users named \"{{search_user_link}}\""
+msgstr ""
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr "Ka nje kufi lidhur me numrin e kerkesave qe mund te dergoni ne nje dite, sepse nuk duam qe institucionet publike te bombardohen me nje numer te madh kerkesash te papershtatshme. Nese ju mnedoni se keni asye te forta per te kerkuar anullimin e kufirit per rastin tuaj, ju lutem <a href='{{help_contact_path}}'>na kontaktoni</a>."
@@ -3410,9 +3488,6 @@ msgstr "Duke pritur që institucioni publik të përgjigjet"
 msgid "Want to know something?"
 msgstr "Dëshironi të dini diçka?"
 
-msgid "We consider it is not a valid FOI request as it was correspondence about your personal circumstances, and we have therefore hidden it from other users."
-msgstr ""
-
 msgid "We consider it is not a valid FOI request, and have therefore hidden it from other users."
 msgstr "Ne nuk e konsiderojme nje kerkese per te DI te vlefshme dhe per kete arsye e kemi fshehur nga perdoruesit e tjere."
 
@@ -3426,6 +3501,9 @@ msgid "We couldn’t display any logs for this message."
 msgstr ""
 
 msgid "We couldn’t load the mail server logs for this message."
+msgstr ""
+
+msgid "We do not allow requests for information via {{site_name}} about your personal circumstances. We have therefore hidden your request from other users."
 msgstr ""
 
 msgid "We do not have a working request email address for this authority."
@@ -3458,6 +3536,9 @@ msgstr "Ne nuk do ta zbulojmë adresën e emailit tuaj askujt, përveç nëse ju
 
 msgid "We will not reveal your email addresses to anybody unless you or the law tell us to."
 msgstr "Ne nuk do t'ja zbulojmë adresën tuaj askujt, përveç nëse ju apo ligji na thone qe duhet."
+
+msgid "We would like to know more about you, and your experience making an {{law_used_full}} request through the site."
+msgstr ""
 
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr "Ne do ju dërgojmë një mesazh në momentin që kërkesa juaj merr një përgjigje."
@@ -4031,6 +4112,9 @@ msgstr "dhe"
 msgid "and we'll suggest <strong>what to do next</strong>"
 msgstr "dhe ne do të sugjerojmë <strong>çfarë të beni me pas</strong>"
 
+msgid "any section"
+msgstr ""
+
 msgid "anything matching text '{{query}}'"
 msgstr "cdo gje qe perputhet me tekstin '{{query}}'"
 
@@ -4233,6 +4317,9 @@ msgstr "{{authority_name}} <strong>nuk e kanë</strong> informacionin e kërkuar
 
 msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
 msgstr "{{authority_name}} është duke <strong>pritur për sqarimin tuaj</strong>."
+
+msgid "{{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
+msgstr ""
 
 msgid "{{contributor_count}} contributors"
 msgstr ""

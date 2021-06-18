@@ -48,8 +48,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-16 13:27+0100\n"
-"PO-Revision-Date: 2020-10-16 11:44+0000\n"
+"POT-Creation-Date: 2021-06-24 16:55+0100\n"
+"PO-Revision-Date: 2021-06-18 10:07+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Norwegian Nynorsk (http://www.transifex.com/mysociety/alaveteli"
 "/language/nn/)\n"
@@ -127,6 +127,9 @@ msgstr "filtrert etter status: '{{status}}'"
 
 msgid " when you send this message."
 msgstr "når du sender denne meldinga."
+
+msgid "&#8592; Previous"
+msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Kriminalstatistikk på bydelsnivå for Oslo'"
@@ -288,6 +291,9 @@ msgstr "<strong>All informasjonen</strong> har vorte sendt"
 msgid "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
 msgstr "<strong>Noko anna</strong>, som til dømes oppklaringer, spurnad, takk"
 
+msgid "<strong>Automatic anti-spam measures are in place</strong> for this older request. Please <a href=\"{{url}}\">let us know</a> if a further response is expected or if you are having trouble responding."
+msgstr ""
+
 msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</a>)."
 msgstr "<strong>Etter lova har du krav på svar</strong> (<a href=\"{{url}}\">Finn ut meir om lova</a>)."
 
@@ -303,6 +309,9 @@ msgstr ""
 " kvifor, og av kven førespurnader er kategorisert er ikkje berre enkelt, og det vil \n"
 " vera brukarfeil og uklarheter. Du vil òg ha behov for å forstå offentlighetslovgivningen og måten\n"
 " styresmaktene brukar han. Og du må vera ein dugeleg statistiker.  <a href=\"{{contact_path}}\">Kontakt oss</a> gjerne med spurnad."
+
+msgid "<strong>Challenging a refusal?</strong> Here are some snippets that may help:"
+msgstr ""
 
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong>Klargjering</strong> har vorte spurt"
@@ -399,6 +408,9 @@ msgstr ""
 msgid "A strange response, required attention by the {{site_name}} team"
 msgstr ""
 
+msgid "A survey about your recent {{law_used_full}} request ({{site_name}})"
+msgstr ""
+
 msgid "A {{site_name}} user"
 msgstr "Ein {{site_name}} brukar"
 
@@ -448,9 +460,6 @@ msgstr "Legg til styresmakt - {{public_body_name}}"
 
 msgid "Add the authority:"
 msgstr "Legg til styresmakta:"
-
-msgid "Administration URL:"
-msgstr "Administrasjon sin-URL:"
 
 msgid "Advanced search"
 msgstr "Avansert søk"
@@ -566,6 +575,9 @@ msgstr "Er du sikker? Dersom du regenererer eingongspasskoden din må du oppdate
 
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Eig du kommersielle åndsverksrettar på denne sida?"
+
+msgid "Article"
+msgstr ""
 
 msgid "Ask EU Authorities"
 msgstr ""
@@ -758,6 +770,9 @@ msgstr "Klikk på lenkja under for å senda ei melding til {{public_body}} og mi
 msgid "Close"
 msgstr "Lukk"
 
+msgid "Close preview"
+msgstr ""
+
 msgid "Close the request and respond:"
 msgstr "Lukk førespurnaden og svar:"
 
@@ -825,6 +840,12 @@ msgid "Contribute"
 msgstr ""
 
 msgid "Cookies not enabled"
+msgstr ""
+
+msgid "Copied!"
+msgstr ""
+
+msgid "Copy"
 msgstr ""
 
 msgid "Could not identify the request from the email address"
@@ -1168,6 +1189,9 @@ msgid_plural "Found {{count}} public authorities matching the tag ‘{{tag_name}
 msgstr[0] ""
 msgstr[1] ""
 
+msgid "Four weeks ago you made a Freedom of Information request to {{public_body_name}} using {{site_name}}."
+msgstr ""
+
 msgid "Freedom of Information"
 msgstr "Innsyn etter Offentleglova"
 
@@ -1212,7 +1236,13 @@ msgstr "Frå:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "SKRIV GRUNNENE FOR KVIFOR DU KLAGAR HER"
 
+msgid "Get help to challenge it."
+msgstr ""
+
 msgid "Getting long – remember to keep it focussed"
+msgstr ""
+
+msgid "Go back to refusal advice questions"
 msgstr ""
 
 msgid "Got a {{site_name}} account?"
@@ -1225,6 +1255,12 @@ msgid "Handled by postal mail"
 msgstr ""
 
 msgid "Handled by postal mail."
+msgstr ""
+
+msgid "Has this request been referenced in a news article or academic paper?"
+msgstr ""
+
+msgid "Has this request been referenced in a news article or academic paper? Let us know:"
 msgstr ""
 
 msgid "Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}"
@@ -1256,6 +1292,9 @@ msgstr ""
 "Her tyder <strong>skildra</strong> når ein brukar klargjer kor i prosessen saka er kome, og \n"
 " kva som seinst førde fram til det. <strong>Berekna</strong> viser til tilhøve utledet av {{site_name}}, som ikkje kom frå \n"
 "  skildringa til brukaren. Sjå <a href=\"{{search_path}}\">søketips</a> for skildring av dette."
+
+msgid "Here are some snippets that may help you <strong>challenge a refusal</strong>:"
+msgstr ""
 
 msgid "Here is the message you wrote, in case you would like to copy the text and save it for later."
 msgstr "Her er meldinga som du skreiv, i tilfelle du ynskjer å kopiera og ta vare på teksta."
@@ -1375,6 +1414,9 @@ msgstr "Viss du er {{user_link}}, ver venleg og"
 msgid "If you believe this request is not suitable, you can report it for attention by the site administrators using this form"
 msgstr ""
 
+msgid "If you can spare a few minutes to complete our short survey, it will help us make the site better. Just follow the link below."
+msgstr ""
+
 msgid "If you can't click on it in the email, you'll have to <strong>select and copy it</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place you would type the address of any other webpage."
 msgstr ""
 "Viss du ikkje kan klikka på den i e-posten, så vil du måtta <strong>markera og kopiera\n"
@@ -1476,6 +1518,9 @@ msgstr "Klage"
 msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Klage sendt til {{public_body_name}} av {{info_request_user}} den {{date}}."
 
+msgid "Invalid form submission"
+msgstr ""
+
 msgid "Invalid one time password"
 msgstr "Feil eingongspasskode"
 
@@ -1546,6 +1591,9 @@ msgid "Leave project"
 msgstr ""
 
 msgid "Let us know"
+msgstr ""
+
+msgid "Let us know and we’ll help you challenge it."
 msgstr ""
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
@@ -1698,6 +1746,12 @@ msgstr ""
 msgid "Next"
 msgstr "Neste"
 
+msgid "Next &#8594;"
+msgstr ""
+
+msgid "Next Step: Preview your public request"
+msgstr ""
+
 msgid "Next message"
 msgstr ""
 
@@ -1820,6 +1874,12 @@ msgstr "Anna"
 
 msgid "Other:"
 msgstr "Anna:"
+
+msgid "Page {{page}}"
+msgstr ""
+
+msgid "Pagination"
+msgstr ""
 
 msgid "Partial success"
 msgstr "Delvis suksess"
@@ -2064,6 +2124,9 @@ msgstr "Mogleg relatert førespurnad:"
 msgid "Post annotation"
 msgstr "Send inn merknad"
 
+msgid "Posted on {{date}}"
+msgstr ""
+
 msgid "Posted on {{date}} by {{author}}"
 msgstr "Innsendt {{date}} av {{author}}"
 
@@ -2093,9 +2156,6 @@ msgstr "Forhåndsvis merknaden din"
 
 msgid "Preview your message"
 msgstr "Forhåndsvis meldinga"
-
-msgid "Preview your public request"
-msgstr "Forhåndsvis førespurnaden din"
 
 msgid "Preview your request"
 msgstr "Forhåndsvis din førespurnad"
@@ -2175,6 +2235,9 @@ msgstr "Les om <a href=\"{{advanced_search_url}}\">avanserte søkefunksjoner</a>
 msgid "Read blog"
 msgstr "Les blogg"
 
+msgid "Read more"
+msgstr ""
+
 msgid "Read through authority responses and choose if their answer satisfies the intention of the original request, flag any problems and show the project owner if they need to intervene to keep the project movng forward."
 msgstr ""
 
@@ -2198,6 +2261,9 @@ msgstr "Avslegen"
 
 msgid "Regenerate one time passcode"
 msgstr "Lag ny eingongspasskode"
+
+msgid "Regulation"
+msgstr ""
 
 msgid "Rejected"
 msgstr "Avvist"
@@ -2388,6 +2454,9 @@ msgstr "Søk sidan for å finne det du leitar etter."
 msgid "Search your contributions"
 msgstr "Søk i bidraga dine"
 
+msgid "Section"
+msgstr ""
+
 msgid "Send a followup"
 msgstr "Send ei oppfølging"
 
@@ -2450,6 +2519,12 @@ msgstr ""
 msgid "Show fewer attachments"
 msgstr ""
 
+msgid "Show less"
+msgstr ""
+
+msgid "Show more"
+msgstr ""
+
 msgid "Show most relevant results first"
 msgstr "Vis mest relevante resultat først"
 
@@ -2487,6 +2562,9 @@ msgid "Skip"
 msgstr ""
 
 msgid "Skipped!"
+msgstr ""
+
+msgid "Snippets related to"
 msgstr ""
 
 msgid "Some notes have been added to your FOI request - {{request_title}}"
@@ -2953,10 +3031,8 @@ msgstr ""
 msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "Det er {{count}} nye merknader på din førespurnad {{law_used_short}}. Følg denne lenkja for å sjå kva dei har skrive."
 
-msgid "There is <strong>more than one person</strong> who uses this site and has this name. One of them is shown below, you may mean a different one:"
+msgid "There is <strong>more than one person</strong> who uses this site and has this name. Search for other users named \"{{search_user_link}}\""
 msgstr ""
-"Det er <strong>meir enn éin person</strong>  som brukar dette området, og har dette namnet.\n"
-" Ein av dei er vist nedanfor, men du kan meina ein annan:"
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr "Det er ei grense på mengd førespurnader du kan laga på éin dag, fordi vi ikkje ynskjer at offentlege styresmakter skal oversymjast med ei stort mengd upassande førespurnader. Dersom du synest du har ein god grunn til at grensa skal aukast i tilfellet ditt, ver venleg og <a href='{{help_contact_path}}'>ta kontakt</a>."
@@ -3481,9 +3557,6 @@ msgstr "Ventar på svar frå styresmakta"
 msgid "Want to know something?"
 msgstr "Vil du vita noko?"
 
-msgid "We consider it is not a valid FOI request as it was correspondence about your personal circumstances, and we have therefore hidden it from other users."
-msgstr ""
-
 msgid "We consider it is not a valid FOI request, and have therefore hidden it from other users."
 msgstr "Vi ser ikkje på dette som ein gyldig krav om innsyn, og har difor gøymt han for dei andre brukarane."
 
@@ -3497,6 +3570,9 @@ msgid "We couldn’t display any logs for this message."
 msgstr ""
 
 msgid "We couldn’t load the mail server logs for this message."
+msgstr ""
+
+msgid "We do not allow requests for information via {{site_name}} about your personal circumstances. We have therefore hidden your request from other users."
 msgstr ""
 
 msgid "We do not have a working request email address for this authority."
@@ -3535,6 +3611,9 @@ msgstr "Vi kjem ikkje dela e-post-adressa di med nokon, med mindre du eller ein 
 
 msgid "We will not reveal your email addresses to anybody unless you or the law tell us to."
 msgstr "Vi kjem ikkje dela e-post-adressene dine med nokon, med mindre du eller ein domstol ber oss om det."
+
+msgid "We would like to know more about you, and your experience making an {{law_used_full}} request through the site."
+msgstr ""
 
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr "Vi sender deg ein epost så fort det kjem svar på førespurnaden."
@@ -4115,6 +4194,9 @@ msgstr "og"
 msgid "and we'll suggest <strong>what to do next</strong>"
 msgstr "så skal vi foreslå kva du <strong>kan gjera vidare</strong>"
 
+msgid "any section"
+msgstr ""
+
 msgid "anything matching text '{{query}}'"
 msgstr "alt som treffer for teksta «{{query}}»"
 
@@ -4317,6 +4399,9 @@ msgstr "{{authority_name}} <strong>hadde ikkje</strong> informasjonen du bad om.
 
 msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
 msgstr "{{authority_name}} <strong>ventar på dine avklaringer</strong>"
+
+msgid "{{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
+msgstr ""
 
 msgid "{{contributor_count}} contributors"
 msgstr ""
