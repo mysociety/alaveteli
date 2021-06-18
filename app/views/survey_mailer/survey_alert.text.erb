@@ -1,0 +1,15 @@
+<%= _('Four weeks ago you made a Freedom of Information request to ' \
+      '{{public_body_name}} using {{site_name}}.',
+      public_body_name: @info_request.public_body.name,
+      site_name: site_name.html_safe) %>
+
+<%= _('We would like to know more about you, and your experience making an ' \
+      '{{law_used_full}} request through the site.',
+      law_used_full: @info_request.legislation.to_s(:full)) %>
+
+<%= _('If you can spare a few minutes to complete our short survey, it will ' \
+      'help us make the site better. Just follow the link below.') %>
+
+<%= @url %>
+
+-- <%= _('the {{site_name}} team', :site_name => site_name.html_safe) %>

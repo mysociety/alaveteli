@@ -117,6 +117,7 @@ module AlaveteliConfiguration
       STRIPE_SECRET_KEY: '',
       STRIPE_TAX_RATE: '0.20',
       STRIPE_WEBHOOK_SECRET: '',
+      SURVEY_URL: '',
       THEME_BRANCH: false,
       THEME_URL: '',
       THEME_URLS: [],
