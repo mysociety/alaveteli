@@ -1,3 +1,15 @@
+# 0.38.4.4
+
+## Highlighted Features
+
+* Updated translations from Transifex (Graeme Porteous)
+
+# 0.38.4.3
+
+## Highlighted Features
+
+* Updated translations from Transifex (Graeme Porteous)
+
 # 0.38.4.2
 
 ## Highlighted Features
