@@ -140,7 +140,7 @@ msgid "A <strong>summary</strong> of the response if you have received it by pos
 msgstr "Un résumé des réponses si vous les avez reçues par la poste."
 
 msgid "A one line summary of the information you are requesting, e.g."
-msgstr "Une ligne de résumé de l'information que vous avez demandée, par exemple."
+msgstr "Un résumé en une ligne de l'information que vous demandez, par exemple."
 
 msgid "A permanent, searchable, <strong class=\"marketing-highlight\">public record</strong> of your request and the responses"
 msgstr "Un <strong class=\"marketing-highlight\">enregistrement public</strong> permanent et consultable de votre demande et des réponses"
@@ -215,7 +215,7 @@ msgid "Are you interested in free training, seminars and workshops about {{pro_s
 msgstr "Êtes-vous intéressé par des formations, des séminaires et des ateliers gratuits sur {{pro_site_name}} ?"
 
 msgid "Are you sure the information you’re after isn’t available elsewhere?"
-msgstr "Etes-vous certain que l'information que vous recherchez n'est pas disponible quelque part ?"
+msgstr "Etes-vous certain que l'information que vous recherchez n'est pas déjà disponible quelque part ?"
 
 msgid "Are you sure you want to publish this request?"
 msgstr "Etes-vous certain de vouloir publier cette demande ?"
@@ -365,7 +365,7 @@ msgid "Drafts"
 msgstr "Brouillons"
 
 msgid "Edit your request"
-msgstr "Modifiez votre demande"
+msgstr "Modifier votre demande"
 
 msgid "Email address"
 msgstr "Adresse email "
@@ -707,13 +707,13 @@ msgid "Point to <strong>related information</strong>, campaigns or forums which 
 msgstr "Indiquez des <strong>informations connexes</strong>, campagnes ou forums qui peuvent être utiles."
 
 msgid "Preview and send request"
-msgstr "Prévisualisez et envoyez la demande"
+msgstr "Prévisualiser et envoyer la demande"
 
 msgid "Preview new batch request"
 msgstr "Prévisualiser le nouveau paquet de demandes"
 
 msgid "Preview new {{law_used_short}} request to '{{public_body_name}}'"
-msgstr "Prévisualiser la nouvelle demande {{law_used_short}} adressée à '{{public_body_name}}'"
+msgstr "Prévisualiser la nouvelle demande de {{law_used_short}} adressée à '{{public_body_name}}'"
 
 msgid "Pricing"
 msgstr "Tarif"
@@ -843,7 +843,7 @@ msgid "Researchers"
 msgstr "Chercheurs"
 
 msgid "Response due"
-msgstr "Réponse due"
+msgstr "Réponse due pour"
 
 msgid "Save draft"
 msgstr "Sauver le brouillon"
@@ -893,7 +893,7 @@ msgid "Send message"
 msgstr "Envoyer le message"
 
 msgid "Send request"
-msgstr "Envoyer une demande"
+msgstr "Envoyer la demande"
 
 msgid "Send {{count}} requests"
 msgid_plural "Send {{count}} requests"
@@ -948,10 +948,10 @@ msgid "Sorry, something went wrong updating your requests' privacy settings, ple
 msgstr "Désolé, un problème est survenu lors de la mise à jour des paramètres de confidentialité de vos demandes, merci de réessayer."
 
 msgid "Sort by"
-msgstr "Classé par"
+msgstr "Classée par"
 
 msgid "Sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
-msgstr "Classé par <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">réinitialiser</a>"
+msgstr "Classée par <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">réinitialiser</a>"
 
 msgid "Start new request"
 msgstr "Lancer une nouvelle demande"
@@ -1039,7 +1039,7 @@ msgid "There's nothing to do right now. Great job!"
 msgstr "Il n'y a rien à faire maintenant. Bon boulot !"
 
 msgid "Things to do today"
-msgstr "Choses à faire aujourd'hui"
+msgstr "Actions à réaliser aujourd'hui"
 
 msgid "This page is only accessible to {{pro_site_name}} users"
 msgstr "Cette page est uniquement accessible aux utilisateurs de {{pro_site_name}}"
@@ -1060,7 +1060,7 @@ msgid "This will publish all of the requests in this batch. Are you sure?"
 msgstr "Cela publiera toutes les demandes du paquet de demandes. Etes-vous certain ?"
 
 msgid "This will update the privacy for all of the requests in this batch. Are you sure?"
-msgstr "Cela actualisera les paramètres de confidentialité de toutes les demandes du paquet de demandes. Etes-vous certain ?"
+msgstr "Cela va actualiser les paramètres de confidentialité de toutes les demandes de ce lot de demandes. Etes-vous certain ?"
 
 msgid "Time is precious in newsrooms, so your dashboard just presents the information you need to know: which requests have received responses; which haven’t and need chasing up; and which require input from you. Search, filter or sort by status to quickly find the request you’re looking for."
 msgstr "Le temps est précieux dans les rédactions, dès lors, votre tableau de bord ne présente que les informations dont vous avez besoin : quelles demandes ont reçu des réponses ; celles qui n'ont pas reçu de réponse et qui nécessitent d'être poursuivies ; celles qui nécessitent une action de votre part. Recherchez, filtrez ou triez par statut pour trouver rapidement la demande que vous recherchez."
@@ -1119,7 +1119,7 @@ msgstr[0] "Mettre à jour son statut"
 msgstr[1] "Mettre à jour les statuts"
 
 msgid "Updated"
-msgstr "Mis à jour"
+msgstr "Mise à jour"
 
 msgid "Updating your payment card requires your browser to have JavaScript enabled."
 msgstr "La mise à jour de votre carte de paiement nécessite que JavaScript soit activé dans votre navigateur."
@@ -1155,7 +1155,7 @@ msgid "We are processing your payment. You can access your subscription settings
 msgstr "Nous traitons votre paiement.  Vous pouvez accéder aux paramètres de votre abonnement et de votre compte via le lien \"Mon abonnement\" dans votre menu d'utilisateur (accessible via le menu déroulant à côté de de votre nom, au-dessus)."
 
 msgid "We will remind you by email and on the site when the request is going be made public, and you'll have the option to keep it private for longer if you want to. You can extend this time indefinitely, or make the request public at any time."
-msgstr "Nous vous rappellerons par email et sur le site lorsque le demande va être rendue public, et, si vous le souhaitez, vous aurez la possibilité de la garder confidentielle pour une plus longue période. Vous pouvez étendre cette durée de confidentialité indéfiniment ou rendre la requête publique à tout moment."
+msgstr "Nous vous rappellerons par email et sur le site lorsque la demande sera proche d'être rendue publique, et, si vous le souhaitez, vous aurez la possibilité de la garder confidentielle pour une plus longue période. Vous pouvez étendre cette durée de confidentialité indéfiniment ou rendre la requête publique à tout moment."
 
 msgid "Weekly Pro Metrics report for {{start_date}} - {{end_date}}"
 msgstr "Rapport Hebdomadaire Pro Metrics pour {{start_date}} - {{end_date}}"
@@ -1170,7 +1170,7 @@ msgid "We’ve tried to bill your card but the charge was unsuccessful."
 msgstr "Nous avons tenté sans succès, de prélever le montant sur votre carte."
 
 msgid "When a request is private we guarantee that it will only be visible on {{site_name}} for the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
-msgstr "Lorsqu'une demande est confidentielle nous garantissons qu'elle sera uniquement visible sur {{site_name}} pour la période que vous sélectionnez. Les administrateurs de {{pro_site_name}} pourront également voir votre demande mais ils ne le feront qu'au cas où ils doivent régler un problème avec votre demande (par exemple une erreur de délivrabilité à l'autorité publique). Ils ne révéleront à personne le contenu de votre demande ou de toute réponse obtenue. Il est toutefois possible que l'autorité publie votre demande dans un registre."
+msgstr "Lorsqu'une demande est confidentielle nous garantissons qu'elle sera uniquement visible sur {{site_name}} pour la période que vous sélectionnez. Les administrateurs de {{pro_site_name}} pourront également voir votre demande mais ils ne le feront qu'au cas où ils doivent régler un problème concernant votre demande (par exemple une erreur de délivrabilité à l'autorité publique). Ils ne révéleront à personne le contenu de votre demande ou de toute réponse obtenue. Il est toutefois possible que l'autorité publie votre demande dans un registre."
 
 msgid "When the current billing period ends:"
 msgstr "Lorsque la période de facturation se termine:"
@@ -1236,10 +1236,10 @@ msgid "You sent an internal review request to {{public_body_name}} for \"{{info_
 msgstr "Vous avez envoyé une demande de reconsidération à l'autorité publique {{public_body_name}} au sujet de la demande \"{{info_request_title}}\"."
 
 msgid "You will be able to extend this privacy period from {{embargo_extend_from}}."
-msgstr "Vous pourrez prolonger cette période de non-publication (embargo) à partir de {{embargo_extend_from}}."
+msgstr "Vous pourrez prolonger cette période de non-publication sous embargo à partir de {{embargo_extend_from}}."
 
 msgid "You will still be able to see any requests which are currently private, but you won't be able to make new private requests or extend privacy durations. These requests will be published when the current privacy period ends."
-msgstr "Vous pourrez toujours voir vos demandes qui sont encore sous embargo, mais vous ne pourrez plus garder privées vos nouvelles demandes (ou prolonger l'embargo sur celles venant à échéance). Ces demandes seront donc visisbles à la fin de la période d'embargo."
+msgstr "Vous pourrez toujours voir vos demandes qui sont encore sous embargo, mais vous ne pourrez plus faire de nouvelles demandes sous embargo ou prolonger l'embargo sur celles venant à échéance. Ces demandes seront donc publiées de manière visible à la fin de la période d'embargo."
 
 msgid "You won't be able to access {{pro_site_name}} tools, including the dashboard and pro request management."
 msgstr "Vous ne pourrez plus accéder aux outils de  {{pro_site_name}} comme le tableau de bord et les outils de gestion des requêtes."
@@ -1341,7 +1341,7 @@ msgid "last updated"
 msgstr "Dernière mise à jour"
 
 msgid "or start a batch request"
-msgstr "ou initiez un ensemble de requêtes"
+msgstr "ou débuter une demande par lot"
 
 msgid "requests that will be made public soon"
 msgstr "Demandes qui seront prochainement rendues publiques"
