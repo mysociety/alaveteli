@@ -1,7 +1,13 @@
-# develop
+# 0.39.0.0
 
 ## Highlighted Features
 
+* Add tool to help challenge FOI refusals (Myfanwy Nixon, Martin Wright, Zarino
+  Zappia, Gareth Rees, Graeme Porteous)
+  See: https://www.mysociety.org/2021/06/25/a-tool-to-help-challenge-foi-refusals-now-on-whatdotheyknow/
+* Add initial support for additional legislations (Graeme Porteous)
+* Add legislations reference exemptions detection (Gareth Rees, Graeme Porteous)
+* Add post request survey feature (Graeme Porteous)
 * Prevent saving of unescaped characters in regexp Censor Rules (Gareth Rees)
 * Truncate list of alternative users shown on user profiles (Gareth Rees)
 * Allow author to be an optional blog feed attribute (Gareth Rees)
@@ -10,16 +16,80 @@
 * Tweak change request button colours in admin interface (Gareth Rees)
 * Add Debian Buster support (Graeme Porteous)
 * Add ability to translate pagination links (Graeme Porteous)
+* Add Docker development environment (Graeme Porteous)
+* Update list of world FOI websites (Gareth Rees)
+* Dependencies upgrades (Gareth Rees, Graeme Porteous)
 
 ## Upgrade Notes
 
+* **IMPORTANT! We no longer support Ruby 2.3 or 2.4** Please upgrade to Ruby 2.6
+  See: https://github.com/mysociety/alaveteli/wiki/Migrating-an-existing-Alaveteli-site-from-Ruby-2.3-and-2.4
 * The `InfoRequest` method `law_used_human` has been deprecated and will be
   removed in a future release. The new method `legislation` has been supplied
   instead which is a Legislation instance with a `#to_s` method equivalent to
   the original method, e.g. `law_used_human(:full)` can now be replaced with
   `legislation.to_s(:full)`.
+* There are some database structure updates so remember to run
+  `bundle exec rails db:migrate`
 
 ### Changed Templates
+
+The following templates have been changed. Please update overrides in your theme
+to match the new templates.
+
+    app/views/admin_general/_admin_navbar.html.erb
+    app/views/admin_general/index.html.erb
+    app/views/admin_public_body/_one_list.html.erb
+    app/views/admin_public_body/_tags.html.erb
+    app/views/admin_public_body/show.html.erb
+    app/views/admin_public_body_change_requests/edit.html.erb
+    app/views/admin_request/_some_requests.html.erb
+    app/views/admin_request/_tags.html.erb
+    app/views/admin_request/edit.html.erb
+    app/views/admin_request/hidden_user_explanation/_personal_correspondence.text.erb
+    app/views/admin_request/show.html.erb
+    app/views/alaveteli_pro/info_requests/new.html.erb
+    app/views/alaveteli_pro/info_requests/preview.html.erb
+    app/views/alaveteli_pro/pages/marketing_roles/campaigners/_marketing_hero.html.erb
+    app/views/alaveteli_pro/pages/marketing_roles/campaigners/_marketing_testimonials.html.erb
+    app/views/citations/new.html.erb
+    app/views/followups/_followup.html.erb
+    app/views/followups/_form_title.html.erb
+    app/views/followups/followup_bad.html.erb
+    app/views/followups/new.html.erb
+    app/views/general/blog.html.erb
+    app/views/notification_mailer/info_requests/messages/_overdue.text.erb
+    app/views/notification_mailer/info_requests/messages/_response.text.erb
+    app/views/notification_mailer/info_requests/messages/_very_overdue.text.erb
+    app/views/notification_mailer/overdue_notification.text.erb
+    app/views/notification_mailer/response_notification.text.erb
+    app/views/notification_mailer/very_overdue_notification.text.erb
+    app/views/outgoing_mailer/initial_request.text.erb
+    app/views/projects/dataset/keys/_numeric_key.html.erb
+    app/views/projects/projects/_project_nav.html.erb
+    app/views/public_body/show.html.erb
+    app/views/request/_citations.html.erb
+    app/views/request/_form.html.erb
+    app/views/request/_incoming_correspondence.html.erb
+    app/views/request/_request_sent.html.erb
+    app/views/request/_request_subtitle.html.erb
+    app/views/request/new.html.erb
+    app/views/request/new_bad_contact.html.erb
+    app/views/request/preview.html.erb
+    app/views/request/request_subtitle/_batch.html.erb
+    app/views/request/request_subtitle/_single.html.erb
+    app/views/request_mailer/comment_on_alert.text.erb
+    app/views/request_mailer/comment_on_alert_plural.text.erb
+    app/views/request_mailer/new_response.text.erb
+    app/views/request_mailer/not_clarified_alert.text.erb
+    app/views/request_mailer/old_unclassified_updated.text.erb
+    app/views/request_mailer/overdue_alert.text.erb
+    app/views/request_mailer/requires_admin.text.erb
+    app/views/request_mailer/stopped_responses.text.erb
+    app/views/request_mailer/very_overdue_alert.text.erb
+    app/views/user/show.html.erb
+    app/views/user/show/_show_same_name_users.html.erb
+    app/views/user/sign.html.erb
 
 # 0.38.4.4
 
