@@ -1,0 +1,46 @@
+#!/bin/sh
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+error_msg() { printf "\033[31m%s\033[0m\n" "$*"; }
+notice_msg() { printf "\033[33m%s\033[0m " "$*"; }
+success_msg() { printf "\033[32m%s\033[0m\n" "$*"; }
+
+notice_msg "Checking dependencies..."
+if ! command -v docker >/dev/null 2>&1; then
+  error_msg 'Docker command not found. Please install: https://docs.docker.com/get-docker/'
+  exit 1
+fi
+
+required_docker="20"
+current_docker="$(docker --version | awk 'match($0, /[0-9\.]+/) {print substr($0,RSTART,RLENGTH)}')"
+if [ "$(printf '%s\n' "$required_docker" "$current_docker" | sort -V | head -n1)" != "$required_docker" ]; then
+  error_msg "Requires Docker v$required_docker or later. Please upgrade and rerun."
+  exit 1
+fi
+
+themes_dir="$(dirname $(pwd))/alaveteli-themes"
+if [ ! -d $themes_dir ]; then
+  error_msg "Can't find $themes_dir directory. Please create and rerun."
+  exit 1
+fi
+success_msg 'done'
+
+notice_msg "Copying example files..."
+[ ! -f config/database.yml ] && cp config/database.yml-example config/database.yml
+[ ! -f config/general-alavetelitheme.yml ] && cp config/general.yml-example config/general-alavetelitheme.yml
+[ ! -L config/general.yml ] && [ ! -f config/general.yml ] && ln -s config/general-alavetelitheme.yml config/general.yml
+success_msg 'done'
+
+notice_msg "Syncing git submodules..."
+git submodule update --init
+success_msg 'done'
+
+notice_msg "Getting latest alavetelitheme commits..."
+alaveteli=`pwd`
+alavetelitheme="$themes_dir/alavetelitheme"
+[ ! -d $alavetelitheme ] && git clone https://github.com/mysociety/alavetelitheme.git $alavetelitheme >/dev/null
+cd $alavetelitheme && git pull && cd $alaveteli
+success_msg 'done'

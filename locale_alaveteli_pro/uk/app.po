@@ -3,12 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# Translators:
+# Natalie Hiirulainen <murahoid@gmail.com>, 2021
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-16 16:34+0100\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
+"Last-Translator: Natalie Hiirulainen <murahoid@gmail.com>, 2021\n"
 "Language-Team: Ukrainian (https://www.transifex.com/mysociety/teams/33529/uk/)"
 "\n"
 "MIME-Version: 1.0\n"
@@ -21,13 +25,13 @@ msgstr ""
 "11 && n % 100 <=14 )) ? 2: 3);\n"
 
 msgid " <strong>Summarising</strong> the content of any information returned. "
-msgstr ""
+msgstr " <strong>Підсумуйте</strong> зміст отриманої інформації."
 
 msgid " Say how you've <strong>used the information</strong>, with links if possible."
-msgstr ""
+msgstr "Розкажіть, як ви <strong>використали отриману інформацію</strong>, якщо можна, з посиланнями."
 
 msgid "'Crime statistics by ward level for Wales'"
-msgstr ""
+msgstr "'Статистика злочинності в Тернопільській області'"
 
 msgid "(includes {{count}} returning subscriber)"
 msgid_plural "(includes {{count}} returning subscribers)"
@@ -35,25 +39,25 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "(no title)"
-msgstr ""
+msgstr "(без назви)"
 
 msgid "(with <b>{{discount_name}}</b> discount applied)"
 msgstr ""
 
 msgid "12 Months"
-msgstr ""
+msgstr "12 місяців"
 
 msgid "29 April 2019"
-msgstr ""
+msgstr "29 квітня 2019"
 
 msgid "3 July 2017"
-msgstr ""
+msgstr "3 липня 2017"
 
 msgid "3 Months"
-msgstr ""
+msgstr "3 місяці"
 
 msgid "6 Months"
-msgstr ""
+msgstr "6 місяців"
 
 msgid "<a href=\"{{story_url}}\">Sold From Under You</a> — the Bureau of investigative Journalism used Pro to send requests to councils up and down the county to build a nationwide picture of the public properties being sold off by councils in the face of austerity."
 msgstr ""
@@ -194,13 +198,13 @@ msgid "All requests"
 msgstr ""
 
 msgid "All requests within this batch will remain private for the same duration. When an individual request is made public all other requests in this batch will also be published on {{site_name}}."
-msgstr ""
+msgstr "Усі запити в цій групі залишаться приватними на такий же період. Коли окремий запит буде опубліковано, решта запитів у групі також стануть публічними."
 
 msgid "Also called {{other_name}}."
 msgstr ""
 
 msgid "An all-in-one FOI toolkit for journalists, activists and campaigners"
-msgstr ""
+msgstr "Універсальний набір інструментів для журналістів та активістів"
 
 msgid "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
 msgstr ""
@@ -209,34 +213,34 @@ msgid "Are you interested in free training, seminars and workshops about {{pro_s
 msgstr ""
 
 msgid "Are you sure the information you’re after isn’t available elsewhere?"
-msgstr ""
+msgstr "Ви впевнені, що потрібна вам інформація не доступна деінде?"
 
 msgid "Are you sure you want to publish this request?"
-msgstr ""
+msgstr "Ви впевнені, що хочете опублікувати цей запит?"
 
 msgid "Are you sure?"
-msgstr ""
+msgstr "Ви впевнені?"
 
 msgid "Automate FOI request management"
 msgstr ""
 
 msgid "Batch"
-msgstr ""
+msgstr "Група"
 
 msgid "Batch FOI requests"
-msgstr ""
+msgstr "Групові запити"
 
 msgid "Batch request"
-msgstr ""
+msgstr "Груповий запит"
 
 msgid "Batch requests"
-msgstr ""
+msgstr "Групові запити"
 
 msgid "Batch requests allow multiple recipients of a single request"
-msgstr ""
+msgstr "Групові запити дозволяють відправляти один і той же запит багатьом розпорядникам"
 
 msgid "Batch requests are part of a new workflow"
-msgstr ""
+msgstr "Групові запити - частина нового процесу."
 
 msgid "Because we’ve streamlined the request-writing process, Pro saves you a lot of back and forth. Search our database of authorities, pick which one — or many — you want to contact, and compose your request right there."
 msgstr ""
@@ -260,28 +264,28 @@ msgid "Bringing facts about campagin overspending to light with the privacy feat
 msgstr ""
 
 msgid "Browse by category"
-msgstr ""
+msgstr "Пошук за категорією"
 
 msgid "Browse public requests"
-msgstr ""
+msgstr "Пошук серед публічних запитів"
 
 msgid "CSV"
-msgstr ""
+msgstr "CSV"
 
 msgid "Campaigning for better wheelchair accessibility"
 msgstr ""
 
 msgid "Cancel"
-msgstr ""
+msgstr "Скасуват"
 
 msgid "Cancel subscription"
-msgstr ""
+msgstr "Скасувати підписку"
 
 msgid "Cancel your subscription"
-msgstr ""
+msgstr "Скасуйте вашу підписку"
 
 msgid "Cancelled subscriptions:"
-msgstr ""
+msgstr "Скасовані підписки?"
 
 msgid "Card details"
 msgstr ""
@@ -290,22 +294,22 @@ msgid "Change privacy"
 msgstr ""
 
 msgid "Change status"
-msgstr ""
+msgstr "Змінити статус"
 
 msgid "Check the authority’s responses on {{site_name}} or conduct a quick Internet search."
 msgstr ""
 
 msgid "Check you haven't included any <strong>personal information</strong>."
-msgstr ""
+msgstr "Перевірте, чи не включили ви якоїсь особистої інформації"
 
 msgid "Choose a duration"
-msgstr ""
+msgstr "Оберіть період"
 
 msgid "Collapse all correspondence"
-msgstr ""
+msgstr "Сховати всю переписку"
 
 msgid "Confirm your account on {{site_name}}"
-msgstr ""
+msgstr "Підтвердіть ваш обліковий запис на сайті {{site_name}}"
 
 msgid "Continuing with checkout requires your browser to have JavaScript enabled."
 msgstr ""
@@ -317,16 +321,16 @@ msgid "Coupon code is invalid."
 msgstr ""
 
 msgid "Created"
-msgstr ""
+msgstr "Створено"
 
 msgid "Dashboard"
-msgstr ""
+msgstr "Панель"
 
 msgid "Dashboard and workflow features"
 msgstr ""
 
 msgid "Dear {{user_name}},"
-msgstr ""
+msgstr "Доброго дня!"
 
 msgid "Debt Resistance UK uncovered <a href=\"{{story_url}}\">which councils are paying exorbitant LOBO loans</a>, in some cases meaning that a large proportion of council tax income is being channelled directly into interest payments."
 msgstr ""
@@ -335,7 +339,7 @@ msgid "Debt Resistance UK uncovered which councils are paying exorbitant LOBO lo
 msgstr ""
 
 msgid "Details"
-msgstr ""
+msgstr "Деталі"
 
 msgid "Disabled while sending remaining requests."
 msgstr ""
@@ -350,22 +354,22 @@ msgid "Don’t worry – <a href=\"{{signup_link}}\">our free accounts</a> are s
 msgstr ""
 
 msgid "Download a zip file of all correspondence"
-msgstr ""
+msgstr "Завантажити zip-архів усієї переписки"
 
 msgid "Draft"
-msgstr ""
+msgstr "Чернетка"
 
 msgid "Drafts"
-msgstr ""
+msgstr "Чернетки"
 
 msgid "Edit your request"
-msgstr ""
+msgstr "Редагувати запит"
 
 msgid "Email address"
-msgstr ""
+msgstr "Електронні адреси"
 
 msgid "Email doesn't look like a valid address"
-msgstr ""
+msgstr "Електронна адреса не схожа на справжню"
 
 msgid "Estimated total number of Pro requests:"
 msgstr ""
@@ -374,7 +378,7 @@ msgid "Everything you need to keep on top of complex FOI-driven stories."
 msgstr ""
 
 msgid "Expand all correspondence"
-msgstr ""
+msgstr "Показати всю переписку"
 
 msgid "Expires soon"
 msgstr ""
@@ -425,7 +429,7 @@ msgid "First created"
 msgstr ""
 
 msgid "For journalists, academics and power users"
-msgstr ""
+msgstr "Для журналістів, науковців та просунутих користувачів"
 
 msgid "Friendly support"
 msgstr ""
@@ -440,22 +444,22 @@ msgid "Gavin Chait surveyed 350 local authorities to find out <a href=\"{{story_
 msgstr ""
 
 msgid "Get email updates about {{pro_site_name}}?"
-msgstr ""
+msgstr "Хочете отримувати на пошту оновлення щодо {{pro_site_name}}?"
 
 msgid "Get in touch"
 msgstr ""
 
 msgid "Get started with your first request"
-msgstr ""
+msgstr "Створіть свій перший запит"
 
 msgid "Got questions?"
-msgstr ""
+msgstr "Є питання?"
 
 msgid "Hard to keep track of your many requests?"
 msgstr ""
 
 msgid "Help"
-msgstr ""
+msgstr "Допомога"
 
 msgid "Helping startups find the best location for their business"
 msgstr ""
@@ -464,19 +468,19 @@ msgid "How campaigners are using Pro"
 msgstr ""
 
 msgid "How it works"
-msgstr ""
+msgstr "Як це працює"
 
 msgid "How journalists are using Pro"
-msgstr ""
+msgstr "Як журналісти використовують Доступ Про"
 
 msgid "How researchers are using Pro"
-msgstr ""
+msgstr "Як дослідники використовують Доступ Про"
 
 msgid "I have read and accepted these terms and conditions"
 msgstr ""
 
 msgid "I understand and still want to cancel"
-msgstr ""
+msgstr "Я розумію і все одно хочу скасувати"
 
 msgid "If payment continues to fail, unfortunately your account will revert back to a free account, and you’ll no longer have access to {{pro_site_name}}."
 msgstr ""
@@ -515,16 +519,16 @@ msgid "Join {{pro_site_name}}"
 msgstr ""
 
 msgid "Journalists"
-msgstr ""
+msgstr "Журналісти"
 
 msgid "Keep <strong class=\"marketing-highlight\">requests and responses private</strong> while you work on your story"
-msgstr ""
+msgstr "Тримайте запити та відповіді прихованими, поки працюєте над розслідуванням"
 
 msgid "Keep private for a further:"
 msgstr ""
 
 msgid "Keep private for:"
-msgstr ""
+msgstr "Тримати прихованим протягом:"
 
 msgid "Keep track of FOI requests"
 msgstr ""
@@ -545,37 +549,37 @@ msgid "Lucie Stephens, prompted by the death of someone she cared about, request
 msgstr ""
 
 msgid "Make a batch request"
-msgstr ""
+msgstr "Створити груповий запит"
 
 msgid "Make a request"
-msgstr ""
+msgstr "Створити заит"
 
 msgid "Make a request to multiple authorities and manage the responses."
-msgstr ""
+msgstr "Створіть запит багатьом розпорядникам та керуйте відповідями"
 
 msgid "Make an {{law_used_short}} request"
-msgstr ""
+msgstr "Створити запит"
 
 msgid "My profile"
-msgstr ""
+msgstr "Мій профіль"
 
 msgid "My subscription"
-msgstr ""
+msgstr "Моя підписка"
 
 msgid "My wall"
-msgstr ""
+msgstr "Моя стіна"
 
 msgid "Need a helping hand with your FOI requests?"
-msgstr ""
+msgstr "Потрібна допомога з запитами?"
 
 msgid "Need to keep things under wraps?"
-msgstr ""
+msgstr "Потрібно тримати щось в таємниці?"
 
 msgid "Need to keep your requests private?"
-msgstr ""
+msgstr "Потрібно тримати запити прихованими?"
 
 msgid "Need to protect your research?"
-msgstr ""
+msgstr "Маєте потребу захистити своє розслідування?"
 
 msgid "Need to protect your scoop?"
 msgstr ""
@@ -584,13 +588,13 @@ msgid "New Pro accounts this week:"
 msgstr ""
 
 msgid "New Pro requests this week:"
-msgstr ""
+msgstr "Про запити цього тижня:"
 
 msgid "New Pro subscriptions this week:"
 msgstr ""
 
 msgid "New batches made this week:"
-msgstr ""
+msgstr "Нові групові запити, зроблені цього тижня:"
 
 msgid "New to Professional – Batch"
 msgstr ""
@@ -599,25 +603,25 @@ msgid "Next payment"
 msgstr ""
 
 msgid "No"
-msgstr ""
+msgstr "Ні"
 
 msgid "No bodies selected"
-msgstr ""
+msgstr "Не вибрано жодного розпорядника"
 
 msgid "No more authorities can be added to this batch request."
-msgstr ""
+msgstr "Не можна додати більше розпорядників до цього запиту"
 
 msgid "No more copy and paste emails: our Batch Request tool helps you create one request and send it to many authorities at once."
-msgstr ""
+msgstr "Більше не потрібно копіювати і вставляти адреси: групові запити дозволяють створити один запит і відправити його багатьом розпорядникам одразу."
 
 msgid "No need to check: we’ll send an email alert telling you when you need to take action."
-msgstr ""
+msgstr "Не потрібно перевіряти: ми надішлемо вам повідомлення на електронну пошту."
 
 msgid "No results found"
-msgstr ""
+msgstr "Нічого не знайдено"
 
 msgid "No title"
-msgstr ""
+msgstr "Без назви"
 
 msgid "Not enough hours in the day?"
 msgstr ""
@@ -656,7 +660,7 @@ msgid "Once your story’s been published, there’s every reason to put your re
 msgstr ""
 
 msgid "Once you’re happy with your request, click preview and send."
-msgstr ""
+msgstr "Якщо ви задоволені запитом, натисніть \"переглянути та надіслати\""
 
 msgid "Once you’re ready, publishing the data behind your investigation lends it extra credibility, and opens it to a wider community."
 msgstr ""
@@ -755,13 +759,13 @@ msgid "Public requests for information"
 msgstr ""
 
 msgid "Publish immediately"
-msgstr ""
+msgstr "Опублікувати негайно"
 
 msgid "Publish request"
-msgstr ""
+msgstr "Опублікувати запит"
 
 msgid "Publish requests"
-msgstr ""
+msgstr "Опублікувати запити"
 
 msgid "Publish this request or keep it private for longer."
 msgid_plural "Publish these requests or keep them private for longer."

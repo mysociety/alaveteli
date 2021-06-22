@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: info_requests
 #
@@ -10,7 +11,7 @@
 #  created_at                            :datetime         not null
 #  updated_at                            :datetime         not null
 #  described_state                       :string           not null
-#  awaiting_description                  :boolean          default(FALSE), not null
+#  awaiting_description                  :boolean          default("false"), not null
 #  prominence                            :string           default("normal"), not null
 #  url_title                             :text             not null
 #  law_used                              :string           default("foi"), not null
@@ -19,24 +20,58 @@
 #  idhash                                :string           not null
 #  external_user_name                    :string
 #  external_url                          :string
-#  attention_requested                   :boolean          default(FALSE)
-#  comments_allowed                      :boolean          default(TRUE), not null
+#  attention_requested                   :boolean          default("false")
+#  comments_allowed                      :boolean          default("true"), not null
 #  info_request_batch_id                 :integer
 #  last_public_response_at               :datetime
-#  reject_incoming_at_mta                :boolean          default(FALSE), not null
-#  rejected_incoming_count               :integer          default(0)
+#  reject_incoming_at_mta                :boolean          default("false"), not null
+#  rejected_incoming_count               :integer          default("0")
 #  date_initial_request_last_sent_at     :date
 #  date_response_required_by             :date
 #  date_very_overdue_after               :date
 #  last_event_forming_initial_request_id :integer
 #  use_notifications                     :boolean
 #  last_event_time                       :datetime
-#  incoming_messages_count               :integer          default(0)
+#  incoming_messages_count               :integer          default("0")
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe InfoRequest do
+  describe '.internal' do
+    subject { described_class.internal }
+
+    let!(:internal) do
+      FactoryBot.create(:info_request)
+    end
+
+    let!(:external) do
+      FactoryBot.create(:info_request, :external)
+    end
+
+    it 'can scope to internal info requests' do
+      is_expected.to include(internal)
+      is_expected.to_not include(external)
+    end
+  end
+
+  describe '.external' do
+    subject { described_class.external }
+
+    let!(:internal) do
+      FactoryBot.create(:info_request)
+    end
+
+    let!(:external) do
+      FactoryBot.create(:info_request, :external)
+    end
+
+    it 'can scope to external info requests' do
+      is_expected.to_not include(internal)
+      is_expected.to include(external)
+    end
+  end
+
   describe '#foi_attachments' do
     subject { info_request.foi_attachments }
 

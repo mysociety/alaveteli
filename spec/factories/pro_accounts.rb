@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: pro_accounts
 #
@@ -10,8 +11,6 @@
 #  updated_at               :datetime         not null
 #  stripe_customer_id       :string
 #
-
-require 'stripe_mock'
 
 FactoryBot.define do
 

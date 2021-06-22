@@ -1305,3 +1305,11 @@ ENABLE_PRO_SELF_SERVE: false
 #
 # ---
 ENABLE_PROJECTS: false
+
+# If SURVEY_URL is present, one month after a request has been made, Alaveteli
+# will email users with a link to a survey.
+#
+# SURVEY_URL – String (default: '')
+#
+# ---
+SURVEY_URL: ''
