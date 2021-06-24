@@ -14,32 +14,25 @@
 #
 
 require 'spec_helper'
+require 'models/concerns/info_request/draft_title_validation'
 
 describe DraftInfoRequest do
-  let(:draft) { FactoryBot.create(:draft_info_request) }
+  it_behaves_like 'RequestSummaries'
+  it_behaves_like 'concerns/info_request/draft_title_validation',
+                  FactoryBot.build(:draft_info_request)
 
-  it "belongs to a public body" do
-    expect(draft.public_body).to be_a(PublicBody)
+  describe '#valid?' do
+    subject { record.valid? }
+
+    context 'without a user' do
+      let(:record) { described_class.new(user: nil) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'with a user' do
+      let(:record) { FactoryBot.build(:draft_info_request, user: user) }
+      let(:user) { FactoryBot.build(:user) }
+      it { is_expected.to eq(true) }
+    end
   end
-
-  it "belongs to a user" do
-    expect(draft.user).to be_a(User)
-  end
-
-  it "has a title" do
-    expect(draft.title).to be_a(String)
-  end
-
-  it "has a body" do
-    expect(draft.body).to be_a(String)
-  end
-
-  it "requires a user" do
-    draft_request = DraftInfoRequest.new
-    expect(draft_request.valid?).to be false
-    draft_request.user = FactoryBot.create(:user)
-    expect(draft_request.valid?).to be true
-  end
-
-  it_behaves_like "RequestSummaries"
 end
