@@ -41,6 +41,7 @@
 # claude transparencia <audit.citoyen.quartier@gmail.com>, 2016
 # David Cabo <david.cabo@gmail.com>, 2013
 # Gareth Rees <gareth@mysociety.org>, 2015-2016
+# Graeme Porteous <graeme@mysociety.org>, 2021
 # Pascal Romain <aka.keronos@gmail.com>, 2019
 # Liz Conlan <liz@mysociety.org>, 2018
 # louisecrow <louise@mysociety.org>, 2013
@@ -69,7 +70,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-06-24 16:55+0100\n"
-"PO-Revision-Date: 2021-06-18 10:08+0000\n"
+"PO-Revision-Date: 2021-06-24 16:25+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: French (http://www.transifex.com/mysociety/alaveteli/language/f"
 "r/)\n"
@@ -149,7 +150,7 @@ msgid " when you send this message."
 msgstr "quand vous envoyez ce message."
 
 msgid "&#8592; Previous"
-msgstr ""
+msgstr "&#8592; Page précédente"
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Statistiques de la criminalité par canton en Ardèche'"
@@ -1767,7 +1768,7 @@ msgid "Next"
 msgstr "Suivant"
 
 msgid "Next &#8594;"
-msgstr ""
+msgstr "Page suivante &#8594;"
 
 msgid "Next Step: Preview your public request"
 msgstr ""

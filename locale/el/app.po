@@ -27,14 +27,15 @@
 # Andreas Nedelkos <vandreas2004@yahoo.gr>, 2017
 # Graeme Porteous <graeme@mysociety.org>, 2021
 # Stefanos Loukopoulos <stefanos@vouliwatch.gr>, 2021
-# Ανδρέας Κύρκος <tulip.entertainment.greece@gmail.com>, 2021
+# TULIP entertainmentGR <tulip.entertainment.greece@gmail.com>, 2021
+# TULIP entertainmentGR <tulip.entertainment.greece@gmail.com>, 2021
 # ΜΑΡΙΑ ΝΑΘΑΝΑΗΛ <memcommunication@gmail.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-06-24 16:55+0100\n"
-"PO-Revision-Date: 2021-06-18 10:07+0000\n"
+"PO-Revision-Date: 2021-06-24 16:12+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Greek (http://www.transifex.com/mysociety/alaveteli/language/el"
 "/)\n"
@@ -292,7 +293,7 @@ msgid "<strong>No response</strong> has been received <small>(maybe there's just
 msgstr "<strong>Καμία απάντηση</strong> δεν έχει ληφθεί <small>(ίσως να είναι απλά μια γνωστοποίηση)</small>"
 
 msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
-msgstr "<strong>Σημείωση:</strong> Επειδή κάνουμε ελέγχους, τα αιτήματα στέλνονται στο {{email}} και όχι στην δημόσια αρχή."
+msgstr "<strong>Σημείωση:</strong> Επειδή κάνουμε ελέγχους, τα αιτήματα στέλνονται στο {{email}} και όχι στη δημόσια αρχή."
 
 msgid "<strong>Note:</strong> We will send an email to your new email address. Follow the instructions in it to confirm changing your email."
 msgstr "<strong>Σημείωση:</strong> Θα στείλουμε ένα email στην νέα ηλεκτρονική σας διεύθυνση. Ακολουθήστε τις οδηγίες για να επιβεβαιώσετε την αλλαγή email."
@@ -340,7 +341,7 @@ msgid "A <strong>summary</strong> of the response if you have received it by pos
 msgstr "Μια <strong>περίληψη </strong>της απάντησης εάν την έχετε λάβει μέσω ταχυδρομείου."
 
 msgid "A Freedom of Information request"
-msgstr "Ένα Αίτημα Κατάθεσης Εγγράφων και Πρόσβασης στη Δημόσια Πληροφορία "
+msgstr "Ένα Αίτημα Κατάθεσης Εγγράφων και Πρόσβασης στη Δημόσια Πληροφορία"
 
 msgid "A full history of my FOI request and all correspondence is available on the Internet at this address: {{url}}"
 msgstr "Ένα πλήρες ιστορικό των Αιτημάτων Κατάθεσης Εγγράφων και Πρόσβαση στη Δημόσια Πληροφορία και όλης της αλληλογραφίας είναι διαθέσιμο στο Internet στην διεύθυνση: {{url}}"
@@ -829,7 +830,7 @@ msgid "Cultural sites and built structures (as they may be affected by the envir
 msgstr "Πολιτιστικοί χώροι και δομημένες κατασκευές (καθώς ενδέχεται να επηρεαστούν από τους περιβαλλοντικούς παράγοντες που αναφέρονται παραπάνω)"
 
 msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they should respond promptly and"
-msgstr "Σε κατάσταση <strong>αναμονής για απάντηση</strong>από {{public_body_link}}, θα έπρεπε να απαντήσουν άμεσα και "
+msgstr "Σε κατάσταση <strong>αναμονής για απάντηση</strong> από {{public_body_link}}, θα έπρεπε να απαντήσουν άμεσα και "
 
 msgid "Data interpretation"
 msgstr "Ερμηνεία δεδομένων"
@@ -838,16 +839,16 @@ msgid "Date:"
 msgstr "Ημερομηνία:"
 
 msgid "Dear [Authority name],"
-msgstr "Αγαπητέ/-ή [Authority name],"
+msgstr "Αγαπητέ/ή αρμόδιε/α στ@ [Authority name],"
 
 msgid "Dear {{name}},"
 msgstr "Αγαπητέ/-ή {{name}},"
 
 msgid "Dear {{placeholder_body_name}},"
-msgstr "Αγαπητέ {{placeholder_body_name}},"
+msgstr "Αγαπητέ/ή αρμόδιε/α στ@ {{placeholder_body_name}},"
 
 msgid "Dear {{public_body_name}},"
-msgstr "Αγαπητέ/ή {{public_body_name}},"
+msgstr "Αγαπητέ/ή αρμόδιε/α στ@ {{public_body_name}},"
 
 msgid "Dear {{user_name}},"
 msgstr "Αγαπητέ/-ή {{user_name}},"
@@ -880,7 +881,7 @@ msgid "Disable two factor authentication"
 msgstr "Απενεργοποιήστε την διπλή ταυτοποίηση"
 
 msgid "Disclaimer: This message and any reply that you make will be published on the internet. Our privacy and copyright policies:"
-msgstr "Προειδοποίηση: Αυτό το μήνυμα και κάθε απάντηση που θα δώσετε θα δημοσιευθεί στο διαδίκτυο. Το απόρρητο και η πολιτική πνευματικών δικαιωμάτων: "
+msgstr "Προειδοποίηση: Αυτό το μήνυμα και κάθε απάντηση που θα δώσετε θα δημοσιευθεί στο στο arthro5a.gr. Το απόρρητο και η πολιτική πνευματικών δικαιωμάτων:"
 
 msgid "Disclosure log"
 msgstr "Δημοσιοποίηση καταγραφής "
@@ -952,7 +953,7 @@ msgid "Enable two factor authentication"
 msgstr "Ενεργοποιήστε την διπλή ταυτοποίηση"
 
 msgid "Enter words that you want to find separated by spaces, e.g. <strong>climbing lane</strong>"
-msgstr "Enter words that you want to find separated by spaces, e.g. <strong>climbing lane</strong>"
+msgstr "Εισάγετε τις λέξεις που επιθυμείτε να βρείτε χωρισμένες με κενά, π.χ. <strong>δημόσια σύμβαση</strong>"
 
 msgid "Enter your response below. You may attach one file (use email, or <a href=\"{{url}}\">contact us</a> if you need more)."
 msgstr "Εισάγετε την απάντησή σας παρακάτω. Μπορείτε να επισυνάψετε ένα αρχείο (χρησιμοποιήστε το ηλεκτρονικό ταχυδρομείο, ή <a href=\"{{url}}\"> επικοινωνήστε μαζί μας </a>αν χρειάζεστε περισσότερα)."
@@ -1024,7 +1025,7 @@ msgid "Filter by Request Status (optional)"
 msgstr "Φίλτρο με Κατάσταση Αίτησης (προαιρετικό)"
 
 msgid "Find an authority"
-msgstr "Βρείτε έναν οργανισμό"
+msgstr "Βρείτε μια δημόσια αρχή"
 
 msgid "Find the authorities"
 msgstr "Βρείτε τους οργανισμούς"
@@ -1350,7 +1351,7 @@ msgid "If you can, scan in or photograph the response, and <strong>send us a cop
 msgstr "Εάν μπορείτε, σαρώστε ή φωτογραφίστε την απάντηση και <strong>στείλτε μας ένα αντίγραφο για να το ανεβάσουμε. "
 
 msgid "If you find this service useful as an FOI officer, please ask your web manager to link to us from your organisation's FOI page."
-msgstr "Αν βρίσκετε αυτή την υπηρεσία χρήσιμη σαν δημόσιος λειτουργός που εξυπηρετεί αιτήματα κατάθεσης εγγράφων και πρόσβασης στη δημόσια πληροφορία, παρακαλούμε ζητήστε από τον/την προϊστάμενό/-ή σας να σας συνδέσει μαζί μας μέσα από την ιστοσελίδα σας."
+msgstr "Αν βρίσκετε αυτή την υπηρεσία χρήσιμη σαν δημόσιος/α λειτουργός που εξυπηρετεί αιτήματα κατάθεσης εγγράφων και πρόσβασης στη δημόσια πληροφορία, παρακαλούμε ζητήστε από τον/την προϊστάμενό/-ή σας να παραπέμπει στην πλατφόρμα μας μέσα από την ιστοσελίδα σας (web banner, link κτλ.)."
 
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 msgstr "Αν βρήκατε χρήσιμο το {{site_name}}, <a href=\"{{donation_url}}\">κάντε μια δωρεά </a>στο φιλανθρωπικό ίδρυμα που το τρέχει."
@@ -1374,7 +1375,7 @@ msgid "If you want to try and get the rest of the information, here's what to do
 msgstr "Αν θέλετε να δοκιμάσετε και να πάρετε τις υπόλοιπες πληροφορίες, δείτε τι πρέπει να κάνετε τώρα."
 
 msgid "If you would like to contest the authority's claim that they do not hold the information, here is <a href=\"{{complain_url}}\">how to complain</a>."
-msgstr "Αν θα θέλατε να αμφισβητήσετε τον ισχυρισμό της αρχής ότι δεν κατέχει τις πληροφορίες, δείτε εδώ <a href=\"{{complain_url}}\">πως μπορείτε να διαμαρτυρηθείτε</a>."
+msgstr "Αν θα θέλατε να αμφισβητήσετε τον ισχυρισμό της αρχής ότι δεν κατέχει τις πληροφορίες, δείτε εδώ <a href=\"{{complain_url}}\">πώς μπορείτε να διαμαρτυρηθείτε</a>."
 
 msgid "If you would like us to lift this ban, then you may politely<a href=\"/help/contact\">contact us</a> giving reasons."
 msgstr "Αν θέλετε να άρουμε αυτήν την απαγόρευση, τότε μπορείτε πολύ ευγενικά <a href=\"/help/contact\">να επικοινωνήσετε μαζί μας </a>αιτιολογώντας το."
@@ -1445,7 +1446,7 @@ msgid "Invalid token"
 msgstr "Μη έγκυρο κουπόνι"
 
 msgid "Is {{email_address}} the wrong address for {{law_used_full}} requests to {{public_body_name}}? If so, please contact us using this form:"
-msgstr "Είναι το {{email_address}} η λάθος διεύθυνση για {{law_used_full}} αίτημα στο {{public_body_name}}; Αν ναι, επικοινωνήστε μαζί μας χρησιμοποιώντας αυτήν τη φόρμα:  "
+msgstr "Είναι το {{email_address}} η σωστή ηλεκτρονική διεύθυνση για {{law_used_full}} στο {{public_body_name}}; Αν δεν είναι, επικοινωνήστε μαζί μας χρησιμοποιώντας αυτήν τη φόρμα:  "
 
 msgid "It looks like something has gone wrong when sending this message. It could be a technical issue, or an issue with the email address we have for the authority."
 msgstr "Φαίνεται ότι κάτι έχει πάει στραβά κατά την αποστολή αυτού του μηνύματος. Θα μπορούσε να είναι ένα τεχνικό ζήτημα ή ένα ζήτημα με τη διεύθυνση ηλεκτρονικού ταχυδρομείου που έχουμε για την αρχή."
@@ -2314,7 +2315,7 @@ msgid "Restrict to"
 msgstr "Περιορίστε σε"
 
 msgid "Results page {{page_number}}"
-msgstr "Σελίδα αποτελεσμάτων {{date}}"
+msgstr "Σελίδα αποτελεσμάτων {{page_number}}"
 
 msgid "Save"
 msgstr "Αποθήκευση"
@@ -3596,7 +3597,7 @@ msgid "You are already following new requests"
 msgstr "Ακολουθείτε ήδη νέα αιτήματα."
 
 msgid "You are already following things matching this search"
-msgstr "Ακολουθείτε ήδη πράγματα που ταιριάζουν αυτή την αναζήτηση"
+msgstr "Ακολουθείτε ήδη θέματα σχετικά με αυτή την αναζήτηση"
 
 msgid "You are already following this person"
 msgstr "Ακολουθείτε ήδη αυτό το πρόσωπο"
@@ -3797,13 +3798,13 @@ msgid "You will now be emailed updates about '{{link_to_user}}', a person."
 msgstr "Τώρα θα σας αποσταλούν ενημερώσεις σχετικά με '{{link_to_user}}', ένα πρόσωπο."
 
 msgid "You will now be emailed updates about <a href=\"{{search_url}}\">this search</a>."
-msgstr "Τώρα θα σας αποσταλούν ενημερώσεις σχετικά με<a href=\"{{search_url}}\">αυτή την αναζήτηση</a>."
+msgstr "Τώρα θα σας αποσταλούν ενημερώσεις σχετικά με <a href=\"{{search_url}}\">αυτή την αναζήτηση</a>."
 
 msgid "You will now be emailed updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
-msgstr "Τώρα θα σας αποσταλούν ενημερώσεις σχετικά με<a href=\"{{successful_requests_url}}\">πετυχημένα αιτήματα </a>."
+msgstr "Τώρα θα σας αποσταλούν ενημερώσεις σχετικά με <a href=\"{{successful_requests_url}}\">πετυχημένα αιτήματα </a>."
 
 msgid "You will now be emailed updates about any <a href=\"{{new_requests_url}}\">new requests</a>."
-msgstr "Τώρα θα σας αποσταλούν ενημερώσεις σχετικά με<a href=\"{{new_requests_url}}\">νέα αιτήματα</a>."
+msgstr "Τώρα θα σας αποσταλούν ενημερώσεις σχετικά με <a href=\"{{new_requests_url}}\">νέα αιτήματα</a>."
 
 msgid "You will only get an answer to your request if you follow up with the clarification."
 msgstr "Θα λάβετε απάντηση στο αίτημά σας μόνο εάν απαντήσετε με την αποσαφήνιση. "
@@ -3967,13 +3968,13 @@ msgid "Your {{site_name}} email alert"
 msgstr "Η ειδοποίηση email από το {{site_name}} "
 
 msgid "Yours faithfully,"
-msgstr "Ειλικρινά δικός/ή σας,"
+msgstr "Με εκτίμηση,"
 
 msgid "Yours sincerely,"
-msgstr "Ειλικρινά δικός/ή σας,"
+msgstr "Με εκτίμηση,"
 
 msgid "Yours,"
-msgstr "Ειλικρινά δικός/ή σας,"
+msgstr "Με εκτίμηση,"
 
 msgid "ZIP"
 msgstr "Συμπιεσμένο"

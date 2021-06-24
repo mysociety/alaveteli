@@ -25,6 +25,7 @@
 # Translators:
 # Translators:
 # Jiří Vírava <appukonrad@gmail.com>, 2012
+# Graeme Porteous <graeme@mysociety.org>, 2021
 # Hana Hunt <hana@hana-hunt.cz>, 2016-2018,2020-2021
 # Hana Huntova <>, 2012-2015
 # Infromace pro všechny o.s. <info@os.infoprovsechny.cz>, 2018-2019
@@ -48,7 +49,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-06-24 16:55+0100\n"
-"PO-Revision-Date: 2021-06-18 10:07+0000\n"
+"PO-Revision-Date: 2021-06-24 16:23+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Czech (http://www.transifex.com/mysociety/alaveteli/language/cs"
 "/)\n"
@@ -129,7 +130,7 @@ msgid " when you send this message."
 msgstr " když tuto zprávu pošlete."
 
 msgid "&#8592; Previous"
-msgstr ""
+msgstr "Předešlá stránka"
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "\"Statistiky kriminality pro Liberecký kraj.\""
@@ -1733,7 +1734,7 @@ msgid "Next"
 msgstr "Další"
 
 msgid "Next &#8594;"
-msgstr ""
+msgstr "Další stránka"
 
 msgid "Next Step: Preview your public request"
 msgstr ""
@@ -1862,7 +1863,7 @@ msgid "Other:"
 msgstr "Jiné:"
 
 msgid "Page {{page}}"
-msgstr ""
+msgstr "stránka {{page}}"
 
 msgid "Pagination"
 msgstr ""

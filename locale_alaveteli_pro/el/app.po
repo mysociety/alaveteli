@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Ανδρέας Κύρκος <tulip.entertainment.greece@gmail.com>, 2021
+# TULIP entertainmentGR <tulip.entertainment.greece@gmail.com>, 2021
 # ΜΑΡΙΑ ΝΑΘΑΝΑΗΛ <memcommunication@gmail.com>, 2021
 # Graeme Porteous <graeme@mysociety.org>, 2021
 #
@@ -502,7 +502,7 @@ msgid "Introductory Pricing"
 msgstr "Εισαγωγική Τιμολόγηση"
 
 msgid "Investigating asbestos use in schools"
-msgstr ""
+msgstr "Διερεύνηση για τη χρήση αμιάντου σε σχολεία"
 
 msgid "Investigative journalist Jenna Corderoy has made good use of Pro’s privacy features, keeping her extensive Brexit-related investigations private until her stories broke, bringing facts about <a href=\"{{story_url_1}}\">campaign overspending</a> and <a href=\"{{story_url_2}}\">ERG</a> research to the public, among several other important stories."
 msgstr "Η ερευνητική δημοσιογράφος Jenna Corderoy έχει κάνει καλή χρήση των ιδιωτικών χαρακτηριστικών του Pro, διατηρώντας απόρρητες τις εκτεταμένες έρευνες που σχετίζονται με το Brexit, μέχρι να βγουν στην επιφάνεια οι ιστορίες της και να αποκαλύψει γεγονότα σχετικά με τις <a href=\"{{story_url_1}}\">υπερβολικές δαπάνες της καμπάνιας </a>και <a href=\"{{story_url_2}}\">την έρευνα ERG </a>στο κοινό, μεταξύ πολλών άλλων σημαντικών ιστοριών."
