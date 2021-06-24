@@ -21,6 +21,8 @@ You've found the documentation for Alaveteli.
 
 * Read the [Getting Started guide]({{ page.baseurl }}/docs/getting_started/)
 
+* Watch our [training videos]({{ page.baseurl }}/docs/running/resources_for_owners/#videos)
+
 **The documentation covers
 [installing]({{ page.baseurl }}/docs/installing/),
 [customising]({{ page.baseurl }}/docs/customising/), and
