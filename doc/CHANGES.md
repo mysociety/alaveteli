@@ -2,11 +2,14 @@
 
 ## Highlighted Features
 
+* Prevent saving of unescaped characters in regexp Censor Rules (Gareth Rees)
+* Truncate list of alternative users shown on user profiles (Gareth Rees)
 * Allow author to be an optional blog feed attribute (Gareth Rees)
 * Handle UTF8 characters in RFC822 attachment subject lines (Gareth Rees)
 * Backpaged content tells external search engines not to index it (Gareth Rees)
 * Tweak change request button colours in admin interface (Gareth Rees)
 * Add Debian Buster support (Graeme Porteous)
+* Add ability to translate pagination links (Graeme Porteous)
 
 ## Upgrade Notes
 

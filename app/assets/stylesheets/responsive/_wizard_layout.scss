@@ -1,5 +1,13 @@
 .wizard {
   margin: 2rem 0;
+  display: block;
+}
+
+.no-js {
+  .wizard {
+    display: none;
+    visibility: hidden;
+  }
 }
 
 // Hide questions by default.

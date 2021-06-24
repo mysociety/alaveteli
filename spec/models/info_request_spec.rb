@@ -36,8 +36,12 @@
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'models/concerns/info_request/title_validation'
 
 describe InfoRequest do
+  it_behaves_like 'concerns/info_request/title_validation',
+                  FactoryBot.build(:info_request)
+
   describe '.internal' do
     subject { described_class.internal }
 
@@ -1647,95 +1651,6 @@ describe InfoRequest do
   end
 
   describe 'when validating' do
-
-    it 'requires a summary' do
-      info_request = InfoRequest.new
-      info_request.valid?
-      expect(info_request.errors[:title]).
-        to include("Please enter a summary of your request")
-    end
-
-    it 'accepts a summary with ascii characters' do
-      info_request = InfoRequest.new(:title => 'Abcde')
-      info_request.valid?
-      expect(info_request.errors[:title]).to be_empty
-    end
-
-    it 'accepts a summary with unicode characters' do
-      info_request = InfoRequest.new(:title => 'Кажете')
-      info_request.valid?
-      expect(info_request.errors[:title]).to be_empty
-    end
-
-    it 'rejects a summary with no ascii or unicode characters' do
-      info_request = InfoRequest.new(:title => '55555')
-      info_request.valid?
-      expect(info_request.errors[:title]).
-        to include("Please write a summary with some text in it")
-    end
-
-    it 'accepts a summary of numbers and lower case' do
-      info_request = InfoRequest.new(:title => '999 calls')
-      info_request.valid?
-      expect(info_request.errors[:title]).to be_empty
-    end
-
-    it 'accepts all upper case single words' do
-      info_request = InfoRequest.new(:title => 'HMRC')
-      info_request.valid?
-      expect(info_request.errors[:title]).to be_empty
-    end
-
-    it 'rejects a summary which is more than 200 chars long' do
-      info_request = InfoRequest.new(:title => 'Lorem ipsum ' * 17)
-      info_request.valid?
-      expect(info_request.errors[:title]).
-        to include("Please keep the summary short, like in the subject of an " \
-                   "email. You can use a phrase, rather than a full sentence.")
-    end
-
-    it 'rejects a summary which is less than 3 chars long' do
-      info_request = InfoRequest.new(:title => 'Re')
-      info_request.valid?
-      expect(info_request.errors[:title]).
-        to include('Summary is too short. Please be a little more ' \
-                   'descriptive about the information you are asking for.')
-    end
-
-    it 'rejects a summary that just says "FOI requests"' do
-      info_request = InfoRequest.new(:title => 'FOI requests')
-      info_request.valid?
-      expect(info_request.errors[:title]).
-        to include("Please describe more what the request is about in the " \
-                   "subject. There is no need to say it is an FOI request, " \
-                   "we add that on anyway.")
-    end
-
-    it 'rejects a summary that just says "Freedom of Information request"' do
-      info_request = InfoRequest.new(:title => 'Freedom of Information request')
-      info_request.valid?
-      expect(info_request.errors[:title]).
-        to include("Please describe more what the request is about in the " \
-                   "subject. There is no need to say it is an FOI request, " \
-                   "we add that on anyway.")
-    end
-
-    it 'rejects a summary which is not a mix of upper and lower case' do
-      info_request = InfoRequest.new(:title => 'lorem ipsum')
-      info_request.valid?
-      expect(info_request.errors[:title]).
-        to include("Please write the summary using a mixture of capital and " \
-                   "lower case letters. This makes it easier for others to read.")
-    end
-
-    it 'rejects short summaries which are not a mix of upper and lower case' do
-      info_request = InfoRequest.new(:title => 'test')
-      info_request.valid?
-      expect(info_request.errors[:title]).
-        to include("Please write the summary using a mixture of capital and " \
-                   "lower case letters. This makes it easier for others to read.")
-    end
-
     it 'requires a public body by default' do
       info_request = InfoRequest.new
       info_request.valid?
@@ -1755,7 +1670,6 @@ describe InfoRequest do
       info_request.valid?
       expect(info_request.errors[:prominence]).to include("is not included in the list")
     end
-
   end
 
   describe 'when generating a user name slug' do

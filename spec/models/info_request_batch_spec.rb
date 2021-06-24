@@ -15,8 +15,12 @@
 #
 
 require 'spec_helper'
+require 'models/concerns/info_request/title_validation'
 
 describe InfoRequestBatch do
+  it_behaves_like 'concerns/info_request/title_validation',
+                  FactoryBot.build(:info_request_batch)
+
   context "when validating" do
     let(:info_request_batch) { FactoryBot.build(:info_request_batch) }
 
@@ -24,12 +28,6 @@ describe InfoRequestBatch do
       info_request_batch.user = nil
       expect(info_request_batch.valid?).to be false
       expect(info_request_batch.errors.full_messages).to eq(["User can't be blank"])
-    end
-
-    it 'should require a title' do
-      info_request_batch.title = nil
-      expect(info_request_batch.valid?).to be false
-      expect(info_request_batch.errors.full_messages).to eq(["Title can't be blank"])
     end
 
     it 'should require a body' do

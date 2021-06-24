@@ -86,17 +86,4 @@ module AdminHelper
       string
     end
   end
-
-  def highlight_prominence(string)
-    case string
-    when 'backpage'
-      content_tag :span, string, class: 'text-warning'
-    when 'requester_only'
-      content_tag :span, string, class: 'text-warning'
-    when 'hidden'
-      content_tag :span, string, class: 'text-error'
-    else
-      string
-    end
-  end
 end

@@ -4534,3 +4534,15 @@ msgstr "6 Meses"
 
 msgid "12 Months"
 msgstr "12 Meses"
+
+msgid "&#8592; Previous"
+msgstr "&laquo; Anterior"
+
+msgid "Next &#8594;"
+msgstr "Siguiente &raquo;"
+
+msgid "Pagination"
+msgstr "Paginación"
+
+msgid "Page {{page}}"
+msgstr "Página {{page}}"
