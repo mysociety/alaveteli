@@ -168,6 +168,9 @@ class UserController < ApplicationController
         return
       end
     end
+  rescue ActionController::ParameterMissing
+    flash[:error] = _('Invalid form submission')
+    render action: :sign
   end
 
   def ip_rate_limiter
