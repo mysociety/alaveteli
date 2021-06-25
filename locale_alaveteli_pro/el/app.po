@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Ανδρέας Κύρκος <tulip.entertainment.greece@gmail.com>, 2021
+# TULIP entertainmentGR <tulip.entertainment.greece@gmail.com>, 2021
 # ΜΑΡΙΑ ΝΑΘΑΝΑΗΛ <memcommunication@gmail.com>, 2021
 # Graeme Porteous <graeme@mysociety.org>, 2021
 #
@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-16 16:34+0100\n"
+"POT-Creation-Date: 2021-06-24 16:56+0100\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>, 2021\n"
 "Language-Team: Greek (https://www.transifex.com/mysociety/teams/33529/el/)\n"
@@ -270,6 +270,9 @@ msgstr "Φυλλομέτρηση δημοσιοποιημένων αιτημάτ
 msgid "CSV"
 msgstr "CSV"
 
+msgid "Campaigners"
+msgstr ""
+
 msgid "Campaigning for better wheelchair accessibility"
 msgstr "Εκστρατεία για καλύτερη προσβασιμότητα αναπηρικών αμαξιδίων"
 
@@ -498,7 +501,7 @@ msgstr "Σημαντικές πληροφορίες σχετικά με αιτή
 msgid "Introductory Pricing"
 msgstr "Εισαγωγική Τιμολόγηση"
 
-msgid "Investigating asbestos use in shcools"
+msgid "Investigating asbestos use in schools"
 msgstr "Διερεύνηση για τη χρήση αμιάντου σε σχολεία"
 
 msgid "Investigative journalist Jenna Corderoy has made good use of Pro’s privacy features, keeping her extensive Brexit-related investigations private until her stories broke, bringing facts about <a href=\"{{story_url_1}}\">campaign overspending</a> and <a href=\"{{story_url_2}}\">ERG</a> research to the public, among several other important stories."
