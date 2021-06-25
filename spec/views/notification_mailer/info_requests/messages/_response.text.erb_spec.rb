@@ -21,7 +21,9 @@ describe "notification_mailer/info_requests/messages/_response.text.erb" do
   let(:template) { "notification_mailer/info_requests/messages/response" }
 
   before do
-    allow(info_request).to receive(:law_used_human).and_return("FOI & EIR")
+    allow(info_request).to receive(:legislation).and_return(
+      FactoryBot.build(:legislation, full: 'FOI & EIR')
+    )
     render partial: template,
            locals: { info_request: info_request,
                      info_request_event: info_request_event }

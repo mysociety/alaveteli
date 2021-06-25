@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: info_request_batches
 #
@@ -16,6 +17,7 @@
 class InfoRequestBatch < ApplicationRecord
   include AlaveteliPro::RequestSummaries
   include AlaveteliFeatures::Helpers
+  include InfoRequest::TitleValidation
 
   has_many :info_requests,
            :inverse_of => :info_request_batch
@@ -36,7 +38,6 @@ class InfoRequestBatch < ApplicationRecord
   }, :inverse_of => :info_request_batches
 
   validates_presence_of :user
-  validates_presence_of :title
   validates_presence_of :body
 
   def self.send_batches

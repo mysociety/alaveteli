@@ -4,22 +4,25 @@ namespace :config_files do
 
   include Usage
 
-  def convert_ugly(file, replacements)
-    converted_lines = []
-    ugly_var = /\!\!\(\*= \$([^ ]+) \*\)\!\!/
-    File.open(file, 'r').each do |line|
-      line = line.gsub(ugly_var) do |match|
-        var = $1.to_sym
-        replacement = replacements[var]
-        if replacement.nil?
-          raise "Unhandled variable in example file: $#{var}"
-        else
-          replacements[var]
-        end
-      end
-      converted_lines << line
+  class ExampleERBRenderer
+    def initialize(file, **variables)
+      @template = ERB.new(File.read(file))
+      @variables = variables
     end
-    converted_lines
+
+    def lines
+      @template.result(binding).split(/\r?\n/)
+    end
+
+    def method_missing(variable, *_args)
+      @variables.fetch(variable) do
+        raise "Unhandled variable in example file: #{variable}"
+      end
+    end
+  end
+
+  def convert_erb(file, replacements)
+    ExampleERBRenderer.new(file, replacements).lines
   end
 
   def daemons(only_active = false)
@@ -65,7 +68,7 @@ namespace :config_files do
     }
 
     # Generate the template for potential further processing
-    convert_ugly(ENV['SCRIPT_FILE'], replacements).each do |line|
+    convert_erb(ENV['SCRIPT_FILE'], replacements).each do |line|
       puts line
     end
   end
@@ -78,7 +81,8 @@ namespace :config_files do
               'VCSPATH=alaveteli ' \
               'SITE=alaveteli ' \
               'SCRIPT_FILE=config/alert-tracks-debian.example ' \
-              'RUBY_VERSION=2.1.5 '
+              'RUBY_VERSION=2.5.8 ' \
+              'USE_RBENV=false '
     check_for_env_vars(['DEPLOY_USER',
                         'VHOST_DIR',
                         'SCRIPT_FILE'], example)
@@ -90,7 +94,8 @@ namespace :config_files do
       :site => ENV.fetch('SITE') { 'foi' },
       :cpus => ENV.fetch('CPUS') { '1' },
       :rails_env => ENV.fetch('RAILS_ENV') { 'development' },
-      :ruby_version => ENV.fetch('RUBY_VERSION') { '' }
+      :ruby_version => ENV.fetch('RUBY_VERSION') { '' },
+      :use_rbenv? => ENV['USE_RBENV'] == 'true'
     }
 
     # Use the filename for the $daemon_name ugly variable
@@ -98,13 +103,13 @@ namespace :config_files do
     replacements.update(:daemon_name => "#{ replacements[:site] }-#{ daemon_name }")
 
     # Generate the template for potential further processing
-    converted = convert_ugly(ENV['SCRIPT_FILE'], replacements)
+    converted = convert_erb(ENV['SCRIPT_FILE'], replacements)
 
-    # gsub the RAILS_ENV in to the generated template if its not set by the
+    # uncomment RAILS_ENV in to the generated template if its not set by the
     # hard coded config file
     unless File.exist?("#{ Rails.root }/config/rails_env.rb")
       converted.each do |line|
-        line.gsub!(/^#\s*RAILS_ENV=your_rails_env/, "RAILS_ENV=#{Rails.env}")
+        line.gsub!(/^#\s*RAILS_ENV=/, "RAILS_ENV=")
         line.gsub!(/^#\s*export RAILS_ENV/, "export RAILS_ENV")
       end
     end
@@ -121,7 +126,8 @@ namespace :config_files do
               'VHOST_DIR=/dir/above/alaveteli VCSPATH=alaveteli ' \
               'SITE=alaveteli CRONTAB=config/crontab-example ' \
               'MAILTO=cron-alaveteli@example.org ' \
-              'RUBY_VERSION=2.1.5 '
+              'RUBY_VERSION=2.5.8 '
+              'USE_RBENV=false '
     check_for_env_vars(['DEPLOY_USER',
                         'VHOST_DIR',
                         'VCSPATH',
@@ -133,11 +139,12 @@ namespace :config_files do
       :vcspath => ENV['VCSPATH'],
       :site => ENV['SITE'],
       :mailto => ENV.fetch('MAILTO') { "#{ ENV['DEPLOY_USER'] }@localhost" },
-      :ruby_version => ENV.fetch('RUBY_VERSION') { '' }
+      :ruby_version => ENV.fetch('RUBY_VERSION') { '' },
+      :use_rbenv? => ENV['USE_RBENV'] == 'true'
     }
 
     lines = []
-    convert_ugly(ENV['CRONTAB'], replacements).each do |line|
+    convert_erb(ENV['CRONTAB'], replacements).each do |line|
       lines << line
     end
 
@@ -161,13 +168,13 @@ namespace :config_files do
     }
 
     # Generate the template for potential further processing
-    converted = convert_ugly(ENV['SCRIPT_FILE'], replacements)
+    converted = convert_erb(ENV['SCRIPT_FILE'], replacements)
 
-    # gsub the RAILS_ENV in to the generated template if its not set by the
+    # uncomment RAILS_ENV in to the generated template if its not set by the
     # hard coded config file
     unless File.exist?("#{ Rails.root }/config/rails_env.rb")
       converted.each do |line|
-        line.gsub!(/^#\s*RAILS_ENV=your_rails_env/, "RAILS_ENV=#{Rails.env}")
+        line.gsub!(/^#\s*RAILS_ENV=/, "RAILS_ENV=")
         line.gsub!(/^#\s*export RAILS_ENV/, "export RAILS_ENV")
       end
     end
@@ -197,6 +204,21 @@ namespace :config_files do
       end
     end
     puts "Updated #{updated_count} info requests"
+  end
+
+  desc 'Set reject_incoming_at_mta on a list of requests identified by ' \
+       'request address'
+  task set_reject_incoming_at_mta_from_list: :environment do
+    example = 'rake temp:set_reject_incoming_at_mta_from_list ' \
+              'FILE=/tmp/rejection_list.txt'
+
+    check_for_env_vars(['FILE'], example)
+
+    File.read(ENV['FILE']).each_line do |line|
+      info_request = InfoRequest.find_by_incoming_email(line.strip)
+      info_request.reject_incoming_at_mta = true
+      info_request.save!
+    end
   end
 
   desc 'Unset reject_incoming_at_mta on a request'

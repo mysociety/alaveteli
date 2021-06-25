@@ -1,0 +1,7 @@
+foi:
+  group:
+  - id: foo
+  - id: baz
+  - id: with_subgroup
+    subgroup:
+    - id: xyz

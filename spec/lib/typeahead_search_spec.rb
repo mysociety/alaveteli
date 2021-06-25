@@ -228,6 +228,25 @@ describe TypeaheadSearch do
       end
 
     end
+
+    context 'when max wildcard limit is reached' do
+
+      around do |example|
+        ActsAsXapian.prepare_environment
+        limit = ActsAsXapian.max_wildcard_expansion
+        ActsAsXapian.max_wildcard_expansion = 1
+        example.run
+        ActsAsXapian.max_wildcard_expansion = limit
+      end
+
+      it 'fallbacks to an non-wildcard search' do
+        search = TypeaheadSearch.new('dog', options)
+        expect { search.xapian_search }.to(
+          change(search, :wildcard).from(true).to(false)
+        )
+      end
+
+    end
   end
 end
 

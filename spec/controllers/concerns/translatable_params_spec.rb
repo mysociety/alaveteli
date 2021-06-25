@@ -26,8 +26,16 @@ describe TranslatableParams do
                         :name => 'Other name' } } }
 
       params = ActionController::Parameters.new(params)
-      expect(translatable_params(keys, params)).
+      expect(translatable_params(params, keys)).
         to eq(ActionController::Parameters.new(expected).permit!)
+    end
+
+    context 'when there are no params' do
+
+      it 'returns an empty hash' do
+        expect(translatable_params(nil, keys)).to eq({})
+      end
+
     end
 
   end

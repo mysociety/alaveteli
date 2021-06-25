@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: public_bodies
 #
@@ -11,13 +12,22 @@
 #  updated_at                             :datetime         not null
 #  home_page                              :text
 #  api_key                                :string           not null
-#  info_requests_count                    :integer          default(0), not null
+#  info_requests_count                    :integer          default("0"), not null
 #  disclosure_log                         :text
 #  info_requests_successful_count         :integer
 #  info_requests_not_held_count           :integer
 #  info_requests_overdue_count            :integer
 #  info_requests_visible_classified_count :integer
-#  info_requests_visible_count            :integer          default(0), not null
+#  info_requests_visible_count            :integer          default("0"), not null
+#  public_body_id                         :integer          not null
+#  name                                   :text
+#  short_name                             :text
+#  request_email                          :text
+#  url_name                               :text
+#  notes                                  :text
+#  first_letter                           :string
+#  publication_scheme                     :text
+#  disclosure_log                         :text
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
@@ -1843,6 +1853,31 @@ CSV
     expect(notes[2]).to match(/Notes: Some  bodies are in database, but not in CSV file:\n(    .+\n)*You may want to delete them manually.\n/)
 
     expect(PublicBody.count).to eq(original_count)
+  end
+end
+
+RSpec.describe PublicBody do
+  let(:public_body) { FactoryBot.build(:public_body) }
+  let(:legislation) { double(:legislation) }
+  let(:legislations) { [legislation] }
+
+  describe '#legislations' do
+    subject { public_body.legislations }
+
+    it 'pass self to Legislation.for_public_body' do
+      expect(Legislation).to receive(:for_public_body).with(public_body).
+        and_return(legislations)
+      is_expected.to eq legislations
+    end
+  end
+
+  describe '#legislation' do
+    subject { public_body.legislation }
+
+    it 'returns first legislations' do
+      allow(public_body).to receive(:legislations).and_return(legislations)
+      is_expected.to eq legislation
+    end
   end
 end
 

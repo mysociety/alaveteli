@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: draft_info_requests
 #
@@ -15,6 +16,7 @@
 
 class DraftInfoRequest < ApplicationRecord
   include AlaveteliPro::RequestSummaries
+  include InfoRequest::DraftTitleValidation
 
   validates_presence_of :user
 

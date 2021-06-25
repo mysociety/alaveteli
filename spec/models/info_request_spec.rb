@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: info_requests
 #
@@ -10,7 +11,7 @@
 #  created_at                            :datetime         not null
 #  updated_at                            :datetime         not null
 #  described_state                       :string           not null
-#  awaiting_description                  :boolean          default(FALSE), not null
+#  awaiting_description                  :boolean          default("false"), not null
 #  prominence                            :string           default("normal"), not null
 #  url_title                             :text             not null
 #  law_used                              :string           default("foi"), not null
@@ -19,24 +20,62 @@
 #  idhash                                :string           not null
 #  external_user_name                    :string
 #  external_url                          :string
-#  attention_requested                   :boolean          default(FALSE)
-#  comments_allowed                      :boolean          default(TRUE), not null
+#  attention_requested                   :boolean          default("false")
+#  comments_allowed                      :boolean          default("true"), not null
 #  info_request_batch_id                 :integer
 #  last_public_response_at               :datetime
-#  reject_incoming_at_mta                :boolean          default(FALSE), not null
-#  rejected_incoming_count               :integer          default(0)
+#  reject_incoming_at_mta                :boolean          default("false"), not null
+#  rejected_incoming_count               :integer          default("0")
 #  date_initial_request_last_sent_at     :date
 #  date_response_required_by             :date
 #  date_very_overdue_after               :date
 #  last_event_forming_initial_request_id :integer
 #  use_notifications                     :boolean
 #  last_event_time                       :datetime
-#  incoming_messages_count               :integer          default(0)
+#  incoming_messages_count               :integer          default("0")
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'models/concerns/info_request/title_validation'
 
 describe InfoRequest do
+  it_behaves_like 'concerns/info_request/title_validation',
+                  FactoryBot.build(:info_request)
+
+  describe '.internal' do
+    subject { described_class.internal }
+
+    let!(:internal) do
+      FactoryBot.create(:info_request)
+    end
+
+    let!(:external) do
+      FactoryBot.create(:info_request, :external)
+    end
+
+    it 'can scope to internal info requests' do
+      is_expected.to include(internal)
+      is_expected.to_not include(external)
+    end
+  end
+
+  describe '.external' do
+    subject { described_class.external }
+
+    let!(:internal) do
+      FactoryBot.create(:info_request)
+    end
+
+    let!(:external) do
+      FactoryBot.create(:info_request, :external)
+    end
+
+    it 'can scope to external info requests' do
+      is_expected.to_not include(internal)
+      is_expected.to include(external)
+    end
+  end
+
   describe '#foi_attachments' do
     subject { info_request.foi_attachments }
 
@@ -60,17 +99,18 @@ describe InfoRequest do
       expect(InfoRequest.new.law_used).to eq('foi')
     end
 
-    it 'sets the default law used if a body is eir-only' do
-      body = FactoryBot.create(:public_body, :tag_string => 'eir_only')
-      expect(body.info_requests.build.law_used).to eq('eir')
+    it 'sets the default law used to the legislation key' do
+      legislation = FactoryBot.build(:legislation, key: 'eir')
+      allow_any_instance_of(InfoRequest).to receive(:legislation).
+        and_return(legislation)
+      expect(InfoRequest.new(law_used: nil).law_used).to eq('eir')
     end
 
-    it 'does not try to set the law used for existing requests' do
-      info_request = FactoryBot.create(:info_request)
-      body = FactoryBot.create(:public_body, :tag_string => 'eir_only')
-      info_request.update(:public_body_id => body.id)
-      expect_any_instance_of(InfoRequest).not_to receive(:law_used=).and_call_original
-      InfoRequest.find(info_request.id)
+    it 'does not try to overwrite the existing law used' do
+      legislation = FactoryBot.build(:legislation, key: 'eir')
+      allow_any_instance_of(InfoRequest).to receive(:legislation).
+        and_return(legislation)
+      expect(InfoRequest.new(law_used: 'foi').law_used).to eq('foi')
     end
 
     it "sets the url_title from the supplied title" do
@@ -984,13 +1024,17 @@ describe InfoRequest do
         expect(event.params[:old_public_body_url_name]).to eq(old_body.url_name)
       end
 
-      it 'updates the law_used to the new body law' do
-        request = FactoryBot.create(:info_request)
-        new_body = FactoryBot.create(:public_body, :tag_string => 'eir_only')
-        editor = FactoryBot.create(:user)
-        request.move_to_public_body(new_body, :editor => editor)
-        request.reload
-        expect(request.law_used).to eq('eir')
+      it 'updates the law_used to the new legislation key' do
+        request = FactoryBot.create(:info_request, law_used: 'foi')
+        new_body = FactoryBot.create(:public_body)
+        allow(new_body).to receive(:legislation).and_return(
+          FactoryBot.build(:legislation, key: 'eir')
+        )
+
+        expect {
+          editor = FactoryBot.create(:user)
+          request.move_to_public_body(new_body, editor: editor)
+        }.to change(request, :law_used).from('foi').to('eir')
       end
 
       it 'returns the new public body' do
@@ -1547,76 +1591,59 @@ describe InfoRequest do
 
   end
 
-  describe 'when working out which law is in force' do
+  describe '#legislation' do
 
-    context 'when using FOI law' do
+    let(:legislation) { Legislation.new(key: 'abc') }
 
-      let(:info_request) { InfoRequest.new(:law_used => 'foi') }
-
-      it 'returns the expected law_used_full string' do
-        expect(info_request.law_used_human(:full)).to eq("Freedom of Information")
+    context 'with valid law_used' do
+      let(:info_request) do
+        FactoryBot.build(:info_request, law_used: 'abc')
       end
 
-      it 'returns the expected law_used_short string' do
-        expect(info_request.law_used_human(:short)).to eq("FOI")
+      it 'finds and returns legislation matching key' do
+        allow(Legislation).to receive(:find!).with('abc').
+          and_return(legislation)
+        expect(info_request.legislation).to eq legislation
+      end
+    end
+
+    context 'with invalid law_used' do
+      let(:info_request) do
+        FactoryBot.build(:info_request, law_used: '123')
       end
 
-      it 'returns the expected law_used_act string' do
-        expect(info_request.law_used_human(:act)).to eq("Freedom of Information Act")
+      it 'raises unknown legislation exception' do
+        allow(Legislation).to receive(:find!).with('123').and_call_original
+        expect { info_request.legislation }.to raise_error(
+          Legislation::UnknownLegislation,
+          'Unknown legislation 123.'
+        )
+      end
+    end
+
+    context 'without law_used, with public body present' do
+
+      let(:public_body) { FactoryBot.build(:public_body) }
+      let(:info_request) do
+        FactoryBot.build(:info_request, law_used: nil, public_body: public_body)
       end
 
-      it 'raises an error when given an unknown key' do
-        expect { info_request.law_used_human(:random) }.to raise_error.
-          with_message( "Unknown key 'random' for '#{info_request.law_used}'")
+      it 'delegates to public body' do
+        allow(public_body).to receive(:legislation).and_return(legislation)
+        expect(info_request.legislation).to eq legislation
       end
 
     end
 
-    context 'when using EIR law' do
+    context 'without law_used or public body present' do
 
-      let(:info_request) { InfoRequest.new(:law_used => 'eir') }
-
-      it 'returns the expected law_used_full string' do
-        expect(info_request.law_used_human(:full)).to eq("Environmental Information Regulations")
+      let(:info_request) do
+        FactoryBot.build(:info_request, law_used: nil, public_body: nil)
       end
 
-      it 'returns the expected law_used_short string' do
-        expect(info_request.law_used_human(:short)).to eq("EIR")
-      end
-
-      it 'returns the expected law_used_act string' do
-        expect(info_request.law_used_human(:act)).to eq("Environmental Information Regulations")
-      end
-
-      it 'raises an error when given an unknown key' do
-        expect { info_request.law_used_human(:random) }.to raise_error.
-          with_message( "Unknown key 'random' for '#{info_request.law_used}'")
-      end
-
-    end
-
-    context 'when set to an unknown law' do
-
-      let(:info_request) { InfoRequest.new(:law_used => 'unknown') }
-
-      it 'raises an error when asked for law_used_full string' do
-        expect { info_request.law_used_human(:full) }.to raise_error.
-          with_message("Unknown law used '#{info_request.law_used}'")
-      end
-
-      it 'raises an error when asked for law_used_short string' do
-        expect { info_request.law_used_human(:short) }.to raise_error.
-          with_message("Unknown law used '#{info_request.law_used}'")
-      end
-
-      it 'raises an error when asked for law_used_act string' do
-        expect { info_request.law_used_human(:act) }.to raise_error.
-          with_message("Unknown law used '#{info_request.law_used}'")
-      end
-
-      it 'raises an error when given an unknown key' do
-        expect { info_request.law_used_human(:random) }.to raise_error.
-          with_message("Unknown law used '#{info_request.law_used}'")
+      it 'returns default legislation' do
+        allow(Legislation).to receive(:default).and_return(legislation)
+        expect(info_request.legislation).to eq legislation
       end
 
     end
@@ -1624,95 +1651,6 @@ describe InfoRequest do
   end
 
   describe 'when validating' do
-
-    it 'requires a summary' do
-      info_request = InfoRequest.new
-      info_request.valid?
-      expect(info_request.errors[:title]).
-        to include("Please enter a summary of your request")
-    end
-
-    it 'accepts a summary with ascii characters' do
-      info_request = InfoRequest.new(:title => 'Abcde')
-      info_request.valid?
-      expect(info_request.errors[:title]).to be_empty
-    end
-
-    it 'accepts a summary with unicode characters' do
-      info_request = InfoRequest.new(:title => 'Кажете')
-      info_request.valid?
-      expect(info_request.errors[:title]).to be_empty
-    end
-
-    it 'rejects a summary with no ascii or unicode characters' do
-      info_request = InfoRequest.new(:title => '55555')
-      info_request.valid?
-      expect(info_request.errors[:title]).
-        to include("Please write a summary with some text in it")
-    end
-
-    it 'accepts a summary of numbers and lower case' do
-      info_request = InfoRequest.new(:title => '999 calls')
-      info_request.valid?
-      expect(info_request.errors[:title]).to be_empty
-    end
-
-    it 'accepts all upper case single words' do
-      info_request = InfoRequest.new(:title => 'HMRC')
-      info_request.valid?
-      expect(info_request.errors[:title]).to be_empty
-    end
-
-    it 'rejects a summary which is more than 200 chars long' do
-      info_request = InfoRequest.new(:title => 'Lorem ipsum ' * 17)
-      info_request.valid?
-      expect(info_request.errors[:title]).
-        to include("Please keep the summary short, like in the subject of an " \
-                   "email. You can use a phrase, rather than a full sentence.")
-    end
-
-    it 'rejects a summary which is less than 3 chars long' do
-      info_request = InfoRequest.new(:title => 'Re')
-      info_request.valid?
-      expect(info_request.errors[:title]).
-        to include('Summary is too short. Please be a little more ' \
-                   'descriptive about the information you are asking for.')
-    end
-
-    it 'rejects a summary that just says "FOI requests"' do
-      info_request = InfoRequest.new(:title => 'FOI requests')
-      info_request.valid?
-      expect(info_request.errors[:title]).
-        to include("Please describe more what the request is about in the " \
-                   "subject. There is no need to say it is an FOI request, " \
-                   "we add that on anyway.")
-    end
-
-    it 'rejects a summary that just says "Freedom of Information request"' do
-      info_request = InfoRequest.new(:title => 'Freedom of Information request')
-      info_request.valid?
-      expect(info_request.errors[:title]).
-        to include("Please describe more what the request is about in the " \
-                   "subject. There is no need to say it is an FOI request, " \
-                   "we add that on anyway.")
-    end
-
-    it 'rejects a summary which is not a mix of upper and lower case' do
-      info_request = InfoRequest.new(:title => 'lorem ipsum')
-      info_request.valid?
-      expect(info_request.errors[:title]).
-        to include("Please write the summary using a mixture of capital and " \
-                   "lower case letters. This makes it easier for others to read.")
-    end
-
-    it 'rejects short summaries which are not a mix of upper and lower case' do
-      info_request = InfoRequest.new(:title => 'test')
-      info_request.valid?
-      expect(info_request.errors[:title]).
-        to include("Please write the summary using a mixture of capital and " \
-                   "lower case letters. This makes it easier for others to read.")
-    end
-
     it 'requires a public body by default' do
       info_request = InfoRequest.new
       info_request.valid?
@@ -1732,21 +1670,22 @@ describe InfoRequest do
       info_request.valid?
       expect(info_request.errors[:prominence]).to include("is not included in the list")
     end
-
   end
 
   describe 'when generating a user name slug' do
 
-    before do
-      @public_body = mock_model(PublicBody, :url_name => 'example_body',
-                                :eir_only? => false)
-      @info_request = InfoRequest.new(:external_url => 'http://www.example.com',
-                                      :external_user_name => 'Example User',
-                                      :public_body => @public_body)
+    let(:public_body) do
+      FactoryBot.build(:public_body, url_name: 'example_body')
+    end
+
+    let(:info_request) do
+      FactoryBot.build(:external_request,
+                       public_body: public_body,
+                       external_user_name: 'Example User')
     end
 
     it 'should generate a slug for an example user name' do
-      expect(@info_request.user_name_slug).to eq('example_body_example_user')
+      expect(info_request.user_name_slug).to eq('example_body_example_user')
     end
 
   end
@@ -4784,6 +4723,91 @@ describe InfoRequest do
         subject
         expect(described_class.exists?(url_title: 'holding_pen')).to eq(true)
       end
+    end
+  end
+
+  describe '#reason_to_be_unhappy?' do
+    subject { info_request.reason_to_be_unhappy? }
+
+    let(:info_request) { FactoryBot.build(:info_request) }
+
+    context 'the request has been classified as rejected' do
+      before do
+        info_request.awaiting_description = false
+        info_request.described_state = 'rejected'
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'the request has been classified as partially_successful' do
+      before do
+        info_request.awaiting_description = false
+        info_request.described_state = 'partially_successful'
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'the request has been classified as waiting_response_very_overdue' do
+      before do
+        info_request.awaiting_description = false
+        info_request.described_state = 'waiting_response_very_overdue'
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'the request is waiting classification' do
+      before { info_request.awaiting_description = true }
+      it { is_expected.to eq(false) }
+    end
+  end
+
+  describe '#classified?' do
+    subject { info_request.classified? }
+
+    let(:info_request) { FactoryBot.build(:info_request) }
+
+    context 'the request has been classified' do
+      before { info_request.awaiting_description = false }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'the request is waiting classification' do
+      before { info_request.awaiting_description = true }
+      it { is_expected.to eq(false) }
+    end
+  end
+
+  describe '#latest_refusals' do
+    subject { info_request.latest_refusals }
+
+    context 'when there are no incoming messages' do
+      let(:info_request) { FactoryBot.build(:info_request) }
+      it { is_expected.to be_an(Array) }
+      it { is_expected.to be_empty }
+    end
+
+    context 'when there are no refusals' do
+      let(:info_request) { FactoryBot.build(:info_request, :with_incoming) }
+      it { is_expected.to be_an(Array) }
+      it { is_expected.to be_empty }
+    end
+
+    context 'when there are refusals' do
+      let(:info_request) { FactoryBot.build(:info_request) }
+      let(:reference) { double(:reference) }
+
+      before do
+        message_1 = double(:incoming_message, refusals?: true, refusals: [reference])
+        message_2 = double(:incoming_message, refusals?: false)
+        allow(info_request).to receive(:incoming_messages).and_return(
+          [message_1, message_2]
+        )
+      end
+
+      it { is_expected.to eq([reference]) }
     end
   end
 end

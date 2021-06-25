@@ -25,6 +25,7 @@
 # Translators:
 # Translators:
 # Jiří Vírava <appukonrad@gmail.com>, 2012
+# Graeme Porteous <graeme@mysociety.org>, 2021
 # Hana Hunt <hana@hana-hunt.cz>, 2016-2018,2020-2021
 # Hana Huntova <>, 2012-2015
 # Infromace pro všechny o.s. <info@os.infoprovsechny.cz>, 2018-2019
@@ -47,9 +48,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-16 10:35+0100\n"
-"PO-Revision-Date: 2021-05-30 08:42+0000\n"
-"Last-Translator: Hana Hunt <hana@hana-hunt.cz>\n"
+"POT-Creation-Date: 2021-06-24 16:55+0100\n"
+"PO-Revision-Date: 2021-06-24 16:23+0000\n"
+"Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Czech (http://www.transifex.com/mysociety/alaveteli/language/cs"
 "/)\n"
 "MIME-Version: 1.0\n"
@@ -127,6 +128,9 @@ msgstr "filtrováno podle stavu: '{{status}}'"
 
 msgid " when you send this message."
 msgstr " když tuto zprávu pošlete."
+
+msgid "&#8592; Previous"
+msgstr "Předešlá stránka"
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "\"Statistiky kriminality pro Liberecký kraj.\""
@@ -287,6 +291,9 @@ msgstr "<strong>Veškeré informace</strong> byly odeslány"
 msgid "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
 msgstr "<strong>Ještě něco jiného</strong>, například ujasnění, další dotazování, poděkování"
 
+msgid "<strong>Automatic anti-spam measures are in place</strong> for this older request. Please <a href=\"{{url}}\">let us know</a> if a further response is expected or if you are having trouble responding."
+msgstr ""
+
 msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</a>)."
 msgstr "<strong>Podle zákona musí odpovědět</strong> (<a href=\"{{url}}\">proč?</a>)."
 
@@ -299,6 +306,9 @@ msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, yo
 msgstr ""
 "<strong>Upozornění!</strong> Veškerá konverzace na stránkách {{site_name}} podléhá zásadám slušného jednání a \"netikety\". Třídění vznesených dotazů není zas tak jednoduché a mohou vzniknout chyby či dojít k různým nejednoznačnostem. Je nutné také rozumět zákonu o svobodném přístupu k informacím a způsobu, jak si tento zákon instituce interpretují. A k tomu všemu být vynikající statistik. Prosíme\n"
 "<a href=\"{{contact_path}}\">kontaktujte nás</a>, pokud máte otázky."
+
+msgid "<strong>Challenging a refusal?</strong> Here are some snippets that may help:"
+msgstr ""
 
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "Bylo vyžádáno <strong>upřesnění</strong> "
@@ -388,6 +398,9 @@ msgstr "Odpověď bude odeslána <strong>poštou</strong>"
 msgid "A strange response, required attention by the {{site_name}} team"
 msgstr "Zvláštní odpověď, vyžaduje pozornost {{site_name}} týmu"
 
+msgid "A survey about your recent {{law_used_full}} request ({{site_name}})"
+msgstr ""
+
 msgid "A {{site_name}} user"
 msgstr "Uživatel stránek {{site_name}} "
 
@@ -418,15 +431,6 @@ msgstr "Je třeba něco udělat"
 msgid "Actions"
 msgstr "Akce"
 
-msgid "Acts as xapian/acts as xapian job"
-msgstr "Acts as xapian/acts as xapian job"
-
-msgid "ActsAsXapian::ActsAsXapianJob|Action"
-msgstr "ActsAsXapian::ActsAsXapianJob|Akce"
-
-msgid "ActsAsXapian::ActsAsXapianJob|Model"
-msgstr "ActsAsXapian::ActsAsXapianJob|Model"
-
 msgid "Add a widget"
 msgstr "Přidejte widget "
 
@@ -446,9 +450,6 @@ msgstr "Přidejte instituci- {{public_body_name}}"
 
 msgid "Add the authority:"
 msgstr "Přidejte instituci:"
-
-msgid "Administration URL:"
-msgstr "URL administrace:"
 
 msgid "Advanced search"
 msgstr "Pokročilé hledání"
@@ -547,432 +548,6 @@ msgstr "Nezaregistrovaný uživatel"
 msgid "Any device"
 msgstr "Jakékoliv zařízení"
 
-msgid "Application record"
-msgstr "Záznam aplikace"
-
-msgid "ApplicationRecord|About me"
-msgstr "Záznam aplikace/O mně"
-
-msgid "ApplicationRecord|Alert type"
-msgstr "Záznam aplikace/Typ výstrahy"
-
-msgid "ApplicationRecord|Allow new responses from"
-msgstr "ZáznamAplikace|Povolit nové odpovědi od "
-
-msgid "ApplicationRecord|Api key"
-msgstr "ZáznamAplikace|Api klíč"
-
-msgid "ApplicationRecord|Attention requested"
-msgstr "ZáznamAplikace|Vyžaduje pozornost"
-
-msgid "ApplicationRecord|Awaiting description"
-msgstr "ZáznamAplikace|Čeká se na popis"
-
-msgid "ApplicationRecord|Backtrace"
-msgstr "ZáznamAplikace|Zpětná stopa"
-
-msgid "ApplicationRecord|Ban text"
-msgstr "ZáznamAplikace| Zakázat text"
-
-msgid "ApplicationRecord|Body"
-msgstr "ZáznamAplikace|Tělo"
-
-msgid "ApplicationRecord|Cached attachment text clipped"
-msgstr "ZáznamAplikace|Text v mezipaměti je oříznut"
-
-msgid "ApplicationRecord|Cached main body text folded"
-msgstr "ZáznamAplikace|Text v mezipaměti je srolován"
-
-msgid "ApplicationRecord|Cached main body text unfolded"
-msgstr "ZáznamAplikace|Text v mezipaměti je otevřen"
-
-msgid "ApplicationRecord|Calculated state"
-msgstr "ZáznamAplikace|Vypočítaný stav"
-
-msgid "ApplicationRecord|Can make batch requests"
-msgstr "ZáznamAplikace|Mohu vznášet hromadné dotazy"
-
-msgid "ApplicationRecord|Category display order"
-msgstr "ZáznamAplikace|Pořadí zobrazení kategorií"
-
-msgid "ApplicationRecord|Category tag"
-msgstr "ZáznamAplikace|Označení kategorie"
-
-msgid "ApplicationRecord|Charset"
-msgstr "ZáznamAplikace|Znaková sada"
-
-msgid "ApplicationRecord|Circumstance"
-msgstr "ZáznamAplikace|Okolnosti"
-
-msgid "ApplicationRecord|Citable type"
-msgstr "ZáznamAplikace|Citovatelný typ"
-
-msgid "ApplicationRecord|Closed at"
-msgstr "ZáznamAplikace|Uzavřeno v "
-
-msgid "ApplicationRecord|Comments allowed"
-msgstr "ZáznamAplikace|Komentáře povoleny"
-
-msgid "ApplicationRecord|Comments count"
-msgstr "ZáznamAplikace|Počet komentářů"
-
-msgid "ApplicationRecord|Confirmed not spam"
-msgstr "ZáznamAplikace|Potvrzeno, že se nejdná o spam"
-
-msgid "ApplicationRecord|Content type"
-msgstr "ZáznamAplikace|Typ obsahu"
-
-msgid "ApplicationRecord|Cookie"
-msgstr "ZáznamAplikace|Cookie"
-
-msgid "ApplicationRecord|Daily summary hour"
-msgstr "ZáznamAplikace|Denní hodinový souhrn"
-
-msgid "ApplicationRecord|Daily summary minute"
-msgstr "ZáznamAplikace|Denní minutový souhrn"
-
-msgid "ApplicationRecord|Data"
-msgstr "ZáznamAplikace|Data"
-
-msgid "ApplicationRecord|Date initial request last sent at"
-msgstr "ZáznamAplikace|Datum, kdy byla odeslán původní dotaz"
-
-msgid "ApplicationRecord|Date response required by"
-msgstr "ZáznamAplikace|Datum, kdy se vyžaduje odpověď"
-
-msgid "ApplicationRecord|Date very overdue after"
-msgstr "ZáznamAplikace|Datum, od kterého je velké zpoždění"
-
-msgid "ApplicationRecord|Day"
-msgstr "ZáznamAplikace|Den"
-
-msgid "ApplicationRecord|Default embargo duration"
-msgstr "ZáznamAplikace|Výchozí doba embarga"
-
-msgid "ApplicationRecord|Delivery status"
-msgstr "ZáznamAplikace|Stav dodání "
-
-msgid "ApplicationRecord|Described state"
-msgstr "ZáznamAplikace|Popis stavu"
-
-msgid "ApplicationRecord|Description"
-msgstr "ZáznamAplikace|Popis"
-
-msgid "ApplicationRecord|Disclosure log"
-msgstr "ZáznamAplikace|Protokol zveřejnění"
-
-msgid "ApplicationRecord|Display order"
-msgstr "ZáznamAplikace|Zobrazit pořadí"
-
-msgid "ApplicationRecord|Display size"
-msgstr "ZáznamAplikace|Zobrazit velikost"
-
-msgid "ApplicationRecord|Draft"
-msgstr "ZáznamAplikace|Návrh"
-
-msgid "ApplicationRecord|Email"
-msgstr "ZáznamAplikace|E-mail"
-
-msgid "ApplicationRecord|Email bounce message"
-msgstr "ZáznamAplikace|Zpráva o nedoručení e-mailu"
-
-msgid "ApplicationRecord|Email bounced at"
-msgstr "ZáznamAplikace|E-mail byl odmítnut v "
-
-msgid "ApplicationRecord|Email confirmed"
-msgstr "ZáznamAplikace|E-mail byl potvrzen"
-
-msgid "ApplicationRecord|Email token"
-msgstr "ZáznamAplikace|Token e-mailu"
-
-msgid "ApplicationRecord|Embargo duration"
-msgstr "ZáznamAplikace|Trvání embarga"
-
-msgid "ApplicationRecord|Event type"
-msgstr "ZáznamAplikace|Typ události"
-
-msgid "ApplicationRecord|Expired"
-msgstr "ZáznamAplikace|Vypršela platnost"
-
-msgid "ApplicationRecord|Expiring notification at"
-msgstr "ZáznamAplikace|Oznámení vyprší v "
-
-msgid "ApplicationRecord|Extension duration"
-msgstr "ZáznamAplikace|Délka prodloužení "
-
-msgid "ApplicationRecord|External url"
-msgstr "ZáznamAplikace|Externí url"
-
-msgid "ApplicationRecord|External user name"
-msgstr "ZáznamAplikace|Externí uživatelské jméno "
-
-msgid "ApplicationRecord|Filename"
-msgstr "ZáznamAplikace|Název souboru"
-
-msgid "ApplicationRecord|Frequency"
-msgstr "ZáznamAplikace|Frekvence"
-
-msgid "ApplicationRecord|Handle rejected responses"
-msgstr "ZáznamAplikace|Zpracovat odmítnutou odpověď"
-
-msgid "ApplicationRecord|Hashed password"
-msgstr "ZáznamAplikace|Skryté heslo"
-
-msgid "ApplicationRecord|Hexdigest"
-msgstr "ZáznamAplikace|Hexdigest"
-
-msgid "ApplicationRecord|Home page"
-msgstr "ZáznamAplikace|Domovská stránka"
-
-msgid "ApplicationRecord|Idhash"
-msgstr "ZáznamAplikace|ldhash"
-
-msgid "ApplicationRecord|Incoming messages count"
-msgstr "ZáznamAplikace|Počet došlých zpráv"
-
-msgid "ApplicationRecord|Info request batches count"
-msgstr "ZáznamAplikace|Počet vznesených dotazů"
-
-msgid "ApplicationRecord|Info requests count"
-msgstr "ZáznamAplikace|Počet dotazů"
-
-msgid "ApplicationRecord|Info requests not held count"
-msgstr "ZáznamAplikace|Počet nedostupných dotazů "
-
-msgid "ApplicationRecord|Info requests overdue count"
-msgstr "ZáznamAplikace|Počet nezodpovězených dotazů se zpožděnými odpovědmi"
-
-msgid "ApplicationRecord|Info requests successful count"
-msgstr "ZáznamAplikace|Počet úspěšně zodpovězených dotazů"
-
-msgid "ApplicationRecord|Info requests visible classified count"
-msgstr "ZáznamAplikace|Počet publikovaných dotazů s klasifikací"
-
-msgid "ApplicationRecord|Info requests visible count"
-msgstr "ZáznamAplikace|Počet publikovaných dotazů "
-
-msgid "ApplicationRecord|Is open"
-msgstr "ZáznamAplikace|Is otevřené"
-
-msgid "ApplicationRecord|Last daily track email"
-msgstr "ZáznamAplikace|Poslední zaznamenaný e-mail za den"
-
-msgid "ApplicationRecord|Last described at"
-msgstr "ZáznamAplikace|Naposledy popsáno jako "
-
-msgid "ApplicationRecord|Last edit comment"
-msgstr "ZáznamAplikace|Poslední komentář editora"
-
-msgid "ApplicationRecord|Last edit editor"
-msgstr "ZáznamAplikace|Editor poslední úpravy"
-
-msgid "ApplicationRecord|Last event time"
-msgstr "ZáznamAplikace|Čas poslední úpravy"
-
-msgid "ApplicationRecord|Last parsed"
-msgstr "ZáznamAplikace|Naposledy analyzováno "
-
-msgid "ApplicationRecord|Last public response at"
-msgstr "ZáznamAplikace|Poslední veřejná reakce v"
-
-msgid "ApplicationRecord|Last sent at"
-msgstr "ZáznamAplikace|Naposledy odesláno v "
-
-msgid "ApplicationRecord|Last stat"
-msgstr "ZáznamAplikace|Poslední statistika"
-
-msgid "ApplicationRecord|Law used"
-msgstr "ZáznamAplikace|Využití zákona"
-
-msgid "ApplicationRecord|Line"
-msgstr "ZáznamAplikace|Řádek"
-
-msgid "ApplicationRecord|Locale"
-msgstr "ZáznamAplikace|Dějiště"
-
-msgid "ApplicationRecord|Mail from"
-msgstr "ZáznamAplikace|E-mail od"
-
-msgid "ApplicationRecord|Mail from domain"
-msgstr "ZáznamAplikace|E-mail z domény"
-
-msgid "ApplicationRecord|Message type"
-msgstr "ZáznamAplikace|Typ zprávy"
-
-msgid "ApplicationRecord|Name"
-msgstr "ZáznamAplikace|Jméno"
-
-msgid "ApplicationRecord|No limit"
-msgstr "ZáznamAplikace|Žádné omezení "
-
-msgid "ApplicationRecord|Notes"
-msgstr "ZáznamAplikace|Poznámky"
-
-msgid "ApplicationRecord|Notified at"
-msgstr "ZáznamAplikace|Oznámeno v"
-
-msgid "ApplicationRecord|Order"
-msgstr "ZáznamAplikace|Pořadí"
-
-msgid "ApplicationRecord|Otp counter"
-msgstr "ZáznamAplikace|Počítadlo otp"
-
-msgid "ApplicationRecord|Otp enabled"
-msgstr "ZáznamAplikace|Otp umožněno "
-
-msgid "ApplicationRecord|Otp secret key"
-msgstr "ZáznamAplikace|Tajný klíč otp"
-
-msgid "ApplicationRecord|Params"
-msgstr "ZáznamAplikace|Params"
-
-msgid "ApplicationRecord|Params yaml"
-msgstr "ZáznamAplikace|Params yam"
-
-msgid "ApplicationRecord|Post params yaml"
-msgstr "ZáznamAplikace|Post params yam!"
-
-msgid "ApplicationRecord|Prominence"
-msgstr "ZáznamAplikace|Výtečnost"
-
-msgid "ApplicationRecord|Prominence reason"
-msgstr "ZáznamAplikace|Důvod výtečnosti"
-
-msgid "ApplicationRecord|Public body change requests count"
-msgstr "ZáznamAplikace|Počet žádostí o změnu veřejné instituce"
-
-msgid "ApplicationRecord|Public body email"
-msgstr "ZáznamAplikace|E-mail instituce"
-
-msgid "ApplicationRecord|Public body name"
-msgstr "ZáznamAplikace|Jméno instituce"
-
-msgid "ApplicationRecord|Public body names"
-msgstr "ZáznamAplikace|Jména institucí"
-
-msgid "ApplicationRecord|Publish at"
-msgstr "ZáznamAplikace|Publikuj v"
-
-msgid "ApplicationRecord|Reason params yaml"
-msgstr "ZáznamAplikace|Důvody params yam!"
-
-msgid "ApplicationRecord|Receive email alerts"
-msgstr "ZáznamAplikace|Dostávat upozornění e-mailem"
-
-msgid "ApplicationRecord|Regexp"
-msgstr "ZáznamAplikace|Regexp"
-
-msgid "ApplicationRecord|Reject incoming at mta"
-msgstr "ZáznamAplikace|Odmítnout příchozí at mta"
-
-msgid "ApplicationRecord|Rejected incoming count"
-msgstr "ZáznamAplikace|Počet odmítnutých"
-
-msgid "ApplicationRecord|Replacement"
-msgstr "ZáznamAplikace|Nahrazení "
-
-msgid "ApplicationRecord|Request classifications count"
-msgstr "ZáznamAplikace|Počet požadavků na klasifikaci"
-
-msgid "ApplicationRecord|Request created at"
-msgstr "ZáznamAplikace|Dotaz vytvořen v "
-
-msgid "ApplicationRecord|Request updated at"
-msgstr "ZáznamAplikace|Dotaz aktualizován v "
-
-msgid "ApplicationRecord|Resource type"
-msgstr "ZáznamAplikace|Typ zdroje"
-
-msgid "ApplicationRecord|Retry at"
-msgstr "ZáznamAplikace|Opakovat v"
-
-msgid "ApplicationRecord|Salt"
-msgstr "ZáznamAplikace|Salt"
-
-msgid "ApplicationRecord|Seen at"
-msgstr "ZáznamAplikace|Viděn v "
-
-msgid "ApplicationRecord|Send after"
-msgstr "ZáznamAplikace|Odesláno po"
-
-msgid "ApplicationRecord|Sent at"
-msgstr "ZáznamAplikace|Odesláno v"
-
-msgid "ApplicationRecord|Slug"
-msgstr "ZáznamAplikace|Slug"
-
-msgid "ApplicationRecord|Source url"
-msgstr "ZáznamAplikace|Zdrojové url"
-
-msgid "ApplicationRecord|Status"
-msgstr "ZáznamAplikace|Stav"
-
-msgid "ApplicationRecord|Subject"
-msgstr "ZáznamAplikace|Předmět"
-
-msgid "ApplicationRecord|Summarisable type"
-msgstr "ZáznamAplikace|Typ shrnutí"
-
-msgid "ApplicationRecord|Text"
-msgstr "ZáznamAplikace|Text"
-
-msgid "ApplicationRecord|Title"
-msgstr "ZáznamAplikace|Název"
-
-msgid "ApplicationRecord|Token"
-msgstr "ZáznamAplikace|Token"
-
-msgid "ApplicationRecord|Track medium"
-msgstr "ZáznamAplikace|Sledovat médium"
-
-msgid "ApplicationRecord|Track query"
-msgstr "ZáznamAplikace|Sledovat dotaz"
-
-msgid "ApplicationRecord|Track things count"
-msgstr "ZáznamAplikace|Počet sledovaných věcí"
-
-msgid "ApplicationRecord|Track type"
-msgstr "ZáznamAplikace|Typ stopy"
-
-msgid "ApplicationRecord|Uri"
-msgstr "ZáznamAplikace|Url"
-
-msgid "ApplicationRecord|Url name"
-msgstr "ZáznamAplikace|Jméno Url"
-
-msgid "ApplicationRecord|Url part number"
-msgstr "ZáznamAplikace|Číslo části adresy Url"
-
-msgid "ApplicationRecord|Url title"
-msgstr "ZáznamAplikace|Název Url"
-
-msgid "ApplicationRecord|Use notifications"
-msgstr "ZáznamAplikace|Použít upozornění"
-
-msgid "ApplicationRecord|User email"
-msgstr "ZáznamAplikace|E-mail uživatele"
-
-msgid "ApplicationRecord|User name"
-msgstr "ZáznamAplikace|Jméno uživatele"
-
-msgid "ApplicationRecord|Valid to reply to"
-msgstr "ZáznamAplikace|Možné odpovědět "
-
-msgid "ApplicationRecord|Version"
-msgstr "ZáznamAplikace|Verze"
-
-msgid "ApplicationRecord|Visibility"
-msgstr "ZáznamAplikace|Viditelnost"
-
-msgid "ApplicationRecord|Visible"
-msgstr "ZáznamAplikace|Viditelné "
-
-msgid "ApplicationRecord|What doing"
-msgstr "ZáznamAplikace|Co dělá "
-
-msgid "ApplicationRecord|Within rfc822 subject"
-msgstr "ZáznamAplikace|V rámci subjektu rfc822 "
-
 msgid "Are we missing a public authority?"
 msgstr "Chybí nám nějaká instituce?"
 
@@ -990,6 +565,9 @@ msgstr "Jste si jisti? Pokud obnovíte váš jednorázový přístupový kód, b
 
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Jste vlastníkem nějakých autorských práv na této stránce?"
+
+msgid "Article"
+msgstr ""
 
 msgid "Ask EU Authorities"
 msgstr "Zeptejte se institucí EU"
@@ -1180,6 +758,9 @@ msgstr "Pro poslání upomínky klikněte na níže uvedený odkaz instituce {{p
 msgid "Close"
 msgstr "Zavřít"
 
+msgid "Close preview"
+msgstr ""
+
 msgid "Close the request and respond:"
 msgstr "Uzavřete dotaz a odpovězte:"
 
@@ -1248,6 +829,12 @@ msgstr "Přispějte"
 
 msgid "Cookies not enabled"
 msgstr "Cookies nejsou aktivní "
+
+msgid "Copied!"
+msgstr ""
+
+msgid "Copy"
+msgstr ""
 
 msgid "Could not identify the request from the email address"
 msgstr "Dotaz z této e-mailové adresy nemohl být identifikován"
@@ -1504,24 +1091,6 @@ msgstr "Můžete prosím doplnit informace o Vašich ostatních žádostech? Usp
 msgid "First, type in the <strong>name of the public authority</strong> you'd like information from."
 msgstr "Nejdříve vyhledejte <strong>jméno instituce</strong> od které požadujete informace. "
 
-msgid "Flipper/adapters/active record/feature"
-msgstr "Flipper/adapters/active record/feature"
-
-msgid "Flipper/adapters/active record/gate"
-msgstr "Flipper/adapters/active record/gate"
-
-msgid "Flipper::Adapters::ActiveRecord::Feature|Key"
-msgstr "Flipper::Adapters::ActiveRecord::Feature|Key"
-
-msgid "Flipper::Adapters::ActiveRecord::Gate|Feature key"
-msgstr "Flipper::Adapters::ActiveRecord::Gate|Feature key"
-
-msgid "Flipper::Adapters::ActiveRecord::Gate|Key"
-msgstr "Flipper::Adapters::ActiveRecord::Gate|Key"
-
-msgid "Flipper::Adapters::ActiveRecord::Gate|Value"
-msgstr "Flipper::Adapters::ActiveRecord::Gate|Value"
-
 msgid "Follow"
 msgstr "Sledovat"
 
@@ -1619,6 +1188,9 @@ msgstr[1] "Nalezeny {{count}} veřejné instituce s klíčovým slovem ‘{{tag_
 msgstr[2] "Nalezeno {{count}} veřejných institucí s klíčovým slovem ‘{{tag_name}}’"
 msgstr[3] "Nalezeno {{count}} veřejných institucí s klíčovým slovem ‘{{tag_name}}’"
 
+msgid "Four weeks ago you made a Freedom of Information request to {{public_body_name}} using {{site_name}}."
+msgstr ""
+
 msgid "Freedom of Information"
 msgstr "dotaz"
 
@@ -1661,47 +1233,14 @@ msgstr "Od:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "ZDE UPŘESNĚTE DETAILY VAŠÍ STÍŽNOSTI"
 
+msgid "Get help to challenge it."
+msgstr ""
+
 msgid "Getting long – remember to keep it focussed"
 msgstr "Příliš dlouhé - nezapomeňte se držet tématu"
 
-msgid "Globalize/active record/translation"
-msgstr "Globalizace / aktivní záznam / překlad"
-
-msgid "Globalize::ActiveRecord::Translation|Content"
-msgstr "Globalizace: Aktivní záznam: Překlad/Obsah"
-
-msgid "Globalize::ActiveRecord::Translation|Description"
-msgstr "Globalizace: Acktivní záznam: Překlad/Popis"
-
-msgid "Globalize::ActiveRecord::Translation|Disclosure log"
-msgstr "Globalizace: Acktivní záznam: Překlad/Inormační log"
-
-msgid "Globalize::ActiveRecord::Translation|First letter"
-msgstr "Globalizace: Acktivní záznam: Překlad/První písmeno"
-
-msgid "Globalize::ActiveRecord::Translation|Locale"
-msgstr "Globalizace: Acktivní záznam: Překlad/Místo"
-
-msgid "Globalize::ActiveRecord::Translation|Name"
-msgstr "Globalizace: Acktivní záznam: Překlad/Jméno"
-
-msgid "Globalize::ActiveRecord::Translation|Notes"
-msgstr "Globalizace: Acktivní záznam: Překlad/Poznámka"
-
-msgid "Globalize::ActiveRecord::Translation|Publication scheme"
-msgstr "Globalizace: Acktivní záznam: Překlad/Publikační schéma"
-
-msgid "Globalize::ActiveRecord::Translation|Request email"
-msgstr "Globalizace: Acktivní záznam: Překlad/E-maíl dotazu"
-
-msgid "Globalize::ActiveRecord::Translation|Short name"
-msgstr "Globalizace: Acktivní záznam: Překlad/Krátké jméno"
-
-msgid "Globalize::ActiveRecord::Translation|Title"
-msgstr "Globalizace: Acktivní záznam: Překlad/Název"
-
-msgid "Globalize::ActiveRecord::Translation|Url name"
-msgstr "Globalizace: Acktivní záznam: Překlad/Jméno Url"
+msgid "Go back to refusal advice questions"
+msgstr ""
 
 msgid "Got a {{site_name}} account?"
 msgstr "Máte {{site_name}} účet?"
@@ -1715,29 +1254,11 @@ msgstr "Vyřízeno poštou"
 msgid "Handled by postal mail."
 msgstr "Vyřízeno poštou."
 
-msgid "Has tag string tag"
-msgstr "Has tag string tag"
+msgid "Has this request been referenced in a news article or academic paper?"
+msgstr ""
 
-msgid "Has tag string/has tag string tag"
-msgstr "Má štítek/má štítek"
-
-msgid "HasTagString::HasTagStringTag|Model"
-msgstr "MáŠtítek::MáŠtítek|Model"
-
-msgid "HasTagString::HasTagStringTag|Name"
-msgstr "HasTagString::HasTagStringTag|Jméno"
-
-msgid "HasTagString::HasTagStringTag|Value"
-msgstr "HasTagString::HasTagStringTag|Hodnota"
-
-msgid "HasTagStringTag|Model"
-msgstr "HasTagStringTag|Model"
-
-msgid "HasTagStringTag|Name"
-msgstr "HasTagStringTag|Name"
-
-msgid "HasTagStringTag|Value"
-msgstr "HasTagStringTag|Value"
+msgid "Has this request been referenced in a news article or academic paper? Let us know:"
+msgstr ""
 
 msgid "Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}"
 msgstr "Dobrý den, pokud nejste z {{country_name}} máme pro vás <a href=\"{{url}}\">důležitou zprávu</a>. "
@@ -1768,6 +1289,9 @@ msgstr ""
 "Tento <strong>popis</strong> znamená, že uživatel upravil status dotazu.\n"
 "<strong>V procesu</strong> je pak status na stránkách {{site_name}} určený pro přechodný stav bez popisu.\n"
 "Pro lepší porozumění se podívejte na <a href=\"{{search_path}}\">tipy pro vyhledávání</a> týkající se jednotlivých stavů dotazu."
+
+msgid "Here are some snippets that may help you <strong>challenge a refusal</strong>:"
+msgstr ""
 
 msgid "Here is the message you wrote, in case you would like to copy the text and save it for later."
 msgstr "Zde je zpráva, kterou jste napsali, pokud si chcete uložit kopii. "
@@ -1882,6 +1406,9 @@ msgstr "Pokud jste {{user_link}}, prosíme"
 msgid "If you believe this request is not suitable, you can report it for attention by the site administrators using this form"
 msgstr "Pokud se domníváte, že tato žádost není vhodná, nahlašte ji administrátorům stránek, použijte tento formulář. "
 
+msgid "If you can spare a few minutes to complete our short survey, it will help us make the site better. Just follow the link below."
+msgstr ""
+
 msgid "If you can't click on it in the email, you'll have to <strong>select and copy it</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place you would type the address of any other webpage."
 msgstr "Pokud odkaz v textu není funkční, je třeba <strong>odkaz vybrat a překopírovat</strong> z e-mailu.  Poté <strong>jej vložte do adresového řádku vašeho prohlížeče</strong>, tedy na místo, kam vkládáte internetové adresy."
 
@@ -1976,14 +1503,17 @@ msgstr "Doplnění dotazu"
 msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Uživatel {{info_request_user}} odeslal {{public_body_name}} žádost o přehodnocení dotazu dne {{public_body_name}}."
 
+msgid "Invalid form submission"
+msgstr ""
+
 msgid "Invalid one time password"
 msgstr "Neplatné jednorázové heslo"
 
 msgid "Invalid token"
 msgstr "Neplatný symbol"
 
-msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
-msgstr "Je {{email_address}} chybná adresa pro {{type_of_request}} dotazy vznesené na instituci {{public_body_name}}? Pokud ano, prosíme kontaktujte nás vyplněním tohoto formuláře:"
+msgid "Is {{email_address}} the wrong address for {{law_used_full}} requests to {{public_body_name}}? If so, please contact us using this form:"
+msgstr "Je {{email_address}} chybná adresa pro {{law_used_full}} dotazy vznesené na instituci {{public_body_name}}? Pokud ano, prosíme kontaktujte nás vyplněním tohoto formuláře:"
 
 msgid "It looks like something has gone wrong when sending this message. It could be a technical issue, or an issue with the email address we have for the authority."
 msgstr "Vypadá to, že se něco pokazilo při posílání této zprávy. Může to být technický problém, nebo e-mailová adresa instituce není správná. "
@@ -2047,6 +1577,9 @@ msgstr "Opustit projekt"
 
 msgid "Let us know"
 msgstr "Dejte nám vědět"
+
+msgid "Let us know and we’ll help you challenge it."
+msgstr ""
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
 msgstr ""
@@ -2200,6 +1733,12 @@ msgstr "Reportáž"
 msgid "Next"
 msgstr "Další"
 
+msgid "Next &#8594;"
+msgstr "Další stránka"
+
+msgid "Next Step: Preview your public request"
+msgstr ""
+
 msgid "Next message"
 msgstr "Další zpráva"
 
@@ -2322,6 +1861,12 @@ msgstr "Jiné"
 
 msgid "Other:"
 msgstr "Jiné:"
+
+msgid "Page {{page}}"
+msgstr "stránka {{page}}"
+
+msgid "Pagination"
+msgstr ""
 
 msgid "Partial success"
 msgstr "Částečně úspěšné."
@@ -2562,6 +2107,9 @@ msgstr "Související dotazy"
 msgid "Post annotation"
 msgstr "Zveřejněte anotaci"
 
+msgid "Posted on {{date}}"
+msgstr ""
+
 msgid "Posted on {{date}} by {{author}}"
 msgstr "Vloženo {{date}} od {{author}}"
 
@@ -2591,9 +2139,6 @@ msgstr "Náhled poznámky"
 
 msgid "Preview your message"
 msgstr "Náhled vaší zprávy"
-
-msgid "Preview your public request"
-msgstr "Náhled vašeho dotazu"
 
 msgid "Preview your request"
 msgstr "Náhled vašeho dotazu"
@@ -2646,27 +2191,6 @@ msgstr "Veřejné instituce s největším počtem dotazů"
 msgid "Public bodies with the most successful requests"
 msgstr "Veřejné instituce s největším počtem úspěšných dotazů"
 
-msgid "Public body category translation"
-msgstr "Instituce kategorie překlad"
-
-msgid "Public body heading translation"
-msgstr "Instituce název překlad"
-
-msgid "PublicBodyCategoryTranslation|Description"
-msgstr "Instituce kategorie překlad popis"
-
-msgid "PublicBodyCategoryTranslation|Locale"
-msgstr "Instituce kategorie překlad umístění"
-
-msgid "PublicBodyCategoryTranslation|Title"
-msgstr "Instituce kategorie překlad název"
-
-msgid "PublicBodyHeadingTranslation|Locale"
-msgstr "Instituce název překlad umístění"
-
-msgid "PublicBodyHeadingTranslation|Name"
-msgstr "Instituce název překlad jméno"
-
 msgid "Publication scheme"
 msgstr "Systém publikování"
 
@@ -2694,6 +2218,9 @@ msgstr "Přečtěte si <a href=\"{{advanced_search_url}}\">operandy pokročiléh
 msgid "Read blog"
 msgstr "Číst blog"
 
+msgid "Read more"
+msgstr ""
+
 msgid "Read through authority responses and choose if their answer satisfies the intention of the original request, flag any problems and show the project owner if they need to intervene to keep the project movng forward."
 msgstr "Přečtěte si odpovědi od instituce a vyhodnoťte, zda jejich odpověď odpovídá na původní dotaz. Upozorněte na jakékoliv problémy a navrhněte vlastníkovi projektu co je potřeba udělat, aby se jeho projekt dále posunul. "
 
@@ -2717,6 +2244,9 @@ msgstr "Odmítnuto."
 
 msgid "Regenerate one time passcode"
 msgstr "Znovu vytvořte jednorázový přístupový kód."
+
+msgid "Regulation"
+msgstr ""
 
 msgid "Rejected"
 msgstr "Zamítnuto"
@@ -2907,6 +2437,9 @@ msgstr "Zkuste prohledat stránky IPV."
 msgid "Search your contributions"
 msgstr "Prohledávat vlastní příspěvky"
 
+msgid "Section"
+msgstr ""
+
 msgid "Send a followup"
 msgstr "Odpovědět"
 
@@ -2971,6 +2504,12 @@ msgstr "Zobrazit všechny přílohy"
 msgid "Show fewer attachments"
 msgstr "Zobrazit méně příloh"
 
+msgid "Show less"
+msgstr ""
+
+msgid "Show more"
+msgstr ""
+
 msgid "Show most relevant results first"
 msgstr "Nejrelevantnější výsledky jako první"
 
@@ -3009,6 +2548,9 @@ msgstr "Přeskočit"
 
 msgid "Skipped!"
 msgstr "Přeskočeno!"
+
+msgid "Snippets related to"
+msgstr ""
 
 msgid "Some notes have been added to your FOI request - {{request_title}}"
 msgstr "K vašemu dotazu byly přidány nějaké poznámky – {{request_title}}"
@@ -3470,11 +3012,11 @@ msgstr "Teď tu nejsou žádné projekty ke klasifikaci. Dobrá práce!"
 msgid "There are no requests to extract right now. Great job!"
 msgstr "Teď tu nejsou žádné dotazy k vypsání. Dobrá práce!"
 
-msgid "There are {{count}} new annotations on your {{info_request}} request. Follow this link to see what they wrote."
+msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "Jsou tu {{count}} nové anotace, vztahující se ka vašemu dotazu. Pro jejich přečtení použijte tento odkaz."
 
-msgid "There is <strong>more than one person</strong> who uses this site and has this name. One of them is shown below, you may mean a different one:"
-msgstr "Již existuje <strong>více než jedna další osoba</strong> která se zaregistrovala na těchto stránkách pod stejným jménem. Zvolte tedy prosím jiné uživatelské jméno než je:"
+msgid "There is <strong>more than one person</strong> who uses this site and has this name. Search for other users named \"{{search_user_link}}\""
+msgstr ""
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr "Počet dotazů za jeden den je limitován. Nechceme, aby byly instituce bombardovány velkým množstvím nerelevantních dotazů. Pokud máte dobrý důvod, proč by měl být váš limit navýšen, prosíme<a href='{{help_contact_path}}'>kontaktujte nás</a>."
@@ -3904,8 +3446,8 @@ msgstr "Zrušit sledování"
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr "Bohužel nemáme správnou e-mailovou adresu pro {{public_body_names}}."
 
-msgid "Unfortunately, we do not have a working {{info_request_law_used_full}} address for"
-msgstr "Bohužel nemáme funkční adresu pro zaslání {{info_request_law_used_full}}"
+msgid "Unfortunately, we do not have a working {{law_used_full}} address for"
+msgstr "Bohužel nemáme funkční adresu pro zaslání {{law_used_full}}"
 
 msgid "Unknown"
 msgstr "Neznámá data"
@@ -4000,9 +3542,6 @@ msgstr "Čeká se na odpověď instituce"
 msgid "Want to know something?"
 msgstr "Potřebujete něco vědět?"
 
-msgid "We consider it is not a valid FOI request as it was correspondence about your personal circumstances, and we have therefore hidden it from other users."
-msgstr "Tento dotaz nepovažujeme za dotaz podle zákona o svobodném přístupu k informacím, neboť korespondence se týkala vašich osobních záležitostí, a proto jsme ji pro další uživatele skryli. "
-
 msgid "We consider it is not a valid FOI request, and have therefore hidden it from other users."
 msgstr "Považujeme tuto žádost za neplatnou a proto zůstává ostatním uživatelům skryta."
 
@@ -4017,6 +3556,9 @@ msgstr "Nemohli jsme zobrazit žádné záznamy o této zprávě. "
 
 msgid "We couldn’t load the mail server logs for this message."
 msgstr "Pro tuto zprávu jsme nemohli stáhnout žádné záznamy ze serveru. "
+
+msgid "We do not allow requests for information via {{site_name}} about your personal circumstances. We have therefore hidden your request from other users."
+msgstr ""
 
 msgid "We do not have a working request email address for this authority."
 msgstr "Nemáme funkční e-mailovou adresu pro tuto instituci."
@@ -4054,6 +3596,9 @@ msgid "We will not reveal your email addresses to anybody unless you or the law 
 msgstr ""
 "Vaši e-mailovou adresu nikomu nepředáme, pokud o to nebudeme\n"
 "ze zákonem daných důvodů požádáni."
+
+msgid "We would like to know more about you, and your experience making an {{law_used_full}} request through the site."
+msgstr ""
 
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr "Pošleme vám e-mail hned jak někdo bude reagovat na váš dotaz."
@@ -4655,6 +4200,9 @@ msgstr "a"
 msgid "and we'll suggest <strong>what to do next</strong>"
 msgstr "a my vám doporučíme <strong>další postup</strong>"
 
+msgid "any section"
+msgstr ""
+
 msgid "anything matching text '{{query}}'"
 msgstr "shody s  '{{query}}'"
 
@@ -4858,6 +4406,9 @@ msgstr "{{authority_name}} <strong>neměli</strong> požadované informace."
 msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
 msgstr "{{authority_name}} <strong>čeká na vaše vysvětlení</strong>."
 
+msgid "{{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
+msgstr ""
+
 msgid "{{contributor_count}} contributors"
 msgstr "{{contributor_count}} přispivatelů"
 
@@ -4948,9 +4499,6 @@ msgstr[3] "{{count}} dotazů."
 msgid "{{existing_request_user}} already created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>, or edit the details below to make a new but similar request."
 msgstr "{{existing_request_user}} již vznesl stejný dotaz dne {{date}}. Můžete si <a href=\"{{existing_request}}\">tento dotaz</a> přečíst, nebo vzneste podobný, ale podle svých potřeb upravený dotaz."
 
-msgid "{{foi_law}} requests to '{{public_body_name}}'"
-msgstr "{{foi_law}}  dotaz '{{public_body_name}}'"
-
 msgid "{{info_request_user_name}}"
 msgstr "{{info_request_user_name}}"
 
@@ -4959,8 +4507,11 @@ msgstr "Žádost o informace podle {{law_used_full}} - {{title}}"
 
 #. TRANSLATORS: Please don't use double quotes (") in this translation
 #. or it will break the site's ability to send emails to authorities!
-msgid "{{law_used}} requests at {{public_body}}"
-msgstr "{{law_used}} dotazy vznesené na instituci {{public_body}}"
+msgid "{{law_used_short}} requests at {{public_body}}"
+msgstr "{{law_used_short}} dotazy vznesené na instituci {{public_body}}"
+
+msgid "{{law_used_short}} requests to '{{public_body_name}}'"
+msgstr "{{law_used_short}}  dotaz '{{public_body_name}}'"
 
 msgid "{{length_of_time}} ago"
 msgstr "před {{length_of_time}}"
@@ -5024,7 +4575,7 @@ msgstr "{{public_body_name}}: {{request_url}}"
 msgid "{{public_body_name}}: {{response_url}}"
 msgstr "{{public_body_name}}: {{response_url}}"
 
-msgid "{{public_body}} has asked you to explain part of your {{law_used}} request."
+msgid "{{public_body}} has asked you to explain part of your {{law_used_short}} request."
 msgstr "Instituce {{public_body}} vás žádá o doplnění vzneseného dotazu."
 
 msgid "{{public_body}} sent a response to {{user_name}}"
@@ -5094,8 +4645,8 @@ msgstr ""
 "Uživatel {{user_name}} uložil poznámku k vašemu dotazu. \n"
 "Kliknutím na dotaz si ji přečtete."
 
-msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
-msgstr "{{user_name}} nahlásil/a {{law_used}} administrátorovi. Podívejte se prosím na vznesený dotaz i odpověď. Až uděláte nezbytné kroky, odpovězte na tento e-mail a stručně je popište."
+msgid "{{user_name}} has reported an {{law_used_short}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
+msgstr "{{user_name}} nahlásil/a {{law_used_short}} administrátorovi. Podívejte se prosím na vznesený dotaz i odpověď. Až uděláte nezbytné kroky, odpovězte na tento e-mail a stručně je popište."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "Uživatel/ka {{user_name}} využil/a stránek {{site_name}} pro zaslání níže uvedené zprávy."

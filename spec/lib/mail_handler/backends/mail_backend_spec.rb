@@ -120,6 +120,19 @@ when it really should be application/pdf.\n
 
   end
 
+  describe '#get_within_rfc822_subject' do
+    it 'returns nil for a nil subject' do
+      leaf = double(within_rfc822_attachment: double(subject: nil))
+      expect(get_within_rfc822_subject(leaf)).to be_nil
+    end
+
+    it 'returns valid UTF-8 for a non UTF-8 subject' do
+      leaf = double(within_rfc822_attachment: double(subject: "FOI \x97 REQ"))
+      encoding = get_within_rfc822_subject(leaf).force_encoding('UTF-8')
+      expect(encoding.valid_encoding?).to eq(true)
+    end
+  end
+
   describe :first_from do
 
     it 'finds the first from field' do

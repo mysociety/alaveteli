@@ -34,7 +34,7 @@ clear_daemon() {
 
 install_daemon() {
   echo -n "Creating /etc/init.d/$SITE-$1... "
-  (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' RUBY_VERSION='$RUBY_VERSION' SCRIPT_FILE=config/$1-debian.example" "$UNIX_USER") > /etc/init.d/"$SITE-$1"
+  (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' RUBY_VERSION='$RUBY_VERSION' USE_RBENV=$USE_RBENV RAILS_ENV='$RAILS_ENV' SCRIPT_FILE=config/$1-debian.example" "$UNIX_USER") > /etc/init.d/"$SITE-$1"
   chgrp "$UNIX_USER" /etc/init.d/"$SITE-$1"
   chmod 754 /etc/init.d/"$SITE-$1"
 
@@ -182,23 +182,20 @@ postfix reload
 
 install_website_packages
 
-# use ruby 2.3.3, 2.1.5 if it's already the default
-# (i.e. 'stretch', 'jessie')
-if ruby --version | grep -q 'ruby 2.3.3' > /dev/null
-then
-  echo 'using ruby 2.3.3'
-  RUBY_VERSION='2.3.3'
-elif ruby --version | grep -q 'ruby 2.1.5' > /dev/null
-then
-  echo 'using ruby 2.1.5'
-  RUBY_VERSION='2.1.5'
-elif ruby --version | grep -q 'ruby 1.9.3' > /dev/null
-then
-  # Set ruby version to 2.1.x
-  update-alternatives --set ruby /usr/bin/ruby2.1
-  update-alternatives --set gem /usr/bin/gem2.1
-  echo 'using ruby 2.1.5'
-  RUBY_VERSION='2.1.5'
+# Ensure we have required Ruby version from the current distribution package, if
+# not then install using rbenv
+required_ruby="$(cat $REPOSITORY/.ruby-version.example)"
+current_ruby="$(ruby --version | awk 'match($0, /[0-9\.]+/) {print substr($0,RSTART,RLENGTH)}')"
+if [ "$(printf '%s\n' "$required_ruby" "$current_ruby" | sort -V | head -n1)" = "$required_ruby" ]; then
+  echo "Current Ruby (${current_ruby}) is greater than or equal to required version (${required_ruby})"
+  RUBY_VERSION=$current_ruby
+  USE_RBENV=false
+else
+  echo "Current Ruby (${current_ruby}) is less than required version (${required_ruby})"
+  echo "Installing packages required for ruby-build..."
+  xargs -a "$REPOSITORY/config/packages.ruby-build" apt-get -qq -y install >/dev/null
+  RUBY_VERSION=$required_ruby
+  USE_RBENV=true
 fi
 
 # Give the unix user membership of the adm group so that they can read the mail log files
@@ -224,7 +221,7 @@ EOF
 echo $DONE_MSG
 
 export DEVELOPMENT_INSTALL
-su -l -c "$BIN_DIRECTORY/install-as-user '$UNIX_USER' '$HOST' '$DIRECTORY' '$RUBY_VERSION'" "$UNIX_USER"
+su -l -c "$BIN_DIRECTORY/install-as-user '$UNIX_USER' '$HOST' '$DIRECTORY' '$RUBY_VERSION' '$USE_RBENV'" "$UNIX_USER"
 
 # Now that the install-as-user script has loaded the sample data, we
 # no longer need the PostgreSQL user to be a superuser:
@@ -266,10 +263,13 @@ if [ x"$RETRIEVER_METHOD" = x"pop" ] && [ "$DEVELOPMENT_INSTALL" = true ]; then
 
 fi
 
-# Set up root's crontab:
-
 cd "$REPOSITORY"
 
+if [ "$DEVELOPMENT_INSTALL" = true ]; then
+  RAILS_ENV=development
+else
+  RAILS_ENV=production
+fi
 
 if [ "$DEVELOPMENT_INSTALL" = true ]; then
   # Not in the Gemfile due to conflicts
@@ -277,9 +277,9 @@ if [ "$DEVELOPMENT_INSTALL" = true ]; then
   gem install mailcatcher
 fi
 
-
+# Set up root's crontab:
 echo -n "Creating /etc/cron.d/alaveteli... "
-(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_crontab DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' RUBY_VERSION='$RUBY_VERSION' CRONTAB=config/crontab-example" "$UNIX_USER") > /etc/cron.d/alaveteli
+(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_crontab DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' RUBY_VERSION='$RUBY_VERSION' USE_RBENV=$USE_RBENV RAILS_ENV='$RAILS_ENV' CRONTAB=config/crontab-example" "$UNIX_USER") > /etc/cron.d/alaveteli
 # There are some other parts to rewrite, so just do them with sed:
 sed -r \
     -e "s,^(MAILTO=).*,\1root@$HOST," \
@@ -288,7 +288,7 @@ echo $DONE_MSG
 
 if [ ! "$DEVELOPMENT_INSTALL" = true ]; then
   echo -n "Creating /etc/init.d/$SITE... "
-  (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' SCRIPT_FILE=config/sysvinit-thin.example" "$UNIX_USER") > /etc/init.d/"$SITE"
+  (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' RUBY_VERSION='$RUBY_VERSION' USE_RBENV=$USE_RBENV RAILS_ENV='$RAILS_ENV' SCRIPT_FILE=config/sysvinit-thin.example" "$UNIX_USER") > /etc/init.d/"$SITE"
   chgrp "$UNIX_USER" /etc/init.d/"$SITE"
   chmod 754 /etc/init.d/"$SITE"
   echo $DONE_MSG

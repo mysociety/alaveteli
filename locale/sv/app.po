@@ -25,6 +25,7 @@
 # Translators:
 # Translators:
 # 03992e16f8df6e39b9d1cc0ff635887e, 2016
+# Elenor Weijmar, 2018
 # Elenor Weijmar, 2018-2021
 # Elenor Weijmar, 2018
 # Kristoffer Grundström <lovaren@gmail.com>, 2015
@@ -45,9 +46,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-16 10:35+0100\n"
-"PO-Revision-Date: 2021-03-11 12:38+0000\n"
-"Last-Translator: Mattias Axell <mattias@libertador.es>\n"
+"POT-Creation-Date: 2021-06-24 16:55+0100\n"
+"PO-Revision-Date: 2021-06-24 16:12+0000\n"
+"Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Swedish (http://www.transifex.com/mysociety/alaveteli/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -124,6 +125,9 @@ msgstr "filtrerad efter status: '{{status}}'"
 
 msgid " when you send this message."
 msgstr " när du skickar detta meddelande."
+
+msgid "&#8592; Previous"
+msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Brottsstatistik på kommunnivå för Uppsala'"
@@ -282,6 +286,9 @@ msgstr "<strong>All information</strong> har skickats"
 msgid "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
 msgstr "<strong>Något annat</strong> för att förtydliga eller tacka"
 
+msgid "<strong>Automatic anti-spam measures are in place</strong> for this older request. Please <a href=\"{{url}}\">let us know</a> if a further response is expected or if you are having trouble responding."
+msgstr ""
+
 msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</a>)."
 msgstr "<strong>Enligt lag måste de svara</strong> (<a href=\"{{url}}\">varför?</a>)."
 
@@ -290,6 +297,9 @@ msgstr "<strong> Kan jag begära information om mig själv?</strong> <a href=\"{
 
 msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, you will need a good internal knowledge of user behaviour on {{site_name}}. How, why and by whom requests are categorised is not straightforward, and there will be user error and ambiguity. You will also need to understand FOI law, and the way authorities use it. Plus you'll need to be an elite statistician.  Please <a href=\"{{contact_path}}\">contact us</a> with questions."
 msgstr "<strong>Användaren förvarnas!</strong> Om du vill använda dessa data på ett hedersamt sätt, kommer du behöva en god intern kunskap om användarnas beteende på {{site_name}}. Hur,varför och av vem begäran kategoriseras är inte helt lätt, och det kommer att finnas felanvändning och tvetydighet. Du kommer också att behöva förstå offentlighets- och sekretesslagen, och hur myndigheterna använder det. Plus att du måste vara en elitstatistiker. <a href=\"{{contact_path}}\">Kontakta oss</a> med frågor."
+
+msgid "<strong>Challenging a refusal?</strong> Here are some snippets that may help:"
+msgstr ""
 
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong>Förtydligande</strong> har blivit begärd"
@@ -374,6 +384,9 @@ msgstr "Ett svar kommer att skickas<strong>med brev</strong>"
 msgid "A strange response, required attention by the {{site_name}} team"
 msgstr "Ett konstigt svar, som behöver granskas av {{site_name}}s team"
 
+msgid "A survey about your recent {{law_used_full}} request ({{site_name}})"
+msgstr ""
+
 msgid "A {{site_name}} user"
 msgstr "En {{site_name}}-användare"
 
@@ -404,15 +417,6 @@ msgstr "Handling behövs"
 msgid "Actions"
 msgstr "Uppföljningar"
 
-msgid "Acts as xapian/acts as xapian job"
-msgstr "Acts as xapian/acts as xapian job"
-
-msgid "ActsAsXapian::ActsAsXapianJob|Action"
-msgstr "ActsAsXapian::ActsAsXapianJob|Action"
-
-msgid "ActsAsXapian::ActsAsXapianJob|Model"
-msgstr "ActsAsXapian::ActsAsXapianJob|Model"
-
 msgid "Add a widget"
 msgstr "Lägg till en widget"
 
@@ -430,9 +434,6 @@ msgstr "Lägg till myndighet - {{public_body_name}}"
 
 msgid "Add the authority:"
 msgstr "Lägg till myndigheten:"
-
-msgid "Administration URL:"
-msgstr "URL för administration:"
 
 msgid "Advanced search"
 msgstr "Avancerad sökning"
@@ -527,432 +528,6 @@ msgstr "Anonym användare"
 msgid "Any device"
 msgstr "Någon enhet"
 
-msgid "Application record"
-msgstr "Application record"
-
-msgid "ApplicationRecord|About me"
-msgstr "ApplicationRecord|About me"
-
-msgid "ApplicationRecord|Alert type"
-msgstr "ApplicationRecord|Alert type"
-
-msgid "ApplicationRecord|Allow new responses from"
-msgstr "ApplicationRecord|Allow new responses from"
-
-msgid "ApplicationRecord|Api key"
-msgstr "ApplicationRecord|Api key"
-
-msgid "ApplicationRecord|Attention requested"
-msgstr "ApplicationRecord|Attention requested"
-
-msgid "ApplicationRecord|Awaiting description"
-msgstr "ApplicationRecord|Awaiting description"
-
-msgid "ApplicationRecord|Backtrace"
-msgstr "ApplicationRecord|Backtrace"
-
-msgid "ApplicationRecord|Ban text"
-msgstr "ApplicationRecord|Ban text"
-
-msgid "ApplicationRecord|Body"
-msgstr "ApplicationRecord|Body"
-
-msgid "ApplicationRecord|Cached attachment text clipped"
-msgstr "ApplicationRecord|Cached attachment text clipped"
-
-msgid "ApplicationRecord|Cached main body text folded"
-msgstr "ApplicationRecord|Cached main body text folded"
-
-msgid "ApplicationRecord|Cached main body text unfolded"
-msgstr "ApplicationRecord|Cached main body text unfolded"
-
-msgid "ApplicationRecord|Calculated state"
-msgstr "ApplicationRecord|Calculated state"
-
-msgid "ApplicationRecord|Can make batch requests"
-msgstr "ApplicationRecord|Can make batch requests"
-
-msgid "ApplicationRecord|Category display order"
-msgstr "ApplicationRecord|Category display order"
-
-msgid "ApplicationRecord|Category tag"
-msgstr "ApplicationRecord|Category tag"
-
-msgid "ApplicationRecord|Charset"
-msgstr "ApplicationRecord|Charset"
-
-msgid "ApplicationRecord|Circumstance"
-msgstr "ApplicationRecord|Circumstance"
-
-msgid "ApplicationRecord|Citable type"
-msgstr "ApplicationRecord|Citable type"
-
-msgid "ApplicationRecord|Closed at"
-msgstr "ApplicationRecord|Closed at"
-
-msgid "ApplicationRecord|Comments allowed"
-msgstr "ApplicationRecord|Comments allowed"
-
-msgid "ApplicationRecord|Comments count"
-msgstr "ApplicationRecord|Comments count"
-
-msgid "ApplicationRecord|Confirmed not spam"
-msgstr "ApplicationRecord|Confirmed not spam"
-
-msgid "ApplicationRecord|Content type"
-msgstr "ApplicationRecord|Content type"
-
-msgid "ApplicationRecord|Cookie"
-msgstr "ApplicationRecord|Cookie"
-
-msgid "ApplicationRecord|Daily summary hour"
-msgstr "ApplicationRecord|Daily summary hour"
-
-msgid "ApplicationRecord|Daily summary minute"
-msgstr "ApplicationRecord|Daily summary minute"
-
-msgid "ApplicationRecord|Data"
-msgstr "ApplicationRecord|Data"
-
-msgid "ApplicationRecord|Date initial request last sent at"
-msgstr "ApplicationRecord|Date initial request last sent at"
-
-msgid "ApplicationRecord|Date response required by"
-msgstr "ApplicationRecord|Date response required by"
-
-msgid "ApplicationRecord|Date very overdue after"
-msgstr "ApplicationRecord|Date very overdue after"
-
-msgid "ApplicationRecord|Day"
-msgstr "ApplicationRecord|Day"
-
-msgid "ApplicationRecord|Default embargo duration"
-msgstr "ApplicationRecord|Default embargo duration"
-
-msgid "ApplicationRecord|Delivery status"
-msgstr "ApplicationRecord|Delivery status"
-
-msgid "ApplicationRecord|Described state"
-msgstr "ApplicationRecord|Described state"
-
-msgid "ApplicationRecord|Description"
-msgstr "ApplicationRecord|Description"
-
-msgid "ApplicationRecord|Disclosure log"
-msgstr "ApplicationRecord|Disclosure log"
-
-msgid "ApplicationRecord|Display order"
-msgstr "ApplicationRecord|Display order"
-
-msgid "ApplicationRecord|Display size"
-msgstr "ApplicationRecord|Display size"
-
-msgid "ApplicationRecord|Draft"
-msgstr "ApplicationRecord|Draft"
-
-msgid "ApplicationRecord|Email"
-msgstr "ApplicationRecord|Email"
-
-msgid "ApplicationRecord|Email bounce message"
-msgstr "ApplicationRecord|Email bounce message"
-
-msgid "ApplicationRecord|Email bounced at"
-msgstr "ApplicationRecord|Email bounced at"
-
-msgid "ApplicationRecord|Email confirmed"
-msgstr "ApplicationRecord|Email confirmed"
-
-msgid "ApplicationRecord|Email token"
-msgstr "ApplicationRecord|Email token"
-
-msgid "ApplicationRecord|Embargo duration"
-msgstr "ApplicationRecord|Embargo duration"
-
-msgid "ApplicationRecord|Event type"
-msgstr "ApplicationRecord|Event type"
-
-msgid "ApplicationRecord|Expired"
-msgstr "ApplicationRecord|Expired"
-
-msgid "ApplicationRecord|Expiring notification at"
-msgstr "ApplicationRecord|Expiring notification at"
-
-msgid "ApplicationRecord|Extension duration"
-msgstr "ApplicationRecord|Extension duration"
-
-msgid "ApplicationRecord|External url"
-msgstr "ApplicationRecord|External url"
-
-msgid "ApplicationRecord|External user name"
-msgstr "ApplicationRecord|External user name"
-
-msgid "ApplicationRecord|Filename"
-msgstr "ApplicationRecord|Filename"
-
-msgid "ApplicationRecord|Frequency"
-msgstr "ApplicationRecord|Frequency"
-
-msgid "ApplicationRecord|Handle rejected responses"
-msgstr "ApplicationRecord|Handle rejected responses"
-
-msgid "ApplicationRecord|Hashed password"
-msgstr "ApplicationRecord|Hashed password"
-
-msgid "ApplicationRecord|Hexdigest"
-msgstr "ApplicationRecord|Hexdigest"
-
-msgid "ApplicationRecord|Home page"
-msgstr "ApplicationRecord|Home page"
-
-msgid "ApplicationRecord|Idhash"
-msgstr "ApplicationRecord|Idhash"
-
-msgid "ApplicationRecord|Incoming messages count"
-msgstr "ApplicationRecord|Incoming messages count"
-
-msgid "ApplicationRecord|Info request batches count"
-msgstr "ApplicationRecord|Info request batches count"
-
-msgid "ApplicationRecord|Info requests count"
-msgstr "ApplicationRecord|Info requests count"
-
-msgid "ApplicationRecord|Info requests not held count"
-msgstr "ApplicationRecord|Info requests not held count"
-
-msgid "ApplicationRecord|Info requests overdue count"
-msgstr "ApplicationRecord|Info requests overdue count"
-
-msgid "ApplicationRecord|Info requests successful count"
-msgstr "ApplicationRecord|Info requests successful count"
-
-msgid "ApplicationRecord|Info requests visible classified count"
-msgstr "ApplicationRecord|Info requests visible classified count"
-
-msgid "ApplicationRecord|Info requests visible count"
-msgstr "ApplicationRecord|Info requests visible count"
-
-msgid "ApplicationRecord|Is open"
-msgstr "ApplicationRecord|Is open"
-
-msgid "ApplicationRecord|Last daily track email"
-msgstr "ApplicationRecord|Last daily track email"
-
-msgid "ApplicationRecord|Last described at"
-msgstr "ApplicationRecord|Last described at"
-
-msgid "ApplicationRecord|Last edit comment"
-msgstr "ApplicationRecord|Last edit comment"
-
-msgid "ApplicationRecord|Last edit editor"
-msgstr "ApplicationRecord|Last edit editor"
-
-msgid "ApplicationRecord|Last event time"
-msgstr "ApplicationRecord|Last event time"
-
-msgid "ApplicationRecord|Last parsed"
-msgstr "ApplicationRecord|Last parsed"
-
-msgid "ApplicationRecord|Last public response at"
-msgstr "ApplicationRecord|Last public response at"
-
-msgid "ApplicationRecord|Last sent at"
-msgstr "ApplicationRecord|Last sent at"
-
-msgid "ApplicationRecord|Last stat"
-msgstr "ApplicationRecord|Last stat"
-
-msgid "ApplicationRecord|Law used"
-msgstr "ApplicationRecord|Law used"
-
-msgid "ApplicationRecord|Line"
-msgstr "ApplicationRecord|Line"
-
-msgid "ApplicationRecord|Locale"
-msgstr "ApplicationRecord|Locale"
-
-msgid "ApplicationRecord|Mail from"
-msgstr "ApplicationRecord|Mail from"
-
-msgid "ApplicationRecord|Mail from domain"
-msgstr "ApplicationRecord|Mail from domain"
-
-msgid "ApplicationRecord|Message type"
-msgstr "ApplicationRecord|Message type"
-
-msgid "ApplicationRecord|Name"
-msgstr "ApplicationRecord|Name"
-
-msgid "ApplicationRecord|No limit"
-msgstr "ApplicationRecord|No limit"
-
-msgid "ApplicationRecord|Notes"
-msgstr "ApplicationRecord|Notes"
-
-msgid "ApplicationRecord|Notified at"
-msgstr "ApplicationRecord|Notified at"
-
-msgid "ApplicationRecord|Order"
-msgstr "ApplicationRecord|Order"
-
-msgid "ApplicationRecord|Otp counter"
-msgstr "ApplicationRecord|Otp counter"
-
-msgid "ApplicationRecord|Otp enabled"
-msgstr "ApplicationRecord|Otp enabled"
-
-msgid "ApplicationRecord|Otp secret key"
-msgstr "ApplicationRecord|Otp secret key"
-
-msgid "ApplicationRecord|Params"
-msgstr "ApplicationRecord|Params"
-
-msgid "ApplicationRecord|Params yaml"
-msgstr "ApplicationRecord|Params yaml"
-
-msgid "ApplicationRecord|Post params yaml"
-msgstr "ApplicationRecord|Post params yaml"
-
-msgid "ApplicationRecord|Prominence"
-msgstr "ApplicationRecord|Prominence"
-
-msgid "ApplicationRecord|Prominence reason"
-msgstr "ApplicationRecord|Prominence reason"
-
-msgid "ApplicationRecord|Public body change requests count"
-msgstr "ApplicationRecord|Public body change requests count"
-
-msgid "ApplicationRecord|Public body email"
-msgstr "ApplicationRecord|Public body email"
-
-msgid "ApplicationRecord|Public body name"
-msgstr "ApplicationRecord|Public body name"
-
-msgid "ApplicationRecord|Public body names"
-msgstr "ApplicationRecord|Public body names"
-
-msgid "ApplicationRecord|Publish at"
-msgstr "ApplicationRecord|Publish at"
-
-msgid "ApplicationRecord|Reason params yaml"
-msgstr "ApplicationRecord|Reason params yaml"
-
-msgid "ApplicationRecord|Receive email alerts"
-msgstr "ApplicationRecord|Receive email alerts"
-
-msgid "ApplicationRecord|Regexp"
-msgstr "ApplicationRecord|Regexp"
-
-msgid "ApplicationRecord|Reject incoming at mta"
-msgstr "ApplicationRecord|Reject incoming at mta"
-
-msgid "ApplicationRecord|Rejected incoming count"
-msgstr "ApplicationRecord|Rejected incoming count"
-
-msgid "ApplicationRecord|Replacement"
-msgstr "ApplicationRecord|Replacement"
-
-msgid "ApplicationRecord|Request classifications count"
-msgstr "ApplicationRecord|Request classifications count"
-
-msgid "ApplicationRecord|Request created at"
-msgstr "ApplicationRecord|Request created at"
-
-msgid "ApplicationRecord|Request updated at"
-msgstr "ApplicationRecord|Request updated at"
-
-msgid "ApplicationRecord|Resource type"
-msgstr "ApplicationRecord|Resource type"
-
-msgid "ApplicationRecord|Retry at"
-msgstr "ApplicationRecord|Retry at"
-
-msgid "ApplicationRecord|Salt"
-msgstr "ApplicationRecord|Salt"
-
-msgid "ApplicationRecord|Seen at"
-msgstr "ApplicationRecord|Seen at"
-
-msgid "ApplicationRecord|Send after"
-msgstr "ApplicationRecord|Send after"
-
-msgid "ApplicationRecord|Sent at"
-msgstr "ApplicationRecord|Sent at"
-
-msgid "ApplicationRecord|Slug"
-msgstr "ApplicationRecord|Slug"
-
-msgid "ApplicationRecord|Source url"
-msgstr "ApplicationRecord|Source url"
-
-msgid "ApplicationRecord|Status"
-msgstr "ApplicationRecord|Status"
-
-msgid "ApplicationRecord|Subject"
-msgstr "ApplicationRecord|Subject"
-
-msgid "ApplicationRecord|Summarisable type"
-msgstr "ApplicationRecord|Summarisable type"
-
-msgid "ApplicationRecord|Text"
-msgstr "ApplicationRecord|Text"
-
-msgid "ApplicationRecord|Title"
-msgstr "ApplicationRecord|Title"
-
-msgid "ApplicationRecord|Token"
-msgstr "ApplicationRecord|Token"
-
-msgid "ApplicationRecord|Track medium"
-msgstr "ApplicationRecord|Track medium"
-
-msgid "ApplicationRecord|Track query"
-msgstr "ApplicationRecord|Track query"
-
-msgid "ApplicationRecord|Track things count"
-msgstr "ApplicationRecord|Track things count"
-
-msgid "ApplicationRecord|Track type"
-msgstr "ApplicationRecord|Track type"
-
-msgid "ApplicationRecord|Uri"
-msgstr "ApplicationRecord|Uri"
-
-msgid "ApplicationRecord|Url name"
-msgstr "ApplicationRecord|Url name"
-
-msgid "ApplicationRecord|Url part number"
-msgstr "ApplicationRecord|Url part number"
-
-msgid "ApplicationRecord|Url title"
-msgstr "ApplicationRecord|Url title"
-
-msgid "ApplicationRecord|Use notifications"
-msgstr "ApplicationRecord|Use notifications"
-
-msgid "ApplicationRecord|User email"
-msgstr "ApplicationRecord|User email"
-
-msgid "ApplicationRecord|User name"
-msgstr "ApplicationRecord|User name"
-
-msgid "ApplicationRecord|Valid to reply to"
-msgstr "ApplicationRecord|Valid to reply to"
-
-msgid "ApplicationRecord|Version"
-msgstr "ApplicationRecord|Version"
-
-msgid "ApplicationRecord|Visibility"
-msgstr "ApplicationRecord|Visibility"
-
-msgid "ApplicationRecord|Visible"
-msgstr "ApplicationRecord|Visible"
-
-msgid "ApplicationRecord|What doing"
-msgstr "ApplicationRecord|What doing"
-
-msgid "ApplicationRecord|Within rfc822 subject"
-msgstr "ApplicationRecord|Within rfc822 subject"
-
 msgid "Are we missing a public authority?"
 msgstr "Saknar vi en offentlig myndighet?"
 
@@ -970,6 +545,9 @@ msgstr "Är du säker? Om du förnyar ditt engångslösenord kommer du att behö
 
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Är du ägare till någon kommersiell upphovsrätt på denna sida?"
+
+msgid "Article"
+msgstr ""
 
 msgid "Ask EU Authorities"
 msgstr "Fråga EU-myndigheter"
@@ -1160,6 +738,9 @@ msgstr "Klicka på länken nedan för att skicka ett meddelande till {{public_bo
 msgid "Close"
 msgstr "Stäng"
 
+msgid "Close preview"
+msgstr ""
+
 msgid "Close the request and respond:"
 msgstr "Stäng begäran och svara:"
 
@@ -1228,6 +809,12 @@ msgstr "Bidra"
 
 msgid "Cookies not enabled"
 msgstr "Kakor är inte aktiverade"
+
+msgid "Copied!"
+msgstr ""
+
+msgid "Copy"
+msgstr ""
 
 msgid "Could not identify the request from the email address"
 msgstr "Kunde inte identifiera begäran från e-postadressen"
@@ -1472,24 +1059,6 @@ msgstr "Först och främst, lyckades dina andra förfrågningar?"
 msgid "First, type in the <strong>name of the public authority</strong> you'd like information from."
 msgstr "Först, skriv in <strong>namnet på myndigheten</strong> som du skulle vilja få ut information ifrån."
 
-msgid "Flipper/adapters/active record/feature"
-msgstr "Flipper/adapters/active record/feature"
-
-msgid "Flipper/adapters/active record/gate"
-msgstr "Flipper/adapters/active record/gate"
-
-msgid "Flipper::Adapters::ActiveRecord::Feature|Key"
-msgstr "Flipper::Adapters::ActiveRecord::Feature|Key"
-
-msgid "Flipper::Adapters::ActiveRecord::Gate|Feature key"
-msgstr "Flipper::Adapters::ActiveRecord::Gate|Feature key"
-
-msgid "Flipper::Adapters::ActiveRecord::Gate|Key"
-msgstr "Flipper::Adapters::ActiveRecord::Gate|Key"
-
-msgid "Flipper::Adapters::ActiveRecord::Gate|Value"
-msgstr "Flipper::Adapters::ActiveRecord::Gate|Value"
-
 msgid "Follow"
 msgstr "Följ"
 
@@ -1579,6 +1148,9 @@ msgid_plural "Found {{count}} public authorities matching the tag ‘{{tag_name}
 msgstr[0] "Hittade {{count}} myndighet som matchade ‘{{tag_name}}’"
 msgstr[1] "Hittade {{count}} myndigheter som matchade ‘{{tag_name}}’"
 
+msgid "Four weeks ago you made a Freedom of Information request to {{public_body_name}} using {{site_name}}."
+msgstr ""
+
 msgid "Freedom of Information"
 msgstr "Offentlighetsprincipen"
 
@@ -1621,47 +1193,14 @@ msgstr "Från:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "UPPGE DETALJER OM DITT KLAGOMÅL HÄR"
 
+msgid "Get help to challenge it."
+msgstr ""
+
 msgid "Getting long – remember to keep it focussed"
 msgstr "Börjar bli långt - kom ihåg att hålla det fokuserat"
 
-msgid "Globalize/active record/translation"
-msgstr "Globalize/active record/translation"
-
-msgid "Globalize::ActiveRecord::Translation|Content"
-msgstr "Globalize::ActiveRecord::Translation|Content"
-
-msgid "Globalize::ActiveRecord::Translation|Description"
-msgstr "Globalize::ActiveRecord::Translation|Description"
-
-msgid "Globalize::ActiveRecord::Translation|Disclosure log"
-msgstr "Globalize::ActiveRecord::Translation|Disclosure log"
-
-msgid "Globalize::ActiveRecord::Translation|First letter"
-msgstr "Globalize::ActiveRecord::Translation|First letter"
-
-msgid "Globalize::ActiveRecord::Translation|Locale"
-msgstr "Globalize::ActiveRecord::Translation|Locale"
-
-msgid "Globalize::ActiveRecord::Translation|Name"
-msgstr "Globalize::ActiveRecord::Translation|Name"
-
-msgid "Globalize::ActiveRecord::Translation|Notes"
-msgstr "Globalize::ActiveRecord::Translation|Notes"
-
-msgid "Globalize::ActiveRecord::Translation|Publication scheme"
-msgstr "Globalize::ActiveRecord::Translation|Publication scheme"
-
-msgid "Globalize::ActiveRecord::Translation|Request email"
-msgstr "Globalize::ActiveRecord::Translation|Request email"
-
-msgid "Globalize::ActiveRecord::Translation|Short name"
-msgstr "Globalize::ActiveRecord::Translation|Short name"
-
-msgid "Globalize::ActiveRecord::Translation|Title"
-msgstr "Globalize::ActiveRecord::Translation|Title"
-
-msgid "Globalize::ActiveRecord::Translation|Url name"
-msgstr "Globalize::ActiveRecord::Translation|Url name"
+msgid "Go back to refusal advice questions"
+msgstr ""
 
 msgid "Got a {{site_name}} account?"
 msgstr "Har du ett konto på {{site_name}}?"
@@ -1675,29 +1214,11 @@ msgstr "Hanterat genom post"
 msgid "Handled by postal mail."
 msgstr "Hanterat genom post."
 
-msgid "Has tag string tag"
-msgstr "Har tag sträng tag"
+msgid "Has this request been referenced in a news article or academic paper?"
+msgstr ""
 
-msgid "Has tag string/has tag string tag"
-msgstr "Has tag string/has tag string tag"
-
-msgid "HasTagString::HasTagStringTag|Model"
-msgstr "HasTagString::HasTagStringTag|Model"
-
-msgid "HasTagString::HasTagStringTag|Name"
-msgstr "HasTagString::HasTagStringTag|Name"
-
-msgid "HasTagString::HasTagStringTag|Value"
-msgstr "HasTagString::HasTagStringTag|Value"
-
-msgid "HasTagStringTag|Model"
-msgstr "HasTagStringTag|Model"
-
-msgid "HasTagStringTag|Name"
-msgstr "HasTagStringTag|Name"
-
-msgid "HasTagStringTag|Value"
-msgstr "HasTagStringTag|Value"
+msgid "Has this request been referenced in a news article or academic paper? Let us know:"
+msgstr ""
 
 msgid "Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}"
 msgstr "Hej! Vi har ett <a href=\"{{url}}\">viktigt meddelande</a> för besökare utanför {{country_name}}"
@@ -1725,6 +1246,9 @@ msgstr "Hjälp oss att klassificera förfrågningar som inte har blivit uppdater
 
 msgid "Here <strong>described</strong> means when a user selected a status for the request, and the most recent event had its status updated to that value. <strong>calculated</strong> is then inferred by {{site_name}} for intermediate events, which weren't given an explicit description by a user. See the <a href=\"{{search_path}}\">search tips</a> for description of the states."
 msgstr "Här betyder <strong>beskrivet</strong> när en användare valt en status för begäran, och den senaste händelsen har fått sin status uppdaterad till det värdet. Då sluter sig <strong>kalkylerad</strong> till {{site_name}} för mellanliggande händelser, som inte gavs en tydlig beskrivning av en användare. Se <a href=\"{{search_path}}\">söktipsen</a> för beskrivningen av statusar."
+
+msgid "Here are some snippets that may help you <strong>challenge a refusal</strong>:"
+msgstr ""
 
 msgid "Here is the message you wrote, in case you would like to copy the text and save it for later."
 msgstr "Här är meddelandet som du skrev utifall att du skulle vilja kopiera texten och spara den till senare."
@@ -1837,6 +1361,9 @@ msgstr "Om du är {{user_link}}, vänligen"
 msgid "If you believe this request is not suitable, you can report it for attention by the site administrators using this form"
 msgstr "Om du anser att denna begäran inte är lämplig kan du rapportera det för moderatorernas uppmärksamhet genom detta formulär"
 
+msgid "If you can spare a few minutes to complete our short survey, it will help us make the site better. Just follow the link below."
+msgstr ""
+
 msgid "If you can't click on it in the email, you'll have to <strong>select and copy it</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place you would type the address of any other webpage."
 msgstr "Om du inte kan klicka på det i meddelandet måste du <strong>välja och kopiera det</strong> från e-postmeddelandet. Därefter <strong>klistra in det i din webbläsare</strong>, på den plats där du skulle vilja skriva in adressen till en webbsida."
 
@@ -1928,14 +1455,17 @@ msgstr "Begäran om intern granskning"
 msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Begäran om intern granskning skickad till {{public_body_name}} av {{info_request_user}} vid {{date}}."
 
+msgid "Invalid form submission"
+msgstr ""
+
 msgid "Invalid one time password"
 msgstr "Ogiltigt engångslösenord"
 
 msgid "Invalid token"
 msgstr "Ogiltigt token"
 
-msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
-msgstr "Är {{email_address}} fel adress för {{type_of_request}} förfrågningar till {{public_body_name}}? Om så är fallet, kontakta oss genom detta formulär:"
+msgid "Is {{email_address}} the wrong address for {{law_used_full}} requests to {{public_body_name}}? If so, please contact us using this form:"
+msgstr "Är {{email_address}} fel adress för {{law_used_full}} förfrågningar till {{public_body_name}}? Om så är fallet, kontakta oss genom detta formulär:"
 
 msgid "It looks like something has gone wrong when sending this message. It could be a technical issue, or an issue with the email address we have for the authority."
 msgstr "Det ser ut som att någonting har gått fel när meddelanden skickades. Det kan vara ett tekniskt problem, eller ett problem med e-postadressen vi har till myndigheten."
@@ -1996,6 +1526,9 @@ msgstr "Lämna projekt"
 
 msgid "Let us know"
 msgstr "Berätta för oss"
+
+msgid "Let us know and we’ll help you challenge it."
+msgstr ""
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
 msgstr "Vänligen låt oss veta vad du gjorde när detta meddelande uppstod och vilken webbläsare och operativsystem du använder samt deras versioner."
@@ -2147,6 +1680,12 @@ msgstr "Nyheter"
 msgid "Next"
 msgstr "Nästa"
 
+msgid "Next &#8594;"
+msgstr ""
+
+msgid "Next Step: Preview your public request"
+msgstr ""
+
 msgid "Next message"
 msgstr "Nästa meddelande"
 
@@ -2269,6 +1808,12 @@ msgstr "Andra"
 
 msgid "Other:"
 msgstr "Andra:"
+
+msgid "Page {{page}}"
+msgstr ""
+
+msgid "Pagination"
+msgstr ""
 
 msgid "Partial success"
 msgstr "Delvis framgångsrik"
@@ -2500,6 +2045,9 @@ msgstr "Möjliga relaterade förfrågningar"
 msgid "Post annotation"
 msgstr "Lägg till anteckning"
 
+msgid "Posted on {{date}}"
+msgstr ""
+
 msgid "Posted on {{date}} by {{author}}"
 msgstr "Postad den {{date}} av {{author}}"
 
@@ -2529,9 +2077,6 @@ msgstr "Förhandsgranska din anteckning"
 
 msgid "Preview your message"
 msgstr "Förhandsgranska ditt meddelande"
-
-msgid "Preview your public request"
-msgstr "Förhandsgranska din offentliga begäran"
 
 msgid "Preview your request"
 msgstr "Förhandsgranska din begäran"
@@ -2584,27 +2129,6 @@ msgstr "Myndigheter med flest förfrågningar"
 msgid "Public bodies with the most successful requests"
 msgstr "Myndigheter med flest framgångsrika förfrågningar"
 
-msgid "Public body category translation"
-msgstr "Myndighet kategoriöversättning"
-
-msgid "Public body heading translation"
-msgstr "Myndighets översättning på rubrik "
-
-msgid "PublicBodyCategoryTranslation|Description"
-msgstr "PublicBodyCategoryTranslation|Description"
-
-msgid "PublicBodyCategoryTranslation|Locale"
-msgstr "PublicBodyCategoryTranslation|Locale"
-
-msgid "PublicBodyCategoryTranslation|Title"
-msgstr "PublicBodyCategoryTranslation|Title"
-
-msgid "PublicBodyHeadingTranslation|Locale"
-msgstr "PublicBodyHeadingTranslation|Locale"
-
-msgid "PublicBodyHeadingTranslation|Name"
-msgstr "PublicBodyHeadingTranslation|Name"
-
 msgid "Publication scheme"
 msgstr "Publiceringsschema"
 
@@ -2632,6 +2156,9 @@ msgstr "Läs om <a href=\"{{advanced_search_url}}\">avancerade sökningsoperatö
 msgid "Read blog"
 msgstr "Blogg"
 
+msgid "Read more"
+msgstr ""
+
 msgid "Read through authority responses and choose if their answer satisfies the intention of the original request, flag any problems and show the project owner if they need to intervene to keep the project movng forward."
 msgstr "Läs igenom svaren och välj om deras svar uppfyller avsikten med den ursprungliga begäran, flagga eventuella problem och visa projektägaren om de måste ingripa för att hålla projektet igång."
 
@@ -2655,6 +2182,9 @@ msgstr "Nekad."
 
 msgid "Regenerate one time passcode"
 msgstr "Förnya ett engångslösenord"
+
+msgid "Regulation"
+msgstr ""
 
 msgid "Rejected"
 msgstr "Nekad"
@@ -2842,6 +2372,9 @@ msgstr "Sök på hemsidan för att hitta vad du letar efter."
 msgid "Search your contributions"
 msgstr "Sök dina bidrag"
 
+msgid "Section"
+msgstr ""
+
 msgid "Send a followup"
 msgstr "Skicka en uppföljning"
 
@@ -2904,6 +2437,12 @@ msgstr "Visa alla bilagor"
 msgid "Show fewer attachments"
 msgstr "Visa färre bilagor"
 
+msgid "Show less"
+msgstr ""
+
+msgid "Show more"
+msgstr ""
+
 msgid "Show most relevant results first"
 msgstr "Visa de mest relevanta resultaten först"
 
@@ -2942,6 +2481,9 @@ msgstr "Hoppa över"
 
 msgid "Skipped!"
 msgstr "Hoppat över!"
+
+msgid "Snippets related to"
+msgstr ""
 
 msgid "Some notes have been added to your FOI request - {{request_title}}"
 msgstr "Några anteckningar har lagts till i din begäran - {{request_title}}"
@@ -3381,11 +2923,11 @@ msgstr "Det finns inga förfrågningar att klassificera just nu. Bra jobbat!"
 msgid "There are no requests to extract right now. Great job!"
 msgstr "Det finns inga förfrågningar att extrahera just nu. Bra jobbat!"
 
-msgid "There are {{count}} new annotations on your {{info_request}} request. Follow this link to see what they wrote."
-msgstr "Det finns {{count}} nya anteckningar på din {{info_request}} begäran. Följ länken för att se vad de skrev."
+msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
+msgstr "Det finns {{count}} nya anteckningar på din {{law_used_short}} begäran. Följ länken för att se vad de skrev."
 
-msgid "There is <strong>more than one person</strong> who uses this site and has this name. One of them is shown below, you may mean a different one:"
-msgstr "Det är <strong>mer än en person</strong> som använder denna webbplats med detta namn. En av dem visas nedan, du kan avse en annan person:"
+msgid "There is <strong>more than one person</strong> who uses this site and has this name. Search for other users named \"{{search_user_link}}\""
+msgstr ""
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr "Det finns en gräns för antalet förfrågningar som du kan göra på en dag. Detta eftersom myndigheterna inte ska överbelastas med för stort antal förfrågningar. Om du har en bra anledning att få begränsningen borttagen i ditt fall, vänligen <a href='{{help_contact_path}}'>ta kontakt med oss</a>."
@@ -3799,8 +3341,8 @@ msgstr "Sluta följa"
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr "Tyvärr har vi inte har en fungerande adress för {{public_body_names}}."
 
-msgid "Unfortunately, we do not have a working {{info_request_law_used_full}} address for"
-msgstr "Tyvärr har vi inte har en fungerande {{info_request_law_used_full}} adress för"
+msgid "Unfortunately, we do not have a working {{law_used_full}} address for"
+msgstr "Tyvärr har vi inte har en fungerande {{law_used_full}} adress för"
 
 msgid "Unknown"
 msgstr "Okänd"
@@ -3895,9 +3437,6 @@ msgstr "Väntar på att myndigheten skall svara"
 msgid "Want to know something?"
 msgstr "Vad vill du veta?"
 
-msgid "We consider it is not a valid FOI request as it was correspondence about your personal circumstances, and we have therefore hidden it from other users."
-msgstr "Vi anser att det inte är en giltig begäran om allmän handling eftersom det var korrespondens om dina personliga omständigheter, och vi har därför gömt den för andra användare."
-
 msgid "We consider it is not a valid FOI request, and have therefore hidden it from other users."
 msgstr "Vi anser att det inte är en giltigt begäran om allmän handling, och har därför dolt den för andra användare."
 
@@ -3912,6 +3451,9 @@ msgstr "Vi kunde inte visa några loggar för detta meddelande."
 
 msgid "We couldn’t load the mail server logs for this message."
 msgstr "Vi kunde inte ladda e-postserverns loggar för detta meddelande."
+
+msgid "We do not allow requests for information via {{site_name}} about your personal circumstances. We have therefore hidden your request from other users."
+msgstr ""
 
 msgid "We do not have a working request email address for this authority."
 msgstr "Vi har inte en fungerande e-postadress för denna myndighet."
@@ -3939,6 +3481,9 @@ msgstr "Vi kommer inte att avslöja dina e-postadresser till någon såvida inte
 
 msgid "We will not reveal your email addresses to anybody unless you or the law tell us to."
 msgstr "Vi kommer inte att avslöja dina e-postadresser till någon såvida inte du eller lagen säger till oss."
+
+msgid "We would like to know more about you, and your experience making an {{law_used_full}} request through the site."
+msgstr ""
 
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr "Vi skickar dig ett e-postmeddelande när din begäran får ett svar."
@@ -4495,6 +4040,9 @@ msgstr "och"
 msgid "and we'll suggest <strong>what to do next</strong>"
 msgstr "och vi kommer att föreslå <strong>vad som skall göras härnäst</strong>"
 
+msgid "any section"
+msgstr ""
+
 msgid "anything matching text '{{query}}'"
 msgstr "vad som helst som matchar texten '{{query}}'"
 
@@ -4698,6 +4246,9 @@ msgstr "{{authority_name}} <strong>hade inte </strong> den begärda informatione
 msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
 msgstr "{{authority_name}} <strong>väntar på ditt förtydligande</strong>."
 
+msgid "{{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
+msgstr ""
+
 msgid "{{contributor_count}} contributors"
 msgstr "{{contributor_count}} bidragsgivare"
 
@@ -4764,9 +4315,6 @@ msgstr[1] "{{count}} förfrågningar."
 msgid "{{existing_request_user}} already created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>, or edit the details below to make a new but similar request."
 msgstr "{{existing_request_user}} har redan gjort samma begäran den {{date}}. Du kan antingen se <a href=\"{{existing_request}}\">den existerande begäran</a>, eller redigera detaljerna nedan för att göra en ny men liknande begäran."
 
-msgid "{{foi_law}} requests to '{{public_body_name}}'"
-msgstr "{{foi_law}} förfrågningar till '{{public_body_name}}'"
-
 msgid "{{info_request_user_name}}"
 msgstr "{{info_request_user_name}}"
 
@@ -4775,8 +4323,11 @@ msgstr "begäran enligt {{law_used_full}} - {{title}}"
 
 #. TRANSLATORS: Please don't use double quotes (") in this translation
 #. or it will break the site's ability to send emails to authorities!
-msgid "{{law_used}} requests at {{public_body}}"
-msgstr "{{law_used}} förfrågningar vid {{public_body}}"
+msgid "{{law_used_short}} requests at {{public_body}}"
+msgstr "{{law_used_short}} förfrågningar vid {{public_body}}"
+
+msgid "{{law_used_short}} requests to '{{public_body_name}}'"
+msgstr "{{law_used_short}} förfrågningar till '{{public_body_name}}'"
 
 msgid "{{length_of_time}} ago"
 msgstr "{{length_of_time}} sedan"
@@ -4832,8 +4383,8 @@ msgstr "{{public_body_name}}: {{request_url}}"
 msgid "{{public_body_name}}: {{response_url}}"
 msgstr "{{public_body_name}}: {{response_url}}"
 
-msgid "{{public_body}} has asked you to explain part of your {{law_used}} request."
-msgstr "{{public_body}} har bett dig att förklara en del av din begäran enligt {{law_used}}."
+msgid "{{public_body}} has asked you to explain part of your {{law_used_short}} request."
+msgstr "{{public_body}} har bett dig att förklara en del av din begäran enligt {{law_used_short}}."
 
 msgid "{{public_body}} sent a response to {{user_name}}"
 msgstr "{{public_body}} skickade ett svar till {{user_name}}"
@@ -4893,8 +4444,8 @@ msgstr "{{user_name}} lade till en anteckning"
 msgid "{{user_name}} has annotated your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "{{user_name}} har kommenterat din begäran enligt {{law_used_short}}. Följ denna länk för att se vad de skrev."
 
-msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
-msgstr "{{user_name}} har rapporterat en {{law_used}} svar som är i behov av en administratörs uppmärksamhet. Ta en titt och svara på detta e-postmeddelande för att låta dem veta vad du kommer att göra åt det."
+msgid "{{user_name}} has reported an {{law_used_short}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
+msgstr "{{user_name}} har rapporterat en {{law_used_short}} svar som är i behov av en administratörs uppmärksamhet. Ta en titt och svara på detta e-postmeddelande för att låta dem veta vad du kommer att göra åt det."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "{{user_name}} har använt {{site_name}} för att skicka meddelandet du ser nedan"

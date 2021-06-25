@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: info_request_events
 #
@@ -158,6 +159,29 @@ FactoryBot.define do
 
     factory :status_update_event do
       event_type { 'status_update' }
+    end
+
+    factory :refusal_advice_event do
+      event_type { 'refusal_advice' }
+      params do
+        {
+          questions: {
+            exemption: 'section-12', question_1: 'no', question_2: 'yes'
+          },
+          actions: {
+            action_1: { suggestion_1: false, suggestion_2: true },
+            action_2: { suggestion_3: true, suggestion_4: false },
+            action_3: { suggestion_5: false }
+          },
+          id: 'action_2'
+        }
+      end
+
+      after(:build) do |event|
+        event.params = event.params.merge(
+          user_id: event.info_request.user.id
+        )
+      end
     end
 
   end

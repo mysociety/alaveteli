@@ -23,12 +23,18 @@ updates:
       - dependency-name: launchy
         versions:
         - ">= 2.5.0"
+      - dependency-name: listen
+        versions:
+        - ">= 3.5.1"
       - dependency-name: maxmind-db
         versions:
         - ">= 1.1.0"
       - dependency-name: pry-byebug
         versions:
-        - ">= 2.8.0"
+        - ">= 3.8.0"
+      - dependency-name: recaptcha
+        versions:
+        - ">= 5.7.0"
       - dependency-name: rubocop
         versions:
         - ">= 0.82.0"
@@ -38,11 +44,19 @@ updates:
       - dependency-name: sass-rails
         versions:
         - ">= 5.0.8"
+      - dependency-name: simplecov
+        versions:
+        - ">= 0.18.0"
 
       # pry-byebug requires Ruby >= 2.4.0
       - dependency-name: pry
         versions:
         - ">= 0.13.0"
+
+      # simplecov requires Ruby >= 2.4.0
+      - dependency-name: simplecov-lcov
+        versions:
+        - ">= 0.8.0"
 
       # requires Ruby >= 2.4
       - dependency-name: rubyzip
@@ -66,6 +80,9 @@ updates:
       - dependency-name: gettext
         versions:
         - ">= 3.3.0"
+      - dependency-name: rolify
+        versions:
+        - ">= 6.0.0"
 
       # factory_bot requires Ruby >= 2.5.0
       - dependency-name: factory_bot_rails

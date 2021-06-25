@@ -89,7 +89,9 @@ ISO_CURRENCY_CODE: GBP
 # ---
 TIME_ZONE: UTC
 
-# These feeds are displayed accordingly on the Alaveteli "blog" page:
+# These feeds are displayed accordingly on the Alaveteli "blog" page. Currently
+# WordPress is the only "officially supported" external blog feed, but other
+# feeds may work if they use the same data format.
 #
 # BLOG_FEED - String url to the blog feed (default: nil)
 #
@@ -606,7 +608,7 @@ FORWARD_PRO_NONBOUNCE_RESPONSES_TO: pro-user-support@localhost
 # two arguments: the URL, and a path to an output file.
 #
 # A static binary of wkhtmltopdf is recommended:
-# http://code.google.com/p/wkhtmltopdf/downloads/list
+# https://github.com/wkhtmltopdf/packaging/releases
 # If the command is not present, a text-only version will be rendered
 # instead.
 #
@@ -615,10 +617,9 @@ FORWARD_PRO_NONBOUNCE_RESPONSES_TO: pro-user-support@localhost
 # Examples:
 #
 #   HTML_TO_PDF_COMMAND: /usr/local/bin/wkhtmltopdf
-#   HTML_TO_PDF_COMMAND: /usr/local/bin/wkhtmltopdf-amd64
 #
 # ---
-HTML_TO_PDF_COMMAND: /usr/local/bin/wkhtmltopdf-amd64
+HTML_TO_PDF_COMMAND: /usr/local/bin/wkhtmltopdf
 
 # Email address used for sending exception notifications.
 #
@@ -1216,11 +1217,13 @@ STRIPE_SECRET_KEY: ''
 # from other resources within Stripe. If used the Stripe resources will need IDs
 # like: '<namespace>-<id>'
 #
+# **Must be uppercase**.
+#
 # STRIPE_NAMESPACE - String (default: '')
 #
 # Examples:
 #
-# STRIPE_NAMESPACE: 'alaveteli'
+# STRIPE_NAMESPACE: 'ALAVETELI'
 #
 # ---
 STRIPE_NAMESPACE: ''
@@ -1293,3 +1296,11 @@ ENABLE_PRO_SELF_SERVE: false
 #
 # ---
 ENABLE_PROJECTS: false
+
+# If SURVEY_URL is present, one month after a request has been made, Alaveteli
+# will email users with a link to a survey.
+#
+# SURVEY_URL – String (default: '')
+#
+# ---
+SURVEY_URL: ''

@@ -34,8 +34,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-16 10:35+0100\n"
-"PO-Revision-Date: 2020-10-16 11:44+0000\n"
+"POT-Creation-Date: 2021-06-24 16:55+0100\n"
+"PO-Revision-Date: 2021-06-24 16:12+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Dutch (http://www.transifex.com/mysociety/alaveteli/language/nl"
 "/)\n"
@@ -113,6 +113,9 @@ msgstr "gefilterd op status: '{{status}}'"
 
 msgid " when you send this message."
 msgstr "wanneer je dit bericht verstuurt."
+
+msgid "&#8592; Previous"
+msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Misdaadstatistieken op buurtniveau voor Eindhoven'"
@@ -274,6 +277,9 @@ msgstr "<strong>Alle informatie</strong>is verzonden"
 msgid "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
 msgstr "<strong>Andere mogelijkheden</strong>, zoals een verduidelijking, herinnering of bedankje"
 
+msgid "<strong>Automatic anti-spam measures are in place</strong> for this older request. Please <a href=\"{{url}}\">let us know</a> if a further response is expected or if you are having trouble responding."
+msgstr ""
+
 msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</a>)."
 msgstr "<strong>Overheidsinstanties zijn bij wet verplicht om je Wob-verzoek in behandeling te nemen</strong> (<a href=\"{{url}}\">waarom?</a>)."
 
@@ -286,6 +292,9 @@ msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, yo
 msgstr ""
 "<strong>Caveat emptor!</strong> Om deze data op een aanvaardbare manier te gebruiken moet je goede kennis hebben van het gebruikersgedrag op {{site_name}}. Begrijpen hoe, waarom en door wie verzoeken zijn gecategoriseerd is niet eenvoudig. Er kan sprake zijn van fouten en dubbelzinnigheden die door de gebruiker veroorzaakt zijn. Je moet ook verstand hebben van de Wet openbaarheid van bestuur en de manier waarop overheidsinstanties deze wet gebruiken. Bovendien moet je vertrouwd zijn met statistiek. Neem ajb\n"
 " <a href=\"{{contact_path}}\">contact met ons op</a> als je vragen hebt."
+
+msgid "<strong>Challenging a refusal?</strong> Here are some snippets that may help:"
+msgstr ""
 
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong>Opheldering</strong>is om verzocht"
@@ -379,6 +388,9 @@ msgstr "Het antwoord wordt <strong>per post</strong> verstuurd."
 msgid "A strange response, required attention by the {{site_name}} team"
 msgstr "Vreemd antwoord, vereiste aandacht van de {{site_name}} beheerders"
 
+msgid "A survey about your recent {{law_used_full}} request ({{site_name}})"
+msgstr ""
+
 msgid "A {{site_name}} user"
 msgstr "Een gebruiker van {{site_name}}"
 
@@ -409,15 +421,6 @@ msgstr "Actie vereist"
 msgid "Actions"
 msgstr "Acties"
 
-msgid "Acts as xapian/acts as xapian job"
-msgstr "Acts as xapian/acts as xapian job"
-
-msgid "ActsAsXapian::ActsAsXapianJob|Action"
-msgstr "ActsAsXapian::ActsAsXapianJob|Action"
-
-msgid "ActsAsXapian::ActsAsXapianJob|Model"
-msgstr "ActsAsXapian::ActsAsXapianJob|Model"
-
 msgid "Add a widget"
 msgstr "Voeg een widget toe"
 
@@ -437,9 +440,6 @@ msgstr "Voeg overheidsinstantie - {{public_body_name}} toe"
 
 msgid "Add the authority:"
 msgstr "Voeg de overheidsinstantie toe:"
-
-msgid "Administration URL:"
-msgstr "Administration URL:"
 
 msgid "Advanced search"
 msgstr "Geavanceerd zoeken"
@@ -536,432 +536,6 @@ msgstr "Anonieme gebruiker"
 msgid "Any device"
 msgstr ""
 
-msgid "Application record"
-msgstr "Application record"
-
-msgid "ApplicationRecord|About me"
-msgstr "ApplicationRecord|Over mij"
-
-msgid "ApplicationRecord|Alert type"
-msgstr "ApplicationRecord|Type waarschuwing"
-
-msgid "ApplicationRecord|Allow new responses from"
-msgstr "ApplicationRecord|Sta nieuwe antwoorden toe van"
-
-msgid "ApplicationRecord|Api key"
-msgstr "ApplicationRecord|Api key"
-
-msgid "ApplicationRecord|Attention requested"
-msgstr "ApplicationRecord|Aandacht vereist"
-
-msgid "ApplicationRecord|Awaiting description"
-msgstr "ApplicationRecord|Awaiting description"
-
-msgid "ApplicationRecord|Backtrace"
-msgstr "ApplicationRecord|Backtrace"
-
-msgid "ApplicationRecord|Ban text"
-msgstr "ApplicationRecord|Ban text"
-
-msgid "ApplicationRecord|Body"
-msgstr "ApplicationRecord|Body"
-
-msgid "ApplicationRecord|Cached attachment text clipped"
-msgstr "ApplicationRecord|Cached attachment text clipped"
-
-msgid "ApplicationRecord|Cached main body text folded"
-msgstr "ApplicationRecord|Cached main body text folded"
-
-msgid "ApplicationRecord|Cached main body text unfolded"
-msgstr "ApplicationRecord|Cached main body text unfolded"
-
-msgid "ApplicationRecord|Calculated state"
-msgstr "ApplicationRecord|Calculated state"
-
-msgid "ApplicationRecord|Can make batch requests"
-msgstr "ApplicationRecord|Kan bulkverzoeken doen"
-
-msgid "ApplicationRecord|Category display order"
-msgstr "ApplicationRecord|Category display order"
-
-msgid "ApplicationRecord|Category tag"
-msgstr "ApplicationRecord|Category tag"
-
-msgid "ApplicationRecord|Charset"
-msgstr "ApplicationRecord|Charset"
-
-msgid "ApplicationRecord|Circumstance"
-msgstr "ApplicationRecord|Circumstance"
-
-msgid "ApplicationRecord|Citable type"
-msgstr ""
-
-msgid "ApplicationRecord|Closed at"
-msgstr "ApplicationRecord|Closed at"
-
-msgid "ApplicationRecord|Comments allowed"
-msgstr "ApplicationRecord|Opmerkingen toegestaan"
-
-msgid "ApplicationRecord|Comments count"
-msgstr "ApplicationRecord|Aantal opmerkingen"
-
-msgid "ApplicationRecord|Confirmed not spam"
-msgstr "ApplicationRecord|Geen spam"
-
-msgid "ApplicationRecord|Content type"
-msgstr "ApplicationRecord|Content type"
-
-msgid "ApplicationRecord|Cookie"
-msgstr "ApplicationRecord|Cookie"
-
-msgid "ApplicationRecord|Daily summary hour"
-msgstr "ApplicationRecord|Daily summary hour"
-
-msgid "ApplicationRecord|Daily summary minute"
-msgstr "ApplicationRecord|Daily summary minute"
-
-msgid "ApplicationRecord|Data"
-msgstr "ApplicationRecord|Data"
-
-msgid "ApplicationRecord|Date initial request last sent at"
-msgstr "ApplicationRecord|Date initial request last sent at"
-
-msgid "ApplicationRecord|Date response required by"
-msgstr "ApplicationRecord|Datum besluit uiterlijk verplicht per"
-
-msgid "ApplicationRecord|Date very overdue after"
-msgstr "ApplicationRecord|Datum termijn ruimschoots overschreden na"
-
-msgid "ApplicationRecord|Day"
-msgstr "ApplicationRecord|Day"
-
-msgid "ApplicationRecord|Default embargo duration"
-msgstr "ApplicationRecord|Default embargo duration"
-
-msgid "ApplicationRecord|Delivery status"
-msgstr "ApplicationRecord|Verzendstatus"
-
-msgid "ApplicationRecord|Described state"
-msgstr "ApplicationRecord|Described state"
-
-msgid "ApplicationRecord|Description"
-msgstr "ApplicationRecord|Description"
-
-msgid "ApplicationRecord|Disclosure log"
-msgstr "ApplicationRecord|Disclosure log"
-
-msgid "ApplicationRecord|Display order"
-msgstr "ApplicationRecord|Display order"
-
-msgid "ApplicationRecord|Display size"
-msgstr "ApplicationRecord|Display size"
-
-msgid "ApplicationRecord|Draft"
-msgstr "ApplicationRecord|Draft"
-
-msgid "ApplicationRecord|Email"
-msgstr "ApplicationRecord|E-mail"
-
-msgid "ApplicationRecord|Email bounce message"
-msgstr "ApplicationRecord|Bericht e-mail niet aangekomen"
-
-msgid "ApplicationRecord|Email bounced at"
-msgstr "ApplicationRecord|E-mail niet aangekomen bij"
-
-msgid "ApplicationRecord|Email confirmed"
-msgstr "ApplicationRecord|E-mail bevestigd"
-
-msgid "ApplicationRecord|Email token"
-msgstr "ApplicationRecord|Email token"
-
-msgid "ApplicationRecord|Embargo duration"
-msgstr "ApplicationRecord|Embargo duration"
-
-msgid "ApplicationRecord|Event type"
-msgstr "ApplicationRecord|Event type"
-
-msgid "ApplicationRecord|Expired"
-msgstr "ApplicationRecord|Verlopen"
-
-msgid "ApplicationRecord|Expiring notification at"
-msgstr "ApplicationRecord|Expiring notification at"
-
-msgid "ApplicationRecord|Extension duration"
-msgstr "ApplicationRecord|Extension duration"
-
-msgid "ApplicationRecord|External url"
-msgstr "ApplicationRecord|Externe url"
-
-msgid "ApplicationRecord|External user name"
-msgstr "ApplicationRecord|Externe gebruikersnaam"
-
-msgid "ApplicationRecord|Filename"
-msgstr "ApplicationRecord|Bestandsnaam"
-
-msgid "ApplicationRecord|Frequency"
-msgstr "ApplicationRecord|Frequentie"
-
-msgid "ApplicationRecord|Handle rejected responses"
-msgstr "ApplicationRecord|Handle rejected responses"
-
-msgid "ApplicationRecord|Hashed password"
-msgstr "ApplicationRecord|Hashed password"
-
-msgid "ApplicationRecord|Hexdigest"
-msgstr "ApplicationRecord|Hexdigest"
-
-msgid "ApplicationRecord|Home page"
-msgstr "ApplicationRecord|Startpagina"
-
-msgid "ApplicationRecord|Idhash"
-msgstr "ApplicationRecord|Idhash"
-
-msgid "ApplicationRecord|Incoming messages count"
-msgstr "ApplicationRecord|Aantal ingekomen berichten"
-
-msgid "ApplicationRecord|Info request batches count"
-msgstr "ApplicationRecord|Info aantal bulkverzoeken"
-
-msgid "ApplicationRecord|Info requests count"
-msgstr "ApplicationRecord|Info aantal verzoeken"
-
-msgid "ApplicationRecord|Info requests not held count"
-msgstr "ApplicationRecord|Info requests not held count"
-
-msgid "ApplicationRecord|Info requests overdue count"
-msgstr "ApplicationRecord|Info aantal verzoeken met termijnoverschrijding"
-
-msgid "ApplicationRecord|Info requests successful count"
-msgstr "ApplicationRecord|Info aantal succesvolle verzoeken"
-
-msgid "ApplicationRecord|Info requests visible classified count"
-msgstr "ApplicationRecord|Info aantal (zichtbare) gelabelde Wob-verzoeken"
-
-msgid "ApplicationRecord|Info requests visible count"
-msgstr "ApplicationRecord|Info aantal (zichtbare) Wob-verzoeken"
-
-msgid "ApplicationRecord|Is open"
-msgstr "ApplicationRecord|Is open"
-
-msgid "ApplicationRecord|Last daily track email"
-msgstr "ApplicationRecord|Last daily track email"
-
-msgid "ApplicationRecord|Last described at"
-msgstr "ApplicationRecord|Last described at"
-
-msgid "ApplicationRecord|Last edit comment"
-msgstr "ApplicationRecord|Last edit comment"
-
-msgid "ApplicationRecord|Last edit editor"
-msgstr "ApplicationRecord|Last edit editor"
-
-msgid "ApplicationRecord|Last event time"
-msgstr "ApplicationRecord|Last event time"
-
-msgid "ApplicationRecord|Last parsed"
-msgstr "ApplicationRecord|Last parsed"
-
-msgid "ApplicationRecord|Last public response at"
-msgstr "ApplicationRecord|Last public response at"
-
-msgid "ApplicationRecord|Last sent at"
-msgstr "ApplicationRecord|Last sent at"
-
-msgid "ApplicationRecord|Last stat"
-msgstr "ApplicationRecord|Last stat"
-
-msgid "ApplicationRecord|Law used"
-msgstr "ApplicationRecord|Gebruikte wet"
-
-msgid "ApplicationRecord|Line"
-msgstr "ApplicationRecord|Line"
-
-msgid "ApplicationRecord|Locale"
-msgstr "ApplicationRecord|Locale"
-
-msgid "ApplicationRecord|Mail from"
-msgstr "ApplicationRecord|E-mail van"
-
-msgid "ApplicationRecord|Mail from domain"
-msgstr "ApplicationRecord|E-mail van domeinnaam"
-
-msgid "ApplicationRecord|Message type"
-msgstr "ApplicationRecord|Type bericht"
-
-msgid "ApplicationRecord|Name"
-msgstr "ApplicationRecord|Naam"
-
-msgid "ApplicationRecord|No limit"
-msgstr "ApplicationRecord|Onbeperkt"
-
-msgid "ApplicationRecord|Notes"
-msgstr "ApplicationRecord|Aantekeningen"
-
-msgid "ApplicationRecord|Notified at"
-msgstr "ApplicationRecord|Herinnerd op"
-
-msgid "ApplicationRecord|Order"
-msgstr "ApplicationRecord|Order"
-
-msgid "ApplicationRecord|Otp counter"
-msgstr "ApplicationRecord|Otp counter"
-
-msgid "ApplicationRecord|Otp enabled"
-msgstr "ApplicationRecord|Otp enabled"
-
-msgid "ApplicationRecord|Otp secret key"
-msgstr "ApplicationRecord|Otp secret key"
-
-msgid "ApplicationRecord|Params"
-msgstr "ApplicationRecord|Params"
-
-msgid "ApplicationRecord|Params yaml"
-msgstr "ApplicationRecord|Params yaml"
-
-msgid "ApplicationRecord|Post params yaml"
-msgstr "ApplicationRecord|Post params yaml"
-
-msgid "ApplicationRecord|Prominence"
-msgstr "ApplicationRecord|Voorrang"
-
-msgid "ApplicationRecord|Prominence reason"
-msgstr "ApplicationRecord|Voorrang reden"
-
-msgid "ApplicationRecord|Public body change requests count"
-msgstr "ApplicationRecord|Aantal verzoeken overheidsinstantie wijzigen"
-
-msgid "ApplicationRecord|Public body email"
-msgstr "ApplicationRecord|Overheidsinstantie e-mail"
-
-msgid "ApplicationRecord|Public body name"
-msgstr "ApplicationRecord|Overheidsinstantie naam"
-
-msgid "ApplicationRecord|Public body names"
-msgstr "ApplicationRecord|Overheidsinstantie namen"
-
-msgid "ApplicationRecord|Publish at"
-msgstr "ApplicationRecord|Publish at"
-
-msgid "ApplicationRecord|Reason params yaml"
-msgstr "ApplicationRecord|Reason params yaml"
-
-msgid "ApplicationRecord|Receive email alerts"
-msgstr "ApplicationRecord|Ontvang meldingen per e-mail"
-
-msgid "ApplicationRecord|Regexp"
-msgstr "ApplicationRecord|Regexp"
-
-msgid "ApplicationRecord|Reject incoming at mta"
-msgstr "ApplicationRecord|Reject incoming at mta"
-
-msgid "ApplicationRecord|Rejected incoming count"
-msgstr "ApplicationRecord|Rejected incoming count"
-
-msgid "ApplicationRecord|Replacement"
-msgstr "ApplicationRecord|Replacement"
-
-msgid "ApplicationRecord|Request classifications count"
-msgstr "ApplicationRecord|Aantal gelabelde verzoeken"
-
-msgid "ApplicationRecord|Request created at"
-msgstr "ApplicationRecord|Verzoek aangemaakt op"
-
-msgid "ApplicationRecord|Request updated at"
-msgstr "ApplicationRecord|Verzoek ge-update op"
-
-msgid "ApplicationRecord|Resource type"
-msgstr "ApplicationRecord|Resource type"
-
-msgid "ApplicationRecord|Retry at"
-msgstr "ApplicationRecord|Retry at"
-
-msgid "ApplicationRecord|Salt"
-msgstr "ApplicationRecord|Salt"
-
-msgid "ApplicationRecord|Seen at"
-msgstr "ApplicationRecord|Seen at"
-
-msgid "ApplicationRecord|Send after"
-msgstr "ApplicationRecord|Send after"
-
-msgid "ApplicationRecord|Sent at"
-msgstr "ApplicationRecord|Sent at"
-
-msgid "ApplicationRecord|Slug"
-msgstr "ApplicationRecord|Slug"
-
-msgid "ApplicationRecord|Source url"
-msgstr "ApplicationRecord|Source url"
-
-msgid "ApplicationRecord|Status"
-msgstr "ApplicationRecord|Status"
-
-msgid "ApplicationRecord|Subject"
-msgstr "ApplicationRecord|Onderwerp"
-
-msgid "ApplicationRecord|Summarisable type"
-msgstr "ApplicationRecord|Summarisable type"
-
-msgid "ApplicationRecord|Text"
-msgstr "ApplicationRecord|Tekst"
-
-msgid "ApplicationRecord|Title"
-msgstr "ApplicationRecord|Titel"
-
-msgid "ApplicationRecord|Token"
-msgstr "ApplicationRecord|Token"
-
-msgid "ApplicationRecord|Track medium"
-msgstr "ApplicationRecord|Track medium"
-
-msgid "ApplicationRecord|Track query"
-msgstr "ApplicationRecord|Volg zoekopdracht"
-
-msgid "ApplicationRecord|Track things count"
-msgstr "ApplicationRecord|Track things count"
-
-msgid "ApplicationRecord|Track type"
-msgstr "ApplicationRecord|Track type"
-
-msgid "ApplicationRecord|Uri"
-msgstr "ApplicationRecord|Uri"
-
-msgid "ApplicationRecord|Url name"
-msgstr "ApplicationRecord|Url naam"
-
-msgid "ApplicationRecord|Url part number"
-msgstr "ApplicationRecord|Url part number"
-
-msgid "ApplicationRecord|Url title"
-msgstr "ApplicationRecord|Url title"
-
-msgid "ApplicationRecord|Use notifications"
-msgstr "ApplicationRecord|Use notifications"
-
-msgid "ApplicationRecord|User email"
-msgstr "ApplicationRecord|Gebruikersmail"
-
-msgid "ApplicationRecord|User name"
-msgstr "ApplicationRecord|Gebruikersnaam"
-
-msgid "ApplicationRecord|Valid to reply to"
-msgstr "ApplicationRecord|Valid to reply to"
-
-msgid "ApplicationRecord|Version"
-msgstr "ApplicationRecord|Versie"
-
-msgid "ApplicationRecord|Visibility"
-msgstr "ApplicationRecord|Zichtbaarheid"
-
-msgid "ApplicationRecord|Visible"
-msgstr "ApplicationRecord|Zichtbaar"
-
-msgid "ApplicationRecord|What doing"
-msgstr "ApplicationRecord|What doing"
-
-msgid "ApplicationRecord|Within rfc822 subject"
-msgstr "ApplicationRecord|Within rfc822 subject"
-
 msgid "Are we missing a public authority?"
 msgstr "Zijn we een overheidsinstantie vergeten?"
 
@@ -979,6 +553,9 @@ msgstr "Weet je het zeker? Als je je unieke toegangscode opnieuw instelt, moet j
 
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Ben je eigenaar van een commercieel auteursrecht op deze pagina?"
+
+msgid "Article"
+msgstr ""
 
 msgid "Ask EU Authorities"
 msgstr "Stel een vraag aan een orgaan van de Europese Unie."
@@ -1175,6 +752,9 @@ msgstr "Klik op de link hieronder om een bericht naar {{public_body}} te sturen 
 msgid "Close"
 msgstr "Sluiten"
 
+msgid "Close preview"
+msgstr ""
+
 msgid "Close the request and respond:"
 msgstr "Sluit het verzoek en reageer:"
 
@@ -1243,6 +823,12 @@ msgstr ""
 
 msgid "Cookies not enabled"
 msgstr "Cookies niet geactiveerd"
+
+msgid "Copied!"
+msgstr ""
+
+msgid "Copy"
+msgstr ""
 
 msgid "Could not identify the request from the email address"
 msgstr "Kan het Wob-verzoek niet identificeren, verzonden vanaf het e-mailadres "
@@ -1501,24 +1087,6 @@ msgstr ""
 "\n"
 "In 2020 is de Wob-Knop van start gegaan met alléén de e-mailadressen van de 355 Nederlandse gemeenten. We hebben er toen namelijk voor gekozen om eerst kennis en ervaring op te doen met het via de Wob-Knop ‘wobben’ van gemeenten en daarna stap voor stap uit te breiden. Onze verwachting is dat we halverwege 2020 de e-mailadressen van de provincies, waterschappen en ministeries zullen toevoegen."
 
-msgid "Flipper/adapters/active record/feature"
-msgstr "Flipper/adapters/active record/feature"
-
-msgid "Flipper/adapters/active record/gate"
-msgstr "Flipper/adapters/active record/gate"
-
-msgid "Flipper::Adapters::ActiveRecord::Feature|Key"
-msgstr "Flipper::Adapters::ActiveRecord::Feature|Key"
-
-msgid "Flipper::Adapters::ActiveRecord::Gate|Feature key"
-msgstr "Flipper::Adapters::ActiveRecord::Gate|Feature key"
-
-msgid "Flipper::Adapters::ActiveRecord::Gate|Key"
-msgstr "Flipper::Adapters::ActiveRecord::Gate|Key"
-
-msgid "Flipper::Adapters::ActiveRecord::Gate|Value"
-msgstr "Flipper::Adapters::ActiveRecord::Gate|Value"
-
 msgid "Follow"
 msgstr "Volgen"
 
@@ -1608,6 +1176,9 @@ msgid_plural "Found {{count}} public authorities matching the tag ‘{{tag_name}
 msgstr[0] "{{count}} overheidsinstelling gevonden die overeenkomt met het label ‘{{tag_name}}’"
 msgstr[1] "{{count}} overheidsinstanties gevonden die overeenkomen met label/tag ‘{{tag_name}}’"
 
+msgid "Four weeks ago you made a Freedom of Information request to {{public_body_name}} using {{site_name}}."
+msgstr ""
+
 msgid "Freedom of Information"
 msgstr "Openbaarheid van bestuur"
 
@@ -1653,47 +1224,14 @@ msgstr "Van:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "GEEF HIER VERDERE INFORMATIE OVER UW KLACHT"
 
+msgid "Get help to challenge it."
+msgstr ""
+
 msgid "Getting long – remember to keep it focussed"
 msgstr "Je formulering wordt wat lang - houd het zo kort mogelijk!"
 
-msgid "Globalize/active record/translation"
-msgstr "Globalize/active record/translation"
-
-msgid "Globalize::ActiveRecord::Translation|Content"
-msgstr "Globalize::ActiveRecord::Translation|Inhoud"
-
-msgid "Globalize::ActiveRecord::Translation|Description"
-msgstr "Globalize::ActiveRecord::Translation|Omschrijving"
-
-msgid "Globalize::ActiveRecord::Translation|Disclosure log"
-msgstr "Globalize::ActiveRecord::Translation|Disclosure log"
-
-msgid "Globalize::ActiveRecord::Translation|First letter"
-msgstr "Globalize::ActiveRecord::Translation|First letter"
-
-msgid "Globalize::ActiveRecord::Translation|Locale"
-msgstr "Globalize::ActiveRecord::Translation|Locale"
-
-msgid "Globalize::ActiveRecord::Translation|Name"
-msgstr "Globalize::ActiveRecord::Translation|Naam"
-
-msgid "Globalize::ActiveRecord::Translation|Notes"
-msgstr "Globalize::ActiveRecord::Translation|Aantekeningen"
-
-msgid "Globalize::ActiveRecord::Translation|Publication scheme"
-msgstr "Globalize::ActiveRecord::Translation|Publication scheme"
-
-msgid "Globalize::ActiveRecord::Translation|Request email"
-msgstr "Globalize::ActiveRecord::Translation|Request email"
-
-msgid "Globalize::ActiveRecord::Translation|Short name"
-msgstr "Globalize::ActiveRecord::Translation|Korte omschrijving"
-
-msgid "Globalize::ActiveRecord::Translation|Title"
-msgstr "Globalize::ActiveRecord::Translation|Titel"
-
-msgid "Globalize::ActiveRecord::Translation|Url name"
-msgstr "Globalize::ActiveRecord::Translation|Url naam"
+msgid "Go back to refusal advice questions"
+msgstr ""
 
 msgid "Got a {{site_name}} account?"
 msgstr "Heb je een account op {{site_name}}?"
@@ -1707,29 +1245,11 @@ msgstr "Via de post afgerond"
 msgid "Handled by postal mail."
 msgstr "Via de post afgerond."
 
-msgid "Has tag string tag"
-msgstr "Has tag string tag"
+msgid "Has this request been referenced in a news article or academic paper?"
+msgstr ""
 
-msgid "Has tag string/has tag string tag"
-msgstr "Has tag string/has tag string tag"
-
-msgid "HasTagString::HasTagStringTag|Model"
-msgstr "HasTagString::HasTagStringTag|Model"
-
-msgid "HasTagString::HasTagStringTag|Name"
-msgstr "HasTagString::HasTagStringTag|Name"
-
-msgid "HasTagString::HasTagStringTag|Value"
-msgstr "HasTagString::HasTagStringTag|Value"
-
-msgid "HasTagStringTag|Model"
-msgstr "HasTagStringTag|Model"
-
-msgid "HasTagStringTag|Name"
-msgstr "HasTagStringTag|Name"
-
-msgid "HasTagStringTag|Value"
-msgstr "HasTagStringTag|Value"
+msgid "Has this request been referenced in a news article or academic paper? Let us know:"
+msgstr ""
 
 msgid "Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}"
 msgstr "Hallo! We hebben een <a href=\"{{url}}\">belangrijke mededeling </a> voor bezoekers uit een ander land dan {{country_name}}"
@@ -1761,6 +1281,9 @@ msgstr ""
 " dat de status van de meest recente update gebruikt werd. <strong>calculated</strong> werd afgeleid door\n"
 " {{site_name}} voor tussentijdse gebeurtenissen die geen expliciete omschrijving\n"
 " door een gebruiker hebben gekregen. Zie ook de <a href=\"{{search_path}}\">zoektips</a> voor de beschrijving van de statussen."
+
+msgid "Here are some snippets that may help you <strong>challenge a refusal</strong>:"
+msgstr ""
 
 msgid "Here is the message you wrote, in case you would like to copy the text and save it for later."
 msgstr "Dit is het bericht dat je schreef, voor het geval je de tekst wilt kopiëren en opslaan voor later."
@@ -1879,6 +1402,9 @@ msgstr "Als je {{user_link}} bent, gelieve"
 msgid "If you believe this request is not suitable, you can report it for attention by the site administrators using this form"
 msgstr "Als je denkt dat dit verzoek ongepast is, kan je dat melden bij de beheerders van de website via dit formulier."
 
+msgid "If you can spare a few minutes to complete our short survey, it will help us make the site better. Just follow the link below."
+msgstr ""
+
 msgid "If you can't click on it in the email, you'll have to <strong>select and copy it</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place you would type the address of any other webpage."
 msgstr ""
 "Als je er niet op kan klikken in het bericht, dien je te<strong> selecteren en kopiëren\n"
@@ -1973,14 +1499,17 @@ msgstr "Maak bezwaar"
 msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Dien een bezwaarschrift in bij {{public_body_name}} door {{info_request_user}} op {{date}}."
 
+msgid "Invalid form submission"
+msgstr ""
+
 msgid "Invalid one time password"
 msgstr "Het eenmalige wachtwoord is niet juist"
 
 msgid "Invalid token"
 msgstr "Ongeldige token"
 
-msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
-msgstr "Is {{email_address}} het verkeerde e-mailadres voor {{type_of_request}} Wob-verzoeken aan {{public_body_name}}? Als dat het geval is, gelieve ons dan te contacteren via dit formulier:"
+msgid "Is {{email_address}} the wrong address for {{law_used_full}} requests to {{public_body_name}}? If so, please contact us using this form:"
+msgstr "Is {{email_address}} het verkeerde e-mailadres voor {{law_used_full}} Wob-verzoeken aan {{public_body_name}}? Als dat het geval is, gelieve ons dan te contacteren via dit formulier:"
 
 msgid "It looks like something has gone wrong when sending this message. It could be a technical issue, or an issue with the email address we have for the authority."
 msgstr "Er lijkt iets te zijn misgegaan tijdens het versturen van dit bericht. Het kan een technisch probleem zijn of een probleem met het e-mailadres waarover we beschikken voor deze overheidsinstantie."
@@ -2043,6 +1572,9 @@ msgid "Leave project"
 msgstr ""
 
 msgid "Let us know"
+msgstr ""
+
+msgid "Let us know and we’ll help you challenge it."
 msgstr ""
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
@@ -2197,6 +1729,12 @@ msgstr ""
 msgid "Next"
 msgstr "Volgende"
 
+msgid "Next &#8594;"
+msgstr ""
+
+msgid "Next Step: Preview your public request"
+msgstr ""
+
 msgid "Next message"
 msgstr ""
 
@@ -2319,6 +1857,12 @@ msgstr "Andere"
 
 msgid "Other:"
 msgstr "Andere:"
+
+msgid "Page {{page}}"
+msgstr ""
+
+msgid "Pagination"
+msgstr ""
 
 msgid "Partial success"
 msgstr "Gedeeltelijk succesvol"
@@ -2554,6 +2098,9 @@ msgstr "Mogelijk gerelateerde verzoeken:"
 msgid "Post annotation"
 msgstr "Opmerking plaatsen"
 
+msgid "Posted on {{date}}"
+msgstr ""
+
 msgid "Posted on {{date}} by {{author}}"
 msgstr "Verstuurd op {{date}} door {{author}}"
 
@@ -2583,9 +2130,6 @@ msgstr "Bekijk een preview van je opmerking"
 
 msgid "Preview your message"
 msgstr "Bekijk een preview van je bericht"
-
-msgid "Preview your public request"
-msgstr "Bekijk een preview van je Wob-verzoek"
 
 msgid "Preview your request"
 msgstr "Bekijk een preview van je Wob-verzoek "
@@ -2638,27 +2182,6 @@ msgstr "Overheidsinstanties met de meeste Wob-verzoeken"
 msgid "Public bodies with the most successful requests"
 msgstr "Overheidsinstanties met de meeste beantwoorde Wob-verzoeken"
 
-msgid "Public body category translation"
-msgstr "Public body category translation"
-
-msgid "Public body heading translation"
-msgstr "Public body heading translation"
-
-msgid "PublicBodyCategoryTranslation|Description"
-msgstr "PublicBodyCategoryTranslation|Omschrijving"
-
-msgid "PublicBodyCategoryTranslation|Locale"
-msgstr "PublicBodyCategoryTranslation|Locale"
-
-msgid "PublicBodyCategoryTranslation|Title"
-msgstr "PublicBodyCategoryTranslation|Titel"
-
-msgid "PublicBodyHeadingTranslation|Locale"
-msgstr "PublicBodyHeadingTranslation|Locale"
-
-msgid "PublicBodyHeadingTranslation|Name"
-msgstr "PublicBodyHeadingTranslation|Naam"
-
 msgid "Publication scheme"
 msgstr "Publicatieschema"
 
@@ -2686,6 +2209,9 @@ msgstr "Lees meer over<a href=\"{{advanced_search_url}}\">advanced search operat
 msgid "Read blog"
 msgstr "Lees het blog"
 
+msgid "Read more"
+msgstr ""
+
 msgid "Read through authority responses and choose if their answer satisfies the intention of the original request, flag any problems and show the project owner if they need to intervene to keep the project movng forward."
 msgstr ""
 
@@ -2709,6 +2235,9 @@ msgstr "Afgewezen"
 
 msgid "Regenerate one time passcode"
 msgstr "Genereer een nieuwe eenmalige toegangscode"
+
+msgid "Regulation"
+msgstr ""
 
 msgid "Rejected"
 msgstr "Geweigerd"
@@ -2899,6 +2428,9 @@ msgstr "Doorzoek de Wob-Knop om te vinden wat je zoekt."
 msgid "Search your contributions"
 msgstr "Doorzoek je bijdragen"
 
+msgid "Section"
+msgstr ""
+
 msgid "Send a followup"
 msgstr "Stuur een follow-up bericht"
 
@@ -2961,6 +2493,12 @@ msgstr "Toon alle bijlagen"
 msgid "Show fewer attachments"
 msgstr "Toon minder bijlagen"
 
+msgid "Show less"
+msgstr ""
+
+msgid "Show more"
+msgstr ""
+
 msgid "Show most relevant results first"
 msgstr "Toon de meest relevante resultaten eerst"
 
@@ -2998,6 +2536,9 @@ msgid "Skip"
 msgstr ""
 
 msgid "Skipped!"
+msgstr ""
+
+msgid "Snippets related to"
 msgstr ""
 
 msgid "Some notes have been added to your FOI request - {{request_title}}"
@@ -3452,11 +2993,11 @@ msgstr ""
 msgid "There are no requests to extract right now. Great job!"
 msgstr ""
 
-msgid "There are {{count}} new annotations on your {{info_request}} request. Follow this link to see what they wrote."
-msgstr "Er zijn {{count}} nieuwe opmerkingen bij je verzoek inzake {{info_request}}. Klik op deze link om ze te lezen."
+msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
+msgstr "Er zijn {{count}} nieuwe opmerkingen bij je verzoek inzake {{law_used_short}}. Klik op deze link om ze te lezen."
 
-msgid "There is <strong>more than one person</strong> who uses this site and has this name. One of them is shown below, you may mean a different one:"
-msgstr "Er is <strong>meer dan één gebruiker</strong> van deze site met deze gebruikersnaam. Een van deze gebruikers wordt hieronder getoond, maar misschien zoek je iemand anders:"
+msgid "There is <strong>more than one person</strong> who uses this site and has this name. Search for other users named \"{{search_user_link}}\""
+msgstr ""
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr "Er is een limiet aan het aantal verzoeken dat je per dag kunt versturen, omdat we niet willen dat de overheidsinstanties gebombardeerd worden met grote aantallen ongepaste verzoeken.  Als je van mening bent dat je een goede reden hebt dat de limiet voor jou moet worden opgehoogd, gelieve <a href='{{help_contact_path}}'>ons te contacteren</a>."
@@ -3899,9 +3440,9 @@ msgstr "Stop met volgen van"
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr "Helaas beschikt de Wob-Knop niet over een werkend e-mailadres voor {{public_body_names}}."
 
-msgid "Unfortunately, we do not have a working {{info_request_law_used_full}} address for"
+msgid "Unfortunately, we do not have a working {{law_used_full}} address for"
 msgstr ""
-"Helaas beschikt de Wob-Knop niet over een ({{info_request_law_used_full}}) \n"
+"Helaas beschikt de Wob-Knop niet over een ({{law_used_full}}) \n"
 "e-mailadres voor"
 
 msgid "Unknown"
@@ -3997,9 +3538,6 @@ msgstr "In afwachting van een reactie van de overheidsinstantie"
 msgid "Want to know something?"
 msgstr "Wil je iets weten? "
 
-msgid "We consider it is not a valid FOI request as it was correspondence about your personal circumstances, and we have therefore hidden it from other users."
-msgstr "Wij beschouwen dit niet als een geldig Wob-verzoek, omdat het correspondentie over je persoonlijke situatie betrof, en we hebben het daarom verborgen voor andere gebruikers van de site."
-
 msgid "We consider it is not a valid FOI request, and have therefore hidden it from other users."
 msgstr "De beheerders van de site zijn van oordeel dat het geen geldig Wob-verzoek is en hebben het daarom onzichtbaar gemaakt voor andere gebruikers."
 
@@ -4014,6 +3552,9 @@ msgstr "Het 'logboek' voor dit bericht kan niet worden weergegeven."
 
 msgid "We couldn’t load the mail server logs for this message."
 msgstr "Het 'logboek' voor dit bericht kon niet van de mailserver gedownload worden."
+
+msgid "We do not allow requests for information via {{site_name}} about your personal circumstances. We have therefore hidden your request from other users."
+msgstr ""
 
 msgid "We do not have a working request email address for this authority."
 msgstr "De site beschikt niet over een werkend e-mailadres voor verzoeken aan deze overheidsinstantie."
@@ -4046,6 +3587,9 @@ msgstr "Wij zullen je e-mailadres niet aan derden doorgeven tenzij jij\\of de we
 
 msgid "We will not reveal your email addresses to anybody unless you or the law tell us to."
 msgstr "Wij zullen je e-mailadres niet aan derden doorgeven tenzij jij of de wet ons dat opdragen."
+
+msgid "We would like to know more about you, and your experience making an {{law_used_full}} request through the site."
+msgstr ""
 
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr "De site stuurt je een e-mail zodra er een reactie op je verzoek binnenkomt."
@@ -4610,6 +4154,9 @@ msgstr "en"
 msgid "and we'll suggest <strong>what to do next</strong>"
 msgstr "en wij gaan je adviseren <strong>wat je vervolgens kan doen</strong>"
 
+msgid "any section"
+msgstr ""
+
 msgid "anything matching text '{{query}}'"
 msgstr "alles wat beantwoord aan de tekst '{{query}}'"
 
@@ -4813,6 +4360,9 @@ msgstr "{{authority_name}} <strong>heeft niet</strong> de gevraagde informatie."
 msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
 msgstr "{{authority_name}} wacht <strong>op je verduidelijking</strong>."
 
+msgid "{{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
+msgstr ""
+
 msgid "{{contributor_count}} contributors"
 msgstr ""
 
@@ -4881,9 +4431,6 @@ msgstr ""
 "{{existing_request_user}} \n"
 " heeft al ditzelfde Wob-verzoek ingediend op {{date}}. Je kan 'm bekijken op <a href=\"{{existing_request}}\">bestaand Wob-verzoek</a>, of hieronder details wijzigen om een nieuwe, andere maar gelijkaardige vraag te stellen."
 
-msgid "{{foi_law}} requests to '{{public_body_name}}'"
-msgstr "{{foi_law}} Wob-verzoeken aan '{{public_body_name}}'"
-
 msgid "{{info_request_user_name}}"
 msgstr ""
 
@@ -4892,8 +4439,11 @@ msgstr " {{law_used_full}} Wob-verzoek inzake {{title}}"
 
 #. TRANSLATORS: Please don't use double quotes (") in this translation
 #. or it will break the site's ability to send emails to authorities!
-msgid "{{law_used}} requests at {{public_body}}"
-msgstr "{{law_used}} Wob-verzoeken aan {{public_body}}"
+msgid "{{law_used_short}} requests at {{public_body}}"
+msgstr "{{law_used_short}} Wob-verzoeken aan {{public_body}}"
+
+msgid "{{law_used_short}} requests to '{{public_body_name}}'"
+msgstr "{{law_used_short}} Wob-verzoeken aan '{{public_body_name}}'"
 
 msgid "{{length_of_time}} ago"
 msgstr "sinds {{length_of_time}}"
@@ -4949,8 +4499,8 @@ msgstr ""
 msgid "{{public_body_name}}: {{response_url}}"
 msgstr ""
 
-msgid "{{public_body}} has asked you to explain part of your {{law_used}} request."
-msgstr "{{public_body}} heeft je gevraagd om een deel van je Wob-verzoek te verduidelijken {{law_used}}."
+msgid "{{public_body}} has asked you to explain part of your {{law_used_short}} request."
+msgstr "{{public_body}} heeft je gevraagd om een deel van je Wob-verzoek te verduidelijken {{law_used_short}}."
 
 msgid "{{public_body}} sent a response to {{user_name}}"
 msgstr "{{public_body}} heeft geantwoord aan {{user_name}}"
@@ -5010,9 +4560,9 @@ msgstr "{{user_name}} heeft een opmerking toegevoegd"
 msgid "{{user_name}} has annotated your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "{{user_name}} heeft je {{law_used_short}} Wob-verzoek geannoteerd. Volg de link om de opmerking te zien."
 
-msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
+msgid "{{user_name}} has reported an {{law_used_short}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
 msgstr ""
-"{{user_name}} heeft een antwoord gemeld in het kader van {{law_used}} dat aandacht vereist van de beheerders. Bekijk het even en beantwoord deze \n"
+"{{user_name}} heeft een antwoord gemeld in het kader van {{law_used_short}} dat aandacht vereist van de beheerders. Bekijk het even en beantwoord deze \n"
 " e-mail om hen te laten weten welk gevolg je eraan zal geven."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."

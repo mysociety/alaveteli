@@ -4,53 +4,64 @@
 # Copyright (c) 2013 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org. WWW: http://www.mysociety.org/
 
-PATH=/home/!!(*= $user *)!!/.gem/ruby/!!(*= $ruby_version *)!!/bin:/usr/local/bin:/usr/bin:/bin
+PATH=/home/<%= user %>/.gem/ruby/<%= ruby_version %>/bin:/usr/local/bin:/usr/bin:/bin
 # Uncomment the following line if running under rbenv - we want this cron to run
 # in the context of the ruby version defined for the site
-# PATH=/home/!!(*= $user *)!!/.rbenv/shims:/usr/local/bin:/usr/bin:/bin
+# PATH=/home/<%= user %>/.rbenv/shims:/usr/local/bin:/usr/bin:/bin
 
-MAILTO=!!(*= $mailto *)!!
+PATH=/usr/local/bin:/usr/bin:/bin
+
+<% if use_rbenv? %>
+RBENV_ROOT="/home/<%= user %>/.rbenv"
+PATH="$RBENV_ROOT/bin:$RBENV_ROOT/shims:$PATH"
+SET_PATH="cd <%= vhost_dir %>/<%= vcspath %>; rbenv rehash; rbenv local <%= ruby_version %>"
+<% else %>
+PATH="/home/<%= user %>/.gem/ruby/<%= ruby_version %>/bin:$PATH"
+<% end %>
+
+MAILTO=<%= mailto %>
 
 # Every 5 minutes
-*/5 * * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/change-xapian-database.lock "!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/update-xapian-index verbose=true" >> !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/log/update-xapian-index.log || echo "stalled?"
+*/5 * * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/change-xapian-database.lock "<%= vhost_dir %>/<%= vcspath %>/script/update-xapian-index verbose=true" >> <%= vhost_dir %>/<%= vcspath %>/log/update-xapian-index.log || echo "stalled?"
 # Every 10 minutes
-0,10,20,30,40,50 * * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/send-batch-requests.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/send-batch-requests || echo "stalled?"
+0,10,20,30,40,50 * * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/send-batch-requests.lock <%= vhost_dir %>/<%= vcspath %>/script/send-batch-requests || echo "stalled?"
 
 # Once an hour
-09 * * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/alert-comment-on-request.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/alert-comment-on-request || echo "stalled?"
-31 * * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/load-mail-server-logs.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/load-mail-server-logs || echo "stalled?"
+09 * * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/alert-comment-on-request.lock <%= vhost_dir %>/<%= vcspath %>/script/alert-comment-on-request || echo "stalled?"
+31 * * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/load-mail-server-logs.lock <%= vhost_dir %>/<%= vcspath %>/script/load-mail-server-logs || echo "stalled?"
 
 # Once a day, early morning
-31 1 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/change-xapian-database.lock "!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/compact-xapian-database production !!(*= $site *)!!" || echo "stalled?"
-0 0 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/delete-expired-embargoes.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/delete-expired-embargoes || echo "stalled?"
-23 4 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/delete-old-things.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/delete-old-things || echo "stalled?"
-0 5 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/update-overdue-info-request-events.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/update-overdue-info-request-events || echo "stalled?"
-0 6 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/alert-overdue-requests.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/alert-overdue-requests || echo "stalled?"
-0 7 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/alert-new-response-reminders.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/alert-new-response-reminders || echo "stalled?"
-0 8 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/alert-not-clarified-request.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/alert-not-clarified-request || echo "stalled?"
-0 9 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/alert-embargoes-expiring.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/alert-embargoes-expiring || echo "stalled?"
-0 10 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/update-expiring-embargo-info-request-events.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/update-expiring-embargo-info-request-events || echo "stalled?"
-0 12 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/alert-embargoes-expired.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/alert-embargoes-expired || echo "stalled?"
-2 4 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/check-recent-requests-sent.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/check-recent-requests-sent || echo "stalled?"
-45 3 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/stop-new-responses-on-old-requests.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/stop-new-responses-on-old-requests || echo "stalled?"
-55 4 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/update-public-body-stats.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/update-public-body-stats || echo "stalled?"
-0 6 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/send-webhook-digest.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/send-webhook-digest || echo "stalled?"
+31 1 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/change-xapian-database.lock "<%= vhost_dir %>/<%= vcspath %>/script/compact-xapian-database production <%= site %>" || echo "stalled?"
+0 0 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/delete-expired-embargoes.lock <%= vhost_dir %>/<%= vcspath %>/script/delete-expired-embargoes || echo "stalled?"
+23 4 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/delete-old-things.lock <%= vhost_dir %>/<%= vcspath %>/script/delete-old-things || echo "stalled?"
+0 5 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/update-overdue-info-request-events.lock <%= vhost_dir %>/<%= vcspath %>/script/update-overdue-info-request-events || echo "stalled?"
+0 6 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/alert-overdue-requests.lock <%= vhost_dir %>/<%= vcspath %>/script/alert-overdue-requests || echo "stalled?"
+0 7 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/alert-new-response-reminders.lock <%= vhost_dir %>/<%= vcspath %>/script/alert-new-response-reminders || echo "stalled?"
+0 7 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/alert-survey.lock <%= vhost_dir %>/<%= vcspath %>/script/alert-survey || echo "stalled?"
+0 8 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/alert-not-clarified-request.lock <%= vhost_dir %>/<%= vcspath %>/script/alert-not-clarified-request || echo "stalled?"
+0 9 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/alert-embargoes-expiring.lock <%= vhost_dir %>/<%= vcspath %>/script/alert-embargoes-expiring || echo "stalled?"
+0 10 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/update-expiring-embargo-info-request-events.lock <%= vhost_dir %>/<%= vcspath %>/script/update-expiring-embargo-info-request-events || echo "stalled?"
+0 12 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/alert-embargoes-expired.lock <%= vhost_dir %>/<%= vcspath %>/script/alert-embargoes-expired || echo "stalled?"
+2 4 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/check-recent-requests-sent.lock <%= vhost_dir %>/<%= vcspath %>/script/check-recent-requests-sent || echo "stalled?"
+45 3 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/stop-new-responses-on-old-requests.lock <%= vhost_dir %>/<%= vcspath %>/script/stop-new-responses-on-old-requests || echo "stalled?"
+55 4 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/update-public-body-stats.lock <%= vhost_dir %>/<%= vcspath %>/script/update-public-body-stats || echo "stalled?"
+0 6 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/send-webhook-digest.lock <%= vhost_dir %>/<%= vcspath %>/script/send-webhook-digest || echo "stalled?"
 
 # Once a day on all servers
-43 2 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/request-creation-graph
-48 2 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/user-use-graph
+43 2 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/script/request-creation-graph
+48 2 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/script/user-use-graph
 
 # Once a week (very early Monday morning)
-54 2 * * 1 !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/cleanup-holding-pen
+54 2 * * 1 <%= user %> <%= vhost_dir %>/<%= vcspath %>/script/cleanup-holding-pen
 
 # Once a week (early Monday morning)
-37 8 * * 1 !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/send-pro-metrics-report.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/send-pro-metrics-report || echo "stalled?"
+37 8 * * 1 <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/send-pro-metrics-report.lock <%= vhost_dir %>/<%= vcspath %>/script/send-pro-metrics-report || echo "stalled?"
 
 # Once a week (on a Wednesday evening)
-42 23 * * 3 !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/download-geoip-data
+42 23 * * 3 <%= user %> <%= vhost_dir %>/<%= vcspath %>/script/download-geoip-data
 
 # Once a year :)
-0 0 1 11 * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/send-public-holiday-reminder
+0 0 1 11 * <%= user %> <%= vhost_dir %>/<%= vcspath %>/script/send-public-holiday-reminder
 
 
 

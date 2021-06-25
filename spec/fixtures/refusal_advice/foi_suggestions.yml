@@ -1,0 +1,6 @@
+foi:
+  actions:
+  - title: Hello World
+    suggestions:
+    - id: aaa
+    - id: bbb

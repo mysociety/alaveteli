@@ -18,7 +18,9 @@ describe("notification_mailer/info_requests/messages/_overdue.text.erb") do
   end
 
   before do
-    allow(info_request).to receive(:law_used_human).and_return("FOI & EIR")
+    allow(info_request).to receive(:legislation).and_return(
+      FactoryBot.build(:legislation, short: 'FOI & EIR')
+    )
     render partial: template, locals: { info_request: info_request }
   end
 

@@ -2,8 +2,8 @@
 
 <%= _('They have still not replied to your {{law_used_short}} request ' \
       '{{title}}, as normally required by law',
-      :law_used_short => @info_request.law_used_human(:short).html_safe,
-      :title => @info_request.title.html_safe) %>.
+      law_used_short: @info_request.legislation.to_s.html_safe,
+      title: @info_request.title.html_safe) %>.
 
 <%= _('Click on the link below to send a message to {{public_body_name}} ' \
       'telling them to reply to your request. You might like to ask for ' \

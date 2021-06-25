@@ -1,0 +1,16 @@
+<div class="wizard__question" data-block="<%= question.id %>" data-show-if="<%= question.show_if.to_json %>">
+  <fieldset>
+    <legend>
+      <%= render question.label %>
+      <%= render question.hint %>
+    </legend>
+
+    <%= f.fields_for 'questions[]', question, builder: RefusalAdviceQuestionForm do |f| %>
+      <div class="wizard__options <%= f.wizard_options_class(question.options) %>">
+        <% question.options.each do |option| %>
+          <%= f.wizard_option(option) %>
+        <% end %>
+      <% end %>
+    </div>
+  </fieldset>
+</div>

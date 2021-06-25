@@ -11,7 +11,7 @@ load "debug_helpers.rb"
 load "util.rb"
 
 # Application version
-ALAVETELI_VERSION = '0.38.4.4'
+ALAVETELI_VERSION = '0.39.0.0'
 
 # Add new inflection rules using the following format
 # (all these examples are active by default):
@@ -36,6 +36,8 @@ end
 
 
 # Load monkey patches and other things from lib/
+require 'core_ext/warning'
+
 require 'use_spans_for_errors.rb'
 require 'i18n_fixes.rb'
 require 'world_foi_websites.rb'
@@ -66,6 +68,7 @@ require 'alaveteli_mail_poller'
 require 'safe_redirect'
 require 'alaveteli_pro/metrics_report'
 require 'alaveteli_pro/webhook_endpoints'
+require 'patches/active_support/configuration_file'
 
 # Allow tests to be run under a non-superuser database account if required
 if Rails.env == 'test' and ActiveRecord::Base.configurations['test']['constraint_disabling'] == false

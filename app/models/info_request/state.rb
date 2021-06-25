@@ -25,6 +25,10 @@ class InfoRequest
       states
     end
 
+    def self.unhappy
+      %w(partially_successful rejected waiting_response_very_overdue)
+    end
+
     def self.valid?(state)
       all.include?(state)
     end

@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: draft_info_request_batches
 #
@@ -14,6 +15,7 @@
 
 class AlaveteliPro::DraftInfoRequestBatch < ApplicationRecord
   include AlaveteliPro::RequestSummaries
+  include InfoRequest::DraftTitleValidation
 
   belongs_to :user,
              :inverse_of => :draft_info_request_batches

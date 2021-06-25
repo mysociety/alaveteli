@@ -11,7 +11,9 @@ describe "request_mailer/not_clarified_alert" do
   end
 
   it "does not add HTMLEntities to the FOI law title" do
-    allow(request).to receive(:law_used_human).and_return("Test's Law")
+    allow(request).to receive(:legislation).and_return(
+      FactoryBot.build(:legislation, short: "Test's Law")
+    )
     assign(:info_request, request)
     render
     expect(response).to match("your Test's Law request")

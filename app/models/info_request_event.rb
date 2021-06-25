@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: info_request_events
 #
@@ -54,7 +55,8 @@ class InfoRequestEvent < ApplicationRecord
     'embargo_expiring', # an embargo is about to expire
     'expire_embargo', # an embargo on the request expires
     'set_embargo', # an embargo is added or extended
-    'send_error' # an error during sending
+    'send_error', # an error during sending
+    'refusal_advice' # the results of completing the refusal advice wizard
   ].freeze
 
   belongs_to :info_request,

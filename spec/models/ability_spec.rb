@@ -69,6 +69,23 @@ describe Ability do
     it_behaves_like "a class with message prominence"
   end
 
+  describe 'managing OutgoingMessage::Snippet' do
+    subject { ability }
+
+    let(:ability) { Ability.new(user) }
+    let(:snippet) { FactoryBot.create(:outgoing_message_snippet) }
+
+    context 'when the user is an admin' do
+      let(:user) { FactoryBot.create(:user, :admin) }
+      it { is_expected.to be_able_to(:manage, snippet) }
+    end
+
+    context 'when the user is a normal user' do
+      let(:user) { FactoryBot.build(:user) }
+      it { is_expected.not_to be_able_to(:manage, snippet) }
+    end
+  end
+
   describe "reading OutgoingMessages" do
     let(:info_request) { FactoryBot.create(:info_request) }
     let!(:resource) { info_request.outgoing_messages.first }

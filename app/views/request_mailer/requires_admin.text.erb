@@ -1,17 +1,14 @@
 <%= raw @message %>
 
 ---------------------------------------------------------------------
-<%= _('{{user_name}} has reported an {{law_used}} response as needing ' \
-       'administrator attention. Take a look, and reply to this email to ' \
-       'let them know what you are going to do about it.',
-    :user_name => raw(@reported_by.name),
-    :law_used => raw(@info_request.law_used_human(:short))) %>
+<%= _('{{user_name}} has reported an {{law_used_short}} response as needing ' \
+      'administrator attention. Take a look, and reply to this email to ' \
+      'let them know what you are going to do about it.',
+      user_name: raw(@reported_by.name),
+      law_used_short: raw(@info_request.legislation)) %>
 
 <%= _("Request '{{request_title}}' to {{public_body_name}}:",
-    :request_title => raw(@info_request.title),
-    :public_body_name => raw(@info_request.public_body.name)) %>
+    request_title: raw(@info_request.title),
+    public_body_name: raw(@info_request.public_body.name)) %>
 <%= @url %>
-
-<%= _('Administration URL:') %>
-<%= @admin_url %>
 ---------------------------------------------------------------------

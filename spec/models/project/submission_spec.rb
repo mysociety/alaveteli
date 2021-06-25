@@ -1,3 +1,18 @@
+# == Schema Information
+# Schema version: 20210114161442
+#
+# Table name: project_submissions
+#
+#  id              :bigint           not null, primary key
+#  project_id      :bigint
+#  user_id         :bigint
+#  resource_type   :string
+#  resource_id     :bigint
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  info_request_id :bigint
+#
+
 require 'spec_helper'
 
 RSpec.describe Project::Submission, type: :model do

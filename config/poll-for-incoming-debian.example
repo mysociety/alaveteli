@@ -1,33 +1,38 @@
 #!/bin/bash
 #
 ### BEGIN INIT INFO
-# Provides: !!(*= $daemon_name *)!!
+# Provides: <%= daemon_name %>
 # Required-Start: $local_fs $syslog
 # Required-Stop: $local_fs $syslog
 # Default-Start: 2 3 4 5
 # Default-Stop: 0 1 6
-# Short-Description: !!(*= $daemon_name *)!! is a daemon running the Alaveteli incoming mail poller
-# Description: !!(*= $daemon_name *)!! imports incoming mail into Alaveteli as required
+# Short-Description: <%= daemon_name %> is a daemon running the Alaveteli incoming mail poller
+# Description: <%= daemon_name %> imports incoming mail into Alaveteli as required
 ### END INIT INFO
 #
-# !!(*= $daemon_name *)!! Start the Alaveteli incoming mail poller daemon
+# <%= daemon_name %> Start the Alaveteli incoming mail poller daemon
 
-NAME=!!(*= $daemon_name *)!!
-DAEMON=!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/runner
+PATH=/usr/local/bin:/usr/bin:/bin
+NAME=<%= daemon_name %>
+DAEMON=<%= vhost_dir %>/<%= vcspath %>/script/runner
 DAEMON_ARGS="--daemon AlaveteliMailPoller.poll_for_incoming_loop"
-PIDDIR=!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/tmp/pids
-PIDFILE=$PIDDIR/!!(*= $daemon_name *)!!.pid
-LOGDIR=!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/log
-LOGFILE=$LOGDIR/!!(*= $daemon_name *)!!.log
-DUSER=!!(*= $user *)!!
-SITE_HOME=!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!
+PIDDIR=<%= vhost_dir %>/<%= vcspath %>/tmp/pids
+PIDFILE=$PIDDIR/<%= daemon_name %>.pid
+LOGDIR=<%= vhost_dir %>/<%= vcspath %>/log
+LOGFILE=$LOGDIR/<%= daemon_name %>.log
+DUSER=<%= user %>
+SITE_HOME=<%= vhost_dir %>/<%= vcspath %>
 # Set RAILS_ENV - not needed if using config/rails_env.rb
-# RAILS_ENV=your_rails_env
+# RAILS_ENV=<%= rails_env %>
 # export RAILS_ENV
-PATH=/home/!!(*= $user *)!!/.gem/ruby/!!(*= $ruby_version *)!!/bin:/usr/local/bin:/usr/bin:/bin
-# Uncomment the following line if running under rbenv - we want this daemon to run
-# in the context of the ruby version defined for the site
-# PATH=/home/!!(*= $user *)!!/.rbenv/shims:/usr/local/bin:/usr/bin:/bin
+
+<% if use_rbenv? %>
+RBENV_ROOT="/home/<%= user %>/.rbenv"
+PATH="$RBENV_ROOT/bin:$RBENV_ROOT/shims:$PATH"
+SET_PATH="cd <%= vhost_dir %>/<%= vcspath %>; rbenv rehash; rbenv local <%= ruby_version %>"
+<% else %>
+PATH="/home/<%= user %>/.gem/ruby/<%= ruby_version %>/bin:$PATH"
+<% end %>
 
 trap "" 1
 

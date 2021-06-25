@@ -42,8 +42,8 @@ module ActsAsXapian
   def self.bindings_available
     $acts_as_xapian_bindings_available
   end
-  class NoXapianRubyBindingsError < StandardError
-  end
+  NoXapianRubyBindingsError = Class.new(StandardError)
+  UnhandledRuntimeError = Class.new(StandardError)
 
   @@db = nil
   @@db_path = nil
@@ -88,6 +88,12 @@ module ActsAsXapian
   def self.config
     @@config
   end
+  def self.max_wildcard_expansion=(max_wildcard_expansion)
+    @@max_wildcard_expansion = max_wildcard_expansion
+  end
+  def self.max_wildcard_expansion
+    @@max_wildcard_expansion
+  end
 
   ######################################################################
   # Initialisation
@@ -121,6 +127,8 @@ module ActsAsXapian
     Dir.mkdir(db_parent_path) unless File.exist?(db_parent_path)
 
     @@db_path = File.join(db_parent_path, environment)
+
+    @@max_wildcard_expansion = config.fetch('max_wildcard_expansion', 1000)
 
     # make some things that don't depend on the db
     # TODO: this gets made once for each acts_as_xapian. Oh well.
@@ -170,7 +178,9 @@ module ActsAsXapian
     # Large installations of Alaveteli should consider
     # upgrading, because uncontrolled wildcard expansion
     # can crash the whole server: see http://trac.xapian.org/ticket/350
-    @@query_parser.set_max_wildcard_expansion(1000) if @@query_parser.respond_to? :set_max_wildcard_expansion
+    if @@query_parser.respond_to? :set_max_wildcard_expansion
+      @@query_parser.set_max_wildcard_expansion(@@max_wildcard_expansion)
+    end
 
     @@stopper = Xapian::SimpleStopper.new
     @@stopper.add("and")
@@ -341,6 +351,8 @@ module ActsAsXapian
           else
             raise
           end
+        rescue RuntimeError => ex
+          raise UnhandledRuntimeError, ex.message
         end
         self.cached_results = nil
       }

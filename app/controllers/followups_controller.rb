@@ -10,6 +10,7 @@ class FollowupsController < ApplicationController
                 :set_params,
                 :set_internal_review,
                 :set_outgoing_message,
+                :set_refusal_advice,
                 :set_in_pro_area
 
   before_action :check_reedit, :only => [:preview, :create]
@@ -206,6 +207,14 @@ class FollowupsController < ApplicationController
   def set_outgoing_message
     @outgoing_message = OutgoingMessage.new(outgoing_message_params)
     @outgoing_message.set_signature_name(@user.name) if @user
+  end
+
+  def set_refusal_advice
+    @refusal_advice = RefusalAdvice.default(
+      @info_request,
+      internal_review: @internal_review,
+      user: current_user
+    )
   end
 
   def set_params

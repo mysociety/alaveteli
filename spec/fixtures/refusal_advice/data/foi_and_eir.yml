@@ -1,0 +1,10 @@
+foi:
+  group:
+  - id: bar
+  - id: with_subgroup
+    subgroup:
+    - id: abc
+
+eir:
+  group:
+  - id: bar

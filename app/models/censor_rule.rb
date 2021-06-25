@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: censor_rules
 #
@@ -116,7 +117,10 @@ class CensorRule < ApplicationRecord
   end
 
   def make_regexp(encoding)
-    Regexp.new(encoded_text(encoding), Regexp::MULTILINE)
+    ::Warning.with_raised_warnings do
+      Regexp.new(encoded_text(encoding), Regexp::MULTILINE)
+    end
+  rescue RaisedWarning => e
+    raise RegexpError, e.message.split('warning: ').last.chomp
   end
-
 end

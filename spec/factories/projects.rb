@@ -1,9 +1,9 @@
 # == Schema Information
-# Schema version: 20200520073810
+# Schema version: 20210114161442
 #
 # Table name: projects
 #
-#  id           :integer          not null, primary key
+#  id           :bigint           not null, primary key
 #  title        :string
 #  briefing     :text
 #  created_at   :datetime         not null

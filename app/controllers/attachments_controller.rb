@@ -7,6 +7,9 @@ class AttachmentsController < ApplicationController
 
   before_action :find_info_request, :find_incoming_message, :find_attachment
   before_action :find_project
+
+  include ProminenceHeaders
+
   around_action :cache_attachments
 
   before_action :authenticate_attachment
@@ -141,7 +144,7 @@ class AttachmentsController < ApplicationController
         # various fragment cache functions using Ruby Marshall to write the file
         # which adds a header, so isn't compatible with images that have been
         # extracted elsewhere from PDFs)
-        if message_is_public?
+        if message_is_cacheable?
           logger.info("Writing cache for #{cache_key_path}")
           foi_fragment_cache_write(cache_key_path, response.body)
         end
@@ -170,10 +173,15 @@ class AttachmentsController < ApplicationController
   end
 
   def message_is_public?
-    # Is this a completely public request that we can cache attachments for
-    # to be served up without authentication?
-    @incoming_message.info_request.prominence(decorate: true).is_public? &&
-      @incoming_message.is_public?
+    # If this a request and message public then it can be served up without
+    # authentication
+    prominence.is_public? && @incoming_message.is_public?
+  end
+
+  def message_is_cacheable?
+    # If this a request searchable and message public then we can cache any
+    # attachments as there are no custom response headers (EG X-Robots-Tag)
+    prominence.is_searchable? && message_is_public?
   end
 
   def cache_key_path
@@ -188,5 +196,13 @@ class AttachmentsController < ApplicationController
 
   def current_ability
     @current_ability ||= Ability.new(current_user, project: @project)
+  end
+
+  def prominence
+    @info_request.prominence(decorate: true)
+  end
+
+  def with_prominence
+    @info_request
   end
 end

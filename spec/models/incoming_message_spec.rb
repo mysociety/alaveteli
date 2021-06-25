@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: incoming_messages
 #
@@ -399,6 +400,74 @@ describe IncomingMessage do
 
   end
 
+  describe '#legislation' do
+    let(:info_request) { FactoryBot.build(:info_request) }
+
+    let(:message) do
+      FactoryBot.build(:incoming_message, info_request: info_request)
+    end
+
+    it 'delegates to the info request' do
+      legislation = double(:legislation)
+      expect(info_request).to receive(:legislation).and_return(legislation)
+      expect(message.legislation).to eq legislation
+    end
+  end
+
+  describe '#refusals' do
+    let(:message) { FactoryBot.build(:incoming_message) }
+    let(:legislation) { double(:legislation) }
+
+    before do
+      allow(message).to receive(:get_main_body_text_folded).and_return('TEXT')
+      allow(message).to receive(:legislation).and_return(legislation)
+    end
+
+    it 'finds references' do
+      expect(legislation).to receive(:find_references).with('TEXT').
+        and_return([])
+      message.refusals
+    end
+
+    it 'returns references which are refusals' do
+      refusal_1 = double(:refusal_1, refusal?: true).as_null_object
+      refusal_2 = double(:refusal_2, refusal?: true).as_null_object
+      other = double(:not_refusal, refusal?: false)
+
+      allow(legislation).to receive(:find_references).and_return(
+        [refusal_1, refusal_2, other]
+      )
+      expect(message.refusals).to match_array([refusal_1, refusal_2])
+    end
+
+    it 'returns unique parent references based on the parent to_s' do
+      parent_1 = double(:parent_1, to_s: 'Section 1')
+      parent_2 = double(:parent_2, to_s: 'Section 1')
+      refusal_1 = double(:refusal_1, refusal?: true, parent: parent_1)
+      refusal_2 = double(:refusal_2, refusal?: true, parent: parent_2)
+
+      allow(legislation).to receive(:find_references).and_return(
+        [refusal_1, refusal_2]
+      )
+      expect(message.refusals).to match_array([parent_1])
+    end
+  end
+
+  describe '#refusals?' do
+    subject { message.refusals? }
+
+    let(:message) { FactoryBot.build(:incoming_message) }
+
+    context 'if there are refusals' do
+      before { allow(message).to receive(:refusals).and_return([double]) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'if there are no refusals' do
+      before { allow(message).to receive(:refusals).and_return([]) }
+      it { is_expected.to eq(false) }
+    end
+  end
 end
 
 describe IncomingMessage, 'when validating' do
