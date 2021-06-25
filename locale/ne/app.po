@@ -58,8 +58,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-16 13:27+0100\n"
-"PO-Revision-Date: 2020-10-16 11:44+0000\n"
+"POT-Creation-Date: 2021-06-24 16:55+0100\n"
+"PO-Revision-Date: 2021-06-24 16:12+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Nepali (http://www.transifex.com/mysociety/alaveteli/language/n"
 "e/)\n"
@@ -137,6 +137,9 @@ msgstr " स्थिति हेरी छानिएको : '{{status}}'"
 
 msgid " when you send this message."
 msgstr " जब तपाईँ यो सन्देश पठाउनुहुन्छ।"
+
+msgid "&#8592; Previous"
+msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'वडा स्तरमा वेल्सको आपराधिक तथ्याङ्क'"
@@ -296,6 +299,9 @@ msgstr "<strong>सम्पूर्ण  जानकारीहरू </stron
 msgid "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
 msgstr "<strong>कुनै पनि चिज</strong> जस्तै स्पष्टीकरण दिने, सोधपुछ गर्ने, धन्यवाद ज्ञापन गर्ने"
 
+msgid "<strong>Automatic anti-spam measures are in place</strong> for this older request. Please <a href=\"{{url}}\">let us know</a> if a further response is expected or if you are having trouble responding."
+msgstr ""
+
 msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</a>)."
 msgstr "<strong>कानुनतः, उनीहरूले जवाफ दिनै पर्छ।</strong> (<a href=\"{{url}}\">किन?</a>)."
 
@@ -308,6 +314,9 @@ msgstr ""
 " किन र को बाट गरिएको अनुरोध अलग गर्नु  त्यति सजिलो हुन्न र त्यहाँ प्रयोगकर्ता त्रुटी हुन सक्छ| तपाईँले  FOI नियम र\n"
 " त्यसको नियमावली बुझ्न जरुरी हुन्छ|अनि तपाईँलाई एउटा राम्रो तथ्याङ्क शास्त्री हुन जरुरी छ | कृपया \n"
 " <a href=\"{{contact_path}}\">हाम्रो सम्पर्क</a>मा हामीलाई प्रश्न सहित सम्पर्क गर्नु होला|"
+
+msgid "<strong>Challenging a refusal?</strong> Here are some snippets that may help:"
+msgstr ""
 
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong>स्पष्टीकरण</strong> अनुरोध गरियो"
@@ -394,6 +403,9 @@ msgstr ""
 msgid "A strange response, required attention by the {{site_name}} team"
 msgstr ""
 
+msgid "A survey about your recent {{law_used_full}} request ({{site_name}})"
+msgstr ""
+
 msgid "A {{site_name}} user"
 msgstr "{{site_name}} प्रयोगकर्ता"
 
@@ -443,9 +455,6 @@ msgstr "{{public_body_name}} - निकाय थप्नुहोस्"
 
 msgid "Add the authority:"
 msgstr "निकाय थप्नुहोस्ः"
-
-msgid "Administration URL:"
-msgstr "प्रशासन URL:"
 
 msgid "Advanced search"
 msgstr "उन्नत खोज"
@@ -561,6 +570,9 @@ msgstr "निश्चित हुनुहुन्छ ? If you regenerate yo
 
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "के तपाईँ यस पानाको व्यवसायिक प्रतिलिपि अधिकार धारक हुनुहुन्छ?"
+
+msgid "Article"
+msgstr ""
 
 msgid "Ask EU Authorities"
 msgstr "EU निकायहरूसँग सोध्नुहोस्"
@@ -755,6 +767,9 @@ msgstr ""
 msgid "Close"
 msgstr "बन्द गर्नुहोस्"
 
+msgid "Close preview"
+msgstr ""
+
 msgid "Close the request and respond:"
 msgstr "अनुरोधलाई बन्द गरेर जवाफ दिनुहोस्:"
 
@@ -823,6 +838,12 @@ msgstr ""
 
 msgid "Cookies not enabled"
 msgstr "कुकी सक्षम गरिएको छैन"
+
+msgid "Copied!"
+msgstr ""
+
+msgid "Copy"
+msgstr ""
 
 msgid "Could not identify the request from the email address"
 msgstr "इमेलबाट आएको अनुरोधको परिचय खुलाउन सकिएन"
@@ -1164,6 +1185,9 @@ msgid_plural "Found {{count}} public authorities matching the tag ‘{{tag_name}
 msgstr[0] "{{tag_name}}को {{count}} सार्बजनिक निकाय भेटियो"
 msgstr[1] "{{tag_name}}का {{count}} सार्वजनिक निकायहरू भेटिए"
 
+msgid "Four weeks ago you made a Freedom of Information request to {{public_body_name}} using {{site_name}}."
+msgstr ""
+
 msgid "Freedom of Information"
 msgstr "सूचनाको लागि स्वतन्त्रता"
 
@@ -1206,7 +1230,13 @@ msgstr "बाट:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "तपाईँको सिकायतलाई यहाँ व्याख्या गर्नु होस्"
 
+msgid "Get help to challenge it."
+msgstr ""
+
 msgid "Getting long – remember to keep it focussed"
+msgstr ""
+
+msgid "Go back to refusal advice questions"
 msgstr ""
 
 msgid "Got a {{site_name}} account?"
@@ -1219,6 +1249,12 @@ msgid "Handled by postal mail"
 msgstr ""
 
 msgid "Handled by postal mail."
+msgstr ""
+
+msgid "Has this request been referenced in a news article or academic paper?"
+msgstr ""
+
+msgid "Has this request been referenced in a news article or academic paper? Let us know:"
 msgstr ""
 
 msgid "Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}"
@@ -1251,6 +1287,9 @@ msgstr ""
 "कुनै घटनाले त्यसको मान परिवर्तन गर्छ। <strong>गणन गर्दा</strong> प्राप्तहुने \n"
 "{{site_name}} बिचका घटनाहरू, जुन प्रष्ट थिएनन्\n"
 "प्रयोगकर्ताका टिप्पणीहरू। हेर्नुहोस् <a href=\"{{search_path}}\">खोज सुझावहरू</a> स्थितिबारे थप जानकारीको लागि।"
+
+msgid "Here are some snippets that may help you <strong>challenge a refusal</strong>:"
+msgstr ""
 
 msgid "Here is the message you wrote, in case you would like to copy the text and save it for later."
 msgstr "येदि तपाइलाई पछि पाठ कपी गरेर सुरछित गर्न मन लग्यो भने, तपाइले लेख्नुभएको सन्देश यहाँ छ"
@@ -1370,6 +1409,9 @@ msgstr "यदि तपाइ {{user_link}} हो भने, कृपया"
 msgid "If you believe this request is not suitable, you can report it for attention by the site administrators using this form"
 msgstr "यदि तपाइलाई यो अनुरोध ठिक लाग्दैन भने , तपाइले यो फारमद्वारा साइटप्रबन्ध को ध्यानाकर्सन गर्न सक्नुहुन्छ"
 
+msgid "If you can spare a few minutes to complete our short survey, it will help us make the site better. Just follow the link below."
+msgstr ""
+
 msgid "If you can't click on it in the email, you'll have to <strong>select and copy it</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place you would type the address of any other webpage."
 msgstr ""
 "तपाईं इमेल मा क्लिक गर्न सक्नुहुन्न भने, तपाईं <strong> चयन र प्रतिलिपि \n"
@@ -1471,6 +1513,9 @@ msgstr "आन्तरिक पुनरावलोकन अनुरोध"
 msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "{{date}} मा  {{info_request_user}} द्वारा {{public_body_name}} लाई गरिएको आन्तरिक पुनरावलोकन अनुरोध "
 
+msgid "Invalid form submission"
+msgstr ""
+
 msgid "Invalid one time password"
 msgstr "अमान्य एक पटकको पासवर्ड"
 
@@ -1538,6 +1583,9 @@ msgid "Leave project"
 msgstr ""
 
 msgid "Let us know"
+msgstr ""
+
+msgid "Let us know and we’ll help you challenge it."
 msgstr ""
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
@@ -1690,6 +1738,12 @@ msgstr ""
 msgid "Next"
 msgstr "अर्को"
 
+msgid "Next &#8594;"
+msgstr ""
+
+msgid "Next Step: Preview your public request"
+msgstr ""
+
 msgid "Next message"
 msgstr ""
 
@@ -1812,6 +1866,12 @@ msgstr "अन्य"
 
 msgid "Other:"
 msgstr "अन्य:"
+
+msgid "Page {{page}}"
+msgstr ""
+
+msgid "Pagination"
+msgstr ""
 
 msgid "Partial success"
 msgstr "आंशिक सफल"
@@ -2045,6 +2105,9 @@ msgstr "सम्भावित सम्बन्धित अनुरोध�
 msgid "Post annotation"
 msgstr "पोस्ट टिप्पणीकर्ता"
 
+msgid "Posted on {{date}}"
+msgstr ""
+
 msgid "Posted on {{date}} by {{author}}"
 msgstr "{{author}} द्वारा यस {{date}}मा  प्रकाशित भएको थियो "
 
@@ -2074,9 +2137,6 @@ msgstr "तपाईँको टिप्पणीको पूर्वाव�
 
 msgid "Preview your message"
 msgstr "तपाईँको सन्देशको पूर्वावलोकन हेर्नुहोस्"
-
-msgid "Preview your public request"
-msgstr "तपाईँको सार्वजनिक अनुरोध हेर्नुहोस्"
 
 msgid "Preview your request"
 msgstr "तपाईँको अनुरोधको पूर्वावलोक हेर्नुहोस्"
@@ -2156,6 +2216,9 @@ msgstr " <a href=\"{{advanced_search_url}}\">विकसित खोज अप
 msgid "Read blog"
 msgstr "ब्लग पढ्नुहोस्"
 
+msgid "Read more"
+msgstr ""
+
 msgid "Read through authority responses and choose if their answer satisfies the intention of the original request, flag any problems and show the project owner if they need to intervene to keep the project movng forward."
 msgstr ""
 
@@ -2179,6 +2242,9 @@ msgstr "अस्विकार गरियो।"
 
 msgid "Regenerate one time passcode"
 msgstr "एकपटकको लागि पासवर्ड बनाउनुहोस्"
+
+msgid "Regulation"
+msgstr ""
 
 msgid "Rejected"
 msgstr "फर्काइयो"
@@ -2369,6 +2435,9 @@ msgstr "साइट खोज गरि तपाइलाइ चाइएक�
 msgid "Search your contributions"
 msgstr "तपाईंको योगदान खोज"
 
+msgid "Section"
+msgstr ""
+
 msgid "Send a followup"
 msgstr "फलोअप पठाउनुहोस्"
 
@@ -2431,6 +2500,12 @@ msgstr ""
 msgid "Show fewer attachments"
 msgstr ""
 
+msgid "Show less"
+msgstr ""
+
+msgid "Show more"
+msgstr ""
+
 msgid "Show most relevant results first"
 msgstr "सान्दर्भिक परिणाम पहिले देखा‌‌‌‌उनुहोस्।"
 
@@ -2468,6 +2543,9 @@ msgid "Skip"
 msgstr ""
 
 msgid "Skipped!"
+msgstr ""
+
+msgid "Snippets related to"
 msgstr ""
 
 msgid "Some notes have been added to your FOI request - {{request_title}}"
@@ -2921,10 +2999,8 @@ msgstr ""
 msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "There are {{count}} new annotations on your {{law_used_short}} request. यो लिङ्कमा क्लिक गरेर उहाँले के लेख्नु भयो भ्ने हेर्नुहोस्"
 
-msgid "There is <strong>more than one person</strong> who uses this site and has this name. One of them is shown below, you may mean a different one:"
+msgid "There is <strong>more than one person</strong> who uses this site and has this name. Search for other users named \"{{search_user_link}}\""
 msgstr ""
-"यो साइट प्रयोग गर्ने <strong>एकजना भन्दा बढी</strong> छन र यो नाम पनि धेरै पल्ट प्रयोग भएको छ ।\n"
-" त्यसमध्य एउटा तल उल्लिखित छ, तपाइले भिन्नै सोचेको हुनसक्छ।"
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr "एक दिनमा कति सन्देश पठाउने भन्ने सीमाना छ, किन भने सार्वजनिक निकायहरू हाम्रो साइटबाट प्राप्त हुने अनुरोधहरूबाट ग्रसित नहुन्। यदि तपाईँको यस सीमालाई हटाइनु पर्छ भन्ने तपाईँसँग कुनै कारण छ भने <a href='{{help_contact_path}}'>थाह दिनुहोस्</a>।"
@@ -3455,9 +3531,6 @@ msgstr " सार्वजनिक अख्तियारलाई जवा
 msgid "Want to know something?"
 msgstr "केही जान्न चाहनुहुन्छ?"
 
-msgid "We consider it is not a valid FOI request as it was correspondence about your personal circumstances, and we have therefore hidden it from other users."
-msgstr ""
-
 msgid "We consider it is not a valid FOI request, and have therefore hidden it from other users."
 msgstr "हामीलाइ यो FOI अनुरोध मान्य छैन, र यसैले अन्य प्रयोगकर्ता देखि यो लुकाएका छौ"
 
@@ -3472,6 +3545,9 @@ msgstr "हामीले यो सन्देशका लागि कु�
 
 msgid "We couldn’t load the mail server logs for this message."
 msgstr "हामीले  यस् सन्देशको  लागि मेल सर्भर लग लोड गर्न सकेनौ।"
+
+msgid "We do not allow requests for information via {{site_name}} about your personal circumstances. We have therefore hidden your request from other users."
+msgstr ""
 
 msgid "We do not have a working request email address for this authority."
 msgstr "हामी संग यो निकायको लागि काम गर्ने अनुरोध इमेल ठेगाना छैन | "
@@ -3502,6 +3578,9 @@ msgstr " हामी तपाइको इमेल ठेगाना तब�
 
 msgid "We will not reveal your email addresses to anybody unless you or the law tell us to."
 msgstr "हामीले तपाईं/कानुनले हामीलाई नबताएसम्म तपाइको इमेल ठेगाना देखाउने छैनौ।"
+
+msgid "We would like to know more about you, and your experience making an {{law_used_full}} request through the site."
+msgstr ""
 
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr "तपाइको अनुरोधको प्रतिक्रिया आउने बितिकै हामी तपाइलाई  इमेल पठाऊनेछौ | "
@@ -4077,6 +4156,9 @@ msgstr "र"
 msgid "and we'll suggest <strong>what to do next</strong>"
 msgstr "र हामीले <strong>अब के गर्ने</strong> सुझाव दिनेछौँ"
 
+msgid "any section"
+msgstr ""
+
 msgid "anything matching text '{{query}}'"
 msgstr "'{{query}}' सँग मिल्दो सबै कुरा"
 
@@ -4279,6 +4361,9 @@ msgstr "{{authority_name}} सँग अनुरोध गरिएको ज�
 
 msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
 msgstr "{{authority_name}}  <strong>स्पस्टिकरणको लागि कुरीरहेको</strong> छ।"
+
+msgid "{{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
+msgstr ""
 
 msgid "{{contributor_count}} contributors"
 msgstr ""

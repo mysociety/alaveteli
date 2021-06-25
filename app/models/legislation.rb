@@ -7,8 +7,6 @@ class Legislation
 
   def self.refusals=(hash)
     @refusals = hash&.with_indifferent_access
-    all!
-    @refusals
   end
 
   def self.refusals
@@ -16,11 +14,7 @@ class Legislation
   end
 
   def self.all
-    @all ||= all!
-  end
-
-  def self.all!
-    @all = [
+    [
       new(
         key: 'foi',
         short: _('FOI'),

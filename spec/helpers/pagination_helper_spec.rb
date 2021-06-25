@@ -31,6 +31,12 @@ RSpec.describe PaginationHelper do
       end
     end
 
+    context 'with :page_gap key' do
+      let(:key) { :page_gap }
+
+      it { is_expected.to eq('&hellip;') }
+    end
+
     context 'with :container_aria_label key' do
       let(:key) { :container_aria_label }
 

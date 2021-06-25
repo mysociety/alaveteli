@@ -48,16 +48,9 @@ RSpec.describe Legislation do
   describe '.all' do
     subject { described_class.all }
 
-    it 'memoises .all!' do
-      expect(described_class.all!.map(&:object_id)).
-        to eq(subject.map(&:object_id))
-    end
-
     context 'when refusals have been configured' do
       before do
         described_class.refusals = { foi: ['s 12'] }
-        # Re-memoize instances:
-        described_class.all!
       end
 
       after { described_class.refusals = nil }
@@ -76,10 +69,6 @@ RSpec.describe Legislation do
         end
       end
     end
-  end
-
-  describe '.all!' do
-    subject { described_class.all! }
 
     it 'returns array of legislations objects' do
       is_expected.to all(be_a Legislation)

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-16 16:34+0100\n"
+"POT-Creation-Date: 2021-06-24 16:56+0100\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
 "Language-Team: French (Canada) (https://www.transifex.com/mysociety/teams/3352"
 "9/fr_CA/)\n"
@@ -265,6 +265,9 @@ msgstr ""
 msgid "CSV"
 msgstr ""
 
+msgid "Campaigners"
+msgstr ""
+
 msgid "Campaigning for better wheelchair accessibility"
 msgstr ""
 
@@ -493,7 +496,7 @@ msgstr ""
 msgid "Introductory Pricing"
 msgstr ""
 
-msgid "Investigating asbestos use in shcools"
+msgid "Investigating asbestos use in schools"
 msgstr ""
 
 msgid "Investigative journalist Jenna Corderoy has made good use of Pro’s privacy features, keeping her extensive Brexit-related investigations private until her stories broke, bringing facts about <a href=\"{{story_url_1}}\">campaign overspending</a> and <a href=\"{{story_url_2}}\">ERG</a> research to the public, among several other important stories."

@@ -40,8 +40,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-16 13:27+0100\n"
-"PO-Revision-Date: 2020-10-16 11:44+0000\n"
+"POT-Creation-Date: 2021-06-24 16:55+0100\n"
+"PO-Revision-Date: 2021-06-24 16:12+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Indonesian (http://www.transifex.com/mysociety/alaveteli/langua"
 "ge/id/)\n"
@@ -119,6 +119,9 @@ msgstr ""
 
 msgid " when you send this message."
 msgstr " saat Anda mengirim pesan ini."
+
+msgid "&#8592; Previous"
+msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Statistik Kriminal berdasarkan tingkat penjara untuk Wales'"
@@ -282,6 +285,9 @@ msgstr "<strong>Semua informasi </strong> telah dikirimkan"
 msgid "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
 msgstr "<strong>Lain-lainnya</strong>, seperti mengklarifikasi, mendorong, berterima kasih"
 
+msgid "<strong>Automatic anti-spam measures are in place</strong> for this older request. Please <a href=\"{{url}}\">let us know</a> if a further response is expected or if you are having trouble responding."
+msgstr ""
+
 msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</a>)."
 msgstr ""
 
@@ -298,6 +304,9 @@ msgstr ""
 "kesalahan dan ambiguitas pengguna. Anda juga perlu memahami hukum FOI, dan \n"
 "cara para otoritas menggunakannya. Anda juga perlu menjadi ahli statistik terkemuka.  Silakan\n"
 "<a href=\"{{contact_path}}\">hubungi kami </a> dengan pertanyaan-pertanyaan."
+
+msgid "<strong>Challenging a refusal?</strong> Here are some snippets that may help:"
+msgstr ""
 
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong>Klarifikasi</strong> sudah dimintakan."
@@ -391,6 +400,9 @@ msgstr ""
 msgid "A strange response, required attention by the {{site_name}} team"
 msgstr ""
 
+msgid "A survey about your recent {{law_used_full}} request ({{site_name}})"
+msgstr ""
+
 msgid "A {{site_name}} user"
 msgstr "Pengguna{{site_name}}"
 
@@ -440,9 +452,6 @@ msgstr ""
 
 msgid "Add the authority:"
 msgstr ""
-
-msgid "Administration URL:"
-msgstr "URL Administrasi:"
 
 msgid "Advanced search"
 msgstr "<p>Terima kasih! Mudah-mudahan Anda tidak terlalu lama menunggu.</p><p>Anda seharusnya mendapatkan tanggapan dalam waktu{{late_number_of_days}} hari, atau akan diinformasikan jika akan memakan waktu lebih lama (<a href=\"{{review_url}}\">rincian</a>).</p>"
@@ -560,6 +569,9 @@ msgstr ""
 
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Apakah Anda pemilik dari hak cipta komersial di halaman ini?"
+
+msgid "Article"
+msgstr ""
 
 msgid "Ask EU Authorities"
 msgstr ""
@@ -754,6 +766,9 @@ msgstr "Klik tautan di bawah untuk mengirimkan pesan kepada{{public_body}} mengi
 msgid "Close"
 msgstr "Tutup"
 
+msgid "Close preview"
+msgstr ""
+
 msgid "Close the request and respond:"
 msgstr ""
 
@@ -821,6 +836,12 @@ msgid "Contribute"
 msgstr ""
 
 msgid "Cookies not enabled"
+msgstr ""
+
+msgid "Copied!"
+msgstr ""
+
+msgid "Copy"
 msgstr ""
 
 msgid "Could not identify the request from the email address"
@@ -1164,6 +1185,9 @@ msgid_plural "Found {{count}} public authorities matching the tag ‘{{tag_name}
 msgstr[0] ""
 msgstr[1] ""
 
+msgid "Four weeks ago you made a Freedom of Information request to {{public_body_name}} using {{site_name}}."
+msgstr ""
+
 msgid "Freedom of Information"
 msgstr "Freedom of Information"
 
@@ -1211,7 +1235,13 @@ msgstr "Dari:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "BERIKAN RINCIAN TENTANG KEBERATAN ANDA DI SINI"
 
+msgid "Get help to challenge it."
+msgstr ""
+
 msgid "Getting long – remember to keep it focussed"
+msgstr ""
+
+msgid "Go back to refusal advice questions"
 msgstr ""
 
 msgid "Got a {{site_name}} account?"
@@ -1224,6 +1254,12 @@ msgid "Handled by postal mail"
 msgstr ""
 
 msgid "Handled by postal mail."
+msgstr ""
+
+msgid "Has this request been referenced in a news article or academic paper?"
+msgstr ""
+
+msgid "Has this request been referenced in a news article or academic paper? Let us know:"
 msgstr ""
 
 msgid "Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}"
@@ -1255,6 +1291,9 @@ msgstr ""
 "Berikut<strong>dijelaskan</strong> cara-cara ketika seorang pengguna memilih status untuk permintaan, dan\n"
 "status peristiwa terbaru diperbarui sesuai nilai tersebut. <strong>dikalkulasi</strong> kemudian disimpulkan oleh\n"
 "{{site_name}} untuk peristiwa menengah, yang tidak diberikan deskripsi eksplisit oleh pengguna. Lihat<a href=\" {{search_path}}\">tips pencarian</a> untuk deskripsi negara."
+
+msgid "Here are some snippets that may help you <strong>challenge a refusal</strong>:"
+msgstr ""
 
 msgid "Here is the message you wrote, in case you would like to copy the text and save it for later."
 msgstr "Berikut adalah pesan yang Anda tulis, jika Anda ingin menyalin teksnya dan menyimpannya untuk di kemudian hari."
@@ -1378,6 +1417,9 @@ msgstr "Jika Anda adalah {{user_link}}, silakan"
 msgid "If you believe this request is not suitable, you can report it for attention by the site administrators using this form"
 msgstr ""
 
+msgid "If you can spare a few minutes to complete our short survey, it will help us make the site better. Just follow the link below."
+msgstr ""
+
 msgid "If you can't click on it in the email, you'll have to <strong>select and copy it</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place you would type the address of any other webpage."
 msgstr ""
 "Jika Anda tidak dapat meng-kliknya di email, Anda harus <strong>memilih dan menyalinnya \n"
@@ -1483,6 +1525,9 @@ msgstr "Permintaan kajian internal"
 msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
+msgid "Invalid form submission"
+msgstr ""
+
 msgid "Invalid one time password"
 msgstr ""
 
@@ -1553,6 +1598,9 @@ msgid "Leave project"
 msgstr ""
 
 msgid "Let us know"
+msgstr ""
+
+msgid "Let us know and we’ll help you challenge it."
 msgstr ""
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
@@ -1707,6 +1755,12 @@ msgstr ""
 msgid "Next"
 msgstr "Berikutnya"
 
+msgid "Next &#8594;"
+msgstr ""
+
+msgid "Next Step: Preview your public request"
+msgstr ""
+
 msgid "Next message"
 msgstr ""
 
@@ -1829,6 +1883,12 @@ msgstr ""
 
 msgid "Other:"
 msgstr "Yang lain:"
+
+msgid "Page {{page}}"
+msgstr ""
+
+msgid "Pagination"
+msgstr ""
 
 msgid "Partial success"
 msgstr ""
@@ -2071,6 +2131,9 @@ msgstr "Permintaan yang mungkin berhubungan:"
 msgid "Post annotation"
 msgstr "Pasang anotasi"
 
+msgid "Posted on {{date}}"
+msgstr ""
+
 msgid "Posted on {{date}} by {{author}}"
 msgstr "Diposting pada{{date}} oleh{{author}}"
 
@@ -2100,9 +2163,6 @@ msgstr "Melihat dulu Anotasi Anda"
 
 msgid "Preview your message"
 msgstr "Melihat dulu pesan Anda"
-
-msgid "Preview your public request"
-msgstr "Melihat dulu permintaan publik Anda"
 
 msgid "Preview your request"
 msgstr ""
@@ -2182,6 +2242,9 @@ msgstr "Baca tentang <a href=\"{{advanced_search_url}}\">operator pencarian lanj
 msgid "Read blog"
 msgstr "Baca blog"
 
+msgid "Read more"
+msgstr ""
+
 msgid "Read through authority responses and choose if their answer satisfies the intention of the original request, flag any problems and show the project owner if they need to intervene to keep the project movng forward."
 msgstr ""
 
@@ -2204,6 +2267,9 @@ msgid "Refused."
 msgstr "Ditolak."
 
 msgid "Regenerate one time passcode"
+msgstr ""
+
+msgid "Regulation"
 msgstr ""
 
 msgid "Rejected"
@@ -2395,6 +2461,9 @@ msgstr "Cari situs ini untuk menemukan apa yang Anda cari."
 msgid "Search your contributions"
 msgstr "Cari kontribusi Anda"
 
+msgid "Section"
+msgstr ""
+
 msgid "Send a followup"
 msgstr "Kirim tindak lanjut"
 
@@ -2457,6 +2526,12 @@ msgstr ""
 msgid "Show fewer attachments"
 msgstr ""
 
+msgid "Show less"
+msgstr ""
+
+msgid "Show more"
+msgstr ""
+
 msgid "Show most relevant results first"
 msgstr "Tunjukkan hasil yang paling relevan dahulu"
 
@@ -2494,6 +2569,9 @@ msgid "Skip"
 msgstr ""
 
 msgid "Skipped!"
+msgstr ""
+
+msgid "Snippets related to"
 msgstr ""
 
 msgid "Some notes have been added to your FOI request - {{request_title}}"
@@ -2962,10 +3040,8 @@ msgstr ""
 msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "Ada {{count}} anotasi baru pada permintaan {{law_used_short}} Anda. Ikuti tautan ini untuk melihat apa yang mereka tulis."
 
-msgid "There is <strong>more than one person</strong> who uses this site and has this name. One of them is shown below, you may mean a different one:"
+msgid "There is <strong>more than one person</strong> who uses this site and has this name. Search for other users named \"{{search_user_link}}\""
 msgstr ""
-"Ada <strong>lebih dari satu orang</strong> yang menggunakan situs ini dan memiliki nama ini.\n"
-" Salah satu dari mereka ditunjukkan dibawah, mungkin yang Anda maksud orang yang berbeda:"
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr "Ada batas jumlah permintaan yang dapat Anda buat dalam sehari, karena kami tidak mau otoritas publik dibombardir dengan sejumlah besar permintaan yang tidak sesuai. Jika Anda merasa Anda memiliki alasan yang bagus untuk meminta batasan ini dicabut dalam kasus Anda, silakan <a href='{{help_contact_path}}'>berhubungan</a>."
@@ -3500,9 +3576,6 @@ msgstr "Menunggu otoritas publik untuk membalas"
 msgid "Want to know something?"
 msgstr ""
 
-msgid "We consider it is not a valid FOI request as it was correspondence about your personal circumstances, and we have therefore hidden it from other users."
-msgstr ""
-
 msgid "We consider it is not a valid FOI request, and have therefore hidden it from other users."
 msgstr ""
 
@@ -3516,6 +3589,9 @@ msgid "We couldn’t display any logs for this message."
 msgstr ""
 
 msgid "We couldn’t load the mail server logs for this message."
+msgstr ""
+
+msgid "We do not allow requests for information via {{site_name}} about your personal circumstances. We have therefore hidden your request from other users."
 msgstr ""
 
 msgid "We do not have a working request email address for this authority."
@@ -3554,6 +3630,9 @@ msgid "We will not reveal your email addresses to anybody unless you or the law 
 msgstr ""
 "Kami tidak akan mengungkapkan alamat email Anda kepada siapapun kecuali Anda \n"
 "atau undang-undang menyuruh kami untuk melakukannya."
+
+msgid "We would like to know more about you, and your experience making an {{law_used_full}} request through the site."
+msgstr ""
 
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr ""
@@ -4143,6 +4222,9 @@ msgstr "dan"
 msgid "and we'll suggest <strong>what to do next</strong>"
 msgstr "dan kami akan menyarankan <strong>apa yang harus dilakukan selanjutnya</strong>"
 
+msgid "any section"
+msgstr ""
+
 msgid "anything matching text '{{query}}'"
 msgstr ""
 
@@ -4345,6 +4427,9 @@ msgstr "{{authority_name}} <strong>tidak memiliki</strong> informasi yang dimint
 
 msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
 msgstr "{{authority_name}} sedang <strong>menunggu klarifikasi Anda</strong>."
+
+msgid "{{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
+msgstr ""
 
 msgid "{{contributor_count}} contributors"
 msgstr ""
