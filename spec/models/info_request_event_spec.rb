@@ -17,7 +17,7 @@
 #  updated_at          :datetime
 #
 
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
 describe InfoRequestEvent do
   describe "when checking for a valid state" do

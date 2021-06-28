@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 require "cancan/matchers"
 
 shared_examples_for "a class with message prominence" do

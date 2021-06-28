@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
+require 'spec_helper'
 require 'stripe_mock'
 
 describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do

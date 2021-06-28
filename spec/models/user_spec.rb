@@ -36,7 +36,7 @@
 #  closed_at                         :datetime
 #
 
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
 describe User do
   it_behaves_like 'PhaseCounts'

@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
 describe AlaveteliGeoIP do
   let(:ip_address) { '127.0.0.1' }

@@ -1,5 +1,5 @@
 spec_helper = File.join('..', '..', '..', '..', 'spec_helper')
-require File.expand_path(spec_helper, __FILE__)
+require 'spec_helper'
 
 describe 'alaveteli_pro/subscriptions/_cancel_subscription' do
 

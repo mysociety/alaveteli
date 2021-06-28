@@ -1,4 +1,4 @@
-require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
+require 'spec_helper'
 
 describe 'user/sign' do
   describe 'when a not logged in user is redirected while trying to track a request' do

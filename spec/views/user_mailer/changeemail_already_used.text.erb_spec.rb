@@ -1,4 +1,4 @@
-require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
+require 'spec_helper'
 
 describe "user_mailer/changeemail_already_used" do
 

@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '../../../spec_helper')
+require 'spec_helper'
 
 def create_message_from(from_field)
   mail_data = load_file_fixture('incoming-request-plain.email')

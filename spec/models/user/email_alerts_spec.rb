@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
+require 'spec_helper'
 
 describe User::EmailAlerts do
   let(:user) { FactoryBot.create(:user, receive_email_alerts: true) }

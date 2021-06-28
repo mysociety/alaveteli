@@ -10,7 +10,7 @@
 #  updated_at            :datetime         not null
 #
 
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
 describe RequestClassification do
 

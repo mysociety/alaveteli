@@ -34,7 +34,7 @@
 #  incoming_messages_count               :integer          default("0")
 #
 
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 require 'models/concerns/info_request/title_validation'
 
 describe InfoRequest do

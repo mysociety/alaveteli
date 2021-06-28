@@ -1,4 +1,4 @@
-require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
+require 'spec_helper'
 
 describe "request_mailer/new_response" do
   let(:incoming_message) { FactoryBot.create(:incoming_message) }

@@ -1,4 +1,4 @@
-require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
+require 'spec_helper'
 
 describe 'when showing diffs in info_request params' do
   def do_render(params)
