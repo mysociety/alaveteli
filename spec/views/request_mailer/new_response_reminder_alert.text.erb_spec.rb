@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "request_mailer/new_response_reminder_alert" do
+RSpec.describe "request_mailer/new_response_reminder_alert" do
   let(:request) { FactoryBot.create(:info_request, :title => "Apostrophe's") }
 
   before do

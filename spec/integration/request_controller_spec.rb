@@ -1,7 +1,7 @@
 require 'spec_helper'
 require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
-describe RequestController do
+RSpec.describe RequestController do
 
   describe 'when the site is in read only mode' do
 

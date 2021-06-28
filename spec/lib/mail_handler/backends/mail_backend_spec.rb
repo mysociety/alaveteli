@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe MailHandler::Backends::MailBackend do
+RSpec.describe MailHandler::Backends::MailBackend do
   include MailHandler
   include MailHandler::Backends::MailBackend
 

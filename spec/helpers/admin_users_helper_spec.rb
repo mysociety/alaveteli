@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AdminUsersHelper do
+RSpec.describe AdminUsersHelper do
 
   include AdminUsersHelper
 

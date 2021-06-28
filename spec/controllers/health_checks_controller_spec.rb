@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe HealthChecksController do
+RSpec.describe HealthChecksController do
 
   describe 'GET index' do
 

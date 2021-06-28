@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AdminCommentsHelper do
+RSpec.describe AdminCommentsHelper do
 
   include AdminCommentsHelper
 

@@ -1,7 +1,7 @@
 require 'spec_helper'
 require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
-describe "When administering the site" do
+RSpec.describe "When administering the site" do
   let(:admin_user) { FactoryBot.create(:admin_user) }
   let(:bob_smith_user) { FactoryBot.create(:user, :name => 'Bob Smith') }
   let(:robin_user) { FactoryBot.create(:user, :name => 'Robin') }

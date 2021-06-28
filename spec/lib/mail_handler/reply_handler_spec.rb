@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'reply_handler'
 
-describe MailHandler::ReplyHandler do
+RSpec.describe MailHandler::ReplyHandler do
   describe ".forward_on" do
     describe "non-bounce messages" do
       let(:raw_email) { load_file_fixture("normal-contact-reply.email") }

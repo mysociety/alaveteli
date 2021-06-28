@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe OutgoingMailer, " when working out follow up names and addresses" do
+RSpec.describe OutgoingMailer, " when working out follow up names and addresses" do
 
   before do
     @info_request = mock_model(InfoRequest,
@@ -57,7 +57,7 @@ describe OutgoingMailer, " when working out follow up names and addresses" do
 
 end
 
-describe OutgoingMailer, "when working out follow up subjects" do
+RSpec.describe OutgoingMailer, "when working out follow up subjects" do
 
   before(:each) do
     load_raw_emails_data

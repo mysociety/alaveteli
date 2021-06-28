@@ -6,7 +6,7 @@ def validator_with_user_and_params(user, params = {})
   validator
 end
 
-describe ChangeEmailValidator do
+RSpec.describe ChangeEmailValidator do
 
   let(:user) { FactoryBot.create(:user) }
 

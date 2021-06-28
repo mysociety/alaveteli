@@ -1,7 +1,7 @@
 require 'spec_helper'
 require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
-describe 'when making a zipfile available' do
+RSpec.describe 'when making a zipfile available' do
 
   after do
     FileUtils.rm_rf(InfoRequest.download_zip_dir)

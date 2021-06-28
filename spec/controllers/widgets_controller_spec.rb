@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe WidgetsController do
+RSpec.describe WidgetsController do
 
   include LinkToHelper
 

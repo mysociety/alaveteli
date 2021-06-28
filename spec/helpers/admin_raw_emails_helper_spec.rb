@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AdminRawEmailsHelper do
+RSpec.describe AdminRawEmailsHelper do
 
   include AdminRawEmailsHelper
 

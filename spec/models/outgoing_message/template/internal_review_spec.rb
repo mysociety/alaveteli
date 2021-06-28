@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe OutgoingMessage::Template::InternalReview do
+RSpec.describe OutgoingMessage::Template::InternalReview do
 
   describe '.details_placeholder' do
 

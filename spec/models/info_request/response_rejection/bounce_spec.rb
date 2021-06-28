@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe InfoRequest::ResponseRejection::Bounce do
+RSpec.describe InfoRequest::ResponseRejection::Bounce do
 
   it 'inherits from Base' do
     expect(described_class.superclass).

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe InfoRequest::Prominence::SearchableQuery do
+RSpec.describe InfoRequest::Prominence::SearchableQuery do
 
   describe '#call' do
 

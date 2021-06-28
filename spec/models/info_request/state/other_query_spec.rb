@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe InfoRequest::State::OtherQuery do
+RSpec.describe InfoRequest::State::OtherQuery do
 
   describe '#call' do
     let(:info_request) { FactoryBot.create(:info_request_with_internal_review_request) }

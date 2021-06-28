@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe InfoRequest::Prominence::Calculator do
+RSpec.describe InfoRequest::Prominence::Calculator do
 
   let(:info_request) { FactoryBot.build(:info_request) }
   let(:embargoed_request) { FactoryBot.create(:embargoed_request) }

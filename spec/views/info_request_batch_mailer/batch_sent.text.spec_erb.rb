@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "info_request_batch_mailer/batch_sent" do
+RSpec.describe "info_request_batch_mailer/batch_sent" do
   let(:batch) do
     FactoryBot.create(
       :info_request_batch,

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AlaveteliRateLimiter::IPRateLimiter do
+RSpec.describe AlaveteliRateLimiter::IPRateLimiter do
 
   after(:each) do
     described_class.defaults!

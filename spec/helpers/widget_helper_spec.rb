@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe WidgetHelper do
+RSpec.describe WidgetHelper do
 
   include WidgetHelper
 

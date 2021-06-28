@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "request_mailer/new_response" do
+RSpec.describe "request_mailer/new_response" do
   let(:incoming_message) { FactoryBot.create(:incoming_message) }
   let(:request) { incoming_message.info_request }
 

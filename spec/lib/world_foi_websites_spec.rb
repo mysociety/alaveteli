@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe WorldFOIWebsites do
+RSpec.describe WorldFOIWebsites do
 
   describe '.can_ask_the_eu?' do
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe InfoRequest::State::ResponseReceivedQuery do
+RSpec.describe InfoRequest::State::ResponseReceivedQuery do
 
   describe '#call' do
     let(:info_request) { FactoryBot.create(:info_request) }

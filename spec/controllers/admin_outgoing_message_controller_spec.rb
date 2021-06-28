@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AdminOutgoingMessageController do
+RSpec.describe AdminOutgoingMessageController do
 
   describe 'GET #edit' do
 

@@ -1,7 +1,7 @@
 require 'spec_helper'
 require File.expand_path(File.dirname(__FILE__) + '/../alaveteli_dsl')
 
-describe "pro request list" do
+RSpec.describe "pro request list" do
   let(:pro_user) { FactoryBot.create(:pro_user) }
   let(:public_body) { FactoryBot.create(:public_body) }
   let!(:pro_user_session) { login(pro_user) }

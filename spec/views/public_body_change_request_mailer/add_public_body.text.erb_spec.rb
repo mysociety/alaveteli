@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'public_body_change_request_mailer/add_public_body' do
+RSpec.describe 'public_body_change_request_mailer/add_public_body' do
   let(:user) { FactoryBot.create(:user, name: "Test Us'r") }
 
   let(:change_request) do

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AdminRawEmailController do
+RSpec.describe AdminRawEmailController do
 
   describe 'GET show' do
 

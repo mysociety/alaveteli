@@ -37,7 +37,7 @@
 require 'spec_helper'
 require 'models/concerns/info_request/title_validation'
 
-describe InfoRequest do
+RSpec.describe InfoRequest do
   it_behaves_like 'concerns/info_request/title_validation',
                   FactoryBot.build(:info_request)
 
@@ -3970,7 +3970,7 @@ describe InfoRequest do
 
 end
 
-describe InfoRequest do
+RSpec.describe InfoRequest do
 
   describe '#date_initial_request_last_sent_at' do
     let(:info_request) { FactoryBot.create(:info_request) }

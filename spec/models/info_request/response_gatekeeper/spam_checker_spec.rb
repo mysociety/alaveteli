@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe InfoRequest::ResponseGatekeeper::SpamChecker do
+RSpec.describe InfoRequest::ResponseGatekeeper::SpamChecker do
 
   describe '.new' do
 

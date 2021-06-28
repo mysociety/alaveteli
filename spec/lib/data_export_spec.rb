@@ -1,7 +1,7 @@
 require 'spec_helper'
 require File.expand_path(File.dirname(__FILE__) + "./../../lib/data_export.rb")
 
-describe DataExport do
+RSpec.describe DataExport do
 
   describe '.case_insensitive_user_censor' do
     subject { described_class.case_insensitive_user_censor(text, user) }

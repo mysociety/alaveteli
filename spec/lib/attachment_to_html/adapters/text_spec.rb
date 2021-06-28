@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AttachmentToHTML::Adapters::Text do
+RSpec.describe AttachmentToHTML::Adapters::Text do
 
   let(:attachment) { FactoryBot.build(:body_text) }
   let(:adapter) { AttachmentToHTML::Adapters::Text.new(attachment) }

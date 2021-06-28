@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AlaveteliGetText::FuzzyCleaner do
+RSpec.describe AlaveteliGetText::FuzzyCleaner do
 
   describe '#clean_po' do
 

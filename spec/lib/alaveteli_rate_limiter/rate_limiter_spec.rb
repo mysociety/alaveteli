@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AlaveteliRateLimiter::RateLimiter do
+RSpec.describe AlaveteliRateLimiter::RateLimiter do
   let(:window) { AlaveteliRateLimiter::Window.new(1, :hour) }
   let(:rule) { AlaveteliRateLimiter::Rule.new(:test, 1, window) }
 

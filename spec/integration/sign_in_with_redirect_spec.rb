@@ -1,7 +1,7 @@
 require 'spec_helper'
 require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
-describe 'Signing in with a redirect parameter', local_requests: false do
+RSpec.describe 'Signing in with a redirect parameter', local_requests: false do
 
   context 'when not logged in' do
     let(:user) { FactoryBot.create(:user) }

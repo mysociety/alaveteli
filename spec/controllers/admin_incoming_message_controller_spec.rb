@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AdminIncomingMessageController, "when administering incoming messages" do
+RSpec.describe AdminIncomingMessageController, "when administering incoming messages" do
 
   describe 'when destroying an incoming message' do
 

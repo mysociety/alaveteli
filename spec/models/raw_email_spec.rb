@@ -10,7 +10,7 @@
 
 require 'spec_helper'
 
-describe RawEmail do
+RSpec.describe RawEmail do
 
   def roundtrip_data(raw_email, data)
     raw_email.data = data

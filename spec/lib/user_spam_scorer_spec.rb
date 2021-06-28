@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe UserSpamScorer do
+RSpec.describe UserSpamScorer do
 
   after(:each) { described_class.reset }
 

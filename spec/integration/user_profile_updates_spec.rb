@@ -1,7 +1,7 @@
 require 'spec_helper'
 require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
-describe 'Updating your user profile' do
+RSpec.describe 'Updating your user profile' do
 
   let(:user) { FactoryBot.create(:user) }
 

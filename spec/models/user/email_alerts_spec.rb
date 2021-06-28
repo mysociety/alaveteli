@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe User::EmailAlerts do
+RSpec.describe User::EmailAlerts do
   let(:user) { FactoryBot.create(:user, receive_email_alerts: true) }
 
   describe '.disable_by_token' do

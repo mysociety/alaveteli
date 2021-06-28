@@ -12,7 +12,7 @@
 
 require 'spec_helper'
 
-describe Holiday do
+RSpec.describe Holiday do
 
   describe '.new' do
 

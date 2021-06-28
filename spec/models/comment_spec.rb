@@ -16,7 +16,7 @@
 
 require 'spec_helper'
 
-describe Comment do
+RSpec.describe Comment do
 
   include Rails.application.routes.url_helpers
   include LinkToHelper

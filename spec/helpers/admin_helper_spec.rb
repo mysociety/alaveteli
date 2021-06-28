@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AdminHelper do
+RSpec.describe AdminHelper do
 
   include AdminHelper
   include ERB::Util

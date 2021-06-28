@@ -31,7 +31,7 @@
 
 require 'spec_helper'
 
-describe PublicBody do
+RSpec.describe PublicBody do
 
   describe <<-EOF.squish do
     temporary tests for Globalize::ActiveRecord::InstanceMethods#read_attribute
@@ -1000,7 +1000,7 @@ describe PublicBody do
 
 end
 
-describe PublicBody, " using tags" do
+RSpec.describe PublicBody, " using tags" do
   before do
     @public_body = PublicBody.new(:name => 'Aardvark Monitoring Service',
                                   :short_name => 'AMS',
@@ -1056,7 +1056,7 @@ describe PublicBody, " using tags" do
   end
 end
 
-describe PublicBody, " using machine tags" do
+RSpec.describe PublicBody, " using machine tags" do
   before do
     @public_body = PublicBody.new(:name => 'Aardvark Monitoring Service',
                                   :short_name => 'AMS',
@@ -1094,7 +1094,7 @@ describe PublicBody, " using machine tags" do
   end
 end
 
-describe PublicBody, "when finding_by_tags" do
+RSpec.describe PublicBody, "when finding_by_tags" do
 
   before do
     @geraldine = public_bodies(:geraldine_public_body)
@@ -1114,7 +1114,7 @@ describe PublicBody, "when finding_by_tags" do
   end
 end
 
-describe PublicBody, " when saving" do
+RSpec.describe PublicBody, " when saving" do
   before do
     @public_body = PublicBody.new
   end
@@ -1190,7 +1190,7 @@ describe PublicBody, " when saving" do
 
 end
 
-describe PublicBody, "when searching" do
+RSpec.describe PublicBody, "when searching" do
 
   it "should find by existing url name" do
     body = PublicBody.find_by_url_name_with_historic('dfh')
@@ -1247,7 +1247,7 @@ describe PublicBody, "when searching" do
   end
 end
 
-describe PublicBody, "when destroying" do
+RSpec.describe PublicBody, "when destroying" do
   let(:public_body) { FactoryBot.create(:public_body) }
 
   it 'should destroy the public_body' do
@@ -1290,7 +1290,7 @@ describe PublicBody, "when destroying" do
 
 end
 
-describe PublicBody, " when loading CSV files" do
+RSpec.describe PublicBody, " when loading CSV files" do
   before(:each) do
     # InternalBody is created the first time it's accessed, which happens sometimes during imports,
     # depending on the tag used. By accessing it here before every test, it doesn't disturb our checks later on
@@ -1880,7 +1880,7 @@ RSpec.describe PublicBody do
   end
 end
 
-describe PublicBody do
+RSpec.describe PublicBody do
 
   describe "calculated home page" do
     it "should return the home page verbatim if it's present" do
@@ -1989,7 +1989,7 @@ describe PublicBody do
 
 end
 
-describe PublicBody, " when override all public body request emails set" do
+RSpec.describe PublicBody, " when override all public body request emails set" do
   it "should return the overridden request email" do
     expect(AlaveteliConfiguration).to receive(:override_all_public_body_request_emails).twice.and_return("catch_all_test_email@foo.com")
     @geraldine = public_bodies(:geraldine_public_body)
@@ -1997,7 +1997,7 @@ describe PublicBody, " when override all public body request emails set" do
   end
 end
 
-describe PublicBody, "when calculating statistics" do
+RSpec.describe PublicBody, "when calculating statistics" do
   it "should not include hidden requests in totals" do
     with_hidden_and_successful_requests do
       totals_data = PublicBody.get_request_totals(n=3,
@@ -2073,7 +2073,7 @@ describe PublicBody, "when calculating statistics" do
 
 end
 
-describe PublicBody, 'when asked for popular bodies' do
+RSpec.describe PublicBody, 'when asked for popular bodies' do
 
   it 'should return bodies correctly when passed the hyphenated version of the locale' do
     allow(AlaveteliConfiguration).to receive(:frontpage_publicbody_examples).and_return('')
@@ -2087,7 +2087,7 @@ describe PublicBody, 'when asked for popular bodies' do
 
 end
 
-describe PublicBody do
+RSpec.describe PublicBody do
 
   describe '.foi_applies' do
     subject { PublicBody.foi_applies }
@@ -2317,7 +2317,7 @@ describe PublicBody do
   end
 end
 
-describe PublicBody::Translation do
+RSpec.describe PublicBody::Translation do
 
   it 'requires a locale' do
     translation = PublicBody::Translation.new
@@ -2334,7 +2334,7 @@ describe PublicBody::Translation do
 
 end
 
-describe PublicBody::Version do
+RSpec.describe PublicBody::Version do
   let(:public_body) { FactoryBot.create(:public_body) }
 
   describe '#compare' do

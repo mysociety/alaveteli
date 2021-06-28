@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe FollowupsController do
+RSpec.describe FollowupsController do
   render_views
 
   let(:request_user) { FactoryBot.create(:user) }

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe InfoRequest::State do
+RSpec.describe InfoRequest::State do
 
   describe :all do
 

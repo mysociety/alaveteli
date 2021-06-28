@@ -60,7 +60,7 @@ shared_examples_for "a class with message prominence" do
   end
 end
 
-describe Ability do
+RSpec.describe Ability do
   describe "reading IncomingMessages" do
     let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
     let!(:resource) { info_request.incoming_messages.first }

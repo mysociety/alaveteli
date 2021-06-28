@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "when generating urls" do
+RSpec.describe "when generating urls" do
 
   before do
     @home_link_regex = /href=".*\/en\//

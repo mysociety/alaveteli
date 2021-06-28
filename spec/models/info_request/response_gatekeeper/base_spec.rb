@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe InfoRequest::ResponseGatekeeper::Base do
+RSpec.describe InfoRequest::ResponseGatekeeper::Base do
 
   describe '.new' do
 

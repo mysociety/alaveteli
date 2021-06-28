@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe InfoRequestHelper do
+RSpec.describe InfoRequestHelper do
 
   include InfoRequestHelper
 

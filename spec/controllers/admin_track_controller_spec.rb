@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AdminTrackController do
+RSpec.describe AdminTrackController do
 
   describe 'GET index' do
 

@@ -1,7 +1,7 @@
 
 require 'spec_helper'
 
-describe 'highlighting search results' do
+RSpec.describe 'highlighting search results' do
   include HighlightHelper
 
   before do

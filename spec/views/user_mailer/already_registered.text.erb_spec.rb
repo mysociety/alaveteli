@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "user_mailer/already_registered" do
+RSpec.describe "user_mailer/already_registered" do
 
   before do
     allow(AlaveteliConfiguration).to receive(:site_name).

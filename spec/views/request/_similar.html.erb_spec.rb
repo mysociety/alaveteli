@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'request/similar' do
+RSpec.describe 'request/similar' do
   let(:info_request) { FactoryBot.build(:info_request) }
   let(:similar_requests) { FactoryBot.build_list(:info_request, 10) }
   let(:similar_more) { false }

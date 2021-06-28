@@ -11,7 +11,7 @@ def mail_reply_test(email_filename)
   end
 end
 
-describe "When filtering" do
+RSpec.describe "When filtering" do
 
   describe "when not in test mode" do
 

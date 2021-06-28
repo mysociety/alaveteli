@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AlaveteliRateLimiter::Rule do
+RSpec.describe AlaveteliRateLimiter::Rule do
 
   describe '.from_hash' do
 

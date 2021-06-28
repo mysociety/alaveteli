@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Users::MessagesController do
+RSpec.describe Users::MessagesController do
 
   render_views
 

@@ -17,7 +17,7 @@
 
 require 'spec_helper'
 
-describe PostRedirect do
+RSpec.describe PostRedirect do
 
   describe '#valid?' do
 
@@ -30,7 +30,7 @@ describe PostRedirect do
 
 end
 
-describe PostRedirect, " when constructing" do
+RSpec.describe PostRedirect, " when constructing" do
   before do
   end
 
@@ -66,7 +66,7 @@ describe PostRedirect, " when constructing" do
   end
 end
 
-describe PostRedirect, " when accessing values" do
+RSpec.describe PostRedirect, " when accessing values" do
   before do
   end
 

@@ -13,7 +13,7 @@
 
 require 'spec_helper'
 
-describe IncomingMessageError do
+RSpec.describe IncomingMessageError do
 
   describe '.new' do
 

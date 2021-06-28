@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ReminderMailer do
+RSpec.describe ReminderMailer do
 
   describe :public_holidays do
 

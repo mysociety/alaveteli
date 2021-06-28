@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe OutgoingMessages::DeliveryStatusesController do
+RSpec.describe OutgoingMessages::DeliveryStatusesController do
 
   before do
     lines = <<-EOF.strip_heredoc.split("\n")

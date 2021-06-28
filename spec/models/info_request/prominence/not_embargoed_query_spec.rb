@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe InfoRequest::Prominence::NotEmbargoedQuery do
+RSpec.describe InfoRequest::Prominence::NotEmbargoedQuery do
 
   describe '#call' do
 

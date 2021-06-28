@@ -1,7 +1,7 @@
 require 'spec_helper'
 require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
-describe "When viewing requests" do
+RSpec.describe "When viewing requests" do
 
   before do
     @info_request = FactoryBot.create(:info_request)

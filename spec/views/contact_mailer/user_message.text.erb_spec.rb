@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "contact_mailer/user_message" do
+RSpec.describe "contact_mailer/user_message" do
   let(:user) { FactoryBot.create(:user, :name => "Test Us'r") }
 
   before do

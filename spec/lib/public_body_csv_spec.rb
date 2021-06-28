@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe PublicBodyCSV do
+RSpec.describe PublicBodyCSV do
 
   describe '.default_fields' do
 

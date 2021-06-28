@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe User::TransactionCalculator do
+RSpec.describe User::TransactionCalculator do
 
   let(:user) { FactoryBot.create(:user) }
 

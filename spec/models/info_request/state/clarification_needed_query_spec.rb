@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe InfoRequest::State::ClarificationNeededQuery do
+RSpec.describe InfoRequest::State::ClarificationNeededQuery do
 
   describe '#call' do
     let(:info_request) { FactoryBot.create(:waiting_clarification_info_request) }

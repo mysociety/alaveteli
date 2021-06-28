@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'zip/filesystem'
 
-describe 'zipping pdf files' do
+RSpec.describe 'zipping pdf files' do
 
   it 'correctly records the size of the zipped file' do
     pdf_file = load_file_fixture('tfl.pdf')

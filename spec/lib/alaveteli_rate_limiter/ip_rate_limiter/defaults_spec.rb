@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AlaveteliRateLimiter::IPRateLimiter::Defaults do
+RSpec.describe AlaveteliRateLimiter::IPRateLimiter::Defaults do
 
   describe '.new' do
 

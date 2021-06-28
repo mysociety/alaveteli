@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AlaveteliPro::ActivityList::RequestSent do
+RSpec.describe AlaveteliPro::ActivityList::RequestSent do
   include Rails.application.routes.url_helpers
 
   let(:event) { FactoryBot.create(:sent_event) }

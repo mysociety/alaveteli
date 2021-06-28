@@ -75,7 +75,7 @@ shared_examples_for 'respecting the selected page' do
   end
 end
 
-describe AlaveteliPro::DraftInfoRequestBatchesController do
+RSpec.describe AlaveteliPro::DraftInfoRequestBatchesController do
   let(:pro_user) { FactoryBot.create(:pro_user) }
   let(:authority_1) { FactoryBot.create(:public_body) }
   let(:authority_2) { FactoryBot.create(:public_body) }

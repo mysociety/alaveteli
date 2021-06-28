@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "request_mailer/comment_on_alert_plural" do
+RSpec.describe "request_mailer/comment_on_alert_plural" do
   let(:request) { FactoryBot.create(:info_request) }
   let(:comment) { FactoryBot.create(:comment) }
 

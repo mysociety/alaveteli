@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AdminPublicBodyController do
+RSpec.describe AdminPublicBodyController do
 
   describe 'GET #index' do
 

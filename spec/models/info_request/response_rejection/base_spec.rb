@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe InfoRequest::ResponseRejection::Base do
+RSpec.describe InfoRequest::ResponseRejection::Base do
 
   describe '.new' do
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::TagHelper, type: :helper do
+RSpec.describe Admin::TagHelper, type: :helper do
   include HasTagString
 
   describe '#render_tag' do

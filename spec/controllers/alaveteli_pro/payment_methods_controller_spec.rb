@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'stripe_mock'
 
-describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
+RSpec.describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
   let(:stripe_helper) { StripeMock.create_test_helper }
   let(:user_token) { stripe_helper.generate_card_token }
   let(:new_token) { stripe_helper.generate_card_token }

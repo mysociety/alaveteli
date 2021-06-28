@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "request/show" do
+RSpec.describe "request/show" do
 
   let(:mock_body) { FactoryBot.create(:public_body, :name => "test body") }
 

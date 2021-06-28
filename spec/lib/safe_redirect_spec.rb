@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SafeRedirect do
+RSpec.describe SafeRedirect do
 
   describe '.new' do
 

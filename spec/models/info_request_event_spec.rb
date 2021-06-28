@@ -19,7 +19,7 @@
 
 require 'spec_helper'
 
-describe InfoRequestEvent do
+RSpec.describe InfoRequestEvent do
   describe "when checking for a valid state" do
     it 'should add an error message for described_state if it is not valid' do
       ire = InfoRequestEvent.new(:described_state => 'nope')

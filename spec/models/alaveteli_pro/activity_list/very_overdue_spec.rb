@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AlaveteliPro::ActivityList::VeryOverdue do
+RSpec.describe AlaveteliPro::ActivityList::VeryOverdue do
   include Rails.application.routes.url_helpers
 
   let(:event) { FactoryBot.create(:very_overdue_event) }

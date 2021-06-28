@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe RequestGameController do
+RSpec.describe RequestGameController do
 
   describe "GET play" do
 

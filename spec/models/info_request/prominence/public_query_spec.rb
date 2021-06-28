@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe InfoRequest::Prominence::PublicQuery do
+RSpec.describe InfoRequest::Prominence::PublicQuery do
 
   describe '#call' do
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe HelpController do
+RSpec.describe HelpController do
   render_views
 
   describe 'GET #index' do

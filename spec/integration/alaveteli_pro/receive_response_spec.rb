@@ -1,7 +1,7 @@
 require 'spec_helper'
 require File.expand_path(File.dirname(__FILE__) + '/../alaveteli_dsl')
 
-describe "receiving responses to requests in alaveteli_pro" do
+RSpec.describe "receiving responses to requests in alaveteli_pro" do
   context "when an embargoed request gets a new response" do
     let!(:pro_user) { FactoryBot.create(:pro_user) }
     let!(:pro_user_session) { login(pro_user) }

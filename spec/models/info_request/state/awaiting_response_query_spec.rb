@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe InfoRequest::State::AwaitingResponseQuery do
+RSpec.describe InfoRequest::State::AwaitingResponseQuery do
 
   describe '#call' do
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'request/sidebar' do
+RSpec.describe 'request/sidebar' do
   def render_view
     allow(view).to receive(:current_user).and_return(info_request.user)
     allow(controller).to receive(:current_ability).and_return(ability)

@@ -1,7 +1,7 @@
 require 'spec_helper'
 require File.expand_path(File.dirname(__FILE__) + '/../alaveteli_dsl')
 
-describe 'Adding/removing embargoes from requests' do
+RSpec.describe 'Adding/removing embargoes from requests' do
 
   let(:pro_user) { FactoryBot.create(:pro_user) }
   let(:user) { FactoryBot.create(:user) }

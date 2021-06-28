@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe MailServerLog::PostfixLine do
+RSpec.describe MailServerLog::PostfixLine do
 
   describe '.new' do
 

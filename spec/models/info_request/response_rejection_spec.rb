@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe InfoRequest::ResponseRejection do
+RSpec.describe InfoRequest::ResponseRejection do
 
   describe '.for' do
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe MailServerLog::DeliveryStatus do
+RSpec.describe MailServerLog::DeliveryStatus do
 
   describe '.new' do
 

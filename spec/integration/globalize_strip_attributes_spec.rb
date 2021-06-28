@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'globalize3 and strip_attributes' do
+RSpec.describe 'globalize3 and strip_attributes' do
 
   it 'strips spaces from attributes in the default locale' do
     body = FactoryBot.build(:public_body, :name => ' Trailing Spaces ')

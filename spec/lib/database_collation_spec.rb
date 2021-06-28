@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe DatabaseCollation do
+RSpec.describe DatabaseCollation do
 
   describe '.supports?' do
 

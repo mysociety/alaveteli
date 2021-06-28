@@ -12,7 +12,7 @@
 
 require 'spec_helper'
 
-describe WidgetVote do
+RSpec.describe WidgetVote do
 
   describe '.new' do
 

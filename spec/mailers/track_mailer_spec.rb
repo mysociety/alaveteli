@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe TrackMailer do
+RSpec.describe TrackMailer do
   describe '.alert_tracks' do
     subject { described_class.alert_tracks }
 

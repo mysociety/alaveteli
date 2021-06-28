@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AlaveteliPro::ToDoList::NewResponse do
+RSpec.describe AlaveteliPro::ToDoList::NewResponse do
   include Rails.application.routes.url_helpers
 
   let(:info_request) { FactoryBot.create(:old_unclassified_request) }

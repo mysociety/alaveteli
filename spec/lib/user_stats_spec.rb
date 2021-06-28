@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe UserStats do
+RSpec.describe UserStats do
 
   describe ".list_user_domains" do
 

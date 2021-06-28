@@ -26,7 +26,7 @@ shared_examples_for "creating a search" do
   end
 end
 
-describe AlaveteliPro::BatchRequestAuthoritySearchesController do
+RSpec.describe AlaveteliPro::BatchRequestAuthoritySearchesController do
   let(:pro_user) { FactoryBot.create(:pro_user) }
 
   describe "#index" do

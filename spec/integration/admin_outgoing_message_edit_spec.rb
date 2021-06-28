@@ -1,7 +1,7 @@
 require 'spec_helper'
 require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
-describe 'Editing the OutgoingMessage body' do
+RSpec.describe 'Editing the OutgoingMessage body' do
 
   let(:request) { FactoryBot.create(:info_request) }
   let(:ogm) { request.outgoing_messages.first }

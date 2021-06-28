@@ -6,7 +6,7 @@ script_dir = File.join(File.dirname(__FILE__), 'alaveteli_external_command_scrip
 segfault_script = File.join(script_dir, 'segfault.sh')
 error_script = File.join(script_dir, 'error.sh')
 
-describe "when running external commands" do
+RSpec.describe "when running external commands" do
 
   it "should detect a non-zero exit status" do
     expect($stderr).to receive(:puts).with(/Error from/)

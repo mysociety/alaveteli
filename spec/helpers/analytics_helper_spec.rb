@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AnalyticsHelper do
+RSpec.describe AnalyticsHelper do
 
   include AnalyticsHelper
 

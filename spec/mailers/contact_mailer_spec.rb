@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ContactMailer do
+RSpec.describe ContactMailer do
 
   describe :to_admin_message do
 

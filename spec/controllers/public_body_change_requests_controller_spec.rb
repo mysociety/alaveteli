@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe PublicBodyChangeRequestsController do
+RSpec.describe PublicBodyChangeRequestsController do
 
   describe 'GET #new' do
 

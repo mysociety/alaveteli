@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe InfoRequestBatchMailer do
+RSpec.describe InfoRequestBatchMailer do
 
   describe 'when sending batch sent notification' do
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "user_mailer/confirm_login" do
+RSpec.describe "user_mailer/confirm_login" do
 
   before do
     allow(AlaveteliConfiguration).to receive(:site_name).

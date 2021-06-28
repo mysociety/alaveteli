@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe OutgoingMessage::Template::BatchRequest do
+RSpec.describe OutgoingMessage::Template::BatchRequest do
 
   describe '.placeholder_salutation' do
 

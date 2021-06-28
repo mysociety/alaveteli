@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe HealthChecksHelper do
+RSpec.describe HealthChecksHelper do
   include HealthChecksHelper
 
   describe '#check_status' do

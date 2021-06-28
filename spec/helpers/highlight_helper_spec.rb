@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe HighlightHelper do
+RSpec.describe HighlightHelper do
   include HighlightHelper
 
   describe '#highlight_and_excerpt' do

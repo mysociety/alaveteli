@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AttachmentToHTML::View do
+RSpec.describe AttachmentToHTML::View do
 
   let(:adapter) do
     double(:adapter,

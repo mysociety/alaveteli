@@ -14,5 +14,5 @@
 
 require 'spec_helper'
 
-describe TrackThingsSentEmail, "when tracking things sent email" do
+RSpec.describe TrackThingsSentEmail, "when tracking things sent email" do
 end

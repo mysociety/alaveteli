@@ -6,7 +6,7 @@ def create_message_from(from_field)
   mail = MailHandler.mail_from_raw_email(mail_data)
 end
 
-describe 'when creating a mail object from raw data' do
+RSpec.describe 'when creating a mail object from raw data' do
 
   it "should be able to parse a large email without raising an exception" do
     m = Mail.new
@@ -84,7 +84,7 @@ describe 'when creating a mail object from raw data' do
   end
 end
 
-describe 'when asked for the from name' do
+RSpec.describe 'when asked for the from name' do
 
   it 'should return nil if there is a blank "From" field' do
     mail = create_message_from('')
@@ -108,7 +108,7 @@ describe 'when asked for the from name' do
 
 end
 
-describe 'when asked for the from address' do
+RSpec.describe 'when asked for the from address' do
 
   it 'should return nil if there is a blank "From" field' do
     mail = create_message_from('')
@@ -136,7 +136,7 @@ describe 'when asked for the from address' do
   end
 end
 
-describe 'when asked for all the addresses a mail has been sent to' do
+RSpec.describe 'when asked for all the addresses a mail has been sent to' do
 
   it 'should return an array containing the envelope-to address and the to address, and the cc address if there is one' do
     mail_data = load_file_fixture('humberside-police-odd-mime-type.email')
@@ -175,7 +175,7 @@ describe 'when asked for all the addresses a mail has been sent to' do
 
 end
 
-describe 'when asked for auto_submitted' do
+RSpec.describe 'when asked for auto_submitted' do
 
   it 'should return a string value for an email with an auto-submitted header' do
     mail = get_fixture_mail('autoresponse-header.email')
@@ -189,7 +189,7 @@ describe 'when asked for auto_submitted' do
 
 end
 
-describe 'when asked if there is an empty return path' do
+RSpec.describe 'when asked if there is an empty return path' do
 
   it 'should return true if there is an empty return-path specified' do
     mail = get_fixture_mail('empty-return-path.email')
@@ -207,7 +207,7 @@ describe 'when asked if there is an empty return path' do
   end
 end
 
-describe 'when deriving a name, email and formatted address from a message from a line' do
+RSpec.describe 'when deriving a name, email and formatted address from a message from a line' do
 
   def should_render_from_address(from_line, expected_result)
     mail = create_message_from(from_line)
@@ -262,7 +262,7 @@ describe 'when deriving a name, email and formatted address from a message from 
 
 end
 
-describe 'when getting the content type of a mail part' do
+RSpec.describe 'when getting the content type of a mail part' do
 
   def expect_content_type(fixture_file, content_type)
     mail = get_fixture_mail(fixture_file)
@@ -291,7 +291,7 @@ describe 'when getting the content type of a mail part' do
 
 end
 
-describe 'when getting header strings' do
+RSpec.describe 'when getting header strings' do
 
   def expect_header_string(fixture_file, header, header_string)
     mail = get_fixture_mail(fixture_file)
@@ -318,7 +318,7 @@ describe 'when getting header strings' do
 
 end
 
-describe "when parsing HTML mail" do
+RSpec.describe "when parsing HTML mail" do
   it "should display UTF-8 characters in the plain text version correctly" do
     html = "<html><b>foo</b> është"
     plain_text = MailHandler.get_attachment_text_one_file('text/html', html)
@@ -327,7 +327,7 @@ describe "when parsing HTML mail" do
 
 end
 
-describe "when getting the attachment text" do
+RSpec.describe "when getting the attachment text" do
   it "should not raise an error if the expansion of a zip file raises an error" do
     mock_entry = double('Zip::File entry', :file? => true)
     mock_entries = [mock_entry]
@@ -345,7 +345,7 @@ describe "when getting the attachment text" do
 
 end
 
-describe 'when getting attachment attributes' do
+RSpec.describe 'when getting attachment attributes' do
 
   it 'should handle an Outlook attachment with HTML generated from RTF' do
     mail = get_fixture_mail('outlook-encoding-rtf.email')
@@ -556,7 +556,7 @@ describe 'when getting attachment attributes' do
 
 end
 
-describe 'when getting the address part from an address string' do
+RSpec.describe 'when getting the address part from an address string' do
 
   it 'should handle non-ascii characters in the name input' do
     address = "\"Someone’s name\" <test@example.com>"

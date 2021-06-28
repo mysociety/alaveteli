@@ -14,7 +14,7 @@
 
 require 'spec_helper'
 
-describe AlaveteliPro::Embargo, :type => :model do
+RSpec.describe AlaveteliPro::Embargo, :type => :model do
   let(:embargo) { FactoryBot.create(:embargo) }
 
   it 'belongs to an info_request' do

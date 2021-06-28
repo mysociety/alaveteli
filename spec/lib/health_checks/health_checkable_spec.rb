@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe HealthChecks::HealthCheckable do
+RSpec.describe HealthChecks::HealthCheckable do
 
   before(:each) do
     class MockCheck

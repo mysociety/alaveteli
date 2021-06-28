@@ -38,11 +38,11 @@
 
 require 'spec_helper'
 
-describe User do
+RSpec.describe User do
   it_behaves_like 'PhaseCounts'
 end
 
-describe User, "making up the URL name" do
+RSpec.describe User, "making up the URL name" do
   before do
     @user = User.new
   end
@@ -58,7 +58,7 @@ describe User, "making up the URL name" do
   end
 end
 
-describe User, "banning the user" do
+RSpec.describe User, "banning the user" do
 
   it 'does not change the URL name' do
     user = FactoryBot.create(:user, :name => 'nasty user 123')
@@ -79,7 +79,7 @@ describe User, "banning the user" do
 
 end
 
-describe User, "showing the name" do
+RSpec.describe User, "showing the name" do
   before do
     @user = User.new
     @user.name = 'Some Name '
@@ -104,7 +104,7 @@ describe User, "showing the name" do
 
 end
 
-describe User, 'password hashing algorithms' do
+RSpec.describe User, 'password hashing algorithms' do
   def create_user(options = {})
     User.create(options.merge(
       name: 'User',
@@ -222,7 +222,7 @@ describe User, 'password hashing algorithms' do
 
 end
 
-describe User, 'when saving' do
+RSpec.describe User, 'when saving' do
   before do
     @user = User.new
   end
@@ -364,7 +364,7 @@ describe User, 'when saving' do
 end
 
 
-describe User, "when reindexing referencing models" do
+RSpec.describe User, "when reindexing referencing models" do
   let(:user) { FactoryBot.create(:user) }
   let!(:comment) { FactoryBot.create(:comment, :with_event, user: user) }
   let(:comment_event) { comment.reload.info_request_events.last }
@@ -412,7 +412,7 @@ describe User, "when reindexing referencing models" do
   end
 end
 
-describe User, "when checking abilities" do
+RSpec.describe User, "when checking abilities" do
 
   before do
     @user = users(:bob_smith_user)
@@ -428,7 +428,7 @@ describe User, "when checking abilities" do
 
 end
 
-describe User, 'when asked if a user owns every request' do
+RSpec.describe User, 'when asked if a user owns every request' do
 
   before do
     @mock_user = mock_model(User)
@@ -450,7 +450,7 @@ describe User, 'when asked if a user owns every request' do
 
 end
 
-describe User, " when making name and email address" do
+RSpec.describe User, " when making name and email address" do
   it "should generate a name and email" do
     @user = User.new
     @user.name = "Sensible User"
@@ -469,7 +469,7 @@ describe User, " when making name and email address" do
 end
 
 # TODO: not finished
-describe User, "when setting a profile photo" do
+RSpec.describe User, "when setting a profile photo" do
   before do
     @user = User.new
     @user.name = "Sensible User"
@@ -501,7 +501,7 @@ describe User, "when setting a profile photo" do
   #    end
 end
 
-describe User, '#should_be_emailed?' do
+RSpec.describe User, '#should_be_emailed?' do
 
   context 'when confirmed and active' do
     let(:user) { FactoryBot.build(:user) }
@@ -541,7 +541,7 @@ describe User, '#should_be_emailed?' do
 
 end
 
-describe User, "when emails have bounced" do
+RSpec.describe User, "when emails have bounced" do
 
   it "should record bounces" do
     User.record_bounce_for_email("bob@localhost", "A bounce message")
@@ -559,7 +559,7 @@ describe User, "when emails have bounced" do
 
 end
 
-describe User, "when calculating if a user has exceeded the request limit" do
+RSpec.describe User, "when calculating if a user has exceeded the request limit" do
 
   before do
     @info_request = FactoryBot.create(:info_request)
@@ -590,7 +590,7 @@ describe User, "when calculating if a user has exceeded the request limit" do
 
 end
 
-describe User do
+RSpec.describe User do
 
   describe '.authenticate_from_form' do
     let(:empty_user) { described_class.new }

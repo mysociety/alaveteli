@@ -57,7 +57,7 @@ gb_18030_bytes = [ 0xb9, 0xf3, 0xb9, 0xab, 0xcb, 0xbe, 0xb8, 0xba, 0xd4, 0xf0,
 
 gb_18030_spam_string = bytes_to_binary_string gb_18030_bytes
 
-describe "normalize_string_to_utf8" do
+RSpec.describe "normalize_string_to_utf8" do
 
   describe "when passed uniterpretable character data" do
 
@@ -100,7 +100,7 @@ describe "normalize_string_to_utf8" do
 
 end
 
-describe "convert_string_to_utf8_or_binary" do
+RSpec.describe "convert_string_to_utf8_or_binary" do
 
   describe "when passed uninterpretable character data" do
 
@@ -155,7 +155,7 @@ describe "convert_string_to_utf8_or_binary" do
 
 end
 
-describe "convert_string_to_utf8" do
+RSpec.describe "convert_string_to_utf8" do
 
   describe "when passed uninterpretable character data" do
 

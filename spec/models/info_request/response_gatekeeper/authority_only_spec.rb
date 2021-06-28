@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe InfoRequest::ResponseGatekeeper::AuthorityOnly do
+RSpec.describe InfoRequest::ResponseGatekeeper::AuthorityOnly do
 
   it 'inherits from Base' do
     expect(described_class.superclass).

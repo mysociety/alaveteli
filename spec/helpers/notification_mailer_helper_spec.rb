@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe NotificationMailerHelper do
+RSpec.describe NotificationMailerHelper do
   include NotificationMailerHelper
 
   describe "#notifications_by_event_type" do

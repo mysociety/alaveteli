@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe InfoRequest::ResponseGatekeeper do
+RSpec.describe InfoRequest::ResponseGatekeeper do
 
   describe '.for' do
 

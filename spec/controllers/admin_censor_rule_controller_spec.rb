@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AdminCensorRuleController do
+RSpec.describe AdminCensorRuleController do
   before(:each) { basic_auth_login(@request) }
 
   describe 'GET index' do

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AlaveteliPro::AccountRequestController do
+RSpec.describe AlaveteliPro::AccountRequestController do
 
   describe "#index" do
     it "renders index.html.erb" do

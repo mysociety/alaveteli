@@ -13,7 +13,7 @@
 
 require 'spec_helper'
 
-describe ProfilePhoto, "when constructing a new photo" do
+RSpec.describe ProfilePhoto, "when constructing a new photo" do
 
   before do
     @mock_user = mock_model(User)

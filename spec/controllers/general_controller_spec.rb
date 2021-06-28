@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe GeneralController do
+RSpec.describe GeneralController do
 
   describe 'GET version' do
 
@@ -76,7 +76,7 @@ describe GeneralController do
 
 end
 
-describe GeneralController, "when trying to show the blog" do
+RSpec.describe GeneralController, "when trying to show the blog" do
   it "should fail silently if the blog is returning an error" do
     allow(AlaveteliConfiguration).to receive(:blog_feed).
       and_return("http://blog.example.com")
@@ -87,7 +87,7 @@ describe GeneralController, "when trying to show the blog" do
   end
 end
 
-describe GeneralController, 'when getting the blog feed' do
+RSpec.describe GeneralController, 'when getting the blog feed' do
 
   before do
     allow(AlaveteliConfiguration).to receive(:blog_feed).and_return("http://blog.example.com")
@@ -139,7 +139,7 @@ describe GeneralController, 'when getting the blog feed' do
 
 end
 
-describe GeneralController, "when showing the frontpage" do
+RSpec.describe GeneralController, "when showing the frontpage" do
 
   render_views
 
@@ -268,7 +268,7 @@ describe GeneralController, "when showing the frontpage" do
 end
 
 
-describe GeneralController, 'when using xapian search' do
+RSpec.describe GeneralController, 'when using xapian search' do
 
   render_views
 

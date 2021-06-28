@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe DateQuarter do
+RSpec.describe DateQuarter do
   include DateQuarter
 
   describe '#quarters_between' do

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "general/frontpage" do
+RSpec.describe "general/frontpage" do
   before do
     @pb = mock_model(PublicBody,
       :name => 'Test Quango',

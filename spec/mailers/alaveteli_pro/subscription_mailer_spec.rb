@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AlaveteliPro::SubscriptionMailer, feature: [:alaveteli_pro] do
+RSpec.describe AlaveteliPro::SubscriptionMailer, feature: [:alaveteli_pro] do
   describe '.payment_failed' do
     let(:user) { FactoryBot.create(:pro_user, name: 'Paul Pro') }
     subject { described_class.payment_failed(user) }

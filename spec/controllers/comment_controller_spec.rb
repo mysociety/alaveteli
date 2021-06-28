@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe CommentController, "when commenting on a request" do
+RSpec.describe CommentController, "when commenting on a request" do
   render_views
 
   describe 'dealing with embargoed requests' do

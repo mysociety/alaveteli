@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe("notification_mailer/info_requests/messages/_very_overdue.text.erb") do
+RSpec.describe("notification_mailer/info_requests/messages/_very_overdue.text.erb") do
   let!(:public_body) { FactoryBot.create(:public_body, name: "One & Two") }
   let!(:info_request) do
     FactoryBot.create(:overdue_request, public_body: public_body)

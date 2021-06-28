@@ -11,7 +11,7 @@
 
 require 'spec_helper'
 
-describe SpamAddress do
+RSpec.describe SpamAddress do
   it { is_expected.to strip_attribute(:email) }
 
   describe '.new' do

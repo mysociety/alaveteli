@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AlaveteliPro::BatchRequestAuthoritySearchesHelper do
+RSpec.describe AlaveteliPro::BatchRequestAuthoritySearchesHelper do
 
   include AlaveteliPro::BatchRequestAuthoritySearchesHelper
 

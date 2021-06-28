@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AdminUsersSessionsController do
+RSpec.describe AdminUsersSessionsController do
 
   describe 'POST #create' do
     let(:admin_user) { FactoryBot.create(:admin_user) }

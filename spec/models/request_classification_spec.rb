@@ -12,7 +12,7 @@
 
 require 'spec_helper'
 
-describe RequestClassification do
+RSpec.describe RequestClassification do
 
   describe '.league_table' do
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AlaveteliPro::DashboardController do
+RSpec.describe AlaveteliPro::DashboardController do
   describe "#index" do
     let(:user) { FactoryBot.create(:pro_user) }
 

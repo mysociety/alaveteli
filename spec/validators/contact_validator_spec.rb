@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ContactValidator do
+RSpec.describe ContactValidator do
 
   describe '.new' do
 

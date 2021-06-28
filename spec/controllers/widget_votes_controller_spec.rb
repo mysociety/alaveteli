@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe WidgetVotesController do
+RSpec.describe WidgetVotesController do
 
   include LinkToHelper
 

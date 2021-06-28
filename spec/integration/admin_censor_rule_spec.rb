@@ -1,7 +1,7 @@
 require 'spec_helper'
 require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
-describe 'Updating censor rules' do
+RSpec.describe 'Updating censor rules' do
   let!(:admin) do
     confirm(:admin_user)
     login(:admin_user)

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'user/sign' do
+RSpec.describe 'user/sign' do
   describe 'when a not logged in user is redirected while trying to track a request' do
     before do
       html_title = "test's \"title\" of many HTML tags &c"

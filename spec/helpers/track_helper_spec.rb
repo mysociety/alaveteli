@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe TrackHelper do
+RSpec.describe TrackHelper do
 
   include TrackHelper
   include LinkToHelper

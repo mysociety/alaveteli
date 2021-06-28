@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe PasswordChangesController do
+RSpec.describe PasswordChangesController do
 
   describe 'GET new' do
 

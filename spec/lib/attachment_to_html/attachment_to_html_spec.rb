@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AttachmentToHTML do
+RSpec.describe AttachmentToHTML do
   include AttachmentToHTML
 
   let(:attachment) { FactoryBot.build(:body_text) }

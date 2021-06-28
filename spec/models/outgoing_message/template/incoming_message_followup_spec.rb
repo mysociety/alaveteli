@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe OutgoingMessage::Template::IncomingMessageFollowup do
+RSpec.describe OutgoingMessage::Template::IncomingMessageFollowup do
 
   describe '#body' do
 

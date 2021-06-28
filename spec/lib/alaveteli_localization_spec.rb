@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AlaveteliLocalization do
+RSpec.describe AlaveteliLocalization do
 
   describe '.set_locales' do
 
