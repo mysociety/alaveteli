@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'open-uri'
 
 def quietly_try_to_open(url, timeout=60)

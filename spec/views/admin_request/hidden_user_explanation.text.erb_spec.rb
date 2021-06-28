@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 describe 'admin_request/hidden_user_explanation.text.erb' do

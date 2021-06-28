@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 shared_examples_for 'NetworkSendErrors' do
 
   describe 'handles a network error during message sending' do

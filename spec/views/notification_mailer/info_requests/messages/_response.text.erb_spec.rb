@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 describe "notification_mailer/info_requests/messages/_response.text.erb" do

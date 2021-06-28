@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 module DateQuarter
   extend self
 

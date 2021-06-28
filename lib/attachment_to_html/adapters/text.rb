@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 module AttachmentToHTML
   module Adapters
     # Convert text/plain documents in to HTML

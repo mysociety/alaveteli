@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class CacheOnlyMarkedBodyText < ActiveRecord::Migration[4.2] # 2.3
   def self.up
     remove_column :incoming_messages, :cached_main_body_text

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # models/contact_mailer.rb:
 # Sends contact form mails.
 #

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 module AttachmentToHTML
   module Adapters
     # As this is a fallback option and not doing anything dynamic

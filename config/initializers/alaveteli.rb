@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # MySociety specific helper functions
 $:.push(File.join(File.dirname(__FILE__), '../../commonlib/rblib'))
 # ... if these fail to include, you need the commonlib submodule from git

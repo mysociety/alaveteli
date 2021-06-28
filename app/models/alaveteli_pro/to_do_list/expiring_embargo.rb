@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 module AlaveteliPro
   module ToDoList
     class ExpiringEmbargo < Item

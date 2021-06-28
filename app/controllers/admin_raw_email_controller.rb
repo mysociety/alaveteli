@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # app/controllers/admin_raw_email_controller.rb:
 # Controller for managing raw emails from the admin interface.
 #

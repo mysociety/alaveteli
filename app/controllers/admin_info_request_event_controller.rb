@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # app/controllers/admin_info_request_event_controller.rb:
 # Controller for FOI request event manipulation from the admin interface.
 #

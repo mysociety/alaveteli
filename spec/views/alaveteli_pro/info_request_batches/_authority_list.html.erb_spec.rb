@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 describe "alaveteli_pro/info_request_batches/_authority_list.html.erb" do

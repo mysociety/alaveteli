@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
 
 describe "request_mailer/not_clarified_alert" do

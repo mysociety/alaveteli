@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class AddFirstLetter < ActiveRecord::Migration[4.2] # 2.1
   def self.up
     add_column :public_bodies, :first_letter, :string

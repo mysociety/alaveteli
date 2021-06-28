@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class AlaveteliPro::PublicBodiesController < AlaveteliPro::BaseController
   include AlaveteliPro::PublicBodiesHelper
 

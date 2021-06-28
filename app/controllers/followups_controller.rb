@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class FollowupsController < ApplicationController
   before_action :check_read_only,
                 :set_incoming_message,

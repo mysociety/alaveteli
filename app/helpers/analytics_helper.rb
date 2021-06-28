@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 module AnalyticsHelper
 
   # helpers for embedding Google Analytics code

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 namespace :temp do
   desc 'Re-parse attachments affected by mysociety/alaveteli#5905'
   task reparse_multipart_incoming_with_unicode: :environment do

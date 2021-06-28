@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class CreatePurgeRequests < ActiveRecord::Migration[4.2] # 2.3
   def self.up
     create_table :purge_requests do |t|

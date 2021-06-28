@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 describe 'public_body_change_request_mailer/add_public_body' do

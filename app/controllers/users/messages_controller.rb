@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # Allowing users to send user-to-user messages
 class Users::MessagesController < UserController
 

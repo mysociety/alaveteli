@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 module PublicBodyHelper
 
   # Public: The reasons a request can't be made to a PublicBody

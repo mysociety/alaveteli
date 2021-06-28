@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class TrackThings < ActiveRecord::Migration[4.2] # 2.0
   def self.up
     create_table :track_things do |t|

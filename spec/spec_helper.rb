@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'rubygems'
 require 'webmock/rspec'
 require 'stripe_mock_patch'

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
 
 describe 'when showing the form for describing the state of a request' do

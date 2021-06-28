@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 module AlaveteliPro::InfoRequestsHelper
   def embargo_publish_at(embargo)
     return unless embargo && embargo.publish_at

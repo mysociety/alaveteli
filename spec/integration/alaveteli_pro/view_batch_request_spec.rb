@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 require 'integration/alaveteli_dsl'
 require 'support/shared_examples_for_viewing_requests'

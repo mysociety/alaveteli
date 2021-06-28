@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # app/controllers/admin_request_controller.rb:
 # Controller for viewing FOI requests from the admin interface.
 #

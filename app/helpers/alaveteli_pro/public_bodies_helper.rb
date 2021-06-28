@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 module AlaveteliPro::PublicBodiesHelper
   def public_body_search_attributes(body)
     result = {

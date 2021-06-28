@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class AlaveteliPro::PaymentMethodsController < AlaveteliPro::BaseController
   before_action :authenticate
 

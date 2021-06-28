@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 namespace :embargoes do
 
   desc "Delete any embargoes that have expired"

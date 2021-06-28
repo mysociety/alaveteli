@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # -*- SkipSchemaAnnotations
 class MailServerLog::EximDeliveryStatus
   module TranslatedConstants

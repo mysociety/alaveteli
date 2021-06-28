@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
 
 describe "track_mailer/event_digest" do

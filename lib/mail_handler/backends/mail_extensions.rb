@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'mail/message'
 require 'mail/part'
 require 'mail/fields/common/parameter_hash'

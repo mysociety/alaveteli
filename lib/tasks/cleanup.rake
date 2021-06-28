@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 namespace :cleanup do
 
   desc 'Clean up all message redelivery and destroy actions from the holding pen to make admin actions there faster'

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 module InfoRequestCustomStates
 
   def self.included(base)
