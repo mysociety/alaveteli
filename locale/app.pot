@@ -1952,7 +1952,7 @@ msgstr ""
 msgid "Please type a message and/or choose a file containing your response."
 msgstr ""
 
-msgid "Please update the status of your request"
+msgid "Please update the status of your request - {{request_title}}"
 msgstr ""
 
 msgid "Please use this email address for all replies to this request:"
