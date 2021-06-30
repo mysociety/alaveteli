@@ -273,3 +273,21 @@
   country:
     en: Argentina
     es: Argentina
+
+- title: Tunabakonzi
+  url: http://tunabakonzi.org
+  image: tunabakonzi.jpg
+  featured: false
+  pro: false
+  country:
+    en: Democratic Republic of the Congo
+    es: República Democrática del Congo
+
+- title: arthro5A.gr
+  url: https://arthro5a.gr
+  image: arthro5a.jpg
+  featured: false
+  pro: false
+  country:
+    en: Greece
+    es: Grecia
