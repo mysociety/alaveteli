@@ -458,10 +458,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def alaveteli_git_commit
-    `git log -1 --format="%H"`.strip
-  end
-
   # URL Encode the path parameter for use in render_exception
   #
   # params - the params Hash
