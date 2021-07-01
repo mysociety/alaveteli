@@ -10,9 +10,8 @@ title: Manual installation
     The following instructions describe the step-by-step process for
     installing Alaveteli. <em>You don't necessarily need to do it this
     way:</em> it's usually easier to use the
-    <a href="{{ page.baseurl }}/docs/installing/script/">installation script</a>
-    or the
-    <a href="{{ page.baseurl }}/docs/installing/ami/">Amazon EC2 AMI</a>.
+    <a href="{{ page.baseurl }}/docs/installing/script/">installation
+    script</a>.
 </p>
 
 Note that there are [other ways to install Alaveteli]({{ page.baseurl }}/docs/installing/).
