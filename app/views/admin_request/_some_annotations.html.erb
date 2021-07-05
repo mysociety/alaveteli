@@ -12,7 +12,7 @@
               #<%= comment.id %>
             --
             <%= h(comment.user.name) %>
-            <%= admin_value(comment.created_at) %>
+            <%= admin_date(comment.created_at) %>
           <% end %>
 
           <%= comment_visibility(comment) %>

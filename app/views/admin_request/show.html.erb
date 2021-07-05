@@ -340,7 +340,7 @@
           <%=incoming_message.id%>
           --
           <%= h(incoming_message.mail_from) %>
-          at <%=admin_value(incoming_message.sent_at) %>
+          at <%= admin_date(incoming_message.sent_at) %>
         <% end %>
         <blockquote class="incoming-message">
           <% if !incoming_message.cached_main_body_text_folded.nil? %>
