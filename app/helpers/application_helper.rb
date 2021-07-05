@@ -67,7 +67,7 @@ module ApplicationHelper
   def admin_value(v)
     if v.nil?
       nil
-    elsif v.instance_of?(Time)
+    elsif v.is_a?(Time)
       admin_date(v)
     else
       h(v)
