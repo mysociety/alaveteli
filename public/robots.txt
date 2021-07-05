@@ -4,10 +4,6 @@
 # searches. We also block /feed/, as RSS readers (rightly, I think) don't seem
 # to check robots.txt.
 
-# Note: Can delay Bing's crawler with:
-#       Crawl-delay: 1
-# http://www.bing.com/community/blogs/webmaster/archive/2009/08/10/crawl-delay-and-the-bing-crawler-msnbot.aspx
-
 # This file uses the non-standard extension characters * and $, which
 # are supported by Google and Yahoo! and the 'Allow' directive, which
 # is supported by Google.
