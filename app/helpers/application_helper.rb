@@ -76,12 +76,12 @@ module ApplicationHelper
 
   def admin_date(date, ago: true, ago_only: false)
     ago_text = _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(date))
-    return ago_text if ago_only
+    text = ago_text if ago_only
 
     exact_date = I18n.l(date, :format => "%e %B %Y %H:%M:%S")
-    return "#{exact_date} (#{ago_text})" if ago
+    text ||= "#{exact_date} (#{ago_text})" if ago
 
-    exact_date
+    time_tag(date, text || exact_date, title: date)
   end
 
   def read_asset_file(asset_name)
