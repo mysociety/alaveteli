@@ -21,12 +21,7 @@
             <%= h name %>
           </span>
           <span class="span6">
-            <% if type == 'datetime' && value %>
-              <%= value.to_s(:db) %>
-              (<%= time_ago_in_words(value) %> ago)
-            <% else %>
-              <%=h value %>
-            <% end %>
+            <%= admin_value(value) %>
           </span>
         </div>
       <% end %>

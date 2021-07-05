@@ -28,12 +28,7 @@
             <tr>
               <td><b><%= h name %></b></td>
               <td>
-                <% if type == 'datetime' %>
-                  <%= value.to_s(:db) %>
-                  (<%= time_ago_in_words(value) %> ago)
-                <% else %>
-                  <%= h value %>
-                <% end %>
+                <%= admin_value(value) %>
               </td>
             </tr>
           <% end %>
