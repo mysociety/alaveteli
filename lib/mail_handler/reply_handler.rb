@@ -96,18 +96,30 @@ module MailHandler
 
     def self.forward_on(raw_message, message = nil)
       forward_to = self.get_forward_to_address(message)
-      IO.popen("/usr/sbin/sendmail -i #{forward_to}", "wb") do |f|
+      #puts "forward_to: #{forward_to}"
+      IO.popen(self.sendmail_command(forward_to), "wb") do |f|
         f.write(raw_message);
         f.close;
       end
     end
 
+    def self.sendmail_command(forward_to)
+      return '/usr/sbin/sendmail -it' unless forward_to
+      "/usr/sbin/sendmail -i #{forward_to}"
+    end
+
     def self.get_forward_to_address(message)
       forward_to = AlaveteliConfiguration.forward_nonbounce_responses_to
+
       if AlaveteliConfiguration.enable_alaveteli_pro
+        contact_email = AlaveteliConfiguration.contact_email
         pro_contact_email = AlaveteliConfiguration.pro_contact_email
+
         original_to = message ? MailHandler.get_all_addresses(message) : []
-        if original_to.include?(pro_contact_email)
+
+        if original_to.include?(pro_contact_email) && original_to.include?(contact_email)
+          forward_to = nil
+        elsif original_to.include?(pro_contact_email)
           forward_to = AlaveteliConfiguration.forward_pro_nonbounce_responses_to
         end
       end
