@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20210706195253
 #
 # Table name: info_requests
 #
@@ -14,7 +14,7 @@
 #  awaiting_description                  :boolean          default("false"), not null
 #  prominence                            :string           default("normal"), not null
 #  url_title                             :text             not null
-#  law_used                              :string           default("foi"), not null
+#  law_used                              :string           not null
 #  allow_new_responses_from              :string           default("anybody"), not null
 #  handle_rejected_responses             :string           default("bounce"), not null
 #  idhash                                :string           not null

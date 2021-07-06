@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20210706195253
 #
 # Table name: info_requests
 #
@@ -13,7 +13,7 @@
 #  awaiting_description                  :boolean          default("false"), not null
 #  prominence                            :string           default("normal"), not null
 #  url_title                             :text             not null
-#  law_used                              :string           default("foi"), not null
+#  law_used                              :string           not null
 #  allow_new_responses_from              :string           default("anybody"), not null
 #  handle_rejected_responses             :string           default("bounce"), not null
 #  idhash                                :string           not null
@@ -48,6 +48,7 @@ fancy_dog_request:
     last_public_response_at: 2007-11-13 18:09:20.042061
     idhash: 50929748
     use_notifications: false
+    law_used: foi
 naughty_chicken_request:
     id: 103
     title: How much public money is wasted on breeding naughty chickens?
@@ -61,6 +62,7 @@ naughty_chicken_request:
     comments_allowed: true
     idhash: e8d18c84
     use_notifications: false
+    law_used: foi
 badger_request:
     id: 104
     title: Are you really a badger?
@@ -74,6 +76,7 @@ badger_request:
     comments_allowed: true
     idhash: e8d18c85
     use_notifications: false
+    law_used: foi
 boring_request:
     id: 105
     title: The cost of boring
@@ -88,6 +91,7 @@ boring_request:
     last_public_response_at: 2007-11-13 18:00:20
     idhash: 173fd003
     use_notifications: false
+    law_used: foi
 another_boring_request:
     id: 106
     title: The cost of boring
@@ -102,6 +106,7 @@ another_boring_request:
     last_public_response_at: 2007-11-13 18:09:20.042061
     idhash: 173fd004
     use_notifications: false
+    law_used: foi
 
 # A pair of identical requests (with url_title differing only in the numeric suffix)
 # used to test the request de-duplication features.
@@ -119,6 +124,7 @@ spam_1_request:
     last_public_response_at: 2001-01-03 01:23:45.6789100
     idhash: 173fd005
     use_notifications: false
+    law_used: foi
 spam_2_request:
     id: 108
     title: Cheap v1agra
@@ -132,6 +138,7 @@ spam_2_request:
     comments_allowed: true
     idhash: 173fd006
     use_notifications: false
+    law_used: foi
 external_request:
     id: 109
     title: Balalas
@@ -147,6 +154,7 @@ external_request:
     last_public_response_at: 2001-01-03 02:23:45.6789100
     idhash: a1234567
     use_notifications: false
+    law_used: foi
 anonymous_external_request:
     id: 110
     title: Anonymous request
@@ -161,6 +169,7 @@ anonymous_external_request:
     created_at: 2010-01-01 01:23:45.6789100
     updated_at: 2010-01-01 01:23:45.6789100
     use_notifications: false
+    law_used: foi
 other_request:
     id: 111
     title: Another request
@@ -174,3 +183,4 @@ other_request:
     comments_allowed: true
     idhash: b234567a
     use_notifications: false
+    law_used: foi
