@@ -3,6 +3,12 @@ layout: page
 title: Installation from AMI
 ---
 
+<div class="attention-box warning">
+  <p>
+    We no longer support or maintain the Amazon AMI.
+  </p>
+</div>
+
 # Installation on Amazon EC2
 
 <p class="lead">
@@ -22,16 +28,6 @@ If you want to use this for a
 <a href="{{ page.baseurl }}/docs/glossary/#production" class="glossary__link">production site</a>,
 you must
 [change the configuration]({{ page.baseurl }}/docs/customising/config/#staging_site).
-
-<div class="attention-box warning">
-  <p>
-    As <a href="{{ page.baseurl }}/docs/installing/vagrant/">Vagrant</a> now
-    seems to be the most popular way to try out Alaveteli, we are no longer 
-    updating the AMI with every release so the AMI is not guaranteed to include 
-    the latest version of Alaveteli. However, we may be able to update the AMI 
-    on request, <a href="{{ page.baseurl }}/community/">just get in touch!</a>
-  </p>
-</div>
 
 <div class="attention-box">
   <p>
