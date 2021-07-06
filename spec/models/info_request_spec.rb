@@ -93,25 +93,32 @@ describe InfoRequest do
     end
   end
 
-  describe 'creating a new request' do
+  describe 'validating a new request' do
+    let(:legislation) { FactoryBot.build(:legislation, key: 'eir') }
+    let(:public_body) { FactoryBot.build(:public_body) }
 
-    it 'sets the default law used' do
-      expect(InfoRequest.new.law_used).to eq('foi')
+    before do
+      allow(public_body).to receive(:legislation).and_return(legislation)
+    end
+
+    it 'does not sets the default law used' do
+      expect(InfoRequest.new.law_used).to be_nil
     end
 
     it 'sets the default law used to the legislation key' do
-      legislation = FactoryBot.build(:legislation, key: 'eir')
-      allow_any_instance_of(InfoRequest).to receive(:legislation).
-        and_return(legislation)
-      expect(InfoRequest.new(law_used: nil).law_used).to eq('eir')
+      request = InfoRequest.new(public_body: public_body)
+      expect { request.valid? }.to change(request, :law_used).
+        from(nil).to('eir')
     end
 
     it 'does not try to overwrite the existing law used' do
-      legislation = FactoryBot.build(:legislation, key: 'eir')
-      allow_any_instance_of(InfoRequest).to receive(:legislation).
-        and_return(legislation)
-      expect(InfoRequest.new(law_used: 'foi').law_used).to eq('foi')
+      request = InfoRequest.new(law_used: 'foi', public_body: public_body)
+      expect { request.valid? }.to_not change(request, :law_used).
+        from('foi')
     end
+  end
+
+  describe 'creating a new request' do
 
     it "sets the url_title from the supplied title" do
       info_request = FactoryBot.create(:info_request, :title => "Test title")

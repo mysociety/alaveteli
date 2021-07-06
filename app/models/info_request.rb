@@ -185,7 +185,7 @@ class InfoRequest < ApplicationRecord
   after_destroy :update_counter_cache
   after_update :reindex_some_request_events
   before_destroy :expire
-  before_validation :compute_idhash
+  before_validation :compute_idhash, :set_law_used
   before_create :set_use_notifications
 
   # Return info request corresponding to an incoming email address, or nil if
@@ -1872,8 +1872,10 @@ class InfoRequest < ApplicationRecord
       # this should only happen on Model.exists? call. It can be safely ignored.
       # See http://www.tatvartha.com/2011/03/activerecordmissingattributeerror-missing-attribute-a-bug-or-a-features/
     end
+  end
 
-    self.law_used ||= legislation.key if new_record?
+  def set_law_used
+    self.law_used ||= public_body.legislation.key if public_body
   end
 
   def set_use_notifications
