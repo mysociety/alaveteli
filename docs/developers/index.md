@@ -41,10 +41,7 @@ title: For developers
   [installation script]({{ page.baseurl }}/docs/installing/script/), or follow the
   instructions for a
   [manual installation]({{ page.baseurl }}/docs/installing/manual_install/).
-  Alternatively, there's an [Alaveteli EC2 AMI]({{ page.baseurl }}/docs/installing/ami/)
-  that might help you get up and running quickly.
-  [Get in touch]({{ page.baseurl }}/community/) on the project mailing list or IRC
-  for help.
+  [Get in touch]({{ page.baseurl }}/community/) for help.
 
 * A standard initial step for customising your deployment is [writing a
   theme]({{ page.baseurl }}/docs/customising/themes/). **If you only read one thing,

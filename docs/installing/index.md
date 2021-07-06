@@ -63,10 +63,9 @@ Depending on the resources you have available, it might be that your staging ser
     Although we recommend Vagrant for development, there are of course other ways
     to install Alaveteli. Vagrant is never suitable for production (but remember
     that you won't need a production site until you've done a development
-    deployment). We've made an Amazon Machine Image (AMI) so you can quickly
-    deploy on Amazon EC2. If you prefer to use your own server, there's an
-    installation script which does most of the work for you, or you can follow
-    the manual installation instructions.
+    deployment). For your own server, there's an installation script which does
+    most of the work for you, or you can follow the manual installation
+    instructions.
 </div>
 <div class="attention-box helpful-hint">
     <strong>
@@ -76,7 +75,7 @@ Depending on the resources you have available, it might be that your staging ser
     </strong>
 </div>
 
-* [Install on Amazon EC2]({{ page.baseurl }}/docs/installing/ami/) using our AMI
+* ~~[Install on Amazon EC2]({{ page.baseurl }}/docs/installing/ami/) using our AMI~~ We no longer support the Amazon AMI
 * [Use the installation script]({{ page.baseurl }}/docs/installing/script/) which does the full installation on your own server
 * [Manual installation]({{ page.baseurl }}/docs/installing/manual_install/) -- step-by-step instructions
 
