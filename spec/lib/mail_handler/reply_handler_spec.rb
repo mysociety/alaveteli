@@ -17,15 +17,8 @@ RSpec.describe MailHandler::ReplyHandler do
   end
 
   describe '.get_forward_to_address' do
-    let(:pro_message) do
-      raw_email = load_file_fixture('pro-contact-reply.email')
-      MailHandler.mail_from_raw_email(raw_email)
-    end
-
-    let(:normal_message) do
-      raw_email = load_file_fixture('normal-contact-reply.email')
-      MailHandler.mail_from_raw_email(raw_email)
-    end
+    let(:normal_message) { get_fixture_mail('normal-contact-reply.email') }
+    let(:pro_message) { get_fixture_mail('pro-contact-reply.email') }
 
     let(:normal_recipient) do
       AlaveteliConfiguration.forward_nonbounce_responses_to
