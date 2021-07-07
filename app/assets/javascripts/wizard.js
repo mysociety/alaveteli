@@ -356,5 +356,17 @@
     expandFieldset();
   });
 
+  // work out what hashes we're looking for
+  var IDs = [];
+  $("#help_unhappy h2[ID]").each(function(){ 
+    IDs.push(this.id); 
+  });
+
+  // show unrolled details tag if they've come to the page with a known location hash
+  var hash = window.location.hash;
+
+  if(IDs.includes(hash.slice(1))) {
+    $(hash + ' + details' ).attr('open', '').addClass('flash');
+  }
 
 })(window.jQuery);
