@@ -165,7 +165,7 @@ class InfoRequest < ApplicationRecord
   validate :must_be_valid_state
   validates_inclusion_of :prominence, :in => Prominence::VALUES
 
-  validates_inclusion_of :law_used, in: Legislation.keys
+  validates_inclusion_of :law_used, in: Legislation.keys, allow_nil: true
 
   # who can send new responses
   validates_inclusion_of :allow_new_responses_from, :in => [
