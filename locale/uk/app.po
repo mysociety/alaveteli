@@ -33,15 +33,15 @@
 # louisecrow <louise@mysociety.org>, 2013-2014
 # Natalie Hiirulainen <murahoid@gmail.com>, 2014,2016
 # Natalie Hiirulainen <murahoid@gmail.com>, 2012
-# Natalie Hiirulainen <murahoid@gmail.com>, 2012,2014,2016-2019
+# Natalie Hiirulainen <murahoid@gmail.com>, 2012,2014,2016-2019,2021
 # Natalie Hiirulainen <murahoid@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-06-24 16:55+0100\n"
-"PO-Revision-Date: 2021-06-24 16:12+0000\n"
-"Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
+"PO-Revision-Date: 2021-07-05 10:21+0000\n"
+"Last-Translator: Natalie Hiirulainen <murahoid@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/mysociety/alaveteli/languag"
 "e/uk/)\n"
 "MIME-Version: 1.0\n"
@@ -153,7 +153,7 @@ msgid "(or <a href=\"{{url}}\">sign in</a>)"
 msgstr ""
 
 msgid "(show)"
-msgstr ""
+msgstr "(показати)"
 
 msgid ""
 ",\n"
@@ -188,19 +188,16 @@ msgid "<a href=\"{{new_request_link}}\">Make a new EIR request</a> to {{public_b
 msgstr ""
 
 msgid "<a href=\"{{new_request_link}}\">Make a new FOI request</a> to {{public_body_name}}"
-msgstr ""
+msgstr "<a href=\"{{new_request_link}}\">Зробити новий запит</a> до розпорядника {{public_body_name}}"
 
 msgid "<a href=\"{{sign_in_link}}\">Sign in</a> to get updates on things you follow or re-enable email alerts."
 msgstr ""
 
 msgid "<a href=\"{{url}}\">Do you want to request private information about yourself?</a>"
-msgstr ""
-"<strong>Заувага щодо приватності:</strong> Якщо ви хочете зробити запит \n"
-"про приватну інформацію щодо себе, \n"
-"<a href=\"{{url}}\">натисніть сюди</a>."
+msgstr " "
 
 msgid "<a href=\"{{url}}\">Keep it <strong>focused</strong></a>, you'll be more likely to get what you want."
-msgstr "Конкретизуйте ваш запит, так ви маєте більше шансів отримати потрібну інформацію (<a href=\"{{url}}\">чому?</a>)."
+msgstr "Конкретизуйте ваш запит, так ви маєте більше шансів отримати потрібну інформацію"
 
 msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
 msgstr "<a href=\"{{url}}\">Увійдіть</a>, щоб змінити пароль, підписку тощо (це стосується тільки користувача {{user_name}})"
@@ -292,9 +289,7 @@ msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</
 msgstr ""
 
 msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
-msgstr ""
-"<strong> Чи можу я запитати інформацію про себе?</strong>\n"
-"\t\t\t<a href=\"{{url}}\">Ні! (Деталі тут)</a>"
+msgstr " "
 
 msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, you will need a good internal knowledge of user behaviour on {{site_name}}. How, why and by whom requests are categorised is not straightforward, and there will be user error and ambiguity. You will also need to understand FOI law, and the way authorities use it. Plus you'll need to be an elite statistician.  Please <a href=\"{{contact_path}}\">contact us</a> with questions."
 msgstr ""
@@ -344,7 +339,7 @@ msgid "<strong>Some of the information</strong> has been sent "
 msgstr "Інформація була надіслана частково."
 
 msgid "<strong>Thank</strong> the public authority or the requester."
-msgstr "<strong>Подякуйте</strong> розпоряднику інформації або автор запиту."
+msgstr "<strong>Подякуйте</strong> розпоряднику інформації або автору запиту."
 
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
 msgstr "<strong>Подякуйте</strong> розпоряднику інформації або {{user_name}}."
@@ -424,7 +419,7 @@ msgid "Act on what you've learnt"
 msgstr "Дійте, спираючись на отриману інформацію"
 
 msgid "Action needed"
-msgstr ""
+msgstr "Потрібні дії"
 
 msgid "Actions"
 msgstr ""
@@ -522,10 +517,10 @@ msgid "Annotation added to request"
 msgstr "До запиту додано коментар"
 
 msgid "Annotation contains defamatory material"
-msgstr ""
+msgstr "Коментар містить неправдиву інформацію"
 
 msgid "Annotation contains personal information"
-msgstr ""
+msgstr "Коментар містить особисту інформацію"
 
 msgid "Annotations"
 msgstr "Коментарі"
@@ -588,10 +583,10 @@ msgid "Attachment:"
 msgstr "Додаток:"
 
 msgid "Authority email:"
-msgstr ""
+msgstr "Адреса розпорядника:"
 
 msgid "Authority name"
-msgstr ""
+msgstr "Назва розпорядника"
 
 msgid "Authority:"
 msgstr ""
@@ -612,10 +607,10 @@ msgid "Awaiting internal review."
 msgstr "Очікує на внутрішню перевірку."
 
 msgid "Awaiting response"
-msgstr "Чекає на відповідь"
+msgstr "В очікуванні відповіді"
 
 msgid "Awaiting response."
-msgstr "Очікує на відповідь"
+msgstr "В очікуванні відповіді."
 
 msgid "Back to content"
 msgstr ""
@@ -657,7 +652,7 @@ msgid "By law, they have to respond."
 msgstr "Відповідно за закону, вони мають відповісти"
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
-msgstr "Згідно з законодавством, за будь-яких умов {{public_body_link}} мав би вже відповісти"
+msgstr " "
 
 msgid "By law, you should get a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>."
 msgstr ""
@@ -723,7 +718,7 @@ msgid "Clarification"
 msgstr "Уточнення"
 
 msgid "Clarification needed"
-msgstr ""
+msgstr "Потрібне уточнення"
 
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Пояснення надіслане розпоряднику {{public_body_name}} користувачем {{info_request_user}} {{date}}."
@@ -761,10 +756,10 @@ msgid "Close the request and respond:"
 msgstr "Закрити запит і відповісти:"
 
 msgid "Collapse all correspondence"
-msgstr ""
+msgstr "Приховати всю переписку"
 
 msgid "Complete"
-msgstr ""
+msgstr "Завершено"
 
 msgid "Confirm password:"
 msgstr "Пароль (ще раз):"
@@ -868,7 +863,7 @@ msgstr ""
 "            environmental factors listed above)"
 
 msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they should respond promptly and"
-msgstr ""
+msgstr "Відповідь очікується і має надійти"
 
 msgid "Data interpretation"
 msgstr ""
@@ -877,13 +872,13 @@ msgid "Date:"
 msgstr "Дата:"
 
 msgid "Dear [Authority name],"
-msgstr ""
+msgstr "Доброго дня!"
 
 msgid "Dear {{name}},"
 msgstr "Доброго дня,"
 
 msgid "Dear {{placeholder_body_name}},"
-msgstr ""
+msgstr "Доброго дня,"
 
 msgid "Dear {{public_body_name}},"
 msgstr "Доброго дня!"
@@ -895,7 +890,7 @@ msgid "Defunct."
 msgstr ""
 
 msgid "Delayed"
-msgstr ""
+msgstr "Відстрочено"
 
 msgid "Delayed response to your FOI request - {{request_title}}"
 msgstr "Відстрочена відповідь на ваш запит - {{request_title}}"
@@ -952,7 +947,7 @@ msgid "Download original attachment"
 msgstr "Завантажити початкове вкладення"
 
 msgid "Downloads"
-msgstr ""
+msgstr "Завантаження"
 
 msgid "EIR"
 msgstr "EIR"
@@ -1019,10 +1014,10 @@ msgid "Everything that you enter on this page, including <strong>your name</stro
 msgstr ""
 "Усе, що ви введете на цій сторінці (включно з вашим іменем), \n"
 "буде <strong>опубліковано у вільному доступі</strong> на\n"
-" цьому вебсайті назавжди (<a href=\"{{url}}\">чому?</a>)."
+" цьому вебсайті назавжди "
 
 msgid "Expand all correspondence"
-msgstr ""
+msgstr "Показати всю переписку"
 
 msgid "Extract data"
 msgstr ""
@@ -1037,7 +1032,7 @@ msgid "FOI"
 msgstr ""
 
 msgid "FOI email address for {{public_body}}"
-msgstr "Електронна адреса розпорядника '{public_body}}'"
+msgstr "Електронна адреса розпорядника '{{public_body}}'"
 
 msgid "FOI law does not apply to this authority."
 msgstr ""
@@ -1067,7 +1062,7 @@ msgid "Filter"
 msgstr "Фільтр"
 
 msgid "Filter by Request Status (optional)"
-msgstr ""
+msgstr "Фільтр за статусом запиту (необов'язково)"
 
 msgid "Find an authority"
 msgstr "Оберіть розпорядника інформації, якому хочете написати"
@@ -1169,13 +1164,17 @@ msgstr[3] "Знайдено {{count}} розпорядників, що почи�
 
 msgid "Found {{count}} public authority in the category ‘{{category_name}}’"
 msgid_plural "Found {{count}} public authorities in the category ‘{{category_name}}’"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Знайдено {{count}} розпорядника у категорії {{category_name}}"
+msgstr[1] "Знайдено {{count}} розпорядників у категорії {{category_name}}"
+msgstr[2] "Знайдено {{count}} розпорядників у категорії {{category_name}}"
+msgstr[3] "Знайдено {{count}} розпорядників у категорії {{category_name}}"
 
 msgid "Found {{count}} public authority matching the tag ‘{{tag_name}}’"
 msgid_plural "Found {{count}} public authorities matching the tag ‘{{tag_name}}’"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Знайдено {{count}} розпорядника у категорії {{tag_name}}"
+msgstr[1] "Знайдено {{count}} розпорядників у категорії {{tag_name}}"
+msgstr[2] "Знайдено {{count}} розпорядників у категорії {{tag_name}}"
+msgstr[3] "Знайдено {{count}} розпорядників у категорії {{tag_name}}"
 
 msgid "Four weeks ago you made a Freedom of Information request to {{public_body_name}} using {{site_name}}."
 msgstr ""
@@ -1301,7 +1300,7 @@ msgstr ""
 "    Спасибі."
 
 msgid "Hidden"
-msgstr ""
+msgstr "Приховано"
 
 msgid "Hidden requests are not counted. Unclassified requests do not count towards the percentages."
 msgstr ""
@@ -1399,7 +1398,7 @@ msgid "If you are {{user_link}}, please"
 msgstr "Якщо ви {{user_link}}, будь ласка"
 
 msgid "If you believe this request is not suitable, you can report it for attention by the site administrators using this form"
-msgstr ""
+msgstr " "
 
 msgid "If you can spare a few minutes to complete our short survey, it will help us make the site better. Just follow the link below."
 msgstr ""
@@ -1415,7 +1414,7 @@ msgstr ""
 "    надішліть нам копію для завантаження на сайт."
 
 msgid "If you find this service useful as an FOI officer, please ask your web manager to link to us from your organisation's FOI page."
-msgstr ""
+msgstr " "
 
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 msgstr ""
@@ -1509,13 +1508,13 @@ msgid "Invalid form submission"
 msgstr ""
 
 msgid "Invalid one time password"
-msgstr ""
+msgstr "Недійсний одноразовий пароль"
 
 msgid "Invalid token"
-msgstr ""
+msgstr "Недійсний токен"
 
 msgid "Is {{email_address}} the wrong address for {{law_used_full}} requests to {{public_body_name}}? If so, please contact us using this form:"
-msgstr ""
+msgstr "Якщо {{email_address}} - неправильна адреса для розпорядника {{public_body_name}}, повідомте нас використовуючи форму:"
 
 msgid "It looks like something has gone wrong when sending this message. It could be a technical issue, or an issue with the email address we have for the authority."
 msgstr "Схоже, що щось пішло не так під час відправлення повідомлення. Це може бути технічна проблема, або щось сталося на боці розпорядника інформації."
@@ -1539,10 +1538,10 @@ msgid "Joined {{site_name}} in {{year}}"
 msgstr "Зареєстрований на сайті {{site_name}} з {{year}}"
 
 msgid "Just one more thing"
-msgstr ""
+msgstr "Напишіть, чому ви так вважаєте"
 
 msgid "Keep this passcode safe. You will need it to confirm your account when changing your password. You can add it to a password manager or print it and store it in a safe place."
-msgstr ""
+msgstr "Збережіть ваш код. Він буде потрібен для підтвердження вашого акаунту при зміні пароля"
 
 msgid "Keep your request up to date"
 msgstr ""
@@ -1601,7 +1600,7 @@ msgid "Log into the admin interface"
 msgstr "Увійти як адміністратор"
 
 msgid "Long overdue"
-msgstr ""
+msgstr "Прострочено"
 
 msgid "Long overdue."
 msgstr "Прострочений."
@@ -1619,10 +1618,10 @@ msgid "Make a request &raquo;"
 msgstr ""
 
 msgid "Make a request to these authorities"
-msgstr ""
+msgstr "Зробити запит"
 
 msgid "Make a request to this authority"
-msgstr ""
+msgstr "Зробити запит"
 
 msgid "Make an {{law_used_short}} request"
 msgstr ""
@@ -1637,7 +1636,7 @@ msgid "Make sure the information you are asking for is not already publicly avai
 msgstr "Переконайтесь, що інформація, про яку ви запитуєте, не є вже доступною публічно"
 
 msgid "Many requests"
-msgstr ""
+msgstr "Багато запитів"
 
 msgid "Message"
 msgstr "Повідомлення"
@@ -1649,7 +1648,7 @@ msgid "Message sent using {{site_name}} contact form, "
 msgstr "Повідомлення надіслане з використанням форми на сайті {{site_name}}, "
 
 msgid "Message {{current_message}} of {{total_messages}}"
-msgstr ""
+msgstr "Повідомлення {{current_message}} з {{total_messages}}"
 
 msgid "Missing contact details for '{{authority_name}}'"
 msgstr "Бракує контактної адреси для '{{authority_name}}'"
@@ -1658,7 +1657,7 @@ msgid "More about this authority"
 msgstr "Більше про цього розпорядника інформації"
 
 msgid "More requests in this batch"
-msgstr ""
+msgstr "Більше запитів у цій групі"
 
 msgid "More similar requests"
 msgstr "Більше подібних запитів"
@@ -1691,7 +1690,7 @@ msgid "Needs admin attention"
 msgstr ""
 
 msgid "Needs status update"
-msgstr ""
+msgstr "Потрібно оновити статус"
 
 msgid "New Citation"
 msgstr ""
@@ -1742,7 +1741,7 @@ msgid "Next Step: Preview your public request"
 msgstr ""
 
 msgid "Next message"
-msgstr ""
+msgstr "Наступне повідомлення"
 
 msgid "Next, crop your photo &gt;&gt;"
 msgstr "Далі, обріжте ваше фото &gt;&gt;"
@@ -1790,7 +1789,7 @@ msgid "Note that we may still send you emails when new correspondence appears on
 msgstr ""
 
 msgid "Notes:"
-msgstr ""
+msgstr "Коментар:"
 
 msgid "Now check your email!"
 msgstr "Тепер перевірте вашу пошту!"
@@ -1865,7 +1864,7 @@ msgid "Other:"
 msgstr "Інше:"
 
 msgid "Page {{page}}"
-msgstr ""
+msgstr "Сторінка {{page}}"
 
 msgid "Pagination"
 msgstr ""
@@ -1886,13 +1885,13 @@ msgid "Password is too long (maximum is 72 characters)"
 msgstr ""
 
 msgid "Password is too short (minimum is 12 characters)"
-msgstr ""
+msgstr "Пароль закороткий (мінімальна довжина 12 символів)"
 
 msgid "Password:"
 msgstr "Пароль:"
 
 msgid "People"
-msgstr ""
+msgstr "Люди"
 
 msgid "People {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Люди починаючи з {{start_count}} до {{end_count}} з {{total_count}}"
@@ -1933,7 +1932,7 @@ msgstr ""
 " чи містилась потрібна вам інформація в останніх відповідях на ці запити."
 
 msgid "Please <strong>only</strong> write messages directly relating to your request {{request_link}}. If you would like to ask for information that was not in your original request, then <a href=\"{{new_request_link}}\">file a new request</a>."
-msgstr "Будь ласка, включайте в своє повідомлення <strong>тільки</strong> інформацію,що безпосередньо стосується запиту {{request_link}}. Якщо вам потрібна інформація, що не  була включена в початковий запит, <a href=\"{{new_request_link}}\">зробіть новий</a>."
+msgstr "Будь ласка, включайте в своє повідомлення <strong>тільки</strong> інформацію, що безпосередньо стосується запиту {{request_link}}. Якщо вам потрібна інформація, що не  була включена в початковий запит, <a href=\"{{new_request_link}}\">зробіть новий</a>."
 
 msgid "Please ask for environmental information only"
 msgstr "Будь ласка, запитуйте тільки про навколишнє середовище"
@@ -1981,7 +1980,7 @@ msgid "Please enable \"cookies\" to carry on"
 msgstr "Будь ласка, дозвольте \"пряники\" (cookies), щоб продовжити"
 
 msgid "Please enter a Source URL"
-msgstr ""
+msgstr "Будь ласка, введіть посилання на джерело"
 
 msgid "Please enter a password"
 msgstr "Будь ласка, введіть пароль"
@@ -2041,7 +2040,7 @@ msgid "Please keep the summary short, like in the subject of an email. You can u
 msgstr "Ваша тема має бути короткою."
 
 msgid "Please note that in some cases publication of requests and responses will be delayed."
-msgstr ""
+msgstr "Зверніть увагу, що в деяких випадках публікація запитів та відповідей може бути відстрочена."
 
 msgid "Please only request information that comes under those categories, <strong>do not waste your time</strong> or the time of the public authority by requesting unrelated information."
 msgstr ""
@@ -2225,7 +2224,7 @@ msgid "Read through authority responses and choose if their answer satisfies the
 msgstr ""
 
 msgid "Reason:"
-msgstr ""
+msgstr "Причина:"
 
 msgid "Received an error message, such as delivery failure."
 msgstr ""
@@ -2255,16 +2254,16 @@ msgid "Remember me (keeps you signed in longer; do not use on a public computer)
 msgstr "Запам’ятати мене"
 
 msgid "Report"
-msgstr ""
+msgstr "Поскаржитись"
 
 msgid "Report an offensive or unsuitable request"
 msgstr "Повідомте про образливий або недоречний запит"
 
 msgid "Report annotation"
-msgstr ""
+msgstr "Відправити"
 
 msgid "Report annotation on request: {{title}}"
-msgstr ""
+msgstr "Скарга на коментар до запиту: {{title}}"
 
 msgid "Report request"
 msgstr "Повідомити адміністрацію про запит"
@@ -2282,7 +2281,7 @@ msgid "Reported for administrator attention."
 msgstr "Адміністратора повідомлено."
 
 msgid "Reporting a request notifies the site administrators. They will respond as soon as possible."
-msgstr ""
+msgstr "Адміністраторів сайту буде повідомлено."
 
 msgid "Request '{{request_title}}' to {{public_body_name}}:"
 msgstr ""
@@ -2303,7 +2302,7 @@ msgid "Request has been removed"
 msgstr "Запит було видалено"
 
 msgid "Request hidden"
-msgstr ""
+msgstr "Запит приховано"
 
 msgid "Request hide events"
 msgstr ""
@@ -2330,7 +2329,7 @@ msgid "Requests are considered successful if they were classified as either 'Suc
 msgstr ""
 
 msgid "Requests for personal information and vexatious requests are not considered valid for FOI purposes (<a href=\"/help/about\">read more</a>)."
-msgstr "Запити про особисту інформацію або беззмістовні запити відповідають принципам цього сайту (<a href=\"/help/about\">читати більше</a>)"
+msgstr "Запити про особисту інформацію або беззмістовні запити відповідають принципам цього сайту "
 
 msgid "Requests like this"
 msgstr "Подібні запити"
@@ -2339,13 +2338,13 @@ msgid "Requests or responses matching your saved search"
 msgstr "Запити або відповіді, що відповідають вашому збереженому пошуку"
 
 msgid "Requests similar to '{{request_title}}'"
-msgstr ""
+msgstr "Запити, схожі на '{{request_title}}'"
 
 msgid "Requests similar to '{{request_title}}' (page {{page}})"
-msgstr ""
+msgstr "Запити, схожі на '{{request_title}}' (сторінка {{page}})"
 
 msgid "Requests will be sent to the following bodies:"
-msgstr ""
+msgstr "Запит буде відправлено до таких розпорядників:"
 
 msgid "Requires admin attention"
 msgstr ""
@@ -2372,7 +2371,7 @@ msgid "Response from a public authority"
 msgstr "Відповідь від розпорядника інформації"
 
 msgid "Response received"
-msgstr ""
+msgstr "Отримано відповідь"
 
 msgid "Response to '{{title}}'"
 msgstr "Відповідь на '{{title}}'"
@@ -2452,10 +2451,10 @@ msgid "Send a public reply to {{person_or_body}}"
 msgstr "Надіслати публічну відповідь. Адресат: {{person_or_body}}"
 
 msgid "Send and publish message"
-msgstr ""
+msgstr "Відправити та опублікувати"
 
 msgid "Send and publish request"
-msgstr ""
+msgstr "Відправити та опублікувати"
 
 msgid "Send follow up to '{{title}}'"
 msgstr "Відправити додаткове повідомлення щодо запиту '{{title}}'"
@@ -2473,7 +2472,7 @@ msgid "Send message to {{user_name}} just to see how it works"
 msgstr "Надіслати повідомлення до {{user_name}} просто щоб побачити, як це працює"
 
 msgid "Sending..."
-msgstr "Надслаю..."
+msgstr "Надислаю..."
 
 msgid "Sent to one authority by {{info_request_user}} on {{date}}."
 msgid_plural "Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}."
@@ -2592,10 +2591,10 @@ msgid "Sorry, we're currently unable to sign up new users, please try again late
 msgstr ""
 
 msgid "Source URL is too long"
-msgstr ""
+msgstr "Посилання надто довге"
 
 msgid "Source URL:"
-msgstr ""
+msgstr "Посилання на джерело:"
 
 msgid "Source:"
 msgstr ""
@@ -2640,13 +2639,13 @@ msgid "Submit data"
 msgstr ""
 
 msgid "Submit request"
-msgstr ""
+msgstr "Відправити"
 
 msgid "Submit status"
 msgstr "Оновити статус"
 
 msgid "Submit status and send message"
-msgstr ""
+msgstr "Відправити"
 
 msgid "Subscribe to blog"
 msgstr ""
@@ -2751,7 +2750,7 @@ msgid "Thanks for your suggestion to add {{public_body_name}}. It's been added t
 msgstr ""
 
 msgid "Thanks for your suggestion to update the email address for {{public_body_name}} to {{public_body_email}}. This has now been done and any new requests will be sent to the new address."
-msgstr ""
+msgstr "Дякуємо за підказку оновити електронну адресу розпорядника {{public_body_name}}. Ми змінили адресу на {{public_body_email}}."
 
 msgid "Thanks very much - this will help others find useful stuff. We'll also, if you need it, give advice on what to do next about your requests."
 msgstr "Дякуємо, це допоможе іншим людям знайти те, що їм потрібно."
@@ -2772,7 +2771,7 @@ msgid "The URL where you found the article."
 msgstr ""
 
 msgid "The URL where you found the email address. This field is optional, but it would help us a lot if you can provide a link to a specific page on the authority's website that gives this address, as it will make it much easier for us to check."
-msgstr ""
+msgstr "Посилання на сайт, на якому ви знайшли адресу. Це поле не обов'язкове, але воно допоможе нам у перевірці правильності адреси"
 
 msgid "The accounts have been left as they previously were."
 msgstr ""
@@ -2781,7 +2780,7 @@ msgid "The article references all requests in this batch"
 msgstr ""
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr ""
+msgstr "У розпорядника немає інформації "
 
 msgid "The authority email doesn't look like a valid address"
 msgstr ""
@@ -2799,7 +2798,7 @@ msgid "The classification of requests (e.g. to say whether they were successful 
 msgstr ""
 
 msgid "The contact email address for FOI requests to the authority."
-msgstr ""
+msgstr "Електронна адреса розпорядника, яку ви вважаєте правильною"
 
 msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} <{{incoming_email}}> to reply to an {{law_used_short}} request has not been delivered."
 msgstr ""
@@ -3002,7 +3001,7 @@ msgid "There is nothing to display yet."
 msgstr ""
 
 msgid "There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team."
-msgstr "Зафіксовано <strong>помилку доставки</strong> або щось подібне. Команда сайту має виправити її."
+msgstr "Зафіксовано <strong>помилку доставки</strong> або щось подібне. "
 
 msgid "There was an error with the reCAPTCHA. Please try again."
 msgstr ""
@@ -3032,13 +3031,13 @@ msgid "They have been given the following explanation:"
 msgstr "Вони надали таке пояснення:"
 
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
-msgstr "Вони не відповіли на ваш запит {{title}} швидко, як того вимагає законодавство"
+msgstr "Відповідь на ваш запит {{title}} не надійшла вчасно"
 
 msgid "They have not replied to your {{law_used_short}} request {{title}}, as normally required by law"
-msgstr ""
+msgstr "Відповідь на ваш запит {{title}} не надійшла вчасно"
 
 msgid "They have still not replied to your {{law_used_short}} request {{title}}, as normally required by law"
-msgstr ""
+msgstr "Відповідь на ваш запит {{title}} все ще не надійшла"
 
 msgid "Things you're following"
 msgstr "Відслідковуване вами"
@@ -3119,8 +3118,10 @@ msgstr "Цей користувач не зробив жодного запит�
 
 msgid "This person's Freedom of Information request"
 msgid_plural "This person's Freedom of Information requests (approximately {{count}})"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Запит цього користувача"
+msgstr[1] "Запити цього користувача (приблизно {{count}})"
+msgstr[2] "Запити цього користувача (приблизно {{count}})"
+msgstr[3] "Запити цього користувача (приблизно {{count}})"
 
 msgid "This person's annotations"
 msgstr "Коментарі цієї людини"
@@ -3214,7 +3215,7 @@ msgid "This will appear on your {{site_name}} profile, to make it easier for oth
 msgstr "Це з’явиться у вашому профілі для ознайомлення інших людей."
 
 msgid "To"
-msgstr ""
+msgstr "Кому:"
 
 msgid "To add a citation"
 msgstr ""
@@ -3295,7 +3296,7 @@ msgid "To report this request"
 msgstr ""
 
 msgid "To send a follow up message to {{authority_name}}"
-msgstr ""
+msgstr "Щоб відправити уточнюючого листа або відповідь розпоряднику {{authority_name}}"
 
 msgid "To send a message to {{user_name}}"
 msgstr "Щоб відправити повідомлення {{user_name}}"
@@ -3436,7 +3437,7 @@ msgid "Unusual response."
 msgstr "Незвичайна відповідь."
 
 msgid "Update email address - {{public_body_name}}"
-msgstr ""
+msgstr "Зміна електронної адреси - {{public_body_name}}"
 
 msgid "Update the address:"
 msgstr ""
@@ -3469,10 +3470,10 @@ msgid "Vexatious"
 msgstr "Сутяжницький"
 
 msgid "Vexatious annotation"
-msgstr ""
+msgstr "Інше"
 
 msgid "View FOI email address"
-msgstr ""
+msgstr "Переглянути електронну адресу розпорядника"
 
 msgid "View FOI email address for '{{public_body_name}}'"
 msgstr "Електронна адреса розпорядника інформації: {{public_body_name}}"
@@ -3778,7 +3779,7 @@ msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a 
 msgstr ""
 
 msgid "You can <strong>complain</strong> by"
-msgstr "Ви можете поскаржитися таким чином: "
+msgstr " "
 
 msgid "You can change the requests and users you are following on <a href=\"{{profile_url}}\">your profile page</a>."
 msgstr "Ви можете змінювати відслідковувані вами запити та користувачів на <a href=\"{{profile_url}}\">сторінці вашого профілю</a>."
@@ -3884,7 +3885,7 @@ msgid "You previously submitted that exact follow up message for this request."
 msgstr "Ви вже надіслали точно таке ж додаткове повідомлення для цього запиту."
 
 msgid "You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>)."
-msgstr "Ви маєте отримати відповідь в межах {{late_number_of_days}} днів, або ж вам повідомлять, що це займе більше часу (<a href=\"{{review_url}}\">details</a>)."
+msgstr "Ви маєте отримати відповідь в межах {{late_number_of_days}} днів, або ж вам повідомлять, що це займе більше часу"
 
 msgid "You should have received a copy of the request by email, and you can respond by <strong>simply replying</strong> to that email. For your convenience, here is the address:"
 msgstr ""
@@ -3940,7 +3941,7 @@ msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your reques
 msgstr ""
 
 msgid "You're long overdue a response to your FOI request - {{request_title}}"
-msgstr "Ви затримуєте відповідь на інформаційний запит - {{request_title}}"
+msgstr "Відповідь на ваш запит {{request_title}} затримується"
 
 msgid "You're not following anything."
 msgstr "Ви нічого не відслідковуєте"
@@ -3951,10 +3952,7 @@ msgstr "Ви видалили свою фотографію"
 msgid "Your <strong>name will appear publicly</strong> (<a href=\"{{why_url}}\">why?</a>) on this website and in search engines. <a href=\"{{help_url}}\">Thinking of using a pseudonym?</a>"
 msgstr ""
 "Ваше <strong>ім’я з’явиться в публічному доступі</strong> \n"
-"        (<a href=\"{{why_url}}\">чому?</a>)\n"
-"        на цьому сайті та в пошукових системах. Якщо ви\n"
-"        збираєтесь використати псевдонім, \n"
-"        <a href=\"{{help_url}}\">прочитайте спершу це</a>."
+"        на цьому сайті та в пошукових системах."
 
 msgid "Your FOI request - {{request_title}} has been made public on {{site_name}}"
 msgstr ""
@@ -3964,14 +3962,16 @@ msgstr ""
 
 msgid "Your Freedom of Information request"
 msgid_plural "Your Freedom of Information requests (approximately {{count}})"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ваш запит про інформацію"
+msgstr[1] "Ваші запити про інформацію (приблизно {{count}})"
+msgstr[2] "Ваші запити про інформацію (приблизно {{count}})"
+msgstr[3] "Ваші запити про інформацію (приблизно {{count}})"
 
 msgid "Your annotations"
 msgstr "Ваші коментарі"
 
 msgid "Your batch request \"{{title}}\" has been sent"
-msgstr ""
+msgstr "Ваш груповий запит \"{{title}}\" було відправлено"
 
 msgid "Your current one time passcode:"
 msgstr ""
@@ -3986,16 +3986,16 @@ msgid "Your e-mail:"
 msgstr "Електронна адреса:"
 
 msgid "Your email doesn't look like a valid address"
-msgstr ""
+msgstr "Ваша пошта не виглядає справжньою"
 
 msgid "Your email:"
-msgstr ""
+msgstr "Ваш емейл:"
 
 msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to send a follow up message."
 msgstr "Ваше повідомлення не було надіслано, тому що цей запит не пройшов спам-фільтр."
 
 msgid "Your follow up message has been saved but not yet sent to {{authority_name}} due to an error."
-msgstr ""
+msgstr "Ваше повідомлення збережено але не відправлено через помилку"
 
 msgid "Your follow up message has been sent on its way."
 msgstr "Ваш додатковий лист надіслано."
@@ -4022,9 +4022,7 @@ msgid "Your name and annotation will appear in <strong>search engines</strong>."
 msgstr "Ваше ім’я та коментарі з’являться у <strong>пошукових системах</strong>."
 
 msgid "Your name, request and any responses will appear in <strong>search engines</strong> (<a href=\"{{url}}\">details</a>)."
-msgstr ""
-"Ваше ім’я, запит та будь-які відповіді з’являться в пошукових системах\n"
-"        (<a href=\"{{url}}\">деталі</a>)."
+msgstr "Ваше ім’я, запит та будь-які відповіді з’являться в пошукових системах."
 
 msgid "Your name:"
 msgstr "Ваше ім’я:"
@@ -4033,7 +4031,7 @@ msgid "Your password has been changed."
 msgstr "Ваш пароль було змінено."
 
 msgid "Your password has been changed. You also have a new one time passcode which you'll need next time you want to change your password"
-msgstr ""
+msgstr "Ваш пароль змінено. Ви також маєте одноразовий код, який вам знадобиться при зміні пароля наступного разу"
 
 msgid "Your password:"
 msgstr "Ваш пароль:"
@@ -4048,13 +4046,13 @@ msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."
 msgstr ""
 
 msgid "Your request on {{site_name}} hidden"
-msgstr ""
+msgstr "Ваш запит на сайті {{site_name}} було приховано"
 
 msgid "Your request to add an authority has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr ""
 
 msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
-msgstr ""
+msgstr "Ваш запит про зміну адреси розпорядника {{public_body_name}} було відправлено. Дякуємо."
 
 msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
 msgstr ""
@@ -4072,7 +4070,7 @@ msgid "Your right to know"
 msgstr ""
 
 msgid "Your selected authorities"
-msgstr ""
+msgstr "Обрані вами розпорядники"
 
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr "Ваші міркування щодо того, що адміністратори сайту мають зробити з цим запитом."
@@ -4086,8 +4084,10 @@ msgstr[3] "Ваші {{count}} коментарів"
 
 msgid "Your {{count}} batch request"
 msgid_plural "Your {{count}} batch requests"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ваш груповий запит"
+msgstr[1] "Ваші {{count}} групові запити"
+msgstr[2] "Ваші {{count}} групових запитів"
+msgstr[3] "Ваші {{count}} групових запитів"
 
 msgid "Your {{count}} private Freedom of Information request"
 msgid_plural "Your {{count}} private Freedom of Information requests"
@@ -4107,7 +4107,7 @@ msgid "Yours sincerely,"
 msgstr "З повагою,"
 
 msgid "Yours,"
-msgstr ""
+msgstr "З повагою,"
 
 msgid "ZIP"
 msgstr ""
@@ -4122,7 +4122,7 @@ msgid "[FOI #{{request}} email]"
 msgstr ""
 
 msgid "[Name Removed]"
-msgstr ""
+msgstr "[ПРИХОВАНО]"
 
 msgid "[REDACTED]"
 msgstr "[ПРИХОВАНО]"
@@ -4140,7 +4140,7 @@ msgid "all requests"
 msgstr "усі запити"
 
 msgid "all requests or comments"
-msgstr ""
+msgstr "всі запити або коментарі"
 
 msgid "all requests or comments matching text '{{query}}'"
 msgstr ""
@@ -4188,7 +4188,7 @@ msgid "complete"
 msgstr ""
 
 msgid "delivered"
-msgstr ""
+msgstr "відправлено"
 
 msgid "details"
 msgstr "деталі"
@@ -4215,7 +4215,7 @@ msgid "failed"
 msgstr ""
 
 msgid "have delayed."
-msgstr ""
+msgstr "затримує відповідь на запит"
 
 msgid "hide quoted sections"
 msgstr ""
@@ -4278,7 +4278,7 @@ msgid "response received"
 msgstr ""
 
 msgid "send a follow up message"
-msgstr ""
+msgstr "надішліть уточнюючого листа або лист-відповідь"
 
 msgid "sent"
 msgstr ""
@@ -4319,7 +4319,7 @@ msgid "type your search term here"
 msgstr ""
 
 msgid "unknown"
-msgstr ""
+msgstr "не визначено"
 
 msgid "unknown reason"
 msgstr "невідома причина"
@@ -4397,8 +4397,10 @@ msgstr[3] "{{count}} запитів"
 
 msgid "{{count}} request had a new response:"
 msgid_plural "{{count}} requests had new responses:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}} запит має нову відповідь"
+msgstr[1] "{{count}} запити мають нову відповідь"
+msgstr[2] "{{count}} запитів мають нову відповідь"
+msgstr[3] "{{count}} запитів мають нову відповідь"
 
 msgid "{{count}} request has been made public on {{site_name}}."
 msgid_plural "{{count}} requests have been made public on {{site_name}}."
@@ -4407,13 +4409,17 @@ msgstr[1] ""
 
 msgid "{{count}} request has not had a prompt response:"
 msgid_plural "{{count}} requests have not had prompt responses:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}} запит не отримав швидку відповідь"
+msgstr[1] "{{count}} запити не отримали швидку відповідь"
+msgstr[2] "{{count}} запитів не отримали швидку відповідь"
+msgstr[3] "{{count}} запитів не отримали швидку відповідь"
 
 msgid "{{count}} request has still not had a response:"
 msgid_plural "{{count}} requests have still not had responses:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}} запит без відповіді"
+msgstr[1] "{{count}} запити без відповіді"
+msgstr[2] "{{count}} запитів без відповіді"
+msgstr[3] "{{count}} запитів без відповіді"
 
 msgid "{{count}} request made."
 msgid_plural "{{count}} requests made."
@@ -4429,8 +4435,10 @@ msgstr[1] ""
 
 msgid "{{count}} request."
 msgid_plural "{{count}} requests."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}} запит"
+msgstr[1] "{{count}} запити"
+msgstr[2] "{{count}} запитів"
+msgstr[3] "{{count}} запитів"
 
 msgid "{{existing_request_user}} already created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>, or edit the details below to make a new but similar request."
 msgstr "Точно такий самий запит вже створено ({{date}}). Ви можете <a href=\"{{existing_request}}\">переглянути його</a> або створити подібний."
@@ -4532,7 +4540,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."
-msgstr ""
+msgstr "Доступ відправляє нові запити цьому розпоряднику на адресу <strong>{{request_email}}</strong>"
 
 msgid "{{site_name}} users have made {{number_of_requests}} request, including:"
 msgid_plural "{{site_name}} users have made {{number_of_requests}} requests, including:"
@@ -4587,7 +4595,7 @@ msgid "{{user_name}} would like a new authority added to {{site_name}}"
 msgstr ""
 
 msgid "{{user_name}} would like the email address for {{public_body_name}} to be updated"
-msgstr ""
+msgstr "{{user_name}} пропонує оновити електронну адресу розпорядника {{public_body_name}}"
 
 msgid "{{username}} left an annotation:"
 msgstr "{{username}} залишив коментар:"

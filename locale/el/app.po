@@ -35,7 +35,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-06-24 16:55+0100\n"
-"PO-Revision-Date: 2021-06-24 16:12+0000\n"
+"PO-Revision-Date: 2021-07-07 11:59+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Greek (http://www.transifex.com/mysociety/alaveteli/language/el"
 "/)\n"
@@ -115,7 +115,7 @@ msgid " when you send this message."
 msgstr "όταν αποστείλατε αυτό το μήνυμα."
 
 msgid "&#8592; Previous"
-msgstr ""
+msgstr "Προηγούμενο"
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Στατιστικά εγκλημάτων ανά δήμο για την Αθήνα'"
@@ -1132,7 +1132,7 @@ msgid "Four weeks ago you made a Freedom of Information request to {{public_body
 msgstr ""
 
 msgid "Freedom of Information"
-msgstr "Δικαίωμα Πρόσβασης στη Δημόσια Πληροφορία"
+msgstr "Αίτημα Κατάθεσης Εγγράφων"
 
 msgid "Freedom of Information Act"
 msgstr "Νόμος περί του Δικαιώματος Πρόσβασης στη Δημόσια Πληροφορία"
@@ -1195,10 +1195,10 @@ msgid "Handled by postal mail."
 msgstr "Χειρισμός μέσω ταχυδρομείου."
 
 msgid "Has this request been referenced in a news article or academic paper?"
-msgstr ""
+msgstr "Αυτό το αίτημα, έχει αναφερθεί σε κάποιο ειδησεογραφικό ή ακαδημαϊκό άρθρο;"
 
 msgid "Has this request been referenced in a news article or academic paper? Let us know:"
-msgstr ""
+msgstr "Αυτό το αίτημα, έχει αναφερθεί σε κάποιο ειδησεογραφικό ή ακαδημαϊκό άρθρο; Ενημερώστε μας:"
 
 msgid "Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}"
 msgstr "Καλησπέρα! Έχουμε ένα <a href=\"{{url}}\">σημαντικό μήνυμα</a> για τους επισκέπτες εκτός {{country_name}}"
@@ -1662,10 +1662,10 @@ msgid "Next"
 msgstr "Επόμενο"
 
 msgid "Next &#8594;"
-msgstr ""
+msgstr "Επόμενο "
 
 msgid "Next Step: Preview your public request"
-msgstr ""
+msgstr "Προεπισκόπηση του δημόσιου αιτήματός σου"
 
 msgid "Next message"
 msgstr "Επόμενο μήνυμα"
@@ -4396,7 +4396,7 @@ msgstr "Το {{site_name}} στέλνει νέο αίτημα στο <strong>{{r
 msgid "{{site_name}} users have made {{number_of_requests}} request, including:"
 msgid_plural "{{site_name}} users have made {{number_of_requests}} requests, including:"
 msgstr[0] "Οι χρήστες του {{site_name}} έχουν υποβάλλει {{number_of_requests}} αίτημα, το οποίο συμπεριλαμβάνει:"
-msgstr[1] "Οι χρήστες του {{site_name}} έχουν υποβάλλει {{number_of_requests}} αιτήματα, το οποίο συμπεριλαμβάνει:"
+msgstr[1] "Οι χρήστες/-ριες του {{site_name}} έχουν υποβάλλει {{number_of_requests}} αιτήματα, τα οποία συμπεριλαμβάνουν:"
 
 msgid "{{title}} - a Freedom of Information request to {{public_body}}"
 msgstr "{{title}} - ένα Αίτημα Κατάθεσης Εγγράφων και Πρόσβασης στη Δημόσια Πληροφορία να {{public_body}}"
