@@ -10,15 +10,29 @@ RSpec.describe MailHandler::ReplyHandler do
       it 'forwards the message to sendmail' do
         expect(IO).
           to receive(:popen).
-          with('/usr/sbin/sendmail -i user-support@localhost', 'wb')
+          with('/usr/sbin/sendmail -i "user-support@localhost"', 'wb')
         MailHandler::ReplyHandler.forward_on(raw_email, message)
       end
     end
   end
 
   describe '.get_forward_to_address' do
+    let(:normal_contact_email) { AlaveteliConfiguration.contact_email }
+    let(:pro_contact_email) { AlaveteliConfiguration.pro_contact_email }
+
     let(:normal_message) { get_fixture_mail('normal-contact-reply.email') }
     let(:pro_message) { get_fixture_mail('pro-contact-reply.email') }
+
+    let(:both_message) do
+      MailHandler.mail_from_raw_email(<<~EOF)
+      To: #{ normal_contact_email }
+      Cc: #{ pro_contact_email }
+      From: bob@example.com
+      Subject: Sending to both
+
+      Foo Bar baz
+      EOF
+    end
 
     let(:normal_recipient) do
       AlaveteliConfiguration.forward_nonbounce_responses_to
@@ -61,6 +75,15 @@ RSpec.describe MailHandler::ReplyHandler do
             MailHandler::ReplyHandler.get_forward_to_address(normal_message)
 
           expect(address).to eq(normal_recipient)
+        end
+      end
+
+      context 'when addressed to both contacts' do
+        it 'returns the both contact addresses' do
+          address =
+            MailHandler::ReplyHandler.get_forward_to_address(both_message)
+
+          expect(address).to eq("#{normal_recipient},#{pro_recipient}")
         end
       end
     end
