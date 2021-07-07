@@ -103,13 +103,16 @@ module MailHandler
 
     def self.get_forward_to_address(message)
       forward_to = AlaveteliConfiguration.forward_nonbounce_responses_to
+
       if AlaveteliConfiguration.enable_alaveteli_pro
         pro_contact_email = AlaveteliConfiguration.pro_contact_email
         original_to = message ? MailHandler.get_all_addresses(message) : []
+
         if original_to.include?(pro_contact_email)
           forward_to = AlaveteliConfiguration.forward_pro_nonbounce_responses_to
         end
       end
+
       forward_to
     end
 
