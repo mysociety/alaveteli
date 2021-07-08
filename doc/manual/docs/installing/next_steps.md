@@ -20,16 +20,7 @@ title: Next Steps
 
 ## Create an admin account
 
-Alaveteli ships with an
-<a href="{{ page.baseurl }}/docs/glossary/#emergency" class="glossary__link">emergency user</a>
-that has access to the admin. So when you've just created a new site, you
-should sign up to create your own account, then log into the admin interface as the emergency
-user to promote your new account to be an administrator with the
-<a href="{{ page.baseurl }}/docs/glossary/#admin" class="glossary__link">admin</a>
-role.
-
-As soon as that's done, disable the emergency user, because you don't need to
-use it any more: you've superseded it with your new admin account.
+Once you create an account for yourself you can give it admin status using the Rails console.
 
 Alaveteli ships with sample data that includes a dummy admin user called "Joe
 Admin". If the sample data has been loaded into the database (this will depend on
@@ -42,15 +33,12 @@ First, in the browser:
 
 * Go to `/profile/sign_in` and create a user by signing up.
 * Check your email and confirm your account.
-* Go to `/admin?emergency=1`, log in with the username and password you specified in
-  [`ADMIN_USERNAME`]({{ page.baseurl }}/docs/customising/config/#admin_username)
-  and [`ADMIN_PASSWORD`]({{ page.baseurl }}/docs/customising/config/#admin_password).
-  You can find these settings in `config/general.yml`.
-* You're now on the Alaveteli admin page.
-* Click on **Users**  (in the navigation menu across the top of the page), and
-  click on your name in the list of users. On *that* page,  click **Edit**.
-* In the "Roles" section, check the "admin" checkbox and click **Save**.
-* From now on, when you are logged into your Alaveteli site, you'll have access
+* Type `bin/rails console` in the root of your Alaveteli installation (or if
+  using Docker, type `docker exec -it app bin/rails console`).
+* Type `User.find_by(email: 'you@example.com').add_role(:admin)`, replacing the
+  email with the email you used during sign up.
+
+From now on, when you are logged into your Alaveteli site, you'll have access
   to the admin (at `/admin`). Furthermore, you'll see links to admin pages off
   the main site (which don't appear for regular users).
 
