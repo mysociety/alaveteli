@@ -244,8 +244,8 @@
         .addClass(wizard.options.nextStepSuggestedClass);
     });
 
-    wizard.$actions.find('input.' + wizard.options.questionOptionClass + '[name^="refusal_advice"]').val(false);
-    $suggestions.find('input.' + wizard.options.questionOptionClass + '[name^="refusal_advice"]').val(true);
+    wizard.$actions.find('input[name^="refusal_advice"]').val(false);
+    $suggestions.find('input[name^="refusal_advice"]').val(true);
   };
 
   RefusalWizard.prototype._resetQuestion = function($question) {
@@ -329,10 +329,10 @@
     // fetch translated strings from the HTML
     var textExpand = $('.wizard').data('expand-button-text-expand');
     var textShrink = $('.wizard').data('expand-button-text-shrink');
-    
+
     // Hide the long list now we're sure we've got JS
     $('[data-block="exemption"]').toggleClass('expanded');
-   
+
     if ($('.maximise-questions').text() == textExpand ) {
       $('.maximise-questions').html(textShrink);
     } else {
@@ -344,7 +344,7 @@
   if(shouldHideCheckboxes()) {
 
     $('[data-block="exemption"] fieldset').after("<button class='button-secondary maximise-questions'>" + $('.wizard').data('expand-button-text-expand') + "</button>");
-    
+
     //if a checkbox is pre-selected, expand the list
     if ($('[data-block="exemption"] input[type="checkbox"]').is(":checked")) {
       expandFieldset();
@@ -355,6 +355,6 @@
     e.preventDefault();
     expandFieldset();
   });
-  
+
 
 })(window.jQuery);
