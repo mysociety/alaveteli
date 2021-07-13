@@ -244,8 +244,8 @@
         .addClass(wizard.options.nextStepSuggestedClass);
     });
 
-    wizard.$actions.find('input.' + wizard.options.questionOptionClass + '[name^="refusal_advice"]').val(false);
-    $suggestions.find('input.' + wizard.options.questionOptionClass + '[name^="refusal_advice"]').val(true);
+    wizard.$actions.find('input[name^="refusal_advice"]').val(false);
+    $suggestions.find('input[name^="refusal_advice"]').val(true);
   };
 
   RefusalWizard.prototype._resetQuestion = function($question) {
