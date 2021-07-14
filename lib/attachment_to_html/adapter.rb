@@ -44,8 +44,8 @@ module AttachmentToHTML
       body.match(/<img[^>]*>/mi)
     end
 
-    def create_tempfile(text)
-      tempfile = Tempfile.new('foiextract', '.', :encoding => text.encoding)
+    def create_tempfile(text, dir)
+      tempfile = Tempfile.new('foiextract', dir, :encoding => text.encoding)
       tempfile.print(text)
       tempfile.flush
       tempfile

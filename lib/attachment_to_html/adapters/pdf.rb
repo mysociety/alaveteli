@@ -49,15 +49,15 @@ module AttachmentToHTML
         # the body may require opening files too
         text = attachment_body
 
-        @converted ||= Dir.chdir(tmpdir) do
-          tempfile = create_tempfile(text)
+        @converted ||= begin
+          tempfile = create_tempfile(text, tmpdir)
           html = AlaveteliExternalCommand.run("pdftohtml",
                                               "-nodrm",
                                               "-zoom", "1.0",
                                               "-stdout",
                                               "-enc", "UTF-8",
                                               "-noframes",
-                                              "./#{File.basename(tempfile.path)}",
+                                              tempfile.path,
                                               :timeout => 30,
                                               :binary_output => false)
 

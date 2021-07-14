@@ -40,7 +40,8 @@ describe AttachmentToHTML::Adapters::PDF do
 
     it 'operates in the context of the supplied tmpdir' do
       adapter = AttachmentToHTML::Adapters::PDF.new(attachment, :tmpdir => '/tmp')
-      expect(Dir).to receive(:chdir).with('/tmp').and_call_original
+      expect(Tempfile).to receive(:new).with('foiextract', '/tmp', any_args).
+        and_call_original
       adapter.body
     end
 

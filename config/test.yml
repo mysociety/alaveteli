@@ -122,3 +122,8 @@ MAX_REQUESTS_PER_USER_PER_DAY: 2
 
 
 SKIP_ADMIN_AUTH: true
+
+UTILITY_SEARCH_PATH:
+  - ./bin
+  - /usr/bin
+  - /usr/local/bin
