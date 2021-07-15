@@ -1,5 +1,5 @@
 require 'spec_helper'
-require File.expand_path(File.dirname(__FILE__) + '/../../lib/graphs')
+require Rails.root.join('lib/graphs')
 
 RSpec.describe Graphs do
 

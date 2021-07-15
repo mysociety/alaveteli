@@ -1,5 +1,4 @@
 require 'spec_helper'
-
 require 'nokogiri'
 
 RSpec.describe PublicBodyController, "when showing a body" do

@@ -2282,7 +2282,7 @@ RSpec.describe InfoRequest do
   describe "when using a plugin and calculating the status" do
 
     before do
-      InfoRequest.send(:require, File.expand_path(File.dirname(__FILE__) + '/customstates'))
+      InfoRequest.send(:require, 'models/customstates')
       InfoRequest.send(:include, InfoRequestCustomStates)
       InfoRequest.class_eval('@@custom_states_loaded = true')
       @ir = info_requests(:naughty_chicken_request)

@@ -1,5 +1,5 @@
 require 'spec_helper'
-require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
+require 'integration/alaveteli_dsl'
 
 RSpec.describe "When administering the site" do
   let(:admin_user) { FactoryBot.create(:admin_user) }

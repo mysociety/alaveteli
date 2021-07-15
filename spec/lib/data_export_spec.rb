@@ -1,5 +1,5 @@
 require 'spec_helper'
-require File.expand_path(File.dirname(__FILE__) + "./../../lib/data_export.rb")
+require Rails.root.join('lib/data_export')
 
 RSpec.describe DataExport do
 

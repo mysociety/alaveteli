@@ -1,5 +1,4 @@
 require 'spec_helper'
-
 require 'alaveteli_external_command'
 
 script_dir = File.join(File.dirname(__FILE__), 'alaveteli_external_command_scripts')

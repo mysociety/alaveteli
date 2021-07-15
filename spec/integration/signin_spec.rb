@@ -1,5 +1,5 @@
 require 'spec_helper'
-require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
+require 'integration/alaveteli_dsl'
 
 RSpec.describe "Signing in" do
   let(:user) { FactoryBot.create(:user) }

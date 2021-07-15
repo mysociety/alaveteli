@@ -1,5 +1,5 @@
 require 'spec_helper'
-require File.expand_path(File.dirname(__FILE__) + '/../alaveteli_dsl')
+require 'integration/alaveteli_dsl'
 
 def start_batch_request
   visit(alaveteli_pro_batch_request_authority_searches_path)

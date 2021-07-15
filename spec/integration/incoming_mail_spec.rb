@@ -1,5 +1,5 @@
 require 'spec_helper'
-require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
+require 'integration/alaveteli_dsl'
 
 RSpec.describe 'when handling incoming mail' do
   let(:info_request) { FactoryBot.create(:info_request) }

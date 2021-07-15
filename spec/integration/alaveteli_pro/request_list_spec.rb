@@ -1,5 +1,5 @@
 require 'spec_helper'
-require File.expand_path(File.dirname(__FILE__) + '/../alaveteli_dsl')
+require 'integration/alaveteli_dsl'
 
 RSpec.describe "pro request list" do
   let(:pro_user) { FactoryBot.create(:pro_user) }
