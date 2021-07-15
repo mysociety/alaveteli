@@ -22,7 +22,7 @@
       <%= form_tag admin_body_path(@public_body),
                    class: 'form form-inline',
                    method: 'delete' do %>
-        <% button_opts = { class: 'btn btn-danger' } %>
+        <% button_opts = { class: 'btn btn-danger', data: { confirm: "Are you sure you want to destroy this public body?" } } %>
           <% if @hide_destroy_button
              button_opts[:disabled] = true
              button_opts[:title] =
