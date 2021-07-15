@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe RequestController, "when listing recent requests" do
+RSpec.describe RequestController, "when listing recent requests" do
   before(:each) do
     load_raw_emails_data
     get_fixtures_xapian_index
@@ -40,7 +40,7 @@ describe RequestController, "when listing recent requests" do
 
 end
 
-describe RequestController, "when showing one request" do
+RSpec.describe RequestController, "when showing one request" do
   render_views
 
   before(:each) do
@@ -538,7 +538,7 @@ describe RequestController, "when showing one request" do
   end
 end
 
-describe RequestController, 'when handling prominence' do
+RSpec.describe RequestController, 'when handling prominence' do
   def expect_hidden(hidden_template)
     if rails_upgrade?
       expect(response.media_type).to eq('text/html')
@@ -629,7 +629,7 @@ end
 #    response.headers["Status"].should == "404 Not Found"
 #  end
 
-describe RequestController, "when searching for an authority" do
+RSpec.describe RequestController, "when searching for an authority" do
   # Whether or not sign-in is required for this step is configurable,
   # so we make sure we're logged in, just in case
   before do
@@ -720,7 +720,7 @@ describe RequestController, "when searching for an authority" do
   end
 end
 
-describe RequestController, "when creating a new request" do
+RSpec.describe RequestController, "when creating a new request" do
   render_views
 
   before do
@@ -1689,7 +1689,7 @@ end
 
 # These go with the previous set, but use mocks instead of fixtures.
 # TODO harmonise these
-describe RequestController, "when making a new request" do
+RSpec.describe RequestController, "when making a new request" do
 
   before do
     @user = mock_model(User, id: 3481, name: 'Testy').as_null_object
@@ -1725,7 +1725,7 @@ describe RequestController, "when making a new request" do
 
 end
 
-describe RequestController, "when viewing comments" do
+RSpec.describe RequestController, "when viewing comments" do
   render_views
   before(:each) do
     load_raw_emails_data
@@ -1752,7 +1752,7 @@ describe RequestController, "when viewing comments" do
 end
 
 
-describe RequestController, "authority uploads a response from the web interface" do
+RSpec.describe RequestController, "authority uploads a response from the web interface" do
 
   before(:each) do
     # domain after the @ is used for authentication of FOI officers, so to test it
@@ -1859,7 +1859,7 @@ describe RequestController, "authority uploads a response from the web interface
   end
 end
 
-describe RequestController, "when showing JSON version for API" do
+RSpec.describe RequestController, "when showing JSON version for API" do
   before(:each) do
     load_raw_emails_data
   end
@@ -1877,7 +1877,7 @@ describe RequestController, "when showing JSON version for API" do
 
 end
 
-describe RequestController, "when doing type ahead searches" do
+RSpec.describe RequestController, "when doing type ahead searches" do
 
   before :each do
     get_fixtures_xapian_index
@@ -1901,7 +1901,7 @@ describe RequestController, "when doing type ahead searches" do
 
 end
 
-describe RequestController, "when showing similar requests" do
+RSpec.describe RequestController, "when showing similar requests" do
 
   before do
     get_fixtures_xapian_index
@@ -1961,7 +1961,7 @@ describe RequestController, "when showing similar requests" do
 
 end
 
-describe RequestController, "#new_batch" do
+RSpec.describe RequestController, "#new_batch" do
 
   context "when batch requests is enabled" do
 
@@ -2117,7 +2117,7 @@ describe RequestController, "#new_batch" do
 
 end
 
-describe RequestController, "#select_authorities" do
+RSpec.describe RequestController, "#select_authorities" do
 
   context "when batch requests is enabled" do
 
@@ -2265,7 +2265,7 @@ describe RequestController, "#select_authorities" do
 
 end
 
-describe RequestController, "when the site is in read_only mode" do
+RSpec.describe RequestController, "when the site is in read_only mode" do
   before do
     allow(AlaveteliConfiguration).to receive(:read_only).and_return("Down for maintenance")
   end
@@ -2293,7 +2293,7 @@ describe RequestController, "when the site is in read_only mode" do
   end
 end
 
-describe RequestController do
+RSpec.describe RequestController do
 
   describe 'GET #details' do
 
@@ -2357,7 +2357,7 @@ describe RequestController do
 
 end
 
-describe RequestController do
+RSpec.describe RequestController do
 
   describe 'GET #download_entire_request' do
     context 'when the request is embargoed' do
@@ -2421,7 +2421,7 @@ describe RequestController do
   end
 end
 
-describe RequestController do
+RSpec.describe RequestController do
 
   describe 'GET #show_request_event' do
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'when displaying actions that can be taken with regard to a request' do
+RSpec.describe 'when displaying actions that can be taken with regard to a request' do
   let(:info_request) { FactoryBot.create(:info_request) }
   let(:user) { info_request.user }
   let(:admin_user) { FactoryBot.create('admin_user') }

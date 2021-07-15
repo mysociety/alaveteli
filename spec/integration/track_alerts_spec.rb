@@ -1,7 +1,7 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
-require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
+require 'spec_helper'
+require 'integration/alaveteli_dsl'
 
-describe "When sending track alerts" do
+RSpec.describe "When sending track alerts" do
 
   before do
     # TODO: required to make sure xapian index can find files for raw emails

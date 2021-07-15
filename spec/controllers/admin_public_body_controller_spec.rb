@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe AdminPublicBodyController do
+RSpec.describe AdminPublicBodyController do
 
   describe 'GET #index' do
 

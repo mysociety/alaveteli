@@ -102,7 +102,7 @@ shared_examples_for "an info_request_batch action" do
   end
 end
 
-describe AlaveteliPro::InfoRequestBatchesController do
+RSpec.describe AlaveteliPro::InfoRequestBatchesController do
   let(:body_1) { FactoryBot.create(:public_body) }
   let(:body_2) { FactoryBot.create(:public_body) }
   let(:bodies) { [body_1, body_2] }

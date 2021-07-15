@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../../spec_helper')
+require 'spec_helper'
 
-describe HealthChecks::Checks::DaysAgoCheck do
+RSpec.describe HealthChecks::Checks::DaysAgoCheck do
   include HealthChecks::Checks
 
   it { is_expected.to be_kind_of(HealthChecks::HealthCheckable) }

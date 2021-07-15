@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe HasTagString::HasTagStringTag do
+RSpec.describe HasTagString::HasTagStringTag do
 
   class ModelWithTag < ApplicationRecord
     has_tag_string
@@ -160,7 +160,7 @@ describe HasTagString::HasTagStringTag do
   end
 end
 
-describe HasTagString::HasTagStringTag, " when fiddling with tag strings" do
+RSpec.describe HasTagString::HasTagStringTag, " when fiddling with tag strings" do
 
   it "should be able to make a new tag and save it" do
     @tag = HasTagString::HasTagStringTag.new

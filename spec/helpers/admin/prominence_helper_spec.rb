@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::ProminenceHelper, type: :helper do
+RSpec.describe Admin::ProminenceHelper, type: :helper do
   %i[normal backpage requester_only hidden].each do |prominence|
     let(prominence) { double(prominence: prominence.to_s) }
   end

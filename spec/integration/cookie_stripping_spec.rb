@@ -1,7 +1,7 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
-require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
+require 'spec_helper'
+require 'integration/alaveteli_dsl'
 
-describe 'when making stripping cookies' do
+RSpec.describe 'when making stripping cookies' do
 
   it 'should not set a cookie when no significant session data is set' do
     get '/country_message'

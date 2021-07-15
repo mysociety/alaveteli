@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe CurrencyHelper do
+RSpec.describe CurrencyHelper do
   include CurrencyHelper
 
   describe '#format_currency' do

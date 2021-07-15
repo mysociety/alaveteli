@@ -1,7 +1,7 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
-require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
+require 'spec_helper'
+require 'integration/alaveteli_dsl'
 
-describe 'Requesting changes to a public body' do
+RSpec.describe 'Requesting changes to a public body' do
 
   describe 'reporting an out of date email address' do
 

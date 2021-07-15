@@ -1,5 +1,5 @@
 require 'spec_helper'
-require File.expand_path(File.dirname(__FILE__) + '/../alaveteli_dsl')
+require 'integration/alaveteli_dsl'
 
 def start_batch_request
   visit(alaveteli_pro_batch_request_authority_searches_path)
@@ -40,7 +40,7 @@ def search_results
   page.find_all(".batch-builder__list__item__name").map(&:text)
 end
 
-describe "creating batch requests in alaveteli_pro" do
+RSpec.describe "creating batch requests in alaveteli_pro" do
   let(:pro_user) { FactoryBot.create(:pro_user) }
   let!(:pro_user_session) { login(pro_user) }
   let!(:authorities) { FactoryBot.create_list(:public_body, 26) }
@@ -320,7 +320,7 @@ describe "creating batch requests in alaveteli_pro" do
   end
 end
 
-describe "managing embargoed batch requests" do
+RSpec.describe "managing embargoed batch requests" do
   let(:pro_user) { FactoryBot.create(:pro_user) }
   let!(:pro_user_session) { login(pro_user) }
   let!(:batch) do

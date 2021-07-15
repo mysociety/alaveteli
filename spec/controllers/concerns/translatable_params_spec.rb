@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
+require 'spec_helper'
 
-describe TranslatableParams do
+RSpec.describe TranslatableParams do
   include TranslatableParams
 
   describe '#translatable_params' do
@@ -41,7 +41,7 @@ describe TranslatableParams do
 
 end
 
-describe TranslatableParams::WhitelistedParams do
+RSpec.describe TranslatableParams::WhitelistedParams do
 
   describe '#whitelist' do
 

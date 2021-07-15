@@ -1,6 +1,6 @@
-require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
+require 'spec_helper'
 
-describe "request_mailer/comment_on_alert" do
+RSpec.describe "request_mailer/comment_on_alert" do
   let(:request) { FactoryBot.create(:info_request) }
   let(:user) { FactoryBot.create(:user, :name => "Test Us'r") }
   let(:comment) { FactoryBot.create(:comment, :user => user) }

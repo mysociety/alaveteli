@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::OutgoingMessages::SnippetsController do
+RSpec.describe Admin::OutgoingMessages::SnippetsController do
   before(:each) { basic_auth_login(@request) }
 
   describe 'GET #index' do

@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../../spec_helper')
+require 'spec_helper'
 
-describe InfoRequest::ResponseGatekeeper::Base do
+RSpec.describe InfoRequest::ResponseGatekeeper::Base do
 
   describe '.new' do
 

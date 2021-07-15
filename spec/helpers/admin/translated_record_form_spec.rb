@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::TranslatedRecordForm do
+RSpec.describe Admin::TranslatedRecordForm do
   let(:builder) { described_class.new(:mock, resource, template, {}) }
   let(:template) { self }
 

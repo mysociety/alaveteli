@@ -21,10 +21,10 @@
 #  prominence_reason              :text
 #
 
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
 
-describe IncomingMessage do
+RSpec.describe IncomingMessage do
 
   describe '.unparsed' do
     subject { described_class.unparsed }
@@ -469,7 +469,7 @@ describe IncomingMessage do
   end
 end
 
-describe IncomingMessage, 'when validating' do
+RSpec.describe IncomingMessage, 'when validating' do
 
   it 'should be valid with valid prominence values' do
     ['hidden', 'requester_only', 'normal'].each do |prominence|
@@ -489,7 +489,7 @@ describe IncomingMessage, 'when validating' do
 
 end
 
-describe IncomingMessage, 'when getting a response event' do
+RSpec.describe IncomingMessage, 'when getting a response event' do
 
   it 'should return an event with event_type "response"' do
     incoming_message = IncomingMessage.new
@@ -501,7 +501,7 @@ describe IncomingMessage, 'when getting a response event' do
 
 end
 
-describe IncomingMessage, "when the prominence is changed" do
+RSpec.describe IncomingMessage, "when the prominence is changed" do
   let(:request) { FactoryBot.create(:info_request) }
 
   it "updates the info_request's last_public_response_at to nil when hidden" do
@@ -531,7 +531,7 @@ describe IncomingMessage, "when the prominence is changed" do
 
 end
 
-describe 'when destroying a message' do
+RSpec.describe 'when destroying a message' do
   let(:incoming_message) { FactoryBot.create(:plain_incoming_message) }
 
   it 'destroys the incoming message' do
@@ -596,7 +596,7 @@ describe 'when destroying a message' do
 
 end
 
-describe 'when asked if it is indexed by search' do
+RSpec.describe 'when asked if it is indexed by search' do
 
   before do
     @incoming_message = IncomingMessage.new
@@ -619,7 +619,7 @@ describe 'when asked if it is indexed by search' do
 
 end
 
-describe IncomingMessage, " when dealing with incoming mail" do
+RSpec.describe IncomingMessage, " when dealing with incoming mail" do
 
   before(:each) do
     @im = incoming_messages(:useless_incoming_message)
@@ -739,7 +739,7 @@ describe IncomingMessage, " when dealing with incoming mail" do
 
 end
 
-describe IncomingMessage, " display attachments" do
+RSpec.describe IncomingMessage, " display attachments" do
 
   it "should not show slashes in filenames" do
     foi_attachment = FoiAttachment.new
@@ -761,7 +761,7 @@ describe IncomingMessage, " display attachments" do
 
 end
 
-describe IncomingMessage, " folding quoted parts of emails" do
+RSpec.describe IncomingMessage, " folding quoted parts of emails" do
 
   it 'should fold an example lotus notes quoted part converted from HTML correctly' do
     ir = info_requests(:fancy_dog_request)
@@ -811,7 +811,7 @@ describe IncomingMessage, " folding quoted parts of emails" do
 
 end
 
-describe IncomingMessage, " when uudecoding bad messages" do
+RSpec.describe IncomingMessage, " when uudecoding bad messages" do
   let(:raw_email) { FactoryBot.create(:raw_email) }
 
   let(:im) do
@@ -894,7 +894,7 @@ describe IncomingMessage, " when uudecoding bad messages" do
 
 end
 
-describe IncomingMessage, "when messages are attached to messages" do
+RSpec.describe IncomingMessage, "when messages are attached to messages" do
   let(:raw_email) { FactoryBot.create(:raw_email) }
 
   let(:im) do
@@ -953,7 +953,7 @@ describe IncomingMessage, "when messages are attached to messages" do
 
 end
 
-describe IncomingMessage, "when Outlook messages are attached to messages" do
+RSpec.describe IncomingMessage, "when Outlook messages are attached to messages" do
   let(:raw_email) { FactoryBot.create(:raw_email) }
 
   let(:im) do
@@ -979,7 +979,7 @@ describe IncomingMessage, "when Outlook messages are attached to messages" do
   end
 end
 
-describe IncomingMessage, "when TNEF attachments are attached to messages" do
+RSpec.describe IncomingMessage, "when TNEF attachments are attached to messages" do
   let(:raw_email) { FactoryBot.create(:raw_email) }
 
   let(:im) do
@@ -1015,7 +1015,7 @@ describe IncomingMessage, "when TNEF attachments are attached to messages" do
 
 end
 
-describe IncomingMessage, "when extracting attachments" do
+RSpec.describe IncomingMessage, "when extracting attachments" do
 
   before do
     load_raw_emails_data
@@ -1071,7 +1071,7 @@ describe IncomingMessage, "when extracting attachments" do
 
 end
 
-describe IncomingMessage, 'when getting the body of a message for html display' do
+RSpec.describe IncomingMessage, 'when getting the body of a message for html display' do
   let(:incoming_message) { IncomingMessage.new }
 
   it 'should replace any masked email addresses with a link to the help page' do
@@ -1123,7 +1123,7 @@ describe IncomingMessage, 'when getting the body of a message for html display' 
 
 end
 
-describe IncomingMessage, 'when getting clipped attachment text' do
+RSpec.describe IncomingMessage, 'when getting clipped attachment text' do
 
   it 'should clip to characters not bytes' do
     incoming_message = FactoryBot.build(:incoming_message)
@@ -1136,7 +1136,7 @@ describe IncomingMessage, 'when getting clipped attachment text' do
 
 end
 
-describe IncomingMessage, 'when getting the main body text' do
+RSpec.describe IncomingMessage, 'when getting the main body text' do
 
   context 'when the main body text is more than 1MB' do
 

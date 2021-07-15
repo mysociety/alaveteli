@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "comment/new.html.erb" do
+RSpec.describe "comment/new.html.erb" do
   context "when the request is embargoed" do
     let(:info_request) { FactoryBot.create(:embargoed_request) }
     let(:comment) { info_request.comments.new }

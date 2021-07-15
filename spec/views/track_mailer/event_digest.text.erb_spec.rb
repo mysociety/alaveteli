@@ -1,6 +1,6 @@
-require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
+require 'spec_helper'
 
-describe "track_mailer/event_digest" do
+RSpec.describe "track_mailer/event_digest" do
   let(:user) { FactoryBot.create(:user, :name => "Test Us'r") }
   let(:body) { FactoryBot.create(:public_body, :name => "Apostrophe's") }
   let(:request) do

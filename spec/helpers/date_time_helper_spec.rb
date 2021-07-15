@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe DateTimeHelper do
+RSpec.describe DateTimeHelper do
 
   include DateTimeHelper
 

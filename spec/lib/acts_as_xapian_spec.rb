@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe ActsAsXapian do
+RSpec.describe ActsAsXapian do
 
   before { update_xapian_index }
 
@@ -41,7 +41,7 @@ describe ActsAsXapian do
 
 end
 
-describe ActsAsXapian::FailedJob do
+RSpec.describe ActsAsXapian::FailedJob do
   let(:error) { StandardError.new('Testing the error handling') }
   let(:model_data) { { model: 'PublicBody', model_id: 7 } }
   let(:failed_job) { described_class.new(1, error, model_data) }
@@ -170,7 +170,7 @@ describe ActsAsXapian::FailedJob do
 
 end
 
-describe ActsAsXapian::Search do
+RSpec.describe ActsAsXapian::Search do
 
   describe "#words_to_highlight" do
 

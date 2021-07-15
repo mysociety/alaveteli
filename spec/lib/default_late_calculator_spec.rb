@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe DefaultLateCalculator do
+RSpec.describe DefaultLateCalculator do
 
   describe '.description' do
 

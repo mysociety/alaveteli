@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe AdminRawEmailController do
+RSpec.describe AdminRawEmailController do
 
   describe 'GET show' do
 

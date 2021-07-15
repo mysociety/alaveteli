@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AlaveteliPro::ToDoList::OverdueRequest do
+RSpec.describe AlaveteliPro::ToDoList::OverdueRequest do
   include Rails.application.routes.url_helpers
 
   let(:info_request) { FactoryBot.create(:info_request) }

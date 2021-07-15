@@ -1,7 +1,7 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
-require File.expand_path(File.dirname(__FILE__) + '/../../lib/graphs')
+require 'spec_helper'
+require Rails.root.join('lib/graphs')
 
-describe Graphs do
+RSpec.describe Graphs do
 
   let(:dummy_class) { Class.new { extend Graphs } }
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe InfoRequest::State::ActionNeededQuery do
+RSpec.describe InfoRequest::State::ActionNeededQuery do
   describe '#call' do
     it 'includes those that have a new response, need clarification
         and are overdue or very_overdue' do

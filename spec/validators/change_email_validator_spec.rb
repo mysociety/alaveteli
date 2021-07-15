@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
 def validator_with_user_and_params(user, params = {})
   validator = ChangeEmailValidator.new(params)
@@ -6,7 +6,7 @@ def validator_with_user_and_params(user, params = {})
   validator
 end
 
-describe ChangeEmailValidator do
+RSpec.describe ChangeEmailValidator do
 
   let(:user) { FactoryBot.create(:user) }
 

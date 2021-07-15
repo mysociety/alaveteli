@@ -12,9 +12,9 @@
 #  description             :text
 #
 
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe PublicBodyCategory do
+RSpec.describe PublicBodyCategory do
 
   context 'when validating' do
 
@@ -160,7 +160,7 @@ describe PublicBodyCategory do
 
 end
 
-describe PublicBodyCategory::Translation do
+RSpec.describe PublicBodyCategory::Translation do
 
   it 'requires a locale' do
     translation = PublicBodyCategory::Translation.new

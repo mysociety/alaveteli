@@ -14,7 +14,7 @@
 
 require 'spec_helper'
 
-describe Announcement do
+RSpec.describe Announcement do
   describe 'scopes' do
     let!(:admin) { FactoryBot.create(:admin_user) }
     let!(:user) { FactoryBot.create(:user) }

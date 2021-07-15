@@ -13,7 +13,7 @@
 
 require 'spec_helper'
 
-describe PublicBodyHeading do
+RSpec.describe PublicBodyHeading do
 
   context 'when validating' do
 
@@ -149,7 +149,7 @@ describe PublicBodyHeading do
   end
 end
 
-describe PublicBodyHeading::Translation do
+RSpec.describe PublicBodyHeading::Translation do
 
   it 'requires a locale' do
     translation = PublicBodyHeading::Translation.new

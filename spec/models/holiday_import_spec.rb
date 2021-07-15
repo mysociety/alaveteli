@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe HolidayImport do
+RSpec.describe HolidayImport do
 
   it 'validates the presence of a feed if the source is a feed' do
     holiday_import = HolidayImport.new(:source => 'feed')

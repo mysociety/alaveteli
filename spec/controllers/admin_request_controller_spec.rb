@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe AdminRequestController, "when administering requests" do
+RSpec.describe AdminRequestController, "when administering requests" do
 
   describe 'GET #index' do
     let(:info_request) { FactoryBot.create(:info_request) }

@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'integration/alaveteli_dsl'
 require 'support/shared_examples_for_viewing_requests'
 
-describe "viewing requests in alaveteli_pro" do
+RSpec.describe "viewing requests in alaveteli_pro" do
   let(:pro_user) { FactoryBot.create(:pro_user) }
   let(:info_request) { FactoryBot.create(:info_request, user: pro_user) }
   let!(:pro_user_session) { login(pro_user) }

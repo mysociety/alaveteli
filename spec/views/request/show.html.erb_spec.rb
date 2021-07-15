@@ -1,6 +1,6 @@
-require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
+require 'spec_helper'
 
-describe "request/show" do
+RSpec.describe "request/show" do
 
   let(:mock_body) { FactoryBot.create(:public_body, :name => "test body") }
 

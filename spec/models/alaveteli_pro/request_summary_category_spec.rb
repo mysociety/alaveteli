@@ -11,7 +11,7 @@
 
 require "spec_helper"
 
-describe AlaveteliPro::RequestSummaryCategory do
+RSpec.describe AlaveteliPro::RequestSummaryCategory do
   it "can belong to multiple request_summaries" do
     category = FactoryBot.create(:request_summary_category)
     summary_1 = FactoryBot.create(:request_summary,

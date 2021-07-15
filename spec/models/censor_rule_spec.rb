@@ -16,9 +16,9 @@
 #  regexp            :boolean
 #
 
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe CensorRule do
+RSpec.describe CensorRule do
 
   describe '#apply_to_text' do
 
@@ -230,7 +230,7 @@ describe CensorRule do
   end
 end
 
-describe 'when validating rules' do
+RSpec.describe 'when validating rules' do
 
   it 'must have the text to redact' do
     censor_rule = CensorRule.new
@@ -310,7 +310,7 @@ describe 'when validating rules' do
 
 end
 
-describe 'when handling global rules' do
+RSpec.describe 'when handling global rules' do
 
   describe 'an instance without user_id, request_id or public_body_id' do
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe InfoRequest::ProQuery do
+RSpec.describe InfoRequest::ProQuery do
 
   describe '#call' do
 

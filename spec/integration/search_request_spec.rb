@@ -1,7 +1,7 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
-require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
+require 'spec_helper'
+require 'integration/alaveteli_dsl'
 
-describe "When searching" do
+RSpec.describe "When searching" do
 
   before(:each) do
     load_raw_emails_data

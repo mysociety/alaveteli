@@ -1,7 +1,7 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
-require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
+require 'spec_helper'
+require 'integration/alaveteli_dsl'
 
-describe 'Editing a Public Body Heading' do
+RSpec.describe 'Editing a Public Body Heading' do
   before do
     allow(AlaveteliConfiguration).to receive(:skip_admin_auth).and_return(false)
 

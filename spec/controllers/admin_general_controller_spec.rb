@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe AdminGeneralController do
+RSpec.describe AdminGeneralController do
 
   describe "GET #index" do
     let(:admin_user) { FactoryBot.create(:admin_user) }

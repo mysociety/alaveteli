@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe LanguageNames do
+RSpec.describe LanguageNames do
 
   describe '.get_language_name' do
 

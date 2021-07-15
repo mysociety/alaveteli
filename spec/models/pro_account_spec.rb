@@ -14,7 +14,7 @@
 require 'spec_helper'
 require 'stripe_mock'
 
-describe ProAccount, feature: :pro_pricing do
+RSpec.describe ProAccount, feature: :pro_pricing do
 
   around { |example| StripeMock.mock(&example) }
 

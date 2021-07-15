@@ -13,7 +13,7 @@
 
 require 'spec_helper'
 
-describe Role do
+RSpec.describe Role do
 
   it 'validates the role name is in the allowed roles' do
     role = Role.new(:name => 'test')

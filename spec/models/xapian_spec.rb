@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe User, " when indexing users with Xapian" do
+RSpec.describe User, " when indexing users with Xapian" do
 
   before(:each) do
     load_raw_emails_data
@@ -33,7 +33,7 @@ describe User, " when indexing users with Xapian" do
   end
 end
 
-describe PublicBody, " when indexing public bodies with Xapian" do
+RSpec.describe PublicBody, " when indexing public bodies with Xapian" do
   before(:each) do
     load_raw_emails_data
     get_fixtures_xapian_index
@@ -65,7 +65,7 @@ describe PublicBody, " when indexing public bodies with Xapian" do
 
 end
 
-describe PublicBody, " when indexing requests by body they are to" do
+RSpec.describe PublicBody, " when indexing requests by body they are to" do
 
   before(:each) do
     load_raw_emails_data
@@ -121,7 +121,7 @@ describe PublicBody, " when indexing requests by body they are to" do
   end
 end
 
-describe User, " when indexing requests by user they are from" do
+RSpec.describe User, " when indexing requests by user they are from" do
   before(:each) do
     load_raw_emails_data
     get_fixtures_xapian_index
@@ -255,7 +255,7 @@ describe User, " when indexing requests by user they are from" do
   end
 end
 
-describe User, " when indexing comments by user they are by" do
+RSpec.describe User, " when indexing comments by user they are by" do
   before(:each) do
     load_raw_emails_data
     get_fixtures_xapian_index
@@ -290,7 +290,7 @@ describe User, " when indexing comments by user they are by" do
   end
 end
 
-describe InfoRequest, " when indexing requests by their title" do
+RSpec.describe InfoRequest, " when indexing requests by their title" do
   before(:each) do
     load_raw_emails_data
     get_fixtures_xapian_index
@@ -319,7 +319,7 @@ describe InfoRequest, " when indexing requests by their title" do
   end
 end
 
-describe InfoRequest, " when indexing requests by tag" do
+RSpec.describe InfoRequest, " when indexing requests by tag" do
   before(:each) do
     load_raw_emails_data
     get_fixtures_xapian_index
@@ -340,7 +340,7 @@ describe InfoRequest, " when indexing requests by tag" do
   end
 end
 
-describe PublicBody, " when indexing authorities by tag" do
+RSpec.describe PublicBody, " when indexing authorities by tag" do
   before(:each) do
     load_raw_emails_data
     get_fixtures_xapian_index
@@ -364,7 +364,7 @@ describe PublicBody, " when indexing authorities by tag" do
   end
 end
 
-describe PublicBody, " when only indexing selected things on a rebuild" do
+RSpec.describe PublicBody, " when only indexing selected things on a rebuild" do
   before(:each) do
     load_raw_emails_data
     get_fixtures_xapian_index
@@ -422,7 +422,7 @@ describe PublicBody, " when only indexing selected things on a rebuild" do
   end
 end
 
-describe InfoRequestEvent, " when faced with a race condition during xapian_mark_needs_index" do
+RSpec.describe InfoRequestEvent, " when faced with a race condition during xapian_mark_needs_index" do
 
   before(:each) do
     load_raw_emails_data

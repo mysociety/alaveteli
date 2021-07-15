@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AlaveteliPro::PostRedirectHandler, type: :controller do
+RSpec.describe AlaveteliPro::PostRedirectHandler, type: :controller do
   controller do
     include AlaveteliPro::PostRedirectHandler
   end

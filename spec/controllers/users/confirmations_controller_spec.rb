@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Users::ConfirmationsController do
+RSpec.describe Users::ConfirmationsController do
 
   describe 'GET confirm' do
 

@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe AlaveteliTextMasker do
+RSpec.describe AlaveteliTextMasker do
 
   let(:class_instance) { Class.new { include AlaveteliTextMasker }.new }
 

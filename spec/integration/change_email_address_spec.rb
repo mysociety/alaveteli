@@ -1,7 +1,7 @@
 require 'spec_helper'
-require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
+require 'integration/alaveteli_dsl'
 
-describe 'changing your email address' do
+RSpec.describe 'changing your email address' do
   let(:user) { FactoryBot.create(:user) }
 
   it "sends a confirmation email if you get all the details right" do

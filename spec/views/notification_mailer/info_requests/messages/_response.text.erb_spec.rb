@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "notification_mailer/info_requests/messages/_response.text.erb" do
+RSpec.describe "notification_mailer/info_requests/messages/_response.text.erb" do
   let!(:notification) { FactoryBot.create(:notification) }
   let!(:info_request_event) { notification.info_request_event }
   let!(:incoming_message) { info_request_event.incoming_message }

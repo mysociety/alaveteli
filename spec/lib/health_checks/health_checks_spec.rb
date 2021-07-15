@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
+require 'spec_helper'
 
-describe HealthChecks do
+RSpec.describe HealthChecks do
   include HealthChecks
 
   describe '#add' do

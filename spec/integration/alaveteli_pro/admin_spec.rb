@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'integration/alaveteli_dsl'
 
-describe "administering requests" do
+RSpec.describe "administering requests" do
 
   before do
     get_fixtures_xapian_index

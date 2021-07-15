@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../../spec_helper')
+require 'spec_helper'
 
-describe AttachmentToHTML::Adapters::GoogleDocsViewer do
+RSpec.describe AttachmentToHTML::Adapters::GoogleDocsViewer do
 
   let(:attachment) { FactoryBot.build(:pdf_attachment) }
   let(:adapter) do

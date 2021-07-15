@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "alaveteli_pro/info_requests/dashboard/_projects.html.erb" do
+RSpec.describe "alaveteli_pro/info_requests/dashboard/_projects.html.erb" do
   let(:pro_user) { FactoryBot.create(:pro_user) }
 
   before do

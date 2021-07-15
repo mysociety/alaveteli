@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
+require 'spec_helper'
 
-describe InfoRequest::State do
+RSpec.describe InfoRequest::State do
 
   describe :all do
 
@@ -63,7 +63,7 @@ describe InfoRequest::State do
     context 'when a theme is in use' do
 
       before do
-        InfoRequest.send(:require, File.expand_path(File.dirname(__FILE__) + '/../customstates'))
+        InfoRequest.send(:require, 'models/customstates')
         InfoRequest.send(:include, InfoRequestCustomStates)
         InfoRequest.class_eval('@@custom_states_loaded = true')
       end

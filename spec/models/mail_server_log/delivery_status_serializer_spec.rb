@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
+require 'spec_helper'
 
-describe MailServerLog::DeliveryStatusSerializer do
+RSpec.describe MailServerLog::DeliveryStatusSerializer do
 
   describe '.dump' do
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "alaveteli_pro/info_requests/new.html.erb" do
+RSpec.describe "alaveteli_pro/info_requests/new.html.erb" do
   let!(:public_body) { FactoryBot.create(:public_body) }
   let(:draft_info_request) { FactoryBot.create(:draft_info_request) }
   let(:info_request) { InfoRequest.from_draft(draft_info_request) }

@@ -1,6 +1,6 @@
-require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
+require 'spec_helper'
 
-describe 'when showing the form for describing the state of a request' do
+RSpec.describe 'when showing the form for describing the state of a request' do
   let(:info_request) { FactoryBot.create(:info_request) }
   let(:user) { info_request.user }
 

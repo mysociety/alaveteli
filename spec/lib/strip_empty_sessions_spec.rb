@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe StripEmptySessions do
+RSpec.describe StripEmptySessions do
   def make_response(session_data, response_headers)
     app = lambda do |env|
       env['rack.session'] = session_data

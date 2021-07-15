@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AdminSpamAddressesController do
+RSpec.describe AdminSpamAddressesController do
   render_views
   before { basic_auth_login @request }
 

@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../../spec_helper')
+require 'spec_helper'
 
-describe AlaveteliRateLimiter::IPRateLimiter::Whitelist do
+RSpec.describe AlaveteliRateLimiter::IPRateLimiter::Whitelist do
 
   describe '.new' do
 

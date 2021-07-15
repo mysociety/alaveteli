@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../../spec_helper')
+require 'spec_helper'
 
-describe AttachmentToHTML::Adapters::RTF do
+RSpec.describe AttachmentToHTML::Adapters::RTF do
 
   let(:attachment) { FactoryBot.build(:rtf_attachment) }
   let(:adapter) { AttachmentToHTML::Adapters::RTF.new(attachment) }

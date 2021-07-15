@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
+require 'spec_helper'
 
-describe AlaveteliPro::BaseController do
+RSpec.describe AlaveteliPro::BaseController do
   controller(AlaveteliPro::BaseController) do
     def index
       head :ok

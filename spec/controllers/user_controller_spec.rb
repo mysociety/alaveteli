@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe UserController do
+RSpec.describe UserController do
 
   describe 'GET show' do
 
@@ -987,7 +987,7 @@ describe UserController do
   end
 end
 
-describe UserController, "when changing email address" do
+RSpec.describe UserController, "when changing email address" do
   render_views
 
   it "should require login" do
@@ -1097,7 +1097,7 @@ describe UserController, "when changing email address" do
   end
 end
 
-describe UserController, "when using profile photos" do
+RSpec.describe UserController, "when using profile photos" do
   render_views
 
   before do
@@ -1194,7 +1194,7 @@ describe UserController, "when using profile photos" do
   # TODO: todo check the two stage javascript cropping (above only tests one stage non-javascript one)
 end
 
-describe UserController, "when showing JSON version for API" do
+RSpec.describe UserController, "when showing JSON version for API" do
 
   it "should be successful" do
     get :show, params: { :url_name => "bob_smith", :format => "json" }
@@ -1208,7 +1208,7 @@ describe UserController, "when showing JSON version for API" do
 
 end
 
-describe UserController, "when viewing the wall" do
+RSpec.describe UserController, "when viewing the wall" do
   render_views
 
   before(:each) do

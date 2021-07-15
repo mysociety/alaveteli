@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../../spec_helper')
+require 'spec_helper'
 
-describe OutgoingMessage::Template::InitialRequest do
+RSpec.describe OutgoingMessage::Template::InitialRequest do
 
   describe '#body' do
 

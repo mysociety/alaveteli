@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'request/incoming_correspondence' do
+RSpec.describe 'request/incoming_correspondence' do
   let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
   let(:incoming_message) { info_request.incoming_messages.first }
 

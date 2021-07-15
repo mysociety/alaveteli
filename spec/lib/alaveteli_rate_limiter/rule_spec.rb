@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
+require 'spec_helper'
 
-describe AlaveteliRateLimiter::Rule do
+RSpec.describe AlaveteliRateLimiter::Rule do
 
   describe '.from_hash' do
 

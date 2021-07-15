@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
+require 'spec_helper'
 
-describe AttachmentToHTML::View do
+RSpec.describe AttachmentToHTML::View do
 
   let(:adapter) do
     double(:adapter,

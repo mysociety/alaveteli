@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe AdminUserController do
+RSpec.describe AdminUserController do
 
   describe 'GET index' do
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AdminPublicBodyChangeRequestsController do
+RSpec.describe AdminPublicBodyChangeRequestsController do
   let(:add_request) { FactoryBot.create(:add_body_request) }
 
   describe 'GET #edit' do

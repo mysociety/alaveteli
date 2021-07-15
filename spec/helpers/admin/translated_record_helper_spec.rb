@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::TranslatedRecordHelper, type: :helper do
+RSpec.describe Admin::TranslatedRecordHelper, type: :helper do
   describe '#translated_form_for' do
     let(:record) { FactoryBot.build(:announcement) }
 

@@ -12,7 +12,7 @@
 #  updated_at            :datetime
 #
 
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
 RSpec.describe UserInfoRequestSentAlert do
   describe '.recent' do

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AlaveteliPro::DashboardHelper do
+RSpec.describe AlaveteliPro::DashboardHelper do
 
   include AlaveteliPro::DashboardHelper
 

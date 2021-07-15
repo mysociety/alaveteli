@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe HighlightHelper do
+RSpec.describe HighlightHelper do
   include HighlightHelper
 
   describe '#highlight_and_excerpt' do

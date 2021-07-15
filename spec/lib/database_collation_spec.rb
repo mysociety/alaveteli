@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe DatabaseCollation do
+RSpec.describe DatabaseCollation do
 
   describe '.supports?' do
 

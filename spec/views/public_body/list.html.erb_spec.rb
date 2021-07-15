@@ -1,6 +1,6 @@
-require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
+require 'spec_helper'
 
-describe "public_body/list" do
+RSpec.describe "public_body/list" do
   before do
     @pb = mock_model(PublicBody,
       :name => 'Test Quango',

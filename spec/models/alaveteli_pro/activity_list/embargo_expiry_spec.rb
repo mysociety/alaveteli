@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AlaveteliPro::ActivityList::EmbargoExpiry do
+RSpec.describe AlaveteliPro::ActivityList::EmbargoExpiry do
   include Rails.application.routes.url_helpers
 
   let!(:user) { FactoryBot.create(:user) }

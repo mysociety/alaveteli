@@ -1,7 +1,7 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
 
-describe ApplicationMailer do
+RSpec.describe ApplicationMailer do
 
   context 'when using plugins' do
 

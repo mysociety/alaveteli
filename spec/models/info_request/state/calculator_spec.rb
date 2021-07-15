@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe InfoRequest::State::Calculator do
+RSpec.describe InfoRequest::State::Calculator do
   let(:info_request) { FactoryBot.create(:info_request) }
   let(:calculator) { described_class.new(info_request) }
 

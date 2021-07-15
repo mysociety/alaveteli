@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AdminHolidayImportsController do
+RSpec.describe AdminHolidayImportsController do
 
   describe 'GET new' do
 

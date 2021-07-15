@@ -1,6 +1,6 @@
 require 'confidence_intervals'
 
-describe "ci_bounds" do
+RSpec.describe "ci_bounds" do
 
   describe "when passed all successes" do
     it "should never return a high CI above 1" do

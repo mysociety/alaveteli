@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe "when using i18n" do
+RSpec.describe "when using i18n" do
 
   it "should not complain if we're missing variables from the string" do
     result = _('Hello', :dip => 'hummus')
@@ -14,7 +14,7 @@ describe "when using i18n" do
   end
 end
 
-describe 'n_' do
+RSpec.describe 'n_' do
   before { AlaveteliLocalization.set_locales('de en hr', 'en') }
 
   it 'returns the translated singular' do
@@ -110,7 +110,7 @@ describe 'n_' do
   end
 end
 
-describe "gettext_interpolate" do
+RSpec.describe "gettext_interpolate" do
   context "html unsafe string" do
     let(:string) { "Hello {{a}}" }
 

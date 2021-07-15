@@ -1,8 +1,7 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
-
+require 'spec_helper'
 require 'nokogiri'
 
-describe PublicBodyController, "when showing a body" do
+RSpec.describe PublicBodyController, "when showing a body" do
   render_views
 
   before(:each) do
@@ -98,7 +97,7 @@ describe PublicBodyController, "when showing a body" do
   end
 end
 
-describe PublicBodyController, "when listing bodies" do
+RSpec.describe PublicBodyController, "when listing bodies" do
   render_views
 
   it "should be successful" do
@@ -392,7 +391,7 @@ describe PublicBodyController, "when listing bodies" do
 
 end
 
-describe PublicBodyController, "when showing JSON version for API" do
+RSpec.describe PublicBodyController, "when showing JSON version for API" do
 
   it "should be successful" do
     get :show, params: { :url_name => "dfh", :format => "json", :view => 'all' }
@@ -406,7 +405,7 @@ describe PublicBodyController, "when showing JSON version for API" do
 
 end
 
-describe PublicBodyController, "when asked to export public bodies as CSV" do
+RSpec.describe PublicBodyController, "when asked to export public bodies as CSV" do
 
   it "should return a valid CSV file with the right number of rows" do
     get :list_all_csv
@@ -437,7 +436,7 @@ describe PublicBodyController, "when asked to export public bodies as CSV" do
 
 end
 
-describe PublicBodyController, "when doing type ahead searches" do
+RSpec.describe PublicBodyController, "when doing type ahead searches" do
   render_views
 
   before(:each) do

@@ -15,9 +15,9 @@
 #  updated_at       :datetime
 #
 
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe TrackThing, "when tracking changes" do
+RSpec.describe TrackThing, "when tracking changes" do
 
   before do
     @track_thing = track_things(:track_fancy_dog_search)
@@ -79,7 +79,7 @@ describe TrackThing, "when tracking changes" do
   end
 end
 
-describe TrackThing, "destroy" do
+RSpec.describe TrackThing, "destroy" do
   let(:track_thing) { FactoryBot.create(:search_track) }
 
   it "should destroy the track_thing" do

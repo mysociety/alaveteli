@@ -34,10 +34,10 @@
 #  incoming_messages_count               :integer          default("0")
 #
 
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 require 'models/concerns/info_request/title_validation'
 
-describe InfoRequest do
+RSpec.describe InfoRequest do
   it_behaves_like 'concerns/info_request/title_validation',
                   FactoryBot.build(:info_request)
 
@@ -2282,7 +2282,7 @@ describe InfoRequest do
   describe "when using a plugin and calculating the status" do
 
     before do
-      InfoRequest.send(:require, File.expand_path(File.dirname(__FILE__) + '/customstates'))
+      InfoRequest.send(:require, 'models/customstates')
       InfoRequest.send(:include, InfoRequestCustomStates)
       InfoRequest.class_eval('@@custom_states_loaded = true')
       @ir = info_requests(:naughty_chicken_request)
@@ -3970,7 +3970,7 @@ describe InfoRequest do
 
 end
 
-describe InfoRequest do
+RSpec.describe InfoRequest do
 
   describe '#date_initial_request_last_sent_at' do
     let(:info_request) { FactoryBot.create(:info_request) }

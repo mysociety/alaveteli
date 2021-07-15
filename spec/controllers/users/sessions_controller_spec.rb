@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Users::SessionsController do
+RSpec.describe Users::SessionsController do
 
   before do
     # Don't call out to external url during tests
