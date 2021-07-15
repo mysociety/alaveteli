@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class AddCensorRuleRegexp < ActiveRecord::Migration[4.2] # 2.3
   def self.up
     add_column :censor_rules, :regexp, :boolean

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # app/controllers/admin_track_controller.rb:
 # Show email alerts / RSS feeds from admin interface.
 #

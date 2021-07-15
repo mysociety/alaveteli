@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 
 repos = [ FastGettext::TranslationRepository.build('app',

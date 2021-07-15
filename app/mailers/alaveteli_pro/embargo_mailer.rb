@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # models/embargo_mailer.rb:
 # Alerts relating to embargoes.
 #

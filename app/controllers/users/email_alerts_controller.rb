@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # Managing a User's email alerts.
 class Users::EmailAlertsController < ApplicationController
   def destroy

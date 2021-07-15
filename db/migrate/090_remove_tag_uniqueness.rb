@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class RemoveTagUniqueness < ActiveRecord::Migration[4.2] # 2.3
   def self.up
     # MySQL cannot index text blobs like this

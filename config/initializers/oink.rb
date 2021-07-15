@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # This can be added to either:
 # config/environments/test.rb
 # config/initializers/oink.rb

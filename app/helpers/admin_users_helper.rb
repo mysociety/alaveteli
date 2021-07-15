@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 module AdminUsersHelper
   def user_labels(user)
     html = ''

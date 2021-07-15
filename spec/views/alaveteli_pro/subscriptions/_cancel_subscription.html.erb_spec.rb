@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 spec_helper = File.join('..', '..', '..', '..', 'spec_helper')
 require File.expand_path(spec_helper, __FILE__)
 

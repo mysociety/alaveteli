@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 module AlaveteliRateLimiter
   # A generic rate limiter that records counts of actions from a given ID in to
   # a Backend, and then uses a Rule to calculate if the frequency of the actions

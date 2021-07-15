@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # app/controllers/admin_users_sessions_controller.rb:
 # Controller for logging in as another user
 #

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # Calculate the confidence interval for a samples from a binonial
 # distribution using Wilson's score interval.  For more theoretical
 # details, please see:

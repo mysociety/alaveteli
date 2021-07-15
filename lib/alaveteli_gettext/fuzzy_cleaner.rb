@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 module AlaveteliGetText
   class FuzzyCleaner
     def clean_po(input)

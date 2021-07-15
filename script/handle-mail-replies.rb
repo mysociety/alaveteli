@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-# -*- encoding : utf-8 -*-
 
 # Handle email responses sent to us.
 #

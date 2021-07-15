@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'bundler/capistrano'
 
 set :stage, 'staging' unless exists? :stage

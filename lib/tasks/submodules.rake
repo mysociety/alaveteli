@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 namespace :submodules do
 
   desc "Check the status of the project's submodules"

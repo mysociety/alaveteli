@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # app/controllers/comment_controller.rb:
 # Show annotations upon a request or other object.
 #

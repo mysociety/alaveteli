@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class MockPopMail
   def initialize(rfc2822, number)
     @rfc2822 = rfc2822

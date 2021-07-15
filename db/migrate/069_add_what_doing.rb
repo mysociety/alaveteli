@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class AddWhatDoing < ActiveRecord::Migration[4.2] # 2.1
   def self.up
     add_column :outgoing_messages, :what_doing, :string

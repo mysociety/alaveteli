@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 describe "alaveteli_pro/embargo_mailer/expiring_alert.text.erb" do

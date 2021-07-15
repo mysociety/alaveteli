@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 class FixBrokenMigrationTimestamps < ActiveRecord::Migration[4.2]
   def up
     # We can just delete the old migration version from the database beacuse:

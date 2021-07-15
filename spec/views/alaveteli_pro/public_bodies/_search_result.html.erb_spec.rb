@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 describe 'alaveteli_pro/public_bodies/_search_result.html.erb' do

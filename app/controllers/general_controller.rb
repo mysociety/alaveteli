@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # app/controllers/general_controller.rb:
 # For pages like front page, general search, that aren't specific to a
 # particular model.

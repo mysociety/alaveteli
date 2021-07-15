@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # Does not inherit from AlaveteliPro::BaseController because it doesn't need to
 class AlaveteliPro::StripeWebhooksController < ApplicationController
   class MissingTypeStripeWebhookError < StandardError; end

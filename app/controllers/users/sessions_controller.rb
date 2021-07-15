@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class Users::SessionsController < UserController
   include UserSpamCheck
 

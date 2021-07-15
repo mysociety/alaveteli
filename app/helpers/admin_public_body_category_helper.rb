@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 module AdminPublicBodyCategoryHelper
   def heading_is_selected?(heading)
     if params[:headings]

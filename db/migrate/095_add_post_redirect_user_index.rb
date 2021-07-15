@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class AddPostRedirectUserIndex < ActiveRecord::Migration[4.2] # 2.3
   # This index is for admin interface
 

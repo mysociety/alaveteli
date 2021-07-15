@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class User
   class TransactionCalculator
     DEFAULT_TRANSACTION_ASSOCIATIONS = [

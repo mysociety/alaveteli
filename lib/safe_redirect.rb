@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 #
 # Public: Sanitise a redirect parameter
 require 'uri'

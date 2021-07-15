@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class InfoRequest
   module ResponseRejection
     class UnknownResponseRejectionError < ArgumentError; end

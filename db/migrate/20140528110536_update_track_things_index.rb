@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class UpdateTrackThingsIndex < ActiveRecord::Migration[4.2] # 3.2
 
   def up

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # app/helpers/link_to_helper.rb:
 # This module is included into all controllers via controllers/application.rb
 # -

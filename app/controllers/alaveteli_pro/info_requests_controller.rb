@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # app/controllers/alaveteli_pro/info_requests_controller.rb
 # Controller for info requests
 #

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 describe "alaveteli_pro/info_requests/new.html.erb" do

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # models/request_mailer.rb:
 # Alerts relating to requests.
 #

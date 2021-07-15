@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class UserSpamScorer
   DEFAULT_SCORE_MAPPINGS = {
     :name_is_all_lowercase? => 1,

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # config/routes.rb:
 # Mapping URLs to controllers for FOIFA.
 #

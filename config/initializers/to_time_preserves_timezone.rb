@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # Be sure to restart your server when you modify this file.
 
 # Preserve the timezone of the receiver when calling to `to_time`.

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # app/controllers/alaveteli_pro/info_request_batches_controller.rb
 # Controller for batch info requests
 #

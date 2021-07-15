@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class MailServerLog::DeliveryStatus
   module TranslatedConstants
 

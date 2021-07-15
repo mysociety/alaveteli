@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 namespace :stats do
 
   desc 'Produce monthly transaction stats for a period starting START_YEAR'

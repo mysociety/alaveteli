@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class UserProfile::AboutMeController < ApplicationController
   before_action :set_title
   before_action :check_user_logged_in
