@@ -670,15 +670,6 @@ MAX_REQUESTS_PER_USER_PER_DAY: 6
 # ---
 GA_CODE: ''
 
-# We need to add the WDTK survey variables here, or else the deployment
-# system will cry.
-SURVEY_SECRET: ''
-# Blank this out if the survey host is unavailable - people going to the
-# survey URL will get a message that the survey is unavailable
-SURVEY_URL: ''
-# Set this to false if you don't want survey emails to be sent
-SEND_SURVEY_MAILS: true
-
 # If you want to override all the public body request emails with your own
 # email address so that request emails that would normally go to the public
 # body go to you, use this setting. This is useful for a staging server, so you
@@ -1313,3 +1304,9 @@ ENABLE_PROJECTS: false
 #
 # ---
 SURVEY_URL: ''
+
+# We need to add the WDTK survey variables here, or else the deployment
+# system will cry.
+SURVEY_SECRET: ''
+# Set this to false if you don't want survey emails to be sent
+SEND_SURVEY_MAILS: true
