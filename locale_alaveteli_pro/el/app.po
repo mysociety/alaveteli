@@ -920,7 +920,7 @@ msgstr[0] "Δείξε {{count}} αιτήματα με λεπτομέρειες 1
 msgstr[1] "Δείξε {{count}} αιτήματα με λεπτομέρειες </span>"
 
 msgid "Sign up"
-msgstr "Εγγρεφείτε"
+msgstr "εγγραφείτε"
 
 msgid "Simple, affordable pricing"
 msgstr "Απλή, προσιτή τιμολόγηση"
