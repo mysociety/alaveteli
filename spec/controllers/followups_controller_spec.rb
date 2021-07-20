@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe FollowupsController do
+RSpec.describe FollowupsController do
   render_views
 
   let(:request_user) { FactoryBot.create(:user) }

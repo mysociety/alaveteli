@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class AdminPublicBodyChangeRequestsController < AdminController
   before_action :set_change_request, only: [:edit, :update]
 

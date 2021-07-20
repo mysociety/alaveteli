@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe ReportsController do
+RSpec.describe ReportsController do
 
   describe 'POST #create' do
     let(:info_request) { FactoryBot.create(:info_request) }

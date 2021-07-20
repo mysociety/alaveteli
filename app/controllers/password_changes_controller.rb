@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # app/controllers/password_changes_controller.rb:
 # Change a User's password
 #

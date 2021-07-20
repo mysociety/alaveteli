@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # app/controllers/one_time_passwords_controller.rb:
 # View and update User one time passwords
 #

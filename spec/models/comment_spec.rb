@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
 # Schema version: 20210114161442
 #
@@ -15,9 +14,9 @@
 #  attention_requested :boolean          default("false"), not null
 #
 
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe Comment do
+RSpec.describe Comment do
 
   include Rails.application.routes.url_helpers
   include LinkToHelper

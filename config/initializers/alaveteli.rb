@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # MySociety specific helper functions
 $:.push(File.join(File.dirname(__FILE__), '../../commonlib/rblib'))
 # ... if these fail to include, you need the commonlib submodule from git
@@ -11,7 +10,7 @@ load "debug_helpers.rb"
 load "util.rb"
 
 # Application version
-ALAVETELI_VERSION = '0.39.0.2'
+ALAVETELI_VERSION = '0.39.1.0'
 
 # Add new inflection rules using the following format
 # (all these examples are active by default):

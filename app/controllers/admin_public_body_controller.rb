@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # app/controllers/admin_public_body_controller.rb:
 # Controller for editing public bodies from the admin interface.
 #

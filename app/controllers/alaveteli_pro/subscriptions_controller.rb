@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
   include AlaveteliPro::StripeNamespace
 

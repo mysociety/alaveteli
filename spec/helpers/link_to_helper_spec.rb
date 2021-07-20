@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe LinkToHelper do
+RSpec.describe LinkToHelper do
   include LinkToHelper
 
   describe 'when creating a url for a request' do

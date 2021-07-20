@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AnnouncementsController do
+RSpec.describe AnnouncementsController do
 
   describe '#destroy' do
 

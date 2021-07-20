@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
 # Schema version: 20210114161442
 #
@@ -14,7 +13,7 @@
 
 require 'spec_helper'
 
-describe PublicBodyHeading, 'when validating' do
+RSpec.describe PublicBodyHeading, 'when validating' do
 
   it 'should set a default display order based on the next available display order' do
     heading = FactoryBot.create(:public_body_heading)
@@ -39,7 +38,7 @@ describe PublicBodyHeading, 'when validating' do
 
 end
 
-describe PublicBodyCategoryLink, 'when setting a category display order' do
+RSpec.describe PublicBodyCategoryLink, 'when setting a category display order' do
 
   it 'should return 0 if there are no public body headings' do
     heading = FactoryBot.create(:public_body_heading)

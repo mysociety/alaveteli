@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class AlaveteliSpamTermChecker
   DEFAULT_SPAM_TERMS = [
     /Freedom of Information request - [\{\[\|]/i,

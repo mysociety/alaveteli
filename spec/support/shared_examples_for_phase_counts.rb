@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 shared_examples_for "PhaseCounts" do
 
   let(:model) { described_class }

@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe InfoRequestBatchController do
+RSpec.describe InfoRequestBatchController do
   describe "#show" do
     let(:first_public_body) { FactoryBot.create(:public_body) }
     let(:second_public_body) { FactoryBot.create(:public_body) }

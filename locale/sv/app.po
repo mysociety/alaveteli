@@ -46,8 +46,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-24 16:55+0100\n"
-"PO-Revision-Date: 2021-06-24 16:12+0000\n"
+"POT-Creation-Date: 2021-07-20 14:09+0100\n"
+"PO-Revision-Date: 2021-07-20 13:36+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Swedish (http://www.transifex.com/mysociety/alaveteli/language/"
 "sv/)\n"
@@ -1399,7 +1399,7 @@ msgstr "Om du vill försöka få ut resten av informationen, här är vad som be
 msgid "If you would like to contest the authority's claim that they do not hold the information, here is <a href=\"{{complain_url}}\">how to complain</a>."
 msgstr "Om du skulle vilja bestrida myndighetens påstående att de inte har informationen, här är information om<a href=\"{{complain_url}}\">hur du överklagar</a>."
 
-msgid "If you would like us to lift this ban, then you may politely<a href=\"/help/contact\">contact us</a> giving reasons."
+msgid "If you would like us to lift this ban, then you may politely <a href=\"/help/contact\">contact us</a> giving reasons."
 msgstr ""
 "Om du vill att vi ska häva detta förbud, då du kan artigt\n"
 "<a href=\"/help/contact\">kontakta oss</a> för att ge skäl."
@@ -2015,8 +2015,8 @@ msgstr "Berätta mer:"
 msgid "Please type a message and/or choose a file containing your response."
 msgstr "Skriv ett meddelande och/eller välj en fil som innehåller ditt svar."
 
-msgid "Please update the status of your request"
-msgstr "Uppdatera status på din begäran"
+msgid "Please update the status of your request - {{request_title}}"
+msgstr "Uppdatera status på din begäran - {{request_title}}"
 
 msgid "Please use this email address for all replies to this request:"
 msgstr "Använd denna e-postadress för alla svar till denna begäran:"
@@ -4246,9 +4246,6 @@ msgstr "{{authority_name}} <strong>hade inte </strong> den begärda informatione
 msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
 msgstr "{{authority_name}} <strong>väntar på ditt förtydligande</strong>."
 
-msgid "{{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
-msgstr ""
-
 msgid "{{contributor_count}} contributors"
 msgstr "{{contributor_count}} bidragsgivare"
 
@@ -4408,6 +4405,9 @@ msgid "{{site_name}} covers requests to {{number_of_authorities}} authority, inc
 msgid_plural "{{site_name}} covers requests to {{number_of_authorities}} authorities, including:"
 msgstr[0] "{{site_name}} täcker förfrågningar till {{number_of_authorities}} myndighet, inklusive:"
 msgstr[1] "{{site_name}} täcker förfrågningar till {{number_of_authorities}} myndigheter, inklusive:"
+
+msgid "{{site_name}} has identified {{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
+msgstr ""
 
 msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."
 msgstr "{{site_name}} skickar nya förfrågningar till <strong>{{request_email}}</strong> för denna myndighet."

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe RefusalAdviceHelper do
+RSpec.describe RefusalAdviceHelper do
   include RefusalAdviceHelper
 
   describe '#refusal_advice_actionable?' do

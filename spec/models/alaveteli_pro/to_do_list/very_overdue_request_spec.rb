@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe AlaveteliPro::ToDoList::VeryOverdueRequest do
+RSpec.describe AlaveteliPro::ToDoList::VeryOverdueRequest do
   include Rails.application.routes.url_helpers
 
   let(:info_request) { FactoryBot.create(:info_request) }

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'zip'
 
 # Manually set `validate_entry_sizes`, which is the default in rubyzip 2.0.0.

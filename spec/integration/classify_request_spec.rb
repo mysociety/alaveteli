@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'integration/alaveteli_dsl'
 
-describe 'classifying a request' do
+RSpec.describe 'classifying a request' do
 
   let(:info_request) { FactoryBot.create(:info_request) }
   let(:user) { info_request.user }

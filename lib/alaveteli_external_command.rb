@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'external_command'
 
 module AlaveteliExternalCommand

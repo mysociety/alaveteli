@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Users::ConfirmationsController do
+RSpec.describe Users::ConfirmationsController do
 
   describe 'GET confirm' do
 

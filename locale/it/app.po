@@ -36,8 +36,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-24 16:55+0100\n"
-"PO-Revision-Date: 2021-06-24 16:12+0000\n"
+"POT-Creation-Date: 2021-07-20 14:09+0100\n"
+"PO-Revision-Date: 2021-07-20 13:36+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Italian (http://www.transifex.com/mysociety/alaveteli/language/"
 "it/)\n"
@@ -1400,7 +1400,7 @@ msgstr "Se vuoi provare a richiedere le informazioni mancanti, ecco cosa fare."
 msgid "If you would like to contest the authority's claim that they do not hold the information, here is <a href=\"{{complain_url}}\">how to complain</a>."
 msgstr "Se vuoi contestare la dichiarazione dell'amministrazione di non essere in possesso del documento o dell'informazione che hai richiesto, ecco <a href=\"{{complain_url}}\">come inviare un reclamo</a>."
 
-msgid "If you would like us to lift this ban, then you may politely<a href=\"/help/contact\">contact us</a> giving reasons."
+msgid "If you would like us to lift this ban, then you may politely <a href=\"/help/contact\">contact us</a> giving reasons."
 msgstr ""
 "Se vuoi che revochiamo il blocco del tuo account puoi \n"
 "<a href=\"/help/contact\">scriverci qui</a> e spiegarci il motivo.\n"
@@ -2018,7 +2018,7 @@ msgstr "Dicci di più:"
 msgid "Please type a message and/or choose a file containing your response."
 msgstr "Scrivi un messaggio e/o scegli un file contenente la tua risposta."
 
-msgid "Please update the status of your request"
+msgid "Please update the status of your request - {{request_title}}"
 msgstr ""
 
 msgid "Please use this email address for all replies to this request:"
@@ -4272,9 +4272,6 @@ msgstr "\"{{authority_name}}\" <strong>non aveva</strong> l'informazione richies
 msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
 msgstr "\"{{authority_name}}\" è <strong>in attesa di ulteriori spiegazioni da parte tua</strong>."
 
-msgid "{{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
-msgstr ""
-
 msgid "{{contributor_count}} contributors"
 msgstr ""
 
@@ -4436,6 +4433,9 @@ msgid "{{site_name}} covers requests to {{number_of_authorities}} authority, inc
 msgid_plural "{{site_name}} covers requests to {{number_of_authorities}} authorities, including:"
 msgstr[0] ""
 msgstr[1] ""
+
+msgid "{{site_name}} has identified {{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
+msgstr ""
 
 msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."
 msgstr "{{site_name}} invia nuove richieste a <strong>{{request_email}}</strong> per questa amministrazione."

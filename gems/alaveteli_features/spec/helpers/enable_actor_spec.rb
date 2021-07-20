@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'flipper/adapters/memory'
 require 'alaveteli_features/helpers'
 
-describe AlaveteliFeatures::Helpers do
+RSpec.describe AlaveteliFeatures::Helpers do
   let(:instance) { Class.new { include AlaveteliFeatures::Helpers }.new }
   let(:test_backend) { Flipper.new(Flipper::Adapters::Memory.new) }
 

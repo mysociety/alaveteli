@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # app/controllers/alaveteli_pro/base_controller.rb
 # Base controller for other controllers in the alaveteli_pro module.
 #

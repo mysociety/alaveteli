@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe AlaveteliPro::InfoRequestsController do
+RSpec.describe AlaveteliPro::InfoRequestsController do
   let(:pro_user) { FactoryBot.create(:pro_user) }
 
   describe "GET #index" do

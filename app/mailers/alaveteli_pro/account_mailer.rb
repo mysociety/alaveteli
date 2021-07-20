@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # Account requests
 #
 # Copyright (c) 2017 UK Citizens Online Democracy. All rights reserved.

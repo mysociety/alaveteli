@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # Handles filtering email replies
 
 module MailHandler

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # Alerts relating to subscriptions.
 class AlaveteliPro::SubscriptionMailer < ApplicationMailer
   def payment_failed(user)

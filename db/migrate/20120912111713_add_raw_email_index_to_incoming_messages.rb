@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class AddRawEmailIndexToIncomingMessages < ActiveRecord::Migration[4.2] # 2.3
   def self.up
     add_index :incoming_messages, :raw_email_id

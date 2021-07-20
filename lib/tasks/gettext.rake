@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 namespace :gettext do
   def msgmerge(*files)
     destination = files.first

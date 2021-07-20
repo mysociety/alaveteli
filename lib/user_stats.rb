@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 #
 # Public: methods for getting stats about users on a per domain basis
 

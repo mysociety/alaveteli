@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # models/notification_mailer.rb:
 # Emails relating to notifications from the site
 #

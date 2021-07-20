@@ -1,8 +1,7 @@
-# -*- encoding : utf-8 -*-
-require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
+require 'spec_helper'
 require 'stripe_mock'
 
-describe AlaveteliPro::PlansController do
+RSpec.describe AlaveteliPro::PlansController do
   before { StripeMock.start }
   after { StripeMock.stop }
   let(:stripe_helper) { StripeMock.create_test_helper }

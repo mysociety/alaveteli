@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # Taken from
 # http://scottstuff.net/blog/2006/08/17/memory-leak-profiling-with-rails
 

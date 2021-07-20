@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'general/blog' do
+RSpec.describe 'general/blog' do
   subject { rendered }
 
   before do

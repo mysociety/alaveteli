@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-# -*- encoding : utf-8 -*-
 
 # A simple script to swap around your Alaveteli themes when you're
 # hacking on Alaveteli.  By default this assumes that you have an

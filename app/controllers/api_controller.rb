@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class ApiController < ApplicationController
   before_action :check_api_key
   before_action :check_external_request,

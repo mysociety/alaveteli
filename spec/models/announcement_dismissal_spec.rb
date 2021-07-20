@@ -12,7 +12,7 @@
 
 require 'spec_helper'
 
-describe AnnouncementDismissal do
+RSpec.describe AnnouncementDismissal do
   it 'requires a announcement' do
     dismissal = FactoryBot.build(:announcement_dismissal, announcement: nil)
     expect(dismissal).not_to be_valid

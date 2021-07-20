@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class DefaultLateCalculator
   def self.description
     %q(Defaults controlled by config/general.yml)

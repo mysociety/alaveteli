@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # Rebuild the current xapian index
 def destroy_and_rebuild_xapian_index(terms = true, values = true, texts = true, dropfirst = true)
   if dropfirst

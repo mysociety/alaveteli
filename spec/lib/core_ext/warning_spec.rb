@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Warning do
+RSpec.describe Warning do
   describe '.with_raised_warnings' do
     it 'makes .warn raise' do
       expect {

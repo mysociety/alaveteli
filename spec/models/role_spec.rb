@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
 # Schema version: 20210114161442
 #
@@ -14,7 +13,7 @@
 
 require 'spec_helper'
 
-describe Role do
+RSpec.describe Role do
 
   it 'validates the role name is in the allowed roles' do
     role = Role.new(:name => 'test')

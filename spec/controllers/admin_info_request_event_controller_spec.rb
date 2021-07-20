@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe AdminInfoRequestEventController do
+RSpec.describe AdminInfoRequestEventController do
 
   describe 'PUT update' do
     let(:info_request_event) do

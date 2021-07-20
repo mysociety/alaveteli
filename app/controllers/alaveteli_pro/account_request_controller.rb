@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # Does not inherit from AlaveteliPro::BaseController as is pre-login
 class AlaveteliPro::AccountRequestController < ApplicationController
   before_action :set_in_pro_area

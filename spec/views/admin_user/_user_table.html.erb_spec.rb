@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "admin_user/_user_table.html.erb" do
+RSpec.describe "admin_user/_user_table.html.erb" do
   let(:admin_user) { FactoryBot.create(:admin_user) }
   let(:users) do
     user_array = [

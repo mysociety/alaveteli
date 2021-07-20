@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe 'public_body_change_request_mailer/update_public_body' do
+RSpec.describe 'public_body_change_request_mailer/update_public_body' do
   let(:user) { FactoryBot.create(:user, name: "Test Us'r") }
   let(:public_body) { FactoryBot.create(:public_body, name: "Apostrophe's") }
 

@@ -1,8 +1,9 @@
 <% if can?(:update_request_state, @info_request) && incoming_message.refusals? %>
   <div class="correspondence__suggestion">
     <p>
-      <%= _('{{authority_name}} may have refused all or part of your request ' \
+      <%= _('{{site_name}} has identified {{authority_name}} may have refused all or part of your request ' \
             'under <strong>{{refusals}}</strong>.',
+            site_name: site_name,
             authority_name: @info_request.public_body.name,
             refusals: incoming_message.refusals.to_sentence) %>
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ServicesController do
+RSpec.describe ServicesController do
 
   render_views
 

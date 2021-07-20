@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
 # Schema version: 20210114161442
 #
@@ -12,9 +11,9 @@
 #  updated_at :datetime
 #
 
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe ProfilePhoto, "when constructing a new photo" do
+RSpec.describe ProfilePhoto, "when constructing a new photo" do
 
   before do
     @mock_user = mock_model(User)

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # app/controllers/user_controller.rb:
 # Show information about a user.
 #
