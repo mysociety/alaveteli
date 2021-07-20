@@ -1,8 +1,6 @@
-require 'open-uri'
-
 def quietly_try_to_open(url, timeout=60)
   begin
-    result = open(url, :read_timeout => timeout).read.strip
+    result = URI.open(url, read_timeout: timeout).read.strip
   rescue OpenURI::HTTPError,
          SocketError,
          Errno::ETIMEDOUT,
