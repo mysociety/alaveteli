@@ -42,8 +42,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-24 16:55+0100\n"
-"PO-Revision-Date: 2021-06-24 16:12+0000\n"
+"POT-Creation-Date: 2021-07-20 14:09+0100\n"
+"PO-Revision-Date: 2021-07-20 13:35+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Albanian (http://www.transifex.com/mysociety/alaveteli/language"
 "/sq/)\n"
@@ -1423,8 +1423,8 @@ msgstr "Nëse dëshiron të tentosh që të marrësh edhe pjesën e mbetur të i
 msgid "If you would like to contest the authority's claim that they do not hold the information, here is <a href=\"{{complain_url}}\">how to complain</a>."
 msgstr "Nese deshironi te kundershtoni pretendimin e institucionit perkats qe nuk e kane nje informacion te ille, ketu keni <a href=\"{{complain_url}}\"> se si te ankoheni</a>."
 
-msgid "If you would like us to lift this ban, then you may politely<a href=\"/help/contact\">contact us</a> giving reasons."
-msgstr "Nese deshironi qe te heqin kete perjashtim, atehere me miresjellje <a href=\"/help/contact\">mund te na kontaktoni</a> per te dhene shpjegimet tuaja."
+msgid "If you would like us to lift this ban, then you may politely <a href=\"/help/contact\">contact us</a> giving reasons."
+msgstr ""
 
 msgid "If you write about these requests (for example in a forum or a blog) please link to this page."
 msgstr "Nese shkruani per keto kerkesa (per shembull ne nje forum apo nje blog) ju lutem lidheni me kete faqe"
@@ -2044,7 +2044,7 @@ msgstr "Te lutem na thuaj me shume"
 msgid "Please type a message and/or choose a file containing your response."
 msgstr "Të lutem shkruaj një mesazh dhe/ose zgjidh një dokument që përmban përgjigjen per ju."
 
-msgid "Please update the status of your request"
+msgid "Please update the status of your request - {{request_title}}"
 msgstr ""
 
 msgid "Please use this email address for all replies to this request:"
@@ -4318,9 +4318,6 @@ msgstr "{{authority_name}} <strong>nuk e kanë</strong> informacionin e kërkuar
 msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
 msgstr "{{authority_name}} është duke <strong>pritur për sqarimin tuaj</strong>."
 
-msgid "{{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
-msgstr ""
-
 msgid "{{contributor_count}} contributors"
 msgstr ""
 
@@ -4483,6 +4480,9 @@ msgid "{{site_name}} covers requests to {{number_of_authorities}} authority, inc
 msgid_plural "{{site_name}} covers requests to {{number_of_authorities}} authorities, including:"
 msgstr[0] ""
 msgstr[1] ""
+
+msgid "{{site_name}} has identified {{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
+msgstr ""
 
 msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."
 msgstr "{{site_name}} dërgon kërkesa të reja për <strong>{{request_email}}</strong> për këtë autoritet."

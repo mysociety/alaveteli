@@ -47,8 +47,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-24 16:55+0100\n"
-"PO-Revision-Date: 2021-06-24 16:12+0000\n"
+"POT-Creation-Date: 2021-07-20 14:09+0100\n"
+"PO-Revision-Date: 2021-07-20 13:35+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Welsh (http://www.transifex.com/mysociety/alaveteli/language/cy"
 "/)\n"
@@ -1396,8 +1396,8 @@ msgstr "Os ydych am geisio cael gweddill y wybodaeth, dyma beth i'w wneud yn awr
 msgid "If you would like to contest the authority's claim that they do not hold the information, here is <a href=\"{{complain_url}}\">how to complain</a>."
 msgstr "Os hoffech herio honiad yr awdurdod nad ydynt yn dal y wybodaeth, dyma  <a href=\"{{complain_url}}\">sut i gwyno</a>."
 
-msgid "If you would like us to lift this ban, then you may politely<a href=\"/help/contact\">contact us</a> giving reasons."
-msgstr "Os hoffech i ni i godi'r gwaharddiad hwn, cewch <a href=\"/help/contact\">ofyn i ni</a> yn gwrtais  ni gan roi rhesymau."
+msgid "If you would like us to lift this ban, then you may politely <a href=\"/help/contact\">contact us</a> giving reasons."
+msgstr ""
 
 msgid "If you write about these requests (for example in a forum or a blog) please link to this page."
 msgstr ""
@@ -2010,7 +2010,7 @@ msgstr "Dywedwch mwy wrthym:"
 msgid "Please type a message and/or choose a file containing your response."
 msgstr "Teipiwch neges a/neu ddewis ffeil sy'n cynnwys eich ymateb."
 
-msgid "Please update the status of your request"
+msgid "Please update the status of your request - {{request_title}}"
 msgstr ""
 
 msgid "Please use this email address for all replies to this request:"
@@ -4249,9 +4249,6 @@ msgstr "{{authority_name}} Nid oedd gan y wybodaeth y gofynnwyd amdani."
 msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
 msgstr "{{authority_name}} yn <strong>aros am eich eglurhad</strong>."
 
-msgid "{{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
-msgstr ""
-
 msgid "{{contributor_count}} contributors"
 msgstr ""
 
@@ -4425,6 +4422,9 @@ msgid "{{site_name}} covers requests to {{number_of_authorities}} authority, inc
 msgid_plural "{{site_name}} covers requests to {{number_of_authorities}} authorities, including:"
 msgstr[0] ""
 msgstr[1] ""
+
+msgid "{{site_name}} has identified {{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
+msgstr ""
 
 msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."
 msgstr "Mae {{site_name}} yn anfon ceisiadau newydd i <strong>{{request_email}}</strong> ar gyfer yr awdurdod hwn."

@@ -36,8 +36,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-24 16:55+0100\n"
-"PO-Revision-Date: 2021-06-24 16:12+0000\n"
+"POT-Creation-Date: 2021-07-20 14:09+0100\n"
+"PO-Revision-Date: 2021-07-20 13:37+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Kinyarwanda (http://www.transifex.com/mysociety/alaveteli/langu"
 "age/rw/)\n"
@@ -1465,7 +1465,7 @@ msgstr "Niba wifuza kugerageza kubona amakuru asigaye, dore ibyo ushobora gukora
 msgid "If you would like to contest the authority's claim that they do not hold the information, here is <a href=\"{{complain_url}}\">how to complain</a>."
 msgstr "Niba wifuza guhinyuza umuyobozi uvuga ko adafite amakuru, hano hari uburyo <a href=\"{{complain_url}}\">watanga ikirego</a>."
 
-msgid "If you would like us to lift this ban, then you may politely<a href=\"/help/contact\">contact us</a> giving reasons."
+msgid "If you would like us to lift this ban, then you may politely <a href=\"/help/contact\">contact us</a> giving reasons."
 msgstr ""
 "Niba wifuza ko dukuraho uyu muziro, ushobora\n"
 "<a href=\"/help/contact\">kutwandikira mu kinyabupfura</a> ukaduha n'impamvu.\n"
@@ -2106,7 +2106,7 @@ msgstr "Tubwire birenzeho:"
 msgid "Please type a message and/or choose a file containing your response."
 msgstr "Andika ubutumwa hanyuma/cyangwa uhitemo dosiye irimo igisubizo cyawe."
 
-msgid "Please update the status of your request"
+msgid "Please update the status of your request - {{request_title}}"
 msgstr ""
 
 msgid "Please use this email address for all replies to this request:"
@@ -4436,9 +4436,6 @@ msgstr "{{authority_name}} <strong>ntiyari afite</strong> amakuru wasabye."
 msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
 msgstr "{{authority_name}} itegereje<strong>igisobanuro cyawe</strong>."
 
-msgid "{{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
-msgstr ""
-
 msgid "{{contributor_count}} contributors"
 msgstr ""
 
@@ -4607,6 +4604,9 @@ msgid "{{site_name}} covers requests to {{number_of_authorities}} authority, inc
 msgid_plural "{{site_name}} covers requests to {{number_of_authorities}} authorities, including:"
 msgstr[0] ""
 msgstr[1] ""
+
+msgid "{{site_name}} has identified {{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
+msgstr ""
 
 msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."
 msgstr "{{site_name}} Yohereza ibibazo bishya kuri <strong>{{request_email}}</strong> y'uyu muyobozi."
