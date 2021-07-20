@@ -35,9 +35,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-24 16:55+0100\n"
-"PO-Revision-Date: 2021-07-14 14:58+0000\n"
-"Last-Translator: Maria Nathanail <marianathanail@gmail.com>\n"
+"POT-Creation-Date: 2021-07-20 14:09+0100\n"
+"PO-Revision-Date: 2021-07-20 13:36+0000\n"
+"Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Greek (http://www.transifex.com/mysociety/alaveteli/language/el"
 "/)\n"
 "MIME-Version: 1.0\n"
@@ -1378,8 +1378,8 @@ msgstr "Αν θέλετε να δοκιμάσετε και να πάρετε τ�
 msgid "If you would like to contest the authority's claim that they do not hold the information, here is <a href=\"{{complain_url}}\">how to complain</a>."
 msgstr "Αν θα θέλατε να αμφισβητήσετε τον ισχυρισμό της αρχής ότι δεν κατέχει τις πληροφορίες, δείτε εδώ <a href=\"{{complain_url}}\">πώς μπορείτε να διαμαρτυρηθείτε</a>."
 
-msgid "If you would like us to lift this ban, then you may politely<a href=\"/help/contact\">contact us</a> giving reasons."
-msgstr "Αν θέλετε να άρουμε αυτήν την απαγόρευση, τότε μπορείτε πολύ ευγενικά <a href=\"/help/contact\">να επικοινωνήσετε μαζί μας </a>αιτιολογώντας το."
+msgid "If you would like us to lift this ban, then you may politely <a href=\"/help/contact\">contact us</a> giving reasons."
+msgstr ""
 
 msgid "If you write about these requests (for example in a forum or a blog) please link to this page."
 msgstr "Αν γράφετε σχετικά με αυτά τα αιτήματα (για παράδειγμα σε ένα φόρουμ ή ένα blog) παρακαλώ συνδεθείτε σε αυτή τη σελίδα."
@@ -1997,8 +1997,8 @@ msgstr "Παρακαλούμε πείτε μας περισσότερα:"
 msgid "Please type a message and/or choose a file containing your response."
 msgstr "Παρακαλούμε πληκτρολογήστε ένα μήνυμα και/ή επιλέξτε έναν φάκελο που περιλαμβάνει την απάντησή σας. "
 
-msgid "Please update the status of your request"
-msgstr "Παρακαλούμε επικαιροποιήστε την κατάσταση του αιτήματος σας"
+msgid "Please update the status of your request - {{request_title}}"
+msgstr "Παρακαλούμε επικαιροποιήστε την κατάσταση του αιτήματος σας - {{request_title}}"
 
 msgid "Please use this email address for all replies to this request:"
 msgstr "Παρακαλούμε επιλέξτε αυτή την ηλεκτρονική διεύθυνση για όλες τις απαντήσεις σε αυτό το αίτημα. "
@@ -4228,9 +4228,6 @@ msgstr "{{authority_name}} <strong>δεν είχε</strong> τις πληροφ�
 msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
 msgstr "ο/η {{authority_name}} είναι σε <strong>αναμονή για τη διευκρίνιση σας </strong>."
 
-msgid "{{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
-msgstr ""
-
 msgid "{{contributor_count}} contributors"
 msgstr "{{contributor_count}} συντελεστές"
 
@@ -4390,6 +4387,9 @@ msgid "{{site_name}} covers requests to {{number_of_authorities}} authority, inc
 msgid_plural "{{site_name}} covers requests to {{number_of_authorities}} authorities, including:"
 msgstr[0] "Το {{site_name}} καλύπτει αιτήματα προς {{number_of_authorities}} αρχή, συμπεριλαμβανομένης:"
 msgstr[1] "Το {{site_name}} καλύπτει αιτήματα προς {{number_of_authorities}} αρχές, συμπεριλαμβανομένων:"
+
+msgid "{{site_name}} has identified {{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
+msgstr ""
 
 msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."
 msgstr "Το {{site_name}} στέλνει νέο αίτημα στο <strong>{{request_email}}</strong>για αυτή την αρχή."

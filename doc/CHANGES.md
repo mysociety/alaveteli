@@ -1,3 +1,32 @@
+# 0.39.1.0
+
+## Highlighted Features
+
+* Upgrade to Xapian to 1.4.18 (Sam Pearson, Graeme Porteous)
+* Add support for Ruby 2.7 (Graeme Porteous)
+* Improve refusal identification message (Martin Wright)
+* Remove Bing crawl politeness directive (Gareth Rees)
+* Add confirmation when deleting a public body (aphel)
+* Add mailcatcher to Docker development environment (aphel)
+* Update new response reminders subject to include request title (aphel)
+
+## Upgrade Notes
+
+* We now depend on Xapian 1.4.18, please ensure the xapian-tools system package
+  has been upgraded to the latest version.
+* We now support Ruby 2.7 please consider upgrading or using this when creating
+  new installations.
+
+### Changed Templates
+
+The following templates have been changed. Please update overrides in your theme
+to match the new templates.
+
+    app/views/admin_public_body/edit.html.erb
+    app/views/outgoing_message/snippets/_snippet.html.erb
+    app/views/request/_incoming_refusals.html.erb
+    app/views/user/banned.html.erb
+
 # 0.39.0.2
 
 ## Highlighted Features
