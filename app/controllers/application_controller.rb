@@ -6,8 +6,6 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
-require 'open-uri'
-
 class ApplicationController < ActionController::Base
   class PermissionDenied < StandardError
   end
