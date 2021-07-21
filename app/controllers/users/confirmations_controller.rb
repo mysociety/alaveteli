@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class Users::ConfirmationsController < UserController
 
   def confirm

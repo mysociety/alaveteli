@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 module AlaveteliPro
   # Helper methods for the batch builder
   module BatchRequestAuthoritySearchesHelper

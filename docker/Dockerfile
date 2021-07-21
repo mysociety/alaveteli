@@ -29,5 +29,8 @@ RUN git clone https://github.com/vishnubob/wait-for-it.git /tmp/wait-for-it && \
 
 WORKDIR /alaveteli/
 
+RUN gem install mailcatcher
+
 EXPOSE 3000
+EXPOSE 1080
 CMD wait-for-it db:5432 --strict -- ./docker/entrypoint.sh

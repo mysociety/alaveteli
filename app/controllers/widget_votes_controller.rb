@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # app/controllers/widget_votes_controller.rb:
 # Handle widget votes, if enabled
 #

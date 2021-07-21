@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class WorldFOIWebsites
   EU_COUNTRIES = { 'BE' => 'Belgium',
                    'BG' => 'Bulgaria',

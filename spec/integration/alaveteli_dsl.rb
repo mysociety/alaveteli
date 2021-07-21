@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 module AlaveteliDsl
 
   def browse_request(url_title)

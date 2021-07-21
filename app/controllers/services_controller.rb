@@ -1,7 +1,4 @@
-# -*- encoding : utf-8 -*-
 # controllers/services_controller.rb:
-
-require 'open-uri'
 
 class ServicesController < ApplicationController
 

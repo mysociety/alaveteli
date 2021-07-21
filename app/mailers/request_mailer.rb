@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # models/request_mailer.rb:
 # Alerts relating to requests.
 #
@@ -142,7 +141,11 @@ class RequestMailer < ApplicationMailer
 
     set_reply_to_headers(info_request.user)
     set_auto_generated_headers
-    mail_user(info_request.user, _("Please update the status of your request"))
+    mail_user(
+      info_request.user,
+      _("Please update the status of your request - {{request_title}}",
+        request_title: info_request.title.html_safe)
+    )
   end
 
   # Tell the requester that someone updated their old unclassified request

@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe "followups/_followup.html.erb" do
+RSpec.describe "followups/_followup.html.erb" do
 
   let(:info_request) { FactoryBot.create(:info_request) }
 

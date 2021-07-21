@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 #
 # Calculate the pre-tax amount for a subscription with any discounts applied
 #

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # Public: Validates that we can reply to a ReplyTo address.
 class ReplyToAddressValidator
   DEFAULT_NO_REPLY_REGEXP =

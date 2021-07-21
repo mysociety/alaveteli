@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # controllers/application.rb:
 # Parent class of all controllers in FOI site. Filters added to this controller
 # apply to all controllers in the application. Likewise, all the methods added
@@ -6,8 +5,6 @@
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
-
-require 'open-uri'
 
 class ApplicationController < ActionController::Base
   class PermissionDenied < StandardError

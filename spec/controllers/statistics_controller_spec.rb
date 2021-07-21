@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe StatisticsController do
+RSpec.describe StatisticsController do
   describe "#index" do
 
     before do

@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe TypeaheadSearch do
+RSpec.describe TypeaheadSearch do
   let(:options) { { :model => InfoRequestEvent } }
 
   describe "#initialize" do

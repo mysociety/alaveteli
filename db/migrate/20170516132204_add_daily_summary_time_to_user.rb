@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class AddDailySummaryTimeToUser < ActiveRecord::Migration[4.2] # 4.1
   def change
     add_column :users, :daily_summary_hour, :integer

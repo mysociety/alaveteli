@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 namespace :users do
 
   desc "Lists email domains, most popular first"

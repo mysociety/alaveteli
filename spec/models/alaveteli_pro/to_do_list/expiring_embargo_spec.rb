@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe AlaveteliPro::ToDoList::ExpiringEmbargo do
+RSpec.describe AlaveteliPro::ToDoList::ExpiringEmbargo do
   include Rails.application.routes.url_helpers
 
   let(:embargo) { FactoryBot.create(:expiring_embargo) }

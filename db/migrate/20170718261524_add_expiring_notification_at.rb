@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 class AddExpiringNotificationAt < ActiveRecord::Migration[4.2] # 4.1
   def up
     unless column_exists?(:embargoes, :expiring_notification_at)

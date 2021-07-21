@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 module NotificationMailerHelper
   # Group an array of notifications into a hash keyed by their

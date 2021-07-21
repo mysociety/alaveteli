@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'admin_general/_announcement.html.erb' do
+RSpec.describe 'admin_general/_announcement.html.erb' do
 
   let(:announcement) do
     FactoryBot.

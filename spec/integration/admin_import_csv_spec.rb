@@ -1,7 +1,7 @@
 require 'spec_helper'
-require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
+require 'integration/alaveteli_dsl'
 
-describe 'Importing a CSV' do
+RSpec.describe 'Importing a CSV' do
 
   before do
     allow(AlaveteliConfiguration).to receive(:skip_admin_auth).and_return(false)

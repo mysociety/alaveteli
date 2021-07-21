@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
 # Schema version: 20210114161442
 #
@@ -17,9 +16,9 @@
 #  updated_at            :datetime
 #
 
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe FoiAttachment do
+RSpec.describe FoiAttachment do
   describe '.binary' do
     subject { described_class.binary }
 

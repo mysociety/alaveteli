@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class ReportsController < ApplicationController
   before_action :set_info_request
   before_action :set_comment

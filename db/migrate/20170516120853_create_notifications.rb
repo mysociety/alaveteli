@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class CreateNotifications < ActiveRecord::Migration[4.2] # 4.1
   def change
     create_table :notifications do |t|

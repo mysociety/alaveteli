@@ -14,7 +14,7 @@
   </div>
 
   <button class="snippet__action button"
-          data-clipboard-text="<%= escape_once(snippet.body) %>"
+          data-clipboard-text="<%= escape_once(snippet.body.rstrip + "\n") %>"
           data-clipboard-success="<%= _('Copied!') %>">
     <svg viewBox="0 0 16 16"
          version="1.1"

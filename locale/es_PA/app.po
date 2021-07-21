@@ -43,8 +43,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-24 16:55+0100\n"
-"PO-Revision-Date: 2021-06-24 16:12+0000\n"
+"POT-Creation-Date: 2021-07-20 14:09+0100\n"
+"PO-Revision-Date: 2021-07-20 13:36+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Spanish (Panama) (http://www.transifex.com/mysociety/alaveteli/"
 "language/es_PA/)\n"
@@ -1459,7 +1459,7 @@ msgstr ""
 "Si no está de acuerdo con la respuesta de una institución que indica no tener la información que ha solicitado, aquí podrá ver\n"
 " <a href=\"{{complain_url}}\">como presentar una queja</a>."
 
-msgid "If you would like us to lift this ban, then you may politely<a href=\"/help/contact\">contact us</a> giving reasons."
+msgid "If you would like us to lift this ban, then you may politely <a href=\"/help/contact\">contact us</a> giving reasons."
 msgstr ""
 "Si desea eliminar el bloqueo, entonces puede gentilmente\n"
 "¿ <a href=\"/help/contact\">contactarnos</a>explicándonos las razones.\n"
@@ -2097,7 +2097,7 @@ msgstr "Por favor díganos más:"
 msgid "Please type a message and/or choose a file containing your response."
 msgstr "Por favor escriba un mensaje y/o escoja un documento que contenga su respuesta."
 
-msgid "Please update the status of your request"
+msgid "Please update the status of your request - {{request_title}}"
 msgstr ""
 
 msgid "Please use this email address for all replies to this request:"
@@ -4402,9 +4402,6 @@ msgstr "{{authority_name}} <strong>no tiene</strong> la información solicitada.
 msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
 msgstr "{{authority_name}} está <strong>esperando su aclaración</strong>."
 
-msgid "{{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
-msgstr ""
-
 msgid "{{contributor_count}} contributors"
 msgstr ""
 
@@ -4570,6 +4567,9 @@ msgid "{{site_name}} covers requests to {{number_of_authorities}} authority, inc
 msgid_plural "{{site_name}} covers requests to {{number_of_authorities}} authorities, including:"
 msgstr[0] ""
 msgstr[1] ""
+
+msgid "{{site_name}} has identified {{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
+msgstr ""
 
 msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."
 msgstr "{{site_name}} envía nuevas solicitudes a <strong>{{request_email}}</strong> para esta institución pública."

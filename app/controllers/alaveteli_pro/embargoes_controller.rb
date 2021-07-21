@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # app/controllers/alaveteli_pro/embargoes_controller.rb
 # Controller for embargoes
 #

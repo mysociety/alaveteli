@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe AlaveteliPro::EmbargoesController do
+RSpec.describe AlaveteliPro::EmbargoesController do
   let(:pro_user) { FactoryBot.create(:pro_user) }
 
   let(:admin) do

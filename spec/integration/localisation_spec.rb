@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe "when generating urls" do
+RSpec.describe "when generating urls" do
 
   before do
     @home_link_regex = /href=".*\/en\//

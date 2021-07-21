@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe TrackController do
+RSpec.describe TrackController do
   let(:mock_cookie) { '0300fd3e1177127cebff' }
 
   describe 'GET #track_request' do

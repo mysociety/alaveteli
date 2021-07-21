@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
 # Schema version: 20210114161442
 #
@@ -18,9 +17,9 @@
 #  prominence_reason            :text
 #
 
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe OutgoingMessage do
+RSpec.describe OutgoingMessage do
 
   describe '.fill_in_salutation' do
 
@@ -1870,7 +1869,7 @@ describe OutgoingMessage do
 
 end
 
-describe OutgoingMessage, " when making an outgoing message" do
+RSpec.describe OutgoingMessage, " when making an outgoing message" do
 
   before do
     @om = outgoing_messages(:useless_outgoing_message)
@@ -1910,7 +1909,7 @@ describe OutgoingMessage, " when making an outgoing message" do
 
 end
 
-describe OutgoingMessage, "when validating the format of the message body" do
+RSpec.describe OutgoingMessage, "when validating the format of the message body" do
 
   it 'should handle a salutation with a bracket in it' do
     outgoing_message = FactoryBot.build(:initial_request)

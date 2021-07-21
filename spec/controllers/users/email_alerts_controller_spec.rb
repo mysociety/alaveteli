@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Users::EmailAlertsController do
+RSpec.describe Users::EmailAlertsController do
   describe 'GET #destroy' do
     context 'with a valid token' do
       let(:token) { 'valid' }

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
 # Schema version: 20210114161442
 #
@@ -17,7 +16,7 @@
 require 'spec_helper'
 require 'models/concerns/info_request/title_validation'
 
-describe InfoRequestBatch do
+RSpec.describe InfoRequestBatch do
   it_behaves_like 'concerns/info_request/title_validation',
                   FactoryBot.build(:info_request_batch)
 

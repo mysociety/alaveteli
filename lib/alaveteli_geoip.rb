@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 #
 # Public: Class to handle getting an ISO 3166-1 alpha-2 country
 # code from an IP address.  Prefer the class method

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # View helpers for displaying RawEmails in the admin interface
 module AdminRawEmailsHelper
   # Public: Format a list of email addresses for display.

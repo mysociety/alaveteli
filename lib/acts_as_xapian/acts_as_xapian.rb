@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # acts_as_xapian/lib/acts_as_xapian.rb:
 # Xapian full text search in Ruby on Rails.
 #
@@ -23,14 +22,16 @@ end
 
 module Xapian
   class QueryParser
-    def unstem(term)
-      words = []
+    unless method_defined?(:unstem)
+      def unstem(term)
+        words = []
 
-      Xapian._safelyIterate(unstem_begin(term), unstem_end(term)) do |item|
-        words << item.term
+        Xapian._safelyIterate(unstem_begin(term), unstem_end(term)) do |item|
+          words << item.term
+        end
+
+        words
       end
-
-      words
     end
   end
 end

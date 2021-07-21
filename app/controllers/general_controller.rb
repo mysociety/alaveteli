@@ -1,12 +1,9 @@
-# -*- encoding : utf-8 -*-
 # app/controllers/general_controller.rb:
 # For pages like front page, general search, that aren't specific to a
 # particular model.
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
-
-require 'open-uri'
 
 class GeneralController < ApplicationController
 

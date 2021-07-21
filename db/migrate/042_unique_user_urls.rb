@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class UniqueUserUrls < ActiveRecord::Migration[4.2] # 2.0
   def self.up
     # do last registered ones first, so the last ones get rubbish URLs

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # app/controllers/request_game_controller.rb:
 # The 'categorise old requests' game
 #

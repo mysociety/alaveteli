@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class User
   # Public: Advanced mechanisms to control a User's email alert preferences.
   class EmailAlerts

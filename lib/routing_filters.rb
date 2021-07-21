@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 module RoutingFilter
   class Conditionallyprependlocale < RoutingFilter::Locale
     # We need to be able to override this class attribute so from Rails 4.0

@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe AdminRequestsHelper do
+RSpec.describe AdminRequestsHelper do
   include AdminRequestsHelper
 
   describe '#hidden_user_explanation' do

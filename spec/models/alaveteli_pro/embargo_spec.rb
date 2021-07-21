@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
 # Schema version: 20210114161442
 #
@@ -15,7 +14,7 @@
 
 require 'spec_helper'
 
-describe AlaveteliPro::Embargo, :type => :model do
+RSpec.describe AlaveteliPro::Embargo, :type => :model do
   let(:embargo) { FactoryBot.create(:embargo) }
 
   it 'belongs to an info_request' do

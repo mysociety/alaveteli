@@ -34,8 +34,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-24 16:55+0100\n"
-"PO-Revision-Date: 2021-06-24 16:12+0000\n"
+"POT-Creation-Date: 2021-07-20 14:09+0100\n"
+"PO-Revision-Date: 2021-07-20 13:37+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Dutch (http://www.transifex.com/mysociety/alaveteli/language/nl"
 "/)\n"
@@ -1442,7 +1442,7 @@ msgstr "Hieronder vind je tips voor het opvragen van de rest van de informatie."
 msgid "If you would like to contest the authority's claim that they do not hold the information, here is <a href=\"{{complain_url}}\">how to complain</a>."
 msgstr "Als je wilt betwisten dat de overheidsinstantie niet over de informatie beschikt, kijk hier voor informatie over <a href=\"{{complain_url}}\">hoe je bezwaar kunt maken</a>."
 
-msgid "If you would like us to lift this ban, then you may politely<a href=\"/help/contact\">contact us</a> giving reasons."
+msgid "If you would like us to lift this ban, then you may politely <a href=\"/help/contact\">contact us</a> giving reasons."
 msgstr ""
 "Als je wilt dat deze beperking opgeheven wordt, gelieve <a href=\"/help/contact\">ons te contacteren</a> met toelichting.\n"
 
@@ -2068,8 +2068,8 @@ msgstr "Geef ons ajb meer informatie:"
 msgid "Please type a message and/or choose a file containing your response."
 msgstr "Typ hier ajb een bericht en/of selecteer een bestand met het antwoord."
 
-msgid "Please update the status of your request"
-msgstr "Actualiseer ajb de status van je Wob-verzoek "
+msgid "Please update the status of your request - {{request_title}}"
+msgstr "Actualiseer ajb de status van je Wob-verzoek  - {{request_title}}"
 
 msgid "Please use this email address for all replies to this request:"
 msgstr "Gebruik ajb dit e-mailadres voor antwoord op dit verzoek."
@@ -4360,9 +4360,6 @@ msgstr "{{authority_name}} <strong>heeft niet</strong> de gevraagde informatie."
 msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
 msgstr "{{authority_name}} wacht <strong>op je verduidelijking</strong>."
 
-msgid "{{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
-msgstr ""
-
 msgid "{{contributor_count}} contributors"
 msgstr ""
 
@@ -4524,6 +4521,9 @@ msgid "{{site_name}} covers requests to {{number_of_authorities}} authority, inc
 msgid_plural "{{site_name}} covers requests to {{number_of_authorities}} authorities, including:"
 msgstr[0] "{{site_name}} omvat aanvragen aan {{number_of_authorities}} overheden, inclusief : "
 msgstr[1] "{{site_name}} omvat Wob-verzoeken aan {{number_of_authorities}} overheden, inclusief: "
+
+msgid "{{site_name}} has identified {{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
+msgstr ""
 
 msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."
 msgstr "{{site_name}} stuurt voor deze overheidsinstantie de Wob-verzoeken door naar <strong>{{request_email}}</strong>."

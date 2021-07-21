@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # app/controllers/request_controller.rb:
 # Show information about one particular request.
 #
@@ -6,7 +5,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 require 'zip'
-require 'open-uri'
 
 class RequestController < ApplicationController
   before_action :check_read_only, only: [:new, :upload_response]

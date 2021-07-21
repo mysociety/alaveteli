@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'request/attention_requested' do
+RSpec.describe 'request/attention_requested' do
   def render_view
     render partial: self.class.top_level_description,
            locals: { info_request: info_request }

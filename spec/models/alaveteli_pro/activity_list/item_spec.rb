@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe AlaveteliPro::ActivityList::Item do
+RSpec.describe AlaveteliPro::ActivityList::Item do
 
   describe '.new' do
     it 'requires an event argument' do

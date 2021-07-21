@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Statistics do
+RSpec.describe Statistics do
   describe ".public_bodies" do
     # TODO
   end

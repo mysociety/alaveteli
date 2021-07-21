@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # models/application_mailer.rb:
 # Shared code between different mailers.
 #

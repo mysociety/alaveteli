@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 module AlaveteliTextMasker
   extend self
   DoNotBinaryMask = [ 'image/tiff',
