@@ -1,3 +1,10 @@
+# 0.39.1.1
+
+## Highlighted Features
+
+* Remove deprecation warnings (Graeme Porteous)
+* Dependencies upgrades (Graeme Porteous)
+
 # 0.39.1.0
 
 ## Highlighted Features
