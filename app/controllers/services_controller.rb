@@ -1,7 +1,5 @@
 # controllers/services_controller.rb:
 
-require 'open-uri'
-
 class ServicesController < ApplicationController
 
   def other_country_message
