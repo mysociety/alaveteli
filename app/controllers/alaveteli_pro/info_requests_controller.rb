@@ -70,17 +70,14 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
   end
 
   def set_draft
-    if params[:draft_id]
-      @draft_info_request = current_user.draft_info_requests.find(
-        params[:draft_id]
-      )
-    end
+    return unless params[:draft_id]
+    @draft_info_request =
+      current_user.draft_info_requests.find(params[:draft_id])
   end
 
   def set_public_body
-    if params[:public_body]
-      @public_body = PublicBody.find_by_url_name(params[:public_body])
-    end
+    return unless params[:public_body]
+    @public_body = PublicBody.find_by_url_name(params[:public_body])
   end
 
   def load_data_from_draft
@@ -99,23 +96,22 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
   end
 
   def destroy_draft
-    if params[:draft_id]
-      current_user.draft_info_requests.destroy(params[:draft_id])
-    end
+    return unless params[:draft_id]
+    current_user.draft_info_requests.destroy(params[:draft_id])
   end
 
   def send_initial_message(outgoing_message)
-    if outgoing_message.sendable?
-      mail_message = OutgoingMailer.initial_request(
-        outgoing_message.info_request,
-        outgoing_message
-      ).deliver_now
+    return unless outgoing_message.sendable?
 
-      outgoing_message.record_email_delivery(
-        mail_message.to_addrs.join(', '),
-        mail_message.message_id
-      )
-    end
+    mail_message = OutgoingMailer.initial_request(
+      outgoing_message.info_request,
+      outgoing_message
+    ).deliver_now
+
+    outgoing_message.record_email_delivery(
+      mail_message.to_addrs.join(', '),
+      mail_message.message_id
+    )
   end
 
   def request_filter_params
@@ -125,12 +121,11 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
   end
 
   def check_public_body_is_requestable
-    if @info_request.public_body
-      unless @info_request.public_body.is_requestable?
-        reason = @info_request.public_body.not_requestable_reason
-        view = "request/new_#{reason}.html.erb"
-        render view
-      end
-    end
+    return if @info_request.public_body.nil? ||
+              @info_request.public_body.is_requestable?
+
+    reason = @info_request.public_body.not_requestable_reason
+    view = "request/new_#{reason}.html.erb"
+    render view
   end
 end
