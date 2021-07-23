@@ -92,7 +92,7 @@ RSpec.describe InfoRequest do
     end
   end
 
-  describe 'creating a new request' do
+  describe '#law_used' do
 
     it 'sets the default law used' do
       expect(InfoRequest.new.law_used).to eq('foi')
@@ -111,6 +111,10 @@ RSpec.describe InfoRequest do
         and_return(legislation)
       expect(InfoRequest.new(law_used: 'foi').law_used).to eq('foi')
     end
+
+  end
+
+  describe 'creating a new request' do
 
     it "sets the url_title from the supplied title" do
       info_request = FactoryBot.create(:info_request, :title => "Test title")
