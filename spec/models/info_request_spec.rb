@@ -94,32 +94,28 @@ RSpec.describe InfoRequest do
 
   describe '#law_used' do
 
-    it 'sets the default law used' do
+    it 'defaults law used to foi' do
       expect(InfoRequest.new.law_used).to eq('foi')
-    end
-
-    it 'sets the default law used to the legislation key' do
-      legislation = FactoryBot.build(:legislation, key: 'eir')
-      allow_any_instance_of(InfoRequest).to receive(:legislation).
-        and_return(legislation)
-      expect(InfoRequest.new(law_used: nil).law_used).to eq('eir')
-    end
-
-    it 'does not try to overwrite the existing law used' do
-      legislation = FactoryBot.build(:legislation, key: 'eir')
-      allow_any_instance_of(InfoRequest).to receive(:legislation).
-        and_return(legislation)
-      expect(InfoRequest.new(law_used: 'foi').law_used).to eq('foi')
     end
 
     context 'with public body' do
 
+      let(:foi) { FactoryBot.build(:public_body) }
       let(:eir) { FactoryBot.build(:public_body, :eir_only) }
 
-      # Failing spec which we will fix in the next commit
-      xit 'sets law used to the public body legislation on validataion' do
+      it 'sets law used to the public body legislation on validataion' do
         request = FactoryBot.build(:info_request, public_body: eir)
-        expect(request.law_used).to eq('eir')
+
+        expect { request.valid? }.to change(request, :law_used).
+          from('foi').to('eir')
+      end
+
+      it 'does not update law used after request has been created' do
+        request = FactoryBot.create(:info_request, public_body: eir)
+        request.public_body = foi
+
+        expect { request.valid? }.to_not change(request, :law_used).
+          from('eir')
       end
 
     end
