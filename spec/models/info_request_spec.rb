@@ -112,6 +112,18 @@ RSpec.describe InfoRequest do
       expect(InfoRequest.new(law_used: 'foi').law_used).to eq('foi')
     end
 
+    context 'with public body' do
+
+      let(:eir) { FactoryBot.build(:public_body, :eir_only) }
+
+      # Failing spec which we will fix in the next commit
+      xit 'sets law used to the public body legislation on validataion' do
+        request = FactoryBot.build(:info_request, public_body: eir)
+        expect(request.law_used).to eq('eir')
+      end
+
+    end
+
   end
 
   describe 'creating a new request' do
