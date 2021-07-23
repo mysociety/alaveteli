@@ -1875,6 +1875,7 @@ class InfoRequest < ApplicationRecord
   end
 
   def set_law_used
+    return if law_used_changed?
     self.law_used = public_body.legislation.key if public_body
   end
 

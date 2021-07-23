@@ -98,6 +98,10 @@ RSpec.describe InfoRequest do
       expect(InfoRequest.new.law_used).to eq('foi')
     end
 
+    it 'accepts law used attribute' do
+      expect(InfoRequest.new(law_used: 'eir').law_used).to eq('eir')
+    end
+
     context 'with public body' do
 
       let(:foi) { FactoryBot.build(:public_body) }
