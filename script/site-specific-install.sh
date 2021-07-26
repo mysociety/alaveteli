@@ -182,6 +182,14 @@ postfix reload
 
 install_website_packages
 
+# Ubuntu Focal Fixes
+if [ x"$DISTRIBUTION" = x"ubuntu" ] && [ x"$DISTVERSION" = x"focal" ]
+then
+  # Install more up-to-date bundler.
+  # Fixes errors described in https://github.com/rails/thor/issues/721.
+  gem install bundler
+fi
+
 # Ensure we have required Ruby version from the current distribution package, if
 # not then install using rbenv
 required_ruby="$(cat $REPOSITORY/.ruby-version.example)"
