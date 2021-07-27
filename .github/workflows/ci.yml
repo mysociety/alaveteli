@@ -12,11 +12,16 @@ jobs:
 
     strategy:
       fail-fast: false
+      # This matrix should track the Ruby versions available in supported
+      # operating systems, as well as versions installed using rbenv.
       matrix:
         include:
-        - { ruby: 2.5 }
+        # - { ruby: 2.3.3 } # Debian 9 (Stretch) – Must use rbenv
+        - { ruby: 2.5.1 } # Ubuntu 18.04 LTS (Bionic)
+        - { ruby: 2.5.5 } # Debian 10 (Buster)
         - { ruby: 2.6 }
-        - { ruby: 2.7 }
+        - { ruby: 2.7.0 } # Ubuntu 20.04 LTS (Focal)
+        - { ruby: 2.7.4 } # Latest supported Ruby
         - { ruby: 2.7, gemfile: 'Gemfile.rails_next' }
 
     services:
