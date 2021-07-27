@@ -277,6 +277,20 @@ if [ "$DEVELOPMENT_INSTALL" = true ]; then
   gem install mailcatcher
 fi
 
+if [ "$DEVELOPMENT_INSTALL" = true ] && [ x"$SUDO_USER" = x"vagrant" ]
+then
+  VAGRANT_DEV_INSTALL=true
+fi
+
+if [ "$VAGRANT_DEV_INSTALL" = true ] && [ ! -e "$REPOSITORY/config/xapian.yml" ]
+  then
+    cat > "$REPOSITORY/config/xapian.yml" <<EOF
+# Create test xapian DBs outside of the VirtualBox share to avoid corruption
+test:
+  absolute_base_db_path: "/tmp/xapiandbs"
+EOF
+fi
+
 # Set up root's crontab:
 echo -n "Creating /etc/cron.d/alaveteli... "
 (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_crontab DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' RUBY_VERSION='$RUBY_VERSION' USE_RBENV=$USE_RBENV RAILS_ENV='$RAILS_ENV' CRONTAB=config/crontab-example" "$UNIX_USER") > /etc/cron.d/alaveteli
