@@ -42,13 +42,6 @@ RSpec.describe AlaveteliPro::BatchRequestAuthoritySearchesController do
       session[:user_id] = pro_user.id
     end
 
-    after do
-      authority_1.destroy
-      authority_2.destroy
-      authority_3.destroy
-      update_xapian_index
-    end
-
     context 'without a draft_id param' do
       it 'initializes a draft if a draft_id was not provided' do
         get :index

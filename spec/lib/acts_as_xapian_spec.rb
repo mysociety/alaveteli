@@ -183,11 +183,6 @@ RSpec.describe ActsAsXapian::Search do
       update_xapian_index
     end
 
-    after do
-      @alice.destroy
-      update_xapian_index
-    end
-
     it "should return a list of words used in the search" do
       s = ActsAsXapian::Search.new([PublicBody], "albatross words", :limit => 100)
       expect(s.words_to_highlight).to eq(["albatross", "word"])
@@ -260,12 +255,6 @@ RSpec.describe ActsAsXapian::Search do
     before do
       @alice = FactoryBot.create(:public_body, :name => 'alice')
       @bob = FactoryBot.create(:public_body, :name => 'bôbby')
-      update_xapian_index
-    end
-
-    after do
-      @alice.destroy
-      @bob.destroy
       update_xapian_index
     end
 

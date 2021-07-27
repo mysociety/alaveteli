@@ -53,13 +53,6 @@ RSpec.describe "creating batch requests in alaveteli_pro" do
     update_xapian_index
   end
 
-  after do
-    authorities.each do |authority|
-      authority.destroy
-    end
-    update_xapian_index
-  end
-
   it "allows the user to build a list of authorities" do
     using_pro_session(pro_user_session) do
       visit(alaveteli_pro_batch_request_authority_searches_path)
