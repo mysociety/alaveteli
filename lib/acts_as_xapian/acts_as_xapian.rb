@@ -117,9 +117,16 @@ module ActsAsXapian
     config_file = Rails.root.join("config","xapian.yml")
     @@config = File.exist?(config_file) ? YAML.load_file(config_file)[environment] : {}
 
+    if config['base_db_path'] && config['absolute_base_db_path']
+      msg = 'Only set one of base_db_path OR absolute_base_db_path'
+      raise ArgumentError, msg
+    end
+
     # figure out where the DBs should go
     if config['base_db_path']
       db_parent_path = Rails.root.join(config['base_db_path'])
+    elsif config['absolute_base_db_path']
+      db_parent_path = config['absolute_base_db_path']
     else
       db_parent_path = File.join(File.dirname(__FILE__), 'xapiandbs')
     end
