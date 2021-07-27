@@ -42,3 +42,4 @@
 /tmp/
 /vendor/bundle/
 /vendor/data/
+/docker-compose.override.yml
