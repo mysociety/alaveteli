@@ -175,7 +175,7 @@ RSpec.describe ActsAsXapian::Search do
   describe "#words_to_highlight" do
 
     before do
-      get_fixtures_xapian_index
+      update_xapian_index
     end
 
     before do
@@ -254,7 +254,7 @@ RSpec.describe ActsAsXapian::Search do
 
     before do
       load_raw_emails_data
-      get_fixtures_xapian_index
+      update_xapian_index
     end
 
     before do

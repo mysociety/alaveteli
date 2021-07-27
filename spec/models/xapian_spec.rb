@@ -4,7 +4,7 @@ RSpec.describe User, " when indexing users with Xapian" do
 
   before(:each) do
     load_raw_emails_data
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   it "should search by name" do
@@ -36,7 +36,7 @@ end
 RSpec.describe PublicBody, " when indexing public bodies with Xapian" do
   before(:each) do
     load_raw_emails_data
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   it "should search index the main name field" do
@@ -69,7 +69,7 @@ RSpec.describe PublicBody, " when indexing requests by body they are to" do
 
   before(:each) do
     load_raw_emails_data
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   it "should find requests to the body" do
@@ -124,7 +124,7 @@ end
 RSpec.describe User, " when indexing requests by user they are from" do
   before(:each) do
     load_raw_emails_data
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   it "should find requests from the user" do
@@ -258,7 +258,7 @@ end
 RSpec.describe User, " when indexing comments by user they are by" do
   before(:each) do
     load_raw_emails_data
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   it "should find requests from the user" do
@@ -293,7 +293,7 @@ end
 RSpec.describe InfoRequest, " when indexing requests by their title" do
   before(:each) do
     load_raw_emails_data
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   it "should find events for the request" do
@@ -322,7 +322,7 @@ end
 RSpec.describe InfoRequest, " when indexing requests by tag" do
   before(:each) do
     load_raw_emails_data
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   it "should find request by tag, even when changes" do
@@ -343,7 +343,7 @@ end
 RSpec.describe PublicBody, " when indexing authorities by tag" do
   before(:each) do
     load_raw_emails_data
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   it "should find request by tag, even when changes" do
@@ -367,7 +367,7 @@ end
 RSpec.describe PublicBody, " when only indexing selected things on a rebuild" do
   before(:each) do
     load_raw_emails_data
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   it "should only index what we ask it to" do
@@ -426,7 +426,7 @@ RSpec.describe InfoRequestEvent, " when faced with a race condition during xapia
 
   before(:each) do
     load_raw_emails_data
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   it 'should not raise an error but should fail silently' do

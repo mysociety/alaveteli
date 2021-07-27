@@ -4,7 +4,7 @@ require 'integration/alaveteli_dsl'
 RSpec.describe "administering requests" do
 
   before do
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   context 'when the admin user is a pro' do

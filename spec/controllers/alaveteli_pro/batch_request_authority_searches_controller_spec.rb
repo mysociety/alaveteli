@@ -35,10 +35,6 @@ RSpec.describe AlaveteliPro::BatchRequestAuthoritySearchesController do
     let(:authority_3) { FactoryBot.build(:public_body) }
 
     before do
-      get_fixtures_xapian_index
-    end
-
-    before do
       authority_1.save
       authority_2.save
       authority_3.save

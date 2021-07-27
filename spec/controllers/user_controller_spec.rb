@@ -133,7 +133,7 @@ RSpec.describe UserController do
 
       before do
         load_raw_emails_data
-        get_fixtures_xapian_index
+        update_xapian_index
       end
 
       it "searches the user's contributions" do
@@ -1213,7 +1213,7 @@ RSpec.describe UserController, "when viewing the wall" do
 
   before(:each) do
     load_raw_emails_data
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   it "should show users stuff on their wall, most recent first" do

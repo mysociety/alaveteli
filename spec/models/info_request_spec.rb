@@ -3348,7 +3348,7 @@ RSpec.describe InfoRequest do
   describe InfoRequest, 'when getting similar requests' do
 
     before(:each) do
-      get_fixtures_xapian_index
+      update_xapian_index
     end
 
     it 'returns similar requests' do
@@ -3371,7 +3371,7 @@ RSpec.describe InfoRequest do
   describe InfoRequest, 'when constructing the list of recent requests' do
 
     before(:each) do
-      get_fixtures_xapian_index
+      update_xapian_index
     end
 
     describe 'when there are fewer than five successful requests' do
@@ -3413,7 +3413,7 @@ RSpec.describe InfoRequest do
 
     before(:each) do
       load_raw_emails_data
-      get_fixtures_xapian_index
+      update_xapian_index
     end
 
     def apply_filters(filters)

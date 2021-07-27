@@ -217,7 +217,7 @@ RSpec.describe GeneralController, 'when using xapian search' do
   # rebuild xapian index after fixtures loaded
   before(:each) do
     load_raw_emails_data
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   it "should redirect from search query URL to pretty URL" do

@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe RequestController, "when listing recent requests" do
   before(:each) do
     load_raw_emails_data
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   it "should be successful" do
@@ -634,7 +634,7 @@ RSpec.describe RequestController, "when searching for an authority" do
   # so we make sure we're logged in, just in case
   before do
     @user = users(:bob_smith_user)
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   it "should return matching bodies" do
@@ -1880,7 +1880,7 @@ end
 RSpec.describe RequestController, "when doing type ahead searches" do
 
   before :each do
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   it 'can filter search results by public body' do
@@ -1904,7 +1904,7 @@ end
 RSpec.describe RequestController, "when showing similar requests" do
 
   before do
-    get_fixtures_xapian_index
+    update_xapian_index
     load_raw_emails_data
   end
 
@@ -2122,7 +2122,7 @@ RSpec.describe RequestController, "#select_authorities" do
   context "when batch requests is enabled" do
 
     before do
-      get_fixtures_xapian_index
+      update_xapian_index
       load_raw_emails_data
       allow(AlaveteliConfiguration).to receive(:allow_batch_requests).and_return(true)
     end
