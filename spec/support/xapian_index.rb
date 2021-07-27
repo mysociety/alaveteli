@@ -17,6 +17,9 @@ def destroy_and_rebuild_xapian_index(terms = true, values = true, texts = true, 
 end
 
 def update_xapian_index
+  get_fixtures_xapian_index unless @xapian_setup
+  @xapian_setup = true
+
   ActsAsXapian.update_index(flush_to_disk=false, verbose=false)
 end
 
