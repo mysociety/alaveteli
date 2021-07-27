@@ -17,7 +17,7 @@ def destroy_and_rebuild_xapian_index(terms = true, values = true, texts = true, 
 end
 
 def update_xapian_index
-  get_fixtures_xapian_index unless @xapian_setup
+  setup_xapian_index unless @xapian_setup
   @xapian_setup = true
 
   ActsAsXapian.update_index(flush_to_disk=false, verbose=false)
@@ -25,7 +25,7 @@ end
 
 # Copy the initial xapian index to a temporary copy at the same level and point
 # xapian at the copy
-def get_fixtures_xapian_index
+def setup_xapian_index
   return unless $original_xapian_path
 
   temp_path = File.join(File.dirname($original_xapian_path), 'test.temp')
