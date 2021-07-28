@@ -221,7 +221,7 @@ EOF
 echo $DONE_MSG
 
 export DEVELOPMENT_INSTALL
-su -l -c "$BIN_DIRECTORY/install-as-user '$UNIX_USER' '$HOST' '$DIRECTORY' '$RUBY_VERSION' '$USE_RBENV'" "$UNIX_USER"
+su -l -c "$BIN_DIRECTORY/install-as-user '$UNIX_USER' '$HOST' '$DIRECTORY' '$RUBY_VERSION' '$USE_RBENV' '$DEVELOPMENT_INSTALL'" "$UNIX_USER"
 
 # Now that the install-as-user script has loaded the sample data, we
 # no longer need the PostgreSQL user to be a superuser:

@@ -3,10 +3,10 @@
 set -e
 set -x
 
-if [ $# -ne 5 ]
+if [ $# -ne 6 ]
 then
     cat >&2 <<EOUSAGE
-Usage: $0 <UNIX-USER> <HOST> <INSTALLATION-DIRECTORY> <RUBY-VERSION> <USE_RBENV>
+Usage: $0 <UNIX-USER> <HOST> <INSTALLATION-DIRECTORY> <RUBY-VERSION> <USE_RBENV> <DEVELOPMENT_INSTALL>
 EOUSAGE
     exit 1
 fi
@@ -16,6 +16,7 @@ HOST="$2"
 DIRECTORY="$3"
 RUBY_VERSION="$4"
 USE_RBENV="$5"
+DEVELOPMENT_INSTALL="$6"
 DB_NAME="alaveteli"
 
 # Check that the arguments we've been passed are sensible:
