@@ -177,6 +177,16 @@ done
 echo Running rails-post-deploy
 script/rails-post-deploy
 
+# We created the test database above and migrated the development / production
+# database through `script/rails-post-deploy`, but in a development install
+# we're left without a ready-to-go test database. We don't want to run
+# `script/rails-post-deploy` with `RAILS_ENV=test` since that runs all sorts of
+# other things, so just migrate the test database as a separate task.
+if [ "$DEVELOPMENT_INSTALL" = true ]; then
+  echo Migrating test database
+  RAILS_ENV=test bundle exec rake db:migrate
+fi
+
 LOADED_INDICATOR="$HOME/.alaveteli-sample-data-loaded"
 
 if [ ! -f "$LOADED_INDICATOR" ]
