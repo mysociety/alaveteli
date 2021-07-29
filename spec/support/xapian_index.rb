@@ -20,13 +20,11 @@ def update_xapian_index
   ActsAsXapian.update_index(flush_to_disk=false, verbose=false)
 end
 
-# Copy the xapian index created in create_fixtures_xapian_index to a temporary
-# copy at the same level and point xapian at the copy
+# Copy the initial xapian index to a temporary copy at the same level and point
+# xapian at the copy
 def get_fixtures_xapian_index
-  # Create a base index for the fixtures if not already created
-  $existing_xapian_db ||= create_fixtures_xapian_index
-  # Store whatever the xapian db path is originally
-  $original_xapian_path ||= ActsAsXapian.db_path
+  return unless $original_xapian_path
+
   path_array = $original_xapian_path.split(File::Separator)
   path_array.pop
   temp_path = File.join(path_array, 'test.temp')
@@ -39,4 +37,18 @@ end
 def create_fixtures_xapian_index
   load_raw_emails_data
   destroy_and_rebuild_xapian_index
+end
+
+module ActiveRecord
+  class FixtureSet
+    class << self
+      alias create_fixtures_orig create_fixtures
+
+      def create_fixtures(*args)
+        result = create_fixtures_orig(*args)
+        $original_xapian_path ||= create_fixtures_xapian_index
+        result
+      end
+    end
+  end
 end
