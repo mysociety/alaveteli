@@ -25,10 +25,9 @@ end
 def get_fixtures_xapian_index
   return unless $original_xapian_path
 
-  path_array = $original_xapian_path.split(File::Separator)
-  path_array.pop
-  temp_path = File.join(path_array, 'test.temp')
-  FileUtils.remove_entry_secure(temp_path, force=true)
+  temp_path = File.join(File.dirname($original_xapian_path), 'test.temp')
+  FileUtils.rm_rf(temp_path)
+
   FileUtils.cp_r($original_xapian_path, temp_path)
   ActsAsXapian.db_path = temp_path
 end
