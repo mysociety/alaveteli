@@ -43,7 +43,11 @@ fi
 REPOSITORY="$DIRECTORY/alaveteli"
 LINK_DESTINATION="$HOME/alaveteli"
 
-ln -sfn "$REPOSITORY" $LINK_DESTINATION
+if [ "$REPOSITORY" != "$LINK_DESTINATION" ]
+then
+  ln -sfn "$REPOSITORY" $LINK_DESTINATION
+fi
+
 cd "$REPOSITORY"
 
 BASHRC="$HOME/.bashrc"
