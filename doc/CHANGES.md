@@ -2,7 +2,12 @@
 
 ## Highlighted Features
 
+* Add support for Ubuntu Focal (20.04 LTS) (Gareth Rees)
+
 ## Upgrade Notes
+
+* Support for Ubuntu Bionic (18.04 LTS) will be removed in or after the next
+  release.
 
 # 0.39.1.1
 
