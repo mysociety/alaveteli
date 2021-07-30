@@ -152,7 +152,7 @@ cat > /etc/postfix/recipients <<EOF
 /^team@/                this-is-ignored
 EOF
 
-if ! egrep '^ */var/log/mail/mail.log *{' /etc/logrotate.d/rsyslog
+if ! egrep '^ */var/log/mail/mail.log *{' /etc/logrotate.d/rsyslog > /dev/null
 then
     cat >> /etc/logrotate.d/rsyslog <<EOF
 /var/log/mail/mail.log {
