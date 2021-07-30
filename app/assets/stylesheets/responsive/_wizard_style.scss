@@ -51,3 +51,12 @@
     margin: 0.5em 0 0 0;
   }
 }
+
+.flash {
+    animation: target-fade 3s 1;
+}
+
+@keyframes target-fade {
+    0% { background-color: #F3BD2A; }
+    100% { background-color: transparent; }
+}
