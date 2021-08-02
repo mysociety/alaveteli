@@ -95,22 +95,49 @@ module MailHandler
 
     def self.forward_on(raw_message, message = nil)
       forward_to = self.get_forward_to_address(message)
-      IO.popen("/usr/sbin/sendmail -i #{forward_to}", "wb") do |f|
+      IO.popen(%Q(/usr/sbin/sendmail -i "#{forward_to}"), 'wb') do |f|
         f.write(raw_message);
         f.close;
       end
     end
 
     def self.get_forward_to_address(message)
-      forward_to = AlaveteliConfiguration.forward_nonbounce_responses_to
+      non_default_recipient(message) || default_recipient
+    end
+
+    def self.non_default_recipient(message)
       if AlaveteliConfiguration.enable_alaveteli_pro
-        pro_contact_email = AlaveteliConfiguration.pro_contact_email
-        original_to = message ? MailHandler.get_all_addresses(message) : []
-        if original_to.include?(pro_contact_email)
-          forward_to = AlaveteliConfiguration.forward_pro_nonbounce_responses_to
+        if addressed_to_both_contacts?(message)
+          [default_recipient, pro_recipient].join(',')
+        elsif addressed_to_pro_contact?(message)
+          pro_recipient
         end
       end
-      forward_to
+    end
+
+    def self.addressed_to_pro_contact?(message)
+      pro_contact_email = AlaveteliConfiguration.pro_contact_email
+      original_recipients(message).include?(pro_contact_email)
+    end
+
+    def self.addressed_to_both_contacts?(message)
+      contact_email = AlaveteliConfiguration.contact_email
+      pro_contact_email = AlaveteliConfiguration.pro_contact_email
+
+      original_recipients(message).include?(contact_email) &&
+        original_recipients(message).include?(pro_contact_email)
+    end
+
+    def self.default_recipient
+      AlaveteliConfiguration.forward_nonbounce_responses_to
+    end
+
+    def self.pro_recipient
+      AlaveteliConfiguration.forward_pro_nonbounce_responses_to
+    end
+
+    def self.original_recipients(message)
+      message ? MailHandler.get_all_addresses(message) : []
     end
 
     def self.load_rails
