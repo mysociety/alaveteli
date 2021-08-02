@@ -1,4 +1,4 @@
-class Statistics
+module Statistics
   # High-level site statistics and version information
   class General
     def to_h
