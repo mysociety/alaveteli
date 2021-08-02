@@ -95,7 +95,7 @@ if File.exist?(general_filename) && ! (File.symlink? general_filename)
   exit 1
 end
 
-unless File.exist? theme_filename
+unless requested_theme == $no_theme_name || File.exist?(theme_filename)
   STDERR.puts "'#{theme_filename}' didn't exist"
   exit 1
 end
@@ -124,7 +124,8 @@ symlink(File.join(alaveteli_directory, 'config', File.basename(theme_filename)),
 public_directory = File.join(alaveteli_directory, 'public')
 
 if requested_theme == $no_theme_name
-  File.unlink File.join(public_directory, 'alavetelitheme')
+  link = File.join(public_directory, 'alavetelitheme')
+  File.unlink(link) if Dir.exists?(link)
 else
   symlink(File.join(full_theme_path, 'public'),
           public_directory,

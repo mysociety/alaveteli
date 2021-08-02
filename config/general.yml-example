@@ -149,7 +149,7 @@ TWITTER_WIDGET_ID: ''
 # The locales you want your site to support. If there is more than one, use
 # spaces betwween the entries.
 #
-# AVAILABLE_LOCALES – String of space-separated locales (default: nil)
+# AVAILABLE_LOCALES – String of space-separated locales (default: en)
 #
 # Examples:
 #
@@ -160,7 +160,7 @@ AVAILABLE_LOCALES: 'en'
 
 # Nominate one of the AVAILABLE_LOCALES locales as the default
 #
-# DEFAULT_LOCALE – String locale (default: nil)
+# DEFAULT_LOCALE – String locale (default: en)
 #
 # Examples:
 #
