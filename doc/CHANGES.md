@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Render newest Citations in request sidebar instead of oldest (Gareth Rees)
 * Add support for Ubuntu Focal (20.04 LTS) (Gareth Rees)
 
 ## Upgrade Notes
