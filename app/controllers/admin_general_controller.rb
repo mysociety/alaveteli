@@ -156,7 +156,7 @@ class AdminGeneralController < AdminController
 
   def debug
     @admin_current_user = admin_current_user
-    @current_commit = alaveteli_git_commit
+    @current_commit = Statistics::General.new.to_h[:alaveteli_git_commit]
     @current_branch = `git branch | perl -ne 'print $1 if /^\\* (.*)/'`
     @current_version = ALAVETELI_VERSION
     repo = `git remote show origin -n | perl -ne 'print $1 if m{Fetch URL: .*github\\.com[:/](.*)\\.git}'`
