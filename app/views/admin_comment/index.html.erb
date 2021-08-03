@@ -18,7 +18,7 @@
                     edit_admin_comment_path(comment) %>
       </span>
       <span class="item-metadata">
-        created <%=I18n.l(comment.created_at, :format => "%e %B %Y %H:%M:%S")%>
+        created <%= admin_date(comment.created_at, ago: false) %>
     </span>
     </div>
 
