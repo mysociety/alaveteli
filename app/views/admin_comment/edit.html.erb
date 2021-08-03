@@ -70,13 +70,8 @@
                                :locals => {
                                   :params => info_request_event.params_diff
                                } %>
-                  <% elsif value.nil? %>
-                    nil
-                  <% elsif %w(text string).include?(type) %>
-                    <%=h value.humanize %>
-                  <% elsif type == 'datetime' %>
-                    <%= admin_date value %>
-                    <%=h value %>
+                  <% else %>
+                    <%= admin_value(value) %>
                   <% end %>
                 </td>
               </tr>
