@@ -3,10 +3,10 @@
 set -e
 set -x
 
-if [ $# -ne 5 ]
+if [ $# -ne 6 ]
 then
     cat >&2 <<EOUSAGE
-Usage: $0 <UNIX-USER> <HOST> <INSTALLATION-DIRECTORY> <RUBY-VERSION> <USE_RBENV>
+Usage: $0 <UNIX-USER> <HOST> <INSTALLATION-DIRECTORY> <RUBY-VERSION> <USE_RBENV> <DEVELOPMENT_INSTALL>
 EOUSAGE
     exit 1
 fi
@@ -16,6 +16,7 @@ HOST="$2"
 DIRECTORY="$3"
 RUBY_VERSION="$4"
 USE_RBENV="$5"
+DEVELOPMENT_INSTALL="$6"
 DB_NAME="alaveteli"
 
 # Check that the arguments we've been passed are sensible:
@@ -197,6 +198,16 @@ done
 
 echo Running rails-post-deploy
 script/rails-post-deploy
+
+# We created the test database above and migrated the development / production
+# database through `script/rails-post-deploy`, but in a development install
+# we're left without a ready-to-go test database. We don't want to run
+# `script/rails-post-deploy` with `RAILS_ENV=test` since that runs all sorts of
+# other things, so just migrate the test database as a separate task.
+if [ "$DEVELOPMENT_INSTALL" = true ]; then
+  echo Migrating test database
+  RAILS_ENV=test bundle exec rake db:migrate
+fi
 
 LOADED_INDICATOR="$HOME/.alaveteli-sample-data-loaded"
 
