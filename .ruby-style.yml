@@ -1146,6 +1146,7 @@ Style/IpAddresses:
 
 Style/Lambda:
   Enabled: true
+  EnforcedStyle: literal
 
 Style/LambdaCall:
   Enabled: true
