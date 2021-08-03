@@ -100,13 +100,12 @@ RSpec.describe RequestController, "when showing one request" do
 
     let(:citations) do
       FactoryBot.create_list(:citation, 5, citable: info_request)
-      info_request.citations.limit(3)
     end
 
     before { get :show, params: { url_title: info_request.url_title } }
 
-    it 'assigns 3 citations' do
-      expect(assigns[:citations]).to match_array(citations)
+    it 'assigns newest 3 citations' do
+      expect(assigns[:citations]).to match_array(citations.reverse.take(3))
     end
   end
 
