@@ -1029,10 +1029,7 @@ RSpec.describe InfoRequest do
 
       it 'updates the law_used to the new legislation key' do
         request = FactoryBot.create(:info_request, law_used: 'foi')
-        new_body = FactoryBot.create(:public_body)
-        allow(new_body).to receive(:legislation).and_return(
-          FactoryBot.build(:legislation, key: 'eir')
-        )
+        new_body = FactoryBot.create(:public_body, :eir_only)
 
         expect {
           editor = FactoryBot.create(:user)
