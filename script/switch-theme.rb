@@ -125,7 +125,7 @@ public_directory = File.join(alaveteli_directory, 'public')
 
 if requested_theme == $no_theme_name
   link = File.join(public_directory, 'alavetelitheme')
-  File.unlink(link) if Dir.exists?(link)
+  File.unlink(link) if Dir.exist?(link)
 else
   symlink(File.join(full_theme_path, 'public'),
           public_directory,
