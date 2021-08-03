@@ -92,25 +92,41 @@ RSpec.describe InfoRequest do
     end
   end
 
-  describe 'creating a new request' do
+  describe '#law_used' do
 
-    it 'sets the default law used' do
+    it 'defaults law used to foi' do
       expect(InfoRequest.new.law_used).to eq('foi')
     end
 
-    it 'sets the default law used to the legislation key' do
-      legislation = FactoryBot.build(:legislation, key: 'eir')
-      allow_any_instance_of(InfoRequest).to receive(:legislation).
-        and_return(legislation)
-      expect(InfoRequest.new(law_used: nil).law_used).to eq('eir')
+    it 'accepts law used attribute' do
+      expect(InfoRequest.new(law_used: 'eir').law_used).to eq('eir')
     end
 
-    it 'does not try to overwrite the existing law used' do
-      legislation = FactoryBot.build(:legislation, key: 'eir')
-      allow_any_instance_of(InfoRequest).to receive(:legislation).
-        and_return(legislation)
-      expect(InfoRequest.new(law_used: 'foi').law_used).to eq('foi')
+    context 'with public body' do
+
+      let(:foi) { FactoryBot.build(:public_body) }
+      let(:eir) { FactoryBot.build(:public_body, :eir_only) }
+
+      it 'sets law used to the public body legislation on validataion' do
+        request = FactoryBot.build(:info_request, public_body: eir)
+
+        expect { request.valid? }.to change(request, :law_used).
+          from('foi').to('eir')
+      end
+
+      it 'does not update law used after request has been created' do
+        request = FactoryBot.create(:info_request, public_body: eir)
+        request.public_body = foi
+
+        expect { request.valid? }.to_not change(request, :law_used).
+          from('eir')
+      end
+
     end
+
+  end
+
+  describe 'creating a new request' do
 
     it "sets the url_title from the supplied title" do
       info_request = FactoryBot.create(:info_request, :title => "Test title")
@@ -1025,10 +1041,7 @@ RSpec.describe InfoRequest do
 
       it 'updates the law_used to the new legislation key' do
         request = FactoryBot.create(:info_request, law_used: 'foi')
-        new_body = FactoryBot.create(:public_body)
-        allow(new_body).to receive(:legislation).and_return(
-          FactoryBot.build(:legislation, key: 'eir')
-        )
+        new_body = FactoryBot.create(:public_body, :eir_only)
 
         expect {
           editor = FactoryBot.create(:user)
