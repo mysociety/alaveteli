@@ -36,7 +36,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-20 14:09+0100\n"
-"PO-Revision-Date: 2021-07-20 13:36+0000\n"
+"PO-Revision-Date: 2021-08-03 09:58+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Greek (http://www.transifex.com/mysociety/alaveteli/language/el"
 "/)\n"
@@ -1130,7 +1130,7 @@ msgstr[0] "Βρέθηκαν {{count}} δημόσιες αρχές που ται�
 msgstr[1] "Βρέθηκαν {{count}} δημόσιες αρχές που ταιριάζουν στην ετικέτα ‘{{tag_name}}’"
 
 msgid "Four weeks ago you made a Freedom of Information request to {{public_body_name}} using {{site_name}}."
-msgstr ""
+msgstr "Πριν από τέσσερεις εβδομάδες υποβάλλατε ένα Αίτημα Κατάθεσης Εγγράφου στ@ {{public_body_name}} μέσω του {{site_name}}."
 
 msgid "Freedom of Information"
 msgstr "Αίτημα Κατάθεσης Εγγράφων"
@@ -1343,7 +1343,7 @@ msgid "If you believe this request is not suitable, you can report it for attent
 msgstr "Εαν πιστεύετε ότι αυτή η αίτηση είναι ακατάλληλη, μπορείτε να την αναφέρετε στους διαχειριστές της σελίδας με αυτή την φόρμα"
 
 msgid "If you can spare a few minutes to complete our short survey, it will help us make the site better. Just follow the link below."
-msgstr ""
+msgstr "Αν μπορέσετε να διαθέσετε λίγα λεπτά για την συμπλήρωση του σύντομου ερωτηματολογίου μας, θα μας βοηθήσετε πολύ να βελτιώσουμε την πλατφόρμα μας. Απλά ακολουθείστε των παρακάτω σύνδεσμο."
 
 msgid "If you can't click on it in the email, you'll have to <strong>select and copy it</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place you would type the address of any other webpage."
 msgstr "Εάν δεν μπορείτε να πατήσετε πάνω στο email, θα πρέπει να <strong>το επιλέξετε και να το αντιγράψετε </strong>από το email. Τότε <strong>επικολλήστε το στο πρόγραμμα περιήγησης </strong>, στο μέρος που θα πληκτρολογούσατε  τη διεύθυνση μιας οποιασδήποτε ιστοσελίδας. "
@@ -3465,7 +3465,7 @@ msgid "We will not reveal your email addresses to anybody unless you or the law 
 msgstr "Δεν θα αποκαλύψουμε τις διευθύνσεις των ηλεκτρονικών ταχυδρομείων σας σε κανέναν, εκτός αν εσείς ή ο νόμος μας το υποδείξει."
 
 msgid "We would like to know more about you, and your experience making an {{law_used_full}} request through the site."
-msgstr ""
+msgstr "Θα θέλαμε να μάθουμε περισσότερα για εσάς αλλά και για την εμπειρία σας από την υποβολή του {{law_used_full}} αιτήματος σας μέσω της πλατφόρμας μας."
 
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr "Θα σας στείλουμε email όταν το αίτημά σας λάβει απάντηση."

@@ -59,7 +59,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-20 14:09+0100\n"
-"PO-Revision-Date: 2021-07-20 13:37+0000\n"
+"PO-Revision-Date: 2021-08-03 10:06+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Nepali (http://www.transifex.com/mysociety/alaveteli/language/n"
 "e/)\n"
@@ -4582,7 +4582,7 @@ msgid "{{user_name}} would like the email address for {{public_body_name}} to be
 msgstr "{{user_name}} ले {{public_body_name}} को इमेल ठेगाना अद्यावधिक गरियोस् भन्ने चाहनुहुन्छ"
 
 msgid "{{username}} left an annotation:"
-msgstr "{{user_name}} ले टिप्पणी गर्नुभयो:"
+msgstr "{{username}} ले टिप्पणी गर्नुभयो:"
 
 msgid "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 msgstr "{{user}} ({{user_admin_link}}) ले {{law_used_full}} अनुरोध (<a href=\"{{request_admin_url}}\">admin</a>) लाई {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">प्रवन्धक</a>)लाई बनाउनु भयो"
