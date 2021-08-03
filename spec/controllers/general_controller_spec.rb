@@ -8,6 +8,7 @@ RSpec.describe GeneralController do
 
     before do
       expect(Statistics::General).to receive(:new).and_return(mock_stats)
+      expect(mock_stats).to receive(:to_json).with(kind_of(Hash))
     end
 
     it 'renders json stats about the install' do

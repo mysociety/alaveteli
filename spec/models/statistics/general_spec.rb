@@ -72,7 +72,15 @@ RSpec.describe Statistics::General do
   end
 
   describe '#to_json' do
-    subject { statistics.to_json }
-    it { is_expected.to eq(expected.to_json) }
+    context 'with no arguments' do
+      subject { statistics.to_json }
+      it { is_expected.to eq(expected.to_json) }
+    end
+
+    context 'with arguments' do
+      subject { statistics.to_json(args) }
+      let(:args) { { not: 'used' } }
+      it { is_expected.to eq(expected.to_json) }
+    end
   end
 end
