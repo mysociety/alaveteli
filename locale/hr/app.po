@@ -56,7 +56,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-20 14:09+0100\n"
-"PO-Revision-Date: 2021-07-20 13:37+0000\n"
+"PO-Revision-Date: 2021-08-03 09:58+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Croatian (http://www.transifex.com/mysociety/alaveteli/language"
 "/hr/)\n"
@@ -1155,7 +1155,7 @@ msgstr[1] "Pronađeno {{count}} tijela javne vlasti s oznakom ‘{{tag_name}}’
 msgstr[2] "Pronađeno {{count}} tijela javne vlasti s oznakom ‘{{tag_name}}’"
 
 msgid "Four weeks ago you made a Freedom of Information request to {{public_body_name}} using {{site_name}}."
-msgstr ""
+msgstr "Prije četiri tjedna uputili ste zahtjev za pravo na pristup informacijama {{public_body_name}} putem {{site_name}}"
 
 msgid "Freedom of Information"
 msgstr "pristup informacijama"
@@ -1368,7 +1368,7 @@ msgid "If you believe this request is not suitable, you can report it for attent
 msgstr "Vjeruješ li da ovaj zahtjev nije primjeren, možeš ga prijaviti administratorima stranice koristeći ovaj obrazac"
 
 msgid "If you can spare a few minutes to complete our short survey, it will help us make the site better. Just follow the link below."
-msgstr ""
+msgstr "Ako možete odvojiti par minuta za ispunjavanje kratkog upitnika, to će nam pomoći da unaprijediti uslugu. Upitnik je dostupan na poveznici."
 
 msgid "If you can't click on it in the email, you'll have to <strong>select and copy it</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place you would type the address of any other webpage."
 msgstr "Ako ne možete kliknuti na njega u e-mailu, morati ćete <strong>odabrati i kopirati ga</strong> iz e-maila. Zatim <strong>zalijepite u vaš internetski preglednik</strong>, na mjesto gdje biste upisali adresu bilo koje druge internetske stranice."
@@ -3491,7 +3491,7 @@ msgid "We will not reveal your email addresses to anybody unless you or the law 
 msgstr "Nećemo prikazati vašu e-mail adresu nikome, osim ako vi ili zakon to ne zahtijevate."
 
 msgid "We would like to know more about you, and your experience making an {{law_used_full}} request through the site."
-msgstr ""
+msgstr "Htjeli bismo znati kakva su vaša iskustva sa {{law_used_full}} zahtjevom upućenim putem platforme."
 
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr "Poslati ćemo vam e-mail čim stigne odgovor na vaš zahtjev."
