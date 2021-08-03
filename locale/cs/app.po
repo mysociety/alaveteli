@@ -49,7 +49,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-20 14:09+0100\n"
-"PO-Revision-Date: 2021-07-20 13:36+0000\n"
+"PO-Revision-Date: 2021-08-03 09:58+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Czech (http://www.transifex.com/mysociety/alaveteli/language/cs"
 "/)\n"
@@ -1189,7 +1189,7 @@ msgstr[2] "Nalezeno {{count}} veřejných institucí s klíčovým slovem ‘{{t
 msgstr[3] "Nalezeno {{count}} veřejných institucí s klíčovým slovem ‘{{tag_name}}’"
 
 msgid "Four weeks ago you made a Freedom of Information request to {{public_body_name}} using {{site_name}}."
-msgstr ""
+msgstr "Před čtyřmi týdny jste vznesl/a dotaz podle Zákona o svobodném přístupu k informacím na {{public_body_name}} pomocí {{site_name}}."
 
 msgid "Freedom of Information"
 msgstr "dotaz"
@@ -1407,7 +1407,7 @@ msgid "If you believe this request is not suitable, you can report it for attent
 msgstr "Pokud se domníváte, že tato žádost není vhodná, nahlašte ji administrátorům stránek, použijte tento formulář. "
 
 msgid "If you can spare a few minutes to complete our short survey, it will help us make the site better. Just follow the link below."
-msgstr ""
+msgstr "Prosím, věnujte nám několik minut a vyplňte tento kratičký výzkum, Pomozte nám zlepšit naše stránky. Stačí kliknout na odkaz níže."
 
 msgid "If you can't click on it in the email, you'll have to <strong>select and copy it</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place you would type the address of any other webpage."
 msgstr "Pokud odkaz v textu není funkční, je třeba <strong>odkaz vybrat a překopírovat</strong> z e-mailu.  Poté <strong>jej vložte do adresového řádku vašeho prohlížeče</strong>, tedy na místo, kam vkládáte internetové adresy."
@@ -3598,7 +3598,7 @@ msgstr ""
 "ze zákonem daných důvodů požádáni."
 
 msgid "We would like to know more about you, and your experience making an {{law_used_full}} request through the site."
-msgstr ""
+msgstr "Rádi bychom se dozvěděli vice o vaší zkušenosti se vznášením dotazů podle {{law_used_full}} za pomoci stránek Informace pro všechny."
 
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr "Pošleme vám e-mail hned jak někdo bude reagovat na váš dotaz."

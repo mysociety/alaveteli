@@ -10,6 +10,7 @@
 # 1bb8f5eb4bc72723d4109decfd20c765, 2019
 # claude transparencia <audit.citoyen.quartier@gmail.com>, 2020
 # Christophe Van Gheluwe <info@cumuleo.be>, 2021
+# Graeme Porteous <graeme@mysociety.org>, 2021
 #
 msgid ""
 msgstr ""
@@ -17,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-20 14:09+0100\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: Christophe Van Gheluwe <info@cumuleo.be>, 2021\n"
+"Last-Translator: Graeme Porteous <graeme@mysociety.org>, 2021\n"
 "Language-Team: French (Belgium) (https://www.transifex.com/mysociety/teams/335"
 "29/fr_BE/)\n"
 "MIME-Version: 1.0\n"
@@ -1317,7 +1318,7 @@ msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> s
 msgstr "Vous avez une idée de ce que les <strong>administrateurs</strong> de {{site_name}} devraient faire au sujet de la demande."
 
 msgid "You’ll have access to our address book of {{authority_count}} authorities that are subject to FOI."
-msgstr "Vous aurez accès à notre carnet d'adresses des {{Authority_count}} autorités soumises à la liberté d'accès à l'information."
+msgstr "Vous aurez accès à notre carnet d'adresses des {{authority_count}} autorités soumises à la liberté d'accès à l'information."
 
 msgid "You’re busy fixing the world. Let us take care of your FOI requests."
 msgstr "Vous êtes occupé à réparer le monde. Laissez-nous nous occuper de vos demandes d'accès à l'information."
