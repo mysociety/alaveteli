@@ -18,7 +18,7 @@ RSpec.describe "Signing in" do
     end
   end
 
-  before { get_fixtures_xapian_index }
+  before { update_xapian_index }
 
   it "shows you an error if you get the password wrong" do
     try_login(user, { :password => 'badpassword' })

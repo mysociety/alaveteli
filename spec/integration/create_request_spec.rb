@@ -4,7 +4,7 @@ require 'integration/alaveteli_dsl'
 RSpec.describe "When creating requests" do
 
   before do
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   let!(:admin_user) { FactoryBot.create(:admin_user) }

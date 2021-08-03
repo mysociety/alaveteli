@@ -46,17 +46,10 @@ RSpec.describe "creating batch requests in alaveteli_pro" do
   let!(:authorities) { FactoryBot.create_list(:public_body, 26) }
 
   before do
-    get_fixtures_xapian_index
-  end
-
-  before do
     update_xapian_index
   end
 
-  after do
-    authorities.each do |authority|
-      authority.destroy
-    end
+  before do
     update_xapian_index
   end
 

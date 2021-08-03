@@ -5,7 +5,7 @@ RSpec.describe "When searching" do
 
   before(:each) do
     load_raw_emails_data
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   it "should not strip quotes from quoted query" do

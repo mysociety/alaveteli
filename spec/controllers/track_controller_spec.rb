@@ -85,7 +85,7 @@ RSpec.describe TrackController do
 
       before do
         load_raw_emails_data
-        get_fixtures_xapian_index
+        update_xapian_index
       end
 
       it "should get the RSS feed" do
@@ -255,7 +255,7 @@ RSpec.describe TrackController do
       # these tests depend on the xapian index existing, although
       # not on its specific contents.
       load_raw_emails_data
-      get_fixtures_xapian_index
+      update_xapian_index
     end
 
     it "should save a search track and redirect to the right place" do

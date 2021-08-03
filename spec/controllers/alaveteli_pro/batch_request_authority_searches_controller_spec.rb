@@ -35,22 +35,11 @@ RSpec.describe AlaveteliPro::BatchRequestAuthoritySearchesController do
     let(:authority_3) { FactoryBot.build(:public_body) }
 
     before do
-      get_fixtures_xapian_index
-    end
-
-    before do
       authority_1.save
       authority_2.save
       authority_3.save
       update_xapian_index
       session[:user_id] = pro_user.id
-    end
-
-    after do
-      authority_1.destroy
-      authority_2.destroy
-      authority_3.destroy
-      update_xapian_index
     end
 
     context 'without a draft_id param' do
