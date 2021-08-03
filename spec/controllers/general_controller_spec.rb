@@ -9,12 +9,20 @@ RSpec.describe GeneralController do
     before do
       expect(Statistics::General).to receive(:new).and_return(mock_stats)
       expect(mock_stats).to receive(:to_json).with(kind_of(Hash))
+      get :version, params: {}, format: :json
     end
 
     it 'renders json stats about the install' do
-      get :version, params: { format: :json }
       parsed_body = JSON.parse(response.body).symbolize_keys
       expect(parsed_body).to eq({ foo: 'x', bar: 'y' })
+    end
+
+    it 'responds as JSON' do
+      if rails_upgrade?
+        expect(response.media_type).to eq('application/json')
+      else
+        expect(response.content_type).to eq('application/json')
+      end
     end
   end
 end
