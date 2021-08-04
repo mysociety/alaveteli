@@ -116,7 +116,7 @@ Deprecation notices allow us to communicate with you that some functionality wil
 
 You will usually see a deprecation notice if you have been using functionality in your theme that is now due to change or be removed. The notice should give you a fair explanation of what to do about it. Usually it will be changing or removing methods. The [changelog](https://github.com/mysociety/alaveteli/blob/develop/doc/CHANGES.md) will include more detailed information about the deprecation and how to make the necessary changes.
 
-If you're ever unsure, don't hesitate to ask in the [developer mailing list](https://groups.google.com/group/alaveteli-dev) or [Alaveteli IRC channel](http://www.irc.mysociety.org/).
+If you're ever unsure, don't hesitate to ask in the [developer mailing list](https://groups.google.com/group/alaveteli-dev).
 
 ### When will the change take place?
 
