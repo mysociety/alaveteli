@@ -10,6 +10,12 @@
 * Support for Ubuntu Bionic (18.04 LTS) will be removed in or after the next
   release.
 
+# 0.39.1.3
+
+## Highlighted Features
+
+* Fix broken alert-survey script (Graeme Porteous)
+
 # 0.39.1.2
 
 ## Highlighted Features
