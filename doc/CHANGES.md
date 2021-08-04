@@ -1,3 +1,9 @@
+# 0.39.1.3
+
+## Highlighted Features
+
+* Fix broken alert-survey script (Graeme Porteous)
+
 # 0.39.1.2
 
 ## Highlighted Features
