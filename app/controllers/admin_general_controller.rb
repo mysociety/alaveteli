@@ -17,6 +17,10 @@ class AdminGeneralController < AdminController
     @attention_requests = InfoRequest.
       find_in_state('attention_requested').
         not_embargoed
+
+    @old_unclassified_count =
+      InfoRequest.where_old_unclassified.is_searchable.count
+
     @old_unclassified = InfoRequest.where_old_unclassified.
                                       limit(20).
                                         is_searchable
