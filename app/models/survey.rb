@@ -25,11 +25,14 @@ class Survey
   def url
     return Survey.url if user_too_identifiable?
 
-    Addressable::URI.parse(Survey.url).tap do |url|
-      url.query_values = (url.query_values || {}).merge(
-        authority_id: public_body.to_param
-      )
-    end.to_s
+    uri = URI(Survey.url)
+
+    new_query = Hash[URI.decode_www_form(uri.query.to_s)].merge(
+      authority_id: public_body.to_param
+    )
+    uri.query = URI.encode_www_form(new_query)
+
+    uri.to_s
   end
 
   protected
