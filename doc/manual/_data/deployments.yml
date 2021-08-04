@@ -125,7 +125,7 @@
   url: https://dostup.pravda.com.ua
   image: ukraine.jpg
   featured: false
-  pro: false
+  pro: true
   country:
     en: Ukraine
     es: Ucrania
@@ -260,7 +260,7 @@
   url: https://opramachine.com
   image: opra-machine.jpg
   featured: false
-  pro: false
+  pro: true
   country:
     en: New Jersey, USA
     es: New Jersey, Estados Unidos
@@ -287,7 +287,7 @@
   url: https://arthro5a.gr
   image: arthro5a.jpg
   featured: false
-  pro: false
+  pro: true
   country:
     en: Greece
     es: Grecia
