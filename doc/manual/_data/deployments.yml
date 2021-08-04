@@ -139,6 +139,15 @@
     en: Norway
     es: Noruega
 
+- title: arthro5A.gr
+  url: https://arthro5a.gr
+  image: arthro5a.jpg
+  featured: false
+  pro: true
+  country:
+    en: Greece
+    es: Grecia
+
 - title: VreauInfo
   url: https://www.vreauinfo.md
   image: vreauinfo.jpg
@@ -282,12 +291,3 @@
   country:
     en: Democratic Republic of the Congo
     es: República Democrática del Congo
-
-- title: arthro5A.gr
-  url: https://arthro5a.gr
-  image: arthro5a.jpg
-  featured: false
-  pro: true
-  country:
-    en: Greece
-    es: Grecia
