@@ -1,22 +1,42 @@
 require 'spec_helper'
 require 'alaveteli_external_command'
 
-script_dir = File.join(File.dirname(__FILE__), 'alaveteli_external_command_scripts')
-segfault_script = File.join(script_dir, 'segfault.sh')
-error_script = File.join(script_dir, 'error.sh')
-
 RSpec.describe "when running external commands" do
 
-  it "should detect a non-zero exit status" do
-    expect($stderr).to receive(:puts).with(/Error from/)
-    t = AlaveteliExternalCommand.run(error_script)
-    assert_nil t
+  let(:script_dir) do
+    File.join(File.dirname(__FILE__), 'alaveteli_external_command_scripts')
+  end
+  let(:segfault_script) { File.join(script_dir, 'segfault.sh') }
+  let(:error_script) { File.join(script_dir, 'error.sh') }
+
+  describe '#run!' do
+
+    it 'should raise Error for a non-zero exit status' do
+      expect { AlaveteliExternalCommand.run!(error_script) }.to raise_error(
+        AlaveteliExternalCommand::Error
+      )
+    end
+
+    it 'should raise Crash when an external command crashes' do
+      expect { AlaveteliExternalCommand.run!(segfault_script) }.to raise_error(
+        AlaveteliExternalCommand::Crash
+      )
+    end
+
   end
 
-  it "should detect when an external command crashes" do
-    expect($stderr).to receive(:puts).with(/exited abnormally/)
-    t = AlaveteliExternalCommand.run(segfault_script)
-    assert_nil t
+  describe '#run' do
+
+    it 'should return nil for a non-zero exit status' do
+      expect($stderr).to receive(:puts).with(/error from command/)
+      expect(AlaveteliExternalCommand.run(error_script)).to be_nil
+    end
+
+    it 'should return nil when an external command crashes' do
+      expect($stderr).to receive(:puts).with(/exited abnormally/)
+      expect(AlaveteliExternalCommand.run(segfault_script)).to be_nil
+    end
+
   end
 
 end

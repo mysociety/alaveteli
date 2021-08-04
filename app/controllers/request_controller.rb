@@ -670,19 +670,24 @@ class RequestController < ApplicationController
     convert_command = AlaveteliConfiguration::html_to_pdf_command
     @render_to_file = true
     assign_variables_for_show_template(info_request)
-    if !convert_command.blank? && File.exist?(convert_command)
+    if AlaveteliExternalCommand.exist?(convert_command)
       html_output = render_to_string(:template => 'request/show')
       tmp_input = Tempfile.new(['foihtml2pdf-input', '.html'])
       tmp_input.write(html_output)
       tmp_input.close
       tmp_output = Tempfile.new('foihtml2pdf-output')
-      output = AlaveteliExternalCommand.run(convert_command, tmp_input.path, tmp_output.path)
-      if !output.nil?
+      begin
+        output = AlaveteliExternalCommand.run!(
+          convert_command, tmp_input.path, tmp_output.path
+        )
         file_info = { :filename => 'correspondence.pdf',
                       :data => File.open(tmp_output.path).read }
         done = true
-      else
-        logger.error("Could not convert info request #{info_request.id} to PDF with command '#{convert_command} #{tmp_input.path} #{tmp_output.path}'")
+      rescue AlaveteliExternalCommand::Error => ex
+        logger.error(
+          "Could not convert info request #{info_request.id} to PDF with " \
+          "command '#{convert_command} #{tmp_input.path} #{tmp_output.path}'"
+        )
       end
       tmp_output.close
       tmp_input.delete
