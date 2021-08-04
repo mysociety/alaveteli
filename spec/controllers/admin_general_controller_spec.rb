@@ -15,6 +15,12 @@ RSpec.describe AdminGeneralController do
       expect(response).to render_template('index')
     end
 
+    it 'assigns a count of old unclassified requests' do
+      FactoryBot.create_list(:old_unclassified_request, 2)
+      get :index, session: { user_id: admin_user.id }
+      expect(assigns[:old_unclassified_count]).to eq(2)
+    end
+
     it 'assigns old unclassified requests' do
       @old_request = FactoryBot.create(:old_unclassified_request)
       get :index, session: { :user_id => admin_user.id }
