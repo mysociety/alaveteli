@@ -122,7 +122,7 @@ follow the steps described in the previous section.
   email should appear in Alaveteli. Not working? Take a look at our
   [troubleshooting tips]({{ page.baseurl }}/docs/installing/manual_install/#troubleshooting).
   If that doesn't sort it out, [get in touch]({{ page.baseurl }}/community/) on
-  the [developer mailing list](https://groups.google.com/forum/#!forum/alaveteli-dev) or [IRC](http://www.irc.mysociety.org/) for help.
+  the [developer mailing list](https://groups.google.com/forum/#!forum/alaveteli-dev) for help.
 
 ## Import Public Authorities
 
