@@ -13,9 +13,15 @@ random_string = bytes_to_binary_string [ 0x0f, 0x58, 0x1c, 0x8f, 0xa4, 0xcf,
                                          0xf6, 0x8c, 0x9d, 0xa7, 0x06, 0xd9,
                                          0xf7, 0x90, 0x6c, 0x6f]
 
+# "DASH – DASH" <- en dash
 windows_1252_string = bytes_to_binary_string [ 0x44, 0x41, 0x53, 0x48, 0x20,
                                                0x96, 0x20, 0x44, 0x41, 0x53,
                                                0x48 ]
+
+# "DONG ₫ DONG" <- currency symbol
+windows_1258_string = bytes_to_binary_string [ 0x44, 0x4f, 0x4e, 0x47, 0x20,
+                                               0xFE, 0x20, 0x44, 0x4f, 0x4e,
+                                               0x47 ]
 
 # It's a shame this example is so long, but if we don't take enough it
 # gets misinterpreted as Shift_JIS
@@ -86,6 +92,21 @@ RSpec.describe "normalize_string_to_utf8" do
 
   end
 
+  describe "when passed suggested Windows 1258 data" do
+
+    it "should raise EncodingNormalizationError" do
+
+      expect {
+        normalize_string_to_utf8 windows_1258_string, 'windows-1258'
+      }.to raise_error(
+        EncodingNormalizationError,
+        'code converter not found (Windows-1258 to UTF-8)'
+      )
+
+    end
+
+  end
+
   describe "when passed GB 18030 data" do
 
     it "should correctly convert it to UTF-8 if unlabelled" do
@@ -134,6 +155,21 @@ RSpec.describe "convert_string_to_utf8_or_binary" do
       if String.method_defined?(:encode)
         expect(converted.encoding.to_s).to eq('UTF-8')
       end
+    end
+
+  end
+
+  describe "when passed suggested Windows 1258 data" do
+
+    it "should return data as ASCII-8BIT" do
+
+      converted = convert_string_to_utf8_or_binary(
+        windows_1258_string, 'windows-1258'
+      )
+
+      expect(converted).to eq("DONG \xFE DONG".force_encoding('ASCII-8BIT'))
+      expect(converted.encoding.to_s).to eq('ASCII-8BIT')
+
     end
 
   end
@@ -193,6 +229,20 @@ RSpec.describe "convert_string_to_utf8" do
         expect(converted.string.encoding.to_s).to eq('UTF-8')
       end
       expect(converted.scrubbed?).to eq(false)
+
+    end
+
+  end
+
+  describe "when passed suggested Windows 1258 data" do
+
+    it "should return scrubbed UTF-8 string" do
+
+      converted = convert_string_to_utf8(windows_1258_string, 'windows-1258')
+
+      expect(converted.string).to eq("DONG  DONG")
+      expect(converted.string.encoding.to_s).to eq('UTF-8')
+      expect(converted.scrubbed?).to eq(true)
 
     end
 
