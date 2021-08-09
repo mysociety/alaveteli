@@ -34,7 +34,6 @@
 
 require 'rexml/document'
 require 'zip'
-require 'iconv' unless String.method_defined?(:encode)
 
 class IncomingMessage < ApplicationRecord
   include AdminColumn

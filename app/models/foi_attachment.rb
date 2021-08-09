@@ -67,10 +67,7 @@ class FoiAttachment < ApplicationRecord
       file.write d
     }
     update_display_size!
-    @cached_body = d
-    if String.method_defined?(:encode)
-      @cached_body = @cached_body.force_encoding("ASCII-8BIT")
-    end
+    @cached_body = d.force_encoding("ASCII-8BIT")
   end
 
   # raw body, encoded as binary

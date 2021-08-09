@@ -2603,7 +2603,7 @@ RSpec.describe InfoRequest do
         to receive(:applicable_censor_rules).and_return([rule_1, rule_2])
 
       text = '1 3 2'
-      text.force_encoding('ASCII-8BIT') if String.method_defined?(:encode)
+      text.force_encoding('ASCII-8BIT')
 
       expect(info_request.apply_censor_rules_to_binary(text)).to eq('x 3 x')
     end
