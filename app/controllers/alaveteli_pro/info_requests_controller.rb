@@ -81,6 +81,10 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
   end
 
   def load_data_from_draft
+    unless @draft_info_request
+      return redirect_to new_alaveteli_pro_info_request_path
+    end
+
     @info_request = InfoRequest.from_draft(@draft_info_request)
     @outgoing_message = @info_request.outgoing_messages.first
     @embargo = @info_request.embargo
