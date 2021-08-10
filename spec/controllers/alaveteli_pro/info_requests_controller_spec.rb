@@ -81,6 +81,16 @@ RSpec.describe AlaveteliPro::InfoRequestsController do
         end
       end
     end
+
+    context 'without draft' do
+      it 'redirects to new info request action' do
+        session[:user_id] = pro_user.id
+        with_feature_enabled(:alaveteli_pro) do
+          post :preview
+          expect(response).to redirect_to(new_alaveteli_pro_info_request_url)
+        end
+      end
+    end
   end
 
   describe "#create" do
@@ -95,6 +105,16 @@ RSpec.describe AlaveteliPro::InfoRequestsController do
           post :create, params: { draft_id: draft }
           expect(assigns[:info_request].errors[:outgoing_messages]).to be_empty
           expect(assigns[:outgoing_message].errors).not_to be_empty
+        end
+      end
+    end
+
+    context 'without draft' do
+      it 'redirects to new info request action' do
+        session[:user_id] = pro_user.id
+        with_feature_enabled(:alaveteli_pro) do
+          post :preview
+          expect(response).to redirect_to(new_alaveteli_pro_info_request_url)
         end
       end
     end
