@@ -91,6 +91,9 @@ module Alaveteli
     require "#{Rails.root}/lib/strip_empty_sessions"
     config.middleware.insert_before ::ActionDispatch::Cookies, StripEmptySessions, :key => '_wdtk_cookie_session', :path => "/", :httponly => true
 
+    require "#{Rails.root}/lib/deeply_nested_params"
+    config.middleware.insert Rack::Head, DeeplyNestedParams
+
     # Strip non-UTF-8 request parameters
     config.middleware.insert 0, Rack::UTF8Sanitizer
 
