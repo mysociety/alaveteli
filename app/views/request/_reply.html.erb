@@ -1,0 +1,9 @@
+<div class="action-bar__reply">
+  <% if last_response.nil? %>
+    <%= link_to _("Send a followup"), new_request_followup_path(:request_id => info_request.id, :anchor => 'followup'),
+    :class => "action-bar__reply-button" %>
+  <% else %>
+    <%= link_to _("Write a reply"), new_request_incoming_followup_path(:request_id => info_request.id, :incoming_message_id => last_response.id, :anchor => 'followup'),
+    :class => "action-bar__reply-button" %>
+  <% end %>
+</div>

@@ -75,8 +75,9 @@
 
   .after-actions {
     display: inline-block;
+    margin-bottom: 1em; 
     @include respond-min( $main_menu-mobile_menu_cutoff) {
-
+      margin: 0;
     }
     .action-menu__button {
       width: 100%;
@@ -95,6 +96,7 @@
     margin: 0;
     @include respond-min( 30em ){
       margin-left: 1em;
+      
     }
     @include respond-min( $main_menu-mobile_menu_cutoff ){
       text-align: right;
@@ -108,6 +110,17 @@
     margin: 0;
   }
 }
+
+  .action-bar__reply {
+    margin-bottom: -1em; //seems easier to do this here than completely override the whole action styles
+    @media (min-width: 30em){
+      display: inline-block;
+      margin: 0 1em 0 0;
+    }
+    .button {
+      line-height: 1.5em;
+    }
+  }
 
 .request-header__action-bar__actions--narrow {
   //we use --narrow when a profile photo is available

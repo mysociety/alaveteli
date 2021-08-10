@@ -1,4 +1,9 @@
+<%= render partial: 'request/reply',
+  locals: { info_request: @info_request,
+          last_response: @last_response } %>
+          
 <div id="after_actions" class="after-actions">
+
   <ul class="action-menu after-actions__action-menu">
     <li>
       <a href="#" class="action-menu__button">Actions</a>
