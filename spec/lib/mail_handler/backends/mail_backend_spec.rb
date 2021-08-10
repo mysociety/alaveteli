@@ -97,8 +97,14 @@ Here's a PDF attachement which has a document/pdf content-type,
 when it really should be application/pdf.\n
       DOC
       mail = get_fixture_mail('document-pdf.email')
-      part = mail.parts.first
+      part = MailHandler.get_attachment_leaves(mail).first
       expect(get_part_body(part)).to eq(expected)
+    end
+
+    it 'returns unfrozen string' do
+      mail = get_fixture_mail('empty-8bit.email')
+      part = MailHandler.get_attachment_leaves(mail).first
+      expect(get_part_body(part).frozen?).to eq(false)
     end
 
   end
