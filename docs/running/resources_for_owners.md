@@ -33,12 +33,18 @@ your users as well.
 ## Videos
 
 ### mySociety
+
+* [Freedom of Information rights around the world](https://www.youtube.com/watch?v=5m--AL5dc10&t=1s) (in English)
+* [Motivations for setting up an Alaveteli Freedom of Information website](https://www.youtube.com/watch?v=-bqd2JK3ml0) (in English)
+* [Advice for those setting up an Alaveteli Freedom of Information site](https://www.youtube.com/watch?v=aKu54tb5LgI) (in English)
 * [How to make an FOI request](https://youtu.be/we33lxz00qo) (in English)
 * [Responding to and managing an FOI request using Alaveteli](https://youtu.be/bu7-a0tDwP0) (in English)
 * [Making a batch request](https://youtu.be/LxsNHvOIl38) (in English)
 * [Viewing and managing responses to batch requests](https://youtu.be/18MGYw2oLXk) (in English)
+* [Challenges of running Freedom of Information request sites](https://www.youtube.com/watch?v=RbvqwyRsn3M) (in English)
 * Workshop: [How to use FOI to find information](https://youtu.be/HEhxF3BjnCE) (in English)
 * Workshop: [How campaigns can make change with FOI](https://youtu.be/meaLp7p2Yok) (in English)
+* [Transforming an industry through FOI - Stefan Wehrmeyer](https://www.youtube.com/watch?v=91NnNqopki4) (in English)
 
 ### MaDada, France
 * [How to use MaDada](https://aperi.tube/videos/watch/ff5e7dad-420f-4b8a-82d7-81bc3aa28616) (in French)
