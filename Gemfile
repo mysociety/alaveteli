@@ -190,6 +190,6 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.5.1'
   gem 'web-console', '>= 3.3.0'
   gem 'rubocop', '~> 0.81.0', require: false
-  gem 'rubocop-performance', '~> 1.5.2', require: false
+  gem 'rubocop-performance', '~> 1.6.1', require: false
   gem 'rubocop-rails', require: false
 end
