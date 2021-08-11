@@ -3,10 +3,7 @@ require 'spec_helper'
 def bytes_to_binary_string( bytes, claimed_encoding = nil )
   claimed_encoding ||= 'ASCII-8BIT'
   bytes_string = bytes.pack('c*')
-  if String.method_defined?(:force_encoding)
-    bytes_string.force_encoding claimed_encoding
-  end
-  bytes_string
+  bytes_string.force_encoding claimed_encoding
 end
 
 random_string = bytes_to_binary_string [ 0x0f, 0x58, 0x1c, 0x8f, 0xa4, 0xcf,
@@ -129,17 +126,11 @@ RSpec.describe "convert_string_to_utf8_or_binary" do
 
       converted = convert_string_to_utf8_or_binary random_string
       expect(converted).to eq(random_string)
-
-      if String.method_defined?(:encode)
-        expect(converted.encoding.to_s).to eq('ASCII-8BIT')
-      end
+      expect(converted.encoding.to_s).to eq('ASCII-8BIT')
 
       converted = convert_string_to_utf8_or_binary random_string,'UTF-8'
       expect(converted).to eq(random_string)
-
-      if String.method_defined?(:encode)
-        expect(converted.encoding.to_s).to eq('ASCII-8BIT')
-      end
+      expect(converted.encoding.to_s).to eq('ASCII-8BIT')
 
     end
   end
@@ -151,10 +142,8 @@ RSpec.describe "convert_string_to_utf8_or_binary" do
       converted = convert_string_to_utf8_or_binary windows_1252_string
 
       expect(converted).to eq("DASH – DASH")
+      expect(converted.encoding.to_s).to eq('UTF-8')
 
-      if String.method_defined?(:encode)
-        expect(converted.encoding.to_s).to eq('UTF-8')
-      end
     end
 
   end
@@ -181,10 +170,8 @@ RSpec.describe "convert_string_to_utf8_or_binary" do
       converted = convert_string_to_utf8_or_binary gb_18030_spam_string
 
       expect(converted).to start_with("贵公司负责人")
+      expect(converted.encoding.to_s).to eq('UTF-8')
 
-      if String.method_defined?(:encode)
-        expect(converted.encoding.to_s).to eq('UTF-8')
-      end
     end
 
   end
@@ -200,18 +187,14 @@ RSpec.describe "convert_string_to_utf8" do
 
       converted = convert_string_to_utf8 random_string
 
-      if String.method_defined?(:encode)
-        expect(converted.string.encoding.to_s).to eq('UTF-8')
-        expect(converted.string.valid_encoding?).to eq(true)
-      end
+      expect(converted.string.encoding.to_s).to eq('UTF-8')
+      expect(converted.string.valid_encoding?).to eq(true)
       expect(converted.scrubbed?).to eq(true)
 
       converted = convert_string_to_utf8 random_string,'UTF-8'
 
-      if String.method_defined?(:encode)
-        expect(converted.string.encoding.to_s).to eq('UTF-8')
-        expect(converted.string.valid_encoding?).to eq(true)
-      end
+      expect(converted.string.encoding.to_s).to eq('UTF-8')
+      expect(converted.string.valid_encoding?).to eq(true)
       expect(converted.scrubbed?).to eq(true)
 
     end
@@ -225,9 +208,7 @@ RSpec.describe "convert_string_to_utf8" do
 
       expect(converted.string).to eq("DASH – DASH")
 
-      if String.method_defined?(:encode)
-        expect(converted.string.encoding.to_s).to eq('UTF-8')
-      end
+      expect(converted.string.encoding.to_s).to eq('UTF-8')
       expect(converted.scrubbed?).to eq(false)
 
     end
@@ -255,11 +236,9 @@ RSpec.describe "convert_string_to_utf8" do
       converted = convert_string_to_utf8 gb_18030_spam_string
 
       expect(converted.string).to start_with("贵公司负责人")
-
-      if String.method_defined?(:encode)
-        expect(converted.string.encoding.to_s).to eq('UTF-8')
-      end
+      expect(converted.string.encoding.to_s).to eq('UTF-8')
       expect(converted.scrubbed?).to eq(false)
+
     end
 
   end

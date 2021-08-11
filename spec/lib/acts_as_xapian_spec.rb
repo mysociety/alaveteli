@@ -261,9 +261,7 @@ RSpec.describe ActsAsXapian::Search do
     it 'returns a UTF-8 encoded string' do
       s = ActsAsXapian::Search.new([PublicBody], "alece", :limit => 100)
       expect(s.spelling_correction).to eq("alice")
-      if s.spelling_correction.respond_to? :encoding
-        expect(s.spelling_correction.encoding.to_s).to eq('UTF-8')
-      end
+      expect(s.spelling_correction.encoding.to_s).to eq('UTF-8')
     end
 
     it 'handles non-ASCII characters' do

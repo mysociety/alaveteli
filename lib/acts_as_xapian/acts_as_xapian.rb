@@ -393,10 +393,7 @@ module ActsAsXapian
       if correction.empty?
         return nil
       end
-      if correction.respond_to?(:force_encoding)
-        correction = correction.force_encoding('UTF-8')
-      end
-      correction
+      correction.force_encoding('UTF-8')
     end
 
     # Return array of models found

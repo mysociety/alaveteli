@@ -82,9 +82,7 @@ RSpec.describe MailHandler::Backends::MailBackend do
       mail = get_fixture_mail('non-utf8-filename.email')
       part = mail.attachments.first
       filename = get_part_file_name(part)
-      if filename.respond_to?(:valid_encoding)
-        expect(filename.valid_encoding?).to eq(true)
-      end
+      expect(filename.valid_encoding?).to eq(true)
     end
 
   end
