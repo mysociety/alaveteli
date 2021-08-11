@@ -90,6 +90,6 @@ RSpec.describe PostRedirect, " when accessing values" do
     pr = PostRedirect.new
     utf8_params = "--- \n:foo: !binary |\n  0KLQvtCz0LDRiCDR\n"
     pr.reason_params_yaml = utf8_params
-    expect(pr.reason_params[:foo].encoding.to_s).to eq('UTF-8') if pr.reason_params[:foo].respond_to?(:encoding)
+    expect(pr.reason_params[:foo].encoding.to_s).to eq('UTF-8')
   end
 end

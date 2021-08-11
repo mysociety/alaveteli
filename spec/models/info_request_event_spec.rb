@@ -47,7 +47,7 @@ RSpec.describe InfoRequestEvent do
     it "should restore UTF8-heavy params stored under ruby 1.8 as UTF-8" do
       utf8_params = "--- \n:foo: !binary |\n  0KLQvtCz0LDRiCDR\n"
       ire.params_yaml = utf8_params
-      expect(ire.params[:foo].encoding.to_s).to eq('UTF-8') if ire.params[:foo].respond_to?(:encoding)
+      expect(ire.params[:foo].encoding.to_s).to eq('UTF-8')
     end
 
     it "should store the incoming_message, outgoing_messsage and comment ids" do
