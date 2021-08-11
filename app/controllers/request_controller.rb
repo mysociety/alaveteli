@@ -7,6 +7,8 @@
 require 'zip'
 
 class RequestController < ApplicationController
+  skip_before_action :html_response, only: [:show, :select_authorities]
+
   before_action :check_read_only, only: [:new, :upload_response]
   before_action :check_batch_requests_and_user_allowed, :only => [ :select_authorities, :new_batch ]
   before_action :set_render_recaptcha, :only => [ :new ]
@@ -166,12 +168,6 @@ class RequestController < ApplicationController
   end
 
   def list
-    # respond with a 404 without a database lookup if request was not for html
-    if request.format && !request.format.html?
-      respond_to { |format| format.any { head :not_found } }
-      return
-    end
-
     medium_cache
     @view = params[:view]
     @page = get_search_page_from_params if !@page # used in cache case, as perform_search sets @page as side effect

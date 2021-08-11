@@ -25,9 +25,10 @@ RSpec.describe RequestController, "when listing recent requests" do
     }.to raise_error(ActiveRecord::RecordNotFound)
   end
 
-  it "returns 404 for non html requests" do
-    get :list, params: { :view => "all", :format => :json }
-    expect(response.status).to eq(404)
+  it "raise unknown format error" do
+    expect { get :list, params: { :view => "all", :format => :json } }.to(
+      raise_error ActionController::UnknownFormat
+    )
   end
 
   it 'should not raise an error for a page param of less than zero, but should treat it as

@@ -5,6 +5,8 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminRawEmailController < AdminController
+  skip_before_action :html_response
+
   before_action :set_raw_email, only: [:show]
 
   def show

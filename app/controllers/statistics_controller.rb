@@ -1,4 +1,6 @@
 class StatisticsController < ApplicationController
+  skip_before_action :html_response
+
   def index
     unless AlaveteliConfiguration::public_body_statistics_page
       raise ActiveRecord::RecordNotFound.new("Page not enabled")

@@ -1,6 +1,8 @@
 class AlaveteliPro::PublicBodiesController < AlaveteliPro::BaseController
   include AlaveteliPro::PublicBodiesHelper
 
+  skip_before_action :html_response
+
   def index
     query = params[:query] || ""
     xapian_results = typeahead_search(query, :model => PublicBody,

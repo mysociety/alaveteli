@@ -6,6 +6,8 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class TrackController < ApplicationController
+  skip_before_action :html_response
+
   before_action :medium_cache
 
   # Track all updates to a particular request

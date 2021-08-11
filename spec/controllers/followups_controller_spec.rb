@@ -142,14 +142,15 @@ RSpec.describe FollowupsController do
           expect(response).to render_template('request/hidden')
         end
 
-        it 'responds to a json request with a 403' do
+        it 'responds to a json request by raising unknown format error' do
           incoming_message_id = hidden_request.incoming_messages[0].id
-          get :new, params: {
-                      :request_id => hidden_request.id,
-                      :incoming_message_id => incoming_message_id,
-                      :format => 'json'
-                    }
-          expect(response.code).to eq('403')
+          expect do
+            get :new, params: {
+                        :request_id => hidden_request.id,
+                        :incoming_message_id => incoming_message_id,
+                        :format => 'json'
+                      }
+          end.to raise_error ActionController::UnknownFormat
         end
 
       end

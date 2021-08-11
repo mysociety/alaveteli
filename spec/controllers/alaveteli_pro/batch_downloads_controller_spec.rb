@@ -69,9 +69,10 @@ RSpec.describe AlaveteliPro::BatchDownloadsController, type: :controller do
         it { is_expected.to be_able_to(:download, batch) }
 
         context 'when HTML format' do
-          it 'is a bad request' do
-            show(format: 'html')
-            expect(response).to have_http_status(:bad_request)
+          it 'raise unknown format error' do
+            expect { show(format: 'html') }.to raise_error(
+              ActionController::UnknownFormat
+            )
           end
         end
 

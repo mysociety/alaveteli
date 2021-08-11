@@ -34,9 +34,10 @@ RSpec.describe Projects::DownloadsController, spec_meta do
     context 'when HTML format' do
       include_context 'when authorised to download project'
 
-      it 'is a bad request' do
-        show(format: 'html')
-        expect(response).to have_http_status(:bad_request)
+      it 'raises unknown format error' do
+        expect { show(format: 'html') }.to raise_error(
+          ActionController::UnknownFormat
+        )
       end
     end
 

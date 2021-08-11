@@ -377,20 +377,19 @@ RSpec.describe GeneralController, 'when using xapian search' do
 
   context "when passed a non-HTML request" do
 
-    it "responds with a 404" do
-      get :search, params: { :combined => '"fancy dog"', :format => :json }
-      expect(response.status).to eq(404)
-    end
-
-    it "treats invalid formats as html" do
-      get :search, params: { :combined => '"fancy dog"',
-                             :format => "invalid format" }
-      expect(response.status).to eq(200)
+    it "raises unknown format error" do
+      expect do
+        get :search, params: { :combined => '"fancy dog"', :format => :json }
+      end.to raise_error ActionController::UnknownFormat
     end
 
     it "does not call the search" do
       expect(controller).not_to receive(:perform_search)
-      get :search, params: { :combined => '"fancy dog"', :format => :json }
+      begin
+        get :search, params: { :combined => '"fancy dog"', :format => :json }
+      rescue ActionController::UnknownFormat
+        # noop
+      end
     end
 
   end
