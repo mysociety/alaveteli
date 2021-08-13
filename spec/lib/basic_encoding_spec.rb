@@ -19,6 +19,11 @@ windows_1252_string = bytes_to_binary_string [ 0x44, 0x41, 0x53, 0x48, 0x20,
 windows_1258_string = bytes_to_binary_string [ 0x44, 0x4f, 0x4e, 0x47, 0x20,
                                                0xFE, 0x20, 0x44, 0x4f, 0x4e,
                                                0x47 ]
+# 0x92 is an invalid ISO-2022-JP byte
+# should probably be `’` in Windows-1250 - Windows-1257
+iso_2022_jp_string = bytes_to_binary_string [ 0xE7, 0x84, 0xA1, 0xE5, 0x8A,
+                                              0xB9, 0xE3, 0x81, 0xA7, 0xE3,
+                                              0x81, 0x99, 0x92 ]
 
 # It's a shame this example is so long, but if we don't take enough it
 # gets misinterpreted as Shift_JIS
@@ -104,6 +109,21 @@ RSpec.describe "normalize_string_to_utf8" do
 
   end
 
+  describe "when passed suggested ISO-2022-JP data" do
+
+    it "should raise EncodingNormalizationError" do
+
+      expect {
+        normalize_string_to_utf8 iso_2022_jp_string, 'iso-2022-jp'
+      }.to raise_error(
+        EncodingNormalizationError,
+        '"\xE7" on ISO-2022-JP'
+      )
+
+    end
+
+  end
+
   describe "when passed GB 18030 data" do
 
     it "should correctly convert it to UTF-8 if unlabelled" do
@@ -157,6 +177,21 @@ RSpec.describe "convert_string_to_utf8_or_binary" do
       )
 
       expect(converted).to eq("DONG \xFE DONG".force_encoding('ASCII-8BIT'))
+      expect(converted.encoding.to_s).to eq('ASCII-8BIT')
+
+    end
+
+  end
+
+  describe "when passed suggested ISO-2022-JP data" do
+
+    it "should return data as ASCII-8BIT" do
+
+      converted = convert_string_to_utf8_or_binary(
+        iso_2022_jp_string, 'iso-2022-jp'
+      )
+
+      expect(converted).to eq("無効です\x92".force_encoding('ASCII-8BIT'))
       expect(converted.encoding.to_s).to eq('ASCII-8BIT')
 
     end
@@ -222,6 +257,20 @@ RSpec.describe "convert_string_to_utf8" do
       converted = convert_string_to_utf8(windows_1258_string, 'windows-1258')
 
       expect(converted.string).to eq("DONG  DONG")
+      expect(converted.string.encoding.to_s).to eq('UTF-8')
+      expect(converted.scrubbed?).to eq(true)
+
+    end
+
+  end
+
+  describe "when passed suggested ISO-2022-JP data" do
+
+    it "should return scrubbed UTF-8 string" do
+
+      converted = convert_string_to_utf8(iso_2022_jp_string, 'iso-2022-jp')
+
+      expect(converted.string).to eq("無効です")
       expect(converted.string.encoding.to_s).to eq('UTF-8')
       expect(converted.scrubbed?).to eq(true)
 

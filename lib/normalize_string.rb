@@ -37,7 +37,8 @@ def normalize_string_to_utf8(s, suggested_character_encoding=nil)
         # We get this is there are invalid bytes when
         # interpreted as from_encoding at the point of
         # the encode('UTF-8'); move onto the next one...
-      rescue Encoding::ConverterNotFoundError => ex
+      rescue Encoding::ConverterNotFoundError,
+             Encoding::InvalidByteSequenceError => ex
         raise EncodingNormalizationError, ex.message
       end
     end
