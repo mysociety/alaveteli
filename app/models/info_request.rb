@@ -427,7 +427,7 @@ class InfoRequest < ApplicationRecord
     magic_email
   end
 
-  def self.create_from_attributes(info_request_atts, outgoing_message_atts, user=nil)
+  def self.build_from_attributes(info_request_atts, outgoing_message_atts, user=nil)
     info_request = new(info_request_atts)
     default_message_params = {
       :status => 'ready',
