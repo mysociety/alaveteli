@@ -68,7 +68,7 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
-    active_model_otp (2.2.0)
+    active_model_otp (2.3.0)
       activemodel
       rotp (~> 6.2.0)
     activejob (5.2.6)
@@ -122,7 +122,7 @@ GEM
       xpath (~> 3.2)
     charlock_holmes (0.7.7)
     coderay (1.1.2)
-    concurrent-ruby (1.1.8)
+    concurrent-ruby (1.1.9)
     crack (0.4.5)
       rexml
     crass (1.0.6)
