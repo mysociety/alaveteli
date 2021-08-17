@@ -342,7 +342,7 @@ class InfoRequest < ApplicationRecord
   # TODO: this *should* also check outgoing message joined to is an initial
   # request (rather than follow up)
   def self.find_existing(title, public_body_id, body)
-    conditions = { title: title, public_body_id: public_body_id }
+    conditions = { title: title&.strip, public_body_id: public_body_id }
 
     InfoRequest.
       includes(:outgoing_messages).
@@ -427,7 +427,7 @@ class InfoRequest < ApplicationRecord
     magic_email
   end
 
-  def self.create_from_attributes(info_request_atts, outgoing_message_atts, user=nil)
+  def self.build_from_attributes(info_request_atts, outgoing_message_atts, user=nil)
     info_request = new(info_request_atts)
     default_message_params = {
       :status => 'ready',

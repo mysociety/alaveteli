@@ -236,9 +236,9 @@ class RequestController < ApplicationController
                                                      params[:outgoing_message][:body],
                                                      params[:public_body_ids])
 
-    @info_request = InfoRequest.create_from_attributes(info_request_params(@batch),
-                                                       outgoing_message_params,
-                                                       authenticated_user)
+    @info_request = InfoRequest.build_from_attributes(info_request_params(@batch),
+                                                      outgoing_message_params,
+                                                      authenticated_user)
     @outgoing_message = @info_request.outgoing_messages.first
     @info_request.is_batch_request_template = true
     if !@existing_batch.nil? || !@info_request.valid?
@@ -326,8 +326,8 @@ class RequestController < ApplicationController
     @existing_request = InfoRequest.find_existing(params[:info_request][:title], params[:info_request][:public_body_id], params[:outgoing_message][:body])
 
     # Create both FOI request and the first request message
-    @info_request = InfoRequest.create_from_attributes(info_request_params,
-                                                       outgoing_message_params)
+    @info_request = InfoRequest.build_from_attributes(info_request_params,
+                                                      outgoing_message_params)
     @outgoing_message = @info_request.outgoing_messages.first
 
     # Maybe we lost the address while they're writing it
