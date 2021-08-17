@@ -647,7 +647,7 @@ class RequestController < ApplicationController
   end
 
   def make_request_zip(info_request, file_path)
-    Zip::File.open(file_path, Zip::File::CREATE) do |zipfile|
+    Zip::File.open(file_path, create: true) do |zipfile|
       file_info = make_request_summary_file(info_request)
       zipfile.get_output_stream(file_info[:filename]) { |f| f.write(file_info[:data]) }
       message_index = 0
