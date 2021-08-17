@@ -10,7 +10,7 @@ RSpec.describe 'zipping pdf files' do
     tempfile = Tempfile.new('ziptest')
     tempfile.binmode
 
-    Zip::File.open(tempfile.path + '.zip', Zip::File::CREATE) do |zipfile|
+    Zip::File.open(tempfile.path + '.zip', create: true) do |zipfile|
       zipfile.get_output_stream('tfl.pdf') do |f|
         f.puts pdf_file
       end
