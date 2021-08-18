@@ -22,7 +22,7 @@ require File.dirname(__FILE__) + '/../lib/configuration'
 Bundler.require(*Rails.groups)
 
 def rails_upgrade?
-  %w[1 true].include?(ENV['RAILS_UPGRADE'])
+  true
 end
 
 module Alaveteli
