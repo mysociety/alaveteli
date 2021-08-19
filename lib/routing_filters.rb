@@ -27,7 +27,13 @@ module RoutingFilter
       args << params
 
       yield.tap do |result|
-        prepend_segment!(result, locale) if prepend_locale?(locale)
+        next unless prepend_locale?(locale)
+
+        if rails_upgrade?
+          result.update prepend_segment(result.url, locale)
+        else
+          prepend_segment!(result, locale)
+        end
       end
     end
 
