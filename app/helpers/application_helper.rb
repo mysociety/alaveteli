@@ -51,8 +51,14 @@ module ApplicationHelper
     error_messages = "".html_safe
 
     objects.each do |object|
-      object.errors.each do |attr, message|
-        error_messages << content_tag(:li, h(message))
+      if rails_upgrade?
+        object.errors.each do |error|
+          error_messages << content_tag(:li, h(error.message))
+        end
+      else
+        object.errors.each do |attr, message|
+          error_messages << content_tag(:li, h(message))
+        end
       end
     end
 

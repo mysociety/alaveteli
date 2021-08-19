@@ -73,8 +73,14 @@ class Admin::TranslatedRecordForm < ActionView::Helpers::FormBuilder
   end
 
   def default_locale_error_messages
-    default_locale_errors =
-      object.errors.reject { |attr, _| attr.to_s.starts_with?('translation') }
+    if rails_upgrade?
+      default_locale_errors = object.errors.reject do |error|
+        error.attribute.starts_with?('translation')
+      end
+    else
+      default_locale_errors =
+        object.errors.reject { |attr, _| attr.to_s.starts_with?('translation') }
+    end
 
     @template.concat(errors_for(default_locale, default_locale_errors))
   end
@@ -92,12 +98,22 @@ class Admin::TranslatedRecordForm < ActionView::Helpers::FormBuilder
       @template.concat(locale_name(locale))
 
       ul = @template.tag.ul do
-        errors.each do |attr, message|
-          content = @template.tag.li do
-            "#{ attr } #{ message }".html_safe
-          end
+        if rails_upgrade?
+          errors.each do |error|
+            content = @template.tag.li do
+              "#{ error.attribute } #{ error.message }".html_safe
+            end
 
-          @template.concat(content)
+            @template.concat(content)
+          end
+        else
+          errors.each do |attr, message|
+            content = @template.tag.li do
+              "#{ attr } #{ message }".html_safe
+            end
+
+            @template.concat(content)
+          end
         end
       end
 
