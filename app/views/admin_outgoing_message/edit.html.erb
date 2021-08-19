@@ -1,6 +1,6 @@
 <h1>Edit outgoing message</h1>
 
-<%= error_messages_for 'outgoing_message' %>
+<%= foi_error_messages_for :outgoing_message %>
 
 <%= form_tag admin_outgoing_message_path(@outgoing_message), :method => 'put' do %>
   <div class="control-group">
