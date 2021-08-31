@@ -5,7 +5,7 @@
 #
 # Translators:
 # louisecrow <louise@mysociety.org>, 2018
-# trendspotter, 2021
+# trendspotter <jirka.p@volny.cz>, 2021
 # Hana Hunt <hana@hana-hunt.cz>, 2021
 #
 msgid ""

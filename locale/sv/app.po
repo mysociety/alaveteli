@@ -47,8 +47,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-20 14:09+0100\n"
-"PO-Revision-Date: 2021-07-20 13:36+0000\n"
-"Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
+"PO-Revision-Date: 2021-08-24 08:24+0000\n"
+"Last-Translator: Mattias Axell <mattias@libertador.es>\n"
 "Language-Team: Swedish (http://www.transifex.com/mysociety/alaveteli/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -127,7 +127,7 @@ msgid " when you send this message."
 msgstr " när du skickar detta meddelande."
 
 msgid "&#8592; Previous"
-msgstr ""
+msgstr "&#8592; Föregående"
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Brottsstatistik på kommunnivå för Uppsala'"
@@ -287,7 +287,7 @@ msgid "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
 msgstr "<strong>Något annat</strong> för att förtydliga eller tacka"
 
 msgid "<strong>Automatic anti-spam measures are in place</strong> for this older request. Please <a href=\"{{url}}\">let us know</a> if a further response is expected or if you are having trouble responding."
-msgstr ""
+msgstr "<strong>Automatiska åtgärder mot skräppost finns på plats</strong> för denna äldre begäran. Vänligen <a href=\"{{url}}\">kontakta oss</a> om ett ytterligare svar förväntas eller om du har svårt att svara."
 
 msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</a>)."
 msgstr "<strong>Enligt lag måste de svara</strong> (<a href=\"{{url}}\">varför?</a>)."
@@ -299,7 +299,7 @@ msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, yo
 msgstr "<strong>Användaren förvarnas!</strong> Om du vill använda dessa data på ett hedersamt sätt, kommer du behöva en god intern kunskap om användarnas beteende på {{site_name}}. Hur,varför och av vem begäran kategoriseras är inte helt lätt, och det kommer att finnas felanvändning och tvetydighet. Du kommer också att behöva förstå offentlighets- och sekretesslagen, och hur myndigheterna använder det. Plus att du måste vara en elitstatistiker. <a href=\"{{contact_path}}\">Kontakta oss</a> med frågor."
 
 msgid "<strong>Challenging a refusal?</strong> Here are some snippets that may help:"
-msgstr ""
+msgstr "<strong>Överklaga ett avslag?</strong> Här är några utdrag som kan hjälpa dig:"
 
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong>Förtydligande</strong> har blivit begärd"
@@ -385,7 +385,7 @@ msgid "A strange response, required attention by the {{site_name}} team"
 msgstr "Ett konstigt svar, som behöver granskas av {{site_name}}s team"
 
 msgid "A survey about your recent {{law_used_full}} request ({{site_name}})"
-msgstr ""
+msgstr "En undersökning om din begäran enligt {{law_used_full}} via ({{site_name}})"
 
 msgid "A {{site_name}} user"
 msgstr "En {{site_name}}-användare"
@@ -547,7 +547,7 @@ msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Är du ägare till någon kommersiell upphovsrätt på denna sida?"
 
 msgid "Article"
-msgstr ""
+msgstr "Artikel"
 
 msgid "Ask EU Authorities"
 msgstr "Fråga EU-myndigheter"
@@ -739,7 +739,7 @@ msgid "Close"
 msgstr "Stäng"
 
 msgid "Close preview"
-msgstr ""
+msgstr "Stäng förhandsvyn"
 
 msgid "Close the request and respond:"
 msgstr "Stäng begäran och svara:"
@@ -811,10 +811,10 @@ msgid "Cookies not enabled"
 msgstr "Kakor är inte aktiverade"
 
 msgid "Copied!"
-msgstr ""
+msgstr "Kopierad!"
 
 msgid "Copy"
-msgstr ""
+msgstr "Kopiera"
 
 msgid "Could not identify the request from the email address"
 msgstr "Kunde inte identifiera begäran från e-postadressen"
@@ -1149,7 +1149,7 @@ msgstr[0] "Hittade {{count}} myndighet som matchade ‘{{tag_name}}’"
 msgstr[1] "Hittade {{count}} myndigheter som matchade ‘{{tag_name}}’"
 
 msgid "Four weeks ago you made a Freedom of Information request to {{public_body_name}} using {{site_name}}."
-msgstr ""
+msgstr "Fyra veckor sedan gjorde du en begäran enligt offentlighetsprincipen till {{public_body_name}} genom {{site_name}}."
 
 msgid "Freedom of Information"
 msgstr "Offentlighetsprincipen"
@@ -1194,13 +1194,13 @@ msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "UPPGE DETALJER OM DITT KLAGOMÅL HÄR"
 
 msgid "Get help to challenge it."
-msgstr ""
+msgstr "Få hjälp att överklaga det."
 
 msgid "Getting long – remember to keep it focussed"
 msgstr "Börjar bli långt - kom ihåg att hålla det fokuserat"
 
 msgid "Go back to refusal advice questions"
-msgstr ""
+msgstr "Gå tillbaka till frågor och råd om avslag"
 
 msgid "Got a {{site_name}} account?"
 msgstr "Har du ett konto på {{site_name}}?"
@@ -1215,10 +1215,10 @@ msgid "Handled by postal mail."
 msgstr "Hanterat genom post."
 
 msgid "Has this request been referenced in a news article or academic paper?"
-msgstr ""
+msgstr "Har denna begäran refererats till i nyhetsartikel eller akademisk uppsats?"
 
 msgid "Has this request been referenced in a news article or academic paper? Let us know:"
-msgstr ""
+msgstr "Har denna begäran refererats till i nyhetsartikel eller akademisk uppsats? Låt oss veta:"
 
 msgid "Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}"
 msgstr "Hej! Vi har ett <a href=\"{{url}}\">viktigt meddelande</a> för besökare utanför {{country_name}}"
@@ -1248,7 +1248,7 @@ msgid "Here <strong>described</strong> means when a user selected a status for t
 msgstr "Här betyder <strong>beskrivet</strong> när en användare valt en status för begäran, och den senaste händelsen har fått sin status uppdaterad till det värdet. Då sluter sig <strong>kalkylerad</strong> till {{site_name}} för mellanliggande händelser, som inte gavs en tydlig beskrivning av en användare. Se <a href=\"{{search_path}}\">söktipsen</a> för beskrivningen av statusar."
 
 msgid "Here are some snippets that may help you <strong>challenge a refusal</strong>:"
-msgstr ""
+msgstr "Här är några utdrag som kan komma att hjälpa dig <strong>överklaga ett avslag</strong>:"
 
 msgid "Here is the message you wrote, in case you would like to copy the text and save it for later."
 msgstr "Här är meddelandet som du skrev utifall att du skulle vilja kopiera texten och spara den till senare."
@@ -1362,7 +1362,7 @@ msgid "If you believe this request is not suitable, you can report it for attent
 msgstr "Om du anser att denna begäran inte är lämplig kan du rapportera det för moderatorernas uppmärksamhet genom detta formulär"
 
 msgid "If you can spare a few minutes to complete our short survey, it will help us make the site better. Just follow the link below."
-msgstr ""
+msgstr "Om du kan ge några minuter av din tid för att svara på vår korta enkät så kommer det hjälpa oss göra plattformen bättre. Följ bara länken nedanför."
 
 msgid "If you can't click on it in the email, you'll have to <strong>select and copy it</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place you would type the address of any other webpage."
 msgstr "Om du inte kan klicka på det i meddelandet måste du <strong>välja och kopiera det</strong> från e-postmeddelandet. Därefter <strong>klistra in det i din webbläsare</strong>, på den plats där du skulle vilja skriva in adressen till en webbsida."
@@ -1456,7 +1456,7 @@ msgid "Internal review request sent to {{public_body_name}} by {{info_request_us
 msgstr "Begäran om intern granskning skickad till {{public_body_name}} av {{info_request_user}} vid {{date}}."
 
 msgid "Invalid form submission"
-msgstr ""
+msgstr "Ogiltig enkätinlämning "
 
 msgid "Invalid one time password"
 msgstr "Ogiltigt engångslösenord"
@@ -1528,7 +1528,7 @@ msgid "Let us know"
 msgstr "Berätta för oss"
 
 msgid "Let us know and we’ll help you challenge it."
-msgstr ""
+msgstr "Kontakta oss så hjälper vi dig att överklaga det."
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
 msgstr "Vänligen låt oss veta vad du gjorde när detta meddelande uppstod och vilken webbläsare och operativsystem du använder samt deras versioner."
@@ -1681,10 +1681,10 @@ msgid "Next"
 msgstr "Nästa"
 
 msgid "Next &#8594;"
-msgstr ""
+msgstr "Nästa &#8594;"
 
 msgid "Next Step: Preview your public request"
-msgstr ""
+msgstr "Nästa Steg: Förhandsvisa din offentliga begäran"
 
 msgid "Next message"
 msgstr "Nästa meddelande"
@@ -1810,10 +1810,10 @@ msgid "Other:"
 msgstr "Andra:"
 
 msgid "Page {{page}}"
-msgstr ""
+msgstr "Sida {{page}}"
 
 msgid "Pagination"
-msgstr ""
+msgstr "Paginering"
 
 msgid "Partial success"
 msgstr "Delvis framgångsrik"
@@ -2046,7 +2046,7 @@ msgid "Post annotation"
 msgstr "Lägg till anteckning"
 
 msgid "Posted on {{date}}"
-msgstr ""
+msgstr "Publicerad den {{date}}"
 
 msgid "Posted on {{date}} by {{author}}"
 msgstr "Postad den {{date}} av {{author}}"
@@ -2157,7 +2157,7 @@ msgid "Read blog"
 msgstr "Blogg"
 
 msgid "Read more"
-msgstr ""
+msgstr "Läs mer"
 
 msgid "Read through authority responses and choose if their answer satisfies the intention of the original request, flag any problems and show the project owner if they need to intervene to keep the project movng forward."
 msgstr "Läs igenom svaren och välj om deras svar uppfyller avsikten med den ursprungliga begäran, flagga eventuella problem och visa projektägaren om de måste ingripa för att hålla projektet igång."
@@ -2184,7 +2184,7 @@ msgid "Regenerate one time passcode"
 msgstr "Förnya ett engångslösenord"
 
 msgid "Regulation"
-msgstr ""
+msgstr "Reglering"
 
 msgid "Rejected"
 msgstr "Nekad"
@@ -2373,7 +2373,7 @@ msgid "Search your contributions"
 msgstr "Sök dina bidrag"
 
 msgid "Section"
-msgstr ""
+msgstr "Sektion"
 
 msgid "Send a followup"
 msgstr "Skicka en uppföljning"
@@ -2438,10 +2438,10 @@ msgid "Show fewer attachments"
 msgstr "Visa färre bilagor"
 
 msgid "Show less"
-msgstr ""
+msgstr "Visa mindre"
 
 msgid "Show more"
-msgstr ""
+msgstr "Visa mer"
 
 msgid "Show most relevant results first"
 msgstr "Visa de mest relevanta resultaten först"
@@ -2483,7 +2483,7 @@ msgid "Skipped!"
 msgstr "Hoppat över!"
 
 msgid "Snippets related to"
-msgstr ""
+msgstr "Utdrag relaterade till"
 
 msgid "Some notes have been added to your FOI request - {{request_title}}"
 msgstr "Några anteckningar har lagts till i din begäran - {{request_title}}"
@@ -2927,7 +2927,7 @@ msgid "There are {{count}} new annotations on your {{law_used_short}} request. F
 msgstr "Det finns {{count}} nya anteckningar på din {{law_used_short}} begäran. Följ länken för att se vad de skrev."
 
 msgid "There is <strong>more than one person</strong> who uses this site and has this name. Search for other users named \"{{search_user_link}}\""
-msgstr ""
+msgstr "Det finns <strong>fler än en person</strong> som använder denna sida och har detta namn. Sök efter andra kallade \"{{search_user_link}}\""
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr "Det finns en gräns för antalet förfrågningar som du kan göra på en dag. Detta eftersom myndigheterna inte ska överbelastas med för stort antal förfrågningar. Om du har en bra anledning att få begränsningen borttagen i ditt fall, vänligen <a href='{{help_contact_path}}'>ta kontakt med oss</a>."
@@ -3078,7 +3078,7 @@ msgid "This request has been <strong>reported</strong> as needing administrator 
 msgstr "Denna begäran har blivit <strong>rapporterad</strong> som i behov av administratörers uppmärksamhet (kanske därför att den är olämplig, eller en begäran om personlig information)"
 
 msgid "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
-msgstr "Denna begäran har blivit <strong>återkallad</strong> av personen som gjorde den. Det kan finnas en förklaring i korrespondensen nedanför."
+msgstr "Denna begäran har blivit <strong>tillbakadragen</strong> av personen som gjorde den. Det kan finnas en förklaring i korrespondensen nedanför."
 
 msgid "This request has been made public on {{site_name}}."
 msgstr "Denna begäran har gjorts offentligt på {{site_name}}."
@@ -3453,7 +3453,7 @@ msgid "We couldn’t load the mail server logs for this message."
 msgstr "Vi kunde inte ladda e-postserverns loggar för detta meddelande."
 
 msgid "We do not allow requests for information via {{site_name}} about your personal circumstances. We have therefore hidden your request from other users."
-msgstr ""
+msgstr "Vi tillåter inte begäran om information via {{site_name}} om dina personliga förhållanden. Vi har därför dolt din begäran från andra."
 
 msgid "We do not have a working request email address for this authority."
 msgstr "Vi har inte en fungerande e-postadress för denna myndighet."
@@ -3483,7 +3483,7 @@ msgid "We will not reveal your email addresses to anybody unless you or the law 
 msgstr "Vi kommer inte att avslöja dina e-postadresser till någon såvida inte du eller lagen säger till oss."
 
 msgid "We would like to know more about you, and your experience making an {{law_used_full}} request through the site."
-msgstr ""
+msgstr "Vi skulle vilja veta mer om dig och dina erfarenheter att göra en begäran enligt {{law_used_full}} via plattformen."
 
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr "Vi skickar dig ett e-postmeddelande när din begäran får ett svar."
@@ -4041,7 +4041,7 @@ msgid "and we'll suggest <strong>what to do next</strong>"
 msgstr "och vi kommer att föreslå <strong>vad som skall göras härnäst</strong>"
 
 msgid "any section"
-msgstr ""
+msgstr "någon sektion"
 
 msgid "anything matching text '{{query}}'"
 msgstr "vad som helst som matchar texten '{{query}}'"
@@ -4407,7 +4407,7 @@ msgstr[0] "{{site_name}} täcker förfrågningar till {{number_of_authorities}} 
 msgstr[1] "{{site_name}} täcker förfrågningar till {{number_of_authorities}} myndigheter, inklusive:"
 
 msgid "{{site_name}} has identified {{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
-msgstr ""
+msgstr "{{site_name}} har identifierat att {{authority_name}} kan ha avslagit alla eller delar av din begäran under <strong>{{refusals}}</strong>."
 
 msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."
 msgstr "{{site_name}} skickar nya förfrågningar till <strong>{{request_email}}</strong> för denna myndighet."
@@ -4451,7 +4451,7 @@ msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "{{user_name}} har använt {{site_name}} för att skicka meddelandet du ser nedan"
 
 msgid "{{user_name}} left an annotation ({{date}})"
-msgstr "{{user_name}} lämnade en anteckning ({{date}})"
+msgstr "Dessa kommentarer omfattas inte av vårt utgivningsbevis. Du ansvarar själv för dina artikelkommentarer. {{user_name}} lämnade en anteckning ({{date}})"
 
 msgid "{{user_name}} sent a follow up message to {{public_body}}"
 msgstr "{{user_name}} skickade ett uppföljningsmeddelande till {{public_body}}"
@@ -4466,19 +4466,19 @@ msgid "{{user_name}} would like the email address for {{public_body_name}} to be
 msgstr "{{user_name}} skulle vilja att e-postadressen för {{public_body_name}} blir uppdaterad"
 
 msgid "{{username}} left an annotation:"
-msgstr "{{username}} lämnade en anteckning:"
+msgstr "Dessa kommentarer omfattas inte av vårt utgivningsbevis. Du ansvarar själv för dina artikelkommentarer. {{username}} lämnade en anteckning:"
 
 msgid "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 msgstr "{{user}} ({{user_admin_link}}) skapade denna begäran enligt {{law_used_full}} (<a href=\"{{request_admin_url}}\">administratör</a>) till {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">administratör</a>)"
 
 msgid "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>) as part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
-msgstr "{{user}} ({{user_admin_link}}) gjorde denna {{law_used_full}} begäran (<a href=\"{{request_admin_url}}\">admin</a>) till {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>) som en del av <a href=\"{{url}}\">en serie som skickades till {{count}} myndigheter</a>"
+msgstr "{{user}} ({{user_admin_link}}) gjorde denna begäran (<a href=\"{{request_admin_url}}\">admin</a>) enligt  {{law_used_full}} till {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>) som en del av <a href=\"{{url}}\">en serie som skickades till {{count}} myndigheter</a>"
 
 msgid "{{user}} made this {{law_used_full}} request to {{public_body}}"
 msgstr "{{user}} gjorde denna begäran enligt {{law_used_full}} till {{public_body}}"
 
 msgid "{{user}} made this {{law_used_full}} request to {{public_body}} as part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
-msgstr "{{user}} gjorde denna {{law_used_full}} begäran till {{public_body}} som en del av <a href=\"{{url}}\">en serie som skickades till {{count}} myndigheter"
+msgstr "{{user}} gjorde denna begäran enligt {{law_used_full}} till {{public_body}} som en del av <a href=\"{{url}}\">en serie som skickades till {{count}} myndigheter"
 
 msgid "« Back to search results"
 msgstr "« Tillbaka till sökresultat"

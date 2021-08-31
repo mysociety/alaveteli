@@ -27,8 +27,8 @@
 # Liz Conlan <liz@mysociety.org>, 2018
 # louisecrow <louise@mysociety.org>, 2014
 # louisecrow <louise@mysociety.org>, 2014
-# zejn <zejn@kiberpipa.org>, 2013-2014
-# zejn <zejn@kiberpipa.org>, 2013
+# zejn <zelo.zejn+transifex@gmail.com>, 2013-2014
+# zejn <zelo.zejn+transifex@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
