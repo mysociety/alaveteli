@@ -64,6 +64,8 @@ module AlaveteliExternalCommand
       return program_name if program_name =~ %r(^/)
 
       search_path = AlaveteliConfiguration.utility_search_path
+      search_path = ENV['PATH'].split(':') if search_path.empty?
+
       search_path.each do |d|
         path = File.join(d, program_name)
         return path if File.file?(path) && File.executable?(path)
