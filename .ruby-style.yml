@@ -230,6 +230,7 @@ Layout/LineEndStringConcatenationIndentation:
 
 Layout/LineLength:
   Enabled: true
+  Max: 80
   IgnoreCopDirectives: false
   IgnoredPatterns:
     - "^\\s*it\\s+.*do$"
