@@ -35,8 +35,8 @@ module AttachmentToHTML
         # the body may require opening files too
         text = attachment_body
 
-        @converted ||= begin
-          tempfile = create_tempfile(text, tmpdir)
+        @converted ||= Dir.chdir(tmpdir) do
+          tempfile = create_tempfile(text)
 
           html = AlaveteliExternalCommand.run("unrtf", "--html",
                                               tempfile.path, :timeout => 120
