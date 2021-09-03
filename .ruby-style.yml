@@ -36,6 +36,9 @@ Bundler/DuplicatedGem:
 Bundler/GemComment:
   Enabled: false
 
+Bundler/GemFilename:
+  Enabled: false
+
 Bundler/GemVersion:
   Enabled: false
 
