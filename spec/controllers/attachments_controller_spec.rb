@@ -157,11 +157,7 @@ RSpec.describe AttachmentsController, type: :controller do
             :file_name => 'interesting.html',
             :skip_cache => 1
           }
-      if rails_upgrade?
-        expect(response.media_type).to eq('text/html')
-      else
-        expect(response.content_type).to eq('text/html')
-      end
+      expect(response.media_type).to eq('text/html')
       expect(response.body).to have_content "Mouse"
     end
 
@@ -179,11 +175,7 @@ RSpec.describe AttachmentsController, type: :controller do
             :file_name => 'interesting.html',
             :skip_cache => 1
           }
-      if rails_upgrade?
-        expect(response.media_type).to eq('text/html')
-      else
-        expect(response.content_type).to eq('text/html')
-      end
+      expect(response.media_type).to eq('text/html')
       expect(response.body).to have_content "Mouse"
     end
 
@@ -290,11 +282,7 @@ RSpec.describe AttachmentsController, 'when handling prominence',
     type: :controller do
 
   def expect_hidden(hidden_template)
-    if rails_upgrade?
-      expect(response.media_type).to eq('text/html')
-    else
-      expect(response.content_type).to eq('text/html')
-    end
+    expect(response.media_type).to eq('text/html')
     expect(response).to render_template(hidden_template)
     expect(response.code).to eq('403')
   end
@@ -471,11 +459,7 @@ RSpec.describe AttachmentsController, 'when handling prominence',
             file_name: 'interesting.pdf',
             skip_cache: 1
           }
-      if rails_upgrade?
-        expect(response.media_type).to eq('application/pdf')
-      else
-        expect(response.content_type).to eq('application/pdf')
-      end
+      expect(response.media_type).to eq('application/pdf')
       expect(response).to be_successful
     end
 
@@ -532,11 +516,7 @@ RSpec.describe AttachmentsController, 'when handling prominence',
             file_name: 'interesting.pdf',
             skip_cache: 1
           }
-      if rails_upgrade?
-        expect(response.media_type).to eq('application/pdf')
-      else
-        expect(response.content_type).to eq('application/pdf')
-      end
+      expect(response.media_type).to eq('application/pdf')
       expect(response).to be_successful
     end
 
@@ -550,11 +530,7 @@ RSpec.describe AttachmentsController, 'when handling prominence',
             file_name: 'interesting.pdf',
             skip_cache: 1
           }
-      if rails_upgrade?
-        expect(response.media_type).to eq('application/pdf')
-      else
-        expect(response.content_type).to eq('application/pdf')
-      end
+      expect(response.media_type).to eq('application/pdf')
       expect(response).to be_successful
     end
 

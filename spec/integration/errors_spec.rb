@@ -14,11 +14,7 @@ RSpec.describe "When errors occur" do
     it 'should show a full trace for general errors' do
       allow(InfoRequest).to receive(:find_by_url_title!).and_raise("An example error")
       get "/request/example"
-      if rails_upgrade?
-        expect(response.body).to match('<div id="traces-0"')
-      else
-        expect(response.body).to match('<div id="traces"')
-      end
+      expect(response.body).to match('<div id="traces-0"')
       expect(response.body).to match('An example error')
     end
 

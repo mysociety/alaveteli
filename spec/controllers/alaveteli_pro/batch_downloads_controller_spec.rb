@@ -91,15 +91,9 @@ RSpec.describe AlaveteliPro::BatchDownloadsController, type: :controller do
           end
 
           it 'returns content disposition' do
-            if rails_upgrade?
-              expect(response.header['Content-Disposition']).to(
-                eq 'attachment; filename="NAME"; filename*=UTF-8\'\'NAME'
-              )
-            else
-              expect(response.header['Content-Disposition']).to(
-                eq 'attachment; filename="NAME"'
-              )
-            end
+            expect(response.header['Content-Disposition']).to(
+              eq 'attachment; filename="NAME"; filename*=UTF-8\'\'NAME'
+            )
           end
 
           it 'returns CSV content type' do
@@ -130,15 +124,9 @@ RSpec.describe AlaveteliPro::BatchDownloadsController, type: :controller do
           end
 
           it 'returns content disposition' do
-            if rails_upgrade?
-              expect(response.header['Content-Disposition']).to(
-                eq 'attachment; filename="NAME"; filename*=UTF-8\'\'NAME'
-              )
-            else
-              expect(response.header['Content-Disposition']).to(
-                eq 'attachment; filename="NAME"'
-              )
-            end
+            expect(response.header['Content-Disposition']).to(
+              eq 'attachment; filename="NAME"; filename*=UTF-8\'\'NAME'
+            )
           end
 
           it 'returns CSV content type' do

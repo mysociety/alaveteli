@@ -18,11 +18,7 @@ RSpec.describe GeneralController do
     end
 
     it 'responds as JSON' do
-      if rails_upgrade?
-        expect(response.media_type).to eq('application/json')
-      else
-        expect(response.content_type).to eq('application/json')
-      end
+      expect(response.media_type).to eq('application/json')
     end
   end
 end
