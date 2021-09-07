@@ -691,7 +691,11 @@ RSpec.describe AdminPublicBodyController do
 
       before do
         allow(PublicBody).to receive(:import_csv).and_return([[],[]])
-        @file_object = fixture_file_upload('/files/fake-authority-type.csv')
+        if rails_upgrade?
+          @file_object = fixture_file_upload('fake-authority-type.csv')
+        else
+          @file_object = fixture_file_upload('/files/fake-authority-type.csv')
+        end
       end
 
       it 'should handle a nil csv file param' do

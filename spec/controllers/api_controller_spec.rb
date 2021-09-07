@@ -335,7 +335,13 @@ RSpec.describe ApiController, "when using the API" do
                'sent_at' => Time.zone.now.iso8601,
                'body' => 'Are you joking, or are you serious?'
              }.to_json,
-             :attachments => [fixture_file_upload('/files/tfl.pdf')]
+             :attachments => [
+               if rails_upgrade?
+                 fixture_file_upload('tfl.pdf')
+               else
+                 fixture_file_upload('/files/tfl.pdf')
+               end
+             ]
            }
 
       # Make sure it worked
@@ -364,7 +370,13 @@ RSpec.describe ApiController, "when using the API" do
                'sent_at' => sent_at,
                'body' => response_body
              }.to_json,
-             :attachments => [fixture_file_upload('/files/tfl.pdf')]
+             :attachments => [
+               if rails_upgrade?
+                 fixture_file_upload('tfl.pdf')
+               else
+                 fixture_file_upload('/files/tfl.pdf')
+               end
+             ]
            }
 
       # And make sure it worked

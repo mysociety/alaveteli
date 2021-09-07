@@ -1797,7 +1797,11 @@ RSpec.describe RequestController, "authority uploads a response from the web int
     sign_in @normal_user
 
     # post up a photo of the parrot
-    parrot_upload = fixture_file_upload('/files/parrot.png','image/png')
+    if rails_upgrade?
+      parrot_upload = fixture_file_upload('parrot.png','image/png')
+    else
+      parrot_upload = fixture_file_upload('/files/parrot.png','image/png')
+    end
     post :upload_response, params: {
                              :url_title => 'why_do_you_have_such_a_fancy_dog',
                              :body => "Find attached a picture of a parrot",
@@ -1829,7 +1833,11 @@ RSpec.describe RequestController, "authority uploads a response from the web int
     sign_in @foi_officer_user
 
     # post up a photo of the parrot
-    parrot_upload = fixture_file_upload('/files/parrot.png','image/png')
+    if rails_upgrade?
+      parrot_upload = fixture_file_upload('parrot.png', 'image/png')
+    else
+      parrot_upload = fixture_file_upload('/files/parrot.png', 'image/png')
+    end
     post :upload_response, params: {
                              :url_title => 'why_do_you_have_such_a_fancy_dog',
                              :body => "Find attached a picture of a parrot",
