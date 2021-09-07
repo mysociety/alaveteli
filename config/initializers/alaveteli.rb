@@ -67,6 +67,12 @@ require 'alaveteli_pro/webhook_endpoints'
 require 'patches/active_support/configuration_file'
 
 # Allow tests to be run under a non-superuser database account if required
-if Rails.env == 'test' and ActiveRecord::Base.configurations['test']['constraint_disabling'] == false
-  require 'no_constraint_disabling'
+if Rails.env.test?
+  if rails_upgrade?
+    test_config = ActiveRecord::Base.configurations.find_db_config(:test).
+      configuration_hash
+  else
+    test_config = ActiveRecord::Base.configurations[:test]
+  end
+  require 'no_constraint_disabling' unless test_config['constraint_disabling']
 end
