@@ -30,7 +30,7 @@ class Users::ConfirmationsController < UserController
         @user = confirm_user!(post_redirect.user)
       end
 
-      session[:user_id] = @user.id
+      sign_in(@user)
     end
 
     session[:user_circumstance] = post_redirect.circumstance

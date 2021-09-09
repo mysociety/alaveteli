@@ -143,6 +143,13 @@ class ApplicationController < ActionController::Base
     session[:ttl] = Time.zone.now if session[:user_id] && !session[:remember_me]
   end
 
+  def sign_in(user, remember_me: nil)
+    remember_me ||= session[:remember_me]
+    clear_session_credentials
+    session[:user_id] = user.id
+    session[:remember_me] = remember_me
+  end
+
   # Logout form
   def clear_session_credentials
     session[:user_id] = nil
