@@ -52,7 +52,7 @@ class OneTimePasswordsController < ApplicationController
   end
 
   def authenticate
-    authenticated?(
+    authenticated? || ask_to_login(
       web: _('To view your two factor authentication details'),
       email: _('To view your two factor authentication details'),
       email_subject: _('To view your two factor authentication details')

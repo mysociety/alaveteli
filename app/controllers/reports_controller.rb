@@ -35,7 +35,8 @@ class ReportsController < ApplicationController
       _("Report request: {{title}}", :title => @info_request.title)
     end
 
-    if authenticated?(
+    if !authenticated?
+      ask_to_login(
         web: _('To report this request'),
         email: _("Then you can report the request '{{title}}'",
                  title: @info_request.title),

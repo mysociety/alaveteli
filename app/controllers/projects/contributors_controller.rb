@@ -25,6 +25,6 @@ class Projects::ContributorsController < Projects::BaseController
       }
     )
 
-    authenticated?(post_redirect: post_redirect)
+    authenticated? || ask_to_login(post_redirect: post_redirect)
   end
 end

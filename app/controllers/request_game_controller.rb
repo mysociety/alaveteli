@@ -45,7 +45,8 @@ class RequestGameController < ApplicationController
 
   def show
     url_title = params[:url_title]
-    if !authenticated?(
+    if !authenticated?
+      ask_to_login(
         web: _('To play the request categorisation game'),
         email: _('Then you can play the request categorisation game.'),
         email_subject: _('Play the request categorisation game')

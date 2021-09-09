@@ -43,7 +43,7 @@ class Users::MessagesController < UserController
     # between the two users)
     #
     # "authenticated?" has done the redirect to signin page for us
-    return unless authenticated?(
+    return unless authenticated? || ask_to_login(
       web: _('To send a message to {{user_name}}',
              user_name: CGI.escapeHTML(@recipient_user.name)),
       email: _('Then you can send a message to {{user_name}}.',

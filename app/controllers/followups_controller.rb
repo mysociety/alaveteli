@@ -88,7 +88,10 @@ class FollowupsController < ApplicationController
     # We want to make sure they're the right user first, before they start
     # writing a message and wasting their time if they are not the requester.
     params = get_login_params(@incoming_message, @info_request)
-    return if !authenticated_as_user?(@info_request.user, params)
+    if !authenticated?(as: @info_request.user)
+      ask_to_login(as: @info_request.user, **params)
+      return
+    end
     if authenticated_user and !authenticated_user.can_make_followup?
       @details = authenticated_user.can_fail_html
       render :template => 'user/banned'

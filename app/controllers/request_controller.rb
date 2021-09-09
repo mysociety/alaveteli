@@ -30,7 +30,8 @@ class RequestController < ApplicationController
     # Check whether we force the user to sign in right at the start, or we allow her
     # to start filling the request anonymously
     if AlaveteliConfiguration::force_registration_on_new_request &&
-      !authenticated?(
+      !authenticated?
+      ask_to_login(
         web: _('To send and publish your FOI request'),
         email: _("Then you'll be allowed to send FOI requests."),
         email_subject: _('Confirm your email address')
@@ -98,9 +99,11 @@ class RequestController < ApplicationController
       assign_variables_for_show_template(@info_request)
 
       # Only owners (and people who own everything) can update status
-      if @update_status
-        return if !@is_owning_user && !authenticated_as_user?(
-          @info_request.user,
+      if @update_status && !@is_owning_user && !authenticated?(
+        as: @info_request.user
+      )
+        ask_to_login(
+          as: @info_request.user,
           web: _('To update the status of this FOI request'),
           email: _('Then you can update the status of your request to ' \
                    '{{authority_name}}.',
@@ -109,6 +112,7 @@ class RequestController < ApplicationController
                            '{{authority_name}}',
                            authority_name: @info_request.public_body.name)
         )
+        return
       end
 
       # What state transitions can the request go into
@@ -354,7 +358,8 @@ class RequestController < ApplicationController
       return
     end
 
-    if !authenticated?(
+    if !authenticated?
+      ask_to_login(
         web: _('To send and publish your FOI request').to_str,
         email: _('Then your FOI request to {{public_body_name}} will be sent ' \
                  'and published.',
@@ -460,7 +465,8 @@ class RequestController < ApplicationController
                          site_name: site_name)
       }
 
-      if !authenticated?(@reason_params)
+      if !authenticated?
+        ask_to_login(**@reason_params)
         return
       end
 
@@ -532,7 +538,8 @@ class RequestController < ApplicationController
       if @info_request.embargo && cannot?(:read, @info_request)
         render_hidden
       end
-      if authenticated?(
+      if !authenticated?
+        ask_to_login(
           web: _('To download the zip file'),
           email: _('Then you can download a zip file of ' \
                    '{{info_request_title}}.',
@@ -541,6 +548,7 @@ class RequestController < ApplicationController
                            '{{info_request_title}}',
                            info_request_title: @info_request.title)
         )
+      else
         # Test for whole request being hidden or requester-only
         if cannot?(:read, @info_request)
           return render_hidden
@@ -707,7 +715,8 @@ class RequestController < ApplicationController
     if !AlaveteliConfiguration::allow_batch_requests
       raise RouteNotFound.new("Page not enabled")
     end
-    if !authenticated?(
+    if !authenticated?
+      ask_to_login(
         web: _('To make a batch request'),
         email: _('Then you can make a batch request'),
         email_subject: _('Make a batch request'),

@@ -38,7 +38,8 @@ class CommentController < ApplicationController
       return
     end
 
-    if authenticated?(
+    if !authenticated?
+      ask_to_login(
         web: _('To post your annotation'),
         email: _('Then your annotation to {{info_request_title}} will be ' \
                  'posted.',
@@ -46,7 +47,7 @@ class CommentController < ApplicationController
         email_subject: _('Confirm your annotation to {{info_request_title}}',
                          info_request_title: @info_request.title)
       )
-
+    else
       if spam_comment?(params[:comment][:body], @user)
         handle_spam_comment(@user) && return
       end
@@ -76,8 +77,6 @@ class CommentController < ApplicationController
 
       # we don't use comment_url here, as then you don't see the flash at top of page
       redirect_to request_url(@info_request)
-    else
-      # do nothing - as "authenticated?" has done the redirect to signin page for us
     end
   end
 

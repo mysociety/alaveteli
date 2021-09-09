@@ -34,7 +34,7 @@ class AlaveteliPro::PaymentMethodsController < AlaveteliPro::BaseController
   private
 
   def authenticate
-    authenticated?(
+    authenticated? || ask_to_login(
       web: _('To update your payment details'),
       email: _('Then you can update your payment details'),
       email_subject: _('To update your payment details')

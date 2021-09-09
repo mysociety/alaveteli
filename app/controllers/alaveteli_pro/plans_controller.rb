@@ -25,7 +25,8 @@ class AlaveteliPro::PlansController < AlaveteliPro::BaseController
   end
 
   def authenticate
-    pro_authenticated?(
+    authenticated? || ask_to_login(
+      pro: true,
       web: _('To signup to {{site_name}}',
              site_name: pro_site_name),
       email: _('Then you can activate your {{site_name}} account',

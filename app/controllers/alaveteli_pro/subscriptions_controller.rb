@@ -182,7 +182,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
   private
 
   def authenticate
-    authenticated?(
+    authenticated? || ask_to_login(
       web: _('To upgrade your account'),
       email: _('Then you can upgrade your account'),
       email_subject: _('To upgrade your account')

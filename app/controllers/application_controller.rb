@@ -236,8 +236,33 @@ class ApplicationController < ActionController::Base
   end
 
   # Check the user is logged in
-  def authenticated?(reason_params = {})
-    return true if authenticated_user
+  def authenticated?(as: nil, **reason_params)
+    unless reason_params.empty?
+      warn 'DEPRECATION: ApplicationController#authenticated?(reason_params) ' \
+           'will be removed in 0.41. It has been replaced with ' \
+           'ApplicationController#authenticated? || ' \
+           'ApplicationController#ask_to_login(**reason_params)'
+      return authenticated?(as: as) || ask_to_login(**reason_params)
+    end
+
+    if as
+      authenticated_user == as
+    else
+      authenticated_user.present?
+    end
+  end
+
+  def ask_to_login(as: nil, **reason_params)
+    if as
+      reason_params[:user_name] = as.name
+      reason_params[:user_url] = show_user_url(url_name: as.url_name)
+
+      if authenticated?
+        # They are already logged in, but as the wrong user
+        @reason_params = reason_params
+        render(template: 'user/wrong_user') && return
+      end
+    end
 
     post_redirect = reason_params.delete(:post_redirect)
     post_redirect ||= PostRedirect.new(uri: request.fullpath,
@@ -256,25 +281,17 @@ class ApplicationController < ActionController::Base
     # 'modal' controls whether the sign-in form will be displayed in the typical
     # full-blown page or on its own, useful for pop-ups
     redirect_to signin_url(token: post_redirect.token, modal: params[:modal])
-    return false
+
+    false
   end
 
-  def authenticated_as_user?(user, reason_params = {})
-    reason_params[:user_name] = user.name
-    reason_params[:user_url] = show_user_url(:url_name => user.url_name)
-    if authenticated_user
-      if authenticated_user == user
-        # They are logged in as the right user
-        return true
-      else
-        # They are already logged in, but as the wrong user
-        @reason_params = reason_params
-        render :template => 'user/wrong_user'
-        return
-      end
-    end
-    # They are not logged in at all
-    return authenticated?(reason_params)
+  def authenticated_as_user?(user, reason_params = nil)
+    warn 'DEPRECATION: ApplicationController#authenticated_as_user?(user, ' \
+         'reason_params) will be removed in 0.41. It has been replaced with ' \
+         'ApplicationController#authenticated?(as: user) || ' \
+         'ApplicationController#ask_to_login(as: user, **reason_params)'
+
+    authenticated?(as: user) || ask_to_login(as: user, **reason_params)
   end
 
   # Return logged in user

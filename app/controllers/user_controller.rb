@@ -183,7 +183,7 @@ class UserController < ApplicationController
   # Change your email
   def signchangeemail
     # "authenticated?" has done the redirect to signin page for us
-    return unless authenticated?(
+    return unless authenticated? || ask_to_login(
       web: _('To change your email address used on {{site_name}}',
              site_name: site_name),
       email: _('Then you can change your email address used on {{site_name}}',
