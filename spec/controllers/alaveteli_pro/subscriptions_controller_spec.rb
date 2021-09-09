@@ -104,6 +104,8 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
             'plan_id' => 'pro',
             'coupon_code' => ''
           }
+          # reset user so authenticated_user reloads
+          controller.instance_variable_set(:@user, nil)
           post :create, params: {
             'stripe_token' => token,
             'plan_id' => 'pro',
