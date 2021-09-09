@@ -114,7 +114,7 @@ class CommentController < ApplicationController
 
   # Banned from adding comments?
   def reject_if_user_banned
-    if authenticated_user && !authenticated_user.can_make_comments?
+    if authenticated? && !authenticated_user.can_make_comments?
       @details = authenticated_user.can_fail_html
       render :template => 'user/banned'
     end

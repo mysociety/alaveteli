@@ -287,7 +287,7 @@ class RequestController < ApplicationController
 
     # Banned from making new requests?
     user_exceeded_limit = false
-    if !authenticated_user.nil? && !authenticated_user.can_file_requests?
+    if authenticated? && !authenticated_user.can_file_requests?
       # If the reason the user cannot make new requests is that they are
       # rate-limited, it’s possible they composed a request before they
       # logged in and we want to include the text of the request so they
@@ -589,7 +589,7 @@ class RequestController < ApplicationController
     @info_request = info_request
     @status = info_request.calculate_status
     @old_unclassified =
-      info_request.is_old_unclassified? && !authenticated_user.nil?
+      info_request.is_old_unclassified? && authenticated?
     @is_owning_user = info_request.is_owning_user?(authenticated_user)
     @last_info_request_event_id = info_request.last_event_id_needing_description
     @new_responses_count =

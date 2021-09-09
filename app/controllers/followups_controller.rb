@@ -92,12 +92,12 @@ class FollowupsController < ApplicationController
       ask_to_login(as: @info_request.user, **params)
       return
     end
-    if authenticated_user and !authenticated_user.can_make_followup?
+    if authenticated? && !authenticated_user.can_make_followup?
       @details = authenticated_user.can_fail_html
       render :template => 'user/banned'
       return
     end
-    if authenticated_user && cannot?(:read, @info_request)
+    if authenticated? && cannot?(:read, @info_request)
       return render_hidden
     end
   end

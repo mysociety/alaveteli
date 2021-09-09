@@ -47,9 +47,9 @@ class ApplicationController < ActionController::Base
 
   helper_method :anonymous_cache, :short_cache, :medium_cache, :long_cache
   def anonymous_cache(time)
-    if session[:user_id].nil?
-      headers['Cache-Control'] = "max-age=#{time}, public"
-    end
+    return if authenticated?
+
+    headers['Cache-Control'] = "max-age=#{time}, public"
   end
 
   def short_cache
@@ -141,7 +141,7 @@ class ApplicationController < ActionController::Base
   end
 
   def persist_session_timestamp
-    session[:ttl] = Time.zone.now if session[:user_id] && !session[:remember_me]
+    session[:ttl] = Time.zone.now if authenticated? && !session[:remember_me]
   end
 
   def sign_in(user, remember_me: nil)
@@ -461,16 +461,17 @@ class ApplicationController < ActionController::Base
 
   # Store last visited pages, for contact form; but only for logged in users, as otherwise this breaks caching
   def set_last_request(info_request)
-    if !session[:user_id].nil?
-      cookies["last_request_id"] = info_request.id
-      cookies["last_body_id"] = nil
-    end
+    return unless authenticated?
+
+    cookies["last_request_id"] = info_request.id
+    cookies["last_body_id"] = nil
   end
+
   def set_last_body(public_body)
-    if !session[:user_id].nil?
-      cookies["last_request_id"] = nil
-      cookies["last_body_id"] = public_body.id
-    end
+    return unless authenticated?
+
+    cookies["last_request_id"] = nil
+    cookies["last_body_id"] = public_body.id
   end
 
   def country_from_ip

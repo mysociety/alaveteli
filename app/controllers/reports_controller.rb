@@ -12,7 +12,7 @@ class ReportsController < ApplicationController
       render "new"
       return
     end
-    if !authenticated_user
+    if !authenticated?
       flash[:notice] = _("You need to be logged in to report a request for administrator attention")
     elsif @info_request.attention_requested
       flash[:notice] = _("This request has already been reported for administrator attention")
