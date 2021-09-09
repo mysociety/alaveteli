@@ -15,8 +15,8 @@ class ApplicationController < ActionController::Base
   before_action :set_gettext_locale
   before_action :collect_locales
 
-  protect_from_forgery :if => :user?, :with => :exception
-  skip_before_action :verify_authenticity_token, :unless => :user?
+  protect_from_forgery if: :authenticated?, with: :exception
+  skip_before_action :verify_authenticity_token, unless: :authenticated?
 
   # Deal with access denied errors from CanCan
   rescue_from CanCan::AccessDenied do |exception|
@@ -226,13 +226,16 @@ class ApplicationController < ActionController::Base
   private
 
   def user?
-    authenticated_user.present?
+    warn 'DEPRECATION: ApplicationController#user? will be removed in 0.41. ' \
+         'It has been replaced with authenticated?'
+
+    authenticated?
   end
 
   # Override the Rails method to only set the CSRF form token if there is a
   # logged in user
   def form_authenticity_token(*args)
-    super if user?
+    super if authenticated?
   end
 
   # Check the user is logged in
