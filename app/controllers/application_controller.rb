@@ -269,15 +269,9 @@ class ApplicationController < ActionController::Base
 
   # Return logged in user
   def authenticated_user
-    if session[:user_id].nil?
-      return nil
-    else
-      begin
-        return User.find(session[:user_id])
-      rescue ActiveRecord::RecordNotFound
-        return nil
-      end
-    end
+    return unless session[:user_id]
+
+    User.find_by(id: session[:user_id])
   end
 
   # For CanCanCan and other libs which need a Devise-like current_user method
