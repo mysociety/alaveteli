@@ -5,7 +5,7 @@ RSpec.describe AlaveteliPro::DashboardController do
     let(:user) { FactoryBot.create(:pro_user) }
 
     before do
-      session[:user_id] = user.id
+      sign_in user
     end
 
     it "exists" do

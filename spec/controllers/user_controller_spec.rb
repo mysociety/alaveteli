@@ -185,7 +185,7 @@ RSpec.describe UserController do
       render_views
 
       before do
-        session[:user_id] = user.id
+        sign_in user
       end
 
       it 'does not show requests or batch requests, but does show account options' do
@@ -207,7 +207,7 @@ RSpec.describe UserController do
       render_views
 
       before do
-        session[:user_id] = user.id
+        sign_in user
       end
 
       it "assigns the user's undescribed requests" do
@@ -280,7 +280,7 @@ RSpec.describe UserController do
         user = FactoryBot.create(:pro_user)
         info_request = FactoryBot.create(:embargoed_request, user: user)
         update_xapian_index
-        session[:user_id] = user.id
+        sign_in user
         get :show, params: { url_name: user.url_name, view: 'requests' }
         expect(assigns[:private_requests]).to match_array([info_request])
       end
@@ -290,7 +290,7 @@ RSpec.describe UserController do
         info_request = FactoryBot.create(:embargoed_request, user: user)
         FactoryBot.create(:embargoed_request, user: user, prominence: 'hidden')
         update_xapian_index
-        session[:user_id] = user.id
+        sign_in user
         get :show, params: { url_name: user.url_name, view: 'requests' }
         expect(assigns[:private_requests]).to match_array([info_request])
       end
@@ -300,7 +300,7 @@ RSpec.describe UserController do
     context 'when logged in filtering your own requests' do
 
       before do
-        session[:user_id] = user.id
+        sign_in user
       end
 
       it 'filters by the given query' do
@@ -330,7 +330,7 @@ RSpec.describe UserController do
           create(:embargoed_request, user: user, title: 'How many books?')
         update_xapian_index
 
-        session[:user_id] = user.id
+        sign_in user
 
         get :show, params: {
                      url_name: user.url_name,
@@ -393,7 +393,7 @@ RSpec.describe UserController do
       render_views
 
       before do
-        session[:user_id] = FactoryBot.create(:user).id
+        sign_in FactoryBot.create(:user)
       end
 
       it "does not assign undescribed requests" do
@@ -483,7 +483,7 @@ RSpec.describe UserController do
     context 'when logged in filtering other requests' do
 
       before do
-        session[:user_id] = FactoryBot.create(:user).id
+        sign_in FactoryBot.create(:user)
       end
 
       it 'filters by the given query' do
@@ -574,7 +574,7 @@ RSpec.describe UserController do
 
       before(:each) do
         @user = FactoryBot.create(:user, :ban_text => 'Causing trouble')
-        session[:user_id] = @user.id
+        sign_in @user
         @uploadedfile = fixture_file_upload("/files/parrot.png")
 
         post :set_profile_photo, params: {
@@ -773,14 +773,14 @@ RSpec.describe UserController do
       end
 
       it "shows the confirmation page for valid credentials" do
+        sign_in user
         post :signup, params: { :user_signup => {
                                   :email => user.email,
                                   :name => user.name,
                                   :password => 'jonespassword',
                                   :password_confirmation => 'jonespassword'
                                 }
-                              },
-                      session: { :user_id => user.id }
+                              }
         expect(response).to render_template('confirm')
       end
 
@@ -998,7 +998,7 @@ RSpec.describe UserController, "when changing email address" do
 
   it "should show form for changing email if logged in" do
     @user = users(:bob_smith_user)
-    session[:user_id] = @user.id
+    sign_in @user
 
     get :signchangeemail
 
@@ -1007,7 +1007,7 @@ RSpec.describe UserController, "when changing email address" do
 
   it "should be an error if the password is wrong, everything else right" do
     @user = users(:bob_smith_user)
-    session[:user_id] = @user.id
+    sign_in @user
 
     post :signchangeemail,
          params: {
@@ -1030,7 +1030,7 @@ RSpec.describe UserController, "when changing email address" do
 
   it "should be an error if old email is wrong, everything else right" do
     @user = users(:bob_smith_user)
-    session[:user_id] = @user.id
+    sign_in @user
 
     post :signchangeemail,
          params: {
@@ -1053,7 +1053,7 @@ RSpec.describe UserController, "when changing email address" do
 
   it "should work even if the old email had a case difference" do
     @user = users(:bob_smith_user)
-    session[:user_id] = @user.id
+    sign_in @user
 
     post :signchangeemail,
          params: {
@@ -1070,7 +1070,7 @@ RSpec.describe UserController, "when changing email address" do
 
   it "should send special 'already signed up' mail if you try to change your email to one already used" do
     @user = users(:bob_smith_user)
-    session[:user_id] = @user.id
+    sign_in @user
 
     post :signchangeemail,
          params: {
@@ -1125,7 +1125,7 @@ RSpec.describe UserController, "when using profile photos" do
 
   it "should let you change profile photo if you're logged in as the user" do
     expect(@user.profile_photo).to be_nil
-    session[:user_id] = @user.id
+    sign_in @user
 
     post :set_profile_photo, params: {
                                :id => @user.id,
@@ -1145,7 +1145,7 @@ RSpec.describe UserController, "when using profile photos" do
     let(:user) { FactoryBot.create(:user, :about_me => '') }
 
     it 'prompts you to add profile text when adding a photo' do
-      session[:user_id] = user.id
+      sign_in user
 
       profile_photo = ProfilePhoto.
                         create(:data => load_file_fixture("parrot.png"),
@@ -1167,7 +1167,7 @@ RSpec.describe UserController, "when using profile photos" do
 
   it "should let you change profile photo twice" do
     expect(@user.profile_photo).to be_nil
-    session[:user_id] = @user.id
+    sign_in @user
 
     post :set_profile_photo, params: {
                                :id => @user.id,
@@ -1220,7 +1220,7 @@ RSpec.describe UserController, "when viewing the wall" do
     user = users(:silly_name_user)
     ire = info_request_events(:useless_incoming_message_event)
     ire.created_at = DateTime.new(2001,1,1)
-    session[:user_id] = user.id
+    sign_in user
     get :wall, params: { :url_name => user.url_name }
     expect(assigns[:feed_results][0]).not_to eq(ire)
 
@@ -1239,7 +1239,7 @@ RSpec.describe UserController, "when viewing the wall" do
 
   it "should allow users to turn their own email alerts on and off" do
     user = users(:silly_name_user)
-    session[:user_id] = user.id
+    sign_in user
     expect(user.receive_email_alerts).to eq(true)
     get :set_receive_email_alerts, params: {
                                      :receive_email_alerts => 'false',
@@ -1251,7 +1251,7 @@ RSpec.describe UserController, "when viewing the wall" do
 
   it 'should not show duplicate feed results' do
     user = users(:silly_name_user)
-    session[:user_id] = user.id
+    sign_in user
     get :wall, params: { :url_name => user.url_name }
     expect(assigns[:feed_results].uniq).to eq(assigns[:feed_results])
   end

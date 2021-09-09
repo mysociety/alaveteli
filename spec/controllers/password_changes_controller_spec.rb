@@ -26,14 +26,14 @@ RSpec.describe PasswordChangesController do
 
     it 'pre-fills the email field for a signed in user' do
       user = FactoryBot.create(:user)
-      session[:user_id] = user.id
+      sign_in user
       get :new
       expect(assigns[:email_field_options][:value]).to eq(user.email)
     end
 
     it 'disables the email field for a signed in user' do
       user = FactoryBot.create(:user)
-      session[:user_id] = user.id
+      sign_in user
       get :new
       expect(assigns[:email_field_options][:disabled]).to eq(true)
     end
@@ -51,7 +51,7 @@ RSpec.describe PasswordChangesController do
 
       it 'ignores an email submitted in the post params' do
         user = FactoryBot.create(:user)
-        session[:user_id] = user.id
+        sign_in user
         post :create, params: {
                         :password_change_user => {
                           :email => 'hacker@localhost'
@@ -62,7 +62,7 @@ RSpec.describe PasswordChangesController do
 
       it 'does not require an email to be submitted' do
         user = FactoryBot.create(:user)
-        session[:user_id] = user.id
+        sign_in user
         post :create
         expect(assigns[:password_change_user]).to eq(user)
       end

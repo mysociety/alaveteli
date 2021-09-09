@@ -7,14 +7,14 @@ RSpec.describe Users::MessagesController do
   let(:sender) { FactoryBot.create(:user, name: 'Bob Smith') }
   let(:recipient) { FactoryBot.create(:user) }
 
-  before { session[:user_id] = sender.id }
+  before { sign_in sender }
 
   describe 'GET contact' do
 
     context 'when not signed in' do
 
       it 'redirects to signin page' do
-        session[:user_id] = nil
+        sign_in nil
         get :contact, params: { url_name: recipient.url_name }
         expect(response).
           to redirect_to(signin_path(token: get_last_post_redirect.token))

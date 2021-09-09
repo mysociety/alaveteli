@@ -7,7 +7,7 @@ RSpec.describe AdminUsersSessionsController do
     let(:target_user) { FactoryBot.create(:user) }
 
     before do
-      session[:user_id] = admin_user.id
+      sign_in admin_user
     end
 
     it 'logs in as another user' do

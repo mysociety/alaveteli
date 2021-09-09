@@ -36,7 +36,7 @@ RSpec.describe Projects::ExtractsController, spec_meta do
       let(:user) { FactoryBot.create(:user) }
 
       before do
-        session[:user_id] = user.id
+        sign_in user
         ability.can :read, project
         get :show, params: { project_id: project.id }
       end
@@ -73,7 +73,7 @@ RSpec.describe Projects::ExtractsController, spec_meta do
       let(:user) { FactoryBot.create(:user) }
 
       before do
-        session[:user_id] = user.id
+        sign_in user
         ability.can :read, project
 
         project.info_requests.each do |info_request|
@@ -99,7 +99,7 @@ RSpec.describe Projects::ExtractsController, spec_meta do
       let(:user) { FactoryBot.create(:user) }
 
       before do
-        session[:user_id] = user.id
+        sign_in user
 
         project.info_requests.extractable.each do |info_request|
           queue.skip(info_request)
@@ -132,7 +132,7 @@ RSpec.describe Projects::ExtractsController, spec_meta do
       let(:user) { FactoryBot.create(:user) }
 
       before do
-        session[:user_id] = user.id
+        sign_in user
         ability.cannot :read, project
       end
 
@@ -199,7 +199,7 @@ RSpec.describe Projects::ExtractsController, spec_meta do
       let(:skipped_request) { FactoryBot.create(:successful_request) }
 
       before do
-        session[:user_id] = user.id
+        sign_in user
         ability.can :read, project
         project.requests << skipped_request
         patch :update, params: { project_id: project.id,
@@ -236,7 +236,7 @@ RSpec.describe Projects::ExtractsController, spec_meta do
       let(:user) { FactoryBot.create(:user) }
 
       before do
-        session[:user_id] = user.id
+        sign_in user
         ability.cannot :read, project
       end
 
@@ -278,7 +278,7 @@ RSpec.describe Projects::ExtractsController, spec_meta do
     let(:ability) { Object.new.extend(CanCan::Ability) }
 
     before do
-      session[:user_id] = user&.id
+      sign_in user
       allow(controller).to receive(:current_user).and_return(user)
 
       allow(controller).to receive(:current_ability).and_return(ability)

@@ -54,13 +54,13 @@ RSpec.describe WidgetsController do
     end
 
     it 'sets user_owns_request to true if the user owns the request' do
-      session[:user_id] = @info_request.user.id
+      sign_in @info_request.user
       get :show, params: { :request_id => @info_request.id }
       expect(assigns[:user_owns_request]).to be true
     end
 
     it 'sets user_owns_request to false if the user does not own the request' do
-      session[:user_id] = FactoryBot.create(:user).id
+      sign_in FactoryBot.create(:user)
       get :show, params: { :request_id => @info_request.id }
       expect(assigns[:user_owns_request]).to be false
     end
@@ -120,7 +120,7 @@ RSpec.describe WidgetsController do
         track.track_medium = 'email_daily'
         track.tracking_user = user
         track.save!
-        session[:user_id] = user.id
+        sign_in user
 
         get :show, params: { :request_id => @info_request.id }
 
@@ -134,7 +134,7 @@ RSpec.describe WidgetsController do
       it 'does not find existing track things' do
         TrackThing.delete_all
         user = FactoryBot.create(:user)
-        session[:user_id] = user.id
+        sign_in user
 
         get :show, params: { :request_id => @info_request.id }
 
@@ -146,7 +146,7 @@ RSpec.describe WidgetsController do
         vote = FactoryBot.create(:widget_vote,
                                  :info_request => @info_request,
                                  :cookie => mock_cookie)
-        session[:user_id] = @info_request.user.id
+        sign_in @info_request.user
         request.cookies['widget_vote'] = mock_cookie
 
         get :show, params: { :request_id => @info_request.id }
@@ -157,7 +157,7 @@ RSpec.describe WidgetsController do
       it 'will not find any existing votes if none exist' do
         TrackThing.delete_all
         WidgetVote.delete_all
-        session[:user_id] = @info_request.user.id
+        sign_in @info_request.user
         request.cookies['widget_vote'] = mock_cookie
 
         get :show, params: { :request_id => @info_request.id }
@@ -191,7 +191,7 @@ RSpec.describe WidgetsController do
         vote = FactoryBot.create(:widget_vote,
                                  :info_request => @info_request,
                                  :cookie => mock_cookie)
-        session[:user_id] = @info_request.user.id
+        sign_in @info_request.user
 
         get :show, params: { :request_id => @info_request.id }
 

@@ -49,7 +49,7 @@ RSpec.describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
       let!(:card_ids) { customer.sources.data.map(&:id) }
 
       before do
-        session[:user_id] = user.id
+        sign_in user
       end
 
       it 'finds the card token' do

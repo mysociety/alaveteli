@@ -19,7 +19,7 @@ shared_examples_for "an info_request_batch action" do
 
   context "if the current_user doesn't own the specified draft" do
     before do
-      session[:user_id] = other_user.id
+      sign_in other_user
     end
 
     it "raises ActiveRecord::RecordNotFound" do
@@ -116,7 +116,7 @@ RSpec.describe AlaveteliPro::InfoRequestBatchesController do
   let(:params) { {draft_id: draft.id} }
 
   before do
-    session[:user_id] = user.id
+    sign_in user
   end
 
   describe "#new" do

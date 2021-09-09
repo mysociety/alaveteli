@@ -26,7 +26,7 @@ RSpec.describe AlaveteliPro::BaseController do
       let(:user) { FactoryBot.create(:user) }
 
       before do
-        session[:user_id] = user.id
+        sign_in user
       end
 
       it "redirects to the homepage" do
@@ -45,7 +45,7 @@ RSpec.describe AlaveteliPro::BaseController do
       let(:user) { FactoryBot.create(:pro_user) }
 
       before do
-        session[:user_id] = user.id
+        sign_in user
       end
 
       it "doesn't redirect anywhere" do

@@ -87,7 +87,7 @@ RSpec.describe AlaveteliPro::AccountRequestController do
         let(:user) { FactoryBot.create(:user) }
 
         before do
-          session[:user_id] = user.id
+          sign_in user
           allow(controller).to receive(:current_user).and_return(user)
         end
 

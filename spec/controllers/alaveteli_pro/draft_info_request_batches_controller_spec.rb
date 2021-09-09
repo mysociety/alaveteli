@@ -18,7 +18,7 @@ shared_examples_for "adding a body to a request" do
     let(:other_pro_user) { FactoryBot.create(:pro_user) }
 
     before do
-      session[:user_id] = other_pro_user.id
+      sign_in other_pro_user
     end
 
     it "creates new draft object" do
@@ -51,7 +51,7 @@ shared_examples_for "removing a body from a request" do
     let(:other_pro_user) { FactoryBot.create(:pro_user) }
 
     before do
-      session[:user_id] = other_pro_user.id
+      sign_in other_pro_user
     end
 
     it "raises an ActiveRecord::RecordNotFound error" do
@@ -82,7 +82,7 @@ RSpec.describe AlaveteliPro::DraftInfoRequestBatchesController do
   let(:authority_3) { FactoryBot.create(:public_body) }
 
   before do
-    session[:user_id] = pro_user.id
+    sign_in pro_user
   end
 
   describe "#create" do

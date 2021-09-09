@@ -155,7 +155,7 @@ RSpec.describe GeneralController, "when showing the frontpage" do
   end
 
   it "doesn't raise an error when there's no user matching the one in the session" do
-    session[:user_id] = 999
+    sign_in double(:user, id: 999)
     get :frontpage
     expect(response).to be_successful
   end
@@ -173,7 +173,7 @@ RSpec.describe GeneralController, "when showing the frontpage" do
 
     before do
       @user = FactoryBot.create(:user)
-      session[:user_id] = @user.id
+      sign_in @user
     end
 
     it 'should set a time to live on a non "remember me" session' do
@@ -206,7 +206,7 @@ RSpec.describe GeneralController, "when showing the frontpage" do
   describe 'when handling pro users' do
     before do
       @user = FactoryBot.create(:pro_user)
-      session[:user_id] = @user.id
+      sign_in @user
       allow(controller).to receive(:feature_enabled?).with(:alaveteli_pro).and_return(true)
     end
 

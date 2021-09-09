@@ -9,7 +9,7 @@ RSpec.describe AnnouncementsController do
 
       context 'logged in' do
         let(:user) { FactoryBot.create(:user) }
-        before { session[:user_id] = user.id }
+        before { sign_in user }
 
         it 'creates dismissal' do
           expect {

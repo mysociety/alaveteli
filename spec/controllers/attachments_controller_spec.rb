@@ -206,7 +206,7 @@ RSpec.describe AttachmentsController, type: :controller do
       let(:project) { FactoryBot.create(:project) }
 
       before do
-        session[:user_id] = user.id
+        sign_in user
         allow(controller).to receive(:current_user).and_return(user)
       end
 
@@ -227,7 +227,7 @@ RSpec.describe AttachmentsController, type: :controller do
       let(:project) { FactoryBot.create(:project) }
 
       before do
-        session[:user_id] = user.id
+        sign_in user
         allow(controller).to receive(:current_user).and_return(user)
       end
 
@@ -326,7 +326,7 @@ RSpec.describe AttachmentsController, 'when handling prominence',
     end
 
     it 'does not generate an HTML version of an attachment for a request whose prominence is hidden even for an admin but should return a 404' do
-      session[:user_id] = FactoryBot.create(:admin_user).id
+      sign_in FactoryBot.create(:admin_user)
       expect do
         get :show_as_html,
             params: {
@@ -345,7 +345,7 @@ RSpec.describe AttachmentsController, 'when handling prominence',
     let(:incoming_message) { info_request.incoming_messages.first }
 
     it 'does not cache an attachment when showing an attachment to the requester' do
-      session[:user_id] = info_request.user.id
+      sign_in info_request.user
       expect(@controller).not_to receive(:foi_fragment_cache_write)
       get :show,
           params: {
@@ -357,7 +357,7 @@ RSpec.describe AttachmentsController, 'when handling prominence',
     end
 
     it 'does not cache an attachment when showing an attachment to the admin' do
-      session[:user_id] = FactoryBot.create(:admin_user).id
+      sign_in FactoryBot.create(:admin_user)
       expect(@controller).not_to receive(:foi_fragment_cache_write)
       get :show,
           params: {
@@ -420,7 +420,7 @@ RSpec.describe AttachmentsController, 'when handling prominence',
     end
 
     it 'does not cache an attachment' do
-      session[:user_id] = info_request.user.id
+      sign_in info_request.user
       expect(@controller).not_to receive(:foi_fragment_cache_write)
       get :show,
           params: {
@@ -449,7 +449,7 @@ RSpec.describe AttachmentsController, 'when handling prominence',
     end
 
     it 'does not download attachments for the request owner' do
-      session[:user_id] = info_request.user.id
+      sign_in info_request.user
       get :show,
           params: {
             incoming_message_id: incoming_message.id,
@@ -462,7 +462,7 @@ RSpec.describe AttachmentsController, 'when handling prominence',
     end
 
     it 'downloads attachments for an admin user' do
-      session[:user_id] = FactoryBot.create(:admin_user).id
+      sign_in FactoryBot.create(:admin_user)
       get :show,
           params: {
             incoming_message_id: incoming_message.id,
@@ -480,7 +480,7 @@ RSpec.describe AttachmentsController, 'when handling prominence',
     end
 
     it 'should not generate an HTML version of an attachment for a request whose prominence is hidden even for an admin but should return a 404' do
-      session[:user_id] = FactoryBot.create(:admin_user).id
+      sign_in FactoryBot.create(:admin_user)
       expect do
         get :show_as_html,
             params: {
@@ -494,7 +494,7 @@ RSpec.describe AttachmentsController, 'when handling prominence',
     end
 
     it 'does not cache an attachment when showing an attachment to the requester or admin' do
-      session[:user_id] = info_request.user.id
+      sign_in info_request.user
       expect(@controller).not_to receive(:foi_fragment_cache_write)
       get :show,
           params: {
@@ -523,7 +523,7 @@ RSpec.describe AttachmentsController, 'when handling prominence',
     end
 
     it 'downloads attachments for the request owner' do
-      session[:user_id] = info_request.user.id
+      sign_in info_request.user
       get :show,
           params: {
             incoming_message_id: incoming_message.id,
@@ -541,7 +541,7 @@ RSpec.describe AttachmentsController, 'when handling prominence',
     end
 
     it 'downloads attachments for an admin user' do
-      session[:user_id] = FactoryBot.create(:admin_user).id
+      sign_in FactoryBot.create(:admin_user)
       get :show,
           params: {
             incoming_message_id: incoming_message.id,
@@ -559,7 +559,7 @@ RSpec.describe AttachmentsController, 'when handling prominence',
     end
 
     it 'should not generate an HTML version of an attachment for a request whose prominence is hidden even for an admin but should return a 404' do
-      session[:user_id] = FactoryBot.create(:admin_user).id
+      sign_in FactoryBot.create(:admin_user)
       expect do
         get :show_as_html,
             params: {

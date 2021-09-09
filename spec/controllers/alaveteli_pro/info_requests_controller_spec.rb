@@ -13,7 +13,7 @@ RSpec.describe AlaveteliPro::InfoRequestsController do
     end
 
     before do
-      session[:user_id] = info_request.user.id
+      sign_in info_request.user
     end
 
     it "exists" do
@@ -57,7 +57,7 @@ RSpec.describe AlaveteliPro::InfoRequestsController do
 
     context "when there are errors on the outgoing message" do
       it "removes duplicate errors from the info_request" do
-        session[:user_id] = pro_user.id
+        sign_in pro_user
         with_feature_enabled(:alaveteli_pro) do
           post :preview, params: { draft_id: draft }
           expect(assigns[:info_request].errors[:outgoing_messages]).to be_empty
@@ -74,7 +74,7 @@ RSpec.describe AlaveteliPro::InfoRequestsController do
       end
 
       it "renders a message to tell the user" do
-        session[:user_id] = pro_user.id
+        sign_in pro_user
         with_feature_enabled(:alaveteli_pro) do
           post :preview, params: { draft_id: draft }
           expect(response).to render_template('request/new_defunct.html.erb')
@@ -84,7 +84,7 @@ RSpec.describe AlaveteliPro::InfoRequestsController do
 
     context 'without draft' do
       it 'redirects to new info request action' do
-        session[:user_id] = pro_user.id
+        sign_in pro_user
         with_feature_enabled(:alaveteli_pro) do
           post :preview
           expect(response).to redirect_to(new_alaveteli_pro_info_request_url)
@@ -100,7 +100,7 @@ RSpec.describe AlaveteliPro::InfoRequestsController do
 
     context "when there are errors on the outgoing message" do
       it "removes duplicate errors from the info_request" do
-        session[:user_id] = pro_user.id
+        sign_in pro_user
         with_feature_enabled(:alaveteli_pro) do
           post :create, params: { draft_id: draft }
           expect(assigns[:info_request].errors[:outgoing_messages]).to be_empty
@@ -111,7 +111,7 @@ RSpec.describe AlaveteliPro::InfoRequestsController do
 
     context 'without draft' do
       it 'redirects to new info request action' do
-        session[:user_id] = pro_user.id
+        sign_in pro_user
         with_feature_enabled(:alaveteli_pro) do
           post :preview
           expect(response).to redirect_to(new_alaveteli_pro_info_request_url)
