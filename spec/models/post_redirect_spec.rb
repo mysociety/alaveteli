@@ -19,6 +19,30 @@ require 'spec_helper'
 
 RSpec.describe PostRedirect do
 
+  describe '.generate_verifiable_token' do
+    subject do
+      described_class.generate_verifiable_token(
+        user: user, circumstance: 'normal'
+      )
+    end
+
+    let(:user) { double(:user, id: 101, login_token: 'abc') }
+
+    it 'matches expected token' do
+      is_expected.to eq(
+        described_class.verifier.generate(
+          { user_id: user.id, login_token: user.login_token },
+          purpose: 'normal'
+        )
+      )
+    end
+  end
+
+  describe '.verifier' do
+    subject { described_class.verifier }
+    it { is_expected.to be_a(ActiveSupport::MessageVerifier) }
+  end
+
   describe '#valid?' do
 
     it 'is false if an invalid circumstance is provided' do
@@ -63,6 +87,28 @@ RSpec.describe PostRedirect, " when constructing" do
   it "should generate an email friendly email token" do
     pr = PostRedirect.new
     expect(pr.email_token).to match(/[a-z0-9]+/);
+  end
+
+  context 'when normal circumstance' do
+    it 'should call not .generate_verifiable_token' do
+      allow(PostRedirect).to receive(:generate_verifiable_token)
+      PostRedirect.new(circumstance: 'normal')
+      expect(PostRedirect).to_not receive(:generate_verifiable_token)
+    end
+  end
+
+  context 'when not normal circumstance' do
+    it 'should call .generate_verifiable_token' do
+      allow(PostRedirect).to receive(:generate_verifiable_token)
+
+      user = FactoryBot.build(:user, login_token: 'abc')
+      pr = PostRedirect.new(user: user, circumstance: 'change_password')
+
+      expect(PostRedirect).to receive(:generate_verifiable_token)
+      expect(pr.email_token).to eq described_class.generate_verifiable_token(
+        user: user, circumstance: 'change_password'
+      )
+    end
   end
 end
 

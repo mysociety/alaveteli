@@ -26,6 +26,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
+require 'digest'
 require 'openssl' # for random bytes function
 
 class PostRedirect < ApplicationRecord
@@ -39,6 +40,17 @@ class PostRedirect < ApplicationRecord
 
   after_initialize :generate_token
   after_initialize :generate_email_token
+
+  def self.verifier
+    Rails.application.message_verifier(to_s)
+  end
+
+  def self.generate_verifiable_token(user:, circumstance:)
+    verifier.generate(
+      { user_id: user.id, login_token: user.login_token },
+      purpose: circumstance
+    )
+  end
 
   # Makes a random token, suitable for using in URLs e.g confirmation
   # messages.
@@ -91,6 +103,12 @@ class PostRedirect < ApplicationRecord
   # There is a separate token to use in the URL if we send a confirmation
   # email.
   def generate_email_token
-    self.email_token = PostRedirect.generate_random_token unless email_token
+    if !user || circumstance == 'normal'
+      self.email_token ||= PostRedirect.generate_random_token
+    end
+
+    self.email_token ||= PostRedirect.generate_verifiable_token(
+      user: user, circumstance: circumstance
+    )
   end
 end
