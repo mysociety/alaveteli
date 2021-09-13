@@ -402,7 +402,8 @@ GEM
     websocket-extensions (0.1.5)
     will_paginate (3.3.1)
     xapian-full-alaveteli (1.4.18.1)
-    xml-simple (1.1.8)
+    xml-simple (1.1.9)
+      rexml
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.4.2)
@@ -496,5 +497,5 @@ DEPENDENCIES
   webmock (~> 3.14.0)
   will_paginate (~> 3.3.1)
   xapian-full-alaveteli (~> 1.4.18.1)
-  xml-simple (~> 1.1.8)
+  xml-simple (~> 1.1.9)
   zip_tricks (~> 5.6.0)
