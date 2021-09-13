@@ -1168,6 +1168,9 @@ Rails/RedundantForeignKey:
 Rails/RedundantReceiverInWithOptions:
   Enabled: false
 
+Rails/RedundantTravelBack:
+  Enabled: false
+
 Rails/ReflectionClassName:
   Enabled: false
 
