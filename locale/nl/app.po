@@ -389,7 +389,7 @@ msgid "A strange response, required attention by the {{site_name}} team"
 msgstr "Vreemd antwoord, vereiste aandacht van de {{site_name}} beheerders"
 
 msgid "A survey about your recent Freedom of Information request"
-msgstr ""
+msgstr "Vragenlijst over je recent ingediende wet openbaarheid van bestuur verzoek"
 
 msgid "A {{site_name}} user"
 msgstr "Een gebruiker van {{site_name}}"
@@ -1177,7 +1177,7 @@ msgstr[0] "{{count}} overheidsinstelling gevonden die overeenkomt met het label 
 msgstr[1] "{{count}} overheidsinstanties gevonden die overeenkomen met label/tag ‘{{tag_name}}’"
 
 msgid "Four weeks ago you made a Freedom of Information request to {{public_body_name}} using {{site_name}}."
-msgstr ""
+msgstr "Vier weken geleden heb je een Wob-verzoek ingediend bij {{public_body_name}} met behulp van {{site_name}}."
 
 msgid "Freedom of Information"
 msgstr "Openbaarheid van bestuur"
@@ -1403,7 +1403,7 @@ msgid "If you believe this request is not suitable, you can report it for attent
 msgstr "Als je denkt dat dit verzoek ongepast is, kan je dat melden bij de beheerders van de website via dit formulier."
 
 msgid "If you can spare a few minutes to complete our short survey, it will help us make the site better. Just follow the link below."
-msgstr ""
+msgstr "Als je een paar minuten tijd hebt om onze korte vragenlijst in te vullen, dan helpt je ons om de Wob-Knop te verbeteren. Volg de link hieronder."
 
 msgid "If you can't click on it in the email, you'll have to <strong>select and copy it</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place you would type the address of any other webpage."
 msgstr ""
@@ -3589,7 +3589,7 @@ msgid "We will not reveal your email addresses to anybody unless you or the law 
 msgstr "Wij zullen je e-mailadres niet aan derden doorgeven tenzij jij of de wet ons dat opdragen."
 
 msgid "We would like to know more about you, and your experience making a Freedom of Information request through the site."
-msgstr ""
+msgstr "We zouden meer willen weten over jou en je ervaring bij het indienen van wet openbaarheid van bestuur via de site."
 
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr "De site stuurt je een e-mail zodra er een reactie op je verzoek binnenkomt."

@@ -399,7 +399,7 @@ msgid "A strange response, required attention by the {{site_name}} team"
 msgstr "Zvláštní odpověď, vyžaduje pozornost {{site_name}} týmu"
 
 msgid "A survey about your recent Freedom of Information request"
-msgstr ""
+msgstr "Vaše zkušenost s Informace pro všechny - krátký dotazník"
 
 msgid "A {{site_name}} user"
 msgstr "Uživatel stránek {{site_name}} "
@@ -3598,7 +3598,7 @@ msgstr ""
 "ze zákonem daných důvodů požádáni."
 
 msgid "We would like to know more about you, and your experience making a Freedom of Information request through the site."
-msgstr ""
+msgstr "Rádi bychom se dozvěděli vice o vaší zkušenosti se vznášením dotazů podle Zákona o svobodném přístupu k informacím za pomoci stránek Informace pro všechny."
 
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr "Pošleme vám e-mail hned jak někdo bude reagovat na váš dotaz."

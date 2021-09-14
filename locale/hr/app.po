@@ -387,7 +387,7 @@ msgid "A strange response, required attention by the {{site_name}} team"
 msgstr "Neobičan odgovor, potreban je pregled od strane {{site_name}} tima"
 
 msgid "A survey about your recent Freedom of Information request"
-msgstr ""
+msgstr "Anketa o vašem nedavnom zahtjevu temeljem zakona o pravu na pristup informacijama"
 
 msgid "A {{site_name}} user"
 msgstr "Korisnik stranice {{site_name}}"
@@ -3491,7 +3491,7 @@ msgid "We will not reveal your email addresses to anybody unless you or the law 
 msgstr "Nećemo prikazati vašu e-mail adresu nikome, osim ako vi ili zakon to ne zahtijevate."
 
 msgid "We would like to know more about you, and your experience making a Freedom of Information request through the site."
-msgstr ""
+msgstr "Htjeli bismo znati kakva su vaša iskustva sa zakona o pravu na pristup informacijam aahtjevom upućenim putem platforme."
 
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr "Poslati ćemo vam e-mail čim stigne odgovor na vaš zahtjev."

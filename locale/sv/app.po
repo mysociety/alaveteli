@@ -385,7 +385,7 @@ msgid "A strange response, required attention by the {{site_name}} team"
 msgstr "Ett konstigt svar, som behöver granskas av {{site_name}}s team"
 
 msgid "A survey about your recent Freedom of Information request"
-msgstr ""
+msgstr "En enkät om din senaste offentlighetsprincipen begäran"
 
 msgid "A {{site_name}} user"
 msgstr "En {{site_name}}-användare"
@@ -3483,7 +3483,7 @@ msgid "We will not reveal your email addresses to anybody unless you or the law 
 msgstr "Vi kommer inte att avslöja dina e-postadresser till någon såvida inte du eller lagen säger till oss."
 
 msgid "We would like to know more about you, and your experience making a Freedom of Information request through the site."
-msgstr ""
+msgstr "Vi skulle vilja veta mer om dig och dina erfarenheter att göra en begäran enligt offentlighetsprincipen via plattformen."
 
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr "Vi skickar dig ett e-postmeddelande när din begäran får ett svar."
