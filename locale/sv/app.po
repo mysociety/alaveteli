@@ -46,7 +46,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-20 14:09+0100\n"
+"POT-Creation-Date: 2021-09-14 11:17+0100\n"
 "PO-Revision-Date: 2021-09-13 15:24+0000\n"
 "Last-Translator: Mattias Axell <mattias@libertador.es>\n"
 "Language-Team: Swedish (http://www.transifex.com/mysociety/alaveteli/language/"
@@ -4408,6 +4408,9 @@ msgstr[1] "{{site_name}} täcker förfrågningar till {{number_of_authorities}} 
 
 msgid "{{site_name}} has identified {{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
 msgstr "{{site_name}} har identifierat att {{authority_name}} kan ha avslagit alla eller delar av din begäran under <strong>{{refusals}}</strong>."
+
+msgid "{{site_name}} login link"
+msgstr ""
 
 msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."
 msgstr "{{site_name}} skickar nya förfrågningar till <strong>{{request_email}}</strong> för denna myndighet."
