@@ -39,7 +39,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-14 12:35+0100\n"
+"POT-Creation-Date: 2021-09-14 12:40+0100\n"
 "PO-Revision-Date: 2021-07-20 13:36+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/mysociety/alaveteli/languag"
@@ -3808,9 +3808,6 @@ msgstr[1] ""
 msgid "You can't update your profile text at this time."
 msgstr "Ви не можете оновити текст у своєму профілі зараз."
 
-msgid "You have a new response to the {{law_used_full}} request"
-msgstr "Ви отримали нову відповідь на запит"
-
 msgid "You have a new response to the {{law_used_full}} request '{{request_title}}' that you made to {{public_body_name}}."
 msgstr "Ви отримали нову відповідь на свій запит '{{request_title}}' до розпорядника {{public_body_name}}."
 
@@ -4294,9 +4291,6 @@ msgstr ""
 
 msgid "successful requests"
 msgstr "успішні запити"
-
-msgid "that you made to"
-msgstr "зроблений вам до такого розпорядника інформації:"
 
 msgid "the main FOI contact address for {{public_body}}"
 msgstr "основна адреса для інформаційних запитів до розпорядника '{{public_body}}'"

@@ -35,7 +35,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-14 12:35+0100\n"
+"POT-Creation-Date: 2021-09-14 12:40+0100\n"
 "PO-Revision-Date: 2021-08-03 09:58+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Greek (http://www.transifex.com/mysociety/alaveteli/language/el"
@@ -3699,9 +3699,6 @@ msgstr[1] "Μπορείτε να δείτε τις απαντήσεις μέσω
 msgid "You can't update your profile text at this time."
 msgstr "Δεν μπορείτε να επικαιροποιήσετε την φωτογραφία προφίλ σας αυτή την στιγμή."
 
-msgid "You have a new response to the {{law_used_full}} request"
-msgstr "Έχετε μία νέα απάντηση στο {{law_used_full}} αίτημα σας "
-
 msgid "You have a new response to the {{law_used_full}} request '{{request_title}}' that you made to {{public_body_name}}."
 msgstr "Έχετε μία νέα απάντηση στο {{law_used_full}} αίτημα {{request_title}}' που απευθύνατε προς  {{public_body_name}}."
 
@@ -4162,9 +4159,6 @@ msgstr "simple_date_format"
 
 msgid "successful requests"
 msgstr "επιτυχημένα αιτήματα"
-
-msgid "that you made to"
-msgstr "που κάνατε στο"
 
 msgid "the main FOI contact address for {{public_body}}"
 msgstr "Η βασική διεύθυνση επαφής για Αιτήματα Κατάθεσης Εγγράφων και Πρόσβαση στη Δημόσια Πληροφορία για το {{public_body}}"

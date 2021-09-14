@@ -36,7 +36,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-14 12:35+0100\n"
+"POT-Creation-Date: 2021-09-14 12:40+0100\n"
 "PO-Revision-Date: 2021-07-20 13:36+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Dutch (Belgium) (http://www.transifex.com/mysociety/alaveteli/l"
@@ -3816,9 +3816,6 @@ msgstr[1] "U kan de antwoorden zien, door op de links hier onder te klikken :"
 msgid "You can't update your profile text at this time."
 msgstr "U kan uw profieltekst op dit moment niet vernieuwen."
 
-msgid "You have a new response to the {{law_used_full}} request"
-msgstr "U kreeg een antwoord op uw vraag in het kader van {{law_used_full}}"
-
 msgid "You have a new response to the {{law_used_full}} request '{{request_title}}' that you made to {{public_body_name}}."
 msgstr "U kreeg een nieuw antwoord op uw aanvraag '{{request_title}}' m.b.t. {{law_used_full}}  die u stelde aan {{public_body_name}}."
 
@@ -4285,9 +4282,6 @@ msgstr "simple_date_format"
 
 msgid "successful requests"
 msgstr "Vragen die succesvol afgehandeld zijn"
-
-msgid "that you made to"
-msgstr "Welke u deed aan"
 
 msgid "the main FOI contact address for {{public_body}}"
 msgstr "Het belangrijkste adres voor een WOB-informatieaanvraag bij {{public_body}}"

@@ -55,7 +55,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-14 12:35+0100\n"
+"POT-Creation-Date: 2021-09-14 12:40+0100\n"
 "PO-Revision-Date: 2021-08-03 09:58+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Croatian (http://www.transifex.com/mysociety/alaveteli/language"
@@ -3730,9 +3730,6 @@ msgstr[2] "Možete vidjeti odgovore putem sljedećih poveznica:"
 msgid "You can't update your profile text at this time."
 msgstr "Trenutačno ne možete ažurirati tekst svog profila."
 
-msgid "You have a new response to the {{law_used_full}} request"
-msgstr "Imate novi odgovor na {{law_used_full}} zahtjev"
-
 msgid "You have a new response to the {{law_used_full}} request '{{request_title}}' that you made to {{public_body_name}}."
 msgstr "Imate novi odgovor na {{law_used_full}} zahtjev '{{request_title}}' koji ste podnijeli prema {{public_body_name}}."
 
@@ -4197,9 +4194,6 @@ msgstr "simple_date_format"
 
 msgid "successful requests"
 msgstr "uspješni zahtjevi"
-
-msgid "that you made to"
-msgstr "koji ste napravili za"
 
 msgid "the main FOI contact address for {{public_body}}"
 msgstr "adresa službenika za informiranje u {{public_body}}"

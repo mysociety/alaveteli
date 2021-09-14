@@ -46,7 +46,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-14 12:35+0100\n"
+"POT-Creation-Date: 2021-09-14 12:40+0100\n"
 "PO-Revision-Date: 2021-09-13 15:24+0000\n"
 "Last-Translator: Mattias Axell <mattias@libertador.es>\n"
 "Language-Team: Swedish (http://www.transifex.com/mysociety/alaveteli/language/"
@@ -3717,9 +3717,6 @@ msgstr[1] "Du kan se svaren med de följande länkarna:"
 msgid "You can't update your profile text at this time."
 msgstr "Du kan inte uppdatera din profiltext just nu."
 
-msgid "You have a new response to the {{law_used_full}} request"
-msgstr "Du har ett nytt svar till begäran enligt {{law_used_full}}"
-
 msgid "You have a new response to the {{law_used_full}} request '{{request_title}}' that you made to {{public_body_name}}."
 msgstr "Du har ett nytt svar till begäran '{{request_title}}' enligt {{law_used_full}}  som du gjorde till {{public_body_name}}."
 
@@ -4180,9 +4177,6 @@ msgstr "simple_date_format"
 
 msgid "successful requests"
 msgstr "framgångsrika förfrågningar"
-
-msgid "that you made to"
-msgstr "som du gjorde till"
 
 msgid "the main FOI contact address for {{public_body}}"
 msgstr "registrator vid {{public_body}}"
