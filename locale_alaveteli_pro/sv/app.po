@@ -206,7 +206,7 @@ msgid "An all-in-one FOI toolkit for journalists, activists and campaigners"
 msgstr "Allt du behöver för att jobba med information från myndigheter. Oavsett om du är journalist, företagare, aktivist, forskare eller annan professionell användare."
 
 msgid "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
-msgstr "Anteckningar tillåter dig att lägga till extra anteckningar på en begäran, vilka eventuellt kommer offentliggöras. Till exempel:"
+msgstr "Anteckningar tillåter dig att lägga till extra anteckningar på en begäran, vilka eventuellt kommer offentliggöras. Kommentarer omfattas inte av vårt utgivningsbevis. Du ansvarar själv för dina anteckningar. Till exempel:"
 
 msgid "Are you interested in free training, seminars and workshops about {{pro_site_name}}?"
 msgstr "Är du intresserad av utbildning, seminarier och workshops om {{pro_site_name}}?"
@@ -632,7 +632,7 @@ msgid "Note: When this request is made public on {{site_name}}, this message wil
 msgstr "Obs! När den här förfrågan publiceras på {{site_name}}, kommer även detta meddelande att publiceras."
 
 msgid "Note: When this request is made public on {{site_name}}, your name and annotation will appear in <strong>search engines</strong>."
-msgstr "Observera: När denna begäran är gjord offentlig på {{site_name}} kommer ditt namn och anteckningar att dyka upp i <strong>sökmotorer</strong>."
+msgstr "Observera: När denna begäran är gjord offentlig på {{site_name}} kommer ditt namn och anteckningar att dyka upp i <strong>sökmotorer</strong>. Kommentarer omfattas inte av vårt utgivningsbevis. Du ansvarar själv för dina anteckningar."
 
 msgid "Number of Pro accounts active this week:"
 msgstr "Antal Pro-konton aktiva den här veckan:"
