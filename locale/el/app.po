@@ -35,7 +35,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-14 11:17+0100\n"
+"POT-Creation-Date: 2021-09-14 12:35+0100\n"
 "PO-Revision-Date: 2021-08-03 09:58+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Greek (http://www.transifex.com/mysociety/alaveteli/language/el"
@@ -365,7 +365,7 @@ msgstr "Μια απάντηση θα αποσταλεί <strong>ταχυδρομ
 msgid "A strange response, required attention by the {{site_name}} team"
 msgstr "Μια παράξενη απάντηση, απαιτείται η προσοχή της ομάδας του {{site_name}}"
 
-msgid "A survey about your recent {{law_used_full}} request ({{site_name}})"
+msgid "A survey about your recent Freedom of Information request"
 msgstr ""
 
 msgid "A {{site_name}} user"
@@ -3464,8 +3464,8 @@ msgstr "Δεν θα αποκαλύψουμε τη διεύθυνση ηλεκτ�
 msgid "We will not reveal your email addresses to anybody unless you or the law tell us to."
 msgstr "Δεν θα αποκαλύψουμε τις διευθύνσεις των ηλεκτρονικών ταχυδρομείων σας σε κανέναν, εκτός αν εσείς ή ο νόμος μας το υποδείξει."
 
-msgid "We would like to know more about you, and your experience making an {{law_used_full}} request through the site."
-msgstr "Θα θέλαμε να μάθουμε περισσότερα για εσάς αλλά και για την εμπειρία σας από την υποβολή του {{law_used_full}} αιτήματος σας μέσω της πλατφόρμας μας."
+msgid "We would like to know more about you, and your experience making a Freedom of Information request through the site."
+msgstr ""
 
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr "Θα σας στείλουμε email όταν το αίτημά σας λάβει απάντηση."
