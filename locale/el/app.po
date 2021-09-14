@@ -24,6 +24,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Andreas Nedelkos <vandreas2004@yahoo.gr>, 2017
 # Graeme Porteous <graeme@mysociety.org>, 2021
 # Maria Nathanail <marianathanail@gmail.com>, 2021
@@ -36,7 +37,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-09-14 12:40+0100\n"
-"PO-Revision-Date: 2021-08-03 09:58+0000\n"
+"PO-Revision-Date: 2021-09-14 16:15+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Greek (http://www.transifex.com/mysociety/alaveteli/language/el"
 "/)\n"
@@ -3465,7 +3466,7 @@ msgid "We will not reveal your email addresses to anybody unless you or the law 
 msgstr "Δεν θα αποκαλύψουμε τις διευθύνσεις των ηλεκτρονικών ταχυδρομείων σας σε κανέναν, εκτός αν εσείς ή ο νόμος μας το υποδείξει."
 
 msgid "We would like to know more about you, and your experience making a Freedom of Information request through the site."
-msgstr "Θα θέλαμε να μάθουμε περισσότερα για εσάς αλλά και για την εμπειρία σας από την υποβολή του Αίτημα Κατάθεσης Εγγράφων αιτήματος σας μέσω της πλατφόρμας μας."
+msgstr ""
 
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr "Θα σας στείλουμε email όταν το αίτημά σας λάβει απάντηση."
@@ -3700,7 +3701,7 @@ msgid "You can't update your profile text at this time."
 msgstr "Δεν μπορείτε να επικαιροποιήσετε την φωτογραφία προφίλ σας αυτή την στιγμή."
 
 msgid "You have a new response to the {{law_used_full}} request '{{request_title}}' that you made to {{public_body_name}}."
-msgstr "Έχετε μία νέα απάντηση στο {{law_used_full}} αίτημα {{request_title}}' που απευθύνατε προς  {{public_body_name}}."
+msgstr "Έχετε μία νέα απάντηση στο {{law_used_full}} {{request_title}}' που απευθύνατε προς  {{public_body_name}}."
 
 msgid "You have found a bug.  Please <a href=\"{{contact_url}}\">contact us</a> to tell us about the problem"
 msgstr "Βρήκατε ένα σφάλμα. Παρακαλούμε <a href=\"{{contact_url}}\">επικοινωνήστε μαζί μας </a>για να μας πείτε το πρόβλημα. "

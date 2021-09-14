@@ -24,6 +24,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # ae792aa766bbca91f3f4821acaa19518_a48216f <924a924c26027fc002ca6fada3386ff5_247255>, 2015
 # Bojan Opacak <bojan@rationalinternational.net>, 2013
 # Bojan Opacak <bojan@rationalinternational.net>, 2013
@@ -56,7 +57,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-09-14 12:40+0100\n"
-"PO-Revision-Date: 2021-08-03 09:58+0000\n"
+"PO-Revision-Date: 2021-09-14 16:15+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Croatian (http://www.transifex.com/mysociety/alaveteli/language"
 "/hr/)\n"
@@ -3491,7 +3492,7 @@ msgid "We will not reveal your email addresses to anybody unless you or the law 
 msgstr "Nećemo prikazati vašu e-mail adresu nikome, osim ako vi ili zakon to ne zahtijevate."
 
 msgid "We would like to know more about you, and your experience making a Freedom of Information request through the site."
-msgstr "Htjeli bismo znati kakva su vaša iskustva sa zakona o pravu na pristup informacijam aahtjevom upućenim putem platforme."
+msgstr ""
 
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr "Poslati ćemo vam e-mail čim stigne odgovor na vaš zahtjev."

@@ -24,6 +24,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Ferents <ferencbaki89@gmail.com>, 2013
 # Ferents <ferencbaki89@gmail.com>, 2013
 # Gareth Rees <gareth@mysociety.org>, 2017
@@ -40,7 +41,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-09-14 12:40+0100\n"
-"PO-Revision-Date: 2021-07-20 13:36+0000\n"
+"PO-Revision-Date: 2021-09-14 16:15+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/mysociety/alaveteli/languag"
 "e/uk/)\n"

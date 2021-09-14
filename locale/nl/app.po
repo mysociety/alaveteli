@@ -24,6 +24,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Edwin Bosveld <edwin@inwy.nl>, 2013,2016
 # Gareth Rees <gareth@mysociety.org>, 2020
 # Graeme Porteous <graeme@mysociety.org>, 2019
@@ -35,7 +36,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-09-14 12:40+0100\n"
-"PO-Revision-Date: 2021-07-20 13:37+0000\n"
+"PO-Revision-Date: 2021-09-14 16:15+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Dutch (http://www.transifex.com/mysociety/alaveteli/language/nl"
 "/)\n"
@@ -3589,7 +3590,7 @@ msgid "We will not reveal your email addresses to anybody unless you or the law 
 msgstr "Wij zullen je e-mailadres niet aan derden doorgeven tenzij jij of de wet ons dat opdragen."
 
 msgid "We would like to know more about you, and your experience making a Freedom of Information request through the site."
-msgstr "We zouden meer willen weten over jou en je ervaring bij het indienen van wet openbaarheid van bestuur via de site."
+msgstr ""
 
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr "De site stuurt je een e-mail zodra er een reactie op je verzoek binnenkomt."

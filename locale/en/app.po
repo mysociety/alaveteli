@@ -23,12 +23,14 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-09-14 12:40+0100\n"
-"PO-Revision-Date: 2020-07-16 16:12+0000\n"
+"PO-Revision-Date: 2021-09-14 16:15+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: English (http://www.transifex.com/mysociety/alaveteli/language/"
 "en/)\n"
@@ -108,7 +110,7 @@ msgid " when you send this message."
 msgstr " when you send this message."
 
 msgid "&#8592; Previous"
-msgstr ""
+msgstr "&#8592; Previous"
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Crime statistics by ward level for Wales'"
@@ -262,7 +264,7 @@ msgid "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
 msgstr "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
 
 msgid "<strong>Automatic anti-spam measures are in place</strong> for this older request. Please <a href=\"{{url}}\">let us know</a> if a further response is expected or if you are having trouble responding."
-msgstr ""
+msgstr "<strong>Automatic anti-spam measures are in place</strong> for this older request. Please <a href=\"{{url}}\">let us know</a> if a further response is expected or if you are having trouble responding."
 
 msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</a>)."
 msgstr "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</a>)."
@@ -274,7 +276,7 @@ msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, yo
 msgstr "<strong>Caveat emptor!</strong> To use this data in an honourable way, you will need a good internal knowledge of user behaviour on {{site_name}}. How, why and by whom requests are categorised is not straightforward, and there will be user error and ambiguity. You will also need to understand FOI law, and the way authorities use it. Plus you'll need to be an elite statistician.  Please <a href=\"{{contact_path}}\">contact us</a> with questions."
 
 msgid "<strong>Challenging a refusal?</strong> Here are some snippets that may help:"
-msgstr ""
+msgstr "<strong>Challenging a refusal?</strong> Here are some snippets that may help:"
 
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong>Clarification</strong> has been requested"
@@ -358,7 +360,7 @@ msgid "A strange response, required attention by the {{site_name}} team"
 msgstr "A strange response, required attention by the {{site_name}} team"
 
 msgid "A survey about your recent Freedom of Information request"
-msgstr ""
+msgstr "A survey about your recent Freedom of Information request"
 
 msgid "A {{site_name}} user"
 msgstr "A {{site_name}} user"
@@ -520,7 +522,7 @@ msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Are you the owner of any commercial copyright on this page?"
 
 msgid "Article"
-msgstr ""
+msgstr "Article"
 
 msgid "Ask EU Authorities"
 msgstr "Ask EU Authorities"
@@ -712,7 +714,7 @@ msgid "Close"
 msgstr "Close"
 
 msgid "Close preview"
-msgstr ""
+msgstr "Close preview"
 
 msgid "Close the request and respond:"
 msgstr "Close the request and respond:"
@@ -784,10 +786,10 @@ msgid "Cookies not enabled"
 msgstr "Cookies not enabled"
 
 msgid "Copied!"
-msgstr ""
+msgstr "Copied!"
 
 msgid "Copy"
-msgstr ""
+msgstr "Copy"
 
 msgid "Could not identify the request from the email address"
 msgstr "Could not identify the request from the email address"
@@ -1122,7 +1124,7 @@ msgstr[0] "Found {{count}} public authority matching the tag ‘{{tag_name}}’"
 msgstr[1] "Found {{count}} public authorities matching the tag ‘{{tag_name}}’"
 
 msgid "Four weeks ago you made a Freedom of Information request to {{public_body_name}} using {{site_name}}."
-msgstr ""
+msgstr "Four weeks ago you made a Freedom of Information request to {{public_body_name}} using {{site_name}}."
 
 msgid "Freedom of Information"
 msgstr "Freedom of Information"
@@ -1167,13 +1169,13 @@ msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 
 msgid "Get help to challenge it."
-msgstr ""
+msgstr "Get help to challenge it."
 
 msgid "Getting long – remember to keep it focussed"
 msgstr "Getting long – remember to keep it focussed"
 
 msgid "Go back to refusal advice questions"
-msgstr ""
+msgstr "Go back to refusal advice questions"
 
 msgid "Got a {{site_name}} account?"
 msgstr "Got a {{site_name}} account?"
@@ -1188,10 +1190,10 @@ msgid "Handled by postal mail."
 msgstr "Handled by postal mail."
 
 msgid "Has this request been referenced in a news article or academic paper?"
-msgstr ""
+msgstr "Has this request been referenced in a news article or academic paper?"
 
 msgid "Has this request been referenced in a news article or academic paper? Let us know:"
-msgstr ""
+msgstr "Has this request been referenced in a news article or academic paper? Let us know:"
 
 msgid "Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}"
 msgstr "Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}"
@@ -1221,7 +1223,7 @@ msgid "Here <strong>described</strong> means when a user selected a status for t
 msgstr "Here <strong>described</strong> means when a user selected a status for the request, and the most recent event had its status updated to that value. <strong>calculated</strong> is then inferred by {{site_name}} for intermediate events, which weren't given an explicit description by a user. See the <a href=\"{{search_path}}\">search tips</a> for description of the states."
 
 msgid "Here are some snippets that may help you <strong>challenge a refusal</strong>:"
-msgstr ""
+msgstr "Here are some snippets that may help you <strong>challenge a refusal</strong>:"
 
 msgid "Here is the message you wrote, in case you would like to copy the text and save it for later."
 msgstr "Here is the message you wrote, in case you would like to copy the text and save it for later."
@@ -1335,7 +1337,7 @@ msgid "If you believe this request is not suitable, you can report it for attent
 msgstr "If you believe this request is not suitable, you can report it for attention by the site administrators using this form"
 
 msgid "If you can spare a few minutes to complete our short survey, it will help us make the site better. Just follow the link below."
-msgstr ""
+msgstr "If you can spare a few minutes to complete our short survey, it will help us make the site better. Just follow the link below."
 
 msgid "If you can't click on it in the email, you'll have to <strong>select and copy it</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place you would type the address of any other webpage."
 msgstr "If you can't click on it in the email, you'll have to <strong>select and copy it</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place you would type the address of any other webpage."
@@ -1371,7 +1373,7 @@ msgid "If you would like to contest the authority's claim that they do not hold 
 msgstr "If you would like to contest the authority's claim that they do not hold the information, here is <a href=\"{{complain_url}}\">how to complain</a>."
 
 msgid "If you would like us to lift this ban, then you may politely <a href=\"/help/contact\">contact us</a> giving reasons."
-msgstr ""
+msgstr "If you would like us to lift this ban, then you may politely <a href=\"/help/contact\">contact us</a> giving reasons."
 
 msgid "If you write about these requests (for example in a forum or a blog) please link to this page."
 msgstr "If you write about these requests (for example in a forum or a blog) please link to this page."
@@ -1425,7 +1427,7 @@ msgid "Internal review request sent to {{public_body_name}} by {{info_request_us
 msgstr "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 
 msgid "Invalid form submission"
-msgstr ""
+msgstr "Invalid form submission"
 
 msgid "Invalid one time password"
 msgstr "Invalid one time password"
@@ -1497,7 +1499,7 @@ msgid "Let us know"
 msgstr "Let us know"
 
 msgid "Let us know and we’ll help you challenge it."
-msgstr ""
+msgstr "Let us know and we’ll help you challenge it."
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
 msgstr "Let us know what you were doing when this message appeared and your browser and operating system type and version."
@@ -1650,10 +1652,10 @@ msgid "Next"
 msgstr "Next"
 
 msgid "Next &#8594;"
-msgstr ""
+msgstr "Next &#8594;"
 
 msgid "Next Step: Preview your public request"
-msgstr ""
+msgstr "Next Step: Preview your public request"
 
 msgid "Next message"
 msgstr "Next message"
@@ -1779,10 +1781,10 @@ msgid "Other:"
 msgstr "Other:"
 
 msgid "Page {{page}}"
-msgstr ""
+msgstr "Page {{page}}"
 
 msgid "Pagination"
-msgstr ""
+msgstr "Pagination"
 
 msgid "Partial success"
 msgstr "Partial success"
@@ -2015,7 +2017,7 @@ msgid "Post annotation"
 msgstr "Post annotation"
 
 msgid "Posted on {{date}}"
-msgstr ""
+msgstr "Posted on {{date}}"
 
 msgid "Posted on {{date}} by {{author}}"
 msgstr "Posted on {{date}} by {{author}}"
@@ -2126,7 +2128,7 @@ msgid "Read blog"
 msgstr "Read blog"
 
 msgid "Read more"
-msgstr ""
+msgstr "Read more"
 
 msgid "Read through authority responses and choose if their answer satisfies the intention of the original request, flag any problems and show the project owner if they need to intervene to keep the project movng forward."
 msgstr "Read through authority responses and choose if their answer satisfies the intention of the original request, flag any problems and show the project owner if they need to intervene to keep the project movng forward."
@@ -2153,7 +2155,7 @@ msgid "Regenerate one time passcode"
 msgstr "Regenerate one time passcode"
 
 msgid "Regulation"
-msgstr ""
+msgstr "Regulation"
 
 msgid "Rejected"
 msgstr "Rejected"
@@ -2342,7 +2344,7 @@ msgid "Search your contributions"
 msgstr "Search your contributions"
 
 msgid "Section"
-msgstr ""
+msgstr "Section"
 
 msgid "Send a followup"
 msgstr "Send a followup"
@@ -2407,10 +2409,10 @@ msgid "Show fewer attachments"
 msgstr "Show fewer attachments"
 
 msgid "Show less"
-msgstr ""
+msgstr "Show less"
 
 msgid "Show more"
-msgstr ""
+msgstr "Show more"
 
 msgid "Show most relevant results first"
 msgstr "Show most relevant results first"
@@ -2452,7 +2454,7 @@ msgid "Skipped!"
 msgstr "Skipped!"
 
 msgid "Snippets related to"
-msgstr ""
+msgstr "Snippets related to"
 
 msgid "Some notes have been added to your FOI request - {{request_title}}"
 msgstr "Some notes have been added to your FOI request - {{request_title}}"
@@ -2896,7 +2898,7 @@ msgid "There are {{count}} new annotations on your {{law_used_short}} request. F
 msgstr "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
 
 msgid "There is <strong>more than one person</strong> who uses this site and has this name. Search for other users named \"{{search_user_link}}\""
-msgstr ""
+msgstr "There is <strong>more than one person</strong> who uses this site and has this name. Search for other users named \"{{search_user_link}}\""
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
@@ -3422,7 +3424,7 @@ msgid "We couldn’t load the mail server logs for this message."
 msgstr "We couldn’t load the mail server logs for this message."
 
 msgid "We do not allow requests for information via {{site_name}} about your personal circumstances. We have therefore hidden your request from other users."
-msgstr ""
+msgstr "We do not allow requests for information via {{site_name}} about your personal circumstances. We have therefore hidden your request from other users."
 
 msgid "We do not have a working request email address for this authority."
 msgstr "We do not have a working request email address for this authority."
@@ -3452,7 +3454,7 @@ msgid "We will not reveal your email addresses to anybody unless you or the law 
 msgstr "We will not reveal your email addresses to anybody unless you or the law tell us to."
 
 msgid "We would like to know more about you, and your experience making a Freedom of Information request through the site."
-msgstr ""
+msgstr "We would like to know more about you, and your experience making a Freedom of Information request through the site."
 
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr "We'll drop you an email as soon as your request gets a response."
@@ -4007,7 +4009,7 @@ msgid "and we'll suggest <strong>what to do next</strong>"
 msgstr "and we'll suggest <strong>what to do next</strong>"
 
 msgid "any section"
-msgstr ""
+msgstr "any section"
 
 msgid "anything matching text '{{query}}'"
 msgstr "anything matching text '{{query}}'"
@@ -4370,10 +4372,10 @@ msgstr[0] "{{site_name}} covers requests to {{number_of_authorities}} authority,
 msgstr[1] "{{site_name}} covers requests to {{number_of_authorities}} authorities, including:"
 
 msgid "{{site_name}} has identified {{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
-msgstr ""
+msgstr "{{site_name}} has identified {{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
 
 msgid "{{site_name}} login link"
-msgstr ""
+msgstr "{{site_name}} login link"
 
 msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."
 msgstr "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."

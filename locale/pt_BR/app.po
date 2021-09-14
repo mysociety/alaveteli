@@ -24,6 +24,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # elaste <3laste2000@gmail.com>, 2012
 # serramassuda <a.serramassuda@gmail.com>, 2012
 # Bruno <bgx@bol.com.br>, 2012
@@ -70,7 +71,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-09-14 12:40+0100\n"
-"PO-Revision-Date: 2021-07-20 13:36+0000\n"
+"PO-Revision-Date: 2021-09-14 16:15+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/mysociety/alavete"
 "li/language/pt_BR/)\n"
