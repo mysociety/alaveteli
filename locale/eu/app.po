@@ -24,6 +24,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # David Cabo <david.cabo@gmail.com>, 2012
 # sroberto <ertoba@yahoo.es>, 2012
 # Liz Conlan <liz@mysociety.org>, 2018
@@ -34,8 +35,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-20 14:09+0100\n"
-"PO-Revision-Date: 2021-07-20 13:37+0000\n"
+"POT-Creation-Date: 2021-09-14 12:40+0100\n"
+"PO-Revision-Date: 2021-09-14 16:15+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Basque (http://www.transifex.com/mysociety/alaveteli/language/e"
 "u/)\n"
@@ -376,7 +377,7 @@ msgstr ""
 msgid "A strange response, required attention by the {{site_name}} team"
 msgstr ""
 
-msgid "A survey about your recent {{law_used_full}} request ({{site_name}})"
+msgid "A survey about your recent Freedom of Information request"
 msgstr ""
 
 msgid "A {{site_name}} user"
@@ -3505,7 +3506,7 @@ msgstr "Ez diogu inori emango zure posta helbidea, zeuk esan edo legeak behartze
 msgid "We will not reveal your email addresses to anybody unless you or the law tell us to."
 msgstr "Ez diogu inori emango zure posta helbidea, zeuk esan edo legeak behartzen bagaitu izan ezik."
 
-msgid "We would like to know more about you, and your experience making an {{law_used_full}} request through the site."
+msgid "We would like to know more about you, and your experience making a Freedom of Information request through the site."
 msgstr ""
 
 msgid "We'll drop you an email as soon as your request gets a response."
@@ -3738,9 +3739,6 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "You can't update your profile text at this time."
-msgstr ""
-
-msgid "You have a new response to the {{law_used_full}} request"
 msgstr ""
 
 msgid "You have a new response to the {{law_used_full}} request '{{request_title}}' that you made to {{public_body_name}}."
@@ -4212,9 +4210,6 @@ msgstr ""
 msgid "successful requests"
 msgstr "eskabide arrakastatsuak"
 
-msgid "that you made to"
-msgstr "_____-ri egin diozuna."
-
 msgid "the main FOI contact address for {{public_body}}"
 msgstr "{{public_body}}-ren harremanetarako helbidea"
 
@@ -4440,6 +4435,9 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "{{site_name}} has identified {{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
+msgstr ""
+
+msgid "{{site_name}} login link"
 msgstr ""
 
 msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."

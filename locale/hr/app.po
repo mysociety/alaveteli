@@ -24,6 +24,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # ae792aa766bbca91f3f4821acaa19518_a48216f <924a924c26027fc002ca6fada3386ff5_247255>, 2015
 # Bojan Opacak <bojan@rationalinternational.net>, 2013
 # Bojan Opacak <bojan@rationalinternational.net>, 2013
@@ -55,8 +56,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-20 14:09+0100\n"
-"PO-Revision-Date: 2021-08-03 09:58+0000\n"
+"POT-Creation-Date: 2021-09-14 12:40+0100\n"
+"PO-Revision-Date: 2021-09-14 16:15+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Croatian (http://www.transifex.com/mysociety/alaveteli/language"
 "/hr/)\n"
@@ -386,8 +387,8 @@ msgstr "Odgovor će biti poslan <strong>poštom</strong>"
 msgid "A strange response, required attention by the {{site_name}} team"
 msgstr "Neobičan odgovor, potreban je pregled od strane {{site_name}} tima"
 
-msgid "A survey about your recent {{law_used_full}} request ({{site_name}})"
-msgstr ""
+msgid "A survey about your recent Freedom of Information request"
+msgstr "Anketa o vašem nedavnom zahtjevu temeljem zakona o pravu na pristup informacijama"
 
 msgid "A {{site_name}} user"
 msgstr "Korisnik stranice {{site_name}}"
@@ -3490,8 +3491,8 @@ msgstr "Nećemo prikazati vašu adresu e-pošte nikome, osim ako vi ili zakon to
 msgid "We will not reveal your email addresses to anybody unless you or the law tell us to."
 msgstr "Nećemo prikazati vašu e-mail adresu nikome, osim ako vi ili zakon to ne zahtijevate."
 
-msgid "We would like to know more about you, and your experience making an {{law_used_full}} request through the site."
-msgstr "Htjeli bismo znati kakva su vaša iskustva sa {{law_used_full}} zahtjevom upućenim putem platforme."
+msgid "We would like to know more about you, and your experience making a Freedom of Information request through the site."
+msgstr ""
 
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr "Poslati ćemo vam e-mail čim stigne odgovor na vaš zahtjev."
@@ -3729,9 +3730,6 @@ msgstr[2] "Možete vidjeti odgovore putem sljedećih poveznica:"
 
 msgid "You can't update your profile text at this time."
 msgstr "Trenutačno ne možete ažurirati tekst svog profila."
-
-msgid "You have a new response to the {{law_used_full}} request"
-msgstr "Imate novi odgovor na {{law_used_full}} zahtjev"
 
 msgid "You have a new response to the {{law_used_full}} request '{{request_title}}' that you made to {{public_body_name}}."
 msgstr "Imate novi odgovor na {{law_used_full}} zahtjev '{{request_title}}' koji ste podnijeli prema {{public_body_name}}."
@@ -4198,9 +4196,6 @@ msgstr "simple_date_format"
 msgid "successful requests"
 msgstr "uspješni zahtjevi"
 
-msgid "that you made to"
-msgstr "koji ste napravili za"
-
 msgid "the main FOI contact address for {{public_body}}"
 msgstr "adresa službenika za informiranje u {{public_body}}"
 
@@ -4440,6 +4435,9 @@ msgstr[1] "{{site_name}} obuhvaća zahtjeve prema {{number_of_authorities}} tije
 msgstr[2] "{{site_name}} obuhvaća zahtjeve prema {{number_of_authorities}} tijela javne vlasti, uključujući:"
 
 msgid "{{site_name}} has identified {{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
+msgstr ""
+
+msgid "{{site_name}} login link"
 msgstr ""
 
 msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."

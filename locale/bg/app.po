@@ -24,6 +24,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Anton Stoychev <antitoxic@gmail.com>, 2013
 # Anton Stoychev <antitoxic@gmail.com>, 2013
 # Liz Conlan <liz@mysociety.org>, 2018
@@ -34,8 +35,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-20 14:09+0100\n"
-"PO-Revision-Date: 2021-07-20 13:37+0000\n"
+"POT-Creation-Date: 2021-09-14 12:40+0100\n"
+"PO-Revision-Date: 2021-09-14 16:15+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/mysociety/alaveteli/languag"
 "e/bg/)\n"
@@ -390,7 +391,7 @@ msgstr ""
 msgid "A strange response, required attention by the {{site_name}} team"
 msgstr ""
 
-msgid "A survey about your recent {{law_used_full}} request ({{site_name}})"
+msgid "A survey about your recent Freedom of Information request"
 msgstr ""
 
 msgid "A {{site_name}} user"
@@ -3621,7 +3622,7 @@ msgstr ""
 "Ние няма да предоставим имейл адресите Ви на никого, освен ако Вие\n"
 "или закон ни нареди това."
 
-msgid "We would like to know more about you, and your experience making an {{law_used_full}} request through the site."
+msgid "We would like to know more about you, and your experience making a Freedom of Information request through the site."
 msgstr ""
 
 msgid "We'll drop you an email as soon as your request gets a response."
@@ -3862,9 +3863,6 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "You can't update your profile text at this time."
-msgstr ""
-
-msgid "You have a new response to the {{law_used_full}} request"
 msgstr ""
 
 msgid "You have a new response to the {{law_used_full}} request '{{request_title}}' that you made to {{public_body_name}}."
@@ -4354,9 +4352,6 @@ msgstr ""
 msgid "successful requests"
 msgstr "успешни заявления"
 
-msgid "that you made to"
-msgstr "което направихте до"
-
 msgid "the main FOI contact address for {{public_body}}"
 msgstr "основният адрес за контакти за ДдИ на {{public_body}}"
 
@@ -4586,6 +4581,9 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "{{site_name}} has identified {{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
+msgstr ""
+
+msgid "{{site_name}} login link"
 msgstr ""
 
 msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."
