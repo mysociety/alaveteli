@@ -24,6 +24,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Andreas Nedelkos <vandreas2004@yahoo.gr>, 2017
 # Graeme Porteous <graeme@mysociety.org>, 2021
 # Maria Nathanail <marianathanail@gmail.com>, 2021
@@ -35,8 +36,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-20 14:09+0100\n"
-"PO-Revision-Date: 2021-08-03 09:58+0000\n"
+"POT-Creation-Date: 2021-09-14 12:40+0100\n"
+"PO-Revision-Date: 2021-09-14 16:15+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Greek (http://www.transifex.com/mysociety/alaveteli/language/el"
 "/)\n"
@@ -365,7 +366,7 @@ msgstr "Μια απάντηση θα αποσταλεί <strong>ταχυδρομ
 msgid "A strange response, required attention by the {{site_name}} team"
 msgstr "Μια παράξενη απάντηση, απαιτείται η προσοχή της ομάδας του {{site_name}}"
 
-msgid "A survey about your recent {{law_used_full}} request ({{site_name}})"
+msgid "A survey about your recent Freedom of Information request"
 msgstr ""
 
 msgid "A {{site_name}} user"
@@ -3464,8 +3465,8 @@ msgstr "Δεν θα αποκαλύψουμε τη διεύθυνση ηλεκτ�
 msgid "We will not reveal your email addresses to anybody unless you or the law tell us to."
 msgstr "Δεν θα αποκαλύψουμε τις διευθύνσεις των ηλεκτρονικών ταχυδρομείων σας σε κανέναν, εκτός αν εσείς ή ο νόμος μας το υποδείξει."
 
-msgid "We would like to know more about you, and your experience making an {{law_used_full}} request through the site."
-msgstr "Θα θέλαμε να μάθουμε περισσότερα για εσάς αλλά και για την εμπειρία σας από την υποβολή του {{law_used_full}} αιτήματος σας μέσω της πλατφόρμας μας."
+msgid "We would like to know more about you, and your experience making a Freedom of Information request through the site."
+msgstr ""
 
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr "Θα σας στείλουμε email όταν το αίτημά σας λάβει απάντηση."
@@ -3699,11 +3700,8 @@ msgstr[1] "Μπορείτε να δείτε τις απαντήσεις μέσω
 msgid "You can't update your profile text at this time."
 msgstr "Δεν μπορείτε να επικαιροποιήσετε την φωτογραφία προφίλ σας αυτή την στιγμή."
 
-msgid "You have a new response to the {{law_used_full}} request"
-msgstr "Έχετε μία νέα απάντηση στο {{law_used_full}} αίτημα σας "
-
 msgid "You have a new response to the {{law_used_full}} request '{{request_title}}' that you made to {{public_body_name}}."
-msgstr "Έχετε μία νέα απάντηση στο {{law_used_full}} αίτημα {{request_title}}' που απευθύνατε προς  {{public_body_name}}."
+msgstr "Έχετε μία νέα απάντηση στο {{law_used_full}} {{request_title}}' που απευθύνατε προς  {{public_body_name}}."
 
 msgid "You have found a bug.  Please <a href=\"{{contact_url}}\">contact us</a> to tell us about the problem"
 msgstr "Βρήκατε ένα σφάλμα. Παρακαλούμε <a href=\"{{contact_url}}\">επικοινωνήστε μαζί μας </a>για να μας πείτε το πρόβλημα. "
@@ -4163,9 +4161,6 @@ msgstr "simple_date_format"
 msgid "successful requests"
 msgstr "επιτυχημένα αιτήματα"
 
-msgid "that you made to"
-msgstr "που κάνατε στο"
-
 msgid "the main FOI contact address for {{public_body}}"
 msgstr "Η βασική διεύθυνση επαφής για Αιτήματα Κατάθεσης Εγγράφων και Πρόσβαση στη Δημόσια Πληροφορία για το {{public_body}}"
 
@@ -4389,6 +4384,9 @@ msgstr[0] "Το {{site_name}} καλύπτει αιτήματα προς {{numbe
 msgstr[1] "Το {{site_name}} καλύπτει αιτήματα προς {{number_of_authorities}} αρχές, συμπεριλαμβανομένων:"
 
 msgid "{{site_name}} has identified {{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
+msgstr ""
+
+msgid "{{site_name}} login link"
 msgstr ""
 
 msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."

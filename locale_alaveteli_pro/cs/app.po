@@ -5,16 +5,16 @@
 #
 # Translators:
 # louisecrow <louise@mysociety.org>, 2018
-# trendspotter <jirka.p@volny.cz>, 2021
 # Hana Hunt <hana@hana-hunt.cz>, 2021
+# trendspotter <jirka.p@volny.cz>, 2021
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-20 14:09+0100\n"
+"POT-Creation-Date: 2021-09-14 12:40+0100\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: Hana Hunt <hana@hana-hunt.cz>, 2021\n"
+"Last-Translator: trendspotter <jirka.p@volny.cz>, 2021\n"
 "Language-Team: Czech (https://www.transifex.com/mysociety/teams/33529/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -274,7 +274,7 @@ msgid "CSV"
 msgstr "CSV"
 
 msgid "Campaigners"
-msgstr ""
+msgstr "Účastníci kampaně"
 
 msgid "Campaigning for better wheelchair accessibility"
 msgstr "Kampaň za lepší přístupnost pro vozíčkáře"
@@ -505,7 +505,7 @@ msgid "Introductory Pricing"
 msgstr "Zaváděcí ceny"
 
 msgid "Investigating asbestos use in schools"
-msgstr ""
+msgstr "Zkoumání používání azbestu ve školách"
 
 msgid "Investigative journalist Jenna Corderoy has made good use of Pro’s privacy features, keeping her extensive Brexit-related investigations private until her stories broke, bringing facts about <a href=\"{{story_url_1}}\">campaign overspending</a> and <a href=\"{{story_url_2}}\">ERG</a> research to the public, among several other important stories."
 msgstr "Investigativní novinářka Jenna Corderoy využila možnosti skrýt své dotazy při přípravě článků týkajích se Brexitu do doby, kdy publikovala fakta o <a href=\"{{story_url_1}}\">nadměrných reklamních výdajích</a> a <a href=\"{{story_url_2}}\">ERG</a> výzkumech, mezi několika dalšími důležitými příběhy."

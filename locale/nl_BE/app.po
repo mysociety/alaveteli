@@ -24,6 +24,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Christophe Van Gheluwe <info@vg-webdesign.be>, 2017
 # claude transparencia <audit.citoyen.quartier@gmail.com>, 2017-2018,2021
 # Edwin Bosveld <edwin@inwy.nl>, 2013,2016
@@ -36,8 +37,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-20 14:09+0100\n"
-"PO-Revision-Date: 2021-07-20 13:36+0000\n"
+"POT-Creation-Date: 2021-09-14 12:40+0100\n"
+"PO-Revision-Date: 2021-09-14 16:15+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Dutch (Belgium) (http://www.transifex.com/mysociety/alaveteli/l"
 "anguage/nl_BE/)\n"
@@ -390,7 +391,7 @@ msgstr ""
 msgid "A strange response, required attention by the {{site_name}} team"
 msgstr ""
 
-msgid "A survey about your recent {{law_used_full}} request ({{site_name}})"
+msgid "A survey about your recent Freedom of Information request"
 msgstr ""
 
 msgid "A {{site_name}} user"
@@ -3577,7 +3578,7 @@ msgstr "Wij zullen uw e-mailadres niet aan derden doorgeven tenzij u\\of de wet 
 msgid "We will not reveal your email addresses to anybody unless you or the law tell us to."
 msgstr "Wij zullen uw e-mailadres niet aan derden doorgeven tenzij u of de wet ons daartoe groen licht geven."
 
-msgid "We would like to know more about you, and your experience making an {{law_used_full}} request through the site."
+msgid "We would like to know more about you, and your experience making a Freedom of Information request through the site."
 msgstr ""
 
 msgid "We'll drop you an email as soon as your request gets a response."
@@ -3815,9 +3816,6 @@ msgstr[1] "U kan de antwoorden zien, door op de links hier onder te klikken :"
 
 msgid "You can't update your profile text at this time."
 msgstr "U kan uw profieltekst op dit moment niet vernieuwen."
-
-msgid "You have a new response to the {{law_used_full}} request"
-msgstr "U kreeg een antwoord op uw vraag in het kader van {{law_used_full}}"
 
 msgid "You have a new response to the {{law_used_full}} request '{{request_title}}' that you made to {{public_body_name}}."
 msgstr "U kreeg een nieuw antwoord op uw aanvraag '{{request_title}}' m.b.t. {{law_used_full}}  die u stelde aan {{public_body_name}}."
@@ -4286,9 +4284,6 @@ msgstr "simple_date_format"
 msgid "successful requests"
 msgstr "Vragen die succesvol afgehandeld zijn"
 
-msgid "that you made to"
-msgstr "Welke u deed aan"
-
 msgid "the main FOI contact address for {{public_body}}"
 msgstr "Het belangrijkste adres voor een WOB-informatieaanvraag bij {{public_body}}"
 
@@ -4514,6 +4509,9 @@ msgstr[0] "{{site_name}} omvat aanvragen aan {{number_of_authorities}} overheden
 msgstr[1] "{{site_name}} omvat aanvragen aan {{number_of_authorities}} overheden, inclusief : "
 
 msgid "{{site_name}} has identified {{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
+msgstr ""
+
+msgid "{{site_name}} login link"
 msgstr ""
 
 msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."

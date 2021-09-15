@@ -24,6 +24,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # andreli <andre@lindhjem.net>, 2013
 # Hans-Petter Fjeld <atluxity@1kb.no>, 2014
 # b99f4c81950a40007b4adaea695ecb99_1c02644 <ed6c5c9e95edf158e92faab246523c32_310134>, 2015
@@ -48,8 +49,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-20 14:09+0100\n"
-"PO-Revision-Date: 2021-07-20 13:36+0000\n"
+"POT-Creation-Date: 2021-09-14 12:40+0100\n"
+"PO-Revision-Date: 2021-09-14 16:15+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Norwegian Nynorsk (http://www.transifex.com/mysociety/alaveteli"
 "/language/nn/)\n"
@@ -408,7 +409,7 @@ msgstr ""
 msgid "A strange response, required attention by the {{site_name}} team"
 msgstr ""
 
-msgid "A survey about your recent {{law_used_full}} request ({{site_name}})"
+msgid "A survey about your recent Freedom of Information request"
 msgstr ""
 
 msgid "A {{site_name}} user"
@@ -3612,7 +3613,7 @@ msgstr "Vi kjem ikkje dela e-post-adressa di med nokon, med mindre du eller ein 
 msgid "We will not reveal your email addresses to anybody unless you or the law tell us to."
 msgstr "Vi kjem ikkje dela e-post-adressene dine med nokon, med mindre du eller ein domstol ber oss om det."
 
-msgid "We would like to know more about you, and your experience making an {{law_used_full}} request through the site."
+msgid "We would like to know more about you, and your experience making a Freedom of Information request through the site."
 msgstr ""
 
 msgid "We'll drop you an email as soon as your request gets a response."
@@ -3849,9 +3850,6 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "You can't update your profile text at this time."
-msgstr ""
-
-msgid "You have a new response to the {{law_used_full}} request"
 msgstr ""
 
 msgid "You have a new response to the {{law_used_full}} request '{{request_title}}' that you made to {{public_body_name}}."
@@ -4335,9 +4333,6 @@ msgstr "simple_date_format"
 msgid "successful requests"
 msgstr "vellukka førespurnader"
 
-msgid "that you made to"
-msgstr "som du laga til"
-
 msgid "the main FOI contact address for {{public_body}}"
 msgstr "postmottaket hos {{public_body}}"
 
@@ -4564,6 +4559,9 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "{{site_name}} has identified {{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
+msgstr ""
+
+msgid "{{site_name}} login link"
 msgstr ""
 
 msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."

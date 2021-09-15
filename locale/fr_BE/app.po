@@ -24,6 +24,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # 0c5d54599df8b711a7a254a114ba48aa, 2011
 # Adrien Chauvet, 2013
 # Adrien Chauvet, 2013
@@ -53,8 +54,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-20 14:09+0100\n"
-"PO-Revision-Date: 2021-07-20 13:36+0000\n"
+"POT-Creation-Date: 2021-09-14 12:40+0100\n"
+"PO-Revision-Date: 2021-09-14 16:15+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: French (Belgium) (http://www.transifex.com/mysociety/alaveteli/"
 "language/fr_BE/)\n"
@@ -394,7 +395,7 @@ msgstr "Une réponse sera envoyée <strong>par courrier postal</strong>"
 msgid "A strange response, required attention by the {{site_name}} team"
 msgstr "Une réponse étrange, nécessitant l'attention de l'équipe de {{site_name}}"
 
-msgid "A survey about your recent {{law_used_full}} request ({{site_name}})"
+msgid "A survey about your recent Freedom of Information request"
 msgstr ""
 
 msgid "A {{site_name}} user"
@@ -3498,7 +3499,7 @@ msgstr "Nous ne communiquerons pas votre adresse email sauf si vous nous y autor
 msgid "We will not reveal your email addresses to anybody unless you or the law tell us to."
 msgstr "Nous ne communiquerons pas vos adresses email sauf si vous nous y autorisez ou si la loi nous y oblige."
 
-msgid "We would like to know more about you, and your experience making an {{law_used_full}} request through the site."
+msgid "We would like to know more about you, and your experience making a Freedom of Information request through the site."
 msgstr ""
 
 msgid "We'll drop you an email as soon as your request gets a response."
@@ -3732,9 +3733,6 @@ msgstr[1] "Vous pouvez voir les réponses via les liens suivants:"
 
 msgid "You can't update your profile text at this time."
 msgstr "Vous ne pouvez pas actualiser votre texte de profil à cette étape."
-
-msgid "You have a new response to the {{law_used_full}} request"
-msgstr "Vous avez une nouvelle réponse à la demande {{law_used_full}} "
 
 msgid "You have a new response to the {{law_used_full}} request '{{request_title}}' that you made to {{public_body_name}}."
 msgstr "Vous avez une nouvelle réponse à la demande de  {{law_used_full}}  '{{request_title}}' que vous avez fait à {{public_body_name}}."
@@ -4197,9 +4195,6 @@ msgstr "simple_date_format"
 msgid "successful requests"
 msgstr "Demandes ayant abouti"
 
-msgid "that you made to"
-msgstr "que vous avez faite à l'autorité publique"
-
 msgid "the main FOI contact address for {{public_body}}"
 msgstr "L'adresse principale de demande d'accès à l'information au sein de {{public_body}}"
 
@@ -4423,6 +4418,9 @@ msgstr[0] "{{site_name}} gère les demandes adressée à {{number_of_authorities
 msgstr[1] "{{site_name}} gère les demandes adressées à {{number_of_authorities}} autorités publiques, dont :"
 
 msgid "{{site_name}} has identified {{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
+msgstr ""
+
+msgid "{{site_name}} login link"
 msgstr ""
 
 msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."

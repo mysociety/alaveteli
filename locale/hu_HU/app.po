@@ -24,6 +24,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # alaveteli_hu <alaveteli@atlatszo.hu>, 2012
 # alaveteli_hu <alaveteli@atlatszo.hu>, 2012
 # Orsolya Batta <orsibatta@gmail.com>, 2013
@@ -35,8 +36,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-20 14:09+0100\n"
-"PO-Revision-Date: 2021-07-20 13:36+0000\n"
+"POT-Creation-Date: 2021-09-14 12:40+0100\n"
+"PO-Revision-Date: 2021-09-14 16:15+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/mysociety/alavete"
 "li/language/hu_HU/)\n"
@@ -391,7 +392,7 @@ msgstr ""
 msgid "A strange response, required attention by the {{site_name}} team"
 msgstr ""
 
-msgid "A survey about your recent {{law_used_full}} request ({{site_name}})"
+msgid "A survey about your recent Freedom of Information request"
 msgstr ""
 
 msgid "A {{site_name}} user"
@@ -3619,7 +3620,7 @@ msgstr ""
 "E-mail címeit senkinek sem adjuk ki - kivéve, ha azt ön kéri\n"
 "vagy jogszabály előírja. "
 
-msgid "We would like to know more about you, and your experience making an {{law_used_full}} request through the site."
+msgid "We would like to know more about you, and your experience making a Freedom of Information request through the site."
 msgstr ""
 
 msgid "We'll drop you an email as soon as your request gets a response."
@@ -3858,9 +3859,6 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "You can't update your profile text at this time."
-msgstr ""
-
-msgid "You have a new response to the {{law_used_full}} request"
 msgstr ""
 
 msgid "You have a new response to the {{law_used_full}} request '{{request_title}}' that you made to {{public_body_name}}."
@@ -4346,9 +4344,6 @@ msgstr "simple_date_format"
 msgid "successful requests"
 msgstr "sikeres igénylések "
 
-msgid "that you made to"
-msgstr "amelyeket ön nyújtott be a(z) "
-
 msgid "the main FOI contact address for {{public_body}}"
 msgstr "{{public_body}} közérdekűadat-igényléshez használt elsődleges e-mail címe "
 
@@ -4578,6 +4573,9 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "{{site_name}} has identified {{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
+msgstr ""
+
+msgid "{{site_name}} login link"
 msgstr ""
 
 msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."

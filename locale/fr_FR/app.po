@@ -24,6 +24,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # 0c5d54599df8b711a7a254a114ba48aa, 2011
 # a270031086f2a0d3514bc0cb507b48f6, 2019
 # Adrien Chauvet, 2013
@@ -53,8 +54,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-20 14:09+0100\n"
-"PO-Revision-Date: 2021-07-20 13:37+0000\n"
+"POT-Creation-Date: 2021-09-14 12:40+0100\n"
+"PO-Revision-Date: 2021-09-14 16:15+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: French (France) (http://www.transifex.com/mysociety/alaveteli/l"
 "anguage/fr_FR/)\n"
@@ -394,7 +395,7 @@ msgstr "Une réponse sera envoyée <strong>par courrier postal</strong>"
 msgid "A strange response, required attention by the {{site_name}} team"
 msgstr "Une réponse étrange, nécessitant l'attention de l'équipe {{site_name}}"
 
-msgid "A survey about your recent {{law_used_full}} request ({{site_name}})"
+msgid "A survey about your recent Freedom of Information request"
 msgstr ""
 
 msgid "A {{site_name}} user"
@@ -1261,10 +1262,10 @@ msgid "Handled by postal mail."
 msgstr "Manipulé par courrier postal."
 
 msgid "Has this request been referenced in a news article or academic paper?"
-msgstr ""
+msgstr "Est-ce que cette demande a été référencée dans un article d'actualité, publication académique ou autre publication ? "
 
 msgid "Has this request been referenced in a news article or academic paper? Let us know:"
-msgstr ""
+msgstr "Est-ce que cette demande a été référencée dans un article d'actualité, publication académique ou autre publication ? Faites-le-nous savoir :"
 
 msgid "Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}"
 msgstr "Bonjour ! Nous avons un <a href=\"{{url}}\">message important </a> pour les visiteurs venant de l'extérieur de la {{country_name}}"
@@ -1572,7 +1573,7 @@ msgid "Leave project"
 msgstr ""
 
 msgid "Let us know"
-msgstr "Faites le nous savoir"
+msgstr "Faites-le-nous savoir"
 
 msgid "Let us know and we’ll help you challenge it."
 msgstr ""
@@ -2769,7 +2770,7 @@ msgid "The accounts have been left as they previously were."
 msgstr "Les comptes ont été laissés tels qu'ils étaient auparavant. "
 
 msgid "The article references all requests in this batch"
-msgstr ""
+msgstr "L'article fait référence à l'ensemble des demandes dans ce lot"
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr "L'autorité <strong>ne détient pas</strong> l'information <small>(peut-être qu'ils indiquent qui la possède)</small>"
@@ -3540,7 +3541,7 @@ msgstr "Nous ne communiquerons pas votre adresse email sauf si vous nous y autor
 msgid "We will not reveal your email addresses to anybody unless you or the law tell us to."
 msgstr "Nous ne communiquerons pas vos adresses email sauf si vous nous y autorisez ou si la loi nous y oblige."
 
-msgid "We would like to know more about you, and your experience making an {{law_used_full}} request through the site."
+msgid "We would like to know more about you, and your experience making a Freedom of Information request through the site."
 msgstr ""
 
 msgid "We'll drop you an email as soon as your request gets a response."
@@ -3775,9 +3776,6 @@ msgstr[1] "Vous pouvez voir les réponses via les liens suivants:"
 msgid "You can't update your profile text at this time."
 msgstr "Vous ne pouvez pas actualiser votre texte de profil à cette étape."
 
-msgid "You have a new response to the {{law_used_full}} request"
-msgstr "Vous avez une nouvelle réponse à la demande {{law_used_full}} "
-
 msgid "You have a new response to the {{law_used_full}} request '{{request_title}}' that you made to {{public_body_name}}."
 msgstr "Vous avez une nouvelle réponse à la demande de  {{law_used_full}}  '{{request_title}}' que vous avez fait à {{public_body_name}}."
 
@@ -3949,10 +3947,10 @@ msgid "Your follow up message has been sent on its way."
 msgstr "Votre message de suivi a été envoyé."
 
 msgid "Your internal review request has been saved but not yet sent to {{authority_name}} due to an error."
-msgstr "Votre revue interne de la requête a été sauvée mais pas envoyé à {{authority_name}} en raison d'une erreur technique"
+msgstr "Votre demande de recours a été sauvée mais pas envoyé à {{authority_name}} en raison d'une erreur technique."
 
 msgid "Your internal review request has been sent on its way."
-msgstr "Votre recours a été envoyée."
+msgstr "Votre recours a été envoyé."
 
 msgid "Your message has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr "Votre message a été envoyé. Nous reviendrons vers vous bientôt."
@@ -4239,9 +4237,6 @@ msgstr "simple_date_format"
 msgid "successful requests"
 msgstr "Demandes ayant abouti"
 
-msgid "that you made to"
-msgstr "que vous avez faite à l'autorité publique"
-
 msgid "the main FOI contact address for {{public_body}}"
 msgstr "L'adresse de la PRADA pour votre demande d'accès à l'information au sein de {{public_body}}"
 
@@ -4465,6 +4460,9 @@ msgstr[0] "{{site_name}} gère les demandes adressée à {{number_of_authorities
 msgstr[1] "{{site_name}} gère les demandes adressées à {{number_of_authorities}} autorités, dont :"
 
 msgid "{{site_name}} has identified {{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
+msgstr ""
+
+msgid "{{site_name}} login link"
 msgstr ""
 
 msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."

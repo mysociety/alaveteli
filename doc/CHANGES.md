@@ -1,3 +1,10 @@
+# 0.39.1.5
+
+## Highlighted Features
+
+* Update survey mailer strings for easier translation (Graeme Porteous)
+* Updated translations from Transifex (Graeme Porteous)
+
 # 0.39.1.4
 
 ## Highlighted Features

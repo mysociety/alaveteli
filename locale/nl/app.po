@@ -24,6 +24,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Edwin Bosveld <edwin@inwy.nl>, 2013,2016
 # Gareth Rees <gareth@mysociety.org>, 2020
 # Graeme Porteous <graeme@mysociety.org>, 2019
@@ -34,8 +35,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-20 14:09+0100\n"
-"PO-Revision-Date: 2021-07-20 13:37+0000\n"
+"POT-Creation-Date: 2021-09-14 12:40+0100\n"
+"PO-Revision-Date: 2021-09-14 16:15+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Dutch (http://www.transifex.com/mysociety/alaveteli/language/nl"
 "/)\n"
@@ -388,8 +389,8 @@ msgstr "Het antwoord wordt <strong>per post</strong> verstuurd."
 msgid "A strange response, required attention by the {{site_name}} team"
 msgstr "Vreemd antwoord, vereiste aandacht van de {{site_name}} beheerders"
 
-msgid "A survey about your recent {{law_used_full}} request ({{site_name}})"
-msgstr ""
+msgid "A survey about your recent Freedom of Information request"
+msgstr "Vragenlijst over je recent ingediende wet openbaarheid van bestuur verzoek"
 
 msgid "A {{site_name}} user"
 msgstr "Een gebruiker van {{site_name}}"
@@ -1177,7 +1178,7 @@ msgstr[0] "{{count}} overheidsinstelling gevonden die overeenkomt met het label 
 msgstr[1] "{{count}} overheidsinstanties gevonden die overeenkomen met label/tag ‘{{tag_name}}’"
 
 msgid "Four weeks ago you made a Freedom of Information request to {{public_body_name}} using {{site_name}}."
-msgstr ""
+msgstr "Vier weken geleden heb je een Wob-verzoek ingediend bij {{public_body_name}} met behulp van {{site_name}}."
 
 msgid "Freedom of Information"
 msgstr "Openbaarheid van bestuur"
@@ -1403,7 +1404,7 @@ msgid "If you believe this request is not suitable, you can report it for attent
 msgstr "Als je denkt dat dit verzoek ongepast is, kan je dat melden bij de beheerders van de website via dit formulier."
 
 msgid "If you can spare a few minutes to complete our short survey, it will help us make the site better. Just follow the link below."
-msgstr ""
+msgstr "Als je een paar minuten tijd hebt om onze korte vragenlijst in te vullen, dan helpt je ons om de Wob-Knop te verbeteren. Volg de link hieronder."
 
 msgid "If you can't click on it in the email, you'll have to <strong>select and copy it</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place you would type the address of any other webpage."
 msgstr ""
@@ -3588,7 +3589,7 @@ msgstr "Wij zullen je e-mailadres niet aan derden doorgeven tenzij jij\\of de we
 msgid "We will not reveal your email addresses to anybody unless you or the law tell us to."
 msgstr "Wij zullen je e-mailadres niet aan derden doorgeven tenzij jij of de wet ons dat opdragen."
 
-msgid "We would like to know more about you, and your experience making an {{law_used_full}} request through the site."
+msgid "We would like to know more about you, and your experience making a Freedom of Information request through the site."
 msgstr ""
 
 msgid "We'll drop you an email as soon as your request gets a response."
@@ -3826,9 +3827,6 @@ msgstr[1] "Je kunt de reacties lezen via deze links:"
 
 msgid "You can't update your profile text at this time."
 msgstr "Je kunt je profieltekst momenteel niet vernieuwen."
-
-msgid "You have a new response to the {{law_used_full}} request"
-msgstr "Je hebt een bericht ontvangen op je verzoek in het kader van {{law_used_full}}"
 
 msgid "You have a new response to the {{law_used_full}} request '{{request_title}}' that you made to {{public_body_name}}."
 msgstr "Je hebt een nieuw bericht op je verzoek '{{request_title}}' in het kader van {{law_used_full}} aan {{public_body_name}}."
@@ -4295,9 +4293,6 @@ msgstr "simple_date_format"
 msgid "successful requests"
 msgstr "Wob-verzoeken die succesvol zijn afgerond"
 
-msgid "that you made to"
-msgstr "wat je deed om"
-
 msgid "the main FOI contact address for {{public_body}}"
 msgstr "het adres voor Wob-verzoeken bij {{public_body}}"
 
@@ -4523,6 +4518,9 @@ msgstr[0] "{{site_name}} omvat aanvragen aan {{number_of_authorities}} overheden
 msgstr[1] "{{site_name}} omvat Wob-verzoeken aan {{number_of_authorities}} overheden, inclusief: "
 
 msgid "{{site_name}} has identified {{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
+msgstr ""
+
+msgid "{{site_name}} login link"
 msgstr ""
 
 msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."

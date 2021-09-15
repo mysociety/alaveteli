@@ -24,6 +24,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # 03992e16f8df6e39b9d1cc0ff635887e, 2016
 # Elenor Weijmar, 2018
 # Elenor Weijmar, 2018-2021
@@ -46,9 +47,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-20 14:09+0100\n"
-"PO-Revision-Date: 2021-08-24 08:24+0000\n"
-"Last-Translator: Mattias Axell <mattias@libertador.es>\n"
+"POT-Creation-Date: 2021-09-14 12:40+0100\n"
+"PO-Revision-Date: 2021-09-14 16:15+0000\n"
+"Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Swedish (http://www.transifex.com/mysociety/alaveteli/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -67,7 +68,7 @@ msgstr ""
 "[ {{site_name}} notera: Texten ovanför var dåligt kodad, och har fått konstiga tecken borttagna. ]"
 
 msgid " (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation policy</a>)"
-msgstr "(<strong>ingen gormande</strong> politik, läs vår <a href=\"{{url}}\">moderationspolicy</a>)"
+msgstr "(<strong>inga politiska utläggningar</strong> här. Kommentarer omfattas inte av vårt utgivningsbevis. Du ansvarar själv för dina anteckningar. Läs vår <a href=\"{{url}}\">moderationspolicy</a>)"
 
 msgid " (<strong>patience</strong>, especially for large files, it may take a while!)"
 msgstr "(<strong>ha tålamod</strong>, särskilt för stora filer, detta kan ta en stund!)"
@@ -384,8 +385,8 @@ msgstr "Ett svar kommer att skickas<strong>med brev</strong>"
 msgid "A strange response, required attention by the {{site_name}} team"
 msgstr "Ett konstigt svar, som behöver granskas av {{site_name}}s team"
 
-msgid "A survey about your recent {{law_used_full}} request ({{site_name}})"
-msgstr "En undersökning om din begäran enligt {{law_used_full}} via ({{site_name}})"
+msgid "A survey about your recent Freedom of Information request"
+msgstr "En enkät om din senaste offentlighetsprincipen begäran"
 
 msgid "A {{site_name}} user"
 msgstr "En {{site_name}}-användare"
@@ -520,7 +521,7 @@ msgid "Annotations are so anyone, including you, can help the requester with the
 msgstr "Anteckningar finns till så att vem som helst, inklusive du, kan hjälpa den frågande med sin begäran. Till exempel:"
 
 msgid "Annotations will be posted publicly here, and are <strong>not</strong> sent to {{public_body_name}}."
-msgstr "Kommentarer kommer att läggas upp offentligt här och skickas <strong>inte</strong> till {{public_body_name}}."
+msgstr "Kommentarer kommer att läggas upp offentligt här och skickas <strong>inte</strong> till {{public_body_name}}. Kommentarer omfattas inte av vårt utgivningsbevis. Du ansvarar själv för dina anteckningar."
 
 msgid "Anonymous user"
 msgstr "Anonym användare"
@@ -3482,8 +3483,8 @@ msgstr "Vi kommer inte att avslöja dina e-postadresser till någon såvida inte
 msgid "We will not reveal your email addresses to anybody unless you or the law tell us to."
 msgstr "Vi kommer inte att avslöja dina e-postadresser till någon såvida inte du eller lagen säger till oss."
 
-msgid "We would like to know more about you, and your experience making an {{law_used_full}} request through the site."
-msgstr "Vi skulle vilja veta mer om dig och dina erfarenheter att göra en begäran enligt {{law_used_full}} via plattformen."
+msgid "We would like to know more about you, and your experience making a Freedom of Information request through the site."
+msgstr ""
 
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr "Vi skickar dig ett e-postmeddelande när din begäran får ett svar."
@@ -3716,9 +3717,6 @@ msgstr[1] "Du kan se svaren med de följande länkarna:"
 
 msgid "You can't update your profile text at this time."
 msgstr "Du kan inte uppdatera din profiltext just nu."
-
-msgid "You have a new response to the {{law_used_full}} request"
-msgstr "Du har ett nytt svar till begäran enligt {{law_used_full}}"
 
 msgid "You have a new response to the {{law_used_full}} request '{{request_title}}' that you made to {{public_body_name}}."
 msgstr "Du har ett nytt svar till begäran '{{request_title}}' enligt {{law_used_full}}  som du gjorde till {{public_body_name}}."
@@ -4181,9 +4179,6 @@ msgstr "simple_date_format"
 msgid "successful requests"
 msgstr "framgångsrika förfrågningar"
 
-msgid "that you made to"
-msgstr "som du gjorde till"
-
 msgid "the main FOI contact address for {{public_body}}"
 msgstr "registrator vid {{public_body}}"
 
@@ -4409,6 +4404,9 @@ msgstr[1] "{{site_name}} täcker förfrågningar till {{number_of_authorities}} 
 msgid "{{site_name}} has identified {{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
 msgstr "{{site_name}} har identifierat att {{authority_name}} kan ha avslagit alla eller delar av din begäran under <strong>{{refusals}}</strong>."
 
+msgid "{{site_name}} login link"
+msgstr ""
+
 msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."
 msgstr "{{site_name}} skickar nya förfrågningar till <strong>{{request_email}}</strong> för denna myndighet."
 
@@ -4451,7 +4449,7 @@ msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "{{user_name}} har använt {{site_name}} för att skicka meddelandet du ser nedan"
 
 msgid "{{user_name}} left an annotation ({{date}})"
-msgstr "Dessa kommentarer omfattas inte av vårt utgivningsbevis. Du ansvarar själv för dina artikelkommentarer. {{user_name}} lämnade en anteckning ({{date}})"
+msgstr "Kommentarer omfattas inte av vårt utgivningsbevis. Du ansvarar själv för dina artikelkommentarer. {{user_name}} lämnade en anteckning ({{date}})"
 
 msgid "{{user_name}} sent a follow up message to {{public_body}}"
 msgstr "{{user_name}} skickade ett uppföljningsmeddelande till {{public_body}}"
@@ -4466,7 +4464,7 @@ msgid "{{user_name}} would like the email address for {{public_body_name}} to be
 msgstr "{{user_name}} skulle vilja att e-postadressen för {{public_body_name}} blir uppdaterad"
 
 msgid "{{username}} left an annotation:"
-msgstr "Dessa kommentarer omfattas inte av vårt utgivningsbevis. Du ansvarar själv för dina artikelkommentarer. {{username}} lämnade en anteckning:"
+msgstr "Kommentarer omfattas inte av vårt utgivningsbevis. Du ansvarar själv för dina artikelkommentarer. {{username}} lämnade en anteckning:"
 
 msgid "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 msgstr "{{user}} ({{user_admin_link}}) skapade denna begäran enligt {{law_used_full}} (<a href=\"{{request_admin_url}}\">administratör</a>) till {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">administratör</a>)"
