@@ -52,6 +52,47 @@ RSpec.describe PostRedirect do
 
   end
 
+  describe '#email_token_valid?' do
+
+    subject { post_redirect.email_token_valid? }
+
+    # Using attributes_for as PostRedirect redirect assigns attributes in
+    # after_initialize callbacks. FactoryBot doesn't handle this correctly
+    let!(:post_redirect) { PostRedirect.create(attributes.merge(user: user)) }
+    let(:user) { FactoryBot.create(:user) }
+
+    context 'when an old non-message verifier tokens' do
+      let(:attributes) do
+        FactoryBot.attributes_for(
+          :post_redirect,
+          circumstance: 'change_email',
+          email_token: 'ABC'
+        )
+      end
+
+      it { is_expected.to eq true }
+    end
+
+    context 'when user login token has not changed' do
+      let(:attributes) do
+        FactoryBot.attributes_for(:post_redirect, circumstance: 'change_email')
+      end
+
+      it { is_expected.to eq true }
+    end
+
+    context 'when user login token has changed' do
+      let(:attributes) do
+        FactoryBot.attributes_for(:post_redirect, circumstance: 'change_email')
+      end
+
+      before { user.update(email: 'new@email') }
+
+      it { is_expected.to eq false }
+    end
+
+  end
+
 end
 
 RSpec.describe PostRedirect, " when constructing" do

@@ -3,7 +3,7 @@ class Users::ConfirmationsController < UserController
   def confirm
     post_redirect = PostRedirect.find_by_email_token(params[:email_token])
 
-    if post_redirect.nil?
+    if post_redirect.nil? || !post_redirect.email_token_valid?
       render :template => 'user/bad_token'
       return
     end

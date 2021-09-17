@@ -92,6 +92,13 @@ class PostRedirect < ApplicationRecord
     $1
   end
 
+  def email_token_valid?
+    return true unless PostRedirect.verifier.valid_message?(email_token)
+
+    data = PostRedirect.verifier.verify(email_token, purpose: circumstance)
+    user.id == data[:user_id] && user.login_token == data[:login_token]
+  end
+
   private
 
   # The token is used to return you to what you are doing after the login

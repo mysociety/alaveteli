@@ -13,6 +13,17 @@ RSpec.describe Users::ConfirmationsController do
 
     end
 
+    context 'if the post redirect email token invalid' do
+
+      it 'renders bad_token' do
+        allow(PostRedirect).to receive(:find_by_email_token).with('abc').
+          and_return(double(:post_redirect, email_token_valid?: false))
+        get :confirm, params: { email_token: 'abc' }
+        expect(response).to render_template(:bad_token)
+      end
+
+    end
+
     context 'the post redirect circumstance is change_password' do
       let(:user) { FactoryBot.create(:user, email_confirmed: false) }
 
