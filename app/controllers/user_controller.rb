@@ -225,12 +225,13 @@ class UserController < ApplicationController
     if (not session[:user_circumstance]) or (session[:user_circumstance] != "change_email")
       # don't store the password in the db
       params[:signchangeemail].delete(:password)
-      post_redirect = PostRedirect.new(:uri => signchangeemail_url,
-                                       :post_params => params,
-                                       :circumstance => "change_email" # special login that lets you change your email
-                                       )
-      post_redirect.user = @user
-      post_redirect.save!
+
+      post_redirect = PostRedirect.create!(
+        uri: signchangeemail_url,
+        post_params: params,
+        user: @user,
+        circumstance: 'change_email'
+      )
 
       url = confirm_url(:email_token => post_redirect.email_token)
       UserMailer.
