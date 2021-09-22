@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20210921094059
 #
 # Table name: users
 #
@@ -34,6 +34,7 @@
 #  daily_summary_hour                :integer
 #  daily_summary_minute              :integer
 #  closed_at                         :datetime
+#  login_token                       :string
 #
 
 FactoryBot.define do
