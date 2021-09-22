@@ -4016,7 +4016,7 @@ RSpec.describe InfoRequest do
     context 'when there is no value stored in the database' do
 
       it 'calculates the date the initial request was last sent' do
-        info_request.send(:write_attribute, :date_initial_request_last_sent_at, nil)
+        info_request.date_initial_request_last_sent_at = nil
         expect(info_request)
           .to receive(:last_event_forming_initial_request)
             .and_call_original
@@ -4057,8 +4057,8 @@ RSpec.describe InfoRequest do
       end
 
       it 'raises an error if the request has never been sent' do
-        info_request.send(:write_attribute, :last_event_forming_initial_request_id,
-                          InfoRequestEvent.maximum(:id)+1)
+        info_request.last_event_forming_initial_request_id =
+          InfoRequestEvent.maximum(:id)+1
         expect { info_request.last_event_forming_initial_request }
           .to raise_error(RuntimeError)
       end
@@ -4079,7 +4079,7 @@ RSpec.describe InfoRequest do
     context 'when there is no value in the database' do
 
       before do
-        info_request.send(:write_attribute, :last_event_forming_initial_request_id, nil)
+        info_request.last_event_forming_initial_request_id = nil
       end
 
       it 'returns the most recent "sent" event' do
@@ -4161,7 +4161,7 @@ RSpec.describe InfoRequest do
 
       it 'returns the date a response is required by' do
         travel_to(Time.zone.parse('2014-12-31')) do
-          info_request.send(:write_attribute, :date_response_required_by, nil)
+          info_request.date_response_required_by = nil
           expect(info_request)
             .to receive(:calculate_date_response_required_by)
               .and_call_original
@@ -4204,7 +4204,7 @@ RSpec.describe InfoRequest do
 
       it 'returns the date a response is very overdue after' do
         travel_to(Time.zone.parse('2014-12-31')) do
-          info_request.send(:write_attribute, :date_very_overdue_after, nil)
+          info_request.date_very_overdue_after = nil
           expect(info_request)
             .to receive(:calculate_date_very_overdue_after)
               .and_call_original

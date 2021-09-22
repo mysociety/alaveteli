@@ -265,7 +265,7 @@ class MailServerLog < ApplicationRecord
       if force
         force_delivery_status(decorated.delivery_status)
       else
-        write_attribute(:delivery_status, decorated.delivery_status)
+        self.delivery_status = decorated.delivery_status
       end
     end
   end

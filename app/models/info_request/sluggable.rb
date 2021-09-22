@@ -39,7 +39,7 @@ module InfoRequest::Sluggable
     suffix = suffix_number(url_title)
     unique_url_title = suffix ? "#{url_title}_#{suffix}" : url_title
 
-    write_attribute(:url_title, unique_url_title)
+    self.url_title = unique_url_title
   end
 
   def suffix_number(url_title)
