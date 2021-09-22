@@ -1404,36 +1404,6 @@ RSpec.describe User do
     end
   end
 
-  describe '.view_hidden_and_embargoed' do
-    it 'returns false if there is no user' do
-      expect(User.view_hidden_and_embargoed?(nil)).to be false
-    end
-
-    it 'returns false if the user has no role' do
-      expect(User.view_hidden_and_embargoed?(FactoryBot.create(:user))).to be false
-    end
-
-    it 'returns false if the user is an admin user' do
-      expect(User.view_hidden_and_embargoed?(FactoryBot.create(:admin_user))).to be false
-    end
-
-    context 'with pro enabled' do
-
-      it 'returns false if the user is an admin user' do
-        with_feature_enabled(:alaveteli_pro) do
-          expect(User.view_hidden_and_embargoed?(FactoryBot.create(:admin_user))).to be false
-        end
-      end
-
-      it 'returns true if pro is enabled and the user is a pro_admin user' do
-        with_feature_enabled(:alaveteli_pro) do
-          expect(User.view_hidden_and_embargoed?(FactoryBot.create(:pro_admin_user)))
-            .to be true
-        end
-      end
-    end
-  end
-
   describe '.info_request_events' do
     let(:user) { FactoryBot.create(:user) }
     let(:info_request) { FactoryBot.create(:info_request, :user => user) }
@@ -1532,6 +1502,35 @@ RSpec.describe User do
 
     context 'when the user is an admin', feature: :alaveteli_pro do
       let(:user) { FactoryBot.create(:admin_user) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the user is a pro_admin', feature: :alaveteli_pro do
+      let(:user) { FactoryBot.create(:pro_admin_user) }
+      it { is_expected.to eq(true) }
+    end
+  end
+
+  describe '#view_hidden_and_embargoed?' do
+    subject { user.view_hidden_and_embargoed? }
+
+    context 'when the user has no roles' do
+      let(:user) { FactoryBot.create(:user) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the user is an admin' do
+      let(:user) { FactoryBot.create(:admin_user) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the user is an admin', feature: :alaveteli_pro do
+      let(:user) { FactoryBot.create(:admin_user) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the user is only a pro_admin', feature: :alaveteli_pro do
+      let(:user) { FactoryBot.create(:user, :pro_admin) }
       it { is_expected.to eq(false) }
     end
 

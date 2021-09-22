@@ -187,9 +187,10 @@ class Ability
     if info_request.embargo
       case prominence
       when 'hidden'
-        User.view_hidden_and_embargoed?(user)
+        user&.view_hidden_and_embargoed?
       when 'requester_only'
-        info_request.is_actual_owning_user?(user) || User.view_hidden_and_embargoed?(user)
+        info_request.is_actual_owning_user?(user) ||
+          user&.view_hidden_and_embargoed?
       else
         info_request.is_actual_owning_user?(user) ||
           user&.view_embargoed? ||
