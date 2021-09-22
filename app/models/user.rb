@@ -227,9 +227,10 @@ class User < ApplicationRecord
     user&.owns_every_request?
   end
 
-  # Can the user see every request, response, and outgoing message, even hidden ones?
   def self.view_hidden?(user)
-    !user.nil? && user.is_admin?
+    warn %q([DEPRECATION] User.view_hidden? will be removed in 0.41.
+            It has been replaced by User#view_hidden?).squish
+    user&.view_hidden?
   end
 
   def self.view_embargoed?(user)
@@ -237,7 +238,7 @@ class User < ApplicationRecord
   end
 
   def self.view_hidden_and_embargoed?(user)
-    view_hidden?(user) && view_embargoed?(user)
+    user&.view_hidden? && view_embargoed?(user)
   end
 
   # Should the user be kept logged into their own account
@@ -280,6 +281,10 @@ class User < ApplicationRecord
   def self.find_similar_named_users(user)
     User.where('name ILIKE ? AND email_confirmed = ? AND id <> ?',
                 user.name, true, user.id).order(:created_at)
+  end
+
+  def view_hidden?
+    is_admin?
   end
 
   def transactions(*associations)

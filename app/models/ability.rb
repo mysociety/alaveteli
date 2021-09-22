@@ -198,9 +198,9 @@ class Ability
     else
       case prominence
       when 'hidden'
-        User.view_hidden?(user)
+        user&.view_hidden?
       when 'requester_only'
-        info_request.is_actual_owning_user?(user) || User.view_hidden?(user)
+        info_request.is_actual_owning_user?(user) || user&.view_hidden?
       else
         true
       end

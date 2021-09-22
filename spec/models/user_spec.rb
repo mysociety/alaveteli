@@ -1404,20 +1404,6 @@ RSpec.describe User do
     end
   end
 
-  describe '.view_hidden?' do
-    it 'returns false if there is no user' do
-      expect(User.view_hidden?(nil)).to be false
-    end
-
-    it 'returns false if the user is not a superuser' do
-      expect(User.view_hidden?(FactoryBot.create(:user))).to be false
-    end
-
-    it 'returns true if the user is an admin user' do
-      expect(User.view_hidden?(FactoryBot.create(:admin_user))).to be true
-    end
-  end
-
   describe '.view_embargoed' do
     it 'returns false if there is no user' do
       expect(User.view_embargoed?(nil)).to be false
@@ -1515,6 +1501,30 @@ RSpec.describe User do
 
   describe '#owns_every_request?' do
     subject { user.owns_every_request? }
+
+    context 'when the user has no roles' do
+      let(:user) { FactoryBot.create(:user) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the user is a pro' do
+      let(:user) { FactoryBot.create(:pro_user) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the user is an admin' do
+      let(:user) { FactoryBot.create(:admin_user) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the user is a pro_admin' do
+      let(:user) { FactoryBot.create(:user, :pro_admin) }
+      it { is_expected.to eq(false) }
+    end
+  end
+
+  describe '#view_hidden?' do
+    subject { user.view_hidden? }
 
     context 'when the user has no roles' do
       let(:user) { FactoryBot.create(:user) }
