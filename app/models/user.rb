@@ -222,7 +222,9 @@ class User < ApplicationRecord
   end
 
   def self.owns_every_request?(user)
-    !user.nil? && user.owns_every_request?
+    warn %q([DEPRECATION] User#owns_every_request? will be removed in 0.41.
+            It has been replaced by User#owns_every_request?).squish
+    user&.owns_every_request?
   end
 
   # Can the user see every request, response, and outgoing message, even hidden ones?

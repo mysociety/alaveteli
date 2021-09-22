@@ -429,28 +429,6 @@ RSpec.describe User, "when checking abilities" do
 
 end
 
-RSpec.describe User, 'when asked if a user owns every request' do
-
-  before do
-    @mock_user = mock_model(User)
-  end
-
-  it 'should return false if no user is passed' do
-    expect(User.owns_every_request?(nil)).to be false
-  end
-
-  it 'should return true if the user has "requires admin" power' do
-    allow(@mock_user).to receive(:owns_every_request?).and_return true
-    expect(User.owns_every_request?(@mock_user)).to be true
-  end
-
-  it 'should return false if the user does not have "requires admin" power' do
-    allow(@mock_user).to receive(:owns_every_request?).and_return false
-    expect(User.owns_every_request?(@mock_user)).to be false
-  end
-
-end
-
 RSpec.describe User, " when making name and email address" do
   it "should generate a name and email" do
     @user = User.new
@@ -1532,6 +1510,30 @@ RSpec.describe User do
       expect(Notification.where(id: notification.id)).to exist
       user.destroy
       expect(Notification.where(id: notification.id)).not_to exist
+    end
+  end
+
+  describe '#owns_every_request?' do
+    subject { user.owns_every_request? }
+
+    context 'when the user has no roles' do
+      let(:user) { FactoryBot.create(:user) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the user is a pro' do
+      let(:user) { FactoryBot.create(:pro_user) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the user is an admin' do
+      let(:user) { FactoryBot.create(:admin_user) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the user is a pro_admin' do
+      let(:user) { FactoryBot.create(:user, :pro_admin) }
+      it { is_expected.to eq(false) }
     end
   end
 
