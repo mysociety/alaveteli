@@ -85,7 +85,7 @@ class PasswordChangesController < ApplicationController
       end
 
       if @password_change_user.save
-        session[:user_id] ||= @password_change_user.id
+        sign_in(@password_change_user)
 
         if @pretoken_redirect
           if otp_enabled?(@password_change_user)

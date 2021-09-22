@@ -245,6 +245,8 @@ class UserController < ApplicationController
     @user.email = @signchangeemail.new_email
     @user.save!
 
+    sign_in(@user)
+
     # Now clear the circumstance
     session[:user_circumstance] = nil
     flash[:notice] = _("You have now changed your email address used on {{site_name}}",:site_name=>site_name)

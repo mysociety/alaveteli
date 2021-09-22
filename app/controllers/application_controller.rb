@@ -147,12 +147,14 @@ class ApplicationController < ActionController::Base
     remember_me ||= session[:remember_me]
     clear_session_credentials
     session[:user_id] = user.id
+    session[:user_login_token] = user.login_token
     session[:remember_me] = remember_me
   end
 
   # Logout form
   def clear_session_credentials
     session[:user_id] = nil
+    session[:user_login_token] = nil
     session[:user_circumstance] = nil
     session[:remember_me] = false
     session[:using_admin] = nil
@@ -278,7 +280,9 @@ class ApplicationController < ActionController::Base
   def authenticated_user
     return unless session[:user_id]
 
-    @user ||= User.find_by(id: session[:user_id])
+    @user ||= User.find_by(
+      id: session[:user_id], login_token: session[:user_login_token]
+    )
   end
 
   # For CanCanCan and other libs which need a Devise-like current_user method
