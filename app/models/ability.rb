@@ -57,7 +57,7 @@ class Ability
     # Viewing batch requests
     can :read, InfoRequestBatch do |batch_request|
       if batch_request.embargo_duration
-        user && (user == batch_request.user || User.view_embargoed?(user))
+        user && (user == batch_request.user || user&.view_embargoed?)
       else
         true
       end
@@ -192,7 +192,7 @@ class Ability
         info_request.is_actual_owning_user?(user) || User.view_hidden_and_embargoed?(user)
       else
         info_request.is_actual_owning_user?(user) ||
-          User.view_embargoed?(user) ||
+          user&.view_embargoed? ||
           project&.member?(user)
       end
     else

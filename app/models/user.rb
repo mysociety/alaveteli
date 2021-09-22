@@ -234,11 +234,13 @@ class User < ApplicationRecord
   end
 
   def self.view_embargoed?(user)
-    !user.nil? && user.is_pro_admin?
+    warn %q([DEPRECATION] User.view_embargoed? will be removed in 0.41.
+            It has been replaced by User#view_embargoed?).squish
+    user&.view_embargoed?
   end
 
   def self.view_hidden_and_embargoed?(user)
-    user&.view_hidden? && view_embargoed?(user)
+    user&.view_hidden? && user&.view_embargoed?
   end
 
   # Should the user be kept logged into their own account
@@ -285,6 +287,10 @@ class User < ApplicationRecord
 
   def view_hidden?
     is_admin?
+  end
+
+  def view_embargoed?
+    is_pro_admin?
   end
 
   def transactions(*associations)
