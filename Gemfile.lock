@@ -339,7 +339,7 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    secure_headers (6.3.2)
+    secure_headers (6.3.3)
     simplecov (0.17.1)
       docile (~> 1.1)
       json (>= 1.8, < 3)
@@ -463,7 +463,7 @@ DEPENDENCIES
   ruby-msg (~> 1.5.0)!
   rubyzip (~> 2.3.2)
   sass-rails (~> 5.0.7)
-  secure_headers (~> 6.3.2)
+  secure_headers (~> 6.3.3)
   simplecov (~> 0.17.1)
   simplecov-lcov (~> 0.7.0)
   statistics2 (~> 0.54)
