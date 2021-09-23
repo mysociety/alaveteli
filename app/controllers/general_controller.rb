@@ -9,6 +9,8 @@ class GeneralController < ApplicationController
 
   MAX_RESULTS = 500
 
+  skip_before_action :html_response, only: :version
+
   before_action :redirect_pros_to_dashboard, only: :frontpage
 
   # New, improved front page!
@@ -23,8 +25,6 @@ class GeneralController < ApplicationController
     @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'),
                            :title => _('Successful requests'),
                            :has_json => true } ]
-
-    respond_to :html
   end
 
   # Display blog entries
@@ -36,8 +36,6 @@ class GeneralController < ApplicationController
     medium_cache
 
     get_blog_content
-
-    respond_to :html
   end
 
   def get_blog_content
@@ -87,15 +85,6 @@ class GeneralController < ApplicationController
   def search
     # TODO: Why is this so complicated with arrays and stuff? Look at the route
     # in config/routes.rb for comments.
-
-    # 404 if the request is a format we don't support (e.g:.json)
-    # 200 if the request is an invalid format (e.g: .invalid). This allows
-    # invalid search terms to render the search results page with a "no results
-    # found" message.
-    if !request.format.nil? && !request.format.html?
-      respond_to { |format| format.any { head :not_found } }
-      return
-    end
 
     combined = params[:combined].split("/")
     @sortby = nil

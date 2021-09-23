@@ -1,6 +1,7 @@
 class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
   include AlaveteliPro::StripeNamespace
 
+  skip_before_action :html_response, only: [:create, :authorise]
   skip_before_action :pro_user_authenticated?, only: [:create, :authorise]
   before_action :authenticate, only: [:create, :authorise]
   before_action :prevent_duplicate_submission, only: [:create]

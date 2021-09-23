@@ -71,9 +71,9 @@ RSpec.describe "When errors occur" do
       expect(response.code).to eq('500')
     end
 
-    it 'should render a 404 for a non-found xml request' do
+    it 'should render a 406 for a non-found xml request' do
       get "/frobsnasm.xml"
-      expect(response.code).to eq('404')
+      expect(response.code).to eq('406')
     end
 
     it 'should notify of a general error' do

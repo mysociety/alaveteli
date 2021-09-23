@@ -2,6 +2,8 @@
 
 class ServicesController < ApplicationController
 
+  skip_before_action :html_response
+
   def other_country_message
     flash.keep
 

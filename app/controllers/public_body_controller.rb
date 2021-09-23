@@ -7,6 +7,7 @@
 require 'tempfile'
 
 class PublicBodyController < ApplicationController
+  skip_before_action :html_response, only: [:show, :list_all_csv]
 
   MAX_RESULTS = 500
   # TODO: tidy this up with better error messages, and a more standard infrastructure for the redirect to canonical URL
@@ -162,9 +163,7 @@ class PublicBodyController < ApplicationController
           end
         end
 
-      respond_to do |format|
-        format.html { render :template => 'public_body/list' }
-      end
+      render :template => 'public_body/list'
     end
   end
 

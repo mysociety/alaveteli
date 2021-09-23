@@ -33,6 +33,7 @@ class ApplicationController < ActionController::Base
   include AlaveteliPro::PostRedirectHandler
 
   # Note: a filter stops the chain if it redirects or renders something
+  before_action :html_response
   before_action :authentication_check
   before_action :check_in_post_redirect
   before_action :session_remember_me
@@ -343,6 +344,10 @@ class ApplicationController < ActionController::Base
                     "Params: #{params}"
       end
     end
+  end
+
+  def html_response
+    respond_to :html
   end
 
   # Default layout shows user in corner, so needs access to it

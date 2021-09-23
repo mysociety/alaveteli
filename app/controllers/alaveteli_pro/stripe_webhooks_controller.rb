@@ -3,6 +3,8 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
   class MissingTypeStripeWebhookError < StandardError; end
   class UnknownPlanStripeWebhookError < StandardError; end
 
+  skip_before_action :html_response
+
   rescue_from JSON::ParserError, MissingTypeStripeWebhookError do |exception|
     # Invalid payload, reject the webhook
     notify_exception(exception)
