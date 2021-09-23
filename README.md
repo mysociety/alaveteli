@@ -39,6 +39,7 @@ Every Alaveteli commit is tested by GitHub Actions on the [following Ruby platfo
 
 * ruby-2.5
 * ruby-2.6
+* ruby-2.7
 
 If you use a ruby version management tool (such as RVM or .rbenv) and want to use the default development version used by the Alaveteli team (currently 2.5.8), you can create a `.ruby-version` symlink with a target of `.ruby-version.example` to switch to that automatically in the project directory.
 
