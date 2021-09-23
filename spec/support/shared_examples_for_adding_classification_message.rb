@@ -9,7 +9,7 @@ RSpec.shared_examples 'adding classification message action' do
   end
 
   before do
-    session[:user_id] = info_request.user_id
+    sign_in info_request.user
   end
 
   it 'assigns the info_request to the view' do

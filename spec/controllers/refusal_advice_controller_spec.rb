@@ -168,7 +168,7 @@ RSpec.describe RefusalAdviceController do
     end
 
     context 'when logged in as request owner' do
-      before { session[:user_id] = user&.id }
+      before { sign_in user }
 
       context 'valid params' do
         before do
@@ -249,7 +249,7 @@ RSpec.describe RefusalAdviceController do
 
     context 'when logged in as non-request owner' do
       let(:user) { FactoryBot.create(:user) }
-      before { session[:user_id] = user&.id }
+      before { sign_in user }
 
       it 'renders wrong user template' do
         post :create, params: params

@@ -144,6 +144,13 @@ class ApplicationController < ActionController::Base
     session[:ttl] = Time.zone.now if session[:user_id] && !session[:remember_me]
   end
 
+  def sign_in(user, remember_me: nil)
+    remember_me ||= session[:remember_me]
+    clear_session_credentials
+    session[:user_id] = user.id
+    session[:remember_me] = remember_me
+  end
+
   # Logout form
   def clear_session_credentials
     session[:user_id] = nil
@@ -217,7 +224,7 @@ class ApplicationController < ActionController::Base
   private
 
   def user?
-    !session[:user_id].nil?
+    authenticated_user.present?
   end
 
   # Override the Rails method to only set the CSRF form token if there is a
@@ -228,7 +235,7 @@ class ApplicationController < ActionController::Base
 
   # Check the user is logged in
   def authenticated?(reason_params = {})
-    return true if session[:user_id]
+    return true if authenticated_user
 
     post_redirect = reason_params.delete(:post_redirect)
     post_redirect ||= PostRedirect.new(uri: request.fullpath,
@@ -253,8 +260,8 @@ class ApplicationController < ActionController::Base
   def authenticated_as_user?(user, reason_params = {})
     reason_params[:user_name] = user.name
     reason_params[:user_url] = show_user_url(:url_name => user.url_name)
-    if session[:user_id]
-      if session[:user_id] == user.id
+    if authenticated_user
+      if authenticated_user == user
         # They are logged in as the right user
         return true
       else
@@ -270,15 +277,9 @@ class ApplicationController < ActionController::Base
 
   # Return logged in user
   def authenticated_user
-    if session[:user_id].nil?
-      return nil
-    else
-      begin
-        return User.find(session[:user_id])
-      rescue ActiveRecord::RecordNotFound
-        return nil
-      end
-    end
+    return unless session[:user_id]
+
+    @user ||= User.find_by(id: session[:user_id])
   end
 
   # For CanCanCan and other libs which need a Devise-like current_user method
@@ -352,9 +353,7 @@ class ApplicationController < ActionController::Base
 
   # Default layout shows user in corner, so needs access to it
   def authentication_check
-    if session[:user_id]
-      @user = authenticated_user
-    end
+    @user ||= authenticated_user
   end
 
   #

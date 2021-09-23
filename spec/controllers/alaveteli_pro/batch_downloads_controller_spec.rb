@@ -17,7 +17,7 @@ RSpec.describe AlaveteliPro::BatchDownloadsController, type: :controller do
 
     context 'with a signed-in non-pro user' do
       let(:user) { FactoryBot.create(:user) }
-      before { session[:user_id] = user.id }
+      before { sign_in user }
 
       it 'redirects to site root' do
         show
@@ -30,7 +30,7 @@ RSpec.describe AlaveteliPro::BatchDownloadsController, type: :controller do
       let(:ability) { Ability.new(pro_user) }
 
       before do
-        session[:user_id] = pro_user.id
+        sign_in pro_user
         allow(controller).to receive(:current_user).and_return(pro_user)
       end
 

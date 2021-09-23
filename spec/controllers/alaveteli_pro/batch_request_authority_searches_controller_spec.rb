@@ -39,7 +39,7 @@ RSpec.describe AlaveteliPro::BatchRequestAuthoritySearchesController do
       authority_2.save
       authority_3.save
       update_xapian_index
-      session[:user_id] = pro_user.id
+      sign_in pro_user
     end
 
     context 'without a draft_id param' do
@@ -134,7 +134,7 @@ RSpec.describe AlaveteliPro::BatchRequestAuthoritySearchesController do
   describe '#new' do
 
     before do
-      session[:user_id] = pro_user.id
+      sign_in pro_user
     end
 
     it 'redirects to index action' do

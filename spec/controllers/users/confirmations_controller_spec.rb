@@ -34,14 +34,14 @@ RSpec.describe Users::ConfirmationsController do
       it 'logs out a user who does not own the post redirect' do
         logged_in_user = FactoryBot.create(:user)
 
-        session[:user_id] = logged_in_user.id
+        sign_in logged_in_user
 
         get :confirm, params: { email_token: post_redirect.email_token }
         expect(session[:user_id]).to be_nil
       end
 
       it 'does not log out a user if they own the post redirect' do
-        session[:user_id] = user.id
+        sign_in user
         get :confirm, params: { email_token: post_redirect.email_token }
 
         expect(session[:user_id]).to eq(user.id)
@@ -80,7 +80,7 @@ RSpec.describe Users::ConfirmationsController do
         @user = FactoryBot.create(:user, :email_confirmed => false)
         @post_redirect = PostRedirect.create(:uri => '/', :user => @user)
 
-        session[:user_id] = @admin.id
+        sign_in @admin
         get :confirm, params: { :email_token => @post_redirect.email_token }
       end
 
@@ -111,7 +111,7 @@ RSpec.describe Users::ConfirmationsController do
         @user = FactoryBot.create(:user, :email_confirmed => false)
         @post_redirect = PostRedirect.create(:uri => '/', :user => @user)
 
-        session[:user_id] = @user.id
+        sign_in @user
         get :confirm, params: { :email_token => @post_redirect.email_token }
       end
 
@@ -142,7 +142,7 @@ RSpec.describe Users::ConfirmationsController do
         @user = FactoryBot.create(:user, :email_confirmed => false)
         @post_redirect = PostRedirect.create(:uri => '/', :user => @user)
 
-        session[:user_id] = @current_user.id
+        sign_in @current_user
         get :confirm, params: { :email_token => @post_redirect.email_token }
       end
 

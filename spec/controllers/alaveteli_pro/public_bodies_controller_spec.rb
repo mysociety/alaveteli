@@ -17,7 +17,7 @@ RSpec.describe AlaveteliPro::PublicBodiesController do
     end
 
     before do
-      session[:user_id] = pro_user.id
+      sign_in pro_user
       update_xapian_index
     end
 

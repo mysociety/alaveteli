@@ -69,7 +69,7 @@ RSpec.describe AlaveteliPro::PlansController do
       let(:user) { FactoryBot.create(:user) }
 
       before do
-        session[:user_id] = user.id
+        sign_in user
       end
 
       context 'with a valid plan' do
@@ -117,7 +117,7 @@ RSpec.describe AlaveteliPro::PlansController do
       context 'with an existing subscription' do
 
         before do
-          session[:user_id] = user.id
+          sign_in user
           customer =
             Stripe::Customer.create(email: user.email,
                                     source: stripe_helper.generate_card_token)
@@ -140,7 +140,7 @@ RSpec.describe AlaveteliPro::PlansController do
       context 'with an existing customer id but no active subscriptions' do
 
         before do
-          session[:user_id] = user.id
+          sign_in user
           customer =
             Stripe::Customer.create(email: user.email,
                                     source: stripe_helper.generate_card_token)
