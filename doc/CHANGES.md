@@ -1,3 +1,9 @@
+# 0.39.1.6
+
+## Highlighted Features
+
+* Updated translations from Transifex (Graeme Porteous)
+
 # 0.39.1.5
 
 ## Highlighted Features
