@@ -1,3 +1,9 @@
+# develop
+
+## Highlighted Features
+
+* Drop support for Ruby 2.5 (Graeme Porteous)
+
 # 0.40.0.0
 
 ## Highlighted Features
