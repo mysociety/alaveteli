@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20210921094059
 #
 # Table name: users
 #
@@ -34,12 +34,14 @@
 #  daily_summary_hour                :integer
 #  daily_summary_minute              :integer
 #  closed_at                         :datetime
+#  login_token                       :string
 #
 
 class User < ApplicationRecord
   include AlaveteliFeatures::Helpers
   include AlaveteliPro::PhaseCounts
   include User::Authentication
+  include User::LoginToken
   include User::Survey
 
   rolify before_add: :setup_pro_account

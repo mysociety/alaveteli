@@ -1694,7 +1694,9 @@ RSpec.describe RequestController, "when making a new request" do
     allow(@user).to receive(:get_undescribed_requests).and_return([])
     allow(@user).to receive(:can_file_requests?).and_return(true)
     allow(@user).to receive(:locale).and_return("en")
-    allow(User).to receive(:find_by).with(id: @user.id).and_return(@user)
+    allow(@user).to receive(:login_token).and_return('abc')
+    allow(User).to receive(:find_by).with(id: @user.id, login_token: 'abc').
+      and_return(@user)
     @body = FactoryBot.create(:public_body, :name => 'Test Quango')
   end
 

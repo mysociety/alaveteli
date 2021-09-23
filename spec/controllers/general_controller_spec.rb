@@ -155,7 +155,7 @@ RSpec.describe GeneralController, "when showing the frontpage" do
   end
 
   it "doesn't raise an error when there's no user matching the one in the session" do
-    sign_in double(:user, id: 999)
+    sign_in double(:user, id: 999, login_token: 'abc')
     get :frontpage
     expect(response).to be_successful
   end
