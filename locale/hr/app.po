@@ -28,6 +28,7 @@
 # ae792aa766bbca91f3f4821acaa19518_a48216f <924a924c26027fc002ca6fada3386ff5_247255>, 2015
 # Bojan Opacak <bojan@rationalinternational.net>, 2013
 # Bojan Opacak <bojan@rationalinternational.net>, 2013
+# Graeme Porteous <graeme@mysociety.org>, 2021
 # Igor Dobrača <id.public@rovinj.net>, 2015
 # Josipa Sumpor <sumporjosipa@gmail.com>, 2021
 # Katica Badovinac <kbadovinac@vip.hr>, 2019
@@ -57,7 +58,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-09-14 12:40+0100\n"
-"PO-Revision-Date: 2021-09-14 16:15+0000\n"
+"PO-Revision-Date: 2021-09-16 08:46+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Croatian (http://www.transifex.com/mysociety/alaveteli/language"
 "/hr/)\n"
@@ -388,7 +389,7 @@ msgid "A strange response, required attention by the {{site_name}} team"
 msgstr "Neobičan odgovor, potreban je pregled od strane {{site_name}} tima"
 
 msgid "A survey about your recent Freedom of Information request"
-msgstr "Anketa o vašem nedavnom zahtjevu temeljem zakona o pravu na pristup informacijama"
+msgstr "Anketa o vašem nedavnom zahtjevu temeljem Zakona o pravu na pristup informacijama"
 
 msgid "A {{site_name}} user"
 msgstr "Korisnik stranice {{site_name}}"
@@ -1369,7 +1370,7 @@ msgid "If you believe this request is not suitable, you can report it for attent
 msgstr "Vjeruješ li da ovaj zahtjev nije primjeren, možeš ga prijaviti administratorima stranice koristeći ovaj obrazac"
 
 msgid "If you can spare a few minutes to complete our short survey, it will help us make the site better. Just follow the link below."
-msgstr "Ako možete odvojiti par minuta za ispunjavanje kratkog upitnika, to će nam pomoći da unaprijediti uslugu. Upitnik je dostupan na poveznici."
+msgstr "Ako možete odvojiti par minuta za ispunjavanje kratkog upitnika, to će nam pomoći da unaprijedimo uslugu. Upitnik je dostupan na poveznici."
 
 msgid "If you can't click on it in the email, you'll have to <strong>select and copy it</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place you would type the address of any other webpage."
 msgstr "Ako ne možete kliknuti na njega u e-mailu, morati ćete <strong>odabrati i kopirati ga</strong> iz e-maila. Zatim <strong>zalijepite u vaš internetski preglednik</strong>, na mjesto gdje biste upisali adresu bilo koje druge internetske stranice."
@@ -3492,7 +3493,7 @@ msgid "We will not reveal your email addresses to anybody unless you or the law 
 msgstr "Nećemo prikazati vašu e-mail adresu nikome, osim ako vi ili zakon to ne zahtijevate."
 
 msgid "We would like to know more about you, and your experience making a Freedom of Information request through the site."
-msgstr ""
+msgstr "Htjeli bismo znati kakva su vaša iskustva sa Zakonom o pravu na pristup informacijama i zahtjevom upućenim putem platforme."
 
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr "Poslati ćemo vam e-mail čim stigne odgovor na vaš zahtjev."
