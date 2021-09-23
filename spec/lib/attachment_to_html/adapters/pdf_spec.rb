@@ -39,8 +39,7 @@ RSpec.describe AttachmentToHTML::Adapters::PDF do
 
     it 'operates in the context of the supplied tmpdir' do
       adapter = AttachmentToHTML::Adapters::PDF.new(attachment, :tmpdir => '/tmp')
-      expect(Tempfile).to receive(:new).with('foiextract', '/tmp', any_args).
-        and_call_original
+      expect(Dir).to receive(:chdir).with('/tmp').and_call_original
       adapter.body
     end
 
@@ -52,6 +51,23 @@ RSpec.describe AttachmentToHTML::Adapters::PDF do
         valid UTF-8' do
       allow(adapter).to receive(:convert).and_return("\xBF")
       expect(adapter.body).to be_valid_encoding
+    end
+
+    context 'PDF attachment with images' do
+
+      let(:attachment) do
+        FactoryBot.build(
+          :pdf_attachment,
+          filename: 'cat.pdf',
+          body: load_file_fixture('cat.pdf')
+        )
+      end
+
+      it 'extract and link to images with relative paths' do
+        expect(adapter.body).to_not include('<img src="/')
+        expect(adapter.body).to include('<img src="./')
+      end
+
     end
 
   end

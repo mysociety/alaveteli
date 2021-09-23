@@ -34,8 +34,7 @@ RSpec.describe AttachmentToHTML::Adapters::RTF do
 
     it 'operates in the context of the supplied tmpdir' do
       adapter = AttachmentToHTML::Adapters::RTF.new(attachment, :tmpdir => '/tmp')
-      expect(Tempfile).to receive(:new).with('foiextract', '/tmp', any_args).
-        and_call_original
+      expect(Dir).to receive(:chdir).with('/tmp').and_call_original
       adapter.body
     end
 
