@@ -161,7 +161,7 @@ msgid "Account"
 msgstr "Konto"
 
 msgid "Activist Doug Paulley uncovered councils across the UK who, through inaction, are allowing legal discrimination against wheelchair users. <a href=\"{{story_url}}\">See the whole story</a>"
-msgstr "Aktivisten Doug Paulley avslöjade råd över hela Storbritannien som genom passivitet tillåter laglig diskriminering av rullstolsanvändare. <a href=\"{{story_url}}\">Se hela handlingen</a>"
+msgstr "Kampanjledaren Doug Paulley avslöjade råd över hela Storbritannien som genom passivitet tillåter laglig diskriminering av rullstolsanvändare. <a href=\"{{story_url}}\">Se hela handlingen</a>"
 
 msgid "Activity"
 msgstr "Aktivitet"
@@ -203,7 +203,7 @@ msgid "Also called {{other_name}}."
 msgstr "Även kallad {{other_name}}"
 
 msgid "An all-in-one FOI toolkit for journalists, activists and campaigners"
-msgstr "Allt du behöver för att jobba med information från myndigheter. Oavsett om du är journalist, företagare, aktivist, forskare eller annan professionell användare."
+msgstr "Allt du behöver för att jobba med information från myndigheter. Oavsett om du är journalister, föreningsaktiv, forskare eller företagare"
 
 msgid "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
 msgstr "Anteckningar tillåter dig att lägga till extra anteckningar på en begäran, vilka eventuellt kommer offentliggöras. Kommentarer omfattas inte av vårt utgivningsbevis. Du ansvarar själv för dina anteckningar. Till exempel:"
@@ -221,7 +221,7 @@ msgid "Are you sure?"
 msgstr "Är du säker?"
 
 msgid "Automate FOI request management"
-msgstr "Automatisera begäran om allmänna handlingar och hantering"
+msgstr "Automatisera hantering av förfrågningar"
 
 msgid "Batch"
 msgstr "Serieförfrågningar"
@@ -335,7 +335,7 @@ msgid "Dear {{user_name}},"
 msgstr "Hej {{user_name}},"
 
 msgid "Debt Resistance UK uncovered <a href=\"{{story_url}}\">which councils are paying exorbitant LOBO loans</a>, in some cases meaning that a large proportion of council tax income is being channelled directly into interest payments."
-msgstr "Open Up! Projekt som drivs av Open Knowledge Sweden, <a href=\"{{story_url}}\">upptäckte flera myndigheter som betalar orimliga summor pengar och onödigt höga kostnader till leverantörer</a>, vilket innebär att en del av skattepengarna går till inget värde alls för skattebetalaren."
+msgstr "Projektet Open Up! som drivs av Open Knowledge Sweden, <a href=\"{{story_url}}\">upptäckte flera myndigheter som betalar orimliga summor pengar och onödigt höga kostnader till leverantörer</a>, vilket innebär att en del av skattepengarna går till inget värde alls för skattebetalaren."
 
 msgid "Debt Resistance UK uncovered which councils are paying exorbitant LOBO loans, in some cases meaning that a large proportion of council tax income is being channelled directly into interest payments."
 msgstr "Open Up! Projekt som drivs av Open Knowledge Sweden, upptäckte flera myndigheter som betalar orimliga summor pengar och onödigt höga kostnader till leverantörer, vilket innebär att en del av skattepengarna går till inget värde alls för skattebetalaren."
@@ -353,7 +353,7 @@ msgid "Do you have a coupon code?"
 msgstr "Har du en rabattkod?"
 
 msgid "Don’t worry – <a href=\"{{signup_link}}\">our free accounts</a> are still available and always will be."
-msgstr "<a href=\"{{signup_link}}\">Ett gratis konto</a> är fortfarande tillgängligt och kommer alltid att vara det."
+msgstr "Oroa dig inte - <a href=\"{{signup_link}}\">våra gratiskonton</a> är fortfarande tillgängliga och kommer alltid att vara det."
 
 msgid "Download a zip file of all correspondence"
 msgstr "Ladda ned en zip-fil av all korrespondens"
@@ -386,16 +386,16 @@ msgid "Expires soon"
 msgstr "Förfaller snart"
 
 msgid "FOI Management Tools for journalists, campaigners and researchers"
-msgstr "Verktyg för att jobba med allmänna handlingar och offentlighetsprincipen för journalister, civilsamhälle och företagare"
+msgstr "Researchverktyg om offentlig sektor för journalister, föreningar, forskare och företagare"
 
 msgid "FOI Management for Campaigners"
-msgstr "Verktyg för att arbeta med offentlighetsprincips för föreningar"
+msgstr "Researchhantering för föreningar"
 
 msgid "FOI Management for Journalists"
-msgstr "Verktyg för att jobba med allmänna handlingar och offentlighetsprincipen för journalister"
+msgstr "Hantering av allmänna handlingar för journalister"
 
 msgid "FOI Management for Researchers"
-msgstr "Verktyg för att arbeta med offentlighetsprincips för företagare"
+msgstr "Hantering av allmänna handlingar för Forskare"
 
 msgid "FOI address book"
 msgstr "Adresser och kontakter relaterade till offentlighetsprincipen"
@@ -407,7 +407,7 @@ msgid "FOI for journalists"
 msgstr "Begäran om allmänna handlingar för journalister"
 
 msgid "FOI for researchers"
-msgstr "Begäran om allmänna handlingar för företagare"
+msgstr "Insyn i offentlig sektor för forskare och researchers"
 
 msgid "FOI is an invaluable tool for researchers, helping you collect information that hasn’t previously been available as a single dataset, and understand the wider picture. Pro takes the slog out of sending multiple requests with the Batch feature: easily pick the authorities you want, then send one request to all of them."
 msgstr "Offentlighetsprincipen är ett ovärderligt verktyg, och det finns mycket information som kan vara till din fördel i utredningar. Med serieförfrågningar kan du enkelt välja de myndigheter du vill kontakta och skicka en förfrågan till dem alla."
@@ -431,7 +431,7 @@ msgid "First created"
 msgstr "Först skapad"
 
 msgid "For journalists, academics and power users"
-msgstr "För journalister, civilsamhälle och företagare"
+msgstr "För journalister, föreningar, forskare och företagare"
 
 msgid "Friendly support"
 msgstr "Stöd från Handlingar-teamet"
@@ -476,7 +476,7 @@ msgid "How journalists are using Pro"
 msgstr "Hur journalister använder Pro"
 
 msgid "How researchers are using Pro"
-msgstr "Hur företagare använder Pro"
+msgstr "Hur forskare och researchers använder Pro"
 
 msgid "I have read and accepted these terms and conditions"
 msgstr "Jag har läst och godkänt dessa villkor"
@@ -515,10 +515,10 @@ msgid "I’m a journalist"
 msgstr "För journalister "
 
 msgid "I’m a researcher"
-msgstr "För företagare"
+msgstr "Jag är forskare eller researcher"
 
 msgid "Join {{pro_site_name}}"
-msgstr "Gå med {{pro_site_name}}"
+msgstr "Kom igång med {{pro_site_name}}"
 
 msgid "Journalists"
 msgstr "Journalister"
@@ -539,16 +539,16 @@ msgid "Last updated"
 msgstr "Senast uppdaterad"
 
 msgid "Learn more about {{pro_site_name}} for campaigners"
-msgstr "Läs mer om {{pro_site_name}} för civilsamhället"
+msgstr "Läs mer om {{pro_site_name}} för föreningar"
 
 msgid "Learn more about {{pro_site_name}} for journalists"
 msgstr "Läs mer om {{pro_site_name}} för journalister"
 
 msgid "Learn more about {{pro_site_name}} for researchers"
-msgstr "Läs mer om {{pro_site_name}} för företagare"
+msgstr "Läs mer om {{pro_site_name}} för forskare och researchers"
 
 msgid "Lucie Stephens, prompted by the death of someone she cared about, requested information about asbestos in schools from more than 200 LEAs. <a href=\"{{story_url}}\">Read about her campaign</a>"
-msgstr "Lucie Stephens, uppmanad av bortgången av någon som hon bryr sig om, begärde information om asbest i skolor från mer än 200 ställen. <a href=\"{{story_url}}\">Läs om hennes kampanj</a>"
+msgstr "Lucie Stephens, uppmanad av bortgången av en närstående, begärde information om asbest i skolor från fler än 200 myndigheter. <a href=\"{{story_url}}\">Läs om hennes kampanj</a>"
 
 msgid "Make a batch request"
 msgstr "Gör en serieförfrågan"
@@ -611,7 +611,7 @@ msgid "No bodies selected"
 msgstr "Inga valda myndigheter"
 
 msgid "No more authorities can be added to this batch request."
-msgstr "Inga fler myndigheter kan läggas till denna serieförfrågan"
+msgstr "Inga fler myndigheter kan adderas till denna serieförfrågan"
 
 msgid "No more copy and paste emails: our Batch Request tool helps you create one request and send it to many authorities at once."
 msgstr "Handlingar Pro hjälper dig skicka samma begäran om allmän handling till flera myndigheter samtidigt."
@@ -719,7 +719,7 @@ msgid "Pricing"
 msgstr "Priser"
 
 msgid "Privacy"
-msgstr "Period för sekretess"
+msgstr "Tidsperiod för sekretess"
 
 msgid "Private"
 msgstr "Privat"
@@ -743,10 +743,10 @@ msgid "Pro features a new request list view"
 msgstr "Pro innehåller en ny listvy för förfrågningar"
 
 msgid "Pro gives you all of the ease of {{site_name}}, without the worry of others snatching your scoop before it’s ready."
-msgstr "Pro ger dig all enkelhet med {{site_name}}, utan att oroa dig för att andra använder den information du har begärt ut, innan ditt projekt är klart."
+msgstr "Pro ger dig all enkelhet med {{site_name}}, utan risken att andra använder den information du har begärt ut, innan ditt projekt är klart."
 
 msgid "Pro gives you all of the ease of {{site_name}}, without the worry of releasing all your work before you’re ready for the world to see it."
-msgstr "Pro ger dig all enkelhet med {{site_name}}, utan att oroa dig för att andra använder den information du har begärt ut, innan ditt projekt är klart."
+msgstr "Pro ger dig all enkelhet med {{site_name}}, utan risken att andra använder den information du har begärt ut, innan ditt projekt är klart."
 
 msgid "Professional"
 msgstr "Pro"
@@ -784,10 +784,10 @@ msgid "Refer a friend"
 msgstr "Referera en vän"
 
 msgid "Remember, public authorities have {{late_number_of_days}} calendar days to respond to FOI requests."
-msgstr "Kom ihåg att myndigheten har {{late_number_of_days}} kalenderdagar på sig att besvara FOI förfrågningar."
+msgstr "Kom ihåg att myndigheten har {{late_number_of_days}} kalenderdagar på sig att besvara förfrågningar."
 
 msgid "Remember, public authorities have {{late_number_of_days}} working days to respond to FOI requests."
-msgstr "Kom ihåg att myndigheten har {{late_number_of_days}} arbetsdagar på sig att besvara en FOI förfrågan."
+msgstr "Kom ihåg att myndigheten har {{late_number_of_days}} arbetsdagar på sig att besvara förfrågningar."
 
 msgid "Reminders"
 msgstr "Notiser"
@@ -840,7 +840,7 @@ msgid "Requests that will be made public soon"
 msgstr "Förfrågningar som kommer offentliggöras snart"
 
 msgid "Researchers"
-msgstr "Företagare"
+msgstr "Forskare och Researchers"
 
 msgid "Response due"
 msgstr "Inväntar svar"
@@ -984,19 +984,19 @@ msgid "Thank you for your interest in {{pro_site_name}}."
 msgstr "Tack för ditt intresse för {{pro_site_name}}. "
 
 msgid "Thanks for logging in. We've saved your request as a draft, in case you wanted to add an embargo before sending it. You can set that (or just send it straight away) using the form below."
-msgstr "Tack för att du loggar in. Vi har sparat din begäran som ett utkast ifall du skulle vilja lägga till ett embargo innan du skickar den. Du kan sätta det (eller bara skicka iväg det direkt) genom att använda formuläret nedanför."
+msgstr "Tack för att du loggar in. Vi har sparat din begäran som ett utkast ifall du skulle vilja lägga till en period för sekretess innan du skickar den. Du kan sätta det (eller bara skicka iväg det direkt) nedanför."
 
 msgid "Thanks for your interest in {{pro_site_name}}, we'll get back to you soon!"
-msgstr "Tack för ditt intresse i {{pro_site_name}}. Vi återkommer till dig snart!"
+msgstr "Tack för ditt intresse för {{pro_site_name}}. Vi återkommer till dig snart!"
 
 msgid "The Bureau of investigative Journalism used Pro to send requests to councils up and down the county, and build a nationwide picture of the public properties being sold off by councils in the face of austerity."
 msgstr "Byrån för granskande journalistik i Storbritannien använde Pro i Storbritannien för att skicka förfrågningar till kommunfullmäktige över hela landet för en rikstäckande bild av de offentliga fastigheter som säljs p.g.a. nedskärningar."
 
 msgid "The Wales Governance Centre sent FOI requests through Pro to discover the prison populations across Wales and England for their report ‘<a href=\"{{story_url}}\">Sentencing and Imprisonment in Wales</a>’."
-msgstr "Företagare som använt Pro har fått ut information som ger dem fördelar i upphandlingar med offentlig sektor. Andra användare som forskade med Pro <a href=\"{{story_url}}\">upptäckte hur myndigheter upprätthåller olika information även om de lyder under samma lagar</a>."
+msgstr "Forskare, reseachers och företagare som använt Pro har fått ut information som ger dem fördelar i granskningar och i upphandlingar med offentlig sektor. Andra som använde Pro <a href=\"{{story_url}}\">upptäckte hur myndigheter upprätthåller olika information även om de lyder under samma lagar</a>."
 
 msgid "The Wales Governance Centre sent FOI requests through Pro to discover the prison populations across Wales and England for their report ‘Sentencing and Imprisonment in Wales’."
-msgstr "Företagare som använt Pro har fått ut information som ger dem fördelar i upphandlingar med offentlig sektor. Andra användare som forskade med Pro upptäckte hur myndigheter upprätthåller olika information även om de lyder under samma lagar."
+msgstr "Forskare, reseachers och företagare som använt Pro har fått ut information som ger dem fördelar i granskningar och i upphandlingar med offentlig sektor. Andra som använde Pro upptäckte hur myndigheter upprätthåller olika information även om de lyder under samma lagar."
 
 msgid "The following request has been made public on {{site_name}} this week."
 msgid_plural "The following requests have been made public on {{site_name}} this week."
@@ -1012,7 +1012,7 @@ msgid "The ‘Data Scores as Governance’ project used Pro to help examine the 
 msgstr "Projektet 'Data Scores as Governance' använde Pro för att undersöka <a href=\"{{story_url}}\">användningen av datadrivna poäng för att kategorisera medborgare</a>, fördela tjänster och förutsäga beteende."
 
 msgid "Then you can access {{pro_site_name}}"
-msgstr "Sen kan du tillgå {{pro_site_name}}"
+msgstr "Sen kan du använda {{pro_site_name}}"
 
 msgid "Then you can activate your {{site_name}} account"
 msgstr "Sen kan du aktivera ditt konto på {{site_name}}"
@@ -1045,7 +1045,7 @@ msgid "This page is only accessible to {{pro_site_name}} users"
 msgstr "Denna sida är endast tillgänglig för användare vid {{pro_site_name}}"
 
 msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
-msgstr "Den här begäran är del av <a href=\"{{url}}\">en serieförfråga skickad till {{count}} myndigheter</a>"
+msgstr "Den här begäran är del av <a href=\"{{url}}\">en serieförfrågning skickad till {{count}} myndigheter</a>"
 
 msgid "This request is private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
 msgstr "Denna begäran är privat t.o.m. <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
@@ -1158,7 +1158,7 @@ msgid "We will remind you by email and on the site when the request is going be 
 msgstr "Vi kommer att påminna dig när förfrågan kommer att publiceras och du kommer att ha möjligheten att behålla den privat. Du utöka  detta på obestämd tid eller publicera den när som helst."
 
 msgid "Weekly Pro Metrics report for {{start_date}} - {{end_date}}"
-msgstr "Pro-statistikrapport för {{start_date}} - {{end_date}}"
+msgstr "Veckovis statistikrapport om Pro för {{start_date}} - {{end_date}}"
 
 msgid "Welcome to {{pro_site_name}}!"
 msgstr "Välkommen till {{pro_site_name}}!"
@@ -1426,7 +1426,7 @@ msgid "{{pro_site_name}} does the hard work for you"
 msgstr "{{pro_site_name}} gör det hårda arbetet för dig"
 
 msgid "{{pro_site_name}} is a powerful, fully-featured <strong class=\"marketing-highlight\">FOI toolkit</strong> for journalists, campaigners and researchers"
-msgstr "{{pro_site_name}} är en kraftfull, fullfjädrad <strong class=\"marketing-highlight\"> verktygslåda</strong> för journalister, företagare, forskare och civilsamhälle"
+msgstr "{{pro_site_name}} är en kraftfull, fullfjädrad <strong class=\"marketing-highlight\"> verktygslåda</strong> för journalister, föreningar, forskare och företagare"
 
 msgid "{{pro_site_name}} is here to help"
 msgstr "{{pro_site_name}} finns till för att hjälpa dig"

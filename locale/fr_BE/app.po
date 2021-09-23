@@ -39,6 +39,7 @@
 # claude transparencia <audit.citoyen.quartier@gmail.com>, 2016-2018
 # David Cabo <david.cabo@gmail.com>, 2013
 # Gareth Rees <gareth@mysociety.org>, 2016
+# Graeme Porteous <graeme@mysociety.org>, 2021
 # 1bb8f5eb4bc72723d4109decfd20c765, 2016-2018
 # louisecrow <louise@mysociety.org>, 2013,2017
 # louisecrow <louise@mysociety.org>, 2017
@@ -55,7 +56,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-09-14 12:40+0100\n"
-"PO-Revision-Date: 2021-09-14 16:15+0000\n"
+"PO-Revision-Date: 2021-09-15 15:32+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: French (Belgium) (http://www.transifex.com/mysociety/alaveteli/"
 "language/fr_BE/)\n"
@@ -396,7 +397,7 @@ msgid "A strange response, required attention by the {{site_name}} team"
 msgstr "Une réponse étrange, nécessitant l'attention de l'équipe de {{site_name}}"
 
 msgid "A survey about your recent Freedom of Information request"
-msgstr ""
+msgstr "Une enquête sur votre récente demande d'accès à l'information"
 
 msgid "A {{site_name}} user"
 msgstr "Un utilisateur de {{site_name}} "
@@ -1160,7 +1161,7 @@ msgstr[0] "{{count}} autorité publique trouvée correspondant à la balise  ‘
 msgstr[1] "{{count}} autorités publiques trouvées correspondant à la balise  ‘{{tag_name}}’"
 
 msgid "Four weeks ago you made a Freedom of Information request to {{public_body_name}} using {{site_name}}."
-msgstr ""
+msgstr "Il y a quatre semaines, vous avez fait une demande d'accès à l'information à {{public_body_name}} en utilisant {{site_name}}."
 
 msgid "Freedom of Information"
 msgstr "Liberté d'accès à l'information"
@@ -1373,7 +1374,7 @@ msgid "If you believe this request is not suitable, you can report it for attent
 msgstr "Si vous pensez que cette demande n'est pas appropriée, vous pouvez la signaler aux administrateurs du site à l'aide de ce formulaire"
 
 msgid "If you can spare a few minutes to complete our short survey, it will help us make the site better. Just follow the link below."
-msgstr ""
+msgstr "Si vous pouvez consacrer quelques minutes pour répondre à notre court sondage, cela nous aidera à améliorer le site. Suivez simplement le lien ci-dessous."
 
 msgid "If you can't click on it in the email, you'll have to <strong>select and copy it</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place you would type the address of any other webpage."
 msgstr "Si vous ne pouvez pas cliquer dans le mail, vous devez <strong> sélectionner et copier<strong> à partir du mail. Après, <strong>coller le  dans la barre d'adresse de votre navigateur internet</strong>."
@@ -3500,7 +3501,7 @@ msgid "We will not reveal your email addresses to anybody unless you or the law 
 msgstr "Nous ne communiquerons pas vos adresses email sauf si vous nous y autorisez ou si la loi nous y oblige."
 
 msgid "We would like to know more about you, and your experience making a Freedom of Information request through the site."
-msgstr ""
+msgstr "Nous aimerions en savoir plus sur vous et sur votre expérience en faisant une demande d'accès à l'information via le site."
 
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr "Nous vous enverrons un email dès que votre demande aura reçu une réponse."
