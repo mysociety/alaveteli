@@ -1188,6 +1188,37 @@ RSpec.describe PublicBody, " when saving" do
     expect(@public_body.versions.last.name).to eq('Test')
   end
 
+  it 'reindexes request events when url_name has changed' do
+    body = FactoryBot.create(:public_body, name: 'foo-bar-baz')
+    requests =
+      2.times.map { FactoryBot.create(:info_request, public_body: body) }
+    event_ids = InfoRequestEvent.where(info_request_id: requests.map(&:id))
+
+    ActsAsXapian::ActsAsXapianJob.destroy_all
+
+    body.update!(url_name: 'baz-bar-foo')
+
+    expected_events =
+      ActsAsXapian::ActsAsXapianJob.
+      where(action: 'update', model: 'InfoRequestEvent', model_id: event_ids)
+
+    expect(expected_events.size).to eq(event_ids.size)
+  end
+
+  it 'does not reindex request events when url_name has not changed' do
+    body = FactoryBot.create(:public_body, name: 'foo-bar-baz')
+    FactoryBot.create(:info_request, public_body: body)
+
+    ActsAsXapian::ActsAsXapianJob.destroy_all
+
+    body.update!(notes: 'test')
+
+    expected_events =
+      ActsAsXapian::ActsAsXapianJob.
+      where(action: 'update', model: 'InfoRequestEvent')
+
+    expect(expected_events.count).to eq(0)
+  end
 end
 
 RSpec.describe PublicBody, "when searching" do
