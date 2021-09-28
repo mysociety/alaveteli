@@ -1,0 +1,26 @@
+ARG ALAVETELI_VAGRANT_IMAGE=debian:latest
+FROM ${ALAVETELI_VAGRANT_IMAGE}
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN useradd --create-home --shell /bin/bash vagrant
+RUN echo vagrant:vagrant | chpasswd
+
+RUN echo root:vagrant | chpasswd
+
+ADD https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant.pub \
+    /home/vagrant/.ssh/authorized_keys
+RUN chown -R vagrant:vagrant /home/vagrant/.ssh
+RUN chmod 0600 /home/vagrant/.ssh/authorized_keys
+RUN chmod 0700 /home/vagrant/.ssh
+
+RUN apt-get update \
+    && apt-get install -y openssh-server sudo wget curl puppet \
+    && apt-get clean
+
+RUN echo "vagrant ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/01_vagrant
+RUN chmod 0400 /etc/sudoers.d/01_vagrant
+
+RUN mkdir /var/run/sshd
+CMD ["/usr/sbin/sshd", "-D", "-e"]
+EXPOSE 22

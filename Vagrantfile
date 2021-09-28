@@ -106,7 +106,8 @@ DEFAULTS = {
   'name' => 'default',
   'use_nfs' => false,
   'show_settings' => false,
-  'cpus' => cpu_count
+  'cpus' => cpu_count,
+  'docker' => false
 }.freeze
 
 env = DEFAULTS.keys.reduce({}) do |memo, key|
@@ -126,19 +127,23 @@ end
 SUPPORTED_OPERATING_SYSTEMS = {
   'bionic64' => {
     box: 'ubuntu/bionic64',
-    box_url: 'https://app.vagrantup.com/ubuntu/boxes/bionic64'
+    box_url: 'https://app.vagrantup.com/ubuntu/boxes/bionic64',
+    image: 'ubuntu:bionic'
   },
   'focal64' => {
     box: 'ubuntu/focal64',
-    box_url: 'https://app.vagrantup.com/ubuntu/boxes/focal64'
+    box_url: 'https://app.vagrantup.com/ubuntu/boxes/focal64',
+    image: 'ubuntu:focal'
   },
   'stretch64' => {
     box: 'debian/stretch64',
-    box_url: 'https://app.vagrantup.com/debian/boxes/stretch64'
+    box_url: 'https://app.vagrantup.com/debian/boxes/stretch64',
+    image: 'debian:stretch'
   },
   'buster64' => {
     box: 'debian/buster64',
-    box_url: 'https://app.vagrantup.com/debian/boxes/buster64'
+    box_url: 'https://app.vagrantup.com/debian/boxes/buster64',
+    image: 'debian:buster'
   }
 }
 
@@ -162,10 +167,13 @@ end
 VAGRANTFILE_API_VERSION = '2'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = os[:box]
   config.vm.define SETTINGS['name']
-  config.vm.box_url = os[:box_url]
   config.vm.hostname = "alaveteli-#{ SETTINGS['os'] }"
+
+  unless SETTINGS['docker']
+    config.vm.box = os[:box]
+    config.vm.box_url = os[:box_url]
+  end
 
   if SETTINGS['public_network']
     config.vm.network :public_network
@@ -204,6 +212,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provider 'virtualbox' do |vb|
     vb.customize ['modifyvm', :id, '--memory', SETTINGS['memory']]
     vb.customize ['modifyvm', :id, '--cpus', SETTINGS['cpus']]
+  end
+
+  config.vm.provider 'docker' do |d|
+    d.build_dir = './docker'
+    d.dockerfile = 'Dockerfile-vagrant'
+
+    d.remains_running = true
+    d.has_ssh = true
+
+    d.build_args = ['--rm=true', '--build-arg', "ALAVETELI_VAGRANT_IMAGE=#{os[:image]}"]
+    d.create_args = ['--rm=true']
   end
 
   config.vm.provision :shell, keep_color: true, inline: <<-EOF
