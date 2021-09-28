@@ -18,7 +18,7 @@
 FactoryBot.define do
   factory :post_redirect do
     user
-    uri { frontpage_path }
+    uri { '/' }
     reason_params_yaml do
       {
         web: 'To test the post redirect',
