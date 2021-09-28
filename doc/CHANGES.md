@@ -2,6 +2,12 @@
 
 ## Highlighted Features
 
+* Expire sensitive post redirect tokens after use. Thanks to Sohail Ahmed for
+  responsibly disclosing with clear, actionable and thorough reports.
+  https://www.linkedin.com/in/sohail-ahmed-755776184/
+* Expire session on sensitive user profile changes. Thanks to Sohail Ahmed for
+  responsibly disclosing with clear, actionable and thorough reports.
+  https://www.linkedin.com/in/sohail-ahmed-755776184/
 * Render newest Citations in request sidebar instead of oldest (Gareth Rees)
 * Add support for Ubuntu Focal (20.04 LTS) (Gareth Rees)
 
