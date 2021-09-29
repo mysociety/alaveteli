@@ -13,11 +13,11 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
       @im = incoming_messages(:useless_incoming_message)
     end
 
-    it "destroys the raw email file" do
-      raw_email = @im.raw_email.filepath
-      assert_equal File.exist?(raw_email), true
-      post :destroy, params: { :id => @im.id }
-      assert_equal File.exist?(raw_email), false
+    it "destroys the ActiveStorage attachment record" do
+      file = @im.raw_email.file
+      expect(file.attached?).to eq true
+      post :destroy, params: { id: @im.id }
+      expect { file.reload }.to raise_error(ActiveRecord::RecordNotFound)
     end
 
     it 'asks the incoming message to destroy itself' do

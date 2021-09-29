@@ -12,6 +12,26 @@ require 'spec_helper'
 
 RSpec.describe RawEmail do
 
+  # DEPRECATION: remove for release 0.42
+  class LegacyRawEmail < RawEmail
+    # This replicates how we used to store RawEmail before switching to
+    # ActiveStorage
+    def data=(d)
+      FileUtils.mkdir_p(directory) unless File.exist?(directory)
+      File.atomic_write(filepath) do |file|
+        file.binmode
+        file.write(d)
+      end
+    end
+  end
+
+  let(:legacy_raw_email) do
+    LegacyRawEmail.create!(
+      incoming_message: FactoryBot.create(:incoming_message),
+      data: 'Hello world'
+    )
+  end
+
   def roundtrip_data(raw_email, data)
     raw_email.data = data
     raw_email.save!
@@ -190,8 +210,13 @@ RSpec.describe RawEmail do
       end
     end
 
-    context 'without active storage' do
+    context 'with active storage' do
       let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
+      include_examples :data_unchanged_examples
+    end
+
+    context 'without active storage' do
+      let(:raw_email) { legacy_raw_email }
       include_examples :data_unchanged_examples
     end
 
@@ -225,8 +250,13 @@ RSpec.describe RawEmail do
       end
     end
 
-    context 'without active storage' do
+    context 'with active storage' do
       let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
+      include_examples :destory_file_examples
+    end
+
+    context 'without active storage' do
+      let(:raw_email) { legacy_raw_email }
       include_examples :destory_file_examples
     end
 

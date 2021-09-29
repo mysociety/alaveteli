@@ -20,6 +20,8 @@ class RawEmail < ApplicationRecord
   has_one :incoming_message,
           :inverse_of => :raw_email
 
+  has_one_attached :file, service: :raw_emails
+
   delegate :date, to: :mail
   delegate :message_id, to: :mail
   delegate :multipart?, to: :mail
@@ -66,6 +68,15 @@ class RawEmail < ApplicationRecord
   end
 
   def directory
+    if file.attached?
+      warn <<~DEPRECATION.squish
+        [DEPRECATION] RawEmail#directory shouldn't be used when using
+        `ActiveStorage` backed file stores. This method will be removed
+        in 0.42.
+      DEPRECATION
+      return
+    end
+
     if request_id.empty?
       raise "Failed to find the id number of the associated request: has it been saved?"
     end
@@ -79,6 +90,15 @@ class RawEmail < ApplicationRecord
   end
 
   def filepath
+    if file.attached?
+      warn <<~DEPRECATION.squish
+        [DEPRECATION] RawEmail#filepath shouldn't be used when using
+        `ActiveStorage` backed file stores. This method will be removed
+        in 0.42.
+      DEPRECATION
+      return
+    end
+
     if incoming_message_id.empty?
       raise "Failed to find the id number of the associated incoming message: has it been saved?"
     end
@@ -95,14 +115,17 @@ class RawEmail < ApplicationRecord
   end
 
   def data=(d)
-    FileUtils.mkdir_p(directory) unless File.exist?(directory)
-    File.atomic_write(filepath) do |file|
-      file.binmode
-      file.write(d)
-    end
+    @data = d.to_s
+    file.attach(
+      io: StringIO.new(@data),
+      filename: "#{incoming_message_id}.eml",
+      content_type: 'message/rfc822'
+    )
   end
 
   def data
+    return @data ||= file.download if file.attached?
+
     File.open(filepath, "rb").read
   end
 
@@ -113,7 +136,11 @@ class RawEmail < ApplicationRecord
   end
 
   def destroy_file_representation!
-    File.delete(filepath) if File.exist?(filepath)
+    if file.attached?
+      file.purge
+    elsif File.exist?(filepath)
+      File.delete(filepath)
+    end
   end
 
   def from_name
