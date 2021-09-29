@@ -24,11 +24,7 @@ RSpec.describe AlaveteliPro::PublicBodiesController do
     it "returns json" do
       with_feature_enabled :alaveteli_pro do
         get :index, params: { query: body.name }
-        if rails_upgrade?
-          expect(response.media_type).to eq('application/json')
-        else
-          expect(response.content_type).to eq('application/json')
-        end
+        expect(response.media_type).to eq('application/json')
       end
     end
 

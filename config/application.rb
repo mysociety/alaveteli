@@ -16,13 +16,14 @@ require 'sprockets/railtie'
 # require 'rails/test_unit/railtie'
 
 require File.dirname(__FILE__) + '/../lib/configuration'
+require File.dirname(__FILE__) + '/../lib/alaveteli_localization'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
 def rails_upgrade?
-  %w[1 true].include?(ENV['RAILS_UPGRADE'])
+  true
 end
 
 module Alaveteli
@@ -103,13 +104,6 @@ module Alaveteli
     config.action_mailer.default_url_options = { :host => AlaveteliConfiguration::domain }
     if AlaveteliConfiguration::force_ssl
       config.action_mailer.default_url_options[:protocol] = "https"
-    end
-
-    config.after_initialize do
-      AlaveteliLocalization.set_locales(
-        AlaveteliConfiguration.available_locales,
-        AlaveteliConfiguration.default_locale
-      )
     end
   end
 end

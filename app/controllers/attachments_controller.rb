@@ -57,11 +57,7 @@ class AttachmentsController < ApplicationController
       }
     )
 
-    html = if rails_upgrade?
-             @incoming_message.apply_masks(html, response.media_type)
-           else
-             @incoming_message.apply_masks(html, response.content_type)
-           end
+    html = @incoming_message.apply_masks(html, response.media_type)
 
     render html: html.html_safe
   end

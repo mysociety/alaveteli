@@ -81,11 +81,10 @@ source 'https://rubygems.org'
 
 # See instructions in Gemfile.rails_next
 def rails_upgrade?
-  %w[1 true].include?(ENV['RAILS_UPGRADE'])
+  true
 end
 
 gem 'rails', rails_upgrade? ? '~> 6.0.3' : '~> 5.2.4'
-  gem 'nio4r', rails_upgrade? ? nil : '< 2.5.3'
 
 gem 'pg', '~> 1.2.3'
 
