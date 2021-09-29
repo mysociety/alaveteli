@@ -87,6 +87,7 @@ RSpec.configure do |config|
     if File.directory?(raw_email_dir)
       FileUtils.rm_rf(raw_email_dir)
     end
+    FileUtils.rm_rf(Rails.root.join('tmp', 'storage'))
   end
 
   # This is a workaround for a strange thing where ActionMailer::Base.deliveries isn't being
