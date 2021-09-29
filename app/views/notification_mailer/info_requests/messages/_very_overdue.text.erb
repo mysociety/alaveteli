@@ -7,5 +7,5 @@
       law_used_short: info_request.legislation.to_s.html_safe,
       title: info_request.title.html_safe) %>
 
-<% target = respond_to_last_path(info_request, anchor: 'followup') %>
+<% target = respond_to_last_path(info_request) %>
 <%= signin_url(r: target) %>

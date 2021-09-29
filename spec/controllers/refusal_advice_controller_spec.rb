@@ -38,10 +38,7 @@ RSpec.describe RefusalAdviceController do
         it 'redirects to new followup action' do
           post :create, params: params
           expect(response).to redirect_to(
-            new_request_followup_path(
-              request_id: info_request.id,
-              anchor: 'followup'
-            )
+            new_request_followup_path(request_id: info_request.id)
           )
         end
       end
@@ -54,8 +51,7 @@ RSpec.describe RefusalAdviceController do
           expect(response).to redirect_to(
             new_request_followup_path(
               request_id: info_request.id,
-              internal_review: '1',
-              anchor: 'followup'
+              internal_review: '1'
             )
           )
         end
