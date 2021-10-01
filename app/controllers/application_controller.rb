@@ -247,7 +247,7 @@ class ApplicationController < ActionController::Base
 
     # Make sure this redirect does not get cached - it only applies to this user
     # HTTP 1.1
-    headers['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate'
+    headers['Cache-Control'] = 'private, no-cache, no-store, max-age=0, must-revalidate'
     # HTTP 1.0
     headers['Pragma'] = 'no-cache'
     # Proxies
