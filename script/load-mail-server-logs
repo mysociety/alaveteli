@@ -4,7 +4,7 @@ LOC=`dirname "$0"`
 
 cd "$LOC"/..
 source commonlib/shlib/deployfns
-read_conf config/general
+[ -e config/general.yml ] && read_conf config/general.yml
 
 # Specific file if specified
 if [ x$1 != x ]

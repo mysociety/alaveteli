@@ -23,10 +23,10 @@ then
 fi
 
 # read config file in for later (STAGING_SITE)
-if [ -e "config/general" ] || [ -e "config/general.yml" ]
+if [ -e "config/general.yml" ]
 then
     . commonlib/shlib/deployfns
-    read_conf config/general
+    read_conf config/general.yml
 else
     OPTION_DOMAIN=127.0.0.1:3000
     OPTION_STAGING_SITE=1
