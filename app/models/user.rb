@@ -42,13 +42,13 @@ class User < ApplicationRecord
   include AlaveteliPro::PhaseCounts
   include User::Authentication
   include User::LoginToken
+  include User::OneTimePassword
   include User::Survey
 
   rolify before_add: :setup_pro_account
   strip_attributes :allow_empty => true
 
   attr_accessor :no_xapian_reindex
-  attr_accessor :entered_otp_code
 
   has_many :info_requests,
            -> { order('info_requests.created_at desc') },
@@ -148,8 +148,6 @@ class User < ApplicationRecord
                       :message => _("This email is already in use") }
 
   validate :email_and_name_are_valid
-  validate :verify_otp_code,
-           :if => Proc.new { |u| u.otp_enabled? && u.require_otp? }
 
   after_initialize :set_defaults
   after_update :reindex_referencing_models, :update_pro_account
@@ -161,7 +159,6 @@ class User < ApplicationRecord
   :terms => [ [ :variety, 'V', "variety" ] ],
   :if => :indexed_by_search?
 
-  has_one_time_password :counter_based => true
 
   def self.pro
     with_role :pro
@@ -393,31 +390,6 @@ class User < ApplicationRecord
       suffix_num = suffix_num + 1
     end
     write_attribute(:url_name, unique_url_name)
-  end
-
-  def otp_enabled?
-    (otp_secret_key && otp_counter && otp_enabled) ? true : false
-  end
-
-  def enable_otp
-    otp_regenerate_secret
-    otp_regenerate_counter
-    self.otp_enabled = true
-  end
-
-  def disable_otp
-    self.otp_enabled = false
-    self.require_otp = false
-    true
-  end
-
-  def require_otp?
-    @require_otp = false if @require_otp.nil?
-    @require_otp
-  end
-
-  def require_otp=(value)
-    @require_otp = value ? true : false
   end
 
   # For use in to/from in email messages
@@ -709,17 +681,6 @@ class User < ApplicationRecord
     if MySociety::Validate.is_valid_email(name)
       errors.add(:name, _("Please enter your name, not your email address, in the name field."))
     end
-  end
-
-  def verify_otp_code
-    if entered_otp_code.nil? || !authenticate_otp(entered_otp_code)
-      msg = _('Invalid one time password')
-      errors.add(:otp_code, msg)
-      return false
-    end
-
-    self.otp_counter += 1
-    self.entered_otp_code = nil
   end
 
   def setup_pro_account(role)
