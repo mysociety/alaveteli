@@ -917,17 +917,10 @@ class PublicBody < ApplicationRecord
 
   private
 
-  # if the URL name has changed, then all requested_from: queries
-  # will break unless we update index for every event for every
-  # request linked to it
+  # If the url_name has changed, then all requested_from: queries will break
+  # unless we update index for every event for every request linked to it.
   def reindex_requested_from
-    return unless saved_change_to_attribute?(:url_name)
-
-    info_requests.find_each do |info_request|
-      info_request.info_request_events.find_each do |info_request_event|
-        info_request_event.xapian_mark_needs_index
-      end
-    end
+    expire_requests if saved_change_to_attribute?(:url_name)
   end
 
   # Read an attribute value (without using locale fallbacks if the
