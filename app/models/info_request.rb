@@ -771,16 +771,6 @@ class InfoRequest < ApplicationRecord
   rescue LoadError, NameError
   end
 
-  # If the URL name has changed, then all request: queries will break unless
-  # we update index for every event. Also reindex if prominence changes.
-  def reindex_some_request_events
-    return unless saved_change_to_attribute?(:url_title) ||
-                  saved_change_to_attribute?(:prominence) ||
-                  saved_change_to_attribute?(:user_id)
-
-    reindex_request_events
-  end
-
   def reindex_request_events
     info_request_events.find_each do |event|
       event.xapian_mark_needs_index
@@ -1891,5 +1881,15 @@ class InfoRequest < ApplicationRecord
     unless State.all.include?(described_state)
       errors.add(:described_state, "is not a valid state")
     end
+  end
+
+  # If the URL name has changed, then all request: queries will break unless
+  # we update index for every event. Also reindex if prominence changes.
+  def reindex_some_request_events
+    return unless saved_change_to_attribute?(:url_title) ||
+                  saved_change_to_attribute?(:prominence) ||
+                  saved_change_to_attribute?(:user_id)
+
+    reindex_request_events
   end
 end
