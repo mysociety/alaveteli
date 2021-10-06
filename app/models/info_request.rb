@@ -1424,7 +1424,7 @@ class InfoRequest < ApplicationRecord
       ""
     # If the user can view hidden things, they can view anything, so no need
     # to go any further
-    elsif User.view_hidden?(user)
+    elsif user&.view_hidden?
       "_hidden"
     # If the user can't view hidden things, but owns the request, they can
     # see more than the public, so they get requester_only
