@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Make public body notes admin form field larger (Gareth Rees)
 * Expire sensitive post redirect tokens after use. Thanks to Sohail Ahmed for
   responsibly disclosing with clear, actionable and thorough reports.
   https://www.linkedin.com/in/sohail-ahmed-755776184/
