@@ -180,13 +180,13 @@ class InfoRequest < ApplicationRecord
   ]
 
   after_initialize :set_defaults
-  after_save :update_counter_cache
-  after_destroy :update_counter_cache
-  after_update :reindex_some_request_events
-  before_destroy :expire
+  before_create :set_use_notifications
   before_validation :compute_idhash
   before_validation :set_law_used, on: :create
-  before_create :set_use_notifications
+  after_save :update_counter_cache
+  after_update :reindex_some_request_events
+  before_destroy :expire
+  after_destroy :update_counter_cache
 
   # Return info request corresponding to an incoming email address, or nil if
   # none found. Checks the hash to ensure the email came from the public body -
