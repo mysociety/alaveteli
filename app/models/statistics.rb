@@ -100,11 +100,12 @@ module Statistics
                     'title' => graph_properties[:title] })
   end
 
-  def self.users
-    { all_time_requesters: User.all_time_requesters,
-      last_28_day_requesters: User.last_28_day_requesters,
-      all_time_commenters: User.all_time_commenters,
-      last_28_day_commenters: User.last_28_day_commenters }
+  def self.leaderboard
+    leaderboard = Leaderboard.new
+    { all_time_requesters: leaderboard.all_time_requesters,
+      last_28_day_requesters: leaderboard.last_28_day_requesters,
+      all_time_commenters: leaderboard.all_time_commenters,
+      last_28_day_commenters: leaderboard.last_28_day_commenters }
   end
 
   def self.user_json_for_api(user_statistics)

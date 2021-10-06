@@ -7,7 +7,7 @@ class StatisticsController < ApplicationController
     end
 
     @public_bodies = Statistics.public_bodies
-    @users = Statistics.users
+    @leaderboard = Statistics.leaderboard
     @request_hides_by_week = Statistics.by_week_to_today_with_noughts(
       InfoRequestEvent.count_of_hides_by_week,
       InfoRequest.is_public.order(:created_at).first&.created_at
