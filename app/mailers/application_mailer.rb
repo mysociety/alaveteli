@@ -12,6 +12,14 @@ class ApplicationMailer < ActionMailer::Base
   include MailerHelper
   include AlaveteliFeatures::Helpers
 
+  # URL generating functions are needed by all controllers (for redirects),
+  # views (for links) and mailers (for use in emails), so include them into
+  # all of all.
+  include LinkToHelper
+
+  # Site-wide access to configuration settings
+  include ConfigHelper
+
   # This really should be the default - otherwise you lose any information
   # about the errors, and have to do error checking on return codes.
   self.raise_delivery_errors = true
@@ -72,13 +80,4 @@ class ApplicationMailer < ActionMailer::Base
   def set_footer_template
     @footer_template = nil
   end
-
-  # URL generating functions are needed by all controllers (for redirects),
-  # views (for links) and mailers (for use in emails), so include them into
-  # all of all.
-  include LinkToHelper
-
-  # Site-wide access to configuration settings
-  include ConfigHelper
-
 end
