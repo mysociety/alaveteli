@@ -124,7 +124,11 @@ Rails.application.configure do
     exception_notifier_prefix << "[#{ AlaveteliConfiguration.domain }] "
   end
 
-  if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
+  notify_exceptions =
+    AlaveteliConfiguration.exception_notifications_from.present? &&
+    AlaveteliConfiguration.exception_notifications_to.present?
+
+  if notify_exceptions
     middleware.use ExceptionNotification::Rack,
       :ignore_exceptions => ['ActionController::BadRequest'] + ExceptionNotifier.ignored_exceptions,
       :email => {
