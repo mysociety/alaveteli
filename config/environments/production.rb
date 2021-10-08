@@ -129,12 +129,16 @@ Rails.application.configure do
     AlaveteliConfiguration.exception_notifications_to.present?
 
   if notify_exceptions
+    ignored_exceptions = %w(
+      ActionController::BadRequest
+    ) + ExceptionNotifier.ignored_exceptions
+
     middleware.use ExceptionNotification::Rack,
-      :ignore_exceptions => ['ActionController::BadRequest'] + ExceptionNotifier.ignored_exceptions,
-      :email => {
-        :email_prefix => exception_notifier_prefix,
-        :sender_address => AlaveteliConfiguration.exception_notifications_from,
-        :exception_recipients => AlaveteliConfiguration.exception_notifications_to
+      ignore_exceptions: ignored_exceptions,
+      email: {
+        email_prefix: exception_notifier_prefix,
+        sender_address: AlaveteliConfiguration.exception_notifications_from,
+        exception_recipients: AlaveteliConfiguration.exception_notifications_to
       }
   end
 
