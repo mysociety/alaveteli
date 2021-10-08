@@ -20,6 +20,26 @@
 require 'spec_helper'
 
 RSpec.describe PublicBodyChangeRequest do
+  describe '#current_public_body_email' do
+    subject { change_request.current_public_body_email }
+
+    context 'when adding a public body' do
+      let(:change_request) { FactoryBot.build(:add_body_request) }
+      it { is_expected.to be_nil }
+    end
+
+    context 'when updating a public body' do
+      let(:change_request) do
+        body = FactoryBot.build(:public_body, request_email: 'prev@localhost')
+        FactoryBot.create(:update_body_request,
+                          public_body: body,
+                          public_body_email: 'new@localhost')
+      end
+
+      it { is_expected.to eq('prev@localhost') }
+    end
+  end
+
   describe '#send_message' do
     subject { change_request.send_message }
 
