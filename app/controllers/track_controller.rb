@@ -210,7 +210,7 @@ class TrackController < ApplicationController
     new_medium = params[:track_medium]
     if new_medium == 'delete'
       track_thing.destroy
-      flash[:notice] = view_context.unsubscribe_notice(track_thing)
+      flash[:notice] = { inline: view_context.unsubscribe_notice(track_thing) }
       redirect_to SafeRedirect.new(params[:r]).path
     else
       msg =
