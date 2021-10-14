@@ -30,6 +30,15 @@ RSpec.describe OutgoingMessage do
     it { is_expected.not_to include(unsearchable_message) }
   end
 
+  describe '.followup' do
+    subject { described_class.followup }
+
+    let!(:followup_message) { FactoryBot.create(:new_information_followup) }
+    let!(:initial_message) { FactoryBot.create(:initial_request) }
+
+    it { is_expected.to include(followup_message) }
+    it { is_expected.not_to include(initial_message) }
+  end
 
   describe '.fill_in_salutation' do
 
