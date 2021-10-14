@@ -55,7 +55,8 @@ class InfoRequestEvent < ApplicationRecord
     'expire_embargo', # an embargo on the request expires
     'set_embargo', # an embargo is added or extended
     'send_error', # an error during sending
-    'refusal_advice' # the results of completing the refusal advice wizard
+    'refusal_advice', # the results of completing the refusal advice wizard
+    'public_token' # has the shareable public token been generated or not
   ].freeze
 
   belongs_to :info_request,
