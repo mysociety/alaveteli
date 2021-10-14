@@ -87,8 +87,12 @@ RSpec.describe PublicTokensController, type: :controller do
         and_return(info_request)
     end
 
-    context 'when info request can be shared' do
+    context 'with a logged in user who can share the info request' do
+      let(:user) { FactoryBot.create(:user) }
+
       before do
+        sign_in user
+        ability.can :share, info_request
         allow(info_request).to receive(:public_token).and_return('ABC')
       end
 
@@ -114,6 +118,29 @@ RSpec.describe PublicTokensController, type: :controller do
         )
       end
     end
+
+    context 'with a logged in user who cannot share info request' do
+      let(:user) { FactoryBot.create(:user) }
+
+      before do
+        sign_in user
+        ability.cannot :share, info_request
+      end
+
+      it 'raises an CanCan::AccessDenied error' do
+        expect {
+          post :create, params: { url_title: 'URL_TITLE' }
+        }.to raise_error(CanCan::AccessDenied)
+      end
+    end
+
+    context 'logged out' do
+      it 'raises an CanCan::AccessDenied error' do
+        expect {
+          post :create, params: { url_title: 'URL_TITLE' }
+        }.to raise_error(CanCan::AccessDenied)
+      end
+    end
   end
 
   describe 'DELETE #destroy' do
@@ -124,7 +151,14 @@ RSpec.describe PublicTokensController, type: :controller do
         and_return(info_request)
     end
 
-    context 'when info request can be shared' do
+    context 'with a logged in user who can share the info request' do
+      let(:user) { FactoryBot.create(:user) }
+
+      before do
+        sign_in user
+        ability.can :share, info_request
+      end
+
       it 'disables the info requests public token' do
         expect(info_request).to receive(:disable_public_token!)
         delete :destroy, params: { url_title: 'URL_TITLE' }
@@ -141,6 +175,29 @@ RSpec.describe PublicTokensController, type: :controller do
         expect(response).to redirect_to(
           show_request_path(info_request.url_title)
         )
+      end
+    end
+
+    context 'with a logged in user who cannot share info request' do
+      let(:user) { FactoryBot.create(:user) }
+
+      before do
+        sign_in user
+        ability.cannot :share, info_request
+      end
+
+      it 'raises an CanCan::AccessDenied error' do
+        expect {
+          delete :destroy, params: { url_title: 'URL_TITLE' }
+        }.to raise_error(CanCan::AccessDenied)
+      end
+    end
+
+    context 'logged out' do
+      it 'raises an CanCan::AccessDenied error' do
+        expect {
+          delete :destroy, params: { url_title: 'URL_TITLE' }
+        }.to raise_error(CanCan::AccessDenied)
       end
     end
   end

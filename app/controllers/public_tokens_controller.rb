@@ -4,6 +4,7 @@
 #
 class PublicTokensController < ApplicationController
   before_action :find_info_request, only: %i[create destroy]
+  before_action :can_share_info_request, only: %i[create destroy]
 
   before_action :find_info_request_by_public_token, only: :show
   before_action :can_view_info_request, only: :show
@@ -39,6 +40,10 @@ class PublicTokensController < ApplicationController
 
   def find_info_request
     @info_request = InfoRequest.find_by!(url_title: params[:url_title])
+  end
+
+  def can_share_info_request
+    authorize! :share, @info_request
   end
 
   def find_info_request_by_public_token
