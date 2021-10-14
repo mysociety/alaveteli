@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add citation count to general statistics (Gareth Rees)
 * Display the current public body request email when notfing admins of a change
   request (Gareth Rees)
 * Fix batch pages breaking due to empty `embargo_duration` value (Gareth Rees,

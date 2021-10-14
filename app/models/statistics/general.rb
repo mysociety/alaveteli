@@ -16,7 +16,8 @@ module Statistics
         public_body_change_request_count: PublicBodyChangeRequest.count,
         request_classification_count: RequestClassification.count,
         visible_followup_message_count: OutgoingMessage.
-          where(prominence: 'normal', message_type: 'followup').count
+          where(prominence: 'normal', message_type: 'followup').count,
+        citation_count: Citation.count
       }
     end
 
