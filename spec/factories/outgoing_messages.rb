@@ -83,6 +83,11 @@ FactoryBot.define do
       'ogm-14+537f69734b97c-1ebd@localhost')
     end
 
+    trait :hidden do
+      transient do
+        prominence { 'hidden' }
+      end
+    end
   end
 
 end

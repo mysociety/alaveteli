@@ -74,6 +74,8 @@ class OutgoingMessage < ApplicationRecord
     self.default_url_options[:protocol] = "https"
   end
 
+  scope :is_searchable, -> { where(prominence: 'normal') }
+
   def self.expected_send_errors
     [ EOFError,
       IOError,
