@@ -11,7 +11,7 @@ cat >"$INPUT"
 cd "$(dirname "${BASH_SOURCE[0]}")"/..
 source commonlib/shlib/deployfns
 
-read_conf config/general
+[ -e config/general.yml ] && read_conf config/general.yml
 
 bundle exec rails runner 'RequestMailer.receive(STDIN.read)' <"$INPUT" >"$OUTPUT" 2>&1
 ERROR_CODE=$?
