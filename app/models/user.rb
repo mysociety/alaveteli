@@ -361,7 +361,7 @@ class User < ApplicationRecord
       unique_url_name = url_name + "_" + suffix_num.to_s
       suffix_num = suffix_num + 1
     end
-    write_attribute(:url_name, unique_url_name)
+    self.url_name = unique_url_name
   end
 
   # For use in to/from in email messages

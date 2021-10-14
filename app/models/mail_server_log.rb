@@ -265,7 +265,7 @@ class MailServerLog < ApplicationRecord
       if force
         force_delivery_status(decorated.delivery_status)
       else
-        write_attribute(:delivery_status, decorated.delivery_status)
+        self.delivery_status = decorated.delivery_status
       end
     end
   end
@@ -273,10 +273,10 @@ class MailServerLog < ApplicationRecord
   def force_delivery_status(new_status)
     # write the value without checking the old (invalid) value, avoiding the
     # unintended ArgumentError caused by reading the old value
-    write_attribute_without_type_cast(:delivery_status, new_status)
+    update_columns(delivery_status: new_status)
 
-    # record the new value in `changes` so that save will have something
-    # to do as write_attribute_without_type_cast just updates the value
+    # record the new value in `changes` so that save will have something to do
+    # as update_columns just updates the value
     delivery_status_will_change!
   end
 
