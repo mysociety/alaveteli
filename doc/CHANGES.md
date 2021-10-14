@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Fix batch pages breaking due to empty `embargo_duration` value (Gareth Rees,
+  Graeme Porteous)
 * Add quick links to browse latest requests and responses (Gareth Rees)
 * Make public body notes admin form field larger (Gareth Rees)
 * Expire sensitive post redirect tokens after use. Thanks to Sohail Ahmed for

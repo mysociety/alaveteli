@@ -20,6 +20,8 @@ RSpec.describe InfoRequestBatch do
   it_behaves_like 'concerns/info_request/title_validation',
                   FactoryBot.build(:info_request_batch)
 
+  it { is_expected.to strip_attribute(:embargo_duration) }
+
   context "when validating" do
     let(:info_request_batch) { FactoryBot.build(:info_request_batch) }
 

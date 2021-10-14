@@ -21,6 +21,8 @@ class ProAccount < ApplicationRecord
 
   validates :user, presence: true
 
+  strip_attributes only: %i[default_embargo_duration]
+
   def subscription?
     subscriptions.current.any?
   end

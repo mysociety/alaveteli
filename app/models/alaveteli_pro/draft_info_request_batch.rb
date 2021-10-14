@@ -29,6 +29,8 @@ class AlaveteliPro::DraftInfoRequestBatch < ApplicationRecord
 
   after_initialize :set_default_body
 
+  strip_attributes only: %i[embargo_duration]
+
   def set_default_body
     if body.blank?
       template = OutgoingMessage::Template::BatchRequest.new

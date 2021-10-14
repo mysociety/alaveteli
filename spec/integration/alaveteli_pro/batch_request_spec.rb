@@ -157,7 +157,7 @@ RSpec.describe "creating batch requests in alaveteli_pro" do
       drafts = AlaveteliPro::DraftInfoRequestBatch.where(title: "Does the pro batch request form work?")
       expect(drafts).to exist
       draft = drafts.first
-      expect(draft.embargo_duration).to eq ""
+      expect(draft.embargo_duration).to be_nil
 
       expect(page).to have_select("Privacy", selected: "Publish immediately")
 
