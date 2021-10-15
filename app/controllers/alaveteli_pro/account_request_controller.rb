@@ -50,12 +50,10 @@ class AlaveteliPro::AccountRequestController < ApplicationController
   end
 
   def authenticate
-    post_redirect_params = {
+    authenticated?(
       web: _('To upgrade your account'),
       email: _('Then you can upgrade your account'),
       email_subject: _('To upgrade your account')
-    }
-
-    authenticated?(post_redirect_params)
+    )
   end
 end

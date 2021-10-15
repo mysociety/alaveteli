@@ -52,11 +52,10 @@ class OneTimePasswordsController < ApplicationController
   end
 
   def authenticate
-    post_redirect_params = {
-      :web => _('To view your two factor authentication details'),
-      :email => _('To view your two factor authentication details'),
-      :email_subject => _('To view your two factor authentication details') }
-
-    authenticated?(post_redirect_params)
+    authenticated?(
+      web: _('To view your two factor authentication details'),
+      email: _('To view your two factor authentication details'),
+      email_subject: _('To view your two factor authentication details')
+    )
   end
 end

@@ -36,10 +36,12 @@ class ReportsController < ApplicationController
     end
 
     if authenticated?(
-      :web => _("To report this request"),
-      :email => _("Then you can report the request '{{title}}'", :title => @info_request.title),
-      :email_subject => _("Report an offensive or unsuitable request"),
-      :comment_id => params[:comment_id])
+        web: _('To report this request'),
+        email: _("Then you can report the request '{{title}}'",
+                 title: @info_request.title),
+        email_subject: _('Report an offensive or unsuitable request'),
+        comment_id: params[:comment_id]
+      )
     end
   end
 

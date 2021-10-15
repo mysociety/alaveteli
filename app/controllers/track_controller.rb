@@ -198,11 +198,12 @@ class TrackController < ApplicationController
   def update
     track_thing = TrackThing.find(params[:track_id].to_i)
 
-    if not authenticated_as_user?(track_thing.tracking_user,
-                                  :web => _("To cancel this alert"),
-                                  :email => _("Then you can cancel the alert."),
-                                  :email_subject => _("Cancel a {{site_name}} alert",:site_name=>site_name)
-                                  )
+    if not authenticated_as_user?(
+        track_thing.tracking_user,
+        web: _('To cancel this alert'),
+        email: _('Then you can cancel the alert.'),
+        email_subject: _('Cancel a {{site_name}} alert', site_name: site_name)
+      )
       # do nothing - as "authenticated?" has done the redirect to signin page for us
       return
     end
@@ -228,11 +229,13 @@ class TrackController < ApplicationController
   def delete_all_type
     user_id = User.find(params[:user].to_i)
 
-    if not authenticated_as_user?(user_id,
-                                  :web => _("To cancel these alerts"),
-                                  :email => _("Then you can cancel the alerts."),
-                                  :email_subject => _("Cancel some {{site_name}} alerts",:site_name=>site_name)
-                                  )
+    if not authenticated_as_user?(
+        user_id,
+        web: _('To cancel these alerts'),
+        email: _('Then you can cancel the alerts.'),
+        email_subject: _('Cancel some {{site_name}} alerts',
+                         site_name: site_name)
+      )
       # do nothing - as "authenticated?" has done the redirect to signin page for us
       return
     end
