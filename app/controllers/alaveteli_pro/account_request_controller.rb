@@ -44,7 +44,7 @@ class AlaveteliPro::AccountRequestController < ApplicationController
 
     flash[:new_pro_user] = true
     flash[:notice] = _('Welcome to {{pro_site_name}}!',
-                       pro_site_name: AlaveteliConfiguration.pro_site_name)
+                       pro_site_name: pro_site_name)
 
     redirect_to alaveteli_pro_dashboard_path
   end

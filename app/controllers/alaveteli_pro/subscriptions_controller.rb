@@ -161,7 +161,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
 
       flash[:notice] = _('You have successfully cancelled your subscription ' \
                          'to {{pro_site_name}}',
-                         pro_site_name: AlaveteliConfiguration.pro_site_name)
+                         pro_site_name: pro_site_name)
 
     rescue Stripe::RateLimitError,
            Stripe::InvalidRequestError,

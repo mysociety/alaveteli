@@ -6,7 +6,6 @@ RSpec.describe UserProfile::AboutMeController do
 
     it 'sets the title' do
       get :edit
-      site_name = AlaveteliConfiguration.site_name
       expect(assigns[:title]).
         to eq("Change the text about you on your profile at #{ site_name }")
     end
@@ -51,7 +50,6 @@ RSpec.describe UserProfile::AboutMeController do
 
     it 'sets the title' do
       put :update, params: { :user => { :about_me => 'My bio' } }
-      site_name = AlaveteliConfiguration.site_name
       expect(assigns[:title]).
         to eq("Change the text about you on your profile at #{ site_name }")
     end

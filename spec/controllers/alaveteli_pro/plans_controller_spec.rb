@@ -38,7 +38,7 @@ RSpec.describe AlaveteliPro::PlansController do
     end
 
     it 'sets pro_site_name' do
-      expect(assigns(:pro_site_name)).to eq AlaveteliConfiguration.pro_site_name
+      expect(assigns(:pro_site_name)).to eq pro_site_name
     end
 
     it 'uses the default plan for pricing info' do

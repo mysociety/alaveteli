@@ -70,7 +70,7 @@ module AlaveteliPro
         "{{count}} request will be made public on {{site_name}} this week",
         "{{count}} requests will be made public on {{site_name}} this week",
         info_requests.count,
-        site_name: AlaveteliConfiguration.site_name.html_safe,
+        site_name: site_name.html_safe,
         count: info_requests.count
       )
       auto_generated_headers
@@ -84,7 +84,7 @@ module AlaveteliPro
         "{{count}} request has been made public on {{site_name}}",
         "{{count}} requests have been made public on {{site_name}}",
         info_requests.count,
-        site_name: AlaveteliConfiguration.site_name.html_safe,
+        site_name: site_name.html_safe,
         count: info_requests.count
       )
       auto_generated_headers

@@ -219,7 +219,7 @@ module ApplicationHelper
 
   def pro_upsell_text
     pro_link = link_to(account_request_index_path) do
-      AlaveteliConfiguration.pro_site_name
+      pro_site_name
     end
 
     pro_site_name_link = content_tag(:strong, pro_link)

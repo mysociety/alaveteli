@@ -25,7 +25,7 @@
   <% if tense == :future %>
     <p><%= _("Unless you choose a privacy option, requests in this batch " \
              "will be public on {{site_name}} immediately.",
-             site_name: AlaveteliConfiguration.site_name) %></p>
+             site_name: site_name) %></p>
   <% else %>
     <p><%= _("Requests in this batch are public") %></p>
   <% end %>

@@ -1,4 +1,6 @@
 module AlaveteliTextMasker
+  include ConfigHelper
+
   extend self
   DoNotBinaryMask = [ 'image/tiff',
                       'image/gif',
@@ -143,7 +145,7 @@ module AlaveteliTextMasker
        replacement: "[#{_("mobile number")}]" },
      { to_replace: /https?:\/\/#{AlaveteliConfiguration.domain}\/c\/[^\s]+/,
        replacement: "[#{_("{{site_name}} login link",
-                          site_name: AlaveteliConfiguration.site_name)}]" }]
+                          site_name: site_name)}]" }]
   end
 
   def apply_text_masks(text, options = {})

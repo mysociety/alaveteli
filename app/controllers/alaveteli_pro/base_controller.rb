@@ -15,9 +15,9 @@ class AlaveteliPro::BaseController < ApplicationController
     if reason_params.nil?
       reason_params = {
         web: _("To access {{pro_site_name}}",
-               pro_site_name: AlaveteliConfiguration.pro_site_name),
+               pro_site_name: pro_site_name),
         email: _("Then you can access {{pro_site_name}}",
-                 pro_site_name: AlaveteliConfiguration.pro_site_name)
+                 pro_site_name: pro_site_name)
       }
     end
     if authenticated?(reason_params)
@@ -27,7 +27,7 @@ class AlaveteliPro::BaseController < ApplicationController
           flash: {
             notice: _("This page is only accessible to {{pro_site_name}}" \
                       " users",
-                      pro_site_name: AlaveteliConfiguration.pro_site_name)
+                      pro_site_name: pro_site_name)
           }
         )
       end

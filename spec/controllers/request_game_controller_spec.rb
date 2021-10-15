@@ -49,7 +49,6 @@ RSpec.describe RequestGameController do
       render_views
 
       let(:test_url) { help_credits_path(:anchor => "helpus") }
-      let(:site_name) { AlaveteliConfiguration.site_name }
 
       it 'shows the game homepage' do
         get :play

@@ -102,9 +102,9 @@ RSpec.describe PasswordChangesController do
             reason_params: {
               web: '',
               email: _('Then you can change your password on {{site_name}}',
-                       site_name: AlaveteliConfiguration.site_name),
+                       site_name: site_name),
               email_subject: _('Change your password on {{site_name}}',
-                               site_name: AlaveteliConfiguration.site_name)
+                               site_name: site_name)
             },
             circumstance: 'change_password' }
 

@@ -36,6 +36,6 @@
   <%= _('When your request is made public on {{site_name}}, any ' \
         'annotations you add will also be public. However, they are ' \
         '<strong>not</strong> sent to {{public_body_name}}.',
-        site_name: AlaveteliConfiguration.site_name,
+        site_name: site_name,
         public_body_name: h(@info_request.public_body.name)) %>
 <% end %>

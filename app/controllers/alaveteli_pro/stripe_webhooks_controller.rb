@@ -61,7 +61,7 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
       plan_name = subscription.plan.name
 
       charge.description =
-        "#{ AlaveteliConfiguration.pro_site_name }: #{ plan_name }"
+        "#{ pro_site_name }: #{ plan_name }"
 
       charge.save
     end

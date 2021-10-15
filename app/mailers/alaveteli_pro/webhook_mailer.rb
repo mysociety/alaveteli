@@ -20,7 +20,7 @@ module AlaveteliPro
 
       subject = _(
         "{{pro_site_name}} webhook daily digest",
-        pro_site_name: AlaveteliConfiguration.pro_site_name.html_safe
+        pro_site_name: pro_site_name.html_safe
       )
       mail_pro_team(subject)
     end
