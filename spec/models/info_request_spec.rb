@@ -4839,4 +4839,27 @@ RSpec.describe InfoRequest do
       it { is_expected.to eq([reference]) }
     end
   end
+
+  describe 'record pro request' do
+    subject { event.pro }
+
+    let(:event) { info_request.log_event('sent', {}) }
+    let(:info_request) { FactoryBot.create(:info_request, user: user) }
+
+    context 'pro user' do
+      let(:user) { FactoryBot.create(:pro_user) }
+
+      it 'creates pro info_request_events' do
+        is_expected.to eq true
+      end
+    end
+
+    context 'non-pro user' do
+      let(:user) { FactoryBot.create(:user) }
+
+      it 'does not creates pro info_request_events' do
+        is_expected.to eq false
+      end
+    end
+  end
 end

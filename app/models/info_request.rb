@@ -1136,6 +1136,7 @@ class InfoRequest < ApplicationRecord
   # Log an event to the history of some things that have happened to this request
   def log_event(type, params, options = {})
     event_attributes = { event_type: type, params: params }
+    event_attributes[:pro] = true if user.is_pro?
     event_attributes[:created_at] = options[:created_at] if options[:created_at]
     event = info_request_events.create!(event_attributes)
 
