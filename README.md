@@ -17,9 +17,9 @@ all work together on producing the best possible software, and help
 move towards a world where governments approach transparency as the
 norm, rather than the exception.
 
-Please join our mailing list at
-https://groups.google.com/group/alaveteli-dev and introduce yourself, or
-drop a line to hello@alaveteli.org to let us know that you're using Alaveteli.
+Please join our [developers mailing list](https://groups.google.com/group/alaveteli-dev)
+and introduce yourself, or drop a line to hello@alaveteli.org to let us know
+that you're using Alaveteli.
 
 There's lots of useful information and documentation (including a blog)
 on [the project website](http://alaveteli.org). There's background
