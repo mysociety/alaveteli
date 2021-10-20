@@ -148,8 +148,7 @@ class NotificationMailer < ApplicationMailer
 
   def overdue_notification(notification)
     @info_request = notification.info_request_event.info_request
-    @url =
-      signin_url(r: respond_to_last_path(@info_request, anchor: 'followup'))
+    @url = signin_url(r: respond_to_last_path(@info_request))
 
     set_reply_to_headers(@info_request.user)
     set_auto_generated_headers
@@ -164,8 +163,7 @@ class NotificationMailer < ApplicationMailer
 
   def very_overdue_notification(notification)
     @info_request = notification.info_request_event.info_request
-    @url =
-      signin_url(r: respond_to_last_path(@info_request, anchor: 'followup'))
+    @url = signin_url(r: respond_to_last_path(@info_request))
 
     set_reply_to_headers(@info_request.user)
     set_auto_generated_headers

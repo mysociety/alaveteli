@@ -90,7 +90,7 @@ RSpec.describe "request/show" do
                           :incoming_message_id => mock_response.id)
           expect(response.body).
             to have_css(
-              "a[href='#{expected_url}#followup']",
+              "a[href='#{expected_url}']",
               :text => "send a follow up message")
         end
       end
@@ -105,7 +105,7 @@ RSpec.describe "request/show" do
           expected_url = new_request_followup_path(:request_id => mock_request.id)
           expect(response.body).
             to have_css(
-              "a[href='#{expected_url}#followup']",
+              "a[href='#{expected_url}']",
               :text => "send a follow up message")
         end
       end
