@@ -51,6 +51,7 @@ class InfoRequestEvent < ApplicationRecord
     'status_update', # someone updates the status of the request
     'overdue', # the request becomes overdue
     'very_overdue', # the request becomes very overdue
+    'pro', # the request was made by an active pro subscriber
     'embargo_expiring', # an embargo is about to expire
     'expire_embargo', # an embargo on the request expires
     'set_embargo', # an embargo is added or extended

@@ -4839,4 +4839,40 @@ RSpec.describe InfoRequest do
       it { is_expected.to eq([reference]) }
     end
   end
+
+  describe 'record pro request' do
+    let(:info_request) { FactoryBot.build(:info_request, user: user) }
+
+    context 'pro user' do
+      let(:user) { FactoryBot.create(:pro_user) }
+
+      it 'calls log_pro_request' do
+        expect(info_request).to receive(:log_pro_request)
+        info_request.save!
+      end
+
+      it 'creates pro info_request_event' do
+        info_request.save!
+        expect(info_request.info_request_events.where(event_type: 'pro')).to(
+          be_any
+        )
+      end
+    end
+
+    context 'non-pro user' do
+      let(:user) { FactoryBot.create(:user) }
+
+      it 'calls log_pro_request' do
+        expect(info_request).to receive(:log_pro_request)
+        info_request.save!
+      end
+
+      it 'does not creates pro info_request_event' do
+        info_request.save!
+        expect(info_request.info_request_events.where(event_type: 'pro')).to(
+          be_empty
+        )
+      end
+    end
+  end
 end

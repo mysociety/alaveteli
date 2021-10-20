@@ -77,4 +77,36 @@ namespace :temp do
       end
     end
   end
+
+  desc 'Create InfoRequestEvents for each requests made by an active paying ' \
+       'pro subscriber'
+  task record_pro_requests: :environment do
+    next unless AlaveteliFeatures.backend.enabled?(:pro_pricing)
+
+    ProAccount.find_each do |pro_account|
+      user = pro_account.user
+      info_requests = user.info_requests
+
+      next if info_requests.count == 0
+      next if info_requests.any? do |r|
+        r.info_request_events.where(event_type: 'pro').any?
+      end
+
+      subscriptions = Stripe::Subscription.list(
+        status: 'all', customer: pro_account.stripe_customer_id
+      )
+
+      ranges = subscriptions.map do |s|
+        started_at = Time.at(s.created)
+        ended_at = Time.at(s.ended_at) if s.ended_at
+        ended_at ||= Time.now
+
+        started_at..ended_at
+      end
+
+      info_requests.where(created_at: ranges).find_each do |request|
+        request.log_event('pro', {}, created_at: request.created_at)
+      end
+    end
+  end
 end
