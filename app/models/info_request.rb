@@ -184,7 +184,7 @@ class InfoRequest < ApplicationRecord
   before_validation :compute_idhash
   before_validation :set_law_used, on: :create
   after_save :update_counter_cache
-  after_update :reindex_some_request_events
+  after_update :reindex_request_events, if: :reindexable_attribute_changed?
   before_destroy :expire
   after_destroy :update_counter_cache
 
@@ -769,16 +769,6 @@ class InfoRequest < ApplicationRecord
     include InfoRequestCustomStates
     @@custom_states_loaded = true
   rescue LoadError, NameError
-  end
-
-  # If the URL name has changed, then all request: queries will break unless
-  # we update index for every event. Also reindex if prominence changes.
-  def reindex_some_request_events
-    return unless saved_change_to_attribute?(:url_title) ||
-                  saved_change_to_attribute?(:prominence) ||
-                  saved_change_to_attribute?(:user_id)
-
-    reindex_request_events
   end
 
   def reindex_request_events
@@ -1890,6 +1880,14 @@ class InfoRequest < ApplicationRecord
   def must_be_valid_state
     unless State.all.include?(described_state)
       errors.add(:described_state, "is not a valid state")
+    end
+  end
+
+  # If the URL name has changed, then all request: queries will break unless
+  # we update index for every event. Also reindex if prominence changes.
+  def reindexable_attribute_changed?
+    %i[url_title prominence user_id].any? do |attr|
+      saved_change_to_attribute?(attr)
     end
   end
 end
