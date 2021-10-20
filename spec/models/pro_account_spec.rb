@@ -15,8 +15,9 @@ require 'spec_helper'
 require 'stripe_mock'
 
 RSpec.describe ProAccount, feature: :pro_pricing do
-
   around { |example| StripeMock.mock(&example) }
+
+  it { is_expected.to strip_attribute(:default_embargo_duration) }
 
   let(:stripe_helper) { StripeMock.create_test_helper }
   let(:product) { stripe_helper.create_product }

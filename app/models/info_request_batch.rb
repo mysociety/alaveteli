@@ -39,6 +39,8 @@ class InfoRequestBatch < ApplicationRecord
   validates_presence_of :user
   validates_presence_of :body
 
+  strip_attributes only: %i[embargo_duration]
+
   def self.send_batches
     where(sent_at: nil).find_each do |info_request_batch|
       AlaveteliLocalization.with_locale(info_request_batch.user.locale) do
