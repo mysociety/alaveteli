@@ -344,8 +344,10 @@ class OutgoingMessage < ApplicationRecord
       text = body(opts).strip
     end
 
-    # Remove salutation
-    text.sub!(/Dear .+,/, "") if strip_salutation
+    if strip_salutation && public_body
+      salutation = self.class.default_salutation(public_body)
+      text.sub!(/#{salutation}/, '')
+    end
 
     # Remove email addresses from display/index etc.
     self.remove_privacy_sensitive_things!(text)

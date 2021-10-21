@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Localise stripping of salutations (Gareth Rees)
 * Ensure comments are reindexed after a bulk visibility change (Gareth Rees)
 * Upgrade to Rails 6.1 (Graeme Porteous)
 * Reduce attractiveness of Alaveteli to spammers by only showing user "about me"
