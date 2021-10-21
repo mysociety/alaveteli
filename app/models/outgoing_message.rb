@@ -61,6 +61,8 @@ class OutgoingMessage < ApplicationRecord
            :inverse_of => :outgoing_message,
            :dependent => :destroy
 
+  delegate :public_body, to: :info_request, private: true, allow_nil: true
+
   after_initialize :set_default_letter
   # reindex if body text is edited (e.g. by admin interface)
   after_update :xapian_reindex_after_update
@@ -427,7 +429,7 @@ class OutgoingMessage < ApplicationRecord
         OutgoingMailer.
           name_for_followup(info_request, incoming_message_followup)
       else
-        info_request.try(:public_body).try(:name)
+        public_body&.name
       end
 
     opts[:letter] = default_letter if default_letter
