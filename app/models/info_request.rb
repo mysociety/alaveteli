@@ -32,6 +32,7 @@
 #  use_notifications                     :boolean
 #  last_event_time                       :datetime
 #  incoming_messages_count               :integer          default("0")
+#  public_token                          :string
 #
 
 require 'digest/sha1'
@@ -45,6 +46,7 @@ class InfoRequest < ApplicationRecord
   include Rails.application.routes.url_helpers
   include AlaveteliPro::RequestSummaries
   include AlaveteliFeatures::Helpers
+  include InfoRequest::PublicToken
   include InfoRequest::Sluggable
   include InfoRequest::TitleValidation
 

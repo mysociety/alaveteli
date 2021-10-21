@@ -9,7 +9,9 @@ RSpec.describe AttachmentsController, type: :controller do
   describe 'GET show' do
 
     let(:info_request) do
-      FactoryBot.create(:info_request_with_incoming_attachments)
+      FactoryBot.create(
+        :info_request_with_incoming_attachments, public_token: 'ABC'
+      )
     end
 
     let(:default_params) do
@@ -21,6 +23,24 @@ RSpec.describe AttachmentsController, type: :controller do
 
     def show(params = {})
       get :show, params: default_params.merge(params)
+    end
+
+    it 'should be able to find the request using public token' do
+      expect(InfoRequest).to receive(:find_by!).with(public_token: 'ABC').
+        and_return(info_request)
+
+      show(public_token: 'ABC', id: nil)
+
+      expect(assigns(:info_request)).to eq(info_request)
+    end
+
+    it 'adds noindex header when using public token' do
+      expect(InfoRequest).to receive(:find_by!).with(public_token: 'ABC').
+        and_return(info_request)
+
+      show(public_token: 'ABC', id: nil)
+
+      expect(response.headers['X-Robots-Tag']).to eq 'noindex'
     end
 
     it 'should cache an attachment on a request with normal prominence' do
@@ -208,8 +228,9 @@ RSpec.describe AttachmentsController, type: :controller do
       end
 
       it 'passes project to current ability' do
-        expect(Ability).to receive(:new).with(user, project: project).
-          and_call_original
+        expect(Ability).to receive(:new).with(
+          user, project: project, public_token: false
+        ).and_call_original
         show(project_id: project.id)
       end
     end
@@ -229,9 +250,19 @@ RSpec.describe AttachmentsController, type: :controller do
       end
 
       it 'does not pass project to current ability' do
-        expect(Ability).to receive(:new).with(user, project: nil).
-          and_call_original
+        expect(Ability).to receive(:new).with(
+          user, project: nil, public_token: false
+        ).and_call_original
         show(project_id: project.id)
+      end
+    end
+
+    context 'with public_token params and logged out' do
+      it 'passes project to current ability' do
+        expect(Ability).to receive(:new).with(
+          nil, project: nil, public_token: true
+        ).and_call_original
+        show(public_token: 'ABC')
       end
     end
   end
@@ -246,6 +277,24 @@ RSpec.describe AttachmentsController, type: :controller do
                          :part => 2,
                          :file_name => 'interesting.pdf.html' }
       get :show_as_html, params: default_params.merge(params)
+    end
+
+    it 'should be able to find the request using public token' do
+      expect(InfoRequest).to receive(:find_by!).with(public_token: '123').
+        and_return(info_request)
+
+      get_html_attachment(public_token: '123', id: nil)
+
+      expect(assigns(:info_request)).to eq(info_request)
+    end
+
+    it 'adds noindex header when using public token' do
+      expect(InfoRequest).to receive(:find_by!).with(public_token: '123').
+        and_return(info_request)
+
+      get_html_attachment(public_token: '123', id: nil)
+
+      expect(response.headers['X-Robots-Tag']).to eq 'noindex'
     end
 
     it "should return 404 for ugly URLs containing a request id that isn't an integer" do

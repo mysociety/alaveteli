@@ -9,7 +9,7 @@
       <% end %>
     </span>
 
-    <%= link_to incoming_message_path(incoming_message), :class => 'correspondence__header__date' do %>
+    <%= link_to incoming_message_path(incoming_message, anchor_only: true), :class => 'correspondence__header__date' do %>
       <%= simple_date(incoming_message.sent_at) %>
     <% end %>
   </div>

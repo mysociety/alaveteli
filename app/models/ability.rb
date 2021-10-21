@@ -2,9 +2,9 @@ class Ability
   include CanCan::Ability
   include AlaveteliFeatures::Helpers
 
-  attr_reader :user, :project
+  attr_reader :user, :project, :public_token
 
-  def initialize(user, project: nil)
+  def initialize(user, project: nil, public_token: false)
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)
@@ -34,6 +34,7 @@ class Ability
 
     @user = user
     @project = project
+    @public_token = public_token
 
     # Updating request status
     can :update_request_state, InfoRequest do |request|
@@ -128,6 +129,11 @@ class Ability
       user && (user.is_admin? || user.is_pro? || info_request.user == user)
     end
 
+    can :share, InfoRequest do |info_request|
+      info_request.embargo &&
+        (user&.is_pro_admin? || info_request.is_actual_owning_user?(user))
+    end
+
     can :admin, Comment do |comment|
       if comment.info_request.embargo
         user && user.is_pro_admin?
@@ -194,7 +200,8 @@ class Ability
       else
         info_request.is_actual_owning_user?(user) ||
           user&.view_embargoed? ||
-          project&.member?(user)
+          project&.member?(user) ||
+          public_token
       end
     else
       case prominence

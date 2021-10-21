@@ -614,6 +614,8 @@ class RequestController < ApplicationController
       @old_unclassified && !@render_to_file
     )
 
+    @show_action_menu = !@render_to_file
+
     @similar_requests, @similar_more = @info_request.similar_requests
 
     @citations = @info_request.citations.newest(3)
