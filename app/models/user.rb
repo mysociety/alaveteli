@@ -560,7 +560,7 @@ class User < ApplicationRecord
   end
 
   def should_be_emailed?
-    email_confirmed && email_bounced_at.nil? && active?
+    active? && email_confirmed? && receive_email_alerts? && !email_bounced_at
   end
 
   def indexed_by_search?
