@@ -1411,23 +1411,6 @@ RSpec.describe InfoRequest do
 
   end
 
-  describe '#initial_request_text' do
-
-    it 'returns an empty string if the first outgoing message is hidden' do
-      info_request = FactoryBot.create(:info_request)
-      first_message = info_request.outgoing_messages.first
-      first_message.prominence = 'hidden'
-      first_message.save!
-      expect(info_request.initial_request_text).to eq('')
-    end
-
-    it 'returns the text of the first outgoing message if it is visible' do
-      info_request = FactoryBot.create(:info_request)
-      expect(info_request.initial_request_text).to eq('Some information please')
-    end
-
-  end
-
   describe '.find_existing' do
 
     it 'returns a request with the params given' do

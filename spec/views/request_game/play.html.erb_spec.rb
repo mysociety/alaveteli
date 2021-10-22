@@ -18,7 +18,6 @@ RSpec.describe 'request_game/play' do
                                                 :calculate_status => 'waiting_response',
                                                 :date_response_required_by => Date.current,
                                                 :prominence => 'normal',
-                                                :initial_request_text => 'hi there',
                                                 :display_status => 'Awaiting categorisation',
                                                 :created_at => Time.zone.now)
         assign :league_table_28_days, []

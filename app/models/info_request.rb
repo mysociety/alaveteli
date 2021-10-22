@@ -1278,14 +1278,6 @@ class InfoRequest < ApplicationRecord
     public_outgoing_events.last
   end
 
-  # Text from the the initial request, for use in summary display
-  def initial_request_text
-    return '' if outgoing_messages.empty?
-    body_opts = { :censor_rules => applicable_censor_rules }
-    first_message = outgoing_messages.first
-    first_message.is_public? ? first_message.get_text_for_indexing(true, body_opts) : ''
-  end
-
   def last_event_id_needing_description
     last_event = events_needing_description[-1]
     last_event.nil? ? 0 : last_event.id
