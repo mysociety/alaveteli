@@ -69,11 +69,6 @@ class OutgoingMessage < ApplicationRecord
 
   self.default_url_options[:host] = AlaveteliConfiguration.domain
 
-  # https links in emails if forcing SSL
-  if AlaveteliConfiguration::force_ssl
-    self.default_url_options[:protocol] = "https"
-  end
-
   scope :followup, -> { where(message_type: 'followup') }
   scope :is_searchable, -> { where(prominence: 'normal') }
 

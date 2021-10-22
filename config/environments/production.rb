@@ -37,7 +37,7 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = AlaveteliConfiguration.force_ssl
 
   # Set LOG_LEVEL in the environment to a valid log level to temporarily run the
   # application with a non-default setting.
@@ -141,10 +141,5 @@ Rails.application.configure do
         sender_address: AlaveteliConfiguration.exception_notifications_from,
         exception_recipients: AlaveteliConfiguration.exception_notifications_to
       }
-  end
-
-  require 'rack/ssl'
-  if AlaveteliConfiguration.force_ssl
-    config.middleware.insert_before ActionDispatch::Cookies, ::Rack::SSL
   end
 end
