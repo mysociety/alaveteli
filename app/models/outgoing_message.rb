@@ -367,11 +367,6 @@ class OutgoingMessage < ApplicationRecord
     text.html_safe
   end
 
-  # Return body for display as text
-  def get_body_for_text_display
-    get_text_for_indexing(strip_salutation=false)
-  end
-
   def xapian_reindex_after_update
     return unless saved_change_to_attribute?(:body)
 
