@@ -251,7 +251,7 @@ class MailServerLog < ApplicationRecord
       # attempting to rescue
       # https://apidock.com/rails/v4.2.7/ActiveRecord/AttributeMethods/Dirty/write_attribute
       set_delivery_status(true)
-      save
+      save!
       DeliveryStatusSerializer.load(read_attribute(:delivery_status))
     end
   end

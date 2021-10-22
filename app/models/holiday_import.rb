@@ -45,6 +45,10 @@ class HolidayImport
     holidays.all?(&:save)
   end
 
+  def save!
+    holidays.all?(&:save!)
+  end
+
   def holidays_attributes=(incoming_data)
     incoming_data.each { |offset, incoming| self.holidays << Holiday.new(incoming) }
   end

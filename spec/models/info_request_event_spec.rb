@@ -382,7 +382,7 @@ RSpec.describe InfoRequestEvent do
       info_request = FactoryBot.create(:info_request)
       event = FactoryBot.build(:info_request_event, info_request: info_request)
       expect(event.info_request).to receive(:create_or_update_request_summary)
-      event.save
+      event.save!
     end
 
   end

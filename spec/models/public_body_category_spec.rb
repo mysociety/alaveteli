@@ -68,7 +68,7 @@ RSpec.describe PublicBodyCategory do
                                                     :title => 'El Category',
                                                     :description => 'Spanish description' } }
 
-      category.save
+      category.save!
       expect(PublicBodyCategory.find(category.id).translations.size).to eq(2)
     end
 
@@ -92,7 +92,7 @@ RSpec.describe PublicBodyCategory do
         category.translations_attributes = { :es => { :locale => 'es',
                                                       :title => 'El Category',
                                                       :description => 'Spanish description' } }
-        category.save
+        category.save!
         category.reload
         expect(category.title(:es)).to eq('El Category')
       end
@@ -102,13 +102,13 @@ RSpec.describe PublicBodyCategory do
         category.translations_attributes = { 'es' => { :locale => 'es',
                                                        :title => 'Name',
                                                        :description => 'Desc' } }
-        category.save
+        category.save!
 
         category.translations_attributes = { 'es' => { :id => category.translation_for(:es).id,
                                                        :locale => 'es',
                                                        :title => 'Renamed',
                                                        :description => 'Desc' } }
-        category.save
+        category.save!
         expect(category.title(:es)).to eq('Renamed')
       end
 
