@@ -760,19 +760,19 @@ RSpec.describe PublicBody do
   end
 
   describe '#expire_requests' do
-
     it 'calls expire on all associated requests' do
       public_body = FactoryBot.build(:public_body)
-      requests = [double, double]
-      expect(public_body).to receive(:info_requests).and_return(requests)
 
-      requests.each do |request|
-        expect(request).to receive(:expire)
-      end
+      request_1, request_2 = double(:info_request), double(:info_request)
+
+      allow(public_body).to receive_message_chain(:info_requests, :find_each).
+        and_yield(request_1).and_yield(request_2)
+
+      expect(request_1).to receive(:expire)
+      expect(request_2).to receive(:expire)
 
       public_body.expire_requests
     end
-
   end
 
   describe '#short_or_long_name' do

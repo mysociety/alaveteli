@@ -454,7 +454,7 @@ class User < ApplicationRecord
   end
 
   def expire_requests
-    info_requests.each { |request| request.expire }
+    info_requests.find_each(&:expire)
   end
 
   def next_request_permitted_at
