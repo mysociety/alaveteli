@@ -1,4 +1,18 @@
 namespace :temp do
+  desc 'Fix invalid embargo attributes'
+  task nullify_empty_embargo_durations: :environment do
+    classes_attributes = {
+      AlaveteliPro::DraftInfoRequestBatch => :embargo_duration,
+      InfoRequestBatch => :embargo_duration,
+      ProAccount => :default_embargo_duration
+    }
+
+    classes_attributes.each do |klass, attr|
+      puts "Updating #{klass}##{attr}"
+      klass.where(attr => '').update_all(attr => nil)
+    end
+  end
+
   desc 'Re-parse attachments affected by mysociety/alaveteli#5905'
   task reparse_multipart_incoming_with_unicode: :environment do
     since = ENV.fetch('FROM_DATE', Date.parse('2020-08-10'))

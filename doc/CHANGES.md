@@ -22,6 +22,8 @@
 
 * Support for Ubuntu Bionic (18.04 LTS) will be removed in or after the next
   release.
+* Run `bin/rails temp:nullify_empty_embargo_durations` to fix invalid embargo
+  values.
 
 # 0.39.1.6
 
