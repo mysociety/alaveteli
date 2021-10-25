@@ -60,7 +60,7 @@
 # sebbacon <seb.bacon@gmail.com>, 2012
 # Benoît Simard <contact@bsimard.com>, 2013
 # skenaja <alex@alexskene.com>, 2011
-# Stephen Abbott Pugh <stephendabbott@gmail.com>, 2014-2015
+# Stephen Abbott Pugh <stephen@openownership.org>, 2014-2015
 # teymour <tanguim@gmail.com>, 2011
 # Teg-wende Idriss TINTO <tinto.jean@titinto.net>, 2015-2016
 # teymour <tanguim@gmail.com>, 2011

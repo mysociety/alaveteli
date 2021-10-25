@@ -32,7 +32,7 @@
 # Jean Pierre <afadhalipierre@gmail.com>, 2017
 # Liz Conlan <liz@mysociety.org>, 2018
 # mySociety <transifex@mysociety.org>, 2015
-# Stephen Abbott Pugh <stephendabbott@gmail.com>, 2015
+# Stephen Abbott Pugh <stephen@openownership.org>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
