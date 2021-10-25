@@ -49,8 +49,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-09-14 12:40+0100\n"
-"PO-Revision-Date: 2021-09-23 08:06+0000\n"
-"Last-Translator: Mattias Axell <mattias@libertador.es>\n"
+"PO-Revision-Date: 2021-10-01 20:06+0000\n"
+"Last-Translator: Elenor Weijmar\n"
 "Language-Team: Swedish (http://www.transifex.com/mysociety/alaveteli/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -504,7 +504,7 @@ msgid "An anonymous user"
 msgstr "En anonym användare"
 
 msgid "An error occurred while sending your request to {{authority_name}} but has been saved and flagged for administrator attention."
-msgstr "Ett fel inträffade när du skickade din begäran till {{Authority_name}} men har sparats och flaggats för administratörens uppmärksamhet."
+msgstr "Ett fel inträffade när du skickade din begäran till {{authority_name}} men har sparats som ett utkast och flaggats för administratörens uppmärksamhet."
 
 msgid "Annotation added to request"
 msgstr "Kommentar lades till för begäran"
@@ -786,7 +786,7 @@ msgid "Confirm your email address"
 msgstr "Bekräfta din e-postadress"
 
 msgid "Confirm your new email address on {{site_name}}"
-msgstr "Bekräfta din nya e-postadress på {{public_body_name}}"
+msgstr "Bekräfta din nya e-postadress på {{site_name}}"
 
 msgid "Considered by administrators as not an FOI request."
 msgstr "Bedömd av administratörer som icke giltig begäran av allmän handling."
@@ -1854,7 +1854,7 @@ msgid "Photo of you:"
 msgstr "Foto av dig:"
 
 msgid "Plan changed from \"{{from}}\" to \"{{to}}\""
-msgstr "Prenumeration har ändrats från \"{{från}}\" till \"{{till}}\""
+msgstr "Prenumeration har ändrats från \"{{from}}\" till \"{{to}}\""
 
 msgid "Plans and administrative measures that affect these matters"
 msgstr "Planer och administrativa begränsningar som påverkar dessa saker"
@@ -2968,10 +2968,10 @@ msgid "They have been given the following explanation:"
 msgstr "De har fått följande förklaring:"
 
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
-msgstr "De har inte svarat på din begäran enligt {{law_used_short}} {{titel}} hastigt, som normalt krävs enligt lag"
+msgstr "De har inte svarat på din {{law_used_short}} begäran {{title}} hastigt, som normalt krävs enligt lag"
 
 msgid "They have not replied to your {{law_used_short}} request {{title}}, as normally required by law"
-msgstr "De har inte svarat på din begäran enligt {{law_used_short}} {{titel}}, som normalt krävs enligt lag "
+msgstr "De har inte svarat på din {{law_used_short}} begäran {{title}}, som normalt krävs enligt lag"
 
 msgid "They have still not replied to your {{law_used_short}} request {{title}}, as normally required by law"
 msgstr "De har fortfarande inte svarat på din {{law_used_short}} begäran {{title}}, som normalt krävs enligt lag"
@@ -3010,7 +3010,7 @@ msgid "This is an HTML version of an attachment to the Freedom of Information re
 msgstr "Detta är en HTML-version av en bilaga till begäran om allmän handling"
 
 msgid "This is because {{title}} is an old request that has been marked to no longer receive responses."
-msgstr "Detta beror på {{titel}} är en gammal begäran som har markerats för att inte längre få svar."
+msgstr "Detta beror på {{title}} är en gammal begäran som har markerats för att inte längre få svar."
 
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Detta är din egen begäran, så du kommer automatiskt att motta e-post när nya svar kommer in."
@@ -4359,7 +4359,7 @@ msgid "{{public_body_name}}"
 msgstr "{{public_body_name}}"
 
 msgid "{{public_body_name}} have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law. Click on the link below to remind them to reply."
-msgstr "{{public_body_name}} har inte svarat på din {{law_used_short}} förfrågan {{titel}} hastigt, som normalt krävs enligt lag"
+msgstr "{{public_body_name}} har inte svarat på din {{law_used_short}} förfrågan {{title}} hastigt, som normalt krävs enligt lag"
 
 msgid "{{public_body_name}} have still not replied to your {{law_used_short}} request {{title}}, as normally required by law. Click on the link below to tell them to reply. You might like to ask for an internal review, asking them to find out why their response to the request has been so slow."
 msgstr "{{public_body_name}} har fortfarande inte svarat på din {{law_used_short}} förfrågan {{title}}, enligt lagen. Klicka på länken nedan för att berätta för dem att svara. Du kanske vill be om en intern granskning. Be dem att ta reda på varför svaret på begäran har tagit så lång tid. "

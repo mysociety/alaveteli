@@ -58,7 +58,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-09-14 12:40+0100\n"
-"PO-Revision-Date: 2021-09-16 08:46+0000\n"
+"PO-Revision-Date: 2021-10-25 10:55+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Croatian (http://www.transifex.com/mysociety/alaveteli/language"
 "/hr/)\n"
@@ -2513,7 +2513,7 @@ msgid "Sorry - you cannot respond to this request via {{site_name}}, because thi
 msgstr "Žao nam je - ne možete odgovoriti na ovaj zahtjev putem {{site_name}}, jer je ovo kopija originalnog zahtjeva na {{link_to_original_request}}."
 
 msgid "Sorry, '{{authority_name}}' has been marked as defunct, which means we can no longer process requests to them. You may need to check whether their responsibilities have been taken over by a different authority."
-msgstr "Nažalost, \"{{autority_name}}\" je označen kao neaktivan, što znači da im više ne možemo podnositi zahtjeve. Možda ćete morati provjeriti je li njihove odgovornosti preuzelo drugo tijelo javne vlasti."
+msgstr "Nažalost, \"{{authority_name}}\" je označen kao neaktivan, što znači da im više ne možemo podnositi zahtjeve. Možda ćete morati provjeriti je li njihove odgovornosti preuzelo drugo tijelo javne vlasti."
 
 msgid "Sorry, but only {{user_name}} is allowed to do that."
 msgstr "Žao nam je ali samo {{user_name}} može to učiniti."
@@ -4446,9 +4446,9 @@ msgstr "{{site_name}} šalje nove zahtjeve <strong>{{request_email}}</strong> za
 
 msgid "{{site_name}} users have made {{number_of_requests}} request, including:"
 msgid_plural "{{site_name}} users have made {{number_of_requests}} requests, including:"
-msgstr[0] "Pretražiti možete svih {{number_of_requests}} zahtjeva koje su podnijeli korisnici, a najnoviji su:"
-msgstr[1] "Pretražiti možete svih {{number_of_requests}} zahtjeva koje su podnijeli korisnici, a najnoviji su:"
-msgstr[2] "Pretražiti možete svih {{number_of_requests}} zahtjeva koje su podnijeli korisnici, a najnoviji su:"
+msgstr[0] "Pretražiti možete svih {{number_of_requests}} zahtjeva koje su podnijeli {{site_name}} korisnici, a najnoviji su:"
+msgstr[1] "Pretražiti možete svih {{number_of_requests}} zahtjeva koje su podnijeli {{site_name}} korisnici, a najnoviji su:"
+msgstr[2] "Pretražiti možete svih {{number_of_requests}} zahtjeva koje su podnijeli {{site_name}} korisnici, a najnoviji su:"
 
 msgid "{{title}} - a Freedom of Information request to {{public_body}}"
 msgstr "{{title}} - zahtjev za pristup informacijama prema {{public_body}}"

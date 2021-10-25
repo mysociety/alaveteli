@@ -107,7 +107,7 @@ msgid "<strong>Flexible</strong> You can cancel at any time, with no lengthy tie
 msgstr "<strong>Flexibelt</strong> Du kan avbryta när som helst och ingen komplicerad uppsägning krävs."
 
 msgid "<strong>Reasonable</strong> We know that campaigners are likely to be on a limited budget, so we’ve kept the subscription affordable."
-msgstr "<strong>Rimligt</strong> Vi vet att föreningar troligtvis har en begränsad budget, så vi har en prisvärd prenumeration."
+msgstr "<strong>Rimligt</strong> Vi vet att föreningar ofta har en begränsad budget, så vi har en prisvärd prenumeration."
 
 msgid "<strong>Reasonable</strong> We know that journalists can be on a limited budget, so we’ve kept the subscription affordable."
 msgstr "<strong>Rimligt</strong> Vi vet att journalister kan ha en begränsad budget, så vi har en prisvärd prenumeration."
@@ -203,7 +203,7 @@ msgid "Also called {{other_name}}."
 msgstr "Även kallad {{other_name}}"
 
 msgid "An all-in-one FOI toolkit for journalists, activists and campaigners"
-msgstr "Allt du behöver för att jobba med information från myndigheter. Oavsett om du är journalister, föreningsaktiv, forskare eller företagare"
+msgstr "Allt du behöver för att jobba med information från myndigheter. Oavsett om du är journalist, föreningsaktiv, forskare eller företagare"
 
 msgid "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
 msgstr "Anteckningar tillåter dig att lägga till extra anteckningar på en begäran, vilka eventuellt kommer offentliggöras. Kommentarer omfattas inte av vårt utgivningsbevis. Du ansvarar själv för dina anteckningar. Till exempel:"
@@ -272,7 +272,7 @@ msgid "CSV"
 msgstr "CSV"
 
 msgid "Campaigners"
-msgstr "Förkämpar"
+msgstr "Föreningar"
 
 msgid "Campaigning for better wheelchair accessibility"
 msgstr "Kampanj för bättre rullstolsanpassning"
@@ -515,7 +515,7 @@ msgid "I’m a journalist"
 msgstr "För journalister "
 
 msgid "I’m a researcher"
-msgstr "Jag är forskare eller researcher"
+msgstr "För forskare och researchers"
 
 msgid "Join {{pro_site_name}}"
 msgstr "Kom igång med {{pro_site_name}}"
@@ -1317,7 +1317,7 @@ msgid "You’ll have access to our address book of {{authority_count}} authoriti
 msgstr "Du har tillgång till kontaktuppgifter till {{authority_count}} organisationer som ägs av svenska skattebetalare och omfattas av offentlighetsprincipen "
 
 msgid "You’re busy fixing the world. Let us take care of your FOI requests."
-msgstr "Du är upptagen med att förändra världen. Låt oss ta hand om dina allmänna handlingar du behöver för att stödja din sak."
+msgstr "Du är upptagen med att förändra världen. Låt oss hjälpa dig med den information du behöver för att leda förändring."
 
 msgid "You’ve got plenty of other things to think about, so you don’t want to be checking up on every single one of your requests to see if it needs attention. Instead, Pro keeps an eye on them for you, sending you a daily email digest."
 msgstr "Du hinner troligtvis inte kontrollera varje enskild begäran för att se om det behövs åtgärder. Istället håller Pro ett öga på dem åt dig och skickar en daglig sammanfattning via e-post."
