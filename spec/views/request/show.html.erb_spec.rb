@@ -247,15 +247,14 @@ RSpec.describe "request/show" do
     end
   end
 
-  describe 'when the request is closed to new authority responses' do
+  describe 'when the request is closed to all responses' do
 
     it 'displays to say that the request is closed to further correspondence' do
       mock_request.update_attribute(:allow_new_responses_from, 'nobody')
       request_page
       expect(rendered).
-        to have_content('This request has been closed to new correspondence ' \
-                        'from the public body. Contact us if you think it ' \
-                        'ought be re-opened.')
+        to have_content('This request has been closed to new correspondence. ' \
+                        'Contact us if you think it should be reopened.')
     end
 
   end
