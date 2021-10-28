@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 # rubocop:disable all
-if Rails.version >= '6.1.0'
-  warn 'DEPRECATION: ActiveSupport::ConfigurationFile is now available in Rails'
-end
+unless rails_upgrade?
 
 module ActiveSupport
   # Reads a YAML configuration file, evaluating any ERB, then
@@ -48,5 +46,7 @@ module ActiveSupport
         context ? erb.result(context) : erb.result
       end
   end
+end
+
 end
 # rubocop:enable all

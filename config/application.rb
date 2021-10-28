@@ -23,7 +23,7 @@ require File.dirname(__FILE__) + '/../lib/alaveteli_localization'
 Bundler.require(*Rails.groups)
 
 def rails_upgrade?
-  true
+  %w[1 true].include?(ENV['RAILS_UPGRADE'])
 end
 
 module Alaveteli

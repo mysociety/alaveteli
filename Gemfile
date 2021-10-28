@@ -81,10 +81,10 @@ source 'https://rubygems.org'
 
 # See instructions in Gemfile.rails_next
 def rails_upgrade?
-  true
+  %w[1 true].include?(ENV['RAILS_UPGRADE'])
 end
 
-gem 'rails', rails_upgrade? ? '~> 6.0.3' : '~> 5.2.4'
+gem 'rails', rails_upgrade? ? '~> 6.1.4' : '~> 6.0.3'
 
 gem 'pg', '~> 1.2.3'
 
@@ -95,7 +95,6 @@ gem 'bcrypt', '~> 3.1.16'
 gem 'cancancan', '~> 3.3.0'
 gem 'charlock_holmes', '~> 0.7.7'
 gem 'dalli', '~> 3.0.2'
-gem 'dynamic_form', '~> 1.1.0'
 gem 'exception_notification', '~> 4.4.3'
 gem 'fancybox-rails', '~> 0.3.0'
 gem 'gnuplot', '~> 2.6.0'
@@ -136,13 +135,13 @@ gem 'gender_detector', '~> 2.0.0'
 
 # Gems related to internationalisation
 gem 'i18n', '~> 1.8.10'
-gem 'rails-i18n', rails_upgrade? ? '~> 6.0.0' : '~> 5.1.0'
+gem 'rails-i18n', '~> 6.0.0'
 gem 'gettext_i18n_rails', '~> 1.8.1'
   gem 'fast_gettext', '~> 2.1.0'
 gem 'gettext', '~> 3.4.1'
-gem 'globalize', rails_upgrade? ? '~> 5.3.0' : '~> 5.2.0'
+gem 'globalize', rails_upgrade? ? '~> 6.0.0' : '~> 5.3.0'
 gem 'locale', '~> 2.1.3'
-gem 'routing-filter', '~> 0.6.2'
+gem 'routing-filter', rails_upgrade? ? '~> 0.7.0' : '~> 0.6.2'
 gem 'unicode', '~> 0.4.4'
 gem 'unidecoder', '~> 1.1.0'
 gem 'money', '~> 6.16.0'
@@ -153,7 +152,7 @@ gem 'mime-types', '< 3.0.0', require: false
 # Assets
 gem 'bootstrap-sass', '~> 2.3.2.2'
 gem 'mini_racer', '~> 0.4.0'
-gem 'sass-rails', rails_upgrade? ? '~> 5.0.8' : '~> 5.0.7'
+gem 'sass-rails', '~> 5.0.8'
 gem 'uglifier', '~> 4.2.0'
 
 # Feature flags

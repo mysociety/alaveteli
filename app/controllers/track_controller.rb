@@ -149,7 +149,11 @@ class TrackController < ApplicationController
       return true
     else
       # this will most likely be tripped by a single error - probably track_query length
-      flash[:error] = @track_thing.errors.map { |_, msg| msg }.join(", ")
+      if rails_upgrade?
+        flash[:error] = @track_thing.errors.map { |e| e.message }.join(", ")
+      else
+        flash[:error] = @track_thing.errors.map { |_, msg| msg }.join(", ")
+      end
       return false
     end
   end
