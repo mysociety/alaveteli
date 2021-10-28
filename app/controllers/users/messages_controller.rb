@@ -30,11 +30,10 @@ class Users::MessagesController < UserController
 
   def check_can_send_messages
     # Banned from messaging users?
-    if authenticated? && !authenticated_user.can_contact_other_users?
-      @details = authenticated_user.can_fail_html
-      render template: 'user/banned'
-      return
-    end
+    return unless authenticated? && !authenticated_user.can_contact_other_users?
+
+    @details = authenticated_user.can_fail_html
+    render template: 'user/banned'
   end
 
   def check_logged_in

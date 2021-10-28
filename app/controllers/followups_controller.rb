@@ -88,7 +88,7 @@ class FollowupsController < ApplicationController
     # We want to make sure they're the right user first, before they start
     # writing a message and wasting their time if they are not the requester.
     params = get_login_params(@incoming_message, @info_request)
-    if !authenticated?(as: @info_request.user)
+    unless authenticated?(as: @info_request.user)
       ask_to_login(as: @info_request.user, **params)
       return
     end
@@ -97,9 +97,7 @@ class FollowupsController < ApplicationController
       render :template => 'user/banned'
       return
     end
-    if authenticated? && cannot?(:read, @info_request)
-      return render_hidden
-    end
+    render_hidden if authenticated? && cannot?(:read, @info_request)
   end
 
   def get_login_params(is_incoming, info_request)

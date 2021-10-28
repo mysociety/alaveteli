@@ -45,13 +45,12 @@ class RequestGameController < ApplicationController
 
   def show
     url_title = params[:url_title]
-    if !authenticated?
+    unless authenticated?
       ask_to_login(
         web: _('To play the request categorisation game'),
         email: _('Then you can play the request categorisation game.'),
         email_subject: _('Play the request categorisation game')
       )
-      # do nothing - as "authenticated?" has done the redirect to signin page for us
       return
     end
     redirect_to show_request_url(:url_title => url_title)

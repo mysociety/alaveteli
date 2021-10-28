@@ -29,14 +29,13 @@ class RequestController < ApplicationController
   def select_authority
     # Check whether we force the user to sign in right at the start, or we allow her
     # to start filling the request anonymously
-    if AlaveteliConfiguration::force_registration_on_new_request &&
-      !authenticated?
+    if AlaveteliConfiguration.force_registration_on_new_request &&
+       !authenticated?
       ask_to_login(
         web: _('To send and publish your FOI request'),
         email: _("Then you'll be allowed to send FOI requests."),
         email_subject: _('Confirm your email address')
       )
-      # do nothing - as "authenticated?" has done the redirect to signin page for us
       return
     end
     if !params[:query].nil?
@@ -358,7 +357,7 @@ class RequestController < ApplicationController
       return
     end
 
-    if !authenticated?
+    unless authenticated?
       ask_to_login(
         web: _('To send and publish your FOI request').to_str,
         email: _('Then your FOI request to {{public_body_name}} will be sent ' \
@@ -367,7 +366,6 @@ class RequestController < ApplicationController
         email_subject: _('Confirm your FOI request to {{public_body_name}}',
                          public_body_name: @info_request.public_body.name)
       )
-      # do nothing - as "authenticated?" has done the redirect to signin page for us
       return
     end
 
@@ -465,10 +463,7 @@ class RequestController < ApplicationController
                          site_name: site_name)
       }
 
-      if !authenticated?
-        ask_to_login(**@reason_params)
-        return
-      end
+      ask_to_login(**@reason_params) && return unless authenticated?
 
       if !@info_request.public_body.is_foi_officer?(@user)
         domain_required = @info_request.public_body.foi_officer_domain_required
@@ -715,14 +710,13 @@ class RequestController < ApplicationController
     if !AlaveteliConfiguration::allow_batch_requests
       raise RouteNotFound.new("Page not enabled")
     end
-    if !authenticated?
+    unless authenticated?
       ask_to_login(
         web: _('To make a batch request'),
         email: _('Then you can make a batch request'),
         email_subject: _('Make a batch request'),
         user_name: 'a user who has been authorised to make batch requests'
       )
-      # do nothing - as "authenticated?" has done the redirect to signin page for us
       return
     end
     if !@user.can_make_batch_requests?

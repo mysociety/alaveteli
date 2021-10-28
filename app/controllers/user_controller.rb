@@ -270,7 +270,7 @@ class UserController < ApplicationController
 
   def set_profile_photo
     # check they are logged in (the upload photo option is anyway only available when logged in)
-    if !authenticated?
+    unless authenticated?
       flash[:error] = _("You need to be logged in to change your profile photo.")
       redirect_to frontpage_url
       return
@@ -335,7 +335,7 @@ class UserController < ApplicationController
   def clear_profile_photo
 
     # check they are logged in (the upload photo option is anyway only available when logged in)
-    if !authenticated?
+    unless authenticated?
       flash[:error] = _("You need to be logged in to clear your profile photo.")
       redirect_to frontpage_url
       return
@@ -370,7 +370,7 @@ class UserController < ApplicationController
 
   # Change about me text on your profile page
   def set_receive_email_alerts
-    if !authenticated?
+    unless authenticated?
       flash[:error] = _("You need to be logged in to edit your profile.")
       redirect_to frontpage_url
       return
