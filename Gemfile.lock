@@ -81,7 +81,7 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
-    active_model_otp (2.3.0)
+    active_model_otp (2.3.1)
       activemodel
       rotp (~> 6.2.0)
     activejob (6.0.4.1)
@@ -405,7 +405,7 @@ GEM
       rexml
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.4.2)
+    zeitwerk (2.5.1)
     zip_tricks (5.6.0)
 
 PLATFORMS
