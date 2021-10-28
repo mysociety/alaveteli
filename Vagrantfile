@@ -139,6 +139,10 @@ SUPPORTED_OPERATING_SYSTEMS = {
   'buster64' => {
     box: 'debian/buster64',
     box_url: 'https://app.vagrantup.com/debian/boxes/buster64'
+  },
+  'bullseye64' => {
+    box: 'debian/bullseye64',
+    box_url: 'https://app.vagrantup.com/debian/boxes/bullseye64'
   }
 }
 
