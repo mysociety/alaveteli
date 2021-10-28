@@ -44,15 +44,12 @@ RSpec.describe "When errors occur" do
       expect(response.body).to match("Sorry, we couldn't find that page")
     end
 
-    # it 'should handle non utf-8 parameters' do
-    #     pending 'until we sanitize non utf-8 parameters for Ruby >= 1.9' do
-    #         get ('/%d3')
-    #         response.should render_template('general/exception_caught')
-    #         response.code.should == '404'
-    #         response.body.should match("Sorry, we couldn't find that page")
-    #     end
-    # end
-
+    it 'should handle non utf-8 parameters' do
+      get('/%d3')
+      expect(response).to render_template('general/exception_caught')
+      expect(response.code).to eq('404')
+      expect(response.body).to match("Sorry, we couldn't find that page")
+    end
 
     it "should render a 500 for general errors using the general/exception_caught template" do
       allow(InfoRequest).to receive(:find_by_url_title!).and_raise("An example error")
