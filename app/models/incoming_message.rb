@@ -464,7 +464,7 @@ class IncomingMessage < ApplicationRecord
     # Add an annotation if the text had to be scrubbed
     if part && part.body_as_text.scrubbed?
       text += _("\n\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]",
-                :site_name => AlaveteliConfiguration.site_name)
+                site_name: AlaveteliConfiguration.site_name)
     end
     # Fix DOS style linefeeds to Unix style ones (or other later regexps won't work)
     text = text.gsub(/\r\n/, "\n")

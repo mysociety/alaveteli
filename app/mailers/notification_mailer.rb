@@ -121,8 +121,9 @@ class NotificationMailer < ApplicationMailer
     subject = _(
       "Your FOI request - {{request_title}} will be made public on " \
       "{{site_name}} this week",
-      :request_title => @info_request.title.html_safe,
-      :site_name => AlaveteliConfiguration.site_name.html_safe)
+      request_title: @info_request.title.html_safe,
+      site_name: AlaveteliConfiguration.site_name.html_safe
+    )
 
     mail_user(@info_request.user,
               subject,
@@ -138,8 +139,9 @@ class NotificationMailer < ApplicationMailer
     subject = _(
       "Your FOI request - {{request_title}} has been made public on " \
       "{{site_name}}",
-      :request_title => @info_request.title.html_safe,
-      :site_name => AlaveteliConfiguration.site_name.html_safe)
+      request_title: @info_request.title.html_safe,
+      site_name: AlaveteliConfiguration.site_name.html_safe
+    )
 
     mail_user(@info_request.user,
               subject,
