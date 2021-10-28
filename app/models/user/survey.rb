@@ -7,6 +7,6 @@ module User::Survey
   end
 
   def can_send_survey?
-    active? && !survey_recently_sent?
+    should_be_emailed? && !survey_recently_sent?
   end
 end

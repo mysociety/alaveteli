@@ -4,6 +4,7 @@
 #
 class SurveyMailer < ApplicationMailer
   include AlaveteliFeatures::Helpers
+  helper UnsubscribeHelper
 
   before_action :set_footer_template
 
@@ -11,6 +12,7 @@ class SurveyMailer < ApplicationMailer
     return unless Survey.enabled?
 
     @info_request = info_request
+    @user = info_request.user
     @url = Survey.new(info_request.public_body).url
 
     headers(
@@ -21,7 +23,7 @@ class SurveyMailer < ApplicationMailer
     )
 
     mail(
-      to: info_request.user.name_and_email,
+      to: @user.name_and_email,
       from: contact_from_name_and_email,
       subject: _('A survey about your recent Freedom of Information request')
     )
@@ -53,6 +55,6 @@ class SurveyMailer < ApplicationMailer
   private
 
   def set_footer_template
-    @footer_template = 'default'
+    @footer_template = 'default_with_unsubscribe'
   end
 end

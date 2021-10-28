@@ -500,6 +500,14 @@ RSpec.describe User, '#should_be_emailed?' do
     end
   end
 
+  context 'when confirmed and unsubscribed' do
+    let(:user) { FactoryBot.build(:user, receive_email_alerts: false) }
+
+    it 'should not be emailed' do
+      expect(user).to_not be_should_be_emailed
+    end
+  end
+
   context 'when unconfirmed and active' do
     let(:user) { FactoryBot.build(:unconfirmed_user) }
     before { allow(user).to receive(:active?).and_return(true) }
