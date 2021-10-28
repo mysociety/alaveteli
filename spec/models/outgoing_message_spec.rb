@@ -924,11 +924,12 @@ RSpec.describe OutgoingMessage do
       FactoryBot.build(:initial_request, info_request: info_request, body: body)
     end
 
-    let(:body) { "Dear Example Body,\n\nSome information please." }
+    let(:body) { "Dear Example Body,\n\n\r\nSome information please." }
 
     context 'when stripping salutation' do
       let(:strip_salutation) { true }
       it { is_expected.not_to match(/Dear Example Body/) }
+      it { is_expected.not_to start_with(/\s+/) }
     end
 
     context 'when stripping localised salutation' do
