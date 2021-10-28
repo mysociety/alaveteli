@@ -238,7 +238,7 @@ class TrackThing < ApplicationRecord
       # Authentication
       web: _("To follow requests made using {{site_name}} to the public " \
              "authority '{{public_body_name}}'",
-             site_name: AlaveteliConfiguration.site_name.html_safe,
+             site_name: site_name.html_safe,
              public_body_name: public_body.name.html_safe),
       email: _("Then you will be notified whenever someone requests " \
                "something or gets a response from '{{public_body_name}}'.",

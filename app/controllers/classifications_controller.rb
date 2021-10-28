@@ -7,8 +7,8 @@ class ClassificationsController < ApplicationController
   prepend_before_action :check_read_only, only: :create
 
   rescue_from CanCan::AccessDenied do
-    authenticated_as_user?(
-      @info_request.user,
+    authenticated?(as: @info_request.user) || ask_to_login(
+      as: @info_request.user,
       web: _('To classify the response to this FOI request'),
       email: _('Then you can classify the FOI response you have got from ' \
                '{{authority_name}}.',

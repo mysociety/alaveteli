@@ -13,7 +13,7 @@ class Projects::ProjectsController < Projects::BaseController
   end
 
   def authenticate
-    authenticated?(
+    authenticated? || ask_to_login(
       web: _('To join this project'),
       email: _('Then you can join this project'),
       email_subject: _('Confirm your account on {{site_name}}',

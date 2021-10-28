@@ -29,12 +29,13 @@ class RequestController < ApplicationController
   def select_authority
     # Check whether we force the user to sign in right at the start, or we allow her
     # to start filling the request anonymously
-    if AlaveteliConfiguration::force_registration_on_new_request && !authenticated?(
-        :web => _("To send and publish your FOI request"),
-        :email => _("Then you'll be allowed to send FOI requests."),
-        :email_subject => _("Confirm your email address")
+    if AlaveteliConfiguration.force_registration_on_new_request &&
+       !authenticated?
+      ask_to_login(
+        web: _('To send and publish your FOI request'),
+        email: _("Then you'll be allowed to send FOI requests."),
+        email_subject: _('Confirm your email address')
       )
-      # do nothing - as "authenticated?" has done the redirect to signin page for us
       return
     end
     if !params[:query].nil?
@@ -97,17 +98,20 @@ class RequestController < ApplicationController
       assign_variables_for_show_template(@info_request)
 
       # Only owners (and people who own everything) can update status
-      if @update_status
-        return if !@is_owning_user && !authenticated_as_user?(
-          @info_request.user,
-          :web => _("To update the status of this FOI request"),
-          :email => _("Then you can update the status of your request to " \
-                        "{{authority_name}}.",
-                      :authority_name => @info_request.public_body.name),
-          :email_subject => _("Update the status of your request to " \
-                                "{{authority_name}}",
-                              :authority_name => @info_request.public_body.name)
+      if @update_status && !@is_owning_user && !authenticated?(
+        as: @info_request.user
+      )
+        ask_to_login(
+          as: @info_request.user,
+          web: _('To update the status of this FOI request'),
+          email: _('Then you can update the status of your request to ' \
+                   '{{authority_name}}.',
+                   authority_name: @info_request.public_body.name),
+          email_subject: _('Update the status of your request to ' \
+                           '{{authority_name}}',
+                           authority_name: @info_request.public_body.name)
         )
+        return
       end
 
       # What state transitions can the request go into
@@ -282,7 +286,7 @@ class RequestController < ApplicationController
 
     # Banned from making new requests?
     user_exceeded_limit = false
-    if !authenticated_user.nil? && !authenticated_user.can_file_requests?
+    if authenticated? && !authenticated_user.can_file_requests?
       # If the reason the user cannot make new requests is that they are
       # rate-limited, it’s possible they composed a request before they
       # logged in and we want to include the text of the request so they
@@ -353,12 +357,15 @@ class RequestController < ApplicationController
       return
     end
 
-    if !authenticated?(
-        :web => _("To send and publish your FOI request").to_str,
-        :email => _("Then your FOI request to {{public_body_name}} will be sent and published.",:public_body_name=>@info_request.public_body.name),
-        :email_subject => _("Confirm your FOI request to {{public_body_name}}",:public_body_name=>@info_request.public_body.name)
+    unless authenticated?
+      ask_to_login(
+        web: _('To send and publish your FOI request').to_str,
+        email: _('Then your FOI request to {{public_body_name}} will be sent ' \
+                 'and published.',
+                 public_body_name: @info_request.public_body.name),
+        email_subject: _('Confirm your FOI request to {{public_body_name}}',
+                         public_body_name: @info_request.public_body.name)
       )
-      # do nothing - as "authenticated?" has done the redirect to signin page for us
       return
     end
 
@@ -448,17 +455,15 @@ class RequestController < ApplicationController
       @info_request = InfoRequest.not_embargoed.find_by_url_title!(params[:url_title])
 
       @reason_params = {
-        :web => _("To upload a response, you must be logged in using an " \
-                    "email address from {{authority_name}}",
-                  :authority_name => CGI.escapeHTML(@info_request.public_body.name)),
-        :email => _("Then you can upload an FOI response. "),
-        :email_subject => _("Confirm your account on {{site_name}}",
-                            :site_name => site_name)
+        web: _('To upload a response, you must be logged in using an ' \
+               'email address from {{authority_name}}',
+               authority_name: CGI.escapeHTML(@info_request.public_body.name)),
+        email: _('Then you can upload an FOI response. '),
+        email_subject: _('Confirm your account on {{site_name}}',
+                         site_name: site_name)
       }
 
-      if !authenticated?(@reason_params)
-        return
-      end
+      ask_to_login(**@reason_params) && return unless authenticated?
 
       if !@info_request.public_body.is_foi_officer?(@user)
         domain_required = @info_request.public_body.foi_officer_domain_required
@@ -528,13 +533,17 @@ class RequestController < ApplicationController
       if @info_request.embargo && cannot?(:read, @info_request)
         render_hidden
       end
-      if authenticated?(
-          :web => _("To download the zip file"),
-          :email => _("Then you can download a zip file of {{info_request_title}}.",
-                      :info_request_title=>@info_request.title),
-          :email_subject => _("Log in to download a zip file of {{info_request_title}}",
-                              :info_request_title=>@info_request.title)
+      if !authenticated?
+        ask_to_login(
+          web: _('To download the zip file'),
+          email: _('Then you can download a zip file of ' \
+                   '{{info_request_title}}.',
+                   info_request_title: @info_request.title),
+          email_subject: _('Log in to download a zip file of ' \
+                           '{{info_request_title}}',
+                           info_request_title: @info_request.title)
         )
+      else
         # Test for whole request being hidden or requester-only
         if cannot?(:read, @info_request)
           return render_hidden
@@ -575,7 +584,7 @@ class RequestController < ApplicationController
     @info_request = info_request
     @status = info_request.calculate_status
     @old_unclassified =
-      info_request.is_old_unclassified? && !authenticated_user.nil?
+      info_request.is_old_unclassified? && authenticated?
     @is_owning_user = info_request.is_owning_user?(authenticated_user)
     @last_info_request_event_id = info_request.last_event_id_needing_description
     @new_responses_count =
@@ -701,12 +710,13 @@ class RequestController < ApplicationController
     if !AlaveteliConfiguration::allow_batch_requests
       raise RouteNotFound.new("Page not enabled")
     end
-    if !authenticated?(
-        :web => _("To make a batch request"),
-        :email => _("Then you can make a batch request"),
-        :email_subject => _("Make a batch request"),
-      :user_name => "a user who has been authorised to make batch requests")
-      # do nothing - as "authenticated?" has done the redirect to signin page for us
+    unless authenticated?
+      ask_to_login(
+        web: _('To make a batch request'),
+        email: _('Then you can make a batch request'),
+        email_subject: _('Make a batch request'),
+        user_name: 'a user who has been authorised to make batch requests'
+      )
       return
     end
     if !@user.can_make_batch_requests?

@@ -98,15 +98,15 @@ RSpec.describe PasswordChangesController do
       it 'creates a post redirect' do
         user = FactoryBot.create(:user)
         expected_attrs =
-          { :post_params => {},
-            :reason_params => {
-              :web => '',
-              :email => _('Then you can change your password on {{site_name}}',
-                          :site_name => AlaveteliConfiguration.site_name),
-              :email_subject => _('Change your password on {{site_name}}',
-                                  :site_name =>
-                                    AlaveteliConfiguration.site_name) },
-            :circumstance => 'change_password' }
+          { post_params: {},
+            reason_params: {
+              web: '',
+              email: _('Then you can change your password on {{site_name}}',
+                       site_name: site_name),
+              email_subject: _('Change your password on {{site_name}}',
+                               site_name: site_name)
+            },
+            circumstance: 'change_password' }
 
         post :create, params: {
                         :password_change_user => { :email => user.email }

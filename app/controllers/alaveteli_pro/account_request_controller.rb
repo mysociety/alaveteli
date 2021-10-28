@@ -44,18 +44,16 @@ class AlaveteliPro::AccountRequestController < ApplicationController
 
     flash[:new_pro_user] = true
     flash[:notice] = _('Welcome to {{pro_site_name}}!',
-                       pro_site_name: AlaveteliConfiguration.pro_site_name)
+                       pro_site_name: pro_site_name)
 
     redirect_to alaveteli_pro_dashboard_path
   end
 
   def authenticate
-    post_redirect_params = {
+    authenticated? || ask_to_login(
       web: _('To upgrade your account'),
       email: _('Then you can upgrade your account'),
       email_subject: _('To upgrade your account')
-    }
-
-    authenticated?(post_redirect_params)
+    )
   end
 end

@@ -5,7 +5,7 @@
   <p>
     <%= _('Your subscription has been cancelled, your access to ' \
           '{{pro_site_name}} will end on <strong>{{date}}</strong>.',
-          pro_site_name: AlaveteliConfiguration.pro_site_name,
+          pro_site_name: pro_site_name,
           date: simple_date(Time.zone.at(subscription.current_period_end),
                             format: :text)) %>
     <button class="button-unstyled js-control-cancel-subscription__message">
@@ -29,7 +29,7 @@
                             format: :text)) %>
     <%= _('Until that date you will continue to have full access to ' \
           '{{pro_site_name}}.',
-          pro_site_name: AlaveteliConfiguration.pro_site_name) %>
+          pro_site_name: pro_site_name) %>
   </p>
 
   <% if cancelled %>
@@ -45,7 +45,7 @@
       <li>
         <%= _("You won't be able to access {{pro_site_name}} tools, " \
               "including the dashboard and pro request management.",
-              pro_site_name: AlaveteliConfiguration.pro_site_name) %>
+              pro_site_name: pro_site_name) %>
       </li>
       <li>
         <%= _("You will still be able to see any requests which are " \

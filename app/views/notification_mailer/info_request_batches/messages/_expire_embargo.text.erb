@@ -2,7 +2,7 @@
        '{{count}} requests have been made public on {{site_name}}.',
        notifications.size,
        count: notifications.size,
-       site_name: AlaveteliConfiguration.site_name.html_safe) %>
+       site_name: site_name.html_safe) %>
 <% notifications.each do |notification| %>
   <% info_request = notification.info_request_event.info_request %>
   <%= _('{{public_body_name}}: {{request_url}}',

@@ -187,11 +187,14 @@ class UserController < ApplicationController
   # Change your email
   def signchangeemail
     # "authenticated?" has done the redirect to signin page for us
-    return unless authenticated?(
-        :web => _("To change your email address used on {{site_name}}",:site_name=>site_name),
-        :email => _("Then you can change your email address used on {{site_name}}",:site_name=>site_name),
-        :email_subject => _("Change your email address used on {{site_name}}",:site_name=>site_name)
-      )
+    return unless authenticated? || ask_to_login(
+      web: _('To change your email address used on {{site_name}}',
+             site_name: site_name),
+      email: _('Then you can change your email address used on {{site_name}}',
+               site_name: site_name),
+      email_subject: _('Change your email address used on {{site_name}}',
+                       site_name: site_name)
+    )
 
     unless params[:submitted_signchangeemail_do]
       render :action => 'signchangeemail'
@@ -271,7 +274,7 @@ class UserController < ApplicationController
 
   def set_profile_photo
     # check they are logged in (the upload photo option is anyway only available when logged in)
-    if authenticated_user.nil?
+    unless authenticated?
       flash[:error] = _("You need to be logged in to change your profile photo.")
       redirect_to frontpage_url
       return
@@ -336,7 +339,7 @@ class UserController < ApplicationController
   def clear_profile_photo
 
     # check they are logged in (the upload photo option is anyway only available when logged in)
-    if authenticated_user.nil?
+    unless authenticated?
       flash[:error] = _("You need to be logged in to clear your profile photo.")
       redirect_to frontpage_url
       return
@@ -371,7 +374,7 @@ class UserController < ApplicationController
 
   # Change about me text on your profile page
   def set_receive_email_alerts
-    if authenticated_user.nil?
+    unless authenticated?
       flash[:error] = _("You need to be logged in to edit your profile.")
       redirect_to frontpage_url
       return

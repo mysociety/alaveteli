@@ -88,7 +88,7 @@ RSpec.describe Users::MessagesController do
       expect(deliveries.size).to eq(1)
       mail = deliveries[0]
       expect(mail.body).
-        to include("Bob Smith has used #{AlaveteliConfiguration.site_name} " \
+        to include("Bob Smith has used #{site_name} " \
                    "to send you the message below")
       expect(mail.body).to include('Just a test!')
       # TODO: fix some nastiness with quoting name_and_email
