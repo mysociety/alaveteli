@@ -35,7 +35,7 @@
   <% for row in PublicBodyCategory.get().with_headings() %>
     <% if row.instance_of?(Array) %>
       <li>
-        <%= link_to_unless (@tag == row[0]), row[1], list_public_bodies_path(:tag => row[0]) %>
+        <%= link_to_unless (@tag == row[0]), row[1], list_public_bodies_by_tag_path(row[0]) %>
       </li>
     <% else %>
       <% if not first_row %>
