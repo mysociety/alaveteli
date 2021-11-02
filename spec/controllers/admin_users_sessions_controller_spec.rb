@@ -15,6 +15,11 @@ RSpec.describe AdminUsersSessionsController do
       expect(session[:user_id]).to eq(target_user.id)
     end
 
+    it 'sets the login token to ' do
+      post :create, params: { id: target_user.id }
+      expect(session[:user_login_token]).to eq(target_user.login_token)
+    end
+
     it 'sets the user_circumstance session to login_as' do
       post :create, params: { id: target_user.id }
       expect(session[:user_circumstance]).to eq('login_as')
@@ -23,6 +28,14 @@ RSpec.describe AdminUsersSessionsController do
     it 'redirects to the target user page' do
       post :create, params: { id: target_user.id }
       expect(response).to redirect_to(user_path(target_user))
+    end
+
+    it 'loads target user when next authenicating' do
+      post :create, params: { id: target_user.id }
+      expect(controller.send(:authenticated_user)).to eq(admin_user)
+      # reset user so authenticated_user reloads
+      controller.instance_variable_set(:@user, nil)
+      expect(controller.send(:authenticated_user)).to eq(target_user)
     end
 
     context 'with an unconfirmed user' do
