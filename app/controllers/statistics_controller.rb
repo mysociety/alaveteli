@@ -18,7 +18,7 @@ class StatisticsController < ApplicationController
       format.json do
         render json: {
           public_bodies: @public_bodies,
-          users: Statistics.user_json_for_api(@users),
+          users: Statistics.user_json_for_api(@leaderboard),
           requests: {
             hides_by_week: @request_hides_by_week
           }
