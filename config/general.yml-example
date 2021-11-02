@@ -267,12 +267,12 @@ FRONTPAGE_PUBLICBODY_EXAMPLES: ''
 # Examples:
 #
 #   THEME_URLS:
-#     - 'git://github.com/mysociety/alavetelitheme.git'
-#     - 'git://github.com/mysociety/whatdotheyknow-theme.git'
+#     - 'https://github.com/mysociety/alavetelitheme.git'
+#     - 'https://github.com/mysociety/whatdotheyknow-theme.git'
 #
 # ---
 THEME_URLS:
-  - 'git://github.com/mysociety/alavetelitheme.git'
+  - 'https://github.com/mysociety/alavetelitheme.git'
 
 # When rails-post-deploy installs the themes, it will try to use the branch
 # specified by THEME_BRANCH first. If the branch doesn't exist it will fall
