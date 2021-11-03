@@ -463,7 +463,10 @@ class RequestController < ApplicationController
                          site_name: site_name)
       }
 
-      ask_to_login(**@reason_params) && return unless authenticated?
+      unless authenticated?
+        ask_to_login(**@reason_params)
+        return false
+      end
 
       if !@info_request.public_body.is_foi_officer?(@user)
         domain_required = @info_request.public_body.foi_officer_domain_required
