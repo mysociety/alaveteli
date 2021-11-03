@@ -10,8 +10,10 @@ module User::LoginToken
   private
 
   def update_login_token
-    return unless email_changed? || hashed_password_changed?
+    update_login_token! if email_changed? || hashed_password_changed?
+  end
 
+  def update_login_token!
     self.login_token = Digest::UUID.uuid_v5("User;#{id}", {
       email: email,
       hashed_password: hashed_password
