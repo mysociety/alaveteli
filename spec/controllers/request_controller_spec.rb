@@ -1770,7 +1770,16 @@ RSpec.describe RequestController, "authority uploads a response from the web int
         get :upload_response, params: { :url_title => embargoed_request.url_title }
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
+  end
 
+  context 'when user is signed out' do
+    it 'redirect to the login page' do
+      get :upload_response, params: {
+        url_title: 'why_do_you_have_such_a_fancy_dog'
+      }
+      expect(response).
+        to redirect_to(signin_path(token: get_last_post_redirect.token))
+    end
   end
 
   it "should require login to view the form to upload" do
