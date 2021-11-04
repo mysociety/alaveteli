@@ -44,7 +44,7 @@
 .phase-icon {
   background-image: image-url('alaveteli-pro/pro-phase-icons.png');
   background-position: 0 -256px;
-  background-size: 44px 486.5px;
+  background-size: 44px 539px;
   width: 22px;
   height: 22px;
   display: inline-block;
@@ -109,6 +109,10 @@
   background-position: 0 -452px;
 }
 
+.phase-icon--draft {
+  background-position: 0 -519px;
+}
+
 .dashboard-folder {
   .phase-icon {
     position: relative;
@@ -155,7 +159,7 @@
   background-color: #F3F1EB;
   padding: 0.5em 1.5em 1em 1.5em;
   position: relative;
-  @media (min-width: 28em) {
+  @include respond-min( $dashboard-collapse ) {
     padding-left: 80px;
     padding-top: 0.5em;
   }

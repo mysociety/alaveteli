@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add draft icon in the pro dashboard (Lucas Cumsille Montesinos)
 * Fix overflow of pro announcement icon on mobile devices (Lucas Cumsille
   Montesinos)
 * Use consistent colour for admin interface save buttons (Gareth Rees)
