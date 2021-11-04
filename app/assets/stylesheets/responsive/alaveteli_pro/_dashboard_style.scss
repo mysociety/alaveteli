@@ -153,26 +153,34 @@
 
 .dashboard__announcements {
   background-color: #F3F1EB;
-  padding: 3em 1.5em 1em 1.5em;
+  padding: 0.5em 1.5em 1em 1.5em;
   position: relative;
   @media (min-width: 28em) {
     padding-left: 80px;
-    padding-top: 1.5em;
+    padding-top: 0.5em;
   }
   &:after {
     content: '';
     position: absolute;
-    top: -14px;
-    left: 1em;
-    height: 50px;
-    width: 51px;
+    top: 15px;
+    right: 1em;
+
+    height: 31px;
+    width: 30px;
     background-image: image-url('alaveteli-pro/announcement.png');
     @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
       background-image: image-url('alaveteli-pro/announcement@2.png');
     }
     background-repeat: no-repeat;
     background-position: top left;
-    background-size: 50px 51px;
+    background-size: 30px 31px;
+    @include respond-min( $dashboard-collapse ){
+      top: -14px;
+      left: 1em;
+      height: 50px;
+      width: 51px;
+      background-size: 50px 51px;
+    }
   }
 }
 

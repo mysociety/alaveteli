@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Fix overflow of pro announcement icon on mobile devices (Lucas Cumsille
+  Montesinos)
 * Use consistent colour for admin interface save buttons (Gareth Rees)
 * Add citation count to general statistics (Gareth Rees)
 * Display the current public body request email when notfing admins of a change
