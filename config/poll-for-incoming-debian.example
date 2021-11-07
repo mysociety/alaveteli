@@ -41,17 +41,17 @@ export PIDFILE LOGFILE
 quietly_start_daemon() {
     mkdir -p {$LOGDIR,$PIDDIR}
     chown $DUSER:$DUSER {$LOGDIR,$PIDDIR}
-    /sbin/start-stop-daemon --quiet --start --pidfile "$PIDFILE" --chuid "$DUSER" --chdir "$SITE_HOME" --startas "$DAEMON" -- $DAEMON_ARGS
+    /sbin/start-stop-daemon --quiet --start --pidfile "$PIDFILE" --user "$DUSER" --chuid "$DUSER" --chdir "$SITE_HOME" --startas "$DAEMON" -- $DAEMON_ARGS
 }
 
 start_daemon() {
     mkdir -p {$LOGDIR,$PIDDIR}
     chown $DUSER:$DUSER {$LOGDIR,$PIDDIR}
-    /sbin/start-stop-daemon --start --pidfile "$PIDFILE" --chuid "$DUSER" --chdir "$SITE_HOME" --startas "$DAEMON" -- $DAEMON_ARGS
+    /sbin/start-stop-daemon --start --pidfile "$PIDFILE" --user "$DUSER" --chuid "$DUSER" --chdir "$SITE_HOME" --startas "$DAEMON" -- $DAEMON_ARGS
 }
 
 stop_daemon() {
-    /sbin/start-stop-daemon --stop --oknodo --retry 5 --pidfile "$PIDFILE"
+    /sbin/start-stop-daemon --stop --oknodo --retry 5 --user "$DUSER" --pidfile "$PIDFILE"
 }
 
 restart() { stop; start; }
