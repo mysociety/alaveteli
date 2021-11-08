@@ -102,8 +102,5 @@ module Alaveteli
 
     # Allow the generation of full URLs in emails
     config.action_mailer.default_url_options = { :host => AlaveteliConfiguration::domain }
-    if AlaveteliConfiguration::force_ssl
-      config.action_mailer.default_url_options[:protocol] = "https"
-    end
   end
 end
