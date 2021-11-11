@@ -136,6 +136,15 @@ module AlaveteliConfiguration
     # rubocop:enable Layout/LineLength
   end
 
+  def self.html_to_pdf_command
+    warn <<~DEPRECATION.squish
+      [DEPRECATION] AlaveteliConfiguration.html_to_pdf_command will be removed
+      in 0.41. Please add the directory containing the wkhtmltopdf command to
+      AlaveteliConfiguration.utility_search_path
+    DEPRECATION
+    super
+  end
+
   def self.method_missing(name)
     key = name.to_s.upcase
     if DEFAULTS.has_key?(key.to_sym)
