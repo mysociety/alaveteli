@@ -13,7 +13,7 @@ PATH=/usr/local/bin:/usr/bin:/bin
 
 <% if use_rbenv? %>
 RBENV_ROOT="/home/<%= user %>/.rbenv"
-PATH="$RBENV_ROOT/bin:$RBENV_ROOT/shims:$PATH"
+PATH="$RBENV_ROOT/shims:$PATH"
 <% else %>
 PATH="/home/<%= user %>/.gem/ruby/<%= ruby_version %>/bin:$PATH"
 <% end %>
