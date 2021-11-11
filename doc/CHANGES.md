@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add support for Debian 11 Bullseye (Graeme Porteous)
 * Add citation count to general statistics (Gareth Rees)
 * Display the current public body request email when notfing admins of a change
   request (Gareth Rees)
