@@ -2,6 +2,9 @@
 
 ## Highlighted Features
 
+* Add draft icon in the pro dashboard (Lucas Cumsille Montesinos)
+* Fix overflow of pro announcement icon on mobile devices (Lucas Cumsille
+  Montesinos)
 * Use consistent colour for admin interface save buttons (Gareth Rees)
 * Remove dependency on Python (Graeme Porteous)
 * Use human-friendly URLs to body listings (Gareth Rees)
