@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Improve spacing of pro request navigation folders (Gareth Rees)
 * Update daemon templates (Laurent Savaete)
 * Fix incorrect crontab PATH setup (Graeme Porteous)
 * Add support for Debian 11 Bullseye (Graeme Porteous)
