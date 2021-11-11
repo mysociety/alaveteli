@@ -5,9 +5,9 @@
 # Email: hello@mysociety.org. WWW: http://www.mysociety.org/
 
 <% if use_rbenv? %>
-PATH="/home/<%= user %>/.rbenv/shims:/usr/local/bin:/usr/bin:/bin"
+PATH=/home/<%= user %>/.rbenv/shims:/usr/local/bin:/usr/bin:/bin
 <% else %>
-PATH="/home/<%= user %>/.gem/ruby/<%= ruby_version %>/bin:/usr/local/bin:/usr/bin:/bin"
+PATH=/home/<%= user %>/.gem/ruby/<%= ruby_version %>/bin:/usr/local/bin:/usr/bin:/bin
 <% end %>
 
 MAILTO=<%= mailto %>
