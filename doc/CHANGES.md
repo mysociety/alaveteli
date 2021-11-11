@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add support for Debian 11 Bullseye (Graeme Porteous)
 * Add draft icon in the pro dashboard (Lucas Cumsille Montesinos)
 * Fix overflow of pro announcement icon on mobile devices (Lucas Cumsille
   Montesinos)
