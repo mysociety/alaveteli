@@ -159,6 +159,12 @@ to match the new templates.
     app/views/track_mailer/event_digest.text.erb
     app/views/user/bad_token.html.erb
 
+# 0.39.1.8
+
+## Highlighted Features
+
+* Updated translations from Transifex (Graeme Porteous)
+
 # 0.39.1.7
 
 ## Highlighted Features
