@@ -25,6 +25,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # 0c5d54599df8b711a7a254a114ba48aa, 2011
 # a270031086f2a0d3514bc0cb507b48f6, 2019
 # Adrien Chauvet, 2013
@@ -55,9 +56,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-14 12:40+0100\n"
-"PO-Revision-Date: 2021-11-03 14:54+0000\n"
-"Last-Translator: Pascal Romain <aka.keronos@gmail.com>\n"
+"POT-Creation-Date: 2021-11-12 13:11+0000\n"
+"PO-Revision-Date: 2021-11-12 15:05+0000\n"
+"Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: French (France) (http://www.transifex.com/mysociety/alaveteli/l"
 "anguage/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -540,6 +541,9 @@ msgstr "Utilisateur anonyme"
 msgid "Any device"
 msgstr "N'importe quel appareil"
 
+msgid "Anyone with the link will be able to view this request."
+msgstr ""
+
 msgid "Are we missing a public authority?"
 msgstr "Avons-nous oublié une autorité publique ?"
 
@@ -647,6 +651,12 @@ msgstr "Parcourir et rechercher les demandes"
 
 msgid "Browse and search requests (page {{count}})"
 msgstr "Parcourir et rechercher les demandes (page {{count}})"
+
+msgid "Browse latest requests"
+msgstr ""
+
+msgid "Browse latest responses"
+msgstr ""
 
 msgid "Browse requests"
 msgstr "Parcourir les demandes"
@@ -873,6 +883,9 @@ msgstr "Recadrer votre photo de profil"
 msgid "Cultural sites and built structures (as they may be affected by the environmental factors listed above)"
 msgstr "Les sites culturels et les bâtiments (s'ils peuvent être affectés par les facteurs environnementaux listés ci dessus)"
 
+msgid "Current Email:"
+msgstr ""
+
 msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they should respond promptly and"
 msgstr "Actuellement <strong>en attente de réponse</strong> de la part de l'autorité {{public_body_link}}, ils devraient répondre rapidement et"
 
@@ -945,6 +958,9 @@ msgstr "Détails de la demande &ldquo;{{request_title}}&rdquo;"
 msgid "Did you mean: {{correction}}"
 msgstr "Vouliez-vous dire : {{correction}} ?"
 
+msgid "Disable"
+msgstr ""
+
 msgid "Disable two factor authentication"
 msgstr "Désactiver l'authentification à deux facteurs"
 
@@ -1016,6 +1032,9 @@ msgstr "Prévenez-moi par email des actualisations de cette demande"
 
 msgid "Email:"
 msgstr "Email :"
+
+msgid "Enable"
+msgstr ""
 
 msgid "Enable two factor authentication"
 msgstr "Activer l'authentification à deux facteurs"
@@ -1424,8 +1443,8 @@ msgstr "Si vous trouvez ce service utile en tant que plateforme d'accès à l'in
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 msgstr "Si vous trouvez {{site_name}} utile, <a href=\"{{donation_url}}\">Faites une donation</a> à l'organisation qui le gère."
 
-msgid "If you got the email <strong>more than two months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
-msgstr "Si vous avez reçu un email <strong>il y a plus de 2 mois</strong>, alors le lien pour vous connecter ne marche plus. Veuillez refaire depuis le début ce que vous essayiez de faire."
+msgid "If you got the email <strong>more than two months ago</strong> or <strong>updated your user profile</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
+msgstr ""
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
 msgstr "Si vous ne l'avez pas déjà fait, veuillez écrire un message à l'autorité publique indiquant que vous avez retiré votre demande. Sinon, ils ne sauront pas qu'elle a été retirée."
@@ -1566,6 +1585,9 @@ msgstr "La dernière saisie de texte dans l'éditeur ne peut dépasser 255 carac
 
 msgid "Last request viewed: {{request_url}}"
 msgstr "Dernière demande consultée : {{request_url}}"
+
+msgid "Latest"
+msgstr ""
 
 msgid "Learn more &rarr;"
 msgstr "En savoir plus &rarr;"
@@ -2150,6 +2172,9 @@ msgstr "Image de profil pour {{user_name}}"
 
 msgid "Project owner"
 msgstr "Propriétaire du projet"
+
+msgid "Proposed Email:"
+msgstr ""
 
 msgid "Public Bodies"
 msgstr "Autorité publique"
@@ -2839,6 +2864,9 @@ msgstr "L'autorité publique souhaite des précisions sur une partie de la deman
 msgid "The public authority would like to / has responded by postal mail"
 msgstr "L’autorité publique souhaite / a répondu par courrier postal"
 
+msgid "The publicly accessible link for this request has now been disabled"
+msgstr ""
+
 msgid "The request has been <strong>refused</strong>"
 msgstr "La demande a été <strong>refusée</strong>"
 
@@ -3132,8 +3160,8 @@ msgstr "Cette demande a déjà été signalée à l'attention des administrateur
 msgid "This request has an <strong>unknown status</strong>."
 msgstr "Cette demande a <strong>un statut inconnu</strong>."
 
-msgid "This request has been <strong>closed to new correspondence from the public body</strong>. <a href=\"{{url}}\"\">Contact us</a> if you think it ought be re-opened."
-msgstr "Cette demande a été <strong>fermé aux nouvelles correspondances de l'organisme public</strong>. <a href=\"{{url}}\"\">Contactez nous</a> si vous pensez qu'il devrait être rouvert."
+msgid "This request has been <strong>closed to new correspondence</strong>. <a href=\"{{help_contact_url}}\">Contact us</a> if you think it should be reopened."
+msgstr ""
 
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
 msgstr "Cette demande a été <strong>signalée</strong> aux administrateurs (peut-être parce qu'elle est offensante/inappropriée ou qu'il s'agit d'une demande de renseignements personnels)"
@@ -3167,6 +3195,9 @@ msgstr "Cette demande possède le statut \"caché\". Vous pouvez uniquement la v
 
 msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
 msgstr "Cette demande est masquée, seul le demandeur peut la voir. Veuillez  <a href=\"{{url}}\">nous contacter </a> pour en savoir plus. "
+
+msgid "This request is now publicly accessible via {{public_url}}"
+msgstr ""
 
 msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
 msgstr "Cette demande fait partie d'un <a href=\"{{url}}\">un lot envoyé à {{count}} autorités</a>"

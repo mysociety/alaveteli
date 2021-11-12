@@ -25,6 +25,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Giancarlo <pinet@pinet.it>, 2015
 # guido romeo <guido.romeo@gmail.com>, 2015
 # 1bb8f5eb4bc72723d4109decfd20c765, 2017-2018
@@ -33,8 +34,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-14 12:40+0100\n"
-"PO-Revision-Date: 2021-09-14 16:15+0000\n"
+"POT-Creation-Date: 2021-11-12 13:11+0000\n"
+"PO-Revision-Date: 2021-11-12 15:05+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/mysociety/alaveteli/l"
 "anguage/it_IT/)\n"
@@ -519,6 +520,9 @@ msgstr "Utente anonimo"
 msgid "Any device"
 msgstr ""
 
+msgid "Anyone with the link will be able to view this request."
+msgstr ""
+
 msgid "Are we missing a public authority?"
 msgstr "Non abbiamo inserito una pubblica amministrazione?"
 
@@ -626,6 +630,12 @@ msgstr "Cerca tra le richieste inviate"
 
 msgid "Browse and search requests (page {{count}})"
 msgstr "Consulta le richieste già inviate (pagina {{count}})"
+
+msgid "Browse latest requests"
+msgstr ""
+
+msgid "Browse latest responses"
+msgstr ""
 
 msgid "Browse requests"
 msgstr "Archivio richieste"
@@ -840,6 +850,9 @@ msgstr "Ritaglia la foto profilo"
 msgid "Cultural sites and built structures (as they may be affected by the environmental factors listed above)"
 msgstr "Siti di valore culturale e costruzioni (poiché possono essere state danneggiate dai fattori ambientali sopraelencati)"
 
+msgid "Current Email:"
+msgstr ""
+
 msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they should respond promptly and"
 msgstr ""
 
@@ -887,6 +900,9 @@ msgstr "Dettagli sulla richiesta &ldquo;{{request_title}}&rdquo;"
 
 msgid "Did you mean: {{correction}}"
 msgstr "Volevi forse dire: {{correction}}"
+
+msgid "Disable"
+msgstr ""
 
 msgid "Disable two factor authentication"
 msgstr "Disabilita l'autenticazione a due fattori"
@@ -959,6 +975,9 @@ msgstr "Inviami per email ogni aggiornamento su questa richiesta"
 
 msgid "Email:"
 msgstr "Email:"
+
+msgid "Enable"
+msgstr ""
 
 msgid "Enable two factor authentication"
 msgstr "Abilita l'autenticazione a due fattori"
@@ -1374,7 +1393,7 @@ msgstr "Se ti occupi di gestire le richieste di accesso e pensi che questo servi
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 msgstr "Se {{site_name}} ti è stato utile, puoi fare <a href=\"{{donation_url}}\">una donazione</a> a favore dell'organizzazione che la gestisce."
 
-msgid "If you got the email <strong>more than two months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
+msgid "If you got the email <strong>more than two months ago</strong> or <strong>updated your user profile</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
 msgstr ""
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
@@ -1517,6 +1536,9 @@ msgstr ""
 
 msgid "Last request viewed: {{request_url}}"
 msgstr "Ultima richiesta visualizzata: {{request_url}}"
+
+msgid "Latest"
+msgstr ""
 
 msgid "Learn more &rarr;"
 msgstr "Scopri di più &rarr;"
@@ -2097,6 +2119,9 @@ msgid "Profile image for {{user_name}}"
 msgstr ""
 
 msgid "Project owner"
+msgstr ""
+
+msgid "Proposed Email:"
 msgstr ""
 
 msgid "Public Bodies"
@@ -2790,6 +2815,9 @@ msgstr "L'amministrazione vorrebbe ulteriori spiegazioni sulla richiesta"
 msgid "The public authority would like to / has responded by postal mail"
 msgstr ""
 
+msgid "The publicly accessible link for this request has now been disabled"
+msgstr ""
+
 msgid "The request has been <strong>refused</strong>"
 msgstr "La richiesta è stata <strong>rifiutata</strong>"
 
@@ -3085,7 +3113,7 @@ msgstr "La richiesta è stata segnalata all'amministratore del sito"
 msgid "This request has an <strong>unknown status</strong>."
 msgstr "La stato della richiesta è <strong>sconosciuto</strong>."
 
-msgid "This request has been <strong>closed to new correspondence from the public body</strong>. <a href=\"{{url}}\"\">Contact us</a> if you think it ought be re-opened."
+msgid "This request has been <strong>closed to new correspondence</strong>. <a href=\"{{help_contact_url}}\">Contact us</a> if you think it should be reopened."
 msgstr ""
 
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
@@ -3120,6 +3148,9 @@ msgstr "Questa richiesta è catalogata come \"nascosta\". La stai visualizzando 
 
 msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
 msgstr "La richiesta è nascosta, solo tu che l'hai scritta puoi vederla. Se hai dubbi a riguardo <a href=\"{{url}}\">contattaci</a>."
+
+msgid "This request is now publicly accessible via {{public_url}}"
+msgstr ""
 
 msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
 msgstr ""

@@ -25,6 +25,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Liz Conlan <liz@mysociety.org>, 2018
 # louisecrow <louise@mysociety.org>, 2014
 # louisecrow <louise@mysociety.org>, 2014
@@ -35,8 +36,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-14 12:40+0100\n"
-"PO-Revision-Date: 2021-09-14 16:15+0000\n"
+"POT-Creation-Date: 2021-11-12 13:11+0000\n"
+"PO-Revision-Date: 2021-11-12 15:05+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Slovenian (http://www.transifex.com/mysociety/alaveteli/languag"
 "e/sl/)\n"
@@ -522,6 +523,9 @@ msgstr "Anonimni uporabnik"
 msgid "Any device"
 msgstr ""
 
+msgid "Anyone with the link will be able to view this request."
+msgstr ""
+
 msgid "Are we missing a public authority?"
 msgstr "Ali nam manjka nek organ?"
 
@@ -631,6 +635,12 @@ msgstr "Preglejte in iščite po zahtevkih"
 
 msgid "Browse and search requests (page {{count}})"
 msgstr "Preglejte in iščite po zahtevkih (page {{count}})"
+
+msgid "Browse latest requests"
+msgstr ""
+
+msgid "Browse latest responses"
+msgstr ""
 
 msgid "Browse requests"
 msgstr "Poglejte zahtevke"
@@ -845,6 +855,9 @@ msgstr "Obrežite vašo profilno sliko"
 msgid "Cultural sites and built structures (as they may be affected by the environmental factors listed above)"
 msgstr "Kulturni spomeniki in zgradbe (na katere lahko vplivajo okoljski dejavniki, navedeni zgoraj)"
 
+msgid "Current Email:"
+msgstr ""
+
 msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they should respond promptly and"
 msgstr ""
 
@@ -892,6 +905,9 @@ msgstr ""
 
 msgid "Did you mean: {{correction}}"
 msgstr "Ste mislili: {{correction}}"
+
+msgid "Disable"
+msgstr ""
 
 msgid "Disable two factor authentication"
 msgstr ""
@@ -964,6 +980,9 @@ msgstr "Obveščajte me o spremembah"
 
 msgid "Email:"
 msgstr "E-pošta:"
+
+msgid "Enable"
+msgstr ""
 
 msgid "Enable two factor authentication"
 msgstr ""
@@ -1383,7 +1402,7 @@ msgstr "Če ste pri organu odgovorni za dostop do informacij javnega značaja in
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 msgstr "Če je stran {{site_name}} uporabna, <a href=\"{{donation_url}}\">donirajte</a> organizaciji, ki skrbi zanjo."
 
-msgid "If you got the email <strong>more than two months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
+msgid "If you got the email <strong>more than two months ago</strong> or <strong>updated your user profile</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
 msgstr ""
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
@@ -1538,6 +1557,9 @@ msgstr ""
 
 msgid "Last request viewed: {{request_url}}"
 msgstr "Zadnji pregledani zahtevek: {{request_url}}"
+
+msgid "Latest"
+msgstr ""
 
 msgid "Learn more &rarr;"
 msgstr ""
@@ -2125,6 +2147,9 @@ msgid "Profile image for {{user_name}}"
 msgstr ""
 
 msgid "Project owner"
+msgstr ""
+
+msgid "Proposed Email:"
 msgstr ""
 
 msgid "Public Bodies"
@@ -2829,6 +2854,9 @@ msgstr "Organ je zaprosil za pojasnilo dela zahteve"
 msgid "The public authority would like to / has responded by postal mail"
 msgstr ""
 
+msgid "The publicly accessible link for this request has now been disabled"
+msgstr ""
+
 msgid "The request has been <strong>refused</strong>"
 msgstr "Zahtevek je bil <strong>zavrnjen</strong>"
 
@@ -3122,7 +3150,7 @@ msgstr "Ta zahtevek je že bil prijavljen administratorju"
 msgid "This request has an <strong>unknown status</strong>."
 msgstr "Status tega zahtevka je <strong>neznan</strong>."
 
-msgid "This request has been <strong>closed to new correspondence from the public body</strong>. <a href=\"{{url}}\"\">Contact us</a> if you think it ought be re-opened."
+msgid "This request has been <strong>closed to new correspondence</strong>. <a href=\"{{help_contact_url}}\">Contact us</a> if you think it should be reopened."
 msgstr ""
 
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
@@ -3157,6 +3185,9 @@ msgstr "Ta zahtevek je skrit. Vidite ga lahko, ker ste prijavljeni kot administr
 
 msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
 msgstr "Ta zahtevek je skrit, tako da je viden zgolj vam in prosilcu. Prosimo, <a href=\"{{url}}\">stopite v kontakt</a> če niste prepričani zakaj."
+
+msgid "This request is now publicly accessible via {{public_url}}"
+msgstr ""
 
 msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
 msgstr ""

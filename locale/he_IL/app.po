@@ -25,6 +25,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Liz Conlan <liz@mysociety.org>, 2018
 # louisecrow <louise@mysociety.org>, 2014
 # louisecrow <louise@mysociety.org>, 2014
@@ -46,8 +47,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-14 12:40+0100\n"
-"PO-Revision-Date: 2021-09-14 16:15+0000\n"
+"POT-Creation-Date: 2021-11-12 13:11+0000\n"
+"PO-Revision-Date: 2021-11-12 15:05+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/mysociety/alaveteli/l"
 "anguage/he_IL/)\n"
@@ -555,6 +556,9 @@ msgstr "משתמש אנונימי"
 msgid "Any device"
 msgstr ""
 
+msgid "Anyone with the link will be able to view this request."
+msgstr ""
+
 msgid "Are we missing a public authority?"
 msgstr "האם חסר לנו גוף ציבורי?"
 
@@ -666,6 +670,12 @@ msgstr "צפו וחפשו בקשות מידע"
 
 msgid "Browse and search requests (page {{count}})"
 msgstr "צפו וחפשו בקשות מידע (page {{count}})"
+
+msgid "Browse latest requests"
+msgstr ""
+
+msgid "Browse latest responses"
+msgstr ""
 
 msgid "Browse requests"
 msgstr "בקשות מידע"
@@ -884,6 +894,9 @@ msgstr ""
 "אתרי תרבות ומבנים (אלה עלולים להיות מושפעים\n"
 "           מגורמים סביבתיים המופיעים למעלה)"
 
+msgid "Current Email:"
+msgstr ""
+
 msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they should respond promptly and"
 msgstr ""
 
@@ -934,6 +947,9 @@ msgstr "פרטי הבקשה &ldquo;{{request_title}}&rdquo;"
 
 msgid "Did you mean: {{correction}}"
 msgstr "האם התכוונתם: {{correction}}"
+
+msgid "Disable"
+msgstr ""
 
 msgid "Disable two factor authentication"
 msgstr ""
@@ -1006,6 +1022,9 @@ msgstr "שלחו לי עדכונים בדואר אלקטרוני לגבי הבק
 
 msgid "Email:"
 msgstr "דוא״ל:"
+
+msgid "Enable"
+msgstr ""
 
 msgid "Enable two factor authentication"
 msgstr ""
@@ -1426,7 +1445,7 @@ msgstr "אם אתם מוצאים שירות זה כמתאים להגשת בקש�
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 msgstr ""
 
-msgid "If you got the email <strong>more than two months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
+msgid "If you got the email <strong>more than two months ago</strong> or <strong>updated your user profile</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
 msgstr ""
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
@@ -1573,6 +1592,9 @@ msgstr ""
 
 msgid "Last request viewed: {{request_url}}"
 msgstr "בקשה אחרונה שנצפתה: {{request_url}}"
+
+msgid "Latest"
+msgstr ""
 
 msgid "Learn more &rarr;"
 msgstr ""
@@ -2163,6 +2185,9 @@ msgid "Profile image for {{user_name}}"
 msgstr ""
 
 msgid "Project owner"
+msgstr ""
+
+msgid "Proposed Email:"
 msgstr ""
 
 msgid "Public Bodies"
@@ -2867,6 +2892,9 @@ msgstr "הרשות הציבורית מעוניינת בהסבר לגבי חלק 
 msgid "The public authority would like to / has responded by postal mail"
 msgstr ""
 
+msgid "The publicly accessible link for this request has now been disabled"
+msgstr ""
+
 msgid "The request has been <strong>refused</strong>"
 msgstr "הבקשה <strong>סורבה</strong>"
 
@@ -3170,7 +3198,7 @@ msgstr "בקשה זו כבר דווחה לטיפול מנהל"
 msgid "This request has an <strong>unknown status</strong>."
 msgstr "לבקשה זו <strong>סטטוס לא ידוע</strong>."
 
-msgid "This request has been <strong>closed to new correspondence from the public body</strong>. <a href=\"{{url}}\"\">Contact us</a> if you think it ought be re-opened."
+msgid "This request has been <strong>closed to new correspondence</strong>. <a href=\"{{help_contact_url}}\">Contact us</a> if you think it should be reopened."
 msgstr ""
 
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
@@ -3209,6 +3237,9 @@ msgid "This request is hidden, so that only you the requester can see it. Please
 msgstr ""
 "בקשה זו הוסתרה, כך שרק המבקש יכול לראות אותה.\n"
 " <a href=\"{{url}}\">צור קשר</a> אם אינך בטוח מדוע מזה כך. "
+
+msgid "This request is now publicly accessible via {{public_url}}"
+msgstr ""
 
 msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
 msgstr ""

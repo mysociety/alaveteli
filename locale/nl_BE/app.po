@@ -25,6 +25,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Christophe Van Gheluwe <info@vg-webdesign.be>, 2017
 # claude transparencia <audit.citoyen.quartier@gmail.com>, 2017-2018,2021
 # Edwin Bosveld <edwin@inwy.nl>, 2013,2016
@@ -37,8 +38,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-14 12:40+0100\n"
-"PO-Revision-Date: 2021-09-14 16:15+0000\n"
+"POT-Creation-Date: 2021-11-12 13:11+0000\n"
+"PO-Revision-Date: 2021-11-12 15:05+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Dutch (Belgium) (http://www.transifex.com/mysociety/alaveteli/l"
 "anguage/nl_BE/)\n"
@@ -537,6 +538,9 @@ msgstr "Anonieme gebruiker"
 msgid "Any device"
 msgstr ""
 
+msgid "Anyone with the link will be able to view this request."
+msgstr ""
+
 msgid "Are we missing a public authority?"
 msgstr "Hebben we een overheidsinstelling vergeten aan te duiden?"
 
@@ -646,6 +650,12 @@ msgstr "Bekijk en zoek de aanvragen"
 
 msgid "Browse and search requests (page {{count}})"
 msgstr "Bekijk en zoek de aanvragen (page {{count}})"
+
+msgid "Browse latest requests"
+msgstr ""
+
+msgid "Browse latest responses"
+msgstr ""
 
 msgid "Browse requests"
 msgstr "Bekijk de informatieaanvragen"
@@ -864,6 +874,9 @@ msgstr ""
 "Culturele sites en gebouwen (als ze kunnen beïnvloed worden\n"
 " door de hierboven opgelijste milieufactoren)"
 
+msgid "Current Email:"
+msgstr ""
+
 msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they should respond promptly and"
 msgstr ""
 
@@ -911,6 +924,9 @@ msgstr "Details van de informatieaanvraag &ldquo;{{request_title}}&rdquo;"
 
 msgid "Did you mean: {{correction}}"
 msgstr "Bedoelde u: {{correction}}?"
+
+msgid "Disable"
+msgstr ""
 
 msgid "Disable two factor authentication"
 msgstr "Schakle de dubbele-factor authenticatie uit"
@@ -985,6 +1001,9 @@ msgstr "Hou me via e-mail op de hoogte van updates over deze informatieaanvraag"
 
 msgid "Email:"
 msgstr "E-mail:"
+
+msgid "Enable"
+msgstr ""
 
 msgid "Enable two factor authentication"
 msgstr "De dubbele-factor authenticatie inschakelen"
@@ -1417,8 +1436,8 @@ msgstr "Als u deze dienstverlening inzake openbaarheid van bestuur, dankzij deze
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 msgstr "Als u {{site_name}} nuttig vond, <a href=\"{{donation_url}}\">doe een donatie</a> aan de organisatie die de website beheert."
 
-msgid "If you got the email <strong>more than two months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
-msgstr "Indien ude e-mail <strong>meer dan 2 maanden geleden</strong> heeft ontvangen, zal de link om in te loggen niet meer werken. Gelieve dan opnieuw te beginnen."
+msgid "If you got the email <strong>more than two months ago</strong> or <strong>updated your user profile</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
+msgstr ""
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
 msgstr "Voor zover u het nog niet gedaan heeft, gelieve een bericht te versturen naar de overheidsinstelling waarin u meedeelt dat u uw aanvraag hebt teruggetrokken. Anders zijn zij hier niet van op de hoogte."
@@ -1567,6 +1586,9 @@ msgstr "Laatste kommentaar kan niet langer dan 255 karakters zijn"
 
 msgid "Last request viewed: {{request_url}}"
 msgstr "Laatst bekeken aanvraag: {{request_url}}"
+
+msgid "Latest"
+msgstr ""
 
 msgid "Learn more &rarr;"
 msgstr "Meer weten &rarr;"
@@ -2150,6 +2172,9 @@ msgid "Profile image for {{user_name}}"
 msgstr "Profielafbeelding van {{user_name}}"
 
 msgid "Project owner"
+msgstr ""
+
+msgid "Proposed Email:"
 msgstr ""
 
 msgid "Public Bodies"
@@ -2851,6 +2876,9 @@ msgstr "De overheidsinstelling wenst verduidelijking over een deel van de aanvra
 msgid "The public authority would like to / has responded by postal mail"
 msgstr ""
 
+msgid "The publicly accessible link for this request has now been disabled"
+msgstr ""
+
 msgid "The request has been <strong>refused</strong>"
 msgstr "De aanvraag werd <strong>geweigerd</strong>."
 
@@ -3148,7 +3176,7 @@ msgstr "Deze aanvraag is al gemeld ter aandacht van de beheerders"
 msgid "This request has an <strong>unknown status</strong>."
 msgstr "Deze aanvraag heeft<strong>een ongekende status</strong>."
 
-msgid "This request has been <strong>closed to new correspondence from the public body</strong>. <a href=\"{{url}}\"\">Contact us</a> if you think it ought be re-opened."
+msgid "This request has been <strong>closed to new correspondence</strong>. <a href=\"{{help_contact_url}}\">Contact us</a> if you think it should be reopened."
 msgstr ""
 
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
@@ -3187,6 +3215,9 @@ msgid "This request is hidden, so that only you the requester can see it. Please
 msgstr ""
 "Deze aanvraag is verborgen, opdat enkel u als aanvrager ze kan zien.  Gelieve\n"
 " <a href=\"{{url}}\">ons te contacteren </a>  indien u niet goed weet waarom."
+
+msgid "This request is now publicly accessible via {{public_url}}"
+msgstr ""
 
 msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
 msgstr ""
