@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Update daemon templates (Laurent Savaete)
 * Fix incorrect crontab PATH setup (Graeme Porteous)
 * Add support for Debian 11 Bullseye (Graeme Porteous)
 * Add draft icon in the pro dashboard (Lucas Cumsille Montesinos)
