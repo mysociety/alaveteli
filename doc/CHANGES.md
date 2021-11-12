@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Update daemon templates (Laurent Savaete)
 * Use consistent colour for admin interface save buttons (Gareth Rees)
 * Add citation count to general statistics (Gareth Rees)
 * Display the current public body request email when notfing admins of a change
