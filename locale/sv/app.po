@@ -49,7 +49,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-09-14 12:40+0100\n"
-"PO-Revision-Date: 2021-10-01 20:06+0000\n"
+"PO-Revision-Date: 2021-10-26 20:21+0000\n"
 "Last-Translator: Elenor Weijmar\n"
 "Language-Team: Swedish (http://www.transifex.com/mysociety/alaveteli/language/"
 "sv/)\n"
@@ -903,7 +903,7 @@ msgid "Disable two factor authentication"
 msgstr "Inaktivera tvåfaktorsverifiering"
 
 msgid "Disclaimer: This message and any reply that you make will be published on the internet. Our privacy and copyright policies:"
-msgstr "Ansvarsfriskrivning: Detta meddelande och ditt svar kommer att publiceras på Internet. Vår integritets- och upphovsrättspolicy:"
+msgstr "Ansvarsfriskrivning: Detta meddelande och ditt svar kommer att publiceras på Internet. Handlingar.se möjliggör effektiviserad hantering av allmänna handlingar. Läs mer om hur du kan dra nytta av Handlingar.se samt vår integritets- och upphovsrättspolicy:"
 
 msgid "Disclosure log"
 msgstr "Logg för diarium"
@@ -1373,7 +1373,7 @@ msgid "If you can, scan in or photograph the response, and <strong>send us a cop
 msgstr "Om du kan, skanna in eller fotografera svaret, och <strong>skicka oss en kopia att ladda upp</strong>."
 
 msgid "If you find this service useful as an FOI officer, please ask your web manager to link to us from your organisation's FOI page."
-msgstr "Om du finner den här tjänsten användbar som handläggare av allmänna handlingar, be din webbredaktör att länka till oss från din organisations sida om allmänna handlingar."
+msgstr "Om du som tjänsteperson finner denna tjänst användbar, vänligen be din webbredaktör att länka hit från din organisations sida om allmänna handlingar."
 
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 msgstr "Om du fann {{site_name}} användbar, <a href=\"{{donation_url}}\"> gör en donation </a> till den ideella förening som driver den."
@@ -1467,7 +1467,7 @@ msgid "Invalid token"
 msgstr "Ogiltigt token"
 
 msgid "Is {{email_address}} the wrong address for {{law_used_full}} requests to {{public_body_name}}? If so, please contact us using this form:"
-msgstr "Är {{email_address}} fel adress för {{law_used_full}} förfrågningar till {{public_body_name}}? Om så är fallet, kontakta oss genom detta formulär:"
+msgstr "Är {{email_address}} fel för förfrågningar enligt {{law_used_full}} till {{public_body_name}}? Om så är fallet, kontakta oss genom detta formulär eller uppmärksamma det till team@handlingar.se:"
 
 msgid "It looks like something has gone wrong when sending this message. It could be a technical issue, or an issue with the email address we have for the authority."
 msgstr "Det ser ut som att någonting har gått fel när meddelanden skickades. Det kan vara ett tekniskt problem, eller ett problem med e-postadressen vi har till myndigheten."
@@ -1983,7 +1983,7 @@ msgid "Please keep the summary short, like in the subject of an email. You can u
 msgstr "Håll sammanfattningen kort, som i ämnesraden av ett e-postmeddelande. Du kan använda en fras, snarare än en hel mening."
 
 msgid "Please note that in some cases publication of requests and responses will be delayed."
-msgstr "I vissa fall kommer publiceringar av förfrågningar och svar att vara fördröjd."
+msgstr "Publicering av förfrågningar och svar kan vara fördröjd."
 
 msgid "Please only request information that comes under those categories, <strong>do not waste your time</strong> or the time of the public authority by requesting unrelated information."
 msgstr "Begär endast information som faller under dessa kategorier, <strong>slösa inte din tid</strong> eller myndighetens tid genom att begära information som ej är relevant."
@@ -2021,7 +2021,7 @@ msgid "Please update the status of your request - {{request_title}}"
 msgstr "Uppdatera status på din begäran - {{request_title}}"
 
 msgid "Please use this email address for all replies to this request:"
-msgstr "Använd denna e-postadress för alla svar till denna begäran:"
+msgstr "Lämna gärna ut allmänna handlingar elektroniskt men maska personnummer. Vänligen använd denna e-postadress för alla svar till denna begäran: "
 
 msgid "Please write a summary with some text in it"
 msgstr "Skriv en kortfattad sammanfattning."
@@ -2054,7 +2054,7 @@ msgid "Posted on {{date}} by {{author}}"
 msgstr "Postad den {{date}} av {{author}}"
 
 msgid "Powered by <a href=\"http://www.alaveteli.org/\">Alaveteli</a>"
-msgstr "Drivs med öppen källkod i <a href=\"http://www.alaveteli.org/\">Alaveteli</a>."
+msgstr "Drivs av <a href=\"https://okfn.se/\">Open Knowledge Sverige</a> med mjukvaran <a href=\"http://www.alaveteli.org/\">Alaveteli.</a> Ansvarig utgivare: Elenor Weijmar"
 
 msgid "Prefer not to receive emails?"
 msgstr "Föredrar du att inte ta emot e-post?"

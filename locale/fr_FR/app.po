@@ -43,7 +43,7 @@
 # Laurent S, 2019-2021
 # louisecrow <louise@mysociety.org>, 2013,2017
 # mySociety <transifex@mysociety.org>, 2016
-# Pascal Romain <aka.keronos@gmail.com>, 2019-2020
+# Pascal Romain <aka.keronos@gmail.com>, 2019-2021
 # pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2013,2019,2021
 # radhouane fazai <radhouanef@gmail.com>, 2013
 # rrobert <rrobertpolson@gmail.com>, 2013
@@ -56,8 +56,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-09-14 12:40+0100\n"
-"PO-Revision-Date: 2021-10-25 11:37+0000\n"
-"Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
+"PO-Revision-Date: 2021-11-03 14:54+0000\n"
+"Last-Translator: Pascal Romain <aka.keronos@gmail.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/mysociety/alaveteli/l"
 "anguage/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -136,7 +136,7 @@ msgid " when you send this message."
 msgstr "quand vous envoyez ce message."
 
 msgid "&#8592; Previous"
-msgstr ""
+msgstr "&#8592; Précédent"
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Statistiques de la criminalité par commune dans le Hainaut'"
@@ -189,10 +189,10 @@ msgid "12 characters minimum. 72 characters maximum."
 msgstr "12 caractères minimum. 72 caractères maximum. "
 
 msgid "5 minutes+"
-msgstr ""
+msgstr "5 minutes +"
 
 msgid "60 minutes+"
-msgstr ""
+msgstr "60 minutes +"
 
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
 msgstr "<a href=\"{{browse_url}}\">Voir toutes les autorités</a> ou <a href=\"{{add_url}}\"> demandez-nous d'en ajouter une</a>."
@@ -299,7 +299,7 @@ msgid "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
 msgstr "<strong>Autres</strong>, comme préciser, demander, remercier "
 
 msgid "<strong>Automatic anti-spam measures are in place</strong> for this older request. Please <a href=\"{{url}}\">let us know</a> if a further response is expected or if you are having trouble responding."
-msgstr ""
+msgstr "<strong>Des dispositifs automatiques anti-spam sont en place</strong> pour cette requête plus ancienne. Merci <a href=\"{{url}}\">de nous faire savoir</a> si une réponse complémentaire est attendue ou si vous rencontrez des difficultés à répondre."
 
 msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</a>)."
 msgstr "<strong>Selon la loi, les autorités publiques doivent répondre</strong> (<a href=\"{{url}}\">pourquoi ?</a>)."
@@ -313,7 +313,7 @@ msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, yo
 msgstr "<strong>Caveat emptor !</strong> Pour utiliser ces données d'une façon acceptable, vous devez avoir une bonne connaissance interne du comportement de l'utilisateur sur {{site_name}}. Comprendre comment, pourquoi et par qui les demandes sont catégorisées n'est pas simple et il y aura également des erreurs et des ambiguïtés causés par l'utilisateur. Vous devrez également comprendre la loi d'accès à l'information et la manière dont les autorités l'utilisent. De plus, vous aurez besoin d'être un bon statisticien. Veuillez <a href=\"{{contact_path}}\">nous contacter </a> pour toutes questions."
 
 msgid "<strong>Challenging a refusal?</strong> Here are some snippets that may help:"
-msgstr ""
+msgstr "<strong>Contester un refus ?</strong> Vous trouverez ici quelques exemples qui pourront vous aider :"
 
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong>Des précisions</strong> ont été demandées"
@@ -463,7 +463,7 @@ msgid "All of the information requested has been received"
 msgstr "Tous les renseignements demandés ont été reçus"
 
 msgid "All responses will be published when the privacy period expires. We depend on you, the original requester, to evaluate them."
-msgstr ""
+msgstr "Toutes les réponses seront publiées lorsque la période d'embargo sera terminée. Nous dépendons de vous, le demandeur initial, pour les évaluer."
 
 msgid "All the options below can use <strong>status</strong> or <strong>latest_status</strong> before the colon. For example, <strong>status:not_held</strong> will match requests which have <em>ever</em> been marked as not held; <strong>latest_status:not_held</strong> will match only requests that are <em>currently</em> marked as not held."
 msgstr "Toutes les options ci-dessous peuvent utiliser les <strong>status</strong> ou <strong>latest_status</strong> avant les deux points. Par exemple, <strong>status:not_held</strong> correspondra aux demandes qui ont <em>un jour</em> été marquées  comme \"information non détenue par l'autorité publique\" ; <strong>latest_status:not_held</strong> correspondra uniquement aux demandes qui sont <em>actuellement</em> marquées comme \"\tinformation non détenue par l'autorité publique\"."
@@ -538,7 +538,7 @@ msgid "Anonymous user"
 msgstr "Utilisateur anonyme"
 
 msgid "Any device"
-msgstr ""
+msgstr "N'importe quel appareil"
 
 msgid "Are we missing a public authority?"
 msgstr "Avons-nous oublié une autorité publique ?"
@@ -550,7 +550,7 @@ msgid "Are you sure you want to disable two factor authentication?"
 msgstr "Etes-vous certain de vouloir désactiver l'authentification à deux facteurs ?"
 
 msgid "Are you sure?"
-msgstr ""
+msgstr "Êtes vous sûr ?"
 
 msgid "Are you sure? If you regenerate your one time passcode you will need to update your password manager or re-print it."
 msgstr "Etes vous certain ? Si vous réinitialisez votre code d'accès unique vous devrez mettre à jour votre gestionnaire de mot de passe ou l'imprimer à nouveau."
@@ -559,7 +559,7 @@ msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Êtes-vous le propriétaire d'un droit d'auteur commercial sur cette page ?"
 
 msgid "Article"
-msgstr ""
+msgstr "Article"
 
 msgid "Ask EU Authorities"
 msgstr "Faire une demande aux institutions européennes"
@@ -652,7 +652,7 @@ msgid "Browse requests"
 msgstr "Parcourir les demandes"
 
 msgid "By law, they have to respond."
-msgstr ""
+msgstr "En vertu de la loi, ils doivent vous répondre"
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Selon la loi, en toutes circonstances, {{public_body_link}} aurait déjà dû répondre "
@@ -667,7 +667,7 @@ msgid "By law, {{public_body_link}} should normally have responded <strong>promp
 msgstr "Selon la loi, {{public_body_link}} aurait dû répondre <strong>rapidement</strong> et"
 
 msgid "CSV"
-msgstr ""
+msgstr "CSV"
 
 msgid "Can't find the one you want?"
 msgstr "Vous ne trouvez pas l’autorité que vous cherchez ?"
@@ -715,7 +715,7 @@ msgid "Choose your profile photo"
 msgstr "Choisissez votre photo de profil"
 
 msgid "Citation successfully created."
-msgstr ""
+msgstr "Citation créée avec succès"
 
 msgid "Clarification"
 msgstr "Précision"
@@ -733,7 +733,7 @@ msgid "Classify an FOI response from {{authority_name}}"
 msgstr "Classer une demande d'accès à l'information de {{authority_name}}"
 
 msgid "Classify responses"
-msgstr ""
+msgstr "Classer les réponses"
 
 msgid "Clear photo"
 msgstr "Supprimer la photo"
@@ -763,7 +763,7 @@ msgid "Close"
 msgstr "Fermer"
 
 msgid "Close preview"
-msgstr ""
+msgstr "Fermer la prévisualisation"
 
 msgid "Close the request and respond:"
 msgstr "Fermez la demande et répondez :"
@@ -829,16 +829,16 @@ msgid "Contains personal information"
 msgstr "Contient des informations personnelles"
 
 msgid "Contribute"
-msgstr ""
+msgstr "Contribuer"
 
 msgid "Cookies not enabled"
 msgstr "Cookies non activés"
 
 msgid "Copied!"
-msgstr ""
+msgstr "Copié!"
 
 msgid "Copy"
-msgstr ""
+msgstr "Copie"
 
 msgid "Could not identify the request from the email address"
 msgstr "Impossible d'identifier la demande à partir de l'adresse email"
@@ -850,10 +850,10 @@ msgid "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and 
 msgstr "Nous ne pouvons utiliser le fichier image que vous nous avez soumis. Nous acceptons les fichiers PNG, JPEG et GIF, ainsi qu'un grand nombre d'autres formats communément utilisés."
 
 msgid "Coupon code \"{{code}}\" applied"
-msgstr ""
+msgstr "code promotionel \"{{code}}\" appliqué"
 
 msgid "Coupon code \"{{code}}\" revoked"
-msgstr ""
+msgstr "Code promotionnel \"{{code}}\" révoqué"
 
 msgid "Create a new account"
 msgstr "Créer un nouveau compte"
@@ -877,7 +877,7 @@ msgid "Currently <strong>waiting for a response</strong> from {{public_body_link
 msgstr "Actuellement <strong>en attente de réponse</strong> de la part de l'autorité {{public_body_link}}, ils devraient répondre rapidement et"
 
 msgid "Data interpretation"
-msgstr ""
+msgstr "Interprétation de la donnée"
 
 msgid "Date:"
 msgstr "Date :"
@@ -973,7 +973,7 @@ msgid "Done &gt;&gt;"
 msgstr "C'est fait"
 
 msgid "Download Data"
-msgstr ""
+msgstr "Télécharger la donnée"
 
 msgid "Download a zip file of all correspondence"
 msgstr "Télécharger un fichier zip de toute la correspondance"
@@ -982,7 +982,7 @@ msgid "Download original attachment"
 msgstr "Téléchargez la pièce jointe originale"
 
 msgid "Downloads"
-msgstr ""
+msgstr "Téléchargements"
 
 msgid "EIR"
 msgstr "Demande d'information environnementale"
@@ -1048,13 +1048,13 @@ msgid "Expand all correspondence"
 msgstr "Développer toute la correspondance"
 
 msgid "Extract data"
-msgstr ""
+msgstr "Extraire les données"
 
 msgid "Extract relevant information from each successful freedom of information request and enter it into the provided fields. This will populate the data file for this project."
-msgstr ""
+msgstr "Extraire chaque information pertinente pour chaque requête fructueuse d'accès à l'information et la copier dans les champs appropriés. Cela remplira le fichier de donnée pour ce projet."
 
 msgid "Extraction couldn't be saved."
-msgstr ""
+msgstr "L'extraction n'a pas pu être sauvegardée"
 
 msgid "FOI"
 msgstr "droit d'accès à l'information"
@@ -1242,13 +1242,13 @@ msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "DONNEZ DES DÉTAILS SUR VOTRE PLAINTE ICI"
 
 msgid "Get help to challenge it."
-msgstr ""
+msgstr "Obtenez de l'aide pour contester"
 
 msgid "Getting long – remember to keep it focussed"
 msgstr "Prendre du temps - n'oubliez pas de rester concentré"
 
 msgid "Go back to refusal advice questions"
-msgstr ""
+msgstr "Revenir en arrière pour les conseils en matière de refus"
 
 msgid "Got a {{site_name}} account?"
 msgstr "Vous avez un compte  {{site_name}} ?"
@@ -1296,7 +1296,7 @@ msgid "Here <strong>described</strong> means when a user selected a status for t
 msgstr "Ici le mot <strong>described</strong> signifie quand un utilisateur a sélectionné un état ​​de la requête, et que l'événement le plus récent a son statut mis à jour pour cette valeur. <strong>calculated</strong> est alors déduit par {{site_name}} pour les événements intermédiaires, qui n'ont pas reçu une description explicite par un utilisateur. Voir les <a href=\"{{search_path}}\">conseils de recherche</ a> pour la description des états."
 
 msgid "Here are some snippets that may help you <strong>challenge a refusal</strong>:"
-msgstr ""
+msgstr "Vous trouverez ici des exemples qui pourront vous aider <strong>à contester un refus</strong>:"
 
 msgid "Here is the message you wrote, in case you would like to copy the text and save it for later."
 msgstr "Voici le message que vous avez écrit, au cas où vous souhaiteriez copier le texte et l'enregistrer pour plus tard."
@@ -1503,7 +1503,7 @@ msgid "Internal review request sent to {{public_body_name}} by {{info_request_us
 msgstr "Demande de recours envoyée à {{public_body_name}} par {{info_request_user}} le {{date}}."
 
 msgid "Invalid form submission"
-msgstr ""
+msgstr "Soumission au formulaire invalide"
 
 msgid "Invalid one time password"
 msgstr "Mot de passe unique invalide"
@@ -1550,7 +1550,7 @@ msgid "Keywords"
 msgstr "Mots-clés"
 
 msgid "Laptop or desktop"
-msgstr ""
+msgstr "portable ou fixe"
 
 msgid "Last 28 days"
 msgstr "Les 28 derniers jours"
@@ -1571,13 +1571,13 @@ msgid "Learn more &rarr;"
 msgstr "En savoir plus &rarr;"
 
 msgid "Leave project"
-msgstr ""
+msgstr "Quitter le projet"
 
 msgid "Let us know"
 msgstr "Faites-le-nous savoir"
 
 msgid "Let us know and we’ll help you challenge it."
-msgstr ""
+msgstr "Faites nous savoir si nous pouvons vous aider à le contester"
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
 msgstr "Dites-nous ce que vous faisiez lorsque ce message est apparu ainsi que votre navigateur et le type et la version de votre système d'exploitation."
@@ -1643,7 +1643,7 @@ msgid "Message sent using {{site_name}} contact form, "
 msgstr "Message envoyé en utilisant le formulaire de {{site_name}}"
 
 msgid "Message {{current_message}} of {{total_messages}}"
-msgstr ""
+msgstr "Message {{current_message}} de {{total_messages}}"
 
 msgid "Missing contact details for '{{authority_name}}'"
 msgstr "Il manque les coordonnées pour '{{authority_name}}'"
@@ -1688,7 +1688,7 @@ msgid "Needs status update"
 msgstr "Nécessite une mise à jour de son statut"
 
 msgid "New Citation"
-msgstr ""
+msgstr "Nouvelle citation"
 
 msgid "New Freedom of Information requests"
 msgstr "Nouvelles demandes d'accès à l'information "
@@ -1730,22 +1730,22 @@ msgid "Next"
 msgstr "Suivant"
 
 msgid "Next &#8594;"
-msgstr ""
+msgstr "Suivant &#8594;"
 
 msgid "Next Step: Preview your public request"
-msgstr ""
+msgstr "Prochaine étape: prévisualisez votre demande publique"
 
 msgid "Next message"
-msgstr ""
+msgstr "Prochain message"
 
 msgid "Next, crop your photo &gt;&gt;"
 msgstr "Ensuite, recadrez votre photo"
 
 msgid "Nice work! How about having another try at the requests you skipped?"
-msgstr ""
+msgstr "Joli travail ! Que diriez-vous d'essayer à nouveau les requêtes que vous avez sautées ?"
 
 msgid "No"
-msgstr ""
+msgstr "Non"
 
 msgid "No requests of this sort yet."
 msgstr "Pas encore de demande de ce type."
@@ -1760,7 +1760,7 @@ msgid "Nobody has made any Freedom of Information requests to {{public_body_name
 msgstr "Personne n'a jamais envoyé une demande d'accès à l'information à {{public_body_name}} en utilisant cette page."
 
 msgid "Non-expert"
-msgstr ""
+msgstr "Non expert"
 
 msgid "None found."
 msgstr "Aucun résultat trouvé."
@@ -1859,10 +1859,10 @@ msgid "Other:"
 msgstr "Autre :"
 
 msgid "Page {{page}}"
-msgstr ""
+msgstr "Page {{page}}"
 
 msgid "Pagination"
-msgstr ""
+msgstr "Pagination"
 
 msgid "Partial success"
 msgstr "Succès partiel"
@@ -1901,7 +1901,7 @@ msgid "Photo of you:"
 msgstr "Votre photo :"
 
 msgid "Plan changed from \"{{from}}\" to \"{{to}}\""
-msgstr ""
+msgstr "Plan changé de \"{{from}}\" à \"{{to}}\""
 
 msgid "Plans and administrative measures that affect these matters"
 msgstr "Les plans et les mesures administratives qui touchent ces sujets"
@@ -1973,7 +1973,7 @@ msgid "Please enable \"cookies\" to carry on"
 msgstr "Veuillez autoriser les \"cookies\" pour poursuivre"
 
 msgid "Please enter a Source URL"
-msgstr ""
+msgstr "Merci de saisir une URL source"
 
 msgid "Please enter a password"
 msgstr "Merci d'entrer un mot de passe"
@@ -2047,7 +2047,7 @@ msgstr[0] "Merci de lire la réponse récente et d'<strong>actualiser le statut<
 msgstr[1] "Merci de lire les réponses récentes et d'<strong>actualiser le statut</strong>, ainsi nous saurons si elles contiennent des informations utiles."
 
 msgid "Please select a type"
-msgstr ""
+msgstr "Merci de saisir un type"
 
 msgid "Please select an authority"
 msgstr "Veuillez sélectionner une autorité administrative"
@@ -2101,7 +2101,7 @@ msgid "Post annotation"
 msgstr "Écrire un commentaire"
 
 msgid "Posted on {{date}}"
-msgstr ""
+msgstr "Posté le {{date}}"
 
 msgid "Posted on {{date}} by {{author}}"
 msgstr "Ecrit le  {{date}} par {{author}}"
@@ -2134,10 +2134,10 @@ msgid "Preview your message"
 msgstr "Prévisualiser votre message"
 
 msgid "Preview your request"
-msgstr "Prévisualiser de votre demande"
+msgstr "Prévisualiser votre demande"
 
 msgid "Previous message"
-msgstr ""
+msgstr "Message précédent"
 
 msgid "Print your one time passcode"
 msgstr "Imprimer votre code d'accès unique"
@@ -2149,7 +2149,7 @@ msgid "Profile image for {{user_name}}"
 msgstr "Image de profil pour {{user_name}}"
 
 msgid "Project owner"
-msgstr ""
+msgstr "Propriétaire du projet"
 
 msgid "Public Bodies"
 msgstr "Autorité publique"
@@ -2194,7 +2194,7 @@ msgid "Query is too long"
 msgstr "Le requête est trop longue"
 
 msgid "Quick"
-msgstr ""
+msgstr "Rapide"
 
 msgid "RSS feed"
 msgstr "Flux RSS "
@@ -2212,10 +2212,10 @@ msgid "Read blog"
 msgstr "Lire le blog"
 
 msgid "Read more"
-msgstr ""
+msgstr "Lire plus"
 
 msgid "Read through authority responses and choose if their answer satisfies the intention of the original request, flag any problems and show the project owner if they need to intervene to keep the project movng forward."
-msgstr ""
+msgstr "Parcourez les réponses de l'autorité publique et choisissez si elles correspondent à l'intention de la demande initiale, identifiez les potentiels problèmes et montrez au propriétaire du projet s'il doit intervenir pour permettre au projet de continuer à avancer."
 
 msgid "Reason:"
 msgstr "Raison:"
@@ -2239,7 +2239,7 @@ msgid "Regenerate one time passcode"
 msgstr "Regénérer un code d'accès unique"
 
 msgid "Regulation"
-msgstr ""
+msgstr "Regulation"
 
 msgid "Rejected"
 msgstr "Rejeté"
@@ -2278,7 +2278,7 @@ msgid "Reporting a request notifies the site administrators. They will respond a
 msgstr "Signaler une demande aux administrateurs du site. Ils répondront dès que possible."
 
 msgid "Request '{{request_title}}' to {{public_body_name}}:"
-msgstr ""
+msgstr "Requête '{{request_title}}' à {{public_body_name}}:"
 
 msgid "Request an internal review"
 msgstr "Demander un recours"
@@ -2428,7 +2428,7 @@ msgid "Search your contributions"
 msgstr "Rechercher vos contributions"
 
 msgid "Section"
-msgstr ""
+msgstr "Section"
 
 msgid "Send a followup"
 msgstr "Envoyer un message"
@@ -2493,10 +2493,10 @@ msgid "Show fewer attachments"
 msgstr "Voir moins d'attachements"
 
 msgid "Show less"
-msgstr ""
+msgstr "Montrer moins"
 
 msgid "Show more"
-msgstr ""
+msgstr "Montrer plus"
 
 msgid "Show most relevant results first"
 msgstr "Afficher les résultats les plus pertinents en premier"
@@ -2532,13 +2532,13 @@ msgid "Simple search"
 msgstr "Recherche simple"
 
 msgid "Skip"
-msgstr ""
+msgstr "Passer"
 
 msgid "Skipped!"
-msgstr ""
+msgstr "Passé!"
 
 msgid "Snippets related to"
-msgstr ""
+msgstr "exemples reliés à"
 
 msgid "Some notes have been added to your FOI request - {{request_title}}"
 msgstr "Quelques commentaires ont été ajoutés à votre demande - {{request_title}}"
@@ -2585,7 +2585,7 @@ msgid "Sorry, we're currently unable to sign up new users, please try again late
 msgstr "Désolé, nous ne sommes actuellement pas en mesure d'inscrire de nouveaux utilisateurs, veuillez réessayer ultérieurement"
 
 msgid "Source URL is too long"
-msgstr ""
+msgstr "L'URL source est trop longue"
 
 msgid "Source URL:"
 msgstr "URL source :"
@@ -2594,13 +2594,13 @@ msgid "Source:"
 msgstr "Source :"
 
 msgid "Spreadsheets"
-msgstr ""
+msgstr "tableur numérique"
 
 msgid "Start classifying"
-msgstr ""
+msgstr "Commencer à classer"
 
 msgid "Start extracting"
-msgstr ""
+msgstr "Commencer à extraire"
 
 msgid "Start your own request"
 msgstr "Lancez votre propre demande"
@@ -2624,13 +2624,13 @@ msgid "Subject:"
 msgstr "Sujet :"
 
 msgid "Submit"
-msgstr ""
+msgstr "Soumettre"
 
 msgid "Submit Search"
 msgstr "Soumettre votre recherche"
 
 msgid "Submit data"
-msgstr ""
+msgstr "Soumettre les données"
 
 msgid "Submit request"
 msgstr "Envoyer la demande"
@@ -2645,22 +2645,22 @@ msgid "Subscribe to blog"
 msgstr "S'abonner au blog"
 
 msgid "Subscription cancelled"
-msgstr ""
+msgstr "Souscription annulée"
 
 msgid "Subscription reactivated"
-msgstr ""
+msgstr "Souscription réactivée"
 
 msgid "Subscription renewal failure"
-msgstr ""
+msgstr "Renouvellement de la souscription en échec"
 
 msgid "Subscription renewal repeated failure"
-msgstr ""
+msgstr "Renouvellement de la souscription en échec répété"
 
 msgid "Subscription renewed"
-msgstr ""
+msgstr "Souscription renouvellée"
 
 msgid "Subscription renewed after failure"
-msgstr ""
+msgstr "Souscription renouvelée après échec "
 
 msgid "Success"
 msgstr "Abouti"
@@ -2702,7 +2702,7 @@ msgid "Tags:"
 msgstr "Tags :"
 
 msgid "Tasks"
-msgstr ""
+msgstr "tâches"
 
 msgid "Thank you for helping us keep the site tidy!"
 msgstr "Merci de nous avoir aidé à maintenir le site en ordre !"
@@ -2891,7 +2891,7 @@ msgid "The {{site_name}} team."
 msgstr "L'équipe de {{site_name}}."
 
 msgid "Then you can add citations"
-msgstr ""
+msgstr "Ensuite vous pouvez ajouter des citations"
 
 msgid "Then you can cancel the alert."
 msgstr "Ensuite vous pourrez annuler l'alerte."
@@ -2912,10 +2912,10 @@ msgid "Then you can download a zip file of {{info_request_title}}."
 msgstr "Vous pouvez télécharger un fichier zip de {{info_request_title}}."
 
 msgid "Then you can join this project"
-msgstr ""
+msgstr "Ensuite vous pouvez rejoindre ce projet"
 
 msgid "Then you can leave this project"
-msgstr ""
+msgstr "Ensuite vous pouvez quitter ce projet"
 
 msgid "Then you can log into the administrative interface"
 msgstr "Ensuite vous pourrez vous connecter à l'interface d'administration"
@@ -2976,15 +2976,19 @@ msgstr "Ensuite votre commentaire sur {{info_request_title}} sera publiée. "
 
 msgid "There are no requests to classify right now. Great job!"
 msgstr ""
+"Il n'y a plus de requêtes à classer.\n"
+"Super boulot!"
 
 msgid "There are no requests to extract right now. Great job!"
 msgstr ""
+"Il n'y a plus de requêtes à extraire.\n"
+"Super boulot!"
 
 msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "Il y a {{count}} nouveaux commentaires sur votre demande de {{law_used_short}}. Suivez ce lien pour les lire."
 
 msgid "There is <strong>more than one person</strong> who uses this site and has this name. Search for other users named \"{{search_user_link}}\""
-msgstr ""
+msgstr "Il y a <strong>plus d'une personne</strong> qui utilise ce site et ce nom. Rechercher d'autres utilisateur nommés \"{{search_user_link}}\""
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr "Il y a une limite concernant le nombre de demandes que vous pouvez effectuer en une journée, parce que nous ne voulons pas que les autorités publiques soient bombardées avec un grand nombre de demandes inappropriées. Si vous estimez que vous avez une bonne raison de demander que la limite soit augmentée pour vous, veuillez <a href='{{help_contact_path}}'>nous contacter</a>."
@@ -3198,7 +3202,7 @@ msgid "To"
 msgstr "A"
 
 msgid "To add a citation"
-msgstr ""
+msgstr "Pour ajouter une citation"
 
 msgid "To add a widget for <b>{{info_request_title}}</b>, copy and paste the following code to your web page:"
 msgstr "Pour ajouter un widget pour <b>{{info_request_title}}</b>, copiez et collez le code suivant dans votre page web :"
@@ -3249,10 +3253,10 @@ msgid "To help us keep the site tidy, someone else has updated the status of the
 msgstr "Pour nous aider à maintenir ce site, une tierce personne a mis à jour l'état de la demande de {{law_used_full}} {{title}} que vous avez adressée à  {{public_body}} à \"{{display_status}}\". Si vous êtes en désaccord avec cette catégorisation, merci de mettre à nouveau à jour le statut vers celui que pensez être le plus approprié."
 
 msgid "To join this project"
-msgstr ""
+msgstr "Pour rejoindre ce projet"
 
 msgid "To leave this project"
-msgstr ""
+msgstr "Pour quitter ce projet"
 
 msgid "To let everyone know, follow this link and then select the appropriate box."
 msgstr "Afin que tout le monde puisse bénéficier du résultat de votre demande et éventuellement vous aider dans votre démarche, n'oubliez pas de cliquer sur le lien ci-dessous et de sélectionner ensuite la case appropriée."
@@ -3324,16 +3328,16 @@ msgid "Track this search"
 msgstr "Suivre cette recherche"
 
 msgid "Trial cancelled"
-msgstr ""
+msgstr "Période d'essai annulée"
 
 msgid "Trial ended, first payment failed"
-msgstr ""
+msgstr "Période d'essai terminée, premier paiement en échec"
 
 msgid "Trial ended, first payment succeeded"
-msgstr ""
+msgstr "Période d'essai terminée, premier paiement enregistré"
 
 msgid "Trial extended"
-msgstr ""
+msgstr "Période d'essai étendue"
 
 msgid "Try opening the logs in a new window."
 msgstr "Essayer d'ouvrir les logs dans une nouvelle fenêtre."
@@ -3405,7 +3409,7 @@ msgid "Unknown"
 msgstr "Inconnu"
 
 msgid "Unknown webhook ({{id}})"
-msgstr ""
+msgstr "Webhook ({{id}}) inconnu"
 
 msgid "Unsubscribe"
 msgstr "Se désabonner"
@@ -3510,7 +3514,7 @@ msgid "We couldn’t load the mail server logs for this message."
 msgstr "Vous pouvez télécharger les logs du serveur mail pour ce message."
 
 msgid "We do not allow requests for information via {{site_name}} about your personal circumstances. We have therefore hidden your request from other users."
-msgstr ""
+msgstr "Nous n'autorisons pas les requêtes via {{site_name}} concernant des informations à caractère personnel. Nous avons donc caché votre requête aux autres utilisateurs."
 
 msgid "We do not have a working request email address for this authority."
 msgstr "Nous n'avons pas d'adresse email pour les demandes à cette autorité."
@@ -3589,7 +3593,7 @@ msgid "Week starting"
 msgstr "Semaine débutant le"
 
 msgid "Welcome to the project!"
-msgstr ""
+msgstr "Bienvenue dans ce projet !"
 
 msgid "What are you doing?"
 msgstr "Qu'est ce que vous faites ?"
@@ -3661,16 +3665,16 @@ msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Formulez votre demande en langage <strong>simple et précis</strong>."
 
 msgid "Yes"
-msgstr ""
+msgstr "Oui"
 
 msgid "You already created the same batch of requests on {{date}}. You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
 msgstr "Vous avez déjà créé le même paquet de demandes le {{date}}. Vous pouvez visionner le <a href=\"{{existing_batch}}\">paquet existant</a> ou éditer les détails ci-dessous pour faire un nouveau paquet de demandes similaires."
 
 msgid "You are a <strong>contributor</strong> on this project"
-msgstr ""
+msgstr "Vous avez un <strong>contributeur</strong> pour ce projet"
 
 msgid "You are already a member of this project"
-msgstr ""
+msgstr "Vous êtes déjà membre de ce projet"
 
 msgid "You are already following new requests"
 msgstr "Vous suivez déjà les nouvelles demandes"
@@ -3703,7 +3707,7 @@ msgid "You are already subscribed to any <a href=\"{{successful_requests_url}}\"
 msgstr "Vous êtes déjà abonné à toutes les <a href=\"{{successful_requests_url}}\">demandes abouties</a>."
 
 msgid "You are an <strong>owner</strong> on this project"
-msgstr ""
+msgstr "Vous êtes un des <strong>propriétaires</strong> de ce projet"
 
 msgid "You are currently receiving notification of new activity on your wall by email."
 msgstr "Vous recevez actuellement par email les notifications à propos des nouvelles activités sur votre mur."
@@ -3787,7 +3791,7 @@ msgid "You have hit the rate limit on new requests. Users are ordinarily limited
 msgstr "Vous avez atteint la limite maximale de nouvelles demandes. Les utilisateurs sont limités à {{max_requests_per_user_per_day}} demandes par période de 24h. Vous pourrez faire une autre demande dans {{can_make_another_request}}."
 
 msgid "You have left the project."
-msgstr ""
+msgstr "Vous avez quitté ce projet"
 
 msgid "You have made no Freedom of Information requests using this site."
 msgstr "Vous n'avez jamais effectué de demandes d'accès à l'information en utilisant ce site."
@@ -4053,7 +4057,7 @@ msgid "Yours,"
 msgstr "Sincèrement,"
 
 msgid "ZIP"
-msgstr ""
+msgstr "ZIP"
 
 msgid "[Authority URL will be inserted here]"
 msgstr "[L'URL de l'autorité publique sera insérée ici]"
@@ -4098,7 +4102,7 @@ msgid "and we'll suggest <strong>what to do next</strong>"
 msgstr "et nous allons vous suggérer <strong>que faire ensuite</strong>"
 
 msgid "any section"
-msgstr ""
+msgstr "n'importe quelle section"
 
 msgid "anything matching text '{{query}}'"
 msgstr "tout ce qui correspond au texte '{{query}}'"
@@ -4301,7 +4305,7 @@ msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
 msgstr "{{authority_name}} est <strong>en attente de votre précision</strong>."
 
 msgid "{{contributor_count}} contributors"
-msgstr ""
+msgstr "{{contributor_count}} contributeur(s)"
 
 msgid "{{count}} Attachment"
 msgid_plural "{{count}} Attachments"
@@ -4461,10 +4465,10 @@ msgstr[0] "{{site_name}} gère les demandes adressée à {{number_of_authorities
 msgstr[1] "{{site_name}} gère les demandes adressées à {{number_of_authorities}} autorités, dont :"
 
 msgid "{{site_name}} has identified {{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
-msgstr ""
+msgstr "{{site_name}} a identifié que {{authority_name}} peut avoir refusé tout ou partie de votre demande comme <strong>{{refusals}}</strong>."
 
 msgid "{{site_name}} login link"
-msgstr ""
+msgstr "{{site_name}} lien de login"
 
 msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."
 msgstr "{{site_name}} envoie les nouvelles demandes à <strong>{{request_email}}</strong> pour cette autorité publique."
