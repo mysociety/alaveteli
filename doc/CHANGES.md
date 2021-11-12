@@ -57,6 +57,15 @@
 * Support for Ubuntu Bionic (18.04 LTS) will be removed in or after the next
   release.
 * Support for Debian 9 Stretch will be removed in or after the next release.
+* We now support "Glass" formatted Xapian databases. We will continue to support
+  existing "Chert" formatted databases for as long as possible. You can convert
+  your database by either:
+  1. Following the guide at https://getting-started-with-xapian.readthedocs.io/en/latest/advanced/admin_notes.html#converting-a-chert-database-to-a-glass-database
+  2. Using our `script/destroy-and-rebuild-xapian-index` script to rebuild from
+     scratch
+
+  **Note**: both of these methods could take long time depending on the number
+  of requests, authorities and users in your database.
 * We will remove the `HTML_TO_PDF_COMMAND` configuration variable in the next
   release. If you aren't already using `wkhtmltopdf` please switch and ensure
   the path to this command is include in the `UTILITY_SEARCH_PATH` configuration
