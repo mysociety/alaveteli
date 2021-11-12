@@ -868,12 +868,6 @@ class InfoRequest < ApplicationRecord
     public_body&.legislation || Legislation.default
   end
 
-  def law_used_human(key = :full)
-    warn %q([DEPRECATION] InfoRequest#law_used_human will be replaced with
-          InfoRequest#legislation as of 0.40).squish
-    legislation.to_s(key)
-  end
-
   def find_existing_outgoing_message(body)
     outgoing_messages.with_body(body).first
   end
