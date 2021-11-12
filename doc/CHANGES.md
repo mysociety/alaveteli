@@ -56,6 +56,11 @@
 * Support for Ubuntu Bionic (18.04 LTS) will be removed in or after the next
   release.
 * Support for Debian 9 Stretch will be removed in or after the next release.
+* We will remove the `HTML_TO_PDF_COMMAND` configuration variable in the next
+  release. If you aren't already using `wkhtmltopdf` please switch and ensure
+  the path to this command is include in the `UTILITY_SEARCH_PATH` configuration
+  variable. For release 0.40 we only support the wkhtmltopdf v0.11. Support for
+  the latest v0.12 version will be added in the next release.
 * You might see `git protocol on port 9418 is no longer supported` when
   deploying. Please switch to `https` for any theme repo URLs in your
   `config/general.yml` See: https://github.com/mysociety/alaveteli/pull/6630
