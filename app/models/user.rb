@@ -320,14 +320,18 @@ class User < ApplicationRecord
     return if no_xapian_reindex == true
     return unless saved_change_to_attribute?(:url_name)
 
-    comments.find_each do |comment|
-      comment.info_request_events.find_each do |info_request_event|
-        info_request_event.xapian_mark_needs_index
-      end
-    end
+    expire_comments
+    expire_requests
+  end
 
-    info_requests.find_each do |info_request|
-      info_request.info_request_events.find_each do |info_request_event|
+  def expire_requests
+    info_requests.find_each(&:expire)
+  end
+
+  def expire_comments
+    comments.find_each do |comment|
+      # TODO: Extract to Comment#expire
+      comment.info_request_events.find_each do |info_request_event|
         info_request_event.xapian_mark_needs_index
       end
     end
@@ -451,10 +455,6 @@ class User < ApplicationRecord
           count
 
     recent_requests >= AlaveteliConfiguration.max_requests_per_user_per_day
-  end
-
-  def expire_requests
-    info_requests.find_each(&:expire)
   end
 
   def next_request_permitted_at
