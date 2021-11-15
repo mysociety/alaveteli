@@ -102,7 +102,7 @@ DEFAULTS = {
   'public_network' => false,
   'memory' => 1536,
   'themes_dir' => '../alaveteli-themes',
-  'os' => 'stretch64',
+  'os' => 'buster64',
   'name' => 'default',
   'use_nfs' => false,
   'show_settings' => false,
@@ -131,10 +131,6 @@ SUPPORTED_OPERATING_SYSTEMS = {
   'focal64' => {
     box: 'ubuntu/focal64',
     box_url: 'https://app.vagrantup.com/ubuntu/boxes/focal64'
-  },
-  'stretch64' => {
-    box: 'debian/stretch64',
-    box_url: 'https://app.vagrantup.com/debian/boxes/stretch64'
   },
   'buster64' => {
     box: 'debian/buster64',

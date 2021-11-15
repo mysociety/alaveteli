@@ -1,4 +1,4 @@
-FROM ruby:2.6-stretch
+FROM ruby:2.6-buster
 
 ENV DOCKER 1
 ENV DEBIAN_FRONTEND noninteractive

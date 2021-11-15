@@ -4,6 +4,7 @@
 
 * Drop support for Ruby 2.5 (Graeme Porteous)
 * Drop support for Ruby 2.6 (Graeme Porteous)
+* Drop support for Debian 9 Stretch (Graeme Porteous)
 
 # 0.40.0.0
 
