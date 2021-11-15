@@ -63,7 +63,7 @@ class Comment < ApplicationRecord
             references(:embargoes)
   }
 
-  after_save :event_xapian_update
+  after_save :reindex_request_events
 
   default_url_options[:host] = AlaveteliConfiguration.domain
 
@@ -101,9 +101,14 @@ class Comment < ApplicationRecord
     !visible?
   end
 
-  # So when takes changes it updates, or when made invisble it vanishes
-  def event_xapian_update
+  def reindex_request_events
     info_request_events.find_each(&:xapian_mark_needs_index)
+  end
+
+  def event_xapian_update
+    warn 'DEPRECATION: Comment#event_xapian_update will be removed in 0.42. ' \
+         'It has been replaced with Comment#reindex_request_events'
+    reindex_request_events
   end
 
   # Return body for display as HTML
