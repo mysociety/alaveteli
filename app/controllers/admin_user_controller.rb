@@ -112,8 +112,13 @@ class AdminUserController < AdminController
   end
 
   def modify_comment_visibility
-    Comment.where(:id => params[:comment_ids]).
-      update_all(:visible => !params[:hide_selected])
+    desired_visibility = params[:hide_selected] ? false : true
+
+    Comment.
+      where(id: params[:comment_ids]).
+      where(visible: !desired_visibility).
+      find_each { |comment| comment.toggle!(:visible) }
+
     redirect_back(fallback_location: admin_users_url)
   end
 
