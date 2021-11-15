@@ -4,7 +4,7 @@ ip: 10.10.10.30
 public_network: false
 memory: 1536
 themes_dir: ../alaveteli-themes
-os: buster64
+os: bullseye64
 use_nfs: false
 show_settings: false
 # By default CPU count is calculated dynamically
