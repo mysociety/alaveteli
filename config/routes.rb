@@ -245,6 +245,9 @@ Rails.application.routes.draw do
         :via => :get
   match '/profile/sign_up' => 'user#signup',
         :as => :signup, :via => :post
+
+  match '/tor' => 'user#tor', via: :get
+
   match '/c/:email_token' => 'users/confirmations#confirm',
         :as => :confirm,
         :via => :get

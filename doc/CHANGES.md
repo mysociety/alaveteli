@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Add `/tor` path for redirecting signups from Tor at the webserver level
+  (Gareth Rees)
 * Add donate link to request page sidebar (Lucas Cumsille Montesinos, Gareth
   Rees)
 * Drop support for Ruby 2.5 (Graeme Porteous)

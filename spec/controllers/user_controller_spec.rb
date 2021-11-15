@@ -989,6 +989,26 @@ RSpec.describe UserController do
 
     # TODO: need to do bob@localhost signup and check that sends different email
   end
+
+  describe 'GET tor' do
+    subject { get :tor }
+
+    before { subject }
+
+    it 'returns a 403 status' do
+      expect(response).to have_http_status(:forbidden)
+    end
+
+    it 'sets long cache headers' do
+      expect(response.headers['Cache-Control']).to eq('max-age=86400, public')
+    end
+
+    it 'renders a plain text message' do
+      msg = 'Signups from Tor have been blocked due to extensive misuse. ' \
+            'Please contact us if this is a problem for you.'
+      expect(response.body).to eq(msg)
+    end
+  end
 end
 
 RSpec.describe UserController, "when changing email address" do
