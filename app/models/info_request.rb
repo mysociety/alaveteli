@@ -774,9 +774,7 @@ class InfoRequest < ApplicationRecord
   end
 
   def reindex_request_events
-    info_request_events.find_each do |event|
-      event.xapian_mark_needs_index
-    end
+    info_request_events.find_each(&:xapian_mark_needs_index)
   end
 
   # Force reindex when tag string changes
