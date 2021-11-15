@@ -124,10 +124,6 @@ else
 end
 
 SUPPORTED_OPERATING_SYSTEMS = {
-  'bionic64' => {
-    box: 'ubuntu/bionic64',
-    box_url: 'https://app.vagrantup.com/ubuntu/boxes/bionic64'
-  },
   'focal64' => {
     box: 'ubuntu/focal64',
     box_url: 'https://app.vagrantup.com/ubuntu/boxes/focal64'
