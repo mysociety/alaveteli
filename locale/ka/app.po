@@ -28,13 +28,14 @@
 # Translators:
 # Lela Merabishvili, 2021
 # Lela Merabishvili, 2021
+# Natalie Hiirulainen <murahoid@gmail.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-11-12 13:11+0000\n"
-"PO-Revision-Date: 2021-11-12 15:05+0000\n"
-"Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
+"PO-Revision-Date: 2021-11-16 13:06+0000\n"
+"Last-Translator: Lela Merabishvili\n"
 "Language-Team: Georgian (http://www.transifex.com/mysociety/alaveteli/language"
 "/ka/)\n"
 "MIME-Version: 1.0\n"
@@ -50,7 +51,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"[ {{site_name}} შენიშვნა: ზემოთ მოცემული ტექსტი ცუდად იყო კოდირებული და უცნაური სიმბოლოები წაიშალა ]"
+"[ {{site_name}} შენიშვნა: ზემოთ მოცემული ტექსტი ცუდად იყო კოდირებული და უცნაური სიმბოლოები წაიშალა. ]"
 
 msgid " (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation policy</a>)"
 msgstr ""
@@ -306,13 +307,13 @@ msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the 
 msgstr ""
 
 msgid "<strong>Privacy warning:</strong> Your message, and any response to it, will be displayed publicly on this website."
-msgstr ""
+msgstr "<strong>შენიშვნა კონფიდენციალურობაზე:</strong> შენი გაგზავნილი წერილი და მიღებული პასუხი საჯაროდ განთავსდება ამ ვებგვერდზე."
 
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr ""
 
 msgid "<strong>Thank</strong> the public authority or the requester."
-msgstr ""
+msgstr "<strong>გადაუხადე მადლობა</strong> საჯარო დაწესებულებას ან ადამიანს, რომელმაც ინფორმაცია გამოითხოვა."
 
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
 msgstr ""
@@ -339,7 +340,7 @@ msgid "A <strong>summary</strong> of the response if you have received it by pos
 msgstr ""
 
 msgid "A Freedom of Information request"
-msgstr ""
+msgstr "საჯარო ინფორმაციის მოთხოვნა"
 
 msgid "A full history of my FOI request and all correspondence is available on the Internet at this address: {{url}}"
 msgstr ""
@@ -426,7 +427,7 @@ msgid "Air, water, soil, land, flora and fauna (including how these effect human
 msgstr ""
 
 msgid "All of the information requested has been received"
-msgstr ""
+msgstr "სრულად მივიღე მოთხოვნილი ინფორმაცია"
 
 msgid "All responses will be published when the privacy period expires. We depend on you, the original requester, to evaluate them."
 msgstr ""
@@ -564,10 +565,10 @@ msgid "Authority:"
 msgstr ""
 
 msgid "Awaiting clarification"
-msgstr ""
+msgstr "განხილვაშია"
 
 msgid "Awaiting classification"
-msgstr ""
+msgstr "განხილვაშია"
 
 msgid "Awaiting classification."
 msgstr "განხილვაშია."
@@ -582,7 +583,7 @@ msgid "Awaiting response"
 msgstr ""
 
 msgid "Awaiting response."
-msgstr ""
+msgstr "პასუხის მოლოდინში."
 
 msgid "Back to content"
 msgstr ""
@@ -597,19 +598,19 @@ msgid "Beginning with"
 msgstr "რომლებიც იწყება"
 
 msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
-msgstr "გაეცანი<a href=\"{{requests_url}}\">{{number_of_requests}} გამოთხოვილ ინფორმაციას</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} საჯარო დაწესებულებიდან</a>"
+msgstr "გაეცანი <a href=\"{{requests_url}}\">{{number_of_requests}} გამოთხოვილ ინფორმაციას</a> <a href=\"{{authorities_url}}\">{{number_of_authorities}} საჯარო დაწესებულებიდან</a>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "დაათვალიერე <a href='{{url}}'>სხვა მოთხოვნები</a> ნიმუშების სანახავად, თუ როგორ დაწერო მოთხოვნის ტექსტი. "
 
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
-msgstr "მოძებნე <a href='{{url}}'>სხვა მოთხოვნები</a> '{{public_body_name}}' ნიმუშების სანახავად, თუ როგორ დაწერო მოთხოვნის ტექსტი. "
+msgstr ""
 
 msgid "Browse all authorities &rarr;"
-msgstr ""
+msgstr "ნახე ყველა საჯარო დაწესებულება &rarr;"
 
 msgid "Browse all requests &rarr;"
-msgstr ""
+msgstr "გაეცანი ყველა გამოთხოვილ ინფორმაციას &rarr;"
 
 msgid "Browse and search requests"
 msgstr "მოძებნე გამოთხოვილი ინფორმაცია "
@@ -762,7 +763,7 @@ msgid "Confirm your FOI request to {{public_body_name}}"
 msgstr ""
 
 msgid "Confirm your account on {{site_name}}"
-msgstr ""
+msgstr "დაადასტურე შენი პროფილის შექმნა ვებგვერდზე {{site_name}}"
 
 msgid "Confirm your annotation to {{info_request_title}}"
 msgstr ""
@@ -849,7 +850,7 @@ msgid "Date:"
 msgstr ""
 
 msgid "Dear [Authority name],"
-msgstr ""
+msgstr "მოგესალმებით,"
 
 msgid "Dear {{name}},"
 msgstr ""
@@ -858,7 +859,7 @@ msgid "Dear {{placeholder_body_name}},"
 msgstr ""
 
 msgid "Dear {{public_body_name}},"
-msgstr ""
+msgstr "მოგესალმებით,"
 
 msgid "Dear {{user_name}},"
 msgstr ""
@@ -870,7 +871,7 @@ msgid "Delayed"
 msgstr ""
 
 msgid "Delayed response to your FOI request - {{request_title}}"
-msgstr ""
+msgstr "დაგვიანებული პასუხი საჯარო ინფორმაციის მოთხოვნაზე - {{request_title}}"
 
 msgid "Delayed."
 msgstr ""
@@ -1068,13 +1069,13 @@ msgid "Follow requests to {{public_body_name}}"
 msgstr ""
 
 msgid "Follow these requests"
-msgstr ""
+msgstr "გამოიწერე ეს მოთხოვნები"
 
 msgid "Follow things matching this search"
 msgstr ""
 
 msgid "Follow this link to see the request:"
-msgstr ""
+msgstr "მიყევი ბმულს, რომ ნახო საჯარო ინფორმაციის მოთხოვნა:"
 
 msgid "Follow this link to see the requests:"
 msgstr ""
@@ -1145,10 +1146,10 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "Four weeks ago you made a Freedom of Information request to {{public_body_name}} using {{site_name}}."
-msgstr ""
+msgstr "ოთხი კვირის წინ შენ გაუგზავნე საჯარო ინფორმაციის მოთხოვნა {{public_body_name}} ს {{site_name}} გამოყენებით."
 
 msgid "Freedom of Information"
-msgstr ""
+msgstr "საჯარო ინფორმაციის მოთხოვნა "
 
 msgid "Freedom of Information Act"
 msgstr ""
@@ -1163,16 +1164,16 @@ msgid "Freedom of Information law no longer applies to {{public_body_name}}."
 msgstr ""
 
 msgid "Freedom of Information requests made"
-msgstr ""
+msgstr "გაგზავნილი საჯარო ინფორმაციის მოთხოვნები"
 
 msgid "Freedom of Information requests made by this person"
-msgstr ""
+msgstr "ამ ადამიანის მიერ გაგზავნილი საჯარო ინფორმაციის მოთხოვნები"
 
 msgid "Freedom of Information requests made by you"
-msgstr ""
+msgstr "შენი გაგზავნილი საჯარო ინფორმაციის მოთხოვნები"
 
 msgid "Freedom of Information requests made using this site"
-msgstr ""
+msgstr "ამ ვებგვერდის გამოყენებით გაგზავნილი საჯარო ინფორმაციის მოთხოვნები"
 
 msgid "From"
 msgstr ""
@@ -1316,10 +1317,10 @@ msgid "I've been asked to <strong>clarify</strong> my request"
 msgstr ""
 
 msgid "I've received <strong>all the information</strong>"
-msgstr ""
+msgstr "სრულად მივიღე <strong>მოთხოვნილი ინფორმაცია</strong>"
 
 msgid "I've received <strong>some of the information</strong>"
-msgstr ""
+msgstr "მივიღე <strong>ინფორმაციის ნაწილი</strong>"
 
 msgid "I've received an <strong>error message</strong>"
 msgstr ""
@@ -1397,7 +1398,7 @@ msgid "If you would like us to lift this ban, then you may politely <a href=\"/h
 msgstr ""
 
 msgid "If you write about these requests (for example in a forum or a blog) please link to this page."
-msgstr ""
+msgstr "თუ ამ მოთხოვნების შესახებ რაიმე სტატიას ან ბლოგპოსტს წერ, გაგვიზიარე ბმული. "
 
 msgid "If you write about this request (for example in a forum or a blog) please link to this page, and <a href=\"{{url}}\">add an annotation</a> below telling people about your writing."
 msgstr ""
@@ -1424,7 +1425,7 @@ msgid "Incoming message has a spam score above the configured threshold ({{spam_
 msgstr ""
 
 msgid "Individual requests"
-msgstr ""
+msgstr "ინდივიდუალური მოთხოვნები"
 
 msgid "Information not held"
 msgstr ""
@@ -1637,7 +1638,7 @@ msgid "New Citation"
 msgstr ""
 
 msgid "New Freedom of Information requests"
-msgstr ""
+msgstr "საჯარო ინფორმაციის ახალი მოთხოვნები"
 
 msgid "New e-mail:"
 msgstr ""
@@ -1652,13 +1653,13 @@ msgid "New password: (again)"
 msgstr "ახალი პაროლი: (გაიმეორე)"
 
 msgid "New response to '{{title}}'"
-msgstr ""
+msgstr "პასუხი მოთხოვნაზე '{{title}}'"
 
 msgid "New response to your FOI request - {{request_title}}"
-msgstr ""
+msgstr "პასუხი საჯარო ინფორმაციის მოთხოვნაზე - {{request_title}}"
 
 msgid "New response to your request"
-msgstr ""
+msgstr "პასუხი საჯარო ინფორმაციის მოთხოვნაზე "
 
 msgid "New response to {{law_used_short}} request"
 msgstr ""
@@ -1703,7 +1704,7 @@ msgid "No similar requests found."
 msgstr ""
 
 msgid "Nobody has made any Freedom of Information requests to {{public_body_name}} using this site yet."
-msgstr ""
+msgstr "ჯერ არავის არ გამოუთხოვია საჯარო ინფორმაცია {{public_body_name}}დან ამ ვებგვერდის გამოყენებით."
 
 msgid "Non-expert"
 msgstr ""
@@ -1999,7 +2000,7 @@ msgid "Please select each of these requests in turn, and <strong>let everyone kn
 msgstr ""
 
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
-msgstr ""
+msgstr "ტექსტის ბოლოში ხელი მოაწერე. თუ გსურს, შეგიძლია \"{{signoff}}\" სხვა სიტყვით ჩაანაცვლო"
 
 msgid "Please sign in as {{user_name}}"
 msgstr "გაიარე ავტორიზაცია როგორც {{user_name}}"
@@ -2257,7 +2258,7 @@ msgid "Requested on {{date}}"
 msgstr ""
 
 msgid "Requests"
-msgstr ""
+msgstr "მოთხოვნები "
 
 msgid "Requests are considered overdue if they are in the 'Overdue' or 'Very Overdue' states."
 msgstr ""
@@ -2299,16 +2300,16 @@ msgid "Respond using the web"
 msgstr ""
 
 msgid "Response"
-msgstr ""
+msgstr "პასუხი"
 
 msgid "Response by {{public_body_name}} to {{info_request_user}} on {{date}}."
 msgstr ""
 
 msgid "Response from a public authority"
-msgstr ""
+msgstr "პასუხი საჯარო დაწესებულებიდან "
 
 msgid "Response received"
-msgstr ""
+msgstr "მიღებულია პასუხი"
 
 msgid "Response to '{{title}}'"
 msgstr ""
@@ -2323,10 +2324,10 @@ msgid "Response to your request"
 msgstr ""
 
 msgid "Response to {{law_used_short}} request"
-msgstr ""
+msgstr "პასუხი მოთხოვნაზე {{law_used_short}} "
 
 msgid "Response:"
-msgstr ""
+msgstr "პასუხი:"
 
 msgid "Restrict to"
 msgstr ""
@@ -2341,7 +2342,7 @@ msgid "Search"
 msgstr "ძებნა"
 
 msgid "Search Freedom of Information requests, public authorities and users"
-msgstr ""
+msgstr "მოძებნე საჯარო ინფორმაციის მოთხოვნები, საჯარო დაწესებულებები და მომხმარებლები "
 
 msgid "Search contributions by this person"
 msgstr ""
@@ -2487,7 +2488,7 @@ msgid "Some notes have been added to your FOI request - {{request_title}}"
 msgstr ""
 
 msgid "Some of the information requested has been received"
-msgstr ""
+msgstr "მიღებულია მოთხოვნილი ინფორმაციის ნაწილი"
 
 msgid "Some people who've made requests haven't let us know whether they were successful or not.  We need <strong>your</strong> help &ndash; choose one of these requests, read it, and let everyone know whether or not the information has been provided. Everyone'll be exceedingly grateful."
 msgstr ""
@@ -2544,7 +2545,7 @@ msgid "Start extracting"
 msgstr ""
 
 msgid "Start your own request"
-msgstr "გაუგზავნე მოთხოვნა საჯარო დაწესებულებას"
+msgstr "დაიწყე განაცხადის შევსება"
 
 msgid "Statistics"
 msgstr ""
@@ -2559,10 +2560,10 @@ msgid "Still awaiting an <strong>internal review</strong>"
 msgstr ""
 
 msgid "Subject"
-msgstr ""
+msgstr "სათაური"
 
 msgid "Subject:"
-msgstr ""
+msgstr "სათაური:"
 
 msgid "Submit"
 msgstr ""
@@ -2610,7 +2611,7 @@ msgid "Successful"
 msgstr ""
 
 msgid "Successful Freedom of Information requests"
-msgstr ""
+msgstr "წარმატებული საჯარო ინფორმაციის მოთხოვნები "
 
 msgid "Successful requests"
 msgstr "წარმატებული მოთხოვნები"
@@ -3250,13 +3251,13 @@ msgid "To view your two factor authentication details"
 msgstr ""
 
 msgid "To {{public_body_link_absolute}}"
-msgstr ""
+msgstr "მიმღები {{public_body_link_absolute}}"
 
 msgid "To:"
-msgstr ""
+msgstr "მიმღები:"
 
 msgid "Today"
-msgstr ""
+msgstr "დღეს"
 
 msgid "Too many requests"
 msgstr ""
@@ -3439,7 +3440,7 @@ msgid "Waiting for the public authority to reply"
 msgstr ""
 
 msgid "Want to know something?"
-msgstr "გსურს ინფორმაციის მოპოვება? "
+msgstr "რისი ცოდნა გსურს? "
 
 msgid "We consider it is not a valid FOI request, and have therefore hidden it from other users."
 msgstr ""
@@ -3734,7 +3735,7 @@ msgid "You have left the project."
 msgstr ""
 
 msgid "You have made no Freedom of Information requests using this site."
-msgstr ""
+msgstr "შენ ჯერ არ გაქვს გაგზავნილი საჯარო ინფორმაციის მოთხოვნა ამ ვებგვერდის მეშვეობით."
 
 msgid "You have now changed the text about you on your profile."
 msgstr ""
@@ -3913,7 +3914,7 @@ msgid "Your name and annotation will appear in <strong>search engines</strong>."
 msgstr ""
 
 msgid "Your name, request and any responses will appear in <strong>search engines</strong> (<a href=\"{{url}}\">details</a>)."
-msgstr ""
+msgstr "შენი სახელი, მოთხოვნა და მასზე მიღებული პასუხი გამოჩნდება <strong>საძიებო სისტემებში</strong> (<a href=\"{{url}}\">დეტალები</a>)."
 
 msgid "Your name:"
 msgstr "სახელი:"
@@ -3988,7 +3989,7 @@ msgid "Your {{site_name}} email alert"
 msgstr ""
 
 msgid "Yours faithfully,"
-msgstr ""
+msgstr "პატივისცემით,"
 
 msgid "Yours sincerely,"
 msgstr ""
@@ -4054,7 +4055,7 @@ msgid "authorities"
 msgstr ""
 
 msgid "awaiting response"
-msgstr ""
+msgstr "პასუხის მოლოდინში"
 
 msgid "by"
 msgstr ""
@@ -4162,7 +4163,7 @@ msgid "requests which are successful matching text '{{query}}'"
 msgstr ""
 
 msgid "response received"
-msgstr ""
+msgstr "მიღებულია პასუხი"
 
 msgid "send a follow up message"
 msgstr ""
@@ -4304,8 +4305,8 @@ msgstr[1] ""
 
 msgid "{{count}} request."
 msgid_plural "{{count}} requests."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}} მოთხოვნა."
+msgstr[1] "{{count}} მოთხოვნა."
 
 msgid "{{existing_request_user}} already created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>, or edit the details below to make a new but similar request."
 msgstr ""
@@ -4314,7 +4315,7 @@ msgid "{{info_request_user_name}}"
 msgstr ""
 
 msgid "{{law_used_full}} request - {{title}}"
-msgstr ""
+msgstr "{{law_used_full}} მოთხოვნა - {{title}}"
 
 #. TRANSLATORS: Please don't use double quotes (") in this translation
 #. or it will break the site's ability to send emails to authorities!
@@ -4325,7 +4326,7 @@ msgid "{{law_used_short}} requests to '{{public_body_name}}'"
 msgstr ""
 
 msgid "{{length_of_time}} ago"
-msgstr ""
+msgstr "{{length_of_time}} წინ"
 
 msgid "{{number_of_comments}} comment"
 msgid_plural "{{number_of_comments}} comments"
@@ -4401,8 +4402,8 @@ msgstr ""
 
 msgid "{{site_name}} covers requests to {{number_of_authorities}} authority, including:"
 msgid_plural "{{site_name}} covers requests to {{number_of_authorities}} authorities, including:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{site_name}} ვებგვერდი ფარავს {{number_of_authorities}} საჯარო დაწესებულებას, მათ შორის:"
+msgstr[1] "{{site_name}} აერთიანებს გაგზავნილ მოთხოვნას {{number_of_authorities}} საჯარო დაწესებულებასთან, მათ შორის:"
 
 msgid "{{site_name}} has identified {{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
 msgstr ""
@@ -4415,11 +4416,11 @@ msgstr ""
 
 msgid "{{site_name}} users have made {{number_of_requests}} request, including:"
 msgid_plural "{{site_name}} users have made {{number_of_requests}} requests, including:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{site_name}} ვებგვერდის მომხმარებლებმა გააგზავნეს {{number_of_requests}} მოთხოვნა, მათ შორის:"
+msgstr[1] "{{site_name}} ვებგვერდის მომხმარებლებმა გააგზავნეს {{number_of_requests}} მოთხოვნა, მათ შორის:"
 
 msgid "{{title}} - a Freedom of Information request to {{public_body}}"
-msgstr ""
+msgstr "{{title}} - საჯარო ინფორმაციის მოთხოვნა {{public_body}}"
 
 msgid "{{title}} - a batch request"
 msgstr ""
@@ -4428,7 +4429,7 @@ msgid "{{user_name}} (Account suspended)"
 msgstr ""
 
 msgid "{{user_name}} - Freedom of Information requests"
-msgstr ""
+msgstr "{{user_name}} - საჯარო ინფორმაციის მოთხოვნები"
 
 msgid "{{user_name}} - Two Factor Authentication"
 msgstr ""
