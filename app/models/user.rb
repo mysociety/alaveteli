@@ -329,12 +329,7 @@ class User < ApplicationRecord
   end
 
   def expire_comments
-    comments.find_each do |comment|
-      # TODO: Extract to Comment#expire
-      comment.info_request_events.find_each do |info_request_event|
-        info_request_event.xapian_mark_needs_index
-      end
-    end
+    comments.find_each(&:reindex_request_events)
   end
 
   def locale
